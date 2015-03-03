@@ -128,6 +128,8 @@ return [
         'CommonFloor\Providers\ConfigServiceProvider',
         'CommonFloor\Providers\EventServiceProvider',
         'CommonFloor\Providers\RouteServiceProvider',
+        
+        'Laracasts\Generators\GeneratorsServiceProvider'
     ],
     /*
       |--------------------------------------------------------------------------
