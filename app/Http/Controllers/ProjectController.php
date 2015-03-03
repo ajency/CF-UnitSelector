@@ -14,7 +14,7 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function index() {
-        return view('projects.list');
+        return view( 'projects.list' );
     }
 
     /**
@@ -23,7 +23,7 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function create() {
-        //
+        return view( 'projects.create' );
     }
 
     /**
@@ -42,7 +42,13 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function show( $id ) {
-        //
+        $project = null;//\CommonFloor\Project::find($id);
+        
+        if ($project === null) {
+            abort( 404 );
+        }
+        
+        
     }
 
     /**
