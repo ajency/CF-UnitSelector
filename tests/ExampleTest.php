@@ -8,8 +8,7 @@ class ExampleTest extends TestCase {
      * @return void
      */
     public function testBasicExample() {
-        $response = $this->call( 'GET', '/' );
-
+        $response = $this->call( 'GET', '/auth/login' );
         $this->assertEquals( 200, $response->getStatusCode() );
     }
 
