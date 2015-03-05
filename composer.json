@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "ajency/commonfloor",
+    "description": "Commonfloor.com apartment selector.",
+    "keywords": ["ajency", "commonfloor", "apartment selector"],
     "license": "MIT",
     "type": "project",
     "require": {

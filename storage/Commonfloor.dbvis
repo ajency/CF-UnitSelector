@@ -1,0 +1,40 @@
+<pl.waw.ipipan.dbvisualizer.diagram.SerialXml>
+  <allTables>
+    <entry>
+      <string>projects</string>
+      <java.awt.Point>
+        <x>180</x>
+        <y>0</y>
+      </java.awt.Point>
+    </entry>
+    <entry>
+      <string>users</string>
+      <java.awt.Point>
+        <x>180</x>
+        <y>125</y>
+      </java.awt.Point>
+    </entry>
+    <entry>
+      <string>password_resets</string>
+      <java.awt.Point>
+        <x>10</x>
+        <y>125</y>
+      </java.awt.Point>
+    </entry>
+    <entry>
+      <string>migrations</string>
+      <java.awt.Point>
+        <x>0</x>
+        <y>0</y>
+      </java.awt.Point>
+    </entry>
+  </allTables>
+  <relations/>
+  <comments class="linked-list"/>
+  <relationsVisible>
+    <entry>
+      <string>users</string>
+      <map/>
+    </entry>
+  </relationsVisible>
+</pl.waw.ipipan.dbvisualizer.diagram.SerialXml>

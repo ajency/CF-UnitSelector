@@ -11,22 +11,22 @@ var elixir = require('laravel-elixir');
  |
  */
 
-elixir(function(mix) {
+elixir(function (mix) {
     mix.less('app.less').coffee();
 });
 
-elixir(function(mix) {
+elixir(function (mix) {
     mix.phpUnit();
 });
 
-elixir(function(mix) {
+elixir(function (mix) {
     mix.phpSpec();
 });
 
-elixir(function(mix) {
+elixir(function (mix) {
     mix.scripts();
 });
 
-elixir(function(mix) {
+elixir(function (mix) {
     mix.styles();
 });
