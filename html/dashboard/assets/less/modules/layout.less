@@ -355,7 +355,7 @@ body{
         min-width: 163px;
         .user-details {
             display: inline-block;
-            .float(left);
+            .float(right);
             line-height: 35px;
             .username {
                 a {
@@ -374,7 +374,7 @@ body{
         }
         .iconset {
             display: inline-block;
-            .float(left);
+            .float(right);
             margin: 15px 10px;
         }
         .profile-pic {
@@ -384,13 +384,20 @@ body{
             height: 35px;
             overflow: hidden;
             width: 35px;
-            .float(left);
+            .float(right);
         }
         a {
             color: #1b1e24;
             font-size: 15px;
             display: inline-block;
-            .float(left);
+            .float(right);
+            margin: 0 10px;
+        }
+        .dropdown-menu a{
+            font-size: inherit;
+            float: none;
+            margin: 4px;
+            display: block;
         }
         & > i {
             color: #808080;
@@ -897,18 +904,20 @@ body{
 .page-sidebar.mini .page-sidebar-wrapper > ul > li.open > a, 
 .page-sidebar.mini .page-sidebar-wrapper > ul > li > a:hover, 
 .page-sidebar.mini .page-sidebar-wrapper > ul > li:hover > a{
-     background: #0b9c8f;
+     background: @color-primary-dark;
 }
 .page-sidebar.mini  .page-sidebar-wrapper > ul > li >a:hover, 
 .page-sidebar.mini  .page-sidebar-wrapper > ul > li:hover >a {
-    background: #0b9c8f;
+    background: @color-primary-dark;
 }
 .page-sidebar.mini  .page-sidebar-wrapper > ul > li.active > a i,.page-sidebar  .page-sidebar-wrapper > ul > li:hover > a i {
     color:  @color-white  !important;
 }
-.page-sidebar .page-sidebar-wrapper ul > li > a > .arrow:before,
-.page-sidebar  .page-sidebar-wrapper > ul > li > a > .arrow.open:before {
+.page-sidebar .page-sidebar-wrapper ul > li > a > .arrow:before{
     color: #919091 !important;
+}
+.page-sidebar  .page-sidebar-wrapper > ul > li > a > .arrow.open:before {
+    color: @color-white !important;
 }
 .page-sidebar  .page-sidebar-wrapper ul > li.active > a .arrow:before,
 .page-sidebar  .page-sidebar-wrapper > ul > li.active > a .arrow.open:before {
