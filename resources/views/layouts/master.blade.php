@@ -8,25 +8,24 @@
         <meta content="" name="description" />
         <meta content="" name="author" />
 
-        <link href="../../plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="../../plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css"/>
-        <link href="../../css/app.css" rel="stylesheet" type="text/css"/>
+        <link href="/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
+        <link href="/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css"/>
+        <link href="/css/app.css" rel="stylesheet" type="text/css"/>
         <!-- <link href="assets/plugins/boostrapv3/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/> -->
-        <link href="../../plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+        <link href="/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
 
         <!-- Datatables Styles -->
-        <link href="../../plugins/jquery-datatable/css/jquery.dataTables.css" rel="stylesheet" type="text/css">
-        <link href="../../plugins/datatables-responsive/css/datatables.responsive.css" rel="stylesheet" type="text/css" media="screen">
+        <link href="/plugins/jquery-datatable/css/jquery.dataTables.css" rel="stylesheet" type="text/css">
+        <link href="/plugins/datatables-responsive/css/datatables.responsive.css" rel="stylesheet" type="text/css" media="screen">
 
         <!-- Select2 Styles -->
-        <link href="../../plugins/bootstrap-select2/select2.css" rel="stylesheet" type="text/css" media="screen">
+        <link href="/plugins/bootstrap-select2/select2.css" rel="stylesheet" type="text/css" media="screen">
 
-        <link href="../../css/dashboard/animate.min.css" rel="stylesheet" type="text/css"/>
-        <link href="../../css/dashboard/style.css" rel="stylesheet" type="text/css"/>
-        <link href="../../css/dashboard/responsive.css" rel="stylesheet" type="text/css"/>
-        <link href="../../css/dashboard/custom-icon-set.css" rel="stylesheet" type="text/css"/>
-    </head>
-    <body class="">
+        <link href="/css/dashboard/animate.min.css" rel="stylesheet" type="text/css"/>
+        <link href="/css/dashboard/style.css" rel="stylesheet" type="text/css"/>
+        <link href="/css/dashboard/responsive.css" rel="stylesheet" type="text/css"/>
+        <link href="/css/dashboard/custom-icon-set.css" rel="stylesheet" type="text/css"/>
+    <body>
         <!-- BEGIN HEADER -->
         <div class="header navbar navbar-inverse"> 
             <!-- BEGIN TOP NAVIGATION BAR -->
@@ -44,7 +43,7 @@
                     <!-- END MOBILE HEADER -->
                     <!-- BEGIN LOGO -->	
                     <a href="#">
-                        <img src="assets/img/inner-header-logo.png" class="logo" alt="" data-src="assets/img/inner-header-logo.png" data-src-retina="assets/img/logo2x.png"/>
+                        <img src="/images/inner-header-logo.png" class="logo" alt="" data-src="assets/img/inner-header-logo.png" data-src-retina="assets/img/logo2x.png"/>
                     </a>
                     <!-- END LOGO -->
                 </div>
@@ -81,23 +80,22 @@
                             <a href="#" data-toggle="dropdown" class="dropdown-toggle" id="user-options">
                                 <div class="user-details"> 
                                     <div class="username">
-                                        John<span class="bold">&nbsp;Smith</span>
+                                        <span class="bold">{{ Auth::user()->name }}</span>
                                         <div class="iconset top-down-arrow"></div>								
                                     </div>						
                                 </div> 
                             </a>
-
                             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
-                                <li><a href="#">My Account</a></li>
-                                <li><a href="#">My Projects</a></li>
+                                <li><a href="/my-account">My Account</a></li>
+                                <li><a href="/my-projects">My Projects</a></li>
                                 <li class="divider"></li>                
-                                <li><a href="#"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
+                                <li><a href="/auth/logout"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
                             </ul>
 
                             <!-- END NOTIFICATION CENTER -->
                             <!-- BEGIN PROFILE PICTURE -->
                             <div class="profile-pic"> 
-                                <img src="assets/img/profiles/avatar_small.jpg" alt="" data-src="assets/img/profiles/avatar_small.jpg" data-src-retina="assets/img/profiles/avatar_small2x.jpg" width="35" height="35" /> 
+                                <img src="/images/profiles/avatar_small.jpg" alt="" data-src="/images/profiles/avatar_small.jpg" data-src-retina="assets/img/profiles/avatar_small2x.jpg" width="35" height="35" /> 
                             </div>  
                             <!-- END PROFILE PICTURE -->     			
                         </div>
@@ -110,6 +108,7 @@
         </div>
         <!-- END HEADER -->
 
+
         <!-- BEGIN CONTENT -->
         <div class="page-container row-fluid">
             <!-- BEGIN SIDEBAR -->
@@ -117,40 +116,9 @@
             <div class="page-sidebar" id="main-menu"> 
                 <div class="page-sidebar-wrapper scrollbar-dynamic" id="main-menu-wrapper">
                     <p class="menu-title"></p>
-                    <!-- BEGIN SIDEBAR MENU -->	
-                    <ul>	
-                        <!-- BEGIN SELECTED LINK -->
-                        <li class="start active">
-                            <a href="#">
-                                <i class="icon-custom-home"></i>
-                                <span class="title">Dashboard</span>
-                                <span class="selected"></span>
-                            </a>
-                        </li>
-                        <!-- END SELECTED LINK -->    
-                        <!-- BEGIN ONE LEVEL MENU -->
-                        <li class="">
-                            <a href="javascript:;">
-                                <i class="fa fa-building-o"></i>
-                                <span class="title">Projects</span>
-                                <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li><a href="#">Add</a></li>
-                                <li><a href="#">View</a></li>
-                            </ul>
-                        </li>
-                        <!-- END ONE LEVEL MENU -->	
-                        <!-- BEGIN SINGLE LINK -->
-                        <li class="">
-                            <a href="#">
-                                <i class="fa fa-user"></i>
-                                <span class="title">Users</span>
-                            </a>
-                        </li>
-                        <!-- END SINGLE LINK -->    
-                    </ul>
-                    <!-- END SIDEBAR MENU -->
+                    
+                    @yield('menu')
+                    
                 </div>
             </div>
             <!-- BEGIN SCROLL UP HOVER -->
@@ -181,36 +149,8 @@
             <!-- END PAGE CONTAINER -->
         </div>
         <!-- END CONTENT --> 
-        <!-- BEGIN CORE JS FRAMEWORK--> 
-        <script src="../../plugins/jquery/jquery-1.8.3.min.js" type="text/javascript"></script> 
-        <script src="../../plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script> 
-        <script src="../../plugins/boostrapv3/js/bootstrap.min.js" type="text/javascript"></script> 
-        <script src="../../plugins/breakpoints/breakpoints.min.js" type="text/javascript"></script> 
-        <script src="../../plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script> 
-        <!-- <script src="assets/plugins/jquery-block-ui/jqueryblockui.js" type="text/javascript"></script>  -->
-        <!-- END CORE JS FRAMEWORK --> 
-        <!-- BEGIN PAGE LEVEL JS --> 	
-        <script src="../../plugins/jquery-scrollbar/jquery.scrollbar.min.js" type="text/javascript"></script>
-        <script src="../../plugins/pace/pace.min.js" type="text/javascript"></script>  
-        <!-- <script src="assets/plugins/jquery-numberAnimate/jquery.animateNumbers.js" type="text/javascript"></script> -->
-
-        <script src="../../plugins/jquery-datatable/js/jquery.dataTables.min.js" type="text/javascript"></script>
-        <script src="../../plugins/jquery-datatable/extra/js/dataTables.tableTools.min.js" type="text/javascript"></script>
-        <script type="text/javascript" src="../../plugins/datatables-responsive/js/datatables.responsive.js"></script>
-        <script type="text/javascript" src="../../plugins/datatables-responsive/js/lodash.min.js"></script>
-
-        <script src="../../plugins/bootstrap-select2/select2.min.js" type="text/javascript"></script>
-
-        <script src="../../plugins/bootstrap-file-input/bootstrap.file-input.js" type="text/javascript"></script>
-
-        <!-- END PAGE LEVEL PLUGINS --> 	
-
-        <!-- BEGIN CORE TEMPLATE JS --> 
-        <script src="../../plugins/dashboard-theme-core/core.js" type="text/javascript"></script> 
-        <!-- <script src="assets/js/chat.js" type="text/javascript"></script>  -->
-        <!-- <script src="assets/js/demo.js" type="text/javascript"></script>  -->
-        <!-- END CORE TEMPLATE JS -->
-
-        <!-- END NEED TO WORK ON -->
+        
+        @yield('scripts')
+        
     </body>
 </html>

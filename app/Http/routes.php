@@ -21,4 +21,7 @@ Route::controllers( [
 ] );
 
 
-Route::resource( 'projects', 'ProjectController' );
+Route::group( ['prefix' => 'admin'], function() {
+
+    Route::get( '/', 'admin\\AdminController@index' );
+} );
