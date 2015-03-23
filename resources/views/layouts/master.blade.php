@@ -138,7 +138,7 @@
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu">
-                                <li><a href="/admin/projects/add">Add</a></li>
+                                <li><a href="/admin/projects/create">Add</a></li>
                                 <li><a href="/admin/projects">View</a></li>
                             </ul>
                         </li>
