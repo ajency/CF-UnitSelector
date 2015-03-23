@@ -6,15 +6,15 @@ use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller {
-    
+class ProjectController extends Controller {
+
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
     public function index() {
-        return view( 'admin.dashboard' );
+        //
     }
 
     /**
@@ -23,7 +23,7 @@ class AdminController extends Controller {
      * @return Response
      */
     public function create() {
-        //
+        return view('admin.projects.add');
     }
 
     /**

@@ -43,7 +43,9 @@
                     <!-- END MOBILE HEADER -->
                     <!-- BEGIN LOGO -->	
                     <a href="#">
-                        <img src="/images/inner-header-logo.png" class="logo" alt="" data-src="assets/img/inner-header-logo.png" data-src-retina="assets/img/logo2x.png"/>
+                        <img src="/images/inner-header-logo.png" class="logo" alt="" 
+                             data-src="/images/inner-header-logo.png" 
+                             data-src-retina="/images/logo2x.png"/>
                     </a>
                     <!-- END LOGO -->
                 </div>
@@ -116,9 +118,42 @@
             <div class="page-sidebar" id="main-menu"> 
                 <div class="page-sidebar-wrapper scrollbar-dynamic" id="main-menu-wrapper">
                     <p class="menu-title"></p>
-                    
-                    @yield('menu')
-                    
+
+                    <!-- BEGIN SIDEBAR MENU -->	
+                    <ul>	
+                        <!-- BEGIN SELECTED LINK -->
+                        <li class="start active">
+                            <a href="/admin">
+                                <i class="icon-custom-home"></i>
+                                <span class="title">Dashboard</span>
+                                <span class="selected"></span>
+                            </a>
+                        </li>
+                        <!-- END SELECTED LINK -->    
+                        <!-- BEGIN ONE LEVEL MENU -->
+                        <li class="">
+                            <a href="javascript:;">
+                                <i class="fa fa-building-o"></i>
+                                <span class="title">Projects</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="/admin/projects/add">Add</a></li>
+                                <li><a href="/admin/projects">View</a></li>
+                            </ul>
+                        </li>
+                        <!-- END ONE LEVEL MENU -->	
+                        <!-- BEGIN SINGLE LINK -->
+                        <li class="">
+                            <a href="#">
+                                <i class="fa fa-user"></i>
+                                <span class="title">Users</span>
+                            </a>
+                        </li>
+                        <!-- END SINGLE LINK -->    
+                    </ul>
+                    <!-- END SIDEBAR MENU -->
+
                 </div>
             </div>
             <!-- BEGIN SCROLL UP HOVER -->
@@ -136,21 +171,30 @@
             <!-- BEGIN PAGE CONTAINER-->
             <div class="page-content"> 
                 <div class="content">  
-                    <!-- BEGIN PAGE TITLE -->
-                    <div class="page-title">	
-                        <h3>Master Page</h3>		
-                    </div>
-                    <!-- END PAGE TITLE -->
-                    <!-- BEGIN PlACE PAGE CONTENT HERE -->
-
-                    <!-- END PLACE PAGE CONTENT HERE -->
+                    
+                    @yield('breadcrumb')
+                    @yield('content')
+                    
                 </div>
             </div>
             <!-- END PAGE CONTAINER -->
         </div>
         <!-- END CONTENT --> 
-        
-        @yield('scripts')
-        
+
+        <!-- BEGIN CORE JS FRAMEWORK--> 
+        <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script> 
+        <script src="/plugins/breakpoints/breakpoints.min.js" type="text/javascript"></script> 
+        <script src="/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script> 
+        <script src="/plugins/jquery-scrollbar/jquery.scrollbar.min.js" type="text/javascript"></script>
+        <script src="/plugins/pace/pace.min.js" type="text/javascript"></script>  
+        <script src="/plugins/jquery-datatable/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="/plugins/jquery-datatable/extra/js/dataTables.tableTools.min.js" type="text/javascript"></script>
+        <script src="/plugins/datatables-responsive/js/datatables.responsive.js" type="text/javascript"></script>
+        <script src="/plugins/datatables-responsive/js/lodash.min.js" type="text/javascript" ></script>
+        <script src="/plugins/bootstrap-select2/select2.min.js" type="text/javascript"></script>
+        <script src="/plugins/bootstrap-file-input/bootstrap.file-input.js" type="text/javascript"></script>
+        <script src="/plugins/dashboard-theme-core/core.js" type="text/javascript"></script> 
     </body>
 </html>
