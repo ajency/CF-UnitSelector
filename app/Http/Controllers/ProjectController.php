@@ -42,13 +42,11 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function show( $id ) {
-        $project = null;//\CommonFloor\Project::find($id);
-        
+        $project = null; //\CommonFloor\Project::find($id);
+
         if ($project === null) {
             abort( 404 );
         }
-        
-        
     }
 
     /**

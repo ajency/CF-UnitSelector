@@ -22,7 +22,6 @@ Route::controllers( [
 
 
 Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
-
     Route::get( '/', 'admin\\AdminController@index' );
     Route::get( '/projects/add', 'admin\\ProjectController@create' );
 } );

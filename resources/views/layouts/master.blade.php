@@ -145,7 +145,7 @@
                         <!-- END ONE LEVEL MENU -->	
                         <!-- BEGIN SINGLE LINK -->
                         <li class="">
-                            <a href="#">
+                            <a href="/admin/users">
                                 <i class="fa fa-user"></i>
                                 <span class="title">Users</span>
                             </a>
