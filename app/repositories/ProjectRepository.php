@@ -25,4 +25,9 @@ class ProjectRepository implements ProjectRepositoryInterface {
         return $project;
     }
 
+    public function getProjectById( $projectId ) {
+        $project = Project::findOrFail( $projectId );
+        return $project;
+    }
+
 }

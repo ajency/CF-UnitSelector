@@ -34,10 +34,10 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function store( Request $request, ProjectRepository $projectRepository ) {
-        
-        $project = $projectRepository->createProject( $request->all());
+
+        $project = $projectRepository->createProject( $request->all() );
         if ($project !== null) {
-            return redirect("/admin/projects");
+            return redirect( "/admin/projects" );
         }
     }
 
@@ -48,7 +48,7 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function show( $id ) {
-        return view( 'admin.projects.view' );
+        
     }
 
     /**
@@ -57,8 +57,10 @@ class ProjectController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit( $id ) {
-        //
+    public function edit( $id, ProjectRepository $projectRepository ) {
+        $project = $projectRepository->getProjectById( $id );
+
+        return view( 'admin.projects.view', $project->toArray() );
     }
 
     /**
