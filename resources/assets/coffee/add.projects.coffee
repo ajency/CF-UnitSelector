@@ -23,8 +23,6 @@ jQuery(document).ready ($)->
 									]
 						project_address : "#{faker.address.streetAddress()} #{faker.address.city()}, #{faker.address.zipCode()}"
 						project_status : 'Under Construction'
-						price_range : "#{faker.random.number()} lac to #{faker.random.number()} lac"
-						area : "#{faker.random.number()} sq.ft"
 						
 					projectsCollection.push project
 					options += "<option value='#{project.cf_project_id}'>#{project.project_title}</option>"

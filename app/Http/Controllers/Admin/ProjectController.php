@@ -5,6 +5,8 @@ namespace CommonFloor\Http\Controllers\admin;
 use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use CommonFloor\repositories\ProjectRepository;
+use Auth;
 
 class ProjectController extends Controller {
 
@@ -14,7 +16,7 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function index() {
-        //
+        return view( 'admin.projects.list' );
     }
 
     /**
@@ -31,8 +33,12 @@ class ProjectController extends Controller {
      *
      * @return Response
      */
-    public function store( Request $request ) {
-        return dd( $request->all() );
+    public function store( Request $request, ProjectRepository $projectRepository ) {
+        
+        $project = $projectRepository->createProject( $request->all());
+        if ($project !== null) {
+            return redirect("/admin/projects");
+        }
     }
 
     /**

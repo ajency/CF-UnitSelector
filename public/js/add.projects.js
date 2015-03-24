@@ -16,9 +16,7 @@
               cf_project_id: faker.internet.userName(),
               project_images: [faker.image.imageUrl(), faker.image.imageUrl(), faker.image.imageUrl(), faker.image.imageUrl()],
               project_address: (faker.address.streetAddress()) + " " + (faker.address.city()) + ", " + (faker.address.zipCode()),
-              project_status: 'Under Construction',
-              price_range: (faker.random.number()) + " lac to " + (faker.random.number()) + " lac",
-              area: (faker.random.number()) + " sq.ft"
+              project_status: 'Under Construction'
             };
             projectsCollection.push(project);
             options += "<option value='" + project.cf_project_id + "'>" + project.project_title + "</option>";
