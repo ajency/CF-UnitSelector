@@ -195,6 +195,7 @@
         <script src="/plugins/datatables-responsive/js/lodash.min.js" type="text/javascript" ></script>
         <script src="/plugins/bootstrap-select2/select2.min.js" type="text/javascript"></script>
         <script src="/plugins/bootstrap-file-input/bootstrap.file-input.js" type="text/javascript"></script>
+        <script src="/bower_components/parsleyjs/dist/parsley.min.js" type="text/javascript"></script>
         <script src="/plugins/dashboard-theme-core/core.js" type="text/javascript"></script> 
     </body>
 </html>

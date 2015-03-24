@@ -25,13 +25,13 @@
             <div class="grid simple">
 
                 <div class="grid-body no-border"> <br>
-                    <form id="add_project" action="#" novalidate="novalidate">
+                    <form id="add_project" action="#" data-parsley-validate>
                         <div class="row">
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="form-label">City</label>
-                                    <select id="city" class="select2 form-control">
-                                        <option>City 1</option>
+                                    <select name="city" required="" class="select2 form-control">
+                                        <option value="">City 1</option>
                                         <option>City 2</option>
                                         <option>City 3</option>
                                         <option>City 4</option>
@@ -42,7 +42,7 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <label class="form-label">Sellable unit types</label>
-                                    <select id="unit_types" class="select2 form-control" multiple>
+                                    <select name="sellable_unit_types" required="" class="select2 form-control" multiple>
                                         <option>Apartments</option>
                                         <option>Bungalows/Villas</option>
                                         <option>Land</option>
@@ -57,7 +57,12 @@
                                 <div class="form-group">
                                     <label class="form-label">List of Projects</label>
                                     <span class="help">From CommonFloor database</span>
-                                    <input type="text" class="form-control">
+                                    <select name="cf_project_id" required="" class="select2 form-control" multiple>
+                                        <option>Apartments</option>
+                                        <option>Bungalows/Villas</option>
+                                        <option>Land</option>
+                                        <option>Penthouse</option>
+                                    </select>
                                 </div>
 
                             </div>
