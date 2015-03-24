@@ -62,17 +62,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <!-- END SLIM NAVIGATION TOGGLE -->				
-                        <!-- BEGIN HEADER QUICK LINKS -->
-                        <ul class="nav quick-section">
-                            <!-- BEGIN SEARCH BOX -->
-                            <li class="m-r-10 input-prepend inside search-form no-boarder">
-                                <span class="add-on"><span class="iconset top-search"></span></span>
-                                <input name="" type="text" class="no-boarder" placeholder="Search" style="width:250px;">
-                            </li>
-                            <!-- END SEARCH BOX -->
-                        </ul>
-                        <!-- BEGIN HEADER QUICK LINKS -->				
+                        <!-- END SLIM NAVIGATION TOGGLE -->								
                     </div>
                     <!-- END HEADER LEFT SIDE SECTION -->
                     <!-- BEGIN HEADER RIGHT SIDE SECTION -->
@@ -197,10 +187,9 @@
         <script src="/plugins/bootstrap-file-input/bootstrap.file-input.js" type="text/javascript"></script>
         <script src="/bower_components/parsleyjs/dist/parsley.min.js" type="text/javascript"></script>
         <script src="/plugins/dashboard-theme-core/core.js" type="text/javascript"></script> 
-        <script>
-            $("select").select2();
-        </script>
-        
+        <script src="/bower_components/handlebars/handlebars.min.js" type="text/javascript"></script> 
+        <script src="/bower_components/Faker/build/build/faker.min.js" type="text/javascript"></script> 
+        <script src="/js/add.projects.js" type="text/javascript"></script> 
             
     </body>
 </html>

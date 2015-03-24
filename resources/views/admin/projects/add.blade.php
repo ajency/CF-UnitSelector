@@ -25,7 +25,7 @@
         <div class="grid simple">
 
             <div class="grid-body no-border"> <br>
-                <form id="add_project" action="#" data-parsley-validate>
+                <form id="add_project" method="POST" action="/admin/projects" data-parsley-validate>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-group">
@@ -44,7 +44,8 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="form-label">Sellable unit types</label>
-                                <select placeholder="Add sellable unit types" name="sellable_unit_types" required="" class="select2 form-control" multiple>
+                                <select placeholder="Add sellable unit types" name="sellable_unit_types[]" 
+                                        required="" class="select2 form-control" multiple="multiple">
                                     <option value="1">Apartment</option>
                                     <option value="2">Bungalows/Villas</option>
                                     <option value="3">Land</option>
@@ -66,15 +67,8 @@
 
                         </div>
                         <div class="col-md-6">
-                            <div class="user-description-box hidden">
-                                <h4 class="semi-bold no-margin">Goyal Footprints</h4>
-                                <input type="hidden" name="project_title" value=""/>
-                                <br>
-                                <p><i class="fa fa-rupee"></i>Rs 41.98 Lakhs - 58.10 Lakhs</p>
-                                <p><i class="fa fa-arrows-alt"></i>763 - 1094 Sq. Ft.</p>
-                                <p><i class="fa fa-map-marker"></i>Near provident Harmony Apartments, Thanisandra Main Road</p>
-                                <input type="hidden" name="project_address" value=""/>
-                                <p><i class="fa fa-clock-o"></i>Under Construction</p>
+                            <div class="user-description-box hidden" id="commonfloor-project-details">
+
                             </div>
                         </div>
                     </div>
