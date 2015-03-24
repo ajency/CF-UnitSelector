@@ -171,24 +171,35 @@
 					<div class="row">
 			            <div class="col-md-12">
 			              	<div class="grid simple">
-
 			                	<div class="grid-body no-border"> <br>
 									<form id="add_project" action="#" novalidate="novalidate">
 										<div class="row">
-								            <div class="col-sm-6">
-							                    <div class="form-group">
-							                        <label class="form-label">City</label>
-							                        <select id="city" class="select2 form-control">
-							                        	<option>City 1</option>
-							                        	<option>City 2</option>
-							                        	<option>City 3</option>
-							                        	<option>City 4</option>
-							                        	<option>City 5</option>
-							                        </select>
-							                    </div>        			                    
-							                </div>
-							                <div class="col-sm-6">
-							                    <div class="form-group">
+					                        <div class="col-md-6">
+					                        	<div class="form-group">
+		                                            <label class="form-label">City</label>
+		                                            <select id="city" class="select2 form-control">
+		                                            	<option>City 1</option>
+		                                            	<option>City 2</option>
+		                                            	<option>City 3</option>
+		                                            	<option>City 4</option>
+		                                            	<option>City 5</option>
+		                                            </select>
+		                                        </div>
+		                                        <div class="form-group">
+		                                            <label class="form-label">CF Project Name</label>
+		                                            <span class="help">From CommonFloor database</span>
+		                                            <input type="text" class="form-control">
+		                                        </div>
+					                        	<div class="form-group">
+		                                            <label class="form-label">Project Title<span class="text-primary">*</span></label>
+		                                            <input type="text" class="form-control" placeholder="Enter Project Title" value="Goyal Footprints">
+		                                        </div>
+					                        	<div class="form-group">
+		                                            <label class="form-label">Address<span class="text-primary">*</span></label>
+		                                            <textarea class="form-control" placeholder="Enter Project Address">Near provident Harmony Apartments Thanisandra Main Road</textarea>
+		                                        </div>
+		                                        
+		                                        <div class="form-group">
 							                        <label class="form-label">Sellable unit types</label>
 							                        <select id="unit_types" class="select2 form-control" multiple>
 							                        	<option>Apartments</option>
@@ -197,29 +208,27 @@
 							                        	<option>Penthouse</option>
 							                        </select>
 							                    </div>
-							                </div>
-							            </div>
-
-					            		<div class="row">
-					                        <div class="col-md-6">
-					                        	<div class="form-group">
-		                                            <label class="form-label">List of Projects</label>
-		                                            <span class="help">From CommonFloor database</span>
-		                                            <input type="text" class="form-control">
-		                                        </div>
 							                    
 					                        </div>
 					                        <div class="col-md-6">
 					                        	<div class="user-description-box">
-		        									<h4 class="semi-bold no-margin">Goyal Footprints</h4>
-		        									<br>
-		        									<p><i class="fa fa-rupee"></i>Rs 41.98 Lakhs - 58.10 Lakhs</p>
-		        									<p><i class="fa fa-arrows-alt"></i>763 - 1094 Sq. Ft.</p>
-		        									<p><i class="fa fa-map-marker"></i>Near provident Harmony Apartments, Thanisandra Main Road</p>
-		        									<p><i class="fa fa-clock-o"></i>Under Construction</p>
+					                        		<div class="row">
+					                        			<div class="col-sm-8">
+				        									<h4 class="semi-bold">Goyal Footprints - <span class="bold text-primary">pq5csb</span></h4>
+				        									<i class="fa fa-map-marker"></i> <b>Address:</b>
+				        									<p>Near provident Harmony Apartments, Thanisandra Main Road</p>	
+					                        			</div>
+					                        			<div class="col-sm-4">
+					                        				<img src="../../images/demo/footprints_logo.jpg" class="img-responsive">
+					                        			</div>
+					                        		</div>
+					                        		<div class="alert alert-warning m-t-20">
+	                        		                	<strong>Note: </strong> The above information is as entered in CommonFloor database.
+	                        		                </div>
 		        								</div>
 					                        </div>
 					                    </div>
+					            		
 									  	<div class="form-actions">  
 											<div class="pull-right">
 											  <button type="submit" class="btn btn-primary btn-cons">Save</button>
