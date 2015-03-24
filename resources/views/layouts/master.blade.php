@@ -138,14 +138,14 @@
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu">
-                                <li><a href="/admin/projects/add">Add</a></li>
+                                <li><a href="/admin/projects/create">Add</a></li>
                                 <li><a href="/admin/projects">View</a></li>
                             </ul>
                         </li>
                         <!-- END ONE LEVEL MENU -->	
                         <!-- BEGIN SINGLE LINK -->
                         <li class="">
-                            <a href="#">
+                            <a href="/admin/users">
                                 <i class="fa fa-user"></i>
                                 <span class="title">Users</span>
                             </a>

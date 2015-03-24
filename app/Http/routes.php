@@ -13,8 +13,6 @@
 
 Route::get( '/', 'WelcomeController@index' );
 
-Route::get( 'home', 'HomeController@index' );
-
 Route::controllers( [
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',
@@ -22,7 +20,6 @@ Route::controllers( [
 
 
 Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
-
-    Route::get( '/', 'admin\\AdminController@index' );
-    Route::get( '/projects/add', 'admin\\ProjectController@create' );
+    Route::get( '/', 'Admin\AdminController@index' );
+    Route::resource( 'projects', 'Admin\ProjectController' );
 } );
