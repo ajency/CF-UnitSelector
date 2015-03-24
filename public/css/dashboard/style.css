@@ -2179,6 +2179,9 @@ hr {
   color: #ffffff;
   border: none;
 }
+.text-primary {
+  color: #f68121;
+}
 span.iconset {
   display: block;
 }
@@ -8135,3 +8138,4 @@ body.rtl .footer-widget {
   right: 0;
   left: auto;
 }
+/*# sourceMappingURL=style.css.map */
