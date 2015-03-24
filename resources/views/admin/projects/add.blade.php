@@ -1,92 +1,94 @@
 @extends('layouts.master')
 
 @section('breadcrumb')
-    <!-- BEGIN BREADCRUMBS -->
-    <ul class="breadcrumb">
-        <li>
-            <p>YOU ARE HERE</p>
-        </li>
-        <li><a href="/admin">Dashboard</a> </li>
-        <li><a href="/admin/projects">Projects</a> </li>
-        <li><a href="#" class="active">Add</a> </li>
-    </ul>
-    <!-- END BREADCRUMBS -->
+<!-- BEGIN BREADCRUMBS -->
+<ul class="breadcrumb">
+    <li>
+        <p>YOU ARE HERE</p>
+    </li>
+    <li><a href="/admin">Dashboard</a> </li>
+    <li><a href="/admin/projects">Projects</a> </li>
+    <li><a href="#" class="active">Add</a> </li>
+</ul>
+<!-- END BREADCRUMBS -->
 @endsection
 
 @section('content')
-    <!-- BEGIN PAGE TITLE -->
-    <div class="page-title">	
-        <h2><span class="semi-bold">Add</span> Project</h2>
-    </div>
-    <!-- END PAGE TITLE -->
-    <!-- BEGIN PlACE PAGE CONTENT HERE -->
-    <div class="row">
-        <div class="col-md-12">
-            <div class="grid simple">
+<!-- BEGIN PAGE TITLE -->
+<div class="page-title">	
+    <h2><span class="semi-bold">Add</span> Project</h2>
+</div>
+<!-- END PAGE TITLE -->
+<!-- BEGIN PlACE PAGE CONTENT HERE -->
+<div class="row">
+    <div class="col-md-12">
+        <div class="grid simple">
 
-                <div class="grid-body no-border"> <br>
-                    <form id="add_project" action="#" data-parsley-validate>
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="form-label">City</label>
-                                    <select name="city" required="" class="select2 form-control">
-                                        <option value="">City 1</option>
-                                        <option>City 2</option>
-                                        <option>City 3</option>
-                                        <option>City 4</option>
-                                        <option>City 5</option>
-                                    </select>
-                                </div>        			                    
-                            </div>
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <label class="form-label">Sellable unit types</label>
-                                    <select name="sellable_unit_types" required="" class="select2 form-control" multiple>
-                                        <option>Apartments</option>
-                                        <option>Bungalows/Villas</option>
-                                        <option>Land</option>
-                                        <option>Penthouse</option>
-                                    </select>
-                                </div>
+            <div class="grid-body no-border"> <br>
+                <form id="add_project" action="#" data-parsley-validate>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="form-label">City</label>
+                                <select name="city" required="" class="select2 form-control">
+                                    <option value="">Choose City</option>
+                                    <option>Mumbai</option>
+                                    <option>Pune</option>
+                                    <option>Delhi</option>
+                                    <option>Kolkata</option>
+                                    <option>Chennai</option>
+                                    <option>Nagpur</option>
+                                </select>
+                            </div>        			                    
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="form-label">Sellable unit types</label>
+                                <select placeholder="Add sellable unit types" name="sellable_unit_types" required="" class="select2 form-control" multiple>
+                                    <option value="1">Apartment</option>
+                                    <option value="2">Bungalows/Villas</option>
+                                    <option value="3">Land</option>
+                                    <option value="4">Penthouse</option>
+                                </select>
                             </div>
                         </div>
+                    </div>
 
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label class="form-label">List of Projects</label>
-                                    <span class="help">From CommonFloor database</span>
-                                    <select name="cf_project_id" required="" class="select2 form-control" multiple>
-                                        <option>Apartments</option>
-                                        <option>Bungalows/Villas</option>
-                                        <option>Land</option>
-                                        <option>Penthouse</option>
-                                    </select>
-                                </div>
-
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">List of Projects</label>
+                                <span class="help">From CommonFloor database</span>
+                                <select name="cf_project_id" required="" class="select2 form-control">
+                                    <option value="">Choose Commonfloor Project</option>
+                                </select>
                             </div>
-                            <div class="col-md-6">
-                                <div class="user-description-box">
-                                    <h4 class="semi-bold no-margin">Goyal Footprints</h4>
-                                    <br>
-                                    <p><i class="fa fa-rupee"></i>Rs 41.98 Lakhs - 58.10 Lakhs</p>
-                                    <p><i class="fa fa-arrows-alt"></i>763 - 1094 Sq. Ft.</p>
-                                    <p><i class="fa fa-map-marker"></i>Near provident Harmony Apartments, Thanisandra Main Road</p>
-                                    <p><i class="fa fa-clock-o"></i>Under Construction</p>
-                                </div>
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="user-description-box hidden">
+                                <h4 class="semi-bold no-margin">Goyal Footprints</h4>
+                                <input type="hidden" name="project_title" value=""/>
+                                <br>
+                                <p><i class="fa fa-rupee"></i>Rs 41.98 Lakhs - 58.10 Lakhs</p>
+                                <p><i class="fa fa-arrows-alt"></i>763 - 1094 Sq. Ft.</p>
+                                <p><i class="fa fa-map-marker"></i>Near provident Harmony Apartments, Thanisandra Main Road</p>
+                                <input type="hidden" name="project_address" value=""/>
+                                <p><i class="fa fa-clock-o"></i>Under Construction</p>
                             </div>
                         </div>
-                        <div class="form-actions">  
-                            <div class="pull-right">
-                                <button type="submit" class="btn btn-primary btn-cons">Save</button>
-                                <button type="button" class="btn btn-white btn-cons">Cancel</button>
-                            </div>
+                    </div>
+                    <div class="form-actions">  
+                        <div class="pull-right">
+                            <input type="hidden" value="{{ csrf_token() }}" name="_token"/>
+                            <button type="submit" class="btn btn-primary btn-cons">Save</button>
+                            <button type="button" class="btn btn-white btn-cons">Cancel</button>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    <!-- END PLACE PAGE CONTENT HERE -->
+</div>
+<!-- END PLACE PAGE CONTENT HERE -->
 @endsection

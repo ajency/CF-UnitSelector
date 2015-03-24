@@ -197,5 +197,10 @@
         <script src="/plugins/bootstrap-file-input/bootstrap.file-input.js" type="text/javascript"></script>
         <script src="/bower_components/parsleyjs/dist/parsley.min.js" type="text/javascript"></script>
         <script src="/plugins/dashboard-theme-core/core.js" type="text/javascript"></script> 
+        <script>
+            $("select").select2();
+        </script>
+        
+            
     </body>
 </html>
