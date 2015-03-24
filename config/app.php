@@ -128,8 +128,8 @@ return [
         'CommonFloor\Providers\ConfigServiceProvider',
         'CommonFloor\Providers\EventServiceProvider',
         'CommonFloor\Providers\RouteServiceProvider',
-        
-        'Laracasts\Generators\GeneratorsServiceProvider'
+        'Laracasts\Generators\GeneratorsServiceProvider',
+        'Illuminate\Html\HtmlServiceProvider'
     ],
     /*
       |--------------------------------------------------------------------------
@@ -175,5 +175,6 @@ return [
         'URL' => 'Illuminate\Support\Facades\URL',
         'Validator' => 'Illuminate\Support\Facades\Validator',
         'View' => 'Illuminate\Support\Facades\View',
+        'Form' => 'Illuminate\Html\FormFacade'
     ],
 ];

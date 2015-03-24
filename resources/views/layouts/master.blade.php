@@ -62,17 +62,7 @@
                                 </a>
                             </li>
                         </ul>
-                        <!-- END SLIM NAVIGATION TOGGLE -->				
-                        <!-- BEGIN HEADER QUICK LINKS -->
-                        <ul class="nav quick-section">
-                            <!-- BEGIN SEARCH BOX -->
-                            <li class="m-r-10 input-prepend inside search-form no-boarder">
-                                <span class="add-on"><span class="iconset top-search"></span></span>
-                                <input name="" type="text" class="no-boarder" placeholder="Search" style="width:250px;">
-                            </li>
-                            <!-- END SEARCH BOX -->
-                        </ul>
-                        <!-- BEGIN HEADER QUICK LINKS -->				
+                        <!-- END SLIM NAVIGATION TOGGLE -->								
                     </div>
                     <!-- END HEADER LEFT SIDE SECTION -->
                     <!-- BEGIN HEADER RIGHT SIDE SECTION -->
@@ -184,17 +174,23 @@
         <!-- BEGIN CORE JS FRAMEWORK--> 
         <script src="/bower_components/jquery/dist/jquery.min.js"></script>
         <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script> 
-        <script src="/plugins/breakpoints/breakpoints.min.js" type="text/javascript"></script> 
-        <script src="/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script> 
-        <script src="/plugins/jquery-scrollbar/jquery.scrollbar.min.js" type="text/javascript"></script>
-        <script src="/plugins/pace/pace.min.js" type="text/javascript"></script>  
-        <script src="/plugins/jquery-datatable/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="/bower_components/jquery-ui/jquery-ui.min.js" type="text/javascript"></script> 
+        <script src="/bower_components/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script> 
+        <script src="/bower_components/jquery.scrollbar/jquery.scrollbar.js" type="text/javascript"></script>
+        <script src="/bower_components/pace/pace.min.js" type="text/javascript"></script>  
+        <script src="/bower_components/DataTables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="/bower_components/handlebars/handlebars.min.js" type="text/javascript"></script> 
+        <script src="/bower_components/Faker/build/build/faker.min.js" type="text/javascript"></script> 
+        <script src="/bower_components/lodash/lodash.min.js" type="text/javascript" ></script>
+        <script src="/bower_components/select2/select2.min.js" type="text/javascript"></script>
+        <script src="/bower_components/parsleyjs/dist/parsley.min.js" type="text/javascript"></script>
+        <script src="/bower_components/bootstrap-file-input/bootstrap.file-input.js" type="text/javascript"></script>
+        <script src="/bower_components/jquery.breakpoints/breakpoints.js" type="text/javascript"></script> 
+        <script src="/bower_components/datatables-responsive/js/dataTables.responsive.js" type="text/javascript"></script>
+        
         <script src="/plugins/jquery-datatable/extra/js/dataTables.tableTools.min.js" type="text/javascript"></script>
-        <script src="/plugins/datatables-responsive/js/datatables.responsive.js" type="text/javascript"></script>
-        <script src="/plugins/datatables-responsive/js/lodash.min.js" type="text/javascript" ></script>
-        <script src="/plugins/bootstrap-select2/select2.min.js" type="text/javascript"></script>
-        <script src="/plugins/bootstrap-file-input/bootstrap.file-input.js" type="text/javascript"></script>
         <script src="/plugins/dashboard-theme-core/core.js" type="text/javascript"></script> 
+        <script src="/js/add.projects.js" type="text/javascript"></script> 
+            
     </body>
 </html>
