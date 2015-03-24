@@ -48,7 +48,7 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function show( $id ) {
-        //
+        return view( 'admin.projects.view' );
     }
 
     /**
