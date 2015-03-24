@@ -93,7 +93,7 @@
         <div class="page-container row-fluid">
             <!-- BEGIN SIDEBAR -->
             <!-- BEGIN MENU -->
-            <div class="page-sidebar" id="main-menu"> 
+            <div class="page-sidebar mini mini-mobile" id="main-menu"> 
                 <div class="page-sidebar-wrapper scrollbar-dynamic" id="main-menu-wrapper">
                     <p class="menu-title"></p>
 

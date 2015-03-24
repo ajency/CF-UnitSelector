@@ -60,7 +60,7 @@ class ProjectController extends Controller {
     public function edit( $id, ProjectRepository $projectRepository ) {
         $project = $projectRepository->getProjectById( $id );
 
-        return view( 'admin.projects.view', $project->toArray() );
+        return view( 'admin.projects.settings', $project->toArray() );
     }
 
     /**

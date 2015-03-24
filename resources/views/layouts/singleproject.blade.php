@@ -6,7 +6,7 @@
     <div class="inner-menu nav-collapse">   
         <div id="inner-menu">
             <div class="inner-wrapper" >    
-                <h2 class="text-white b-g b-b p-b-20">Goyal Footprints</h2>
+                <h2 class="text-white b-g b-b p-b-20">{{ $project_title }}</h2>
             </div>
             <div class="inner-menu-content">
                 <p class="menu-title">Project <span class="pull-right"><i class="icon-refresh"></i></span></p>
