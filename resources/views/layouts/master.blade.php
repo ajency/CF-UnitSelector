@@ -8,20 +8,15 @@
         <meta content="" name="description" />
         <meta content="" name="author" />
 
-        <link href="/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="/plugins/jquery-scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css"/>
+        <link href="/bower_components/pace/themes/orange/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
+        <link href="/bower_components/jquery.scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css"/>
+        <link href="/bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+        <link href="/bower_components/DataTables/media/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
+        <link href="/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet" type="text/css" media="screen">
+        <link href="/bower_components/select2/select2.css" rel="stylesheet" type="text/css" media="screen">
+        <link href="/bower_components/animate.css/animate.min.css" rel="stylesheet" type="text/css"/>
+        
         <link href="/css/app.css" rel="stylesheet" type="text/css"/>
-        <!-- <link href="assets/plugins/boostrapv3/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/> -->
-        <link href="/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
-
-        <!-- Datatables Styles -->
-        <link href="/plugins/jquery-datatable/css/jquery.dataTables.css" rel="stylesheet" type="text/css">
-        <link href="/plugins/datatables-responsive/css/datatables.responsive.css" rel="stylesheet" type="text/css" media="screen">
-
-        <!-- Select2 Styles -->
-        <link href="/plugins/bootstrap-select2/select2.css" rel="stylesheet" type="text/css" media="screen">
-
-        <link href="/css/dashboard/animate.min.css" rel="stylesheet" type="text/css"/>
         <link href="/css/dashboard/style.css" rel="stylesheet" type="text/css"/>
         <link href="/css/dashboard/responsive.css" rel="stylesheet" type="text/css"/>
         <link href="/css/dashboard/custom-icon-set.css" rel="stylesheet" type="text/css"/>
@@ -82,14 +77,7 @@
                                 <li><a href="/my-projects">My Projects</a></li>
                                 <li class="divider"></li>                
                                 <li><a href="/auth/logout"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
-                            </ul>
-
-                            <!-- END NOTIFICATION CENTER -->
-                            <!-- BEGIN PROFILE PICTURE -->
-                            <div class="profile-pic"> 
-                                <img src="/images/profiles/avatar_small.jpg" alt="" data-src="/images/profiles/avatar_small.jpg" data-src-retina="assets/img/profiles/avatar_small2x.jpg" width="35" height="35" /> 
-                            </div>  
-                            <!-- END PROFILE PICTURE -->     			
+                            </ul>  			
                         </div>
                     </div>
                     <!-- END HEADER RIGHT SIDE SECTION -->
@@ -105,7 +93,7 @@
         <div class="page-container row-fluid">
             <!-- BEGIN SIDEBAR -->
             <!-- BEGIN MENU -->
-            <div class="page-sidebar" id="main-menu"> 
+            <div class="page-sidebar mini mini-mobile" id="main-menu"> 
                 <div class="page-sidebar-wrapper scrollbar-dynamic" id="main-menu-wrapper">
                     <p class="menu-title"></p>
 
@@ -145,6 +133,9 @@
                     <!-- END SIDEBAR MENU -->
 
                 </div>
+                
+                @yield('innermenu')
+                
             </div>
             <!-- BEGIN SCROLL UP HOVER -->
             <a href="#" class="scrollup">Scroll</a>
@@ -188,7 +179,7 @@
         <script src="/bower_components/jquery.breakpoints/breakpoints.js" type="text/javascript"></script> 
         <script src="/bower_components/datatables-responsive/js/dataTables.responsive.js" type="text/javascript"></script>
         
-        <script src="/plugins/jquery-datatable/extra/js/dataTables.tableTools.min.js" type="text/javascript"></script>
+       
         <script src="/plugins/dashboard-theme-core/core.js" type="text/javascript"></script> 
         <script src="/js/add.projects.js" type="text/javascript"></script> 
             

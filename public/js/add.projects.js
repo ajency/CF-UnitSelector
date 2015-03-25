@@ -25,7 +25,7 @@
         }
       });
     });
-    return $('#add_project select[name="cf_project_id"]').change(function() {
+    $('#add_project select[name="cf_project_id"]').change(function() {
       var project, projectId, tempalteFn, template;
       projectId = $(this).val();
       project = _.findWhere(window.projectsCollection, {
@@ -35,6 +35,7 @@
       tempalteFn = Handlebars.compile(template);
       return $('#commonfloor-project-details').removeClass('hidden').html(tempalteFn(project));
     });
+    return $('#layout-condensed-toggle').click();
   });
 
 }).call(this);

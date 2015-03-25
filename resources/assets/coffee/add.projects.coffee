@@ -16,11 +16,11 @@ jQuery(document).ready ($)->
 						project_title : faker.name.findName()
 						cf_project_id : faker.internet.userName()
 						project_images : [
-										faker.image.imageUrl()
-										faker.image.imageUrl()
-										faker.image.imageUrl()
-										faker.image.imageUrl()
-									]
+							faker.image.imageUrl()
+							faker.image.imageUrl()
+							faker.image.imageUrl()
+							faker.image.imageUrl()
+						]
 						project_address : "#{faker.address.streetAddress()} #{faker.address.city()}, #{faker.address.zipCode()}"
 						project_status : 'Under Construction'
 						
@@ -42,3 +42,5 @@ jQuery(document).ready ($)->
 		
 		tempalteFn = Handlebars.compile template
 		$('#commonfloor-project-details').removeClass('hidden').html tempalteFn project
+		
+	$('#layout-condensed-toggle').click();
