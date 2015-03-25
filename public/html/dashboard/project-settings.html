@@ -78,9 +78,9 @@
 							</a>
 
 							<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
-								<li><a href="#">My Account</a></li>
+								<!-- <li><a href="#">My Account</a></li>
 								<li><a href="#">My Projects</a></li>
-								<li class="divider"></li>                
+								<li class="divider"></li> -->                
 								<li><a href="#"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
 							</ul>
 
@@ -105,13 +105,13 @@
 					<!-- BEGIN SIDEBAR MENU -->	
 					<ul>	
 						<!-- BEGIN SELECTED LINK -->
-						<li class="start active">
+						<!-- <li class="start active">
 							<a href="#">
 								<i class="icon-custom-home"></i>
 								<span class="title">Dashboard</span>
 								<span class="selected"></span>
 							</a>
-						</li>
+						</li> -->
 						<!-- END SELECTED LINK -->    
 						<!-- BEGIN ONE LEVEL MENU -->
 						<li class="">
@@ -127,12 +127,12 @@
 						</li>
 						<!-- END ONE LEVEL MENU -->	
 						<!-- BEGIN SINGLE LINK -->
-						<li class="">
+						<!-- <li class="">
 							<a href="#">
 								<i class="fa fa-user"></i>
 								<span class="title">Users</span>
 							</a>
-						</li>
+						</li> -->
 						<!-- END SINGLE LINK -->    
 					</ul>
 					<!-- END SIDEBAR MENU -->
@@ -148,9 +148,9 @@
 				        	<p class="menu-title">Project <span class="pull-right"><i class="icon-refresh"></i></span></p>
 				       	</div>
 				       	<ul class="big-items">
-				        	<li>
+				        	<!-- <li>
 				        		<span class="fa fa-check text-success"></span><a href="project-svg.html" > SVGs</a>
-				        	</li>
+				        	</li> -->
 				        	<li class="active">
 				        		<a href="project-settings.html">Settings</a>
 				        	</li>
@@ -166,21 +166,21 @@
 				       		<li>
 				       			<a href="building-add.html">Add</a>
 				       		</li>
-				       		<li>
+				       		<!-- <li>
 				       			<a href="building-svg.html">SVGs</a>
-				       		</li>
+				       		</li> -->
 				      	</ul>
 
 				      	<div class="inner-menu-content" >            
-				        	<p class="menu-title">Unit</p>    
+				        	<p class="menu-title">Unit Types</p>    
 				       	</div>
 				      	<ul class="big-items">
 				       		<li>
-				       			<a href="unit-properties.html">Properties</a>
+				       			<a href="unit-add_type.html">Add</a>
 				       		</li>
-				       		<li>
+				       		<!-- <li>
 				       			<a href="unit-list.html">List</a>
-				       		</li>
+				       		</li> -->
 				      	</ul>
 				   </div> 
 				</div>
@@ -219,6 +219,77 @@
 
 					<!-- BEGIN PlACE PAGE CONTENT HERE -->
 					
+					<div class="grid simple">
+
+						<div class="grid-title">
+							<h3>Project <span class="semi-bold">Details</span></h3>
+						</div>
+						<div class="grid-body">
+							<form>
+								<div class="row">
+			                        <div class="col-md-6">
+			                        	<div class="form-group">
+                                            <label class="form-label">City</label><br>
+                                            Bangalore
+                                        </div>
+                                        <div class="form-group">
+                                        	<label class="form-label">2D Layout</label>
+                                        	<div>
+                                        		<img src="../../images/demo/footprints_logo.jpg" class="img-responsive img-thumbnail"><br>
+                                        		<button class="btn btn-small btn-white m-t-5"><i class="fa fa-trash"></i> Delete</button>
+                                        	</div>
+                                        	<!-- <div>
+                                        		<input type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
+                                        		<button type="button" class="btn btn-small btn-primary">Upload</button>												
+                                        	</div> -->
+                                        </div>
+			                        	<div class="form-group">
+                                            <label class="form-label">Project Title<span class="text-primary">*</span></label>
+                                            <input type="text" class="form-control" placeholder="Enter Project Title" value="Goyal Footprints">
+                                        </div>
+			                        	<div class="form-group">
+                                            <label class="form-label">Address<span class="text-primary">*</span></label>
+                                            <textarea class="form-control" placeholder="Enter Project Address">Near provident Harmony Apartments Thanisandra Main Road</textarea>
+                                        </div>
+                                        
+                                        <div class="form-group">
+					                        <label class="form-label">Sellable unit types</label>
+					                        <select id="unit_types" class="select2 form-control" multiple>
+					                        	<option>Apartments</option>
+					                        	<option>Bungalows/Villas</option>
+					                        	<option>Land</option>
+					                        	<option>Penthouse</option>
+					                        </select>
+					                    </div>
+					                    
+			                        </div>
+			                        <div class="col-md-6">
+			                        	<div class="user-description-box">
+			                        		<div class="row">
+			                        			<div class="col-sm-8">
+		        									<h4 class="semi-bold">Goyal Footprints - <span class="bold text-primary">pq5csb</span></h4>
+		        									<i class="fa fa-map-marker"></i> <b>Address:</b>
+		        									<p>Near provident Harmony Apartments, Thanisandra Main Road</p>	
+			                        			</div>
+			                        			<div class="col-sm-4">
+			                        				<img src="../../images/demo/footprints_logo.jpg" class="img-responsive">
+			                        			</div>
+			                        		</div>
+			                        		<div class="alert alert-warning m-t-20">
+                    		                	<strong>Note: </strong> The above information is as entered in CommonFloor database.
+                    		                </div>
+        								</div>
+			                        </div>
+			                    </div>
+			                    <div class="form-actions">  
+			                    	<div class="pull-right">
+			                    	  <button type="submit" class="btn btn-primary btn-cons">Save</button>
+			                    	</div>
+			                    </div>
+							</form>
+						</div>
+					</div>
+
 					<div class="grid simple">
 
 						<div class="grid-title">
@@ -368,7 +439,7 @@
 						</div>
 					</div>
 
-					<div class="row">
+					<!-- <div class="row">
 						<div class="col-sm-6">					
 							<div class="grid simple">
 								<div class="grid-title">
@@ -484,7 +555,7 @@
 								</div>
 							</div>
 						</div>				
-					</div>
+					</div> -->
 					<!-- END PLACE PAGE CONTENT HERE -->
 				</div>
 			</div>
@@ -524,6 +595,7 @@
 		<!-- END NEED TO WORK ON -->
 
 		<script type="text/javascript">
+			$("#unit_types").val(["Apartments"]).select2();
 			$("#payment_plans").select2();
 			$("#buildings").select2();
 		</script>	

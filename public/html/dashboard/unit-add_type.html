@@ -78,9 +78,9 @@
 							</a>
 
 							<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
-								<li><a href="#">My Account</a></li>
+								<!-- <li><a href="#">My Account</a></li>
 								<li><a href="#">My Projects</a></li>
-								<li class="divider"></li>                
+								<li class="divider"></li> -->                
 								<li><a href="#"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
 							</ul>
 
@@ -105,13 +105,13 @@
 					<!-- BEGIN SIDEBAR MENU -->	
 					<ul>	
 						<!-- BEGIN SELECTED LINK -->
-						<li class="start active">
+						<!-- <li class="start active">
 							<a href="#">
 								<i class="icon-custom-home"></i>
 								<span class="title">Dashboard</span>
 								<span class="selected"></span>
 							</a>
-						</li>
+						</li> -->
 						<!-- END SELECTED LINK -->    
 						<!-- BEGIN ONE LEVEL MENU -->
 						<li class="">
@@ -127,12 +127,12 @@
 						</li>
 						<!-- END ONE LEVEL MENU -->	
 						<!-- BEGIN SINGLE LINK -->
-						<li class="">
+						<!-- <li class="">
 							<a href="#">
 								<i class="fa fa-user"></i>
 								<span class="title">Users</span>
 							</a>
-						</li>
+						</li> -->
 						<!-- END SINGLE LINK -->    
 					</ul>
 					<!-- END SIDEBAR MENU -->
@@ -148,9 +148,9 @@
 				        	<p class="menu-title">Project <span class="pull-right"><i class="icon-refresh"></i></span></p>
 				       	</div>
 				       	<ul class="big-items">
-				        	<li>
+				        	<!-- <li>
 				        		<span class="fa fa-check text-success"></span><a href="project-svg.html" > SVGs</a>
-				        	</li>
+				        	</li> -->
 				        	<li>
 				        		<a href="project-settings.html">Settings</a>
 				        	</li>
@@ -166,21 +166,21 @@
 				       		<li>
 				       			<a href="building-add.html">Add</a>
 				       		</li>
-				       		<li>
+				       		<!-- <li>
 				       			<a href="building-svg.html">SVGs</a>
-				       		</li>
+				       		</li> -->
 				      	</ul>
 
 				      	<div class="inner-menu-content" >            
-				        	<p class="menu-title">Units</p>    
+				        	<p class="menu-title">Unit Types</p>    
 				       	</div>
 				      	<ul class="big-items">
-				       		<li class="active">
+				       		<li>
 				       			<a href="unit-add_type.html">Add</a>
 				       		</li>
-				       		<li>
+				       		<!-- <li>
 				       			<a href="unit-list.html">List</a>
-				       		</li>
+				       		</li> -->
 				      	</ul>
 				   </div> 
 				</div>
@@ -227,9 +227,15 @@
 								<div class="row">
 									<div class="col-md-4">
 										<div class="form-group">
-											<label class="form-label">Type</label>
-										    <select id="unit_type" class="select2 form-control">
-										    	<option value="">Select Type</option>
+											<label class="form-label">Name</label>
+											  <input type="text" class="form-control" name="name" placeholder="Enter Name">
+										</div> 
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="form-label">Property Type</label>
+										    <select id="prop_type" class="select2 form-control">
+										    	<option value="">Select Property Type</option>
 										    	<option>Apartment</option>
 										    	<option>Plot</option>
 										    	<option>Bungalow</option>
@@ -239,8 +245,13 @@
 									</div>
 									<div class="col-md-4">
 										<div class="form-group">
-											<label class="form-label">Name</label>
-											  <input type="text" class="form-control" name="name" placeholder="Enter Name">
+											<label class="form-label">Type</label>
+										    <select id="unit_type" class="select2 form-control">
+										    	<option value="">Select Type</option>
+										    	<option>1BHK</option>
+										    	<option>2BHK</option>
+										    	<option>3BHK</option>
+										    </select>
 										</div> 
 									</div>
 								</div>
@@ -401,6 +412,7 @@
 
 		<script type="text/javascript">
 			$("#unit_type").select2();
+			$("#prop_type").select2();
 			$("#bldg_milestone").select2();
 			$("#buildings").select2();
 			$("#room_name").select2();
