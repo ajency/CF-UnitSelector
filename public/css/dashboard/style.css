@@ -1330,6 +1330,9 @@ body.modal-open .chat-window-wrapper {
   font-weight: 600;
   font-size: 14px;
 }
+.page-content .breadcrumb li:first-child a {
+  margin-left: 0;
+}
 .page-content .content {
   padding-left: 26px;
   padding-right: 26px;
