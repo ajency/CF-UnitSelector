@@ -17,5 +17,13 @@ class Project extends Model {
     public function updater() {
         return $this->hasOne( 'CommonFloor\User', 'id', 'updated_by' );
     }
+    
+    public function getCreatedByAttribute($value){
+        return $this->creator->name;
+    }
+    
+    public function getUpdatedByAttribute($value){
+        return $this->updater->name;
+    }
 
 }
