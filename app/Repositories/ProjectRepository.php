@@ -1,6 +1,6 @@
 <?php
 
-namespace CommonFloor\repositories;
+namespace CommonFloor\Repositories;
 
 use CommonFloor\Project;
 use Auth;

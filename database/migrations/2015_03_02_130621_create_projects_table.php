@@ -20,7 +20,7 @@ class CreateProjectsTable extends Migration {
             // project model will have constants
             // 1: Apartment,2: Bunglows:Villas, 3: Land, 4 : Penthouse
             // stored as 1|2|3|4
-            $table->string( 'sellable_unit_types', 50 );
+            $table->string( 'sellable_unit_types', 150 );
             $table->enum( 'status', ['draft', 'published', 'archieved', 'under_review'] )->default( 'draft' );
             $table->integer( 'created_by' );
             $table->integer( 'updated_by' );
