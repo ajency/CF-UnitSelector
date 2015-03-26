@@ -1,6 +1,6 @@
 <?php
 
-namespace CommonFloor\repositories;
+namespace CommonFloor\Repositories;
 
 /**
  * ProjectRepositoryInterface 
