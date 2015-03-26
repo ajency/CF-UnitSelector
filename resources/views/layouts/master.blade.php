@@ -169,7 +169,6 @@
         <script src="/bower_components/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script> 
         <script src="/bower_components/jquery.scrollbar/jquery.scrollbar.js" type="text/javascript"></script>
         <script src="/bower_components/pace/pace.min.js" type="text/javascript"></script>  
-        <script src="/bower_components/DataTables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="/bower_components/handlebars/handlebars.min.js" type="text/javascript"></script> 
         <script src="/bower_components/Faker/build/build/faker.min.js" type="text/javascript"></script> 
         <script src="/bower_components/lodash/lodash.min.js" type="text/javascript" ></script>
@@ -177,6 +176,8 @@
         <script src="/bower_components/parsleyjs/dist/parsley.min.js" type="text/javascript"></script>
         <script src="/bower_components/bootstrap-file-input/bootstrap.file-input.js" type="text/javascript"></script>
         <script src="/bower_components/jquery.breakpoints/breakpoints.js" type="text/javascript"></script> 
+        <script src="/bower_components/datatables-tabletools/js/dataTables.tableTools.js" type="text/javascript"></script>
+        <script src="/bower_components/DataTables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
         <script src="/bower_components/datatables-responsive/js/dataTables.responsive.js" type="text/javascript"></script>
         
        
