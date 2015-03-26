@@ -9,10 +9,6 @@ class ExampleTest extends TestCase {
      */
     public function testBasicExample() {
         $response = $this->call( 'GET', '/auth/login' );
-        $menuItems = [
-            'menu_item' => 23,
-            'link' => 'Some link'
-        ];
         $this->assertEquals( 200, $response->getStatusCode() );
     }
 

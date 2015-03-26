@@ -17,5 +17,12 @@ class Project extends Model {
     public function updater() {
         return $this->hasOne( 'CommonFloor\User', 'id', 'updated_by' );
     }
+    
+    public function toArray() {
+        $data = parent::toArray();
+        $data['created_by'] = $this->creator->name;
+        $data['updated_by'] = $this->updater->name;
+        return $data;
+    }
 
 }
