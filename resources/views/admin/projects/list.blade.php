@@ -29,7 +29,7 @@
                             <tr class="">
                                 <td><a href="project-settings.html">{{ $project['project_title'] }}</a></td>
                                 <td>{{ $project['city'] }}</td>
-                                <td>{{ $project['status'] }}</td>
+                                <td>{{ ucfirst($project['status']) }}</td>
                                 <td>{{ date('d/m/Y',strtotime($project['created_at'])) }}</td>
                                 <td class="center">{{ $project['created_by'] }}</td>
                                 <td>{{  date('d/m/Y',strtotime($project['updated_at'])) }}</td>
