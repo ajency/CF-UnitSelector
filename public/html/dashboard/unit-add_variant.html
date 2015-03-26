@@ -84,7 +84,7 @@
 								<li><a href="#"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
 							</ul>
 
-							<!-- END NOTIFICATION CENTER -->     			
+							<!-- END NOTIFICATION CENTER -->   			
 						</div>
 					</div>
 					<!-- END HEADER RIGHT SIDE SECTION -->
@@ -148,9 +148,9 @@
 				        	<p class="menu-title">Project <span class="pull-right"><i class="icon-refresh"></i></span></p>
 				       	</div>
 				       	<ul class="big-items">
-				        	<li class="active">
+				        	<!-- <li>
 				        		<span class="fa fa-check text-success"></span><a href="project-svg.html" > SVGs</a>
-				        	</li>
+				        	</li> -->
 				        	<li>
 				        		<a href="project-settings.html">Settings</a>
 				        	</li>
@@ -178,12 +178,12 @@
 				       		<li>
 				       			<a href="unit-view_variant.html">View</a>
 				       		</li>
-				       		<li>
+				       		<li class="active">
 				       			<a href="unit-add_variant.html">Add</a>
 				       		</li>
 				      	</ul>
 
-			      		<div class="inner-menu-content" >            
+				      	<div class="inner-menu-content" >            
 				        	<p class="menu-title">Apartments</p>    
 				       	</div>
 				      	<ul class="big-items">
@@ -220,12 +220,13 @@
 				        <li><a href="#">Dashboard</a> </li>
 				        <li><a href="#">Projects</a> </li>
 				        <li><a href="#">Goyal Footprints</a> </li>
-				        <li><a href="#" class="active">Project SVGs</a> </li>
+				        <li><a href="#">Unit Variants</a></li>
+				        <li><a href="#" class="active">Add Unit Variant</a></li>
 				    </ul>
 				    <!-- END BREADCRUMBS -->
 					<!-- BEGIN PAGE TITLE -->
 					<div class="page-title">	
-						<h2>Project <span class="semi-bold">SVGs</span></h2>
+						<h2><span class="semi-bold">Add</span> Unit Variant</h2>
 					</div>
 					<!-- END PAGE TITLE -->
 
@@ -233,173 +234,155 @@
 					
 					<div class="grid simple">
 
-						<div class="grid-title">
-							<h3 class="inline"><span class="semi-bold">Google Earth</span> View</h3> 
-							<div class="pull-right m-t-15">
-								<span class="fa fa-check text-success" ></span>
-							</div>
-							<div class="clearfix"></div>
-						</div>
 						<div class="grid-body">
-							<input type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
-							<button type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#g-map-1">Upload</button>
-							<div id="g-map-1" class="svg-holder collapse">
-								<hr>
-								<div class="svg-tools m-b-20">
-									  <button type="button" class="btn btn-mini btn-default"><i class="fa fa-map-marker"></i> Add Marker</button>
-									  <button type="button" class="btn btn-mini btn-default"><i class="fa fa-crosshairs"></i> Mark Area</button>
+							<form>
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="form-label">Name</label>
+											  <input type="text" class="form-control" name="name" placeholder="Enter Name">
+										</div> 
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="form-label">Property Type</label>
+										    <select id="prop_type" class="select2 form-control">
+										    	<option value="">Select Property Type</option>
+										    	<option>Apartment</option>
+										    	<option>Plot</option>
+										    	<option>Bungalow</option>
+										    	<option>Penthouse</option>
+										    </select>
+										</div> 
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="form-label">Type</label>
+										    <select id="unit_type" class="select2 form-control">
+										    	<option value="">Select Type</option>
+										    	<option>1BHK</option>
+										    	<option>2BHK</option>
+										    	<option>3BHK</option>
+										    </select>
+										</div> 
+									</div>
 								</div>
-								<img src="../../images/demo/g_earth.jpg" class="img-responsive">
-								<form>
-									<div class="form-actions svg-actions">  
-										<div class="pull-right">
-										  <button type="submit" class="btn btn-primary btn-cons">Save</button>
+
+								<h5 class="bold">Rooms</h5>
+
+								<div>
+									<div class="form-inline">
+										<div class="form-group">
+										    <select id="room_name" class="select2 form-control">
+										    	<option value="">Select Room</option>
+										    	<option>Bedroom</option>
+										    	<option>Hall</option>
+										    	<option>Dining Room</option>
+										    </select>
+										</div> 
+										<div class="form-group pull-right">
+											<input type="text" class="form-control" placeholder="Add Room">
+											<button class="btn btn-default"><i class="fa fa-plus"></i></button>
 										</div>
 									</div>
-								</form>
-							</div>
-						</div>
-					</div>
 
-					<div class="grid simple">
+									<div class="m-t-10">
+										<div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 text-grey">	
+											<h5 class="semi-bold inline">Bedroom</h5>
+											<div class="row">
+												<div class="col-md-4">
+													<div class="form-group">
+														<label class="form-label">Type</label>
+														  <input type="text" class="form-control" name="type" placeholder="Enter Room Type">
+													</div>
+												</div>
+												<div class="col-md-4">
+													<div class="form-group">
+														<label class="form-label">Room Size</label>
+														  <input type="number" class="form-control" name="size" placeholder="Enter Room Size">
+													</div>
+												</div>
+												<div class="col-md-4">
+													<div class="form-group">
+														<label class="form-label">Length x Width</label>
+														  <input type="text" class="form-control" name="lengthwidth" placeholder="Enter Length and Width">
+													</div>
+												</div>
+											</div>
 
-						<div class="grid-title">
-							<h3 class="inline"><span class="semi-bold">Sky</span> View</h3> 
-							<div class="pull-right m-t-15">
-								<span class="fa fa-check text-success" ></span>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="grid-body">
+											<div class="text-right">
+												<button class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
+												<button class="btn btn-small btn-white"><i class="fa fa-trash"></i> Delete</button>
+											</div>
+											
+										</div>
+									</div>
+								</div>
 
-							<div class="row">
-								<div class="col-sm-2">
-									<img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
-									<h5 class="bold inline">SVG 1</h5> <i class="fa fa-bookmark text-primary"></i>
-									<span class="pull-right m-t-10"><small>Pos 1</small></span>
+								<div class="row m-t-20">
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="form-label">Carpet Area</label>
+											<input type="number" class="form-control" name="name" placeholder="Enter Carpet Area">
+										</div> 
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="form-label">Sellable Area</label>
+											<input type="number" class="form-control" name="name" placeholder="Enter Sellable Area">
+										</div> 
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="form-label">Terrace Area</label>
+											<input type="number" class="form-control" name="name" placeholder="Enter Terrace Area">
+										</div> 
+									</div>
 								</div>
-								<div class="col-sm-2">
-									<img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail">
-									<h5 class="bold inline">SVG 2</h5>
-									<span class="pull-right m-t-10"><small>Pos 2</small></span>
-								</div>
-								<div class="col-sm-2">
-									<img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail">
-									<h5 class="bold inline">SVG 3</h5>
-									<span class="pull-right m-t-10"><small>Pos 3</small></span>
-								</div>
-								<div class="col-sm-2">
-									<img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
-									<h5 class="bold inline">SVG 4</h5> <i class="fa fa-bookmark text-primary"></i>
-									<span class="pull-right m-t-10"><small>Pos 4</small></span>
-								</div>
-							</div>
-
-							<div id="sky-map-a" class="svg-holder collapse">
-								<hr>
-								<form>
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="form-group">
-												<label class="form-label">SVG Name</label>
-												<input type="text" class="form-control" placeholder="Enter SVG Name">
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="form-label">Per sq ft price</label>
+											<div class="input-group transparent">
+											  <span class="input-group-addon">
+												<i class="fa fa-inr"></i>
+											  </span>
+											  <input type="number" class="form-control" name="name" placeholder="Enter per sq ft price">
+											</div>
+										</div> 
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="form-label">2D Layout</label>
+											<!-- <div>
+												<img src="../../images/demo/plan.jpg" class="img-responsive img-thumbnail">
+												<button class="btn btn-small btn-white m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
+											</div> -->
+											<div>
+												<input type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
+												<button type="button" class="btn btn-small btn-primary">Upload</button>												
 											</div>
 										</div>
-										<div class="col-sm-4">
-											<div class="form-group">
-												<label class="form-label">Sequence Position</label>
-											    <select id="seq_pos" class="select2 form-control">
-											    	<option value="">Select Position</option>
-											    	<option>Position 1</option>
-											    	<option>Position 2</option>
-											    	<option>Position 3</option>
-											    	<option>Position 4</option>
-											    </select>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="form-label">3D Layout</label>
+											<div>
+												<input type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
+												<button type="button" class="btn btn-small btn-primary">Upload</button>												
 											</div>
 										</div>
-										<div class="col-sm-4">
-											<div class="form-group m-t-35">
-												<div class="checkbox check-primary">
-							                      <input id="checkbox2" type="checkbox" value="1" checked="checked">
-							                      <label for="checkbox2">Has Action</label>
-							                    </div>
-						                    </div>
-										</div>
 									</div>
-									<div class="svg-tools m-b-20">
-										  <button type="button" class="btn btn-mini btn-default"><i class="fa fa-map-marker"></i> Add Marker</button>
-										  <button type="button" class="btn btn-mini btn-default"><i class="fa fa-crosshairs"></i> Mark Area</button>
-									</div>
-									<img src="../../images/demo/sky-view.jpg" class="img-responsive">
-									<div class="svg-actions m-t-20">  
-										<div class="pull-right">
-										  <button type="submit" class="btn btn-primary btn-cons">Save</button>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-								</form>
-							</div>
-
-							<hr>
-
-							<input type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
-							<button type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
-							<div id="sky-map-1" class="svg-holder collapse">
-								<hr>
-								<div class="svg-tools m-b-20">
-									  <button type="button" class="btn btn-mini btn-default"><i class="fa fa-map-marker"></i> Add Marker</button>
-									  <button type="button" class="btn btn-mini btn-default"><i class="fa fa-crosshairs"></i> Mark Area</button>
 								</div>
-								<img src="../../images/demo/sky-view.jpg" class="img-responsive">
-								<form>
-									<div class="form-group m-t-10">
-										<label class="form-label">SVG Name</label>
-										<input type="text" class="form-control" placeholder="Enter SVG Name">
+
+								<div class="form-actions">  
+									<div class="pull-right">
+									  <button type="submit" class="btn btn-primary btn-cons">Add</button>
 									</div>
-									<div class="form-actions svg-actions">  
-										<div class="pull-right">
-										  <button type="submit" class="btn btn-primary btn-cons">Save</button>
-										</div>
-									</div>
-								</form>
-							</div>
+								</div>
+							</form>
 						</div>
 					</div>
-
-					<div class="grid simple">
-
-						<div class="grid-title">
-							<h3 class="inline">Project <span class="semi-bold">Master</span></h3> 
-							<div class="pull-right m-t-15">
-								<span class="fa fa-check text-success" ></span>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="grid-body">
-							<input type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
-							<button type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#proj-master">Upload</button>
-							<div id="proj-master" class="svg-holder collapse">
-								<hr>
-								<div class="svg-tools m-b-20">
-									  <button type="button" class="btn btn-mini btn-default"><i class="fa fa-map-marker"></i> Add Marker</button>
-									  <button type="button" class="btn btn-mini btn-default"><i class="fa fa-crosshairs"></i> Mark Area</button>
-								</div>
-								<img src="../../images/demo/sky-view.jpg" class="img-responsive">
-								<form>
-									<div class="form-group m-t-10">
-										<label class="form-label">SVG Name</label>
-										<input type="text" class="form-control" placeholder="Enter SVG Name">
-									</div>
-									<div class="form-actions svg-actions">  
-										<div class="pull-right">
-										  <button type="submit" class="btn btn-primary btn-cons">Save</button>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-
 
 					<!-- END PLACE PAGE CONTENT HERE -->
 				</div>
@@ -440,9 +423,11 @@
 		<!-- END NEED TO WORK ON -->
 
 		<script type="text/javascript">
-			/* Select 2 */
-			$("#seq_pos").select2();
-			$("#unit_types").select2();
+			$("#unit_type").select2();
+			$("#prop_type").select2();
+			$("#bldg_milestone").select2();
+			$("#buildings").select2();
+			$("#room_name").select2();
 
 			/* Bootstrap File Input */
 			$('input[type=file]').bootstrapFileInput();

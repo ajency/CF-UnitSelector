@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Project Name - CommonFloor</title>
+		<title>View Apartments - CommonFloor</title>
 		<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -84,7 +84,7 @@
 								<li><a href="#"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
 							</ul>
 
-							<!-- END NOTIFICATION CENTER -->     			
+							<!-- END NOTIFICATION CENTER -->    			
 						</div>
 					</div>
 					<!-- END HEADER RIGHT SIDE SECTION -->
@@ -137,7 +137,6 @@
 					</ul>
 					<!-- END SIDEBAR MENU -->
 				</div>
-
 				<!-- BEGIN INNER MENU -->
 				<div class="inner-menu nav-collapse">   
 				  	<div id="inner-menu">
@@ -148,9 +147,9 @@
 				        	<p class="menu-title">Project <span class="pull-right"><i class="icon-refresh"></i></span></p>
 				       	</div>
 				       	<ul class="big-items">
-				        	<li class="active">
+				        	<!-- <li>
 				        		<span class="fa fa-check text-success"></span><a href="project-svg.html" > SVGs</a>
-				        	</li>
+				        	</li> -->
 				        	<li>
 				        		<a href="project-settings.html">Settings</a>
 				        	</li>
@@ -184,20 +183,19 @@
 				      	</ul>
 
 			      		<div class="inner-menu-content" >            
-				        	<p class="menu-title">Apartments</p>    
-				       	</div>
-				      	<ul class="big-items">
-				       		<li>
-				       			<a href="unit-view.html">View</a>
-				       		</li>
-				       		<li>
-				       			<a href="unit-add.html">Add</a>
-				       		</li>
-				      	</ul>
+			      	  	<p class="menu-title">Apartments</p>    
+			      	 	</div>
+			      		<ul class="big-items">
+			      	 		<li class="active">
+			      	 			<a href="unit-view.html">View</a>
+			      	 		</li>
+			      	 		<li>
+			      	 			<a href="unit-add.html">Add</a>
+			      	 		</li>
+			      		</ul>
 				   </div> 
 				</div>
 				<!-- END INNER MENU -->
-
 			</div>
 			<!-- BEGIN SCROLL UP HOVER -->
 			<a href="#" class="scrollup">Scroll</a>
@@ -220,187 +218,149 @@
 				        <li><a href="#">Dashboard</a> </li>
 				        <li><a href="#">Projects</a> </li>
 				        <li><a href="#">Goyal Footprints</a> </li>
-				        <li><a href="#" class="active">Project SVGs</a> </li>
+				        <li><a href="#">Apartments</a></li>
+				        <li><a href="#" class="active">View Apartments</a></li>
 				    </ul>
 				    <!-- END BREADCRUMBS -->
 					<!-- BEGIN PAGE TITLE -->
 					<div class="page-title">	
-						<h2>Project <span class="semi-bold">SVGs</span></h2>
+						<h2><span class="semi-bold">View</span> Apartments</h2>
 					</div>
 					<!-- END PAGE TITLE -->
 
 					<!-- BEGIN PlACE PAGE CONTENT HERE -->
+					<div class="row">
+			            <div class="col-md-12">
+			              	<div class="grid simple">
+			              		<div class="grid-title">
+              		              	<h4>List of <span class="semi-bold">Apartments</span></h4>
+              		            </div>
+			                	<div class="grid-body">
+			                		<table class="table table-striped" id="example2" >
+			                		  <thead>
+			                		    <tr>
+			                		      <th>Name</th>
+			                		      <th>Status</th>
+			                		      <th>Unit Type</th>
+			                		      <th>Unit Variant</th>
+			                		      <th>Building</th>
+			                		      <th>Floor</th>
+			                		      <th>Modified On</th>
+			                		      <th>Modified By</th>
+			                		    </tr>
+			                		  </thead>
+			                		  <tbody>
+			                		    <tr class="">
+			                		      <td><a href="unit-add_variant.html">101</a></td>
+			                		      <td>Available</td>
+			                		      <td>2BHK</td>
+			                		      <td>1054</td>
+			                		      <td>Tower 1</td>
+			                		      <td class="center">1</td>
+			                		      <td>05/12/14</td>
+			                		      <td class="center">John Smith</td>
+			                		    </tr>
+			                		    <tr class="">
+			                		      <td>
+			                		      	<a href="unit-add_variant.html">102</a>
+			                		      </td>
+			                		      <td>Available</td>
+			                		      <td>3BHK</td>
+			                		      <td>1242</td>
+			                		      <td>Tower 1</td>
+			                		      <td class="center">1</td>
+			                		      <td>31/06/15</td>
+			                		      <td class="center">Jane Smith</td>
+			                		    </tr>
+			                		    <tr class="">
+			                		      <td><a href="unit-add_variant.html">103</a></td>
+			                		      <td>Available</td>
+			                		      <td>3BHK</td>
+			                		      <td>1680</td>
+			                		      <td>Tower 1</td>
+			                		      <td class="center">1</td>
+			                		      <td>17/02/15</td>
+			                		      <td class="center">John Smith</td>
+			                		    </tr>
+			                		    <tr class="">
+			                		      <td><a href="unit-add_variant.html">104</a></td>
+			                		      <td>Sold</td>
+			                		      <td>2BHK</td>
+			                		      <td>1784</td>
+			                		      <td>Tower 1</td>
+			                		      <td class="center">1</td>
+			                		      <td>15/08/15</td>
+			                		      <td class="center">Mary Jane</td>
+			                		    </tr>
+			                		    <tr class="">
+			                		      <td><a href="unit-add_variant.html">105</a></td>
+			                		      <td>Blocked</td>
+			                		      <td>1BHK</td>
+			                		      <td>1885</td>
+			                		      <td>Tower 1</td>
+			                		      <td class="center">1</td>
+			                		      <td>17/02/15</td>
+			                		      <td class="center">Peter Parker</td>
+			                		    </tr>
+			                		    <tr class="">
+			                		      <td><a href="unit-add_variant.html">106</a></td>
+			                		      <td>Available</td>
+			                		      <td>2BHK</td>
+			                		      <td>1054</td>
+			                		      <td>Tower 1</td>
+			                		      <td class="center">1</td>
+			                		      <td>05/12/14</td>
+			                		      <td class="center">John Smith</td>
+			                		    </tr>
+			                		    <tr class="">
+			                		      <td>
+			                		      	<a href="unit-add_variant.html">107</a>
+			                		      </td>
+			                		      <td>Available</td>
+			                		      <td>3BHK</td>
+			                		      <td>1242</td>
+			                		      <td>Tower 1</td>
+			                		      <td class="center">1</td>
+			                		      <td>31/06/15</td>
+			                		      <td class="center">Jane Smith</td>
+			                		    </tr>
+			                		    <tr class="">
+			                		      <td><a href="unit-add_variant.html">108</a></td>
+			                		      <td>Available</td>
+			                		      <td>3BHK</td>
+			                		      <td>1680</td>
+			                		      <td>Tower 1</td>
+			                		      <td class="center">1</td>
+			                		      <td>17/02/15</td>
+			                		      <td class="center">John Smith</td>
+			                		    </tr>
+			                		    <tr class="">
+			                		      <td><a href="unit-add_variant.html">109</a></td>
+			                		      <td>Sold</td>
+			                		      <td>2BHK</td>
+			                		      <td>1784</td>
+			                		      <td>Tower 1</td>
+			                		      <td class="center">1</td>
+			                		      <td>15/08/15</td>
+			                		      <td class="center">Mary Jane</td>
+			                		    </tr>
+			                		    <tr class="">
+			                		      <td><a href="unit-add_variant.html">110</a></td>
+			                		      <td>Blocked</td>
+			                		      <td>1BHK</td>
+			                		      <td>1885</td>
+			                		      <td>Tower 1</td>
+			                		      <td class="center">1</td>
+			                		      <td>17/02/15</td>
+			                		      <td class="center">Peter Parker</td>
+			                		    </tr>
+			                		  </tbody>
+			                		</table>
+			                	</div>
+			              	</div>
+			            </div>
+			        </div>
 					
-					<div class="grid simple">
-
-						<div class="grid-title">
-							<h3 class="inline"><span class="semi-bold">Google Earth</span> View</h3> 
-							<div class="pull-right m-t-15">
-								<span class="fa fa-check text-success" ></span>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="grid-body">
-							<input type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
-							<button type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#g-map-1">Upload</button>
-							<div id="g-map-1" class="svg-holder collapse">
-								<hr>
-								<div class="svg-tools m-b-20">
-									  <button type="button" class="btn btn-mini btn-default"><i class="fa fa-map-marker"></i> Add Marker</button>
-									  <button type="button" class="btn btn-mini btn-default"><i class="fa fa-crosshairs"></i> Mark Area</button>
-								</div>
-								<img src="../../images/demo/g_earth.jpg" class="img-responsive">
-								<form>
-									<div class="form-actions svg-actions">  
-										<div class="pull-right">
-										  <button type="submit" class="btn btn-primary btn-cons">Save</button>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-
-					<div class="grid simple">
-
-						<div class="grid-title">
-							<h3 class="inline"><span class="semi-bold">Sky</span> View</h3> 
-							<div class="pull-right m-t-15">
-								<span class="fa fa-check text-success" ></span>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="grid-body">
-
-							<div class="row">
-								<div class="col-sm-2">
-									<img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
-									<h5 class="bold inline">SVG 1</h5> <i class="fa fa-bookmark text-primary"></i>
-									<span class="pull-right m-t-10"><small>Pos 1</small></span>
-								</div>
-								<div class="col-sm-2">
-									<img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail">
-									<h5 class="bold inline">SVG 2</h5>
-									<span class="pull-right m-t-10"><small>Pos 2</small></span>
-								</div>
-								<div class="col-sm-2">
-									<img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail">
-									<h5 class="bold inline">SVG 3</h5>
-									<span class="pull-right m-t-10"><small>Pos 3</small></span>
-								</div>
-								<div class="col-sm-2">
-									<img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
-									<h5 class="bold inline">SVG 4</h5> <i class="fa fa-bookmark text-primary"></i>
-									<span class="pull-right m-t-10"><small>Pos 4</small></span>
-								</div>
-							</div>
-
-							<div id="sky-map-a" class="svg-holder collapse">
-								<hr>
-								<form>
-									<div class="row">
-										<div class="col-sm-4">
-											<div class="form-group">
-												<label class="form-label">SVG Name</label>
-												<input type="text" class="form-control" placeholder="Enter SVG Name">
-											</div>
-										</div>
-										<div class="col-sm-4">
-											<div class="form-group">
-												<label class="form-label">Sequence Position</label>
-											    <select id="seq_pos" class="select2 form-control">
-											    	<option value="">Select Position</option>
-											    	<option>Position 1</option>
-											    	<option>Position 2</option>
-											    	<option>Position 3</option>
-											    	<option>Position 4</option>
-											    </select>
-											</div>
-										</div>
-										<div class="col-sm-4">
-											<div class="form-group m-t-35">
-												<div class="checkbox check-primary">
-							                      <input id="checkbox2" type="checkbox" value="1" checked="checked">
-							                      <label for="checkbox2">Has Action</label>
-							                    </div>
-						                    </div>
-										</div>
-									</div>
-									<div class="svg-tools m-b-20">
-										  <button type="button" class="btn btn-mini btn-default"><i class="fa fa-map-marker"></i> Add Marker</button>
-										  <button type="button" class="btn btn-mini btn-default"><i class="fa fa-crosshairs"></i> Mark Area</button>
-									</div>
-									<img src="../../images/demo/sky-view.jpg" class="img-responsive">
-									<div class="svg-actions m-t-20">  
-										<div class="pull-right">
-										  <button type="submit" class="btn btn-primary btn-cons">Save</button>
-										</div>
-										<div class="clearfix"></div>
-									</div>
-								</form>
-							</div>
-
-							<hr>
-
-							<input type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
-							<button type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
-							<div id="sky-map-1" class="svg-holder collapse">
-								<hr>
-								<div class="svg-tools m-b-20">
-									  <button type="button" class="btn btn-mini btn-default"><i class="fa fa-map-marker"></i> Add Marker</button>
-									  <button type="button" class="btn btn-mini btn-default"><i class="fa fa-crosshairs"></i> Mark Area</button>
-								</div>
-								<img src="../../images/demo/sky-view.jpg" class="img-responsive">
-								<form>
-									<div class="form-group m-t-10">
-										<label class="form-label">SVG Name</label>
-										<input type="text" class="form-control" placeholder="Enter SVG Name">
-									</div>
-									<div class="form-actions svg-actions">  
-										<div class="pull-right">
-										  <button type="submit" class="btn btn-primary btn-cons">Save</button>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-
-					<div class="grid simple">
-
-						<div class="grid-title">
-							<h3 class="inline">Project <span class="semi-bold">Master</span></h3> 
-							<div class="pull-right m-t-15">
-								<span class="fa fa-check text-success" ></span>
-							</div>
-							<div class="clearfix"></div>
-						</div>
-						<div class="grid-body">
-							<input type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
-							<button type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#proj-master">Upload</button>
-							<div id="proj-master" class="svg-holder collapse">
-								<hr>
-								<div class="svg-tools m-b-20">
-									  <button type="button" class="btn btn-mini btn-default"><i class="fa fa-map-marker"></i> Add Marker</button>
-									  <button type="button" class="btn btn-mini btn-default"><i class="fa fa-crosshairs"></i> Mark Area</button>
-								</div>
-								<img src="../../images/demo/sky-view.jpg" class="img-responsive">
-								<form>
-									<div class="form-group m-t-10">
-										<label class="form-label">SVG Name</label>
-										<input type="text" class="form-control" placeholder="Enter SVG Name">
-									</div>
-									<div class="form-actions svg-actions">  
-										<div class="pull-right">
-										  <button type="submit" class="btn btn-primary btn-cons">Save</button>
-										</div>
-									</div>
-								</form>
-							</div>
-						</div>
-					</div>
-
-
 					<!-- END PLACE PAGE CONTENT HERE -->
 				</div>
 			</div>
@@ -428,8 +388,9 @@
 		<script src="../../bower_components/select2/select2.min.js" type="text/javascript"></script>
 
 		<script src="../../bower_components/bootstrap-file-input/bootstrap.file-input.js" type="text/javascript"></script>
+		<script src="../../plugins/datatables.js" type="text/javascript"></script> 
 
-		<!-- END PAGE LEVEL PLUGINS --> 	
+		<!-- END PAGE LEVEL PLUGINS -->  	
 
 		<!-- BEGIN CORE TEMPLATE JS --> 
 		<script src="../../plugins/dashboard-theme-core/core.js" type="text/javascript"></script> 
@@ -438,16 +399,6 @@
 		<!-- END CORE TEMPLATE JS --> 
 
 		<!-- END NEED TO WORK ON -->
-
-		<script type="text/javascript">
-			/* Select 2 */
-			$("#seq_pos").select2();
-			$("#unit_types").select2();
-
-			/* Bootstrap File Input */
-			$('input[type=file]').bootstrapFileInput();
-			$('.file-inputs').bootstrapFileInput();
-		</script>
 
 	</body>
 </html>
