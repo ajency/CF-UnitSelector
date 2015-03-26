@@ -1356,7 +1356,7 @@ body.modal-open .chat-window-wrapper {
   padding-right: 0px;
 }
 .inner-menu .inner-menu-content {
-  margin-top: 30px;
+  margin-top: 15px;
 }
 .inner-menu .menu-title {
   padding-right: 23px;
@@ -1369,7 +1369,7 @@ body.modal-open .chat-window-wrapper {
 }
 .inner-menu ul.big-items li {
   text-align: right;
-  padding: 8px 25px;
+  padding: 5px 25px 8px;
 }
 .inner-menu ul.big-items li a {
   color: #8b91a0;
