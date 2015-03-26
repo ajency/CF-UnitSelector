@@ -16,7 +16,9 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function index() {
-        return view( 'admin.projects.list' );
+        
+        $projects = \CommonFloor\Project::all()->toArray();
+        return view( 'admin.projects.list' )->with('projects',$projects);
     }
 
     /**
