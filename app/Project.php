@@ -24,7 +24,5 @@ class Project extends Model {
         $data['updated_by'] = $this->updater->name;
         return $data;
     }
-    
-    
 
 }

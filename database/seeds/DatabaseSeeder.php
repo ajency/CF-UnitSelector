@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
+use CommonFloor\User;
 
 class DatabaseSeeder extends Seeder {
 
@@ -13,6 +15,7 @@ class DatabaseSeeder extends Seeder {
     public function run() {
         Model::unguard();
         $this->call( 'UserTableSeeder' );
+        $this->command->info( " User Table Seeded! " );
     }
 
 }
@@ -20,7 +23,11 @@ class DatabaseSeeder extends Seeder {
 class UserTableSeeder extends Seeder {
 
     public function run() {
-        User::create( ['email' => 'foo@bar.com'] );
+        User::create( [
+            'name' => 'Super Admin',
+            'email' => 'admin@cf.com',
+            'password' => Hash::make( 'admin' )
+        ] );
     }
 
 }

@@ -6,7 +6,7 @@ use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use CommonFloor\repositories\ProjectRepository;
-use Auth;
+use CommonFloor\Project;
 
 class ProjectController extends Controller {
 
@@ -17,7 +17,7 @@ class ProjectController extends Controller {
      */
     public function index() {
         
-        $projects = \CommonFloor\Project::all()->toArray();
+        $projects = Project::all()->toArray();
         return view( 'admin.projects.list' )->with('projects',$projects);
     }
 
