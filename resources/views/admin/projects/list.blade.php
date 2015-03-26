@@ -27,7 +27,7 @@
                     <tbody> 
                         @foreach ($projects as $project)
                             <tr class="">
-                                <td><a href="project-settings.html">{{ $project['project_title'] }}</a></td>
+                                <td><a href="{{ "/admin/projects/" . $project['id'] . "/edit" }}">{{ $project['project_title'] }}</a></td>
                                 <td>{{ $project['city'] }}</td>
                                 <td>{{ $project['status'] }}</td>
                                 <td>{{ date('d/m/Y',strtotime($project['created_at'])) }}</td>
