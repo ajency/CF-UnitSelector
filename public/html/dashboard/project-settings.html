@@ -240,39 +240,45 @@
 							<form>
 								<div class="row">
 			                        <div class="col-md-6">
-			                        	<div class="row">
-			                        		<div class="col-sm-6">
-			                        			<div class="form-group">
-		                                        	<label class="form-label">Project Logo</label>
-		                                        	<div>
-		                                        		<img src="../../images/demo/footprints_logo.jpg" class="img-responsive img-thumbnail"><br>
-		                                        		<button class="btn btn-small btn-white m-t-5"><i class="fa fa-trash"></i> Delete</button>
-		                                        	</div>
-		                                        	<!-- <div>
-		                                        		<input type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
-		                                        		<button type="button" class="btn btn-small btn-primary">Upload</button>												
-		                                        	</div> -->
-		                                        </div>
-			                        		</div>
-			                        		<div class="col-sm-6">
-			                        			<div class="form-group">
-		                                            <label class="form-label">City</label>
-		                                            <input type="text" class="form-control" placeholder="City" value="Bangalore" disabled>
-		                                        </div>
-			                        		</div>
-			                        	</div>			                        	
+	                        			<div class="form-group">
+                                            <label class="form-label">City</label>
+                                            <input type="text" name="city" class="form-control" placeholder="City" value="Bangalore" disabled>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="form-label">CF Project Name</label>
+                                            <span class="help">From CommonFloor database</span>
+                                            <input type="text" name="cf_proj_name" class="form-control" disabled>
+                                        </div>
                                         
 			                        	<div class="form-group">
                                             <label class="form-label">Project Title<span class="text-primary">*</span></label>
                                             <input type="text" class="form-control" placeholder="Enter Project Title" value="Goyal Footprints">
                                         </div>
+
+                                        <div class="row">
+			                        		<div class="col-sm-6">
+			                        			<div class="form-group">
+		                                        	<label class="form-label">Project Logo</label>
+		                                        	<div>
+		                                        		<img src="../../images/demo/footprints_logo.jpg" class="img-responsive img-thumbnail"><br>
+		                                        		<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
+		                                        	</div>
+		                                        	<!-- <div>
+		                                        		<input type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
+		                                        		<button type="button" class="btn btn-small btn-primary">Upload</button>
+		                                        	</div> -->
+		                                        </div>
+			                        		</div>
+			                        	</div>
+
 			                        	<div class="form-group">
                                             <label class="form-label">Address<span class="text-primary">*</span></label>
                                             <textarea class="form-control" placeholder="Enter Project Address">Near provident Harmony Apartments Thanisandra Main Road</textarea>
                                         </div>
                                         
                                         <div class="form-group">
-					                        <label class="form-label">Sellable unit types</label>
+					                        <label class="form-label">Property types</label>
 					                        <select id="unit_types" class="select2 form-control" multiple>
 					                        	<option>Apartments</option>
 					                        	<option>Bungalows/Villas</option>
@@ -280,6 +286,28 @@
 					                        	<option>Penthouse</option>
 					                        </select>
 					                    </div>
+
+				                    	<div class="add-unit-types">
+					                    	<h5 class="semi-bold inline">Unit Types for Apartments</h5>
+					                    	<div class="form-inline m-b-10">
+					                    		<div class="form-group">
+					                    			<input type="text" class="form-control" value="2BHK">
+					                    			<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
+					                    		</div>
+					                    	</div>
+					                    	<div class="form-inline m-b-10">
+					                    		<div class="form-group">
+					                    			<input type="text" class="form-control" value="3BHK">
+					                    			<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
+					                    		</div>
+					                    	</div>
+					                    	<div class="form-inline">
+					                    		<div class="form-group">
+					                    			<input type="text" class="form-control" placeholder="Add Unit Type">
+					                    			<button class="btn btn-white"><i class="fa fa-plus"></i></button>
+					                    		</div>
+					                    	</div>
+				                    	</div>
 					                    
 			                        </div>
 			                        <div class="col-md-6">
@@ -321,10 +349,9 @@
 										<div class="form-inline">
 											<div class="form-group">
 												<input type="text" class="form-control" placeholder="Add Phase">
-												<button class="btn btn-default"><i class="fa fa-plus"></i></button>
+												<button class="btn btn-white"><i class="fa fa-plus"></i></button>
 											</div>
 										</div>
-
 									</div>
 									<div class="col-md-4">
 										<div class="p-t-5">
@@ -360,7 +387,7 @@
 											  <span class="input-group-addon">
 												<i class="fa fa-inr"></i>
 											  </span>
-											  <input type="text" class="form-control" placeholder="Enter Floor Rise">
+											  <input type="number" class="form-control" placeholder="Enter Floor Rise">
 											</div>
 										</div>
 									</div>
@@ -371,7 +398,7 @@
 											  <span class="input-group-addon">
 												<i class="fa fa-inr"></i>
 											  </span>
-											  <input type="text" class="form-control" name="stampduty" placeholder="Enter Stamp Duty">
+											  <input type="number" class="form-control" name="stampduty" placeholder="Enter Stamp Duty">
 											</div>
 										</div>
 									</div>
@@ -382,7 +409,7 @@
 											  <span class="input-group-addon">
 												<i class="fa fa-inr"></i>
 											  </span>
-											  <input type="text" class="form-control" name="regamnt" placeholder="Enter Registration Amount">
+											  <input type="number" class="form-control" name="regamnt" placeholder="Enter Registration Amount">
 											</div>
 										</div>
 									</div>
@@ -394,9 +421,9 @@
 											<label class="form-label">VAT</label>
 											<div class="input-group transparent">
 											  <span class="input-group-addon">
-												<i class="fa fa-inr"></i>
+												<span>%</span>
 											  </span>
-											  <input type="text" class="form-control" name="vat" placeholder="Enter VAT amount">
+											  <input type="number" step="any" class="form-control" name="vat" placeholder="Enter VAT">
 											</div>
 										</div>
 									</div>
@@ -405,9 +432,9 @@
 											<label class="form-label">Service Tax</label>
 											<div class="input-group transparent">
 											  <span class="input-group-addon">
-												<i class="fa fa-inr"></i>
+												<span>%</span>
 											  </span>
-											  <input type="text" class="form-control" name="servtax" placeholder="Enter Service Tax">
+											  <input type="number" step="any" class="form-control" name="servtax" placeholder="Enter Service Tax">
 											</div>
 										</div>
 									</div>
@@ -417,9 +444,9 @@
 											<span class="help">For Agreement amount > Rs. 1cr</span>
 											<div class="input-group transparent">
 											  <span class="input-group-addon">
-												<i class="fa fa-inr"></i>
+												<span>%</span>
 											  </span>
-											  <input type="text" class="form-control" name="regamnt" placeholder="Enter Service Tax">
+											  <input type="number" step="any" class="form-control" name="regamnt" placeholder="Enter Service Tax">
 											</div>
 										</div>
 									</div>
@@ -433,7 +460,7 @@
 											  <span class="input-group-addon">
 												<i class="fa fa-inr"></i>
 											  </span>
-											  <input type="text" class="form-control" name="infra" placeholder="Enter Infrastructure charges">
+											  <input type="number" class="form-control" name="infra" placeholder="Enter Infrastructure charges">
 											</div>
 										</div>
 									</div>
@@ -444,7 +471,7 @@
 											  <span class="input-group-addon">
 												<i class="fa fa-inr"></i>
 											  </span>
-											  <input type="text" class="form-control" name="membership" placeholder="Enter Membership Fees">
+											  <input type="number" class="form-control" name="membership" placeholder="Enter Membership Fees">
 											</div>
 										</div>
 									</div>
