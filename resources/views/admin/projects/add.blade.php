@@ -31,7 +31,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">City <span class="text-primary">*</span></label>
-                                <select name="city" required class="select2 form-control">
+                                <select name="city" requiredd class="select2 form-control">
                                     <option value="">Choose City</option>
                                     <option value="Mumbai">Mumbai</option>
                                     <option value="Pune">Pune</option>
@@ -56,12 +56,28 @@
 
                             <div class="form-group">
                                 <label class="form-label">Property types <span class="text-primary">*</span></label>
-                                <select placeholder="Add sellable unit types" name="sellable_unit_types[]" 
+                                <select placeholder="Add sellable unit types" name="property_types[]" 
                                         required="" class="select2 form-control" multiple="multiple">
                                     <option value="1">Apartment</option>
                                     <option value="2">Bungalows/Villas</option>
                                     <option value="3">Land</option>
                                 </select>
+                                <br />
+                                <div class="property-type">
+                                    <label class="form-label">Unit types. Enter comma separated values. <span class="text-primary">*</span></label>
+                                    <div class="property-type-1">
+                                        <input name="property_type[apartment]" type="text" class="form-control" 
+                                               placeholder="Enter apartment unit types" value="">
+                                    </div>
+                                    <div class="property-type-2">
+                                        <input name="property_type[bungalows_villas]" type="text" 
+                                               class="form-control" placeholder="Enter Bungalows/Villas unit types" value="">
+                                    </div>
+                                    <div class="property-type-3">
+                                        <input name="property_type[land]" type="text" class="form-control" 
+                                               placeholder="Enter land unit types" value="">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-6 hidden" id="commonfloor-project-details">

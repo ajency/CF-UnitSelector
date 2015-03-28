@@ -40,7 +40,9 @@ jQuery(document).ready ($)->
 								<p>{{ project_address }}</p>
 							</div>
 							<div class="col-sm-4">
+								{{#if project_image }} 
 								<img src="{{ project_image }}" class="img-responsive">
+								{{/if}}
 							</div>
 						</div>
 						<div class="alert alert-warning m-t-20">
@@ -50,5 +52,25 @@ jQuery(document).ready ($)->
 				
 		tempalteFn = Handlebars.compile template
 		$('#commonfloor-project-details').removeClass('hidden').html tempalteFn project
+	
+	$('.property-type > div, .property-type label').hide()	
+	$('[name="property_types[]"]').change (evt)->
 		
-	$('#layout-condensed-toggle').click();
+		$('.property-type > div')
+			.hide()
+			.find 'input'
+			.removeAttr 'required'
+			
+		propertyTypes = $(@).val()
+
+		if _.isNull propertyTypes
+			$('.property-type label').hide()
+			return
+		
+		$('.property-type label').show()	
+		_.each propertyTypes, (propertyType)->
+			$(".property-type-#{propertyType}")
+				.show()
+				.find 'input'
+				.attr 'required', true
+		
