@@ -58,22 +58,22 @@
                                 <label class="form-label">Property types <span class="text-primary">*</span></label>
                                 <select placeholder="Add sellable unit types" name="property_types[]" 
                                         required="" class="select2 form-control" multiple="multiple">
-                                    <option value="1">Apartment</option>
-                                    <option value="2">Bungalows/Villas</option>
-                                    <option value="3">Land</option>
+                                    <option value="apartments">Apartments</option>
+                                    <option value="bungalows_villas">Bungalows/Villas</option>
+                                    <option value="land">Land</option>
                                 </select>
                                 <br />
                                 <div class="property-type">
                                     <label class="form-label">Unit types. Enter comma separated values. <span class="text-primary">*</span></label>
-                                    <div class="property-type-1">
+                                    <div class="property-type-apartments">
                                         <input name="property_type[apartment]" type="text" class="form-control" 
                                                placeholder="Enter apartment unit types" value="">
                                     </div>
-                                    <div class="property-type-2">
+                                    <div class="property-type-bungalows_villas">
                                         <input name="property_type[bungalows_villas]" type="text" 
                                                class="form-control" placeholder="Enter Bungalows/Villas unit types" value="">
                                     </div>
-                                    <div class="property-type-3">
+                                    <div class="property-type-land">
                                         <input name="property_type[land]" type="text" class="form-control" 
                                                placeholder="Enter land unit types" value="">
                                     </div>
