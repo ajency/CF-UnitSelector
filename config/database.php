@@ -24,7 +24,7 @@ return [
       | you may use many connections at once using the Database library.
       |
      */
-    'default' => 'mysql',
+    'default' => env( 'DB_DEFAULT', 'mysql' ),
     /*
       |--------------------------------------------------------------------------
       | Database Connections
@@ -47,6 +47,11 @@ return [
             'database' => storage_path() . '/database.sqlite',
             'prefix' => '',
         ],
+        'sqlite_testing' => [
+            'driver' => 'sqlite',
+            'database' => storage_path() . '/testing.sqlite',
+            'prefix' => env( 'DB_PREFIX', '' ),
+        ],
         'mysql' => [
             'driver' => 'mysql',
             'host' => env( 'DB_HOST', 'localhost' ),
@@ -55,7 +60,7 @@ return [
             'password' => env( 'DB_PASSWORD', '' ),
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
-            'prefix' => '',
+            'prefix' => env( 'DB_PREFIX', '' ),
             'strict' => false,
         ],
         'pgsql' => [
