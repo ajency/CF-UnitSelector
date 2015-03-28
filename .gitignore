@@ -4,3 +4,5 @@
 public/bower_components
 /nbproject/private/
 public/.htaccess
+
+tests/_output/*

@@ -36,9 +36,6 @@
                                 <td class="center">{{ $project['updated_by'] }}</td>
                             </tr>
                         @endforeach
- 
-
-
                     </tbody>
                 </table>
             </div>
