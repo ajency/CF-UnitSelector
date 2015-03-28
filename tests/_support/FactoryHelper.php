@@ -22,10 +22,21 @@ class FactoryHelper extends \Codeception\Module {
             'email' => 'unique:email',
             'password' => 'password'
         ) );
+
+        $this->factory->define( 'CommonFloor\Project', array(
+            'cf_project_id' => 'integer',
+            'project_title' => 'sentence|3',
+            'created_by' => 'factory|CommonFloor\User',
+            'updated_by' => 'factory|CommonFloor\User'
+        ) );
     }
 
     public function haveUsers( $count ) {
         $this->factory->seed( $count, 'CommonFloor\User' );
+    }
+
+    public function haveProjects( $count ) {
+        $this->factory->seed( $count, 'CommonFloor\Project' );
     }
 
 }
