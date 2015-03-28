@@ -22,7 +22,7 @@ class FactoryHelper extends \Codeception\Module {
             'email' => 'unique:email',
             'password' => 'password'
         ) );
-        
+
         FactoryMuffin::define( 'CommonFloor\Project', array(
             'cf_project_id' => 'randomNumber',
             'project_title' => 'sentence|3',
@@ -35,11 +35,15 @@ class FactoryHelper extends \Codeception\Module {
     }
 
     public function haveUsers( $count ) {
-        FactoryMuffin::seed( $count, 'CommonFloor\User' );
+        return FactoryMuffin::seed( $count, 'CommonFloor\User' );
     }
 
     public function haveProjects( $count ) {
-        FactoryMuffin::seed( $count, 'CommonFloor\Project' );
+        return FactoryMuffin::seed( $count, 'CommonFloor\Project' );
+    }
+
+    public static function tearDownAfterClass() {
+        FactoryMuffin::deleteSaved();
     }
 
 }

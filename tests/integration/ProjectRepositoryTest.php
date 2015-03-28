@@ -1,5 +1,7 @@
 <?php
 
+use League\FactoryMuffin\Facade as FactoryMuffin;
+
 class ProjectRepositoryTest extends \Codeception\TestCase\Test {
 
     /**
@@ -15,10 +17,8 @@ class ProjectRepositoryTest extends \Codeception\TestCase\Test {
         
     }
 
-    // tests
     public function testgetProjectsWhenNoProjectsExistsInSystem() {
-        $projectCount = CommonFloor\Project::all()->count();
-        $this->assertEquals(0, $projectCount);
+        
     }
 
 }
