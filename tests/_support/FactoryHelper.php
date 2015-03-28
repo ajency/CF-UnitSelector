@@ -8,14 +8,16 @@ use League\FactoryMuffin\Facade as FactoryMuffin;
 // all public methods declared in helper class will be available in $I
 
 class FactoryHelper extends \Codeception\Module {
-
+    
     /**
      *
-     * @var \League\FactoryMuffin\Factory
+     * @var \Faker
      */
-    protected $factory;
+    protected $faker;
 
     public function _initialize() {
+        
+        $this->faker = \Faker\Factory::create();
 
         FactoryMuffin::define( 'CommonFloor\User', array(
             'name' => 'name',
