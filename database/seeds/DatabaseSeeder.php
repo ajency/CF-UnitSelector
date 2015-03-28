@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder {
 
 class UserTableSeeder extends Seeder {
 
-    public function run() {
+    public function run1() {
         User::create( [
             'name' => 'Super Admin',
             'email' => 'admin@cf.com',

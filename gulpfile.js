@@ -44,16 +44,21 @@ elixir(function (mix) {
  */
 
 gulp.task('codecept:unit', function () {
-    var options = {testSuite: 'unit', debug: true, flags: '--report'};
+    var options = {testSuite: 'unit', debug: true, flags: '--report --colors'};
     gulp.src('./tests/unit/*.php').pipe(codecept('./vendor/bin/codecept', options));
 });
 gulp.task('codecept:functional', function () {
-    var options = {testSuite: 'functional', debug: true, flags: '--report'};
+    var options = {testSuite: 'functional', debug: true, flags: '--report --colors'};
     gulp.src('./tests/functional/*.php').pipe(codecept('./vendor/bin/codecept', options));
 });
 gulp.task('codecept:acceptance', function () {
-    var options = {testSuite: 'acceptance', debug: true, flags: '--report'};
+    var options = {testSuite: 'acceptance', debug: true, flags: '--report --colors'};
     gulp.src('./tests/acceptance/*.php').pipe(codecept('./vendor/bin/codecept', options));
+});
+
+gulp.task('codecept:integration', function () {
+    var options = {testSuite: 'integration', debug: true, flags: '--report --colors'};
+    gulp.src('./tests/integration/*.php').pipe(codecept('./vendor/bin/codecept', options));
 });
 
 gulp.task('cc:unit', function () {
@@ -62,6 +67,10 @@ gulp.task('cc:unit', function () {
 
 gulp.task('cc:functional', function () {
     gulp.watch('./tests/functional/*.php', ['codecept:functional']);
+});
+
+gulp.task('cc:integration', function () {
+    gulp.watch('./tests/integration/*.php', ['codecept:integration']);
 });
 
 gulp.task('cc:acceptance', function () {
