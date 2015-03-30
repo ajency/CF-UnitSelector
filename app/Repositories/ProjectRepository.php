@@ -22,6 +22,10 @@ class ProjectRepository implements ProjectRepositoryInterface {
         $project->project_title = $projectData['project_title'];
         $project->created_by = $project->updated_by = Auth::user()->id;
         $project->save();
+        
+        // add project meta
+        
+        
         return $project;
     }
 

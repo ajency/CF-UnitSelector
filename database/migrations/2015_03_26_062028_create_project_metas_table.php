@@ -11,7 +11,7 @@ class CreateProjectMetasTable extends Migration {
      * @return void
      */
     public function up() {
-        
+
         Schema::create( 'project_meta', function(Blueprint $table) {
             $table->increments( 'id' );
             $table->integer( 'project_id' )->unsigned();
@@ -22,7 +22,7 @@ class CreateProjectMetasTable extends Migration {
             $table->foreign( 'project_id' )
                     ->references( 'id' )
                     ->on( 'projects' )
-                    ->onDelete('cascade');
+                    ->onDelete( 'cascade' );
         } );
     }
 
