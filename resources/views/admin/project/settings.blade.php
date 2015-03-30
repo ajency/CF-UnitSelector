@@ -5,7 +5,7 @@
         <h2><span class="semi-bold">Project</span> Settings</h2>
     </div>
     @include('admin.project.includes.details')
-    <form action="/admin/project/{{ $project['id'] }}" method="POST">
+    <form action="/admin/project/{{ $project['id'] }}" method="POST" data-parsley-validate>
     @include('admin.project.includes.phases')
     @include('admin.project.includes.costs')
     </form>

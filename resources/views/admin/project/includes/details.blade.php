@@ -22,7 +22,7 @@
                     <div class="form-group">
                         <label class="form-label">Project Title<span class="text-primary">*</span></label>
                         <input type="text" class="form-control" placeholder="Enter Project Title" 
-                               value="{{ $project['project_title'] }}" name="project_title">
+                               value="{{ $project['project_title'] }}" name="project_title" data-parsley-required>
                     </div>
 
                     <div class="row">
@@ -44,7 +44,7 @@
                     <div class="form-group">
                         <label class="form-label">Address<span class="text-primary">*</span></label>
                         <textarea name="project_address" class="form-control" 
-                                  placeholder="Enter Project Address">{{ $project['project_address'] }}</textarea>
+                                  placeholder="Enter Project Address" data-parsley-required>{{ $project['project_address'] }}</textarea>
                     </div>
                      
                     <div class="form-group">

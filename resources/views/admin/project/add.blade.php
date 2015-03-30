@@ -31,7 +31,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">City <span class="text-primary">*</span></label>
-                                <select name="city" requireds class="select2 form-control">
+                                <select name="city" class="select2 form-control" data-parsley-required>
                                     <option value="">Choose City</option>
                                     <option value="Mumbai">Mumbai</option>
                                     <option value="Pune">Pune</option>
@@ -41,23 +41,23 @@
                             <div class="form-group">
                                 <label class="form-label">CF Project Name <span class="text-primary">*</span></label>
                                 <span class="help">From CommonFloor database</span>
-                                <select name="cf_project_id" required="" class="select2 form-control">
+                                <select name="cf_project_id" data-parsley-required class="select2 form-control">
                                     <option value="">Choose Commonfloor Project</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Project Title<span class="text-primary">*</span></label>
-                                <input required name="project_title" type="text" class="form-control" placeholder="Enter Project Title" value="">
+                                <input  name="project_title" type="text" class="form-control" placeholder="Enter Project Title" value="" data-parsley-required>
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Address<span class="text-primary">*</span></label>
-                                <textarea required name="project_address" class="form-control" placeholder="Enter Project Address"></textarea>
+                                <textarea  name="project_address" class="form-control" placeholder="Enter Project Address" data-parsley-required></textarea>
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label">Property types <span class="text-primary">*</span></label>
                                 <select placeholder="Add sellable unit types" name="property_types[]" 
-                                        required="" class="select2 form-control" multiple="multiple">
+                                       data-parsley-required class="select2 form-control" multiple="multiple" >
                                     <option value="apartments">Apartments</option>
                                     <option value="bungalows_villas">Bungalows/Villas</option>
                                     <option value="land">Land</option>
