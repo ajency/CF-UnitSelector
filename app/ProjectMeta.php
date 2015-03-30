@@ -10,6 +10,6 @@ class ProjectMeta extends Model {
     
     protected $fillable = ['meta_key', 'meta_value', 'project_id'];
     
-    public $timeStamps = false;
+    public $timestamps = false;
 
 }
