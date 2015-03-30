@@ -16,7 +16,7 @@ class CreateProjectMetasTable extends Migration {
             $table->increments( 'id' );
             $table->integer( 'project_id' )->unsigned();
             $table->string( 'meta_key',100 );
-            $table->text( 'meta_value' )->default('');
+            $table->text( 'meta_value' );
 
             //reference  a foreign key
             $table->foreign( 'project_id' )
