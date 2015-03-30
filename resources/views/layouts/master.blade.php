@@ -163,7 +163,8 @@
         <script src="/bower_components/datatables-responsive/js/dataTables.responsive.js" type="text/javascript"></script>
         
        
-        <script src="/plugins/dashboard-theme-core/core.js" type="text/javascript"></script> 
+        <script src="/plugins/dashboard-theme-core/core.js" type="text/javascript"></script>
+        <script src="/plugins/datatables.js" type="text/javascript"></script>
         <script src="/js/add.projects.js" type="text/javascript"></script> 
             
     </body>
