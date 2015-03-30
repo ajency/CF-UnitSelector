@@ -26,12 +26,12 @@
 
             <div class="grid-body no-border"> 
                 <br>
-                <form id="add_project" method="POST" action="/admin/projects" data-parsley-validate>
+                <form id="add_project" method="POST" action="/admin/project" data-parsley-validate>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">City <span class="text-primary">*</span></label>
-                                <select name="city" requiredd class="select2 form-control">
+                                <select name="city" required class="select2 form-control">
                                     <option value="">Choose City</option>
                                     <option value="Mumbai">Mumbai</option>
                                     <option value="Pune">Pune</option>

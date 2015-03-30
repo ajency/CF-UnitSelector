@@ -16,9 +16,9 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function index() {
-        
+
         $projects = Project::all()->toArray();
-        return view( 'admin.projects.list' )->with('projects',$projects);
+        return view( 'admin.projects.list' )->with( 'projects', $projects );
     }
 
     /**
@@ -39,7 +39,7 @@ class ProjectController extends Controller {
 
         $project = $projectRepository->createProject( $request->all() );
         if ($project !== null) {
-            return redirect( "/admin/projects" );
+            return redirect( "/admin/project" );
         }
     }
 
@@ -84,5 +84,4 @@ class ProjectController extends Controller {
     public function destroy( $id ) {
         //
     }
-
 }

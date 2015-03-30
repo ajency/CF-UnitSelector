@@ -28,6 +28,13 @@ class Project extends Model {
         $data = parent::toArray();
         $data['created_by'] = $this->creator->name;
         $data['updated_by'] = $this->updater->name;
+        $projectDetails = $this->projectMeta()->get()->toArray();
+        foreach ($projectDetails as $property) {
+            if ($property['meta_key'] === 'phase') {
+                $data[$property['meta_key']][] = $property['meta_value'];
+            }
+            $data[$property['meta_key']] = $property['meta_value'];
+        }
         return $data;
     }
 

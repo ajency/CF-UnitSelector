@@ -21,6 +21,6 @@ Route::controllers( [
 
 Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::get( '/', 'Admin\AdminController@index' );
-    Route::resource( 'projects', 'Admin\ProjectController' );
+    Route::resource( 'project', 'Admin\ProjectController' );
 } );
 

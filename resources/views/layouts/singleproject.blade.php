@@ -13,10 +13,10 @@
             </div>
             <ul class="big-items">
                 <li>
-                    <span class="fa fa-check text-success"></span><a href="project-svg.html" > SVGs</a>
+                    <span class="fa fa-check text-success"></span><a href="/admin/projects/{{ $id }}/svg" > SVGs</a>
                 </li>
                 <li class="active">
-                    <a href="project-settings.html">Settings</a>
+                    <a href="/admin/projects/{{ $id }}/edit">Settings</a>
                 </li>
             </ul>
 
