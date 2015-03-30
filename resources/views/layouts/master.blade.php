@@ -144,21 +144,21 @@
         <!-- END CONTENT --> 
 
         <!-- BEGIN CORE JS FRAMEWORK--> 
-        <script src="/bower_components/jquery/dist/jquery.min.js"></script>
-        <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="/bower_components/jquery-ui/jquery-ui.min.js" type="text/javascript"></script> 
-        <script src="/bower_components/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script> 
+        <script src="/bower_components/jquery/dist/jquery.js"></script>
+        <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="/bower_components/jquery-ui/jquery-ui.js" type="text/javascript"></script> 
+        <script src="/bower_components/jquery-unveil/jquery.unveil.js" type="text/javascript"></script> 
         <script src="/bower_components/jquery.scrollbar/jquery.scrollbar.js" type="text/javascript"></script>
-        <script src="/bower_components/pace/pace.min.js" type="text/javascript"></script>  
-        <script src="/bower_components/handlebars/handlebars.min.js" type="text/javascript"></script> 
-        <script src="/bower_components/Faker/build/build/faker.min.js" type="text/javascript"></script> 
-        <script src="/bower_components/lodash/lodash.min.js" type="text/javascript" ></script>
-        <script src="/bower_components/select2/select2.min.js" type="text/javascript"></script>
-        <script src="/bower_components/parsleyjs/dist/parsley.min.js" type="text/javascript"></script>
+        <script src="/bower_components/pace/pace.js" type="text/javascript"></script>  
+        <script src="/bower_components/handlebars/handlebars.js" type="text/javascript"></script> 
+        <script src="/bower_components/Faker/build/build/faker.js" type="text/javascript"></script> 
+        <script src="/bower_components/lodash/lodash.js" type="text/javascript" ></script>
+        <script src="/bower_components/select2/select2.js" type="text/javascript"></script>
+        <script src="/bower_components/parsleyjs/dist/parsley.js" type="text/javascript"></script>
         <script src="/bower_components/bootstrap-file-input/bootstrap.file-input.js" type="text/javascript"></script>
-        <script src="/bower_components/jquery.breakpoints/breakpoints.js" type="text/javascript"></script> 
+        <script src="/bower_components/jquery.breakpoints/breakpoints.js" type="text/javascript"></script>
         
-        <script src="/bower_components/DataTables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="/bower_components/DataTables/media/js/jquery.dataTables.js" type="text/javascript"></script>
         <script src="/bower_components/datatables-tabletools/js/dataTables.tableTools.js" type="text/javascript"></script>
         <script src="/bower_components/datatables-responsive/js/dataTables.responsive.js" type="text/javascript"></script>
         
