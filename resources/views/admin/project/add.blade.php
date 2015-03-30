@@ -7,7 +7,7 @@
         <p>YOU ARE HERE</p>
     </li>
     <li><a href="/admin">Dashboard</a> </li>
-    <li><a href="/admin/projects">Projects</a> </li>
+    <li><a href="/admin/project">Projects</a> </li>
     <li><a href="#" class="active">Add Project</a> </li>
 </ul>
 <!-- END BREADCRUMBS -->
@@ -31,7 +31,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">City <span class="text-primary">*</span></label>
-                                <select name="city" class="select2 form-control" data-parsley-required>
+                                <select name="city" class="select2 form-control" data-parsley-require>
                                     <option value="">Choose City</option>
                                     <option value="Mumbai">Mumbai</option>
                                     <option value="Pune">Pune</option>
@@ -57,7 +57,7 @@
                             <div class="form-group">
                                 <label class="form-label">Property types <span class="text-primary">*</span></label>
                                 <select placeholder="Add sellable unit types" name="property_types[]" 
-                                       data-parsley-required class="select2 form-control" multiple="multiple" >
+                                        data-parsley-required class="select2 form-control" multiple="multiple" >
                                     <option value="apartments">Apartments</option>
                                     <option value="bungalows_villas">Bungalows/Villas</option>
                                     <option value="land">Land</option>
