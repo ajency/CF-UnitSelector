@@ -2,7 +2,7 @@
 
     <div class="grid-title">
         <h3>Project <span class="semi-bold">Costs</span></h3>
-    </div>
+    </div> 
     <div class="grid-body">
         <div class="row">
             <div class="col-md-4">
@@ -12,7 +12,8 @@
                         <span class="input-group-addon">
                             <i class="fa fa-inr"></i>
                         </span>
-                        <input type="text" class="form-control" placeholder="Enter Floor Rise">
+                        <input type="text" name="{{ $project_meta[0]['id'] }}_floor_rise" class="form-control" 
+                               placeholder="Enter Floor Rise" value="{{ $project_meta[0]['meta_value'] }}" data-parsley-type="number">
                     </div>
                 </div>
             </div>
@@ -23,7 +24,8 @@
                         <span class="input-group-addon">
                             <i class="fa fa-inr"></i>
                         </span>
-                        <input type="text" class="form-control" name="stampduty" placeholder="Enter Stamp Duty">
+                        <input type="text" class="form-control" name="{{ $project_meta[1]['id'] }}_stamp_duty" 
+                               placeholder="Enter Stamp Duty" value="{{ $project_meta[1]['meta_value'] }}" data-parsley-type="number">
                     </div>
                 </div>
             </div>
@@ -34,7 +36,8 @@
                         <span class="input-group-addon">
                             <i class="fa fa-inr"></i>
                         </span>
-                        <input type="text" class="form-control" name="regamnt" placeholder="Enter Registration Amount">
+                        <input type="text" class="form-control" name="{{ $project_meta[2]['id'] }}_registration_amount" 
+                               placeholder="Enter Registration Amount" value="{{ $project_meta[2]['meta_value'] }}" data-parsley-type="number">
                     </div>
                 </div>
             </div>
@@ -48,7 +51,8 @@
                         <span class="input-group-addon">
                             <i class="fa fa-inr"></i>
                         </span>
-                        <input type="text" class="form-control" name="vat" placeholder="Enter VAT amount">
+                        <input type="text" class="form-control" name="{{ $project_meta[3]['id'] }}_vat" 
+                               placeholder="Enter VAT amount" value="{{ $project_meta[3]['meta_value'] }}" data-parsley-type="number">
                     </div>
                 </div>
             </div>
@@ -59,7 +63,8 @@
                         <span class="input-group-addon">
                             <i class="fa fa-inr"></i>
                         </span>
-                        <input type="text" class="form-control" name="servtax" placeholder="Enter Service Tax">
+                        <input type="text" class="form-control" name="{{ $project_meta[4]['id'] }}_service_tax" 
+                               placeholder="Enter Service Tax" value="{{ $project_meta[4]['meta_value'] }}" data-parsley-type="number">
                     </div>
                 </div>
             </div>
@@ -71,7 +76,8 @@
                         <span class="input-group-addon">
                             <i class="fa fa-inr"></i>
                         </span>
-                        <input type="text" class="form-control" name="regamnt" placeholder="Enter Service Tax">
+                        <input type="text" class="form-control" name="{{ $project_meta[5]['id'] }}_service_tax_above_1cr" 
+                               placeholder="Enter Service Tax" value="{{ $project_meta[5]['meta_value'] }}" data-parsley-type="number">
                     </div>
                 </div>
             </div>
@@ -85,7 +91,8 @@
                         <span class="input-group-addon">
                             <i class="fa fa-inr"></i>
                         </span>
-                        <input type="text" class="form-control" name="infra" placeholder="Enter Infrastructure charges">
+                        <input type="text" class="form-control" name="{{ $project_meta[6]['id'] }}_infrastructure_charge" 
+                               placeholder="Enter Infrastructure charges" value="{{ $project_meta[6]['meta_value'] }}" data-parsley-type="number">
                     </div>
                 </div>
             </div>
@@ -96,13 +103,17 @@
                         <span class="input-group-addon">
                             <i class="fa fa-inr"></i>
                         </span>
-                        <input type="text" class="form-control" name="membership" placeholder="Enter Membership Fees">
+                        <input type="text" class="form-control" name="{{ $project_meta[7]['id'] }}_membership_fees" 
+                               placeholder="Enter Membership Fees" value="{{ $project_meta[7]['meta_value'] }}" 
+                               data-parsley-type="number" >
                     </div>
                 </div>
             </div>
         </div>
         <div class="form-actions">  
             <div class="pull-right">
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                 <button type="submit" class="btn btn-primary btn-cons">Save</button>
             </div>
         </div>

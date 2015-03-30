@@ -42,6 +42,34 @@ class ProjectRepository implements ProjectRepositoryInterface {
         return $project;
     }
 
+    public function updateProject( $projectId, $projectData ) {
+
+        $project = new Project();
+
+        if (isset( $projectData['project_update'] ) && $projectData['project_update'] == 'DETAILS') {
+
+            $project_title = $projectData['project_title'];
+            $project_address = $projectData['project_address'];
+            $property_types = implode( "||", $projectData['property_types'] );
+
+            $data = array("project_title" => $project_title,
+                "project_address" => $project_address,
+                "property_types" => $property_types);
+
+            $project->where( 'id', $projectId )->update( $data );
+        } else {
+            // update project meta
+            foreach ($projectData as $meta_key => $meta_value) {
+                $key_arr = explode( "_", $meta_key );
+                $projectmetaId = $key_arr[0];
+
+                $data = array("meta_value" => $meta_value);
+                ProjectMeta::where( 'id', $projectmetaId )->update( $data );
+            }
+        }
+        return $project;
+    }
+
     public function getProjectById( $projectId ) {
         $project = Project::findOrFail( $projectId );
         return $project;

@@ -18,7 +18,7 @@ class ProjectController extends Controller {
     public function index() {
 
         $projects = Project::all()->toArray();
-        return view( 'admin.project.list' )->with( 'projects', $projects );
+        return view('admin.project.list')->with('projects', $projects);
     }
 
     /**
@@ -35,11 +35,11 @@ class ProjectController extends Controller {
      *
      * @return Response
      */
-    public function store( Request $request, ProjectRepository $projectRepository ) {
+    public function store(Request $request, ProjectRepository $projectRepository) {
 
-        $project = $projectRepository->createProject( $request->all() );
+        $project = $projectRepository->createProject($request->all());
         if ($project !== null) {
-            return redirect( "/admin/project" );
+            return redirect("/admin/project");
         }
     }
 
@@ -49,7 +49,7 @@ class ProjectController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function show( $id ) {
+    public function show($id) {
         
     }
 
@@ -59,11 +59,13 @@ class ProjectController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit( $id, ProjectRepository $projectRepository ) {
-        $project = $projectRepository->getProjectById( $id );
-        return view( 'admin.project.settings' )
-                        ->with( 'project', $project->toArray() )
-                        ->with( 'current', 'settings' );
+    public function edit($id, ProjectRepository $projectRepository) {
+        $project = $projectRepository->getProjectById($id);
+        $projectMeta = $project->projectMeta()->get()->toArray();
+        return view('admin.project.settings')
+                        ->with('project', $project->toArray())
+                        ->with('project_meta', $projectMeta)
+                        ->with('current', 'settings');
     }
 
     /**
@@ -72,8 +74,11 @@ class ProjectController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update( $id ) {
-        //
+    public function update($id, Request $request, ProjectRepository $projectRepository) {
+        
+        $project = $projectRepository->updateProject($id, $request->all());
+
+        return redirect("/admin/project/" . $id . "/edit");
     }
 
     /**
@@ -82,15 +87,15 @@ class ProjectController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy( $id ) {
+    public function destroy($id) {
         //
     }
 
-    public function svg( $id, ProjectRepository $projectRepository ) {
-        $project = $projectRepository->getProjectById( $id );
-        return view( 'admin.project.svg' )
-                        ->with( 'project', $project->toArray() )
-                        ->with( 'current', 'svg' );
+    public function svg($id, ProjectRepository $projectRepository) {
+        $project = $projectRepository->getProjectById($id);
+        return view('admin.project.svg')
+                        ->with('project', $project->toArray())
+                        ->with('current', 'svg');
     }
 
 }
