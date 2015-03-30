@@ -17,7 +17,13 @@ class Project extends Model {
     public function updater() {
         return $this->hasOne( 'CommonFloor\User', 'id', 'updated_by' );
     }
-    
+
+    public function getPropertyTypesAttribute( $value ) {
+        $types = explode( "||", $value );
+        $propertyTypes = array_map( 'ucfirst', $types );
+        return $propertyTypes;
+    }
+
     public function toArray() {
         $data = parent::toArray();
         $data['created_by'] = $this->creator->name;

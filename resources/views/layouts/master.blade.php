@@ -99,16 +99,6 @@
 
                     <!-- BEGIN SIDEBAR MENU -->	
                     <ul>	
-                        <!-- BEGIN SELECTED LINK -->
-                        <li class="start active">
-                            <a href="/admin">
-                                <i class="icon-custom-home"></i>
-                                <span class="title">Dashboard</span>
-                                <span class="selected"></span>
-                            </a>
-                        </li>
-                        <!-- END SELECTED LINK -->    
-                        <!-- BEGIN ONE LEVEL MENU -->
                         <li class="">
                             <a href="javascript:;">
                                 <i class="fa fa-building-o"></i>
@@ -120,15 +110,6 @@
                                 <li><a href="/admin/projects">View</a></li>
                             </ul>
                         </li>
-                        <!-- END ONE LEVEL MENU -->	
-                        <!-- BEGIN SINGLE LINK -->
-                        <li class="">
-                            <a href="/admin/users">
-                                <i class="fa fa-user"></i>
-                                <span class="title">Users</span>
-                            </a>
-                        </li>
-                        <!-- END SINGLE LINK -->    
                     </ul>
                     <!-- END SIDEBAR MENU -->
 
