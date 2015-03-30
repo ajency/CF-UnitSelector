@@ -27,7 +27,7 @@
         }
       });
     });
-    $('#add_project select[name="cf_project_id"]').change(function() {
+    return $('#add_project select[name="cf_project_id"]').change(function() {
       var project, projectId, tempalteFn, template;
       projectId = $(this).val();
       project = _.findWhere(window.projectsCollection, {
@@ -38,20 +38,6 @@
       template = '<div class="user-description-box"> <div class="row"> <div class="col-sm-8"> <h4 class="semi-bold">{{ project_title }} - <span class="bold text-primary">{{ cf_project_id }}</span></h4> <i class="fa fa-map-marker"></i> <b>Address:</b> <p>{{ project_address }}</p> </div> <div class="col-sm-4"> {{#if project_image }} <img src="{{ project_image }}" class="img-responsive"> {{/if}} </div> </div> <div class="alert alert-warning m-t-20"> <strong>Note: </strong> The above information is as entered in CommonFloor database. </div> </div>';
       tempalteFn = Handlebars.compile(template);
       return $('#commonfloor-project-details').removeClass('hidden').html(tempalteFn(project));
-    });
-    $('.property-type > div, .property-type label').hide();
-    return $('[name="property_types[]"]').change(function(evt) {
-      var propertyTypes;
-      $('.property-type > div').hide().find('input').removeAttr('required');
-      propertyTypes = $(this).val();
-      if (_.isNull(propertyTypes)) {
-        $('.property-type label').hide();
-        return;
-      }
-      $('.property-type label').show();
-      return _.each(propertyTypes, function(propertyType) {
-        return $(".property-type-" + propertyType).show().find('input').attr('required', true);
-      });
     });
   });
 

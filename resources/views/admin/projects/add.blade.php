@@ -62,22 +62,6 @@
                                     <option value="bungalows_villas">Bungalows/Villas</option>
                                     <option value="land">Land</option>
                                 </select>
-                                <br />
-                                <div class="property-type">
-                                    <label class="form-label">Unit types. Enter comma separated values. <span class="text-primary">*</span></label>
-                                    <div class="property-type-apartments">
-                                        <input name="property_type[apartment]" type="text" class="form-control" 
-                                               placeholder="Enter apartment unit types" value="">
-                                    </div>
-                                    <div class="property-type-bungalows_villas">
-                                        <input name="property_type[bungalows_villas]" type="text" 
-                                               class="form-control" placeholder="Enter Bungalows/Villas unit types" value="">
-                                    </div>
-                                    <div class="property-type-land">
-                                        <input name="property_type[land]" type="text" class="form-control" 
-                                               placeholder="Enter land unit types" value="">
-                                    </div>
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-6 hidden" id="commonfloor-project-details">

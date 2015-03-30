@@ -53,24 +53,43 @@ jQuery(document).ready ($)->
 		tempalteFn = Handlebars.compile template
 		$('#commonfloor-project-details').removeClass('hidden').html tempalteFn project
 	
-	$('.property-type > div, .property-type label').hide()	
-	$('[name="property_types[]"]').change (evt)->
+#	$('.property-type > div, .property-type label').hide()	
+#	
+#	$('[name="property_types[]"]').change (evt)->
+#		
+#		$('.property-type > div')
+#			.hide()
+#			.find 'input'
+#			.removeAttr 'required'
+#			
+#		propertyTypes = $(@).val()
+#
+#		if _.isNull propertyTypes
+#			$('.property-type label').hide()
+#			return
+#		
+#		$('.property-type label').show()	
+#		_.each propertyTypes, (propertyType)->
+#			$(".property-type-#{propertyType}")
+#				.show()
+#				.find 'input'
+#				.attr 'required', true
+#				
+#	$('.add-unit-type-btn').click (evt)->
+#		template = '<div class="form-inline m-b-10">
+#						<div class="form-group">
+#							<input type="text" class="form-control" value="{{ unit_type }}">
+#							<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
+#						</div>
+#					</div>'
+#		value = $(@).parent().find('input').val()
+#		if value is ''
+#			return
+#		
+#		data = 
+#			unit_type : value
+#		compileFn = Handlebars.compile template
+#		$(@).closest('.form-inline').before compileFn data
+#		$(@).parent().find('input').val ''
 		
-		$('.property-type > div')
-			.hide()
-			.find 'input'
-			.removeAttr 'required'
-			
-		propertyTypes = $(@).val()
-
-		if _.isNull propertyTypes
-			$('.property-type label').hide()
-			return
-		
-		$('.property-type label').show()	
-		_.each propertyTypes, (propertyType)->
-			$(".property-type-#{propertyType}")
-				.show()
-				.find 'input'
-				.attr 'required', true
 		
