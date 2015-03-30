@@ -6,17 +6,17 @@
     <div class="inner-menu nav-collapse">   
         <div id="inner-menu">
             <div class="inner-wrapper" >    
-                <h2 class="text-white b-g b-b p-b-20">{{ $project_title }}</h2>
+                <h2 class="text-white b-g b-b p-b-20">{{ $project['project_title'] }}</h2>
             </div>
             <div class="inner-menu-content">
                 <p class="menu-title">Project <span class="pull-right"><i class="icon-refresh"></i></span></p>
             </div>
             <ul class="big-items">
-                <li>
-                    <span class="fa fa-check text-success"></span><a href="/admin/projects/{{ $id }}/svg" > SVGs</a>
+                <li class="{{ $current === 'svg' ? 'active' : '' }}">
+                    <a href="/admin/project/{{ $project['id'] }}/svg" > SVGs</a>
                 </li>
-                <li class="active">
-                    <a href="/admin/projects/{{ $id }}/edit">Settings</a>
+                <li class="{{ $current === 'settings' ? 'active' : '' }}">
+                    <a href="/admin/project/{{ $project['id'] }}/edit">Settings</a>
                 </li>
             </ul>
 

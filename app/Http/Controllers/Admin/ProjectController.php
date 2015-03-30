@@ -18,7 +18,7 @@ class ProjectController extends Controller {
     public function index() {
 
         $projects = Project::all()->toArray();
-        return view( 'admin.projects.list' )->with( 'projects', $projects );
+        return view( 'admin.project.list' )->with( 'projects', $projects );
     }
 
     /**
@@ -61,8 +61,9 @@ class ProjectController extends Controller {
      */
     public function edit( $id, ProjectRepository $projectRepository ) {
         $project = $projectRepository->getProjectById( $id );
-
-        return view( 'admin.projects.settings', $project->toArray() );
+        return view( 'admin.project.settings' )
+                        ->with( 'project', $project->toArray() )
+                        ->with( 'current', 'settings' );
     }
 
     /**
@@ -84,4 +85,12 @@ class ProjectController extends Controller {
     public function destroy( $id ) {
         //
     }
+
+    public function svg( $id, ProjectRepository $projectRepository ) {
+        $project = $projectRepository->getProjectById( $id );
+        return view( 'admin.project.svg' )
+                        ->with( 'project', $project->toArray() )
+                        ->with( 'current', 'svg' );
+    }
+
 }
