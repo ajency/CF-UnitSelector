@@ -25,7 +25,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
         $project->save();
 
         // add project meta
-       
+
         $projectMeta = [
             new ProjectMeta(['meta_key' => 'floor_rise']),
             new ProjectMeta(['meta_key' => 'stamp_duty']),
@@ -38,6 +38,39 @@ class ProjectRepository implements ProjectRepositoryInterface {
         ];
 
         $project->projectMeta()->saveMany($projectMeta);
+
+        return $project;
+    }
+
+    public function updateProject($projectId, $projectData) {
+
+        $project = new Project();
+
+        if (isset($projectData['project_update']) && $projectData['project_update'] == 'DETAILS') {
+
+            $project_title = $projectData['project_title'];
+            $project_address = $projectData['project_address'];
+            $property_types = implode("||", $projectData['property_types']);
+
+            $data = array("project_title" => $project_title, "project_address" => $project_address,
+                "property_types" => $property_types);
+          
+            $project->where('id', $projectId)->update($data);
+        } else {
+            // update project meta
+            $projectMeta = new ProjectMeta();
+            foreach ($projectData as $meta_key => $meta_value) {
+                $key_arr = explode("_", $meta_key);
+                $projectmetaId = $key_arr[0];
+
+                $data = array("meta_value" => $meta_value);
+                $projectMeta->where('id', $projectmetaId)->update($data);
+            }
+        }
+
+
+
+
 
         return $project;
     }
