@@ -22,5 +22,6 @@ Route::controllers( [
 Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::get( '/', 'Admin\AdminController@index' );
     Route::resource( 'project', 'Admin\ProjectController' );
+    Route::get( 'admin/project/{ id }/svg', 'Admin\ProjectController' );
 } );
 

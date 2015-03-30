@@ -31,7 +31,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">City <span class="text-primary">*</span></label>
-                                <select name="city" required class="select2 form-control">
+                                <select name="city" requireds class="select2 form-control">
                                     <option value="">Choose City</option>
                                     <option value="Mumbai">Mumbai</option>
                                     <option value="Pune">Pune</option>
