@@ -46,5 +46,7 @@
         </div> 
     </div>
     <!-- END INNER MENU -->
-
+    <script>
+        var PROJECTID = {{ $project['id'] }};
+    </script>
 @endsection

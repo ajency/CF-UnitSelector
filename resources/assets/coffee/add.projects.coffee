@@ -1,4 +1,10 @@
 jQuery(document).ready ($)->
+	
+	#global setup
+	$.ajaxSetup
+        headers:
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+
 		
 	$('form button[type="reset"]').click();
 	$("select").select2()
@@ -56,6 +62,52 @@ jQuery(document).ready ($)->
 				
 		tempalteFn = Handlebars.compile template
 		$('#commonfloor-project-details').removeClass('hidden').html tempalteFn project
+		
+	registerRemovePhaseListener = ->
+		$('.remove-phase').off 'click'
+		$('.remove-phase').on 'click', ->
+
+			if confirm('Are you sure you want to delete this phase? 
+						All building will be affected with this action. Continue?') is false
+				return
+
+			phaseId = $(@).attr 'data-phase-id'
+
+			successFn = (resp, status, xhr)=>
+				if xhr.status is 204
+					$(@).closest('.pull-left').remove()
+
+			$.ajax 
+				url : "/admin/phase/#{phaseId}"
+				type : 'DELETE'
+				data : 
+					phase_id : phaseId
+				success : successFn
+		
+		
+	$('.add-phase-btn').click ->
+		phaseName = $('.phase-name').val()
+		
+		successFn = (resp, status, xhr)->
+			if xhr.status isnt 201
+				phaseId = resp.data.phase_id
+				phasesContainer = $('.phases')
+				html = '<div class="pull-left m-r-10">
+							<strong>{{ phase_name }}</strong>
+							<button type="button" data-phase-id="{{ phase_id }}" class="btn btn-small btn-link remove-phase">
+							<span class="fa fa-times text-danger"></span></button>
+						</div>'
+				compile = Handlebars.compile html
+				phasesContainer.append compile( { phase_name : phaseName, phase_id : phaseId } )
+				registerRemovePhaseListener()
+			
+		$.ajax 
+			url : '/admin/phase'
+			type : 'POST'
+			data : 
+				project_id : PROJECTID
+				phase_name : phaseName
+			success : successFn
 	
 #	$('.property-type > div, .property-type label').hide()	
 #	
