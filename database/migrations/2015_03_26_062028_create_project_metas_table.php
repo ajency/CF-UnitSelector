@@ -15,7 +15,7 @@ class CreateProjectMetasTable extends Migration {
         Schema::create( 'project_meta', function(Blueprint $table) {
             $table->increments( 'id' );
             $table->integer( 'project_id' )->unsigned();
-            $table->string( 'meta_key',100 );
+            $table->string( 'meta_key', 100 );
             $table->text( 'meta_value' )->nullable();
 
             //reference  a foreign key

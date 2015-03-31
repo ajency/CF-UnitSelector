@@ -50,9 +50,9 @@
                     <div class="form-group">
                         <label class="form-label">Property types</label>
                         <select id="unit_types" class="select2 form-control" multiple name="property_types[]">
-                            <option value="apartments" @if(in_array('apartments',array_map('lcfirst', $project['property_types']))){{'selected'}}@endif>Apartments</option>
-                            <option value="bungalows_villas" @if(in_array('bungalows_villas',array_map('lcfirst', $project['property_types']))){{'selected'}}@endif >Bungalows/Villas</option>
-                            <option value="land" @if(in_array('land',array_map('lcfirst', $project['property_types']))){{'selected'}}@endif>Land</option>
+                            <option value="1" @if(in_array('apartments',array_map('lcfirst', $project['property_types']))){{'selected'}}@endif>Apartments</option>
+                            <option value="2" @if(in_array('bungalows_villas',array_map('lcfirst', $project['property_types']))){{'selected'}}@endif >Bungalows/Villas</option>
+                            <option value="3" @if(in_array('land',array_map('lcfirst', $project['property_types']))){{'selected'}}@endif>Land</option>
                         </select>
                     </div>
 

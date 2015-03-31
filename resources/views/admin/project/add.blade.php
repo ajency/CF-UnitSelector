@@ -60,9 +60,9 @@
                                 <label class="form-label">Property types <span class="text-primary">*</span></label>
                                 <select placeholder="Add sellable unit types" name="property_types[]" 
                                         data-parsley-required class="select2 form-control" multiple="multiple" >
-                                    <option value="apartments">Apartments</option>
-                                    <option value="bungalows_villas">Bungalows/Villas</option>
-                                    <option value="land">Land</option>
+                                    <option value="1">Apartments</option>
+                                    <option value="2">Bungalows/Villas</option>
+                                    <option value="3">Land</option>
                                 </select>
                             </div>
                         </div>
