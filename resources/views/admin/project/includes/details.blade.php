@@ -46,7 +46,7 @@
                         <textarea name="project_address" class="form-control" 
                                   placeholder="Enter Project Address" data-parsley-required>{{ $project['project_address'] }}</textarea>
                     </div>
-                     
+
                     <div class="form-group">
                         <label class="form-label">Property types</label>
                         <select id="unit_types" class="select2 form-control" multiple name="property_types[]">
@@ -58,21 +58,20 @@
 
                     <div class="add-unit-types">
                         <h5 class="semi-bold inline">Unit Types for Apartments</h5>
+                        @foreach($project['project_unittype'] as $unittype)
                         <div class="form-inline m-b-10">
                             <div class="form-group">
-                                <input type="text" class="form-control" value="2BHK">
+                                <input type="text" name="unittype[{{ $unittype['property_type'] }}][]" 
+                                       class="form-control" value="{{ $unittype['unittype_name'] }}">
+                                <input type="hidden" name="unittypekey[]" value="{{ $unittype['id'] }}">
                                 <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
                             </div>
-                        </div>
-                        <div class="form-inline m-b-10">
-                            <div class="form-group">
-                                <input type="text" class="form-control" value="3BHK">
-                                <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
-                            </div>
-                        </div>
+                        </div> 
+                        @endforeach
+
                         <div class="form-inline">
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="Add Unit Type">
+                                <input type="text"   class="form-control" placeholder="Add Unit Type">
                                 <button class="btn btn-white"><i class="fa fa-plus"></i></button>
                             </div>
                         </div>
