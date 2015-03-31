@@ -4,6 +4,7 @@ namespace CommonFloor\Repositories;
 
 use CommonFloor\Project;
 use CommonFloor\ProjectMeta;
+use CommonFloor\UnitType;
 use Auth;
 
 /**
@@ -49,7 +50,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
 
     public function updateProject($projectId, $projectData) {
 
-        $project = new Project();
+        $project = Project::find($projectId);
 
         if (isset($projectData['project_update']) && $projectData['project_update'] == 'DETAILS') {
 
@@ -57,11 +58,38 @@ class ProjectRepository implements ProjectRepositoryInterface {
             $project_address = $projectData['project_address'];
             $property_types = implode("||", $projectData['property_types']);
 
-            $data = array("project_title" => $project_title,
-                "project_address" => $project_address,
-                "property_types" => $property_types);
+            
+            $project->project_title = $project_title;
+            $project->project_address = $project_address;
+            $project->property_types = $property_types;
+            $project->save();
 
-            $project->where('id', $projectId)->update($data);
+            //unit type
+            $propertyunit_arr = $projectData['unittype'];
+            $unitkey_arr = $projectData['unittypekey']; 
+            $unit_type = [];
+
+            if (!empty($propertyunit_arr)) {
+
+                foreach ($propertyunit_arr as $propertytype_id => $unit_arr) { 
+
+                    foreach ($unit_arr as $key => $unitname) {
+                       
+                        if ($unitkey_arr[$key] == '') {
+
+                            $unit_type[] = new UnitType(['property_type' => $propertytype_id, 'unittype_name' => $unitname]);
+                        } else {
+                                
+                            $unittype_id = $unitkey_arr[$key];
+                            $data = array("unittype_name" => $unitname);
+                            UnitType::where('id', $unittype_id)->update($data);
+                        }
+                    }
+                    if (!empty($unit_type))
+                        $project->projectUnitType()->saveMany($unit_type);
+                }
+            }
+            
         } else {
             // update project meta
 

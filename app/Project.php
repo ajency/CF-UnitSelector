@@ -13,6 +13,10 @@ class Project extends Model {
     public function projectPhase() {
         return $this->hasMany('CommonFloor\Phase');
     }
+    
+    public function projectUnitType() {
+        return $this->hasMany('CommonFloor\UnitType');
+    }
 
     public function creator() {
         return $this->hasOne('CommonFloor\User', 'id', 'created_by');
@@ -34,7 +38,9 @@ class Project extends Model {
         $data['updated_by'] = $this->updater->name;
         $projectDetails = $this->projectMeta()->get()->toArray();
         $projectphase = $this->projectPhase()->get()->toArray();
+        $projectunits = $this->projectUnitType()->get()->toArray();
         $data['project_phase'] = $projectphase;
+        $data['project_unittype'] = $projectunits;
 
         foreach ($projectDetails as $property) {
             if ($property['meta_key'] === 'phase') {
