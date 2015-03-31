@@ -58,15 +58,17 @@
 
                     <div class="add-unit-types">
                         <h5 class="semi-bold inline">Unit Types for Apartments</h5>
-                        @foreach($project['project_unittype'] as $unittype)
+                         @foreach($project['project_unittype'] as $propertytype_id=>$unittype)
+                            @foreach($unittype as $unittype_id=>$unittype_name)
                         <div class="form-inline m-b-10">
                             <div class="form-group">
-                                <input type="text" name="unittype[{{ $unittype['property_type'] }}][]" 
-                                       class="form-control" value="{{ $unittype['unittype_name'] }}">
-                                <input type="hidden" name="unittypekey[]" value="{{ $unittype['id'] }}">
+                                <input type="text" name="unittype[{{ $propertytype_id }}][]" 
+                                       class="form-control" value="{{ $unittype_name }}">
+                                <input type="hidden" name="unittypekey[]" value="{{ $unittype_id }}">
                                 <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
                             </div>
                         </div> 
+                             @endforeach
                         @endforeach
                         <div class="form-inline">
                             <div class="form-group">
