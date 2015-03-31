@@ -111,44 +111,19 @@ jQuery(document).ready ($)->
 				phase_name : phaseName
 			success : successFn
 	
-#	$('.property-type > div, .property-type label').hide()	
-#	
-#	$('[name="property_types[]"]').change (evt)->
-#		
-#		$('.property-type > div')
-#			.hide()
-#			.find 'input'
-#			.removeAttr 'required'
-#			
-#		propertyTypes = $(@).val()
-#
-#		if _.isNull propertyTypes
-#			$('.property-type label').hide()
-#			return
-#		
-#		$('.property-type label').show()	
-#		_.each propertyTypes, (propertyType)->
-#			$(".property-type-#{propertyType}")
-#				.show()
-#				.find 'input'
-#				.attr 'required', true
-#				
-#	$('.add-unit-type-btn').click (evt)->
-#		template = '<div class="form-inline m-b-10">
-#						<div class="form-group">
-#							<input type="text" class="form-control" value="{{ unit_type }}">
-#							<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
-#						</div>
-#					</div>'
-#		value = $(@).parent().find('input').val()
-#		if value is ''
-#			return
-#		
-#		data = 
-#			unit_type : value
-#		compileFn = Handlebars.compile template
-#		$(@).closest('.form-inline').before compileFn data
-#		$(@).parent().find('input').val ''
+	$('[name="property_types[]"]').change (evt)->
+		
+		$('.add-unit-types > div').addClass 'hidden'
+			
+		propertyTypes = $(@).val()
+		
+		_.each propertyTypes, (propertyType)->
+			$('.add-unit-types').find(".property-type-#{propertyType}")
+				.removeClass 'hidden'
+				.find 'input'
+				.attr 'required', true
+				
+
 
 	$('.add-unit-type-btn').click ->
 		unitType = $(@).parent().find('input').val()
@@ -163,10 +138,12 @@ jQuery(document).ready ($)->
 					</div>
 				</div>'
 		compile = Handlebars.compile html
+		propertyType = $(@).attr 'property-type'
 		data = 
-			property_type : $(@).attr 'property-type'
+			property_type : propertyType
 			unittype_name : unitType
-		$('.add-unit-types').children('.form-inline').last().before compile data
+		$('.add-unit-types').find(".property-type-#{propertyType}")
+			.children('.form-inline').last().before compile data
 		$(@).parent().find('input').val ''
 			
 			

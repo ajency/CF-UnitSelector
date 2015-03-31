@@ -40,7 +40,11 @@ class Project extends Model {
         $projectphase = $this->projectPhase()->get()->toArray();
         $projectunits = $this->projectUnitType()->get()->toArray();
         $data['project_phase'] = $projectphase;
-        $data['project_unittype'] = [];
+        $data['project_unittype'] = [
+            '1' => [],
+            '2' => [],
+            '3' => [],
+        ];
 
         foreach ($projectDetails as $property) {
             if ($property['meta_key'] === 'phase') {

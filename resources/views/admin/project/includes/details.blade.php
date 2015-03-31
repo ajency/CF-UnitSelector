@@ -49,35 +49,38 @@
 
                     <div class="form-group">
                         <label class="form-label">Property types</label>
-                        <select id="unit_types" class="select2 form-control" multiple name="property_types[]">
-                            <option value="1" @if(in_array('apartments',array_map('lcfirst', $project['property_types']))){{'selected'}}@endif>Apartments</option>
-                            <option value="2" @if(in_array('bungalows_villas',array_map('lcfirst', $project['property_types']))){{'selected'}}@endif >Bungalows/Villas</option>
-                            <option value="3" @if(in_array('land',array_map('lcfirst', $project['property_types']))){{'selected'}}@endif>Land</option>
+                        <select  class="select2 form-control" multiple name="property_types[]">
+                            <option value="1" @if(in_array('1', $project['property_types'])){{'selected'}}@endif>Apartments</option>
+                            <option value="2" @if(in_array('2', $project['property_types'])){{'selected'}}@endif >Bungalows/Villas</option>
+                            <option value="3" @if(in_array('3', $project['property_types'])){{'selected'}}@endif>Land</option>
                         </select>
                     </div>
 
                     <div class="add-unit-types">
-                        <h5 class="semi-bold inline">Unit Types for Apartments</h5>
-                         @foreach($project['project_unittype'] as $propertytype_id=>$unittype)
+                        @foreach($project['project_unittype'] as $propertytype_id => $unittype)
+                        <div class="property-type-{{ $propertytype_id }} @if(!in_array( $propertytype_id, $project['property_types'])){{'hidden'}}@endif">
+                            <h5 class="semi-bold inline">Unit Types for {{ get_property_type( $propertytype_id) }}</h5>
                             @foreach($unittype as $unittype_id=>$unittype_name)
-                        <div class="form-inline m-b-10">
-                            <div class="form-group">
-                                <input type="text" name="unittype[{{ $propertytype_id }}][]" 
-                                       class="form-control" value="{{ $unittype_name }}">
-                                <input type="hidden" name="unittypekey[]" value="{{ $unittype_id }}">
-                                <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
-                            </div>
-                        </div> 
-                             @endforeach
-                        @endforeach
-                        <div class="form-inline">
-                            <div class="form-group">
-                                <input type="text" class="form-control unit-type" placeholder="Add Unit Type">
-                                <button class="btn btn-white add-unit-type-btn" type="button" property-type="1">
-                                    <i class="fa fa-plus"></i>
-                                </button>
+                            <div class="form-inline m-b-10">
+                                <div class="form-group">
+                                    <input type="text" name="unittype[{{ $propertytype_id }}][]" 
+                                           class="form-control" value="{{ $unittype_name }}">
+                                    <input type="hidden" name="unittypekey[]" value="{{ $unittype_id }}">
+                                    <button class="btn btn-small btn-default m-t-5 remove-unit-type"><i class="fa fa-trash"></i> Delete</button>
+                                </div>
+                            </div> 
+                            @endforeach
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <input type="text" class="form-control unit-type" placeholder="Add Unit Type">
+                                    <button class="btn btn-white add-unit-type-btn" type="button" property-type="{{ $propertytype_id }}">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
+                        @endforeach
+
                     </div>
 
                 </div>
