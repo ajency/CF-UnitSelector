@@ -6,9 +6,8 @@ jQuery(document).ready ($)->
 	window.projectsCollection = []
 	
 	$('#add_project select[name="city"]').change ->
-		$('[type="reset"]').click()
 		$.ajax
-			url : 'http://commonfloor.local/error'
+			url : '/some-commonfloor-url'
 			type : 'jsonp'
 			success : (resp)->
 			error : (resp)->
@@ -17,9 +16,11 @@ jQuery(document).ready ($)->
 					project = 
 						project_title : faker.name.findName()
 						cf_project_id : faker.internet.userName()
-						project_image: faker.image.imageUrl()
+						project_image: faker.image.avatar()
 						project_address : "#{faker.address.streetAddress()} #{faker.address.city()}, #{faker.address.zipCode()}"
 						project_status : 'Under Construction'
+						builder_name : faker.name.findName()
+						builder_link : faker.internet.domainName()
 						
 					projectsCollection.push project
 					options += "<option value='#{project.cf_project_id}'>#{project.project_title}</option>"
@@ -46,6 +47,9 @@ jQuery(document).ready ($)->
 							</div>
 						</div>
 						<div class="alert alert-warning m-t-20">
+							<input type="hidden" name="builder_name" value={{ builder_name }}/>
+							<input type="hidden" name="builder_link" value={{ builder_link }}/>
+							<input type="hidden" name="project_image" value={{ project_image }}/>
 							<strong>Note: </strong> The above information is as entered in CommonFloor database.
 						</div>
 					</div>'

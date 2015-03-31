@@ -25,7 +25,6 @@ class ProjectRepository implements ProjectRepositoryInterface {
         $project->save();
 
         // add project meta
-
         $projectMeta = [
             new ProjectMeta( ['meta_key' => 'floor_rise'] ),
             new ProjectMeta( ['meta_key' => 'stamp_duty'] ),
@@ -34,7 +33,13 @@ class ProjectRepository implements ProjectRepositoryInterface {
             new ProjectMeta( ['meta_key' => 'service_tax'] ),
             new ProjectMeta( ['meta_key' => 'service_tax_above_1cr'] ),
             new ProjectMeta( ['meta_key' => 'infrastructure_charge'] ),
-            new ProjectMeta( ['meta_key' => 'membership_fees'] )
+            new ProjectMeta( ['meta_key' => 'membership_fees'] ),
+            new ProjectMeta( ['meta_key' => 'builder_name',
+                            'meta_value' => $projectData['builder_name']] ),
+            new ProjectMeta( ['meta_key' => 'builder_link',
+                            'meta_value' => $projectData['builder_link']] ),
+            new ProjectMeta( ['meta_key' => 'project_image',
+                            'meta_value' => $projectData['project_image']] )
         ];
 
         $project->projectMeta()->saveMany( $projectMeta );

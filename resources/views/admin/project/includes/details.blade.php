@@ -14,9 +14,9 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">CF Project Name</label>
+                        <label class="form-label">CF Project Id</label>
                         <span class="help">From CommonFloor database</span>
-                        <input type="text" name="cf_proj_name" class="form-control" disabled>
+                        <input type="text" name="cf_project_id" class="form-control" value="{{ $project['cf_project_id'] }}" disabled>
                     </div>
 
                     <div class="form-group">
@@ -30,7 +30,7 @@
                             <div class="form-group">
                                 <label class="form-label">Project Logo</label>
                                 <div>
-                                    <img src="../../images/demo/footprints_logo.jpg" class="img-responsive img-thumbnail"><br>
+                                    <img src="{{ $project['project_image'] }}" class="img-responsive img-thumbnail"><br>
                                     <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
                                 </div>
                                 <!-- <div>
@@ -83,12 +83,12 @@
                     <div class="user-description-box">
                         <div class="row">
                             <div class="col-sm-8">
-                                <h4 class="semi-bold">Goyal Footprints - <span class="bold text-primary">pq5csb</span></h4>
+                                <h4 class="semi-bold">{{ $project['project_title'] }} - <span class="bold text-primary">{{ $project['cf_project_id'] }}</span></h4>
                                 <i class="fa fa-map-marker"></i> <b>Address:</b>
-                                <p>Near provident Harmony Apartments, Thanisandra Main Road</p>	
+                                <p>{{ $project['project_address'] }}</p>	
                             </div>
                             <div class="col-sm-4">
-                                <img src="../../images/demo/footprints_logo.jpg" class="img-responsive">
+                                <img src="{{ $project['project_image'] }}" class="img-responsive">
                             </div>
                         </div>
                         <div class="alert alert-warning m-t-20">
