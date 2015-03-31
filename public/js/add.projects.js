@@ -76,7 +76,8 @@
       phaseName = $('.phase-name').val();
       successFn = function(resp, status, xhr) {
         var compile, html, phaseId, phasesContainer;
-        if (xhr.status !== 201) {
+        if (xhr.status === 201) {
+          $('.phase-name').val('');
           phaseId = resp.data.phase_id;
           phasesContainer = $('.phases');
           html = '<div class="pull-left m-r-10"> <strong>{{ phase_name }}</strong> <button type="button" data-phase-id="{{ phase_id }}" class="btn btn-small btn-link remove-phase"> <span class="fa fa-times text-danger"></span></button> </div>';

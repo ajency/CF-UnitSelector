@@ -89,7 +89,8 @@ jQuery(document).ready ($)->
 		phaseName = $('.phase-name').val()
 		
 		successFn = (resp, status, xhr)->
-			if xhr.status isnt 201
+			if xhr.status is 201
+				$('.phase-name').val ''
 				phaseId = resp.data.phase_id
 				phasesContainer = $('.phases')
 				html = '<div class="pull-left m-r-10">
