@@ -72,7 +72,7 @@
       });
     };
     registerRemovePhaseListener();
-    return $('.add-phase-btn').click(function() {
+    $('.add-phase-btn').click(function() {
       var phaseName, successFn;
       phaseName = $('.phase-name').val();
       successFn = function(resp, status, xhr) {
@@ -99,6 +99,21 @@
         },
         success: successFn
       });
+    });
+    return $('.add-unit-type-btn').click(function() {
+      var compile, data, html, unitType;
+      unitType = $(this).parent().find('input').val();
+      if (unitType === '') {
+        return;
+      }
+      html = '<div class="form-inline m-b-10"> <div class="form-group"> <input type="text" name="unittype[{{ property_type }}][]" class="form-control" value="{{  unittype_name }}"> <input type="hidden" name="unittypekey[]" value=""> <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button> </div> </div>';
+      compile = Handlebars.compile(html);
+      data = {
+        property_type: $(this).attr('property-type'),
+        unittype_name: unitType
+      };
+      $('.add-unit-types').children('.form-inline').last().before(compile(data));
+      return $(this).parent().find('input').val('');
     });
   });
 

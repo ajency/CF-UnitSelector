@@ -149,5 +149,26 @@ jQuery(document).ready ($)->
 #		compileFn = Handlebars.compile template
 #		$(@).closest('.form-inline').before compileFn data
 #		$(@).parent().find('input').val ''
+
+	$('.add-unit-type-btn').click ->
+		unitType = $(@).parent().find('input').val()
+		if unitType is '' then return
+		
+		html = '<div class="form-inline m-b-10">
+					<div class="form-group">
+						<input type="text" name="unittype[{{ property_type }}][]" 
+							   class="form-control" value="{{  unittype_name }}">
+						<input type="hidden" name="unittypekey[]" value="">
+						<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
+					</div>
+				</div>'
+		compile = Handlebars.compile html
+		data = 
+			property_type : $(@).attr 'property-type'
+			unittype_name : unitType
+		$('.add-unit-types').children('.form-inline').last().before compile data
+		$(@).parent().find('input').val ''
+			
+			
 		
 		

@@ -68,11 +68,12 @@
                             </div>
                         </div> 
                         @endforeach
-
                         <div class="form-inline">
                             <div class="form-group">
-                                <input type="text"   class="form-control" placeholder="Add Unit Type">
-                                <button class="btn btn-white"><i class="fa fa-plus"></i></button>
+                                <input type="text" class="form-control unit-type" placeholder="Add Unit Type">
+                                <button class="btn btn-white add-unit-type-btn" type="button" property-type="1">
+                                    <i class="fa fa-plus"></i>
+                                </button>
                             </div>
                         </div>
                     </div>
