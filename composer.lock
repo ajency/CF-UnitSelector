@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "702a1725d0d24fbba180955f4f20a6b0",
+    "hash": "328d3d011dabba844b83451075a6ae38",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -516,6 +516,48 @@
                 "tokenizer"
             ],
             "time": "2015-03-11 20:06:43"
+        },
+        {
+            "name": "jildertmiedema/laravel-plupload",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jildertmiedema/laravel-plupload.git",
+                "reference": "1b85aa6075521549fa8094048c00d5e4dfc5015c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jildertmiedema/laravel-plupload/zipball/1b85aa6075521549fa8094048c00d5e4dfc5015c",
+                "reference": "1b85aa6075521549fa8094048c00d5e4dfc5015c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": ">=4",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "JildertMiedema\\LaravelPlupload": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jildert Miedema",
+                    "email": "jildertmiedema@gmail.com"
+                }
+            ],
+            "description": "Laravel 4/Plupload - Handle large file uploads",
+            "keywords": [
+                "laravel",
+                "large files",
+                "pluload"
+            ],
+            "time": "2015-03-25 12:23:05"
         },
         {
             "name": "laravel/framework",
@@ -4029,7 +4071,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "illuminate/html": 20
+        "illuminate/html": 20,
+        "jildertmiedema/laravel-plupload": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

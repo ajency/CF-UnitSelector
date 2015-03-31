@@ -13,7 +13,7 @@ class Project extends Model {
     public function projectPhase() {
         return $this->hasMany('CommonFloor\Phase');
     }
-    
+
     public function projectUnitType() {
         return $this->hasMany('CommonFloor\UnitType');
     }
@@ -40,7 +40,11 @@ class Project extends Model {
         $projectphase = $this->projectPhase()->get()->toArray();
         $projectunits = $this->projectUnitType()->get()->toArray();
         $data['project_phase'] = $projectphase;
-        $data['project_unittype'] = $projectunits;
+        $data['project_unittype'] = [
+            '1' => [],
+            '2' => [],
+            '3' => [],
+        ];
 
         foreach ($projectDetails as $property) {
             if ($property['meta_key'] === 'phase') {
@@ -48,6 +52,11 @@ class Project extends Model {
             }
             $data[$property['meta_key']] = $property['meta_value'];
         }
+
+        foreach ($projectunits as $units) {
+            $data['project_unittype'][$units['property_type']][$units['id']] = $units['unittype_name'];
+        }
+
         return $data;
     }
 

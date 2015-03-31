@@ -26,3 +26,12 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::get( 'project/{id}/svg', 'Admin\ProjectController@svg' );
 } );
 
+function get_property_type( $type_id ) {
+    $types = [
+        '1' => 'Apartments',
+        '2' => 'Bunglows/Villas',
+        '3' => 'Land'
+    ];
+
+    return $types[$type_id];
+}
