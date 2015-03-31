@@ -5,7 +5,7 @@ namespace CommonFloor\Http\Controllers\admin;
 use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use CommonFloor\repositories\ProjectRepository;
+use CommonFloor\Repositories\ProjectRepository;
 use CommonFloor\Project;
 
 class ProjectController extends Controller {
