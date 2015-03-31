@@ -84,7 +84,8 @@ jQuery(document).ready ($)->
 					phase_id : phaseId
 				success : successFn
 		
-		
+	registerRemovePhaseListener()
+	
 	$('.add-phase-btn').click ->
 		phaseName = $('.phase-name').val()
 		

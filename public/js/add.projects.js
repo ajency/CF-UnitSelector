@@ -71,6 +71,7 @@
         });
       });
     };
+    registerRemovePhaseListener();
     return $('.add-phase-btn').click(function() {
       var phaseName, successFn;
       phaseName = $('.phase-name').val();
