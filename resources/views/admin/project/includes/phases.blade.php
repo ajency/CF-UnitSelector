@@ -14,8 +14,16 @@
                 </div>
 
             </div>
+
             <div class="col-md-4">
                 <div class="p-t-5 phases">
+                    @foreach($project['project_phase'] as $phase)
+                    <div class="pull-left m-r-10">
+                        <strong>{{ $phase['phase_name'] }}</strong>
+                        <button type="button" data-phase-id="{{ $phase['id'] }}" class="btn btn-small btn-link remove-phase">
+                            <span class="fa fa-times text-danger"></span></button>
+                    </div>
+                    @endforeach
                     <div class="clearfix"></div>
                 </div>
             </div>
