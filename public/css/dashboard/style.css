@@ -8141,4 +8141,13 @@ body.rtl .footer-widget {
   right: 0;
   left: auto;
 }
+/* Parseley Styles */
+.parsley-errors-list {
+  padding: 0;
+  list-style-type: none;
+}
+.parsley-errors-list .parsley-required {
+  width: 120px !important;
+  color: #f34235;
+}
 /*# sourceMappingURL=style.css.map */
