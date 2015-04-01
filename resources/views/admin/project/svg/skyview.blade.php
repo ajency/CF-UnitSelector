@@ -10,13 +10,15 @@
                         <div class="grid-body">
 
                             <div class="row">
-                                @foreach ($skyviewImage as $skyview)
+                                
+                                @for ($i=0 ; $i<count($skyviewImage) ; $i++)
                                 <div class="col-sm-2">
-                                    <img src="{{ $skyview }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
-                                    <h5 class="bold inline">SVG 1</h5> <i class="fa fa-bookmark text-primary"></i>
+                                    <img src="{{ $skyviewImage[$i] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
+                                    <h5 class="bold inline">SVG {{ $i+1 }}</h5> <i class="fa fa-bookmark text-primary"></i>
                                     <span class="pull-right m-t-10"><small>Pos 1</small></span>
                                 </div>
-                                @endforeach
+                                
+                                @endfor
                       
                             </div>
 
