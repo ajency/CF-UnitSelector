@@ -75,6 +75,10 @@
     $('.add-phase-btn').click(function() {
       var phaseName, successFn;
       phaseName = $('.phase-name').val();
+      if (phaseName === '') {
+        alert('Please enter phase name');
+        return;
+      }
       successFn = function(resp, status, xhr) {
         var compile, html, phaseId, phasesContainer;
         if (xhr.status === 201) {
