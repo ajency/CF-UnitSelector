@@ -9,13 +9,13 @@
                 <div class="form-inline">
                     <div class="form-group">
                         <input type="text" class="form-control phase-name" placeholder="Add Phase">
-                        <button type="button" class="btn btn-default add-phase-btn"><i class="fa fa-plus"></i></button>
+                        <button type="button" class="btn btn-white add-phase-btn"><i class="fa fa-plus"></i></button>
                     </div>
                 </div>
 
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-8">
                 <div class="p-t-5 phases">
                     @foreach($project['project_phase'] as $phase)
                     <div class="pull-left m-r-10">
