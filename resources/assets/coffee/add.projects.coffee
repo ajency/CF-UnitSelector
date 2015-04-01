@@ -53,9 +53,9 @@ jQuery(document).ready ($)->
 							</div>
 						</div>
 						<div class="alert alert-warning m-t-20">
-							<input type="hidden" name="builder_name" value={{ builder_name }}/>
-							<input type="hidden" name="builder_link" value={{ builder_link }}/>
-							<input type="hidden" name="project_image" value={{ project_image }}/>
+							<input type="hidden" name="builder_name" value="{{ builder_name }}" />
+							<input type="hidden" name="builder_link" value="{{ builder_link }}" />
+							<input type="hidden" name="project_image" value="{{ project_image }}" />
 							<strong>Note: </strong> The above information is as entered in CommonFloor database.
 						</div>
 					</div>'
