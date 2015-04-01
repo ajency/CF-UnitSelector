@@ -9,18 +9,18 @@
         <meta content="" name="author" />
         <meta name="csrf-token" content="{{ csrf_token() }}" />
 
-        <link href="/bower_components/pace/themes/orange/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
-        <link href="/bower_components/jquery.scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css"/>
-        <link href="/bower_components/fontawesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-        <link href="/bower_components/DataTables/media/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css">
-        <link href="/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet" type="text/css" media="screen">
-        <link href="/bower_components/select2/select2.css" rel="stylesheet" type="text/css" media="screen">
-        <link href="/bower_components/animate.css/animate.min.css" rel="stylesheet" type="text/css"/>
-        
-        <link href="/css/app.css" rel="stylesheet" type="text/css"/>
-        <link href="/css/dashboard/style.css" rel="stylesheet" type="text/css"/>
-        <link href="/css/dashboard/responsive.css" rel="stylesheet" type="text/css"/>
-        <link href="/css/dashboard/custom-icon-set.css" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('bower_components/pace/themes/orange/pace-theme-flash.css') }}" rel="stylesheet" type="text/css" media="screen"/>
+        <link href="{{ asset('bower_components/jquery.scrollbar/jquery.scrollbar.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('bower_components/fontawesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('bower_components/DataTables/media/css/jquery.dataTables.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('bower_components/datatables-responsive/css/dataTables.responsive.css') }}" rel="stylesheet" type="text/css" media="screen">
+        <link href="{{ asset('bower_components/select2/select2.css') }}" rel="stylesheet" type="text/css" media="screen">
+        <link href="{{ asset('bower_components/animate.css/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('css/dashboard/style.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('css/dashboard/responsive.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('css/dashboard/custom-icon-set.css') }}" rel="stylesheet" type="text/css"/>
     <body>
         <!-- BEGIN HEADER -->
         <div class="header navbar navbar-inverse"> 
@@ -39,9 +39,9 @@
                     <!-- END MOBILE HEADER -->
                     <!-- BEGIN LOGO -->	
                     <a href="#">
-                        <img src="/images/inner-header-logo.png" class="logo" alt="" 
-                             data-src="/images/inner-header-logo.png" 
-                             data-src-retina="/images/logo2x.png"/>
+                        <img src="{{ asset('images/inner-header-logo.png') }}" class="logo" alt="" 
+                             data-src="{{ asset('images/inner-header-logo.png') }}" 
+                             data-src-retina="{{ asset('images/logo2x.png') }}"/>
                     </a>
                     <!-- END LOGO -->
                 </div>
@@ -74,10 +74,7 @@
                                 </div> 
                             </a>
                             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
-                                <li><a href="/my-account">My Account</a></li>
-                                <li><a href="/my-projects">My Projects</a></li>
-                                <li class="divider"></li>                
-                                <li><a href="/auth/logout"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
+                                <li><a href="{{ url('auth/logout' ) }}"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
                             </ul>  			
                         </div>
                     </div>
@@ -107,17 +104,17 @@
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu">
-                                <li><a href="/admin/project/create">Add</a></li>
-                                <li><a href="/admin/project">View</a></li>
+                                <li><a href="{{ url( 'admin/project/create' ) }}">Add</a></li>
+                                <li><a href="{{ url( 'admin/project' ) }}">View</a></li>
                             </ul>
                         </li>
                     </ul>
                     <!-- END SIDEBAR MENU -->
 
                 </div>
-                
+
                 @yield('innermenu')
-                
+
             </div>
             <!-- BEGIN SCROLL UP HOVER -->
             <a href="#" class="scrollup">Scroll</a>
@@ -134,10 +131,10 @@
             <!-- BEGIN PAGE CONTAINER-->
             <div class="page-content"> 
                 <div class="content">  
-                    
+
                     @yield('breadcrumb')
                     @yield('content')
-                    
+
                 </div>
             </div>
             <!-- END PAGE CONTAINER -->
@@ -145,28 +142,28 @@
         <!-- END CONTENT --> 
 
         <!-- BEGIN CORE JS FRAMEWORK--> 
-        <script src="/bower_components/jquery/dist/jquery.js"></script>
-        <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="/bower_components/jquery-ui/jquery-ui.js" type="text/javascript"></script> 
-        <script src="/bower_components/jquery-unveil/jquery.unveil.js" type="text/javascript"></script> 
-        <script src="/bower_components/jquery.scrollbar/jquery.scrollbar.js" type="text/javascript"></script>
-        <script src="/bower_components/pace/pace.js" type="text/javascript"></script>  
-        <script src="/bower_components/handlebars/handlebars.js" type="text/javascript"></script> 
-        <script src="/bower_components/Faker/build/build/faker.js" type="text/javascript"></script> 
-        <script src="/bower_components/lodash/lodash.js" type="text/javascript" ></script>
-        <script src="/bower_components/select2/select2.js" type="text/javascript"></script>
-        <script src="/bower_components/parsleyjs/dist/parsley.js" type="text/javascript"></script>
-        <script src="/bower_components/bootstrap-file-input/bootstrap.file-input.js" type="text/javascript"></script>
-        <script src="/bower_components/jquery.breakpoints/breakpoints.js" type="text/javascript"></script>
-        
-        <script src="/bower_components/DataTables/media/js/jquery.dataTables.js" type="text/javascript"></script>
-        <script src="/bower_components/datatables-tabletools/js/dataTables.tableTools.js" type="text/javascript"></script>
-        <script src="/bower_components/datatables-responsive/js/dataTables.responsive.js" type="text/javascript"></script>
-        
-       
-        <script src="/plugins/dashboard-theme-core/core.js" type="text/javascript"></script>
-        <script src="/plugins/datatables.js" type="text/javascript"></script>
-        <script src="/js/add.projects.js" type="text/javascript"></script> 
-            
+        <script src="{{ asset('bower_components/jquery/dist/jquery.js') }}"></script>
+        <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.js' ) }}"></script>
+        <script src="{{ asset('bower_components/jquery-ui/jquery-ui.js' ) }}" type="text/javascript"></script> 
+        <script src="{{ asset('bower_components/jquery-unveil/jquery.unveil.js' ) }}" type="text/javascript"></script> 
+        <script src="{{ asset('bower_components/jquery.scrollbar/jquery.scrollbar.js' ) }}" type="text/javascript"></script>
+        <script src="{{ asset('bower_components/pace/pace.js' ) }}" type="text/javascript"></script>  
+        <script src="{{ asset('bower_components/handlebars/handlebars.js' ) }}" type="text/javascript"></script> 
+        <script src="{{ asset('bower_components/Faker/build/build/faker.js' ) }}" type="text/javascript"></script> 
+        <script src="{{ asset('bower_components/lodash/lodash.js' ) }}" type="text/javascript" ></script>
+        <script src="{{ asset('bower_components/select2/select2.js' ) }}" type="text/javascript"></script>
+        <script src="{{ asset('bower_components/parsleyjs/dist/parsley.js' ) }}" type="text/javascript"></script>
+        <script src="{{ asset('bower_components/bootstrap-file-input/bootstrap.file-input.js' ) }}" type="text/javascript"></script>
+        <script src="{{ asset('bower_components/jquery.breakpoints/breakpoints.js' ) }}" type="text/javascript"></script>
+
+        <script src="{{ asset('bower_components/DataTables/media/js/jquery.dataTables.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bower_components/datatables-tabletools/js/dataTables.tableTools.js' ) }}" type="text/javascript"></script>
+        <script src="{{ asset('bower_components/datatables-responsive/js/dataTables.responsive.js' ) }}" type="text/javascript"></script>
+
+
+        <script src="{{ asset('plugins/dashboard-theme-core/core.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('plugins/datatables.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/add.projects.js') }}" type="text/javascript"></script> 
+
     </body>
 </html>

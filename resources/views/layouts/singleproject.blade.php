@@ -13,10 +13,10 @@
             </div>
             <ul class="big-items">
                 <li class="{{ $current === 'svg' ? 'active' : '' }}">
-                    <a href="/admin/project/{{ $project['id'] }}/svg" > SVGs</a>
+                    <a href="{{ url( 'admin/project/' . $project['id'] . '/svg' ) }}" > SVGs</a>
                 </li>
                 <li class="{{ $current === 'settings' ? 'active' : '' }}">
-                    <a href="/admin/project/{{ $project['id'] }}/edit">Settings</a>
+                    <a href="{{ url( 'admin/project/' . $project['id'] . '/edit') }}">Settings</a>
                 </li>
             </ul>
 
