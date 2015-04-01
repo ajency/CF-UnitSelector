@@ -18,7 +18,7 @@ class ProjectController extends Controller {
     public function index() {
 
         $projects = Project::all()->toArray();
-        return view( 'admin.project.list' )->with( 'projects', $projects );
+        return view('admin.project.list')->with('projects', $projects);
     }
 
     /**
@@ -27,7 +27,7 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function create() {
-        return view( 'admin.project.add' );
+        return view('admin.project.add');
     }
 
     /**
@@ -35,11 +35,11 @@ class ProjectController extends Controller {
      *
      * @return Response
      */
-    public function store( Request $request, ProjectRepository $projectRepository ) {
+    public function store(Request $request, ProjectRepository $projectRepository) {
 
-        $project = $projectRepository->createProject( $request->all() );
+        $project = $projectRepository->createProject($request->all());
         if ($project !== null) {
-            return redirect( "/admin/project" );
+            return redirect("/admin/project");
         }
     }
 
@@ -49,7 +49,7 @@ class ProjectController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function show( $id ) {
+    public function show($id) {
         
     }
 
@@ -59,13 +59,13 @@ class ProjectController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit( $id, ProjectRepository $projectRepository ) {
-        $project = $projectRepository->getProjectById( $id );
+    public function edit($id, ProjectRepository $projectRepository) {
+        $project = $projectRepository->getProjectById($id);
         $projectMeta = $project->projectMeta()->get()->toArray();
-        return view( 'admin.project.settings' )
-                        ->with( 'project', $project->toArray() )
-                        ->with( 'project_meta', $projectMeta )
-                        ->with( 'current', 'settings' );
+        return view('admin.project.settings')
+                        ->with('project', $project->toArray())
+                        ->with('project_meta', $projectMeta)
+                        ->with('current', 'settings');
     }
 
     /**
@@ -74,11 +74,11 @@ class ProjectController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update( $id, Request $request, ProjectRepository $projectRepository ) {
+    public function update($id, Request $request, ProjectRepository $projectRepository) {
 
-        $project = $projectRepository->updateProject( $id, $request->all() );
+        $project = $projectRepository->updateProject($id, $request->all());
 
-        return redirect( "/admin/project/" . $id . "/edit" );
+        return redirect("/admin/project/" . $id . "/edit");
     }
 
     /**
@@ -87,15 +87,39 @@ class ProjectController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy( $id ) {
+    public function destroy($id) {
         //
     }
 
-    public function svg( $id, ProjectRepository $projectRepository ) {
-        $project = $projectRepository->getProjectById( $id );
-        return view( 'admin.project.svg' )
-                        ->with( 'project', $project->toArray() )
-                        ->with( 'current', 'svg' );
+    public function svg($id, ProjectRepository $projectRepository) {
+        $project = $projectRepository->getProjectById($id);
+
+        $googleearthPath = public_path() . "/projects/" . $id . "/google_earth/";
+        $masterPath = public_path() . "/projects/" . $id . "/master/";
+
+        $googleearthImage = glob($googleearthPath . "*.*");
+        $masterImage = glob($masterPath . "*.*");
+
+
+        if (isset($googleearthImage[0])) {
+            $googleearthImagepath = explode("public", $googleearthImage[0]);
+            $googleearthImagepath = url() . $googleearthImagepath[1];
+        } else
+            $googleearthImagepath = '';
+
+
+
+        if (isset($masterImage[0])) {
+            $masterImagepath = explode("public", $masterImage[0]);
+            $masterImagepath = url() . $masterImagepath[1];
+        } else
+            $masterImagepath = '';
+
+        return view('admin.project.svg')
+                        ->with('project', $project->toArray())
+                        ->with('googleearthImgage', $googleearthImagepath)
+                        ->with('masterImage', $masterImagepath)
+                        ->with('current', 'svg');
     }
 
 }

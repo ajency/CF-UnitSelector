@@ -17,7 +17,8 @@
                 <button type="button" class="btn btn-mini btn-default"><i class="fa fa-map-marker"></i> Add Marker</button>
                 <button type="button" class="btn btn-mini btn-default"><i class="fa fa-crosshairs"></i> Mark Area</button>
             </div>
-            <img src="../../images/demo/sky-view.jpg" class="img-responsive">
+            
+            <img src="{{ $masterImage}}" class="img-responsive" id="project_master_image">
             <form>
                 <div class="form-group m-t-10">
                     <label class="form-label">SVG Name</label>

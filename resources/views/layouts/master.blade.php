@@ -205,13 +205,14 @@
                         });
                     },
                     UploadProgress: function (up, file) {
-                        document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+                       // document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
                     },
                     Error: function (up, err) {
                         //document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
                     },
                     FileUploaded: function (up, file, xhr) {
                         fileResponse = JSON.parse(xhr.response);
+                        $("#project_googleearth_image").attr("src",'');
                         // add the uploaded image to DOM here. response.data.image_path will give
                         // the uploaded image path
                     }
@@ -257,13 +258,14 @@
                         });
                     },
                     UploadProgress: function (up, file) {
-                        document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+                        //document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
                     },
                     Error: function (up, err) {
                         //document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
                     },
                     FileUploaded: function (up, file, xhr) {
-                        fileResponse = JSON.parse(xhr.response);
+                        fileResponse = JSON.parse(xhr.response); 
+                        $("#project_master_image").attr("src",'');
                         // add the uploaded image to DOM here. response.data.image_path will give
                         // the uploaded image path
                     }
