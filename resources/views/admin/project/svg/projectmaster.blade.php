@@ -7,8 +7,10 @@
         <div class="clearfix"></div>
     </div>
     <div class="grid-body">
-        <input type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
-        <button type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#proj-master">Upload</button>
+        <div id="master_container">
+        <input id="master_pickfiles" type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
+        <button id="master_uploadfiles" type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#proj-master">Upload</button>
+        </div>
         <div id="proj-master" class="svg-holder collapse">
             <hr>
             <div class="svg-tools m-b-20">

@@ -6,3 +6,4 @@ public/bower_components
 public/.htaccess
 
 tests/_output/*
+public/projects/

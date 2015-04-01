@@ -56,7 +56,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
 
             $project_title = $projectData['project_title'];
             $project_address = $projectData['project_address'];
-            $property_types = implode("||", $projectData['property_types']);
+            $property_types = (!empty($projectData['property_types']))?implode("||", $projectData['property_types']):'';
 
             
             $project->project_title = $project_title;
@@ -68,7 +68,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
             $propertyunit_arr = $projectData['unittype'];
             $unitkey_arr = $projectData['unittypekey']; 
             $unit_type = [];
-
+               
             if (!empty($propertyunit_arr)) {
 
                 foreach ($propertyunit_arr as $propertytype_id => $unit_arr) { 
