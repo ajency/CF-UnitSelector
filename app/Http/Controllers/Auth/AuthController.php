@@ -40,7 +40,7 @@ use AuthenticatesAndRegistersUsers;
             return $this->redirectPath;
         }
 
-        return property_exists( $this, 'redirectTo' ) ? $this->redirectTo : '/admin';
+        return property_exists( $this, 'redirectTo' ) ? $this->redirectTo : url( 'admin' );
     }
 
 }
