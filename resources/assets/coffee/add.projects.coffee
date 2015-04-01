@@ -45,6 +45,8 @@ jQuery(document).ready ($)->
 								<h4 class="semi-bold">{{ project_title }} - <span class="bold text-primary">{{ cf_project_id }}</span></h4>
 								<i class="fa fa-map-marker"></i> <b>Address:</b>
 								<p>{{ project_address }}</p>
+								<p>Builder Name: <label><b>{{ builder_name }}</b></label></p>
+								<p>Website Link: <label><a href="http://{{ builder_link }}"><b>http://{{ builder_link }}</b></a></label></p>
 							</div>
 							<div class="col-sm-4">
 								{{#if project_image }} 

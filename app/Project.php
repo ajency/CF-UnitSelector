@@ -45,7 +45,11 @@ class Project extends Model {
             '2' => [],
             '3' => [],
         ];
-
+        $commonFloorData = unserialize($this->projectMeta()->where('meta_key', 'cf')->first()->meta_value);
+        
+        $data['cf'] = $commonFloorData;
+        $data['project_image'] = $this->projectMeta()->where('meta_key', 'project_image')->first()->meta_value;
+        
         foreach ($projectDetails as $property) {
             if ($property['meta_key'] === 'phase') {
                 $data[$property['meta_key']][] = $property['meta_value'];

@@ -90,12 +90,14 @@
                     <div class="user-description-box">
                         <div class="row">
                             <div class="col-sm-8">
-                                <h4 class="semi-bold">{{ $project['project_title'] }} - <span class="bold text-primary">{{ $project['cf_project_id'] }}</span></h4>
+                                <h4 class="semi-bold">{{ array_get($project, 'cf.project_title') }} - <span class="bold text-primary">{{ array_get($project, 'cf_project_id') }}</span></h4>
                                 <i class="fa fa-map-marker"></i> <b>Address:</b>
-                                <p>{{ $project['project_address'] }}</p>	
+                                <p>{{ array_get($project, 'cf.project_address') }}</p>
+                                <p>Builder Name: <label><b>{{ array_get($project, 'cf.builder_name') }}</b></label></p>
+                                <p>Website Link: <label><a href="http://{{ array_get($project,'cf.builder_link') }}"><b>http://{{ array_get($project,'cf.builder_link') }}</b></a></label></p>
                             </div>
                             <div class="col-sm-4">
-                                <img src="{{ $project['project_image'] }}" class="img-responsive">
+                                <img src="{{ array_get($project,'cf.project_image') }}" class="img-responsive">
                             </div>
                         </div>
                         <div class="alert alert-warning m-t-20">
