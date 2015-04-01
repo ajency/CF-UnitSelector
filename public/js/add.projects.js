@@ -1,6 +1,6 @@
 (function() {
   jQuery(document).ready(function($) {
-    var registerRemovePhaseListener;
+    var registerRemovePhaseListener, registerRemoveUnitType;
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -50,7 +50,7 @@
       $('.remove-phase').off('click');
       return $('.remove-phase').on('click', function() {
         var phaseId, successFn;
-        if (confirm('Are you sure you want to delete this phase? All building will be affected with this action. Continue?') === false) {
+        if (confirm('Are you sure you want to delete this phase? All building will be affected by this action. Continue?') === false) {
           return;
         }
         phaseId = $(this).attr('data-phase-id');
@@ -105,16 +105,43 @@
       $('.add-unit-types > div').addClass('hidden');
       propertyTypes = $(this).val();
       return _.each(propertyTypes, function(propertyType) {
-        return $('.add-unit-types').find(".property-type-" + propertyType).removeClass('hidden').find('input').attr('required', true);
+        return $('.add-unit-types').find(".property-type-" + propertyType).removeClass('hidden');
       });
     });
+    registerRemoveUnitType = function() {
+      $('.remove-unit-type').off('click');
+      return $('.remove-unit-type').on('click', function() {
+        var successFn, unitTypeId;
+        unitTypeId = $(this).attr('data-unit-type-id');
+        if (parseInt(unitTypeId) === 0) {
+          $(this).closest('.form-inline').remove();
+          return;
+        }
+        if (confirm('Are you sure you want to delete this unit type? All properties will be affected by this action. Continue?') === false) {
+          return;
+        }
+        successFn = (function(_this) {
+          return function(resp, status, xhr) {
+            if (xhr.status === 204) {
+              return $(_this).closest('.form-inline').remove();
+            }
+          };
+        })(this);
+        return $.ajax({
+          url: "/admin/project/" + PROJECTID + "/unittype/" + unitTypeId,
+          type: 'DELETE',
+          success: successFn
+        });
+      });
+    };
+    registerRemoveUnitType();
     return $('.add-unit-type-btn').click(function() {
       var compile, data, html, propertyType, unitType;
       unitType = $(this).parent().find('input').val();
       if (unitType === '') {
         return;
       }
-      html = '<div class="form-inline m-b-10"> <div class="form-group"> <input type="text" name="unittype[{{ property_type }}][]" class="form-control" value="{{  unittype_name }}"> <input type="hidden" name="unittypekey[]" value=""> <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button> </div> </div>';
+      html = '<div class="form-inline m-b-10"> <div class="form-group"> <input type="text" name="unittype[{{ property_type }}][]" class="form-control" value="{{  unittype_name }}"> <input type="hidden" name="unittypekey[]" value=""> <button type="button" data-unit-type-id="0" class="btn btn-small btn-default m-t-5 remove-unit-type"> <i class="fa fa-trash"></i> Delete </button> </div> </div>';
       compile = Handlebars.compile(html);
       propertyType = $(this).attr('property-type');
       data = {
@@ -122,7 +149,8 @@
         unittype_name: unitType
       };
       $('.add-unit-types').find(".property-type-" + propertyType).children('.form-inline').last().before(compile(data));
-      return $(this).parent().find('input').val('');
+      $(this).parent().find('input').val('');
+      return registerRemoveUnitType();
     });
   });
 

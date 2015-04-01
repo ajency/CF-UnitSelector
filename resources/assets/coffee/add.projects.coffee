@@ -68,7 +68,7 @@ jQuery(document).ready ($)->
 		$('.remove-phase').on 'click', ->
 
 			if confirm('Are you sure you want to delete this phase? 
-						All building will be affected with this action. Continue?') is false
+						All building will be affected by this action. Continue?') is false
 				return
 
 			phaseId = $(@).attr 'data-phase-id'
@@ -118,13 +118,37 @@ jQuery(document).ready ($)->
 		propertyTypes = $(@).val()
 		
 		_.each propertyTypes, (propertyType)->
-			$('.add-unit-types').find(".property-type-#{propertyType}")
-				.removeClass 'hidden'
-				.find 'input'
-				.attr 'required', true
+			$('.add-unit-types').find(".property-type-#{propertyType}").removeClass 'hidden'
+			
 				
+				
+	registerRemoveUnitType = ->
+		$('.remove-unit-type').off 'click'
+		$('.remove-unit-type').on 'click', ->
+			
+			unitTypeId = $(@).attr 'data-unit-type-id'
+			
+			if parseInt(unitTypeId) is 0
+				$(@).closest('.form-inline').remove()
+				return
+			
+			if confirm('Are you sure you want to delete this unit type? 
+						All properties will be affected by this action. Continue?') is false
+				return
+			
+			successFn = (resp, status, xhr)=>
+				if xhr.status is 204
+					$(@).closest('.form-inline').remove()
 
-
+			$.ajax 
+				url : "/admin/project/#{PROJECTID}/unittype/#{unitTypeId}"
+				type : 'DELETE'
+				success : successFn
+			
+				
+			
+			
+	registerRemoveUnitType()
 	$('.add-unit-type-btn').click ->
 		unitType = $(@).parent().find('input').val()
 		if unitType is '' then return
@@ -134,7 +158,9 @@ jQuery(document).ready ($)->
 						<input type="text" name="unittype[{{ property_type }}][]" 
 							   class="form-control" value="{{  unittype_name }}">
 						<input type="hidden" name="unittypekey[]" value="">
-						<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
+						<button type="button" data-unit-type-id="0" class="btn btn-small btn-default m-t-5 remove-unit-type">
+							<i class="fa fa-trash"></i> Delete
+						</button>
 					</div>
 				</div>'
 		compile = Handlebars.compile html
@@ -145,6 +171,7 @@ jQuery(document).ready ($)->
 		$('.add-unit-types').find(".property-type-#{propertyType}")
 			.children('.form-inline').last().before compile data
 		$(@).parent().find('input').val ''
+		registerRemoveUnitType()
 			
 			
 		
