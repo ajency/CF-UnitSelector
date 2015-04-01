@@ -39,7 +39,7 @@
         <div class="container">
             <div class="content">
                 <div class="title">CommonFloor Unit Selector</div>
-                <p><a href="/auth/login">Click here to login</a></p>
+                <p><a href="{{ url( 'auth/login' ) }}">Click here to login</a></p>
             </div>
         </div>
     </body>

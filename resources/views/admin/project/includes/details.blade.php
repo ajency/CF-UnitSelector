@@ -10,7 +10,7 @@
                     <div class="form-group">
                         <label class="form-label">City</label>
                         <input type="text" name="city" class="form-control" placeholder="City" 
-                               value="{{ $project['city'] }}" disabled>
+                               value="{{ array_get( $project ,'city') }}" disabled>
                     </div>
 
                     <div class="form-group">
