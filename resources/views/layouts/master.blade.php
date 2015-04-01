@@ -171,9 +171,9 @@
                 runtimes: 'html5,flash,silverlight,html4',
                 browse_button: 'pickfiles', // you can pass in id...
                 container: document.getElementById('container'), // ... or DOM Element itself
-                url: '/admin/project/' + PROJECTID + '/media',
-                flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
-                silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+                url: '{{ url( "admin/project/") }}/' + PROJECTID + '/media',
+                flash_swf_url: '{{ url( "bower_components/plupload/js/Moxie.swf") }}',
+                silverlight_xap_url: '{{ url( "/bower_components/plupload/js/Moxie.xap" ) }}',
                 headers: {
                     "x-csrf-token": $("[name=_token]").val()
                 },
