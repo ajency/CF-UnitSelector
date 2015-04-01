@@ -7,8 +7,12 @@
         <div class="clearfix"></div>
     </div>
     <div class="grid-body">
-        <input type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
-        <button type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#g-map-1">Upload</button>
+        <div id="container">
+            <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
+            <input id="pickfiles" type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/> 
+            <button id="uploadfiles" type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#g-map-1">Upload</button>
+        </div>
+
         <div id="g-map-1" class="svg-holder collapse">
             <hr>
             <div class="svg-tools m-b-20">
