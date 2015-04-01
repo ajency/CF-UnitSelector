@@ -1,4 +1,4 @@
-<form action="/admin/project/{{ $project['id'] }}" method="POST" data-parsley-validate>
+<form action="{{ url('admin/project/' . $project['id']) }}" method="POST" data-parsley-validate>
     <div class="grid simple">
 
         <div class="grid-title">

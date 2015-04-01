@@ -91,6 +91,10 @@ jQuery(document).ready ($)->
 	$('.add-phase-btn').click ->
 		phaseName = $('.phase-name').val()
 		
+		if phaseName is ''
+			alert 'Please enter phase name'
+			return
+		
 		successFn = (resp, status, xhr)->
 			if xhr.status is 201
 				$('.phase-name').val ''

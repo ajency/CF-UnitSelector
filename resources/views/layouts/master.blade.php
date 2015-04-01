@@ -91,7 +91,8 @@
         <div class="page-container row-fluid">
             <!-- BEGIN SIDEBAR -->
             <!-- BEGIN MENU -->
-            <div class="page-sidebar mini mini-mobile" id="main-menu"> 
+            <!--TODO remove mini mini-mobile class 4 list view-->
+            <div class="page-sidebar @if(isset($project['id'])){{'mini mini-mobile'}}@endif " id="main-menu"> 
                 <div class="page-sidebar-wrapper scrollbar-dynamic" id="main-menu-wrapper">
                     <p class="menu-title"></p>
 
@@ -272,6 +273,59 @@
                 }
             });
             master_uploader.init();
+            
+         var skyview_uploader = new plupload.Uploader({
+                runtimes: 'html5,flash,silverlight,html4',
+                browse_button: 'skyview_pickfiles', // you can pass in id...
+                container: document.getElementById('skyview_container'), // ... or DOM Element itself
+                url: '/admin/project/' + PROJECTID + '/media',
+                flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+                silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+                headers: {
+                    "x-csrf-token": $("[name=_token]").val()
+                },
+                multipart_params: {
+                    "type": "skyview"
+                },
+                filters: {
+                    max_file_size: '10mb',
+                    mime_types: [{
+                            title: "Image files",
+                            extensions: "jpg,gif,png"
+                        }, {
+                            title: "Zip files",
+                            extensions: "zip"
+                        }]
+                },
+                init: {
+                    PostInit: function () {
+                        //document.getElementById('filelist').innerHTML = '';
+
+                        document.getElementById('skyview_uploadfiles').onclick = function () {
+                            skyview_uploader.start();
+                            return false;
+                        };
+                    },
+                    FilesAdded: function (up, files) {
+                        plupload.each(files, function (file) {
+                            //document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
+                        });
+                    },
+                    UploadProgress: function (up, file) {
+                        //document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+                    },
+                    Error: function (up, err) {
+                        //document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
+                    },
+                    FileUploaded: function (up, file, xhr) {
+                        fileResponse = JSON.parse(xhr.response); 
+                        $("#skyview_image").attr("src",'');
+                        // add the uploaded image to DOM here. response.data.image_path will give
+                        // the uploaded image path
+                    }
+                }
+            });
+            skyview_uploader.init();   
         </script>
     </body>
 </html>

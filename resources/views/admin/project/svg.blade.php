@@ -6,6 +6,7 @@
 </div>
 
 @include('admin.project.svg.googleearth')
+@include('admin.project.svg.skyview')
 @include('admin.project.svg.projectmaster')
 
 @endsection
