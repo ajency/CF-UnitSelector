@@ -6,6 +6,7 @@ use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use \File;
+use \Input;
 
 class ProjectMediaController extends Controller {
 
@@ -32,25 +33,26 @@ class ProjectMediaController extends Controller {
      *
      * @return Response
      */
-    public function store($project_id,Request $request) {
-         dd($request);
-        $type = $request->get('parameters')['type']; 
-        $targetDir = storage_path() . "/projects/" . $project_id . "/";
-        File::makeDirectory($targetDir, $mode = 0777, true, true);
-        
-        if ($request->hasFile('file')) {
-     
-            $file = $request->file('file');
-            $file_name = $file->getClientOriginalName();
-            $request->file('file')->move($targetDir,$file_name);
-           
+    public function store( $project_id, Request $request ) {
+
+        $type = Input::get( 'type' );
+
+        $targetDir = public_path() . "/projects/" . $project_id . "/" . $type . "/";
+
+        File::makeDirectory( $targetDir, $mode = 0755, true, true );
+
+        if ($request->hasFile( 'file' )) {
+
+            $file = $request->file( 'file' );
+            $fileName = $file->getClientOriginalName();
+            $request->file( 'file' )->move( $targetDir, $fileName );
         }
-        
-         return response()->json( [
-                    'code' => $type.'image_uploaded',
+
+        return response()->json( [
+                    'code' => $type . 'image_uploaded',
                     'message' => 'Google Earth Image Successfully Uploaded',
                     'data' => [
-                        'image_path' => $targetDir.$file_name
+                        'image_path' => $targetDir . $fileName
                     ]
                         ], 201 );
     }
@@ -61,7 +63,7 @@ class ProjectMediaController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function show($id) {
+    public function show( $id ) {
         //
     }
 
@@ -71,7 +73,7 @@ class ProjectMediaController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id) {
+    public function edit( $id ) {
         //
     }
 
@@ -81,7 +83,7 @@ class ProjectMediaController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update($id) {
+    public function update( $id ) {
         //
     }
 
@@ -91,7 +93,7 @@ class ProjectMediaController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
+    public function destroy( $id ) {
         //
     }
 

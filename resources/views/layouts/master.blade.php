@@ -167,58 +167,53 @@
         <script src="{{ asset('js/add.projects.js') }}" type="text/javascript"></script> 
 
         <script type="text/javascript">
-// Custom example logic
+            var uploader = new plupload.Uploader({
+                runtimes: 'html5,flash,silverlight,html4',
+                browse_button: 'pickfiles', // you can pass in id...
+                container: document.getElementById('container'), // ... or DOM Element itself
+                url: '/admin/project/' + PROJECTID + '/media',
+                flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+                silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+                headers: {
+                    "x-csrf-token": $("[name=_token]").val()
+                },
+                multipart_params: {
+                    "type": "google_earth"
+                },
+                filters: {
+                    max_file_size: '10mb',
+                    mime_types: [{
+                        title: "Image files",
+                        extensions: "jpg,gif,png"
+                    }, {
+                        title: "Zip files",
+                        extensions: "zip"
+                    }]
+                },
+                init: {
+                    PostInit: function() {
+                        //document.getElementById('filelist').innerHTML = '';
 
-var uploader = new plupload.Uploader({
-	runtimes : 'html5,flash,silverlight,html4',
-	browse_button : 'pickfiles', // you can pass in id...
-	container: document.getElementById('container'), // ... or DOM Element itself
-	url : '/admin/project/'+{{ $project['id'] }}+'/media',
-	flash_swf_url : '/bower_components/plupload/js/Moxie.swf',
-	silverlight_xap_url : '/bower_components/plupload/js/Moxie.xap',
-	headers: {
-        "x-csrf-token" : $("[name=_token]").val()
-    },
-	filters : {
-		max_file_size : '10mb',
-		mime_types: [
-			{title : "Image files", extensions : "jpg,gif,png"},
-			{title : "Zip files", extensions : "zip"}
-		]
-	},
+                        document.getElementById('uploadfiles').onclick = function() {
+                            uploader.start();
+                            return false;
+                        };
+                    },
+                    FilesAdded: function(up, files) {
+                        plupload.each(files, function(file) {
+                            //document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
+                        });
+                    },
+                    UploadProgress: function(up, file) {
+                        document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+                    },
+                    Error: function(up, err) {
+                        //document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
+                    }
+                }
+            });
+            uploader.init();
 
-	init: {
-		PostInit: function() {  
-			//document.getElementById('filelist').innerHTML = '';
-
-			document.getElementById('uploadfiles').onclick = function() {
-				uploader.start();
-				return false;
-			};
-		},
-
-		FilesAdded: function(up, files) { 
-			plupload.each(files, function(file) { 
-				//document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
-			});
-		},
-
-		UploadProgress: function(up, file) {
-			document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
-		},
-
-		Error: function(up, err) {
-			//document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
-		}
-	},
-         multipart_params : {
-        "type" : "google_earth"
- 
-    }    
-});
-
-uploader.init();
-
-</script>
+        </script>
     </body>
 </html>
