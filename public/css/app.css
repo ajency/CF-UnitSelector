@@ -6231,5 +6231,8 @@ label,
 .checkbox label {
   font-weight: 300;
 }
+.parsley-errors-list {
+  display: inline;
+}
 
 /*# sourceMappingURL=app.css.map */

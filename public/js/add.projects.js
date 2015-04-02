@@ -108,8 +108,10 @@
       return $('.add-unit-types > div').each(function() {
         var activeTypes;
         activeTypes = $(this);
-        if ($(this).find('.unit-type').length === 0) {
+        if ($(this).find('.unit-type').length === 0 && !$(this).hasClass('hidden')) {
           return $(this).find('.unit-type-name').attr('data-parsley-required', true);
+        } else {
+          return $(this).find('.unit-type-name').removeAttr('data-parsley-required');
         }
       });
     };
@@ -117,16 +119,11 @@
     $('[name="property_types[]"]').change(function(evt) {
       var propertyTypes;
       $('.add-unit-types > div').addClass('hidden');
-      checkUnitTypeRequired();
       propertyTypes = $(this).val();
-      return _.each(propertyTypes, function(propertyType) {
-        var activeTypes;
-        $('.add-unit-types').find(".property-type-" + propertyType).removeClass('hidden');
-        activeTypes = $('.add-unit-types').find(".property-type-" + propertyType);
-        if ($(activeTypes).find('.unit-type').length > 0) {
-          return $(activeTypes).find('.unit-type-name').removeAttr('data-parsley-required');
-        }
+      _.each(propertyTypes, function(propertyType) {
+        return $('.add-unit-types').find(".property-type-" + propertyType).removeClass('hidden');
       });
+      return checkUnitTypeRequired();
     });
     registerRemoveUnitType = function() {
       $('.remove-unit-type').off('click');

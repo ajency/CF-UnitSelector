@@ -120,24 +120,23 @@ jQuery(document).ready ($)->
 	checkUnitTypeRequired = ->
 		$('.add-unit-types > div').each ->
 			activeTypes = $(@)
-			if $(@).find('.unit-type').length is 0
+			if $(@).find('.unit-type').length is 0 and not $(@).hasClass('hidden')
 				$(@).find('.unit-type-name').attr 'data-parsley-required', true
+			else
+				$(@).find('.unit-type-name').removeAttr 'data-parsley-required'
+			
+				
 	
 	checkUnitTypeRequired()
 	$('[name="property_types[]"]').change (evt)->
 		
 		$('.add-unit-types > div').addClass 'hidden'
-		
-		checkUnitTypeRequired()
-		
 		propertyTypes = $(@).val()
 		
 		_.each propertyTypes, (propertyType)->
 			$('.add-unit-types').find(".property-type-#{propertyType}").removeClass 'hidden'
-			activeTypes = $('.add-unit-types').find(".property-type-#{propertyType}")
-			if $(activeTypes).find('.unit-type').length > 0
-				$(activeTypes).find('.unit-type-name').removeAttr 'data-parsley-required'
 		
+		checkUnitTypeRequired()
 			
 				
 				
