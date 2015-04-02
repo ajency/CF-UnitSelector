@@ -18,6 +18,8 @@ Route::controllers( [
     'password' => 'Auth\PasswordController',
 ] );
 
+Route::get( '/project/{id}', 'ProjectController@show' )->where( 'id', '[0-9]+' );
+;
 
 Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::get( '/', 'Admin\AdminController@index' );

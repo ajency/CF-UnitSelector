@@ -5,6 +5,7 @@ namespace CommonFloor\Http\Controllers;
 use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use CommonFloor\Repositories\ProjectRepository;
 
 class ProjectController extends Controller {
 
@@ -41,12 +42,14 @@ class ProjectController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function show( $id ) {
-        $project = null; //\CommonFloor\Project::find($id);
+    public function show( $projectId, ProjectRepository $projectRepository ) {
+        $project = $projectRepository->getProjectById( $projectId );
 
         if ($project === null) {
             abort( 404 );
         }
+
+        return view( 'frontend.projectview' )->with( $project->toArray() );
     }
 
     /**
