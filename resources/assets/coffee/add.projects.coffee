@@ -116,15 +116,27 @@ jQuery(document).ready ($)->
 				project_id : PROJECTID
 				phase_name : phaseName
 			success : successFn
+			
+	checkUnitTypeRequired = ->
+		$('.add-unit-types > div').each ->
+			activeTypes = $(@)
+			if $(@).find('.unit-type').length is 0 and not $(@).hasClass('hidden')
+				$(@).find('.unit-type-name').attr 'data-parsley-required', true
+			else
+				$(@).find('.unit-type-name').removeAttr 'data-parsley-required'
+			
+				
 	
+	checkUnitTypeRequired()
 	$('[name="property_types[]"]').change (evt)->
 		
 		$('.add-unit-types > div').addClass 'hidden'
-			
 		propertyTypes = $(@).val()
 		
 		_.each propertyTypes, (propertyType)->
 			$('.add-unit-types').find(".property-type-#{propertyType}").removeClass 'hidden'
+		
+		checkUnitTypeRequired()
 			
 				
 				
@@ -157,7 +169,11 @@ jQuery(document).ready ($)->
 	registerRemoveUnitType()
 	$('.add-unit-type-btn').click ->
 		unitType = $(@).parent().find('input').val()
-		if unitType is '' then return
+		if unitType is ''
+			alert 'please enter unit type'
+			return
+			
+		$(@).parent().find('input').removeAttr 'data-parsley-required'
 		
 		html = '<div class="form-inline m-b-10">
 					<div class="form-group">

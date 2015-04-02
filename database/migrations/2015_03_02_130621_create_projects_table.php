@@ -18,7 +18,7 @@ class CreateProjectsTable extends Migration {
             $table->string( 'city', 60 );
             $table->string( 'project_address', 200 );
             $table->string( 'property_types', 150 );
-            $table->enum( 'status', ['draft', 'published', 'archieved', 'under_review'] )
+            $table->enum( 'status', ['draft', 'in_progress', 'published', 'archieved'] )
                     ->default( 'draft' );
             $table->integer( 'created_by' );
             $table->integer( 'updated_by' );

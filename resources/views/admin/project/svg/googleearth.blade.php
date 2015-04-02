@@ -9,7 +9,7 @@
     <div class="grid-body">
         <div id="container"> 
             <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-            <input id="pickfiles" type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/> 
+            <input id="pickfiles" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/> 
             <button id="uploadfiles" type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#g-map-1">Upload</button>
         </div>
 

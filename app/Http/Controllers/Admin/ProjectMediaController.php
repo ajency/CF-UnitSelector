@@ -38,27 +38,29 @@ class ProjectMediaController extends Controller {
         $type = Input::get( 'type' );
 
         $targetDir = public_path() . "/projects/" . $project_id . "/" . $type . "/";
-
+        $imageUrl = url() . "/projects/" . $project_id . "/" . $type . "/";
+        
         File::makeDirectory( $targetDir, $mode = 0755, true, true );
         
         if ($request->hasFile( 'file' )) {
-           /* if($type=='skyview')
-            {
-                dd($request); 
-            }
-            else
-            {*/
+ 
                 $file = $request->file( 'file' );
                 $fileName = $file->getClientOriginalName();
                 $request->file( 'file' )->move( $targetDir, $fileName );
-           // }
+           
         }
-
+        if($type=='google_earth')
+            $message = 'Google Earth';
+        elseif($type=='master')
+            $message = 'Project Master';
+        elseif($type=='skyview')
+            $message = 'Sky view';
+        
         return response()->json( [
                     'code' => $type . 'image_uploaded',
-                    'message' => 'Google Earth Image Successfully Uploaded',
+                    'message' => $message.' Image Successfully Uploaded',
                     'data' => [
-                        'image_path' => $targetDir . $fileName
+                        'image_path' => $imageUrl . $fileName
                     ]
                         ], 201 );
     }

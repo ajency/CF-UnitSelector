@@ -16,6 +16,7 @@
         <link href="{{ asset('bower_components/datatables-responsive/css/dataTables.responsive.css') }}" rel="stylesheet" type="text/css" media="screen">
         <link href="{{ asset('bower_components/select2/select2.css') }}" rel="stylesheet" type="text/css" media="screen">
         <link href="{{ asset('bower_components/animate.css/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+        
 
         <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('css/dashboard/style.css') }}" rel="stylesheet" type="text/css"/>
@@ -92,7 +93,7 @@
             <!-- BEGIN SIDEBAR -->
             <!-- BEGIN MENU -->
             <!--TODO remove mini mini-mobile class 4 list view-->
-            <div class="page-sidebar @if(isset($project['id'])){{'mini mini-mobile'}}@endif " id="main-menu"> 
+            <div class="page-sidebar @if(!isset($menuFlag)){{'mini mini-mobile'}}@endif " id="main-menu"> 
                 <div class="page-sidebar-wrapper scrollbar-dynamic" id="main-menu-wrapper">
                     <p class="menu-title"></p>
 
@@ -157,6 +158,7 @@
         <script src="{{ asset('bower_components/plupload/js/plupload.full.min.js' ) }}" type="text/javascript"></script>
         <script src="{{ asset('bower_components/bootstrap-file-input/bootstrap.file-input.js' ) }}" type="text/javascript"></script>
         <script src="{{ asset('bower_components/jquery.breakpoints/breakpoints.js' ) }}" type="text/javascript"></script>
+        <script src="{{ asset('bower_components/bootstrap-file-input/bootstrap.file-input.js') }}" type="text/javascript"></script>
 
         <script src="{{ asset('bower_components/DataTables/media/js/jquery.dataTables.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bower_components/datatables-tabletools/js/dataTables.tableTools.js' ) }}" type="text/javascript"></script>
@@ -212,8 +214,8 @@
                         //document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
                     },
                     FileUploaded: function (up, file, xhr) {
-                        fileResponse = JSON.parse(xhr.response);
-                        $("#project_googleearth_image").attr("src",'');
+                        fileResponse = JSON.parse(xhr.response); 
+                        $("#project_googleearth_image").attr("src",fileResponse.data.image_path);
                         // add the uploaded image to DOM here. response.data.image_path will give
                         // the uploaded image path
                     }
@@ -266,7 +268,7 @@
                     },
                     FileUploaded: function (up, file, xhr) {
                         fileResponse = JSON.parse(xhr.response); 
-                        $("#project_master_image").attr("src",'');
+                        
                         // add the uploaded image to DOM here. response.data.image_path will give
                         // the uploaded image path
                     }
@@ -318,8 +320,9 @@
                         //document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
                     },
                     FileUploaded: function (up, file, xhr) {
-                        fileResponse = JSON.parse(xhr.response); 
-                        $("#skyview_image").attr("src",'');
+                        fileResponse = JSON.parse(xhr.response);  
+                        $("#skyview_image").attr("src",fileResponse.data.image_path);
+                        //$("#skyview_image").attr("src",'');
                         // add the uploaded image to DOM here. response.data.image_path will give
                         // the uploaded image path
                     }
