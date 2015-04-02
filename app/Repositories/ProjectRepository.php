@@ -63,15 +63,16 @@ class ProjectRepository implements ProjectRepositoryInterface {
         $project = Project::find( $projectId );
 
         if (isset( $projectData['project_update'] ) && $projectData['project_update'] == 'DETAILS') {
-
+                
             $project_title = $projectData['project_title'];
             $project_address = $projectData['project_address'];
             $property_types = (!empty( $projectData['property_types'] )) ? implode( "||", $projectData['property_types'] ) : '';
-
+            $property_status = $projectData['property_status'];
 
             $project->project_title = $project_title;
             $project->project_address = $project_address;
             $project->property_types = $property_types;
+            $project->status = $property_status;
             $project->save();
 
             //unit type

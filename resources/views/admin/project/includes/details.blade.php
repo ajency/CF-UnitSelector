@@ -84,7 +84,15 @@
                         @endforeach
 
                     </div>
-
+                        <div class="form-group">
+                        <label class="form-label">Project Status</label>
+                        <select  class="select2 form-control" name="property_status">
+                            <option value="draft" @if($project['status']=='draft'){{'selected'}}@endif>Draft</option>
+                            <option value="in_progress" @if($project['status']=='in_progress'){{'selected'}}@endif>In progress</option>
+                            <option value="published" @if($project['status']=='published'){{'selected'}}@endif >Published</option>
+                            <option value="archived" @if($project['status']=='archived'){{'selected'}}@endif>Archived</option>
+                        </select>
+                    </div>
                 </div>
                 <div class="col-md-6">
                     <div class="user-description-box">
