@@ -8,7 +8,7 @@
     </div>
     <div class="grid-body">
         <div id="master_container">
-        <input id="master_pickfiles" type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
+        <input id="master_pickfiles" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/>
         <button id="master_uploadfiles" type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#proj-master">Upload</button>
         </div>
         <div id="proj-master" class="svg-holder collapse">

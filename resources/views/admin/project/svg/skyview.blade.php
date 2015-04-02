@@ -69,7 +69,7 @@
 
                             <hr>
                             <div id="skyview_container">
-                            <input id="skyview_pickfiles" type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
+                                <input id="skyview_pickfiles" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/>
                             <button id="skyview_uploadfiles" type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
                             </div>
                             <div id="sky-map-1" class="svg-holder collapse">
