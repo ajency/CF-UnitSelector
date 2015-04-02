@@ -184,7 +184,7 @@
 				      	</ul>
 
 				      	<div class="inner-menu-content" >            
-				        	<p class="menu-title">Apartments</p>    
+				        	<p class="menu-title">Villas</p>    
 				       	</div>
 				      	<ul class="big-items">
 				       		<li>
@@ -233,6 +233,9 @@
 					<!-- BEGIN PlACE PAGE CONTENT HERE -->
 					
 					<div class="grid simple">
+						<div class="grid-title">
+                            <h3>Villa <span class="semi-bold">Details</span></h3>
+                        </div>
 
 						<div class="grid-body">
 							<form>
@@ -267,58 +270,117 @@
 										</div> 
 									</div>
 								</div>
-
-								<h5 class="bold">Rooms</h5>
-
-								<div>
-									<div class="form-inline">
-										<div class="form-group">
-										    <select id="room_name" class="select2 form-control">
-										    	<option value="">Select Room</option>
-										    	<option>Bedroom</option>
-										    	<option>Hall</option>
-										    	<option>Dining Room</option>
-										    </select>
-										</div> 
-										<div class="form-group pull-right">
-											<input type="text" class="form-control" placeholder="Add Room">
-											<button class="btn btn-default"><i class="fa fa-plus"></i></button>
-										</div>
-									</div>
-
-									<div class="m-t-10">
-										<div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 text-grey">	
-											<h5 class="semi-bold inline">Bedroom</h5>
-											<div class="row">
-												<div class="col-md-4">
-													<div class="form-group">
-														<label class="form-label">Type</label>
-														  <input type="text" class="form-control" name="type" placeholder="Enter Room Type">
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="form-group">
-														<label class="form-label">Room Size</label>
-														  <input type="number" class="form-control" name="size" placeholder="Enter Room Size">
-													</div>
-												</div>
-												<div class="col-md-4">
-													<div class="form-group">
-														<label class="form-label">Length x Width</label>
-														  <input type="text" class="form-control" name="lengthwidth" placeholder="Enter Length and Width">
-													</div>
-												</div>
-											</div>
-
-											<div class="text-right">
-												<button class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
-												<button class="btn btn-small btn-white"><i class="fa fa-trash"></i> Delete</button>
-											</div>
-											
+								<div class="row">
+									<div class="col-md-4">
+										<div class="add-unit-types">
+										    <h5 class="semi-bold inline">Floors/Levels</h5>
+										    <div class="form-inline m-b-10">
+										        <div class="form-group">
+										            <input type="text" class="form-control" value="Ground Floor">
+										            <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
+										        </div>
+										    </div>
+										    <div class="form-inline m-b-10">
+										        <div class="form-group">
+										            <input type="text" class="form-control" value="First Floor">
+										            <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
+										        </div>
+										    </div>
+										    <div class="form-inline">
+										        <div class="form-group">
+										            <input type="text" class="form-control" placeholder="Add Floor">
+										            <button class="btn btn-white"><i class="fa fa-plus"></i></button>
+										        </div>
+										    </div>
 										</div>
 									</div>
 								</div>
+								<div class="form-actions">  
+									<div class="pull-right">
+									  <button type="submit" class="btn btn-primary btn-cons">Save</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
 
+					<div class="grid simple">
+						<div class="grid-title">
+						    <h3>Room <span class="semi-bold">Details</span></h3>
+						</div>
+
+						<div class="grid-body">
+							<form>
+								<div class="row">
+									<div class="col-sm-2">
+										<div class="form-group">
+										<label class="form-label">Floor</label>
+										    <select id="floors" class="select2 form-control">
+										    	<option value="">Select Floor</option>
+										    	<option>Ground Floor</option>
+										    	<option>First Floor</option>
+										    </select>
+										</div> 
+									</div> 
+								</div>
+								<br>
+								<div class="form-inline">
+									<div class="form-group">
+									    <select id="room_name" class="select2 form-control">
+									    	<option value="">Select Room</option>
+									    	<option>Bedroom</option>
+									    	<option>Hall</option>
+									    	<option>Dining Room</option>
+									    </select>
+									</div> 
+									<div class="form-group pull-right">
+										<input type="text" class="form-control" placeholder="Add Room">
+										<button class="btn btn-white"><i class="fa fa-plus"></i></button>
+									</div>
+								</div>
+
+								<div class="m-t-10">
+									<div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 text-grey">	
+										<h5 class="semi-bold inline">Bedroom</h5>
+										<div class="row">
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class="form-label">Type</label>
+													  <input type="text" class="form-control" name="type" placeholder="Enter Room Type">
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class="form-label">Room Size</label>
+													  <input type="number" class="form-control" name="size" placeholder="Enter Room Size">
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class="form-label">Length x Width</label>
+													  <input type="text" class="form-control" name="lengthwidth" placeholder="Enter Length and Width">
+												</div>
+											</div>
+										</div>
+
+										<div class="text-right">
+											<button class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
+											<button class="btn btn-small btn-default"><i class="fa fa-trash"></i> Delete</button>
+										</div>
+										
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<div class="grid simple">
+						<div class="grid-title">
+                            <h3>Area <span class="semi-bold">Details</span></h3>
+                        </div>
+
+						<div class="grid-body">
+							<form>
 								<div class="row m-t-20">
 									<div class="col-md-4">
 										<div class="form-group">
@@ -351,16 +413,56 @@
 											</div>
 										</div> 
 									</div>
+								</div>
+
+								<div class="form-actions">  
+									<div class="pull-right">
+									  <button type="submit" class="btn btn-primary btn-cons">Save</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<div class="grid simple">
+						<div class="grid-title">
+                            <h3><span class="semi-bold">Layouts</span></h3>
+                        </div>
+
+						<div class="grid-body">
+							<form>
+								<h5 class="semi-bold inline">Ground Floor</h5>
+								<div class="row">
 									<div class="col-md-4">
 										<div class="form-group">
 											<label class="form-label">2D Layout</label>
-											<!-- <div>
-												<img src="../../images/demo/plan.jpg" class="img-responsive img-thumbnail">
-												<button class="btn btn-small btn-white m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
-											</div> -->
 											<div>
-												<input type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
+												<input type="file" name="fileToUpload" class="btn btn-small btn-white" title="Select your file" data-filename-placement="inside"/>
 												<button type="button" class="btn btn-small btn-primary">Upload</button>												
+											</div>
+										</div>
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="form-label">First Floor</label>
+											<div>
+												<input type="file" name="fileToUpload" class="btn btn-small btn-white" title="Select your file" data-filename-placement="inside"/>
+												<button type="button" class="btn btn-small btn-primary">Upload</button>												
+											</div>
+										</div>
+									</div>
+								</div>
+
+								<hr>
+
+								<h5 class="semi-bold inline">Floor 2</h5>
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="form-label">2D Layout</label>
+											<div>
+												<img src="../../images/demo/plan.jpg" class="img-responsive img-thumbnail">
+												<button class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
 											</div>
 										</div>
 									</div>
@@ -368,8 +470,8 @@
 										<div class="form-group">
 											<label class="form-label">3D Layout</label>
 											<div>
-												<input type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
-												<button type="button" class="btn btn-small btn-primary">Upload</button>												
+												<img src="../../images/demo/3d.jpg" class="img-responsive img-thumbnail">
+												<button class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
 											</div>
 										</div>
 									</div>
@@ -377,7 +479,7 @@
 
 								<div class="form-actions">  
 									<div class="pull-right">
-									  <button type="submit" class="btn btn-primary btn-cons">Add</button>
+									  <button type="submit" class="btn btn-primary btn-cons">Save</button>
 									</div>
 								</div>
 							</form>
@@ -428,6 +530,8 @@
 			$("#bldg_milestone").select2();
 			$("#buildings").select2();
 			$("#room_name").select2();
+			$("#floors").select2();
+			$("#floors2").select2();
 
 			/* Bootstrap File Input */
 			$('input[type=file]').bootstrapFileInput();
