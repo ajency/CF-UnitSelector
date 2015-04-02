@@ -49,10 +49,16 @@ class ProjectMediaController extends Controller {
                 $request->file( 'file' )->move( $targetDir, $fileName );
            
         }
+        if($type=='google_earth')
+            $message = 'Google Earth';
+        elseif($type=='master')
+            $message = 'Project Master';
+        elseif($type=='skyview')
+            $message = 'Sky view';
         
         return response()->json( [
                     'code' => $type . 'image_uploaded',
-                    'message' => 'Google Earth Image Successfully Uploaded',
+                    'message' => $message.' Image Successfully Uploaded',
                     'data' => [
                         'image_path' => $imageUrl . $fileName
                     ]

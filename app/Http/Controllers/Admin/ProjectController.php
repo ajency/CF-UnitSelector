@@ -111,25 +111,24 @@ class ProjectController extends Controller {
         } else
             $googleearthImagepath = '';
 
-
-
-        if (isset($masterImage[0])) {
-            $masterImagepath = explode("public", $masterImage[0]);
-            $masterImagepath = url() . $masterImagepath[1];
+        if (isset($skyviewImage[0])) {
+            $skyviewImagepath = explode("public", $skyviewImage[0]);
+            $skyviewImagepath = url() . $skyviewImagepath[1];
         } else
-            $masterImagepath = '';
-        
-        foreach ($skyviewImage as $key=>$skyview)
+            $skyviewImagepath = '';
+
+       
+        foreach ($masterImage as $key=>$master)
         {
-            $skyviewImagepath = explode("public", $skyview);
-            $skyviewImage[$key] = url() . $skyviewImagepath[1];
+            $masterImagepath = explode("public", $master);
+            $masterImage[$key] = url() . $masterImagepath[1];
         }
 
         return view('admin.project.svg')
                         ->with('project', $project->toArray())
                         ->with('googleearthImgage', $googleearthImagepath)
-                        ->with('masterImage', $masterImagepath)
-                        ->with('skyviewImage', $skyviewImage)
+                        ->with('masterImage', $masterImage)
+                        ->with('skyviewImage', $skyviewImagepath)
                         ->with('current', 'svg');
     }
 
