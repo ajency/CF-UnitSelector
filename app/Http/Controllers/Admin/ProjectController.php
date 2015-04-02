@@ -17,8 +17,10 @@ class ProjectController extends Controller {
      */
     public function index() {
 
-        $projects = Project::all()->toArray();
-        return view('admin.project.list')->with('projects', $projects);
+        $projects = Project::all()->toArray(); 
+        return view('admin.project.list')
+                ->with('projects', $projects)
+                ->with('menuFlag', FALSE);    
     }
 
     /**
@@ -27,7 +29,7 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function create() {
-        return view('admin.project.add');
+        return view('admin.project.add')->with('menuFlag', FALSE);   ;
     }
 
     /**

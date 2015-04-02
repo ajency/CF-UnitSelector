@@ -93,7 +93,7 @@
             <!-- BEGIN SIDEBAR -->
             <!-- BEGIN MENU -->
             <!--TODO remove mini mini-mobile class 4 list view-->
-            <div class="page-sidebar @if(isset($project['id'])){{'mini mini-mobile'}}@endif " id="main-menu"> 
+            <div class="page-sidebar @if(!isset($menuFlag)){{'mini mini-mobile'}}@endif " id="main-menu"> 
                 <div class="page-sidebar-wrapper scrollbar-dynamic" id="main-menu-wrapper">
                     <p class="menu-title"></p>
 
