@@ -17,10 +17,10 @@ class ProjectController extends Controller {
      */
     public function index() {
 
-        $projects = Project::all()->toArray(); 
+        $projects = Project::all()->toArray();
         return view('admin.project.list')
-                ->with('projects', $projects)
-                ->with('menuFlag', FALSE);    
+                        ->with('projects', $projects)
+                        ->with('menuFlag', FALSE);
     }
 
     /**
@@ -29,7 +29,8 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function create() {
-        return view('admin.project.add')->with('menuFlag', FALSE);   ;
+        return view('admin.project.add')->with('menuFlag', FALSE);
+        ;
     }
 
     /**
@@ -63,7 +64,7 @@ class ProjectController extends Controller {
      */
     public function edit($id, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($id);
-        $projectMeta = $project->projectMeta()->get()->toArray(); 
+        $projectMeta = $project->projectMeta()->get()->toArray();
         return view('admin.project.settings')
                         ->with('project', $project->toArray())
                         ->with('project_meta', $projectMeta)
@@ -95,40 +96,50 @@ class ProjectController extends Controller {
 
     public function svg($id, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($id);
-
-        $googleearthPath = public_path() . "/projects/" . $id . "/google_earth/";
-        $masterPath = public_path() . "/projects/" . $id . "/master/";
-        $skyviewPath = public_path() . "/projects/" . $id . "/skyview/";
-
-        $googleearthImage = glob($googleearthPath . "*.*");
-        $masterImage = glob($masterPath . "*.*");
-        $skyviewImage = glob($skyviewPath . "*.*");
-
-
-        if (isset($googleearthImage[0])) {
-            $googleearthImagepath = explode("public", $googleearthImage[0]);
-            $googleearthImagepath = url() . $googleearthImagepath[1];
-        } else
-            $googleearthImagepath = '';
-
-        if (isset($skyviewImage[0])) {
-            $skyviewImagepath = explode("public", $skyviewImage[0]);
-            $skyviewImagepath = url() . $skyviewImagepath[1];
-        } else
-            $skyviewImagepath = '';
-
-       
-        foreach ($masterImage as $key=>$master)
-        {
-            $masterImagepath = explode("public", $master);
-            $masterImage[$key] = url() . $masterImagepath[1];
+        $svgImages = [];
+        $svgimgData = $project->projectMeta()->whereIn('meta_key', ['master', 'google_earth'])->get()->toArray();
+        foreach ($svgimgData as $svg) {
+            $svgImages[$svg['meta_key']]['image_url'][] = url() . "/projects/" . $id . "/" . $svg['meta_key'] . "/" . $svg['meta_value'];
+            $svgImages[$svg['meta_key']]['image_id'][] = $svg['id'];
         }
 
+        /* $googleearthPath = public_path() . "/projects/" . $id . "/google_earth/";
+          $masterPath = public_path() . "/projects/" . $id . "/master/";
+          $skyviewPath = public_path() . "/projects/" . $id . "/skyview/";
+
+          $googleearthImage = glob($googleearthPath . "*.*");
+          $masterImage = glob($masterPath . "*.*");
+          $skyviewImage = glob($skyviewPath . "*.*");
+
+
+          if (isset($googleearthImage[0])) {
+          $googleearthImagepath = explode("public", $googleearthImage[0]);
+          $googleearthImagepath = url() . $googleearthImagepath[1];
+          } else
+          $googleearthImagepath = '';
+
+          if (isset($skyviewImage[0])) {
+          $skyviewImagepath = explode("public", $skyviewImage[0]);
+          $skyviewImagepath = url() . $skyviewImagepath[1];
+          } else
+          $skyviewImagepath = '';
+
+
+          foreach ($masterImage as $key=>$master)
+          {
+          $masterImagepath = explode("public", $master);
+          $masterImage[$key] = url() . $masterImagepath[1];
+          }
+
+          return view('admin.project.svg')
+          ->with('project', $project->toArray())
+          ->with('googleearthImgage', $googleearthImagepath)
+          ->with('masterImage', $masterImage)
+          ->with('skyviewImage', $skyviewImagepath)
+          ->with('current', 'svg'); */
         return view('admin.project.svg')
                         ->with('project', $project->toArray())
-                        ->with('googleearthImgage', $googleearthImagepath)
-                        ->with('masterImage', $masterImage)
-                        ->with('skyviewImage', $skyviewImagepath)
+                        ->with('svgImages', $svgImages)
                         ->with('current', 'svg');
     }
 

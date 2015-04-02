@@ -8,7 +8,7 @@
     </div>
     <div class="grid-body">
         <div id="container"> 
-            <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
+            <input type="hidden" value="{{ csrf_token()}}" name="_token"/> 
             <input id="pickfiles" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/> 
             <button id="uploadfiles" type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#g-map-1">Upload</button>
         </div>
@@ -19,7 +19,9 @@
                 <button type="button" class="btn btn-mini btn-default"><i class="fa fa-map-marker"></i> Add Marker</button>
                 <button type="button" class="btn btn-mini btn-default"><i class="fa fa-crosshairs"></i> Mark Area</button>
             </div>
-            <img src="{{ $googleearthImgage}}" class="img-responsive" id="project_googleearth_image">
+            @if(isset($svgImages['google_earth']['image_url'][0]))
+            <img src="{{$svgImages['google_earth']['image_url'][0]}}" class="img-responsive" id="project_googleearth_image">
+           @endif
             <form>
                 <div class="form-actions svg-actions">  
                     <div class="pull-right">

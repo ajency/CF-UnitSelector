@@ -7,6 +7,7 @@ use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use \File;
 use \Input;
+use CommonFloor\ProjectMeta;
 
 class ProjectMediaController extends Controller {
 
@@ -33,36 +34,45 @@ class ProjectMediaController extends Controller {
      *
      * @return Response
      */
-    public function store( $project_id, Request $request ) {
+    public function store($project_id, Request $request) {
 
-        $type = Input::get( 'type' );
+        $type = Input::get('type');
 
         $targetDir = public_path() . "/projects/" . $project_id . "/" . $type . "/";
         $imageUrl = url() . "/projects/" . $project_id . "/" . $type . "/";
-        
-        File::makeDirectory( $targetDir, $mode = 0755, true, true );
-        
-        if ($request->hasFile( 'file' )) {
- 
-                $file = $request->file( 'file' );
-                $fileName = $file->getClientOriginalName();
-                $request->file( 'file' )->move( $targetDir, $fileName );
-           
+
+        File::makeDirectory($targetDir, $mode = 0755, true, true);
+
+        if ($request->hasFile('file')) {
+
+            $file = $request->file('file');
+            $fileName = $file->getClientOriginalName();
+            $fileExt = $file->guessClientExtension();
+            $newFilename = rand() . '_' . $project_id . '.' . $fileExt;
+
+            $request->file('file')->move($targetDir, $newFilename);
         }
-        if($type=='google_earth')
+
+        $projectMeta = new ProjectMeta();
+        $projectMeta->project_id = $project_id;
+        $projectMeta->meta_key = $type;
+        $projectMeta->meta_value = $newFilename;
+        $projectMeta->save();
+
+        if ($type == 'google_earth')
             $message = 'Google Earth';
-        elseif($type=='master')
+        elseif ($type == 'master')
             $message = 'Project Master';
-        elseif($type=='skyview')
+        elseif ($type == 'skyview')
             $message = 'Sky view';
-        
-        return response()->json( [
+
+        return response()->json([
                     'code' => $type . 'image_uploaded',
-                    'message' => $message.' Image Successfully Uploaded',
+                    'message' => $message . ' Image Successfully Uploaded',
                     'data' => [
-                        'image_path' => $imageUrl . $fileName
+                        'image_path' => $imageUrl . $newFilename
                     ]
-                        ], 201 );
+                        ], 201);
     }
 
     /**
@@ -71,7 +81,7 @@ class ProjectMediaController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function show( $id ) {
+    public function show($id) {
         //
     }
 
@@ -81,7 +91,7 @@ class ProjectMediaController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit( $id ) {
+    public function edit($id) {
         //
     }
 
@@ -91,7 +101,7 @@ class ProjectMediaController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update( $id ) {
+    public function update($id) {
         //
     }
 
@@ -101,7 +111,7 @@ class ProjectMediaController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy( $id ) {
+    public function destroy($id) {
         //
     }
 

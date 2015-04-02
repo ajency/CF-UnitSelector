@@ -17,8 +17,9 @@
                 <button type="button" class="btn btn-mini btn-default"><i class="fa fa-map-marker"></i> Add Marker</button>
                 <button type="button" class="btn btn-mini btn-default"><i class="fa fa-crosshairs"></i> Mark Area</button>
             </div>
-            
-            <img src="{{ $skyviewImage}}" class="img-responsive" id="skyview_image">
+            @if(isset($svgImages['skyview']['image_url'][0]))
+            <img src="{{$svgImages['skyview']['image_url'][0]}}" class="img-responsive" id="skyview_image">
+            @endif
             <form>
                 <div class="form-group m-t-10">
                     <label class="form-label">SVG Name</label>
