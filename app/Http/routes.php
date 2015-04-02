@@ -18,7 +18,7 @@ Route::controllers( [
     'password' => 'Auth\PasswordController',
 ] );
 
-Route::get( '/project/{id}', 'ProjectController@show' )->where( 'id', '[0-9]+' );
+Route::get( 'project/{id}', 'ProjectController@show' )->where( 'id', '[0-9]+' );
 
 Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::get( '/', 'Admin\AdminController@index' );
@@ -38,3 +38,4 @@ function get_property_type( $type_id ) {
 
     return $types[$type_id];
 }
+

@@ -1,0 +1,1 @@
+{"version":3,"sources":["frontend/application.coffee"],"names":[],"mappings":"AAAA;AAAA,MAAA,WAAA;;AAAA,EAAA,WAAA,GAAc,GAAA,CAAA,UAAc,CAAC,WAA7B,CAAA;;AAAA,EAEA,WAAW,CAAC,KAAZ,CAAA,CAFA,CAAA;AAAA","file":"frontend/application.js","sourceRoot":"/source/","sourcesContent":["CommonFloor = new Marionette.Application\n\nCommonFloor.start()\n"]}
