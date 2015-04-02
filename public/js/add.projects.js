@@ -1,6 +1,6 @@
 (function() {
   jQuery(document).ready(function($) {
-    var registerRemovePhaseListener, registerRemoveUnitType;
+    var checkUnitTypeRequired, registerRemovePhaseListener, registerRemoveUnitType;
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -104,12 +104,28 @@
         success: successFn
       });
     });
+    checkUnitTypeRequired = function() {
+      return $('.add-unit-types > div').each(function() {
+        var activeTypes;
+        activeTypes = $(this);
+        if ($(this).find('.unit-type').length === 0) {
+          return $(this).find('.unit-type-name').attr('data-parsley-required', true);
+        }
+      });
+    };
+    checkUnitTypeRequired();
     $('[name="property_types[]"]').change(function(evt) {
       var propertyTypes;
       $('.add-unit-types > div').addClass('hidden');
+      checkUnitTypeRequired();
       propertyTypes = $(this).val();
       return _.each(propertyTypes, function(propertyType) {
-        return $('.add-unit-types').find(".property-type-" + propertyType).removeClass('hidden');
+        var activeTypes;
+        $('.add-unit-types').find(".property-type-" + propertyType).removeClass('hidden');
+        activeTypes = $('.add-unit-types').find(".property-type-" + propertyType);
+        if ($(activeTypes).find('.unit-type').length > 0) {
+          return $(activeTypes).find('.unit-type-name').removeAttr('data-parsley-required');
+        }
       });
     });
     registerRemoveUnitType = function() {
@@ -143,8 +159,10 @@
       var compile, data, html, propertyType, unitType;
       unitType = $(this).parent().find('input').val();
       if (unitType === '') {
+        alert('please enter unit type');
         return;
       }
+      $(this).parent().find('input').removeAttr('data-parsley-required');
       html = '<div class="form-inline m-b-10"> <div class="form-group"> <input type="text" name="unittype[{{ property_type }}][]" class="form-control" value="{{  unittype_name }}"> <input type="hidden" name="unittypekey[]" value=""> <button type="button" data-unit-type-id="0" class="btn btn-small btn-default m-t-5 remove-unit-type"> <i class="fa fa-trash"></i> Delete </button> </div> </div>';
       compile = Handlebars.compile(html);
       propertyType = $(this).attr('property-type');
