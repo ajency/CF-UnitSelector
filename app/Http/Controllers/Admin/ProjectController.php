@@ -61,7 +61,7 @@ class ProjectController extends Controller {
      */
     public function edit($id, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($id);
-        $projectMeta = $project->projectMeta()->get()->toArray();
+        $projectMeta = $project->projectMeta()->get()->toArray(); 
         return view('admin.project.settings')
                         ->with('project', $project->toArray())
                         ->with('project_meta', $projectMeta)

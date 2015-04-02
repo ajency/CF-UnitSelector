@@ -48,8 +48,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Property types</label>
-                        <select  class="select2 form-control" multiple name="property_types[]">
+                        <label class="form-label">Property Types</label>
+                        <select  class="select2 form-control" multiple name="property_types[]" data-parsley-required>
                             <option value="1" @if(in_array('1', $project['property_types'])){{'selected'}}@endif>Apartments</option>
                             <option value="2" @if(in_array('2', $project['property_types'])){{'selected'}}@endif >Bungalows/Villas</option>
                             <option value="3" @if(in_array('3', $project['property_types'])){{'selected'}}@endif>Land</option>

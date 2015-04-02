@@ -12,7 +12,7 @@
                         <div class="input-group transparent">
                             <span class="input-group-addon">
                                 <i class="fa fa-inr"></i>
-                            </span>
+                            </span> 
                             <input type="text" name="{{ $project_meta[0]['id'] }}_floor_rise" class="form-control" 
                                    placeholder="Enter Floor Rise" value="{{ $project_meta[0]['meta_value'] }}" data-parsley-type="number" data-parsley-errors-container=".pars-rise">
                         </div>
