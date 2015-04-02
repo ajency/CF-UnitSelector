@@ -61,7 +61,7 @@ class ProjectController extends Controller {
      */
     public function edit($id, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($id);
-        $projectMeta = $project->projectMeta()->get()->toArray();
+        $projectMeta = $project->projectMeta()->get()->toArray(); 
         return view('admin.project.settings')
                         ->with('project', $project->toArray())
                         ->with('project_meta', $projectMeta)
@@ -96,9 +96,11 @@ class ProjectController extends Controller {
 
         $googleearthPath = public_path() . "/projects/" . $id . "/google_earth/";
         $masterPath = public_path() . "/projects/" . $id . "/master/";
+        $skyviewPath = public_path() . "/projects/" . $id . "/skyview/";
 
         $googleearthImage = glob($googleearthPath . "*.*");
         $masterImage = glob($masterPath . "*.*");
+        $skyviewImage = glob($skyviewPath . "*.*");
 
 
         if (isset($googleearthImage[0])) {
@@ -114,11 +116,18 @@ class ProjectController extends Controller {
             $masterImagepath = url() . $masterImagepath[1];
         } else
             $masterImagepath = '';
+        
+        foreach ($skyviewImage as $key=>$skyview)
+        {
+            $skyviewImagepath = explode("public", $skyview);
+            $skyviewImage[$key] = url() . $skyviewImagepath[1];
+        }
 
         return view('admin.project.svg')
                         ->with('project', $project->toArray())
                         ->with('googleearthImgage', $googleearthImagepath)
                         ->with('masterImage', $masterImagepath)
+                        ->with('skyviewImage', $skyviewImage)
                         ->with('current', 'svg');
     }
 

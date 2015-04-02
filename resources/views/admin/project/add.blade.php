@@ -3,9 +3,6 @@
 @section('breadcrumb')
 <!-- BEGIN BREADCRUMBS -->
 <ul class="breadcrumb">
-    <li>
-        <p>YOU ARE HERE</p>
-    </li>
     <li><a href="/admin">Dashboard</a> </li>
     <li><a href="/admin/project">Projects</a> </li>
     <li><a href="#" class="active">Add Project</a> </li>

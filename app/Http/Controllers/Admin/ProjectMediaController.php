@@ -40,12 +40,18 @@ class ProjectMediaController extends Controller {
         $targetDir = public_path() . "/projects/" . $project_id . "/" . $type . "/";
 
         File::makeDirectory( $targetDir, $mode = 0755, true, true );
-
+        
         if ($request->hasFile( 'file' )) {
-
-            $file = $request->file( 'file' );
-            $fileName = $file->getClientOriginalName();
-            $request->file( 'file' )->move( $targetDir, $fileName );
+           /* if($type=='skyview')
+            {
+                dd($request); 
+            }
+            else
+            {*/
+                $file = $request->file( 'file' );
+                $fileName = $file->getClientOriginalName();
+                $request->file( 'file' )->move( $targetDir, $fileName );
+           // }
         }
 
         return response()->json( [

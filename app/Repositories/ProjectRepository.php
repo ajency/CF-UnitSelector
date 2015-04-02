@@ -101,7 +101,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
             }
         } else {
             // update project meta
-
+           
             unset( $projectData['phase'] );       // Remove phases 
             //project cost
             foreach ($projectData as $meta_key => $meta_value) {

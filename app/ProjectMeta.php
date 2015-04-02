@@ -14,7 +14,7 @@ class ProjectMeta extends Model {
         $data = parent::toArray();
         if ($data['meta_key'] === 'cf')
             $data['meta_value'] = unserialize( $data['meta_value'] );
-        $data;
+        return $data;
     }
 
 }
