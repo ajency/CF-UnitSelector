@@ -268,7 +268,7 @@
                     },
                     FileUploaded: function (up, file, xhr) {
                         fileResponse = JSON.parse(xhr.response); 
-                        $("#project_master_image").attr("src",fileResponse.data.image_path);
+                        
                         // add the uploaded image to DOM here. response.data.image_path will give
                         // the uploaded image path
                     }
@@ -320,7 +320,8 @@
                         //document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
                     },
                     FileUploaded: function (up, file, xhr) {
-                        fileResponse = JSON.parse(xhr.response); alert(fileResponse.data.image_path);
+                        fileResponse = JSON.parse(xhr.response);  
+                        $("#skyview_image").attr("src",fileResponse.data.image_path);
                         //$("#skyview_image").attr("src",'');
                         // add the uploaded image to DOM here. response.data.image_path will give
                         // the uploaded image path
