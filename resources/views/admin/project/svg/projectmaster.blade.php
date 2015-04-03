@@ -10,8 +10,9 @@
     <div class="grid-body">
 
         <div class="row">
-            @if(isset($svgImages['master']))  
-            @for ($i=0 ; $i<count($svgImages['master']) ; $i++)
+            
+            @if(isset($svgImages['master']['image_url']))  
+            @for ($i=0 ; $i<count($svgImages['master']['image_url']) ; $i++)
                 <div class="col-sm-2">
                     <img src="{{ $svgImages['master']['image_url'][$i] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
                     <h5 class="bold inline">SVG {{ $i+1 }}</h5> <i class="fa fa-bookmark text-primary"></i>

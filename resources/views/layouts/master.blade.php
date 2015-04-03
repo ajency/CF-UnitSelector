@@ -215,7 +215,7 @@ var uploader = new plupload.Uploader({
         },
         FileUploaded: function (up, file, xhr) {
             fileResponse = JSON.parse(xhr.response);
-            $("#project_googleearth_image").attr("src", fileResponse.data.image_path);
+            $("#project_googleearth_image").html('<img src="'+fileResponse.data.image_path+'" class="img-responsive" >');
             // add the uploaded image to DOM here. response.data.image_path will give
             // the uploaded image path
         }
@@ -321,7 +321,7 @@ var skyview_uploader = new plupload.Uploader({
         },
         FileUploaded: function (up, file, xhr) {
             fileResponse = JSON.parse(xhr.response);
-            $("#skyview_image").attr("src", fileResponse.data.image_path);
+            $("#skyview_image").html('<img src="'+fileResponse.data.image_path+'" class="img-responsive" >');
             //$("#skyview_image").attr("src",'');
             // add the uploaded image to DOM here. response.data.image_path will give
             // the uploaded image path
