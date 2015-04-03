@@ -19,19 +19,20 @@
                     <a href="{{ url( 'admin/project/' . $project['id'] . '/edit') }}">Settings</a>
                 </li>
             </ul>
-
+           @foreach($project['property_types'] as $property_type)
+            
             <div class="inner-menu-content" >            
-                <p class="menu-title">Building</p>    
+                <p class="menu-title">{{ get_property_type($property_type) }}</p>    
             </div>
             <ul class="big-items">
                 <li>
-                    <a href="building-properties.html">Properties</a>
+                    <a href="#">View</a>
                 </li>
                 <li>
-                    <a href="building-svg.html">SVGs</a>
+                    <a href="#">Add Variants</a>
                 </li>
             </ul>
-
+           @endforeach
             <div class="inner-menu-content" >            
                 <p class="menu-title">Unit</p>    
             </div>

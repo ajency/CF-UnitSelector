@@ -57,6 +57,7 @@ class ProjectMediaController extends Controller {
         $media = new Media();
         $media->image_name = $newFilename;
         $media->mediable_id = $project_id;
+        $media->mediable_type = 'CommonFloor\Project';
         $media->save();
 
         $media_id = $media->id;
