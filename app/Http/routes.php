@@ -22,3 +22,4 @@ Route::controllers( [
 
 
 Route::resource( 'projects', 'ProjectController' );
+

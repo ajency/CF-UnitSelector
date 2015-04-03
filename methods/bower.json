@@ -1,0 +1,30 @@
+{
+  "name": "commonfloor",
+  "version": "0.0.0",
+  "homepage": "https://github.com/ajency/CF-UnitSelector.git",
+  "authors": [
+    "Surekha Rane <surekha@ajency.in>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "underscore": "~1.7.0",
+    "backbone": "~1.1.2",
+    "jquery": "~2.1.0",
+    "backbone.marionette": "~2.3.0",
+    "Faker": "~2.1.2"
+  },
+  "resolutions": {
+    "underscore": ">=1.5.0",
+    "modernizr": "~2.8.3",
+    "backbone.marionette": "~2.3.0",
+    "jquery": "~2.1.0"
+  }
+}

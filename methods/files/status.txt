@@ -1,0 +1,11 @@
+{ "1" :[
+	{"id":1,"name":"Sold"},
+	{"id":2,"name":"Available"},
+	{"id":3,"name":"Blocked"}
+	],
+"2":[
+	{"id":1,"name":"Sold"},
+	{"id":2,"name":"Available"},
+	{"id":3,"name":"Blocked"}
+	]
+}
