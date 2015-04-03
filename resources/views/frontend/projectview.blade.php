@@ -13,7 +13,9 @@
         <script src="/bower_components/backbone/backbone.js"></script>
         <script src="/bower_components/backbone.marionette/lib/backbone.marionette.min.js"></script>
         <!-- end plugins -->
-
+        <script>
+        var PROJECTID = {{ $id }};
+        </script>
         <script src="/js/frontend/application.js"></script>
     </body>
 </html>
