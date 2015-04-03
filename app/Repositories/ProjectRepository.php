@@ -14,6 +14,12 @@ use Auth;
  */
 class ProjectRepository implements ProjectRepositoryInterface {
 
+    private $project;
+
+    public function __construct( Project $project ) {
+        $this->project = $project;
+    }
+
     public function createProject( $projectData ) {
         $project = new Project();
         $project->project_title = $projectData['project_title'];
@@ -63,7 +69,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
         $project = Project::find( $projectId );
 
         if (isset( $projectData['project_update'] ) && $projectData['project_update'] == 'DETAILS') {
-                
+
             $project_title = $projectData['project_title'];
             $project_address = $projectData['project_address'];
             $property_types = (!empty( $projectData['property_types'] )) ? implode( "||", $projectData['property_types'] ) : '';
@@ -102,7 +108,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
             }
         } else {
             // update project meta
-           
+
             unset( $projectData['phase'] );       // Remove phases 
             //project cost
             foreach ($projectData as $meta_key => $meta_value) {
@@ -117,7 +123,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
     }
 
     public function getProjectById( $projectId ) {
-        $project = Project::findOrFail( $projectId );
+        $project = $this->project->find( $projectId );
         return $project;
     }
 
