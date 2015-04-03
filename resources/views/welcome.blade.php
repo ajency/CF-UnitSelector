@@ -38,8 +38,8 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Laravel 5</div>
-                <div class="quote">{{ Inspiring::quote() }}</div>
+                <div class="title">CommonFloor Unit Selector</div>
+                <p><a href="{{ url( 'auth/login' ) }}">Click here to login</a></p>
             </div>
         </div>
     </body>

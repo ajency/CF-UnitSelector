@@ -24,7 +24,7 @@ return [
       | your application so that it is used when running Artisan tasks.
       |
      */
-    'url' => 'http://localhost',
+    'url' => env( 'APP_URL' ),
     /*
       |--------------------------------------------------------------------------
       | Application Timezone
@@ -128,8 +128,7 @@ return [
         'CommonFloor\Providers\ConfigServiceProvider',
         'CommonFloor\Providers\EventServiceProvider',
         'CommonFloor\Providers\RouteServiceProvider',
-        
-        'Laracasts\Generators\GeneratorsServiceProvider'
+        'Illuminate\Html\HtmlServiceProvider'
     ],
     /*
       |--------------------------------------------------------------------------
@@ -175,5 +174,6 @@ return [
         'URL' => 'Illuminate\Support\Facades\URL',
         'Validator' => 'Illuminate\Support\Facades\Validator',
         'View' => 'Illuminate\Support\Facades\View',
+        'Form' => 'Illuminate\Html\FormFacade'
     ],
 ];

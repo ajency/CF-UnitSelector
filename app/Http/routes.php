@@ -13,13 +13,39 @@
 
 Route::get( '/', 'WelcomeController@index' );
 
-Route::get( 'home', 'HomeController@index' );
-
 Route::controllers( [
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',
 ] );
 
+Route::get( 'project/{id}', 'ProjectController@show' )->where( 'id', '[0-9]+' );
+
+Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
+    Route::get( '/', 'Admin\AdminController@index' );
+    Route::resource( 'project', 'Admin\ProjectController' );
+    Route::resource( 'project.media', 'Admin\ProjectMediaController' );
+    Route::resource( 'project.unittype', 'Admin\ProjectUnitTypeController' );
+    Route::resource( 'phase', 'Admin\PhaseController' );
+    Route::get( 'project/{id}/svg', 'Admin\ProjectController@svg' );
+} );
+
+Route::group( ['prefix' => 'api/v1', 'middleware' => ['auth']], function() {
+    Route::resource( 'project', 'Admin\ProjectController' );
+} );
+
+function get_property_type( $type_id ) {
+    $types = [
+        '1' => 'Apartments',
+        '2' => 'Bunglows/Villas',
+        '3' => 'Land'
+    ];
+
+    return $types[$type_id];
+}
+
 
 Route::resource( 'projects', 'ProjectController' );
+
+App::bind( 'CommonFloor\Gateways\RoomTypeGatewayInterface', 'CommonFloor\Gateways\RoomTypeGateway' );
+App::bind( 'CommonFloor\Repositories\AttributesRepositoryInterface', 'CommonFloor\Repositories\AttributeRepository' );
 
