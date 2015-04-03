@@ -39,3 +39,5 @@ function get_property_type( $type_id ) {
     return $types[$type_id];
 }
 
+App::bind( 'CommonFloor\Gateways\RoomTypeGatewayInterface', 'CommonFloor\Gateways\RoomTypeGateway' );
+App::bind( 'CommonFloor\Repositories\AttributesRepositoryInterface', 'CommonFloor\Repositories\AttributeRepository' );

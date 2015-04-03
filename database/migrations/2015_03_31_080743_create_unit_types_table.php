@@ -11,17 +11,17 @@ class CreateUnitTypesTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('unit_types', function(Blueprint $table) {
-            $table->increments('id');
-            $table->integer('project_id')->unsigned();
-            $table->string('unittype_name', 100);
-            $table->integer('property_type');
+        Schema::create( 'unit_types', function(Blueprint $table) {
+            $table->increments( 'id' );
+            $table->integer( 'project_id' )->unsigned();
+            $table->string( 'unittype_name', 100 );
+            $table->integer( 'property_type' );
 
-            $table->foreign('project_id')
-                    ->references('id')
-                    ->on('projects')
-                    ->onDelete('cascade');
-        });
+            $table->foreign( 'project_id' )
+                    ->references( 'id' )
+                    ->on( 'projects' )
+                    ->onDelete( 'cascade' );
+        } );
     }
 
     /**
@@ -30,7 +30,7 @@ class CreateUnitTypesTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::drop('unit_types');
+        Schema::drop( 'unit_types' );
     }
 
 }
