@@ -14,7 +14,7 @@ class CreateAttributesTable extends Migration {
         Schema::create( 'attributes', function(Blueprint $table) {
             $table->increments( 'id' );
             $table->string( 'label' );
-            $table->enum( ['textbox', 'select', 'radio', 'checkbox', 'textarea', 'media'] );
+            $table->enum( 'control_type',['textbox', 'select', 'radio', 'checkbox', 'textarea', 'media'] );
             $table->string( 'attributable_type' );
             $table->integer( 'attributable_id' );
             $table->text( 'defaults' );

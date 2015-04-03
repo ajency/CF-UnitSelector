@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use CommonFloor\User;
+use CommonFloor\RoomType;
 
 class DatabaseSeeder extends Seeder {
 
@@ -28,6 +29,22 @@ class UserTableSeeder extends Seeder {
             'email' => 'admin@cf.com',
             'password' => Hash::make( 'admin' )
         ] );
+    }
+
+}
+
+class RoomTypeTableSeeder extends Seeder {
+
+    public function run() {
+        RoomType::create( ['name' => 'Bedroom'],
+                          ['name' => 'Kitchen'],
+                          ['name' => 'Dining'],
+                          ['name' => 'Bathroom'],
+                          ['name' => 'Master Bedroom'],
+                          ['name' => 'Livingroom '],
+                          ['name' => 'Lobby'],
+                          ['name' => 'Toilet ']
+                );
     }
 
 }
