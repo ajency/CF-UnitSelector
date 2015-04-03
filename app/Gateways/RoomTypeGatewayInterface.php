@@ -12,4 +12,6 @@ interface RoomTypeGatewayInterface {
 
     public function getRoomTypeAttributes( $roomTypeId );
     
+    public function createNewRoomType($args);
+    
 }
