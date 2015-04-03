@@ -19,9 +19,11 @@
                 <button type="button" class="btn btn-mini btn-default"><i class="fa fa-map-marker"></i> Add Marker</button>
                 <button type="button" class="btn btn-mini btn-default"><i class="fa fa-crosshairs"></i> Mark Area</button>
             </div>
+            <div id="project_googleearth_image">  
             @if(isset($svgImages['google_earth']['image_url'][0]))
-            <img src="{{$svgImages['google_earth']['image_url'][0]}}" class="img-responsive" id="project_googleearth_image">
+            <img src="{{$svgImages['google_earth']['image_url'][0]}}" class="img-responsive">
            @endif
+            </div>
             <form>
                 <div class="form-actions svg-actions">  
                     <div class="pull-right">

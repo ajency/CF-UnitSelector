@@ -7,6 +7,7 @@ use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use CommonFloor\Repositories\ProjectRepository;
 use CommonFloor\Project;
+use CommonFloor\Media;
 
 class ProjectController extends Controller {
 
@@ -96,12 +97,36 @@ class ProjectController extends Controller {
 
     public function svg($id, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($id);
+        //$media_images = $project->media()->get()->toArray();dd($media_images);
+        $projectMeta = $project->projectMeta()->whereIn('meta_key', ['master', 'google_earth', 'skyview'])->get()->toArray();
         $svgImages = [];
-        $svgimgData = $project->projectMeta()->whereIn('meta_key', ['master', 'google_earth'])->get()->toArray();
-        foreach ($svgimgData as $svg) {
-            $svgImages[$svg['meta_key']]['image_url'][] = url() . "/projects/" . $id . "/" . $svg['meta_key'] . "/" . $svg['meta_value'];
-            $svgImages[$svg['meta_key']]['image_id'][] = $svg['id'];
+        
+
+        foreach ($projectMeta as $meta_values) {
+
+            if ($meta_values['meta_key'] == 'master') {
+                $media_id_arr = explode("||", $meta_values['meta_value']);
+
+                foreach ($media_id_arr as $media_id) {
+                    $imgage_name = Media::find($media_id)->image_name;
+                    $svgImages[$meta_values['meta_key']]['image_url'][] = url() . "/projects/" . $id . "/" . $meta_values['meta_key'] . "/" . $imgage_name;
+                    $svgImages[$meta_values['meta_key']]['image_id'][] = $meta_values['id'];
+                }
+            } else {
+                $media_id = $meta_values['meta_value'];
+                $imgage_name = Media::find($media_id)->image_name;
+                $svgImages[$meta_values['meta_key']]['image_url'][] = url() . "/projects/" . $id . "/" . $meta_values['meta_key'] . "/" . $imgage_name;
+                $svgImages[$meta_values['meta_key']]['image_id'][] = $meta_values['id'];
+            }
         }
+        
+        /* $svgimgData = $project->projectMeta()->whereIn('meta_key', ['master', 'google_earth','skyview'])->get()->toArray();
+          foreach ($svgimgData as $svg) {
+          $imgage_name  = Media::find($svg['meta_value'])->image_name;
+          $svgImages[$svg['meta_key']]['image_url'][] = url() . "/projects/" . $id . "/" . $svg['meta_key'] . "/" . $imgage_name;
+          $svgImages[$svg['meta_key']]['image_id'][] = $svg['id'];
+
+          } */
 
         /* $googleearthPath = public_path() . "/projects/" . $id . "/google_earth/";
           $masterPath = public_path() . "/projects/" . $id . "/master/";

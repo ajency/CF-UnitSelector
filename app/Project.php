@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model {
 
+    public function media() {
+        return $this->morphMany('CommonFloor\Media', 'mediable');
+    }
+
     public function projectMeta() {
         return $this->hasMany('CommonFloor\ProjectMeta');
     }

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use \File;
 use \Input;
 use CommonFloor\ProjectMeta;
+use CommonFloor\Media;
 
 class ProjectMediaController extends Controller {
 
@@ -53,11 +54,28 @@ class ProjectMediaController extends Controller {
             $request->file('file')->move($targetDir, $newFilename);
         }
 
+        $media = new Media();
+        $media->image_name = $newFilename;
+        $media->mediable_id = $project_id;
+        $media->save();
+
+        $media_id = $media->id;
+
         $projectMeta = new ProjectMeta();
-        $projectMeta->project_id = $project_id;
-        $projectMeta->meta_key = $type;
-        $projectMeta->meta_value = $newFilename;
-        $projectMeta->save();
+        $meta_value = $projectMeta->where(['meta_key' => $type, 'project_id' => $project_id])->pluck('meta_value'); 
+         
+        if (!empty($meta_value)) {
+            
+            $meta_value= ($type=='master')?$meta_value.'||'.$media_id:$media_id;
+            $data = array("meta_value" => $meta_value);
+            $projectMeta->where(['meta_key' => $type, 'project_id' => $project_id])->update( $data );
+            
+        } else {
+            $projectMeta->project_id = $project_id;
+            $projectMeta->meta_key = $type;
+            $projectMeta->meta_value = $media_id;
+            $projectMeta->save();
+        }
 
         if ($type == 'google_earth')
             $message = 'Google Earth';
