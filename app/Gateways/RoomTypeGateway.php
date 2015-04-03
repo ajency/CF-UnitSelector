@@ -13,11 +13,9 @@ use CommonFloor\Repositories\AttributeRepository;
 class RoomTypeGateway implements RoomTypeGatewayInterface {
 
     private $roomType;
-    private $attributeRepository;
 
-    public function __construct( RoomType $roomType, AttributeRepository $attributeRepository ) {
+    public function __construct( RoomType $roomType ) {
         $this->roomType = $roomType;
-        $this->attributeRepository = $attributeRepository;
     }
 
     public function getAllRoomTypes() {
@@ -26,6 +24,13 @@ class RoomTypeGateway implements RoomTypeGatewayInterface {
 
     public function getRoomTypeAttributes( $roomTypeId ) {
         return $this->roomType->attributes;
+    }
+
+    public function createNewRoomType( $roomName ) {
+        $roomType = $this->roomType->newInstance();
+        $roomType->name = $roomName;
+        $roomType->save();
+        return $roomType;
     }
 
 }
