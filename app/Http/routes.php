@@ -25,7 +25,9 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource( 'project', 'Admin\ProjectController' );
     Route::resource( 'project.media', 'Admin\ProjectMediaController' );
     Route::resource( 'project.unittype', 'Admin\ProjectUnitTypeController' );
+    Route::resource( 'project.bunglow', 'Admin\ProjectBunglowController' );
     Route::resource( 'phase', 'Admin\PhaseController' );
+    Route::resource( 'project.roomtype', 'Admin\ProjectRoomTypeController' );
     Route::get( 'project/{id}/svg', 'Admin\ProjectController@svg' );
 } );
 

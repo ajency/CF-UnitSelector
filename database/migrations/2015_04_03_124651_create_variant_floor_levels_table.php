@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRoomTypesTable extends Migration {
+class CreateVariantFloorLevelsTable extends Migration {
 
     /**
      * Run the migrations.
@@ -11,14 +11,15 @@ class CreateRoomTypesTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('room_types', function(Blueprint $table) {
+        Schema::create('variant_floor_levels', function(Blueprint $table) {
             $table->increments('id');
-            $table->integer('project_id')->unsigned();
-            $table->string('name');
+            $table->string('floor_level_name', 100);
+            $table->integer('unit_variant_id')->unsigned();
 
-            $table->foreign('project_id')
+            //reference  a foreign key
+            $table->foreign('unit_variant_id')
                     ->references('id')
-                    ->on('projects')
+                    ->on('unit_variants')
                     ->onDelete('cascade');
         });
     }
@@ -29,7 +30,7 @@ class CreateRoomTypesTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::drop('room_types');
+        Schema::drop('variant_floor_levels');
     }
 
 }
