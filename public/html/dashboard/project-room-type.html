@@ -151,10 +151,10 @@
                             <!-- <li>
                                     <span class="fa fa-check text-success"></span><a href="project-svg.html" > SVGs</a>
                             </li> -->
-                            <li class="active">
+                             <li >
                                 <a href="project-settings.html">Settings</a>
                             </li>
-                              <li >
+                              <li class="active">
                                 <a href="project-room-type.html">Room Type</a>
                             </li>
                         </ul>
@@ -223,283 +223,162 @@
                         <li><a href="#">Dashboard</a> </li>
                         <li><a href="#">Projects</a> </li>
                         <li><a href="#">Goyal Footprints</a> </li>
-                        <li><a href="#" class="active">Project Settings</a> </li>
+                        <li><a href="#" class="active">Room Type</a> </li>
                     </ul>
                     <!-- END BREADCRUMBS -->
                     <!-- BEGIN PAGE TITLE -->
                     <div class="page-title">	
-                        <h2>Project <span class="semi-bold">Settings</span></h2>
+                        <h2>Room  <span class="semi-bold">Type</span></h2>
                     </div>
                     <!-- END PAGE TITLE -->
 
                     <!-- BEGIN PlACE PAGE CONTENT HERE -->
 
                     <div class="grid simple">
-
                         <div class="grid-title">
-                            <h3>Project <span class="semi-bold">Details</span></h3>
+                            <h3>Room <span class="semi-bold">Type</span></h3>
                         </div>
                         <div class="grid-body">
                             <form>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label class="form-label">City</label>
-                                            <input type="text" name="city" class="form-control" placeholder="City" value="Bangalore" disabled>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="form-label">CF Project Name</label>
-                                            <span class="help">From CommonFloor database</span>
-                                            <input type="text" name="cf_proj_name" class="form-control" disabled>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="form-label">Project Title<span class="text-primary">*</span></label>
-                                            <input type="text" class="form-control" placeholder="Enter Project Title" value="Goyal Footprints">
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-sm-6">
+                            <div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 m-b-10 text-grey">
+                                  <div class="form-inline m-b-10 m-t-10">
                                                 <div class="form-group">
-                                                    <label class="form-label">Project Logo</label>
-                                                    <div>
-                                                        <img src="../../images/demo/footprints_logo.jpg" class="img-responsive img-thumbnail"><br>
-                                                        <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
-                                                    </div>
-                                                    <!-- <div>
-                                                            <input type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
-                                                            <button type="button" class="btn btn-small btn-primary">Upload</button>
-                                                    </div> -->
+                                                    <input type="text" class="form-control" value="Kitchen">
+                                                  
                                                 </div>
+                                  </div>
+                               
+                                   <div class="row">
+                                        <div class="col-md-3">
+                                          <div class="form-group">
+                                            <div class="">
+                                                <input type="number" class="form-control" placeholder="Attribute Name">
                                             </div>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label class="form-label">Address<span class="text-primary">*</span></label>
-                                            <textarea class="form-control" placeholder="Enter Project Address">Near provident Harmony Apartments Thanisandra Main Road</textarea>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label class="form-label">Property types</label>
-                                            <select id="unit_types" class="select2 form-control" multiple>
-                                                <option>Apartments</option>
-                                                <option>Bungalows/Villas</option>
-                                                <option>Land</option>
-                                                <option>Penthouse</option>
-                                            </select>
-                                        </div>
-
-                                        <div class="add-unit-types">
-                                            <h5 class="semi-bold inline">Unit Types for Apartments</h5>
-                                            <div class="form-inline m-b-10">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" value="2BHK">
-                                                    <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
-                                                </div>
-                                            </div>
-                                            <div class="form-inline m-b-10">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" value="3BHK">
-                                                    <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
-                                                </div>
-                                            </div>
+                                           <div class="col-md-4">
                                             <div class="form-inline">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Add Unit Type">
+                                                    <select>
+                                                            <option>Controls</option>
+                                                            <option> Text Box</option>
+                                                             <option>Select Box</option>
+                                                             <option> Multiple Select Box</option>
+                                                             <option> Number </option>
+                                                    </select>
                                                     <button class="btn btn-white"><i class="fa fa-plus"></i></button>
                                                 </div>
                                             </div>
                                         </div>
+                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                      
+                                          <div class="text-right">
+                                            <button class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
+                                            <button class="btn btn-small btn-default"><i class="fa fa-trash"></i> Delete</button>
+                                        </div>
+                                        
 
                                     </div>
-                                    <div class="col-md-6">
-
-                                        <div class="form-group">
-                                            <label class="form-label">Project Status</label>
-                                            <select id="proj_status" class="select2 form-control">
-                                                <option>Published</option>
-                                                <option>Draft</option>
-                                                <option>Archived</option>
-                                            </select>
-                                        </div>
-                                        <div class="user-description-box">
-                                            <div class="row">
-                                                <div class="col-sm-8">
-                                                    <h4 class="semi-bold">Goyal Footprints - <span class="bold text-primary">pq5csb</span></h4>
-                                                    <i class="fa fa-map-marker"></i> <b>Address:</b>
-                                                    <p>Near provident Harmony Apartments, Thanisandra Main Road</p>	
+                                </div>
+                             </div>   
+                                <div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 m-b-10 text-grey">
+                                  <div class="form-inline m-b-10 m-t-10">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" value="Bedroom">
+                                                 
                                                 </div>
-                                                <div class="col-sm-4">
-                                                    <img src="../../images/demo/footprints_logo.jpg" class="img-responsive">
+                                  </div>
+                               
+                                   <div class="row">
+                                        <div class="col-md-3">
+                                          <div class="form-group">
+                                            <div class="">
+                                                <input type="number" class="form-control" placeholder="Size">
+                                            </div>
+                                        </div>
+                                        </div>
+                                           <div class="col-md-9">
+                                            <div class="form-inline">
+                                                <div class="form-group">
+                                                    <select>
+                                                             <option>Controls</option>
+                                                            <option Selected>  Text Box</option>
+                                                             <option>Select Box</option>
+                                                             <option> Multiple Select Box</option>
+                                                             <option> Number </option>
+                                                    </select>
+                                                    <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
                                                 </div>
                                             </div>
-                                            <div class="alert alert-warning m-t-20">
-                                                <strong>Note: </strong> The above information is as entered in CommonFloor database.
+                                        </div>
+                                 </div>
+                                   <div class="row">
+                                        <div class="col-md-3">
+                                          <div class="form-group">
+                                            <div class="">
+                                                <input type="number" class="form-control" placeholder="Bedroom">
                                             </div>
                                         </div>
+                                        </div>
+                                           <div class="col-md-3">
+                                            <div class="form-inline">
+                                                <div class="form-group">
+                                                    <select>
+                                                           <option>Controls</option>
+                                                            <option> Text Box</option>
+                                                             <option Selected>Select Box</option>
+                                                             <option> Multiple Select Box</option>
+                                                             <option> Number </option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                            <div class="col-md-5">
+                                            <div class="form-inline">
+                                                <div class="form-group">
+                                                       <input type="number" class="form-control" placeholder="1024sqft, 2000sqft  ">
+                                                    <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                      
+                                         <div class="text-right">
+                                            <button class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
+                                          <button class="btn btn-small btn-default"><i class="fa fa-trash"></i> Delete</button>
+                                        </div>
+                                        
+
                                     </div>
                                 </div>
-                                <div class="form-actions">  
-                                    <div class="pull-right">
-                                        <button type="submit" class="btn btn-primary btn-cons">Save</button>
-                                    </div>
-                                </div>
+                             </div>   
+
+                           
+                             
+                                <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-inline">
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Add Room Type">
+                                                    <button class="btn btn-white"><i class="fa fa-plus"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                 </div>
+
                             </form>
+                           
                         </div>
                     </div>
 
-                
 
+                 
 
-                    <div class="grid simple">
-
-                        <div class="grid-title">
-                            <h3>Project <span class="semi-bold">Phases</span></h3>
-                        </div>
-                        <div class="grid-body">
-                            <form>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-inline">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Add Phase">
-                                                <button class="btn btn-white"><i class="fa fa-plus"></i></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="p-t-5">
-                                            <div class="pull-left m-r-10">
-                                                <strong>Phase 1</strong><button class="btn btn-small btn-link"><span class="fa fa-times text-danger"></span></button>
-                                            </div>
-                                            <div class="pull-left m-r-10">
-                                                <strong>Phase 2</strong><button class="btn btn-small btn-link"><span class="fa fa-times text-danger"></span></button>
-                                            </div>
-                                            <div class="pull-left m-r-10">
-                                                <strong>Phase 3</strong><button class="btn btn-small btn-link"><span class="fa fa-times text-danger"></span></button>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div class="grid simple">
-
-                        <div class="grid-title">
-                            <h3>Project <span class="semi-bold">Costs</span></h3>
-                        </div>
-                        <div class="grid-body">
-                            <form>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label">Floor Rise</label>
-                                            <div class="input-group transparent">
-                                                <span class="input-group-addon">
-                                                    <i class="fa fa-inr"></i>
-                                                </span>
-                                                <input type="number" class="form-control" placeholder="Enter Floor Rise">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label">Stamp Duty</label>
-                                            <div class="input-group transparent">
-                                                <span class="input-group-addon">
-                                                    <i class="fa fa-inr"></i>
-                                                </span>
-                                                <input type="number" class="form-control" name="stampduty" placeholder="Enter Stamp Duty">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label">Registration Amount</label>
-                                            <div class="input-group transparent">
-                                                <span class="input-group-addon">
-                                                    <i class="fa fa-inr"></i>
-                                                </span>
-                                                <input type="number" class="form-control" name="regamnt" placeholder="Enter Registration Amount">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label">VAT</label>
-                                            <div class="input-group transparent">
-                                                <span class="input-group-addon">
-                                                    <span>%</span>
-                                                </span>
-                                                <input type="number" step="any" class="form-control" name="vat" placeholder="Enter VAT">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label">Service Tax</label>
-                                            <div class="input-group transparent">
-                                                <span class="input-group-addon">
-                                                    <span>%</span>
-                                                </span>
-                                                <input type="number" step="any" class="form-control" name="servtax" placeholder="Enter Service Tax">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label">Service Tax</label>
-                                            <span class="help">For Agreement amount > Rs. 1cr</span>
-                                            <div class="input-group transparent">
-                                                <span class="input-group-addon">
-                                                    <span>%</span>
-                                                </span>
-                                                <input type="number" step="any" class="form-control" name="regamnt" placeholder="Enter Service Tax">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label">Infrastructure Charges</label>
-                                            <div class="input-group transparent">
-                                                <span class="input-group-addon">
-                                                    <i class="fa fa-inr"></i>
-                                                </span>
-                                                <input type="number" class="form-control" name="infra" placeholder="Enter Infrastructure charges">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label">Membership Fees</label>
-                                            <div class="input-group transparent">
-                                                <span class="input-group-addon">
-                                                    <i class="fa fa-inr"></i>
-                                                </span>
-                                                <input type="number" class="form-control" name="membership" placeholder="Enter Membership Fees">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-actions">  
-                                    <div class="pull-right">
-                                        <button type="submit" class="btn btn-primary btn-cons">Save</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
+           
                     <!-- <div class="row">
                             <div class="col-sm-6">					
                                     <div class="grid simple">
