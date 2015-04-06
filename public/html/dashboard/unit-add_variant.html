@@ -312,31 +312,24 @@
 						<div class="grid-body">
 							<form>
 								<div class="row">
-									<div class="col-sm-2">
+									<div class="col-sm-12">
 										<div class="form-group">
-										<label class="form-label">Floor</label>
-										    <select id="floors" class="select2 form-control">
-										    	<option value="">Select Floor</option>
-										    	<option>Ground Floor</option>
-										    	<option>First Floor</option>
-										    </select>
+										<h3>Ground Floor</h3>
 										</div> 
 									</div> 
 								</div>
-								<br>
+								
 								<div class="form-inline">
 									<div class="form-group">
 									    <select id="room_name" class="select2 form-control">
 									    	<option value="">Select Room</option>
-									    	<option>Bedroom</option>
+									    	<option selected>Bedroom</option>
 									    	<option>Hall</option>
 									    	<option>Dining Room</option>
 									    </select>
+									    <button class="btn btn-white"><i class="fa fa-plus"></i></button>
 									</div> 
-									<div class="form-group pull-right">
-										<input type="text" class="form-control" placeholder="Add Room">
-										<button class="btn btn-white"><i class="fa fa-plus"></i></button>
-									</div>
+									
 								</div>
 
 								<div class="m-t-10">
@@ -345,22 +338,17 @@
 										<div class="row">
 											<div class="col-md-4">
 												<div class="form-group">
-													<label class="form-label">Type</label>
-													  <input type="text" class="form-control" name="type" placeholder="Enter Room Type">
+													<label class="form-label">View</label>
+													  <input type="text" class="form-control" name="type" placeholder="Enter View ">
 												</div>
 											</div>
 											<div class="col-md-4">
 												<div class="form-group">
-													<label class="form-label">Room Size</label>
+													<label class="form-label"> Size</label>
 													  <input type="number" class="form-control" name="size" placeholder="Enter Room Size">
 												</div>
 											</div>
-											<div class="col-md-4">
-												<div class="form-group">
-													<label class="form-label">Length x Width</label>
-													  <input type="text" class="form-control" name="lengthwidth" placeholder="Enter Length and Width">
-												</div>
-											</div>
+											
 										</div>
 
 										<div class="text-right">
@@ -370,6 +358,55 @@
 										
 									</div>
 								</div>
+<br>
+										<div class="row">
+									<div class="col-sm-12">
+										<div class="form-group">
+										<h3>First Floor</h3>
+										</div> 
+									</div> 
+								</div>
+								
+								<div class="form-inline">
+									<div class="form-group">
+									    <select id="room_name2" class="select2 form-control">
+									    	<option value="">Select Room</option>
+									    	<option >Bedroom</option>
+									    	<option selected>Hall</option>
+									    	<option>Dining Room</option>
+									    </select>
+									    <button class="btn btn-white"><i class="fa fa-plus"></i></button>
+									</div> 
+									
+								</div>
+
+								<div class="m-t-10">
+									<div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 text-grey">	
+										<h5 class="semi-bold inline">Hall</h5>
+										<div class="row">
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class="form-label">View</label>
+													  <input type="text" class="form-control" name="type" placeholder="Enter View ">
+												</div>
+											</div>
+											<div class="col-md-4">
+												<div class="form-group">
+													<label class="form-label"> Size</label>
+													  <input type="number" class="form-control" name="size" placeholder="Enter Room Size">
+												</div>
+											</div>
+											
+										</div>
+
+										<div class="text-right">
+											<button class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
+											<button class="btn btn-small btn-default"><i class="fa fa-trash"></i> Delete</button>
+										</div>
+										
+									</div>
+								</div>
+
 							</form>
 						</div>
 					</div>
@@ -530,6 +567,7 @@
 			$("#bldg_milestone").select2();
 			$("#buildings").select2();
 			$("#room_name").select2();
+			$("#room_name2").select2();
 			$("#floors").select2();
 			$("#floors2").select2();
 
