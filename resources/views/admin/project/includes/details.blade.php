@@ -65,7 +65,7 @@
                                 <div class="form-group">
                                     <input type="text" name="unittype[{{ $propertytype_id }}][]" 
                                            class="form-control" value="{{ $unittype_name }}">
-                                    <input type="hidden" name="unittypekey[]" value="{{ $unittype_id }}">
+                                    <input type="hidden" name="unittypekey[{{ $propertytype_id }}][]" value="{{ $unittype_id }}">
                                     <button type="button" data-unit-type-id="{{ $unittype_id }}" class="btn btn-small btn-default m-t-5 remove-unit-type">
                                         <i class="fa fa-trash"></i> Delete
                                     </button>

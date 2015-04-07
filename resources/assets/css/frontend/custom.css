@@ -1,0 +1,9 @@
+@media (min-width: 100px) and (max-width: 991px) {
+  .cf-hdr-blk .cf-us-logo {
+    background: url(../../images/unit-selector_logo.png) no-repeat;
+    top: -20px;
+    left: 12px;
+    width: 173px;
+    height: 38px;
+  }
+}

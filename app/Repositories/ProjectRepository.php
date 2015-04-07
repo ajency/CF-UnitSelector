@@ -82,29 +82,31 @@ class ProjectRepository implements ProjectRepositoryInterface {
             $project->save();
 
             //unit type
-            $propertyunit_arr = $projectData['unittype'];
-            $unitkey_arr = $projectData['unittypekey'];
-            $unit_type = [];
+            $propertyunit_arr = $projectData['unittype'];  
+            $unitkey_arr = $projectData['unittypekey']; 
+           
 
             if (!empty( $propertyunit_arr )) {
 
-                foreach ($propertyunit_arr as $propertytype_id => $unit_arr) {
+                foreach ($propertyunit_arr as $propertytype_id => $unit_arr) { 
+                    
+                    $unit_type = [];
+                    foreach ($unit_arr as $key => $unitname) {                        
 
-                    foreach ($unit_arr as $key => $unitname) {
-
-                        if ($unitkey_arr[$key] == '') {
+                        if ((!isset($unitkey_arr[$propertytype_id][$key]))) { 
 
                             $unit_type[] = new UnitType( ['property_type' => $propertytype_id, 'unittype_name' => $unitname] );
                         } else {
-
-                            $unittype_id = $unitkey_arr[$key];
+                               
+                            $unittype_id = $unitkey_arr[$propertytype_id][$key];
                             $data = array("unittype_name" => $unitname);
                             UnitType::where( 'id', $unittype_id )->update( $data );
                         }
-                    }
+                        
+                    } 
                     if (!empty( $unit_type ))
                         $project->projectUnitType()->saveMany( $unit_type );
-                }
+                }  
             }
         } else {
             // update project meta
