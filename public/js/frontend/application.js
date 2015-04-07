@@ -1,13 +1,11 @@
 (function() {
-  jQuery(document).ready(function($) {});
-
-  CommonFloor.addInitializer(function() {
-    return Backbone.history.start();
+  jQuery(document).ready(function($) {
+    CommonFloor.addInitializer(function() {
+      return Backbone.history.start();
+    });
+    CommonFloor.start();
+    return CommonFloor.navigate('/project', true);
   });
-
-  CommonFloor.start();
-
-  CommonFloor.navigate('/project', true);
 
 }).call(this);
 

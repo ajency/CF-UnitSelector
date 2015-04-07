@@ -20,7 +20,10 @@
         <script>
         BASERESTURL = '{{ get_rest_api_url() }}';
         PROJECTID = {{ $id }};
-        CommonFloor = new Marionette.Application 
+        CommonFloor = new Marionette.Application
+        window.locale = {
+            "en-US" : {{ get_locale() }}
+        };
         </script>
         <script src="{{ asset('js/frontend/header/header.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/screen-one/project.controller.js' )}}"></script>
