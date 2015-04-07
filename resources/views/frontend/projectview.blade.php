@@ -22,10 +22,9 @@
         PROJECTID = {{ $id }};
         CommonFloor = new Marionette.Application 
         </script>
-        </body>
-
         <script src="{{ asset('js/frontend/header/header.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/screen-one/project.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
+    </body>
 </html>
