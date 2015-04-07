@@ -26,6 +26,7 @@
     ProjectCtrl.prototype.initialize = function() {
       var id;
       id = PROJECTID;
+      console.log(project);
       project.setProjectAttributes(id);
       if (jQuery.isEmptyObject(project.toJSON())) {
         return console.log("failure");

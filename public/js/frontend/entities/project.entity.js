@@ -1,9 +1,8 @@
 (function() {
-  var Project,
-    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  var extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
-  Project = (function(superClass) {
+  CommonFloor.Project = (function(superClass) {
     extend(Project, superClass);
 
     function Project() {
@@ -11,16 +10,14 @@
     }
 
     Project.prototype.urlRoot = function() {
-      return 'public/project';
+      return siteurl + '/' + this.project_id;
     };
 
     Project.prototype.setProjectAttributes = function(project_id) {
+      this.project_id = project_id;
       if (jQuery.isEmptyObject(this.toJSON()) || parseInt(this.get('aj_id')) !== parseInt(project_id)) {
         this.fetch({
           async: false,
-          data: {
-            project_id: project_id
-          },
           success: (function(_this) {
             return function(collection, response) {
               if (response === 0) {
@@ -34,7 +31,6 @@
             };
           })(this)
         });
-        this.resetEntitites();
       }
       return this;
     };

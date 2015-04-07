@@ -8,6 +8,7 @@ class CommonFloor.ProjectCtrl extends Marionette.RegionController
 
 	initialize:->
 		id = PROJECTID
+		console.log project
 		project.setProjectAttributes(id);
 		if jQuery.isEmptyObject(project.toJSON())
 			console.log "failure"

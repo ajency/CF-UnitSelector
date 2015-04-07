@@ -20,7 +20,6 @@
         <!-- end plugins -->
         <script>
         window.PROJECTID = {{ $id }};
-        window.project = new Project;
         CommonFloor = new Marionette.Application 
 
 
@@ -30,11 +29,17 @@
         <div ui-region></div>
         </body>
 
-        <script src="{{ asset('js/frontend/header/header.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/project.entity.js' )}}"></script>
+        
+
+        <script type="text/javascript">
+        window.project = new CommonFloor.Project;
+        window.siteurl = '{{ url( "api1/v1/public/project") }}';
+        </script>
         <script src="{{ asset('js/frontend/screen-one/project.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/header/header.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
-        
         
         
         
