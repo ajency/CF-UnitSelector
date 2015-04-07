@@ -6,3 +6,4 @@ CommonFloor.addInitializer ->
 CommonFloor.start()
 
 
+CommonFloor.navigate '/project' , true

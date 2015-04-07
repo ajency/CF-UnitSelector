@@ -4,7 +4,7 @@ _.extend Marionette.Application::,
 		'header' : 
 			url : '/'
 		'project':
-			url : 'project'
+			url : '/project'
 			parent : 'header'
 			sections : 
 				'top' : 

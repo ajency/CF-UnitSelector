@@ -4,7 +4,8 @@ _.extend(Marionette.Application.prototype, {
       url: '/'
     },
     'project': {
-      url: '/project',
+      url: 'project',
+      parent: 'header',
       sections: {
         'top': {
           ctrl: 'TopCtrl'
