@@ -6,7 +6,6 @@
       },
       'project': {
         url: '/project',
-        parent: 'header',
         sections: {
           'top': {
             ctrl: 'TopCtrl'

@@ -19,7 +19,8 @@
 
         <!-- end plugins -->
         <script>
-        var PROJECTID = {{ $id }};
+        window.PROJECTID = {{ $id }};
+        window.project = new Project;
         CommonFloor = new Marionette.Application 
 
 
@@ -28,7 +29,7 @@
 
         <div ui-region></div>
         </body>
-        
+
         <script src="{{ asset('js/frontend/header/header.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/screen-one/project.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/app.js' )}}"></script>

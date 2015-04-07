@@ -5,7 +5,6 @@ _.extend Marionette.Application::,
 			url : '/'
 		'project':
 			url : '/project'
-			parent : 'header'
 			sections : 
 				'top' : 
 					ctrl : 'TopCtrl'

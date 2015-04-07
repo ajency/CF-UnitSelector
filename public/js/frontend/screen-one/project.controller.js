@@ -24,8 +24,14 @@
     }
 
     ProjectCtrl.prototype.initialize = function() {
-      console.log("aaaaaaaa");
-      return this.show(new ProjectLayoutView);
+      var id;
+      id = PROJECTID;
+      project.setProjectAttributes(id);
+      if (jQuery.isEmptyObject(project.toJSON())) {
+        return console.log("failure");
+      } else {
+        return this.show(new ProjectLayoutView);
+      }
     };
 
     return ProjectCtrl;
