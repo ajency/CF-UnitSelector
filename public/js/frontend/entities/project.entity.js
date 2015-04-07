@@ -10,7 +10,7 @@
     }
 
     Project.prototype.urlRoot = function() {
-      return siteurl + '/' + this.project_id;
+      return BASERESTURL + '/' + this.project_id;
     };
 
     Project.prototype.setProjectAttributes = function(project_id) {

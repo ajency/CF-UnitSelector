@@ -1,9 +1,9 @@
 jQuery(document).ready ($)->
-CommonFloor.addInitializer ->
-		Backbone.history.start()
+	CommonFloor.addInitializer ->
+			Backbone.history.start()
 
 
-CommonFloor.start()
+	CommonFloor.start()
 
 
-CommonFloor.navigate '/project' , true
+	CommonFloor.navigate '/project' , true

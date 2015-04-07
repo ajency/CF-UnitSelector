@@ -3,7 +3,7 @@ class CommonFloor.Project extends Backbone.Model
 
 	#url to fetch project data
 	urlRoot :->
-		siteurl+'/'+ @project_id
+		BASERESTURL+'/'+ @project_id
 
 
 
