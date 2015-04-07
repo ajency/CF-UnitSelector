@@ -1,9 +1,6 @@
 (function() {
   _.extend(Marionette.Application.prototype, {
     appStates: {
-      'header': {
-        url: '/'
-      },
       'project': {
         url: '/project',
         sections: {
@@ -12,6 +9,9 @@
           },
           'left': {
             ctrl: 'LeftCtrl'
+          },
+          'center': {
+            ctrl: 'CenterCtrl'
           }
         }
       }

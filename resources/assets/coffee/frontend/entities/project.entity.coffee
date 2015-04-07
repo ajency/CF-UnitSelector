@@ -3,7 +3,15 @@ class CommonFloor.Project extends Backbone.Model
 
 	#url to fetch project data
 	urlRoot :->
-		BASERESTURL+'/'+ @project_id
+		BASERESTURL+'/project/'+ @project_id
+
+
+	parse:(response)->
+		resp = response.data
+		return resp
+		
+
+
 
 
 
@@ -12,14 +20,13 @@ class CommonFloor.Project extends Backbone.Model
 	setProjectAttributes:(project_id)->
 		# @set projectData
 		@project_id = project_id
-		if jQuery.isEmptyObject(@toJSON()) || parseInt(@get('aj_id')) != parseInt(project_id)
+		if jQuery.isEmptyObject(@toJSON()) || parseInt(@get('id')) != parseInt(project_id)
 			@fetch(
 				async: false
 				success:(collection, response)=>
-					if response == 0
+					if response == 0 || jQuery.isEmptyObject(response)
 						@clear()
-				error:(collection, response)=>
-					console.log "aaaaaaaaaaaaaaaaa"
+				
 
 				)
 			# @resetEntitites()

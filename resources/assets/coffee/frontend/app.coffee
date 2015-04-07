@@ -1,8 +1,6 @@
 _.extend Marionette.Application::,
 
 	appStates :
-		'header' : 
-			url : '/'
 		'project':
 			url : '/project'
 			sections : 
@@ -10,6 +8,8 @@ _.extend Marionette.Application::,
 					ctrl : 'TopCtrl'
 				'left' : 
 					ctrl : 'LeftCtrl'
+				'center' : 
+					ctrl : 'CenterCtrl'
 			
 
 	getCurrentRoute : ->

@@ -1,8 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head>
-
-    <script id="header-template" type="text/template">
+<script id="header-template" type="text/template">
        <div class="row inner-pages" id="page-header">
           <header class="cf-hdr-blk">
               <div class="top-nav-wrp">
@@ -48,15 +44,20 @@
       </div>
 	</script>
 
-	 <script id="project-template" type="text/template">
+	<script id="project-template" type="text/template">
 	 	<div class="inner-container">
          	<div ui-region="top" id="topregion">
          	</div>
-         	<div ui-region="left" id="leftregion">
-         	</div>
-        </div>
+          <div class="row">
+           	<div ui-region="left" id="leftregion">
+           	</div>
+            <div ui-region="center" id="centerregion">
+            </div>
+          </div>
+    </div>
 	</script>
 
-</head>
-</html>
+  <script id="noFound-template" type="text/template">
+    Nothing Found
+  </script>
         

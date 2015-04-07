@@ -5,4 +5,4 @@ class NothingFoundView extends Marionette.ItemView
 class CommonFloor.NothingFoundCtrl extends Marionette.RegionController
 
 	initialize:->
-		@show new NothingFoundView
+		@show new NothingFoundView()

@@ -10,24 +10,25 @@
     }
 
     Project.prototype.urlRoot = function() {
-      return BASERESTURL + '/' + this.project_id;
+      return BASERESTURL + '/project/' + this.project_id;
+    };
+
+    Project.prototype.parse = function(response) {
+      var resp;
+      resp = response.data;
+      return resp;
     };
 
     Project.prototype.setProjectAttributes = function(project_id) {
       this.project_id = project_id;
-      if (jQuery.isEmptyObject(this.toJSON()) || parseInt(this.get('aj_id')) !== parseInt(project_id)) {
+      if (jQuery.isEmptyObject(this.toJSON()) || parseInt(this.get('id')) !== parseInt(project_id)) {
         this.fetch({
           async: false,
           success: (function(_this) {
             return function(collection, response) {
-              if (response === 0) {
+              if (response === 0 || jQuery.isEmptyObject(response)) {
                 return _this.clear();
               }
-            };
-          })(this),
-          error: (function(_this) {
-            return function(collection, response) {
-              return console.log("aaaaaaaaaaaaaaaaa");
             };
           })(this)
         });

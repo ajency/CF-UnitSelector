@@ -24,7 +24,7 @@
     }
 
     NothingFoundCtrl.prototype.initialize = function() {
-      return this.show(new NothingFoundView);
+      return this.show(new NothingFoundView());
     };
 
     return NothingFoundCtrl;

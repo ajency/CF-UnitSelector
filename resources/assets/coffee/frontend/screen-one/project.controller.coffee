@@ -8,22 +8,53 @@ class CommonFloor.ProjectCtrl extends Marionette.RegionController
 
 	initialize:->
 		id = PROJECTID
-		console.log project
 		project.setProjectAttributes(id);
+		console.log project
 		if jQuery.isEmptyObject(project.toJSON())
-			console.log "failure"
+			new NothingFoundView
 		else
+			console.log "aaaaaaaaaa"
 			@show new ProjectLayoutView
 
 
 class TopView extends Marionette.ItemView
 
-	template : '<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
+	template : Handlebars.compile('<div class="col-md-12 col-xs-12 col-sm-12">
+		            <div class="search-header-wrap">
+		              <h1>Explore {{project_title}}\'s</h1>
+		            </div>
+		          </div>')
+
+	className : 'row'
+
+
+
+
+
+
+
+
+
+
+
+
+
+class CommonFloor.TopCtrl extends Marionette.RegionController
+
+	initialize:->
+		@show new TopView
+				model : project
+
+
+
+class LeftView extends Marionette.ItemView
+
+	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
 	            <div class="filters-wrapper">
 	              <div class="tab-main-container">                
 	                <div class="blck-wrap">
 	                  <h4><strong>Project by</strong></h4>
-	                  <img src="../../images/artha_logo.png" class="img-responsive builder-logo">
+	                  <img src="{{logo}}" class="img-responsive builder-logo">
 	                </div>
 	                <div class="blck-wrap">
 	                  <h4><strong>Project Details</strong></h4>
@@ -53,42 +84,15 @@ class TopView extends Marionette.ItemView
 	                </div>
 	                <div class="blck-wrap">
 	                  <div class="text-center">
-	                    <img src="../../images/marker-img.png" class="img-responsive marker-img">
+	                    <img src="../images/marker-img.png" class="img-responsive marker-img">
 	                    Know your neighborhood. The orange markers are important landmarks. Click for more information.
 	                  </div>
 	                </div>
 	              </div>
 	            </div>
-	          	</div>
+	          	</div>')
 
-	          	<div class="col-md-9 us-right-content">
-		            <div class="svg-area">
-		              <img src="../../images/map1.png">
-		            </div>
-          		</div>'
-
-   
-
-
-
-
-
-class CommonFloor.TopCtrl extends Marionette.RegionController
-
-	initialize:->
-		@show new TopView
-
-
-
-class LeftView extends Marionette.ItemView
-
-	template : '<div class="col-md-12 col-xs-12 col-sm-12">
-		            <div class="search-header-wrap">
-		              <h1>Explore Artha Zen Villa\'s</h1>
-		            </div>
-	          	</div>'
-
-	className : 'row'
+	
 
 
 
@@ -98,3 +102,37 @@ class CommonFloor.LeftCtrl extends Marionette.RegionController
 
 	initialize:->
 		@show new LeftView
+				model : project
+				
+
+
+
+class CenterView extends Marionette.ItemView
+
+	template : Handlebars.compile('<div class="col-md-9 us-right-content">
+		            <div class="svg-area">
+		            	<img id="svg_project" class="bttrlazyloading"
+						    data-bttrlazyloading-md-src="{{step_one.svg}}"
+						/>
+		              
+		            </div>
+          		</div>')
+
+
+	onShow:->
+		$('#svg_project').bttrlazyloading();
+
+
+   
+	
+
+
+
+
+
+class CommonFloor.CenterCtrl extends Marionette.RegionController
+
+	initialize:->
+		@show new CenterView
+				model : project
+				
