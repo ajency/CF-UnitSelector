@@ -65,7 +65,7 @@ class LeftView extends Marionette.ItemView
 
 	                      <div class="detail-pts">                        
 	                        <p>
-	                          <span>Project Type:</span> Villa
+	                          <span>Project Type:</span> {{property_types}}
 	                        </p>
 	                        <p>
 	                          <span>BHK Area Range:</span> 1881 - 4780 Sq.Ft.
