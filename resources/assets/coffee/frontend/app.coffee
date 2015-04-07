@@ -1,19 +1,32 @@
+_.extend Marionette.Application::,
+
+	appStates : {}
+
+	getCurrentRoute : ->
+		Backbone.history.getFragment()
+
+	state : (name, def = {})->
+		@appStates[name] = def
+		@
+
+	_registerStates : ->
+		Marionette.RegionControllers.prototype.controllers = @
+		_.extend Marionette.AppStates::, appStates : @appStates
+		@router = new Marionette.AppStates app : CommonFloor
+
+	start : (options = {})->
+		@_detectRegions()
+		@triggerMethod 'before:start', options
+		@_registerStates()
+		@_initCallbacks.run options, @
+		@triggerMethod 'start', options
+
+
+
 # Handlebars Localisation Helper
 # Source: https://gist.github.com/tracend/3261055
 Handlebars.registerHelper 'l10n', (keyword)->
 
-
-	appStates :
-		'project':
-			url : '/project'
-			sections : 
-				'top' : 
-					ctrl : 'TopCtrl'
-				'left' : 
-					ctrl : 'LeftCtrl'
-				'center' : 
-					ctrl : 'CenterCtrl'
-			
 
 	lang = if (navigator.language) then navigator.language else navigator.userLanguage 
  

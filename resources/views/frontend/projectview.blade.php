@@ -94,10 +94,10 @@
         <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js' )}}"></script> 
         <script src="{{ asset('bower_components/BttrLazyLoading/dist/jquery.bttrlazyloading.min.js' )}}"></script> 
         <!-- end plugins -->
-
+        <script src="{{ asset('js/frontend/app.js' )}}"></script>
         <script>
         BASERESTURL = '{{ get_rest_api_url() }}';
-        PROJECTID = "";
+        PROJECTID = {{ $id }};
         CommonFloor = new Marionette.Application 
         
         </script>
@@ -110,7 +110,7 @@
         };
         </script>
         <script src="{{ asset('js/frontend/screen-one/project.controller.js' )}}"></script>
-        <script src="{{ asset('js/frontend/app.js' )}}"></script>
+        
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
     </body>
 </html>
