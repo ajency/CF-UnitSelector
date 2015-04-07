@@ -32,7 +32,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
 } );
 
 Route::group( ['prefix' => 'api/v1', 'middleware' => ['auth']], function() {
-    Route::resource( 'project', 'Admin\ProjectController' );
+    Route::resource( 'project', 'Rest\ProjectController', ['only' => ['index', 'show']] );
 } );
 
 function get_property_type( $type_id ) {
@@ -44,7 +44,6 @@ function get_property_type( $type_id ) {
 
     return $types[$type_id];
 }
-
 
 Route::resource( 'projects', 'ProjectController' );
 
