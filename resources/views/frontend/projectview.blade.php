@@ -97,7 +97,7 @@
 
         <script>
         BASERESTURL = '{{ get_rest_api_url() }}';
-        PROJECTID = {{ $id }};
+        PROJECTID = "";
         CommonFloor = new Marionette.Application 
 
         </script>
@@ -106,9 +106,7 @@
         <script type="text/javascript">
         window.project = new CommonFloor.Project
         </script>
-        <script src="{{ asset('js/frontend/header/header.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/screen-one/project.controller.js' )}}"></script>
-        <script src="{{ asset('js/frontend/header/header.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
     </body>

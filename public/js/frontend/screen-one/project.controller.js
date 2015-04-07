@@ -1,9 +1,9 @@
 (function() {
-  var CenterView, LeftView, ProjectLayoutView, TopView,
+  var CenterView, LeftView, TopView,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
-  ProjectLayoutView = (function(superClass) {
+  CommonFloor.ProjectLayoutView = (function(superClass) {
     extend(ProjectLayoutView, superClass);
 
     function ProjectLayoutView() {
@@ -24,15 +24,16 @@
     }
 
     ProjectCtrl.prototype.initialize = function() {
-      var id;
+      var id, region;
       id = PROJECTID;
       project.setProjectAttributes(id);
-      console.log(project);
       if (jQuery.isEmptyObject(project.toJSON())) {
-        return new NothingFoundView;
+        region = new Marionette.Region({
+          el: '#noFound-template'
+        });
+        return this.show(new CommonFloor.NothingFoundView);
       } else {
-        console.log("aaaaaaaaaa");
-        return this.show(new ProjectLayoutView);
+        return this.show(new CommonFloor.ProjectLayoutView);
       }
     };
 

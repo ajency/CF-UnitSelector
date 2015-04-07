@@ -1,4 +1,4 @@
-class ProjectLayoutView extends Marionette.LayoutView
+class CommonFloor.ProjectLayoutView extends Marionette.LayoutView
 
 	template : '#project-template'
 
@@ -9,12 +9,12 @@ class CommonFloor.ProjectCtrl extends Marionette.RegionController
 	initialize:->
 		id = PROJECTID
 		project.setProjectAttributes(id);
-		console.log project
 		if jQuery.isEmptyObject(project.toJSON())
-			new NothingFoundView
+			region  = new Marionette.Region el : '#noFound-template'
+			@show new CommonFloor.NothingFoundView
+			
 		else
-			console.log "aaaaaaaaaa"
-			@show new ProjectLayoutView
+			@show new CommonFloor.ProjectLayoutView
 
 
 class TopView extends Marionette.ItemView
