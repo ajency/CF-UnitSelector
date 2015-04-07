@@ -168,6 +168,8 @@
         <script src="{{ asset('plugins/dashboard-theme-core/core.js') }}" type="text/javascript"></script>
         <script src="{{ asset('plugins/datatables.js') }}" type="text/javascript"></script>
         <script src="{{ asset('js/add.projects.js') }}" type="text/javascript"></script> 
+        
+        <script src="{{ asset('scripts.js') }}" type="text/javascript"></script> 
 
         <script type="text/javascript">
 var uploader = new plupload.Uploader({
