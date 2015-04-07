@@ -22,7 +22,7 @@
         PROJECTID = {{ $id }};
         CommonFloor = new Marionette.Application
         window.locale = {
-            "en-US" : {{ get_locale() }}
+            "en-US" : {{ get_locale_frontend_to_json() }}
         };
         </script>
         <script src="{{ asset('js/frontend/header/header.controller.js' )}}"></script>
