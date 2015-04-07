@@ -22,7 +22,7 @@
         <div class="grid simple">
             <div class="grid-body no-border"> 
                 <br>
-                <form id="add_project" method="POST" action="/admin/project" data-parsley-validate>
+                <form id="add_project" method="POST" action="{{ url('admin/project') }}" data-parsley-validate>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">

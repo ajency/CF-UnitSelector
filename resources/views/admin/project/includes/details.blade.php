@@ -74,7 +74,7 @@
                             @endforeach
                             <div class="form-inline">
                                 <div class="form-group">
-                                    <input type="text" class="form-control unit-type" placeholder="Add Unit Type">
+                                    <input type="text" class="form-control unit-type" placeholder="Add Unit Type" data-parsley-excluded>
                                     <button class="btn btn-white add-unit-type-btn" type="button" property-type="{{ $propertytype_id }}">
                                         <i class="fa fa-plus"></i>
                                     </button>
@@ -84,7 +84,11 @@
                         @endforeach
 
                     </div>
-                        <div class="form-group">
+
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
                         <label class="form-label">Project Status</label>
                         <select  class="select2 form-control" name="property_status">
                             <option value="draft" @if($project['status']=='draft'){{'selected'}}@endif>Draft</option>
@@ -93,8 +97,6 @@
                             <option value="archived" @if($project['status']=='archived'){{'selected'}}@endif>Archived</option>
                         </select>
                     </div>
-                </div>
-                <div class="col-md-6">
                     <div class="user-description-box">
                         <div class="row">
                             <div class="col-sm-8">

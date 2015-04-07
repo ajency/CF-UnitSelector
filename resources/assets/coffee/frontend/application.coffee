@@ -1,3 +1,8 @@
-CommonFloor = new Marionette.Application
+jQuery(document).ready ($)->
+CommonFloor.addInitializer ->
+		Backbone.history.start()
+
 
 CommonFloor.start()
+
+
