@@ -15,11 +15,11 @@ class DatabaseSeeder extends Seeder {
      */
     public function run() {
         Model::unguard();
-        $this->call('UserTableSeeder');
-        $this->command->info(" User Table Seeded! ");
-        
-        $this->call('RoomTypeTableSeeder');
-        $this->command->info(" Room Type Table Seeded! ");
+        $this->call( 'UserTableSeeder' );
+        $this->command->info( " User Table Seeded! " );
+
+        $this->call( 'RoomTypeTableSeeder' );
+        $this->command->info( " Room Type Table Seeded! " );
     }
 
 }
@@ -27,11 +27,11 @@ class DatabaseSeeder extends Seeder {
 class UserTableSeeder extends Seeder {
 
     public function run() {
-        User::create([
+        User::create( [
             'name' => 'Super Admin',
             'email' => 'admin@cf.com',
-            'password' => Hash::make('admin')
-        ]);
+            'password' => Hash::make( 'admin' )
+        ] );
     }
 
 }
@@ -39,15 +39,14 @@ class UserTableSeeder extends Seeder {
 class RoomTypeTableSeeder extends Seeder {
 
     public function run() {
-        RoomType::create(['name' => 'Bedroom']);
-        RoomType::create(['name' => 'Kitchen']);
-        RoomType::create(['name' => 'Dining']);
-        RoomType::create(['name' => 'Bathroom']);
-        RoomType::create(['name' => 'Master Bedroom']);
-        RoomType::create(['name' => 'Livingroom']);
-        RoomType::create(['name' => 'Lobby']);
-        RoomType::create(['name' => 'Toilet']);
-        
+        RoomType::create( ['name' => 'Bedroom'] );
+        RoomType::create( ['name' => 'Kitchen'] );
+        RoomType::create( ['name' => 'Dining'] );
+        RoomType::create( ['name' => 'Bathroom'] );
+        RoomType::create( ['name' => 'Master Bedroom'] );
+        RoomType::create( ['name' => 'Livingroom'] );
+        RoomType::create( ['name' => 'Lobby'] );
+        RoomType::create( ['name' => 'Toilet'] );
     }
 
 }

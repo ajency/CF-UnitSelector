@@ -11,19 +11,19 @@ class CreateUnitVariantsTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('unit_variants', function(Blueprint $table) {
-            $table->increments('id');
-            $table->string('unit_variant_name', 100);
-            $table->integer('unit_type_id')->unsigned();
+        Schema::create( 'unit_variants', function(Blueprint $table) {
+            $table->increments( 'id' );
+            $table->string( 'unit_variant_name', 100 );
+            $table->integer( 'unit_type_id' )->unsigned();
             $table->timestamps();
             $table->softDeletes();
 
             //reference  a foreign key
-            $table->foreign('unit_type_id')
-                    ->references('id')
-                    ->on('unit_types')
-                    ->onDelete('cascade');
-        });
+            $table->foreign( 'unit_type_id' )
+                    ->references( 'id' )
+                    ->on( 'unit_types' )
+                    ->onDelete( 'cascade' );
+        } );
     }
 
     /**
@@ -32,7 +32,7 @@ class CreateUnitVariantsTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::drop('unit_variants');
+        Schema::drop( 'unit_variants' );
     }
 
 }
