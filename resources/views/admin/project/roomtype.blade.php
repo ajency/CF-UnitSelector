@@ -133,7 +133,7 @@
     <div class="grid-body">
         <form name="frmroomtype_projattr" id="frmroomtype_projattr">
         <div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 m-b-10 text-grey">
-            @foreach($roomtype['ATTRIBUTES'] as $attributes)    
+            @foreach($projectAttribute as $attributes)    
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">

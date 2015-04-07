@@ -10,7 +10,7 @@ class Project extends Model {
         return $this->morphMany('CommonFloor\Media', 'mediable');
     }
     
-     public function attribute() {
+     public function attributes() {
         return $this->morphMany('CommonFloor\Attribute', 'object');
     }
 

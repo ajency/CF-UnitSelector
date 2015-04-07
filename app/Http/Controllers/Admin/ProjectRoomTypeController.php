@@ -39,7 +39,7 @@ class ProjectRoomTypeController extends Controller {
         
         return view('admin.project.roomtype')
                         ->with('project', $project->toArray())
-                        ->with('projectAttribute', $project->attributes)
+                        ->with('projectAttribute', $project->attributes->toArray())
                         ->with('roomtypeAttributes', $roomtype_attribute)
                         ->with('current', 'room_type');
     }
@@ -114,7 +114,7 @@ class ProjectRoomTypeController extends Controller {
             $objecttype= 'CommonFloor\RoomType';
         }
         elseif($refferece_type == 'property') {
-            $project = Project::find($refferece_id);
+            $project = Project::find($project_id);
              $objecttype= 'CommonFloor\Project';
         }
         $attribute_name_arr = $data['attribute_name_'.$refferece_id];
@@ -142,10 +142,10 @@ class ProjectRoomTypeController extends Controller {
             }
  
             if (!empty($attribute))
-            {
+            {  
                  if ($refferece_type == 'room_type') 
                     $roomType->attributes()->saveMany($attribute);
-                 elseif ($refferece_type == 'room_type') 
+                 elseif ($refferece_type == 'property') 
                      $project->attributes()->saveMany($attribute);
             }
         }

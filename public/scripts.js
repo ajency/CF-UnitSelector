@@ -133,7 +133,7 @@ function saveRoomypeattribute(project_id,roomtypeId,reffrence_type)
             _method: 'PUT'
         },
         success: function (response) {
-          //  window.location.reload();
+            window.location.reload();
         }
     });
 }
