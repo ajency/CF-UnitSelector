@@ -25,7 +25,9 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource( 'project', 'Admin\ProjectController' );
     Route::resource( 'project.media', 'Admin\ProjectMediaController' );
     Route::resource( 'project.unittype', 'Admin\ProjectUnitTypeController' );
+    Route::resource( 'project.bunglow', 'Admin\ProjectBunglowController' );
     Route::resource( 'phase', 'Admin\PhaseController' );
+    Route::resource( 'project.roomtype', 'Admin\ProjectRoomTypeController' );
     Route::get( 'project/{id}/svg', 'Admin\ProjectController@svg' );
 } );
 
@@ -43,5 +45,9 @@ function get_property_type( $type_id ) {
     return $types[$type_id];
 }
 
+
+Route::resource( 'projects', 'ProjectController' );
+
 App::bind( 'CommonFloor\Gateways\RoomTypeGatewayInterface', 'CommonFloor\Gateways\RoomTypeGateway' );
 App::bind( 'CommonFloor\Repositories\AttributesRepositoryInterface', 'CommonFloor\Repositories\AttributeRepository' );
+

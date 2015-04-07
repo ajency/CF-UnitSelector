@@ -9,9 +9,17 @@ class Project extends Model {
     public function media() {
         return $this->morphMany('CommonFloor\Media', 'mediable');
     }
+    
+     public function attribute() {
+        return $this->morphMany('CommonFloor\Attribute', 'object');
+    }
 
     public function projectMeta() {
         return $this->hasMany('CommonFloor\ProjectMeta');
+    }
+    
+    public function roomTypes() {
+        return $this->hasMany('CommonFloor\RoomType');
     }
 
     public function projectPhase() {

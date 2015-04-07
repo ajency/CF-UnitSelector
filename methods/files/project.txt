@@ -1,0 +1,54 @@
+[
+	{
+			"aj_id" : 1,
+			"cf_id" : 235,
+			"title" : "Goyal prints",
+			"logo"  : "http://lorempixel.com/640/480",
+			"google_earth" : {"svg":["http://lorempixel.com/640/480",
+									"http://lorempixel.com/640/480"],
+							"image" :["http://lorempixel.com/640/480",
+									"http://lorempixel.com/640/480"]
+							},
+			"sky_view"     : {"svg":["http://lorempixel.com/640/480",
+									"http://lorempixel.com/640/480"],
+							"image" :["http://lorempixel.com/640/480",
+									"http://lorempixel.com/640/480"]
+							},
+			"project_master" : {"svg":["http://lorempixel.com/640/480",
+									"http://lorempixel.com/640/480"],
+							 "image" :["http://lorempixel.com/640/480",
+							 		"http://lorempixel.com/640/480"]},
+			"top_view"       : {"svg":["http://lorempixel.com/640/480",
+									"http://lorempixel.com/640/480"],
+								"image" :["http://lorempixel.com/640/480",
+										"http://lorempixel.com/640/480"]
+							}
+
+	},
+	{
+			"aj_id" : 2,
+			"cf_id" : 235,
+			"title" : "Royal prints",
+			"logo"  : "http://lorempixel.com/640/480",
+			"google_earth" : {"svg":["http://lorempixel.com/640/480",
+									"http://lorempixel.com/640/480"],
+							"image" :["http://lorempixel.com/640/480",
+									"http://lorempixel.com/640/480"]
+							},
+			"sky_view"     : {"svg":["http://lorempixel.com/640/480",
+									"http://lorempixel.com/640/480"],
+							"image" :["http://lorempixel.com/640/480",
+									"http://lorempixel.com/640/480"]
+							},
+			"project_master" : {"svg":["http://lorempixel.com/640/480",
+									"http://lorempixel.com/640/480"],
+							 "image" :["http://lorempixel.com/640/480",
+							 		"http://lorempixel.com/640/480"]},
+			"top_view"       : {"svg":["http://lorempixel.com/640/480",
+									"http://lorempixel.com/640/480"],
+								"image" :["http://lorempixel.com/640/480",
+										"http://lorempixel.com/640/480"]
+							}
+
+	}
+]

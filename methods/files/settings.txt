@@ -1,0 +1,51 @@
+{ "1" :{
+	"phases" : [{"phase_id" : 1,"phase_name":"Phase 1"}],
+	"floor_rise" : {"1":0,"2":0,"3":25,"4":50,"5":75,"6":100,"7":125,"8":150,"9":175,"10":200,"11":225,"12":250},
+	"stamp_duty":"5",
+	"registration_amount":"30000",
+	"vat":"1",
+	"service_tax_low":"3.09",
+	"service_tax_high":"3.73",
+	"infrastructure_charges":["500000","650000"],
+	"membership_fees":[
+			{"membership_fees":0,"unit_type":19,"unit_variant":0},
+			{"membership_fees":168540,"unit_type":9,"unit_variant":0},
+			{"membership_fees":0,"unit_type":10,"unit_variant":[
+				{"unit_variant":27,"membership_fees":0},
+				{"unit_variant":29,"membership_fees":0},{"unit_variant":65,"membership_fees":0},
+				{"unit_variant":66,"membership_fees":0}]},
+			{"membership_fees":0,"unit_type":16,"unit_variant":0},
+			{"membership_fees":0,"unit_type":14,"unit_variant":0}
+			],
+	"status" : [
+			{"id":1,"name":"Sold"},
+			{"id":2,"name":"Available"},
+			{"id":3,"name":"Blocked"}
+			]
+	},
+"2":{
+	"phases" : [{"phase_id" : 1,"phase_name":"Phase 1"}],
+	"floor_rise" : {"1":0,"2":0,"3":25,"4":50,"5":75,"6":100,"7":125,"8":150,"9":175,"10":200,"11":225,"12":250},
+	"stamp_duty":"5",
+	"registration_amount":"30000",
+	"vat":"1",
+	"service_tax_low":"3.09",
+	"service_tax_high":"3.73",
+	"infrastructure_charges":["500000","650000"],
+	"membership_fees":[
+			{"membership_fees":0,"unit_type":19,"unit_variant":0},
+			{"membership_fees":168540,"unit_type":9,"unit_variant":0},
+			{"membership_fees":0,"unit_type":10,"unit_variant":[
+				{"unit_variant":27,"membership_fees":0},
+				{"unit_variant":29,"membership_fees":0},{"unit_variant":65,"membership_fees":0},
+				{"unit_variant":66,"membership_fees":0}]},
+			{"membership_fees":0,"unit_type":16,"unit_variant":0},
+			{"membership_fees":0,"unit_type":14,"unit_variant":0}
+			],
+	"status" : [
+			{"id":1,"name":"Sold"},
+			{"id":2,"name":"Available"},
+			{"id":3,"name":"Blocked"}
+			]
+	}
+}
