@@ -2,7 +2,11 @@
   "name": "CommongFloor Unit Selector",
   "version": "0.0.0",
   "authors": [
-    "Suraj Air <suraj@ajency.in>"
+    "Suraj Air <suraj@ajency.in>",
+    "Surekha Rane <surekha@ajency.in>",
+    "Amit Adav <amit@ajency.in>",
+    "Jeromie Fernandes <jeromie@ajency.in>",
+    "Prajay Verenkar <prajay@ajency.in>"
   ],
   "license": "MIT",
   "ignore": [

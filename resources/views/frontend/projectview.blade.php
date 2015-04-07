@@ -99,12 +99,15 @@
         BASERESTURL = '{{ get_rest_api_url() }}';
         PROJECTID = "";
         CommonFloor = new Marionette.Application 
-
+        
         </script>
         <script src="{{ asset('js/frontend/entities/project.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/common/common.js' )}}"></script>
         <script type="text/javascript">
         window.project = new CommonFloor.Project
+        window.locale = {
+            "en-US" : {{ get_locale() }}
+        };
         </script>
         <script src="{{ asset('js/frontend/screen-one/project.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
