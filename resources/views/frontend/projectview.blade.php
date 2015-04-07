@@ -106,7 +106,7 @@
         <script type="text/javascript">
         window.project = new CommonFloor.Project
         window.locale = {
-            "en-US" : {{ get_locale() }}
+            "en-US" : {{ get_locale_frontend_to_json() }}
         };
         </script>
         <script src="{{ asset('js/frontend/screen-one/project.controller.js' )}}"></script>

@@ -39,17 +39,3 @@ Route::resource( 'projects', 'ProjectController' );
 
 App::bind( 'CommonFloor\Gateways\RoomTypeGatewayInterface', 'CommonFloor\Gateways\RoomTypeGateway' );
 App::bind( 'CommonFloor\Repositories\AttributesRepositoryInterface', 'CommonFloor\Repositories\AttributeRepository' );
-
-function get_property_type( $type_id ) {
-    $types = [
-        '1' => 'Apartments',
-        '2' => 'Bunglows/Villas',
-        '3' => 'Land'
-    ];
-
-    return $types[$type_id];
-}
-
-function get_rest_api_url() {
-    return url( 'api/v1' );
-}
