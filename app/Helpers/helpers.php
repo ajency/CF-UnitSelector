@@ -20,9 +20,11 @@ function get_rest_api_url() {
     return url( 'api/v1' );
 }
 
-function get_locale_frontend_to_json() {
+function get_locale_frontend_to_json( $lang = "en-US" ) {
     $messages = [
-        "welcome" => "Welcome message"
+        "en-US" => [
+            "welcome" => "Welcome message"
+        ]
     ];
-    return json_encode( $messages );
+    return json_encode( $messages[$lang] );
 }
