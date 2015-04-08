@@ -36,22 +36,22 @@
                           <div class="row">
                               <ul class="header-right-content">
                                   <li>
-                                      <div class="cf-sell-wrp">
-                                          <span class="cf-btn cf-sell-btn addCft">
-                                              Call us 89555444
-                                          </span>
-                                      </div>
-                                    </li>
-                                    <li>
-                                      <div class="shortlist-wrp"></div>
-                                    </li>
-                                    <li>
-                                      <div class="cf-login">
-                                          <a class="cf-lnk " href="javascript:void(0);">
-                                            <span class="text-label" id="setUserName">Log In/Sign Up</span>
-                                          </a>
-                                      </div>
+                                    <div class="cf-sell-wrp">
+                                        <span class="cf-btn cf-sell-btn addCft">
+                                            Call us 89555444
+                                        </span>
+                                    </div>
                                   </li>
+                                  <li>
+                                    <div class="shortlist-wrp"></div>
+                                  </li>
+                                  <!-- <li>
+                                    <div class="cf-login">
+                                        <a class="cf-lnk " href="javascript:void(0);">
+                                          <span class="text-label" id="setUserName">Log In/Sign Up</span>
+                                        </a>
+                                    </div>
+                                  </li> -->
                               </ul>
                           </div>
                       </div>
@@ -61,11 +61,24 @@
           </header>
       </div>
 
-      <div class="inner-container">
+      <div class="inner-container step1">
         <div class="row">
           <div class="col-md-12 col-xs-12 col-sm-12">
             <div class="search-header-wrap">
-              <h1>Explore Artha Zen Villa's</h1>
+              <h1 class="pull-left">Explore Artha Zen Villa's</h1>
+              <div class="pull-right">
+                <div class="toggle_radio">
+                  <input type="radio" checked class="toggle_option" id="first_toggle" name="toggle_option">
+                  <input type="radio" class="toggle_option" id="second_toggle" name="toggle_option">
+                  <input type="radio" class="toggle_option" id="third_toggle" name="toggle_option">
+                  <label for="first_toggle"><p>Morning</p></label>
+                  <label for="second_toggle"><p>Afternoon</p></label>
+                  <label for="third_toggle"><p>Evening</p></label>
+                  <div class="toggle_option_slider">
+                  </div>
+                </div>
+              </div>
+              <div class="clearfix"></div>
             </div>
           </div>
         </div>
@@ -165,5 +178,12 @@
     <script src="../../bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script> 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script> 
+
+    <script>
+      // $( ".svg-area" ).click(function() {
+      //   $( '.step1' ).addClass('animated fadeOut');
+      //   $( '.step2' ).addClass('animated fadeIn');
+      // });
+    </script>
   </body>
 </html>
