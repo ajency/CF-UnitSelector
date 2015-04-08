@@ -1,7 +1,7 @@
 (function() {
   jQuery(document).ready(function($) {
     CommonFloor.state('project', {
-      url: '/project',
+      url: '/',
       sections: {
         'top': {
           ctrl: 'TopCtrl'
@@ -16,7 +16,7 @@
     });
     CommonFloor.addInitializer(function() {
       Backbone.history.start();
-      return CommonFloor.navigate('/project', true);
+      return CommonFloor.navigate('/', true);
     });
     return CommonFloor.start();
   });

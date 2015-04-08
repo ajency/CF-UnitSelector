@@ -22,7 +22,8 @@ function get_rest_api_url() {
 
 function get_locale_frontend_to_json() {
     $messages = [
-        "welcome" => "Welcome message"
+        "welcome" => "Welcome message",
+        "know_your_neighbour" => "Know your neighborhood. The orange markers are important landmarks. Click for more information."
     ];
     return json_encode( $messages );
 }

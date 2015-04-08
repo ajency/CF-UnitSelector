@@ -21,7 +21,7 @@ class TopView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-12 col-xs-12 col-sm-12">
 					<div class="search-header-wrap">
-					  <h1>Explore {{project_title}}\'s</h1>
+					  <h1 class="pull-left">Explore {{project_title}}\'s</h1>
 					  <div class="pull-right">
 						<div class="toggle_radio">
 						  <input type="radio" checked class="toggle_option" id="first_toggle" name="toggle_option">
@@ -82,7 +82,7 @@ class LeftView extends Marionette.ItemView
 								  <span>Project Type:</span> {{prop_type}}
 								</p>
 								<p>
-								  <span>Area Range:</span> {{starting_area}} Sq.Ft.
+								  <span>Area:</span> {{starting_area}} Sq.Ft.
 								</p>
 								<p>
 								  <span>Unit Types:</span> {{unit_types}}
@@ -93,7 +93,7 @@ class LeftView extends Marionette.ItemView
 								  {{/availability}}
 								</p>
 								<p>
-								  <span>Price Range:</span>  {{starting_price}}
+								  <span>Starting Price:</span>  {{starting_price}}
 								</p>
 							{{/propertyTypes}}                  
 							                  

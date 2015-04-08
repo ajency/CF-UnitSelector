@@ -34,6 +34,7 @@
 
   Handlebars.registerHelper('i10n', function(keyword) {
     var i, j, key, lang, len, locale, target;
+    console.log(keyword);
     lang = navigator.language ? navigator.language : navigator.userLanguage;
     locale = window.locale[lang] || window.locale['en-US'] || window.locale || false;
     if (!locale) {
@@ -43,7 +44,7 @@
     key = keyword.split(".");
     for (j = 0, len = key.length; j < len; j++) {
       i = key[j];
-      target = target[key[i]];
+      target = target[i];
     }
     target = target || keyword;
     return target;

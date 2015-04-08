@@ -1,7 +1,7 @@
 jQuery(document).ready ($)->
 
 	CommonFloor.state 'project',
-			url : '/project'
+			url : '/'
 			sections:
 				'top' : 
 					ctrl : 'TopCtrl'
@@ -13,7 +13,7 @@ jQuery(document).ready ($)->
 
 	CommonFloor.addInitializer ->
 		Backbone.history.start()
-		CommonFloor.navigate '/project' , true
+		CommonFloor.navigate '/' , true
 
 
 	CommonFloor.start()
