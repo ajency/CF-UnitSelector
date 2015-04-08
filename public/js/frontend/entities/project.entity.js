@@ -59,6 +59,8 @@
 
   })(Backbone.Model);
 
+  window.project = new CommonFloor.Project;
+
 }).call(this);
 
 //# sourceMappingURL=../../frontend/entities/project.entity.js.map

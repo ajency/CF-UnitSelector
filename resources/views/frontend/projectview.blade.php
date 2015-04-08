@@ -100,17 +100,13 @@
         PROJECTID = {{ $id }};
         CommonFloor = new Marionette.Application 
         
+        window.locale = {
+            "en-US" : {}
+        };
         </script>
         <script src="{{ asset('js/frontend/entities/project.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/common/common.js' )}}"></script>
-        <script type="text/javascript">
-        window.project = new CommonFloor.Project
-        window.locale = {
-            "en-US" : {{ get_locale_frontend_to_json() }}
-        };
-        </script>
         <script src="{{ asset('js/frontend/screen-one/project.controller.js' )}}"></script>
-        
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
     </body>
 </html>

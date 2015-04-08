@@ -17,7 +17,7 @@
         appStates: this.appStates
       });
       return this.router = new Marionette.AppStates({
-        app: CommonFloor
+        app: this
       });
     },
     start: function(options) {

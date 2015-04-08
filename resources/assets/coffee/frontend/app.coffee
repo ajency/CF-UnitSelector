@@ -12,7 +12,7 @@ _.extend Marionette.Application::,
 	_registerStates : ->
 		Marionette.RegionControllers.prototype.controllers = @
 		_.extend Marionette.AppStates::, appStates : @appStates
-		@router = new Marionette.AppStates app : CommonFloor
+		@router = new Marionette.AppStates app : @
 
 	start : (options = {})->
 		@_detectRegions()

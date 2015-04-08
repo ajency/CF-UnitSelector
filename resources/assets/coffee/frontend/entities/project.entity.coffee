@@ -51,7 +51,7 @@ class CommonFloor.Project extends Backbone.Model
 
 
 
-
+window.project = new CommonFloor.Project
 		
 
 		
