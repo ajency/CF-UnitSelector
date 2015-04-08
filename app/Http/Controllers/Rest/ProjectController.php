@@ -56,7 +56,20 @@ class ProjectController extends Controller {
                 'svg' => $faker->imageUrl( 1300, 800, 'city' ),
                 'image' => $faker->imageUrl( 1300, 800, 'city' )
             ],
-            'property_types' => $faker->randomElements( ['Apartments', 'Bunglows', 'Land'], 2 )
+            'property_types' => [
+                'bunglows' => [
+                    'unit_types' => [$faker->name],
+                    'starting_area' => $faker->randomNumber(),
+                    'availability' => [
+                        'sold' => $faker->randomDigit,
+                        'blocked' => $faker->randomDigit
+                    ],
+                    'starting_price' => $faker->randomNumber()
+                ]
+            ],
+            'address' => $faker->address,
+            'project_status' => 'Under Construction'
+            
         ];
         return response()->json( [
                     'data' => $projectData

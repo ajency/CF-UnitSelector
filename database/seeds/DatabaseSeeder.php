@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder {
         $this->call( 'UserTableSeeder' );
         $this->command->info( " User Table Seeded! " );
 
-        $this->call( 'RoomTypeTableSeeder' );
+        //$this->call( 'RoomTypeTableSeeder' );
         $this->command->info( " Room Type Table Seeded! " );
     }
 
