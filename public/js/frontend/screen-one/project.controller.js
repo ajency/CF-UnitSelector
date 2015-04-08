@@ -80,7 +80,32 @@
       return LeftView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="tab-main-container"> <div class="blck-wrap"> <h4><strong>Project by</strong></h4> <img src="{{logo}}" class="img-responsive builder-logo"> </div> <div class="blck-wrap"> <h4><strong>Project Details</strong></h4> <div class="proj-details"> <p> Bannerghatta Road, Bangalore, Karnataka, India </p> <div class="detail-pts"> <p> <span>Project Type:</span> {{property_types}} </p> <p> <span>BHK Area Range:</span> 1881 - 4780 Sq.Ft. </p> <p> <span>BHK Type:</span> 3BHK / 4BHK </p> <p> <span>Price Range:</span> 1.25 Crores - 2.85 Crores </p> <p> <span>Project Status:</span> Under Construction </p> </div> </div> </div> <div class="blck-wrap"> <div class="text-center"> <img src="../images/marker-img.png" class="img-responsive marker-img"> Know your neighborhood. The orange markers are important landmarks. Click for more information. </div> </div> </div> </div> </div>');
+    LeftView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="tab-main-container"> <div class="blck-wrap"> <h4><strong>Project by</strong></h4> <img src="{{logo}}" class="img-responsive builder-logo"> </div> <div class="blck-wrap"> <h4><strong>Project Details</strong></h4> <div class="proj-details"> <p> {{address}} </p> <div class="detail-pts"> {{#propertyTypes}} <p> <span>Project Type:</span> {{prop_type}} </p> <p> <span>Area Range:</span> {{starting_area}} Sq.Ft. </p> <p> <span>Unit Types:</span> {{unit_types}} </p> <p> <span>Available:</span> {{#availability}} {{count}}	{{status}} {{/availability}} </p> <p> <span>Price Range:</span>  {{starting_price}} </p> {{/propertyTypes}} </div> </div> </div> <div class="blck-wrap"> <div class="text-center"> <img src="../images/marker-img.png" class="img-responsive marker-img"> {{i10n "know_your_neighbour"}} </div> </div> </div> </div>');
+
+    LeftView.prototype.serializeData = function() {
+      var availability, data, propertyTypes, propertyTypesData;
+      data = LeftView.__super__.serializeData.call(this);
+      propertyTypesData = this.model.get('property_types');
+      propertyTypes = [];
+      availability = [];
+      $.each(propertyTypesData, function(index, value) {
+        $.each(value.availability, function(ind, val) {
+          return availability.push({
+            'status': s.capitalize(ind),
+            'count': val
+          });
+        });
+        return propertyTypes.push({
+          'prop_type': s.capitalize(index),
+          'unit_types': value.unit_types.join(','),
+          'starting_area': value.starting_area,
+          'starting_price': value.starting_price,
+          'availability': availability
+        });
+      });
+      data.propertyTypes = propertyTypes;
+      return data;
+    };
 
     return LeftView;
 

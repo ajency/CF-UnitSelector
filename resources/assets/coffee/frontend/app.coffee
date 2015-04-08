@@ -25,7 +25,7 @@ _.extend Marionette.Application::,
 
 # Handlebars Localisation Helper
 # Source: https://gist.github.com/tracend/3261055
-Handlebars.registerHelper 'l10n', (keyword)->
+Handlebars.registerHelper 'i10n', (keyword)->
 
 
 	lang = if (navigator.language) then navigator.language else navigator.userLanguage 

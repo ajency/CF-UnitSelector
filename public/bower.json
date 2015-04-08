@@ -46,7 +46,8 @@
     "modernizr": "~2.8.3",
     "ajency.marionette": "https://github.com/ajency/ajency.marionette.git#~0.4.0",
     "marionette.state": "https://github.com/ajency/marionette.state.git#~0.2.0",
-    "BttrLazyLoading": "~1.0.8"
+    "BttrLazyLoading": "~1.0.8",
+    "underscore.string": "~3.0.3"
   },
   "resolutions": {
     "underscore": "~1.8.2",

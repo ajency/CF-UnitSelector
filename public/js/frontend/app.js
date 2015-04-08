@@ -32,7 +32,7 @@
     }
   });
 
-  Handlebars.registerHelper('l10n', function(keyword) {
+  Handlebars.registerHelper('i10n', function(keyword) {
     var i, j, key, lang, len, locale, target;
     lang = navigator.language ? navigator.language : navigator.userLanguage;
     locale = window.locale[lang] || window.locale['en-US'] || window.locale || false;

@@ -86,6 +86,7 @@
      @include('frontend/templates')
         <!-- Plugins -->
         <script src="{{ asset('bower_components/underscore/underscore-min.js' )}}"></script>
+        <script src="{{ asset('bower_components/underscore.string/dist/underscore.string.min.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery/dist/jquery.min.js' )}}"></script>
         <script src="{{ asset('bower_components/backbone/backbone.js' )}}"></script>
         <script src="{{ asset('bower_components/marionette/lib/backbone.marionette.min.js' )}}"></script>
