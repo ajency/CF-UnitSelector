@@ -25,7 +25,7 @@
     function ShowTooltip(evt, mouseovertext)
     {
         tooltip.setAttributeNS(null,"x",evt.clientX+14);
-        tooltip.setAttributeNS(null,"y",evt.clientY+37);
+        tooltip.setAttributeNS(null,"y",evt.clientY+40);
         tooltip.firstChild.data = mouseovertext;
         tooltip.setAttributeNS(null,"visibility","visible");
 
@@ -56,7 +56,7 @@
     font-family: arial;
     }
     .tooltip{
-    font-size: 1em;
+    font-size: 1.5em;
     font-family: arial;
     fill:#fff;
     line-height:20px;
