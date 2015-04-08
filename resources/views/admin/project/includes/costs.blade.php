@@ -1,10 +1,10 @@
-<form action="{{ url('admin/project/' . $project['id']) }}" method="POST" data-parsley-validate>
     <div class="grid simple">
 
         <div class="grid-title">
             <h3>Project <span class="semi-bold">Costs</span></h3>
         </div> 
         <div class="grid-body">
+            <form action="{{ url('admin/project/' . $project['id']) }}" method="POST" data-parsley-validate>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -142,6 +142,6 @@
                     <button type="submit" class="btn btn-primary btn-cons">Save</button>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
-</form>
+</div>

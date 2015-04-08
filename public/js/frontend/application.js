@@ -1,9 +1,11 @@
 (function() {
-  var CommonFloor;
-
-  CommonFloor = new Marionette.Application;
-
-  CommonFloor.start();
+  jQuery(document).ready(function($) {
+    CommonFloor.addInitializer(function() {
+      return Backbone.history.start();
+    });
+    CommonFloor.start();
+    return CommonFloor.navigate('/project', true);
+  });
 
 }).call(this);
 

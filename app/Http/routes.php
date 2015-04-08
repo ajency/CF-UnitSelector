@@ -35,18 +35,7 @@ Route::group( ['prefix' => 'api/v1', 'middleware' => ['auth']], function() {
     Route::resource( 'project', 'Rest\ProjectController', ['only' => ['index', 'show']] );
 } );
 
-function get_property_type( $type_id ) {
-    $types = [
-        '1' => 'Apartments',
-        '2' => 'Bunglows/Villas',
-        '3' => 'Land'
-    ];
-
-    return $types[$type_id];
-}
-
 Route::resource( 'projects', 'ProjectController' );
 
 App::bind( 'CommonFloor\Gateways\RoomTypeGatewayInterface', 'CommonFloor\Gateways\RoomTypeGateway' );
 App::bind( 'CommonFloor\Repositories\AttributesRepositoryInterface', 'CommonFloor\Repositories\AttributeRepository' );
-

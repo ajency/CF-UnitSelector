@@ -2,7 +2,11 @@
   "name": "CommongFloor Unit Selector",
   "version": "0.0.0",
   "authors": [
-    "Suraj Air <suraj@ajency.in>"
+    "Suraj Air <suraj@ajency.in>",
+    "Surekha Rane <surekha@ajency.in>",
+    "Amit Adav <amit@ajency.in>",
+    "Jeromie Fernandes <jeromie@ajency.in>",
+    "Prajay Verenkar <prajay@ajency.in>"
   ],
   "license": "MIT",
   "ignore": [
@@ -35,13 +39,19 @@
     "handlebars": "~3.0.0",
     "jquery.tagsinput": "~1.3.2",
     "backbone": "~1.1.2",
-    "marionette": "~2.4.1",
+    "marionette": "http://ajency.github.io/marionette.state",
     "parsleyjs": "~2.0.7",
     "plupload": "~2.1.2",
     "backbone.marionette": "~2.4.1",
-    "modernizr": "~2.8.3"
+    "modernizr": "~2.8.3",
+    "ajency.marionette": "https://github.com/ajency/ajency.marionette.git#~0.4.0",
+    "marionette.state": "https://github.com/ajency/marionette.state.git#~0.2.0"
+
   },
   "resolutions": {
-    "underscore": "~1.8.2"
+    "underscore": "~1.8.2",
+    "handlebars": "~3.0.0",
+    "marionette": "~2.4.1",
+    "backbone.marionette": "~2.4.1"
   }
 }

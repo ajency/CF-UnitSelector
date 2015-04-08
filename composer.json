@@ -24,7 +24,10 @@
         ],
         "psr-4": {
             "CommonFloor\\": "app/"
-        }
+        },
+        "files" : [
+            "app/Helpers/helpers.php"
+        ]
     },
     "autoload-dev": {
         "classmap": [

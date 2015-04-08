@@ -1,3 +1,9 @@
-CommonFloor = new Marionette.Application
+jQuery(document).ready ($)->
+	CommonFloor.addInitializer ->
+			Backbone.history.start()
 
-CommonFloor.start()
+
+	CommonFloor.start()
+
+
+	CommonFloor.navigate '/project' , true
