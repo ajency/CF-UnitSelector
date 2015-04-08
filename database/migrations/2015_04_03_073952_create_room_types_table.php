@@ -11,16 +11,10 @@ class CreateRoomTypesTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('room_types', function(Blueprint $table) {
-            $table->increments('id');
-            $table->integer('project_id')->unsigned();
-            $table->string('name');
-
-            $table->foreign('project_id')
-                    ->references('id')
-                    ->on('projects')
-                    ->onDelete('cascade');
-        });
+        Schema::create( 'room_types', function(Blueprint $table) {
+            $table->increments( 'id' );
+            $table->string( 'name' );
+        } );
     }
 
     /**
@@ -29,7 +23,7 @@ class CreateRoomTypesTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::drop('room_types');
+        Schema::drop( 'room_types' );
     }
 
 }
