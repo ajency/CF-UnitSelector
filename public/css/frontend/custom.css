@@ -18,6 +18,26 @@
   top: 0;
   left: 0;
 }
+.blck-wrap {
+  cursor: pointer;
+}
+.blck-wrap .sold,
+.blck-wrap .available {
+  border-left: 2px solid #D07559;
+  padding-left: 5px;
+}
+.blck-wrap .available {
+  border-color: #72d12f;
+}
+.blck-wrap:hover {
+  background: #EAEAEA;
+}
+.blck-wrap.title-row .accord-head {
+  cursor: default;
+}
+.blck-wrap.title-row:hover {
+  background: none;
+}
 /* Left Container */
 .builder-logo {
   max-width: 200px;
