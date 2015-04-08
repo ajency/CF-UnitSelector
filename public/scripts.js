@@ -74,6 +74,7 @@ function addRoomtype(project_id)
 
             $("#addroomtypeblock").before(str);
             $("#roomtype").val('');
+            $("select").select2();
         }
     });
 }

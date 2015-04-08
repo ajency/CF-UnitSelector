@@ -13,7 +13,13 @@ class CreateRoomTypesTable extends Migration {
     public function up() {
         Schema::create( 'room_types', function(Blueprint $table) {
             $table->increments( 'id' );
+            $table->integer('project_id')->unsigned();
             $table->string( 'name' );
+            
+            $table->foreign( 'project_id' )
+                    ->references( 'id' )
+                    ->on( 'projects' )
+                    ->onDelete( 'cascade' );
         } );
     }
 
