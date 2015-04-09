@@ -61,79 +61,83 @@
           </header>
       </div>
 
-      <div class="inner-container step1">
-        <div class="row">
-          <div class="col-md-12 col-xs-12 col-sm-12">
-            <div class="search-header-wrap">
-              <h1 class="pull-left">Explore Artha Zen Villa's</h1>
-              <div class="pull-right">
-                <div class="toggle_radio">
-                  <input type="radio" checked class="toggle_option" id="first_toggle" name="toggle_option">
-                  <input type="radio" class="toggle_option" id="second_toggle" name="toggle_option">
-                  <input type="radio" class="toggle_option" id="third_toggle" name="toggle_option">
-                  <label for="first_toggle"><p>Morning</p></label>
-                  <label for="second_toggle"><p>Afternoon</p></label>
-                  <label for="third_toggle"><p>Evening</p></label>
-                  <div class="toggle_option_slider">
-                  </div>
-                </div>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
-            <div class="filters-wrapper">
-              <div class="tab-main-container">                
-                <div class="blck-wrap">
-                  <h4><strong>Project by</strong></h4>
-                  <img src="../../images/artha_logo.png" class="img-responsive builder-logo">
-                </div>
-                <div class="blck-wrap">
-                  <h4><strong>Project Details</strong></h4>
-                    <div class="proj-details">
-                      <p>
-                        Bannerghatta Road, Bangalore, Karnataka, India
-                      </p>
-
-                      <div class="detail-pts">                        
-                        <p>
-                          <span>Project Type:</span> Villa
-                        </p>
-                        <p>
-                          <span>BHK Area Range:</span> 1881 - 4780 Sq.Ft.
-                        </p>
-                        <p>
-                          <span>BHK Type:</span> 3BHK / 4BHK
-                        </p>
-                        <p>
-                          <span>Price Range:</span> 1.25 Crores - 2.85 Crores
-                        </p>
-                        <p>
-                          <span>Project Status:</span> Under Construction
-                        </p>                    
-                      </div>
+      <div class="inner-container">
+        <div class="step1">
+          <div class="row">
+            <div class="col-md-12 col-xs-12 col-sm-12">
+              <div class="search-header-wrap">
+                <h1 class="pull-left">Explore Artha Zen Villa's</h1>
+                <div class="pull-right">
+                  <div class="toggle_radio">
+                    <input type="radio" checked class="toggle_option" id="first_toggle" name="toggle_option">
+                    <input type="radio" class="toggle_option" id="second_toggle" name="toggle_option">
+                    <input type="radio" class="toggle_option" id="third_toggle" name="toggle_option">
+                    <label for="first_toggle"><p>Morning</p></label>
+                    <label for="second_toggle"><p>Afternoon</p></label>
+                    <label for="third_toggle"><p>Evening</p></label>
+                    <div class="toggle_option_slider">
                     </div>
-                </div>
-                <div class="blck-wrap">
-                  <div class="text-center">
-                    <img src="../../images/marker-img.png" class="img-responsive marker-img">
-                    Know your neighborhood. The orange markers are important landmarks. Click for more information.
                   </div>
                 </div>
+                <div class="clearfix"></div>
               </div>
             </div>
           </div>
 
-          <div class="col-md-9 us-right-content">
-            <div class="svg-area">
-              <img src="../../images/map1.png">
+          <div class="row">
+            <div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
+              <div class="filters-wrapper">
+                <div class="tab-main-container">                
+                  <div class="blck-wrap">
+                    <h4><strong>Project by</strong></h4>
+                    <img src="../../images/artha_logo.png" class="img-responsive builder-logo">
+                  </div>
+                  <div class="blck-wrap">
+                    <h4><strong>Project Details</strong></h4>
+                      <div class="proj-details">
+                        <p>
+                          Bannerghatta Road, Bangalore, Karnataka, India
+                        </p>
+
+                        <div class="detail-pts">                        
+                          <p>
+                            <span>Project Type:</span> Villa
+                          </p>
+                          <p>
+                            <span>BHK Area Range:</span> 1881 - 4780 Sq.Ft.
+                          </p>
+                          <p>
+                            <span>BHK Type:</span> 3BHK / 4BHK
+                          </p>
+                          <p>
+                            <span>Price Range:</span> 1.25 Crores - 2.85 Crores
+                          </p>
+                          <p>
+                            <span>Project Status:</span> Under Construction
+                          </p>                    
+                        </div>
+                      </div>
+                  </div>
+                  <div class="blck-wrap">
+                    <div class="text-center">
+                      <img src="../../images/marker-img.png" class="img-responsive marker-img">
+                      Know your neighborhood. The orange markers are important landmarks. Click for more information.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-9 us-right-content">
+              <div class="svg-area">
+                <embed src="../../images/step1.svg">
+                <!-- <img src=""> -->
+              </div>
             </div>
           </div>
         </div>
       </div>
+
 
       <footer id="footer" class="footer">
         <div class="footer-section1">
@@ -180,10 +184,11 @@
     <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script> 
 
     <script>
-      // $( ".svg-area" ).click(function() {
-      //   $( '.step1' ).addClass('animated fadeOut');
-      //   $( '.step2' ).addClass('animated fadeIn');
-      // });
+      $( ".step1-marker" ).click(function() {
+        $( '.step1' ).fadeOut( 250, "swing" );
+        $( '.step2' ).addClass('animated fadeIn');
+        // setTimeout( "jQuery('.step1').hide();",600 );
+      });
     </script>
   </body>
 </html>

@@ -20,10 +20,15 @@ function get_rest_api_url() {
     return url( 'api/v1' );
 }
 
-function get_locale_frontend_to_json() {
+function get_locale_frontend_to_json( $lang = "en-US" ) {
     $messages = [
-        "welcome" => "Welcome message",
-        "know_your_neighbour" => "Know your neighborhood. The orange markers are important landmarks. Click for more information."
+
+        "en-US" => [
+            "welcome" => "Welcome message",
+            "know_your_neighbour" => "Know your neighborhood. The orange markers are important landmarks. Click for more information."
+
+        ]
+
     ];
-    return json_encode( $messages );
+    return json_encode( $messages[$lang] );
 }
