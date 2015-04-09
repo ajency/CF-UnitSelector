@@ -62,7 +62,7 @@ class ProjectGateway implements ProjectGatewayInterface{
                 ]
             ],
             'address' => $faker->address,
-            'project_status' => 'Under Construction'
+            'project_status' => $project->getCFProjectStatus()
         ];
         return $projectData;
     }

@@ -50,6 +50,11 @@ class Project extends Model {
         $fileName = Media::find( $mediaId )->image_name;
         return url( "/projects/" . $this->id . "/google_earth/" . $fileName );
     }
+    
+    public function getCFProjectStatus(){
+        $commonFloorData = unserialize( $this->projectMeta()->where( 'meta_key', 'cf' )->first()->meta_value );
+        return 'Under Construction';
+    }
 
     public function toArray() {
         $data = parent::toArray();
