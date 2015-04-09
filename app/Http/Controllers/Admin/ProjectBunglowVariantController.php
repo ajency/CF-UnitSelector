@@ -18,8 +18,25 @@ class ProjectBunglowVariantController extends Controller {
      *
      * @return Response
      */
-    public function index() {
-        //
+    public function index($id, ProjectRepository $projectRepository) {
+        $project = $projectRepository->getProjectById($id);
+        $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
+        $propertyTypeArr = [];
+
+        foreach ($projectPropertytype as $propertyTypes) {
+            $propertyTypeArr [] = $propertyTypes['property_type_id'];
+
+            if ($propertyTypes['property_type_id'] == '2')
+                $projectPropertytypeId = $propertyTypes['id'];
+        }
+
+        $unitvariantArr = UnitVariant::orderBy('unit_variant_name')->get()->toArray();
+
+        return view('admin.project.listvariant')
+                        ->with('project', $project->toArray())
+                        ->with('project_property_type', $propertyTypeArr)
+                        ->with('unit_variant_arr', $unitvariantArr)
+                        ->with('current', '');
     }
 
     /**
