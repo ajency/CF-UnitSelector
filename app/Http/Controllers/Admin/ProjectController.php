@@ -64,6 +64,7 @@ class ProjectController extends Controller {
         foreach ($project->projectPropertyTypes as $projectPropertyType) {
             $unitTypes[$projectPropertyType->property_type_id] = $project->getUnitTypesToArray( $projectPropertyType->id );
         }
+ 
         return view( 'admin.project.settings' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'project_meta', $projectMeta )
