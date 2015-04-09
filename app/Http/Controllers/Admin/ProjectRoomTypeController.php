@@ -33,11 +33,11 @@ class ProjectRoomTypeController extends Controller {
         $propertytypeAttribute = [];
         $projectPropertytype = [];
         $projectPropertytypeArr = $project->projectPropertyTypes()->get()->toArray();
-        
+      
        
-        foreach ($projectPropertytypeArr as $property_types) {
+        foreach ($projectPropertytypeArr as $property_types) { 
             $propertytypeAttribute[$property_types['property_type_id']]['PROJECTPROPERTYTYPEID'] = $property_types['id'];
-            $propertytypeAttribute[$property_types['property_type_id']]['ATTRIBUTES'] = ProjectPropertyType::find( $property_types['property_type_id'] )->attributes->toArray();
+            $propertytypeAttribute[$property_types['property_type_id']]['ATTRIBUTES'] = ProjectPropertyType::find($property_types['id'])->attributes->toArray();
             $projectPropertytype [] = $property_types['property_type_id'];
         }
 
