@@ -22,29 +22,7 @@
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/roomtype/create/') }}">Room Type</a>
             </li>
         </ul> 
-        @foreach($project_property_type as $property_type)
-
-        @if ($property_type == '1')
-           <?php  $page="appartment"; ?>
-        @elseif ($property_type == '2')
-          <?php  $page="bunglow"; ?>
-        @elseif ($property_type == '3')
-           <?php $page="land"; ?>
-    
-        @endif
-
-        <div class="inner-menu-content" >            
-            <p class="menu-title">{{ \get_property_type($property_type) }}</p>    
-        </div>
-        <ul class="big-items">
-            <li>
-                <a href="#">View</a>
-            </li>
-            <li>
-                <a href="{{ url( 'admin/project/' . $project['id'] . '/'.$page.'/create' ) }}">Add Variants</a>
-            </li>
-        </ul>
-        @endforeach
+        
         <div class="inner-menu-content" >            
             <p class="menu-title">Unit</p>    
         </div>

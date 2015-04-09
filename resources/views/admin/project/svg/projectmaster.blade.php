@@ -9,18 +9,17 @@
     </div>
     <div class="grid-body">
 
-        <div class="row">
+        <div class="row project-master-images">
             
             @if(isset($svgImages['master']['image_url']))  
-            @for ($i=0 ; $i<count($svgImages['master']['image_url']) ; $i++)
-                <div class="col-sm-2">
-                    <img src="{{ $svgImages['master']['image_url'][$i] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
-                    <h5 class="bold inline">SVG {{ $i+1 }}</h5> <i class="fa fa-bookmark text-primary"></i>
-                    <span class="pull-right m-t-10"><small>Pos {{ $i+1 }}</small></span>
-                </div>
-
+                @for ($i=0 ; $i<count($svgImages['master']['image_url']) ; $i++)
+                    <div class="col-sm-2">
+                        <img width="150" height="150" src="{{ $svgImages['master']['image_url'][$i] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
+                        <h5 class="bold inline">SVG {{ $i+1 }}</h5> <i class="fa fa-bookmark text-primary"></i>
+                        <span class="pull-right m-t-10"><small>Pos {{ $i+1 }}</small></span>
+                    </div>
                 @endfor
-                @endif  
+            @endif  
         </div>
 
         <div id="sky-map-a" class="svg-holder collapse">

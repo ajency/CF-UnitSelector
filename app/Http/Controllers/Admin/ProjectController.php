@@ -19,9 +19,9 @@ class ProjectController extends Controller {
     public function index() {
 
         $projects = Project::all()->toArray();
-        return view('admin.project.list')
-                        ->with('projects', $projects)
-                        ->with('menuFlag', FALSE);
+        return view( 'admin.project.list' )
+                        ->with( 'projects', $projects )
+                        ->with( 'menuFlag', FALSE );
     }
 
     /**
@@ -31,9 +31,8 @@ class ProjectController extends Controller {
      */
     public function create() {
         $propertyType = PropertyType::all();
-        return view('admin.project.add')->with('property_type', $propertyType)
-                                         ->with('menuFlag', FALSE);
-        
+        return view( 'admin.project.add' )->with( 'property_type', $propertyType )
+                        ->with( 'menuFlag', FALSE );
     }
 
     /**
@@ -41,11 +40,11 @@ class ProjectController extends Controller {
      *
      * @return Response
      */
-    public function store(Request $request, ProjectRepository $projectRepository) {
+    public function store( Request $request, ProjectRepository $projectRepository ) {
 
-        $project = $projectRepository->createProject($request->all());
+        $project = $projectRepository->createProject( $request->all() );
         if ($project !== null) {
-            return redirect("/admin/project");
+            return redirect( "/admin/project" );
         }
     }
 
@@ -55,7 +54,7 @@ class ProjectController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function show($id) {
+    public function show( $id ) {
         
     }
 
@@ -65,24 +64,24 @@ class ProjectController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id, ProjectRepository $projectRepository) {
-        $project = $projectRepository->getProjectById($id);
+    public function edit( $id, ProjectRepository $projectRepository ) {
+        $project = $projectRepository->getProjectById( $id );
         $projectMeta = $project->projectMeta()->get()->toArray();
         $propertyType = PropertyType::all();
-        $projectPropertytype = $project->projectPropertyTypes()->select('property_type_id')->get()->toArray();
-        $propertyTypeArr =[];
-        
+        $projectPropertytype = $project->projectPropertyTypes()->select( 'property_type_id' )->get()->toArray();
+        $propertyTypeArr = [];
+
         foreach ($projectPropertytype as $property_types)
-              foreach ($property_types as $types)  
-                    $propertyTypeArr []= $types;
- 
-         
-        return view('admin.project.settings')
-                        ->with('project', $project->toArray())
-                        ->with('project_meta', $projectMeta)
-                         ->with('property_type', $propertyType)
-                         ->with('project_property_type', $propertyTypeArr)
-                        ->with('current', 'settings');
+            foreach ($property_types as $types)
+                $propertyTypeArr [] = $types;
+
+
+        return view( 'admin.project.settings' )
+                        ->with( 'project', $project->toArray() )
+                        ->with( 'project_meta', $projectMeta )
+                        ->with( 'property_type', $propertyType )
+                        ->with( 'project_property_type', $propertyTypeArr )
+                        ->with( 'current', 'settings' );
     }
 
     /**
@@ -91,11 +90,11 @@ class ProjectController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update($id, Request $request, ProjectRepository $projectRepository) {
+    public function update( $id, Request $request, ProjectRepository $projectRepository ) {
 
-        $project = $projectRepository->updateProject($id, $request->all());
+        $project = $projectRepository->updateProject( $id, $request->all() );
 
-        return redirect("/admin/project/" . $id . "/edit");
+        return redirect( "/admin/project/" . $id . "/edit" );
     }
 
     /**
@@ -104,35 +103,34 @@ class ProjectController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
+    public function destroy( $id ) {
         //
     }
 
-    public function svg($id, ProjectRepository $projectRepository) {
-        $project = $projectRepository->getProjectById($id);
-        //$media_images = $project->media()->get()->toArray();dd($media_images);
-        $projectMeta = $project->projectMeta()->whereIn('meta_key', ['master', 'google_earth', 'skyview'])->get()->toArray();
+    public function svg( $id, ProjectRepository $projectRepository ) {
+        $project = $projectRepository->getProjectById( $id );
+        $projectMeta = $project->projectMeta()->whereIn( 'meta_key', ['master', 'google_earth', 'skyview'] )->get()->toArray();
         $svgImages = [];
-        
+
 
         foreach ($projectMeta as $meta_values) {
 
             if ($meta_values['meta_key'] == 'master') {
-                $media_id_arr = explode("||", $meta_values['meta_value']);
+                $media_id_arr = explode( "||", $meta_values['meta_value'] );
 
                 foreach ($media_id_arr as $media_id) {
-                    $imgage_name = Media::find($media_id)->image_name;
+                    $imgage_name = Media::find( $media_id )->image_name;
                     $svgImages[$meta_values['meta_key']]['image_url'][] = url() . "/projects/" . $id . "/" . $meta_values['meta_key'] . "/" . $imgage_name;
                     $svgImages[$meta_values['meta_key']]['image_id'][] = $meta_values['id'];
                 }
             } else {
                 $media_id = $meta_values['meta_value'];
-                $imgage_name = Media::find($media_id)->image_name;
+                $imgage_name = Media::find( $media_id )->image_name;
                 $svgImages[$meta_values['meta_key']]['image_url'][] = url() . "/projects/" . $id . "/" . $meta_values['meta_key'] . "/" . $imgage_name;
                 $svgImages[$meta_values['meta_key']]['image_id'][] = $meta_values['id'];
             }
         }
-        
+
         /* $svgimgData = $project->projectMeta()->whereIn('meta_key', ['master', 'google_earth','skyview'])->get()->toArray();
           foreach ($svgimgData as $svg) {
           $imgage_name  = Media::find($svg['meta_value'])->image_name;
@@ -175,10 +173,11 @@ class ProjectController extends Controller {
           ->with('masterImage', $masterImage)
           ->with('skyviewImage', $skyviewImagepath)
           ->with('current', 'svg'); */
-        return view('admin.project.svg')
-                        ->with('project', $project->toArray())
-                        ->with('svgImages', $svgImages)
-                        ->with('current', 'svg');
+        return view( 'admin.project.svg' )
+                        ->with( 'project', $project->toArray() )
+                        ->with( 'svgImages', $svgImages )
+                        ->with( 'current', 'svg' )
+                        ->with( 'project_property_type', $project->projectPropertyTypes()->get() );
     }
 
 }

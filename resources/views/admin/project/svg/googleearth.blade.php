@@ -13,16 +13,16 @@
             <button id="uploadfiles" type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#g-map-1">Upload</button>
         </div>
 
-        <div id="g-map-1" class="svg-holder collapse">
+        <div id="g-map-1" class="svg-holder">
             <hr>
-            <div class="svg-tools m-b-20">
+            <div class="svg-tools m-b-20 hidden">
                 <button type="button" class="btn btn-mini btn-default"><i class="fa fa-map-marker"></i> Add Marker</button>
                 <button type="button" class="btn btn-mini btn-default"><i class="fa fa-crosshairs"></i> Mark Area</button>
             </div>
             <div id="project_googleearth_image">  
-            @if(isset($svgImages['google_earth']['image_url'][0]))
-            <img src="{{$svgImages['google_earth']['image_url'][0]}}" class="img-responsive">
-           @endif
+                @if(isset($svgImages['google_earth']['image_url'][0]))
+                    <img width="150" height="150" src="{{$svgImages['google_earth']['image_url'][0]}}" class="img-responsive">
+                @endif
             </div>
             <form>
                 <div class="form-actions svg-actions">  
