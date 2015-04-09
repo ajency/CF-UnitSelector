@@ -19,43 +19,22 @@
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/edit') }}">Settings</a>
             </li>
             <li class="{{ $current === 'room_type' ? 'active' : '' }}">
-                <a href="{{ url( 'admin/project/' . $project['id'] . '/roomtype/create/') }}">Room Type</a>
+                <a href="{{ url( 'admin/project/' . $project['id'] . '/roomtype/create/') }}">Attributes</a>
             </li>
         </ul> 
-        @foreach($project['property_types'] as $property_type)
-
-        @if ($property_type == '1')
-           <?php  $page="appartment"; ?>
-        @elseif ($property_type == '2')
-          <?php  $page="bunglow"; ?>
-        @elseif ($property_type == '3')
-           <?php $page="land"; ?>
-    
-        @endif
-
-        <div class="inner-menu-content" >            
-            <p class="menu-title">{{ get_property_type($property_type) }}</p>    
-        </div>
-        <ul class="big-items">
-            <li>
-                <a href="#">View</a>
-            </li>
-            <li>
-                <a href="{{ url( 'admin/project/' . $project['id'] . '/'.$page.'/create' ) }}">Add Variants</a>
-            </li>
-        </ul>
+        @foreach(project_property_types($project['id']) as $propertyTypeId => $projectPropertyType)
+            <div class="inner-menu-content" >            
+                <p class="menu-title">{{ $projectPropertyType->name }}</p>    
+            </div>
+            <ul class="big-items">
+                <li>
+                    <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType->name) . '-variant/create') }}">View Variants</a>
+                </li>
+                <li>
+                    <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType->name) . '-variant/create') }}">View Units</a>
+                </li>
+            </ul>
         @endforeach
-        <div class="inner-menu-content" >            
-            <p class="menu-title">Unit</p>    
-        </div>
-        <ul class="big-items">
-            <li>
-                <a href="unit-properties.html">Properties</a>
-            </li>
-            <li>
-                <a href="unit-list.html">List</a>
-            </li>
-        </ul>
     </div> 
 </div>
 <!-- END INNER MENU -->

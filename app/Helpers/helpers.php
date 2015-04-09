@@ -6,14 +6,26 @@
  * @return string
  */
 function get_property_type( $type_id ) {
-    $types = [
-        '1' => 'Apartments',
-        '2' => 'Bunglows/Villas',
-        '3' => 'Penthouse',
-        '4' => 'Land'
-    ];
+    $types = [];
+    $propertyTypes = \CommonFloor\PropertyType::all()->toArray();
+    foreach ($propertyTypes as $type) {
+        $types[$type['id']] = $type['name'];
+    }
 
     return $types[$type_id];
+}
+
+function project_property_types( $projectId ) {
+    $propertyTypes = [];
+    foreach (\CommonFloor\Project::find( $projectId )->projectPropertyTypes as $projectPropertyType) {
+        $propertyTypes[$projectPropertyType->property_type_id] = \CommonFloor\PropertyType::find( $projectPropertyType->property_type_id );
+    }
+    return $propertyTypes;
+}
+
+function property_type_slug( $name ) {
+    $name = $name === 'Bunglows/Villa' ? 'Bunglow' : $name;
+    return Illuminate\Support\Str::slug( $name );
 }
 
 function get_rest_api_url() {

@@ -50,7 +50,7 @@ class PhaseController extends Controller {
                     'data' => [
                         'phase_id' => $phase_id
                     ]
-                        ], 201 );
+            ], 201 );
     }
 
     /**

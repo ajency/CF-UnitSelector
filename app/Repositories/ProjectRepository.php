@@ -5,6 +5,7 @@ namespace CommonFloor\Repositories;
 use CommonFloor\Project;
 use CommonFloor\ProjectMeta;
 use CommonFloor\UnitType;
+use CommonFloor\ProjectPropertyType;
 use Auth;
 
 /**
@@ -24,12 +25,19 @@ class ProjectRepository implements ProjectRepositoryInterface {
         $project = new Project();
         $project->project_title = $projectData['project_title'];
         $project->project_address = $projectData['project_address'];
-        $project->property_types = implode( "||", $projectData['property_types'] );
+        $property_types = $projectData['property_types'];   
         $project->cf_project_id = $projectData['cf_project_id'];
         $project->city = $projectData['city'];
         $project->project_title = $projectData['project_title'];
         $project->created_by = $project->updated_by = Auth::user()->id;
         $project->save();
+        
+        $projectpropertyType=[];
+        foreach ($property_types as $type)
+        {
+            $projectpropertyType[]= new ProjectPropertyType(['property_type_id'=>$type]);
+        }
+        $project->projectPropertyTypes()->saveMany($projectpropertyType);
 
         $commonFloorData = [
             'project_title' => $projectData['project_title'],
@@ -72,14 +80,36 @@ class ProjectRepository implements ProjectRepositoryInterface {
 
             $project_title = $projectData['project_title'];
             $project_address = $projectData['project_address'];
-            $property_types = (!empty( $projectData['property_types'] )) ? implode( "||", $projectData['property_types'] ) : '';
+            $property_types_arr = $projectData['property_types'];
             $property_status = $projectData['property_status'];
 
             $project->project_title = $project_title;
             $project->project_address = $project_address;
-            $project->property_types = $property_types;
             $project->status = $property_status;
-            $project->save();
+            $project->save(); 
+            
+            //Get Project Property Type
+            $existingpropertyTypeArr =[];
+            $projectPropertytype = $project->projectPropertyTypes()->select('property_type_id')->get()->toArray();
+            foreach ($projectPropertytype as $property_types)
+              foreach ($property_types as $types)  
+                    $existingpropertyTypeArr []= $types;
+          
+            $newpropertyType = array_diff($property_types_arr,$existingpropertyTypeArr); 
+            $deletedpropertyType = array_diff($existingpropertyTypeArr,$property_types_arr); 
+            
+            if(!empty($deletedpropertyType))
+                ProjectPropertyType::whereIn('id', $deletedpropertyType)->delete();
+            
+            if(!empty($newpropertyType))
+            {
+                $property_types_arr=[];
+               foreach ($newpropertyType as $type)
+                {
+                    $property_types_arr[]= new ProjectPropertyType(['property_type_id'=>$type]);
+                }  
+              $project->projectPropertyTypes()->saveMany($property_types_arr);
+            }
 
             //unit type
             $propertyunit_arr = $projectData['unittype'];  
@@ -94,9 +124,15 @@ class ProjectRepository implements ProjectRepositoryInterface {
                     foreach ($unit_arr as $key => $unitname) {                        
 
                         if ((!isset($unitkey_arr[$propertytype_id][$key]))) { 
-
-                            $unit_type[] = new UnitType( ['property_type' => $propertytype_id, 'unittype_name' => $unitname] );
-                        } else {
+                            
+                            $unittype = new UnitType();
+                            
+                            $project_property_type_id = ProjectPropertyType::where(['project_id' => $project->id, 'property_type_id' => $propertytype_id])->pluck('id');
+                            $unittype->project_property_type_id = $project_property_type_id;
+                            $unittype->unittype_name = $unitname;
+                            $unittype->save();    
+                                                            
+                            } else {
                                
                             $unittype_id = $unitkey_arr[$propertytype_id][$key];
                             $data = array("unittype_name" => $unitname);
@@ -104,8 +140,8 @@ class ProjectRepository implements ProjectRepositoryInterface {
                         }
                         
                     } 
-                    if (!empty( $unit_type ))
-                        $project->projectUnitType()->saveMany( $unit_type );
+                   
+                        
                 }  
             }
         } else {
