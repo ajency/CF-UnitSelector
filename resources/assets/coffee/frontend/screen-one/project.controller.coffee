@@ -7,7 +7,7 @@ class CommonFloor.ProjectLayoutView extends Marionette.LayoutView
 class CommonFloor.ProjectCtrl extends Marionette.RegionController
 
 	initialize:->
-		id = PROJECTID
+		console.log id = PROJECTID
 		project.setProjectAttributes(id);
 		if jQuery.isEmptyObject(project.toJSON())
 			region  = new Marionette.Region el : '#noFound-template'
@@ -154,6 +154,12 @@ class CenterView extends Marionette.ItemView
 					  
 					</div>
 				</div>')
+
+
+	events:
+		'click .primage':(e)-> 
+			CommonFloor.navigate '#/master-view/'+@model.get('id') , true
+
    
 	
 

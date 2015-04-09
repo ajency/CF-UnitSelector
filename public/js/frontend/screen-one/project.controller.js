@@ -25,7 +25,7 @@
 
     ProjectCtrl.prototype.initialize = function() {
       var id, region;
-      id = PROJECTID;
+      console.log(id = PROJECTID);
       project.setProjectAttributes(id);
       if (jQuery.isEmptyObject(project.toJSON())) {
         region = new Marionette.Region({
@@ -136,6 +136,12 @@
     }
 
     CenterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <img src="{{step_one.svg}}" data-alwaysprocess="true" data-path="{{step_one.svg}}"  data-crop="true" class="primage"> </div> </div>');
+
+    CenterView.prototype.events = {
+      'click .primage': function(e) {
+        return CommonFloor.navigate('#/master-view/' + this.model.get('id'), true);
+      }
+    };
 
     return CenterView;
 

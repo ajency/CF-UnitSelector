@@ -9,6 +9,17 @@ jQuery(document).ready ($)->
 					ctrl : 'LeftCtrl'
 				'center' :
 					ctrl : 'CenterCtrl'
+	CommonFloor.state 'projectView',
+			url : '/master-view/:id'
+			sections:
+				'top' : 
+					ctrl : 'TopMasterCtrl'
+				'left' :
+					ctrl : 'LeftMasterCtrl'
+				'center' :
+					ctrl : 'CenterMasterCtrl'
+
+
 
 
 	CommonFloor.addInitializer ->
