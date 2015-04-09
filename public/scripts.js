@@ -165,23 +165,10 @@ $(document).ready(function(){
             },
             init: {
                 PostInit: function () {
-                    //document.getElementById('filelist').innerHTML = '';
-
                     document.getElementById('uploadfiles').onclick = function () {
                         uploader.start();
                         return false;
                     };
-                },
-                FilesAdded: function (up, files) {
-                    plupload.each(files, function (file) {
-                        //document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
-                    });
-                },
-                UploadProgress: function (up, file) {
-                    // document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
-                },
-                Error: function (up, err) {
-                    //document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
                 },
                 FileUploaded: function (up, file, xhr) {
                     fileResponse = JSON.parse(xhr.response);
@@ -215,23 +202,10 @@ $(document).ready(function(){
             },
             init: {
                 PostInit: function () {
-                    //document.getElementById('filelist').innerHTML = '';
-
                     document.getElementById('master_uploadfiles').onclick = function () {
                         master_uploader.start();
                         return false;
                     };
-                },
-                FilesAdded: function (up, files) {
-                    plupload.each(files, function (file) {
-                        //document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
-                    });
-                },
-                UploadProgress: function (up, file) {
-                    //document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
-                },
-                Error: function (up, err) {
-                    //document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
                 },
                 FileUploaded: function (up, file, xhr) {
                     fileResponse = JSON.parse(xhr.response);
@@ -267,23 +241,10 @@ $(document).ready(function(){
             },
             init: {
                 PostInit: function () {
-                    //document.getElementById('filelist').innerHTML = '';
-
                     document.getElementById('skyview_uploadfiles').onclick = function () {
                         skyview_uploader.start();
                         return false;
                     };
-                },
-                FilesAdded: function (up, files) {
-                    plupload.each(files, function (file) {
-                        //document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
-                    });
-                },
-                UploadProgress: function (up, file) {
-                    //document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
-                },
-                Error: function (up, err) {
-                    //document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
                 },
                 FileUploaded: function (up, file, xhr) {
                     fileResponse = JSON.parse(xhr.response);

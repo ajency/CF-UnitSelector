@@ -43,13 +43,7 @@ public function toArray() {
         $data['updated_by'] = $this->updater->name;
         $projectDetails = $this->projectMeta()->get()->toArray();
         $projectphase = $this->projectPhase()->get()->toArray();
-        $projectunits = []; //$this->projectUnitType()->get()->toArray();
         $data['project_phase'] = $projectphase;
-        $data['project_unittype'] = [
-            '1' => [],
-            '2' => [],
-            '3' => [],
-        ];
         $commonFloorData = unserialize( $this->projectMeta()->where( 'meta_key', 'cf' )->first()->meta_value );
 
         $data['cf'] = $commonFloorData;
@@ -61,11 +55,6 @@ public function toArray() {
             }
             $data[$property['meta_key']] = $property['meta_value'];
         }
-
-        foreach ($projectunits as $units) {
-            $data['project_unittype'][$units['property_type']][$units['id']] = $units['unittype_name'];
-        }
-
         return $data;
     }
 

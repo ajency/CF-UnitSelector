@@ -67,7 +67,7 @@ class ProjectController extends Controller {
     public function edit( $id, ProjectRepository $projectRepository ) {
         $project = $projectRepository->getProjectById( $id );
         $projectMeta = $project->projectMeta()->get()->toArray();
-        $propertyType = PropertyType::all();
+        $propertyTypes = PropertyType::all();
         $projectPropertytype = $project->projectPropertyTypes()->select( 'property_type_id' )->get()->toArray();
         $propertyTypeArr = [];
 
@@ -79,8 +79,7 @@ class ProjectController extends Controller {
         return view( 'admin.project.settings' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'project_meta', $projectMeta )
-                        ->with( 'property_type', $propertyType )
-                        ->with( 'project_property_type', $propertyTypeArr )
+                        ->with( 'propertyTypes', $propertyTypes )
                         ->with( 'current', 'settings' );
     }
 

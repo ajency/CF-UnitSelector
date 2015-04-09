@@ -50,42 +50,26 @@
                     <div class="form-group">
                         <label class="form-label">Property Types</label>
                         <select  class="select2 form-control" multiple name="property_types[]" data-parsley-required>
-                            @foreach($property_type as $type) 
-                            <option value="{{$type['id']}}" @if(in_array($type['id'], $project_property_type)){{'selected'}}@endif>{{$type['name']}}</option>
+                            @foreach($propertyTypes as $propertyType) 
+                            <option value="{{ $propertyType->id }}">{{ $propertyType->name }}</option>
                             @endforeach 
                         </select>
                     </div>
-
                     <div class="add-unit-types">
-                        @foreach($project['project_unittype'] as $propertytype_id => $unittype)
-                        <div class="property-type-{{ $propertytype_id }} @if(!in_array( $propertytype_id, $project_property_type)){{'hidden'}}@endif">
-                            <h5 class="semi-bold inline">Unit Types for {{ \get_property_type( $propertytype_id) }}</h5>
-                            @foreach($unittype as $unittype_id=>$unittype_name)
-                            <div class="form-inline m-b-10">
-                                <div class="form-group">
-                                    <input type="text" name="unittype[{{ $propertytype_id }}][]" 
-                                           class="form-control" value="{{ $unittype_name }}">
-                                    <input type="hidden" name="unittypekey[{{ $propertytype_id }}][]" value="{{ $unittype_id }}">
-                                    <button type="button" data-unit-type-id="{{ $unittype_id }}" class="btn btn-small btn-default m-t-5 remove-unit-type">
-                                        <i class="fa fa-trash"></i> Delete
-                                    </button>
-                                </div>
-                            </div> 
-                            @endforeach
+                        @foreach($propertyTypes as $propertyType)
+                        <div class="property-type-{{ $propertyType->id }}">
+                            <h5 class="semi-bold inline">Unit Types for {{ $propertyType->name }}</h5>
                             <div class="form-inline">
                                 <div class="form-group">
                                     <input type="text" class="form-control unit-type" placeholder="Add Unit Type" data-parsley-excluded>
-                                    <button class="btn btn-white add-unit-type-btn" type="button" property-type="{{ $propertytype_id }}">
+                                    <button class="btn btn-white add-unit-type-btn" type="button" property-type="{{ $propertyType->id }}">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
                         </div>
                         @endforeach
-
                     </div>
-
-
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
