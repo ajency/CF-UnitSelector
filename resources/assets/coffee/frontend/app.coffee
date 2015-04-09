@@ -27,7 +27,6 @@ _.extend Marionette.Application::,
 # Source: https://gist.github.com/tracend/3261055
 Handlebars.registerHelper 'i10n', (keyword)->
 
-	console.log keyword
 	lang = if (navigator.language) then navigator.language else navigator.userLanguage 
  
 	# pick the right dictionary (if only one available assume it's the right one...)
@@ -41,7 +40,7 @@ Handlebars.registerHelper 'i10n', (keyword)->
 	key = keyword.split(".")
 	for i in key
 		target = target[i]
-		
+
 	# fallback to the original string if nothing found
 	target = target || keyword	
 	#output

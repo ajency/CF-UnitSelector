@@ -107,6 +107,13 @@
             "en-US" : <?php echo get_locale_frontend_to_json() ?>
 
         };
+
+        window.numDifferentiation = function(val){
+            if(val >= 10000000) val = (val/10000000).toFixed(2) + ' Cr';
+            else if(val >= 100000) val = (val/100000).toFixed(2) + ' Lac';
+            else if(val >= 1000) val = (val/1000).toFixed(2) + ' K';
+            return val;
+        }
         </script>
         <script src="{{ asset('js/frontend/entities/project.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/common/common.js' )}}"></script>

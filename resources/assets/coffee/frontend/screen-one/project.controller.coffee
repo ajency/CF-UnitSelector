@@ -21,7 +21,7 @@ class TopView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-12 col-xs-12 col-sm-12">
 					<div class="search-header-wrap">
-					  <h1 class="pull-left">Explore {{project_title}}\'s</h1>
+					  <h1 class="pull-left">{{i10n "explore"}} {{project_title}}</h1>
 					  <div class="pull-right">
 						<div class="toggle_radio">
 						  <input type="radio" checked class="toggle_option" id="first_toggle" name="toggle_option">
@@ -66,11 +66,11 @@ class LeftView extends Marionette.ItemView
 				<div class="filters-wrapper">
 				  <div class="tab-main-container">                
 					<div class="blck-wrap">
-					  <h4><strong>Project by</strong></h4>
+					  <h4><strong>{{i10n "project_by"}}</strong></h4>
 					  <img src="{{logo}}" class="img-responsive builder-logo">
 					</div>
 					<div class="blck-wrap">
-					  <h4><strong>Project Details</strong></h4>
+					  <h4><strong>{{i10n "project_details"}}</strong></h4>
 						<div class="proj-details">
 						  <p>
 						   {{address}}
@@ -79,13 +79,13 @@ class LeftView extends Marionette.ItemView
 						  <div class="detail-pts">   
 							{{#propertyTypes}}   
 								 <p>
-								  <span>Project Type:</span> {{prop_type}}
+								  <span>{{i10n "project_type"}}:</span> {{prop_type}}
 								</p>
 								<p>
-								  <span>Area:</span> {{starting_area}} Sq.Ft.
+								  <span>{{i10n "starting_area"}}:</span> {{starting_area}} Sq.Ft.
 								</p>
 								<p>
-								  <span>Unit Types:</span> {{unit_types}}
+								  <span>{{i10n "unit_types"}}:</span> {{unit_types}}
 								</p>
 								<p>
 								  <span>Available:</span> {{#availability}}
@@ -93,7 +93,7 @@ class LeftView extends Marionette.ItemView
 								  {{/availability}}
 								</p>
 								<p>
-								  <span>Starting Price:</span>  {{starting_price}}
+								  <span>{{i10n "starting_price"}}:</span>  {{starting_price}}
 								</p>
 							{{/propertyTypes}}                  
 							                  
@@ -124,7 +124,7 @@ class LeftView extends Marionette.ItemView
 				'prop_type'  		: s.capitalize index
 				'unit_types' 		: value.unit_types.join(',')
 				'starting_area' 	: value.starting_area
-				'starting_price' 	: value.starting_price
+				'starting_price' 	: window.numDifferentiation(value.starting_price)
 				'availability'		: availability
 		data.propertyTypes = propertyTypes
 		data
