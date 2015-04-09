@@ -84,8 +84,7 @@
                         </div>
                         @endforeach
                     </div>
-                </div>
-                <div class="col-md-6">
+                    
                     <div class="form-group">
                         <label class="form-label">Project Status</label>
                         <select  class="select2 form-control" name="property_status">
@@ -95,6 +94,9 @@
                             <option value="archived" @if($project['status']=='archived'){{'selected'}}@endif>Archived</option>
                         </select>
                     </div>
+                </div>
+                <div class="col-md-6">
+                    
                     <div class="user-description-box">
                         <div class="row">
                             <div class="col-sm-8">
