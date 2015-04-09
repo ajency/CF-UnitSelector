@@ -19,21 +19,23 @@
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/edit') }}">Settings</a>
             </li>
             <li class="{{ $current === 'room_type' ? 'active' : '' }}">
-                <a href="{{ url( 'admin/project/' . $project['id'] . '/roomtype/create/') }}">Room Type</a>
+                <a href="{{ url( 'admin/project/' . $project['id'] . '/roomtype/create/') }}">Attributes</a>
             </li>
         </ul> 
         
-        <div class="inner-menu-content" >            
-            <p class="menu-title">Unit</p>    
-        </div>
-        <ul class="big-items">
-            <li>
-                <a href="unit-properties.html">Properties</a>
-            </li>
-            <li>
-                <a href="unit-list.html">List</a>
-            </li>
-        </ul>
+        @foreach(project_property_types($project['id']) as $propertyTypeId => $projectPropertyType)
+            <div class="inner-menu-content" >            
+                <p class="menu-title">{{ $projectPropertyType->name }}</p>    
+            </div>
+            <ul class="big-items">
+                <li>
+                    <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType->name) . '-variant/create') }}">View Variants</a>
+                </li>
+                <li>
+                    <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType->name) . '-variant/create') }}">View Units</a>
+                </li>
+            </ul>
+        @endforeach
     </div> 
 </div>
 <!-- END INNER MENU -->
