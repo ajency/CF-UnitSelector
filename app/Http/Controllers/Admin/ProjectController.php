@@ -68,18 +68,16 @@ class ProjectController extends Controller {
         $project = $projectRepository->getProjectById( $id );
         $projectMeta = $project->projectMeta()->get()->toArray();
         $propertyTypes = PropertyType::all();
-        $projectPropertytype = $project->projectPropertyTypes()->select( 'property_type_id' )->get()->toArray();
-        $propertyTypeArr = [];
+        $unitTypes = [];
 
-        foreach ($projectPropertytype as $property_types)
-            foreach ($property_types as $types)
-                $propertyTypeArr [] = $types;
-
-
+        foreach ($project->projectPropertyTypes as $projectPropertyType) {
+            $unitTypes[$projectPropertyType->property_type_id] = $project->getUnitTypesToArray( $projectPropertyType->id );
+        }
         return view( 'admin.project.settings' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'project_meta', $projectMeta )
                         ->with( 'propertyTypes', $propertyTypes )
+                        ->with( 'unitTypes', $unitTypes )
                         ->with( 'current', 'settings' );
     }
 

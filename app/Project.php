@@ -3,6 +3,7 @@
 namespace CommonFloor;
 
 use Illuminate\Database\Eloquent\Model;
+use CommonFloor\UnitType;
 
 class Project extends Model {
 
@@ -37,7 +38,13 @@ class Project extends Model {
     public function updater() {
         return $this->hasOne( 'CommonFloor\User', 'id', 'updated_by' );
     }
-public function toArray() {
+    
+    function getUnitTypesToArray(  $projectPropertyTypeId ){
+        $unitTypes = UnitType::where('project_property_type_id', $projectPropertyTypeId)->get();
+        return $unitTypes;
+    }
+
+    public function toArray() {
         $data = parent::toArray();
         $data['created_by'] = $this->creator->name;
         $data['updated_by'] = $this->updater->name;
