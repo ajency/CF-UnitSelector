@@ -19,17 +19,17 @@
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/edit') }}">Settings</a>
             </li>
             <li class="{{ $current === 'room_type' ? 'active' : '' }}">
-                <a href="{{ url( 'admin/project/' . $project['id'] . '/roomtype/create/') }}">Room Type</a>
+                <a href="{{ url( 'admin/project/' . $project['id'] . '/roomtype/create/') }}">Attributes</a>
             </li>
         </ul> 
         @foreach($project_property_type as $property_type)
 
         @if ($property_type == '1')
-           <?php  $page="appartment"; ?>
+           <?php  $page="appartment-variant"; ?>
         @elseif ($property_type == '2')
-          <?php  $page="bunglow"; ?>
+          <?php  $page="bunglow-variant"; ?>
         @elseif ($property_type == '3')
-           <?php $page="land"; ?>
+           <?php $page="land-variant"; ?>
     
         @endif
 

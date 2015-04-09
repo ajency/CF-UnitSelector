@@ -38,15 +38,13 @@ function addRoomtype(project_id)
             str += '<div class = "col-md-4" >';
             str += '<div class = "form-inline" >';
             str += '<div class = "form-group" >';
-            str += '<select name = "controltype_' + roomtypeId + '" >';
+            str += '<select name = "controltype_' + roomtypeId + '" onchange="defaultBlock(this.value,\'' + roomtypeId + '\')">';
             str += '<option value = "" > Controls </option>';
             str += '<option value = "textbox" > Text Box </option>';
             str += '<option value = "textarea" > Textarea </option>';
             str += '<option value = "select" > Select Box </option>';
             str += '<option value = "multiple" > Multiple Select Box </option>';
-            str += '<option value = "radio" > Radio </option>';
-            str += '<option value = "checkbox" > Checkbox </option>';
-            str += '<option value = "media" > Media </option>';
+            str += '<option value = "number" > Number </option>';
             str += '</select>';
             str += '<button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes("' + roomtypeId + '",this)"> <i class ="fa fa-plus" > </i></button>';
             str += '</div>';
@@ -93,15 +91,13 @@ function addRoomtypeAttributes(roomtypeId,obj)
             str += '<div class = "col-md-4" >';
             str += '<div class = "form-inline" >';
             str += '<div class = "form-group" >';
-            str += '<select name = "controltype_' + roomtypeId + '" >';
+            str += '<select name = "controltype_' + roomtypeId + '" onchange="defaultBlock(this.value,\'' + roomtypeId + '\')">';
             str += '<option value = "" > Controls </option>';
             str += '<option value = "textbox" > Text Box </option>';
             str += '<option value = "textarea" > Textarea </option>';
             str += '<option value = "select" > Select Box </option>';
             str += '<option value = "multiple" > Multiple Select Box </option>';
-            str += '<option value = "radio" > Radio </option>';
-            str += '<option value = "checkbox" > Checkbox </option>';
-            str += '<option value = "media" > Media </option>';
+            str += '<option value = "number" > Number </option>';
             str += '</select>';
             str += '<button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes(\'' + roomtypeId + '\',this)"> <i class ="fa fa-plus" > </i></button>';
             str += '</div>';
@@ -138,4 +134,12 @@ function saveRoomypeattribute(project_id,roomtypeId,reffrence_type)
             window.location.reload();
         }
     });
+}
+
+function defaultBlock(value,refId)
+{
+   /* if(value=='select'|| value=='multiple')
+        $("#controltype_values_"+refId).show();
+    else
+        $("#controltype_values_"+refId).hide(); */
 }
