@@ -13,14 +13,14 @@ class CreateUnitTypesTable extends Migration {
     public function up() {
         Schema::create( 'unit_types', function(Blueprint $table) {
             $table->increments( 'id' );
-            $table->integer( 'project_id' )->unsigned();
             $table->string( 'unittype_name', 100 );
-            $table->integer( 'property_type' );
+            $table->integer( 'project_property_type_id' );
 
-            $table->foreign( 'project_id' )
+            // @TODO 
+           /* $table->foreign( 'project_property_type_id' )
                     ->references( 'id' )
-                    ->on( 'projects' )
-                    ->onDelete( 'cascade' );
+                    ->on( 'project_property_types' )
+                    ->onDelete( 'cascade' );*/
         } );
     }
 

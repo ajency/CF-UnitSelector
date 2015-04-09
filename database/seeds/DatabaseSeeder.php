@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Hash;
 use CommonFloor\User;
-use CommonFloor\RoomType;
+use CommonFloor\PropertyType;
 
 class DatabaseSeeder extends Seeder {
 
@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder {
         $this->call( 'UserTableSeeder' );
         $this->command->info( " User Table Seeded! " );
 
-        //$this->call( 'RoomTypeTableSeeder' );
-        $this->command->info( " Room Type Table Seeded! " );
+        $this->call( 'PropertyTypeTableSeeder' );
+        $this->command->info( " Property Type Table Seeded! " );
     }
 
 }
@@ -36,17 +36,12 @@ class UserTableSeeder extends Seeder {
 
 }
 
-class RoomTypeTableSeeder extends Seeder {
+class PropertyTypeTableSeeder extends Seeder {
 
     public function run() {
-        RoomType::create( ['name' => 'Bedroom'] );
-        RoomType::create( ['name' => 'Kitchen'] );
-        RoomType::create( ['name' => 'Dining'] );
-        RoomType::create( ['name' => 'Bathroom'] );
-        RoomType::create( ['name' => 'Master Bedroom'] );
-        RoomType::create( ['name' => 'Livingroom'] );
-        RoomType::create( ['name' => 'Lobby'] );
-        RoomType::create( ['name' => 'Toilet'] );
+        PropertyType::create( ['name' => 'Appartment'] );
+        PropertyType::create( ['name' => 'Bunglows/Villa'] );
+        PropertyType::create( ['name' => 'Land'] );
     }
 
 }

@@ -8,7 +8,7 @@ class UnitType extends Model {
 
     protected $table = 'unit_types';
     
-    protected $fillable = ['property_type', 'unittype_name', 'project_id'];
+    protected $fillable = ['unittype_name', 'project_property_type_id'];
     
     public $timestamps = false;
 

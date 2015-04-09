@@ -12,8 +12,8 @@ class Attribute extends Model {
         return $this->morphTo();
     }
    
-    /*public function getAttributableTypeAttribute($value){
+    public function getObjectTypeAttribute($value){
         return 'CommonFloor\'' . $value;
-    }*/
+    }
 
 }

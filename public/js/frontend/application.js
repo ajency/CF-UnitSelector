@@ -1,10 +1,24 @@
 (function() {
   jQuery(document).ready(function($) {
-    CommonFloor.addInitializer(function() {
-      return Backbone.history.start();
+    CommonFloor.state('project', {
+      url: '/',
+      sections: {
+        'top': {
+          ctrl: 'TopCtrl'
+        },
+        'left': {
+          ctrl: 'LeftCtrl'
+        },
+        'center': {
+          ctrl: 'CenterCtrl'
+        }
+      }
     });
-    CommonFloor.start();
-    return CommonFloor.navigate('/project', true);
+    CommonFloor.addInitializer(function() {
+      Backbone.history.start();
+      return CommonFloor.navigate('/', true);
+    });
+    return CommonFloor.start();
   });
 
 }).call(this);

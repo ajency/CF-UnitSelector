@@ -33,9 +33,9 @@ class PhaseController extends Controller {
      *
      * @return Response
      */
-    public function store(Request $request) {
-        $project_id = $request->input('project_id');
-        $phase_name = $request->input('phase_name');
+    public function store( Request $request ) {
+        $project_id = $request->input( 'project_id' );
+        $phase_name = $request->input( 'phase_name' );
 
         $phase = new Phase();
         $phase->project_id = $project_id;
@@ -44,11 +44,11 @@ class PhaseController extends Controller {
 
         $phase_id = $phase->id;
 
-        return response()->jason([
+        return response()->json( [
                     'code' => 'Phase Created',
                     'message' => 'Phase Successfully Created',
                     'data' => ['phase_id' => $phase_id]
-                        ], 201);
+                        ], 201 );
     }
 
     /**
@@ -57,7 +57,7 @@ class PhaseController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function show($id) {
+    public function show( $id ) {
         //
     }
 
@@ -67,7 +67,7 @@ class PhaseController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id) {
+    public function edit( $id ) {
         //
     }
 
@@ -77,7 +77,7 @@ class PhaseController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update($id) {
+    public function update( $id ) {
         //
     }
 
@@ -87,14 +87,14 @@ class PhaseController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
-        $project_id = $request->input('project_id');
-        Phase::where('id', $project_id)->delete();
+    public function destroy( $id ) {
+        $project_id = $request->input( 'project_id' );
+        Phase::where( 'id', $project_id )->delete();
 
-        return response()->jason([
+        return response()->json( [
                     'code' => 'Phase Deleted',
                     'message' => 'Phase Successfully Deleted'
-                        ], 204);
+                        ], 204 );
     }
 
 }

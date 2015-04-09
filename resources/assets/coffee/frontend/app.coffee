@@ -1,6 +1,31 @@
+_.extend Marionette.Application::,
+
+	appStates : {}
+
+	getCurrentRoute : ->
+		Backbone.history.getFragment()
+
+	state : (name, def = {})->
+		@appStates[name] = def
+		@
+
+	_registerStates : ->
+		Marionette.RegionControllers.prototype.controllers = @
+		_.extend Marionette.AppStates::, appStates : @appStates
+		@router = new Marionette.AppStates app : @
+
+	start : (options = {})->
+		@_detectRegions()
+		@triggerMethod 'before:start', options
+		@_registerStates()
+		@_initCallbacks.run options, @
+		@triggerMethod 'start', options
+
+
+
 # Handlebars Localisation Helper
 # Source: https://gist.github.com/tracend/3261055
-Handlebars.registerHelper 'l10n', (keyword)->
+Handlebars.registerHelper 'i10n', (keyword)->
 
 	lang = if (navigator.language) then navigator.language else navigator.userLanguage 
  
@@ -14,7 +39,7 @@ Handlebars.registerHelper 'l10n', (keyword)->
 	target = locale
 	key = keyword.split(".")
 	for i in key
-		target = target[key[i]]
+		target = target[i]
 
 	# fallback to the original string if nothing found
 	target = target || keyword	
