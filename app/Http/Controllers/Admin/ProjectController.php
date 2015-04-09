@@ -18,9 +18,9 @@ class ProjectController extends Controller {
      */
     public function index() {
 
-        $projects = Project::all()->toArray();
+        $projects = Project::orderBy('project_title')->get()->toArray();
         return view( 'admin.project.list' )
-                        ->with( 'projects', $projects )
+                        ->with( 'projects', $projects ) 
                         ->with( 'menuFlag', FALSE );
     }
 
