@@ -31,7 +31,7 @@ class ProjectRoomTypeController extends Controller {
         $roomType_arr = $project->roomTypes()->get();
         $roomtypeAttribute = [];
         $propertytypeAttribute = [];
-        $projectPropertytype = []; dd($projectPropertytypeArr);
+        $projectPropertytype = [];
         $projectPropertytypeArr = $project->projectPropertyTypes()->get()->toArray();
         
        
