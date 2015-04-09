@@ -136,6 +136,7 @@ function saveRoomypeattribute(project_id,roomtypeId,reffrence_type)
     });
 }
 
+<<<<<<< HEAD
 function defaultBlock(value,refId)
 {
    /* if(value=='select'|| value=='multiple')
@@ -143,3 +144,119 @@ function defaultBlock(value,refId)
     else
         $("#controltype_values_"+refId).hide(); */
 }
+=======
+$(document).ready(function(){
+        var uploader = new plupload.Uploader({
+            runtimes: 'html5,flash,silverlight,html4',
+            browse_button: 'pickfiles', // you can pass in id...
+            url: '/admin/project/' + PROJECTID + '/media',
+            flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+            silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+            headers: {
+                "x-csrf-token": $("[name=_token]").val()
+            },
+            multipart_params: {
+                "type": "google_earth"
+            },
+            filters: {
+                max_file_size: '10mb',
+                mime_types: [{
+                        title: "Image files",
+                        extensions: "jpg,gif,png"
+                    }, {
+                        title: "Zip files",
+                        extensions: "zip"
+                    }]
+            },
+            init: {
+                PostInit: function () {
+                    document.getElementById('uploadfiles').onclick = function () {
+                        uploader.start();
+                        return false;
+                    };
+                },
+                FileUploaded: function (up, file, xhr) {
+                    fileResponse = JSON.parse(xhr.response);
+                    $("#project_googleearth_image").html('<img width="150" height="150" src="'+fileResponse.data.image_path+'" class="img-responsive" >');
+                }
+            }
+        });
+        uploader.init();
+
+        var master_uploader = new plupload.Uploader({
+            runtimes: 'html5,flash,silverlight,html4',
+            browse_button: 'master_pickfiles', // you can pass in id...
+            url: '/admin/project/' + PROJECTID + '/media',
+            flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+            silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+            headers: {
+                "x-csrf-token": $("[name=_token]").val()
+            },
+            multipart_params: {
+                "type": "master"
+            },
+            filters: {
+                max_file_size: '10mb',
+                mime_types: [{
+                        title: "Image files",
+                        extensions: "jpg,gif,png"
+                    }, {
+                        title: "Zip files",
+                        extensions: "zip"
+                    }]
+            },
+            init: {
+                PostInit: function () {
+                    document.getElementById('master_uploadfiles').onclick = function () {
+                        master_uploader.start();
+                        return false;
+                    };
+                },
+                FileUploaded: function (up, file, xhr) {
+                    fileResponse = JSON.parse(xhr.response);
+                    $('.project-master-images').append('<div class="col-sm-2">\n\
+                        <img width="150" height="150" src="'+fileResponse.data.image_path+'" class="img-responsive" >\n\
+                        </div>')
+                }
+            }
+        });
+        master_uploader.init();
+
+        var skyview_uploader = new plupload.Uploader({
+            runtimes: 'html5,flash,silverlight,html4',
+            browse_button: 'skyview_pickfiles', // you can pass in id...
+            url: '/admin/project/' + PROJECTID + '/media',
+            flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+            silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+            headers: {
+                "x-csrf-token": $("[name=_token]").val()
+            },
+            multipart_params: {
+                "type": "skyview"
+            },
+            filters: {
+                max_file_size: '10mb',
+                mime_types: [{
+                        title: "Image files",
+                        extensions: "jpg,gif,png"
+                    }, {
+                        title: "Zip files",
+                        extensions: "zip"
+                    }]
+            },
+            init: {
+                PostInit: function () {
+                    document.getElementById('skyview_uploadfiles').onclick = function () {
+                        skyview_uploader.start();
+                        return false;
+                    };
+                },
+                FileUploaded: function (up, file, xhr) {
+                    fileResponse = JSON.parse(xhr.response);
+                    $("#skyview_image").append('<img width="150" height="150" src="'+fileResponse.data.image_path+'" class="img-responsive" >');
+                }
+            }
+        });
+        skyview_uploader.init();
+});
+>>>>>>> 741d286f535bcaeb6e9167eab1010536624f1c07

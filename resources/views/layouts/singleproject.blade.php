@@ -22,6 +22,7 @@
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/roomtype/create/') }}">Attributes</a>
             </li>
         </ul> 
+<<<<<<< HEAD
         @foreach($project_property_type as $property_type)
 
         @if ($property_type == '1')
@@ -45,6 +46,9 @@
             </li>
         </ul>
         @endforeach
+=======
+        
+>>>>>>> 741d286f535bcaeb6e9167eab1010536624f1c07
         <div class="inner-menu-content" >            
             <p class="menu-title">Unit</p>    
         </div>
