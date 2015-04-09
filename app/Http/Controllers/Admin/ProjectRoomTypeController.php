@@ -8,6 +8,7 @@ use CommonFloor\Repositories\ProjectRepository;
 use CommonFloor\Project;
 use CommonFloor\RoomType;
 use CommonFloor\Attribute;
+use CommonFloor\ProjectPropertyType;
 
 
 class ProjectRoomTypeController extends Controller {
@@ -30,23 +31,21 @@ class ProjectRoomTypeController extends Controller {
         $project = $projectRepository->getProjectById($id);
         $roomType_arr = $project->roomTypes()->get();
         $roomtypeAttribute = [];
-        
-        
-        $projectPropertytype = $project->projectPropertyTypes()->select('property_type_id')->get()->toArray();
         $propertytypeAttribute =[];
         $propertyTypeArr =[];
+        $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();      
         
         foreach ($projectPropertytype as $property_types)
-              foreach ($property_types as $types)
-             {
-                    $propertyTypeArr []= $types;                
-             }
-
+        {
+               $propertyTypeArr []= $property_types['property_type_id'];  
+               $propertytypeAttribute = ProjectPropertyType::find($property_types['property_type_id'])->attributes->toArray(); ;
+        }
+    
         foreach ($roomType_arr as $roomType) {
             $roomtypeAttribute[$roomType['id']]['NAME'] = $roomType['name'];
             $roomtypeAttribute[$roomType['id']]['ATTRIBUTES'] = $roomType->attributes->toArray();
         }
-
+        
         return view('admin.project.roomtype')
                         ->with('project', $project->toArray())
                         ->with('propertytypeAttribute', $propertytypeAttribute)
