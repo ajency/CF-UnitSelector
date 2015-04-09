@@ -16,7 +16,7 @@ class CreateVariantRoomsTable extends Migration {
             $table->integer('unit_variant_id')->unsigned();
             $table->integer('roomtype_id')->unsigned();
             $table->string('floorlevel', 100);
-            $table->string('variant_room_attributes', 100);
+            $table->text('variant_room_attributes')->nullable();
             $table->timestamps();
 
 
