@@ -120,7 +120,7 @@
                   </div>
                   <div class="blck-wrap">
                     <div class="text-center">
-                      <img src="../../images/marker-img.png" class="img-responsive marker-img">
+                      <img src="../../images/marker-img.png" class="img-responsive marker-img step1-marker">
                       Know your neighborhood. The orange markers are important landmarks. Click for more information.
                     </div>
                   </div>
@@ -130,7 +130,7 @@
 
             <div class="col-md-9 us-right-content">
               <div class="svg-area">
-                <embed src="../../images/step1.svg">
+                <object type="image/svg+xml" data="../../images/step1.svg"></object>
                 <!-- <img src=""> -->
               </div>
             </div>
@@ -177,18 +177,59 @@
         </div>
       </footer>
 
+      <div id="villa_info" class="svg-tooltip" role="tooltip">
+         <div class="svg-info">
+            <h4 class="pull-left">Villa 1001</h4>
+            <span class="label label-success">For Sale</span>
+            <div class="clearfix"></div>
+            <div class="details">
+               <div>
+                  <label>Area</label> - 1460 sqft
+               </div>
+               <div>
+                  <label>Starting Price</label> - Rs 47.3 Lakhs
+               </div>
+               <div>
+                  <label>Direction</label> - North East
+               </div>
+               <div>
+                  <label>Views</label> - Road facing, Toddler area, Courtyard
+               </div>
+            </div>
+         </div>
+      </div>
+
     </div>
 
     <script src="../../bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script> 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script> 
-
+    <script src="../../bower_components/tooltipster/js/jquery.tooltipster.min.js" type="text/javascript"></script> 
+ 
     <script>
-      $( ".step1-marker" ).click(function() {
-        $( '.step1' ).fadeOut( 250, "swing" );
-        $( '.step2' ).addClass('animated fadeIn');
-        // setTimeout( "jQuery('.step1').hide();",600 );
+
+      $('.step1-marker').tooltipster({
+        theme: 'tooltipster-shadow',
+        contentAsHTML: true,
+        autoClose: false,
+        functionInit: function(){
+            return $('#villa_info').html();
+        },
+        functionReady: function(){
+            $('#villa_info').attr('aria-hidden', false);
+        },
+        functionAfter: function(){
+            $('#villa_info').attr('aria-hidden', true);
+        }
       });
+
+      // $( ".step1-marker" ).click(function() {
+      //   $( '.step1' ).fadeOut( 250, "swing" );
+      //   $( '.step2' ).addClass('animated fadeIn');
+      //   // setTimeout( "jQuery('.step1').hide();",600 );
+      // });
+
     </script>
+
   </body>
 </html>

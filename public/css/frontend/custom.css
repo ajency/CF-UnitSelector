@@ -1,4 +1,8 @@
 @import "../../bower_components/animate.css/animate.min.css";
+@import "../../bower_components/tooltipster/css/tooltipster.css";
+@import "../../bower_components/tooltipster/css/themes/tooltipster-shadow.css";
+/* External CSS */
+/* Site Styles */
 /* Header */
 .cf-hdr-blk .cf-us-logo {
   background: url(../../images/unit-selector_logo.png) no-repeat;
@@ -10,33 +14,6 @@
 }
 .inner-container {
   border-bottom: 1px solid #ddd;
-  position: relative;
-}
-.step1,
-.step2 {
-  position: relative;
-  top: 0;
-  left: 0;
-}
-.blck-wrap {
-  cursor: pointer;
-}
-.blck-wrap .sold,
-.blck-wrap .available {
-  border-left: 2px solid #D07559;
-  padding-left: 5px;
-}
-.blck-wrap .available {
-  border-color: #72d12f;
-}
-.blck-wrap:hover {
-  background: #EAEAEA;
-}
-.blck-wrap.title-row .accord-head {
-  cursor: default;
-}
-.blck-wrap.title-row:hover {
-  background: none;
 }
 /* Left Container */
 .builder-logo {
@@ -78,6 +55,27 @@
 #footer {
   margin: 0 -15px;
 }
+.unit-list .blck-wrap {
+  cursor: pointer;
+}
+.unit-list .blck-wrap .sold,
+.unit-list .blck-wrap .available {
+  border-left: 2px solid #D07559;
+  padding-left: 5px;
+}
+.unit-list .blck-wrap .available {
+  border-color: #72d12f;
+}
+.unit-list .blck-wrap:hover {
+  background: #EAEAEA;
+}
+.unit-list .blck-wrap.title-row .accord-head {
+  cursor: default;
+}
+.unit-list .blck-wrap.title-row:hover {
+  background: none;
+}
+/* Plugins */
 /* Slider */
 .toggle_radio {
   background: rgba(246, 129, 33, 0.2);
@@ -134,17 +132,38 @@
   transition: all .4s ease;
 }
 #first_toggle:checked ~ .toggle_option_slider {
-  background: #F68121;
+  background: #f68121;
   left: 3px;
 }
 #first_toggle:checked ~ .toggle_radio label {
   color: #ffffff;
 }
 #second_toggle:checked ~ .toggle_option_slider {
-  background: #F68121;
+  background: #f68121;
   left: 109px;
 }
 #third_toggle:checked ~ .toggle_option_slider {
-  background: #F68121;
+  background: #f68121;
   left: 215px;
+}
+.svg-tooltip {
+  display: none;
+}
+.svg-info {
+  font-family: OpenSans, Arial, sans-serif;
+  padding: 0 5px;
+}
+.svg-info h4 {
+  color: #f68121;
+  font-weight: bold;
+}
+.svg-info .label {
+  margin: 10px 0 0 5px;
+  display: inline-block;
+}
+.svg-info .details {
+  font-size: 12px;
+}
+.svg-info .details label {
+  color: #808080;
 }

@@ -138,7 +138,7 @@
     	<circle fill="#FF8500" cx="659.807" cy="208.786" r="8.002"/>
     	<circle fill="none" stroke="#FF7900" stroke-width="4" stroke-miterlimit="10" cx="659.807" cy="208.786" r="15.002"/>
     </g>
-<ellipse opacity="0.03" fill="#FF7900" cx="808.5" cy="526.5" rx="391.5" ry="190.5"/>
+<ellipse class="step1-marker" opacity="0.03" fill="#FF7900" cx="808.5" cy="526.5" rx="391.5" ry="190.5"/>
 
 <g class="marker-icon" onmousemove="ShowTooltip(evt, 'KOPPO RING ROAD')"
     onmouseout="HideTooltip(evt)">
