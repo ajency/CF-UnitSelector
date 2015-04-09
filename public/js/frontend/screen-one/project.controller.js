@@ -135,11 +135,7 @@
       return CenterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <img id="svg_project" class="bttrlazyloading" data-bttrlazyloading-md-src="{{step_one.svg}}" /> </div> </div>');
-
-    CenterView.prototype.onShow = function() {
-      return $('#svg_project').bttrlazyloading();
-    };
+    CenterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <img src="{{step_one.svg}}" data-alwaysprocess="true" data-path="{{step_one.svg}}"  data-crop="true" class="primage"> </div> </div>');
 
     return CenterView;
 

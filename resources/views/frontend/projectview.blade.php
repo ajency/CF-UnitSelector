@@ -94,6 +94,7 @@
         <script src="{{ asset('bower_components/marionette.state/dist/marionette.state.js' )}}"></script>
         <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js' )}}"></script> 
         <script src="{{ asset('bower_components/BttrLazyLoading/dist/jquery.bttrlazyloading.min.js' )}}"></script> 
+        <script src="{{ asset('js/frontend/primages.js' )}}"></script> 
         <!-- end plugins -->
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
         <script>

@@ -148,18 +148,12 @@ class CenterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 					<div class="svg-area">
-						<img id="svg_project" class="bttrlazyloading"
-							data-bttrlazyloading-md-src="{{step_one.svg}}"
-						/>
+						<img src="{{step_one.svg}}" data-alwaysprocess="true" 
+						data-path="{{step_one.svg}}"  data-crop="true" class="primage">
+						
 					  
 					</div>
 				</div>')
-
-
-	onShow:->
-		$('#svg_project').bttrlazyloading();
-
-
    
 	
 
