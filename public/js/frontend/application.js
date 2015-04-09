@@ -15,8 +15,7 @@
       }
     });
     CommonFloor.addInitializer(function() {
-      Backbone.history.start();
-      return CommonFloor.navigate('/', true);
+      return Backbone.history.start();
     });
     return CommonFloor.start();
   });

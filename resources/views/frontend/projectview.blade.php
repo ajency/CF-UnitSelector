@@ -114,6 +114,9 @@
             else if(val >= 1000) val = (val/1000).toFixed(2) + ' K';
             return val;
         }
+        //global variable to keep track of the filtr the user has selected
+        CommonFloor.defaults = {"unitType" :'All','budget':'All' ,"building":'All',"unitVariant":'All','view':'All','facing':'All'}
+
         </script>
         <script src="{{ asset('js/frontend/entities/project.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/common/common.js' )}}"></script>
