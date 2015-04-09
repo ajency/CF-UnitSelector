@@ -2,7 +2,6 @@
 
 namespace CommonFloor\Http\Controllers\admin;
 
-use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use CommonFloor\Repositories\ProjectRepository;
