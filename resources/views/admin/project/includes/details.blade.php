@@ -25,7 +25,7 @@
                                value="{{ $project['project_title'] }}" name="project_title" data-parsley-required>
                     </div>
 
-                    <div class="row">
+                    <div class="row hidden">
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="form-label">Project Logo</label>
@@ -33,10 +33,6 @@
                                     <img src="{{ $project['project_image'] }}" class="img-responsive img-thumbnail"><br>
                                     <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
                                 </div>
-                                <!-- <div>
-                                        <input type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
-                                        <button type="button" class="btn btn-small btn-primary">Upload</button>
-                                </div> -->
                             </div>
                         </div>
                     </div>
