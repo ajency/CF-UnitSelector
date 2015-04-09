@@ -126,28 +126,28 @@
     </div>
 </div>
 
-@foreach($project_property_type as $property_type)
+ @foreach($projectpropertytypeAttribute as $propertytypeId=>$propertytypeAttribute)
 <div class="grid simple">
     <div class="grid-title">
-        <h3>{{ get_property_type($property_type) }} <span class="semi-bold">Attributes</span></h3>
+        <h3>{{ get_property_type($propertytypeId) }} <span class="semi-bold">Attributes</span></h3>
     </div>
     <div class="grid-body">
-        <form name="frmroomtype_proptype_{{ $property_type }}" id="frmroomtype_proptype_{{ $property_type }}">
+        <form name="frmroomtype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" id="frmroomtype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
         <div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 m-b-10 text-grey">
-            @foreach($propertytypeAttribute as $attributes)    
+            @foreach($propertytypeAttribute['ATTRIBUTES'] as $attributes)    
             <div class="row">
                 <div class="col-md-3">
                     <div class="form-group">
                         <div class="">
-                            <input type="text" name="attribute_name_proptype_{{ $property_type }}" class="form-control" value="{{$attributes['label']}}" placeholder="Attribute Name">
-                            <input type="hidden" name="attribute_id_proptype_{{ $property_type }}" value="{{$attributes['id']}}">
+                            <input type="text" name="attribute_name_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="form-control" value="{{$attributes['label']}}" placeholder="Attribute Name">
+                            <input type="hidden" name="attribute_id_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" value="{{$attributes['id']}}">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-inline">
                         <div class="form-group">
-                            <select name="controltype_proptype_{{ $property_type }}">
+                            <select name="controltype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
                                 <option value="">Controls</option>
                                 <option value="textbox" @if($attributes['control_type']=='textbox'){{'selected'}}@endif> Text Box</option>
                                 <option value="textarea" @if($attributes['control_type']=='textarea'){{'selected'}}@endif> Textarea </option>
@@ -164,7 +164,7 @@
                 <div class="col-md-5">
                     <div class="form-inline">
                         <div class="form-group">
-                            <input type="text" name="controltypevalues_proptype_{{ $property_type }}" class="form-control" placeholder="Default values" value="{{$attributes['defaults']}}">
+                            <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="form-control" placeholder="Default values" value="{{$attributes['defaults']}}">
                             <!--<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>-->
                         </div>
                     </div>
@@ -175,15 +175,15 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <div class="">
-                            <input type="text" name="attribute_name_proptype_{{ $property_type }}" class="form-control" placeholder="Attribute Name">
-                            <input type="hidden" name="attribute_id_proptype_{{ $property_type }}" value="">
+                            <input type="text" name="attribute_name_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="form-control" placeholder="Attribute Name">
+                            <input type="hidden" name="attribute_id_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" value="">
                         </div>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-inline">
                         <div class="form-group">
-                            <select name="controltype_proptype_{{ $property_type }}">
+                            <select name="controltype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
                                 <option value="">Controls</option>
                                 <option value="textbox" > Text Box</option>
                                 <option value="textarea" > Textarea </option>
@@ -193,24 +193,24 @@
                                 <option value="checkbox" > Checkbox </option>
                                 <option value="media" > Media </option>
                             </select>
-                            <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes('proptype_{{ $property_type }}',this)"><i class="fa fa-plus"></i></button>
+                            <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes('proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}',this)"><i class="fa fa-plus"></i></button>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-5">
                     <div class="form-inline">
                         <div class="form-group">
-                            <input type="text" name="controltypevalues_proptype_{{ $property_type }}" class="form-control" placeholder="Default values">
+                            <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="form-control" placeholder="Default values">
                             <!--<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>-->
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row"  id="addroomtypeattributeblock_proptype_{{ $property_type }}">
+            <div class="row"  id="addroomtypeattributeblock_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
                 <div class="col-md-12">
 
                     <div class="text-right"> 
-                        <button type="button" class="btn btn-small btn-primary" onclick="saveRoomypeattribute({{$project['id']}},'proptype_{{ $property_type }}','property_type');"><i class="fa fa-save"></i> Save</button>
+                        <button type="button" class="btn btn-small btn-primary" onclick="saveRoomypeattribute({{$project['id']}},'proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}','property_type');"><i class="fa fa-save"></i> Save</button>
                         <button type="button" class="btn btn-small btn-default"><i class="fa fa-trash"></i> Delete</button>
                     </div>
 
