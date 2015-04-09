@@ -136,7 +136,6 @@ function saveRoomypeattribute(project_id,roomtypeId,reffrence_type)
     });
 }
 
-<<<<<<< HEAD
 function defaultBlock(value,refId)
 {
    /* if(value=='select'|| value=='multiple')
@@ -144,7 +143,7 @@ function defaultBlock(value,refId)
     else
         $("#controltype_values_"+refId).hide(); */
 }
-=======
+
 $(document).ready(function(){
         var uploader = new plupload.Uploader({
             runtimes: 'html5,flash,silverlight,html4',
@@ -259,4 +258,3 @@ $(document).ready(function(){
         });
         skyview_uploader.init();
 });
->>>>>>> 741d286f535bcaeb6e9167eab1010536624f1c07
