@@ -116,7 +116,7 @@ class ProjectRoomTypeController extends Controller {
 
         $attribute_name_arr = $data['attribute_name_' . $reffereceId];
         $control_type_arr = $data['controltype_' . $reffereceId];
-        $control_value_arr = $data['controltypevalues_' . $reffereceId];
+        $control_value_arr = (isset($data['controltypevalues_' . $reffereceId]))?$data['controltypevalues_' . $reffereceId]:[];
         $attribute_id_arr = $data['attribute_id_' . $reffereceId];
 
         if ($reffereceType == 'room_type') {

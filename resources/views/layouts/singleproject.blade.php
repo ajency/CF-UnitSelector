@@ -22,7 +22,6 @@
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/roomtype/create/') }}">Attributes</a>
             </li>
         </ul> 
-        
         @foreach(project_property_types($project['id']) as $propertyTypeId => $projectPropertyType)
             <div class="inner-menu-content" >            
                 <p class="menu-title">{{ $projectPropertyType->name }}</p>    

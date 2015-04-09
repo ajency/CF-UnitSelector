@@ -8,23 +8,22 @@
         <div class="clearfix"></div>
     </div>
     <div class="grid-body">
-        <div id="master_container">
-            <input id="master_pickfiles" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/>
-            <button id="master_uploadfiles" type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
-        </div>
-        <hr>
-        <div class="row project-master-images">
+
+        <div class="row">
             
             @if(isset($svgImages['master']['image_url']))  
-                @for ($i=0 ; $i<count($svgImages['master']['image_url']) ; $i++)
-                    <div class="col-sm-2">
-                        <img width="150" height="150" src="{{ $svgImages['master']['image_url'][$i] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
-                    </div>
+            @for ($i=0 ; $i<count($svgImages['master']['image_url']) ; $i++)
+                <div class="col-sm-2">
+                    <img src="{{ $svgImages['master']['image_url'][$i] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
+                    <h5 class="bold inline">SVG {{ $i+1 }}</h5> <i class="fa fa-bookmark text-primary"></i>
+                    <span class="pull-right m-t-10"><small>Pos {{ $i+1 }}</small></span>
+                </div>
+
                 @endfor
-            @endif  
+                @endif  
         </div>
 
-        <div id="sky-map-a" class="svg-holder hidden">
+        <div id="sky-map-a" class="svg-holder collapse">
             <hr>
             <form>
                 <div class="row">
@@ -69,9 +68,12 @@
             </form>
         </div>
 
-        
-        
-        <div id="sky-map-1" class="svg-holder hidden">
+        <hr>
+        <div id="master_container">
+            <input id="master_pickfiles" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/>
+            <button id="master_uploadfiles" type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
+        </div>
+        <div id="sky-map-1" class="svg-holder collapse">
             <hr>
             <div class="svg-tools m-b-20">
                 <button type="button" class="btn btn-mini btn-default"><i class="fa fa-map-marker"></i> Add Marker</button>
