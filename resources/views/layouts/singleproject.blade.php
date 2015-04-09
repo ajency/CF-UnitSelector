@@ -22,7 +22,7 @@
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/roomtype/create/') }}">Room Type</a>
             </li>
         </ul> 
-        @foreach($project['property_types'] as $property_type)
+        @foreach($project_property_type as $property_type)
 
         @if ($property_type == '1')
            <?php  $page="appartment"; ?>
@@ -34,7 +34,7 @@
         @endif
 
         <div class="inner-menu-content" >            
-            <p class="menu-title">{{ get_property_type($property_type) }}</p>    
+            <p class="menu-title">{{ \get_property_type($property_type) }}</p>    
         </div>
         <ul class="big-items">
             <li>

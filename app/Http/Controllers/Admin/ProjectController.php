@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use CommonFloor\Repositories\ProjectRepository;
 use CommonFloor\Project;
 use CommonFloor\Media;
+use CommonFloor\PropertyType;
 
 class ProjectController extends Controller {
 
@@ -30,7 +31,9 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function create() {
-        return view('admin.project.add')->with('menuFlag', FALSE);
+        $propertyType = PropertyType::all();
+        return view('admin.project.add')->with('property_type', $propertyType)
+                                         ->with('menuFlag', FALSE);
         
     }
 
@@ -66,9 +69,20 @@ class ProjectController extends Controller {
     public function edit($id, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($id);
         $projectMeta = $project->projectMeta()->get()->toArray();
+        $propertyType = PropertyType::all();
+        $projectPropertytype = $project->projectPropertyTypes()->select('property_type_id')->get()->toArray();
+        $propertyTypeArr =[];
+        
+        foreach ($projectPropertytype as $property_types)
+              foreach ($property_types as $types)  
+                    $propertyTypeArr []= $types;
+ 
+         
         return view('admin.project.settings')
                         ->with('project', $project->toArray())
                         ->with('project_meta', $projectMeta)
+                         ->with('property_type', $propertyType)
+                         ->with('project_property_type', $propertyTypeArr)
                         ->with('current', 'settings');
     }
 

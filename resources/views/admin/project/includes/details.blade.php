@@ -50,16 +50,16 @@
                     <div class="form-group">
                         <label class="form-label">Property Types</label>
                         <select  class="select2 form-control" multiple name="property_types[]" data-parsley-required>
-                            <option value="1" @if(in_array('1', $project['property_types'])){{'selected'}}@endif>Apartments</option>
-                            <option value="2" @if(in_array('2', $project['property_types'])){{'selected'}}@endif >Bungalows/Villas</option>
-                            <option value="3" @if(in_array('3', $project['property_types'])){{'selected'}}@endif>Land</option>
+                            @foreach($property_type as $type) 
+                            <option value="{{$type['id']}}" @if(in_array($type['id'], $project_property_type)){{'selected'}}@endif>{{$type['name']}}</option>
+                            @endforeach 
                         </select>
                     </div>
 
                     <div class="add-unit-types">
                         @foreach($project['project_unittype'] as $propertytype_id => $unittype)
-                        <div class="property-type-{{ $propertytype_id }} @if(!in_array( $propertytype_id, $project['property_types'])){{'hidden'}}@endif">
-                            <h5 class="semi-bold inline">Unit Types for {{ get_property_type( $propertytype_id) }}</h5>
+                        <div class="property-type-{{ $propertytype_id }} @if(!in_array( $propertytype_id, $project_property_type)){{'hidden'}}@endif">
+                            <h5 class="semi-bold inline">Unit Types for {{ \get_property_type( $propertytype_id) }}</h5>
                             @foreach($unittype as $unittype_id=>$unittype_name)
                             <div class="form-inline m-b-10">
                                 <div class="form-group">

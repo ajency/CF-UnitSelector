@@ -6,13 +6,11 @@
  * @return string
  */
 function get_property_type( $type_id ) {
-    $types = [
-        '1' => 'Apartments',
-        '2' => 'Bunglows/Villas',
-        '3' => 'Penthouse',
-        '4' => 'Land'
-    ];
-
+    $types =[];
+    $propertyTypes = \CommonFloor\PropertyType::all()->toArray();
+    foreach($propertyTypes as $type)
+         $types[$type['id']] =$type['name'];
+  
     return $types[$type_id];
 }
 
