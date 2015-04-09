@@ -93,7 +93,7 @@
             <!-- BEGIN SIDEBAR -->
             <!-- BEGIN MENU -->
             <!--TODO remove mini mini-mobile class 4 list view-->
-            <div class="page-sidebar @if(!isset($menuFlag)) {{ 'mini mini-mobile' }} @endif " id="main-menu"> 
+            <div class="page-sidebar @if(!isset($menuFlag)){{'mini mini-mobile'}}@endif " id="main-menu"> 
                 <div class="page-sidebar-wrapper scrollbar-dynamic" id="main-menu-wrapper">
                     <p class="menu-title"></p>
 
@@ -168,14 +168,12 @@
         <script src="{{ asset('plugins/dashboard-theme-core/core.js') }}" type="text/javascript"></script>
         <script src="{{ asset('plugins/datatables.js') }}" type="text/javascript"></script>
         <script src="{{ asset('js/add.projects.js') }}" type="text/javascript"></script> 
-        
-        <script src="{{ asset('scripts.js') }}" type="text/javascript"></script> 
 
         <script type="text/javascript">
 var uploader = new plupload.Uploader({
-    runtimes: 'html5,flash,silverlight,html4',
+    runtimes: 'html5,flash,silverlight,html4',`
     browse_button: 'pickfiles', // you can pass in id...
-    container: document.getElementById('container'), // ... or DOM Element itself
+    container: document.getElementById('container'), // ... or D`OM Element itself
     url: '{{ url( "admin/project/") }}/' + PROJECTID + '/media',
     flash_swf_url: '{{ url( "bower_components/plupload/js/Moxie.swf") }}',
     silverlight_xap_url: '{{ url( "/bower_components/plupload/js/Moxie.xap" ) }}',

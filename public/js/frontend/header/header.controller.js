@@ -12,6 +12,10 @@
 
     HeaderView.prototype.template = '#header-template';
 
+    HeaderView.prototype.onShow = function() {
+      return console.log("aaaaaaaaa");
+    };
+
     return HeaderView;
 
   })(Marionette.ItemView);
@@ -24,7 +28,6 @@
     }
 
     HeaderCtrl.prototype.initialize = function(options) {
-      console.log("aaaaaaaaa");
       return this.show(new HeaderView());
     };
 

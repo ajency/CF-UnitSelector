@@ -1,9 +1,17 @@
 #Project model Definition
-class Project extends Backbone.Model
+class CommonFloor.Project extends Backbone.Model
 
 	#url to fetch project data
 	urlRoot :->
-		'public/project'
+		BASERESTURL+'/project/'+ @project_id
+
+
+	parse:(response)->
+		resp = response.data
+		return resp
+		
+
+
 
 
 
@@ -11,19 +19,17 @@ class Project extends Backbone.Model
 	# if blank,fetch it from the server with the url mentioned above.
 	setProjectAttributes:(project_id)->
 		# @set projectData
-		if jQuery.isEmptyObject(@toJSON()) || parseInt(@get('aj_id')) != parseInt(project_id)
+		@project_id = project_id
+		if jQuery.isEmptyObject(@toJSON()) || parseInt(@get('id')) != parseInt(project_id)
 			@fetch(
 				async: false
-				data : 
-					project_id : project_id
 				success:(collection, response)=>
-					if response == 0
+					if response == 0 || jQuery.isEmptyObject(response)
 						@clear()
-				error:(collection, response)=>
-					console.log "aaaaaaaaaaaaaaaaa"
+				
 
 				)
-			@resetEntitites()
+			# @resetEntitites()
 
 		@
 
@@ -45,7 +51,7 @@ class Project extends Backbone.Model
 
 
 
-
+window.project = new CommonFloor.Project
 		
 
 		
