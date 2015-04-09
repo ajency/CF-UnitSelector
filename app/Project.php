@@ -4,6 +4,7 @@ namespace CommonFloor;
 
 use Illuminate\Database\Eloquent\Model;
 use CommonFloor\UnitType;
+use CommonFloor\Media;
 
 class Project extends Model {
 
@@ -38,10 +39,16 @@ class Project extends Model {
     public function updater() {
         return $this->hasOne( 'CommonFloor\User', 'id', 'updated_by' );
     }
-    
-    function getUnitTypesToArray(  $projectPropertyTypeId ){
-        $unitTypes = UnitType::where('project_property_type_id', $projectPropertyTypeId)->get();
+
+    function getUnitTypesToArray( $projectPropertyTypeId ) {
+        $unitTypes = UnitType::where( 'project_property_type_id', $projectPropertyTypeId )->get();
         return $unitTypes;
+    }
+
+    public function getGoogleEarthSvgPath() {
+        $mediaId = $this->projectMeta()->where( 'meta_key', 'google_earth' )->first()->meta_value;
+        $fileName = Media::find( $mediaId )->image_name;
+        return url( "/projects/" . $this->id . "/google_earth/" . $fileName );
     }
 
     public function toArray() {

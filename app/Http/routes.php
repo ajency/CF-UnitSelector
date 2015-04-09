@@ -38,4 +38,4 @@ Route::group( ['prefix' => 'api/v1', 'middleware' => ['auth']], function() {
 Route::resource( 'projects', 'ProjectController' );
 
 App::bind( 'CommonFloor\Gateways\ProjectGatewayInterface', 'CommonFloor\Gateways\ProjectGateway' );
-App::bind( 'CommonFloor\Repositories\AttributesRepositoryInterface', 'CommonFloor\Repositories\AttributeRepository' );
+App::bind( 'CommonFloor\Repositories\ProjectRepositoryInterface', 'CommonFloor\Repositories\ProjectRepository' );
