@@ -235,7 +235,9 @@ $(document).ready(function(){
                 },
                 FileUploaded: function (up, file, xhr) {
                     fileResponse = JSON.parse(xhr.response);
-                    $('.project-master-images').append('<img width="150" height="150" src="'+fileResponse.data.image_path+'" class="img-responsive" >')
+                    $('.project-master-images').append('<div class="col-sm-2">\n\
+                        <img width="150" height="150" src="'+fileResponse.data.image_path+'" class="img-responsive" >\n\
+                        </div>')
                 }
             }
         });

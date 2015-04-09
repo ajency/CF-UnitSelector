@@ -13,7 +13,7 @@
         </div>
         <div id="proj-master" class="svg-holder">
             <hr>
-            <div class="svg-tools m-b-20">
+            <div class="svg-tools m-b-20 hidden">
                 <button type="button" class="btn btn-mini btn-default"><i class="fa fa-map-marker"></i> Add Marker</button>
                 <button type="button" class="btn btn-mini btn-default"><i class="fa fa-crosshairs"></i> Mark Area</button>
             </div>
@@ -23,7 +23,7 @@
                 @endif
             </div>
             <form>
-                <div class="form-group m-t-10">
+                <div class="form-group m-t-10 hidden">
                     <label class="form-label">SVG Name</label>
                     <input type="text" class="form-control" placeholder="Enter SVG Name">
                 </div>
