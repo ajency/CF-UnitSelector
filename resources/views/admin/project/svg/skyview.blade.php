@@ -23,7 +23,7 @@
                 @endif
             </div>
             <form>
-                <div class="form-group m-t-10">
+                <div class="form-group m-t-10 hidden">
                     <label class="form-label">SVG Name</label>
                     <input type="text" class="form-control" placeholder="Enter SVG Name">
                 </div>
