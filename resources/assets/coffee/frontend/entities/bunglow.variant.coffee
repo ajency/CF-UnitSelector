@@ -14,7 +14,7 @@ class BunglowVariantCollection extends Backbone.Collection
 
 	#set attributes of a Bunglow Variant model
 	# if blank,fetch it from the server with the url mentioned above.
-	setBunglowVariantAttributes:(unitVariantData = {},project_id)->
+	setBunglowVariantAttributes:(project_id)->
 
 		# @set BunglowData
 		if @length == 0 

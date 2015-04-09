@@ -1,14 +1,16 @@
-class CommonFloor.ProjectViewLayout extends Marionette.LayoutView
+class CommonFloor.ProjectMasterViewLayout extends Marionette.LayoutView
 
 	template : '#project-view-template'
 
 
 
-class CommonFloor.ProjectViewCtrl extends Marionette.RegionController
+class CommonFloor.ProjectMasterViewCtrl extends Marionette.RegionController
 
 	initialize:->
-		console.log "aaaaaaaaaaaaaaaaaaa"
-		@show new CommonFloor.ProjectViewLayout
+		if jQuery.isEmptyObject(project.toJSON())
+			project.setProjectAttributes(PROJECTID);
+		window.loadJSONData()
+		@show new CommonFloor.ProjectMasterViewLayout
 
 
 class TopMasterView extends Marionette.ItemView

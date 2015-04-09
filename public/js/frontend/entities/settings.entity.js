@@ -14,10 +14,7 @@
       return "http://commonfloor.local/methods/functions.php?action=load_settings";
     };
 
-    Settings.prototype.setSettingsAttributes = function(settingsData, project_id) {
-      if (settingsData == null) {
-        settingsData = {};
-      }
+    Settings.prototype.setSettingsAttributes = function(project_id) {
       if (jQuery.isEmptyObject(this.toJSON())) {
         return settings.fetch({
           async: false,

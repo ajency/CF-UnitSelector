@@ -14,7 +14,7 @@ class UnitTypeCollection extends Backbone.Collection
 
 	#set attributes of a unit type model
 	# if blank,fetch it from the server with the url mentioned above.
-	setUnitTypeAttributes:(unitTypeData = {},project_id)->
+	setUnitTypeAttributes:(project_id)->
 
 		# @set unitTypeData
 		if @length == 0 

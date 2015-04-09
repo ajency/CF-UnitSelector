@@ -14,7 +14,7 @@ class PlotVariantCollection extends Backbone.Collection
 
 	#set attributes of a Plot Variant model
 	# if blank,fetch it from the server with the url mentioned above.
-	setPlotVariantAttributes:(unitVariantData = {},project_id)->
+	setPlotVariantAttributes:(project_id)->
 
 		# @set PlotVariantData
 		if @length == 0 

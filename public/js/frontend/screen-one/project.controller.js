@@ -25,7 +25,7 @@
 
     ProjectCtrl.prototype.initialize = function() {
       var id, region;
-      console.log(id = PROJECTID);
+      id = PROJECTID;
       project.setProjectAttributes(id);
       if (jQuery.isEmptyObject(project.toJSON())) {
         region = new Marionette.Region({

@@ -28,7 +28,7 @@ class ApartmentVariantCollection extends Backbone.Collection
 
 	#set attributes of a Apartment Variant model
 	# if blank,fetch it from the server with the url mentioned above.
-	setApartmentVariantAttributes:(unitVariantData = {},project_id)->
+	setApartmentVariantAttributes:(project_id)->
 
 		# @set apartmentApartmentData
 		if @length == 0 

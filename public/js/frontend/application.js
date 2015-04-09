@@ -14,7 +14,7 @@
         }
       }
     });
-    CommonFloor.state('projectView', {
+    CommonFloor.state('projectMasterView', {
       url: '/master-view/:id',
       sections: {
         'top': {

@@ -47,7 +47,7 @@ class BuildingCollection extends Backbone.Collection
 
 	#set the attributes of a building model
 	# if blank,fetch it from the server with the url mentioned above.
-	setBuildingAttributes:(buildingData = {},project_id)->
+	setBuildingAttributes:(project_id)->
 
 		# @set buildingData
 		

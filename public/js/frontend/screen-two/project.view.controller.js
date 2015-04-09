@@ -3,32 +3,35 @@
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
-  CommonFloor.ProjectViewLayout = (function(superClass) {
-    extend(ProjectViewLayout, superClass);
+  CommonFloor.ProjectMasterViewLayout = (function(superClass) {
+    extend(ProjectMasterViewLayout, superClass);
 
-    function ProjectViewLayout() {
-      return ProjectViewLayout.__super__.constructor.apply(this, arguments);
+    function ProjectMasterViewLayout() {
+      return ProjectMasterViewLayout.__super__.constructor.apply(this, arguments);
     }
 
-    ProjectViewLayout.prototype.template = '#project-view-template';
+    ProjectMasterViewLayout.prototype.template = '#project-view-template';
 
-    return ProjectViewLayout;
+    return ProjectMasterViewLayout;
 
   })(Marionette.LayoutView);
 
-  CommonFloor.ProjectViewCtrl = (function(superClass) {
-    extend(ProjectViewCtrl, superClass);
+  CommonFloor.ProjectMasterViewCtrl = (function(superClass) {
+    extend(ProjectMasterViewCtrl, superClass);
 
-    function ProjectViewCtrl() {
-      return ProjectViewCtrl.__super__.constructor.apply(this, arguments);
+    function ProjectMasterViewCtrl() {
+      return ProjectMasterViewCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    ProjectViewCtrl.prototype.initialize = function() {
-      console.log("aaaaaaaaaaaaaaaaaaa");
-      return this.show(new CommonFloor.ProjectViewLayout);
+    ProjectMasterViewCtrl.prototype.initialize = function() {
+      if (jQuery.isEmptyObject(project.toJSON())) {
+        project.setProjectAttributes(PROJECTID);
+      }
+      window.loadJSONData();
+      return this.show(new CommonFloor.ProjectMasterViewLayout);
     };
 
-    return ProjectViewCtrl;
+    return ProjectMasterViewCtrl;
 
   })(Marionette.RegionController);
 

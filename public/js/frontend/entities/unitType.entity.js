@@ -27,10 +27,7 @@
       return "http://commonfloor.local/methods/functions.php?action=load_unit_types";
     };
 
-    UnitTypeCollection.prototype.setUnitTypeAttributes = function(unitTypeData, project_id) {
-      if (unitTypeData == null) {
-        unitTypeData = {};
-      }
+    UnitTypeCollection.prototype.setUnitTypeAttributes = function(project_id) {
       if (this.length === 0) {
         return unitTypeCollection.fetch({
           async: false,

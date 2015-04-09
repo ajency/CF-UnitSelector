@@ -27,10 +27,7 @@
       return "http://commonfloor.local/methods/functions.php?action=load_plot_variants";
     };
 
-    PlotVariantCollection.prototype.setPlotVariantAttributes = function(unitVariantData, project_id) {
-      if (unitVariantData == null) {
-        unitVariantData = {};
-      }
+    PlotVariantCollection.prototype.setPlotVariantAttributes = function(project_id) {
       if (this.length === 0) {
         return plotVariantCollection.fetch({
           async: false,

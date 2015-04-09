@@ -29,15 +29,13 @@ class CommonFloor.Project extends Backbone.Model
 				
 
 				)
-			# @resetEntitites()
+			@resetEntitites()
 
-		@
+		
 
 	resetEntitites:->
 		buildingCollection.reset()
 		unitCollection.reset()
-		building.clear()
-		apartmentVariantCollection.reset()
 		settings.clear()
 
 	checkRotationView:->

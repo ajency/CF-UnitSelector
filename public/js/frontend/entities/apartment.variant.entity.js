@@ -40,10 +40,7 @@
       return "http://commonfloor.local/methods/functions.php?action=load_apartment_variants";
     };
 
-    ApartmentVariantCollection.prototype.setApartmentVariantAttributes = function(unitVariantData, project_id) {
-      if (unitVariantData == null) {
-        unitVariantData = {};
-      }
+    ApartmentVariantCollection.prototype.setApartmentVariantAttributes = function(project_id) {
       if (this.length === 0) {
         return apartmentVariantCollection.fetch({
           async: false,

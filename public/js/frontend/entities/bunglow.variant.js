@@ -27,10 +27,7 @@
       return "http://commonfloor.local/methods/functions.php?action=load_bunglow_variants";
     };
 
-    BunglowVariantCollection.prototype.setBunglowVariantAttributes = function(unitVariantData, project_id) {
-      if (unitVariantData == null) {
-        unitVariantData = {};
-      }
+    BunglowVariantCollection.prototype.setBunglowVariantAttributes = function(project_id) {
       if (this.length === 0) {
         return bunglowVariantCollection.fetch({
           async: false,

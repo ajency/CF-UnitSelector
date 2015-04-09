@@ -7,7 +7,7 @@ class CommonFloor.ProjectLayoutView extends Marionette.LayoutView
 class CommonFloor.ProjectCtrl extends Marionette.RegionController
 
 	initialize:->
-		console.log id = PROJECTID
+		id = PROJECTID
 		project.setProjectAttributes(id);
 		if jQuery.isEmptyObject(project.toJSON())
 			region  = new Marionette.Region el : '#noFound-template'

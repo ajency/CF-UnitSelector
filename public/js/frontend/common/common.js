@@ -30,6 +30,19 @@
 
   })(Marionette.RegionController);
 
+  CommonFloor.loadJSONData = function() {
+    return $.ajax({
+      type: 'GET',
+      url: BASERESTURL + '/project/' + PROJECTID + '/step_one',
+      sucess: function(response) {
+        return console.log("aaaaaaaa");
+      },
+      error: function(response) {
+        return console.log("aaaaaaaaaaassdff");
+      }
+    });
+  };
+
 }).call(this);
 
 //# sourceMappingURL=../../frontend/common/common.js.map

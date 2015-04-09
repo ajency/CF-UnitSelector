@@ -114,11 +114,24 @@
             else if(val >= 1000) val = (val/1000).toFixed(2) + ' K';
             return val;
         }
+        window.loadJSONData =  function(){
+
+          buildingCollection.setBuildingAttributes(PROJECTID);
+          bunglowVariantCollection.setBunglowVariantAttributes(PROJECTID);
+          settings.setSettingsAttributes(PROJECTID);
+          unitCollection.setUnitAttributes(PROJECTID);
+          unitTypeCollection.setUnitTypeAttributes(PROJECTID);
+        }
         //global variable to keep track of the filtr the user has selected
         CommonFloor.defaults = {"unitType" :'All','budget':'All' ,"building":'All',"unitVariant":'All','view':'All','facing':'All'}
 
         </script>
         <script src="{{ asset('js/frontend/entities/project.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/building.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/bunglow.variant.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/settings.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/unit.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/unitType.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/common/common.js' )}}"></script>
         <script src="{{ asset('js/frontend/screen-one/project.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/screen-two/project.view.controller.js' )}}"></script>

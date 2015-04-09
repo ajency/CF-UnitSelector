@@ -9,7 +9,7 @@ class Settings extends Backbone.Model
 
 	# set attributes of a Settings model
 	# if blank,fetch it from the server with the url mentioned above.
-	setSettingsAttributes:(settingsData = {},project_id)->
+	setSettingsAttributes:(project_id)->
 
 		# @set settingsData
 		if jQuery.isEmptyObject(@toJSON()) 

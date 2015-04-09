@@ -71,10 +71,7 @@
       return "http://commonfloor.local/methods/functions.php?action=load_buildings";
     };
 
-    BuildingCollection.prototype.setBuildingAttributes = function(buildingData, project_id) {
-      if (buildingData == null) {
-        buildingData = {};
-      }
+    BuildingCollection.prototype.setBuildingAttributes = function(project_id) {
       if (this.length === 0) {
         return buildingCollection.fetch({
           async: false,
