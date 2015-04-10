@@ -145,7 +145,7 @@
 
     CenterView.prototype.onShow = function() {
       var path;
-      path = this.model.get('step_one');
+      path = this.model.get('step_one').svg;
       return $('<div></div>').load(path).appendTo('.svg-area');
     };
 

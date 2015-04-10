@@ -169,7 +169,7 @@ class CenterView extends Marionette.ItemView
 			#CommonFloor.navigate '#/master-view/'+@model.get('id') , true
 
 	onShow:->
-		path = @model.get('step_one')
+		path = @model.get('step_one').svg
 		$('<div></div>').load(path).appendTo('.svg-area')
 	
 
