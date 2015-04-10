@@ -36,7 +36,9 @@ class ProjectGateway implements ProjectGatewayInterface {
             ],
             'address' => $project->project_address,
             'project_status' => $project->getCFProjectStatus(),
-            'property_types' => $this->propertyTypeUnits( $projectId )
+            'property_types' => $this->propertyTypeUnits( $projectId ),
+            'project_property_types' => $this->propertyTypeUnits( $projectId ),
+            'project_settings' => $this->projectSettings( $projectId )
         ];
         return $projectData;
     }
@@ -90,12 +92,41 @@ class ProjectGateway implements ProjectGatewayInterface {
             }
             $data[$propertyTypeName]['starting_area'] = $faker->randomNumber();
             $data[$propertyTypeName]['availability'] = [
-                        'sold' => $faker->randomDigit,
-                        'blocked' => $faker->randomDigit
+                'sold' => $faker->randomDigit,
+                'blocked' => $faker->randomDigit
             ];
             $data[$propertyTypeName]['starting_price'] = $faker->randomNumber();
         }
-        
+
+
+        return $data;
+    }
+
+    public function projectSettings( $projectId ) {
+        $data = [];
+        $project = $this->projectRepository->getProjectById( $projectId );
+        $phases = $project->projectPhase()->get()->toArray();
+        $projectMeta = $project->projectMeta()->get()->toArray();
+
+        foreach ($phases as $phase) {
+            $data['phases'][] = ['phase_id' => $phase['id'], 'phase_name' => $phase['phase_name']];
+        }
+        $data['floor_rise'] = $projectMeta[0]['meta_value'];
+        $data['stamp_duty'] = $projectMeta[1]['meta_value'];
+        $data['registration_amount'] = $projectMeta[3]['meta_value'];
+        $data['vat'] = $projectMeta[4]['meta_value'];
+        $data['service_tax_low'] = $projectMeta[5]['meta_value'];
+        $data['service_tax_high'] = $projectMeta[5]['meta_value'];
+        $data['infrastructure_charges'] = $projectMeta[6]['meta_value'];
+        $data['membership_fees'] = $projectMeta[7]['meta_value'];
+
+        return $data;
+    }
+
+    public function projectUnits( $projectId ) {
+        $data = [];
+        $project = $this->projectRepository->getProjectById( $projectId );
+
 
         return $data;
     }
