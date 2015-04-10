@@ -26,7 +26,7 @@ class TopView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="col-md-12 col-xs-12 col-sm-12">
 					<div class="search-header-wrap">
 					  <h1 class="pull-left">{{i10n "explore"}} {{project_title}}</h1>
-					  <div class="pull-right">
+					  <!--<div class="pull-right">
 						<div class="toggle_radio">
 						  <input type="radio" checked class="toggle_option" id="first_toggle" name="toggle_option">
 						  <input type="radio" class="toggle_option" id="second_toggle" name="toggle_option">
@@ -37,7 +37,7 @@ class TopView extends Marionette.ItemView
 						  <div class="toggle_option_slider">
 						  </div>
 						</div>
-					  </div>
+					  </div>-->
 					  <div class="clearfix"></div>
 					</div>
 				  </div>')
