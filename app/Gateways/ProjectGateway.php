@@ -9,17 +9,17 @@ use CommonFloor\Repositories\ProjectRepositoryInterface;
  *
  * @author surajair
  */
-class ProjectGateway implements ProjectGatewayInterface{
+class ProjectGateway implements ProjectGatewayInterface {
 
     private $projectRepository;
 
-    public function __construct(ProjectRepositoryInterface $projectRepository) {
+    public function __construct( ProjectRepositoryInterface $projectRepository ) {
         $this->projectRepository = $projectRepository;
     }
 
     public function getProjectStepOneDetails( $projectId ) {
         $faker = \Faker\Factory::create();
-        $project = $this->projectRepository->getProjectById($projectId);
+        $project = $this->projectRepository->getProjectById( $projectId );
         $projectData = [
             'cf_project_id' => $project->cf_project_id,
             'id' => $project->id,
@@ -68,7 +68,31 @@ class ProjectGateway implements ProjectGatewayInterface{
     }
 
     public function getProjectStepTwoDetails( $projectId ) {
-        
+
+        $projectPropertyType = \CommonFloor\ProjectPropertyType::where( 'project_id', $projectId )
+                        ->where( 'property_type_id', 2 )->get()->first();
+
+        $unitTypes = \CommonFloor\UnitType::where( 'project_property_type_id', $projectPropertyType->id )->get();
+
+        $unitTypeIds = [];
+        foreach ($unitTypes as $unitType) {
+            $unitTypeIds[] = $unitType->id;
+        }
+
+        $bunglowVariants = \CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds )->get();
+
+        $stepTwoData = [
+            'buildings' => [],
+            'bunglow_variants' => $bunglowVariants->toArray(),
+            'apartment_variants' => [],
+            'plot_variants' => [],
+            'settings' => [],
+            'units' => [],
+            'unit_types' => [],
+            'floor_layout' => []
+        ];
+
+        return $stepTwoData;
     }
 
 }

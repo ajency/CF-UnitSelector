@@ -7,13 +7,10 @@ use CommonFloor\Gateways\ProjectGatewayInterface;
 
 class ProjectController extends Controller {
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return Response
-     */
-    public function index() {
-        //
+    private $projectGateway;
+
+    public function __construct( ProjectGatewayInterface $projectGateway ) {
+        $this->projectGateway = $projectGateway;
     }
 
     /**
@@ -22,22 +19,27 @@ class ProjectController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function show( $projectId, ProjectGatewayInterface $projectGateway ) {
-        
-        try{
-            
-            $data = $projectGateway->getProjectStepOneDetails($projectId);
+    public function show( $projectId ) {
+
+        try {
+
+            $data = $this->projectGateway->getProjectStepOneDetails( $projectId );
             return response()->json( [
-                            'data' => $data
-                        ], 200 );
-            
+                        'data' => $data
+                            ], 200 );
         } catch (Exception $ex) {
             return response()->json( [
-                            'code' => 'Failed',
-                            'message' => 'Some error message'
-                        ], 403 );
+                        'code' => 'Failed',
+                        'message' => 'Some error message'
+                    ], 403 );
         }
-        
+    }
+
+    public function stepTwo( $projectId ) {
+        $data = $this->projectGateway->getProjectStepTwoDetails( $projectId );
+        return response()->json( [
+                                'data' => $data
+                            ], 200 );
     }
 
 }
