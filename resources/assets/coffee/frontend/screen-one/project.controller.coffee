@@ -1,22 +1,26 @@
+#Layout view which has three regions in it
 class CommonFloor.ProjectLayoutView extends Marionette.LayoutView
 
 	template : '#project-template'
 
 
-
+#starting point:Controller is executed which contains the logic to get the details
 class CommonFloor.ProjectCtrl extends Marionette.RegionController
 
 	initialize:->
 		id = PROJECTID
 		project.setProjectAttributes(id);
+		#check to see whether project model is set or not
 		if jQuery.isEmptyObject(project.toJSON())
 			region  = new Marionette.Region el : '#noFound-template'
+			#if not found then show the 'Nothing Fpund View'
 			@show new CommonFloor.NothingFoundView
 
 		else
+			#if found then show the view for the first step
 			@show new CommonFloor.ProjectLayoutView
 
-
+#Controller for the top view of step one 
 class TopView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-12 col-xs-12 col-sm-12">
@@ -159,9 +163,6 @@ class CenterView extends Marionette.ItemView
 
 
 	events:
-		'click .primage':(e)-> 
-			CommonFloor.navigate '#/master-view/'+@model.get('id') , true
-
 		'click .step1-marker':(e)->
 			CommonFloor.navigate '#/master-view/'+@model.get('id') , true
 

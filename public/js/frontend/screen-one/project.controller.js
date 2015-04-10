@@ -138,9 +138,6 @@
     CenterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area width="400" height="224" id="prImage-4" data-nodebug="" data-alwaysprocess="" data-ratio="0.56" data-srcwidth="1920" data-crop="0" data-filters="usm" class="primage fill-width"> </div> <!--<img src="http://code.hnldesign.nl/img/demoimgs/stalenhag/resized/480/720/90/1/usm/08.jpg" width="350" height="525" id="prImage-2" title="" alt="" data-nodebug="" data-alwaysprocess="" data-imgprocessor="http://code.hnldesign.nl/img/" data-path="../../img/demoimgs/stalenhag/08.jpg" data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" class="primage fill-width">--> </div>');
 
     CenterView.prototype.events = {
-      'click .primage': function(e) {
-        return CommonFloor.navigate('#/master-view/' + this.model.get('id'), true);
-      },
       'click .step1-marker': function(e) {
         return CommonFloor.navigate('#/master-view/' + this.model.get('id'), true);
       }

@@ -46,8 +46,8 @@ class Project extends Model {
     }
 
     public function getGoogleEarthSvgPath() {
-        // $mediaId = $this->projectMeta()->where( 'meta_key', 'google_earth' )->first()->meta_value;
-        $fileName = "";
+        $mediaId = $this->projectMeta()->where( 'meta_key', 'google_earth' )->first()->meta_value;
+        $fileName = Media::find( $mediaId )->image_name;
         return url( "/projects/" . $this->id . "/google_earth/" . $fileName );
     }
     
