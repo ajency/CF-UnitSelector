@@ -4,7 +4,7 @@
         <h3>Project <span class="semi-bold">Details</span></h3>
     </div>
     <div class="grid-body">
-        <form action="/admin/project/{{ $project['id'] }}" method="POST" data-parsley-validate>
+        <form action="{{ url('/admin/project/'. $project['id']) }}" method="POST" data-parsley-validate>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">

@@ -82,23 +82,23 @@ class LeftView extends Marionette.ItemView
 
 						  <div class="detail-pts">   
 							{{#propertyTypes}}   
-								 <p>
+								<p>
 								  <span>{{i10n "project_type"}}:</span> {{prop_type}}
 								</p>
-								<p>
+								<!--<p>
 								  <span>{{i10n "starting_area"}}:</span> {{starting_area}} Sq.Ft.
-								</p>
+								</p>-->
 								<p>
 								  <span>{{i10n "unit_types"}}:</span> {{unit_types}}
 								</p>
-								<p>
+								<!--<p>
 								  <span>Available:</span> {{#availability}}
 								  {{count}}	{{status}} 
 								  {{/availability}}
-								</p>
-								<p>
+								</p>-->
+								<!--<p>
 								  <span>{{i10n "starting_price"}}:</span>  {{starting_price}}
-								</p>
+								</p>-->
 							{{/propertyTypes}}                  
 											  
 						  </div>
