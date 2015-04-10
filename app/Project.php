@@ -45,7 +45,7 @@ class Project extends Model {
         return $unitTypes;
     }
 
-    public function getGoogleEarthSvgPath() {
+   public function getGoogleEarthSvgPath() {
         $mediaId = $this->projectMeta()->where( 'meta_key', 'google_earth' )->first()->meta_value;
         $fileName = Media::find( $mediaId )->image_name;
         return url( "/projects/" . $this->id . "/google_earth/" . $fileName );
@@ -56,11 +56,6 @@ class Project extends Model {
         $mediaIds = explode( "||", $masterValue);
         $fileName = Media::find( $mediaIds[0] )->image_name;
         return url( "/projects/" . $this->id . "/master/" . $fileName );
-    }
-
-    public function getCFProjectStatus(){
-        $commonFloorData = unserialize( $this->projectMeta()->where( 'meta_key', 'cf' )->first()->meta_value );
-        return 'Under Construction';
     }
 
     public function toArray() {
