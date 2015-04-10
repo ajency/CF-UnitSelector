@@ -101,8 +101,8 @@
         BASERESTURL = '{{ get_rest_api_url() }}';
         PROJECTID = {{ $id }};
         CommonFloor = new Marionette.Application 
-        path = '{{ asset("images/step1.svg")}}'
-        
+       
+  
         window.locale = {
 
             "en-US" : <?php echo get_locale_frontend_to_json() ?>

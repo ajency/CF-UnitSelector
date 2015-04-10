@@ -20,7 +20,7 @@ class CommonFloor.ProjectCtrl extends Marionette.RegionController
 			#if found then show the view for the first step
 			@show new CommonFloor.ProjectLayoutView
 
-#Controller for the top view of step one 
+#Controller for the top view of step one
 class TopView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-12 col-xs-12 col-sm-12">
@@ -151,13 +151,16 @@ class CommonFloor.LeftCtrl extends Marionette.RegionController
 class CenterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
-					<div class="svg-area width="400" height="224" id="prImage-4" data-nodebug="" data-alwaysprocess="" 
-						data-ratio="0.56" 
-						data-srcwidth="1920" data-crop="0" data-filters="usm" class="primage fill-width">
+					<div class="svg-area width="350" height="525" id="prImage-2" title="" alt="" 
+						data-nodebug="" data-alwaysprocess="" 
+						data-imgprocessor="http://localhost/CF-UnitSelector/public/images/" 
+						data-path="http://localhost/CF-UnitSelector/public/images/step1.jpg" 
+						data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" 
+						class="primage fill-width">
 						
 					  
 					</div>
-					<!--<img src="http://code.hnldesign.nl/img/demoimgs/stalenhag/resized/480/720/90/1/usm/08.jpg" width="350" height="525" id="prImage-2" title="" alt="" data-nodebug="" data-alwaysprocess="" data-imgprocessor="http://code.hnldesign.nl/img/" data-path="../../img/demoimgs/stalenhag/08.jpg" data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" class="primage fill-width">-->
+					
 
 				</div>')
 
@@ -167,6 +170,7 @@ class CenterView extends Marionette.ItemView
 			CommonFloor.navigate '#/master-view/'+@model.get('id') , true
 
 	onShow:->
+		path = @model.get('step_one')
 		$('<div></div>').load(path).appendTo('.svg-area')
 	
 
