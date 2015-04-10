@@ -14,9 +14,22 @@
         }
       }
     });
+    CommonFloor.state('projectMasterView', {
+      url: '/master-view/:id',
+      sections: {
+        'top': {
+          ctrl: 'TopMasterCtrl'
+        },
+        'left': {
+          ctrl: 'LeftMasterCtrl'
+        },
+        'center': {
+          ctrl: 'CenterMasterCtrl'
+        }
+      }
+    });
     CommonFloor.addInitializer(function() {
-      Backbone.history.start();
-      return CommonFloor.navigate('/', true);
+      return Backbone.history.start();
     });
     return CommonFloor.start();
   });

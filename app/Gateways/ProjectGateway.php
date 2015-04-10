@@ -3,6 +3,7 @@
 namespace CommonFloor\Gateways;
 
 use CommonFloor\Repositories\ProjectRepositoryInterface;
+use CommonFloor\ProjectPropertyType;
 
 /**
  * Description of ProjectGateway
@@ -62,7 +63,8 @@ class ProjectGateway implements ProjectGatewayInterface {
                 ]
             ],
             'address' => $project->project_address,
-            'project_status' => $project->getCFProjectStatus()
+            'project_status' => $project->getCFProjectStatus(),
+            'project_property_types' => $this->propertyTypeUnits($projectId)
         ];
         return $projectData;
     }
@@ -97,6 +99,28 @@ class ProjectGateway implements ProjectGatewayInterface {
         ];
 
         return $stepTwoData;
+    }
+    
+    public function propertyTypeUnits($projectId)
+    {
+        $project = $this->projectRepository->getProjectById( $projectId );
+        $projectPropertyTypes = $project->projectPropertyTypes()->get()->toArray();
+        $data = [];
+      
+        foreach($projectPropertyTypes as $propertyType)
+        {
+            $propertyTypeId = $propertyType['property_type_id'];
+            $projectpropertyTypeId = $propertyType['id'];
+            $propertyTypeName =  property_type_slug(get_property_type($propertyTypeId));
+            $unitTypes = ProjectPropertyType::find($projectpropertyTypeId)->projectUnitType()->get()->toArray(); 
+            foreach ($unitTypes as $unitType)
+            {
+                $data[$propertyTypeName][$unitType['id']]= $unitType['unittype_name'];
+            }
+        }
+        
+        return $data;
+        
     }
 
 }

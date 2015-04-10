@@ -30,6 +30,23 @@
 
   })(Marionette.RegionController);
 
+  CommonFloor.loadJSONData = function() {
+    return $.ajax({
+      type: 'GET',
+      url: BASERESTURL + '/project/' + PROJECTID + '/step_one',
+      async: false,
+      sucess: function(response) {
+        bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants);
+        settings.setSettingsAttributes(response.settings);
+        unitCollection.setUnitAttributes(response.units);
+        return unitTypeCollection.setUnitTypeAttributes(response.unit_types);
+      },
+      error: function(response) {
+        return console.log("aaaaaaaaaaassdff");
+      }
+    });
+  };
+
 }).call(this);
 
 //# sourceMappingURL=../../frontend/common/common.js.map

@@ -8177,3 +8177,8 @@ body.rtl .footer-widget {
   font-size: 12px;
   color: #f34235;
 }
+/* Inner Menu */
+.inner-wrapper h2 {
+  word-break: break-word;
+}
+/*# sourceMappingURL=style.css.map */
