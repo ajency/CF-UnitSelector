@@ -30,7 +30,7 @@ class ProjectGateway implements ProjectGatewayInterface{
             ],
             'project_master' => [
                 'svg_main' => [
-                    'svg' => $faker->imageUrl( 1300, 800, 'city' ),
+                    'svg' => $project->getProjectMasterSvgPath(),
                     'images' => [ $faker->imageUrl( 1300, 800, 'city' ), $faker->imageUrl( 1300, 800, 'city' )]
                 ],
                 'svg_left' => [
@@ -61,7 +61,7 @@ class ProjectGateway implements ProjectGatewayInterface{
                     'starting_price' => $faker->randomNumber()
                 ]
             ],
-            'address' => $faker->address,
+            'address' => $project->project_address,
             'project_status' => $project->getCFProjectStatus()
         ];
         return $projectData;

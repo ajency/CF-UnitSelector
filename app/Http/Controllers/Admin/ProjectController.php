@@ -100,7 +100,7 @@ class ProjectController extends Controller {
         $project = $projectRepository->getProjectById( $id );
         $projectMeta = $project->projectMeta()->whereIn( 'meta_key', ['master', 'google_earth', 'skyview'] )->get()->toArray();
         $svgImages = [];
-
+       
         foreach ($projectMeta as $meta_values) {
 
             if ($meta_values['meta_key'] == 'master') {
