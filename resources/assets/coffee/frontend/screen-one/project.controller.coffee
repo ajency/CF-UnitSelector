@@ -153,8 +153,6 @@ class CenterView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 					<div class="svg-area width="350" height="525" id="prImage-2" title="" alt="" 
 						data-nodebug="" data-alwaysprocess="" 
-						data-imgprocessor="http://localhost/CF-UnitSelector/public/images/" 
-						data-path="http://localhost/CF-UnitSelector/public/images/step1.jpg" 
 						data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" 
 						class="primage fill-width">
 						
@@ -167,7 +165,8 @@ class CenterView extends Marionette.ItemView
 
 	events:
 		'click .step1-marker':(e)->
-			CommonFloor.navigate '#/master-view/'+@model.get('id') , true
+			CommonFloor.loadJSONData()
+			#CommonFloor.navigate '#/master-view/'+@model.get('id') , true
 
 	onShow:->
 		path = @model.get('step_one')

@@ -1,121 +1,121 @@
 (function() {
-  var CenterMasterView, LeftMasterView, TopMasterView,
+  var CenterBunglowView, LeftBunglowView, TopBunglowView,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
-  CommonFloor.ProjectMasterViewLayout = (function(superClass) {
-    extend(ProjectMasterViewLayout, superClass);
+  CommonFloor.BunglowLayoutView = (function(superClass) {
+    extend(BunglowLayoutView, superClass);
 
-    function ProjectMasterViewLayout() {
-      return ProjectMasterViewLayout.__super__.constructor.apply(this, arguments);
+    function BunglowLayoutView() {
+      return BunglowLayoutView.__super__.constructor.apply(this, arguments);
     }
 
-    ProjectMasterViewLayout.prototype.template = '#project-view-template';
+    BunglowLayoutView.prototype.template = '#project-view-template';
 
-    return ProjectMasterViewLayout;
+    return BunglowLayoutView;
 
   })(Marionette.LayoutView);
 
-  CommonFloor.ProjectMasterViewCtrl = (function(superClass) {
-    extend(ProjectMasterViewCtrl, superClass);
+  CommonFloor.BunglowMasterViewCtrl = (function(superClass) {
+    extend(BunglowMasterViewCtrl, superClass);
 
-    function ProjectMasterViewCtrl() {
-      return ProjectMasterViewCtrl.__super__.constructor.apply(this, arguments);
+    function BunglowMasterViewCtrl() {
+      return BunglowMasterViewCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    ProjectMasterViewCtrl.prototype.initialize = function() {
+    BunglowMasterViewCtrl.prototype.initialize = function() {
       if (jQuery.isEmptyObject(project.toJSON())) {
         project.setProjectAttributes(PROJECTID);
+        CommonFloor.checkProjectType();
       }
-      CommonFloor.loadJSONData();
-      return this.show(new CommonFloor.ProjectMasterViewLayout);
+      return this.show(new CommonFloor.BunglowLayoutView);
     };
 
-    return ProjectMasterViewCtrl;
+    return BunglowMasterViewCtrl;
 
   })(Marionette.RegionController);
 
-  TopMasterView = (function(superClass) {
-    extend(TopMasterView, superClass);
+  TopBunglowView = (function(superClass) {
+    extend(TopBunglowView, superClass);
 
-    function TopMasterView() {
-      return TopMasterView.__super__.constructor.apply(this, arguments);
+    function TopBunglowView() {
+      return TopBunglowView.__super__.constructor.apply(this, arguments);
     }
 
-    TopMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="search-header-wrap"> <h1>We are now at Artha Zen\'s upcoming project having 50 villa\'s</h1> </div> </div> </div>');
+    TopBunglowView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="search-header-wrap"> <h1>We are now at Artha Zen\'s upcoming project having 50 villa\'s</h1> </div> </div> </div>');
 
-    return TopMasterView;
+    return TopBunglowView;
 
   })(Marionette.ItemView);
 
-  CommonFloor.TopMasterCtrl = (function(superClass) {
-    extend(TopMasterCtrl, superClass);
+  CommonFloor.TopBunglowCtrl = (function(superClass) {
+    extend(TopBunglowCtrl, superClass);
 
-    function TopMasterCtrl() {
-      return TopMasterCtrl.__super__.constructor.apply(this, arguments);
+    function TopBunglowCtrl() {
+      return TopBunglowCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    TopMasterCtrl.prototype.initialize = function() {
-      return this.show(new TopMasterView);
+    TopBunglowCtrl.prototype.initialize = function() {
+      return this.show(new TopBunglowView);
     };
 
-    return TopMasterCtrl;
+    return TopBunglowCtrl;
 
   })(Marionette.RegionController);
 
-  LeftMasterView = (function(superClass) {
-    extend(LeftMasterView, superClass);
+  LeftBunglowView = (function(superClass) {
+    extend(LeftBunglowView, superClass);
 
-    function LeftMasterView() {
-      return LeftMasterView.__super__.constructor.apply(this, arguments);
+    function LeftBunglowView() {
+      return LeftBunglowView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftMasterView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="advncd-filter-wrp"> <div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div> <div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6 class="sold">V1001</h6> </div> <div class="col-sm-4"> <h6 class="">3BHK</h6> </div> <div class="col-sm-4"> <h6 class="">1460sqft</h6> </div> </div> </div> <div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6 class="available">V1002</h6> </div> <div class="col-sm-4"> <h6 class="">3BHK</h6> </div> <div class="col-sm-4"> <h6 class="">1460sqft</h6> </div> </div> </div> </div> </div>');
+    LeftBunglowView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="advncd-filter-wrp"> <div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div> <div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6 class="sold">V1001</h6> </div> <div class="col-sm-4"> <h6 class="">3BHK</h6> </div> <div class="col-sm-4"> <h6 class="">1460sqft</h6> </div> </div> </div> <div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6 class="available">V1002</h6> </div> <div class="col-sm-4"> <h6 class="">3BHK</h6> </div> <div class="col-sm-4"> <h6 class="">1460sqft</h6> </div> </div> </div> </div> </div>');
 
-    return LeftMasterView;
+    return LeftBunglowView;
 
   })(Marionette.ItemView);
 
-  CommonFloor.LeftMasterCtrl = (function(superClass) {
-    extend(LeftMasterCtrl, superClass);
+  CommonFloor.LeftBunglowCtrl = (function(superClass) {
+    extend(LeftBunglowCtrl, superClass);
 
-    function LeftMasterCtrl() {
-      return LeftMasterCtrl.__super__.constructor.apply(this, arguments);
+    function LeftBunglowCtrl() {
+      return LeftBunglowCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    LeftMasterCtrl.prototype.initialize = function() {
-      return this.show(new LeftMasterView);
+    LeftBunglowCtrl.prototype.initialize = function() {
+      return this.show(new LeftBunglowView);
     };
 
-    return LeftMasterCtrl;
+    return LeftBunglowCtrl;
 
   })(Marionette.RegionController);
 
-  CenterMasterView = (function(superClass) {
-    extend(CenterMasterView, superClass);
+  CenterBunglowView = (function(superClass) {
+    extend(CenterBunglowView, superClass);
 
-    function CenterMasterView() {
-      return CenterMasterView.__super__.constructor.apply(this, arguments);
+    function CenterBunglowView() {
+      return CenterBunglowView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <img src="../../images/map2.png"> </div> </div>');
+    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <img src="../../images/map2.png"> </div> </div>');
 
-    return CenterMasterView;
+    return CenterBunglowView;
 
   })(Marionette.ItemView);
 
-  CommonFloor.CenterMasterCtrl = (function(superClass) {
-    extend(CenterMasterCtrl, superClass);
+  CommonFloor.CenterBunglowCtrl = (function(superClass) {
+    extend(CenterBunglowCtrl, superClass);
 
-    function CenterMasterCtrl() {
-      return CenterMasterCtrl.__super__.constructor.apply(this, arguments);
+    function CenterBunglowCtrl() {
+      return CenterBunglowCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    CenterMasterCtrl.prototype.initialize = function() {
-      return this.show(new CenterMasterView);
+    CenterBunglowCtrl.prototype.initialize = function() {
+      return this.show(new CenterBunglowView);
     };
 
-    return CenterMasterCtrl;
+    return CenterBunglowCtrl;
 
   })(Marionette.RegionController);
 

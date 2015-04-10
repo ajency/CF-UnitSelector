@@ -18,5 +18,28 @@ CommonFloor.loadJSONData = ()->
 			settings.setSettingsAttributes(response.settings);
 			unitCollection.setUnitAttributes(response.units);
 			unitTypeCollection.setUnitTypeAttributes(response.unit_types);
+			CommonFloor.checkProjectType()
 		error :(response)->
 			console.log "aaaaaaaaaaassdff"
+
+
+CommonFloor.checkProjectType = ()->
+	Router = []
+	bunglowVariantCollection.each (model)->
+		bunglowUnits = unitCollection.where
+			unit_variant : model.get('id')
+		Router.push
+			'name'  : 'bunglows'
+			'count' : bunglowUnits.length
+
+	controller = _.max Router , (item)->
+		return parseInt item.count
+
+
+	console.log controller
+
+	CommonFloor.navigate '#/master-view/'+@model.get('id')+'/bunglows' , true
+
+
+
+
