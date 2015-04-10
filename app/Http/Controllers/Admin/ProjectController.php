@@ -103,7 +103,7 @@ class ProjectController extends Controller {
        
         foreach ($projectMeta as $metaValues) {
 
-            if ($metaValues['meta_key'] == 'master') {
+            if ('master' === $metaValues['meta_key']) {
                 $mediaIdArr = explode( "||", $metaValues['meta_value'] );
 
                 foreach ($mediaIdArr as $mediaId) {

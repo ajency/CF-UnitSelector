@@ -66,7 +66,7 @@ class ProjectMediaController extends Controller {
          
         if (!empty($metaValue)) {
             
-            $metaValue= ($type=='master')?$metaValue.'||'.$mediaId:$mediaId;
+            $metaValue= ('master'===$type)?$metaValue.'||'.$mediaId:$mediaId;
             $data = array("meta_value" => $metaValue);
             $projectMeta->where(['meta_key' => $type, 'project_id' => $project_id])->update( $data );
             
@@ -77,11 +77,11 @@ class ProjectMediaController extends Controller {
             $projectMeta->save();
         }
 
-        if ($type == 'google_earth')
+        if ('google_earth'===$type)
             $message = 'Google Earth';
-        elseif ($type == 'master')
+        elseif ('master'===$type)
             $message = 'Project Master';
-        elseif ($type == 'skyview')
+        elseif ('skyview'===$type)
             $message = 'Sky view';
 
         return response()->json([

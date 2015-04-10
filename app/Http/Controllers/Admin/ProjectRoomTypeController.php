@@ -121,7 +121,7 @@ class ProjectRoomTypeController extends Controller {
         $controlValueArr = (isset( $data['controltypevalues_' . $reffereceId] )) ? $data['controltypevalues_' . $reffereceId] : [];
         $attributeIdArr = $data['attribute_id_' . $reffereceId];
 
-        if ($reffereceType == 'room_type') {
+        if ( 'room_type' === $reffereceType ) {
             $roomType = RoomType::find( $reffereceId );
             $roomtypeName = $data['room_typename_' . $reffereceId][0];
 
@@ -129,7 +129,7 @@ class ProjectRoomTypeController extends Controller {
             $roomType->save();
 
             $objecttype = 'RoomType';
-        } elseif ($reffereceType == 'property_type') {
+        } elseif ('property_type' === $reffereceType) {
             $project = Project::find( $project_id );
             $objecttype = 'PropertyType';
             $reffereceidArr = explode( '_', $reffereceId );
@@ -155,9 +155,9 @@ class ProjectRoomTypeController extends Controller {
             }
 
             if (!empty( $attribute )) {
-                if ($reffereceType == 'room_type')
+                if ('room_type' === $reffereceType)
                     $roomType->attributes()->saveMany( $attribute );
-                elseif ($reffereceType == 'property_type')
+                elseif ('property_type' === $reffereceType)
                     $projectPropertytype->attributes()->saveMany( $attribute );
             }
         }

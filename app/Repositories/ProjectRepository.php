@@ -76,7 +76,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
 
         $project = Project::find( $projectId );
 
-        if (isset( $projectData['project_update'] ) && $projectData['project_update'] == 'DETAILS') {
+        if (isset( $projectData['project_update'] ) && 'DETAILS'===$projectData['project_update']) {
 
             $project_title = $projectData['project_title'];
             $project_address = $projectData['project_address'];
