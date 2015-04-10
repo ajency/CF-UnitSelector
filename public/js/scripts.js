@@ -64,7 +64,7 @@ function addRoomtype(project_id)
             str += '<div class = "col-md-12" >';
             str += '<div class = "text-right" >';
             str += '<button type="button" class = "btn btn-small btn-primary" onclick="saveRoomypeattribute('+project_id+',' + roomtypeId + ',\'room_type\');" > <i class = "fa fa-save" > </i> Save</button>';
-            str += '<button class = "btn btn-small btn-default" > <i class = "fa fa-trash" > </i> Delete</button >';
+           // str += '<button class = "btn btn-small btn-default" > <i class = "fa fa-trash" > </i> Delete</button >';
             str += '</div>';
             str += '</div>';
             str += '</div>';

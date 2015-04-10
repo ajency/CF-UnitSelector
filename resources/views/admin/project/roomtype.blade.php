@@ -91,7 +91,7 @@
 
                     <div class="text-right"> 
                         <button type="button" class="btn btn-small btn-primary" onclick="saveRoomypeattribute({{$project['id']}},{{$roomtypeId}},'room_type');"><i class="fa fa-save"></i> Save</button>
-                        <button type="button" class="btn btn-small btn-default"><i class="fa fa-trash"></i> Delete</button>
+                        <!--<button type="button" class="btn btn-small btn-default"><i class="fa fa-trash"></i> Delete</button>-->
                     </div>
 
 
@@ -199,7 +199,7 @@
 
                     <div class="text-right"> 
                         <button type="button" class="btn btn-small btn-primary" onclick="saveRoomypeattribute({{$project['id']}},'proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}','property_type');"><i class="fa fa-save"></i> Save</button>
-                        <button type="button" class="btn btn-small btn-default"><i class="fa fa-trash"></i> Delete</button>
+                        <!--<button type="button" class="btn btn-small btn-default"><i class="fa fa-trash"></i> Delete</button>-->
                     </div>
 
 
