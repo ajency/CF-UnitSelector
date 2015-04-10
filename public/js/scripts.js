@@ -213,10 +213,7 @@ $(document).ready(function(){
                 max_file_size: '10mb',
                 mime_types: [{
                         title: "Image files",
-                        extensions: "jpg,gif,png"
-                    }, {
-                        title: "Zip files",
-                        extensions: "zip"
+                        extensions: "svg"
                     }]
             },
             init: {
@@ -228,7 +225,7 @@ $(document).ready(function(){
                 },
                 FileUploaded: function (up, file, xhr) {
                     fileResponse = JSON.parse(xhr.response);
-                    $("#project_googleearth_image").html('<img width="150" height="150" src="'+fileResponse.data.image_path+'" class="img-responsive" >');
+                    $("#project_googleearth_image").html('<object width="150" id="svg1" data="'+fileResponse.data.image_path+'" type="image/svg+xml" />');
                 }
             }
         });
@@ -250,10 +247,7 @@ $(document).ready(function(){
                 max_file_size: '10mb',
                 mime_types: [{
                         title: "Image files",
-                        extensions: "jpg,gif,png"
-                    }, {
-                        title: "Zip files",
-                        extensions: "zip"
+                        extensions: "svg"
                     }]
             },
             init: {
@@ -290,9 +284,6 @@ $(document).ready(function(){
                 mime_types: [{
                         title: "Image files",
                         extensions: "jpg,gif,png"
-                    }, {
-                        title: "Zip files",
-                        extensions: "zip"
                     }]
             },
             init: {
