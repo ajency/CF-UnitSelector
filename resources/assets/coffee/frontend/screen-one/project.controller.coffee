@@ -27,11 +27,13 @@ class TopView extends Marionette.ItemView
 						  <input type="radio" checked class="toggle_option" id="first_toggle" name="toggle_option">
 						  <input type="radio" class="toggle_option" id="second_toggle" name="toggle_option">
 						  <input type="radio" class="toggle_option" id="third_toggle" name="toggle_option">
-						  <label for="first_toggle"><p>Morning</p></label>
-						  <label for="second_toggle"><p>Afternoon</p></label>
-						  <label for="third_toggle"><p>Evening</p></label>
-						  <div class="toggle_option_slider">
-						  </div>
+						  <label for="first_toggle" class="first_toggle"><p>Morning</p></label>
+						  <label for="second_toggle" class="second_toggle"><p>Afternoon</p></label>
+						  <label for="third_toggle" class="third_toggle"><p>Evening</p></label>
+						  <div class="toggle_option_slider"></div>
+						  <div class="toggle_option_slider_inactive_1"></div>
+						  <div class="toggle_option_slider_inactive_2"></div>
+						  <div class="toggle_option_slider_inactive_3"></div>
 						</div>
 					  </div>
 					  <div class="clearfix"></div>
