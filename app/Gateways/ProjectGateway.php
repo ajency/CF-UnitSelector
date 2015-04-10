@@ -3,9 +3,8 @@
 namespace CommonFloor\Gateways;
 
 use CommonFloor\Repositories\ProjectRepositoryInterface;
-use CommonFloor\PropertyType;
 use CommonFloor\ProjectPropertyType;
-use CommonFloor\UnitType;
+
 /**
  * Description of ProjectGateway
  *
