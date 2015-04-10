@@ -33,15 +33,12 @@
                 <div class="col-md-4">
                     <div class="form-inline">
                         <div class="form-group">
-                            <select name="controltype_{{$roomtypeId}}">
+                            <select name="controltype_{{$roomtypeId}}" onchange="defaultBlock(this.value,{{$roomtypeId}});">
                                 <option value="">Controls</option>
                                 <option value="textbox" @if($attributes['control_type']=='textbox'){{'selected'}}@endif> Text Box</option>
-                                <option value="textarea" @if($attributes['control_type']=='textarea'){{'selected'}}@endif> Textarea </option>
                                 <option value="select" @if($attributes['control_type']=='select'){{'selected'}}@endif>Select Box</option>
                                 <option value="multiple" @if($attributes['control_type']=='multiple'){{'selected'}}@endif> Multiple Select Box</option>
-                                <option value="radio" @if($attributes['control_type']=='radio'){{'selected'}}@endif> Radio </option>
-                                <option value="checkbox" @if($attributes['control_type']=='checkbox'){{'selected'}}@endif> Checkbox </option>
-                                <option value="media" @if($attributes['control_type']=='media'){{'selected'}}@endif> Media </option>
+                                <option value="media" @if($attributes['control_type']=='number'){{'selected'}}@endif> Number </option>
                             </select>
                            
                         </div>
@@ -69,15 +66,12 @@
                 <div class="col-md-4">
                     <div class="form-inline">
                         <div class="form-group">
-                            <select name="controltype_{{$roomtypeId}}">
+                            <select name="controltype_{{$roomtypeId}}" onchange="defaultBlock(this.value,{{$roomtypeId}});">
                                 <option value="">Controls</option>
                                 <option value="textbox" > Text Box</option>
-                                <option value="textarea" > Textarea </option>
                                 <option value="select" >Select Box</option>
                                 <option value="multiple" > Multiple Select Box</option>
-                                <option value="radio" > Radio </option>
-                                <option value="checkbox" > Checkbox </option>
-                                <option value="media" > Media </option>
+                                <option value="number" > Number </option>
                             </select>
                             <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes({{$roomtypeId}},this)"><i class="fa fa-plus"></i></button>
                         </div>
@@ -150,18 +144,15 @@
                             <select name="controltype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
                                 <option value="">Controls</option>
                                 <option value="textbox" @if($attributes['control_type']=='textbox'){{'selected'}}@endif> Text Box</option>
-                                <option value="textarea" @if($attributes['control_type']=='textarea'){{'selected'}}@endif> Textarea </option>
                                 <option value="select" @if($attributes['control_type']=='select'){{'selected'}}@endif>Select Box</option>
                                 <option value="multiple" @if($attributes['control_type']=='multiple'){{'selected'}}@endif> Multiple Select Box</option>
-                                <option value="radio" @if($attributes['control_type']=='radio'){{'selected'}}@endif> Radio </option>
-                                <option value="checkbox" @if($attributes['control_type']=='checkbox'){{'selected'}}@endif> Checkbox </option>
-                                <option value="media" @if($attributes['control_type']=='media'){{'selected'}}@endif> Media </option>
+                                <option value="media" @if($attributes['control_type']=='number'){{'selected'}}@endif> Number </option>
                             </select>
                            
                         </div>
                     </div>
                 </div>
-                <div class="col-md-5">
+                <div class="col-md-5" id="controltype_values_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
                     <div class="form-inline">
                         <div class="form-group">
                             <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="form-control" placeholder="Default values" value="{{$attributes['defaults']}}">
@@ -180,18 +171,15 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-4" id="controltype_values_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
                     <div class="form-inline">
                         <div class="form-group">
-                            <select name="controltype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
+                            <select name="controltype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" >
                                 <option value="">Controls</option>
                                 <option value="textbox" > Text Box</option>
-                                <option value="textarea" > Textarea </option>
                                 <option value="select" >Select Box</option>
                                 <option value="multiple" > Multiple Select Box</option>
-                                <option value="radio" > Radio </option>
-                                <option value="checkbox" > Checkbox </option>
-                                <option value="media" > Media </option>
+                                <option value="number"> Number </option>
                             </select>
                             <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes('proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}',this)"><i class="fa fa-plus"></i></button>
                         </div>

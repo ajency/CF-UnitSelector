@@ -33,10 +33,11 @@ class ProjectRoomTypeController extends Controller {
         $propertytypeAttribute = [];
         $projectPropertytype = [];
         $projectPropertytypeArr = $project->projectPropertyTypes()->get()->toArray();
-
-        foreach ($projectPropertytypeArr as $property_types) {
+      
+       
+        foreach ($projectPropertytypeArr as $property_types) { 
             $propertytypeAttribute[$property_types['property_type_id']]['PROJECTPROPERTYTYPEID'] = $property_types['id'];
-            $propertytypeAttribute[$property_types['property_type_id']]['ATTRIBUTES'] = ProjectPropertyType::find( $property_types['property_type_id'] )->attributes->toArray();
+            $propertytypeAttribute[$property_types['property_type_id']]['ATTRIBUTES'] = ProjectPropertyType::find($property_types['id'])->attributes->toArray();
             $projectPropertytype [] = $property_types['property_type_id'];
         }
 
@@ -116,7 +117,7 @@ class ProjectRoomTypeController extends Controller {
 
         $attribute_name_arr = $data['attribute_name_' . $reffereceId];
         $control_type_arr = $data['controltype_' . $reffereceId];
-        $control_value_arr = (isset($data['controltypevalues_' . $reffereceId]))?$data['controltypevalues_' . $reffereceId]:[];
+        $control_value_arr = (isset( $data['controltypevalues_' . $reffereceId] )) ? $data['controltypevalues_' . $reffereceId] : [];
         $attribute_id_arr = $data['attribute_id_' . $reffereceId];
 
         if ($reffereceType == 'room_type') {

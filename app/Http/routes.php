@@ -25,7 +25,8 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource( 'project', 'Admin\ProjectController' );
     Route::resource( 'project.media', 'Admin\ProjectMediaController' );
     Route::resource( 'project.unittype', 'Admin\ProjectUnitTypeController' );
-    Route::resource( 'project.bunglow', 'Admin\ProjectBunglowController' );
+    Route::resource( 'project.bunglow-variant', 'Admin\ProjectBunglowVariantController' );
+    Route::resource( 'project.bunglow-unit', 'Admin\ProjectBunglowUnitController' );
     Route::resource( 'phase', 'Admin\PhaseController' );
     Route::resource( 'project.roomtype', 'Admin\ProjectRoomTypeController' );
     Route::get( 'project/{id}/svg', 'Admin\ProjectController@svg' );
@@ -37,5 +38,5 @@ Route::group( ['prefix' => 'api/v1', 'middleware' => ['auth']], function() {
 
 Route::resource( 'projects', 'ProjectController' );
 
-App::bind( 'CommonFloor\Gateways\RoomTypeGatewayInterface', 'CommonFloor\Gateways\RoomTypeGateway' );
-App::bind( 'CommonFloor\Repositories\AttributesRepositoryInterface', 'CommonFloor\Repositories\AttributeRepository' );
+App::bind( 'CommonFloor\Gateways\ProjectGatewayInterface', 'CommonFloor\Gateways\ProjectGateway' );
+App::bind( 'CommonFloor\Repositories\ProjectRepositoryInterface', 'CommonFloor\Repositories\ProjectRepository' );

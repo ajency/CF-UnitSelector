@@ -8,6 +8,7 @@ namespace CommonFloor\Gateways;
  */
 interface ProjectGatewayInterface {
 
-    public function getProjectDetails( $projectId );
+    public function getProjectStepOneDetails( $projectId );
+    public function getProjectStepTwoDetails( $projectId );
     
 }

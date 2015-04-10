@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class UnitVariant extends Model {
 
-    public function variantFloorlevel() {
-        return $this->hasMany('CommonFloor\VariantFloorLevel');
+    public function variantRoomAttributes() {
+        return $this->hasMany('CommonFloor\VariantRoom');
     }
 
 }

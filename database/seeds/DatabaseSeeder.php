@@ -39,9 +39,10 @@ class UserTableSeeder extends Seeder {
 class PropertyTypeTableSeeder extends Seeder {
 
     public function run() {
-        PropertyType::create( ['name' => 'Appartment'] );
+        PropertyType::create( ['name' => 'Apartment'] );
         PropertyType::create( ['name' => 'Bunglows/Villa'] );
-        PropertyType::create( ['name' => 'Land'] );
+        PropertyType::create( ['name' => 'Plot'] );
+        PropertyType::create( ['name' => 'Penthouse'] );
     }
 
 }

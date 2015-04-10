@@ -144,6 +144,58 @@ function defaultBlock(value,refId)
         $("#controltype_values_"+refId).hide(); */
 }
 
+function addFloorLevel()
+{
+    var counter = $("#counter").val();
+    var i= parseInt(counter)+1;
+    var str ='';
+    
+        str +='';
+        str +='<div class="col-sm-12" id="levelblock_'+i+'"> ';
+        str +='<div class="row">';
+        str +='<div class="col-sm-12">';
+        str +='<div class="form-group">';
+        str +='<h3>Level '+i+'</h3>';
+        str +='<input type="hidden" name="floorlevel[]" value="'+i+'">';
+        str +='</div> ';
+        str +='</div> ';
+        str +='</div>';
+
+        str +='<div class="form-inline">';
+        str +='<div class="form-group">';
+        str +=' <input type="hidden" name="variantroomid_'+i+'[]" value="">';
+        str +='<select name="room_name_'+i+'[]" class="select2 form-control">';
+        str +='<option value="">Select Room</option>';
+        str +=ROOMTYPES;
+        str +='</select>';
+        str +='<button type="button" onclick="addRoomAttributes('+i+',this)" class="btn btn-white"><i class="fa fa-plus"></i></button>';
+        str +='</div> ';
+
+        str +='</div>';
+        str +='</div> ';
+        
+        $("#addFloorlevel").before(str);
+         $("#counter").val(i);
+}
+
+function addRoomAttributes(level,obj)
+{
+     var str ='';
+ 
+        str +='<div class="form-inline">';
+        str +='<div class="form-group">';
+        str +=' <input type="hidden" name="variantroomid_'+level+'[]" value="">';
+        str +='<select name="room_name_'+level+'[]" class="select2 form-control">';
+        str +='<option value="">Select Room</option>';
+        str +=ROOMTYPES;
+        str +='</select>';
+        str +='<button type="button" onclick="addRoomAttributes('+level+',this)" class="btn btn-white"><i class="fa fa-plus"></i></button>';
+        str +='</div> ';
+ 
+        $(obj).hide();
+        $("#levelblock_"+level).append(str);
+}
+
 $(document).ready(function(){
         var uploader = new plupload.Uploader({
             runtimes: 'html5,flash,silverlight,html4',
