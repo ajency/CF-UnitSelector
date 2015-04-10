@@ -100,22 +100,22 @@ class ProjectController extends Controller {
         $project = $projectRepository->getProjectById( $id );
         $projectMeta = $project->projectMeta()->whereIn( 'meta_key', ['master', 'google_earth', 'skyview'] )->get()->toArray();
         $svgImages = [];
+       
+        foreach ($projectMeta as $metaValues) {
 
-        foreach ($projectMeta as $meta_values) {
+            if ('master' === $metaValues['meta_key']) {
+                $mediaIdArr = explode( "||", $metaValues['meta_value'] );
 
-            if ($meta_values['meta_key'] == 'master') {
-                $media_id_arr = explode( "||", $meta_values['meta_value'] );
-
-                foreach ($media_id_arr as $media_id) {
-                    $imgage_name = Media::find( $media_id )->image_name;
-                    $svgImages[$meta_values['meta_key']]['image_url'][] = url() . "/projects/" . $id . "/" . $meta_values['meta_key'] . "/" . $imgage_name;
-                    $svgImages[$meta_values['meta_key']]['image_id'][] = $meta_values['id'];
+                foreach ($mediaIdArr as $mediaId) {
+                    $imgage_name = Media::find( $mediaId )->image_name;
+                    $svgImages[$metaValues['meta_key']]['image_url'][] = url() . "/projects/" . $id . "/" . $metaValues['meta_key'] . "/" . $imgage_name;
+                    $svgImages[$metaValues['meta_key']]['image_id'][] = $metaValues['id'];
                 }
             } else {
-                $media_id = $meta_values['meta_value'];
-                $imgage_name = Media::find( $media_id )->image_name;
-                $svgImages[$meta_values['meta_key']]['image_url'][] = url() . "/projects/" . $id . "/" . $meta_values['meta_key'] . "/" . $imgage_name;
-                $svgImages[$meta_values['meta_key']]['image_id'][] = $meta_values['id'];
+                $mediaId = $metaValues['meta_value'];
+                $imgage_name = Media::find( $mediaId )->image_name;
+                $svgImages[$metaValues['meta_key']]['image_url'][] = url() . "/projects/" . $id . "/" . $metaValues['meta_key'] . "/" . $imgage_name;
+                $svgImages[$metaValues['meta_key']]['image_id'][] = $metaValues['id'];
             }
         }
 

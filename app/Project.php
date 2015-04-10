@@ -51,6 +51,13 @@ class Project extends Model {
         return url( "/projects/" . $this->id . "/google_earth/" . $fileName );
     }
     
+    public function getProjectMasterSvgPath(){
+        $masterValue = $this->projectMeta()->where( 'meta_key', 'master' )->get()->first()->meta_value;        
+        $mediaIds = explode( "||", $masterValue);
+        $fileName = Media::find( $mediaIds[0] )->image_name;
+        return url( "/projects/" . $this->id . "/master/" . $fileName );
+    }
+
     public function getCFProjectStatus(){
         $commonFloorData = unserialize( $this->projectMeta()->where( 'meta_key', 'cf' )->first()->meta_value );
         return 'Under Construction';

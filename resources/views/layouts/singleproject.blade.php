@@ -28,10 +28,10 @@
             </div>
             <ul class="big-items">
                 <li>
-                    <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType->name) . '-variant/') }}">View Variants</a>
+                    <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType->name) . '-variant/') }}">Variants</a>
                 </li>
                 <li>
-                    <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType->name) . '-unit/') }}">View Units</a>
+                    <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType->name) . '-unit/') }}">Units</a>
                 </li>
             </ul>
         @endforeach

@@ -59,29 +59,29 @@ class ProjectMediaController extends Controller {
         $media->mediable_type = 'CommonFloor\Project';
         $media->save();
 
-        $media_id = $media->id;
+        $mediaId = $media->id;
 
         $projectMeta = new ProjectMeta();
-        $meta_value = $projectMeta->where(['meta_key' => $type, 'project_id' => $project_id])->pluck('meta_value'); 
+        $metaValue = $projectMeta->where(['meta_key' => $type, 'project_id' => $project_id])->pluck('meta_value'); 
          
-        if (!empty($meta_value)) {
+        if (!empty($metaValue)) {
             
-            $meta_value= ($type=='master')?$meta_value.'||'.$media_id:$media_id;
-            $data = array("meta_value" => $meta_value);
+            $metaValue= ('master'===$type)?$metaValue.'||'.$mediaId:$mediaId;
+            $data = array("meta_value" => $metaValue);
             $projectMeta->where(['meta_key' => $type, 'project_id' => $project_id])->update( $data );
             
         } else {
             $projectMeta->project_id = $project_id;
             $projectMeta->meta_key = $type;
-            $projectMeta->meta_value = $media_id;
+            $projectMeta->meta_value = $mediaId;
             $projectMeta->save();
         }
 
-        if ($type == 'google_earth')
+        if ('google_earth'===$type)
             $message = 'Google Earth';
-        elseif ($type == 'master')
+        elseif ('master'===$type)
             $message = 'Project Master';
-        elseif ($type == 'skyview')
+        elseif ('skyview'===$type)
             $message = 'Sky view';
 
         return response()->json([

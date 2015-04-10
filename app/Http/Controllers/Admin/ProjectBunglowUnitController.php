@@ -9,6 +9,7 @@ use CommonFloor\Repositories\ProjectRepository;
 use CommonFloor\Project;
 use CommonFloor\UnitVariant;
 use CommonFloor\Unit;
+use CommonFloor\UnitType;
 
 class ProjectBunglowUnitController extends Controller {
 
@@ -25,7 +26,7 @@ class ProjectBunglowUnitController extends Controller {
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if ($propertyTypes['property_type_id'] == '2')
+            if (2 === $propertyTypes['property_type_id'])
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
@@ -51,11 +52,12 @@ class ProjectBunglowUnitController extends Controller {
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if ($propertyTypes['property_type_id'] == '2')
+            if ( 2 === $propertyTypes['property_type_id'])
                 $projectPropertytypeId = $propertyTypes['id'];
         }
-
-        $unitVariantArr = UnitVariant::all();
+        
+        $unitType = UnitType::where('project_property_type_id',$projectPropertytypeId)->pluck('id'); 
+        $unitVariantArr = UnitVariant::where('unit_type_id',$unitType)->get()->toArray();
 
         return view('admin.project.addunit')
                         ->with('project', $project->toArray())
@@ -105,11 +107,12 @@ class ProjectBunglowUnitController extends Controller {
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if ($propertyTypes['property_type_id'] == '2')
+            if (2 === $propertyTypes['property_type_id'])
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
-        $unitVariantArr = UnitVariant::all();
+        $unitType = UnitType::where('project_property_type_id',$projectPropertytypeId)->pluck('id'); 
+        $unitVariantArr = UnitVariant::where('unit_type_id',$unitType)->get()->toArray();
 
         return view('admin.project.editunit')
                         ->with('project', $project->toArray())

@@ -20,6 +20,7 @@ Route::controllers( [
 
 Route::get( 'project/{id}', 'ProjectController@show' )->where( 'id', '[0-9]+' );
 
+
 Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::get( '/', 'Admin\AdminController@index' );
     Route::resource( 'project', 'Admin\ProjectController' );
@@ -34,6 +35,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
 
 Route::group( ['prefix' => 'api/v1', 'middleware' => ['auth']], function() {
     Route::resource( 'project', 'Rest\ProjectController', ['only' => ['index', 'show']] );
+    Route::get('project/{id}/step-two', 'Rest\ProjectController@stepTwo');
 } );
 
 Route::resource( 'projects', 'ProjectController' );
