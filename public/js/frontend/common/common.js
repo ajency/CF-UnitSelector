@@ -39,12 +39,33 @@
         bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants);
         settings.setSettingsAttributes(response.settings);
         unitCollection.setUnitAttributes(response.units);
-        return unitTypeCollection.setUnitTypeAttributes(response.unit_types);
+        unitTypeCollection.setUnitTypeAttributes(response.unit_types);
+        return CommonFloor.checkProjectType();
       },
       error: function(response) {
         return console.log("aaaaaaaaaaassdff");
       }
     });
+  };
+
+  CommonFloor.checkProjectType = function() {
+    var Router, controller;
+    Router = [];
+    bunglowVariantCollection.each(function(model) {
+      var bunglowUnits;
+      bunglowUnits = unitCollection.where({
+        unit_variant: model.get('id')
+      });
+      return Router.push({
+        'name': 'bunglows',
+        'count': bunglowUnits.length
+      });
+    });
+    controller = _.max(Router, function(item) {
+      return parseInt(item.count);
+    });
+    console.log(controller);
+    return CommonFloor.navigate('#/master-view/' + this.model.get('id') + '/bunglows', true);
   };
 
 }).call(this);

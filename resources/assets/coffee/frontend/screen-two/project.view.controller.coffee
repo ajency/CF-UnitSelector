@@ -1,19 +1,20 @@
-class CommonFloor.ProjectMasterViewLayout extends Marionette.LayoutView
+class CommonFloor.BunglowLayoutView extends Marionette.LayoutView
 
 	template : '#project-view-template'
 
 
 
-class CommonFloor.ProjectMasterViewCtrl extends Marionette.RegionController
+class CommonFloor.BunglowMasterViewCtrl extends Marionette.RegionController
 
 	initialize:->
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID);
-		CommonFloor.loadJSONData()
-		@show new CommonFloor.ProjectMasterViewLayout
+			CommonFloor.checkProjectType()
+		
+		@show new CommonFloor.BunglowLayoutView
 
 
-class TopMasterView extends Marionette.ItemView
+class TopBunglowView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="row">
           <div class="col-md-12 col-xs-12 col-sm-12">
@@ -24,12 +25,12 @@ class TopMasterView extends Marionette.ItemView
         </div>')
 
 
-class CommonFloor.TopMasterCtrl extends Marionette.RegionController
+class CommonFloor.TopBunglowCtrl extends Marionette.RegionController
 
 	initialize:->
-		@show new TopMasterView
+		@show new TopBunglowView
 
-class LeftMasterView extends Marionette.ItemView
+class LeftBunglowView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
             <div class="filters-wrapper">
@@ -78,13 +79,13 @@ class LeftMasterView extends Marionette.ItemView
                 </div>')
 
 
-class CommonFloor.LeftMasterCtrl extends Marionette.RegionController
+class CommonFloor.LeftBunglowCtrl extends Marionette.RegionController
 
 	initialize:->
-		@show new LeftMasterView
+		@show new LeftBunglowView
 
 
-class CenterMasterView extends Marionette.ItemView
+class CenterBunglowView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
             <div class="svg-area">
@@ -92,7 +93,7 @@ class CenterMasterView extends Marionette.ItemView
             </div>
           </div>')
 
-class CommonFloor.CenterMasterCtrl extends Marionette.RegionController
+class CommonFloor.CenterBunglowCtrl extends Marionette.RegionController
 
 	initialize:->
-		@show new CenterMasterView
+		@show new CenterBunglowView
