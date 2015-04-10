@@ -4,6 +4,7 @@ namespace CommonFloor\Gateways;
 
 use CommonFloor\Repositories\ProjectRepositoryInterface;
 use CommonFloor\ProjectPropertyType;
+use CommonFloor\UnitType;
 
 /**
  * Description of ProjectGateway
@@ -65,7 +66,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             'address' => $project->project_address,
             'project_status' => $project->getCFProjectStatus(),
             'project_property_types' => $this->propertyTypeUnits($projectId),
-            'project_settings' => $this->projectSettings($projectId)
+            
         ];
         return $projectData;
     }
@@ -93,7 +94,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             'bunglow_variants' => $bunglowVariants->toArray(),
             'apartment_variants' => [],
             'plot_variants' => [],
-            'settings' => [],
+            'settings' => $this->projectSettings($projectId),
             'units' => \CommonFloor\Unit::whereIn('unit_variant_id', $bunglowVariantIds)->get()->toArray(),
             'unit_types' => [],
             'floor_layout' => []
@@ -146,15 +147,7 @@ class ProjectGateway implements ProjectGatewayInterface {
         
         return $data;
     }
-    
-    public function projectUnits($projectId)
-    {
-        $data = [];
-        $project = $this->projectRepository->getProjectById( $projectId );
- 
-        
-        return $data;
-    }
+   
     
     
 
