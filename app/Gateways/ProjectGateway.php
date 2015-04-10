@@ -24,7 +24,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             'cf_project_id' => $project->cf_project_id,
             'id' => $project->id,
             'project_title' => $project->project_title,
-            'logo' => $faker->imageUrl( 100, 100, 'city' ),
+            'logo' => $project->projectMeta()->where('meta_key', 'project_image')->first()->meta_value,
             'step_one' => [
                 'svg' => $project->getGoogleEarthSvgPath()
             ],
