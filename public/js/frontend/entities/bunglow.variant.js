@@ -23,26 +23,8 @@
 
     BunglowVariantCollection.prototype.model = BunglowVariant;
 
-    BunglowVariantCollection.prototype.url = function() {
-      return "http://commonfloor.local/methods/functions.php?action=load_bunglow_variants";
-    };
-
-    BunglowVariantCollection.prototype.setBunglowVariantAttributes = function(project_id) {
-      if (this.length === 0) {
-        return bunglowVariantCollection.fetch({
-          async: false,
-          data: {
-            project_id: project_id
-          },
-          success: (function(_this) {
-            return function(collection, response) {
-              if (response === 0) {
-                return _this.reset();
-              }
-            };
-          })(this)
-        });
-      }
+    BunglowVariantCollection.prototype.setBunglowVariantAttributes = function(data) {
+      return bunglowVariantCollection.reset(data);
     };
 
     return BunglowVariantCollection;

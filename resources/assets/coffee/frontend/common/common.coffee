@@ -13,6 +13,9 @@ CommonFloor.loadJSONData = ()->
 		type : 'GET',
 		url  : BASERESTURL+'/project/'+	PROJECTID+'/step_one'
 		sucess :(response)->
-			console.log "aaaaaaaa"
+			bunglowVariantCollection.setBunglowVariantAttributes(response.bungloe_variants);
+			settings.setSettingsAttributes(response.settings);
+			unitCollection.setUnitAttributes(response.units);
+			unitTypeCollection.setUnitTypeAttributes(response.unit_types);
 		error :(response)->
 			console.log "aaaaaaaaaaassdff"

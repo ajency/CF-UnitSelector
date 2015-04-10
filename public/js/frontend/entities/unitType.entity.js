@@ -23,26 +23,8 @@
 
     UnitTypeCollection.prototype.model = UnitType;
 
-    UnitTypeCollection.prototype.url = function() {
-      return "http://commonfloor.local/methods/functions.php?action=load_unit_types";
-    };
-
-    UnitTypeCollection.prototype.setUnitTypeAttributes = function(project_id) {
-      if (this.length === 0) {
-        return unitTypeCollection.fetch({
-          async: false,
-          data: {
-            project_id: project_id
-          },
-          success: (function(_this) {
-            return function(collection, response) {
-              if (response === 0) {
-                return _this.reset();
-              }
-            };
-          })(this)
-        });
-      }
+    UnitTypeCollection.prototype.setUnitTypeAttributes = function(data) {
+      return unitTypeCollection.reset(data);
     };
 
     return UnitTypeCollection;

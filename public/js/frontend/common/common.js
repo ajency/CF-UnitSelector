@@ -35,7 +35,10 @@
       type: 'GET',
       url: BASERESTURL + '/project/' + PROJECTID + '/step_one',
       sucess: function(response) {
-        return console.log("aaaaaaaa");
+        bunglowVariantCollection.setBunglowVariantAttributes(response.bungloe_variants);
+        settings.setSettingsAttributes(response.settings);
+        unitCollection.setUnitAttributes(response.units);
+        return unitTypeCollection.setUnitTypeAttributes(response.unit_types);
       },
       error: function(response) {
         return console.log("aaaaaaaaaaassdff");

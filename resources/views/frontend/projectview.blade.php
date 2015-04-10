@@ -101,6 +101,7 @@
         BASERESTURL = '{{ get_rest_api_url() }}';
         PROJECTID = {{ $id }};
         CommonFloor = new Marionette.Application 
+        path = '{{ asset("images/step1.svg")}}'
         
         window.locale = {
 
@@ -114,20 +115,12 @@
             else if(val >= 1000) val = (val/1000).toFixed(2) + ' K';
             return val;
         }
-        window.loadJSONData =  function(){
-
-          buildingCollection.setBuildingAttributes(PROJECTID);
-          bunglowVariantCollection.setBunglowVariantAttributes(PROJECTID);
-          settings.setSettingsAttributes(PROJECTID);
-          unitCollection.setUnitAttributes(PROJECTID);
-          unitTypeCollection.setUnitTypeAttributes(PROJECTID);
-        }
+        
         //global variable to keep track of the filtr the user has selected
         CommonFloor.defaults = {"unitType" :'All','budget':'All' ,"building":'All',"unitVariant":'All','view':'All','facing':'All'}
 
         </script>
         <script src="{{ asset('js/frontend/entities/project.entity.js' )}}"></script>
-        <script src="{{ asset('js/frontend/entities/building.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/entities/bunglow.variant.js' )}}"></script>
         <script src="{{ asset('js/frontend/entities/settings.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/entities/unit.entity.js' )}}"></script>

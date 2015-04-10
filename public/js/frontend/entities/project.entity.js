@@ -37,7 +37,6 @@
     };
 
     Project.prototype.resetEntitites = function() {
-      buildingCollection.reset();
       unitCollection.reset();
       return settings.clear();
     };

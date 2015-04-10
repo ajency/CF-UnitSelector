@@ -131,14 +131,14 @@
         pointer-events: bounding-box;
 }
 </style>
-<image overflow="visible" width="1600" height="1095" xlink:href="step1.jpg"></image>
+<image overflow="visible" width="1600" height="1095" xlink:href="http://localhost/CF-UnitSelector/public/images/step1.jpg"></image>
   
     <g class="marker-icon" onmousemove="ShowTooltip(evt, 'NICE RING ROAD')"
         onmouseout="HideTooltip(evt)">
     	<circle fill="#FF8500" cx="659.807" cy="208.786" r="8.002"/>
     	<circle fill="none" stroke="#FF7900" stroke-width="4" stroke-miterlimit="10" cx="659.807" cy="208.786" r="15.002"/>
     </g>
-<ellipse class="step1-marker" opacity="0.03" fill="#FF7900" cx="808.5" cy="526.5" rx="391.5" ry="190.5"/>
+<ellipse class="step1-marker" id="1" opacity="0.03" fill="#FF7900" cx="808.5" cy="526.5" rx="391.5" ry="190.5"/>
 
 <g class="marker-icon" onmousemove="ShowTooltip(evt, 'KOPPO RING ROAD')"
     onmouseout="HideTooltip(evt)">
@@ -146,7 +146,7 @@
 	<circle fill="none" stroke="#FF7900" stroke-width="4" stroke-miterlimit="10" cx="1348" cy="369.999" r="15.002"/>
 </g>
 
-<image class="marker" overflow="visible" width="67" height="83" xlink:href="marker.png" transform="matrix(1.4578 0 0 1.4578 790.999 211.999)">
+<image class="marker" overflow="visible" width="67" height="83" xlink:href="http://localhost/CF-UnitSelector/public/images/marker.png" transform="matrix(1.4578 0 0 1.4578 790.999 211.999)">
 </image>
 
 <!-- TOOL TIPS -->

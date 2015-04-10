@@ -96,7 +96,7 @@ class LeftView extends Marionette.ItemView
 								  <span>{{i10n "starting_price"}}:</span>  {{starting_price}}
 								</p>
 							{{/propertyTypes}}                  
-							                  
+											  
 						  </div>
 						</div>
 					</div>
@@ -147,12 +147,14 @@ class CommonFloor.LeftCtrl extends Marionette.RegionController
 class CenterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
-					<div class="svg-area">
-						<img src="{{step_one.svg}}" data-alwaysprocess="true" 
-						data-path="{{step_one.svg}}"  data-crop="true" class="primage">
+					<div class="svg-area width="400" height="224" id="prImage-4" data-nodebug="" data-alwaysprocess="" 
+						data-ratio="0.56" 
+						data-srcwidth="1920" data-crop="0" data-filters="usm" class="primage fill-width">
 						
 					  
 					</div>
+					<!--<img src="http://code.hnldesign.nl/img/demoimgs/stalenhag/resized/480/720/90/1/usm/08.jpg" width="350" height="525" id="prImage-2" title="" alt="" data-nodebug="" data-alwaysprocess="" data-imgprocessor="http://code.hnldesign.nl/img/" data-path="../../img/demoimgs/stalenhag/08.jpg" data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" class="primage fill-width">-->
+
 				</div>')
 
 
@@ -160,7 +162,11 @@ class CenterView extends Marionette.ItemView
 		'click .primage':(e)-> 
 			CommonFloor.navigate '#/master-view/'+@model.get('id') , true
 
-   
+		'click .step1-marker':(e)->
+			CommonFloor.navigate '#/master-view/'+@model.get('id') , true
+
+	onShow:->
+		$('<div></div>').load(path).appendTo('.svg-area')
 	
 
 

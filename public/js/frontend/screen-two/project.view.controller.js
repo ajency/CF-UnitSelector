@@ -27,7 +27,7 @@
       if (jQuery.isEmptyObject(project.toJSON())) {
         project.setProjectAttributes(PROJECTID);
       }
-      window.loadJSONData();
+      CommonFloor.loadJSONData();
       return this.show(new CommonFloor.ProjectMasterViewLayout);
     };
 
