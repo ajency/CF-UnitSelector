@@ -108,7 +108,7 @@
                         <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                         <input type="text" name="roomtype" id="roomtype" class="form-control" placeholder="Add Room Type">
                         <button class="btn btn-white" onclick="addRoomtype({{$project['id']}});"><i class="fa fa-plus"></i></button>
-
+                        <img src="{{url()}}/images/loading.gif" id="loader" style="display:none" >   
 
                     </div>
                 </div>

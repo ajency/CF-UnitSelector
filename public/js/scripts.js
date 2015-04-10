@@ -7,6 +7,7 @@ $.ajaxSetup({
 function addRoomtype(project_id)
 {
     var roomtypename = $("#roomtype").val();
+    $("#loader").show();
     $.ajax({
         url: "/admin/project/" + project_id + "/roomtype",
         type: "POST",
@@ -73,6 +74,7 @@ function addRoomtype(project_id)
             $("#addroomtypeblock").before(str);
             $("#roomtype").val('');
             $("select").select2();
+            $("#loader").hide();
         }
     });
 }
