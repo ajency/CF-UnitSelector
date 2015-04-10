@@ -112,29 +112,29 @@ class ProjectRepository implements ProjectRepositoryInterface {
             }
 
             //unit type
-            $propertyunit_arr = $projectData['unittype'];  
-            $unitkey_arr = $projectData['unittypekey']; 
+            $propertyunitArr = $projectData['unittype'];  
+            $unitkeyArr = $projectData['unittypekey']; 
            
 
-            if (!empty( $propertyunit_arr )) {
+            if (!empty( $propertyunitArr )) {
 
-                foreach ($propertyunit_arr as $propertytype_id => $unit_arr) { 
+                foreach ($propertyunitArr as $propertytypeId => $unit_arr) { 
                     
                     $unit_type = [];
                     foreach ($unit_arr as $key => $unitname) {                        
 
-                        if ((!isset($unitkey_arr[$propertytype_id][$key]))) { 
+                        if ((!isset($unitkeyArr[$propertytypeId][$key]))) { 
                             
                             $unittype = new UnitType();
                             
-                            $project_property_type_id = ProjectPropertyType::where(['project_id' => $project->id, 'property_type_id' => $propertytype_id])->pluck('id');
-                            $unittype->project_property_type_id = $project_property_type_id;
+                            $projectPropertyTypeId = ProjectPropertyType::where(['project_id' => $project->id, 'property_type_id' => $propertytypeId])->pluck('id');
+                            $unittype->project_property_type_id = $projectPropertyTypeId;
                             $unittype->unittype_name = $unitname;
                             $unittype->save();    
                                                             
                             } else {
                                
-                            $unittype_id = $unitkey_arr[$propertytype_id][$key];
+                            $unittype_id = $unitkeyArr[$propertytypeId][$key];
                             $data = array("unittype_name" => $unitname);
                             UnitType::where( 'id', $unittype_id )->update( $data );
                         }
@@ -150,8 +150,8 @@ class ProjectRepository implements ProjectRepositoryInterface {
             unset( $projectData['phase'] );       // Remove phases 
             //project cost
             foreach ($projectData as $meta_key => $meta_value) {
-                $key_arr = explode( "_", $meta_key );
-                $projectmetaId = $key_arr[0];
+                $keyArr = explode( "_", $meta_key );
+                $projectmetaId = $keyArr[0];
 
                 $data = array("meta_value" => $meta_value);
                 ProjectMeta::where( 'id', $projectmetaId )->update( $data );

@@ -55,7 +55,7 @@ class ProjectBunglowUnitController extends Controller {
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
-        $unitVariantArr = UnitVariant::all();
+        $unitVariantArr = $projectPropertytypeId->projectUnitType()->get()->toArray();
 
         return view('admin.project.addunit')
                         ->with('project', $project->toArray())
@@ -109,7 +109,7 @@ class ProjectBunglowUnitController extends Controller {
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
-        $unitVariantArr = UnitVariant::all();
+        $unitVariantArr = $projectPropertytypeId->projectUnitType()->get()->toArray();
 
         return view('admin.project.editunit')
                         ->with('project', $project->toArray())
