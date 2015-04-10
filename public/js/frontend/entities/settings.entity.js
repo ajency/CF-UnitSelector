@@ -10,26 +10,8 @@
       return Settings.__super__.constructor.apply(this, arguments);
     }
 
-    Settings.prototype.urlRoot = function() {
-      return "http://commonfloor.local/methods/functions.php?action=load_settings";
-    };
-
-    Settings.prototype.setSettingsAttributes = function(project_id) {
-      if (jQuery.isEmptyObject(this.toJSON())) {
-        return settings.fetch({
-          async: false,
-          data: {
-            project_id: project_id
-          },
-          success: (function(_this) {
-            return function(collection, response) {
-              if (response === 0) {
-                return _this.reset();
-              }
-            };
-          })(this)
-        });
-      }
+    Settings.prototype.setSettingsAttributes = function(data) {
+      return settings.set(data);
     };
 
     return Settings;

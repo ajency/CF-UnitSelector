@@ -42,20 +42,20 @@
               </div>
           </header>
       </div>
-	</script>
+</script>
 
-	<script id="project-template" type="text/template">
-	 	<div class="inner-container">
-         	<div ui-region="top" id="topregion">
-         	</div>
-          <div class="row">
-           	<div ui-region="left" id="leftregion">
-           	</div>
-            <div ui-region="center" id="centerregion">
+<script id="project-template" type="text/template">
+        <div class="inner-container">
+            <div ui-region="top" id="topregion">
             </div>
-          </div>
-    </div>
-	</script>
+            <div class="row">
+                <div ui-region="left" id="leftregion">
+                </div>
+                <div ui-region="center" id="centerregion">
+                </div>
+            </div>
+        </div>
+</script>
 
   <script id="noFound-template" type="text/template">
     <div class="no-found-container">
@@ -78,4 +78,7 @@
 
     </div>
   </script>
+
+</script>
+
         

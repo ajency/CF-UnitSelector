@@ -12,7 +12,11 @@ CommonFloor.loadJSONData = ()->
 	$.ajax
 		type : 'GET',
 		url  : BASERESTURL+'/project/'+	PROJECTID+'/step_one'
+		async : false
 		sucess :(response)->
-			console.log "aaaaaaaa"
+			bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants);
+			settings.setSettingsAttributes(response.settings);
+			unitCollection.setUnitAttributes(response.units);
+			unitTypeCollection.setUnitTypeAttributes(response.unit_types);
 		error :(response)->
 			console.log "aaaaaaaaaaassdff"

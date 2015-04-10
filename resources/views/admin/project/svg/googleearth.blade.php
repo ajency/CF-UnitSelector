@@ -21,8 +21,8 @@
             </div>
             <div id="project_googleearth_image">  
             @if(isset($svgImages['google_earth']['image_url'][0]))
-            <img width="150" height="150" src="{{$svgImages['google_earth']['image_url'][0]}}" class="img-responsive">
-           @endif
+            <object width="150" id="svg1" data="{{$svgImages['google_earth']['image_url'][0]}}" type="image/svg+xml"></object>
+            @endif
             </div>
             <form>
                 <div class="form-actions svg-actions">  

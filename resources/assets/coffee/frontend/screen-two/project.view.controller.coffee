@@ -9,7 +9,7 @@ class CommonFloor.ProjectMasterViewCtrl extends Marionette.RegionController
 	initialize:->
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID);
-		window.loadJSONData()
+		CommonFloor.loadJSONData()
 		@show new CommonFloor.ProjectMasterViewLayout
 
 

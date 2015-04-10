@@ -1,11 +1,14 @@
 #Project model Definition
 class CommonFloor.Project extends Backbone.Model
 
+
 	#url to fetch project data
 	urlRoot :->
-		BASERESTURL+'/project/'+ @project_id
+		BASERESTURL+'/project/'+@project_id
 
 
+
+	
 	parse:(response)->
 		resp = response.data
 		return resp
@@ -34,7 +37,6 @@ class CommonFloor.Project extends Backbone.Model
 		
 
 	resetEntitites:->
-		buildingCollection.reset()
 		unitCollection.reset()
 		settings.clear()
 

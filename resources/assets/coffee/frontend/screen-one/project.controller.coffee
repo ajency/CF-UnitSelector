@@ -1,22 +1,26 @@
+#Layout view which has three regions in it
 class CommonFloor.ProjectLayoutView extends Marionette.LayoutView
 
 	template : '#project-template'
 
 
-
+#starting point:Controller is executed which contains the logic to get the details
 class CommonFloor.ProjectCtrl extends Marionette.RegionController
 
 	initialize:->
 		id = PROJECTID
 		project.setProjectAttributes(id);
+		#check to see whether project model is set or not
 		if jQuery.isEmptyObject(project.toJSON())
 			region  = new Marionette.Region el : '#noFound-template'
+			#if not found then show the 'Nothing Fpund View'
 			@show new CommonFloor.NothingFoundView
 
 		else
+			#if found then show the view for the first step
 			@show new CommonFloor.ProjectLayoutView
 
-
+#Controller for the top view of step one
 class TopView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-12 col-xs-12 col-sm-12">
@@ -98,7 +102,7 @@ class LeftView extends Marionette.ItemView
 								  <span>{{i10n "starting_price"}}:</span>  {{starting_price}}
 								</p>
 							{{/propertyTypes}}                  
-							                  
+											  
 						  </div>
 						</div>
 					</div>
@@ -149,20 +153,27 @@ class CommonFloor.LeftCtrl extends Marionette.RegionController
 class CenterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
-					<div class="svg-area">
-						<img src="{{step_one.svg}}" data-alwaysprocess="true" 
-						data-path="{{step_one.svg}}"  data-crop="true" class="primage">
+					<div class="svg-area width="350" height="525" id="prImage-2" title="" alt="" 
+						data-nodebug="" data-alwaysprocess="" 
+						data-imgprocessor="http://localhost/CF-UnitSelector/public/images/" 
+						data-path="http://localhost/CF-UnitSelector/public/images/step1.jpg" 
+						data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" 
+						class="primage fill-width">
 						
 					  
 					</div>
+					
+
 				</div>')
 
 
 	events:
-		'click .primage':(e)-> 
+		'click .step1-marker':(e)->
 			CommonFloor.navigate '#/master-view/'+@model.get('id') , true
 
-   
+	onShow:->
+		path = @model.get('step_one')
+		$('<div></div>').load(path).appendTo('.svg-area')
 	
 
 
