@@ -165,7 +165,7 @@ class CenterView extends Marionette.ItemView
 
 	events:
 		'click .step1-marker':(e)->
-			CommonFloor.loadJSONData()
+			#CommonFloor.loadJSONData()
 			#CommonFloor.navigate '#/master-view/'+@model.get('id') , true
 
 	onShow:->
