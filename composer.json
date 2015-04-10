@@ -8,7 +8,8 @@
         "laravel/framework": "5.0.*",
         "barryvdh/laravel-ide-helper": "~2.0",
         "illuminate/html": "5.0.*@dev",
-        "jildertmiedema/laravel-plupload": "dev-master"
+        "jildertmiedema/laravel-plupload": "dev-master",
+        "masterexploder/phpthumb" : "*"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0",
