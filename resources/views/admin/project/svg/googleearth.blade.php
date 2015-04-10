@@ -20,17 +20,10 @@
                 <button type="button" class="btn btn-mini btn-default"><i class="fa fa-crosshairs"></i> Mark Area</button>
             </div>
             <div id="project_googleearth_image">  
-            @if(isset($svgImages['google_earth']['image_url'][0]))
-            <object width="150" id="svg1" data="{{$svgImages['google_earth']['image_url'][0]}}" type="image/svg+xml"></object>
+            @if(!empty($svgImages['google_earth']))
+            <object width="150" id="svg1" data="{{ $svgImages['google_earth'] }}" type="image/svg+xml"></object>
             @endif
             </div>
-            <form>
-                <div class="form-actions svg-actions">  
-                    <div class="pull-right">
-                        <button type="submit" class="btn btn-primary btn-cons">Save</button>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
 </div>

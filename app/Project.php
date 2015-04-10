@@ -51,11 +51,30 @@ class Project extends Model {
         return url( "/projects/" . $this->id . "/google_earth/" . $fileName );
     }
     
-    public function getProjectMasterSvgPath(){
+    public function getProjectMasterImages(){
         $masterValue = $this->projectMeta()->where( 'meta_key', 'master' )->get()->first()->meta_value;        
-        $mediaIds = explode( "||", $masterValue);
-        $fileName = Media::find( $mediaIds[0] )->image_name;
-        return url( "/projects/" . $this->id . "/master/" . $fileName );
+        $svgImages = unserialize( $masterValue );
+
+        foreach ($svgImages as $key => $images) {
+            if (is_array( $images )) {
+                $transitionImages = [];
+                foreach ($images as $image) {
+                    $imageName = Media::find( $image )->image_name;
+                    $transitionImages[] = url() . "/projects/" . $this->id . "/master/" . $imageName;
+                }
+                $svgImages[$key] = $transitionImages;
+            } else {
+                if( is_numeric($images)){
+                    $imageName = Media::find( $images )->image_name;
+                    $svgImages[$key] = url() . "/projects/" . $this->id . "/master/" . $imageName;
+                }
+            }
+        }
+        return $svgImages;
+    }
+    
+    public function getCFProjectStatus(){
+        return 'Under Construction';
     }
 
     public function toArray() {

@@ -18,21 +18,10 @@
                 <button type="button" class="btn btn-mini btn-default"><i class="fa fa-crosshairs"></i> Mark Area</button>
             </div>
             <div id="skyview_image">  
-                @if(isset($svgImages['skyview']['image_url'][0]))
-                <img width="150" height="150" src="{{$svgImages['skyview']['image_url'][0]}}" class="img-responsive" >
+                @if(!empty($svgImages['skyview']))
+                <img width="150" height="150" src="{{ $svgImages['skyview'] }}" class="img-responsive" >
                 @endif
             </div>
-            <form>
-                <div class="form-group m-t-10 hidden">
-                    <label class="form-label">SVG Name</label>
-                    <input type="text" class="form-control" placeholder="Enter SVG Name">
-                </div>
-                <div class="form-actions svg-actions">  
-                    <div class="pull-right">
-                        <button type="submit" class="btn btn-primary btn-cons">Save</button>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
 </div>
