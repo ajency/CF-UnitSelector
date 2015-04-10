@@ -26,7 +26,7 @@ class TopView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="col-md-12 col-xs-12 col-sm-12">
 					<div class="search-header-wrap">
 					  <h1 class="pull-left">{{i10n "explore"}} {{project_title}}</h1>
-					  <div class="pull-right">
+					  <!--<div class="pull-right">
 						<div class="toggle_radio">
 						  <input type="radio" checked class="toggle_option" id="first_toggle" name="toggle_option">
 						  <input type="radio" class="toggle_option" id="second_toggle" name="toggle_option">
@@ -37,7 +37,7 @@ class TopView extends Marionette.ItemView
 						  <div class="toggle_option_slider">
 						  </div>
 						</div>
-					  </div>
+					  </div>-->
 					  <div class="clearfix"></div>
 					</div>
 				  </div>')
@@ -82,23 +82,23 @@ class LeftView extends Marionette.ItemView
 
 						  <div class="detail-pts">   
 							{{#propertyTypes}}   
-								 <p>
+								<p>
 								  <span>{{i10n "project_type"}}:</span> {{prop_type}}
 								</p>
-								<p>
+								<!--<p>
 								  <span>{{i10n "starting_area"}}:</span> {{starting_area}} Sq.Ft.
-								</p>
+								</p>-->
 								<p>
 								  <span>{{i10n "unit_types"}}:</span> {{unit_types}}
 								</p>
-								<p>
+								<!--<p>
 								  <span>Available:</span> {{#availability}}
 								  {{count}}	{{status}} 
 								  {{/availability}}
-								</p>
-								<p>
+								</p>-->
+								<!--<p>
 								  <span>{{i10n "starting_price"}}:</span>  {{starting_price}}
-								</p>
+								</p>-->
 							{{/propertyTypes}}                  
 											  
 						  </div>
@@ -165,7 +165,7 @@ class CenterView extends Marionette.ItemView
 
 	events:
 		'click .step1-marker':(e)->
-			CommonFloor.loadJSONData()
+			#CommonFloor.loadJSONData()
 			#CommonFloor.navigate '#/master-view/'+@model.get('id') , true
 
 	onShow:->

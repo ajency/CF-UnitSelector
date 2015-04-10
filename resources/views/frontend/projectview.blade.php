@@ -101,7 +101,7 @@
         BASERESTURL = '{{ get_rest_api_url() }}';
         PROJECTID = {{ $id }};
         CommonFloor = new Marionette.Application 
-       
+        BASEURL = '{{url()}}'
   
         window.locale = {
 
