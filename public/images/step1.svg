@@ -140,6 +140,7 @@
     </g>
 <ellipse class="step1-marker" opacity="0.03" fill="#FF7900" cx="808.5" cy="526.5" rx="391.5" ry="190.5"/>
 
+
 <g class="marker-icon" onmousemove="ShowTooltip(evt, 'KOPPO RING ROAD')"
     onmouseout="HideTooltip(evt)">
 	<circle fill="#FF8500" cx="1348" cy="370" r="8.002"/>

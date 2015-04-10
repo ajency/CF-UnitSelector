@@ -16,17 +16,8 @@ class UnitCollection extends Backbone.Collection
 
 	#set the attributes of a unit model
 	# if blank,fetch it from the server with the url mentioned above.
-	setUnitAttributes:(project_id)->
+	setUnitAttributes:(data)->
 		# @set unitData
-		if @length == 0 
-			unitCollection.fetch(
-				async: false
-				data : 
-					project_id : project_id
-				success:(collection, response)=>
-					if response == 0
-						@reset()
-
-			)
+		unitCollection.reset data
 
 window.unitCollection  = new UnitCollection;	

@@ -144,6 +144,58 @@ function defaultBlock(value,refId)
         $("#controltype_values_"+refId).hide(); */
 }
 
+function addFloorLevel()
+{
+    var counter = $("#counter").val();
+    var i= parseInt(counter)+1;
+    var str ='';
+    
+        str +='';
+        str +='<div class="col-sm-12" id="levelblock_'+i+'"> ';
+        str +='<div class="row">';
+        str +='<div class="col-sm-12">';
+        str +='<div class="form-group">';
+        str +='<h3>Level '+i+'</h3>';
+        str +='<input type="hidden" name="floorlevel[]" value="'+i+'">';
+        str +='</div> ';
+        str +='</div> ';
+        str +='</div>';
+
+        str +='<div class="form-inline">';
+        str +='<div class="form-group">';
+        str +=' <input type="hidden" name="variantroomid_'+i+'[]" value="">';
+        str +='<select name="room_name_'+i+'[]" class="select2 form-control">';
+        str +='<option value="">Select Room</option>';
+        str +=ROOMTYPES;
+        str +='</select>';
+        str +='<button type="button" onclick="addRoomAttributes('+i+',this)" class="btn btn-white"><i class="fa fa-plus"></i></button>';
+        str +='</div> ';
+
+        str +='</div>';
+        str +='</div> ';
+        
+        $("#addFloorlevel").before(str);
+         $("#counter").val(i);
+}
+
+function addRoomAttributes(level,obj)
+{
+     var str ='';
+ 
+        str +='<div class="form-inline">';
+        str +='<div class="form-group">';
+        str +=' <input type="hidden" name="variantroomid_'+level+'[]" value="">';
+        str +='<select name="room_name_'+level+'[]" class="select2 form-control">';
+        str +='<option value="">Select Room</option>';
+        str +=ROOMTYPES;
+        str +='</select>';
+        str +='<button type="button" onclick="addRoomAttributes('+level+',this)" class="btn btn-white"><i class="fa fa-plus"></i></button>';
+        str +='</div> ';
+ 
+        $(obj).hide();
+        $("#levelblock_"+level).append(str);
+}
+
 $(document).ready(function(){
         var uploader = new plupload.Uploader({
             runtimes: 'html5,flash,silverlight,html4',
@@ -161,10 +213,7 @@ $(document).ready(function(){
                 max_file_size: '10mb',
                 mime_types: [{
                         title: "Image files",
-                        extensions: "jpg,gif,png"
-                    }, {
-                        title: "Zip files",
-                        extensions: "zip"
+                        extensions: "svg"
                     }]
             },
             init: {
@@ -176,7 +225,7 @@ $(document).ready(function(){
                 },
                 FileUploaded: function (up, file, xhr) {
                     fileResponse = JSON.parse(xhr.response);
-                    $("#project_googleearth_image").html('<img width="150" height="150" src="'+fileResponse.data.image_path+'" class="img-responsive" >');
+                    $("#project_googleearth_image").html('<object width="150" id="svg1" data="'+fileResponse.data.image_path+'" type="image/svg+xml" />');
                 }
             }
         });
@@ -198,10 +247,7 @@ $(document).ready(function(){
                 max_file_size: '10mb',
                 mime_types: [{
                         title: "Image files",
-                        extensions: "jpg,gif,png"
-                    }, {
-                        title: "Zip files",
-                        extensions: "zip"
+                        extensions: "svg"
                     }]
             },
             init: {
@@ -238,9 +284,6 @@ $(document).ready(function(){
                 mime_types: [{
                         title: "Image files",
                         extensions: "jpg,gif,png"
-                    }, {
-                        title: "Zip files",
-                        extensions: "zip"
                     }]
             },
             init: {
