@@ -144,6 +144,7 @@
         <!-- END CONTENT --> 
 
         <!-- BEGIN CORE JS FRAMEWORK--> 
+        <script src="{{ asset('bower_components/lodash/lodash.js') }}"></script>
         <script src="{{ asset('bower_components/jquery/dist/jquery.js') }}"></script>
         <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.js' ) }}"></script>
         <script src="{{ asset('bower_components/jquery-ui/jquery-ui.js' ) }}" type="text/javascript"></script> 

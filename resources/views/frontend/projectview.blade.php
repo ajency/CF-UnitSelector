@@ -101,7 +101,8 @@
         BASERESTURL = '{{ get_rest_api_url() }}';
         PROJECTID = {{ $id }};
         CommonFloor = new Marionette.Application 
-        
+       
+  
         window.locale = {
 
             "en-US" : <?php echo get_locale_frontend_to_json() ?>
@@ -114,10 +115,19 @@
             else if(val >= 1000) val = (val/1000).toFixed(2) + ' K';
             return val;
         }
+        
+        //global variable to keep track of the filtr the user has selected
+        CommonFloor.defaults = {"unitType" :'All','budget':'All' ,"building":'All',"unitVariant":'All','view':'All','facing':'All'}
+
         </script>
         <script src="{{ asset('js/frontend/entities/project.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/bunglow.variant.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/settings.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/unit.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/unitType.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/common/common.js' )}}"></script>
         <script src="{{ asset('js/frontend/screen-one/project.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/screen-two/project.view.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
     </body>
 </html>

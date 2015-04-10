@@ -47,6 +47,17 @@ class ProjectRepository implements ProjectRepositoryInterface {
             'project_image' => $projectData['project_image'],
         ];
 
+        $defaultMaster = [
+            'front' => '',
+            'left' => '',
+            'back' => '',
+            'right' => '',
+            'front-left' => [],
+            'left-back' => [],
+            'back-right' => [],
+            'right-front' => []
+        ];
+        
         // add project meta
         $projectMeta = [
             new ProjectMeta( ['meta_key' => 'floor_rise'] ),
@@ -64,7 +75,16 @@ class ProjectRepository implements ProjectRepositoryInterface {
             new ProjectMeta( ['meta_key' => 'project_image',
                 'meta_value' => $projectData['project_image']] ),
             new ProjectMeta( ['meta_key' => 'cf',
-                'meta_value' => serialize( $commonFloorData )] )
+                'meta_value' => serialize( $commonFloorData )] ),
+            new ProjectMeta( ['meta_key' => 'master',
+                'meta_value' => serialize($defaultMaster)
+            ]),
+            new ProjectMeta( ['meta_key' => 'google_earth',
+                'meta_value' => ''
+            ]),
+            new ProjectMeta( ['meta_key' => 'skyview',
+                'meta_value' => ''
+            ])
         ];
 
         $project->projectMeta()->saveMany( $projectMeta );

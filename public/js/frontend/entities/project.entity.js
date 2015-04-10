@@ -32,15 +32,12 @@
             };
           })(this)
         });
+        return this.resetEntitites();
       }
-      return this;
     };
 
     Project.prototype.resetEntitites = function() {
-      buildingCollection.reset();
       unitCollection.reset();
-      building.clear();
-      apartmentVariantCollection.reset();
       return settings.clear();
     };
 
