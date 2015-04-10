@@ -18,9 +18,9 @@ class ProjectController extends Controller {
      */
     public function index() {
 
-        $projects = Project::orderBy('project_title')->get()->toArray();
+        $projects = Project::orderBy( 'project_title' )->get()->toArray();
         return view( 'admin.project.list' )
-                        ->with( 'projects', $projects ) 
+                        ->with( 'projects', $projects )
                         ->with( 'menuFlag', FALSE );
     }
 
@@ -32,8 +32,8 @@ class ProjectController extends Controller {
     public function create() {
         $propertyType = PropertyType::all();
         return view( 'admin.project.add' )
-                    ->with( 'property_type', $propertyType )
-                    ->with( 'menuFlag', FALSE );
+                        ->with( 'property_type', $propertyType )
+                        ->with( 'menuFlag', FALSE );
     }
 
     /**
@@ -64,7 +64,7 @@ class ProjectController extends Controller {
         foreach ($project->projectPropertyTypes as $projectPropertyType) {
             $unitTypes[$projectPropertyType->property_type_id] = $project->getUnitTypesToArray( $projectPropertyType->id );
         }
- 
+
         return view( 'admin.project.settings' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'project_meta', $projectMeta )
@@ -100,22 +100,33 @@ class ProjectController extends Controller {
         $project = $projectRepository->getProjectById( $id );
         $projectMeta = $project->projectMeta()->whereIn( 'meta_key', ['master', 'google_earth', 'skyview'] )->get()->toArray();
         $svgImages = [];
-       
+
         foreach ($projectMeta as $metaValues) {
 
             if ('master' === $metaValues['meta_key']) {
-                $mediaIdArr = explode( "||", $metaValues['meta_value'] );
+                $svgImages['master'] = $a = unserialize( $metaValues['meta_value'] );
 
-                foreach ($mediaIdArr as $mediaId) {
-                    $imgage_name = Media::find( $mediaId )->image_name;
-                    $svgImages[$metaValues['meta_key']]['image_url'][] = url() . "/projects/" . $id . "/" . $metaValues['meta_key'] . "/" . $imgage_name;
-                    $svgImages[$metaValues['meta_key']]['image_id'][] = $metaValues['id'];
+                foreach ($svgImages['master'] as $key => $images) {
+                    if (is_array( $images )) {
+                        $transitionImages = [];
+                        foreach ($images as $image) {
+                            $imageName = Media::find( $image )->image_name;
+                            $transitionImages[] = url() . "/projects/" . $id . "/master/" . $imageName;
+                        }
+                        $svgImages['master'][$key] = $transitionImages;
+                    } else {
+                        if( is_numeric($images)){
+                            $imageName = Media::find( $images )->image_name;
+                            $svgImages['master'][$key] = url() . "/projects/" . $id . "/master/" . $imageName;
+                        }
+                    }
                 }
             } else {
                 $mediaId = $metaValues['meta_value'];
-                $imgage_name = Media::find( $mediaId )->image_name;
-                $svgImages[$metaValues['meta_key']]['image_url'][] = url() . "/projects/" . $id . "/" . $metaValues['meta_key'] . "/" . $imgage_name;
-                $svgImages[$metaValues['meta_key']]['image_id'][] = $metaValues['id'];
+                if( is_numeric($mediaId)){  
+                   $imageName = Media::find( $mediaId )->image_name;
+                   $svgImages[$metaValues['meta_key']] = url() . "/projects/" . $id . "/" . $metaValues['meta_key'] . "/" . $imageName;
+                }
             }
         }
 

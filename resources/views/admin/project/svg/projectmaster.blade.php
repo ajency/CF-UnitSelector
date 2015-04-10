@@ -8,89 +8,134 @@
         <div class="clearfix"></div>
     </div>
     <div class="grid-body">
-        
-        <div id="master_container">
-            <input id="master_pickfiles" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/>
-            <button id="master_uploadfiles" type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
-        </div>
-        <hr>
         <div class="row project-master-images">
-            
-            @if(isset($svgImages['master']['image_url']))  
-                @for ($i=0 ; $i<count($svgImages['master']['image_url']) ; $i++)
-                    <div class="col-sm-2">
-                        <img  width="150" height="150" src="{{ $svgImages['master']['image_url'][$i] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
-                        <h5 class="bold inline">SVG {{ $i+1 }}</h5> <i class="fa fa-bookmark text-primary"></i>
-                        <span class="pull-right m-t-10"><small>Pos {{ $i+1 }}</small></span>
-                    </div>
-                @endfor
-            @endif  
-        </div>
-
-        <div id="sky-map-a" class="svg-holder hidden">
-            <hr>
-            <form>
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="form-label">SVG Name</label>
-                            <input type="text" class="form-control" placeholder="Enter SVG Name">
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group">
-                            <label class="form-label">Sequence Position</label>
-                            <select id="seq_pos" class="select2 form-control">
-                                <option value="">Select Position</option>
-                                <option>Position 1</option>
-                                <option>Position 2</option>
-                                <option>Position 3</option>
-                                <option>Position 4</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="form-group m-t-35">
-                            <div class="checkbox check-primary">
-                                <input id="checkbox2" type="checkbox" value="1" checked="checked">
-                                <label for="checkbox2">Has Action</label>
-                            </div>
-                        </div>
-                    </div>
+            <div class="front-svg">
+                <h4 class="inline">Front Svg</h4> 
+                <div>
+                    <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside"/>
+                    <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
                 </div>
-                <div class="svg-tools m-b-20">
-                    <button type="button" class="btn btn-mini btn-default"><i class="fa fa-map-marker"></i> Add Marker</button>
-                    <button type="button" class="btn btn-mini btn-default"><i class="fa fa-crosshairs"></i> Mark Area</button>
+                <div class="uploaded-image">
+                    @if(!empty($svgImages['master']['front']))
+                        <object width="150" data="{{ $svgImages['master']['front'] }}" type="image/svg+xml"></object>
+                    @endif
                 </div>
-                <img src="../../images/demo/sky-view.jpg" class="img-responsive">
-                <div class="svg-actions m-t-20">  
-                    <div class="pull-right">
-                        <button type="submit" class="btn btn-primary btn-cons">Save</button>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-            </form>
-        </div>
-
-        
-        <div id="sky-map-1" class="svg-holder hidden">
-            <hr>
-            <div class="svg-tools m-b-20">
-                <button type="button" class="btn btn-mini btn-default"><i class="fa fa-map-marker"></i> Add Marker</button>
-                <button type="button" class="btn btn-mini btn-default"><i class="fa fa-crosshairs"></i> Mark Area</button>
             </div>
-            <img src="../../images/demo/sky-view.jpg" class="img-responsive">
-            <form>
-                <div class="form-group m-t-10">
-                    <label class="form-label">SVG Name</label>
-                    <input type="text" class="form-control" placeholder="Enter SVG Name">
+            <hr />
+            <div class="left-svg">
+                <h4 class="inline">Left Svg</h4> 
+                <div>
+                    <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside"/>
+                    <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
                 </div>
-                <div class="form-actions svg-actions">  
-                    <div class="pull-right">
-                        <button type="submit" class="btn btn-primary btn-cons">Save</button>
-                    </div>
+                <div class="uploaded-image">
+                    @if(!empty($svgImages['master']['left']))
+                        <object width="150" data="{{ $svgImages['master']['left'] }}" type="image/svg+xml"></object>
+                    @endif
                 </div>
-            </form>
+            </div>
+            <hr />
+            <div class="back-svg">
+                <h4 class="inline">Back Svg</h4> 
+                <div>
+                    <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside"/>
+                    <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
+                </div>
+                <div class="uploaded-image">
+                    @if(!empty($svgImages['master']['back']))
+                        <object width="150" data="{{ $svgImages['master']['back'] }}" type="image/svg+xml"></object>
+                    @endif
+                </div>
+            </div>
+            <hr />
+            <div class="right-svg">
+                <h4 class="inline">Right Svg</h4> 
+                <div>
+                    <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside"/>
+                    <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
+                </div>
+                <div class="uploaded-image">
+                    @if(!empty($svgImages['master']['right']))
+                        <object width="150" data="{{ $svgImages['master']['right'] }}" type="image/svg+xml"></object>
+                    @endif
+                </div>
+            </div>
+            <hr />
+            <div class="front-left-svg">
+                <h4 class="inline">Front to Left Transition images</h4> 
+                <div>
+                    <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside"/>
+                    <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
+                </div>
+                <div class="row uploaded-images">
+                @if(!empty($svgImages['master']['front-left']))  
+                    @for ($i=0, $len = count($svgImages['master']['front-left']); $i < $len ; $i++)
+                        <div class="col-sm-2">
+                            <img  width="150" height="150" src="{{ $svgImages['master']['front-left'][$i] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
+                            <span class="pull-right m-t-10"><small>Pos {{ $i+1 }}</small></span>
+                        </div>
+                    @endfor
+                @endif 
+                </div>
+            </div>
+            <hr />
+            <div class="left-back-svg">
+                <h4 class="inline">Left to back transition images</h4> 
+                <div>
+                    <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside"/>
+                    <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
+                </div>
+                <div class="row uploaded-images">
+                @if(!empty($svgImages['master']['left-back']))  
+                    @for ($i=0, $len = count($svgImages['master']['left-back']); $i < $len ; $i++)
+                        <div class="col-sm-2">
+                            <img  width="150" height="150" src="{{ $svgImages['master']['left-back'][$i] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
+                            <h5 class="bold inline">SVG {{ $i+1 }}</h5> <i class="fa fa-bookmark text-primary"></i>
+                            <span class="pull-right m-t-10"><small>Pos {{ $i+1 }}</small></span>
+                        </div>
+                    @endfor
+                @endif 
+                </div>
+            </div>
+            <hr />
+            <div class="back-right-svg">
+                <h4 class="inline">Back to right transition images</h4> 
+                <div>
+                    <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside"/>
+                    <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
+                </div>
+                <div class="row uploaded-images">
+                @if(!empty($svgImages['master']['back-right']))  
+                    @for ($i=0, $len = count($svgImages['master']['back-right']); $i < $len ; $i++)
+                        <div class="col-sm-2">
+                            <img  width="150" height="150" src="{{ $svgImages['master']['back-right'][$i] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
+                            <h5 class="bold inline">SVG {{ $i+1 }}</h5> <i class="fa fa-bookmark text-primary"></i>
+                            <span class="pull-right m-t-10"><small>Pos {{ $i+1 }}</small></span>
+                        </div>
+                    @endfor
+                @endif 
+                </div>
+            </div>
+            <hr />
+            <div class="right-front-svg">
+                <h4 class="inline">Right to front transition images</h4> 
+                <div>
+                    <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside"/>
+                    <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
+                </div>
+                <div class="row uploaded-images">
+                @if(!empty($svgImages['master']['right-front']))  
+                    @for ($i=0, $len = count($svgImages['master']['right-front']); $i < $len ; $i++)
+                        <div class="col-sm-2">
+                            <img  width="150" height="150" src="{{ $svgImages['master']['right-front'][$i] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
+                            <h5 class="bold inline">SVG {{ $i+1 }}</h5> <i class="fa fa-bookmark text-primary"></i>
+                            <span class="pull-right m-t-10"><small>Pos {{ $i+1 }}</small></span>
+                        </div>
+                    @endfor
+                @endif 
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

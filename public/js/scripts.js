@@ -196,7 +196,66 @@ function addRoomAttributes(level,obj)
         $("#levelblock_"+level).append(str);
 }
 
+function setUpProjectMasterUploader(){
+
+    var divs = ['front','left','back','right','front-left', 'left-back', 'back-right', 'right-front'];
+
+    _.each(divs, function(divName, index){
+        var div = $('.' + divName + '-svg');
+
+        var supportMultiple = divName.indexOf('-') > 0
+        var selectBtnId = _.uniqueId('select-btn-');
+        var selectBtn = div.find('.master_pickfiles').attr('id', selectBtnId);
+
+        var uploadBtnId = _.uniqueId('upload-btn-');
+        var uploadBtn = div.find('.master_uploadfiles').attr('id', uploadBtnId);
+
+        var uploader = new plupload.Uploader({
+            runtimes: 'html5,flash,silverlight,html4',
+            browse_button: selectBtnId, // you can pass in id...
+            url: '/admin/project/' + PROJECTID + '/media',
+            flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+            silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+            headers: {
+                "x-csrf-token": $("[name=_token]").val()
+            },
+            multipart_params: {
+                "type": "master",
+                "section" : divName
+            },
+            filters: {
+                max_file_size: '10mb',
+                mime_types: [{
+                        title: "Image files",
+                        extensions: "svg,jpg,png,jpeg"
+                    }]
+            },
+            init: {
+                PostInit: function () {
+                    document.getElementById(uploadBtnId).onclick = function () {
+                        uploader.start();
+                    };
+                },
+                FileUploaded: function (up, file, xhr) {
+                    fileResponse = JSON.parse(xhr.response);
+
+                    if(supportMultiple)
+                        div.find('.uploaded-images').append('<div class="col-sm-2">\n\
+                            <img width="150" height="150" src="'+fileResponse.data.image_path+'" class="img-responsive" >\n\
+                            </div>')
+                    else
+                        div.find('.uploaded-image').html('<object width="150" id="svg1" data="'+fileResponse.data.image_path+'" type="image/svg+xml" />');
+                }
+            }
+        });
+        uploader.init();
+    });
+}
+
 $(document).ready(function(){
+
+        setUpProjectMasterUploader()
+
         var uploader = new plupload.Uploader({
             runtimes: 'html5,flash,silverlight,html4',
             browse_button: 'pickfiles', // you can pass in id...
@@ -230,42 +289,6 @@ $(document).ready(function(){
             }
         });
         uploader.init();
-
-        var master_uploader = new plupload.Uploader({
-            runtimes: 'html5,flash,silverlight,html4',
-            browse_button: 'master_pickfiles', // you can pass in id...
-            url: '/admin/project/' + PROJECTID + '/media',
-            flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
-            silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
-            headers: {
-                "x-csrf-token": $("[name=_token]").val()
-            },
-            multipart_params: {
-                "type": "master"
-            },
-            filters: {
-                max_file_size: '10mb',
-                mime_types: [{
-                        title: "Image files",
-                        extensions: "svg"
-                    }]
-            },
-            init: {
-                PostInit: function () {
-                    document.getElementById('master_uploadfiles').onclick = function () {
-                        master_uploader.start();
-                        return false;
-                    };
-                },
-                FileUploaded: function (up, file, xhr) {
-                    fileResponse = JSON.parse(xhr.response);
-                    $('.project-master-images').append('<div class="col-sm-2">\n\
-                        <img width="150" height="150" src="'+fileResponse.data.image_path+'" class="img-responsive" >\n\
-                        </div>')
-                }
-            }
-        });
-        master_uploader.init();
 
         var skyview_uploader = new plupload.Uploader({
             runtimes: 'html5,flash,silverlight,html4',

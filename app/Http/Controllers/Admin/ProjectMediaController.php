@@ -34,63 +34,69 @@ class ProjectMediaController extends Controller {
      *
      * @return Response
      */
-    public function store($project_id, Request $request) {
+    public function store( $projectId, Request $request ) {
 
-        $type = Input::get('type');
+        $type = Input::get( 'type' );
 
-        $targetDir = public_path() . "/projects/" . $project_id . "/" . $type . "/";
-        $imageUrl = url() . "/projects/" . $project_id . "/" . $type . "/";
+        $targetDir = public_path() . "/projects/" . $projectId . "/" . $type . "/";
+        $imageUrl = url() . "/projects/" . $projectId . "/" . $type . "/";
 
-        File::makeDirectory($targetDir, $mode = 0755, true, true);
+        File::makeDirectory( $targetDir, $mode = 0755, true, true );
 
-        if ($request->hasFile('file')) {
+        if ($request->hasFile( 'file' )) {
 
-            $file = $request->file('file');
+            $file = $request->file( 'file' );
             $fileName = $file->getClientOriginalName();
             $fileExt = $file->guessClientExtension();
-            $newFilename = rand() . '_' . $project_id . '.' . $fileExt;
+            $newFilename = rand() . '_' . $projectId . '.' . $fileExt;
 
-            $request->file('file')->move($targetDir, $newFilename);
+            $request->file( 'file' )->move( $targetDir, $newFilename );
         }
 
         $media = new Media();
         $media->image_name = $newFilename;
-        $media->mediable_id = $project_id;
+        $media->mediable_id = $projectId;
         $media->mediable_type = 'CommonFloor\Project';
         $media->save();
 
         $mediaId = $media->id;
 
-        $projectMeta = new ProjectMeta();
-        $metaValue = $projectMeta->where(['meta_key' => $type, 'project_id' => $project_id])->pluck('meta_value'); 
-         
-        if (!empty($metaValue)) {
-            
-            $metaValue= ('master'===$type)?$metaValue.'||'.$mediaId:$mediaId;
-            $data = array("meta_value" => $metaValue);
-            $projectMeta->where(['meta_key' => $type, 'project_id' => $project_id])->update( $data );
-            
-        } else {
-            $projectMeta->project_id = $project_id;
+        if ('master' !== $type) {
+            $projectMeta = ProjectMeta::where( ['meta_key' => $type, 'project_id' => $projectId] )->first();
+            $projectMeta->project_id = $projectId;
             $projectMeta->meta_key = $type;
             $projectMeta->meta_value = $mediaId;
             $projectMeta->save();
+        } else {
+            $projectMeta = ProjectMeta::where( ['meta_key' => 'master', 'project_id' => $projectId] )->first();
+            $unSerializedValue = unserialize( $projectMeta->meta_value );
+            $section = Input::get( 'section' );
+            if (strpos( $section, '-' ) !== false) {
+                $sectionImages = $unSerializedValue[$section];
+                $sectionImages[] = $mediaId;
+                $unSerializedValue[$section] = array_unique( $sectionImages );
+            } else {
+                $unSerializedValue[$section] = $mediaId;
+            }
+            $projectMeta->meta_value = serialize( $unSerializedValue );
+            $projectMeta->save();
         }
 
-        if ('google_earth'===$type)
+        if ('google_earth' === $type) {
             $message = 'Google Earth';
-        elseif ('master'===$type)
+        } elseif ('master' === $type) {
             $message = 'Project Master';
-        elseif ('skyview'===$type)
+        } elseif ('skyview' === $type) {
             $message = 'Sky view';
+        }
 
-        return response()->json([
+        return response()->json( [
                     'code' => $type . 'image_uploaded',
                     'message' => $message . ' Image Successfully Uploaded',
                     'data' => [
                         'image_path' => $imageUrl . $newFilename
                     ]
-                        ], 201);
+            ], 201 );
     }
 
     /**
@@ -99,7 +105,7 @@ class ProjectMediaController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function show($id) {
+    public function show( $id ) {
         //
     }
 
@@ -109,7 +115,7 @@ class ProjectMediaController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id) {
+    public function edit( $id ) {
         //
     }
 
@@ -119,7 +125,7 @@ class ProjectMediaController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update($id) {
+    public function update( $id ) {
         //
     }
 
@@ -129,7 +135,7 @@ class ProjectMediaController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
+    public function destroy( $id ) {
         //
     }
 
