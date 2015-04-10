@@ -9,7 +9,7 @@ function addRoomtype(project_id)
     var roomtypename = $("#roomtype").val();
     $("#loader").show();
     $.ajax({
-        url: "/admin/project/" + project_id + "/roomtype",
+        url: BASEURL+"/admin/project/" + project_id + "/roomtype",
         type: "POST",
         data: {
             project_id: project_id,
@@ -125,7 +125,7 @@ function addRoomtypeAttributes(roomtypeId,obj)
 function saveRoomypeattribute(project_id,roomtypeId,reffrence_type)
 {  
     $.ajax({
-        url: "/admin/project/" + project_id + "/roomtype/"+roomtypeId,
+        url: BASEURL+"/admin/project/" + project_id + "/roomtype/"+roomtypeId,
         type: "POST",
         data: {
             roomtypeattrData:$("#frmroomtype_"+roomtypeId).serializeArray(),
@@ -215,7 +215,7 @@ function setUpProjectMasterUploader(){
         var uploader = new plupload.Uploader({
             runtimes: 'html5,flash,silverlight,html4',
             browse_button: selectBtnId, // you can pass in id...
-            url: '/admin/project/' + PROJECTID + '/media',
+            url: BASEURL+'/admin/project/' + PROJECTID + '/media',
             flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
             silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
             headers: {
@@ -261,7 +261,7 @@ $(document).ready(function(){
         var uploader = new plupload.Uploader({
             runtimes: 'html5,flash,silverlight,html4',
             browse_button: 'pickfiles', // you can pass in id...
-            url: '/admin/project/' + PROJECTID + '/media',
+            url: BASEURL+'/admin/project/' + PROJECTID + '/media',
             flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
             silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
             headers: {
@@ -295,7 +295,7 @@ $(document).ready(function(){
         var skyview_uploader = new plupload.Uploader({
             runtimes: 'html5,flash,silverlight,html4',
             browse_button: 'skyview_pickfiles', // you can pass in id...
-            url: '/admin/project/' + PROJECTID + '/media',
+            url: BASEURL+'/admin/project/' + PROJECTID + '/media',
             flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
             silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
             headers: {
