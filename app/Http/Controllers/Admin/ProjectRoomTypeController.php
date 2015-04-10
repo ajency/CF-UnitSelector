@@ -28,21 +28,22 @@ class ProjectRoomTypeController extends Controller {
      */
     public function create( $id, ProjectRepository $projectRepository ) {
         $project = $projectRepository->getProjectById( $id );
-        $roomType_arr = $project->roomTypes()->get();
+        $roomTypeArr = $project->roomTypes()->get();
         $roomtypeAttribute = [];
         $propertytypeAttribute = [];
         $projectPropertytype = [];
         $projectPropertytypeArr = $project->projectPropertyTypes()->get()->toArray();
       
        
-        foreach ($projectPropertytypeArr as $property_types) { 
-            $propertytypeAttribute[$property_types['property_type_id']]['PROJECTPROPERTYTYPEID'] = $property_types['id'];
-            $propertytypeAttribute[$property_types['property_type_id']]['ATTRIBUTES'] = ProjectPropertyType::find($property_types['id'])->attributes->toArray();
-            $projectPropertytype [] = $property_types['property_type_id'];
+        foreach ($projectPropertytypeArr as $propertyTypes) { 
+            $propertytypeAttribute[$propertyTypes['property_type_id']]['PROJECTPROPERTYTYPEID'] = $propertyTypes['id'];
+            $propertytypeAttribute[$propertyTypes['property_type_id']]['ATTRIBUTES'] = 
+                    ProjectPropertyType::find($propertyTypes['id'])->attributes->toArray();
+            $projectPropertytype [] = $propertyTypes['property_type_id'];
         }
 
 
-        foreach ($roomType_arr as $roomType) {
+        foreach ($roomTypeArr as $roomType) {
             $roomtypeAttribute[$roomType['id']]['NAME'] = $roomType['name'];
             $roomtypeAttribute[$roomType['id']]['ATTRIBUTES'] = $roomType->attributes->toArray();
         }
@@ -61,21 +62,21 @@ class ProjectRoomTypeController extends Controller {
      * @return Response
      */
     public function store( Request $request ) {
-        $project_id = $request->input( 'project_id' );
+        $projectId = $request->input( 'project_id' );
         $roomtype_name = $request->input( 'roomtypename' );
 
         $roomtype = new RoomType();
-        $roomtype->project_id = $project_id;
+        $roomtype->project_id = $projectId;
         $roomtype->name = $roomtype_name;
         $roomtype->save();
 
-        $roomtype_id = $roomtype->id;
+        $roomtypeId = $roomtype->id;
 
 
         return response()->json( [
                     'code' => 'room_type',
                     'message' => 'Room Type Successfully Created',
-                    'data' => ['roomtype_id' => $roomtype_id]
+                    'data' => ['roomtype_id' => $roomtypeId]
                         ], 201 );
     }
 
@@ -115,20 +116,20 @@ class ProjectRoomTypeController extends Controller {
             $data[$input['name']][] = $input['value'];
         }
 
-        $attribute_name_arr = $data['attribute_name_' . $reffereceId];
-        $control_type_arr = $data['controltype_' . $reffereceId];
-        $control_value_arr = (isset( $data['controltypevalues_' . $reffereceId] )) ? $data['controltypevalues_' . $reffereceId] : [];
-        $attribute_id_arr = $data['attribute_id_' . $reffereceId];
+        $attributeNameArr = $data['attribute_name_' . $reffereceId];
+        $controlTypeArr = $data['controltype_' . $reffereceId];
+        $controlValueArr = (isset( $data['controltypevalues_' . $reffereceId] )) ? $data['controltypevalues_' . $reffereceId] : [];
+        $attributeIdArr = $data['attribute_id_' . $reffereceId];
 
-        if ($reffereceType == 'room_type') {
+        if ( 'room_type' === $reffereceType ) {
             $roomType = RoomType::find( $reffereceId );
-            $roomtype_name = $data['room_typename_' . $reffereceId][0];
+            $roomtypeName = $data['room_typename_' . $reffereceId][0];
 
-            $roomType->name = $roomtype_name;
+            $roomType->name = $roomtypeName;
             $roomType->save();
 
             $objecttype = 'RoomType';
-        } elseif ($reffereceType == 'property_type') {
+        } elseif ('property_type' === $reffereceType) {
             $project = Project::find( $project_id );
             $objecttype = 'PropertyType';
             $reffereceidArr = explode( '_', $reffereceId );
@@ -137,26 +138,26 @@ class ProjectRoomTypeController extends Controller {
         }
 
 
-        if (!empty( $attribute_name_arr )) {
-            foreach ($attribute_name_arr as $key => $attribute_name) {
-                $control_type = $control_type_arr[$key];
-                $control_vaues = (isset( $control_value_arr[$key] )) ? $control_value_arr[$key] : '';
-                $attribute_id = $attribute_id_arr[$key];
+        if (!empty( $attributeNameArr )) {
+            foreach ($attributeNameArr as $key => $attributeName) {
+                $controlType = $controlTypeArr[$key];
+                $controlValues = (isset( $controlValueArr[$key] )) ? $controlValueArr[$key] : '';
+                $attributeId = $attributeIdArr[$key];
 
-                if ($attribute_id == '') {
-                    if ($attribute_name != '')
-                        $attribute[] = new Attribute( ['label' => $attribute_name, 'control_type' => $control_type, 'defaults' => $control_vaues,
+                if ($attributeId == '') {
+                    if ($attributeName != '')
+                        $attribute[] = new Attribute( ['label' => $attributeName, 'control_type' => $controlType, 'defaults' => $controlValues,
                             'object_type' => $objecttype, 'object_id' => $reffereceId] );
                 } else {
-                    $data = array("label" => $attribute_name, "control_type" => $control_type, 'defaults' => $control_vaues);
-                    Attribute::where( 'id', $attribute_id )->update( $data );
+                    $data = array("label" => $attributeName, "control_type" => $controlType, 'defaults' => $controlValues);
+                    Attribute::where( 'id', $attributeId )->update( $data );
                 }
             }
 
             if (!empty( $attribute )) {
-                if ($reffereceType == 'room_type')
+                if ('room_type' === $reffereceType)
                     $roomType->attributes()->saveMany( $attribute );
-                elseif ($reffereceType == 'property_type')
+                elseif ('property_type' === $reffereceType)
                     $projectPropertytype->attributes()->saveMany( $attribute );
             }
         }
