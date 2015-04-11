@@ -33,9 +33,10 @@
   CommonFloor.loadJSONData = function() {
     return $.ajax({
       type: 'GET',
-      url: BASERESTURL + '/project/' + PROJECTID + '/step_one',
+      url: BASERESTURL + '/project/' + PROJECTID + '/step-two',
       async: false,
-      sucess: function(response) {
+      success: function(response) {
+        console.log(response = response.data);
         bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants);
         settings.setSettingsAttributes(response.settings);
         unitCollection.setUnitAttributes(response.units);
@@ -54,7 +55,7 @@
     bunglowVariantCollection.each(function(model) {
       var bunglowUnits;
       bunglowUnits = unitCollection.where({
-        unit_variant: model.get('id')
+        unit_variant_id: parseInt(model.get('id'))
       });
       return Router.push({
         'name': 'bunglows',
@@ -65,7 +66,7 @@
       return parseInt(item.count);
     });
     console.log(controller);
-    return CommonFloor.navigate('#/master-view/' + this.model.get('id') + '/bunglows', true);
+    return CommonFloor.navigate('#/master-view/' + PROJECTID + '/bunglows', true);
   };
 
 }).call(this);

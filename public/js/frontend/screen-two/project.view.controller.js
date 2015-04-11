@@ -1,5 +1,5 @@
 (function() {
-  var CenterBunglowView, LeftBunglowView, TopBunglowView,
+  var CenterBunglowView, LeftBunglowCompositeView, LeftBunglowView, TopBunglowView,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
@@ -70,11 +70,28 @@
       return LeftBunglowView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBunglowView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="advncd-filter-wrp"> <div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div> <div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6 class="sold">V1001</h6> </div> <div class="col-sm-4"> <h6 class="">3BHK</h6> </div> <div class="col-sm-4"> <h6 class="">1460sqft</h6> </div> </div> </div> <div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6 class="available">V1002</h6> </div> <div class="col-sm-4"> <h6 class="">3BHK</h6> </div> <div class="col-sm-4"> <h6 class="">1460sqft</h6> </div> </div> </div> </div> </div>');
+    LeftBunglowView.prototype.template = Handlebars.compile('<div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6 class="available">V1002</h6> </div> <div class="col-sm-4"> <h6 class="">3BHK</h6> </div> <div class="col-sm-4"> <h6 class="">1460sqft</h6> </div> </div> </div>');
 
     return LeftBunglowView;
 
   })(Marionette.ItemView);
+
+  LeftBunglowCompositeView = (function(superClass) {
+    extend(LeftBunglowCompositeView, superClass);
+
+    function LeftBunglowCompositeView() {
+      return LeftBunglowCompositeView.__super__.constructor.apply(this, arguments);
+    }
+
+    LeftBunglowCompositeView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper "> <div class="advncd-filter-wrp units"></div> </div> </div>');
+
+    LeftBunglowCompositeView.prototype.childView = LeftBunglowView;
+
+    LeftBunglowCompositeView.prototype.childViewContainer = '.units';
+
+    return LeftBunglowCompositeView;
+
+  })(Marionette.CompositeView);
 
   CommonFloor.LeftBunglowCtrl = (function(superClass) {
     extend(LeftBunglowCtrl, superClass);
@@ -84,7 +101,21 @@
     }
 
     LeftBunglowCtrl.prototype.initialize = function() {
-      return this.show(new LeftBunglowView);
+      var newUnits, units, unitsCollection;
+      units = [];
+      newUnits = [];
+      bunglowVariantCollection.each(function(model) {
+        var bunglowUnits;
+        bunglowUnits = unitCollection.where({
+          unit_variant_id: parseInt(model.get('id'))
+        });
+        return units.push(bunglowUnits);
+      });
+      newUnits = $.merge(newUnits, units);
+      console.log(unitsCollection = new Backbone.Collection(newUnits));
+      return this.show(new LeftBunglowCompositeView({
+        collection: unitsCollection
+      }));
     };
 
     return LeftBunglowCtrl;
@@ -98,7 +129,13 @@
       return CenterBunglowView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <img src="../../images/map2.png"> </div> </div>');
+    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> </div> </div>');
+
+    CenterBunglowView.prototype.onShow = function() {
+      var path;
+      path = project.get('project_master').front.svg;
+      return $('<div></div>').load(path).appendTo('.svg-area');
+    };
 
     return CenterBunglowView;
 
