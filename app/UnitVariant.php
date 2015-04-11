@@ -16,11 +16,12 @@ class UnitVariant extends Model {
       $attributeDataArr = explode("||",$attributeData);
       $attributeDataArr=array_filter($attributeDataArr);
       $variantAttributes =[];
-       
-      foreach ($attributeDataArr as $attributes)
-               $attributes = explode(':', $attributes);
-              $variantAttributes[$attributes[0]] =$attributes[1];
-      
+      if(!empty($attributeDataArr))
+      {
+         foreach ($attributeDataArr as $attributes)
+                    $attributes = explode(':', $attributes);
+                   $variantAttributes[$attributes[0]] =$attributes[1];
+      }
       $data['variant_attributes']=$variantAttributes;
       return $data;
  }

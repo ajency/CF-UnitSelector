@@ -29,7 +29,7 @@ class ProjectBunglowUnitController extends Controller {
             if (2 === $propertyTypes['property_type_id'])
                 $projectPropertytypeId = $propertyTypes['id'];
         }
-
+        
         $unitArr = Unit::orderBy('unit_name')->get()->toArray();
 
         return view('admin.project.listunit')
