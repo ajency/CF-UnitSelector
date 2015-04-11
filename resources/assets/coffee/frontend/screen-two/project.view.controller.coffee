@@ -19,7 +19,7 @@ class TopBunglowView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="row">
 		  <div class="col-md-12 col-xs-12 col-sm-12">
 			<div class="search-header-wrap">
-			  <h1>We are now at {{project_title}}\'s upcoming project having {{units}} bunglows</h1>
+			  <h1>We are now at {{project_title}}\'s upcoming project having {{units}} villas</h1>
 			</div>
 		  </div>
 		</div>')
@@ -41,7 +41,7 @@ class LeftBunglowView extends Marionette.ItemView
 	template : Handlebars.compile('
 				
 				
-				<div class="blck-wrap">
+				
 				  <div class="row">
 					<div class="col-sm-4">
 					  <h6 class="{{availability}}">{{unit_name}}</h6>                      
@@ -53,8 +53,10 @@ class LeftBunglowView extends Marionette.ItemView
 					  <h6 class="">{{super_build_up_area}} sqft</h6>                      
 					</div>
 				  </div>
-				</div>
+			
 				')
+
+	className : 'blck-wrap'
 
 	serializeData:->
 		data = super()
@@ -72,7 +74,24 @@ class LeftBunglowCompositeView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
 			<div class="filters-wrapper ">
-				<div class="advncd-filter-wrp units"></div>
+				<div class="advncd-filter-wrp  unit-list">
+					<div class="blck-wrap title-row">
+                  <div class="row">
+                    <div class="col-sm-4">
+                      <h5 class="accord-head">Villa No</h5>                      
+                    </div>
+                    <div class="col-sm-4">
+                      <h5 class="accord-head">Type</h5>                      
+                    </div>
+                    <div class="col-sm-4">
+                      <h5 class="accord-head">Area</h5>                      
+                    </div>
+                  </div>
+                </div>
+                <div class="units">
+                </div> 
+
+					</div>
 				</div>
 				</div>')
 
@@ -104,19 +123,19 @@ class CenterBunglowView extends Marionette.ItemView
 			id  = e.target.id
 			html = ""
 			unit = unitCollection.findWhere 
-				id : id 
+				id :  id 
 			if unit == undefined
 				html += '<div class="svg-info">
 							<div class="details">
-								Bunglow details not entered 
+								Villa details not entered 
 							</div>  
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return false
-			unitVariant = bunglowVariantCollection.findWhere
+			console.log unitVariant = bunglowVariantCollection.findWhere
 								'id' : unit.get('unit_variant_id')
 			
-			unitType = unitTypeCollection.findWhere
+			console.log unitType = unitTypeCollection.findWhere
 								'id' :  unit.get('unit_type_id')
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
