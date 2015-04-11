@@ -124,7 +124,7 @@ class ProjectBunglowUnitController extends Controller {
         }
 
         $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
-        $unitTypeIdArr = [];
+        $unitTypeIdArr = []; 
         foreach($unitTypeArr as $unitType)
             $unitTypeIdArr[] =$unitType['id'];
        
