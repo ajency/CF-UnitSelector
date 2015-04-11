@@ -65,6 +65,7 @@ function addRoomtype(project_id)
             str += '<div class = "text-right" >';
             str += '<button type="button" class = "btn btn-small btn-primary" onclick="saveRoomypeattribute('+project_id+',' + roomtypeId + ',\'room_type\');" > <i class = "fa fa-save" > </i> Save</button>';
            // str += '<button class = "btn btn-small btn-default" > <i class = "fa fa-trash" > </i> Delete</button >';
+            str += '<div class="cf-loader" id="loader_' + roomtypeId + '" style="display:none" ></div>';
             str += '</div>';
             str += '</div>';
             str += '</div>';
@@ -124,6 +125,7 @@ function addRoomtypeAttributes(roomtypeId,obj)
 
 function saveRoomypeattribute(project_id,roomtypeId,reffrence_type)
 {  
+    $("#loader_"+roomtypeId).show();
     $.ajax({
         url: "/admin/project/" + project_id + "/roomtype/"+roomtypeId,
         type: "POST",
