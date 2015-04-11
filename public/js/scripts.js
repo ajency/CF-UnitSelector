@@ -138,6 +138,20 @@ function saveRoomypeattribute(project_id,roomtypeId,reffrence_type)
     });
 }
 
+function saveUnitVariantdetails(project_id,variantId)
+{   
+    $.ajax({
+        url: BASEURL+"/admin/project/" + project_id + "/bunglow-variant/"+variantId+"/unitvariant",
+        type: "POST",
+        data: {
+            variantattrData:$("#formunitvariantdetails").serializeArray(),
+        },
+        success: function (response) {
+            
+        }
+    });
+}
+
 function defaultBlock(value,refId)
 {
    /* if(value=='select'|| value=='multiple')
