@@ -15,6 +15,10 @@ class CreateUnitVariantsTable extends Migration {
             $table->increments( 'id' );
             $table->string( 'unit_variant_name', 100 );
             $table->integer( 'unit_type_id' )->unsigned();
+            $table->double( 'carpet_area', 100 );
+            $table->double( 'build_up_area', 100 );
+            $table->double( 'super_build_up_area', 100 );
+            $table->text( 'variant_attributes')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
