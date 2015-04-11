@@ -106,7 +106,7 @@ class CenterBunglowView extends Marionette.ItemView
 			if unit == undefined
 				html += '<div class="svg-info">
 							<div class="details">
-								Villa details not entered 
+								Bunglow details not entered 
 							</div>  
 						</div>'
 				$('.layer').tooltipster('content', html)
@@ -116,6 +116,8 @@ class CenterBunglowView extends Marionette.ItemView
 			
 			unitType = unitTypeCollection.findWhere
 								'id' :  unit.get('unit_type_id')
+			availability = unit.get('availability')
+			availability = s.decapitalize(availability)
 			html = ""
 			html += '<div class="svg-info">
 					<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
@@ -133,6 +135,7 @@ class CenterBunglowView extends Marionette.ItemView
 					</div>'
 
 			$('.layer').tooltipster('content', html)
+			$('.layer').addClass availability
 
 
 	onShow:->
