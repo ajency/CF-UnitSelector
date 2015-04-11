@@ -142,8 +142,8 @@ class CenterBunglowView extends Marionette.ItemView
 			html = ""
 			html += '<div class="svg-info">
 					<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
-					<span class="label label-success">For Sale</span>
-					<div class="clearfix"></div>
+					<!--<span class="label label-success"></span-->
+										<div class="clearfix"></div>
 					<div class="details">
 					<div>
 						<label>Area</label> - '+unitVariant.get('super_build_up_area')+' Sq.ft
