@@ -104,7 +104,7 @@ class CenterBunglowView extends Marionette.ItemView
 			id  = e.target.id
 			html = ""
 			unit = unitCollection.findWhere 
-				id : parseInt id 
+				id : id 
 			if unit == undefined
 				html += '<div class="svg-info">
 							<div class="details">
@@ -114,7 +114,7 @@ class CenterBunglowView extends Marionette.ItemView
 				$('.layer').tooltipster('content', html)
 				return false
 			unitVariant = bunglowVariantCollection.findWhere
-								'id' : parseInt unit.get('unit_variant_id')
+								'id' : unit.get('unit_variant_id')
 			
 			unitType = unitTypeCollection.findWhere
 								'id' :  unit.get('unit_type_id')
