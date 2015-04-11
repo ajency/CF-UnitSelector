@@ -126,7 +126,7 @@ class LeftView extends Marionette.ItemView
 
 			propertyTypes.push 
 				'prop_type'  		: s.capitalize index
-				'unit_types' 		: value.unit_types.join(',')
+				'unit_types'		: value.unit_types.join(',')
 				'starting_area' 	: value.starting_area
 				'starting_price' 	: window.numDifferentiation(value.starting_price)
 				'availability'		: availability
@@ -165,9 +165,8 @@ class CenterView extends Marionette.ItemView
 
 	events:
 		'click .step1-marker':(e)->
-			#CommonFloor.loadJSONData()
-			#CommonFloor.navigate '#/master-view/'+@model.get('id') , true
-
+			CommonFloor.loadJSONData()
+			
 	onShow:->
 		path = @model.get('step_one').svg
 		$('<div></div>').load(path).appendTo('.svg-area')

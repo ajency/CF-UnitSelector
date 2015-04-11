@@ -6,11 +6,10 @@ $.ajaxSetup({
 
 function addRoomtype(project_id)
 {
- 
     var roomtypename = $("#roomtype").val();
     $("#loader").show();
     $.ajax({
-        url: BASEURL+"/admin/project/" + project_id + "/roomtype",
+        url: "/admin/project/" + project_id + "/roomtype",
         type: "POST",
         data: {
             project_id: project_id,
@@ -48,7 +47,7 @@ function addRoomtype(project_id)
             str += '<option value = "multiple" > Multiple Select Box </option>';
             str += '<option value = "number" > Number </option>';
             str += '</select>';
-            
+            str += '<button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes("' + roomtypeId + '",this)"> <i class ="fa fa-plus" > </i></button>';
             str += '</div>';
             str += '</div>';
             str += '</div>';
@@ -57,7 +56,6 @@ function addRoomtype(project_id)
             str += '<div class = "form-group" >';
             str += '<input type = "controltypevalues_' + roomtypeId + '" class = "form-control" placeholder="Default values" >';
             //str += '<button class = "btn btn-small btn-default m-t-5" > <i class = "fa fa-trash" > </i> Delete</button>';
-            str += '<button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes("' + roomtypeId + '",this)"> <i class ="fa fa-plus" > </i></button>';
             str += '</div>';
             str += '</div>';
             str += '</div>';
@@ -67,7 +65,6 @@ function addRoomtype(project_id)
             str += '<div class = "text-right" >';
             str += '<button type="button" class = "btn btn-small btn-primary" onclick="saveRoomypeattribute('+project_id+',' + roomtypeId + ',\'room_type\');" > <i class = "fa fa-save" > </i> Save</button>';
            // str += '<button class = "btn btn-small btn-default" > <i class = "fa fa-trash" > </i> Delete</button >';
-            str += '<img src="'+BASEURL+'/images/loading.gif" id="loader_proptype_' + roomtypeId + '" style="display:none" >';
             str += '</div>';
             str += '</div>';
             str += '</div>';
@@ -104,7 +101,7 @@ function addRoomtypeAttributes(roomtypeId,obj)
             str += '<option value = "multiple" > Multiple Select Box </option>';
             str += '<option value = "number" > Number </option>';
             str += '</select>';
-            
+            str += '<button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes(\'' + roomtypeId + '\',this)"> <i class ="fa fa-plus" > </i></button>';
             str += '</div>';
             str += '</div>';
             str += '</div>';
@@ -113,7 +110,6 @@ function addRoomtypeAttributes(roomtypeId,obj)
             str += '<div class = "form-group" >';
             str += '<input type = "controltypevalues_' + roomtypeId + '" class = "form-control" placeholder="Default values" >';
            // str += '<button class = "btn btn-small btn-default m-t-5" > <i class = "fa fa-trash" > </i> Delete</button>';
-            str += '<button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes(\'' + roomtypeId + '\',this)"> <i class ="fa fa-plus" > </i></button>';
             str += '</div>';
             str += '</div>';
             str += '</div>';
@@ -128,9 +124,8 @@ function addRoomtypeAttributes(roomtypeId,obj)
 
 function saveRoomypeattribute(project_id,roomtypeId,reffrence_type)
 {  
-    $("#loader_"+roomtypeId).show();
     $.ajax({
-        url: BASEURL+"/admin/project/" + project_id + "/roomtype/"+roomtypeId,
+        url: "/admin/project/" + project_id + "/roomtype/"+roomtypeId,
         type: "POST",
         data: {
             roomtypeattrData:$("#frmroomtype_"+roomtypeId).serializeArray(),
@@ -139,6 +134,20 @@ function saveRoomypeattribute(project_id,roomtypeId,reffrence_type)
         },
         success: function (response) {
             window.location.reload();
+        }
+    });
+}
+
+function saveUnitVariantdetails(project_id,variantId)
+{   
+    $.ajax({
+        url: BASEURL+"/admin/project/" + project_id + "/bunglow-variant/"+variantId+"/unitvariant",
+        type: "POST",
+        data: {
+            variantattrData:$("#formunitvariantdetails").serializeArray(),
+        },
+        success: function (response) {
+            
         }
     });
 }
@@ -220,7 +229,7 @@ function setUpProjectMasterUploader(){
         var uploader = new plupload.Uploader({
             runtimes: 'html5,flash,silverlight,html4',
             browse_button: selectBtnId, // you can pass in id...
-            url: BASEURL+'/admin/project/' + PROJECTID + '/media',
+            url: '/admin/project/' + PROJECTID + '/media',
             flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
             silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
             headers: {
@@ -266,7 +275,7 @@ $(document).ready(function(){
         var uploader = new plupload.Uploader({
             runtimes: 'html5,flash,silverlight,html4',
             browse_button: 'pickfiles', // you can pass in id...
-            url: BASEURL+'/admin/project/' + PROJECTID + '/media',
+            url: '/admin/project/' + PROJECTID + '/media',
             flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
             silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
             headers: {
@@ -300,7 +309,7 @@ $(document).ready(function(){
         var skyview_uploader = new plupload.Uploader({
             runtimes: 'html5,flash,silverlight,html4',
             browse_button: 'skyview_pickfiles', // you can pass in id...
-            url: BASEURL+'/admin/project/' + PROJECTID + '/media',
+            url: '/admin/project/' + PROJECTID + '/media',
             flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
             silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
             headers: {

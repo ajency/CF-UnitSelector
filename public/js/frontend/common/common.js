@@ -33,9 +33,10 @@
   CommonFloor.loadJSONData = function() {
     return $.ajax({
       type: 'GET',
-      url: BASERESTURL + '/project/' + PROJECTID + '/step_one',
+      url: BASERESTURL + '/project/' + PROJECTID + '/step-two',
       async: false,
-      sucess: function(response) {
+      success: function(response) {
+        console.log(response = response.data);
         bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants);
         settings.setSettingsAttributes(response.settings);
         unitCollection.setUnitAttributes(response.units);
@@ -51,21 +52,32 @@
   CommonFloor.checkProjectType = function() {
     var Router, controller;
     Router = [];
+    Router.push({
+      'type': 'bunglows',
+      'count': CommonFloor.getBunglowUnits()
+    });
+    console.log(Router);
+    controller = _.max(Router, function(item) {
+      return parseInt(item.count.length);
+    });
+    return CommonFloor.navigate('#/master-view/' + PROJECTID + '/' + controller.type, true);
+  };
+
+  CommonFloor.getBunglowUnits = function() {
+    var newUnits, units;
+    units = [];
+    newUnits = [];
     bunglowVariantCollection.each(function(model) {
       var bunglowUnits;
       bunglowUnits = unitCollection.where({
-        unit_variant: model.get('id')
+        unit_variant_id: parseInt(model.get('id'))
       });
-      return Router.push({
-        'name': 'bunglows',
-        'count': bunglowUnits.length
-      });
+      return units.push(bunglowUnits);
     });
-    controller = _.max(Router, function(item) {
-      return parseInt(item.count);
+    $.each(units, function(index, value) {
+      return newUnits = $.merge(newUnits, value);
     });
-    console.log(controller);
-    return CommonFloor.navigate('#/master-view/' + this.model.get('id') + '/bunglows', true);
+    return newUnits;
   };
 
 }).call(this);

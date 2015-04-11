@@ -138,7 +138,9 @@
     CenterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area width="350" height="525" id="prImage-2" title="" alt="" data-nodebug="" data-alwaysprocess="" data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" class="primage fill-width"> </div> </div>');
 
     CenterView.prototype.events = {
-      'click .step1-marker': function(e) {}
+      'click .step1-marker': function(e) {
+        return CommonFloor.loadJSONData();
+      }
     };
 
     CenterView.prototype.onShow = function() {
