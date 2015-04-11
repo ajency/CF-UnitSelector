@@ -26,21 +26,28 @@ CommonFloor.loadJSONData = ()->
 
 CommonFloor.checkProjectType = ()->
 	Router = []
+	Router.push 
+		'type'  : 'bunglows'
+		'count' :CommonFloor.getBunglowUnits()
+	console.log Router
+	controller = _.max Router , (item)->
+		return parseInt item.count.length
+
+
+	CommonFloor.navigate '#/master-view/'+PROJECTID+'/'+controller.type , true
+
+
+CommonFloor.getBunglowUnits = ()->
+	units = []
+	newUnits = []
 	bunglowVariantCollection.each (model)->
 		bunglowUnits = unitCollection.where
 			unit_variant_id : parseInt model.get('id')
-		Router.push
-			'name'  : 'bunglows'
-			'count' : bunglowUnits.length
+		units.push  bunglowUnits
+	$.each units,(index,value)->
+		newUnits = $.merge(newUnits , value)
 
-	controller = _.max Router , (item)->
-		return parseInt item.count
-
-
-	console.log controller
-
-	CommonFloor.navigate '#/master-view/'+PROJECTID+'/bunglows' , true
-
+	newUnits
 
 
 

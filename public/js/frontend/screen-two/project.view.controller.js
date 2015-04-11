@@ -26,7 +26,7 @@
     BunglowMasterViewCtrl.prototype.initialize = function() {
       if (jQuery.isEmptyObject(project.toJSON())) {
         project.setProjectAttributes(PROJECTID);
-        CommonFloor.checkProjectType();
+        CommonFloor.loadJSONData();
       }
       return this.show(new CommonFloor.BunglowLayoutView);
     };
@@ -42,7 +42,14 @@
       return TopBunglowView.__super__.constructor.apply(this, arguments);
     }
 
-    TopBunglowView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="search-header-wrap"> <h1>We are now at Artha Zen\'s upcoming project having 50 villa\'s</h1> </div> </div> </div>');
+    TopBunglowView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="search-header-wrap"> <h1>We are now at {{project_title}}\'s upcoming project having {{units}} bunglows</h1> </div> </div> </div>');
+
+    TopBunglowView.prototype.serializeData = function() {
+      var data;
+      data = TopBunglowView.__super__.serializeData.call(this);
+      data.units = CommonFloor.getBunglowUnits().length;
+      return data;
+    };
 
     return TopBunglowView;
 
@@ -56,7 +63,9 @@
     }
 
     TopBunglowCtrl.prototype.initialize = function() {
-      return this.show(new TopBunglowView);
+      return this.show(new TopBunglowView({
+        model: project
+      }));
     };
 
     return TopBunglowCtrl;
@@ -101,18 +110,9 @@
     }
 
     LeftBunglowCtrl.prototype.initialize = function() {
-      var newUnits, units, unitsCollection;
-      units = [];
-      newUnits = [];
-      bunglowVariantCollection.each(function(model) {
-        var bunglowUnits;
-        bunglowUnits = unitCollection.where({
-          unit_variant_id: parseInt(model.get('id'))
-        });
-        return units.push(bunglowUnits);
-      });
-      newUnits = $.merge(newUnits, units);
-      console.log(unitsCollection = new Backbone.Collection(newUnits));
+      var newUnits, unitsCollection;
+      newUnits = CommonFloor.getBunglowUnits();
+      unitsCollection = new Backbone.Collection(newUnits);
       return this.show(new LeftBunglowCompositeView({
         collection: unitsCollection
       }));
@@ -129,12 +129,44 @@
       return CenterBunglowView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> </div> </div>');
+    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> </div> <div id="villa_info" class="svg-tooltip" role="tooltip"> <div class="svg-info"> </div> </div> </div>');
+
+    CenterBunglowView.prototype.events = {
+      'mouseover .layer': function(e) {
+        var html, id, unit, unitVariant;
+        id = e.target.id;
+        unit = unitCollection.findWhere({
+          id: parseInt(id)
+        });
+        unitVariant = bunglowVariantCollection.findWhere({
+          'id': parseInt(unit.get('unit_variant_id'))
+        });
+        html = "";
+        html += '<h4 class="pull-left">' + unit.get('unit_name') + '</h4> <span class="label label-success">For Sale</span> <div class="clearfix"></div> <div class="details"> <div> <label>Unit Variant </label> - ' + unitVariant.get('unit_variant_name') + '</div> </div>';
+        return $('.svg-info').html(html);
+      }
+    };
 
     CenterBunglowView.prototype.onShow = function() {
       var path;
-      path = project.get('project_master').front.svg;
-      return $('<div></div>').load(path).appendTo('.svg-area');
+      path = project.get('project_master').front;
+      return $('<div></div>').load(path, this.iniTooltip).appendTo('.svg-area');
+    };
+
+    CenterBunglowView.prototype.iniTooltip = function() {
+      return $('.layer').tooltipster({
+        theme: 'tooltipster-shadow',
+        contentAsHTML: true,
+        functionInit: function() {
+          return $('#villa_info').html();
+        },
+        functionReady: function() {
+          return $('#villa_info').attr('aria-hidden', false);
+        },
+        functionAfter: function() {
+          return $('#villa_info').attr('aria-hidden', true);
+        }
+      });
     };
 
     return CenterBunglowView;

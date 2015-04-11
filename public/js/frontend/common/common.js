@@ -52,21 +52,32 @@
   CommonFloor.checkProjectType = function() {
     var Router, controller;
     Router = [];
+    Router.push({
+      'type': 'bunglows',
+      'count': CommonFloor.getBunglowUnits()
+    });
+    console.log(Router);
+    controller = _.max(Router, function(item) {
+      return parseInt(item.count.length);
+    });
+    return CommonFloor.navigate('#/master-view/' + PROJECTID + '/' + controller.type, true);
+  };
+
+  CommonFloor.getBunglowUnits = function() {
+    var newUnits, units;
+    units = [];
+    newUnits = [];
     bunglowVariantCollection.each(function(model) {
       var bunglowUnits;
       bunglowUnits = unitCollection.where({
         unit_variant_id: parseInt(model.get('id'))
       });
-      return Router.push({
-        'name': 'bunglows',
-        'count': bunglowUnits.length
-      });
+      return units.push(bunglowUnits);
     });
-    controller = _.max(Router, function(item) {
-      return parseInt(item.count);
+    $.each(units, function(index, value) {
+      return newUnits = $.merge(newUnits, value);
     });
-    console.log(controller);
-    return CommonFloor.navigate('#/master-view/' + PROJECTID + '/bunglows', true);
+    return newUnits;
   };
 
 }).call(this);
