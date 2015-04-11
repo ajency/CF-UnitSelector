@@ -88,7 +88,7 @@
         'id': this.model.get('unit_variant_id')
       }));
       unitType = unitTypeCollection.findWhere({
-        'id': unitVariant.get('id')
+        'id': unitVariant.get('unit_type_id')
       });
       data.unit_type = unitType.get('name');
       data.super_build_up_area = unitVariant.get('super_build_up_area');
@@ -143,24 +143,33 @@
       return CenterBunglowView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> </div> <div id="villa_info" class="svg-tooltip" role="tooltip"> <div class="svg-info"> </div> </div> </div>');
+    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> </div> </div>');
 
     CenterBunglowView.prototype.events = {
       'mouseover .layer': function(e) {
-        var html, id, unit, unitType, unitVariant;
+        var availability, html, id, unit, unitType, unitVariant;
         id = e.target.id;
+        html = "";
         unit = unitCollection.findWhere({
-          id: id
+          id: parseInt(id)
         });
+        if (unit === void 0) {
+          html += '<div class="svg-info"> <div class="details"> Bunglow details not entered </div> </div>';
+          $('.layer').tooltipster('content', html);
+          return false;
+        }
         unitVariant = bunglowVariantCollection.findWhere({
-          'id': unit.get('unit_variant_id')
+          'id': parseInt(unit.get('unit_variant_id'))
         });
         unitType = unitTypeCollection.findWhere({
-          'id': unit.get('id')
+          'id': unit.get('unit_type_id')
         });
+        availability = unit.get('availability');
+        availability = s.decapitalize(availability);
         html = "";
-        html += '<h4 class="pull-left">' + unit.get('unit_name') + '</h4> <span class="label label-success">For Sale</span> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + unitVariant.get('super_build_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + unitType.get('name') + '</div> </div>';
-        return $('.svg-info').html(html);
+        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <span class="label label-success">For Sale</span> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + unitVariant.get('super_build_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + unitType.get('name') + '</div> </div> </div> </div>';
+        $('.layer').tooltipster('content', html);
+        return $('.layer').addClass(availability);
       }
     };
 
@@ -174,15 +183,10 @@
       return $('.layer').tooltipster({
         theme: 'tooltipster-shadow',
         contentAsHTML: true,
-        functionInit: function() {
-          return $('#villa_info').html();
-        },
-        functionReady: function() {
-          return $('#villa_info').attr('aria-hidden', false);
-        },
-        functionAfter: function() {
-          return $('#villa_info').attr('aria-hidden', true);
-        }
+        onlyOne: true,
+        arrow: false,
+        offsetX: 50,
+        offsetY: -10
       });
     };
 
