@@ -70,7 +70,7 @@
     bunglowVariantCollection.each(function(model) {
       var bunglowUnits;
       bunglowUnits = unitCollection.where({
-        unit_variant_id: parseInt(model.get('id'))
+        unit_variant_id: model.get('id')
       });
       return units.push(bunglowUnits);
     });
