@@ -154,9 +154,9 @@ class CenterBunglowView extends Marionette.ItemView
 					</div>  
 					</div>  
 					</div>'
-
+			console.log availability
 			$('.layer').tooltipster('content', html)
-			$('.layer').addClass availability
+			$('#'+id).addClass availability
 
 
 	onShow:->
