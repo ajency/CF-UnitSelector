@@ -151,8 +151,9 @@
                         
                         if('textbox'===$attributes['control_type'])
                         {
+                            $value = (isset($unitVariant['variant_attributes'][property_type_slug($attributes['label'])]))?$unitVariant['variant_attributes'][property_type_slug($attributes['label'])]:''
                         ?>
-                        <input type="text" class="form-control" name="{{property_type_slug($attributes['label'])}}" value="{{ $unitVariant['variant_attributes'][property_type_slug($attributes['label'])] }}" placeholder="Enter {{$attributes['label']}}">
+                        <input type="text" class="form-control" name="{{property_type_slug($attributes['label'])}}" value="{{ $value }}" placeholder="Enter {{$attributes['label']}}">
                         <?php
                         }
                         ?>
