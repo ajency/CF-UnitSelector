@@ -19,9 +19,12 @@ class UnitVariant extends Model {
       if(!empty($attributeDataArr))
       {
          foreach ($attributeDataArr as $attributes)
+         {
                     $attributes = explode(':', $attributes);
                    $variantAttributes[$attributes[0]] =$attributes[1];
+         }
       }
+      
       $data['variant_attributes']=$variantAttributes;
       return $data;
  }

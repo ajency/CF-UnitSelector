@@ -93,7 +93,7 @@
                     <div class="text-right"> 
                         <button type="button" class="btn btn-small btn-primary" onclick="saveRoomypeattribute({{$project['id']}},{{$roomtypeId}},'room_type');"><i class="fa fa-save"></i> Save</button>
                         <!--<button type="button" class="btn btn-small btn-default"><i class="fa fa-trash"></i> Delete</button>-->
-                        <img src="{{url()}}/images/loading.gif" id="loader_{{$roomtypeId}}" style="display:none" >
+                        <div class="cf-loader" id="loader_{{$roomtypeId}}" style="display:none" ></div>
                     </div>
 
 
@@ -110,7 +110,7 @@
                         <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                         <input type="text" name="roomtype" id="roomtype" class="form-control" placeholder="Add Room Type">
                         <button class="btn btn-white" onclick="addRoomtype({{$project['id']}});"><i class="fa fa-plus"></i></button>
-                           
+                        <div class="cf-loader" id="loader" style="display:none" ></div>   
 
                     </div>
                 </div>
@@ -203,7 +203,7 @@
                     <div class="text-right"> 
                         <button type="button" class="btn btn-small btn-primary" onclick="saveRoomypeattribute({{$project['id']}},'proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}','property_type');"><i class="fa fa-save"></i> Save</button>
                         <!--<button type="button" class="btn btn-small btn-default"><i class="fa fa-trash"></i> Delete</button>-->
-                        <img src="{{url()}}/images/loading.gif" id="loader_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" style="display:none" >
+                        <div class="cf-loader" id="loader_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" style="display:none" ></div>
                     </div>
 
 

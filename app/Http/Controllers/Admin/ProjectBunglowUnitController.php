@@ -22,11 +22,11 @@ class ProjectBunglowUnitController extends Controller {
         $project = $projectRepository->getProjectById($id);
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
         $propertyTypeArr = [];
-
+        $projectPropertytypeId = 0;
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if (2 === $propertyTypes['property_type_id'])
+            if ($propertyTypes['property_type_id']=='2')
                 $projectPropertytypeId = $propertyTypes['id'];
         }
         $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
@@ -56,11 +56,11 @@ class ProjectBunglowUnitController extends Controller {
         $project = $projectRepository->getProjectById($id);
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
         $propertyTypeArr = [];
-
+        $projectPropertytypeId = 0;
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if ( 2 === $propertyTypes['property_type_id'])
+            if ($propertyTypes['property_type_id']=='2')
                 $projectPropertytypeId = $propertyTypes['id'];
         }
         
@@ -115,7 +115,7 @@ class ProjectBunglowUnitController extends Controller {
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if (2 === $propertyTypes['property_type_id'])
+            if ($propertyTypes['property_type_id']=='2')
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 

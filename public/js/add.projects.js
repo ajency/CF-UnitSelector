@@ -21,7 +21,7 @@
             project = {
               project_title: faker.name.findName(),
               cf_project_id: faker.internet.userName(),
-              project_image: 'https://mail.google.com/mail/u/0/?ui=2&ik=6a413371b4&view=fimg&th=14c9ce21192605c9&attid=0.1&disp=inline&realattid=f_i89se3y40&safe=1&attbid=ANGjdJ_0dn6lZMfKByrh6lghXzxk23bP87iQo2ieK0kOHxEeea2s0qbXnbemv6TDPHmd60Qar8y7Qs_atkIyxh8BZPmW7tgmwZcFdcAx35mnEVbJVFwXvTsgxxw4GSw&ats=1428563734123&rm=14c9ce21192605c9&zw&sz=w1342-h468',
+              project_image: 'http://cfunitselectortest.com/images/artha.gif',
               project_address: (faker.address.streetAddress()) + " " + (faker.address.city()) + ", " + (faker.address.zipCode()),
               project_status: 'Under Construction',
               builder_name: faker.name.findName(),

@@ -44,17 +44,27 @@ class LeftBunglowView extends Marionette.ItemView
 				<div class="blck-wrap">
 				  <div class="row">
 					<div class="col-sm-4">
-					  <h6 class="available">V1002</h6>                      
+					  <h6 class="available">{{unit_name}}</h6>                      
 					</div>
 					<div class="col-sm-4">
-					  <h6 class="">3BHK</h6>                      
+					  <h6 class="">{{unit_type}}</h6>                      
 					</div>
 					<div class="col-sm-4">
-					  <h6 class="">1460sqft</h6>                      
+					  <h6 class="">{{super_build_up_area}} sqft</h6>                      
 					</div>
 				  </div>
 				</div>
 				')
+
+	serializeData:->
+		data = super()
+		console.log unitVariant = bunglowVariantCollection.findWhere
+							'id' : @model.get('unit_variant_id')
+		unitType = unitTypeCollection.findWhere
+							'id' : unitVariant.get('id')
+		data.unit_type = unitType.get('name')
+		data.super_build_up_area = unitVariant.get('super_build_up_area')
+		data
 
 class LeftBunglowCompositeView extends Marionette.CompositeView
 
@@ -104,13 +114,20 @@ class CenterBunglowView extends Marionette.ItemView
 			unitVariant = bunglowVariantCollection.findWhere
 								'id' : parseInt unit.get('unit_variant_id')
 			
+			unitType = unitTypeCollection.findWhere
+								'id' :  unit.get('id')
+			html = ""
 			html += '<div class="svg-info">
 					<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
 					<span class="label label-success">For Sale</span>
 					<div class="clearfix"></div>
 					<div class="details">
 					<div>
-						<label>Unit Variant </label> - '+unitVariant.get('unit_variant_name')+'
+						<label>Area</label> - '+unitVariant.get('super_build_up_area')+' Sq.ft
+					</div> 
+					<div>
+						<label>Unit Type </label> - '+unitType.get('name')+'
+					</div>  
 					</div>  
 					</div>  
 					</div>'
