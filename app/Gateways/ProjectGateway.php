@@ -96,7 +96,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             $unitTypes = ProjectPropertyType::find( $projectpropertyTypeId )->projectUnitType()->get()->toArray();
             $data[$propertyTypeName]['unit_types'] = [];
             foreach ($unitTypes as $unitType) {
-                $data[$propertyTypeName]['unit_types'][$unitType['id']] = $unitType['unittype_name'];
+                $data[$propertyTypeName]['unit_types'][] = $unitType['unittype_name'];
             }
             $data[$propertyTypeName]['starting_area'] = $faker->randomNumber();
             $data[$propertyTypeName]['availability'] = [

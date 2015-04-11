@@ -142,6 +142,9 @@
             <!-- END PAGE CONTAINER -->
         </div>
         <!-- END CONTENT --> 
+        <script>
+            var BASEURL = '{{ url() }}';
+        </script>
 
         <!-- BEGIN CORE JS FRAMEWORK--> 
         <script src="{{ asset('bower_components/lodash/lodash.js') }}"></script>
