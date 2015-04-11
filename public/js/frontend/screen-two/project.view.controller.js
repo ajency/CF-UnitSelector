@@ -79,10 +79,10 @@
       return LeftBunglowView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBunglowView.prototype.template = Handlebars.compile('<div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6 class="available">{{unit_name}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{unit_type}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{super_build_up_area}} sqft</h6> </div> </div> </div>');
+    LeftBunglowView.prototype.template = Handlebars.compile('<div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6 class="{{availability}}">{{unit_name}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{unit_type}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{super_build_up_area}} sqft</h6> </div> </div> </div>');
 
     LeftBunglowView.prototype.serializeData = function() {
-      var data, unitType, unitVariant;
+      var availability, data, unitType, unitVariant;
       data = LeftBunglowView.__super__.serializeData.call(this);
       console.log(unitVariant = bunglowVariantCollection.findWhere({
         'id': this.model.get('unit_variant_id')
@@ -92,6 +92,8 @@
       });
       data.unit_type = unitType.get('name');
       data.super_build_up_area = unitVariant.get('super_build_up_area');
+      availability = this.model.get('availability');
+      data.availability = s.decapitalize(availability);
       return data;
     };
 

@@ -44,7 +44,7 @@ class LeftBunglowView extends Marionette.ItemView
 				<div class="blck-wrap">
 				  <div class="row">
 					<div class="col-sm-4">
-					  <h6 class="available">{{unit_name}}</h6>                      
+					  <h6 class="{{availability}}">{{unit_name}}</h6>                      
 					</div>
 					<div class="col-sm-4">
 					  <h6 class="">{{unit_type}}</h6>                      
@@ -64,6 +64,8 @@ class LeftBunglowView extends Marionette.ItemView
 							'id' : unitVariant.get('unit_type_id')
 		data.unit_type = unitType.get('name')
 		data.super_build_up_area = unitVariant.get('super_build_up_area')
+		availability = @model.get('availability')
+		data.availability = s.decapitalize(availability)
 		data
 
 class LeftBunglowCompositeView extends Marionette.CompositeView
