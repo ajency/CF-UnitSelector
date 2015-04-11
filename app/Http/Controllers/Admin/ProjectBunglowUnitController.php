@@ -64,8 +64,12 @@ class ProjectBunglowUnitController extends Controller {
                 $projectPropertytypeId = $propertyTypes['id'];
         }
         
-        $unitType = UnitType::where('project_property_type_id',$projectPropertytypeId)->pluck('id'); 
-        $unitVariantArr = UnitVariant::where('unit_type_id',$unitType)->get()->toArray();
+        $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
+        $unitTypeIdArr = [];
+        foreach($unitTypeArr as $unitType)
+            $unitTypeIdArr[] =$unitType['id'];
+       
+        $unitVariantArr = UnitVariant::whereIn('unit_type_id',$unitTypeIdArr)->get()->toArray();
 
         return view('admin.project.addunit')
                         ->with('project', $project->toArray())
@@ -119,8 +123,12 @@ class ProjectBunglowUnitController extends Controller {
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
-        $unitType = UnitType::where('project_property_type_id',$projectPropertytypeId)->pluck('id'); 
-        $unitVariantArr = UnitVariant::where('unit_type_id',$unitType)->get()->toArray();
+        $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
+        $unitTypeIdArr = [];
+        foreach($unitTypeArr as $unitType)
+            $unitTypeIdArr[] =$unitType['id'];
+       
+        $unitVariantArr = UnitVariant::whereIn('unit_type_id',$unitTypeIdArr)->get()->toArray();
 
         return view('admin.project.editunit')
                         ->with('project', $project->toArray())
