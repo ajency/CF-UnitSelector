@@ -136,7 +136,7 @@ class CenterBunglowView extends Marionette.ItemView
 								'id' : unit.get('unit_variant_id')
 			
 			console.log unitType = unitTypeCollection.findWhere
-								'id' :  unit.get('unit_type_id')
+								'id' :  unitVariant.get('unit_type_id')
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			html = ""
