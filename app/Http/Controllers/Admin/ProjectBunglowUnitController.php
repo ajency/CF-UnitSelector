@@ -29,8 +29,16 @@ class ProjectBunglowUnitController extends Controller {
             if (2 === $propertyTypes['property_type_id'])
                 $projectPropertytypeId = $propertyTypes['id'];
         }
+        $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
+        $unitTypeIdArr = $unitVariantIdArr= [];
+        foreach($unitTypeArr as $unitType)
+            $unitTypeIdArr[] =$unitType['id'];
+       
+        $unitvariantArr = UnitVariant::whereIn('unit_type_id',$unitTypeIdArr)->get()->toArray();
+        foreach($unitvariantArr as $unitvariant)
+            $unitVariantIdArr[] =$unitvariant['id'];
         
-        $unitArr = Unit::orderBy('unit_name')->get()->toArray();
+        $unitArr = Unit::whereIn('unit_variant_id',$unitVariantIdArr)->orderBy('unit_name')->get()->toArray();
 
         return view('admin.project.listunit')
                         ->with('project', $project->toArray())
