@@ -143,6 +143,7 @@
                         <input type="text" class="form-control" name="superbuildup_area" value="{{ $unitVariant['super_build_up_area'] }}" placeholder="Enter Super Build Up Area">
                     </div> 
                 </div>
+       
                 @foreach($project_property_type_attributes as $attributes)
                 <div class="col-md-4">
                     <div class="form-group">
