@@ -27,7 +27,7 @@ class ProjectBunglowVariantController extends Controller {
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr[] = $propertyTypes['property_type_id'];
 
-            if (2 === $propertyTypes['property_type_id'])
+            if ($propertyTypes['property_type_id']=='2')
                 $projectPropertytypeId = $propertyTypes['id'];
         }
         
@@ -60,7 +60,7 @@ class ProjectBunglowVariantController extends Controller {
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if (2 === $propertyTypes['property_type_id'])
+            if ($propertyTypes['property_type_id']=='2')
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
@@ -135,7 +135,7 @@ class ProjectBunglowVariantController extends Controller {
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if (2 === $propertyTypes['property_type_id'])
+            if ($propertyTypes['property_type_id']=='2')
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
