@@ -58,8 +58,11 @@
 </script>
 
 <script id="noFound-template" type="text/template">
-    Nothing Found
-
+    <div class="no-found-container">
+      <div class="text-center animated fadeInDown">
+        <h1>Nothing Found</h1>
+      </div>
+    </div>
   </script>
 
   <script id="project-view-template" type="text/template">
