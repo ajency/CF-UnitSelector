@@ -8198,8 +8198,8 @@ body.rtl .footer-widget {
 .cf-loader:after {
   display: block;
   position: relative;
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   -webkit-animation: rotate 0.6s linear infinite;
   -moz-animation: rotate 0.6s linear infinite;
   -ms-animation: rotate 0.6s linear infinite;
@@ -8213,10 +8213,6 @@ body.rtl .footer-widget {
   border-left: 2px solid #f68121;
   border-right: 2px solid #ffffff;
   content: '';
-}
-.cf-loader.cf-loader_small:after {
-  width: 15px;
-  height: 15px;
 }
 @keyframes rotate {
   0% {
