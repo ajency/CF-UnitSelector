@@ -58,9 +58,10 @@ class ProjectGateway implements ProjectGatewayInterface {
         $unitTypeIds = [];
         foreach ($unitTypes as $unitType) {
             $unitTypeIds[] = $unitType->id;
-            $unitTypeArr[$unitType->id] = $unitType->unittype_name;
+            $unitTypeArr[]['id'] = $unitType->id;
+            $unitTypeArr[]['name'] = $unitType->unittype_name;
         }
-
+        
         $bunglowVariants = \CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds )->get();
         $bunglowVariantIds = [];
         foreach ($bunglowVariants as $bunglowVariant) {
