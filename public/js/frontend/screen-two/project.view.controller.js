@@ -129,21 +129,26 @@
       return CenterBunglowView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> </div> <div id="villa_info" class="svg-tooltip" role="tooltip"> <div class="svg-info"> </div> </div> </div>');
+    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> </div> </div>');
 
     CenterBunglowView.prototype.events = {
       'mouseover .layer': function(e) {
         var html, id, unit, unitVariant;
         id = e.target.id;
+        html = "";
         unit = unitCollection.findWhere({
           id: parseInt(id)
         });
+        if (unit === void 0) {
+          html += '<div class="svg-info"> <div class="details"> Villa details not entered </div> </div>';
+          $('.layer').tooltipster('content', html);
+          return false;
+        }
         unitVariant = bunglowVariantCollection.findWhere({
           'id': parseInt(unit.get('unit_variant_id'))
         });
-        html = "";
-        html += '<h4 class="pull-left">' + unit.get('unit_name') + '</h4> <span class="label label-success">For Sale</span> <div class="clearfix"></div> <div class="details"> <div> <label>Unit Variant </label> - ' + unitVariant.get('unit_variant_name') + '</div> </div>';
-        return $('.svg-info').html(html);
+        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <span class="label label-success">For Sale</span> <div class="clearfix"></div> <div class="details"> <div> <label>Unit Variant </label> - ' + unitVariant.get('unit_variant_name') + '</div> </div> </div>';
+        return $('.layer').tooltipster('content', html);
       }
     };
 
@@ -157,15 +162,10 @@
       return $('.layer').tooltipster({
         theme: 'tooltipster-shadow',
         contentAsHTML: true,
-        functionInit: function() {
-          return $('#villa_info').html();
-        },
-        functionReady: function() {
-          return $('#villa_info').attr('aria-hidden', false);
-        },
-        functionAfter: function() {
-          return $('#villa_info').attr('aria-hidden', true);
-        }
+        onlyOne: true,
+        arrow: false,
+        offsetX: 50,
+        offsetY: -10
       });
     };
 

@@ -85,31 +85,37 @@ class CenterBunglowView extends Marionette.ItemView
 			<div class="svg-area">
 			  
 			</div>
-			<div id="villa_info" class="svg-tooltip" role="tooltip">
-		 <div class="svg-info">
-		   
-		 </div>
-	  </div>
 		  </div>')
 
 	events :
 		'mouseover .layer':(e)->
 			id  = e.target.id
+			html = ""
 			unit = unitCollection.findWhere 
-				id : parseInt id
+				id : parseInt id 
+			if unit == undefined
+				html += '<div class="svg-info">
+							<div class="details">
+								Villa details not entered 
+							</div>  
+						</div>'
+				$('.layer').tooltipster('content', html)
+				return false
 			unitVariant = bunglowVariantCollection.findWhere
 								'id' : parseInt unit.get('unit_variant_id')
-			html = ""
-			html += '<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
+			
+			html += '<div class="svg-info">
+					<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
 					<span class="label label-success">For Sale</span>
 					<div class="clearfix"></div>
 					<div class="details">
 					<div>
 						<label>Unit Variant </label> - '+unitVariant.get('unit_variant_name')+'
 					</div>  
+					</div>  
 					</div>'
-					
-			$('.svg-info').html html
+
+			$('.layer').tooltipster('content', html)
 
 
 	onShow:->
@@ -120,16 +126,21 @@ class CenterBunglowView extends Marionette.ItemView
 	iniTooltip:->
 		$('.layer').tooltipster(
 			theme: 'tooltipster-shadow',
-			contentAsHTML: true,
+			contentAsHTML: true
+			onlyOne : true
+			arrow : false
+			offsetX : 50
+			offsetY : -10
+			# content : $('.svg-info')
 			# autoClose : false
-			functionInit:-> 
-				return $('#villa_info').html()
+			# functionInit:-> 
+			# 	return $('#villa_info').html()
 			
-			functionReady:->
-				$('#villa_info').attr('aria-hidden', false)
+			# functionReady:->
+			# 	$('#villa_info').html()
 		   
-			functionAfter:->
-				$('#villa_info').attr('aria-hidden', true)
+			# functionAfter:->
+			# 	$('#villa_info').attr('aria-hidden', true)
 		   
 		)
 	
