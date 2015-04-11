@@ -11,9 +11,10 @@ CommonFloor.loadJSONData = ()->
 
 	$.ajax
 		type : 'GET',
-		url  : BASERESTURL+'/project/'+	PROJECTID+'/step_one'
+		url  : BASERESTURL+'/project/'+	PROJECTID+'/step-two'
 		async : false
-		sucess :(response)->
+		success :(response)->
+			console.log response = response.data
 			bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants);
 			settings.setSettingsAttributes(response.settings);
 			unitCollection.setUnitAttributes(response.units);
@@ -25,21 +26,28 @@ CommonFloor.loadJSONData = ()->
 
 CommonFloor.checkProjectType = ()->
 	Router = []
+	Router.push 
+		'type'  : 'bunglows'
+		'count' :CommonFloor.getBunglowUnits()
+	console.log Router
+	controller = _.max Router , (item)->
+		return parseInt item.count.length
+
+
+	CommonFloor.navigate '#/master-view/'+PROJECTID+'/'+controller.type , true
+
+
+CommonFloor.getBunglowUnits = ()->
+	units = []
+	newUnits = []
 	bunglowVariantCollection.each (model)->
 		bunglowUnits = unitCollection.where
-			unit_variant : model.get('id')
-		Router.push
-			'name'  : 'bunglows'
-			'count' : bunglowUnits.length
+			unit_variant_id : parseInt model.get('id')
+		units.push  bunglowUnits
+	$.each units,(index,value)->
+		newUnits = $.merge(newUnits , value)
 
-	controller = _.max Router , (item)->
-		return parseInt item.count
-
-
-	console.log controller
-
-	CommonFloor.navigate '#/master-view/'+@model.get('id')+'/bunglows' , true
-
+	newUnits
 
 
 

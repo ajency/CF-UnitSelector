@@ -18,17 +18,7 @@ jQuery(document).ready ($)->
 					ctrl : 'LeftBunglowCtrl'
 				'center' :
 					ctrl : 'CenterBunglowCtrl'
-	CommonFloor.state 'projectMasterView',
-			url : '/master-view/:id'
-			sections:
-				'top' : 
-					ctrl : 'TopMasterCtrl'
-				'left' :
-					ctrl : 'LeftMasterCtrl'
-				'center' :
-					ctrl : 'CenterMasterCtrl'
-
-
+	
 
 
 	CommonFloor.addInitializer ->
