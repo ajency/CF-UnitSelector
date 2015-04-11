@@ -56,7 +56,7 @@ class ProjectBunglowVariantController extends Controller {
         $project = $projectRepository->getProjectById($id);
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
         $propertyTypeArr = [];
-
+        $projectPropertytypeId = 0;
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
