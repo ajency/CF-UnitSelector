@@ -1,3 +1,4 @@
+#No Found Controller and veiw
 class CommonFloor.NothingFoundView extends Marionette.ItemView
 	
 	template : '#noFound-template'
@@ -7,6 +8,7 @@ class CommonFloor.NothingFoundCtrl extends Marionette.RegionController
 	initialize:->
 		@show new CommonFloor.NothingFoundView
 
+#api required to load second step
 CommonFloor.loadJSONData = ()->
 
 	$.ajax
@@ -14,18 +16,20 @@ CommonFloor.loadJSONData = ()->
 		url  : BASERESTURL+'/project/'+	PROJECTID+'/step-two'
 		async : false
 		success :(response)->
+			#parsing the integer fields 
 			response = window.convertToInt(response)
 			response = response.data
-			bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants);
-			settings.setSettingsAttributes(response.settings);
-			unitCollection.setUnitAttributes(response.units);
-			unitTypeCollection.setUnitTypeAttributes(response.unit_types);
-			CommonFloor.checkProjectType()
+			#setting all the collections 
+			bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants)
+			settings.setSettingsAttributes(response.settings)
+			unitCollection.setUnitAttributes(response.units)
+			unitTypeCollection.setUnitTypeAttributes(response.unit_types)
+			
 		error :(response)->
 			console.log "aaaaaaaaaaassdff"
 
-
-CommonFloor.checkProjectType = ()->
+#find the property type with maximum number of units
+CommonFloor.propertyMaxUnits = ()->
 	Router = []
 	Router.push 
 		'type'  : 'bunglows'
@@ -34,10 +38,16 @@ CommonFloor.checkProjectType = ()->
 	controller = _.max Router , (item)->
 		return parseInt item.count.length
 
+	controller	
 
-	CommonFloor.navigate '#/master-view/'+PROJECTID+'/'+controller.type , true
+	
+#function to load the default controller
+CommonFloor.checkPropertyType = ()->
+	CommonFloor.loadJSONData()
+	controller = CommonFloor.propertyMaxUnits()
+	CommonFloor.navigate '#/master-view/'+controller.type , true
 
-
+#get all the units of all the bunglow variants
 CommonFloor.getBunglowUnits = ()->
 	units = []
 	newUnits = []
@@ -50,6 +60,7 @@ CommonFloor.getBunglowUnits = ()->
 
 	newUnits
 
+#funtion to convert string into integers
 window.convertToInt = (response)->
 	$.each response ,(index,value)->
 		$.map(value,(item)->

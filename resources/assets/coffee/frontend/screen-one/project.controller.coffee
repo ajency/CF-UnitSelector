@@ -165,7 +165,7 @@ class CenterView extends Marionette.ItemView
 
 	events:
 		'click .step1-marker':(e)->
-			CommonFloor.loadJSONData()
+			CommonFloor.checkPropertyType()
 			
 	onShow:->
 		path = @model.get('step_one').svg

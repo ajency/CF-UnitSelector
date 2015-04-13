@@ -2,9 +2,7 @@
 
 namespace CommonFloor\Http\Controllers;
 
-use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use CommonFloor\Repositories\ProjectRepository;
 
 class ProjectController extends Controller {
