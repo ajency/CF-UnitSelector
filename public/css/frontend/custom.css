@@ -1,11 +1,15 @@
 @import "../../bower_components/animate.css/animate.min.css";
 @import "../../bower_components/tooltipster/css/tooltipster.css";
 @import "../../bower_components/tooltipster/css/themes/tooltipster-shadow.css";
+@import "../../bower_components/liquidslider/css/liquid-slider.css";
 /* External CSS */
 /* Site Styles */
 html,
 body {
   height: 100%;
+}
+body {
+  min-width: initial;
 }
 /* Header */
 .cf-hdr-blk .cf-us-logo {
@@ -66,6 +70,11 @@ body {
 /* Footer */
 .footer-push {
   height: 98px;
+}
+.unit-list {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 615px;
 }
 .unit-list .blck-wrap {
   cursor: pointer;
@@ -213,4 +222,34 @@ label.third_toggle {
 }
 .svg-info .details label {
   color: #999999;
+}
+.ls-nav ul {
+  width: 100% !important;
+  display: table;
+}
+.ls-nav ul li {
+  display: table-cell;
+  text-align: center;
+  padding: 0;
+}
+.ls-nav ul li a {
+  width: 100%;
+  padding-top: 30px;
+  color: #999999;
+  font-weight: bold;
+  background: transparent;
+}
+.ls-nav ul li.current a {
+  color: #f68121;
+  background: transparent;
+  border-bottom: 2px solid #f68121;
+}
+.liquid-slider .ls-panel img {
+  margin: 0 auto;
+}
+.ls-wrapper {
+  max-width: 100% !important;
+}
+.panel-wrapper {
+  padding: 0;
 }
