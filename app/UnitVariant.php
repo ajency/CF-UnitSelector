@@ -12,20 +12,7 @@ class UnitVariant extends Model {
     
     public function toArray() {
       $data = parent::toArray();
-      $attributeData= $data['variant_attributes'];
-      $attributeDataArr = explode("||",$attributeData);
-      $attributeDataArr=array_filter($attributeDataArr);
-      $variantAttributes =[];
-      if(!empty($attributeDataArr))
-      {
-         foreach ($attributeDataArr as $attributes)
-         {
-                    $attributes = explode(':', $attributes);
-                   $variantAttributes[$attributes[0]] =$attributes[1];
-         }
-      }
-      
-      $data['variant_attributes']=$variantAttributes;
+      $data['variant_attributes']=  unserialize($data['variant_attributes']);
       return $data;
  }
 
