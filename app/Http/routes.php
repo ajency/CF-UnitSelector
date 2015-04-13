@@ -39,6 +39,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource( 'project.unittype', 'Admin\ProjectUnitTypeController' );
     Route::resource( 'project.bunglow-variant', 'Admin\ProjectBunglowVariantController' );
     Route::resource( 'project.bunglow-unit', 'Admin\ProjectBunglowUnitController' );
+    Route::resource( 'project.building', 'Admin\ProjectBuildingController' );
     Route::resource( 'phase', 'Admin\PhaseController' );
     Route::resource( 'project.roomtype', 'Admin\ProjectRoomTypeController' );
     Route::get( 'project/{id}/svg', 'Admin\ProjectController@svg' );
