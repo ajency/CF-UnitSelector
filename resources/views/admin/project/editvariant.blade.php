@@ -65,20 +65,20 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">{{$attributes['label']}}</label>
-                        <?php 
+                        <?php
                         $value = (isset($unitVariant['variant_attributes'][property_type_slug($attributes['label'])])) ? $unitVariant['variant_attributes'][property_type_slug($attributes['label'])] : ''
                         ?>
                         @if('textbox' === $attributes['control_type'])
-                            <input type="text" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]" value="{{ $value }}" placeholder="Enter {{$attributes['label']}}">
+                        <input type="text" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]" value="{{ $value }}" placeholder="Enter {{$attributes['label']}}">
                         @elseif('select' === $attributes['control_type'])
                         <?php
-                        $options = explode(',',$attributes['defaults']);
+                        $options = explode(',', $attributes['defaults']);
                         ?>
                         <select name="attributes[{{property_type_slug($attributes['label'])}}]" class="select2 form-control">
-                         <option value="">Select {{$attributes['label']}}</option>   
-                         @foreach($options as $option)
+                            <option value="">Select {{$attributes['label']}}</option>   
+                            @foreach($options as $option)
                             <option @if($value==property_type_slug($option)){{'selected'}}@endif  value="{{property_type_slug($option)}}">{{$option}}</option>
-                         @endforeach
+                            @endforeach
                         </select>
                         @endif        
                     </div> 
@@ -105,87 +105,87 @@
         </div>
 
         <div class="grid-body">
-                <div class="row m-t-20">
+            <div class="row m-t-20">
 
-                    <?php $i = 0; ?>
-                    @foreach($floorlevelRoomAttributes as $level=>$roomAttributes)
-                    <div class="col-sm-12" id="levelblock_{{$i}}"> 
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <h3>Level {{$i}}</h3>
-                                    <input type="hidden" name="floorlevel" value="{{$i}}">
-                                </div> 
-                            </div> 
-                        </div>
-                        @foreach($roomAttributes as $variantRoomId=> $attributes)              
-                        <div class="form-inline">
+                <?php $i = 0; ?>
+                @foreach($floorlevelRoomAttributes as $level=>$roomAttributes)
+                <div class="col-sm-12" id="levelblock_{{$i}}"> 
+                    <div class="row">
+                        <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="variantroomid_{{$i}}" value="{{$variantRoomId}}">
-                                <select name="room_name_{{$i}}" class="select2 form-control">
-                                    <option value="">Select Room</option>
-                                    @foreach($room_type_arr as $room_type)
-                                    <option  @if($attributes['ROOMTYPEID']==$room_type['id']){{'selected'}}@endif value="{{$room_type['id']}}">{{$room_type['name']}}</option>
-                                    @endforeach
-                                </select>
-                                <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this)"><i class="fa fa-plus"></i></button>
+                                <h3>Level {{$i}}</h3>
+                                <input type="hidden" name="floorlevel" value="{{$i}}">
                             </div> 
+                        </div> 
+                    </div>
+                    @foreach($roomAttributes as $variantRoomId=> $attributes)              
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <input type="hidden" name="variantroomid_{{$i}}" value="{{$variantRoomId}}">
+                            <select name="room_name_{{$i}}" class="select2 form-control">
+                                <option value="">Select Room</option>
+                                @foreach($room_type_arr as $room_type)
+                                <option  @if($attributes['ROOMTYPEID']==$room_type['id']){{'selected'}}@endif value="{{$room_type['id']}}">{{$room_type['name']}}</option>
+                                @endforeach
+                            </select>
+                            <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this)"><i class="fa fa-plus"></i></button>
+                        </div> 
 
-                        </div>
-                        @endforeach   
-                    </div> 
-                    <?php $i++; ?>   
-                    @endforeach
-                    <div class="col-sm-12" id="levelblock_{{$i}}"> 
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <h3>Level {{$i}}</h3>
-                                    <input type="hidden" name="floorlevel" value="{{$i}}">
-                                </div> 
-                            </div> 
-                        </div>
-
-                        <div class="form-inline">
+                    </div>
+                    @endforeach   
+                </div> 
+                <?php $i++; ?>   
+                @endforeach
+                <div class="col-sm-12" id="levelblock_{{$i}}"> 
+                    <div class="row">
+                        <div class="col-sm-12">
                             <div class="form-group">
-                                <input type="hidden" name="variantroomid_{{$i}}" value="">
-                                <select name="room_name_{{$i}}" class="select2 form-control">
-                                    <option value="">Select Room</option>
-                                    @foreach($room_type_arr as $room_type)
-                                    <option value="{{$room_type['id']}}">{{$room_type['name']}}</option>
-                                    @endforeach
-                                </select>
-                                <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this)"><i class="fa fa-plus"></i></button>
+                                <h3>Level {{$i}}</h3>
+                                <input type="hidden" name="floorlevel" value="{{$i}}">
                             </div> 
-
-                        </div>
-
-                    </div> 
-                    <div class="pull-right" id="addFloorlevel">  
-                        <input type="hidden" id="counter" name="counter" value="{{$i}}">
-                        <button type="button" class="btn btn-small btn-default" onclick="addFloorLevel();">Add Level</button>
+                        </div> 
                     </div>
 
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <input type="hidden" name="variantroomid_{{$i}}" value="">
+                            <select name="room_name_{{$i}}" class="select2 form-control">
+                                <option value="">Select Room</option>
+                                @foreach($room_type_arr as $room_type)
+                                <option value="{{$room_type['id']}}">{{$room_type['name']}}</option>
+                                @endforeach
+                            </select>
+                            <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this)"><i class="fa fa-plus"></i></button>
+                        </div> 
+
+                    </div>
+
+                </div> 
+                <div class="pull-right" id="addFloorlevel">  
+                    <input type="hidden" id="counter" name="counter" value="{{$i}}">
+                    <button type="button" class="btn btn-small btn-default" onclick="addFloorLevel();">Add Level</button>
                 </div>
 
+            </div>
 
 
 
-                <div class="form-actions">  
-                    <div class="pull-right">
-                        <button onclick="saveRoomdetails({{$project['id']}},{{ $unitVariant['id'] }});" type="button" class="btn btn-primary btn-cons">Save</button>
-                    </div>
-                </div>   
+
+            <div class="form-actions">  
+                <div class="pull-right">
+                    <button onclick="saveRoomdetails({{$project['id']}},{{ $unitVariant['id'] }});" type="button" class="btn btn-primary btn-cons">Save</button>
+                </div>
+            </div>   
         </div>
     </div>
 </form>
 <script>
-            var ROOMTYPES = '';
-            @foreach($room_type_arr as $room_type)
-            ROOMTYPES += "<option value=\"{{$room_type['id']}}\">{{$room_type['name']}}</option>";
-            @endforeach
+var ROOMTYPES = '';
+@foreach($room_type_arr as $room_type)
+ROOMTYPES += "<option value=\"{{$room_type['id']}}\">{{$room_type['name']}}</option>";
+@endforeach
 
-            var BASEURL = '{{ url() }}';
+var BASEURL = '{{ url() }}';
 </script>
 <!-- END PLACE PAGE CONTENT HERE -->
 @endsection
