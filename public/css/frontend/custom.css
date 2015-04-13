@@ -78,7 +78,8 @@ body {
 .unit-list .blck-wrap .available {
   border-color: #72d12f;
 }
-.unit-list .blck-wrap:hover {
+.unit-list .blck-wrap:hover,
+.unit-list .blck-wrap.active {
   background: #EAEAEA;
 }
 .unit-list .blck-wrap.title-row .accord-head {
