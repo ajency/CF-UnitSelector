@@ -42,67 +42,42 @@
                         </select>
                     </div> 
                 </div>
-                <!--Floor Level Start-->
-                <div>
-                    <div class="col-sm-12" id="levelblock_0"> 
-                        <div class="row">
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <h3>Level 0</h3>
-                                    <input type="hidden" name="floorlevel[]" value="0">
-                                </div> 
-                            </div> 
-                        </div>
-
-                        <div class="form-inline">
-                            <div class="form-group">
-                                <input type="hidden" name="variantroomid[]" value="">
-                                <select name="room_name_0[]" class="select2 form-control">
-                                    <option value="">Select Room</option>
-                                    @foreach($room_type_arr as $room_type)
-                                    <option value="{{$room_type['id']}}">{{$room_type['name']}}</option>
-                                    @endforeach
-                                </select>
-                                <button type="button" class="btn btn-white" onclick="addRoomAttributes(0,this)"><i class="fa fa-plus"></i></button>
-                            </div> 
-
-                        </div>
-                        <!---@TODO -->
-                        <!--<div class="m-t-10">
-                            <div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 text-grey">	
-                                <h5 class="semi-bold inline">Bedroom</h5>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label">View</label>
-                                            <input type="text" class="form-control" name="type" placeholder="Enter View ">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label"> Size</label>
-                                            <input type="number" class="form-control" name="size" placeholder="Enter Room Size">
-                                        </div>
-                                    </div>
-    
-                                </div>
-    
-                                <div class="text-right">
-                                    <button class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
-                                    <button class="btn btn-small btn-default"><i class="fa fa-trash"></i> Delete</button>
-                                </div>
-    
-                            </div>
-                        </div>-->
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Carpet Area</label>
+                        <input type="text" class="form-control" name="carpet_area" value="" placeholder="Enter Carpet Area">
                     </div> 
-                    <div class="pull-right" id="addFloorlevel">  
-                        <input type="hidden" id="counter" name="counter" value="0">
-                        <button type="button" class="btn btn-small btn-default" onclick="addFloorLevel();">Add Level</button>
-                    </div>
-                </div> 
-            </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Built Up Area</label>
+                        <input type="text" class="form-control" name="buildup_area" value="" placeholder="Enter Build Up Area">
+                    </div> 
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Super Built Up Area</label>
+                        <input type="text" class="form-control" name="superbuildup_area" value="" placeholder="Enter Super Build Up Area">
+                    </div> 
+                </div>
 
-            <!--End Floor Level-->
+                @foreach($project_property_type_attributes as $attributes)
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">{{$attributes['label']}}</label>
+                        <?php
+                        if ('textbox' === $attributes['control_type']) {
+                            ?>
+                            <input type="text" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]"  placeholder="Enter {{$attributes['label']}}">
+                            <?php
+                        }
+                        ?>
+                    </div> 
+                </div>
+                @endforeach
+                
+            </div>
+ 
             <div class="form-actions">  
                 <div class="pull-right">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
@@ -112,11 +87,6 @@
         </form>
     </div>
 </div>
-<script>
-    var ROOMTYPES = '';
-    @foreach($room_type_arr as $room_type)
-    ROOMTYPES +="<option value=\"{{$room_type['id']}}\">{{$room_type['name']}}</option>";
-    @endforeach
-</script>
+
 <!-- END PLACE PAGE CONTENT HERE -->
 @endsection
