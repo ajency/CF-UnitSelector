@@ -7,6 +7,12 @@ $.ajaxSetup({
 function addRoomtype(project_id)
 {
     var roomtypename = $("#roomtype").val();
+    if(roomtypename=='')
+    {
+        alert('Enter Room Type Name');
+        return false;
+    }
+     
     $("#loader").show();
     $.ajax({
         url: "/admin/project/" + project_id + "/roomtype",
