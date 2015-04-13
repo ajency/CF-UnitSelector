@@ -79,6 +79,7 @@ class LeftBunglowView extends Marionette.ItemView
 			$('.layer').attr('class' ,'layer') 
 		'click .row' :(e)->
 			if @model.get('status') == 'available'
+				CommonFloor.defaults['unit'] = @model.get('id')
 				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
 
 class LeftBunglowCompositeView extends Marionette.CompositeView
