@@ -3,7 +3,7 @@ class CommonFloor.BunglowLayoutView extends Marionette.LayoutView
 	template : '#project-view-template'
 
 
-
+#starting point for Master view for bunglows
 class CommonFloor.BunglowMasterViewCtrl extends Marionette.RegionController
 
 	initialize:->
@@ -189,17 +189,6 @@ class CenterBunglowView extends Marionette.ItemView
 			arrow : false
 			offsetX : 50
 			offsetY : -10
-			# content : $('.svg-info')
-			# autoClose : false
-			# functionInit:-> 
-			# 	return $('#villa_info').html()
-			
-			# functionReady:->
-			# 	$('#villa_info').html()
-		   
-			# functionAfter:->
-			# 	$('#villa_info').attr('aria-hidden', true)
-		   
 		)
 	
 
