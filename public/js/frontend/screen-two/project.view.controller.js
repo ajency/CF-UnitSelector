@@ -192,6 +192,7 @@
         html = "";
         html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + unitVariant.get('super_build_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + unitType.get('name') + '</div> </div> </div> </div>';
         $('#' + id).attr('class', 'layer ' + availability);
+        $('#unit' + id).attr('class', 'blck-wrap active');
         return $('.layer').tooltipster('content', html);
       }
     };

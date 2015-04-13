@@ -165,6 +165,7 @@ class CenterBunglowView extends Marionette.ItemView
 					</div>'
 			
 			$('#'+id).attr('class' ,'layer '+availability) 
+			$('#unit'+id).attr('class' ,'blck-wrap active') 
 			$('.layer').tooltipster('content', html)
 			
 
