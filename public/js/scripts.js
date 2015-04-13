@@ -61,8 +61,8 @@ function addRoomtype(project_id)
             str += '<div class = "form-inline" >';
             str += '<div class = "form-group" >';
             str += '<input type = "controltypevalues_' + roomtypeId + '" class = "form-control" placeholder="Default values" >';
-            //str += '<button class = "btn btn-small btn-default m-t-5" > <i class = "fa fa-trash" > </i> Delete</button>';
             str += '<button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes("' + roomtypeId + '",this)"> <i class ="fa fa-plus" > </i></button>';
+            //str += ' <button class = "btn btn-small btn-default m-t-5"  > <i class = "fa fa-trash" > </i> Delete</button>';
             str += '</div>';
             str += '</div>';
             str += '</div>';
@@ -71,7 +71,7 @@ function addRoomtype(project_id)
             str += '<div class = "col-md-12" >';
             str += '<div class = "text-right" >';
             str += '<button type="button" class = "btn btn-small btn-primary" onclick="saveRoomypeattribute('+project_id+',' + roomtypeId + ',\'room_type\');" > <i class = "fa fa-save" > </i> Save</button>';
-           // str += '<button class = "btn btn-small btn-default" > <i class = "fa fa-trash" > </i> Delete</button >';
+            str += ' <button type="button" class = "btn btn-small btn-default" onclick="deleteRoomType('+project_id+',' + roomtypeId + ');" > <i class = "fa fa-trash" > </i> Delete</button >';
             str += '<div class="cf-loader" id="loader_' + roomtypeId + '" style="display:none" ></div>';
             str += '</div>';
             str += '</div>';
@@ -83,6 +83,18 @@ function addRoomtype(project_id)
             $("#roomtype").val('');
             $("select").select2();
             $("#loader").hide();
+        }
+    });
+}
+
+function deleteRoomType(project_id,roomtypeId)
+{    
+    $.ajax({
+        url: "/admin/project/" + project_id + "/roomtype/" +roomtypeId ,
+        type: "DELETE",
+      
+        success: function (response) {
+             $("#frmroomtype_"+roomtypeId).remove();
         }
     });
 }
@@ -117,8 +129,8 @@ function addRoomtypeAttributes(roomtypeId,obj)
             str += '<div class = "form-inline" >';
             str += '<div class = "form-group" >';
             str += '<input type = "controltypevalues_' + roomtypeId + '" class = "form-control" placeholder="Default values" >';
-           // str += '<button class = "btn btn-small btn-default m-t-5" > <i class = "fa fa-trash" > </i> Delete</button>';
-           str += '<button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes(\'' + roomtypeId + '\',this)"> <i class ="fa fa-plus" > </i></button>';
+            //str += '<button class = "btn btn-small btn-default m-t-5" > <i class = "fa fa-trash" > </i> Delete</button>';
+            str += '<button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes(\'' + roomtypeId + '\',this)"> <i class ="fa fa-plus" > </i></button>';
             str += '</div>';
             str += '</div>';
             str += '</div>';
@@ -148,19 +160,37 @@ function saveRoomypeattribute(project_id,roomtypeId,reffrence_type)
     });
 }
 
-function saveRoomdetails(project_id,variantId)
-{   
+function saveRoomypeattribute(project_id,roomtypeId,reffrence_type)
+{  
+    $("#loader_"+roomtypeId).show();
     $.ajax({
-        url: BASEURL+"/admin/project/" + project_id + "/bunglow-variant/"+variantId+"/roomtypeattributes",
+        url: "/admin/project/" + project_id + "/roomtype/"+roomtypeId,
         type: "POST",
         data: {
-            floorlevelroomData:$("#formroomdetails").serializeArray(),
+            roomtypeattrData:$("#frmroomtype_"+roomtypeId).serializeArray(),
+            reffrence_type: reffrence_type,
+            _method: 'PUT'
         },
         success: function (response) {
-             window.location.reload();
+            window.location.reload();
         }
     });
 }
+
+
+function deleteRoomTypeAttribute(project_id,attributeId)
+{    
+    $.ajax({
+        url: "/admin/project/" + project_id + "/roomtype/" +attributeId+"/deleteroomtypeattributes" ,
+        type: "DELETE",
+      
+        success: function (response) {
+             $("#roomtypeattribute_"+attributeId).remove();
+        }
+    });
+}
+
+
 
 function defaultBlock(value,refId)
 {
