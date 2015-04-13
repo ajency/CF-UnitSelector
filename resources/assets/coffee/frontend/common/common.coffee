@@ -14,7 +14,8 @@ CommonFloor.loadJSONData = ()->
 		url  : BASERESTURL+'/project/'+	PROJECTID+'/step-two'
 		async : false
 		success :(response)->
-			console.log response = response.data
+			response = window.convertToInt(response)
+			response = response.data
 			bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants);
 			settings.setSettingsAttributes(response.settings);
 			unitCollection.setUnitAttributes(response.units);
@@ -48,6 +49,19 @@ CommonFloor.getBunglowUnits = ()->
 		newUnits = $.merge(newUnits , value)
 
 	newUnits
+
+window.convertToInt = (response)->
+	$.each response ,(index,value)->
+		$.map(value,(item)->
+
+			$.each item ,(ind,val)->
+				return parseInt val
+
+
+
+		)
+
+
 
 
 

@@ -38,13 +38,9 @@ class CommonFloor.TopBunglowCtrl extends Marionette.RegionController
 
 class LeftBunglowView extends Marionette.ItemView
 
-	template : Handlebars.compile('
-				
-				
-				
-				  <div class="row">
+	template : Handlebars.compile('<div class="row">
 					<div class="col-sm-4">
-					  <h6 class="{{availability}}">{{unit_name}}</h6>                      
+					  <h6 class="{{status}}">{{unit_name}}</h6>                      
 					</div>
 					<div class="col-sm-4">
 					  <h6 class="">{{unit_type}}</h6>                      
@@ -55,6 +51,8 @@ class LeftBunglowView extends Marionette.ItemView
 				  </div>
 			
 				')
+	initialize:->
+		@$el.prop("id", 'unit'+@model.get("id"))
 
 	className : 'blck-wrap'
 
@@ -67,8 +65,16 @@ class LeftBunglowView extends Marionette.ItemView
 		data.unit_type = unitType.get('name')
 		data.super_build_up_area = unitVariant.get('super_build_up_area')
 		availability = @model.get('availability')
-		data.availability = s.decapitalize(availability)
+		data.status = s.decapitalize(availability)
+		@model.set 'status' , data.status
 		data
+
+	events:
+		'mouseover .row' :(e)->
+			id = @model.get('id')
+			$('#'+id).attr('class' ,'layer '+@model.get('status'))
+		'mouseout .row' :(e)->
+			$('.layer').attr('class' ,'layer') 
 
 class LeftBunglowCompositeView extends Marionette.CompositeView
 
@@ -119,8 +125,11 @@ class CenterBunglowView extends Marionette.ItemView
 		  </div>')
 
 	events :
+		'mouseout':(e)->
+			$('.layer').attr('class' ,'layer') 
+
 		'mouseover .layer':(e)->
-			id  = e.target.id
+			id  = parseInt e.target.id
 			html = ""
 			unit = unitCollection.findWhere 
 				id :  id 
@@ -132,10 +141,10 @@ class CenterBunglowView extends Marionette.ItemView
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return false
-			console.log unitVariant = bunglowVariantCollection.findWhere
+			unitVariant = bunglowVariantCollection.findWhere
 								'id' : unit.get('unit_variant_id')
 			
-			console.log unitType = unitTypeCollection.findWhere
+			unitType = unitTypeCollection.findWhere
 								'id' :  unitVariant.get('unit_type_id')
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
@@ -143,7 +152,7 @@ class CenterBunglowView extends Marionette.ItemView
 			html += '<div class="svg-info">
 					<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
 					<!--<span class="label label-success"></span-->
-										<div class="clearfix"></div>
+					<div class="clearfix"></div>
 					<div class="details">
 					<div>
 						<label>Area</label> - '+unitVariant.get('super_build_up_area')+' Sq.ft
@@ -154,7 +163,7 @@ class CenterBunglowView extends Marionette.ItemView
 					</div>  
 					</div>  
 					</div>'
-			console.log availability
+			
 			$('#'+id).attr('class' ,'layer '+availability) 
 			$('.layer').tooltipster('content', html)
 			

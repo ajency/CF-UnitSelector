@@ -26,20 +26,20 @@ class ProjectController extends Controller {
             $data = $this->projectGateway->getProjectStepOneDetails( $projectId );
             return response()->json( [
                         'data' => $data
-                            ], 200 );
+                            ], 200, [], JSON_NUMERIC_CHECK );
         } catch (Exception $ex) {
             return response()->json( [
                         'code' => 'Failed',
                         'message' => 'Some error message'
-                    ], 403 );
+                            ], 403 );
         }
     }
 
     public function stepTwo( $projectId ) {
         $data = $this->projectGateway->getProjectStepTwoDetails( $projectId );
         return response()->json( [
-                                'data' => $data
-                            ], 200 );
+                    'data' => $data
+                        ], 200, [], JSON_NUMERIC_CHECK );
     }
 
 }

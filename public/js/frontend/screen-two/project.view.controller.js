@@ -79,7 +79,11 @@
       return LeftBunglowView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBunglowView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-sm-4"> <h6 class="{{availability}}">{{unit_name}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{unit_type}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{super_build_up_area}} sqft</h6> </div> </div>');
+    LeftBunglowView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-sm-4"> <h6 class="{{status}}">{{unit_name}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{unit_type}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{super_build_up_area}} sqft</h6> </div> </div>');
+
+    LeftBunglowView.prototype.initialize = function() {
+      return this.$el.prop("id", 'unit' + this.model.get("id"));
+    };
 
     LeftBunglowView.prototype.className = 'blck-wrap';
 
@@ -95,8 +99,20 @@
       data.unit_type = unitType.get('name');
       data.super_build_up_area = unitVariant.get('super_build_up_area');
       availability = this.model.get('availability');
-      data.availability = s.decapitalize(availability);
+      data.status = s.decapitalize(availability);
+      this.model.set('status', data.status);
       return data;
+    };
+
+    LeftBunglowView.prototype.events = {
+      'mouseover .row': function(e) {
+        var id;
+        id = this.model.get('id');
+        return $('#' + id).attr('class', 'layer ' + this.model.get('status'));
+      },
+      'mouseout .row': function(e) {
+        return $('.layer').attr('class', 'layer');
+      }
     };
 
     return LeftBunglowView;
@@ -150,9 +166,12 @@
     CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> </div> </div>');
 
     CenterBunglowView.prototype.events = {
+      'mouseout': function(e) {
+        return $('.layer').attr('class', 'layer');
+      },
       'mouseover .layer': function(e) {
         var availability, html, id, unit, unitType, unitVariant;
-        id = e.target.id;
+        id = parseInt(e.target.id);
         html = "";
         unit = unitCollection.findWhere({
           id: id
@@ -162,17 +181,16 @@
           $('.layer').tooltipster('content', html);
           return false;
         }
-        console.log(unitVariant = bunglowVariantCollection.findWhere({
+        unitVariant = bunglowVariantCollection.findWhere({
           'id': unit.get('unit_variant_id')
-        }));
-        console.log(unitType = unitTypeCollection.findWhere({
+        });
+        unitType = unitTypeCollection.findWhere({
           'id': unitVariant.get('unit_type_id')
-        }));
+        });
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
         html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + unitVariant.get('super_build_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + unitType.get('name') + '</div> </div> </div> </div>';
-        console.log(availability);
         $('#' + id).attr('class', 'layer ' + availability);
         return $('.layer').tooltipster('content', html);
       }
