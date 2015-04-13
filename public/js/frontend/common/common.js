@@ -36,7 +36,8 @@
       url: BASERESTURL + '/project/' + PROJECTID + '/step-two',
       async: false,
       success: function(response) {
-        console.log(response = response.data);
+        response = window.convertToInt(response);
+        response = response.data;
         bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants);
         settings.setSettingsAttributes(response.settings);
         unitCollection.setUnitAttributes(response.units);
@@ -78,6 +79,16 @@
       return newUnits = $.merge(newUnits, value);
     });
     return newUnits;
+  };
+
+  window.convertToInt = function(response) {
+    return $.each(response, function(index, value) {
+      return $.map(value, function(item) {
+        return $.each(item, function(ind, val) {
+          return parseInt(val);
+        });
+      });
+    });
   };
 
 }).call(this);

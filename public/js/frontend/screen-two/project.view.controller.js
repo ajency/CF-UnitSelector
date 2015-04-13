@@ -171,7 +171,7 @@
       },
       'mouseover .layer': function(e) {
         var availability, html, id, unit, unitType, unitVariant;
-        id = e.target.id;
+        id = parseInt(e.target.id);
         html = "";
         unit = unitCollection.findWhere({
           id: id

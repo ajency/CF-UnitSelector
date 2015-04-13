@@ -129,7 +129,7 @@ class CenterBunglowView extends Marionette.ItemView
 			$('.layer').attr('class' ,'layer') 
 
 		'mouseover .layer':(e)->
-			id  = e.target.id
+			id  = parseInt e.target.id
 			html = ""
 			unit = unitCollection.findWhere 
 				id :  id 
