@@ -127,6 +127,7 @@ class CenterBunglowView extends Marionette.ItemView
 	events :
 		'mouseout':(e)->
 			$('.layer').attr('class' ,'layer') 
+			$('.blck-wrap').attr('class' ,'blck-wrap') 
 
 		'mouseover .layer':(e)->
 			id  = parseInt e.target.id

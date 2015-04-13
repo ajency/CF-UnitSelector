@@ -167,7 +167,8 @@
 
     CenterBunglowView.prototype.events = {
       'mouseout': function(e) {
-        return $('.layer').attr('class', 'layer');
+        $('.layer').attr('class', 'layer');
+        return $('.blck-wrap').attr('class', 'blck-wrap');
       },
       'mouseover .layer': function(e) {
         var availability, html, id, unit, unitType, unitVariant;
