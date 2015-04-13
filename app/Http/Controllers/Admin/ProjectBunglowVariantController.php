@@ -90,12 +90,7 @@ class ProjectBunglowVariantController extends Controller {
         $unitVariant->build_up_area = $request->input('buildup_area');
         $unitVariant->super_build_up_area = $request->input('superbuildup_area');
         $attributedata = $request->input('attributes');
-        $attributeStr ='';
-        if(!empty($attributedata))
-        {
-            foreach($attributedata as $key=>$attribute)
-                $attributeStr .= $key .':'.$attribute .'||';
-        }
+        $attributeStr = serialize($attributedata);
         $unitVariant->variant_attributes = $attributeStr;
         $unitVariant->save();
         $unitVariantID = $unitVariant->id;
@@ -175,12 +170,7 @@ class ProjectBunglowVariantController extends Controller {
         $unitVariant->build_up_area = $request->input('buildup_area');
         $unitVariant->super_build_up_area = $request->input('superbuildup_area');
         $attributedata = $request->input('attributes');
-        $attributeStr ='';
-        if(!empty($attributedata))
-        {
-            foreach($attributedata as $key=>$attribute)
-                $attributeStr .= $key .':'.$attribute .'||';
-        }
+        $attributeStr = serialize($attributedata);
         $unitVariant->variant_attributes = $attributeStr;
         $unitVariant->save();
 
@@ -204,11 +194,11 @@ class ProjectBunglowVariantController extends Controller {
             foreach ($floorLevelArr as $floorlevel) {
                 $roomTypes = $inputDataArr['room_name_' . $floorlevel]; 
                 $variantRoomId = $inputDataArr['variantroomid_' . $floorlevel]; 
-                 
+                  
                 foreach ($roomTypes as $key => $roomtypeId) {
                    
                     if($roomtypeId)
-                    {
+                    { 
                         if ($variantRoomId[$key] == '') {
                             $variantRoom = new VariantRoom();
                             $variantRoom->unit_variant_id = $id;
@@ -216,7 +206,7 @@ class ProjectBunglowVariantController extends Controller {
                             $variantRoom->floorlevel = $floorlevel;
                             //$variantRoom->variant_room_attributes = '';
                             $variantRoom->save();
-                        } else {  
+                        } else { 
                             $variantRoom = VariantRoom::find($variantRoomId[$key]);
                             $variantRoom->roomtype_id = $roomtypeId;
                             //$variantRoom->variant_room_attributes = '';
@@ -226,8 +216,7 @@ class ProjectBunglowVariantController extends Controller {
                 }
             }
         }
-
-        
+         
         return response()->json( [
                     'code' => 'unit_variant',
                     'message' => ' Unit Variant Attribute Successfully Updated',

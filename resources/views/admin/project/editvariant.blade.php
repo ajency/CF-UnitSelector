@@ -80,6 +80,17 @@
                             <option @if($value==property_type_slug($option)){{'selected'}}@endif  value="{{property_type_slug($option)}}">{{$option}}</option>
                             @endforeach
                         </select>
+                        @elseif('multiple' === $attributes['control_type'])
+                        <?php
+                        $options = explode(',', $attributes['defaults']);
+                        
+                        ?>
+                        <select multiple name="attributes[{{property_type_slug($attributes['label'])}}][]" class="select2 form-control">
+                            <option value="">Select {{$attributes['label']}}</option>   
+                            @foreach($options as $option)
+                            <option {{ (!empty($value) && in_array(property_type_slug($option),$value)) ? 'selected="selected"' : '' }}  value="{{property_type_slug($option)}}">{{$option}}</option>
+                            @endforeach
+                        </select>
                         @endif        
                     </div> 
                 </div>

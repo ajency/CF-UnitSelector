@@ -132,15 +132,14 @@ class ProjectRepository implements ProjectRepositoryInterface {
             }
 
             //unit type
-            $propertyunitArr = $projectData['unittype'];  
-            $unitkeyArr = $projectData['unittypekey']; 
+            $propertyunitArr = (isset($projectData['unittype']))?$projectData['unittype']:[];  
+            $unitkeyArr = (isset($projectData['unittypekey']))?$projectData['unittypekey']:[]; 
            
 
             if (!empty( $propertyunitArr )) {
 
                 foreach ($propertyunitArr as $propertytypeId => $unit_arr) { 
                     
-                    $unit_type = [];
                     foreach ($unit_arr as $key => $unitname) {                        
 
                         if ((!isset($unitkeyArr[$propertytypeId][$key]))) { 
