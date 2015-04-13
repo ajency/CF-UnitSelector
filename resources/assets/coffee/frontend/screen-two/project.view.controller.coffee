@@ -3,15 +3,17 @@ class CommonFloor.BunglowLayoutView extends Marionette.LayoutView
 	template : '#project-view-template'
 
 
-
+#starting point for Master view for bunglows
 class CommonFloor.BunglowMasterViewCtrl extends Marionette.RegionController
 
 	initialize:->
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID);
-			CommonFloor.loadJSONData()
-		
-		@show new CommonFloor.BunglowLayoutView
+			CommonFloor.checkPropertyType()
+		if bunglowVariantCollection.length != 0
+			@show new CommonFloor.BunglowLayoutView
+		else
+			@show new CommonFloor.NothingFoundView
 
 
 class TopBunglowView extends Marionette.ItemView
@@ -75,6 +77,10 @@ class LeftBunglowView extends Marionette.ItemView
 			$('#'+id).attr('class' ,'layer '+@model.get('status'))
 		'mouseout .row' :(e)->
 			$('.layer').attr('class' ,'layer') 
+		'click .row' :(e)->
+			if @model.get('status') == 'available'
+				CommonFloor.defaults['unit'] = @model.get('id')
+				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
 
 class LeftBunglowCompositeView extends Marionette.CompositeView
 
@@ -184,17 +190,6 @@ class CenterBunglowView extends Marionette.ItemView
 			arrow : false
 			offsetX : 50
 			offsetY : -10
-			# content : $('.svg-info')
-			# autoClose : false
-			# functionInit:-> 
-			# 	return $('#villa_info').html()
-			
-			# functionReady:->
-			# 	$('#villa_info').html()
-		   
-			# functionAfter:->
-			# 	$('#villa_info').attr('aria-hidden', true)
-		   
 		)
 	
 

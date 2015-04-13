@@ -142,16 +142,16 @@ function saveRoomypeattribute(project_id,roomtypeId,reffrence_type)
     });
 }
 
-function saveUnitVariantdetails(project_id,variantId)
+function saveRoomdetails(project_id,variantId)
 {   
     $.ajax({
-        url: BASEURL+"/admin/project/" + project_id + "/bunglow-variant/"+variantId+"/unitvariant",
+        url: BASEURL+"/admin/project/" + project_id + "/bunglow-variant/"+variantId+"/roomtypeattributes",
         type: "POST",
         data: {
-            variantattrData:$("#formunitvariantdetails").serializeArray(),
+            floorlevelroomData:$("#formroomdetails").serializeArray(),
         },
         success: function (response) {
-            
+             window.location.reload();
         }
     });
 }
@@ -204,8 +204,8 @@ function addRoomAttributes(level,obj)
  
         str +='<div class="form-inline">';
         str +='<div class="form-group">';
-        str +=' <input type="hidden" name="variantroomid_'+level+'[]" value="">';
-        str +='<select name="room_name_'+level+'[]" class="select2 form-control">';
+        str +=' <input type="hidden" name="variantroomid_'+level+'" value="">';
+        str +='<select name="room_name_'+level+'" class="select2 form-control">';
         str +='<option value="">Select Room</option>';
         str +=ROOMTYPES;
         str +='</select>';

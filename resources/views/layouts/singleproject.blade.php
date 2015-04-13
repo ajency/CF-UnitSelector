@@ -23,17 +23,23 @@
             </li>
         </ul> 
         @foreach(project_property_types($project['id']) as $propertyTypeId => $projectPropertyType)
-            <div class="inner-menu-content" >            
-                <p class="menu-title">{{ $projectPropertyType->name }}</p>    
-            </div>
-            <ul class="big-items">
-                <li>
-                    <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType->name) . '-variant/') }}">Variants</a>
-                </li>
-                <li>
-                    <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType->name) . '-unit/') }}">Units</a>
-                </li>
-            </ul>
+        <div class="inner-menu-content" >            
+            <p class="menu-title">{{ $projectPropertyType->name }}</p>    
+        </div>
+        <ul class="big-items">
+            @if($projectPropertyType->name === 'Apartment')
+            <li>
+                <a href="{{ url('/admin/project/' . $project['id'] . '/building') }}">Buildings</a>
+            </li>
+            @endif
+            <li>
+                <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType->name) . '-variant/') }}">Variants</a>
+            </li>
+            <li>
+                <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType->name) . '-unit/') }}">Units</a>
+            </li>
+
+        </ul>
         @endforeach
     </div> 
 </div>

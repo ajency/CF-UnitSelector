@@ -10,7 +10,7 @@ jQuery(document).ready ($)->
 				'center' :
 					ctrl : 'CenterCtrl'
 	CommonFloor.state 'bunglowMasterView',
-			url : '/master-view/:id/bunglows'
+			url : '/master-view/bunglows'
 			sections:
 				'top' : 
 					ctrl : 'TopBunglowCtrl'
@@ -18,6 +18,15 @@ jQuery(document).ready ($)->
 					ctrl : 'LeftBunglowCtrl'
 				'center' :
 					ctrl : 'CenterBunglowCtrl'
+	CommonFloor.state 'unitDetailView',
+			url : '/unit-view/:id'
+			sections:
+				'top' : 
+					ctrl : 'TopUnitCtrl'
+				'left' :
+					ctrl : 'LeftUnitCtrl'
+				'center' :
+					ctrl : 'CenterUnitCtrl'
 	
 
 

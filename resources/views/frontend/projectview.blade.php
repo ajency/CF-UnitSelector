@@ -106,6 +106,8 @@
         PROJECTID = {{ $id }};
         CommonFloor = new Marionette.Application 
         BASEURL = '{{url()}}'
+        //global variable to keep track of the filtr the user has selected
+        CommonFloor.defaults = {'unit' : ""}
   
         window.locale = {
 
@@ -120,9 +122,8 @@
             return val;
         }
         
-        //global variable to keep track of the filtr the user has selected
-        CommonFloor.defaults = {"unitType" :'All','budget':'All' ,"building":'All',"unitVariant":'All','view':'All','facing':'All'}
-
+        
+        
         </script>
         <script src="{{ asset('js/frontend/entities/project.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/entities/bunglow.variant.js' )}}"></script>
@@ -132,6 +133,7 @@
         <script src="{{ asset('js/frontend/common/common.js' )}}"></script>
         <script src="{{ asset('js/frontend/screen-one/project.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/screen-two/project.view.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/screen-four/unit.details.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
     </body>
 </html>
