@@ -132,6 +132,7 @@
         <script src="{{ asset('js/frontend/common/common.js' )}}"></script>
         <script src="{{ asset('js/frontend/screen-one/project.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/screen-two/project.view.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/screen-four/unit.details.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
     </body>
 </html>

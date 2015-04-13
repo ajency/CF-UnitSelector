@@ -20,12 +20,12 @@ CommonFloor.loadJSONData = ()->
 			settings.setSettingsAttributes(response.settings);
 			unitCollection.setUnitAttributes(response.units);
 			unitTypeCollection.setUnitTypeAttributes(response.unit_types);
-			CommonFloor.checkProjectType()
+			
 		error :(response)->
 			console.log "aaaaaaaaaaassdff"
 
 
-CommonFloor.checkProjectType = ()->
+CommonFloor.propertyMaxUnits = ()->
 	Router = []
 	Router.push 
 		'type'  : 'bunglows'
@@ -34,9 +34,14 @@ CommonFloor.checkProjectType = ()->
 	controller = _.max Router , (item)->
 		return parseInt item.count.length
 
+	controller	
 
-	CommonFloor.navigate '#/master-view/'+PROJECTID+'/'+controller.type , true
+	
 
+CommonFloor.checkPropertyType = ()->
+	CommonFloor.loadJSONData()
+	controller = CommonFloor.propertyMaxUnits()
+	CommonFloor.navigate '#/master-view/'+controller.type , true
 
 CommonFloor.getBunglowUnits = ()->
 	units = []

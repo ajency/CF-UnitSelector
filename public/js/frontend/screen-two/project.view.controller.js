@@ -26,9 +26,13 @@
     BunglowMasterViewCtrl.prototype.initialize = function() {
       if (jQuery.isEmptyObject(project.toJSON())) {
         project.setProjectAttributes(PROJECTID);
-        CommonFloor.loadJSONData();
+        CommonFloor.checkPropertyType();
       }
-      return this.show(new CommonFloor.BunglowLayoutView);
+      if (bunglowVariantCollection.length !== 0) {
+        return this.show(new CommonFloor.BunglowLayoutView);
+      } else {
+        return this.show(new CommonFloor.NothingFoundView);
+      }
     };
 
     return BunglowMasterViewCtrl;
@@ -112,6 +116,11 @@
       },
       'mouseout .row': function(e) {
         return $('.layer').attr('class', 'layer');
+      },
+      'click .row': function(e) {
+        if (this.model.get('status') === 'available') {
+          return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
+        }
       }
     };
 

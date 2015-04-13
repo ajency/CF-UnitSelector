@@ -139,7 +139,7 @@
 
     CenterView.prototype.events = {
       'click .step1-marker': function(e) {
-        return CommonFloor.loadJSONData();
+        return CommonFloor.checkPropertyType();
       }
     };
 
