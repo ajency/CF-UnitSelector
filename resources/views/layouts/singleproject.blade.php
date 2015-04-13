@@ -29,6 +29,9 @@
         <ul class="big-items">
             @if($projectPropertyType->name === 'Apartment')
             <li>
+                <a href="{{ url('/admin/project/' . $project['id'] . '/floor-layout') }}">Floor Layouts</a>
+            </li>
+            <li>
                 <a href="{{ url('/admin/project/' . $project['id'] . '/building') }}">Buildings</a>
             </li>
             @endif
