@@ -26,9 +26,13 @@
     BunglowMasterViewCtrl.prototype.initialize = function() {
       if (jQuery.isEmptyObject(project.toJSON())) {
         project.setProjectAttributes(PROJECTID);
-        CommonFloor.loadJSONData();
+        CommonFloor.checkPropertyType();
       }
-      return this.show(new CommonFloor.BunglowLayoutView);
+      if (bunglowVariantCollection.length !== 0) {
+        return this.show(new CommonFloor.BunglowLayoutView);
+      } else {
+        return this.show(new CommonFloor.NothingFoundView);
+      }
     };
 
     return BunglowMasterViewCtrl;
@@ -112,6 +116,12 @@
       },
       'mouseout .row': function(e) {
         return $('.layer').attr('class', 'layer');
+      },
+      'click .row': function(e) {
+        if (this.model.get('status') === 'available') {
+          CommonFloor.defaults['unit'] = this.model.get('id');
+          return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
+        }
       }
     };
 
@@ -167,7 +177,8 @@
 
     CenterBunglowView.prototype.events = {
       'mouseout': function(e) {
-        return $('.layer').attr('class', 'layer');
+        $('.layer').attr('class', 'layer');
+        return $('.blck-wrap').attr('class', 'blck-wrap');
       },
       'mouseover .layer': function(e) {
         var availability, html, id, unit, unitType, unitVariant;
@@ -192,6 +203,7 @@
         html = "";
         html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + unitVariant.get('super_build_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + unitType.get('name') + '</div> </div> </div> </div>';
         $('#' + id).attr('class', 'layer ' + availability);
+        $('#unit' + id).attr('class', 'blck-wrap active');
         return $('.layer').tooltipster('content', html);
       }
     };

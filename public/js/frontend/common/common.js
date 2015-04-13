@@ -41,8 +41,7 @@
         bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants);
         settings.setSettingsAttributes(response.settings);
         unitCollection.setUnitAttributes(response.units);
-        unitTypeCollection.setUnitTypeAttributes(response.unit_types);
-        return CommonFloor.checkProjectType();
+        return unitTypeCollection.setUnitTypeAttributes(response.unit_types);
       },
       error: function(response) {
         return console.log("aaaaaaaaaaassdff");
@@ -50,7 +49,7 @@
     });
   };
 
-  CommonFloor.checkProjectType = function() {
+  CommonFloor.propertyMaxUnits = function() {
     var Router, controller;
     Router = [];
     Router.push({
@@ -61,7 +60,14 @@
     controller = _.max(Router, function(item) {
       return parseInt(item.count.length);
     });
-    return CommonFloor.navigate('#/master-view/' + PROJECTID + '/' + controller.type, true);
+    return controller;
+  };
+
+  CommonFloor.checkPropertyType = function() {
+    var controller;
+    CommonFloor.loadJSONData();
+    controller = CommonFloor.propertyMaxUnits();
+    return CommonFloor.navigate('#/master-view/' + controller.type, true);
   };
 
   CommonFloor.getBunglowUnits = function() {

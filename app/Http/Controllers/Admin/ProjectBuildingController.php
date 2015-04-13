@@ -1,22 +1,30 @@
 <?php
 
-namespace CommonFloor\Http\Controllers;
+namespace CommonFloor\Http\Controllers\Admin;
 
 use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use CommonFloor\Phase;
+use CommonFloor\Repositories\ProjectRepository;
 
-class PhaseController extends Controller {
+class ProjectBuildingController extends Controller {
+
+    private $projectRepository;
+
+    public function __construct( ProjectRepository $projectRepository ) {
+        $this->projectRepository = $projectRepository;
+    }
 
     /**
      * Display a listing of the resource.
      *
      * @return Response
      */
-    public function index() {
-        //
+    public function index( $projectId ) {
+        $project = $this->projectRepository->getProjectById( $projectId );
+        return view( 'admin.project.building.list' )
+                        ->with( 'project', $project->toArray() )
+                        ->with( 'current', '' );
     }
 
     /**
@@ -24,8 +32,11 @@ class PhaseController extends Controller {
      *
      * @return Response
      */
-    public function create() {
-        //
+    public function create( $projectId ) {
+        $project = $this->projectRepository->getProjectById( $projectId );
+        return view( 'admin.project.building.create' )
+                        ->with( 'project', $project->toArray() )
+                        ->with( 'current', 'building' );
     }
 
     /**
@@ -33,22 +44,8 @@ class PhaseController extends Controller {
      *
      * @return Response
      */
-    public function store( Request $request ) {
-        $project_id = $request->input( 'project_id' );
-        $phase_name = $request->input( 'phase_name' );
-
-        $phase = new Phase();
-        $phase->project_id = $project_id;
-        $phase->phase_name = $phase_name;
-        $phase->save();
-
-        $phase_id = $phase->id;
-
-        return response()->json( [
-                    'code' => 'Phase Created',
-                    'message' => 'Phase Successfully Created',
-                    'data' => ['phase_id' => $phase_id]
-                        ], 201 );
+    public function store() {
+        //
     }
 
     /**
@@ -58,7 +55,7 @@ class PhaseController extends Controller {
      * @return Response
      */
     public function show( $id ) {
-        //
+        
     }
 
     /**
@@ -88,13 +85,7 @@ class PhaseController extends Controller {
      * @return Response
      */
     public function destroy( $id ) {
-        $project_id = $request->input( 'project_id' );
-        Phase::where( 'id', $project_id )->delete();
-
-        return response()->json( [
-                    'code' => 'Phase Deleted',
-                    'message' => 'Phase Successfully Deleted'
-                        ], 204 );
+        //
     }
 
 }
