@@ -15,9 +15,9 @@ class CreateFloorLayoutsTable extends Migration {
             $table->increments( 'id' );
             $table->integer( 'project_property_type_id' );
             $table->string( 'layout_name' );
-            $table->integer( 'no_of_floors' );
-            $table->integer( 'detailed_svg' );
-            $table->integer( 'basic_svg' );
+            $table->integer( 'no_of_flats' );
+            $table->integer( 'detailed_svg' )->nullable();
+            $table->integer( 'basic_svg' )->nullable();
             $table->timestamps();
         } );
     }

@@ -33,7 +33,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Type</label>
+                        <label class="form-label">Unit Type</label>
                         <select name="unit_type" class="select2 form-control" data-parsley-required>
                             <option value="">Select Type</option>
                             @foreach($unit_type_arr as $unit_type)
@@ -51,13 +51,13 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Built Up Area</label>
-                        <input type="text" class="form-control" name="buildup_area" value="{{ $unitVariant['build_up_area'] }}" placeholder="Enter Build Up Area">
+                        <input type="text" class="form-control" name="buildup_area" value="{{ $unitVariant['build_up_area'] }}" placeholder="Enter Built Up Area">
                     </div> 
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Super Built Up Area</label>
-                        <input type="text" class="form-control" name="superbuildup_area" value="{{ $unitVariant['super_build_up_area'] }}" placeholder="Enter Super Build Up Area">
+                        <input type="text" class="form-control" name="superbuildup_area" value="{{ $unitVariant['super_build_up_area'] }}" placeholder="Enter Super Built Up Area">
                     </div> 
                 </div>
 

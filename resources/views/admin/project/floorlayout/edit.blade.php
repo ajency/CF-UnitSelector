@@ -5,7 +5,7 @@
 <ul class="breadcrumb">
     <li><a href="/admin">Dashboard</a> </li>
     <li><a href="/admin/project">Projects</a> </li>
-    <li><a href="#" class="active">Add Floor Layout</a> </li>
+    <li><a href="#" class="active">Edit Floor Layout</a> </li>
 </ul>
 <!-- END BREADCRUMBS -->
 @endsection
@@ -13,9 +13,9 @@
 @section('content')
 <!-- BEGIN PAGE TITLE -->
 <div class="page-title">	
-    <h2><span class="semi-bold">Add</span> Floor Layout</h2>
+    <h2><span class="semi-bold">Edit</span> Floor Layout</h2>
 </div>
-<!-- END PAGE TITLE -->
+
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
 <div class="row">
     <div class="col-md-12">
@@ -30,18 +30,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Name</label>
-                                <input type="text" required="" class="form-control" name="layout_name" placeholder="Enter Floor Name">
+                                <input type="text" required="" class="form-control" name="layout_name" 
+                                       placeholder="Enter Floor Name" value="{{ $floorLayout->layout_name }}">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Number of Flats</label>
-                                <select required name="no_of_flats">
-                                    <option value="">Choose no of flats</option>
-                                    @for($i = 1 ; $i <= 20; $i++)
-                                    <option value="{{ $i }}">{{ $i }}</option>
-                                    @endfor
-                                </select>
+                                <input type="number" class="form-control" required name="no_of_flats" value="{{ $floorLayout->no_of_flats }}" />
                             </div>
                         </div>
                     </div>
@@ -53,8 +49,10 @@
                             <button id="floor-layout-detailed-svg-uploadfiles" type="button" class="btn btn-small btn-primary" >Upload</button>
                             <input type="hidden" name="detailed_svg" value="0" />
                         </div>
-                        <div class="hidden">
-                            <img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail"  style="width:150px;">   
+                        <div>
+                            @if(0 != $floorLayout->detailed_svg)
+                            <object data="{{ $floorLayout->getDetailedSvgPath() }}" width="150"></object>
+                            @endif
                         </div> 
                     </div>
                     <hr/>
@@ -65,9 +63,11 @@
                             <button id="floor-layout-basic-svg-uploadfiles" type="button" class="btn btn-small btn-primary" >Upload</button>
                             <input type="hidden" name="basic_svg" value="0" />
                         </div>
-                        <div class="hidden">
-                            <img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail"  style="width:150px;">  
-                        </div>  
+                        <div>
+                            @if(0 != $floorLayout->basic_svg)
+                            <object data="{{ $floorLayout->getBasicSvgPath() }}" width="150"></object>
+                            @endif
+                        </div> 
                     </div>
                     <div class="form-actions">  
                         <div class="pull-rigunitt">
