@@ -257,6 +257,12 @@ function addFloorLevel()
 
 function addRoomAttributes(level,obj)
 {
+    var room_type =  $(obj).closest('.form-inline').find('select[name="room_name_'+level+'"]').val();
+    if(room_type.trim()=='')
+    {
+        alert('Select Room Type');
+        return false;
+    }
      var str ='';
  
         str +='<div class="form-inline">';
