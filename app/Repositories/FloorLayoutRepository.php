@@ -21,6 +21,7 @@ class FloorLayoutRepository {
         $floorLayout->no_of_flats = $floorLayoutData['no_of_flats'];
         $floorLayout->detailed_svg = $floorLayoutData['detailed_svg'];
         $floorLayout->basic_svg = $floorLayoutData['basic_svg'];
+        $floorLayout->project_property_type_id = $floorLayoutData['project_property_type_id'];
 
         $floorLayout->save();
 

@@ -52,8 +52,9 @@ class ProjectFloorLayoutController extends Controller {
         unset( $formData['_token'] );
         
         $project = Project::find($projectId);
-        $projectPropertyTypeId = $project->getProjectPropertyTypeId( 'Apartment' );
-
+        $projectPropertyTypeId = $project->getProjectPropertyTypeId( 1 );
+        
+        $formData['project_property_type_id'] = $projectPropertyTypeId;
         $floorLayout = $floorLayoutRepository->createFloorLayout( $formData );
         return redirect( url( 'admin/project/' . $projectId . '/floor-layout/' . $floorLayout->id . '/edit' ) );
     }

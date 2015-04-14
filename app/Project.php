@@ -45,14 +45,14 @@ class Project extends Model {
         return $unitTypes;
     }
 
-   public function getGoogleEarthSvgPath() {
+    public function getGoogleEarthSvgPath() {
         $mediaId = $this->projectMeta()->where( 'meta_key', 'google_earth' )->first()->meta_value;
         $fileName = Media::find( $mediaId )->image_name;
         return url( "/projects/" . $this->id . "/google_earth/" . $fileName );
     }
-    
-    public function getProjectMasterImages(){
-        $masterValue = $this->projectMeta()->where( 'meta_key', 'master' )->get()->first()->meta_value;        
+
+    public function getProjectMasterImages() {
+        $masterValue = $this->projectMeta()->where( 'meta_key', 'master' )->get()->first()->meta_value;
         $svgImages = unserialize( $masterValue );
 
         foreach ($svgImages as $key => $images) {
@@ -64,7 +64,7 @@ class Project extends Model {
                 }
                 $svgImages[$key] = $transitionImages;
             } else {
-                if( is_numeric($images)){
+                if (is_numeric( $images )) {
                     $imageName = Media::find( $images )->image_name;
                     $svgImages[$key] = url() . "/projects/" . $this->id . "/master/" . $imageName;
                 }
@@ -72,13 +72,13 @@ class Project extends Model {
         }
         return $svgImages;
     }
-    
-    public function getCFProjectStatus(){
+
+    public function getCFProjectStatus() {
         return 'Under Construction';
     }
-    
-    public function getProjectPropertyTypeId($type){
-        
+
+    public function getProjectPropertyTypeId( $propertyTypeId ) {
+        return $this->projectPropertyTypes()->where( 'property_type_id', $propertyTypeId )->first()->id;
     }
 
     public function toArray() {
