@@ -130,13 +130,21 @@ class CenterBunglowView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 			<div id="spritespin"></div>
 			<div class="svg-maps">
-			  <object data="{{project_master.front}}" class="inactive"></object>
+			<div class="front inactive"></div>
+			<div class="right inactive"></div>
+			<div class="back inactive"></div>
+			<div class="left inactive"></div>
+			  <!--<object data="{{project_master.front}}" class="inactive"></object>
 			  <object data="{{project_master.right}}" class="inactive"></object>
 			  <object data="{{project_master.back}}" class="inactive"></object>
-			  <object data="{{project_master.left}}" class="inactive"></object>
+			  <object data="{{project_master.left}}" class="inactive"></object>-->
 			</div>
-			<button id="prev">PREV</button>
-			<button id="next">NEXT</button>
+            <div class="rotate-controls">
+		        <div id="prev" class="rotate-left">Left</div>
+		        <span class="rotate-text">Rotate</span>
+		        <div id="next" class="rotate-right">Right</div>
+    		</div>
+
 		  </div>')
 
 	
@@ -147,11 +155,11 @@ class CenterBunglowView extends Marionette.ItemView
 
 	events :
 		'click #prev':->
-			$('.svg-maps > object').addClass('inactive').removeClass('active');
+			$('.svg-maps > div').addClass('inactive').removeClass('active');
 			@setDetailIndex(@currentBreakPoint - 1);
 
 		'click #next':->
-			$('.svg-maps > object').addClass('inactive').removeClass('active');
+			$('.svg-maps > div').addClass('inactive').removeClass('active');
 			@setDetailIndex(@currentBreakPoint - 1);
 
 		'mouseout':(e)->
@@ -159,7 +167,7 @@ class CenterBunglowView extends Marionette.ItemView
 			$('.blck-wrap').attr('class' ,'blck-wrap') 
 
 		'mouseover .layer':(e)->
-			id  = parseInt e.target.id
+			console.log id  = parseInt e.target.id
 			html = ""
 			unit = unitCollection.findWhere 
 				id :  id 
@@ -192,7 +200,7 @@ class CenterBunglowView extends Marionette.ItemView
 							</div>  
 						</div>  
 					</div>'
-			
+			console.log availability
 			$('#'+id).attr('class' ,'layer '+availability) 
 			$('#unit'+id).attr('class' ,'blck-wrap active') 
 			$('.layer').tooltipster('content', html)
@@ -200,6 +208,7 @@ class CenterBunglowView extends Marionette.ItemView
 
 
 	onShow:->
+		# $('<div></div>').load(project.get('project_master').front).appendTo('.front')
 		# $('.us-right-content').imagesLoaded ->
 		# 	divHeight = $('.us-right-content').height()
 		# 	$('.unit-list').css 'max-height', divHeight + 'px'
@@ -216,6 +225,7 @@ class CenterBunglowView extends Marionette.ItemView
 		$.merge transitionImages , project.get('project_master')['left-back']
 		$.merge transitionImages , project.get('project_master')['front-left']
 		@initializeRotate(transitionImages,svgs)
+		@iniTooltip()
 		
 
 
@@ -235,7 +245,7 @@ class CenterBunglowView extends Marionette.ItemView
 		frames = transitionImages
 		@breakPoints = [0, 4, 8, 12]
 		@currentBreakPoint = 0
-		$('.svg-maps > object').first().removeClass('inactive').addClass('active');
+		$('.svg-maps > div').first().removeClass('inactive').addClass('active');
 		spin = $('#spritespin')
 		spin.spritespin(
 			source: frames
@@ -249,7 +259,8 @@ class CenterBunglowView extends Marionette.ItemView
 			data = api.data
 			if data.frame == data.stopFrame
 				url = svgs[data.frame]
-				$('object[data="'+url+'"]').addClass('active').removeClass('inactive')
+				$('<div></div>').load(url).appendTo('.front').addClass('active').removeClass('inactive')
+				# $('object[data="'+url+'"]').addClass('active').removeClass('inactive')
 		)
 		
 		
