@@ -83,3 +83,35 @@
     }
   }
 }
+
+/* SVG */
+.svg-maps object{
+  &.active {
+    display: block;
+  }
+  &.inactive {
+    display: none;
+  }
+}
+
+.detail {
+  position: absolute;
+  width: 100px;
+  background: @white;
+  opacity: 0.7;
+  padding: 10px;
+  border: 1px dashed darken(@gray, 50%);
+  z-index: 1000;
+}
+
+.project-map {
+  position: relative;
+}
+
+#spritespin, .svg-maps object {
+  width: 800px;
+  height: 600px;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}

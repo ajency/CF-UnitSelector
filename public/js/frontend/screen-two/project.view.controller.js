@@ -1,7 +1,9 @@
 (function() {
-  var CenterBunglowView, LeftBunglowCompositeView, LeftBunglowView, TopBunglowView,
+  var CenterBunglowView, LeftBunglowCompositeView, LeftBunglowView, TopBunglowView, api,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
+
+  api = "";
 
   CommonFloor.BunglowLayoutView = (function(superClass) {
     extend(BunglowLayoutView, superClass);
@@ -173,9 +175,22 @@
       return CenterBunglowView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowView.prototype.template = Handlebars.compile('	<div class="col-md-9 us-right-content"> <div class="svg-area"> </div> <div class="rotate-controls"> <div class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div class="rotate-right">Right</div> </div> </div>');
+    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div id="spritespin"></div> <div class="svg-maps"> <object data="{{project_master.front}}" class="inactive"></object> <object data="{{project_master.right}}" class="inactive"></object> <object data="{{project_master.back}}" class="inactive"></object> <object data="{{project_master.left}}" class="inactive"></object> </div> <button id="prev">PREV</button> <button id="next">NEXT</button> </div>');
+
+    CenterBunglowView.prototype.initialize = function() {
+      this.currentBreakPoint = "";
+      return this.breakPoints = "";
+    };
 
     CenterBunglowView.prototype.events = {
+      'click #prev': function() {
+        $('.svg-maps > object').addClass('inactive').removeClass('active');
+        return this.setDetailIndex(this.currentBreakPoint - 1);
+      },
+      'click #next': function() {
+        $('.svg-maps > object').addClass('inactive').removeClass('active');
+        return this.setDetailIndex(this.currentBreakPoint - 1);
+      },
       'mouseout': function(e) {
         $('.layer').attr('class', 'layer');
         return $('.blck-wrap').attr('class', 'blck-wrap');
@@ -209,13 +224,57 @@
     };
 
     CenterBunglowView.prototype.onShow = function() {
-      var path;
-      path = project.get('project_master').front;
-      $('<div></div>').load(path, this.iniTooltip).appendTo('.svg-area');
-      return $('.us-right-content').imagesLoaded(function() {
-        var divHeight;
-        divHeight = $('.us-right-content').height();
-        $('.unit-list').css('max-height', divHeight + 'px');
+      var svgs, transitionImages;
+      transitionImages = [];
+      svgs = {};
+      svgs[0] = project.get('project_master').front;
+      svgs[4] = project.get('project_master').right;
+      svgs[8] = project.get('project_master').back;
+      svgs[12] = project.get('project_master').left;
+      $.merge(transitionImages, project.get('project_master')['right-front']);
+      $.merge(transitionImages, project.get('project_master')['back-right']);
+      $.merge(transitionImages, project.get('project_master')['left-back']);
+      $.merge(transitionImages, project.get('project_master')['front-left']);
+      console.log(transitionImages);
+      return this.initializeRotate(transitionImages, svgs);
+    };
+
+    CenterBunglowView.prototype.setDetailIndex = function(index) {
+      this.currentBreakPoint = index;
+      if (this.currentBreakPoint < 0) {
+        this.currentBreakPoint = this.breakPoints.length - 1;
+      }
+      if (this.currentBreakPoint >= this.breakPoints.length) {
+        this.currentBreakPoint = 0;
+      }
+      return api.playTo(this.breakPoints[this.currentBreakPoint], {
+        nearest: true
+      });
+    };
+
+    CenterBunglowView.prototype.initializeRotate = function(transitionImages, svgs) {
+      var frames, spin;
+      console.log(frames = transitionImages);
+      this.breakPoints = [0, 4, 8, 12];
+      this.currentBreakPoint = 0;
+      $('.svg-maps > object').first().removeClass('inactive').addClass('active');
+      spin = $('#spritespin');
+      spin.spritespin({
+        source: frames,
+        width: 800,
+        sense: -1,
+        height: 600,
+        animate: false
+      });
+      console.log(api = spin.spritespin("api"));
+      return spin.bind("onFrame", function() {
+        var data, url;
+        data = api.data;
+        if (data.frame === data.stopFrame) {
+          console.log(url = svgs[data.frame]);
+          console.log($('object[data="' + url + '"]'));
+          return $('object[data="' + url + '"]').addClass('active').removeClass('inactive');
+        }
       });
     };
 
@@ -242,7 +301,9 @@
     }
 
     CenterBunglowCtrl.prototype.initialize = function() {
-      return this.show(new CenterBunglowView);
+      return this.show(new CenterBunglowView({
+        model: project
+      }));
     };
 
     return CenterBunglowCtrl;

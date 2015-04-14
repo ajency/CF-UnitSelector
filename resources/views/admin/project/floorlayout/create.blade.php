@@ -53,8 +53,8 @@
                             <button id="floor-layout-detailed-svg-uploadfiles" type="button" class="btn btn-small btn-primary" >Upload</button>
                             <input type="hidden" name="detailed_svg" value="0" />
                         </div>
-                        <div class="hidden">
-                            <img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail"  style="width:150px;">   
+                        <div class="uploaded-svg">
+                            
                         </div> 
                     </div>
                     <hr/>
@@ -65,8 +65,8 @@
                             <button id="floor-layout-basic-svg-uploadfiles" type="button" class="btn btn-small btn-primary" >Upload</button>
                             <input type="hidden" name="basic_svg" value="0" />
                         </div>
-                        <div class="hidden">
-                            <img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail"  style="width:150px;">  
+                        <div class="uploaded-svg">
+                             
                         </div>  
                     </div>
                     <div class="form-actions">  
