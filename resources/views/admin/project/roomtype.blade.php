@@ -21,7 +21,7 @@
                 </div>
             </div>
             @foreach($roomtype['ATTRIBUTES'] as $attributes)    
-            <div class="row">
+            <div class="row" id="roomtypeattribute_{{$attributes['id']}}">
                 <div class="col-md-3">
                     <div class="form-group">
                         <div class="">
@@ -48,7 +48,7 @@
                     <div class="form-inline">
                         <div class="form-group">
                             <input type="text" name="controltypevalues_{{$roomtypeId}}" class="form-control" value="{{$attributes['defaults']}}" placeholder="Default values">
-                            <!--<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>-->
+                            <button type="button" class="btn btn-small btn-default m-t-5" onclick="deleteRoomTypeAttribute({{$project['id']}},{{$attributes['id']}});"><i class="fa fa-trash"></i> Delete</button>
                         </div>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
 
                     <div class="text-right"> 
                         <button type="button" class="btn btn-small btn-primary" onclick="saveRoomypeattribute({{$project['id']}},{{$roomtypeId}},'room_type');"><i class="fa fa-save"></i> Save</button>
-                        <!--<button type="button" class="btn btn-small btn-default"><i class="fa fa-trash"></i> Delete</button>-->
+                        <button type="button" class="btn btn-small btn-default" onclick="deleteRoomType({{$project['id']}},{{$roomtypeId}});"><i class="fa fa-trash"></i> Delete</button>
                         <div class="cf-loader" id="loader_{{$roomtypeId}}" style="display:none" ></div>
                     </div>
 
@@ -131,7 +131,7 @@
         <form name="frmroomtype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" id="frmroomtype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
         <div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 m-b-10 text-grey">
             @foreach($propertytypeAttribute['ATTRIBUTES'] as $attributes)    
-            <div class="row">
+            <div class="row" id="roomtypeattribute_{{$attributes['id']}}">
                 <div class="col-md-3">
                     <div class="form-group">
                         <div class="">
@@ -158,7 +158,7 @@
                     <div class="form-inline">
                         <div class="form-group">
                             <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="form-control" placeholder="Default values" value="{{$attributes['defaults']}}">
-                            <!--<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>-->
+                            <button type="button" class="btn btn-small btn-default m-t-5" onclick="deleteRoomTypeAttribute({{$project['id']}},{{$attributes['id']}});"><i class="fa fa-trash"></i> Delete</button>
                         </div>
                     </div>
                 </div>
