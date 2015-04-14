@@ -25,7 +25,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <div class="">
-                            <input type="text" name="attribute_name_{{$roomtypeId}}" class="form-control" value="{{$attributes['label']}}" placeholder="Attribute Name">
+                            <input type="text" name="attribute_name_{{$roomtypeId}}" class="form-control" value="{{$attributes['label']}}" placeholder="Enter Attribute Name">
                             <input type="hidden" name="attribute_id_{{$roomtypeId}}" value="{{$attributes['id']}}">
                         </div>
                     </div>
@@ -34,7 +34,7 @@
                     <div class="form-inline">
                         <div class="form-group">
                             <select name="controltype_{{$roomtypeId}}" onchange="defaultBlock(this.value,{{$roomtypeId}});">
-                                <option value="">Controls Type</option>
+                                <option value="">Select Controls Type</option>
                                 <option value="textbox" @if($attributes['control_type']=='textbox'){{'selected'}}@endif> Text Box</option>
                                 <option value="select" @if($attributes['control_type']=='select'){{'selected'}}@endif>Select Box</option>
                                 <option value="multiple" @if($attributes['control_type']=='multiple'){{'selected'}}@endif> Multiple Select Box</option>
@@ -48,7 +48,7 @@
                 <div class="col-md-5" id="controltype_values_{{$roomtypeId}}">
                     <div class="form-inline">
                         <div class="form-group">
-                            <input type="text" name="controltypevalues_{{$roomtypeId}}" class="form-control" value="{{$attributes['defaults']}}" placeholder="Default values">
+                            <input type="text" name="controltypevalues_{{$roomtypeId}}" class="form-control" value="{{$attributes['defaults']}}" placeholder="Enter Default Values">
                             <button type="button" class="btn btn-small btn-default m-t-5" onclick="deleteRoomTypeAttribute({{$project['id']}},{{$attributes['id']}});"><i class="fa fa-trash"></i> Delete</button>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <div class="">
-                            <input type="text" name="attribute_name_{{$roomtypeId}}" class="form-control" placeholder="Attribute Name">
+                            <input type="text" name="attribute_name_{{$roomtypeId}}" class="form-control" placeholder="Enter Attribute Name">
                             <input type="hidden" name="attribute_id_{{$roomtypeId}}" value="">
                         </div>
                     </div>
@@ -68,7 +68,7 @@
                     <div class="form-inline">
                         <div class="form-group">
                             <select name="controltype_{{$roomtypeId}}" onchange="defaultBlock(this.value,{{$roomtypeId}});">
-                                <option value="">Controls Type</option>
+                                <option value="">Select Controls Type</option>
                                 <option value="textbox" > Text Box</option>
                                 <option value="select" >Select Box</option>
                                 <option value="multiple" > Multiple Select Box</option>
@@ -82,7 +82,7 @@
                 <div class="col-md-5" id="controltype_values_{{$roomtypeId}}">
                     <div class="form-inline">
                         <div class="form-group">
-                            <input type="text" name="controltypevalues_{{$roomtypeId}}" class="form-control" placeholder="Default values">
+                            <input type="text" name="controltypevalues_{{$roomtypeId}}" class="form-control" placeholder="Enter Default Values">
                             <!--<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>-->
                             <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes({{$roomtypeId}},this)"><i class="fa fa-plus"></i></button>
                         </div>
@@ -137,7 +137,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <div class="">
-                            <input type="text" name="attribute_name_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="form-control" value="{{$attributes['label']}}" placeholder="Attribute Name">
+                            <input type="text" name="attribute_name_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="form-control" value="{{$attributes['label']}}" placeholder="Enter Attribute Name">
                             <input type="hidden" name="attribute_id_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" value="{{$attributes['id']}}">
                         </div>
                     </div>
@@ -146,7 +146,7 @@
                     <div class="form-inline">
                         <div class="form-group">
                             <select name="controltype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
-                                <option value="">Controls Type</option>
+                                <option value="">Select Controls Type</option>
                                 <option value="textbox" @if($attributes['control_type']=='textbox'){{'selected'}}@endif> Text Box</option>
                                 <option value="select" @if($attributes['control_type']=='select'){{'selected'}}@endif>Select Box</option>
                                 <option value="multiple" @if($attributes['control_type']=='multiple'){{'selected'}}@endif> Multiple Select Box</option>
@@ -160,7 +160,7 @@
                 <div class="col-md-5" id="controltype_values_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
                     <div class="form-inline">
                         <div class="form-group">
-                            <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="form-control" placeholder="Default values" value="{{$attributes['defaults']}}">
+                            <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="form-control" placeholder="Enter Default Values" value="{{$attributes['defaults']}}">
                             <button type="button" class="btn btn-small btn-default m-t-5" onclick="deleteRoomTypeAttribute({{$project['id']}},{{$attributes['id']}});"><i class="fa fa-trash"></i> Delete</button>
                         </div>
                     </div>
@@ -171,7 +171,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <div class="">
-                            <input type="text" name="attribute_name_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="form-control" placeholder="Attribute Name">
+                            <input type="text" name="attribute_name_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="form-control" placeholder="Enter Attribute Name">
                             <input type="hidden" name="attribute_id_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" value="">
                         </div>
                     </div>
@@ -180,7 +180,7 @@
                     <div class="form-inline">
                         <div class="form-group">
                             <select name="controltype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" >
-                                <option value="">Controls Type</option>
+                                <option value="">Select Controls Type</option>
                                 <option value="textbox" > Text Box</option>
                                 <option value="select" >Select Box</option>
                                 <option value="multiple" > Multiple Select Box</option>
@@ -194,7 +194,7 @@
                 <div class="col-md-5">
                     <div class="form-inline">
                         <div class="form-group">
-                            <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="form-control" placeholder="Default values">
+                            <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="form-control" placeholder="Enter Default Values">
                             <!--<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>-->
                              <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes('proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}',this)"><i class="fa fa-plus"></i></button>
                         </div>

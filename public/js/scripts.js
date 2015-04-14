@@ -37,7 +37,7 @@ function addRoomtype(project_id)
             str += '<div class = "col-md-3" >';
             str += '<div class = "form-group" >';
             str += '<div class = "" >';
-            str += '<input type = "text" name = "attribute_name_' + roomtypeId + '" class = "form-control" placeholder ="Attribute Name">';
+            str += '<input type = "text" name = "attribute_name_' + roomtypeId + '" class = "form-control" placeholder ="Enter Attribute Name">';
             str += '<input type = "hidden" name = "attribute_id_' + roomtypeId + '" value = "" >';
             str += ' </div>';
             str += '</div>';
@@ -46,7 +46,7 @@ function addRoomtype(project_id)
             str += '<div class = "form-inline" >';
             str += '<div class = "form-group" >';
             str += '<select name = "controltype_' + roomtypeId + '" onchange="defaultBlock(this.value,\'' + roomtypeId + '\')">';
-            str += '<option value = "" > Controls Type</option>';
+            str += '<option value = "" >Select Controls Type</option>';
             str += '<option value = "textbox" > Text Box </option>';
             str += '<option value = "textarea" > Textarea </option>';
             str += '<option value = "select" > Select Box </option>';
@@ -61,7 +61,7 @@ function addRoomtype(project_id)
             str += '<div class = "col-md-5" id = "controltype_values_' + roomtypeId + '">';
             str += '<div class = "form-inline" >';
             str += '<div class = "form-group" >';
-            str += '<input type="text" name="controltypevalues_' + roomtypeId + '" class = "form-control" placeholder="Default values" >';
+            str += '<input type="text" name="controltypevalues_' + roomtypeId + '" class = "form-control" placeholder="Enter Default values" >';
             str += ' <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes(' + roomtypeId + ',this)"><i class="fa fa-plus"></i></button>';
             //str += ' <button class = "btn btn-small btn-default m-t-5"  > <i class = "fa fa-trash" > </i> Delete</button>';
             str += '</div>';
@@ -128,7 +128,7 @@ function addRoomtypeAttributes(roomtypeId,obj)
             str += '<div class = "col-md-3" >';
             str += '<div class = "form-group" >';
             str += '<div class = "" >';
-            str += '<input type = "text" name = "attribute_name_' + roomtypeId + '" class = "form-control" placeholder ="Attribute Name">';
+            str += '<input type = "text" name = "attribute_name_' + roomtypeId + '" class = "form-control" placeholder ="Enter Attribute Name">';
             str += '<input type = "hidden" name = "attribute_id_' + roomtypeId + '" value = "" >';
             str += ' </div>';
             str += '</div>';
@@ -137,7 +137,7 @@ function addRoomtypeAttributes(roomtypeId,obj)
             str += '<div class = "form-inline" >';
             str += '<div class = "form-group" >';
             str += '<select name = "controltype_' + roomtypeId + '" onchange="defaultBlock(this.value,\'' + roomtypeId + '\')">';
-            str += '<option value = "" > Controls  Type</option>';
+            str += '<option value = "" >Select Controls  Type</option>';
             str += '<option value = "textbox" > Text Box </option>';
             str += '<option value = "textarea" > Textarea </option>';
             str += '<option value = "select" > Select Box </option>';
@@ -152,7 +152,7 @@ function addRoomtypeAttributes(roomtypeId,obj)
             str += '<div class = "col-md-5" id = "controltype_values_' + roomtypeId + '" >';
             str += '<div class = "form-inline" >';
             str += '<div class = "form-group" >';
-            str += '<input type="text" name= "controltypevalues_' + roomtypeId + '" class = "form-control" placeholder="Default values" >';
+            str += '<input type="text" name= "controltypevalues_' + roomtypeId + '" class = "form-control" placeholder="Enter Default values" >';
             //str += '<button class = "btn btn-small btn-default m-t-5" > <i class = "fa fa-trash" > </i> Delete</button>';
             str += ' <button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes(\'' + roomtypeId + '\',this)"> <i class ="fa fa-plus" > </i></button>';
             str += '</div>';
