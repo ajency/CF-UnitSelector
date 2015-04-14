@@ -126,7 +126,7 @@ class CenterBunglowView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 			<div class="svg-area">
-			  
+			  <object data="{{project.project_maste.front}}" class="inactive"></object>
 			</div>
 		  </div>')
 
@@ -198,3 +198,4 @@ class CommonFloor.CenterBunglowCtrl extends Marionette.RegionController
 
 	initialize:->
 		@show new CenterBunglowView
+				model :project

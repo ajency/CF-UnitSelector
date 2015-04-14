@@ -28,7 +28,11 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.loadJSONData();
       }
-      return this.show(new CommonFloor.UnitLayoutView);
+      if (jQuery.isEmptyObject(project.toJSON())) {
+        return this.show(new CommonFloor.NothingFoundView);
+      } else {
+        return this.show(new CommonFloor.UnitLayoutView);
+      }
     };
 
     return UnitDetailViewCtrl;
@@ -78,7 +82,7 @@
       return LeftUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="blck-wrap"> <h2 class="pull-left"><strong>Villa 1001</strong></h2> <!-- <span class="label label-success">For Sale</span> --> <div class="clearfix"></div> <div class="details"> <!--<div> <label>Starting Price:</label> Rs 1.3 crores </div>--> <div> {{type}} ({{area}} sqft) </div> </div> </div> <div class="advncd-filter-wrp unit-list"> <div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Rooms</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div> <div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6>Bedroom</h6> </div> <div class="col-sm-4"> <h6 class="">2</h6> </div> <div class="col-sm-4"> <h6 class="">98sqft</h6> </div> </div> </div> <div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6>Terrace</h6> </div> <div class="col-sm-4"> <h6 class="">1</h6> </div> <div class="col-sm-4"> <h6 class="">27sqft</h6> </div> </div> </div> <div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6>Bathroom</h6> </div> <div class="col-sm-4"> <h6 class="">4</h6> </div> <div class="col-sm-4"> <h6 class="">98sqft</h6> </div> </div> </div> <div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6>Store</h6> </div> <div class="col-sm-4"> <h6 class="">1</h6> </div> <div class="col-sm-4"> <h6 class="">27sqft</h6> </div> </div> </div> </div> </div> </div>');
+    LeftUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="blck-wrap"> <h2 class="pull-left"><strong>{{unit_name}}</strong></h2> <!-- <span class="label label-success">For Sale</span> --> <div class="clearfix"></div> <div class="details"> <!--<div> <label>Starting Price:</label> Rs 1.3 crores </div>--> <div> {{type}} ({{area}} sqft) </div> </div> </div> <div class="advncd-filter-wrp unit-list"> <div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Rooms</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div> <div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6>Bedroom</h6> </div> <div class="col-sm-4"> <h6 class="">2</h6> </div> <div class="col-sm-4"> <h6 class="">98sqft</h6> </div> </div> </div> <div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6>Terrace</h6> </div> <div class="col-sm-4"> <h6 class="">1</h6> </div> <div class="col-sm-4"> <h6 class="">27sqft</h6> </div> </div> </div> <div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6>Bathroom</h6> </div> <div class="col-sm-4"> <h6 class="">4</h6> </div> <div class="col-sm-4"> <h6 class="">98sqft</h6> </div> </div> </div> <div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6>Store</h6> </div> <div class="col-sm-4"> <h6 class="">1</h6> </div> <div class="col-sm-4"> <h6 class="">27sqft</h6> </div> </div> </div> </div> </div> </div>');
 
     LeftUnitView.prototype.serializeData = function() {
       var data, unit, unitType, unitVariant, unitid, url;
@@ -96,6 +100,7 @@
       });
       data.area = unitVariant.get('super_build_up_area');
       data.type = unitType.get('name');
+      data.unit_name = unit.get('unit_name');
       return data;
     };
 
@@ -125,7 +130,19 @@
       return CenterUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <img src="../../images/step3.png"> </div> </div>');
+    CenterUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider" id="slider-id"> <div> <h2 class="title">External 3D</h2> <img src="../../images/step3.png"> </div> <div> <h2 class="title">2D Layout</h2> <img src="../../images/step3.png"> </div> <div> <h2 class="title">3D Layout</h2> <img src="../../images/step3.png"> </div> </div> </div> </div>');
+
+    CenterUnitView.prototype.onShow = function() {
+      return $('#slider-id').liquidSlider({
+        slideEaseFunction: "easeInOutQuad",
+        includeTitle: false,
+        autoSlideInterval: 4000,
+        mobileNavigation: false,
+        hideArrowsWhenMobile: false,
+        dynamicTabsAlign: "center",
+        dynamicArrows: false
+      });
+    };
 
     return CenterUnitView;
 

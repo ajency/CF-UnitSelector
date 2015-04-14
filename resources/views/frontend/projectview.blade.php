@@ -99,6 +99,9 @@
         <script src="{{ asset('bower_components/BttrLazyLoading/dist/jquery.bttrlazyloading.min.js' )}}"></script> 
         <script src="{{ asset('js/frontend/primages.js' )}}"></script> 
         <script src="{{ asset('bower_components/tooltipster/js/jquery.tooltipster.min.js' )}}"></script>
+        <script src="{{ asset('bower_components/jquery-easing/jquery.easing.min.js' )}}"></script>
+        <script src="{{ asset('bower_components/jquery-touchswipe/jquery.touchSwipe.min.js' )}}"></script>
+        <script src="{{ asset('bower_components/liquidslider/js/jquery.liquid-slider.min.js' )}}"></script>
         <!-- end plugins -->
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
         <script>

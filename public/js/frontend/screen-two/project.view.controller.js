@@ -173,7 +173,7 @@
       return CenterBunglowView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> </div> </div>');
+    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <object data="{{project.project_maste.front}}" class="inactive"></object> </div> </div>');
 
     CenterBunglowView.prototype.events = {
       'mouseout': function(e) {
@@ -237,7 +237,9 @@
     }
 
     CenterBunglowCtrl.prototype.initialize = function() {
-      return this.show(new CenterBunglowView);
+      return this.show(new CenterBunglowView({
+        model: project
+      }));
     };
 
     return CenterBunglowCtrl;
