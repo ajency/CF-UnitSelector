@@ -52,6 +52,7 @@ function addRoomtype(project_id)
             str += '<option value = "select" > Select Box </option>';
             str += '<option value = "multiple" > Multiple Select Box </option>';
             str += '<option value = "number" > Number </option>';
+            str += '<option value = "upload" > Upload </option>';
             str += '</select>';
             
             str += '</div>';
@@ -142,6 +143,7 @@ function addRoomtypeAttributes(roomtypeId,obj)
             str += '<option value = "select" > Select Box </option>';
             str += '<option value = "multiple" > Multiple Select Box </option>';
             str += '<option value = "number" > Number </option>';
+            str += '<option value = "upload" > Upload </option>';
             str += '</select>';
             
             str += '</div>';
