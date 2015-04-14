@@ -235,7 +235,6 @@
       $.merge(transitionImages, project.get('project_master')['back-right']);
       $.merge(transitionImages, project.get('project_master')['left-back']);
       $.merge(transitionImages, project.get('project_master')['front-left']);
-      console.log(transitionImages);
       return this.initializeRotate(transitionImages, svgs);
     };
 
@@ -254,7 +253,7 @@
 
     CenterBunglowView.prototype.initializeRotate = function(transitionImages, svgs) {
       var frames, spin;
-      console.log(frames = transitionImages);
+      frames = transitionImages;
       this.breakPoints = [0, 4, 8, 12];
       this.currentBreakPoint = 0;
       $('.svg-maps > object').first().removeClass('inactive').addClass('active');
@@ -266,13 +265,12 @@
         height: 600,
         animate: false
       });
-      console.log(api = spin.spritespin("api"));
+      api = spin.spritespin("api");
       return spin.bind("onFrame", function() {
         var data, url;
         data = api.data;
         if (data.frame === data.stopFrame) {
-          console.log(url = svgs[data.frame]);
-          console.log($('object[data="' + url + '"]'));
+          url = svgs[data.frame];
           return $('object[data="' + url + '"]').addClass('active').removeClass('inactive');
         }
       });
