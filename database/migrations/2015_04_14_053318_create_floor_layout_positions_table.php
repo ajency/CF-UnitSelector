@@ -17,12 +17,6 @@ class CreateFloorLayoutPositionsTable extends Migration {
             $table->integer( 'position' );
             $table->integer( 'unit_valriant_id' );
             $table->timestamps();
-            
-            //reference  a foreign key
-            $table->foreign( 'floor_layout_id' )
-                    ->references( 'id' )
-                    ->on( 'floor_layouts' )
-                    ->onDelete( 'cascade' );
         } );
     }
 

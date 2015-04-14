@@ -25,12 +25,12 @@
                 <div class="clearfix"></div>
             </div>
             <div class="grid-body">
-                <form data-parsley-validate> 
+                <form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/floor-layout') }}"> 
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Name</label>
-                                <input type="text" required="" class="form-control" name="floor_name" placeholder="Enter Floor Name">
+                                <input type="text" required="" class="form-control" name="layout_name" placeholder="Enter Floor Name">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -51,6 +51,7 @@
                         <div id="floor-layout-detailed-svg-container"> 
                             <input id="floor-layout-detailed-svg-pickfiles" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/> 
                             <button id="floor-layout-detailed-svg-uploadfiles" type="button" class="btn btn-small btn-primary" >Upload</button>
+                            <input type="hidden" name="detailed_svg" value="0" />
                         </div>
                         <div class="hidden">
                             <img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail"  style="width:150px;">   
@@ -62,6 +63,7 @@
                         <div id="floor-layout-basic-svg-container"> 
                             <input id="floor-layout-basic-svg-pickfiles" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/> 
                             <button id="floor-layout-basic-svg-uploadfiles" type="button" class="btn btn-small btn-primary" >Upload</button>
+                            <input type="hidden" name="basic_svg" value="0" />
                         </div>
                         <div class="hidden">
                             <img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail"  style="width:150px;">  
@@ -69,6 +71,7 @@
                     </div>
                     <div class="form-actions">  
                         <div class="pull-rigunitt">
+                            <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                             <button type="submit" class="btn btn-primary btn-cons">Save</button>
                             <button type="button" class="btn btn-default btn-cons">Cancel</button>
                         </div>

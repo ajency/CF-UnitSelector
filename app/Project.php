@@ -76,6 +76,10 @@ class Project extends Model {
     public function getCFProjectStatus(){
         return 'Under Construction';
     }
+    
+    public function getProjectPropertyTypeId($type){
+        
+    }
 
     public function toArray() {
         $data = parent::toArray();

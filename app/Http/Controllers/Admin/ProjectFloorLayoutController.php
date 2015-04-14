@@ -5,7 +5,10 @@ namespace CommonFloor\Http\Controllers\Admin;
 use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+
+use CommonFloor\Project;
 use CommonFloor\Repositories\ProjectRepository;
+use CommonFloor\Repositories\FloorLayoutRepository;
 
 class ProjectFloorLayoutController extends Controller {
 
@@ -44,8 +47,15 @@ class ProjectFloorLayoutController extends Controller {
      *
      * @return Response
      */
-    public function store() {
-        //
+    public function store( $projectId, Request $request, FloorLayoutRepository $floorLayoutRepository ) {
+        $formData = $request->all();
+        unset( $formData['_token'] );
+        
+        $project = Project::find($projectId);
+        $projectPropertyTypeId = $project->getProjectPropertyTypeId( 'Apartment' );
+
+        $floorLayout = $floorLayoutRepository->createFloorLayout( $formData );
+        return redirect( url( 'admin/project/' . $projectId . '/floor-layout/' . $floorLayout->id . '/edit' ) );
     }
 
     /**
