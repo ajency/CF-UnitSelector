@@ -136,7 +136,7 @@
       return LeftBunglowCompositeView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBunglowCompositeView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper "> <div class="advncd-filter-wrp  unit-list"> <div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div> <div class="units"> </div> </div> </div> </div>');
+    LeftBunglowCompositeView.prototype.template = Handlebars.compile('	<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper "> <div class="advncd-filter-wrp  unit-list"> <div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div> <div class="units"> </div> </div> </div> </div>');
 
     LeftBunglowCompositeView.prototype.childView = LeftBunglowView;
 
@@ -173,7 +173,7 @@
       return CenterBunglowView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> </div> </div>');
+    CenterBunglowView.prototype.template = Handlebars.compile('	<div class="col-md-9 us-right-content"> <div class="svg-area"> </div> <div class="rotate-controls"> <div class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div class="rotate-right">Right</div> </div> </div>');
 
     CenterBunglowView.prototype.events = {
       'mouseout': function(e) {
@@ -201,7 +201,7 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + unitVariant.get('super_build_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + unitType.get('name') + '</div> </div> </div> </div>';
+        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + unitVariant.get('super_build_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + unitType.get('name') + '</div> </div> </div>';
         $('#' + id).attr('class', 'layer ' + availability);
         $('#unit' + id).attr('class', 'blck-wrap active');
         return $('.layer').tooltipster('content', html);
@@ -211,7 +211,12 @@
     CenterBunglowView.prototype.onShow = function() {
       var path;
       path = project.get('project_master').front;
-      return $('<div></div>').load(path, this.iniTooltip).appendTo('.svg-area');
+      $('<div></div>').load(path, this.iniTooltip).appendTo('.svg-area');
+      return $('.us-right-content').imagesLoaded(function() {
+        var divHeight;
+        divHeight = $('.us-right-content').height();
+        $('.unit-list').css('max-height', divHeight + 'px');
+      });
     };
 
     CenterBunglowView.prototype.iniTooltip = function() {
