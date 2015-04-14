@@ -1,3 +1,4 @@
+api = ""
 class CommonFloor.BunglowLayoutView extends Marionette.LayoutView
 
 	template : '#project-view-template'
@@ -128,8 +129,8 @@ class CenterBunglowView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 			<div id="spritespin"></div>
-			<div class="svg-area">
-			  <object data="{{project_master.front}}" ></object>
+			<div class="svg-maps">
+			  <object data="{{project_master.front}}" class="inactive"></object>
 			  <object data="{{project_master.right}}" class="inactive"></object>
 			  <object data="{{project_master.back}}" class="inactive"></object>
 			  <object data="{{project_master.left}}" class="inactive"></object>
@@ -142,13 +143,15 @@ class CenterBunglowView extends Marionette.ItemView
 	initialize:->
 		@currentBreakPoint = ""
 		@breakPoints = ""
-		@api
+		
 
 	events :
 		'click #prev':->
+			$('.svg-maps > object').addClass('inactive').removeClass('active');
 			@setDetailIndex(@currentBreakPoint - 1);
 
 		'click #next':->
+			$('.svg-maps > object').addClass('inactive').removeClass('active');
 			@setDetailIndex(@currentBreakPoint - 1);
 
 		'mouseout':(e)->
@@ -197,13 +200,23 @@ class CenterBunglowView extends Marionette.ItemView
 
 
 	onShow:->
+		# $('.us-right-content').imagesLoaded ->
+		# 	divHeight = $('.us-right-content').height()
+		# 	$('.unit-list').css 'max-height', divHeight + 'px'
+		# 	return
 		transitionImages = []
+		svgs = {}
+		svgs[0] = project.get('project_master').front
+		svgs[4] = project.get('project_master').right
+		svgs[8] = project.get('project_master').back
+		svgs[12] =  project.get('project_master').left
+
 		$.merge transitionImages , project.get('project_master')['right-front']
 		$.merge transitionImages , project.get('project_master')['back-right']
 		$.merge transitionImages , project.get('project_master')['left-back']
 		$.merge transitionImages , project.get('project_master')['front-left']
 		console.log transitionImages
-		@initializeRotate(transitionImages)
+		@initializeRotate(transitionImages,svgs)
 		
 
 
@@ -214,22 +227,16 @@ class CenterBunglowView extends Marionette.ItemView
 		
 		if (@currentBreakPoint >= @breakPoints.length) 
 			@currentBreakPoint = 0
-		spin = $('#spritespin')
-		spin.spritespin(
-			source: frames
-			width: 800
-			sense: -1
-			height: 600
-			animate: false
-		)
-		spin.spritespin("api").playTo(@breakPoints[@currentBreakPoint], 
+		
+		api.playTo(@breakPoints[@currentBreakPoint], 
 			nearest: true
 		)
 
-	initializeRotate:(transitionImages)->
-		frames = transitionImages
+	initializeRotate:(transitionImages,svgs)->
+		console.log frames = transitionImages
 		@breakPoints = [0, 4, 8, 12]
 		@currentBreakPoint = 0
+		$('.svg-maps > object').first().removeClass('inactive').addClass('active');
 		spin = $('#spritespin')
 		spin.spritespin(
 			source: frames
@@ -242,18 +249,17 @@ class CenterBunglowView extends Marionette.ItemView
 		spin.bind("onFrame" , ()->
 			data = api.data
 			if data.frame == data.stopFrame
-				$('object[data="svg/artha-' + data.frame + '.svg"]').prevAll().addClass('inactive').removeClass('inactive')
-				$('object[data="svg/artha-' + data.frame + '.svg"]').nextAll().addClass('inactive').removeClass('inactive')
-				$('object[data="svg/artha-' + data.frame + '.svg"]').addClass('active').removeClass('inactive')
+				console.log url = svgs[data.frame]
+				# $('object[data="'+url+'"]').prevAll().addClass('inactive').removeClass('inactive')
+				# $('object[data="'+url+'"]').nextAll().addClass('inactive').removeClass('inactive')
+				console.log $('object[data="'+url+'"]')
+				$('object[data="'+url+'"]').addClass('active').removeClass('inactive')
 		)
 		
 		
 
 
-		$('.us-right-content').imagesLoaded ->
-		  divHeight = $('.us-right-content').height()
-		  $('.unit-list').css 'max-height', divHeight + 'px'
-		  return
+		
 
 
 	iniTooltip:->
