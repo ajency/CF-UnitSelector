@@ -447,10 +447,10 @@ body {
   padding: 0 10px 0 0;
 }
 /* SVG */
-.svg-maps object.active {
+.svg-maps div.active {
   display: block;
 }
-.svg-maps object.inactive {
+.svg-maps div.inactive {
   display: none;
 }
 .detail {
@@ -466,7 +466,7 @@ body {
   position: relative;
 }
 #spritespin,
-.svg-maps object {
+.svg-maps div {
   width: 800px;
   height: 600px;
   position: absolute;
