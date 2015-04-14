@@ -23,7 +23,7 @@
     </div>
 
     <div class="grid-body">
-        <form action="/admin/project/{{ $project['id'] }}/apartment-variant" method="POST" data-parsley-validate>
+        <form action="{{ url('/admin/project/' . $project['id'] .'/apartment-variant') }}" method="POST" data-parsley-validate>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -61,17 +61,14 @@
                     </div> 
                 </div>
 
-                @foreach($project_property_type_attributes as $attributes)
+                @foreach($projectPropertyTypeAttributes as $attribute)
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">{{$attributes['label']}}</label>
-                        <?php
-                        if ('textbox' === $attributes['control_type']) {
-                            ?>
-                            <input type="text" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]"  placeholder="Enter {{$attributes['label']}}">
-                            <?php
-                        }
-                        ?>
+                        <label class="form-label">{{ $attribute['label'] }}</label>
+                        @if('textbox' === $attribute['control_type'])
+                        <input type="text" class="form-control" name="attributes[{{ property_type_slug($attribute['label']) }}]"  
+                                placeholder="Enter {{ $attribute['label'] }}">
+                        @endif
                     </div> 
                 </div>
                 @endforeach
