@@ -269,9 +269,9 @@ function setUpProjectMasterUploader(){
         var uploader = new plupload.Uploader({
             runtimes: 'html5,flash,silverlight,html4',
             browse_button: selectBtnId, // you can pass in id...
-            url: '/admin/project/' + PROJECTID + '/media',
-            flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
-            silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+            url: BASEURL  + '/admin/project/' + PROJECTID + '/media',
+            flash_swf_url: BASEURL  + '/bower_components/plupload/js/Moxie.swf',
+            silverlight_xap_url: BASEURL  + '/bower_components/plupload/js/Moxie.xap',
             headers: {
                 "x-csrf-token": $("[name=_token]").val()
             },
@@ -379,4 +379,5 @@ $(document).ready(function(){
             }
         });
         skyview_uploader.init();
+        
 });

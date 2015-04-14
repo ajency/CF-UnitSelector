@@ -18,6 +18,64 @@
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
 <div class="row">
-    
+    <div class="col-md-12">
+        <div class="grid simple">
+            <div class="grid-title">
+                <h3 class="inline"><span class="semi-bold">Floor Layout</span> Details</h3> 
+                <div class="clearfix"></div>
+            </div>
+            <div class="grid-body">
+                <form data-parsley-validate> 
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Name</label>
+                                <input type="text" required="" class="form-control" name="floor_name" placeholder="Enter Floor Name">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Number of Flats</label>
+                                <select required name="no_of_flats">
+                                    <option value="">Choose no of flats</option>
+                                    @for($i = 1 ; $i <= 20; $i++)
+                                    <option value="{{ $i }}">{{ $i }}</option>
+                                    @endfor
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <hr/>
+                    <div>
+                        <h4 class="inline">Floor Layout Detailed SVG</span></h4>
+                        <div id="floor-layout-detailed-svg-container"> 
+                            <input id="floor-layout-detailed-svg-pickfiles" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/> 
+                            <button id="floor-layout-detailed-svg-uploadfiles" type="button" class="btn btn-small btn-primary" >Upload</button>
+                        </div>
+                        <div class="hidden">
+                            <img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail"  style="width:150px;">   
+                        </div> 
+                    </div>
+                    <hr/>
+                    <div>
+                        <h4 class="inline">Floor Layout Basic SVG</span></h4>
+                        <div id="floor-layout-basic-svg-container"> 
+                            <input id="floor-layout-basic-svg-pickfiles" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/> 
+                            <button id="floor-layout-basic-svg-uploadfiles" type="button" class="btn btn-small btn-primary" >Upload</button>
+                        </div>
+                        <div class="hidden">
+                            <img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail"  style="width:150px;">  
+                        </div>  
+                    </div>
+                    <div class="form-actions">  
+                        <div class="pull-rigunitt">
+                            <button type="submit" class="btn btn-primary btn-cons">Save</button>
+                            <button type="button" class="btn btn-default btn-cons">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>  
 </div>
 @endsection
