@@ -102,6 +102,7 @@
         <script src="{{ asset('bower_components/jquery-easing/jquery.easing.min.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery-touchswipe/jquery.touchSwipe.min.js' )}}"></script>
         <script src="{{ asset('bower_components/liquidslider/js/jquery.liquid-slider.min.js' )}}"></script>
+        <script src="{{ asset('bower_components/spritespin/release/spritespin.js' )}}"></script>
         <!-- end plugins -->
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
         <script>

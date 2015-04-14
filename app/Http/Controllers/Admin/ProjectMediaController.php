@@ -48,7 +48,8 @@ class ProjectMediaController extends Controller {
             $file = $request->file( 'file' );
             $fileName = $file->getClientOriginalName();
             $fileExt = $file->guessClientExtension();
-            $newFilename = rand() . '_' . $projectId . '.' . $fileExt;
+            //$newFilename = rand() . '_' . $projectId . '.' . $fileExt;
+            $newFilename = $fileName;
 
             $request->file( 'file' )->move( $targetDir, $newFilename );
         }

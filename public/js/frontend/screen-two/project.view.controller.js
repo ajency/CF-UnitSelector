@@ -173,9 +173,21 @@
       return CenterBunglowView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <object data="{{project.project_maste.front}}" class="inactive"></object> </div> </div>');
+    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div id="spritespin"></div> <div class="svg-area"> <object data="{{project_master.front}}" ></object> <object data="{{project_master.right}}" class="hidden"></object> <object data="{{project_master.back}}" class="hidden"></object> <object data="{{project_master.left}}" class="hidden"></object> </div> <button id="prev">PREV</button> <button id="next">NEXT</button> </div>');
+
+    CenterBunglowView.prototype.initialize = function() {
+      this.currentBreakPoint = "";
+      this.breakPoints = "";
+      return this.api;
+    };
 
     CenterBunglowView.prototype.events = {
+      'click #prev': function() {
+        return this.setDetailIndex(this.currentBreakPoint - 1);
+      },
+      'click #next': function() {
+        return this.setDetailIndex(this.currentBreakPoint - 1);
+      },
       'mouseout': function(e) {
         $('.layer').attr('class', 'layer');
         return $('.blck-wrap').attr('class', 'blck-wrap');
@@ -209,9 +221,61 @@
     };
 
     CenterBunglowView.prototype.onShow = function() {
-      var path;
-      path = project.get('project_master').front;
-      return $('<div></div>').load(path, this.iniTooltip).appendTo('.svg-area');
+      var transitionImages;
+      transitionImages = [];
+      $.merge(transitionImages, project.get('project_master')['right-front']);
+      $.merge(transitionImages, project.get('project_master')['back-right']);
+      $.merge(transitionImages, project.get('project_master')['left-back']);
+      $.merge(transitionImages, project.get('project_master')['front-left']);
+      console.log(transitionImages);
+      return this.initializeRotate(transitionImages);
+    };
+
+    CenterBunglowView.prototype.setDetailIndex = function(index) {
+      var spin;
+      this.currentBreakPoint = index;
+      if (this.currentBreakPoint < 0) {
+        this.currentBreakPoint = this.breakPoints.length - 1;
+      }
+      if (this.currentBreakPoint >= this.breakPoints.length) {
+        this.currentBreakPoint = 0;
+      }
+      spin = $('#spritespin');
+      spin.spritespin({
+        source: frames,
+        width: 800,
+        sense: -1,
+        height: 600,
+        animate: false
+      });
+      return spin.spritespin("api").playTo(this.breakPoints[this.currentBreakPoint], {
+        nearest: true
+      });
+    };
+
+    CenterBunglowView.prototype.initializeRotate = function(transitionImages) {
+      var api, frames, spin;
+      frames = transitionImages;
+      this.breakPoints = [0, 4, 8, 12];
+      this.currentBreakPoint = 0;
+      spin = $('#spritespin');
+      spin.spritespin({
+        source: frames,
+        width: 800,
+        sense: -1,
+        height: 600,
+        animate: false
+      });
+      console.log(api = spin.spritespin("api"));
+      return spin.bind("onFrame", function() {
+        var data;
+        data = api.data;
+        if (data.frame === data.stopFrame) {
+          $('object[data="svg/artha-' + data.frame + '.svg"]').prevAll().addClass('inactive').removeClass('inactive');
+          $('object[data="svg/artha-' + data.frame + '.svg"]').nextAll().addClass('inactive').removeClass('inactive');
+          return $('object[data="svg/artha-' + data.frame + '.svg"]').addClass('active').removeClass('inactive');
+        }
+      });
     };
 
     CenterBunglowView.prototype.iniTooltip = function() {

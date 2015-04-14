@@ -88,20 +88,20 @@ class LeftBunglowCompositeView extends Marionette.CompositeView
 			<div class="filters-wrapper ">
 				<div class="advncd-filter-wrp  unit-list">
 					<div class="blck-wrap title-row">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h5 class="accord-head">Villa No</h5>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h5 class="accord-head">Type</h5>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h5 class="accord-head">Area</h5>                      
-                    </div>
-                  </div>
-                </div>
-                <div class="units">
-                </div> 
+				  <div class="row">
+					<div class="col-sm-4">
+					  <h5 class="accord-head">Villa No</h5>                      
+					</div>
+					<div class="col-sm-4">
+					  <h5 class="accord-head">Type</h5>                      
+					</div>
+					<div class="col-sm-4">
+					  <h5 class="accord-head">Area</h5>                      
+					</div>
+				  </div>
+				</div>
+				<div class="units">
+				</div> 
 
 					</div>
 				</div>
@@ -124,13 +124,31 @@ class CommonFloor.LeftBunglowCtrl extends Marionette.RegionController
 
 class CenterBunglowView extends Marionette.ItemView
 
+
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
+			<div id="spritespin"></div>
 			<div class="svg-area">
-			  <object data="{{project.project_maste.front}}" class="inactive"></object>
+			  <object data="{{project_master.front}}" ></object>
+			  <object data="{{project_master.right}}" class="hidden"></object>
+			  <object data="{{project_master.back}}" class="hidden"></object>
+			  <object data="{{project_master.left}}" class="hidden"></object>
 			</div>
+			<button id="prev">PREV</button>
+			<button id="next">NEXT</button>
 		  </div>')
 
+	initialize:->
+		@currentBreakPoint = ""
+		@breakPoints = ""
+		@api
+
 	events :
+		'click #prev':->
+			@setDetailIndex(@currentBreakPoint - 1);
+
+		'click #next':->
+			@setDetailIndex(@currentBreakPoint - 1);
+
 		'mouseout':(e)->
 			$('.layer').attr('class' ,'layer') 
 			$('.blck-wrap').attr('class' ,'blck-wrap') 
@@ -178,8 +196,58 @@ class CenterBunglowView extends Marionette.ItemView
 
 
 	onShow:->
-		path = project.get('project_master').front
-		$('<div></div>').load(path,@iniTooltip).appendTo('.svg-area')
+		transitionImages = []
+		$.merge transitionImages , project.get('project_master')['right-front']
+		$.merge transitionImages , project.get('project_master')['back-right']
+		$.merge transitionImages , project.get('project_master')['left-back']
+		$.merge transitionImages , project.get('project_master')['front-left']
+		console.log transitionImages
+		@initializeRotate(transitionImages)
+		
+
+
+	setDetailIndex:(index)->
+		@currentBreakPoint = index;
+		if (@currentBreakPoint < 0) 
+			@currentBreakPoint = @breakPoints.length - 1
+		
+		if (@currentBreakPoint >= @breakPoints.length) 
+			@currentBreakPoint = 0
+		spin = $('#spritespin')
+		spin.spritespin(
+			source: frames
+			width: 800
+			sense: -1
+			height: 600
+			animate: false
+		)
+		spin.spritespin("api").playTo(@breakPoints[@currentBreakPoint], 
+			nearest: true
+		)
+
+	initializeRotate:(transitionImages)->
+		frames = transitionImages
+		@breakPoints = [0, 4, 8, 12]
+		@currentBreakPoint = 0
+		spin = $('#spritespin')
+		spin.spritespin(
+			source: frames
+			width: 800
+			sense: -1
+			height: 600
+			animate: false
+		)
+		console.log api = spin.spritespin("api")
+		spin.bind("onFrame" , ()->
+			data = api.data
+			if data.frame == data.stopFrame
+				$('object[data="svg/artha-' + data.frame + '.svg"]').prevAll().addClass('inactive').removeClass('inactive')
+				$('object[data="svg/artha-' + data.frame + '.svg"]').nextAll().addClass('inactive').removeClass('inactive')
+				$('object[data="svg/artha-' + data.frame + '.svg"]').addClass('active').removeClass('inactive')
+		)
+		
+		
+
 
 
 	iniTooltip:->
