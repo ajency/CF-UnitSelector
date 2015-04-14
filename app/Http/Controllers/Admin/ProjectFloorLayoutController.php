@@ -2,7 +2,6 @@
 
 namespace CommonFloor\Http\Controllers\Admin;
 
-use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -52,7 +51,7 @@ class ProjectFloorLayoutController extends Controller {
         unset( $formData['_token'] );
         
         $project = Project::find($projectId);
-        $projectPropertyTypeId = $project->getProjectPropertyTypeId( 1 );
+        $projectPropertyTypeId = $project->getProjectPropertyTypeId( 1 ); // 1 is property type apartment
         
         $formData['project_property_type_id'] = $projectPropertyTypeId;
         $floorLayout = $floorLayoutRepository->createFloorLayout( $formData );
