@@ -12,7 +12,7 @@ function addRoomtype(project_id)
         alert('Enter Room Type Name');
         return false;
     }
-     
+        
     $("#loader").show();
     $.ajax({
         url: "/admin/project/" + project_id + "/roomtype",
@@ -46,12 +46,13 @@ function addRoomtype(project_id)
             str += '<div class = "form-inline" >';
             str += '<div class = "form-group" >';
             str += '<select name = "controltype_' + roomtypeId + '" onchange="defaultBlock(this.value,\'' + roomtypeId + '\')">';
-            str += '<option value = "" > Controls </option>';
+            str += '<option value = "" > Controls Type</option>';
             str += '<option value = "textbox" > Text Box </option>';
             str += '<option value = "textarea" > Textarea </option>';
             str += '<option value = "select" > Select Box </option>';
             str += '<option value = "multiple" > Multiple Select Box </option>';
             str += '<option value = "number" > Number </option>';
+            str += '<option value = "upload" > Upload </option>';
             str += '</select>';
             
             str += '</div>';
@@ -60,8 +61,8 @@ function addRoomtype(project_id)
             str += '<div class = "col-md-5" id = "controltype_values_' + roomtypeId + '">';
             str += '<div class = "form-inline" >';
             str += '<div class = "form-group" >';
-            str += '<input type = "controltypevalues_' + roomtypeId + '" class = "form-control" placeholder="Default values" >';
-            str += '<button type="button" class="btn btn-white" onclick="addRoomtypeAttributes(' + roomtypeId + ',this)"><i class="fa fa-plus"></i></button>';
+            str += '<input type="text" name="controltypevalues_' + roomtypeId + '" class = "form-control" placeholder="Default values" >';
+            str += ' <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes(' + roomtypeId + ',this)"><i class="fa fa-plus"></i></button>';
             //str += ' <button class = "btn btn-small btn-default m-t-5"  > <i class = "fa fa-trash" > </i> Delete</button>';
             str += '</div>';
             str += '</div>';
@@ -70,7 +71,7 @@ function addRoomtype(project_id)
             str += '<div class = "row" id="addroomtypeattributeblock_' + roomtypeId + '">';
             str += '<div class = "col-md-12" >';
             str += '<div class = "text-right" >';
-            str += '<button type="button" class = "btn btn-small btn-primary" onclick="saveRoomypeattribute('+project_id+',' + roomtypeId + ',\'room_type\');" > <i class = "fa fa-save" > </i> Save</button>';
+            str += ' <button type="button" class = "btn btn-small btn-primary" onclick="saveRoomypeattribute('+project_id+',' + roomtypeId + ',\'room_type\');" > <i class = "fa fa-save" > </i> Save</button>';
             str += ' <button type="button" class = "btn btn-small btn-default" onclick="deleteRoomType('+project_id+',' + roomtypeId + ');" > <i class = "fa fa-trash" > </i> Delete</button >';
             str += '<div class="cf-loader" id="loader_' + roomtypeId + '" style="display:none" ></div>';
             str += '</div>';
@@ -101,13 +102,28 @@ function deleteRoomType(project_id,roomtypeId)
 
 function addRoomtypeAttributes(roomtypeId,obj)
 {
-    var value = $(obj).closest('.row').find('input[name="attribute_name_' + roomtypeId + '"]').val();
+    var attributename = $(obj).closest('.row').find('input[name="attribute_name_' + roomtypeId + '"]').val();
      
-     if(value.trim()=='')
+     if(attributename.trim()=='')
     {
         alert('Enter Attribute Name');
         return false;
     }
+    
+    var control_type =  $(obj).closest('.row').find('select[name="controltype_' + roomtypeId + '"]').val();
+    if(control_type.trim()=='')
+    {
+        alert('Select Control Type');
+        return false;
+    }
+    
+    var defaultval =  $(obj).closest('.row').find('input[name="controltypevalues_' + roomtypeId + '"]').val();
+    if((control_type.trim()=='select' || control_type.trim()=='multiple') && (defaultval.trim()==''))
+    {
+        alert('Enter Default Values');
+        return false;
+    }
+    
      var str = '<div class = "row" >';
             str += '<div class = "col-md-3" >';
             str += '<div class = "form-group" >';
@@ -121,12 +137,13 @@ function addRoomtypeAttributes(roomtypeId,obj)
             str += '<div class = "form-inline" >';
             str += '<div class = "form-group" >';
             str += '<select name = "controltype_' + roomtypeId + '" onchange="defaultBlock(this.value,\'' + roomtypeId + '\')">';
-            str += '<option value = "" > Controls </option>';
+            str += '<option value = "" > Controls  Type</option>';
             str += '<option value = "textbox" > Text Box </option>';
             str += '<option value = "textarea" > Textarea </option>';
             str += '<option value = "select" > Select Box </option>';
             str += '<option value = "multiple" > Multiple Select Box </option>';
             str += '<option value = "number" > Number </option>';
+            str += '<option value = "upload" > Upload </option>';
             str += '</select>';
             
             str += '</div>';
@@ -135,9 +152,9 @@ function addRoomtypeAttributes(roomtypeId,obj)
             str += '<div class = "col-md-5" id = "controltype_values_' + roomtypeId + '" >';
             str += '<div class = "form-inline" >';
             str += '<div class = "form-group" >';
-            str += '<input type = "controltypevalues_' + roomtypeId + '" class = "form-control" placeholder="Default values" >';
+            str += '<input type="text" name= "controltypevalues_' + roomtypeId + '" class = "form-control" placeholder="Default values" >';
             //str += '<button class = "btn btn-small btn-default m-t-5" > <i class = "fa fa-trash" > </i> Delete</button>';
-            str += '<button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes(\'' + roomtypeId + '\',this)"> <i class ="fa fa-plus" > </i></button>';
+            str += ' <button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes(\'' + roomtypeId + '\',this)"> <i class ="fa fa-plus" > </i></button>';
             str += '</div>';
             str += '</div>';
             str += '</div>';
@@ -231,7 +248,7 @@ function addFloorLevel()
         str +='<option value="">Select Room</option>';
         str +=ROOMTYPES;
         str +='</select>';
-        str +='<button type="button" onclick="addRoomAttributes('+i+',this)" class="btn btn-white"><i class="fa fa-plus"></i></button>';
+        str +=' <button type="button" onclick="addRoomAttributes('+i+',this)" class="btn btn-white"><i class="fa fa-plus"></i></button>';
         str +='</div> ';
 
         str +='</div>';
@@ -252,7 +269,7 @@ function addRoomAttributes(level,obj)
         str +='<option value="">Select Room</option>';
         str +=ROOMTYPES;
         str +='</select>';
-        str +='<button type="button" onclick="addRoomAttributes('+level+',this)" class="btn btn-white"><i class="fa fa-plus"></i></button>';
+        str +=' <button type="button" onclick="addRoomAttributes('+level+',this)" class="btn btn-white"><i class="fa fa-plus"></i></button>';
         str +='</div> ';
  
         $(obj).hide();
