@@ -43,9 +43,10 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource( 'project.floor-layout', 'Admin\ProjectFloorLayoutController' );
     Route::resource( 'phase', 'Admin\PhaseController' );
     Route::resource( 'project.roomtype', 'Admin\ProjectRoomTypeController' );
+    Route::resource( 'floor-layout.position', 'Admin\FloorLayoutPositionController' );
     Route::get( 'project/{id}/svg', 'Admin\ProjectController@svg' );
     Route::post( 'project/{projectid}/bunglow-variant/{id}/roomtypeattributes', 'Admin\ProjectBunglowVariantController@roomtypeAttributes' );
-     Route::delete( 'project/{projectid}/roomtype/{id}/deleteroomtypeattributes', 'Admin\ProjectRoomTypeController@deleteRoomTypeAttribute' );
+    Route::delete( 'project/{projectid}/roomtype/{id}/deleteroomtypeattributes', 'Admin\ProjectRoomTypeController@deleteRoomTypeAttribute' );
     
 } );
 
