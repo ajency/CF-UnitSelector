@@ -22,4 +22,12 @@ class FloorLayout extends Model {
         return $this->basicSvg->getFullPath();
     }
 
+    public function hasDetailedSvg(){
+        return 0 != $this->detailed_svg;
+    }
+    
+    public function hasBasicSvg(){
+        return 0 != $this->basic_svg;
+    }
+    
 }

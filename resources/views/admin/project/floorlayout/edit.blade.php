@@ -50,7 +50,7 @@
                             <input type="hidden" name="detailed_svg" value="0" />
                         </div>
                         <div>
-                            @if(0 != $floorLayout->detailed_svg)
+                            @if($floorLayout->hasDetailedSvg())
                             <object data="{{ $floorLayout->getDetailedSvgPath() }}" width="150"></object>
                             @endif
                         </div> 
@@ -64,7 +64,7 @@
                             <input type="hidden" name="basic_svg" value="0" />
                         </div>
                         <div>
-                            @if(0 != $floorLayout->basic_svg)
+                            @if($floorLayout->hasBasicSvg())
                             <object data="{{ $floorLayout->getBasicSvgPath() }}" width="150"></object>
                             @endif
                         </div> 
@@ -73,12 +73,71 @@
                         <div class="pull-rigunitt">
                             <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                             <button type="submit" class="btn btn-primary btn-cons">Save</button>
-                            <button type="button" class="btn btn-default btn-cons">Cancel</button>
+                            <a href="{{ url('admin/project/'. $project['id'] .'/floor-layout') }}" class="btn btn-default btn-cons">Cancel</a>
                         </div>
                     </div>
                 </form>
             </div>
         </div>
-    </div>  
+    
+
+        @for($i = 1; $i <= $floorLayout->no_of_flats; $i++)
+        <div class="grid simple">
+            <div class="grid-title">
+                <h3 class="inline"><span class="semi-bold">Position</span> Details</h3> 
+
+                <div class="clearfix"></div>
+            </div>
+            <div class="grid-body"><h3>Position {{ $i }}</h3>
+                <div class="row m-b-15">
+                    <div class="col-md-9">
+                        <form>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div>
+                                            <label class="form-label">Unit Type</label>
+                                        </div>
+                                        <select>
+                                            <option>Controls</option>
+                                            <option> Text Box</option>
+                                            <option>Select Box</option>
+                                            <option> Multiple Select Box</option>
+                                            <option> Number </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <div>
+                                            <label class="form-label">Unit Variant</label>
+                                        </div>
+                                        <select>
+                                            <option>Controls</option>
+                                            <option> Text Box</option>
+                                            <option>Select Box</option>
+                                            <option> Multiple Select Box</option>
+                                            <option> Number </option>
+                                        </select>
+                                    </div>
+                                </div> 
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail"  style="width:160px;">  
+                    </div> 
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pull-right">
+                            <button type="button" class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endfor
+    </div> 
 </div>
 @endsection
