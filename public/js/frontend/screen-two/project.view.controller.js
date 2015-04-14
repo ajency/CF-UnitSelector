@@ -1,5 +1,5 @@
 (function() {
-  var CenterBunglowView, LeftBunglowCompositeView, LeftBunglowView, TopBunglowView, api,
+  var LeftBunglowCompositeView, LeftBunglowView, TopBunglowView, api,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
@@ -168,14 +168,14 @@
 
   })(Marionette.RegionController);
 
-  CenterBunglowView = (function(superClass) {
+  CommonFloor.CenterBunglowView = (function(superClass) {
     extend(CenterBunglowView, superClass);
 
     function CenterBunglowView() {
       return CenterBunglowView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div id="spritespin"></div> <div class="svg-maps"> <div class="front inactive"></div> <div class="right inactive"></div> <div class="back inactive"></div> <div class="left inactive"></div> <!--<object data="{{project_master.front}}" class="inactive"></object> <object data="{{project_master.right}}" class="inactive"></object> <object data="{{project_master.back}}" class="inactive"></object> <object data="{{project_master.left}}" class="inactive"></object>--> </div> <div class="rotate-controls"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
+    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> <!--<object data="{{project_master.front}}" class="inactive"></object> <object data="{{project_master.right}}" class="inactive"></object> <object data="{{project_master.back}}" class="inactive"></object> <object data="{{project_master.left}}" class="inactive"></object>--> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
 
     CenterBunglowView.prototype.initialize = function() {
       this.currentBreakPoint = "";
@@ -225,7 +225,7 @@
     };
 
     CenterBunglowView.prototype.onShow = function() {
-      var svgs, transitionImages;
+      var response, svgs, transitionImages;
       transitionImages = [];
       svgs = {};
       svgs[0] = project.get('project_master').front;
@@ -236,8 +236,11 @@
       $.merge(transitionImages, project.get('project_master')['back-right']);
       $.merge(transitionImages, project.get('project_master')['left-back']);
       $.merge(transitionImages, project.get('project_master')['front-left']);
-      this.initializeRotate(transitionImages, svgs);
-      return this.iniTooltip();
+      response = project.checkRotationView();
+      if (response === 1) {
+        $('.rotate').removeClass('hidden');
+      }
+      return this.initializeRotate(transitionImages, svgs);
     };
 
     CenterBunglowView.prototype.setDetailIndex = function(index) {
@@ -254,7 +257,7 @@
     };
 
     CenterBunglowView.prototype.initializeRotate = function(transitionImages, svgs) {
-      var frames, spin;
+      var frames, spin, that;
       frames = transitionImages;
       this.breakPoints = [0, 4, 8, 12];
       this.currentBreakPoint = 0;
@@ -267,13 +270,14 @@
         height: 600,
         animate: false
       });
+      that = this;
       api = spin.spritespin("api");
       return spin.bind("onFrame", function() {
         var data, url;
         data = api.data;
         if (data.frame === data.stopFrame) {
           url = svgs[data.frame];
-          return $('<div></div>').load(url).appendTo('.front').addClass('active').removeClass('inactive');
+          return $('.region').load(url, that.iniTooltip).addClass('active').removeClass('inactive');
         }
       });
     };
@@ -301,7 +305,7 @@
     }
 
     CenterBunglowCtrl.prototype.initialize = function() {
-      return this.show(new CenterBunglowView({
+      return this.show(new CommonFloor.CenterBunglowView({
         model: project
       }));
     };

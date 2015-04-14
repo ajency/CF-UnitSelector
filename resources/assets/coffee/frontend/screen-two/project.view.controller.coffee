@@ -123,23 +123,21 @@ class CommonFloor.LeftBunglowCtrl extends Marionette.RegionController
 			collection : unitsCollection
 
 
-class CenterBunglowView extends Marionette.ItemView
+class CommonFloor.CenterBunglowView extends Marionette.ItemView
 
 
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 			<div id="spritespin"></div>
 			<div class="svg-maps">
-			<div class="front inactive"></div>
-			<div class="right inactive"></div>
-			<div class="back inactive"></div>
-			<div class="left inactive"></div>
+			<div class="region inactive"></div>
+			
 			  <!--<object data="{{project_master.front}}" class="inactive"></object>
 			  <object data="{{project_master.right}}" class="inactive"></object>
 			  <object data="{{project_master.back}}" class="inactive"></object>
 			  <object data="{{project_master.left}}" class="inactive"></object>-->
 			</div>
-            <div class="rotate-controls">
+            <div class="rotate rotate-controls hidden">
 		        <div id="prev" class="rotate-left">Left</div>
 		        <span class="rotate-text">Rotate</span>
 		        <div id="next" class="rotate-right">Right</div>
@@ -215,7 +213,7 @@ class CenterBunglowView extends Marionette.ItemView
 		# 	return
 		transitionImages = []
 		svgs = {}
-		svgs[0] = project.get('project_master').front
+		svgs[0] = project.get('project_master').front 
 		svgs[4] = project.get('project_master').right
 		svgs[8] = project.get('project_master').back
 		svgs[12] =  project.get('project_master').left
@@ -224,8 +222,11 @@ class CenterBunglowView extends Marionette.ItemView
 		$.merge transitionImages , project.get('project_master')['back-right']
 		$.merge transitionImages , project.get('project_master')['left-back']
 		$.merge transitionImages , project.get('project_master')['front-left']
+		response = project.checkRotationView()
+		if response is 1
+			$('.rotate').removeClass 'hidden'
 		@initializeRotate(transitionImages,svgs)
-		@iniTooltip()
+		
 		
 
 
@@ -254,13 +255,14 @@ class CenterBunglowView extends Marionette.ItemView
 			height: 600
 			animate: false
 		)
+		that = @
 		api = spin.spritespin("api")
 		spin.bind("onFrame" , ()->
 			data = api.data
-			if data.frame == data.stopFrame
+			if data.frame is data.stopFrame
 				url = svgs[data.frame]
-				$('<div></div>').load(url).appendTo('.front').addClass('active').removeClass('inactive')
-				# $('object[data="'+url+'"]').addClass('active').removeClass('inactive')
+				$('.region').load(url,that.iniTooltip).addClass('active').removeClass('inactive')
+				
 		)
 		
 		
@@ -284,5 +286,5 @@ class CenterBunglowView extends Marionette.ItemView
 class CommonFloor.CenterBunglowCtrl extends Marionette.RegionController
 
 	initialize:->
-		@show new CenterBunglowView
+		@show new CommonFloor.CenterBunglowView
 				model :project

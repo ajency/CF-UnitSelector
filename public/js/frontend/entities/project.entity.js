@@ -42,12 +42,16 @@
     };
 
     Project.prototype.checkRotationView = function() {
-      var rotationImages;
-      rotationImages = this.get('project_master').image.length;
-      if (parseInt(rotationImages) >= 4) {
-        this.set('rotation', 'yes');
+      var transitionImages;
+      transitionImages = [];
+      $.merge(transitionImages, project.get('project_master')['right-front']);
+      $.merge(transitionImages, project.get('project_master')['back-right']);
+      $.merge(transitionImages, project.get('project_master')['left-back']);
+      $.merge(transitionImages, project.get('project_master')['front-left']);
+      if (parseInt(transitionImages.length) >= 4) {
+        this.set('rotation', 1);
       } else {
-        this.set('rotation', 'no');
+        this.set('rotation', 0);
       }
       return this.get('rotation');
     };
