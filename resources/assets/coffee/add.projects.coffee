@@ -37,8 +37,8 @@ jQuery(document).ready ($)->
 	$('#add_project select[name="cf_project_id"]').change ->
 		projectId = $(@).val()
 		project = _.findWhere window.projectsCollection, 'cf_project_id' : projectId
-		$('[name="project_title"]').val project.project_title
-		$('[name="project_address"]').val project.project_address
+		$('[name="project_title"],[name="hidden_project_title"]').val project.project_title
+		$('[name="project_address"],[name="hidden_project_address"]').val project.project_address
 		template = '<div class="user-description-box">
 						<div class="row">
 							<div class="col-sm-8">

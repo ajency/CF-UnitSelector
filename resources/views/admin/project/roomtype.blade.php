@@ -34,7 +34,7 @@
                     <div class="form-inline">
                         <div class="form-group">
                             <select name="controltype_{{$roomtypeId}}" onchange="defaultBlock(this.value,{{$roomtypeId}});">
-                                <option value="">Controls</option>
+                                <option value="">Controls Type</option>
                                 <option value="textbox" @if($attributes['control_type']=='textbox'){{'selected'}}@endif> Text Box</option>
                                 <option value="select" @if($attributes['control_type']=='select'){{'selected'}}@endif>Select Box</option>
                                 <option value="multiple" @if($attributes['control_type']=='multiple'){{'selected'}}@endif> Multiple Select Box</option>
@@ -67,7 +67,7 @@
                     <div class="form-inline">
                         <div class="form-group">
                             <select name="controltype_{{$roomtypeId}}" onchange="defaultBlock(this.value,{{$roomtypeId}});">
-                                <option value="">Controls</option>
+                                <option value="">Controls Type</option>
                                 <option value="textbox" > Text Box</option>
                                 <option value="select" >Select Box</option>
                                 <option value="multiple" > Multiple Select Box</option>
@@ -144,7 +144,7 @@
                     <div class="form-inline">
                         <div class="form-group">
                             <select name="controltype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
-                                <option value="">Controls</option>
+                                <option value="">Controls Type</option>
                                 <option value="textbox" @if($attributes['control_type']=='textbox'){{'selected'}}@endif> Text Box</option>
                                 <option value="select" @if($attributes['control_type']=='select'){{'selected'}}@endif>Select Box</option>
                                 <option value="multiple" @if($attributes['control_type']=='multiple'){{'selected'}}@endif> Multiple Select Box</option>
@@ -177,7 +177,7 @@
                     <div class="form-inline">
                         <div class="form-group">
                             <select name="controltype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" >
-                                <option value="">Controls</option>
+                                <option value="">Controls Type</option>
                                 <option value="textbox" > Text Box</option>
                                 <option value="select" >Select Box</option>
                                 <option value="multiple" > Multiple Select Box</option>
