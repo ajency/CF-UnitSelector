@@ -7,7 +7,7 @@ $.ajaxSetup({
 function addRoomtype(project_id)
 {
     var roomtypename = $("#roomtype").val();
-    if(roomtypename=='')
+    if(roomtypename.trim()=='')
     {
         alert('Enter Room Type Name');
         return false;
@@ -103,7 +103,7 @@ function addRoomtypeAttributes(roomtypeId,obj)
 {
     var value = $(obj).closest('.row').find('input[name="attribute_name_' + roomtypeId + '"]').val();
      
-     if(value=='')
+     if(value.trim()=='')
     {
         alert('Enter Attribute Name');
         return false;
