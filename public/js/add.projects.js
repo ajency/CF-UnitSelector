@@ -152,7 +152,7 @@
       });
     };
     registerRemoveUnitType();
-    return $('.add-unit-type-btn').click(function() {
+    $('.add-unit-type-btn').click(function() {
       var compile, data, html, propertyType, unitType;
       unitType = $(this).parent().find('input').val();
       if (unitType === '') {
@@ -170,6 +170,23 @@
       $('.add-unit-types').find(".property-type-" + propertyType).children('.form-inline').last().before(compile(data));
       $(this).parent().find('input').val('');
       return registerRemoveUnitType();
+    });
+    return $('.floor-position button.save-position').click(function() {
+      var floorLayoutId, form, formData;
+      form = $(this).closest('form');
+      form.parsley().validate();
+      if (form.parsley().isValid()) {
+        formData = form.serializeArray();
+        floorLayoutId = form.find('[name="floor_layout_id"]').val();
+        return $.ajax({
+          url: BASEURL + '/admin/floor-layout/' + floorLayoutId + '/position',
+          type: 'POST',
+          data: formData,
+          success: function(response) {
+            return console.log('show success message');
+          }
+        });
+      }
     });
   });
 

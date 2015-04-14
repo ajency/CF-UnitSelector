@@ -15,7 +15,7 @@ class CreateFloorLayoutPositionsTable extends Migration {
             $table->increments( 'id' );
             $table->integer( 'floor_layout_id' );
             $table->integer( 'position' );
-            $table->integer( 'unit_valriant_id' );
+            $table->integer( 'unit_variant_id' );
             $table->timestamps();
         } );
     }

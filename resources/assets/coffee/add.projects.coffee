@@ -194,6 +194,22 @@ jQuery(document).ready ($)->
 			.children('.form-inline').last().before compile data
 		$(@).parent().find('input').val ''
 		registerRemoveUnitType()
+		
+		
+	$('.floor-position button.save-position').click ->
+		
+		form = $(@).closest('form')
+		form.parsley().validate()
+		if form.parsley().isValid()
+			formData = form.serializeArray()		
+			floorLayoutId = form.find('[name="floor_layout_id"]').val()
+			$.ajax
+				url : BASEURL + '/admin/floor-layout/' + floorLayoutId + '/position'
+				type : 'POST'
+				data : formData					
+				success : (response)->
+					console.log 'show success message'
+		
 			
 			
 		

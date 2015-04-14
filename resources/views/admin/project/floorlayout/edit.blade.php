@@ -79,19 +79,19 @@
                 </form>
             </div>
         </div>
-    
+
 
         @for($i = 1; $i <= $floorLayout->no_of_flats; $i++)
-        <div class="grid simple">
+        <div class="grid simple floor-position">
             <div class="grid-title">
                 <h3 class="inline"><span class="semi-bold">Position</span> Details</h3> 
 
                 <div class="clearfix"></div>
             </div>
-            <div class="grid-body"><h3>Position {{ $i }}</h3>
-                <div class="row m-b-15">
-                    <div class="col-md-9">
-                        <form>
+            <form data-parsley-validate>
+                <div class="grid-body"><h3>Position {{ $i }}</h3>
+                    <div class="row m-b-15">
+                        <div class="col-md-9">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -100,10 +100,6 @@
                                         </div>
                                         <select>
                                             <option>Controls</option>
-                                            <option> Text Box</option>
-                                            <option>Select Box</option>
-                                            <option> Multiple Select Box</option>
-                                            <option> Number </option>
                                         </select>
                                     </div>
                                 </div>
@@ -112,30 +108,25 @@
                                         <div>
                                             <label class="form-label">Unit Variant</label>
                                         </div>
-                                        <select>
-                                            <option>Controls</option>
-                                            <option> Text Box</option>
-                                            <option>Select Box</option>
-                                            <option> Multiple Select Box</option>
-                                            <option> Number </option>
+                                        <select required="" name="unit_variant_id">
+                                            <option value="1">Choose Variant</option>
                                         </select>
                                     </div>
                                 </div> 
                             </div>
-                        </form>
+                        </div>
                     </div>
-                    <div class="col-md-3 text-right">
-                        <img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail"  style="width:160px;">  
-                    </div> 
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="pull-right">
-                            <button type="button" class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <input type="hidden" name="position" value="{{ $i }}" />
+                                <input type="hidden" name="floor_layout_id" value="{{ $floorLayout->id }}" />
+                                <button type="button" class="btn btn-small btn-primary save-position"><i class="fa fa-save"></i> Save</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
         @endfor
     </div> 
