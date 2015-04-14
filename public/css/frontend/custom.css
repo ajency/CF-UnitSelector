@@ -666,3 +666,10 @@ label.third_toggle {
 .panel-wrapper {
   padding: 0;
 }
+.svg-maps object.active {
+      display: block;
+}
+    
+.svg-maps object.inactive {
+      display: none;
+}
