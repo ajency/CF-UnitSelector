@@ -167,19 +167,16 @@ function addRoomtypeAttributes(roomtypeId,obj)
             
 }
 
-function saveRoomypeattribute(project_id,roomtypeId,reffrence_type)
-{  
-    $("#loader_"+roomtypeId).show();
+function saveRoomdetails(project_id,variantId)
+{   
     $.ajax({
-        url: "/admin/project/" + project_id + "/roomtype/"+roomtypeId,
+        url: BASEURL+"/admin/project/" + project_id + "/bunglow-variant/"+variantId+"/roomtypeattributes",
         type: "POST",
         data: {
-            roomtypeattrData:$("#frmroomtype_"+roomtypeId).serializeArray(),
-            reffrence_type: reffrence_type,
-            _method: 'PUT'
+            floorlevelroomData:$("#formroomdetails").serializeArray(),
         },
         success: function (response) {
-            window.location.reload();
+             window.location.reload();
         }
     });
 }
@@ -332,9 +329,106 @@ function setUpProjectMasterUploader(){
     });
 }
 
+function setUpFloorLevelUploader(){
+
+    if (typeof FLOORLEVELS != "undefined" || FLOORLEVELS != null)
+    {
+        $.each(FLOORLEVELS, function( index, value ) { 
+            
+            var uploader2d = new plupload.Uploader({
+            runtimes: 'html5,flash,silverlight,html4',
+            browse_button: 'pickfiles_2d_'+value, // you can pass in id...
+            url: '/admin/variant/' + variantId + '/media',
+            flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+            silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+            headers: {
+                "x-csrf-token": $("[name=_token]").val()
+            },
+            multipart_params: {
+                "level":value,
+                "layout":"2d",
+                "projectId":PROJECTID
+            },
+            filters: {
+                max_file_size: '10mb',
+                mime_types: [{
+                        title: "Image files",
+                        extensions: "svg,jpg,png,jpeg"
+                    }]
+            },
+            init: {
+                PostInit: function () {
+                    document.getElementById('uploadfiles_2d_'+value).onclick = function () {
+                        uploader2d.start();
+                        return false;
+                    };
+                },
+                FileUploaded: function (up, file, xhr) {
+                    fileResponse = JSON.parse(xhr.response);
+                    $("#2dlayout_"+value).html('<img src="'+fileResponse.data.image_path+'" class="img-responsive img-thumbnail"> <button onclick="deleteLayout('+fileResponse.data.media_id+');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
+                }
+            }
+        });
+        uploader2d.init();
+        
+        var uploader3d = new plupload.Uploader({
+            runtimes: 'html5,flash,silverlight,html4',
+            browse_button: 'pickfiles_3d_'+value, // you can pass in id...
+            url: '/admin/variant/' + variantId + '/media',
+            flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+            silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+            headers: {
+                "x-csrf-token": $("[name=_token]").val()
+            },
+            multipart_params: {
+                 "level":value,
+                "layout":"3d",
+                "projectId":PROJECTID
+            },
+            filters: {
+                max_file_size: '10mb',
+                mime_types: [{
+                        title: "Image files",
+                        extensions: "svg,jpg,png,jpeg"
+                    }]
+            },
+            init: {
+                PostInit: function () {
+                    document.getElementById('uploadfiles_3d_'+value).onclick = function () {
+                        uploader3d.start();
+                        return false;
+                    };
+                },
+                FileUploaded: function (up, file, xhr) {
+                    fileResponse = JSON.parse(xhr.response);
+                    $("#3dlayout_"+value).html('<img src="'+fileResponse.data.image_path+'" class="img-responsive img-thumbnail">  <button onclick="deleteLayout('+fileResponse.data.media_id+');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
+                }
+            }
+        });
+        uploader3d.init();
+            
+          });
+    }
+
+     
+}
+
+function deleteLayout(mediaId)
+{    
+    $.ajax({
+        url: '/admin/variant/' + variantId + '/media/'+mediaId ,
+        type: "DELETE",
+      
+        success: function (response) {
+            window.location.reload();
+        }
+    });
+}
+
 $(document).ready(function(){
 
         setUpProjectMasterUploader()
+        setUpFloorLevelUploader()
 
         var uploader = new plupload.Uploader({
             runtimes: 'html5,flash,silverlight,html4',
@@ -405,3 +499,4 @@ $(document).ready(function(){
         skyview_uploader.init();
         
 });
+
