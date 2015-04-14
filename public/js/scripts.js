@@ -7,7 +7,7 @@ $.ajaxSetup({
 function addRoomtype(project_id)
 {
     var roomtypename = $("#roomtype").val();
-    if(roomtypename=='')
+    if(roomtypename.trim()=='')
     {
         alert('Enter Room Type Name');
         return false;
@@ -61,7 +61,7 @@ function addRoomtype(project_id)
             str += '<div class = "form-inline" >';
             str += '<div class = "form-group" >';
             str += '<input type = "controltypevalues_' + roomtypeId + '" class = "form-control" placeholder="Default values" >';
-            str += '<button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes("' + roomtypeId + '",this)"> <i class ="fa fa-plus" > </i></button>';
+            str += '<button type="button" class="btn btn-white" onclick="addRoomtypeAttributes(' + roomtypeId + ',this)"><i class="fa fa-plus"></i></button>';
             //str += ' <button class = "btn btn-small btn-default m-t-5"  > <i class = "fa fa-trash" > </i> Delete</button>';
             str += '</div>';
             str += '</div>';
@@ -101,6 +101,13 @@ function deleteRoomType(project_id,roomtypeId)
 
 function addRoomtypeAttributes(roomtypeId,obj)
 {
+    var value = $(obj).closest('.row').find('input[name="attribute_name_' + roomtypeId + '"]').val();
+     
+     if(value.trim()=='')
+    {
+        alert('Enter Attribute Name');
+        return false;
+    }
      var str = '<div class = "row" >';
             str += '<div class = "col-md-3" >';
             str += '<div class = "form-group" >';
