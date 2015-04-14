@@ -10,7 +10,16 @@ class UnitVariant extends Model {
         return $this->hasMany('CommonFloor\VariantRoom');
     }
     
-    public function toArray() {
+    public function media() {
+        return $this->morphMany( 'CommonFloor\Media', 'mediable' );
+    }
+    
+    public function variantMeta()
+    {
+        return $this->hasMany( 'CommonFloor\VariantMeta' );
+    }
+
+        public function toArray() {
       $data = parent::toArray();
       $data['variant_attributes']=  unserialize($data['variant_attributes']);
       return $data;

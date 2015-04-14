@@ -1,3 +1,4 @@
+api = ""
 class CommonFloor.BunglowLayoutView extends Marionette.LayoutView
 
 	template : '#project-view-template'
@@ -106,6 +107,7 @@ class LeftBunglowCompositeView extends Marionette.CompositeView
 										</div>
 									</div>')
 
+
 	childView : LeftBunglowView
 
 	childViewContainer : '.units'
@@ -123,18 +125,35 @@ class CommonFloor.LeftBunglowCtrl extends Marionette.RegionController
 
 class CenterBunglowView extends Marionette.ItemView
 
-	template : Handlebars.compile('	<div class="col-md-9 us-right-content">
-										<div class="svg-area">
-										  
-										</div>
-										<div class="rotate-controls">
-											<div class="rotate-left">Left</div>
-											<span class="rotate-text">Rotate</span>
-											<div class="rotate-right">Right</div>
-										</div>
-									</div>')
+
+
+	template : Handlebars.compile('<div class="col-md-9 us-right-content">
+			<div id="spritespin"></div>
+			<div class="svg-maps">
+			  <object data="{{project_master.front}}" class="inactive"></object>
+			  <object data="{{project_master.right}}" class="inactive"></object>
+			  <object data="{{project_master.back}}" class="inactive"></object>
+			  <object data="{{project_master.left}}" class="inactive"></object>
+			</div>
+			<button id="prev">PREV</button>
+			<button id="next">NEXT</button>
+		  </div>')
+
+	
+	initialize:->
+		@currentBreakPoint = ""
+		@breakPoints = ""
+		
 
 	events :
+		'click #prev':->
+			$('.svg-maps > object').addClass('inactive').removeClass('active');
+			@setDetailIndex(@currentBreakPoint - 1);
+
+		'click #next':->
+			$('.svg-maps > object').addClass('inactive').removeClass('active');
+			@setDetailIndex(@currentBreakPoint - 1);
+
 		'mouseout':(e)->
 			$('.layer').attr('class' ,'layer') 
 			$('.blck-wrap').attr('class' ,'blck-wrap') 
@@ -181,13 +200,66 @@ class CenterBunglowView extends Marionette.ItemView
 
 
 	onShow:->
-		path = project.get('project_master').front
-		$('<div></div>').load(path,@iniTooltip).appendTo('.svg-area')
+		# $('.us-right-content').imagesLoaded ->
+		# 	divHeight = $('.us-right-content').height()
+		# 	$('.unit-list').css 'max-height', divHeight + 'px'
+		# 	return
+		transitionImages = []
+		svgs = {}
+		svgs[0] = project.get('project_master').front
+		svgs[4] = project.get('project_master').right
+		svgs[8] = project.get('project_master').back
+		svgs[12] =  project.get('project_master').left
 
-		$('.us-right-content').imagesLoaded ->
-		  divHeight = $('.us-right-content').height()
-		  $('.unit-list').css 'max-height', divHeight + 'px'
-		  return
+		$.merge transitionImages , project.get('project_master')['right-front']
+		$.merge transitionImages , project.get('project_master')['back-right']
+		$.merge transitionImages , project.get('project_master')['left-back']
+		$.merge transitionImages , project.get('project_master')['front-left']
+		console.log transitionImages
+		@initializeRotate(transitionImages,svgs)
+		
+
+
+	setDetailIndex:(index)->
+		@currentBreakPoint = index;
+		if (@currentBreakPoint < 0) 
+			@currentBreakPoint = @breakPoints.length - 1
+		
+		if (@currentBreakPoint >= @breakPoints.length) 
+			@currentBreakPoint = 0
+		
+		api.playTo(@breakPoints[@currentBreakPoint], 
+			nearest: true
+		)
+
+	initializeRotate:(transitionImages,svgs)->
+		console.log frames = transitionImages
+		@breakPoints = [0, 4, 8, 12]
+		@currentBreakPoint = 0
+		$('.svg-maps > object').first().removeClass('inactive').addClass('active');
+		spin = $('#spritespin')
+		spin.spritespin(
+			source: frames
+			width: 800
+			sense: -1
+			height: 600
+			animate: false
+		)
+		console.log api = spin.spritespin("api")
+		spin.bind("onFrame" , ()->
+			data = api.data
+			if data.frame == data.stopFrame
+				console.log url = svgs[data.frame]
+				# $('object[data="'+url+'"]').prevAll().addClass('inactive').removeClass('inactive')
+				# $('object[data="'+url+'"]').nextAll().addClass('inactive').removeClass('inactive')
+				console.log $('object[data="'+url+'"]')
+				$('object[data="'+url+'"]').addClass('active').removeClass('inactive')
+		)
+		
+		
+
+
+		
 
 
 	iniTooltip:->
@@ -206,3 +278,4 @@ class CommonFloor.CenterBunglowCtrl extends Marionette.RegionController
 
 	initialize:->
 		@show new CenterBunglowView
+				model :project

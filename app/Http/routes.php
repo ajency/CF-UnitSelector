@@ -36,6 +36,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::get( '/', 'Admin\AdminController@index' );
     Route::resource( 'project', 'Admin\ProjectController' );
     Route::resource( 'project.media', 'Admin\ProjectMediaController' );
+    Route::resource( 'variant.media', 'Admin\VariantMediaController' );
     Route::resource( 'project.unittype', 'Admin\ProjectUnitTypeController' );
     Route::resource( 'project.bunglow-variant', 'Admin\ProjectBunglowVariantController' );
     Route::resource( 'project.apartment-variant', 'Admin\ProjectApartmentVariantController' );
