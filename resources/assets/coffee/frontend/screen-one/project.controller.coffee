@@ -159,6 +159,7 @@ class CenterView extends Marionette.ItemView
 					  
 					</div>
 					
+					
 
 				</div>')
 
