@@ -92,7 +92,7 @@
                             <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                             <button type="submit" class="btn btn-primary btn-cons">Save</button>
                             <button type="reset" class="hidden" />
-                            <button type="button" class="btn btn-white btn-cons">Cancel</button>
+                            <a href="{{ url('admin/project') }}"><button type="button" class="btn btn-white btn-cons">Cancel</button></a>
                         </div>
                     </div>
                 </form>
