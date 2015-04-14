@@ -6,6 +6,7 @@ use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use CommonFloor\Project;
+use CommonFloor\ProjectPropertyType;
 
 class ProjectApartmentVariantController extends Controller {
 
@@ -28,13 +29,14 @@ class ProjectApartmentVariantController extends Controller {
      */
     public function create( $projectId ) {
         $project = Project::find( $projectId );
-        $projectPropertytype = $project->projectPropertyTypes()->where( 'property_type_id', 1 )->first(); // 1 is Apartment
-        $unitTypes = $project->getUnitTypesToArray( $projectPropertytype->id );
+        $projectPropertyType = $project->projectPropertyTypes()->where( 'property_type_id', 1 )->first(); // 1 is Apartment
+        $unitTypes = $project->getUnitTypesToArray( $projectPropertyType->id );
+        $propertyTypeAttributes = ProjectPropertyType::find( $projectPropertyType->id )->attributes->toArray();
         return view( 'admin.project.variants.apartment.create' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'apartment-variant' )
                         ->with( 'unitTypes', $unitTypes )
-                        ->with( 'project_property_type_attributes', [] );
+                        ->with( 'projectPropertyTypeAttributes', $propertyTypeAttributes );
     }
 
     /**
