@@ -446,6 +446,12 @@ body {
   width: 33%;
   padding: 0 10px 0 0;
 }
+.svg-maps object.active {
+  display: block;
+}
+.svg-maps object.inactive {
+  display: none;
+}
 .rotate-controls {
   position: absolute;
   bottom: 30px;
