@@ -21,7 +21,7 @@
                 </div>
             </div>
             @foreach($roomtype['ATTRIBUTES'] as $attributes)    
-            <div class="row">
+            <div class="row" id="roomtypeattribute_{{$attributes['id']}}">
                 <div class="col-md-3">
                     <div class="form-group">
                         <div class="">
@@ -34,11 +34,12 @@
                     <div class="form-inline">
                         <div class="form-group">
                             <select name="controltype_{{$roomtypeId}}" onchange="defaultBlock(this.value,{{$roomtypeId}});">
-                                <option value="">Controls</option>
+                                <option value="">Controls Type</option>
                                 <option value="textbox" @if($attributes['control_type']=='textbox'){{'selected'}}@endif> Text Box</option>
                                 <option value="select" @if($attributes['control_type']=='select'){{'selected'}}@endif>Select Box</option>
                                 <option value="multiple" @if($attributes['control_type']=='multiple'){{'selected'}}@endif> Multiple Select Box</option>
                                 <option value="media" @if($attributes['control_type']=='number'){{'selected'}}@endif> Number </option>
+                                <option value="upload" @if($attributes['control_type']=='upload'){{'selected'}}@endif> Upload </option>
                             </select>
                            
                         </div>
@@ -48,7 +49,7 @@
                     <div class="form-inline">
                         <div class="form-group">
                             <input type="text" name="controltypevalues_{{$roomtypeId}}" class="form-control" value="{{$attributes['defaults']}}" placeholder="Default values">
-                            <!--<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>-->
+                            <button type="button" class="btn btn-small btn-default m-t-5" onclick="deleteRoomTypeAttribute({{$project['id']}},{{$attributes['id']}});"><i class="fa fa-trash"></i> Delete</button>
                         </div>
                     </div>
                 </div>
@@ -67,11 +68,12 @@
                     <div class="form-inline">
                         <div class="form-group">
                             <select name="controltype_{{$roomtypeId}}" onchange="defaultBlock(this.value,{{$roomtypeId}});">
-                                <option value="">Controls</option>
+                                <option value="">Controls Type</option>
                                 <option value="textbox" > Text Box</option>
                                 <option value="select" >Select Box</option>
                                 <option value="multiple" > Multiple Select Box</option>
                                 <option value="number" > Number </option>
+                                <option value="upload" > Upload </option>
                             </select>
                             
                         </div>
@@ -92,7 +94,7 @@
 
                     <div class="text-right"> 
                         <button type="button" class="btn btn-small btn-primary" onclick="saveRoomypeattribute({{$project['id']}},{{$roomtypeId}},'room_type');"><i class="fa fa-save"></i> Save</button>
-                        <!--<button type="button" class="btn btn-small btn-default"><i class="fa fa-trash"></i> Delete</button>-->
+                        <button type="button" class="btn btn-small btn-default" onclick="deleteRoomType({{$project['id']}},{{$roomtypeId}});"><i class="fa fa-trash"></i> Delete</button>
                         <div class="cf-loader" id="loader_{{$roomtypeId}}" style="display:none" ></div>
                     </div>
 
@@ -131,7 +133,7 @@
         <form name="frmroomtype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" id="frmroomtype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
         <div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 m-b-10 text-grey">
             @foreach($propertytypeAttribute['ATTRIBUTES'] as $attributes)    
-            <div class="row">
+            <div class="row" id="roomtypeattribute_{{$attributes['id']}}">
                 <div class="col-md-3">
                     <div class="form-group">
                         <div class="">
@@ -144,11 +146,12 @@
                     <div class="form-inline">
                         <div class="form-group">
                             <select name="controltype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
-                                <option value="">Controls</option>
+                                <option value="">Controls Type</option>
                                 <option value="textbox" @if($attributes['control_type']=='textbox'){{'selected'}}@endif> Text Box</option>
                                 <option value="select" @if($attributes['control_type']=='select'){{'selected'}}@endif>Select Box</option>
                                 <option value="multiple" @if($attributes['control_type']=='multiple'){{'selected'}}@endif> Multiple Select Box</option>
                                 <option value="media" @if($attributes['control_type']=='number'){{'selected'}}@endif> Number </option>
+                                <option value="upload" @if($attributes['control_type']=='upload'){{'selected'}}@endif> Upload </option>
                             </select>
                            
                         </div>
@@ -158,7 +161,7 @@
                     <div class="form-inline">
                         <div class="form-group">
                             <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="form-control" placeholder="Default values" value="{{$attributes['defaults']}}">
-                            <!--<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>-->
+                            <button type="button" class="btn btn-small btn-default m-t-5" onclick="deleteRoomTypeAttribute({{$project['id']}},{{$attributes['id']}});"><i class="fa fa-trash"></i> Delete</button>
                         </div>
                     </div>
                 </div>
@@ -177,11 +180,12 @@
                     <div class="form-inline">
                         <div class="form-group">
                             <select name="controltype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" >
-                                <option value="">Controls</option>
+                                <option value="">Controls Type</option>
                                 <option value="textbox" > Text Box</option>
                                 <option value="select" >Select Box</option>
                                 <option value="multiple" > Multiple Select Box</option>
                                 <option value="number"> Number </option>
+                                <option value="upload"> Upload </option>
                             </select>
                            
                         </div>

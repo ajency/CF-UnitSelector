@@ -64,11 +64,13 @@
                                 <label class="form-label">Project Title<span class="text-primary">*</span></label>
                                 <input  name="project_title" type="text" class="form-control" placeholder="Enter Project Title" 
                                         data-parsley-required>
+                                <input  name="hidden_project_title" type="hidden" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Address<span class="text-primary">*</span></label>
                                 <textarea  name="project_address" class="form-control" placeholder="Enter Project Address" 
                                            data-parsley-required></textarea>
+                                <input  name="hidden_project_address" type="hidden" class="form-control">
                             </div>
 
                             <div class="form-group">

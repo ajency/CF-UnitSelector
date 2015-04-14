@@ -177,8 +177,22 @@ class ProjectRoomTypeController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy( $id ) {
-        //
+    public function destroy( $project_id, $id ) {
+        RoomType::find( $id )->delete();
+
+        return response()->json( [
+                    'code' => 'roomtype_deleted',
+                    'message' => 'Room Type Successfully Deleted'
+                        ], 204 );
+    }
+    
+    public function deleteRoomTypeAttribute( $project_id, $id ) {
+        Attribute::find( $id )->delete();
+
+        return response()->json( [
+                    'code' => 'roomtypeattribute_deleted',
+                    'message' => 'Room Type Attribute Successfully Deleted'
+                        ], 204 );
     }
 
 }

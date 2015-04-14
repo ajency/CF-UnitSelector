@@ -40,8 +40,8 @@ class ProjectRepository implements ProjectRepositoryInterface {
         $project->projectPropertyTypes()->saveMany($projectpropertyType);
 
         $commonFloorData = [
-            'project_title' => $projectData['project_title'],
-            'project_address' => $projectData['project_address'],
+            'project_title' => $projectData['hidden_project_title'],
+            'project_address' => $projectData['hidden_project_address'],
             'builder_name' => $projectData['builder_name'],
             'builder_link' => $projectData['builder_link'],
             'project_image' => $projectData['project_image'],
