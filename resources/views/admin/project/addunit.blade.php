@@ -35,7 +35,7 @@
                     <div class="form-group">
                         <label class="form-label">Unit Variant</label>
                         <select name="unit_variant" class="select2 form-control" data-parsley-required>
-                            <option value="">Select Type</option>
+                            <option value="">Select Unit Variant</option>
                             @foreach($unit_variant_arr as $unit_variant)
                             <option value="{{$unit_variant['id']}}">{{$unit_variant['unit_variant_name']}}</option>
                             @endforeach

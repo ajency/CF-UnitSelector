@@ -75,7 +75,7 @@
 
                             <div class="form-group">
                                 <label class="form-label">Property Types <span class="text-primary">*</span></label>
-                                <select placeholder="Add property type" name="property_types[]" 
+                                <select placeholder="Add Property Type" name="property_types[]" 
                                         data-parsley-required class="select2 form-control" multiple="multiple" >
                                    @foreach($property_type as $type) 
                                     <option value="{{$type['id']}}">{{$type['name']}}</option>
@@ -92,7 +92,7 @@
                             <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                             <button type="submit" class="btn btn-primary btn-cons">Save</button>
                             <button type="reset" class="hidden" />
-                            <button type="button" class="btn btn-white btn-cons">Cancel</button>
+                            <a href="{{ url('admin/project') }}"><button type="button" class="btn btn-white btn-cons">Cancel</button></a>
                         </div>
                     </div>
                 </form>
