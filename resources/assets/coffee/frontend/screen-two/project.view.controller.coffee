@@ -84,28 +84,28 @@ class LeftBunglowView extends Marionette.ItemView
 
 class LeftBunglowCompositeView extends Marionette.CompositeView
 
-	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
-			<div class="filters-wrapper ">
-				<div class="advncd-filter-wrp  unit-list">
-					<div class="blck-wrap title-row">
-				  <div class="row">
-					<div class="col-sm-4">
-					  <h5 class="accord-head">Villa No</h5>                      
-					</div>
-					<div class="col-sm-4">
-					  <h5 class="accord-head">Type</h5>                      
-					</div>
-					<div class="col-sm-4">
-					  <h5 class="accord-head">Area</h5>                      
-					</div>
-				  </div>
-				</div>
-				<div class="units">
-				</div> 
+	template : Handlebars.compile('	<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
+										<div class="filters-wrapper ">
+											<div class="advncd-filter-wrp  unit-list">
+												<div class="blck-wrap title-row">
+					                  				<div class="row">
+									                    <div class="col-sm-4">
+									                      <h5 class="accord-head">Villa No</h5>                      
+									                    </div>
+									                    <div class="col-sm-4">
+									                      <h5 class="accord-head">Type</h5>                      
+									                    </div>
+									                    <div class="col-sm-4">
+									                      <h5 class="accord-head">Area</h5>                      
+									                    </div>
+					                  				</div>
+					                			</div>
+								                <div class="units">
+								                </div>
+											</div>
+										</div>
+									</div>')
 
-					</div>
-				</div>
-				</div>')
 
 	childView : LeftBunglowView
 
@@ -125,18 +125,20 @@ class CommonFloor.LeftBunglowCtrl extends Marionette.RegionController
 class CenterBunglowView extends Marionette.ItemView
 
 
+
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 			<div id="spritespin"></div>
 			<div class="svg-area">
 			  <object data="{{project_master.front}}" ></object>
-			  <object data="{{project_master.right}}" class="hidden"></object>
-			  <object data="{{project_master.back}}" class="hidden"></object>
-			  <object data="{{project_master.left}}" class="hidden"></object>
+			  <object data="{{project_master.right}}" class="inactive"></object>
+			  <object data="{{project_master.back}}" class="inactive"></object>
+			  <object data="{{project_master.left}}" class="inactive"></object>
 			</div>
 			<button id="prev">PREV</button>
 			<button id="next">NEXT</button>
 		  </div>')
 
+	
 	initialize:->
 		@currentBreakPoint = ""
 		@breakPoints = ""
@@ -175,18 +177,17 @@ class CenterBunglowView extends Marionette.ItemView
 			availability = s.decapitalize(availability)
 			html = ""
 			html += '<div class="svg-info">
-					<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
-					<!--<span class="label label-success"></span-->
-					<div class="clearfix"></div>
-					<div class="details">
-					<div>
-						<label>Area</label> - '+unitVariant.get('super_build_up_area')+' Sq.ft
-					</div> 
-					<div>
-						<label>Unit Type </label> - '+unitType.get('name')+'
-					</div>  
-					</div>  
-					</div>  
+						<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
+						<!--<span class="label label-success"></span-->
+						<div class="clearfix"></div>
+						<div class="details">
+							<div>
+								<label>Area</label> - '+unitVariant.get('super_build_up_area')+' Sq.ft
+							</div> 
+							<div>
+								<label>Unit Type </label> - '+unitType.get('name')+'
+							</div>  
+						</div>  
 					</div>'
 			
 			$('#'+id).attr('class' ,'layer '+availability) 
@@ -248,6 +249,11 @@ class CenterBunglowView extends Marionette.ItemView
 		
 		
 
+
+		$('.us-right-content').imagesLoaded ->
+		  divHeight = $('.us-right-content').height()
+		  $('.unit-list').css 'max-height', divHeight + 'px'
+		  return
 
 
 	iniTooltip:->

@@ -2,10 +2,12 @@
 
 namespace CommonFloor\Http\Controllers\Admin;
 
-use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use CommonFloor\Project;
+use CommonFloor\FloorLayout;
 use CommonFloor\Repositories\ProjectRepository;
+use CommonFloor\Repositories\FloorLayoutRepository;
 
 class ProjectFloorLayoutController extends Controller {
 
@@ -44,8 +46,16 @@ class ProjectFloorLayoutController extends Controller {
      *
      * @return Response
      */
-    public function store() {
-        //
+    public function store( $projectId, Request $request, FloorLayoutRepository $floorLayoutRepository ) {
+        $formData = $request->all();
+        unset( $formData['_token'] );
+
+        $project = Project::find( $projectId );
+        $projectPropertyTypeId = $project->getProjectPropertyTypeId( 1 ); // 1 is property type apartment
+
+        $formData['project_property_type_id'] = $projectPropertyTypeId;
+        $floorLayout = $floorLayoutRepository->createFloorLayout( $formData );
+        return redirect( url( 'admin/project/' . $projectId . '/floor-layout/' . $floorLayout->id . '/edit' ) );
     }
 
     /**
@@ -64,8 +74,13 @@ class ProjectFloorLayoutController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit( $id ) {
-        //
+    public function edit( $projectId, $floorLayoutId ) {
+        $project = $this->projectRepository->getProjectById( $projectId );
+        $floorLayout = FloorLayout::find( $floorLayoutId );
+        return view( 'admin.project.floorlayout.edit' )
+                        ->with( 'project', $project->toArray() )
+                        ->with( 'current', 'add-floor-layout' )
+                        ->with( 'floorLayout', $floorLayout );
     }
 
     /**

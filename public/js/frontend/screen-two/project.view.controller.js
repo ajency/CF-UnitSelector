@@ -136,7 +136,7 @@
       return LeftBunglowCompositeView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBunglowCompositeView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper "> <div class="advncd-filter-wrp  unit-list"> <div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div> <div class="units"> </div> </div> </div> </div>');
+    LeftBunglowCompositeView.prototype.template = Handlebars.compile('	<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper "> <div class="advncd-filter-wrp  unit-list"> <div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div> <div class="units"> </div> </div> </div> </div>');
 
     LeftBunglowCompositeView.prototype.childView = LeftBunglowView;
 
@@ -173,7 +173,7 @@
       return CenterBunglowView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div id="spritespin"></div> <div class="svg-area"> <object data="{{project_master.front}}" ></object> <object data="{{project_master.right}}" class="hidden"></object> <object data="{{project_master.back}}" class="hidden"></object> <object data="{{project_master.left}}" class="hidden"></object> </div> <button id="prev">PREV</button> <button id="next">NEXT</button> </div>');
+    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div id="spritespin"></div> <div class="svg-area"> <object data="{{project_master.front}}" ></object> <object data="{{project_master.right}}" class="inactive"></object> <object data="{{project_master.back}}" class="inactive"></object> <object data="{{project_master.left}}" class="inactive"></object> </div> <button id="prev">PREV</button> <button id="next">NEXT</button> </div>');
 
     CenterBunglowView.prototype.initialize = function() {
       this.currentBreakPoint = "";
@@ -213,7 +213,7 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + unitVariant.get('super_build_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + unitType.get('name') + '</div> </div> </div> </div>';
+        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + unitVariant.get('super_build_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + unitType.get('name') + '</div> </div> </div>';
         $('#' + id).attr('class', 'layer ' + availability);
         $('#unit' + id).attr('class', 'blck-wrap active');
         return $('.layer').tooltipster('content', html);
@@ -267,7 +267,7 @@
         animate: false
       });
       console.log(api = spin.spritespin("api"));
-      return spin.bind("onFrame", function() {
+      spin.bind("onFrame", function() {
         var data;
         data = api.data;
         if (data.frame === data.stopFrame) {
@@ -275,6 +275,11 @@
           $('object[data="svg/artha-' + data.frame + '.svg"]').nextAll().addClass('inactive').removeClass('inactive');
           return $('object[data="svg/artha-' + data.frame + '.svg"]').addClass('active').removeClass('inactive');
         }
+      });
+      return $('.us-right-content').imagesLoaded(function() {
+        var divHeight;
+        divHeight = $('.us-right-content').height();
+        $('.unit-list').css('max-height', divHeight + 'px');
       });
     };
 
