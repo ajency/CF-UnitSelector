@@ -510,7 +510,7 @@ $(document).ready(function(){
 
 function deleteSvg(mediaId,type)
 {    
-    $.ajax({
+    /*$.ajax({
         url: '/admin/project/' + PROJECTID + '/media/'+mediaId ,
         type: "DELETE",
         multipart_params: {
@@ -520,6 +520,6 @@ function deleteSvg(mediaId,type)
         success: function (response) {
             window.location.reload();
         }
-    });
+    });*/
 }
 
