@@ -141,11 +141,8 @@
                             <select name="room_name_0" class="select2 form-control">
                                 <option value="">Select Room</option>
                                 @foreach($availableRoomTypes as $roomType)
-                                <option value="{{ $roomType['id'] }}">
-                                {{ $roomType['name'] }}
-                                </option>
-                            </option>
-                            @endforeach
+                                <option value="{{ $roomType['id'] }}">{{ $roomType['name'] }}</option>
+                                @endforeach
                             </select>
                             <button type="button" class="btn btn-white"><i class="fa fa-plus"></i></button>
                         </div> 
