@@ -3,25 +3,22 @@ class Building extends Backbone.Model
 
 
 	#Count the number of units for each unit type in a building
-	getUnitTypecount:(building_id)->
+	getUnitTypes:(building_id)->
 
-		response = []
+		unitTypes = []
 		if building_id == ""
-			return response
-		statusObject  = settings.get 'status'
-		statusColl = new Backbone.Collection statusObject
-		status  = statusColl.findWhere({'name' : 'Available'})
-		apartmentVariantCollection.each ( item)->
-			units = unitCollection.where({'unit_variant':parseInt(item.get('id'))
-				,'building_id':parseInt(building_id)
-				,'status':parseInt(status.get('id'))});
+			return unitTypes
+		units = unitCollection.where
+						'building_id'  : @model.get 'id'
 
-			response.push({id:item.get('id')
-				,name:item.get('name')
-				,count:units.length})
+		variants = units.pluck "unit_variant_id" 
+		$.each variants,(index,value)->
+			varinatModel = apartmentVariants.findWhere
+									'id' : value
+			unitTypes.push varinatModel.get 'unit_type_id'
 
-	
-		response
+		unitTypes = _.uniq unitTypes
+		unitTypes
 
 	#check 3d rotation view available or not
 	checkRotationView:(buildingId)->

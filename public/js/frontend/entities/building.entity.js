@@ -10,31 +10,25 @@
       return Building.__super__.constructor.apply(this, arguments);
     }
 
-    Building.prototype.getUnitTypecount = function(building_id) {
-      var response, status, statusColl, statusObject;
-      response = [];
+    Building.prototype.getUnitTypes = function(building_id) {
+      var unitTypes, units, variants;
+      unitTypes = [];
       if (building_id === "") {
-        return response;
+        return unitTypes;
       }
-      statusObject = settings.get('status');
-      statusColl = new Backbone.Collection(statusObject);
-      status = statusColl.findWhere({
-        'name': 'Available'
+      units = unitCollection.where({
+        'building_id': this.model.get('id')
       });
-      apartmentVariantCollection.each(function(item) {
-        var units;
-        units = unitCollection.where({
-          'unit_variant': parseInt(item.get('id')),
-          'building_id': parseInt(building_id),
-          'status': parseInt(status.get('id'))
+      variants = units.pluck("unit_variant_id");
+      $.each(variants, function(index, value) {
+        var varinatModel;
+        varinatModel = apartmentVariants.findWhere({
+          'id': value
         });
-        return response.push({
-          id: item.get('id'),
-          name: item.get('name'),
-          count: units.length
-        });
+        return unitTypes.push(varinatModel.get('unit_type_id'));
       });
-      return response;
+      unitTypes = _.uniq(unitTypes);
+      return unitTypes;
     };
 
     Building.prototype.checkRotationView = function(buildingId) {

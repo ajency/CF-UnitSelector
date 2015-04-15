@@ -127,23 +127,7 @@
       }
     };
 
-    CenterItemView.prototype.getUnitTypes = function(id) {
-      var unitTypes, units, variants;
-      units = unitCollection.where({
-        'building_id': this.model.get('id')
-      });
-      variants = units.pluck("unit_variant_id");
-      unitTypes = [];
-      $.each(variants, function(index, value) {
-        var varinatModel;
-        varinatModel = apartmentVariants.findWhere({
-          'id': value
-        });
-        return unitTypes.push(varinatModel.get('unit_type_id'));
-      });
-      unitTypes = _.uniq(unitTypes);
-      return unitTypes;
-    };
+    CenterItemView.prototype.getUnitTypes = function(id) {};
 
     return CenterItemView;
 

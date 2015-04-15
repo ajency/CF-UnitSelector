@@ -36,7 +36,8 @@ class CenterItemView extends Marionette.ItemView
 	events:
 		'mouseover' :(e)->
 			id = @model.get 'id'
-			response = @getUnitTypes(id)
+			building = new Building
+			response = building.getUnitTypes(id)
 			
 			types = []
 			$.each response,(ind,val)->
@@ -56,19 +57,8 @@ class CenterItemView extends Marionette.ItemView
 			console.log types
 
 
-	getUnitTypes:(id)->
-		units = unitCollection.where
-						'building_id'  : @model.get 'id'
-
-		variants = units.pluck "unit_variant_id" 
-		unitTypes = []
-		$.each variants,(index,value)->
-			varinatModel = apartmentVariants.findWhere
-									'id' : value
-			unitTypes.push varinatModel.get 'unit_type_id'
-
-		unitTypes = _.uniq unitTypes
-		unitTypes
+	
+		
 
 
 
