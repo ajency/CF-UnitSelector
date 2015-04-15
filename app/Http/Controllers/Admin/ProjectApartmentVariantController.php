@@ -7,6 +7,7 @@ use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use CommonFloor\Project;
 use CommonFloor\ProjectPropertyType;
+use CommonFloor\UnitVariant;
 
 class ProjectApartmentVariantController extends Controller {
 
@@ -44,8 +45,20 @@ class ProjectApartmentVariantController extends Controller {
      *
      * @return Response
      */
-    public function store() {
-        //
+    public function store($projectId, Request $request) {
+        $unitVariant = new UnitVariant();
+        $unitVariant->unit_variant_name = $request->input( 'unit_variant_name' );
+        $unitVariant->unit_type_id = $request->input( 'unit_type' );
+        $unitVariant->carpet_area = $request->input( 'carpet_area' );
+        $unitVariant->build_up_area = $request->input( 'buildup_area' );
+        $unitVariant->super_build_up_area = $request->input( 'superbuildup_area' );
+        $attributedata = $request->input( 'attributes' );
+        $attributeStr = serialize( $attributedata );
+        $unitVariant->variant_attributes = $attributeStr;
+        $unitVariant->save();
+        $unitVariantID = $unitVariant->id;
+
+        return redirect( "/admin/project/" . $projectId . "/apartment-variant/" . $unitVariantID . '/edit' );
     }
 
     /**
