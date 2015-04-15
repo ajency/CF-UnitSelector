@@ -137,20 +137,34 @@ class ProjectMediaController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy( $project_id, $id ) {
-        $type = Input::get( 'type' );
-        $projectMeta = ProjectMeta::where(['meta_key'=>$type,'project_id'=>$project_id]);
-        $metaValue= $projectMeta->$projectMeta;
+    public function destroy( $project_id, $id ) { 
+        $type = Input::get( 'type' ); 
+        $refference = Input::get( 'refference' );
+        
+        $metaValue = ProjectMeta::where(['meta_key'=>$type,'project_id'=>$project_id])->pluck('meta_value');
+        $data =[]; 
         if($type=='master')
         {
+            $metaValueData = unserialize($metaValue); 
+            $masterTypes = ['front','left','back','right'];
+            $masterTypesMultipleImage = ['front-left', 'left-back', 'back-right', 'right-front'];
+            if(in_array($refference, $masterTypes))
+            {
+                $metaValueData[$refference]='';
+            }
+            elseif(in_array($refference, $masterTypesMultipleImage))
+            {
+                $metaValueKey = array_search ($id, $metaValueData[$refference]);
+                unset($metaValueData[$refference][$metaValueKey]);
+            }
             
+             $data =  ['meta_value'=>serialize($metaValueData)];  
         }
         else
         {
-           $projectMeta->$projectMeta='';
-           $projectMeta->save(); 
+            $data =['meta_value'=>'']; 
         }
-        
+        ProjectMeta::where(['meta_key'=>$type,'project_id'=>$project_id])->update( $data ); 
         Media::find( $id )->delete();
         
         return response()->json( [
