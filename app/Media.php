@@ -16,8 +16,19 @@ class Media extends Model {
         return $this->morphTo();
     }
 
-    public function getFullPath(){
-        
+    public function getFullPath() {
+        $path = '';
+        if ($this->mediable_type === 'CommonFloor\FloorLayout') {
+            $path = url() . '/projects/' . $projectId . '/floor-layouts/' . $this->mediable_id . '/';
+        }
+
+        return $path;
     }
-    
+
+    public function toArray() {
+        $data = parent::toArray();
+        $data['full_path'] = $this->getFullPath();
+        return $data;
+    }
+
 }

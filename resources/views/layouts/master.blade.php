@@ -144,6 +144,7 @@
         <!-- END CONTENT --> 
         <script>
             var BASEURL = '{{ url() }}';
+            var FLOORLEVELS = [];
         </script>
 
         <!-- BEGIN CORE JS FRAMEWORK--> 
