@@ -81,32 +81,32 @@ class ProjectApartmentVariantController extends Controller {
     public function edit( $projectId, $id ) {
         $unitVariant = UnitVariant::find( $id );
         $project = Project::find( $projectId );
-        $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
-        $propertyTypeArr = [];
+        $projectPropertyTypes = $project->projectPropertyTypes()->get()->toArray();
+        $propertyTypes = [];
+        $projectPropertyTypeId = 0;
+        foreach ($projectPropertyTypes as $propertyType) {
+            $propertyTypes[] = $propertyType['property_type_id'];
 
-        foreach ($projectPropertytype as $propertyTypes) {
-            $propertyTypeArr [] = $propertyTypes['property_type_id'];
-
-            if ($propertyTypes['property_type_id'] == '1')
-                $projectPropertytypeId = $propertyTypes['id'];
+            if ($propertyType['property_type_id'] == '1') {
+                $projectPropertyTypeId = $propertyType['id'];
+            }
         }
 
-        $unitTypeArr = UnitType::where( 'project_property_type_id', $projectPropertytypeId )->get()->toArray();
-        $roomTypeArr = $project->roomTypes()->get()->toArray();
+        $availableRoomTypes = $project->roomTypes()->get()->toArray();
         $variantRooms = $unitVariant->variantRoomAttributes()->get()->toArray();
         $variantRoomArr = [];
-        $propertyTypeAttributes = ProjectPropertyType::find( $projectPropertytypeId )->attributes->toArray();
+        $propertyTypeAttributes = ProjectPropertyType::find( $projectPropertyTypeId )->attributes->toArray();
         $roomTypeAttributes = [];
 
-
-        foreach ($variantRooms as $room) {
-            $variantRoomArr[][$room['id']]['ROOMTYPEID'] = $room['roomtype_id'];
-            $variantRoomArr[][$room['id']]['ATTRIBUTES'] = $room['variant_room_attributes'];
+        $unitTypes = [];
+        foreach ($variantRooms as $variantRoom) {
+            $variantRoomArr[][$variantRoom['id']]['ROOMTYPEID'] = $variantRoom['roomtype_id'];
+            $variantRoomArr[][$variantRoom['id']]['ATTRIBUTES'] = $variantRoom['variant_room_attributes'];
         }
 
         $variantMeta = $unitVariant->variantMeta()->get()->toArray();
+        
         $levelImages = [];
-
         foreach ($variantMeta as $meta) {
             $metakey = explode( "-", $meta['meta_key'] );
             $level = $metakey[0];
@@ -116,19 +116,20 @@ class ProjectApartmentVariantController extends Controller {
                 $media = Media::find( $mediaId )->image_name;
                 $imageName = $media->image_name;
                 $levelImages[$level][$type]['ID'] = $mediaId;
-                $levelImages[$level][$type]['IMAGE'] = url() . "/projects/" . $project_id . "/variants/" . $meta['unit_variant_id'] . "/" . $imageName;
+                $levelImages[$level][$type]['IMAGE'] = url() . "/projects/" . $projectId . "/variants/" . $meta['unit_variant_id'] . "/" . $imageName;
             }
         }
 
 
         return view( 'admin.project.variants.apartment.edit' )
                         ->with( 'project', $project->toArray() )
-                        ->with( 'project_property_type', $propertyTypeArr )
+                        ->with( 'project_property_type', $propertyTypes )
                         ->with( 'project_property_type_attributes', $propertyTypeAttributes )
-                        ->with( 'unit_type_arr', $unitTypeArr )
-                        ->with( 'room_type_arr', $roomTypeArr )
+                        ->with( 'unit_type_arr', $unitTypes )
+                        ->with( 'availableRoomTypes', $availableRoomTypes )
                         ->with( 'unitVariant', $unitVariant->toArray() )
-                        ->with( 'floorlevelRoomAttributes', $variantRoomArr )
+                        ->with( 'variantRooms', $variantRoomArr )
+                        ->with( 'layouts', [])
                         ->with( 'roomTypeAttributes', $roomTypeAttributes )
                         ->with( 'levellayout', $levelImages )
                         ->with( 'current', '' );
