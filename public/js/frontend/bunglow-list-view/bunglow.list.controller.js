@@ -138,6 +138,15 @@
       return data;
     };
 
+    CenterBunglowListView.prototype.events = {
+      'click .unit': function(e) {
+        if (this.model.get('status') === 'available') {
+          CommonFloor.defaults['unit'] = this.model.get('id');
+          return CommonFloor.navigate('/bunglows/unit-view/' + this.model.get('id'), true);
+        }
+      }
+    };
+
     return CenterBunglowListView;
 
   })(Marionette.ItemView);
