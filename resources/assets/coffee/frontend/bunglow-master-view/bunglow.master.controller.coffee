@@ -1,23 +1,23 @@
 api = ""
-class CommonFloor.BunglowLayoutView extends Marionette.LayoutView
+class CommonFloor.BunglowMasterView extends Marionette.LayoutView
 
 	template : '#project-view-template'
 
 
 #starting point for Master view for bunglows
-class CommonFloor.BunglowMasterViewCtrl extends Marionette.RegionController
+class CommonFloor.BunglowMasterCtrl extends Marionette.RegionController
 
 	initialize:->
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID);
 			CommonFloor.checkPropertyType()
 		if bunglowVariantCollection.length != 0
-			@show new CommonFloor.BunglowLayoutView
+			@show new CommonFloor.BunglowMasterView
 		else
 			@show new CommonFloor.NothingFoundView
 
 
-class TopBunglowView extends Marionette.ItemView
+class TopBunglowMasterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="row">
 		  <div class="col-md-12 col-xs-12 col-sm-12">
@@ -33,13 +33,13 @@ class TopBunglowView extends Marionette.ItemView
 		data
 
 
-class CommonFloor.TopBunglowCtrl extends Marionette.RegionController
+class CommonFloor.TopBunglowMasterCtrl extends Marionette.RegionController
 
 	initialize:->
-		@show new TopBunglowView
+		@show new TopBunglowMasterView
 			model : project
 
-class LeftBunglowView extends Marionette.ItemView
+class LeftBunglowMasterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="row">
 					<div class="col-sm-4">
@@ -81,9 +81,9 @@ class LeftBunglowView extends Marionette.ItemView
 		'click .row' :(e)->
 			if @model.get('status') == 'available'
 				CommonFloor.defaults['unit'] = @model.get('id')
-				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
+				CommonFloor.navigate '/bunglows/unit-view/'+@model.get('id') , true
 
-class LeftBunglowCompositeView extends Marionette.CompositeView
+class LeftBunglowMasterCompositeView extends Marionette.CompositeView
 
 	template : Handlebars.compile('	<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
 										<div class="filters-wrapper ">
@@ -108,22 +108,22 @@ class LeftBunglowCompositeView extends Marionette.CompositeView
 									</div>')
 
 
-	childView : LeftBunglowView
+	childView : LeftBunglowMasterView
 
 	childViewContainer : '.units'
 
 
 
-class CommonFloor.LeftBunglowCtrl extends Marionette.RegionController
+class CommonFloor.LeftBunglowMasterCtrl extends Marionette.RegionController
 
 	initialize:->
 		newUnits = CommonFloor.getBunglowUnits()
 		unitsCollection = new Backbone.Collection newUnits 		
-		@show new LeftBunglowCompositeView
+		@show new LeftBunglowMasterCompositeView
 			collection : unitsCollection
 
 
-class CommonFloor.CenterBunglowView extends Marionette.ItemView
+class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 
 
@@ -276,8 +276,8 @@ class CommonFloor.CenterBunglowView extends Marionette.ItemView
 	
 
 
-class CommonFloor.CenterBunglowCtrl extends Marionette.RegionController
+class CommonFloor.CenterBunglowMasterCtrl extends Marionette.RegionController
 
 	initialize:->
-		@show new CommonFloor.CenterBunglowView
+		@show new CommonFloor.CenterBunglowMasterView
 				model :project

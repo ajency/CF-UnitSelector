@@ -477,7 +477,7 @@ function setUpFloorLayoutUploader(){
                 },
                 FileUploaded: function (up, file, xhr) {
                     fileResponse = JSON.parse(xhr.response);
-                    div.find('.uploaded-image').html('<object width="150" id="svg1" data="'+fileResponse.data.image_path+'" type="image/svg+xml" />');
+                    div.find('.uploaded-image').html('<object width="150" id="svg1" data="'+fileResponse.data.media_path+'" type="image/svg+xml" />');
                     div.find('[name="'+divName+'"]').val(fileResponse.data.media_id);
                 }
             }

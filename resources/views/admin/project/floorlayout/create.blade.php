@@ -41,30 +41,6 @@
                         </div>
                     </div>
                     <hr/>
-<!--                    <div>
-                        <h4 class="inline">Floor Layout Detailed SVG</span></h4>
-                        <div id="floor-layout-detailed_svg-container"> 
-                            <input type="button" name="fileToUpload" class="btn btn-small master_pickfiles" value="Select your file" data-filename-placement="inside"/> 
-                            <button type="button" class="btn btn-small btn-primary master_uploadfiles" >Upload</button>
-                            <input type="hidden" name="detailed_svg" value="0" />
-                            <div class="uploaded-image">
-                                
-                            </div> 
-                        </div>
-                        
-                    </div>
-                    <hr/>
-                    <div>
-                        <h4 class="inline">Floor Layout Basic SVG</span></h4>
-                        <div id="floor-layout-basic_svg-container"> 
-                            <input type="button" name="fileToUpload" class="btn btn-small master_pickfiles" value="Select your file" data-filename-placement="inside"/> 
-                            <button type="button" class="btn btn-small btn-primary master_uploadfiles" >Upload</button>
-                            <input type="hidden" name="basic_svg" value="0" />
-                            <div class="uploaded-image">
-                            
-                            </div> 
-                        </div> 
-                    </div>-->
                     <div class="form-actions">  
                         <div class="pull-rigunitt">
                             <input type="hidden" value="{{ csrf_token()}}" name="_token"/>

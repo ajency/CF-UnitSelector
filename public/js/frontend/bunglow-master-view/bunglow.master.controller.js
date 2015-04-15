@@ -1,101 +1,101 @@
 (function() {
-  var LeftBunglowCompositeView, LeftBunglowView, TopBunglowView, api,
+  var LeftBunglowMasterCompositeView, LeftBunglowMasterView, TopBunglowMasterView, api,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
   api = "";
 
-  CommonFloor.BunglowLayoutView = (function(superClass) {
-    extend(BunglowLayoutView, superClass);
+  CommonFloor.BunglowMasterView = (function(superClass) {
+    extend(BunglowMasterView, superClass);
 
-    function BunglowLayoutView() {
-      return BunglowLayoutView.__super__.constructor.apply(this, arguments);
+    function BunglowMasterView() {
+      return BunglowMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    BunglowLayoutView.prototype.template = '#project-view-template';
+    BunglowMasterView.prototype.template = '#project-view-template';
 
-    return BunglowLayoutView;
+    return BunglowMasterView;
 
   })(Marionette.LayoutView);
 
-  CommonFloor.BunglowMasterViewCtrl = (function(superClass) {
-    extend(BunglowMasterViewCtrl, superClass);
+  CommonFloor.BunglowMasterCtrl = (function(superClass) {
+    extend(BunglowMasterCtrl, superClass);
 
-    function BunglowMasterViewCtrl() {
-      return BunglowMasterViewCtrl.__super__.constructor.apply(this, arguments);
+    function BunglowMasterCtrl() {
+      return BunglowMasterCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    BunglowMasterViewCtrl.prototype.initialize = function() {
+    BunglowMasterCtrl.prototype.initialize = function() {
       if (jQuery.isEmptyObject(project.toJSON())) {
         project.setProjectAttributes(PROJECTID);
         CommonFloor.checkPropertyType();
       }
       if (bunglowVariantCollection.length !== 0) {
-        return this.show(new CommonFloor.BunglowLayoutView);
+        return this.show(new CommonFloor.BunglowMasterView);
       } else {
         return this.show(new CommonFloor.NothingFoundView);
       }
     };
 
-    return BunglowMasterViewCtrl;
+    return BunglowMasterCtrl;
 
   })(Marionette.RegionController);
 
-  TopBunglowView = (function(superClass) {
-    extend(TopBunglowView, superClass);
+  TopBunglowMasterView = (function(superClass) {
+    extend(TopBunglowMasterView, superClass);
 
-    function TopBunglowView() {
-      return TopBunglowView.__super__.constructor.apply(this, arguments);
+    function TopBunglowMasterView() {
+      return TopBunglowMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopBunglowView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="search-header-wrap"> <h1>We are now at {{project_title}}\'s upcoming project having {{units}} villas</h1> </div> </div> </div>');
+    TopBunglowMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="search-header-wrap"> <h1>We are now at {{project_title}}\'s upcoming project having {{units}} villas</h1> </div> </div> </div>');
 
-    TopBunglowView.prototype.serializeData = function() {
+    TopBunglowMasterView.prototype.serializeData = function() {
       var data;
-      data = TopBunglowView.__super__.serializeData.call(this);
+      data = TopBunglowMasterView.__super__.serializeData.call(this);
       data.units = CommonFloor.getBunglowUnits().length;
       return data;
     };
 
-    return TopBunglowView;
+    return TopBunglowMasterView;
 
   })(Marionette.ItemView);
 
-  CommonFloor.TopBunglowCtrl = (function(superClass) {
-    extend(TopBunglowCtrl, superClass);
+  CommonFloor.TopBunglowMasterCtrl = (function(superClass) {
+    extend(TopBunglowMasterCtrl, superClass);
 
-    function TopBunglowCtrl() {
-      return TopBunglowCtrl.__super__.constructor.apply(this, arguments);
+    function TopBunglowMasterCtrl() {
+      return TopBunglowMasterCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    TopBunglowCtrl.prototype.initialize = function() {
-      return this.show(new TopBunglowView({
+    TopBunglowMasterCtrl.prototype.initialize = function() {
+      return this.show(new TopBunglowMasterView({
         model: project
       }));
     };
 
-    return TopBunglowCtrl;
+    return TopBunglowMasterCtrl;
 
   })(Marionette.RegionController);
 
-  LeftBunglowView = (function(superClass) {
-    extend(LeftBunglowView, superClass);
+  LeftBunglowMasterView = (function(superClass) {
+    extend(LeftBunglowMasterView, superClass);
 
-    function LeftBunglowView() {
-      return LeftBunglowView.__super__.constructor.apply(this, arguments);
+    function LeftBunglowMasterView() {
+      return LeftBunglowMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBunglowView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-sm-4"> <h6 class="{{status}}">{{unit_name}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{unit_type}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{super_build_up_area}} sqft</h6> </div> </div>');
+    LeftBunglowMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-sm-4"> <h6 class="{{status}}">{{unit_name}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{unit_type}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{super_build_up_area}} sqft</h6> </div> </div>');
 
-    LeftBunglowView.prototype.initialize = function() {
+    LeftBunglowMasterView.prototype.initialize = function() {
       return this.$el.prop("id", 'unit' + this.model.get("id"));
     };
 
-    LeftBunglowView.prototype.className = 'blck-wrap';
+    LeftBunglowMasterView.prototype.className = 'blck-wrap';
 
-    LeftBunglowView.prototype.serializeData = function() {
+    LeftBunglowMasterView.prototype.serializeData = function() {
       var availability, data, unitType, unitVariant;
-      data = LeftBunglowView.__super__.serializeData.call(this);
+      data = LeftBunglowMasterView.__super__.serializeData.call(this);
       console.log(unitVariant = bunglowVariantCollection.findWhere({
         'id': this.model.get('unit_variant_id')
       }));
@@ -110,7 +110,7 @@
       return data;
     };
 
-    LeftBunglowView.prototype.events = {
+    LeftBunglowMasterView.prototype.events = {
       'mouseover .row': function(e) {
         var id;
         id = this.model.get('id');
@@ -127,62 +127,62 @@
       }
     };
 
-    return LeftBunglowView;
+    return LeftBunglowMasterView;
 
   })(Marionette.ItemView);
 
-  LeftBunglowCompositeView = (function(superClass) {
-    extend(LeftBunglowCompositeView, superClass);
+  LeftBunglowMasterCompositeView = (function(superClass) {
+    extend(LeftBunglowMasterCompositeView, superClass);
 
-    function LeftBunglowCompositeView() {
-      return LeftBunglowCompositeView.__super__.constructor.apply(this, arguments);
+    function LeftBunglowMasterCompositeView() {
+      return LeftBunglowMasterCompositeView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBunglowCompositeView.prototype.template = Handlebars.compile('	<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper "> <div class="advncd-filter-wrp  unit-list"> <div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div> <div class="units"> </div> </div> </div> </div>');
+    LeftBunglowMasterCompositeView.prototype.template = Handlebars.compile('	<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper "> <div class="advncd-filter-wrp  unit-list"> <div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div> <div class="units"> </div> </div> </div> </div>');
 
-    LeftBunglowCompositeView.prototype.childView = LeftBunglowView;
+    LeftBunglowMasterCompositeView.prototype.childView = LeftBunglowMasterView;
 
-    LeftBunglowCompositeView.prototype.childViewContainer = '.units';
+    LeftBunglowMasterCompositeView.prototype.childViewContainer = '.units';
 
-    return LeftBunglowCompositeView;
+    return LeftBunglowMasterCompositeView;
 
   })(Marionette.CompositeView);
 
-  CommonFloor.LeftBunglowCtrl = (function(superClass) {
-    extend(LeftBunglowCtrl, superClass);
+  CommonFloor.LeftBunglowMasterCtrl = (function(superClass) {
+    extend(LeftBunglowMasterCtrl, superClass);
 
-    function LeftBunglowCtrl() {
-      return LeftBunglowCtrl.__super__.constructor.apply(this, arguments);
+    function LeftBunglowMasterCtrl() {
+      return LeftBunglowMasterCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBunglowCtrl.prototype.initialize = function() {
+    LeftBunglowMasterCtrl.prototype.initialize = function() {
       var newUnits, unitsCollection;
       newUnits = CommonFloor.getBunglowUnits();
       unitsCollection = new Backbone.Collection(newUnits);
-      return this.show(new LeftBunglowCompositeView({
+      return this.show(new LeftBunglowMasterCompositeView({
         collection: unitsCollection
       }));
     };
 
-    return LeftBunglowCtrl;
+    return LeftBunglowMasterCtrl;
 
   })(Marionette.RegionController);
 
-  CommonFloor.CenterBunglowView = (function(superClass) {
-    extend(CenterBunglowView, superClass);
+  CommonFloor.CenterBunglowMasterView = (function(superClass) {
+    extend(CenterBunglowMasterView, superClass);
 
-    function CenterBunglowView() {
-      return CenterBunglowView.__super__.constructor.apply(this, arguments);
+    function CenterBunglowMasterView() {
+      return CenterBunglowMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
+    CenterBunglowMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
 
-    CenterBunglowView.prototype.initialize = function() {
+    CenterBunglowMasterView.prototype.initialize = function() {
       this.currentBreakPoint = "";
       return this.breakPoints = "";
     };
 
-    CenterBunglowView.prototype.events = {
+    CenterBunglowMasterView.prototype.events = {
       'click #prev': function() {
         return this.setDetailIndex(this.currentBreakPoint - 1);
       },
@@ -222,7 +222,7 @@
       }
     };
 
-    CenterBunglowView.prototype.onShow = function() {
+    CenterBunglowMasterView.prototype.onShow = function() {
       var response, svgs, transitionImages;
       transitionImages = [];
       svgs = {};
@@ -241,7 +241,7 @@
       return this.initializeRotate(transitionImages, svgs);
     };
 
-    CenterBunglowView.prototype.setDetailIndex = function(index) {
+    CenterBunglowMasterView.prototype.setDetailIndex = function(index) {
       this.currentBreakPoint = index;
       if (this.currentBreakPoint < 0) {
         this.currentBreakPoint = this.breakPoints.length - 1;
@@ -254,7 +254,7 @@
       });
     };
 
-    CenterBunglowView.prototype.initializeRotate = function(transitionImages, svgs) {
+    CenterBunglowMasterView.prototype.initializeRotate = function(transitionImages, svgs) {
       var frames, spin, that;
       frames = transitionImages;
       this.breakPoints = [0, 4, 8, 12];
@@ -280,7 +280,7 @@
       });
     };
 
-    CenterBunglowView.prototype.iniTooltip = function() {
+    CenterBunglowMasterView.prototype.iniTooltip = function() {
       return $('.layer').tooltipster({
         theme: 'tooltipster-shadow',
         contentAsHTML: true,
@@ -291,27 +291,27 @@
       });
     };
 
-    return CenterBunglowView;
+    return CenterBunglowMasterView;
 
   })(Marionette.ItemView);
 
-  CommonFloor.CenterBunglowCtrl = (function(superClass) {
-    extend(CenterBunglowCtrl, superClass);
+  CommonFloor.CenterBunglowMasterCtrl = (function(superClass) {
+    extend(CenterBunglowMasterCtrl, superClass);
 
-    function CenterBunglowCtrl() {
-      return CenterBunglowCtrl.__super__.constructor.apply(this, arguments);
+    function CenterBunglowMasterCtrl() {
+      return CenterBunglowMasterCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowCtrl.prototype.initialize = function() {
-      return this.show(new CommonFloor.CenterBunglowView({
+    CenterBunglowMasterCtrl.prototype.initialize = function() {
+      return this.show(new CommonFloor.CenterBunglowMasterView({
         model: project
       }));
     };
 
-    return CenterBunglowCtrl;
+    return CenterBunglowMasterCtrl;
 
   })(Marionette.RegionController);
 
 }).call(this);
 
-//# sourceMappingURL=../../frontend/screen-two/project.view.controller.js.map
+//# sourceMappingURL=../../frontend/bunglow-master-view/bunglow.master.controller.js.map
