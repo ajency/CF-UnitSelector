@@ -28,12 +28,18 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Status</th>
                             <th>Created On</th>
                             <th>Modified On</th>
                         </tr>
                     </thead>
                     <tbody> 
+                        @foreach ($unitVariants as $unitVariant)
+                            <tr class="">
+                                <td><a href="{{ url( '/admin/project/' . $project['id'] . '/apartment-variant/'.$unitVariant['id'].'/edit') }}">{{ $unitVariant['unit_variant_name'] }}</a></td>
+                                <td>{{ date('d/m/Y',strtotime($unitVariant['created_at'])) }}</td>
+                                <td>{{  date('d/m/Y',strtotime($unitVariant['updated_at'])) }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
