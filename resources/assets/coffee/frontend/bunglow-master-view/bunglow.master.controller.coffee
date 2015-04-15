@@ -128,6 +128,9 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
+		<div class="view_mode"><a href="/master-view/bunglows" class="map">Map View</a>
+			<a href="/list-view/bunglows" class="list">List View</a></div>
+			
 			<div id="spritespin"></div>
 			<div class="svg-maps">
 			<div class="region inactive"></div>

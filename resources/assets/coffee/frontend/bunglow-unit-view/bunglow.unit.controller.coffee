@@ -81,66 +81,30 @@ class LeftBunglowUnitView extends Marionette.ItemView
                     <div class="col-sm-4">
                       <h5 class="accord-head">Rooms</h5>                      
                     </div>
-                    <div class="col-sm-4">
+                    <!--<div class="col-sm-4">
                       <h5 class="accord-head">No</h5>                      
-                    </div>
+                    </div>-->
                     <div class="col-sm-4">
                       <h5 class="accord-head">Area</h5>                      
                     </div>
                   </div>
                 </div>
+                {{#levels}}
+                <h6>{{level_name}}
+                {{#rooms}}
                 <div class="blck-wrap">
                   <div class="row">
                     <div class="col-sm-4">
-                      <h6>Bedroom</h6>                      
+                      <h6>{{room_name}}</h6>                      
                     </div>
                     <div class="col-sm-4">
-                      <h6 class="">2</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">98sqft</h6>                      
+                      <h6 class="">{{size}}sqft</h6>                      
                     </div>
                   </div>
                 </div>
-                <div class="blck-wrap">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h6>Terrace</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">1</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">27sqft</h6>                      
-                    </div>
-                  </div>
-                </div>
-                <div class="blck-wrap">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h6>Bathroom</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">4</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">98sqft</h6>                      
-                    </div>
-                  </div>
-                </div>
-                <div class="blck-wrap">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h6>Store</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">1</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">27sqft</h6>                      
-                    </div>
-                  </div>
-                </div>
+                {{/rooms}}
+                {{/levels}}
+                
               </div>
             </div>
           </div>')
@@ -173,10 +137,10 @@ class CenterBunglowUnitView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
             <div class="svg-area">
               <div class="liquid-slider" id="slider-id">
-                   <div>
+                   <!--<div>
                         <h2 class="title">External 3D</h2>
                         <img src="../../images/step3.png">
-                   </div>
+                   </div>-->
                    <div>
                         <h2 class="title">2D Layout</h2>
                         <img src="../../images/step3.png">
