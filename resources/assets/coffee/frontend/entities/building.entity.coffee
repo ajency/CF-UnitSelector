@@ -47,7 +47,7 @@ class BuildingCollection extends Backbone.Collection
 	setBuildingAttributes:(data)->
 
 		# @set buildingData
-		
+		console.log data
 		buildingCollection.reset data
 
-window.buildingCollection  = new BuildingCollection;
+window.buildingCollection  = new BuildingCollection

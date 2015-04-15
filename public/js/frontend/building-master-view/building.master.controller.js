@@ -1,89 +1,99 @@
 (function() {
-  var BuildingMasterView, CenterBuildingMasterCtrl, CenterBuildingMasterView, CenterItemView, LeftBuildingMasterCtrl, LeftBuildingMasterView, TopBuildingMasterCtrl, TopBuildingMasterView,
+  var BuildingListView, CenterBuildingListView, CenterItemView, LeftBuildingListView, TopBuildingListView,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
-  BuildingMasterView = (function(superClass) {
-    extend(BuildingMasterView, superClass);
+  BuildingListView = (function(superClass) {
+    extend(BuildingListView, superClass);
 
-    function BuildingMasterView() {
-      return BuildingMasterView.__super__.constructor.apply(this, arguments);
+    function BuildingListView() {
+      return BuildingListView.__super__.constructor.apply(this, arguments);
     }
 
-    BuildingMasterView.prototype.template = '#building-master';
+    BuildingListView.prototype.template = '#project-view-template';
 
-    return BuildingMasterView;
+    return BuildingListView;
 
   })(Marionette.LayoutView);
 
-  CommonFloor.BuildingMasterCtrl = (function(superClass) {
-    extend(BuildingMasterCtrl, superClass);
+  CommonFloor.BuildingListCtrl = (function(superClass) {
+    extend(BuildingListCtrl, superClass);
 
-    function BuildingMasterCtrl() {
-      return BuildingMasterCtrl.__super__.constructor.apply(this, arguments);
+    function BuildingListCtrl() {
+      return BuildingListCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    BuildingMasterCtrl.prototype.initialize = function() {
-      return this.show(new BuildingMasterView);
+    BuildingListCtrl.prototype.initialize = function() {
+      if (jQuery.isEmptyObject(project.toJSON())) {
+        project.setProjectAttributes(PROJECTID);
+        CommonFloor.loadJSONData();
+        return this.show(new BuildingListView);
+      } else {
+        return this.show(new CommonFloor.NothingFoundView);
+      }
     };
 
-    return BuildingMasterCtrl;
+    return BuildingListCtrl;
 
   })(Marionette.RegionController);
 
-  TopBuildingMasterView = (function(superClass) {
-    extend(TopBuildingMasterView, superClass);
+  TopBuildingListView = (function(superClass) {
+    extend(TopBuildingListView, superClass);
 
-    function TopBuildingMasterView() {
-      return TopBuildingMasterView.__super__.constructor.apply(this, arguments);
+    function TopBuildingListView() {
+      return TopBuildingListView.__super__.constructor.apply(this, arguments);
     }
 
-    TopBuildingMasterView.prototype.template = '#building-master';
+    TopBuildingListView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span>Back to Poject Overview </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1>Buildings List View</h1> </div> </div> </div>');
 
-    return TopBuildingMasterView;
+    return TopBuildingListView;
 
   })(Marionette.ItemView);
 
-  TopBuildingMasterCtrl = (function(superClass) {
-    extend(TopBuildingMasterCtrl, superClass);
+  CommonFloor.TopBuildingListCtrl = (function(superClass) {
+    extend(TopBuildingListCtrl, superClass);
 
-    function TopBuildingMasterCtrl() {
-      return TopBuildingMasterCtrl.__super__.constructor.apply(this, arguments);
+    function TopBuildingListCtrl() {
+      return TopBuildingListCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    TopBuildingMasterCtrl.prototype.initialize = function() {
-      return this.show(new TopBuildingMasterView);
+    TopBuildingListCtrl.prototype.initialize = function() {
+      return this.show(new TopBuildingListView);
     };
 
-    return TopBuildingMasterCtrl;
+    return TopBuildingListCtrl;
 
   })(Marionette.RegionController);
 
-  LeftBuildingMasterView = (function(superClass) {
-    extend(LeftBuildingMasterView, superClass);
+  LeftBuildingListView = (function(superClass) {
+    extend(LeftBuildingListView, superClass);
 
-    function LeftBuildingMasterView() {
-      return LeftBuildingMasterView.__super__.constructor.apply(this, arguments);
+    function LeftBuildingListView() {
+      return LeftBuildingListView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBuildingMasterView.prototype.template = '#building-master';
+    LeftBuildingListView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content filters"><div>');
 
-    return LeftBuildingMasterView;
+    LeftBuildingListView.prototype.onShow = function() {
+      return $('.filters').hide();
+    };
+
+    return LeftBuildingListView;
 
   })(Marionette.ItemView);
 
-  LeftBuildingMasterCtrl = (function(superClass) {
-    extend(LeftBuildingMasterCtrl, superClass);
+  CommonFloor.LeftBuildingListCtrl = (function(superClass) {
+    extend(LeftBuildingListCtrl, superClass);
 
-    function LeftBuildingMasterCtrl() {
-      return LeftBuildingMasterCtrl.__super__.constructor.apply(this, arguments);
+    function LeftBuildingListCtrl() {
+      return LeftBuildingListCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBuildingMasterCtrl.prototype.initialize = function() {
-      return this.show(new LeftBuildingMasterView);
+    LeftBuildingListCtrl.prototype.initialize = function() {
+      return this.show(new LeftBuildingListView);
     };
 
-    return LeftBuildingMasterCtrl;
+    return LeftBuildingListCtrl;
 
   })(Marionette.RegionController);
 
@@ -94,7 +104,7 @@
       return CenterItemView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterItemView.prototype.template = '';
+    CenterItemView.prototype.template = Handlebars.compile('<li class="unit {{status}}"> <div class="pull-left info"> <label>{{name}}</label> </div> <!--<div class="pull-right cost"> 50 lakhs </div>--> </li>');
 
     CenterItemView.prototype.events = {
       'mouseover': function(e) {
@@ -132,37 +142,37 @@
 
   })(Marionette.ItemView);
 
-  CenterBuildingMasterView = (function(superClass) {
-    extend(CenterBuildingMasterView, superClass);
+  CenterBuildingListView = (function(superClass) {
+    extend(CenterBuildingListView, superClass);
 
-    function CenterBuildingMasterView() {
-      return CenterBuildingMasterView.__super__.constructor.apply(this, arguments);
+    function CenterBuildingListView() {
+      return CenterBuildingListView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBuildingMasterView.prototype.template = '#building-master';
+    CenterBuildingListView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <!--<div class="controls"> <div > <a href="#/List-view/bunglows"> Map View</a> |<a href="#/list-view/bunglows">List View</a> </div> <div class="clearfix"></div> </div>--> <div class="villa-list"> <ul class="units"> </ul> <div class="clearfix"></div> </div> </div>');
 
-    CenterBuildingMasterView.prototype.childView = CenterItemView;
+    CenterBuildingListView.prototype.childView = CenterItemView;
 
-    CenterBuildingMasterView.prototype.childViewContainer = '';
+    CenterBuildingListView.prototype.childViewContainer = '.units';
 
-    return CenterBuildingMasterView;
+    return CenterBuildingListView;
 
   })(Marionette.CompositeView);
 
-  CenterBuildingMasterCtrl = (function(superClass) {
-    extend(CenterBuildingMasterCtrl, superClass);
+  CommonFloor.CenterBuildingListCtrl = (function(superClass) {
+    extend(CenterBuildingListCtrl, superClass);
 
-    function CenterBuildingMasterCtrl() {
-      return CenterBuildingMasterCtrl.__super__.constructor.apply(this, arguments);
+    function CenterBuildingListCtrl() {
+      return CenterBuildingListCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBuildingMasterCtrl.prototype.initialize = function() {
-      return this.show(new CenterBuildingMasterView({
+    CenterBuildingListCtrl.prototype.initialize = function() {
+      return this.show(new CenterBuildingListView({
         collection: buildingCollection
       }));
     };
 
-    return CenterBuildingMasterCtrl;
+    return CenterBuildingListCtrl;
 
   })(Marionette.RegionController);
 

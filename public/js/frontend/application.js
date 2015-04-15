@@ -56,6 +56,20 @@
         }
       }
     });
+    CommonFloor.state('buildingList', {
+      url: '/list-view/building',
+      sections: {
+        'top': {
+          ctrl: 'TopBuildingListCtrl'
+        },
+        'left': {
+          ctrl: 'LeftBuildingListCtrl'
+        },
+        'center': {
+          ctrl: 'CenterBuildingListCtrl'
+        }
+      }
+    });
     CommonFloor.addInitializer(function() {
       return Backbone.history.start();
     });
