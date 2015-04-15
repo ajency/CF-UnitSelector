@@ -24,7 +24,15 @@
     }
 
     BunglowListCtrl.prototype.initialize = function() {
-      return this.show(new CommonFloor.BunglowListView);
+      if (jQuery.isEmptyObject(project.toJSON())) {
+        project.setProjectAttributes(PROJECTID);
+        CommonFloor.checkPropertyType();
+      }
+      if (bunglowVariantCollection.length !== 0) {
+        return this.show(new CommonFloor.BunglowListView);
+      } else {
+        return this.show(new CommonFloor.NothingFoundView);
+      }
     };
 
     return BunglowListCtrl;
@@ -38,7 +46,14 @@
       return TopBunglowListView.__super__.constructor.apply(this, arguments);
     }
 
-    TopBunglowListView.prototype.template = Handlebars.Compile('<div></div>');
+    TopBunglowListView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span>Back to Poject Overview </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1>We are now at {{project_title}}\'s upcoming project having {{units}} villa\'s</h1> </div> </div> </div>');
+
+    TopBunglowListView.prototype.serializeData = function() {
+      var data;
+      data = TopBunglowListView.__super__.serializeData.call(this);
+      data.units = CommonFloor.getBunglowUnits().length;
+      return data;
+    };
 
     return TopBunglowListView;
 
@@ -52,7 +67,9 @@
     }
 
     TopBunglowListCtrl.prototype.initialize = function() {
-      return this.show(new TopBunglowListView);
+      return this.show(new TopBunglowListView({
+        model: project
+      }));
     };
 
     return TopBunglowListCtrl;
@@ -66,7 +83,11 @@
       return LeftBunglowListView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBunglowListView.prototype.template = Handlebars.Compile('<div></div>');
+    LeftBunglowListView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content filters"><div>');
+
+    LeftBunglowListView.prototype.onShow = function() {
+      return $('.filters').hide();
+    };
 
     return LeftBunglowListView;
 
@@ -94,7 +115,37 @@
       return CenterBunglowListView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowListView.prototype.template = Handlebars.Compile('<div></div>');
+    CenterBunglowListView.prototype.template = Handlebars.compile('<li class="unit {{status}}"> <div class="pull-left info"> <label>{{unit_name}}</label> ({{unit_type}} {{super_build_up_area}}sqft) </div> <!--<div class="pull-right cost"> 50 lakhs </div>--> </li>');
+
+    CenterBunglowListView.prototype.initialize = function() {
+      return this.$el.prop("id", 'unit' + this.model.get("id"));
+    };
+
+    CenterBunglowListView.prototype.serializeData = function() {
+      var availability, data, unitType, unitVariant;
+      data = CenterBunglowListView.__super__.serializeData.call(this);
+      console.log(unitVariant = bunglowVariantCollection.findWhere({
+        'id': this.model.get('unit_variant_id')
+      }));
+      unitType = unitTypeCollection.findWhere({
+        'id': unitVariant.get('unit_type_id')
+      });
+      data.unit_type = unitType.get('name');
+      data.super_build_up_area = unitVariant.get('super_build_up_area');
+      availability = this.model.get('availability');
+      data.status = s.decapitalize(availability);
+      this.model.set('status', data.status);
+      return data;
+    };
+
+    CenterBunglowListView.prototype.events = {
+      'click .unit': function(e) {
+        if (this.model.get('status') === 'available') {
+          CommonFloor.defaults['unit'] = this.model.get('id');
+          return CommonFloor.navigate('/bunglows/unit-view/' + this.model.get('id'), true);
+        }
+      }
+    };
 
     return CenterBunglowListView;
 
@@ -107,9 +158,11 @@
       return CenterCompositeView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterCompositeView.prototype.template = Handlebars.Compile('<div></div>');
+    CenterCompositeView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <div class="controls"> <div > <a href="#/master-view/bunglows"> Map View</a> |<a href="#/list-view/bunglows">List View</a> </div> <div class="clearfix"></div> </div> <div class="villa-list"> <ul class="units"> </ul> <div class="clearfix"></div> </div> </div>');
 
     CenterCompositeView.prototype.childView = CenterBunglowListView;
+
+    CenterCompositeView.prototype.childViewContainer = '.units';
 
     return CenterCompositeView;
 
@@ -125,7 +178,7 @@
     CenterBunglowListCtrl.prototype.initialize = function() {
       var newUnits, unitsCollection;
       newUnits = CommonFloor.getBunglowUnits();
-      unitsCollection = new Backbone.Collection(newUnits);
+      console.log(unitsCollection = new Backbone.Collection(newUnits));
       return this.show(new CenterCompositeView({
         collection: unitsCollection
       }));

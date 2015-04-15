@@ -24,7 +24,8 @@
 
     <div class="grid-body">
         <form action="/admin/project/{{ $project['id'] }}/bunglow-variant" method="POST" data-parsley-validate>
-            <div class="row">
+            <div>
+                <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Name</label>
@@ -48,30 +49,52 @@
                         <input type="text" class="form-control" name="carpet_area" value="" placeholder="Enter Carpet Area">
                     </div> 
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Built Up Area</label>
-                        <input type="text" class="form-control" name="buildup_area" value="" placeholder="Enter Built Up Area">
+                        <input type="text" class="form-control" name="builtup_area" value="" placeholder="Enter Built Up Area">
                     </div> 
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Super Built Up Area</label>
-                        <input type="text" class="form-control" name="superbuildup_area" value="" placeholder="Enter Super Built Up Area">
+                        <input type="text" class="form-control" name="superbuiltup_area" value="" placeholder="Enter Super Built Up Area">
                     </div> 
                 </div>
-
+                <div class="col-md-4"></div>
+</div>
                 @foreach($project_property_type_attributes as $attributes)
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">{{$attributes['label']}}</label>
-                        <?php
-                        if ('textbox' === $attributes['control_type']) {
-                            ?>
-                            <input type="text" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]"  placeholder="Enter {{$attributes['label']}}">
-                            <?php
-                        }
+                         <?php
+                         
                         ?>
+                        @if('textbox' === $attributes['control_type'])
+                        <input type="text" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]"  placeholder="Enter {{$attributes['label']}}">
+                        @elseif('select' === $attributes['control_type'])
+                        <?php
+                        $options = explode(',', $attributes['defaults']);
+                        ?>
+                        <select name="attributes[{{property_type_slug($attributes['label'])}}]" class="select2 form-control">
+                            <option value="">Select {{$attributes['label']}}</option>   
+                            @foreach($options as $option)
+                            <option  value="{{property_type_slug($option)}}">{{$option}}</option>
+                            @endforeach
+                        </select>
+                        @elseif('multiple' === $attributes['control_type'])
+                        <?php
+                        $options = explode(',', $attributes['defaults']);
+                        ?>
+                        <select multiple name="attributes[{{property_type_slug($attributes['label'])}}][]" class="select2 form-control">
+                            <option value="">Select {{$attributes['label']}}</option>   
+                            @foreach($options as $option)
+                            <option value="{{property_type_slug($option)}}">{{$option}}</option>
+                            @endforeach
+                        </select>
+                        @endif  
                     </div> 
                 </div>
                 @endforeach

@@ -134,10 +134,13 @@
         <script src="{{ asset('js/frontend/entities/settings.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/entities/unit.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/entities/unitType.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/building.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/common/common.js' )}}"></script>
         <script src="{{ asset('js/frontend/project/project.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/bunglow-master-view/bunglow.master.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/bunglow-unit-view/bunglow.unit.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/bunglow-list-view/bunglow.list.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/building-master-view/building.master.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
     </body>
 </html>

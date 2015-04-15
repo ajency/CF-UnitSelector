@@ -24,6 +24,8 @@ CommonFloor.loadJSONData = ()->
 			settings.setSettingsAttributes(response.settings)
 			unitCollection.setUnitAttributes(response.units)
 			unitTypeCollection.setUnitTypeAttributes(response.unit_types)
+			buildingCollection.setBuildingAttributes(response.buildings)
+			# apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants)
 			
 		error :(response)->
 			console.log "aaaaaaaaaaassdff"
