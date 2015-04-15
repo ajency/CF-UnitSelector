@@ -71,24 +71,8 @@
       return "http://commonfloor.local/methods/functions.php?action=load_buildings";
     };
 
-    BuildingCollection.prototype.setBuildingAttributes = function(project_id) {
-      if (this.length === 0) {
-        return buildingCollection.fetch({
-          async: false,
-          data: {
-            project_id: project_id
-          },
-          success: (function(_this) {
-            return function(collection, response) {
-              var model;
-              model = collection.models;
-              if (response === 0) {
-                return _this.reset();
-              }
-            };
-          })(this)
-        });
-      }
+    BuildingCollection.prototype.setBuildingAttributes = function(data) {
+      return buildingCollection.reset(data);
     };
 
     return BuildingCollection;

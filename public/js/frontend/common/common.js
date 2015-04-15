@@ -41,7 +41,9 @@
         bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants);
         settings.setSettingsAttributes(response.settings);
         unitCollection.setUnitAttributes(response.units);
-        return unitTypeCollection.setUnitTypeAttributes(response.unit_types);
+        unitTypeCollection.setUnitTypeAttributes(response.unit_types);
+        buildingCollection.setBuildingAttributes(response.buildings);
+        return apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants);
       },
       error: function(response) {
         return console.log("aaaaaaaaaaassdff");
