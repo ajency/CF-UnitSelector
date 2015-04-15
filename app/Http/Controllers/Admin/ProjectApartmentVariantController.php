@@ -19,8 +19,20 @@ class ProjectApartmentVariantController extends Controller {
      */
     public function index( $projectId ) {
         $project = Project::find( $projectId );
+        $propertyTypeArr = [];
+        $projectPropertytypeId = 0;
+        $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
+        $projectPropertytypeId = $project->getProjectPropertyTypeId( 1 );
+
+        $unitTypeArr = UnitType::where( 'project_property_type_id', $projectPropertytypeId )->get()->toArray();
+        $unitTypeIdArr = [];
+        foreach ($unitTypeArr as $unitType) {   
+            $unitTypeIdArr[] = $unitType['id'];
+        }
+        $unitVariants = UnitVariant::whereIn( 'unit_type_id', $unitTypeIdArr )->orderBy( 'unit_variant_name' )->get()->toArray();
         return view( 'admin.project.variants.apartment.list' )
                         ->with( 'project', $project->toArray() )
+                        ->with( 'unitVariants', $unitVariants )
                         ->with( 'current', 'apartment-variant' );
     }
 
@@ -105,7 +117,7 @@ class ProjectApartmentVariantController extends Controller {
         }
 
         $variantMeta = $unitVariant->variantMeta()->get()->toArray();
-        
+
         $layouts = [];
         foreach ($variantMeta as $meta) {
             $metakey = explode( "-", $meta['meta_key'] );
@@ -129,7 +141,7 @@ class ProjectApartmentVariantController extends Controller {
                         ->with( 'availableRoomTypes', $availableRoomTypes )
                         ->with( 'unitVariant', $unitVariant->toArray() )
                         ->with( 'variantRooms', $variantRoomArr )
-                        ->with( 'layouts', $layouts)
+                        ->with( 'layouts', $layouts )
                         ->with( 'roomTypeAttributes', $roomTypeAttributes )
                         ->with( 'current', '' );
     }

@@ -8,6 +8,7 @@ use CommonFloor\Project;
 use CommonFloor\FloorLayout;
 use CommonFloor\Repositories\ProjectRepository;
 use CommonFloor\Repositories\FloorLayoutRepository;
+use CommonFloor\UnitVariant;
 
 class ProjectFloorLayoutController extends Controller {
 
@@ -76,11 +77,20 @@ class ProjectFloorLayoutController extends Controller {
      */
     public function edit( $projectId, $floorLayoutId ) {
         $project = $this->projectRepository->getProjectById( $projectId );
+        $projectPropertyTypeId = $project->getProjectPropertyTypeId(1);
+        $unitTypes = $project->getUnitTypesToArray( $projectPropertyTypeId );
         $floorLayout = FloorLayout::find( $floorLayoutId );
+        $allUnitVariants = [];
+        foreach($unitTypes as $unitType){
+            $allUnitVariants[$unitType['id']] = UnitVariant::where('unit_type_id', $unitType['id'])->get()->toArray();
+        }
+
         return view( 'admin.project.floorlayout.edit' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'add-floor-layout' )
-                        ->with( 'floorLayout', $floorLayout );
+                        ->with( 'floorLayout', $floorLayout )
+                        ->with( 'unitTypes', $unitTypes )
+                        ->with( 'allUnitVariants', $allUnitVariants );
     }
 
     /**
