@@ -22,8 +22,7 @@
                    <div class="cf-loader"></div>
           </div>
           <div class="col-md-3">
-
-                  <strong>google-earth-img.jpg</strong>
+<strong>google-earth-img.jpg</strong>
                   <button type="button" data-phase-id="1" class="btn btn-mini btn-link remove-phase">
                   <span class="fa fa-times text-danger"></span></button>
                   <div class="cf-loader"></div>
