@@ -32,8 +32,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-inline">
-                        <div class="form-group">
-                            <select name="controltype_{{$roomtypeId}}" onchange="defaultBlock(this.value,{{$roomtypeId}});">
+                        <div class="form-group full-width">
+                            <select name="controltype_{{$roomtypeId}}" onchange="defaultBlock(this.value,{{$roomtypeId}});" class="full-width">
                                 <option value="">Select Controls Type</option>
                                 <option value="textbox" @if($attributes['control_type']=='textbox'){{'selected'}}@endif> Text Box</option>
                                 <option value="select" @if($attributes['control_type']=='select'){{'selected'}}@endif>Select Box</option>
@@ -43,6 +43,7 @@
                             </select>
                            
                         </div>
+
                     </div>
                 </div>
                 <div class="col-md-5" id="controltype_values_{{$roomtypeId}}">
@@ -66,8 +67,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-inline">
-                        <div class="form-group">
-                            <select name="controltype_{{$roomtypeId}}" onchange="defaultBlock(this.value,{{$roomtypeId}});">
+                        <div class="form-group full-width">
+                            <select name="controltype_{{$roomtypeId}}" onchange="defaultBlock(this.value,{{$roomtypeId}});" class="full-width">
                                 <option value="">Select Controls Type</option>
                                 <option value="textbox" > Text Box</option>
                                 <option value="select" >Select Box</option>
@@ -144,8 +145,8 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-inline">
-                        <div class="form-group">
-                            <select name="controltype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
+                        <div class="form-group full-width">
+                            <select name="controltype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="full-width">
                                 <option value="">Select Controls Type</option>
                                 <option value="textbox" @if($attributes['control_type']=='textbox'){{'selected'}}@endif> Text Box</option>
                                 <option value="select" @if($attributes['control_type']=='select'){{'selected'}}@endif>Select Box</option>
@@ -178,8 +179,8 @@
                 </div>
                 <div class="col-md-4" id="controltype_values_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
                     <div class="form-inline">
-                        <div class="form-group">
-                            <select name="controltype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" >
+                        <div class="form-group full-width">
+                            <select name="controltype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="full-width">
                                 <option value="">Select Controls Type</option>
                                 <option value="textbox" > Text Box</option>
                                 <option value="select" >Select Box</option>

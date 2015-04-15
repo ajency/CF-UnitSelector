@@ -18,6 +18,7 @@
                 <div class="uploaded-image">
                     @if(!empty($svgImages['master']['front']['IMAGE']))
                         <object width="150" data="{{ $svgImages['master']['front']['IMAGE'] }}" type="image/svg+xml"></object>
+                         <button onclick="deleteSvg({{ $svgImages['master']['front']['ID'] }},'master','front');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
                     @endif
                 </div>
             </div>
@@ -31,6 +32,7 @@
                 <div class="uploaded-image">
                     @if(!empty($svgImages['master']['left']['IMAGE']))
                         <object width="150" data="{{ $svgImages['master']['left']['IMAGE'] }}" type="image/svg+xml"></object>
+                         <button onclick="deleteSvg({{ $svgImages['master']['left']['ID'] }},'master','left');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
                     @endif
                 </div>
             </div>
@@ -44,7 +46,8 @@
                 <div class="uploaded-image">
                     @if(!empty($svgImages['master']['back']['IMAGE']))
                         <object width="150" data="{{ $svgImages['master']['back']['IMAGE'] }}" type="image/svg+xml"></object>
-                    @endif
+                        <button onclick="deleteSvg({{ $svgImages['master']['back']['ID'] }},'master','back');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
+                   @endif
                 </div>
             </div>
             <hr />
@@ -57,6 +60,7 @@
                 <div class="uploaded-image">
                     @if(!empty($svgImages['master']['right']['IMAGE']))
                         <object width="150" data="{{ $svgImages['master']['right']['IMAGE'] }}" type="image/svg+xml"></object>
+                        <button onclick="deleteSvg({{ $svgImages['master']['right']['ID'] }},'master','right');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
                     @endif
                 </div>
             </div>
@@ -73,6 +77,7 @@
                         <div class="col-sm-2">
                             <img  width="150" height="150" src="{{ $svgImages['master']['front-left'][$i]['IMAGE'] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
                             <span class="pull-right m-t-10"><small>Pos {{ $i+1 }}</small></span>
+                            <button onclick="deleteSvg({{ $svgImages['master']['front-left'][$i]['ID'] }},'master','front-left');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
                         </div>
                     @endfor
                 @endif 
@@ -92,6 +97,7 @@
                             <img  width="150" height="150" src="{{ $svgImages['master']['left-back'][$i]['IMAGE'] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
                             <h5 class="bold inline">SVG {{ $i+1 }}</h5> <i class="fa fa-bookmark text-primary"></i>
                             <span class="pull-right m-t-10"><small>Pos {{ $i+1 }}</small></span>
+                            <button onclick="deleteSvg({{ $svgImages['master']['left-back'][$i]['ID'] }},'master','left-back');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
                         </div>
                     @endfor
                 @endif 
@@ -111,6 +117,7 @@
                             <img  width="150" height="150" src="{{ $svgImages['master']['back-right'][$i]['IMAGE'] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
                             <h5 class="bold inline">SVG {{ $i+1 }}</h5> <i class="fa fa-bookmark text-primary"></i>
                             <span class="pull-right m-t-10"><small>Pos {{ $i+1 }}</small></span>
+                            <button onclick="deleteSvg({{ $svgImages['master']['back-right'][$i]['ID'] }},'master','back-right');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
                         </div>
                     @endfor
                 @endif 
@@ -130,6 +137,7 @@
                             <img  width="150" height="150" src="{{ $svgImages['master']['right-front'][$i]['IMAGE'] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
                             <h5 class="bold inline">SVG {{ $i+1 }}</h5> <i class="fa fa-bookmark text-primary"></i>
                             <span class="pull-right m-t-10"><small>Pos {{ $i+1 }}</small></span>
+                            <button onclick="deleteSvg({{ $svgImages['master']['right-front'][$i]['ID'] }},'master','right-front');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
                         </div>
                     @endfor
                 @endif 
