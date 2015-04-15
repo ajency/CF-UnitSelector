@@ -40,8 +40,8 @@
       project = _.findWhere(window.projectsCollection, {
         'cf_project_id': projectId
       });
-      $('[name="project_title"]').val(project.project_title);
-      $('[name="project_address"]').val(project.project_address);
+      $('[name="project_title"],[name="hidden_project_title"]').val(project.project_title);
+      $('[name="project_address"],[name="hidden_project_address"]').val(project.project_address);
       template = '<div class="user-description-box"> <div class="row"> <div class="col-sm-8"> <h4 class="semi-bold">{{ project_title }} - <span class="bold text-primary">{{ cf_project_id }}</span></h4> <i class="fa fa-map-marker"></i> <b>Address:</b> <p>{{ project_address }}</p> <p>Builder Name: <label><b>{{ builder_name }}</b></label></p> <p>Website Link: <label><a href="http://{{ builder_link }}"><b>http://{{ builder_link }}</b></a></label></p> </div> <div class="col-sm-4"> {{#if project_image }} <img src="{{ project_image }}" class="img-responsive"> {{/if}} </div> </div> <div class="alert alert-warning m-t-20"> <input type="hidden" name="builder_name" value="{{ builder_name }}" /> <input type="hidden" name="builder_link" value="{{ builder_link }}" /> <input type="hidden" name="project_image" value="{{ project_image }}" /> <strong>Note: </strong> The above information is as entered in CommonFloor database. </div> </div>';
       tempalteFn = Handlebars.compile(template);
       return $('#commonfloor-project-details').removeClass('hidden').html(tempalteFn(project));
@@ -152,7 +152,7 @@
       });
     };
     registerRemoveUnitType();
-    return $('.add-unit-type-btn').click(function() {
+    $('.add-unit-type-btn').click(function() {
       var compile, data, html, propertyType, unitType;
       unitType = $(this).parent().find('input').val();
       if (unitType === '') {
@@ -170,6 +170,23 @@
       $('.add-unit-types').find(".property-type-" + propertyType).children('.form-inline').last().before(compile(data));
       $(this).parent().find('input').val('');
       return registerRemoveUnitType();
+    });
+    return $('.floor-position button.save-position').click(function() {
+      var floorLayoutId, form, formData;
+      form = $(this).closest('form');
+      form.parsley().validate();
+      if (form.parsley().isValid()) {
+        formData = form.serializeArray();
+        floorLayoutId = form.find('[name="floor_layout_id"]').val();
+        return $.ajax({
+          url: BASEURL + '/admin/floor-layout/' + floorLayoutId + '/position',
+          type: 'POST',
+          data: formData,
+          success: function(response) {
+            return console.log('show success message');
+          }
+        });
+      }
     });
   });
 

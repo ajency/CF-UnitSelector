@@ -36,14 +36,20 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::get( '/', 'Admin\AdminController@index' );
     Route::resource( 'project', 'Admin\ProjectController' );
     Route::resource( 'project.media', 'Admin\ProjectMediaController' );
+    Route::resource( 'variant.media', 'Admin\VariantMediaController' );
     Route::resource( 'project.unittype', 'Admin\ProjectUnitTypeController' );
     Route::resource( 'project.bunglow-variant', 'Admin\ProjectBunglowVariantController' );
+    Route::resource( 'project.apartment-variant', 'Admin\ProjectApartmentVariantController' );
     Route::resource( 'project.bunglow-unit', 'Admin\ProjectBunglowUnitController' );
     Route::resource( 'project.building', 'Admin\ProjectBuildingController' );
+    Route::resource( 'project.floor-layout', 'Admin\ProjectFloorLayoutController' );
     Route::resource( 'phase', 'Admin\PhaseController' );
     Route::resource( 'project.roomtype', 'Admin\ProjectRoomTypeController' );
+    Route::resource( 'floor-layout.position', 'Admin\FloorLayoutPositionController' );
+    Route::resource( 'floor-layout.media', 'Admin\FloorLayoutMediaController' );
     Route::get( 'project/{id}/svg', 'Admin\ProjectController@svg' );
     Route::post( 'project/{projectid}/bunglow-variant/{id}/roomtypeattributes', 'Admin\ProjectBunglowVariantController@roomtypeAttributes' );
+    Route::delete( 'project/{projectid}/roomtype/{id}/deleteroomtypeattributes', 'Admin\ProjectRoomTypeController@deleteRoomTypeAttribute' );
 } );
 
 /**

@@ -41,11 +41,15 @@ class CommonFloor.Project extends Backbone.Model
 		settings.clear()
 
 	checkRotationView:->
-		rotationImages = @get('project_master').image.length
-		if parseInt(rotationImages) >= 4
-			@set 'rotation' , 'yes'
+		transitionImages = []
+		$.merge transitionImages , project.get('project_master')['right-front']
+		$.merge transitionImages , project.get('project_master')['back-right']
+		$.merge transitionImages , project.get('project_master')['left-back']
+		$.merge transitionImages , project.get('project_master')['front-left']
+		if parseInt(transitionImages.length) >= 4
+			@set 'rotation' , 1
 		else
-			@set 'rotation' , 'no'
+			@set 'rotation' , 0
 
 		@get('rotation')
 

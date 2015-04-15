@@ -12,6 +12,7 @@ use CommonFloor\VariantRoom;
 use CommonFloor\UnitVariant;
 use CommonFloor\ProjectPropertyType;
 use CommonFloor\RoomType;
+use CommonFloor\Media;
 
 class ProjectBunglowVariantController extends Controller {
 
@@ -141,8 +142,25 @@ class ProjectBunglowVariantController extends Controller {
             
             //$roomTypeAttributes[$room['id']] =  RoomType::find($room['id'])->attributes->toArray();
         }
-
         
+        $variantMeta = $unitVariant->variantMeta()->get()->toArray();
+        $levelImages = [];
+         
+        foreach($variantMeta as $meta)
+        {
+            $metakey = explode("-", $meta['meta_key']);
+            $level =   $metakey[0] ; 
+            $type =   $metakey[1] ;  
+            $mediaId = $meta['meta_value'];
+            if( is_numeric($mediaId)){ 
+               $media =  Media::find( $mediaId )->image_name; 
+               $imageName = $media->image_name;
+               $levelImages[$level][$type]['ID'] =$mediaId;
+               $levelImages[$level][$type]['IMAGE'] = url() . "/projects/" . $project_id . "/variants/" . $meta['unit_variant_id'] . "/". $imageName;
+            }
+        }
+
+       
         return view('admin.project.editvariant')
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
@@ -152,6 +170,7 @@ class ProjectBunglowVariantController extends Controller {
                         ->with('unitVariant', $unitVariant->toArray())
                         ->with('floorlevelRoomAttributes', $variantRoomArr)
                         ->with('roomTypeAttributes', $roomTypeAttributes)
+                        ->with('levellayout', $levelImages)
                         ->with('current', '');
         //
     }

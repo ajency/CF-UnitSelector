@@ -64,16 +64,18 @@
                                 <label class="form-label">Project Title<span class="text-primary">*</span></label>
                                 <input  name="project_title" type="text" class="form-control" placeholder="Enter Project Title" 
                                         data-parsley-required>
+                                <input  name="hidden_project_title" type="hidden" class="form-control">
                             </div>
                             <div class="form-group">
                                 <label class="form-label">Address<span class="text-primary">*</span></label>
                                 <textarea  name="project_address" class="form-control" placeholder="Enter Project Address" 
                                            data-parsley-required></textarea>
+                                <input  name="hidden_project_address" type="hidden" class="form-control">
                             </div>
 
                             <div class="form-group">
                                 <label class="form-label">Property Types <span class="text-primary">*</span></label>
-                                <select placeholder="Add property type" name="property_types[]" 
+                                <select placeholder="Add Property Type" name="property_types[]" 
                                         data-parsley-required class="select2 form-control" multiple="multiple" >
                                    @foreach($property_type as $type) 
                                     <option value="{{$type['id']}}">{{$type['name']}}</option>
@@ -90,7 +92,7 @@
                             <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                             <button type="submit" class="btn btn-primary btn-cons">Save</button>
                             <button type="reset" class="hidden" />
-                            <button type="button" class="btn btn-white btn-cons">Cancel</button>
+                            <a href="{{ url('admin/project') }}"><button type="button" class="btn btn-white btn-cons">Cancel</button></a>
                         </div>
                     </div>
                 </form>

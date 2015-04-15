@@ -10,8 +10,11 @@ class CommonFloor.UnitDetailViewCtrl extends Marionette.RegionController
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID)
 			CommonFloor.loadJSONData()
-		
-		@show new CommonFloor.UnitLayoutView
+		console.log project.toJSON()
+		if jQuery.isEmptyObject(project.toJSON())
+			@show new CommonFloor.NothingFoundView
+		else
+			@show new CommonFloor.UnitLayoutView
 
 class TopUnitView extends Marionette.ItemView
 
@@ -60,7 +63,7 @@ class LeftUnitView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
             <div class="filters-wrapper">
               <div class="blck-wrap">
-                <h2 class="pull-left"><strong>Villa 1001</strong></h2>
+                <h2 class="pull-left"><strong>{{unit_name}}</strong></h2>
                 <!-- <span class="label label-success">For Sale</span> -->
                 <div class="clearfix"></div>
                 <div class="details">
@@ -155,6 +158,7 @@ class LeftUnitView extends Marionette.ItemView
 								'id' :  unitVariant.get('unit_type_id')
 		data.area = unitVariant.get('super_build_up_area')
 		data.type = unitType.get('name')
+		data.unit_name = unit.get('unit_name')
 		data
 	
 
@@ -168,9 +172,34 @@ class CenterUnitView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
             <div class="svg-area">
-              <img src="../../images/step3.png">
+              <div class="liquid-slider" id="slider-id">
+                   <div>
+                        <h2 class="title">External 3D</h2>
+                        <img src="../../images/step3.png">
+                   </div>
+                   <div>
+                        <h2 class="title">2D Layout</h2>
+                        <img src="../../images/step3.png">
+                   </div>
+                   <div>
+                        <h2 class="title">3D Layout</h2>
+                        <img src="../../images/step3.png">
+                   </div>
+              </div>
             </div>
           </div>')
+
+	onShow:->
+		$('#slider-id').liquidSlider(
+	        slideEaseFunction: "easeInOutQuad",
+	        includeTitle:false,
+	        autoSlideInterval: 4000,
+	        mobileNavigation: false,
+	        hideArrowsWhenMobile: false,
+	        dynamicTabsAlign: "center",
+	        dynamicArrows: false,
+       
+      	)
 
 	
 

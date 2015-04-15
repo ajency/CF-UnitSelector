@@ -52,11 +52,17 @@
                         </select>
                     </div>
                     <div class="add-unit-types">
+                        <?php
+                        $flag='';
+                        ?>
                         @foreach($propertyTypes as $propertyType)
                         <div class="property-type-{{ $propertyType->id }} {{ isset($unitTypes[$propertyType->id]) ? '' : 'hidden' }}">
                             <h5 class="semi-bold inline">Unit Types for {{ $propertyType->name }}</h5> 
                             @if(isset($unitTypes[$propertyType->id]))
                             @foreach( $unitTypes[$propertyType->id] as $propertyTypeId => $projectUnitType )
+                            <?php
+                            $flag='1';
+                            ?>
                             <div class="form-inline m-b-10">
                                 <div class="form-group">
                                     <input type="text" name="unittype[{{ $propertyTypeId }}][]" 

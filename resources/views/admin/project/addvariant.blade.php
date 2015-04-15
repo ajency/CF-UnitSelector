@@ -24,7 +24,8 @@
 
     <div class="grid-body">
         <form action="/admin/project/{{ $project['id'] }}/bunglow-variant" method="POST" data-parsley-validate>
-            <div class="row">
+            <div>
+                <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Name</label>
@@ -33,9 +34,9 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Type</label>
+                        <label class="form-label">Unit Type</label>
                         <select name="unit_type" class="select2 form-control" data-parsley-required>
-                            <option value="">Select Type</option>
+                            <option value="">Select Unit Type</option>
                             @foreach($unit_type_arr as $unit_type)
                             <option value="{{$unit_type['id']}}">{{$unit_type['unittype_name']}}</option>
                             @endforeach
@@ -48,19 +49,22 @@
                         <input type="text" class="form-control" name="carpet_area" value="" placeholder="Enter Carpet Area">
                     </div> 
                 </div>
+            </div>
+            <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Built Up Area</label>
-                        <input type="text" class="form-control" name="buildup_area" value="" placeholder="Enter Build Up Area">
+                        <input type="text" class="form-control" name="buildup_area" value="" placeholder="Enter Built Up Area">
                     </div> 
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Super Built Up Area</label>
-                        <input type="text" class="form-control" name="superbuildup_area" value="" placeholder="Enter Super Build Up Area">
+                        <input type="text" class="form-control" name="superbuildup_area" value="" placeholder="Enter Super Built Up Area">
                     </div> 
                 </div>
-
+                <div class="col-md-4"></div>
+</div>
                 @foreach($project_property_type_attributes as $attributes)
                 <div class="col-md-4">
                     <div class="form-group">

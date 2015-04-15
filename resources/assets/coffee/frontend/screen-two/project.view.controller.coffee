@@ -1,3 +1,4 @@
+api = ""
 class CommonFloor.BunglowLayoutView extends Marionette.LayoutView
 
 	template : '#project-view-template'
@@ -84,28 +85,28 @@ class LeftBunglowView extends Marionette.ItemView
 
 class LeftBunglowCompositeView extends Marionette.CompositeView
 
-	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
-			<div class="filters-wrapper ">
-				<div class="advncd-filter-wrp  unit-list">
-					<div class="blck-wrap title-row">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h5 class="accord-head">Villa No</h5>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h5 class="accord-head">Type</h5>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h5 class="accord-head">Area</h5>                      
-                    </div>
-                  </div>
-                </div>
-                <div class="units">
-                </div> 
+	template : Handlebars.compile('	<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
+										<div class="filters-wrapper ">
+											<div class="advncd-filter-wrp  unit-list">
+												<div class="blck-wrap title-row">
+					                  				<div class="row">
+									                    <div class="col-sm-4">
+									                      <h5 class="accord-head">Villa No</h5>                      
+									                    </div>
+									                    <div class="col-sm-4">
+									                      <h5 class="accord-head">Type</h5>                      
+									                    </div>
+									                    <div class="col-sm-4">
+									                      <h5 class="accord-head">Area</h5>                      
+									                    </div>
+					                  				</div>
+					                			</div>
+								                <div class="units">
+								                </div>
+											</div>
+										</div>
+									</div>')
 
-					</div>
-				</div>
-				</div>')
 
 	childView : LeftBunglowView
 
@@ -122,21 +123,42 @@ class CommonFloor.LeftBunglowCtrl extends Marionette.RegionController
 			collection : unitsCollection
 
 
-class CenterBunglowView extends Marionette.ItemView
+class CommonFloor.CenterBunglowView extends Marionette.ItemView
+
+
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
-			<div class="svg-area">
-			  
+			<div id="spritespin"></div>
+			<div class="svg-maps">
+			<div class="region inactive"></div>
 			</div>
+            <div class="rotate rotate-controls hidden">
+		        <div id="prev" class="rotate-left">Left</div>
+		        <span class="rotate-text">Rotate</span>
+		        <div id="next" class="rotate-right">Right</div>
+    		</div>
+
 		  </div>')
 
+	
+	initialize:->
+		@currentBreakPoint = ""
+		@breakPoints = ""
+		
+
 	events :
+		'click #prev':->
+			@setDetailIndex(@currentBreakPoint - 1);
+
+		'click #next':->
+			@setDetailIndex(@currentBreakPoint + 1);
+
 		'mouseout':(e)->
 			$('.layer').attr('class' ,'layer') 
 			$('.blck-wrap').attr('class' ,'blck-wrap') 
 
 		'mouseover .layer':(e)->
-			id  = parseInt e.target.id
+			console.log id  = parseInt e.target.id
 			html = ""
 			unit = unitCollection.findWhere 
 				id :  id 
@@ -157,20 +179,19 @@ class CenterBunglowView extends Marionette.ItemView
 			availability = s.decapitalize(availability)
 			html = ""
 			html += '<div class="svg-info">
-					<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
-					<!--<span class="label label-success"></span-->
-					<div class="clearfix"></div>
-					<div class="details">
-					<div>
-						<label>Area</label> - '+unitVariant.get('super_build_up_area')+' Sq.ft
-					</div> 
-					<div>
-						<label>Unit Type </label> - '+unitType.get('name')+'
-					</div>  
-					</div>  
-					</div>  
+						<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
+						<!--<span class="label label-success"></span-->
+						<div class="clearfix"></div>
+						<div class="details">
+							<div>
+								<label>Area</label> - '+unitVariant.get('super_build_up_area')+' Sq.ft
+							</div> 
+							<div>
+								<label>Unit Type </label> - '+unitType.get('name')+'
+							</div>  
+						</div>  
 					</div>'
-			
+			console.log availability
 			$('#'+id).attr('class' ,'layer '+availability) 
 			$('#unit'+id).attr('class' ,'blck-wrap active') 
 			$('.layer').tooltipster('content', html)
@@ -178,8 +199,69 @@ class CenterBunglowView extends Marionette.ItemView
 
 
 	onShow:->
-		path = project.get('project_master').front
-		$('<div></div>').load(path,@iniTooltip).appendTo('.svg-area')
+		# $('<div></div>').load(project.get('project_master').front).appendTo('.front')
+		# $('.us-right-content').imagesLoaded ->
+		# 	divHeight = $('.us-right-content').height()
+		# 	$('.unit-list').css 'max-height', divHeight + 'px'
+		# 	return
+		transitionImages = []
+		svgs = {}
+		svgs[0] = project.get('project_master').front 
+		svgs[4] = project.get('project_master').right
+		svgs[8] = project.get('project_master').back
+		svgs[12] =  project.get('project_master').left
+
+		$.merge transitionImages , project.get('project_master')['right-front']
+		$.merge transitionImages , project.get('project_master')['back-right']
+		$.merge transitionImages , project.get('project_master')['left-back']
+		$.merge transitionImages , project.get('project_master')['front-left']
+		response = project.checkRotationView()
+		if response is 1
+			$('.rotate').removeClass 'hidden'
+		@initializeRotate(transitionImages,svgs)
+		
+		
+
+
+	setDetailIndex:(index)->
+		@currentBreakPoint = index;
+		if (@currentBreakPoint < 0) 
+			@currentBreakPoint = @breakPoints.length - 1
+		
+		if (@currentBreakPoint >= @breakPoints.length) 
+			@currentBreakPoint = 0
+		
+		api.playTo(@breakPoints[@currentBreakPoint], 
+			nearest: true
+		)
+
+	initializeRotate:(transitionImages,svgs)->
+		frames = transitionImages
+		@breakPoints = [0, 4, 8, 12]
+		@currentBreakPoint = 0
+		$('.svg-maps > div').first().removeClass('inactive').addClass('active');
+		spin = $('#spritespin')
+		spin.spritespin(
+			source: frames
+			width: 800
+			sense: -1
+			height: 600
+			animate: false
+		)
+		that = @
+		api = spin.spritespin("api")
+		spin.bind("onFrame" , ()->
+			data = api.data
+			if data.frame is data.stopFrame
+				url = svgs[data.frame]
+				$('.region').load(url,that.iniTooltip).addClass('active').removeClass('inactive')
+				
+		)
+		
+		
+
+
+		
 
 
 	iniTooltip:->
@@ -197,4 +279,5 @@ class CenterBunglowView extends Marionette.ItemView
 class CommonFloor.CenterBunglowCtrl extends Marionette.RegionController
 
 	initialize:->
-		@show new CenterBunglowView
+		@show new CommonFloor.CenterBunglowView
+				model :project

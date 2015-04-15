@@ -1,7 +1,9 @@
 (function() {
-  var CenterBunglowView, LeftBunglowCompositeView, LeftBunglowView, TopBunglowView,
+  var LeftBunglowCompositeView, LeftBunglowView, TopBunglowView, api,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
+
+  api = "";
 
   CommonFloor.BunglowLayoutView = (function(superClass) {
     extend(BunglowLayoutView, superClass);
@@ -136,7 +138,7 @@
       return LeftBunglowCompositeView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBunglowCompositeView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper "> <div class="advncd-filter-wrp  unit-list"> <div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div> <div class="units"> </div> </div> </div> </div>');
+    LeftBunglowCompositeView.prototype.template = Handlebars.compile('	<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper "> <div class="advncd-filter-wrp  unit-list"> <div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div> <div class="units"> </div> </div> </div> </div>');
 
     LeftBunglowCompositeView.prototype.childView = LeftBunglowView;
 
@@ -166,23 +168,34 @@
 
   })(Marionette.RegionController);
 
-  CenterBunglowView = (function(superClass) {
+  CommonFloor.CenterBunglowView = (function(superClass) {
     extend(CenterBunglowView, superClass);
 
     function CenterBunglowView() {
       return CenterBunglowView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> </div> </div>');
+    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
+
+    CenterBunglowView.prototype.initialize = function() {
+      this.currentBreakPoint = "";
+      return this.breakPoints = "";
+    };
 
     CenterBunglowView.prototype.events = {
+      'click #prev': function() {
+        return this.setDetailIndex(this.currentBreakPoint - 1);
+      },
+      'click #next': function() {
+        return this.setDetailIndex(this.currentBreakPoint + 1);
+      },
       'mouseout': function(e) {
         $('.layer').attr('class', 'layer');
         return $('.blck-wrap').attr('class', 'blck-wrap');
       },
       'mouseover .layer': function(e) {
         var availability, html, id, unit, unitType, unitVariant;
-        id = parseInt(e.target.id);
+        console.log(id = parseInt(e.target.id));
         html = "";
         unit = unitCollection.findWhere({
           id: id
@@ -201,7 +214,8 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + unitVariant.get('super_build_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + unitType.get('name') + '</div> </div> </div> </div>';
+        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + unitVariant.get('super_build_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + unitType.get('name') + '</div> </div> </div>';
+        console.log(availability);
         $('#' + id).attr('class', 'layer ' + availability);
         $('#unit' + id).attr('class', 'blck-wrap active');
         return $('.layer').tooltipster('content', html);
@@ -209,9 +223,61 @@
     };
 
     CenterBunglowView.prototype.onShow = function() {
-      var path;
-      path = project.get('project_master').front;
-      return $('<div></div>').load(path, this.iniTooltip).appendTo('.svg-area');
+      var response, svgs, transitionImages;
+      transitionImages = [];
+      svgs = {};
+      svgs[0] = project.get('project_master').front;
+      svgs[4] = project.get('project_master').right;
+      svgs[8] = project.get('project_master').back;
+      svgs[12] = project.get('project_master').left;
+      $.merge(transitionImages, project.get('project_master')['right-front']);
+      $.merge(transitionImages, project.get('project_master')['back-right']);
+      $.merge(transitionImages, project.get('project_master')['left-back']);
+      $.merge(transitionImages, project.get('project_master')['front-left']);
+      response = project.checkRotationView();
+      if (response === 1) {
+        $('.rotate').removeClass('hidden');
+      }
+      return this.initializeRotate(transitionImages, svgs);
+    };
+
+    CenterBunglowView.prototype.setDetailIndex = function(index) {
+      this.currentBreakPoint = index;
+      if (this.currentBreakPoint < 0) {
+        this.currentBreakPoint = this.breakPoints.length - 1;
+      }
+      if (this.currentBreakPoint >= this.breakPoints.length) {
+        this.currentBreakPoint = 0;
+      }
+      return api.playTo(this.breakPoints[this.currentBreakPoint], {
+        nearest: true
+      });
+    };
+
+    CenterBunglowView.prototype.initializeRotate = function(transitionImages, svgs) {
+      var frames, spin, that;
+      frames = transitionImages;
+      this.breakPoints = [0, 4, 8, 12];
+      this.currentBreakPoint = 0;
+      $('.svg-maps > div').first().removeClass('inactive').addClass('active');
+      spin = $('#spritespin');
+      spin.spritespin({
+        source: frames,
+        width: 800,
+        sense: -1,
+        height: 600,
+        animate: false
+      });
+      that = this;
+      api = spin.spritespin("api");
+      return spin.bind("onFrame", function() {
+        var data, url;
+        data = api.data;
+        if (data.frame === data.stopFrame) {
+          url = svgs[data.frame];
+          return $('.region').load(url, that.iniTooltip).addClass('active').removeClass('inactive');
+        }
+      });
     };
 
     CenterBunglowView.prototype.iniTooltip = function() {
@@ -237,7 +303,9 @@
     }
 
     CenterBunglowCtrl.prototype.initialize = function() {
-      return this.show(new CenterBunglowView);
+      return this.show(new CommonFloor.CenterBunglowView({
+        model: project
+      }));
     };
 
     return CenterBunglowCtrl;
