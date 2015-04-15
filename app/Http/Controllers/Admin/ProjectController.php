@@ -18,10 +18,10 @@ class ProjectController extends Controller {
      */
     public function index() {
 
-        $projects = Project::orderBy( 'project_title' )->get()->toArray();
-        return view( 'admin.project.list' )
-                        ->with( 'projects', $projects )
-                        ->with( 'menuFlag', FALSE );
+        $projects = Project::orderBy('project_title')->get()->toArray();
+        return view('admin.project.list')
+                        ->with('projects', $projects)
+                        ->with('menuFlag', FALSE);
     }
 
     /**
@@ -31,9 +31,9 @@ class ProjectController extends Controller {
      */
     public function create() {
         $propertyType = PropertyType::all();
-        return view( 'admin.project.add' )
-                        ->with( 'property_type', $propertyType )
-                        ->with( 'menuFlag', FALSE );
+        return view('admin.project.add')
+                        ->with('property_type', $propertyType)
+                        ->with('menuFlag', FALSE);
     }
 
     /**
@@ -41,11 +41,11 @@ class ProjectController extends Controller {
      *
      * @return Response
      */
-    public function store( Request $request, ProjectRepository $projectRepository ) {
+    public function store(Request $request, ProjectRepository $projectRepository) {
 
-        $project = $projectRepository->createProject( $request->all() );
+        $project = $projectRepository->createProject($request->all());
         if ($project !== null) {
-            return redirect( "/admin/project" );
+            return redirect("/admin/project");
         }
     }
 
@@ -55,22 +55,22 @@ class ProjectController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit( $id, ProjectRepository $projectRepository ) {
-        $project = $projectRepository->getProjectById( $id );
+    public function edit($id, ProjectRepository $projectRepository) {
+        $project = $projectRepository->getProjectById($id);
         $projectMeta = $project->projectMeta()->get()->toArray();
         $propertyTypes = PropertyType::all();
         $unitTypes = [];
 
         foreach ($project->projectPropertyTypes as $projectPropertyType) {
-            $unitTypes[$projectPropertyType->property_type_id] = $project->getUnitTypesToArray( $projectPropertyType->id );
+            $unitTypes[$projectPropertyType->property_type_id] = $project->getUnitTypesToArray($projectPropertyType->id);
         }
 
-        return view( 'admin.project.settings' )
-                        ->with( 'project', $project->toArray() )
-                        ->with( 'project_meta', $projectMeta )
-                        ->with( 'propertyTypes', $propertyTypes )
-                        ->with( 'unitTypes', $unitTypes )
-                        ->with( 'current', 'settings' );
+        return view('admin.project.settings')
+                        ->with('project', $project->toArray())
+                        ->with('project_meta', $projectMeta)
+                        ->with('propertyTypes', $propertyTypes)
+                        ->with('unitTypes', $unitTypes)
+                        ->with('current', 'settings');
     }
 
     /**
@@ -79,11 +79,11 @@ class ProjectController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update( $id, Request $request, ProjectRepository $projectRepository ) {
+    public function update($id, Request $request, ProjectRepository $projectRepository) {
 
-        $project = $projectRepository->updateProject( $id, $request->all() );
+        $project = $projectRepository->updateProject($id, $request->all());
 
-        return redirect( "/admin/project/" . $id . "/edit" );
+        return redirect("/admin/project/" . $id . "/edit");
     }
 
     /**
@@ -92,49 +92,52 @@ class ProjectController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy( $id ) {
+    public function destroy($id) {
         //
     }
 
-    public function svg( $id, ProjectRepository $projectRepository ) {
-        $project = $projectRepository->getProjectById( $id );
-        $projectMeta = $project->projectMeta()->whereIn( 'meta_key', ['master', 'google_earth', 'skyview'] )->get()->toArray();
+    public function svg($id, ProjectRepository $projectRepository) {
+        $project = $projectRepository->getProjectById($id);
+        $projectMeta = $project->projectMeta()->whereIn('meta_key', ['master', 'google_earth', 'skyview'])->get()->toArray();
         $svgImages = [];
 
         foreach ($projectMeta as $metaValues) {
 
             if ('master' === $metaValues['meta_key']) {
-                $svgImages['master'] = $a = unserialize( $metaValues['meta_value'] );
+                $svgImages['master'] = $a = unserialize($metaValues['meta_value']);
 
                 foreach ($svgImages['master'] as $key => $images) {
-                    if (is_array( $images )) {
+                    if (is_array($images)) {
                         $transitionImages = [];
                         foreach ($images as $image) {
-                            $imageName = Media::find( $image )->image_name;
-                            $transitionImages[] = url() . "/projects/" . $id . "/master/" . $imageName;
+
+                            $imageName = Media::find($image)->image_name;
+                            $transitionImages[] =["ID"=>$image, "IMAGE"=> url() . "/projects/" . $id . "/master/" . $imageName];
                         }
                         $svgImages['master'][$key] = $transitionImages;
                     } else {
-                        if( is_numeric($images)){
-                            $imageName = Media::find( $images )->image_name;
-                            $svgImages['master'][$key] = url() . "/projects/" . $id . "/master/" . $imageName;
+                        if (is_numeric($images)) {
+
+                            $imageName = Media::find($images)->image_name;
+                            $svgImages['master'][$key] = ["ID"=>$images, "IMAGE"=> url() . "/projects/" . $id . "/master/" . $imageName]; 
                         }
                     }
                 }
             } else {
                 $mediaId = $metaValues['meta_value'];
-                if( is_numeric($mediaId)){  
-                   $imageName = Media::find( $mediaId )->image_name;
-                   $svgImages[$metaValues['meta_key']] = url() . "/projects/" . $id . "/" . $metaValues['meta_key'] . "/" . $imageName;
+                if (is_numeric($mediaId)) {
+                    $imageName = Media::find($mediaId)->image_name;
+                    $svgImages[$metaValues['meta_key']]['ID'] = $mediaId;
+                    $svgImages[$metaValues['meta_key']]['IMAGE'] = url() . "/projects/" . $id . "/" . $metaValues['meta_key'] . "/" . $imageName;
                 }
             }
         }
-
-        return view( 'admin.project.svg' )
-                        ->with( 'project', $project->toArray() )
-                        ->with( 'svgImages', $svgImages )
-                        ->with( 'current', 'svg' )
-                        ->with( 'project_property_type', $project->projectPropertyTypes()->get() );
+ 
+        return view('admin.project.svg')
+                        ->with('project', $project->toArray())
+                        ->with('svgImages', $svgImages)
+                        ->with('current', 'svg')
+                        ->with('project_property_type', $project->projectPropertyTypes()->get());
     }
 
 }

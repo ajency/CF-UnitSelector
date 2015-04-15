@@ -335,10 +335,12 @@ function setUpProjectMasterUploader(){
     });
 }
 
-function setUpFloorLevelUploader(){
-
-    if (typeof FLOORLEVELS != "undefined" || FLOORLEVELS != null)
+function setUpFloorLevelUploader(){ 
+    
+    if (_.isUndefined(FLOORLEVELS))
     {
+        return false;  
+    }
         $.each(FLOORLEVELS, function( index, value ) { 
             
             var uploader2d = new plupload.Uploader({
@@ -414,7 +416,7 @@ function setUpFloorLevelUploader(){
         uploader3d.init();
             
           });
-    }
+    
 
      
 }
@@ -464,7 +466,7 @@ $(document).ready(function(){
                 },
                 FileUploaded: function (up, file, xhr) {
                     fileResponse = JSON.parse(xhr.response);
-                    $("#project_googleearth_image").html('<object width="150" id="svg1" data="'+fileResponse.data.image_path+'" type="image/svg+xml" />');
+                    $("#project_googleearth_image").html('<object width="150" id="svg1" data="'+fileResponse.data.image_path+'" type="image/svg+xml" /> <button onclick="deleteSvg('+fileResponse.data.media_id+',\"google_earth\");" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
                 }
             }
         });
@@ -498,11 +500,26 @@ $(document).ready(function(){
                 },
                 FileUploaded: function (up, file, xhr) {
                     fileResponse = JSON.parse(xhr.response);
-                    $("#skyview_image").append('<img width="150" height="150" src="'+fileResponse.data.image_path+'" class="img-responsive" >');
+                    $("#skyview_image").append('<img width="150" height="150" src="'+fileResponse.data.image_path+'" class="img-responsive" > <button onclick="deleteSvg('+fileResponse.data.media_id+',\"skyview\");" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
                 }
             }
         });
         skyview_uploader.init();
         
 });
+
+function deleteSvg(mediaId,type)
+{    
+    $.ajax({
+        url: '/admin/project/' + PROJECTID + '/media/'+mediaId ,
+        type: "DELETE",
+        multipart_params: {
+                "type": type
+            },
+      
+        success: function (response) {
+            window.location.reload();
+        }
+    });
+}
 

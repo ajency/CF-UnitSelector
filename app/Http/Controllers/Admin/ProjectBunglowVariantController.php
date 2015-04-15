@@ -153,10 +153,9 @@ class ProjectBunglowVariantController extends Controller {
             $type =   $metakey[1] ;  
             $mediaId = $meta['meta_value'];
             if( is_numeric($mediaId)){ 
-               $media =  Media::find( $mediaId ); 
-               $imageId = $media->id;
+               $media =  Media::find( $mediaId )->image_name; 
                $imageName = $media->image_name;
-               $levelImages[$level][$type]['ID'] =$imageId;
+               $levelImages[$level][$type]['ID'] =$mediaId;
                $levelImages[$level][$type]['IMAGE'] = url() . "/projects/" . $project_id . "/variants/" . $meta['unit_variant_id'] . "/". $imageName;
             }
         }

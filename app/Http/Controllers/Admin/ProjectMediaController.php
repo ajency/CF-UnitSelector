@@ -95,7 +95,8 @@ class ProjectMediaController extends Controller {
                     'code' => $type . 'image_uploaded',
                     'message' => $message . ' Image Successfully Uploaded',
                     'data' => [
-                        'image_path' => $imageUrl . $newFilename
+                        'image_path' => $imageUrl . $newFilename,
+                        'media_id' => $mediaId
                     ]
             ], 201 );
     }
@@ -136,8 +137,21 @@ class ProjectMediaController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy( $id ) {
-        //
+    public function destroy( $project_id, $id ) {
+        $type = Input::get( 'type' );
+        if($type=='master')
+        {
+            
+        }
+        else
+        {
+            ProjectMeta::where('meta_value',$id)->delete();
+            Media::find( $id )->delete();
+        }
+        return response()->json( [
+                    'code' => 'media_deleted',
+                    'message' => 'Layout Successfully Deleted'
+                        ], 204 );
     }
 
 }

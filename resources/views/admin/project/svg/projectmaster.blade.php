@@ -16,8 +16,8 @@
                     <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
                 </div>
                 <div class="uploaded-image">
-                    @if(!empty($svgImages['master']['front']))
-                        <object width="150" data="{{ $svgImages['master']['front'] }}" type="image/svg+xml"></object>
+                    @if(!empty($svgImages['master']['front']['IMAGE']))
+                        <object width="150" data="{{ $svgImages['master']['front']['IMAGE'] }}" type="image/svg+xml"></object>
                     @endif
                 </div>
             </div>
@@ -29,8 +29,8 @@
                     <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
                 </div>
                 <div class="uploaded-image">
-                    @if(!empty($svgImages['master']['left']))
-                        <object width="150" data="{{ $svgImages['master']['left'] }}" type="image/svg+xml"></object>
+                    @if(!empty($svgImages['master']['left']['IMAGE']))
+                        <object width="150" data="{{ $svgImages['master']['left']['IMAGE'] }}" type="image/svg+xml"></object>
                     @endif
                 </div>
             </div>
@@ -42,8 +42,8 @@
                     <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
                 </div>
                 <div class="uploaded-image">
-                    @if(!empty($svgImages['master']['back']))
-                        <object width="150" data="{{ $svgImages['master']['back'] }}" type="image/svg+xml"></object>
+                    @if(!empty($svgImages['master']['back']['IMAGE']))
+                        <object width="150" data="{{ $svgImages['master']['back']['IMAGE'] }}" type="image/svg+xml"></object>
                     @endif
                 </div>
             </div>
@@ -55,8 +55,8 @@
                     <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
                 </div>
                 <div class="uploaded-image">
-                    @if(!empty($svgImages['master']['right']))
-                        <object width="150" data="{{ $svgImages['master']['right'] }}" type="image/svg+xml"></object>
+                    @if(!empty($svgImages['master']['right']['IMAGE']))
+                        <object width="150" data="{{ $svgImages['master']['right']['IMAGE'] }}" type="image/svg+xml"></object>
                     @endif
                 </div>
             </div>
@@ -71,7 +71,7 @@
                 @if(!empty($svgImages['master']['front-left']))  
                     @for ($i=0, $len = count($svgImages['master']['front-left']); $i < $len ; $i++)
                         <div class="col-sm-2">
-                            <img  width="150" height="150" src="{{ $svgImages['master']['front-left'][$i] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
+                            <img  width="150" height="150" src="{{ $svgImages['master']['front-left'][$i]['IMAGE'] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
                             <span class="pull-right m-t-10"><small>Pos {{ $i+1 }}</small></span>
                         </div>
                     @endfor
@@ -89,7 +89,7 @@
                 @if(!empty($svgImages['master']['left-back']))  
                     @for ($i=0, $len = count($svgImages['master']['left-back']); $i < $len ; $i++)
                         <div class="col-sm-2">
-                            <img  width="150" height="150" src="{{ $svgImages['master']['left-back'][$i] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
+                            <img  width="150" height="150" src="{{ $svgImages['master']['left-back'][$i]['IMAGE'] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
                             <h5 class="bold inline">SVG {{ $i+1 }}</h5> <i class="fa fa-bookmark text-primary"></i>
                             <span class="pull-right m-t-10"><small>Pos {{ $i+1 }}</small></span>
                         </div>
@@ -108,7 +108,7 @@
                 @if(!empty($svgImages['master']['back-right']))  
                     @for ($i=0, $len = count($svgImages['master']['back-right']); $i < $len ; $i++)
                         <div class="col-sm-2">
-                            <img  width="150" height="150" src="{{ $svgImages['master']['back-right'][$i] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
+                            <img  width="150" height="150" src="{{ $svgImages['master']['back-right'][$i]['IMAGE'] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
                             <h5 class="bold inline">SVG {{ $i+1 }}</h5> <i class="fa fa-bookmark text-primary"></i>
                             <span class="pull-right m-t-10"><small>Pos {{ $i+1 }}</small></span>
                         </div>
@@ -127,7 +127,7 @@
                 @if(!empty($svgImages['master']['right-front']))  
                     @for ($i=0, $len = count($svgImages['master']['right-front']); $i < $len ; $i++)
                         <div class="col-sm-2">
-                            <img  width="150" height="150" src="{{ $svgImages['master']['right-front'][$i] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
+                            <img  width="150" height="150" src="{{ $svgImages['master']['right-front'][$i]['IMAGE'] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
                             <h5 class="bold inline">SVG {{ $i+1 }}</h5> <i class="fa fa-bookmark text-primary"></i>
                             <span class="pull-right m-t-10"><small>Pos {{ $i+1 }}</small></span>
                         </div>
@@ -139,3 +139,6 @@
         </div>
     </div>
 </div>
+<script>
+    var FLOORLEVELS=[];
+    </script>
