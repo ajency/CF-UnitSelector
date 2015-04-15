@@ -66,13 +66,13 @@
                     <div class="form-group">
                         <label class="form-label">{{$attributes['label']}}</label>
                         <?php
-                        $value = (isset($unitVariant['variant_attributes'][property_type_slug($attributes['label'])])) ? $unitVariant['variant_attributes'][property_type_slug($attributes['label'])] : ''
+                        $value = (isset( $unitVariant['variant_attributes'][property_type_slug( $attributes['label'] )] )) ? $unitVariant['variant_attributes'][property_type_slug( $attributes['label'] )] : ''
                         ?>
                         @if('textbox' === $attributes['control_type'])
                         <input type="text" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]" value="{{ $value }}" placeholder="Enter {{$attributes['label']}}">
                         @elseif('select' === $attributes['control_type'])
                         <?php
-                        $options = explode(',', $attributes['defaults']);
+                        $options = explode( ',', $attributes['defaults'] );
                         ?>
                         <select name="attributes[{{property_type_slug($attributes['label'])}}]" class="select2 form-control">
                             <option value="">Select {{$attributes['label']}}</option>   
@@ -82,7 +82,7 @@
                         </select>
                         @elseif('multiple' === $attributes['control_type'])
                         <?php
-                        $options = explode(',', $attributes['defaults']);
+                        $options = explode( ',', $attributes['defaults'] );
                         ?>
                         <select multiple name="attributes[{{property_type_slug($attributes['label'])}}][]" class="select2 form-control">
                             <option value="">Select {{$attributes['label']}}</option>   
@@ -134,6 +134,23 @@
                     </div> 
                 </div>
                 @endforeach 
+                <div class="col-sm-12" id="levelblock_0"> 
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <input type="hidden" name="variantroomid_0" value="">
+                            <select name="room_name_0" class="select2 form-control">
+                                <option value="">Select Room</option>
+                                @foreach($availableRoomTypes as $roomType)
+                                <option value="{{ $roomType['id'] }}">
+                                {{ $roomType['name'] }}
+                                </option>
+                            </option>
+                            @endforeach
+                            </select>
+                            <button type="button" class="btn btn-white"><i class="fa fa-plus"></i></button>
+                        </div> 
+                    </div>
+                </div> 
             </div>
             <div class="form-actions">  
                 <div class="pull-right">
@@ -149,7 +166,6 @@
     <div class="grid-title">
         <h3><span class="semi-bold">Layouts</span></h3>
     </div>
-    @foreach($layouts as $layout)
     <div class="grid-body">
         <form>
             <div class="row">
@@ -157,9 +173,9 @@
                     <div class="form-group">
                         <label class="form-label">2D Layout</label>
                         <div id="2dlayout_1">
-                            @if(isset($layout['2d']))
-                                <img src="{{ $layout['2d']['IMAGE'] }}" class="img-responsive img-thumbnail">
-                                <button onclick="deleteLayout({{ $layout['2d']['ID'] }});" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
+                            @if(isset($layout[0]['2d']))
+                            <img src="{{ $layout[0]['2d']['IMAGE'] }}" class="img-responsive img-thumbnail">
+                            <button onclick="deleteLayout({{ $layout[0]['2d']['ID'] }});" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
                             @else
                             <input id="pickfiles_2d_1" type="button" name="fileToUpload" class="btn btn-small btn-white" value="Select your file" data-filename-placement="inside"/>
                             <button id="uploadfiles_2d_1" type="button" class="btn btn-small btn-primary">Upload</button>												
@@ -171,9 +187,9 @@
                     <div class="form-group">
                         <label class="form-label">3D Layout</label>
                         <div id="3dlayout_2">
-                            @if(isset($layout['3d']))
-                                <img src="{{ $layout['3d']['IMAGE'] }}" class="img-responsive img-thumbnail">
-                                <button onclick="deleteLayout({{ $layout['3d']['ID'] }});" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
+                            @if(isset($layout[0]['3d']))
+                            <img src="{{ $layout[0]['3d']['IMAGE'] }}" class="img-responsive img-thumbnail">
+                            <button onclick="deleteLayout({{ $layout[0]['3d']['ID'] }});" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
                             @else
                             <input id="pickfiles_3d_2" type="button" name="fileToUpload" class="btn btn-small btn-white" value="Select your file" data-filename-placement="inside"/>
                             <button  id="uploadfiles_3d_2"type="button" class="btn btn-small btn-primary">Upload</button>												
@@ -182,12 +198,11 @@
                     </div>
                 </div>
             </div>
- 
+
         </form>
     </div>
-    @endforeach
-    
-    
+
+
 </div> 
 <!-- END PLACE PAGE CONTENT HERE -->
 @endsection

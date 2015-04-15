@@ -106,7 +106,7 @@ class ProjectApartmentVariantController extends Controller {
 
         $variantMeta = $unitVariant->variantMeta()->get()->toArray();
         
-        $levelImages = [];
+        $layouts = [];
         foreach ($variantMeta as $meta) {
             $metakey = explode( "-", $meta['meta_key'] );
             $level = $metakey[0];
@@ -115,8 +115,8 @@ class ProjectApartmentVariantController extends Controller {
             if (is_numeric( $mediaId )) {
                 $media = Media::find( $mediaId )->image_name;
                 $imageName = $media->image_name;
-                $levelImages[$level][$type]['ID'] = $mediaId;
-                $levelImages[$level][$type]['IMAGE'] = url() . "/projects/" . $projectId . "/variants/" . $meta['unit_variant_id'] . "/" . $imageName;
+                $layouts[0][$type]['ID'] = $mediaId;
+                $layouts[0][$type]['IMAGE'] = url() . "/projects/" . $projectId . "/variants/" . $meta['unit_variant_id'] . "/" . $imageName;
             }
         }
 
@@ -129,9 +129,8 @@ class ProjectApartmentVariantController extends Controller {
                         ->with( 'availableRoomTypes', $availableRoomTypes )
                         ->with( 'unitVariant', $unitVariant->toArray() )
                         ->with( 'variantRooms', $variantRoomArr )
-                        ->with( 'layouts', [])
+                        ->with( 'layouts', $layouts)
                         ->with( 'roomTypeAttributes', $roomTypeAttributes )
-                        ->with( 'levellayout', $levelImages )
                         ->with( 'current', '' );
     }
 

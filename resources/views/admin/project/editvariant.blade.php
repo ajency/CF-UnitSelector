@@ -51,13 +51,13 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Built Up Area</label>
-                        <input type="text" class="form-control" name="buildup_area" value="{{ $unitVariant['build_up_area'] }}" placeholder="Enter Built Up Area">
+                        <input type="text" class="form-control" name="builtup_area" value="{{ $unitVariant['built_up_area'] }}" placeholder="Enter Built Up Area">
                     </div> 
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Super Built Up Area</label>
-                        <input type="text" class="form-control" name="superbuildup_area" value="{{ $unitVariant['super_build_up_area'] }}" placeholder="Enter Super Built Up Area">
+                        <input type="text" class="form-control" name="superbuiltup_area" value="{{ $unitVariant['super_built_up_area'] }}" placeholder="Enter Super Built Up Area">
                     </div> 
                 </div>
 
