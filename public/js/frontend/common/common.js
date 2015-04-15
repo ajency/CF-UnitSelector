@@ -42,8 +42,7 @@
         settings.setSettingsAttributes(response.settings);
         unitCollection.setUnitAttributes(response.units);
         unitTypeCollection.setUnitTypeAttributes(response.unit_types);
-        buildingCollection.setBuildingAttributes(response.buildings);
-        return apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants);
+        return buildingCollection.setBuildingAttributes(response.buildings);
       },
       error: function(response) {
         return console.log("aaaaaaaaaaassdff");

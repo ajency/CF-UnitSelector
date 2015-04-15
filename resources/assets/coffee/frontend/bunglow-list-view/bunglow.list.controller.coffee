@@ -95,13 +95,19 @@ class CenterBunglowListView extends Marionette.ItemView
 		@model.set 'status' , data.status
 		data
 
+	events:
+		'click .unit' :(e)->
+				if @model.get('status') == 'available'
+					CommonFloor.defaults['unit'] = @model.get('id')
+					CommonFloor.navigate '/bunglows/unit-view/'+@model.get('id') , true
+
 
 #Composite view for the Center setion
 class CenterCompositeView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-12 us-right-content">
-            <div class="controls">
-              <div >
+            <div class="controls mapView">
+              <div class="toggle">
                <a href="#/master-view/bunglows"> Map View</a> |<a href="#/list-view/bunglows">List View</a>
               </div>
               <div class="clearfix"></div>
