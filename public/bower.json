@@ -54,6 +54,7 @@
     "jquery-touchswipe": "~1.6.8",
     "imagesloaded": "~3.1.8",
     "bootstrap-tagsinput": "~0.4.2"
+    "spritespin": "~3.3.3"
   },
   "resolutions": {
     "underscore": "~1.8.2",

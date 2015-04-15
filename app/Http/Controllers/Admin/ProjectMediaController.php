@@ -139,18 +139,23 @@ class ProjectMediaController extends Controller {
      */
     public function destroy( $project_id, $id ) {
         $type = Input::get( 'type' );
+        $projectMeta = ProjectMeta::where(['meta_key'=>$type,'project_id'=>$project_id]);
+        $metaValue= $projectMeta->$projectMeta;
         if($type=='master')
         {
             
         }
         else
         {
-            ProjectMeta::where('meta_value',$id)->delete();
-            Media::find( $id )->delete();
+           $projectMeta->$projectMeta='';
+           $projectMeta->save(); 
         }
+        
+        Media::find( $id )->delete();
+        
         return response()->json( [
                     'code' => 'media_deleted',
-                    'message' => 'Layout Successfully Deleted'
+                    'message' => 'SVG Successfully Deleted'
                         ], 204 );
     }
 

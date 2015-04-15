@@ -46,11 +46,13 @@
                     <div>
                         <h4 class="inline">Floor Layout Detailed SVG</span></h4>
                         <div id="floor-layout-detailed_svg-container"> 
-                            <input type="button" name="fileToUpload" class="btn btn-small master_pickfiles" value="Select your file" data-filename-placement="inside"/> 
+                            <input type="button" name="fileToUpload" class="btn btn-small master_pickfiles" value="Select your file"/> 
                             <button type="button" class="btn btn-small btn-primary master_uploadfiles" >Upload</button>
                             <input type="hidden" name="detailed_svg" value="0" />
                             <div class="uploaded-image">
-                                
+                                @if($floorLayout->hasDetailedSvg())
+                                <object data="{{ $floorLayout->getDetailedSvgPath() }}" width="150" ></object>
+                                @endif
                             </div> 
                         </div>
                         
@@ -63,7 +65,9 @@
                             <button type="button" class="btn btn-small btn-primary master_uploadfiles" >Upload</button>
                             <input type="hidden" name="basic_svg" value="0" />
                             <div class="uploaded-image">
-                            
+                                 @if($floorLayout->hasBasicSvg())
+                                <object data="{{ $floorLayout->getBasicSvgPath() }}" width="150" ></object>
+                                @endif
                             </div> 
                         </div> 
                     </div>
@@ -97,7 +101,12 @@
                                             <label class="form-label">Unit Type</label>
                                         </div>
                                         <select>
-                                            <option>Controls</option>
+                                            <option value="">Choose Unit Type</option>
+                                            @foreach($unitTypes as $unitType)
+                                                @if(!empty($allUnitVariants[$unitType['id']]))
+                                                <option value="{{ $unitType['id'] }}">{{ $unitType['unittype_name'] }}</option>
+                                                @endif
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div>
@@ -107,7 +116,11 @@
                                             <label class="form-label">Unit Variant</label>
                                         </div>
                                         <select required="" name="unit_variant_id">
-                                            <option value="1">Choose Variant</option>
+                                            @foreach($allUnitVariants as $unitTypeId => $unitVariants)
+                                                @foreach($unitVariants as $unitVariant)
+                                                <option value="{{ $unitVariant['id'] }}">{{ $unitVariant['unit_variant_name'] }}</option>
+                                                @endforeach
+                                            @endforeach
                                         </select>
                                     </div>
                                 </div> 

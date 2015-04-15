@@ -1,0 +1,58 @@
+
+/* List of Buildings */
+.bldg-list{
+	
+}
+
+/* List of Villas */
+.villa-list{
+	background-color: lighten(@gray-lighter, 10%);
+	padding: 10px;
+	ul{
+		list-style-type: none;
+		.unit{
+			float: left;
+			width: 32.2%;
+			padding: 15px 10px;
+			margin-bottom: 10px;
+			margin-right: 1.6%;
+			background-color: @white;
+			&:nth-child(3n){
+			    margin-right: 0;
+			}
+			.info{
+				color: @gray;
+				label{
+					color: darken(@gray, 40%);
+				}
+			}
+			.cost{
+				color: @brand-primary;
+			}
+			&.sold{
+				background-color: @danger;
+				.info{
+					color: @danger-darker;
+					label{
+						color: darken(@danger-darker, 10%);
+					}
+				}
+				.cost{
+					color: @danger-darker;
+				}
+			}
+			&.blocked{
+				background-color: @warning;
+				.info{
+					color: @gray-light;
+					label{
+						color: @gray;
+					}
+				}
+				.cost{
+					color: @gray;
+				}
+			}
+		}
+	}
+}

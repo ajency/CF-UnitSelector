@@ -509,6 +509,59 @@ body {
   font-size: 16px;
   text-shadow: 0 3px 2px #333333;
 }
+/* List of Buildings */
+/* List of Villas */
+.villa-list {
+  background-color: #e6e6e6;
+  padding: 10px;
+}
+.villa-list ul {
+  list-style-type: none;
+}
+.villa-list ul .unit {
+  float: left;
+  width: 32.2%;
+  padding: 15px 10px;
+  margin-bottom: 10px;
+  margin-right: 1.6%;
+  background-color: #ffffff;
+}
+.villa-list ul .unit:nth-child(3n) {
+  margin-right: 0;
+}
+.villa-list ul .unit .info {
+  color: #666666;
+}
+.villa-list ul .unit .info label {
+  color: #000000;
+}
+.villa-list ul .unit .cost {
+  color: #f68121;
+}
+.villa-list ul .unit.sold {
+  background-color: #fed8d7;
+}
+.villa-list ul .unit.sold .info {
+  color: #d06d72;
+}
+.villa-list ul .unit.sold .info label {
+  color: #c4464d;
+}
+.villa-list ul .unit.sold .cost {
+  color: #d06d72;
+}
+.villa-list ul .unit.blocked {
+  background-color: #f5f3c3;
+}
+.villa-list ul .unit.blocked .info {
+  color: #999999;
+}
+.villa-list ul .unit.blocked .info label {
+  color: #666666;
+}
+.villa-list ul .unit.blocked .cost {
+  color: #666666;
+}
 /* Plugins */
 /* Slider */
 .toggle_radio {

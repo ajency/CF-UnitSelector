@@ -43,7 +43,7 @@ class FloorLayoutMediaController extends Controller {
             $file = $request->file( 'file' );
             $fileName = $file->getClientOriginalName();
             $fileExt = $file->guessClientExtension();
-            $newFilename = $fileName . '.' . $fileExt;
+            $newFilename = $fileName;
             $request->file( 'file' )->move( $targetDir, $newFilename );
         }
 
@@ -52,13 +52,19 @@ class FloorLayoutMediaController extends Controller {
         $media->mediable_id = $floorLayoutId;
         $media->mediable_type = 'CommonFloor\FloorLayout';
 
+        $type = $request->get( 'media_type' );
         $floorLayout = FloorLayout::find( $floorLayoutId );
         $floorLayout->svgs()->save( $media );
+        $floorLayout->$type = $media->id;
+        $floorLayout->save();
 
         return response()->json( [
-                            'code' => 'floorlayout_media_added',
-                            'message' => 'Floor layout svg added',
-                            'data' => $media->toArray()
+                    'code' => 'floorlayout_media_added',
+                    'message' => 'Floor layout svg added',
+                    'data' => [
+                        'media_id' => $media->id,
+                        'media_path' => url() . '/projects/' . $projectId . '/floor-layouts/' . $floorLayoutId . '/' . $newFilename
+                    ]
                         ], 201 );
     }
 
