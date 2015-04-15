@@ -138,6 +138,7 @@
         <script src="{{ asset('js/frontend/project/project.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/bunglow-master-view/bunglow.master.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/bunglow-unit-view/bunglow.unit.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/bunglow-list-view/bunglow.list.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
     </body>
 </html>

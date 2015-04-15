@@ -83,10 +83,10 @@
       return LeftBunglowUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="blck-wrap"> <h2 class="pull-left"><strong>{{unit_name}}</strong></h2> <!-- <span class="label label-success">For Sale</span> --> <div class="clearfix"></div> <div class="details"> <!--<div> <label>Starting Price:</label> Rs 1.3 crores </div>--> <div> {{type}} ({{area}} sqft) </div> </div> </div> <div class="advncd-filter-wrp unit-list"> <div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Rooms</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div> <div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6>Bedroom</h6> </div> <div class="col-sm-4"> <h6 class="">2</h6> </div> <div class="col-sm-4"> <h6 class="">98sqft</h6> </div> </div> </div> <div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6>Terrace</h6> </div> <div class="col-sm-4"> <h6 class="">1</h6> </div> <div class="col-sm-4"> <h6 class="">27sqft</h6> </div> </div> </div> <div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6>Bathroom</h6> </div> <div class="col-sm-4"> <h6 class="">4</h6> </div> <div class="col-sm-4"> <h6 class="">98sqft</h6> </div> </div> </div> <div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6>Store</h6> </div> <div class="col-sm-4"> <h6 class="">1</h6> </div> <div class="col-sm-4"> <h6 class="">27sqft</h6> </div> </div> </div> </div> </div> </div>');
+    LeftBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="blck-wrap"> <h2 class="pull-left"><strong>{{unit_name}}</strong></h2> <!-- <span class="label label-success">For Sale</span> --> <div class="clearfix"></div> <div class="details"> <!--<div> <label>Starting Price:</label> Rs 1.3 crores </div>--> <div> {{type}} ({{area}} sqft) </div> </div> </div> <div class="advncd-filter-wrp unit-list"> {{#levels}} <h6>{{level_name}} <div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Rooms</h5> </div> <!--<div class="col-sm-4"> <h5 class="accord-head">No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div>--> </div> </div> {{#rooms}} <div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6>{{room_name}}</h6> </div> <!--<div class="col-sm-4"> <h6 class="">{{size}}sqft</h6> </div>--> </div> </div> {{/rooms}} {{/levels}} </div> </div> </div>');
 
     LeftBunglowUnitView.prototype.serializeData = function() {
-      var data, unit, unitType, unitVariant, unitid, url;
+      var data, floor, levels, unit, unitType, unitVariant, unitid, url;
       data = LeftBunglowUnitView.__super__.serializeData.call(this);
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[2]);
@@ -96,12 +96,29 @@
       unitVariant = bunglowVariantCollection.findWhere({
         'id': unit.get('unit_variant_id')
       });
+      levels = [];
+      floor = unitVariant.get('floor');
+      $.each(floor, function(index, value) {
+        var rooms;
+        rooms = [];
+        $.each(value, function(ind, val) {
+          return rooms.push({
+            'room_name': val.room_name
+          });
+        });
+        return levels.push({
+          'level_name': 'Level  ' + index,
+          'rooms': rooms
+        });
+      });
+      console.log(levels);
       unitType = unitTypeCollection.findWhere({
         'id': unitVariant.get('unit_type_id')
       });
       data.area = unitVariant.get('super_build_up_area');
       data.type = unitType.get('name');
       data.unit_name = unit.get('unit_name');
+      data.levels = levels;
       return data;
     };
 
@@ -131,7 +148,33 @@
       return CenterBunglowUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider" id="slider-id"> <div> <h2 class="title">External 3D</h2> <img src="../../images/step3.png"> </div> <div> <h2 class="title">2D Layout</h2> <img src="../../images/step3.png"> </div> <div> <h2 class="title">3D Layout</h2> <img src="../../images/step3.png"> </div> </div> </div> </div>');
+    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider" id="slider-id"> <!--<div> <h2 class="title">External 3D</h2> <img src="../../images/step3.png"> </div>--> <div> <h2 class="title">2D Layout</h2> {{#levels}} <img src="{{two_d}}"> <div>{{level_name}}</div> {{#levels}} </div> <div> <h2 class="title">3D Layout</h2> {{#levels}} <img src="{{three_d}}"> <div>{{level_name}}</div> {{#levels}} </div> </div> </div> </div>');
+
+    CenterBunglowUnitView.prototype.serializeData = function() {
+      var data, floor, levels, unit, unitVariant, unitid, url;
+      data = CenterBunglowUnitView.__super__.serializeData.call(this);
+      url = Backbone.history.fragment;
+      unitid = parseInt(url.split('/')[2]);
+      unit = unitCollection.findWhere({
+        id: unitid
+      });
+      unitVariant = bunglowVariantCollection.findWhere({
+        'id': unit.get('unit_variant_id')
+      });
+      levels = [];
+      floor = unitVariant.get('floor');
+      $.each(floor, function(index, value) {
+        var rooms;
+        rooms = [];
+        return levels.push({
+          'two_d': value.url2dlayout_image,
+          'three_d': value.url3dlayout_image,
+          'level_name': 'Level ' + index
+        });
+      });
+      data.levels = levels;
+      return data;
+    };
 
     CenterBunglowUnitView.prototype.onShow = function() {
       return $('#slider-id').liquidSlider({
