@@ -46,7 +46,7 @@
                     <div>
                         <h4 class="inline">Floor Layout Detailed SVG</span></h4>
                         <div id="floor-layout-detailed_svg-container"> 
-                            <input type="button" name="fileToUpload" class="btn btn-small master_pickfiles" value="Select your file" data-filename-placement="inside"/> 
+                            <input type="button" name="fileToUpload" class="btn btn-small master_pickfiles" value="Select your file"/> 
                             <button type="button" class="btn btn-small btn-primary master_uploadfiles" >Upload</button>
                             <input type="hidden" name="detailed_svg" value="0" />
                             <div class="uploaded-image">
