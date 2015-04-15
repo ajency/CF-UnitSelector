@@ -50,7 +50,9 @@
                             <button type="button" class="btn btn-small btn-primary master_uploadfiles" >Upload</button>
                             <input type="hidden" name="detailed_svg" value="0" />
                             <div class="uploaded-image">
-                                
+                                @if($floorLayout->hasDetailedSvg())
+                                <object data="{{ $floorLayout->getDetailedSvgPath() }}" width="150" ></object>
+                                @endif
                             </div> 
                         </div>
                         
@@ -63,7 +65,9 @@
                             <button type="button" class="btn btn-small btn-primary master_uploadfiles" >Upload</button>
                             <input type="hidden" name="basic_svg" value="0" />
                             <div class="uploaded-image">
-                            
+                                 @if($floorLayout->hasBasicSvg())
+                                <object data="{{ $floorLayout->getBasicSvgPath() }}" width="150" ></object>
+                                @endif
                             </div> 
                         </div> 
                     </div>
