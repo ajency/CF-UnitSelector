@@ -5,6 +5,10 @@ namespace CommonFloor;
 use Illuminate\Database\Eloquent\Model;
 
 class FloorLayout extends Model {
+    
+    public function svgs() {
+        return $this->morphMany( 'CommonFloor\Media', 'mediable' );
+    }
 
     public function detailedSvg() {
         return $this->hasOne( 'CommonFloor\Media', 'id', 'detailed_svg' );
