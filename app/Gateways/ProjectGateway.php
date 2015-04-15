@@ -67,9 +67,11 @@ class ProjectGateway implements ProjectGatewayInterface {
         foreach ($bunglowVariants as $bunglowVariant) {
             $bunglowVariantIds[] = $bunglowVariant->id;
         }
+        
+        $buildings = \CommonFloor\Building::all()->toArray();
 
         $stepTwoData = [
-            'buildings' => [],
+            'buildings' => $buildings,
             'bunglow_variants' => $bunglowVariants->toArray(),
             'apartment_variants' => [],
             'plot_variants' => [],
