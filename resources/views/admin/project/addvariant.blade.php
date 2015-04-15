@@ -69,13 +69,32 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">{{$attributes['label']}}</label>
-                        <?php
-                        if ('textbox' === $attributes['control_type']) {
-                            ?>
-                            <input type="text" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]"  placeholder="Enter {{$attributes['label']}}">
-                            <?php
-                        }
+                         <?php
+                         
                         ?>
+                        @if('textbox' === $attributes['control_type'])
+                        <input type="text" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]"  placeholder="Enter {{$attributes['label']}}">
+                        @elseif('select' === $attributes['control_type'])
+                        <?php
+                        $options = explode(',', $attributes['defaults']);
+                        ?>
+                        <select name="attributes[{{property_type_slug($attributes['label'])}}]" class="select2 form-control">
+                            <option value="">Select {{$attributes['label']}}</option>   
+                            @foreach($options as $option)
+                            <option  value="{{property_type_slug($option)}}">{{$option}}</option>
+                            @endforeach
+                        </select>
+                        @elseif('multiple' === $attributes['control_type'])
+                        <?php
+                        $options = explode(',', $attributes['defaults']);
+                        ?>
+                        <select multiple name="attributes[{{property_type_slug($attributes['label'])}}][]" class="select2 form-control">
+                            <option value="">Select {{$attributes['label']}}</option>   
+                            @foreach($options as $option)
+                            <option value="{{property_type_slug($option)}}">{{$option}}</option>
+                            @endforeach
+                        </select>
+                        @endif  
                     </div> 
                 </div>
                 @endforeach
