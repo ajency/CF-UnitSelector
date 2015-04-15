@@ -160,14 +160,14 @@ class CenterBunglowUnitView extends Marionette.ItemView
 													{{#levels}}
 												<img src="{{two_d}}">
 												<div>{{level_name}}</div>
-												{{#levels}}
+												{{/levels}}
 									 </div>
 									 <div>
 												<h2 class="title">3D Layout</h2>
 													{{#levels}}
 												<img src="{{three_d}}">
 												<div>{{level_name}}</div>
-												{{#levels}}
+												{{/levels}}
 												
 									 </div>
 							</div>
@@ -191,7 +191,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 				'two_d' : value.url2dlayout_image
 				'three_d'			 : value.url3dlayout_image
 				'level_name' : 'Level '+index
-
+		console.log levels
 		data.levels = levels
 		data
 		

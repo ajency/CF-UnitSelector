@@ -148,7 +148,7 @@
       return CenterBunglowUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider" id="slider-id"> <!--<div> <h2 class="title">External 3D</h2> <img src="../../images/step3.png"> </div>--> <div> <h2 class="title">2D Layout</h2> {{#levels}} <img src="{{two_d}}"> <div>{{level_name}}</div> {{#levels}} </div> <div> <h2 class="title">3D Layout</h2> {{#levels}} <img src="{{three_d}}"> <div>{{level_name}}</div> {{#levels}} </div> </div> </div> </div>');
+    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider" id="slider-id"> <!--<div> <h2 class="title">External 3D</h2> <img src="../../images/step3.png"> </div>--> <div> <h2 class="title">2D Layout</h2> {{#levels}} <img src="{{two_d}}"> <div>{{level_name}}</div> {{/levels}} </div> <div> <h2 class="title">3D Layout</h2> {{#levels}} <img src="{{three_d}}"> <div>{{level_name}}</div> {{/levels}} </div> </div> </div> </div>');
 
     CenterBunglowUnitView.prototype.serializeData = function() {
       var data, floor, levels, unit, unitVariant, unitid, url;
@@ -172,6 +172,7 @@
           'level_name': 'Level ' + index
         });
       });
+      console.log(levels);
       data.levels = levels;
       return data;
     };
