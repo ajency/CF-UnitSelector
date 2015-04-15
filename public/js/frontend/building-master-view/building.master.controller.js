@@ -98,9 +98,10 @@
 
     CenterItemView.prototype.events = {
       'mouseover': function(e) {
-        var id, response, types;
+        var building, id, response, types;
         id = this.model.get('id');
-        response = this.getUnitTypes(id);
+        building = new Building;
+        response = building.getUnitTypes(id);
         types = [];
         $.each(response, function(ind, val) {
           var unitTypeModel, units, variants;
@@ -126,8 +127,6 @@
         return console.log(types);
       }
     };
-
-    CenterItemView.prototype.getUnitTypes = function(id) {};
 
     return CenterItemView;
 

@@ -148,7 +148,33 @@
       return CenterBunglowUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider" id="slider-id"> <!--<div> <h2 class="title">External 3D</h2> <img src="../../images/step3.png"> </div>--> <div> <h2 class="title">2D Layout</h2> <img src="../../images/step3.png"> </div> <div> <h2 class="title">3D Layout</h2> <img src="../../images/step3.png"> </div> </div> </div> </div>');
+    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider" id="slider-id"> <!--<div> <h2 class="title">External 3D</h2> <img src="../../images/step3.png"> </div>--> <div> <h2 class="title">2D Layout</h2> {{#levels}} <img src="{{two_d}}"> <div>{{level_name}}</div> {{#levels}} </div> <div> <h2 class="title">3D Layout</h2> {{#levels}} <img src="{{three_d}}"> <div>{{level_name}}</div> {{#levels}} </div> </div> </div> </div>');
+
+    CenterBunglowUnitView.prototype.serializeData = function() {
+      var data, floor, levels, unit, unitVariant, unitid, url;
+      data = CenterBunglowUnitView.__super__.serializeData.call(this);
+      url = Backbone.history.fragment;
+      unitid = parseInt(url.split('/')[2]);
+      unit = unitCollection.findWhere({
+        id: unitid
+      });
+      unitVariant = bunglowVariantCollection.findWhere({
+        'id': unit.get('unit_variant_id')
+      });
+      levels = [];
+      floor = unitVariant.get('floor');
+      $.each(floor, function(index, value) {
+        var rooms;
+        rooms = [];
+        return levels.push({
+          'two_d': value.url2dlayout_image,
+          'three_d': value.url3dlayout_image,
+          'level_name': 'Level ' + index
+        });
+      });
+      data.levels = levels;
+      return data;
+    };
 
     CenterBunglowUnitView.prototype.onShow = function() {
       return $('#slider-id').liquidSlider({
