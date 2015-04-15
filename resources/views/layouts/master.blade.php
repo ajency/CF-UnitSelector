@@ -22,6 +22,10 @@
         <link href="{{ asset('css/dashboard/style.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('css/dashboard/responsive.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('css/dashboard/custom-icon-set.css') }}" rel="stylesheet" type="text/css"/>
+       <script>
+            var BASEURL = '{{ url() }}';
+            var FLOORLEVELS = [];
+        </script>
     <body>
         <!-- BEGIN HEADER -->
         <div class="header navbar navbar-inverse"> 
@@ -142,10 +146,7 @@
             <!-- END PAGE CONTAINER -->
         </div>
         <!-- END CONTENT --> 
-        <script>
-            var BASEURL = '{{ url() }}';
-            var FLOORLEVELS = [];
-        </script>
+
 
         <!-- BEGIN CORE JS FRAMEWORK--> 
         <script src="{{ asset('bower_components/lodash/lodash.js') }}"></script>

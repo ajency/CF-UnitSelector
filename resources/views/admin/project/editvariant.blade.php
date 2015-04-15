@@ -242,7 +242,7 @@ ROOMTYPES += "<option value=\"{{$room_type['id']}}\">{{$room_type['name']}}</opt
 @endforeach
 
 var BASEURL = '{{ url() }}';
-var FLOORLEVELS = [<?php echo implode(",",  array_keys($floorlevelRoomAttributes));?>];
+var FLOORLEVELS = [<?php echo implode(",",  array_keys($floorlevelRoomAttributes));?>]; 
 var variantId = {{ $unitVariant['id'] }};
 </script>
 <!-- END PLACE PAGE CONTENT HERE -->
