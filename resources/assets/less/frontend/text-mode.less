@@ -1,4 +1,31 @@
 
+.list-view-container{
+	background-color: lighten(@gray-lighter, 10%);
+	padding: 10px;
+
+	.controls{
+		padding-bottom: 10px;
+		margin-bottom: 10px;
+		border-bottom: 1px solid @gray-lighter;
+		ul{
+			list-style-type: none;
+			.prop-type{
+				font-weight: bold;
+				display: inline-block;
+				margin: 15px 15px 0;
+				color: @gray;
+				cursor: pointer;
+				&:hover{
+					color: @brand-primary;
+				}
+				&.active{
+					color: @brand-primary;
+				}
+			}
+		}
+	}
+}
+
 /* List of Buildings */
 .bldg-list{
 	
@@ -6,8 +33,6 @@
 
 /* List of Villas */
 .villa-list{
-	background-color: lighten(@gray-lighter, 10%);
-	padding: 10px;
 	ul{
 		list-style-type: none;
 		.unit{
