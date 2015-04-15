@@ -66,6 +66,7 @@
     };
 
     BuildingCollection.prototype.setBuildingAttributes = function(data) {
+      console.log(data);
       return buildingCollection.reset(data);
     };
 
