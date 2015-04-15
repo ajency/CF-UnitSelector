@@ -78,7 +78,7 @@ class LeftBunglowUnitView extends Marionette.ItemView
 							<div class="advncd-filter-wrp unit-list">
 								
 								{{#levels}}
-								<h6>{{level_name}}
+								<h6>{{level_name}}</h6>
 								<div class="blck-wrap title-row">
 									<div class="row">
 										<div class="col-sm-4">
