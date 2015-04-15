@@ -34,6 +34,36 @@
 			}
 		}
 	}
+	.legend{
+		float: right;
+		padding: 10px 0;
+		ul{
+			list-style: none;
+			li{
+				display: inline-block;
+				margin-left: 20px;
+				font-size: 12px;
+				color: @gray;
+				&::before{
+					height: 12px;
+					width: 25px;
+					border: 1px solid @gray;
+					content: '';
+					display: inline-block;
+					margin-right: 5px;
+				}
+				&.sold::before{
+					background-color: @danger;
+				}
+				&.blocked::before{
+					background-color: @warning;
+				}
+				&.na::before{
+					background-color: @gray-lighter;
+				}
+			}
+		}
+	}
 }
 
 /* List of Buildings */
