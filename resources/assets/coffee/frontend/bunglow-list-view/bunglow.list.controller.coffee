@@ -95,6 +95,12 @@ class CenterBunglowListView extends Marionette.ItemView
 		@model.set 'status' , data.status
 		data
 
+	events:
+		'click .unit' :(e)->
+				if @model.get('status') == 'available'
+					CommonFloor.defaults['unit'] = @model.get('id')
+					CommonFloor.navigate '/bunglows/unit-view/'+@model.get('id') , true
+
 
 #Composite view for the Center setion
 class CenterCompositeView extends Marionette.CompositeView
