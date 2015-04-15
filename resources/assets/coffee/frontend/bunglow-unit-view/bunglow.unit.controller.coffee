@@ -78,7 +78,7 @@ class LeftBunglowUnitView extends Marionette.ItemView
 							<div class="advncd-filter-wrp unit-list">
 								
 								{{#levels}}
-								<h6>{{level_name}}</h6>
+								<h4 class="m-b-0 m-t-20">{{level_name}}</h4>
 								<div class="blck-wrap title-row">
 									<div class="row">
 										<div class="col-sm-4">
@@ -152,22 +152,30 @@ class CenterBunglowUnitView extends Marionette.ItemView
 						<div class="svg-area">
 							<div class="liquid-slider" id="slider-id">
 									 <!--<div>
-												<h2 class="title">External 3D</h2>
-												<img src="../../images/step3.png">
+											<h2 class="title">External 3D</h2>
+											<img src="../../images/step3.png">
 									 </div>-->
 									 <div>
-												<h2 class="title">2D Layout</h2>
-													{{#levels}}
+										<h2 class="title">2D Layout</h2>
+										<div class="row">
+										{{#levels}}
+                      						<div class="col-sm-6 m-b-20">
 												<img src="{{two_d}}">
-												<div>{{level_name}}</div>
-												{{/levels}}
+												<h5 class="text-center">{{level_name}}</h5>
+											</div>
+										{{/levels}}
+										</div>
 									 </div>
 									 <div>
-												<h2 class="title">3D Layout</h2>
-													{{#levels}}
+										<h2 class="title">3D Layout</h2>
+										<div class="row">
+										{{#levels}}
+											<div class="col-sm-6 m-b-20">
 												<img src="{{three_d}}">
-												<div>{{level_name}}</div>
-												{{/levels}}
+												<h5 class="text-center">{{level_name}}</h5>
+											</div>
+										{{/levels}}
+										</div>
 												
 									 </div>
 							</div>
