@@ -46,7 +46,7 @@
             <div id="project_googleearth_image">  
             @if(!empty($svgImages['google_earth']['IMAGE']))
             <object width="150" id="svg1" data="{{ $svgImages['google_earth']['IMAGE'] }}" type="image/svg+xml"></object>
-            <button onclick="deleteSvg({{$svgImages['google_earth']['ID']}},'google_earth');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
+            <button onclick="deleteSvg({{$svgImages['google_earth']['ID']}},'google_earth','');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
             @endif
             </div>
         </div>
