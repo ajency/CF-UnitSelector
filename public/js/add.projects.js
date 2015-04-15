@@ -171,7 +171,7 @@
       $(this).parent().find('input').val('');
       return registerRemoveUnitType();
     });
-    return $('.floor-position button.save-position').click(function() {
+    $('.floor-position button.save-position').click(function() {
       var floorLayoutId, form, formData;
       form = $(this).closest('form');
       form.parsley().validate();
@@ -187,6 +187,13 @@
           }
         });
       }
+    });
+    return $('.floor-layout-unit-types').change(function() {
+      var unitTypeId;
+      unitTypeId = $(this).val();
+      $(this).closest('.row').find('[name="unit_variant_id"] option').hide();
+      $(this).closest('.row').find('[name="unit_variant_id"]').find("unittype-" + unitTypeId).show();
+      return $(this).closest('.row').find('[name="unit_variant_id"]').select2();
     });
   });
 

@@ -100,7 +100,7 @@
                                         <div>
                                             <label class="form-label">Unit Type</label>
                                         </div>
-                                        <select>
+                                        <select class="floor-layout-unit-types">
                                             <option value="">Choose Unit Type</option>
                                             @foreach($unitTypes as $unitType)
                                                 @if(!empty($allUnitVariants[$unitType['id']]))
@@ -118,7 +118,7 @@
                                         <select required="" name="unit_variant_id">
                                             @foreach($allUnitVariants as $unitTypeId => $unitVariants)
                                                 @foreach($unitVariants as $unitVariant)
-                                                <option value="{{ $unitVariant['id'] }}">{{ $unitVariant['unit_variant_name'] }}</option>
+                                                <option class="unittype-{{ $unitTypeId }}" value="{{ $unitVariant['id'] }}">{{ $unitVariant['unit_variant_name'] }}</option>
                                                 @endforeach
                                             @endforeach
                                         </select>
