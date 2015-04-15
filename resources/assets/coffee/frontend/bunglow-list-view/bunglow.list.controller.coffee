@@ -106,8 +106,8 @@ class CenterBunglowListView extends Marionette.ItemView
 class CenterCompositeView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-12 us-right-content">
-            <div class="controls">
-              <div >
+            <div class="controls mapView">
+              <div class="toggle">
                <a href="#/master-view/bunglows"> Map View</a> |<a href="#/list-view/bunglows">List View</a>
               </div>
               <div class="clearfix"></div>

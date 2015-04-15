@@ -158,7 +158,7 @@
       return CenterCompositeView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterCompositeView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <div class="controls"> <div > <a href="#/master-view/bunglows"> Map View</a> |<a href="#/list-view/bunglows">List View</a> </div> <div class="clearfix"></div> </div> <div class="villa-list"> <ul class="units"> </ul> <div class="clearfix"></div> </div> </div>');
+    CenterCompositeView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <div class="controls mapView"> <div class="toggle"> <a href="#/master-view/bunglows"> Map View</a> |<a href="#/list-view/bunglows">List View</a> </div> <div class="clearfix"></div> </div> <div class="villa-list"> <ul class="units"> </ul> <div class="clearfix"></div> </div> </div>');
 
     CenterCompositeView.prototype.childView = CenterBunglowListView;
 
