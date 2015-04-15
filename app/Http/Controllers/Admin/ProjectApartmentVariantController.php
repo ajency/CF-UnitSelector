@@ -2,11 +2,13 @@
 
 namespace CommonFloor\Http\Controllers\Admin;
 
-use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use CommonFloor\Project;
 use CommonFloor\ProjectPropertyType;
+use CommonFloor\UnitVariant;
+use CommonFloor\UnitType;
+use CommonFloor\Media;
 
 class ProjectApartmentVariantController extends Controller {
 
@@ -44,8 +46,20 @@ class ProjectApartmentVariantController extends Controller {
      *
      * @return Response
      */
-    public function store() {
-        //
+    public function store( $projectId, Request $request ) {
+        $unitVariant = new UnitVariant();
+        $unitVariant->unit_variant_name = $request->input( 'unit_variant_name' );
+        $unitVariant->unit_type_id = $request->input( 'unit_type' );
+        $unitVariant->carpet_area = $request->input( 'carpet_area' );
+        $unitVariant->built_up_area = $request->input( 'builtup_area' );
+        $unitVariant->super_built_up_area = $request->input( 'superbuiltup_area' );
+        $attributedata = $request->input( 'attributes' );
+        $attributeStr = serialize( $attributedata );
+        $unitVariant->variant_attributes = $attributeStr;
+        $unitVariant->save();
+        $unitVariantID = $unitVariant->id;
+
+        return redirect( "/admin/project/" . $projectId . "/apartment-variant/" . $unitVariantID . '/edit' );
     }
 
     /**
@@ -64,8 +78,60 @@ class ProjectApartmentVariantController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit( $id ) {
-        //
+    public function edit( $projectId, $id ) {
+        $unitVariant = UnitVariant::find( $id );
+        $project = Project::find( $projectId );
+        $projectPropertyTypes = $project->projectPropertyTypes()->get()->toArray();
+        $propertyTypes = [];
+        $projectPropertyTypeId = 0;
+        foreach ($projectPropertyTypes as $propertyType) {
+            $propertyTypes[] = $propertyType['property_type_id'];
+
+            if ($propertyType['property_type_id'] == '1') {
+                $projectPropertyTypeId = $propertyType['id'];
+            }
+        }
+
+        $availableRoomTypes = $project->roomTypes()->get()->toArray();
+        $variantRooms = $unitVariant->variantRoomAttributes()->get()->toArray();
+        $variantRoomArr = [];
+        $propertyTypeAttributes = ProjectPropertyType::find( $projectPropertyTypeId )->attributes->toArray();
+        $roomTypeAttributes = [];
+
+        $unitTypes = [];
+        foreach ($variantRooms as $variantRoom) {
+            $variantRoomArr[][$variantRoom['id']]['ROOMTYPEID'] = $variantRoom['roomtype_id'];
+            $variantRoomArr[][$variantRoom['id']]['ATTRIBUTES'] = $variantRoom['variant_room_attributes'];
+        }
+
+        $variantMeta = $unitVariant->variantMeta()->get()->toArray();
+        
+        $layouts = [];
+        foreach ($variantMeta as $meta) {
+            $metakey = explode( "-", $meta['meta_key'] );
+            $level = $metakey[0];
+            $type = $metakey[1];
+            $mediaId = $meta['meta_value'];
+            if (is_numeric( $mediaId )) {
+                $media = Media::find( $mediaId )->image_name;
+                $imageName = $media->image_name;
+                $layouts[0][$type]['ID'] = $mediaId;
+                $layouts[0][$type]['IMAGE'] = url() . "/projects/" . $projectId . "/variants/" . $meta['unit_variant_id'] . "/" . $imageName;
+            }
+        }
+
+
+        return view( 'admin.project.variants.apartment.edit' )
+                        ->with( 'project', $project->toArray() )
+                        ->with( 'project_property_type', $propertyTypes )
+                        ->with( 'project_property_type_attributes', $propertyTypeAttributes )
+                        ->with( 'unit_type_arr', $unitTypes )
+                        ->with( 'availableRoomTypes', $availableRoomTypes )
+                        ->with( 'unitVariant', $unitVariant->toArray() )
+                        ->with( 'variantRooms', $variantRoomArr )
+                        ->with( 'layouts', $layouts)
+                        ->with( 'roomTypeAttributes', $roomTypeAttributes )
+                        ->with( 'current', '' );
     }
 
     /**
