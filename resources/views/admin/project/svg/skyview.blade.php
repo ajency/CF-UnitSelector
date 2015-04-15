@@ -20,7 +20,7 @@
             <div id="skyview_image">  
                 @if(!empty($svgImages['skyview']['IMAGE']))
                 <img width="150" height="150" src="{{ $svgImages['skyview']['IMAGE'] }}" class="img-responsive" >
-                <button onclick="deleteSvg({{$svgImages['skyview']['ID']}},'skyview');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
+                <button onclick="deleteSvg({{$svgImages['skyview']['ID']}},'skyview','');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
                 @endif
             </div>
         </div>
