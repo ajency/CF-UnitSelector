@@ -196,8 +196,7 @@ jQuery(document).ready ($)->
 		registerRemoveUnitType()
 		
 		
-	$('.floor-position button.save-position').click ->
-		
+	$('.floor-position button.save-position').click ->	
 		form = $(@).closest('form')
 		form.parsley().validate()
 		if form.parsley().isValid()
@@ -209,7 +208,14 @@ jQuery(document).ready ($)->
 				data : formData					
 				success : (response)->
 					console.log 'show success message'
-		
+					
+	$('.floor-layout-unit-types').change ->
+		unitTypeId = $(this).val()
+		$(this).closest('.row').find('[name="unit_variant_id"] option').hide()
+		$(this).closest('.row').find('[name="unit_variant_id"]')
+			.find "unittype-#{unitTypeId}"
+			.show()
+		$(this).closest('.row').find('[name="unit_variant_id"]').select2()
 			
 			
 		

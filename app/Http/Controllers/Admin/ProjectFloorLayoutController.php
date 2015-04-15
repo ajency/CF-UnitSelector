@@ -9,6 +9,7 @@ use CommonFloor\FloorLayout;
 use CommonFloor\Repositories\ProjectRepository;
 use CommonFloor\Repositories\FloorLayoutRepository;
 use CommonFloor\UnitVariant;
+use CommonFloor\FloorLayoutPosition;
 
 class ProjectFloorLayoutController extends Controller {
 
@@ -84,11 +85,17 @@ class ProjectFloorLayoutController extends Controller {
         foreach($unitTypes as $unitType){
             $allUnitVariants[$unitType['id']] = UnitVariant::where('unit_type_id', $unitType['id'])->get()->toArray();
         }
-
+        
+        $floorLayoutPositions = FloorLayoutPosition::where('floor_layout_id', $floorLayoutId)->get()->toArray();
+        $formattedFloorLayoutPositions = [];
+        foreach ($floorLayoutPositions as $floorLayoutPosition){
+            $formattedFloorLayoutPositions[$floorLayoutPosition['position']] = $floorLayoutPosition;
+        }
         return view( 'admin.project.floorlayout.edit' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'add-floor-layout' )
                         ->with( 'floorLayout', $floorLayout )
+                        ->with( 'floorLayoutPositions', $formattedFloorLayoutPositions)
                         ->with( 'unitTypes', $unitTypes )
                         ->with( 'allUnitVariants', $allUnitVariants );
     }
