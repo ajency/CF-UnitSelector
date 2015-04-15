@@ -5,9 +5,14 @@ class BuildingListView extends Marionette.LayoutView
 class CommonFloor.BuildingListCtrl extends Marionette.RegionController
 
 	initialize:->
+			# project.setProjectAttributes(PROJECTID);
+			# CommonFloor.loadJSONData()
+			# @show new BuildingListView
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID);
 			CommonFloor.loadJSONData()
+			@show new BuildingListView
+		if buildingCollection.length != 0
 			@show new BuildingListView
 		else
 			@show new CommonFloor.NothingFoundView
@@ -17,26 +22,26 @@ class CommonFloor.BuildingListCtrl extends Marionette.RegionController
 class TopBuildingListView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="row">
-          <div class="col-md-12 col-xs-12 col-sm-12">
-            <!--<div class="row breadcrumb-bar">
-              <div class="col-xs-12 col-md-12">
-                <div class="bread-crumb-list">
-                  <ul class="brdcrmb-wrp clearfix">
-                    <li class="">
-                      <span class="bread-crumb-current">
-                        <span class=".icon-arrow-right2"></span>Back to Poject Overview
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>-->
+		  <div class="col-md-12 col-xs-12 col-sm-12">
+			<!--<div class="row breadcrumb-bar">
+			  <div class="col-xs-12 col-md-12">
+				<div class="bread-crumb-list">
+				  <ul class="brdcrmb-wrp clearfix">
+					<li class="">
+					  <span class="bread-crumb-current">
+						<span class=".icon-arrow-right2"></span>Back to Poject Overview
+					  </span>
+					</li>
+				  </ul>
+				</div>
+			  </div>
+			</div>-->
 
-            <div class="search-header-wrap">
-              <h1>Buildings List View</h1>
-            </div>
-          </div>
-        </div>')
+			<div class="search-header-wrap">
+			  <h1>Buildings List View</h1>
+			</div>
+		  </div>
+		</div>')
 
 
 class CommonFloor.TopBuildingListCtrl extends Marionette.RegionController
@@ -61,13 +66,13 @@ class CommonFloor.LeftBuildingListCtrl extends Marionette.RegionController
 class CenterItemView extends Marionette.ItemView
 
 	template :  Handlebars.compile('<li class="unit {{status}}">
-                  <div class="pull-left info">
-                    <label>{{name}}</label> 
-                  </div>
-                  <!--<div class="pull-right cost">
-                    50 lakhs
-                  </div>-->
-                </li>')
+				  <div class="pull-left info">
+					<label>{{name}}</label> 
+				  </div>
+				  <!--<div class="pull-right cost">
+					50 lakhs
+				  </div>-->
+				</li>')
 
 	events:
 		'mouseover' :(e)->
@@ -109,20 +114,20 @@ class CenterItemView extends Marionette.ItemView
 class CenterBuildingListView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-12 us-right-content">
-            <!--<div class="controls">
-              <div >
-               <a href="#/List-view/bunglows"> Map View</a> |<a href="#/list-view/bunglows">List View</a>
-              </div>
-              <div class="clearfix"></div>
-            </div>-->
-            <div class="villa-list">
-              <ul class="units">
-                
-                
-              </ul>
-              <div class="clearfix"></div>
-            </div>
-          </div>')
+			<!--<div class="controls">
+			  <div >
+			   <a href="#/List-view/bunglows"> Map View</a> |<a href="#/list-view/bunglows">List View</a>
+			  </div>
+			  <div class="clearfix"></div>
+			</div>-->
+			<div class="villa-list">
+			  <ul class="units">
+				
+				
+			  </ul>
+			  <div class="clearfix"></div>
+			</div>
+		  </div>')
 
 	childView : CenterItemView
 

@@ -27,6 +27,9 @@
       if (jQuery.isEmptyObject(project.toJSON())) {
         project.setProjectAttributes(PROJECTID);
         CommonFloor.loadJSONData();
+        this.show(new BuildingListView);
+      }
+      if (buildingCollection.length !== 0) {
         return this.show(new BuildingListView);
       } else {
         return this.show(new CommonFloor.NothingFoundView);
