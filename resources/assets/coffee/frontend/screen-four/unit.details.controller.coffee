@@ -10,6 +10,7 @@ class CommonFloor.UnitDetailViewCtrl extends Marionette.RegionController
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID)
 			CommonFloor.loadJSONData()
+		console.log project.toJSON()
 		if jQuery.isEmptyObject(project.toJSON())
 			@show new CommonFloor.NothingFoundView
 		else

@@ -175,7 +175,7 @@
       return CenterBunglowView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> <!--<object data="{{project_master.front}}" class="inactive"></object> <object data="{{project_master.right}}" class="inactive"></object> <object data="{{project_master.back}}" class="inactive"></object> <object data="{{project_master.left}}" class="inactive"></object>--> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
+    CenterBunglowView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
 
     CenterBunglowView.prototype.initialize = function() {
       this.currentBreakPoint = "";
@@ -184,12 +184,10 @@
 
     CenterBunglowView.prototype.events = {
       'click #prev': function() {
-        $('.svg-maps > div').addClass('inactive').removeClass('active');
         return this.setDetailIndex(this.currentBreakPoint - 1);
       },
       'click #next': function() {
-        $('.svg-maps > div').addClass('inactive').removeClass('active');
-        return this.setDetailIndex(this.currentBreakPoint - 1);
+        return this.setDetailIndex(this.currentBreakPoint + 1);
       },
       'mouseout': function(e) {
         $('.layer').attr('class', 'layer');

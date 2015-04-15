@@ -28,6 +28,7 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.loadJSONData();
       }
+      console.log(project.toJSON());
       if (jQuery.isEmptyObject(project.toJSON())) {
         return this.show(new CommonFloor.NothingFoundView);
       } else {

@@ -131,11 +131,6 @@ class CommonFloor.CenterBunglowView extends Marionette.ItemView
 			<div id="spritespin"></div>
 			<div class="svg-maps">
 			<div class="region inactive"></div>
-			
-			  <!--<object data="{{project_master.front}}" class="inactive"></object>
-			  <object data="{{project_master.right}}" class="inactive"></object>
-			  <object data="{{project_master.back}}" class="inactive"></object>
-			  <object data="{{project_master.left}}" class="inactive"></object>-->
 			</div>
             <div class="rotate rotate-controls hidden">
 		        <div id="prev" class="rotate-left">Left</div>
@@ -153,12 +148,10 @@ class CommonFloor.CenterBunglowView extends Marionette.ItemView
 
 	events :
 		'click #prev':->
-			$('.svg-maps > div').addClass('inactive').removeClass('active');
 			@setDetailIndex(@currentBreakPoint - 1);
 
 		'click #next':->
-			$('.svg-maps > div').addClass('inactive').removeClass('active');
-			@setDetailIndex(@currentBreakPoint - 1);
+			@setDetailIndex(@currentBreakPoint + 1);
 
 		'mouseout':(e)->
 			$('.layer').attr('class' ,'layer') 
