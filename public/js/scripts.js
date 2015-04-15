@@ -335,7 +335,7 @@ function setUpProjectMasterUploader(){
     });
 }
 
-function setUpFloorLevelUploader(){ alert(FLOORLEVELS)
+function setUpFloorLevelUploader(){  
     
     if (_.isUndefined(FLOORLEVELS))
     {
