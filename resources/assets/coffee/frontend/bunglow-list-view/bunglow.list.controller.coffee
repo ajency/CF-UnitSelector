@@ -32,13 +32,25 @@ class CommonFloor.LeftBunglowListCtrl extends Marionette.RegionController
 		@show new LeftBunglowListView 
 
 #view for the Center setion
-class TopBunglowListView extends Marionette.ItemView
+class CenterBunglowListView extends Marionette.ItemView
 
 	template : Handlebars.Compile('<div></div>')
+
+
+#Composite view for the Center setion
+class CenterCompositeView extends Marionette.CompositeView
+
+	template : Handlebars.Compile('<div></div>')
+
+	childView : CenterBunglowListView
 
 #controller for the Center region
 class CommonFloor.CenterBunglowListCtrl extends Marionette.RegionController
 
 	initialize:->
-		@show new CenterBunglowListView 
+		newUnits = CommonFloor.getBunglowUnits()
+		unitsCollection = new Backbone.Collection newUnits 		
+		@show new CenterCompositeView
+			collection : unitsCollection
+		
 

@@ -1,5 +1,5 @@
 (function() {
-  var LeftBunglowListView, TopBunglowListView,
+  var CenterBunglowListView, CenterCompositeView, LeftBunglowListView, TopBunglowListView,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
@@ -87,18 +87,33 @@
 
   })(Marionette.RegionController);
 
-  TopBunglowListView = (function(superClass) {
-    extend(TopBunglowListView, superClass);
+  CenterBunglowListView = (function(superClass) {
+    extend(CenterBunglowListView, superClass);
 
-    function TopBunglowListView() {
-      return TopBunglowListView.__super__.constructor.apply(this, arguments);
+    function CenterBunglowListView() {
+      return CenterBunglowListView.__super__.constructor.apply(this, arguments);
     }
 
-    TopBunglowListView.prototype.template = Handlebars.Compile('<div></div>');
+    CenterBunglowListView.prototype.template = Handlebars.Compile('<div></div>');
 
-    return TopBunglowListView;
+    return CenterBunglowListView;
 
   })(Marionette.ItemView);
+
+  CenterCompositeView = (function(superClass) {
+    extend(CenterCompositeView, superClass);
+
+    function CenterCompositeView() {
+      return CenterCompositeView.__super__.constructor.apply(this, arguments);
+    }
+
+    CenterCompositeView.prototype.template = Handlebars.Compile('<div></div>');
+
+    CenterCompositeView.prototype.childView = CenterBunglowListView;
+
+    return CenterCompositeView;
+
+  })(Marionette.CompositeView);
 
   CommonFloor.CenterBunglowListCtrl = (function(superClass) {
     extend(CenterBunglowListCtrl, superClass);
@@ -108,7 +123,12 @@
     }
 
     CenterBunglowListCtrl.prototype.initialize = function() {
-      return this.show(new CenterBunglowListView);
+      var newUnits, unitsCollection;
+      newUnits = CommonFloor.getBunglowUnits();
+      unitsCollection = new Backbone.Collection(newUnits);
+      return this.show(new CenterCompositeView({
+        collection: unitsCollection
+      }));
     };
 
     return CenterBunglowListCtrl;
