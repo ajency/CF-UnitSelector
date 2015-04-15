@@ -30,6 +30,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Name</label>
+                                <input type="hidden" name="floor_layout_id" value="{{ $floorLayout->id }}" />
                                 <input type="text" required="" class="form-control" name="layout_name" 
                                        placeholder="Enter Floor Name" value="{{ $floorLayout->layout_name }}">
                             </div>
@@ -44,29 +45,26 @@
                     <hr/>
                     <div>
                         <h4 class="inline">Floor Layout Detailed SVG</span></h4>
-                        <div id="floor-layout-detailed-svg-container"> 
-                            <input id="floor-layout-detailed-svg-pickfiles" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/> 
-                            <button id="floor-layout-detailed-svg-uploadfiles" type="button" class="btn btn-small btn-primary" >Upload</button>
+                        <div id="floor-layout-detailed_svg-container"> 
+                            <input type="button" name="fileToUpload" class="btn btn-small master_pickfiles" value="Select your file" data-filename-placement="inside"/> 
+                            <button type="button" class="btn btn-small btn-primary master_uploadfiles" >Upload</button>
                             <input type="hidden" name="detailed_svg" value="0" />
+                            <div class="uploaded-image">
+                                
+                            </div> 
                         </div>
-                        <div>
-                            @if($floorLayout->hasDetailedSvg())
-                            <object data="{{ $floorLayout->getDetailedSvgPath() }}" width="150"></object>
-                            @endif
-                        </div> 
+                        
                     </div>
                     <hr/>
                     <div>
                         <h4 class="inline">Floor Layout Basic SVG</span></h4>
-                        <div id="floor-layout-basic-svg-container"> 
-                            <input id="floor-layout-basic-svg-pickfiles" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/> 
-                            <button id="floor-layout-basic-svg-uploadfiles" type="button" class="btn btn-small btn-primary" >Upload</button>
+                        <div id="floor-layout-basic_svg-container"> 
+                            <input type="button" name="fileToUpload" class="btn btn-small master_pickfiles" value="Select your file" data-filename-placement="inside"/> 
+                            <button type="button" class="btn btn-small btn-primary master_uploadfiles" >Upload</button>
                             <input type="hidden" name="basic_svg" value="0" />
-                        </div>
-                        <div>
-                            @if($floorLayout->hasBasicSvg())
-                            <object data="{{ $floorLayout->getBasicSvgPath() }}" width="150"></object>
-                            @endif
+                            <div class="uploaded-image">
+                            
+                            </div> 
                         </div> 
                     </div>
                     <div class="form-actions">  

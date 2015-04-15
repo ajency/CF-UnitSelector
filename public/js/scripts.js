@@ -433,10 +433,64 @@ function deleteLayout(mediaId)
     });
 }
 
+
+
+function setUpFloorLayoutUploader(){
+
+    var divs = ['detailed_svg', 'basic_svg'];
+
+    _.each(divs, function(divName, index){
+        var div = $('#floor-layout-' + divName + '-container');
+        if(div.length === 0) return 
+        var selectBtnId = _.uniqueId('select-btn-');
+        var selectBtn = div.find('.master_pickfiles').attr('id', selectBtnId);
+
+        var uploadBtnId = _.uniqueId('upload-btn-');
+        var uploadBtn = div.find('.master_uploadfiles').attr('id', uploadBtnId);
+        var floorLayoutId = $('[name="floor_layout_id"]').val()
+        var uploader = new plupload.Uploader({
+            runtimes: 'html5,flash,silverlight,html4',
+            browse_button: selectBtnId, // you can pass in id...
+            url: BASEURL  + '/admin/floor-layout/' + floorLayoutId + '/media',
+            flash_swf_url: BASEURL  + '/bower_components/plupload/js/Moxie.swf',
+            silverlight_xap_url: BASEURL  + '/bower_components/plupload/js/Moxie.xap',
+            headers: {
+                "x-csrf-token": $("[name=_token]").val()
+            },
+            multipart_params: {
+                "object_type": "floor-layout",
+                "media_type" : divName,
+                "project_id" : PROJECTID
+            },
+            filters: {
+                max_file_size: '4mb',
+                mime_types: [{
+                        title: "Svg files",
+                        extensions: "svg"
+                    }]
+            },
+            init: {
+                PostInit: function () {
+                    document.getElementById(uploadBtnId).onclick = function () {
+                        uploader.start();
+                    };
+                },
+                FileUploaded: function (up, file, xhr) {
+                    fileResponse = JSON.parse(xhr.response);
+                    div.find('.uploaded-image').html('<object width="150" id="svg1" data="'+fileResponse.data.image_path+'" type="image/svg+xml" />');
+                    div.find('[name="'+divName+'"]').val(fileResponse.data.media_id);
+                }
+            }
+        });
+        uploader.init();
+    });
+}
+
 $(document).ready(function(){
 
         setUpProjectMasterUploader()
         setUpFloorLevelUploader()
+        setUpFloorLayoutUploader()
 
         var uploader = new plupload.Uploader({
             runtimes: 'html5,flash,silverlight,html4',

@@ -5,6 +5,9 @@ namespace CommonFloor\Http\Controllers\Admin;
 use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use File;
+use CommonFloor\Media;
+use CommonFloor\FloorLayout;
 
 class FloorLayoutMediaController extends Controller {
 
@@ -31,10 +34,11 @@ class FloorLayoutMediaController extends Controller {
      *
      * @return Response
      */
-    public function store($floorLayoutId) {
-        $targetDir = public_path() . "/projects/" . $projectId . "/floor-layouts/";
-        $imageUrl = \url() . "/projects/" . $projectId . "/floor-layouts/";
+    public function store( $floorLayoutId, Request $request ) {
+        $projectId = $request->get( 'project_id' );
+        $targetDir = public_path() . "/projects/" . $projectId . "/floor-layouts/" . $floorLayoutId;
         File::makeDirectory( $targetDir, $mode = 0755, true, true );
+        $newFilename = '';
         if ($request->hasFile( 'file' )) {
             $file = $request->file( 'file' );
             $fileName = $file->getClientOriginalName();
@@ -42,6 +46,20 @@ class FloorLayoutMediaController extends Controller {
             $newFilename = $fileName . '.' . $fileExt;
             $request->file( 'file' )->move( $targetDir, $newFilename );
         }
+
+        $media = new Media();
+        $media->image_name = $newFilename;
+        $media->mediable_id = $floorLayoutId;
+        $media->mediable_type = 'CommonFloor\FloorLayout';
+
+        $floorLayout = FloorLayout::find( $floorLayoutId );
+        $floorLayout->svgs()->save( $media );
+
+        return response()->json( [
+                            'code' => 'floorlayout_media_added',
+                            'message' => 'Floor layout svg added',
+                            'data' => $media->toArray()
+                        ], 201 );
     }
 
     /**
