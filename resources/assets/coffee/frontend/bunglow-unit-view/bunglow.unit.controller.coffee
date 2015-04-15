@@ -1,10 +1,10 @@
-class CommonFloor.UnitLayoutView extends Marionette.LayoutView
+class CommonFloor.BunglowUnitView extends Marionette.LayoutView
 
 	template : '#unit-view-template'
 
 
 
-class CommonFloor.UnitDetailViewCtrl extends Marionette.RegionController
+class CommonFloor.BunglowUnitCtrl extends Marionette.RegionController
 
 	initialize:->
 		if jQuery.isEmptyObject(project.toJSON())
@@ -14,9 +14,9 @@ class CommonFloor.UnitDetailViewCtrl extends Marionette.RegionController
 		if jQuery.isEmptyObject(project.toJSON())
 			@show new CommonFloor.NothingFoundView
 		else
-			@show new CommonFloor.UnitLayoutView
+			@show new CommonFloor.BunglowUnitView
 
-class TopUnitView extends Marionette.ItemView
+class TopBunglowUnitView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="row">
         <div class="col-md-12 col-xs-12 col-sm-12">
@@ -47,18 +47,18 @@ class TopUnitView extends Marionette.ItemView
 
 	
 
-class CommonFloor.TopUnitCtrl extends Marionette.RegionController
+class CommonFloor.TopBunglowUnitCtrl extends Marionette.RegionController
 
 	initialize:->
 		url = Backbone.history.fragment
-		unitid = parseInt url.split('/')[1]
+		unitid = parseInt url.split('/')[2]
 		unit = unitCollection.findWhere
 			id  : unitid
-		@show new TopUnitView
+		@show new TopBunglowUnitView
 				model : unit
 			
 
-class LeftUnitView extends Marionette.ItemView
+class LeftBunglowUnitView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
             <div class="filters-wrapper">
@@ -148,7 +148,7 @@ class LeftUnitView extends Marionette.ItemView
 	serializeData:->
 		data = super()
 		url = Backbone.history.fragment
-		unitid = parseInt url.split('/')[1]
+		unitid = parseInt url.split('/')[2]
 		unit = unitCollection.findWhere
 			id  : unitid
 		unitVariant = bunglowVariantCollection.findWhere
@@ -162,13 +162,13 @@ class LeftUnitView extends Marionette.ItemView
 		data
 	
 
-class CommonFloor.LeftUnitCtrl extends Marionette.RegionController
+class CommonFloor.LeftBunglowUnitCtrl extends Marionette.RegionController
 
 	initialize:->
-		@show new LeftUnitView
+		@show new LeftBunglowUnitView
 			
 
-class CenterUnitView extends Marionette.ItemView
+class CenterBunglowUnitView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
             <div class="svg-area">
@@ -203,10 +203,10 @@ class CenterUnitView extends Marionette.ItemView
 
 	
 
-class CommonFloor.CenterUnitCtrl extends Marionette.RegionController
+class CommonFloor.CenterBunglowUnitCtrl extends Marionette.RegionController
 
 	initialize:->
-		@show new CenterUnitView
+		@show new CenterBunglowUnitView
 			
 			
 

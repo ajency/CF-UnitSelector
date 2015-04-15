@@ -9,24 +9,33 @@ jQuery(document).ready ($)->
 					ctrl : 'LeftCtrl'
 				'center' :
 					ctrl : 'CenterCtrl'
-	CommonFloor.state 'bunglowMasterView',
+	CommonFloor.state 'bunglowMaster',
 			url : '/master-view/bunglows'
 			sections:
 				'top' : 
-					ctrl : 'TopBunglowCtrl'
+					ctrl : 'TopBunglowMasterCtrl'
 				'left' :
-					ctrl : 'LeftBunglowCtrl'
+					ctrl : 'LeftBunglowMasterCtrl'
 				'center' :
-					ctrl : 'CenterBunglowCtrl'
-	CommonFloor.state 'unitDetailView',
-			url : '/unit-view/:id'
+					ctrl : 'CenterBunglowMasterCtrl'
+	CommonFloor.state 'bunglowUnit',
+			url : '/bunglows/unit-view/:id'
 			sections:
 				'top' : 
-					ctrl : 'TopUnitCtrl'
+					ctrl : 'TopBunglowUnitCtrl'
 				'left' :
-					ctrl : 'LeftUnitCtrl'
+					ctrl : 'LeftBunglowUnitCtrl'
 				'center' :
-					ctrl : 'CenterUnitCtrl'
+					ctrl : 'CenterBunglowUnitCtrl'
+	CommonFloor.state 'bunglowList',
+			url : '/list-view/bunglows'
+			sections:
+				'top' : 
+					ctrl : 'TopBunglowListCtrl'
+				'left' :
+					ctrl : 'LeftBunglowListCtrl'
+				'center' :
+					ctrl : 'CenterBunglowListCtrl'
 	
 
 

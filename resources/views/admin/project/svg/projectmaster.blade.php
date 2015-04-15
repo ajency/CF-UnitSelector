@@ -139,6 +139,3 @@
         </div>
     </div>
 </div>
-<script>
-    var FLOORLEVELS=[];
-    </script>
