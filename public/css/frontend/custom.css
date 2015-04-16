@@ -510,14 +510,9 @@ body {
   text-shadow: 0 3px 2px #333333;
 }
 .list-view-container {
-  background-color: #e6e6e6;
   padding: 10px;
 }
 .list-view-container .controls {
-  background-color: #f68121;
-  padding: 10px;
-  border-radius: 20px;
-  width: 95px;
   text-align: center;
 }
 .list-view-container .controls.mapView {
@@ -525,25 +520,49 @@ body {
   top: 10px;
   left: 10px;
 }
-.list-view-container .controls ul {
+.list-view-container .controls a {
+  display: inline-block;
+  padding: 5px 10px;
+  background: #ffffff;
+  color: #666666;
+  border: 1px solid #cccccc;
+}
+.list-view-container .controls a.map {
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  border-right: none;
+}
+.list-view-container .controls a.list {
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-left: none;
+}
+.list-view-container .controls a.active {
+  background-color: #f68121;
+  color: #ffffff;
+}
+.list-view-container .prop-select {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #cccccc;
   list-style-type: none;
 }
-.list-view-container .controls ul .prop-type {
+.list-view-container .prop-select .prop-type {
   font-weight: bold;
   display: inline-block;
   margin: 15px 15px 0;
   color: #666666;
   cursor: pointer;
 }
-.list-view-container .controls ul .prop-type:hover {
+.list-view-container .prop-select .prop-type:hover {
   color: #f68121;
 }
-.list-view-container .controls ul .prop-type.active {
+.list-view-container .prop-select .prop-type.active {
   color: #f68121;
 }
 .list-view-container .legend {
   float: right;
-  padding: 10px 0;
+  padding: 10px 0 20px;
 }
 .list-view-container .legend ul {
   list-style: none;
@@ -583,9 +602,13 @@ body {
   margin-bottom: 10px;
   margin-right: 1.6%;
   background-color: #ffffff;
+  cursor: pointer;
 }
 .villa-list ul .unit:nth-child(3n) {
   margin-right: 0;
+}
+.villa-list ul .unit:hover {
+  box-shadow: 0 1px 5px #666666;
 }
 .villa-list ul .unit .info {
   color: #666666;
