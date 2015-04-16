@@ -11,7 +11,7 @@ class CommonFloor.BunglowMasterCtrl extends Marionette.RegionController
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID);
 			CommonFloor.checkPropertyType()
-		if bunglowVariantCollection.length != 0
+		if bunglowVariantCollection.length != 0 && project.get('project_master').front  != ""
 			@show new CommonFloor.BunglowMasterView
 		else
 			@show new CommonFloor.NothingFoundView

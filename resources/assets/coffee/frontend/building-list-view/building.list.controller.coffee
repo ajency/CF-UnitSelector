@@ -5,9 +5,6 @@ class BuildingListView extends Marionette.LayoutView
 class CommonFloor.BuildingListCtrl extends Marionette.RegionController
 
 	initialize:->
-			# project.setProjectAttributes(PROJECTID);
-			# CommonFloor.loadJSONData()
-			# @show new BuildingListView
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID);
 			CommonFloor.loadJSONData()

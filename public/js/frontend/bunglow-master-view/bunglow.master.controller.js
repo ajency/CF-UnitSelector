@@ -30,7 +30,7 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.checkPropertyType();
       }
-      if (bunglowVariantCollection.length !== 0) {
+      if (bunglowVariantCollection.length !== 0 && project.get('project_master').front !== "") {
         return this.show(new CommonFloor.BunglowMasterView);
       } else {
         return this.show(new CommonFloor.NothingFoundView);
