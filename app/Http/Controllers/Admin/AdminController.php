@@ -12,7 +12,7 @@ class AdminController extends Controller {
      * @return Response
      */
     public function index() {
-        return view( 'admin.dashboard' );
+        return view( 'admin.dashboard' )->with('menuFlag', FALSE);
     }
 
     /**
