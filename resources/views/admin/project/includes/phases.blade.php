@@ -1,8 +1,14 @@
-<div class="grid simple">
 
-    <div class="grid-title">
-        <h3>Project <span class="semi-bold">Phases</span></h3>
+<div class="grid simple">
+ 
+    <div class="grid-title"  role="tab" id="headingTwo">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+<h3>
+                    Project <span class="semi-bold">Phases</span>
+                </h3></a>
     </div>
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+
     <div class="grid-body">
         <div class="row">
             <div class="col-md-4">
@@ -24,9 +30,9 @@
                             <span class="fa fa-times text-danger"></span></button>
                     </div>
                     @endforeach
-                    <div class="clearfix"></div>
-                </div>
+                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>

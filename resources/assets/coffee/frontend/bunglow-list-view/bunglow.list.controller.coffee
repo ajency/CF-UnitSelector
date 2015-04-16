@@ -109,7 +109,7 @@ class CenterCompositeView extends Marionette.CompositeView
 									<div class="list-view-container">
 							            <div class="controls mapView">
 								            <div class="toggle">
-								            	<a href="#/master-view/bunglows"> Map View</a> |<a href="#/list-view/bunglows">List View</a>
+								            	<a href="#/master-view/bunglows">Map</a> |<a href="#/list-view/bunglows">List</a>
 								            </div>
 							            </div>
 							            <div class="legend">
