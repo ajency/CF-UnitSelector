@@ -170,11 +170,9 @@ function saveRoomdetails(project_id,variantId)
     $.ajax({
         url: BASEURL+"/admin/project/" + project_id + "/bunglow-variant/"+variantId+"/roomtypeattributes",
         type: "POST",
-        data: {
-            floorlevelroomData:$("#formroomdetails").serializeArray(),
-        },
+        data: $("#formroomdetails").serializeArray(),
         success: function (response) {
-             window.location.reload();
+            // window.location.reload();
         }
     });
 }
@@ -239,7 +237,7 @@ function addFloorLevel()
         str +='<div class="form-inline">';
         str +='<div class="form-group">';
         str +=' <input type="hidden" name="variantroomid_'+i+'[]" value="">';
-        str +='<select name="room_name_'+i+'[]" class="select2 form-control">';
+        str +='<select name="room_name_'+i+'[]" class="select2 form-control" >';
         str +='<option value="">Select Room</option>';
         str +=ROOMTYPES;
         str +='</select>';
@@ -253,9 +251,28 @@ function addFloorLevel()
          $("#counter").val(i);
 }
 
+function getRoomTypeAttributes(obj,variantId,level)
+{  
+  $.ajax({
+        url: BASEURL+"/admin/project/" + PROJECTID + "/bunglow-variant/"+variantId+"/getroomtypeattributes",
+        type: "POST",
+        data: {
+            roomtype_id:obj.value,
+            level:level,
+        },
+        success: function (response) {
+            var attribute_str = response.data.attributes;
+             $(obj).closest('.form-inline').after(attribute_str); 
+              $("select").select2();
+        }
+    });
+    
+   
+}
+
 function addRoomAttributes(level,obj)
 {
-    var room_type =  $(obj).closest('.form-inline').find('select[name="room_name_'+level+'"]').val();
+    var room_type =  $(obj).closest('.form-inline').find('select[name="room_name_'+level+'[]"]').val();
     if(room_type.trim()=='')
     {
         alert('Select Room Type');
@@ -266,7 +283,7 @@ function addRoomAttributes(level,obj)
         str +='<div class="form-inline">';
         str +='<div class="form-group">';
         str +=' <input type="hidden" name="variantroomid_'+level+'" value="">';
-        str +='<select name="room_name_'+level+'" class="select2 form-control">';
+        str +='<select name="room_name_'+level+'[]" class="select2 form-control">';
         str +='<option value="">Select Room</option>';
         str +=ROOMTYPES;
         str +='</select>';

@@ -49,8 +49,8 @@
                         <input type="text" class="form-control" name="carpet_area" value="" placeholder="Enter Carpet Area">
                     </div> 
                 </div>
-            </div>
-            <div class="row">
+             
+ 
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Built Up Area</label>
@@ -63,8 +63,7 @@
                         <input type="text" class="form-control" name="superbuiltup_area" value="" placeholder="Enter Super Built Up Area">
                     </div> 
                 </div>
-                <div class="col-md-4"></div>
-</div>
+        
                 @foreach($project_property_type_attributes as $attributes)
                 <div class="col-md-4">
                     <div class="form-group">

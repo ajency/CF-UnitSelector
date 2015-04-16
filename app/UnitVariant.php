@@ -28,6 +28,7 @@ class UnitVariant extends Model {
         $floorlevelData = $floor= [];
         $unitVariant = UnitVariant::find($variantId);
         $variantRooms = $unitVariant->variantRoomAttributes()->get()->toArray(); 
+        $projectId = 0;
         foreach ($variantRooms as $rooms) {
             $roomType = RoomType::find($rooms['roomtype_id']);
             $roomTypename = $roomType->name;
