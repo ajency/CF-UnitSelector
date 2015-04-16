@@ -17,13 +17,17 @@
 </div>
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
-<div class="row">
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="row">
     <div class="col-md-12">
         <div class="grid simple">
-            <div class="grid-title">
-                <h3 class="inline"><span class="semi-bold">Building</span> Details</h3> 
-                <div class="clearfix"></div>
+            <div class="grid-title role="tab" id="headingOne"">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+<div class="pull-right"><span class="fa fa-angle-up"></span></div>
+                <h3 ><span class="semi-bold">Building</span> Details</h3> 
+               </a>
             </div>
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
             <div class="grid-body">
                 <form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/building') }}">
                     <div class="row">
@@ -63,14 +67,16 @@
                 </form>
             </div>
         </div>
-
+</div>
         <div class="grid simple">
-            <div class="grid-title">
-                <h3 class="inline"><span class="semi-bold">Floor</span> Details</h3> 
-
-                <div class="clearfix"></div>
+            <div class="grid-title" role="tab" id="headingTwo">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+<div class="pull-right"><span class="fa fa-angle-down"></span></div>
+<h3><span class="semi-bold">Floor</span> Details</h3> 
+</a>
             </div>
-            <div class="grid-body">
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+<div class="grid-body">
                 <div class="row">
                     <div  class="col-md-4">
                         <h4 class="semi-bold">Floor</h3>
@@ -112,17 +118,16 @@
                 </form>
             </div>
         </div>
-        
+        </div>
         <div class="grid simple">
-
-            <div class="grid-title">
-                <h3 class="inline">Building <span class="semi-bold">Master</span></h3> 
-                <div class="pull-right m-t-15">
-                    <span class="fa fa-check text-success" ></span>
-                </div>
-                <div class="clearfix"></div>
+<div class="grid-title" role="tab" id="headingThree">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+<div class="pull-right"><span class="fa fa-angle-down"></span></div>
+<h3>Building <span class="semi-bold">Master</span></h3> 
+                </a>
             </div>
-            <div class="grid-body">
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+<div class="grid-body">
                 <div class="row project-master-images">
                     <div class="front-svg">
                         <h4 class="inline">Front Svg</h4> 
@@ -258,11 +263,12 @@
                         @endif 
                         </div>
                     </div>
-
+                   </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
         
     @endsection

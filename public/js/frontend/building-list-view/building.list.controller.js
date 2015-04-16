@@ -10,7 +10,7 @@
       return CenterItemView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterItemView.prototype.template = Handlebars.compile('<li class="unit {{status}}"> <div class="pull-left info"> <label>{{name}}</label> </div> <!--<div class="pull-right cost"> 50 lakhs </div>--> </li>');
+    CenterItemView.prototype.template = Handlebars.compile('<li class="bldg blocks {{status}}"> <div class="bldg-img"></div> <div class="info"> <h2 class="m-b-5">{{name}}</h2> <div>Starting from Rs.<span>50 lakhs</span></div> <div>No. of Floors: <span>45</span></div> </div> <div class="clearfix"></div> <div class="unit-type-info"> <ul> <li> 2BHK: <span>30</span> </li> <li> 3BHK: <span>40</span> </li> <li> 4BHK: <span>50</span> </li> </ul> </div> </li>');
 
     CenterItemView.prototype.events = {
       'mouseover': function(e) {
@@ -54,7 +54,7 @@
       return CenterBuildingListView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBuildingListView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <!--<div class="controls"> <div > <a href="#/List-view/bunglows"> Map View</a> |<a href="#/list-view/bunglows">List View</a> </div> <div class="clearfix"></div> </div>--> <div class="villa-list"> <ul class="units"> </ul> <div class="clearfix"></div> </div> </div>');
+    CenterBuildingListView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <div class="list-view-container"> <!--<div class="controls"> <div > <a href="#/List-view/bunglows"> Map View</a> |<a href="#/list-view/bunglows">List View</a> </div> <div class="clearfix"></div> </div>--> <div class="bldg-list"> <ul class="units"> </ul> <div class="clearfix"></div> </div> </div> </div>');
 
     CenterBuildingListView.prototype.childView = CenterItemView;
 

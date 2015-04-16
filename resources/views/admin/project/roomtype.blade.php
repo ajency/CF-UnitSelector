@@ -1,6 +1,12 @@
 @extends('layouts.singleproject')
 
 @section('content')
+
+<div class="page-title">
+	<h2>Room  <span class="semi-bold">Type</span></h2>
+</div>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
 <div class="page-title">	
     <h2>Attributes</h2>
 </div>
@@ -48,10 +54,14 @@
 </div>-->
 
 <div class="grid simple">
-    <div class="grid-title">
+    <div class="grid-title" role="tab" id="headingOne">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+             <div class="pull-right"><i class="fa fa-angle-up"></i></div>
         <h3>Room <span class="semi-bold">Type</span></h3>
-    </div>
-    <div class="grid-body">
+        </a>
+</div>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <div class="grid-body">
 
         @foreach($roomtypeAttributes as $roomtypeId=>$roomtype)
         
@@ -162,15 +172,21 @@
         </div>
 
 
-
+</div>
     </div>
 </div>
 
  @foreach($projectpropertytypeAttribute as $propertytypeId=>$propertytypeAttribute)
 <div class="grid simple">
-    <div class="grid-title">
+    <div class="grid-title" role="tab" id="headingTwo">
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+             <div class="pull-right"><i class="fa fa-angle-down"></i></div>
+
         <h3>{{ get_property_type($propertytypeId) }} <span class="semi-bold">Attributes</span></h3>
+    </a>
     </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+
     <div class="grid-body">
         <form name="frmroomtype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" id="frmroomtype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
         <div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 m-b-10 text-grey">
@@ -255,9 +271,11 @@
             </div>
         </div>  
         </form>  
-
-    </div>
 </div>
+ </div>
+ </div>
+</div>
+
  @endforeach
  <script>
 var BASEURL = '{{ url() }}';

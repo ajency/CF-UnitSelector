@@ -1,12 +1,15 @@
+
 <div class="grid simple">
-    <div class="grid-title">
-         <h3 class="inline"><span class="semi-bold">Sky</span> View</h3> 
-        <div class="pull-right m-t-15">
-            <span class="fa fa-check text-success" ></span>
+    <div class="grid-title" role="tab" id="headingThree">
+    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+<div class="pull-right">
+            <span class="fa fa-angle-down" ></span>
         </div>
-        <div class="clearfix"></div>
+<h3><span class="semi-bold">Sky</span> View</h3>
+</a> 
     </div>
-    <div class="grid-body">
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+<div class="grid-body">
         <div id="skyview_container">
         <input id="skyview_pickfiles" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/>
         <button id="skyview_uploadfiles" type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#proj-master">Upload</button>
@@ -25,4 +28,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>
