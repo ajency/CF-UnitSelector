@@ -87,12 +87,25 @@ class ProjectBuildingController extends Controller {
 
         $building = Building::find( $buildingId );
         $floorLayouts = FloorLayout::where( 'project_property_type_id', $project->getProjectPropertyTypeId( 1 ) )->get();
+        $svgImages = [
+            'building' => [
+                'front' => '',
+                'left' => '',
+                'back' => '',
+                'right' => '',
+                'front-left' => [],
+                'left-back' => [],
+                'back-right' => [],
+                'right-front' => []
+            ]
+        ];
         return view( 'admin.project.building.edit' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'building' )
                         ->with( 'phases', $phases )
                         ->with( 'building', $building )
-                        ->with( 'floorLayouts', $floorLayouts );
+                        ->with( 'floorLayouts', $floorLayouts )
+                        ->with( 'svgImages', $svgImages );
     }
 
     /**
