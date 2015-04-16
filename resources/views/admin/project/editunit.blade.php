@@ -42,22 +42,7 @@
                         </select>
                     </div> 
                 </div>
-                <!--<div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Facing</label>
-                        <select  class="select2 form-control" name="facing">
-                            <option value="">Select Facing</option>
-                            <option @if($unit['facings']=='north'){{'selected'}}@endif value="north">North</option>
-                            <option @if($unit['facing']=='south'){{'selected'}}@endif value="south">South</option>
-                            <option @if($unit['facing']=='east'){{'selected'}}@endif value="east">East</option>
-                            <option @if($unit['facing']=='west'){{'selected'}}@endif value="west">West</option>
-                            <option @if($unit['facing']=='northeast'){{'selected'}}@endif value="northeast">North-East</option>
-                            <option @if($unit['facing']=='northwest'){{'selected'}}@endif value="northwest">North-West</option>
-                            <option @if($unit['facing']=='southeast'){{'selected'}}@endif value="southeast">South-East</option>
-                            <option @if($unit['facing']=='southwest'){{'selected'}}@endif value="southwest">South-West</option>
-                        </select>
-                    </div>
-                </div>-->
+               
                 <div class="col-md-4">
 
                     <div class="form-group">
