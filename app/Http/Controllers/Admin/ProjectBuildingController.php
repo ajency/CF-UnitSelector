@@ -4,8 +4,12 @@ namespace CommonFloor\Http\Controllers\Admin;
 
 use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use CommonFloor\Repositories\ProjectRepository;
 use CommonFloor\Building;
+use CommonFloor\Phase;
+use CommonFloor\FloorLayout;
+use CommonFloor\Project;
 
 class ProjectBuildingController extends Controller {
 
@@ -25,7 +29,7 @@ class ProjectBuildingController extends Controller {
         $buildings = Building::all();
         return view( 'admin.project.building.list' )
                         ->with( 'project', $project->toArray() )
-                        ->with( 'buildings' , $buildings)
+                        ->with( 'buildings', $buildings )
                         ->with( 'current', '' );
     }
 
@@ -36,9 +40,13 @@ class ProjectBuildingController extends Controller {
      */
     public function create( $projectId ) {
         $project = $this->projectRepository->getProjectById( $projectId );
+
+        $phases = Phase::where( 'project_id', $projectId )->get();
+
         return view( 'admin.project.building.create' )
                         ->with( 'project', $project->toArray() )
-                        ->with( 'current', 'building' );
+                        ->with( 'current', 'building' )
+                        ->with( 'phases', $phases );
     }
 
     /**
@@ -46,8 +54,14 @@ class ProjectBuildingController extends Controller {
      *
      * @return Response
      */
-    public function store() {
-        //
+    public function store( $projectId, Request $request ) {
+        $formData = $request->all();
+        $building = new Building;
+        $building->building_name = $formData['building_name'];
+        $building->phase_id = $formData['phase_id'];
+        $building->no_of_floors = $formData['no_of_floors'];
+        $building->save();
+        return redirect( url( 'admin/project/' . $projectId . '/building/' . $building->id . '/edit' ) );
     }
 
     /**
@@ -66,8 +80,32 @@ class ProjectBuildingController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit( $id ) {
-        //
+    public function edit( $projectId, $buildingId ) {
+        $project = Project::find( $projectId );
+
+        $phases = Phase::where( 'project_id', $projectId )->get();
+
+        $building = Building::find( $buildingId );
+        $floorLayouts = FloorLayout::where( 'project_property_type_id', $project->getProjectPropertyTypeId( 1 ) )->get();
+        $svgImages = [
+            'building' => [
+                'front' => '',
+                'left' => '',
+                'back' => '',
+                'right' => '',
+                'front-left' => [],
+                'left-back' => [],
+                'back-right' => [],
+                'right-front' => []
+            ]
+        ];
+        return view( 'admin.project.building.edit' )
+                        ->with( 'project', $project->toArray() )
+                        ->with( 'current', 'building' )
+                        ->with( 'phases', $phases )
+                        ->with( 'building', $building )
+                        ->with( 'floorLayouts', $floorLayouts )
+                        ->with( 'svgImages', $svgImages );
     }
 
     /**
@@ -76,8 +114,33 @@ class ProjectBuildingController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update( $id ) {
-        //
+    public function update( $projectId, $buildingId, Request $request ) {
+
+        $updateSection = $request->get( 'update_section' );
+        $building = Building::find( $buildingId );
+
+        switch ($updateSection) {
+            case 'building':
+                $building->building_name = $request->get( 'building_name' );
+                $building->phase_id = $request->get( 'phase_id' );
+                $building->no_of_floors = $request->get( 'no_of_floors' );
+                break;
+            case 'floors':
+                $building->floors = $request->get( 'floors' );
+                break;
+            case 'builing_master':
+                $building->building_master = $request->get( 'building_master' );
+                break;
+            default:
+                break;
+        }
+        
+        $building->save();
+        return response()->json( [
+                            'code' => 'building_updated',
+                            'message' => 'Builing details updated successfully',
+                            'data' => ''
+                        ], 203 );
     }
 
     /**

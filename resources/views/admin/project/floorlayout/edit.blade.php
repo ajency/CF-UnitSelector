@@ -17,13 +17,19 @@
 </div>
 
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
-<div class="row">
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="row">
     <div class="col-md-12">
         <div class="grid simple">
-            <div class="grid-title">
-                <h3 class="inline"><span class="semi-bold">Floor Layout</span> Details</h3> 
-                <div class="clearfix"></div>
+            <div class="grid-title" role="tab" id="headingOne">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+<div class="pull-right"><span class="fa fa-angle-up"></span></div>
+                <h3 ><span class="semi-bold">Floor Layout</span> Details</h3> 
+               
+            </a>
             </div>
+                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+
             <div class="grid-body">
                 <form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/floor-layout') }}"> 
                     <div class="row">
@@ -81,15 +87,18 @@
                 </form>
             </div>
         </div>
-
+</div>
 
         @for($i = 1; $i <= $floorLayout->no_of_flats; $i++)
         <div class="grid simple floor-position">
-            <div class="grid-title">
-                <h3 class="inline"><span class="semi-bold">Position</span> Details</h3> 
-
-                <div class="clearfix"></div>
+            <div class="grid-title" role="tab" id="headingTwo">
+                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+<div class="pull-right"><span class="fa fa-angle-down"></span></div>
+                <h3 ><span class="semi-bold">Position</span> Details</h3> 
+</a>
             </div>
+                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+
             <form data-parsley-validate>
                 <div class="grid-body"><h3>Position {{ $i }}</h3>
                     <div class="row m-b-15">
@@ -139,7 +148,9 @@
                 </div>
             </form>
         </div>
+        </div>
         @endfor
     </div> 
+</div>
 </div>
 @endsection

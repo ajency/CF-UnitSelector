@@ -17,12 +17,17 @@
 </div>
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
-<div class="grid simple">
-    <div class="grid-title">
-        <h3>Villa <span class="semi-bold">Details</span></h3>
-    </div>
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-    <div class="grid-body">
+<div class="grid simple">
+    <div class="grid-title"  role="tab" id="headingOne">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+<div class="pull-right"><span class="fa fa-angle-up"></span></div>
+        <h3>Villa <span class="semi-bold">Details</span></h3>
+    </a>
+    </div>
+<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+<div class="grid-body">
         <form action="/admin/project/{{ $project['id'] }}/bunglow-variant/{{ $unitVariant['id'] }}" method="POST" data-parsley-validate>
             <div class="row">
                 <div class="col-md-4">
@@ -70,6 +75,8 @@
                         ?>
                         @if('textbox' === $attributes['control_type'])
                         <input type="text" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]" value="{{ $value }}" placeholder="Enter {{$attributes['label']}}">
+                        @elseif('number' === $attributes['control_type'])
+                        <input type="number" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]" value="{{ $value }}" placeholder="Enter {{$attributes['label']}}">
                         @elseif('select' === $attributes['control_type'])
                         <?php
                         $options = explode(',', $attributes['defaults']);
@@ -108,15 +115,19 @@
         </form>
     </div>
 </div>
+</div>
 <form method="POST" id="formroomdetails" name="formroomdetails">
     <div class="grid simple">
-        <div class="grid-title">
-            <h3>Room <span class="semi-bold">Details</span></h3>
+        <div class="grid-title" role="tab" id="headingTwo">
+                    
+                    <div class="pull-right"><span class="fa fa-angle-down"></span></div>
+<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+<h3>Room <span class="semi-bold">Details</span></h3>
+        </a>
         </div>
-
+    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
         <div class="grid-body">
             <div class="row m-t-20">
-
                 <?php $i = 0; ?>
                 @foreach($floorlevelRoomAttributes as $level=>$roomAttributes)
                 <div class="col-sm-12" id="levelblock_{{$i}}"> 
@@ -128,6 +139,7 @@
                             </div> 
                         </div> 
                     </div>
+                    <?php $j = 1; ?>
                     @foreach($roomAttributes as $variantRoomId=> $attributes)              
                     <div class="form-inline">
                         <div class="form-group">
@@ -138,10 +150,13 @@
                                 <option  @if($attributes['ROOMTYPEID']==$room_type['id']){{'selected'}}@endif value="{{$room_type['id']}}">{{$room_type['name']}}</option>
                                 @endforeach
                             </select>
+                             @if($j === count($roomAttributes))
                             <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this)"><i class="fa fa-plus"></i></button>
+                            @endif
                         </div> 
 
                     </div>
+                    <?php $j++; ?>
                     @endforeach   
                 </div> 
                 <?php $i++; ?>   
@@ -180,12 +195,7 @@
                     <input type="hidden" id="counter" name="counter" value="{{$i}}">
                     <button type="button" class="btn btn-small btn-default" onclick="addFloorLevel();">Add Level</button>
                 </div>
-
             </div>
-
-
-
-
             <div class="form-actions">  
                 <div class="pull-right">
                     <button onclick="saveRoomdetails({{$project['id']}},{{ $unitVariant['id'] }});" type="button" class="btn btn-primary btn-cons">Save</button>
@@ -193,14 +203,18 @@
             </div>   
         </div>
     </div>
+     </div>
 </form>
-
 <div class="grid simple">
-    <div class="grid-title">
-        <h3><span class="semi-bold">Layouts</span></h3>
+    <div class="grid-title" role="tab" id="headingThree">
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    <div class="pull-right"><span class="fa fa-angle-down"></span></div>
+<h3><span class="semi-bold">Layouts</span></h3>
+</a>
     </div>
     @foreach($floorlevelRoomAttributes as $level=>$roomAttributes)
-    <div class="grid-body">
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+<div class="grid-body">
         <form>
             <h5 class="semi-bold inline">Level {{$level}}</h5>
             <div class="row">
@@ -235,10 +249,9 @@
             </div>
  
         </form>
-    </div>
+    </div></div>
     @endforeach
-    
-    
+ </div>    
 </div> 
 <script>  
 var ROOMTYPES = '';

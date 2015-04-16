@@ -101,7 +101,7 @@
       $.each(floor, function(index, value) {
         var rooms;
         rooms = [];
-        $.each(value, function(ind, val) {
+        $.each(value.rooms_data, function(ind, val) {
           return rooms.push({
             'room_name': val.room_name
           });
@@ -111,7 +111,6 @@
           'rooms': rooms
         });
       });
-      console.log(levels);
       unitType = unitTypeCollection.findWhere({
         'id': unitVariant.get('unit_type_id')
       });

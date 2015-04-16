@@ -209,14 +209,28 @@ jQuery(document).ready ($)->
 				success : (response)->
 					console.log 'show success message'
 					
-	$('.floor-layout-unit-types').change ->
-		unitTypeId = $(this).val()
-		$(this).closest('.row').find('[name="unit_variant_id"] option').hide()
-		$(this).closest('.row').find('[name="unit_variant_id"]')
-			.find "unittype-#{unitTypeId}"
-			.show()
-		$(this).closest('.row').find('[name="unit_variant_id"]').select2()
-			
+
+
+	$('.update-building').click ->
+		
+		form = $(@).closest 'form'
+		
+		form.parsley().validate()
+		
+		if not form.parsley().isValid() then return true
+		updateSection = form.find('[name="update_section"]').val()
+		values = form.serializeArray()
+		buildingId = $(@).attr 'data-building-id'
+		$.ajax 
+			url : "#{BASEURL}/admin/project/#{PROJECTID}/building/#{buildingId}"
+			type : 'PUT'
+			data : values
+			success : (resp)->
+				if updateSection is 'building'
+					window.location.reload()
+					return
+					
+				alert 'saved successfully'
 			
 		
 		

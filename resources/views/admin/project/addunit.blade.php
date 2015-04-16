@@ -42,7 +42,23 @@
                         </select>
                     </div> 
                 </div>
-              <div class="col-md-4">
+                <!--<div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Facing</label>
+                        <select  class="select2 form-control" name="facing">
+                             <option value="">Select Facing</option>
+                            <option value="north">North</option>
+                            <option value="south">South</option>
+                            <option value="east">East</option>
+                            <option value="west">West</option>
+                            <option value="northeast">North-East</option>
+                            <option value="northwest">North-West</option>
+                            <option value="southeast">South-East</option>
+                            <option value="southwest">South-West</option>
+                        </select>
+                    </div>
+                </div>-->
+                <div class="col-md-4">
 
                     <div class="form-group">
                         <label class="form-label">Unit Status</label>
@@ -54,10 +70,10 @@
                         </select>
                     </div>
                 </div>
-                
+
             </div>
-            
- 
+
+
             <div class="form-actions">  
                 <div class="pull-right">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
@@ -67,6 +83,6 @@
         </form>
     </div>
 </div>
- 
+
 <!-- END PLACE PAGE CONTENT HERE -->
 @endsection
