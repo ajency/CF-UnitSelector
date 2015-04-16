@@ -28,7 +28,6 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Status</th>
                             <th>Created On</th>
                             <th>Modified On</th>
                         </tr>
@@ -38,7 +37,7 @@
                             <tr class="">
                                 <td>
                                     <a href="{{ url( '/admin/project/' . $project['id'] . '/building/'. $building->id . '/edit') }}">
-                                        {{ $building->name }}
+                                        {{ $building->building_name }}
                                     </a>
                                 </td>
                                 <td>{{ date('d/m/Y', strtotime($building->created_at)) }}</td>
