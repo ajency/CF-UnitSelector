@@ -41,7 +41,8 @@
         bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants);
         settings.setSettingsAttributes(response.settings);
         unitCollection.setUnitAttributes(response.units);
-        return unitTypeCollection.setUnitTypeAttributes(response.unit_types);
+        unitTypeCollection.setUnitTypeAttributes(response.unit_types);
+        return buildingCollection.setBuildingAttributes(response.buildings);
       },
       error: function(response) {
         return console.log("aaaaaaaaaaassdff");

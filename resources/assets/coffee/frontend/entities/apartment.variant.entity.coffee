@@ -28,18 +28,9 @@ class ApartmentVariantCollection extends Backbone.Collection
 
 	#set attributes of a Apartment Variant model
 	# if blank,fetch it from the server with the url mentioned above.
-	setApartmentVariantAttributes:(project_id)->
+	setApartmentVariantAttributes:(data)->
 
 		# @set apartmentApartmentData
-		if @length == 0 
-			apartmentVariantCollection.fetch(
-				async: false
-				data : 
-					project_id : project_id
-				success:(collection, response)=>
-					if response == 0
-						@reset()
-
-			)
+		apartmentVariantCollection.reset data
 
 window.apartmentVariantCollection  = new ApartmentVariantCollection;

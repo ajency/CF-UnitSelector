@@ -36,6 +36,15 @@ jQuery(document).ready ($)->
 					ctrl : 'LeftBunglowListCtrl'
 				'center' :
 					ctrl : 'CenterBunglowListCtrl'
+	CommonFloor.state 'buildingList',
+			url : '/list-view/building'
+			sections:
+				'top' : 
+					ctrl : 'TopBuildingListCtrl'
+				'left' :
+					ctrl : 'LeftBuildingListCtrl'
+				'center' :
+					ctrl : 'CenterBuildingListCtrl'
 	
 
 

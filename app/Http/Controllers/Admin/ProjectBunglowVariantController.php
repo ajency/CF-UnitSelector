@@ -153,8 +153,7 @@ class ProjectBunglowVariantController extends Controller {
             $type =   $metakey[1] ;  
             $mediaId = $meta['meta_value'];
             if( is_numeric($mediaId)){ 
-               $media =  Media::find( $mediaId )->image_name; 
-               $imageName = $media->image_name;
+               $imageName =  Media::find( $mediaId )->image_name; 
                $levelImages[$level][$type]['ID'] =$mediaId;
                $levelImages[$level][$type]['IMAGE'] = url() . "/projects/" . $project_id . "/variants/" . $meta['unit_variant_id'] . "/". $imageName;
             }
@@ -186,8 +185,8 @@ class ProjectBunglowVariantController extends Controller {
         $unitVariant->unit_variant_name = $request->input('unit_variant_name');
         $unitVariant->unit_type_id = $request->input('unit_type');
         $unitVariant->carpet_area = $request->input('carpet_area');
-        $unitVariant->build_up_area = $request->input('buildup_area');
-        $unitVariant->super_build_up_area = $request->input('superbuildup_area');
+        $unitVariant->built_up_area = $request->input('builtup_area');
+        $unitVariant->super_built_up_area = $request->input('superbuiltup_area');
         $attributedata = $request->input('attributes');
         $attributeStr = serialize($attributedata);
         $unitVariant->variant_attributes = $attributeStr;
