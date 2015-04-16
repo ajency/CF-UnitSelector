@@ -51,6 +51,8 @@
             <div class="row">
                 <div ui-region="left" id="leftregion">
                 </div>
+                <div ui-region="middle" id="middleregion">
+                </div>
                 <div ui-region="center" id="centerregion">
                 </div>
             </div>

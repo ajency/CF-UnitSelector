@@ -109,8 +109,15 @@ class CenterCompositeView extends Marionette.CompositeView
 									<div class="list-view-container">
 							            <div class="controls mapView">
 								            <div class="toggle">
-								            	<a href="#/master-view/bunglows">Map</a> |<a href="#/list-view/bunglows">List</a>
+								            	<a href="#/master-view/bunglows" class="map">Map</a><a href="#/list-view/bunglows" class="list active">List</a>
 								            </div>
+							            </div>
+							            <div class="text-center">
+							              <ul class="prop-select">
+							                <li class="prop-type">Buildings</li>
+							                <li class="prop-type active">Villas/Bungalows</li>
+							                <li class="prop-type">Plots</li>
+							              </ul>
 							            </div>
 							            <div class="legend">
 							              <ul>
@@ -140,8 +147,20 @@ class CommonFloor.CenterBunglowListCtrl extends Marionette.RegionController
 
 	initialize:->
 		newUnits = bunglowVariantCollection.getBunglowUnits()
-		console.log unitsCollection = new Backbone.Collection newUnits 		
+		unitsCollection = new Backbone.Collection newUnits 		
 		@show new CenterCompositeView
 			collection : unitsCollection
 		
 
+class CommonFloor.MiddleBunglowMasterView extends Marionette.ItemView
+
+	template : ''
+
+
+
+
+class CommonFloor.MiddleBunglowMasterCtrl extends Marionette.RegionController
+
+	initialize:->
+		@show new CommonFloor.MiddleBunglowMasterView
+				
