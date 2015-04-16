@@ -74,6 +74,11 @@ body {
 .us-right-content .svg-area img {
   width: 100%;
 }
+@media (max-width: 991px) {
+  .us-right-content {
+    padding-left: 15px;
+  }
+}
 /* Footer */
 .footer-push {
   height: 98px;
@@ -114,7 +119,8 @@ body {
   font-size: 14px;
   border: 1px solid #f68121;
   text-align: center;
-  transition: all ease .2s;
+  -webkit-transition: all ease .2s;
+          transition: all ease .2s;
   cursor: pointer;
   background-color: transparent;
   vertical-align: middle;
@@ -493,11 +499,14 @@ body {
   margin: auto;
   display: inline-block;
   cursor: pointer;
-  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease;
 }
 .rotate-controls .rotate-left:hover,
 .rotate-controls .rotate-right:hover {
-  transform: scale(1.1, 1.1);
+  -webkit-transform: scale(1.1, 1.1);
+      -ms-transform: scale(1.1, 1.1);
+          transform: scale(1.1, 1.1);
 }
 .rotate-controls .rotate-right {
   background-position: -110px -30px;
@@ -510,14 +519,9 @@ body {
   text-shadow: 0 3px 2px #333333;
 }
 .list-view-container {
-  background-color: #e6e6e6;
   padding: 10px;
 }
 .list-view-container .controls {
-  background-color: #f68121;
-  padding: 10px;
-  border-radius: 20px;
-  width: 95px;
   text-align: center;
 }
 .list-view-container .controls.mapView {
@@ -525,25 +529,49 @@ body {
   top: 10px;
   left: 10px;
 }
-.list-view-container .controls ul {
+.list-view-container .controls a {
+  display: inline-block;
+  padding: 5px 10px;
+  background: #ffffff;
+  color: #666666;
+  border: 1px solid #cccccc;
+}
+.list-view-container .controls a.map {
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+  border-right: none;
+}
+.list-view-container .controls a.list {
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  border-left: none;
+}
+.list-view-container .controls a.active {
+  background-color: #f68121;
+  color: #ffffff;
+}
+.list-view-container .prop-select {
+  padding-bottom: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #cccccc;
   list-style-type: none;
 }
-.list-view-container .controls ul .prop-type {
+.list-view-container .prop-select .prop-type {
   font-weight: bold;
   display: inline-block;
   margin: 15px 15px 0;
   color: #666666;
   cursor: pointer;
 }
-.list-view-container .controls ul .prop-type:hover {
+.list-view-container .prop-select .prop-type:hover {
   color: #f68121;
 }
-.list-view-container .controls ul .prop-type.active {
+.list-view-container .prop-select .prop-type.active {
   color: #f68121;
 }
 .list-view-container .legend {
   float: right;
-  padding: 10px 0;
+  padding: 10px 0 20px;
 }
 .list-view-container .legend ul {
   list-style: none;
@@ -572,20 +600,53 @@ body {
   background-color: #cccccc;
 }
 /* List of Buildings */
+.bldg-list ul {
+  list-style-type: none;
+}
+.bldg-list ul .bldg {
+  background-color: #ffffff;
+  cursor: pointer;
+  color: #666666;
+}
+.bldg-list ul .bldg .bldg-img {
+  background: url('../../images/bldg.png') no-repeat;
+  width: 25%;
+  padding: 20% 0;
+  background-size: contain;
+  float: left;
+}
+.bldg-list ul .bldg .info {
+  float: left;
+}
+.bldg-list ul .bldg .info div {
+  font-size: 12px;
+}
+.bldg-list ul .bldg .unit-type-info {
+  margin-top: 15px;
+}
+.bldg-list ul .bldg .unit-type-info li {
+  font-size: 12px;
+  float: left;
+  text-align: center;
+  width: 33.3%;
+}
+.bldg-list ul .bldg .unit-type-info li::after {
+  content: '|';
+  float: right;
+}
+.bldg-list ul .bldg .unit-type-info li:last-child::after {
+  content: '';
+}
+.bldg-list ul .bldg .unit-type-info li span {
+  color: #f68121;
+}
 /* List of Villas */
 .villa-list ul {
   list-style-type: none;
 }
 .villa-list ul .unit {
-  float: left;
-  width: 32.2%;
-  padding: 15px 10px;
-  margin-bottom: 10px;
-  margin-right: 1.6%;
   background-color: #ffffff;
-}
-.villa-list ul .unit:nth-child(3n) {
-  margin-right: 0;
+  cursor: pointer;
 }
 .villa-list ul .unit .info {
   color: #666666;
@@ -620,14 +681,44 @@ body {
 .villa-list ul .unit.blocked .cost {
   color: #666666;
 }
+.blocks {
+  float: left;
+  width: 32.2%;
+  padding: 15px 10px;
+  margin-bottom: 10px;
+  margin-right: 1.6%;
+}
+.blocks:nth-child(3n) {
+  margin-right: 0;
+}
+.blocks:hover {
+  box-shadow: 0 1px 5px rgba(102, 102, 102, 0.4);
+}
+@media (max-width: 767px) {
+  .blocks {
+    width: 49.2%;
+  }
+  .blocks:nth-child(2n) {
+    margin-right: 0;
+  }
+  .blocks:nth-child(3n) {
+    margin-right: 1.6%;
+  }
+}
+@media (max-width: 480px) {
+  .blocks {
+    width: 100%;
+  }
+  .blocks:nth-child(3n) {
+    margin-right: 0;
+  }
+}
 /* Plugins */
 /* Slider */
 .toggle_radio {
   background: #cccccc;
   margin: 30px auto 0;
   padding: 0 !important;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
   border-radius: 50px;
   position: relative;
   height: 4px;
@@ -637,7 +728,7 @@ body {
   float: left;
 }
 .toggle_radio input[type=radio] {
-  display: none;
+  display: none
   /*position: fixed;*/
 }
 .toggle_radio label {
@@ -649,13 +740,11 @@ body {
   height: 20px;
   margin: 0 3px;
   padding-top: 15px;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
   border-radius: 50px;
   cursor: pointer;
   z-index: 1;
   /*background: rgba(0,0,0,.1);*/
-  text-align: center;
+  text-align: center
   /*margin: 0 2px;*/
   /*background: blue;*/
   /*make it blue*/
@@ -673,13 +762,8 @@ label.third_toggle {
   height: 8px;
   position: absolute;
   top: -2px;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
   border-radius: 50px;
   -webkit-transition: all .2s ease;
-  -moz-transition: all .2s ease;
-  -o-transition: all .2s ease;
-  -ms-transition: all .2s ease;
   transition: all .2s ease;
 }
 .toggle_option_slider {
@@ -689,13 +773,8 @@ label.third_toggle {
   height: 35px;
   position: absolute;
   top: -16px;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
   border-radius: 50px;
   -webkit-transition: all .4s ease;
-  -moz-transition: all .4s ease;
-  -o-transition: all .4s ease;
-  -ms-transition: all .4s ease;
   transition: all .4s ease;
 }
 #first_toggle:checked ~ .toggle_option_slider {
@@ -776,3 +855,4 @@ label.third_toggle {
 .panel-wrapper {
   padding: 0;
 }
+/*# sourceMappingURL=custom.css.map */

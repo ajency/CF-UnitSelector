@@ -307,11 +307,12 @@ function setUpProjectMasterUploader(){
 
         var uploadBtnId = _.uniqueId('upload-btn-');
         var uploadBtn = div.find('.master_uploadfiles').attr('id', uploadBtnId);
-
+        var objectType = uploadBtn.closest('.object-master-images').attr('data-object-type');
+        var objectId = uploadBtn.closest('.object-master-images').attr('data-object-id');
         var uploader = new plupload.Uploader({
             runtimes: 'html5,flash,silverlight,html4',
             browse_button: selectBtnId, // you can pass in id...
-            url: BASEURL  + '/admin/project/' + PROJECTID + '/media',
+            url: BASEURL  + '/admin/'+ objectType +'/' + objectId + '/media',
             flash_swf_url: BASEURL  + '/bower_components/plupload/js/Moxie.swf',
             silverlight_xap_url: BASEURL  + '/bower_components/plupload/js/Moxie.xap',
             headers: {
@@ -319,7 +320,8 @@ function setUpProjectMasterUploader(){
             },
             multipart_params: {
                 "type": "master",
-                "section" : divName
+                "section" : divName,
+                "projectId" : PROJECTID
             },
             filters: {
                 max_file_size: '10mb',
@@ -339,10 +341,10 @@ function setUpProjectMasterUploader(){
  
                     if(supportMultiple)
                         div.find('.uploaded-images').append('<div class="col-sm-2">\n\
-                            <img width="150" height="150" src="'+fileResponse.data.image_path+'" class="img-responsive" ><button onclick="deleteSvg('+fileResponse.data.media_id+',\'master\',\''+divName+'\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>\n\
+                            <img width="150" height="150" src="'+fileResponse.data.media_path+'" class="img-responsive" ><button onclick="deleteSvg('+fileResponse.data.media_id+',\'master\',\''+divName+'\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>\n\
                             </div>')
                     else
-                        div.find('.uploaded-image').html('<object width="150" id="svg1" data="'+fileResponse.data.image_path+'" type="image/svg+xml" /> <button onclick="deleteSvg('+fileResponse.data.media_id+',\'master\',\''+divName+'\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
+                        div.find('.uploaded-image').html('<object width="150" id="svg1" data="'+fileResponse.data.media_path+'" type="image/svg+xml" /> <button onclick="deleteSvg('+fileResponse.data.media_id+',\'master\',\''+divName+'\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
                 }
             }
         });

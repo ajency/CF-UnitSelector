@@ -7,9 +7,9 @@ use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use File;
 use CommonFloor\Media;
-use CommonFloor\FloorLayout;
+use CommonFloor\Building;
 
-class FloorLayoutMediaController extends Controller {
+class BuildingMediaController extends Controller {
 
     /**
      * Display a listing of the resource.
@@ -34,38 +34,44 @@ class FloorLayoutMediaController extends Controller {
      *
      * @return Response
      */
-    public function store( $floorLayoutId, Request $request ) {
-        $projectId = $request->get( 'project_id' );
-        $targetDir = public_path() . "/projects/" . $projectId . "/floor-layouts/" . $floorLayoutId;
+    public function store( $buildingId, Request $request ) {
+        $building = Building::find( $buildingId );
+        $projectId = $request->get('projectId');
+        $targetDir = public_path() . "/projects/" . $projectId . "/buildings/" . $buildingId;
         File::makeDirectory( $targetDir, $mode = 0755, true, true );
         $newFilename = '';
         if ($request->hasFile( 'file' )) {
             $file = $request->file( 'file' );
             $fileName = $file->getClientOriginalName();
-            $fileExt = $file->guessClientExtension();
             $newFilename = $fileName;
             $request->file( 'file' )->move( $targetDir, $newFilename );
         }
 
         $media = new Media();
         $media->image_name = $newFilename;
-        $media->mediable_id = $floorLayoutId;
-        $media->mediable_type = 'CommonFloor\FloorLayout';
-
-        $type = $request->get( 'media_type' );
-        $floorLayout = FloorLayout::find( $floorLayoutId );
-        $floorLayout->svgs()->save( $media );
-        $floorLayout->$type = $media->id;
-        $floorLayout->save();
+        $media->mediable_id = $buildingId;
+        $media->mediable_type = 'CommonFloor\Building';
+        $media->save();
+        $section = $request->get( 'section' );
+        $buildingMaster = $building->building_master;
+        if (strpos( $section, '-' ) !== false) {
+            $sectionImages = $buildingMaster[$section];
+            $sectionImages[] = $media->id;
+            $buildingMaster[$section] = array_unique( $sectionImages );
+        } else {
+            $buildingMaster[$section] = $media->id;
+        }
+        $building->building_master = $buildingMaster;
+        $building->save();
 
         return response()->json( [
-                    'code' => 'floorlayout_media_added',
-                    'message' => 'Floor layout svg added',
+                    'code' => 'building_media_added',
+                    'message' => 'building added',
                     'data' => [
                         'media_id' => $media->id,
-                        'media_path' => url() . '/projects/' . $projectId . '/floor-layouts/' . $floorLayoutId . '/' . $newFilename
+                        'media_path' => url() . '/projects/' . $projectId . '/buildings/' . $buildingId . '/' . $newFilename
                     ]
-            ], 201 );
+               ], 201 );
     }
 
     /**

@@ -142,6 +142,7 @@
         <script src="{{ asset('js/frontend/bunglow-unit-view/bunglow.unit.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/bunglow-list-view/bunglow.list.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/building-list-view/building.list.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/bunglow-list-view/villa.list.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
     </body>
 </html>
