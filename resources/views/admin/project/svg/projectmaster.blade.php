@@ -1,13 +1,15 @@
-<div class="grid simple">
 
-    <div class="grid-title">
-        <h3 class="inline">Project <span class="semi-bold">Master</span></h3> 
-        <div class="pull-right m-t-15">
-            <span class="fa fa-check text-success" ></span>
+<div class="grid simple">
+<div class="grid-title" role="tab" id="headingTwo">
+       <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <div class="pull-right">
+            <span class="fa fa-angle-down" ></span>
         </div>
-        <div class="clearfix"></div>
+        <h3>Project <span class="semi-bold">Master</span></h3> 
+        </a>
     </div>
-    <div class="grid-body">
+<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+<div class="grid-body">
         <div class="row project-master-images">
             <div class="front-svg">
                 <h4 class="inline">Front Svg</h4> 
@@ -146,4 +148,5 @@
 
         </div>
     </div>
+</div>
 </div>

@@ -2,7 +2,8 @@
 <div class="grid simple">
  
     <div class="grid-title"  role="tab" id="headingTwo">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        
+         <div class="pull-right"><i class="fa fa-angle-down"></i></div><a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 <h3>
                     Project <span class="semi-bold">Phases</span>
                 </h3></a>

@@ -11,6 +11,8 @@
         <link href="../../bower_components/pace/themes/orange/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
         <link href="../../bower_components/jquery.scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css"/>
         <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../../bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" rel="stylesheet" type="text/css"/>
+
         <!-- <link href="assets/plugins/boostrapv3/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/> -->
         <link href="../../bower_components/fontawesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
 
@@ -338,9 +340,9 @@
                                             <div class="col-md-5">
                                             <div class="form-inline">
                                                 <div class="form-group">
-                                                       <input type="number" class="form-control" placeholder="1024sqft, 2000sqft  ">
+                                                      <input type="text" data-role="tagsinput" class="tags"/> 
                                                     <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
-                                                </div>
+                                               </div>
                                             </div>
                                         </div>
                                  </div>
@@ -634,6 +636,7 @@
 
         <script src="../../bower_components/bootstrap-file-input/bootstrap.file-input.js" type="text/javascript"></script>
 
+     <script src="../../bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js" type="text/javascript"></script>
         <!-- END PAGE LEVEL PLUGINS --> 	
 
         <!-- BEGIN CORE TEMPLATE JS --> 
@@ -649,6 +652,7 @@
             $("#payment_plans").select2();
             $("#proj_status").select2();
             $("#buildings").select2();
+            $(".tags").tagsinput("");
         </script>	
 
     </body>
