@@ -60,6 +60,16 @@ class ProjectBuildingController extends Controller {
         $building->building_name = $formData['building_name'];
         $building->phase_id = $formData['phase_id'];
         $building->no_of_floors = $formData['no_of_floors'];
+        $building->building_master = [
+            'front' => '',
+            'left' => '',
+            'back' => '',
+            'right' => '',
+            'front-left' => [],
+            'left-back' => [],
+            'back-right' => [],
+            'right-front' => []
+        ];
         $building->save();
         return redirect( url( 'admin/project/' . $projectId . '/building/' . $building->id . '/edit' ) );
     }
