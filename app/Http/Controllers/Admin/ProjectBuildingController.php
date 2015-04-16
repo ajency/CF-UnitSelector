@@ -114,8 +114,33 @@ class ProjectBuildingController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update( $id ) {
-        //
+    public function update( $projectId, $buildingId, Request $request ) {
+
+        $updateSection = $request->get( 'update_section' );
+        $building = Building::find( $buildingId );
+
+        switch ($updateSection) {
+            case 'building':
+                $building->building_name = $request->get( 'building_name' );
+                $building->phase_id = $request->get( 'phase_id' );
+                $building->no_of_floors = $request->get( 'no_of_floors' );
+                break;
+            case 'floors':
+                $building->floors = $request->get( 'floors' );
+                break;
+            case 'builing_master':
+                $building->building_master = $request->get( 'building_master' );
+                break;
+            default:
+                break;
+        }
+        
+        $building->save();
+        return response()->json( [
+                            'code' => 'building_updated',
+                            'message' => 'Builing details updated successfully',
+                            'data' => ''
+                        ], 203 );
     }
 
     /**

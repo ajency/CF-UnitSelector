@@ -53,8 +53,10 @@
                     </div>
                     <div class="form-actions">  
                         <div class="pull-right">
-                            <input type="hidden" value="{{ csrf_token()}}" name="_token"/>    
-                            <button type="submit" class="btn btn-primary btn-cons">Save</button>
+                            <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
+                            <input type="hidden" name="update_section" value="building">
+                            <button data-building-id="{{ $building->id }}" type="button" 
+                                    class="btn btn-primary btn-cons update-building">Update</button>
                             <button type="button" class="btn btn-default btn-cons">Cancel</button>
                         </div>
                     </div>
@@ -102,7 +104,9 @@
                     @endfor
                     <div class="form-actions">  
                         <div class="pull-right">
-                            <button type="button" class="btn btn-primary btn-cons update-building-floor-layouts">Update</button>
+                            <input type="hidden" name="update_section" value="floors">
+                            <button data-building-id="{{ $building->id }}" type="button" 
+                                    class="btn btn-primary btn-cons update-building">Update</button>
                         </div>
                     </div>
                 </form>
