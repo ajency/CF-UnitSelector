@@ -541,6 +541,36 @@ body {
 .list-view-container .controls ul .prop-type.active {
   color: #f68121;
 }
+.list-view-container .legend {
+  float: right;
+  padding: 10px 0;
+}
+.list-view-container .legend ul {
+  list-style: none;
+}
+.list-view-container .legend ul li {
+  display: inline-block;
+  margin-left: 20px;
+  font-size: 12px;
+  color: #666666;
+}
+.list-view-container .legend ul li::before {
+  height: 12px;
+  width: 25px;
+  border: 1px solid #666666;
+  content: '';
+  display: inline-block;
+  margin-right: 5px;
+}
+.list-view-container .legend ul li.sold::before {
+  background-color: #fed8d7;
+}
+.list-view-container .legend ul li.blocked::before {
+  background-color: #f5f3c3;
+}
+.list-view-container .legend ul li.na::before {
+  background-color: #cccccc;
+}
 /* List of Buildings */
 /* List of Villas */
 .villa-list ul {
