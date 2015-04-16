@@ -81,7 +81,7 @@
                                 <option value="select" @if($attributes['control_type']=='select'){{'selected'}}@endif>Select Box</option>
                                 <option value="multiple" @if($attributes['control_type']=='multiple'){{'selected'}}@endif> Multiple Select Box</option>
                                 <option value="media" @if($attributes['control_type']=='number'){{'selected'}}@endif> Number </option>
-                                <option value="upload" @if($attributes['control_type']=='upload'){{'selected'}}@endif> Upload </option>
+                                
                             </select>
                            
                         </div>
@@ -116,7 +116,6 @@
                                 <option value="select" >Select Box</option>
                                 <option value="multiple" > Multiple Select Box</option>
                                 <option value="number" > Number </option>
-                                <option value="upload" > Upload </option>
                             </select>
                             
                         </div>
@@ -194,7 +193,6 @@
                                 <option value="select" @if($attributes['control_type']=='select'){{'selected'}}@endif>Select Box</option>
                                 <option value="multiple" @if($attributes['control_type']=='multiple'){{'selected'}}@endif> Multiple Select Box</option>
                                 <option value="media" @if($attributes['control_type']=='number'){{'selected'}}@endif> Number </option>
-                                <option value="upload" @if($attributes['control_type']=='upload'){{'selected'}}@endif> Upload </option>
                             </select>
                            
                         </div>
@@ -228,7 +226,6 @@
                                 <option value="select" >Select Box</option>
                                 <option value="multiple" > Multiple Select Box</option>
                                 <option value="number"> Number </option>
-                                <option value="upload"> Upload </option>
                             </select>
                            
                         </div>
