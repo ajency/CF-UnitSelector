@@ -30,7 +30,7 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.checkPropertyType();
       }
-      if (bunglowVariantCollection.length !== 0) {
+      if (bunglowVariantCollection.length !== 0 && project.get('project_master').front !== "") {
         return this.show(new CommonFloor.BunglowMasterView);
       } else {
         return this.show(new CommonFloor.NothingFoundView);
@@ -53,7 +53,7 @@
     TopBunglowMasterView.prototype.serializeData = function() {
       var data;
       data = TopBunglowMasterView.__super__.serializeData.call(this);
-      data.units = CommonFloor.getBunglowUnits().length;
+      data.units = bunglowVariantCollection.getBunglowUnits().length;
       return data;
     };
 
@@ -157,7 +157,7 @@
 
     LeftBunglowMasterCtrl.prototype.initialize = function() {
       var newUnits, unitsCollection;
-      newUnits = CommonFloor.getBunglowUnits();
+      newUnits = bunglowVariantCollection.getBunglowUnits();
       unitsCollection = new Backbone.Collection(newUnits);
       return this.show(new LeftBunglowMasterCompositeView({
         collection: unitsCollection

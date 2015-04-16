@@ -33,4 +33,17 @@ class ApartmentVariantCollection extends Backbone.Collection
 		# @set apartmentApartmentData
 		apartmentVariantCollection.reset data
 
+
+	getApartmentUnits:->
+		units = []
+		newUnits = []
+		apartmentVariantCollection.each (model)->
+			apartmentUnits = unitCollection.where
+				unit_variant_id : model.get('id')
+			units.push  apartmentUnits
+		$.each units,(index,value)->
+			newUnits = $.merge(newUnits , value)
+
+		newUnits
+
 window.apartmentVariantCollection  = new ApartmentVariantCollection;

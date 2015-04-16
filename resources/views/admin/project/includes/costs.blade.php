@@ -1,8 +1,13 @@
     <div class="grid simple">
 
-        <div class="grid-title">
-            <h3>Project <span class="semi-bold">Costs</span></h3>
+        <div class="grid-title"  role="tab" id="headingThree">
+                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <h3>
+                Project <span class="semi-bold">Costs</span>
+                    </h3></a>
         </div> 
+            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+
         <div class="grid-body">
             <form action="{{ url('admin/project/' . $project['id']) }}" method="POST" data-parsley-validate>
             <div class="row">

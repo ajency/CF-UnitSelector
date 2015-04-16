@@ -27,6 +27,23 @@
       return bunglowVariantCollection.reset(data);
     };
 
+    BunglowVariantCollection.prototype.getBunglowUnits = function() {
+      var newUnits, units;
+      units = [];
+      newUnits = [];
+      bunglowVariantCollection.each(function(model) {
+        var bunglowUnits;
+        bunglowUnits = unitCollection.where({
+          unit_variant_id: model.get('id')
+        });
+        return units.push(bunglowUnits);
+      });
+      $.each(units, function(index, value) {
+        return newUnits = $.merge(newUnits, value);
+      });
+      return newUnits;
+    };
+
     return BunglowVariantCollection;
 
   })(Backbone.Collection);

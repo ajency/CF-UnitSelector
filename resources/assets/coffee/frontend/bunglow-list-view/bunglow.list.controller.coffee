@@ -42,7 +42,7 @@ class TopBunglowListView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
-		data.units = CommonFloor.getBunglowUnits().length
+		data.units = bunglowVariantCollection.getBunglowUnits().length
 		data
 
 #controller for the top region
@@ -109,7 +109,7 @@ class CenterCompositeView extends Marionette.CompositeView
 									<div class="list-view-container">
 							            <div class="controls mapView">
 								            <div class="toggle">
-								            	<a href="#/master-view/bunglows"> Map View</a> |<a href="#/list-view/bunglows">List View</a>
+								            	<a href="#/master-view/bunglows">Map</a> |<a href="#/list-view/bunglows">List</a>
 								            </div>
 							            </div>
 							            <div class="legend">
@@ -129,11 +129,17 @@ class CenterCompositeView extends Marionette.CompositeView
 
 	childViewContainer : '.units'
 
+	onShow:->
+		if project.get('project_master').front  == ""
+			$('.mapView').hide()
+		else
+			$('.mapView').show()
+
 #controller for the Center region
 class CommonFloor.CenterBunglowListCtrl extends Marionette.RegionController
 
 	initialize:->
-		newUnits = CommonFloor.getBunglowUnits()
+		newUnits = bunglowVariantCollection.getBunglowUnits()
 		console.log unitsCollection = new Backbone.Collection newUnits 		
 		@show new CenterCompositeView
 			collection : unitsCollection

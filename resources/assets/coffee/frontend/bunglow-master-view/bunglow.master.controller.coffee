@@ -11,7 +11,7 @@ class CommonFloor.BunglowMasterCtrl extends Marionette.RegionController
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID);
 			CommonFloor.checkPropertyType()
-		if bunglowVariantCollection.length != 0
+		if bunglowVariantCollection.length != 0 && project.get('project_master').front  != ""
 			@show new CommonFloor.BunglowMasterView
 		else
 			@show new CommonFloor.NothingFoundView
@@ -29,7 +29,7 @@ class TopBunglowMasterView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
-		data.units = CommonFloor.getBunglowUnits().length
+		data.units = bunglowVariantCollection.getBunglowUnits().length
 		data
 
 
@@ -117,7 +117,7 @@ class LeftBunglowMasterCompositeView extends Marionette.CompositeView
 class CommonFloor.LeftBunglowMasterCtrl extends Marionette.RegionController
 
 	initialize:->
-		newUnits = CommonFloor.getBunglowUnits()
+		newUnits = bunglowVariantCollection.getBunglowUnits()
 		unitsCollection = new Backbone.Collection newUnits 		
 		@show new LeftBunglowMasterCompositeView
 			collection : unitsCollection

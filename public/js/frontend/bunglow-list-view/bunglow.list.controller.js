@@ -51,7 +51,7 @@
     TopBunglowListView.prototype.serializeData = function() {
       var data;
       data = TopBunglowListView.__super__.serializeData.call(this);
-      data.units = CommonFloor.getBunglowUnits().length;
+      data.units = bunglowVariantCollection.getBunglowUnits().length;
       return data;
     };
 
@@ -158,11 +158,19 @@
       return CenterCompositeView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterCompositeView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <div class="list-view-container"> <div class="controls mapView"> <div class="toggle"> <a href="#/master-view/bunglows"> Map View</a> |<a href="#/list-view/bunglows">List View</a> </div> </div> <div class="legend"> <ul> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> </ul> </div> <div class="villa-list"> <ul class="units"> </ul> </div> </div> </div>');
+    CenterCompositeView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <div class="list-view-container"> <div class="controls mapView"> <div class="toggle"> <a href="#/master-view/bunglows">Map</a> |<a href="#/list-view/bunglows">List</a> </div> </div> <div class="legend"> <ul> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> </ul> </div> <div class="villa-list"> <ul class="units"> </ul> </div> </div> </div>');
 
     CenterCompositeView.prototype.childView = CenterBunglowListView;
 
     CenterCompositeView.prototype.childViewContainer = '.units';
+
+    CenterCompositeView.prototype.onShow = function() {
+      if (project.get('project_master').front === "") {
+        return $('.mapView').hide();
+      } else {
+        return $('.mapView').show();
+      }
+    };
 
     return CenterCompositeView;
 
@@ -177,7 +185,7 @@
 
     CenterBunglowListCtrl.prototype.initialize = function() {
       var newUnits, unitsCollection;
-      newUnits = CommonFloor.getBunglowUnits();
+      newUnits = bunglowVariantCollection.getBunglowUnits();
       console.log(unitsCollection = new Backbone.Collection(newUnits));
       return this.show(new CenterCompositeView({
         collection: unitsCollection
