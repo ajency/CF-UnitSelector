@@ -7,6 +7,7 @@ use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use File;
 use CommonFloor\Media;
+use CommonFloor\Building;
 
 class BuildingMediaController extends Controller {
 
@@ -35,6 +36,7 @@ class BuildingMediaController extends Controller {
      */
     public function store( $buildingId, Request $request ) {
         $building = Building::find( $buildingId );
+        $projectId = $request->get('projectId');
         $targetDir = public_path() . "/projects/" . $projectId . "/buildings/" . $buildingId;
         File::makeDirectory( $targetDir, $mode = 0755, true, true );
         $newFilename = '';
@@ -67,7 +69,7 @@ class BuildingMediaController extends Controller {
                     'message' => 'building added',
                     'data' => [
                         'media_id' => $media->id,
-                        'media_path' => url() . '/projects/' . $projectId . '/buildings/' . $floorLayoutId . '/' . $newFilename
+                        'media_path' => url() . '/projects/' . $projectId . '/buildings/' . $buildingId . '/' . $newFilename
                     ]
                         ], 201 );
     }
