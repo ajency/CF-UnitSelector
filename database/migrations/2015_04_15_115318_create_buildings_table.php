@@ -11,13 +11,13 @@ class CreateBuildingsTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::create('buildings', function(Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 150);
-            $table->integer('phase_id');
-            $table->integer('milestone');
+        Schema::create( 'buildings', function(Blueprint $table) {
+            $table->increments( 'id' );
+            $table->string( 'building_name', 150 );
+            $table->integer( 'phase_id' );
+            $table->integer( 'no_of_floors' );
             $table->timestamps();
-        });
+        } );
     }
 
     /**
@@ -26,7 +26,7 @@ class CreateBuildingsTable extends Migration {
      * @return void
      */
     public function down() {
-        Schema::drop('buildings');
+        Schema::drop( 'buildings' );
     }
 
 }
