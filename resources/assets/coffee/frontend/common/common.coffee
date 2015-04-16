@@ -103,7 +103,7 @@ CommonFloor.checkPropertyType = ()->
 #function to load the default controller
 CommonFloor.checkListView = ()->
 	controller = CommonFloor.propertyMaxUnits()
-	CommonFloor.navigate '#/list-view/'+controller.type , true
+	#CommonFloor.navigate '#/list-view/'+controller.type , true
 
 
 #funtion to convert string into integers

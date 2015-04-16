@@ -133,7 +133,7 @@ class LeftBunglowUnitView extends Marionette.ItemView
 		
 		unitType = unitTypeCollection.findWhere
 								'id' :  unitVariant.get('unit_type_id')
-		data.area = unitVariant.get('super_build_up_area')
+		data.area = unitVariant.get('super_built_up_area')
 		data.type = unitType.get('name')
 		data.unit_name = unit.get('unit_name')
 		data.levels  = levels

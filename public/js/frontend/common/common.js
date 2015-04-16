@@ -127,8 +127,7 @@
 
   CommonFloor.checkListView = function() {
     var controller;
-    controller = CommonFloor.propertyMaxUnits();
-    return CommonFloor.navigate('#/list-view/' + controller.type, true);
+    return controller = CommonFloor.propertyMaxUnits();
   };
 
   window.convertToInt = function(response) {

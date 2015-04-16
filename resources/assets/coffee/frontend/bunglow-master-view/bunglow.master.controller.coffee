@@ -49,7 +49,7 @@ class LeftBunglowMasterView extends Marionette.ItemView
 					  <h6 class="">{{unit_type}}</h6>                      
 					</div>
 					<div class="col-sm-4">
-					  <h6 class="">{{super_build_up_area}} sqft</h6>                      
+					  <h6 class="">{{super_built_up_area}} sqft</h6>                      
 					</div>
 				  </div>
 			
@@ -66,7 +66,7 @@ class LeftBunglowMasterView extends Marionette.ItemView
 		unitType = unitTypeCollection.findWhere
 							'id' : unitVariant.get('unit_type_id')
 		data.unit_type = unitType.get('name')
-		data.super_build_up_area = unitVariant.get('super_build_up_area')
+		data.super_built_up_area = unitVariant.get('super_built_up_area')
 		availability = @model.get('availability')
 		data.status = s.decapitalize(availability)
 		@model.set 'status' , data.status
@@ -197,7 +197,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 						<div class="clearfix"></div>
 						<div class="details">
 							<div>
-								<label>Area</label> - '+unitVariant.get('super_build_up_area')+' Sq.ft
+								<label>Area</label> - '+unitVariant.get('super_built_up_area')+' Sq.ft
 							</div> 
 							<div>
 								<label>Unit Type </label> - '+unitType.get('name')+'
