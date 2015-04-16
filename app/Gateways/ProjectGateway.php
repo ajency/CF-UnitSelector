@@ -79,7 +79,7 @@ class ProjectGateway implements ProjectGatewayInterface {
                     }
                 $bunglowVariantData =$bunglowVariants->toArray();   
             }
-            elseif($key=='bunglow')
+            elseif($key=='apartment')
             {
               $appartmentVariants = \CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds )->get();  
               foreach ($appartmentVariants as $appartmentVariant) {
