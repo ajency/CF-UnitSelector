@@ -42,6 +42,9 @@ body {
 .builder-logo {
   max-width: 200px;
 }
+.bootstrap-tagsinput{
+    width: 15px!important;
+}
 .proj-details {
   margin-top: 15px;
 }

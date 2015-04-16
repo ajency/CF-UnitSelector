@@ -1,11 +1,14 @@
+
 <div class="grid simple">
-    <div class="grid-title">
-        <h3 class="inline"><span class="semi-bold">Google Earth</span> View</h3> 
-        <div class="pull-right m-t-15">
-            <span class="fa fa-check text-success" ></span>
-        </div>
-        <div class="clearfix"></div>
+    <div class="grid-title"  role="tab" id="headingOne">
+       <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+<div class="pull-right"><i class="fa fa-angle-up"></i></div>
+        <h3><span class="semi-bold">Google Earth</span> View</h3> 
+      
+        <div class="clearfix"></div></a>
     </div>
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+
     <div class="grid-body">
         <div id="container">
       <input type="hidden" value="{{ csrf_token()}}" name="_token"/> 
@@ -27,4 +30,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>
