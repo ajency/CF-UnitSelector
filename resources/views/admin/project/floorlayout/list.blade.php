@@ -28,12 +28,22 @@
                     <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Status</th>
                             <th>Created On</th>
                             <th>Modified On</th>
                         </tr>
                     </thead>
                     <tbody> 
+                        @foreach ($floorLayouts as $floorLayout)
+                            <tr class="">
+                                <td>
+                                    <a href="{{ url( '/admin/project/' . $project['id'] . '/floor-layout/'. $floorLayout->id . '/edit') }}">
+                                        {{ $floorLayout->layout_name }}
+                                    </a>
+                                </td>
+                                <td>{{ date('d/m/Y', strtotime($floorLayout->created_at)) }}</td>
+                                <td>{{  date('d/m/Y', strtotime($floorLayout->updated_at)) }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
