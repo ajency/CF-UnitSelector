@@ -96,9 +96,9 @@ CommonFloor.checkPropertyType = ()->
 	CommonFloor.loadJSONData()
 	controller = CommonFloor.propertyMaxUnits()
 	if project.get('project_master').front  == ""
-		CommonFloor.navigate '#/list-view/'+controller.type , true
+		CommonFloor.navigate '#/list-view' , true
 	else
-		CommonFloor.navigate '#/master-view/'+controller.type , true
+		CommonFloor.navigate '#/master-view' , true
 
 #function to load the default controller
 CommonFloor.checkListView = ()->

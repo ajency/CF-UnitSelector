@@ -43,7 +43,7 @@
       }
     });
     CommonFloor.state('bunglowList', {
-      url: '/list-view/bunglows',
+      url: '/list-view',
       sections: {
         'top': {
           ctrl: 'TopBunglowListCtrl'

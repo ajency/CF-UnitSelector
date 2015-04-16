@@ -28,11 +28,7 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.checkPropertyType();
       }
-      if (bunglowVariantCollection.length !== 0) {
-        return this.show(new CommonFloor.BunglowListView);
-      } else {
-        return this.show(new CommonFloor.NothingFoundView);
-      }
+      return this.show(new CommonFloor.BunglowListView);
     };
 
     return BunglowListCtrl;
@@ -117,12 +113,20 @@
 
     CenterBunglowListCtrl.prototype.initialize = function() {
       var response;
-      response = CommonFloor.checkListView();
+      console.log(response = CommonFloor.checkListView());
       if (response.type === 'bunglows') {
         this.region = new Marionette.Region({
           el: '#centerregion'
         });
-        return new CommonFloor.ListCtrl({
+        new CommonFloor.ListCtrl({
+          region: this.region
+        });
+      }
+      if (response.type === 'building') {
+        this.region = new Marionette.Region({
+          el: '#centerregion'
+        });
+        return new CommonFloor.CenterBuildingListCtrl({
           region: this.region
         });
       }

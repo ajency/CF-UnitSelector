@@ -48,9 +48,9 @@ class CenterCompositeView extends Marionette.CompositeView
 							            </div>
 							            <div class="text-center">
 							              <ul class="prop-select">
-							                <li class="prop-type buildings">buildings</li>
-							                <li class="prop-type Villas active">Villas/Bungalows</li>
-							                <li class="prop-type Plots">Plots</li>
+							                <li class="prop-type buildings hidden">buildings</li>
+							                <li class="prop-type Villas active ">Villas/Bungalows</li>
+							                <li class="prop-type Plots hidden">Plots</li>
 							              </ul>
 							            </div>
 							            <div class="legend">
@@ -75,11 +75,18 @@ class CenterCompositeView extends Marionette.CompositeView
 			console.log @region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.CenterBuildingListCtrl region : @region
 
+		'click .Villas':(e)->
+			console.log @region =  new Marionette.Region el : '#centerregion'
+			new CommonFloor.ListCtrl region : @region
+
 	onShow:->
 		if project.get('project_master').front  == ""
 			$('.mapView').hide()
 		else
 			$('.mapView').show()
+
+		if apartmentVariantCollection.length != 0
+			$('.buildings').removeClass 'hidden'
 		
 
 #controller for the Center region

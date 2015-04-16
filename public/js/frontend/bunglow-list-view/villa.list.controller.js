@@ -53,7 +53,7 @@
       return CenterCompositeView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterCompositeView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <div class="list-view-container"> <div class="controls mapView"> <div class="toggle"> <a href="#/master-view/bunglows" class="map">Map</a><a href="#/list-view/bunglows" class="list active">List</a> </div> </div> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings">buildings</li> <li class="prop-type Villas active">Villas/Bungalows</li> <li class="prop-type Plots">Plots</li> </ul> </div> <div class="legend"> <ul> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> </ul> </div> <div class="villa-list"> <ul class="units"> </ul> </div> </div> </div>');
+    CenterCompositeView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <div class="list-view-container"> <div class="controls mapView"> <div class="toggle"> <a href="#/master-view/bunglows" class="map">Map</a><a href="#/list-view/bunglows" class="list active">List</a> </div> </div> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings hidden">buildings</li> <li class="prop-type Villas active ">Villas/Bungalows</li> <li class="prop-type Plots hidden">Plots</li> </ul> </div> <div class="legend"> <ul> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> </ul> </div> <div class="villa-list"> <ul class="units"> </ul> </div> </div> </div>');
 
     CenterCompositeView.prototype.childView = CenterBunglowListView;
 
@@ -67,14 +67,25 @@
         return new CommonFloor.CenterBuildingListCtrl({
           region: this.region
         });
+      },
+      'click .Villas': function(e) {
+        console.log(this.region = new Marionette.Region({
+          el: '#centerregion'
+        }));
+        return new CommonFloor.ListCtrl({
+          region: this.region
+        });
       }
     };
 
     CenterCompositeView.prototype.onShow = function() {
       if (project.get('project_master').front === "") {
-        return $('.mapView').hide();
+        $('.mapView').hide();
       } else {
-        return $('.mapView').show();
+        $('.mapView').show();
+      }
+      if (apartmentVariantCollection.length !== 0) {
+        return $('.buildings').removeClass('hidden');
       }
     };
 
