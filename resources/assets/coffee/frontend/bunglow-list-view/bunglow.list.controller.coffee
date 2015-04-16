@@ -147,8 +147,20 @@ class CommonFloor.CenterBunglowListCtrl extends Marionette.RegionController
 
 	initialize:->
 		newUnits = bunglowVariantCollection.getBunglowUnits()
-		console.log unitsCollection = new Backbone.Collection newUnits 		
+		unitsCollection = new Backbone.Collection newUnits 		
 		@show new CenterCompositeView
 			collection : unitsCollection
 		
 
+class CommonFloor.MiddleBunglowMasterView extends Marionette.ItemView
+
+	template : ''
+
+
+
+
+class CommonFloor.MiddleBunglowMasterCtrl extends Marionette.RegionController
+
+	initialize:->
+		@show new CommonFloor.MiddleBunglowMasterView
+				

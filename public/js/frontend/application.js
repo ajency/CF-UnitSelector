@@ -25,6 +25,9 @@
         },
         'center': {
           ctrl: 'CenterBunglowMasterCtrl'
+        },
+        'middle': {
+          ctrl: 'MiddleBunglowMasterCtrl'
         }
       }
     });
@@ -53,6 +56,9 @@
         },
         'center': {
           ctrl: 'CenterBunglowListCtrl'
+        },
+        'middle': {
+          ctrl: 'MiddleBunglowMasterCtrl'
         }
       }
     });

@@ -130,6 +130,7 @@
                             </div> 
                         </div> 
                     </div>
+                    <?php $j = 1; ?>
                     @foreach($roomAttributes as $variantRoomId=> $attributes)              
                     <div class="form-inline">
                         <div class="form-group">
@@ -140,10 +141,13 @@
                                 <option  @if($attributes['ROOMTYPEID']==$room_type['id']){{'selected'}}@endif value="{{$room_type['id']}}">{{$room_type['name']}}</option>
                                 @endforeach
                             </select>
+                             @if($j === count($roomAttributes))
                             <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this)"><i class="fa fa-plus"></i></button>
+                            @endif
                         </div> 
 
                     </div>
+                    <?php $j++; ?>
                     @endforeach   
                 </div> 
                 <?php $i++; ?>   

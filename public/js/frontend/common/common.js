@@ -125,6 +125,12 @@
     }
   };
 
+  CommonFloor.checkListView = function() {
+    var controller;
+    controller = CommonFloor.propertyMaxUnits();
+    return CommonFloor.navigate('#/list-view/' + controller.type, true);
+  };
+
   window.convertToInt = function(response) {
     return $.each(response, function(index, value) {
       return $.map(value, function(item) {
