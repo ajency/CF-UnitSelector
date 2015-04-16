@@ -27,15 +27,15 @@ class UnitVariant extends Model {
         $variantId = $data['id'];
         $floorlevelData = $floor= [];
         $unitVariant = UnitVariant::find($variantId);
-        $variantRooms = $unitVariant->variantRoomAttributes()->get()->toArray();
+        $variantRooms = $unitVariant->variantRoomAttributes()->get()->toArray(); 
         foreach ($variantRooms as $rooms) {
             $roomType = RoomType::find($rooms['roomtype_id']);
             $roomTypename = $roomType->name;
             $projectId = $roomType->project_id;
             $atributes = unserialize($rooms['variant_room_attributes']);
-            $floorlevelData[$rooms['floorlevel']] = array('room_id' => $rooms['roomtype_id'], 'room_name' => $roomTypename, $atributes);
+            $floorlevelData[$rooms['floorlevel']][] = array('room_id' => $rooms['roomtype_id'], 'room_name' => $roomTypename, $atributes);
         }
-
+ 
         $variantMeta = $unitVariant->variantMeta()->get()->toArray();
          
         foreach ($variantMeta as $meta)
@@ -53,7 +53,7 @@ class UnitVariant extends Model {
                
             }
         }
-        
+       
        $data['floor'] =  $floor; 
         
         
