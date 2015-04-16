@@ -16,9 +16,7 @@
         <link href="{{ asset('bower_components/datatables-responsive/css/dataTables.responsive.css') }}" rel="stylesheet" type="text/css" media="screen">
         <link href="{{ asset('bower_components/select2/select2.css') }}" rel="stylesheet" type="text/css" media="screen">
         <link href="{{ asset('bower_components/animate.css/animate.min.css') }}" rel="stylesheet" type="text/css"/>
-<link rel="icon" 
-      type="image/png" 
-      href="http://www.commonfloor.com/cfassets/images/favicon.ico">
+
 
         <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('css/dashboard/style.css') }}" rel="stylesheet" type="text/css"/>
