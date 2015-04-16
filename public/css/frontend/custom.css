@@ -74,6 +74,11 @@ body {
 .us-right-content .svg-area img {
   width: 100%;
 }
+@media (max-width: 991px) {
+  .us-right-content {
+    padding-left: 15px;
+  }
+}
 /* Footer */
 .footer-push {
   height: 98px;
@@ -591,24 +596,53 @@ body {
   background-color: #cccccc;
 }
 /* List of Buildings */
+.bldg-list ul {
+  list-style-type: none;
+}
+.bldg-list ul .bldg {
+  background-color: #ffffff;
+  cursor: pointer;
+  color: #666666;
+}
+.bldg-list ul .bldg .bldg-img {
+  background: url('../../images/bldg.png') no-repeat;
+  width: 25%;
+  padding: 20% 0;
+  background-size: contain;
+  float: left;
+}
+.bldg-list ul .bldg .info {
+  float: left;
+}
+.bldg-list ul .bldg .info div {
+  font-size: 12px;
+}
+.bldg-list ul .bldg .unit-type-info {
+  margin-top: 15px;
+}
+.bldg-list ul .bldg .unit-type-info li {
+  font-size: 12px;
+  float: left;
+  text-align: center;
+  width: 33.3%;
+}
+.bldg-list ul .bldg .unit-type-info li::after {
+  content: '|';
+  float: right;
+}
+.bldg-list ul .bldg .unit-type-info li:last-child::after {
+  content: '';
+}
+.bldg-list ul .bldg .unit-type-info li span {
+  color: #f68121;
+}
 /* List of Villas */
 .villa-list ul {
   list-style-type: none;
 }
 .villa-list ul .unit {
-  float: left;
-  width: 32.2%;
-  padding: 15px 10px;
-  margin-bottom: 10px;
-  margin-right: 1.6%;
   background-color: #ffffff;
   cursor: pointer;
-}
-.villa-list ul .unit:nth-child(3n) {
-  margin-right: 0;
-}
-.villa-list ul .unit:hover {
-  box-shadow: 0 1px 5px #666666;
 }
 .villa-list ul .unit .info {
   color: #666666;
@@ -642,6 +676,38 @@ body {
 }
 .villa-list ul .unit.blocked .cost {
   color: #666666;
+}
+.blocks {
+  float: left;
+  width: 32.2%;
+  padding: 15px 10px;
+  margin-bottom: 10px;
+  margin-right: 1.6%;
+}
+.blocks:nth-child(3n) {
+  margin-right: 0;
+}
+.blocks:hover {
+  box-shadow: 0 1px 5px #666666;
+}
+@media (max-width: 767px) {
+  .blocks {
+    width: 49.2%;
+  }
+  .blocks:nth-child(2n) {
+    margin-right: 0;
+  }
+  .blocks:nth-child(3n) {
+    margin-right: 1.6%;
+  }
+}
+@media (max-width: 480px) {
+  .blocks {
+    width: 100%;
+  }
+  .blocks:nth-child(3n) {
+    margin-right: 0;
+  }
 }
 /* Plugins */
 /* Slider */
