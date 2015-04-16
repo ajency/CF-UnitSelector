@@ -87,7 +87,46 @@
 
 /* List of Buildings */
 .bldg-list{
-	
+	ul{
+		list-style-type: none;
+		.bldg{
+			background-color: @white;
+			cursor: pointer;
+			color: @gray;
+			.bldg-img{
+				background: url('../../images/bldg.png') no-repeat;
+				width: 25%;
+				padding: 20% 0;
+				background-size: contain;
+				float: left;
+			}
+			.info{
+				float: left;
+				div{
+					font-size: 12px;
+				}
+			}
+			.unit-type-info{
+				margin-top: 15px;
+				li{
+					font-size: 12px;
+					float: left;
+					text-align: center;
+					width: 33.3%;
+					&::after{
+						content: '|';
+						float: right;
+					}
+					&:last-child::after{
+						content: '';
+					}
+					span{
+						color: @brand-primary;
+					}
+				}
+			}
+		}
+	}
 }
 
 /* List of Villas */
@@ -95,19 +134,8 @@
 	ul{
 		list-style-type: none;
 		.unit{
-			float: left;
-			width: 32.2%;
-			padding: 15px 10px;
-			margin-bottom: 10px;
-			margin-right: 1.6%;
 			background-color: @white;
 			cursor: pointer;
-			&:nth-child(3n){
-			    margin-right: 0;
-			}
-			&:hover{
-				box-shadow: 0 1px 5px @gray;
-			}
 			.info{
 				color: @gray;
 				label{
@@ -141,6 +169,40 @@
 					color: @gray;
 				}
 			}
+		}
+	}
+}
+
+.blocks{
+	float: left;
+	width: 32.2%;
+	padding: 15px 10px;
+	margin-bottom: 10px;
+	margin-right: 1.6%;
+	&:nth-child(3n){
+	    margin-right: 0;
+	}
+	&:hover{
+		box-shadow: 0 1px 5px @gray;
+	}
+}
+
+@media(max-width:767px){
+	.blocks{
+		width: 49.2%;
+		&:nth-child(2n){
+		    margin-right: 0;
+		}
+		&:nth-child(3n){
+		    margin-right: 1.6%;
+		}
+	}
+}
+@media(max-width:480px){
+	.blocks{
+		width: 100%;
+		&:nth-child(3n){
+		    margin-right: 0;
 		}
 	}
 }
