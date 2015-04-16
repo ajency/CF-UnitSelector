@@ -42,7 +42,8 @@
                         </select>
                     </div> 
                 </div>
-              <div class="col-md-4">
+               
+                <div class="col-md-4">
 
                     <div class="form-group">
                         <label class="form-label">Unit Status</label>
@@ -54,13 +55,11 @@
                         </select>
                     </div>
                 </div>
-                
+
             </div>
-            
- 
             <div class="form-actions">  
                 <div class="pull-right">
-                     <input type="hidden" name="_method" value="PUT">
+                    <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                     <button type="submit" class="btn btn-primary btn-cons">Save</button>
                 </div>
@@ -68,6 +67,6 @@
         </form>
     </div>
 </div>
- 
+
 <!-- END PLACE PAGE CONTENT HERE -->
 @endsection

@@ -15,6 +15,8 @@ class CreateUnitsTable extends Migration {
             $table->increments('id');
             $table->string('unit_name', 100);
             $table->integer('unit_variant_id')->unsigned();
+           // $table->string('facing', 100);
+           // $table->text( 'unit_attributes')->nullable();
             $table->enum('availability', ['available','sold','not_released','blocked'])->default('available');
             $table->timestamps();
 

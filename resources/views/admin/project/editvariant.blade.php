@@ -70,6 +70,8 @@
                         ?>
                         @if('textbox' === $attributes['control_type'])
                         <input type="text" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]" value="{{ $value }}" placeholder="Enter {{$attributes['label']}}">
+                        @elseif('number' === $attributes['control_type'])
+                        <input type="number" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]" value="{{ $value }}" placeholder="Enter {{$attributes['label']}}">
                         @elseif('select' === $attributes['control_type'])
                         <?php
                         $options = explode(',', $attributes['defaults']);
@@ -128,6 +130,7 @@
                             </div> 
                         </div> 
                     </div>
+                    <?php $j = 1; ?>
                     @foreach($roomAttributes as $variantRoomId=> $attributes)              
                     <div class="form-inline">
                         <div class="form-group">
@@ -138,10 +141,13 @@
                                 <option  @if($attributes['ROOMTYPEID']==$room_type['id']){{'selected'}}@endif value="{{$room_type['id']}}">{{$room_type['name']}}</option>
                                 @endforeach
                             </select>
+                             @if($j === count($roomAttributes))
                             <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this)"><i class="fa fa-plus"></i></button>
+                            @endif
                         </div> 
 
                     </div>
+                    <?php $j++; ?>
                     @endforeach   
                 </div> 
                 <?php $i++; ?>   
