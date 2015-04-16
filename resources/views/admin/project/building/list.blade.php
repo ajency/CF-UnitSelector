@@ -34,6 +34,17 @@
                         </tr>
                     </thead>
                     <tbody> 
+                        @foreach ($buildings as $building)
+                            <tr class="">
+                                <td>
+                                    <a href="{{ url( '/admin/project/' . $project['id'] . '/building/'. $building->id . '/edit') }}">
+                                        {{ $building->name }}
+                                    </a>
+                                </td>
+                                <td>{{ date('d/m/Y', strtotime($building->created_at)) }}</td>
+                                <td>{{  date('d/m/Y', strtotime($building->updated_at)) }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
