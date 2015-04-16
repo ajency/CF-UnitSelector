@@ -26,9 +26,11 @@ class ProjectFloorLayoutController extends Controller {
      */
     public function index( $projectId ) {
         $project = $this->projectRepository->getProjectById( $projectId );
+        $floorLayouts = FloorLayout::all();
         return view( 'admin.project.floorlayout.list' )
                         ->with( 'project', $project->toArray() )
-                        ->with( 'current', 'list-floor-layout' );
+                        ->with( 'current', 'list-floor-layout' )
+                        ->with( 'floorLayouts', $floorLayouts );
     }
 
     /**
