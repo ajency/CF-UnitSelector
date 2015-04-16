@@ -29,7 +29,7 @@ class TopBunglowMasterView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
-		data.units = CommonFloor.getBunglowUnits().length
+		data.units = bunglowVariantCollection.getBunglowUnits().length
 		data
 
 
@@ -117,7 +117,7 @@ class LeftBunglowMasterCompositeView extends Marionette.CompositeView
 class CommonFloor.LeftBunglowMasterCtrl extends Marionette.RegionController
 
 	initialize:->
-		newUnits = CommonFloor.getBunglowUnits()
+		newUnits = bunglowVariantCollection.getBunglowUnits()
 		unitsCollection = new Backbone.Collection newUnits 		
 		@show new LeftBunglowMasterCompositeView
 			collection : unitsCollection

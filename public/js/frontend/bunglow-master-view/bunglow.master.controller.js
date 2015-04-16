@@ -53,7 +53,7 @@
     TopBunglowMasterView.prototype.serializeData = function() {
       var data;
       data = TopBunglowMasterView.__super__.serializeData.call(this);
-      data.units = CommonFloor.getBunglowUnits().length;
+      data.units = bunglowVariantCollection.getBunglowUnits().length;
       return data;
     };
 
@@ -157,7 +157,7 @@
 
     LeftBunglowMasterCtrl.prototype.initialize = function() {
       var newUnits, unitsCollection;
-      newUnits = CommonFloor.getBunglowUnits();
+      newUnits = bunglowVariantCollection.getBunglowUnits();
       unitsCollection = new Backbone.Collection(newUnits);
       return this.show(new LeftBunglowMasterCompositeView({
         collection: unitsCollection

@@ -51,7 +51,7 @@
     TopBunglowListView.prototype.serializeData = function() {
       var data;
       data = TopBunglowListView.__super__.serializeData.call(this);
-      data.units = CommonFloor.getBunglowUnits().length;
+      data.units = bunglowVariantCollection.getBunglowUnits().length;
       return data;
     };
 
@@ -164,6 +164,14 @@
 
     CenterCompositeView.prototype.childViewContainer = '.units';
 
+    CenterCompositeView.prototype.onShow = function() {
+      if (project.get('project_master').front === "") {
+        return $('.mapView').hide();
+      } else {
+        return $('.mapView').show();
+      }
+    };
+
     return CenterCompositeView;
 
   })(Marionette.CompositeView);
@@ -177,7 +185,7 @@
 
     CenterBunglowListCtrl.prototype.initialize = function() {
       var newUnits, unitsCollection;
-      newUnits = CommonFloor.getBunglowUnits();
+      newUnits = bunglowVariantCollection.getBunglowUnits();
       console.log(unitsCollection = new Backbone.Collection(newUnits));
       return this.show(new CenterCompositeView({
         collection: unitsCollection

@@ -42,7 +42,8 @@
         settings.setSettingsAttributes(response.settings);
         unitCollection.setUnitAttributes(response.units);
         unitTypeCollection.setUnitTypeAttributes(response.unit_types);
-        return buildingCollection.setBuildingAttributes(response.buildings);
+        buildingCollection.setBuildingAttributes(response.buildings);
+        return apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants);
       },
       error: function(response) {
         return console.log("aaaaaaaaaaassdff");
@@ -55,7 +56,11 @@
     Router = [];
     Router.push({
       'type': 'bunglows',
-      'count': CommonFloor.getBunglowUnits()
+      'count': bunglowVariantCollection.getBunglowUnits()
+    });
+    Router.push({
+      'type': 'building',
+      'count': apartmentVariantCollection.getApartmentUnits()
     });
     console.log(Router);
     controller = _.max(Router, function(item) {
@@ -68,24 +73,11 @@
     var controller;
     CommonFloor.loadJSONData();
     controller = CommonFloor.propertyMaxUnits();
-    return CommonFloor.navigate('#/master-view/' + controller.type, true);
-  };
-
-  CommonFloor.getBunglowUnits = function() {
-    var newUnits, units;
-    units = [];
-    newUnits = [];
-    bunglowVariantCollection.each(function(model) {
-      var bunglowUnits;
-      bunglowUnits = unitCollection.where({
-        unit_variant_id: model.get('id')
-      });
-      return units.push(bunglowUnits);
-    });
-    $.each(units, function(index, value) {
-      return newUnits = $.merge(newUnits, value);
-    });
-    return newUnits;
+    if (project.get('project_master').front === "") {
+      return CommonFloor.navigate('#/list-view/' + controller.type, true);
+    } else {
+      return CommonFloor.navigate('#/master-view/' + controller.type, true);
+    }
   };
 
   window.convertToInt = function(response) {

@@ -44,6 +44,23 @@
       return apartmentVariantCollection.reset(data);
     };
 
+    ApartmentVariantCollection.prototype.getApartmentUnits = function() {
+      var newUnits, units;
+      units = [];
+      newUnits = [];
+      apartmentVariantCollection.each(function(model) {
+        var apartmentUnits;
+        apartmentUnits = unitCollection.where({
+          unit_variant_id: model.get('id')
+        });
+        return units.push(apartmentUnits);
+      });
+      $.each(units, function(index, value) {
+        return newUnits = $.merge(newUnits, value);
+      });
+      return newUnits;
+    };
+
     return ApartmentVariantCollection;
 
   })(Backbone.Collection);

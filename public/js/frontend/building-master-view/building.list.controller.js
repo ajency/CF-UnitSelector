@@ -180,4 +180,4 @@
 
 }).call(this);
 
-//# sourceMappingURL=../../frontend/building-master-view/building.master.controller.js.map
+//# sourceMappingURL=../../frontend/building-master-view/building.list.controller.js.map

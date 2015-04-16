@@ -9,11 +9,12 @@ class Building extends Backbone.Model
 		if building_id == ""
 			return unitTypes
 		units = unitCollection.where
-						'building_id'  : @model.get 'id'
+						'building_id'  : building_id
 
-		variants = units.pluck "unit_variant_id" 
+		units = new Backbone.Collection units
+		variants = units.pluck("unit_variant_id") 
 		$.each variants,(index,value)->
-			varinatModel = apartmentVariants.findWhere
+			varinatModel = apartmentVariantCollection.findWhere
 									'id' : value
 			unitTypes.push varinatModel.get 'unit_type_id'
 
@@ -51,3 +52,4 @@ class BuildingCollection extends Backbone.Collection
 		buildingCollection.reset data
 
 window.buildingCollection  = new BuildingCollection
+window.building  = new Building
