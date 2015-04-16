@@ -25,9 +25,6 @@
         },
         'center': {
           ctrl: 'CenterBunglowMasterCtrl'
-        },
-        'middle': {
-          ctrl: 'MiddleBunglowMasterCtrl'
         }
       }
     });
@@ -46,7 +43,7 @@
       }
     });
     CommonFloor.state('bunglowList', {
-      url: '/list-view/bunglows',
+      url: '/list-view',
       sections: {
         'top': {
           ctrl: 'TopBunglowListCtrl'
@@ -56,9 +53,6 @@
         },
         'center': {
           ctrl: 'CenterBunglowListCtrl'
-        },
-        'middle': {
-          ctrl: 'MiddleBunglowMasterCtrl'
         }
       }
     });

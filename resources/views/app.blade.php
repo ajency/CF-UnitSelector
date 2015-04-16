@@ -4,10 +4,12 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Laravel</title>
+        <title>CommonFloor UnitSelector</title>
 
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-
+<link rel="icon" 
+      type="image/png" 
+      href="../CommonFloor/public/images/others/fevicon.ico">
         <!-- Fonts -->
         <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 

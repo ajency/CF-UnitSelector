@@ -9,7 +9,7 @@
         </a>
     </div>
 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-<div class="grid-body">
+<div class="grid-body object-master-images" data-object-id="{{ $project['id'] }}" data-object-type="project">
         <div class="row project-master-images">
             <div class="front-svg">
                 <h4 class="inline">Front Svg</h4> 
