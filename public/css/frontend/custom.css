@@ -42,9 +42,6 @@ body {
 .builder-logo {
   max-width: 200px;
 }
-.bootstrap-tagsinput{
-    width: 15px!important;
-}
 .proj-details {
   margin-top: 15px;
 }
@@ -122,7 +119,8 @@ body {
   font-size: 14px;
   border: 1px solid #f68121;
   text-align: center;
-  transition: all ease .2s;
+  -webkit-transition: all ease .2s;
+          transition: all ease .2s;
   cursor: pointer;
   background-color: transparent;
   vertical-align: middle;
@@ -501,11 +499,14 @@ body {
   margin: auto;
   display: inline-block;
   cursor: pointer;
-  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease;
 }
 .rotate-controls .rotate-left:hover,
 .rotate-controls .rotate-right:hover {
-  transform: scale(1.1, 1.1);
+  -webkit-transform: scale(1.1, 1.1);
+      -ms-transform: scale(1.1, 1.1);
+          transform: scale(1.1, 1.1);
 }
 .rotate-controls .rotate-right {
   background-position: -110px -30px;
@@ -691,7 +692,7 @@ body {
   margin-right: 0;
 }
 .blocks:hover {
-  box-shadow: 0 1px 5px #666666;
+  box-shadow: 0 1px 5px rgba(102, 102, 102, 0.4);
 }
 @media (max-width: 767px) {
   .blocks {
@@ -718,8 +719,6 @@ body {
   background: #cccccc;
   margin: 30px auto 0;
   padding: 0 !important;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
   border-radius: 50px;
   position: relative;
   height: 4px;
@@ -729,7 +728,7 @@ body {
   float: left;
 }
 .toggle_radio input[type=radio] {
-  display: none;
+  display: none
   /*position: fixed;*/
 }
 .toggle_radio label {
@@ -741,13 +740,11 @@ body {
   height: 20px;
   margin: 0 3px;
   padding-top: 15px;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
   border-radius: 50px;
   cursor: pointer;
   z-index: 1;
   /*background: rgba(0,0,0,.1);*/
-  text-align: center;
+  text-align: center
   /*margin: 0 2px;*/
   /*background: blue;*/
   /*make it blue*/
@@ -765,13 +762,8 @@ label.third_toggle {
   height: 8px;
   position: absolute;
   top: -2px;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
   border-radius: 50px;
   -webkit-transition: all .2s ease;
-  -moz-transition: all .2s ease;
-  -o-transition: all .2s ease;
-  -ms-transition: all .2s ease;
   transition: all .2s ease;
 }
 .toggle_option_slider {
@@ -781,13 +773,8 @@ label.third_toggle {
   height: 35px;
   position: absolute;
   top: -16px;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
   border-radius: 50px;
   -webkit-transition: all .4s ease;
-  -moz-transition: all .4s ease;
-  -o-transition: all .4s ease;
-  -ms-transition: all .4s ease;
   transition: all .4s ease;
 }
 #first_toggle:checked ~ .toggle_option_slider {
@@ -868,3 +855,4 @@ label.third_toggle {
 .panel-wrapper {
   padding: 0;
 }
+/*# sourceMappingURL=custom.css.map */
