@@ -4,9 +4,19 @@
 	padding: 10px;
 
 	.controls{
-		padding-bottom: 10px;
-		margin-bottom: 10px;
-		border-bottom: 1px solid @gray-lighter;
+		// padding-bottom: 10px;
+		// margin-bottom: 10px;
+		// border-bottom: 1px solid @gray-lighter;
+		background-color: @brand-primary;
+		padding: 10px;
+		border-radius: 20px;
+		width: 95px;
+  		text-align: center;
+		&.mapView{
+			position: absolute;
+			top: 10px;		
+			left: 10px;		
+		}
 		ul{
 			list-style-type: none;
 			.prop-type{
@@ -20,6 +30,36 @@
 				}
 				&.active{
 					color: @brand-primary;
+				}
+			}
+		}
+	}
+	.legend{
+		float: right;
+		padding: 10px 0;
+		ul{
+			list-style: none;
+			li{
+				display: inline-block;
+				margin-left: 20px;
+				font-size: 12px;
+				color: @gray;
+				&::before{
+					height: 12px;
+					width: 25px;
+					border: 1px solid @gray;
+					content: '';
+					display: inline-block;
+					margin-right: 5px;
+				}
+				&.sold::before{
+					background-color: @danger;
+				}
+				&.blocked::before{
+					background-color: @warning;
+				}
+				&.na::before{
+					background-color: @gray-lighter;
 				}
 			}
 		}
