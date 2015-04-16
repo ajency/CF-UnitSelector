@@ -1,7 +1,8 @@
 <html>
     <head>
         <link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
-        <title>CommonFloor Apartment Selector</title>
+        <title>CommonFloor UnitSelector</title>
+        <link rel="icon" type="image/png" href="../CommonFloor/public/images/others/fevicon.ico">
         <style>
             body {
                 margin: 0;

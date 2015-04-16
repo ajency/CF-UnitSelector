@@ -290,11 +290,12 @@ function setUpProjectMasterUploader(){
 
         var uploadBtnId = _.uniqueId('upload-btn-');
         var uploadBtn = div.find('.master_uploadfiles').attr('id', uploadBtnId);
-
+        var objectType = uploadBtn.closest('.object-master-images').attr('data-object-type');
+        var objectId = uploadBtn.closest('.object-master-images').attr('data-object-id');
         var uploader = new plupload.Uploader({
             runtimes: 'html5,flash,silverlight,html4',
             browse_button: selectBtnId, // you can pass in id...
-            url: BASEURL  + '/admin/project/' + PROJECTID + '/media',
+            url: BASEURL  + '/admin/'+ objectType +'/' + objectId + '/media',
             flash_swf_url: BASEURL  + '/bower_components/plupload/js/Moxie.swf',
             silverlight_xap_url: BASEURL  + '/bower_components/plupload/js/Moxie.xap',
             headers: {
@@ -302,7 +303,8 @@ function setUpProjectMasterUploader(){
             },
             multipart_params: {
                 "type": "master",
-                "section" : divName
+                "section" : divName,
+                "projectId" : PROJECTID
             },
             filters: {
                 max_file_size: '10mb',
