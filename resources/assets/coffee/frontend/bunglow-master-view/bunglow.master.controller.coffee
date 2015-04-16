@@ -76,7 +76,7 @@ class LeftBunglowMasterView extends Marionette.ItemView
 		'mouseover .row' :(e)->
 			id = @model.get('id')
 			$('#'+id).attr('class' ,'layer '+@model.get('status'))
-			
+
 		'mouseout .row' :(e)->
 			$('.layer').attr('class' ,'layer') 
 		'click .row' :(e)->
@@ -131,7 +131,8 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 		<div class="controls">
               <div >
-                <a href="#/master-view/bunglows"> Map View</a> |<a href="#/list-view/bunglows"> 
+                <a href="#/master-view/bunglows"> Map View</a> |
+                	<a class="list" href="#"> 
                 List View</a>
               </div>
               <div class="clearfix"></div>
@@ -156,6 +157,9 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		
 
 	events :
+		'click .list':(e)->
+			e.preventDefault()
+			CommonFloor.checkListView()
 		'click #prev':->
 			@setDetailIndex(@currentBreakPoint - 1);
 
@@ -290,3 +294,16 @@ class CommonFloor.CenterBunglowMasterCtrl extends Marionette.RegionController
 	initialize:->
 		@show new CommonFloor.CenterBunglowMasterView
 				model :project
+
+class CommonFloor.MiddleBunglowMasterView extends Marionette.EmptyView
+
+	template : ''
+
+
+
+
+class CommonFloor.MiddleBunglowMasterCtrl extends Marionette.RegionController
+
+	initialize:->
+		@show new CommonFloor.MiddleBunglowMasterView
+				
