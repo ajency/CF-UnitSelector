@@ -250,8 +250,7 @@ class ProjectBunglowVariantController extends Controller {
         
         $str='<div class="m-t-10">';
         $str.='<div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 text-grey">';	
-        $str.='<h5 class="semi-bold inline">'.$roomType->name.'</h5>';
-        $str.='<div class="row">';
+          $str.='<div class="row">';
          foreach($attributes as $attribute)
         {
             $str.='<div class="col-md-4">';
