@@ -46,19 +46,6 @@ class CenterItemView extends Marionette.ItemView
 			console.log types
 
 
-	
-		
-
-
-
-
-
-
-
-
-
-
-
 class CenterBuildingListView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-12 us-right-content">
