@@ -86,7 +86,7 @@
                         <div class="row">
                             <div  class="col-md-4">{{ $i }}</div>
                             <div class="col-md-4">
-                                <select>
+                                <select required="" name="floors[{{ $i }}]">
                                     <option>Choose floor layout</option>
                                     @foreach($floorLayouts as $floorLayout)
                                     <option value="{{ $floorLayout->id }}" > {{ $floorLayout->layout_name }} </option>
