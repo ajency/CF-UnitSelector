@@ -76,6 +76,7 @@ class LeftBunglowMasterView extends Marionette.ItemView
 		'mouseover .row' :(e)->
 			id = @model.get('id')
 			$('#'+id).attr('class' ,'layer '+@model.get('status'))
+			
 		'mouseout .row' :(e)->
 			$('.layer').attr('class' ,'layer') 
 		'click .row' :(e)->
