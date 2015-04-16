@@ -16,4 +16,16 @@ class BunglowVariantCollection extends Backbone.Collection
 		# @set BunglowData
 		bunglowVariantCollection.reset data
 
+	getBunglowUnits:()->
+		units = []
+		newUnits = []
+		bunglowVariantCollection.each (model)->
+			bunglowUnits = unitCollection.where
+				unit_variant_id : model.get('id')
+			units.push  bunglowUnits
+		$.each units,(index,value)->
+			newUnits = $.merge(newUnits , value)
+
+		newUnits
+
 window.bunglowVariantCollection  = new BunglowVariantCollection;

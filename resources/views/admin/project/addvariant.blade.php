@@ -68,12 +68,11 @@
                 @foreach($project_property_type_attributes as $attributes)
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">{{$attributes['label']}}</label>
-                         <?php
-                         
-                        ?>
+                        <label class="form-label">{{$attributes['label']}}</label> 
                         @if('textbox' === $attributes['control_type'])
                         <input type="text" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]"  placeholder="Enter {{$attributes['label']}}">
+                         @elseif('number' === $attributes['control_type'])
+                        <input type="number" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]" value="" placeholder="Enter {{$attributes['label']}}">
                         @elseif('select' === $attributes['control_type'])
                         <?php
                         $options = explode(',', $attributes['defaults']);

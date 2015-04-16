@@ -38,11 +38,57 @@
       success: function(response) {
         response = window.convertToInt(response);
         response = response.data;
+        if (response.apartment_variants.length !== 0) {
+          response.units = [
+            {
+              "id": 1,
+              "unit_name": "Cullen Rowland",
+              "building_id": 1,
+              "unit_variant_id": 4,
+              "facing": 1,
+              "views": 5,
+              "position": 7,
+              "status": 3,
+              "floor": 6
+            }, {
+              "unit_id": 2,
+              "unit_name": "Colby Walters",
+              "building_id": 1,
+              "unit_variant_id": 5,
+              "facing": 2,
+              "views": 4,
+              "position": 2,
+              "status": 2,
+              "floor": 7
+            }, {
+              "unit_id": 3,
+              "unit_name": "Merritt Garner",
+              "building_id": 3,
+              "unit_variant_id": 4,
+              "facing": 1,
+              "views": 9,
+              "position": 3,
+              "status": 1,
+              "floor": 7
+            }, {
+              "unit_id": 4,
+              "unit_name": "Quentin Whitney",
+              "building_id": 3,
+              "unit_variant_id": 4,
+              "facing": 8,
+              "views": 3,
+              "position": 3,
+              "status": 2,
+              "floor": 2
+            }
+          ];
+        }
         bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants);
         settings.setSettingsAttributes(response.settings);
         unitCollection.setUnitAttributes(response.units);
         unitTypeCollection.setUnitTypeAttributes(response.unit_types);
-        return buildingCollection.setBuildingAttributes(response.buildings);
+        buildingCollection.setBuildingAttributes(response.buildings);
+        return apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants);
       },
       error: function(response) {
         return console.log("aaaaaaaaaaassdff");
@@ -55,7 +101,11 @@
     Router = [];
     Router.push({
       'type': 'bunglows',
-      'count': CommonFloor.getBunglowUnits()
+      'count': bunglowVariantCollection.getBunglowUnits()
+    });
+    Router.push({
+      'type': 'building',
+      'count': apartmentVariantCollection.getApartmentUnits()
     });
     console.log(Router);
     controller = _.max(Router, function(item) {
@@ -68,24 +118,11 @@
     var controller;
     CommonFloor.loadJSONData();
     controller = CommonFloor.propertyMaxUnits();
-    return CommonFloor.navigate('#/master-view/' + controller.type, true);
-  };
-
-  CommonFloor.getBunglowUnits = function() {
-    var newUnits, units;
-    units = [];
-    newUnits = [];
-    bunglowVariantCollection.each(function(model) {
-      var bunglowUnits;
-      bunglowUnits = unitCollection.where({
-        unit_variant_id: model.get('id')
-      });
-      return units.push(bunglowUnits);
-    });
-    $.each(units, function(index, value) {
-      return newUnits = $.merge(newUnits, value);
-    });
-    return newUnits;
+    if (project.get('project_master').front === "") {
+      return CommonFloor.navigate('#/list-view/' + controller.type, true);
+    } else {
+      return CommonFloor.navigate('#/master-view/' + controller.type, true);
+    }
   };
 
   window.convertToInt = function(response) {
