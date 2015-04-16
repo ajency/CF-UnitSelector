@@ -16,6 +16,8 @@ class CreateBuildingsTable extends Migration {
             $table->string( 'building_name', 150 );
             $table->integer( 'phase_id' );
             $table->integer( 'no_of_floors' );
+            $table->text( 'floors' );
+            $table->text( 'building_master' );
             $table->timestamps();
         } );
     }
