@@ -100,6 +100,11 @@ CommonFloor.checkPropertyType = ()->
 	else
 		CommonFloor.navigate '#/master-view/'+controller.type , true
 
+#function to load the default controller
+CommonFloor.checkListView = ()->
+	controller = CommonFloor.propertyMaxUnits()
+	CommonFloor.navigate '#/list-view/'+controller.type , true
+
 
 #funtion to convert string into integers
 window.convertToInt = (response)->

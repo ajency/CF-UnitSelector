@@ -188,12 +188,28 @@
         });
       }
     });
-    return $('.floor-layout-unit-types').change(function() {
-      var unitTypeId;
-      unitTypeId = $(this).val();
-      $(this).closest('.row').find('[name="unit_variant_id"] option').hide();
-      $(this).closest('.row').find('[name="unit_variant_id"]').find("unittype-" + unitTypeId).show();
-      return $(this).closest('.row').find('[name="unit_variant_id"]').select2();
+    return $('.update-building').click(function() {
+      var buildingId, form, updateSection, values;
+      form = $(this).closest('form');
+      form.parsley().validate();
+      if (!form.parsley().isValid()) {
+        return true;
+      }
+      updateSection = form.find('[name="update_section"]').val();
+      values = form.serializeArray();
+      buildingId = $(this).attr('data-building-id');
+      return $.ajax({
+        url: BASEURL + "/admin/project/" + PROJECTID + "/building/" + buildingId,
+        type: 'PUT',
+        data: values,
+        success: function(resp) {
+          if (updateSection === 'building') {
+            window.location.reload();
+            return;
+          }
+          return alert('saved successfully');
+        }
+      });
     });
   });
 

@@ -175,7 +175,7 @@
       return CenterBunglowMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="controls"> <div > <a href="#/master-view/bunglows"> Map View</a> |<a href="#/list-view/bunglows"> List View</a> </div> <div class="clearfix"></div> </div> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
+    CenterBunglowMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="controls"> <div > <a href="#/master-view/bunglows"> Map View</a> | <a class="list" href="#"> List View</a> </div> <div class="clearfix"></div> </div> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
 
     CenterBunglowMasterView.prototype.initialize = function() {
       this.currentBreakPoint = "";
@@ -183,6 +183,10 @@
     };
 
     CenterBunglowMasterView.prototype.events = {
+      'click .list': function(e) {
+        e.preventDefault();
+        return CommonFloor.checkListView();
+      },
       'click #prev': function() {
         return this.setDetailIndex(this.currentBreakPoint - 1);
       },
@@ -309,6 +313,34 @@
     };
 
     return CenterBunglowMasterCtrl;
+
+  })(Marionette.RegionController);
+
+  CommonFloor.MiddleBunglowMasterView = (function(superClass) {
+    extend(MiddleBunglowMasterView, superClass);
+
+    function MiddleBunglowMasterView() {
+      return MiddleBunglowMasterView.__super__.constructor.apply(this, arguments);
+    }
+
+    MiddleBunglowMasterView.prototype.template = '';
+
+    return MiddleBunglowMasterView;
+
+  })(Marionette.EmptyView);
+
+  CommonFloor.MiddleBunglowMasterCtrl = (function(superClass) {
+    extend(MiddleBunglowMasterCtrl, superClass);
+
+    function MiddleBunglowMasterCtrl() {
+      return MiddleBunglowMasterCtrl.__super__.constructor.apply(this, arguments);
+    }
+
+    MiddleBunglowMasterCtrl.prototype.initialize = function() {
+      return this.show(new CommonFloor.MiddleBunglowMasterView);
+    };
+
+    return MiddleBunglowMasterCtrl;
 
   })(Marionette.RegionController);
 

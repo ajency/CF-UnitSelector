@@ -123,14 +123,14 @@ class LeftBunglowUnitView extends Marionette.ItemView
 
 		$.each floor,(index,value)->
 			rooms = []
-			$.each value,(ind,val)->
+			$.each value.rooms_data,(ind,val)->
 				rooms.push 
 					'room_name' : val.room_name
 			
 			levels.push 
 				'level_name' : 'Level  '+ index
 				'rooms'			 : rooms
-		console.log levels
+		
 		unitType = unitTypeCollection.findWhere
 								'id' :  unitVariant.get('unit_type_id')
 		data.area = unitVariant.get('super_build_up_area')

@@ -186,13 +186,41 @@
     CenterBunglowListCtrl.prototype.initialize = function() {
       var newUnits, unitsCollection;
       newUnits = bunglowVariantCollection.getBunglowUnits();
-      console.log(unitsCollection = new Backbone.Collection(newUnits));
+      unitsCollection = new Backbone.Collection(newUnits);
       return this.show(new CenterCompositeView({
         collection: unitsCollection
       }));
     };
 
     return CenterBunglowListCtrl;
+
+  })(Marionette.RegionController);
+
+  CommonFloor.MiddleBunglowMasterView = (function(superClass) {
+    extend(MiddleBunglowMasterView, superClass);
+
+    function MiddleBunglowMasterView() {
+      return MiddleBunglowMasterView.__super__.constructor.apply(this, arguments);
+    }
+
+    MiddleBunglowMasterView.prototype.template = '';
+
+    return MiddleBunglowMasterView;
+
+  })(Marionette.ItemView);
+
+  CommonFloor.MiddleBunglowMasterCtrl = (function(superClass) {
+    extend(MiddleBunglowMasterCtrl, superClass);
+
+    function MiddleBunglowMasterCtrl() {
+      return MiddleBunglowMasterCtrl.__super__.constructor.apply(this, arguments);
+    }
+
+    MiddleBunglowMasterCtrl.prototype.initialize = function() {
+      return this.show(new CommonFloor.MiddleBunglowMasterView);
+    };
+
+    return MiddleBunglowMasterCtrl;
 
   })(Marionette.RegionController);
 
