@@ -182,7 +182,7 @@
         });
       });
       data.levels = levels;
-      data.external_url = unitVariant.get('external_3durl');
+      data.external_url = unitVariant.get('external3durl');
       return data;
     };
 
