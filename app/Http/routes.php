@@ -61,6 +61,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
 Route::group( ['prefix' => 'api/v1'], function() {
     Route::resource( 'project', 'Rest\ProjectController', ['only' => ['index', 'show']] );
     Route::get( 'project/{id}/step-two', 'Rest\ProjectController@stepTwo' );
+    Route::resource('buildings.floor-layouts', 'Rest\BuildingFloorLayoutController');
 } );
 
 /**
