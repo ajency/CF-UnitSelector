@@ -7,9 +7,7 @@
         <title>CommonFloor UnitSelector</title>
 
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-<link rel="icon" 
-      type="image/png" 
-      href="../CommonFloor/public/images/others/fevicon.ico">
+<link rel="icon" type="image/png" href="../CommonFloor/public/images/others/fevicon.ico">
         <!-- Fonts -->
         <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
 
