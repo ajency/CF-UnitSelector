@@ -79,26 +79,26 @@ class LeftBunglowUnitView extends Marionette.ItemView
 								
 								{{#levels}}
 								<h4 class="m-b-0 m-t-20">{{level_name}}</h4>
-								<div class="blck-wrap title-row">
+								<!--<div class="blck-wrap title-row">
 									<div class="row">
 										<div class="col-sm-4">
 											<h5 class="accord-head">Rooms</h5>                      
 										</div>
-										<!--<div class="col-sm-4">
+										<div class="col-sm-4">
 											<h5 class="accord-head">No</h5>                      
 										</div>
 										<div class="col-sm-4">
 											<h5 class="accord-head">Area</h5>                      
-										</div>-->
+										</div>
 									</div>
-								</div>
+								</div>-->
 								{{#rooms}}
-								<div class="blck-wrap">
+								<div class="blck-wrap title-row">
 									<div class="row">
 										<div class="col-sm-4">
-											<h6>{{room_name}}</h6>  
+											<h5 class="accord-head">{{room_name}}</h5>  
 											{{#attributes}}  
-											<div>{{attribute}}</div>:<div>{{value}}</div>  
+											<label>{{attribute}}</label>: {{value}} 
 											{{/attributes}}                    
 										</div>
 										<!--<div class="col-sm-4">
