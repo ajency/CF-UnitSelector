@@ -8,6 +8,7 @@ use CommonFloor\Project;
 use CommonFloor\ProjectPropertyType;
 use CommonFloor\UnitVariant;
 use CommonFloor\UnitType;
+use CommonFloor\RoomType;
 use CommonFloor\Media;
 
 class ProjectApartmentVariantController extends Controller {
@@ -106,14 +107,16 @@ class ProjectApartmentVariantController extends Controller {
 
         $availableRoomTypes = $project->roomTypes()->get()->toArray();
         $variantRooms = $unitVariant->variantRoomAttributes()->get()->toArray();
-        $variantRoomArr = [];
+        $variantRoomArr[0] = [];
         $propertyTypeAttributes = ProjectPropertyType::find( $projectPropertyTypeId )->attributes->toArray();
         $roomTypeAttributes = [];
 
         $unitTypes = [];
         foreach ($variantRooms as $variantRoom) {
-            $variantRoomArr[][$variantRoom['id']]['ROOMTYPEID'] = $variantRoom['roomtype_id'];
-            $variantRoomArr[][$variantRoom['id']]['ATTRIBUTES'] = $variantRoom['variant_room_attributes'];
+            $variantRoomArr[0][$variantRoom['id']]['ROOMTYPEID'] = $variantRoom['roomtype_id'];
+            $variantRoomArr[0][$variantRoom['id']]['ATTRIBUTES'] = unserialize($variantRoom['variant_room_attributes']);
+            
+            $roomTypeAttributes[$variantRoom['roomtype_id']] = RoomType::find($variantRoom['roomtype_id'])->attributes->toArray();
         }
 
         $variantMeta = $unitVariant->variantMeta()->get()->toArray();
@@ -125,13 +128,13 @@ class ProjectApartmentVariantController extends Controller {
             $type = $metakey[1];
             $mediaId = $meta['meta_value'];
             if (is_numeric( $mediaId )) {
-                $media = Media::find( $mediaId )->image_name;
-                $imageName = $media->image_name;
+                $imageName = Media::find( $mediaId )->image_name;
+                 
                 $layouts[0][$type]['ID'] = $mediaId;
                 $layouts[0][$type]['IMAGE'] = url() . "/projects/" . $projectId . "/variants/" . $meta['unit_variant_id'] . "/" . $imageName;
             }
         }
-
+ 
 
         return view( 'admin.project.variants.apartment.edit' )
                         ->with( 'project', $project->toArray() )
