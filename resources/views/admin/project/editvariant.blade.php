@@ -151,7 +151,7 @@
                                 @endforeach
                             </select>
                             @if($j === count($roomTypes))
-                            <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this)"><i class="fa fa-plus"></i></button>
+                            <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this,{{ $unitVariant['id'] }})"><i class="fa fa-plus"></i></button>
                             @endif
                         </div>
                     </div>
@@ -214,43 +214,37 @@
                             </div> 
                         </div> 
                     </div>
-
-                    <div class="form-inline"> 
-                        <div class="row">
-
-                            </div>  
-
-                        <div class="col-md-4">
-                       <input type="hidden" name="variantroomid_{{$i}}" value="">
-                            <select name="room_name_{{$i}}" class="select2 form-control full-width">
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <input type="hidden" name="variantroomid_{{$i}}[]" value="">
+                            <select name="room_name_{{$i}}[]" class="select2 form-control" onchange="getRoomTypeAttributes(this,{{ $unitVariant['id'] }},{{$i}});">
                                 <option value="">Select Room</option>
                                 @foreach($room_type_arr as $room_type)
                                 <option value="{{$room_type['id']}}">{{$room_type['name']}}</option>
                                 @endforeach
                             </select>
-                       
-                       </div>  <div class="col-md-8">
-                            <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this)"><i class="fa fa-plus"></i></button>
-
-                   </div>
-
+                             
+                            <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this ,{{ $unitVariant['id'] }})"><i class="fa fa-plus"></i></button>
+                             
                         </div>
-
                     </div>
                     <div >
                       <!--Attributes-->  
                     </div>
-                </div> 
-                <div class="pull-right" id="addFloorlevel">  
+                    </div>
+                    <div class="pull-right" id="addFloorlevel">  
                     <input type="hidden" id="counter" name="counter" value="{{$i}}">
-                    <button type="button" class="btn btn-small btn-default" onclick="addFloorLevel();">Add Level</button>
-                </div>
-            </div>
+                    <button type="button" class="btn btn-small btn-default" onclick="addFloorLevel({{ $unitVariant['id'] }});">Add Level</button>
+                </div> 
+                </div> 
+               
             <div class="form-actions">  
                 <div class="pull-right">
                     <button onclick="saveRoomdetails({{$project['id']}},{{ $unitVariant['id'] }});" type="button" class="btn btn-primary btn-cons">Save</button>
                 </div>
-            </div>   
+            </div> 
+            </div>
+              
         </div>
     </div>
      </div>
