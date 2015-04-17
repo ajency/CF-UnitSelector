@@ -167,7 +167,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 									 </div>
 									 <div>
 										<h2 class="title">2D Layout</h2>
-										<div class="row">
+										<div class="row {{level}}">
 										{{#levels}}
                       						<div class="col-sm-6 m-b-20">
 												<img src="{{two_d}}">
@@ -202,13 +202,16 @@ class CenterBunglowUnitView extends Marionette.ItemView
 								'id' : unit.get('unit_variant_id')
 		levels = []
 		floor = unitVariant.get('floor')
-
+		level = ""
 		$.each floor,(index,value)->
 			rooms = []
 			levels.push 
 				'two_d' : value.url2dlayout_image
 				'three_d'			 : value.url3dlayout_image
 				'level_name' : 'Level '+index
+				level = s.replaceAll('Level '+index, " ", "_")
+		
+		data.level = level
 		data.levels = levels
 		data.external_url = unitVariant.get 'external3durl'
 		data
