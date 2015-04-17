@@ -2,15 +2,10 @@
 
 @section('content')
 
-<div class="page-title">
-	<h2>Room  <span class="semi-bold">Type</span></h2>
-</div>
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-
 <div class="page-title">	
     <h2>Attributes</h2>
 </div>
-
 <!--TODO PROPERTY ATTRIBUTES-->
 <!--<div class="grid simple">
     <div class="grid-title">
@@ -69,6 +64,7 @@
         <div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 m-b-10 text-grey">
             <div class="form-inline m-b-10 m-t-10">
                 <div class="form-group">
+                    <label>Room Name</label>
                     <input type="text" name="room_typename_{{$roomtypeId}}" class="form-control" value="{{$roomtype['NAME']}}">
                 </div>
             </div>
@@ -76,7 +72,8 @@
             <div class="row" id="roomtypeattribute_{{$attributes['id']}}">
                 <div class="col-md-3">
                     <div class="form-group">
-                        <div class="">
+                        <div class="form-inline">
+                            
                             <input type="text" name="attribute_name_{{$roomtypeId}}" class="form-control" value="{{$attributes['label']}}" placeholder="Enter Attribute Name">
                             <input type="hidden" name="attribute_id_{{$roomtypeId}}" value="{{$attributes['id']}}">
                         </div>
@@ -85,6 +82,7 @@
                 <div class="col-md-4">
                     <div class="form-inline">
                         <div class="form-group full-width">
+
                             <select name="controltype_{{$roomtypeId}}" onchange="defaultBlock(this.value,{{$roomtypeId}});" class="full-width">
                                 <option value="">Select Controls Type</option>
                                 <option value="textbox" @if($attributes['control_type']=='textbox'){{'selected'}}@endif> Text Box</option>
@@ -112,6 +110,7 @@
                 <div class="col-md-3">
                     <div class="form-group">
                         <div class="">
+                            <label>Attribute Name</label>
                             <input type="text" name="attribute_name_{{$roomtypeId}}" class="form-control" placeholder="Enter Attribute Name">
                             <input type="hidden" name="attribute_id_{{$roomtypeId}}" value="">
                         </div>
@@ -120,6 +119,7 @@
                 <div class="col-md-4">
                     <div class="form-inline">
                         <div class="form-group full-width">
+                            <label>Control Type</label>
                             <select name="controltype_{{$roomtypeId}}" onchange="defaultBlock(this.value,{{$roomtypeId}});" class="full-width">
                                 <option value="">Select Controls Type</option>
                                 <option value="textbox" > Text Box</option>

@@ -16,7 +16,7 @@
                 <div class="form-inline">
                     <div class="form-group">
                         <input type="text" class="form-control phase-name" placeholder="Add Phase">
-                        <button type="button" class="btn btn-white add-phase-btn"><i class="fa fa-plus"></i></button>
+                        <button type="button" class="btn btn-small btn-primary add-phase-btn"><i class="fa fa-save"></i> Save</button>
                     </div>
                 </div>
 
