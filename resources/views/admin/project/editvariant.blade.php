@@ -174,20 +174,18 @@
                     <div class="form-inline"> 
                         <div class="row">
                         <div class="col-md-4">
-                        <div class="form-group full-width">
-                            <input type="hidden" name="variantroomid_{{$i}}" value="">
-                            <div class="full-width">
-                            <select name="room_name_{{$i}}" class="select2 form-control">
+                       <input type="hidden" name="variantroomid_{{$i}}" value="">
+                            <select name="room_name_{{$i}}" class="select2 form-control full-width">
                                 <option value="">Select Room</option>
                                 @foreach($room_type_arr as $room_type)
                                 <option value="{{$room_type['id']}}">{{$room_type['name']}}</option>
                                 @endforeach
                             </select>
-                            <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this)"><i class="fa fa-plus"></i></button>
-                        </div>
-                        </div> 
                        
-</div>  <div class="col-md-8"></div>
+                       </div>  <div class="col-md-8">
+                            <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this)"><i class="fa fa-plus"></i></button>
+
+                   </div>
                     </div>
 </div>
                 </div> 
