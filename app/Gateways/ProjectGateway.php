@@ -52,10 +52,12 @@ class ProjectGateway implements ProjectGatewayInterface {
 
         $projectPropertyTypes = \CommonFloor\Project::find($projectId)->projectPropertyTypes()->get()->toArray();
         $projectPropertyTypeIds =[];
+        $propertyTypes =[];
         foreach($projectPropertyTypes as $projectPropertyType)
         {
             $propertTypename = property_type_slug(get_property_type( $projectPropertyType['property_type_id'] ));
             $projectPropertyTypeIds [$propertTypename] = $projectPropertyType['id'];
+            $propertyTypes[$projectPropertyType['id']] =get_property_type( $projectPropertyType['property_type_id'] );
         }
  
         $unitTypes = \CommonFloor\UnitType::whereIn( 'project_property_type_id', $projectPropertyTypeIds )->get();
@@ -96,6 +98,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             'bunglow_variants' => $bunglowVariantData,
             'apartment_variants' => $appartmentVariantData,
             'plot_variants' => [],
+            'property_types' => $propertyTypes,
             'settings' => $this->projectSettings($projectId),
             'units' => \CommonFloor\Unit::whereIn('unit_variant_id', $variantIds)->get()->toArray(),
 
