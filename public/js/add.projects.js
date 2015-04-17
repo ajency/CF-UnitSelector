@@ -209,9 +209,9 @@
         }
       });
     });
-    return $('.apartment-unit-building').change(function() {
+    $('.apartment-unit-building').change(function() {
       var buildingId, floorSelection, i, j, noOfFloors, ref, results;
-      $(this).closest('.row').find('.select-floor, .select-position').addClass('hidden');
+      $(this).closest('.row').find('.select-floor').addClass('hidden');
       buildingId = $(this).val();
       if (buildingId.trim() === '') {
         return;
@@ -228,6 +228,19 @@
         results.push(floorSelection.append("<option value='" + (i + 1) + "'>" + (i + 1) + "</option>"));
       }
       return results;
+    });
+    return $('.apartment-unit-floor-no').change(function() {
+      var buildingId, floorNo;
+      floorNo = $(this).val();
+      buildingId = $('.apartment-unit-building').select2('val');
+      return $.ajax({
+        url: BASEURL + "/api/v1/buildings/" + buildingId + "/floor-layout",
+        type: 'GET',
+        data: {
+          floor_no: floorNo
+        },
+        success: function(resp) {}
+      });
     });
   });
 

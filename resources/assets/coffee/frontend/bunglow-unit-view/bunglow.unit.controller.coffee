@@ -96,7 +96,10 @@ class LeftBunglowUnitView extends Marionette.ItemView
 								<div class="blck-wrap">
 									<div class="row">
 										<div class="col-sm-4">
-											<h6>{{room_name}}</h6>                      
+											<h6>{{room_name}}</h6>  
+											{{#attributes}}  
+											<div>{{attribute}}</div>:<div>{{value}}</div>  
+											{{/attributes}}                    
 										</div>
 										<!--<div class="col-sm-4">
 											<h6 class="">{{size}}sqft</h6>                      
@@ -124,8 +127,15 @@ class LeftBunglowUnitView extends Marionette.ItemView
 		$.each floor,(index,value)->
 			rooms = []
 			$.each value.rooms_data,(ind,val)->
+				attributes = []
+				$.each val.atributes,(ind_att,val_att)->
+					console.log val_att
+					attributes.push
+						'attribute' : s.capitalize val_att.attribute_key
+						'value' : val_att.attribute_value
 				rooms.push 
 					'room_name' : val.room_name
+					'attributes' : attributes
 			
 			levels.push 
 				'level_name' : 'Level  '+ index
@@ -151,10 +161,10 @@ class CenterBunglowUnitView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 						<div class="svg-area">
 							<div class="liquid-slider" id="slider-id">
-									 <!--<div>
+									 <div>
 											<h2 class="title">External 3D</h2>
-											<img src="../../images/step3.png">
-									 </div>-->
+											<img src="{{external_url}}">
+									 </div>
 									 <div>
 										<h2 class="title">2D Layout</h2>
 										<div class="row">
@@ -199,8 +209,8 @@ class CenterBunglowUnitView extends Marionette.ItemView
 				'two_d' : value.url2dlayout_image
 				'three_d'			 : value.url3dlayout_image
 				'level_name' : 'Level '+index
-		console.log levels
 		data.levels = levels
+		data.external_url = unitVariant.get 'external3durl'
 		data
 		
 
