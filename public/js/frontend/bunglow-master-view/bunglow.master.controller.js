@@ -30,7 +30,7 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.checkPropertyType();
       }
-      if (bunglowVariantCollection.length !== 0 && project.get('project_master').front !== "") {
+      if (project.get('project_master').front !== "") {
         return this.show(new CommonFloor.BunglowMasterView);
       } else {
         return this.show(new CommonFloor.NothingFoundView);
@@ -122,7 +122,7 @@
       'click .row': function(e) {
         if (this.model.get('status') === 'available') {
           CommonFloor.defaults['unit'] = this.model.get('id');
-          return CommonFloor.navigate('/bunglows/unit-view/' + this.model.get('id'), true);
+          return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
         }
       }
     };

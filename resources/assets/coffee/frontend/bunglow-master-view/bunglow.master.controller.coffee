@@ -11,7 +11,7 @@ class CommonFloor.BunglowMasterCtrl extends Marionette.RegionController
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID);
 			CommonFloor.checkPropertyType()
-		if bunglowVariantCollection.length != 0 && project.get('project_master').front  != ""
+		if  project.get('project_master').front  != ""
 			@show new CommonFloor.BunglowMasterView
 		else
 			@show new CommonFloor.NothingFoundView
@@ -82,7 +82,7 @@ class LeftBunglowMasterView extends Marionette.ItemView
 		'click .row' :(e)->
 			if @model.get('status') == 'available'
 				CommonFloor.defaults['unit'] = @model.get('id')
-				CommonFloor.navigate '/bunglows/unit-view/'+@model.get('id') , true
+				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
 
 class LeftBunglowMasterCompositeView extends Marionette.CompositeView
 

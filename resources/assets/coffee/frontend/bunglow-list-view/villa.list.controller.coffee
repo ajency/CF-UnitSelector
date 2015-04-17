@@ -30,7 +30,7 @@ class CenterBunglowListView extends Marionette.ItemView
 		'click .unit' :(e)->
 				if @model.get('status') == 'available'
 					CommonFloor.defaults['unit'] = @model.get('id')
-					CommonFloor.navigate '/bunglows/unit-view/'+@model.get('id') , true
+					CommonFloor.navigate '/unit-view/'+@model.get('id') , true
 
 
 
@@ -43,7 +43,7 @@ class CenterCompositeView extends Marionette.CompositeView
 									<div class="list-view-container">
 							            <div class="controls mapView">
 								            <div class="toggle">
-								            	<a href="#/master-view/bunglows" class="map">Map</a><a href="#/list-view/bunglows" class="list active">List</a>
+								            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
 								            </div>
 							            </div>
 							            <div class="text-center">
@@ -72,12 +72,23 @@ class CenterCompositeView extends Marionette.CompositeView
 
 	events : 
 		'click .buildings':(e)->
-			console.log @region =  new Marionette.Region el : '#centerregion'
+			units = apartmentVariantCollection.getApartmentUnits()
+			data = {}
+			data.units = units
+			data.type = 'building'
+			
+			@region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.CenterBuildingListCtrl region : @region
+			CommonFloor.BunglowListCtrl.prototype.trigger "load:units" , data
 
 		'click .Villas':(e)->
-			console.log @region =  new Marionette.Region el : '#centerregion'
+			units = bunglowVariantCollection.getBunglowUnits()
+			data = {}
+			data.units = units
+			data.type = 'villa'
+			@region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.ListCtrl region : @region
+			CommonFloor.BunglowListCtrl.prototype.trigger "load:units" , data
 
 	onShow:->
 		if project.get('project_master').front  == ""

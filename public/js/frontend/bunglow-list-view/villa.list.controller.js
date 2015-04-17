@@ -37,7 +37,7 @@
       'click .unit': function(e) {
         if (this.model.get('status') === 'available') {
           CommonFloor.defaults['unit'] = this.model.get('id');
-          return CommonFloor.navigate('/bunglows/unit-view/' + this.model.get('id'), true);
+          return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
         }
       }
     };
@@ -53,7 +53,7 @@
       return CenterCompositeView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterCompositeView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <div class="list-view-container"> <div class="controls mapView"> <div class="toggle"> <a href="#/master-view/bunglows" class="map">Map</a><a href="#/list-view/bunglows" class="list active">List</a> </div> </div> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings hidden">buildings</li> <li class="prop-type Villas active ">Villas/Bungalows</li> <li class="prop-type Plots hidden">Plots</li> </ul> </div> <div class="legend"> <ul> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> </ul> </div> <div class="villa-list"> <ul class="units"> </ul> </div> </div> </div>');
+    CenterCompositeView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <div class="list-view-container"> <div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings hidden">buildings</li> <li class="prop-type Villas active ">Villas/Bungalows</li> <li class="prop-type Plots hidden">Plots</li> </ul> </div> <div class="legend"> <ul> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> </ul> </div> <div class="villa-list"> <ul class="units"> </ul> </div> </div> </div>');
 
     CenterCompositeView.prototype.childView = CenterBunglowListView;
 
@@ -61,20 +61,32 @@
 
     CenterCompositeView.prototype.events = {
       'click .buildings': function(e) {
-        console.log(this.region = new Marionette.Region({
+        var data, units;
+        units = apartmentVariantCollection.getApartmentUnits();
+        data = {};
+        data.units = units;
+        data.type = 'building';
+        this.region = new Marionette.Region({
           el: '#centerregion'
-        }));
-        return new CommonFloor.CenterBuildingListCtrl({
+        });
+        new CommonFloor.CenterBuildingListCtrl({
           region: this.region
         });
+        return CommonFloor.BunglowListCtrl.prototype.trigger("load:units", data);
       },
       'click .Villas': function(e) {
-        console.log(this.region = new Marionette.Region({
+        var data, units;
+        units = bunglowVariantCollection.getBunglowUnits();
+        data = {};
+        data.units = units;
+        data.type = 'villa';
+        this.region = new Marionette.Region({
           el: '#centerregion'
-        }));
-        return new CommonFloor.ListCtrl({
+        });
+        new CommonFloor.ListCtrl({
           region: this.region
         });
+        return CommonFloor.BunglowListCtrl.prototype.trigger("load:units", data);
       }
     };
 
