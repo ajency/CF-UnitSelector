@@ -437,6 +437,44 @@ function setUpFloorLevelUploader(){
         uploader3d.init();
             
           });
+          
+          //EXTERNAL
+          
+          var uploader_ext3d = new plupload.Uploader({
+            runtimes: 'html5,flash,silverlight,html4',
+            browse_button: 'pickfiles_ext3d', // you can pass in id...
+            url: '/admin/variant/' + variantId + '/media',
+            flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+            silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+            headers: {
+                "x-csrf-token": $("[name=_token]").val()
+            },
+            multipart_params: {
+                 "level":'external',
+                "layout":"3d",
+                "projectId":PROJECTID
+            },
+            filters: {
+                max_file_size: '10mb',
+                mime_types: [{
+                        title: "Image files",
+                        extensions: "svg,jpg,png,jpeg"
+                    }]
+            },
+            init: {
+                PostInit: function () {
+                    document.getElementById('uploadfiles_ext3d').onclick = function () {
+                        uploader_ext3d.start();
+                        return false;
+                    };
+                },
+                FileUploaded: function (up, file, xhr) {
+                    fileResponse = JSON.parse(xhr.response);
+                    $("#ext3dlayout").html('<img src="'+fileResponse.data.image_path+'" class="img-responsive img-thumbnail">  <button onclick="deleteLayout('+fileResponse.data.media_id+');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
+                }
+            }
+        });
+        uploader_ext3d.init();
     
 
      
