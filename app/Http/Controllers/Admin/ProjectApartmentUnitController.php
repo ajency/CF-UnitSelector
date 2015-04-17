@@ -6,6 +6,7 @@ use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use CommonFloor\Project;
+use CommonFloor\Unit;
 
 class ProjectApartmentUnitController extends Controller {
 
@@ -62,8 +63,14 @@ class ProjectApartmentUnitController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit( $id ) {
-        //
+    public function edit( $projectId, $untiId ) {
+        $project = Project::find( $projectId );
+
+        $unit = Unit::find( $unitId );
+        return view( 'admin.project.unit.apartment.create' )
+                        ->with( 'project', $project->toArray() )
+                        ->with( 'current', 'apartment-unit' )
+                        ->with( 'unit', $unit );
     }
 
     /**
