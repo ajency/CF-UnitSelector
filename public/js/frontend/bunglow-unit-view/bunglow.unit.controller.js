@@ -63,7 +63,7 @@
     TopBunglowUnitCtrl.prototype.initialize = function() {
       var unit, unitid, url;
       url = Backbone.history.fragment;
-      unitid = parseInt(url.split('/')[2]);
+      unitid = parseInt(url.split('/')[1]);
       unit = unitCollection.findWhere({
         id: unitid
       });
@@ -89,7 +89,7 @@
       var data, floor, levels, unit, unitType, unitVariant, unitid, url;
       data = LeftBunglowUnitView.__super__.serializeData.call(this);
       url = Backbone.history.fragment;
-      unitid = parseInt(url.split('/')[2]);
+      unitid = parseInt(url.split('/')[1]);
       unit = unitCollection.findWhere({
         id: unitid
       });
@@ -153,7 +153,7 @@
       var data, floor, levels, unit, unitVariant, unitid, url;
       data = CenterBunglowUnitView.__super__.serializeData.call(this);
       url = Backbone.history.fragment;
-      unitid = parseInt(url.split('/')[2]);
+      unitid = parseInt(url.split('/')[1]);
       unit = unitCollection.findWhere({
         id: unitid
       });

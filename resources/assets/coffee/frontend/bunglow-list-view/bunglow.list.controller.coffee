@@ -33,23 +33,38 @@ class TopBunglowListView extends Marionette.ItemView
             </div>-->
 
             <div class="search-header-wrap">
-              <h1>We are now at {{project_title}}\'s upcoming project having {{units}} villa\'s</h1>
+              <h1>We are now at {{project_title}}\'s upcoming project having {{units}} {{type}}\'s</h1>
             </div>
           </div>
         </div>')
 
 	serializeData:->
 		data = super()
-		data.units = bunglowVariantCollection.getBunglowUnits().length
+		units = Marionette.getOption( @, 'units' )
+		type = Marionette.getOption( @, 'type' )
+		data.units  = units.length
+		data.type  = type
 		data
 
+
+
+	
 #controller for the top region
 class CommonFloor.TopBunglowListCtrl extends Marionette.RegionController
 
 	initialize:->
-		@show new TopBunglowListView 
-			model : project
+		@listenTo @parent() , "load:units" , @showViews
 
+	showViews:(data)->
+		@show new TopBunglowListView 
+				model : project
+				units : data.units
+				type: data.type
+			
+			
+		
+
+	
 
 #view for the Left setion
 class LeftBunglowListView extends Marionette.ItemView
@@ -71,13 +86,25 @@ class CommonFloor.LeftBunglowListCtrl extends Marionette.RegionController
 class CommonFloor.CenterBunglowListCtrl extends Marionette.RegionController
 
 	initialize:->
-		console.log response = CommonFloor.checkListView()
+		response = CommonFloor.checkListView()
 		if response.type is 'bunglows'
+			units = bunglowVariantCollection.getBunglowUnits()
+			data = {}
+			data.units = units
+			data.type = 'villa'
 			@region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.ListCtrl region : @region
+			@parent().trigger "load:units" , data
+
 		if response.type is 'building'
+			console.log @parent()
+			units = apartmentVariantCollection.getApartmentUnits()
+			data = {}
+			data.units = units
+			data.type = 'building'
 			@region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.CenterBuildingListCtrl region : @region
+			@parent().trigger "load:units" , data
 
 		
 			

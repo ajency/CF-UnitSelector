@@ -51,7 +51,7 @@ class CommonFloor.TopBunglowUnitCtrl extends Marionette.RegionController
 
 	initialize:->
 		url = Backbone.history.fragment
-		unitid = parseInt url.split('/')[2]
+		unitid = parseInt url.split('/')[1]
 		unit = unitCollection.findWhere
 			id  : unitid
 		@show new TopBunglowUnitView
@@ -113,7 +113,7 @@ class LeftBunglowUnitView extends Marionette.ItemView
 	serializeData:->
 		data = super()
 		url = Backbone.history.fragment
-		unitid = parseInt url.split('/')[2]
+		unitid = parseInt url.split('/')[1]
 		unit = unitCollection.findWhere
 			id  : unitid
 		unitVariant = bunglowVariantCollection.findWhere
@@ -185,7 +185,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 	serializeData:->
 		data = super()
 		url = Backbone.history.fragment
-		unitid = parseInt url.split('/')[2]
+		unitid = parseInt url.split('/')[1]
 		unit = unitCollection.findWhere
 			id  : unitid
 		unitVariant = bunglowVariantCollection.findWhere
