@@ -25,6 +25,7 @@
        <script>
             var BASEURL = '{{ url() }}';
             var FLOORLEVELS = [];
+            var variantId = 0;
         </script>
     <body>
         <!-- BEGIN HEADER -->
