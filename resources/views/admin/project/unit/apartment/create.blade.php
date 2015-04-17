@@ -25,7 +25,34 @@
     <div class="grid-body">
         <form action="{{ url('/admin/project/' . $project['id'] .'/apartment-unit') }}" method="POST" data-parsley-validate>
             <div class="row">
-                
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" name="unit_name" placeholder="Enter Name" data-parsley-required>
+                    </div> 
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Building</label>
+                        <select name="unit_variant" class="select2 form-control" data-parsley-required>
+                            <option value="">Select building</option>
+                            @foreach($buildings as $building)
+                            <option value="{{ $building->id }}">{{ $building->building_name }}</option>
+                            @endforeach
+                        </select>
+                    </div> 
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Unit Status</label>
+                        <select  class="select2 form-control" name="unit_status">
+                            <option value="available">Available</option>
+                            <option value="sold">Sold</option>
+                            <option value="not_released">Not Released</option>
+                            <option value="blocked">Blocked</option>
+                        </select>
+                    </div>
+                </div>
             </div>
             <div class="form-actions">  
                 <div class="pull-right">
