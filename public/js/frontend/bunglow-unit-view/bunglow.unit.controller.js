@@ -83,7 +83,7 @@
       return LeftBunglowUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="blck-wrap"> <h2 class="pull-left"><strong>{{unit_name}}</strong></h2> <!-- <span class="label label-success">For Sale</span> --> <div class="clearfix"></div> <div class="details"> <!--<div> <label>Starting Price:</label> Rs 1.3 crores </div>--> <div> {{type}} ({{area}} sqft) </div> </div> </div> <div class="advncd-filter-wrp unit-list"> {{#levels}} <h4 class="m-b-0 m-t-20">{{level_name}}</h4> <div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Rooms</h5> </div> <!--<div class="col-sm-4"> <h5 class="accord-head">No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div>--> </div> </div> {{#rooms}} <div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6>{{room_name}}</h6> </div> <!--<div class="col-sm-4"> <h6 class="">{{size}}sqft</h6> </div>--> </div> </div> {{/rooms}} {{/levels}} </div> </div> </div>');
+    LeftBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="blck-wrap"> <h2 class="pull-left"><strong>{{unit_name}}</strong></h2> <!-- <span class="label label-success">For Sale</span> --> <div class="clearfix"></div> <div class="details"> <!--<div> <label>Starting Price:</label> Rs 1.3 crores </div>--> <div> {{type}} ({{area}} sqft) </div> </div> </div> <div class="advncd-filter-wrp unit-list"> {{#levels}} <h4 class="m-b-0 m-t-20">{{level_name}}</h4> <div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Rooms</h5> </div> <!--<div class="col-sm-4"> <h5 class="accord-head">No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div>--> </div> </div> {{#rooms}} <div class="blck-wrap"> <div class="row"> <div class="col-sm-4"> <h6>{{room_name}}</h6> {{#attributes}} <h6>{{attribute}}</h6>:<h6>{{value}}</h6> {{/attributes}} </div> <!--<div class="col-sm-4"> <h6 class="">{{size}}sqft</h6> </div>--> </div> </div> {{/rooms}} {{/levels}} </div> </div> </div>');
 
     LeftBunglowUnitView.prototype.serializeData = function() {
       var data, floor, levels, unit, unitType, unitVariant, unitid, url;
@@ -102,8 +102,17 @@
         var rooms;
         rooms = [];
         $.each(value.rooms_data, function(ind, val) {
+          var attributes;
+          attributes = [];
+          $.each(attributes, function(ind_att, val_att) {
+            return attributes.push({
+              'attribute': val_att.attribute_key,
+              'value': val_att.attribute_value
+            });
+          });
           return rooms.push({
-            'room_name': val.room_name
+            'room_name': val.room_name,
+            'attributes': attributes
           });
         });
         return levels.push({

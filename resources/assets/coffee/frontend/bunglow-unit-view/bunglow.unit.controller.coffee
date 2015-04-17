@@ -96,7 +96,10 @@ class LeftBunglowUnitView extends Marionette.ItemView
 								<div class="blck-wrap">
 									<div class="row">
 										<div class="col-sm-4">
-											<h6>{{room_name}}</h6>                      
+											<h6>{{room_name}}</h6>  
+											{{#attributes}}  
+											<h6>{{attribute}}</h6>:<h6>{{value}}</h6>  
+											{{/attributes}}                    
 										</div>
 										<!--<div class="col-sm-4">
 											<h6 class="">{{size}}sqft</h6>                      
@@ -124,8 +127,14 @@ class LeftBunglowUnitView extends Marionette.ItemView
 		$.each floor,(index,value)->
 			rooms = []
 			$.each value.rooms_data,(ind,val)->
+				attributes = []
+				$.each attributes,(ind_att,val_att)->
+					attributes.push
+						'attribute' : val_att.attribute_key
+						'value' : val_att.attribute_value
 				rooms.push 
 					'room_name' : val.room_name
+					'attributes' : attributes
 			
 			levels.push 
 				'level_name' : 'Level  '+ index
