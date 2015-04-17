@@ -34,7 +34,9 @@ class UnitVariant extends Model {
             $roomTypename = $roomType->name;
             $projectId = $roomType->project_id;
             $atributes = unserialize($rooms['variant_room_attributes']);
-            $floorlevelData[$rooms['floorlevel']][] = array('room_id' => $rooms['roomtype_id'], 'room_name' => $roomTypename, $atributes);
+            $roomData = array('room_id' => $rooms['roomtype_id'], 'room_name' => $roomTypename);
+            $roomData += $atributes;
+            $floorlevelData[$rooms['floorlevel']][] = $roomData;
         }
  
         $variantMeta = $unitVariant->variantMeta()->get()->toArray();
