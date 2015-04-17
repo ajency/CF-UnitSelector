@@ -1,0 +1,63 @@
+
+/* Single Building SVG Area */
+.single-bldg{
+	.prev, .next{
+		position: absolute;
+		top: 50%;
+		display: block;
+		width: 40px;
+		height: 40px;
+		padding: 0;
+		cursor: pointer;
+		color: transparent;
+		border: none;
+		outline: none;
+		background: url(../../images/arrow.png);
+		background-size: contain;
+		background-repeat: no-repeat;
+		opacity: 0.5;
+		&:hover{
+			opacity: 1;
+		}
+	}
+	.prev{
+		left: 20px;
+		transform: rotate(180deg);
+	}
+	.next{
+		right: 35px;
+	}
+}
+
+/* Pop up Styles */
+.bldg_info{
+	background-color: @white;
+	cursor: pointer;
+	color: @gray;
+	.info{
+		border-bottom: 1px solid @gray-lighter;
+		padding-bottom: 5px;
+		div{
+			font-size: 12px;
+		}
+	}
+	.unit-type-info{
+		margin-top: 5px;
+		li{
+			font-size: 12px;
+			float: left;
+			text-align: center;
+			width: 50%;
+			&::after{
+				content: '|';
+				float: right;
+			}
+			&:nth-child(2n)::after{
+				content: '';
+			}
+			span{
+				color: @brand-primary;
+			}
+		}
+	}
+}
