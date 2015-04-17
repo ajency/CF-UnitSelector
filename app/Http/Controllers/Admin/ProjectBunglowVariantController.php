@@ -194,7 +194,7 @@ class ProjectBunglowVariantController extends Controller {
     }
 
     public function roomtypeAttributes($project_id, $id, Request $request) {
-        $data = $request->all();
+        $data = $request->all(); 
 
 
         //Floor Level

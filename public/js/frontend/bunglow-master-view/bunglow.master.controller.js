@@ -175,7 +175,7 @@
       return CenterBunglowMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container"> <div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
+    CenterBunglowMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container"> <div class="controls mapView"> <div class="toggle"> <a href="#" class="map">Map</a><a href="#" class="list">List</a> </div> </div> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
 
     CenterBunglowMasterView.prototype.initialize = function() {
       this.currentBreakPoint = "";
@@ -185,7 +185,11 @@
     CenterBunglowMasterView.prototype.events = {
       'click .list': function(e) {
         e.preventDefault();
-        return CommonFloor.checkListView();
+        return CommonFloor.navigate('/list-view', true);
+      },
+      'click .map': function(e) {
+        e.preventDefault();
+        return CommonFloor.navigate('/master-view', true);
       },
       'click #prev': function() {
         return this.setDetailIndex(this.currentBreakPoint - 1);
@@ -228,6 +232,12 @@
 
     CenterBunglowMasterView.prototype.onShow = function() {
       var response, svgs, transitionImages;
+      if (project.get('project_master').front === "") {
+        $('.mapView').hide();
+      } else {
+        $('.map').addClass('active');
+        $('.mapView').show();
+      }
       transitionImages = [];
       svgs = {};
       svgs[0] = project.get('project_master').front;
@@ -313,34 +323,6 @@
     };
 
     return CenterBunglowMasterCtrl;
-
-  })(Marionette.RegionController);
-
-  CommonFloor.MiddleBunglowMasterView = (function(superClass) {
-    extend(MiddleBunglowMasterView, superClass);
-
-    function MiddleBunglowMasterView() {
-      return MiddleBunglowMasterView.__super__.constructor.apply(this, arguments);
-    }
-
-    MiddleBunglowMasterView.prototype.template = '';
-
-    return MiddleBunglowMasterView;
-
-  })(Marionette.EmptyView);
-
-  CommonFloor.MiddleBunglowMasterCtrl = (function(superClass) {
-    extend(MiddleBunglowMasterCtrl, superClass);
-
-    function MiddleBunglowMasterCtrl() {
-      return MiddleBunglowMasterCtrl.__super__.constructor.apply(this, arguments);
-    }
-
-    MiddleBunglowMasterCtrl.prototype.initialize = function() {
-      return this.show(new CommonFloor.MiddleBunglowMasterView);
-    };
-
-    return MiddleBunglowMasterCtrl;
 
   })(Marionette.RegionController);
 

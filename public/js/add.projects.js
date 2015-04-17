@@ -188,7 +188,7 @@
         });
       }
     });
-    return $('.update-building').click(function() {
+    $('.update-building').click(function() {
       var buildingId, form, updateSection, values;
       form = $(this).closest('form');
       form.parsley().validate();
@@ -205,10 +205,41 @@
         success: function(resp) {
           if (updateSection === 'building') {
             window.location.reload();
-            return;
           }
-          return alert('saved successfully');
         }
+      });
+    });
+    $('.apartment-unit-building').change(function() {
+      var buildingId, floorSelection, i, j, noOfFloors, ref, results;
+      $(this).closest('.row').find('.select-floor').addClass('hidden');
+      buildingId = $(this).val();
+      if (buildingId.trim() === '') {
+        return;
+      }
+      floorSelection = $(this).closest('.row').find('.select-floor select');
+      noOfFloors = $(this).find('option[value="' + buildingId + '"]').attr('data-no-of-floors');
+      if (parseInt(noOfFloors) === 0) {
+        return;
+      }
+      $(this).closest('.row').find('.select-floor').removeClass('hidden');
+      floorSelection.empty();
+      results = [];
+      for (i = j = 0, ref = noOfFloors; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
+        results.push(floorSelection.append("<option value='" + (i + 1) + "'>" + (i + 1) + "</option>"));
+      }
+      return results;
+    });
+    return $('.apartment-unit-floor-no').change(function() {
+      var buildingId, floorNo;
+      floorNo = $(this).val();
+      buildingId = $('.apartment-unit-building').select2('val');
+      return $.ajax({
+        url: BASEURL + "/api/v1/buildings/" + buildingId + "/floor-layout",
+        type: 'GET',
+        data: {
+          floor_no: floorNo
+        },
+        success: function(resp) {}
       });
     });
   });

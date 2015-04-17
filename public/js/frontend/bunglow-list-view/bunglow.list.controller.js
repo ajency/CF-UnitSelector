@@ -24,9 +24,10 @@
     }
 
     BunglowListCtrl.prototype.initialize = function() {
+      console.log("aaaaaaaaaa");
       if (jQuery.isEmptyObject(project.toJSON())) {
         project.setProjectAttributes(PROJECTID);
-        CommonFloor.checkPropertyType();
+        CommonFloor.loadJSONData();
       }
       return this.show(new CommonFloor.BunglowListView);
     };
@@ -66,10 +67,12 @@
     }
 
     TopBunglowListCtrl.prototype.initialize = function() {
-      return this.listenTo(this.parent(), "load:units", this.showViews);
+      this.listenTo(this.parent(), "load:units", this.showViews);
+      return this.listenTo(Backbone, "load:units", this.showViews);
     };
 
     TopBunglowListCtrl.prototype.showViews = function(data) {
+      console.log(data);
       return this.show(new TopBunglowListView({
         model: project,
         units: data.units,
@@ -138,7 +141,7 @@
       }
       if (response.type === 'building') {
         console.log(this.parent());
-        units = apartmentVariantCollection.getApartmentUnits();
+        units = buildingCollection;
         data = {};
         data.units = units;
         data.type = 'building';

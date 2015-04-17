@@ -132,7 +132,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 									<div class="list-view-container">
 										<div class="controls mapView">
 								            <div class="toggle">
-								            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
+								            	<a href="#" class="map">Map</a><a href="#" class="list">List</a>
 								            </div>
 							            </div>
 										
@@ -158,7 +158,12 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 	events :
 		'click .list':(e)->
 			e.preventDefault()
-			CommonFloor.checkListView()
+			CommonFloor.navigate '/list-view' , true
+			
+		'click .map':(e)->
+			e.preventDefault()
+			CommonFloor.navigate '/master-view' , true
+			
 		'click #prev':->
 			@setDetailIndex(@currentBreakPoint - 1);
 
@@ -211,6 +216,12 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 
 	onShow:->
+		if project.get('project_master').front  == ""
+			$('.mapView').hide()
+		else
+			$('.map').addClass 'active'
+			$('.mapView').show()
+
 		# $('<div></div>').load(project.get('project_master').front).appendTo('.front')
 		# $('.us-right-content').imagesLoaded ->
 		# 	divHeight = $('.us-right-content').height()
@@ -294,15 +305,5 @@ class CommonFloor.CenterBunglowMasterCtrl extends Marionette.RegionController
 		@show new CommonFloor.CenterBunglowMasterView
 				model :project
 
-class CommonFloor.MiddleBunglowMasterView extends Marionette.EmptyView
 
-	template : ''
-
-
-
-
-class CommonFloor.MiddleBunglowMasterCtrl extends Marionette.RegionController
-
-	initialize:->
-		@show new CommonFloor.MiddleBunglowMasterView
 				

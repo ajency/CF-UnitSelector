@@ -34,9 +34,13 @@ class UnitVariant extends Model {
             $roomTypename = $roomType->name;
             $projectId = $roomType->project_id;
             $atributes = unserialize($rooms['variant_room_attributes']);
-            $roomData = array('room_id' => $rooms['roomtype_id'], 'room_name' => $roomTypename);
-            $roomData += $atributes;
-            $floorlevelData[$rooms['floorlevel']][] = $roomData;
+            $atributeData=[];
+            foreach($atributes as $key=>$attribute)
+            {
+                 $atributeData[]=array('attribute_key' => $key, 'attribute_value' => $attribute);
+            }
+ 
+            $floor[$rooms['floorlevel']]['rooms_data'][] = array('room_id' => $rooms['roomtype_id'], 'room_name' => $roomTypename, 'atributes'=>$atributeData);
         }
  
         $variantMeta = $unitVariant->variantMeta()->get()->toArray();
@@ -50,13 +54,14 @@ class UnitVariant extends Model {
             if( is_numeric($mediaId)){ 
                $media = Media::find($mediaId);
                $imageName = $media->image_name;
- 
-               $floor[$level]['url'.$type.'layout_image'] = url() . "/projects/" . $projectId . "/variants/" . $meta['unit_variant_id'] . "/". $imageName;
-               $floor[$level]['rooms_data'] = $floorlevelData[$level];
                
+               if($level=='external')
+                   $data['external3durl'] = url() . "/projects/" . $projectId . "/variants/" . $meta['unit_variant_id'] . "/". $imageName;
+               else
+                   $floor[$level]['url'.$type.'layout_image'] = url() . "/projects/" . $projectId . "/variants/" . $meta['unit_variant_id'] . "/". $imageName;
+                
             }
         }
-       
        $data['floor'] =  $floor; 
         
         

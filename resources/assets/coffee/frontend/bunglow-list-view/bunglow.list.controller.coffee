@@ -6,9 +6,10 @@ class CommonFloor.BunglowListView extends Marionette.LayoutView
 class CommonFloor.BunglowListCtrl extends Marionette.RegionController
 
 	initialize:->
+		console.log "aaaaaaaaaa"
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID);
-			CommonFloor.checkPropertyType()
+			CommonFloor.loadJSONData()
 		@show new CommonFloor.BunglowListView
 		
 		
@@ -55,7 +56,10 @@ class CommonFloor.TopBunglowListCtrl extends Marionette.RegionController
 	initialize:->
 		@listenTo @parent() , "load:units" , @showViews
 
+		@listenTo Backbone , "load:units" , @showViews
+
 	showViews:(data)->
+		console.log data
 		@show new TopBunglowListView 
 				model : project
 				units : data.units
@@ -87,7 +91,7 @@ class CommonFloor.CenterBunglowListCtrl extends Marionette.RegionController
 
 	initialize:->
 		response = CommonFloor.checkListView()
-		if response.type is 'bunglows'
+		if response.type is 'bunglows' 
 			units = bunglowVariantCollection.getBunglowUnits()
 			data = {}
 			data.units = units
@@ -96,9 +100,9 @@ class CommonFloor.CenterBunglowListCtrl extends Marionette.RegionController
 			new CommonFloor.ListCtrl region : @region
 			@parent().trigger "load:units" , data
 
-		if response.type is 'building'
+		if response.type is 'building' 
 			console.log @parent()
-			units = apartmentVariantCollection.getApartmentUnits()
+			units = buildingCollection
 			data = {}
 			data.units = units
 			data.type = 'building'

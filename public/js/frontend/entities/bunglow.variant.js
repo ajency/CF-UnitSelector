@@ -41,6 +41,7 @@
       $.each(units, function(index, value) {
         return newUnits = $.merge(newUnits, value);
       });
+      console.log(newUnits);
       return newUnits;
     };
 
