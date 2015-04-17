@@ -165,18 +165,6 @@ function addRoomtypeAttributes(roomtypeId,obj)
             
 }
 
-function saveRoomdetails(project_id,variantId)
-{   
-    $.ajax({
-        url: BASEURL+"/admin/project/" + project_id + "/bunglow-variant/"+variantId+"/roomtypeattributes",
-        type: "POST",
-        data: $("#formroomdetails").serializeArray(),
-        success: function (response) {
-            // window.location.reload();
-        }
-    });
-}
-
 function saveRoomypeattribute(project_id,roomtypeId,reffrence_type)
 {  
     $("#loader_"+roomtypeId).show();
@@ -217,7 +205,19 @@ function defaultBlock(value,refId)
         $("#controltype_values_"+refId).hide(); */
 }
 
-function addFloorLevel()
+function saveRoomdetails(project_id,variantId)
+{   
+    $.ajax({
+        url: BASEURL+"/admin/project/" + project_id + "/bunglow-variant/"+variantId+"/roomtypeattributes",
+        type: "POST",
+        data: $("#formroomdetails").serializeArray(),
+        success: function (response) {
+             window.location.reload();
+        }
+    });
+}
+
+function addFloorLevel(variantId)
 {
     var counter = $("#counter").val();
     var i= parseInt(counter)+1;
@@ -237,14 +237,15 @@ function addFloorLevel()
         str +='<div class="form-inline">';
         str +='<div class="form-group">';
         str +=' <input type="hidden" name="variantroomid_'+i+'[]" value="">';
-        str +='<select name="room_name_'+i+'[]" class="select2 form-control" >';
+        str +='<select name="room_name_'+i+'[]" class="select2 form-control" onchange="getRoomTypeAttributes(this,'+variantId+','+i+');">';
         str +='<option value="">Select Room</option>';
         str +=ROOMTYPES;
         str +='</select>';
-        str +=' <button type="button" onclick="addRoomAttributes('+i+',this)" class="btn btn-white"><i class="fa fa-plus"></i></button>';
+        str +=' <button type="button" onclick="addRoomAttributes('+i+',this,'+variantId+')" class="btn btn-white"><i class="fa fa-plus"></i></button>';
         str +='</div> ';
 
         str +='</div>';
+        str += '<div></div>';
         str +='</div> ';
         
         $("#addFloorlevel").before(str);
@@ -262,7 +263,7 @@ function getRoomTypeAttributes(obj,variantId,level)
         },
         success: function (response) {
             var attribute_str = response.data.attributes;
-             $(obj).closest('.form-inline').after(attribute_str); 
+             $(obj).closest('.form-inline').next('div').html(attribute_str); 
               $("select").select2();
         }
     });
@@ -270,7 +271,7 @@ function getRoomTypeAttributes(obj,variantId,level)
    
 }
 
-function addRoomAttributes(level,obj)
+function addRoomAttributes(level,obj ,variantId)
 {
     var room_type =  $(obj).closest('.form-inline').find('select[name="room_name_'+level+'[]"]').val();
     if(room_type.trim()=='')
@@ -282,16 +283,19 @@ function addRoomAttributes(level,obj)
  
         str +='<div class="form-inline">';
         str +='<div class="form-group">';
-        str +=' <input type="hidden" name="variantroomid_'+level+'" value="">';
-        str +='<select name="room_name_'+level+'[]" class="select2 form-control">';
+        str +=' <input type="hidden" name="variantroomid_'+level+'[]" value="">';
+        str +='<select name="room_name_'+level+'[]" class="select2 form-control" onchange="getRoomTypeAttributes(this,'+variantId+','+level+');">';
         str +='<option value="">Select Room</option>';
         str +=ROOMTYPES;
         str +='</select>';
-        str +=' <button type="button" onclick="addRoomAttributes('+level+',this)" class="btn btn-white"><i class="fa fa-plus"></i></button>';
+        str +=' <button type="button" onclick="addRoomAttributes('+level+',this,'+variantId+')" class="btn btn-white"><i class="fa fa-plus"></i></button>';
         str +='</div> ';
+        str +='</div> ';
+        str += '<div></div>';
  
         $(obj).hide();
         $("#levelblock_"+level).append(str);
+        $("select").select2();
 }
 
 function setUpProjectMasterUploader(){

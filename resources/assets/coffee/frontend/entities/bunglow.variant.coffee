@@ -25,7 +25,7 @@ class BunglowVariantCollection extends Backbone.Collection
 			units.push  bunglowUnits
 		$.each units,(index,value)->
 			newUnits = $.merge(newUnits , value)
-
+		console.log newUnits
 		newUnits
 
 window.bunglowVariantCollection  = new BunglowVariantCollection;

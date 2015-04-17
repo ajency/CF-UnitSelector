@@ -30,7 +30,7 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.checkPropertyType();
       }
-      if (bunglowVariantCollection.length !== 0 && project.get('project_master').front !== "") {
+      if (project.get('project_master').front !== "") {
         return this.show(new CommonFloor.BunglowMasterView);
       } else {
         return this.show(new CommonFloor.NothingFoundView);
@@ -122,7 +122,7 @@
       'click .row': function(e) {
         if (this.model.get('status') === 'available') {
           CommonFloor.defaults['unit'] = this.model.get('id');
-          return CommonFloor.navigate('/bunglows/unit-view/' + this.model.get('id'), true);
+          return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
         }
       }
     };
@@ -175,7 +175,7 @@
       return CenterBunglowMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="controls"> <div > <a href="#/master-view/bunglows"> Map View</a> | <a class="list" href="#"> List View</a> </div> <div class="clearfix"></div> </div> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
+    CenterBunglowMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container"> <div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
 
     CenterBunglowMasterView.prototype.initialize = function() {
       this.currentBreakPoint = "";
@@ -313,34 +313,6 @@
     };
 
     return CenterBunglowMasterCtrl;
-
-  })(Marionette.RegionController);
-
-  CommonFloor.MiddleBunglowMasterView = (function(superClass) {
-    extend(MiddleBunglowMasterView, superClass);
-
-    function MiddleBunglowMasterView() {
-      return MiddleBunglowMasterView.__super__.constructor.apply(this, arguments);
-    }
-
-    MiddleBunglowMasterView.prototype.template = '';
-
-    return MiddleBunglowMasterView;
-
-  })(Marionette.EmptyView);
-
-  CommonFloor.MiddleBunglowMasterCtrl = (function(superClass) {
-    extend(MiddleBunglowMasterCtrl, superClass);
-
-    function MiddleBunglowMasterCtrl() {
-      return MiddleBunglowMasterCtrl.__super__.constructor.apply(this, arguments);
-    }
-
-    MiddleBunglowMasterCtrl.prototype.initialize = function() {
-      return this.show(new CommonFloor.MiddleBunglowMasterView);
-    };
-
-    return MiddleBunglowMasterCtrl;
 
   })(Marionette.RegionController);
 

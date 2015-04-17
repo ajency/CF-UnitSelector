@@ -10,6 +10,7 @@
         <div class="grid simple">
             <div class="grid-title">
                 <h4>List of <span class="semi-bold">Projects</span></h4>
+                <a class="btn btn-primary pull-right" href="{{ url('/admin/project/create') }}" >+ Add Project</a>
             </div>
             <div class="grid-body">
                 <table class="table table-striped" id="example2" >

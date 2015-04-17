@@ -41,6 +41,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource( 'project.unittype', 'Admin\ProjectUnitTypeController' );
     Route::resource( 'project.bunglow-variant', 'Admin\ProjectBunglowVariantController' );
     Route::resource( 'project.apartment-variant', 'Admin\ProjectApartmentVariantController' );
+    Route::resource( 'project.apartment-unit', 'Admin\ProjectApartmentUnitController' );
     Route::resource( 'project.bunglow-unit', 'Admin\ProjectBunglowUnitController' );
     Route::resource( 'project.building', 'Admin\ProjectBuildingController' );
     Route::resource( 'project.floor-layout', 'Admin\ProjectFloorLayoutController' );

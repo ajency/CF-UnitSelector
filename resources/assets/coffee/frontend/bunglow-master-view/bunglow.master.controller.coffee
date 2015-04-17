@@ -11,7 +11,7 @@ class CommonFloor.BunglowMasterCtrl extends Marionette.RegionController
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID);
 			CommonFloor.checkPropertyType()
-		if bunglowVariantCollection.length != 0 && project.get('project_master').front  != ""
+		if  project.get('project_master').front  != ""
 			@show new CommonFloor.BunglowMasterView
 		else
 			@show new CommonFloor.NothingFoundView
@@ -82,7 +82,7 @@ class LeftBunglowMasterView extends Marionette.ItemView
 		'click .row' :(e)->
 			if @model.get('status') == 'available'
 				CommonFloor.defaults['unit'] = @model.get('id')
-				CommonFloor.navigate '/bunglows/unit-view/'+@model.get('id') , true
+				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
 
 class LeftBunglowMasterCompositeView extends Marionette.CompositeView
 
@@ -129,26 +129,25 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
-		<div class="controls">
-              <div >
-                <a href="#/master-view/bunglows"> Map View</a> |
-                	<a class="list" href="#"> 
-                List View</a>
-              </div>
-              <div class="clearfix"></div>
-            </div>
-			
-			<div id="spritespin"></div>
-			<div class="svg-maps">
-			<div class="region inactive"></div>
-			</div>
-            <div class="rotate rotate-controls hidden">
-		        <div id="prev" class="rotate-left">Left</div>
-		        <span class="rotate-text">Rotate</span>
-		        <div id="next" class="rotate-right">Right</div>
-    		</div>
+									<div class="list-view-container">
+										<div class="controls mapView">
+								            <div class="toggle">
+								            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
+								            </div>
+							            </div>
+										
+										<div id="spritespin"></div>
+										<div class="svg-maps">
+											<div class="region inactive"></div>
+										</div>
+							            <div class="rotate rotate-controls hidden">
+									        <div id="prev" class="rotate-left">Left</div>
+									        <span class="rotate-text">Rotate</span>
+									        <div id="next" class="rotate-right">Right</div>
+							    		</div>
+							    	</div>
 
-		  </div>')
+								</div>')
 
 	
 	initialize:->
@@ -295,15 +294,5 @@ class CommonFloor.CenterBunglowMasterCtrl extends Marionette.RegionController
 		@show new CommonFloor.CenterBunglowMasterView
 				model :project
 
-class CommonFloor.MiddleBunglowMasterView extends Marionette.EmptyView
 
-	template : ''
-
-
-
-
-class CommonFloor.MiddleBunglowMasterCtrl extends Marionette.RegionController
-
-	initialize:->
-		@show new CommonFloor.MiddleBunglowMasterView
 				

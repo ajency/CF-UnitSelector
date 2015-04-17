@@ -47,9 +47,9 @@ class CenterBuildingListView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-12 us-right-content">
 			<div class="list-view-container">
-			<div class="controls mapView">
+			<div class="controls">
 	            <div class="toggle">
-	            	<a href="#/master-view/bunglows" class="map">Map</a><a href="#/list-view/bunglows" class="list active">List</a>
+	            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
 	            </div>
             </div>
 			<div class="text-center">
@@ -75,12 +75,24 @@ class CenterBuildingListView extends Marionette.CompositeView
 
 	events : 
 		'click .buildings':(e)->
-			console.log @region =  new Marionette.Region el : '#centerregion'
+			console.log units = buildingCollection
+			data = {}
+			data.units = units
+			data.type = 'building'
+			
+			@region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.CenterBuildingListCtrl region : @region
+			@trigger "load:units" , data
+			
 
 		'click .Villas':(e)->
-			console.log @region =  new Marionette.Region el : '#centerregion'
+			console.log units = bunglowVariantCollection.getBunglowUnits()
+			data = {}
+			data.units = units
+			data.type = 'villa'
+			@region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.ListCtrl region : @region
+			@trigger "load:units" , data
 
 	onShow:->
 		if project.get('project_master').front  == ""
@@ -89,7 +101,7 @@ class CenterBuildingListView extends Marionette.CompositeView
 			$('.mapView').show()
 
 		if apartmentVariantCollection.length != 0
-			$('.buildings').removeClass 'hidden'
+			$('.Villas').removeClass 'hidden'
 
 
 
@@ -97,5 +109,10 @@ class CenterBuildingListView extends Marionette.CompositeView
 class CommonFloor.CenterBuildingListCtrl extends Marionette.RegionController
 
 	initialize:->
-		@show new CenterBuildingListView
-			collection : buildingCollection
+		@view = view = new CenterBuildingListView
+					collection : buildingCollection
+		@listenTo @view,"load:units" ,@loadController
+		@show view
+
+	loadController:(data)=>
+		Backbone.trigger "load:units" , data

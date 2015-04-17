@@ -42,12 +42,15 @@
       return TopBunglowListView.__super__.constructor.apply(this, arguments);
     }
 
-    TopBunglowListView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span>Back to Poject Overview </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1>We are now at {{project_title}}\'s upcoming project having {{units}} villa\'s</h1> </div> </div> </div>');
+    TopBunglowListView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span>Back to Poject Overview </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1>We are now at {{project_title}}\'s upcoming project having {{units}} {{type}}\'s</h1> </div> </div> </div>');
 
     TopBunglowListView.prototype.serializeData = function() {
-      var data;
+      var data, type, units;
       data = TopBunglowListView.__super__.serializeData.call(this);
-      data.units = bunglowVariantCollection.getBunglowUnits().length;
+      units = Marionette.getOption(this, 'units');
+      type = Marionette.getOption(this, 'type');
+      data.units = units.length;
+      data.type = type;
       return data;
     };
 
@@ -63,8 +66,16 @@
     }
 
     TopBunglowListCtrl.prototype.initialize = function() {
+      this.listenTo(this.parent(), "load:units", this.showViews);
+      return this.listenTo(Backbone, "load:units", this.showViews);
+    };
+
+    TopBunglowListCtrl.prototype.showViews = function(data) {
+      console.log(data);
       return this.show(new TopBunglowListView({
-        model: project
+        model: project,
+        units: data.units,
+        type: data.type
       }));
     };
 
@@ -112,23 +123,34 @@
     }
 
     CenterBunglowListCtrl.prototype.initialize = function() {
-      var response;
-      console.log(response = CommonFloor.checkListView());
+      var data, response, units;
+      response = CommonFloor.checkListView();
       if (response.type === 'bunglows') {
+        units = bunglowVariantCollection.getBunglowUnits();
+        data = {};
+        data.units = units;
+        data.type = 'villa';
         this.region = new Marionette.Region({
           el: '#centerregion'
         });
         new CommonFloor.ListCtrl({
           region: this.region
         });
+        this.parent().trigger("load:units", data);
       }
       if (response.type === 'building') {
+        console.log(this.parent());
+        units = buildingCollection;
+        data = {};
+        data.units = units;
+        data.type = 'building';
         this.region = new Marionette.Region({
           el: '#centerregion'
         });
-        return new CommonFloor.CenterBuildingListCtrl({
+        new CommonFloor.CenterBuildingListCtrl({
           region: this.region
         });
+        return this.parent().trigger("load:units", data);
       }
     };
 
