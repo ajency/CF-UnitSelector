@@ -294,15 +294,5 @@ class CommonFloor.CenterBunglowMasterCtrl extends Marionette.RegionController
 		@show new CommonFloor.CenterBunglowMasterView
 				model :project
 
-class CommonFloor.MiddleBunglowMasterView extends Marionette.EmptyView
 
-	template : ''
-
-
-
-
-class CommonFloor.MiddleBunglowMasterCtrl extends Marionette.RegionController
-
-	initialize:->
-		@show new CommonFloor.MiddleBunglowMasterView
 				

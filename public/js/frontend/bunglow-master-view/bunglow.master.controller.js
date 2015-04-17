@@ -316,34 +316,6 @@
 
   })(Marionette.RegionController);
 
-  CommonFloor.MiddleBunglowMasterView = (function(superClass) {
-    extend(MiddleBunglowMasterView, superClass);
-
-    function MiddleBunglowMasterView() {
-      return MiddleBunglowMasterView.__super__.constructor.apply(this, arguments);
-    }
-
-    MiddleBunglowMasterView.prototype.template = '';
-
-    return MiddleBunglowMasterView;
-
-  })(Marionette.EmptyView);
-
-  CommonFloor.MiddleBunglowMasterCtrl = (function(superClass) {
-    extend(MiddleBunglowMasterCtrl, superClass);
-
-    function MiddleBunglowMasterCtrl() {
-      return MiddleBunglowMasterCtrl.__super__.constructor.apply(this, arguments);
-    }
-
-    MiddleBunglowMasterCtrl.prototype.initialize = function() {
-      return this.show(new CommonFloor.MiddleBunglowMasterView);
-    };
-
-    return MiddleBunglowMasterCtrl;
-
-  })(Marionette.RegionController);
-
 }).call(this);
 
 //# sourceMappingURL=../../frontend/bunglow-master-view/bunglow.master.controller.js.map
