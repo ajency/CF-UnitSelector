@@ -1,7 +1,7 @@
 @import "../../bower_components/animate.css/animate.min.css";
+@import "../../bower_components/liquidslider/css/liquid-slider.css";
 @import "../../bower_components/tooltipster/css/tooltipster.css";
 @import "../../bower_components/tooltipster/css/themes/tooltipster-shadow.css";
-@import "../../bower_components/liquidslider/css/liquid-slider.css";
 /* External CSS */
 /* Site Styles */
 html,
@@ -715,6 +715,69 @@ body {
   .blocks:nth-child(3n) {
     margin-right: 0;
   }
+}
+/* Single Building SVG Area */
+.single-bldg .prev,
+.single-bldg .next {
+  position: absolute;
+  top: 50%;
+  display: block;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  cursor: pointer;
+  color: transparent;
+  border: none;
+  outline: none;
+  background: url(../../images/arrow.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.5;
+}
+.single-bldg .prev:hover,
+.single-bldg .next:hover {
+  opacity: 1;
+}
+.single-bldg .prev {
+  left: 20px;
+  -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+.single-bldg .next {
+  right: 35px;
+}
+/* Pop up Styles */
+.bldg_info {
+  background-color: #ffffff;
+  cursor: pointer;
+  color: #666666;
+}
+.bldg_info .info {
+  border-bottom: 1px solid #cccccc;
+  padding-bottom: 5px;
+}
+.bldg_info .info div {
+  font-size: 12px;
+}
+.bldg_info .unit-type-info {
+  margin-top: 5px;
+}
+.bldg_info .unit-type-info li {
+  font-size: 12px;
+  float: left;
+  text-align: center;
+  width: 50%;
+}
+.bldg_info .unit-type-info li::after {
+  content: '|';
+  float: right;
+}
+.bldg_info .unit-type-info li:nth-child(2n)::after {
+  content: '';
+}
+.bldg_info .unit-type-info li span {
+  color: #f68121;
 }
 /* Plugins */
 /* Slider */
