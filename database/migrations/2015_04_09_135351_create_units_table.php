@@ -15,8 +15,9 @@ class CreateUnitsTable extends Migration {
             $table->increments( 'id' );
             $table->string( 'unit_name', 100 );
             $table->integer( 'unit_variant_id' )->unsigned()->nullable();
-            $table->integer( 'position', 100 )->unsigned()->nullable()->default( 0 );
-            $table->integer( 'floor', 100 )->unsigned()->nullable()->default( 0 );
+            $table->integer( 'position' )->unsigned()->nullable()->default( 0 );
+            $table->integer( 'floor' )->unsigned()->nullable()->default( 0 );
+            $table->integer( 'building_id' )->unsigned()->nullable()->default( 0 );
             // $table->string('facing', 100);
             // $table->text( 'unit_attributes')->nullable();
             $table->enum( 'availability', ['available', 'sold', 'not_released', 'blocked'] )->default( 'available' );
