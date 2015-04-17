@@ -232,7 +232,7 @@ jQuery(document).ready ($)->
 
 	
 	$('.apartment-unit-building').change ->
-		$(@).closest('.row').find('.select-floor, .select-position').addClass 'hidden'		
+		$(@).closest('.row').find('.select-floor').addClass 'hidden'		
 		buildingId = $(@).val()
 		if buildingId.trim() is '' then return
 		floorSelection = $(@).closest('.row').find('.select-floor select')

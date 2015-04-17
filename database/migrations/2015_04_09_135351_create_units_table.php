@@ -18,16 +18,8 @@ class CreateUnitsTable extends Migration {
             $table->integer( 'position' )->unsigned()->nullable()->default( 0 );
             $table->integer( 'floor' )->unsigned()->nullable()->default( 0 );
             $table->integer( 'building_id' )->unsigned()->nullable()->default( 0 );
-            // $table->string('facing', 100);
-            // $table->text( 'unit_attributes')->nullable();
             $table->enum( 'availability', ['available', 'sold', 'not_released', 'blocked'] )->default( 'available' );
             $table->timestamps();
-
-            //reference  a foreign key
-            $table->foreign( 'unit_variant_id' )
-                    ->references( 'id' )
-                    ->on( 'unit_variants' )
-                    ->onDelete( 'cascade' );
         } );
     }
 
