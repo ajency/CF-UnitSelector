@@ -97,7 +97,8 @@
                                     <select required="" name="floors[{{ $i }}]">
                                         <option>Choose floor layout</option>
                                         @foreach($floorLayouts as $floorLayout)
-                                        <option value="{{ $floorLayout->id }}" > {{ $floorLayout->layout_name }} </option>
+                                        <option {{ (isset($building->floors[$i]) && $building->floors[$i] == $floorLayout->id) ? 'selected' : '' }} 
+                                            value="{{ $floorLayout->id }}" > {{ $floorLayout->layout_name }} </option>
                                         @endforeach
                                     </select>
                                 </div>
