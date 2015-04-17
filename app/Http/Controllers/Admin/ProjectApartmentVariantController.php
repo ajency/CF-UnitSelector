@@ -111,7 +111,8 @@ class ProjectApartmentVariantController extends Controller {
         $propertyTypeAttributes = ProjectPropertyType::find( $projectPropertyTypeId )->attributes->toArray();
         $roomTypeAttributes = [];
 
-        $unitTypes = [];
+        $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertyTypeId)->get()->toArray();
+        
         foreach ($variantRooms as $variantRoom) {
             $variantRoomArr[0][$variantRoom['id']]['ROOMTYPEID'] = $variantRoom['roomtype_id'];
             $variantRoomArr[0][$variantRoom['id']]['ATTRIBUTES'] = unserialize($variantRoom['variant_room_attributes']);
@@ -140,7 +141,7 @@ class ProjectApartmentVariantController extends Controller {
                         ->with( 'project', $project->toArray() )
                         ->with( 'project_property_type', $propertyTypes )
                         ->with( 'project_property_type_attributes', $propertyTypeAttributes )
-                        ->with( 'unit_type_arr', $unitTypes )
+                        ->with( 'unit_type_arr', $unitTypeArr )
                         ->with( 'availableRoomTypes', $availableRoomTypes )
                         ->with( 'unitVariant', $unitVariant->toArray() )
                         ->with( 'variantRooms', $variantRoomArr )
