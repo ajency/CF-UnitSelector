@@ -33,8 +33,21 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
+                        <label class="form-label">Unit Status</label>
+                        <select  class="select2 form-control" name="unit_status">
+                            <option value="available">Available</option>
+                            <option value="sold">Sold</option>
+                            <option value="not_released">Not Released</option>
+                            <option value="blocked">Blocked</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
                         <label class="form-label">Building</label>
-                        <select name="unit_variant" class="select2 form-control" data-parsley-required>
+                        <select name="building_id" class="select2 form-control" data-parsley-required>
                             <option value="">Select building</option>
                             @foreach($buildings as $building)
                             <option value="{{ $building->id }}">{{ $building->building_name }}</option>
@@ -44,14 +57,20 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Unit Status</label>
-                        <select  class="select2 form-control" name="unit_status">
-                            <option value="available">Available</option>
-                            <option value="sold">Sold</option>
-                            <option value="not_released">Not Released</option>
-                            <option value="blocked">Blocked</option>
+                        <label class="form-label">Floor</label>
+                        <select id="floor" name="floor_number"   class="select2 form-control">
+                            <option value="">Select Floor</option>
                         </select>
-                    </div>
+                    </div> 
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Position</label>
+                        <select id="flat_position" required="" name="position_on_floor" class="select2 form-control">
+                            <option value="">Select Position</option>
+                        </select>
+                    </div> 
+
                 </div>
             </div>
             <div class="form-actions">  
