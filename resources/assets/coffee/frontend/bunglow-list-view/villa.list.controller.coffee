@@ -1,7 +1,7 @@
 #view for the Center setion
 class CenterBunglowListView extends Marionette.ItemView
 
-	template : Handlebars.compile('<li class="unit {{status}}">
+	template : Handlebars.compile('<li class="unit blocks {{status}}">
                   <div class="pull-left info">
                     <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}}sqft)
                   </div>
