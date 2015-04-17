@@ -695,6 +695,18 @@ body {
 .blocks:hover {
   box-shadow: 0 1px 5px rgba(102, 102, 102, 0.4);
 }
+.eight .blocks {
+  padding: 10px;
+  width: 11.8%;
+  margin-right: 0.8%;
+  text-align: center;
+}
+.eight .blocks .cost {
+  display: none;
+}
+.eight .blocks:nth-child(8n) {
+  margin-right: 0;
+}
 @media (max-width: 767px) {
   .blocks {
     width: 49.2%;
