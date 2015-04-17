@@ -172,7 +172,7 @@ function saveRoomdetails(project_id,variantId)
         type: "POST",
         data: $("#formroomdetails").serializeArray(),
         success: function (response) {
-            // window.location.reload();
+              window.location.reload();
         }
     });
 }
@@ -245,6 +245,7 @@ function addFloorLevel()
         str +='</div> ';
 
         str +='</div>';
+        str += '<div></div>';
         str +='</div> ';
         
         $("#addFloorlevel").before(str);
@@ -262,7 +263,7 @@ function getRoomTypeAttributes(obj,variantId,level)
         },
         success: function (response) {
             var attribute_str = response.data.attributes;
-             $(obj).closest('.form-inline').after(attribute_str); 
+             $(obj).closest('.form-inline').next('div').html(attribute_str); 
               $("select").select2();
         }
     });
@@ -289,6 +290,7 @@ function addRoomAttributes(level,obj)
         str +='</select>';
         str +=' <button type="button" onclick="addRoomAttributes('+level+',this)" class="btn btn-white"><i class="fa fa-plus"></i></button>';
         str +='</div> ';
+        str += '<div></div>';
  
         $(obj).hide();
         $("#levelblock_"+level).append(str);

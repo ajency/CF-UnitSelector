@@ -29,19 +29,18 @@ class ProjectBunglowVariantController extends Controller {
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr[] = $propertyTypes['property_type_id'];
 
-            if ($propertyTypes['property_type_id']=='2')
+            if ($propertyTypes['property_type_id'] == '2')
                 $projectPropertytypeId = $propertyTypes['id'];
         }
-        
+
         $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
-        $unitTypeIdArr =[];
-        foreach($unitTypeArr as $unitType)
-        {
-            $unitTypeIdArr[] =$unitType['id'];
+        $unitTypeIdArr = [];
+        foreach ($unitTypeArr as $unitType) {
+            $unitTypeIdArr[] = $unitType['id'];
         }
-       
-        $unitvariantArr = UnitVariant::whereIn('unit_type_id',$unitTypeIdArr)->orderBy('unit_variant_name')->get()->toArray();
- 
+
+        $unitvariantArr = UnitVariant::whereIn('unit_type_id', $unitTypeIdArr)->orderBy('unit_variant_name')->get()->toArray();
+
         return view('admin.project.listvariant')
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
@@ -62,13 +61,13 @@ class ProjectBunglowVariantController extends Controller {
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if ($propertyTypes['property_type_id']=='2')
+            if ($propertyTypes['property_type_id'] == '2')
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
         $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
         $propertyTypeAttributes = ProjectPropertyType::find($projectPropertytypeId)->attributes->toArray();
-        
+
 
         return view('admin.project.addvariant')
                         ->with('project', $project->toArray())
@@ -124,7 +123,7 @@ class ProjectBunglowVariantController extends Controller {
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if ($propertyTypes['property_type_id']=='2')
+            if ($propertyTypes['property_type_id'] == '2')
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
@@ -133,33 +132,32 @@ class ProjectBunglowVariantController extends Controller {
         $variantRooms = $unitVariant->variantRoomAttributes()->get()->toArray();
         $variantRoomArr = [];
         $propertyTypeAttributes = ProjectPropertyType::find($projectPropertytypeId)->attributes->toArray();
-        $roomTypeAttributes =[];
-         
- 
+        $roomTypeAttributes = [];
+
+
         foreach ($variantRooms as $room) {
             $variantRoomArr[$room['floorlevel']][$room['id']]['ROOMTYPEID'] = $room['roomtype_id'];
             $variantRoomArr[$room['floorlevel']][$room['id']]['ATTRIBUTES'] = unserialize($room['variant_room_attributes']);
-            
-            $roomTypeAttributes[$room['roomtype_id']] =  RoomType::find($room['roomtype_id'])->attributes->toArray();
+
+            $roomTypeAttributes[$room['roomtype_id']] = RoomType::find($room['roomtype_id'])->attributes->toArray();
         }
-        
+
         $variantMeta = $unitVariant->variantMeta()->get()->toArray();
         $levelImages = [];
-         
-        foreach($variantMeta as $meta)
-        {
+
+        foreach ($variantMeta as $meta) {
             $metakey = explode("-", $meta['meta_key']);
-            $level =   $metakey[0] ; 
-            $type =   $metakey[1] ;  
+            $level = $metakey[0];
+            $type = $metakey[1];
             $mediaId = $meta['meta_value'];
-            if( is_numeric($mediaId)){ 
-               $imageName =  Media::find( $mediaId )->image_name; 
-               $levelImages[$level][$type]['ID'] =$mediaId;
-               $levelImages[$level][$type]['IMAGE'] = url() . "/projects/" . $project_id . "/variants/" . $meta['unit_variant_id'] . "/". $imageName;
+            if (is_numeric($mediaId)) {
+                $imageName = Media::find($mediaId)->image_name;
+                $levelImages[$level][$type]['ID'] = $mediaId;
+                $levelImages[$level][$type]['IMAGE'] = url() . "/projects/" . $project_id . "/variants/" . $meta['unit_variant_id'] . "/" . $imageName;
             }
         }
- 
-       
+
+
         return view('admin.project.editvariant')
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
@@ -194,118 +192,106 @@ class ProjectBunglowVariantController extends Controller {
 
         return redirect("/admin/project/" . $project_id . "/bunglow-variant/" . $id . '/edit');
     }
-    
-    public function roomtypeAttributes($project_id, $id, Request $request)
-    {
-        $data = $request->all(); 
-           
-        
+
+    public function roomtypeAttributes($project_id, $id, Request $request) {
+        $data = $request->all();
+
+
         //Floor Level
-        $floorLevelArr = $data['floorlevel']; 
+        $floorLevelArr = $data['floorlevel'];
         $variantRoomArr = [];
 
         if ((isset($floorLevelArr)) && !empty($floorLevelArr)) {
             foreach ($floorLevelArr as $floorlevel) {
-                $roomTypes = $data['room_name_' . $floorlevel]; 
-                $variantRoomId = $data['variantroomid_' . $floorlevel]; 
-                  
+                $roomTypes = $data['room_name_' . $floorlevel];
+                $variantRoomId = $data['variantroomid_' . $floorlevel];
+
                 foreach ($roomTypes as $key => $roomtypeId) {
-                   
-                    if($roomtypeId)
-                    { 
+
+                    if ($roomtypeId) {
                         if ($variantRoomId[$key] == '') {
                             $variantRoom = new VariantRoom();
                             $variantRoom->unit_variant_id = $id;
                             $variantRoom->roomtype_id = $roomtypeId;
                             $variantRoom->floorlevel = $floorlevel;
-                            $variantRoom->variant_room_attributes = serialize($data['attributes'][$floorlevel][$roomtypeId]) ;
+                            $variantRoom->variant_room_attributes = serialize($data['attributes'][$floorlevel][$roomtypeId]);
                             $variantRoom->save();
-                        } else { 
+                        } else {
                             $variantRoom = VariantRoom::find($variantRoomId[$key]);
                             $variantRoom->roomtype_id = $roomtypeId;
-                            $variantRoom->variant_room_attributes = serialize($data['attributes'][$floorlevel][$roomtypeId]) ;
+                            $variantRoom->variant_room_attributes = serialize($data['attributes'][$floorlevel][$roomtypeId]);
                             $variantRoom->save();
                         }
                     }
                 }
             }
         }
-         
-        return response()->json( [
+
+        return response()->json([
                     'code' => 'unit_variant',
                     'message' => ' Unit Variant Attribute Successfully Updated',
                     'data' => [
                         'unitVariantId' => $id
                     ]
-            ], 201 );
+                        ], 201);
     }
-    
-    public function getRoomTypeAttributes($project_id, $id, Request $request)
-    {  
-        $roomTypeId = $request->input('roomtype_id'); 
-        $level = $request->input('level'); 
-        $roomType = RoomType::find( $roomTypeId );
-        $attributes =  $roomType->attributes->toArray();
-       
-        
-        $str='<div class="m-t-10">';
-        $str.='<div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 text-grey">';	
-          $str.='<div class="row">';
-         foreach($attributes as $attribute)
-        {
-            $str.='<div class="col-md-4">';
-            $str.='<div class="form-group">';
-            $str.='<label class="form-label">'.$attribute['label'].'</label>';
-            if('textbox' === $attribute['control_type'])
-            {
-              $str.='<input type="text" class="form-control" name="attributes['.$level.']['.$roomTypeId.']['.property_type_slug($attribute['label']).']" placeholder="Enter '. $attribute['label'] .'">';  
-            }
-            elseif('number' === $attribute['control_type'])
-            {
-                $str.='<input type="number" class="form-control" name="attributes['.$level.']['.$roomTypeId.']['.property_type_slug($attribute['label']).']" placeholder="Enter '. $attribute['label'] .'">';  
-            }
-            elseif('select' === $attribute['control_type'])
-            {
-                $options = explode(',', $attribute['defaults']);
-                
-                $str.='<select name="attributes['.$level.']['.$roomTypeId.']['.property_type_slug($attribute['label']).']" class="select2 form-control">';
-                $str.='<option value="">Select '. $attribute['label'] .'</option>';   
-                foreach($options as $option)
-                {
-                  $str.='<option value="'.property_type_slug($option).'">'.$option.'</option>';
+
+    public function getRoomTypeAttributes($project_id, $id, Request $request) {
+        $roomTypeId = $request->input('roomtype_id');
+        $str = '';
+        if ($roomTypeId != '') {
+            $level = $request->input('level');
+            $roomType = RoomType::find($roomTypeId);
+            $attributes = $roomType->attributes->toArray();
+
+
+            $str = '<div class="m-t-10">';
+            $str.='<div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 text-grey">';
+            $str.='<div class="row">';
+            foreach ($attributes as $attribute) {
+                $str.='<div class="col-md-4">';
+                $str.='<div class="form-group">';
+                $str.='<label class="form-label">' . $attribute['label'] . '</label>';
+                if ('textbox' === $attribute['control_type']) {
+                    $str.='<input type="text" class="form-control" name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . ']" placeholder="Enter ' . $attribute['label'] . '">';
+                } elseif ('number' === $attribute['control_type']) {
+                    $str.='<input type="number" class="form-control" name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . ']" placeholder="Enter ' . $attribute['label'] . '">';
+                } elseif ('select' === $attribute['control_type']) {
+                    $options = explode(',', $attribute['defaults']);
+
+                    $str.='<select name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . ']" class="select2 form-control">';
+                    $str.='<option value="">Select ' . $attribute['label'] . '</option>';
+                    foreach ($options as $option) {
+                        $str.='<option value="' . property_type_slug($option) . '">' . $option . '</option>';
+                    }
+                    $str.='</select>';
+                } elseif ('multiple' === $attribute['control_type']) {
+                    $options = explode(',', $attribute['defaults']);
+
+                    $str.='<select multiple name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . '][]" class="select2 form-control">';
+                    $str.='<option value="">Select ' . $attribute['label'] . '</option>';
+                    foreach ($options as $option) {
+                        $str.='<option value="' . property_type_slug($option) . '">' . $option . '</option>';
+                    }
+                    $str.='</select>';
                 }
-                $str.='</select>';
+
+
+                $str.='</div>';
+                $str.='</div>';
             }
-            elseif('multiple' === $attribute['control_type'])
-            {
-                $options = explode(',', $attribute['defaults']);
-                
-                $str.='<select multiple name="attributes['.$level.']['.$roomTypeId.']['.property_type_slug($attribute['label']).'][]" class="select2 form-control">';
-                $str.='<option value="">Select '. $attribute['label'] .'</option>';   
-                foreach($options as $option)
-                {
-                  $str.='<option value="'.property_type_slug($option).'">'.$option.'</option>';
-                }
-                $str.='</select>';
-            }
-                 
-            
+            $str.='</div>';
+
             $str.='</div>';
             $str.='</div>';
         }
-       $str.='</div>';
-  
-        $str.='</div>';
-        $str.='</div>';
-        
-        return response()->json( [
+        return response()->json([
                     'code' => 'roomtype_attributes',
                     'message' => '',
                     'data' => [
                         'attributes' => $str
                     ]
-            ], 201 );
-       
+                        ], 201);
     }
 
     /**

@@ -153,9 +153,10 @@
                             @if($j === count($roomTypes))
                             <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this)"><i class="fa fa-plus"></i></button>
                             @endif
-                        </div> 
-
+                        </div>
                     </div>
+                    <div >
+                     <!--Attributes-->     
                     <div class="m-t-10">
                         <div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 text-grey">	
                             <div class="row"> 
@@ -198,7 +199,7 @@
                             </div>
                         </div>
                     </div>
-
+                    </div>     
                     <?php $j++; ?>
                     @endforeach   
                 </div> 
@@ -230,8 +231,11 @@
                                     </div>
                                 </div> 
 
-                            </div>  <div class="col-md-8"></div>
+                            </div>  
                         </div>
+                    </div>
+                    <div >
+                      <!--Attributes-->  
                     </div>
                 </div> 
                 <div class="pull-right" id="addFloorlevel">  
