@@ -69,7 +69,16 @@ class ProjectGateway implements ProjectGatewayInterface {
             $unitTypeArr[] = array('id' => $unitType->id ,'name'=> $unitType->unittype_name );
             
         }
-        
+       
+       $project = $this->projectRepository->getProjectById( $projectId );
+       $phases = $project->projectPhase()->lists( 'id' );
+       $buildings = \CommonFloor\Building::whereIn( 'phase_id', $phases )->get();
+       $buildingIds = [];
+       foreach($buildings as $building)
+       {
+         $buildingIds[] =$building->id;  
+       }
+   
        $variantIds = $bunglowVariantData = $appartmentVariantData = [];
         foreach ($unitTypeIds as $key => $unitTypeId)
         {
@@ -83,24 +92,20 @@ class ProjectGateway implements ProjectGatewayInterface {
             }
             elseif($key=='apartment')
             {
-              $appartmentVariants = \CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['apartment'] )->get();  
-              foreach ($appartmentVariants as $appartmentVariant) {
-                        $variantIds[] += $appartmentVariant->id;
-                    }
-                $appartmentVariantData =$appartmentVariants->toArray();       
+                $appartmentVariantData =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['apartment'] )->get()->toArray();   
             }
         }
  
-        $buildings = \CommonFloor\Building::all()->toArray();
+        
 
         $stepTwoData = [
-            'buildings' => $buildings,
+            'buildings' => $buildings->toArray(),
             'bunglow_variants' => $bunglowVariantData,
             'apartment_variants' => $appartmentVariantData,
             'plot_variants' => [],
             'property_types' => $propertyTypes,
             'settings' => $this->projectSettings($projectId),
-            'units' => \CommonFloor\Unit::whereIn('unit_variant_id', $variantIds)->get()->toArray(),
+            'units' => \CommonFloor\Unit::whereIn('unit_variant_id', $variantIds)->orWhereIn('building_id', $buildingIds)->get()->toArray(),
 
             'settings' => [],
             'units' => \CommonFloor\Unit::whereIn( 'unit_variant_id', $variantIds )->get()->toArray(),

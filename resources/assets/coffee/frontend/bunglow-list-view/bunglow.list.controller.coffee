@@ -8,8 +8,11 @@ class CommonFloor.BunglowListCtrl extends Marionette.RegionController
 	initialize:->
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID);
-			CommonFloor.checkPropertyType()
-		@show new CommonFloor.BunglowListView
+			CommonFloor.loadJSONData()
+		if bunglowVariantCollection.length == 0 || apartmentVariantCollection.length == 0
+			@show new CommonFloor.NothingFoundView
+		else
+			@show new CommonFloor.BunglowListView
 		
 		
 

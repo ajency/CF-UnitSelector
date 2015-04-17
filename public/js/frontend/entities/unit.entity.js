@@ -10,6 +10,21 @@
       return Unit.__super__.constructor.apply(this, arguments);
     }
 
+    Unit.prototype.getUnitDetails = function(unit_id) {
+      var id, unit, unitType, unitVariant;
+      id = parseInt(unit_id);
+      unit = unitCollection.findWhere({
+        id: id
+      });
+      unitVariant = bunglowVariantCollection.findWhere({
+        'id': unit.get('unit_variant_id')
+      });
+      unitType = unitTypeCollection.findWhere({
+        'id': unitVariant.get('unit_type_id')
+      });
+      return [unitVariant, unitType];
+    };
+
     return Unit;
 
   })(Backbone.Model);
@@ -36,6 +51,8 @@
   })(Backbone.Collection);
 
   window.unitCollection = new UnitCollection;
+
+  window.unit = new Unit;
 
 }).call(this);
 

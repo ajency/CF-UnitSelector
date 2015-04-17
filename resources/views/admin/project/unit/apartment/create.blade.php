@@ -34,7 +34,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Unit Status</label>
-                        <select  class="select2 form-control" name="unit_status">
+                        <select  class="select2 form-control" required="" name="availability">
                             <option value="available">Available</option>
                             <option value="sold">Sold</option>
                             <option value="not_released">Not Released</option>
@@ -47,27 +47,31 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Building</label>
-                        <select name="building_id" class="select2 form-control" data-parsley-required>
+                        <select name="building_id" class="select2 form-control apartment-unit-building" data-parsley-required>
                             <option value="">Select building</option>
                             @foreach($buildings as $building)
-                            <option value="{{ $building->id }}">{{ $building->building_name }}</option>
+                            <option data-no-of-floors="{{ $building->no_of_floors }}" value="{{ $building->id }}">{{ $building->building_name }}</option>
                             @endforeach
                         </select>
                     </div> 
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group">
+                    <div class="form-group hidden select-floor">
                         <label class="form-label">Floor</label>
-                        <select id="floor" name="floor_number"   class="select2 form-control">
+                        <select id="floor" name="floor"   class="select2 form-control apartment-unit-floor-no">
                             <option value="">Select Floor</option>
                         </select>
                     </div> 
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group">
+                    <div class="form-group select-position">
                         <label class="form-label">Position</label>
-                        <select id="flat_position" required="" name="position_on_floor" class="select2 form-control">
+                        <select id="flat_position" required="" name="position" class="select2 form-control">
                             <option value="">Select Position</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
                         </select>
                     </div> 
 
