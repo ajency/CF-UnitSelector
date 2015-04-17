@@ -1,7 +1,8 @@
 (function() {
   var CenterBuildingListView, CenterItemView,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-    hasProp = {}.hasOwnProperty;
+    hasProp = {}.hasOwnProperty,
+    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   CenterItemView = (function(superClass) {
     extend(CenterItemView, superClass);
@@ -63,31 +64,31 @@
     CenterBuildingListView.prototype.events = {
       'click .buildings': function(e) {
         var data, units;
-        units = apartmentVariantCollection.getApartmentUnits();
+        console.log(units = buildingCollection);
         data = {};
         data.units = units;
         data.type = 'building';
-        console.log(this.region = new Marionette.Region({
+        this.region = new Marionette.Region({
           el: '#centerregion'
-        }));
+        });
         new CommonFloor.CenterBuildingListCtrl({
           region: this.region
         });
-        return CommonFloor.BunglowListCtrl.prototype.trigger("load:units", data);
+        return this.trigger("load:units", data);
       },
       'click .Villas': function(e) {
         var data, units;
-        units = bunglowVariantCollection.getBunglowUnits();
+        console.log(units = bunglowVariantCollection.getBunglowUnits());
         data = {};
         data.units = units;
         data.type = 'villa';
-        console.log(this.region = new Marionette.Region({
+        this.region = new Marionette.Region({
           el: '#centerregion'
-        }));
+        });
         new CommonFloor.ListCtrl({
           region: this.region
         });
-        return CommonFloor.BunglowListCtrl.prototype.trigger("load:units", data);
+        return this.trigger("load:units", data);
       }
     };
 
@@ -98,7 +99,7 @@
         $('.mapView').show();
       }
       if (apartmentVariantCollection.length !== 0) {
-        return $('.buildings').removeClass('hidden');
+        return $('.Villas').removeClass('hidden');
       }
     };
 
@@ -110,13 +111,21 @@
     extend(CenterBuildingListCtrl, superClass);
 
     function CenterBuildingListCtrl() {
+      this.loadController = bind(this.loadController, this);
       return CenterBuildingListCtrl.__super__.constructor.apply(this, arguments);
     }
 
     CenterBuildingListCtrl.prototype.initialize = function() {
-      return this.show(new CenterBuildingListView({
+      var view;
+      this.view = view = new CenterBuildingListView({
         collection: buildingCollection
-      }));
+      });
+      this.listenTo(this.view, "load:units", this.loadController);
+      return this.show(view);
+    };
+
+    CenterBuildingListCtrl.prototype.loadController = function(data) {
+      return Backbone.trigger("load:units", data);
     };
 
     return CenterBuildingListCtrl;

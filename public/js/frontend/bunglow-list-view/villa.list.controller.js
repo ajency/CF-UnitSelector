@@ -1,7 +1,8 @@
 (function() {
   var CenterBunglowListView, CenterCompositeView,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
-    hasProp = {}.hasOwnProperty;
+    hasProp = {}.hasOwnProperty,
+    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
   CenterBunglowListView = (function(superClass) {
     extend(CenterBunglowListView, superClass);
@@ -62,7 +63,7 @@
     CenterCompositeView.prototype.events = {
       'click .buildings': function(e) {
         var data, units;
-        units = apartmentVariantCollection.getApartmentUnits();
+        units = buildingCollection;
         data = {};
         data.units = units;
         data.type = 'building';
@@ -72,7 +73,7 @@
         new CommonFloor.CenterBuildingListCtrl({
           region: this.region
         });
-        return CommonFloor.BunglowListCtrl.prototype.trigger("load:units", data);
+        return this.trigger("load:units", data);
       },
       'click .Villas': function(e) {
         var data, units;
@@ -86,7 +87,7 @@
         new CommonFloor.ListCtrl({
           region: this.region
         });
-        return CommonFloor.BunglowListCtrl.prototype.trigger("load:units", data);
+        return this.trigger("load:units", data);
       }
     };
 
@@ -109,16 +110,23 @@
     extend(ListCtrl, superClass);
 
     function ListCtrl() {
+      this.loadController = bind(this.loadController, this);
       return ListCtrl.__super__.constructor.apply(this, arguments);
     }
 
     ListCtrl.prototype.initialize = function() {
-      var newUnits, unitsCollection;
+      var newUnits, unitsCollection, view;
       newUnits = bunglowVariantCollection.getBunglowUnits();
       unitsCollection = new Backbone.Collection(newUnits);
-      return this.show(new CenterCompositeView({
+      this.view = view = new CenterCompositeView({
         collection: unitsCollection
-      }));
+      });
+      this.listenTo(this.view, "load:units", this.loadController);
+      return this.show(view);
+    };
+
+    ListCtrl.prototype.loadController = function(data) {
+      return Backbone.trigger("load:units", data);
     };
 
     return ListCtrl;

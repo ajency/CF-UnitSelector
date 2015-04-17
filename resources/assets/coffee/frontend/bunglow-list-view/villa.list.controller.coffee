@@ -72,14 +72,15 @@ class CenterCompositeView extends Marionette.CompositeView
 
 	events : 
 		'click .buildings':(e)->
-			units = apartmentVariantCollection.getApartmentUnits()
+			units = buildingCollection
 			data = {}
 			data.units = units
 			data.type = 'building'
 			
 			@region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.CenterBuildingListCtrl region : @region
-			CommonFloor.BunglowListCtrl.prototype.trigger "load:units" , data
+			@trigger "load:units" , data
+			
 
 		'click .Villas':(e)->
 			units = bunglowVariantCollection.getBunglowUnits()
@@ -88,7 +89,8 @@ class CenterCompositeView extends Marionette.CompositeView
 			data.type = 'villa'
 			@region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.ListCtrl region : @region
-			CommonFloor.BunglowListCtrl.prototype.trigger "load:units" , data
+			@trigger "load:units" , data
+			
 
 	onShow:->
 		if project.get('project_master').front  == ""
@@ -106,6 +108,12 @@ class CommonFloor.ListCtrl extends Marionette.RegionController
 	initialize:->
 		newUnits = bunglowVariantCollection.getBunglowUnits()
 		unitsCollection = new Backbone.Collection newUnits 		
-		@show new CenterCompositeView
+		@view = view = new CenterCompositeView
 			collection : unitsCollection
+		@listenTo @view,"load:units" ,@loadController
+		@show view
+
+	loadController:(data)=>
+		Backbone.trigger "load:units" , data
+
 		

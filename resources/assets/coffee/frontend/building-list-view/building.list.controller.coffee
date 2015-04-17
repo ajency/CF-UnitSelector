@@ -75,23 +75,24 @@ class CenterBuildingListView extends Marionette.CompositeView
 
 	events : 
 		'click .buildings':(e)->
-			units = apartmentVariantCollection.getApartmentUnits()
+			console.log units = buildingCollection
 			data = {}
 			data.units = units
 			data.type = 'building'
 			
-			console.log @region =  new Marionette.Region el : '#centerregion'
+			@region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.CenterBuildingListCtrl region : @region
-			CommonFloor.BunglowListCtrl.prototype.trigger "load:units" , data
+			@trigger "load:units" , data
+			
 
 		'click .Villas':(e)->
-			units = bunglowVariantCollection.getBunglowUnits()
+			console.log units = bunglowVariantCollection.getBunglowUnits()
 			data = {}
 			data.units = units
 			data.type = 'villa'
-			console.log @region =  new Marionette.Region el : '#centerregion'
+			@region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.ListCtrl region : @region
-			CommonFloor.BunglowListCtrl.prototype.trigger "load:units" , data
+			@trigger "load:units" , data
 
 	onShow:->
 		if project.get('project_master').front  == ""
@@ -100,7 +101,7 @@ class CenterBuildingListView extends Marionette.CompositeView
 			$('.mapView').show()
 
 		if apartmentVariantCollection.length != 0
-			$('.buildings').removeClass 'hidden'
+			$('.Villas').removeClass 'hidden'
 
 
 
@@ -108,5 +109,10 @@ class CenterBuildingListView extends Marionette.CompositeView
 class CommonFloor.CenterBuildingListCtrl extends Marionette.RegionController
 
 	initialize:->
-		@show new CenterBuildingListView
-			collection : buildingCollection
+		@view = view = new CenterBuildingListView
+					collection : buildingCollection
+		@listenTo @view,"load:units" ,@loadController
+		@show view
+
+	loadController:(data)=>
+		Backbone.trigger "load:units" , data
