@@ -10,6 +10,7 @@ use CommonFloor\Building;
 use CommonFloor\Phase;
 use CommonFloor\FloorLayout;
 use CommonFloor\Project;
+use CommonFloor\Media;
 
 class ProjectBuildingController extends Controller {
 
@@ -60,6 +61,7 @@ class ProjectBuildingController extends Controller {
         $building->building_name = $formData['building_name'];
         $building->phase_id = $formData['phase_id'];
         $building->no_of_floors = $formData['no_of_floors'];
+        $building->floors = [];
         $building->building_master = [
             'front' => '',
             'left' => '',
@@ -97,18 +99,22 @@ class ProjectBuildingController extends Controller {
 
         $building = Building::find( $buildingId );
         $floorLayouts = FloorLayout::where( 'project_property_type_id', $project->getProjectPropertyTypeId( 1 ) )->get();
-        $svgImages = [
-            'building' => [
-                'front' => '',
-                'left' => '',
-                'back' => '',
-                'right' => '',
-                'front-left' => [],
-                'left-back' => [],
-                'back-right' => [],
-                'right-front' => []
-            ]
-        ];
+        $svgImages = [];
+        foreach ($building->building_master as $key => $images) {
+            if (is_array($images)) {
+                $transitionImages = [];
+                foreach ($images as $image) {
+                    $imageName = Media::find($image)->image_name;
+                    $transitionImages[] =["ID"=>$image, "IMAGE"=> url() . "/projects/" . $projectId . "/buildings/". $buildingId ."/" . $imageName];
+                }
+                $svgImages['building'][$key] = $transitionImages;
+            } else {
+                if (is_numeric($images)) {
+                    $imageName = Media::find($images)->image_name;
+                    $svgImages['building'][$key] = ["ID"=>$images, "IMAGE"=> url() . "/projects/" . $projectId . "/master/" . $imageName]; 
+                }
+            }
+        }
         return view( 'admin.project.building.edit' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'building' )

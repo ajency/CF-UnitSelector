@@ -93,6 +93,7 @@ class ProjectFloorLayoutController extends Controller {
         foreach ($floorLayoutPositions as $floorLayoutPosition){
             $formattedFloorLayoutPositions[$floorLayoutPosition['position']] = $floorLayoutPosition;
         }
+        
         return view( 'admin.project.floorlayout.edit' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'add-floor-layout' )

@@ -51,7 +51,7 @@ class BuildingMediaController extends Controller {
         $media->image_name = $newFilename;
         $media->mediable_id = $buildingId;
         $media->mediable_type = 'CommonFloor\Building';
-
+        $media->save();
         $section = $request->get( 'section' );
         $buildingMaster = $building->building_master;
         if (strpos( $section, '-' ) !== false) {
@@ -71,7 +71,7 @@ class BuildingMediaController extends Controller {
                         'media_id' => $media->id,
                         'media_path' => url() . '/projects/' . $projectId . '/buildings/' . $buildingId . '/' . $newFilename
                     ]
-                        ], 201 );
+               ], 201 );
     }
 
     /**
