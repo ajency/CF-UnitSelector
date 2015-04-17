@@ -20,20 +20,20 @@ class TopBunglowUnitView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="row">
 				<div class="col-md-12 col-xs-12 col-sm-12">
-						<div class="row breadcrumb-bar">
+						<!--<div class="row breadcrumb-bar">
 							<div class="col-xs-12 col-md-12">
 								<div class="bread-crumb-list">
 									<ul class="brdcrmb-wrp clearfix">
 										<li class="">
 											<span class="bread-crumb-current">
-												<span class=".icon-arrow-right2"></span><a href="#/master-view/bunglows">
+												<span class=".icon-arrow-right2"></span><a href="#/master-view">
 													Back to Poject Overview</a>
 											</span>
 										</li>
 									</ul>
 								</div>
 							</div>
-						</div>
+						</div>-->
 
 						<div class="search-header-wrap">
 							<h1>You have selected {{unit_name}} Villa</h1>
@@ -160,7 +160,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 						<div class="svg-area">
-							<div class="liquid-slider" id="slider-id">
+							<div class="liquid-slider slider" id="slider-id">
 									 <div>
 											<h2 class="title">External 3D</h2>
 											<img src="{{external_url}}">
@@ -218,6 +218,10 @@ class CenterBunglowUnitView extends Marionette.ItemView
 		
 
 	onShow:->
+		# $('.slider').imagesLoaded ->
+		# 	divHeight = $('.us-right-content').height()
+		# 	$('.unit-list').css 'max-height', divHeight + 'px'
+		# 	return
 		$('#slider-id').liquidSlider(
 					slideEaseFunction: "easeInOutQuad",
 					includeTitle:false,
