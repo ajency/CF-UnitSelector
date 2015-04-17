@@ -54,9 +54,12 @@ class UnitVariant extends Model {
             if( is_numeric($mediaId)){ 
                $media = Media::find($mediaId);
                $imageName = $media->image_name;
- 
-               $floor[$level]['url'.$type.'layout_image'] = url() . "/projects/" . $projectId . "/variants/" . $meta['unit_variant_id'] . "/". $imageName;
-
+               
+               if($level=='external')
+                   $data['external3durl'] = url() . "/projects/" . $projectId . "/variants/" . $meta['unit_variant_id'] . "/". $imageName;
+               else
+                   $floor[$level]['url'.$type.'layout_image'] = url() . "/projects/" . $projectId . "/variants/" . $meta['unit_variant_id'] . "/". $imageName;
+                
             }
         }
        $data['floor'] =  $floor; 
