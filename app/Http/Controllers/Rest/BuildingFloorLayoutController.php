@@ -5,6 +5,7 @@ namespace CommonFloor\Http\Controllers\Rest;
 use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use CommonFloor\Building;
 
 class BuildingFloorLayoutController extends Controller {
 
@@ -13,13 +14,12 @@ class BuildingFloorLayoutController extends Controller {
      *
      * @return Response
      */
-    public function index($buildingId) {
+    public function getFloorLayoutForFloor( $buildingId ) {
+        $building = Building::find( $buildingId );
         
-        return response()->json([
-                'data' => [
-                    
-                ]
-        ], 200);
+        return response()->json( [
+                            'data' => $building->floors
+                        ], 200 );
     }
 
     /**
