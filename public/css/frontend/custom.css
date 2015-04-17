@@ -523,11 +523,14 @@ body {
 }
 .list-view-container .controls {
   text-align: center;
-}
-.list-view-container .controls.mapView {
   position: absolute;
   top: 10px;
   left: 10px;
+}
+.list-view-container .controls.mapView {
+  top: 20px;
+  left: 20px;
+  z-index: 999;
 }
 .list-view-container .controls a {
   display: inline-block;
