@@ -54,7 +54,6 @@ class UnitVariant extends Model {
 
             }
         }
-       
        $data['floor'] =  $floor; 
         
         
