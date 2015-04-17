@@ -47,7 +47,7 @@
       return TopBunglowUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    TopBunglowUnitView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span><a href="#/master-view/bunglows"> Back to Poject Overview</a> </span> </li> </ul> </div> </div> </div> <div class="search-header-wrap"> <h1>You have selected {{unit_name}} Villa</h1> </div> </div> </div>');
+    TopBunglowUnitView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span><a href="#/master-view"> Back to Poject Overview</a> </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1>You have selected {{unit_name}} Villa</h1> </div> </div> </div>');
 
     return TopBunglowUnitView;
 
@@ -157,7 +157,7 @@
       return CenterBunglowUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider" id="slider-id"> <div> <h2 class="title">External 3D</h2> <img src="{{external_url}}"> </div> <div> <h2 class="title">2D Layout</h2> <div class="row {{level}}"> {{#levels}} <div class="col-sm-6 m-b-20"> <img src="{{two_d}}"> <h5 class="text-center">{{level_name}}</h5> </div> {{/levels}} </div> </div> <div> <h2 class="title">3D Layout</h2> <div class="row"> {{#levels}} <div class="col-sm-6 m-b-20"> <img src="{{three_d}}"> <h5 class="text-center">{{level_name}}</h5> </div> {{/levels}} </div> </div> </div> </div> </div>');
+    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider slider" id="slider-id"> <div> <h2 class="title">External 3D</h2> <img src="{{external_url}}"> </div> <div> <h2 class="title">2D Layout</h2> <div class="row {{level}}"> {{#levels}} <div class="col-sm-6 m-b-20"> <img src="{{two_d}}"> <h5 class="text-center">{{level_name}}</h5> </div> {{/levels}} </div> </div> <div> <h2 class="title">3D Layout</h2> <div class="row"> {{#levels}} <div class="col-sm-6 m-b-20"> <img src="{{three_d}}"> <h5 class="text-center">{{level_name}}</h5> </div> {{/levels}} </div> </div> </div> </div> </div>');
 
     CenterBunglowUnitView.prototype.serializeData = function() {
       var data, floor, level, levels, unit, unitVariant, unitid, url;
