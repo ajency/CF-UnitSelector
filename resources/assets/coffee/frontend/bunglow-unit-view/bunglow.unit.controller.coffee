@@ -160,7 +160,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 						<div class="svg-area">
-							<div class="liquid-slider" id="slider-id">
+							<div class="liquid-slider slider" id="slider-id">
 									 <div>
 											<h2 class="title">External 3D</h2>
 											<img src="{{external_url}}">
@@ -218,6 +218,10 @@ class CenterBunglowUnitView extends Marionette.ItemView
 		
 
 	onShow:->
+		# $('.slider').imagesLoaded ->
+		# 	divHeight = $('.us-right-content').height()
+		# 	$('.unit-list').css 'max-height', divHeight + 'px'
+		# 	return
 		$('#slider-id').liquidSlider(
 					slideEaseFunction: "easeInOutQuad",
 					includeTitle:false,
