@@ -44,8 +44,8 @@ function addRoomtype(project_id)
             str += '</div>';
             str += '<div class = "col-md-4" >';
             str += '<div class = "form-inline" >';
-            str += '<div class = "form-group" >';
-            str += '<select name = "controltype_' + roomtypeId + '" onchange="defaultBlock(this.value,\'' + roomtypeId + '\')">';
+            str += '<div class = "form-group full-width" >';
+            str += '<select name = "controltype_' + roomtypeId + '" onchange="defaultBlock(this.value,\'' + roomtypeId + '\')" class="full-width">';
             str += '<option value = "" >Select Controls Type</option>';
             str += '<option value = "textbox" > Text Box </option>';
             str += '<option value = "textarea" > Textarea </option>';
@@ -133,8 +133,8 @@ function addRoomtypeAttributes(roomtypeId, obj)
     str += '</div>';
     str += '<div class = "col-md-4" >';
     str += '<div class = "form-inline" >';
-    str += '<div class = "form-group" >';
-    str += '<select name = "controltype_' + roomtypeId + '" onchange="defaultBlock(this.value,\'' + roomtypeId + '\')">';
+    str += '<div class = "form-group full-width" >';
+    str += '<select name = "controltype_' + roomtypeId + '" onchange="defaultBlock(this.value,\'' + roomtypeId + '\')" class="full-width" >';
     str += '<option value = "" >Select Controls  Type</option>';
     str += '<option value = "textbox" > Text Box </option>';
     str += '<option value = "textarea" > Textarea </option>';
@@ -233,7 +233,7 @@ function addFloorLevel(variantId)
     str += '</div>';
 
     str += '<div class="form-inline">';
-    str += '<div class="form-group">';
+    str += '<div class="form-group full-width">';
     str += ' <input type="hidden" name="variantroomid_' + i + '[]" value="">';
     str += '<select name="room_name_' + i + '[]" class="select2 form-control" onchange="getRoomTypeAttributes(this,' + variantId + ',' + i + ');">';
     str += '<option value="">Select Room</option>';
