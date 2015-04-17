@@ -7,6 +7,7 @@ use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use CommonFloor\Project;
 use CommonFloor\Unit;
+use CommonFloor\Building;
 
 class ProjectApartmentUnitController extends Controller {
 
@@ -17,11 +18,13 @@ class ProjectApartmentUnitController extends Controller {
      */
     public function index( $projectId ) {
         $project = Project::find( $projectId );
-
+        $phases = $project->projectPhase()->lists( 'id' );
+        $buildings = Building::whereIn( 'phase_id', $phases )->lists('id');
+        $units = Unit::whereIn('building_id', $buildings)->get();
         return view( 'admin.project.unit.apartment.list' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'apartment-unit' )
-                        ->with( 'units', [] );
+                        ->with( 'units', $units );
     }
 
     /**
@@ -34,7 +37,7 @@ class ProjectApartmentUnitController extends Controller {
 
         $phases = $project->projectPhase()->lists( 'id' );
 
-        $buildings = \CommonFloor\Building::whereIn( 'phase_id', $phases )->get();
+        $buildings = Building::whereIn( 'phase_id', $phases )->get();
         return view( 'admin.project.unit.apartment.create' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'apartment-unit' )
@@ -78,12 +81,12 @@ class ProjectApartmentUnitController extends Controller {
      */
     public function edit( $projectId, $unitId ) {
         $project = Project::find( $projectId );
-        
+
         $project = Project::find( $projectId );
 
         $phases = $project->projectPhase()->lists( 'id' );
 
-        $buildings = \CommonFloor\Building::whereIn( 'phase_id', $phases )->get();
+        $buildings = Building::whereIn( 'phase_id', $phases )->get();
 
         $unit = Unit::find( $unitId );
         return view( 'admin.project.unit.apartment.create' )
