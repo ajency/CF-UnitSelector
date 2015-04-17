@@ -119,16 +119,15 @@
     CommonFloor.loadJSONData();
     controller = CommonFloor.propertyMaxUnits();
     if (project.get('project_master').front === "") {
-      return CommonFloor.navigate('#/list-view/' + controller.type, true);
+      return CommonFloor.navigate('#/list-view', true);
     } else {
-      return CommonFloor.navigate('#/master-view/' + controller.type, true);
+      return CommonFloor.navigate('#/master-view', true);
     }
   };
 
   CommonFloor.checkListView = function() {
     var controller;
-    controller = CommonFloor.propertyMaxUnits();
-    return CommonFloor.navigate('#/list-view/' + controller.type, true);
+    return controller = CommonFloor.propertyMaxUnits();
   };
 
   window.convertToInt = function(response) {

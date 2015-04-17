@@ -18,8 +18,6 @@ jQuery(document).ready ($)->
 					ctrl : 'LeftBunglowMasterCtrl'
 				'center' :
 					ctrl : 'CenterBunglowMasterCtrl'
-				'middle' : 
-					ctrl : 'MiddleBunglowMasterCtrl'
 	CommonFloor.state 'bunglowUnit',
 			url : '/bunglows/unit-view/:id'
 			sections:
@@ -30,7 +28,7 @@ jQuery(document).ready ($)->
 				'center' :
 					ctrl : 'CenterBunglowUnitCtrl'
 	CommonFloor.state 'bunglowList',
-			url : '/list-view/bunglows'
+			url : '/list-view'
 			sections:
 				'top' : 
 					ctrl : 'TopBunglowListCtrl'
@@ -38,8 +36,6 @@ jQuery(document).ready ($)->
 					ctrl : 'LeftBunglowListCtrl'
 				'center' :
 					ctrl : 'CenterBunglowListCtrl'
-				'middle' : 
-					ctrl : 'MiddleBunglowMasterCtrl'
 	CommonFloor.state 'buildingList',
 			url : '/list-view/building'
 			sections:

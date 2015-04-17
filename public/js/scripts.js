@@ -170,11 +170,9 @@ function saveRoomdetails(project_id,variantId)
     $.ajax({
         url: BASEURL+"/admin/project/" + project_id + "/bunglow-variant/"+variantId+"/roomtypeattributes",
         type: "POST",
-        data: {
-            floorlevelroomData:$("#formroomdetails").serializeArray(),
-        },
+        data: $("#formroomdetails").serializeArray(),
         success: function (response) {
-             window.location.reload();
+            // window.location.reload();
         }
     });
 }
@@ -239,7 +237,7 @@ function addFloorLevel()
         str +='<div class="form-inline">';
         str +='<div class="form-group">';
         str +=' <input type="hidden" name="variantroomid_'+i+'[]" value="">';
-        str +='<select name="room_name_'+i+'[]" class="select2 form-control">';
+        str +='<select name="room_name_'+i+'[]" class="select2 form-control" >';
         str +='<option value="">Select Room</option>';
         str +=ROOMTYPES;
         str +='</select>';
@@ -253,9 +251,28 @@ function addFloorLevel()
          $("#counter").val(i);
 }
 
+function getRoomTypeAttributes(obj,variantId,level)
+{  
+  $.ajax({
+        url: BASEURL+"/admin/project/" + PROJECTID + "/bunglow-variant/"+variantId+"/getroomtypeattributes",
+        type: "POST",
+        data: {
+            roomtype_id:obj.value,
+            level:level,
+        },
+        success: function (response) {
+            var attribute_str = response.data.attributes;
+             $(obj).closest('.form-inline').after(attribute_str); 
+              $("select").select2();
+        }
+    });
+    
+   
+}
+
 function addRoomAttributes(level,obj)
 {
-    var room_type =  $(obj).closest('.form-inline').find('select[name="room_name_'+level+'"]').val();
+    var room_type =  $(obj).closest('.form-inline').find('select[name="room_name_'+level+'[]"]').val();
     if(room_type.trim()=='')
     {
         alert('Select Room Type');
@@ -266,7 +283,7 @@ function addRoomAttributes(level,obj)
         str +='<div class="form-inline">';
         str +='<div class="form-group">';
         str +=' <input type="hidden" name="variantroomid_'+level+'" value="">';
-        str +='<select name="room_name_'+level+'" class="select2 form-control">';
+        str +='<select name="room_name_'+level+'[]" class="select2 form-control">';
         str +='<option value="">Select Room</option>';
         str +=ROOMTYPES;
         str +='</select>';
@@ -290,11 +307,12 @@ function setUpProjectMasterUploader(){
 
         var uploadBtnId = _.uniqueId('upload-btn-');
         var uploadBtn = div.find('.master_uploadfiles').attr('id', uploadBtnId);
-
+        var objectType = uploadBtn.closest('.object-master-images').attr('data-object-type');
+        var objectId = uploadBtn.closest('.object-master-images').attr('data-object-id');
         var uploader = new plupload.Uploader({
             runtimes: 'html5,flash,silverlight,html4',
             browse_button: selectBtnId, // you can pass in id...
-            url: BASEURL  + '/admin/project/' + PROJECTID + '/media',
+            url: BASEURL  + '/admin/'+ objectType +'/' + objectId + '/media',
             flash_swf_url: BASEURL  + '/bower_components/plupload/js/Moxie.swf',
             silverlight_xap_url: BASEURL  + '/bower_components/plupload/js/Moxie.xap',
             headers: {
@@ -302,7 +320,8 @@ function setUpProjectMasterUploader(){
             },
             multipart_params: {
                 "type": "master",
-                "section" : divName
+                "section" : divName,
+                "projectId" : PROJECTID
             },
             filters: {
                 max_file_size: '10mb',
@@ -322,10 +341,10 @@ function setUpProjectMasterUploader(){
  
                     if(supportMultiple)
                         div.find('.uploaded-images').append('<div class="col-sm-2">\n\
-                            <img width="150" height="150" src="'+fileResponse.data.image_path+'" class="img-responsive" ><button onclick="deleteSvg('+fileResponse.data.media_id+',\'master\',\''+divName+'\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>\n\
+                            <img width="150" height="150" src="'+fileResponse.data.media_path+'" class="img-responsive" ><button onclick="deleteSvg('+fileResponse.data.media_id+',\'master\',\''+divName+'\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>\n\
                             </div>')
                     else
-                        div.find('.uploaded-image').html('<object width="150" id="svg1" data="'+fileResponse.data.image_path+'" type="image/svg+xml" /> <button onclick="deleteSvg('+fileResponse.data.media_id+',\'master\',\''+divName+'\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
+                        div.find('.uploaded-image').html('<object width="150" id="svg1" data="'+fileResponse.data.media_path+'" type="image/svg+xml" /> <button onclick="deleteSvg('+fileResponse.data.media_id+',\'master\',\''+divName+'\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
                 }
             }
         });

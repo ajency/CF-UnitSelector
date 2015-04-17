@@ -85,7 +85,7 @@
       return LeftBunglowMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBunglowMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-sm-4"> <h6 class="{{status}}">{{unit_name}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{unit_type}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{super_build_up_area}} sqft</h6> </div> </div>');
+    LeftBunglowMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-sm-4"> <h6 class="{{status}}">{{unit_name}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{unit_type}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{super_built_up_area}} sqft</h6> </div> </div>');
 
     LeftBunglowMasterView.prototype.initialize = function() {
       return this.$el.prop("id", 'unit' + this.model.get("id"));
@@ -103,7 +103,7 @@
         'id': unitVariant.get('unit_type_id')
       });
       data.unit_type = unitType.get('name');
-      data.super_build_up_area = unitVariant.get('super_build_up_area');
+      data.super_built_up_area = unitVariant.get('super_built_up_area');
       availability = this.model.get('availability');
       data.status = s.decapitalize(availability);
       this.model.set('status', data.status);
@@ -218,7 +218,7 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + unitVariant.get('super_build_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + unitType.get('name') + '</div> </div> </div>';
+        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + unitVariant.get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + unitType.get('name') + '</div> </div> </div>';
         console.log(availability);
         $('#' + id).attr('class', 'layer ' + availability);
         $('#unit' + id).attr('class', 'blck-wrap active');
