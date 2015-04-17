@@ -58,7 +58,7 @@
                 <div class="col-md-4">
                     <div class="form-group hidden select-floor">
                         <label class="form-label">Floor</label>
-                        <select id="floor" name="floor_number"   class="select2 form-control">
+                        <select id="floor" name="floor_number"   class="select2 form-control apartment-unit-floor-no">
                             <option value="">Select Floor</option>
                         </select>
                     </div> 
