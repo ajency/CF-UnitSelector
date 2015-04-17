@@ -129,25 +129,25 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
-		<div class="list-view-container">
-		<div class="controls mapView">
+									<div class="list-view-container">
+										<div class="controls mapView">
 								            <div class="toggle">
 								            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
 								            </div>
 							            </div>
-			
-			<div id="spritespin"></div>
-			<div class="svg-maps">
-			<div class="region inactive"></div>
-			</div>
-            <div class="rotate rotate-controls hidden">
-		        <div id="prev" class="rotate-left">Left</div>
-		        <span class="rotate-text">Rotate</span>
-		        <div id="next" class="rotate-right">Right</div>
-    		</div>
-    		</div>
+										
+										<div id="spritespin"></div>
+										<div class="svg-maps">
+											<div class="region inactive"></div>
+										</div>
+							            <div class="rotate rotate-controls hidden">
+									        <div id="prev" class="rotate-left">Left</div>
+									        <span class="rotate-text">Rotate</span>
+									        <div id="next" class="rotate-right">Right</div>
+							    		</div>
+							    	</div>
 
-		  </div>')
+								</div>')
 
 	
 	initialize:->
