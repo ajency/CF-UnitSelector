@@ -229,8 +229,23 @@ jQuery(document).ready ($)->
 				if updateSection is 'building'
 					window.location.reload()
 					return
+
+	
+	$('.apartment-unit-building').change ->
+		
+		$(@).closest('.row').find('.select-floor, .select-position').addClass 'hidden'
+		
+		buildingId = $(@).val()
+		
+		if buildingId.trim() is '' then return
+		floorSelection = $(@).closest('.row').find('.select-floor select')
+		noOfFloors = $(@).find('option[value="'+buildingId+'"]').attr 'data-no-of-floors'
+		if parseInt(noOfFloors) is 0 then return
+		$(@).closest('.row').find('.select-floor').removeClass 'hidden'
+		floorSelection.empty()
+		for i in [0...noOfFloors]
+			floorSelection.append "<option value='#{i+1}'>#{i+1}</option>"	
 					
-				alert 'saved successfully'
 			
 		
 		

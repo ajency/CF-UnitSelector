@@ -47,16 +47,16 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Building</label>
-                        <select name="building_id" class="select2 form-control" data-parsley-required>
+                        <select name="building_id" class="select2 form-control apartment-unit-building" data-parsley-required>
                             <option value="">Select building</option>
                             @foreach($buildings as $building)
-                            <option value="{{ $building->id }}">{{ $building->building_name }}</option>
+                            <option data-no-of-floors="{{ $building->no_of_floors }}" value="{{ $building->id }}">{{ $building->building_name }}</option>
                             @endforeach
                         </select>
                     </div> 
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group">
+                    <div class="form-group hidden select-floor">
                         <label class="form-label">Floor</label>
                         <select id="floor" name="floor_number"   class="select2 form-control">
                             <option value="">Select Floor</option>
@@ -64,7 +64,7 @@
                     </div> 
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group">
+                    <div class="form-group hidden select-position">
                         <label class="form-label">Position</label>
                         <select id="flat_position" required="" name="position_on_floor" class="select2 form-control">
                             <option value="">Select Position</option>
