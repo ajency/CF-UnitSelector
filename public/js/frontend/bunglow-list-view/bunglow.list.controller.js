@@ -24,9 +24,10 @@
     }
 
     BunglowListCtrl.prototype.initialize = function() {
+      console.log("aaaaaaaaaa");
       if (jQuery.isEmptyObject(project.toJSON())) {
         project.setProjectAttributes(PROJECTID);
-        CommonFloor.checkPropertyType();
+        CommonFloor.loadJSONData();
       }
       return this.show(new CommonFloor.BunglowListView);
     };
