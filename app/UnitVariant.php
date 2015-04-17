@@ -35,7 +35,7 @@ class UnitVariant extends Model {
             $projectId = $roomType->project_id;
             $atributes = unserialize($rooms['variant_room_attributes']);
  
-            $floorlevelData[$rooms['floorlevel']][] = array('room_id' => $rooms['roomtype_id'], 'room_name' => $roomTypename, 'atributes'=>$atributes);
+            $floor[$rooms['floorlevel']]['rooms_data'][] = array('room_id' => $rooms['roomtype_id'], 'room_name' => $roomTypename, 'atributes'=>$atributes);
         }
  
         $variantMeta = $unitVariant->variantMeta()->get()->toArray();
@@ -51,8 +51,7 @@ class UnitVariant extends Model {
                $imageName = $media->image_name;
  
                $floor[$level]['url'.$type.'layout_image'] = url() . "/projects/" . $projectId . "/variants/" . $meta['unit_variant_id'] . "/". $imageName;
-               $floor[$level]['rooms_data'] = $floorlevelData[$level];
-               
+
             }
         }
        
