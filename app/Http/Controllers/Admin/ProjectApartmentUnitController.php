@@ -31,11 +31,14 @@ class ProjectApartmentUnitController extends Controller {
      */
     public function create( $projectId ) {
         $project = Project::find( $projectId );
-
+        
+        $phases = $project->projectPhase()->lists('id');
+        
+        $buildings = \CommonFloor\Building::whereIn('phase_id', $phases)->get();
         return view( 'admin.project.unit.apartment.create' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'apartment-unit' )
-                        ->with( 'units', [] );
+                        ->with( 'buildings', $buildings );
     }
 
     /**

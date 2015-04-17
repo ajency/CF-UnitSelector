@@ -47,9 +47,9 @@ class CenterBuildingListView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-12 us-right-content">
 			<div class="list-view-container">
-			<div class="controls mapView">
+			<div class="controls">
 	            <div class="toggle">
-	            	<a href="#/master-view/bunglows" class="map">Map</a><a href="#/list-view/bunglows" class="list active">List</a>
+	            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
 	            </div>
             </div>
 			<div class="text-center">
@@ -75,12 +75,23 @@ class CenterBuildingListView extends Marionette.CompositeView
 
 	events : 
 		'click .buildings':(e)->
+			units = apartmentVariantCollection.getApartmentUnits()
+			data = {}
+			data.units = units
+			data.type = 'building'
+			
 			console.log @region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.CenterBuildingListCtrl region : @region
+			CommonFloor.BunglowListCtrl.prototype.trigger "load:units" , data
 
 		'click .Villas':(e)->
+			units = bunglowVariantCollection.getBunglowUnits()
+			data = {}
+			data.units = units
+			data.type = 'villa'
 			console.log @region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.ListCtrl region : @region
+			CommonFloor.BunglowListCtrl.prototype.trigger "load:units" , data
 
 	onShow:->
 		if project.get('project_master').front  == ""
