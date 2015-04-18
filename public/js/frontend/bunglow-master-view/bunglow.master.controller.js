@@ -51,9 +51,10 @@
     TopBunglowMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="search-header-wrap"> <h1>We are now at {{project_title}}\'s upcoming project having {{units}} {{type}}</h1> </div> </div> </div>');
 
     TopBunglowMasterView.prototype.serializeData = function() {
-      var apartmentUnits, bunglowUnits, data, type;
+      var apartmentUnits, bunglowUnits, data, type, units;
       data = TopBunglowMasterView.__super__.serializeData.call(this);
       type = "";
+      units = [];
       bunglowUnits = bunglowVariantCollection.getBunglowUnits();
       if (bunglowUnits.length !== 0) {
         type = 'villas';
@@ -65,7 +66,7 @@
       }
       $.merge(units, apartmentUnits);
       data.units = units.length;
-      data.type = units.type;
+      data.type = type;
       return data;
     };
 

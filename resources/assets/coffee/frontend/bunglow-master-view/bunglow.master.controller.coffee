@@ -30,6 +30,7 @@ class TopBunglowMasterView extends Marionette.ItemView
 	serializeData:->
 		data = super()
 		type = ""
+		units = []
 		bunglowUnits = bunglowVariantCollection.getBunglowUnits()
 		if bunglowUnits.length != 0
 			type = 'villas'
@@ -39,7 +40,7 @@ class TopBunglowMasterView extends Marionette.ItemView
 			type = 'apartments'
 		$.merge units,apartmentUnits
 		data.units = units.length
-		data.type = units.type
+		data.type = type
 		data
 
 

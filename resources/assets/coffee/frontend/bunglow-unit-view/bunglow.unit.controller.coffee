@@ -169,6 +169,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 										<div class="{{level}}">
 										{{#levels}}
                       						<div class="layouts">
+
 												<img src="{{two_d}}"/>
 												<h5 class="text-center">{{level_name}}</h5>
 											</div>
@@ -207,6 +208,8 @@ class CenterBunglowUnitView extends Marionette.ItemView
 				'three_d'			 : value.url3dlayout_image
 				'level_name' : 'Level '+ i
 				level = s.replaceAll('Level '+index, " ", "_")
+
+				
 		data.level = level
 		data.levels = levels
 		data.external_url = response[0].get 'external3durl'
