@@ -5,7 +5,7 @@ class CenterItemView extends Marionette.ItemView
 					                    <div class="info">
 					                      <h2 class="m-b-5">{{name}}</h2>
 					                      <!--<div>Starting from Rs.<span>50 lakhs</span></div>-->
-					                      <div>No. of Floors: <span>45</span></div>
+					                      <div>No. of Floors: <span>{{floors}}</span></div>
 					                    </div>
 					                    <div class="clearfix"></div>
 					                    <div class="unit-type-info">
@@ -24,15 +24,20 @@ class CenterItemView extends Marionette.ItemView
 		id = @model.get 'id'
 		response = building.getUnitTypes(id)
 		types = building.getUnitTypesCount(id,response)
-		# floor = @model.get 'floor'
-		# data.floor = floor.length
+		floors = @model.get 'floors'
+		data.floors = Object.keys(floors).length
 		data.types = types
 		data
 
 	events:
 		'click .bldg':(e)->
 			id = @model.get 'id'
-			CommonFloor.navigate '/building/'+id+'/apartments' , true
+			buildingModel = buildingCollection.findWhere
+							'id' : id
+			if buildingModel.get('building_master').front == ""
+				CommonFloor.navigate '/building/'+id+'/apartments' , true
+			else
+				CommonFloor.navigate '/building/'+id+'/master-view' , true
 
 
 class CenterBuildingListView extends Marionette.CompositeView

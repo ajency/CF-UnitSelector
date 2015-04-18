@@ -11,23 +11,32 @@
       return CenterItemView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterItemView.prototype.template = Handlebars.compile('<li class="bldg blocks {{status}}"> <div class="bldg-img"></div> <div class="info"> <h2 class="m-b-5">{{name}}</h2> <!--<div>Starting from Rs.<span>50 lakhs</span></div>--> <div>No. of Floors: <span>45</span></div> </div> <div class="clearfix"></div> <div class="unit-type-info"> <ul> {{#types}} <li> {{name}}: <span>{{units}}</span> </li> {{/types}} </ul> </div> </li>');
+    CenterItemView.prototype.template = Handlebars.compile('<li class="bldg blocks {{status}}"> <div class="bldg-img"></div> <div class="info"> <h2 class="m-b-5">{{name}}</h2> <!--<div>Starting from Rs.<span>50 lakhs</span></div>--> <div>No. of Floors: <span>{{floors}}</span></div> </div> <div class="clearfix"></div> <div class="unit-type-info"> <ul> {{#types}} <li> {{name}}: <span>{{units}}</span> </li> {{/types}} </ul> </div> </li>');
 
     CenterItemView.prototype.serializeData = function() {
-      var data, id, response, types;
+      var data, floors, id, response, types;
       data = CenterItemView.__super__.serializeData.call(this);
       id = this.model.get('id');
       response = building.getUnitTypes(id);
       types = building.getUnitTypesCount(id, response);
+      floors = this.model.get('floors');
+      data.floors = Object.keys(floors).length;
       data.types = types;
       return data;
     };
 
     CenterItemView.prototype.events = {
       'click .bldg': function(e) {
-        var id;
+        var buildingModel, id;
         id = this.model.get('id');
-        return CommonFloor.navigate('/building/' + id + '/apartments', true);
+        buildingModel = buildingCollection.findWhere({
+          'id': id
+        });
+        if (buildingModel.get('building_master').front === "") {
+          return CommonFloor.navigate('/building/' + id + '/apartments', true);
+        } else {
+          return CommonFloor.navigate('/building/' + id + '/master-view', true);
+        }
       }
     };
 
