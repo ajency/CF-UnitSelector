@@ -169,7 +169,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 										<div class="row {{level}}">
 										{{#levels}}
                       						<div class="col-sm-6 m-b-20">
-												<img src="{{two_d}}">
+												<img src="{{two_d}}"/>
 												<h5 class="text-center">{{level_name}}</h5>
 											</div>
 										{{/levels}}
@@ -180,7 +180,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 										<div class="row">
 										{{#levels}}
 											<div class="col-sm-6 m-b-20">
-												<img src="{{three_d}}">
+												<img src="{{three_d}}"/>
 												<h5 class="text-center">{{level_name}}</h5>
 											</div>
 										{{/levels}}

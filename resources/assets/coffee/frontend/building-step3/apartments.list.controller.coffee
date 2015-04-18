@@ -36,7 +36,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 		            </div>-->
 
 		            <div class="search-header-wrap">
-		              <h1>We are now at {{project_title}}\'s upcoming project having {{units}} apartment\'s</h1>
+		              <h1>We are now at {{project_title}}\'s upcoming project having {{units}} apartments</h1>
 		            </div>
 		          </div>
 		        </div>')
@@ -120,8 +120,10 @@ class CommonFloor.CenterApartmentView extends Marionette.CompositeView
 		            </div>
 					<div class="legend">
 							              <ul>
+							                <li class="available">AVAILABLE</li>
 							                <li class="sold">SOLD</li>
 							                <li class="blocked">BLOCKED</li>
+							                <li class="na">NOT IN SELECTION</li>
 							              </ul>
 							            </div>
 					<div class="villa-list">

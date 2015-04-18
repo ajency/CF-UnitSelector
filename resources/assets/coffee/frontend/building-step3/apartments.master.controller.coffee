@@ -37,7 +37,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		            </div>-->
 
 		            <div class="search-header-wrap">
-		              <h1>We are now at {{project_title}}\'s upcoming project having {{units}} apartment\'s</h1>
+		              <h1>We are now at {{project_title}}\'s upcoming project having {{units}} apartments</h1>
 		            </div>
 		          </div>
 		        </div>')
@@ -97,6 +97,9 @@ class ApartmentsView extends Marionette.ItemView
 		'mouseover .row':(e)->
 			id = @model.get 'id'
 			$('#'+id).attr('class' ,'layer '+@model.get('availability'))
+		'mouseout .row':(e)->
+			id = @model.get 'id'
+			$('#'+id).attr('class' ,'layer')
 
 		'click .row':(e)->
 			if @model.get('availability') == 'available'
