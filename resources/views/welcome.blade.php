@@ -27,24 +27,32 @@
                 display: inline-block;
             }
 .btn-default{
-border-radius:0!important;
-border:1px solid #F68121!important;
+border-radius: 0!important;
+  border: 1px solid #F68121!important;
+  background: #F68121;
+  color: #fff;
 }
+
 .btn-default a{
-    color: #969393;
+    color: #fff;
     text-decoration: none;
+}
+.btn-default a:hover{
+  color:#A0A0A0;
 }
             .title {
                 font-size: 75px;
-                margin-bottom: 40px;
-                font-family: 'Lato';
-                color: #A5A4A4;
+  margin-bottom: 40px;
+  font-family: 'Lato';
+  color: #A0A0A0;
+  font-weight: 900;
             }
 .sub-title{
     letter-spacing: 4px;
-    font-family: 'Lato';
-      margin-top: 60px;
-      color: #5A5A5A;
+  font-family: 'Lato';
+  margin-top: 60px;
+  color: #5A5A5A;
+  font-weight: 900;
 }
 
             .quote {
