@@ -22,14 +22,24 @@ class TopBunglowMasterView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="row">
 		  <div class="col-md-12 col-xs-12 col-sm-12">
 			<div class="search-header-wrap">
-			  <h1>We are now at {{project_title}}\'s upcoming project having {{units}} villas</h1>
+			  <h1>We are now at {{project_title}}\'s upcoming project having {{units}} {{type}}</h1>
 			</div>
 		  </div>
 		</div>')
 
 	serializeData:->
 		data = super()
-		data.units = bunglowVariantCollection.getBunglowUnits().length
+		type = ""
+		bunglowUnits = bunglowVariantCollection.getBunglowUnits()
+		if bunglowUnits.length != 0
+			type = 'villas'
+		$.merge units,bunglowUnits
+		apartmentUnits = apartmentVariantCollection.getApartmentUnits()
+		if apartmentUnits.length != 0
+			type = 'apartments'
+		$.merge units,apartmentUnits
+		data.units = units.length
+		data.type = units.type
 		data
 
 
@@ -61,12 +71,9 @@ class LeftBunglowMasterView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
-		console.log unitVariant = bunglowVariantCollection.findWhere
-							'id' : @model.get('unit_variant_id')
-		unitType = unitTypeCollection.findWhere
-							'id' : unitVariant.get('unit_type_id')
-		data.unit_type = unitType.get('name')
-		data.super_built_up_area = unitVariant.get('super_built_up_area')
+		response = window.unit.getUnitDetails( @model.get('id'))
+		data.unit_type = response[1].get('name')
+		data.super_built_up_area = response[0].get('super_built_up_area')
 		availability = @model.get('availability')
 		data.status = s.decapitalize(availability)
 		@model.set 'status' , data.status
@@ -163,8 +170,13 @@ class LeftBunglowMasterCompositeView extends Marionette.CompositeView
 class CommonFloor.LeftBunglowMasterCtrl extends Marionette.RegionController
 
 	initialize:->
-		newUnits = bunglowVariantCollection.getBunglowUnits()
-		unitsCollection = new Backbone.Collection newUnits 		
+		units = []
+		bunglowUnits = bunglowVariantCollection.getBunglowUnits()
+		$.merge units,bunglowUnits
+		apartmentUnits = apartmentVariantCollection.getApartmentUnits()
+		$.merge units,apartmentUnits
+
+		unitsCollection = new Backbone.Collection units 		
 		@show new LeftBunglowMasterCompositeView
 			collection : unitsCollection
 
@@ -244,11 +256,9 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return false
-			unitVariant = bunglowVariantCollection.findWhere
-								'id' : unit.get('unit_variant_id')
+
+			response = window.unit.getUnitDetails(id)
 			
-			unitType = unitTypeCollection.findWhere
-								'id' :  unitVariant.get('unit_type_id')
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			html = ""
@@ -258,10 +268,10 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 						<div class="clearfix"></div>
 						<div class="details">
 							<div>
-								<label>Area</label> - '+unitVariant.get('super_built_up_area')+' Sq.ft
+								<label>Area</label> - '+response[0].get('super_built_up_area')+' Sq.ft
 							</div> 
 							<div>
-								<label>Unit Type </label> - '+unitType.get('name')+'
+								<label>Unit Type </label> - '+response[1].get('name')+'
 							</div>  
 						</div>  
 					</div>'
