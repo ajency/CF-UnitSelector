@@ -111,10 +111,11 @@ class ProjectBuildingController extends Controller {
             } else {
                 if (is_numeric($images)) {
                     $imageName = Media::find($images)->image_name;
-                    $svgImages['building'][$key] = ["ID"=>$images, "IMAGE"=> url() . "/projects/" . $projectId . "/master/" . $imageName]; 
+                    $svgImages['building'][$key] = ["ID"=>$images, "IMAGE"=> url() . "/projects/" . $projectId . "/buildings/". $buildingId ."/" . $imageName]; 
                 }
             }
         }
+            
         return view( 'admin.project.building.edit' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'building' )

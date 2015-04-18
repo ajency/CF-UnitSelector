@@ -218,6 +218,18 @@
     };
 
     CenterBunglowMasterView.prototype.events = {
+      'mouseover .building': function(e) {
+        var buildingModel, id;
+        id = parseInt(e.target.id);
+        buildingModel = buildingCollection.findWhere({
+          'id': id
+        });
+        if (buildingModel.get('building_master').front === "") {
+          return CommonFloor.navigate('/building/' + id + '/apartments', true);
+        } else {
+          return CommonFloor.navigate('/building/' + id + '/master-view', true);
+        }
+      },
       'click .list': function(e) {
         e.preventDefault();
         return CommonFloor.navigate('/list-view', true);

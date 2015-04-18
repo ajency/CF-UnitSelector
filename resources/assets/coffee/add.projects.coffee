@@ -4,6 +4,12 @@ jQuery(document).ready ($)->
 	$.ajaxSetup
         headers:
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	
+	$.notify.defaults globalPosition : 'bottom right'
+	$( document ).ajaxComplete (args...)->
+		xhr = args[1]
+		if xhr.status in [201,202,203]
+			$.notify xhr.responseJSON.message, 'success'
 
 		
 	$('form button[type="reset"]').click();

@@ -45,6 +45,26 @@ jQuery(document).ready ($)->
 					ctrl : 'LeftBuildingListCtrl'
 				'center' :
 					ctrl : 'CenterBuildingListCtrl'
+
+	CommonFloor.state 'apartmentsList',
+			url : '/building/:id/apartments'
+			sections:
+				'top' : 
+					ctrl : 'TopApartmentCtrl'
+				'left' :
+					ctrl : 'LeftApartmentCtrl'
+				'center' :
+					ctrl : 'CenterApartmentCtrl'
+
+	CommonFloor.state 'apartmentsMaster',
+			url : '/building/:id/master-view'
+			sections:
+				'top' : 
+					ctrl : 'TopApartmentMasterCtrl'
+				'left' :
+					ctrl : 'LeftApartmentMasterCtrl'
+				'center' :
+					ctrl : 'CenterApartmentMasterCtrl'
 	
 
 

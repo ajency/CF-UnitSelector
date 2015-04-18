@@ -92,8 +92,6 @@
                     </div>
                 </div>
             </div>
-
-            @for($i = 1; $i <= $floorLayout->no_of_flats; $i++)
             <div class="grid simple floor-position">
                 <div class="grid-title" role="tab" id="headingTwo">
                     <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" 
@@ -103,7 +101,7 @@
                     </a>
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-
+                    @for($i = 1; $i <= $floorLayout->no_of_flats; $i++)
                     <form data-parsley-validate>
                         <div class="grid-body"><h3>Position {{ $i }}</h3>
                             <div class="row m-b-15">
@@ -157,9 +155,10 @@
                             </div>
                         </div>
                     </form>
+                    @endfor
                 </div>
             </div>
-            @endfor
+            
         </div> 
     </div>
 </div>
