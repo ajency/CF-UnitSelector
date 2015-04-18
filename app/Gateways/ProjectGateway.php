@@ -79,8 +79,8 @@ class ProjectGateway implements ProjectGatewayInterface {
        foreach($buildings as $building)
        {
          $buildingIds[] =$building->id;  
-       }
-       $units += \CommonFloor\Unit::WhereIn('building_id', $buildingIds)->get()->toArray();
+       }  
+      $apartmentunits = \CommonFloor\Unit::whereIn('building_id', $buildingIds)->get()->toArray(); 
        $variantIds = $bunglowVariantData = $appartmentVariantData = [];
         foreach ($unitTypeIds as $key => $unitTypeId)
         {
@@ -97,8 +97,9 @@ class ProjectGateway implements ProjectGatewayInterface {
                 $appartmentVariantData =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['apartment'] )->get()->toArray();   
             }
         }
-        $units += \CommonFloor\Unit::whereIn('unit_variant_id', $variantIds)->orWhereIn('building_id', $buildingIds)->get()->toArray();
-         
+        $units = \CommonFloor\Unit::whereIn('unit_variant_id', $variantIds)->get()->toArray();
+        $units = array_merge($units,$apartmentunits);
+ 
         $stepTwoData = [
             'buildings' => $buildings->toArray(),
             'bunglow_variants' => $bunglowVariantData,
