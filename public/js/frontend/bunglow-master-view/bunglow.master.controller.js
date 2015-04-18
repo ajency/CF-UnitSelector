@@ -48,12 +48,24 @@
       return TopBunglowMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopBunglowMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="search-header-wrap"> <h1>We are now at {{project_title}}\'s upcoming project having {{units}} villas</h1> </div> </div> </div>');
+    TopBunglowMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="search-header-wrap"> <h1>We are now at {{project_title}}\'s upcoming project having {{units}} {{type}}</h1> </div> </div> </div>');
 
     TopBunglowMasterView.prototype.serializeData = function() {
-      var data;
+      var apartmentUnits, bunglowUnits, data, type;
       data = TopBunglowMasterView.__super__.serializeData.call(this);
-      data.units = bunglowVariantCollection.getBunglowUnits().length;
+      type = "";
+      bunglowUnits = bunglowVariantCollection.getBunglowUnits();
+      if (bunglowUnits.length !== 0) {
+        type = 'villas';
+      }
+      $.merge(units, bunglowUnits);
+      apartmentUnits = apartmentVariantCollection.getApartmentUnits();
+      if (apartmentUnits.length !== 0) {
+        type = 'apartments';
+      }
+      $.merge(units, apartmentUnits);
+      data.units = units.length;
+      data.type = units.type;
       return data;
     };
 
@@ -94,16 +106,11 @@
     LeftBunglowMasterView.prototype.className = 'blck-wrap';
 
     LeftBunglowMasterView.prototype.serializeData = function() {
-      var availability, data, unitType, unitVariant;
+      var availability, data, response;
       data = LeftBunglowMasterView.__super__.serializeData.call(this);
-      console.log(unitVariant = bunglowVariantCollection.findWhere({
-        'id': this.model.get('unit_variant_id')
-      }));
-      unitType = unitTypeCollection.findWhere({
-        'id': unitVariant.get('unit_type_id')
-      });
-      data.unit_type = unitType.get('name');
-      data.super_built_up_area = unitVariant.get('super_built_up_area');
+      response = window.unit.getUnitDetails(this.model.get('id'));
+      data.unit_type = response[1].get('name');
+      data.super_built_up_area = response[0].get('super_built_up_area');
       availability = this.model.get('availability');
       data.status = s.decapitalize(availability);
       this.model.set('status', data.status);
@@ -187,9 +194,13 @@
     }
 
     LeftBunglowMasterCtrl.prototype.initialize = function() {
-      var newUnits, unitsCollection;
-      newUnits = bunglowVariantCollection.getBunglowUnits();
-      unitsCollection = new Backbone.Collection(newUnits);
+      var apartmentUnits, bunglowUnits, units, unitsCollection;
+      units = [];
+      bunglowUnits = bunglowVariantCollection.getBunglowUnits();
+      $.merge(units, bunglowUnits);
+      apartmentUnits = apartmentVariantCollection.getApartmentUnits();
+      $.merge(units, apartmentUnits);
+      unitsCollection = new Backbone.Collection(units);
       return this.show(new LeftBunglowMasterCompositeView({
         collection: unitsCollection
       }));
@@ -249,7 +260,7 @@
         return $('.blck-wrap').attr('class', 'blck-wrap');
       },
       'mouseover .layer': function(e) {
-        var availability, html, id, unit, unitType, unitVariant;
+        var availability, html, id, response, unit;
         id = parseInt(e.target.id);
         html = "";
         unit = unitCollection.findWhere({
@@ -260,16 +271,11 @@
           $('.layer').tooltipster('content', html);
           return false;
         }
-        unitVariant = bunglowVariantCollection.findWhere({
-          'id': unit.get('unit_variant_id')
-        });
-        unitType = unitTypeCollection.findWhere({
-          'id': unitVariant.get('unit_type_id')
-        });
+        response = window.unit.getUnitDetails(id);
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + unitVariant.get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + unitType.get('name') + '</div> </div> </div>';
+        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> </div> </div>';
         console.log(availability);
         $('#' + id).attr('class', 'layer ' + availability);
         $('#unit' + id).attr('class', 'blck-wrap active');
