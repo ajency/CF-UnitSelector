@@ -80,7 +80,7 @@ class LeftBunglowUnitView extends Marionette.ItemView
 							<div class="advncd-filter-wrp unit-list">
 								
 								{{#levels}}
-								<h4 class="m-b-0 m-t-20 text-primary">{{level_name}}</h4>
+								<h4 class="m-b-0 m-t-25 text-primary">{{level_name}}</h4>
 								<!--<div class="blck-wrap title-row">
 									<div class="row">
 										<div class="col-sm-4">
@@ -95,12 +95,12 @@ class LeftBunglowUnitView extends Marionette.ItemView
 									</div>
 								</div>-->
 								{{#rooms}}
-								<div class="blck-wrap no-hover">
-									<div class="row">
+								<div class="blck-wrap no-hover room-attr">
+									<div class="row p-b-5">
 										<div class="col-sm-12">
 											<h5 class="accord-head">{{room_name}}</h5>  
 											{{#attributes}}  
-											<div><label>{{attribute}}</label>: {{value}} </div>
+											<div><span>{{attribute}}</span>: {{value}} </div>
 											{{/attributes}}                    
 										</div>
 										<!--<div class="col-sm-4">
