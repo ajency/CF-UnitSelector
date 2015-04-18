@@ -32,19 +32,25 @@ class FloorLayoutPositionController extends Controller {
      *
      * @return Response
      */
-    public function store($floorLayoutId, Request $request) {
+    public function store( $floorLayoutId, Request $request ) {
         $formData = $request->all();
         
-        $floorPosition = new FloorLayoutPosition;
+        $floorPositions = FloorLayoutPosition::where('floor_layout_id',$floorLayoutId)
+                                ->where('position', $formData['position'])->get();
+        if($floorPositions->count() == 0)
+            $floorPosition = new FloorLayoutPosition;
+        else
+            $floorPosition = $floorPositions->get(0);
+        
         $floorPosition->floor_layout_id = $formData['floor_layout_id'];
-        $floorPosition->position = $formData['floor_layout_id'];
+        $floorPosition->position = $formData['position'];
         $floorPosition->unit_variant_id = $formData['unit_variant_id'];
         $floorPosition->save();
-        return response()->json([
-            'code' => 'position_updated',
-            'message' => 'Position details saved',
-            'data' => $floorPosition->toArray()
-        ], 201);
+        return response()->json( [
+                    'code' => 'position_updated',
+                    'message' => 'Position details saved',
+                    'data' => $floorPosition->toArray()
+                        ], 201 );
     }
 
     /**
