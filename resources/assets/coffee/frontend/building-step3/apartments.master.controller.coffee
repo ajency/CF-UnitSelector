@@ -36,15 +36,30 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		            </div>-->
 
 		            <div class="search-header-wrap">
-		              <h1>We are now at Artha Zen\'s upcoming project having 50 villa\'s</h1>
+		              <h1>We are now at {{project_title}}\'s upcoming project having {{units}} apartment\'s</h1>
 		            </div>
 		          </div>
 		        </div>')
 
+
+	serializeData:->
+		data = super()
+		units = Marionette.getOption( @, 'units' )
+		data.units = units.length
+		data.project_title = project.get('project_title')
+		data
+
 class CommonFloor.TopApartmentMasterCtrl extends Marionette.RegionController
 
 	initialize:->
+		url = Backbone.history.fragment
+		building_id = parseInt url.split('/')[1]
+		response = window.building.getBuildingUnits(building_id)
+		buildingModel = buildingCollection.findWhere
+							id : building_id
 		@show new CommonFloor.TopApartmentMasterView
+					model : buildingModel
+					units : response
 
 class CommonFloor.LeftApartmentMasterView extends Marionette.ItemView
 
@@ -98,20 +113,20 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 	onShow:->
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
-		building = buildingCollection.findWhere
+		console.log building = buildingCollection.findWhere
 							id : building_id
 		transitionImages = []
 		svgs = {}
-		svgs[0] = building.get('building').front 
-		svgs[4] = building.get('building').right
-		svgs[8] = building.get('building').back
-		svgs[12] =  building.get('building').left
+		svgs[0] = building.get('building_master').front 
+		svgs[4] = building.get('building_master').right
+		svgs[8] = building.get('building_master').back
+		svgs[12] =  building.get('building_master').left
 		console.log svgs
 		$.merge transitionImages , building.get('building_master')['right-front']
 		$.merge transitionImages , building.get('building_master')['back-right']
 		$.merge transitionImages , building.get('building_master')['left-back']
 		$.merge transitionImages , building.get('building_master')['front-left']
-		response = building.checkRotationView()
+		response = building.checkRotationView(building)
 		if response is 1
 			$('.rotate').removeClass 'hidden'
 		@initializeRotate(transitionImages,svgs)

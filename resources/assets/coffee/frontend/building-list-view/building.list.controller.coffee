@@ -5,7 +5,7 @@ class CenterItemView extends Marionette.ItemView
 					                    <div class="info">
 					                      <h2 class="m-b-5">{{name}}</h2>
 					                      <!--<div>Starting from Rs.<span>50 lakhs</span></div>-->
-					                      <div>No. of Floors: <span>45</span></div>
+					                      <div>No. of Floors: <span>{{floors}}</span></div>
 					                    </div>
 					                    <div class="clearfix"></div>
 					                    <div class="unit-type-info">
@@ -24,8 +24,8 @@ class CenterItemView extends Marionette.ItemView
 		id = @model.get 'id'
 		response = building.getUnitTypes(id)
 		types = building.getUnitTypesCount(id,response)
-		# floor = @model.get 'floor'
-		# data.floor = floor.length
+		floors = @model.get 'floors'
+		data.floors = Object.keys(floors).length
 		data.types = types
 		data
 

@@ -36,7 +36,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 		            </div>-->
 
 		            <div class="search-header-wrap">
-		              <h1>We are now at Artha Zen\'s upcoming project having {{units}} apartment\'s</h1>
+		              <h1>We are now at {{project_title}}\'s upcoming project having {{units}} apartment\'s</h1>
 		            </div>
 		          </div>
 		        </div>')
@@ -45,6 +45,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 		data = super()
 		units = Marionette.getOption( @, 'units' )
 		data.units = units.length
+		data.project_title = project.get('project_title')
 		data
 
 class CommonFloor.TopApartmentCtrl extends Marionette.RegionController

@@ -45,7 +45,16 @@
       return TopApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span> Back to Poject Overview </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1>We are now at Artha Zen\'s upcoming project having 50 villa\'s</h1> </div> </div> </div>');
+    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span> Back to Poject Overview </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1>We are now at {{project_title}}\'s upcoming project having {{units}} apartment\'s</h1> </div> </div> </div>');
+
+    TopApartmentMasterView.prototype.serializeData = function() {
+      var data, units;
+      data = TopApartmentMasterView.__super__.serializeData.call(this);
+      units = Marionette.getOption(this, 'units');
+      data.units = units.length;
+      data.project_title = project.get('project_title');
+      return data;
+    };
 
     return TopApartmentMasterView;
 
@@ -59,7 +68,17 @@
     }
 
     TopApartmentMasterCtrl.prototype.initialize = function() {
-      return this.show(new CommonFloor.TopApartmentMasterView);
+      var buildingModel, building_id, response, url;
+      url = Backbone.history.fragment;
+      building_id = parseInt(url.split('/')[1]);
+      response = window.building.getBuildingUnits(building_id);
+      buildingModel = buildingCollection.findWhere({
+        id: building_id
+      });
+      return this.show(new CommonFloor.TopApartmentMasterView({
+        model: buildingModel,
+        units: response
+      }));
     };
 
     return TopApartmentMasterCtrl;
@@ -129,21 +148,21 @@
       var building, building_id, response, svgs, transitionImages, url;
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
-      building = buildingCollection.findWhere({
+      console.log(building = buildingCollection.findWhere({
         id: building_id
-      });
+      }));
       transitionImages = [];
       svgs = {};
-      svgs[0] = building.get('building').front;
-      svgs[4] = building.get('building').right;
-      svgs[8] = building.get('building').back;
-      svgs[12] = building.get('building').left;
+      svgs[0] = building.get('building_master').front;
+      svgs[4] = building.get('building_master').right;
+      svgs[8] = building.get('building_master').back;
+      svgs[12] = building.get('building_master').left;
       console.log(svgs);
       $.merge(transitionImages, building.get('building_master')['right-front']);
       $.merge(transitionImages, building.get('building_master')['back-right']);
       $.merge(transitionImages, building.get('building_master')['left-back']);
       $.merge(transitionImages, building.get('building_master')['front-left']);
-      response = building.checkRotationView();
+      response = building.checkRotationView(building);
       if (response === 1) {
         $('.rotate').removeClass('hidden');
       }
