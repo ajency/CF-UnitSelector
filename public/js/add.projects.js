@@ -1,9 +1,22 @@
 (function() {
+  var slice = [].slice;
+
   jQuery(document).ready(function($) {
     var checkUnitTypeRequired, registerRemovePhaseListener, registerRemoveUnitType;
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+    $.notify.defaults({
+      globalPosition: 'bottom right'
+    });
+    $(document).ajaxComplete(function() {
+      var args, ref, xhr;
+      args = 1 <= arguments.length ? slice.call(arguments, 0) : [];
+      xhr = args[1];
+      if ((ref = xhr.status) === 201 || ref === 202 || ref === 203) {
+        return $.notify(xhr.responseJSON.message, 'success');
       }
     });
     $('form button[type="reset"]').click();
