@@ -64,10 +64,11 @@ class ProjectGateway implements ProjectGatewayInterface {
         $unitTypeArr = [];
         $unitTypeIds = [];
         $units = [];
+       
         foreach ($unitTypes as $unitType) {
             $projectPropertyTypekey = array_search( $unitType->project_property_type_id , $projectPropertyTypeIds);
             $unitTypeIds[$projectPropertyTypekey][] = $unitType->id;
-            $unitTypeArr[] = array('id' => $unitType->id ,'name'=> $unitType->unittype_name );
+            $unitTypeArr[] = array('id' => $unitType->id ,'name'=> $unitType->unittype_name ,'property_type_id'=> $unitType->project_property_type_id);
             
         }
        
@@ -109,9 +110,9 @@ class ProjectGateway implements ProjectGatewayInterface {
 
             'settings' => [],
             'unit_types' => $unitTypeArr,
-            'floor_layout' => []
+            'floor_layout' => \CommonFloor\FloorLayout::all()->toArray() 
         ];
-
+ 
         return $stepTwoData;
     }
 
@@ -162,4 +163,7 @@ class ProjectGateway implements ProjectGatewayInterface {
 
         return $data;
     }
+    
+    
+    
 }
