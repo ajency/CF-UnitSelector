@@ -35,7 +35,7 @@ class TopBunglowMasterView extends Marionette.ItemView
 		if bunglowUnits.length != 0
 			type = 'villas'
 		$.merge units,bunglowUnits
-		apartmentUnits = apartmentVariantCollection.getApartmentUnits()
+		apartmentUnits = buildingCollection.toArray()
 		if apartmentUnits.length != 0
 			type = 'apartments'
 		$.merge units,apartmentUnits
@@ -174,7 +174,7 @@ class CommonFloor.LeftBunglowMasterCtrl extends Marionette.RegionController
 		units = []
 		bunglowUnits = bunglowVariantCollection.getBunglowUnits()
 		$.merge units,bunglowUnits
-		apartmentUnits = apartmentVariantCollection.getApartmentUnits()
+		apartmentUnits = buildingCollection.toArray()
 		$.merge units,apartmentUnits
 
 		unitsCollection = new Backbone.Collection units 		

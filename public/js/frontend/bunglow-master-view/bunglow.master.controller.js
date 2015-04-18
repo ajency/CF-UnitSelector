@@ -60,7 +60,7 @@
         type = 'villas';
       }
       $.merge(units, bunglowUnits);
-      apartmentUnits = apartmentVariantCollection.getApartmentUnits();
+      apartmentUnits = buildingCollection.toArray();
       if (apartmentUnits.length !== 0) {
         type = 'apartments';
       }
@@ -199,7 +199,7 @@
       units = [];
       bunglowUnits = bunglowVariantCollection.getBunglowUnits();
       $.merge(units, bunglowUnits);
-      apartmentUnits = apartmentVariantCollection.getApartmentUnits();
+      apartmentUnits = buildingCollection.toArray();
       $.merge(units, apartmentUnits);
       unitsCollection = new Backbone.Collection(units);
       return this.show(new LeftBunglowMasterCompositeView({
