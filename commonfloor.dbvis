@@ -1,144 +1,176 @@
 <pl.waw.ipipan.dbvisualizer.diagram.SerialXml>
   <allTables>
     <entry>
-      <string>cf_password_resets</string>
+      <string>cf_buildings</string>
       <java.awt.Point>
-        <x>194</x>
-        <y>0</y>
-      </java.awt.Point>
-    </entry>
-    <entry>
-      <string>cf_migrations</string>
-      <java.awt.Point>
-        <x>0</x>
-        <y>370</y>
+        <x>18</x>
+        <y>330</y>
       </java.awt.Point>
     </entry>
     <entry>
       <string>cf_users</string>
       <java.awt.Point>
-        <x>597</x>
-        <y>280</y>
+        <x>410</x>
+        <y>672</y>
       </java.awt.Point>
     </entry>
     <entry>
-      <string>cf_rooms</string>
+      <string>cf_floor_layouts</string>
       <java.awt.Point>
-        <x>391</x>
-        <y>355</y>
+        <x>457</x>
+        <y>413</y>
+      </java.awt.Point>
+    </entry>
+    <entry>
+      <string>cf_property_types</string>
+      <java.awt.Point>
+        <x>238</x>
+        <y>385</y>
       </java.awt.Point>
     </entry>
     <entry>
       <string>cf_attributes</string>
       <java.awt.Point>
-        <x>0</x>
-        <y>0</y>
+        <x>743</x>
+        <y>552</y>
       </java.awt.Point>
     </entry>
     <entry>
-      <string>cf_variant_floor_levels</string>
+      <string>cf_floor_layout_positions</string>
       <java.awt.Point>
-        <x>809</x>
-        <y>0</y>
+        <x>18</x>
+        <y>503</y>
       </java.awt.Point>
     </entry>
     <entry>
-      <string>cf_projects</string>
+      <string>cf_project_json</string>
       <java.awt.Point>
-        <x>391</x>
-        <y>0</y>
+        <x>18</x>
+        <y>224</y>
       </java.awt.Point>
     </entry>
     <entry>
-      <string>cf_media</string>
+      <string>cf_variant_rooms</string>
       <java.awt.Point>
-        <x>0</x>
-        <y>200</y>
-      </java.awt.Point>
-    </entry>
-    <entry>
-      <string>cf_project_meta</string>
-      <java.awt.Point>
-        <x>194</x>
-        <y>220</y>
+        <x>1165</x>
+        <y>245</y>
       </java.awt.Point>
     </entry>
     <entry>
       <string>cf_unit_types</string>
       <java.awt.Point>
-        <x>597</x>
-        <y>0</y>
+        <x>726</x>
+        <y>205</y>
       </java.awt.Point>
     </entry>
     <entry>
-      <string>cf_phases</string>
+      <string>cf_units</string>
       <java.awt.Point>
-        <x>194</x>
-        <y>110</y>
+        <x>727</x>
+        <y>325</y>
       </java.awt.Point>
     </entry>
     <entry>
       <string>cf_unit_variants</string>
       <java.awt.Point>
-        <x>597</x>
-        <y>125</y>
+        <x>943</x>
+        <y>200</y>
+      </java.awt.Point>
+    </entry>
+    <entry>
+      <string>cf_migrations</string>
+      <java.awt.Point>
+        <x>18</x>
+        <y>672</y>
+      </java.awt.Point>
+    </entry>
+    <entry>
+      <string>cf_password_resets</string>
+      <java.awt.Point>
+        <x>195</x>
+        <y>672</y>
+      </java.awt.Point>
+    </entry>
+    <entry>
+      <string>cf_building_meta</string>
+      <java.awt.Point>
+        <x>234</x>
+        <y>235</y>
+      </java.awt.Point>
+    </entry>
+    <entry>
+      <string>cf_project_property_types</string>
+      <java.awt.Point>
+        <x>484</x>
+        <y>260</y>
+      </java.awt.Point>
+    </entry>
+    <entry>
+      <string>cf_projects</string>
+      <java.awt.Point>
+        <x>18</x>
+        <y>5</y>
+      </java.awt.Point>
+    </entry>
+    <entry>
+      <string>cf_media</string>
+      <java.awt.Point>
+        <x>234</x>
+        <y>495</y>
+      </java.awt.Point>
+    </entry>
+    <entry>
+      <string>cf_project_meta</string>
+      <java.awt.Point>
+        <x>501</x>
+        <y>140</y>
+      </java.awt.Point>
+    </entry>
+    <entry>
+      <string>cf_phases</string>
+      <java.awt.Point>
+        <x>501</x>
+        <y>0</y>
+      </java.awt.Point>
+    </entry>
+    <entry>
+      <string>cf_variant_meta</string>
+      <java.awt.Point>
+        <x>1155</x>
+        <y>80</y>
       </java.awt.Point>
     </entry>
     <entry>
       <string>cf_room_types</string>
       <java.awt.Point>
-        <x>391</x>
-        <y>245</y>
+        <x>726</x>
+        <y>80</y>
       </java.awt.Point>
     </entry>
   </allTables>
   <relations>
     <entry>
-      <string>cf_rooms</string>
+      <string>cf_building_meta</string>
       <map>
         <entry>
-          <string>unit_variant_id</string>
+          <string>building_id</string>
           <linked-list>
             <pl.waw.ipipan.dbvisualizer.diagram.DBRelation>
-              <columnName>unit_variant_id</columnName>
+              <columnName>building_id</columnName>
               <fLeft>false</fLeft>
               <pLeft>true</pLeft>
               <pNo>0</pNo>
               <fNo>0</fNo>
-              <fname>cf_unit_variants</fname>
-              <pname>cf_rooms</pname>
+              <fname>cf_buildings</fname>
+              <pname>cf_building_meta</pname>
               <points>
                 <java.awt.Point>
-                  <x>392</x>
-                  <y>407</y>
+                  <x>234</x>
+                  <y>288</y>
                 </java.awt.Point>
                 <java.awt.Point>
-                  <x>793</x>
-                  <y>160</y>
-                </java.awt.Point>
-              </points>
-            </pl.waw.ipipan.dbvisualizer.diagram.DBRelation>
-          </linked-list>
-        </entry>
-        <entry>
-          <string>roomtype_id</string>
-          <linked-list>
-            <pl.waw.ipipan.dbvisualizer.diagram.DBRelation>
-              <columnName>roomtype_id</columnName>
-              <fLeft>false</fLeft>
-              <pLeft>true</pLeft>
-              <pNo>0</pNo>
-              <fNo>0</fNo>
-              <fname>cf_room_types</fname>
-              <pname>cf_rooms</pname>
-              <points>
-                <java.awt.Point>
-                  <x>392</x>
-                  <y>452</y>
-                </java.awt.Point>
-                <java.awt.Point>
-                  <x>561</x>
-                  <y>283</y>
+                  <x>194</x>
+                  <y>367</y>
                 </java.awt.Point>
               </points>
             </pl.waw.ipipan.dbvisualizer.diagram.DBRelation>
@@ -147,7 +179,60 @@
       </map>
     </entry>
     <entry>
-      <string>cf_variant_floor_levels</string>
+      <string>cf_project_property_types</string>
+      <map>
+        <entry>
+          <string>project_id</string>
+          <linked-list>
+            <pl.waw.ipipan.dbvisualizer.diagram.DBRelation>
+              <columnName>project_id</columnName>
+              <fLeft>false</fLeft>
+              <pLeft>true</pLeft>
+              <pNo>0</pNo>
+              <fNo>1</fNo>
+              <fname>cf_projects</fname>
+              <pname>cf_project_property_types</pname>
+              <points>
+                <java.awt.Point>
+                  <x>484</x>
+                  <y>312</y>
+                </java.awt.Point>
+                <java.awt.Point>
+                  <x>205</x>
+                  <y>41</y>
+                </java.awt.Point>
+              </points>
+            </pl.waw.ipipan.dbvisualizer.diagram.DBRelation>
+          </linked-list>
+        </entry>
+        <entry>
+          <string>property_type_id</string>
+          <linked-list>
+            <pl.waw.ipipan.dbvisualizer.diagram.DBRelation>
+              <columnName>property_type_id</columnName>
+              <fLeft>false</fLeft>
+              <pLeft>true</pLeft>
+              <pNo>0</pNo>
+              <fNo>0</fNo>
+              <fname>cf_property_types</fname>
+              <pname>cf_project_property_types</pname>
+              <points>
+                <java.awt.Point>
+                  <x>484</x>
+                  <y>328</y>
+                </java.awt.Point>
+                <java.awt.Point>
+                  <x>413</x>
+                  <y>422</y>
+                </java.awt.Point>
+              </points>
+            </pl.waw.ipipan.dbvisualizer.diagram.DBRelation>
+          </linked-list>
+        </entry>
+      </map>
+    </entry>
+    <entry>
+      <string>cf_variant_rooms</string>
       <map>
         <entry>
           <string>unit_variant_id</string>
@@ -159,15 +244,15 @@
               <pNo>0</pNo>
               <fNo>1</fNo>
               <fname>cf_unit_variants</fname>
-              <pname>cf_variant_floor_levels</pname>
+              <pname>cf_variant_rooms</pname>
               <points>
                 <java.awt.Point>
-                  <x>809</x>
-                  <y>68</y>
+                  <x>1165</x>
+                  <y>297</y>
                 </java.awt.Point>
                 <java.awt.Point>
-                  <x>793</x>
-                  <y>165</y>
+                  <x>1143</x>
+                  <y>241</y>
                 </java.awt.Point>
               </points>
             </pl.waw.ipipan.dbvisualizer.diagram.DBRelation>
@@ -186,46 +271,17 @@
               <fLeft>false</fLeft>
               <pLeft>true</pLeft>
               <pNo>0</pNo>
-              <fNo>1</fNo>
+              <fNo>2</fNo>
               <fname>cf_projects</fname>
               <pname>cf_project_meta</pname>
               <points>
                 <java.awt.Point>
-                  <x>195</x>
-                  <y>272</y>
+                  <x>501</x>
+                  <y>192</y>
                 </java.awt.Point>
                 <java.awt.Point>
-                  <x>577</x>
-                  <y>36</y>
-                </java.awt.Point>
-              </points>
-            </pl.waw.ipipan.dbvisualizer.diagram.DBRelation>
-          </linked-list>
-        </entry>
-      </map>
-    </entry>
-    <entry>
-      <string>cf_unit_types</string>
-      <map>
-        <entry>
-          <string>project_id</string>
-          <linked-list>
-            <pl.waw.ipipan.dbvisualizer.diagram.DBRelation>
-              <columnName>project_id</columnName>
-              <fLeft>false</fLeft>
-              <pLeft>true</pLeft>
-              <pNo>0</pNo>
-              <fNo>3</fNo>
-              <fname>cf_projects</fname>
-              <pname>cf_unit_types</pname>
-              <points>
-                <java.awt.Point>
-                  <x>597</x>
-                  <y>52</y>
-                </java.awt.Point>
-                <java.awt.Point>
-                  <x>578</x>
-                  <y>42</y>
+                  <x>205</x>
+                  <y>44</y>
                 </java.awt.Point>
               </points>
             </pl.waw.ipipan.dbvisualizer.diagram.DBRelation>
@@ -249,12 +305,12 @@
               <pname>cf_phases</pname>
               <points>
                 <java.awt.Point>
-                  <x>195</x>
-                  <y>162</y>
+                  <x>501</x>
+                  <y>52</y>
                 </java.awt.Point>
                 <java.awt.Point>
-                  <x>577</x>
-                  <y>33</y>
+                  <x>205</x>
+                  <y>38</y>
                 </java.awt.Point>
               </points>
             </pl.waw.ipipan.dbvisualizer.diagram.DBRelation>
@@ -278,12 +334,41 @@
               <pname>cf_unit_variants</pname>
               <points>
                 <java.awt.Point>
-                  <x>598</x>
-                  <y>192</y>
+                  <x>943</x>
+                  <y>267</y>
                 </java.awt.Point>
                 <java.awt.Point>
-                  <x>773</x>
-                  <y>37</y>
+                  <x>932</x>
+                  <y>243</y>
+                </java.awt.Point>
+              </points>
+            </pl.waw.ipipan.dbvisualizer.diagram.DBRelation>
+          </linked-list>
+        </entry>
+      </map>
+    </entry>
+    <entry>
+      <string>cf_variant_meta</string>
+      <map>
+        <entry>
+          <string>unit_variant_id</string>
+          <linked-list>
+            <pl.waw.ipipan.dbvisualizer.diagram.DBRelation>
+              <columnName>unit_variant_id</columnName>
+              <fLeft>false</fLeft>
+              <pLeft>true</pLeft>
+              <pNo>0</pNo>
+              <fNo>0</fNo>
+              <fname>cf_unit_variants</fname>
+              <pname>cf_variant_meta</pname>
+              <points>
+                <java.awt.Point>
+                  <x>1155</x>
+                  <y>133</y>
+                </java.awt.Point>
+                <java.awt.Point>
+                  <x>1143</x>
+                  <y>235</y>
                 </java.awt.Point>
               </points>
             </pl.waw.ipipan.dbvisualizer.diagram.DBRelation>
@@ -302,17 +387,17 @@
               <fLeft>false</fLeft>
               <pLeft>true</pLeft>
               <pNo>0</pNo>
-              <fNo>2</fNo>
+              <fNo>3</fNo>
               <fname>cf_projects</fname>
               <pname>cf_room_types</pname>
               <points>
                 <java.awt.Point>
-                  <x>391</x>
-                  <y>297</y>
+                  <x>726</x>
+                  <y>132</y>
                 </java.awt.Point>
                 <java.awt.Point>
-                  <x>577</x>
-                  <y>40</y>
+                  <x>205</x>
+                  <y>47</y>
                 </java.awt.Point>
               </points>
             </pl.waw.ipipan.dbvisualizer.diagram.DBRelation>
@@ -322,4 +407,10 @@
     </entry>
   </relations>
   <comments class="linked-list"/>
+  <relationsVisible>
+    <entry>
+      <string>cf_floor_layouts</string>
+      <map/>
+    </entry>
+  </relationsVisible>
 </pl.waw.ipipan.dbvisualizer.diagram.SerialXml>
