@@ -113,7 +113,7 @@ class CommonFloor.CenterApartmentView extends Marionette.CompositeView
 	template : '<div>
 		<div class="col-md-12 us-right-content">
 				<div class="list-view-container">
-					<div class="controls mapView">
+					<div class="controls map-View">
 			            <div class="toggle">
 			            	<a href="#" class="map active">Map</a><a href="#" class="list">List</a>
 			            </div>
@@ -149,6 +149,17 @@ class CommonFloor.CenterApartmentView extends Marionette.CompositeView
 			url = Backbone.history.fragment
 			building_id = parseInt url.split('/')[1]
 			CommonFloor.navigate '/building/'+building_id+'/apartments' , true
+
+	onShow:->
+		e.preventDefault()
+		url = Backbone.history.fragment
+		building_id = parseInt url.split('/')[1]
+		buildingModel = buildingCollection.findWhere
+						id : building_id
+		if buildingModel.get('building_master').front  == ""
+			$('.map-View').hide()
+		else
+			$('.map-View').show()
 
 		
 

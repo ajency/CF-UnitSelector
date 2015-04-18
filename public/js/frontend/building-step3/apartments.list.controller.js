@@ -163,7 +163,7 @@
       return CenterApartmentView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterApartmentView.prototype.template = '<div> <div class="col-md-12 us-right-content"> <div class="list-view-container"> <div class="controls mapView"> <div class="toggle"> <a href="#" class="map active">Map</a><a href="#" class="list">List</a> </div> </div> <div class="legend"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">NOT IN SELECTION</li> </ul> </div> <div class="villa-list"> <ul class="units eight"> </ul> </div></div> </div></div>';
+    CenterApartmentView.prototype.template = '<div> <div class="col-md-12 us-right-content"> <div class="list-view-container"> <div class="controls map-View"> <div class="toggle"> <a href="#" class="map active">Map</a><a href="#" class="list">List</a> </div> </div> <div class="legend"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">NOT IN SELECTION</li> </ul> </div> <div class="villa-list"> <ul class="units eight"> </ul> </div></div> </div></div>';
 
     CenterApartmentView.prototype.childView = ApartmentsView;
 
@@ -183,6 +183,21 @@
         url = Backbone.history.fragment;
         building_id = parseInt(url.split('/')[1]);
         return CommonFloor.navigate('/building/' + building_id + '/apartments', true);
+      }
+    };
+
+    CenterApartmentView.prototype.onShow = function() {
+      var buildingModel, building_id, url;
+      e.preventDefault();
+      url = Backbone.history.fragment;
+      building_id = parseInt(url.split('/')[1]);
+      buildingModel = buildingCollection.findWhere({
+        id: building_id
+      });
+      if (buildingModel.get('building_master').front === "") {
+        return $('.map-View').hide();
+      } else {
+        return $('.map-View').show();
       }
     };
 
