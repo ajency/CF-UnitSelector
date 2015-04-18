@@ -201,7 +201,8 @@
       $.merge(units, bunglowUnits);
       apartmentUnits = buildingCollection.toArray();
       $.merge(units, apartmentUnits);
-      unitsCollection = new Backbone.Collection(units);
+      console.log(units);
+      console.log(unitsCollection = new Backbone.Collection(units));
       return this.show(new LeftBunglowMasterCompositeView({
         collection: unitsCollection
       }));
