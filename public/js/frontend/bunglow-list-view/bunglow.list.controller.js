@@ -24,12 +24,15 @@
     }
 
     BunglowListCtrl.prototype.initialize = function() {
-      console.log("aaaaaaaaaa");
       if (jQuery.isEmptyObject(project.toJSON())) {
         project.setProjectAttributes(PROJECTID);
         CommonFloor.loadJSONData();
       }
-      return this.show(new CommonFloor.BunglowListView);
+      if (bunglowVariantCollection.length === 0 && apartmentVariantCollection.length === 0) {
+        return this.show(new CommonFloor.NothingFoundView);
+      } else {
+        return this.show(new CommonFloor.BunglowListView);
+      }
     };
 
     return BunglowListCtrl;

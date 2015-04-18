@@ -75,7 +75,38 @@ class LeftBunglowMasterView extends Marionette.ItemView
 	events:
 		'mouseover .row' :(e)->
 			id = @model.get('id')
+			console.log window.unit
+			response = window.unit.getUnitDetails(id)
+			html = ""
+			unit = unitCollection.findWhere 
+				id :  id 
+			if unit == undefined
+				html += '<div class="svg-info">
+							<div class="details">
+								Villa details not entered 
+							</div>  
+						</div>'
+				$('.layer').tooltipster('content', html)
+				return false
+
+			availability = unit.get('availability')
+			availability = s.decapitalize(availability)
+			html = ""
+			html += '<div class="svg-info">
+						<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
+						<!--<span class="label label-success"></span-->
+						<div class="clearfix"></div>
+						<div class="details">
+							<div>
+								<label>Area</label> - '+response[0].get('super_built_up_area')+' Sq.ft
+							</div> 
+							<div>
+								<label>Unit Type </label> - '+response[1].get('name')+'
+							</div>  
+						</div>  
+					</div>'
 			$('#'+id).attr('class' ,'layer '+@model.get('status'))
+			$('.layer').tooltipster('content', html)
 
 		'mouseout .row' :(e)->
 			$('.layer').attr('class' ,'layer') 
@@ -83,6 +114,20 @@ class LeftBunglowMasterView extends Marionette.ItemView
 			if @model.get('status') == 'available'
 				CommonFloor.defaults['unit'] = @model.get('id')
 				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
+
+
+	onShow:->
+		@iniTooltip()
+
+	iniTooltip:->
+		$('.layer').tooltipster(
+			theme: 'tooltipster-shadow',
+			contentAsHTML: true
+			onlyOne : true
+			arrow : false
+			offsetX : 50
+			offsetY : -10
+		)
 
 class LeftBunglowMasterCompositeView extends Marionette.CompositeView
 
@@ -149,10 +194,13 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 								</div>')
 
+	ui :
+		svgContainer : '.list-view-container'
+
 	
 	initialize:->
-		@currentBreakPoint = ""
-		@breakPoints = ""
+		@currentBreakPoint = 0
+		@breakPoints = []
 		
 
 	events :
@@ -175,7 +223,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 			$('.blck-wrap').attr('class' ,'blck-wrap') 
 
 		'mouseover .layer':(e)->
-			console.log id  = parseInt e.target.id
+			id  = parseInt e.target.id
 			html = ""
 			unit = unitCollection.findWhere 
 				id :  id 
@@ -262,11 +310,12 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		frames = transitionImages
 		@breakPoints = [0, 4, 8, 12]
 		@currentBreakPoint = 0
-		$('.svg-maps > div').first().removeClass('inactive').addClass('active');
+		width = @ui.svgContainer.width() + 15
+		$('.svg-maps > div').first().removeClass('inactive').addClass('active').css('width',width);
 		spin = $('#spritespin')
 		spin.spritespin(
 			source: frames
-			width: 800
+			width: @ui.svgContainer.width() 
 			sense: -1
 			height: 600
 			animate: false

@@ -20,52 +20,6 @@ CommonFloor.loadJSONData = ()->
 			response = window.convertToInt(response)
 			response = response.data
 			
-			units = [
-				{
-					"id": 1,
-					"unit_name": "Cullen Rowland",
-					"building_id": 1,
-					"unit_variant_id": 7,
-					"facing": 1,
-					"views": 5,
-					"position": 7,
-					"status": 3,
-					"floor": 6
-				},
-				{
-					"unit_id": 2,
-					"unit_name": "Colby Walters",
-					"building_id": 1,
-					"unit_variant_id": 7,
-					"facing": 2,
-					"views": 4,
-					"position": 2,
-					"status": 2,
-					"floor": 7
-				},
-				{
-					"unit_id": 3,
-					"unit_name": "Merritt Garner",
-					"building_id": 3,
-					"unit_variant_id": 7,
-					"facing": 1,
-					"views": 9,
-					"position": 3,
-					"status": 1,
-					"floor": 7
-				},
-				{
-					"unit_id": 4,
-					"unit_name": "Quentin Whitney",
-					"building_id": 3,
-					"unit_variant_id": 7,
-					"facing": 8,
-					"views": 3,
-					"position": 3,
-					"status": 2,
-					"floor": 2
-				}]
-			$.merge response.units, units
 			bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants)
 			settings.setSettingsAttributes(response.settings)
 			unitCollection.setUnitAttributes(response.units)

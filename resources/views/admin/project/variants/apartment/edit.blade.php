@@ -186,7 +186,7 @@
                 </div> 
                 <?php $j++; ?>
                 @endforeach 
-                
+                <div class="col-sm-12" id="levelblock_0"> 
                     <div class="form-inline">
                         <div class="form-group">
                             <input type="hidden" name="variantroomid_{{$i}}[]" value="">
@@ -202,7 +202,7 @@
                     <div >
                         <!--Attributes-->  
                     </div>
-               
+                </div> 
             </div>
             <div class="form-actions">  
                 <div class="pull-right">

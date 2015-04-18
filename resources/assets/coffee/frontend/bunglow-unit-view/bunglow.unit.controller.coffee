@@ -20,20 +20,20 @@ class TopBunglowUnitView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="row">
 				<div class="col-md-12 col-xs-12 col-sm-12">
-						<div class="row breadcrumb-bar">
+						<!--<div class="row breadcrumb-bar">
 							<div class="col-xs-12 col-md-12">
 								<div class="bread-crumb-list">
 									<ul class="brdcrmb-wrp clearfix">
 										<li class="">
 											<span class="bread-crumb-current">
-												<span class=".icon-arrow-right2"></span><a href="#/master-view/bunglows">
+												<span class=".icon-arrow-right2"></span><a href="#/master-view">
 													Back to Poject Overview</a>
 											</span>
 										</li>
 									</ul>
 								</div>
 							</div>
-						</div>
+						</div>-->
 
 						<div class="search-header-wrap">
 							<h1>You have selected {{unit_name}} Villa</h1>
@@ -79,26 +79,26 @@ class LeftBunglowUnitView extends Marionette.ItemView
 								
 								{{#levels}}
 								<h4 class="m-b-0 m-t-20">{{level_name}}</h4>
-								<div class="blck-wrap title-row">
+								<!--<div class="blck-wrap title-row">
 									<div class="row">
 										<div class="col-sm-4">
 											<h5 class="accord-head">Rooms</h5>                      
 										</div>
-										<!--<div class="col-sm-4">
+										<div class="col-sm-4">
 											<h5 class="accord-head">No</h5>                      
 										</div>
 										<div class="col-sm-4">
 											<h5 class="accord-head">Area</h5>                      
-										</div>-->
+										</div>
 									</div>
-								</div>
+								</div>-->
 								{{#rooms}}
-								<div class="blck-wrap">
+								<div class="blck-wrap title-row">
 									<div class="row">
 										<div class="col-sm-4">
-											<h6>{{room_name}}</h6>  
+											<h5 class="accord-head">{{room_name}}</h5>  
 											{{#attributes}}  
-											<div>{{attribute}}</div>:<div>{{value}}</div>  
+											<label>{{attribute}}</label>: {{value}} 
 											{{/attributes}}                    
 										</div>
 										<!--<div class="col-sm-4">
@@ -160,14 +160,14 @@ class CenterBunglowUnitView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 						<div class="svg-area">
-							<div class="liquid-slider" id="slider-id">
+							<div class="liquid-slider slider" id="slider-id">
 									 <div>
 											<h2 class="title">External 3D</h2>
 											<img src="{{external_url}}">
 									 </div>
 									 <div>
 										<h2 class="title">2D Layout</h2>
-										<div class="row">
+										<div class="row {{level}}">
 										{{#levels}}
                       						<div class="col-sm-6 m-b-20">
 												<img src="{{two_d}}">
@@ -202,19 +202,26 @@ class CenterBunglowUnitView extends Marionette.ItemView
 								'id' : unit.get('unit_variant_id')
 		levels = []
 		floor = unitVariant.get('floor')
-
+		level = ""
 		$.each floor,(index,value)->
 			rooms = []
 			levels.push 
 				'two_d' : value.url2dlayout_image
 				'three_d'			 : value.url3dlayout_image
 				'level_name' : 'Level '+index
+				level = s.replaceAll('Level '+index, " ", "_")
+		
+		data.level = level
 		data.levels = levels
 		data.external_url = unitVariant.get 'external3durl'
 		data
 		
 
 	onShow:->
+		# $('.slider').imagesLoaded ->
+		# 	divHeight = $('.us-right-content').height()
+		# 	$('.unit-list').css 'max-height', divHeight + 'px'
+		# 	return
 		$('#slider-id').liquidSlider(
 					slideEaseFunction: "easeInOutQuad",
 					includeTitle:false,

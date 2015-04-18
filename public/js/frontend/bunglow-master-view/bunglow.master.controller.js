@@ -112,9 +112,25 @@
 
     LeftBunglowMasterView.prototype.events = {
       'mouseover .row': function(e) {
-        var id;
+        var availability, html, id, response, unit;
         id = this.model.get('id');
-        return $('#' + id).attr('class', 'layer ' + this.model.get('status'));
+        console.log(window.unit);
+        response = window.unit.getUnitDetails(id);
+        html = "";
+        unit = unitCollection.findWhere({
+          id: id
+        });
+        if (unit === void 0) {
+          html += '<div class="svg-info"> <div class="details"> Villa details not entered </div> </div>';
+          $('.layer').tooltipster('content', html);
+          return false;
+        }
+        availability = unit.get('availability');
+        availability = s.decapitalize(availability);
+        html = "";
+        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> </div> </div>';
+        $('#' + id).attr('class', 'layer ' + this.model.get('status'));
+        return $('.layer').tooltipster('content', html);
       },
       'mouseout .row': function(e) {
         return $('.layer').attr('class', 'layer');
@@ -125,6 +141,21 @@
           return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
         }
       }
+    };
+
+    LeftBunglowMasterView.prototype.onShow = function() {
+      return this.iniTooltip();
+    };
+
+    LeftBunglowMasterView.prototype.iniTooltip = function() {
+      return $('.layer').tooltipster({
+        theme: 'tooltipster-shadow',
+        contentAsHTML: true,
+        onlyOne: true,
+        arrow: false,
+        offsetX: 50,
+        offsetY: -10
+      });
     };
 
     return LeftBunglowMasterView;
@@ -177,9 +208,13 @@
 
     CenterBunglowMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container"> <div class="controls mapView"> <div class="toggle"> <a href="#" class="map">Map</a><a href="#" class="list">List</a> </div> </div> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
 
+    CenterBunglowMasterView.prototype.ui = {
+      svgContainer: '.list-view-container'
+    };
+
     CenterBunglowMasterView.prototype.initialize = function() {
-      this.currentBreakPoint = "";
-      return this.breakPoints = "";
+      this.currentBreakPoint = 0;
+      return this.breakPoints = [];
     };
 
     CenterBunglowMasterView.prototype.events = {
@@ -203,7 +238,7 @@
       },
       'mouseover .layer': function(e) {
         var availability, html, id, unit, unitType, unitVariant;
-        console.log(id = parseInt(e.target.id));
+        id = parseInt(e.target.id);
         html = "";
         unit = unitCollection.findWhere({
           id: id
@@ -269,15 +304,16 @@
     };
 
     CenterBunglowMasterView.prototype.initializeRotate = function(transitionImages, svgs) {
-      var frames, spin, that;
+      var frames, spin, that, width;
       frames = transitionImages;
       this.breakPoints = [0, 4, 8, 12];
       this.currentBreakPoint = 0;
-      $('.svg-maps > div').first().removeClass('inactive').addClass('active');
+      width = this.ui.svgContainer.width() + 15;
+      $('.svg-maps > div').first().removeClass('inactive').addClass('active').css('width', width);
       spin = $('#spritespin');
       spin.spritespin({
         source: frames,
-        width: 800,
+        width: this.ui.svgContainer.width(),
         sense: -1,
         height: 600,
         animate: false
