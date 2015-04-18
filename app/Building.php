@@ -39,8 +39,8 @@ class Building extends Model {
                 }
                 $svgImages[$key] = $transitionImages;
             } else {
+                $svgImages[$key] ="";
                 if ($images!='' && is_numeric( $images )) {
-                    
                     $imageName = Media::find( $images )->image_name;
                     $svgImages[$key] = url() . "/projects/" . $projectId . "/buildings/". $buildingId ."/" . $imageName;
                 }
