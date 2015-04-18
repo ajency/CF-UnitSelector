@@ -112,6 +112,11 @@ class CommonFloor.CenterApartmentView extends Marionette.CompositeView
 
 	template : '<div>
 				<div class="list-view-container">
+					<div class="controls mapView">
+			            <div class="toggle">
+			            	<a href="#" class="map active">Map</a><a href="#" class="list">List</a>
+			            </div>
+		            </div>
 					<div class="legend">
 							              <ul>
 							                <li class="sold">SOLD</li>
@@ -128,6 +133,22 @@ class CommonFloor.CenterApartmentView extends Marionette.CompositeView
 	childView : ApartmentsView
 
 	childViewContainer : '.units'
+
+	events : 
+		'click .map':(e)->
+			e.preventDefault()
+			url = Backbone.history.fragment
+			building_id = parseInt url.split('/')[1]
+			CommonFloor.navigate '/building/'+building_id+'/master-view' , true
+
+		'click .list':(e)->
+			e.preventDefault()
+			url = Backbone.history.fragment
+			building_id = parseInt url.split('/')[1]
+			CommonFloor.navigate '/building/'+building_id+'/apartments' , true
+
+		
+
 
 class CommonFloor.CenterApartmentCtrl extends Marionette.RegionController
 

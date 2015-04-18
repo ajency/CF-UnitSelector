@@ -183,7 +183,7 @@
       return CenterApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterApartmentMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container"> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
+    CenterApartmentMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container"> <div class="controls mapView"> <div class="toggle"> <a href="#" class="map active">Map</a><a href="#" class="list">List</a> </div> </div> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
 
     CenterApartmentMasterView.prototype.ui = {
       svgContainer: '.list-view-container'
@@ -200,6 +200,20 @@
       },
       'click #next': function() {
         return this.setDetailIndex(this.currentBreakPoint + 1);
+      },
+      'click .list': function(e) {
+        var building_id, url;
+        e.preventDefault();
+        url = Backbone.history.fragment;
+        building_id = parseInt(url.split('/')[1]);
+        return CommonFloor.navigate('/building/' + building_id + '/apartments', true);
+      },
+      'click .map': function(e) {
+        var building_id, url;
+        e.preventDefault();
+        url = Backbone.history.fragment;
+        building_id = parseInt(url.split('/')[1]);
+        return CommonFloor.navigate('/building/' + building_id + '/master-view', true);
       }
     };
 

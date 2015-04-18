@@ -149,6 +149,11 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 	            <div class="list-view-container">
+	            	<div class="controls mapView">
+			            <div class="toggle">
+			            	<a href="#" class="map active">Map</a><a href="#" class="list">List</a>
+			            </div>
+		            </div>
 	              <div class="single-bldg">
 	                <div class="prev"></div>
 	                <div class="next"></div>
@@ -181,6 +186,22 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 		'click #next':->
 			@setDetailIndex(@currentBreakPoint + 1)
+
+		'click .list':(e)->
+			e.preventDefault()
+			url = Backbone.history.fragment
+			building_id = parseInt url.split('/')[1]
+			CommonFloor.navigate '/building/'+building_id+'/apartments' , true
+
+		'click .map':(e)->
+			e.preventDefault()
+			url = Backbone.history.fragment
+			building_id = parseInt url.split('/')[1]
+			CommonFloor.navigate '/building/'+building_id+'/master-view' , true
+		
+
+		
+
 
 	onShow:->
 		url = Backbone.history.fragment

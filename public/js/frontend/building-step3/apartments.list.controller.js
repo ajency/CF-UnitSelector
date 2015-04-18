@@ -163,11 +163,28 @@
       return CenterApartmentView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterApartmentView.prototype.template = '<div> <div class="list-view-container"> <div class="legend"> <ul> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> </ul> </div> <div class="villa-list"> <ul class="units eight"> </ul> <div> <div><div>';
+    CenterApartmentView.prototype.template = '<div> <div class="list-view-container"> <div class="controls mapView"> <div class="toggle"> <a href="#" class="map active">Map</a><a href="#" class="list">List</a> </div> </div> <div class="legend"> <ul> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> </ul> </div> <div class="villa-list"> <ul class="units eight"> </ul> <div> <div><div>';
 
     CenterApartmentView.prototype.childView = ApartmentsView;
 
     CenterApartmentView.prototype.childViewContainer = '.units';
+
+    CenterApartmentView.prototype.events = {
+      'click .map': function(e) {
+        var building_id, url;
+        e.preventDefault();
+        url = Backbone.history.fragment;
+        building_id = parseInt(url.split('/')[1]);
+        return CommonFloor.navigate('/building/' + building_id + '/master-view', true);
+      },
+      'click .list': function(e) {
+        var building_id, url;
+        e.preventDefault();
+        url = Backbone.history.fragment;
+        building_id = parseInt(url.split('/')[1]);
+        return CommonFloor.navigate('/building/' + building_id + '/apartments', true);
+      }
+    };
 
     return CenterApartmentView;
 
