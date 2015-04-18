@@ -15,7 +15,7 @@ class CenterBunglowListView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
-		console.log unitVariant = bunglowVariantCollection.findWhere
+		unitVariant = bunglowVariantCollection.findWhere
 							'id' : @model.get('unit_variant_id')
 		unitType = unitTypeCollection.findWhere
 							'id' : unitVariant.get('unit_type_id')

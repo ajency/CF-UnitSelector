@@ -20,9 +20,9 @@
     CenterBunglowListView.prototype.serializeData = function() {
       var availability, data, unitType, unitVariant;
       data = CenterBunglowListView.__super__.serializeData.call(this);
-      console.log(unitVariant = bunglowVariantCollection.findWhere({
+      unitVariant = bunglowVariantCollection.findWhere({
         'id': this.model.get('unit_variant_id')
-      }));
+      });
       unitType = unitTypeCollection.findWhere({
         'id': unitVariant.get('unit_type_id')
       });
