@@ -115,7 +115,7 @@ class CommonFloor.CenterApartmentView extends Marionette.CompositeView
 				<div class="list-view-container">
 					<div class="controls map-View">
 			            <div class="toggle">
-			            	<a href="#" class="map active">Map</a><a href="#" class="list">List</a>
+			            	<a href="#" class="map ">Map</a><a href="#" class="list active">List</a>
 			            </div>
 		            </div>
 					<div class="legend">

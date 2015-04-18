@@ -163,7 +163,7 @@
       unitid = parseInt(url.split('/')[1]);
       response = window.unit.getUnitDetails(unitid);
       levels = [];
-      floor = response[0].get('floor');
+      console.log(floor = response[0].get('floor'));
       level = "";
       $.each(floor, function(index, value) {
         var rooms;
