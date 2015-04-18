@@ -77,17 +77,53 @@ class CommonFloor.LeftApartmentCtrl extends Marionette.RegionController
 
 class ApartmentsView extends Marionette.ItemView
 
-	template : Handlebars.compile('<li>{{unit_name}}</li>')
+	template : Handlebars.compile('<li class="unit blocks {{status}}">
+					                    <div class="bldg-img"></div>
+					                    <div class="info">
+					                      <label>{{unit_name}}</label>
+					                      ({{unit_type}} {{super_built_up_area}}sqft)
+					                    </div>
+					                    <div class="clearfix"></div>
+					                   
+					                  </li>')
+
+
+	serializeData:->
+		data = super()
+		status = s.decapitalize @model.get 'availability'
+		unitVariant = apartmentVariantCollection.findWhere
+							'id' : @model.get('unit_variant_id')
+		unitType = unitTypeCollection.findWhere
+							'id' : unitVariant.get('unit_type_id')
+		data.unit_type = unitType.get('name')
+		data.super_built_up_area = unitVariant.get('super_built_up_area')
+		data.status = status
+		data
+
+	events:
+		'click .unit':(e)->
+			if @model.get('availability') == 'available'
+				CommonFloor.defaults['unit'] = @model.get('id')
+				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
 
 
 
 class CommonFloor.CenterApartmentView extends Marionette.CompositeView
 
 	template : '<div>
-				<ul class="units">
+				<div class="list-view-container">
+					<div class="legend">
+							              <ul>
+							                <li class="sold">SOLD</li>
+							                <li class="blocked">BLOCKED</li>
+							              </ul>
+							            </div>
+					<div class="villa-list">
+				<ul class="units eight">
 				</ul>
+				<div>
 
-				<div>'
+				<div><div>'
 
 	childView : ApartmentsView
 

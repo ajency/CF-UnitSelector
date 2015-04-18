@@ -11,18 +11,28 @@
     }
 
     Unit.prototype.getUnitDetails = function(unit_id) {
-      var id, unit, unitType, unitVariant;
+      var id, type, unit, unitType, unitVariant;
       id = parseInt(unit_id);
       unit = unitCollection.findWhere({
         id: id
       });
-      unitVariant = bunglowVariantCollection.findWhere({
-        'id': unit.get('unit_variant_id')
-      });
+      unitVariant = 0;
+      type = '';
+      if (bunglowVariantCollection.get(unit.get('unit_variant_id')) !== void 0) {
+        unitVariant = bunglowVariantCollection.findWhere({
+          'id': unit.get('unit_variant_id')
+        });
+        type = 'villa';
+      } else if (apartmentVariantCollection.get(unit.get('unit_variant_id')) !== void 0) {
+        unitVariant = apartmentVariantCollection.findWhere({
+          'id': unit.get('unit_variant_id')
+        });
+        type = 'apartment';
+      }
       unitType = unitTypeCollection.findWhere({
         'id': unitVariant.get('unit_type_id')
       });
-      return [unitVariant, unitType];
+      return [unitVariant, unitType, type];
     };
 
     return Unit;

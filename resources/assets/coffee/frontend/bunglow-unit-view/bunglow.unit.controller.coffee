@@ -36,7 +36,7 @@ class TopBunglowUnitView extends Marionette.ItemView
 						</div>-->
 
 						<div class="search-header-wrap">
-							<h1>You have selected {{unit_name}} Villa</h1>
+							<h1>You have selected {{unit_name}} {{type}}</h1>
 						</div>
 					</div>
 				</div>')
@@ -54,6 +54,8 @@ class CommonFloor.TopBunglowUnitCtrl extends Marionette.RegionController
 		unitid = parseInt url.split('/')[1]
 		unit = unitCollection.findWhere
 			id  : unitid
+		response = window.unit.getUnitDetails(unitid)
+		unit.set 'type' , response[2]
 		@show new TopBunglowUnitView
 				model : unit
 			
@@ -117,12 +119,9 @@ class LeftBunglowUnitView extends Marionette.ItemView
 		data = super()
 		url = Backbone.history.fragment
 		unitid = parseInt url.split('/')[1]
-		unit = unitCollection.findWhere
-			id  : unitid
-		unitVariant = bunglowVariantCollection.findWhere
-								'id' : unit.get('unit_variant_id')
+		response = window.unit.getUnitDetails(unitid)
 		levels = []
-		floor = unitVariant.get('floor')
+		floor = response[0].get('floor')
 
 		$.each floor,(index,value)->
 			rooms = []
@@ -142,9 +141,9 @@ class LeftBunglowUnitView extends Marionette.ItemView
 				'rooms'			 : rooms
 		
 		unitType = unitTypeCollection.findWhere
-								'id' :  unitVariant.get('unit_type_id')
-		data.area = unitVariant.get('super_built_up_area')
-		data.type = unitType.get('name')
+								'id' :  response[0].get('unit_type_id')
+		data.area = response[0].get('super_built_up_area')
+		data.type = response[1].get('name')
 		data.unit_name = unit.get('unit_name')
 		data.levels  = levels
 		data
@@ -196,12 +195,9 @@ class CenterBunglowUnitView extends Marionette.ItemView
 		data = super()
 		url = Backbone.history.fragment
 		unitid = parseInt url.split('/')[1]
-		unit = unitCollection.findWhere
-			id  : unitid
-		unitVariant = bunglowVariantCollection.findWhere
-								'id' : unit.get('unit_variant_id')
+		response = window.unit.getUnitDetails(unitid)
 		levels = []
-		floor = unitVariant.get('floor')
+		floor = response[0].get('floor')
 		level = ""
 		$.each floor,(index,value)->
 			rooms = []
@@ -213,7 +209,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 		
 		data.level = level
 		data.levels = levels
-		data.external_url = unitVariant.get 'external3durl'
+		data.external_url = response[0].get 'external3durl'
 		data
 		
 

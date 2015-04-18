@@ -100,6 +100,7 @@ class ProjectBuildingController extends Controller {
         $building = Building::find( $buildingId );
         $floorLayouts = FloorLayout::where( 'project_property_type_id', $project->getProjectPropertyTypeId( 1 ) )->get();
         $svgImages = [];
+            
         foreach ($building->building_master as $key => $images) {
             if (is_array($images)) {
                 $transitionImages = [];

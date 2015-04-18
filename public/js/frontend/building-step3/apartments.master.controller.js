@@ -1,6 +1,9 @@
 (function() {
-  var extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  var ApartmentsView, api,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
+
+  api = "";
 
   CommonFloor.ApartmentsMasterView = (function(superClass) {
     extend(ApartmentsMasterView, superClass);
@@ -85,6 +88,55 @@
 
   })(Marionette.RegionController);
 
+  ApartmentsView = (function(superClass) {
+    extend(ApartmentsView, superClass);
+
+    function ApartmentsView() {
+      return ApartmentsView.__super__.constructor.apply(this, arguments);
+    }
+
+    ApartmentsView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-sm-4"> <h6 class="{{status}}">{{unit_name}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{unit_type}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{super_built_up_area}} sqft</h6> </div> </div>');
+
+    ApartmentsView.prototype.initialize = function() {
+      return this.$el.prop("id", 'apartment' + this.model.get("id"));
+    };
+
+    ApartmentsView.prototype.className = 'blck-wrap';
+
+    ApartmentsView.prototype.serializeData = function() {
+      var data, status, unitType, unitVariant;
+      data = ApartmentsView.__super__.serializeData.call(this);
+      status = s.decapitalize(this.model.get('availability'));
+      unitVariant = apartmentVariantCollection.findWhere({
+        'id': this.model.get('unit_variant_id')
+      });
+      unitType = unitTypeCollection.findWhere({
+        'id': unitVariant.get('unit_type_id')
+      });
+      data.unit_type = unitType.get('name');
+      data.super_built_up_area = unitVariant.get('super_built_up_area');
+      data.status = status;
+      return data;
+    };
+
+    ApartmentsView.prototype.events = {
+      'mouseover .row': function(e) {
+        var id;
+        id = this.model.get('id');
+        return $('#' + id).attr('class', 'layer ' + this.model.get('availability'));
+      },
+      'click .row': function(e) {
+        if (this.model.get('availability') === 'available') {
+          CommonFloor.defaults['unit'] = this.model.get('id');
+          return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
+        }
+      }
+    };
+
+    return ApartmentsView;
+
+  })(Marionette.ItemView);
+
   CommonFloor.LeftApartmentMasterView = (function(superClass) {
     extend(LeftApartmentMasterView, superClass);
 
@@ -92,15 +144,15 @@
       return LeftApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftApartmentMasterView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content leftview"></div>');
+    LeftApartmentMasterView.prototype.template = '	<div><div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper "> <div class="advncd-filter-wrp  unit-list"> <div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div> <div class="units"> </div> </div> </div> </div></div>';
 
-    LeftApartmentMasterView.prototype.onShow = function() {
-      return $('.leftview').hide();
-    };
+    LeftApartmentMasterView.prototype.childView = ApartmentsView;
+
+    LeftApartmentMasterView.prototype.childViewContainer = '.units';
 
     return LeftApartmentMasterView;
 
-  })(Marionette.ItemView);
+  })(Marionette.CompositeView);
 
   CommonFloor.LeftApartmentMasterCtrl = (function(superClass) {
     extend(LeftApartmentMasterCtrl, superClass);
@@ -110,7 +162,14 @@
     }
 
     LeftApartmentMasterCtrl.prototype.initialize = function() {
-      return this.show(new CommonFloor.LeftApartmentMasterView);
+      var building_id, response, unitsCollection, url;
+      url = Backbone.history.fragment;
+      building_id = parseInt(url.split('/')[1]);
+      response = window.building.getBuildingUnits(building_id);
+      unitsCollection = new Backbone.Collection(response);
+      return this.show(new CommonFloor.LeftApartmentMasterView({
+        collection: unitsCollection
+      }));
     };
 
     return LeftApartmentMasterCtrl;
@@ -183,7 +242,7 @@
     };
 
     CenterApartmentMasterView.prototype.initializeRotate = function(transitionImages, svgs) {
-      var api, frames, spin, that, width;
+      var frames, spin, that, width;
       frames = transitionImages;
       this.breakPoints = [0, 4, 8, 12];
       this.currentBreakPoint = 0;
@@ -204,7 +263,7 @@
         data = api.data;
         if (data.frame === data.stopFrame) {
           url = svgs[data.frame];
-          return $('.region').load(url, that.iniTooltip).addClass('active').removeClass('inactive');
+          return $('.region').load(url).addClass('active').removeClass('inactive');
         }
       });
     };
