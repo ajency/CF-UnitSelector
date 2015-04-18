@@ -620,8 +620,10 @@ $(document).ready(function () {
 
 function deleteSvg(mediaId, type, refference)
 {
-    $.ajax({
-        url: '/admin/project/' + PROJECTID + '/media/' + mediaId,
+    var objectType = $('div.object-master-images').attr('data-object-type');
+    var objectId =  $('div.object-master-images').attr('data-object-id'); 
+   $.ajax({
+        url: BASEURL + '/admin/' + objectType + '/' + objectId + '/media/' + mediaId,
         type: "DELETE",
         data: {
             type: type,
