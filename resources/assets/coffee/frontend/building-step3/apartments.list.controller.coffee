@@ -111,6 +111,7 @@ class ApartmentsView extends Marionette.ItemView
 class CommonFloor.CenterApartmentView extends Marionette.CompositeView
 
 	template : '<div>
+		<div class="col-md-12 us-right-content">
 				<div class="list-view-container">
 					<div class="controls mapView">
 			            <div class="toggle">
@@ -126,9 +127,9 @@ class CommonFloor.CenterApartmentView extends Marionette.CompositeView
 					<div class="villa-list">
 				<ul class="units eight">
 				</ul>
-				<div>
+				</div></div>
 
-				<div><div>'
+				</div></div>'
 
 	childView : ApartmentsView
 
