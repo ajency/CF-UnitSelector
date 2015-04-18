@@ -177,7 +177,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 									<div class="list-view-container animated fadeInRight">
 										<div class="controls mapView">
 								            <div class="toggle">
-								            	<a href="#" class="map">Map</a><a href="#" class="list">List</a>
+								            	<a href="#" class="map active">Map</a><a href="#" class="list">List</a>
 								            </div>
 							            </div>
 										

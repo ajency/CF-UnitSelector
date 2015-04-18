@@ -40,8 +40,8 @@ class CenterBunglowListView extends Marionette.ItemView
 class CenterCompositeView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-12 us-right-content">
-									<div class="list-view-container animated fadeInDown">
-							            <div class="controls mapView">
+									<div class="list-view-container animated fadeInUp">
+							            <div class="controls">
 								            <div class="toggle">
 								            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
 								            </div>
@@ -55,10 +55,13 @@ class CenterCompositeView extends Marionette.CompositeView
 							            </div>
 							            <div class="legend">
 							              <ul>
+							                <li class="available">AVAILABLE</li>
 							                <li class="sold">SOLD</li>
 							                <li class="blocked">BLOCKED</li>
+							                <li class="na">NOT IN SELECTION</li>
 							              </ul>
 							            </div>
+							            <div class="clearfix"></div>
 							            <div class="villa-list">
 							            	<ul class="units">
 							            	</ul>

@@ -36,7 +36,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 		            </div>-->
 
 		            <div class="search-header-wrap">
-		              <h1>We are now at {{project_title}}\'s upcoming project having {{units}} apartment\'s</h1>
+		              <h1>We are now at {{project_title}}\'s upcoming project having {{units}} apartments</h1>
 		            </div>
 		          </div>
 		        </div>')
@@ -111,23 +111,47 @@ class ApartmentsView extends Marionette.ItemView
 class CommonFloor.CenterApartmentView extends Marionette.CompositeView
 
 	template : '<div>
+		<div class="col-md-12 us-right-content">
 				<div class="list-view-container">
+					<div class="controls mapView">
+			            <div class="toggle">
+			            	<a href="#" class="map active">Map</a><a href="#" class="list">List</a>
+			            </div>
+		            </div>
 					<div class="legend">
 							              <ul>
+							                <li class="available">AVAILABLE</li>
 							                <li class="sold">SOLD</li>
 							                <li class="blocked">BLOCKED</li>
+							                <li class="na">NOT IN SELECTION</li>
 							              </ul>
 							            </div>
 					<div class="villa-list">
 				<ul class="units eight">
 				</ul>
-				<div>
+				</div></div>
 
-				<div><div>'
+				</div></div>'
 
 	childView : ApartmentsView
 
 	childViewContainer : '.units'
+
+	events : 
+		'click .map':(e)->
+			e.preventDefault()
+			url = Backbone.history.fragment
+			building_id = parseInt url.split('/')[1]
+			CommonFloor.navigate '/building/'+building_id+'/master-view' , true
+
+		'click .list':(e)->
+			e.preventDefault()
+			url = Backbone.history.fragment
+			building_id = parseInt url.split('/')[1]
+			CommonFloor.navigate '/building/'+building_id+'/apartments' , true
+
+		
+
 
 class CommonFloor.CenterApartmentCtrl extends Marionette.RegionController
 

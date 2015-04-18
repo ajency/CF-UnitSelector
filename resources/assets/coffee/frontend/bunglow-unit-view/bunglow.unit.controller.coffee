@@ -64,23 +64,23 @@ class LeftBunglowUnitView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
 						<div class="filters-wrapper">
-							<div class="blck-wrap">
+							<div class="blck-wrap title-row">
 								<h2 class="pull-left"><strong>{{unit_name}}</strong></h2>
 								<!-- <span class="label label-success">For Sale</span> -->
 								<div class="clearfix"></div>
 								<div class="details">
-										<!--<div>
-											<label>Starting Price:</label> Rs 1.3 crores
-										</div>-->
-										<div>
-											{{type}} ({{area}} sqft)
-										</div>
+									<!--<div>
+										<label>Starting Price:</label> Rs 1.3 crores
+									</div>-->
+									<div>
+										{{type}} ({{area}} sqft)
 									</div>
+								</div>
 							</div>
 							<div class="advncd-filter-wrp unit-list">
 								
 								{{#levels}}
-								<h4 class="m-b-0 m-t-20">{{level_name}}</h4>
+								<h4 class="m-b-0 m-t-20 text-primary">{{level_name}}</h4>
 								<!--<div class="blck-wrap title-row">
 									<div class="row">
 										<div class="col-sm-4">
@@ -95,12 +95,12 @@ class LeftBunglowUnitView extends Marionette.ItemView
 									</div>
 								</div>-->
 								{{#rooms}}
-								<div class="blck-wrap title-row">
+								<div class="blck-wrap no-hover">
 									<div class="row">
-										<div class="col-sm-4">
+										<div class="col-sm-12">
 											<h5 class="accord-head">{{room_name}}</h5>  
 											{{#attributes}}  
-											<label>{{attribute}}</label>: {{value}} 
+											<div><label>{{attribute}}</label>: {{value}} </div>
 											{{/attributes}}                    
 										</div>
 										<!--<div class="col-sm-4">
@@ -169,7 +169,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 										<div class="row {{level}}">
 										{{#levels}}
                       						<div class="col-sm-6 m-b-20">
-												<img src="{{two_d}}">
+												<img src="{{two_d}}"/>
 												<h5 class="text-center">{{level_name}}</h5>
 											</div>
 										{{/levels}}
@@ -180,7 +180,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 										<div class="row">
 										{{#levels}}
 											<div class="col-sm-6 m-b-20">
-												<img src="{{three_d}}">
+												<img src="{{three_d}}"/>
 												<h5 class="text-center">{{level_name}}</h5>
 											</div>
 										{{/levels}}

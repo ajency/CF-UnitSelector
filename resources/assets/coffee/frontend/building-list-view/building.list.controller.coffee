@@ -3,7 +3,7 @@ class CenterItemView extends Marionette.ItemView
 	template :  Handlebars.compile('<li class="bldg blocks {{status}}">
 					                    <div class="bldg-img"></div>
 					                    <div class="info">
-					                      <h2 class="m-b-5">{{name}}</h2>
+					                      <h2 class="m-b-5">{{building_name}}</h2>
 					                      <!--<div>Starting from Rs.<span>50 lakhs</span></div>-->
 					                      <div>No. of Floors: <span>{{floors}}</span></div>
 					                    </div>

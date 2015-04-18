@@ -48,7 +48,7 @@
       return TopApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span> Back to Poject Overview </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1>We are now at {{project_title}}\'s upcoming project having {{units}} apartment\'s</h1> </div> </div> </div>');
+    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span> Back to Poject Overview </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1>We are now at {{project_title}}\'s upcoming project having {{units}} apartments</h1> </div> </div> </div>');
 
     TopApartmentMasterView.prototype.serializeData = function() {
       var data, units;
@@ -125,6 +125,11 @@
         id = this.model.get('id');
         return $('#' + id).attr('class', 'layer ' + this.model.get('availability'));
       },
+      'mouseout .row': function(e) {
+        var id;
+        id = this.model.get('id');
+        return $('#' + id).attr('class', 'layer');
+      },
       'click .row': function(e) {
         if (this.model.get('availability') === 'available') {
           CommonFloor.defaults['unit'] = this.model.get('id');
@@ -183,7 +188,7 @@
       return CenterApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterApartmentMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container"> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
+    CenterApartmentMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container"> <div class="controls mapView"> <div class="toggle"> <a href="#" class="map active">Map</a><a href="#" class="list">List</a> </div> </div> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
 
     CenterApartmentMasterView.prototype.ui = {
       svgContainer: '.list-view-container'
@@ -200,6 +205,20 @@
       },
       'click #next': function() {
         return this.setDetailIndex(this.currentBreakPoint + 1);
+      },
+      'click .list': function(e) {
+        var building_id, url;
+        e.preventDefault();
+        url = Backbone.history.fragment;
+        building_id = parseInt(url.split('/')[1]);
+        return CommonFloor.navigate('/building/' + building_id + '/apartments', true);
+      },
+      'click .map': function(e) {
+        var building_id, url;
+        e.preventDefault();
+        url = Backbone.history.fragment;
+        building_id = parseInt(url.split('/')[1]);
+        return CommonFloor.navigate('/building/' + building_id + '/master-view', true);
       }
     };
 
