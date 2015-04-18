@@ -132,7 +132,7 @@ class LeftBunglowMasterView extends Marionette.ItemView
 class LeftBunglowMasterCompositeView extends Marionette.CompositeView
 
 	template : Handlebars.compile('	<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
-										<div class="filters-wrapper ">
+										<div class="filters-wrapper animated fadeInLeft">
 											<div class="advncd-filter-wrp  unit-list">
 												<div class="blck-wrap title-row">
 					                  				<div class="row">
@@ -174,7 +174,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
-									<div class="list-view-container">
+									<div class="list-view-container animated fadeInRight">
 										<div class="controls mapView">
 								            <div class="toggle">
 								            	<a href="#" class="map">Map</a><a href="#" class="list">List</a>
