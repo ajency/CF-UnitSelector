@@ -40,7 +40,7 @@ class TopBunglowMasterView extends Marionette.ItemView
 			type = 'apartments'
 		$.merge units,apartmentUnits
 		data.units = units.length
-		data.type = units.type
+		data.type = type
 		data
 
 

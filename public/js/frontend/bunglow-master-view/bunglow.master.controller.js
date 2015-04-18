@@ -66,7 +66,7 @@
       }
       $.merge(units, apartmentUnits);
       data.units = units.length;
-      data.type = units.type;
+      data.type = type;
       return data;
     };
 
