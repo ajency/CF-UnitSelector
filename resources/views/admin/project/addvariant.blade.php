@@ -63,7 +63,12 @@
                         <input type="text" class="form-control" name="superbuiltup_area" value="" placeholder="Enter Super Built Up Area">
                     </div> 
                 </div>
-        
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Per sq ft Price</label>
+                        <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price">
+                    </div> 
+                </div>
                 @foreach($project_property_type_attributes as $attributes)
                 <div class="col-md-4">
                     <div class="form-group">

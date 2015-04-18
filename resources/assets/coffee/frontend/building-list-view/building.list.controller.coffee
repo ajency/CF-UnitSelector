@@ -3,7 +3,7 @@ class CenterItemView extends Marionette.ItemView
 	template :  Handlebars.compile('<li class="bldg blocks {{status}}">
 					                    <div class="bldg-img"></div>
 					                    <div class="info">
-					                      <h2 class="m-b-5">{{name}}</h2>
+					                      <h2 class="m-b-5">{{building_name}}</h2>
 					                      <!--<div>Starting from Rs.<span>50 lakhs</span></div>-->
 					                      <div>No. of Floors: <span>{{floors}}</span></div>
 					                    </div>
@@ -44,7 +44,7 @@ class CenterBuildingListView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-12 us-right-content">
 			<div class="list-view-container animated fadeInDown">
-			<div class="controls mapView">
+			<div class="controls map-View">
 	            <div class="toggle">
 	            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
 	            </div>
@@ -93,9 +93,9 @@ class CenterBuildingListView extends Marionette.CompositeView
 
 	onShow:->
 		if project.get('project_master').front  == ""
-			$('.mapView').hide()
+			$('.map-View').hide()
 		else
-			$('.mapView').show()
+			$('.map-View').show()
 
 		if bunglowVariantCollection.length != 0
 			$('.Villas').removeClass 'hidden'

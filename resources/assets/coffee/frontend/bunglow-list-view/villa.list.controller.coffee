@@ -41,7 +41,7 @@ class CenterCompositeView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-12 us-right-content">
 									<div class="list-view-container animated fadeInUp">
-							            <div class="controls">
+							            <div class="controls map-View">
 								            <div class="toggle">
 								            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
 								            </div>
@@ -97,9 +97,9 @@ class CenterCompositeView extends Marionette.CompositeView
 
 	onShow:->
 		if project.get('project_master').front  == ""
-			$('.mapView').hide()
+			$('.map-View').hide()
 		else
-			$('.mapView').show()
+			$('.map-View').show()
 
 		if apartmentVariantCollection.length != 0
 			$('.buildings').removeClass 'hidden'

@@ -37,7 +37,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		            </div>-->
 
 		            <div class="search-header-wrap">
-		              <h1>We are now at {{project_title}}\'s upcoming project having {{units}} apartment\'s</h1>
+		              <h1>We are now at {{project_title}}\'s upcoming project having {{units}} apartments</h1>
 		            </div>
 		          </div>
 		        </div>')
@@ -97,6 +97,9 @@ class ApartmentsView extends Marionette.ItemView
 		'mouseover .row':(e)->
 			id = @model.get 'id'
 			$('#'+id).attr('class' ,'layer '+@model.get('availability'))
+		'mouseout .row':(e)->
+			id = @model.get 'id'
+			$('#'+id).attr('class' ,'layer')
 
 		'click .row':(e)->
 			if @model.get('availability') == 'available'
@@ -149,6 +152,11 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 	            <div class="list-view-container">
+	            	<div class="controls mapView">
+			            <div class="toggle">
+			            	<a href="#" class="map active">Map</a><a href="#" class="list">List</a>
+			            </div>
+		            </div>
 	              <div class="single-bldg">
 	                <div class="prev"></div>
 	                <div class="next"></div>
@@ -181,6 +189,22 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 		'click #next':->
 			@setDetailIndex(@currentBreakPoint + 1)
+
+		'click .list':(e)->
+			e.preventDefault()
+			url = Backbone.history.fragment
+			building_id = parseInt url.split('/')[1]
+			CommonFloor.navigate '/building/'+building_id+'/apartments' , true
+
+		'click .map':(e)->
+			e.preventDefault()
+			url = Backbone.history.fragment
+			building_id = parseInt url.split('/')[1]
+			CommonFloor.navigate '/building/'+building_id+'/master-view' , true
+		
+
+		
+
 
 	onShow:->
 		url = Backbone.history.fragment
