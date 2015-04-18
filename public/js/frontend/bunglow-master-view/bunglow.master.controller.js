@@ -308,14 +308,14 @@
       frames = transitionImages;
       this.breakPoints = [0, 4, 8, 12];
       this.currentBreakPoint = 0;
-      width = this.ui.svgContainer.width() + 15;
+      width = this.ui.svgContainer.width() + 20;
       $('.svg-maps > div').first().removeClass('inactive').addClass('active').css('width', width);
       spin = $('#spritespin');
       spin.spritespin({
         source: frames,
         width: this.ui.svgContainer.width(),
         sense: -1,
-        height: 600,
+        height: this.ui.svgContainer.width() / 1.46,
         animate: false
       });
       that = this;

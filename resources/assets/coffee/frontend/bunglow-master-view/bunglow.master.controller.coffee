@@ -310,14 +310,14 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		frames = transitionImages
 		@breakPoints = [0, 4, 8, 12]
 		@currentBreakPoint = 0
-		width = @ui.svgContainer.width() + 15
+		width = @ui.svgContainer.width() + 20
 		$('.svg-maps > div').first().removeClass('inactive').addClass('active').css('width',width);
 		spin = $('#spritespin')
 		spin.spritespin(
 			source: frames
 			width: @ui.svgContainer.width() 
 			sense: -1
-			height: 600
+			height: @ui.svgContainer.width() / 1.46
 			animate: false
 		)
 		that = @
