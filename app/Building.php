@@ -42,7 +42,7 @@ class Building extends Model {
                 if ($images!='' && is_numeric( $images )) {
                     
                     $imageName = Media::find( $images )->image_name;
-                    $svgImages[$key] = url() . "/projects/" . $projectId . "/master/" . $imageName;
+                    $svgImages[$key] = url() . "/projects/" . $projectId . "/buildings/". $buildingId ."/" . $imageName;
                 }
             }
         }
