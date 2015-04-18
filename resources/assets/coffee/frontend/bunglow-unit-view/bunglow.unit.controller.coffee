@@ -200,6 +200,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 		console.log floor = response[0].get('floor')
 		level = ""
 		$.each floor,(index,value)->
+			console.log value
 			levels.push 
 				'two_d' : value.url2dlayout_image
 				'three_d'			 : value.url3dlayout_image
