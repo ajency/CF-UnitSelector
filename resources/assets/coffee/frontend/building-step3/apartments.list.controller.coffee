@@ -7,13 +7,19 @@ class CommonFloor.ApartmentsListView extends Marionette.LayoutView
 class CommonFloor.ApartmentsListCtrl extends Marionette.RegionController
 
 
-	intialize:->
-		@show new CommonFloor.ApartmentsListView
+	initialize:->
+		if jQuery.isEmptyObject(project.toJSON())
+			project.setProjectAttributes(PROJECTID);
+			CommonFloor.loadJSONData()
+		if apartmentVariantCollection.length == 0
+			@show new CommonFloor.NothingFoundView
+		else
+			@show new CommonFloor.ApartmentsListView
 
 
 class CommonFloor.TopApartmentView extends Marionette.ItemView
 
-	template : '<div class="row">
+	template : Handlebars.compile('<div class="row">
 		          <div class="col-md-12 col-xs-12 col-sm-12">
 		            <!--<div class="row breadcrumb-bar">
 		              <div class="col-xs-12 col-md-12">
@@ -30,43 +36,68 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 		            </div>-->
 
 		            <div class="search-header-wrap">
-		              <h1>We are now at Artha Zen\'s upcoming project having 50 villa\'s</h1>
+		              <h1>We are now at Artha Zen\'s upcoming project having {{units}} apartment\'s</h1>
 		            </div>
 		          </div>
-		        </div>'
+		        </div>')
+
+	serializeData:->
+		data = super()
+		units = Marionette.getOption( @, 'units' )
+		data.units = units.length
+		data
 
 class CommonFloor.TopApartmentCtrl extends Marionette.RegionController
 
-	intialize:->
+	initialize:->
+		url = Backbone.history.fragment
+		building_id = parseInt url.split('/')[1]
+		response = window.building.getBuildingUnits(building_id)
+		buildingModel = buildingCollection.findWhere
+							id : building_id
 		@show new CommonFloor.TopApartmentView
+					model : buildingModel
+					units : response
 
 class CommonFloor.LeftApartmentView extends Marionette.ItemView
 
-	template : '<div class="col-md-3 col-xs-12 col-sm-12 search-left-content leftview"></div>'
+	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content 
+				leftview"></div>')
 
 	onShow:->
 		$('.leftview').hide()
 
+	
+
 class CommonFloor.LeftApartmentCtrl extends Marionette.RegionController
 
-	intialize:->
+	initialize:->
 		@show new CommonFloor.LeftApartmentView
 
-class CommonFloor.CenterApartmentView extends Marionette.ItemView
+class ApartmentsView extends Marionette.ItemView
 
-	template : '<div class="col-md-9 us-right-content">
-	            <div class="list-view-container">
-	              <div class="single-bldg">
-	                <div class="prev"></div>
-	                <div class="next"></div>
-	              </div>
-	              <div class="svg-area">
-	                <img src="../../images/bldg-3d.png" class="img-responsive">
-	              </div>
-	            </div>
-	          </div>'
+	template : Handlebars.compile('<li>{{unit_name}}</li>')
+
+
+
+class CommonFloor.CenterApartmentView extends Marionette.CompositeView
+
+	template : '<div>
+				<ul class="units">
+				</ul>
+
+				<div>'
+
+	childView : ApartmentsView
+
+	childViewContainer : '.units'
 
 class CommonFloor.CenterApartmentCtrl extends Marionette.RegionController
 
-	intialize:->
+	initialize:->
+		url = Backbone.history.fragment
+		building_id = parseInt url.split('/')[1]
+		response = window.building.getBuildingUnits(building_id)
+		unitsCollection = new Backbone.Collection response
 		@show new CommonFloor.CenterApartmentView
+					collection : unitsCollection

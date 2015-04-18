@@ -7,8 +7,14 @@ class CommonFloor.ApartmentsMasterView extends Marionette.LayoutView
 class CommonFloor.ApartmentsMasterCtrl extends Marionette.RegionController
 
 
-	intialize:->
-		@show new CommonFloor.ApartmentsMasterView
+	initialize:->
+		if jQuery.isEmptyObject(project.toJSON())
+			project.setProjectAttributes(PROJECTID);
+			CommonFloor.loadJSONData()
+		if apartmentVariantCollection.length == 0
+			@show new CommonFloor.NothingFoundView
+		else
+			@show new CommonFloor.ApartmentsMasterView
 
 
 class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
@@ -37,7 +43,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 
 class CommonFloor.TopApartmentMasterCtrl extends Marionette.RegionController
 
-	intialize:->
+	initialize:->
 		@show new CommonFloor.TopApartmentMasterView
 
 class CommonFloor.LeftApartmentMasterView extends Marionette.ItemView
@@ -49,32 +55,27 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.ItemView
 
 class CommonFloor.LeftApartmentMasterCtrl extends Marionette.RegionController
 
-	intialize:->
+	initialize:->
 		@show new CommonFloor.LeftApartmentMasterView
 
-class ApartmentsView extends Marionette.ItemView
+class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
-	template : '<li>{{unit_name}}</li>'
+	template : '<div class="col-md-9 us-right-content">
+	            <div class="list-view-container">
+	              <div class="single-bldg">
+	                <div class="prev"></div>
+	                <div class="next"></div>
+	              </div>
+	              <div class="svg-area">
+	                <img src="../../images/bldg-3d.png" class="img-responsive">
+	              </div>
+	            </div>
+	          </div>'
 
-
-
-class CommonFloor.CenterApartmentMasterView extends Marionette.CompositeView
-
-	template : '<div>
-				<ul class="units">
-				</ul>
-
-				<div>'
-
-	childView : ApartmentsView
-
-	childViewContainer : '.units'
 
 
 class CommonFloor.CenterApartmentMasterCtrl extends Marionette.RegionController
 
-	intialize:->
-		response = window.building.getBuildingUnits()
-		unitsCollection = new Backbone.Collection response
+	initialize:->
 		@show new CommonFloor.CenterApartmentMasterView
-					collection : unitsCollection
+					

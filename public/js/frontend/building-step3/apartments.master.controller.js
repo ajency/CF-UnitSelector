@@ -1,6 +1,5 @@
 (function() {
-  var ApartmentsView,
-    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+  var extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
   CommonFloor.ApartmentsMasterView = (function(superClass) {
@@ -23,8 +22,16 @@
       return ApartmentsMasterCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    ApartmentsMasterCtrl.prototype.intialize = function() {
-      return this.show(new CommonFloor.ApartmentsMasterView);
+    ApartmentsMasterCtrl.prototype.initialize = function() {
+      if (jQuery.isEmptyObject(project.toJSON())) {
+        project.setProjectAttributes(PROJECTID);
+        CommonFloor.loadJSONData();
+      }
+      if (apartmentVariantCollection.length === 0) {
+        return this.show(new CommonFloor.NothingFoundView);
+      } else {
+        return this.show(new CommonFloor.ApartmentsMasterView);
+      }
     };
 
     return ApartmentsMasterCtrl;
@@ -51,7 +58,7 @@
       return TopApartmentMasterCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    TopApartmentMasterCtrl.prototype.intialize = function() {
+    TopApartmentMasterCtrl.prototype.initialize = function() {
       return this.show(new CommonFloor.TopApartmentMasterView);
     };
 
@@ -83,26 +90,13 @@
       return LeftApartmentMasterCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    LeftApartmentMasterCtrl.prototype.intialize = function() {
+    LeftApartmentMasterCtrl.prototype.initialize = function() {
       return this.show(new CommonFloor.LeftApartmentMasterView);
     };
 
     return LeftApartmentMasterCtrl;
 
   })(Marionette.RegionController);
-
-  ApartmentsView = (function(superClass) {
-    extend(ApartmentsView, superClass);
-
-    function ApartmentsView() {
-      return ApartmentsView.__super__.constructor.apply(this, arguments);
-    }
-
-    ApartmentsView.prototype.template = '<li>{{unit_name}}</li>';
-
-    return ApartmentsView;
-
-  })(Marionette.ItemView);
 
   CommonFloor.CenterApartmentMasterView = (function(superClass) {
     extend(CenterApartmentMasterView, superClass);
@@ -111,15 +105,11 @@
       return CenterApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterApartmentMasterView.prototype.template = '<div> <ul class="units"> </ul> <div>';
-
-    CenterApartmentMasterView.prototype.childView = ApartmentsView;
-
-    CenterApartmentMasterView.prototype.childViewContainer = '.units';
+    CenterApartmentMasterView.prototype.template = '<div class="col-md-9 us-right-content"> <div class="list-view-container"> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div class="svg-area"> <img src="../../images/bldg-3d.png" class="img-responsive"> </div> </div> </div>';
 
     return CenterApartmentMasterView;
 
-  })(Marionette.CompositeView);
+  })(Marionette.ItemView);
 
   CommonFloor.CenterApartmentMasterCtrl = (function(superClass) {
     extend(CenterApartmentMasterCtrl, superClass);
@@ -128,13 +118,8 @@
       return CenterApartmentMasterCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    CenterApartmentMasterCtrl.prototype.intialize = function() {
-      var response, unitsCollection;
-      response = window.building.getBuildingUnits();
-      unitsCollection = new Backbone.Collection(response);
-      return this.show(new CommonFloor.CenterApartmentMasterView({
-        collection: unitsCollection
-      }));
+    CenterApartmentMasterCtrl.prototype.initialize = function() {
+      return this.show(new CommonFloor.CenterApartmentMasterView);
     };
 
     return CenterApartmentMasterCtrl;
