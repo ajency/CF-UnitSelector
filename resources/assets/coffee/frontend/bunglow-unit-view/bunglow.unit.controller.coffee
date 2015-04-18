@@ -199,14 +199,14 @@ class CenterBunglowUnitView extends Marionette.ItemView
 		levels = []
 		console.log floor = response[0].get('floor')
 		level = ""
+		i = 0 
 		$.each floor,(index,value)->
-			console.log value
+			i = i + 1
 			levels.push 
 				'two_d' : value.url2dlayout_image
 				'three_d'			 : value.url3dlayout_image
-				'level_name' : 'Level '+index
+				'level_name' : 'Level '+ i
 				level = s.replaceAll('Level '+index, " ", "_")
-		console.log levels
 		data.level = level
 		data.levels = levels
 		data.external_url = response[0].get 'external3durl'
