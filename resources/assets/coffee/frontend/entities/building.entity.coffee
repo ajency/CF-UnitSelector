@@ -21,6 +21,27 @@ class Building extends Backbone.Model
 		unitTypes = _.uniq unitTypes
 		unitTypes
 
+	getUnitTypesCount:(building_id,unitTypes)->
+
+		types = []
+		$.each unitTypes,(ind,val)->
+			unitTypeModel = unitTypeCollection.findWhere
+								'id' : val
+			variants = apartmentVariantCollection.where
+							'unit_type_id' : val
+			units = []
+			$.each variants,(index,value)->
+				unitsColl = unitCollection.where
+								'unit_variant_id' : value.get 'id'
+								'building_id' : building_id
+
+				$.merge units, unitsColl
+			types.push 
+				'name' : unitTypeModel.get 'name'
+				'units' : units.length
+
+		types
+
 	#check 3d rotation view available or not
 	checkRotationView:(buildingId)->
 		buildingModel = buildingCollection.findWhere({'building_id':parseInt(buildingId)})
@@ -33,6 +54,14 @@ class Building extends Backbone.Model
 			buildingModel.set 'rotation' , 'no'
 
 		buildingModel.get('rotation')
+
+
+	getBuildingUnits:(building_id)->
+		units = unitCollection.where
+					'building_id' : building_id
+
+		units 
+
 
 
 

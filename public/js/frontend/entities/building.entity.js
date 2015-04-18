@@ -32,6 +32,34 @@
       return unitTypes;
     };
 
+    Building.prototype.getUnitTypesCount = function(building_id, unitTypes) {
+      var types;
+      types = [];
+      $.each(unitTypes, function(ind, val) {
+        var unitTypeModel, units, variants;
+        unitTypeModel = unitTypeCollection.findWhere({
+          'id': val
+        });
+        variants = apartmentVariantCollection.where({
+          'unit_type_id': val
+        });
+        units = [];
+        $.each(variants, function(index, value) {
+          var unitsColl;
+          unitsColl = unitCollection.where({
+            'unit_variant_id': value.get('id'),
+            'building_id': building_id
+          });
+          return $.merge(units, unitsColl);
+        });
+        return types.push({
+          'name': unitTypeModel.get('name'),
+          'units': units.length
+        });
+      });
+      return types;
+    };
+
     Building.prototype.checkRotationView = function(buildingId) {
       var buildingModel, rotationImages;
       buildingModel = buildingCollection.findWhere({
@@ -47,6 +75,14 @@
         buildingModel.set('rotation', 'no');
       }
       return buildingModel.get('rotation');
+    };
+
+    Building.prototype.getBuildingUnits = function(building_id) {
+      var units;
+      units = unitCollection.where({
+        'building_id': building_id
+      });
+      return units;
     };
 
     return Building;

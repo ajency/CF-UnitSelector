@@ -4,8 +4,8 @@ class CenterItemView extends Marionette.ItemView
 					                    <div class="bldg-img"></div>
 					                    <div class="info">
 					                      <h2 class="m-b-5">{{name}}</h2>
-					                      <!--<div>Starting from Rs.<span>50 lakhs</span></div>
-					                      <div>No. of Floors: <span>45</span></div>-->
+					                      <!--<div>Starting from Rs.<span>50 lakhs</span></div>-->
+					                      <div>No. of Floors: <span>45</span></div>
 					                    </div>
 					                    <div class="clearfix"></div>
 					                    <div class="unit-type-info">
@@ -23,24 +23,16 @@ class CenterItemView extends Marionette.ItemView
 		data = super()
 		id = @model.get 'id'
 		response = building.getUnitTypes(id)
-		
-		types = []
-		$.each response,(ind,val)->
-			unitTypeModel = unitTypeCollection.findWhere
-								'id' : val
-			variants = apartmentVariantCollection.where
-							'unit_type_id' : val
-			units = []
-			$.each variants,(index,value)->
-				unitsColl = unitCollection.where
-								'unit_variant_id' : value.get 'id'
-
-				$.merge units, unitsColl
-			types.push 
-				'name' : unitTypeModel.get 'name'
-				'units' : units.length
+		types = building.getUnitTypesCount(id,response)
+		# floor = @model.get 'floor'
+		# data.floor = floor.length
 		data.types = types
 		data
+
+	events:
+		'click .bldg':(e)->
+			id = @model.get 'id'
+			CommonFloor.navigate '/building/'+id+'/apartments' , true
 
 
 class CenterBuildingListView extends Marionette.CompositeView

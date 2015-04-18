@@ -136,6 +136,7 @@
         <script src="{{ asset('js/frontend/entities/unitType.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/entities/building.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/entities/apartment.variant.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/floor.layout.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/common/common.js' )}}"></script>
         <script src="{{ asset('js/frontend/project/project.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/bunglow-master-view/bunglow.master.controller.js' )}}"></script>
@@ -143,6 +144,8 @@
         <script src="{{ asset('js/frontend/bunglow-list-view/bunglow.list.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/building-list-view/building.list.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/bunglow-list-view/villa.list.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/building-step3/apartments.list.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/building-step3/apartments.master.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
     </body>
 </html>
