@@ -44,6 +44,14 @@
       return data;
     };
 
+    CenterItemView.prototype.events = {
+      'click .bldg': function(e) {
+        var id;
+        id = this.model.get('id');
+        return CommonFloor.navigate('/building/' + id + '/apartments', true);
+      }
+    };
+
     return CenterItemView;
 
   })(Marionette.ItemView);

@@ -49,6 +49,14 @@
       return buildingModel.get('rotation');
     };
 
+    Building.prototype.getBuildingUnits = function(building_id) {
+      var units;
+      units = unitCollection.where({
+        'building_id': building_id
+      });
+      return units;
+    };
+
     return Building;
 
   })(Backbone.Model);

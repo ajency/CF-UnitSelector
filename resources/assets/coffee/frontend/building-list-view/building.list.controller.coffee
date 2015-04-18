@@ -42,6 +42,11 @@ class CenterItemView extends Marionette.ItemView
 		data.types = types
 		data
 
+	events:
+		'click .bldg':(e)->
+			id = @model.get 'id'
+			CommonFloor.navigate '/building/'+id+'/apartments' , true
+
 
 class CenterBuildingListView extends Marionette.CompositeView
 

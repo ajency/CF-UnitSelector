@@ -35,6 +35,14 @@ class Building extends Backbone.Model
 		buildingModel.get('rotation')
 
 
+	getBuildingUnits:(building_id)->
+		units = unitCollection.where
+					'building_id' : building_id
+
+		units 
+
+
+
 
 
 class BuildingCollection extends Backbone.Collection

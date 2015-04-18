@@ -43,7 +43,8 @@
         unitCollection.setUnitAttributes(response.units);
         unitTypeCollection.setUnitTypeAttributes(response.unit_types);
         buildingCollection.setBuildingAttributes(response.buildings);
-        return apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants);
+        apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants);
+        return floorLayoutCollection.setFloorLayoutAttributes(response.floor_layout);
       },
       error: function(response) {
         return console.log("aaaaaaaaaaassdff");
