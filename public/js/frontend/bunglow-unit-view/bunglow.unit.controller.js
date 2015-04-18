@@ -154,48 +154,40 @@
       return CenterBunglowUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider slider" id="slider-id"> <div> <h2 class="title">External 3D</h2> <img src="{{external_url}}"> </div> <div> <h2 class="title">2D Layout</h2> <div class="row {{level}}"> {{#twod}} <div class="col-sm-6 m-b-20"> <img src="{{two_d}}"/> <h5 class="text-center">{{level_name}}</h5> </div> {{/twod}} </div> </div> <div> <h2 class="title">3D Layout</h2> <div class="row"> {{#threed}} <div class="col-sm-6 m-b-20"> <img src="{{three_d}}"/> <h5 class="text-center">{{level_name}}</h5> </div> {{/threed}} </div> </div> </div> </div> </div>');
+    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider slider" id="slider-id"> <div> <h2 class="title">External 3D</h2> <img src="{{external_url}}"> </div> <div> <h2 class="title">2D Layout</h2> <div class="row {{level}}"> {{#levels}} <div class="col-sm-6 m-b-20"> <img src="{{two_d}}"/> <h5 class="text-center">{{level_name}}</h5> </div> {{/levels}} </div> </div> <div> <h2 class="title">3D Layout</h2> <div class="row"> {{#levels}} <div class="col-sm-6 m-b-20"> <img src="{{three_d}}"/> <h5 class="text-center">{{level_name}}</h5> </div> {{/levels}} </div> </div> </div> </div> </div>');
 
     CenterBunglowUnitView.prototype.serializeData = function() {
-      var data, floor, level, response, threed, twod, unitid, url;
+      var data, floor, level, levels, response, unitid, url;
       data = CenterBunglowUnitView.__super__.serializeData.call(this);
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
       response = window.unit.getUnitDetails(unitid);
-      twod = [];
-      threed = [];
+      levels = [];
       console.log(floor = response[0].get('floor'));
       level = "";
       $.each(floor, function(index, value) {
-        return twod.push({
+        return levels.push({
           'two_d': value.url2dlayout_image,
+          'three_d': value.url3dlayout_image,
           'level_name': 'Level ' + index
         }, level = s.replaceAll('Level ' + index, " ", "_"));
       });
-      $.each(floor, function(index, value) {
-        return threed.push({
-          'three_d': value.url3dlayout_image,
-          'level_name': 'Level ' + index
-        });
-      });
+      console.log(levels);
       data.level = level;
-      data.twod = twod;
-      data.threed = threed;
+      data.levels = levels;
       data.external_url = response[0].get('external3durl');
       return data;
     };
 
     CenterBunglowUnitView.prototype.onShow = function() {
-      return $('.slider').imagesLoaded(function() {
-        $('#slider-id').liquidSlider({
-          slideEaseFunction: "easeInOutQuad",
-          includeTitle: false,
-          autoSlideInterval: 4000,
-          mobileNavigation: false,
-          hideArrowsWhenMobile: false,
-          dynamicTabsAlign: "center",
-          dynamicArrows: false
-        });
+      return $('#slider-id').liquidSlider({
+        slideEaseFunction: "easeInOutQuad",
+        includeTitle: false,
+        autoSlideInterval: 4000,
+        mobileNavigation: false,
+        hideArrowsWhenMobile: false,
+        dynamicTabsAlign: "center",
+        dynamicArrows: false
       });
     };
 

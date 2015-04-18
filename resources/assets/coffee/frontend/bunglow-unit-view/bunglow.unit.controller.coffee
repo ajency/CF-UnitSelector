@@ -167,23 +167,23 @@ class CenterBunglowUnitView extends Marionette.ItemView
 									 <div>
 										<h2 class="title">2D Layout</h2>
 										<div class="row {{level}}">
-										{{#twod}}
+										{{#levels}}
                       						<div class="col-sm-6 m-b-20">
 												<img src="{{two_d}}"/>
 												<h5 class="text-center">{{level_name}}</h5>
 											</div>
-										{{/twod}}
+										{{/levels}}
 										</div>
 									 </div>
 									 <div>
 										<h2 class="title">3D Layout</h2>
 										<div class="row">
-										{{#threed}}
+										{{#levels}}
 											<div class="col-sm-6 m-b-20">
 												<img src="{{three_d}}"/>
 												<h5 class="text-center">{{level_name}}</h5>
 											</div>
-										{{/threed}}
+										{{/levels}}
 										</div>
 												
 									 </div>
@@ -196,32 +196,28 @@ class CenterBunglowUnitView extends Marionette.ItemView
 		url = Backbone.history.fragment
 		unitid = parseInt url.split('/')[1]
 		response = window.unit.getUnitDetails(unitid)
-		twod = []
-		threed = []
+		levels = []
 		console.log floor = response[0].get('floor')
 		level = ""
 		$.each floor,(index,value)->
-			twod.push 
+			levels.push 
 				'two_d' : value.url2dlayout_image
-				'level_name' : 'Level '+index
-				level = s.replaceAll('Level '+index, " ", "_")
-
-		$.each floor,(index,value)->
-			threed.push 
 				'three_d'			 : value.url3dlayout_image
 				'level_name' : 'Level '+index
-				
-		
+				level = s.replaceAll('Level '+index, " ", "_")
+		console.log levels
 		data.level = level
-		data.twod = twod
-		data.threed = threed
+		data.levels = levels
 		data.external_url = response[0].get 'external3durl'
 		data
 		
 
 	onShow:->
-		$('.slider').imagesLoaded ->
-			$('#slider-id').liquidSlider(
+		# $('.slider').imagesLoaded ->
+		# 	divHeight = $('.us-right-content').height()
+		# 	$('.unit-list').css 'max-height', divHeight + 'px'
+		# 	return
+		$('#slider-id').liquidSlider(
 					slideEaseFunction: "easeInOutQuad",
 					includeTitle:false,
 					autoSlideInterval: 4000,
@@ -231,8 +227,6 @@ class CenterBunglowUnitView extends Marionette.ItemView
 					dynamicArrows: false,
 			 
 				)
-			return
-		
 
 	
 
