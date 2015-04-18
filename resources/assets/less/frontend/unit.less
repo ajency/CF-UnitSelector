@@ -3,3 +3,33 @@
     color: @gray-light;
   }
 }
+
+.slider{
+	.layouts{
+		float: left;
+	}
+	.Level_1{
+		padding: 20px;
+		.layouts{
+			width: 100%
+		}
+	}
+	.Level_2, .Level_4{
+		.layouts{
+			width: 45%;
+			margin: 0 20px 20px;
+			text-align: center;
+		}
+	}
+	.Level_3, .Level_6{
+		.layouts{
+			width: 45%;
+			margin: 0 20px 20px;
+			text-align: center;
+			&:nth-child(3n){
+				float: none;
+				margin: 0 auto 20px;
+			}
+		}
+	}
+}

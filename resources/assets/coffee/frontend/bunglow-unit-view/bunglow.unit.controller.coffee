@@ -166,9 +166,9 @@ class CenterBunglowUnitView extends Marionette.ItemView
 									 </div>
 									 <div>
 										<h2 class="title">2D Layout</h2>
-										<div class="row {{level}}">
+										<div class="{{level}}">
 										{{#levels}}
-                      						<div class="col-sm-6 m-b-20">
+                      						<div class="layouts">
 												<img src="{{two_d}}"/>
 												<h5 class="text-center">{{level_name}}</h5>
 											</div>

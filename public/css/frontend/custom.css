@@ -795,6 +795,32 @@ body {
 .room-attr span {
   color: #999999;
 }
+.slider .layouts {
+  float: left;
+}
+.slider .Level_1 {
+  padding: 20px;
+}
+.slider .Level_1 .layouts {
+  width: 100%;
+}
+.slider .Level_2 .layouts,
+.slider .Level_4 .layouts {
+  width: 45%;
+  margin: 0 20px 20px;
+  text-align: center;
+}
+.slider .Level_3 .layouts,
+.slider .Level_6 .layouts {
+  width: 45%;
+  margin: 0 20px 20px;
+  text-align: center;
+}
+.slider .Level_3 .layouts:nth-child(3n),
+.slider .Level_6 .layouts:nth-child(3n) {
+  float: none;
+  margin: 0 auto 20px;
+}
 /* Plugins */
 /* Slider */
 .toggle_radio {
