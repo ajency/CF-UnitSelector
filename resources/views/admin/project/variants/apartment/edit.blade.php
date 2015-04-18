@@ -60,7 +60,12 @@
                         <input type="text" class="form-control" name="superbuiltup_area" value="{{ $unitVariant['super_built_up_area'] }}" placeholder="Enter Super Built Up Area">
                     </div> 
                 </div>
-
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Per sq ft Price</label>
+                        <input type="text" class="form-control" name="per_sq_ft_price" value="{{ $unitVariant['per_sq_ft_price'] }}" placeholder="Enter Per sq ft Price">
+                    </div> 
+                </div>
                 @foreach($project_property_type_attributes as $attributes)
                 <div class="col-md-4">
                     <div class="form-group">
@@ -213,7 +218,7 @@
         </div>
     </div>
 </form>
- 
+
 <div class="grid simple">
     <div class="grid-title">
         <h3><span class="semi-bold">Layouts</span></h3>

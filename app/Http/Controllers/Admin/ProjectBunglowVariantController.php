@@ -89,6 +89,7 @@ class ProjectBunglowVariantController extends Controller {
         $unitVariant->carpet_area = $request->input('carpet_area');
         $unitVariant->built_up_area = $request->input('builtup_area');
         $unitVariant->super_built_up_area = $request->input('superbuiltup_area');
+        $unitVariant->per_sq_ft_price = $request->input('per_sq_ft_price');
         $attributedata = $request->input('attributes');
         $attributeStr = serialize($attributedata);
         $unitVariant->variant_attributes = $attributeStr;
@@ -185,6 +186,7 @@ class ProjectBunglowVariantController extends Controller {
         $unitVariant->carpet_area = $request->input('carpet_area');
         $unitVariant->built_up_area = $request->input('builtup_area');
         $unitVariant->super_built_up_area = $request->input('superbuiltup_area');
+        $unitVariant->per_sq_ft_price = $request->input('per_sq_ft_price');
         $attributedata = $request->input('attributes');
         $attributeStr = serialize($attributedata);
         $unitVariant->variant_attributes = $attributeStr;
