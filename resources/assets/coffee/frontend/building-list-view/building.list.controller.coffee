@@ -100,7 +100,7 @@ class CenterBuildingListView extends Marionette.CompositeView
 		else
 			$('.mapView').show()
 
-		if apartmentVariantCollection.length != 0
+		if bunglowVariantCollection.length != 0
 			$('.Villas').removeClass 'hidden'
 
 

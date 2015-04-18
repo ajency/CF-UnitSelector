@@ -227,11 +227,11 @@ $(document).ready(function () {
     nCloneTd.innerHTML = '<i class="fa fa-pencil"></i>';
     nCloneTd.className = "center";
 
-    $('#example2 thead tr').each(function () {
+    $('#example2.projectList thead tr').each(function () {
         this.insertBefore(nCloneTh, this.childNodes[0]);
     });
 
-    $('#example2 tbody tr').each(function () {
+    $('#example2.projectList tbody tr').each(function () {
         this.insertBefore(nCloneTd.cloneNode(true), this.childNodes[0]);
     });
 
@@ -301,6 +301,7 @@ $(document).ready(function () {
         }
     });
 
+
     $(".select2-wrapper").select2({minimumResultsForSearch: -1});
 
     function fnClickAddRow() {
@@ -313,13 +314,3 @@ $(document).ready(function () {
 });
 
 
-/* Formating function for row details */
-function fnFormatDetails(oTable, nTr)
-{
-    var aData = oTable.fnGetData(nTr);
-    var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="inner-table">';
-    sOut += '<tr><td>Status:</td><td><select id="unit_types" class="form-control"><option>Published</option><option>Archived</option><option>Draft</option></select><button class="btn btn-small btn-primary m-l-10">Save</button></td></tr>';
-    sOut += '</table>';
-
-    return sOut;
-}

@@ -63,6 +63,7 @@ class ProjectGateway implements ProjectGatewayInterface {
         $unitTypes = \CommonFloor\UnitType::whereIn( 'project_property_type_id', $projectPropertyTypeIds )->get();
         $unitTypeArr = [];
         $unitTypeIds = [];
+        $units = [];
         foreach ($unitTypes as $unitType) {
             $projectPropertyTypekey = array_search( $unitType->project_property_type_id , $projectPropertyTypeIds);
             $unitTypeIds[$projectPropertyTypekey][] = $unitType->id;
@@ -78,7 +79,7 @@ class ProjectGateway implements ProjectGatewayInterface {
        {
          $buildingIds[] =$building->id;  
        }
-   
+       $units += \CommonFloor\Unit::WhereIn('building_id', $buildingIds)->get()->toArray();
        $variantIds = $bunglowVariantData = $appartmentVariantData = [];
         foreach ($unitTypeIds as $key => $unitTypeId)
         {
@@ -95,9 +96,8 @@ class ProjectGateway implements ProjectGatewayInterface {
                 $appartmentVariantData =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['apartment'] )->get()->toArray();   
             }
         }
- 
-        
-
+        $units += \CommonFloor\Unit::whereIn('unit_variant_id', $variantIds)->orWhereIn('building_id', $buildingIds)->get()->toArray();
+         
         $stepTwoData = [
             'buildings' => $buildings->toArray(),
             'bunglow_variants' => $bunglowVariantData,
@@ -105,10 +105,9 @@ class ProjectGateway implements ProjectGatewayInterface {
             'plot_variants' => [],
             'property_types' => $propertyTypes,
             'settings' => $this->projectSettings($projectId),
-            'units' => \CommonFloor\Unit::whereIn('unit_variant_id', $variantIds)->orWhereIn('building_id', $buildingIds)->get()->toArray(),
+            'units' =>$units,
 
             'settings' => [],
-            'units' => \CommonFloor\Unit::whereIn( 'unit_variant_id', $variantIds )->get()->toArray(),
             'unit_types' => $unitTypeArr,
             'floor_layout' => []
         ];

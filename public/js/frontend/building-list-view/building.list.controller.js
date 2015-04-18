@@ -98,7 +98,7 @@
       } else {
         $('.mapView').show();
       }
-      if (apartmentVariantCollection.length !== 0) {
+      if (bunglowVariantCollection.length !== 0) {
         return $('.Villas').removeClass('hidden');
       }
     };
