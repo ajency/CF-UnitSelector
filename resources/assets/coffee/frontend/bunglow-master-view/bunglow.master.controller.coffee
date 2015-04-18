@@ -30,6 +30,7 @@ class TopBunglowMasterView extends Marionette.ItemView
 	serializeData:->
 		data = super()
 		type = ""
+		units = []
 		bunglowUnits = bunglowVariantCollection.getBunglowUnits()
 		if bunglowUnits.length != 0
 			type = 'villas'
