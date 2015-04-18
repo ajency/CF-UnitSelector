@@ -45,7 +45,7 @@
       return TopApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopApartmentMasterView.prototype.template = '<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span> Back to Poject Overview </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1>We are now at Artha Zen\'s upcoming project having 50 villa\'s</h1> </div> </div> </div>';
+    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span> Back to Poject Overview </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1>We are now at Artha Zen\'s upcoming project having 50 villa\'s</h1> </div> </div> </div>');
 
     return TopApartmentMasterView;
 
@@ -73,7 +73,7 @@
       return LeftApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftApartmentMasterView.prototype.template = '<div class="col-md-3 col-xs-12 col-sm-12 search-left-content leftview"></div>';
+    LeftApartmentMasterView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content leftview"></div>');
 
     LeftApartmentMasterView.prototype.onShow = function() {
       return $('.leftview').hide();
@@ -105,7 +105,90 @@
       return CenterApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterApartmentMasterView.prototype.template = '<div class="col-md-9 us-right-content"> <div class="list-view-container"> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div class="svg-area"> <img src="../../images/bldg-3d.png" class="img-responsive"> </div> </div> </div>';
+    CenterApartmentMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container"> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
+
+    CenterApartmentMasterView.prototype.ui = {
+      svgContainer: '.list-view-container'
+    };
+
+    CenterApartmentMasterView.prototype.initialize = function() {
+      this.currentBreakPoint = 0;
+      return this.breakPoints = [];
+    };
+
+    CenterApartmentMasterView.prototype.events = {
+      'click #prev': function() {
+        return this.setDetailIndex(this.currentBreakPoint - 1);
+      },
+      'click #next': function() {
+        return this.setDetailIndex(this.currentBreakPoint + 1);
+      }
+    };
+
+    CenterApartmentMasterView.prototype.onShow = function() {
+      var building, building_id, response, svgs, transitionImages, url;
+      url = Backbone.history.fragment;
+      building_id = parseInt(url.split('/')[1]);
+      building = buildingCollection.findWhere({
+        id: building_id
+      });
+      transitionImages = [];
+      svgs = {};
+      svgs[0] = building.get('building').front;
+      svgs[4] = building.get('building').right;
+      svgs[8] = building.get('building').back;
+      svgs[12] = building.get('building').left;
+      console.log(svgs);
+      $.merge(transitionImages, building.get('building_master')['right-front']);
+      $.merge(transitionImages, building.get('building_master')['back-right']);
+      $.merge(transitionImages, building.get('building_master')['left-back']);
+      $.merge(transitionImages, building.get('building_master')['front-left']);
+      response = building.checkRotationView();
+      if (response === 1) {
+        $('.rotate').removeClass('hidden');
+      }
+      return this.initializeRotate(transitionImages, svgs);
+    };
+
+    CenterApartmentMasterView.prototype.setDetailIndex = function(index) {
+      this.currentBreakPoint = index;
+      if (this.currentBreakPoint < 0) {
+        this.currentBreakPoint = this.breakPoints.length - 1;
+      }
+      if (this.currentBreakPoint >= this.breakPoints.length) {
+        this.currentBreakPoint = 0;
+      }
+      return api.playTo(this.breakPoints[this.currentBreakPoint], {
+        nearest: true
+      });
+    };
+
+    CenterApartmentMasterView.prototype.initializeRotate = function(transitionImages, svgs) {
+      var api, frames, spin, that, width;
+      frames = transitionImages;
+      this.breakPoints = [0, 4, 8, 12];
+      this.currentBreakPoint = 0;
+      width = this.ui.svgContainer.width() + 20;
+      $('.svg-maps > div').first().removeClass('inactive').addClass('active').css('width', width);
+      spin = $('#spritespin');
+      spin.spritespin({
+        source: frames,
+        width: this.ui.svgContainer.width(),
+        sense: -1,
+        height: this.ui.svgContainer.width() / 1.46,
+        animate: false
+      });
+      that = this;
+      api = spin.spritespin("api");
+      return spin.bind("onFrame", function() {
+        var data, url;
+        data = api.data;
+        if (data.frame === data.stopFrame) {
+          url = svgs[data.frame];
+          return $('.region').load(url, that.iniTooltip).addClass('active').removeClass('inactive');
+        }
+      });
+    };
 
     return CenterApartmentMasterView;
 

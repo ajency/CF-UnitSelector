@@ -204,6 +204,15 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		
 
 	events :
+		'mouseover .building':(e)->
+			id = parseInt e.target.id
+			buildingModel = buildingCollection.findWhere
+							'id' : id
+			if buildingModel.get('building_master').front == ""
+				CommonFloor.navigate '/building/'+id+'/apartments' , true
+			else
+				CommonFloor.navigate '/building/'+id+'/master-view' , true
+
 		'click .list':(e)->
 			e.preventDefault()
 			CommonFloor.navigate '/list-view' , true
@@ -213,10 +222,10 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 			CommonFloor.navigate '/master-view' , true
 			
 		'click #prev':->
-			@setDetailIndex(@currentBreakPoint - 1);
+			@setDetailIndex(@currentBreakPoint - 1)
 
 		'click #next':->
-			@setDetailIndex(@currentBreakPoint + 1);
+			@setDetailIndex(@currentBreakPoint + 1)
 
 		'mouseout':(e)->
 			$('.layer').attr('class' ,'layer') 

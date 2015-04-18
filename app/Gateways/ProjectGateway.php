@@ -97,7 +97,7 @@ class ProjectGateway implements ProjectGatewayInterface {
                 $appartmentVariantData =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['apartment'] )->get()->toArray();   
             }
         }
-        $units += \CommonFloor\Unit::whereIn('unit_variant_id', $variantIds)->orWhereIn('building_id', $buildingIds)->get()->toArray();
+        $units += \CommonFloor\Unit::whereIn('unit_variant_id', $variantIds)->get()->toArray();
          
         $stepTwoData = [
             'buildings' => $buildings->toArray(),

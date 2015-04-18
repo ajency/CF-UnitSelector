@@ -62,6 +62,19 @@ class Building extends Backbone.Model
 
 		units 
 
+	checkRotationView:(building)->
+		transitionImages = []
+		$.merge transitionImages , building.get('building_master')['right-front']
+		$.merge transitionImages , building.get('building_master')['back-right']
+		$.merge transitionImages , building.get('building_master')['left-back']
+		$.merge transitionImages , building.get('building_master')['front-left']
+		if parseInt(transitionImages.length) >= 4
+			@set 'rotation' , 1
+		else
+			@set 'rotation' , 0
+
+		@get('rotation')
+
 
 
 

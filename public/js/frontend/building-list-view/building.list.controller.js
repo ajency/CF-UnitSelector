@@ -25,9 +25,16 @@
 
     CenterItemView.prototype.events = {
       'click .bldg': function(e) {
-        var id;
+        var buildingModel, id;
         id = this.model.get('id');
-        return CommonFloor.navigate('/building/' + id + '/apartments', true);
+        buildingModel = buildingCollection.findWhere({
+          'id': id
+        });
+        if (buildingModel.get('building_master').front === "") {
+          return CommonFloor.navigate('/building/' + id + '/apartments', true);
+        } else {
+          return CommonFloor.navigate('/building/' + id + '/master-view', true);
+        }
       }
     };
 
