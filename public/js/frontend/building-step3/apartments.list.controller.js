@@ -125,7 +125,32 @@
       return ApartmentsView.__super__.constructor.apply(this, arguments);
     }
 
-    ApartmentsView.prototype.template = Handlebars.compile('<li>{{unit_name}}</li>');
+    ApartmentsView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="bldg-img"></div> <div class="info"> <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}}sqft) </div> <div class="clearfix"></div> </li>');
+
+    ApartmentsView.prototype.serializeData = function() {
+      var data, status, unitType, unitVariant;
+      data = ApartmentsView.__super__.serializeData.call(this);
+      status = s.decapitalize(this.model.get('availability'));
+      unitVariant = apartmentVariantCollection.findWhere({
+        'id': this.model.get('unit_variant_id')
+      });
+      unitType = unitTypeCollection.findWhere({
+        'id': unitVariant.get('unit_type_id')
+      });
+      data.unit_type = unitType.get('name');
+      data.super_built_up_area = unitVariant.get('super_built_up_area');
+      data.status = status;
+      return data;
+    };
+
+    ApartmentsView.prototype.events = {
+      'click .unit': function(e) {
+        if (this.model.get('availability') === 'available') {
+          CommonFloor.defaults['unit'] = this.model.get('id');
+          return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
+        }
+      }
+    };
 
     return ApartmentsView;
 
@@ -138,7 +163,7 @@
       return CenterApartmentView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterApartmentView.prototype.template = '<div> <ul class="units"> </ul> <div>';
+    CenterApartmentView.prototype.template = '<div> <div class="list-view-container"> <div class="legend"> <ul> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> </ul> </div> <div class="villa-list"> <ul class="units eight"> </ul> <div> <div><div>';
 
     CenterApartmentView.prototype.childView = ApartmentsView;
 

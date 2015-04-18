@@ -1,3 +1,4 @@
+api = ""
 class CommonFloor.ApartmentsMasterView extends Marionette.LayoutView
 
 	template : '#project-template'
@@ -61,17 +62,88 @@ class CommonFloor.TopApartmentMasterCtrl extends Marionette.RegionController
 					model : buildingModel
 					units : response
 
-class CommonFloor.LeftApartmentMasterView extends Marionette.ItemView
+class ApartmentsView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content leftview"></div>')
+	template : Handlebars.compile('<div class="row">
+					<div class="col-sm-4">
+					  <h6 class="{{status}}">{{unit_name}}</h6>                      
+					</div>
+					<div class="col-sm-4">
+					  <h6 class="">{{unit_type}}</h6>                      
+					</div>
+					<div class="col-sm-4">
+					  <h6 class="">{{super_built_up_area}} sqft</h6>                      
+					</div>
+				  </div>')
 
-	onShow:->
-		$('.leftview').hide()
+	initialize:->
+		@$el.prop("id", 'apartment'+@model.get("id"))
+
+	className : 'blck-wrap'
+
+	serializeData:->
+		data = super()
+		status = s.decapitalize @model.get 'availability'
+		unitVariant = apartmentVariantCollection.findWhere
+							'id' : @model.get('unit_variant_id')
+		unitType = unitTypeCollection.findWhere
+							'id' : unitVariant.get('unit_type_id')
+		data.unit_type = unitType.get('name')
+		data.super_built_up_area = unitVariant.get('super_built_up_area')
+		data.status = status
+		data
+
+	events:
+		'mouseover .row':(e)->
+			id = @model.get 'id'
+			$('#'+id).attr('class' ,'layer '+@model.get('availability'))
+
+		'click .row':(e)->
+			if @model.get('availability') == 'available'
+				CommonFloor.defaults['unit'] = @model.get('id')
+				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
+
+
+class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
+
+	template : '	<div><div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
+										<div class="filters-wrapper ">
+											<div class="advncd-filter-wrp  unit-list">
+												<div class="blck-wrap title-row">
+					                  				<div class="row">
+									                    <div class="col-sm-4">
+									                      <h5 class="accord-head">Villa No</h5>                      
+									                    </div>
+									                    <div class="col-sm-4">
+									                      <h5 class="accord-head">Type</h5>                      
+									                    </div>
+									                    <div class="col-sm-4">
+									                      <h5 class="accord-head">Area</h5>                      
+									                    </div>
+					                  				</div>
+					                			</div>
+								                <div class="units">
+								                </div>
+											</div>
+										</div>
+									</div></div>'
+
+	childView : ApartmentsView
+
+	childViewContainer : '.units'
+
+
+
 
 class CommonFloor.LeftApartmentMasterCtrl extends Marionette.RegionController
 
 	initialize:->
+		url = Backbone.history.fragment
+		building_id = parseInt url.split('/')[1]
+		response = window.building.getBuildingUnits(building_id)
+		unitsCollection = new Backbone.Collection response
 		@show new CommonFloor.LeftApartmentMasterView
+				collection : unitsCollection
 
 class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
@@ -164,7 +236,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			data = api.data
 			if data.frame is data.stopFrame
 				url = svgs[data.frame]
-				$('.region').load(url,that.iniTooltip).addClass('active').removeClass('inactive')
+				$('.region').load(url).addClass('active').removeClass('inactive')
 				
 		)
 
