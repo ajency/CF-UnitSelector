@@ -792,6 +792,9 @@ body {
 .bldg_info .unit-type-info li span {
   color: #f68121;
 }
+.room-attr span {
+  color: #999999;
+}
 /* Plugins */
 /* Slider */
 .toggle_radio {
