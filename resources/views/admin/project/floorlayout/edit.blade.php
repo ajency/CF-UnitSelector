@@ -31,7 +31,7 @@
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 
                     <div class="grid-body">
-                        <form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/floor-layout') }}"> 
+                        <form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/floor-layout/'.$floorLayout->id) }}"> 
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -81,6 +81,7 @@
                             </div>
                             <div class="form-actions">  
                                 <div class="pull-rigunitt">
+                                    <input type="hidden" name="_method" value="PUT">
                                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                                     <button type="submit" class="btn btn-primary btn-cons">Save</button>
                                     <a href="{{ url('admin/project/'. $project['id'] .'/floor-layout') }}" class="btn btn-default btn-cons">
@@ -112,11 +113,11 @@
                                                 <div>
                                                     <label class="form-label">Unit Type</label>
                                                 </div>
-                                                <select class="floor-layout-unit-types">
+                                                <select name="unit_type_id" class="floor-layout-unit-types">
                                                     <option value="">Choose Unit Type</option>
                                                     @foreach($unitTypes as $unitType)
                                                         @if(!empty($allUnitVariants[$unitType['id']]))
-                                                        <option value="{{ $unitType['id'] }}">{{ $unitType['unittype_name'] }}</option>
+                                                        <option {{ isset($unitTypeIds[$i]) && $unitTypeIds[$i] === $unitType['id'] ? 'selected' : '' }}  value="{{ $unitType['id'] }}">{{ $unitType['unittype_name'] }}</option>
                                                         @endif
                                                     @endforeach
                                                 </select>

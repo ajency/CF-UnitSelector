@@ -73,7 +73,27 @@
                         @if('textbox' === $attribute['control_type'])
                         <input type="text" class="form-control" name="attributes[{{ property_type_slug($attribute['label']) }}]"  
                                 placeholder="Enter {{ $attribute['label'] }}">
-                        @endif
+                        @elseif('select' === $attribute['control_type'])
+                        <?php
+                        $options = explode(',', $attribute['defaults']);
+                        ?>
+                        <select name="attributes[{{property_type_slug($attribute['label'])}}]" class="select2 form-control">
+                            <option value="">Select {{$attribute['label']}}</option>   
+                            @foreach($options as $option)
+                            <option  value="{{property_type_slug($option)}}">{{$option}}</option>
+                            @endforeach
+                        </select>
+                        @elseif('multiple' === $attribute['control_type'])
+                        <?php
+                        $options = explode(',', $attribute['defaults']);
+                        ?>
+                        <select multiple name="attributes[{{property_type_slug($attribute['label'])}}][]" class="select2 form-control">
+                            <option value="">Select {{$attribute['label']}}</option>   
+                            @foreach($options as $option)
+                            <option   value="{{property_type_slug($option)}}">{{$option}}</option>
+                            @endforeach
+                        </select>
+                        @endif     
                     </div> 
                 </div>
                 @endforeach
