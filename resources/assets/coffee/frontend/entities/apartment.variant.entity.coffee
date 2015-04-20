@@ -9,8 +9,8 @@ class ApartmentVariant extends Backbone.Model
 		unitVarinatModel = apartmentVariantCollection.findWhere({
 			'id':parseInt(unit_model.get('unit_variant_id'))})
 		if unitVarinatModel != undefined
-			# floorRise = settings.get('floor_rise')[unit_model.get('floor')]
-			floorRise = 25
+			floorRiseArray = settings.generateFloorRise(unit_model.get('building_id'))
+			floorRise = floorRiseArray[unit_model.get('floor')]
 			basic_cost = ( parseFloat(unitVarinatModel.get('per_sq_ft_price')) + parseFloat(floorRise )) *
 							parseFloat(unitVarinatModel.get('super_built_up_area'))
 			basicCost = basic_cost.toFixed(2)

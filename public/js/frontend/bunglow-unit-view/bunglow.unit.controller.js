@@ -92,7 +92,7 @@
       data = LeftBunglowUnitView.__super__.serializeData.call(this);
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
-      response = window.unit.getUnitDetails(unitid);
+      console.log(response = window.unit.getUnitDetails(unitid));
       levels = [];
       floor = response[0].get('floor');
       $.each(floor, function(index, value) {
@@ -122,12 +122,14 @@
         'id': response[0].get('unit_type_id')
       });
       attributes = [];
-      $.each(response[4], function(index, value) {
-        return attributes.push({
-          'attribute': s.capitalize(index),
-          'value': value
+      if (response[4] !== null) {
+        $.each(response[4], function(index, value) {
+          return attributes.push({
+            'attribute': s.capitalize(index),
+            'value': value
+          });
         });
-      });
+      }
       data.area = response[0].get('super_built_up_area');
       data.type = response[1].get('name');
       data.unit_name = unit.get('unit_name');
