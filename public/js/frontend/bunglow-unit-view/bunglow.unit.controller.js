@@ -173,45 +173,101 @@
       return CenterBunglowUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider slider" id="slider-id"> <div> <h2 class="title">External 3D</h2> <img src="{{external_url}}"> </div> <div> <h2 class="title">2D Layout</h2> <div class="{{level}}"> {{#levels}} <div class="layouts"> <img src="{{two_d}}"/> <h5 class="text-center">{{level_name}}</h5> </div> {{/levels}} </div> </div> <div> <h2 class="title">3D Layout</h2> <div class="{{level}}"> {{#levels}} <div class="layouts"> <img src="{{three_d}}"/> <h5 class="text-center">{{level_name}}</h5> </div> {{/levels}} </div> </div> </div> </div> </div>');
+    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider slider" id="slider-id"> <div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div> <div class="images"> </div> </div> </div> </div>');
 
-    CenterBunglowUnitView.prototype.serializeData = function() {
-      var data, floor, i, level, levels, response, unitid, url;
-      data = CenterBunglowUnitView.__super__.serializeData.call(this);
-      url = Backbone.history.fragment;
-      unitid = parseInt(url.split('/')[1]);
-      response = window.unit.getUnitDetails(unitid);
-      levels = [];
-      console.log(floor = response[0].get('floor'));
-      level = "";
-      i = 0;
-      $.each(floor, function(index, value) {
-        levels.push({
-          'two_d': value.url2dlayout_image,
-          'three_d': value.url3dlayout_image,
-          'level_name': 'Level ' + i
+    CenterBunglowUnitView.prototype.events = {
+      'click .threeD': function(e) {
+        var floor, html, i, level, response, threeD, twoD, unitid, url;
+        url = Backbone.history.fragment;
+        unitid = parseInt(url.split('/')[1]);
+        response = window.unit.getUnitDetails(unitid);
+        twoD = [];
+        threeD = [];
+        level = [];
+        floor = response[0].get('floor');
+        i = 0;
+        $.each(floor, function(index, value) {
+          twoD.push(value.url2dlayout_image);
+          threeD.push(value.url3dlayout_image);
+          level.push(s.replaceAll('Level ' + i, " ", "_"));
+          return i = i + 1;
         });
-        level = s.replaceAll('Level ' + i, " ", "_");
-        return i = i + 1;
-      });
-      data.level = level;
-      data.levels = levels;
-      data.external_url = response[0].get('external3durl');
-      return data;
+        html = '';
+        $.each(threeD, function(index, value) {
+          return html += '<img src="' + value + '" /><span>' + level[index] + '</span>';
+        });
+        return $('.images').html(html);
+      },
+      'click .twoD': function(e) {
+        var floor, html, i, level, response, threeD, twoD, unitid, url;
+        url = Backbone.history.fragment;
+        unitid = parseInt(url.split('/')[1]);
+        response = window.unit.getUnitDetails(unitid);
+        twoD = [];
+        threeD = [];
+        level = [];
+        floor = response[0].get('floor');
+        i = 0;
+        $.each(floor, function(index, value) {
+          twoD.push(value.url2dlayout_image);
+          threeD.push(value.url3dlayout_image);
+          level.push(s.replaceAll('Level ' + i, " ", "_"));
+          return i = i + 1;
+        });
+        html = '';
+        $.each(twoD, function(index, value) {
+          return html += '<img src="' + value + '" /><span>' + level[index] + '</span>';
+        });
+        return $('.images').html(html);
+      },
+      'click .external': function(e) {
+        var floor, html, level, response, threeD, twoD, unitid, url;
+        url = Backbone.history.fragment;
+        unitid = parseInt(url.split('/')[1]);
+        response = window.unit.getUnitDetails(unitid);
+        twoD = [];
+        threeD = [];
+        level = [];
+        floor = response[0].get('floor');
+        html = '<img src="' + response[0].get('external3durl') + '" />';
+        return $('.images').html(html);
+      }
     };
 
     CenterBunglowUnitView.prototype.onShow = function() {
-      return $('.slider').imagesLoaded(function() {
-        $('#slider-id').liquidSlider({
-          slideEaseFunction: "easeInOutQuad",
-          includeTitle: false,
-          autoSlideInterval: 4000,
-          mobileNavigation: false,
-          hideArrowsWhenMobile: false,
-          dynamicTabsAlign: "center",
-          dynamicArrows: false
-        });
+      var floor, html, i, level, response, threeD, twoD, unitid, url;
+      url = Backbone.history.fragment;
+      unitid = parseInt(url.split('/')[1]);
+      response = window.unit.getUnitDetails(unitid);
+      twoD = [];
+      threeD = [];
+      level = [];
+      floor = response[0].get('floor');
+      i = 0;
+      $.each(floor, function(index, value) {
+        twoD.push(value.url2dlayout_image);
+        threeD.push(value.url3dlayout_image);
+        level.push(s.replaceAll('Level ' + i, " ", "_"));
+        return i = i + 1;
       });
+      html = '';
+      $.each(twoD, function(index, value) {
+        return html += '<img src="' + value + '" /><span>' + level[index] + '</span>';
+      });
+      $('.images').html(html);
+      if (response[0].get('external3durl') !== void 0) {
+        html = '<img src="' + response[0].get('external3durl') + '" />';
+        $('.images').html(html);
+      }
+      if (twoD.length === 0) {
+        $('.twoD').hide();
+      }
+      if (threeD.length === 0) {
+        $('.threeD').hide();
+      }
+      if (response[0].get('external3durl') === void 0) {
+        return $('.external').hide();
+      }
     };
 
     return CenterBunglowUnitView;

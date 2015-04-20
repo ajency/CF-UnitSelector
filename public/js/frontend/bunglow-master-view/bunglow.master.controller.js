@@ -62,7 +62,7 @@
       $.merge(units, bunglowUnits);
       apartmentUnits = apartmentVariantCollection.getApartmentUnits();
       if (apartmentUnits.length !== 0) {
-        type = 'apartments';
+        type = 'buildings';
       }
       $.merge(units, apartmentUnits);
       data.units = units.length;
@@ -148,7 +148,8 @@
 
     CenterBunglowMasterView.prototype.initialize = function() {
       this.currentBreakPoint = 0;
-      return this.breakPoints = [];
+      this.breakPoints = [];
+      return this["class"] = '';
     };
 
     CenterBunglowMasterView.prototype.events = {
@@ -176,7 +177,8 @@
       'click #next': function() {
         return this.setDetailIndex(this.currentBreakPoint + 1);
       },
-      'mouseout': function(e) {
+      'mouseout .layer': function(e) {
+        $('.layer').attr('class', this["class"]);
         return $('.blck-wrap').attr('class', 'blck-wrap');
       },
       'mouseover .villa': function(e) {
@@ -197,7 +199,7 @@
         availability = s.decapitalize(availability);
         html = "";
         html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
-        console.log(availability);
+        this["class"] = $('#' + id).attr('class');
         $('#' + id).attr('class', 'layer ' + availability);
         $('#unit' + id).attr('class', 'blck-wrap active');
         return $('.layer').tooltipster('content', html);

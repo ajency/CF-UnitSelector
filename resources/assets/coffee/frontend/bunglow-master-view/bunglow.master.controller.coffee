@@ -37,7 +37,7 @@ class TopBunglowMasterView extends Marionette.ItemView
 		$.merge units,bunglowUnits
 		apartmentUnits = apartmentVariantCollection.getApartmentUnits()
 		if apartmentUnits.length != 0
-			type = 'apartments'
+			type = 'buildings'
 		$.merge units,apartmentUnits
 		data.units = units.length
 		data.type = type
@@ -107,6 +107,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 	initialize:->
 		@currentBreakPoint = 0
 		@breakPoints = []
+		@class = ''
 		
 
 	events :
@@ -130,8 +131,8 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		'click #next':->
 			@setDetailIndex(@currentBreakPoint + 1)
 
-		'mouseout':(e)->
-			# $('.layer').attr('class' ,'layer') 
+		'mouseout .layer':(e)->
+			$('.layer').attr('class' ,@class) 
 			$('.blck-wrap').attr('class' ,'blck-wrap') 
 
 		'mouseover .villa':(e)->
@@ -169,7 +170,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 							</div>  
 						</div>  
 					</div>'
-			console.log availability
+			@class = $('#'+id).attr('class')
 			$('#'+id).attr('class' ,'layer '+availability) 
 			$('#unit'+id).attr('class' ,'blck-wrap active') 
 			$('.layer').tooltipster('content', html)
