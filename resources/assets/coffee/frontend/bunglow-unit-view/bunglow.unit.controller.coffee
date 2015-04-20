@@ -238,11 +238,8 @@ class CenterBunglowUnitView extends Marionette.ItemView
 		
 
 	onShow:->
-		# $('.slider').imagesLoaded ->
-		# 	divHeight = $('.us-right-content').height()
-		# 	$('.unit-list').css 'max-height', divHeight + 'px'
-		# 	return
-		$('#slider-id').liquidSlider(
+		$('.slider').imagesLoaded ->
+			$('#slider-id').liquidSlider(
 					slideEaseFunction: "easeInOutQuad",
 					includeTitle:false,
 					autoSlideInterval: 4000,
@@ -250,9 +247,11 @@ class CenterBunglowUnitView extends Marionette.ItemView
 					hideArrowsWhenMobile: false,
 					dynamicTabsAlign: "center",
 					dynamicArrows: false,
-					minHeight: 630,
-					autoHeight: false			 
+					# minHeight: 630,
+					# autoHeight: false			 
 				)
+			return
+		
 
 	
 

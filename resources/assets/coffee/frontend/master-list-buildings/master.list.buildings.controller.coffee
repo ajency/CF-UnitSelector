@@ -40,9 +40,9 @@ class CenterItemView extends Marionette.ItemView
 				CommonFloor.navigate '/building/'+id+'/master-view' , true
 
 
-class CenterBuildingListView extends Marionette.CompositeView
+class MasterBuildingListView extends Marionette.CompositeView
 
-	template : Handlebars.compile('<div class="col-md-12 us-right-content">
+	template : Handlebars.compile('<div class="col-md-3 us-left-content">
 			<div class="list-view-container animated fadeInDown">
 			<!--<div class="controls map-View">
 	            <div class="toggle">
@@ -77,7 +77,7 @@ class CenterBuildingListView extends Marionette.CompositeView
 			data.units = units
 			data.type = 'building'
 			
-			@region =  new Marionette.Region el : '#centerregion'
+			@region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.CenterBuildingListCtrl region : @region
 			@trigger "load:units" , data
 			
@@ -87,7 +87,7 @@ class CenterBuildingListView extends Marionette.CompositeView
 			data = {}
 			data.units = units
 			data.type = 'villa'
-			@region =  new Marionette.Region el : '#centerregion'
+			@region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.ListCtrl region : @region
 			@trigger "load:units" , data
 
@@ -103,10 +103,10 @@ class CenterBuildingListView extends Marionette.CompositeView
 
 
 
-class CommonFloor.CenterBuildingListCtrl extends Marionette.RegionController
+class CommonFloor.MasterBuildingListCtrl extends Marionette.RegionController
 
 	initialize:->
-		@view = view = new CenterBuildingListView
+		@view = view = new MasterBuildingListView
 					collection : buildingCollection
 		@listenTo @view,"load:units" ,@loadController
 		@show view

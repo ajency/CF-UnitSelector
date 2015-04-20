@@ -108,6 +108,7 @@
         <script src="{{ asset('bower_components/liquidslider/js/jquery.liquid-slider.min.js' )}}"></script>
         <script src="{{ asset('bower_components/spritespin/release/spritespin.js' )}}"></script>
         <script src="{{ asset('bower_components/autoNumeric/autoNumeric.js' )}}"></script>
+        <script src="{{ asset('bower_components/imagesloaded/imagesloaded.js' )}}"></script>
         <!-- end plugins -->
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
         <script>
@@ -144,6 +145,9 @@
         <script src="{{ asset('js/frontend/bunglow-list-view/villa.list.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/building-step3/apartments.list.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/building-step3/apartments.master.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/building-step3/apartments.master.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/master-list-bunglows/master.list.bunglows.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/master-list-buildings/master.list.buildings.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
         <input type="hidden" id="price" data-m-dec="" data-a-sign="Rs. " data-d-group="2" value="" />
       

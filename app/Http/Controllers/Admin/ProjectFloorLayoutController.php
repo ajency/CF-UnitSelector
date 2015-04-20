@@ -89,17 +89,19 @@ class ProjectFloorLayoutController extends Controller {
         }
         
         $floorLayoutPositions = FloorLayoutPosition::where('floor_layout_id', $floorLayoutId)->get()->toArray();
-        $formattedFloorLayoutPositions = [];
+        $formattedFloorLayoutPositions = $unitTypeIds=[];
         foreach ($floorLayoutPositions as $floorLayoutPosition){
             $formattedFloorLayoutPositions[$floorLayoutPosition['position']] = $floorLayoutPosition;
+            $unitTypeIds[$floorLayoutPosition['position']]= UnitVariant::where('id',$floorLayoutPosition['unit_variant_id'])->pluck('unit_type_id');
         }
-        
+         
         return view( 'admin.project.floorlayout.edit' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'add-floor-layout' )
                         ->with( 'floorLayout', $floorLayout )
                         ->with( 'floorLayoutPositions', $formattedFloorLayoutPositions)
                         ->with( 'unitTypes', $unitTypes )
+                        ->with( 'unitTypeIds', $unitTypeIds )
                         ->with( 'allUnitVariants', $allUnitVariants );
     }
 

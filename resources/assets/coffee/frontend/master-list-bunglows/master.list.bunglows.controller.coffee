@@ -1,17 +1,22 @@
 #view for the Center setion
-class CenterBunglowListView extends Marionette.ItemView
+class BunglowListView extends Marionette.ItemView
 
-	template : Handlebars.compile('<li class="unit blocks {{status}}">
-                  <div class="pull-left info">
-                    <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}}sqft)
-                  </div>
-                  <!--<div class="pull-right cost">
-                    50 lakhs
-                  </div>-->
-                </li>')
+	template : Handlebars.compile('<div class="row">
+					<div class="col-sm-4">
+					  <h6 class="{{status}}">{{unit_name}}</h6>                      
+					</div>
+					<div class="col-sm-4">
+					  <h6 class="">{{unit_type}}</h6>                      
+					</div>
+					<div class="col-sm-4">
+					  <h6 class="">{{super_built_up_area}} sqft</h6>                      
+					</div>
+				  </div>')
 
 	initialize:->
 		@$el.prop("id", 'unit'+@model.get("id"))
+
+	className : 'blck-wrap'
 
 	serializeData:->
 		data = super()
@@ -27,19 +32,24 @@ class CenterBunglowListView extends Marionette.ItemView
 		data
 
 	events:
-		'click .unit' :(e)->
-				if @model.get('status') == 'available'
-					CommonFloor.defaults['unit'] = @model.get('id')
-					CommonFloor.navigate '/unit-view/'+@model.get('id') , true
+		'mouseover .row' :(e)->
+			id = @model.get('id')
+			$('#'+id).attr('class' ,'layer '+@model.get('status'))
+		'mouseout .row' :(e)->
+			$('.layer').attr('class' ,'layer') 
+		'click .row' :(e)->
+			if @model.get('status') == 'available'
+				CommonFloor.defaults['unit'] = @model.get('id')
+				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
 
 
 
 #Composite view for the Center setion
 
 
-class CenterCompositeView extends Marionette.CompositeView
+class MasterBunglowListView extends Marionette.CompositeView
 
-	template : Handlebars.compile('<div class="col-md-12 us-right-content">
+	template : Handlebars.compile('<div class="col-md-3 us-left-content">
 									<div class="list-view-container animated fadeInUp">
 							            <!--<div class="controls map-View">
 								            <div class="toggle">
@@ -53,23 +63,27 @@ class CenterCompositeView extends Marionette.CompositeView
 							                <li class="prop-type Plots hidden">Plots</li>
 							              </ul>
 							            </div>
-							            <div class="legend">
-							              <ul>
-							                <li class="available">AVAILABLE</li>
-							                <li class="sold">SOLD</li>
-							                <li class="blocked">BLOCKED</li>
-							                <li class="na">NOT IN SELECTION</li>
-							              </ul>
-							            </div>
-							            <div class="clearfix"></div>
-							            <div class="villa-list">
-							            	<ul class="units">
-							            	</ul>
-							            </div>
+							            <div class="advncd-filter-wrp  unit-list">
+												<div class="blck-wrap title-row">
+					                  				<div class="row">
+									                    <div class="col-sm-4">
+									                      <h5 class="accord-head">Villa No</h5>                      
+									                    </div>
+									                    <div class="col-sm-4">
+									                      <h5 class="accord-head">Type</h5>                      
+									                    </div>
+									                    <div class="col-sm-4">
+									                      <h5 class="accord-head">Area</h5>                      
+									                    </div>
+					                  				</div>
+					                			</div>
+								                <div class="units">
+								                </div>
+											</div>
 							        </div>
 							       </div>')
 
-	childView : CenterBunglowListView
+	childView : BunglowListView
 
 	childViewContainer : '.units'
 
@@ -80,7 +94,7 @@ class CenterCompositeView extends Marionette.CompositeView
 			data.units = units
 			data.type = 'building'
 			
-			@region =  new Marionette.Region el : '#centerregion'
+			@region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.CenterBuildingListCtrl region : @region
 			@trigger "load:units" , data
 			
@@ -90,7 +104,7 @@ class CenterCompositeView extends Marionette.CompositeView
 			data = {}
 			data.units = units
 			data.type = 'villa'
-			@region =  new Marionette.Region el : '#centerregion'
+			@region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.ListCtrl region : @region
 			@trigger "load:units" , data
 			
@@ -106,12 +120,12 @@ class CenterCompositeView extends Marionette.CompositeView
 		
 
 #controller for the Center region
-class CommonFloor.ListCtrl extends Marionette.RegionController
+class CommonFloor.MasterBunglowListCtrl extends Marionette.RegionController
 
 	initialize:->
 		newUnits = bunglowVariantCollection.getBunglowUnits()
 		unitsCollection = new Backbone.Collection newUnits 		
-		@view = view = new CenterCompositeView
+		@view = view = new MasterBunglowListView
 			collection : unitsCollection
 		@listenTo @view,"load:units" ,@loadController
 		@show view

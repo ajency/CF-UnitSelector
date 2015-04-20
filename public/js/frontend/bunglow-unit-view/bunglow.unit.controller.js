@@ -201,16 +201,16 @@
     };
 
     CenterBunglowUnitView.prototype.onShow = function() {
-      return $('#slider-id').liquidSlider({
-        slideEaseFunction: "easeInOutQuad",
-        includeTitle: false,
-        autoSlideInterval: 4000,
-        mobileNavigation: false,
-        hideArrowsWhenMobile: false,
-        dynamicTabsAlign: "center",
-        dynamicArrows: false,
-        minHeight: 630,
-        autoHeight: false
+      return $('.slider').imagesLoaded(function() {
+        $('#slider-id').liquidSlider({
+          slideEaseFunction: "easeInOutQuad",
+          includeTitle: false,
+          autoSlideInterval: 4000,
+          mobileNavigation: false,
+          hideArrowsWhenMobile: false,
+          dynamicTabsAlign: "center",
+          dynamicArrows: false
+        });
       });
     };
 

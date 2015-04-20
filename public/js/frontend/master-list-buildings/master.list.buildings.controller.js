@@ -1,5 +1,5 @@
 (function() {
-  var CenterBuildingListView, CenterItemView,
+  var CenterItemView, MasterBuildingListView,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -44,20 +44,20 @@
 
   })(Marionette.ItemView);
 
-  CenterBuildingListView = (function(superClass) {
-    extend(CenterBuildingListView, superClass);
+  MasterBuildingListView = (function(superClass) {
+    extend(MasterBuildingListView, superClass);
 
-    function CenterBuildingListView() {
-      return CenterBuildingListView.__super__.constructor.apply(this, arguments);
+    function MasterBuildingListView() {
+      return MasterBuildingListView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBuildingListView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <div class="list-view-container animated fadeInDown"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings active">buildings</li> <li class="prop-type Villas hidden">Villas/Bungalows</li> <li class="prop-type Plots hidden">Plots</li> </ul> </div> <div class="bldg-list"> <ul class="units"> </ul> <div class="clearfix"></div> </div> </div> </div>');
+    MasterBuildingListView.prototype.template = Handlebars.compile('<div class="col-md-3 us-left-content"> <div class="list-view-container animated fadeInDown"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings active">buildings</li> <li class="prop-type Villas hidden">Villas/Bungalows</li> <li class="prop-type Plots hidden">Plots</li> </ul> </div> <div class="bldg-list"> <ul class="units"> </ul> <div class="clearfix"></div> </div> </div> </div>');
 
-    CenterBuildingListView.prototype.childView = CenterItemView;
+    MasterBuildingListView.prototype.childView = CenterItemView;
 
-    CenterBuildingListView.prototype.childViewContainer = '.units';
+    MasterBuildingListView.prototype.childViewContainer = '.units';
 
-    CenterBuildingListView.prototype.events = {
+    MasterBuildingListView.prototype.events = {
       'click .buildings': function(e) {
         var data, units;
         console.log(units = buildingCollection);
@@ -65,7 +65,7 @@
         data.units = units;
         data.type = 'building';
         this.region = new Marionette.Region({
-          el: '#centerregion'
+          el: '#leftregion'
         });
         new CommonFloor.CenterBuildingListCtrl({
           region: this.region
@@ -79,7 +79,7 @@
         data.units = units;
         data.type = 'villa';
         this.region = new Marionette.Region({
-          el: '#centerregion'
+          el: '#leftregion'
         });
         new CommonFloor.ListCtrl({
           region: this.region
@@ -88,7 +88,7 @@
       }
     };
 
-    CenterBuildingListView.prototype.onShow = function() {
+    MasterBuildingListView.prototype.onShow = function() {
       if (project.get('project_master').front === "") {
         $('.map-View').hide();
       } else {
@@ -99,35 +99,35 @@
       }
     };
 
-    return CenterBuildingListView;
+    return MasterBuildingListView;
 
   })(Marionette.CompositeView);
 
-  CommonFloor.CenterBuildingListCtrl = (function(superClass) {
-    extend(CenterBuildingListCtrl, superClass);
+  CommonFloor.MasterBuildingListCtrl = (function(superClass) {
+    extend(MasterBuildingListCtrl, superClass);
 
-    function CenterBuildingListCtrl() {
+    function MasterBuildingListCtrl() {
       this.loadController = bind(this.loadController, this);
-      return CenterBuildingListCtrl.__super__.constructor.apply(this, arguments);
+      return MasterBuildingListCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBuildingListCtrl.prototype.initialize = function() {
+    MasterBuildingListCtrl.prototype.initialize = function() {
       var view;
-      this.view = view = new CenterBuildingListView({
+      this.view = view = new MasterBuildingListView({
         collection: buildingCollection
       });
       this.listenTo(this.view, "load:units", this.loadController);
       return this.show(view);
     };
 
-    CenterBuildingListCtrl.prototype.loadController = function(data) {
+    MasterBuildingListCtrl.prototype.loadController = function(data) {
       return Backbone.trigger("load:units", data);
     };
 
-    return CenterBuildingListCtrl;
+    return MasterBuildingListCtrl;
 
   })(Marionette.RegionController);
 
 }).call(this);
 
-//# sourceMappingURL=../../frontend/building-list-view/building.list.controller.js.map
+//# sourceMappingURL=../../frontend/master-list-buildings/master.list.buildings.controller.js.map

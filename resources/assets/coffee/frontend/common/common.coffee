@@ -49,7 +49,6 @@ CommonFloor.propertyMaxUnits = ()->
 #function to load the default controller
 CommonFloor.checkPropertyType = ()->
 	CommonFloor.loadJSONData()
-	controller = CommonFloor.propertyMaxUnits()
 	if project.get('project_master').front  == ""
 		CommonFloor.navigate '#/list-view' , true
 	else
@@ -87,11 +86,27 @@ window.convertRupees = (val)->
 
 	$('#price').autoNumeric('init')
 	$('#price').autoNumeric('set', val)
+
  
+window.convertRupees = (val)->
+
+	$('#price').autoNumeric('init')
+	$('#price').autoNumeric('set', val)
 
 
+#find the property type with maximum number of units
+CommonFloor.propertyTypes = ()->
+	Router = []
+	Router.push 
+		'type'  : 'bunglows'
+		'count' :bunglowVariantCollection.getBunglowUnits()
+	Router.push 
+		'type'  : 'building'
+		'count' :buildingCollection.toArray()
+	controller = _.max Router , (item)->
+		return parseInt item.count.length
 
-
+	controller
 
 
 

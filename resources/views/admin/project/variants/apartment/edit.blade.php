@@ -23,7 +23,7 @@
     </div>
 
     <div class="grid-body">
-        <form action="/admin/project/{{ $project['id'] }}/bunglow-variant/{{ $unitVariant['id'] }}" method="POST" data-parsley-validate>
+        <form action="/admin/project/{{ $project['id'] }}/apartment-variant/{{ $unitVariant['id'] }}" method="POST" data-parsley-validate>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
