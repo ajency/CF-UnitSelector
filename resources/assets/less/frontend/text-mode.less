@@ -160,6 +160,23 @@
 		}		
 	}
 }
+.three{
+	.blocks{
+		padding: 10px;
+		width: 33.3%;
+		text-align: center;
+		.cost{
+			display: none;
+		}
+		&.unit{
+			.info{
+				label{
+					display: block;
+				}
+			}
+		}
+	}
+}
 .two{
 	.blocks{
 		padding: 10px;
@@ -183,14 +200,32 @@
 				display: none;
 			}
 			.info{
+				float: none;
 				h2{
 					margin-top: 0;
-					font-size: 18px;
+					font-size: 14px;
+					font-weight: bold;
+					float: left;
+					margin-right: 5px;
+				}
+				.floors{
+					float: right;
+				}
+				.price{
+					display: none;
 				}
 			}
 			.unit-type-info{
 				li{
-					// text-align: left;
+					text-align: left;
+					width: auto;
+					&::after{
+						content: ', ';
+						float: none;
+					}
+					&:last-child::after{
+						content: '';
+					}
 				}
 			}
 		}

@@ -42,9 +42,6 @@ body {
 .builder-logo {
   max-width: 200px;
 }
-.collapsed .fa-angle-up{
-  display:none;
-}
 .proj-details {
   margin-top: 15px;
 }
@@ -673,6 +670,17 @@ body {
 .four .blocks:nth-child(3n) {
   margin-right: 1.6%;
 }
+.three .blocks {
+  padding: 10px;
+  width: 33.3%;
+  text-align: center;
+}
+.three .blocks .cost {
+  display: none;
+}
+.three .blocks.unit .info label {
+  display: block;
+}
 .two .blocks {
   padding: 10px;
   width: 49.2%;
@@ -691,9 +699,32 @@ body {
 .one .blocks.bldg .bldg-img {
   display: none;
 }
+.one .blocks.bldg .info {
+  float: none;
+}
 .one .blocks.bldg .info h2 {
   margin-top: 0;
-  font-size: 18px;
+  font-size: 14px;
+  font-weight: bold;
+  float: left;
+  margin-right: 5px;
+}
+.one .blocks.bldg .info .floors {
+  float: right;
+}
+.one .blocks.bldg .info .price {
+  display: none;
+}
+.one .blocks.bldg .unit-type-info li {
+  text-align: left;
+  width: auto;
+}
+.one .blocks.bldg .unit-type-info li::after {
+  content: ', ';
+  float: none;
+}
+.one .blocks.bldg .unit-type-info li:last-child::after {
+  content: '';
 }
 @media (max-width: 767px) {
   .blocks {

@@ -75,7 +75,7 @@ class MasterBunglowListView extends Marionette.CompositeView
 								                    </div>
 				                  				</div>
 				                			</div>-->
-							                <ul class="units four">
+							                <ul class="units three">
 							                </ul>
 										</div>
 							        </div>
