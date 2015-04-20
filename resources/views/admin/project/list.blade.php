@@ -66,10 +66,18 @@
     {
         var aData = oTable.fnGetData(nTr);
         var sOut = '<table cellpadding="5" cellspacing="0" border="0" style="padding-left:50px;" class="inner-table">';
-        sOut += '<tr><td>Status:</td><td><select id="unit_types" class="form-control"><option>Published</option><option>Archived</option><option>Draft</option></select><button class="btn btn-small btn-primary m-l-10">Save</button></td></tr>';
+        sOut += '<tr><td>Status:</td><td>';
+        sOut += '<select id="unit_types" class="form-control">';
+        sOut += '<option value="draft">Draft</option>';
+        sOut += '<option value="in_progress">In progress</option>';
+        sOut += '<option value="published">Published</option>';
+        sOut += '<option value="archived">Archived</option>';
+        sOut += '</select>'; 
+        sOut += '<button class="btn btn-small btn-primary m-l-10">Save</button></td></tr>';
         sOut += '</table>';
 
         return sOut;
+ 
     }
 </script>
 @endsection

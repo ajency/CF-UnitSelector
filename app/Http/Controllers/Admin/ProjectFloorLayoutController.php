@@ -10,6 +10,7 @@ use CommonFloor\Repositories\ProjectRepository;
 use CommonFloor\Repositories\FloorLayoutRepository;
 use CommonFloor\UnitVariant;
 use CommonFloor\FloorLayoutPosition;
+use CommonFloor\UnitType;
 
 class ProjectFloorLayoutController extends Controller {
 
@@ -81,26 +82,29 @@ class ProjectFloorLayoutController extends Controller {
     public function edit( $projectId, $floorLayoutId ) {
         $project = $this->projectRepository->getProjectById( $projectId );
         $projectPropertyTypeId = $project->getProjectPropertyTypeId(1);
-        $unitTypes = $project->getUnitTypesToArray( $projectPropertyTypeId );
+        $unitTypes = $project->getUnitTypesToArray( $projectPropertyTypeId ); 
         $floorLayout = FloorLayout::find( $floorLayoutId );
-        $allUnitVariants = [];
+        $UnitTypeVariants = $unitTypesArr = $allUnitVariants= [];
         foreach($unitTypes as $unitType){
-            $allUnitVariants[$unitType['id']] = UnitVariant::where('unit_type_id', $unitType['id'])->get()->toArray();
+           // $allUnitVariants[$unitType['id']] = UnitVariant::where('unit_type_id', $unitType['id'])->get()->toArray();
+            $unitTypesArr[$unitType['id']] = $unitType['unittype_name'];
         }
         
         $floorLayoutPositions = FloorLayoutPosition::where('floor_layout_id', $floorLayoutId)->get()->toArray();
         $formattedFloorLayoutPositions = $unitTypeIds=[];
         foreach ($floorLayoutPositions as $floorLayoutPosition){
             $formattedFloorLayoutPositions[$floorLayoutPosition['position']] = $floorLayoutPosition;
-            $unitTypeIds[$floorLayoutPosition['position']]= UnitVariant::where('id',$floorLayoutPosition['unit_variant_id'])->pluck('unit_type_id');
+            $unitTypeId =UnitVariant::where('id',$floorLayoutPosition['unit_variant_id'])->pluck('unit_type_id');     
+            $unitTypeIds[$floorLayoutPosition['position']]= $unitTypeId;
+            $allUnitVariants[$unitTypeId]=UnitVariant::where('unit_type_id', $unitTypeId)->get()->toArray();
         }
-         
+        
         return view( 'admin.project.floorlayout.edit' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'add-floor-layout' )
                         ->with( 'floorLayout', $floorLayout )
                         ->with( 'floorLayoutPositions', $formattedFloorLayoutPositions)
-                        ->with( 'unitTypes', $unitTypes )
+                        ->with( 'unitTypes', $unitTypesArr )
                         ->with( 'unitTypeIds', $unitTypeIds )
                         ->with( 'allUnitVariants', $allUnitVariants );
     }
@@ -127,6 +131,23 @@ class ProjectFloorLayoutController extends Controller {
      */
     public function destroy( $id ) {
         //
+    }
+    
+     public function  getUnitTypeVariant($project_id, $floorLayoutId, Request $request)
+    {
+        $unitTypeId = $request['unit_type_id'];
+        $variants = UnitType::find($unitTypeId)->unitTypeVariant()->get()->toArray();
+        $str ='';
+        foreach ($variants as $variant)
+        {
+            $str .='<option value="'.$variant['id'].'">'.$variant['unit_variant_name'].'</option>';
+        }
+        
+       return response()->json( [
+            'code' => 'unittype_variants',
+            'message' => 'Unit Type Variants',
+            'data' => $str
+        ], 203 );
     }
 
 }

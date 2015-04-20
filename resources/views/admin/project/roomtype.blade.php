@@ -51,7 +51,9 @@
 <div class="grid simple">
     <div class="grid-title" role="tab" id="headingOne">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            <div class="pull-right"><i class="fa fa-angle-up"></i></div>
+            <div class="pull-right"><i class="fa fa-angle-up "></i>
+<i class="fa fa-angle-down grid-angle-down"></i>
+       </div>
             <h3><span class="semi-bold">Room</span> Type</h3>
         </a>
     </div>
@@ -176,7 +178,9 @@
 <div class="grid simple">
     <div class="grid-title" role="tab" id="headingTwo">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" aria-expanded="false" aria-controls="collapse{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
-            <div class="pull-right"><i class="fa fa-angle-down"></i></div>
+            <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+<i class="fa fa-angle-up "></i>
+         </div>
             <h3><span class="semi-bold">{{ get_property_type($propertytypeId) }}</span> Attributes</h3>
         </a>
     </div>

@@ -11,5 +11,9 @@ class UnitType extends Model {
     protected $fillable = ['unittype_name', 'project_property_type_id'];
     
     public $timestamps = false;
+    
+     public function unitTypeVariant() {
+        return $this->hasMany( 'CommonFloor\UnitVariant' );
+    }
 
 }

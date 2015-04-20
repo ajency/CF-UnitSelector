@@ -665,3 +665,22 @@ function getPositions(floor)
     });
 }
 
+function getVariants(obj ,floorLayoutId)
+{
+   var unitTypeId = obj.value;alert(unitTypeId);
+    $.ajax({
+        url: BASEURL + '/admin/project/' + PROJECTID + '/floor-layout/' + floorLayoutId + '/getunittypevariants',
+        type: "POST",
+        data: {
+            unit_type_id: unitTypeId
+        },
+        success: function (response) {
+ 
+            var $el =  $(obj).closest('.row').find('select[name="unit_variant_id"]');
+            $el.empty(); // remove old options
+            $el.append(response.data);
+           
+        }
+    }); 
+}
+
