@@ -42,6 +42,9 @@ body {
 .builder-logo {
   max-width: 200px;
 }
+.collapsed .fa-angle-up{
+  display:none;
+}
 .proj-details {
   margin-top: 15px;
 }

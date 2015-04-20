@@ -42,7 +42,7 @@
                     </div>
                     <hr/>
                     <div class="form-actions">  
-                        <div class="pull-rigunitt">
+                        <div class="pull-right">
                             <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                             <button type="submit" class="btn btn-primary btn-cons">Save</button>
                             <button type="button" class="btn btn-default btn-cons">Cancel</button>

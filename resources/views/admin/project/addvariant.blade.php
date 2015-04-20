@@ -51,7 +51,10 @@
                 </div>
              
  
-                <div class="col-md-4">
+              
+            </div>
+               <div class="row">
+                  <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Built Up Area</label>
                         <input type="text" class="form-control" name="builtup_area" value="" placeholder="Enter Built Up Area">
