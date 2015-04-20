@@ -80,7 +80,7 @@
                                 </div> 
                             </div>
                             <div class="form-actions">  
-                                <div class="pull-rigunitt">
+                                <div class="pull-right">
                                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                                     <button type="submit" class="btn btn-primary btn-cons">Save</button>
                                     <a href="{{ url('admin/project/'. $project['id'] .'/floor-layout') }}" class="btn btn-default btn-cons">
@@ -152,6 +152,7 @@
                                         <button type="button" class="btn btn-small btn-primary save-position">
                                             <i class="fa fa-save"></i> Save
                                         </button>
+                                        <div class="cf-loader"></div>
                                     </div>
                                 </div>
                             </div>
