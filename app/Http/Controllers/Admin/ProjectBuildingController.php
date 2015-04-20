@@ -27,7 +27,10 @@ class ProjectBuildingController extends Controller {
      */
     public function index( $projectId ) {
         $project = $this->projectRepository->getProjectById( $projectId );
-        $buildings = Building::all();
+        
+        $phases = $project->projectPhase()->lists( 'id' );
+        $buildings = Building::whereIn( 'phase_id', $phases )->get();
+            
         return view( 'admin.project.building.list' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'buildings', $buildings )
@@ -100,6 +103,7 @@ class ProjectBuildingController extends Controller {
         $building = Building::find( $buildingId );
         $floorLayouts = FloorLayout::where( 'project_property_type_id', $project->getProjectPropertyTypeId( 1 ) )->get();
         $svgImages = [];
+            
         foreach ($building->building_master as $key => $images) {
             if (is_array($images)) {
                 $transitionImages = [];
@@ -111,10 +115,11 @@ class ProjectBuildingController extends Controller {
             } else {
                 if (is_numeric($images)) {
                     $imageName = Media::find($images)->image_name;
-                    $svgImages['building'][$key] = ["ID"=>$images, "IMAGE"=> url() . "/projects/" . $projectId . "/master/" . $imageName]; 
+                    $svgImages['building'][$key] = ["ID"=>$images, "IMAGE"=> url() . "/projects/" . $projectId . "/buildings/". $buildingId ."/" . $imageName]; 
                 }
             }
         }
+            
         return view( 'admin.project.building.edit' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'building' )
@@ -167,6 +172,20 @@ class ProjectBuildingController extends Controller {
      */
     public function destroy( $id ) {
         //
+    }
+    
+    public function getPositions($project_id, $buildingId, Request $request)
+    {  
+        $floor = $request['floor']; 
+        $floorlayoutIds = Building::find($buildingId)->floors;
+        $floorlayoutId = $floorlayoutIds[$floor];
+        $position = FloorLayout::find($floorlayoutId)->no_of_flats; 
+        
+        return response()->json( [
+            'code' => 'layout_position',
+            'message' => 'Layout Positions',
+            'data' => $position
+        ], 203 );
     }
 
 }

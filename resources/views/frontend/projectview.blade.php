@@ -6,6 +6,7 @@
         <link href="{{ asset('css/frontend/custom.css')}}" rel="stylesheet">
     </head>
     <body>
+                  
       <div class="wrapper">
         <div class="container-fluid component-body">
           <div class="row inner-pages" id="page-header">
@@ -65,6 +66,9 @@
                       <li>
                         <a href="http://www.commonfloor.com/about-us" title="Contact Us">Contact Us</a>
                       </li>
+                      <li>
+                        <a href="#" title="Dashboard">Dashboard</a>
+                      </li>
                     </ul>
                   </div>              
                 </div>
@@ -103,6 +107,7 @@
         <script src="{{ asset('bower_components/jquery-touchswipe/jquery.touchSwipe.min.js' )}}"></script>
         <script src="{{ asset('bower_components/liquidslider/js/jquery.liquid-slider.min.js' )}}"></script>
         <script src="{{ asset('bower_components/spritespin/release/spritespin.js' )}}"></script>
+        <script src="{{ asset('bower_components/autoNumeric/autoNumeric.js' )}}"></script>
         <!-- end plugins -->
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
         <script>
@@ -119,13 +124,6 @@
 
         };
 
-        window.numDifferentiation = function(val){
-            if(val >= 10000000) val = (val/10000000).toFixed(2) + ' Cr';
-            else if(val >= 100000) val = (val/100000).toFixed(2) + ' Lac';
-            else if(val >= 1000) val = (val/1000).toFixed(2) + ' K';
-            return val;
-        }
-        
         
         
         </script>
@@ -136,6 +134,7 @@
         <script src="{{ asset('js/frontend/entities/unitType.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/entities/building.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/entities/apartment.variant.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/floor.layout.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/common/common.js' )}}"></script>
         <script src="{{ asset('js/frontend/project/project.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/bunglow-master-view/bunglow.master.controller.js' )}}"></script>
@@ -143,6 +142,13 @@
         <script src="{{ asset('js/frontend/bunglow-list-view/bunglow.list.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/building-list-view/building.list.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/bunglow-list-view/villa.list.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/building-step3/apartments.list.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/building-step3/apartments.master.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/building-step3/apartments.master.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/master-list-bunglows/master.list.bunglows.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/master-list-buildings/master.list.buildings.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
+        <input type="hidden" id="price" data-m-dec="" data-a-sign="Rs. " data-d-group="2" value="" />
+      
     </body>
 </html>

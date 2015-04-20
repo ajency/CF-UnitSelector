@@ -23,7 +23,7 @@
     </div>
 
     <div class="grid-body">
-        <form action="/admin/project/{{ $project['id'] }}/bunglow-variant/{{ $unitVariant['id'] }}" method="POST" data-parsley-validate>
+        <form action="/admin/project/{{ $project['id'] }}/apartment-variant/{{ $unitVariant['id'] }}" method="POST" data-parsley-validate>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -60,7 +60,12 @@
                         <input type="text" class="form-control" name="superbuiltup_area" value="{{ $unitVariant['super_built_up_area'] }}" placeholder="Enter Super Built Up Area">
                     </div> 
                 </div>
-
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Per sq ft Price</label>
+                        <input type="text" class="form-control" name="per_sq_ft_price" value="{{ $unitVariant['per_sq_ft_price'] }}" placeholder="Enter Per sq ft Price">
+                    </div> 
+                </div>
                 @foreach($project_property_type_attributes as $attributes)
                 <div class="col-md-4">
                     <div class="form-group">
@@ -213,7 +218,7 @@
         </div>
     </div>
 </form>
- 
+
 <div class="grid simple">
     <div class="grid-title">
         <h3><span class="semi-bold">Layouts</span></h3>
@@ -224,7 +229,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">2D Layout</label>
-                        <div id="2dlayout_1">
+                        <div id="2dlayout_0">
                             @if(isset($layouts[0]['2d']))
                             <img src="{{ $layouts[0]['2d']['IMAGE'] }}" class="img-responsive img-thumbnail">
                             <button onclick="deleteLayout({{ $layouts[0]['2d']['ID'] }});" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
@@ -238,7 +243,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">3D Layout</label>
-                        <div id="3dlayout_2">
+                        <div id="3dlayout_0">
                             @if(isset($layouts[0]['3d']))
                             <img src="{{ $layouts[0]['3d']['IMAGE'] }}" class="img-responsive img-thumbnail">
                             <button onclick="deleteLayout({{ $layouts[0]['3d']['ID'] }});" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>

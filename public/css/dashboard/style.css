@@ -5570,6 +5570,15 @@ form legend,
   width: 22px;
   opacity: 0.6;
 }
+.grid-angle-down{
+  display: none;
+}
+.panel-group .collapsed .grid-angle-down{
+  display:block!important;
+}
+.panel-group .collapsed .fa-angle-up{
+  display:none;
+}
 .tiles.white .controller a.reload:hover {
   background-position: -37px -38px;
   height: 10px;

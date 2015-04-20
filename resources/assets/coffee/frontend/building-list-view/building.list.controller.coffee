@@ -3,9 +3,9 @@ class CenterItemView extends Marionette.ItemView
 	template :  Handlebars.compile('<li class="bldg blocks {{status}}">
 					                    <div class="bldg-img"></div>
 					                    <div class="info">
-					                      <h2 class="m-b-5">{{name}}</h2>
-					                      <!--<div>Starting from Rs.<span>50 lakhs</span></div>
-					                      <div>No. of Floors: <span>45</span></div>-->
+					                      <h2 class="m-b-5">{{building_name}}</h2>
+					                      <!--<div>Starting from Rs.<span>50 lakhs</span></div>-->
+					                      <div>No. of Floors: <span>{{floors}}</span></div>
 					                    </div>
 					                    <div class="clearfix"></div>
 					                    <div class="unit-type-info">
@@ -23,31 +23,28 @@ class CenterItemView extends Marionette.ItemView
 		data = super()
 		id = @model.get 'id'
 		response = building.getUnitTypes(id)
-		
-		types = []
-		$.each response,(ind,val)->
-			unitTypeModel = unitTypeCollection.findWhere
-								'id' : val
-			variants = apartmentVariantCollection.where
-							'unit_type_id' : val
-			units = []
-			$.each variants,(index,value)->
-				unitsColl = unitCollection.where
-								'unit_variant_id' : value.get 'id'
-
-				$.merge units, unitsColl
-			types.push 
-				'name' : unitTypeModel.get 'name'
-				'units' : units.length
+		types = building.getUnitTypesCount(id,response)
+		floors = @model.get 'floors'
+		data.floors = Object.keys(floors).length
 		data.types = types
 		data
+
+	events:
+		'click .bldg':(e)->
+			id = @model.get 'id'
+			buildingModel = buildingCollection.findWhere
+							'id' : id
+			if buildingModel.get('building_master').front == ""
+				CommonFloor.navigate '/building/'+id+'/apartments' , true
+			else
+				CommonFloor.navigate '/building/'+id+'/master-view' , true
 
 
 class CenterBuildingListView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-12 us-right-content">
-			<div class="list-view-container">
-			<div class="controls mapView">
+			<div class="list-view-container animated fadeInDown">
+			<div class="controls map-View">
 	            <div class="toggle">
 	            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
 	            </div>
@@ -96,9 +93,9 @@ class CenterBuildingListView extends Marionette.CompositeView
 
 	onShow:->
 		if project.get('project_master').front  == ""
-			$('.mapView').hide()
+			$('.map-View').hide()
 		else
-			$('.mapView').show()
+			$('.map-View').show()
 
 		if bunglowVariantCollection.length != 0
 			$('.Villas').removeClass 'hidden'

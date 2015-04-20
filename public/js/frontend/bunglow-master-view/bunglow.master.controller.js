@@ -1,5 +1,5 @@
 (function() {
-  var LeftBunglowMasterCompositeView, LeftBunglowMasterView, TopBunglowMasterView, api,
+  var TopBunglowMasterView, api,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
@@ -48,12 +48,25 @@
       return TopBunglowMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopBunglowMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="search-header-wrap"> <h1>We are now at {{project_title}}\'s upcoming project having {{units}} villas</h1> </div> </div> </div>');
+    TopBunglowMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="search-header-wrap"> <h1>We are now at {{project_title}}\'s upcoming project having {{units}} {{type}}</h1> </div> </div> </div>');
 
     TopBunglowMasterView.prototype.serializeData = function() {
-      var data;
+      var apartmentUnits, bunglowUnits, data, type, units;
       data = TopBunglowMasterView.__super__.serializeData.call(this);
-      data.units = bunglowVariantCollection.getBunglowUnits().length;
+      type = "";
+      units = [];
+      bunglowUnits = bunglowVariantCollection.getBunglowUnits();
+      if (bunglowUnits.length !== 0) {
+        type = 'villas';
+      }
+      $.merge(units, bunglowUnits);
+      apartmentUnits = apartmentVariantCollection.getApartmentUnits();
+      if (apartmentUnits.length !== 0) {
+        type = 'apartments';
+      }
+      $.merge(units, apartmentUnits);
+      data.units = units.length;
+      data.type = type;
       return data;
     };
 
@@ -78,107 +91,6 @@
 
   })(Marionette.RegionController);
 
-  LeftBunglowMasterView = (function(superClass) {
-    extend(LeftBunglowMasterView, superClass);
-
-    function LeftBunglowMasterView() {
-      return LeftBunglowMasterView.__super__.constructor.apply(this, arguments);
-    }
-
-    LeftBunglowMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-sm-4"> <h6 class="{{status}}">{{unit_name}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{unit_type}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{super_built_up_area}} sqft</h6> </div> </div>');
-
-    LeftBunglowMasterView.prototype.initialize = function() {
-      return this.$el.prop("id", 'unit' + this.model.get("id"));
-    };
-
-    LeftBunglowMasterView.prototype.className = 'blck-wrap';
-
-    LeftBunglowMasterView.prototype.serializeData = function() {
-      var availability, data, unitType, unitVariant;
-      data = LeftBunglowMasterView.__super__.serializeData.call(this);
-      console.log(unitVariant = bunglowVariantCollection.findWhere({
-        'id': this.model.get('unit_variant_id')
-      }));
-      unitType = unitTypeCollection.findWhere({
-        'id': unitVariant.get('unit_type_id')
-      });
-      data.unit_type = unitType.get('name');
-      data.super_built_up_area = unitVariant.get('super_built_up_area');
-      availability = this.model.get('availability');
-      data.status = s.decapitalize(availability);
-      this.model.set('status', data.status);
-      return data;
-    };
-
-    LeftBunglowMasterView.prototype.events = {
-      'mouseover .row': function(e) {
-        var availability, html, id, response, unit;
-        id = this.model.get('id');
-        console.log(window.unit);
-        response = window.unit.getUnitDetails(id);
-        html = "";
-        unit = unitCollection.findWhere({
-          id: id
-        });
-        if (unit === void 0) {
-          html += '<div class="svg-info"> <div class="details"> Villa details not entered </div> </div>';
-          $('.layer').tooltipster('content', html);
-          return false;
-        }
-        availability = unit.get('availability');
-        availability = s.decapitalize(availability);
-        html = "";
-        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> </div> </div>';
-        $('#' + id).attr('class', 'layer ' + this.model.get('status'));
-        return $('.layer').tooltipster('content', html);
-      },
-      'mouseout .row': function(e) {
-        return $('.layer').attr('class', 'layer');
-      },
-      'click .row': function(e) {
-        if (this.model.get('status') === 'available') {
-          CommonFloor.defaults['unit'] = this.model.get('id');
-          return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
-        }
-      }
-    };
-
-    LeftBunglowMasterView.prototype.onShow = function() {
-      return this.iniTooltip();
-    };
-
-    LeftBunglowMasterView.prototype.iniTooltip = function() {
-      return $('.layer').tooltipster({
-        theme: 'tooltipster-shadow',
-        contentAsHTML: true,
-        onlyOne: true,
-        arrow: false,
-        offsetX: 50,
-        offsetY: -10
-      });
-    };
-
-    return LeftBunglowMasterView;
-
-  })(Marionette.ItemView);
-
-  LeftBunglowMasterCompositeView = (function(superClass) {
-    extend(LeftBunglowMasterCompositeView, superClass);
-
-    function LeftBunglowMasterCompositeView() {
-      return LeftBunglowMasterCompositeView.__super__.constructor.apply(this, arguments);
-    }
-
-    LeftBunglowMasterCompositeView.prototype.template = Handlebars.compile('	<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper "> <div class="advncd-filter-wrp  unit-list"> <div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div> <div class="units"> </div> </div> </div> </div>');
-
-    LeftBunglowMasterCompositeView.prototype.childView = LeftBunglowMasterView;
-
-    LeftBunglowMasterCompositeView.prototype.childViewContainer = '.units';
-
-    return LeftBunglowMasterCompositeView;
-
-  })(Marionette.CompositeView);
-
   CommonFloor.LeftBunglowMasterCtrl = (function(superClass) {
     extend(LeftBunglowMasterCtrl, superClass);
 
@@ -187,12 +99,34 @@
     }
 
     LeftBunglowMasterCtrl.prototype.initialize = function() {
-      var newUnits, unitsCollection;
-      newUnits = bunglowVariantCollection.getBunglowUnits();
-      unitsCollection = new Backbone.Collection(newUnits);
-      return this.show(new LeftBunglowMasterCompositeView({
-        collection: unitsCollection
-      }));
+      var data, response, units;
+      response = CommonFloor.checkListView();
+      if (response.type === 'bunglows') {
+        units = bunglowVariantCollection.getBunglowUnits();
+        data = {};
+        data.units = units;
+        data.type = 'villa';
+        this.region = new Marionette.Region({
+          el: '#leftregion'
+        });
+        new CommonFloor.MasterBunglowListCtrl({
+          region: this.region
+        });
+        this.parent().trigger("load:units", data);
+      }
+      if (response.type === 'building') {
+        units = buildingCollection;
+        data = {};
+        data.units = units;
+        data.type = 'building';
+        this.region = new Marionette.Region({
+          el: '#leftregion'
+        });
+        new CommonFloor.MasterBuildingListCtrl({
+          region: this.region
+        });
+        return this.parent().trigger("load:units", data);
+      }
     };
 
     return LeftBunglowMasterCtrl;
@@ -206,7 +140,7 @@
       return CenterBunglowMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container"> <div class="controls mapView"> <div class="toggle"> <a href="#" class="map">Map</a><a href="#" class="list">List</a> </div> </div> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
+    CenterBunglowMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container animated fadeInRight"> <div class="controls mapView"> <div class="toggle"> <a href="#" class="map active">Map</a><a href="#" class="list">List</a> </div> </div> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
 
     CenterBunglowMasterView.prototype.ui = {
       svgContainer: '.list-view-container'
@@ -218,6 +152,24 @@
     };
 
     CenterBunglowMasterView.prototype.events = {
+      'mouseover .building': function(e) {
+        var buildingModel, id;
+        id = parseInt(e.target.id);
+        buildingModel = buildingCollection.findWhere({
+          'id': id
+        });
+        if (buildingModel.get('building_master').front === "") {
+          return CommonFloor.navigate('/building/' + id + '/apartments', true);
+        } else {
+          return CommonFloor.navigate('/building/' + id + '/master-view', true);
+        }
+      },
+      'mouseover .villa': function(e) {
+        var id;
+        id = parseInt(e.target.id);
+        CommonFloor.defaults['unit'] = id;
+        return CommonFloor.navigate('/unit-view/' + id, true);
+      },
       'click .list': function(e) {
         e.preventDefault();
         return CommonFloor.navigate('/list-view', true);
@@ -237,7 +189,7 @@
         return $('.blck-wrap').attr('class', 'blck-wrap');
       },
       'mouseover .layer': function(e) {
-        var availability, html, id, unit, unitType, unitVariant;
+        var availability, html, id, response, unit;
         id = parseInt(e.target.id);
         html = "";
         unit = unitCollection.findWhere({
@@ -248,16 +200,12 @@
           $('.layer').tooltipster('content', html);
           return false;
         }
-        unitVariant = bunglowVariantCollection.findWhere({
-          'id': unit.get('unit_variant_id')
-        });
-        unitType = unitTypeCollection.findWhere({
-          'id': unitVariant.get('unit_type_id')
-        });
+        response = window.unit.getUnitDetails(id);
+        window.convertRupees(response[3]);
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + unitVariant.get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + unitType.get('name') + '</div> </div> </div>';
+        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
         console.log(availability);
         $('#' + id).attr('class', 'layer ' + availability);
         $('#unit' + id).attr('class', 'blck-wrap active');
@@ -308,14 +256,14 @@
       frames = transitionImages;
       this.breakPoints = [0, 4, 8, 12];
       this.currentBreakPoint = 0;
-      width = this.ui.svgContainer.width() + 15;
+      width = this.ui.svgContainer.width() + 20;
       $('.svg-maps > div').first().removeClass('inactive').addClass('active').css('width', width);
       spin = $('#spritespin');
       spin.spritespin({
         source: frames,
         width: this.ui.svgContainer.width(),
         sense: -1,
-        height: 600,
+        height: this.ui.svgContainer.width() / 1.46,
         animate: false
       });
       that = this;

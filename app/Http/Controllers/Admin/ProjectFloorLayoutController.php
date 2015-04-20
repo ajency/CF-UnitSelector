@@ -89,17 +89,19 @@ class ProjectFloorLayoutController extends Controller {
         }
         
         $floorLayoutPositions = FloorLayoutPosition::where('floor_layout_id', $floorLayoutId)->get()->toArray();
-        $formattedFloorLayoutPositions = [];
+        $formattedFloorLayoutPositions = $unitTypeIds=[];
         foreach ($floorLayoutPositions as $floorLayoutPosition){
             $formattedFloorLayoutPositions[$floorLayoutPosition['position']] = $floorLayoutPosition;
+            $unitTypeIds[$floorLayoutPosition['position']]= UnitVariant::where('id',$floorLayoutPosition['unit_variant_id'])->pluck('unit_type_id');
         }
-        
+         
         return view( 'admin.project.floorlayout.edit' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'add-floor-layout' )
                         ->with( 'floorLayout', $floorLayout )
                         ->with( 'floorLayoutPositions', $formattedFloorLayoutPositions)
                         ->with( 'unitTypes', $unitTypes )
+                        ->with( 'unitTypeIds', $unitTypeIds )
                         ->with( 'allUnitVariants', $allUnitVariants );
     }
 
@@ -109,8 +111,12 @@ class ProjectFloorLayoutController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update( $id ) {
-        //
+    public function update( $projectId,$floorLayoutId, Request $request, FloorLayoutRepository $floorLayoutRepository) {
+        $formData = $request->all();
+        unset( $formData['_token'] );
+        $floorLayout = $floorLayoutRepository->updateFloorLayout($floorLayoutId, $formData );
+        
+        return redirect( url( 'admin/project/' . $projectId . '/floor-layout/' . $floorLayoutId . '/edit' ) );
     }
 
     /**

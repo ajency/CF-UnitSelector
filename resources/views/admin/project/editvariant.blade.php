@@ -22,8 +22,11 @@
     <div class="grid simple">
         <div class="grid-title"  role="tab" id="headingOne">
             <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                <div class="pull-right"><span class="fa fa-angle-up"></span></div>
-                <h3>Villa <span class="semi-bold">Details</span></h3>
+
+<div class="pull-right"><i class="fa fa-angle-up "></i>
+<i class="fa fa-angle-down grid-angle-down"></i>
+       </div>             
+          <h3>Villa <span class="semi-bold">Details</span></h3>
             </a>
         </div>
         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
@@ -65,7 +68,12 @@
                                 <input type="text" class="form-control" name="superbuiltup_area" value="{{ $unitVariant['super_built_up_area'] }}" placeholder="Enter Super Built Up Area">
                             </div> 
                         </div>
-
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Per sq ft Price</label>
+                                <input type="text" class="form-control" name="per_sq_ft_price" value="{{ $unitVariant['per_sq_ft_price'] }}" placeholder="Enter Per sq ft Price">
+                            </div> 
+                        </div>
                         @foreach($project_property_type_attributes as $attributes)
                         <div class="col-md-4">
                             <div class="form-group">
@@ -120,8 +128,10 @@
         <div class="grid simple">
             <div class="grid-title" role="tab" id="headingTwo">
 
-                <div class="pull-right"><span class="fa fa-angle-down"></span></div>
                 <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+<i class="fa fa-angle-up "></i>
+         </div>
                     <h3>Room <span class="semi-bold">Details</span></h3>
                 </a>
             </div>
@@ -252,13 +262,15 @@
 <div class="grid simple">
     <div class="grid-title" role="tab" id="headingThree">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-            <div class="pull-right"><span class="fa fa-angle-down"></span></div>
+<div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+<i class="fa fa-angle-up "></i>
+         </div>
             <h3><span class="semi-bold">Layouts</span></h3>
         </a>
     </div>
     <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree"> 
-       <div class="grid-body"> 
-        <h5 class="semi-bold inline">External</h5>
+        <div class="grid-body"> 
+            <h5 class="semi-bold inline">External</h5>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">

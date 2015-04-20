@@ -26,7 +26,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-label">City <span class="text-primary">*</span></label>
+                                <label class="form-label" title="Location of the project">City <span class="text-primary">*</span></label>
                                 <!-- //TODO fix the required validation  -->
                                 <select name="city" class="select2 form-control" data-parsley-required>
                                     <option value="">Choose City</option>

@@ -42,7 +42,6 @@ class ProjectGateway implements ProjectGatewayInterface {
 
             'property_types' => $this->propertyTypeUnits( $projectId ),
             'project_property_types' => $this->propertyTypeUnits( $projectId ),
-            'project_settings' => $this->projectSettings( $projectId )
 
         ];
         return $projectData;
@@ -64,10 +63,11 @@ class ProjectGateway implements ProjectGatewayInterface {
         $unitTypeArr = [];
         $unitTypeIds = [];
         $units = [];
+       
         foreach ($unitTypes as $unitType) {
             $projectPropertyTypekey = array_search( $unitType->project_property_type_id , $projectPropertyTypeIds);
             $unitTypeIds[$projectPropertyTypekey][] = $unitType->id;
-            $unitTypeArr[] = array('id' => $unitType->id ,'name'=> $unitType->unittype_name );
+            $unitTypeArr[] = array('id' => $unitType->id ,'name'=> $unitType->unittype_name ,'property_type_id'=> $unitType->project_property_type_id);
             
         }
        
@@ -78,8 +78,8 @@ class ProjectGateway implements ProjectGatewayInterface {
        foreach($buildings as $building)
        {
          $buildingIds[] =$building->id;  
-       }
-       $units += \CommonFloor\Unit::WhereIn('building_id', $buildingIds)->get()->toArray();
+       }  
+      $apartmentunits = \CommonFloor\Unit::whereIn('building_id', $buildingIds)->get()->toArray(); 
        $variantIds = $bunglowVariantData = $appartmentVariantData = [];
         foreach ($unitTypeIds as $key => $unitTypeId)
         {
@@ -96,8 +96,10 @@ class ProjectGateway implements ProjectGatewayInterface {
                 $appartmentVariantData =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['apartment'] )->get()->toArray();   
             }
         }
-        $units += \CommonFloor\Unit::whereIn('unit_variant_id', $variantIds)->orWhereIn('building_id', $buildingIds)->get()->toArray();
-         
+     $units = \CommonFloor\Unit::whereIn('unit_variant_id', $variantIds)->get()->toArray();
+        $units = array_merge($units,$apartmentunits);
+ 
+
         $stepTwoData = [
             'buildings' => $buildings->toArray(),
             'bunglow_variants' => $bunglowVariantData,
@@ -106,12 +108,10 @@ class ProjectGateway implements ProjectGatewayInterface {
             'property_types' => $propertyTypes,
             'settings' => $this->projectSettings($projectId),
             'units' =>$units,
-
-            'settings' => [],
             'unit_types' => $unitTypeArr,
-            'floor_layout' => []
+            'floor_layout' => \CommonFloor\FloorLayout::all()->toArray() 
         ];
-
+ 
         return $stepTwoData;
     }
 
@@ -162,4 +162,7 @@ class ProjectGateway implements ProjectGatewayInterface {
 
         return $data;
     }
+    
+    
+    
 }

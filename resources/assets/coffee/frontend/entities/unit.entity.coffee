@@ -5,12 +5,25 @@ class Unit extends Backbone.Model
 		id  = parseInt unit_id
 		unit = unitCollection.findWhere 
 			id :  id 
-		unitVariant = bunglowVariantCollection.findWhere
-							'id' : unit.get('unit_variant_id')
-		
+		unitVariant = 0
+		type = ''
+		price = 0
+		attributes = []
+		if bunglowVariantCollection.get(unit.get('unit_variant_id')) != undefined
+			unitVariant = bunglowVariantCollection.findWhere
+								'id' : unit.get('unit_variant_id')
+			type = 'villa'
+			price = window.bunglowVariant.findUnitPrice(unit)
+			attributes = unitVariant.get('variant_attributes')
+		else if apartmentVariantCollection.get(unit.get('unit_variant_id')) != undefined
+			unitVariant = apartmentVariantCollection.findWhere
+								'id' : unit.get('unit_variant_id')
+			type = 'apartment'
+			price = window.apartmentVariant.findUnitPrice(unit)
+			attributes = unitVariant.get('variant_attributes')
 		unitType = unitTypeCollection.findWhere
 							'id' :  unitVariant.get('unit_type_id')
-		[unitVariant,unitType]
+		[unitVariant,unitType,type,price,attributes]
 
 
 

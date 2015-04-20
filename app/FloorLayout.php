@@ -37,5 +37,21 @@ class FloorLayout extends Model {
     public function hasBasicSvg() {
         return 0 != $this->basic_svg;
     }
+    
+    public function positions() {
+        return $this->hasMany('CommonFloor\FloorLayoutPosition');
+    }
+    
+    public function toArray() {
+        $data = parent::toArray();
+        
+        $layoutId= $data['id'];
+        $layout = FloorLayout::find($layoutId);
+        $positions = $layout->positions()->get()->toArray();         
+        $data['position_data'] =$positions;
+        
+        return $data;
+        
+    }
 
 }

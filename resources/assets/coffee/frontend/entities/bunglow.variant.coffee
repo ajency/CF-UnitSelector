@@ -1,6 +1,20 @@
 #Bunglow Variant model and Bunglow Variant collection Definition
 class BunglowVariant extends Backbone.Model
 
+	#calculate unit price of a model 
+	findUnitPrice:(unit_model)->
+		basicCost = ""
+		if unit_model not instanceof Backbone.Model || unit_model == ""
+			return 
+		unitVarinatModel = bunglowVariantCollection.findWhere({
+			'id':parseInt(unit_model.get('unit_variant_id'))})
+		if unitVarinatModel != undefined
+			basic_cost = ( parseFloat(unitVarinatModel.get('per_sq_ft_price'))) *
+							parseFloat(unitVarinatModel.get('super_built_up_area'))
+			basicCost = basic_cost.toFixed(2)
+		basicCost
+
+	
 	
 
 
@@ -28,4 +42,5 @@ class BunglowVariantCollection extends Backbone.Collection
 		console.log newUnits
 		newUnits
 
-window.bunglowVariantCollection  = new BunglowVariantCollection;
+window.bunglowVariantCollection  = new BunglowVariantCollection
+window.bunglowVariant  = new BunglowVariant

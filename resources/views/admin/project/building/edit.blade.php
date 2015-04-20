@@ -23,7 +23,9 @@
             <div class="grid simple">
                 <div class="grid-title role="tab" id="headingOne"">
                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        <div class="pull-right"><span class="fa fa-angle-up"></span></div>
+                       <div class="pull-right"><i class="fa fa-angle-up "></i>
+<i class="fa fa-angle-down grid-angle-down"></i>
+       </div>
                         <h3 ><span class="semi-bold">Building</span> Details</h3> 
                     </a>
                 </div>
@@ -71,7 +73,9 @@
             <div class="grid simple">
                 <div class="grid-title" role="tab" id="headingTwo">
                     <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        <div class="pull-right"><span class="fa fa-angle-down"></span></div>
+<div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+<i class="fa fa-angle-up "></i>
+         </div>
                         <h3><span class="semi-bold">Floor</span> Details</h3> 
                     </a>
                 </div>
@@ -123,8 +127,9 @@
             <div class="grid simple">
                 <div class="grid-title" role="tab" id="headingThree">
                     <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        <div class="pull-right"><span class="fa fa-angle-down"></span></div>
-                        <h3>Building <span class="semi-bold">Master</span></h3> 
+<div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+<i class="fa fa-angle-up "></i>
+         </div>                        <h3>Building <span class="semi-bold">Master</span></h3> 
                     </a>
                 </div>
                 <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">

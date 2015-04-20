@@ -51,7 +51,9 @@
 <div class="grid simple">
     <div class="grid-title" role="tab" id="headingOne">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-            <div class="pull-right"><i class="fa fa-angle-up"></i></div>
+            <div class="pull-right"><i class="fa fa-angle-up "></i>
+<i class="fa fa-angle-down grid-angle-down"></i>
+       </div>
             <h3><span class="semi-bold">Room</span> Type</h3>
         </a>
     </div>
@@ -110,7 +112,6 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <div class="">
-                                    <label>Attribute Name</label>
                                     <input type="text" name="attribute_name_{{$roomtypeId}}" class="form-control" placeholder="Enter Attribute Name">
                                     <input type="hidden" name="attribute_id_{{$roomtypeId}}" value="">
                                 </div>
@@ -119,9 +120,8 @@
                         <div class="col-md-4">
                             <div class="form-inline">
                                 <div class="form-group full-width">
-                                    <label>Control Type</label>
                                     <select name="controltype_{{$roomtypeId}}" onchange="defaultBlock(this.value,{{$roomtypeId}});" class="full-width">
-                                        <option value="">Select Controls Type</option>
+                                        <option value="">Select Control Type</option>
                                         <option value="textbox" > Text Box</option>
                                         <option value="select" >Select Box</option>
                                         <option value="multiple" > Multiple Select Box</option>
@@ -136,7 +136,7 @@
                                 <div class="form-group">
                                     <input type="text" name="controltypevalues_{{$roomtypeId}}" class="form-control" placeholder="Enter Default Values">
                                     <!--<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>-->
-                                    <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes({{$roomtypeId}},this)"><i class="fa fa-plus"></i></button>
+                                    <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes({{$roomtypeId}},this)"><i class="fa fa-plus"></i> Add</button>
                                 </div>
                             </div>
                         </div>
@@ -163,7 +163,7 @@
                         <div class="form-group">
                             <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                             <input type="text" name="roomtype" id="roomtype" class="form-control" placeholder="Add Room Type">
-                            <button class="btn btn-white" onclick="addRoomtype({{$project['id']}});"><i class="fa fa-plus"></i></button>
+                            <button class="btn btn-white" onclick="addRoomtype({{$project['id']}});"><i class="fa fa-plus"></i> Add</button>
                             <div class="cf-loader" id="loader" style="display:none" ></div>   
 
                         </div>
@@ -178,7 +178,9 @@
 <div class="grid simple">
     <div class="grid-title" role="tab" id="headingTwo">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" aria-expanded="false" aria-controls="collapse{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
-            <div class="pull-right"><i class="fa fa-angle-down"></i></div>
+            <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+<i class="fa fa-angle-up "></i>
+         </div>
             <h3><span class="semi-bold">{{ get_property_type($propertytypeId) }}</span> Attributes</h3>
         </a>
     </div>
@@ -249,7 +251,7 @@
                                 <div class="form-group">
                                     <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="form-control" placeholder="Enter Default Values">
                                     <!--<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>-->
-                                     <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes('proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}',this)"><i class="fa fa-plus"></i></button>
+                                     <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes('proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}',this)"><i class="fa fa-plus"></i> Add</button>
                                 </div>
                             </div>
                         </div>

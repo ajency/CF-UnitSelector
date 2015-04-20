@@ -43,7 +43,8 @@
         unitCollection.setUnitAttributes(response.units);
         unitTypeCollection.setUnitTypeAttributes(response.unit_types);
         buildingCollection.setBuildingAttributes(response.buildings);
-        return apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants);
+        apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants);
+        return floorLayoutCollection.setFloorLayoutAttributes(response.floor_layout);
       },
       error: function(response) {
         return console.log("aaaaaaaaaaassdff");
@@ -70,9 +71,7 @@
   };
 
   CommonFloor.checkPropertyType = function() {
-    var controller;
     CommonFloor.loadJSONData();
-    controller = CommonFloor.propertyMaxUnits();
     if (project.get('project_master').front === "") {
       return CommonFloor.navigate('#/list-view', true);
     } else {
@@ -93,6 +92,44 @@
         });
       });
     });
+  };
+
+  window.numDifferentiation = function(val) {
+    if (val >= 10000000) {
+      val = (val / 10000000).toFixed(2) + ' Cr';
+    } else if (val >= 100000) {
+      val = (val / 100000).toFixed(2) + ' Lac';
+    } else if (val >= 1000) {
+      val = (val / 1000).toFixed(2) + ' K';
+    }
+    return val;
+  };
+
+  window.convertRupees = function(val) {
+    $('#price').autoNumeric('init');
+    return $('#price').autoNumeric('set', val);
+  };
+
+  window.convertRupees = function(val) {
+    $('#price').autoNumeric('init');
+    return $('#price').autoNumeric('set', val);
+  };
+
+  CommonFloor.propertyTypes = function() {
+    var Router, controller;
+    Router = [];
+    Router.push({
+      'type': 'bunglows',
+      'count': bunglowVariantCollection.getBunglowUnits()
+    });
+    Router.push({
+      'type': 'building',
+      'count': buildingCollection.toArray()
+    });
+    controller = _.max(Router, function(item) {
+      return parseInt(item.count.length);
+    });
+    return controller;
   };
 
 }).call(this);

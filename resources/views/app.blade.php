@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>CommonFloor UnitSelector</title>
         
-        <link rel="icon" type="image/png" href="../CommonFloor/public/images/others/fevicon.ico">
+        <link rel="icon" type="image/png" href="{{ asset('images/others/fevicon.ico') }}">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <!-- Fonts -->
         <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -28,7 +28,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#"><img src="http://commonfloor.local/images/inner-header-logo.png" class="logo" alt="" data-src="http://commonfloor.local/images/inner-header-logo.png" data-src-retina="http://commonfloor.local/images/logo2x.png"></a>
+                    <a class="navbar-brand" href="#">
+                        <img src="{{ asset('images/inner-header-logo.png') }}" class="logo" alt="" 
+                                data-src="{{ asset('images/inner-header-logo.png') }}"
+                                data-src-retina="{{ asset('images/logo2x.png') }}">
+                    </a>
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

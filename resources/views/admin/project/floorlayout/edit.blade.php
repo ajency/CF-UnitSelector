@@ -23,15 +23,15 @@
             <div class="grid simple">
                 <div class="grid-title" role="tab" id="headingOne">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        <div class="pull-right"><span class="fa fa-angle-up"></span></div>
+<div class="pull-right"><i class="fa fa-angle-up "></i>
+<i class="fa fa-angle-down grid-angle-down"></i>
+       </div>
                         <h3 ><span class="semi-bold">Floor Layout</span> Details</h3> 
-
                     </a>
                 </div>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-
                     <div class="grid-body">
-                        <form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/floor-layout') }}"> 
+                        <form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/floor-layout/'.$floorLayout->id) }}"> 
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -62,7 +62,6 @@
                                         @endif
                                     </div> 
                                 </div>
-
                             </div>
                             <hr/>
                             <div>
@@ -81,6 +80,7 @@
                             </div>
                             <div class="form-actions">  
                                 <div class="pull-right">
+                                    <input type="hidden" name="_method" value="PUT">
                                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                                     <button type="submit" class="btn btn-primary btn-cons">Save</button>
                                     <a href="{{ url('admin/project/'. $project['id'] .'/floor-layout') }}" class="btn btn-default btn-cons">
@@ -92,18 +92,18 @@
                     </div>
                 </div>
             </div>
-
-            @for($i = 1; $i <= $floorLayout->no_of_flats; $i++)
             <div class="grid simple floor-position">
                 <div class="grid-title" role="tab" id="headingTwo">
                     <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" 
                        aria-controls="collapseTwo">
-                        <div class="pull-right"><span class="fa fa-angle-down"></span></div>
+<div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+<i class="fa fa-angle-up "></i>
+         </div>
                         <h3 ><span class="semi-bold">Position</span> Details</h3> 
                     </a>
                 </div>
                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-
+                    @for($i = 1; $i <= $floorLayout->no_of_flats; $i++)
                     <form data-parsley-validate>
                         <div class="grid-body"><h3>Position {{ $i }}</h3>
                             <div class="row m-b-15">
@@ -114,11 +114,11 @@
                                                 <div>
                                                     <label class="form-label">Unit Type</label>
                                                 </div>
-                                                <select class="floor-layout-unit-types">
+                                                <select name="unit_type_id" class="floor-layout-unit-types full-width">
                                                     <option value="">Choose Unit Type</option>
                                                     @foreach($unitTypes as $unitType)
                                                         @if(!empty($allUnitVariants[$unitType['id']]))
-                                                        <option value="{{ $unitType['id'] }}">{{ $unitType['unittype_name'] }}</option>
+                                                        <option {{ isset($unitTypeIds[$i]) && $unitTypeIds[$i] === $unitType['id'] ? 'selected' : '' }}  value="{{ $unitType['id'] }}">{{ $unitType['unittype_name'] }}</option>
                                                         @endif
                                                     @endforeach
                                                 </select>
@@ -129,7 +129,7 @@
                                                 <div>
                                                     <label class="form-label">Unit Variant</label>
                                                 </div>
-                                                <select required="" name="unit_variant_id">
+                                                <select required="" name="unit_variant_id" class="full-width">
                                                     @foreach($allUnitVariants as $unitTypeId => $unitVariants)
                                                         @foreach($unitVariants as $unitVariant)
                                                         <option {{ isset($floorLayoutPositions[$i]) && $floorLayoutPositions[$i]['unit_variant_id'] === $unitVariant['id'] ? 'selected' : '' }} 
@@ -158,9 +158,10 @@
                             </div>
                         </div>
                     </form>
+                    @endfor
                 </div>
             </div>
-            @endfor
+            
         </div> 
     </div>
 </div>

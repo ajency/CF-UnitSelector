@@ -36,7 +36,7 @@ class TopBunglowUnitView extends Marionette.ItemView
 						</div>-->
 
 						<div class="search-header-wrap">
-							<h1>You have selected {{unit_name}} Villa</h1>
+							<h1>You have selected {{unit_name}} {{type}}</h1>
 						</div>
 					</div>
 				</div>')
@@ -54,6 +54,8 @@ class CommonFloor.TopBunglowUnitCtrl extends Marionette.RegionController
 		unitid = parseInt url.split('/')[1]
 		unit = unitCollection.findWhere
 			id  : unitid
+		response = window.unit.getUnitDetails(unitid)
+		unit.set 'type' , response[2]
 		@show new TopBunglowUnitView
 				model : unit
 			
@@ -62,23 +64,28 @@ class LeftBunglowUnitView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
 						<div class="filters-wrapper">
-							<div class="blck-wrap">
+							<div class="blck-wrap title-row">
 								<h2 class="pull-left"><strong>{{unit_name}}</strong></h2>
 								<!-- <span class="label label-success">For Sale</span> -->
 								<div class="clearfix"></div>
+
 								<div class="details">
-										<!--<div>
-											<label>Starting Price:</label> Rs 1.3 crores
-										</div>-->
-										<div>
-											{{type}} ({{area}} sqft)
-										</div>
+									<div>
+										<label>Price:</label><span class="price"></span>
 									</div>
+									<div>
+										{{type}} ({{area}} sqft)
+									</div>
+								</div>
 							</div>
+							<div>{{#attributes}}
+										<div><span>{{attribute}}</span>: {{value}} </div>
+										{{/attributes}}
+									</div>
 							<div class="advncd-filter-wrp unit-list">
 								
 								{{#levels}}
-								<h4 class="m-b-0 m-t-20">{{level_name}}</h4>
+								<h4 class="m-b-0 m-t-25 text-primary">{{level_name}}</h4>
 								<!--<div class="blck-wrap title-row">
 									<div class="row">
 										<div class="col-sm-4">
@@ -93,12 +100,12 @@ class LeftBunglowUnitView extends Marionette.ItemView
 									</div>
 								</div>-->
 								{{#rooms}}
-								<div class="blck-wrap title-row">
-									<div class="row">
-										<div class="col-sm-4">
+								<div class="blck-wrap no-hover room-attr">
+									<div class="row p-b-5">
+										<div class="col-sm-12">
 											<h5 class="accord-head">{{room_name}}</h5>  
 											{{#attributes}}  
-											<label>{{attribute}}</label>: {{value}} 
+											<div><span>{{attribute}}</span>: {{value}} </div>
 											{{/attributes}}                    
 										</div>
 										<!--<div class="col-sm-4">
@@ -117,12 +124,9 @@ class LeftBunglowUnitView extends Marionette.ItemView
 		data = super()
 		url = Backbone.history.fragment
 		unitid = parseInt url.split('/')[1]
-		unit = unitCollection.findWhere
-			id  : unitid
-		unitVariant = bunglowVariantCollection.findWhere
-								'id' : unit.get('unit_variant_id')
+		console.log response = window.unit.getUnitDetails(unitid)
 		levels = []
-		floor = unitVariant.get('floor')
+		floor = response[0].get('floor')
 
 		$.each floor,(index,value)->
 			rooms = []
@@ -142,12 +146,27 @@ class LeftBunglowUnitView extends Marionette.ItemView
 				'rooms'			 : rooms
 		
 		unitType = unitTypeCollection.findWhere
-								'id' :  unitVariant.get('unit_type_id')
-		data.area = unitVariant.get('super_built_up_area')
-		data.type = unitType.get('name')
+								'id' :  response[0].get('unit_type_id')
+
+		attributes = []
+		if response[4] != null
+			$.each response[4] , (index,value)->
+				attributes.push 
+						'attribute' : s.capitalize index
+						'value'     : value
+		data.area = response[0].get('super_built_up_area')
+		data.type = response[1].get('name')
 		data.unit_name = unit.get('unit_name')
 		data.levels  = levels
+		data.attributes  = attributes
 		data
+
+	onShow:->
+		url = Backbone.history.fragment
+		unitid = parseInt url.split('/')[1]
+		response = window.unit.getUnitDetails(unitid)
+		window.convertRupees(response[3])
+		$('.price').text $('#price').val()
 	
 
 class CommonFloor.LeftBunglowUnitCtrl extends Marionette.RegionController
@@ -167,10 +186,11 @@ class CenterBunglowUnitView extends Marionette.ItemView
 									 </div>
 									 <div>
 										<h2 class="title">2D Layout</h2>
-										<div class="row {{level}}">
+										<div class="{{level}}">
 										{{#levels}}
-                      						<div class="col-sm-6 m-b-20">
-												<img src="{{two_d}}">
+                      						<div class="layouts">
+
+												<img src="{{two_d}}"/>
 												<h5 class="text-center">{{level_name}}</h5>
 											</div>
 										{{/levels}}
@@ -178,10 +198,10 @@ class CenterBunglowUnitView extends Marionette.ItemView
 									 </div>
 									 <div>
 										<h2 class="title">3D Layout</h2>
-										<div class="row">
+										<div class="{{level}}">
 										{{#levels}}
-											<div class="col-sm-6 m-b-20">
-												<img src="{{three_d}}">
+											<div class="layouts">
+												<img src="{{three_d}}"/>
 												<h5 class="text-center">{{level_name}}</h5>
 											</div>
 										{{/levels}}
@@ -196,24 +216,24 @@ class CenterBunglowUnitView extends Marionette.ItemView
 		data = super()
 		url = Backbone.history.fragment
 		unitid = parseInt url.split('/')[1]
-		unit = unitCollection.findWhere
-			id  : unitid
-		unitVariant = bunglowVariantCollection.findWhere
-								'id' : unit.get('unit_variant_id')
+		response = window.unit.getUnitDetails(unitid)
 		levels = []
-		floor = unitVariant.get('floor')
+		console.log floor = response[0].get('floor')
 		level = ""
+		i = 0 
 		$.each floor,(index,value)->
-			rooms = []
 			levels.push 
 				'two_d' : value.url2dlayout_image
 				'three_d'			 : value.url3dlayout_image
-				'level_name' : 'Level '+index
-				level = s.replaceAll('Level '+index, " ", "_")
-		
+				'level_name' : 'Level '+ i
+			level = s.replaceAll('Level '+i, " ", "_")
+			i = i + 1
+			
+
+				
 		data.level = level
 		data.levels = levels
-		data.external_url = unitVariant.get 'external3durl'
+		data.external_url = response[0].get 'external3durl'
 		data
 		
 
@@ -230,7 +250,8 @@ class CenterBunglowUnitView extends Marionette.ItemView
 					hideArrowsWhenMobile: false,
 					dynamicTabsAlign: "center",
 					dynamicArrows: false,
-			 
+					minHeight: 630,
+					autoHeight: false			 
 				)
 
 	
