@@ -5,14 +5,14 @@ class CenterItemView extends Marionette.ItemView
 					                    <div class="info">
 					                      <h2 class="m-b-5">{{building_name}}</h2>
 					                      <!--<div>Starting from Rs.<span>50 lakhs</span></div>-->
-					                      <div>No. of Floors: <span>{{floors}}</span></div>
+					                      <div class="floors">Floors: <span>{{floors}}</span></div>
 					                    </div>
 					                    <div class="clearfix"></div>
 					                    <div class="unit-type-info">
 					                      <ul>
 					                     	{{#types}}
 					                        <li>
-					                          {{name}}: <span>{{units}}</span>
+					                          {{name}}<!--: <span>{{units}}</span>-->
 					                        </li>
 					                        {{/types}}
 					                       
@@ -48,7 +48,7 @@ class CenterItemView extends Marionette.ItemView
 class MasterBuildingListView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-3 us-left-content">
-			<div class="list-view-container animated fadeInDown">
+			<div class="list-view-container animated fadeInLeft">
 			<!--<div class="controls map-View">
 	            <div class="toggle">
 	            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
@@ -62,7 +62,7 @@ class MasterBuildingListView extends Marionette.CompositeView
               </ul>
             </div>
 			<div class="bldg-list">
-			  <ul class="units">
+			  <ul class="units one">
 				
 				
 			  </ul>

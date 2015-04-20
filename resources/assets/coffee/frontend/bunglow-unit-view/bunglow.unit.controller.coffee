@@ -71,49 +71,61 @@ class LeftBunglowUnitView extends Marionette.ItemView
 
 								<div class="details">
 									<div>
-										<label>Price:</label><span class="price"></span>
+										<label>Price: </label> <span class="price"></span>
 									</div>
 									<div>
-										{{type}} ({{area}} sqft)
+										<label>Unit Type:</label> {{type}}
+									</div>
+									<div>
+										<label>Area:</label> {{area}} sqft
 									</div>
 								</div>
+
+								<div class="room-attr m-t-10">
+									<label>Property Attributes</label>
+									{{#attributes}}
+										<div class="m-b-5">
+											<span>{{attribute}}</span>: {{value}} 
+										</div>
+									{{/attributes}}
+								</div>
+
 							</div>
-							<div>{{#attributes}}
-										<div><span>{{attribute}}</span>: {{value}} </div>
-										{{/attributes}}
-									</div>
-							<div class="advncd-filter-wrp unit-list">
+
+
+							<div class="unit-list">
 								
 								{{#levels}}
-								<h4 class="m-b-0 m-t-25 text-primary">{{level_name}}</h4>
-								<!--<div class="blck-wrap title-row">
-									<div class="row">
-										<div class="col-sm-4">
-											<h5 class="accord-head">Rooms</h5>                      
+								<div class="blck-wrap no-hover">
+									<h4 class="m-b-10 m-t-10 text-primary">{{level_name}}</h4>
+
+									<!--<div class="blck-wrap title-row">
+										<div class="row">
+											<div class="col-sm-4">
+												<h5 class="accord-head">Rooms</h5>                      
+											</div>
+											<div class="col-sm-4">
+												<h5 class="accord-head">No</h5>                      
+											</div>
+											<div class="col-sm-4">
+												<h5 class="accord-head">Area</h5>                      
+											</div>
 										</div>
-										<div class="col-sm-4">
-											<h5 class="accord-head">No</h5>                      
-										</div>
-										<div class="col-sm-4">
-											<h5 class="accord-head">Area</h5>                      
-										</div>
-									</div>
-								</div>-->
-								{{#rooms}}
-								<div class="blck-wrap no-hover room-attr">
-									<div class="row p-b-5">
-										<div class="col-sm-12">
-											<h5 class="accord-head">{{room_name}}</h5>  
+									</div>-->
+
+									{{#rooms}}
+									<div class="room-attr">
+										<div class="m-b-15">
+											<h5 class="m-b-5">{{room_name}}</h5>  
 											{{#attributes}}  
-											<div><span>{{attribute}}</span>: {{value}} </div>
+											<div class=""><span>{{attribute}}</span>: {{value}} </div>
 											{{/attributes}}                    
+											<!--<h6 class="">{{size}}sqft</h6>-->
 										</div>
-										<!--<div class="col-sm-4">
-											<h6 class="">{{size}}sqft</h6>                      
-										</div>-->
 									</div>
+									{{/rooms}}
+									
 								</div>
-								{{/rooms}}
 								{{/levels}}
 								
 							</div>
@@ -180,7 +192,21 @@ class CenterBunglowUnitView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 						<div class="svg-area">
 							<div class="liquid-slider slider" id="slider-id">
-									 <div class="external">
+								<div class="ls-wrapper ls-responsive">
+									<div class="ls-nav">
+										<ul>
+											<li class="external current">
+												<h4 class="title">External 3D</h4>
+											</li>
+											<li class="twoD">
+												<h4 class="title">2D Layout</h4>
+											</li>
+											<li class="threeD">
+												<h4 class="title">3D Layout</h4>
+											</li>
+										</ul>
+									</div>
+									 <!--<div class="external">
 											<h2 class="title">External 3D</h2>
 											
 									 </div>
@@ -190,11 +216,17 @@ class CenterBunglowUnitView extends Marionette.ItemView
 									 </div>
 									 <div class="threeD">
 										<h2 class="title">3D Layout</h2>
-										
-												
-									 </div>
-									 <div class="images">
-									 </div>
+									 </div>-->
+								</div>
+
+								<div class="liquid-slider slider">
+									<div class="panel-wrapper">
+										<div class="Level_2">
+											<div class="images animated fadeIn">
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>')
@@ -217,8 +249,13 @@ class CenterBunglowUnitView extends Marionette.ItemView
 				i = i + 1
 			html = ''
 			$.each threeD,(index,value)->
-				html += '<img src="'+value+'" /><span>'+level[index]+'</span>'
+				html += '<div class="layouts animated fadeIn">
+							<img src="'+value+'" /><span>'+level[index]+'</span>
+						</div>'
 			$('.images').html html
+			$('.threeD').addClass('current')
+			$('.external').removeClass('current')
+			$('.twoD').removeClass('current')
 
 		'click .twoD':(e)->
 			url = Backbone.history.fragment
@@ -236,8 +273,13 @@ class CenterBunglowUnitView extends Marionette.ItemView
 				i = i + 1
 			html = ''
 			$.each twoD,(index,value)->
-				html += '<img src="'+value+'" /><span>'+level[index]+'</span>'
+				html += '<div class="layouts animated fadeIn">
+							<img src="'+value+'" /><span>'+level[index]+'</span>
+						</div>'
 			$('.images').html html
+			$('.twoD').addClass('current')
+			$('.external').removeClass('current')
+			$('.threeD').removeClass('current')
 
 		'click .external':(e)->
 			url = Backbone.history.fragment
@@ -247,8 +289,13 @@ class CenterBunglowUnitView extends Marionette.ItemView
 			threeD = []
 			level = []
 			floor = response[0].get('floor')
-			html = '<img src="'+response[0].get('external3durl')+'" />'
+			html = '<div class="animated fadeIn">
+						<img src="'+response[0].get('external3durl')+'" />
+					</div>'
 			$('.images').html html
+			$('.external').addClass('current')
+			$('.threeD').removeClass('current')
+			$('.twoD').removeClass('current')
 		
 
 	onShow:->

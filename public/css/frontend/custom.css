@@ -490,13 +490,13 @@ body {
 .rotate-controls .rotate-left,
 .rotate-controls .rotate-right {
   background: url('../../images/rotate.png') no-repeat;
-  height: 25px;
+  height: 60px;
   width: 25px;
-  background-position: 0 -30px;
+  background-position: -10px -5px;
   text-indent: -9999px;
   text-align: center;
   position: relative;
-  left: -35px;
+  left: 0;
   margin: auto;
   display: inline-block;
   cursor: pointer;
@@ -510,14 +510,15 @@ body {
           transform: scale(1.1, 1.1);
 }
 .rotate-controls .rotate-right {
-  background-position: -110px -30px;
-  left: 35px;
+  background-position: -125px -5px;
 }
 .rotate-controls .rotate-text {
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 16px;
-  text-shadow: 0 3px 2px #333333;
+  background: url('../../images/rotate.png') no-repeat;
+  height: 65px;
+  width: 80px;
+  background-position: -40px -5px;
+  text-indent: -9999px;
+  display: inline-block;
 }
 .list-view-container {
   padding: 10px;
@@ -671,8 +672,6 @@ body {
   margin-right: 1.6%;
 }
 .three .blocks {
-  padding: 10px;
-  width: 33.3%;
   text-align: center;
 }
 .three .blocks .cost {
@@ -680,6 +679,9 @@ body {
 }
 .three .blocks.unit .info label {
   display: block;
+}
+.three .blocks.unit .info span {
+  color: #f68121;
 }
 .two .blocks {
   padding: 10px;
@@ -1022,24 +1024,39 @@ label.third_toggle {
 }
 .ls-nav ul {
   width: 100% !important;
-  display: table;
+  text-align: center;
 }
 .ls-nav ul li {
-  display: table-cell;
+  display: inline-block;
   text-align: center;
   padding: 0;
-}
-.ls-nav ul li a {
   width: 100%;
-  padding-top: 30px;
+  max-width: 180px;
+}
+.ls-nav ul li a,
+.ls-nav ul li h4 {
+  width: 100%;
+  padding: 20px 0 10px;
   color: #999999;
   font-weight: bold;
   background: transparent;
+  cursor: pointer;
+  margin-bottom: 0;
 }
-.ls-nav ul li.current a {
+.ls-nav ul li a:hover,
+.ls-nav ul li h4:hover {
+  color: #f68121;
+}
+.ls-nav ul li.current a,
+.ls-nav ul li.current h4 {
   color: #f68121;
   background: transparent;
   border-bottom: 2px solid #f68121;
+}
+.liquid-slider {
+  width: 100%;
+  min-height: 450px;
+  background-color: #f7f7f7;
 }
 .liquid-slider .ls-panel img {
   margin: 0 auto;
@@ -1048,6 +1065,6 @@ label.third_toggle {
   max-width: 100% !important;
 }
 .panel-wrapper {
-  padding: 20px;
+  padding: 10px 20px;
 }
 /*# sourceMappingURL=custom.css.map */

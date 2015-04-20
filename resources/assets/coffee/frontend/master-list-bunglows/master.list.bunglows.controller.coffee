@@ -1,14 +1,12 @@
 #view for the Center setion
 class BunglowListView extends Marionette.ItemView
 
-	template : Handlebars.compile('
-						                <div class="pull-left info">
-						                  <label>{{unit_name}}</label> ( {{unit_type}} {{super_built_up_area}}sqft )
-						                </div>
-						                <div class="pull-right cost">
-						                  50 lakhs
-						                </div>
-						            ')
+	template : Handlebars.compile('	<div class="pull-left info">
+						                 <label>{{unit_name}}</label> <span>{{unit_type}}</span> {{super_built_up_area}}sqft
+						            </div>
+					                <!--<div class="pull-right cost">
+					                  50 lakhs
+					                </div>-->')
 
 	initialize:->
 		@class = ""
@@ -38,14 +36,14 @@ class BunglowListView extends Marionette.ItemView
 		$('#unit'+id).attr('class' , classname+' '+status)
 
 	events:
-		'mouseover .row' :(e)->
+		'mouseover .unit' :(e)->
 			id = @model.get('id')
 			@class = $('#'+id).attr('class')
 			$('#'+id).attr('class' ,'layer '+@model.get('status'))
-		'mouseout .row' :(e)->
+		'mouseout .unit' :(e)->
 			id = @model.get('id')
 			$('#'+id).attr('class' ,@class)
-		'click .row' :(e)->
+		'click .unit' :(e)->
 			if @model.get('status') == 'available'
 				CommonFloor.defaults['unit'] = @model.get('id')
 				CommonFloor.navigate '/unit-view/'+@model.get('id') , true

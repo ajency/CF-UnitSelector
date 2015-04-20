@@ -11,7 +11,7 @@
       return BunglowListView.__super__.constructor.apply(this, arguments);
     }
 
-    BunglowListView.prototype.template = Handlebars.compile('<div class="pull-left info"> <label>{{unit_name}}</label> ( {{unit_type}} {{super_built_up_area}}sqft ) </div> <div class="pull-right cost"> 50 lakhs </div>');
+    BunglowListView.prototype.template = Handlebars.compile('	<div class="pull-left info"> <label>{{unit_name}}</label> <span>{{unit_type}}</span> {{super_built_up_area}}sqft </div> <!--<div class="pull-right cost"> 50 lakhs </div>-->');
 
     BunglowListView.prototype.initialize = function() {
       this["class"] = "";
@@ -47,18 +47,18 @@
     };
 
     BunglowListView.prototype.events = {
-      'mouseover .row': function(e) {
+      'mouseover .unit': function(e) {
         var id;
         id = this.model.get('id');
         this["class"] = $('#' + id).attr('class');
         return $('#' + id).attr('class', 'layer ' + this.model.get('status'));
       },
-      'mouseout .row': function(e) {
+      'mouseout .unit': function(e) {
         var id;
         id = this.model.get('id');
         return $('#' + id).attr('class', this["class"]);
       },
-      'click .row': function(e) {
+      'click .unit': function(e) {
         if (this.model.get('status') === 'available') {
           CommonFloor.defaults['unit'] = this.model.get('id');
           return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);

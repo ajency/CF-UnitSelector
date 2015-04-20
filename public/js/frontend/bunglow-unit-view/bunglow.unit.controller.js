@@ -85,7 +85,7 @@
       return LeftBunglowUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="blck-wrap title-row"> <h2 class="pull-left"><strong>{{unit_name}}</strong></h2> <!-- <span class="label label-success">For Sale</span> --> <div class="clearfix"></div> <div class="details"> <div> <label>Price:</label><span class="price"></span> </div> <div> {{type}} ({{area}} sqft) </div> </div> </div> <div>{{#attributes}} <div><span>{{attribute}}</span>: {{value}} </div> {{/attributes}} </div> <div class="advncd-filter-wrp unit-list"> {{#levels}} <h4 class="m-b-0 m-t-25 text-primary">{{level_name}}</h4> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Rooms</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> {{#rooms}} <div class="blck-wrap no-hover room-attr"> <div class="row p-b-5"> <div class="col-sm-12"> <h5 class="accord-head">{{room_name}}</h5> {{#attributes}} <div><span>{{attribute}}</span>: {{value}} </div> {{/attributes}} </div> <!--<div class="col-sm-4"> <h6 class="">{{size}}sqft</h6> </div>--> </div> </div> {{/rooms}} {{/levels}} </div> </div> </div>');
+    LeftBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="blck-wrap title-row"> <h2 class="pull-left"><strong>{{unit_name}}</strong></h2> <!-- <span class="label label-success">For Sale</span> --> <div class="clearfix"></div> <div class="details"> <div> <label>Price: </label> <span class="price"></span> </div> <div> <label>Unit Type:</label> {{type}} </div> <div> <label>Area:</label> {{area}} sqft </div> </div> <div class="room-attr m-t-10"> <label>Property Attributes</label> {{#attributes}} <div class="m-b-5"> <span>{{attribute}}</span>: {{value}} </div> {{/attributes}} </div> </div> <div class="unit-list"> {{#levels}} <div class="blck-wrap no-hover"> <h4 class="m-b-10 m-t-10 text-primary">{{level_name}}</h4> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Rooms</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> {{#rooms}} <div class="room-attr"> <div class="m-b-15"> <h5 class="m-b-5">{{room_name}}</h5> {{#attributes}} <div class=""><span>{{attribute}}</span>: {{value}} </div> {{/attributes}} <!--<h6 class="">{{size}}sqft</h6>--> </div> </div> {{/rooms}} </div> {{/levels}} </div> </div> </div>');
 
     LeftBunglowUnitView.prototype.serializeData = function() {
       var attributes, data, floor, levels, response, unitType, unitid, url;
@@ -173,7 +173,7 @@
       return CenterBunglowUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider slider" id="slider-id"> <div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div> <div class="images"> </div> </div> </div> </div>');
+    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external current"> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="Level_2"> <div class="images animated fadeIn"> </div> </div> </div> </div> </div> </div> </div>');
 
     CenterBunglowUnitView.prototype.events = {
       'click .threeD': function(e) {
@@ -194,9 +194,12 @@
         });
         html = '';
         $.each(threeD, function(index, value) {
-          return html += '<img src="' + value + '" /><span>' + level[index] + '</span>';
+          return html += '<div class="layouts animated fadeIn"> <img src="' + value + '" /><span>' + level[index] + '</span> </div>';
         });
-        return $('.images').html(html);
+        $('.images').html(html);
+        $('.threeD').addClass('current');
+        $('.external').removeClass('current');
+        return $('.twoD').removeClass('current');
       },
       'click .twoD': function(e) {
         var floor, html, i, level, response, threeD, twoD, unitid, url;
@@ -216,9 +219,12 @@
         });
         html = '';
         $.each(twoD, function(index, value) {
-          return html += '<img src="' + value + '" /><span>' + level[index] + '</span>';
+          return html += '<div class="layouts animated fadeIn"> <img src="' + value + '" /><span>' + level[index] + '</span> </div>';
         });
-        return $('.images').html(html);
+        $('.images').html(html);
+        $('.twoD').addClass('current');
+        $('.external').removeClass('current');
+        return $('.threeD').removeClass('current');
       },
       'click .external': function(e) {
         var floor, html, level, response, threeD, twoD, unitid, url;
@@ -229,8 +235,11 @@
         threeD = [];
         level = [];
         floor = response[0].get('floor');
-        html = '<img src="' + response[0].get('external3durl') + '" />';
-        return $('.images').html(html);
+        html = '<div class="animated fadeIn"> <img src="' + response[0].get('external3durl') + '" /> </div>';
+        $('.images').html(html);
+        $('.external').addClass('current');
+        $('.threeD').removeClass('current');
+        return $('.twoD').removeClass('current');
       }
     };
 
