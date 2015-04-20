@@ -56,20 +56,6 @@
         }
       }
     });
-    CommonFloor.state('buildingList', {
-      url: '/list-view/building',
-      sections: {
-        'top': {
-          ctrl: 'TopBuildingListCtrl'
-        },
-        'left': {
-          ctrl: 'LeftBuildingListCtrl'
-        },
-        'center': {
-          ctrl: 'CenterBuildingListCtrl'
-        }
-      }
-    });
     CommonFloor.state('apartmentsList', {
       url: '/building/:id/apartments',
       sections: {

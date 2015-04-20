@@ -68,15 +68,20 @@ class LeftBunglowUnitView extends Marionette.ItemView
 								<h2 class="pull-left"><strong>{{unit_name}}</strong></h2>
 								<!-- <span class="label label-success">For Sale</span> -->
 								<div class="clearfix"></div>
+
 								<div class="details">
-									<!--<div>
-										<label>Starting Price:</label> Rs 1.3 crores
-									</div>-->
+									<div>
+										<label>Price:</label><span class="price"></span>
+									</div>
 									<div>
 										{{type}} ({{area}} sqft)
 									</div>
 								</div>
 							</div>
+							<div>{{#attributes}}
+										<div><span>{{attribute}}</span>: {{value}} </div>
+										{{/attributes}}
+									</div>
 							<div class="advncd-filter-wrp unit-list">
 								
 								{{#levels}}
@@ -142,11 +147,25 @@ class LeftBunglowUnitView extends Marionette.ItemView
 		
 		unitType = unitTypeCollection.findWhere
 								'id' :  response[0].get('unit_type_id')
+
+		attributes = []
+		$.each response[4] , (index,value)->
+			attributes.push 
+					'attribute' : s.capitalize index
+					'value'     : value
 		data.area = response[0].get('super_built_up_area')
 		data.type = response[1].get('name')
 		data.unit_name = unit.get('unit_name')
 		data.levels  = levels
+		data.attributes  = attributes
 		data
+
+	onShow:->
+		url = Backbone.history.fragment
+		unitid = parseInt url.split('/')[1]
+		response = window.unit.getUnitDetails(unitid)
+		window.convertRupees(response[3])
+		$('.price').text $('#price').val()
 	
 
 class CommonFloor.LeftBunglowUnitCtrl extends Marionette.RegionController
@@ -202,12 +221,13 @@ class CenterBunglowUnitView extends Marionette.ItemView
 		level = ""
 		i = 0 
 		$.each floor,(index,value)->
-			i = i + 1
 			levels.push 
 				'two_d' : value.url2dlayout_image
 				'three_d'			 : value.url3dlayout_image
 				'level_name' : 'Level '+ i
-				level = s.replaceAll('Level '+index, " ", "_")
+			level = s.replaceAll('Level '+i, " ", "_")
+			i = i + 1
+			
 
 				
 		data.level = level

@@ -83,39 +83,7 @@ class LeftBunglowMasterView extends Marionette.ItemView
 	events:
 		'mouseover .row' :(e)->
 			id = @model.get('id')
-			console.log window.unit
-			response = window.unit.getUnitDetails(id)
-			html = ""
-			unit = unitCollection.findWhere 
-				id :  id 
-			if unit == undefined
-				html += '<div class="svg-info">
-							<div class="details">
-								Villa details not entered 
-							</div>  
-						</div>'
-				$('.layer').tooltipster('content', html)
-				return false
-
-			availability = unit.get('availability')
-			availability = s.decapitalize(availability)
-			html = ""
-			html += '<div class="svg-info">
-						<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
-						<!--<span class="label label-success"></span-->
-						<div class="clearfix"></div>
-						<div class="details">
-							<div>
-								<label>Area</label> - '+response[0].get('super_built_up_area')+' Sq.ft
-							</div> 
-							<div>
-								<label>Unit Type </label> - '+response[1].get('name')+'
-							</div>  
-						</div>  
-					</div>'
 			$('#'+id).attr('class' ,'layer '+@model.get('status'))
-			$('.layer').tooltipster('content', html)
-
 		'mouseout .row' :(e)->
 			$('.layer').attr('class' ,'layer') 
 		'click .row' :(e)->
@@ -226,6 +194,11 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 			else
 				CommonFloor.navigate '/building/'+id+'/master-view' , true
 
+		'mouseover .villa':(e)->
+			id = parseInt e.target.id
+			CommonFloor.defaults['unit'] =id
+			CommonFloor.navigate '/unit-view/'+id , true
+
 		'click .list':(e)->
 			e.preventDefault()
 			CommonFloor.navigate '/list-view' , true
@@ -259,7 +232,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 				return false
 
 			response = window.unit.getUnitDetails(id)
-			
+			window.convertRupees(response[3])
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			html = ""
@@ -273,6 +246,9 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 							</div> 
 							<div>
 								<label>Unit Type </label> - '+response[1].get('name')+'
+							</div>
+							<div>
+								<label>Price </label> - '+$('#price').val()+'
 							</div>  
 						</div>  
 					</div>'

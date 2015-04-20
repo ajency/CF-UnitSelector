@@ -6,6 +6,7 @@
         <link href="{{ asset('css/frontend/custom.css')}}" rel="stylesheet">
     </head>
     <body>
+                  
       <div class="wrapper">
         <div class="container-fluid component-body">
           <div class="row inner-pages" id="page-header">
@@ -106,6 +107,7 @@
         <script src="{{ asset('bower_components/jquery-touchswipe/jquery.touchSwipe.min.js' )}}"></script>
         <script src="{{ asset('bower_components/liquidslider/js/jquery.liquid-slider.min.js' )}}"></script>
         <script src="{{ asset('bower_components/spritespin/release/spritespin.js' )}}"></script>
+        <script src="{{ asset('bower_components/autoNumeric/autoNumeric.js' )}}"></script>
         <!-- end plugins -->
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
         <script>
@@ -122,13 +124,6 @@
 
         };
 
-        window.numDifferentiation = function(val){
-            if(val >= 10000000) val = (val/10000000).toFixed(2) + ' Cr';
-            else if(val >= 100000) val = (val/100000).toFixed(2) + ' Lac';
-            else if(val >= 1000) val = (val/1000).toFixed(2) + ' K';
-            return val;
-        }
-        
         
         
         </script>
@@ -150,5 +145,7 @@
         <script src="{{ asset('js/frontend/building-step3/apartments.list.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/building-step3/apartments.master.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
+        <input type="hidden" id="price" data-m-dec="" data-a-sign="Rs. " data-d-group="2" value="" />
+      
     </body>
 </html>
