@@ -113,12 +113,11 @@
                                                 <div>
                                                     <label class="form-label">Unit Type</label>
                                                 </div>
-                                                <select name="unit_type_id" class="floor-layout-unit-types">
+                                    
+                                                <select name="unit_type_id" class="floor-layout-unit-types" onchange="getVariants(this,{{ $floorLayout->id }});">
                                                     <option value="">Choose Unit Type</option>
-                                                    @foreach($unitTypes as $unitType)
-                                                        @if(!empty($allUnitVariants[$unitType['id']]))
-                                                        <option {{ isset($unitTypeIds[$i]) && $unitTypeIds[$i] === $unitType['id'] ? 'selected' : '' }}  value="{{ $unitType['id'] }}">{{ $unitType['unittype_name'] }}</option>
-                                                        @endif
+                                                    @foreach($unitTypes as $unitTypeId=>$unitType) 
+                                                        <option {{ isset($unitTypeIds[$i]) && $unitTypeIds[$i] === $unitTypeId ? 'selected' : '' }}  value="{{ $unitTypeId }}">{{ $unitType }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -129,14 +128,17 @@
                                                     <label class="form-label">Unit Variant</label>
                                                 </div>
                                                 <select required="" name="unit_variant_id">
-                                                    @foreach($allUnitVariants as $unitTypeId => $unitVariants)
-                                                        @foreach($unitVariants as $unitVariant)
+                                                   @if( isset($unitTypeIds[$i]) && isset($allUnitVariants[$unitTypeIds[$i]]) )
+                                                    @foreach($allUnitVariants[$unitTypeIds[$i]] as $unitTypeId => $unitVariant)
                                                         <option {{ isset($floorLayoutPositions[$i]) && $floorLayoutPositions[$i]['unit_variant_id'] === $unitVariant['id'] ? 'selected' : '' }} 
                                                             class="unittype-{{ $unitTypeId }}" value="{{ $unitVariant['id'] }}">
                                                             {{ $unitVariant['unit_variant_name'] }}
                                                         </option>
-                                                        @endforeach
-                                                    @endforeach
+                                                      @endforeach
+                                                     @else 
+                                                        <option value="">Choose Variant</option>
+                                                    @endif
+                                                    
                                                 </select>
                                             </div>
                                         </div> 

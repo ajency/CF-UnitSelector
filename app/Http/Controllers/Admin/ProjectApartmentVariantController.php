@@ -173,7 +173,7 @@ class ProjectApartmentVariantController extends Controller {
 
         return redirect("/admin/project/" . $project_id . "/apartment-variant/" . $id . '/edit');
     }
-
+     
     /**
      * Remove the specified resource from storage.
      *
