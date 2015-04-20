@@ -42,7 +42,6 @@ class ProjectGateway implements ProjectGatewayInterface {
 
             'property_types' => $this->propertyTypeUnits( $projectId ),
             'project_property_types' => $this->propertyTypeUnits( $projectId ),
-            'project_settings' => $this->projectSettings( $projectId )
 
         ];
         return $projectData;
@@ -109,7 +108,6 @@ class ProjectGateway implements ProjectGatewayInterface {
             'property_types' => $propertyTypes,
             'settings' => $this->projectSettings($projectId),
             'units' =>$units,
-
             'unit_types' => $unitTypeArr,
             'floor_layout' => \CommonFloor\FloorLayout::all()->toArray() 
         ];
