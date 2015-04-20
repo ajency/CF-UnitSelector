@@ -110,7 +110,6 @@ class ProjectGateway implements ProjectGatewayInterface {
             'settings' => $this->projectSettings($projectId),
             'units' =>$units,
 
-            'settings' => [],
             'unit_types' => $unitTypeArr,
             'floor_layout' => \CommonFloor\FloorLayout::all()->toArray() 
         ];
