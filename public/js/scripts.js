@@ -358,7 +358,7 @@ function setUpFloorLevelUploader() {
 
     if (FLOORLEVELS.length === 0)
         return false;
-    
+
     $.each(FLOORLEVELS, function (index, value) {
 
         var uploader2d = new plupload.Uploader({
@@ -621,8 +621,8 @@ $(document).ready(function () {
 function deleteSvg(mediaId, type, refference)
 {
     var objectType = $('div.object-master-images').attr('data-object-type');
-    var objectId =  $('div.object-master-images').attr('data-object-id'); 
-   $.ajax({
+    var objectId = $('div.object-master-images').attr('data-object-id');
+    $.ajax({
         url: BASEURL + '/admin/' + objectType + '/' + objectId + '/media/' + mediaId,
         type: "DELETE",
         data: {
@@ -631,6 +631,34 @@ function deleteSvg(mediaId, type, refference)
         },
         success: function (response) {
             window.location.reload();
+        }
+    });
+}
+
+function getPositions(floor)
+{
+    var buildingId = $("select[name='building_id']").val();
+    $.ajax({
+        url: BASEURL + '/admin/project/' + PROJECTID + '/building/' + buildingId + '/getpositions',
+        type: "POST",
+        data: {
+            floor: floor
+        },
+        success: function (response) {
+            var position = parseInt(response.data);
+            var newOptions =[];
+            for(var i=1; i<=position;i++)
+            {
+                newOptions[i] =i;
+            }
+         
+            var $el = $("#flat_position");
+            $el.empty(); // remove old options
+            $.each(newOptions, function (value, key) {
+                $el.append($("<option></option>")
+                        .attr("value", value).text(key));
+            });
+
         }
     });
 }

@@ -170,5 +170,19 @@ class ProjectBuildingController extends Controller {
     public function destroy( $id ) {
         //
     }
+    
+    public function getPositions($project_id, $buildingId, Request $request)
+    {  
+        $floor = $request['floor']; 
+        $floorlayoutIds = Building::find($buildingId)->floors;
+        $floorlayoutId = $floorlayoutIds[$floor];
+        $position = FloorLayout::find($floorlayoutId)->no_of_flats; 
+        
+        return response()->json( [
+            'code' => 'layout_position',
+            'message' => 'Layout Position',
+            'data' => $position
+        ], 203 );
+    }
 
 }
