@@ -655,7 +655,7 @@ function getPositions(floor)
             var $el = $("#flat_position");
             $el.empty(); // remove old options
             $el.append($("<option>Select Position</option>")
-                        .attr("value", '').text(key));
+                        .attr("value", ''));
             $.each(newOptions, function (value, key) {
                 $el.append($("<option></option>")
                         .attr("value", value).text(key));
