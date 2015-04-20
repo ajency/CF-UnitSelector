@@ -180,80 +180,114 @@ class CenterBunglowUnitView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 						<div class="svg-area">
 							<div class="liquid-slider slider" id="slider-id">
-									 <div>
+									 <div class="external">
 											<h2 class="title">External 3D</h2>
-											<img src="{{external_url}}">
+											
 									 </div>
-									 <div>
+									 <div class="twoD">
 										<h2 class="title">2D Layout</h2>
-										<div class="{{level}}">
-										{{#levels}}
-                      						<div class="layouts">
-
-												<img src="{{two_d}}"/>
-												<h5 class="text-center">{{level_name}}</h5>
-											</div>
-										{{/levels}}
-										</div>
+										
 									 </div>
-									 <div>
+									 <div class="threeD">
 										<h2 class="title">3D Layout</h2>
-										<div class="{{level}}">
-										{{#levels}}
-											<div class="layouts">
-												<img src="{{three_d}}"/>
-												<h5 class="text-center">{{level_name}}</h5>
-											</div>
-										{{/levels}}
-										</div>
+										
 												
+									 </div>
+									 <div class="images">
 									 </div>
 							</div>
 						</div>
 					</div>')
 
-	serializeData:->
-		data = super()
-		url = Backbone.history.fragment
-		unitid = parseInt url.split('/')[1]
-		response = window.unit.getUnitDetails(unitid)
-		levels = []
-		console.log floor = response[0].get('floor')
-		level = ""
-		i = 0 
-		$.each floor,(index,value)->
-			levels.push 
-				'two_d' : value.url2dlayout_image
-				'three_d'			 : value.url3dlayout_image
-				'level_name' : 'Level '+ i
-			level = s.replaceAll('Level '+i, " ", "_")
-			i = i + 1
-			
 
-				
-		data.level = level
-		data.levels = levels
-		data.external_url = response[0].get 'external3durl'
-		data
+	events:
+		'click .threeD':(e)->
+			url = Backbone.history.fragment
+			unitid = parseInt url.split('/')[1]
+			response = window.unit.getUnitDetails(unitid)
+			twoD = []
+			threeD = []
+			level = []
+			floor = response[0].get('floor')
+			i = 0
+			$.each floor,(index,value)->
+				twoD.push value.url2dlayout_image
+				threeD.push value.url3dlayout_image
+				level.push s.replaceAll('Level '+i, " ", "_")
+				i = i + 1
+			html = ''
+			$.each threeD,(index,value)->
+				html += '<img src="'+value+'" /><span>'+level[index]+'</span>'
+			$('.images').html html
+
+		'click .twoD':(e)->
+			url = Backbone.history.fragment
+			unitid = parseInt url.split('/')[1]
+			response = window.unit.getUnitDetails(unitid)
+			twoD = []
+			threeD = []
+			level = []
+			floor = response[0].get('floor')
+			i = 0
+			$.each floor,(index,value)->
+				twoD.push value.url2dlayout_image
+				threeD.push value.url3dlayout_image
+				level.push s.replaceAll('Level '+i, " ", "_")
+				i = i + 1
+			html = ''
+			$.each twoD,(index,value)->
+				html += '<img src="'+value+'" /><span>'+level[index]+'</span>'
+			$('.images').html html
+
+		'click .external':(e)->
+			url = Backbone.history.fragment
+			unitid = parseInt url.split('/')[1]
+			response = window.unit.getUnitDetails(unitid)
+			twoD = []
+			threeD = []
+			level = []
+			floor = response[0].get('floor')
+			html = '<img src="'+response[0].get('external3durl')+'" />'
+			$('.images').html html
 		
 
 	onShow:->
-		$('.slider').imagesLoaded ->
-			$('#slider-id').liquidSlider(
-					slideEaseFunction: "easeInOutQuad",
-					includeTitle:false,
-					autoSlideInterval: 4000,
-					mobileNavigation: false,
-					hideArrowsWhenMobile: false,
-					dynamicTabsAlign: "center",
-					dynamicArrows: false,
-					# minHeight: 630,
-					# autoHeight: false			 
-				)
-			return
-		
+		url = Backbone.history.fragment
+		unitid = parseInt url.split('/')[1]
+		response = window.unit.getUnitDetails(unitid)
+		twoD = []
+		threeD = []
+		level = []
+		floor = response[0].get('floor')
+		i = 0
+		$.each floor,(index,value)->
+			twoD.push value.url2dlayout_image
+			threeD.push value.url3dlayout_image
+			level.push s.replaceAll('Level '+i, " ", "_")
+			i = i + 1
+		html = ''
+		$.each twoD,(index,value)->
+			html += '<img src="'+value+'" /><span>'+level[index]+'</span>'
+		$('.images').html html
+			
+			
 
-	
+				
+		if response[0].get('external3durl') != undefined
+			html = '<img src="'+response[0].get('external3durl')+'" />'
+			$('.images').html html
+
+
+		if twoD.length == 0
+			$('.twoD').hide()
+
+		if threeD.length == 0
+			$('.threeD').hide()
+
+		if response[0].get('external3durl') == undefined
+			$('.external').hide()
+
+		
 
 class CommonFloor.CenterBunglowUnitCtrl extends Marionette.RegionController
 

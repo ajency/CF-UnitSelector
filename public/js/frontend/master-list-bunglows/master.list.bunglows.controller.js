@@ -14,6 +14,7 @@
     BunglowListView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-sm-4"> <h6 class="{{status}}">{{unit_name}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{unit_type}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{super_built_up_area}} sqft</h6> </div> </div>');
 
     BunglowListView.prototype.initialize = function() {
+      this["class"] = "";
       return this.$el.prop("id", 'unit' + this.model.get("id"));
     };
 
@@ -40,10 +41,13 @@
       'mouseover .row': function(e) {
         var id;
         id = this.model.get('id');
+        this["class"] = $('#' + id).attr('class');
         return $('#' + id).attr('class', 'layer ' + this.model.get('status'));
       },
       'mouseout .row': function(e) {
-        return $('.layer').attr('class', 'layer');
+        var id;
+        id = this.model.get('id');
+        return $('#' + id).attr('class', this["class"]);
       },
       'click .row': function(e) {
         if (this.model.get('status') === 'available') {

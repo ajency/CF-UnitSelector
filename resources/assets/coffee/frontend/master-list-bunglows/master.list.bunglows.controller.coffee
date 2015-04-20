@@ -14,6 +14,7 @@ class BunglowListView extends Marionette.ItemView
 				  </div>')
 
 	initialize:->
+		@class = ""
 		@$el.prop("id", 'unit'+@model.get("id"))
 
 	className : 'blck-wrap'
@@ -34,9 +35,11 @@ class BunglowListView extends Marionette.ItemView
 	events:
 		'mouseover .row' :(e)->
 			id = @model.get('id')
+			@class = $('#'+id).attr('class')
 			$('#'+id).attr('class' ,'layer '+@model.get('status'))
 		'mouseout .row' :(e)->
-			$('.layer').attr('class' ,'layer') 
+			id = @model.get('id')
+			$('#'+id).attr('class' ,@class)
 		'click .row' :(e)->
 			if @model.get('status') == 'available'
 				CommonFloor.defaults['unit'] = @model.get('id')
