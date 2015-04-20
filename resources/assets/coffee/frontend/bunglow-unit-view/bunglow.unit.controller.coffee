@@ -249,7 +249,8 @@ class CenterBunglowUnitView extends Marionette.ItemView
 					hideArrowsWhenMobile: false,
 					dynamicTabsAlign: "center",
 					dynamicArrows: false,
-			 
+					minHeight: 630,
+					autoHeight: false			 
 				)
 
 	

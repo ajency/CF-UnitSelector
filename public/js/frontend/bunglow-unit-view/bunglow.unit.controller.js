@@ -206,7 +206,9 @@
         mobileNavigation: false,
         hideArrowsWhenMobile: false,
         dynamicTabsAlign: "center",
-        dynamicArrows: false
+        dynamicArrows: false,
+        minHeight: 630,
+        autoHeight: false
       });
     };
 
