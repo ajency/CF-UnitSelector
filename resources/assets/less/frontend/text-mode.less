@@ -92,61 +92,6 @@
 }
 
 
-.units{
-	list-style-type: none;
-/* List of Villas */
-	.unit{
-		cursor: pointer;
-		.info{
-			color: @gray;
-			label{
-				color: darken(@gray, 40%);
-			}
-		}
-		.cost{
-			color: @brand-primary;
-		}
-	}
-/* List of Buildings */
-	.bldg{
-		background-color: @white;
-		cursor: pointer;
-		color: @gray;
-		.bldg-img{
-			background: url('../../images/bldg.png') no-repeat;
-			width: 25%;
-			padding: 20% 0;
-			background-size: contain;
-			float: left;
-		}
-		.info{
-			float: left;
-			div{
-				font-size: 12px;
-			}
-		}
-		.unit-type-info{
-			margin-top: 15px;
-			li{
-				font-size: 12px;
-				float: left;
-				text-align: center;
-				width: 33.3%;
-				&::after{
-					content: '|';
-					float: right;
-				}
-				&:last-child::after{
-					content: '';
-				}
-				span{
-					color: @brand-primary;
-				}
-			}
-		}
-	}
-}
-
 .blocks{
 	float: left;
 	width: 32.2%;
@@ -199,6 +144,58 @@
 		}		
 	}
 }
+.four{
+	.blocks{
+		padding: 10px;
+		width: 23.8%;
+		text-align: center;
+		.cost{
+			display: none;
+		}
+		&:nth-child(4n){
+		    margin-right: 0;
+		}
+		&:nth-child(3n){
+		    margin-right: 1.6%;
+		}		
+	}
+}
+.two{
+	.blocks{
+		padding: 10px;
+		width: 49.2%;
+		&:nth-child(2n){
+		    margin-right: 0;
+		}
+		&:nth-child(3n){
+		    margin-right: 1.6%;
+		}		
+	}
+}
+.one{
+	.blocks{
+		padding: 10px;
+		width: 100%;
+		margin-right: 0;
+
+		&.bldg{
+			.bldg-img{
+				display: none;
+			}
+			.info{
+				h2{
+					margin-top: 0;
+					font-size: 18px;
+				}
+			}
+			.unit-type-info{
+				li{
+					// text-align: left;
+				}
+			}
+		}
+	}
+}
 
 @media(max-width:767px){
 	.blocks{
@@ -210,20 +207,20 @@
 		    margin-right: 1.6%;
 		}
 	}
-	// .eight{
-	// 	.blocks{
-	// 		width: 24.4%;
-	// 		&:nth-child(2n){
-	// 		    margin-right: 0.8%;
-	// 		}
-	// 		&:nth-child(3n){
-	// 		    margin-right: 0.8%;
-	// 		}
-	// 		&:nth-child(4n){
-	// 		    margin-right: 0;
-	// 		}
-	// 	}
-	// }
+	.eight{
+		.blocks{
+			width: 24.4%;
+			&:nth-child(2n){
+			    margin-right: 0.8%;
+			}
+			&:nth-child(3n){
+			    margin-right: 0.8%;
+			}
+			&:nth-child(4n){
+			    margin-right: 0;
+			}
+		}
+	}
 }
 @media(max-width:480px){
 	.blocks{
@@ -232,15 +229,72 @@
 		    margin-right: 0;
 		}
 	}
-	// .eight{
-	// 	.blocks{
-	// 		width: 32.8%;
-	// 		&:nth-child(3n){
-	// 		    margin-right: 0;
-	// 		}
-	// 		&:nth-child(4n){
-	// 		    margin-right: 0.8%;
-	// 		}
-	// 	}
-	// }
+	.eight{
+		.blocks{
+			width: 32.8%;
+			&:nth-child(3n){
+			    margin-right: 0;
+			}
+			&:nth-child(4n){
+			    margin-right: 0.8%;
+			}
+		}
+	}
+}
+
+.units{
+	list-style-type: none;
+	/* List of Villas */
+	.unit{
+		cursor: pointer;
+		.info{
+			color: @gray;
+			font-size: 12px;
+			label{
+				color: darken(@gray, 40%);
+				font-size: 14px;
+			}
+		}
+		.cost{
+			color: @brand-primary;
+		}
+	}
+	/* List of Buildings */
+	.bldg{
+		background-color: @white;
+		cursor: pointer;
+		color: @gray;
+		.bldg-img{
+			background: url('../../images/bldg.png') no-repeat;
+			width: 25%;
+			padding: 20% 0;
+			background-size: contain;
+			float: left;
+		}
+		.info{
+			float: left;
+			div{
+				font-size: 12px;
+			}
+		}
+		.unit-type-info{
+			// margin-top: 15px;
+			li{
+				font-size: 12px;
+				float: left;
+				text-align: center;
+				width: 33.3%;
+				&::after{
+					content: '|';
+					float: right;
+				}
+				&:last-child::after{
+					content: '';
+				}
+				span{
+					color: @brand-primary;
+				}
+			}
+		}
+	}
 }
