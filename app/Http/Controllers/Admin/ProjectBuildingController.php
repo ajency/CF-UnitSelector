@@ -27,7 +27,10 @@ class ProjectBuildingController extends Controller {
      */
     public function index( $projectId ) {
         $project = $this->projectRepository->getProjectById( $projectId );
-        $buildings = Building::all();
+        
+        $phases = $project->projectPhase()->lists( 'id' );
+        $buildings = Building::whereIn( 'phase_id', $phases )->get();
+            
         return view( 'admin.project.building.list' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'buildings', $buildings )
