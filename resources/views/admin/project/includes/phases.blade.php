@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-inline">
-                    <div class="form-group">
+                    <div class="form-group object-phases" data-object-type="project">
                         <input type="text" class="form-control phase-name" placeholder="Add Phase">
                         <button type="button" class="btn btn-small btn-primary add-phase-btn"><i class="fa fa-save"></i> Save</button>
                     </div>

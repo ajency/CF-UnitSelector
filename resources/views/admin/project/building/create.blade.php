@@ -34,7 +34,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="form-group">
+                            <div class="form-group object-phases" data-object-type="building">
                                 <label class="form-label">Phase</label>
                                 <select  name="phase_id" class="select2 form-control">
                                     <option value="">Select Phase</option>
@@ -42,6 +42,9 @@
                                     <option value="{{ $phase->id }}">{{ $phase->phase_name }}</option>
                                     @endforeach
                                 </select>
+                                <br>
+                                <input type="text" class="form-control phase-name" placeholder="Add Phase">
+                                <button type="button" class="btn btn-small btn-primary add-phase-btn"><i class="fa fa-save"></i> Save</button>
                             </div> 
                         </div>
                         <div class="col-md-4">
@@ -58,7 +61,7 @@
                             <button type="button" class="btn btn-default btn-cons">Cancel</button>
                         </div>
                     </div>
-                 </form>
+                </form>
             </div>
         </div>
     </div>
