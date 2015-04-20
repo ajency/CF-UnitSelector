@@ -31,7 +31,7 @@
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 
                     <div class="grid-body">
-                        <form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/floor-layout') }}"> 
+                        <form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/floor-layout/'.$floorLayout->id) }}"> 
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
@@ -81,6 +81,7 @@
                             </div>
                             <div class="form-actions">  
                                 <div class="pull-rigunitt">
+                                    <input type="hidden" name="_method" value="PUT">
                                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                                     <button type="submit" class="btn btn-primary btn-cons">Save</button>
                                     <a href="{{ url('admin/project/'. $project['id'] .'/floor-layout') }}" class="btn btn-default btn-cons">

@@ -27,5 +27,18 @@ class FloorLayoutRepository {
 
         return $floorLayout;
     }
+    
+    public function updateFloorLayout($floorLayoutId, $floorLayoutData ) {
+
+        if (!isset( $floorLayoutData['layout_name'] ))
+            throw new Exception( 'Layout name missing' );
+
+        $floorLayout =  FloorLayout::find($floorLayoutId);
+        $floorLayout->layout_name = $floorLayoutData['layout_name'];
+        $floorLayout->no_of_flats = $floorLayoutData['no_of_flats'];
+        $floorLayout->save();
+
+        return $floorLayout;
+    }
 
 }
