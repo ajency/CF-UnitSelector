@@ -609,60 +609,6 @@ body {
 .list-view-container .legend ul li.na::before {
   background-color: #cccccc;
 }
-.units {
-  list-style-type: none
-  /* List of Villas */
-  /* List of Buildings */
-}
-.units .unit {
-  cursor: pointer;
-}
-.units .unit .info {
-  color: #666666;
-}
-.units .unit .info label {
-  color: #000000;
-}
-.units .unit .cost {
-  color: #f68121;
-}
-.units .bldg {
-  background-color: #ffffff;
-  cursor: pointer;
-  color: #666666;
-}
-.units .bldg .bldg-img {
-  background: url('../../images/bldg.png') no-repeat;
-  width: 25%;
-  padding: 20% 0;
-  background-size: contain;
-  float: left;
-}
-.units .bldg .info {
-  float: left;
-}
-.units .bldg .info div {
-  font-size: 12px;
-}
-.units .bldg .unit-type-info {
-  margin-top: 15px;
-}
-.units .bldg .unit-type-info li {
-  font-size: 12px;
-  float: left;
-  text-align: center;
-  width: 33.3%;
-}
-.units .bldg .unit-type-info li::after {
-  content: '|';
-  float: right;
-}
-.units .bldg .unit-type-info li:last-child::after {
-  content: '';
-}
-.units .bldg .unit-type-info li span {
-  color: #f68121;
-}
 .blocks {
   float: left;
   width: 32.2%;
@@ -713,6 +659,42 @@ body {
 .eight .blocks:nth-child(8n) {
   margin-right: 0;
 }
+.four .blocks {
+  padding: 10px;
+  width: 23.8%;
+  text-align: center;
+}
+.four .blocks .cost {
+  display: none;
+}
+.four .blocks:nth-child(4n) {
+  margin-right: 0;
+}
+.four .blocks:nth-child(3n) {
+  margin-right: 1.6%;
+}
+.two .blocks {
+  padding: 10px;
+  width: 49.2%;
+}
+.two .blocks:nth-child(2n) {
+  margin-right: 0;
+}
+.two .blocks:nth-child(3n) {
+  margin-right: 1.6%;
+}
+.one .blocks {
+  padding: 10px;
+  width: 100%;
+  margin-right: 0;
+}
+.one .blocks.bldg .bldg-img {
+  display: none;
+}
+.one .blocks.bldg .info h2 {
+  margin-top: 0;
+  font-size: 18px;
+}
 @media (max-width: 767px) {
   .blocks {
     width: 49.2%;
@@ -723,6 +705,18 @@ body {
   .blocks:nth-child(3n) {
     margin-right: 1.6%;
   }
+  .eight .blocks {
+    width: 24.4%;
+  }
+  .eight .blocks:nth-child(2n) {
+    margin-right: 0.8%;
+  }
+  .eight .blocks:nth-child(3n) {
+    margin-right: 0.8%;
+  }
+  .eight .blocks:nth-child(4n) {
+    margin-right: 0;
+  }
 }
 @media (max-width: 480px) {
   .blocks {
@@ -731,6 +725,68 @@ body {
   .blocks:nth-child(3n) {
     margin-right: 0;
   }
+  .eight .blocks {
+    width: 32.8%;
+  }
+  .eight .blocks:nth-child(3n) {
+    margin-right: 0;
+  }
+  .eight .blocks:nth-child(4n) {
+    margin-right: 0.8%;
+  }
+}
+.units {
+  list-style-type: none
+  /* List of Villas */
+  /* List of Buildings */
+}
+.units .unit {
+  cursor: pointer;
+}
+.units .unit .info {
+  color: #666666;
+  font-size: 12px;
+}
+.units .unit .info label {
+  color: #000000;
+  font-size: 14px;
+}
+.units .unit .cost {
+  color: #f68121;
+}
+.units .bldg {
+  background-color: #ffffff;
+  cursor: pointer;
+  color: #666666;
+}
+.units .bldg .bldg-img {
+  background: url('../../images/bldg.png') no-repeat;
+  width: 25%;
+  padding: 20% 0;
+  background-size: contain;
+  float: left;
+}
+.units .bldg .info {
+  float: left;
+}
+.units .bldg .info div {
+  font-size: 12px;
+}
+.units .bldg .unit-type-info li {
+  font-size: 12px;
+  float: left;
+  text-align: center;
+  width: 33.3%;
+}
+.units .bldg .unit-type-info li::after {
+  content: '|';
+  float: right;
+}
+.units .bldg .unit-type-info li:last-child::after {
+  content: '';
+}
+.units .bldg .unit-type-info li span {
+  color: #f68121;
 }
 /* Single Building SVG Area */
 .single-bldg .prev,

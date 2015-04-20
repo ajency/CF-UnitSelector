@@ -108,6 +108,7 @@
         <script src="{{ asset('bower_components/liquidslider/js/jquery.liquid-slider.min.js' )}}"></script>
         <script src="{{ asset('bower_components/spritespin/release/spritespin.js' )}}"></script>
         <script src="{{ asset('bower_components/autoNumeric/autoNumeric.js' )}}"></script>
+        <script src="{{ asset('bower_components/imagesloaded/imagesloaded.js' )}}"></script>
         <!-- end plugins -->
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
         <script>
