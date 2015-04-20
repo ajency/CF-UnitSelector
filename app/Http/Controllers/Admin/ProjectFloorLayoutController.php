@@ -109,8 +109,12 @@ class ProjectFloorLayoutController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update( $id ) {
-        //
+    public function update( $projectId,$floorLayoutId, Request $request, FloorLayoutRepository $floorLayoutRepository) {
+        $formData = $request->all();
+        unset( $formData['_token'] );
+        $floorLayout = $floorLayoutRepository->updateFloorLayout($floorLayoutId, $formData );
+        
+        return redirect( url( 'admin/project/' . $projectId . '/floor-layout/' . $floorLayoutId . '/edit' ) );
     }
 
     /**

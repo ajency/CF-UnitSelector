@@ -229,7 +229,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">2D Layout</label>
-                        <div id="2dlayout_1">
+                        <div id="2dlayout_0">
                             @if(isset($layouts[0]['2d']))
                             <img src="{{ $layouts[0]['2d']['IMAGE'] }}" class="img-responsive img-thumbnail">
                             <button onclick="deleteLayout({{ $layouts[0]['2d']['ID'] }});" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
@@ -243,7 +243,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">3D Layout</label>
-                        <div id="3dlayout_2">
+                        <div id="3dlayout_0">
                             @if(isset($layouts[0]['3d']))
                             <img src="{{ $layouts[0]['3d']['IMAGE'] }}" class="img-responsive img-thumbnail">
                             <button onclick="deleteLayout({{ $layouts[0]['3d']['ID'] }});" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
