@@ -1,5 +1,5 @@
 (function() {
-  var LeftBunglowMasterCompositeView, LeftBunglowMasterView, TopBunglowMasterView, api,
+  var TopBunglowMasterView, api,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
@@ -91,86 +91,6 @@
 
   })(Marionette.RegionController);
 
-  LeftBunglowMasterView = (function(superClass) {
-    extend(LeftBunglowMasterView, superClass);
-
-    function LeftBunglowMasterView() {
-      return LeftBunglowMasterView.__super__.constructor.apply(this, arguments);
-    }
-
-    LeftBunglowMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-sm-4"> <h6 class="{{status}}">{{unit_name}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{unit_type}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{super_built_up_area}} sqft</h6> </div> </div>');
-
-    LeftBunglowMasterView.prototype.initialize = function() {
-      return this.$el.prop("id", 'unit' + this.model.get("id"));
-    };
-
-    LeftBunglowMasterView.prototype.className = 'blck-wrap';
-
-    LeftBunglowMasterView.prototype.serializeData = function() {
-      var availability, data, response;
-      data = LeftBunglowMasterView.__super__.serializeData.call(this);
-      response = window.unit.getUnitDetails(this.model.get('id'));
-      data.unit_type = response[1].get('name');
-      data.super_built_up_area = response[0].get('super_built_up_area');
-      availability = this.model.get('availability');
-      data.status = s.decapitalize(availability);
-      this.model.set('status', data.status);
-      return data;
-    };
-
-    LeftBunglowMasterView.prototype.events = {
-      'mouseover .row': function(e) {
-        var id;
-        id = this.model.get('id');
-        return $('#' + id).attr('class', 'layer ' + this.model.get('status'));
-      },
-      'mouseout .row': function(e) {
-        return $('.layer').attr('class', 'layer');
-      },
-      'click .row': function(e) {
-        if (this.model.get('status') === 'available') {
-          CommonFloor.defaults['unit'] = this.model.get('id');
-          return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
-        }
-      }
-    };
-
-    LeftBunglowMasterView.prototype.onShow = function() {
-      return this.iniTooltip();
-    };
-
-    LeftBunglowMasterView.prototype.iniTooltip = function() {
-      return $('.layer').tooltipster({
-        theme: 'tooltipster-shadow',
-        contentAsHTML: true,
-        onlyOne: true,
-        arrow: false,
-        offsetX: 50,
-        offsetY: -10
-      });
-    };
-
-    return LeftBunglowMasterView;
-
-  })(Marionette.ItemView);
-
-  LeftBunglowMasterCompositeView = (function(superClass) {
-    extend(LeftBunglowMasterCompositeView, superClass);
-
-    function LeftBunglowMasterCompositeView() {
-      return LeftBunglowMasterCompositeView.__super__.constructor.apply(this, arguments);
-    }
-
-    LeftBunglowMasterCompositeView.prototype.template = Handlebars.compile('	<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper animated fadeInLeft"> <div class="advncd-filter-wrp  unit-list"> <div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div> <div class="units"> </div> </div> </div> </div>');
-
-    LeftBunglowMasterCompositeView.prototype.childView = LeftBunglowMasterView;
-
-    LeftBunglowMasterCompositeView.prototype.childViewContainer = '.units';
-
-    return LeftBunglowMasterCompositeView;
-
-  })(Marionette.CompositeView);
-
   CommonFloor.LeftBunglowMasterCtrl = (function(superClass) {
     extend(LeftBunglowMasterCtrl, superClass);
 
@@ -179,16 +99,34 @@
     }
 
     LeftBunglowMasterCtrl.prototype.initialize = function() {
-      var apartmentUnits, bunglowUnits, units, unitsCollection;
-      units = [];
-      bunglowUnits = bunglowVariantCollection.getBunglowUnits();
-      $.merge(units, bunglowUnits);
-      apartmentUnits = apartmentVariantCollection.getApartmentUnits();
-      $.merge(units, apartmentUnits);
-      unitsCollection = new Backbone.Collection(units);
-      return this.show(new LeftBunglowMasterCompositeView({
-        collection: unitsCollection
-      }));
+      var data, response, units;
+      response = CommonFloor.checkListView();
+      if (response.type === 'bunglows') {
+        units = bunglowVariantCollection.getBunglowUnits();
+        data = {};
+        data.units = units;
+        data.type = 'villa';
+        this.region = new Marionette.Region({
+          el: '#leftregion'
+        });
+        new CommonFloor.MasterBunglowListCtrl({
+          region: this.region
+        });
+        this.parent().trigger("load:units", data);
+      }
+      if (response.type === 'building') {
+        units = buildingCollection;
+        data = {};
+        data.units = units;
+        data.type = 'building';
+        this.region = new Marionette.Region({
+          el: '#leftregion'
+        });
+        new CommonFloor.MasterBuildingListCtrl({
+          region: this.region
+        });
+        return this.parent().trigger("load:units", data);
+      }
     };
 
     return LeftBunglowMasterCtrl;

@@ -225,7 +225,6 @@
     $('.apartment-unit-building').change(function() {
       var buildingId, floorSelection, i, j, noOfFloors, ref, results;
       $(this).closest('.row').find('.select-floor').addClass('hidden');
-      $(this).closest('.row').find('.select-position').addClass('hidden');
       buildingId = $(this).val();
       if (buildingId.trim() === '') {
         return;

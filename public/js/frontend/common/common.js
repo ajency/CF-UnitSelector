@@ -71,9 +71,7 @@
   };
 
   CommonFloor.checkPropertyType = function() {
-    var controller;
     CommonFloor.loadJSONData();
-    controller = CommonFloor.propertyMaxUnits();
     if (project.get('project_master').front === "") {
       return CommonFloor.navigate('#/list-view', true);
     } else {
@@ -110,6 +108,28 @@
   window.convertRupees = function(val) {
     $('#price').autoNumeric('init');
     return $('#price').autoNumeric('set', val);
+  };
+
+  window.convertRupees = function(val) {
+    $('#price').autoNumeric('init');
+    return $('#price').autoNumeric('set', val);
+  };
+
+  CommonFloor.propertyTypes = function() {
+    var Router, controller;
+    Router = [];
+    Router.push({
+      'type': 'bunglows',
+      'count': bunglowVariantCollection.getBunglowUnits()
+    });
+    Router.push({
+      'type': 'building',
+      'count': buildingCollection.toArray()
+    });
+    controller = _.max(Router, function(item) {
+      return parseInt(item.count.length);
+    });
+    return controller;
   };
 
 }).call(this);
