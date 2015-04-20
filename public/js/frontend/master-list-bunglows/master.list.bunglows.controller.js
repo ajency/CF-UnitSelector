@@ -11,7 +11,7 @@
       return BunglowListView.__super__.constructor.apply(this, arguments);
     }
 
-    BunglowListView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="pull-left info"> <label>{{unit_name}}</label> ( {{unit_type}} {{super_built_up_area}}sqft ) </div> <div class="pull-right cost"> 50 lakhs </div> </li>');
+    BunglowListView.prototype.template = Handlebars.compile('<div class="pull-left info"> <label>{{unit_name}}</label> ( {{unit_type}} {{super_built_up_area}}sqft ) </div> <div class="pull-right cost"> 50 lakhs </div>');
 
     BunglowListView.prototype.initialize = function() {
       this["class"] = "";
@@ -20,8 +20,10 @@
 
     BunglowListView.prototype.tagName = 'li';
 
+    BunglowListView.prototype.className = 'unit blocks';
+
     BunglowListView.prototype.serializeData = function() {
-      var availability, data, unitType, unitVariant;
+      var data, unitType, unitVariant;
       data = BunglowListView.__super__.serializeData.call(this);
       unitVariant = bunglowVariantCollection.findWhere({
         'id': this.model.get('unit_variant_id')
@@ -31,10 +33,17 @@
       });
       data.unit_type = unitType.get('name');
       data.super_built_up_area = unitVariant.get('super_built_up_area');
-      availability = this.model.get('availability');
-      data.status = s.decapitalize(availability);
       this.model.set('status', data.status);
       return data;
+    };
+
+    BunglowListView.prototype.onShow = function() {
+      var availability, classname, id, status;
+      id = this.model.get('id');
+      availability = this.model.get('availability');
+      status = s.decapitalize(availability);
+      classname = $('#unit' + id).attr('class');
+      return $('#unit' + id).attr('class', classname + ' ' + status);
     };
 
     BunglowListView.prototype.events = {

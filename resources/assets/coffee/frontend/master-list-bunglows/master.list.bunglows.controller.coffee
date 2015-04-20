@@ -1,21 +1,23 @@
 #view for the Center setion
 class BunglowListView extends Marionette.ItemView
 
-	template : Handlebars.compile('<li class="unit blocks {{status}}">
+	template : Handlebars.compile('
 						                <div class="pull-left info">
 						                  <label>{{unit_name}}</label> ( {{unit_type}} {{super_built_up_area}}sqft )
 						                </div>
 						                <div class="pull-right cost">
 						                  50 lakhs
 						                </div>
-						            </li>')
+						            ')
 
 	initialize:->
 		@class = ""
 		@$el.prop("id", 'unit'+@model.get("id"))
 
-	# className : 'blck-wrap'
+	
 	tagName: 'li'
+
+	className : 'unit blocks'
 
 	serializeData:->
 		data = super()
@@ -25,10 +27,15 @@ class BunglowListView extends Marionette.ItemView
 							'id' : unitVariant.get('unit_type_id')
 		data.unit_type = unitType.get('name')
 		data.super_built_up_area = unitVariant.get('super_built_up_area')
-		availability = @model.get('availability')
-		data.status = s.decapitalize(availability)
 		@model.set 'status' , data.status
 		data
+
+	onShow:->
+		id = @model.get 'id'
+		availability = @model.get('availability')
+		status = s.decapitalize(availability)
+		classname =  $('#unit'+id).attr('class')
+		$('#unit'+id).attr('class' , classname+' '+status)
 
 	events:
 		'mouseover .row' :(e)->

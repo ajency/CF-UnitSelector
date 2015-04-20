@@ -1,6 +1,6 @@
 class CenterItemView extends Marionette.ItemView
 
-	template :  Handlebars.compile('<li class="bldg blocks {{status}}">
+	template :  Handlebars.compile('
 					                    <div class="bldg-img"></div>
 					                    <div class="info">
 					                      <h2 class="m-b-5">{{building_name}}</h2>
@@ -18,7 +18,12 @@ class CenterItemView extends Marionette.ItemView
 					                       
 					                      </ul>
 					                    </div>
-					                  </li>')
+					                  ')
+
+	tagName : 'li'
+
+	className : 'bldg blocks'
+		
 	serializeData:->
 		data = super()
 		id = @model.get 'id'

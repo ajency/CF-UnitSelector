@@ -11,7 +11,11 @@
       return CenterItemView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterItemView.prototype.template = Handlebars.compile('<li class="bldg blocks {{status}}"> <div class="bldg-img"></div> <div class="info"> <h2 class="m-b-5">{{building_name}}</h2> <!--<div>Starting from Rs.<span>50 lakhs</span></div>--> <div>No. of Floors: <span>{{floors}}</span></div> </div> <div class="clearfix"></div> <div class="unit-type-info"> <ul> {{#types}} <li> {{name}}: <span>{{units}}</span> </li> {{/types}} </ul> </div> </li>');
+    CenterItemView.prototype.template = Handlebars.compile('<div class="bldg-img"></div> <div class="info"> <h2 class="m-b-5">{{building_name}}</h2> <!--<div>Starting from Rs.<span>50 lakhs</span></div>--> <div>No. of Floors: <span>{{floors}}</span></div> </div> <div class="clearfix"></div> <div class="unit-type-info"> <ul> {{#types}} <li> {{name}}: <span>{{units}}</span> </li> {{/types}} </ul> </div>');
+
+    CenterItemView.prototype.tagName = 'li';
+
+    CenterItemView.prototype.className = 'bldg blocks';
 
     CenterItemView.prototype.serializeData = function() {
       var data, floors, id, response, types;
