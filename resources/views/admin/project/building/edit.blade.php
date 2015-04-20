@@ -23,7 +23,9 @@
             <div class="grid simple">
                 <div class="grid-title role="tab" id="headingOne"">
                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        <div class="pull-right"><span class="fa fa-angle-up"></span></div>
+                       <div class="pull-right"><i class="fa fa-angle-up "></i>
+<i class="fa fa-angle-down grid-angle-down"></i>
+       </div>
                         <h3 ><span class="semi-bold">Building</span> Details</h3> 
                     </a>
                 </div>
@@ -38,7 +40,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="form-group">
+                                    <div class="form-group object-phases" data-object-type="building">
                                         <label class="form-label">Phase</label>
                                         <select  name="phase_id" class="select2 form-control">
                                             <option value="">Select Phase</option>
@@ -46,6 +48,9 @@
                                             <option {{ $building->phase_id === $phase->id ? 'selected="true"' : '' }}  value="{{ $phase->id }}">{{ $phase->phase_name }}</option>
                                             @endforeach
                                         </select>
+                                        <br>
+                                        <input type="text" class="form-control phase-name" placeholder="Add Phase">
+                                        <button type="button" class="btn btn-small btn-primary add-phase-btn"><i class="fa fa-save"></i> Save</button>
                                     </div> 
                                 </div>
                                 <div class="col-md-4">
@@ -71,7 +76,9 @@
             <div class="grid simple">
                 <div class="grid-title" role="tab" id="headingTwo">
                     <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        <div class="pull-right"><span class="fa fa-angle-down"></span></div>
+<div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+<i class="fa fa-angle-up "></i>
+         </div>
                         <h3><span class="semi-bold">Floor</span> Details</h3> 
                     </a>
                 </div>
@@ -123,8 +130,9 @@
             <div class="grid simple">
                 <div class="grid-title" role="tab" id="headingThree">
                     <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                        <div class="pull-right"><span class="fa fa-angle-down"></span></div>
-                        <h3>Building <span class="semi-bold">Master</span></h3> 
+<div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+<i class="fa fa-angle-up "></i>
+         </div>                        <h3>Building <span class="semi-bold">Master</span></h3> 
                     </a>
                 </div>
                 <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">

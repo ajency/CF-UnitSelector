@@ -3,7 +3,10 @@
  
     <div class="grid-title"  role="tab" id="headingTwo">
         
-         <div class="pull-right"><i class="fa fa-angle-down"></i></div><a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+<div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+<i class="fa fa-angle-up "></i>
+         </div>
 <h3>
                     Project <span class="semi-bold">Phases</span>
                 </h3></a>
@@ -14,7 +17,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="form-inline">
-                    <div class="form-group">
+                    <div class="form-group object-phases" data-object-type="project">
                         <input type="text" class="form-control phase-name" placeholder="Add Phase">
                         <button type="button" class="btn btn-small btn-primary add-phase-btn"><i class="fa fa-save"></i> Save</button>
                     </div>

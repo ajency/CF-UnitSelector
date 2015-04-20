@@ -1,23 +1,21 @@
 #view for the Center setion
 class BunglowListView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="row">
-					<div class="col-sm-4">
-					  <h6 class="{{status}}">{{unit_name}}</h6>                      
-					</div>
-					<div class="col-sm-4">
-					  <h6 class="">{{unit_type}}</h6>                      
-					</div>
-					<div class="col-sm-4">
-					  <h6 class="">{{super_built_up_area}} sqft</h6>                      
-					</div>
-				  </div>')
+	template : Handlebars.compile('<li class="unit blocks {{status}}">
+						                <div class="pull-left info">
+						                  <label>{{unit_name}}</label> ( {{unit_type}} {{super_built_up_area}}sqft )
+						                </div>
+						                <div class="pull-right cost">
+						                  50 lakhs
+						                </div>
+						            </li>')
 
 	initialize:->
 		@class = ""
 		@$el.prop("id", 'unit'+@model.get("id"))
 
-	className : 'blck-wrap'
+	# className : 'blck-wrap'
+	tagName: 'li'
 
 	serializeData:->
 		data = super()
@@ -53,7 +51,7 @@ class BunglowListView extends Marionette.ItemView
 class MasterBunglowListView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-3 us-left-content">
-									<div class="list-view-container animated fadeInUp">
+									<div class="list-view-container animated fadeInLeft">
 							            <!--<div class="controls map-View">
 								            <div class="toggle">
 								            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
@@ -67,22 +65,22 @@ class MasterBunglowListView extends Marionette.CompositeView
 							              </ul>
 							            </div>
 							            <div class="advncd-filter-wrp  unit-list">
-												<div class="blck-wrap title-row">
-					                  				<div class="row">
-									                    <div class="col-sm-4">
-									                      <h5 class="accord-head">Villa No</h5>                      
-									                    </div>
-									                    <div class="col-sm-4">
-									                      <h5 class="accord-head">Type</h5>                      
-									                    </div>
-									                    <div class="col-sm-4">
-									                      <h5 class="accord-head">Area</h5>                      
-									                    </div>
-					                  				</div>
-					                			</div>
-								                <div class="units">
-								                </div>
-											</div>
+											<!--<div class="blck-wrap title-row">
+				                  				<div class="row">
+								                    <div class="col-sm-4">
+								                      <h5 class="accord-head">Villa No</h5>                      
+								                    </div>
+								                    <div class="col-sm-4">
+								                      <h5 class="accord-head">Type</h5>                      
+								                    </div>
+								                    <div class="col-sm-4">
+								                      <h5 class="accord-head">Area</h5>                      
+								                    </div>
+				                  				</div>
+				                			</div>-->
+							                <ul class="units four">
+							                </ul>
+										</div>
 							        </div>
 							       </div>')
 
