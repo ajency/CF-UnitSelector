@@ -86,73 +86,88 @@
 
         <div class="row">
           <div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
-            <div class="filters-wrapper">
-              <div class="tab-main-container">
-                <div class="blck-wrap">
-                  <h4><strong>Unit Type</strong></h4>
-                  <div class="filter-chkbox-block">
-                    <input type="checkbox" class="custom-chckbx addCft" id="1bhk" value="1bhk"> 
-                    <label for="1bhk" class="-lbl">1BHK</label> 
-                    <input type="checkbox" class="custom-chckbx addCft" id="2bhk" value="2bhk"> 
-                    <label for="2bhk" class="-lbl">2BHK</label> 
-                    <input type="checkbox" class="custom-chckbx addCft" id="3bhk" value="3bhk"> 
-                    <label for="3bhk" class="-lbl">3BHK</label>
-                  </div>
+            <ul class="units four">
+              <li class="unit blocks">
+                <div class="pull-left info">
+                  <label>V1001</label> (3BHK 1082sqft)
                 </div>
-                <div class="blck-wrap clearfix ">
-                  <h4><strong>Budget</strong></h4>
-                  <select class="col-md-6 form-control budget-range min-budget addCft" >
-                    <option value="" selected="">Min</option> <option value="500000">5 Lac</option> <option value="1000000">10 Lac</option> <option value="2000000">20 Lac</option> <option value="3000000">30 Lac</option> <option value="4000000">40 Lac</option> <option value="5000000">50 Lac</option> <option value="6000000">60 Lac</option> <option value="7000000">70 Lac</option> <option value="8000000">80 Lac</option> <option value="9000000">90 Lac</option> <option value="10000000">1 Cr</option> <option value="12000000">1.2 Cr</option> <option value="14000000">1.4 Cr</option> <option value="16000000">1.6 Cr</option> <option value="18000000">1.8 Cr</option> <option value="20000000">2 Cr</option> <option value="23000000">2.3 Cr</option> <option value="26000000">2.6 Cr</option> <option value="30000000">3 Cr</option> <option value="35000000">3.5 Cr</option> <option value="40000000">4 Cr</option> <option value="45000000">4.5 Cr</option> <option value="50000000">5 Cr</option>
-                  </select>
-                  <select class="col-md-6 form-control budget-range addCft">
-                    <option value="" selected="">Max</option> <option value="500000">5 Lac</option> <option value="1000000">10 Lac</option> <option value="2000000">20 Lac</option> <option value="3000000">30 Lac</option> <option value="4000000">40 Lac</option> <option value="5000000">50 Lac</option> <option value="6000000">60 Lac</option> <option value="7000000">70 Lac</option> <option value="8000000">80 Lac</option> <option value="9000000">90 Lac</option> <option value="10000000">1 Cr</option> <option value="12000000">1.2 Cr</option> <option value="14000000">1.4 Cr</option> <option value="16000000">1.6 Cr</option> <option value="18000000">1.8 Cr</option> <option value="20000000">2 Cr</option> <option value="23000000">2.3 Cr</option> <option value="26000000">2.6 Cr</option> <option value="30000000">3 Cr</option> <option value="35000000">3.5 Cr</option> <option value="40000000">4 Cr</option> <option value="45000000">4.5 Cr</option> <option value="50000000">5 Cr</option> <option value="999999900">&gt; 5 Cr</option>
-                  </select>
-                    
+                <div class="pull-right cost">
+                  50 lakhs
                 </div>
-                <div class="blck-wrap">
-                  <h4><strong>Area (sqft)</strong></h4>
-                  <ul class="filter-chkbox-block">
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="620sqft" value="620sqft"> 
-                    <label for="620sqft" class="-lbl">620sqft</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="1881sqft" value="1881sqft"> 
-                    <label for="1881sqft" class="-lbl">1881sqft</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="2081sqft" value="2081sqft"> 
-                    <label for="2081sqft" class="-lbl">2081sqft</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="3780sqft" value="3780sqft"> 
-                    <label for="3780sqft" class="-lbl">3780sqft</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="4780sqft" value="4780sqft"> 
-                    <label for="4780sqft" class="-lbl">4780sqft</label></li>
-                  </ul>
+              </li>
+              <li class="unit blocks">
+                <div class="pull-left info">
+                  <label>V1001</label> (3BHK 1082sqft)
                 </div>
-                <div class="blck-wrap">
-                  <h4><strong>Direction</strong></h4>
-                  <ul class="filter-chkbox-block">
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="North" value="North"> 
-                    <label for="North" class="-lbl">North</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="East" value="East"> 
-                    <label for="East" class="-lbl">East</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="South" value="South"> 
-                    <label for="South" class="-lbl">South</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="West" value="West"> 
-                    <label for="West" class="-lbl">West</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="North-East" value="North-East"> 
-                    <label for="North-East" class="-lbl">North-East</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="South-East" value="South-East"> 
-                    <label for="South-East" class="-lbl">South-East</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="South-West" value="South-West"> 
-                    <label for="South-West" class="-lbl">South-West</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="North-West" value="North-West"> 
-                    <label for="North-West" class="-lbl">North-West</label></li>
-                  </ul>
+                <div class="pull-right cost">
+                  50 lakhs
                 </div>
-                <div class="blck-wrap">
-                  <h4><strong>Availability</strong></h4>
+              </li>
+              <li class="unit blocks sold">
+                <div class="pull-left info">
+                  <label>V1001</label> (3BHK 1082sqft)
                 </div>
-                <div class="blck-wrap">
-                  <h4><strong>Facing</strong></h4>
+                <div class="pull-right cost">
+                  50 lakhs
                 </div>
-              </div>
-            </div>
+              </li>
+              <li class="unit blocks blocked">
+                <div class="pull-left info">
+                  <label>V1001</label> (3BHK 1082sqft)
+                </div>
+                <div class="pull-right cost">
+                  50 lakhs
+                </div>
+              </li>
+              <li class="unit blocks">
+                <div class="pull-left info">
+                  <label>V1001</label> (3BHK 1082sqft)
+                </div>
+                <div class="pull-right cost">
+                  50 lakhs
+                </div>
+              </li>
+              <li class="unit blocks">
+                <div class="pull-left info">
+                  <label>V1001</label> (3BHK 1082sqft)
+                </div>
+                <div class="pull-right cost">
+                  50 lakhs
+                </div>
+              </li>
+              <li class="unit blocks">
+                <div class="pull-left info">
+                  <label>V1001</label> (3BHK 1082sqft)
+                </div>
+                <div class="pull-right cost">
+                  50 lakhs
+                </div>
+              </li>
+              <li class="unit blocks">
+                <div class="pull-left info">
+                  <label>V1001</label> (3BHK 1082sqft)
+                </div>
+                <div class="pull-right cost">
+                  50 lakhs
+                </div>
+              </li>
+              <li class="unit blocks">
+                <div class="pull-left info">
+                  <label>V1001</label> (3BHK 1082sqft)
+                </div>
+                <div class="pull-right cost">
+                  50 lakhs
+                </div>
+              </li>
+              <li class="unit blocks">
+                <div class="pull-left info">
+                  <label>V1001</label> (3BHK 1082sqft)
+                </div>
+                <div class="pull-right cost">
+                  50 lakhs
+                </div>
+              </li>
+            </ul>
           </div>
 
           <div class="col-md-9 us-right-content">
@@ -177,91 +192,89 @@
                 </ul>
               </div>
               <div class="clearfix"></div>
-              <div class="villa-list">
-                <ul class="eight">
-                  <li class="unit blocks">
-                    <div class="pull-left info">
-                      <label>V1001</label> (3BHK 1082sqft)
-                    </div>
-                    <div class="pull-right cost">
-                      50 lakhs
-                    </div>
-                  </li>
-                  <li class="unit blocks">
-                    <div class="pull-left info">
-                      <label>V1001</label> (3BHK 1082sqft)
-                    </div>
-                    <div class="pull-right cost">
-                      50 lakhs
-                    </div>
-                  </li>
-                  <li class="unit blocks sold">
-                    <div class="pull-left info">
-                      <label>V1001</label> (3BHK 1082sqft)
-                    </div>
-                    <div class="pull-right cost">
-                      50 lakhs
-                    </div>
-                  </li>
-                  <li class="unit blocks blocked">
-                    <div class="pull-left info">
-                      <label>V1001</label> (3BHK 1082sqft)
-                    </div>
-                    <div class="pull-right cost">
-                      50 lakhs
-                    </div>
-                  </li>
-                  <li class="unit blocks">
-                    <div class="pull-left info">
-                      <label>V1001</label> (3BHK 1082sqft)
-                    </div>
-                    <div class="pull-right cost">
-                      50 lakhs
-                    </div>
-                  </li>
-                  <li class="unit blocks">
-                    <div class="pull-left info">
-                      <label>V1001</label> (3BHK 1082sqft)
-                    </div>
-                    <div class="pull-right cost">
-                      50 lakhs
-                    </div>
-                  </li>
-                  <li class="unit blocks">
-                    <div class="pull-left info">
-                      <label>V1001</label> (3BHK 1082sqft)
-                    </div>
-                    <div class="pull-right cost">
-                      50 lakhs
-                    </div>
-                  </li>
-                  <li class="unit blocks">
-                    <div class="pull-left info">
-                      <label>V1001</label> (3BHK 1082sqft)
-                    </div>
-                    <div class="pull-right cost">
-                      50 lakhs
-                    </div>
-                  </li>
-                  <li class="unit blocks">
-                    <div class="pull-left info">
-                      <label>V1001</label> (3BHK 1082sqft)
-                    </div>
-                    <div class="pull-right cost">
-                      50 lakhs
-                    </div>
-                  </li>
-                  <li class="unit blocks">
-                    <div class="pull-left info">
-                      <label>V1001</label> (3BHK 1082sqft)
-                    </div>
-                    <div class="pull-right cost">
-                      50 lakhs
-                    </div>
-                  </li>
-                </ul>
-                <div class="clearfix"></div>
-              </div>
+              <ul class="units eight">
+                <li class="unit blocks">
+                  <div class="pull-left info">
+                    <label>V1001</label> (3BHK 1082sqft)
+                  </div>
+                  <div class="pull-right cost">
+                    50 lakhs
+                  </div>
+                </li>
+                <li class="unit blocks">
+                  <div class="pull-left info">
+                    <label>V1001</label> (3BHK 1082sqft)
+                  </div>
+                  <div class="pull-right cost">
+                    50 lakhs
+                  </div>
+                </li>
+                <li class="unit blocks sold">
+                  <div class="pull-left info">
+                    <label>V1001</label> (3BHK 1082sqft)
+                  </div>
+                  <div class="pull-right cost">
+                    50 lakhs
+                  </div>
+                </li>
+                <li class="unit blocks blocked">
+                  <div class="pull-left info">
+                    <label>V1001</label> (3BHK 1082sqft)
+                  </div>
+                  <div class="pull-right cost">
+                    50 lakhs
+                  </div>
+                </li>
+                <li class="unit blocks">
+                  <div class="pull-left info">
+                    <label>V1001</label> (3BHK 1082sqft)
+                  </div>
+                  <div class="pull-right cost">
+                    50 lakhs
+                  </div>
+                </li>
+                <li class="unit blocks">
+                  <div class="pull-left info">
+                    <label>V1001</label> (3BHK 1082sqft)
+                  </div>
+                  <div class="pull-right cost">
+                    50 lakhs
+                  </div>
+                </li>
+                <li class="unit blocks">
+                  <div class="pull-left info">
+                    <label>V1001</label> (3BHK 1082sqft)
+                  </div>
+                  <div class="pull-right cost">
+                    50 lakhs
+                  </div>
+                </li>
+                <li class="unit blocks">
+                  <div class="pull-left info">
+                    <label>V1001</label> (3BHK 1082sqft)
+                  </div>
+                  <div class="pull-right cost">
+                    50 lakhs
+                  </div>
+                </li>
+                <li class="unit blocks">
+                  <div class="pull-left info">
+                    <label>V1001</label> (3BHK 1082sqft)
+                  </div>
+                  <div class="pull-right cost">
+                    50 lakhs
+                  </div>
+                </li>
+                <li class="unit blocks">
+                  <div class="pull-left info">
+                    <label>V1001</label> (3BHK 1082sqft)
+                  </div>
+                  <div class="pull-right cost">
+                    50 lakhs
+                  </div>
+                </li>
+              </ul>
+              <div class="clearfix"></div>
             </div>
           </div>
         </div>
@@ -311,11 +324,5 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
 
-    <script type="text/javascript">
-      $('.us-right-content').imagesLoaded( function() {
-        var divHeight = $('.us-right-content').height();
-        $('.unit-list').css('max-height', divHeight+'px');
-      });
-    </script>
   </body>
 </html>

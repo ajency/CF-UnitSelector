@@ -41,11 +41,11 @@ class CenterCompositeView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-12 us-right-content">
 									<div class="list-view-container animated fadeInUp">
-							            <div class="controls map-View">
+							            <!--<div class="controls map-View">
 								            <div class="toggle">
 								            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
 								            </div>
-							            </div>
+							            </div>-->
 							            <div class="text-center">
 							              <ul class="prop-select">
 							                <li class="prop-type buildings hidden">buildings</li>

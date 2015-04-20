@@ -140,7 +140,7 @@
       return CenterBunglowMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container animated fadeInRight"> <div class="controls mapView"> <div class="toggle"> <a href="#" class="map active">Map</a><a href="#" class="list">List</a> </div> </div> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
+    CenterBunglowMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container animated fadeInRight"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
 
     CenterBunglowMasterView.prototype.ui = {
       svgContainer: '.list-view-container'
@@ -152,7 +152,7 @@
     };
 
     CenterBunglowMasterView.prototype.events = {
-      'mouseover .building': function(e) {
+      'click .building': function(e) {
         var buildingModel, id;
         id = parseInt(e.target.id);
         buildingModel = buildingCollection.findWhere({
@@ -164,19 +164,11 @@
           return CommonFloor.navigate('/building/' + id + '/master-view', true);
         }
       },
-      'mouseover .villa': function(e) {
+      'click .villa': function(e) {
         var id;
         id = parseInt(e.target.id);
         CommonFloor.defaults['unit'] = id;
         return CommonFloor.navigate('/unit-view/' + id, true);
-      },
-      'click .list': function(e) {
-        e.preventDefault();
-        return CommonFloor.navigate('/list-view', true);
-      },
-      'click .map': function(e) {
-        e.preventDefault();
-        return CommonFloor.navigate('/master-view', true);
       },
       'click #prev': function() {
         return this.setDetailIndex(this.currentBreakPoint - 1);
@@ -185,10 +177,9 @@
         return this.setDetailIndex(this.currentBreakPoint + 1);
       },
       'mouseout': function(e) {
-        $('.layer').attr('class', 'layer');
         return $('.blck-wrap').attr('class', 'blck-wrap');
       },
-      'mouseover .layer': function(e) {
+      'mouseover .villa': function(e) {
         var availability, html, id, response, unit;
         id = parseInt(e.target.id);
         html = "";
@@ -209,6 +200,23 @@
         console.log(availability);
         $('#' + id).attr('class', 'layer ' + availability);
         $('#unit' + id).attr('class', 'blck-wrap active');
+        return $('.layer').tooltipster('content', html);
+      },
+      'mouseover .building': function(e) {
+        var buildingModel, floors, html, id, response, unitTypes;
+        id = parseInt(e.target.id);
+        buildingModel = buildingCollection.findWhere({
+          'id': id
+        });
+        floors = buildingModel.get('floors');
+        floors = Object.keys(floors).length;
+        unitTypes = building.getUnitTypes(id);
+        console.log(response = building.getUnitTypesCount(id, unitTypes));
+        html = '<div class="svg-info"> <h4 class="pull-left">' + buildingModel.get('building_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div>';
+        $.each(response, function(index, value) {
+          return html += '<div class="details"> <div> <label>' + value.name + '</label> - ' + value.units + '</div> </div> </div>';
+        });
+        html += '<div> <label>No. of floors</label> - ' + floors + '</div>';
         return $('.layer').tooltipster('content', html);
       }
     };
@@ -235,6 +243,8 @@
       if (response === 1) {
         $('.rotate').removeClass('hidden');
       }
+      console.log(transitionImages);
+      console.log(svgs);
       return this.initializeRotate(transitionImages, svgs);
     };
 
@@ -272,7 +282,7 @@
         var data, url;
         data = api.data;
         if (data.frame === data.stopFrame) {
-          url = svgs[data.frame];
+          console.log(url = svgs[data.frame]);
           return $('.region').load(url, that.iniTooltip).addClass('active').removeClass('inactive');
         }
       });
