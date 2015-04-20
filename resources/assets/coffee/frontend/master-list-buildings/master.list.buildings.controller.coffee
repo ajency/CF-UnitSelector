@@ -42,7 +42,7 @@ class CenterItemView extends Marionette.ItemView
 
 class MasterBuildingListView extends Marionette.CompositeView
 
-	template : Handlebars.compile('<div class="col-md-12 us-right-content">
+	template : Handlebars.compile('<div class="col-md-3 us-left-content">
 			<div class="list-view-container animated fadeInDown">
 			<!--<div class="controls map-View">
 	            <div class="toggle">

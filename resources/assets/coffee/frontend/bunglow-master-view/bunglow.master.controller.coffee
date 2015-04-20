@@ -81,11 +81,11 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 									<div class="list-view-container animated fadeInRight">
-										<div class="controls mapView">
+										<!--<div class="controls mapView">
 								            <div class="toggle">
 								            	<a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a>
 								            </div>
-							            </div>
+							            </div>-->
 										
 										<div id="spritespin"></div>
 										<div class="svg-maps">
