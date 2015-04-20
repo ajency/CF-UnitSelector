@@ -69,7 +69,7 @@
                 <div class="col-md-4">
                     <div class="form-group @if(!$unit['floor']){{'hidden'}}@endif select-position">
                         <label class="form-label">Position</label>
-                        <select id="flat_position" name="flat_position" required="" name="position" class="select2 form-control">
+                        <select id="flat_position" required="" name="position" class="select2 form-control">
                             <option value="">Select Position</option>
                              @for($i=1; $i<= $position ; $i++)
                             <option  @if($unit['position']==$i){{'selected'}} @endif value="{{ $i }}">{{ $i }}</option>
