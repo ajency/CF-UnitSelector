@@ -113,7 +113,7 @@ class ProjectApartmentUnitController extends Controller {
      * @return Response
      */
     public function update($project_id, $id, Request $request) {
-        dd($request);
+        
         $unit = Unit::find($id);
         $unit->unit_name = $request->get( 'unit_name' );
         $unit->unit_variant_id = 0;

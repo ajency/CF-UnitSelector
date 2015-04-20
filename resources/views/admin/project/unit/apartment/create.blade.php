@@ -64,7 +64,7 @@
                     </div> 
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group select-position">
+                    <div class="form-group hidden select-position">
                         <label class="form-label">Position</label>
                         <select id="flat_position" required="" name="position" class="select2 form-control">
                             <option value="">Select Position</option>

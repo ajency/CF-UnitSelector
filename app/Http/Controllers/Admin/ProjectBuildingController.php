@@ -180,7 +180,7 @@ class ProjectBuildingController extends Controller {
         
         return response()->json( [
             'code' => 'layout_position',
-            'message' => 'Layout Position',
+            'message' => 'Layout Positions',
             'data' => $position
         ], 203 );
     }
