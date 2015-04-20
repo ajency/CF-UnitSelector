@@ -85,10 +85,10 @@
       return LeftBunglowUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="blck-wrap title-row"> <h2 class="pull-left"><strong>{{unit_name}}</strong></h2> <!-- <span class="label label-success">For Sale</span> --> <div class="clearfix"></div> <div class="details"> <!--<div> <label>Starting Price:</label> Rs 1.3 crores </div>--> <div> {{type}} ({{area}} sqft) </div> </div> </div> <div class="advncd-filter-wrp unit-list"> {{#levels}} <h4 class="m-b-0 m-t-25 text-primary">{{level_name}}</h4> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Rooms</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> {{#rooms}} <div class="blck-wrap no-hover room-attr"> <div class="row p-b-5"> <div class="col-sm-12"> <h5 class="accord-head">{{room_name}}</h5> {{#attributes}} <div><span>{{attribute}}</span>: {{value}} </div> {{/attributes}} </div> <!--<div class="col-sm-4"> <h6 class="">{{size}}sqft</h6> </div>--> </div> </div> {{/rooms}} {{/levels}} </div> </div> </div>');
+    LeftBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="blck-wrap title-row"> <h2 class="pull-left"><strong>{{unit_name}}</strong></h2> <!-- <span class="label label-success">For Sale</span> --> <div class="clearfix"></div> <div class="details"> <div> <label>Price:</label><span class="price"></span> </div> <div> {{type}} ({{area}} sqft) </div> </div> </div> <div>{{#attributes}} <div><span>{{attribute}}</span>: {{value}} </div> {{/attributes}} </div> <div class="advncd-filter-wrp unit-list"> {{#levels}} <h4 class="m-b-0 m-t-25 text-primary">{{level_name}}</h4> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Rooms</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> {{#rooms}} <div class="blck-wrap no-hover room-attr"> <div class="row p-b-5"> <div class="col-sm-12"> <h5 class="accord-head">{{room_name}}</h5> {{#attributes}} <div><span>{{attribute}}</span>: {{value}} </div> {{/attributes}} </div> <!--<div class="col-sm-4"> <h6 class="">{{size}}sqft</h6> </div>--> </div> </div> {{/rooms}} {{/levels}} </div> </div> </div>');
 
     LeftBunglowUnitView.prototype.serializeData = function() {
-      var data, floor, levels, response, unitType, unitid, url;
+      var attributes, data, floor, levels, response, unitType, unitid, url;
       data = LeftBunglowUnitView.__super__.serializeData.call(this);
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
@@ -121,11 +121,28 @@
       unitType = unitTypeCollection.findWhere({
         'id': response[0].get('unit_type_id')
       });
+      attributes = [];
+      $.each(response[4], function(index, value) {
+        return attributes.push({
+          'attribute': s.capitalize(index),
+          'value': value
+        });
+      });
       data.area = response[0].get('super_built_up_area');
       data.type = response[1].get('name');
       data.unit_name = unit.get('unit_name');
       data.levels = levels;
+      data.attributes = attributes;
       return data;
+    };
+
+    LeftBunglowUnitView.prototype.onShow = function() {
+      var response, unitid, url;
+      url = Backbone.history.fragment;
+      unitid = parseInt(url.split('/')[1]);
+      response = window.unit.getUnitDetails(unitid);
+      window.convertRupees(response[3]);
+      return $('.price').text($('#price').val());
     };
 
     return LeftBunglowUnitView;
@@ -167,12 +184,13 @@
       level = "";
       i = 0;
       $.each(floor, function(index, value) {
-        i = i + 1;
-        return levels.push({
+        levels.push({
           'two_d': value.url2dlayout_image,
           'three_d': value.url3dlayout_image,
           'level_name': 'Level ' + i
-        }, level = s.replaceAll('Level ' + index, " ", "_"));
+        });
+        level = s.replaceAll('Level ' + i, " ", "_");
+        return i = i + 1;
       });
       data.level = level;
       data.levels = levels;

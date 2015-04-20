@@ -10,6 +10,22 @@
       return BunglowVariant.__super__.constructor.apply(this, arguments);
     }
 
+    BunglowVariant.prototype.findUnitPrice = function(unit_model) {
+      var basicCost, basic_cost, unitVarinatModel;
+      basicCost = "";
+      if (!(unit_model instanceof Backbone.Model) || unit_model === "") {
+        return;
+      }
+      unitVarinatModel = bunglowVariantCollection.findWhere({
+        'id': parseInt(unit_model.get('unit_variant_id'))
+      });
+      if (unitVarinatModel !== void 0) {
+        basic_cost = (parseFloat(unitVarinatModel.get('per_sq_ft_price'))) * parseFloat(unitVarinatModel.get('super_built_up_area'));
+        basicCost = basic_cost.toFixed(2);
+      }
+      return basicCost;
+    };
+
     return BunglowVariant;
 
   })(Backbone.Model);
@@ -50,6 +66,8 @@
   })(Backbone.Collection);
 
   window.bunglowVariantCollection = new BunglowVariantCollection;
+
+  window.bunglowVariant = new BunglowVariant;
 
 }).call(this);
 

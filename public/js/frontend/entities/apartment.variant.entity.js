@@ -11,16 +11,20 @@
     }
 
     ApartmentVariant.prototype.findUnitPrice = function(unit_model) {
-      var basic_cost, floorRise, unitVarinatModel;
+      var basicCost, basic_cost, floorRise, unitVarinatModel;
+      basicCost = "";
       if (!(unit_model instanceof Backbone.Model) || unit_model === "") {
         return;
       }
       unitVarinatModel = apartmentVariantCollection.findWhere({
-        'variant_id': parseInt(unit_model.get('unit_variant'))
+        'id': parseInt(unit_model.get('unit_variant_id'))
       });
-      floorRise = settings.get('floor_rise')[unit_model.get('floor')];
-      basic_cost = (parseFloat(unitVarinatModel.get('per_sq_ft_price')) + parseFloat(floorRise)) * parseFloat(unitVarinatModel.get('sellable_area'));
-      return basic_cost.toFixed(2);
+      if (unitVarinatModel !== void 0) {
+        floorRise = 25;
+        basic_cost = (parseFloat(unitVarinatModel.get('per_sq_ft_price')) + parseFloat(floorRise)) * parseFloat(unitVarinatModel.get('super_built_up_area'));
+        basicCost = basic_cost.toFixed(2);
+      }
+      return basicCost;
     };
 
     return ApartmentVariant;
@@ -66,6 +70,8 @@
   })(Backbone.Collection);
 
   window.apartmentVariantCollection = new ApartmentVariantCollection;
+
+  window.apartmentVariant = new ApartmentVariant;
 
 }).call(this);
 

@@ -120,25 +120,9 @@
 
     LeftBunglowMasterView.prototype.events = {
       'mouseover .row': function(e) {
-        var availability, html, id, response, unit;
+        var id;
         id = this.model.get('id');
-        console.log(window.unit);
-        response = window.unit.getUnitDetails(id);
-        html = "";
-        unit = unitCollection.findWhere({
-          id: id
-        });
-        if (unit === void 0) {
-          html += '<div class="svg-info"> <div class="details"> Villa details not entered </div> </div>';
-          $('.layer').tooltipster('content', html);
-          return false;
-        }
-        availability = unit.get('availability');
-        availability = s.decapitalize(availability);
-        html = "";
-        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> </div> </div>';
-        $('#' + id).attr('class', 'layer ' + this.model.get('status'));
-        return $('.layer').tooltipster('content', html);
+        return $('#' + id).attr('class', 'layer ' + this.model.get('status'));
       },
       'mouseout .row': function(e) {
         return $('.layer').attr('class', 'layer');
@@ -242,6 +226,12 @@
           return CommonFloor.navigate('/building/' + id + '/master-view', true);
         }
       },
+      'mouseover .villa': function(e) {
+        var id;
+        id = parseInt(e.target.id);
+        CommonFloor.defaults['unit'] = id;
+        return CommonFloor.navigate('/unit-view/' + id, true);
+      },
       'click .list': function(e) {
         e.preventDefault();
         return CommonFloor.navigate('/list-view', true);
@@ -273,10 +263,11 @@
           return false;
         }
         response = window.unit.getUnitDetails(id);
+        window.convertRupees(response[3]);
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> </div> </div>';
+        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
         console.log(availability);
         $('#' + id).attr('class', 'layer ' + availability);
         $('#unit' + id).attr('class', 'blck-wrap active');
