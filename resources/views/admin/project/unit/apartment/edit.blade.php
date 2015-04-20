@@ -56,7 +56,7 @@
                     </div> 
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group select-floor">
+                    <div class="form-group @if(!$unit['building_id']){{'hidden'}}@endif select-floor">
                         <label class="form-label">Floor</label>
                         <select id="floor" name="floor" onchange="getPositions(this.value);"   class="select2 form-control apartment-unit-floor-no">
                             <option value="">Select Floor</option>
@@ -67,9 +67,9 @@
                     </div> 
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group select-position">
+                    <div class="form-group @if(!$unit['floor']){{'hidden'}}@endif select-position">
                         <label class="form-label">Position</label>
-                        <select id="flat_position" name="flat_position" required="" name="position" class="select2 form-control">
+                        <select id="flat_position" required="" name="position" class="select2 form-control">
                             <option value="">Select Position</option>
                              @for($i=1; $i<= $position ; $i++)
                             <option  @if($unit['position']==$i){{'selected'}} @endif value="{{ $i }}">{{ $i }}</option>
