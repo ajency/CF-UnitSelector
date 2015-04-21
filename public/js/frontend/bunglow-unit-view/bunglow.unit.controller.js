@@ -47,7 +47,14 @@
       return TopBunglowUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    TopBunglowUnitView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span><a href="#/master-view"> Back to Poject Overview</a> </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1>You have selected {{unit_name}} {{type}}</h1> </div> </div> </div>');
+    TopBunglowUnitView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span><a href="#/master-view"> Back to Poject Overview</a> </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1> {{project_title}} - {{unit_name}} {{type}}</h1> </div> </div> </div>');
+
+    TopBunglowUnitView.prototype.serializeData = function() {
+      var data;
+      data = TopBunglowUnitView.__super__.serializeData.call(this);
+      data.project_title = project.get('project_title');
+      return data;
+    };
 
     return TopBunglowUnitView;
 
@@ -68,7 +75,7 @@
         id: unitid
       });
       response = window.unit.getUnitDetails(unitid);
-      unit.set('type', response[2]);
+      unit.set('type', s.capitalize(response[2]));
       return this.show(new TopBunglowUnitView({
         model: unit
       }));

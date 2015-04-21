@@ -36,10 +36,15 @@ class TopBunglowUnitView extends Marionette.ItemView
 						</div>-->
 
 						<div class="search-header-wrap">
-							<h1>You have selected {{unit_name}} {{type}}</h1>
+							<h1> {{project_title}} - {{unit_name}} {{type}}</h1>
 						</div>
 					</div>
 				</div>')
+
+	serializeData:->
+		data = super()
+		data.project_title = project.get 'project_title'
+		data
 
 	
 
@@ -55,9 +60,10 @@ class CommonFloor.TopBunglowUnitCtrl extends Marionette.RegionController
 		unit = unitCollection.findWhere
 			id  : unitid
 		response = window.unit.getUnitDetails(unitid)
-		unit.set 'type' , response[2]
+		unit.set 'type' , s.capitalize response[2]
 		@show new TopBunglowUnitView
 				model : unit
+
 			
 
 class LeftBunglowUnitView extends Marionette.ItemView
