@@ -171,7 +171,9 @@ class CenterView extends Marionette.ItemView
 			
 	onShow:->
 		path = @model.get('step_one').svg
-		$('<div></div>').load(path).appendTo('.svg-area')
+		$('.svg-area').load(path,$('img').bttrlazyloading()
+		)
+
 	
 
 

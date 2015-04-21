@@ -40,7 +40,7 @@
       'mouseover': function(e) {
         var id;
         id = this.model.get('id');
-        return $('#' + id + '.building').attr('class', 'layer building available');
+        return $('#' + id + '.building').attr('class', 'layer building active_bldg');
       },
       'mouseout': function(e) {
         var id;

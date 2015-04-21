@@ -183,7 +183,7 @@
       return CenterBunglowUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <div class="images animated fadeIn"> </div> </div> </div> </div> </div> </div> </div>');
+    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <div class="images animated fadeIn"> </div> </div> </div> </div> </div> </div> </div>');
 
     CenterBunglowUnitView.prototype.events = {
       'click .threeD': function(e) {
@@ -196,7 +196,8 @@
         $('.images').html(html);
         $('.threeD').addClass('current');
         $('.external').removeClass('current');
-        return $('.twoD').removeClass('current');
+        $('.twoD').removeClass('current');
+        return $('.gallery').removeClass('current');
       },
       'click .twoD': function(e) {
         var html, response;
@@ -208,7 +209,8 @@
         $('.images').html(html);
         $('.twoD').addClass('current');
         $('.external').removeClass('current');
-        return $('.threeD').removeClass('current');
+        $('.threeD').removeClass('current');
+        return $('.gallery').removeClass('current');
       },
       'click .external': function(e) {
         var html, response;
@@ -217,7 +219,18 @@
         $('.images').html(html);
         $('.external').addClass('current');
         $('.threeD').removeClass('current');
-        return $('.twoD').removeClass('current');
+        $('.twoD').removeClass('current');
+        return $('.gallery').removeClass('current');
+      },
+      'click .gallery': function(e) {
+        var html, response;
+        response = this.generateLevels();
+        html = '<div class="animated fadeIn"> <img src="' + response[3].get('galleryurl') + '" /> </div>';
+        $('.images').html(html);
+        $('.gallery').addClass('current');
+        $('.threeD').removeClass('current');
+        $('.twoD').removeClass('current');
+        return $('.external').removeClass('current');
       }
     };
 
@@ -231,6 +244,7 @@
       $('.twoD').addClass('current');
       $('.threeD').removeClass('current');
       $('.external').removeClass('current');
+      $('.gallery').removeClass('current');
       if (response[0].length === 0) {
         $.each(response[1], function(index, value) {
           return html += '<img src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span>';
@@ -238,6 +252,7 @@
         $('.threeD').addClass('current');
         $('.external').removeClass('current');
         $('.twoD').removeClass('current');
+        $('.gallery').removeClass('current');
       }
       $('.images').html(html);
       $('.level').attr('class', 'level ' + _.last(response[2]));
@@ -247,6 +262,7 @@
         $('.external').addClass('current');
         $('.threeD').removeClass('current');
         $('.twoD').removeClass('current');
+        $('.gallery').removeClass('current');
       }
       if (response[0].length === 0) {
         $('.twoD').hide();
@@ -255,8 +271,22 @@
         $('.threeD').hide();
       }
       if (response[3].get('external3durl') === void 0) {
-        return $('.external').hide();
+        $('.external').hide();
       }
+      if (response[3].get('galleryurl') === void 0) {
+        $('.gallery').hide();
+      }
+      if (response[0].length === 0 && response[1].length === 0 && response[3].get('external3durl') === void 0) {
+        $('.gallery').addClass('current');
+        $('.threeD').removeClass('current');
+        $('.twoD').removeClass('current');
+        $('.external').removeClass('current');
+        $.each(response[3].get('galleryurl'), function(index, value) {
+          console.log(value);
+          return html += '<img src="' + value + '" />';
+        });
+      }
+      return $('.images').html(html);
     };
 
     CenterBunglowUnitView.prototype.generateLevels = function() {

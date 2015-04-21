@@ -51,7 +51,7 @@ class CenterItemView extends Marionette.ItemView
 	events:
 		'mouseover':(e)->
 			id = @model.get 'id'
-			$('#'+id+'.building').attr('class' ,'layer building available')
+			$('#'+id+'.building').attr('class' ,'layer building active_bldg')
 		'mouseout' :(e)->
 			id = @model.get 'id'
 			$('#'+id+'.building').attr('class' ,'layer building')

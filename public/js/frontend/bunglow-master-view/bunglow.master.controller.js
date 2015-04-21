@@ -238,7 +238,7 @@
         html += '<div> <label>No. of floors</label> - ' + floors + '</div>';
         $('.layer').tooltipster('content', html);
         $('#bldg' + id).attr('class', 'bldg blocks active');
-        return $('#' + id).attr('class', 'layer building available');
+        return $('#' + id).attr('class', 'layer building active_bldg');
       }
     };
 
