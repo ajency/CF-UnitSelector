@@ -98,7 +98,7 @@
         });
         return propertyTypes.push({
           'prop_type': s.capitalize(properties[index]),
-          'unit_types': value.unit_types.join(','),
+          'unit_types': value.unit_types.join(', '),
           'starting_area': value.starting_area,
           'starting_price': window.numDifferentiation(value.starting_price),
           'availability': availability
@@ -147,7 +147,7 @@
     CenterView.prototype.onShow = function() {
       var path;
       path = this.model.get('step_one').svg;
-      return $('<div></div>').load(path).appendTo('.svg-area');
+      return $('.svg-area').load(path, $('img').bttrlazyloading());
     };
 
     return CenterView;

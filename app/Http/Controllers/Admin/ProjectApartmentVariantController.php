@@ -21,7 +21,7 @@ class ProjectApartmentVariantController extends Controller {
      */
     public function index( $projectId ) {
         $project = Project::find( $projectId );
-        $propertyTypeArr = [];
+        $unitTypes = []; 
         $projectPropertytypeId = 0;
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
         $projectPropertytypeId = $project->getProjectPropertyTypeId( 1 );
@@ -30,11 +30,13 @@ class ProjectApartmentVariantController extends Controller {
         $unitTypeIdArr = [];
         foreach ($unitTypeArr as $unitType) {   
             $unitTypeIdArr[] = $unitType['id'];
+            $unitTypes[$unitType['id']] = $unitType['unittype_name'];
         }
         $unitVariants = UnitVariant::whereIn( 'unit_type_id', $unitTypeIdArr )->orderBy( 'unit_variant_name' )->get()->toArray();
         return view( 'admin.project.variants.apartment.list' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'unitVariants', $unitVariants )
+                        ->with('unitTypes', $unitTypes)
                         ->with( 'current', 'apartment-variant' );
     }
 

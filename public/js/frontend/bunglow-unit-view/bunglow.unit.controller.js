@@ -49,6 +49,13 @@
 
     TopBunglowUnitView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span><a href="#/master-view"> Back to Poject Overview</a> </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1 class="pull-left proj-name">{{project_title}}</h1> <div class="proj-type-count"> <h1 class="text-primary pull-left">{{unit_name}}</h1> <div class="clearfix"></div> </div> <div class="clearfix"></div> </div> </div> </div>');
 
+    TopBunglowUnitView.prototype.serializeData = function() {
+      var data;
+      data = TopBunglowUnitView.__super__.serializeData.call(this);
+      data.project_title = project.get('project_title');
+      return data;
+    };
+
     return TopBunglowUnitView;
 
   })(Marionette.ItemView);
@@ -68,7 +75,7 @@
         id: unitid
       });
       response = window.unit.getUnitDetails(unitid);
-      unit.set('type', response[2]);
+      unit.set('type', s.capitalize(response[2]));
       return this.show(new TopBunglowUnitView({
         model: unit
       }));
@@ -85,7 +92,7 @@
       return LeftBunglowUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="blck-wrap title-row"> <h2 class="pull-left"><strong>{{unit_name}}</strong></h2> <!-- <span class="label label-success">For Sale</span> --> <div class="clearfix"></div> <div class="details"> <div> <label>Price: </label> <span class="price"></span> </div> <div> <label>Unit Type:</label> {{type}} </div> <div> <label>Area:</label> {{area}} sqft </div> </div> <div class="room-attr m-t-10"> <label class="property hidden">Property Attributes</label> {{#attributes}} <div class="m-b-5"> <span>{{attribute}}</span>: {{value}} </div> {{/attributes}} </div> </div> <div class="unit-list"> {{#levels}} <div class="blck-wrap no-hover"> <h4 class="m-b-10 m-t-10 text-primary">{{level_name}}</h4> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Rooms</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> {{#rooms}} <div class="room-attr"> <div class="m-b-15"> <h5 class="m-b-5">{{room_name}}</h5> {{#attributes}} <div class=""><span>{{attribute}}</span>: {{value}} </div> {{/attributes}} <!--<h6 class="">{{size}}sqft</h6>--> </div> </div> {{/rooms}} </div> {{/levels}} </div> </div> </div> </div>');
+    LeftBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="blck-wrap title-row"> <!--<h3 class="pull-left"><strong>{{unit_name}}</strong></h3> <span class="label label-success">For Sale</span> --> <div class="clearfix"></div> <div class="details"> <div> <label>Price: </label> <span class="price"></span> </div> <div> <label>Unit Type:</label> {{type}} </div> <div> <label>Area:</label> {{area}} sqft </div> </div> <div class="room-attr m-t-10"> <label class="property hidden">Property Attributes</label> {{#attributes}} <div class="m-b-5"> <span>{{attribute}}</span>: {{value}} </div> {{/attributes}} </div> </div> <div class="unit-list"> {{#levels}} <div class="blck-wrap no-hover"> <h4 class="m-b-10 m-t-10 text-primary">{{level_name}}</h4> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Rooms</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> {{#rooms}} <div class="room-attr"> <div class="m-b-15"> <h5 class="m-b-5">{{room_name}}</h5> {{#attributes}} <div class=""><span>{{attribute}}</span>: {{value}} </div> {{/attributes}} <!--<h6 class="">{{size}}sqft</h6>--> </div> </div> {{/rooms}} </div> {{/levels}} </div> </div> </div> </div>');
 
     LeftBunglowUnitView.prototype.serializeData = function() {
       var attributes, data, floor, levels, response, unit, unitType, unitid, url;
@@ -183,7 +190,7 @@
       return CenterBunglowUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <div class="images animated fadeIn"> </div> </div> </div> </div> </div> </div> </div>');
+    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <div class="images animated fadeIn"> </div> </div> </div> </div> </div> </div> </div>');
 
     CenterBunglowUnitView.prototype.events = {
       'click .threeD': function(e) {
@@ -191,33 +198,46 @@
         response = this.generateLevels();
         html = '';
         $.each(response[1], function(index, value) {
-          return html += '<div class="layouts animated fadeIn"> <img src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </div>';
+          return html += '<div class="layouts animated fadeIn"> <img class="img" src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </div>';
         });
         $('.images').html(html);
         $('.threeD').addClass('current');
         $('.external').removeClass('current');
-        return $('.twoD').removeClass('current');
+        $('.twoD').removeClass('current');
+        return $('.gallery').removeClass('current');
       },
       'click .twoD': function(e) {
         var html, response;
         response = this.generateLevels();
         html = '';
         $.each(response[0], function(index, value) {
-          return html += '<div class="layouts animated fadeIn"> <img src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </div>';
+          return html += '<div class="layouts animated fadeIn"> <img class="img" src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </div>';
         });
         $('.images').html(html);
         $('.twoD').addClass('current');
         $('.external').removeClass('current');
-        return $('.threeD').removeClass('current');
+        $('.threeD').removeClass('current');
+        return $('.gallery').removeClass('current');
       },
       'click .external': function(e) {
         var html, response;
         response = this.generateLevels();
-        html = '<div class="animated fadeIn"> <img src="' + response[3].get('external3durl') + '" /> </div>';
+        html = '<div class="animated fadeIn"> <img class="img" src="' + response[3].get('external3durl') + '" /> </div>';
         $('.images').html(html);
         $('.external').addClass('current');
         $('.threeD').removeClass('current');
-        return $('.twoD').removeClass('current');
+        $('.twoD').removeClass('current');
+        return $('.gallery').removeClass('current');
+      },
+      'click .gallery': function(e) {
+        var html, response;
+        response = this.generateLevels();
+        html = '<div class="animated fadeIn"> <img class="img" src="' + response[3].get('galleryurl') + '" /> </div>';
+        $('.images').html(html);
+        $('.gallery').addClass('current');
+        $('.threeD').removeClass('current');
+        $('.twoD').removeClass('current');
+        return $('.external').removeClass('current');
       }
     };
 
@@ -226,27 +246,30 @@
       response = this.generateLevels();
       html = '';
       $.each(response[0], function(index, value) {
-        return html += '<img src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span>';
+        return html += '<img class="img" src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span>';
       });
       $('.twoD').addClass('current');
       $('.threeD').removeClass('current');
       $('.external').removeClass('current');
+      $('.gallery').removeClass('current');
       if (response[0].length === 0) {
         $.each(response[1], function(index, value) {
-          return html += '<img src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span>';
+          return html += '<img class="img" src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span>';
         });
         $('.threeD').addClass('current');
         $('.external').removeClass('current');
         $('.twoD').removeClass('current');
+        $('.gallery').removeClass('current');
       }
       $('.images').html(html);
       $('.level').attr('class', 'level ' + _.last(response[2]));
       if (response[3].get('external3durl') !== void 0) {
-        html = '<img src="' + response[3].get('external3durl') + '" />';
+        html = '<img class="img" src="' + response[3].get('external3durl') + '" />';
         $('.images').html(html);
         $('.external').addClass('current');
         $('.threeD').removeClass('current');
         $('.twoD').removeClass('current');
+        $('.gallery').removeClass('current');
       }
       if (response[0].length === 0) {
         $('.twoD').hide();
@@ -255,8 +278,23 @@
         $('.threeD').hide();
       }
       if (response[3].get('external3durl') === void 0) {
-        return $('.external').hide();
+        $('.external').hide();
       }
+      if (response[3].get('galleryurl') === void 0) {
+        $('.gallery').hide();
+      }
+      if (response[0].length === 0 && response[1].length === 0 && response[3].get('external3durl') === void 0) {
+        $('.gallery').addClass('current');
+        $('.threeD').removeClass('current');
+        $('.twoD').removeClass('current');
+        $('.external').removeClass('current');
+        $.each(response[3].get('galleryurl'), function(index, value) {
+          console.log(value);
+          return html += '<img class="img" src="' + value + '" />';
+        });
+      }
+      $('.images').html(html);
+      return $('.img').bttrlazyloading();
     };
 
     CenterBunglowUnitView.prototype.generateLevels = function() {

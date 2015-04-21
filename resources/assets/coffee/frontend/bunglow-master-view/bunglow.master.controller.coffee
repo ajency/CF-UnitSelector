@@ -242,7 +242,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 					</div>'
 			$('.layer').tooltipster('content', html)
 			$('#bldg'+id).attr('class' ,'bldg blocks active') 
-			$('#'+id).attr('class' ,'layer building available')
+			$('#'+id).attr('class' ,'layer building active_bldg')
 
 
 			
@@ -274,7 +274,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		$.merge transitionImages , project.get('project_master')['front-left']
 		$('.region').load(project.get('project_master').front,
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
-		$('.first_image').bttrlazyloading();
+		$('.first_image').bttrlazyloading()
 		@initializeRotate(transitionImages,svgs)
 		
 		
