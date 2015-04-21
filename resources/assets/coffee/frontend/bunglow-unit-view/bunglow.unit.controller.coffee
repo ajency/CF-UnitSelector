@@ -92,11 +92,6 @@ class LeftBunglowUnitView extends Marionette.ItemView
 
 							</div>
 
-
-							</div>
-
-
-
 							<div class="unit-list">
 								
 								{{#levels}}
@@ -133,6 +128,8 @@ class LeftBunglowUnitView extends Marionette.ItemView
 								{{/levels}}
 								
 							</div>
+
+						</div>
 						</div>
 					</div>')
 

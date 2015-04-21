@@ -101,9 +101,14 @@
 	background-color: @white;
 	&:nth-child(3n){
 	    margin-right: 0;
+	}	
+	&.available, &.active{
+		&:hover{
+			box-shadow: 0 1px 5px fade(@gray, 40%);
+		}
 	}
-	&:hover{
-		box-shadow: 0 1px 5px fade(@gray, 40%);
+	&.active{
+		border: 1px solid @brand-primary;
 	}
 	&.sold{
 		background-color: @danger;
@@ -119,6 +124,18 @@
 	}
 	&.blocked{
 		background-color: @warning;
+		.info{
+			color: @gray-light;
+			label{
+				color: @gray;
+			}
+		}
+		.cost{
+			color: @gray;
+		}
+	}
+	&.not_released{
+		background-color: @gray-lighter;
 		.info{
 			color: @gray-light;
 			label{
