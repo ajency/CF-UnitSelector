@@ -5,7 +5,7 @@ class CenterItemView extends Marionette.ItemView
 					                    <div class="info">
 					                      <h2 class="m-b-5">{{building_name}}</h2>
 
-					                      <div>Starting from Rs.<span>{{price}}</span></div>
+					                      <div class="price">Rs.<span>{{price}}</span></div>
 
 					                      <div class="floors">Floors: <span>{{floors}}</span></div>
 					                    </div>

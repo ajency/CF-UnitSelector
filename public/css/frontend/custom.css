@@ -783,10 +783,11 @@ body {
   margin-right: 5px;
 }
 .one .blocks.bldg .info .floors {
-  float: right;
+  float: left;
 }
 .one .blocks.bldg .info .price {
-  display: none;
+  display: right;
+  color: #f68121;
 }
 .one .blocks.bldg .unit-type-info li {
   text-align: left;
