@@ -47,24 +47,27 @@ class Building extends Backbone.Model
 		units = unitCollection.where
 					'building_id' : building_id
 		temp = []
-		temp.push 0 
 		$.each units,(index,value)->
 			variants = apartmentVariantCollection.findWhere
 							'id' : value.get 'unit_variant_id'
 			temp.push variants.get 'super_built_up_area'
-
-		_.min temp
+		min= 0
+		if temp.length == 0	
+			min =  _.min temp
+		min
 
 	getMinimumCost:(building_id)->
 		units = unitCollection.where
 					'building_id' : building_id
 		temp = []
-		temp.push 0 
 		$.each units,(index,value)->
 			units = unit.getUnitDetails(value.get('id'))
 			temp.push units[3]
 
-		_.min temp
+		min= 0
+		if temp.length == 0	
+			min =  _.min temp
+		min
 		
 
 

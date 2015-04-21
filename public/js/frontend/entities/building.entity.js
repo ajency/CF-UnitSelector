@@ -61,12 +61,11 @@
     };
 
     Building.prototype.getMinimumArea = function(building_id) {
-      var temp, units;
+      var min, temp, units;
       units = unitCollection.where({
         'building_id': building_id
       });
       temp = [];
-      temp.push(0);
       $.each(units, function(index, value) {
         var variants;
         variants = apartmentVariantCollection.findWhere({
@@ -74,21 +73,28 @@
         });
         return temp.push(variants.get('super_built_up_area'));
       });
-      return _.min(temp);
+      min = 0;
+      if (temp.length === 0) {
+        min = _.min(temp);
+      }
+      return min;
     };
 
     Building.prototype.getMinimumCost = function(building_id) {
-      var temp, units;
+      var min, temp, units;
       units = unitCollection.where({
         'building_id': building_id
       });
       temp = [];
-      temp.push(0);
       $.each(units, function(index, value) {
         units = unit.getUnitDetails(value.get('id'));
         return temp.push(units[3]);
       });
-      return _.min(temp);
+      min = 0;
+      if (temp.length === 0) {
+        min = _.min(temp);
+      }
+      return min;
     };
 
     Building.prototype.checkRotationView = function(buildingId) {
