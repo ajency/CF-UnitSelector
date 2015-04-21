@@ -269,7 +269,7 @@
                             @if(isset($layouts['gallery']))
                             @foreach($layouts['gallery'] as $gallery)
                             <div class="col-sm-3" id="gallery_{{ $gallery['ID'] }}">   
-                                <img src="{{ $gallery['IMAGE'] }}" class="img-responsive img-thumbnail">
+                                <img src="{{ $gallery['IMAGE'] }}" class="img-responsive">
                                 <button onclick="deleteLayout({{ $gallery['ID'] }}, 'gallery');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
                             </div>    
                                 @endforeach									

@@ -8187,6 +8187,13 @@ body.rtl .footer-widget {
 .inner-wrapper h2 {
   word-break: break-word;
 }
+.toggle {
+  width: 90px!important;
+  height: 33px!important;
+}
+.toggle .btn {
+  min-height: 33px!important;
+}
 /* Loader */
 .cf-loader {
   display: inline-block;

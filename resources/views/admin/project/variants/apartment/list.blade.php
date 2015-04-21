@@ -28,6 +28,10 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Unit Type</th>
+                            <th>Carpet Area</th>
+                            <th>Super Built Up Area</th>
+                            <th>Per Sq ft Price</th>
                             <th>Created On</th>
                             <th>Modified On</th>
                         </tr>
@@ -36,6 +40,10 @@
                         @foreach ($unitVariants as $unitVariant)
                             <tr class="">
                                 <td><a href="{{ url( '/admin/project/' . $project['id'] . '/apartment-variant/'.$unitVariant['id'].'/edit') }}">{{ $unitVariant['unit_variant_name'] }}</a></td>
+                                <td>{{ $unitTypes[$unitVariant['unit_type_id']] }}</td>
+                                <td>{{ $unitVariant['carpet_area'] }}</td>
+                                <td>{{ $unitVariant['super_built_up_area'] }}</td>
+                                <td>{{ $unitVariant['per_sq_ft_price'] }}</td>
                                 <td>{{ date('d/m/Y',strtotime($unitVariant['created_at'])) }}</td>
                                 <td>{{  date('d/m/Y',strtotime($unitVariant['updated_at'])) }}</td>
                             </tr>
