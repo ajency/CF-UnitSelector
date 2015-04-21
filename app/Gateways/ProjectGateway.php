@@ -38,8 +38,6 @@ class ProjectGateway implements ProjectGatewayInterface {
             'address' => $project->project_address,
             'project_status' => $project->getCFProjectStatus(),
             'project_property_types' => $this->propertyTypeUnits($projectId),
-            
-
             'property_types' => $this->propertyTypeUnits( $projectId ),
             'project_property_types' => $this->propertyTypeUnits( $projectId ),
 

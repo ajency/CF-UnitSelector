@@ -7,6 +7,7 @@ use CommonFloor\ProjectMeta;
 use CommonFloor\UnitType;
 use CommonFloor\ProjectPropertyType;
 use Auth;
+use CommonFloor\ProjectJson;
 
 /**
  * Description of ProjectRepository
@@ -88,6 +89,13 @@ class ProjectRepository implements ProjectRepositoryInterface {
         ];
 
         $project->projectMeta()->saveMany( $projectMeta );
+
+        //create json record
+        $projectJson = new ProjectJson;
+        $projectJson->project_json = [];
+        $projectJson->type = 'step_two';
+        $projectJson->project_id = $project->id;
+        $projectJson->save();
 
         return $project;
     }

@@ -259,6 +259,16 @@ jQuery(document).ready ($)->
 			data : 
 				floor_no : floorNo
 			success : (resp)->
+
+
+	$('.update-response-table').click ->
+
+		projectId = $(@).attr 'data-p-id'
+		$.ajax
+			url : "#{BASEURL}/api/v1/project/#{projectId}/update-response-table"
+			type : 'GET'
+			success : (resp)->
+
 				
 					
 			

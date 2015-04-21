@@ -242,7 +242,7 @@
       }
       return results;
     });
-    return $('.apartment-unit-floor-no').change(function() {
+    $('.apartment-unit-floor-no').change(function() {
       var buildingId, floorNo;
       floorNo = $(this).val();
       buildingId = $('.apartment-unit-building').select2('val');
@@ -252,6 +252,15 @@
         data: {
           floor_no: floorNo
         },
+        success: function(resp) {}
+      });
+    });
+    return $('.update-response-table').click(function() {
+      var projectId;
+      projectId = $(this).attr('data-p-id');
+      return $.ajax({
+        url: BASEURL + "/api/v1/project/" + projectId + "/update-response-table",
+        type: 'GET',
         success: function(resp) {}
       });
     });

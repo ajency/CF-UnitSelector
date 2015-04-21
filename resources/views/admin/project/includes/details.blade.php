@@ -5,7 +5,7 @@
 <i class="fa fa-angle-down grid-angle-down"></i>
        </div>
        <h3>
-                 Project <span class="semi-bold">Details</span>
+           Project <span class="semi-bold">Details</span>
        </h3>
     </a>
     </div>
@@ -132,6 +132,7 @@
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" value="DETAILS" name="project_update"/>
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
+                    <button type="button" data-p-id="{{ $project['id'] }}" class="btn btn-primary update-response-table">Update Response Table</button>
                     <button type="submit" class="btn btn-primary btn-cons">Save</button>
                 </div>
             </div>
