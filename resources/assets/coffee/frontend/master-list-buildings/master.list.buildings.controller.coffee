@@ -55,7 +55,7 @@ class CenterItemView extends Marionette.ItemView
 		'mouseout' :(e)->
 			id = @model.get 'id'
 			$('#'+id+'.building').attr('class' ,'layer building')
-			$('#bldg'+id).attr('class' , 'bldg blocks')
+			
 				
 		'click ':(e)->
 			id = @model.get 'id'

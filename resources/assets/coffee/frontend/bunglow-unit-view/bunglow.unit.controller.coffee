@@ -321,10 +321,15 @@ class CenterBunglowUnitView extends Marionette.ItemView
 
 		$.each twoD,(index,value)->
 			html += '<img src="'+value+'" /><span>'+s.replaceAll(level[index], "_", " ")+'</span>'
-
+		$('.twoD').addClass('current')
+		$('.threeD').removeClass('current')
+		$('.external').removeClass('current')
 		if twoD.length == 0
 			$.each threeD,(index,value)->
 				html += '<img src="'+value+'" /><span>'+s.replaceAll(level[index], "_", " ")+'</span>'
+			$('.threeD').addClass('current')
+			$('.external').removeClass('current')
+			$('.twoD').removeClass('current')
 		
 		
 
@@ -337,6 +342,9 @@ class CenterBunglowUnitView extends Marionette.ItemView
 		if response[0].get('external3durl') != undefined
 			html = '<img src="'+response[0].get('external3durl')+'" />'
 			$('.images').html html
+			$('.external').addClass('current')
+			$('.threeD').removeClass('current')
+			$('.twoD').removeClass('current')
 
 		
 		if twoD.length == 0

@@ -140,8 +140,12 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 		'mouseout .villa':(e)->
 			id = parseInt e.target.id
+			unit = unitCollection.findWhere 
+				id :  id 
+			availability = unit.get('availability')
+			availability = s.decapitalize(availability)
 			$('.layer').attr('class' ,'layer villa') 
-			$('#unit'+id).attr('class' ,'unit blocks')  
+			$('#unit'+id).attr('class' ,'unit blocks '+availability)  
 
 		'mouseout .building':(e)->
 			id = parseInt e.target.id

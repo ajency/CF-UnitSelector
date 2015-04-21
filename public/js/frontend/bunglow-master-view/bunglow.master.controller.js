@@ -175,10 +175,15 @@
         return this.setDetailIndex(this.currentBreakPoint + 1);
       },
       'mouseout .villa': function(e) {
-        var id;
+        var availability, id, unit;
         id = parseInt(e.target.id);
+        unit = unitCollection.findWhere({
+          id: id
+        });
+        availability = unit.get('availability');
+        availability = s.decapitalize(availability);
         $('.layer').attr('class', 'layer villa');
-        return $('#unit' + id).attr('class', 'unit blocks');
+        return $('#unit' + id).attr('class', 'unit blocks ' + availability);
       },
       'mouseout .building': function(e) {
         var id;

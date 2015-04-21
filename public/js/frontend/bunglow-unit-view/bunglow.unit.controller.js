@@ -270,16 +270,25 @@
       $.each(twoD, function(index, value) {
         return html += '<img src="' + value + '" /><span>' + s.replaceAll(level[index], "_", " ") + '</span>';
       });
+      $('.twoD').addClass('current');
+      $('.threeD').removeClass('current');
+      $('.external').removeClass('current');
       if (twoD.length === 0) {
         $.each(threeD, function(index, value) {
           return html += '<img src="' + value + '" /><span>' + s.replaceAll(level[index], "_", " ") + '</span>';
         });
+        $('.threeD').addClass('current');
+        $('.external').removeClass('current');
+        $('.twoD').removeClass('current');
       }
       $('.images').html(html);
       $('.level').attr('class', 'level ' + _.last(level));
       if (response[0].get('external3durl') !== void 0) {
         html = '<img src="' + response[0].get('external3durl') + '" />';
         $('.images').html(html);
+        $('.external').addClass('current');
+        $('.threeD').removeClass('current');
+        $('.twoD').removeClass('current');
       }
       if (twoD.length === 0) {
         $('.twoD').hide();
