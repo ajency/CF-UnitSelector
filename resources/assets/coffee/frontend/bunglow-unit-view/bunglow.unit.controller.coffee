@@ -82,7 +82,7 @@ class LeftBunglowUnitView extends Marionette.ItemView
 								</div>
 
 								<div class="room-attr m-t-10">
-									<label>Property Attributes</label>
+									<label class="property hidden">Property Attributes</label>
 									{{#attributes}}
 										<div class="m-b-5">
 											<span>{{attribute}}</span>: {{value}} 
@@ -183,6 +183,8 @@ class LeftBunglowUnitView extends Marionette.ItemView
 		response = window.unit.getUnitDetails(unitid)
 		window.convertRupees(response[3])
 		$('.price').text $('#price').val()
+		if response[4] != null
+			$('.property').removeClass 'hidden'
 	
 
 class CommonFloor.LeftBunglowUnitCtrl extends Marionette.RegionController
@@ -312,8 +314,10 @@ class CenterBunglowUnitView extends Marionette.ItemView
 		floor = response[0].get('floor')
 		i = 0
 		$.each floor,(index,value)->
-			twoD.push value.url2dlayout_image
-			threeD.push value.url3dlayout_image
+			if value.url2dlayout_image != undefined &&  value.url2dlayout_image != ""
+				twoD.push value.url2dlayout_image
+			if value.url3dlayout_image != undefined &&  value.url3dlayout_image != ""
+				threeD.push value.url3dlayout_image
 			level.push s.replaceAll('Level '+i, " ", "_")
 			i = i + 1
 		html = ''
@@ -328,7 +332,8 @@ class CenterBunglowUnitView extends Marionette.ItemView
 			html = '<img src="'+response[0].get('external3durl')+'" />'
 			$('.images').html html
 
-
+		console.log twoD
+		console.log threeD
 		if twoD.length == 0
 			$('.twoD').hide()
 

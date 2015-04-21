@@ -50,8 +50,8 @@
     BunglowListView.prototype.events = {
       'mouseover': function(e) {
         var id;
-        console.log(id = this.model.get('id'));
-        return $('#' + id + '.villa').attr('class', 'layer villa' + this.model.get('status'));
+        id = this.model.get('id');
+        return $('#' + id + '.villa').attr('class', 'layer villa ' + this.model.get('status'));
       },
       'mouseout': function(e) {
         var id;

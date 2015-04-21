@@ -41,8 +41,8 @@ class BunglowListView extends Marionette.ItemView
 	events:
 
 		'mouseover' :(e)->
-			console.log id = @model.get('id')
-			$('#'+id+'.villa').attr('class' ,'layer villa'+@model.get('status'))
+			id = @model.get('id')
+			$('#'+id+'.villa').attr('class' ,'layer villa '+@model.get('status'))
 		'mouseout':(e)->
 			id = @model.get('id')
 			$('#'+id+'.villa').attr('class' ,'layer villa')
