@@ -113,6 +113,7 @@
 	    margin-right: 0;
 	}	
 	&.available, &.active{
+		opacity: 1 !important;
 		&:hover{
 			box-shadow: 0 1px 5px fade(@gray, 40%);
 		}
@@ -122,6 +123,7 @@
 	}
 	&.sold{
 		background-color: @danger;
+		opacity: 1 !important;
 		.info{
 			color: @danger-darker;
 			label{
@@ -134,6 +136,7 @@
 	}
 	&.blocked{
 		background-color: @warning;
+		opacity: 1 !important;
 		.info{
 			color: @gray-light;
 			label{
@@ -146,6 +149,7 @@
 	}
 	&.not_released{
 		background-color: @gray-lighter;
+		opacity: 1 !important;
 		.info{
 			color: @gray-light;
 			label{
