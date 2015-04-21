@@ -779,10 +779,10 @@ body {
   display: block;
   color: #f68121;
 }
-.two .blocks:nth-child(2n) {
+.two .blocks:nth-child(even) {
   margin-right: 0;
 }
-.two .blocks:nth-child(3n) {
+.two .blocks:nth-child(odd) {
   margin-right: 1.6%;
 }
 .one .blocks {

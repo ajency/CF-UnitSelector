@@ -169,66 +169,96 @@
                     <!-- END PAGE TITLE -->
 
                     <!-- BEGIN PlACE PAGE CONTENT HERE -->
+                    <div class="row">
+                        <div class="col-md-6">
                     <div class="grid simple">
-                        <div class="grid-title">
-                            <h3 class="inline"><span class="semi-bold">Building</span> Details</h3> 
+                        <div class="grid-title" style="border-bottom: 1px solid #FF943C;">
+                            <div class="pull-right m-t-15">
+                                <span class="fa fa-check text-success"></span>
+                            </div>
+                           <h3 class="inline">    <span class="semi-bold">Building</span> Details&nbsp;<i class="fa fa-building"></i></h3> 
                             <div class="clearfix"></div>
                         </div>
                         <div class="grid-body">
-                            <form>
+                            <form class="form-inline">
+                                <div  class="m-b-20">
+                           
                                 <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label">Name</label>
-                                            <input type="text" class="form-control" name="bldgname" placeholder="Enter Building Name">
-                                            <div>This field is required</div>
+                                    <div class="col-md-3">
+                                            <label class="form-label" >Name</label>
                                         </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <div>
-                                                <label class="form-label">Phase</label>
+                                        <div class="col-md-5">
+                                            <input type="text" class="form-control full-width" name="bldgname" placeholder="Enter Building Name" >
                                             </div>
-                                            <select>
+<div class="col-md-4">
+                                            <div class="text-danger"> <i class="fa fa-asterisk"></i>&nbsp;This field is required</div>
+                                        </div>
+                                         </div>
+                                        
+                                  </div>
+                                    <div class="m-b-20">
+                                        <div class="row">
+                                       <div class="col-md-3">
+                                           
+                                                <label class="form-label" >Phase</label>
+                                          </div>
+                                          <div class="col-md-5">
+                                            <select class="full-width">
                                                 <option>Controls</option>
                                                 <option> Text Box</option>
                                                 <option>Select Box</option>
                                                 <option> Multiple Select Box</option>
                                                 <option> Number </option>
                                             </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
+                                       </div>
+                                       <div class="col-md-4"></div>
+                                   </div>
+                                   </div>
+                                    <div class="m-b-20">
+                                              <div class="row">
+                                       <div class="col-md-3">
                                             <label class="form-label">Number of Floors</label>
-                                            <input type="text" class="form-control" name="bldgname" placeholder="Enter Number of Floors">
-                                            <div>The number should be valid number</div>
                                         </div>
-                                    </div>
-                                </div>
+                                        <div class="col-md-5">
+                                            <input type="text" class="form-control full-width" name="bldgname" placeholder="Enter Number of Floors" >
+                                           </div>  
+                                           <div class="col-md-4">
+                                           <div class="text-danger"><i class="fa fa-asterisk"></i>&nbsp;The number should be valid number</div>
+                                      </div>
+                                    </div>  
+                                </div> 
                             </form>
-                            <div class="form-actions">  
-                                <div class="pull-right">
-                                    <button type="submit" class="btn btn-primary btn-cons">Save</button>
-                                    <button type="submit" class="btn btn-default btn-cons">Cancel</button>
+                            
+                        </div>
+                        <div class="panel-footer" style="  border-right: 1px solid #dddddd;
+  border-left: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  padding: 18px;border-top:0;">
+                         <div class="text-right">
+                                    <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i>&nbsp;Save</button>
+                                    <button type="submit" class="btn btn-default btn-cons"><i class="fa fa-ban"></i>&nbsp;Cancel</button>
                                 </div>
                             </div>
-                        </div>
                     </div>
-
+</div>
+<div class="col-md-6">
                     <div class="grid simple">
-                        <div class="grid-title">
-                            <h3 class="inline"><span class="semi-bold">Floor</span> Details</h3> 
+                        <div class="grid-title" style="border-bottom: 1px solid #FF943C;">
+                         <div class="pull-right m-t-15">
+                                <span class="fa fa-check text-success"></span>
+                            </div>
+                            <h3 class="inline">
+                                <span class="semi-bold">Floor</span> Details&nbsp;<i class="fa fa-sitemap"></i></h3> 
 
                             <div class="clearfix"></div>
                         </div>
                         <div class="grid-body">
                             <div class="row">
-                                <div  class="col-md-4">
+                                <div  class="col-md-2">
                                     <h4 class="semi-bold">Floor</h3>
                                 </div>
-                                <div class="col-md-4">
-                                    <h4 class="semi-bold">Floor Layout</h3>
+                                <div class="col-md-6">
+                                    <h4 class="semi-bold text-center">Floor Layout</h3>
                                 </div>
                                 <div class="col-md-4 text-right">
                                     <h4 class="semi-bold">Floor Layout SVG</h3>
@@ -236,10 +266,10 @@
                             </div>
                             <hr/>
                             <div class="row">
-                                <div  class="col-md-4">
+                                <div  class="col-md-2" style="font-weight:bold;">
                                     1
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6 text-center">
                                     <select>
                                         <option>Controls</option>
                                         <option> Text Box</option>
@@ -249,17 +279,17 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4 text-right">
-                                    <a href="#" data-toggle="modal" data-target="#myModal">
+                                    <a href="#" data-toggle="modal" data-target="#myModal"  style="line-height: 30px;">
                                         View SVG
                                     </a>
                                 </div>
                             </div>
                             <hr/>
                             <div class="row">
-                                <div  class="col-md-4">
+                                <div  class="col-md-2" style="font-weight:bold;">
                                     2
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6 text-center">
                                     <select>
                                         <option>Controls</option>
                                         <option> Text Box</option>
@@ -269,17 +299,17 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4 text-right">
-                                    <a href="#" data-toggle="modal" data-target="#myModal">
+                                    <a href="#" data-toggle="modal" data-target="#myModal"  style="line-height: 30px;">
                                         View SVG
                                     </a>
                                 </div>
                             </div>
                             <hr/>
                             <div class="row">
-                                <div  class="col-md-4">
-                                    3
+                                <div  class="col-md-2" style="font-weight:bold;">
+                                        3
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-6 text-center">
                                     <select>
                                         <option>Controls</option>
                                         <option> Text Box</option>
@@ -289,7 +319,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4 text-right">
-                                    <a href="#" data-toggle="modal" data-target="#myModal">
+                                    <a href="#" data-toggle="modal" data-target="#myModal" style="line-height: 30px;">
                                         View SVG
                                     </a>
                                 </div>
@@ -297,10 +327,12 @@
 
                         </div>
                     </div>
+                    </div>
+                    </div>
                     <div class="grid simple">
 
                         <div class="grid-title">
-                            <h3 class="inline"><span class="semi-bold">Project </span>Master</h3> 
+                            <h3 class="inline"><span class="semi-bold">Project </span>Master&nbsp;<i class="fa fa-image"></i></h3> 
                             <div class="pull-right m-t-15">
                                 <span class="fa fa-check text-success"></span>
                             </div>
@@ -308,79 +340,187 @@
                         </div>
                         <div class="grid-body">
                             <div class="row project-master-images">
+
+                                <div class="col-md-6">
+                                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+                                 <h4  class="semi-bold">Images</h4>
                                 <div class="front-svg">
-                                    <h4 class="inline">Front Svg</h4> 
-                                    <div style="position: relative;">
+                                    
+                                        <div class="grid-title">
+                                                <div class="pull-right">
+<i class="fa fa-angle-up text-success"></i>
+                        </div>
+                                    <h4 class="inline" role="tab" id="headingOne">
+ <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                        Front Svg
+                                    </a></h4> 
+                                </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in grid-body" role="tabpanel" aria-labelledby="headingOne"> 
+                                    <div style="position: relative;" class="m-b-20">
                                         <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside" id="select-btn-1" style="position: relative; z-index: 1;">
-                                        <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1" id="upload-btn-2">Upload</button>
+                                        <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1" id="upload-btn-2"><i class="fa fa-upload"></i>&nbsp;Upload</button>
                                         <div id="html5_19ip5h40c1hsupo21e7ep8mk3_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; left: 0px; width: 104px; height: 26px; overflow: hidden; z-index: 0;"><input id="html5_19ip5h40c1hsupo21e7ep8mk3" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" multiple="" accept="image/svg+xml,image/jpeg,image/png"></div></div>
+                                        <div class="row m-b-10">
+<div class=col-md-6>
                                     <div class="uploaded-image">
                                         <object width="150" data="http://cfunitselectortest.com/projects/3/master/1202805039_3.svg" type="image/svg+xml"></object>
                                     </div>
+                                    </div>
+                                    <div class=col-md-6>
+                                     <div class="uploaded-image">
+                                        <object width="150" data="http://cfunitselectortest.com/projects/3/master/1202805039_3.svg" type="image/svg+xml"></object>
+                                    </div> 
+                                    </div>
                                 </div>
-                                <hr>
+
+                                    <div class="row ">
+                                        <div class="col-md-6">
+                                     <div class="uploaded-image">
+                                        <object width="150" data="http://cfunitselectortest.com/projects/3/master/1202805039_3.svg" type="image/svg+xml"></object>
+                                    </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                    <div class="uploaded-image">
+                                        <object width="150" data="http://cfunitselectortest.com/projects/3/master/1202805039_3.svg" type="image/svg+xml"></object>
+                                    </div>
+                                    </div>
+                               </div>
+                                </div>
+                                
+                                </div>
+                               
                                 <div class="left-svg">
-                                    <h4 class="inline">Left Svg</h4> 
+                                    
+                                        <div class="grid-title">
+                                            <div class="pull-right">
+<i class="fa fa-angle-down text-success"></i>
+                        </div>
+                                    <h4 class="inline" role="tab" id="headingTwo">
+ <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                        Left Svg
+</a>
+                                    </h4> 
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse grid-body" role="tabpanel" aria-labelledby="headingTwo" class="grid-body">
                                     <div style="position: relative;">
                                         <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside" id="select-btn-3" style="position: relative; z-index: 1;">
-                                        <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1" id="upload-btn-4">Upload</button>
+                                        <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1" id="upload-btn-4"><i class="fa fa-upload"></i>&nbsp;Upload</button>
                                         <div id="html5_19ip5h40i3uf15mj1irgugc1s8v6_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; left: 0px; width: 104px; height: 26px; overflow: hidden; z-index: 0;"><input id="html5_19ip5h40i3uf15mj1irgugc1s8v6" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" multiple="" accept="image/svg+xml,image/jpeg,image/png"></div></div>
                                     <div class="uploaded-image">
                                     </div>
                                 </div>
-                                <hr>
+                                
+                                
                                 <div class="back-svg">
-                                    <h4 class="inline">Back Svg</h4> 
+
+                                        <div class="grid-title">
+                                            <div class="pull-right">
+<i class="fa fa-angle-down text-success"></i>
+                        </div>
+                                    <h4 class="inline" role="tab" id="headingTwo">
+<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                        Back Svg
+</a>
+                                    </h4> 
+                                </div>
+                                    <div id="collapseThree" class="panel-collapse collapse grid-body" role="tabpanel" aria-labelledby="headingThree">
                                     <div style="position: relative;">
                                         <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside" id="select-btn-5" style="position: relative; z-index: 1;">
-                                        <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1" id="upload-btn-6">Upload</button>
+                                        <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1" id="upload-btn-6"><i class="fa fa-upload"></i>&nbsp;Upload</button>
                                         <div id="html5_19ip5h40mj2u12n8uov1jfnb019_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; left: 0px; width: 104px; height: 26px; overflow: hidden; z-index: 0;"><input id="html5_19ip5h40mj2u12n8uov1jfnb019" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" multiple="" accept="image/svg+xml,image/jpeg,image/png"></div></div>
                                     <div class="uploaded-image">
                                     </div>
                                 </div>
-                                <hr>
+                                
+                                </div>
                                 <div class="right-svg">
-                                    <h4 class="inline">Right Svg</h4> 
+                                     
+                                        <div class="grid-title " >
+                                            <div class="pull-right">
+<i class="fa fa-angle-down text-success"></i>
+                        </div>
+                                    <h4 class="inline" role="tab" id="headingFour">
+<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+
+                                        Right Svg
+</a>
+                                    </h4> 
+                                </div>
+                                <div id="collapseFour" class="panel-collapse collapse grid-body" role="tabpanel" aria-labelledby="headingFour">
+                                   
+
                                     <div style="position: relative;">
                                         <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside" id="select-btn-7" style="position: relative; z-index: 1;">
-                                        <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1" id="upload-btn-8">Upload</button>
+                                        <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1" id="upload-btn-8"><i class="fa fa-upload"></i>&nbsp;Upload</button>
                                         <div id="html5_19ip5h40p5511qng1npp1sek3ec_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; left: 0px; width: 104px; height: 26px; overflow: hidden; z-index: 0;"><input id="html5_19ip5h40p5511qng1npp1sek3ec" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" multiple="" accept="image/svg+xml,image/jpeg,image/png"></div></div>
                                     <div class="uploaded-image">
                                     </div>
-                                </div>
-                                <hr>
+                                    </div>
+
+                               
+                                  </div>
+                                   </div>
+                                 </div></div>
+                                <div class="col-md-6">
+                                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <h4 class="semi-bold">Transition Images</h4>
                                 <div class="front-left-svg">
-                                    <h4 class="inline">Front to Left Transition images</h4> 
-                                    <div style="position: relative;">
+
+                                    <div class="grid-title">
+                                        <div class="pull-right">
+                                         <i class="fa fa-angle-down text-success"></i>
+                                        </div>
+                                    <h4 class="inline" role="tab" id="headingFive">
+<a class="collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+                                        Front to Left Transition images</h4> 
+                                    </a>
+                                    </div>
+ <div id="collapseFive" class="panel-collapse collapse grid-body" role="tabpanel" aria-labelledby="headingFive">
+                                    <div style="position: relative;" class="m-b-20">
                                         <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside" id="select-btn-9" style="position: relative; z-index: 1;">
                                         <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1" id="upload-btn-10">Upload</button>
                                         <div id="html5_19ip5h40s1mic18gffneimp1lnsf_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; left: 0px; width: 104px; height: 26px; overflow: hidden; z-index: 0;"><input id="html5_19ip5h40s1mic18gffneimp1lnsf" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" multiple="" accept="image/svg+xml,image/jpeg,image/png"></div></div>
-                                    <div class="row uploaded-images">
-
-                                        <div class="col-sm-2">
+                                    <div class="uploaded-images">
+<div class="row m-b-10">
+                                        <div class="col-sm-6">
                                             <img width="150" height="150" src="http://cfunitselectortest.com/projects/3/master/254343852_3.jpeg" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
-                                            <span class="pull-right m-t-10"><small>Pos 1</small></span>
+                                            <div class=" m-t-5"><small>Pos 1</small></div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-6">
                                             <img width="150" height="150" src="http://cfunitselectortest.com/projects/3/master/127454427_3.jpeg" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
-                                            <span class="pull-right m-t-10"><small>Pos 2</small></span>
+                                            <div class="m-t-5"><small>Pos 2</small></div>
                                         </div>
-                                        <div class="col-sm-2">
+                                    </div>
+                                    <div class="row ">
+                                        <div class="col-sm-6">
                                             <img width="150" height="150" src="http://cfunitselectortest.com/projects/3/master/827103305_3.jpeg" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
-                                            <span class="pull-right m-t-10"><small>Pos 3</small></span>
+                                           <div class="m-t-5"><small>Pos 3</small></div>
                                         </div>
-                                        <div class="col-sm-2">
+                                        <div class="col-sm-6">
                                             <img width="150" height="150" src="http://cfunitselectortest.com/projects/3/master/199648510_3.jpeg" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
-                                            <span class="pull-right m-t-10"><small>Pos 4</small></span>
+                                            <div class="m-t-5"><small>Pos 4</small></div>
                                         </div>
-
+                                   </div>
                                     </div>
                                 </div>
-                                <hr>
+                                
                                 <div class="left-back-svg">
-                                    <h4 class="inline">Left to back transition images</h4> 
-                                    <div style="position: relative;">
-                                        <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside" id="select-btn-11" style="position: relative; z-index: 1;">
+                                    <div class="grid-title ">
+                                        <div class="pull-right">
+                                         <i class="fa fa-angle-down text-success"></i>
+                                        </div>
+                                    <h4 class="inline" role="tab" id="headingSix">
+<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+
+                                        Left to back transition images
+</a>
+                                    </h4> 
+                                </div>
+                                 <div id="collapseSix" class="panel-collapse collapse grid-body" role="tabpanel" aria-labelledby="headingSix">
+
+                                    <div style="position: relative;m-b-20;">
+                                        <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small " value="Select your file" data-filename-placement="inside" id="select-btn-11" style="position: relative; z-index: 1;">
                                         <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1" id="upload-btn-12">Upload</button>
                                         <div id="html5_19ip5h40ugvljhaqpcaj934qi_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; left: 0px; width: 104px; height: 26px; overflow: hidden; z-index: 0;"><input id="html5_19ip5h40ugvljhaqpcaj934qi" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" multiple="" accept="image/svg+xml,image/jpeg,image/png"></div></div>
                                     <div class="row uploaded-images">
@@ -407,12 +547,24 @@
                                         </div>
 
                                     </div>
+                                </div></div>
                                 </div>
-                                <hr>
+                               
                                 <div class="back-right-svg">
-                                    <h4 class="inline">Back to right transition images</h4> 
-                                    <div style="position: relative;">
-                                        <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside" id="select-btn-13" style="position: relative; z-index: 1;">
+                                     <div class="grid-title">
+                                        <div class="pull-right">
+                                         <i class="fa fa-angle-down text-success"></i>
+                                        </div>
+                                    <h4 class="inline"  role="tab" id="headingSeven">
+<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+
+                                        Back to right transition images
+</a>
+                                    </h4> 
+                                     </div>
+                                 <div id="collapseSeven" class="panel-collapse collapse grid-body" role="tabpanel" aria-labelledby="headingSeven">
+                                    <div style="position: relative;m-b-20;">
+                                        <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small m-b-20" value="Select your file" data-filename-placement="inside" id="select-btn-13" style="position: relative; z-index: 1;">
                                         <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1" id="upload-btn-14">Upload</button>
                                         <div id="html5_19ip5h4111mo62ku16tq01fc9l_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; left: 0px; width: 104px; height: 26px; overflow: hidden; z-index: 0;"><input id="html5_19ip5h4111mo62ku16tq01fc9l" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" multiple="" accept="image/svg+xml,image/jpeg,image/png"></div></div>
                                     <div class="row uploaded-images">
@@ -440,10 +592,23 @@
 
                                     </div>
                                 </div>
-                                <hr>
+                                </div>
+                               
                                 <div class="right-front-svg">
-                                    <h4 class="inline">Right to front transition images</h4> 
-                                    <div style="position: relative;">
+                                    <div class="grid-title  ">
+                                        <div class="pull-right">
+                                         <i class="fa fa-angle-down text-success"></i>
+                                        </div>
+                                    <h4 class="inline" role="tab" id="headingEight">
+<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+
+                                        Right to front transition images
+</a>
+                                    </h4> 
+                                </div>
+                            <div id="collapseEight" class="panel-collapse collapse grid-body" role="tabpanel" aria-labelledby="headingEight">
+
+                                    <div style="position: relative;m-b-20;">
                                         <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside" id="select-btn-15" style="position: relative; z-index: 1;">
                                         <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1" id="upload-btn-16">Upload</button>
                                         <div id="html5_19ip5h41491mnrepd71e3ggk4o_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; left: 0px; width: 104px; height: 26px; overflow: hidden; z-index: 0;"><input id="html5_19ip5h41491mnrepd71e3ggk4o" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" multiple="" accept="image/svg+xml,image/jpeg,image/png"></div></div>
@@ -472,10 +637,10 @@
 
                                     </div>
                                 </div>
-
+</div>  
                             </div>
                         </div>
-
+ </div>
                         <!-- END PLACE PAGE CONTENT HERE -->
                         <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                             <div class="modal-dialog">
