@@ -787,7 +787,7 @@ body {
   float: left;
 }
 .one .blocks.bldg .info .price {
-  display: right;
+  float: right;
   color: #f68121;
 }
 .one .blocks.bldg .unit-type-info li {
@@ -800,6 +800,13 @@ body {
 }
 .one .blocks.bldg .unit-type-info li:last-child::after {
   content: '';
+}
+.one .blocks.bldg .unit-type-info .area {
+  font-size: 12px;
+  margin-left: 10px;
+  float: left;
+  display: block;
+  font-weight: bold;
 }
 @media (max-width: 767px) {
   .blocks {

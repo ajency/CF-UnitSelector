@@ -19,7 +19,8 @@ class CenterItemView extends Marionette.ItemView
 					                        {{/types}}
 					                       
 
-					                      </ul><span>({{area}} Sq.Ft)
+					                      </ul>
+					                      <span class="area">{{area}} Sq.Ft</span>
 
 					                      </ul>
 
