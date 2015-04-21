@@ -81,7 +81,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 										
 										<div id="spritespin"></div>
 										<div class="svg-maps">
-											<img class="first_image" src="" />
+											<img class="first_image img-responsive" src="" />
 											<div class="region inactive"></div>
 										</div>
 							            <div class="rotate rotate-controls hidden">

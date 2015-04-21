@@ -227,7 +227,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 
 								<div class="liquid-slider slider">
 									<div class="panel-wrapper">
-										<div class="Level_2">
+										<div class="level ">
 											<div class="images animated fadeIn">
 											</div>
 										</div>
@@ -256,7 +256,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 			html = ''
 			$.each threeD,(index,value)->
 				html += '<div class="layouts animated fadeIn">
-							<img src="'+value+'" /><span>'+level[index]+'</span>
+							<img src="'+value+'" /><span>'+s.replaceAll(level[index], "_", " ")+'</span>
 						</div>'
 			$('.images').html html
 			$('.threeD').addClass('current')
@@ -280,7 +280,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 			html = ''
 			$.each twoD,(index,value)->
 				html += '<div class="layouts animated fadeIn">
-							<img src="'+value+'" /><span>'+level[index]+'</span>
+							<img src="'+value+'" /><span>'+s.replaceAll(level[index], "_", " ")+'</span>
 						</div>'
 			$('.images').html html
 			$('.twoD').addClass('current')
@@ -321,9 +321,18 @@ class CenterBunglowUnitView extends Marionette.ItemView
 			level.push s.replaceAll('Level '+i, " ", "_")
 			i = i + 1
 		html = ''
+
 		$.each twoD,(index,value)->
-			html += '<img src="'+value+'" /><span>'+level[index]+'</span>'
+			html += '<img src="'+value+'" /><span>'+s.replaceAll(level[index], "_", " ")+'</span>'
+
+		if twoD.length == 0
+			$.each threeD,(index,value)->
+				html += '<img src="'+value+'" /><span>'+s.replaceAll(level[index], "_", " ")+'</span>'
+		
+		
+
 		$('.images').html html
+		$('.level').attr 'class' , 'level '+ _.last(level)
 			
 			
 
@@ -332,8 +341,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 			html = '<img src="'+response[0].get('external3durl')+'" />'
 			$('.images').html html
 
-		console.log twoD
-		console.log threeD
+		
 		if twoD.length == 0
 			$('.twoD').hide()
 

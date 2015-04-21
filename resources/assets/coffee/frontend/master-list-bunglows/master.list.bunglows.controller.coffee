@@ -68,7 +68,7 @@ class MasterBunglowListView extends Marionette.CompositeView
 							            <div class="text-center">
 							              <ul class="prop-select">
 
-							                <li class="prop-type buildings hidden">buildings</li>
+							                <li class="prop-type buildings hidden">Buildings</li>
 							                <li class="prop-type Villas active ">Villas/Bungalows</li>
 
 							                <li class="prop-type Plots hidden">Plots</li>

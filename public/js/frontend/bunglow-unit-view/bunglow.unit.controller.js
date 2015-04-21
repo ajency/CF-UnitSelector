@@ -176,7 +176,7 @@
       return CenterBunglowUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external current"> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="Level_2"> <div class="images animated fadeIn"> </div> </div> </div> </div> </div> </div> </div>');
+    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external current"> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <div class="images animated fadeIn"> </div> </div> </div> </div> </div> </div> </div>');
 
     CenterBunglowUnitView.prototype.events = {
       'click .threeD': function(e) {
@@ -197,7 +197,7 @@
         });
         html = '';
         $.each(threeD, function(index, value) {
-          return html += '<div class="layouts animated fadeIn"> <img src="' + value + '" /><span>' + level[index] + '</span> </div>';
+          return html += '<div class="layouts animated fadeIn"> <img src="' + value + '" /><span>' + s.replaceAll(level[index], "_", " ") + '</span> </div>';
         });
         $('.images').html(html);
         $('.threeD').addClass('current');
@@ -222,7 +222,7 @@
         });
         html = '';
         $.each(twoD, function(index, value) {
-          return html += '<div class="layouts animated fadeIn"> <img src="' + value + '" /><span>' + level[index] + '</span> </div>';
+          return html += '<div class="layouts animated fadeIn"> <img src="' + value + '" /><span>' + s.replaceAll(level[index], "_", " ") + '</span> </div>';
         });
         $('.images').html(html);
         $('.twoD').addClass('current');
@@ -268,15 +268,19 @@
       });
       html = '';
       $.each(twoD, function(index, value) {
-        return html += '<img src="' + value + '" /><span>' + level[index] + '</span>';
+        return html += '<img src="' + value + '" /><span>' + s.replaceAll(level[index], "_", " ") + '</span>';
       });
+      if (twoD.length === 0) {
+        $.each(threeD, function(index, value) {
+          return html += '<img src="' + value + '" /><span>' + s.replaceAll(level[index], "_", " ") + '</span>';
+        });
+      }
       $('.images').html(html);
+      $('.level').attr('class', 'level ' + _.last(level));
       if (response[0].get('external3durl') !== void 0) {
         html = '<img src="' + response[0].get('external3durl') + '" />';
         $('.images').html(html);
       }
-      console.log(twoD);
-      console.log(threeD);
       if (twoD.length === 0) {
         $('.twoD').hide();
       }
