@@ -431,6 +431,10 @@ body.modal-open .chat-window-wrapper {
 }
 .toggle{
   width:90px!important;
+  height:33px!important;
+}
+.toggle.btn{
+  min-height: 33px!important;
 }
 .header .chat-message-preview {
   border-left: 1px solid #e5e9ec;
@@ -4328,11 +4332,11 @@ form legend,
   float: right;
 }
 .input-group-addon {
-  border: 1px solid #E5E9EC;
+  border: none;
   color: #9EA9B2;
   font-size: 14px;
   padding: 6px 10px;
-  border-radius: 3px;
+  
   transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s, color 0.2s linear 0s, box-shadow 0.2s linear 0s, background 0.2s linear 0s;
 }
 .input-group-addon i {
@@ -4419,7 +4423,7 @@ form legend,
 .transparent .input-group-btn:first-child > .dropdown-toggle,
 .transparent .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle) {
   border-right: 0px;
-  border-left: 1px solid #e5e9ec;
+  /*border-left: 1px solid #e5e9ec;*/
 }
 .transparent .input-group .form-control:last-child,
 .transparent .input-group-addon:last-child,
