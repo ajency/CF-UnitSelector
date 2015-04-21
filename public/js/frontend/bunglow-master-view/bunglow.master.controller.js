@@ -180,6 +180,9 @@
         unit = unitCollection.findWhere({
           id: id
         });
+        if (unit === void 0) {
+          return;
+        }
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         $('.layer').attr('class', 'layer villa');
@@ -201,7 +204,7 @@
         if (unit === void 0) {
           html += '<div class="svg-info"> <div class="details"> Villa details not entered </div> </div>';
           $('.layer').tooltipster('content', html);
-          return false;
+          return;
         }
         response = window.unit.getUnitDetails(id);
         window.convertRupees(response[3]);
@@ -222,7 +225,7 @@
         if (buildingModel === void 0) {
           html = '<div class="svg-info"> <div class="details"> Building details not entered </div> </div>';
           $('.layer').tooltipster('content', html);
-          return false;
+          return;
         }
         floors = buildingModel.get('floors');
         floors = Object.keys(floors).length;
