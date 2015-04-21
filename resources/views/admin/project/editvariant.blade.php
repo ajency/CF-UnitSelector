@@ -299,7 +299,7 @@
                             <label class="form-label">2D Layout</label>
                             <div id="2dlayout_{{$level}}">
                                 @if(isset($levellayout[$level]['2d']))
-                                <img src="{{ $levellayout[$level]['2d']['IMAGE'] }}" class="img-responsive img-thumbnail">
+                                <img src="{{ $levellayout[$level]['2d']['IMAGE'] }}" class="img-responsive">
                                 <button onclick="deleteLayout({{ $levellayout[$level]['2d']['ID'] }}, '2d');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
                                 @else
                                 <input id="pickfiles_2d_{{$level}}" type="button" name="fileToUpload" class="btn btn-small btn-white" value="Select your file" data-filename-placement="inside"/>

@@ -70,6 +70,7 @@ window.convertToInt = (response)->
 
 
 
+
 		)
 
 window.numDifferentiation = (val)->

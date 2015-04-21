@@ -74,7 +74,7 @@
                     <div class="row" id="roomtypeattribute_{{$attributes['id']}}">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <div class="form-inline">
+                                <div class="">
                                     
                                     <input type="text" name="attribute_name_{{$roomtypeId}}" class="form-control" value="{{$attributes['label']}}" placeholder="Enter Attribute Name">
                                     <input type="hidden" name="attribute_id_{{$roomtypeId}}" value="{{$attributes['id']}}">

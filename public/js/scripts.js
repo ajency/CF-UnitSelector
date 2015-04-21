@@ -61,7 +61,7 @@ function addRoomtype(project_id)
             str += '<div class = "form-inline" >';
             str += '<div class = "form-group" >';
             str += '<input type="text" name="controltypevalues_' + roomtypeId + '" class = "form-control" placeholder="Enter Default values" >';
-            str += ' <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes(' + roomtypeId + ',this)"><i class="fa fa-plus"></i></button>';
+            str += ' <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes(' + roomtypeId + ',this)"><i class="fa fa-plus"></i> Add</button>';
             //str += ' <button class = "btn btn-small btn-default m-t-5"  > <i class = "fa fa-trash" > </i> Delete</button>';
             str += '</div>';
             str += '</div>';
@@ -151,7 +151,7 @@ function addRoomtypeAttributes(roomtypeId, obj)
     str += '<div class = "form-group" >';
     str += '<input type="text" name= "controltypevalues_' + roomtypeId + '" class = "form-control" placeholder="Enter Default values" >';
     //str += '<button class = "btn btn-small btn-default m-t-5" > <i class = "fa fa-trash" > </i> Delete</button>';
-    str += ' <button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes(\'' + roomtypeId + '\',this)"> <i class ="fa fa-plus" > </i></button>';
+    str += ' <button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes(\'' + roomtypeId + '\',this)"> <i class="fa fa-plus"></i> Add</button>';
     str += '</div>';
     str += '</div>';
     str += '</div>';

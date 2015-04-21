@@ -27,7 +27,7 @@ class ProjectGateway implements ProjectGatewayInterface {
         $propertyTypes =[];
         foreach($projectPropertyTypes as $projectPropertyType)
         {
-            $propertyTypes[$projectPropertyType['id']] =get_property_type( $projectPropertyType['property_type_id'] );
+            $propertyTypes[$projectPropertyType['property_type_id']] =get_property_type( $projectPropertyType['property_type_id'] );
         }
         
         $projectData = [
@@ -72,8 +72,7 @@ class ProjectGateway implements ProjectGatewayInterface {
         foreach ($unitTypes as $unitType) {
             $projectPropertyTypekey = array_search( $unitType->project_property_type_id , $projectPropertyTypeIds);
             $unitTypeIds[$projectPropertyTypekey][] = $unitType->id;
-            $unitTypeArr[] = array('id' => $unitType->id ,'name'=> $unitType->unittype_name ,'property_type_id'=> $unitType->project_property_type_id);
-            
+            $unitTypeArr[] = array('id' => $unitType->id ,'name'=> $unitType->unittype_name ,'property_type_id'=> $unitType->project_property_type_id);   
         }
        
        $project = $this->projectRepository->getProjectById( $projectId );

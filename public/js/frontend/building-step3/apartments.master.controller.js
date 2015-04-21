@@ -95,42 +95,42 @@
       return ApartmentsView.__super__.constructor.apply(this, arguments);
     }
 
-    ApartmentsView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-sm-4"> <h6 class="{{status}}">{{unit_name}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{unit_type}}</h6> </div> <div class="col-sm-4"> <h6 class="">{{super_built_up_area}} sqft</h6> </div> </div>');
+    ApartmentsView.prototype.template = Handlebars.compile('	<div class=" info"> <label class="pull-left">{{unit_name}}</label> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft--> <div class="clearfix"></div> </div> <div class="cost"> {{price}} </div>');
 
     ApartmentsView.prototype.initialize = function() {
       return this.$el.prop("id", 'apartment' + this.model.get("id"));
     };
 
-    ApartmentsView.prototype.className = 'blck-wrap';
+    ApartmentsView.prototype.tagName = 'li';
+
+    ApartmentsView.prototype.className = 'unit blocks';
 
     ApartmentsView.prototype.serializeData = function() {
-      var data, status, unitType, unitVariant;
+      var availability, data, response, status;
       data = ApartmentsView.__super__.serializeData.call(this);
-      status = s.decapitalize(this.model.get('availability'));
-      unitVariant = apartmentVariantCollection.findWhere({
-        'id': this.model.get('unit_variant_id')
-      });
-      unitType = unitTypeCollection.findWhere({
-        'id': unitVariant.get('unit_type_id')
-      });
-      data.unit_type = unitType.get('name');
-      data.super_built_up_area = unitVariant.get('super_built_up_area');
-      data.status = status;
+      response = window.unit.getUnitDetails(this.model.get('id'));
+      data.unit_type = response[1].get('name');
+      data.super_built_up_area = response[0].get('super_built_up_area');
+      availability = this.model.get('availability');
+      status = s.decapitalize(availability);
+      this.model.set('status', status);
+      window.convertRupees(response[3]);
+      data.price = $('#price').val();
       return data;
     };
 
     ApartmentsView.prototype.events = {
-      'mouseover .row': function(e) {
+      'mouseover': function(e) {
         var id;
         id = this.model.get('id');
         return $('#' + id).attr('class', 'layer ' + this.model.get('availability'));
       },
-      'mouseout .row': function(e) {
+      'mouseout': function(e) {
         var id;
         id = this.model.get('id');
         return $('#' + id).attr('class', 'layer');
       },
-      'click .row': function(e) {
+      'click': function(e) {
         if (this.model.get('availability') === 'available') {
           CommonFloor.defaults['unit'] = this.model.get('id');
           return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
@@ -149,7 +149,7 @@
       return LeftApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftApartmentMasterView.prototype.template = '	<div><div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper "> <div class="advncd-filter-wrp  unit-list"> <div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div> <div class="units"> </div> </div> </div> </div></div>';
+    LeftApartmentMasterView.prototype.template = '	<div><div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper "> <div class="advncd-filter-wrp  unit-list"> <div class="blck-wrap title-row"> <p class="text-center help-text">Hover on the units for more details</p> <ul class="units two"> </ul> </div> </div> </div> </div></div>';
 
     LeftApartmentMasterView.prototype.childView = ApartmentsView;
 
@@ -238,14 +238,14 @@
         html = "";
         html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
         $('#' + id).attr('class', 'layer ' + availability);
-        $('#apartment' + id).attr('class', 'blck-wrap active');
+        $('#apartment' + id).attr('class', ' unit blocks active');
         return $('.layer').tooltipster('content', html);
       },
       'mouseout .layer': function(e) {
         var id;
         id = parseInt(e.target.id);
         $('#' + id).attr('class', 'layer ');
-        return $('#apartment' + id).attr('class', 'blck-wrap');
+        return $('#apartment' + id).attr('class', 'unit blocks');
       }
     };
 
