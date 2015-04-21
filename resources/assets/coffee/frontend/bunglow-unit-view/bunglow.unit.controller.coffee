@@ -198,7 +198,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 								<div class="ls-wrapper ls-responsive">
 									<div class="ls-nav">
 										<ul>
-											<li class="external current">
+											<li class="external ">
 												<h4 class="title">External 3D</h4>
 											</li>
 											<li class="twoD">
