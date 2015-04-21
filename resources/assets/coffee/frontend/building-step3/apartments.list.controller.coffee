@@ -113,11 +113,11 @@ class CommonFloor.CenterApartmentView extends Marionette.CompositeView
 	template : '<div>
 		<div class="col-md-12 us-right-content">
 				<div class="list-view-container">
-					<div class="controls map-View">
+					<!--<div class="controls map-View">
 			            <div class="toggle">
 			            	<a href="#" class="map ">Map</a><a href="#" class="list active">List</a>
 			            </div>
-		            </div>
+		            </div>-->
 					<div class="legend">
 							              <ul>
 							                <li class="available">AVAILABLE</li>

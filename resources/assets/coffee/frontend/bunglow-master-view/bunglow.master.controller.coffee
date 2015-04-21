@@ -79,12 +79,14 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 								            </div>
 							            </div>-->
 										
-										<div id="spritespin"></div>
+										
 										<div class="svg-maps">
 											<img class="first_image img-responsive" src="" />
 											<div class="region inactive"></div>
 										</div>
 										<div class="cf-loader"></div>
+										<div id="spritespin hidden"></div>
+										
 							            <div class="rotate rotate-controls hidden">
 									        <div id="prev" class="rotate-left">Left</div>
 									        <span class="rotate-text">Rotate</span>
@@ -138,8 +140,12 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 		'mouseout .villa':(e)->
 			id = parseInt e.target.id
+			unit = unitCollection.findWhere 
+				id :  id 
+			availability = unit.get('availability')
+			availability = s.decapitalize(availability)
 			$('.layer').attr('class' ,'layer villa') 
-			$('#unit'+id).attr('class' ,'unit blocks')  
+			$('#unit'+id).attr('class' ,'unit blocks '+availability)  
 
 		'mouseout .building':(e)->
 			id = parseInt e.target.id
@@ -304,6 +310,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 			response = project.checkRotationView()
 			if response is 1
 				$('.rotate').removeClass 'hidden'
+				$('.spritespin').removeClass 'hidden'
 				$('.cf-loader').hide()
 				
 		)

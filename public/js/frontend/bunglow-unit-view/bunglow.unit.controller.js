@@ -176,7 +176,7 @@
       return CenterBunglowUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external current"> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <div class="images animated fadeIn"> </div> </div> </div> </div> </div> </div> </div>');
+    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <div class="images animated fadeIn"> </div> </div> </div> </div> </div> </div> </div>');
 
     CenterBunglowUnitView.prototype.events = {
       'click .threeD': function(e) {
@@ -270,16 +270,25 @@
       $.each(twoD, function(index, value) {
         return html += '<img src="' + value + '" /><span>' + s.replaceAll(level[index], "_", " ") + '</span>';
       });
+      $('.twoD').addClass('current');
+      $('.threeD').removeClass('current');
+      $('.external').removeClass('current');
       if (twoD.length === 0) {
         $.each(threeD, function(index, value) {
           return html += '<img src="' + value + '" /><span>' + s.replaceAll(level[index], "_", " ") + '</span>';
         });
+        $('.threeD').addClass('current');
+        $('.external').removeClass('current');
+        $('.twoD').removeClass('current');
       }
       $('.images').html(html);
       $('.level').attr('class', 'level ' + _.last(level));
       if (response[0].get('external3durl') !== void 0) {
         html = '<img src="' + response[0].get('external3durl') + '" />';
         $('.images').html(html);
+        $('.external').addClass('current');
+        $('.threeD').removeClass('current');
+        $('.twoD').removeClass('current');
       }
       if (twoD.length === 0) {
         $('.twoD').hide();

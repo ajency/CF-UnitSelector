@@ -45,8 +45,7 @@
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
-        $('#' + id + '.building').attr('class', 'layer building');
-        return $('#bldg' + id).attr('class', 'bldg blocks');
+        return $('#' + id + '.building').attr('class', 'layer building');
       },
       'click ': function(e) {
         var buildingModel, id;
