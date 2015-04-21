@@ -66,10 +66,6 @@ window.convertToInt = (response)->
 		$.map(value,(item)->
 
 			$.each item ,(ind,val)->
-				console.log val
-				return s.capitalize(val)
-
-			$.each item ,(ind,val)->
 				return parseInt val
 
 

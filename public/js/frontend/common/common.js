@@ -87,10 +87,6 @@
   window.convertToInt = function(response) {
     return $.each(response, function(index, value) {
       return $.map(value, function(item) {
-        $.each(item, function(ind, val) {
-          console.log(val);
-          return s.capitalize(val);
-        });
         return $.each(item, function(ind, val) {
           return parseInt(val);
         });
