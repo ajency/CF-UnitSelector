@@ -234,9 +234,9 @@
       'mouseover .layer': function(e) {
         var availability, html, id, response, unit;
         id = parseInt(e.target.id);
-        console.log(unit = unitCollection.findWhere({
+        unit = unitCollection.findWhere({
           'id': id
-        }));
+        });
         if (unit === void 0) {
           html = '<div class="svg-info"> <div class="details"> Apartment details not entered </div> </div>';
           $('.layer').tooltipster('content', html);
@@ -249,14 +249,22 @@
         html = "";
         html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
         $('#' + id).attr('class', 'layer ' + availability);
-        $('#apartment' + id).attr('class', ' unit blocks active');
+        $('#apartment' + id).attr('class', ' unit blocks ' + availability + ' active');
         return $('.layer').tooltipster('content', html);
       },
       'mouseout .layer': function(e) {
-        var id;
+        var availability, id, unit;
         id = parseInt(e.target.id);
+        unit = unitCollection.findWhere({
+          'id': id
+        });
+        if (unit === void 0) {
+          return;
+        }
+        availability = unit.get('availability');
+        availability = s.decapitalize(availability);
         $('#' + id).attr('class', 'layer ');
-        return $('#apartment' + id).attr('class', 'unit blocks');
+        return $('#apartment' + id).attr('class', 'unit blocks ' + availability);
       }
     };
 

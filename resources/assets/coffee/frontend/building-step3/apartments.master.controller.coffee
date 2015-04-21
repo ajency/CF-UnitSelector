@@ -210,7 +210,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 		'mouseover .layer':(e)->
 			id = parseInt e.target.id
-			console.log unit = unitCollection.findWhere
+			unit = unitCollection.findWhere
 					'id' : id
 			if unit is undefined
 				html = '<div class="svg-info">
@@ -245,13 +245,19 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 			# @class = $('#'+id).attr('class')
 			$('#'+id).attr('class' ,'layer '+availability) 
-			$('#apartment'+id).attr('class' ,' unit blocks active') 
+			$('#apartment'+id).attr('class' ,' unit blocks '+availability+' active') 
 			$('.layer').tooltipster('content', html)
 		
 		'mouseout .layer':(e)->
 			id = parseInt e.target.id
+			unit = unitCollection.findWhere
+					'id' : id
+			if unit is undefined
+				return
+			availability = unit.get('availability')
+			availability = s.decapitalize(availability)
 			$('#'+id).attr('class' ,'layer ') 
-			$('#apartment'+id).attr('class' ,'unit blocks')
+			$('#apartment'+id).attr('class' ,'unit blocks '+availability)
 		
 
 
