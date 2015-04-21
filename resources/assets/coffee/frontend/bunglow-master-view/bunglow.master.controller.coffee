@@ -240,7 +240,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 
 	onShow:->
-		$('.spritespin').hide()
+		$('#spritespin').hide()
 		if project.get('project_master').front  == ""
 			$('.mapView').hide()
 		else
@@ -311,7 +311,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 			response = project.checkRotationView()
 			if response is 1
 				$('.rotate').removeClass 'hidden'
-				$('.spritespin').show()
+				$('#spritespin').show()
 				$('.cf-loader').hide()
 				
 		)
