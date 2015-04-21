@@ -36,7 +36,12 @@ class TopBunglowUnitView extends Marionette.ItemView
 						</div>-->
 
 						<div class="search-header-wrap">
-							<h1> {{project_title}} - {{unit_name}} {{type}}</h1>
+							<h1 class="pull-left proj-name">{{project_title}}</h1> 
+							  <div class="proj-type-count">
+							  	<h1 class="text-primary pull-left">{{unit_name}}</h1>
+							  	<div class="clearfix"></div>
+							  </div>
+						  	<div class="clearfix"></div>
 						</div>
 					</div>
 				</div>')
@@ -71,8 +76,8 @@ class LeftBunglowUnitView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
 						<div class="filters-wrapper">
 							<div class="blck-wrap title-row">
-								<h2 class="pull-left"><strong>{{unit_name}}</strong></h2>
-								<!-- <span class="label label-success">For Sale</span> -->
+								<!--<h3 class="pull-left"><strong>{{unit_name}}</strong></h3>
+								 <span class="label label-success">For Sale</span> -->
 								<div class="clearfix"></div>
 
 								<div class="details">

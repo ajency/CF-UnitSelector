@@ -127,7 +127,7 @@ class LeftView extends Marionette.ItemView
 
 			propertyTypes.push 
 				'prop_type'  		: s.capitalize properties[index]
-				'unit_types'		: value.unit_types.join(',')
+				'unit_types'		: value.unit_types.join(', ')
 				'starting_area' 	: value.starting_area
 				'starting_price' 	: window.numDifferentiation(value.starting_price)
 				'availability'		: availability
