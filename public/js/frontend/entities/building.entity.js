@@ -74,7 +74,7 @@
         return temp.push(variants.get('super_built_up_area'));
       });
       min = 0;
-      if (temp.length === 0) {
+      if (temp.length !== 0) {
         min = _.min(temp);
       }
       return min;
@@ -91,7 +91,7 @@
         return temp.push(units[3]);
       });
       min = 0;
-      if (temp.length === 0) {
+      if (temp.length !== 0) {
         min = _.min(temp);
       }
       return min;

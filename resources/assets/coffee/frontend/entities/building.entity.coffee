@@ -52,7 +52,7 @@ class Building extends Backbone.Model
 							'id' : value.get 'unit_variant_id'
 			temp.push variants.get 'super_built_up_area'
 		min= 0
-		if temp.length == 0	
+		if temp.length != 0	
 			min =  _.min temp
 		min
 
@@ -65,7 +65,7 @@ class Building extends Backbone.Model
 			temp.push units[3]
 
 		min= 0
-		if temp.length == 0	
+		if temp.length != 0	
 			min =  _.min temp
 		min
 		
