@@ -496,6 +496,11 @@ body {
 }
 /* Loader */
 .cf-loader {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+  text-align: center;
   display: block;
   -webkit-box-align: center;
   -webkit-align-items: center;
