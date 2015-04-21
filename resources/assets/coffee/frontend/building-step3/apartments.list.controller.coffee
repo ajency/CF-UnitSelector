@@ -36,7 +36,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 		            </div>-->
 
 		            <div class="search-header-wrap">
-		              <h1>We are now at {{project_title}}\'s upcoming project having {{units}} apartments</h1>
+		              <h1>We are now at {{project_title}}\'s upcoming project having {{units}} Apartments</h1>
 		            </div>
 		          </div>
 		        </div>')

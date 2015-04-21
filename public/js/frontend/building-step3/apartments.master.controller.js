@@ -48,7 +48,7 @@
       return TopApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span> Back to Poject Overview </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1>We are now at {{project_title}}\'s upcoming project having {{units}} apartments</h1> </div> </div> </div>');
+    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span> Back to Poject Overview </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1>We are now at {{project_title}}\'s upcoming project having {{units}} Apartments</h1> </div> </div> </div>');
 
     TopApartmentMasterView.prototype.serializeData = function() {
       var data, units;
@@ -219,6 +219,33 @@
         url = Backbone.history.fragment;
         building_id = parseInt(url.split('/')[1]);
         return CommonFloor.navigate('/building/' + building_id + '/master-view', true);
+      },
+      'mouseover .layer': function(e) {
+        var availability, html, id, response, unit;
+        id = parseInt(e.target.id);
+        console.log(unit = unitCollection.findWhere({
+          'id': id
+        }));
+        if (unit === void 0) {
+          html = '<div class="svg-info"> <div class="details"> Apartment details not entered </div> </div>';
+          $('.layer').tooltipster('content', html);
+          return false;
+        }
+        response = window.unit.getUnitDetails(id);
+        window.convertRupees(response[3]);
+        availability = unit.get('availability');
+        availability = s.decapitalize(availability);
+        html = "";
+        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
+        $('#' + id).attr('class', 'layer ' + availability);
+        $('#apartment' + id).attr('class', 'blck-wrap active');
+        return $('.layer').tooltipster('content', html);
+      },
+      'mouseout .layer': function(e) {
+        var id;
+        id = parseInt(e.target.id);
+        $('#' + id).attr('class', 'layer ');
+        return $('#apartment' + id).attr('class', 'blck-wrap');
       }
     };
 
@@ -282,8 +309,19 @@
         data = api.data;
         if (data.frame === data.stopFrame) {
           url = svgs[data.frame];
-          return $('.region').load(url).addClass('active').removeClass('inactive');
+          return $('.region').load(url, that.iniTooltip).addClass('active').removeClass('inactive');
         }
+      });
+    };
+
+    CenterApartmentMasterView.prototype.iniTooltip = function() {
+      return $('.layer').tooltipster({
+        theme: 'tooltipster-shadow',
+        contentAsHTML: true,
+        onlyOne: true,
+        arrow: false,
+        offsetX: 50,
+        offsetY: -10
       });
     };
 
