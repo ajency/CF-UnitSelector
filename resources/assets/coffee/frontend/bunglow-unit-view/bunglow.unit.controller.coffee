@@ -376,7 +376,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 			if value.url3dlayout_image != undefined &&  value.url3dlayout_image != ""
 				threeD.push value.url3dlayout_image
 			level_name =  'Level  '+ index  
-			if response[2]  is not 'apartment'
+			if response[2] != 'apartment'
 				level.push s.replaceAll('Level '+i, " ", "_")
 			
 			i = i + 1	
