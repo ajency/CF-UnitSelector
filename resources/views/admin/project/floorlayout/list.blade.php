@@ -28,6 +28,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Number of Flats</th>
                             <th>Created On</th>
                             <th>Modified On</th>
                         </tr>
@@ -40,6 +41,7 @@
                                         {{ $floorLayout->layout_name }}
                                     </a>
                                 </td>
+                                <td>{{ $floorLayout->no_of_flats }}</td>
                                 <td>{{ date('d/m/Y', strtotime($floorLayout->created_at)) }}</td>
                                 <td>{{  date('d/m/Y', strtotime($floorLayout->updated_at)) }}</td>
                             </tr>

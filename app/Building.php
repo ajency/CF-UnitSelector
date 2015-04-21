@@ -22,6 +22,11 @@ class Building extends Model {
         return unserialize( $value );
     }
     
+    public function phase()
+    { 
+        return $this->belongsTo('CommonFloor\Phase');
+    }
+    
     public function toArray() {
         $data = parent::toArray();
         $buildingMasters = $data['building_master'];

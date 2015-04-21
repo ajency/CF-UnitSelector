@@ -28,6 +28,8 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Phase</th>
+                            <th>Number of Floors</th>
                             <th>Created On</th>
                             <th>Modified On</th>
                         </tr>
@@ -40,6 +42,8 @@
                                         {{ $building->building_name }}
                                     </a>
                                 </td>
+                                <td>{{ $building->phase->phase_name }}</td>
+                                <td>{{ $building->no_of_floors }}</td>
                                 <td>{{ date('d/m/Y', strtotime($building->created_at)) }}</td>
                                 <td>{{  date('d/m/Y', strtotime($building->updated_at)) }}</td>
                             </tr>

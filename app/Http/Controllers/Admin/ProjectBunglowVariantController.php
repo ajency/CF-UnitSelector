@@ -25,12 +25,10 @@ class ProjectBunglowVariantController extends Controller {
     public function index($id, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($id);
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
-        $propertyTypeArr = [];
+        $unitTypes = [];
         $projectPropertytypeId = 0;
         foreach ($projectPropertytype as $propertyTypes) {
-            $propertyTypeArr[] = $propertyTypes['property_type_id'];
-
-            if ($propertyTypes['property_type_id'] == '2')
+             if ($propertyTypes['property_type_id'] == '2')
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
@@ -38,15 +36,16 @@ class ProjectBunglowVariantController extends Controller {
         $unitTypeIdArr = [];
         foreach ($unitTypeArr as $unitType) {
             $unitTypeIdArr[] = $unitType['id'];
+            $unitTypes[$unitType['id']] = $unitType['unittype_name'];
         }
 
         $unitvariantArr = UnitVariant::whereIn('unit_type_id', $unitTypeIdArr)->orderBy('unit_variant_name')->get()->toArray();
 
         return view('admin.project.listvariant')
                         ->with('project', $project->toArray())
-                        ->with('project_property_type', $propertyTypeArr)
+                        ->with('unitTypes', $unitTypes)
                         ->with('unit_variant_arr', $unitvariantArr)
-                        ->with('current', '');
+                        ->with( 'current', 'bunglow-variant' );
     }
 
     /**
