@@ -6,7 +6,7 @@ class BunglowListView extends Marionette.ItemView
 						            	<div class="clearfix"></div>
 						            </div>
 					                <div class="cost">
-					                  Rs.50 lakhs
+					                  {{price}}
 					                </div>')
 
 	initialize:->
@@ -19,15 +19,15 @@ class BunglowListView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
-		unitVariant = bunglowVariantCollection.findWhere
-							'id' : @model.get('unit_variant_id')
-		unitType = unitTypeCollection.findWhere
-							'id' : unitVariant.get('unit_type_id')
-		data.unit_type = unitType.get('name')
-		data.super_built_up_area = unitVariant.get('super_built_up_area')
+		response = window.unit.getUnitDetails(@model.get('id'))
+		
+		data.unit_type = response[1].get('name')
+		data.super_built_up_area = response[0].get('super_built_up_area')
 		availability = @model.get('availability')
 		status = s.decapitalize(availability)
 		@model.set 'status' , status
+		window.convertRupees(response[3])
+		data.price = $('#price').val()
 		data
 
 
