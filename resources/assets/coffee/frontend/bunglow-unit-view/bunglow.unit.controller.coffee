@@ -249,7 +249,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 			html = ''
 			$.each response[1],(index,value)->
 				html += '<div class="layouts animated fadeIn">
-							<img src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
+							<img class="img" src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
 						</div>'
 			$('.images').html html
 			$('.threeD').addClass('current')
@@ -262,7 +262,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 			html = ''
 			$.each response[0],(index,value)->
 				html += '<div class="layouts animated fadeIn">
-							<img src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
+							<img class="img" src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
 						</div>'
 			$('.images').html html
 			$('.twoD').addClass('current')
@@ -273,7 +273,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 		'click .external':(e)->
 			response = @generateLevels()
 			html = '<div class="animated fadeIn">
-						<img src="'+response[3].get('external3durl')+'" />
+						<img class="img" src="'+response[3].get('external3durl')+'" />
 					</div>'
 			$('.images').html html
 			$('.external').addClass('current')
@@ -284,7 +284,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 		'click .gallery':(e)->
 			response = @generateLevels()
 			html = '<div class="animated fadeIn">
-						<img src="'+response[3].get('galleryurl')+'" />
+						<img class="img" src="'+response[3].get('galleryurl')+'" />
 					</div>'
 			$('.images').html html
 			$('.gallery').addClass('current')
@@ -294,17 +294,18 @@ class CenterBunglowUnitView extends Marionette.ItemView
 		
 
 	onShow:->
+		
 		response = @generateLevels()
 		html = ''
 		$.each response[0],(index,value)->
-			html += '<img src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>'
+			html += '<img class="img" src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>'
 		$('.twoD').addClass('current')
 		$('.threeD').removeClass('current')
 		$('.external').removeClass('current')
 		$('.gallery').removeClass('current')
 		if response[0].length == 0
 			$.each response[1],(index,value)->
-				html += '<img src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>'
+				html += '<img class="img" src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>'
 			$('.threeD').addClass('current')
 			$('.external').removeClass('current')
 			$('.twoD').removeClass('current')
@@ -319,7 +320,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 
 				
 		if response[3].get('external3durl') != undefined
-			html = '<img src="'+response[3].get('external3durl')+'" />'
+			html = '<img class="img" src="'+response[3].get('external3durl')+'" />'
 			$('.images').html html
 			$('.external').addClass('current')
 			$('.threeD').removeClass('current')
@@ -347,10 +348,11 @@ class CenterBunglowUnitView extends Marionette.ItemView
 			$('.external').removeClass('current')
 			$.each response[3].get('galleryurl'),(index,value)->
 				console.log value
-				html += '<img src="'+value+'" />'
+				html += '<img class="img" src="'+value+'" />'
 
 
 		$('.images').html html
+		$('.img').bttrlazyloading()
 
 
 	generateLevels:->
