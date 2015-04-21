@@ -50,12 +50,14 @@
       'mouseover': function(e) {
         var id;
         id = this.model.get('id');
-        return $('#' + id + '.building').attr('class', 'layer building active_bldg');
+        $('#' + id + '.building').attr('class', 'layer building active_bldg');
+        return $('#bldg' + id).attr('class', 'bldg blocks active');
       },
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
-        return $('#' + id + '.building').attr('class', 'layer building');
+        $('#' + id + '.building').attr('class', 'layer building');
+        return $('#bldg' + id).attr('class', 'bldg blocks');
       },
       'click ': function(e) {
         var buildingModel, id, units;

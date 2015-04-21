@@ -122,6 +122,11 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 			if buildingModel == undefined
 				return false
 
+			unit = unitCollection.where 
+				'building_id' :  id 
+			if unit.length is 0
+				return 
+
 			if buildingModel.get('building_master').front == ""
 				CommonFloor.navigate '/building/'+id+'/apartments' , true
 			else

@@ -27,8 +27,14 @@
 
     CenterItemView.prototype.events = {
       'click .bldg': function(e) {
-        var buildingModel, id;
+        var buildingModel, id, unit;
         id = this.model.get('id');
+        unit = unitCollection.where({
+          'building_id': id
+        });
+        if (unit.length === 0) {
+          return;
+        }
         buildingModel = buildingCollection.findWhere({
           'id': id
         });

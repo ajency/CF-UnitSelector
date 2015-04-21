@@ -32,6 +32,10 @@ class CenterItemView extends Marionette.ItemView
 	events:
 		'click .bldg':(e)->
 			id = @model.get 'id'
+			unit = unitCollection.where 
+				'building_id' :  id 
+			if unit.length is 0
+				return 
 			buildingModel = buildingCollection.findWhere
 							'id' : id
 			if buildingModel.get('building_master').front == ""

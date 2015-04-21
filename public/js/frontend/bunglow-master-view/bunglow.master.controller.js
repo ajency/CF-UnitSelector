@@ -142,13 +142,19 @@
 
     CenterBunglowMasterView.prototype.events = {
       'click .building': function(e) {
-        var buildingModel, id;
+        var buildingModel, id, unit;
         id = parseInt(e.target.id);
         buildingModel = buildingCollection.findWhere({
           'id': id
         });
         if (buildingModel === void 0) {
           return false;
+        }
+        unit = unitCollection.where({
+          'building_id': id
+        });
+        if (unit.length === 0) {
+          return;
         }
         if (buildingModel.get('building_master').front === "") {
           return CommonFloor.navigate('/building/' + id + '/apartments', true);
