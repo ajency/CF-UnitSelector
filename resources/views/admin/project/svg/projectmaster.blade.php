@@ -2,9 +2,9 @@
 <div class="grid simple">
 <div class="grid-title" role="tab" id="headingTwo">
        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-        <div class="pull-right">
-            <span class="fa fa-angle-down" ></span>
-        </div>
+       <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+<i class="fa fa-angle-up "></i>
+         </div>
         <h3>Project <span class="semi-bold">Master</span></h3> 
         </a>
     </div>

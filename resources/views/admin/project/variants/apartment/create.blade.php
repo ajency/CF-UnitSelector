@@ -60,7 +60,12 @@
                         <input type="text" class="form-control" name="superbuiltup_area" value="" placeholder="Enter Super Built Up Area">
                     </div> 
                 </div>
-
+                 <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Per sq ft Price</label>
+                                <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price">
+                            </div> 
+                        </div>
                 @foreach($projectPropertyTypeAttributes as $attribute)
                 <div class="col-md-4">
                     <div class="form-group">
@@ -68,7 +73,27 @@
                         @if('textbox' === $attribute['control_type'])
                         <input type="text" class="form-control" name="attributes[{{ property_type_slug($attribute['label']) }}]"  
                                 placeholder="Enter {{ $attribute['label'] }}">
-                        @endif
+                        @elseif('select' === $attribute['control_type'])
+                        <?php
+                        $options = explode(',', $attribute['defaults']);
+                        ?>
+                        <select name="attributes[{{property_type_slug($attribute['label'])}}]" class="select2 form-control">
+                            <option value="">Select {{$attribute['label']}}</option>   
+                            @foreach($options as $option)
+                            <option  value="{{property_type_slug($option)}}">{{$option}}</option>
+                            @endforeach
+                        </select>
+                        @elseif('multiple' === $attribute['control_type'])
+                        <?php
+                        $options = explode(',', $attribute['defaults']);
+                        ?>
+                        <select multiple name="attributes[{{property_type_slug($attribute['label'])}}][]" class="select2 form-control">
+                            <option value="">Select {{$attribute['label']}}</option>   
+                            @foreach($options as $option)
+                            <option   value="{{property_type_slug($option)}}">{{$option}}</option>
+                            @endforeach
+                        </select>
+                        @endif     
                     </div> 
                 </div>
                 @endforeach

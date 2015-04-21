@@ -1,7 +1,9 @@
 <div class="grid simple">
     <div class="grid-title"  role="tab" id="headingOne">
-       <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-       <div class="pull-right"><i class="fa fa-angle-up"></i></div>
+       <a class="" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+       <div class="pull-right"><i class="fa fa-angle-up "></i>
+<i class="fa fa-angle-down grid-angle-down"></i>
+       </div>
        <h3>
                  Project <span class="semi-bold">Details</span>
        </h3>

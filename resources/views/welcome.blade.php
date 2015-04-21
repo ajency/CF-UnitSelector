@@ -3,7 +3,7 @@
         <link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
         <link href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css' ) }}" rel="stylesheet" type="text/css"/>
         <title>CommonFloor UnitSelector</title>
-        <link rel="icon" type="image/png" href="{{ asset( 'CommonFloor/public/images/others/fevicon.ico' ) }}">
+        <link rel="icon" type="image/png" href="{{ asset( 'CommonFloor/public/images/others/favicon.ico' ) }}">
         <style>
             body {
                 margin: 0;
@@ -106,11 +106,6 @@
 
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-                        <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#">Link</a></li>
-                            <li><a href="#">Link</a></li>
-                        </ul>
                     </div><!-- /.navbar-collapse -->
                 </div><!-- /.container-fluid -->
             </nav>

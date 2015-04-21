@@ -10,6 +10,7 @@ use CommonFloor\UnitVariant;
 use CommonFloor\UnitType;
 use CommonFloor\RoomType;
 use CommonFloor\Media;
+use CommonFloor\VariantMeta;
 
 class ProjectApartmentVariantController extends Controller {
 
@@ -66,11 +67,18 @@ class ProjectApartmentVariantController extends Controller {
         $unitVariant->carpet_area = $request->input( 'carpet_area' );
         $unitVariant->built_up_area = $request->input( 'builtup_area' );
         $unitVariant->super_built_up_area = $request->input( 'superbuiltup_area' );
+        $unitVariant->per_sq_ft_price = $request->input('per_sq_ft_price');
         $attributedata = $request->input( 'attributes' );
         $attributeStr = serialize( $attributedata );
         $unitVariant->variant_attributes = $attributeStr;
         $unitVariant->save();
         $unitVariantID = $unitVariant->id;
+        
+        $variantMeta = new VariantMeta();
+        $variantMeta->unit_variant_id = $unitVariantID;
+        $variantMeta->meta_key = 'gallery';
+        $variantMeta->meta_value = serialize('');
+        $variantMeta->save();
 
         return redirect( "/admin/project/" . $projectId . "/apartment-variant/" . $unitVariantID . '/edit' );
     }
@@ -121,21 +129,40 @@ class ProjectApartmentVariantController extends Controller {
         }
 
         $variantMeta = $unitVariant->variantMeta()->get()->toArray();
-
+         
         $layouts = [];
         foreach ($variantMeta as $meta) {
-            $metakey = explode( "-", $meta['meta_key'] );
-            $level = $metakey[0];
-            $type = $metakey[1];
-            $mediaId = $meta['meta_value'];
-            if (is_numeric( $mediaId )) {
-                $imageName = Media::find( $mediaId )->image_name;
-                 
-                $layouts[0][$type]['ID'] = $mediaId;
-                $layouts[0][$type]['IMAGE'] = url() . "/projects/" . $projectId . "/variants/" . $meta['unit_variant_id'] . "/" . $imageName;
+           $metakey = $meta['meta_key'];
+            if($metakey =='gallery')
+            {
+                $metaValue = unserialize($meta['meta_value']); 
+                if(!empty($metaValue))
+                {
+                    foreach ($metaValue as $mediaId)
+                    {
+                        if (is_numeric($mediaId)) {
+                            $imageName = Media::find($mediaId)->image_name;
+                            $layouts['gallery'][$mediaId]['ID'] = $mediaId;
+                            $layouts['gallery'][$mediaId]['IMAGE'] = url() . "/projects/" . $projectId . "/variants/" . $meta['unit_variant_id'] . "/" . $imageName;
+                        }
+                    }
+                }
+            }
+            else
+            { 
+                $metakeyData = explode( "-", $meta['meta_key'] );
+                $level = $metakeyData[0];
+                $type = $metakeyData[1];
+                $mediaId = $meta['meta_value'];
+                if (is_numeric( $mediaId )) {
+                    $imageName = Media::find( $mediaId )->image_name;
+
+                    $layouts[0][$type]['ID'] = $mediaId;
+                    $layouts[0][$type]['IMAGE'] = url() . "/projects/" . $projectId . "/variants/" . $meta['unit_variant_id'] . "/" . $imageName;
+                }
             }
         }
- 
+  
 
         return view( 'admin.project.variants.apartment.edit' )
                         ->with( 'project', $project->toArray() )
@@ -156,10 +183,23 @@ class ProjectApartmentVariantController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update( $id ) {
-        //
-    }
+    public function update($project_id, $id, Request $request) {
+        
+        $unitVariant = UnitVariant::find($id);
+        $unitVariant->unit_variant_name = $request->input('unit_variant_name');
+        $unitVariant->unit_type_id = $request->input('unit_type');
+        $unitVariant->carpet_area = $request->input('carpet_area');
+        $unitVariant->built_up_area = $request->input('builtup_area');
+        $unitVariant->super_built_up_area = $request->input('superbuiltup_area');
+        $unitVariant->per_sq_ft_price = $request->input('per_sq_ft_price');
+        $attributedata = $request->input('attributes');
+        $attributeStr = serialize($attributedata);
+        $unitVariant->variant_attributes = $attributeStr;
+        $unitVariant->save();
 
+        return redirect("/admin/project/" . $project_id . "/apartment-variant/" . $id . '/edit');
+    }
+     
     /**
      * Remove the specified resource from storage.
      *

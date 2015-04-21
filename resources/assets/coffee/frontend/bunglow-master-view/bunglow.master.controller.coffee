@@ -22,14 +22,17 @@ class TopBunglowMasterView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="row">
 		  <div class="col-md-12 col-xs-12 col-sm-12">
 			<div class="search-header-wrap">
-			  <h1>We are now at {{project_title}}\'s upcoming project having {{units}} villas</h1>
+
+			  <h1>{{project_title}} {{#types}} {{count.length}} {{type}} {{/types}}</h1>
+
 			</div>
 		  </div>
 		</div>')
 
 	serializeData:->
 		data = super()
-		data.units = bunglowVariantCollection.getBunglowUnits().length
+		response = CommonFloor.propertyTypes() 
+		data.types = response
 		data
 
 
@@ -39,134 +42,29 @@ class CommonFloor.TopBunglowMasterCtrl extends Marionette.RegionController
 		@show new TopBunglowMasterView
 			model : project
 
-class LeftBunglowMasterView extends Marionette.ItemView
-
-	template : Handlebars.compile('<div class="row">
-					<div class="col-sm-4">
-					  <h6 class="{{status}}">{{unit_name}}</h6>                      
-					</div>
-					<div class="col-sm-4">
-					  <h6 class="">{{unit_type}}</h6>                      
-					</div>
-					<div class="col-sm-4">
-					  <h6 class="">{{super_built_up_area}} sqft</h6>                      
-					</div>
-				  </div>
-			
-				')
-	initialize:->
-		@$el.prop("id", 'unit'+@model.get("id"))
-
-	className : 'blck-wrap'
-
-	serializeData:->
-		data = super()
-		console.log unitVariant = bunglowVariantCollection.findWhere
-							'id' : @model.get('unit_variant_id')
-		unitType = unitTypeCollection.findWhere
-							'id' : unitVariant.get('unit_type_id')
-		data.unit_type = unitType.get('name')
-		data.super_built_up_area = unitVariant.get('super_built_up_area')
-		availability = @model.get('availability')
-		data.status = s.decapitalize(availability)
-		@model.set 'status' , data.status
-		data
-
-	events:
-		'mouseover .row' :(e)->
-			id = @model.get('id')
-			console.log window.unit
-			response = window.unit.getUnitDetails(id)
-			html = ""
-			unit = unitCollection.findWhere 
-				id :  id 
-			if unit == undefined
-				html += '<div class="svg-info">
-							<div class="details">
-								Villa details not entered 
-							</div>  
-						</div>'
-				$('.layer').tooltipster('content', html)
-				return false
-
-			availability = unit.get('availability')
-			availability = s.decapitalize(availability)
-			html = ""
-			html += '<div class="svg-info">
-						<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
-						<!--<span class="label label-success"></span-->
-						<div class="clearfix"></div>
-						<div class="details">
-							<div>
-								<label>Area</label> - '+response[0].get('super_built_up_area')+' Sq.ft
-							</div> 
-							<div>
-								<label>Unit Type </label> - '+response[1].get('name')+'
-							</div>  
-						</div>  
-					</div>'
-			$('#'+id).attr('class' ,'layer '+@model.get('status'))
-			$('.layer').tooltipster('content', html)
-
-		'mouseout .row' :(e)->
-			$('.layer').attr('class' ,'layer') 
-		'click .row' :(e)->
-			if @model.get('status') == 'available'
-				CommonFloor.defaults['unit'] = @model.get('id')
-				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
-
-
-	onShow:->
-		@iniTooltip()
-
-	iniTooltip:->
-		$('.layer').tooltipster(
-			theme: 'tooltipster-shadow',
-			contentAsHTML: true
-			onlyOne : true
-			arrow : false
-			offsetX : 50
-			offsetY : -10
-		)
-
-class LeftBunglowMasterCompositeView extends Marionette.CompositeView
-
-	template : Handlebars.compile('	<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
-										<div class="filters-wrapper ">
-											<div class="advncd-filter-wrp  unit-list">
-												<div class="blck-wrap title-row">
-					                  				<div class="row">
-									                    <div class="col-sm-4">
-									                      <h5 class="accord-head">Villa No</h5>                      
-									                    </div>
-									                    <div class="col-sm-4">
-									                      <h5 class="accord-head">Type</h5>                      
-									                    </div>
-									                    <div class="col-sm-4">
-									                      <h5 class="accord-head">Area</h5>                      
-									                    </div>
-					                  				</div>
-					                			</div>
-								                <div class="units">
-								                </div>
-											</div>
-										</div>
-									</div>')
-
-
-	childView : LeftBunglowMasterView
-
-	childViewContainer : '.units'
-
-
 
 class CommonFloor.LeftBunglowMasterCtrl extends Marionette.RegionController
 
 	initialize:->
-		newUnits = bunglowVariantCollection.getBunglowUnits()
-		unitsCollection = new Backbone.Collection newUnits 		
-		@show new LeftBunglowMasterCompositeView
-			collection : unitsCollection
+		response = CommonFloor.checkListView()
+		if response.type is 'bunglows' 
+			units = bunglowVariantCollection.getBunglowUnits()
+			data = {}
+			data.units = units
+			data.type = 'villa'
+			@region =  new Marionette.Region el : '#leftregion'
+			new CommonFloor.MasterBunglowListCtrl region : @region
+			@parent().trigger "load:units" , data
+
+		if response.type is 'building' 
+			units = buildingCollection
+			data = {}
+			data.units = units
+			data.type = 'building'
+			@region =  new Marionette.Region el : '#leftregion'
+			new CommonFloor.MasterBuildingListCtrl region : @region
+			@parent().trigger "load:units" , data
+
 
 
 class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
@@ -174,17 +72,21 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
-									<div class="list-view-container">
-										<div class="controls mapView">
+									<div class="list-view-container animated fadeInRight">
+										<!--<div class="controls mapView">
 								            <div class="toggle">
-								            	<a href="#" class="map">Map</a><a href="#" class="list">List</a>
+								            	<a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a>
 								            </div>
-							            </div>
+							            </div>-->
+										
 										
 										<div id="spritespin"></div>
 										<div class="svg-maps">
+											<img class="first_image img-responsive" src="" />
 											<div class="region inactive"></div>
 										</div>
+										<div class="cf-loader"></div>
+										
 							            <div class="rotate rotate-controls hidden">
 									        <div id="prev" class="rotate-left">Left</div>
 									        <span class="rotate-text">Rotate</span>
@@ -201,33 +103,62 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 	initialize:->
 		@currentBreakPoint = 0
 		@breakPoints = []
+		@class = ''
 		
 
 	events :
-		'click .list':(e)->
-			e.preventDefault()
-			CommonFloor.navigate '/list-view' , true
-			
-		'click .map':(e)->
-			e.preventDefault()
-			CommonFloor.navigate '/master-view' , true
-			
+		'click .building':(e)->
+			id = parseInt e.target.id
+			buildingModel = buildingCollection.findWhere
+							'id' : id
+
+			if buildingModel == undefined
+				return false
+
+			if buildingModel.get('building_master').front == ""
+				CommonFloor.navigate '/building/'+id+'/apartments' , true
+			else
+				CommonFloor.navigate '/building/'+id+'/master-view' , true
+
+		'click .villa':(e)->
+			id = parseInt e.target.id
+
+			unitModel = unitCollection.findWhere
+							'id' : id
+			if unitModel == undefined
+				return false
+
+			CommonFloor.defaults['unit'] =id
+			CommonFloor.navigate '/unit-view/'+id , true
+
 		'click #prev':->
-			@setDetailIndex(@currentBreakPoint - 1);
+			@setDetailIndex(@currentBreakPoint - 1)
 
 		'click #next':->
-			@setDetailIndex(@currentBreakPoint + 1);
+			@setDetailIndex(@currentBreakPoint + 1)
 
-		'mouseout':(e)->
-			$('.layer').attr('class' ,'layer') 
-			$('.blck-wrap').attr('class' ,'blck-wrap') 
 
-		'mouseover .layer':(e)->
+		'mouseout .villa':(e)->
+			id = parseInt e.target.id
+			unit = unitCollection.findWhere 
+				id :  id 
+			availability = unit.get('availability')
+			availability = s.decapitalize(availability)
+			$('.layer').attr('class' ,'layer villa') 
+			$('#unit'+id).attr('class' ,'unit blocks '+availability)  
+
+		'mouseout .building':(e)->
+			id = parseInt e.target.id
+			$('.layer').attr('class' ,'layer building') 
+			$('#bldg'+id).attr('class' ,'bldg blocks') 
+
+
+		'mouseover .villa':(e)->
 			id  = parseInt e.target.id
 			html = ""
 			unit = unitCollection.findWhere 
 				id :  id 
-			if unit == undefined
+			if unit is undefined
 				html += '<div class="svg-info">
 							<div class="details">
 								Villa details not entered 
@@ -235,11 +166,9 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return false
-			unitVariant = bunglowVariantCollection.findWhere
-								'id' : unit.get('unit_variant_id')
-			
-			unitType = unitTypeCollection.findWhere
-								'id' :  unitVariant.get('unit_type_id')
+
+			response = window.unit.getUnitDetails(id)
+			window.convertRupees(response[3])
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			html = ""
@@ -249,32 +178,78 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 						<div class="clearfix"></div>
 						<div class="details">
 							<div>
-								<label>Area</label> - '+unitVariant.get('super_built_up_area')+' Sq.ft
+								<label>Area</label> - '+response[0].get('super_built_up_area')+' Sq.ft
 							</div> 
 							<div>
-								<label>Unit Type </label> - '+unitType.get('name')+'
+								<label>Unit Type </label> - '+response[1].get('name')+'
+							</div>
+							<div>
+								<label>Price </label> - '+$('#price').val()+'
 							</div>  
 						</div>  
 					</div>'
-			console.log availability
-			$('#'+id).attr('class' ,'layer '+availability) 
-			$('#unit'+id).attr('class' ,'blck-wrap active') 
+
+			# @class = $('#'+id).attr('class')
+			$('#'+id).attr('class' ,'layer villa '+availability) 
+			$('#unit'+id).attr('class' ,'unit blocks active') 
+
 			$('.layer').tooltipster('content', html)
+
+		'mouseover .building':(e)->
+			id  = parseInt e.target.id
+			buildingModel = buildingCollection.findWhere
+							'id' : id
+
+			if buildingModel == undefined
+				html = '<div class="svg-info">
+							<div class="details">
+								Building details not entered 
+							</div>  
+						</div>'
+				$('.layer').tooltipster('content', html)
+				return false
+
+
+			floors = buildingModel.get 'floors'
+			floors = Object.keys(floors).length
+			unitTypes = building.getUnitTypes(id)
+			console.log response = building.getUnitTypesCount(id,unitTypes)
+			html = '<div class="svg-info">
+						<h4 class="pull-left">'+buildingModel.get('building_name')+'</h4>
+						<!--<span class="label label-success"></span-->
+						<div class="clearfix"></div>'
+			$.each response,(index,value)->
+				html += '<div class="details">
+							<div>
+								<label>'+value.name+'</label> - '+value.units+'
+							</div> 
+							
+							 
+						</div>  
+					</div>'
+
+			html += '<div>
+						<label>No. of floors</label> - '+floors+'
+					</div>'
+			$('.layer').tooltipster('content', html)
+			$('#bldg'+id).attr('class' ,'bldg blocks active') 
+			$('#'+id).attr('class' ,'layer building available')
+
+
 			
 
 
 	onShow:->
+		$('#spritespin').hide()
 		if project.get('project_master').front  == ""
 			$('.mapView').hide()
 		else
 			$('.map').addClass 'active'
 			$('.mapView').show()
 
-		# $('<div></div>').load(project.get('project_master').front).appendTo('.front')
-		# $('.us-right-content').imagesLoaded ->
-		# 	divHeight = $('.us-right-content').height()
-		# 	$('.unit-list').css 'max-height', divHeight + 'px'
-		# 	return
+		that = @
+		
+
 		transitionImages = []
 		svgs = {}
 		svgs[0] = project.get('project_master').front 
@@ -286,15 +261,16 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		$.merge transitionImages , project.get('project_master')['back-right']
 		$.merge transitionImages , project.get('project_master')['left-back']
 		$.merge transitionImages , project.get('project_master')['front-left']
-		response = project.checkRotationView()
-		if response is 1
-			$('.rotate').removeClass 'hidden'
+		$('.region').load(project.get('project_master').front,
+			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
+		
 		@initializeRotate(transitionImages,svgs)
 		
 		
 
 
 	setDetailIndex:(index)->
+		$('.region').addClass('inactive').removeClass('active')
 		@currentBreakPoint = index;
 		if (@currentBreakPoint < 0) 
 			@currentBreakPoint = @breakPoints.length - 1
@@ -310,14 +286,14 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		frames = transitionImages
 		@breakPoints = [0, 4, 8, 12]
 		@currentBreakPoint = 0
-		width = @ui.svgContainer.width() + 15
+		width = @ui.svgContainer.width() + 20
 		$('.svg-maps > div').first().removeClass('inactive').addClass('active').css('width',width);
 		spin = $('#spritespin')
 		spin.spritespin(
 			source: frames
 			width: @ui.svgContainer.width() 
 			sense: -1
-			height: 600
+			height: @ui.svgContainer.width() / 1.46
 			animate: false
 		)
 		that = @
@@ -325,11 +301,22 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		spin.bind("onFrame" , ()->
 			data = api.data
 			if data.frame is data.stopFrame
-				url = svgs[data.frame]
+				console.log url = svgs[data.frame]
 				$('.region').load(url,that.iniTooltip).addClass('active').removeClass('inactive')
 				
 		)
-		
+
+		spin.bind("onLoad" , ()->
+			$('.first_image').remove()
+			response = project.checkRotationView()
+			if response is 1
+				$('.rotate').removeClass 'hidden'
+				$('#spritespin').show()
+				$('.cf-loader').hide()
+
+				
+		)
+
 		
 
 

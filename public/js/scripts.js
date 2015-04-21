@@ -339,14 +339,14 @@ function setUpProjectMasterUploader() {
                     };
                 },
                 FileUploaded: function (up, file, xhr) {
-                    fileResponse = JSON.parse(xhr.response);
+                    fileResponse = JSON.parse(xhr.response); 
 
                     if (supportMultiple)
                         div.find('.uploaded-images').append('<div class="col-sm-2">\n\
-                            <img width="150" height="150" src="' + fileResponse.data.media_path + '" class="img-responsive" ><button onclick="deleteSvg(' + fileResponse.data.media_id + ',\'master\',\'' + divName + '\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>\n\
+                            <img width="150" height="150" src="' + fileResponse.data.image_path + '" class="img-responsive" ><button onclick="deleteSvg(' + fileResponse.data.media_id + ',\'master\',\'' + divName + '\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>\n\
                             </div>')
                     else
-                        div.find('.uploaded-image').html('<object width="150" id="svg1" data="' + fileResponse.data.media_path + '" type="image/svg+xml" /> <button onclick="deleteSvg(' + fileResponse.data.media_id + ',\'master\',\'' + divName + '\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
+                        div.find('.uploaded-image').html('<object width="150" id="svg1" data="' + fileResponse.data.image_path + '" type="image/svg+xml" /> <button onclick="deleteSvg(' + fileResponse.data.media_id + ',\'master\',\'' + divName + '\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
                 }
             }
         });
@@ -358,7 +358,7 @@ function setUpFloorLevelUploader() {
 
     if (FLOORLEVELS.length === 0)
         return false;
-    
+
     $.each(FLOORLEVELS, function (index, value) {
 
         var uploader2d = new plupload.Uploader({
@@ -391,7 +391,7 @@ function setUpFloorLevelUploader() {
                 },
                 FileUploaded: function (up, file, xhr) {
                     fileResponse = JSON.parse(xhr.response);
-                    $("#2dlayout_" + value).html('<img src="' + fileResponse.data.image_path + '" class="img-responsive img-thumbnail"> <button onclick="deleteLayout(' + fileResponse.data.media_id + ');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
+                    $("#2dlayout_" + value).html('<img src="' + fileResponse.data.image_path + '" class="img-responsive img-thumbnail"> <button onclick="deleteLayout(' + fileResponse.data.media_id + '\'2d\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
                 }
             }
         });
@@ -427,7 +427,7 @@ function setUpFloorLevelUploader() {
                 },
                 FileUploaded: function (up, file, xhr) {
                     fileResponse = JSON.parse(xhr.response);
-                    $("#3dlayout_" + value).html('<img src="' + fileResponse.data.image_path + '" class="img-responsive img-thumbnail">  <button onclick="deleteLayout(' + fileResponse.data.media_id + ');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
+                    $("#3dlayout_" + value).html('<img src="' + fileResponse.data.image_path + '" class="img-responsive img-thumbnail">  <button onclick="deleteLayout(' + fileResponse.data.media_id + '\'3d\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
                 }
             }
         });
@@ -467,23 +467,65 @@ function setUpFloorLevelUploader() {
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
-                $("#ext3dlayout").html('<img src="' + fileResponse.data.image_path + '" class="img-responsive img-thumbnail">  <button onclick="deleteLayout(' + fileResponse.data.media_id + ');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
+                $("#ext3dlayout").html('<img src="' + fileResponse.data.image_path + '" class="img-responsive img-thumbnail">  <button onclick="deleteLayout(' + fileResponse.data.media_id + '\'external\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
             }
         }
     });
     uploader_ext3d.init();
+    
+    var uploader_gallery = new plupload.Uploader({
+        runtimes: 'html5,flash,silverlight,html4',
+        browse_button: 'pickfiles_gallery', // you can pass in id...
+        url: '/admin/variant/' + variantId + '/media',
+        flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+        silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+        headers: {
+            "x-csrf-token": $("[name=_token]").val()
+        },
+        multipart_params: {
+            "level": 'gallery',
+            "layout": "2d",
+            "projectId": PROJECTID
+        },
+        filters: {
+            max_file_size: '10mb',
+            mime_types: [{
+                    title: "Image files",
+                    extensions: "svg,jpg,png,jpeg"
+                }]
+        },
+        init: {
+            PostInit: function () {
+                document.getElementById('uploadfiles_gallery').onclick = function () {
+                    uploader_gallery.start();
+                    return false;
+                };
+            },
+            FileUploaded: function (up, file, xhr) {
+                fileResponse = JSON.parse(xhr.response);
+                $("#galleryimages").append('<div class="col-sm-3">\n\
+                            <img width="150" height="150" src="' + fileResponse.data.image_path + '" class="img-responsive" ><button onclick="deleteLayout(' + fileResponse.data.media_id + ',\'gallery\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>\n\
+                            </div>')
+                 
+            }
+        }
+    }); 
+    uploader_gallery.init();
 
 
 
 }
 
-function deleteLayout(mediaId)
+function deleteLayout(mediaId,type)
 {
     $.ajax({
         url: '/admin/variant/' + variantId + '/media/' + mediaId,
         type: "DELETE",
+        data: {
+            type: type,
+        },
         success: function (response) {
-            window.location.reload();
+             window.location.reload();
         }
     });
 }
@@ -620,8 +662,10 @@ $(document).ready(function () {
 
 function deleteSvg(mediaId, type, refference)
 {
+    var objectType = $('div.object-master-images').attr('data-object-type');
+    var objectId = $('div.object-master-images').attr('data-object-id');
     $.ajax({
-        url: '/admin/project/' + PROJECTID + '/media/' + mediaId,
+        url: BASEURL + '/admin/' + objectType + '/' + objectId + '/media/' + mediaId,
         type: "DELETE",
         data: {
             type: type,
@@ -631,5 +675,54 @@ function deleteSvg(mediaId, type, refference)
             window.location.reload();
         }
     });
+}
+
+function getPositions(floor)
+{
+    var buildingId = $("select[name='building_id']").val();
+    $.ajax({
+        url: BASEURL + '/admin/project/' + PROJECTID + '/building/' + buildingId + '/getpositions',
+        type: "POST",
+        data: {
+            floor: floor
+        },
+        success: function (response) {
+            var position = parseInt(response.data);
+            var newOptions =[];
+            for(var i=1; i<=position;i++)
+            {
+                newOptions[i] =i;
+            }
+         
+            var $el = $("#flat_position");
+            $el.empty(); // remove old options
+            $el.append($("<option>Select Position</option>")
+                        .attr("value", ''));
+            $.each(newOptions, function (value, key) {
+                $el.append($("<option></option>")
+                        .attr("value", value).text(key));
+            });
+            $(".select-position").removeClass("hidden");
+        }
+    });
+}
+
+function getVariants(obj ,floorLayoutId)
+{
+   var unitTypeId = obj.value; 
+    $.ajax({
+        url: BASEURL + '/admin/project/' + PROJECTID + '/floor-layout/' + floorLayoutId + '/getunittypevariants',
+        type: "POST",
+        data: {
+            unit_type_id: unitTypeId
+        },
+        success: function (response) {
+ 
+            var $el =  $(obj).closest('.row').find('select[name="unit_variant_id"]');
+            $el.empty(); // remove old options
+            $el.append(response.data);
+           
+        }
+    }); 
 }
 

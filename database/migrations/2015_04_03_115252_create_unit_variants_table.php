@@ -18,6 +18,7 @@ class CreateUnitVariantsTable extends Migration {
             $table->double( 'carpet_area', 100 );
             $table->double( 'built_up_area', 100 );
             $table->double( 'super_built_up_area', 100 );
+            $table->double( 'per_sq_ft_price', 100 );
             $table->text( 'variant_attributes')->nullable();
             $table->timestamps();
             $table->softDeletes();

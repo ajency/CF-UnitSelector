@@ -36,7 +36,7 @@ class TopBunglowUnitView extends Marionette.ItemView
 						</div>-->
 
 						<div class="search-header-wrap">
-							<h1>You have selected {{unit_name}} Villa</h1>
+							<h1>You have selected {{unit_name}} {{type}}</h1>
 						</div>
 					</div>
 				</div>')
@@ -54,6 +54,8 @@ class CommonFloor.TopBunglowUnitCtrl extends Marionette.RegionController
 		unitid = parseInt url.split('/')[1]
 		unit = unitCollection.findWhere
 			id  : unitid
+		response = window.unit.getUnitDetails(unitid)
+		unit.set 'type' , response[2]
 		@show new TopBunglowUnitView
 				model : unit
 			
@@ -62,54 +64,72 @@ class LeftBunglowUnitView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
 						<div class="filters-wrapper">
-							<div class="blck-wrap">
+							<div class="blck-wrap title-row">
 								<h2 class="pull-left"><strong>{{unit_name}}</strong></h2>
 								<!-- <span class="label label-success">For Sale</span> -->
 								<div class="clearfix"></div>
+
 								<div class="details">
-										<!--<div>
-											<label>Starting Price:</label> Rs 1.3 crores
-										</div>-->
-										<div>
-											{{type}} ({{area}} sqft)
-										</div>
+									<div>
+										<label>Price: </label> <span class="price"></span>
 									</div>
-							</div>
-							<div class="advncd-filter-wrp unit-list">
-								
-								{{#levels}}
-								<h4 class="m-b-0 m-t-20">{{level_name}}</h4>
-								<!--<div class="blck-wrap title-row">
-									<div class="row">
-										<div class="col-sm-4">
-											<h5 class="accord-head">Rooms</h5>                      
-										</div>
-										<div class="col-sm-4">
-											<h5 class="accord-head">No</h5>                      
-										</div>
-										<div class="col-sm-4">
-											<h5 class="accord-head">Area</h5>                      
-										</div>
+									<div>
+										<label>Unit Type:</label> {{type}}
 									</div>
-								</div>-->
-								{{#rooms}}
-								<div class="blck-wrap title-row">
-									<div class="row">
-										<div class="col-sm-4">
-											<h5 class="accord-head">{{room_name}}</h5>  
-											{{#attributes}}  
-											<label>{{attribute}}</label>: {{value}} 
-											{{/attributes}}                    
-										</div>
-										<!--<div class="col-sm-4">
-											<h6 class="">{{size}}sqft</h6>                      
-										</div>-->
+									<div>
+										<label>Area:</label> {{area}} sqft
 									</div>
 								</div>
-								{{/rooms}}
+
+								<div class="room-attr m-t-10">
+									<label class="property hidden">Property Attributes</label>
+									{{#attributes}}
+										<div class="m-b-5">
+											<span>{{attribute}}</span>: {{value}} 
+										</div>
+									{{/attributes}}
+								</div>
+
+							</div>
+
+							<div class="unit-list">
+								
+								{{#levels}}
+								<div class="blck-wrap no-hover">
+									<h4 class="m-b-10 m-t-10 text-primary">{{level_name}}</h4>
+
+									<!--<div class="blck-wrap title-row">
+										<div class="row">
+											<div class="col-sm-4">
+												<h5 class="accord-head">Rooms</h5>                      
+											</div>
+											<div class="col-sm-4">
+												<h5 class="accord-head">No</h5>                      
+											</div>
+											<div class="col-sm-4">
+												<h5 class="accord-head">Area</h5>                      
+											</div>
+										</div>
+									</div>-->
+
+									{{#rooms}}
+									<div class="room-attr">
+										<div class="m-b-15">
+											<h5 class="m-b-5">{{room_name}}</h5>  
+											{{#attributes}}  
+											<div class=""><span>{{attribute}}</span>: {{value}} </div>
+											{{/attributes}}                    
+											<!--<h6 class="">{{size}}sqft</h6>-->
+										</div>
+									</div>
+									{{/rooms}}
+									
+								</div>
 								{{/levels}}
 								
 							</div>
+
+						</div>
 						</div>
 					</div>')
 
@@ -117,15 +137,17 @@ class LeftBunglowUnitView extends Marionette.ItemView
 		data = super()
 		url = Backbone.history.fragment
 		unitid = parseInt url.split('/')[1]
+		response = window.unit.getUnitDetails(unitid)
 		unit = unitCollection.findWhere
 			id  : unitid
-		unitVariant = bunglowVariantCollection.findWhere
-								'id' : unit.get('unit_variant_id')
 		levels = []
-		floor = unitVariant.get('floor')
+		floor = response[0].get('floor')
 
 		$.each floor,(index,value)->
 			rooms = []
+			level_name =  'Level  '+ index  
+			if response[2]  is 'apartment'
+				level_name = 'Floor ' + unit.get 'floor'
 			$.each value.rooms_data,(ind,val)->
 				attributes = []
 				$.each val.atributes,(ind_att,val_att)->
@@ -138,16 +160,33 @@ class LeftBunglowUnitView extends Marionette.ItemView
 					'attributes' : attributes
 			
 			levels.push 
-				'level_name' : 'Level  '+ index
+				'level_name' : level_name
 				'rooms'			 : rooms
 		
 		unitType = unitTypeCollection.findWhere
-								'id' :  unitVariant.get('unit_type_id')
-		data.area = unitVariant.get('super_built_up_area')
-		data.type = unitType.get('name')
+								'id' :  response[0].get('unit_type_id')
+
+		attributes = []
+		if response[4] != null
+			$.each response[4] , (index,value)->
+				attributes.push 
+						'attribute' : s.capitalize index
+						'value'     : value
+		data.area = response[0].get('super_built_up_area')
+		data.type = response[1].get('name')
 		data.unit_name = unit.get('unit_name')
 		data.levels  = levels
+		data.attributes  = attributes
 		data
+
+	onShow:->
+		url = Backbone.history.fragment
+		unitid = parseInt url.split('/')[1]
+		response = window.unit.getUnitDetails(unitid)
+		window.convertRupees(response[3])
+		$('.price').text $('#price').val()
+		if response[4] != null
+			$('.property').removeClass 'hidden'
 	
 
 class CommonFloor.LeftBunglowUnitCtrl extends Marionette.RegionController
@@ -161,84 +200,146 @@ class CenterBunglowUnitView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 						<div class="svg-area">
 							<div class="liquid-slider slider" id="slider-id">
-									 <div>
+								<div class="ls-wrapper ls-responsive">
+									<div class="ls-nav">
+										<ul>
+											<li class="external ">
+												<h4 class="title">External 3D</h4>
+											</li>
+											<li class="twoD">
+												<h4 class="title">2D Layout</h4>
+											</li>
+											<li class="threeD">
+												<h4 class="title">3D Layout</h4>
+											</li>
+										</ul>
+									</div>
+									 <!--<div class="external">
 											<h2 class="title">External 3D</h2>
-											<img src="{{external_url}}">
+											
 									 </div>
-									 <div>
+									 <div class="twoD">
 										<h2 class="title">2D Layout</h2>
-										<div class="row {{level}}">
-										{{#levels}}
-                      						<div class="col-sm-6 m-b-20">
-												<img src="{{two_d}}">
-												<h5 class="text-center">{{level_name}}</h5>
-											</div>
-										{{/levels}}
-										</div>
+										
 									 </div>
-									 <div>
+									 <div class="threeD">
 										<h2 class="title">3D Layout</h2>
-										<div class="row">
-										{{#levels}}
-											<div class="col-sm-6 m-b-20">
-												<img src="{{three_d}}">
-												<h5 class="text-center">{{level_name}}</h5>
+									 </div>-->
+								</div>
+
+								<div class="liquid-slider slider">
+									<div class="panel-wrapper">
+										<div class="level ">
+											<div class="images animated fadeIn">
 											</div>
-										{{/levels}}
 										</div>
-												
-									 </div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>')
 
-	serializeData:->
-		data = super()
-		url = Backbone.history.fragment
-		unitid = parseInt url.split('/')[1]
-		unit = unitCollection.findWhere
-			id  : unitid
-		unitVariant = bunglowVariantCollection.findWhere
-								'id' : unit.get('unit_variant_id')
-		levels = []
-		floor = unitVariant.get('floor')
-		level = ""
-		$.each floor,(index,value)->
-			rooms = []
-			levels.push 
-				'two_d' : value.url2dlayout_image
-				'three_d'			 : value.url3dlayout_image
-				'level_name' : 'Level '+index
-				level = s.replaceAll('Level '+index, " ", "_")
-		
-		data.level = level
-		data.levels = levels
-		data.external_url = unitVariant.get 'external3durl'
-		data
+
+	events:
+		'click .threeD':(e)->
+			response = @generateLevels()
+			html = ''
+			$.each response[1],(index,value)->
+				html += '<div class="layouts animated fadeIn">
+							<img src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
+						</div>'
+			$('.images').html html
+			$('.threeD').addClass('current')
+			$('.external').removeClass('current')
+			$('.twoD').removeClass('current')
+
+		'click .twoD':(e)->
+			response = @generateLevels()
+			html = ''
+			$.each response[0],(index,value)->
+				html += '<div class="layouts animated fadeIn">
+							<img src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
+						</div>'
+			$('.images').html html
+			$('.twoD').addClass('current')
+			$('.external').removeClass('current')
+			$('.threeD').removeClass('current')
+
+		'click .external':(e)->
+			response = @generateLevels()
+			html = '<div class="animated fadeIn">
+						<img src="'+response[3].get('external3durl')+'" />
+					</div>'
+			$('.images').html html
+			$('.external').addClass('current')
+			$('.threeD').removeClass('current')
+			$('.twoD').removeClass('current')
 		
 
 	onShow:->
-		# $('.slider').imagesLoaded ->
-		# 	divHeight = $('.us-right-content').height()
-		# 	$('.unit-list').css 'max-height', divHeight + 'px'
-		# 	return
-		$('#slider-id').liquidSlider(
-					slideEaseFunction: "easeInOutQuad",
-					includeTitle:false,
-					autoSlideInterval: 4000,
-					mobileNavigation: false,
-					hideArrowsWhenMobile: false,
-					dynamicTabsAlign: "center",
-					dynamicArrows: false,
-			 
-				)
+		response = @generateLevels()
+		html = ''
+		$.each response[0],(index,value)->
+			html += '<img src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>'
+		$('.twoD').addClass('current')
+		$('.threeD').removeClass('current')
+		$('.external').removeClass('current')
+		if response[0].length == 0
+			$.each response[1],(index,value)->
+				html += '<img src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>'
+			$('.threeD').addClass('current')
+			$('.external').removeClass('current')
+			$('.twoD').removeClass('current')
+		
+		
 
-	
+		$('.images').html html
+		$('.level').attr 'class' , 'level '+ _.last(response[2])
+			
+			
+
+				
+		if response[3].get('external3durl') != undefined
+			html = '<img src="'+response[3].get('external3durl')+'" />'
+			$('.images').html html
+			$('.external').addClass('current')
+			$('.threeD').removeClass('current')
+			$('.twoD').removeClass('current')
+
+		
+		if response[0].length == 0
+			$('.twoD').hide()
+			
+
+		if response[1].length == 0
+			$('.threeD').hide()
+
+		if response[3].get('external3durl') == undefined
+			$('.external').hide()
+
+	generateLevels:->
+		url = Backbone.history.fragment
+		unitid = parseInt url.split('/')[1]
+		response = window.unit.getUnitDetails(unitid)
+		twoD = []
+		threeD = []
+		level = []
+		floor = response[0].get('floor')
+		i = 0
+		$.each floor,(index,value)->
+			if value.url2dlayout_image != undefined &&  value.url2dlayout_image != ""
+				twoD.push value.url2dlayout_image
+			if value.url3dlayout_image != undefined &&  value.url3dlayout_image != ""
+				threeD.push value.url3dlayout_image
+			level_name =  'Level  '+ index  
+			if response[2]  is not 'apartment'
+				level.push s.replaceAll('Level '+i, " ", "_")
+			
+			i = i + 1	
+
+		[twoD,threeD,level,response[0]]
 
 class CommonFloor.CenterBunglowUnitCtrl extends Marionette.RegionController
 
 	initialize:->
 		@show new CenterBunglowUnitView
-			
-			
-

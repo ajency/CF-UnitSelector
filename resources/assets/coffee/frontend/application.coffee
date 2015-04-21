@@ -36,15 +36,25 @@ jQuery(document).ready ($)->
 					ctrl : 'LeftBunglowListCtrl'
 				'center' :
 					ctrl : 'CenterBunglowListCtrl'
-	CommonFloor.state 'buildingList',
-			url : '/list-view/building'
+	CommonFloor.state 'apartmentsList',
+			url : '/building/:id/apartments'
 			sections:
 				'top' : 
-					ctrl : 'TopBuildingListCtrl'
+					ctrl : 'TopApartmentCtrl'
 				'left' :
-					ctrl : 'LeftBuildingListCtrl'
+					ctrl : 'LeftApartmentCtrl'
 				'center' :
-					ctrl : 'CenterBuildingListCtrl'
+					ctrl : 'CenterApartmentCtrl'
+
+	CommonFloor.state 'apartmentsMaster',
+			url : '/building/:id/master-view'
+			sections:
+				'top' : 
+					ctrl : 'TopApartmentMasterCtrl'
+				'left' :
+					ctrl : 'LeftApartmentMasterCtrl'
+				'center' :
+					ctrl : 'CenterApartmentMasterCtrl'
 	
 
 

@@ -62,12 +62,29 @@ class VariantMediaController extends Controller {
         $media->save();
 
         $mediaId = $media->id;
-
-        $variantMeta = new VariantMeta();
-        $variantMeta->unit_variant_id = $id;
-        $variantMeta->meta_key = $level.'-'.$layout;
-        $variantMeta->meta_value = $mediaId;
-        $variantMeta->save();
+        
+        if($level=='gallery')
+        {
+            $variantMetaData = VariantMeta::where(['unit_variant_id'=>$id ,'meta_key'=>'gallery'])->first()->toArray(); 
+            $metaValue = unserialize($variantMetaData['meta_value']);
+            $variantMetaId = $variantMetaData['id'];
+            $metaValue[$mediaId]  = $mediaId;
+            
+            $variantMeta = VariantMeta::find($variantMetaId);
+            $variantMeta->meta_value = serialize($metaValue);
+            $variantMeta->save();
+            
+        }
+        else {
+           
+            $variantMeta = new VariantMeta();
+            $variantMeta->unit_variant_id = $id;
+            $variantMeta->meta_key = $level.'-'.$layout;
+            $variantMeta->meta_value = $mediaId;
+            $variantMeta->save();
+            
+        }
+        
 
         return response()->json([
                     'code' => 'image_uploaded',
@@ -117,7 +134,25 @@ class VariantMediaController extends Controller {
      */
     public function destroy($variantId,$id) {
         
-        VariantMeta::where('meta_value',$id)->delete();
+        $type = Input::get( 'type' );  
+ 
+        if($type=='gallery')
+        {
+            $variantMetaData = VariantMeta::where(['unit_variant_id'=>$variantId ,'meta_key'=>'gallery'])->first()->toArray(); 
+            $metaValue = unserialize($variantMetaData['meta_value']);
+            $variantMetaId = $variantMetaData['id'];
+            unset($metaValue[$id]);
+            
+            $variantMeta = VariantMeta::find($variantMetaId);
+            $variantMeta->meta_value = serialize($metaValue);
+            $variantMeta->save();
+            
+        }
+        else
+        {
+            VariantMeta::where('meta_value',$id)->delete();
+        }
+ 
         Media::find( $id )->delete();
 
         return response()->json( [

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use CommonFloor\Project;
 use CommonFloor\Unit;
 use CommonFloor\Building;
+use CommonFloor\FloorLayout;
 
 class ProjectApartmentUnitController extends Controller {
 
@@ -86,13 +87,22 @@ class ProjectApartmentUnitController extends Controller {
 
         $phases = $project->projectPhase()->lists( 'id' );
 
-        $buildings = Building::whereIn( 'phase_id', $phases )->get();
-
-        $unit = Unit::find( $unitId );
-        return view( 'admin.project.unit.apartment.create' )
+        $buildings = Building::whereIn( 'phase_id', $phases )->get()->toArray(); 
+       
+        $unit = Unit::find( $unitId )->toArray(); 
+        $building = Building::find($unit['building_id'])->toArray();  
+        $floors = $building['no_of_floors'];
+        $floorlayoutIds = $building['floors']; 
+        $floorlayoutId = $floorlayoutIds[$unit['floor']];
+        $position = FloorLayout::find($floorlayoutId)->no_of_flats; 
+  
+        
+        return view( 'admin.project.unit.apartment.edit' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'apartment-unit' )
                         ->with( 'buildings', $buildings )
+                        ->with( 'floors', $floors )
+                        ->with( 'position',$position )
                         ->with( 'unit', $unit );
     }
 
@@ -102,8 +112,18 @@ class ProjectApartmentUnitController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update( $id ) {
-        //
+    public function update($project_id, $id, Request $request) {
+        
+        $unit = Unit::find($id);
+        $unit->unit_name = $request->get( 'unit_name' );
+        $unit->unit_variant_id = 0;
+        $unit->building_id = $request->get( 'building_id' );
+        $unit->floor = $request->get( 'floor' );
+        $unit->position = $request->get( 'position' );
+        $unit->availability = $request->get( 'availability' );
+        $unit->save();
+        
+        return redirect("/admin/project/" . $project_id . "/apartment-unit/" . $id . '/edit');
     }
 
     /**
