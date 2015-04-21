@@ -66,6 +66,7 @@
         'building_id': building_id
       });
       temp = [];
+      temp.push(0);
       $.each(units, function(index, value) {
         var variants;
         variants = apartmentVariantCollection.findWhere({
@@ -82,6 +83,7 @@
         'building_id': building_id
       });
       temp = [];
+      temp.push(0);
       $.each(units, function(index, value) {
         units = unit.getUnitDetails(value.get('id'));
         return temp.push(units[3]);

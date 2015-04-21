@@ -11,7 +11,7 @@
       return CenterItemView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterItemView.prototype.template = Handlebars.compile('<div class="bldg-img"></div> <div class="info"> <h2 class="m-b-5">{{building_name}}</h2> <div class="floors"><span>{{floors}}</span> floors</div> </div> <div class="clearfix"></div> <div class="unit-type-info"> <ul> {{#types}} <li> {{name}}<!--: <span>{{units}}</span>--> </li> {{/types}} </ul> <span class="area">{{area}} Sq.Ft</span> <div class="price">From <span>Rs.{{price}}</span></div> </ul> </div>');
+    CenterItemView.prototype.template = Handlebars.compile('<div class="bldg-img"></div> <div class="info"> <h2 class="m-b-5">{{building_name}}</h2> <div class="floors"><span>{{floors}}</span> floors</div> </div> <div class="clearfix"></div> <div class="unit-type-info"> <ul> {{#types}} <li> {{name}}<!--: <span>{{units}}</span>--> </li> {{/types}} </ul> <span class="area {{areaname}}">{{area}} Sq.Ft</span> <div class="price {{classname}}">From <span>Rs.{{price}}</span></div> </ul> </div>');
 
     CenterItemView.prototype.tagName = 'li';
 
@@ -22,14 +22,23 @@
     };
 
     CenterItemView.prototype.serializeData = function() {
-      var cost, data, floors, id, response, types;
+      var areaname, cost, data, floors, id, response, types;
       data = CenterItemView.__super__.serializeData.call(this);
       id = this.model.get('id');
       response = building.getUnitTypes(id);
       types = building.getUnitTypesCount(id, response);
       floors = this.model.get('floors');
+      areaname = "";
       data.area = building.getMinimumArea(id);
+      if (data.area === 0) {
+        areaname = 'hidden';
+      }
+      data.areaname = areaname;
       cost = building.getMinimumCost(id);
+      data.classname = "";
+      if (cost === 0) {
+        data.classname = 'hidden';
+      }
       data.price = window.numDifferentiation(cost);
       data.floors = Object.keys(floors).length;
       data.types = types;
@@ -48,8 +57,14 @@
         return $('#' + id + '.building').attr('class', 'layer building');
       },
       'click ': function(e) {
-        var buildingModel, id;
+        var buildingModel, id, units;
         id = this.model.get('id');
+        units = uniCollection.where({
+          'building_id': id
+        });
+        if (units.length === 0) {
+          return;
+        }
         buildingModel = buildingCollection.findWhere({
           'id': id
         });

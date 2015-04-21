@@ -68,7 +68,7 @@
                         <a href="http://www.commonfloor.com/about-us" title="Contact Us">Contact Us</a>
                       </li>
                       <li>
-                        <a href="#" title="Dashboard">Dashboard</a>
+                        <a href="{{url()}}/admin" title="Dashboard">Dashboard</a>
                       </li>
                     </ul>
                   </div>              

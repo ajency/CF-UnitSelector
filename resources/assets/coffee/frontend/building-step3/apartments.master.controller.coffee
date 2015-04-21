@@ -158,8 +158,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 	              </div>
 	              <div id="spritespin"></div>
 										<div class="svg-maps">
+											<img class="first_image img-responsive" src="" />
 											<div class="region inactive"></div>
 										</div>
+										<div class="cf-loader"></div>
 							            <div class="rotate rotate-controls hidden">
 									        <div id="prev" class="rotate-left">Left</div>
 									        <span class="rotate-text">Rotate</span>
@@ -245,12 +247,16 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 
 	onShow:->
+		height =  @ui.svgContainer.width() / 1.46
+		$('.search-left-content').css('height',height)
+		$('#spritespin').hide()
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		console.log building = buildingCollection.findWhere
 							id : building_id
 		transitionImages = []
 		svgs = {}
+		that = @
 		svgs[0] = building.get('building_master').front 
 		svgs[4] = building.get('building_master').right
 		svgs[8] = building.get('building_master').back
@@ -260,9 +266,13 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$.merge transitionImages , building.get('building_master')['back-right']
 		$.merge transitionImages , building.get('building_master')['left-back']
 		$.merge transitionImages , building.get('building_master')['front-left']
-		response = building.checkRotationView(building)
-		if response is 1
-			$('.rotate').removeClass 'hidden'
+		$('.region').load(building.get('building_master').front,
+			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
+		$('.first_image').bttrlazyloading(
+			animation: 'fadeIn'
+
+			)
+		
 		@initializeRotate(transitionImages,svgs)
 
 
@@ -299,6 +309,17 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			if data.frame is data.stopFrame
 				url = svgs[data.frame]
 				$('.region').load(url,that.iniTooltip).addClass('active').removeClass('inactive')
+				
+				
+		)
+		spin.bind("onLoad" , ()->
+			$('.first_image').remove()
+			response = building.checkRotationView(building)
+			if response is 1
+				$('.rotate').removeClass 'hidden'
+				$('#spritespin').show()
+				$('.cf-loader').hide()
+				
 				
 		)
 

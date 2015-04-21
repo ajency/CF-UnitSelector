@@ -18,8 +18,8 @@ class CenterItemView extends Marionette.ItemView
 					                       
 
 					                      </ul>
-					                      <span class="area">{{area}} Sq.Ft</span>
-					                      <div class="price">From <span>Rs.{{price}}</span></div>
+					                      <span class="area {{areaname}}">{{area}} Sq.Ft</span>
+					                      <div class="price {{classname}}">From <span>Rs.{{price}}</span></div>
 
 					                      </ul>
 
@@ -41,8 +41,15 @@ class CenterItemView extends Marionette.ItemView
 		response = building.getUnitTypes(id)
 		types = building.getUnitTypesCount(id,response)
 		floors = @model.get 'floors'
+		areaname = ""
 		data.area = building.getMinimumArea(id)
+		if data.area == 0
+			areaname = 'hidden'
+		data.areaname = areaname
 		cost = building.getMinimumCost(id)
+		data.classname = ""
+		if cost == 0
+			data.classname = 'hidden'
 		data.price = window.numDifferentiation(cost)
 		data.floors = Object.keys(floors).length
 		data.types = types
@@ -59,6 +66,10 @@ class CenterItemView extends Marionette.ItemView
 				
 		'click ':(e)->
 			id = @model.get 'id'
+			units = uniCollection.where 
+						'building_id' : id
+			if units.length == 0
+				return
 			buildingModel = buildingCollection.findWhere
 							'id' : id
 			if buildingModel.get('building_master').front == ""

@@ -188,7 +188,7 @@
       return CenterApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterApartmentMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#" class="map active">Map</a><a href="#" class="list">List</a> </div> </div>--> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
+    CenterApartmentMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#" class="map active">Map</a><a href="#" class="list">List</a> </div> </div>--> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="spritespin"></div> <div class="svg-maps"> <img class="first_image img-responsive" src="" /> <div class="region inactive"></div> </div> <div class="cf-loader"></div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
 
     CenterApartmentMasterView.prototype.ui = {
       svgContainer: '.list-view-container'
@@ -250,7 +250,10 @@
     };
 
     CenterApartmentMasterView.prototype.onShow = function() {
-      var building, building_id, response, svgs, transitionImages, url;
+      var building, building_id, height, svgs, that, transitionImages, url;
+      height = this.ui.svgContainer.width() / 1.46;
+      $('.search-left-content').css('height', height);
+      $('#spritespin').hide();
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
       console.log(building = buildingCollection.findWhere({
@@ -258,6 +261,7 @@
       }));
       transitionImages = [];
       svgs = {};
+      that = this;
       svgs[0] = building.get('building_master').front;
       svgs[4] = building.get('building_master').right;
       svgs[8] = building.get('building_master').back;
@@ -267,10 +271,10 @@
       $.merge(transitionImages, building.get('building_master')['back-right']);
       $.merge(transitionImages, building.get('building_master')['left-back']);
       $.merge(transitionImages, building.get('building_master')['front-left']);
-      response = building.checkRotationView(building);
-      if (response === 1) {
-        $('.rotate').removeClass('hidden');
-      }
+      $('.region').load(building.get('building_master').front, $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
+      $('.first_image').bttrlazyloading({
+        animation: 'fadeIn'
+      });
       return this.initializeRotate(transitionImages, svgs);
     };
 
@@ -304,12 +308,22 @@
       });
       that = this;
       api = spin.spritespin("api");
-      return spin.bind("onFrame", function() {
+      spin.bind("onFrame", function() {
         var data, url;
         data = api.data;
         if (data.frame === data.stopFrame) {
           url = svgs[data.frame];
           return $('.region').load(url, that.iniTooltip).addClass('active').removeClass('inactive');
+        }
+      });
+      return spin.bind("onLoad", function() {
+        var response;
+        $('.first_image').remove();
+        response = building.checkRotationView(building);
+        if (response === 1) {
+          $('.rotate').removeClass('hidden');
+          $('#spritespin').show();
+          return $('.cf-loader').hide();
         }
       });
     };

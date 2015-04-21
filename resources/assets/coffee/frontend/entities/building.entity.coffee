@@ -47,6 +47,7 @@ class Building extends Backbone.Model
 		units = unitCollection.where
 					'building_id' : building_id
 		temp = []
+		temp.push 0 
 		$.each units,(index,value)->
 			variants = apartmentVariantCollection.findWhere
 							'id' : value.get 'unit_variant_id'
@@ -58,11 +59,13 @@ class Building extends Backbone.Model
 		units = unitCollection.where
 					'building_id' : building_id
 		temp = []
+		temp.push 0 
 		$.each units,(index,value)->
 			units = unit.getUnitDetails(value.get('id'))
 			temp.push units[3]
 
 		_.min temp
+		
 
 
 
