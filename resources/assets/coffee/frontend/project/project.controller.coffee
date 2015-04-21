@@ -115,7 +115,8 @@ class LeftView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
-		propertyTypesData = @model.get 'property_types'
+		propertyTypesData = @model.get 'project_property_types'
+		propertyTypes = @model.get 'property_types'
 		propertyTypes = [] 
 		availability = []
 		$.each propertyTypesData,(index,value)->
@@ -125,7 +126,7 @@ class LeftView extends Marionette.ItemView
 					'count'		: val
 
 			propertyTypes.push 
-				'prop_type'  		: s.capitalize index
+				'prop_type'  		: s.capitalize propertyTypes[index]
 				'unit_types'		: value.unit_types.join(',')
 				'starting_area' 	: value.starting_area
 				'starting_price' 	: window.numDifferentiation(value.starting_price)

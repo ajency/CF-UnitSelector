@@ -85,7 +85,8 @@
     LeftView.prototype.serializeData = function() {
       var availability, data, propertyTypes, propertyTypesData;
       data = LeftView.__super__.serializeData.call(this);
-      propertyTypesData = this.model.get('property_types');
+      propertyTypesData = this.model.get('project_property_types');
+      propertyTypes = this.model.get('property_types');
       propertyTypes = [];
       availability = [];
       $.each(propertyTypesData, function(index, value) {
@@ -96,7 +97,7 @@
           });
         });
         return propertyTypes.push({
-          'prop_type': s.capitalize(index),
+          'prop_type': s.capitalize(propertyTypes[index]),
           'unit_types': value.unit_types.join(','),
           'starting_area': value.starting_area,
           'starting_price': window.numDifferentiation(value.starting_price),
