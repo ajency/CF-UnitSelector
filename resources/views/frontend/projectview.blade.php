@@ -59,16 +59,16 @@
                   <div class="col-sm-12 col-md-12 col-xm-12">
                     <ul class="nav navbar-nav footer-nav">
                       <li>
-                        <a href="http://www.commonfloor.com/about-us" title="Terms and Conditions">Terms &amp; Conditions</a>
+                        <a href="http://www.commonfloor.com/about-us" target="_blank" title="Terms and Conditions">Terms &amp; Conditions</a>
                       </li>
                       <li>
-                        <a href="http://www.commonfloor.com/privacy-policy" title="Privacy Policy">Privacy Policy</a>
+                        <a href="http://www.commonfloor.com/privacy-policy" target="_blank" title="Privacy Policy">Privacy Policy</a>
                       </li>
                       <li>
-                        <a href="http://www.commonfloor.com/about-us" title="Contact Us">Contact Us</a>
+                        <a href="http://www.commonfloor.com/about-us" target="_blank" title="Contact Us">Contact Us</a>
                       </li>
                       <li>
-                        <a href="{{url()}}/admin" title="Dashboard">Dashboard</a>
+                        <a href="{{url()}}/admin" target="_blank"  title="Dashboard">Dashboard</a>
                       </li>
                     </ul>
                   </div>              

@@ -45,11 +45,12 @@ class CenterItemView extends Marionette.ItemView
 		data.area = building.getMinimumArea(id)
 		if data.area == 0
 			areaname = 'hidden'
-		data.areaname = areaname
-		cost = building.getMinimumCost(id)
+		console.log data.areaname = areaname
+		console.log cost = building.getMinimumCost(id)
 		data.classname = ""
 		if cost == 0
 			data.classname = 'hidden'
+		console.log data.classname
 		data.price = window.numDifferentiation(cost)
 		data.floors = Object.keys(floors).length
 		data.types = types
@@ -66,7 +67,7 @@ class CenterItemView extends Marionette.ItemView
 				
 		'click ':(e)->
 			id = @model.get 'id'
-			units = uniCollection.where 
+			units = unitCollection.where 
 						'building_id' : id
 			if units.length == 0
 				return
