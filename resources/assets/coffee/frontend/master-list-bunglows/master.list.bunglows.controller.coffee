@@ -1,12 +1,13 @@
 #view for the Center setion
 class BunglowListView extends Marionette.ItemView
 
-	template : Handlebars.compile('	<div class="pull-left info">
-						                 <label>{{unit_name}}</label> <span>{{unit_type}}</span> {{super_built_up_area}}sqft
+	template : Handlebars.compile('	<div class=" info">
+						                <label class="pull-left">{{unit_name}}</label> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft-->
+						            	<div class="clearfix"></div>
 						            </div>
-					                <!--<div class="pull-right cost">
-					                  50 lakhs
-					                </div>-->')
+					                <div class="cost">
+					                  Rs.50 lakhs
+					                </div>')
 
 	initialize:->
 		@$el.prop("id", 'unit'+@model.get("id"))
@@ -60,7 +61,7 @@ class BunglowListView extends Marionette.ItemView
 class MasterBunglowListView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-3 us-left-content">
-									<div class="list-view-container animated fadeInLeft">
+									<div class="list-view-container w-map animated fadeInLeft">
 							            <!--<div class="controls map-View">
 								            <div class="toggle">
 								            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
@@ -76,6 +77,7 @@ class MasterBunglowListView extends Marionette.CompositeView
 							              </ul>
 							            </div>
 							            <div class="advncd-filter-wrp  unit-list">
+							            	<p class="text-center help-text">Hover on the units for more details</p>
 											<!--<div class="blck-wrap title-row">
 				                  				<div class="row">
 								                    <div class="col-sm-4">
@@ -89,7 +91,7 @@ class MasterBunglowListView extends Marionette.CompositeView
 								                    </div>
 				                  				</div>
 				                			</div>-->
-							                <ul class="units three">
+							                <ul class="units two">
 							                </ul>
 										</div>
 							        </div>

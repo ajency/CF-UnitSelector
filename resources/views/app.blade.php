@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>CommonFloor UnitSelector</title>
         
-        <link rel="icon" type="image/png" href="{{ asset('images/others/fevicon.ico') }}">
+        <link rel="icon" type="image/png" href="{{ asset('images/others/favicon.ico') }}">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <!-- Fonts -->
         <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
