@@ -4,7 +4,9 @@ class CenterItemView extends Marionette.ItemView
 					                    <div class="bldg-img"></div>
 					                    <div class="info">
 					                      <h2 class="m-b-5">{{building_name}}</h2>
-					                      <!--<div>Starting from Rs.<span>50 lakhs</span></div>-->
+
+					                      <div>Starting from Rs.<span>{{price}}</span></div>
+
 					                      <div class="floors">Floors: <span>{{floors}}</span></div>
 					                    </div>
 					                    <div class="clearfix"></div>
@@ -16,13 +18,18 @@ class CenterItemView extends Marionette.ItemView
 					                        </li>
 					                        {{/types}}
 					                       
+
+					                      </ul><span>({{area}} Sq.Ft)
+
 					                      </ul>
+
 					                    </div>
 					                  ')
 
 	tagName : 'li'
 
 	className : 'bldg blocks'
+
 		
 	serializeData:->
 		data = super()
@@ -30,12 +37,22 @@ class CenterItemView extends Marionette.ItemView
 		response = building.getUnitTypes(id)
 		types = building.getUnitTypesCount(id,response)
 		floors = @model.get 'floors'
+		data.area = building.getMinimumArea(id)
+		cost = building.getMinimumCost(id)
+		data.price = window.numDifferentiation(cost)
 		data.floors = Object.keys(floors).length
 		data.types = types
 		data
 
 	events:
-		'click .bldg':(e)->
+		'mouseover':(e)->
+			id = @model.get 'id'
+			$('#'+id+'.building').attr('class' ,'layer building available')
+		'mouseout' :(e)->
+			id = @model.get 'id'
+			$('#'+id+'.building').attr('class' ,'layer building')
+
+		'click ':(e)->
 			id = @model.get 'id'
 			buildingModel = buildingCollection.findWhere
 							'id' : id
@@ -56,8 +73,10 @@ class MasterBuildingListView extends Marionette.CompositeView
             </div>-->
 			<div class="text-center">
               <ul class="prop-select">
-                <li class="prop-type buildings active">buildings</li>
-                <li class="prop-type Villas hidden">Villas/Bungalows</li>
+
+                <li class="prop-type buildings active">Buildings</li>
+                <li class="prop-type Villas hidden">Villas</li>
+
                 <li class="prop-type Plots hidden">Plots</li>
               </ul>
             </div>
@@ -81,10 +100,10 @@ class MasterBuildingListView extends Marionette.CompositeView
 			data = {}
 			data.units = units
 			data.type = 'building'
-			
 			@region =  new Marionette.Region el : '#leftregion'
-			new CommonFloor.CenterBuildingListCtrl region : @region
-			@trigger "load:units" , data
+			new CommonFloor.MasterBuildingListCtrl region : @region
+			# @trigger "load:units" , data
+
 			
 
 		'click .Villas':(e)->
@@ -93,8 +112,9 @@ class MasterBuildingListView extends Marionette.CompositeView
 			data.units = units
 			data.type = 'villa'
 			@region =  new Marionette.Region el : '#leftregion'
-			new CommonFloor.ListCtrl region : @region
-			@trigger "load:units" , data
+			new CommonFloor.MasterBunglowListCtrl region : @region
+			# MasterBuildingListCtrl@trigger "load:units" , data
+
 
 	onShow:->
 		if project.get('project_master').front  == ""

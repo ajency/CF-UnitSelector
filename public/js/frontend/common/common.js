@@ -118,18 +118,22 @@
   CommonFloor.propertyTypes = function() {
     var Router, controller;
     Router = [];
-    Router.push({
-      'type': 'bunglows',
-      'count': bunglowVariantCollection.getBunglowUnits()
-    });
-    Router.push({
-      'type': 'building',
-      'count': buildingCollection.toArray()
-    });
+    if (bunglowVariantCollection.getBunglowUnits().length !== 0) {
+      Router.push({
+        'type': s.capitalize('villas'),
+        'count': bunglowVariantCollection.getBunglowUnits()
+      });
+    }
+    if (buildingCollection.toArray().length !== 0) {
+      Router.push({
+        'type': s.capitalize('buildings'),
+        'count': buildingCollection.toArray()
+      });
+    }
     controller = _.max(Router, function(item) {
       return parseInt(item.count.length);
     });
-    return controller;
+    return Router;
   };
 
 }).call(this);

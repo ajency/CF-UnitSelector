@@ -82,7 +82,7 @@ class LeftBunglowUnitView extends Marionette.ItemView
 								</div>
 
 								<div class="room-attr m-t-10">
-									<label>Property Attributes</label>
+									<label class="property hidden">Property Attributes</label>
 									{{#attributes}}
 										<div class="m-b-5">
 											<span>{{attribute}}</span>: {{value}} 
@@ -90,44 +90,46 @@ class LeftBunglowUnitView extends Marionette.ItemView
 									{{/attributes}}
 								</div>
 
-								<div class="unit-list">
-									
-									{{#levels}}
-									<div class="blck-wrap no-hover">
-										<h4 class="m-b-10 m-t-10 text-primary">{{level_name}}</h4>
+							</div>
 
-										<!--<div class="blck-wrap title-row">
-											<div class="row">
-												<div class="col-sm-4">
-													<h5 class="accord-head">Rooms</h5>                      
-												</div>
-												<div class="col-sm-4">
-													<h5 class="accord-head">No</h5>                      
-												</div>
-												<div class="col-sm-4">
-													<h5 class="accord-head">Area</h5>                      
-												</div>
+							<div class="unit-list">
+								
+								{{#levels}}
+								<div class="blck-wrap no-hover">
+									<h4 class="m-b-10 m-t-10 text-primary">{{level_name}}</h4>
+
+									<!--<div class="blck-wrap title-row">
+										<div class="row">
+											<div class="col-sm-4">
+												<h5 class="accord-head">Rooms</h5>                      
 											</div>
-										</div>-->
-
-										{{#rooms}}
-										<div class="room-attr">
-											<div class="m-b-15">
-												<h5 class="m-b-5">{{room_name}}</h5>  
-												{{#attributes}}  
-												<div class=""><span>{{attribute}}</span>: {{value}} </div>
-												{{/attributes}}                    
-												<!--<h6 class="">{{size}}sqft</h6>-->
+											<div class="col-sm-4">
+												<h5 class="accord-head">No</h5>                      
+											</div>
+											<div class="col-sm-4">
+												<h5 class="accord-head">Area</h5>                      
 											</div>
 										</div>
-										{{/rooms}}
-										
+									</div>-->
+
+									{{#rooms}}
+									<div class="room-attr">
+										<div class="m-b-15">
+											<h5 class="m-b-5">{{room_name}}</h5>  
+											{{#attributes}}  
+											<div class=""><span>{{attribute}}</span>: {{value}} </div>
+											{{/attributes}}                    
+											<!--<h6 class="">{{size}}sqft</h6>-->
+										</div>
 									</div>
-									{{/levels}}
+									{{/rooms}}
 									
 								</div>
+								{{/levels}}
 								
 							</div>
+
+						</div>
 						</div>
 					</div>')
 
@@ -178,6 +180,8 @@ class LeftBunglowUnitView extends Marionette.ItemView
 		response = window.unit.getUnitDetails(unitid)
 		window.convertRupees(response[3])
 		$('.price').text $('#price').val()
+		if response[4] != null
+			$('.property').removeClass 'hidden'
 	
 
 class CommonFloor.LeftBunglowUnitCtrl extends Marionette.RegionController
@@ -220,7 +224,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 
 								<div class="liquid-slider slider">
 									<div class="panel-wrapper">
-										<div class="Level_2">
+										<div class="level ">
 											<div class="images animated fadeIn">
 											</div>
 										</div>
@@ -249,7 +253,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 			html = ''
 			$.each threeD,(index,value)->
 				html += '<div class="layouts animated fadeIn">
-							<img src="'+value+'" /><span>'+level[index]+'</span>
+							<img src="'+value+'" /><span>'+s.replaceAll(level[index], "_", " ")+'</span>
 						</div>'
 			$('.images').html html
 			$('.threeD').addClass('current')
@@ -273,7 +277,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 			html = ''
 			$.each twoD,(index,value)->
 				html += '<div class="layouts animated fadeIn">
-							<img src="'+value+'" /><span>'+level[index]+'</span>
+							<img src="'+value+'" /><span>'+s.replaceAll(level[index], "_", " ")+'</span>
 						</div>'
 			$('.images').html html
 			$('.twoD').addClass('current')
@@ -307,14 +311,25 @@ class CenterBunglowUnitView extends Marionette.ItemView
 		floor = response[0].get('floor')
 		i = 0
 		$.each floor,(index,value)->
-			twoD.push value.url2dlayout_image
-			threeD.push value.url3dlayout_image
+			if value.url2dlayout_image != undefined &&  value.url2dlayout_image != ""
+				twoD.push value.url2dlayout_image
+			if value.url3dlayout_image != undefined &&  value.url3dlayout_image != ""
+				threeD.push value.url3dlayout_image
 			level.push s.replaceAll('Level '+i, " ", "_")
 			i = i + 1
 		html = ''
+
 		$.each twoD,(index,value)->
-			html += '<img src="'+value+'" /><span>'+level[index]+'</span>'
+			html += '<img src="'+value+'" /><span>'+s.replaceAll(level[index], "_", " ")+'</span>'
+
+		if twoD.length == 0
+			$.each threeD,(index,value)->
+				html += '<img src="'+value+'" /><span>'+s.replaceAll(level[index], "_", " ")+'</span>'
+		
+		
+
 		$('.images').html html
+		$('.level').attr 'class' , 'level '+ _.last(level)
 			
 			
 
@@ -323,7 +338,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 			html = '<img src="'+response[0].get('external3durl')+'" />'
 			$('.images').html html
 
-
+		
 		if twoD.length == 0
 			$('.twoD').hide()
 
@@ -339,6 +354,3 @@ class CommonFloor.CenterBunglowUnitCtrl extends Marionette.RegionController
 
 	initialize:->
 		@show new CenterBunglowUnitView
-			
-			
-

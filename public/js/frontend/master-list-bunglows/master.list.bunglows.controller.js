@@ -14,7 +14,6 @@
     BunglowListView.prototype.template = Handlebars.compile('	<div class="pull-left info"> <label>{{unit_name}}</label> <span>{{unit_type}}</span> {{super_built_up_area}}sqft </div> <!--<div class="pull-right cost"> 50 lakhs </div>-->');
 
     BunglowListView.prototype.initialize = function() {
-      this["class"] = "";
       return this.$el.prop("id", 'unit' + this.model.get("id"));
     };
 
@@ -23,7 +22,7 @@
     BunglowListView.prototype.className = 'unit blocks';
 
     BunglowListView.prototype.serializeData = function() {
-      var data, unitType, unitVariant;
+      var availability, data, status, unitType, unitVariant;
       data = BunglowListView.__super__.serializeData.call(this);
       unitVariant = bunglowVariantCollection.findWhere({
         'id': this.model.get('unit_variant_id')
@@ -33,7 +32,9 @@
       });
       data.unit_type = unitType.get('name');
       data.super_built_up_area = unitVariant.get('super_built_up_area');
-      this.model.set('status', data.status);
+      availability = this.model.get('availability');
+      status = s.decapitalize(availability);
+      this.model.set('status', status);
       return data;
     };
 
@@ -47,18 +48,17 @@
     };
 
     BunglowListView.prototype.events = {
-      'mouseover .unit': function(e) {
+      'mouseover': function(e) {
         var id;
         id = this.model.get('id');
-        this["class"] = $('#' + id).attr('class');
-        return $('#' + id).attr('class', 'layer ' + this.model.get('status'));
+        return $('#' + id + '.villa').attr('class', 'layer villa ' + this.model.get('status'));
       },
-      'mouseout .unit': function(e) {
+      'mouseout': function(e) {
         var id;
         id = this.model.get('id');
-        return $('#' + id).attr('class', this["class"]);
+        return $('#' + id + '.villa').attr('class', 'layer villa');
       },
-      'click .unit': function(e) {
+      'click': function(e) {
         if (this.model.get('status') === 'available') {
           CommonFloor.defaults['unit'] = this.model.get('id');
           return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
@@ -77,7 +77,7 @@
       return MasterBunglowListView.__super__.constructor.apply(this, arguments);
     }
 
-    MasterBunglowListView.prototype.template = Handlebars.compile('<div class="col-md-3 us-left-content"> <div class="list-view-container animated fadeInLeft"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings hidden">buildings</li> <li class="prop-type Villas active ">Villas/Bungalows</li> <li class="prop-type Plots hidden">Plots</li> </ul> </div> <div class="advncd-filter-wrp  unit-list"> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> <ul class="units three"> </ul> </div> </div> </div>');
+    MasterBunglowListView.prototype.template = Handlebars.compile('<div class="col-md-3 us-left-content"> <div class="list-view-container animated fadeInLeft"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings hidden">Buildings</li> <li class="prop-type Villas active ">Villas/Bungalows</li> <li class="prop-type Plots hidden">Plots</li> </ul> </div> <div class="advncd-filter-wrp  unit-list"> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> <ul class="units three"> </ul> </div> </div> </div>');
 
     MasterBunglowListView.prototype.childView = BunglowListView;
 
@@ -93,10 +93,9 @@
         this.region = new Marionette.Region({
           el: '#leftregion'
         });
-        new CommonFloor.CenterBuildingListCtrl({
+        return new CommonFloor.MasterBuildingListCtrl({
           region: this.region
         });
-        return this.trigger("load:units", data);
       },
       'click .Villas': function(e) {
         var data, units;
@@ -107,10 +106,9 @@
         this.region = new Marionette.Region({
           el: '#leftregion'
         });
-        new CommonFloor.ListCtrl({
+        return new CommonFloor.MasterBunglowListCtrl({
           region: this.region
         });
-        return this.trigger("load:units", data);
       }
     };
 

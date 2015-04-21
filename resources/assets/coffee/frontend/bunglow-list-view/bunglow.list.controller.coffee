@@ -20,33 +20,19 @@ class CommonFloor.BunglowListCtrl extends Marionette.RegionController
 class TopBunglowListView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="row">
-          <div class="col-md-12 col-xs-12 col-sm-12">
-            <!--<div class="row breadcrumb-bar">
-              <div class="col-xs-12 col-md-12">
-                <div class="bread-crumb-list">
-                  <ul class="brdcrmb-wrp clearfix">
-                    <li class="">
-                      <span class="bread-crumb-current">
-                        <span class=".icon-arrow-right2"></span>Back to Poject Overview
-                      </span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>-->
+		  <div class="col-md-12 col-xs-12 col-sm-12">
+			<div class="search-header-wrap">
 
-            <div class="search-header-wrap">
-              <h1>We are now at {{project_title}}\'s upcoming project having {{units}} {{type}}\'s</h1>
-            </div>
-          </div>
-        </div>')
+			  <h1>{{project_title}} {{#types}} {{count.length}} {{type}} {{/types}}</h1>
+
+			</div>
+		  </div>
+		</div>')
 
 	serializeData:->
 		data = super()
-		units = Marionette.getOption( @, 'units' )
-		type = Marionette.getOption( @, 'type' )
-		data.units  = units.length
-		data.type  = type
+		response = CommonFloor.propertyTypes() 
+		data.types = response
 		data
 
 
@@ -56,18 +42,13 @@ class TopBunglowListView extends Marionette.ItemView
 class CommonFloor.TopBunglowListCtrl extends Marionette.RegionController
 
 	initialize:->
-		@listenTo @parent() , "load:units" , @showViews
-
-		@listenTo Backbone , "load:units" , @showViews
-
-	showViews:(data)->
-		console.log data
+		console.log "aaaaaaaaaaa"
 		@show new TopBunglowListView 
 				model : project
-				units : data.units
-				type: data.type
-			
-			
+
+		# @listenTo Backbone , "load:units" , @showViews
+
+		
 		
 
 	

@@ -11,26 +11,39 @@
       return CenterItemView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterItemView.prototype.template = Handlebars.compile('<div class="bldg-img"></div> <div class="info"> <h2 class="m-b-5">{{building_name}}</h2> <!--<div>Starting from Rs.<span>50 lakhs</span></div>--> <div class="floors">Floors: <span>{{floors}}</span></div> </div> <div class="clearfix"></div> <div class="unit-type-info"> <ul> {{#types}} <li> {{name}}<!--: <span>{{units}}</span>--> </li> {{/types}} </ul> </div>');
+    CenterItemView.prototype.template = Handlebars.compile('<div class="bldg-img"></div> <div class="info"> <h2 class="m-b-5">{{building_name}}</h2> <div>Starting from Rs.<span>{{price}}</span></div> <div class="floors">Floors: <span>{{floors}}</span></div> </div> <div class="clearfix"></div> <div class="unit-type-info"> <ul> {{#types}} <li> {{name}}<!--: <span>{{units}}</span>--> </li> {{/types}} </ul><span>({{area}} Sq.Ft) </ul> </div>');
 
     CenterItemView.prototype.tagName = 'li';
 
     CenterItemView.prototype.className = 'bldg blocks';
 
     CenterItemView.prototype.serializeData = function() {
-      var data, floors, id, response, types;
+      var cost, data, floors, id, response, types;
       data = CenterItemView.__super__.serializeData.call(this);
       id = this.model.get('id');
       response = building.getUnitTypes(id);
       types = building.getUnitTypesCount(id, response);
       floors = this.model.get('floors');
+      data.area = building.getMinimumArea(id);
+      cost = building.getMinimumCost(id);
+      data.price = window.numDifferentiation(cost);
       data.floors = Object.keys(floors).length;
       data.types = types;
       return data;
     };
 
     CenterItemView.prototype.events = {
-      'click .bldg': function(e) {
+      'mouseover': function(e) {
+        var id;
+        id = this.model.get('id');
+        return $('#' + id + '.building').attr('class', 'layer building available');
+      },
+      'mouseout': function(e) {
+        var id;
+        id = this.model.get('id');
+        return $('#' + id + '.building').attr('class', 'layer building');
+      },
+      'click ': function(e) {
         var buildingModel, id;
         id = this.model.get('id');
         buildingModel = buildingCollection.findWhere({
@@ -55,7 +68,7 @@
       return MasterBuildingListView.__super__.constructor.apply(this, arguments);
     }
 
-    MasterBuildingListView.prototype.template = Handlebars.compile('<div class="col-md-3 us-left-content"> <div class="list-view-container animated fadeInLeft"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings active">buildings</li> <li class="prop-type Villas hidden">Villas/Bungalows</li> <li class="prop-type Plots hidden">Plots</li> </ul> </div> <div class="bldg-list"> <ul class="units one"> </ul> <div class="clearfix"></div> </div> </div> </div>');
+    MasterBuildingListView.prototype.template = Handlebars.compile('<div class="col-md-3 us-left-content"> <div class="list-view-container animated fadeInLeft"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings active">Buildings</li> <li class="prop-type Villas hidden">Villas</li> <li class="prop-type Plots hidden">Plots</li> </ul> </div> <div class="bldg-list"> <ul class="units one"> </ul> <div class="clearfix"></div> </div> </div> </div>');
 
     MasterBuildingListView.prototype.childView = CenterItemView;
 
@@ -71,10 +84,9 @@
         this.region = new Marionette.Region({
           el: '#leftregion'
         });
-        new CommonFloor.CenterBuildingListCtrl({
+        return new CommonFloor.MasterBuildingListCtrl({
           region: this.region
         });
-        return this.trigger("load:units", data);
       },
       'click .Villas': function(e) {
         var data, units;
@@ -85,10 +97,9 @@
         this.region = new Marionette.Region({
           el: '#leftregion'
         });
-        new CommonFloor.ListCtrl({
+        return new CommonFloor.MasterBunglowListCtrl({
           region: this.region
         });
-        return this.trigger("load:units", data);
       }
     };
 

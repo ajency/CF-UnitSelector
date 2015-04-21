@@ -46,15 +46,13 @@
       return TopBunglowListView.__super__.constructor.apply(this, arguments);
     }
 
-    TopBunglowListView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span>Back to Poject Overview </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1>We are now at {{project_title}}\'s upcoming project having {{units}} {{type}}\'s</h1> </div> </div> </div>');
+    TopBunglowListView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="search-header-wrap"> <h1>{{project_title}} {{#types}} {{count.length}} {{type}} {{/types}}</h1> </div> </div> </div>');
 
     TopBunglowListView.prototype.serializeData = function() {
-      var data, type, units;
+      var data, response;
       data = TopBunglowListView.__super__.serializeData.call(this);
-      units = Marionette.getOption(this, 'units');
-      type = Marionette.getOption(this, 'type');
-      data.units = units.length;
-      data.type = type;
+      response = CommonFloor.propertyTypes();
+      data.types = response;
       return data;
     };
 
@@ -70,16 +68,9 @@
     }
 
     TopBunglowListCtrl.prototype.initialize = function() {
-      this.listenTo(this.parent(), "load:units", this.showViews);
-      return this.listenTo(Backbone, "load:units", this.showViews);
-    };
-
-    TopBunglowListCtrl.prototype.showViews = function(data) {
-      console.log(data);
+      console.log("aaaaaaaaaaa");
       return this.show(new TopBunglowListView({
-        model: project,
-        units: data.units,
-        type: data.type
+        model: project
       }));
     };
 

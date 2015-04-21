@@ -97,16 +97,20 @@ window.convertRupees = (val)->
 #find the property type with maximum number of units
 CommonFloor.propertyTypes = ()->
 	Router = []
-	Router.push 
-		'type'  : 'bunglows'
-		'count' :bunglowVariantCollection.getBunglowUnits()
-	Router.push 
-		'type'  : 'building'
-		'count' :buildingCollection.toArray()
+	if bunglowVariantCollection.getBunglowUnits().length != 0
+		Router.push 
+			'type'  : s.capitalize 'villas'
+			'count' :bunglowVariantCollection.getBunglowUnits()
+	if buildingCollection.toArray().length != 0
+		Router.push 
+			'type'  : s.capitalize 'buildings'
+			'count' :buildingCollection.toArray()
 	controller = _.max Router , (item)->
 		return parseInt item.count.length
 
-	controller
+
+	Router
+
 
 
 

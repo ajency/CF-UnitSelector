@@ -42,6 +42,30 @@ class Building extends Backbone.Model
 
 		types
 
+
+	getMinimumArea:(building_id)->
+		units = unitCollection.where
+					'building_id' : building_id
+		temp = []
+		$.each units,(index,value)->
+			variants = apartmentVariantCollection.findWhere
+							'id' : value.get 'unit_variant_id'
+			temp.push variants.get 'super_built_up_area'
+
+		_.min temp
+
+	getMinimumCost:(building_id)->
+		units = unitCollection.where
+					'building_id' : building_id
+		temp = []
+		$.each units,(index,value)->
+			units = unit.getUnitDetails(value.get('id'))
+			temp.push units[3]
+
+		_.min temp
+
+
+
 	#check 3d rotation view available or not
 	checkRotationView:(buildingId)->
 		buildingModel = buildingCollection.findWhere({'building_id':parseInt(buildingId)})

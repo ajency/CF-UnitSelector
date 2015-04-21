@@ -9,7 +9,6 @@ class BunglowListView extends Marionette.ItemView
 					                </div>-->')
 
 	initialize:->
-		@class = ""
 		@$el.prop("id", 'unit'+@model.get("id"))
 
 	
@@ -25,8 +24,12 @@ class BunglowListView extends Marionette.ItemView
 							'id' : unitVariant.get('unit_type_id')
 		data.unit_type = unitType.get('name')
 		data.super_built_up_area = unitVariant.get('super_built_up_area')
-		@model.set 'status' , data.status
+		availability = @model.get('availability')
+		status = s.decapitalize(availability)
+		@model.set 'status' , status
 		data
+
+
 
 	onShow:->
 		id = @model.get 'id'
@@ -36,14 +39,14 @@ class BunglowListView extends Marionette.ItemView
 		$('#unit'+id).attr('class' , classname+' '+status)
 
 	events:
-		'mouseover .unit' :(e)->
+
+		'mouseover' :(e)->
 			id = @model.get('id')
-			@class = $('#'+id).attr('class')
-			$('#'+id).attr('class' ,'layer '+@model.get('status'))
-		'mouseout .unit' :(e)->
+			$('#'+id+'.villa').attr('class' ,'layer villa '+@model.get('status'))
+		'mouseout':(e)->
 			id = @model.get('id')
-			$('#'+id).attr('class' ,@class)
-		'click .unit' :(e)->
+			$('#'+id+'.villa').attr('class' ,'layer villa')
+		'click' :(e)->
 			if @model.get('status') == 'available'
 				CommonFloor.defaults['unit'] = @model.get('id')
 				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
@@ -64,8 +67,10 @@ class MasterBunglowListView extends Marionette.CompositeView
 							            </div>-->
 							            <div class="text-center">
 							              <ul class="prop-select">
-							                <li class="prop-type buildings hidden">buildings</li>
+
+							                <li class="prop-type buildings hidden">Buildings</li>
 							                <li class="prop-type Villas active ">Villas/Bungalows</li>
+
 							                <li class="prop-type Plots hidden">Plots</li>
 							              </ul>
 							            </div>
@@ -101,8 +106,10 @@ class MasterBunglowListView extends Marionette.CompositeView
 			data.type = 'building'
 			
 			@region =  new Marionette.Region el : '#leftregion'
-			new CommonFloor.CenterBuildingListCtrl region : @region
-			@trigger "load:units" , data
+			new CommonFloor.MasterBuildingListCtrl region : @region
+			# @trigger "load:units" , data
+
+
 			
 
 		'click .Villas':(e)->
@@ -111,8 +118,9 @@ class MasterBunglowListView extends Marionette.CompositeView
 			data.units = units
 			data.type = 'villa'
 			@region =  new Marionette.Region el : '#leftregion'
-			new CommonFloor.ListCtrl region : @region
-			@trigger "load:units" , data
+			new CommonFloor.MasterBunglowListCtrl region : @region
+			# @trigger "load:units" , data
+
 			
 
 	onShow:->

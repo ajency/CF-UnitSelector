@@ -60,6 +60,35 @@
       return types;
     };
 
+    Building.prototype.getMinimumArea = function(building_id) {
+      var temp, units;
+      units = unitCollection.where({
+        'building_id': building_id
+      });
+      temp = [];
+      $.each(units, function(index, value) {
+        var variants;
+        variants = apartmentVariantCollection.findWhere({
+          'id': value.get('unit_variant_id')
+        });
+        return temp.push(variants.get('super_built_up_area'));
+      });
+      return _.min(temp);
+    };
+
+    Building.prototype.getMinimumCost = function(building_id) {
+      var temp, units;
+      units = unitCollection.where({
+        'building_id': building_id
+      });
+      temp = [];
+      $.each(units, function(index, value) {
+        units = unit.getUnitDetails(value.get('id'));
+        return temp.push(units[3]);
+      });
+      return _.min(temp);
+    };
+
     Building.prototype.checkRotationView = function(buildingId) {
       var buildingModel, rotationImages;
       buildingModel = buildingCollection.findWhere({
