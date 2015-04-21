@@ -137,7 +137,7 @@ class LeftBunglowUnitView extends Marionette.ItemView
 		data = super()
 		url = Backbone.history.fragment
 		unitid = parseInt url.split('/')[1]
-		console.log response = window.unit.getUnitDetails(unitid)
+		response = window.unit.getUnitDetails(unitid)
 		unit = unitCollection.findWhere
 			id  : unitid
 		levels = []
@@ -331,7 +331,10 @@ class CenterBunglowUnitView extends Marionette.ItemView
 				twoD.push value.url2dlayout_image
 			if value.url3dlayout_image != undefined &&  value.url3dlayout_image != ""
 				threeD.push value.url3dlayout_image
-			level.push s.replaceAll('Level '+i, " ", "_")
+			level_name =  'Level  '+ index  
+			if response[2]  is not 'apartment'
+				level.push s.replaceAll('Level '+i, " ", "_")
+			
 			i = i + 1	
 
 		[twoD,threeD,level,response[0]]

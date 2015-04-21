@@ -92,7 +92,7 @@
       data = LeftBunglowUnitView.__super__.serializeData.call(this);
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
-      console.log(response = window.unit.getUnitDetails(unitid));
+      response = window.unit.getUnitDetails(unitid);
       unit = unitCollection.findWhere({
         id: unitid
       });
@@ -270,13 +270,17 @@
       floor = response[0].get('floor');
       i = 0;
       $.each(floor, function(index, value) {
+        var level_name;
         if (value.url2dlayout_image !== void 0 && value.url2dlayout_image !== "") {
           twoD.push(value.url2dlayout_image);
         }
         if (value.url3dlayout_image !== void 0 && value.url3dlayout_image !== "") {
           threeD.push(value.url3dlayout_image);
         }
-        level.push(s.replaceAll('Level ' + i, " ", "_"));
+        level_name = 'Level  ' + index;
+        if (response[2] === !'apartment') {
+          level.push(s.replaceAll('Level ' + i, " ", "_"));
+        }
         return i = i + 1;
       });
       return [twoD, threeD, level, response[0]];
