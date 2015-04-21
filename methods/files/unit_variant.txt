@@ -1,0 +1,85 @@
+{"1" : [
+	{ 
+		"variant_id":1,
+		"name":"1009",
+		"types" : ["1BHK","2BHK"],
+		"carpet_area":"689",
+		"sellable_area":"1009",
+		"terrace_area":"87",
+		"per_sq_ft_price" : 122,
+		"url2dlayout_image":"http://lorempixel.com/640/480",
+		"url3dlayout_image":"http://lorempixel.com/640/480",
+		"floor":[
+				{"room_type":"Living\/Dining","room_size":"215","room_type_id":68},
+				{"room_type":"Terrace","room_size":"88","room_type_id":70},
+				{"room_type":"Master Bedroom","room_size":"147","room_type_id":83},
+				{"room_type":"Master Bath","room_size":"36","room_type_id":84},
+				{"room_type":"Bedroom 02","room_size":"124","room_type_id":81},
+				{"room_type":"Bathroom 02","room_size":"41","room_type_id":85},
+				{"room_type":"Kitchen","room_size":"74","room_type_id":75}],
+		"terrace_options":98
+	},
+	{ 	
+		"variant_id":2,
+		"name":"1009",
+		"types" : ["1BHK","2BHK"],
+		"carpet_area":"689",
+		"sellable_area":"1009",
+		"terrace_area":"87",
+		"per_sq_ft_price" : 122,
+		"url2dlayout_image":"http://lorempixel.com/640/480",
+		"url3dlayout_image":"http://lorempixel.com/640/480",
+		"floor":[
+				{"room_type":"Living\/Dining","room_size":"215","room_type_id":68},
+				{"room_type":"Terrace","room_size":"88","room_type_id":70},
+				{"room_type":"Master Bedroom","room_size":"147","room_type_id":83},
+				{"room_type":"Master Bath","room_size":"36","room_type_id":84},
+				{"room_type":"Bedroom 02","room_size":"124","room_type_id":81},
+				{"room_type":"Bathroom 02","room_size":"41","room_type_id":85},
+				{"room_type":"Kitchen","room_size":"74","room_type_id":75}],
+		"terrace_options":98
+	}
+],
+"2":[
+	{ 
+		"variant_id":1,
+		"name":"1009",
+		"types" : ["1BHK","2BHK"],
+		"carpet_area":"689",
+		"sellable_area":"1009",
+		"terrace_area":"87",
+		"per_sq_ft_price" : 122,
+		"url2dlayout_image":"http://lorempixel.com/640/480",
+		"url3dlayout_image":"http://lorempixel.com/640/480",
+		"floor":[
+				{"room_type":"Living\/Dining","room_size":"215","room_type_id":68},
+				{"room_type":"Terrace","room_size":"88","room_type_id":70},
+				{"room_type":"Master Bedroom","room_size":"147","room_type_id":83},
+				{"room_type":"Master Bath","room_size":"36","room_type_id":84},
+				{"room_type":"Bedroom 02","room_size":"124","room_type_id":81},
+				{"room_type":"Bathroom 02","room_size":"41","room_type_id":85},
+				{"room_type":"Kitchen","room_size":"74","room_type_id":75}],
+		"terrace_options":98
+	},
+	{ 
+		"variant_id":2,
+		"name":"1009",
+		"types" : ["1BHK","2BHK"],
+		"carpet_area":"689",
+		"sellable_area":"1009",
+		"terrace_area":"87",
+		"per_sq_ft_price" : 122,
+		"url2dlayout_image":"http://lorempixel.com/640/480",
+		"url3dlayout_image":"http://lorempixel.com/640/480",
+		"floor":[
+				{"room_type":"Living\/Dining","room_size":"215","room_type_id":68},
+				{"room_type":"Terrace","room_size":"88","room_type_id":70},
+				{"room_type":"Master Bedroom","room_size":"147","room_type_id":83},
+				{"room_type":"Master Bath","room_size":"36","room_type_id":84},
+				{"room_type":"Bedroom 02","room_size":"124","room_type_id":81},
+				{"room_type":"Bathroom 02","room_size":"41","room_type_id":85},
+				{"room_type":"Kitchen","room_size":"74","room_type_id":75}],
+		"terrace_options":98
+	}
+]
+}

@@ -1,0 +1,34 @@
+.room-attr{
+  span{
+    color: @gray-light;
+  }
+}
+
+.slider{
+	.layouts{
+		float: left;
+	}
+	.Level_0{
+		.layouts{
+			width: 100%
+		}
+	}
+	.Level_1, .Level_3{
+		.layouts{
+			width: 45%;
+			margin: 0 2.5% 20px;
+			text-align: center;
+		}
+	}
+	.Level_2, .Level_5{
+		.layouts{
+			width: 45%;
+			margin: 0 2.5% 20px;
+			text-align: center;
+			&:nth-child(3n){
+				float: none;
+				margin: 0 auto 20px;
+			}
+		}
+	}
+}

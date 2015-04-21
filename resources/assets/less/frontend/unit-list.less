@@ -1,0 +1,25 @@
+.unit-list{
+    overflow-y: auto;
+    overflow-x: hidden;
+    .blck-wrap{
+        cursor: pointer;
+        .sold, .available{
+            border-left: 2px solid #D07559;
+            padding-left: 5px;
+        }
+        .available{
+            border-color: #72D12F
+        }
+        &:hover, &.active{
+            background: #EAEAEA;
+        }
+        &.title-row, &.no-hover{
+            .accord-head{
+                cursor: default;
+            }
+            &:hover{
+                background: none;
+            }
+        }
+    }
+}

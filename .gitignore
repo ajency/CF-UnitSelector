@@ -1,0 +1,9 @@
+/vendor
+/node_modules
+.env
+public/bower_components
+methods/bower_components
+/nbproject/private/
+public/.htaccess
+tests/_output/*
+public/projects/
