@@ -131,16 +131,16 @@ class ProjectGateway implements ProjectGatewayInterface {
             $projectpropertyTypeId = $propertyType['id'];
             $propertyTypeName = property_type_slug( get_property_type( $propertyTypeId ) );
             $unitTypes = ProjectPropertyType::find( $projectpropertyTypeId )->projectUnitType()->get()->toArray();
-            $data[$propertyTypeName]['unit_types'] = [];
+            $data[$propertyTypeId]['unit_types'] = [];
             foreach ($unitTypes as $unitType) {
-                $data[$propertyTypeName]['unit_types'][] = $unitType['unittype_name'];
+                $data[$propertyTypeId]['unit_types'][] = $unitType['unittype_name'];
             }
-            $data[$propertyTypeName]['starting_area'] = $faker->randomNumber();
-            $data[$propertyTypeName]['availability'] = [
+            $data[$propertyTypeId]['starting_area'] = $faker->randomNumber();
+            $data[$propertyTypeId]['availability'] = [
                 'sold' => $faker->randomDigit,
                 'blocked' => $faker->randomDigit
             ];
-            $data[$propertyTypeName]['starting_price'] = $faker->randomNumber();
+            $data[$propertyTypeId]['starting_price'] = $faker->randomNumber();
         }
 
 
