@@ -22,6 +22,14 @@ class ProjectGateway implements ProjectGatewayInterface {
     public function getProjectStepOneDetails( $projectId ) {
         $faker = \Faker\Factory::create();
         $project = $this->projectRepository->getProjectById( $projectId );
+        
+        $projectPropertyTypes = \CommonFloor\Project::find($projectId)->projectPropertyTypes()->get()->toArray();
+        $propertyTypes =[];
+        foreach($projectPropertyTypes as $projectPropertyType)
+        {
+            $propertyTypes[$projectPropertyType['id']] =get_property_type( $projectPropertyType['property_type_id'] );
+        }
+        
         $projectData = [
             'cf_project_id' => $project->cf_project_id,
             'id' => $project->id,
@@ -37,10 +45,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             ],
             'address' => $project->project_address,
             'project_status' => $project->getCFProjectStatus(),
-            'project_property_types' => $this->propertyTypeUnits($projectId),
-            
-
-            'property_types' => $this->propertyTypeUnits( $projectId ),
+            'property_types' => $propertyTypes,
             'project_property_types' => $this->propertyTypeUnits( $projectId ),
 
         ];
