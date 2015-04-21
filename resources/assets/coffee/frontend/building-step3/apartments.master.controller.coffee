@@ -64,44 +64,43 @@ class CommonFloor.TopApartmentMasterCtrl extends Marionette.RegionController
 
 class ApartmentsView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="row">
-					<div class="col-sm-4">
-					  <h6 class="{{status}}">{{unit_name}}</h6>                      
-					</div>
-					<div class="col-sm-4">
-					  <h6 class="">{{unit_type}}</h6>                      
-					</div>
-					<div class="col-sm-4">
-					  <h6 class="">{{super_built_up_area}} sqft</h6>                      
-					</div>
-				  </div>')
+	template : Handlebars.compile('	<div class=" info">
+						                <label class="pull-left">{{unit_name}}</label> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft-->
+						            	<div class="clearfix"></div>
+						            </div>
+					                <div class="cost">
+					                  {{price}}
+					                </div>')
 
 	initialize:->
 		@$el.prop("id", 'apartment'+@model.get("id"))
 
-	className : 'blck-wrap'
+	tagName: 'li'
+
+	className : 'unit blocks'
 
 	serializeData:->
 		data = super()
-		status = s.decapitalize @model.get 'availability'
-		unitVariant = apartmentVariantCollection.findWhere
-							'id' : @model.get('unit_variant_id')
-		unitType = unitTypeCollection.findWhere
-							'id' : unitVariant.get('unit_type_id')
-		data.unit_type = unitType.get('name')
-		data.super_built_up_area = unitVariant.get('super_built_up_area')
-		data.status = status
+		response = window.unit.getUnitDetails(@model.get('id'))
+		
+		data.unit_type = response[1].get('name')
+		data.super_built_up_area = response[0].get('super_built_up_area')
+		availability = @model.get('availability')
+		status = s.decapitalize(availability)
+		@model.set 'status' , status
+		window.convertRupees(response[3])
+		data.price = $('#price').val()
 		data
 
 	events:
-		'mouseover .row':(e)->
+		'mouseover':(e)->
 			id = @model.get 'id'
 			$('#'+id).attr('class' ,'layer '+@model.get('availability'))
-		'mouseout .row':(e)->
+		'mouseout':(e)->
 			id = @model.get 'id'
 			$('#'+id).attr('class' ,'layer')
 
-		'click .row':(e)->
+		'click':(e)->
 			if @model.get('availability') == 'available'
 				CommonFloor.defaults['unit'] = @model.get('id')
 				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
@@ -113,20 +112,11 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 										<div class="filters-wrapper ">
 											<div class="advncd-filter-wrp  unit-list">
 												<div class="blck-wrap title-row">
-					                  				<div class="row">
-									                    <div class="col-sm-4">
-									                      <h5 class="accord-head">Villa No</h5>                      
-									                    </div>
-									                    <div class="col-sm-4">
-									                      <h5 class="accord-head">Type</h5>                      
-									                    </div>
-									                    <div class="col-sm-4">
-									                      <h5 class="accord-head">Area</h5>                      
-									                    </div>
-					                  				</div>
+					                  				<p class="text-center help-text">Hover on the units for more details</p>
+									               <ul class="units two">
+								                	</ul>
 					                			</div>
-								                <div class="units">
-								                </div>
+					                			
 											</div>
 										</div>
 									</div></div>'
@@ -239,13 +229,13 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 			# @class = $('#'+id).attr('class')
 			$('#'+id).attr('class' ,'layer '+availability) 
-			$('#apartment'+id).attr('class' ,'blck-wrap active') 
+			$('#apartment'+id).attr('class' ,' unit blocks active') 
 			$('.layer').tooltipster('content', html)
 		
 		'mouseout .layer':(e)->
 			id = parseInt e.target.id
 			$('#'+id).attr('class' ,'layer ') 
-			$('#apartment'+id).attr('class' ,'blck-wrap')
+			$('#apartment'+id).attr('class' ,'unit blocks')
 		
 
 

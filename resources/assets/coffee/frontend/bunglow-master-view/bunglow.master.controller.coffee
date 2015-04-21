@@ -142,6 +142,8 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 			id = parseInt e.target.id
 			unit = unitCollection.findWhere 
 				id :  id 
+			if unit is undefined
+				return 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			$('.layer').attr('class' ,'layer villa') 
@@ -165,7 +167,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 							</div>  
 						</div>'
 				$('.layer').tooltipster('content', html)
-				return false
+				return 
 
 			response = window.unit.getUnitDetails(id)
 			window.convertRupees(response[3])
@@ -207,7 +209,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 							</div>  
 						</div>'
 				$('.layer').tooltipster('content', html)
-				return false
+				return 
 
 
 			floors = buildingModel.get 'floors'
@@ -240,6 +242,8 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 
 	onShow:->
+		height =  @ui.svgContainer.width() / 1.46
+		$('.us-left-content').css('height',height)
 		$('#spritespin').hide()
 		if project.get('project_master').front  == ""
 			$('.mapView').hide()
