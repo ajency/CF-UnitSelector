@@ -128,7 +128,7 @@
       return CenterBunglowMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container animated fadeInRight"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
+    CenterBunglowMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container animated fadeInRight"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img class="first_image" src="" /> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
 
     CenterBunglowMasterView.prototype.ui = {
       svgContainer: '.list-view-container'
@@ -237,7 +237,6 @@
         $('.mapView').show();
       }
       that = this;
-      $('.region').load(project.get('project_master').front, that.iniTooltip).addClass('active').removeClass('inactive');
       transitionImages = [];
       svgs = {};
       svgs[0] = project.get('project_master').front;
@@ -248,10 +247,12 @@
       $.merge(transitionImages, project.get('project_master')['back-right']);
       $.merge(transitionImages, project.get('project_master')['left-back']);
       $.merge(transitionImages, project.get('project_master')['front-left']);
+      $('.region').load(project.get('project_master').front, $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
       return this.initializeRotate(transitionImages, svgs);
     };
 
     CenterBunglowMasterView.prototype.setDetailIndex = function(index) {
+      $('.region').addClass('inactive').removeClass('active');
       this.currentBreakPoint = index;
       if (this.currentBreakPoint < 0) {
         this.currentBreakPoint = this.breakPoints.length - 1;
@@ -285,13 +286,13 @@
         var data, url;
         data = api.data;
         if (data.frame === data.stopFrame) {
-          console.log(url = svgs[data.frame]);
+          url = svgs[data.frame];
           return $('.region').load(url, that.iniTooltip).addClass('active').removeClass('inactive');
         }
       });
       return spin.bind("onLoad", function() {
         var response;
-        console.log("aaaaaa");
+        $('.first_image').remove();
         response = project.checkRotationView();
         if (response === 1) {
           return $('.rotate').removeClass('hidden');

@@ -81,6 +81,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 										
 										<div id="spritespin"></div>
 										<div class="svg-maps">
+											<img class="first_image" src="" />
 											<div class="region inactive"></div>
 										</div>
 							            <div class="rotate rotate-controls hidden">
@@ -147,7 +148,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 			html = ""
 			unit = unitCollection.findWhere 
 				id :  id 
-			if unit == undefined
+			if unit is undefined
 				html += '<div class="svg-info">
 							<div class="details">
 								Villa details not entered 
@@ -236,7 +237,6 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 			$('.mapView').show()
 
 		that = @
-		$('.region').load(project.get('project_master').front,that.iniTooltip).addClass('active').removeClass('inactive')
 		
 
 		transitionImages = []
@@ -250,12 +250,16 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		$.merge transitionImages , project.get('project_master')['back-right']
 		$.merge transitionImages , project.get('project_master')['left-back']
 		$.merge transitionImages , project.get('project_master')['front-left']
+		$('.region').load(project.get('project_master').front,
+			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
+		
 		@initializeRotate(transitionImages,svgs)
 		
 		
 
 
 	setDetailIndex:(index)->
+		$('.region').addClass('inactive').removeClass('active')
 		@currentBreakPoint = index;
 		if (@currentBreakPoint < 0) 
 			@currentBreakPoint = @breakPoints.length - 1
@@ -284,16 +288,15 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		that = @
 		api = spin.spritespin("api")
 		spin.bind("onFrame" , ()->
-
 			data = api.data
 			if data.frame is data.stopFrame
-				console.log url = svgs[data.frame]
+				url = svgs[data.frame]
 				$('.region').load(url,that.iniTooltip).addClass('active').removeClass('inactive')
 				
 		)
 
 		spin.bind("onLoad" , ()->
-			console.log "aaaaaa"
+			$('.first_image').remove()
 			response = project.checkRotationView()
 			if response is 1
 				$('.rotate').removeClass 'hidden'
