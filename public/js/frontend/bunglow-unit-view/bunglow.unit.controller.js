@@ -191,7 +191,7 @@
         response = this.generateLevels();
         html = '';
         $.each(response[1], function(index, value) {
-          return html += '<div class="layouts animated fadeIn"> <img src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </div>';
+          return html += '<div class="layouts animated fadeIn"> <img class="img" src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </div>';
         });
         $('.images').html(html);
         $('.threeD').addClass('current');
@@ -204,7 +204,7 @@
         response = this.generateLevels();
         html = '';
         $.each(response[0], function(index, value) {
-          return html += '<div class="layouts animated fadeIn"> <img src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </div>';
+          return html += '<div class="layouts animated fadeIn"> <img class="img" src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </div>';
         });
         $('.images').html(html);
         $('.twoD').addClass('current');
@@ -215,7 +215,7 @@
       'click .external': function(e) {
         var html, response;
         response = this.generateLevels();
-        html = '<div class="animated fadeIn"> <img src="' + response[3].get('external3durl') + '" /> </div>';
+        html = '<div class="animated fadeIn"> <img class="img" src="' + response[3].get('external3durl') + '" /> </div>';
         $('.images').html(html);
         $('.external').addClass('current');
         $('.threeD').removeClass('current');
@@ -225,7 +225,7 @@
       'click .gallery': function(e) {
         var html, response;
         response = this.generateLevels();
-        html = '<div class="animated fadeIn"> <img src="' + response[3].get('galleryurl') + '" /> </div>';
+        html = '<div class="animated fadeIn"> <img class="img" src="' + response[3].get('galleryurl') + '" /> </div>';
         $('.images').html(html);
         $('.gallery').addClass('current');
         $('.threeD').removeClass('current');
@@ -239,7 +239,7 @@
       response = this.generateLevels();
       html = '';
       $.each(response[0], function(index, value) {
-        return html += '<img src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span>';
+        return html += '<img class="img" src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span>';
       });
       $('.twoD').addClass('current');
       $('.threeD').removeClass('current');
@@ -247,7 +247,7 @@
       $('.gallery').removeClass('current');
       if (response[0].length === 0) {
         $.each(response[1], function(index, value) {
-          return html += '<img src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span>';
+          return html += '<img class="img" src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span>';
         });
         $('.threeD').addClass('current');
         $('.external').removeClass('current');
@@ -257,7 +257,7 @@
       $('.images').html(html);
       $('.level').attr('class', 'level ' + _.last(response[2]));
       if (response[3].get('external3durl') !== void 0) {
-        html = '<img src="' + response[3].get('external3durl') + '" />';
+        html = '<img class="img" src="' + response[3].get('external3durl') + '" />';
         $('.images').html(html);
         $('.external').addClass('current');
         $('.threeD').removeClass('current');
@@ -283,10 +283,11 @@
         $('.external').removeClass('current');
         $.each(response[3].get('galleryurl'), function(index, value) {
           console.log(value);
-          return html += '<img src="' + value + '" />';
+          return html += '<img class="img" src="' + value + '" />';
         });
       }
-      return $('.images').html(html);
+      $('.images').html(html);
+      return $('.img').bttrlazyloading();
     };
 
     CenterBunglowUnitView.prototype.generateLevels = function() {
