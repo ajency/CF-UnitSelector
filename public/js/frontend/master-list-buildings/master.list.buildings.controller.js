@@ -17,6 +17,10 @@
 
     CenterItemView.prototype.className = 'bldg blocks';
 
+    CenterItemView.prototype.initialize = function() {
+      return this.$el.prop("id", 'bldg' + this.model.get("id"));
+    };
+
     CenterItemView.prototype.serializeData = function() {
       var cost, data, floors, id, response, types;
       data = CenterItemView.__super__.serializeData.call(this);
@@ -41,7 +45,8 @@
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
-        return $('#' + id + '.building').attr('class', 'layer building');
+        $('#' + id + '.building').attr('class', 'layer building');
+        return $('#bldg' + id).attr('class', 'bldg blocks');
       },
       'click ': function(e) {
         var buildingModel, id;

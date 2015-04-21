@@ -56,7 +56,8 @@
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
-        return $('#' + id + '.villa').attr('class', 'layer villa');
+        $('#' + id + '.villa').attr('class', 'layer villa');
+        return $('#unit' + id).attr('class', 'unit blocks');
       },
       'click': function(e) {
         if (this.model.get('status') === 'available') {

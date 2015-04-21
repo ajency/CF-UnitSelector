@@ -137,11 +137,14 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 
 		'mouseout .villa':(e)->
+			id = parseInt e.target.id
 			$('.layer').attr('class' ,'layer villa') 
-			$('.blck-wrap').attr('class' ,'blck-wrap') 
+			$('#unit'+id).attr('class' ,'unit blocks')  
 
 		'mouseout .building':(e)->
+			id = parseInt e.target.id
 			$('.layer').attr('class' ,'layer building') 
+			$('#bldg'+id).attr('class' ,'bldg blocks') 
 
 
 		'mouseover .villa':(e)->
@@ -223,7 +226,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 						<label>No. of floors</label> - '+floors+'
 					</div>'
 			$('.layer').tooltipster('content', html)
-
+			$('#bldg'+id).attr('class' ,'bldg blocks active') 
 			$('#'+id).attr('class' ,'layer building available')
 
 

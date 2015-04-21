@@ -175,11 +175,16 @@
         return this.setDetailIndex(this.currentBreakPoint + 1);
       },
       'mouseout .villa': function(e) {
+        var id;
+        id = parseInt(e.target.id);
         $('.layer').attr('class', 'layer villa');
-        return $('.blck-wrap').attr('class', 'blck-wrap');
+        return $('#unit' + id).attr('class', 'unit blocks');
       },
       'mouseout .building': function(e) {
-        return $('.layer').attr('class', 'layer building');
+        var id;
+        id = parseInt(e.target.id);
+        $('.layer').attr('class', 'layer building');
+        return $('#bldg' + id).attr('class', 'bldg blocks');
       },
       'mouseover .villa': function(e) {
         var availability, html, id, response, unit;
@@ -224,6 +229,7 @@
         });
         html += '<div> <label>No. of floors</label> - ' + floors + '</div>';
         $('.layer').tooltipster('content', html);
+        $('#bldg' + id).attr('class', 'bldg blocks active');
         return $('#' + id).attr('class', 'layer building available');
       }
     };
