@@ -1,0 +1,51 @@
+.svg {
+  width: 100%;
+  height: auto;
+
+	.caption{
+		font-size: 14px;
+		font-family: arial;
+	}
+	.tooltip{
+	    font-size: 1em;
+	    font-family: arial;
+	    fill:#fff;
+	    line-height:20px;
+	    display:inline-block;
+	    cursor:pointer;
+	}
+	.tooltip_bg{
+	    fill: black;
+	    stroke: black;
+	    stroke-width: 1;
+	    opacity: 0.85;
+	}
+	.active_bldg {
+		  fill: #FF7400  !important;
+	  	  opacity: 0.5 !important;
+	}
+	.blocked {
+		fill: #B8B8B8 !important;
+	  	opacity: 0.8 !important;
+	}
+	.sold {
+		fill: #FF6565 !important;
+		opacity: 0.5 !important;
+	}
+	.disable{
+		fill: #999; 
+		opacity:0.9;
+	}
+	.marker-area:hover polygon{
+		opacity:0.6;
+	}
+	.marker-area:hover image{
+		opacity:9;
+		pointer-event:none;
+	}
+	.layer:hover{
+		opacity:0.6;
+		cursor:pointer;
+	}
+}
+	

@@ -20,6 +20,18 @@ body {
   width: 173px;
   height: 38px;
 }
+.proj-name {
+  padding-right: 15px;
+  margin-right: 15px;
+  border-right: 1px solid #cccccc;
+}
+.proj-type-count {
+  float: left;
+}
+.proj-type-count p {
+  margin: 36px 15px 0 2px;
+  font-weight: bold;
+}
 .inner-container {
   border-bottom: 1px solid #ddd;
 }
@@ -43,7 +55,7 @@ body {
   bottom: 0;
 }
 .us-left-content {
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .builder-logo {
   max-width: 200px;
@@ -581,6 +593,55 @@ body {
   background-position: -40px -5px;
   text-indent: -9999px;
   display: inline-block;
+}
+.svg {
+  width: 100%;
+  height: auto;
+}
+.svg .caption {
+  font-size: 14px;
+  font-family: arial;
+}
+.svg .tooltip {
+  font-size: 1em;
+  font-family: arial;
+  fill: #fff;
+  line-height: 20px;
+  display: inline-block;
+  cursor: pointer;
+}
+.svg .tooltip_bg {
+  fill: black;
+  stroke: black;
+  stroke-width: 1;
+  opacity: 0.85;
+}
+.svg .active_bldg {
+  fill: #FF7400  !important;
+  opacity: 0.5 !important;
+}
+.svg .blocked {
+  fill: #B8B8B8 !important;
+  opacity: 0.8 !important;
+}
+.svg .sold {
+  fill: #FF6565 !important;
+  opacity: 0.5 !important;
+}
+.svg .disable {
+  fill: #999;
+  opacity: 0.9;
+}
+.svg .marker-area:hover polygon {
+  opacity: 0.6;
+}
+.svg .marker-area:hover image {
+  opacity: 9;
+  pointer-event: none;
+}
+.svg .layer:hover {
+  opacity: 0.6;
+  cursor: pointer;
 }
 .list-view-container {
   padding: 10px;

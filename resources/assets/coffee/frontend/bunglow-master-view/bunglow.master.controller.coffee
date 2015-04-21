@@ -20,10 +20,17 @@ class CommonFloor.BunglowMasterCtrl extends Marionette.RegionController
 class TopBunglowMasterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="row">
-		  <div class="col-md-12 col-xs-12 col-sm-12">
+		<div class="col-md-12 col-xs-12 col-sm-12">
 			<div class="search-header-wrap">
 
-			  <h1>{{project_title}} {{#types}} {{count.length}} {{type}} {{/types}}</h1>
+				<h1 class="pull-left proj-name">{{project_title}}</h1> 
+				<div class="proj-type-count">
+					{{#types}} 
+					<h1 class="text-primary pull-left">{{count.length}}</h1> <p class="pull-left">{{type}}</p>
+					{{/types}}
+					<div class="clearfix"></div>
+				</div>
+				<div class="clearfix"></div>
 
 			</div>
 		  </div>

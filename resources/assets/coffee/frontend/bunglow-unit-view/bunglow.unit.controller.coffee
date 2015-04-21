@@ -36,7 +36,12 @@ class TopBunglowUnitView extends Marionette.ItemView
 						</div>-->
 
 						<div class="search-header-wrap">
-							<h1>You have selected {{unit_name}} {{type}}</h1>
+							<h1 class="pull-left proj-name">{{project_title}}</h1> 
+							  <div class="proj-type-count">
+							  	<h1 class="text-primary pull-left">{{unit_name}}</h1>
+							  	<div class="clearfix"></div>
+							  </div>
+						  	<div class="clearfix"></div>
 						</div>
 					</div>
 				</div>')
