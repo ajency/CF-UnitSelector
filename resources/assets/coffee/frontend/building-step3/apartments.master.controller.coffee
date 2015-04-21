@@ -37,7 +37,12 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		            </div>-->
 
 		            <div class="search-header-wrap">
-		              <h1>We are now at {{project_title}}\'s upcoming project having {{units}} Apartments</h1>
+		              	<h1 class="pull-left proj-name">{{project_title}}</h1> 
+		              	  <div class="proj-type-count">
+		              	  	<h1 class="text-primary pull-left">{{unit_name}}</h1>
+		              	  	<div class="clearfix"></div>
+		              	  </div>
+		                <div class="clearfix"></div>
 		            </div>
 		          </div>
 		        </div>')
@@ -108,7 +113,7 @@ class ApartmentsView extends Marionette.ItemView
 
 class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 
-	template : '	<div><div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
+	template : '	<div><div class="col-md-3 col-xs-12 col-sm-12 search-left-content p-t-10">
 										<div class="filters-wrapper ">
 											<div class="advncd-filter-wrp  unit-list">
 												<div class="blck-wrap title-row">

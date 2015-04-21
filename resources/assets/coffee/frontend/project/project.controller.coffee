@@ -70,20 +70,21 @@ class LeftView extends Marionette.ItemView
 										<div class="filters-wrapper">
 										  	<div class="tab-main-container">                
 												<div class="blck-wrap">
-												  <h4><strong>{{i10n "project_by"}}</strong></h4>
+												  <h3><strong>{{i10n "project_by"}}</strong></h3>
 												  <img src="{{logo}}" class="img-responsive builder-logo">
 												</div>
-												<div class="blck-wrap">
-												  <h4><strong>{{i10n "project_details"}}</strong></h4>
-													<div class="proj-details">
+												<div class="proj-details blck-wrap no-hover">
+												  <h3><strong>{{i10n "project_details"}}</strong></h3>
+													<div class="">
+												  	<span class="icon-map-marker"></span>
+												  	<strong>Address: </strong><br>
 													   {{address}}
 													</div>
-												</div>
+												
 
-											  	<div class="detail-pts">   
+											  	<div class="detail-pts">
 												{{#propertyTypes}}
-													<div class="blck-wrap no-hover">
-														<h4 class="m-b-10 m-t-10 text-primary">{{prop_type}}</h4>
+														<h4 class="m-b-5 m-t-0 text-primary">{{prop_type}}</h4>
 														<!--  <span>{{i10n "project_type"}}:</span> {{prop_type}}
 														<p>
 														  <span>{{i10n "starting_area"}}:</span> {{starting_area}} Sq.Ft.
@@ -99,8 +100,8 @@ class LeftView extends Marionette.ItemView
 														<!--<p>
 														  <span>{{i10n "starting_price"}}:</span>  {{starting_price}}
 														</p>-->
-													</div>
 												{{/propertyTypes}}
+													</div>
 												</div>
 					
 												<div class="blck-wrap">
