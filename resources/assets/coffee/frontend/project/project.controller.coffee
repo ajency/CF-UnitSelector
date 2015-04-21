@@ -67,51 +67,51 @@ class CommonFloor.TopCtrl extends Marionette.RegionController
 class LeftView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
-				<div class="filters-wrapper">
-				  <div class="tab-main-container">                
-					<div class="blck-wrap">
-					  <h4><strong>{{i10n "project_by"}}</strong></h4>
-					  <img src="{{logo}}" class="img-responsive builder-logo">
-					</div>
-					<div class="blck-wrap">
-					  <h4><strong>{{i10n "project_details"}}</strong></h4>
-						<div class="proj-details">
-						  <p>
-						   {{address}}
-						  </p>
+										<div class="filters-wrapper">
+										  	<div class="tab-main-container">                
+												<div class="blck-wrap">
+												  <h4><strong>{{i10n "project_by"}}</strong></h4>
+												  <img src="{{logo}}" class="img-responsive builder-logo">
+												</div>
+												<div class="blck-wrap">
+												  <h4><strong>{{i10n "project_details"}}</strong></h4>
+													<div class="proj-details">
+													   {{address}}
+													</div>
+												</div>
 
-						  <div class="detail-pts">   
-							{{#propertyTypes}}   
-								<p>
-								  <span>{{i10n "project_type"}}:</span> {{prop_type}}
-								</p>
-								<!--<p>
-								  <span>{{i10n "starting_area"}}:</span> {{starting_area}} Sq.Ft.
-								</p>-->
-								<p>
-								  <span>{{i10n "unit_types"}}:</span> {{unit_types}}
-								</p>
-								<!--<p>
-								  <span>Available:</span> {{#availability}}
-								  {{count}}	{{status}} 
-								  {{/availability}}
-								</p>-->
-								<!--<p>
-								  <span>{{i10n "starting_price"}}:</span>  {{starting_price}}
-								</p>-->
-							{{/propertyTypes}}                  
-											  
-						  </div>
-						</div>
-					</div>
-					<div class="blck-wrap">
-					  <div class="text-center">
-						<img src="../images/marker-img.png" class="img-responsive marker-img">
-						{{i10n "know_your_neighbour"}}
-					</div>
-				  </div>
-				</div>
-				</div>')
+											  	<div class="detail-pts">   
+												{{#propertyTypes}}
+													<div class="blck-wrap no-hover">
+														<h4 class="m-b-10 m-t-10 text-primary">{{prop_type}}</h4>
+														<!--  <span>{{i10n "project_type"}}:</span> {{prop_type}}
+														<p>
+														  <span>{{i10n "starting_area"}}:</span> {{starting_area}} Sq.Ft.
+														</p>-->
+														<p>
+														  <span>{{i10n "unit_types"}}:</span> {{unit_types}}
+														</p>
+														<!--<p>
+														  <span>Available:</span> {{#availability}}
+														  {{count}}	{{status}} 
+														  {{/availability}}
+														</p>-->
+														<!--<p>
+														  <span>{{i10n "starting_price"}}:</span>  {{starting_price}}
+														</p>-->
+													</div>
+												{{/propertyTypes}}
+												</div>
+					
+												<div class="blck-wrap">
+												  	<div class="text-center">
+														<img src="../images/marker-img.png" class="img-responsive marker-img">
+														{{i10n "know_your_neighbour"}}
+													</div>
+											  	</div>
+											</div>
+										</div>
+									</div>')
 
 	serializeData:->
 		data = super()

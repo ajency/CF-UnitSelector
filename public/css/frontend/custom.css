@@ -480,6 +480,61 @@ body {
 .text-primary {
   color: #f68121;
 }
+/* Loader */
+.cf-loader {
+  display: inline-block;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.cf-loader:after {
+  display: block;
+  position: relative;
+  width: 15px;
+  height: 15px;
+  -webkit-animation: rotate 0.6s linear infinite;
+  -ms-animation: rotate 0.6s linear infinite;
+  animation: rotate 0.6s linear infinite;
+  border-radius: 100%;
+  border-top: 2px solid #f68121;
+  border-bottom: 2px solid #ffffff;
+  border-left: 2px solid #f68121;
+  border-right: 2px solid #ffffff;
+  content: '';
+}
+@keyframes rotate {
+  0% {
+    transform: rotateZ(-360deg);
+    -webkit-transform: rotateZ(-360deg);
+    -moz-transform: rotateZ(-360deg);
+    -o-transform: rotateZ(-360deg);
+  }
+  100% {
+    transform: rotateZ(0deg);
+    -webkit-transform: rotateZ(0deg);
+    -moz-transform: rotateZ(0deg);
+    -o-transform: rotateZ(0deg);
+  }
+}
+@-webkit-keyframes rotate {
+  0% {
+    transform: rotateZ(-360deg);
+    -webkit-transform: rotateZ(-360deg);
+    -moz-transform: rotateZ(-360deg);
+    -o-transform: rotateZ(-360deg);
+  }
+  100% {
+    transform: rotateZ(0deg);
+    -webkit-transform: rotateZ(0deg);
+    -moz-transform: rotateZ(0deg);
+    -o-transform: rotateZ(0deg);
+  }
+}
 .rotate-controls {
   position: absolute;
   bottom: 30px;
@@ -618,8 +673,12 @@ body {
 .blocks:nth-child(3n) {
   margin-right: 0;
 }
-.blocks:hover {
+.blocks.available:hover,
+.blocks.active:hover {
   box-shadow: 0 1px 5px rgba(102, 102, 102, 0.4);
+}
+.blocks.active {
+  border: 1px solid #f68121;
 }
 .blocks.sold {
   background-color: #fed8d7;
@@ -643,6 +702,18 @@ body {
   color: #666666;
 }
 .blocks.blocked .cost {
+  color: #666666;
+}
+.blocks.not_released {
+  background-color: #cccccc;
+}
+.blocks.not_released .info {
+  color: #999999;
+}
+.blocks.not_released .info label {
+  color: #666666;
+}
+.blocks.not_released .cost {
   color: #666666;
 }
 .eight .blocks {

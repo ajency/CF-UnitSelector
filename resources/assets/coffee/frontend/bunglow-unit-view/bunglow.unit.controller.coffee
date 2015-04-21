@@ -90,43 +90,42 @@ class LeftBunglowUnitView extends Marionette.ItemView
 									{{/attributes}}
 								</div>
 
-							</div>
+								<div class="unit-list">
+									
+									{{#levels}}
+									<div class="blck-wrap no-hover">
+										<h4 class="m-b-10 m-t-10 text-primary">{{level_name}}</h4>
 
-
-							<div class="unit-list">
-								
-								{{#levels}}
-								<div class="blck-wrap no-hover">
-									<h4 class="m-b-10 m-t-10 text-primary">{{level_name}}</h4>
-
-									<!--<div class="blck-wrap title-row">
-										<div class="row">
-											<div class="col-sm-4">
-												<h5 class="accord-head">Rooms</h5>                      
+										<!--<div class="blck-wrap title-row">
+											<div class="row">
+												<div class="col-sm-4">
+													<h5 class="accord-head">Rooms</h5>                      
+												</div>
+												<div class="col-sm-4">
+													<h5 class="accord-head">No</h5>                      
+												</div>
+												<div class="col-sm-4">
+													<h5 class="accord-head">Area</h5>                      
+												</div>
 											</div>
-											<div class="col-sm-4">
-												<h5 class="accord-head">No</h5>                      
-											</div>
-											<div class="col-sm-4">
-												<h5 class="accord-head">Area</h5>                      
+										</div>-->
+
+										{{#rooms}}
+										<div class="room-attr">
+											<div class="m-b-15">
+												<h5 class="m-b-5">{{room_name}}</h5>  
+												{{#attributes}}  
+												<div class=""><span>{{attribute}}</span>: {{value}} </div>
+												{{/attributes}}                    
+												<!--<h6 class="">{{size}}sqft</h6>-->
 											</div>
 										</div>
-									</div>-->
-
-									{{#rooms}}
-									<div class="room-attr">
-										<div class="m-b-15">
-											<h5 class="m-b-5">{{room_name}}</h5>  
-											{{#attributes}}  
-											<div class=""><span>{{attribute}}</span>: {{value}} </div>
-											{{/attributes}}                    
-											<!--<h6 class="">{{size}}sqft</h6>-->
-										</div>
+										{{/rooms}}
+										
 									</div>
-									{{/rooms}}
+									{{/levels}}
 									
 								</div>
-								{{/levels}}
 								
 							</div>
 						</div>
