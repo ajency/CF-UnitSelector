@@ -123,12 +123,14 @@
       'mouseover': function(e) {
         var id;
         id = this.model.get('id');
-        return $('#' + id).attr('class', 'layer ' + this.model.get('availability'));
+        $('#' + id).attr('class', 'layer ' + this.model.get('availability'));
+        return $('#apartment' + id).attr('class', 'unit blocks ' + this.model.get('availability') + ' active');
       },
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
-        return $('#' + id).attr('class', 'layer');
+        $('#' + id).attr('class', 'layer');
+        return $('#apartment' + id).attr('class', 'unit blocks ' + this.model.get('availability'));
       },
       'click': function(e) {
         if (this.model.get('availability') === 'available') {
@@ -136,6 +138,15 @@
           return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
         }
       }
+    };
+
+    ApartmentsView.prototype.onShow = function() {
+      var availability, classname, id, status;
+      id = this.model.get('id');
+      availability = this.model.get('availability');
+      status = s.decapitalize(availability);
+      classname = $('#apartment' + id).attr('class');
+      return $('#apartment' + id).attr('class', classname + ' ' + status);
     };
 
     return ApartmentsView;

@@ -101,14 +101,23 @@ class ApartmentsView extends Marionette.ItemView
 		'mouseover':(e)->
 			id = @model.get 'id'
 			$('#'+id).attr('class' ,'layer '+@model.get('availability'))
+			$('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability')+' active')
 		'mouseout':(e)->
 			id = @model.get 'id'
 			$('#'+id).attr('class' ,'layer')
+			$('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability'))
 
 		'click':(e)->
 			if @model.get('availability') == 'available'
 				CommonFloor.defaults['unit'] = @model.get('id')
 				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
+
+	onShow:->
+		id = @model.get 'id'
+		availability = @model.get('availability')
+		status = s.decapitalize(availability)
+		classname =  $('#apartment'+id).attr('class')
+		$('#apartment'+id).attr('class' , classname+' '+status)
 
 
 class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
