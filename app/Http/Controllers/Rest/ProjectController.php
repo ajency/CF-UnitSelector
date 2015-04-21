@@ -4,6 +4,7 @@ namespace CommonFloor\Http\Controllers\Rest;
 
 use CommonFloor\Http\Controllers\Controller;
 use CommonFloor\Gateways\ProjectGatewayInterface;
+use CommonFloor\ProjectJson;
 
 class ProjectController extends Controller {
 
@@ -36,10 +37,24 @@ class ProjectController extends Controller {
     }
 
     public function stepTwo( $projectId ) {
-        $data = $this->projectGateway->getProjectStepTwoDetails( $projectId );
+        $projectJson = ProjectJson::where('project_id', $projectId)
+                                        ->where('type', 'step_two')->get()->first();
+
         return response()->json( [
-                            'data' => $data
+                            'data' => $projectJson->project_json
                         ], 200, [], JSON_NUMERIC_CHECK );
+    }
+
+    public function updateResponseTable( $projectId ){
+        $data = $this->projectGateway->getProjectStepTwoDetails( $projectId );
+        $projectJson = ProjectJson::where('project_id', $projectId)
+                                ->where('type', 'step_two')->get()->first();
+        $projectJson->project_json = $data;
+        $projectJson->save();
+        return response()->json( [
+                            'code' => '',
+                            'message' => 'Project json updated successfully'
+                    ], 203 );
     }
 
 }

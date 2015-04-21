@@ -20,6 +20,10 @@ class Project extends Model {
         return $this->hasMany( 'CommonFloor\ProjectMeta' );
     }
 
+    public function projectJson(){
+        return $this->hasMany( 'CommonFloor\ProjectJson');
+    }
+
     public function projectPropertyTypes() {
         return $this->hasMany( 'CommonFloor\ProjectPropertyType' );
     }
