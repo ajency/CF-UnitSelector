@@ -30,6 +30,10 @@ class CenterItemView extends Marionette.ItemView
 
 	className : 'bldg blocks'
 
+	initialize:->
+		@$el.prop("id", 'bldg'+@model.get("id"))
+
+
 		
 	serializeData:->
 		data = super()
@@ -51,7 +55,8 @@ class CenterItemView extends Marionette.ItemView
 		'mouseout' :(e)->
 			id = @model.get 'id'
 			$('#'+id+'.building').attr('class' ,'layer building')
-
+			$('#bldg'+id).attr('class' , 'bldg blocks')
+				
 		'click ':(e)->
 			id = @model.get 'id'
 			buildingModel = buildingCollection.findWhere

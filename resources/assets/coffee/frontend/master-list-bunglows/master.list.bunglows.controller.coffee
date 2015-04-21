@@ -46,6 +46,7 @@ class BunglowListView extends Marionette.ItemView
 		'mouseout':(e)->
 			id = @model.get('id')
 			$('#'+id+'.villa').attr('class' ,'layer villa')
+			$('#unit'+id).attr('class' , 'unit blocks')
 		'click' :(e)->
 			if @model.get('status') == 'available'
 				CommonFloor.defaults['unit'] = @model.get('id')
