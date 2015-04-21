@@ -242,6 +242,8 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 
 	onShow:->
+		height =  @ui.svgContainer.width() / 1.46
+		$('.us-left-content').css('height',height)
 		$('#spritespin').hide()
 		if project.get('project_master').front  == ""
 			$('.mapView').hide()

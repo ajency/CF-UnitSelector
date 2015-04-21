@@ -243,7 +243,9 @@
     };
 
     CenterBunglowMasterView.prototype.onShow = function() {
-      var svgs, that, transitionImages;
+      var height, svgs, that, transitionImages;
+      height = this.ui.svgContainer.width() / 1.46;
+      $('.us-left-content').css('height', height);
       $('#spritespin').hide();
       if (project.get('project_master').front === "") {
         $('.mapView').hide();
