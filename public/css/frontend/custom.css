@@ -685,6 +685,10 @@ body {
 .blocks:nth-child(3n) {
   margin-right: 0;
 }
+.blocks.available,
+.blocks.active {
+  opacity: 1 !important;
+}
 .blocks.available:hover,
 .blocks.active:hover {
   box-shadow: 0 1px 5px rgba(102, 102, 102, 0.4);
@@ -694,6 +698,7 @@ body {
 }
 .blocks.sold {
   background-color: #fed8d7;
+  opacity: 1 !important;
 }
 .blocks.sold .info {
   color: #d06d72;
@@ -706,6 +711,7 @@ body {
 }
 .blocks.blocked {
   background-color: #f5f3c3;
+  opacity: 1 !important;
 }
 .blocks.blocked .info {
   color: #999999;
@@ -718,6 +724,7 @@ body {
 }
 .blocks.not_released {
   background-color: #cccccc;
+  opacity: 1 !important;
 }
 .blocks.not_released .info {
   color: #999999;
