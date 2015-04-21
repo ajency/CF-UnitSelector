@@ -3,7 +3,7 @@
         <link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
         <link href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css' ) }}" rel="stylesheet" type="text/css"/>
         <title>CommonFloor UnitSelector</title>
-        <link rel="icon" type="image/png" href="{{ asset( 'CommonFloor/public/images/others/fevicon.ico' ) }}">
+        <link rel="icon" type="image/png" href="{{ asset( 'CommonFloor/public/images/others/favicon.ico' ) }}">
         <style>
             body {
                 margin: 0;

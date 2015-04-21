@@ -26,7 +26,10 @@ body {
 .wrapper {
   min-height: 100%;
   margin-bottom: -98px;
-  background: #f7f7f7;
+  background-color: #f2f2f2;
+}
+.component-body {
+  background-color: #f2f2f2;
 }
 .no-found-container {
   margin-top: 25vh;
@@ -579,6 +582,9 @@ body {
 .list-view-container {
   padding: 10px;
 }
+.list-view-container.w-map {
+  padding: 10px 0;
+}
 .list-view-container .controls {
   text-align: center;
   position: absolute;
@@ -663,6 +669,10 @@ body {
 .list-view-container .legend ul li.na::before {
   background-color: #cccccc;
 }
+.list-view-container .help-text {
+  font-size: 13px;
+  color: #666666;
+}
 .blocks {
   float: left;
   width: 32.2%;
@@ -670,6 +680,7 @@ body {
   margin-bottom: 10px;
   margin-right: 1.6%;
   background-color: #ffffff;
+  border: 1px solid #e6e6e6;
 }
 .blocks:nth-child(3n) {
   margin-right: 0;
@@ -759,6 +770,15 @@ body {
   padding: 10px;
   width: 49.2%;
 }
+.two .blocks .cost {
+  float: none;
+  color: #666666;
+  font-weight: bold;
+}
+.two .blocks.unit .info label {
+  display: block;
+  color: #f68121;
+}
 .two .blocks:nth-child(2n) {
   margin-right: 0;
 }
@@ -766,7 +786,7 @@ body {
   margin-right: 1.6%;
 }
 .one .blocks {
-  padding: 10px;
+  padding: 15px 10px;
   width: 100%;
   margin-right: 0;
 }
@@ -782,16 +802,23 @@ body {
   font-weight: bold;
   float: left;
   margin-right: 5px;
+  color: #f68121;
 }
 .one .blocks.bldg .info .floors {
-  float: left;
-}
-.one .blocks.bldg .info .price {
   float: right;
-  color: #f68121;
+  font-size: 13px;
+}
+.one .blocks.bldg .unit-type-info .price {
+  font-size: 13px;
+  float: right;
+}
+.one .blocks.bldg .unit-type-info .price span {
+  font-weight: bold;
 }
 .one .blocks.bldg .unit-type-info li {
   text-align: left;
+  font-weight: bold;
+  font-size: 13px;
   width: auto;
 }
 .one .blocks.bldg .unit-type-info li::after {
@@ -805,7 +832,7 @@ body {
   font-size: 12px;
   margin-left: 10px;
   float: left;
-  display: block;
+  display: none;
   font-weight: bold;
 }
 @media (max-width: 767px) {
@@ -858,14 +885,15 @@ body {
 }
 .units .unit .info {
   color: #666666;
-  font-size: 12px;
+  font-size: 13px;
+  text-transform: capitalize;
 }
 .units .unit .info label {
   color: #000000;
   font-size: 14px;
 }
 .units .unit .cost {
-  color: #f68121;
+  font-size: 13px;
 }
 .units .bldg {
   background-color: #ffffff;
