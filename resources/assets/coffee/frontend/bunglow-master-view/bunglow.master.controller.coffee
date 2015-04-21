@@ -85,7 +85,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 											<div class="region inactive"></div>
 										</div>
 										<div class="cf-loader"></div>
-										<div id="spritespin"></div>
+										<div id="spritespin hidden"></div>
 										
 							            <div class="rotate rotate-controls hidden">
 									        <div id="prev" class="rotate-left">Left</div>
@@ -306,6 +306,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 			response = project.checkRotationView()
 			if response is 1
 				$('.rotate').removeClass 'hidden'
+				$('.spritespin').removeClass 'hidden'
 				$('.cf-loader').hide()
 				
 		)
