@@ -57,7 +57,7 @@
         var id;
         id = this.model.get('id');
         $('#' + id + '.villa').attr('class', 'layer villa');
-        return $('#unit' + id).attr('class', 'unit blocks');
+        return $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status'));
       },
       'click': function(e) {
         if (this.model.get('status') === 'available') {

@@ -232,10 +232,10 @@
                         <div id="2dlayout_0">
                             @if(isset($layouts[0]['2d']))
                             <img src="{{ $layouts[0]['2d']['IMAGE'] }}" class="img-responsive img-thumbnail">
-                            <button onclick="deleteLayout({{ $layouts[0]['2d']['ID'] }});" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
+                            <button onclick="deleteLayout({{ $layouts[0]['2d']['ID'] }}, '2d');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
                             @else
                             <input id="pickfiles_2d_0" type="button" name="fileToUpload" class="btn btn-small btn-white" value="Select your file" data-filename-placement="inside"/>
-                            <button id="uploadfiles_2d_0" type="button" class="btn btn-small btn-primary">Upload</button>												
+                            <button id="uploadfiles_2d_0"  type="button" class="btn btn-small btn-primary">Upload</button>												
                             @endif
                         </div>
                     </div>
@@ -246,7 +246,7 @@
                         <div id="3dlayout_0">
                             @if(isset($layouts[0]['3d']))
                             <img src="{{ $layouts[0]['3d']['IMAGE'] }}" class="img-responsive img-thumbnail">
-                            <button onclick="deleteLayout({{ $layouts[0]['3d']['ID'] }});" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
+                            <button onclick="deleteLayout({{ $layouts[0]['3d']['ID'] }}, '3d');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
                             @else
                             <input id="pickfiles_3d_0" type="button" name="fileToUpload" class="btn btn-small btn-white" value="Select your file" data-filename-placement="inside"/>
                             <button  id="uploadfiles_3d_0"type="button" class="btn btn-small btn-primary">Upload</button>												
@@ -254,10 +254,30 @@
                         </div>
                     </div>
                 </div>
+                
             </div>
 
         </form>
     </div>
+    <div class="grid-body"> 
+            <h5 class="semi-bold inline">Gallery</h5>
+                <div>
+                 <input id="pickfiles_gallery" type="button" name="fileToUpload" class="btn btn-small btn-white" value="Select your file" data-filename-placement="inside"/>
+                        <button  id="uploadfiles_gallery"type="button" class="btn btn-small btn-primary">Upload</button>
+                         </div>
+                <div id="galleryimages">
+                            @if(isset($layouts['gallery']))
+                            @foreach($layouts['gallery'] as $gallery)
+                            <div class="col-sm-3" id="gallery_{{ $gallery['ID'] }}">   
+                                <img src="{{ $gallery['IMAGE'] }}" class="img-responsive img-thumbnail">
+                                <button onclick="deleteLayout({{ $gallery['ID'] }}, 'gallery');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
+                            </div>    
+                                @endforeach									
+                                @endif
+                            
+                        </div>         
+ 
+            </div>
 
 
 </div> 

@@ -137,12 +137,17 @@ class LeftBunglowUnitView extends Marionette.ItemView
 		data = super()
 		url = Backbone.history.fragment
 		unitid = parseInt url.split('/')[1]
-		console.log response = window.unit.getUnitDetails(unitid)
+		response = window.unit.getUnitDetails(unitid)
+		unit = unitCollection.findWhere
+			id  : unitid
 		levels = []
 		floor = response[0].get('floor')
 
 		$.each floor,(index,value)->
 			rooms = []
+			level_name =  'Level  '+ index  
+			if response[2]  is 'apartment'
+				level_name = 'Floor ' + unit.get 'floor'
 			$.each value.rooms_data,(ind,val)->
 				attributes = []
 				$.each val.atributes,(ind_att,val_att)->
@@ -155,7 +160,7 @@ class LeftBunglowUnitView extends Marionette.ItemView
 					'attributes' : attributes
 			
 			levels.push 
-				'level_name' : 'Level  '+ index
+				'level_name' : level_name
 				'rooms'			 : rooms
 		
 		unitType = unitTypeCollection.findWhere
@@ -237,23 +242,11 @@ class CenterBunglowUnitView extends Marionette.ItemView
 
 	events:
 		'click .threeD':(e)->
-			url = Backbone.history.fragment
-			unitid = parseInt url.split('/')[1]
-			response = window.unit.getUnitDetails(unitid)
-			twoD = []
-			threeD = []
-			level = []
-			floor = response[0].get('floor')
-			i = 0
-			$.each floor,(index,value)->
-				twoD.push value.url2dlayout_image
-				threeD.push value.url3dlayout_image
-				level.push s.replaceAll('Level '+i, " ", "_")
-				i = i + 1
+			response = @generateLevels()
 			html = ''
-			$.each threeD,(index,value)->
+			$.each response[1],(index,value)->
 				html += '<div class="layouts animated fadeIn">
-							<img src="'+value+'" /><span>'+s.replaceAll(level[index], "_", " ")+'</span>
+							<img src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
 						</div>'
 			$('.images').html html
 			$('.threeD').addClass('current')
@@ -261,23 +254,11 @@ class CenterBunglowUnitView extends Marionette.ItemView
 			$('.twoD').removeClass('current')
 
 		'click .twoD':(e)->
-			url = Backbone.history.fragment
-			unitid = parseInt url.split('/')[1]
-			response = window.unit.getUnitDetails(unitid)
-			twoD = []
-			threeD = []
-			level = []
-			floor = response[0].get('floor')
-			i = 0
-			$.each floor,(index,value)->
-				twoD.push value.url2dlayout_image
-				threeD.push value.url3dlayout_image
-				level.push s.replaceAll('Level '+i, " ", "_")
-				i = i + 1
+			response = @generateLevels()
 			html = ''
-			$.each twoD,(index,value)->
+			$.each response[0],(index,value)->
 				html += '<div class="layouts animated fadeIn">
-							<img src="'+value+'" /><span>'+s.replaceAll(level[index], "_", " ")+'</span>
+							<img src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
 						</div>'
 			$('.images').html html
 			$('.twoD').addClass('current')
@@ -285,15 +266,9 @@ class CenterBunglowUnitView extends Marionette.ItemView
 			$('.threeD').removeClass('current')
 
 		'click .external':(e)->
-			url = Backbone.history.fragment
-			unitid = parseInt url.split('/')[1]
-			response = window.unit.getUnitDetails(unitid)
-			twoD = []
-			threeD = []
-			level = []
-			floor = response[0].get('floor')
+			response = @generateLevels()
 			html = '<div class="animated fadeIn">
-						<img src="'+response[0].get('external3durl')+'" />
+						<img src="'+response[3].get('external3durl')+'" />
 					</div>'
 			$('.images').html html
 			$('.external').addClass('current')
@@ -302,6 +277,47 @@ class CenterBunglowUnitView extends Marionette.ItemView
 		
 
 	onShow:->
+		response = @generateLevels()
+		html = ''
+		$.each response[0],(index,value)->
+			html += '<img src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>'
+		$('.twoD').addClass('current')
+		$('.threeD').removeClass('current')
+		$('.external').removeClass('current')
+		if response[0].length == 0
+			$.each response[1],(index,value)->
+				html += '<img src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>'
+			$('.threeD').addClass('current')
+			$('.external').removeClass('current')
+			$('.twoD').removeClass('current')
+		
+		
+
+		$('.images').html html
+		$('.level').attr 'class' , 'level '+ _.last(response[2])
+			
+			
+
+				
+		if response[3].get('external3durl') != undefined
+			html = '<img src="'+response[3].get('external3durl')+'" />'
+			$('.images').html html
+			$('.external').addClass('current')
+			$('.threeD').removeClass('current')
+			$('.twoD').removeClass('current')
+
+		
+		if response[0].length == 0
+			$('.twoD').hide()
+			
+
+		if response[1].length == 0
+			$('.threeD').hide()
+
+		if response[3].get('external3durl') == undefined
+			$('.external').hide()
+
+	generateLevels:->
 		url = Backbone.history.fragment
 		unitid = parseInt url.split('/')[1]
 		response = window.unit.getUnitDetails(unitid)
@@ -315,48 +331,13 @@ class CenterBunglowUnitView extends Marionette.ItemView
 				twoD.push value.url2dlayout_image
 			if value.url3dlayout_image != undefined &&  value.url3dlayout_image != ""
 				threeD.push value.url3dlayout_image
-			level.push s.replaceAll('Level '+i, " ", "_")
-			i = i + 1
-		html = ''
-
-		$.each twoD,(index,value)->
-			html += '<img src="'+value+'" /><span>'+s.replaceAll(level[index], "_", " ")+'</span>'
-		$('.twoD').addClass('current')
-		$('.threeD').removeClass('current')
-		$('.external').removeClass('current')
-		if twoD.length == 0
-			$.each threeD,(index,value)->
-				html += '<img src="'+value+'" /><span>'+s.replaceAll(level[index], "_", " ")+'</span>'
-			$('.threeD').addClass('current')
-			$('.external').removeClass('current')
-			$('.twoD').removeClass('current')
-		
-		
-
-		$('.images').html html
-		$('.level').attr 'class' , 'level '+ _.last(level)
+			level_name =  'Level  '+ index  
+			if response[2]  is not 'apartment'
+				level.push s.replaceAll('Level '+i, " ", "_")
 			
-			
+			i = i + 1	
 
-				
-		if response[0].get('external3durl') != undefined
-			html = '<img src="'+response[0].get('external3durl')+'" />'
-			$('.images').html html
-			$('.external').addClass('current')
-			$('.threeD').removeClass('current')
-			$('.twoD').removeClass('current')
-
-		
-		if twoD.length == 0
-			$('.twoD').hide()
-
-		if threeD.length == 0
-			$('.threeD').hide()
-
-		if response[0].get('external3durl') == undefined
-			$('.external').hide()
-
-		
+		[twoD,threeD,level,response[0]]
 
 class CommonFloor.CenterBunglowUnitCtrl extends Marionette.RegionController
 

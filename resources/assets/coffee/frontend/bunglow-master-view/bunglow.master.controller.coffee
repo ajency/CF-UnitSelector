@@ -80,12 +80,12 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 							            </div>-->
 										
 										
+										<div id="spritespin"></div>
 										<div class="svg-maps">
 											<img class="first_image img-responsive" src="" />
 											<div class="region inactive"></div>
 										</div>
 										<div class="cf-loader"></div>
-										<div id="spritespin hidden"></div>
 										
 							            <div class="rotate rotate-controls hidden">
 									        <div id="prev" class="rotate-left">Left</div>
@@ -240,6 +240,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 
 	onShow:->
+		$('#spritespin').hide()
 		if project.get('project_master').front  == ""
 			$('.mapView').hide()
 		else
@@ -300,7 +301,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		spin.bind("onFrame" , ()->
 			data = api.data
 			if data.frame is data.stopFrame
-				url = svgs[data.frame]
+				console.log url = svgs[data.frame]
 				$('.region').load(url,that.iniTooltip).addClass('active').removeClass('inactive')
 				
 		)
@@ -310,8 +311,9 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 			response = project.checkRotationView()
 			if response is 1
 				$('.rotate').removeClass 'hidden'
-				$('.spritespin').removeClass 'hidden'
+				$('#spritespin').show()
 				$('.cf-loader').hide()
+
 				
 		)
 

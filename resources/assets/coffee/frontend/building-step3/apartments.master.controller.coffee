@@ -152,11 +152,11 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 	            <div class="list-view-container">
-	            	<div class="controls mapView">
+	            <!--<div class="controls mapView">
 			            <div class="toggle">
 			            	<a href="#" class="map active">Map</a><a href="#" class="list">List</a>
 			            </div>
-		            </div>
+		            </div>-->
 	              <div class="single-bldg">
 	                <div class="prev"></div>
 	                <div class="next"></div>

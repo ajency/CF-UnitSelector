@@ -88,16 +88,23 @@
     LeftBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="blck-wrap title-row"> <h2 class="pull-left"><strong>{{unit_name}}</strong></h2> <!-- <span class="label label-success">For Sale</span> --> <div class="clearfix"></div> <div class="details"> <div> <label>Price: </label> <span class="price"></span> </div> <div> <label>Unit Type:</label> {{type}} </div> <div> <label>Area:</label> {{area}} sqft </div> </div> <div class="room-attr m-t-10"> <label class="property hidden">Property Attributes</label> {{#attributes}} <div class="m-b-5"> <span>{{attribute}}</span>: {{value}} </div> {{/attributes}} </div> </div> <div class="unit-list"> {{#levels}} <div class="blck-wrap no-hover"> <h4 class="m-b-10 m-t-10 text-primary">{{level_name}}</h4> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Rooms</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> {{#rooms}} <div class="room-attr"> <div class="m-b-15"> <h5 class="m-b-5">{{room_name}}</h5> {{#attributes}} <div class=""><span>{{attribute}}</span>: {{value}} </div> {{/attributes}} <!--<h6 class="">{{size}}sqft</h6>--> </div> </div> {{/rooms}} </div> {{/levels}} </div> </div> </div> </div>');
 
     LeftBunglowUnitView.prototype.serializeData = function() {
-      var attributes, data, floor, levels, response, unitType, unitid, url;
+      var attributes, data, floor, levels, response, unit, unitType, unitid, url;
       data = LeftBunglowUnitView.__super__.serializeData.call(this);
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
-      console.log(response = window.unit.getUnitDetails(unitid));
+      response = window.unit.getUnitDetails(unitid);
+      unit = unitCollection.findWhere({
+        id: unitid
+      });
       levels = [];
       floor = response[0].get('floor');
       $.each(floor, function(index, value) {
-        var rooms;
+        var level_name, rooms;
         rooms = [];
+        level_name = 'Level  ' + index;
+        if (response[2] === 'apartment') {
+          level_name = 'Floor ' + unit.get('floor');
+        }
         $.each(value.rooms_data, function(ind, val) {
           var attributes;
           attributes = [];
@@ -114,7 +121,7 @@
           });
         });
         return levels.push({
-          'level_name': 'Level  ' + index,
+          'level_name': level_name,
           'rooms': rooms
         });
       });
@@ -180,24 +187,11 @@
 
     CenterBunglowUnitView.prototype.events = {
       'click .threeD': function(e) {
-        var floor, html, i, level, response, threeD, twoD, unitid, url;
-        url = Backbone.history.fragment;
-        unitid = parseInt(url.split('/')[1]);
-        response = window.unit.getUnitDetails(unitid);
-        twoD = [];
-        threeD = [];
-        level = [];
-        floor = response[0].get('floor');
-        i = 0;
-        $.each(floor, function(index, value) {
-          twoD.push(value.url2dlayout_image);
-          threeD.push(value.url3dlayout_image);
-          level.push(s.replaceAll('Level ' + i, " ", "_"));
-          return i = i + 1;
-        });
+        var html, response;
+        response = this.generateLevels();
         html = '';
-        $.each(threeD, function(index, value) {
-          return html += '<div class="layouts animated fadeIn"> <img src="' + value + '" /><span>' + s.replaceAll(level[index], "_", " ") + '</span> </div>';
+        $.each(response[1], function(index, value) {
+          return html += '<div class="layouts animated fadeIn"> <img src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </div>';
         });
         $('.images').html(html);
         $('.threeD').addClass('current');
@@ -205,24 +199,11 @@
         return $('.twoD').removeClass('current');
       },
       'click .twoD': function(e) {
-        var floor, html, i, level, response, threeD, twoD, unitid, url;
-        url = Backbone.history.fragment;
-        unitid = parseInt(url.split('/')[1]);
-        response = window.unit.getUnitDetails(unitid);
-        twoD = [];
-        threeD = [];
-        level = [];
-        floor = response[0].get('floor');
-        i = 0;
-        $.each(floor, function(index, value) {
-          twoD.push(value.url2dlayout_image);
-          threeD.push(value.url3dlayout_image);
-          level.push(s.replaceAll('Level ' + i, " ", "_"));
-          return i = i + 1;
-        });
+        var html, response;
+        response = this.generateLevels();
         html = '';
-        $.each(twoD, function(index, value) {
-          return html += '<div class="layouts animated fadeIn"> <img src="' + value + '" /><span>' + s.replaceAll(level[index], "_", " ") + '</span> </div>';
+        $.each(response[0], function(index, value) {
+          return html += '<div class="layouts animated fadeIn"> <img src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </div>';
         });
         $('.images').html(html);
         $('.twoD').addClass('current');
@@ -230,15 +211,9 @@
         return $('.threeD').removeClass('current');
       },
       'click .external': function(e) {
-        var floor, html, level, response, threeD, twoD, unitid, url;
-        url = Backbone.history.fragment;
-        unitid = parseInt(url.split('/')[1]);
-        response = window.unit.getUnitDetails(unitid);
-        twoD = [];
-        threeD = [];
-        level = [];
-        floor = response[0].get('floor');
-        html = '<div class="animated fadeIn"> <img src="' + response[0].get('external3durl') + '" /> </div>';
+        var html, response;
+        response = this.generateLevels();
+        html = '<div class="animated fadeIn"> <img src="' + response[3].get('external3durl') + '" /> </div>';
         $('.images').html(html);
         $('.external').addClass('current');
         $('.threeD').removeClass('current');
@@ -247,7 +222,45 @@
     };
 
     CenterBunglowUnitView.prototype.onShow = function() {
-      var floor, html, i, level, response, threeD, twoD, unitid, url;
+      var html, response;
+      response = this.generateLevels();
+      html = '';
+      $.each(response[0], function(index, value) {
+        return html += '<img src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span>';
+      });
+      $('.twoD').addClass('current');
+      $('.threeD').removeClass('current');
+      $('.external').removeClass('current');
+      if (response[0].length === 0) {
+        $.each(response[1], function(index, value) {
+          return html += '<img src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span>';
+        });
+        $('.threeD').addClass('current');
+        $('.external').removeClass('current');
+        $('.twoD').removeClass('current');
+      }
+      $('.images').html(html);
+      $('.level').attr('class', 'level ' + _.last(response[2]));
+      if (response[3].get('external3durl') !== void 0) {
+        html = '<img src="' + response[3].get('external3durl') + '" />';
+        $('.images').html(html);
+        $('.external').addClass('current');
+        $('.threeD').removeClass('current');
+        $('.twoD').removeClass('current');
+      }
+      if (response[0].length === 0) {
+        $('.twoD').hide();
+      }
+      if (response[1].length === 0) {
+        $('.threeD').hide();
+      }
+      if (response[3].get('external3durl') === void 0) {
+        return $('.external').hide();
+      }
+    };
+
+    CenterBunglowUnitView.prototype.generateLevels = function() {
+      var floor, i, level, response, threeD, twoD, unitid, url;
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
       response = window.unit.getUnitDetails(unitid);
@@ -257,48 +270,20 @@
       floor = response[0].get('floor');
       i = 0;
       $.each(floor, function(index, value) {
+        var level_name;
         if (value.url2dlayout_image !== void 0 && value.url2dlayout_image !== "") {
           twoD.push(value.url2dlayout_image);
         }
         if (value.url3dlayout_image !== void 0 && value.url3dlayout_image !== "") {
           threeD.push(value.url3dlayout_image);
         }
-        level.push(s.replaceAll('Level ' + i, " ", "_"));
+        level_name = 'Level  ' + index;
+        if (response[2] === !'apartment') {
+          level.push(s.replaceAll('Level ' + i, " ", "_"));
+        }
         return i = i + 1;
       });
-      html = '';
-      $.each(twoD, function(index, value) {
-        return html += '<img src="' + value + '" /><span>' + s.replaceAll(level[index], "_", " ") + '</span>';
-      });
-      $('.twoD').addClass('current');
-      $('.threeD').removeClass('current');
-      $('.external').removeClass('current');
-      if (twoD.length === 0) {
-        $.each(threeD, function(index, value) {
-          return html += '<img src="' + value + '" /><span>' + s.replaceAll(level[index], "_", " ") + '</span>';
-        });
-        $('.threeD').addClass('current');
-        $('.external').removeClass('current');
-        $('.twoD').removeClass('current');
-      }
-      $('.images').html(html);
-      $('.level').attr('class', 'level ' + _.last(level));
-      if (response[0].get('external3durl') !== void 0) {
-        html = '<img src="' + response[0].get('external3durl') + '" />';
-        $('.images').html(html);
-        $('.external').addClass('current');
-        $('.threeD').removeClass('current');
-        $('.twoD').removeClass('current');
-      }
-      if (twoD.length === 0) {
-        $('.twoD').hide();
-      }
-      if (threeD.length === 0) {
-        $('.threeD').hide();
-      }
-      if (response[0].get('external3durl') === void 0) {
-        return $('.external').hide();
-      }
+      return [twoD, threeD, level, response[0]];
     };
 
     return CenterBunglowUnitView;
