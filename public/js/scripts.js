@@ -509,7 +509,7 @@ function setUpFloorLevelUploader() {
                  
             }
         }
-    });
+    }); 
     uploader_gallery.init();
 
 
