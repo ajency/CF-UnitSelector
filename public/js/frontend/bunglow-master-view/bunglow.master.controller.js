@@ -241,6 +241,7 @@
 
     CenterBunglowMasterView.prototype.onShow = function() {
       var svgs, that, transitionImages;
+      $('.spritespin').hide();
       if (project.get('project_master').front === "") {
         $('.mapView').hide();
       } else {
@@ -307,6 +308,7 @@
         response = project.checkRotationView();
         if (response === 1) {
           $('.rotate').removeClass('hidden');
+          $('.spritespin').show();
           return $('.cf-loader').hide();
         }
       });
