@@ -34,6 +34,7 @@ class TopBunglowUnitView extends Marionette.ItemView
 								</div>
 							</div>
 						</div>-->
+
 						<div class="search-header-wrap">
 							<h1>You have selected {{unit_name}} {{type}}</h1>
 						</div>
@@ -67,6 +68,7 @@ class LeftBunglowUnitView extends Marionette.ItemView
 								<h2 class="pull-left"><strong>{{unit_name}}</strong></h2>
 								<!-- <span class="label label-success">For Sale</span> -->
 								<div class="clearfix"></div>
+
 								<div class="details">
 									<div>
 										<label>Price: </label> <span class="price"></span>
@@ -78,6 +80,7 @@ class LeftBunglowUnitView extends Marionette.ItemView
 										<label>Area:</label> {{area}} sqft
 									</div>
 								</div>
+
 								<div class="room-attr m-t-10">
 									<label>Property Attributes</label>
 									{{#attributes}}
@@ -86,12 +89,20 @@ class LeftBunglowUnitView extends Marionette.ItemView
 										</div>
 									{{/attributes}}
 								</div>
+
 							</div>
+
+
+							</div>
+
+
+
 							<div class="unit-list">
 								
 								{{#levels}}
 								<div class="blck-wrap no-hover">
 									<h4 class="m-b-10 m-t-10 text-primary">{{level_name}}</h4>
+
 									<!--<div class="blck-wrap title-row">
 										<div class="row">
 											<div class="col-sm-4">
@@ -105,6 +116,7 @@ class LeftBunglowUnitView extends Marionette.ItemView
 											</div>
 										</div>
 									</div>-->
+
 									{{#rooms}}
 									<div class="room-attr">
 										<div class="m-b-15">
@@ -210,6 +222,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 										<h2 class="title">3D Layout</h2>
 									 </div>-->
 								</div>
+
 								<div class="liquid-slider slider">
 									<div class="panel-wrapper">
 										<div class="Level_2">

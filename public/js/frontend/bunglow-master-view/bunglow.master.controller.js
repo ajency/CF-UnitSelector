@@ -179,8 +179,7 @@
         return $('.blck-wrap').attr('class', 'blck-wrap');
       },
       'mouseout .building': function(e) {
-        $('.layer').attr('class', 'layer building');
-        return $('.blck-wrap').attr('class', 'blck-wrap');
+        return $('.layer').attr('class', 'layer building');
       },
       'mouseover .villa': function(e) {
         var availability, html, id, response, unit;
@@ -249,8 +248,6 @@
       $.merge(transitionImages, project.get('project_master')['back-right']);
       $.merge(transitionImages, project.get('project_master')['left-back']);
       $.merge(transitionImages, project.get('project_master')['front-left']);
-      console.log(transitionImages);
-      console.log(svgs);
       return this.initializeRotate(transitionImages, svgs);
     };
 
@@ -286,7 +283,6 @@
       api = spin.spritespin("api");
       spin.bind("onFrame", function() {
         var data, url;
-        console.log("bbbbbbbbbbb");
         data = api.data;
         if (data.frame === data.stopFrame) {
           console.log(url = svgs[data.frame]);

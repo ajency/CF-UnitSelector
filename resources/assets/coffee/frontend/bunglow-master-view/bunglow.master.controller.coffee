@@ -22,7 +22,9 @@ class TopBunglowMasterView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="row">
 		  <div class="col-md-12 col-xs-12 col-sm-12">
 			<div class="search-header-wrap">
+
 			  <h1>{{project_title}} {{#types}} {{count.length}} {{type}} {{/types}}</h1>
+
 			</div>
 		  </div>
 		</div>')
@@ -105,8 +107,10 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 			id = parseInt e.target.id
 			buildingModel = buildingCollection.findWhere
 							'id' : id
+
 			if buildingModel == undefined
 				return false
+
 			if buildingModel.get('building_master').front == ""
 				CommonFloor.navigate '/building/'+id+'/apartments' , true
 			else
@@ -114,10 +118,12 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 		'click .villa':(e)->
 			id = parseInt e.target.id
+
 			unitModel = unitCollection.findWhere
 							'id' : id
 			if unitModel == undefined
 				return false
+
 			CommonFloor.defaults['unit'] =id
 			CommonFloor.navigate '/unit-view/'+id , true
 
@@ -127,13 +133,14 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		'click #next':->
 			@setDetailIndex(@currentBreakPoint + 1)
 
+
 		'mouseout .villa':(e)->
 			$('.layer').attr('class' ,'layer villa') 
 			$('.blck-wrap').attr('class' ,'blck-wrap') 
 
 		'mouseout .building':(e)->
 			$('.layer').attr('class' ,'layer building') 
-			$('.blck-wrap').attr('class' ,'blck-wrap') 
+
 
 		'mouseover .villa':(e)->
 			id  = parseInt e.target.id
@@ -170,15 +177,18 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 							</div>  
 						</div>  
 					</div>'
+
 			# @class = $('#'+id).attr('class')
 			$('#'+id).attr('class' ,'layer villa '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
+
 			$('.layer').tooltipster('content', html)
 
 		'mouseover .building':(e)->
 			id  = parseInt e.target.id
 			buildingModel = buildingCollection.findWhere
 							'id' : id
+
 			if buildingModel == undefined
 				html = '<div class="svg-info">
 							<div class="details">
@@ -187,6 +197,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return false
+
 
 			floors = buildingModel.get 'floors'
 			floors = Object.keys(floors).length
@@ -210,7 +221,9 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 						<label>No. of floors</label> - '+floors+'
 					</div>'
 			$('.layer').tooltipster('content', html)
+
 			$('#'+id).attr('class' ,'layer building available')
+
 
 			
 
@@ -221,9 +234,11 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		else
 			$('.map').addClass 'active'
 			$('.mapView').show()
+
 		that = @
 		$('.region').load(project.get('project_master').front,that.iniTooltip).addClass('active').removeClass('inactive')
 		
+
 		transitionImages = []
 		svgs = {}
 		svgs[0] = project.get('project_master').front 
@@ -235,9 +250,6 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		$.merge transitionImages , project.get('project_master')['back-right']
 		$.merge transitionImages , project.get('project_master')['left-back']
 		$.merge transitionImages , project.get('project_master')['front-left']
-		
-		console.log transitionImages
-		console.log svgs
 		@initializeRotate(transitionImages,svgs)
 		
 		
@@ -272,7 +284,6 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		that = @
 		api = spin.spritespin("api")
 		spin.bind("onFrame" , ()->
-			console.log "bbbbbbbbbbb"
 
 			data = api.data
 			if data.frame is data.stopFrame
@@ -280,6 +291,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 				$('.region').load(url,that.iniTooltip).addClass('active').removeClass('inactive')
 				
 		)
+
 		spin.bind("onLoad" , ()->
 			console.log "aaaaaa"
 			response = project.checkRotationView()
@@ -287,7 +299,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 				$('.rotate').removeClass 'hidden'
 				
 		)
-		
+
 		
 
 

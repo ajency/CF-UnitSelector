@@ -42,6 +42,7 @@ class Building extends Backbone.Model
 
 		types
 
+
 	getMinimumArea:(building_id)->
 		units = unitCollection.where
 					'building_id' : building_id
@@ -62,6 +63,7 @@ class Building extends Backbone.Model
 			temp.push units[3]
 
 		_.min temp
+
 
 
 	#check 3d rotation view available or not

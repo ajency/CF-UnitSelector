@@ -4,7 +4,9 @@ class CenterItemView extends Marionette.ItemView
 					                    <div class="bldg-img"></div>
 					                    <div class="info">
 					                      <h2 class="m-b-5">{{building_name}}</h2>
+
 					                      <div>Starting from Rs.<span>{{price}}</span></div>
+
 					                      <div class="floors">Floors: <span>{{floors}}</span></div>
 					                    </div>
 					                    <div class="clearfix"></div>
@@ -16,7 +18,11 @@ class CenterItemView extends Marionette.ItemView
 					                        </li>
 					                        {{/types}}
 					                       
+
 					                      </ul><span>({{area}} Sq.Ft)
+
+					                      </ul>
+
 					                    </div>
 					                  ')
 
@@ -67,8 +73,10 @@ class MasterBuildingListView extends Marionette.CompositeView
             </div>-->
 			<div class="text-center">
               <ul class="prop-select">
+
                 <li class="prop-type buildings active">Buildings</li>
                 <li class="prop-type Villas hidden">Villas</li>
+
                 <li class="prop-type Plots hidden">Plots</li>
               </ul>
             </div>
@@ -92,10 +100,10 @@ class MasterBuildingListView extends Marionette.CompositeView
 			data = {}
 			data.units = units
 			data.type = 'building'
-			
 			@region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.MasterBuildingListCtrl region : @region
 			# @trigger "load:units" , data
+
 			
 
 		'click .Villas':(e)->
@@ -106,6 +114,7 @@ class MasterBuildingListView extends Marionette.CompositeView
 			@region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.MasterBunglowListCtrl region : @region
 			# MasterBuildingListCtrl@trigger "load:units" , data
+
 
 	onShow:->
 		if project.get('project_master').front  == ""

@@ -29,14 +29,17 @@ class BunglowListView extends Marionette.ItemView
 		@model.set 'status' , status
 		data
 
+
+
 	onShow:->
-		console.log id = @model.get 'id'
+		id = @model.get 'id'
 		availability = @model.get('availability')
 		status = s.decapitalize(availability)
 		classname =  $('#unit'+id).attr('class')
 		$('#unit'+id).attr('class' , classname+' '+status)
 
 	events:
+
 		'mouseover' :(e)->
 			console.log id = @model.get('id')
 			$('#'+id+'.villa').attr('class' ,'layer villa'+@model.get('status'))
@@ -64,8 +67,10 @@ class MasterBunglowListView extends Marionette.CompositeView
 							            </div>-->
 							            <div class="text-center">
 							              <ul class="prop-select">
-							                <li class="prop-type buildings hidden">Buildings</li>
-							                <li class="prop-type Villas active ">Villas</li>
+
+							                <li class="prop-type buildings hidden">buildings</li>
+							                <li class="prop-type Villas active ">Villas/Bungalows</li>
+
 							                <li class="prop-type Plots hidden">Plots</li>
 							              </ul>
 							            </div>
@@ -103,6 +108,8 @@ class MasterBunglowListView extends Marionette.CompositeView
 			@region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.MasterBuildingListCtrl region : @region
 			# @trigger "load:units" , data
+
+
 			
 
 		'click .Villas':(e)->
@@ -113,6 +120,7 @@ class MasterBunglowListView extends Marionette.CompositeView
 			@region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.MasterBunglowListCtrl region : @region
 			# @trigger "load:units" , data
+
 			
 
 	onShow:->

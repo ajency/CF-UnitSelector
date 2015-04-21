@@ -106,7 +106,9 @@ CommonFloor.propertyTypes = ()->
 	controller = _.max Router , (item)->
 		return parseInt item.count.length
 
+
 	Router
+
 
 
 
