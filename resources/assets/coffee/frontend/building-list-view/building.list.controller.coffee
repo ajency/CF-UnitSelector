@@ -79,7 +79,7 @@ class CenterBuildingListView extends Marionette.CompositeView
 			
 			@region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.CenterBuildingListCtrl region : @region
-			@trigger "load:units" , data
+			# @trigger "load:units" , data
 			
 
 		'click .Villas':(e)->
@@ -89,7 +89,7 @@ class CenterBuildingListView extends Marionette.CompositeView
 			data.type = 'villa'
 			@region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.ListCtrl region : @region
-			@trigger "load:units" , data
+			# @trigger "load:units" , data
 
 	onShow:->
 		if project.get('project_master').front  == ""

@@ -37,7 +37,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		            </div>-->
 
 		            <div class="search-header-wrap">
-		              <h1>We are now at {{project_title}}\'s upcoming project having {{units}} apartments</h1>
+		              <h1>We are now at {{project_title}}\'s upcoming project having {{units}} Apartments</h1>
 		            </div>
 		          </div>
 		        </div>')
@@ -152,11 +152,11 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 	            <div class="list-view-container">
-	            	<div class="controls mapView">
+	            <!--<div class="controls mapView">
 			            <div class="toggle">
 			            	<a href="#" class="map active">Map</a><a href="#" class="list">List</a>
 			            </div>
-		            </div>
+		            </div>-->
 	              <div class="single-bldg">
 	                <div class="prev"></div>
 	                <div class="next"></div>
@@ -201,8 +201,51 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			url = Backbone.history.fragment
 			building_id = parseInt url.split('/')[1]
 			CommonFloor.navigate '/building/'+building_id+'/master-view' , true
-		
 
+		'mouseover .layer':(e)->
+			id = parseInt e.target.id
+			console.log unit = unitCollection.findWhere
+					'id' : id
+			if unit is undefined
+				html = '<div class="svg-info">
+							<div class="details">
+								Apartment details not entered 
+							</div>  
+						</div>'
+				$('.layer').tooltipster('content', html)
+				return false
+
+			response = window.unit.getUnitDetails(id)
+			window.convertRupees(response[3])
+			availability = unit.get('availability')
+			availability = s.decapitalize(availability)
+			html = ""
+			html += '<div class="svg-info">
+						<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
+						<!--<span class="label label-success"></span-->
+						<div class="clearfix"></div>
+						<div class="details">
+							<div>
+								<label>Area</label> - '+response[0].get('super_built_up_area')+' Sq.ft
+							</div> 
+							<div>
+								<label>Unit Type </label> - '+response[1].get('name')+'
+							</div>
+							<div>
+								<label>Price </label> - '+$('#price').val()+'
+							</div>  
+						</div>  
+					</div>'
+
+			# @class = $('#'+id).attr('class')
+			$('#'+id).attr('class' ,'layer '+availability) 
+			$('#apartment'+id).attr('class' ,'blck-wrap active') 
+			$('.layer').tooltipster('content', html)
+		
+		'mouseout .layer':(e)->
+			id = parseInt e.target.id
+			$('#'+id).attr('class' ,'layer ') 
+			$('#apartment'+id).attr('class' ,'blck-wrap')
 		
 
 
@@ -260,9 +303,20 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			data = api.data
 			if data.frame is data.stopFrame
 				url = svgs[data.frame]
-				$('.region').load(url).addClass('active').removeClass('inactive')
+				$('.region').load(url,that.iniTooltip).addClass('active').removeClass('inactive')
 				
 		)
+
+	iniTooltip:->
+		$('.layer').tooltipster(
+			theme: 'tooltipster-shadow',
+			contentAsHTML: true
+			onlyOne : true
+			arrow : false
+			offsetX : 50
+			offsetY : -10
+		)
+	
 
 
 

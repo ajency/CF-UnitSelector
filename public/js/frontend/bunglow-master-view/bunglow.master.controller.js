@@ -48,25 +48,13 @@
       return TopBunglowMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopBunglowMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="search-header-wrap"> <h1>We are now at {{project_title}}\'s upcoming project having {{units}} {{type}}</h1> </div> </div> </div>');
+    TopBunglowMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="search-header-wrap"> <h1>{{project_title}} {{#types}} {{count.length}} {{type}} {{/types}}</h1> </div> </div> </div>');
 
     TopBunglowMasterView.prototype.serializeData = function() {
-      var apartmentUnits, bunglowUnits, data, type, units;
+      var data, response;
       data = TopBunglowMasterView.__super__.serializeData.call(this);
-      type = "";
-      units = [];
-      bunglowUnits = bunglowVariantCollection.getBunglowUnits();
-      if (bunglowUnits.length !== 0) {
-        type = 'villas';
-      }
-      $.merge(units, bunglowUnits);
-      apartmentUnits = apartmentVariantCollection.getApartmentUnits();
-      if (apartmentUnits.length !== 0) {
-        type = 'buildings';
-      }
-      $.merge(units, apartmentUnits);
-      data.units = units.length;
-      data.type = type;
+      response = CommonFloor.propertyTypes();
+      data.types = response;
       return data;
     };
 
@@ -140,7 +128,7 @@
       return CenterBunglowMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container animated fadeInRight"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <div class="region inactive"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
+    CenterBunglowMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container animated fadeInRight"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img class="first_image img-responsive" src="" /> <div class="region inactive"></div> </div> <div class="cf-loader"></div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
 
     CenterBunglowMasterView.prototype.ui = {
       svgContainer: '.list-view-container'
@@ -159,6 +147,9 @@
         buildingModel = buildingCollection.findWhere({
           'id': id
         });
+        if (buildingModel === void 0) {
+          return false;
+        }
         if (buildingModel.get('building_master').front === "") {
           return CommonFloor.navigate('/building/' + id + '/apartments', true);
         } else {
@@ -166,8 +157,14 @@
         }
       },
       'click .villa': function(e) {
-        var id;
+        var id, unitModel;
         id = parseInt(e.target.id);
+        unitModel = unitCollection.findWhere({
+          'id': id
+        });
+        if (unitModel === void 0) {
+          return false;
+        }
         CommonFloor.defaults['unit'] = id;
         return CommonFloor.navigate('/unit-view/' + id, true);
       },
@@ -177,9 +174,22 @@
       'click #next': function() {
         return this.setDetailIndex(this.currentBreakPoint + 1);
       },
-      'mouseout .layer': function(e) {
-        $('.layer').attr('class', this["class"]);
-        return $('.blck-wrap').attr('class', 'blck-wrap');
+      'mouseout .villa': function(e) {
+        var availability, id, unit;
+        id = parseInt(e.target.id);
+        unit = unitCollection.findWhere({
+          id: id
+        });
+        availability = unit.get('availability');
+        availability = s.decapitalize(availability);
+        $('.layer').attr('class', 'layer villa');
+        return $('#unit' + id).attr('class', 'unit blocks ' + availability);
+      },
+      'mouseout .building': function(e) {
+        var id;
+        id = parseInt(e.target.id);
+        $('.layer').attr('class', 'layer building');
+        return $('#bldg' + id).attr('class', 'bldg blocks');
       },
       'mouseover .villa': function(e) {
         var availability, html, id, response, unit;
@@ -199,9 +209,8 @@
         availability = s.decapitalize(availability);
         html = "";
         html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
-        this["class"] = $('#' + id).attr('class');
-        $('#' + id).attr('class', 'layer ' + availability);
-        $('#unit' + id).attr('class', 'blck-wrap active');
+        $('#' + id).attr('class', 'layer villa ' + availability);
+        $('#unit' + id).attr('class', 'unit blocks active');
         return $('.layer').tooltipster('content', html);
       },
       'mouseover .building': function(e) {
@@ -210,6 +219,11 @@
         buildingModel = buildingCollection.findWhere({
           'id': id
         });
+        if (buildingModel === void 0) {
+          html = '<div class="svg-info"> <div class="details"> Building details not entered </div> </div>';
+          $('.layer').tooltipster('content', html);
+          return false;
+        }
         floors = buildingModel.get('floors');
         floors = Object.keys(floors).length;
         unitTypes = building.getUnitTypes(id);
@@ -219,18 +233,22 @@
           return html += '<div class="details"> <div> <label>' + value.name + '</label> - ' + value.units + '</div> </div> </div>';
         });
         html += '<div> <label>No. of floors</label> - ' + floors + '</div>';
-        return $('.layer').tooltipster('content', html);
+        $('.layer').tooltipster('content', html);
+        $('#bldg' + id).attr('class', 'bldg blocks active');
+        return $('#' + id).attr('class', 'layer building available');
       }
     };
 
     CenterBunglowMasterView.prototype.onShow = function() {
-      var response, svgs, transitionImages;
+      var svgs, that, transitionImages;
+      $('#spritespin').hide();
       if (project.get('project_master').front === "") {
         $('.mapView').hide();
       } else {
         $('.map').addClass('active');
         $('.mapView').show();
       }
+      that = this;
       transitionImages = [];
       svgs = {};
       svgs[0] = project.get('project_master').front;
@@ -241,16 +259,13 @@
       $.merge(transitionImages, project.get('project_master')['back-right']);
       $.merge(transitionImages, project.get('project_master')['left-back']);
       $.merge(transitionImages, project.get('project_master')['front-left']);
-      response = project.checkRotationView();
-      if (response === 1) {
-        $('.rotate').removeClass('hidden');
-      }
-      console.log(transitionImages);
-      console.log(svgs);
+      $('.region').load(project.get('project_master').front, $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
+      $('.first_image').bttrlazyloading();
       return this.initializeRotate(transitionImages, svgs);
     };
 
     CenterBunglowMasterView.prototype.setDetailIndex = function(index) {
+      $('.region').addClass('inactive').removeClass('active');
       this.currentBreakPoint = index;
       if (this.currentBreakPoint < 0) {
         this.currentBreakPoint = this.breakPoints.length - 1;
@@ -280,12 +295,22 @@
       });
       that = this;
       api = spin.spritespin("api");
-      return spin.bind("onFrame", function() {
+      spin.bind("onFrame", function() {
         var data, url;
         data = api.data;
         if (data.frame === data.stopFrame) {
           console.log(url = svgs[data.frame]);
           return $('.region').load(url, that.iniTooltip).addClass('active').removeClass('inactive');
+        }
+      });
+      return spin.bind("onLoad", function() {
+        var response;
+        $('.first_image').remove();
+        response = project.checkRotationView();
+        if (response === 1) {
+          $('.rotate').removeClass('hidden');
+          $('#spritespin').show();
+          return $('.cf-loader').hide();
         }
       });
     };

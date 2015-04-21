@@ -13,6 +13,7 @@ use CommonFloor\UnitVariant;
 use CommonFloor\ProjectPropertyType;
 use CommonFloor\RoomType;
 use CommonFloor\Media;
+use CommonFloor\VariantMeta;
 
 class ProjectBunglowVariantController extends Controller {
 
@@ -94,8 +95,15 @@ class ProjectBunglowVariantController extends Controller {
         $attributeStr = serialize($attributedata);
         $unitVariant->variant_attributes = $attributeStr;
         $unitVariant->save();
-        $unitVariantID = $unitVariant->id;
-
+        $unitVariantID = $unitVariant->id;        
+        
+      
+        $variantMeta = new VariantMeta();
+        $variantMeta->unit_variant_id = $unitVariantID;
+        $variantMeta->meta_key = 'gallery';
+        $variantMeta->meta_value = serialize('');
+        $variantMeta->save();
+ 
         return redirect("/admin/project/" . $project_id . "/bunglow-variant/" . $unitVariantID . '/edit');
     }
 
@@ -147,17 +155,36 @@ class ProjectBunglowVariantController extends Controller {
         $levelImages = [];
 
         foreach ($variantMeta as $meta) {
-            $metakey = explode("-", $meta['meta_key']);
-            $level = $metakey[0];
-            $type = $metakey[1];
-            $mediaId = $meta['meta_value'];
-            if (is_numeric($mediaId)) {
-                $imageName = Media::find($mediaId)->image_name;
-                $levelImages[$level][$type]['ID'] = $mediaId;
-                $levelImages[$level][$type]['IMAGE'] = url() . "/projects/" . $project_id . "/variants/" . $meta['unit_variant_id'] . "/" . $imageName;
+            $metakey = $meta['meta_key'];
+            if($metakey =='gallery')
+            {
+                $metaValue = unserialize($meta['meta_value']); 
+                if(!empty($metaValue))
+                {
+                    foreach ($metaValue as $mediaId)
+                    {
+                        if (is_numeric($mediaId)) {
+                            $imageName = Media::find($mediaId)->image_name;
+                            $levelImages['gallery'][$mediaId]['ID'] = $mediaId;
+                            $levelImages['gallery'][$mediaId]['IMAGE'] = url() . "/projects/" . $project_id . "/variants/" . $meta['unit_variant_id'] . "/" . $imageName;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                $metakeyData = explode("-", $metakey);
+                $level = $metakeyData[0];
+                $type = $metakeyData[1];
+                $mediaId = $meta['meta_value'];
+                if (is_numeric($mediaId)) {
+                    $imageName = Media::find($mediaId)->image_name;
+                    $levelImages[$level][$type]['ID'] = $mediaId;
+                    $levelImages[$level][$type]['IMAGE'] = url() . "/projects/" . $project_id . "/variants/" . $meta['unit_variant_id'] . "/" . $imageName;
+                }
             }
         }
-
+      
 
         return view('admin.project.editvariant')
                         ->with('project', $project->toArray())

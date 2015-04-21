@@ -22,25 +22,17 @@ class TopBunglowMasterView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="row">
 		  <div class="col-md-12 col-xs-12 col-sm-12">
 			<div class="search-header-wrap">
-			  <h1>We are now at {{project_title}}\'s upcoming project having {{units}} {{type}}</h1>
+
+			  <h1>{{project_title}} {{#types}} {{count.length}} {{type}} {{/types}}</h1>
+
 			</div>
 		  </div>
 		</div>')
 
 	serializeData:->
 		data = super()
-		type = ""
-		units = []
-		bunglowUnits = bunglowVariantCollection.getBunglowUnits()
-		if bunglowUnits.length != 0
-			type = 'villas'
-		$.merge units,bunglowUnits
-		apartmentUnits = apartmentVariantCollection.getApartmentUnits()
-		if apartmentUnits.length != 0
-			type = 'buildings'
-		$.merge units,apartmentUnits
-		data.units = units.length
-		data.type = type
+		response = CommonFloor.propertyTypes() 
+		data.types = response
 		data
 
 
@@ -87,10 +79,14 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 								            </div>
 							            </div>-->
 										
+										
 										<div id="spritespin"></div>
 										<div class="svg-maps">
+											<img class="first_image img-responsive" src="" />
 											<div class="region inactive"></div>
 										</div>
+										<div class="cf-loader"></div>
+										
 							            <div class="rotate rotate-controls hidden">
 									        <div id="prev" class="rotate-left">Left</div>
 									        <span class="rotate-text">Rotate</span>
@@ -115,6 +111,10 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 			id = parseInt e.target.id
 			buildingModel = buildingCollection.findWhere
 							'id' : id
+
+			if buildingModel == undefined
+				return false
+
 			if buildingModel.get('building_master').front == ""
 				CommonFloor.navigate '/building/'+id+'/apartments' , true
 			else
@@ -122,6 +122,12 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 		'click .villa':(e)->
 			id = parseInt e.target.id
+
+			unitModel = unitCollection.findWhere
+							'id' : id
+			if unitModel == undefined
+				return false
+
 			CommonFloor.defaults['unit'] =id
 			CommonFloor.navigate '/unit-view/'+id , true
 
@@ -131,16 +137,28 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		'click #next':->
 			@setDetailIndex(@currentBreakPoint + 1)
 
-		'mouseout .layer':(e)->
-			$('.layer').attr('class' ,@class) 
-			$('.blck-wrap').attr('class' ,'blck-wrap') 
+
+		'mouseout .villa':(e)->
+			id = parseInt e.target.id
+			unit = unitCollection.findWhere 
+				id :  id 
+			availability = unit.get('availability')
+			availability = s.decapitalize(availability)
+			$('.layer').attr('class' ,'layer villa') 
+			$('#unit'+id).attr('class' ,'unit blocks '+availability)  
+
+		'mouseout .building':(e)->
+			id = parseInt e.target.id
+			$('.layer').attr('class' ,'layer building') 
+			$('#bldg'+id).attr('class' ,'bldg blocks') 
+
 
 		'mouseover .villa':(e)->
 			id  = parseInt e.target.id
 			html = ""
 			unit = unitCollection.findWhere 
 				id :  id 
-			if unit == undefined
+			if unit is undefined
 				html += '<div class="svg-info">
 							<div class="details">
 								Villa details not entered 
@@ -170,15 +188,28 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 							</div>  
 						</div>  
 					</div>'
-			@class = $('#'+id).attr('class')
-			$('#'+id).attr('class' ,'layer '+availability) 
-			$('#unit'+id).attr('class' ,'blck-wrap active') 
+
+			# @class = $('#'+id).attr('class')
+			$('#'+id).attr('class' ,'layer villa '+availability) 
+			$('#unit'+id).attr('class' ,'unit blocks active') 
+
 			$('.layer').tooltipster('content', html)
 
 		'mouseover .building':(e)->
 			id  = parseInt e.target.id
 			buildingModel = buildingCollection.findWhere
 							'id' : id
+
+			if buildingModel == undefined
+				html = '<div class="svg-info">
+							<div class="details">
+								Building details not entered 
+							</div>  
+						</div>'
+				$('.layer').tooltipster('content', html)
+				return false
+
+
 			floors = buildingModel.get 'floors'
 			floors = Object.keys(floors).length
 			unitTypes = building.getUnitTypes(id)
@@ -201,22 +232,24 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 						<label>No. of floors</label> - '+floors+'
 					</div>'
 			$('.layer').tooltipster('content', html)
+			$('#bldg'+id).attr('class' ,'bldg blocks active') 
+			$('#'+id).attr('class' ,'layer building available')
+
 
 			
 
 
 	onShow:->
+		$('#spritespin').hide()
 		if project.get('project_master').front  == ""
 			$('.mapView').hide()
 		else
 			$('.map').addClass 'active'
 			$('.mapView').show()
 
-		# $('<div></div>').load(project.get('project_master').front).appendTo('.front')
-		# $('.us-right-content').imagesLoaded ->
-		# 	divHeight = $('.us-right-content').height()
-		# 	$('.unit-list').css 'max-height', divHeight + 'px'
-		# 	return
+		that = @
+		
+
 		transitionImages = []
 		svgs = {}
 		svgs[0] = project.get('project_master').front 
@@ -228,17 +261,16 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		$.merge transitionImages , project.get('project_master')['back-right']
 		$.merge transitionImages , project.get('project_master')['left-back']
 		$.merge transitionImages , project.get('project_master')['front-left']
-		response = project.checkRotationView()
-		if response is 1
-			$('.rotate').removeClass 'hidden'
-		console.log transitionImages
-		console.log svgs
+		$('.region').load(project.get('project_master').front,
+			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
+		$('.first_image').bttrlazyloading();
 		@initializeRotate(transitionImages,svgs)
 		
 		
 
 
 	setDetailIndex:(index)->
+		$('.region').addClass('inactive').removeClass('active')
 		@currentBreakPoint = index;
 		if (@currentBreakPoint < 0) 
 			@currentBreakPoint = @breakPoints.length - 1
@@ -273,7 +305,18 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 				$('.region').load(url,that.iniTooltip).addClass('active').removeClass('inactive')
 				
 		)
-		
+
+		spin.bind("onLoad" , ()->
+			$('.first_image').remove()
+			response = project.checkRotationView()
+			if response is 1
+				$('.rotate').removeClass 'hidden'
+				$('#spritespin').show()
+				$('.cf-loader').hide()
+
+				
+		)
+
 		
 
 

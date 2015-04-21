@@ -67,10 +67,9 @@
         this.region = new Marionette.Region({
           el: '#centerregion'
         });
-        new CommonFloor.CenterBuildingListCtrl({
+        return new CommonFloor.CenterBuildingListCtrl({
           region: this.region
         });
-        return this.trigger("load:units", data);
       },
       'click .Villas': function(e) {
         var data, units;
@@ -81,10 +80,9 @@
         this.region = new Marionette.Region({
           el: '#centerregion'
         });
-        new CommonFloor.ListCtrl({
+        return new CommonFloor.ListCtrl({
           region: this.region
         });
-        return this.trigger("load:units", data);
       }
     };
 
