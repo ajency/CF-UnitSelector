@@ -20,8 +20,8 @@ class Project extends Model {
         return $this->hasMany( 'CommonFloor\ProjectMeta' );
     }
 
-    public function projectJson(){
-        return $this->hasMany( 'CommonFloor\ProjectJson');
+    public function projectJson() {
+        return $this->hasMany( 'CommonFloor\ProjectJson' );
     }
 
     public function projectPropertyTypes() {
@@ -49,8 +49,15 @@ class Project extends Model {
         return $unitTypes;
     }
 
+    public function getProjectMasterBreakPoints() {
+        $meta = $this->projectMeta()->where( 'meta_key', 'breakpoints' )->get()->first();
+        $breakpoints = unserialize( $meta->meta_value );
+        return $breakpoints;
+    }
+
     public function getGoogleEarthSvgPath() {
         $mediaId = $this->projectMeta()->where( 'meta_key', 'google_earth' )->first()->meta_value;
+        if(!is_numeric($mediaId)) return '';
         $fileName = Media::find( $mediaId )->image_name;
         return url( "/projects/" . $this->id . "/google_earth/" . $fileName );
     }

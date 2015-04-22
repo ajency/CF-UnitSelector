@@ -39,6 +39,7 @@ class ProjectGateway implements ProjectGatewayInterface {
                 'svg' => $project->getGoogleEarthSvgPath()
             ],
             'project_master' => $project->getProjectMasterImages(),
+            'breakpoints' => $project->getProjectMasterBreakPoints(),
             'top_view' => [
                 'svg' => $faker->imageUrl( 1300, 800, 'city' ),
                 'image' => $faker->imageUrl( 1300, 800, 'city' )

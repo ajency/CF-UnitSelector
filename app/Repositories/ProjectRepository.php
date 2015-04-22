@@ -85,7 +85,9 @@ class ProjectRepository implements ProjectRepositoryInterface {
             ]),
             new ProjectMeta( ['meta_key' => 'skyview',
                 'meta_value' => ''
-            ])
+            ]),
+            new ProjectMeta( ['meta_key' => 'breakpoints',
+                'meta_value' => []] ),
         ];
 
         $project->projectMeta()->saveMany( $projectMeta );
