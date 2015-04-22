@@ -9,13 +9,16 @@ class Unit extends Model {
     public function toArray() {
         $data = parent::toArray();
         $unitId = $data['id'];
+        $unitPosition = $this->position;
+        $floor = $this->floor;
+        
         if ($data['unit_variant_id'] == 0) {
             $buildingId = $data['building_id'];
             $floorlayoutIds = Building::find( $buildingId )->floors;
-            if (isset( $floorlayoutIds[1] )) {
-                $layout = FloorLayout::find( $floorlayoutIds[1] );
-                $positions = $layout->positions()->get()->first()->toArray();
-                $data['unit_variant_id'] = $positions['unit_variant_id'];
+            if (isset( $floorlayoutIds[$floor] )) {
+                $layout = FloorLayout::find( $floorlayoutIds[$floor] );
+                $position = $layout->positions()->where('position', $unitPosition)->first()->toArray();
+                $data['unit_variant_id'] = $position['unit_variant_id'];
             }
         }
 
