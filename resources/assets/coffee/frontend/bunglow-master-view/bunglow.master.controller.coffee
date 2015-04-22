@@ -89,7 +89,8 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 										
 										<div id="spritespin"></div>
 										<div class="svg-maps">
-											<img class="first_image img-responsive" src="" />
+											<div class="cf-loader loader"></div>
+											<img class="first_image img-responsive animated fadeIn" src="" />
 											<div class="region inactive"></div>
 										</div>
 										<div class="cf-loader hidden"></div>
@@ -278,13 +279,13 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		$.merge transitionImages , project.get('project_master')['front-left']
 		$('.region').load(svgs[0],
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
-		$('.first_image').bttrlazyloading(
-			animation: 'fadeIn'
-			placeholder: 'data:image/gif;base64,R0lGODlhMgAyAKUAAO7u...'
+		# $('.first_image').bttrlazyloading(
+		# 	animation: 'fadeIn'
+		# 	placeholder: 'data:image/gif;base64,R0lGODlhMgAyAKUAAO7u...'
 
-			)
+		# 	)
 		$('.first_image').load ()->
-			console.log "loaded"
+			$('.loader').addClass 'hidden'
 			response = project.checkRotationView()
 			if response is 1
 				$('.cf-loader').removeClass 'hidden'
