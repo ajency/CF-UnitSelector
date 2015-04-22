@@ -298,7 +298,10 @@
         });
       }
       $('.images').html(html);
-      return $('.img').bttrlazyloading();
+      return $('.img').bttrlazyloading({
+        animation: 'fadeIn',
+        placeholder: '<div class="cf-loader"></div>'
+      });
     };
 
     CenterBunglowUnitView.prototype.generateLevels = function() {

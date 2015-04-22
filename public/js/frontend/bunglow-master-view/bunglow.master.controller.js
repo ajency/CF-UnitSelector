@@ -270,7 +270,7 @@
       $.merge(transitionImages, project.get('project_master')['back-right']);
       $.merge(transitionImages, project.get('project_master')['left-back']);
       $.merge(transitionImages, project.get('project_master')['front-left']);
-      $('.region').load(project.get('project_master').front, $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
+      $('.region').load(svgs[0], $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
       $('.first_image').bttrlazyloading({
         animation: 'fadeIn',
         placeholder: 'data:image/gif;base64,R0lGODlhMgAyAKUAAO7u...'
@@ -287,6 +287,7 @@
     };
 
     CenterBunglowMasterView.prototype.setDetailIndex = function(index) {
+      $('.region').empty();
       $('.region').addClass('inactive').removeClass('active');
       this.currentBreakPoint = index;
       if (this.currentBreakPoint < 0) {

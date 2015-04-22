@@ -271,15 +271,12 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		breakpoints = project.get('breakpoints')
 		$.each breakpoints,(index,value)->
 			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/master/master-'+value+'.svg'
-		# svgs[4] = project.get('project_master').right
-		# svgs[8] = project.get('project_master').back
-		# svgs[12] =  project.get('project_master').left
-
+		
 		$.merge transitionImages , project.get('project_master')['right-front']
 		$.merge transitionImages , project.get('project_master')['back-right']
 		$.merge transitionImages , project.get('project_master')['left-back']
 		$.merge transitionImages , project.get('project_master')['front-left']
-		$('.region').load(project.get('project_master').front,
+		$('.region').load(svgs[0],
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
 		$('.first_image').bttrlazyloading(
 			animation: 'fadeIn'
@@ -297,6 +294,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 
 	setDetailIndex:(index)->
+		$('.region').empty()
 		$('.region').addClass('inactive').removeClass('active')
 		@currentBreakPoint = index;
 		if (@currentBreakPoint < 0) 
