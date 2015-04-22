@@ -249,7 +249,7 @@
     };
 
     CenterBunglowMasterView.prototype.onShow = function() {
-      var height, response, svgs, that, transitionImages;
+      var height, svgs, that, transitionImages;
       height = this.ui.svgContainer.width() / 1.46;
       $('.us-left-content').css('height', height);
       $('#spritespin').hide();
@@ -272,12 +272,17 @@
       $.merge(transitionImages, project.get('project_master')['front-left']);
       $('.region').load(project.get('project_master').front, $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
       $('.first_image').bttrlazyloading({
-        animation: 'fadeIn'
+        animation: 'fadeIn',
+        placeholder: 'data:image/gif;base64,R0lGODlhMgAyAKUAAO7u...'
       });
-      response = project.checkRotationView();
-      if (response === 1) {
-        $('.cf-loader').removeClass('hidden');
-      }
+      $('.first_image').load(function() {
+        var response;
+        console.log("loaded");
+        response = project.checkRotationView();
+        if (response === 1) {
+          return $('.cf-loader').removeClass('hidden');
+        }
+      });
       return this.initializeRotate(transitionImages, svgs);
     };
 
