@@ -365,7 +365,10 @@ class CenterBunglowUnitView extends Marionette.ItemView
 
 
 		$('.images').html html
-		$('.img').bttrlazyloading()
+		$('.img').bttrlazyloading(
+			animation: 'fadeIn'
+
+			)
 
 
 	generateLevels:->

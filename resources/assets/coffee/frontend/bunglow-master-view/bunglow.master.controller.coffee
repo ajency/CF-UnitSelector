@@ -271,10 +271,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		breakpoints = project.get('breakpoints')
 		$.each breakpoints,(index,value)->
 			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/master/master-'+value+'.svg'
-		# svgs[4] = project.get('project_master').right
-		# svgs[8] = project.get('project_master').back
-		# svgs[12] =  project.get('project_master').left
-
+		
 		$.merge transitionImages , project.get('project_master')['right-front']
 		$.merge transitionImages , project.get('project_master')['back-right']
 		$.merge transitionImages , project.get('project_master')['left-back']

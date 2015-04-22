@@ -298,7 +298,9 @@
         });
       }
       $('.images').html(html);
-      return $('.img').bttrlazyloading();
+      return $('.img').bttrlazyloading({
+        animation: 'fadeIn'
+      });
     };
 
     CenterBunglowUnitView.prototype.generateLevels = function() {
