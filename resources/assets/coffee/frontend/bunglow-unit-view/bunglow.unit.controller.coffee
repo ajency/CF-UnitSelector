@@ -34,6 +34,15 @@ class TopBunglowUnitView extends Marionette.ItemView
 								</div>
 							</div>
 						</div>-->
+							<div class="search-header-wrap">
+				              <h1 class="pull-left">You have selected Yoshi Gold Artha Villa</h1>
+				              <div class="pull-right m-t-25">
+				                <button class="btn btn-primary cf-btn-white">Get Price List</button>
+				                <button class="btn btn-primary cf-btn-primary">Book Now</button>
+				              </div>
+				              <div class="clearfix"></div>
+				            </div>
+				          </div>
 
 						<div class="search-header-wrap">
 							<h1 class="pull-left proj-name">{{project_title}}</h1> 
