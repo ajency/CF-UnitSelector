@@ -48,7 +48,7 @@
       return TopApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span> Back to Poject Overview </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1 class="pull-left proj-name">{{project_title}}</h1> <div class="proj-type-count"> <h1 class="text-primary pull-left">{{units}}</h1><p class="pull-left">Apartments</p> <div class="clearfix"></div> </div> <div class="clearfix"></div> </div> </div> </div>');
+    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span> Back to Poject Overview </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1 class="pull-left proj-name">{{project_title}}</h1> <div class="proj-type-count"> <h1 class="text-primary pull-left">{{building_name}}</h1> <div class="clearfix"></div> </div> <div class="clearfix"></div> </div> </div> </div>');
 
     TopApartmentMasterView.prototype.serializeData = function() {
       var data, units;
@@ -160,7 +160,7 @@
       return LeftApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftApartmentMasterView.prototype.template = '	<div><div class="col-md-3 col-xs-12 col-sm-12 search-left-content p-t-10"> <div class="filters-wrapper "> <div class="advncd-filter-wrp  unit-list"> <p class="text-center help-text">Hover on the units for more details</p> <ul class="units two"> </ul> </div> </div> </div></div>';
+    LeftApartmentMasterView.prototype.template = '	<div><div class="col-md-3 col-xs-12 col-sm-12 search-left-content p-t-10"> <div class="filters-wrapper "> <div class="advncd-filter-wrp  unit-list"> <div class="legend"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <p class="text-center help-text">Hover on the units for more details</p> <ul class="units two"> </ul> </div> </div> </div></div>';
 
     LeftApartmentMasterView.prototype.childView = ApartmentsView;
 
