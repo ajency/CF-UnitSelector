@@ -24,7 +24,11 @@ function project_property_types( $projectId ) {
 }
 
 function property_type_slug( $name ) {
-    $name = $name === 'Bunglows/Villa' ? 'Bunglow' : $name;
+    $name = $name === 'Villas/Bungalows' ? 'Bunglow' : $name;
+    if ($name === 'Apartments') {
+        $name = 'Apartment';
+    }
+
     return Illuminate\Support\Str::slug( $name );
 }
 

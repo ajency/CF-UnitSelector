@@ -27,7 +27,7 @@
             <p class="menu-title">{{ $projectPropertyType->name }}</p>    
         </div>
         <ul class="big-items">
-            @if($projectPropertyType->name === 'Apartment')
+            @if($projectPropertyType->name === 'Apartments')
             <li>
                 <a href="{{ url('/admin/project/' . $project['id'] . '/floor-layout') }}">Floor Layouts</a>
             </li>
