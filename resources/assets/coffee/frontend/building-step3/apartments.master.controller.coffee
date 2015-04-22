@@ -123,6 +123,7 @@ class ApartmentsView extends Marionette.ItemView
 class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 
 	template : '	<div><div class="col-md-3 col-xs-12 col-sm-12 search-left-content p-t-10">
+									<div class="list-view-container w-map animated fadeInLeft">
 										<div class="filters-wrapper ">
 											<div class="advncd-filter-wrp  unit-list">
 												<div class="legend">
@@ -137,7 +138,7 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 								               	<ul class="units two">
 							                	</ul>					                			
 											</div>
-										</div>
+										</div></div>
 									</div></div>'
 
 	childView : ApartmentsView
