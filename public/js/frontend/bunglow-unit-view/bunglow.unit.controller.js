@@ -233,7 +233,8 @@
         var response;
         response = this.generateLevels();
         $.each(response[3].get('galleryurl'), function(index, value) {
-          return html += '<div class="animated fadeIn"><img class="img" src="' + value + '" /></div>';
+          var html;
+          return html = '<div class="animated fadeIn"><img class="img" src="' + value + '" /></div>';
         });
         $('.images').html(html);
         $('.gallery').addClass('current');

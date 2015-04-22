@@ -295,7 +295,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 		'click .gallery':(e)->
 			response = @generateLevels()
 			$.each response[3].get('galleryurl'),(index,value)->
-				html += '<div class="animated fadeIn"><img class="img" src="'+value+'" /></div>'
+				html = '<div class="animated fadeIn"><img class="img" src="'+value+'" /></div>'
 			
 			$('.images').html html
 			$('.gallery').addClass('current')
