@@ -47,7 +47,7 @@
       return TopBunglowUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    TopBunglowUnitView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span><a href="#/master-view"> Back to Poject Overview</a> </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1 class="pull-left">You have selected Yoshi Gold Artha Villa</h1> <div class="pull-right m-t-25"> <button class="btn btn-primary cf-btn-white">Get Price List</button> <button class="btn btn-primary cf-btn-primary">Book Now</button> </div> <div class="clearfix"></div> </div> </div> <div class="search-header-wrap"> <h1 class="pull-left proj-name">{{project_title}}</h1> <div class="proj-type-count"> <h1 class="text-primary pull-left">{{unit_name}}</h1> <div class="clearfix"></div> </div> <div class="clearfix"></div> </div> </div> </div>');
+    TopBunglowUnitView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span><a href="#/master-view"> Back to Poject Overview</a> </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1 class="pull-left proj-name">{{project_title}}</h1> <div class="proj-type-count"> <h1 class="text-primary pull-left">{{unit_name}}</h1> <div class="clearfix"></div> </div> <div class="pull-right m-t-25"> <button class="btn btn-primary cf-btn-white">Get Price List</button> <button class="btn btn-primary cf-btn-primary">Book Now</button> </div> <div class="clearfix"></div> </div> </div> </div>');
 
     TopBunglowUnitView.prototype.serializeData = function() {
       var data;
@@ -296,11 +296,7 @@
           return html += '<div class="animated fadeIn"><img class="img" src="' + value + '" /></div>';
         });
       }
-      $('.images').html(html);
-      return $('.img').bttrlazyloading({
-        animation: 'fadeIn',
-        placeholder: '<div class="cf-loader"></div>'
-      });
+      return $('.images').html(html);
     };
 
     CenterBunglowUnitView.prototype.generateLevels = function() {

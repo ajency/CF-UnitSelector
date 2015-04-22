@@ -123,6 +123,7 @@ class ApartmentsView extends Marionette.ItemView
 class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 
 	template : '	<div><div class="col-md-3 col-xs-12 col-sm-12 search-left-content p-t-10">
+									<div class="list-view-container w-map animated fadeInLeft">
 										<div class="filters-wrapper ">
 											<div class="advncd-filter-wrp  unit-list">
 												<div class="legend">
@@ -137,7 +138,7 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 								               	<ul class="units two">
 							                	</ul>					                			
 											</div>
-										</div>
+										</div></div>
 									</div></div>'
 
 	childView : ApartmentsView
@@ -292,11 +293,11 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$.merge transitionImages , building.get('building_master')['front-left']
 		$('.region').load(svgs[0],
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
-		$('.first_image').bttrlazyloading(
-			animation: 'fadeIn'
-			placeholder: 'data:image/gif;base64,R0lGODlhMgAyAKUAAO7u...'
+		# $('.first_image').bttrlazyloading(
+		# 	animation: 'fadeIn'
+		# 	placeholder: 'data:image/gif;base64,R0lGODlhMgAyAKUAAO7u...'
 
-			)
+		# 	)
 		$('.first_image').load ()->
 			response = building.checkRotationView(building_id)
 			if response is 1

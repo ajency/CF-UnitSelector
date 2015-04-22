@@ -160,7 +160,7 @@
       return LeftApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftApartmentMasterView.prototype.template = '	<div><div class="col-md-3 col-xs-12 col-sm-12 search-left-content p-t-10"> <div class="filters-wrapper "> <div class="advncd-filter-wrp  unit-list"> <div class="legend"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <p class="text-center help-text">Hover on the units for more details</p> <ul class="units two"> </ul> </div> </div> </div></div>';
+    LeftApartmentMasterView.prototype.template = '	<div><div class="col-md-3 col-xs-12 col-sm-12 search-left-content p-t-10"> <div class="list-view-container w-map animated fadeInLeft"> <div class="filters-wrapper "> <div class="advncd-filter-wrp  unit-list"> <div class="legend"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <p class="text-center help-text">Hover on the units for more details</p> <ul class="units two"> </ul> </div> </div></div> </div></div>';
 
     LeftApartmentMasterView.prototype.childView = ApartmentsView;
 
@@ -291,10 +291,6 @@
       $.merge(transitionImages, building.get('building_master')['left-back']);
       $.merge(transitionImages, building.get('building_master')['front-left']);
       $('.region').load(svgs[0], $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
-      $('.first_image').bttrlazyloading({
-        animation: 'fadeIn',
-        placeholder: 'data:image/gif;base64,R0lGODlhMgAyAKUAAO7u...'
-      });
       $('.first_image').load(function() {
         var response;
         response = building.checkRotationView(building_id);

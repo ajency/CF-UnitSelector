@@ -106,16 +106,17 @@
     };
 
     Building.prototype.checkRotationView = function(building) {
-      var buildingModel, transitionImages;
+      var breakpoints, buildingModel, transitionImages;
       transitionImages = [];
       buildingModel = buildingCollection.findWhere({
         'id': parseInt(building)
       });
+      breakpoints = buildingModel.get('breakpoints');
       $.merge(transitionImages, buildingModel.get('building_master')['right-front']);
       $.merge(transitionImages, buildingModel.get('building_master')['back-right']);
       $.merge(transitionImages, buildingModel.get('building_master')['left-back']);
       $.merge(transitionImages, buildingModel.get('building_master')['front-left']);
-      if (parseInt(transitionImages.length) >= 4) {
+      if (parseInt(breakpoints.length) > 1) {
         this.set('rotation', 1);
       } else {
         this.set('rotation', 0);
