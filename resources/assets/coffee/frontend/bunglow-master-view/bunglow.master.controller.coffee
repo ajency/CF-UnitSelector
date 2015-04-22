@@ -93,7 +93,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 											<img class="first_image img-responsive" src="" />
 											<div class="region inactive"></div>
 										</div>
-										<div class="cf-loader hidden"></div>
+										<div class="cf-loader rotate-loader hidden"></div>
 										
 										<div class="rotate rotate-controls hidden">
 											<div id="prev" class="rotate-left">Left</div>
@@ -281,14 +281,14 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
 		$('.first_image').bttrlazyloading(
 			animation: 'fadeIn'
-			placeholder: ''
+			placeholder: 'test'
 
 			)
 		$('.first_image').load ()->
 			$('.loader').addClass 'hidden'
 			response = project.checkRotationView()
 			if response is 1
-				$('.cf-loader').removeClass 'hidden'
+				$('.rotate-loader').removeClass 'hidden'
 		@initializeRotate(transitionImages,svgs)
 		
 		
@@ -336,7 +336,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 			$('.first_image').remove()
 			$('.rotate').removeClass 'hidden'
 			$('#spritespin').show()
-			$('.cf-loader').addClass 'hidden'
+			$('.rotate-loader').addClass 'hidden'
 
 				
 		)

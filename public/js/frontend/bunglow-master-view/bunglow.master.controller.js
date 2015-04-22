@@ -128,7 +128,7 @@
       return CenterBunglowMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container animated fadeInRight"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <div class="cf-loader loader"></div> <img class="first_image img-responsive" src="" /> <div class="region inactive"></div> </div> <div class="cf-loader hidden"></div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
+    CenterBunglowMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container animated fadeInRight"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <div class="cf-loader loader"></div> <img class="first_image img-responsive" src="" /> <div class="region inactive"></div> </div> <div class="cf-loader rotate-loader hidden"></div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
 
     CenterBunglowMasterView.prototype.ui = {
       svgContainer: '.list-view-container'
@@ -273,14 +273,14 @@
       $('.region').load(svgs[0], $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
       $('.first_image').bttrlazyloading({
         animation: 'fadeIn',
-        placeholder: ''
+        placeholder: 'test'
       });
       $('.first_image').load(function() {
         var response;
         $('.loader').addClass('hidden');
         response = project.checkRotationView();
         if (response === 1) {
-          return $('.cf-loader').removeClass('hidden');
+          return $('.rotate-loader').removeClass('hidden');
         }
       });
       return this.initializeRotate(transitionImages, svgs);
@@ -330,7 +330,7 @@
         $('.first_image').remove();
         $('.rotate').removeClass('hidden');
         $('#spritespin').show();
-        return $('.cf-loader').addClass('hidden');
+        return $('.rotate-loader').addClass('hidden');
       });
     };
 
