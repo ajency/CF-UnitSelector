@@ -222,7 +222,8 @@
       'click .external': function(e) {
         var html, response;
         response = this.generateLevels();
-        html = '<div class="animated fadeIn"> <img class="img" src="' + response[3].get('external3durl') + '" /> </div>';
+        html = '';
+        html += '<div class="animated fadeIn"> <img class="img" src="' + response[3].get('external3durl') + '" /> </div>';
         $('.images').html(html);
         $('.external').addClass('current');
         $('.threeD').removeClass('current');
@@ -230,11 +231,11 @@
         return $('.gallery').removeClass('current');
       },
       'click .gallery': function(e) {
-        var response;
+        var html, response;
         response = this.generateLevels();
+        html = '';
         $.each(response[3].get('galleryurl'), function(index, value) {
-          var html;
-          return html = '<div class="animated fadeIn"><img class="img" src="' + value + '" /></div>';
+          return html += '<div class="animated fadeIn"><img class="img" src="' + value + '" /></div>';
         });
         $('.images').html(html);
         $('.gallery').addClass('current');
