@@ -55,7 +55,7 @@ class CenterBuildingListView extends Marionette.CompositeView
             </div>-->
 			<div class="text-center">
               <ul class="prop-select">
-                <li class="prop-type buildings active">buildings</li>
+                <li class="prop-type buildings active">Buildings</li>
                 <li class="prop-type Villas hidden">Villas/Bungalows</li>
                 <li class="prop-type Plots hidden">Plots</li>
               </ul>

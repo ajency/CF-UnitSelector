@@ -369,7 +369,6 @@ class CenterBunglowUnitView extends Marionette.ItemView
 			$('.twoD').removeClass('current')
 			$('.external').removeClass('current')
 			$.each response[3].get('galleryurl'),(index,value)->
-				console.log value
 				html += '<div class="animated fadeIn"><img class="img" src="'+value+'" /></div>'
 
 

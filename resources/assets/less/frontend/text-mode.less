@@ -3,10 +3,6 @@
 	// background-color: lighten(@gray-lighter, 10%);
 	padding: 10px;
 
-	&.w-map{
-		padding: 10px 0;
-	}
-
 	.controls{
   		text-align: center;
 		position: absolute;
@@ -78,6 +74,9 @@
 					display: inline-block;
 					margin-right: 5px;
 				}
+				&.available, &.sold, &.blocked, &.na{
+					opacity: 1 !important;
+				}
 				&.available::before{
 					background-color: @white;
 				}
@@ -90,6 +89,19 @@
 				&.na::before{
 					background-color: @gray-lighter;
 				}
+			}
+		}
+	}
+
+	&.w-map{
+		padding: 10px 0;
+		.legend{
+			text-align: left;
+			padding: 10px 0 20px 40px;
+			li{
+				width: 50%;
+				margin: 0;
+				float: left;
 			}
 		}
 	}

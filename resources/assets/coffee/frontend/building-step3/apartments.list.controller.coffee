@@ -128,7 +128,7 @@ class CommonFloor.CenterApartmentView extends Marionette.CompositeView
 							                <li class="available">AVAILABLE</li>
 							                <li class="sold">SOLD</li>
 							                <li class="blocked">BLOCKED</li>
-							                <li class="na">NOT IN SELECTION</li>
+							                <li class="na">N/A</li>
 							              </ul>
 							            </div>
 					<div class="villa-list">

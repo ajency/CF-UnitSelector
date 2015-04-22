@@ -293,7 +293,6 @@
         $('.twoD').removeClass('current');
         $('.external').removeClass('current');
         $.each(response[3].get('galleryurl'), function(index, value) {
-          console.log(value);
           return html += '<div class="animated fadeIn"><img class="img" src="' + value + '" /></div>';
         });
       }

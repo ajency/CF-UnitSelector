@@ -48,7 +48,7 @@ class CenterCompositeView extends Marionette.CompositeView
 							            </div>-->
 							            <div class="text-center">
 							              <ul class="prop-select">
-							                <li class="prop-type buildings hidden">buildings</li>
+							                <li class="prop-type buildings hidden">Buildings</li>
 							                <li class="prop-type Villas active ">Villas/Bungalows</li>
 							                <li class="prop-type Plots hidden">Plots</li>
 							              </ul>
@@ -58,7 +58,7 @@ class CenterCompositeView extends Marionette.CompositeView
 							                <li class="available">AVAILABLE</li>
 							                <li class="sold">SOLD</li>
 							                <li class="blocked">BLOCKED</li>
-							                <li class="na">NOT IN SELECTION</li>
+							                <li class="na">N/A</li>
 							              </ul>
 							            </div>
 							            <div class="clearfix"></div>

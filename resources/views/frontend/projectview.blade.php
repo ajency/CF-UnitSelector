@@ -4,6 +4,7 @@
         <title>CommonFloor - {{ $project_title }}</title>
         <link type="text/css" rel="stylesheet" href="http://ak.asset1.cfcdn.com/cfassets/css/search.caz.css?ver=1427977000" />
         <link href="{{ asset('css/frontend/custom.css')}}" rel="stylesheet">
+        <link href="{{ asset('css/frontend/custom.css')}}" rel="stylesheet">
         <link rel="icon" type="image/png" href="{{ asset('images/others/favicon.ico')}}">
     </head>
     <body>
@@ -101,7 +102,7 @@
         <script src="{{ asset('bower_components/handlebars/handlebars.min.js' )}}"></script>
         <script src="{{ asset('bower_components/marionette.state/dist/marionette.state.js' )}}"></script>
         <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js' )}}"></script> 
-        <script src="{{ asset('bower_components/BttrLazyLoading/dist/jquery.bttrlazyloading.js' )}}"></script> 
+        <script src="{{ asset('bower_components/BttrLazyLoading/dist/jquery.bttrlazyloading.min.js' )}}"></script> 
         <script src="{{ asset('js/frontend/primages.js' )}}"></script> 
         <script src="{{ asset('bower_components/tooltipster/js/jquery.tooltipster.min.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery-easing/jquery.easing.min.js' )}}"></script>
