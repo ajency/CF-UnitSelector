@@ -299,7 +299,8 @@
       }
       $('.images').html(html);
       return $('.img').bttrlazyloading({
-        animation: 'fadeIn'
+        animation: 'fadeIn',
+        placeholder: '<div class="cf-loader"></div>'
       });
     };
 

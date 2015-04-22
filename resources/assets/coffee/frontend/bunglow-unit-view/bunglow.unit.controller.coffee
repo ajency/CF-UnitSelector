@@ -366,7 +366,8 @@ class CenterBunglowUnitView extends Marionette.ItemView
 
 		$('.images').html html
 		$('.img').bttrlazyloading(
-			animation: 'fadeIn'
+			animation: 'fadeIn',
+			placeholder : '<div class="cf-loader"></div>'
 
 			)
 
