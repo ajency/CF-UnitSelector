@@ -249,7 +249,7 @@
     };
 
     CenterBunglowMasterView.prototype.onShow = function() {
-      var height, svgs, that, transitionImages;
+      var breakpoints, height, svgs, that, transitionImages;
       height = this.ui.svgContainer.width() / 1.46;
       $('.us-left-content').css('height', height);
       $('#spritespin').hide();
@@ -262,10 +262,10 @@
       that = this;
       transitionImages = [];
       svgs = {};
-      svgs[0] = project.get('project_master').front;
-      svgs[4] = project.get('project_master').right;
-      svgs[8] = project.get('project_master').back;
-      svgs[12] = project.get('project_master').left;
+      breakpoints = project.get('breakpoints');
+      $.each(breakpoints, function(index, value) {
+        return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/master/master-' + value + '.svg';
+      });
       $.merge(transitionImages, project.get('project_master')['right-front']);
       $.merge(transitionImages, project.get('project_master')['back-right']);
       $.merge(transitionImages, project.get('project_master')['left-back']);
@@ -303,7 +303,7 @@
     CenterBunglowMasterView.prototype.initializeRotate = function(transitionImages, svgs) {
       var frames, spin, that, width;
       frames = transitionImages;
-      this.breakPoints = [0, 4, 8, 12];
+      this.breakPoints = project.get('breakpoints');
       this.currentBreakPoint = 0;
       width = this.ui.svgContainer.width() + 20;
       $('.svg-maps > div').first().removeClass('inactive').addClass('active').css('width', width);
