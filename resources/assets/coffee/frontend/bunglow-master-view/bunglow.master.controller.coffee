@@ -297,6 +297,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 
 	setDetailIndex:(index)->
+		$('.region').text ''
 		$('.region').addClass('inactive').removeClass('active')
 		@currentBreakPoint = index;
 		if (@currentBreakPoint < 0) 

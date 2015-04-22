@@ -287,6 +287,7 @@
     };
 
     CenterBunglowMasterView.prototype.setDetailIndex = function(index) {
+      $('.region').text('');
       $('.region').addClass('inactive').removeClass('active');
       this.currentBreakPoint = index;
       if (this.currentBreakPoint < 0) {
