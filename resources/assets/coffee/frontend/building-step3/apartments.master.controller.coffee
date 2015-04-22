@@ -329,7 +329,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		)
 		spin.bind("onLoad" , ()->
 			$('.first_image').remove()
-			response = building.checkRotationView(building)
+			url = Backbone.history.fragment
+			building_id = parseInt url.split('/')[1]
+			response = building.checkRotationView(building_id)
 			if response is 1
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()

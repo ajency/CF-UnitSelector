@@ -336,9 +336,11 @@
         }
       });
       return spin.bind("onLoad", function() {
-        var response;
+        var building_id, response, url;
         $('.first_image').remove();
-        response = building.checkRotationView(building);
+        url = Backbone.history.fragment;
+        building_id = parseInt(url.split('/')[1]);
+        response = building.checkRotationView(building_id);
         if (response === 1) {
           $('.rotate').removeClass('hidden');
           $('#spritespin').show();
