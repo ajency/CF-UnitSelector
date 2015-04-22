@@ -597,9 +597,7 @@ body {
 }
 svg {
   width: 100%;
-  height: auto
-  /* Project Master */
-  /* Building */
+  height: auto;
 }
 svg .caption {
   font-size: 14px;
@@ -631,6 +629,10 @@ svg .sold {
   fill: #FF6565 !important;
   opacity: 0.5 !important;
 }
+svg .not_released {
+  fill: #cccccc !important;
+  opacity: 0.5 !important;
+}
 svg .disable {
   fill: #999;
   opacity: 0.9;
@@ -642,50 +644,8 @@ svg .marker-area:hover image {
   opacity: 9;
   pointer-event: none;
 }
-svg .layer:hover {
-  opacity: 0.6;
-  cursor: pointer;
-}
-svg .caption {
-  font-size: 14px;
-  font-family: arial;
-}
-svg .tooltip {
-  font-size: 1em;
-  font-family: arial;
-  fill: #fff;
-  line-height: 20px;
-  display: inline-block;
-  cursor: pointer;
-}
-svg .tooltip_bg {
-  fill: black;
-  stroke: black;
-  stroke-width: 1;
-  opacity: 0.85;
-}
-svg .available {
-  fill: #7EBB11 !important;
-  opacity: 0.5 !important;
-}
-svg .blocked {
-  fill: #B8B8B8 !important;
-  opacity: 0.8 !important;
-}
-svg .sold {
-  fill: #FF6565 !important;
-  opacity: 0.5 !important;
-}
-svg .disable {
-  fill: #999;
-  opacity: 0.9;
-}
 svg .marker-area:hover rect {
   opacity: 0.6;
-}
-svg .marker-area:hover image {
-  opacity: 9;
-  pointer-event: none;
 }
 svg .layer:hover {
   opacity: 0.6;
