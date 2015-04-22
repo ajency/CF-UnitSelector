@@ -97,23 +97,6 @@
       return min;
     };
 
-    Building.prototype.checkRotationView = function(buildingId) {
-      var buildingModel, rotationImages;
-      buildingModel = buildingCollection.findWhere({
-        'building_id': parseInt(buildingId)
-      });
-      if (buildingId === "") {
-        return false;
-      }
-      rotationImages = buildingModel.get('threed_view').image.length;
-      if (parseInt(rotationImages) >= 4) {
-        buildingModel.set('rotation', 'yes');
-      } else {
-        buildingModel.set('rotation', 'no');
-      }
-      return buildingModel.get('rotation');
-    };
-
     Building.prototype.getBuildingUnits = function(building_id) {
       var units;
       units = unitCollection.where({
@@ -123,12 +106,15 @@
     };
 
     Building.prototype.checkRotationView = function(building) {
-      var transitionImages;
+      var buildingModel, transitionImages;
       transitionImages = [];
-      $.merge(transitionImages, building.get('building_master')['right-front']);
-      $.merge(transitionImages, building.get('building_master')['back-right']);
-      $.merge(transitionImages, building.get('building_master')['left-back']);
-      $.merge(transitionImages, building.get('building_master')['front-left']);
+      buildingModel = buildingCollection.findWhere({
+        'building_id': parseInt(building)
+      });
+      $.merge(transitionImages, buildingModel.get('building_master')['right-front']);
+      $.merge(transitionImages, buildingModel.get('building_master')['back-right']);
+      $.merge(transitionImages, buildingModel.get('building_master')['left-back']);
+      $.merge(transitionImages, buildingModel.get('building_master')['front-left']);
       if (parseInt(transitionImages.length) >= 4) {
         this.set('rotation', 1);
       } else {

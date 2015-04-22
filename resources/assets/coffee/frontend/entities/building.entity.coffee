@@ -73,17 +73,17 @@ class Building extends Backbone.Model
 
 
 	#check 3d rotation view available or not
-	checkRotationView:(buildingId)->
-		buildingModel = buildingCollection.findWhere({'building_id':parseInt(buildingId)})
-		if buildingId == ""
-			return false
-		rotationImages = buildingModel.get('threed_view').image.length
-		if parseInt(rotationImages) >= 4
-			buildingModel.set 'rotation' , 'yes'
-		else
-			buildingModel.set 'rotation' , 'no'
+	# checkRotationView:(buildingId)->
+	# 	buildingModel = buildingCollection.findWhere({'building_id':parseInt(buildingId)})
+	# 	if buildingId == ""
+	# 		return false
+	# 	rotationImages = buildingModel.get('threed_view').image.length
+	# 	if parseInt(rotationImages) >= 4
+	# 		buildingModel.set 'rotation' , 'yes'
+	# 	else
+	# 		buildingModel.set 'rotation' , 'no'
 
-		buildingModel.get('rotation')
+	# 	buildingModel.get('rotation')
 
 
 	getBuildingUnits:(building_id)->
@@ -94,10 +94,11 @@ class Building extends Backbone.Model
 
 	checkRotationView:(building)->
 		transitionImages = []
-		$.merge transitionImages , building.get('building_master')['right-front']
-		$.merge transitionImages , building.get('building_master')['back-right']
-		$.merge transitionImages , building.get('building_master')['left-back']
-		$.merge transitionImages , building.get('building_master')['front-left']
+		buildingModel = buildingCollection.findWhere({'building_id':parseInt(building)})
+		$.merge transitionImages , buildingModel.get('building_master')['right-front']
+		$.merge transitionImages , buildingModel.get('building_master')['back-right']
+		$.merge transitionImages , buildingModel.get('building_master')['left-back']
+		$.merge transitionImages , buildingModel.get('building_master')['front-left']
 		if parseInt(transitionImages.length) >= 4
 			@set 'rotation' , 1
 		else
