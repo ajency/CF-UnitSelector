@@ -196,32 +196,56 @@
 
           <div class="col-md-9 us-right-content">
             <div class="svg-area">
-              <div class="liquid-slider" id="slider-id">
-                   <div>
-                        <h2 class="title">External 3D</h2>
-                        <img src="../../images/step3.png">
-                   </div>
-                   <div>
-                        <h2 class="title">2D Layout</h2>
-                        <div class="row">
-                          <div class="col-sm-6">
-                            <img src="../../images/step3.png">
-                            <h5>Level 1</h5>
-                          </div>
-                          <div class="col-sm-6">
-                            <img src="../../images/step3.png">
-                            <h5>Level 1</h5>
-                          </div>
-                          <div class="col-sm-6">
-                            <img src="../../images/step3.png">
-                            <h5>Level 1</h5>
-                          </div>
+              <div class="liquid-slider slider" id="slider-id">
+                <div class="ls-wrapper ls-responsive">
+                  <div class="ls-nav">
+                    <ul>
+                      <li class="external">
+                        <h4 class="title">External 3D</h4>
+                      </li>
+
+                      <li class="twoD current">
+                        <h4 class="title">2D Layout</h4>
+                      </li>
+
+                      <li class="threeD">
+                        <h4 class="title">3D Layout</h4>
+                      </li>
+
+                      <li class="gallery" style="display: none;">
+                        <h4 class="title">Gallery</h4>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="liquid-slider slider">
+                  <div class="panel-wrapper">
+                    <div class="level Level_2">
+                      <div class="images animated fadeIn">
+                        <div class="layouts animated fadeIn">
+                          <a class="fancybox" rel="2d" href="http://cfunitselectortest.com/projects/3/variants/4/1297414920_4.jpeg">
+                            <img class="img" src="http://cfunitselectortest.com/projects/3/variants/4/1297414920_4.jpeg">
+                          </a>
+                          <span>Level 0</span>
                         </div>
-                   </div>
-                   <div>
-                        <h2 class="title">3D Layout</h2>
-                        <img src="../../images/step3.png">
-                   </div>
+
+                        <div class="layouts animated fadeIn">
+                          <a class="fancybox" rel="2d" href="http://cfunitselectortest.com/projects/3/variants/4/1273151006_4.jpeg">
+                            <img class="img" src="http://cfunitselectortest.com/projects/3/variants/4/1273151006_4.jpeg">
+                            </a>
+                          <span>Level 1</span>
+                        </div>
+
+                        <div class="layouts animated fadeIn">
+                          <a class="fancybox" rel="2d" href="http://cfunitselectortest.com/projects/3/variants/4/850176985_4.jpeg">
+                            <img class="img" src="http://cfunitselectortest.com/projects/3/variants/4/850176985_4.jpeg"></a>
+                          <span>Level 2</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -276,23 +300,15 @@
     <script src="../../bower_components/jquery-touchswipe/jquery.touchSwipe.min.js" type="text/javascript"></script>
     <script src="../../bower_components/liquidslider/js/jquery.liquid-slider.min.js" type="text/javascript"></script>
     <script src="../../bower_components/imagesloaded/imagesloaded.pkgd.min.js" type="text/javascript"></script>
+    <script src="../../bower_components/fancybox/source/jquery.fancybox.js" type="text/javascript"></script>
 
     <script>
-      $('#slider-id').liquidSlider({
-        slideEaseFunction: "easeInOutQuad",
-        includeTitle:false,
-        autoSlideInterval: 4000,
-        mobileNavigation: false,
-        hideArrowsWhenMobile: false,
-        dynamicTabsAlign: "center",
-        dynamicArrows: false,
-        // continuous: false
-      });
-
       $('.us-right-content').imagesLoaded( function() {
         var divHeight = $('.us-right-content').height(); 
         $('.search-left-content').css('min-height', divHeight+'px');
       });
+
+      $(".fancybox").fancybox();
     </script>
   </body>
 </html>

@@ -2,6 +2,7 @@
 @import "../../bower_components/liquidslider/css/liquid-slider.css";
 @import "../../bower_components/tooltipster/css/tooltipster.css";
 @import "../../bower_components/tooltipster/css/themes/tooltipster-shadow.css";
+@import "../../bower_components/fancybox/source/jquery.fancybox.css";
 /* External CSS */
 /* Site Styles */
 html,
@@ -1092,6 +1093,19 @@ svg .layer:hover {
 }
 .slider .layouts {
   float: left;
+  position: relative;
+  height: 400px;
+  border: 5px solid #cccccc;
+  overflow: hidden;
+}
+.slider .layouts img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 100%;
 }
 .slider .Level_0 .layouts {
   width: 100%;
