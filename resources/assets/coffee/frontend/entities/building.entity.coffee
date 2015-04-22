@@ -94,7 +94,7 @@ class Building extends Backbone.Model
 
 	checkRotationView:(building)->
 		transitionImages = []
-		buildingModel = buildingCollection.findWhere({'building_id':parseInt(building)})
+		buildingModel = buildingCollection.findWhere({'id':parseInt(building)})
 		$.merge transitionImages , buildingModel.get('building_master')['right-front']
 		$.merge transitionImages , buildingModel.get('building_master')['back-right']
 		$.merge transitionImages , buildingModel.get('building_master')['left-back']

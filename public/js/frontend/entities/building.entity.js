@@ -109,7 +109,7 @@
       var buildingModel, transitionImages;
       transitionImages = [];
       buildingModel = buildingCollection.findWhere({
-        'building_id': parseInt(building)
+        'id': parseInt(building)
       });
       $.merge(transitionImages, buildingModel.get('building_master')['right-front']);
       $.merge(transitionImages, buildingModel.get('building_master')['back-right']);
