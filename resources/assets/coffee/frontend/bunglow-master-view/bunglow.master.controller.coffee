@@ -279,7 +279,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		$.merge transitionImages , project.get('project_master')['back-right']
 		$.merge transitionImages , project.get('project_master')['left-back']
 		$.merge transitionImages , project.get('project_master')['front-left']
-		$('.region').load(project.get('project_master').front,
+		$('.region').load(svgs[0],
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
 		$('.first_image').bttrlazyloading(
 			animation: 'fadeIn'
@@ -297,7 +297,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 
 	setDetailIndex:(index)->
-		$('.region').text ''
+		$('.region').empty()
 		$('.region').addClass('inactive').removeClass('active')
 		@currentBreakPoint = index;
 		if (@currentBreakPoint < 0) 
