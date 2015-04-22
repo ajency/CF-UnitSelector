@@ -296,11 +296,7 @@
           return html += '<div class="animated fadeIn"><img class="img" src="' + value + '" /></div>';
         });
       }
-      $('.images').html(html);
-      return $('.img').bttrlazyloading({
-        animation: 'fadeIn',
-        placeholder: '<div class="cf-loader"></div>'
-      });
+      return $('.images').html(html);
     };
 
     CenterBunglowUnitView.prototype.generateLevels = function() {

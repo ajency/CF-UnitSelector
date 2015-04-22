@@ -293,11 +293,11 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$.merge transitionImages , building.get('building_master')['front-left']
 		$('.region').load(svgs[0],
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
-		$('.first_image').bttrlazyloading(
-			animation: 'fadeIn'
-			placeholder: 'data:image/gif;base64,R0lGODlhMgAyAKUAAO7u...'
+		# $('.first_image').bttrlazyloading(
+		# 	animation: 'fadeIn'
+		# 	placeholder: 'data:image/gif;base64,R0lGODlhMgAyAKUAAO7u...'
 
-			)
+		# 	)
 		$('.first_image').load ()->
 			response = building.checkRotationView(building_id)
 			if response is 1

@@ -279,11 +279,11 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		$.merge transitionImages , project.get('project_master')['front-left']
 		$('.region').load(svgs[0],
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
-		$('.first_image').bttrlazyloading(
-			animation: 'fadeIn'
-			placeholder: ''
+		# $('.first_image').bttrlazyloading(
+		# 	animation: 'fadeIn'
+		# 	placeholder: ''
 
-			)
+		# 	)
 		$('.first_image').load ()->
 			console.log "loaded"
 			response = project.checkRotationView()
