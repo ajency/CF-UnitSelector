@@ -283,7 +283,7 @@
       that = this;
       breakpoints = building.get('breakpoints');
       $.each(breakpoints, function(index, value) {
-        return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/buildings/' + PROJECTID + 'building-' + value + '.svg';
+        return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/buildings/' + building_id + 'master-' + value + '.svg';
       });
       $.merge(transitionImages, building.get('building_master')['right-front']);
       $.merge(transitionImages, building.get('building_master')['back-right']);
