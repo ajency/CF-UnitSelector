@@ -128,7 +128,7 @@
       return CenterBunglowMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container animated fadeInRight"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img class="first_image img-responsive" src="" /> <div class="region inactive"></div> </div> <div class="cf-loader"></div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
+    CenterBunglowMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container animated fadeInRight"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img class="first_image img-responsive" src="" /> <div class="region inactive"></div> </div> <div class="cf-loader hidden"></div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
 
     CenterBunglowMasterView.prototype.ui = {
       svgContainer: '.list-view-container'
@@ -249,7 +249,7 @@
     };
 
     CenterBunglowMasterView.prototype.onShow = function() {
-      var height, svgs, that, transitionImages;
+      var height, response, svgs, that, transitionImages;
       height = this.ui.svgContainer.width() / 1.46;
       $('.us-left-content').css('height', height);
       $('#spritespin').hide();
@@ -274,6 +274,10 @@
       $('.first_image').bttrlazyloading({
         animation: 'fadeIn'
       });
+      response = project.checkRotationView();
+      if (response === 1) {
+        $('.cf-loader').removeClass('hidden');
+      }
       return this.initializeRotate(transitionImages, svgs);
     };
 
@@ -317,14 +321,10 @@
         }
       });
       return spin.bind("onLoad", function() {
-        var response;
         $('.first_image').remove();
-        response = project.checkRotationView();
-        if (response === 1) {
-          $('.rotate').removeClass('hidden');
-          $('#spritespin').show();
-          return $('.cf-loader').hide();
-        }
+        $('.rotate').removeClass('hidden');
+        $('#spritespin').show();
+        return $('.cf-loader').addClass('hidden');
       });
     };
 

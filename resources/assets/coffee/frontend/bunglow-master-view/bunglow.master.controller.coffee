@@ -81,10 +81,10 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 									<div class="list-view-container animated fadeInRight">
 										<!--<div class="controls mapView">
-								            <div class="toggle">
-								            	<a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a>
-								            </div>
-							            </div>-->
+											<div class="toggle">
+												<a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a>
+											</div>
+										</div>-->
 										
 										
 										<div id="spritespin"></div>
@@ -92,14 +92,14 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 											<img class="first_image img-responsive" src="" />
 											<div class="region inactive"></div>
 										</div>
-										<div class="cf-loader"></div>
+										<div class="cf-loader hidden"></div>
 										
-							            <div class="rotate rotate-controls hidden">
-									        <div id="prev" class="rotate-left">Left</div>
-									        <span class="rotate-text">Rotate</span>
-									        <div id="next" class="rotate-right">Right</div>
-							    		</div>
-							    	</div>
+										<div class="rotate rotate-controls hidden">
+											<div id="prev" class="rotate-left">Left</div>
+											<span class="rotate-text">Rotate</span>
+											<div id="next" class="rotate-right">Right</div>
+										</div>
+									</div>
 
 								</div>')
 
@@ -283,6 +283,9 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 			animation: 'fadeIn'
 
 			)
+		response = project.checkRotationView()
+		if response is 1
+			$('.cf-loader').removeClass 'hidden'
 		@initializeRotate(transitionImages,svgs)
 		
 		
@@ -327,11 +330,9 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 		spin.bind("onLoad" , ()->
 			$('.first_image').remove()
-			response = project.checkRotationView()
-			if response is 1
-				$('.rotate').removeClass 'hidden'
-				$('#spritespin').show()
-				$('.cf-loader').hide()
+			$('.rotate').removeClass 'hidden'
+			$('#spritespin').show()
+			$('.cf-loader').addClass 'hidden'
 
 				
 		)

@@ -68,7 +68,6 @@
     }
 
     TopBunglowListCtrl.prototype.initialize = function() {
-      console.log("aaaaaaaaaaa");
       return this.show(new TopBunglowListView({
         model: project
       }));

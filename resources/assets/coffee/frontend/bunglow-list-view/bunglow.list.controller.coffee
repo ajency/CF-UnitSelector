@@ -49,7 +49,6 @@ class TopBunglowListView extends Marionette.ItemView
 class CommonFloor.TopBunglowListCtrl extends Marionette.RegionController
 
 	initialize:->
-		console.log "aaaaaaaaaaa"
 		@show new TopBunglowListView 
 				model : project
 
