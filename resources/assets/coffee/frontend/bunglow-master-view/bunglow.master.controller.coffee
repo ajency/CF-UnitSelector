@@ -237,14 +237,12 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 				html += '<div class="details">
 							<div>
 								<label>'+value.name+'</label> - '+value.units+'
-							</div> 
-							
-							 
-						</div>  
-					</div>'
+							</div>'
 
 			html += '<div>
 						<label>No. of floors</label> - '+floors+'
+					</div>
+					</div>
 					</div>'
 			$('.layer').tooltipster('content', html)
 			$('#bldg'+id).attr('class' ,'bldg blocks active') 

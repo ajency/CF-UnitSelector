@@ -239,9 +239,9 @@
         console.log(response = building.getUnitTypesCount(id, unitTypes));
         html = '<div class="svg-info"> <h4 class="pull-left">' + buildingModel.get('building_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div>';
         $.each(response, function(index, value) {
-          return html += '<div class="details"> <div> <label>' + value.name + '</label> - ' + value.units + '</div> </div> </div>';
+          return html += '<div class="details"> <div> <label>' + value.name + '</label> - ' + value.units + '</div>';
         });
-        html += '<div> <label>No. of floors</label> - ' + floors + '</div>';
+        html += '<div> <label>No. of floors</label> - ' + floors + '</div> </div> </div>';
         $('.layer').tooltipster('content', html);
         $('#bldg' + id).attr('class', 'bldg blocks active');
         return $('#' + id).attr('class', 'layer building active_bldg');

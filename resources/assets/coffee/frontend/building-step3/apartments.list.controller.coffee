@@ -38,7 +38,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 		            <div class="search-header-wrap">
 		              <h1 class="pull-left proj-name">{{project_title}}</h1> 
 		              <div class="proj-type-count">
-		              	<h1 class="text-primary pull-left">{{units}}</h1> <p class="pull-left">Apartments</p>
+		              	<h1 class="text-primary pull-left">{{building_name}}</h1>
 		              	<div class="clearfix"></div>
 		              </div>
 		              <div class="clearfix"></div>

@@ -958,6 +958,7 @@ svg .layer:hover {
 .one .blocks.bldg .unit-type-info li::after {
   content: ', ';
   float: none;
+  margin-right: 5px;
 }
 .one .blocks.bldg .unit-type-info li:last-child::after {
   content: '';
