@@ -125,12 +125,9 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 	template : '	<div><div class="col-md-3 col-xs-12 col-sm-12 search-left-content p-t-10">
 										<div class="filters-wrapper ">
 											<div class="advncd-filter-wrp  unit-list">
-												<div class="blck-wrap title-row">
-					                  				<p class="text-center help-text">Hover on the units for more details</p>
-									               <ul class="units two">
-								                	</ul>
-					                			</div>
-					                			
+				                  				<p class="text-center help-text">Hover on the units for more details</p>
+								               	<ul class="units two">
+							                	</ul>					                			
 											</div>
 										</div>
 									</div></div>'

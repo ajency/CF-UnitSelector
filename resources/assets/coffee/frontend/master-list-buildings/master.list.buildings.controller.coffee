@@ -100,6 +100,15 @@ class MasterBuildingListView extends Marionette.CompositeView
               </ul>
             </div>
 			<div class="bldg-list">
+
+				<div class="legend">
+				  <ul>
+				    <li class="available">AVAILABLE</li>
+				    <li class="sold">SOLD</li>
+				    <li class="blocked">BLOCKED</li>
+				    <li class="na">N/A</li>
+				  </ul>
+				  
 				<p class="text-center help-text">Hover on the buildings for more details</p>
 			  	<ul class="units one">				
 				

@@ -79,6 +79,15 @@ class MasterBunglowListView extends Marionette.CompositeView
 							              </ul>
 							            </div>
 							            <div class="advncd-filter-wrp  unit-list">
+							            	<div class="legend">
+							            	  <ul>
+							            	    <li class="available">AVAILABLE</li>
+							            	    <li class="sold">SOLD</li>
+							            	    <li class="blocked">BLOCKED</li>
+							            	    <li class="na">N/A</li>
+							            	  </ul>
+							            	</div>
+
 							            	<p class="text-center help-text">Hover on the units for more details</p>
 											<!--<div class="blck-wrap title-row">
 				                  				<div class="row">

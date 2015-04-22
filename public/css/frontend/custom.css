@@ -694,9 +694,6 @@ svg .layer:hover {
 .list-view-container {
   padding: 10px;
 }
-.list-view-container.w-map {
-  padding: 10px 0;
-}
 .list-view-container .controls {
   text-align: center;
   position: absolute;
@@ -769,6 +766,12 @@ svg .layer:hover {
   display: inline-block;
   margin-right: 5px;
 }
+.list-view-container .legend ul li.available,
+.list-view-container .legend ul li.sold,
+.list-view-container .legend ul li.blocked,
+.list-view-container .legend ul li.na {
+  opacity: 1 !important;
+}
 .list-view-container .legend ul li.available::before {
   background-color: #ffffff;
 }
@@ -780,6 +783,18 @@ svg .layer:hover {
 }
 .list-view-container .legend ul li.na::before {
   background-color: #cccccc;
+}
+.list-view-container.w-map {
+  padding: 10px 0;
+}
+.list-view-container.w-map .legend {
+  text-align: left;
+  padding: 10px 0 20px 40px;
+}
+.list-view-container.w-map .legend li {
+  width: 50%;
+  margin: 0;
+  float: left;
 }
 .list-view-container .help-text {
   font-size: 13px;
