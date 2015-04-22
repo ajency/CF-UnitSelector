@@ -230,9 +230,11 @@
         return $('.gallery').removeClass('current');
       },
       'click .gallery': function(e) {
-        var html, response;
+        var response;
         response = this.generateLevels();
-        html = '<div class="animated fadeIn"> <img class="img" src="' + response[3].get('galleryurl') + '" /> </div>';
+        $.each(response[3].get('galleryurl'), function(index, value) {
+          return html += '<div class="animated fadeIn"><img class="img" src="' + value + '" /></div>';
+        });
         $('.images').html(html);
         $('.gallery').addClass('current');
         $('.threeD').removeClass('current');
@@ -290,7 +292,7 @@
         $('.external').removeClass('current');
         $.each(response[3].get('galleryurl'), function(index, value) {
           console.log(value);
-          return html += '<img class="img" src="' + value + '" />';
+          return html += '<div class="animated fadeIn"><img class="img" src="' + value + '" /></div>';
         });
       }
       $('.images').html(html);
