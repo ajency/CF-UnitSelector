@@ -283,7 +283,8 @@ class CenterBunglowUnitView extends Marionette.ItemView
 
 		'click .external':(e)->
 			response = @generateLevels()
-			html = '<div class="animated fadeIn">
+			html = ''
+			html += '<div class="animated fadeIn">
 						<img class="img" src="'+response[3].get('external3durl')+'" />
 					</div>'
 			$('.images').html html
@@ -294,9 +295,10 @@ class CenterBunglowUnitView extends Marionette.ItemView
 
 		'click .gallery':(e)->
 			response = @generateLevels()
-			html = '<div class="animated fadeIn">
-						<img class="img" src="'+response[3].get('galleryurl')+'" />
-					</div>'
+			html = ''
+			$.each response[3].get('galleryurl'),(index,value)->
+				html += '<div class="animated fadeIn"><img class="img" src="'+value+'" /></div>'
+			
 			$('.images').html html
 			$('.gallery').addClass('current')
 			$('.threeD').removeClass('current')
@@ -359,7 +361,7 @@ class CenterBunglowUnitView extends Marionette.ItemView
 			$('.external').removeClass('current')
 			$.each response[3].get('galleryurl'),(index,value)->
 				console.log value
-				html += '<img class="img" src="'+value+'" />'
+				html += '<div class="animated fadeIn"><img class="img" src="'+value+'" /></div>'
 
 
 		$('.images').html html

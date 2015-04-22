@@ -170,7 +170,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 											<img class="first_image img-responsive" src="" />
 											<div class="region inactive"></div>
 										</div>
-										<div class="cf-loader"></div>
+										<div class="cf-loader hidden"></div>
 							            <div class="rotate rotate-controls hidden">
 									        <div id="prev" class="rotate-left">Left</div>
 									        <span class="rotate-text">Rotate</span>
@@ -285,8 +285,13 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
 		$('.first_image').bttrlazyloading(
 			animation: 'fadeIn'
+			placeholder: 'data:image/gif;base64,R0lGODlhMgAyAKUAAO7u...'
 
 			)
+		$('.first_image').load ()->
+			response = building.checkRotationView(building_id)
+			if response is 1
+				$('.cf-loader').removeClass 'hidden'
 		
 		@initializeRotate(transitionImages,svgs)
 
@@ -329,13 +334,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		)
 		spin.bind("onLoad" , ()->
 			$('.first_image').remove()
-			url = Backbone.history.fragment
-			building_id = parseInt url.split('/')[1]
-			response = building.checkRotationView(building_id)
-			if response is 1
-				$('.rotate').removeClass 'hidden'
-				$('#spritespin').show()
-				$('.cf-loader').hide()
+			
+			$('.rotate').removeClass 'hidden'
+			$('#spritespin').show()
+			$('.cf-loader').addClass 'hidden'
 
 				
 		)

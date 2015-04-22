@@ -199,7 +199,7 @@
       return CenterApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterApartmentMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#" class="map active">Map</a><a href="#" class="list">List</a> </div> </div>--> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="spritespin"></div> <div class="svg-maps"> <img class="first_image img-responsive" src="" /> <div class="region inactive"></div> </div> <div class="cf-loader"></div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
+    CenterApartmentMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#" class="map active">Map</a><a href="#" class="list">List</a> </div> </div>--> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="spritespin"></div> <div class="svg-maps"> <img class="first_image img-responsive" src="" /> <div class="region inactive"></div> </div> <div class="cf-loader hidden"></div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
 
     CenterApartmentMasterView.prototype.ui = {
       svgContainer: '.list-view-container'
@@ -292,7 +292,15 @@
       $.merge(transitionImages, building.get('building_master')['front-left']);
       $('.region').load(building.get('building_master').front, $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
       $('.first_image').bttrlazyloading({
-        animation: 'fadeIn'
+        animation: 'fadeIn',
+        placeholder: 'data:image/gif;base64,R0lGODlhMgAyAKUAAO7u...'
+      });
+      $('.first_image').load(function() {
+        var response;
+        response = building.checkRotationView(building_id);
+        if (response === 1) {
+          return $('.cf-loader').removeClass('hidden');
+        }
       });
       return this.initializeRotate(transitionImages, svgs);
     };
@@ -336,16 +344,10 @@
         }
       });
       return spin.bind("onLoad", function() {
-        var building_id, response, url;
         $('.first_image').remove();
-        url = Backbone.history.fragment;
-        building_id = parseInt(url.split('/')[1]);
-        response = building.checkRotationView(building_id);
-        if (response === 1) {
-          $('.rotate').removeClass('hidden');
-          $('#spritespin').show();
-          return $('.cf-loader').hide();
-        }
+        $('.rotate').removeClass('hidden');
+        $('#spritespin').show();
+        return $('.cf-loader').addClass('hidden');
       });
     };
 

@@ -281,11 +281,14 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
 		$('.first_image').bttrlazyloading(
 			animation: 'fadeIn'
+			placeholder: 'data:image/gif;base64,R0lGODlhMgAyAKUAAO7u...'
 
 			)
-		response = project.checkRotationView()
-		if response is 1
-			$('.cf-loader').removeClass 'hidden'
+		$('.first_image').load ()->
+			console.log "loaded"
+			response = project.checkRotationView()
+			if response is 1
+				$('.cf-loader').removeClass 'hidden'
 		@initializeRotate(transitionImages,svgs)
 		
 		
