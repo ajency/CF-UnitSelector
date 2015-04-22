@@ -272,16 +272,19 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		transitionImages = []
 		svgs = {}
 		that = @
-		svgs[0] = building.get('building_master').front 
-		svgs[4] = building.get('building_master').right
-		svgs[8] = building.get('building_master').back
-		svgs[12] =  building.get('building_master').left
-		console.log svgs
+		breakpoints = building.get 'breakpoints'
+		$.each breakpoints,(index,value)->
+			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/buildings/'+PROJECTID+'building-'+value+'.svg'
+		# svgs[0] = building.get('building_master').front 
+		# svgs[4] = building.get('building_master').right
+		# svgs[8] = building.get('building_master').back
+		# svgs[12] =  building.get('building_master').left
+		
 		$.merge transitionImages , building.get('building_master')['right-front']
 		$.merge transitionImages , building.get('building_master')['back-right']
 		$.merge transitionImages , building.get('building_master')['left-back']
 		$.merge transitionImages , building.get('building_master')['front-left']
-		$('.region').load(building.get('building_master').front,
+		$('.region').load(svgs[0],
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
 		$('.first_image').bttrlazyloading(
 			animation: 'fadeIn'
@@ -293,10 +296,12 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			if response is 1
 				$('.cf-loader').removeClass 'hidden'
 		
-		@initializeRotate(transitionImages,svgs)
+		@initializeRotate(transitionImages,svgs,breakpoints)
 
 
 	setDetailIndex:(index)->
+		$('.region').empty()
+		$('.region').addClass('inactive').removeClass('active')
 		@currentBreakPoint = index;
 		if (@currentBreakPoint < 0) 
 			@currentBreakPoint = @breakPoints.length - 1
@@ -308,9 +313,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			nearest: true
 		)
 
-	initializeRotate:(transitionImages,svgs)->
+	initializeRotate:(transitionImages,svgs,breakpoints)->
 		frames = transitionImages
-		@breakPoints = [0, 4, 8, 12]
+		@breakPoints = breakpoints
 		@currentBreakPoint = 0
 		width = @ui.svgContainer.width() + 20
 		$('.svg-maps > div').first().removeClass('inactive').addClass('active').css('width',width);
