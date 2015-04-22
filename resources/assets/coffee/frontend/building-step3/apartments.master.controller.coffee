@@ -274,7 +274,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		that = @
 		breakpoints = building.get 'breakpoints'
 		$.each breakpoints,(index,value)->
-			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/buildings/'+building_id+'master-'+value+'.svg'
+			console.log value
+			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/buildings/'+building_id+'/master-'+value+'.svg'
 		# svgs[0] = building.get('building_master').front 
 		# svgs[4] = building.get('building_master').right
 		# svgs[8] = building.get('building_master').back
