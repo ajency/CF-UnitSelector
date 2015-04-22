@@ -269,7 +269,7 @@
     };
 
     CenterApartmentMasterView.prototype.onShow = function() {
-      var building, building_id, height, svgs, that, transitionImages, url;
+      var breakpoints, building, building_id, height, svgs, that, transitionImages, url;
       height = this.ui.svgContainer.width() / 1.46;
       $('.search-left-content').css('height', height);
       $('#spritespin').hide();
@@ -281,16 +281,16 @@
       transitionImages = [];
       svgs = {};
       that = this;
-      svgs[0] = building.get('building_master').front;
-      svgs[4] = building.get('building_master').right;
-      svgs[8] = building.get('building_master').back;
-      svgs[12] = building.get('building_master').left;
-      console.log(svgs);
+      breakpoints = building.get('breakpoints');
+      $.each(breakpoints, function(index, value) {
+        console.log(value);
+        return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/buildings/' + building_id + '/master-' + value + '.svg';
+      });
       $.merge(transitionImages, building.get('building_master')['right-front']);
       $.merge(transitionImages, building.get('building_master')['back-right']);
       $.merge(transitionImages, building.get('building_master')['left-back']);
       $.merge(transitionImages, building.get('building_master')['front-left']);
-      $('.region').load(building.get('building_master').front, $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
+      $('.region').load(svgs[0], $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
       $('.first_image').bttrlazyloading({
         animation: 'fadeIn',
         placeholder: 'data:image/gif;base64,R0lGODlhMgAyAKUAAO7u...'
@@ -302,10 +302,12 @@
           return $('.cf-loader').removeClass('hidden');
         }
       });
-      return this.initializeRotate(transitionImages, svgs);
+      return this.initializeRotate(transitionImages, svgs, breakpoints);
     };
 
     CenterApartmentMasterView.prototype.setDetailIndex = function(index) {
+      $('.region').empty();
+      $('.region').addClass('inactive').removeClass('active');
       this.currentBreakPoint = index;
       if (this.currentBreakPoint < 0) {
         this.currentBreakPoint = this.breakPoints.length - 1;
@@ -318,10 +320,10 @@
       });
     };
 
-    CenterApartmentMasterView.prototype.initializeRotate = function(transitionImages, svgs) {
+    CenterApartmentMasterView.prototype.initializeRotate = function(transitionImages, svgs, breakpoints) {
       var frames, spin, that, width;
       frames = transitionImages;
-      this.breakPoints = [0, 4, 8, 12];
+      this.breakPoints = breakpoints;
       this.currentBreakPoint = 0;
       width = this.ui.svgContainer.width() + 20;
       $('.svg-maps > div').first().removeClass('inactive').addClass('active').css('width', width);
