@@ -266,7 +266,11 @@ class CenterBunglowUnitView extends Marionette.ItemView
 			html = ''
 			$.each response[1],(index,value)->
 				html += '<div class="layouts animated fadeIn">
-							<img class="img" src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
+							<a class="fancybox" rel="3d" href="'+value+'" title="'+s.replaceAll(response[2][index], "_", " ")+'">
+								<img class="img" src="'+value+'" />
+								<div class="img-overlay"></div>
+							</a>
+							<span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
 						</div>'
 			$('.images').html html
 			$('.threeD').addClass('current')
@@ -279,7 +283,11 @@ class CenterBunglowUnitView extends Marionette.ItemView
 			html = ''
 			$.each response[0],(index,value)->
 				html += '<div class="layouts animated fadeIn">
-							<img class="img" src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
+							<a class="fancybox" rel="2d" href="'+value+'" title="'+s.replaceAll(response[2][index], "_", " ")+'">
+								<img class="img" src="'+value+'" />
+								<div class="img-overlay"></div>
+							</a>
+							<span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
 						</div>'
 			$('.images').html html
 			$('.twoD').addClass('current')
@@ -375,6 +383,8 @@ class CenterBunglowUnitView extends Marionette.ItemView
 		# 	placeholder : '<div class="cf-loader"></div>'
 
 		# 	)
+
+		$(".fancybox").fancybox()
 
 
 	generateLevels:->
