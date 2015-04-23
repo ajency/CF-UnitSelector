@@ -162,17 +162,15 @@ class LeftUnitView extends Marionette.ItemView
 						</div>
 						<div class="similar-section">
 				              <label>Similar Villas based on your filters:</label><br>
-				              <p>Pool View, Garden, 3BHK</p>
+				              <!--<p>Pool View, Garden, 3BHK</p>-->
 				              <ul>
+				              {{#similarUnits}}
 				                <li class="">
-				                  <img src="../../images/villa-thumb.png" class="img-responsive">
+				                 {{unit_name}}
 				                </li>
-				                <li class="">
-				                  <img src="../../images/villa-thumb.png" class="img-responsive">
-				                </li>
-				                <li class="">
-				                  <img src="../../images/villa-thumb.png" class="img-responsive">
-				                </li>
+				               
+				               
+				                {{/similarUnits}}
 				              </ul>
 			            </div>
 
@@ -193,23 +191,31 @@ class LeftUnitView extends Marionette.ItemView
 						'attribute' : s.capitalize index
 						'value'     : value
 
-		console.log similarUnits = @getSimilarUnits(unit)
+		similarUnits = @getSimilarUnits(unit)
+		temp = []
+		$.each similarUnits, (index,value)->
+			temp.push 
+				'unit_name' : value.get('unit_name')
+		console.log temp
 		data.area = response[0].get('super_built_up_area')
 		data.type = response[1].get('name')
 		data.unit_name = unit.get('unit_name')
 		data.levels  = @generateLevels(floor,response)
 		data.attributes  = attributes
+		data.similarUnits = temp
 		data
 
 	getSimilarUnits:(unit)->
 		units = []
 		i = 0
-		unitCollection.every (item)->
-			if item.get('unit_variant_id') == unit.get('unit_variant_id') 
-				units.push item
-			i++
+		unitsArr = unitCollection.toArray()
+		$.each unitsArr, (item,value)->
+			if value.get('unit_variant_id') == unit.get('unit_variant_id') 
+				units.push value
+				i++
 			if i == 3
 				return false
+			
 		units
 
 
