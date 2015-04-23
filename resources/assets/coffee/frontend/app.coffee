@@ -45,3 +45,6 @@ Handlebars.registerHelper 'i10n', (keyword)->
 	target = target || keyword	
 	#output
 	target
+
+
+

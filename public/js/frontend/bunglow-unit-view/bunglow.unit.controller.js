@@ -1,29 +1,29 @@
 (function() {
-  var CenterBunglowUnitView, LeftBunglowUnitView, TopBunglowUnitView,
+  var CenterUnitView, LeftUnitView, TopUnitView,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
-  CommonFloor.BunglowUnitView = (function(superClass) {
-    extend(BunglowUnitView, superClass);
+  CommonFloor.UnitView = (function(superClass) {
+    extend(UnitView, superClass);
 
-    function BunglowUnitView() {
-      return BunglowUnitView.__super__.constructor.apply(this, arguments);
+    function UnitView() {
+      return UnitView.__super__.constructor.apply(this, arguments);
     }
 
-    BunglowUnitView.prototype.template = '#unit-view-template';
+    UnitView.prototype.template = '#unit-view-template';
 
-    return BunglowUnitView;
+    return UnitView;
 
   })(Marionette.LayoutView);
 
-  CommonFloor.BunglowUnitCtrl = (function(superClass) {
-    extend(BunglowUnitCtrl, superClass);
+  CommonFloor.UnitCtrl = (function(superClass) {
+    extend(UnitCtrl, superClass);
 
-    function BunglowUnitCtrl() {
-      return BunglowUnitCtrl.__super__.constructor.apply(this, arguments);
+    function UnitCtrl() {
+      return UnitCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    BunglowUnitCtrl.prototype.initialize = function() {
+    UnitCtrl.prototype.initialize = function() {
       if (jQuery.isEmptyObject(project.toJSON())) {
         project.setProjectAttributes(PROJECTID);
         CommonFloor.loadJSONData();
@@ -32,42 +32,42 @@
       if (jQuery.isEmptyObject(project.toJSON())) {
         return this.show(new CommonFloor.NothingFoundView);
       } else {
-        return this.show(new CommonFloor.BunglowUnitView);
+        return this.show(new CommonFloor.UnitView);
       }
     };
 
-    return BunglowUnitCtrl;
+    return UnitCtrl;
 
   })(Marionette.RegionController);
 
-  TopBunglowUnitView = (function(superClass) {
-    extend(TopBunglowUnitView, superClass);
+  TopUnitView = (function(superClass) {
+    extend(TopUnitView, superClass);
 
-    function TopBunglowUnitView() {
-      return TopBunglowUnitView.__super__.constructor.apply(this, arguments);
+    function TopUnitView() {
+      return TopUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    TopBunglowUnitView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span><a href="#/master-view"> Back to Poject Overview</a> </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1 class="pull-left proj-name">{{project_title}}</h1> <div class="proj-type-count"> <h1 class="text-primary pull-left">{{unit_name}}</h1> <div class="clearfix"></div> </div> <div class="pull-right m-t-25"> <button class="btn btn-primary cf-btn-white">Get Price List</button> <button class="btn btn-primary cf-btn-primary">Book Now</button> </div> <div class="clearfix"></div> </div> </div> </div>');
+    TopUnitView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span><a href="#/master-view"> Back to Poject Overview</a> </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1 class="pull-left proj-name">{{project_title}}</h1> <div class="proj-type-count"> <h1 class="text-primary pull-left">{{unit_name}}</h1> <div class="clearfix"></div> </div> <div class="pull-right m-t-25"> <button class="btn btn-primary cf-btn-white">Get Price List</button> <button class="btn btn-primary cf-btn-primary">Book Now</button> </div> <div class="clearfix"></div> </div> </div> </div>');
 
-    TopBunglowUnitView.prototype.serializeData = function() {
+    TopUnitView.prototype.serializeData = function() {
       var data;
-      data = TopBunglowUnitView.__super__.serializeData.call(this);
+      data = TopUnitView.__super__.serializeData.call(this);
       data.project_title = project.get('project_title');
       return data;
     };
 
-    return TopBunglowUnitView;
+    return TopUnitView;
 
   })(Marionette.ItemView);
 
-  CommonFloor.TopBunglowUnitCtrl = (function(superClass) {
-    extend(TopBunglowUnitCtrl, superClass);
+  CommonFloor.TopUnitCtrl = (function(superClass) {
+    extend(TopUnitCtrl, superClass);
 
-    function TopBunglowUnitCtrl() {
-      return TopBunglowUnitCtrl.__super__.constructor.apply(this, arguments);
+    function TopUnitCtrl() {
+      return TopUnitCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    TopBunglowUnitCtrl.prototype.initialize = function() {
+    TopUnitCtrl.prototype.initialize = function() {
       var response, unit, unitid, url;
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
@@ -81,22 +81,22 @@
       }));
     };
 
-    return TopBunglowUnitCtrl;
+    return TopUnitCtrl;
 
   })(Marionette.RegionController);
 
-  LeftBunglowUnitView = (function(superClass) {
-    extend(LeftBunglowUnitView, superClass);
+  LeftUnitView = (function(superClass) {
+    extend(LeftUnitView, superClass);
 
-    function LeftBunglowUnitView() {
-      return LeftBunglowUnitView.__super__.constructor.apply(this, arguments);
+    function LeftUnitView() {
+      return LeftUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="blck-wrap title-row"> <!--<h3 class="pull-left"><strong>{{unit_name}}</strong></h3> <span class="label label-success">For Sale</span> --> <div class="clearfix"></div> <div class="details"> <div> <label>Price: </label> <span class="price"></span> </div> <div> <label>Unit Type:</label> {{type}} </div> <div> <label>Area:</label> {{area}} sqft </div> </div> <div class="room-attr m-t-10"> <label class="property hidden">Property Attributes</label> {{#attributes}} <div class="m-b-5"> <span>{{attribute}}</span>: {{value}} </div> {{/attributes}} </div> </div> <div class="unit-list"> {{#levels}} <div class="blck-wrap no-hover"> <h4 class="m-b-10 m-t-10 text-primary">{{level_name}}</h4> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Rooms</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> {{#rooms}} <div class="room-attr"> <div class="m-b-15"> <h5 class="m-b-5">{{room_name}}</h5> {{#attributes}} <div class=""><span>{{attribute}}</span>: {{value}} </div> {{/attributes}} <!--<h6 class="">{{size}}sqft</h6>--> </div> </div> {{/rooms}} </div> {{/levels}} </div> </div> </div> </div>');
+    LeftUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="blck-wrap title-row"> <!--<h3 class="pull-left"><strong>{{unit_name}}</strong></h3> <span class="label label-success">For Sale</span> --> <div class="clearfix"></div> <div class="details"> <div> <label>Price: </label> <span class="price"></span> </div> <div> <label>Unit Type:</label> {{type}} </div> <div> <label>Area:</label> {{area}} sqft </div> </div> <div class="room-attr m-t-10"> <label class="property hidden">Property Attributes</label> {{#attributes}} <div class="m-b-5"> <span>{{attribute}}</span>: {{value}} </div> {{/attributes}} </div> </div> <div class="unit-list"> {{#levels}} <div class="blck-wrap no-hover"> <h4 class="m-b-10 m-t-10 text-primary">{{level_name}}</h4> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Rooms</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> {{#rooms}} <div class="room-attr"> <div class="m-b-15"> <h5 class="m-b-5">{{room_name}}</h5> {{#attributes}} <div class=""><span>{{attribute}}</span>: {{value}} </div> {{/attributes}} <!--<h6 class="">{{size}}sqft</h6>--> </div> </div> {{/rooms}} </div> {{/levels}} </div> </div> </div> </div>');
 
-    LeftBunglowUnitView.prototype.serializeData = function() {
+    LeftUnitView.prototype.serializeData = function() {
       var attributes, data, floor, levels, response, unit, unitType, unitid, url;
-      data = LeftBunglowUnitView.__super__.serializeData.call(this);
+      data = LeftUnitView.__super__.serializeData.call(this);
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
       response = window.unit.getUnitDetails(unitid);
@@ -152,7 +152,7 @@
       return data;
     };
 
-    LeftBunglowUnitView.prototype.onShow = function() {
+    LeftUnitView.prototype.onShow = function() {
       var response, unitid, url;
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
@@ -164,35 +164,35 @@
       }
     };
 
-    return LeftBunglowUnitView;
+    return LeftUnitView;
 
   })(Marionette.ItemView);
 
-  CommonFloor.LeftBunglowUnitCtrl = (function(superClass) {
-    extend(LeftBunglowUnitCtrl, superClass);
+  CommonFloor.LeftUnitCtrl = (function(superClass) {
+    extend(LeftUnitCtrl, superClass);
 
-    function LeftBunglowUnitCtrl() {
-      return LeftBunglowUnitCtrl.__super__.constructor.apply(this, arguments);
+    function LeftUnitCtrl() {
+      return LeftUnitCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBunglowUnitCtrl.prototype.initialize = function() {
-      return this.show(new LeftBunglowUnitView);
+    LeftUnitCtrl.prototype.initialize = function() {
+      return this.show(new LeftUnitView);
     };
 
-    return LeftBunglowUnitCtrl;
+    return LeftUnitCtrl;
 
   })(Marionette.RegionController);
 
-  CenterBunglowUnitView = (function(superClass) {
-    extend(CenterBunglowUnitView, superClass);
+  CenterUnitView = (function(superClass) {
+    extend(CenterUnitView, superClass);
 
-    function CenterBunglowUnitView() {
-      return CenterBunglowUnitView.__super__.constructor.apply(this, arguments);
+    function CenterUnitView() {
+      return CenterUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <div class="images animated fadeIn"> </div> </div> </div> </div> </div> </div> </div>');
+    CenterUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="svg-area"> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <div class="images animated fadeIn"> </div> </div> </div> </div> </div> </div> </div>');
 
-    CenterBunglowUnitView.prototype.events = {
+    CenterUnitView.prototype.events = {
       'click .threeD': function(e) {
         var html, response;
         response = this.generateLevels();
@@ -245,7 +245,7 @@
       }
     };
 
-    CenterBunglowUnitView.prototype.onShow = function() {
+    CenterUnitView.prototype.onShow = function() {
       var html, response;
       response = this.generateLevels();
       html = '';
@@ -300,7 +300,7 @@
       return $(".fancybox").fancybox();
     };
 
-    CenterBunglowUnitView.prototype.generateLevels = function() {
+    CenterUnitView.prototype.generateLevels = function() {
       var floor, i, level, response, threeD, twoD, unitid, url;
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
@@ -327,22 +327,22 @@
       return [twoD, threeD, level, response[0]];
     };
 
-    return CenterBunglowUnitView;
+    return CenterUnitView;
 
   })(Marionette.ItemView);
 
-  CommonFloor.CenterBunglowUnitCtrl = (function(superClass) {
-    extend(CenterBunglowUnitCtrl, superClass);
+  CommonFloor.CenterUnitCtrl = (function(superClass) {
+    extend(CenterUnitCtrl, superClass);
 
-    function CenterBunglowUnitCtrl() {
-      return CenterBunglowUnitCtrl.__super__.constructor.apply(this, arguments);
+    function CenterUnitCtrl() {
+      return CenterUnitCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowUnitCtrl.prototype.initialize = function() {
-      return this.show(new CenterBunglowUnitView);
+    CenterUnitCtrl.prototype.initialize = function() {
+      return this.show(new CenterUnitView);
     };
 
-    return CenterBunglowUnitCtrl;
+    return CenterUnitCtrl;
 
   })(Marionette.RegionController);
 

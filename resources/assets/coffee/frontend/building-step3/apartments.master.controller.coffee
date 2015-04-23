@@ -22,19 +22,20 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="row">
 		          <div class="col-md-12 col-xs-12 col-sm-12">
-		            <!--<div class="row breadcrumb-bar">
+		            <div class="row breadcrumb-bar">
 		              <div class="col-xs-12 col-md-12">
 		                <div class="bread-crumb-list">
 		                  <ul class="brdcrmb-wrp clearfix">
 		                    <li class="">
 		                      <span class="bread-crumb-current">
-		                        <span class=".icon-arrow-right2"></span> Back to Poject Overview
+		                        <span class=".icon-arrow-right2"></span><a class="unit_back" href="#">
+													Back to Poject Overview</a>
 		                      </span>
 		                    </li>
 		                  </ul>
 		                </div>
 		              </div>
-		            </div>-->
+		            </div>
 
 		            <div class="search-header-wrap">
 		              	<h1 class="pull-left proj-name">{{project_title}}</h1> 
@@ -46,7 +47,9 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		            </div>
 		          </div>
 		        </div>')
-
+	
+	ui  :
+		unitBack : '.unit_back'
 
 	serializeData:->
 		data = super()
@@ -54,6 +57,16 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		data.units = units.length
 		data.project_title = project.get('project_title')
 		data
+
+	events:->
+		'click @ui.unitBack':(e)->
+			e.preventDefault()
+			previousRoute = CommonFloor.router.previous()
+			CommonFloor.navigate '/'+previousRoute , true
+
+	onShow:->
+		if CommonFloor.router.history.length == 1
+			@ui.unitBack.hide()
 
 class CommonFloor.TopApartmentMasterCtrl extends Marionette.RegionController
 
@@ -111,6 +124,7 @@ class ApartmentsView extends Marionette.ItemView
 			if @model.get('availability') == 'available'
 				CommonFloor.defaults['unit'] = @model.get('id')
 				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
+				CommonFloor.router.storeRoute()
 
 	onShow:->
 		id = @model.get 'id'
@@ -207,12 +221,14 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			url = Backbone.history.fragment
 			building_id = parseInt url.split('/')[1]
 			CommonFloor.navigate '/building/'+building_id+'/apartments' , true
+			CommonFloor.router.storeRoute()
 
 		'click .map':(e)->
 			e.preventDefault()
 			url = Backbone.history.fragment
 			building_id = parseInt url.split('/')[1]
 			CommonFloor.navigate '/building/'+building_id+'/master-view' , true
+			CommonFloor.router.storeRoute()
 
 		'mouseover .layer':(e)->
 			id = parseInt e.target.id
@@ -303,7 +319,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			if response is 1
 				$('.cf-loader').removeClass 'hidden'
 		
-		@initializeRotate(transitionImages,svgs,breakpoints)
+		@initializeRotate(transitionImages,svgs,building)
 
 
 	setDetailIndex:(index)->
@@ -320,9 +336,11 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			nearest: true
 		)
 
-	initializeRotate:(transitionImages,svgs,breakpoints)->
+	initializeRotate:(transitionImages,svgs,building)->
+		url = Backbone.history.fragment
+		building_id = parseInt url.split('/')[1]
 		frames = transitionImages
-		@breakPoints = breakpoints
+		@breakPoints = building.get 'breakpoints'
 		@currentBreakPoint = 0
 		width = @ui.svgContainer.width() + 20
 		$('.svg-maps > div').first().removeClass('inactive').addClass('active').css('width',width);
@@ -345,11 +363,12 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				
 		)
 		spin.bind("onLoad" , ()->
-			$('.first_image').remove()
-			
-			$('.rotate').removeClass 'hidden'
-			$('#spritespin').show()
-			$('.cf-loader').addClass 'hidden'
+			console.log response = building.checkRotationView(building_id)
+			if response is 1
+				$('.first_image').remove()
+				$('.rotate').removeClass 'hidden'
+				$('#spritespin').show()
+				$('.cf-loader').addClass 'hidden'
 
 				
 		)

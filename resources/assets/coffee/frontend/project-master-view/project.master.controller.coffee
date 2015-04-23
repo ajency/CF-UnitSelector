@@ -1,28 +1,42 @@
 api = ""
-class CommonFloor.BunglowMasterView extends Marionette.LayoutView
+#Layout for Poject Master view 
+class CommonFloor.ProjectMasterView extends Marionette.LayoutView
 
 	template : '#project-view-template'
 
 
-#starting point for Master view for bunglows
-class CommonFloor.BunglowMasterCtrl extends Marionette.RegionController
+#starting point for Poject Master view 
+class CommonFloor.ProjectMasterCtrl extends Marionette.RegionController
 
 	initialize:->
 		if jQuery.isEmptyObject(project.toJSON())
-			project.setProjectAttributes(PROJECTID);
+			project.setProjectAttributes(PROJECTID)
 			CommonFloor.checkPropertyType()
 		if  project.get('project_master').front  != ""
-			@show new CommonFloor.BunglowMasterView
+			@show new CommonFloor.ProjectMasterView
 		else
 			@show new CommonFloor.NothingFoundView
 
-
-class TopBunglowMasterView extends Marionette.ItemView
-
+#View for Poject Master top view 
+class TopMasterView extends Marionette.ItemView
+	#template
 	template : Handlebars.compile('<div class="row">
 		<div class="col-md-12 col-xs-12 col-sm-12">
 			<div class="search-header-wrap">
-
+				<div class="row breadcrumb-bar">
+							<div class="col-xs-12 col-md-12">
+								<div class="bread-crumb-list">
+									<ul class="brdcrmb-wrp clearfix">
+										<li class="">
+											<span class="bread-crumb-current">
+												<span class=".icon-arrow-right2"></span><a class="unit_back" href="#">
+													Back to Poject Overview</a>
+											</span>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
 				<h1 class="pull-left proj-name">{{project_title}}</h1> 
 				<div class="proj-type-count">
 					{{#types}} 
@@ -36,6 +50,9 @@ class TopBunglowMasterView extends Marionette.ItemView
 		  </div>
 		</div>')
 
+	ui  :
+		unitBack : '.unit_back'
+
 	serializeData:->
 		data = super()
 		response = CommonFloor.propertyTypes() 
@@ -43,14 +60,25 @@ class TopBunglowMasterView extends Marionette.ItemView
 		data
 
 
-class CommonFloor.TopBunglowMasterCtrl extends Marionette.RegionController
+	events:->
+		'click @ui.unitBack':(e)->
+			e.preventDefault()
+			previousRoute = CommonFloor.router.previous()
+			CommonFloor.navigate '/'+previousRoute , true
+
+	onShow:->
+		if CommonFloor.router.history.length == 1
+			@ui.unitBack.hide()
+
+#Controller for Poject Master top view 
+class CommonFloor.TopMasterCtrl extends Marionette.RegionController
 
 	initialize:->
-		@show new TopBunglowMasterView
+		@show new TopMasterView
 			model : project
 
-
-class CommonFloor.LeftBunglowMasterCtrl extends Marionette.RegionController
+#Controller for Poject Master left view 
+class CommonFloor.LeftMasterCtrl extends Marionette.RegionController
 
 	initialize:->
 		response = CommonFloor.checkListView()
@@ -73,8 +101,8 @@ class CommonFloor.LeftBunglowMasterCtrl extends Marionette.RegionController
 			@parent().trigger "load:units" , data
 
 
-
-class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
+#Center view for project master
+class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 
@@ -89,8 +117,9 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 										
 										<div id="spritespin"></div>
 										<div class="svg-maps">
+											<img src=""  data-alwaysprocess="true" 
+											data-ratio="0.5" data-srcwidth="1600" data-crop="1" class="primage first_image img-responsive">
 											
-											<img class="first_image img-responsive" src="" />
 											<div class="region inactive"></div>
 										</div>
 										<div class="cf-loader hidden"></div>
@@ -130,8 +159,10 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 			if buildingModel.get('building_master').front == ""
 				CommonFloor.navigate '/building/'+id+'/apartments' , true
+				CommonFloor.router.storeRoute()
 			else
 				CommonFloor.navigate '/building/'+id+'/master-view' , true
+				CommonFloor.router.storeRoute()
 
 		'click .villa':(e)->
 			id = parseInt e.target.id
@@ -143,6 +174,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 
 			CommonFloor.defaults['unit'] =id
 			CommonFloor.navigate '/unit-view/'+id , true
+			CommonFloor.router.storeRoute()
 
 		'click #prev':->
 			@setDetailIndex(@currentBreakPoint - 1)
@@ -204,10 +236,8 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 						</div>  
 					</div>'
 
-			# @class = $('#'+id).attr('class')
 			$('#'+id).attr('class' ,'layer villa '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
-
 			$('.layer').tooltipster('content', html)
 
 		'mouseover .building':(e)->
@@ -256,15 +286,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		height =  @ui.svgContainer.width() / 1.46
 		$('.us-left-content').css('height',height)
 		$('#spritespin').hide()
-		if project.get('project_master').front  == ""
-			$('.mapView').hide()
-		else
-			$('.map').addClass 'active'
-			$('.mapView').show()
-
 		that = @
-		
-
 		transitionImages = []
 		svgs = {}
 		breakpoints = project.get('breakpoints')
@@ -277,13 +299,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		$.merge transitionImages , project.get('project_master')['front-left']
 		$('.region').load(svgs[0],
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
-		# $('.first_image').bttrlazyloading(
-		# 	animation: 'fadeIn'
-		# 	placeholder: ''
-
-		# 	)
 		$('.first_image').load ()->
-			console.log "loaded"
 			response = project.checkRotationView()
 			if response is 1
 				$('.cf-loader').removeClass 'hidden'
@@ -291,7 +307,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		
 		
 
-
+	#clicl event for rotate
 	setDetailIndex:(index)->
 		$('.region').empty()
 		$('.region').addClass('inactive').removeClass('active')
@@ -305,7 +321,7 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		api.playTo(@breakPoints[@currentBreakPoint], 
 			nearest: true
 		)
-
+	#initialize rotate plugin
 	initializeRotate:(transitionImages,svgs)->
 		frames = transitionImages
 		@breakPoints = project.get('breakpoints')
@@ -331,20 +347,16 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		)
 
 		spin.bind("onLoad" , ()->
-			$('.first_image').remove()
-			$('.rotate').removeClass 'hidden'
-			$('#spritespin').show()
-			$('.cf-loader').addClass 'hidden'
+			response = project.checkRotationView()
+			if response is 1
+				$('.first_image').remove()
+				$('.rotate').removeClass 'hidden'
+				$('#spritespin').show()
+				$('.cf-loader').addClass 'hidden'
 
 				
 		)
-
-		
-
-
-		
-
-
+	#intialize tooltip 
 	iniTooltip:->
 		$('.layer').tooltipster(
 			theme: 'tooltipster-shadow',
@@ -356,11 +368,11 @@ class CommonFloor.CenterBunglowMasterView extends Marionette.ItemView
 		)
 	
 
-
-class CommonFloor.CenterBunglowMasterCtrl extends Marionette.RegionController
+#controller for the center view
+class CommonFloor.CenterMasterCtrl extends Marionette.RegionController
 
 	initialize:->
-		@show new CommonFloor.CenterBunglowMasterView
+		@show new CommonFloor.CenterMasterView
 				model :project
 
 

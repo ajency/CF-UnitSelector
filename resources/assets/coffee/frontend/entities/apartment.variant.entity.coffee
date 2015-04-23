@@ -8,7 +8,7 @@ class ApartmentVariant extends Backbone.Model
 			return 
 		unitVarinatModel = apartmentVariantCollection.findWhere({
 			'id':parseInt(unit_model.get('unit_variant_id'))})
-		if unitVarinatModel != undefined
+		if ! _.isUndefined unitVarinatModel 
 			floorRiseArray = settings.generateFloorRise(unit_model.get('building_id'))
 			floorRise = floorRiseArray[unit_model.get('floor')]
 			basic_cost = ( parseFloat(unitVarinatModel.get('per_sq_ft_price')) + parseFloat(floorRise )) *
@@ -27,17 +27,13 @@ class ApartmentVariantCollection extends Backbone.Collection
 		"http://commonfloor.local/methods/functions.php?action=load_apartment_variants"
 
 
-	
-
-
 	#set attributes of a Apartment Variant model
-	# if blank,fetch it from the server with the url mentioned above.
 	setApartmentVariantAttributes:(data)->
 
 		# @set apartmentApartmentData
 		apartmentVariantCollection.reset data
 
-
+	#set apartment units
 	getApartmentUnits:->
 		units = []
 		newUnits = []

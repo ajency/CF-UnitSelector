@@ -1,11 +1,10 @@
-class CenterItemView extends Marionette.ItemView
+#view for each building : Model
+class ListItemView extends Marionette.ItemView
 
-	template :  Handlebars.compile('
-					                    <div class="bldg-img"></div>
+	template :  Handlebars.compile('<div class="bldg-img"></div>
 					                    <div class="info">
 					                      <h2 class="m-b-5">{{building_name}}</h2>
-
-					                      <div class="floors"><span>{{floors}}</span> floors</div>
+											<div class="floors"><span>{{floors}}</span> floors</div>
 					                    </div>
 					                    <div class="clearfix"></div>
 					                    <div class="unit-type-info">
@@ -15,16 +14,11 @@ class CenterItemView extends Marionette.ItemView
 					                          {{name}}<!--: <span>{{units}}</span>-->
 					                        </li>
 					                        {{/types}}
-					                       
-
-					                      </ul>
+						                   </ul>
 					                      <span class="area {{areaname}}">{{area}} Sq.Ft</span>
 					                      <div class="price {{classname}}">From <span>Rs.{{price}}</span></div>
-
-					                      </ul>
-
-					                    </div>
-					                  ')
+											</ul>
+										 </div>')
 
 	tagName : 'li'
 
@@ -45,8 +39,8 @@ class CenterItemView extends Marionette.ItemView
 		data.area = building.getMinimumArea(id)
 		if data.area == 0
 			areaname = 'hidden'
-		console.log data.areaname = areaname
-		console.log cost = building.getMinimumCost(id)
+		data.areaname = areaname
+		cost = building.getMinimumCost(id)
 		data.classname = ""
 		if cost == 0
 			data.classname = 'hidden'
@@ -77,10 +71,12 @@ class CenterItemView extends Marionette.ItemView
 							'id' : id
 			if buildingModel.get('building_master').front == ""
 				CommonFloor.navigate '/building/'+id+'/apartments' , true
+				CommonFloor.router.storeRoute()
 			else
 				CommonFloor.navigate '/building/'+id+'/master-view' , true
+				CommonFloor.router.storeRoute()
 
-
+#view for list of buildings : Collection
 class MasterBuildingListView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-3 us-left-content">
@@ -100,10 +96,7 @@ class MasterBuildingListView extends Marionette.CompositeView
               </ul>
             </div>
 			<div class="bldg-list">
-
-				
-				  
-				<p class="text-center help-text">Hover on the buildings for more details</p>
+			<p class="text-center help-text">Hover on the buildings for more details</p>
 			  	<ul class="units one">				
 				
 			  	</ul>
@@ -112,7 +105,7 @@ class MasterBuildingListView extends Marionette.CompositeView
 			</div>
 		  </div>')
 
-	childView : CenterItemView
+	childView : ListItemView
 
 	childViewContainer : '.units'
 
@@ -139,23 +132,18 @@ class MasterBuildingListView extends Marionette.CompositeView
 
 
 	onShow:->
-		if project.get('project_master').front  == ""
-			$('.map-View').hide()
-		else
-			$('.map-View').show()
-
 		if bunglowVariantCollection.length != 0
 			$('.Villas').removeClass 'hidden'
 
 
 
-
+#Controller for lsiting all teh buildings in a project
 class CommonFloor.MasterBuildingListCtrl extends Marionette.RegionController
 
 	initialize:->
 		@view = view = new MasterBuildingListView
 					collection : buildingCollection
-		@listenTo @view,"load:units" ,@loadController
+		# @listenTo @view,"load:units" ,@loadController
 		@show view
 
 	loadController:(data)=>

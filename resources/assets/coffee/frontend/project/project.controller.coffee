@@ -9,20 +9,21 @@ class CommonFloor.ProjectCtrl extends Marionette.RegionController
 
 	initialize:->
 		id = PROJECTID
-		project.setProjectAttributes(id);
+		project.setProjectAttributes(id)
 		#check to see whether project model is set or not
 		if jQuery.isEmptyObject(project.toJSON())
 			region  = new Marionette.Region el : '#noFound-template'
-			#if not found then show the 'Nothing Fpund View'
+			#if not found then show the 'Nothing Found View'
 			@show new CommonFloor.NothingFoundView
 
 		else
-			#if found then show the view for the first step
+			#if found then show the view for the Project
 			@show new CommonFloor.ProjectLayoutView
 
-#Controller for the top view of step one
+#View for the top view of Project
 class TopView extends Marionette.ItemView
 
+	#template
 	template : Handlebars.compile('<div class="col-md-12 col-xs-12 col-sm-12">
 					<div class="search-header-wrap">
 					  <h1 class="pull-left">{{i10n "explore"}} {{project_title}}</h1>
@@ -44,18 +45,7 @@ class TopView extends Marionette.ItemView
 
 	className : 'row'
 
-
-
-
-
-
-
-
-
-
-
-
-
+#Controller for the top view of Project
 class CommonFloor.TopCtrl extends Marionette.RegionController
 
 	initialize:->
@@ -63,9 +53,9 @@ class CommonFloor.TopCtrl extends Marionette.RegionController
 				model : project
 
 
-
+#View for the left view of Project
 class LeftView extends Marionette.ItemView
-
+	#template
 	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
 										<div class="filters-wrapper">
 										  	<div class="tab-main-container">                
@@ -134,13 +124,7 @@ class LeftView extends Marionette.ItemView
 				'availability'		: availability
 		data.propertyTypes = propertyTypes
 		data
-
-	
-
-
-
-
-
+#Controller for the left view of Project
 class CommonFloor.LeftCtrl extends Marionette.RegionController
 
 	initialize:->
@@ -149,7 +133,7 @@ class CommonFloor.LeftCtrl extends Marionette.RegionController
 				
 
 
-
+#View for the center view of Project
 class CenterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
@@ -157,12 +141,7 @@ class CenterView extends Marionette.ItemView
 						data-nodebug="" data-alwaysprocess="" 
 						data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" 
 						class="primage fill-width">
-						
-					  
 					</div>
-					
-					
-
 				</div>')
 
 
@@ -172,15 +151,9 @@ class CenterView extends Marionette.ItemView
 			
 	onShow:->
 		path = @model.get('step_one').svg
-		$('.svg-area').load(path,$('img').bttrlazyloading()
-		)
+		$('.svg-area').load(path)
 
-	
-
-
-
-
-
+#Controller for the cneter view of Project
 class CommonFloor.CenterCtrl extends Marionette.RegionController
 
 	initialize:->

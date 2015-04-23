@@ -1,4 +1,5 @@
-class CenterItemView extends Marionette.ItemView
+#view for each building
+class BuildingItemView extends Marionette.ItemView
 
 	template :  Handlebars.compile('<li class="bldg blocks {{status}}">
 					                    <div class="bldg-img"></div>
@@ -40,11 +41,13 @@ class CenterItemView extends Marionette.ItemView
 							'id' : id
 			if buildingModel.get('building_master').front == ""
 				CommonFloor.navigate '/building/'+id+'/apartments' , true
+				CommonFloor.router.storeRoute()
 			else
 				CommonFloor.navigate '/building/'+id+'/master-view' , true
+				CommonFloor.router.storeRoute()
 
-
-class CenterBuildingListView extends Marionette.CompositeView
+#view for listing buildings : Collection
+class BuildingListView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-12 us-right-content">
 			<div class="list-view-container animated fadeInDown">
@@ -70,7 +73,7 @@ class CenterBuildingListView extends Marionette.CompositeView
 			</div>
 		  </div>')
 
-	childView : CenterItemView
+	childView : BuildingItemView
 
 	childViewContainer : '.units'
 
@@ -82,7 +85,7 @@ class CenterBuildingListView extends Marionette.CompositeView
 			data.type = 'building'
 			
 			@region =  new Marionette.Region el : '#centerregion'
-			new CommonFloor.CenterBuildingListCtrl region : @region
+			new CommonFloor.BuildingListCtrl region : @region
 			# @trigger "load:units" , data
 			
 
@@ -92,7 +95,7 @@ class CenterBuildingListView extends Marionette.CompositeView
 			data.units = units
 			data.type = 'villa'
 			@region =  new Marionette.Region el : '#centerregion'
-			new CommonFloor.ListCtrl region : @region
+			new CommonFloor.VillaListCtrl region : @region
 			# @trigger "load:units" , data
 
 	onShow:->
@@ -106,11 +109,11 @@ class CenterBuildingListView extends Marionette.CompositeView
 
 
 
-
-class CommonFloor.CenterBuildingListCtrl extends Marionette.RegionController
+#controller for listing buildings
+class CommonFloor.BuildingListCtrl extends Marionette.RegionController
 
 	initialize:->
-		@view = view = new CenterBuildingListView
+		@view = view = new BuildingListView
 					collection : buildingCollection
 		@listenTo @view,"load:units" ,@loadController
 		@show view

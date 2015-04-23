@@ -14,45 +14,45 @@
         }
       }
     });
-    CommonFloor.state('bunglowMaster', {
+    CommonFloor.state('projectMaster', {
       url: '/master-view',
       sections: {
         'top': {
-          ctrl: 'TopBunglowMasterCtrl'
+          ctrl: 'TopMasterCtrl'
         },
         'left': {
-          ctrl: 'LeftBunglowMasterCtrl'
+          ctrl: 'LeftMasterCtrl'
         },
         'center': {
-          ctrl: 'CenterBunglowMasterCtrl'
+          ctrl: 'CenterMasterCtrl'
         }
       }
     });
-    CommonFloor.state('bunglowUnit', {
+    CommonFloor.state('unit', {
       url: '/unit-view/:id',
       sections: {
         'top': {
-          ctrl: 'TopBunglowUnitCtrl'
+          ctrl: 'TopUnitCtrl'
         },
         'left': {
-          ctrl: 'LeftBunglowUnitCtrl'
+          ctrl: 'LeftUnitCtrl'
         },
         'center': {
-          ctrl: 'CenterBunglowUnitCtrl'
+          ctrl: 'CenterUnitCtrl'
         }
       }
     });
-    CommonFloor.state('bunglowList', {
+    CommonFloor.state('projectList', {
       url: '/list-view',
       sections: {
         'top': {
-          ctrl: 'TopBunglowListCtrl'
+          ctrl: 'TopListCtrl'
         },
         'left': {
-          ctrl: 'LeftBunglowListCtrl'
+          ctrl: 'LeftListCtrl'
         },
         'center': {
-          ctrl: 'CenterBunglowListCtrl'
+          ctrl: 'CenterListCtrl'
         }
       }
     });
@@ -85,7 +85,8 @@
       }
     });
     CommonFloor.addInitializer(function() {
-      return Backbone.history.start();
+      Backbone.history.start();
+      return CommonFloor.router.storeRoute();
     });
     return CommonFloor.start();
   });

@@ -1,6 +1,7 @@
 #Unit model and Unit collection Definition
 class Unit extends Backbone.Model
 
+	#get the unit details 
 	getUnitDetails:(unit_id)->
 		id  = parseInt unit_id
 		unit = unitCollection.findWhere 
@@ -33,13 +34,9 @@ class Unit extends Backbone.Model
 	
 class UnitCollection extends Backbone.Collection
 	model : Unit
-	#url to fetch the units
-	url : ->
-		"http://commonfloor.local/methods/functions.php?action=load_units"
-
+	
 
 	#set the attributes of a unit model
-	# if blank,fetch it from the server with the url mentioned above.
 	setUnitAttributes:(data)->
 		# @set unitData
 		unitCollection.reset data
