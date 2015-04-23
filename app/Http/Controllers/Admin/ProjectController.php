@@ -111,6 +111,7 @@ class ProjectController extends Controller {
                         if (is_numeric($images)) {
                             $imageName = Media::find($images)->image_name;
                             $svgImages[$metaValues['meta_key']][$key]['ID'] = $images;
+                            $svgImages[$metaValues['meta_key']][$key]['NAME'] = $imageName;
                             $svgImages[$metaValues['meta_key']][$key]['IMAGE'] = url() . "/projects/" . $id . "/" . $metaValues['meta_key'] . "/" . $imageName;
                         }
                         else
@@ -128,7 +129,7 @@ class ProjectController extends Controller {
                 }
             }
         }
-        
+       
         return view('admin.project.svg')
                         ->with('project', $project->toArray())
                         ->with('svgImages', $svgImages)

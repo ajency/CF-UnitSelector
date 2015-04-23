@@ -326,7 +326,7 @@ function setUpProjectMasterUploader() {
             max_file_size: '10mb',
             mime_types: [{
                     title: "Image files",
-                    extensions: "jpg,gif,png"
+                    extensions: "svg,jpg,png,jpeg"
                 }]
         },
         init: {
@@ -341,7 +341,15 @@ function setUpProjectMasterUploader() {
                 var str = newstr ='';
                 
                 str +='<div class="col-md-4">';
-                str +='<img src="' + fileResponse.data.image_path + '" style="width:150px;height:90px;" class="img-thumbnail">'; 
+                if(fileResponse.data.filetype=='svg')
+                {
+                  str +='<object width="150" id="svg1" data="' + fileResponse.data.image_path + '" type="image/svg+xml" />';   
+                }
+                else
+                {
+                    str +='<img src="' + fileResponse.data.image_path + '" style="width:150px;height:90px;" class="img-thumbnail">'; 
+                }
+                str +='<h4><small class="m-l-30">' + fileResponse.data.filename + '</small></h4>';
                 str +='</div>';
                 str +='<div class="col-md-4">';
                 str +='<h4>' + fileResponse.data.position + '</h4>';

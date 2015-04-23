@@ -56,7 +56,7 @@ class BuildingMediaController extends Controller {
         $media->save();
         $buildingMaster = $building->building_master;
         $file =  str_replace('.'.$fileExt, '', $fileName);
-        $fileArr = explode('_', $file);
+        $fileArr = explode('-', $file);
         $position = $fileArr[1];
         
         $buildingMaster[$position] = $media->id;

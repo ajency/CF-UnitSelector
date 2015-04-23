@@ -47,8 +47,8 @@ class ProjectMediaController extends Controller {
 
             $file = $request->file( 'file' );
             $fileName = $file->getClientOriginalName();
-            $fileExt = $file->guessClientExtension();
-             
+            $fileData = explode('.', $fileName);
+   
             //$newFilename = rand() . '_' . $projectId . '.' . $fileExt;
             $newFilename = $fileName;
 
@@ -71,8 +71,8 @@ class ProjectMediaController extends Controller {
             $projectMeta->save();
         } else {
             
-            $file =  str_replace('.'.$fileExt, '', $fileName);
-            $fileArr = explode('_', $file);
+            $file =  $fileData[0];
+            $fileArr = explode('-', $file);
             $position = $fileArr[1];
             $projectMeta = ProjectMeta::where( ['meta_key' => 'master', 'project_id' => $projectId] )->first();
             $unSerializedValue = unserialize( $projectMeta->meta_value );
@@ -95,7 +95,9 @@ class ProjectMediaController extends Controller {
                     'data' => [
                         'image_path' => $imageUrl . $newFilename,
                         'media_id' => $mediaId,
-                        'position' => $position
+                        'position' => $position,
+                        'filetype' => $fileExt,
+                        'filename' => $file
                     ]
             ], 201 );
     }
