@@ -96,7 +96,6 @@ class ProjectMediaController extends Controller {
                         'image_path' => $imageUrl . $newFilename,
                         'media_id' => $mediaId,
                         'position' => $position,
-                        'filetype' => $fileExt,
                         'filename' => $file
                     ]
             ], 201 );
