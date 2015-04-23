@@ -47,7 +47,12 @@
         return floorLayoutCollection.setFloorLayoutAttributes(response.floor_layout);
       },
       error: function(response) {
-        return console.log("aaaaaaaaaaassdff");
+        this.region = new Marionette.Region({
+          el: '#noFound-template'
+        });
+        return new CommonFloor.ProjectCtrl({
+          region: this.region
+        });
       }
     });
   };
@@ -73,9 +78,11 @@
   CommonFloor.checkPropertyType = function() {
     CommonFloor.loadJSONData();
     if (project.get('project_master').front === "") {
-      return CommonFloor.navigate('#/list-view', true);
+      CommonFloor.navigate('#/list-view', true);
+      return CommonFloor.router.storeRoute();
     } else {
-      return CommonFloor.navigate('#/master-view', true);
+      CommonFloor.navigate('#/master-view', true);
+      return CommonFloor.router.storeRoute();
     }
   };
 
@@ -103,11 +110,6 @@
       val = (val / 1000).toFixed(2) + ' K';
     }
     return val;
-  };
-
-  window.convertRupees = function(val) {
-    $('#price').autoNumeric('init');
-    return $('#price').autoNumeric('set', val);
   };
 
   window.convertRupees = function(val) {

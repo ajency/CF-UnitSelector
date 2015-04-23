@@ -21,19 +21,20 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="row">
 		          <div class="col-md-12 col-xs-12 col-sm-12">
-		            <!--<div class="row breadcrumb-bar">
+		            <div class="row breadcrumb-bar">
 		              <div class="col-xs-12 col-md-12">
 		                <div class="bread-crumb-list">
 		                  <ul class="brdcrmb-wrp clearfix">
 		                    <li class="">
 		                      <span class="bread-crumb-current">
-		                        <span class=".icon-arrow-right2"></span> Back to Poject Overview
+		                        <span class=".icon-arrow-right2"></span><a class="unit_back" href="#">
+													Back to Poject Overview</a>
 		                      </span>
 		                    </li>
 		                  </ul>
 		                </div>
 		              </div>
-		            </div>-->
+		            </div>
 
 		            <div class="search-header-wrap">
 		              <h1 class="pull-left proj-name">{{project_title}}</h1> 
@@ -46,6 +47,9 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 		          </div>
 		        </div>')
 
+	ui  :
+		unitBack : '.unit_back'
+
 	serializeData:->
 		data = super()
 		units = Marionette.getOption( @, 'units' )
@@ -53,6 +57,16 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 		data.project_title = project.get('project_title')
 		data
 
+	events:->
+		'click @ui.unitBack':(e)->
+			e.preventDefault()
+			previousRoute = CommonFloor.router.previous()
+			CommonFloor.navigate '/'+previousRoute , true
+
+	onShow:->
+		if CommonFloor.router.history.length == 1
+			@ui.unitBack.hide()
+			
 class CommonFloor.TopApartmentCtrl extends Marionette.RegionController
 
 	initialize:->
@@ -110,6 +124,7 @@ class ApartmentsView extends Marionette.ItemView
 			if @model.get('availability') == 'available'
 				CommonFloor.defaults['unit'] = @model.get('id')
 				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
+				CommonFloor.router.storeRoute()
 
 
 
@@ -149,24 +164,16 @@ class CommonFloor.CenterApartmentView extends Marionette.CompositeView
 			url = Backbone.history.fragment
 			building_id = parseInt url.split('/')[1]
 			CommonFloor.navigate '/building/'+building_id+'/master-view' , true
+			CommonFloor.router.storeRoute()
 
 		'click .list':(e)->
 			e.preventDefault()
 			url = Backbone.history.fragment
 			building_id = parseInt url.split('/')[1]
 			CommonFloor.navigate '/building/'+building_id+'/apartments' , true
+			CommonFloor.router.storeRoute()
 
-	onShow:->
-		e.preventDefault()
-		url = Backbone.history.fragment
-		building_id = parseInt url.split('/')[1]
-		buildingModel = buildingCollection.findWhere
-						id : building_id
-		if buildingModel.get('building_master').front  == ""
-			$('.map-View').hide()
-		else
-			$('.map-View').show()
-
+	
 		
 
 

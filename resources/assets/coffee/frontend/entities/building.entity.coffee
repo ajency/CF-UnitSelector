@@ -2,7 +2,7 @@
 class Building extends Backbone.Model
 
 
-	#Count the number of units for each unit type in a building
+	#Get all the unit types in a building
 	getUnitTypes:(building_id)->
 
 		unitTypes = []
@@ -21,9 +21,12 @@ class Building extends Backbone.Model
 		unitTypes = _.uniq unitTypes
 		unitTypes
 
+	#Count the number of units for each unit type in a building
 	getUnitTypesCount:(building_id,unitTypes)->
 
 		types = []
+		if building_id == ""
+			return types
 		$.each unitTypes,(ind,val)->
 			unitTypeModel = unitTypeCollection.findWhere
 								'id' : val
@@ -42,8 +45,10 @@ class Building extends Backbone.Model
 
 		types
 
-
+	#Get the minimum sellable area of all the apartments in a building
 	getMinimumArea:(building_id)->
+		if building_id == ""
+			return
 		units = unitCollection.where
 					'building_id' : building_id
 		temp = []
@@ -56,7 +61,10 @@ class Building extends Backbone.Model
 			min =  _.min temp
 		min
 
+	#Get the minimum cost of all the apartments in a building
 	getMinimumCost:(building_id)->
+		if building_id == ""
+			return
 		units = unitCollection.where
 					'building_id' : building_id
 		temp = []
@@ -71,35 +79,26 @@ class Building extends Backbone.Model
 		
 
 
-
-	#check 3d rotation view available or not
-	# checkRotationView:(buildingId)->
-	# 	buildingModel = buildingCollection.findWhere({'building_id':parseInt(buildingId)})
-	# 	if buildingId == ""
-	# 		return false
-	# 	rotationImages = buildingModel.get('threed_view').image.length
-	# 	if parseInt(rotationImages) >= 4
-	# 		buildingModel.set 'rotation' , 'yes'
-	# 	else
-	# 		buildingModel.set 'rotation' , 'no'
-
-	# 	buildingModel.get('rotation')
-
-
+	#get all the apartments in a building
 	getBuildingUnits:(building_id)->
+		if building_id == ""
+			return
 		units = unitCollection.where
 					'building_id' : building_id
 
 		units 
 
+	#Rotation view for a building
 	checkRotationView:(building)->
+		if building == ""
+			return
 		transitionImages = []
 		buildingModel = buildingCollection.findWhere({'id':parseInt(building)})
 		breakpoints = buildingModel.get 'breakpoints'
-		$.merge transitionImages , buildingModel.get('building_master')['right-front']
-		$.merge transitionImages , buildingModel.get('building_master')['back-right']
-		$.merge transitionImages , buildingModel.get('building_master')['left-back']
-		$.merge transitionImages , buildingModel.get('building_master')['front-left']
+		# $.merge transitionImages , buildingModel.get('building_master')['right-front']
+		# $.merge transitionImages , buildingModel.get('building_master')['back-right']
+		# $.merge transitionImages , buildingModel.get('building_master')['left-back']
+		# $.merge transitionImages , buildingModel.get('building_master')['front-left']
 		if parseInt(breakpoints.length) > 1
 			@set 'rotation' , 1
 		else
@@ -113,16 +112,11 @@ class Building extends Backbone.Model
 
 class BuildingCollection extends Backbone.Collection
 	model : Building
-	#url to fetch building data
-	url : ->
-		"http://commonfloor.local/methods/functions.php?action=load_buildings"
-
+	
 	#set the attributes of a building model
-	# if blank,fetch it from the server with the url mentioned above.
 	setBuildingAttributes:(data)->
 
 		# @set buildingData
-		console.log data
 		buildingCollection.reset data
 
 window.buildingCollection  = new BuildingCollection

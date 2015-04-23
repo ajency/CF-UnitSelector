@@ -48,7 +48,11 @@
       return TopApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span> Back to Poject Overview </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1 class="pull-left proj-name">{{project_title}}</h1> <div class="proj-type-count"> <h1 class="text-primary pull-left">{{building_name}}</h1> <div class="clearfix"></div> </div> <div class="clearfix"></div> </div> </div> </div>');
+    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span><a class="unit_back" href="#"> Back to Poject Overview</a> </span> </li> </ul> </div> </div> </div> <div class="search-header-wrap"> <h1 class="pull-left proj-name">{{project_title}}</h1> <div class="proj-type-count"> <h1 class="text-primary pull-left">{{building_name}}</h1> <div class="clearfix"></div> </div> <div class="clearfix"></div> </div> </div> </div>');
+
+    TopApartmentMasterView.prototype.ui = {
+      unitBack: '.unit_back'
+    };
 
     TopApartmentMasterView.prototype.serializeData = function() {
       var data, units;
@@ -57,6 +61,23 @@
       data.units = units.length;
       data.project_title = project.get('project_title');
       return data;
+    };
+
+    TopApartmentMasterView.prototype.events = function() {
+      return {
+        'click @ui.unitBack': function(e) {
+          var previousRoute;
+          e.preventDefault();
+          previousRoute = CommonFloor.router.previous();
+          return CommonFloor.navigate('/' + previousRoute, true);
+        }
+      };
+    };
+
+    TopApartmentMasterView.prototype.onShow = function() {
+      if (CommonFloor.router.history.length === 1) {
+        return this.ui.unitBack.hide();
+      }
     };
 
     return TopApartmentMasterView;
@@ -135,7 +156,8 @@
       'click': function(e) {
         if (this.model.get('availability') === 'available') {
           CommonFloor.defaults['unit'] = this.model.get('id');
-          return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
+          CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
+          return CommonFloor.router.storeRoute();
         }
       }
     };
@@ -222,14 +244,16 @@
         e.preventDefault();
         url = Backbone.history.fragment;
         building_id = parseInt(url.split('/')[1]);
-        return CommonFloor.navigate('/building/' + building_id + '/apartments', true);
+        CommonFloor.navigate('/building/' + building_id + '/apartments', true);
+        return CommonFloor.router.storeRoute();
       },
       'click .map': function(e) {
         var building_id, url;
         e.preventDefault();
         url = Backbone.history.fragment;
         building_id = parseInt(url.split('/')[1]);
-        return CommonFloor.navigate('/building/' + building_id + '/master-view', true);
+        CommonFloor.navigate('/building/' + building_id + '/master-view', true);
+        return CommonFloor.router.storeRoute();
       },
       'mouseover .layer': function(e) {
         var availability, html, id, response, unit;
@@ -298,7 +322,7 @@
           return $('.cf-loader').removeClass('hidden');
         }
       });
-      return this.initializeRotate(transitionImages, svgs, breakpoints);
+      return this.initializeRotate(transitionImages, svgs, building);
     };
 
     CenterApartmentMasterView.prototype.setDetailIndex = function(index) {
@@ -316,10 +340,12 @@
       });
     };
 
-    CenterApartmentMasterView.prototype.initializeRotate = function(transitionImages, svgs, breakpoints) {
-      var frames, spin, that, width;
+    CenterApartmentMasterView.prototype.initializeRotate = function(transitionImages, svgs, building) {
+      var building_id, frames, spin, that, url, width;
+      url = Backbone.history.fragment;
+      building_id = parseInt(url.split('/')[1]);
       frames = transitionImages;
-      this.breakPoints = breakpoints;
+      this.breakPoints = building.get('breakpoints');
       this.currentBreakPoint = 0;
       width = this.ui.svgContainer.width() + 20;
       $('.svg-maps > div').first().removeClass('inactive').addClass('active').css('width', width);
@@ -334,7 +360,7 @@
       that = this;
       api = spin.spritespin("api");
       spin.bind("onFrame", function() {
-        var data, url;
+        var data;
         data = api.data;
         if (data.frame === data.stopFrame) {
           url = svgs[data.frame];
@@ -342,10 +368,14 @@
         }
       });
       return spin.bind("onLoad", function() {
-        $('.first_image').remove();
-        $('.rotate').removeClass('hidden');
-        $('#spritespin').show();
-        return $('.cf-loader').addClass('hidden');
+        var response;
+        console.log(response = building.checkRotationView(building_id));
+        if (response === 1) {
+          $('.first_image').remove();
+          $('.rotate').removeClass('hidden');
+          $('#spritespin').show();
+          return $('.cf-loader').addClass('hidden');
+        }
       });
     };
 

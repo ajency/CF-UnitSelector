@@ -22,7 +22,7 @@
     Project.prototype.setProjectAttributes = function(project_id) {
       this.project_id = project_id;
       if (jQuery.isEmptyObject(this.toJSON()) || parseInt(this.get('id')) !== parseInt(project_id)) {
-        this.fetch({
+        return this.fetch({
           async: false,
           success: (function(_this) {
             return function(collection, response) {
@@ -32,7 +32,6 @@
             };
           })(this)
         });
-        return this.resetEntitites();
       }
     };
 
@@ -42,13 +41,10 @@
     };
 
     Project.prototype.checkRotationView = function() {
-      var transitionImages;
+      var breakpoints, transitionImages;
       transitionImages = [];
-      $.merge(transitionImages, project.get('project_master')['right-front']);
-      $.merge(transitionImages, project.get('project_master')['back-right']);
-      $.merge(transitionImages, project.get('project_master')['left-back']);
-      $.merge(transitionImages, project.get('project_master')['front-left']);
-      if (parseInt(transitionImages.length) >= 4) {
+      breakpoints = project.get('breakpoints');
+      if (parseInt(breakpoints.length) > 1) {
         this.set('rotation', 1);
       } else {
         this.set('rotation', 0);

@@ -19,7 +19,6 @@ class CommonFloor.Project extends Backbone.Model
 
 
 	# set attributes of a projet model
-	# if blank,fetch it from the server with the url mentioned above.
 	setProjectAttributes:(project_id)->
 		# @set projectData
 		@project_id = project_id
@@ -32,7 +31,7 @@ class CommonFloor.Project extends Backbone.Model
 				
 
 				)
-			@resetEntitites()
+			# @resetEntitites()
 
 		
 
@@ -40,13 +39,15 @@ class CommonFloor.Project extends Backbone.Model
 		unitCollection.reset()
 		settings.clear()
 
+	#Rotation for project master
 	checkRotationView:->
 		transitionImages = []
-		$.merge transitionImages , project.get('project_master')['right-front']
-		$.merge transitionImages , project.get('project_master')['back-right']
-		$.merge transitionImages , project.get('project_master')['left-back']
-		$.merge transitionImages , project.get('project_master')['front-left']
-		if parseInt(transitionImages.length) >= 4
+		breakpoints = project.get('breakpoints')
+		# $.merge transitionImages , project.get('project_master')['right-front']
+		# $.merge transitionImages , project.get('project_master')['back-right']
+		# $.merge transitionImages , project.get('project_master')['left-back']
+		# $.merge transitionImages , project.get('project_master')['front-left']
+		if parseInt(breakpoints.length) > 1
 			@set 'rotation' , 1
 		else
 			@set 'rotation' , 0

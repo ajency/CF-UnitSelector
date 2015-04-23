@@ -35,6 +35,9 @@
     Building.prototype.getUnitTypesCount = function(building_id, unitTypes) {
       var types;
       types = [];
+      if (building_id === "") {
+        return types;
+      }
       $.each(unitTypes, function(ind, val) {
         var unitTypeModel, units, variants;
         unitTypeModel = unitTypeCollection.findWhere({
@@ -62,6 +65,9 @@
 
     Building.prototype.getMinimumArea = function(building_id) {
       var min, temp, units;
+      if (building_id === "") {
+        return;
+      }
       units = unitCollection.where({
         'building_id': building_id
       });
@@ -82,6 +88,9 @@
 
     Building.prototype.getMinimumCost = function(building_id) {
       var min, temp, units;
+      if (building_id === "") {
+        return;
+      }
       units = unitCollection.where({
         'building_id': building_id
       });
@@ -99,6 +108,9 @@
 
     Building.prototype.getBuildingUnits = function(building_id) {
       var units;
+      if (building_id === "") {
+        return;
+      }
       units = unitCollection.where({
         'building_id': building_id
       });
@@ -107,15 +119,14 @@
 
     Building.prototype.checkRotationView = function(building) {
       var breakpoints, buildingModel, transitionImages;
+      if (building === "") {
+        return;
+      }
       transitionImages = [];
       buildingModel = buildingCollection.findWhere({
         'id': parseInt(building)
       });
       breakpoints = buildingModel.get('breakpoints');
-      $.merge(transitionImages, buildingModel.get('building_master')['right-front']);
-      $.merge(transitionImages, buildingModel.get('building_master')['back-right']);
-      $.merge(transitionImages, buildingModel.get('building_master')['left-back']);
-      $.merge(transitionImages, buildingModel.get('building_master')['front-left']);
       if (parseInt(breakpoints.length) > 1) {
         this.set('rotation', 1);
       } else {
@@ -137,12 +148,7 @@
 
     BuildingCollection.prototype.model = Building;
 
-    BuildingCollection.prototype.url = function() {
-      return "http://commonfloor.local/methods/functions.php?action=load_buildings";
-    };
-
     BuildingCollection.prototype.setBuildingAttributes = function(data) {
-      console.log(data);
       return buildingCollection.reset(data);
     };
 

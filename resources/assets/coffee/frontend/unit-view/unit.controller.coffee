@@ -1,10 +1,11 @@
-class CommonFloor.BunglowUnitView extends Marionette.LayoutView
+#View for the Main Controller
+class CommonFloor.UnitView extends Marionette.LayoutView
 
 	template : '#unit-view-template'
 
 
-
-class CommonFloor.BunglowUnitCtrl extends Marionette.RegionController
+#starting point : Controller 
+class CommonFloor.UnitCtrl extends Marionette.RegionController
 
 	initialize:->
 		if jQuery.isEmptyObject(project.toJSON())
@@ -14,26 +15,27 @@ class CommonFloor.BunglowUnitCtrl extends Marionette.RegionController
 		if jQuery.isEmptyObject(project.toJSON())
 			@show new CommonFloor.NothingFoundView
 		else
-			@show new CommonFloor.BunglowUnitView
+			@show new CommonFloor.UnitView
 
-class TopBunglowUnitView extends Marionette.ItemView
+#Top View for unit
+class TopUnitView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="row">
 				<div class="col-md-12 col-xs-12 col-sm-12">
-						<!--<div class="row breadcrumb-bar">
+						<div class="row breadcrumb-bar">
 							<div class="col-xs-12 col-md-12">
 								<div class="bread-crumb-list">
 									<ul class="brdcrmb-wrp clearfix">
 										<li class="">
 											<span class="bread-crumb-current">
-												<span class=".icon-arrow-right2"></span><a href="#/master-view">
+												<span class=".icon-arrow-right2"></span><a class="unit_back" href="#">
 													Back to Poject Overview</a>
 											</span>
 										</li>
 									</ul>
 								</div>
 							</div>
-						</div>-->
+						</div>
 
 
 
@@ -52,18 +54,26 @@ class TopBunglowUnitView extends Marionette.ItemView
 					</div>
 				</div>')
 
+	ui  :
+		unitBack : '.unit_back'
+
 	serializeData:->
 		data = super()
 		data.project_title = project.get 'project_title'
 		data
 
-	
+	events:->
+		'click @ui.unitBack':(e)->
+			e.preventDefault()
+			previousRoute = CommonFloor.router.previous()
+			CommonFloor.navigate '/'+previousRoute , true
 
+	onShow:->
+		if CommonFloor.router.history.length == 1
+			@ui.unitBack.hide()
 
-
-	
-
-class CommonFloor.TopBunglowUnitCtrl extends Marionette.RegionController
+#Top Controller for unit
+class CommonFloor.TopUnitCtrl extends Marionette.RegionController
 
 	initialize:->
 		url = Backbone.history.fragment
@@ -72,12 +82,12 @@ class CommonFloor.TopBunglowUnitCtrl extends Marionette.RegionController
 			id  : unitid
 		response = window.unit.getUnitDetails(unitid)
 		unit.set 'type' , s.capitalize response[2]
-		@show new TopBunglowUnitView
+		@show new TopUnitView
 				model : unit
 
 			
-
-class LeftBunglowUnitView extends Marionette.ItemView
+#Left View for unit
+class LeftUnitView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
 						<div class="filters-wrapper">
@@ -147,7 +157,23 @@ class LeftBunglowUnitView extends Marionette.ItemView
 							</div>
 
 						</div>
+						<div class="clearfix"></div>
+						
 						</div>
+						<div class="similar-section">
+				              <label>Similar Villas based on your filters:</label><br>
+				              <!--<p>Pool View, Garden, 3BHK</p>-->
+				              <ul>
+				              {{#similarUnits}}
+				                <li class="">
+				                 {{unit_name}}
+				                </li>
+				               
+				               
+				                {{/similarUnits}}
+				              </ul>
+			            </div>
+
 					</div>')
 
 	serializeData:->
@@ -157,9 +183,44 @@ class LeftBunglowUnitView extends Marionette.ItemView
 		response = window.unit.getUnitDetails(unitid)
 		unit = unitCollection.findWhere
 			id  : unitid
-		levels = []
 		floor = response[0].get('floor')
+		attributes = []
+		if response[4] != null
+			$.each response[4] , (index,value)->
+				attributes.push 
+						'attribute' : s.capitalize index
+						'value'     : value
 
+		similarUnits = @getSimilarUnits(unit)
+		temp = []
+		$.each similarUnits, (index,value)->
+			temp.push 
+				'unit_name' : value.get('unit_name')
+		console.log temp
+		data.area = response[0].get('super_built_up_area')
+		data.type = response[1].get('name')
+		data.unit_name = unit.get('unit_name')
+		data.levels  = @generateLevels(floor,response)
+		data.attributes  = attributes
+		data.similarUnits = temp
+		data
+
+	getSimilarUnits:(unit)->
+		units = []
+		i = 0
+		unitsArr = unitCollection.toArray()
+		$.each unitsArr, (item,value)->
+			if value.get('unit_variant_id') == unit.get('unit_variant_id') 
+				units.push value
+				i++
+			if i == 3
+				return false
+			
+		units
+
+
+	generateLevels:(floor,response)->
+		levels = []
 		$.each floor,(index,value)->
 			rooms = []
 			level_name =  'Level  '+ index  
@@ -168,7 +229,6 @@ class LeftBunglowUnitView extends Marionette.ItemView
 			$.each value.rooms_data,(ind,val)->
 				attributes = []
 				$.each val.atributes,(ind_att,val_att)->
-					console.log val_att
 					attributes.push
 						'attribute' : s.capitalize val_att.attribute_key
 						'value' : val_att.attribute_value
@@ -179,22 +239,8 @@ class LeftBunglowUnitView extends Marionette.ItemView
 			levels.push 
 				'level_name' : level_name
 				'rooms'			 : rooms
-		
-		unitType = unitTypeCollection.findWhere
-								'id' :  response[0].get('unit_type_id')
 
-		attributes = []
-		if response[4] != null
-			$.each response[4] , (index,value)->
-				attributes.push 
-						'attribute' : s.capitalize index
-						'value'     : value
-		data.area = response[0].get('super_built_up_area')
-		data.type = response[1].get('name')
-		data.unit_name = unit.get('unit_name')
-		data.levels  = levels
-		data.attributes  = attributes
-		data
+		levels
 
 	onShow:->
 		url = Backbone.history.fragment
@@ -205,14 +251,14 @@ class LeftBunglowUnitView extends Marionette.ItemView
 		if response[4] != null
 			$('.property').removeClass 'hidden'
 	
-
-class CommonFloor.LeftBunglowUnitCtrl extends Marionette.RegionController
+#Left Controller for unit
+class CommonFloor.LeftUnitCtrl extends Marionette.RegionController
 
 	initialize:->
-		@show new LeftBunglowUnitView
+		@show new LeftUnitView
 			
-
-class CenterBunglowUnitView extends Marionette.ItemView
+#Center Controller for unit
+class CenterUnitView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 						<div class="svg-area">
@@ -383,7 +429,6 @@ class CenterBunglowUnitView extends Marionette.ItemView
 		# 	placeholder : '<div class="cf-loader"></div>'
 
 		# 	)
-
 		$(".fancybox").fancybox()
 
 
@@ -408,8 +453,8 @@ class CenterBunglowUnitView extends Marionette.ItemView
 			i = i + 1	
 
 		[twoD,threeD,level,response[0]]
-
-class CommonFloor.CenterBunglowUnitCtrl extends Marionette.RegionController
+#Center View for the unit
+class CommonFloor.CenterUnitCtrl extends Marionette.RegionController
 
 	initialize:->
-		@show new CenterBunglowUnitView
+		@show new CenterUnitView

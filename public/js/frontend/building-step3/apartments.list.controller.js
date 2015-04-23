@@ -46,7 +46,11 @@
       return TopApartmentView.__super__.constructor.apply(this, arguments);
     }
 
-    TopApartmentView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <!--<div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span> Back to Poject Overview </span> </li> </ul> </div> </div> </div>--> <div class="search-header-wrap"> <h1 class="pull-left proj-name">{{project_title}}</h1> <div class="proj-type-count"> <h1 class="text-primary pull-left">{{building_name}}</h1> <div class="clearfix"></div> </div> <div class="clearfix"></div> </div> </div> </div>');
+    TopApartmentView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span><a class="unit_back" href="#"> Back to Poject Overview</a> </span> </li> </ul> </div> </div> </div> <div class="search-header-wrap"> <h1 class="pull-left proj-name">{{project_title}}</h1> <div class="proj-type-count"> <h1 class="text-primary pull-left">{{building_name}}</h1> <div class="clearfix"></div> </div> <div class="clearfix"></div> </div> </div> </div>');
+
+    TopApartmentView.prototype.ui = {
+      unitBack: '.unit_back'
+    };
 
     TopApartmentView.prototype.serializeData = function() {
       var data, units;
@@ -55,6 +59,23 @@
       data.units = units.length;
       data.project_title = project.get('project_title');
       return data;
+    };
+
+    TopApartmentView.prototype.events = function() {
+      return {
+        'click @ui.unitBack': function(e) {
+          var previousRoute;
+          e.preventDefault();
+          previousRoute = CommonFloor.router.previous();
+          return CommonFloor.navigate('/' + previousRoute, true);
+        }
+      };
+    };
+
+    TopApartmentView.prototype.onShow = function() {
+      if (CommonFloor.router.history.length === 1) {
+        return this.ui.unitBack.hide();
+      }
     };
 
     return TopApartmentView;
@@ -147,7 +168,8 @@
       'click .unit': function(e) {
         if (this.model.get('availability') === 'available') {
           CommonFloor.defaults['unit'] = this.model.get('id');
-          return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
+          CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
+          return CommonFloor.router.storeRoute();
         }
       }
     };
@@ -175,29 +197,16 @@
         e.preventDefault();
         url = Backbone.history.fragment;
         building_id = parseInt(url.split('/')[1]);
-        return CommonFloor.navigate('/building/' + building_id + '/master-view', true);
+        CommonFloor.navigate('/building/' + building_id + '/master-view', true);
+        return CommonFloor.router.storeRoute();
       },
       'click .list': function(e) {
         var building_id, url;
         e.preventDefault();
         url = Backbone.history.fragment;
         building_id = parseInt(url.split('/')[1]);
-        return CommonFloor.navigate('/building/' + building_id + '/apartments', true);
-      }
-    };
-
-    CenterApartmentView.prototype.onShow = function() {
-      var buildingModel, building_id, url;
-      e.preventDefault();
-      url = Backbone.history.fragment;
-      building_id = parseInt(url.split('/')[1]);
-      buildingModel = buildingCollection.findWhere({
-        id: building_id
-      });
-      if (buildingModel.get('building_master').front === "") {
-        return $('.map-View').hide();
-      } else {
-        return $('.map-View').show();
+        CommonFloor.navigate('/building/' + building_id + '/apartments', true);
+        return CommonFloor.router.storeRoute();
       }
     };
 

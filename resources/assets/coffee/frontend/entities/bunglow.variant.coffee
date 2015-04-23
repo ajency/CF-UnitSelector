@@ -24,12 +24,12 @@ class BunglowVariantCollection extends Backbone.Collection
 	
 
 	#set attributes of a Bunglow Variant model
-	# if blank,fetch it from the server with the url mentioned above.
 	setBunglowVariantAttributes:(data)->
 
 		# @set BunglowData
 		bunglowVariantCollection.reset data
 
+	#get all the bungalow units
 	getBunglowUnits:()->
 		units = []
 		newUnits = []

@@ -1,29 +1,29 @@
 (function() {
-  var LeftBunglowListView, TopBunglowListView,
+  var LeftListView, TopListView,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
-  CommonFloor.BunglowListView = (function(superClass) {
-    extend(BunglowListView, superClass);
+  CommonFloor.ProjectListView = (function(superClass) {
+    extend(ProjectListView, superClass);
 
-    function BunglowListView() {
-      return BunglowListView.__super__.constructor.apply(this, arguments);
+    function ProjectListView() {
+      return ProjectListView.__super__.constructor.apply(this, arguments);
     }
 
-    BunglowListView.prototype.template = '#project-template';
+    ProjectListView.prototype.template = '#project-template';
 
-    return BunglowListView;
+    return ProjectListView;
 
   })(Marionette.LayoutView);
 
-  CommonFloor.BunglowListCtrl = (function(superClass) {
-    extend(BunglowListCtrl, superClass);
+  CommonFloor.ProjectListCtrl = (function(superClass) {
+    extend(ProjectListCtrl, superClass);
 
-    function BunglowListCtrl() {
-      return BunglowListCtrl.__super__.constructor.apply(this, arguments);
+    function ProjectListCtrl() {
+      return ProjectListCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    BunglowListCtrl.prototype.initialize = function() {
+    ProjectListCtrl.prototype.initialize = function() {
       if (jQuery.isEmptyObject(project.toJSON())) {
         project.setProjectAttributes(PROJECTID);
         CommonFloor.loadJSONData();
@@ -31,92 +31,92 @@
       if (bunglowVariantCollection.length === 0 && apartmentVariantCollection.length === 0) {
         return this.show(new CommonFloor.NothingFoundView);
       } else {
-        return this.show(new CommonFloor.BunglowListView);
+        return this.show(new CommonFloor.ProjectListView);
       }
     };
 
-    return BunglowListCtrl;
+    return ProjectListCtrl;
 
   })(Marionette.RegionController);
 
-  TopBunglowListView = (function(superClass) {
-    extend(TopBunglowListView, superClass);
+  TopListView = (function(superClass) {
+    extend(TopListView, superClass);
 
-    function TopBunglowListView() {
-      return TopBunglowListView.__super__.constructor.apply(this, arguments);
+    function TopListView() {
+      return TopListView.__super__.constructor.apply(this, arguments);
     }
 
-    TopBunglowListView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="search-header-wrap"> <h1 class="pull-left proj-name">{{project_title}}</h1> <div class="proj-type-count"> {{#types}} <h1 class="text-primary pull-left">{{count.length}}</h1> <p class="pull-left">{{type}}</p> {{/types}} <div class="clearfix"></div> </div> <div class="clearfix"></div> </div> </div> </div>');
+    TopListView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="search-header-wrap"> <h1 class="pull-left proj-name">{{project_title}}</h1> <div class="proj-type-count"> {{#types}} <h1 class="text-primary pull-left">{{count.length}}</h1> <p class="pull-left">{{type}}</p> {{/types}} <div class="clearfix"></div> </div> <div class="clearfix"></div> </div> </div> </div>');
 
-    TopBunglowListView.prototype.serializeData = function() {
+    TopListView.prototype.serializeData = function() {
       var data, response;
-      data = TopBunglowListView.__super__.serializeData.call(this);
+      data = TopListView.__super__.serializeData.call(this);
       response = CommonFloor.propertyTypes();
       data.types = response;
       return data;
     };
 
-    return TopBunglowListView;
+    return TopListView;
 
   })(Marionette.ItemView);
 
-  CommonFloor.TopBunglowListCtrl = (function(superClass) {
-    extend(TopBunglowListCtrl, superClass);
+  CommonFloor.TopListCtrl = (function(superClass) {
+    extend(TopListCtrl, superClass);
 
-    function TopBunglowListCtrl() {
-      return TopBunglowListCtrl.__super__.constructor.apply(this, arguments);
+    function TopListCtrl() {
+      return TopListCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    TopBunglowListCtrl.prototype.initialize = function() {
-      return this.show(new TopBunglowListView({
+    TopListCtrl.prototype.initialize = function() {
+      return this.show(new TopListView({
         model: project
       }));
     };
 
-    return TopBunglowListCtrl;
+    return TopListCtrl;
 
   })(Marionette.RegionController);
 
-  LeftBunglowListView = (function(superClass) {
-    extend(LeftBunglowListView, superClass);
+  LeftListView = (function(superClass) {
+    extend(LeftListView, superClass);
 
-    function LeftBunglowListView() {
-      return LeftBunglowListView.__super__.constructor.apply(this, arguments);
+    function LeftListView() {
+      return LeftListView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBunglowListView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content filters"><div>');
+    LeftListView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content filters"><div>');
 
-    LeftBunglowListView.prototype.onShow = function() {
+    LeftListView.prototype.onShow = function() {
       return $('.filters').hide();
     };
 
-    return LeftBunglowListView;
+    return LeftListView;
 
   })(Marionette.ItemView);
 
-  CommonFloor.LeftBunglowListCtrl = (function(superClass) {
-    extend(LeftBunglowListCtrl, superClass);
+  CommonFloor.LeftListCtrl = (function(superClass) {
+    extend(LeftListCtrl, superClass);
 
-    function LeftBunglowListCtrl() {
-      return LeftBunglowListCtrl.__super__.constructor.apply(this, arguments);
+    function LeftListCtrl() {
+      return LeftListCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    LeftBunglowListCtrl.prototype.initialize = function() {
-      return this.show(new LeftBunglowListView);
+    LeftListCtrl.prototype.initialize = function() {
+      return this.show(new LeftListView);
     };
 
-    return LeftBunglowListCtrl;
+    return LeftListCtrl;
 
   })(Marionette.RegionController);
 
-  CommonFloor.CenterBunglowListCtrl = (function(superClass) {
-    extend(CenterBunglowListCtrl, superClass);
+  CommonFloor.CenterListCtrl = (function(superClass) {
+    extend(CenterListCtrl, superClass);
 
-    function CenterBunglowListCtrl() {
-      return CenterBunglowListCtrl.__super__.constructor.apply(this, arguments);
+    function CenterListCtrl() {
+      return CenterListCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowListCtrl.prototype.initialize = function() {
+    CenterListCtrl.prototype.initialize = function() {
       var data, response, units;
       response = CommonFloor.checkListView();
       if (response.type === 'bunglows') {
@@ -127,7 +127,7 @@
         this.region = new Marionette.Region({
           el: '#centerregion'
         });
-        new CommonFloor.ListCtrl({
+        new CommonFloor.VillaListCtrl({
           region: this.region
         });
         this.parent().trigger("load:units", data);
@@ -141,14 +141,14 @@
         this.region = new Marionette.Region({
           el: '#centerregion'
         });
-        new CommonFloor.CenterBuildingListCtrl({
+        new CommonFloor.BuildingListCtrl({
           region: this.region
         });
         return this.parent().trigger("load:units", data);
       }
     };
 
-    return CenterBunglowListCtrl;
+    return CenterListCtrl;
 
   })(Marionette.RegionController);
 

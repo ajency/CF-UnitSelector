@@ -28,7 +28,9 @@ CommonFloor.loadJSONData = ()->
 			floorLayoutCollection.setFloorLayoutAttributes(response.floor_layout)
 			
 		error :(response)->
-			console.log "aaaaaaaaaaassdff"
+			@region =  new Marionette.Region el : '#noFound-template'
+			new CommonFloor.ProjectCtrl region : @region
+			
 
 #find the property type with maximum number of units
 CommonFloor.propertyMaxUnits = ()->
@@ -46,15 +48,17 @@ CommonFloor.propertyMaxUnits = ()->
 	controller	
 
 	
-#function to load the default controller
+#function to load the default controller fro master view
 CommonFloor.checkPropertyType = ()->
 	CommonFloor.loadJSONData()
 	if project.get('project_master').front  == ""
 		CommonFloor.navigate '#/list-view' , true
+		CommonFloor.router.storeRoute()
 	else
 		CommonFloor.navigate '#/master-view' , true
+		CommonFloor.router.storeRoute()
 
-#function to load the default controller
+#function to load the default controller for list view 
 CommonFloor.checkListView = ()->
 	controller = CommonFloor.propertyMaxUnits()
 	#CommonFloor.navigate '#/list-view/'+controller.type , true
@@ -67,12 +71,9 @@ window.convertToInt = (response)->
 
 			$.each item ,(ind,val)->
 				return parseInt val
+	)
 
-
-
-
-		)
-
+#function to convert value into price format
 window.numDifferentiation = (val)->
 	if (val >= 10000000) 
 		val = (val/10000000).toFixed(2) + ' Cr'
@@ -82,20 +83,15 @@ window.numDifferentiation = (val)->
 		val = (val/1000).toFixed(2) + ' K'
 	val
 	   
-		
+
+#function to convert value into price format		
 window.convertRupees = (val)->
 
 	$('#price').autoNumeric('init')
 	$('#price').autoNumeric('set', val)
 
  
-window.convertRupees = (val)->
-
-	$('#price').autoNumeric('init')
-	$('#price').autoNumeric('set', val)
-
-
-#find the property type with maximum number of units
+#Get all the property type with the count of units
 CommonFloor.propertyTypes = ()->
 	Router = []
 	if bunglowVariantCollection.getBunglowUnits().length != 0

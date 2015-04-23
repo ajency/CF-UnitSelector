@@ -1,5 +1,5 @@
-#view for the Center setion
-class CenterBunglowListView extends Marionette.ItemView
+#view for each villa
+class VillaItemView extends Marionette.ItemView
 
 	template : Handlebars.compile('<li class="unit blocks {{status}}">
                   <div class="pull-left info">
@@ -31,13 +31,12 @@ class CenterBunglowListView extends Marionette.ItemView
 				if @model.get('status') == 'available'
 					CommonFloor.defaults['unit'] = @model.get('id')
 					CommonFloor.navigate '/unit-view/'+@model.get('id') , true
+					CommonFloor.router.storeRoute()
 
 
 
-#Composite view for the Center setion
-
-
-class CenterCompositeView extends Marionette.CompositeView
+#Composite view for villas
+class VillaView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-12 us-right-content">
 									<div class="list-view-container animated fadeInUp">
@@ -69,7 +68,7 @@ class CenterCompositeView extends Marionette.CompositeView
 							        </div>
 							       </div>')
 
-	childView : CenterBunglowListView
+	childView : VillaItemView
 
 	childViewContainer : '.units'
 
@@ -81,7 +80,7 @@ class CenterCompositeView extends Marionette.CompositeView
 			data.type = 'building'
 			
 			@region =  new Marionette.Region el : '#centerregion'
-			new CommonFloor.CenterBuildingListCtrl region : @region
+			new CommonFloor.BuildingListCtrl region : @region
 			# @trigger "load:units" , data
 			
 
@@ -91,7 +90,7 @@ class CenterCompositeView extends Marionette.CompositeView
 			data.units = units
 			data.type = 'villa'
 			@region =  new Marionette.Region el : '#centerregion'
-			new CommonFloor.ListCtrl region : @region
+			new CommonFloor.VillaListCtrl region : @region
 			# @trigger "load:units" , data
 			
 
@@ -105,13 +104,13 @@ class CenterCompositeView extends Marionette.CompositeView
 			$('.buildings').removeClass 'hidden'
 		
 
-#controller for the Center region
-class CommonFloor.ListCtrl extends Marionette.RegionController
+#controller for the listing all the villas
+class CommonFloor.VillaListCtrl extends Marionette.RegionController
 
 	initialize:->
 		newUnits = bunglowVariantCollection.getBunglowUnits()
 		unitsCollection = new Backbone.Collection newUnits 		
-		@view = view = new CenterCompositeView
+		@view = view = new VillaView
 			collection : unitsCollection
 		@listenTo @view,"load:units" ,@loadController
 		@show view

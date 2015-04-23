@@ -1,25 +1,25 @@
 (function() {
-  var CenterBunglowListView, CenterCompositeView,
+  var VillaItemView, VillaView,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
-  CenterBunglowListView = (function(superClass) {
-    extend(CenterBunglowListView, superClass);
+  VillaItemView = (function(superClass) {
+    extend(VillaItemView, superClass);
 
-    function CenterBunglowListView() {
-      return CenterBunglowListView.__super__.constructor.apply(this, arguments);
+    function VillaItemView() {
+      return VillaItemView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterBunglowListView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="pull-left info"> <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}}sqft) </div> <!--<div class="pull-right cost"> 50 lakhs </div>--> </li>');
+    VillaItemView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="pull-left info"> <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}}sqft) </div> <!--<div class="pull-right cost"> 50 lakhs </div>--> </li>');
 
-    CenterBunglowListView.prototype.initialize = function() {
+    VillaItemView.prototype.initialize = function() {
       return this.$el.prop("id", 'unit' + this.model.get("id"));
     };
 
-    CenterBunglowListView.prototype.serializeData = function() {
+    VillaItemView.prototype.serializeData = function() {
       var availability, data, unitType, unitVariant;
-      data = CenterBunglowListView.__super__.serializeData.call(this);
+      data = VillaItemView.__super__.serializeData.call(this);
       unitVariant = bunglowVariantCollection.findWhere({
         'id': this.model.get('unit_variant_id')
       });
@@ -34,7 +34,7 @@
       return data;
     };
 
-    CenterBunglowListView.prototype.events = {
+    VillaItemView.prototype.events = {
       'click .unit': function(e) {
         if (this.model.get('status') === 'available') {
           CommonFloor.defaults['unit'] = this.model.get('id');
@@ -43,24 +43,24 @@
       }
     };
 
-    return CenterBunglowListView;
+    return VillaItemView;
 
   })(Marionette.ItemView);
 
-  CenterCompositeView = (function(superClass) {
-    extend(CenterCompositeView, superClass);
+  VillaView = (function(superClass) {
+    extend(VillaView, superClass);
 
-    function CenterCompositeView() {
-      return CenterCompositeView.__super__.constructor.apply(this, arguments);
+    function VillaView() {
+      return VillaView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterCompositeView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <div class="list-view-container animated fadeInUp"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings hidden">Buildings</li> <li class="prop-type Villas active ">Villas/Bungalows</li> <li class="prop-type Plots hidden">Plots</li> </ul> </div> <div class="legend"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <div class="clearfix"></div> <div class="villa-list"> <ul class="units"> </ul> </div> </div> </div>');
+    VillaView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <div class="list-view-container animated fadeInUp"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings hidden">Buildings</li> <li class="prop-type Villas active ">Villas/Bungalows</li> <li class="prop-type Plots hidden">Plots</li> </ul> </div> <div class="legend"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <div class="clearfix"></div> <div class="villa-list"> <ul class="units"> </ul> </div> </div> </div>');
 
-    CenterCompositeView.prototype.childView = CenterBunglowListView;
+    VillaView.prototype.childView = VillaItemView;
 
-    CenterCompositeView.prototype.childViewContainer = '.units';
+    VillaView.prototype.childViewContainer = '.units';
 
-    CenterCompositeView.prototype.events = {
+    VillaView.prototype.events = {
       'click .buildings': function(e) {
         var data, units;
         units = buildingCollection;
@@ -70,7 +70,7 @@
         this.region = new Marionette.Region({
           el: '#centerregion'
         });
-        return new CommonFloor.CenterBuildingListCtrl({
+        return new CommonFloor.BuildingListCtrl({
           region: this.region
         });
       },
@@ -83,13 +83,13 @@
         this.region = new Marionette.Region({
           el: '#centerregion'
         });
-        return new CommonFloor.ListCtrl({
+        return new CommonFloor.VillaListCtrl({
           region: this.region
         });
       }
     };
 
-    CenterCompositeView.prototype.onShow = function() {
+    VillaView.prototype.onShow = function() {
       if (project.get('project_master').front === "") {
         $('.map-View').hide();
       } else {
@@ -100,34 +100,34 @@
       }
     };
 
-    return CenterCompositeView;
+    return VillaView;
 
   })(Marionette.CompositeView);
 
-  CommonFloor.ListCtrl = (function(superClass) {
-    extend(ListCtrl, superClass);
+  CommonFloor.VillaListCtrl = (function(superClass) {
+    extend(VillaListCtrl, superClass);
 
-    function ListCtrl() {
+    function VillaListCtrl() {
       this.loadController = bind(this.loadController, this);
-      return ListCtrl.__super__.constructor.apply(this, arguments);
+      return VillaListCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    ListCtrl.prototype.initialize = function() {
+    VillaListCtrl.prototype.initialize = function() {
       var newUnits, unitsCollection, view;
       newUnits = bunglowVariantCollection.getBunglowUnits();
       unitsCollection = new Backbone.Collection(newUnits);
-      this.view = view = new CenterCompositeView({
+      this.view = view = new VillaView({
         collection: unitsCollection
       });
       this.listenTo(this.view, "load:units", this.loadController);
       return this.show(view);
     };
 
-    ListCtrl.prototype.loadController = function(data) {
+    VillaListCtrl.prototype.loadController = function(data) {
       return Backbone.trigger("load:units", data);
     };
 
-    return ListCtrl;
+    return VillaListCtrl;
 
   })(Marionette.RegionController);
 

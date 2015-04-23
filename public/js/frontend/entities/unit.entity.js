@@ -54,10 +54,6 @@
 
     UnitCollection.prototype.model = Unit;
 
-    UnitCollection.prototype.url = function() {
-      return "http://commonfloor.local/methods/functions.php?action=load_units";
-    };
-
     UnitCollection.prototype.setUnitAttributes = function(data) {
       return unitCollection.reset(data);
     };

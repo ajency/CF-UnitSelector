@@ -60,7 +60,8 @@
       'click': function(e) {
         if (this.model.get('status') === 'available') {
           CommonFloor.defaults['unit'] = this.model.get('id');
-          return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
+          CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
+          return CommonFloor.router.storeRoute();
         }
       }
     };
@@ -112,11 +113,6 @@
     };
 
     MasterBunglowListView.prototype.onShow = function() {
-      if (project.get('project_master').front === "") {
-        $('.map-View').hide();
-      } else {
-        $('.map-View').show();
-      }
       if (apartmentVariantCollection.length !== 0) {
         return $('.buildings').removeClass('hidden');
       }
