@@ -3,6 +3,7 @@
 @import "../../bower_components/tooltipster/css/tooltipster.css";
 @import "../../bower_components/tooltipster/css/themes/tooltipster-shadow.css";
 @import "../../bower_components/fancybox/source/jquery.fancybox.css";
+@import "../../bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css";
 /* External CSS */
 /* Site Styles */
 html,
@@ -54,9 +55,6 @@ body {
 .search-left-content .similar-section {
   position: absolute;
   bottom: 0;
-}
-.us-left-content {
-  overflow-y: auto;
 }
 .builder-logo {
   max-width: 200px;
@@ -977,7 +975,8 @@ svg .layer:hover {
   }
 }
 .units {
-  list-style-type: none
+  list-style-type: none;
+  overflow-y: auto
   /* List of Villas */
   /* List of Buildings */
 }
@@ -1099,7 +1098,7 @@ svg .layer:hover {
 .slider .layouts {
   float: left;
   position: relative;
-  height: 400px;
+  height: 275px;
   border: 5px solid #cccccc;
   overflow: hidden;
 }
@@ -1114,6 +1113,7 @@ svg .layer:hover {
 }
 .slider .layouts .img-overlay {
   position: absolute;
+  top: 0;
   height: 100%;
   width: 100%;
   background-color: #ffffff;
@@ -1126,7 +1126,7 @@ svg .layer:hover {
   bottom: 50%;
   left: 0;
   right: 0;
-  color: #666666;
+  color: #4d4d4d;
   font-size: 20px;
   font-weight: bold;
   opacity: 1;
