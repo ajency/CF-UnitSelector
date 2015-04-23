@@ -78,7 +78,7 @@ class MasterBunglowListView extends Marionette.CompositeView
 							              </ul>
 							            </div>
 							            <div class="advncd-filter-wrp  unit-list">
-							            	<div class="legend">
+							            	<div class="legend clearfix">
 							            	  <ul>
 							            	    <li class="available">AVAILABLE</li>
 							            	    <li class="sold">SOLD</li>

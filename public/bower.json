@@ -56,7 +56,8 @@
     "bootstrap-tagsinput": "~0.4.2",
     "spritespin": "~3.3.3",
     "notifyjs": "~0.3.2",
-    "autoNumeric": "~1.9.30"
+    "autoNumeric": "~1.9.30",
+    "fancybox": "~2.1.5"
   },
   "resolutions": {
     "underscore": "~1.8.2",

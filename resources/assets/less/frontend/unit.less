@@ -7,10 +7,49 @@
 .slider{
 	.layouts{
 		float: left;
+		position: relative;
+		height: 400px;
+		border: 5px solid @gray-lighter;
+		overflow: hidden;
+		img{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 100%;
+		}
+		.img-overlay{
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			background-color: @white;
+			opacity: 0.75;
+			.ease;
+		}
+		span{
+			position: absolute;
+			bottom: 50%;
+			left: 0;
+			right: 0;
+			color: @gray;
+			font-size: 20px;
+			font-weight: bold;
+			opacity: 1;
+			.ease;
+		}
+		&:hover{
+			.img-overlay{
+				opacity: 0;
+			}
+			span{
+				opacity: 0;
+			}
+		}
 	}
 	.Level_0{
 		.layouts{
-			width: 100%
+			width: 100%;
+			height: auto;
 		}
 	}
 	.Level_1, .Level_3{

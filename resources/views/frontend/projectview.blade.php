@@ -68,7 +68,7 @@
                         <a href="http://www.commonfloor.com/about-us" target="_blank" title="Contact Us">Contact Us</a>
                       </li>
                       <li>
-                        <a href="{{url()}}/admin" target="_blank"  title="Dashboard">Dashboard</a>
+                        <a href="{{url()}}/admin" target="_blank"  title="Authoring Tool">Authoring Tool</a>
                       </li>
                     </ul>
                   </div>              
@@ -110,6 +110,7 @@
         <script src="{{ asset('bower_components/spritespin/release/spritespin.js' )}}"></script>
         <script src="{{ asset('bower_components/autoNumeric/autoNumeric.js' )}}"></script>
         <script src="{{ asset('bower_components/imagesloaded/imagesloaded.js' )}}"></script>
+        <script src="{{ asset('bower_components/fancybox/source/jquery.fancybox.js' )}}"></script>
         <!-- end plugins -->
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
         <script>

@@ -131,27 +131,28 @@ class ApartmentsView extends Marionette.ItemView
 class CommonFloor.CenterApartmentView extends Marionette.CompositeView
 
 	template : '<div>
-		<div class="col-md-12 us-right-content">
-				<div class="list-view-container">
-					<!--<div class="controls map-View">
-			            <div class="toggle">
-			            	<a href="#" class="map ">Map</a><a href="#" class="list active">List</a>
-			            </div>
-		            </div>-->
-					<div class="legend">
-							              <ul>
-							                <li class="available">AVAILABLE</li>
-							                <li class="sold">SOLD</li>
-							                <li class="blocked">BLOCKED</li>
-							                <li class="na">N/A</li>
-							              </ul>
-							            </div>
-					<div class="villa-list">
-				<ul class="units eight">
-				</ul>
-				</div></div>
-
-				</div></div>'
+					<div class="col-md-12 us-right-content">
+						<div class="list-view-container">
+								<!--<div class="controls map-View">
+						            <div class="toggle">
+						            	<a href="#" class="map ">Map</a><a href="#" class="list active">List</a>
+						            </div>
+					            </div>-->
+							<div class="legend clearfix">
+				              <ul>
+				                <li class="available">AVAILABLE</li>
+				                <li class="sold">SOLD</li>
+				                <li class="blocked">BLOCKED</li>
+				                <li class="na">N/A</li>
+				              </ul>
+				            </div>
+							<div class="villa-list">
+								<ul class="units eight">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>'
 
 	childView : ApartmentsView
 
