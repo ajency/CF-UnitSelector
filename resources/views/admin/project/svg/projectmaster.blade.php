@@ -51,11 +51,7 @@
                             $fileName= $image['NAME'];
                             $fileData = explode('.', $fileName);
                             ?>
-                            @if($fileName[1]=='svg')
-                                <object width="150" id="svg1" data="{{ $image['IMAGE'] }}" type="image/svg+xml" />
-                            @else
-                                <img src="{{ $image['IMAGE'] }}" style="width:150px;height:90px;" class="img-thumbnail">
-                            @endif
+                             <img src="{{ $image['IMAGE'] }}" style="width:150px;height:90px;" class="img-thumbnail">
                              <h4><small class="m-l-30">{{ $fileData[0] }}</small></h4>
                         </div>
                         <div class="col-md-4">
