@@ -556,6 +556,11 @@ body {
     -o-transform: rotateZ(0deg);
   }
 }
+/* Transition */
+.ease {
+  -webkit-transition: all 0.3s ease-in 0s;
+          transition: all 0.3s ease-in 0s;
+}
 .rotate-controls {
   position: absolute;
   bottom: 30px;
@@ -1107,8 +1112,36 @@ svg .layer:hover {
           transform: translate(-50%, -50%);
   width: 100%;
 }
+.slider .layouts .img-overlay {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff;
+  opacity: 0.75;
+  -webkit-transition: all 0.3s ease-in 0s;
+          transition: all 0.3s ease-in 0s;
+}
+.slider .layouts span {
+  position: absolute;
+  bottom: 50%;
+  left: 0;
+  right: 0;
+  color: #666666;
+  font-size: 20px;
+  font-weight: bold;
+  opacity: 1;
+  -webkit-transition: all 0.3s ease-in 0s;
+          transition: all 0.3s ease-in 0s;
+}
+.slider .layouts:hover .img-overlay {
+  opacity: 0;
+}
+.slider .layouts:hover span {
+  opacity: 0;
+}
 .slider .Level_0 .layouts {
   width: 100%;
+  height: auto;
 }
 .slider .Level_1 .layouts,
 .slider .Level_3 .layouts {

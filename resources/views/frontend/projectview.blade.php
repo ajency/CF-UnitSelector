@@ -110,6 +110,7 @@
         <script src="{{ asset('bower_components/spritespin/release/spritespin.js' )}}"></script>
         <script src="{{ asset('bower_components/autoNumeric/autoNumeric.js' )}}"></script>
         <script src="{{ asset('bower_components/imagesloaded/imagesloaded.js' )}}"></script>
+        <script src="{{ asset('bower_components/fancybox/source/jquery.fancybox.js' )}}"></script>
         <!-- end plugins -->
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
         <script>

@@ -8,6 +8,7 @@
         <meta content="" name="description" />
         <meta content="" name="author" />
         <meta name="csrf-token" content="{{ csrf_token() }}" />
+        <link rel="icon" type="image/png" href="{{ asset('images/others/favicon.ico') }}">
 
         <link href="{{ asset('bower_components/pace/themes/orange/pace-theme-flash.css') }}" rel="stylesheet" type="text/css" media="screen"/>
         <link href="{{ asset('bower_components/jquery.scrollbar/jquery.scrollbar.css') }}" rel="stylesheet" type="text/css"/>
