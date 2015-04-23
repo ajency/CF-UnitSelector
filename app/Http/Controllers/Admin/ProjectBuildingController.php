@@ -65,16 +65,8 @@ class ProjectBuildingController extends Controller {
         $building->phase_id = $formData['phase_id'];
         $building->no_of_floors = $formData['no_of_floors'];
         $building->floors = [];
-        $building->building_master = [
-            'front' => '',
-            'left' => '',
-            'back' => '',
-            'right' => '',
-            'front-left' => [],
-            'left-back' => [],
-            'back-right' => [],
-            'right-front' => []
-        ];
+        $building->building_master = [];
+        $building->breakpoints = [];
         $building->save();
         return redirect( url( 'admin/project/' . $projectId . '/building/' . $building->id . '/edit' ) );
     }
@@ -105,19 +97,12 @@ class ProjectBuildingController extends Controller {
         $svgImages = [];
             
         foreach ($building->building_master as $key => $images) {
-            if (is_array($images)) {
-                $transitionImages = [];
-                foreach ($images as $image) {
-                    $imageName = Media::find($image)->image_name;
-                    $transitionImages[] =["ID"=>$image, "IMAGE"=> url() . "/projects/" . $projectId . "/buildings/". $buildingId ."/" . $imageName];
-                }
-                $svgImages['building'][$key] = $transitionImages;
-            } else {
                 if (is_numeric($images)) {
                     $imageName = Media::find($images)->image_name;
-                    $svgImages['building'][$key] = ["ID"=>$images, "IMAGE"=> url() . "/projects/" . $projectId . "/buildings/". $buildingId ."/" . $imageName]; 
+                    $svgImages[$key] = ["ID"=>$images, "IMAGE"=> url() . "/projects/" . $projectId . "/buildings/". $buildingId ."/" . $imageName]; 
                 }
-            }
+                else
+                    $svgImages[$key]['ID'] = $images;
         }
             
         return view( 'admin.project.building.edit' )

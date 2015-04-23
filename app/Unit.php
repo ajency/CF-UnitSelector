@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Unit extends Model {
 
+    public function building() { 
+        return $this->belongsTo( 'CommonFloor\Building' );
+    }
+    
+    public function unitVariant() { 
+        return $this->belongsTo( 'CommonFloor\UnitVariant' );
+    }
+    
     public function toArray() {
         $data = parent::toArray();
         $unitId = $data['id'];
@@ -21,7 +29,7 @@ class Unit extends Model {
                 $data['unit_variant_id'] = $position['unit_variant_id'];
             }
         }
-
+        
         return $data;
     }
 

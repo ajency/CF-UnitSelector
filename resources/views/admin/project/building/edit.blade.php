@@ -23,9 +23,9 @@
             <div class="grid simple">
                 <div class="grid-title role="tab" id="headingOne"">
                      <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                       <div class="pull-right"><i class="fa fa-angle-up "></i>
-<i class="fa fa-angle-down grid-angle-down"></i>
-       </div>
+                        <div class="pull-right"><i class="fa fa-angle-up "></i>
+                            <i class="fa fa-angle-down grid-angle-down"></i>
+                        </div>
                         <h3 ><span class="semi-bold">Building</span> Details</h3> 
                     </a>
                 </div>
@@ -60,7 +60,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="form-label">Number of Floors</label>
-                                        <input type="number" value="{{ $building->no_of_floors }}" required="" class="form-control" name="no_of_floors" placeholder="Enter Number of Floors">
+                                        <input type="number" value="{{ $building->no_of_floors }}" required="" data-parsley-min="1" class="form-control" name="no_of_floors" placeholder="Enter Number of Floors">
                                     </div>
                                 </div>
                             </div>
@@ -80,9 +80,9 @@
             <div class="grid simple">
                 <div class="grid-title" role="tab" id="headingTwo">
                     <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-<div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
-<i class="fa fa-angle-up "></i>
-         </div>
+                        <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+                            <i class="fa fa-angle-up "></i>
+                        </div>
                         <h3><span class="semi-bold">Floor</span> Details</h3> 
                     </a>
                 </div>
@@ -134,152 +134,58 @@
             <div class="grid simple">
                 <div class="grid-title" role="tab" id="headingThree">
                     <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-<div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
-<i class="fa fa-angle-up "></i>
-         </div>                        <h3>Building <span class="semi-bold">Master</span></h3> 
+                        <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+                            <i class="fa fa-angle-up "></i>
+                        </div>                        
+                        <h3>Building <span class="semi-bold">Master</span></h3> 
                     </a>
                 </div>
                 <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                     <div class="grid-body object-master-images" data-object-id="{{ $building->id }}" data-object-type="building">
                         <div class="row project-master-images">
-                            <div class="front-svg">
-                                <h4 class="inline">Front Svg</h4> 
-                                <div>
-                                    <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside"/>
-                                    <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
-                                </div>
-                                <div class="uploaded-image">
-                                    @if(!empty($svgImages['building']['front']['IMAGE']))
-                                    <object width="150" data="{{ $svgImages['building']['front']['IMAGE'] }}" type="image/svg+xml"></object>
-                                    <button onclick="deleteSvg({{ $svgImages['building']['front']['ID'] }}, 'master', 'front');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
-                                    @endif
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="left-svg">
-                                <h4 class="inline">Left Svg</h4> 
-                                <div>
-                                    <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside"/>
-                                    <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
-                                </div>
-                                <div class="uploaded-image">
-                                    @if(!empty($svgImages['building']['left']['IMAGE']))
-                                    <object width="150" data="{{ $svgImages['building']['left']['IMAGE'] }}" type="image/svg+xml"></object>
-                                    <button onclick="deleteSvg({{ $svgImages['building']['left']['ID'] }}, 'master', 'left');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
-                                    @endif
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="back-svg">
-                                <h4 class="inline">Back Svg</h4> 
-                                <div>
-                                    <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside"/>
-                                    <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
-                                </div>
-                                <div class="uploaded-image">
-                                    @if(!empty($svgImages['building']['back']['IMAGE']))
-                                    <object width="150" data="{{ $svgImages['building']['back']['IMAGE'] }}" type="image/svg+xml"></object>
-                                    <button onclick="deleteSvg({{ $svgImages['building']['back']['ID'] }}, 'master', 'back');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
-                                    @endif
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="right-svg">
-                                <h4 class="inline">Right Svg</h4> 
-                                <div>
-                                    <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside"/>
-                                    <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
-                                </div>
-                                <div class="uploaded-image">
-                                    @if(!empty($svgImages['building']['right']['IMAGE']))
-                                    <object width="150" data="{{ $svgImages['building']['right']['IMAGE'] }}" type="image/svg+xml"></object>
-                                    <button onclick="deleteSvg({{ $svgImages['building']['right']['ID'] }}, 'master', 'right');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
-                                    @endif
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="right-front-svg">
-                                <h4 class="inline">Front to Right Transition Images</h4> 
-                                <div>
-                                    <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside"/>
-                                    <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
-                                </div>
-                                <div class="row uploaded-images">
-                                    @if(!empty($svgImages['building']['right-front']))  
-                                    @for ($i=0, $len = count($svgImages['building']['right-front']); $i < $len ; $i++)
-                                    <div class="col-sm-2">
-                                        <img  width="150" height="150" src="{{ $svgImages['building']['right-front'][$i]['IMAGE'] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
-                                        <h5 class="bold inline">SVG {{ $i+1 }}</h5> <i class="fa fa-bookmark text-primary"></i>
-                                        <span class="pull-right m-t-10"><small>Pos {{ $i+1 }}</small></span>
-                                        <button onclick="deleteSvg({{ $svgImages['building']['right-front'][$i]['ID'] }}, 'master', 'right-front');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
-                                    </div>
-                                    @endfor
-                                    @endif 
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="back-right-svg">
-                                <h4 class="inline">Right to Back Transition Images</h4> 
-                                <div>
-                                    <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside"/>
-                                    <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
-                                </div>
-                                <div class="row uploaded-images">
-                                    @if(!empty($svgImages['building']['back-right']))  
-                                    @for ($i=0, $len = count($svgImages['building']['back-right']); $i < $len ; $i++)
-                                    <div class="col-sm-2">
-                                        <img  width="150" height="150" src="{{ $svgImages['building']['back-right'][$i]['IMAGE'] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
-                                        <h5 class="bold inline">SVG {{ $i+1 }}</h5> <i class="fa fa-bookmark text-primary"></i>
-                                        <span class="pull-right m-t-10"><small>Pos {{ $i+1 }}</small></span>
-                                        <button onclick="deleteSvg({{ $svgImages['building']['back-right'][$i]['ID'] }}, 'master', 'back-right');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
-                                    </div>
-                                    @endfor
-                                    @endif 
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="left-back-svg">
-                                <h4 class="inline">Back to Left Transition Images</h4> 
-                                <div>
-                                    <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside"/>
-                                    <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
-                                </div>
-                                <div class="row uploaded-images">
-                                    @if(!empty($svgImages['building']['left-back']))  
-                                    @for ($i=0, $len = count($svgImages['building']['left-back']); $i < $len ; $i++)
-                                    <div class="col-sm-2">
-                                        <img  width="150" height="150" src="{{ $svgImages['building']['left-back'][$i]['IMAGE'] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
-                                        <h5 class="bold inline">SVG {{ $i+1 }}</h5> <i class="fa fa-bookmark text-primary"></i>
-                                        <span class="pull-right m-t-10"><small>Pos {{ $i+1 }}</small></span>
-                                        <button onclick="deleteSvg({{ $svgImages['building']['left-back'][$i]['ID'] }}, 'master', 'left-back');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
-                                    </div>
-                                    @endfor
-                                    @endif 
-                                </div>
-                            </div>
 
-                            <hr />
-                            <div class="front-left-svg">
-                                <h4 class="inline">Left to Front Transition Images</h4> 
-                                <div>
-                                    <input type="button" name="fileToUpload" class="master_pickfiles btn btn-small" value="Select your file" data-filename-placement="inside"/>
-                                    <button type="button" class="master_uploadfiles btn btn-small btn-primary" data-toggle="collapse" data-target="#sky-map-1">Upload</button>
-                                </div>
-                                <div class="row uploaded-images">
-                                    @if(!empty($svgImages['building']['front-left']))  
-                                    @for ($i=0, $len = count($svgImages['building']['front-left']); $i < $len ; $i++)
-                                    <div class="col-sm-2">
-                                        <img  width="150" height="150" src="{{ $svgImages['building']['front-left'][$i]['IMAGE'] }}" class="img-responsive img-thumbnail" data-toggle="collapse" data-target="#sky-map-a">
-                                        <span class="pull-right m-t-10"><small>Pos {{ $i+1 }}</small></span>
-                                        <button onclick="deleteSvg({{ $svgImages['building']['front-left'][$i]['ID'] }}, 'master', 'front-left');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
-                                    </div>
-                                    @endfor
-                                    @endif 
-                                </div>
+                            <div>
+                                <input id="master_pickfiles" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/> 
+                                <button id="master_uploadfiles" type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#master-img" >Upload</button>
+
+                                <button style="float: right" type="button" onclick="saveBreakPoint()" class="btn btn-small btn-primary" >Save Breakpoint</button>
                             </div>
-                            
-                            
-                            
+                            <hr/>
+                            <div id="master-img"  >    
+                                @if(!empty($svgImages))
+                                <?php 
+                                $breakpoints = (!empty($building->breakpoints))?unserialize($building->breakpoints):[];
+                                ?>
+                                @foreach($svgImages as $position=> $image)
+                                @if(isset($image['IMAGE']))
+                                <div class="row" id="position-{{ $position }}">
+                                    <div class="col-md-4">
+                                        <img src="{{ $image['IMAGE'] }}" style="width:150px;height:90px;" class="img-thumbnail"> 
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h4>{{ $position }}</h4>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input  {{ (isset($breakpoints) && in_array($position,$breakpoints)) ? 'checked' : '' }}   name="position[]" type="checkbox" value="{{ $position }}" data-toggle="toggle">
+                                            <button onclick="deleteSvg({{ $image['ID'] }}, 'master','{{ $position }}');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button> 
+                                    </div>
+                                </div>
+                                @else
+                                <div class="row" id="position-{{ $position }}">
+                                    <div class="col-md-4">
+
+                                    </div>
+                                    <div class="col-md-4">
+                                        <h4>{{ $position }}</h4>
+                                    </div>
+                                </div>
+                                @endif 
+                                <hr/> 
+                                @endforeach
+                                @endif
+
+
+                            </div>
                         </div>
                     </div>
                 </div>

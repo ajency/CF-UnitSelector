@@ -29,6 +29,10 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Status</th>
+                            <th>Building</th>
+                            <th>Floor</th>
+                            <th>Position</th>
                             <th>Created On</th>
                             <th>Modified On</th>
                         </tr>
@@ -41,7 +45,11 @@
                                         {{ $unit['unit_name'] }}
                                     </a>
                                 </td>
-                                <td>{{ date('d/m/Y',strtotime($unit['created_at'])) }}</td>
+                                <td>{{ ucfirst($unit->availability) }}</td>
+                                <td>{{ $unit->building->building_name }}</td>
+                                <td>{{ $unit->floor }}</td>
+                                <td>{{ $unit->position }}</td>
+                                 <td>{{ date('d/m/Y',strtotime($unit['created_at'])) }}</td>
                                 <td>{{  date('d/m/Y',strtotime($unit['updated_at'])) }}</td>
                             </tr>
                         @endforeach

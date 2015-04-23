@@ -89,6 +89,10 @@ function addRoomtype(project_id)
 
 function deleteRoomType(project_id, roomtypeId)
 {
+    if (confirm('Are you sure you want to delete this room type?') === false) {
+          return;
+        }
+    
     $.ajax({
         url: "/admin/project/" + project_id + "/roomtype/" + roomtypeId,
         type: "DELETE",
@@ -184,6 +188,10 @@ function saveRoomypeattribute(project_id, roomtypeId, reffrence_type)
 
 function deleteRoomTypeAttribute(project_id, attributeId)
 {
+    if (confirm('Are you sure you want to delete this room type attribute?') === false) {
+          return;
+        }
+    
     $.ajax({
         url: "/admin/project/" + project_id + "/roomtype/" + attributeId + "/deleteroomtypeattributes",
         type: "DELETE",
@@ -297,61 +305,72 @@ function addRoomAttributes(level, obj, variantId)
 }
 
 function setUpProjectMasterUploader() {
-
-    var divs = ['front', 'left', 'back', 'right', 'front-left', 'left-back', 'back-right', 'right-front'];
-
-    _.each(divs, function (divName, index) {
-        var div = $('.' + divName + '-svg');
-
-        var supportMultiple = divName.indexOf('-') > 0
-        var selectBtnId = _.uniqueId('select-btn-');
-        var selectBtn = div.find('.master_pickfiles').attr('id', selectBtnId);
-
-        var uploadBtnId = _.uniqueId('upload-btn-');
-        var uploadBtn = div.find('.master_uploadfiles').attr('id', uploadBtnId);
-        var objectType = uploadBtn.closest('.object-master-images').attr('data-object-type');
-        var objectId = uploadBtn.closest('.object-master-images').attr('data-object-id');
-        var uploader = new plupload.Uploader({
-            runtimes: 'html5,flash,silverlight,html4',
-            browse_button: selectBtnId, // you can pass in id...
-            url: BASEURL + '/admin/' + objectType + '/' + objectId + '/media',
-            flash_swf_url: BASEURL + '/bower_components/plupload/js/Moxie.swf',
-            silverlight_xap_url: BASEURL + '/bower_components/plupload/js/Moxie.xap',
-            headers: {
-                "x-csrf-token": $("[name=_token]").val()
+    
+    var objectType = $('div.object-master-images').attr('data-object-type');
+    var objectId = $('div.object-master-images').attr('data-object-id');
+    
+    var master_uploader = new plupload.Uploader({
+        runtimes: 'html5,flash,silverlight,html4',
+        browse_button: 'master_pickfiles', // you can pass in id...
+        url: '/admin/' + objectType + '/' + objectId + '/media',
+        flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+        silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+        headers: {
+            "x-csrf-token": $("[name=_token]").val()
+        },
+        multipart_params: {
+            "type": "master",
+            "projectId": PROJECTID
+        },
+        filters: {
+            max_file_size: '10mb',
+            mime_types: [{
+                    title: "Image files",
+                    extensions: "jpg,gif,png"
+                }]
+        },
+        init: {
+            PostInit: function () {
+                document.getElementById('master_uploadfiles').onclick = function () {
+                    master_uploader.start();
+                    return false;
+                };
             },
-            multipart_params: {
-                "type": "master",
-                "section": divName,
-                "projectId": PROJECTID
-            },
-            filters: {
-                max_file_size: '10mb',
-                mime_types: [{
-                        title: "Image files",
-                        extensions: "svg,jpg,png,jpeg"
-                    }]
-            },
-            init: {
-                PostInit: function () {
-                    document.getElementById(uploadBtnId).onclick = function () {
-                        uploader.start();
-                    };
-                },
-                FileUploaded: function (up, file, xhr) {
-                    fileResponse = JSON.parse(xhr.response); 
-
-                    if (supportMultiple)
-                        div.find('.uploaded-images').append('<div class="col-sm-2">\n\
-                            <img width="150" height="150" src="' + fileResponse.data.image_path + '" class="img-responsive" ><button onclick="deleteSvg(' + fileResponse.data.media_id + ',\'master\',\'' + divName + '\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>\n\
-                            </div>')
-                    else
-                        div.find('.uploaded-image').html('<object width="150" id="svg1" data="' + fileResponse.data.image_path + '" type="image/svg+xml" /> <button onclick="deleteSvg(' + fileResponse.data.media_id + ',\'master\',\'' + divName + '\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
+            FileUploaded: function (up, file, xhr) {
+                fileResponse = JSON.parse(xhr.response);
+                var str = newstr ='';
+                
+                str +='<div class="col-md-4">';
+                str +='<img src="' + fileResponse.data.image_path + '" style="width:150px;height:90px;" class="img-thumbnail">'; 
+                str +='</div>';
+                str +='<div class="col-md-4">';
+                str +='<h4>' + fileResponse.data.position + '</h4>';
+                str +='</div>';
+                str +='<div class="col-md-4">';
+                str +='<input  name="position[]" type="checkbox" value="' + fileResponse.data.position + '" data-toggle="toggle">';
+                str +='<button onclick="deleteSvg(' + fileResponse.data.media_id + ',\'master\',\'' + fileResponse.data.position + '\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>';
+                str +='</div>';
+                
+                
+                if ($('#position-'+fileResponse.data.position).length != 0){ 
+                    
+                    $('#position-'+fileResponse.data.position).html(str);
                 }
+                else
+                {
+                    newstr +='<div class="row" id="position-'+fileResponse.data.position+'">';
+                    newstr +=str;
+                    newstr +='</div>';
+                    newstr +='<hr/>';
+                    $("#master-img").append(newstr);
+                }
+                    
             }
-        });
-        uploader.init();
+        }
     });
+    master_uploader.init();
+
+     
 }
 
 function setUpFloorLevelUploader() {
@@ -518,11 +537,16 @@ function setUpFloorLevelUploader() {
 
 function deleteLayout(mediaId,type)
 {
+     if (confirm('Are you sure you want to delete this media file? ') === false) {
+          return;
+        }
+        
     $.ajax({
         url: '/admin/variant/' + variantId + '/media/' + mediaId,
         type: "DELETE",
         data: {
             type: type,
+            projectId: PROJECTID
         },
         success: function (response) {
              window.location.reload();
@@ -657,22 +681,54 @@ $(document).ready(function () {
         }
     });
     skyview_uploader.init();
+    
+    
 
 });
+
+function saveBreakPoint()
+{
+    var position=[]
+    var i=0;
+    $('input[name="position[]"]:checked').each(function() {
+        // To pass this value to its nearby hidden input
+        position[i]=$(this).val();
+        i++;
+        
+     });
+    var objectType = $('div.object-master-images').attr('data-object-type');
+    var objectId = $('div.object-master-images').attr('data-object-id');
+    $.ajax({
+        url: BASEURL + '/admin/' + objectType + '/' + objectId + '/media/updatebreakpoint',
+        type: "POST",
+        data: {
+            position: position,
+         },
+        success: function (response) {
+             
+        }
+    });
+}
 
 function deleteSvg(mediaId, type, refference)
 {
     var objectType = $('div.object-master-images').attr('data-object-type');
     var objectId = $('div.object-master-images').attr('data-object-id');
+    
+    if (confirm('Are you sure you want to delete this media file? ') === false) {
+          return;
+        }
+    
     $.ajax({
         url: BASEURL + '/admin/' + objectType + '/' + objectId + '/media/' + mediaId,
         type: "DELETE",
         data: {
             type: type,
-            refference: refference
+            refference: refference,
+            "projectId": PROJECTID
         },
         success: function (response) {
-            window.location.reload();
+           window.location.reload();
         }
     });
 }
@@ -695,6 +751,7 @@ function getPositions(floor)
             }
          
             var $el = $("#flat_position");
+            //$el.val('');
             $el.empty(); // remove old options
             $el.append($("<option>Select Position</option>")
                         .attr("value", ''));

@@ -26,7 +26,7 @@ class Building extends Model {
         $this->attributes['breakpoints'] = serialize( $value );
     }
 
-    public function getBreakpointsAttribute( $value ) {
+    public function getBreakpointsAttribute( $value ) { 
         return unserialize( $value );
     }
 
@@ -36,6 +36,7 @@ class Building extends Model {
 
     public function toArray() {
         $data = parent::toArray();
+        $data['breakpoints'] = (!empty($data['breakpoints']))?unserialize($data['breakpoints']):[];
         $buildingMasters = $data['building_master'];
         $buildingId = $data['id'];
         $phaseId = $data['phase_id'];
@@ -58,7 +59,7 @@ class Building extends Model {
                 }
             }
         }
-        $data['building_master'] = $svgImages;
+        $data['building_master'] = $svgImages; 
         return $data;
     }
 

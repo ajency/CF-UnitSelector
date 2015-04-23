@@ -43,14 +43,17 @@
                                     @endforeach
                                 </select>
                                 <br>
-                                <input type="text" class="form-control phase-name" placeholder="Add Phase">
-                                <button type="button" class="btn btn-small btn-primary add-phase-btn"><i class="fa fa-save"></i> Save</button>
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapsephase" aria-expanded="true" aria-controls="collapseOne">+ Add Phase</a>
+                                <div id="collapsephase" class="panel-collapse collapse p-t-10" role="tabpanel" aria-labelledby="headingOne">
+                                    <input type="text" class="form-control phase-name m-b-5" placeholder="Add Phase">
+                                    <button type="button" class="btn btn-small btn-primary add-phase-btn"><i class="fa fa-save"></i> Save</button>
+                                </div>
                             </div> 
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Number of Floors</label>
-                                <input type="number" required="" class="form-control" name="no_of_floors" placeholder="Enter Number of Floors">
+                                <input type="number" data-parsley-min="1" required="" class="form-control" name="no_of_floors" placeholder="Enter Number of Floors">
                             </div>
                         </div>
                     </div>
