@@ -285,6 +285,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 	onShow:->
 		height =  @ui.svgContainer.width() / 1.46
 		$('.us-left-content').css('height',height)
+		$('.units').css('height',height-162)
 		$('#spritespin').hide()
 		that = @
 		transitionImages = []

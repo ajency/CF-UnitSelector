@@ -57,7 +57,8 @@
     "spritespin": "~3.3.3",
     "notifyjs": "~0.3.2",
     "autoNumeric": "~1.9.30",
-    "fancybox": "~2.1.5"
+    "fancybox": "~2.1.5",
+    "malihu-custom-scrollbar-plugin": "~3.0.8"
   },
   "resolutions": {
     "underscore": "~1.8.2",

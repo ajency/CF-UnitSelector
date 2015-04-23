@@ -134,6 +134,9 @@ class MasterBuildingListView extends Marionette.CompositeView
 	onShow:->
 		if bunglowVariantCollection.length != 0
 			$('.Villas').removeClass 'hidden'
+			
+		$('.units').mCustomScrollbar
+			theme: 'inset'
 
 
 
