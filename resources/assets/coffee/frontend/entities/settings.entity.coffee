@@ -1,8 +1,10 @@
 #Settings model Definition
 class Settings extends Backbone.Model
 
-
+	#generate floor rise object
 	generateFloorRise:(building)->
+		if building == ""
+			return
 		buildingModel = buildingCollection.findWhere
 							'id' : building
 		i = 0 
@@ -24,7 +26,6 @@ class Settings extends Backbone.Model
 	
 
 	# set attributes of a Settings model
-	# if blank,fetch it from the server with the url mentioned above.
 	setSettingsAttributes:(data)->
 
 		# @set settingsData
@@ -32,7 +33,7 @@ class Settings extends Backbone.Model
 
 		
 
-window.settings  = new Settings;		
+window.settings  = new Settings		
 
 		
 

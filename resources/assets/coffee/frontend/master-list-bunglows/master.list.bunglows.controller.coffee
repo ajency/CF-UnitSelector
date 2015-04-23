@@ -1,4 +1,4 @@
-#view for the Center setion
+#view for a bungalow : model
 class BunglowListView extends Marionette.ItemView
 
 	template : Handlebars.compile('	<div class=" info">
@@ -54,12 +54,11 @@ class BunglowListView extends Marionette.ItemView
 			if @model.get('status') == 'available'
 				CommonFloor.defaults['unit'] = @model.get('id')
 				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
+				CommonFloor.router.storeRoute()
 
 
 
-#Composite view for the Center setion
-
-
+#view for list of bungalows : Collection
 class MasterBunglowListView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-3 us-left-content">
@@ -138,11 +137,6 @@ class MasterBunglowListView extends Marionette.CompositeView
 			
 
 	onShow:->
-		if project.get('project_master').front  == ""
-			$('.map-View').hide()
-		else
-			$('.map-View').show()
-
 		if apartmentVariantCollection.length != 0
 			$('.buildings').removeClass 'hidden'
 		

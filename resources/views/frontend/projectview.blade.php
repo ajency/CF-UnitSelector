@@ -139,16 +139,16 @@
         <script src="{{ asset('js/frontend/entities/floor.layout.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/common/common.js' )}}"></script>
         <script src="{{ asset('js/frontend/project/project.controller.js' )}}"></script>
-        <script src="{{ asset('js/frontend/bunglow-master-view/bunglow.master.controller.js' )}}"></script>
-        <script src="{{ asset('js/frontend/bunglow-unit-view/bunglow.unit.controller.js' )}}"></script>
-        <script src="{{ asset('js/frontend/bunglow-list-view/bunglow.list.controller.js' )}}"></script>
-        <script src="{{ asset('js/frontend/building-list-view/building.list.controller.js' )}}"></script>
-        <script src="{{ asset('js/frontend/bunglow-list-view/villa.list.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/project-master-view/project.master.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/unit-view/unit.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/project-list-view/project.list.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/project-list-view/building.list.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/project-list-view/villa.list.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/building-step3/apartments.list.controller.js' )}}"></script>
-        <script src="{{ asset('js/frontend/building-step3/apartments.master.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/building-step3/apartments.master.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/master-list-bunglows/master.list.bunglows.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/master-list-buildings/master.list.buildings.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/router.js' )}}"></script>
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
         <input type="hidden" id="price" data-m-dec="" data-a-sign="Rs. " data-d-group="2" value="" />
       

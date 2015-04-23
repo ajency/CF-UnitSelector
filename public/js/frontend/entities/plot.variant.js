@@ -23,10 +23,6 @@
 
     PlotVariantCollection.prototype.model = PlotVariant;
 
-    PlotVariantCollection.prototype.url = function() {
-      return "http://commonfloor.local/methods/functions.php?action=load_plot_variants";
-    };
-
     PlotVariantCollection.prototype.setPlotVariantAttributes = function(project_id) {
       if (this.length === 0) {
         return plotVariantCollection.fetch({

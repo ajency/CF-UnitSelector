@@ -19,7 +19,7 @@
       unitVarinatModel = apartmentVariantCollection.findWhere({
         'id': parseInt(unit_model.get('unit_variant_id'))
       });
-      if (unitVarinatModel !== void 0) {
+      if (!_.isUndefined(unitVarinatModel)) {
         floorRiseArray = settings.generateFloorRise(unit_model.get('building_id'));
         floorRise = floorRiseArray[unit_model.get('floor')];
         basic_cost = (parseFloat(unitVarinatModel.get('per_sq_ft_price')) + parseFloat(floorRise)) * parseFloat(unitVarinatModel.get('super_built_up_area'));

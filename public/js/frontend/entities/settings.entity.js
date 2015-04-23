@@ -12,6 +12,9 @@
 
     Settings.prototype.generateFloorRise = function(building) {
       var buildingModel, cost, floorrise, floors, i, sum;
+      if (building === "") {
+        return;
+      }
       buildingModel = buildingCollection.findWhere({
         'id': building
       });
