@@ -1099,7 +1099,7 @@ svg .layer:hover {
 .slider .layouts {
   float: left;
   position: relative;
-  height: 400px;
+  height: 275px;
   border: 5px solid #cccccc;
   overflow: hidden;
 }
@@ -1114,6 +1114,7 @@ svg .layer:hover {
 }
 .slider .layouts .img-overlay {
   position: absolute;
+  top: 0;
   height: 100%;
   width: 100%;
   background-color: #ffffff;
@@ -1126,7 +1127,7 @@ svg .layer:hover {
   bottom: 50%;
   left: 0;
   right: 0;
-  color: #666666;
+  color: #4d4d4d;
   font-size: 20px;
   font-weight: bold;
   opacity: 1;
