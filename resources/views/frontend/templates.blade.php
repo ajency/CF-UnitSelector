@@ -46,6 +46,8 @@
 
 <script id="project-template" type="text/template">
         <div class="inner-container">
+           <div ui-region="filter" id="filterregion">
+            </div>
             <div ui-region="top" id="topregion">
             </div>
             <div class="row">
@@ -68,6 +70,8 @@
 
 <script id="project-view-template" type="text/template">
   <div class="inner-container">
+   <div ui-region="filter" id="filterregion">
+            </div>
       <div ui-region="top" id="topregion">
       </div>
       <div class="row">

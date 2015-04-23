@@ -17,6 +17,15 @@ class CommonFloor.ProjectMasterCtrl extends Marionette.RegionController
 		else
 			@show new CommonFloor.NothingFoundView
 
+class CommonFloor.FilterMsterView extends Marionette.ItemView
+
+	template : '<div>filters</div>'
+
+class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
+
+	initialize:->
+		@show new CommonFloor.FilterMsterView
+
 #View for Poject Master top view 
 class TopMasterView extends Marionette.ItemView
 	#template

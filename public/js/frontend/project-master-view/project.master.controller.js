@@ -41,6 +41,34 @@
 
   })(Marionette.RegionController);
 
+  CommonFloor.FilterMsterView = (function(superClass) {
+    extend(FilterMsterView, superClass);
+
+    function FilterMsterView() {
+      return FilterMsterView.__super__.constructor.apply(this, arguments);
+    }
+
+    FilterMsterView.prototype.template = '<div>filters</div>';
+
+    return FilterMsterView;
+
+  })(Marionette.ItemView);
+
+  CommonFloor.FilterMasterCtrl = (function(superClass) {
+    extend(FilterMasterCtrl, superClass);
+
+    function FilterMasterCtrl() {
+      return FilterMasterCtrl.__super__.constructor.apply(this, arguments);
+    }
+
+    FilterMasterCtrl.prototype.initialize = function() {
+      return this.show(new CommonFloor.FilterMsterView);
+    };
+
+    return FilterMasterCtrl;
+
+  })(Marionette.RegionController);
+
   TopMasterView = (function(superClass) {
     extend(TopMasterView, superClass);
 
