@@ -18,6 +18,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Status</th>
+                            <th>Variant</th>
                             <th>Created On</th>
                             <th>Modified On</th>
                         </tr>
@@ -26,7 +27,8 @@
                         @foreach ($unit_arr as $unit)
                             <tr class="">
                                 <td><a href="{{ url( '/admin/project/' . $project['id'] . '/bunglow-unit/'.$unit['id'].'/edit') }}">{{ $unit['unit_name'] }}</a></td>
-                                <td>{{ ucfirst($unit['availability']) }}</td>
+                                <td>{{ ucfirst($unit->availability) }}</td>
+                                <td>{{ $unit->unitVariant->unit_variant_name}}</td>
                                 <td>{{ date('d/m/Y',strtotime($unit['created_at'])) }}</td>
                                 <td>{{  date('d/m/Y',strtotime($unit['updated_at'])) }}</td>
 

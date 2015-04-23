@@ -155,7 +155,7 @@
                                         <button type="button" class="btn btn-small btn-primary save-position">
                                             <i class="fa fa-save"></i> Save
                                         </button>
-                                        <div class="cf-loader"></div>
+                                        <div class="cf-loader hidden"></div>
                                     </div>
                                 </div>
                             </div>
