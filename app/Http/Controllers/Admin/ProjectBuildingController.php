@@ -99,7 +99,7 @@ class ProjectBuildingController extends Controller {
         foreach ($building->building_master as $key => $images) {
                 if (is_numeric($images)) {
                     $imageName = Media::find($images)->image_name;
-                    $svgImages[$key] = ["ID"=>$images, "IMAGE"=> url() . "/projects/" . $projectId . "/buildings/". $buildingId ."/" . $imageName]; 
+                    $svgImages[$key] = ["ID"=>$images,"NAME"=>$imageName, "IMAGE"=> url() . "/projects/" . $projectId . "/buildings/". $buildingId ."/" . $imageName]; 
                 }
                 else
                     $svgImages[$key]['ID'] = $images;

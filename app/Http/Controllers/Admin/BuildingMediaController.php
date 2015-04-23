@@ -44,7 +44,7 @@ class BuildingMediaController extends Controller {
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $fileName = $file->getClientOriginalName();
-            $fileExt = $file->guessClientExtension();
+            $fileData = explode('.', $fileName);
             $newFilename = $fileName;
             $request->file('file')->move($targetDir, $newFilename);
         }
@@ -55,7 +55,7 @@ class BuildingMediaController extends Controller {
         $media->mediable_type = 'CommonFloor\Building';
         $media->save();
         $buildingMaster = $building->building_master;
-        $file =  str_replace('.'.$fileExt, '', $fileName);
+        $file =  $fileData[0];
         $fileArr = explode('-', $file);
         $position = $fileArr[1];
         
@@ -69,6 +69,7 @@ class BuildingMediaController extends Controller {
                     'data' => [
                         'media_id' => $media->id,
                         'position' => $position,
+                        'filename' => $file,
                         'image_path' => url() . '/projects/' . $projectId . '/buildings/' . $buildingId . '/' . $newFilename
                     ]
                         ], 201);
