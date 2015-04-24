@@ -132,7 +132,7 @@
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" value="DETAILS" name="project_update"/>
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-                    <button type="button" data-p-id="{{ $project['id'] }}" class="btn btn-primary update-response-table">Update Response Table</button>
+                    <button type="button" data-p-id="{{ $project['id'] }}" class="btn btn-primary update-response-table btn-cons">Update Response Table</button>
                     <button type="submit" class="btn btn-primary btn-cons">Save</button>
                 </div>
             </div>

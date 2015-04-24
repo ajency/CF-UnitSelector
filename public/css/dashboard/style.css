@@ -8177,11 +8177,11 @@ body.rtl .footer-widget {
   font-size: 12px;
   color: #f34235;
 }
-.full-width {
-  width: 100%!important;
-}
 .navbar-brand {
   padding: 6px!important;
+}
+.full-width {
+  width: 100%!important;
 }
 /* Inner Menu */
 .inner-wrapper h2 {
@@ -8283,4 +8283,3 @@ body.rtl .footer-widget {
     -o-transform: rotateZ(0deg);
   }
 }
-/*# sourceMappingURL=style.css.map */
