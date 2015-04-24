@@ -52,10 +52,6 @@ body {
 .search-left-content {
   position: relative;
 }
-.search-left-content .similar-section {
-  position: absolute;
-  bottom: 0;
-}
 .builder-logo {
   max-width: 200px;
 }
@@ -558,6 +554,18 @@ body {
 .ease {
   -webkit-transition: all 0.3s ease-in 0s;
           transition: all 0.3s ease-in 0s;
+}
+/* Back Button */
+.breadcrumb-bar .bread-crumb-list {
+  padding-bottom: 0;
+}
+.breadcrumb-bar .bread-crumb-list .brdcrmb-wrp li a {
+  color: #f68121;
+  font-weight: bold;
+}
+.breadcrumb-bar .bread-crumb-list .brdcrmb-wrp li a:before {
+  content: "\e77a";
+  font-family: icomoon;
 }
 .rotate-controls {
   position: absolute;
@@ -1095,6 +1103,10 @@ svg .layer:hover {
 .room-attr span {
   color: #999999;
 }
+.unit-details .unit-list {
+  border-top: 1px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
+}
 .slider .layouts {
   float: left;
   position: relative;
@@ -1159,6 +1171,11 @@ svg .layer:hover {
 .slider .Level_5 .layouts:nth-child(3n) {
   float: none;
   margin: 0 auto 20px;
+}
+.similar-section {
+  display: none;
+  position: absolute;
+  bottom: 15px;
 }
 /* Plugins */
 /* Slider */

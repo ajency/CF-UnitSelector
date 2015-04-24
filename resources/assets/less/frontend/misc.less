@@ -224,3 +224,16 @@
 .ease {
   transition: all 0.3s ease-in 0s;
 }
+
+/* Back Button */
+.breadcrumb-bar .bread-crumb-list{
+  padding-bottom: 0;
+  .brdcrmb-wrp li a {
+    color: @brand-primary;
+    font-weight: bold;
+    &:before{
+      content: "\e77a";
+      font-family: icomoon;
+    }
+  } 
+}

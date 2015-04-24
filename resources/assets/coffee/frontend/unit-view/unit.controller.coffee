@@ -29,7 +29,7 @@ class TopUnitView extends Marionette.ItemView
 										<li class="">
 											<span class="bread-crumb-current">
 												<span class=".icon-arrow-right2"></span><a class="unit_back" href="#">
-													Back to Poject Overview</a>
+													Back to Project Overview</a>
 											</span>
 										</li>
 									</ul>
@@ -89,91 +89,88 @@ class CommonFloor.TopUnitCtrl extends Marionette.RegionController
 #Left View for unit
 class LeftUnitView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
-						<div class="filters-wrapper">
-							<div class="blck-wrap title-row">
-								<!--<h3 class="pull-left"><strong>{{unit_name}}</strong></h3>
-								 <span class="label label-success">For Sale</span> -->
-								<div class="clearfix"></div>
+	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content unit-details">
+							<div class="filters-wrapper">
+								<div class="blck-wrap title-row">
+									<!--<h3 class="pull-left"><strong>{{unit_name}}</strong></h3>
+									 <span class="label label-success">For Sale</span> -->
+									<div class="clearfix"></div>
 
-								<div class="details">
-									<div>
-										<label>Price: </label> <span class="price"></span>
+									<div class="details">
+										<div>
+											<label>Price: </label> <span class="price"></span>
+										</div>
+										<div>
+											<label>Unit Type:</label> {{type}}
+										</div>
+										<div>
+											<label>Area:</label> {{area}} sqft
+										</div>
 									</div>
-									<div>
-										<label>Unit Type:</label> {{type}}
+
+									<div class="room-attr m-t-10">
+										<label class="property hidden">Property Attributes</label>
+										{{#attributes}}
+											<div class="m-b-5">
+												<span>{{attribute}}</span>: {{value}} 
+											</div>
+										{{/attributes}}
 									</div>
-									<div>
-										<label>Area:</label> {{area}} sqft
-									</div>
+
 								</div>
 
-								<div class="room-attr m-t-10">
-									<label class="property hidden">Property Attributes</label>
-									{{#attributes}}
-										<div class="m-b-5">
-											<span>{{attribute}}</span>: {{value}} 
-										</div>
-									{{/attributes}}
-								</div>
+								<div class="unit-list">
+									
+									{{#levels}}
+									<div class="blck-wrap no-hover">
+										<h4 class="m-b-10 m-t-10 text-primary">{{level_name}}</h4>
 
-							</div>
-
-							<div class="unit-list">
-								
-								{{#levels}}
-								<div class="blck-wrap no-hover">
-									<h4 class="m-b-10 m-t-10 text-primary">{{level_name}}</h4>
-
-									<!--<div class="blck-wrap title-row">
-										<div class="row">
-											<div class="col-sm-4">
-												<h5 class="accord-head">Rooms</h5>                      
+										<!--<div class="blck-wrap title-row">
+											<div class="row">
+												<div class="col-sm-4">
+													<h5 class="accord-head">Rooms</h5>                      
+												</div>
+												<div class="col-sm-4">
+													<h5 class="accord-head">No</h5>                      
+												</div>
+												<div class="col-sm-4">
+													<h5 class="accord-head">Area</h5>                      
+												</div>
 											</div>
-											<div class="col-sm-4">
-												<h5 class="accord-head">No</h5>                      
-											</div>
-											<div class="col-sm-4">
-												<h5 class="accord-head">Area</h5>                      
-											</div>
-										</div>
-									</div>-->
+										</div>-->
 
-									{{#rooms}}
-									<div class="room-attr">
-										<div class="m-b-15">
-											<h5 class="m-b-5">{{room_name}}</h5>  
-											{{#attributes}}  
-											<div class=""><span>{{attribute}}</span>: {{value}} </div>
-											{{/attributes}}                    
-											<!--<h6 class="">{{size}}sqft</h6>-->
+										{{#rooms}}
+										<div class="room-attr">
+											<div class="m-b-15">
+												<h5 class="m-b-5">{{room_name}}</h5>  
+												{{#attributes}}  
+												<div class=""><span>{{attribute}}</span>: {{value}} </div>
+												{{/attributes}}                    
+												<!--<h6 class="">{{size}}sqft</h6>-->
+											</div>
 										</div>
+										{{/rooms}}
+										
 									</div>
-									{{/rooms}}
+									{{/levels}}
 									
 								</div>
-								{{/levels}}
-								
+
 							</div>
-
-						</div>
-						<div class="clearfix"></div>
+							<div class="clearfix"></div>
 						
+							<div class="similar-section">
+					            <label>Similar Villas based on your filters:</label><br>
+					            <!--<p>Pool View, Garden, 3BHK</p>-->
+					            <ul>
+					              	{{#similarUnits}}
+					            	<li class="">
+					                	{{unit_name}}
+					                </li>
+					                {{/similarUnits}}
+					            </ul>
+				            </div>
 						</div>
-						<div class="similar-section">
-				              <label>Similar Villas based on your filters:</label><br>
-				              <!--<p>Pool View, Garden, 3BHK</p>-->
-				              <ul>
-				              {{#similarUnits}}
-				                <li class="">
-				                 {{unit_name}}
-				                </li>
-				               
-				               
-				                {{/similarUnits}}
-				              </ul>
-			            </div>
-
 					</div>')
 
 	serializeData:->
@@ -305,6 +302,9 @@ class CenterUnitView extends Marionette.ItemView
 						</div>
 					</div>')
 
+	ui :
+		imagesContainer : '.us-right-content'
+
 
 	events:
 		'click .threeD':(e)->
@@ -421,6 +421,13 @@ class CenterUnitView extends Marionette.ItemView
 			$('.external').removeClass('current')
 			$.each response[3].get('galleryurl'),(index,value)->
 				html += '<div class="animated fadeIn"><img class="img" src="'+value+'" /></div>'
+
+
+		height =  @ui.imagesContainer.height()
+		$('.search-left-content').css('height',height)
+		$('.unit-list').css('height',height-162)
+		$('.unit-list').mCustomScrollbar
+			theme: 'inset'
 
 
 		$('.images').html html

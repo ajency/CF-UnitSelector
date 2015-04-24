@@ -29,7 +29,7 @@ class TopListView extends Marionette.ItemView
 										<li class="">
 											<span class="bread-crumb-current">
 												<span class=".icon-arrow-right2"></span><a class="unit_back" href="#">
-													Back to Poject Overview</a>
+													Back to Peoject Overview</a>
 											</span>
 										</li>
 									</ul>
