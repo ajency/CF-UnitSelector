@@ -13,7 +13,11 @@
 @section('content')
 <!-- BEGIN PAGE TITLE -->
 <div class="page-title">	
-    <h2><span class="semi-bold">Add</span> Unit Variant</h2>
+    <h2 class="inline"><span class="semi-bold">Add</span> Unit Variant</h2>
+    <div class="user-description-box inline">
+                <p>Unit variant defines the model of a unit type and can be reused across each unit which have the same specification.</p>
+            </div>
+            
 </div>
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
@@ -107,7 +111,7 @@
                 <div class="pull-right">
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-                    <button type="submit" class="btn btn-primary btn-cons">Save</button>
+                    <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
                 </div>
             </div>
         </form>
@@ -115,15 +119,29 @@
 </div>
 <form method="POST" id="formroomdetails" name="formroomdetails">
     <div class="grid simple">
+
+ 
+
         <div class="grid-title">
-            <h3>Room <span class="semi-bold">Details</span></h3>
+            <h3 class="inline">Room <span class="semi-bold">Details</span></h3>
+            
+           <div class="user-description-box inline">
+
+ <p>Add rooms (which are created on attributes page) which are present at each level (floor).
+Click on Add Level button to add new levels. </p>
+            </div>
+                    
+               
+
+              
+
         </div>
         <?php
         $i = 0;
         ?>
         <input type="hidden" name="floorlevel[]" value="{{$i}}">
         <div class="grid-body">
-            <div class="row m-t-20">
+       <div class="row m-t-20">
                 <?php $j = 1; ?>
                 @foreach($variantRooms[0] as $roomId => $room)              
                 <div class="form-inline">
@@ -212,7 +230,7 @@
             <div class="form-actions">  
                 <div class="pull-right">
                     <button onclick="saveRoomdetails({{$project['id']}},{{ $unitVariant['id'] }});"
-                            type="button" class="btn btn-primary btn-cons">Save</button>
+                            type="button" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
                 </div>
             </div>   
         </div>

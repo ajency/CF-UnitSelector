@@ -155,7 +155,7 @@
                     <input type="hidden" value="DETAILS" name="project_update"/>
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                     <button type="button" data-p-id="{{ $project['id'] }}" class="btn btn-primary update-response-table btn-cons">Update Response Table</button>
-                    <button type="submit" class="btn btn-primary btn-cons">Save</button>
+                    <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
                 
                         </div>
                       </div>

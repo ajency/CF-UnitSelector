@@ -14,8 +14,8 @@
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 
     <div class="grid-body">
-    <div class="row">
-    <div class="user-description-box">
+    <div class="row m-b-15">
+    <div class="user-description-box col-md-7">
                     <div class="row">
                     <div class="col-md-1 text-right">
                     <i class="fa fa-info-circle"></i>
