@@ -8180,9 +8180,6 @@ body.rtl .footer-widget {
 .full-width {
   width: 100%!important;
 }
-.navbar-brand {
-  padding: 6px!important;
-}
 /* Inner Menu */
 .inner-wrapper h2 {
   word-break: break-word;
@@ -8193,6 +8190,15 @@ body.rtl .footer-widget {
 }
 .toggle .btn {
   min-height: 33px!important;
+}
+.grid-angle-down {
+  display: none;
+}
+.panel-group .collapsed .grid-angle-down {
+  display: block!important;
+}
+.panel-group .collapsed .fa-angle-up {
+  display: none;
 }
 /* Loader */
 .cf-loader {
@@ -8283,4 +8289,3 @@ body.rtl .footer-widget {
     -o-transform: rotateZ(0deg);
   }
 }
-/*# sourceMappingURL=style.css.map */

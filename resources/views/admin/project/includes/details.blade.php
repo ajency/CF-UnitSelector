@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="form-label">City</label>
+                        <label class="form-label" title="Location of the project">City</label>
                         <input type="text" name="city" class="form-control" placeholder="City" 
                                value="{{ array_get( $project ,'city') }}" disabled>
                     </div>
@@ -27,7 +27,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Project Title<span class="text-primary">*</span></label>
+                        <label class="form-label" title=" Project Title to be displayed on unit selector page">Project Title<span class="text-primary">*</span></label>
                         <input type="text" class="form-control" placeholder="Enter Project Title" 
                                value="{{ $project['project_title'] }}" name="project_title" data-parsley-required>
                     </div>
@@ -45,13 +45,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Address<span class="text-primary">*</span></label>
+                        <label class="form-label" title=" Project Address to be displayed on unit selector page">Address<span class="text-primary">*</span></label>
                         <textarea name="project_address" class="form-control" 
                                   placeholder="Enter Project Address" data-parsley-required>{{ $project['project_address'] }}</textarea>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Property Types</label>
+                        <label class="form-label" title=" Property Types in the project  available for sale">Property Types</label>
                         <select  class="select2 form-control" multiple name="property_types[]" data-parsley-required>
                             @foreach($propertyTypes as $propertyType) 
                             <option {{ isset($unitTypes[$propertyType->id]) ? 'selected="selected"' : '' }} value="{{ $propertyType->id }}">{{ $propertyType->name }}</option>
@@ -64,7 +64,7 @@
                         ?>
                         @foreach($propertyTypes as $propertyType)
                         <div class="property-type-{{ $propertyType->id }} {{ isset($unitTypes[$propertyType->id]) ? '' : 'hidden' }}">
-                            <h5 class="semi-bold inline">Unit Types for {{ $propertyType->name }}</h5> 
+                            <h5 class="semi-bold inline" title="Enter BHK Type for the Property(e.g 2BHK, 3BHK).">Unit Types for {{ $propertyType->name }}</h5> 
                             @if(isset($unitTypes[$propertyType->id]))
                             @foreach( $unitTypes[$propertyType->id] as $propertyTypeId => $projectUnitType )
                             <?php
@@ -85,7 +85,7 @@
                             <div class="form-inline">
                                 <div class="form-group">
                                     <input type="text" class="form-control unit-type" placeholder="Add Unit Type" data-parsley-excluded>
-                                    <button class="btn btn-white add-unit-type-btn" type="button" property-type="{{ $propertyType->id }}">
+                                    <button class="btn btn-white add-unit-type-btn " title="Click to add" type="button" property-type="{{ $propertyType->id }}">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
@@ -132,7 +132,7 @@
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" value="DETAILS" name="project_update"/>
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-                    <button type="button" data-p-id="{{ $project['id'] }}" class="btn btn-primary update-response-table">Update Response Table</button>
+                    <button type="button" data-p-id="{{ $project['id'] }}" class="btn btn-primary update-response-table btn-cons">Update Response Table</button>
                     <button type="submit" class="btn btn-primary btn-cons">Save</button>
                 </div>
             </div>
