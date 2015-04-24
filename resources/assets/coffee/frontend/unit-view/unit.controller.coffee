@@ -293,7 +293,7 @@ class CenterUnitView extends Marionette.ItemView
 								<div class="liquid-slider slider">
 									<div class="panel-wrapper">
 										<div class="level ">
-											<div class="images animated fadeIn">
+											<div class="images animated fadeIn text-center">
 											</div>
 										</div>
 									</div>
@@ -357,7 +357,12 @@ class CenterUnitView extends Marionette.ItemView
 			response = @generateLevels()
 			html = ''
 			$.each response[3].get('galleryurl'),(index,value)->
-				html += '<div class="animated fadeIn"><img class="img" src="'+value+'" /></div>'
+				html += '<div class="animated fadeIn gallery-img">
+							<a class="fancybox" rel="gall" href="'+value+'">
+								<img class="img" src="'+value+'" />
+								<div class="img-overlay"></div>
+							</a>
+						</div>'
 			
 			$('.images').html html
 			$('.gallery').addClass('current')

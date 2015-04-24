@@ -30,6 +30,7 @@
 		.img-overlay{
 			position: absolute;
 			top: 0;
+			left: 0;
 			height: 100%;
 			width: 100%;
 			background-color: @white;
@@ -44,6 +45,7 @@
 			color: darken(@gray, 10%);
 			font-size: 20px;
 			font-weight: bold;
+			text-align: center;
 			opacity: 1;
 			.ease;
 		}
@@ -61,7 +63,7 @@
 	.Level_0{
 		.layouts{
 			width: 100%;
-			height: auto;
+			height: 500px;
 		}
 	}
 	.Level_1, .Level_3{
@@ -79,6 +81,40 @@
 			&:nth-child(3n){
 				float: none;
 				margin: 0 auto 20px;
+			}
+		}
+	}
+
+	.gallery-img{
+		width: 45%;
+		display: inline-block;
+		padding: 15px;
+		margin: 1%;
+		position: relative;
+		height: 275px;
+		border: 5px solid @gray-lighter;
+		overflow: hidden;
+		img{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			width: 100%;
+		}
+		.img-overlay{
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			height: 100%;
+			width: 100%;
+			background-color: @white;
+			opacity: 0.75;
+			.ease;
+		}
+		&:hover{
+			.img-overlay{
+				opacity: 0;
 			}
 		}
 	}
