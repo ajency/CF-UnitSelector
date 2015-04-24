@@ -61,20 +61,20 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Project Title<span class="text-primary">*</span></label>
+                                <label class="form-label" title=" Project Title to be displayed on unit selector page">Project Title<span class="text-primary">*</span></label>
                                 <input  name="project_title" type="text" class="form-control" placeholder="Enter Project Title" 
                                         data-parsley-required>
                                 <input  name="hidden_project_title" type="hidden" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label class="form-label">Address<span class="text-primary">*</span></label>
+                                <label class="form-label" title"Project Address to be displayed on unit selector page">Address<span class="text-primary">*</span></label>
                                 <textarea  name="project_address" class="form-control" placeholder="Enter Project Address" 
                                            data-parsley-required></textarea>
                                 <input  name="hidden_project_address" type="hidden" class="form-control">
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label">Property Types <span class="text-primary">*</span></label>
+                                <label class="form-label" title=" Property Types in the Project  available for sale ">Property Types <span class="text-primary">*</span></label>
                                 <select placeholder="Add Property Type" name="property_types[]" 
                                         data-parsley-required class="select2 form-control" multiple="multiple" >
                                    @foreach($property_type as $type) 
@@ -85,8 +85,11 @@
                         </div>
                         <div class="col-md-6 hidden" id="commonfloor-project-details">
                         </div>
+                         
                     </div>
-
+ <div class="user-description-box m-b-15">
+                <p> Project enters the draft mode on save and will only be available on unit selector when Project status is changed to Published.</p>
+                        </div>
                     <div class="form-actions">  
                         <div class="pull-right">
                             <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
