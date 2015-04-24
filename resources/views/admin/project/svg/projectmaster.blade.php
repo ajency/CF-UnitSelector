@@ -5,14 +5,14 @@
             <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
                 <i class="fa fa-angle-up "></i>
             </div>
-            <h3>Step 3: <span class="semi-bold">Project Top view </span></h3>(1 image)
+            <h3><span class="semi-bold">Project Top view </span></h3>(1 image)
         </a>
     </div>
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
         <div class="grid-body object-master-images" data-object-id="{{ $project['id'] }}" data-object-type="project">
             <div class="user-description-box m-b-15">
                 <p>Upload 3D view of the project. To enable 360 degree rotation of the project ,upload images in the sequence ( Front -> Right -> Back -> Left). Image dimension should be Image size : 1600*1095. Resolution - 300 DPI. 
-                    Naming convention to be followed for the images uploaded - ProjectName01(first image), ProjectName02 and so on. 
+                    Naming convention to be followed for the images uploaded : Master-01(first image), Master-02 and so on. 
                 </p>
                 <img src="http://www.websofia.com/wp-content/uploads/2013/02/gmap-publicity.png" style="width:150px;height:90px;" class="img-thumbnail">
             </div>

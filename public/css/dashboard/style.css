@@ -8177,9 +8177,6 @@ body.rtl .footer-widget {
   font-size: 12px;
   color: #f34235;
 }
-.navbar-brand {
-  padding: 6px!important;
-}
 .full-width {
   width: 100%!important;
 }
@@ -8193,6 +8190,15 @@ body.rtl .footer-widget {
 }
 .toggle .btn {
   min-height: 33px!important;
+}
+.grid-angle-down {
+  display: none;
+}
+.panel-group .collapsed .grid-angle-down {
+  display: block!important;
+}
+.panel-group .collapsed .fa-angle-up {
+  display: none;
 }
 /* Loader */
 .cf-loader {
