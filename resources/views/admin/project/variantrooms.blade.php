@@ -129,7 +129,7 @@ Click on Add Level button to add new levels. </p>
 
                     <div class="form-actions">  
                          <div class="pull-right">
-                            <button onclick="saveRoomdetails({{$project['id']}},{{ $unitVariant['id'] }});" type="button" class="btn btn-primary btn-cons">Save</button>
+                            <button onclick="saveRoomdetails({{$project['id']}},{{ $unitVariant['id'] }});" type="button" class="btn btn-primary btn-cons"><i class="fa fa-check"></i>Save</button>
                         </div>
                     </div> 
                 </div>

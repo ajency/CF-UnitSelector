@@ -26,7 +26,7 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="form-label">City <span class="text-primary">*</span></label><i class="fa fa-question-circle" title="Location of the project"></i>                                <!-- //TODO fix the required validation  -->
+                                <label class="form-label">City <span class="text-primary">*</span></label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"  title="Location of the project"></i>                                <!-- //TODO fix the required validation  -->
                                 <select name="city" class="select2 form-control" data-parsley-required>
                                     <option value="">Choose City</option>
                                     <option value="Mumbai">Mumbai</option>
@@ -60,20 +60,20 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label class="form-label" >Project Title<span class="text-primary">*</span></label><i class="fa fa-question-circle" title=" Project Title to be displayed on unit selector page"></i> 
+                                <label class="form-label" >Project Title<span class="text-primary">*</span></label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"  title=" Project Title to be displayed on unit selector page"></i> 
                                 <input  name="project_title" type="text" class="form-control" placeholder="Enter Project Title" 
                                         data-parsley-required>
                                 <input  name="hidden_project_title" type="hidden" class="form-control">
                             </div>
                             <div class="form-group">
-                                <label class="form-label" >Address<span class="text-primary">*</span></label><i class="fa fa-question-circle" title=" Project Address to be displayed on unit selector page "></i>
+                                <label class="form-label" >Address<span class="text-primary">*</span></label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"  title=" Project Address to be displayed on unit selector page "></i>
                                 <textarea  name="project_address" class="form-control" placeholder="Enter Project Address" 
                                            data-parsley-required></textarea>
                                 <input  name="hidden_project_address" type="hidden" class="form-control">
                             </div>
 
                             <div class="form-group">
-                                <label class="form-label" >Property Types <span class="text-primary">*</span></label><i class="fa fa-question-circle" title=" Property Types in the project available for sale "></i>
+                                <label class="form-label" >Property Types <span class="text-primary">*</span></label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"  title=" Property Types in the project available for sale "></i>
                                 <select placeholder="Add Property Type" name="property_types[]" 
                                         data-parsley-required class="select2 form-control" multiple="multiple" >
                                    @foreach($property_type as $type) 

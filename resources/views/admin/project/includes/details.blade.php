@@ -14,12 +14,14 @@
         <form action="{{ url('/admin/project/'. $project['id']) }}" method="POST" data-parsley-validate>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="form-label">City</label><i class="fa fa-question-circle" data-toggle="tooltip" title="Location of the project"></i> 
+                    <div class="form-group aa">
+                        <label class="form-label">City</label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"  title="Location of the project"></i> 
                         <input type="text" name="city" class="form-control" placeholder="City" 
                                value="{{ array_get( $project ,'city') }}" disabled>
                     </div>
-
+<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
+  Popover on left
+</button>
                     <div class="form-group">
                         <label class="form-label">CF Project Id</label>
                         <span class="help">From CommonFloor database</span>
@@ -27,7 +29,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Project Title<span class="text-primary">*</span></label><i class="fa fa-question-circle" title=" Project Title to be displayed on unit selector page"></i> 
+                        <label class="form-label">Project Title<span class="text-primary">*</span></label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"  title=" Project Title to be displayed on unit selector page"></i> 
                         <input type="text" class="form-control" placeholder="Enter Project Title" 
                                value="{{ $project['project_title'] }}" name="project_title" data-parsley-required>
                     </div>
@@ -45,13 +47,13 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Address<span class="text-primary">*</span></label><i class="fa fa-question-circle" data-toggle="tooltip" title=" Project Address to be displayed on unit selector page "></i>
+                        <label class="form-label">Address<span class="text-primary">*</span></label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title=" Project Address to be displayed on unit selector page "></i>
                         <textarea name="project_address" class="form-control" 
                                   placeholder="Enter Project Address" data-parsley-required>{{ $project['project_address'] }}</textarea>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Property Types</label><i class="fa fa-question-circle" title=" Property Types in the project available for sale "></i>
+                        <label class="form-label">Property Types</label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title=" Property Types in the project available for sale "></i>
                         <select  class="select2 form-control" multiple name="property_types[]" data-parsley-required>
                             @foreach($propertyTypes as $propertyType) 
                             <option {{ isset($unitTypes[$propertyType->id]) ? 'selected="selected"' : '' }} value="{{ $propertyType->id }}">{{ $propertyType->name }}</option>
@@ -64,7 +66,7 @@
                         ?>
                         @foreach($propertyTypes as $propertyType)
                         <div class="property-type-{{ $propertyType->id }} {{ isset($unitTypes[$propertyType->id]) ? '' : 'hidden' }}">
-                            <h5 class="semi-bold inline">Unit Types for {{ $propertyType->name }}</h5> <i class="fa fa-question-circle"  title="Enter BHK Type for the Property(e.g 2BHK, 3BHK)"></i>
+                            <h5 class="semi-bold inline">Unit Types for {{ $propertyType->name }}</h5> <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Enter BHK Type for the Property(e.g 2BHK, 3BHK)"></i>
                             @if(isset($unitTypes[$propertyType->id]))
                             @foreach( $unitTypes[$propertyType->id] as $propertyTypeId => $projectUnitType )
                             <?php

@@ -29,15 +29,7 @@
 }
 .fa-question-circle{
   font-size: 15px;
- .tooltip-inner &:hover{
-    background:#000!important;
-    color:#fff!important;
-  }
 }
-
-.red-tooltip + .tooltip > .tooltip-inner {background-color: #f00;}
-.red-tooltip + .tooltip > .tooltip-arrow { border-bottom-color:#f00; }
-
 
 .user-description-box{
   .fa-info-circle{
@@ -46,17 +38,43 @@
   padding-right: 22px;
   } 
 }
+.grid-body {
+  .in{
+    .tooltip-arrow{
+      border-right-color:#f68121;
+    }
+    .tooltip-inner{
+  background:#F0C79E;
+  color:#000;
+  border:1px solid #f68121;
+   }
+}
+}
 
 /* Accordion */
 .grid-angle-down{
   display: none;
+  font-size: 20px!important;
+
 }
-.panel-group .collapsed .grid-angle-down{
-  display:block!important;
-}
-.panel-group .collapsed .fa-angle-up{
+
+.panel-group{
+  .fa-angle-up{
+    font-size: 20px!important;
+  }
+
+  .collapsed {
+    .grid-angle-down{
+    display:block!important;
+  
+  }
+ .fa-angle-up{
   display:none;
+  
 }
+}
+}
+
 
 
 /* Loader */

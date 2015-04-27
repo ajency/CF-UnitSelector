@@ -8201,9 +8201,21 @@ body.rtl .footer-widget {
   font-size: 40px;
   padding-right: 22px;
 }
+.grid-body .in .tooltip-arrow {
+  border-right-color: #f68121;
+}
+.grid-body .in .tooltip-inner {
+  background: #F0C79E;
+  color: #000;
+  border: 1px solid #f68121;
+}
 /* Accordion */
 .grid-angle-down {
   display: none;
+  font-size: 20px!important;
+}
+.panel-group .fa-angle-up {
+  font-size: 20px!important;
 }
 .panel-group .collapsed .grid-angle-down {
   display: block!important;
@@ -8300,4 +8312,3 @@ body.rtl .footer-widget {
     -o-transform: rotateZ(0deg);
   }
 }
-/*# sourceMappingURL=style.css.map */
