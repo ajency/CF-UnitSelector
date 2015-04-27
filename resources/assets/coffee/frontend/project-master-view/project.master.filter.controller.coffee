@@ -171,6 +171,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 		'click @ui.unitTypes':(e)->
 			if $(e.target).is(':checked')
+				unitTempCollection.reset unitCollection.toArray()
 				@unitTypes.push parseInt e.target.id
 			else
 				@unitTypes = _.without @unitTypes ,parseInt e.target.id
@@ -184,6 +185,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 		'click @ui.unitVariants':(e)->
 			if $(e.target).is(':checked')
+				unitTempCollection.reset unitCollection.toArray()
 				@unitVariants.push parseInt e.target.id
 			else
 				@unitVariants = _.without @unitVariants ,parseInt e.target.id
@@ -194,6 +196,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 		'change @ui.priceMin':(e)->
 			if $(e.target).val() != ""
+				unitTempCollection.reset unitCollection.toArray()
 				CommonFloor.defaults['price_min'] = $(e.target).val()
 			else
 				CommonFloor.defaults['price_min'] = 0
@@ -202,6 +205,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 		'change @ui.priceMax':(e)->
 			if $(e.target).val() != ""
+				unitTempCollection.reset unitCollection.toArray()
 				CommonFloor.defaults['price_max'] = $(e.target).val()
 			else
 				CommonFloor.defaults['price_max'] = 999999900
@@ -211,6 +215,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 		'click @ui.status':(e)->
 			if $(e.target).is(':checked')
+				unitTempCollection.reset unitCollection.toArray()
 				@status.push  e.target.id
 			else
 				@status = _.without @status , e.target.id
@@ -225,7 +230,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 			
 	
-
+	#function to check the filters dependency
 	resetFilters:->
 		unittypes = []
 		apartments = []
@@ -239,13 +244,16 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			bunglows.push item.get 'id'
 		unitTempCollection.each (item)->
 			status.push item.get 'availability'
+		console.log bunglows
 		$(@ui.unitTypes).each (ind,item)->
 			$('#'+item.id).prop('checked',true)
 			if $.inArray(parseInt(item.id),unittypes) is -1
 				$('#'+item.id).prop('checked',false)
 		$(@ui.unitVariants).each (ind,item)->
 			$('#'+item.id).prop('checked',true)
-			if $.inArray(parseInt(item.id),apartments) is -1
+			if $.inArray(parseInt(item.id),apartments) is -1 && apartmentVariantTempCollection.length != 0
+				$('#'+item.id).prop('checked',false)
+			if $.inArray(parseInt(item.id),bunglows) is -1 && bunglowVariantTempCollection.length != 0
 				$('#'+item.id).prop('checked',false)
 		$(@ui.status).each (ind,item)->
 			$('#'+item.id).prop('checked',true)
@@ -272,7 +280,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		if apartmentFilters.length != 0
 			@assignAptValues(apartmentFilters)
 		
-
+	#on load function to assign all the villa filters
 	assignVillaValues:(villaFilters)->
 		$.merge @unitTypes , _.pluck villaFilters[0].unitTypes ,'id'
 		CommonFloor.defaults['unitTypes'] = @unitTypes.join(',')
@@ -282,7 +290,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		$.merge @status , _.pluck villaFilters[0].status,'name'
 		CommonFloor.defaults['availability'] = @status.join(',')
 
-
+	#on load function to assign all the apartment filters
 	assignAptValues:(apartmentFilters)->
 		$.merge @unitTypes , _.pluck apartmentFilters[0].unitTypes ,'id'
 		CommonFloor.defaults['unitTypes'] = @unitTypes.join(',')

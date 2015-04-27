@@ -144,9 +144,11 @@ CommonFloor.filter = ()->
 				$.each param_val_arr, (index,value)->
 						paramkey = {}
 						paramkey[param_key] = parseInt(value)
-						if _.isString(value)
+						# if _.isString(value)
+						# 	paramkey[param_key] = value
+						if param_key == 'availability'
 							paramkey[param_key] = value
-						
+						console.log paramkey
 						$.merge collection, unitTempCollection.where paramkey
 						
 				
@@ -166,7 +168,7 @@ CommonFloor.resetCollections = ()->
 		property = window.propertyTypes[unitType.get('property_type_id')]
 		if s.decapitalize(property) == 'apartments'
 			apartments.push apartmentVariantCollection.get(item.get('unit_variant_id'))
-		if s.decapitalize(property) == 'bunglows'
+		if s.decapitalize(property) == 'villas/Bungalows'
 			bunglows.push bunglowVariantCollection.get(item.get('unit_variant_id'))
 		unitTypes.push unitType
 	apartmentVariantTempCollection.reset apartments
