@@ -23,18 +23,17 @@
             </li>
         </ul> 
         @foreach(project_property_types($project['id']) as $propertyTypeId => $projectPropertyType)
+        <?php
+           if($projectPropertyType->name === 'Apartments' ||  $projectPropertyType->name === 'Penthouse')
+           {
+               $apartmentPenthouse[] =  $projectPropertyType->name;
+               continue;
+           } 
+        ?>
         <div class="inner-menu-content" >            
             <p class="menu-title">{{ $projectPropertyType->name }}</p>    
         </div>
         <ul class="big-items">
-            @if($projectPropertyType->name === 'Apartments')
-            <li>
-                <a href="{{ url('/admin/project/' . $project['id'] . '/floor-layout') }}">Floor Layouts</a>
-            </li>
-            <li>
-                <a href="{{ url('/admin/project/' . $project['id'] . '/building') }}">Buildings</a>
-            </li>
-            @endif
             <li>
                 <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType->name) . '-variant/') }}">Variants</a>
             </li>
@@ -44,6 +43,27 @@
 
         </ul>
         @endforeach
+       
+        @if(isset($apartmentPenthouse))
+        <div class="inner-menu-content" >            
+            <p class="menu-title">{{ implode("/",$apartmentPenthouse) }}</p>    
+        </div>
+        <ul class="big-items">
+            <li>
+                <a href="{{ url('/admin/project/' . $project['id'] . '/floor-layout') }}">Floor Layouts</a>
+            </li>
+            <li>
+                <a href="{{ url('/admin/project/' . $project['id'] . '/building') }}">Buildings</a>
+            </li>
+            <li>
+                <a href="{{ url('/admin/project/' . $project['id'] . '/apartment-variant/') }}">Variants</a>
+            </li>
+            <li>
+                <a href="{{ url('/admin/project/' . $project['id'] . '/apartment-unit/') }}">Units</a>
+            </li>
+
+        </ul>
+        @endif
     </div> 
 </div>
 <!-- END INNER MENU -->

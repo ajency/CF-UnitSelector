@@ -19,6 +19,10 @@ class Project extends Model {
     public function projectMeta() {
         return $this->hasMany( 'CommonFloor\ProjectMeta' );
     }
+    
+    public function floorLayout() {
+        return $this->hasMany( 'CommonFloor\FloorLayout' );
+    }
 
     public function projectJson() {
         return $this->hasMany( 'CommonFloor\ProjectJson' );

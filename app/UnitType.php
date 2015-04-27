@@ -15,5 +15,9 @@ class UnitType extends Model {
      public function unitTypeVariant() {
         return $this->hasMany( 'CommonFloor\UnitVariant' );
     }
+    
+     public function propertyType() {
+        return $this->belongsTo( 'CommonFloor\PropertyType' );
+    }
 
 }

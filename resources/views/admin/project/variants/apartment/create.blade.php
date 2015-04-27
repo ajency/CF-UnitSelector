@@ -31,6 +31,21 @@
                         <input type="text" class="form-control" name="unit_variant_name" placeholder="Enter Name" data-parsley-required>
                     </div> 
                 </div>
+               @if(count($projectPropertyTypes) > 1)
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Property Type</label>
+                        <select onchange="getPropertTypeData(this,1);" name="property_type" class="select2 form-control" data-parsley-required>
+                            <option value="">Select Type</option>
+                            @foreach($projectPropertyTypes as $projectPropertyType)
+                            <option value="{{ $projectPropertyType['ID'] }}">{{ $projectPropertyType['NAME'] }}</option>
+                            @endforeach
+                        </select>
+                    </div> 
+                </div>
+                @else
+                <input type="hidden" name="" value="{{ $projectPropertyTypes[0]['ID'] }}">
+                @endif
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Unit Type</label>
