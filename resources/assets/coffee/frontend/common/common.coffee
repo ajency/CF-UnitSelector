@@ -21,11 +21,13 @@ CommonFloor.loadJSONData = ()->
 			response = response.data
 			bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants)
 			settings.setSettingsAttributes(response.settings)
-			unitCollection.setUnitAttributes(response.units)
 			unitTypeCollection.setUnitTypeAttributes(response.unit_types)
 			buildingCollection.setBuildingAttributes(response.buildings)
 			apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants)
 			floorLayoutCollection.setFloorLayoutAttributes(response.floor_layout)
+			window.propertyTypes = response.property_types
+			unitCollection.setUnitAttributes(response.units)
+			
 			
 		error :(response)->
 			@region =  new Marionette.Region el : '#noFound-template'
@@ -109,5 +111,77 @@ CommonFloor.propertyTypes = ()->
 	Router
 
 
+CommonFloor.filter = ()->
+	#check whether url contains any parameters
+	if  window.location.href.indexOf('=') > -1
+		params = params
+		paramsArray = params.split('&')
+		#loop through all the parameters
+		for element,index in paramsArray
+			param_key = element.split('=')
+			CommonFloor.defaults[param_key[0]] = param_key[1]
+
+
+		#set the params with the filters selected by the user
+		params = 'unit_variant_id:'+CommonFloor.defaults['unitVariants']+'&unit_type_id:'+CommonFloor.defaults['unitTypes']+
+				'&price_min:'+CommonFloor.defaults['price_min']+'price_max:'+CommonFloor.defaults['price_max']+
+				'&availability:'+CommonFloor.defaults['availability']
+	else
+
+		#url doesnt contain any parameters take the value of the defaults
+		params = 'unit_variant_id:'+CommonFloor.defaults['unitVariants']+'&unit_type_id:'+CommonFloor.defaults['unitTypes']+
+				'&price_min:'+CommonFloor.defaults['price_min']+'price_max:'+CommonFloor.defaults['price_max']+
+				'&availability:'+CommonFloor.defaults['availability']
+
+	param_arr = params.split('&')
+	$.each param_arr, (index,value)->
+			value_arr  =  value.split(':')
+			param_key = value_arr[0]
+			if param_key != 'price_min' && param_key != 'price_max'
+				param_val = value_arr[1]
+				param_val_arr = param_val.split(',')
+				collection = []
+				$.each param_val_arr, (index,value)->
+						paramkey = {}
+						paramkey[param_key] = parseInt(value)
+						if _.isString(value)
+							paramkey[param_key] = value
+						
+						$.merge collection, unitCollection.where paramkey
+						
+				
+				unitTempCollection.reset collection
+	CommonFloor.filterBudget()
+   
+	CommonFloor.resetCollections()
+
+CommonFloor.resetCollections = ()->
+	apartments = []
+	bunglows   = []
+	unitTypes = []
+	console.log unitTempCollection
+	unitTempCollection.each (item)->
+		unitType = unitTypeCollection.findWhere
+							'id' :  item.get('unit_type_id')
+
+		property = window.propertyTypes[unitType.get('property_type_id')]
+		if s.decapitalize(property) == 'apartments'
+			apartments.push apartmentVariantCollection.get(item.get('unit_variant_id'))
+		if s.decapitalize(property) == 'bunglows'
+			bunglows.push bunglowVariantCollection.get(item.get('unit_variant_id'))
+		unitTypes.push unitType
+	apartmentVariantTempCollection.reset apartments
+	bunglowVariantTempCollection.reset bunglows
+	unitTypeTempCollection.reset unitTypes
+
+CommonFloor.filterBudget = ()->
+	budget = []
+	unitTempCollection.each (item)->
+        console.log unitPrice = window.unit.getUnitDetails(item.get('id'))[3]
+        if unitPrice > parseInt(CommonFloor.defaults['price_min']) && unitPrice < parseInt(CommonFloor.defaults['price_max'])
+            budget.push item
+    unitTempCollection.reset budget
+
+		
 
 

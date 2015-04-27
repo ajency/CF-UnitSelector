@@ -24,7 +24,8 @@
     UnitTypeCollection.prototype.model = UnitType;
 
     UnitTypeCollection.prototype.setUnitTypeAttributes = function(data) {
-      return unitTypeCollection.reset(data);
+      unitTypeCollection.reset(data);
+      return unitTypeTempCollection.reset(data);
     };
 
     return UnitTypeCollection;
@@ -32,6 +33,8 @@
   })(Backbone.Collection);
 
   window.unitTypeCollection = new UnitTypeCollection;
+
+  window.unitTypeTempCollection = new UnitTypeCollection;
 
 }).call(this);
 

@@ -10,18 +10,18 @@
       return ApartmentVariant.__super__.constructor.apply(this, arguments);
     }
 
-    ApartmentVariant.prototype.findUnitPrice = function(unit_model) {
+    ApartmentVariant.prototype.findUnitPrice = function(unitModel) {
       var basicCost, basic_cost, floorRise, floorRiseArray, unitVarinatModel;
-      basicCost = "";
-      if (!(unit_model instanceof Backbone.Model) || unit_model === "") {
+      basicCost = 0.00;
+      if (!(unitModel instanceof Backbone.Model) || unitModel === "") {
         return;
       }
       unitVarinatModel = apartmentVariantCollection.findWhere({
-        'id': parseInt(unit_model.get('unit_variant_id'))
+        'id': parseInt(unitModel.get('unit_variant_id'))
       });
       if (!_.isUndefined(unitVarinatModel)) {
-        floorRiseArray = settings.generateFloorRise(unit_model.get('building_id'));
-        floorRise = floorRiseArray[unit_model.get('floor')];
+        floorRiseArray = settings.generateFloorRise(unitModel.get('building_id'));
+        floorRise = floorRiseArray[unitModel.get('floor')];
         basic_cost = (parseFloat(unitVarinatModel.get('per_sq_ft_price')) + parseFloat(floorRise)) * parseFloat(unitVarinatModel.get('super_built_up_area'));
         basicCost = basic_cost.toFixed(2);
       }
@@ -40,10 +40,6 @@
     }
 
     ApartmentVariantCollection.prototype.model = ApartmentVariant;
-
-    ApartmentVariantCollection.prototype.url = function() {
-      return "http://commonfloor.local/methods/functions.php?action=load_apartment_variants";
-    };
 
     ApartmentVariantCollection.prototype.setApartmentVariantAttributes = function(data) {
       return apartmentVariantCollection.reset(data);
@@ -71,6 +67,8 @@
   })(Backbone.Collection);
 
   window.apartmentVariantCollection = new ApartmentVariantCollection;
+
+  window.apartmentVariantTempCollection = new ApartmentVariantCollection;
 
   window.apartmentVariant = new ApartmentVariant;
 

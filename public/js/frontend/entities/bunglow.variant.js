@@ -40,7 +40,8 @@
     BunglowVariantCollection.prototype.model = BunglowVariant;
 
     BunglowVariantCollection.prototype.setBunglowVariantAttributes = function(data) {
-      return bunglowVariantCollection.reset(data);
+      bunglowVariantCollection.reset(data);
+      return bunglowVariantTempCollection.reset(data);
     };
 
     BunglowVariantCollection.prototype.getBunglowUnits = function() {
@@ -57,7 +58,6 @@
       $.each(units, function(index, value) {
         return newUnits = $.merge(newUnits, value);
       });
-      console.log(newUnits);
       return newUnits;
     };
 
@@ -66,6 +66,8 @@
   })(Backbone.Collection);
 
   window.bunglowVariantCollection = new BunglowVariantCollection;
+
+  window.bunglowVariantTempCollection = new BunglowVariantCollection;
 
   window.bunglowVariant = new BunglowVariant;
 

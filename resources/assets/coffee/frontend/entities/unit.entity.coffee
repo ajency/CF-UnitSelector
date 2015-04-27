@@ -39,7 +39,27 @@ class UnitCollection extends Backbone.Collection
 	#set the attributes of a unit model
 	setUnitAttributes:(data)->
 		# @set unitData
-		unitCollection.reset data
+		
+		response = @setUnitType(data)
+		unitCollection.reset response
+		unitTempCollection.reset response
+
+	setUnitType:(data)->
+		$.each data,(index,value)->
+			unitVariant = ''
+			if bunglowVariantCollection.get(value.unit_variant_id) != undefined
+				unitVariant = bunglowVariantCollection.findWhere
+								'id' : value.unit_variant_id
+			if apartmentVariantCollection.get(value.unit_variant_id) != undefined
+				unitVariant = apartmentVariantCollection.findWhere
+								'id' : value.unit_variant_id
+			unitType = unitTypeCollection.findWhere
+							'id' :  unitVariant.get('unit_type_id')
+			value['unit_type_id'] = unitType.get('id')
+
+		data
+
 
 window.unitCollection  = new UnitCollection
+window.unitTempCollection  = new UnitCollection
 window.unit  = new Unit

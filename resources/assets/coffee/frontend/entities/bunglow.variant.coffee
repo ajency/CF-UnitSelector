@@ -28,6 +28,7 @@ class BunglowVariantCollection extends Backbone.Collection
 
 		# @set BunglowData
 		bunglowVariantCollection.reset data
+		bunglowVariantTempCollection.reset data
 
 	#get all the bungalow units
 	getBunglowUnits:()->
@@ -39,8 +40,8 @@ class BunglowVariantCollection extends Backbone.Collection
 			units.push  bunglowUnits
 		$.each units,(index,value)->
 			newUnits = $.merge(newUnits , value)
-		console.log newUnits
 		newUnits
 
 window.bunglowVariantCollection  = new BunglowVariantCollection
+window.bunglowVariantTempCollection  = new BunglowVariantCollection
 window.bunglowVariant  = new BunglowVariant

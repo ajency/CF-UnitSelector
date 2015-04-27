@@ -13,6 +13,8 @@ class UnitTypeCollection extends Backbone.Collection
 
 		# @set unitTypeData
 		unitTypeCollection.reset data
+		unitTypeTempCollection.reset data
 
 
 window.unitTypeCollection  = new UnitTypeCollection
+window.unitTypeTempCollection  = new UnitTypeCollection

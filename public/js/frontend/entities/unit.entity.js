@@ -55,7 +55,32 @@
     UnitCollection.prototype.model = Unit;
 
     UnitCollection.prototype.setUnitAttributes = function(data) {
-      return unitCollection.reset(data);
+      var response;
+      response = this.setUnitType(data);
+      unitCollection.reset(response);
+      return unitTempCollection.reset(response);
+    };
+
+    UnitCollection.prototype.setUnitType = function(data) {
+      $.each(data, function(index, value) {
+        var unitType, unitVariant;
+        unitVariant = '';
+        if (bunglowVariantCollection.get(value.unit_variant_id) !== void 0) {
+          unitVariant = bunglowVariantCollection.findWhere({
+            'id': value.unit_variant_id
+          });
+        }
+        if (apartmentVariantCollection.get(value.unit_variant_id) !== void 0) {
+          unitVariant = apartmentVariantCollection.findWhere({
+            'id': value.unit_variant_id
+          });
+        }
+        unitType = unitTypeCollection.findWhere({
+          'id': unitVariant.get('unit_type_id')
+        });
+        return value['unit_type_id'] = unitType.get('id');
+      });
+      return data;
     };
 
     return UnitCollection;
@@ -63,6 +88,8 @@
   })(Backbone.Collection);
 
   window.unitCollection = new UnitCollection;
+
+  window.unitTempCollection = new UnitCollection;
 
   window.unit = new Unit;
 
