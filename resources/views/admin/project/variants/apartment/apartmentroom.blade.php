@@ -1,7 +1,13 @@
 <form method="POST" id="formroomdetails" name="formroomdetails">
     <div class="grid simple">
         <div class="grid-title">
-            <h3>Room <span class="semi-bold">Details</span></h3>
+            <h3 class="inline">Room <span class="semi-bold">Details</span></h3>
+
+            <div class="user-description-box inline">
+
+                <p>Add rooms (which are created on attributes page) which are present at each level (floor).
+                    Click on Add Level button to add new levels. </p>
+            </div>
         </div>
         <?php
         $i = 0;
@@ -10,7 +16,7 @@
         <div class="grid-body">
             <div class="row m-t-20">
                 <?php $j = 1; ?>
-              @if(isset($variantRooms[0]))
+                @if(isset($variantRooms[0]))
                 @foreach($variantRooms[0] as $roomId => $room)              
                 <div class="form-inline">
                     <div class="form-group">
@@ -77,7 +83,7 @@
                 </div> 
                 <?php $j++; ?>
                 @endforeach
-              @endif  
+                @endif  
                 <div class="col-sm-12" id="levelblock_0"> 
                     <div class="form-inline">
                         <div class="form-group">

@@ -129,11 +129,11 @@
                                                 <select name="unit_type" class="floor-layout-unit-types full-width" onchange="getVariants(this,{{ $floorLayout->id }});">
                                                     <option value="">Choose Unit Type</option>
                                                     @if(isset($propertyTypeIds[$i]) && isset($unitTypes[$propertyTypeIds[$i]]))
-                                                        @foreach($unitTypes[$propertyTypeIds[$i]] as $unitType) 
-                                                            <option {{ (isset($unitTypeIds[$i]) && $unitTypeIds[$i] === $unitType['id']) ? 'selected' : '' }}  value="{{ $unitType['id'] }}">{{ $unitType['unittype_name'] }}</option>
-                                                        @endforeach
+                                                    @foreach($unitTypes[$propertyTypeIds[$i]] as $unitType) 
+                                                    <option {{ (isset($unitTypeIds[$i]) && $unitTypeIds[$i] === $unitType['id']) ? 'selected' : '' }}  value="{{ $unitType['id'] }}">{{ $unitType['unittype_name'] }}</option>
+                                                    @endforeach
                                                     @endif
-                                                     
+
                                                 </select>
                                             </div>
                                         </div>
@@ -160,7 +160,9 @@
                                     </div> 
                                 </div>
                             </div>
+
                         </div>
+
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="pull-right">
@@ -171,15 +173,17 @@
                                     </button>
                                     <div class="cf-loader hidden"></div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
-                </form>
-                @endfor
-            </div>
+          
+            </form>
+            @endfor
         </div>
+    </div>
 
-    </div> 
+</div> 
 </div>
 </div>
 @endsection

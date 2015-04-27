@@ -13,7 +13,10 @@
 @section('content')
 <!-- BEGIN PAGE TITLE -->
 <div class="page-title">	
-    <h2><span class="semi-bold">Add</span> Unit Variant</h2>
+    <h2 class="inline"><span class="semi-bold">Add</span> Unit Variant</h2>
+      <div class="user-description-box inline">
+                <p>Unit variant defines the model of a unit type and can be reused across each unit which have the same specification.</p>
+            </div>
 </div>
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
@@ -27,6 +30,7 @@
                     <i class="fa fa-angle-down grid-angle-down"></i>
                 </div>             
                 <h3>Villa <span class="semi-bold">Details</span></h3>
+       
             </a>
         </div>
         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
@@ -124,8 +128,9 @@
             </div>
         </div>
     </div>
-    @include('admin.project.variantrooms')
     
+     @include('admin.project.variantrooms')
+     
 <div class="grid simple">
     <div class="grid-title" role="tab" id="headingThree">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">

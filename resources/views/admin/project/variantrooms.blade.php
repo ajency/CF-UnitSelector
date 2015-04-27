@@ -6,7 +6,12 @@
                     <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
                         <i class="fa fa-angle-up "></i>
                     </div>
-                    <h3>Room <span class="semi-bold">Details</span></h3>
+                   <h3 class="inline">Room <span class="semi-bold">Details</span></h3>
+                    <div class="user-description-box inline">
+<p>Add rooms (which are created on attributes page) which are present at each level (floor).
+Click on Add Level button to add new levels. </p>
+
+         </div>
                 </a>
             </div>
             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
@@ -123,7 +128,7 @@
                     </div> 
 
                     <div class="form-actions">  
-                        <div class="pull-right">
+                         <div class="pull-right">
                             <button onclick="saveRoomdetails({{$project['id']}},{{ $unitVariant['id'] }});" type="button" class="btn btn-primary btn-cons">Save</button>
                         </div>
                     </div> 

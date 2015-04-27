@@ -13,7 +13,11 @@
 @section('content')
 <!-- BEGIN PAGE TITLE -->
 <div class="page-title">	
-    <h2><span class="semi-bold">Add</span> Unit Variant</h2>
+    <h2 class="inline"><span class="semi-bold">Add</span> Unit Variant</h2>
+    <div class="user-description-box inline">
+                <p>Unit variant defines the model of a unit type and can be reused across each unit which have the same specification.</p>
+            </div>
+            
 </div>
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
@@ -107,30 +111,34 @@
                 <div class="pull-right">
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-                    <button type="submit" class="btn btn-primary btn-cons">Save</button>
+                    <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
+
 @if($propertyTypeID ==1)
   @include('admin.project.variants.apartment.apartmentroom')
 @else
     @include('admin.project.variantrooms')
 @endif
+ 
 <div class="grid simple">
     <div class="grid-title">
         <h3><span class="semi-bold">Layouts</span></h3>
     </div>
+
 @if($propertyTypeID ==1)
   @include('admin.project.variants.apartment.apartmentlayouts')
 @else
     @include('admin.project.variantlayouts')
 @endif
+
     <div class="grid-body"> 
             <h5 class="semi-bold inline">Gallery</h5>
-                <div>
-                 <input id="pickfiles_gallery" type="button" name="fileToUpload" class="btn btn-small btn-white" value="Select your file" data-filename-placement="inside"/>
+                <div class="m-b-15">
+                 <input id="pickfiles_gallery" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/>
                         <button  id="uploadfiles_gallery"type="button" class="btn btn-small btn-primary">Upload</button>
                          </div>
                 <div id="galleryimages">
@@ -138,7 +146,7 @@
                             @foreach($layouts['gallery'] as $gallery)
                             <div class="col-sm-3" id="gallery_{{ $gallery['ID'] }}">   
                                 <img src="{{ $gallery['IMAGE'] }}" class="img-responsive">
-                                <button onclick="deleteLayout({{ $gallery['ID'] }}, 'gallery');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
+                                <button onclick="deleteLayout({{ $gallery['ID'] }}, 'gallery');" type="button" class="btn btn-small btn-default m-t-10"><i class="fa fa-trash"></i> Delete</button>
                             </div>    
                                 @endforeach									
                                 @endif

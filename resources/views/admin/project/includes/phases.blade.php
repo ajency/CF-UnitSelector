@@ -14,6 +14,20 @@
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 
     <div class="grid-body">
+    <div class="row m-b-15">
+    <div class="user-description-box col-md-7">
+                    <div class="row">
+                    <div class="col-md-1 text-right">
+                    <i class="fa fa-info-circle"></i>
+                    </div><div class="col-md-10">
+
+                <p>Stages which the project undergoes e.g. Construction,For Sale. 
+                    This is applicable only for projects having apartments, where each building will have one of the phase as entered below.</p>
+                        </div>
+<div class="col-md-1"></div>
+                         </div> 
+                         </div>
+         </div>
         <div class="row">
             <div class="col-md-4">
                 <div class="form-inline">
