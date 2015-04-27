@@ -45,7 +45,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Address<span class="text-primary">*</span></label><i class="fa fa-question-circle" title=" Project Address to be displayed on unit selector page "></i>
+                        <label class="form-label">Address<span class="text-primary">*</span></label>
                         <textarea name="project_address" class="form-control" 
                                   placeholder="Enter Project Address" data-parsley-required>{{ $project['project_address'] }}</textarea>
                     </div>
@@ -109,13 +109,7 @@
                 <div class="col-md-6">
 
                     <div class="user-description-box">
-
-
-
-
-
-
-                        <div class="row">
+ <div class="row">
                             <div class="col-sm-8">
                                 <h4 class="semi-bold">{{ array_get($project, 'cf.project_title') }} - <span class="bold text-primary">{{ array_get($project, 'cf_project_id') }}</span></h4>
                                 <i class="fa fa-map-marker"></i> <b>Address:</b>

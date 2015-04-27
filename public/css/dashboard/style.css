@@ -8201,6 +8201,16 @@ body.rtl .footer-widget {
   font-size: 40px;
   padding-right: 22px;
 }
+/* Accordion */
+.grid-angle-down {
+  display: none;
+}
+.panel-group .collapsed .grid-angle-down {
+  display: block!important;
+}
+.panel-group .collapsed .fa-angle-up {
+  display: none;
+}
 /* Loader */
 .cf-loader {
   display: inline-block;
