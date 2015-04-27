@@ -169,7 +169,7 @@
           if (_.isString(value)) {
             paramkey[param_key] = value;
           }
-          return $.merge(collection, unitCollection.where(paramkey));
+          return $.merge(collection, unitTempCollection.where(paramkey));
         });
         return unitTempCollection.reset(collection);
       }
@@ -183,7 +183,6 @@
     apartments = [];
     bunglows = [];
     unitTypes = [];
-    console.log(unitTempCollection);
     unitTempCollection.each(function(item) {
       var property, unitType;
       unitType = unitTypeCollection.findWhere({

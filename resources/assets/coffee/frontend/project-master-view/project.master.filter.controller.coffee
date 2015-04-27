@@ -170,7 +170,6 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 				$(@ui.aptFilters).prop('disabled' ,true)
 
 		'click @ui.unitTypes':(e)->
-			console.log $(e.target)
 			if $(e.target).is(':checked')
 				@unitTypes.push parseInt e.target.id
 			else
@@ -236,7 +235,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			unittypes.push item.get 'id'
 		apartmentVariantTempCollection.each (item)->
 			apartments.push item.get 'id'
-		apartmentVariantTempCollection.each (item)->
+		bunglowVariantTempCollection.each (item)->
 			bunglows.push item.get 'id'
 		unitTempCollection.each (item)->
 			status.push item.get 'availability'
@@ -281,6 +280,8 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		CommonFloor.defaults['unitVariants'] = @unitVariants.join(',')
 		# $.merge @price , _.pluck villaFilters[0].price ,'name'
 		$.merge @status , _.pluck villaFilters[0].status,'name'
+		CommonFloor.defaults['availability'] = @status.join(',')
+
 
 	assignAptValues:(apartmentFilters)->
 		$.merge @unitTypes , _.pluck apartmentFilters[0].unitTypes ,'id'
@@ -289,6 +290,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		CommonFloor.defaults['unitVariants'] = @unitVariants.join(',')
 		# $.merge @price , _.pluck apartmentFilters[0].price ,'name'
 		$.merge @status , _.pluck apartmentFilters[0].status,'name'
+		CommonFloor.defaults['availability'] = @status.join(',')
 
 
 class CommonFloor.FilterMasterCtrl extends Marionette.RegionController

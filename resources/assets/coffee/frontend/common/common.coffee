@@ -147,7 +147,7 @@ CommonFloor.filter = ()->
 						if _.isString(value)
 							paramkey[param_key] = value
 						
-						$.merge collection, unitCollection.where paramkey
+						$.merge collection, unitTempCollection.where paramkey
 						
 				
 				unitTempCollection.reset collection
@@ -159,7 +159,6 @@ CommonFloor.resetCollections = ()->
 	apartments = []
 	bunglows   = []
 	unitTypes = []
-	console.log unitTempCollection
 	unitTempCollection.each (item)->
 		unitType = unitTypeCollection.findWhere
 							'id' :  item.get('unit_type_id')

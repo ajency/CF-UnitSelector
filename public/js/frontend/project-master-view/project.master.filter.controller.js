@@ -50,7 +50,6 @@
         }
       },
       'click @ui.unitTypes': function(e) {
-        console.log($(e.target));
         if ($(e.target).is(':checked')) {
           this.unitTypes.push(parseInt(e.target.id));
         } else {
@@ -115,7 +114,7 @@
       apartmentVariantTempCollection.each(function(item) {
         return apartments.push(item.get('id'));
       });
-      apartmentVariantTempCollection.each(function(item) {
+      bunglowVariantTempCollection.each(function(item) {
         return bunglows.push(item.get('id'));
       });
       unitTempCollection.each(function(item) {
@@ -168,7 +167,8 @@
       CommonFloor.defaults['unitTypes'] = this.unitTypes.join(',');
       $.merge(this.unitVariants, _.pluck(villaFilters[0].unitVariants, 'id'));
       CommonFloor.defaults['unitVariants'] = this.unitVariants.join(',');
-      return $.merge(this.status, _.pluck(villaFilters[0].status, 'name'));
+      $.merge(this.status, _.pluck(villaFilters[0].status, 'name'));
+      return CommonFloor.defaults['availability'] = this.status.join(',');
     };
 
     FilterMsterView.prototype.assignAptValues = function(apartmentFilters) {
@@ -176,7 +176,8 @@
       CommonFloor.defaults['unitTypes'] = this.unitTypes.join(',');
       $.merge(this.unitVariants, _.pluck(apartmentFilters[0].unitVariants, 'id'));
       CommonFloor.defaults['unitVariants'] = this.unitVariants.join(',');
-      return $.merge(this.status, _.pluck(apartmentFilters[0].status, 'name'));
+      $.merge(this.status, _.pluck(apartmentFilters[0].status, 'name'));
+      return CommonFloor.defaults['availability'] = this.status.join(',');
     };
 
     return FilterMsterView;
