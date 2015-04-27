@@ -2,16 +2,23 @@
 <div class="grid simple">
     <div class="grid-title"  role="tab" id="headingOne">
        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        <div class="pull-right"><i class="fa fa-angle-up "></i>
-<i class="fa fa-angle-down grid-angle-down"></i>
-       </div>
-        <h3 class="inline"><span class="semi-bold">Google Earth</span> View</h3>
-      <div class="user-description-box inline">
+        
+       <div class="row">
+        <h3 class="col-md-3"><span class="semi-bold">Google Earth</span> View</h3>
+        <div class=" col-md-8">
+        <div class="user-description-box">
                 <p>Upload Google Earth image of the project. Image dimensions should be Image size : 1600*1095. Resolution - 300 DPI.</p>
-            </div>
-        <div class="clearfix"></div></a>
-    </div>
-        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        </div>
+        </div>
+        <div class="col-md-1 text-right">
+            <i class="fa fa-angle-up "></i>
+            <i class="fa fa-angle-down grid-angle-down"></i>
+       </div>
+        <div class="clearfix"></div>
+        </div>
+        </a>
+        </div>
+   <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 
     <div class="grid-body">
          

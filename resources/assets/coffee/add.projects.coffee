@@ -269,6 +269,8 @@ jQuery(document).ready ($)->
 			type : 'GET'
 			success : (resp)->
 
+	$('[data-toggle="tooltip"]').tooltip()
+
 				
 					
 			

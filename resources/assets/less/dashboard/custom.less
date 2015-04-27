@@ -1,4 +1,4 @@
-
+  
 /* Parsley Styles */
 .parsley-errors-list{
 	padding: 0;
@@ -29,7 +29,15 @@
 }
 .fa-question-circle{
   font-size: 15px;
+ .tooltip-inner &:hover{
+    background:#000!important;
+    color:#fff!important;
+  }
 }
+
+.red-tooltip + .tooltip > .tooltip-inner {background-color: #f00;}
+.red-tooltip + .tooltip > .tooltip-arrow { border-bottom-color:#f00; }
+
 
 .user-description-box{
   .fa-info-circle{
