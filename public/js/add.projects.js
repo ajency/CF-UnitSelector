@@ -86,8 +86,9 @@
     };
     registerRemovePhaseListener();
     $('.add-phase-btn').click(function() {
-      var phaseName, successFn;
+      var objectType, phaseName, successFn;
       phaseName = $('.phase-name').val();
+      objectType = $('div.object-phases').attr('data-object-type');
       if (phaseName === '') {
         alert('Please enter phase name');
         return;
@@ -97,8 +98,13 @@
         if (xhr.status === 201) {
           $('.phase-name').val('');
           phaseId = resp.data.phase_id;
-          phasesContainer = $('.phases');
-          html = '<div class="pull-left m-r-10"> <strong>{{ phase_name }}</strong> <button type="button" data-phase-id="{{ phase_id }}" class="btn btn-small btn-link remove-phase"> <span class="fa fa-times text-danger"></span></button> </div>';
+          if (objectType === 'building') {
+            phasesContainer = $('select[name="phase_id"]');
+            html = '<option value="{{ phase_id }}">{{ phase_name }}</option>';
+          } else {
+            phasesContainer = $('.phases');
+            html = '<div class="pull-left m-r-10"> <strong>{{ phase_name }}</strong> <button type="button" data-phase-id="{{ phase_id }}" class="btn btn-small btn-link remove-phase"> <span class="fa fa-times text-danger"></span></button> </div>';
+          }
           compile = Handlebars.compile(html);
           phasesContainer.append(compile({
             phase_name: phaseName,

@@ -2,8 +2,8 @@ jQuery(document).ready ($)->
 	
 	#global setup
 	$.ajaxSetup
-        headers:
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		headers:
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	
 	$.notify.defaults globalPosition : 'bottom right'
 	$( document ).ajaxComplete (args...)->
@@ -96,7 +96,7 @@ jQuery(document).ready ($)->
 	
 	$('.add-phase-btn').click ->
 		phaseName = $('.phase-name').val()
-		
+		objectType = $('div.object-phases').attr 'data-object-type'
 		if phaseName is ''
 			alert 'Please enter phase name'
 			return
@@ -105,12 +105,17 @@ jQuery(document).ready ($)->
 			if xhr.status is 201
 				$('.phase-name').val ''
 				phaseId = resp.data.phase_id
-				phasesContainer = $('.phases')
-				html = '<div class="pull-left m-r-10">
-							<strong>{{ phase_name }}</strong>
-							<button type="button" data-phase-id="{{ phase_id }}" class="btn btn-small btn-link remove-phase">
-							<span class="fa fa-times text-danger"></span></button>
-						</div>'
+				
+				if objectType is 'building'
+					phasesContainer = $('select[name="phase_id"]');
+					html = '<option value="{{ phase_id }}">{{ phase_name }}</option>'
+				else
+					phasesContainer = $('.phases')
+					html = '<div class="pull-left m-r-10">
+								<strong>{{ phase_name }}</strong>
+								<button type="button" data-phase-id="{{ phase_id }}" class="btn btn-small btn-link remove-phase">
+								<span class="fa fa-times text-danger"></span></button>
+							</div>'
 				compile = Handlebars.compile html
 				phasesContainer.append compile( { phase_name : phaseName, phase_id : phaseId } )
 				registerRemovePhaseListener()
