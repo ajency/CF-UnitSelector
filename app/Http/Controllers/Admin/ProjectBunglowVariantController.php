@@ -136,7 +136,7 @@ class ProjectBunglowVariantController extends Controller {
         }
 
         $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
-        $roomTypeArr = $project->roomTypes()->get()->toArray();
+        $availableRoomTypes = $project->roomTypes()->get()->toArray();
         $variantRooms = $unitVariant->variantRoomAttributes()->get()->toArray();
         $variantRoomArr = [];
         $propertyTypeAttributes = ProjectPropertyType::find($projectPropertytypeId)->attributes->toArray();
@@ -151,7 +151,7 @@ class ProjectBunglowVariantController extends Controller {
         }
 
         $variantMeta = $unitVariant->variantMeta()->get()->toArray();
-        $levelImages = [];
+        $layouts = [];
 
         foreach ($variantMeta as $meta) {
             $metakey = $meta['meta_key'];
@@ -164,8 +164,8 @@ class ProjectBunglowVariantController extends Controller {
                     {
                         if (is_numeric($mediaId)) {
                             $imageName = Media::find($mediaId)->image_name;
-                            $levelImages['gallery'][$mediaId]['ID'] = $mediaId;
-                            $levelImages['gallery'][$mediaId]['IMAGE'] = url() . "/projects/" . $project_id . "/variants/" . $meta['unit_variant_id'] . "/" . $imageName;
+                            $layouts['gallery'][$mediaId]['ID'] = $mediaId;
+                            $layouts['gallery'][$mediaId]['IMAGE'] = url() . "/projects/" . $project_id . "/variants/" . $meta['unit_variant_id'] . "/" . $imageName;
                         }
                     }
                 }
@@ -178,8 +178,8 @@ class ProjectBunglowVariantController extends Controller {
                 $mediaId = $meta['meta_value'];
                 if (is_numeric($mediaId)) {
                     $imageName = Media::find($mediaId)->image_name;
-                    $levelImages[$level][$type]['ID'] = $mediaId;
-                    $levelImages[$level][$type]['IMAGE'] = url() . "/projects/" . $project_id . "/variants/" . $meta['unit_variant_id'] . "/" . $imageName;
+                    $layouts[$level][$type]['ID'] = $mediaId;
+                    $layouts[$level][$type]['IMAGE'] = url() . "/projects/" . $project_id . "/variants/" . $meta['unit_variant_id'] . "/" . $imageName;
                 }
             }
         }
@@ -190,11 +190,11 @@ class ProjectBunglowVariantController extends Controller {
                         ->with('project_property_type', $propertyTypeArr)
                         ->with('project_property_type_attributes', $propertyTypeAttributes)
                         ->with('unit_type_arr', $unitTypeArr)
-                        ->with('room_type_arr', $roomTypeArr)
+                        ->with( 'availableRoomTypes', $availableRoomTypes )
                         ->with('unitVariant', $unitVariant->toArray())
-                        ->with('floorlevelRoomAttributes', $variantRoomArr)
+                        ->with('variantRooms', $variantRoomArr)
                         ->with('roomTypeAttributes', $roomTypeAttributes)
-                        ->with('levellayout', $levelImages)
+                        ->with('layouts', $layouts)
                         ->with('current', '');
         //
     }
@@ -276,6 +276,8 @@ class ProjectBunglowVariantController extends Controller {
             $str = '<div class="m-t-10">';
             $str.='<div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 text-grey">';
             $str.='<div class="row">';
+            if(!empty($attributes))
+            {
             foreach ($attributes as $attribute) {
                 $str.='<div class="col-md-4">';
                 $str.='<div class="form-group">';
@@ -305,6 +307,15 @@ class ProjectBunglowVariantController extends Controller {
                 }
 
 
+                $str.='</div>';
+                $str.='</div>';
+            }
+            }
+            else
+            {
+               $str.='<div class="col-md-4">';
+                $str.='<div class="form-group">';
+                $str.='<label class="form-label">Room Attributes Not Defined</label>'; 
                 $str.='</div>';
                 $str.='</div>';
             }

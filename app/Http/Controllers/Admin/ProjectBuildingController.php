@@ -93,7 +93,7 @@ class ProjectBuildingController extends Controller {
         $phases = Phase::where( 'project_id', $projectId )->get();
 
         $building = Building::find( $buildingId );
-        $floorLayouts = FloorLayout::where( 'project_property_type_id', $project->getProjectPropertyTypeId( 1 ) )->get();
+        $floorLayouts = $project->floorLayout()->get();
         $svgImages = [];
             
         foreach ($building->building_master as $key => $images) {

@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label class="form-label">City</label><i class="fa fa-question-circle" title="Location of the project"></i> 
+                        <label class="form-label">City</label><i class="fa fa-question-circle" data-toggle="tooltip" title="Location of the project"></i> 
                         <input type="text" name="city" class="form-control" placeholder="City" 
                                value="{{ array_get( $project ,'city') }}" disabled>
                     </div>

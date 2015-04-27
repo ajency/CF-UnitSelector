@@ -326,7 +326,7 @@ function setUpProjectMasterUploader() {
             max_file_size: '10mb',
             mime_types: [{
                     title: "Image files",
-                    extensions: "svg,jpg,png,jpeg"
+                    extensions: "jpg,png,jpeg"
                 }]
         },
         init: {
@@ -380,7 +380,7 @@ function setUpFloorLevelUploader() {
     if (FLOORLEVELS.length === 0)
         return false;
 
-    $.each(FLOORLEVELS, function (index, value) {
+    $.each(FLOORLEVELS, function (index, value) { 
 
         var uploader2d = new plupload.Uploader({
             runtimes: 'html5,flash,silverlight,html4',
@@ -781,6 +781,35 @@ function getVariants(obj ,floorLayoutId)
             $el.empty(); // remove old options
             $el.append(response.data);
            
+        }
+    }); 
+}
+
+function getPropertTypeData(obj,flag)
+{   
+   $.ajax({
+        url: BASEURL + "/admin/project/" + PROJECTID + "/apartment-variant/getpropertytypedata",
+        type: "POST",
+        data: {
+            property_type_id: obj.value,
+        },
+        success: function (response) {
+
+            if(flag)
+            {
+                //VARIANT CODE
+                $(obj).closest('.row').append(response.data.attributes);
+                $('select[name="unit_type"]').append(response.data.unit_types);
+            }
+            else
+            {
+                //FLOOR LAYOUT
+                $('select[name="unit_type"]').empty();
+                $('select[name="unit_type"]').append('<option value=""> Choose Unit Type</option>');
+                $('select[name="unit_type"]').append(response.data.unit_types);
+            }
+            
+            $("select").select2();
         }
     }); 
 }
