@@ -10,6 +10,7 @@ use CommonFloor\Repositories\ProjectRepository;
 use CommonFloor\Repositories\FloorLayoutRepository;
 use CommonFloor\UnitVariant;
 use CommonFloor\FloorLayoutPosition;
+use CommonFloor\ProjectPropertyType;
 use CommonFloor\UnitType;
 
 class ProjectFloorLayoutController extends Controller {
@@ -27,8 +28,8 @@ class ProjectFloorLayoutController extends Controller {
      */
     public function index( $projectId ) {
         $project = $this->projectRepository->getProjectById( $projectId );
-        $projectPropertyTypeId = $project->getProjectPropertyTypeId( 1 );
-        $floorLayouts = FloorLayout::where('project_property_type_id', $projectPropertyTypeId)->get();
+        $floorLayouts = $project->floorLayout()->get();
+        
         return view( 'admin.project.floorlayout.list' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'list-floor-layout' )
@@ -42,8 +43,18 @@ class ProjectFloorLayoutController extends Controller {
      */
     public function create( $projectId ) {
         $project = $this->projectRepository->getProjectById( $projectId );
+        $propertyTypes = $project->projectPropertyTypes()->whereIn( 'property_type_id', [1,4] )->get()->toArray();
+        $projectPropertyTypes = [];
+        
+        foreach($propertyTypes as $propertyType)
+        {
+            $projectPropertyTypes[]  = ['NAME'=>get_property_type($propertyType['property_type_id']),'ID'=>$propertyType['id']];
+ 
+        } 
+        
         return view( 'admin.project.floorlayout.create' )
                         ->with( 'project', $project->toArray() )
+                        ->with( 'projectPropertyTypes', $projectPropertyTypes )
                         ->with( 'current', 'add-floor-layout' );
     }
 
@@ -55,11 +66,8 @@ class ProjectFloorLayoutController extends Controller {
     public function store( $projectId, Request $request, FloorLayoutRepository $floorLayoutRepository ) {
         $formData = $request->all();
         unset( $formData['_token'] );
-
-        $project = Project::find( $projectId );
-        $projectPropertyTypeId = $project->getProjectPropertyTypeId( 1 ); // 1 is property type apartment
-
-        $formData['project_property_type_id'] = $projectPropertyTypeId;
+        
+        $formData['project_id'] = $projectId;
         $floorLayout = $floorLayoutRepository->createFloorLayout( $formData );
         return redirect( url( 'admin/project/' . $projectId . '/floor-layout/' . $floorLayout->id . '/edit' ) );
     }
@@ -82,31 +90,45 @@ class ProjectFloorLayoutController extends Controller {
      */
     public function edit( $projectId, $floorLayoutId ) {
         $project = $this->projectRepository->getProjectById( $projectId );
-        $projectPropertyTypeId = $project->getProjectPropertyTypeId(1);
-        $unitTypes = $project->getUnitTypesToArray( $projectPropertyTypeId ); 
+        $propertyTypes = $project->projectPropertyTypes()->whereIn( 'property_type_id', [1,4] )->get()->toArray();
+        $projectPropertyTypes = [];
+        $unitTypes =[];
+        foreach($propertyTypes as $propertyType)
+        {
+            $projectPropertyTypes[]  = ['NAME'=>get_property_type($propertyType['property_type_id']),'ID'=>$propertyType['id']];
+ 
+        } 
+        
         $floorLayout = FloorLayout::find( $floorLayoutId );
+        //$unitTypes = $project->getUnitTypesToArray( $floorLayout->project_property_type_id ); 
         $UnitTypeVariants = $unitTypesArr = $allUnitVariants= [];
-        foreach($unitTypes as $unitType){
+       /* foreach($unitTypes as $unitType){
            // $allUnitVariants[$unitType['id']] = UnitVariant::where('unit_type_id', $unitType['id'])->get()->toArray();
             $unitTypesArr[$unitType['id']] = $unitType['unittype_name'];
-        }
+        }*/
+
         
         $floorLayoutPositions = FloorLayoutPosition::where('floor_layout_id', $floorLayoutId)->get()->toArray();
-        $formattedFloorLayoutPositions = $unitTypeIds=[];
+        $formattedFloorLayoutPositions = $unitTypeIds=$propertyTypeIds=[];
         foreach ($floorLayoutPositions as $floorLayoutPosition){
             $formattedFloorLayoutPositions[$floorLayoutPosition['position']] = $floorLayoutPosition;
             $unitTypeId =UnitVariant::where('id',$floorLayoutPosition['unit_variant_id'])->pluck('unit_type_id');     
             $unitTypeIds[$floorLayoutPosition['position']]= $unitTypeId;
+            $projectPropertyTypeId =UnitType::find($unitTypeId)->project_property_type_id;
+            $propertyTypeIds[$floorLayoutPosition['position']]= $projectPropertyTypeId;
             $allUnitVariants[$unitTypeId]=UnitVariant::where('unit_type_id', $unitTypeId)->get()->toArray();
+            $unitTypes[$projectPropertyTypeId] = UnitType::where('project_property_type_id', $projectPropertyTypeId)->get()->toArray();
         }
-        
+      
         return view( 'admin.project.floorlayout.edit' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'add-floor-layout' )
                         ->with( 'floorLayout', $floorLayout )
                         ->with( 'floorLayoutPositions', $formattedFloorLayoutPositions)
-                        ->with( 'unitTypes', $unitTypesArr )
+                        ->with( 'unitTypes', $unitTypes )
                         ->with( 'unitTypeIds', $unitTypeIds )
+                         ->with( 'projectPropertyTypes', $projectPropertyTypes )
+                        ->with( 'propertyTypeIds', $propertyTypeIds )
                         ->with( 'allUnitVariants', $allUnitVariants );
     }
 

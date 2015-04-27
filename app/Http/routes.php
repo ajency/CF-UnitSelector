@@ -57,6 +57,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::post( 'project/{projectid}/floor-layout/{id}/getunittypevariants', 'Admin\ProjectFloorLayoutController@getUnitTypeVariant' );
     Route::post( 'project/{id}/media/updatebreakpoint', 'Admin\ProjectMediaController@updateBreakPoint' );
     Route::post( 'building/{id}/media/updatebreakpoint', 'Admin\BuildingMediaController@updateBreakPoint' );
+    Route::post( 'project/{projectid}/apartment-variant/getpropertytypedata', 'Admin\ProjectApartmentVariantController@getPropertyTypeData' );
     
 } );
 

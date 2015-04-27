@@ -3,7 +3,11 @@
 @section('content')
 
 <div class="page-title">	
-    <h2>Attributes</h2>
+    <h2 class="inline">Attributes</h2>
+    <div class="user-description-box inline">
+<p>Create different rooms ( e.g. Bedroom, Kitchen etc) and define attributes for each of them.The values entered for Selected box and Multi selectbox for these attributes will be available as options on variant page.
+    Enter each of the options as comma separated values here e.g. Wooden, Tiles</p>
+            </div>
 </div>
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 <!--TODO PROPERTY ATTRIBUTES-->
@@ -76,7 +80,7 @@
                             <div class="form-group">
                                 <div class="">
                                     
-                                    <input type="text" name="attribute_name_{{$roomtypeId}}" class="form-control" value="{{$attributes['label']}}" placeholder="Enter Attribute Name">
+                                    <input type="text" name="attribute_name_{{$roomtypeId}}" class="form-control" value="{{$attributes['label']}}" placeholder="Enter Attribute Name"><i class="fa fa-question-circle" title="Attributes Name will be the specification for each room type for example (Area, Length * Width, etc)."></i>
                                     <input type="hidden" name="attribute_id_{{$roomtypeId}}" value="{{$attributes['id']}}">
                                 </div>
                             </div>
@@ -92,7 +96,7 @@
                                         <option value="multiple" @if($attributes['control_type']=='multiple'){{'selected'}}@endif> Multiple Select Box</option>
                                         <option value="media" @if($attributes['control_type']=='number'){{'selected'}}@endif> Number </option>
                                         
-                                    </select>
+                                    </select><i class="fa fa-question-circle" title="The selected control type will be available as input on the Variant page."></i>
                                    
                                 </div>
 

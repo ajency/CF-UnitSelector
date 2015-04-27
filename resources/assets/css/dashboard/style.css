@@ -8177,11 +8177,11 @@ body.rtl .footer-widget {
   font-size: 12px;
   color: #f34235;
 }
-.full-width {
-  width: 100%!important;
-}
 .navbar-brand {
   padding: 6px!important;
+}
+.full-width {
+  width: 100%!important;
 }
 /* Inner Menu */
 .inner-wrapper h2 {
@@ -8193,6 +8193,9 @@ body.rtl .footer-widget {
 }
 .toggle .btn {
   min-height: 33px!important;
+}
+.fa-question-circle {
+  font-size: 14px;
 }
 /* Loader */
 .cf-loader {

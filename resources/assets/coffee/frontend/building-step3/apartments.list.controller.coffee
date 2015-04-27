@@ -28,7 +28,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 		                    <li class="">
 		                      <span class="bread-crumb-current">
 		                        <span class=".icon-arrow-right2"></span><a class="unit_back" href="#">
-													Back to Project Overview</a>
+													Back to Poject Overview</a>
 		                      </span>
 		                    </li>
 		                  </ul>
