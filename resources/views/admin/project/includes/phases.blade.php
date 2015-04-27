@@ -5,19 +5,14 @@
         
          <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
 
-         <div class="row">
-<h3 class="col-md-2"> Project <span class="semi-bold">Phases</span>
-                </h3>
- <div class="col-md-9">
- <div class="user-description-box ">
-         <p>Stages which the project undergoes e.g. Construction,For Sale. 
-          This is applicable only for projects having apartments, where each building will have one of the phase as entered below.</p>
-    </div>
-    </div>
-<div class="col-md-1 text-right"><i class="fa fa-angle-down grid-angle-down"></i>
+   <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
 <i class="fa fa-angle-up "></i>
-         </div>
-</div>
+         </div>      
+<h3 class="inline"> Project <span class="semi-bold">Phases</span></h3>&nbsp;
+ <a  class="inline" data-toggle="popover" 
+ data-content="Stages which the project undergoes e.g. Construction,For Sale. 
+          This is applicable only for projects having apartments, 
+          where each building will have one of the phase as entered below."><i class="fa fa-info"></i></a>
 </a>
     </div>
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">

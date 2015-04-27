@@ -8197,9 +8197,19 @@ body.rtl .footer-widget {
 .fa-question-circle {
   font-size: 15px;
 }
-.user-description-box .fa-info-circle {
-  font-size: 40px;
-  padding-right: 22px;
+.fa-info {
+  cursor: pointer;
+  color: #6F7B8A;
+  padding: 6px;
+  height: 20px;
+  width: 20px;
+  border-radius: 68px;
+  border: 1px solid #6F7B8A;
+  text-align: center;
+  line-height: 7px;
+  font-size: 12px;
+  position: relative;
+  top: -3px;
 }
 .grid-body .in .tooltip-arrow {
   border-right-color: #f68121;

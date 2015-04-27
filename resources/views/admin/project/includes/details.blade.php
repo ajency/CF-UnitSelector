@@ -14,14 +14,12 @@
         <form action="{{ url('/admin/project/'. $project['id']) }}" method="POST" data-parsley-validate>
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group aa">
+                    <div class="form-group ">
                         <label class="form-label">City</label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"  title="Location of the project"></i> 
                         <input type="text" name="city" class="form-control" placeholder="City" 
                                value="{{ array_get( $project ,'city') }}" disabled>
                     </div>
-<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus.">
-  Popover on left
-</button>
+
                     <div class="form-group">
                         <label class="form-label">CF Project Id</label>
                         <span class="help">From CommonFloor database</span>
@@ -130,23 +128,11 @@
                 </div>
             </div>
             <div class="form-actions">  
+ 
+                       <a class="inline" data-toggle="popover" data-content="The project enters the draft mode on save and will only be available on unit selector when 
+               the project status is changed to Published."><i class="fa fa-info"></i></a>
 
-    <div class="row">
-                     <div class="col-md-7">
-                    <div class="user-description-box ">
-                    <div class="row">
-                    <div class="col-md-1">
-                    <i class="fa fa-info-circle"></i>
-                    </div><div class="col-md-10">
-
-                <p class="word-wrap">The project enters the draft mode on save and will only be available on unit selector when 
-               the project status is changed to Published.</p>
-                        </div>
-<div class="col-md-1"></div>
-                         </div> 
-                         </div> 
-                       </div>
-                       <div class="text-right col-md-5">
+                       <div class="pull-right">
                             <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" value="DETAILS" name="project_update"/>
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
@@ -154,12 +140,7 @@
                     <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
                 
                         </div>
-                      </div>
-
-
-               
-                    
-            </div>
+           </div>
         </form>
     </div>
 </div>

@@ -2,22 +2,18 @@
 <div class="grid simple">
     <div class="grid-title" role="tab" id="headingTwo">
         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-            
-            <div class="row">
-            <h3 class="col-md-2">Project<span class="semi-bold"> Master</span></h3>
-            
-            <div class="col-md-9">
-             <div class="user-description-box">
-                <p>Upload 3D view of the project. To enable 360 degree rotation of the project ,upload images in the sequence ( Front -> Right -> Back -> Left). 
-                Image dimension should be Image size : 1600*1095. Resolution - 300 DPI.
-                    Naming convention to be followed for the images uploaded - ProjectName01(first image), ProjectName02 and so on. </p>
-                </div>
-            </div>
-            <div class="col-md-1 text-right"><i class="fa fa-angle-down grid-angle-down"></i>
+             <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
                 <i class="fa fa-angle-up "></i>
             </div>
+            
+            <h3 class="inline">Project<span class="semi-bold"> Master</span></h3>&nbsp;
+             <a  class="inline" data-toggle="popover" 
+ data-content="Upload 3D view of the project. To enable 360 degree rotation of the project ,upload images in the sequence ( Front -> Right -> Back -> Left). 
+                Image dimension should be Image size : 1600*1095. Resolution - 300 DPI.
+  Naming convention to be followed for the images uploaded - ProjectName01(first image), ProjectName02 and so on."><i class="fa fa-info"></i></a>
+            
 <div class="clearfix"></div>
-            </div>
+           
         </a>
     </div>
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">

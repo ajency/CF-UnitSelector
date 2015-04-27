@@ -2,19 +2,13 @@
 <div class="grid simple">
     <div class="grid-title" role="tab" id="headingThree">
     <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-
-         <div class="row">
-<h3 class="col-md-2">Sky <span class="semi-bold">View</span></h3>
-<div class=" col-md-9">
-<div class="user-description-box">
-<p>Upload 3D view of the project. To enable 360 degree rotation of the project ,upload 20 images in the sequence of rotation. 
-Image dimension should be Image size : 1600*1095. Resolution - 300 DPI.</p>
-
-         </div> </div>
-         <div class="col-md-1 text-right"><i class="fa fa-angle-down grid-angle-down"></i>
+<div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
 <i class="fa fa-angle-up "></i>
-         </div>
-         </div>
+ </div>
+         
+<h3 class="inline">Sky <span class="semi-bold">View</span></h3>&nbsp;
+<a class="inline" data-toggle="popover" data-content="Upload 3D view of the project. To enable 360 degree rotation of the project ,upload 20 images in the sequence of rotation. 
+Image dimension should be Image size : 1600*1095. Resolution - 300 DPI."><i class="fa fa-info"></i></a>
 </a> 
     </div>
         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
