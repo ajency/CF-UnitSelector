@@ -264,7 +264,8 @@
         success: function(resp) {}
       });
     });
-    return $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip();
+    return $('[data-toggle="popover"]').popover();
   });
 
 }).call(this);
