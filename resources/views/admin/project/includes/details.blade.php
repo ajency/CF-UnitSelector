@@ -45,7 +45,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label">Address<span class="text-primary">*</span></label>
+                        <label class="form-label">Address<span class="text-primary">*</span></label><i class="fa fa-question-circle" data-toggle="tooltip" title=" Project Address to be displayed on unit selector page "></i>
                         <textarea name="project_address" class="form-control" 
                                   placeholder="Enter Project Address" data-parsley-required>{{ $project['project_address'] }}</textarea>
                     </div>
