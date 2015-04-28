@@ -140,7 +140,7 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 									<div class="list-view-container w-map animated fadeInLeft">
 										<div class="filters-wrapper ">
 											<div class="advncd-filter-wrp  unit-list">
-												<div class="legend">
+												<div class="legend clearfix">
 												  <ul>
 												    <li class="available">AVAILABLE</li>
 												    <li class="sold">SOLD</li>
@@ -296,18 +296,11 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		that = @
 		breakpoints = building.get 'breakpoints'
 		$.each breakpoints,(index,value)->
-			console.log value
 			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/buildings/'+building_id+'/master-'+value+'.svg'
-		# svgs[0] = building.get('building_master').front 
-		# svgs[4] = building.get('building_master').right
-		# svgs[8] = building.get('building_master').back
-		# svgs[12] =  building.get('building_master').left
 		
-		$.merge transitionImages , building.get('building_master')['right-front']
-		$.merge transitionImages , building.get('building_master')['back-right']
-		$.merge transitionImages , building.get('building_master')['left-back']
-		$.merge transitionImages , building.get('building_master')['front-left']
-		$('.region').load(svgs[0],
+		$.merge transitionImages ,  building.get('building_master')
+		first = _.values svgs
+		$('.region').load(first[0],
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
 		# $('.first_image').bttrlazyloading(
 		# 	animation: 'fadeIn'

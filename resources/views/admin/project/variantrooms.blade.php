@@ -6,13 +6,10 @@
                     <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
                         <i class="fa fa-angle-up "></i>
                     </div>
-                   <h3 class="inline">Room <span class="semi-bold">Details</span></h3>
-                    <div class="user-description-box inline">
-<p>Add rooms (which are created on attributes page) which are present at each level (floor).
-Click on Add Level button to add new levels. </p>
-
-         </div>
-                </a>
+                   <h3 class="inline">Room <span class="semi-bold">Details</span></h3>&nbsp;
+                    <a class="inline" data-toggle="popover" data-content="Add rooms (which are created on attributes page) which are present at each level (floor).
+Click on Add Level button to add new levels." data-original-title="" title=""><i class="fa fa-info"></i></a>
+</a>
             </div>
             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                 <div class="grid-body">
@@ -129,7 +126,7 @@ Click on Add Level button to add new levels. </p>
 
                     <div class="form-actions">  
                          <div class="pull-right">
-                            <button onclick="saveRoomdetails({{$project['id']}},{{ $unitVariant['id'] }});" type="button" class="btn btn-primary btn-cons">Save</button>
+                            <button onclick="saveRoomdetails({{$project['id']}},{{ $unitVariant['id'] }});" type="button" class="btn btn-primary btn-cons"><i class="fa fa-check"></i>Save</button>
                         </div>
                     </div> 
                 </div>

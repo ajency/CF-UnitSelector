@@ -140,6 +140,7 @@ class ProjectRoomTypeController extends Controller {
 
         if (!empty( $attributeNameArr )) {
             foreach ($attributeNameArr as $key => $attributeName) {
+                $attributeName = ucfirst($attributeName);
                 $controlType = $controlTypeArr[$key];
                 $controlValues = (isset( $controlValueArr[$key] )) ? $controlValueArr[$key] : '';
                 $attributeId = $attributeIdArr[$key];

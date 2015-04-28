@@ -44,6 +44,17 @@
       return $('#unit' + id).attr('class', classname + ' ' + status);
     };
 
+    BunglowListView.prototype.iniTooltip = function() {
+      return $('.layer').tooltipster({
+        theme: 'tooltipster-shadow',
+        contentAsHTML: true,
+        onlyOne: true,
+        arrow: false,
+        offsetX: 50,
+        offsetY: -10
+      });
+    };
+
     BunglowListView.prototype.events = {
       'mouseover': function(e) {
         var id;

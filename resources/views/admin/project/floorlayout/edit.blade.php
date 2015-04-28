@@ -54,7 +54,9 @@
                                 <h4 class="inline">Floor Layout Detailed SVG</span></h4>
                                 <div id="floor-layout-detailed_svg-container"> 
                                     <input type="button" name="fileToUpload" class="btn btn-small master_pickfiles" value="Select your file"/> 
-                                    <button type="button" class="btn btn-small btn-primary master_uploadfiles" >Upload</button>
+                                    <button type="button" class="btn hidden btn-small btn-primary master_uploadfiles" >Upload</button>
+                                    <div class="row selectedImages">
+                                    </div>
                                     <input type="hidden" name="detailed_svg" value="0" />
                                     <div class="uploaded-image">
                                         @if($floorLayout->hasDetailedSvg())
@@ -69,7 +71,9 @@
                                 <div id="floor-layout-basic_svg-container"> 
                                     <input type="button" name="fileToUpload" class="btn btn-small master_pickfiles" 
                                            value="Select your file" data-filename-placement="inside"/> 
-                                    <button type="button" class="btn btn-small btn-primary master_uploadfiles" >Upload</button>
+                                    <button type="button" class="btn btn-small hidden btn-primary master_uploadfiles" >Upload</button>
+                                    <div class="row selectedImages">
+                                    </div>
                                     <input type="hidden" name="basic_svg" value="0" />
                                     <div class="uploaded-image">
                                         @if($floorLayout->hasBasicSvg())
@@ -177,13 +181,13 @@
                             </div>
                         </div>
                     </div>
-          
-            </form>
-            @endfor
-        </div>
-    </div>
 
-</div> 
+                </form>
+                @endfor
+            </div>
+        </div>
+
+    </div> 
 </div>
 </div>
 @endsection

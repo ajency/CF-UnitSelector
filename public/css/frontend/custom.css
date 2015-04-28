@@ -62,10 +62,6 @@ body {
   -webkit-transition: all 0.3s ease-in 0s;
           transition: all 0.3s ease-in 0s;
 }
-.search-left-content .similar-section {
-  position: absolute;
-  bottom: 0;
-}
 .builder-logo {
   max-width: 200px;
 }
@@ -470,12 +466,6 @@ body {
 }
 .inline-block {
   display: inline-block;
-}
-/* Similar Section */
-.similar-section ul li {
-  float: left;
-  width: 33%;
-  padding: 0 10px 0 0;
 }
 /* SVG */
 .svg-maps div.active {
@@ -1143,6 +1133,10 @@ svg .layer:hover {
 .room-attr span {
   color: #999999;
 }
+.unit-details .unit-list {
+  border-top: 1px solid #d9d9d9;
+  border-bottom: 1px solid #d9d9d9;
+}
 .slider .layouts {
   float: left;
   position: relative;
@@ -1162,6 +1156,7 @@ svg .layer:hover {
 .slider .layouts .img-overlay {
   position: absolute;
   top: 0;
+  left: 0;
   height: 100%;
   width: 100%;
   background-color: #ffffff;
@@ -1177,6 +1172,7 @@ svg .layer:hover {
   color: #4d4d4d;
   font-size: 20px;
   font-weight: bold;
+  text-align: center;
   opacity: 1;
   -webkit-transition: all 0.3s ease-in 0s;
           transition: all 0.3s ease-in 0s;
@@ -1189,7 +1185,7 @@ svg .layer:hover {
 }
 .slider .Level_0 .layouts {
   width: 100%;
-  height: auto;
+  height: 500px;
 }
 .slider .Level_1 .layouts,
 .slider .Level_3 .layouts {
@@ -1207,6 +1203,45 @@ svg .layer:hover {
 .slider .Level_5 .layouts:nth-child(3n) {
   float: none;
   margin: 0 auto 20px;
+}
+.slider .gallery-img {
+  width: 45%;
+  display: inline-block;
+  padding: 15px;
+  margin: 1%;
+  position: relative;
+  height: 275px;
+  border: 5px solid #cccccc;
+  overflow: hidden;
+}
+.slider .gallery-img img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  width: 100%;
+}
+.slider .gallery-img .img-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #ffffff;
+  opacity: 0.75;
+  -webkit-transition: all 0.3s ease-in 0s;
+          transition: all 0.3s ease-in 0s;
+}
+.slider .gallery-img:hover .img-overlay {
+  opacity: 0;
+}
+.similar-section {
+  display: none;
+  position: absolute;
+  bottom: 15px;
 }
 /* Plugins */
 /* Slider */

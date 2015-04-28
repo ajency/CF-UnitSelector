@@ -2,23 +2,28 @@
 <div class="grid simple">
     <div class="grid-title"  role="tab" id="headingOne">
        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        <div class="pull-right"><i class="fa fa-angle-up "></i>
-<i class="fa fa-angle-down grid-angle-down"></i>
+      <div class="pull-right">
+            <i class="fa fa-angle-up "></i>
+            <i class="fa fa-angle-down grid-angle-down"></i>
        </div>
-        <h3 class="inline"><span class="semi-bold">Google Earth</span> View</h3>
-      <div class="user-description-box inline">
-                <p>Upload Google Earth image of the project. Image dimensions should be Image size : 1600*1095. Resolution - 300 DPI.</p>
-            </div>
-        <div class="clearfix"></div></a>
-    </div>
-        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <h3 class="inline"><span class="semi-bold">Google Earth</span> View</h3>&nbsp;
+         <a  class="inline" data-toggle="popover" 
+ data-content=" Upload Google Earth image of the project. Image dimensions should be Image size :
+  1600*1095. Resolution - 300 DPI."><i class="fa fa-info"></i></a>
+</a>
+ <div class="clearfix"></div>
+       </a>
+        </div>
+   <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 
     <div class="grid-body">
          
         <div id="container">
       <input type="hidden" value="{{ csrf_token()}}" name="_token"/> 
             <input id="pickfiles" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/> 
-            <button id="uploadfiles" type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#g-map-1">Upload</button>
+            <button id="uploadfiles" type="button" class="btn btn-small btn-primary hidden" data-toggle="collapse" data-target="#g-map-1">Upload</button>
+            <div class="row selectedImages">
+            </div>
         </div>
 
         <div id="g-map-1" class="svg-holder">

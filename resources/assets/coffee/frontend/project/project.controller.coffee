@@ -148,8 +148,11 @@ class CenterView extends Marionette.ItemView
 			CommonFloor.checkPropertyType()
 			
 	onShow:->
+		# $('.svg-area').lazyLoadXT()
 		path = @model.get('step_one').svg
 		$('.svg-area').load(path)
+
+		
 
 #Controller for the cneter view of Project
 class CommonFloor.CenterCtrl extends Marionette.RegionController

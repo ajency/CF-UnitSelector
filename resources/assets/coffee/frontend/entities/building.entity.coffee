@@ -95,10 +95,7 @@ class Building extends Backbone.Model
 		transitionImages = []
 		buildingModel = buildingCollection.findWhere({'id':parseInt(building)})
 		breakpoints = buildingModel.get 'breakpoints'
-		# $.merge transitionImages , buildingModel.get('building_master')['right-front']
-		# $.merge transitionImages , buildingModel.get('building_master')['back-right']
-		# $.merge transitionImages , buildingModel.get('building_master')['left-back']
-		# $.merge transitionImages , buildingModel.get('building_master')['front-left']
+		
 		if parseInt(breakpoints.length) > 1
 			@set 'rotation' , 1
 		else

@@ -276,6 +276,8 @@ class ProjectBunglowVariantController extends Controller {
             $str = '<div class="m-t-10">';
             $str.='<div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 text-grey">';
             $str.='<div class="row">';
+            if(!empty($attributes))
+            {
             foreach ($attributes as $attribute) {
                 $str.='<div class="col-md-4">';
                 $str.='<div class="form-group">';
@@ -305,6 +307,15 @@ class ProjectBunglowVariantController extends Controller {
                 }
 
 
+                $str.='</div>';
+                $str.='</div>';
+            }
+            }
+            else
+            {
+               $str.='<div class="col-md-4">';
+                $str.='<div class="form-group">';
+                $str.='<label class="form-label">Room Attributes Not Defined</label>'; 
                 $str.='</div>';
                 $str.='</div>';
             }

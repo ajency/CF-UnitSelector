@@ -95,11 +95,6 @@ class VillaView extends Marionette.CompositeView
 			
 
 	onShow:->
-		if project.get('project_master').front  == ""
-			$('.map-View').hide()
-		else
-			$('.map-View').show()
-
 		if apartmentVariantCollection.length != 0
 			$('.buildings').removeClass 'hidden'
 		

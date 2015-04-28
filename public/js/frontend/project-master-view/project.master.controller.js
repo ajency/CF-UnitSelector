@@ -30,7 +30,7 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.checkPropertyType();
       }
-      if (project.get('project_master').front !== "") {
+      if (Object.keys(project.get('project_master')).length !== 0) {
         return this.show(new CommonFloor.ProjectMasterView);
       } else {
         return this.show(new CommonFloor.NothingFoundView);
@@ -48,7 +48,7 @@
       return TopMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="search-header-wrap"> <div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span><a class="unit_back" href="#"> Back to Poject Overview</a> </span> </li> </ul> </div> </div> </div> <h1 class="pull-left proj-name">{{project_title}}</h1> <div class="proj-type-count"> {{#types}} <h1 class="text-primary pull-left">{{count.length}}</h1> <p class="pull-left">{{type}}</p> {{/types}} <div class="clearfix"></div> </div> <div class="clearfix"></div> </div> </div> </div>');
+    TopMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="search-header-wrap"> <div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span><a class="unit_back" href="#"> Back to Project Overview</a> </span> </li> </ul> </div> </div> </div> <h1 class="pull-left proj-name">{{project_title}}</h1> <div class="proj-type-count"> {{#types}} <h1 class="text-primary pull-left">{{count.length}}</h1> <p class="pull-left">{{type}}</p> {{/types}} <div class="clearfix"></div> </div> <div class="clearfix"></div> </div> </div> </div>');
 
     TopMasterView.prototype.ui = {
       unitBack: '.unit_back'
@@ -177,7 +177,7 @@
         if (unit.length === 0) {
           return;
         }
-        if (buildingModel.get('building_master').front === "") {
+        if (Object.keys(buildingModel.get('building_master')).length === 0) {
           CommonFloor.navigate('/building/' + id + '/apartments', true);
           return CommonFloor.router.storeRoute();
         } else {
@@ -241,7 +241,7 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
+        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Variant</label> - ' + response[0].get('unit_variant_name') + ' Sq.ft </div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
         $('#' + id).attr('class', 'layer villa ' + availability);
         $('#unit' + id).attr('class', 'unit blocks active');
         return $('.layer').tooltipster('content', html);
@@ -273,7 +273,7 @@
     };
 
     CenterMasterView.prototype.onShow = function() {
-      var breakpoints, height, svgs, that, transitionImages;
+      var breakpoints, first, height, svgs, that, transitionImages;
       height = this.ui.svgContainer.width() / 1.46;
       $('.us-left-content').css('height', height);
       $('.units').css('height', height - 162);
@@ -285,11 +285,9 @@
       $.each(breakpoints, function(index, value) {
         return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/master/master-' + value + '.svg';
       });
-      $.merge(transitionImages, project.get('project_master')['right-front']);
-      $.merge(transitionImages, project.get('project_master')['back-right']);
-      $.merge(transitionImages, project.get('project_master')['left-back']);
-      $.merge(transitionImages, project.get('project_master')['front-left']);
-      $('.region').load(svgs[0], $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
+      first = _.values(svgs);
+      $.merge(transitionImages, project.get('project_master'));
+      $('.region').load(first[0], $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
       $('.first_image').load(function() {
         var response;
         response = project.checkRotationView();
@@ -297,7 +295,23 @@
           return $('.cf-loader').removeClass('hidden');
         }
       });
-      return this.initializeRotate(transitionImages, svgs);
+      this.initializeRotate(transitionImages, svgs);
+      return this.applyClasses();
+    };
+
+    CenterMasterView.prototype.applyClasses = function() {
+      return $('.villa').each(function(ind, item) {
+        var availability, id, unit;
+        id = parseInt(item.id);
+        unit = unitCollection.findWhere({
+          id: id
+        });
+        availability = unit.get('availability');
+        availability = s.decapitalize(availability);
+        if (availability !== void 0) {
+          return $('#' + id).attr('class', 'layer villa ' + availability);
+        }
+      });
     };
 
     CenterMasterView.prototype.setDetailIndex = function(index) {
