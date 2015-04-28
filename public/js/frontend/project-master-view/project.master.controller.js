@@ -241,7 +241,7 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('unit_variant_name') + ' Sq.ft </div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
+        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Variant</label> - ' + response[0].get('unit_variant_name') + ' Sq.ft </div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
         $('#' + id).attr('class', 'layer villa ' + availability);
         $('#unit' + id).attr('class', 'unit blocks active');
         return $('.layer').tooltipster('content', html);
@@ -285,10 +285,9 @@
       $.each(breakpoints, function(index, value) {
         return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/master/master-' + value + '.svg';
       });
-      console.log(svgs);
-      console.log(first = _.first(svgs));
+      first = _.values(svgs);
       $.merge(transitionImages, project.get('project_master'));
-      $('.region').load(first, $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
+      $('.region').load(first[0], $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
       $('.first_image').load(function() {
         var response;
         response = project.checkRotationView();
@@ -296,7 +295,23 @@
           return $('.cf-loader').removeClass('hidden');
         }
       });
-      return this.initializeRotate(transitionImages, svgs);
+      this.initializeRotate(transitionImages, svgs);
+      return this.applyClasses();
+    };
+
+    CenterMasterView.prototype.applyClasses = function() {
+      return $('.villa').each(function(ind, item) {
+        var availability, id, unit;
+        id = parseInt(item.id);
+        unit = unitCollection.findWhere({
+          id: id
+        });
+        availability = unit.get('availability');
+        availability = s.decapitalize(availability);
+        if (availability !== void 0) {
+          return $('#' + id).attr('class', 'layer villa ' + availability);
+        }
+      });
     };
 
     CenterMasterView.prototype.setDetailIndex = function(index) {

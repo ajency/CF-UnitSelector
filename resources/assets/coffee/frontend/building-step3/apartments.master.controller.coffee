@@ -29,7 +29,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		                    <li class="">
 		                      <span class="bread-crumb-current">
 		                        <span class=".icon-arrow-right2"></span><a class="unit_back" href="#">
-													Back to Project Overview</a>
+													Back to Poject Overview</a>
 		                      </span>
 		                    </li>
 		                  </ul>
@@ -298,11 +298,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$.each breakpoints,(index,value)->
 			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/buildings/'+building_id+'/master-'+value+'.svg'
 		
-		console.log svgs
-		console.log first = _.first svgs
-		$.merge transitionImages , building.get('building_master')
-		
-		$('.region').load(first,
+		$.merge transitionImages ,  building.get('building_master')
+		first = _.values svgs
+		$('.region').load(first[0],
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
 		# $('.first_image').bttrlazyloading(
 		# 	animation: 'fadeIn'
