@@ -166,9 +166,10 @@
           var paramkey;
           paramkey = {};
           paramkey[param_key] = parseInt(value);
-          if (_.isString(value)) {
+          if (param_key === 'availability') {
             paramkey[param_key] = value;
           }
+          console.log(paramkey);
           return $.merge(collection, unitTempCollection.where(paramkey));
         });
         return unitTempCollection.reset(collection);
@@ -192,7 +193,7 @@
       if (s.decapitalize(property) === 'apartments') {
         apartments.push(apartmentVariantCollection.get(item.get('unit_variant_id')));
       }
-      if (s.decapitalize(property) === 'bunglows') {
+      if (s.decapitalize(property) === 'villas/Bungalows') {
         bunglows.push(bunglowVariantCollection.get(item.get('unit_variant_id')));
       }
       return unitTypes.push(unitType);

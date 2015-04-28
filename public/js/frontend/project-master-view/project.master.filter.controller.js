@@ -51,6 +51,7 @@
       },
       'click @ui.unitTypes': function(e) {
         if ($(e.target).is(':checked')) {
+          unitTempCollection.reset(unitCollection.toArray());
           this.unitTypes.push(parseInt(e.target.id));
         } else {
           this.unitTypes = _.without(this.unitTypes, parseInt(e.target.id));
@@ -62,6 +63,7 @@
       },
       'click @ui.unitVariants': function(e) {
         if ($(e.target).is(':checked')) {
+          unitTempCollection.reset(unitCollection.toArray());
           this.unitVariants.push(parseInt(e.target.id));
         } else {
           this.unitVariants = _.without(this.unitVariants, parseInt(e.target.id));
@@ -72,6 +74,7 @@
       },
       'change @ui.priceMin': function(e) {
         if ($(e.target).val() !== "") {
+          unitTempCollection.reset(unitCollection.toArray());
           CommonFloor.defaults['price_min'] = $(e.target).val();
         } else {
           CommonFloor.defaults['price_min'] = 0;
@@ -81,6 +84,7 @@
       },
       'change @ui.priceMax': function(e) {
         if ($(e.target).val() !== "") {
+          unitTempCollection.reset(unitCollection.toArray());
           CommonFloor.defaults['price_max'] = $(e.target).val();
         } else {
           CommonFloor.defaults['price_max'] = 999999900;
@@ -90,6 +94,7 @@
       },
       'click @ui.status': function(e) {
         if ($(e.target).is(':checked')) {
+          unitTempCollection.reset(unitCollection.toArray());
           this.status.push(e.target.id);
         } else {
           this.status = _.without(this.status, e.target.id);
@@ -120,6 +125,7 @@
       unitTempCollection.each(function(item) {
         return status.push(item.get('availability'));
       });
+      console.log(bunglows);
       $(this.ui.unitTypes).each(function(ind, item) {
         $('#' + item.id).prop('checked', true);
         if ($.inArray(parseInt(item.id), unittypes) === -1) {
@@ -128,7 +134,10 @@
       });
       $(this.ui.unitVariants).each(function(ind, item) {
         $('#' + item.id).prop('checked', true);
-        if ($.inArray(parseInt(item.id), apartments) === -1) {
+        if ($.inArray(parseInt(item.id), apartments) === -1 && apartmentVariantTempCollection.length !== 0) {
+          $('#' + item.id).prop('checked', false);
+        }
+        if ($.inArray(parseInt(item.id), bunglows) === -1 && bunglowVariantTempCollection.length !== 0) {
           return $('#' + item.id).prop('checked', false);
         }
       });
