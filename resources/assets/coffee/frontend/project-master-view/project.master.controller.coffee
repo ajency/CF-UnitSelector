@@ -107,6 +107,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
+									<div id="trig" class="toggle-button">List View</div>
 									<div class="list-view-container animated fadeInRight">
 										<!--<div class="controls mapView">
 											<div class="toggle">
@@ -308,6 +309,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				$('.cf-loader').removeClass 'hidden'
 		@initializeRotate(transitionImages,svgs)
 		@applyClasses()
+
+		$('#trig').on 'click', ->
+		  $('.search-left-content').toggleClass 'col-0 col-md-3'
+		  $('.us-right-content').toggleClass 'col-md-12 col-md-9'
+		  return
 
 	applyClasses:->
 		$('.villa').each (ind,item)->
