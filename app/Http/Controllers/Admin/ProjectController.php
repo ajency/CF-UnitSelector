@@ -57,17 +57,22 @@ class ProjectController extends Controller {
      */
     public function edit($id, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($id);
-        $projectMeta = $project->projectMeta()->get()->toArray();
+        $projectMeta = $project->projectMeta()->whereNotIn('meta_key',['master','google_earth','skyview','breakpoints','cf'])->get()->toArray(); 
         $propertyTypes = PropertyType::all();
-        $unitTypes = [];
-
+        $unitTypes = $projectCost= [];
+        
+        foreach ($projectMeta as $meta)
+        {
+           $projectCost[$meta['meta_key']] = ['ID'=>$meta['id'],'VALUE'=>$meta['meta_value']];
+        }
+         
         foreach ($project->projectPropertyTypes as $projectPropertyType) {
             $unitTypes[$projectPropertyType->property_type_id] = $project->getUnitTypesToArray($projectPropertyType->id);
         }
-
+ 
         return view('admin.project.settings')
                         ->with('project', $project->toArray())
-                        ->with('project_meta', $projectMeta)
+                        ->with('projectCost', $projectCost)
                         ->with('propertyTypes', $propertyTypes)
                         ->with('unitTypes', $unitTypes)
                         ->with('current', 'settings');
