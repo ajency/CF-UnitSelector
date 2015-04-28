@@ -285,10 +285,9 @@
       $.each(breakpoints, function(index, value) {
         return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/master/master-' + value + '.svg';
       });
-      console.log(svgs);
-      console.log(first = _.first(svgs));
+      first = _.values(svgs);
       $.merge(transitionImages, project.get('project_master'));
-      $('.region').load(first, $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
+      $('.region').load(first[0], $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
       $('.first_image').load(function() {
         var response;
         response = project.checkRotationView();

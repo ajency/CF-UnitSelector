@@ -293,16 +293,14 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		that = @
 		transitionImages = []
 		svgs = {}
-		firsttemp = []
 		breakpoints = project.get('breakpoints')
 		$.each breakpoints,(index,value)->
-			firsttemp[] =  BASEURL+'/projects/'+PROJECTID+'/buildings/'+building_id+'/master-'+value+'.svg'
 			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/master/master-'+value+'.svg'
 
-		console.log svgs
-		console.log first = _.first firsttemp
+		
+		first = _.values svgs
 		$.merge transitionImages ,  project.get('project_master')
-		$('.region').load(first,
+		$('.region').load(first[0],
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
 		$('.first_image').load ()->
 			response = project.checkRotationView()
