@@ -243,7 +243,6 @@
       $(this).closest('.row').find('.select-floor').removeClass('hidden');
       floorSelection.empty();
       results = [];
-       results.push(floorSelection.append("<option value=''>Select Floor</option>"));
       for (i = j = 0, ref = noOfFloors; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
         results.push(floorSelection.append("<option value='" + (i + 1) + "'>" + (i + 1) + "</option>"));
       }

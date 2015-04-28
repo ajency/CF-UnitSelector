@@ -307,6 +307,17 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			if response is 1
 				$('.cf-loader').removeClass 'hidden'
 		@initializeRotate(transitionImages,svgs)
+		@applyClasses()
+
+	applyClasses:->
+		$('.villa').each (ind,item)->
+			id = item.id
+			unit = unitCollection.findWhere 
+				id :  id 
+			availability = unit.get('availability')
+			availability = s.decapitalize(availability)
+			if availability != undefined
+				$('#'+id).attr('class' ,'layer villa '+availability) 
 		
 		
 

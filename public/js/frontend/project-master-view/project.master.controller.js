@@ -295,7 +295,23 @@
           return $('.cf-loader').removeClass('hidden');
         }
       });
-      return this.initializeRotate(transitionImages, svgs);
+      this.initializeRotate(transitionImages, svgs);
+      return this.applyClasses();
+    };
+
+    CenterMasterView.prototype.applyClasses = function() {
+      return $('.villa').each(function(ind, item) {
+        var availability, id, unit;
+        id = item.id;
+        unit = unitCollection.findWhere({
+          id: id
+        });
+        availability = unit.get('availability');
+        availability = s.decapitalize(availability);
+        if (availability !== void 0) {
+          return $('#' + id).attr('class', 'layer villa ' + availability);
+        }
+      });
     };
 
     CenterMasterView.prototype.setDetailIndex = function(index) {
