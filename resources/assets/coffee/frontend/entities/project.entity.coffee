@@ -43,10 +43,7 @@ class CommonFloor.Project extends Backbone.Model
 	checkRotationView:->
 		transitionImages = []
 		breakpoints = project.get('breakpoints')
-		# $.merge transitionImages , project.get('project_master')['right-front']
-		# $.merge transitionImages , project.get('project_master')['back-right']
-		# $.merge transitionImages , project.get('project_master')['left-back']
-		# $.merge transitionImages , project.get('project_master')['front-left']
+		
 		if parseInt(breakpoints.length) > 1
 			@set 'rotation' , 1
 		else
