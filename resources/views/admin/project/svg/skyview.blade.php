@@ -16,7 +16,9 @@ Image dimension should be Image size : 1600*1095. Resolution - 300 DPI."><i clas
        
         <div id="skyview_container">
         <input id="skyview_pickfiles" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/>
-        <button id="skyview_uploadfiles" type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#proj-master">Upload</button>
+        <button id="skyview_uploadfiles" type="button" class="btn btn-small hidden btn-primary" data-toggle="collapse" data-target="#proj-master">Upload</button>
+        <div class="row selectedImages">
+            </div>
         </div>
         <div id="proj-master" class="svg-holder">
             <hr>

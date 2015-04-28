@@ -14,10 +14,10 @@
 <!-- BEGIN PAGE TITLE -->
 <div class="page-title inline">	
     <h2><span class="semi-bold">Add</span> Unit Variant</h2>
- </div>&nbsp;&nbsp;
+</div>&nbsp;&nbsp;
 
-   <a class="inline" data-toggle="popover" data-content="Unit variant defines the model of a unit type and can be reused across each unit which have the same specification." 
-  data-original-title="" title=""><i class="fa fa-info"></i></a>
+<a class="inline" data-toggle="popover" data-content="Unit variant defines the model of a unit type and can be reused across each unit which have the same specification." 
+   data-original-title="" title=""><i class="fa fa-info"></i></a>
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
 <div class="grid simple">
@@ -118,41 +118,43 @@
 </div>
 
 @if($propertyTypeID ==1)
-  @include('admin.project.variants.apartment.apartmentroom')
+@include('admin.project.variants.apartment.apartmentroom')
 @else
-    @include('admin.project.variantrooms')
+@include('admin.project.variantrooms')
 @endif
- 
+
 <div class="grid simple">
     <div class="grid-title">
         <h3><span class="semi-bold">Layouts</span></h3>
     </div>
 
-@if($propertyTypeID ==1)
-  @include('admin.project.variants.apartment.apartmentlayouts')
-@else
+    @if($propertyTypeID ==1)
+    @include('admin.project.variants.apartment.apartmentlayouts')
+    @else
     @include('admin.project.variantlayouts')
-@endif
+    @endif
 
     <div class="grid-body"> 
-            <h5 class="semi-bold inline">Gallery</h5>
-                <div class="m-b-15">
-                 <input id="pickfiles_gallery" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/>
-                        <button  id="uploadfiles_gallery"type="button" class="btn btn-small btn-primary">Upload</button>
-                         </div>
-                <div id="galleryimages">
-                            @if(isset($layouts['gallery']))
-                            @foreach($layouts['gallery'] as $gallery)
-                            <div class="col-sm-3" id="gallery_{{ $gallery['ID'] }}">   
-                                <img src="{{ $gallery['IMAGE'] }}" class="img-responsive">
-                                <button onclick="deleteLayout({{ $gallery['ID'] }}, 'gallery');" type="button" class="btn btn-small btn-default m-t-10"><i class="fa fa-trash"></i> Delete</button>
-                            </div>    
-                                @endforeach									
-                                @endif
-                            
-                        </div>         
- 
-            </div>
+        <h5 class="semi-bold inline">Gallery</h5>
+        <div class="m-b-15">
+            <input id="pickfiles_gallery" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/>
+            <button  id="uploadfiles_gallery"type="button" class="btn btn-small hidden btn-primary">Upload</button>
+            <div class="row selectedImages">
+            </div>        
+        </div>
+        <div id="galleryimages">
+            @if(isset($layouts['gallery']))
+            @foreach($layouts['gallery'] as $gallery)
+            <div class="col-sm-3" id="gallery_{{ $gallery['ID'] }}">   
+                <img src="{{ $gallery['IMAGE'] }}" class="img-responsive">
+                <button onclick="deleteLayout({{ $gallery['ID'] }}, 'gallery');" type="button" class="btn btn-small btn-default m-t-10"><i class="fa fa-trash"></i> Delete</button>
+            </div>    
+            @endforeach									
+            @endif
+
+        </div>         
+
+    </div>
 
 
 </div> 
@@ -163,11 +165,11 @@
             @endforeach
 
             var BASEURL = '{{ url() }}';
-            @if($propertyTypeID ==1)
-              var FLOORLEVELS = ['0'];
+            @if ($propertyTypeID == 1)
+                var FLOORLEVELS = ['0'];
             @else
-               var FLOORLEVELS = [<?php echo implode(",", array_keys($variantRooms)); ?>];  
-            @endif    
+                 var FLOORLEVELS = [<?php echo implode(",", array_keys($variantRooms)); ?>];
+            @endif
             var variantId = {{ $unitVariant['id'] }};
 </script>
 <!-- END PLACE PAGE CONTENT HERE -->
