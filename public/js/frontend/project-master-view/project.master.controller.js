@@ -280,7 +280,7 @@
       $('#spritespin').hide();
       that = this;
       transitionImages = [];
-      svgs = {};
+      svgs = [];
       breakpoints = project.get('breakpoints');
       $.each(breakpoints, function(index, value) {
         return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/master/master-' + value + '.svg';
