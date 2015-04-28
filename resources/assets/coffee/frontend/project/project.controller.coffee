@@ -152,6 +152,7 @@ class CenterView extends Marionette.ItemView
 	onShow:->
 		path = @model.get('step_one').svg
 		$('.svg-area').load(path)
+		
 
 #Controller for the cneter view of Project
 class CommonFloor.CenterCtrl extends Marionette.RegionController
