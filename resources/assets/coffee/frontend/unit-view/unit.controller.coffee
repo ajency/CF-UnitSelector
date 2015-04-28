@@ -1,4 +1,3 @@
-		@show new CenterUnitView
 #View for the Main Controller
 class CommonFloor.UnitView extends Marionette.LayoutView
 
