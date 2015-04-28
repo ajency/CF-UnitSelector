@@ -273,21 +273,22 @@
     };
 
     CenterMasterView.prototype.onShow = function() {
-      var breakpoints, height, svgs, that, transitionImages;
+      var breakpoints, first, height, svgs, that, transitionImages;
       height = this.ui.svgContainer.width() / 1.46;
       $('.us-left-content').css('height', height);
       $('.units').css('height', height - 162);
       $('#spritespin').hide();
       that = this;
       transitionImages = [];
-      svgs = [];
+      svgs = {};
       breakpoints = project.get('breakpoints');
       $.each(breakpoints, function(index, value) {
         return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/master/master-' + value + '.svg';
       });
-      console.log(svgs[0]);
+      console.log(svgs);
+      console.log(first = _.first(svgs));
       $.merge(transitionImages, project.get('project_master'));
-      $('.region').load(svgs[0], $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
+      $('.region').load(first, $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
       $('.first_image').load(function() {
         var response;
         response = project.checkRotationView();
