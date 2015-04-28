@@ -302,7 +302,7 @@
     CenterMasterView.prototype.applyClasses = function() {
       return $('.villa').each(function(ind, item) {
         var availability, id, unit;
-        id = item.id;
+        id = parseInt(item.id);
         unit = unitCollection.findWhere({
           id: id
         });
