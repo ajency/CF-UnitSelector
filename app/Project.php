@@ -74,7 +74,7 @@ class Project extends Model {
         {
             foreach ($masterImages as $key => $images) {
                 $imageName = Media::find($images)->image_name;
-                $Images[$key] = url() . "/projects/" .  $this->id . "/master/" . $imageName;
+                $Images[] = url() . "/projects/" .  $this->id . "/master/" . $imageName;
             }
         }
         return $Images;

@@ -312,11 +312,7 @@ class CenterUnitView extends Marionette.ItemView
 			html = ''
 			$.each response[1],(index,value)->
 				html += '<div class="layouts animated fadeIn">
-							<a class="fancybox" rel="3d" href="'+value+'" title="'+s.replaceAll(response[2][index], "_", " ")+'">
-								<img class="img" src="'+value+'" />
-								<div class="img-overlay"></div>
-								<span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
-							</a>
+							<img class="img" src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
 						</div>'
 			$('.images').html html
 			$('.threeD').addClass('current')
@@ -329,11 +325,7 @@ class CenterUnitView extends Marionette.ItemView
 			html = ''
 			$.each response[0],(index,value)->
 				html += '<div class="layouts animated fadeIn">
-							<a class="fancybox" rel="2d" href="'+value+'" title="'+s.replaceAll(response[2][index], "_", " ")+'">
-								<img class="img" src="'+value+'" />
-								<div class="img-overlay"></div>
-								<span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
-							</a>
+							<img class="img" src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
 						</div>'
 			$('.images').html html
 			$('.twoD').addClass('current')
@@ -429,9 +421,8 @@ class CenterUnitView extends Marionette.ItemView
 		# 	placeholder : '<div class="cf-loader"></div>'
 
 		# 	)
-		$(".fancybox").fancybox()
 
-
+	#function to check for levels
 	generateLevels:->
 		url = Backbone.history.fragment
 		unitid = parseInt url.split('/')[1]
