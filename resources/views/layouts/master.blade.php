@@ -17,6 +17,7 @@
         <link href="{{ asset('bower_components/datatables-responsive/css/dataTables.responsive.css') }}" rel="stylesheet" type="text/css" media="screen">
         <link href="{{ asset('bower_components/select2/select2.css') }}" rel="stylesheet" type="text/css" media="screen">
         <link href="{{ asset('bower_components/animate.css/animate.min.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}" rel="stylesheet" type="text/css"/>
 
 
         <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css"/>
@@ -168,6 +169,7 @@
         <script src="{{ asset('bower_components/jquery.breakpoints/breakpoints.js' ) }}" type="text/javascript"></script>
         <script src="{{ asset('bower_components/bootstrap-file-input/bootstrap.file-input.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bower_components/notifyjs/dist/notify-combined.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js' ) }}" type="text/javascript"></script>
         
         <script src="{{ asset('bower_components/DataTables/media/js/jquery.dataTables.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bower_components/datatables-tabletools/js/dataTables.tableTools.js' ) }}" type="text/javascript"></script>
