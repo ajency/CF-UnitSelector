@@ -292,7 +292,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$('#spritespin').hide()
 		that = @
 		transitionImages = []
-		svgs = {}
+		svgs = []
 		breakpoints = project.get('breakpoints')
 		$.each breakpoints,(index,value)->
 			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/master/master-'+value+'.svg'
