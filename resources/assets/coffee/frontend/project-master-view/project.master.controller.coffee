@@ -311,7 +311,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 	applyClasses:->
 		$('.villa').each (ind,item)->
-			id = item.id
+			id = parseInt item.id
 			unit = unitCollection.findWhere 
 				id :  id 
 			availability = unit.get('availability')
