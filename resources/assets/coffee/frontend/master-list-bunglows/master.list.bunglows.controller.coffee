@@ -39,6 +39,17 @@ class BunglowListView extends Marionette.ItemView
 		classname =  $('#unit'+id).attr('class')
 		$('#unit'+id).attr('class' , classname+' '+status)
 		$('#'+id).attr('class' ,'layer villa  '+ status) 
+		@iniTooltip()
+
+	iniTooltip:->
+		$('.layer').tooltipster(
+			theme: 'tooltipster-shadow',
+			contentAsHTML: true
+			onlyOne : true
+			arrow : false
+			offsetX : 50
+			offsetY : -10
+		)
 
 	events:
 
@@ -46,6 +57,38 @@ class BunglowListView extends Marionette.ItemView
 			id = @model.get('id')
 			$('#'+id+'.villa').attr('class' ,'layer villa '+@model.get('status'))
 			$('#unit'+id).attr('class' ,'unit blocks'+' '+@model.get('status')+' active')
+			html = ''
+			if id is undefined
+				html += '<div class="svg-info">
+							<div class="details">
+								Villa details not entered 
+							</div>  
+						</div>'
+				$('#'+id+'.layer').tooltipster('content', html)
+				return
+			response = window.unit.getUnitDetails(id)
+			window.convertRupees(response[3])
+			html = ""
+			html += '<div class="svg-info">
+						<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
+						<!--<span class="label label-success"></span-->
+						<div class="clearfix"></div>
+						<div class="details">
+							<div>
+								<label>Area</label> - '+response[0].get('unit_variant_name')+' Sq.ft
+							</div>
+							<div>
+								<label>Area</label> - '+response[0].get('super_built_up_area')+' Sq.ft
+							</div> 
+							<div>
+								<label>Unit Type </label> - '+response[1].get('name')+'
+							</div>
+							<div>
+								<label>Price </label> - '+$('#price').val()+'
+							</div>  
+						</div>  
+					</div>'
+			$('#'+id+'.layer').tooltipster('content', html)
 		'mouseout':(e)->
 			id = @model.get('id')
 			$('#'+id+'.villa').attr('class' ,'layer villa')
