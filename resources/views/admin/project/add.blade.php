@@ -88,28 +88,15 @@
                     </div>
  
                     <div class="form-actions "> 
-                     <div class="row">
-                     <div class="col-md-7">
-                    <div class="user-description-box ">
-                    <div class="row">
-                    <div class="col-md-1">
-                    <i class="fa fa-info-circle"></i>
-                    </div><div class="col-md-10">
-
-                <p class="word-wrap">The project enters the draft mode on save and will only be available on unit selector when 
-               the project status is changed to Published.</p>
-                        </div>
-<div class="col-md-1"></div>
-                         </div> 
-                         </div> 
-                       </div>
-                       <div class="text-right col-md-5">
+                   <div class="pull-right">
+                    <a class="inline" data-toggle="popover" data-content="The project enters the draft mode on save and will only be available on unit selector when 
+               the project status is changed to Published." data-original-title="" title=""><i class="fa fa-info"></i></a>&nbsp;
                             <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                             <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
                             <button type="reset" class="hidden" />
                             <a href="{{ url('admin/project') }}"><button type="button" class="btn btn-white btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
                         </div>
-                      </div>
+                      
                     </div>
                 </form>
             </div>

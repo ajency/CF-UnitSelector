@@ -221,7 +221,7 @@
                         <div class="col-md-5" id="controltype_values_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
                             <div class="form-inline">
                                 <div class="form-group">
-                                    <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" data-role="tagsinput" class="tags" placeholder="Enter Default Values" value="{{$attributes['defaults']}}">
+                                    <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" data-role="tagsinput" class="tags" placeholder="Enter Default Values" value="{{$attributes['defaults']}}" size="16" >
                                     <button type="button" class="btn btn-small btn-default m-t-5" onclick="deleteRoomTypeAttribute({{$project['id']}},{{$attributes['id']}});"><i class="fa fa-trash"></i> Delete</button>
                                 </div>
                             </div>

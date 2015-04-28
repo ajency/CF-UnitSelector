@@ -70,20 +70,6 @@
 }
 
 
-/* Similar Section */
-.similar-section{
-  ul{
-    li{
-      float: left;
-      width: 33%;
-      padding: 0 10px 0 0;
-      &:first-child{
-        // padding-left: 0;
-      }
-    }
-  }
-}
-
 /* SVG */
 .svg-maps div{
   &.active{
@@ -223,4 +209,17 @@
 /* Transition */
 .ease {
   transition: all 0.3s ease-in 0s;
+}
+
+/* Back Button */
+.breadcrumb-bar .bread-crumb-list{
+  padding-bottom: 0;
+  .brdcrmb-wrp li a {
+    color: @brand-primary;
+    font-weight: bold;
+    &:before{
+      content: "\e77a";
+      font-family: icomoon;
+    }
+  } 
 }

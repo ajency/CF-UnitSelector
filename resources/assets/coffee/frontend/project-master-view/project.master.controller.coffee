@@ -30,7 +30,7 @@ class TopMasterView extends Marionette.ItemView
 										<li class="">
 											<span class="bread-crumb-current">
 												<span class=".icon-arrow-right2"></span><a class="unit_back" href="#">
-													Back to Poject Overview</a>
+													Back to Project Overview</a>
 											</span>
 										</li>
 									</ul>
@@ -292,12 +292,12 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$('#spritespin').hide()
 		that = @
 		transitionImages = []
-		svgs = {}
+		svgs = []
 		breakpoints = project.get('breakpoints')
 		$.each breakpoints,(index,value)->
 			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/master/master-'+value+'.svg'
 
-		
+		console.log svgs[0]
 		$.merge transitionImages ,  project.get('project_master')
 		$('.region').load(svgs[0],
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
