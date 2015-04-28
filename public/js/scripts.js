@@ -60,7 +60,7 @@ function addRoomtype(project_id)
             str += '<div class = "col-md-5" id = "controltype_values_' + roomtypeId + '">';
             str += '<div class = "form-inline" >';
             str += '<div class = "form-group" >';
-            str += '<input type="text" name="controltypevalues_' + roomtypeId + '" class = "form-control" placeholder="Enter Default values" >';
+            str += '<input type="text" name="controltypevalues_' + roomtypeId + '" data-role="tagsinput" class="tags" placeholder="Enter Default values" >';
             str += ' <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes(' + roomtypeId + ',this)"><i class="fa fa-plus"></i> Add</button>';
             //str += ' <button class = "btn btn-small btn-default m-t-5"  > <i class = "fa fa-trash" > </i> Delete</button>';
             str += '</div>';
@@ -82,6 +82,7 @@ function addRoomtype(project_id)
             $("#addroomtypeblock").before(str);
             $("#roomtype").val('');
             $("select").select2();
+             $(".tags").tagsinput("");
             $("#loader").hide();
         }
     });
@@ -153,7 +154,7 @@ function addRoomtypeAttributes(roomtypeId, obj)
     str += '<div class = "col-md-5" id = "controltype_values_' + roomtypeId + '" >';
     str += '<div class = "form-inline" >';
     str += '<div class = "form-group" >';
-    str += '<input type="text" name= "controltypevalues_' + roomtypeId + '" class = "form-control" placeholder="Enter Default values" >';
+    str += '<input type="text" name= "controltypevalues_' + roomtypeId + '" data-role="tagsinput" class="tags" placeholder="Enter Default values" >';
     //str += '<button class = "btn btn-small btn-default m-t-5" > <i class = "fa fa-trash" > </i> Delete</button>';
     str += ' <button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes(\'' + roomtypeId + '\',this)"> <i class="fa fa-plus"></i> Add</button>';
     str += '</div>';
@@ -165,6 +166,7 @@ function addRoomtypeAttributes(roomtypeId, obj)
     $("#addroomtypeattributeblock_" + roomtypeId).before(str);
     $(obj).hide();
     $("select").select2();
+     $(".tags").tagsinput("");
 
 }
 
