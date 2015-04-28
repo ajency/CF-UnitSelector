@@ -12,7 +12,7 @@ class CommonFloor.ProjectMasterCtrl extends Marionette.RegionController
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID)
 			CommonFloor.checkPropertyType()
-		if  project.get('project_master').front  != ""
+		if  Object.keys(project.get('project_master')).length  != 0
 			@show new CommonFloor.ProjectMasterView
 		else
 			@show new CommonFloor.NothingFoundView
@@ -157,7 +157,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			if unit.length is 0
 				return 
 
-			if buildingModel.get('building_master').front == ""
+			if Object.keys(buildingModel.get('building_master')).length == 0
 				CommonFloor.navigate '/building/'+id+'/apartments' , true
 				CommonFloor.router.storeRoute()
 			else
@@ -296,11 +296,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		breakpoints = project.get('breakpoints')
 		$.each breakpoints,(index,value)->
 			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/master/master-'+value+'.svg'
+
 		
-		$.merge transitionImages , project.get('project_master')['right-front']
-		$.merge transitionImages , project.get('project_master')['back-right']
-		$.merge transitionImages , project.get('project_master')['left-back']
-		$.merge transitionImages , project.get('project_master')['front-left']
+		$.merge transitionImages ,  project.get('project_master')
 		$('.region').load(svgs[0],
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
 		$('.first_image').load ()->

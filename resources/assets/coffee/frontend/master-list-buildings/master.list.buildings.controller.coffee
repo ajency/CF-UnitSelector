@@ -69,7 +69,7 @@ class ListItemView extends Marionette.ItemView
 				return
 			buildingModel = buildingCollection.findWhere
 							'id' : id
-			if buildingModel.get('building_master').front == ""
+			if Object.keys(buildingModel.get('building_master')).length == 0
 				CommonFloor.navigate '/building/'+id+'/apartments' , true
 				CommonFloor.router.storeRoute()
 			else

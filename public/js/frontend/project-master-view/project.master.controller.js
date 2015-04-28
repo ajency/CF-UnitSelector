@@ -30,7 +30,7 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.checkPropertyType();
       }
-      if (project.get('project_master').front !== "") {
+      if (Object.keys(project.get('project_master')).length !== 0) {
         return this.show(new CommonFloor.ProjectMasterView);
       } else {
         return this.show(new CommonFloor.NothingFoundView);
@@ -177,7 +177,7 @@
         if (unit.length === 0) {
           return;
         }
-        if (buildingModel.get('building_master').front === "") {
+        if (Object.keys(buildingModel.get('building_master')).length === 0) {
           CommonFloor.navigate('/building/' + id + '/apartments', true);
           return CommonFloor.router.storeRoute();
         } else {
@@ -285,10 +285,7 @@
       $.each(breakpoints, function(index, value) {
         return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/master/master-' + value + '.svg';
       });
-      $.merge(transitionImages, project.get('project_master')['right-front']);
-      $.merge(transitionImages, project.get('project_master')['back-right']);
-      $.merge(transitionImages, project.get('project_master')['left-back']);
-      $.merge(transitionImages, project.get('project_master')['front-left']);
+      $.merge(transitionImages, project.get('project_master'));
       $('.region').load(svgs[0], $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
       $('.first_image').load(function() {
         var response;
