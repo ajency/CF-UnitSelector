@@ -79,29 +79,32 @@
                     <div class="row" id="roomtypeattribute_{{$attributes['id']}}">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <div class="">
-                                <label>Attribute Name</label>
+                                <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Attributes Name will be the specification for each room type for example (Area, Length * Width, etc)."></i>
+                                    <label class="control-label">Attribute Name</label>
+                                
                                     <input type="text" name="attribute_name_{{$roomtypeId}}" class="form-control" value="{{$attributes['label']}}" placeholder="Enter Attribute Name"><i class="fa fa-question-circle" title="Attributes Name will be the specification for each room type for example (Area, Length * Width, etc)."></i>
                                     <input type="hidden" name="attribute_id_{{$roomtypeId}}" value="{{$attributes['id']}}">
-                                </div>
+                               
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-inline">
                                 <div class="form-group full-width">
+                             <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="The selected control type will be available as input on the Variant page."></i>
                                 <label>Control Type</label>
-                                    <select name="controltype_{{$roomtypeId}}" onchange="defaultBlock(this.value,{{$roomtypeId}});" class="full-width">
+                                    <select name="controltype_{{$roomtypeId}}" onchange="defaultBlock(this.value,{{$roomtypeId}});" class="full-width inline">
                                         <option value="">Select Controls Type</option>
                                         <option value="textbox" @if($attributes['control_type']=='textbox'){{'selected'}}@endif> Text Box</option>
                                         <option value="select" @if($attributes['control_type']=='select'){{'selected'}}@endif>Select Box</option>
                                         <option value="multiple" @if($attributes['control_type']=='multiple'){{'selected'}}@endif> Multiple Select Box</option>
                                         <option value="media" @if($attributes['control_type']=='number'){{'selected'}}@endif> Number </option>
-                                    </select><i class="fa fa-question-circle" title="The selected control type will be available as input on the Variant page."></i>
+                                    </select>
                                 </div>
                            </div>
                         </div>
                         <div class="col-md-5" id="controltype_values_{{$roomtypeId}}">
                             <div class="form-inline">
+
                                 <div class="form-group">
                                     <input type="text" name="controltypevalues_{{$roomtypeId}}" class="form-control" value="{{$attributes['defaults']}}" placeholder="Enter Default Values">
                                     <button type="button" class="btn btn-small btn-default m-t-5" onclick="deleteRoomTypeAttribute({{$project['id']}},{{$attributes['id']}});"><i class="fa fa-trash"></i> Delete</button>
@@ -113,16 +116,21 @@
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
-                                <div class="">
+                                    <label class="form-label">Attribute Name</label>
+                                <i class="fa fa-question-circle " data-toggle="tooltip" data-placement="right" title="Attributes Name will be the specification for each room type for example (Area, Length * Width, etc)."></i>
+
                                     <input type="text" name="attribute_name_{{$roomtypeId}}" class="form-control" placeholder="Enter Attribute Name">
                                     <input type="hidden" name="attribute_id_{{$roomtypeId}}" value="">
-                                </div>
+                                
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-inline">
                                 <div class="form-group full-width">
-                                    <select name="controltype_{{$roomtypeId}}" onchange="defaultBlock(this.value,{{$roomtypeId}});" class="full-width">
+                             <label class="form-label">Control Type</label>
+                              <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="The selected control type will be available as input on the Variant page."></i>
+
+                                 <select name="controltype_{{$roomtypeId}}" onchange="defaultBlock(this.value,{{$roomtypeId}});" class="full-width">
                                         <option value="">Select Control Type</option>
                                         <option value="textbox" > Text Box</option>
                                         <option value="select" >Select Box</option>
@@ -135,7 +143,7 @@
                         <div class="col-md-5" id="controltype_values_{{$roomtypeId}}">
                             <div class="form-inline">
                                 <div class="form-group">
-                                    <input type="text" name="controltypevalues_{{$roomtypeId}}" class="form-control" placeholder="Enter Default Values">
+                                <input type="text" name="controltypevalues_{{$roomtypeId}}" class="form-control" placeholder="Enter Default Values">
                                     <!--<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>-->
                                     <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes({{$roomtypeId}},this)"><i class="fa fa-plus"></i> Add</button>
                                 </div>
