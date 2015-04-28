@@ -318,6 +318,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		console.log apartmentFilters = @getApartmentFilters()
 		@view.triggerMethod "filter:data", apartmentFilters
 
+	#function to generate all the villa filters
 	getVillaFilters:->
 		filters = []
 		unitTypes = []
@@ -360,7 +361,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 
 		filters
 
-
+	#function to generate all the apartment filters
 	getApartmentFilters:->
 		filters = []
 		unitTypes = []

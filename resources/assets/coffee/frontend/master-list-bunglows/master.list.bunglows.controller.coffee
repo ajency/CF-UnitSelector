@@ -2,12 +2,12 @@
 class BunglowListView extends Marionette.ItemView
 
 	template : Handlebars.compile('	<div class=" info">
-						                <label class="pull-left">{{unit_name}}</label> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft-->
-						            	<div class="clearfix"></div>
-						            </div>
-					                <div class="cost">
-					                  {{price}}
-					                </div>')
+										<label class="pull-left">{{unit_name}}</label> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft-->
+										<div class="clearfix"></div>
+									</div>
+									<div class="cost">
+									  {{price}}
+									</div>')
 
 	initialize:->
 		@$el.prop("id", 'unit'+@model.get("id"))
@@ -37,7 +37,10 @@ class BunglowListView extends Marionette.ItemView
 		availability = @model.get('availability')
 		status = s.decapitalize(availability)
 		classname =  $('#unit'+id).attr('class')
-		$('#unit'+id).attr('class' , classname+' '+status)
+		if _.isUndefined(unitTempCollection.get(@model.get('id')))
+			$('#unit'+id).attr('class' , classname+' '+status)
+		else
+			$('#unit'+id).attr('class' , classname+' not_in_selection)
 
 	events:
 
@@ -63,49 +66,49 @@ class MasterBunglowListView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-3 us-left-content">
 									<div class="list-view-container w-map animated fadeInLeft">
-							            <!--<div class="controls map-View">
-								            <div class="toggle">
-								            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
-								            </div>
-							            </div>-->
-							            <div class="text-center">
-							              <ul class="prop-select">
+										<!--<div class="controls map-View">
+											<div class="toggle">
+												<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
+											</div>
+										</div>-->
+										<div class="text-center">
+										  <ul class="prop-select">
 
-							                <li class="prop-type buildings hidden">Buildings</li>
-							                <li class="prop-type Villas active ">Villas/Bungalows</li>
+											<li class="prop-type buildings hidden">Buildings</li>
+											<li class="prop-type Villas active ">Villas/Bungalows</li>
 
-							                <li class="prop-type Plots hidden">Plots</li>
-							              </ul>
-							            </div>
-							            <div class="advncd-filter-wrp  unit-list">
-							            	<div class="legend clearfix">
-							            	  <ul>
-							            	    <li class="available">AVAILABLE</li>
-							            	    <li class="sold">SOLD</li>
-							            	    <li class="blocked">BLOCKED</li>
-							            	    <li class="na">N/A</li>
-							            	  </ul>
-							            	</div>
-
-							            	<p class="text-center help-text">Hover on the units for more details</p>
-											<!--<div class="blck-wrap title-row">
-				                  				<div class="row">
-								                    <div class="col-sm-4">
-								                      <h5 class="accord-head">Villa No</h5>                      
-								                    </div>
-								                    <div class="col-sm-4">
-								                      <h5 class="accord-head">Type</h5>                      
-								                    </div>
-								                    <div class="col-sm-4">
-								                      <h5 class="accord-head">Area</h5>                      
-								                    </div>
-				                  				</div>
-				                			</div>-->
-							                <ul class="units two">
-							                </ul>
+											<li class="prop-type Plots hidden">Plots</li>
+										  </ul>
 										</div>
-							        </div>
-							       </div>')
+										<div class="advncd-filter-wrp  unit-list">
+											<div class="legend clearfix">
+											  <ul>
+												<li class="available">AVAILABLE</li>
+												<li class="sold">SOLD</li>
+												<li class="blocked">BLOCKED</li>
+												<li class="na">N/A</li>
+											  </ul>
+											</div>
+
+											<p class="text-center help-text">Hover on the units for more details</p>
+											<!--<div class="blck-wrap title-row">
+												<div class="row">
+													<div class="col-sm-4">
+													  <h5 class="accord-head">Villa No</h5>                      
+													</div>
+													<div class="col-sm-4">
+													  <h5 class="accord-head">Type</h5>                      
+													</div>
+													<div class="col-sm-4">
+													  <h5 class="accord-head">Area</h5>                      
+													</div>
+												</div>
+											</div>-->
+											<ul class="units two">
+											</ul>
+										</div>
+									</div>
+								   </div>')
 
 	childView : BunglowListView
 
@@ -155,4 +158,3 @@ class CommonFloor.MasterBunglowListCtrl extends Marionette.RegionController
 	loadController:(data)=>
 		Backbone.trigger "load:units" , data
 
-		

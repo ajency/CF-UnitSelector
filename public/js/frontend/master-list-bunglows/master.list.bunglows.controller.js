@@ -37,6 +37,7 @@
 
     BunglowListView.prototype.onShow = function() {
       var availability, classname, id, status;
+      console.log(unitTempCollection);
       id = this.model.get('id');
       availability = this.model.get('availability');
       status = s.decapitalize(availability);
