@@ -293,7 +293,7 @@
     };
 
     CenterApartmentMasterView.prototype.onShow = function() {
-      var breakpoints, building, building_id, first, height, svgs, that, transitionImages, url;
+      var breakpoints, building, building_id, height, svgs, that, transitionImages, url;
       height = this.ui.svgContainer.width() / 1.46;
       $('.search-left-content').css('height', height);
       $('#spritespin').hide();
@@ -309,8 +309,6 @@
       $.each(breakpoints, function(index, value) {
         return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/buildings/' + building_id + '/master-' + value + '.svg';
       });
-      console.log(svgs);
-      console.log(first = _.first(svgs));
       $.merge(transitionImages, building.get('building_master'));
       $('.region').load(first, $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
       $('.first_image').load(function() {

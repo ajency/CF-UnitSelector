@@ -21,32 +21,32 @@ class CommonFloor.ApartmentsMasterCtrl extends Marionette.RegionController
 class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="row">
-		          <div class="col-md-12 col-xs-12 col-sm-12">
-		            <div class="row breadcrumb-bar">
-		              <div class="col-xs-12 col-md-12">
-		                <div class="bread-crumb-list">
-		                  <ul class="brdcrmb-wrp clearfix">
-		                    <li class="">
-		                      <span class="bread-crumb-current">
-		                        <span class=".icon-arrow-right2"></span><a class="unit_back" href="#">
+				  <div class="col-md-12 col-xs-12 col-sm-12">
+					<div class="row breadcrumb-bar">
+					  <div class="col-xs-12 col-md-12">
+						<div class="bread-crumb-list">
+						  <ul class="brdcrmb-wrp clearfix">
+							<li class="">
+							  <span class="bread-crumb-current">
+								<span class=".icon-arrow-right2"></span><a class="unit_back" href="#">
 													Back to Project Overview</a>
-		                      </span>
-		                    </li>
-		                  </ul>
-		                </div>
-		              </div>
-		            </div>
+							  </span>
+							</li>
+						  </ul>
+						</div>
+					  </div>
+					</div>
 
-		            <div class="search-header-wrap">
-		              	<h1 class="pull-left proj-name">{{project_title}}</h1> 
-		              	  <div class="proj-type-count">
-		              	  	<h1 class="text-primary pull-left">{{building_name}}</h1>
-		              	  	<div class="clearfix"></div>
-		              	  </div>
-		                <div class="clearfix"></div>
-		            </div>
-		          </div>
-		        </div>')
+					<div class="search-header-wrap">
+						<h1 class="pull-left proj-name">{{project_title}}</h1> 
+						  <div class="proj-type-count">
+							<h1 class="text-primary pull-left">{{building_name}}</h1>
+							<div class="clearfix"></div>
+						  </div>
+						<div class="clearfix"></div>
+					</div>
+				  </div>
+				</div>')
 	
 	ui  :
 		unitBack : '.unit_back'
@@ -83,12 +83,12 @@ class CommonFloor.TopApartmentMasterCtrl extends Marionette.RegionController
 class ApartmentsView extends Marionette.ItemView
 
 	template : Handlebars.compile('	<div class=" info">
-						                <label class="pull-left">{{unit_name}}</label> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft-->
-						            	<div class="clearfix"></div>
-						            </div>
-					                <div class="cost">
-					                  {{price}}
-					                </div>')
+										<label class="pull-left">{{unit_name}}</label> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft-->
+										<div class="clearfix"></div>
+									</div>
+									<div class="cost">
+									  {{price}}
+									</div>')
 
 	initialize:->
 		@$el.prop("id", 'apartment'+@model.get("id"))
@@ -142,15 +142,15 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 											<div class="advncd-filter-wrp  unit-list">
 												<div class="legend">
 												  <ul>
-												    <li class="available">AVAILABLE</li>
-												    <li class="sold">SOLD</li>
-												    <li class="blocked">BLOCKED</li>
-												    <li class="na">N/A</li>
+													<li class="available">AVAILABLE</li>
+													<li class="sold">SOLD</li>
+													<li class="blocked">BLOCKED</li>
+													<li class="na">N/A</li>
 												  </ul>
 												 </div>
-				                  				<p class="text-center help-text">Hover on the units for more details</p>
-								               	<ul class="units two">
-							                	</ul>					                			
+												<p class="text-center help-text">Hover on the units for more details</p>
+												<ul class="units two">
+												</ul>					                			
 											</div>
 										</div></div>
 									</div></div>'
@@ -175,30 +175,30 @@ class CommonFloor.LeftApartmentMasterCtrl extends Marionette.RegionController
 class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
-	            <div class="list-view-container">
-	            <!--<div class="controls mapView">
-			            <div class="toggle">
-			            	<a href="#" class="map active">Map</a><a href="#" class="list">List</a>
-			            </div>
-		            </div>-->
-	              <div class="single-bldg">
-	                <div class="prev"></div>
-	                <div class="next"></div>
-	              </div>
-	              <div id="spritespin"></div>
+				<div class="list-view-container">
+				<!--<div class="controls mapView">
+						<div class="toggle">
+							<a href="#" class="map active">Map</a><a href="#" class="list">List</a>
+						</div>
+					</div>-->
+				  <div class="single-bldg">
+					<div class="prev"></div>
+					<div class="next"></div>
+				  </div>
+				  <div id="spritespin"></div>
 										<div class="svg-maps">
 											<img class="first_image img-responsive" src="" />
 											<div class="region inactive"></div>
 										</div>
 										<div class="cf-loader hidden"></div>
-							            <div class="rotate rotate-controls hidden">
-									        <div id="prev" class="rotate-left">Left</div>
-									        <span class="rotate-text">Rotate</span>
-									        <div id="next" class="rotate-right">Right</div>
-							    		</div>
-	              
-	            </div>
-	          </div>')
+										<div class="rotate rotate-controls hidden">
+											<div id="prev" class="rotate-left">Left</div>
+											<span class="rotate-text">Rotate</span>
+											<div id="next" class="rotate-right">Right</div>
+										</div>
+				  
+				</div>
+			  </div>')
 
 	ui :
 		svgContainer : '.list-view-container'
@@ -298,8 +298,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$.each breakpoints,(index,value)->
 			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/buildings/'+building_id+'/master-'+value+'.svg'
 		
-		console.log svgs
-		console.log first = _.first svgs
+		
 		$.merge transitionImages , building.get('building_master')
 		
 		$('.region').load(first,
