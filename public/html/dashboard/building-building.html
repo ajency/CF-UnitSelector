@@ -187,12 +187,11 @@
                                     <div class="col-md-3">
                                             <label class="form-label" >Name</label>
                                         </div>
-                                        <div class="col-md-5">
+                                        <div class="col-md-9">
                                             <input type="text" class="form-control full-width" name="bldgname" placeholder="Enter Building Name" >
-                                            </div>
-<div class="col-md-4">
                                             <div class="text-danger"> <i class="fa fa-asterisk"></i>&nbsp;This field is required</div>
-                                        </div>
+                                            </div>
+
                                          </div>
                                         
                                   </div>
@@ -202,8 +201,8 @@
                                            
                                                 <label class="form-label" >Phase</label>
                                           </div>
-                                          <div class="col-md-5">
-                                            <select class="full-width">
+                                          <div class="col-md-9">
+                                            <select class="full-width m-b-5">
                                                 <option>Controls</option>
                                                 <option> Text Box</option>
                                                 <option>Select Box</option>
@@ -211,7 +210,7 @@
                                                 <option> Number </option>
                                             </select>
                                        </div>
-                                       <div class="col-md-4"></div>
+                                       
                                    </div>
                                    </div>
                                     <div class="m-b-20">
@@ -219,13 +218,15 @@
                                        <div class="col-md-3">
                                             <label class="form-label">Number of Floors</label>
                                         </div>
-                                        <div class="col-md-5">
+                                        <div class="col-md-9">
                                             <input type="text" class="form-control full-width" name="bldgname" placeholder="Enter Number of Floors" >
-                                           </div>  
-                                           <div class="col-md-4">
                                            <div class="text-danger"><i class="fa fa-asterisk"></i>&nbsp;The number should be valid number</div>
-                                      </div>
-                                    </div>  
+                                           </div>  
+                                        
+                                    </div> 
+                                       
+                                           
+                                      
                                 </div> 
                             </form>
                             
@@ -331,7 +332,7 @@
                     </div>
                     <div class="grid simple">
 
-                        <div class="grid-title">
+                        <div class="grid-title"  style="border-bottom: 1px solid #FF943C;">
                             <h3 class="inline"><span class="semi-bold">Project </span>Master&nbsp;<i class="fa fa-image"></i></h3> 
                             <div class="pull-right m-t-15">
                                 <span class="fa fa-check text-success"></span>
@@ -348,13 +349,15 @@
                                 <div class="front-svg">
                                     
                                         <div class="grid-title">
-                                                <div class="pull-right">
-<i class="fa fa-angle-up text-success"></i>
-                        </div>
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                   <div class="pull-right"><i class="fa fa-angle-up "></i>
+<i class="fa fa-angle-down grid-angle-down"></i>
+       </div>
                                     <h4 class="inline" role="tab" id="headingOne">
- <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+ 
                                         Front Svg
-                                    </a></h4> 
+                                        </h4> 
+                                    </a>
                                 </div>
                                     <div id="collapseOne" class="panel-collapse collapse in grid-body" role="tabpanel" aria-labelledby="headingOne"> 
                                     <div style="position: relative;" class="m-b-20">
@@ -393,11 +396,12 @@
                                 <div class="left-svg">
                                     
                                         <div class="grid-title">
-                                            <div class="pull-right">
-<i class="fa fa-angle-down text-success"></i>
-                        </div>
+                                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+
+                                           <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+<i class="fa fa-angle-up "></i>
+         </div>
                                     <h4 class="inline" role="tab" id="headingTwo">
- <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                                         Left Svg
 </a>
                                     </h4> 
@@ -415,11 +419,12 @@
                                 <div class="back-svg">
 
                                         <div class="grid-title">
-                                            <div class="pull-right">
-<i class="fa fa-angle-down text-success"></i>
-                        </div>
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+
+                                            <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+<i class="fa fa-angle-up "></i>
+         </div>
                                     <h4 class="inline" role="tab" id="headingTwo">
-<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                                         Back Svg
 </a>
                                     </h4> 
@@ -437,11 +442,12 @@
                                 <div class="right-svg">
                                      
                                         <div class="grid-title " >
-                                            <div class="pull-right">
-<i class="fa fa-angle-down text-success"></i>
-                        </div>
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+
+                         <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+<i class="fa fa-angle-up "></i>
+         </div>
                                     <h4 class="inline" role="tab" id="headingFour">
-<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
 
                                         Right Svg
 </a>
@@ -468,11 +474,12 @@
                                 <div class="front-left-svg">
 
                                     <div class="grid-title">
-                                        <div class="pull-right">
-                                         <i class="fa fa-angle-down text-success"></i>
-                                        </div>
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
+
+                                  <div class="pull-right"><i class="fa fa-angle-up "></i>
+<i class="fa fa-angle-down grid-angle-down"></i>
+       </div>
                                     <h4 class="inline" role="tab" id="headingFive">
-<a class="collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapseFive" aria-expanded="true" aria-controls="collapseFive">
                                         Front to Left Transition images</h4> 
                                     </a>
                                     </div>
@@ -507,11 +514,12 @@
                                 
                                 <div class="left-back-svg">
                                     <div class="grid-title ">
-                                        <div class="pull-right">
-                                         <i class="fa fa-angle-down text-success"></i>
-                                        </div>
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+
+                                       <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+<i class="fa fa-angle-up "></i>
+         </div>
                                     <h4 class="inline" role="tab" id="headingSix">
-<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
 
                                         Left to back transition images
 </a>
@@ -552,11 +560,12 @@
                                
                                 <div class="back-right-svg">
                                      <div class="grid-title">
-                                        <div class="pull-right">
-                                         <i class="fa fa-angle-down text-success"></i>
-                                        </div>
+                                     <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+
+                                         <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+<i class="fa fa-angle-up "></i>
+         </div>
                                     <h4 class="inline"  role="tab" id="headingSeven">
-<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
 
                                         Back to right transition images
 </a>
@@ -596,11 +605,12 @@
                                
                                 <div class="right-front-svg">
                                     <div class="grid-title  ">
-                                        <div class="pull-right">
-                                         <i class="fa fa-angle-down text-success"></i>
-                                        </div>
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
+
+                                        <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+<i class="fa fa-angle-up "></i>
+         </div>
                                     <h4 class="inline" role="tab" id="headingEight">
-<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseEight" aria-expanded="false" aria-controls="collapseEight">
 
                                         Right to front transition images
 </a>

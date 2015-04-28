@@ -225,7 +225,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						<div class="clearfix"></div>
 						<div class="details">
 							<div>
-								<label>Area</label> - '+response[0].get('unit_variant_name')+' Sq.ft
+								<label>Variant</label> - '+response[0].get('unit_variant_name')+' Sq.ft
 							</div>
 							<div>
 								<label>Area</label> - '+response[0].get('super_built_up_area')+' Sq.ft
@@ -298,14 +298,26 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/master/master-'+value+'.svg'
 
 		
+		first = _.values svgs
 		$.merge transitionImages ,  project.get('project_master')
-		$('.region').load(svgs[0],
+		$('.region').load(first[0],
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
 		$('.first_image').load ()->
 			response = project.checkRotationView()
 			if response is 1
 				$('.cf-loader').removeClass 'hidden'
 		@initializeRotate(transitionImages,svgs)
+		@applyClasses()
+
+	applyClasses:->
+		$('.villa').each (ind,item)->
+			id = parseInt item.id
+			unit = unitCollection.findWhere 
+				id :  id 
+			availability = unit.get('availability')
+			availability = s.decapitalize(availability)
+			if availability != undefined
+				$('#'+id).attr('class' ,'layer villa '+availability) 
 		
 		
 
