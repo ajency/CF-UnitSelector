@@ -225,7 +225,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						<div class="clearfix"></div>
 						<div class="details">
 							<div>
-								<label>Area</label> - '+response[0].get('unit_variant_name')+' Sq.ft
+								<label>Variant</label> - '+response[0].get('unit_variant_name')+' Sq.ft
 							</div>
 							<div>
 								<label>Area</label> - '+response[0].get('super_built_up_area')+' Sq.ft
