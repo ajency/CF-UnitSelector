@@ -693,6 +693,10 @@ svg .layer:hover {
   opacity: 0.6;
   cursor: pointer;
 }
+svg polygon {
+  -webkit-transition: all 0.3s ease-in 0s;
+          transition: all 0.3s ease-in 0s;
+}
 .list-view-container {
   padding: 10px;
 }
