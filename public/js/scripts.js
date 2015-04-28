@@ -482,100 +482,7 @@ function setUpFloorLevelUploader() {
         uploader3d.init();
 
     });
-
-    //EXTERNAL
-
-    var uploader_ext3d = new plupload.Uploader({
-        runtimes: 'html5,flash,silverlight,html4',
-        browse_button: 'pickfiles_ext3d', // you can pass in id...
-        url: '/admin/variant/' + variantId + '/media',
-        flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
-        silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
-        headers: {
-            "x-csrf-token": $("[name=_token]").val()
-        },
-        multipart_params: {
-            "level": 'external',
-            "layout": "3d",
-            "projectId": PROJECTID
-        },
-        filters: {
-            max_file_size: '10mb',
-            mime_types: [{
-                    title: "Image files",
-                    extensions: "svg,jpg,png,jpeg"
-                }]
-        },
-        init: {
-            PostInit: function () {
-                document.getElementById('uploadfiles_ext3d').onclick = function () {
-                    uploader_ext3d.start();
-                    return false;
-                };
-            },
-            FilesAdded: function (up, files) {
-
-                $('#uploadfiles_ext3d').next("div.selectedImages").html('<div class="col-md-3"><strong>' + files.length + ' image selected. Click on upload button to start upload.</strong><div class="cf-loader"></div></div>');
-                $('#uploadfiles_ext3d').removeClass('hidden');
-            },
-            FileUploaded: function (up, file, xhr) {
-                fileResponse = JSON.parse(xhr.response);
-                $("#ext3dlayout").html('<img src="' + fileResponse.data.image_path + '" class="img-responsive img-thumbnail">  <button onclick="deleteLayout(' + fileResponse.data.media_id + '\'external\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
-                $('#uploadfiles_ext3d').next("div.selectedImages").html('');
-                $('#uploadfiles_ext3d').addClass('hidden');
-            }
-        }
-    });
-    uploader_ext3d.init();
-
-    var uploader_gallery = new plupload.Uploader({
-        runtimes: 'html5,flash,silverlight,html4',
-        browse_button: 'pickfiles_gallery', // you can pass in id...
-        url: '/admin/variant/' + variantId + '/media',
-        flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
-        silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
-        headers: {
-            "x-csrf-token": $("[name=_token]").val()
-        },
-        multipart_params: {
-            "level": 'gallery',
-            "layout": "2d",
-            "projectId": PROJECTID
-        },
-        filters: {
-            max_file_size: '10mb',
-            mime_types: [{
-                    title: "Image files",
-                    extensions: "svg,jpg,png,jpeg"
-                }]
-        },
-        init: {
-            PostInit: function () {
-                document.getElementById('uploadfiles_gallery').onclick = function () {
-                    uploader_gallery.start();
-                    return false;
-                };
-            },
-            FilesAdded: function (up, files) {
-
-                $('#uploadfiles_gallery').next("div.selectedImages").html('<div class="col-md-3"><strong>' + files.length + ' image selected. Click on upload button to start upload.</strong><div class="cf-loader"></div></div>');
-                $('#uploadfiles_gallery').removeClass('hidden');
-            },
-            FileUploaded: function (up, file, xhr) {
-                fileResponse = JSON.parse(xhr.response);
-                $("#galleryimages").append('<div class="col-sm-3">\n\
-                            <img width="150" height="150" src="' + fileResponse.data.image_path + '" class="img-responsive" ><button onclick="deleteLayout(' + fileResponse.data.media_id + ',\'gallery\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>\n\
-                            </div>');
-                $('#uploadfiles_gallery').next("div.selectedImages").html('');
-                $('#uploadfiles_gallery').addClass('hidden');
-
-            }
-        }
-    });
-    uploader_gallery.init();
-
-
-
+ 
 }
 
 function deleteLayout(mediaId, type)
@@ -746,7 +653,96 @@ $(document).ready(function () {
     });
     skyview_uploader.init();
 
+    //EXTERNAL
 
+    var uploader_ext3d = new plupload.Uploader({
+        runtimes: 'html5,flash,silverlight,html4',
+        browse_button: 'pickfiles_ext3d', // you can pass in id...
+        url: '/admin/variant/' + variantId + '/media',
+        flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+        silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+        headers: {
+            "x-csrf-token": $("[name=_token]").val()
+        },
+        multipart_params: {
+            "level": 'external',
+            "layout": "3d",
+            "projectId": PROJECTID
+        },
+        filters: {
+            max_file_size: '10mb',
+            mime_types: [{
+                    title: "Image files",
+                    extensions: "svg,jpg,png,jpeg"
+                }]
+        },
+        init: {
+            PostInit: function () {
+                document.getElementById('uploadfiles_ext3d').onclick = function () {
+                    uploader_ext3d.start();
+                    return false;
+                };
+            },
+            FilesAdded: function (up, files) {
+
+                $('#uploadfiles_ext3d').next("div.selectedImages").html('<div class="col-md-3"><strong>' + files.length + ' image selected. Click on upload button to start upload.</strong><div class="cf-loader"></div></div>');
+                $('#uploadfiles_ext3d').removeClass('hidden');
+            },
+            FileUploaded: function (up, file, xhr) {
+                fileResponse = JSON.parse(xhr.response);
+                $("#ext3dlayout").html('<img src="' + fileResponse.data.image_path + '" class="img-responsive img-thumbnail">  <button onclick="deleteLayout(' + fileResponse.data.media_id + '\'external\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
+                $('#uploadfiles_ext3d').next("div.selectedImages").html('');
+                $('#uploadfiles_ext3d').addClass('hidden');
+            }
+        }
+    });
+    uploader_ext3d.init();
+
+    var uploader_gallery = new plupload.Uploader({
+        runtimes: 'html5,flash,silverlight,html4',
+        browse_button: 'pickfiles_gallery', // you can pass in id...
+        url: '/admin/variant/' + variantId + '/media',
+        flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+        silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+        headers: {
+            "x-csrf-token": $("[name=_token]").val()
+        },
+        multipart_params: {
+            "level": 'gallery',
+            "layout": "2d",
+            "projectId": PROJECTID
+        },
+        filters: {
+            max_file_size: '10mb',
+            mime_types: [{
+                    title: "Image files",
+                    extensions: "svg,jpg,png,jpeg"
+                }]
+        },
+        init: {
+            PostInit: function () {
+                document.getElementById('uploadfiles_gallery').onclick = function () {
+                    uploader_gallery.start();
+                    return false;
+                };
+            },
+            FilesAdded: function (up, files) {
+
+                $('#uploadfiles_gallery').next("div.selectedImages").html('<div class="col-md-3"><strong>' + files.length + ' image selected. Click on upload button to start upload.</strong><div class="cf-loader"></div></div>');
+                $('#uploadfiles_gallery').removeClass('hidden');
+            },
+            FileUploaded: function (up, file, xhr) {
+                fileResponse = JSON.parse(xhr.response);
+                $("#galleryimages").append('<div class="col-sm-3">\n\
+                            <img width="150" height="150" src="' + fileResponse.data.image_path + '" class="img-responsive" ><button onclick="deleteLayout(' + fileResponse.data.media_id + ',\'gallery\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>\n\
+                            </div>');
+                $('#uploadfiles_gallery').next("div.selectedImages").html('');
+                $('#uploadfiles_gallery').addClass('hidden');
+
+            }
+        }
+    });
+    uploader_gallery.init();
 
 });
 
