@@ -41,7 +41,8 @@
       availability = this.model.get('availability');
       status = s.decapitalize(availability);
       classname = $('#unit' + id).attr('class');
-      return $('#unit' + id).attr('class', classname + ' ' + status);
+      $('#unit' + id).attr('class', classname + ' ' + status);
+      return $('#' + id).attr('class', 'layer villa  ' + status);
     };
 
     BunglowListView.prototype.events = {

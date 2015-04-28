@@ -38,6 +38,7 @@ class BunglowListView extends Marionette.ItemView
 		status = s.decapitalize(availability)
 		classname =  $('#unit'+id).attr('class')
 		$('#unit'+id).attr('class' , classname+' '+status)
+		$('#'+id).attr('class' ,'layer villa  '+ status) 
 
 	events:
 
