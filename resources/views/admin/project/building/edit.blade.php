@@ -138,18 +138,19 @@
                             <i class="fa fa-angle-up "></i>
                         </div>                        
                         <h3 class="inline">Building <span class="semi-bold">Master</span></h3>&nbsp;
-                         <a class="inline" data-toggle="popover" data-content="Upload 3D view of the project. To enable 360 degree rotation of the project ,upload images in the sequence ( Front -> Right -> Back -> Left). Image dimension should be Image size : 1600*1095. Resolution - 300 DPI. 
-                                Naming convention to be followed for the images uploaded - ProjectName01(first image), ProjectName02 and so on. 
-                            " data-original-title="" title=""><i class="fa fa-info"></i></a>
+                        <a class="inline" data-toggle="popover" data-content="Upload 3D view of the project. To enable 360 degree rotation of the project ,upload images in the sequence ( Front -> Right -> Back -> Left). Image dimension should be Image size : 1600*1095. Resolution - 300 DPI. 
+                           Naming convention to be followed for the images uploaded - ProjectName01(first image), ProjectName02 and so on. 
+                           " data-original-title="" title=""><i class="fa fa-info"></i></a>
                     </a>
                 </div>
                 <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                     <div class="grid-body object-master-images" data-object-id="{{ $building->id }}" data-object-type="building">
-                       <div class="row project-master-images">
-<div>
+                        <div class="row project-master-images">
+                            <div>
                                 <input id="master_pickfiles" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/> 
-                                <button id="master_uploadfiles" type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#master-img" >Upload</button>
- 
+                                <button id="master_uploadfiles" type="button" class="btn btn-small hidden btn-primary" data-toggle="collapse" data-target="#master-img" >Upload</button>
+                                <div class="row selectedImages">
+                                </div>
                             </div>
                             <hr/>
                             <div class="row">
