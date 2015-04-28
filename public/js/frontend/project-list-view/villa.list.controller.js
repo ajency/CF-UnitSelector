@@ -91,11 +91,6 @@
     };
 
     VillaView.prototype.onShow = function() {
-      if (project.get('project_master').front === "") {
-        $('.map-View').hide();
-      } else {
-        $('.map-View').show();
-      }
       if (apartmentVariantCollection.length !== 0) {
         return $('.buildings').removeClass('hidden');
       }

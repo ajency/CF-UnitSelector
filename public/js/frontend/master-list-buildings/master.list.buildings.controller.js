@@ -71,7 +71,7 @@
         buildingModel = buildingCollection.findWhere({
           'id': id
         });
-        if (buildingModel.get('building_master').front === "") {
+        if (buildingModel.get('building_master').length === 0) {
           CommonFloor.navigate('/building/' + id + '/apartments', true);
           return CommonFloor.router.storeRoute();
         } else {

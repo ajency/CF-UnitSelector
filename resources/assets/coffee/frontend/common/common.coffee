@@ -51,7 +51,7 @@ CommonFloor.propertyMaxUnits = ()->
 #function to load the default controller fro master view
 CommonFloor.checkPropertyType = ()->
 	CommonFloor.loadJSONData()
-	if project.get('project_master').front  == ""
+	if project.get('project_master').length  ==  0
 		CommonFloor.navigate '#/list-view' , true
 		CommonFloor.router.storeRoute()
 	else

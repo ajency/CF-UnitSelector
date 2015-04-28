@@ -303,10 +303,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		# svgs[8] = building.get('building_master').back
 		# svgs[12] =  building.get('building_master').left
 		
-		$.merge transitionImages , building.get('building_master')['right-front']
-		$.merge transitionImages , building.get('building_master')['back-right']
-		$.merge transitionImages , building.get('building_master')['left-back']
-		$.merge transitionImages , building.get('building_master')['front-left']
+		$.merge transitionImages , building.get('building_master')
+		# $.merge transitionImages , building.get('building_master')['back-right']
+		# $.merge transitionImages , building.get('building_master')['left-back']
+		# $.merge transitionImages , building.get('building_master')['front-left']
 		$('.region').load(svgs[0],
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
 		# $('.first_image').bttrlazyloading(

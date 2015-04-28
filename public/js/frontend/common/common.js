@@ -77,7 +77,7 @@
 
   CommonFloor.checkPropertyType = function() {
     CommonFloor.loadJSONData();
-    if (project.get('project_master').front === "") {
+    if (project.get('project_master').length === 0) {
       CommonFloor.navigate('#/list-view', true);
       return CommonFloor.router.storeRoute();
     } else {
