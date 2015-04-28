@@ -129,8 +129,11 @@
 
     MasterBuildingListView.prototype.onShow = function() {
       if (bunglowVariantCollection.length !== 0) {
-        return $('.Villas').removeClass('hidden');
+        $('.Villas').removeClass('hidden');
       }
+      return $('.units').mCustomScrollbar({
+        theme: 'inset'
+      });
     };
 
     return MasterBuildingListView;

@@ -48,16 +48,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
             'project_image' => $projectData['project_image'],
         ];
 
-        $defaultMaster = [
-            'front' => '',
-            'left' => '',
-            'back' => '',
-            'right' => '',
-            'front-left' => [],
-            'left-back' => [],
-            'back-right' => [],
-            'right-front' => []
-        ];
+        $defaultMaster = [];
         
         // add project meta
         $projectMeta = [
@@ -87,7 +78,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
                 'meta_value' => ''
             ]),
             new ProjectMeta( ['meta_key' => 'breakpoints',
-                'meta_value' => []] ),
+                'meta_value' => serialize([])] ),
         ];
 
         $project->projectMeta()->saveMany( $projectMeta );

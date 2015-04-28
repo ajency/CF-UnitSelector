@@ -140,6 +140,9 @@ class MasterBunglowListView extends Marionette.CompositeView
 	onShow:->
 		if apartmentVariantCollection.length != 0
 			$('.buildings').removeClass 'hidden'
+
+		$('.units').mCustomScrollbar
+			theme: 'inset'
 		
 
 #controller for the Center region

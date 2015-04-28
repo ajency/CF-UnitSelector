@@ -115,8 +115,11 @@
 
     MasterBunglowListView.prototype.onShow = function() {
       if (apartmentVariantCollection.length !== 0) {
-        return $('.buildings').removeClass('hidden');
+        $('.buildings').removeClass('hidden');
       }
+      return $('.units').mCustomScrollbar({
+        theme: 'inset'
+      });
     };
 
     return MasterBunglowListView;

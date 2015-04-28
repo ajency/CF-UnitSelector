@@ -47,7 +47,8 @@ class ProjectMediaController extends Controller {
 
             $file = $request->file( 'file' );
             $fileName = $file->getClientOriginalName();
-            $fileExt = $file->guessClientExtension();
+            $fileData = explode('.', $fileName);
+   
             //$newFilename = rand() . '_' . $projectId . '.' . $fileExt;
             $newFilename = $fileName;
 
@@ -61,7 +62,7 @@ class ProjectMediaController extends Controller {
         $media->save();
 
         $mediaId = $media->id;
-
+        $position = 0;
         if ('master' !== $type) {
             $projectMeta = ProjectMeta::where( ['meta_key' => $type, 'project_id' => $projectId] )->first();
             $projectMeta->project_id = $projectId;
@@ -69,16 +70,13 @@ class ProjectMediaController extends Controller {
             $projectMeta->meta_value = $mediaId;
             $projectMeta->save();
         } else {
+            
+            $file =  $fileData[0];
+            $fileArr = explode('-', $file);
+            $position = $fileArr[1];
             $projectMeta = ProjectMeta::where( ['meta_key' => 'master', 'project_id' => $projectId] )->first();
             $unSerializedValue = unserialize( $projectMeta->meta_value );
-            $section = Input::get( 'section' );
-            if (strpos( $section, '-' ) !== false) {
-                $sectionImages = $unSerializedValue[$section];
-                $sectionImages[] = $mediaId;
-                $unSerializedValue[$section] = array_unique( $sectionImages );
-            } else {
-                $unSerializedValue[$section] = $mediaId;
-            }
+            $unSerializedValue[$position] = $mediaId;
             $projectMeta->meta_value = serialize( $unSerializedValue );
             $projectMeta->save();
         }
@@ -96,7 +94,9 @@ class ProjectMediaController extends Controller {
                     'message' => $message . ' Image Successfully Uploaded',
                     'data' => [
                         'image_path' => $imageUrl . $newFilename,
-                        'media_id' => $mediaId
+                        'media_id' => $mediaId,
+                        'position' => $position,
+                        'filename' => $file
                     ]
             ], 201 );
     }
@@ -142,35 +142,51 @@ class ProjectMediaController extends Controller {
         $refference = Input::get( 'refference' );
         
         $metaValue = ProjectMeta::where(['meta_key'=>$type,'project_id'=>$project_id])->pluck('meta_value');
+        
         $data =[]; 
         if($type=='master')
         {
-            $metaValueData = unserialize($metaValue); 
-            $masterTypes = ['front','left','back','right'];
-            $masterTypesMultipleImage = ['front-left', 'left-back', 'back-right', 'right-front'];
-            if(in_array($refference, $masterTypes))
-            {
-                $metaValueData[$refference]='';
-            }
-            elseif(in_array($refference, $masterTypesMultipleImage))
-            {
-                $metaValueKey = array_search ($id, $metaValueData[$refference]);
-                unset($metaValueData[$refference][$metaValueKey]);
-            }
+            $breakpoints = ProjectMeta::where(['meta_key'=>'breakpoints','project_id'=>$project_id])->pluck('meta_value');
+            $breakpoints = unserialize($breakpoints);
+            $breakpointKey = array_search ($refference, $breakpoints);
+            unset($breakpoints[$breakpointKey]);
+            $breakpointData =  ['meta_value'=>serialize($breakpoints)]; 
+            ProjectMeta::where(['meta_key'=>'breakpoints','project_id'=>$project_id])->update( $breakpointData ); 
             
-             $data =  ['meta_value'=>serialize($metaValueData)];  
+            $metaValue = unserialize($metaValue);
+            $metaValueKey = array_search ($id, $metaValue);
+            $metaValue[$metaValueKey]='';
+            $data =  ['meta_value'=>serialize($metaValue)];  
+ 
         }
         else
         {
             $data =['meta_value'=>'']; 
         }
         ProjectMeta::where(['meta_key'=>$type,'project_id'=>$project_id])->update( $data ); 
-        Media::find( $id )->delete();
+       
+        $media = Media::find( $id );
+        $targetDir = public_path() . "/projects/" . $project_id . "/" . $type . "/".$media->image_name;
+        unlink($targetDir);
+        $media->delete();
         
         return response()->json( [
                     'code' => 'media_deleted',
                     'message' => 'SVG Successfully Deleted'
                         ], 204 );
+    }
+    
+    public function updateBreakPoint($projectId)
+    {
+        $position = Input::get( 'position' ); 
+        $projectMeta = ProjectMeta::where( ['meta_key' =>'breakpoints', 'project_id' => $projectId] )->first();
+        $projectMeta->meta_value = serialize($position);
+        $projectMeta->save(); 
+        
+         return response()->json( [
+            'code' => 'master_breakpoints',
+            'message' => 'Break Points Successfully Updated', 
+                ], 201 );
     }
 
 }

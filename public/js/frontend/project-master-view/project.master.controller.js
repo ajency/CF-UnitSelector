@@ -276,6 +276,7 @@
       var breakpoints, height, svgs, that, transitionImages;
       height = this.ui.svgContainer.width() / 1.46;
       $('.us-left-content').css('height', height);
+      $('.units').css('height', height - 162);
       $('#spritespin').hide();
       that = this;
       transitionImages = [];

@@ -38,7 +38,7 @@ class ProjectBunglowUnitController extends Controller {
         foreach($unitvariantArr as $unitvariant)
             $unitVariantIdArr[] =$unitvariant['id'];
         
-        $unitArr = Unit::whereIn('unit_variant_id',$unitVariantIdArr)->orderBy('unit_name')->get()->toArray();
+        $unitArr = Unit::whereIn('unit_variant_id',$unitVariantIdArr)->orderBy('unit_name')->get();
 
         return view('admin.project.listunit')
                         ->with('project', $project->toArray())

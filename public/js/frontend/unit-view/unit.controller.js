@@ -246,7 +246,7 @@
         response = this.generateLevels();
         html = '';
         $.each(response[1], function(index, value) {
-          return html += '<div class="layouts animated fadeIn"> <a class="fancybox" rel="3d" href="' + value + '" title="' + s.replaceAll(response[2][index], "_", " ") + '"> <img class="img" src="' + value + '" /> <div class="img-overlay"></div> </a> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </div>';
+          return html += '<div class="layouts animated fadeIn"> <a class="fancybox" rel="3d" href="' + value + '" title="' + s.replaceAll(response[2][index], "_", " ") + '"> <img class="img" src="' + value + '" /> <div class="img-overlay"></div> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </a> </div>';
         });
         $('.images').html(html);
         $('.threeD').addClass('current');
@@ -259,7 +259,7 @@
         response = this.generateLevels();
         html = '';
         $.each(response[0], function(index, value) {
-          return html += '<div class="layouts animated fadeIn"> <a class="fancybox" rel="2d" href="' + value + '" title="' + s.replaceAll(response[2][index], "_", " ") + '"> <img class="img" src="' + value + '" /> <div class="img-overlay"></div> </a> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </div>';
+          return html += '<div class="layouts animated fadeIn"> <a class="fancybox" rel="2d" href="' + value + '" title="' + s.replaceAll(response[2][index], "_", " ") + '"> <img class="img" src="' + value + '" /> <div class="img-overlay"></div> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </a> </div>';
         });
         $('.images').html(html);
         $('.twoD').addClass('current');

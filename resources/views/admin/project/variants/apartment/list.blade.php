@@ -28,6 +28,7 @@
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Property Type</th>
                             <th>Unit Type</th>
                             <th>Carpet Area</th>
                             <th>Super Built Up Area</th>
@@ -40,6 +41,7 @@
                         @foreach ($unitVariants as $unitVariant)
                             <tr class="">
                                 <td><a href="{{ url( '/admin/project/' . $project['id'] . '/apartment-variant/'.$unitVariant['id'].'/edit') }}">{{ $unitVariant['unit_variant_name'] }}</a></td>
+                                <td>{{ $propertyTypes[$unitVariant['unit_type_id']] }}</td>
                                 <td>{{ $unitTypes[$unitVariant['unit_type_id']] }}</td>
                                 <td>{{ $unitVariant['carpet_area'] }}</td>
                                 <td>{{ $unitVariant['super_built_up_area'] }}</td>

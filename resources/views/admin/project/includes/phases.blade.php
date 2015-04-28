@@ -4,17 +4,21 @@
     <div class="grid-title"  role="tab" id="headingTwo">
         
          <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-<div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+
+   <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
 <i class="fa fa-angle-up "></i>
-         </div>
-<h3>
-                    Project <span class="semi-bold">Phases</span>
-                </h3></a>
+         </div>      
+<h3 class="inline"> Project <span class="semi-bold">Phases</span></h3>&nbsp;
+ <a  class="inline" data-toggle="popover" 
+ data-content="Stages which the project undergoes e.g. Construction,For Sale. 
+          This is applicable only for projects having apartments, 
+          where each building will have one of the phase as entered below."><i class="fa fa-info"></i></a>
+</a>
     </div>
     <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 
     <div class="grid-body">
-        <div class="row">
+    <div class="row">
             <div class="col-md-4">
                 <div class="form-inline">
                     <div class="form-group object-phases" data-object-type="project">

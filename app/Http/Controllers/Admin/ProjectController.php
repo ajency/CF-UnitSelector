@@ -98,31 +98,28 @@ class ProjectController extends Controller {
 
     public function svg($id, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($id);
-        $projectMeta = $project->projectMeta()->whereIn('meta_key', ['master', 'google_earth', 'skyview'])->get()->toArray();
+        $projectMeta = $project->projectMeta()->whereIn('meta_key', ['master', 'google_earth', 'skyview', 'breakpoints'])->get()->toArray();
         $svgImages = [];
 
         foreach ($projectMeta as $metaValues) {
 
             if ('master' === $metaValues['meta_key']) {
-                $svgImages['master'] = $a = unserialize($metaValues['meta_value']);
+                $masterImages = unserialize($metaValues['meta_value']);
 
-                foreach ($svgImages['master'] as $key => $images) {
-                    if (is_array($images)) {
-                        $transitionImages = [];
-                        foreach ($images as $image) {
-
-                            $imageName = Media::find($image)->image_name;
-                            $transitionImages[] =["ID"=>$image, "IMAGE"=> url() . "/projects/" . $id . "/master/" . $imageName];
-                        }
-                        $svgImages['master'][$key] = $transitionImages;
-                    } else {
+                if (!empty($masterImages)) {
+                    foreach ($masterImages as $key => $images) {
                         if (is_numeric($images)) {
-
                             $imageName = Media::find($images)->image_name;
-                            $svgImages['master'][$key] = ["ID"=>$images, "IMAGE"=> url() . "/projects/" . $id . "/master/" . $imageName]; 
+                            $svgImages[$metaValues['meta_key']][$key]['ID'] = $images;
+                            $svgImages[$metaValues['meta_key']][$key]['NAME'] = $imageName;
+                            $svgImages[$metaValues['meta_key']][$key]['IMAGE'] = url() . "/projects/" . $id . "/" . $metaValues['meta_key'] . "/" . $imageName;
                         }
+                        else
+                          $svgImages[$metaValues['meta_key']][$key]['ID'] = $images;  
                     }
                 }
+            } elseif ('breakpoints' === $metaValues['meta_key']) { 
+                $svgImages[$metaValues['meta_key']] = (!empty($metaValues['meta_value']))? unserialize($metaValues['meta_value']) :[];
             } else {
                 $mediaId = $metaValues['meta_value'];
                 if (is_numeric($mediaId)) {
@@ -132,7 +129,7 @@ class ProjectController extends Controller {
                 }
             }
         }
- 
+       
         return view('admin.project.svg')
                         ->with('project', $project->toArray())
                         ->with('svgImages', $svgImages)

@@ -36,9 +36,10 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Number of Flats</label>
-                                <input required class="form-control" name="no_of_flats" type="number" />
+                                <input data-parsley-min="1" required class="form-control" name="no_of_flats" type="number" />
                             </div>
                         </div>
+                        
                     </div>
                     <hr/>
                     <div class="form-actions">  
