@@ -106,7 +106,7 @@
                             <div class="form-inline">
 
                                 <div class="form-group">
-                                    <input type="text" name="controltypevalues_{{$roomtypeId}}" class="form-control" value="{{$attributes['defaults']}}" placeholder="Enter Default Values">
+                                    <input type="text" name="controltypevalues_{{$roomtypeId}}" data-role="tagsinput" class="tags" value="{{$attributes['defaults']}}" placeholder="Enter Default Values">
                                     <button type="button" class="btn btn-small btn-default m-t-5" onclick="deleteRoomTypeAttribute({{$project['id']}},{{$attributes['id']}});"><i class="fa fa-trash"></i> Delete</button>
                                 </div>
                             </div>
@@ -143,7 +143,8 @@
                         <div class="col-md-5" id="controltype_values_{{$roomtypeId}}">
                             <div class="form-inline">
                                 <div class="form-group">
-                                <input type="text" name="controltypevalues_{{$roomtypeId}}" class="form-control" placeholder="Enter Default Values">
+<input type="text" name="controltypevalues_{{$roomtypeId}}" data-role="tagsinput" class="tags" placeholder="Enter Default Values">
+
                                     <!--<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>-->
                                     <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes({{$roomtypeId}},this)"><i class="fa fa-plus"></i> Add</button>
                                 </div>
@@ -220,7 +221,7 @@
                         <div class="col-md-5" id="controltype_values_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
                             <div class="form-inline">
                                 <div class="form-group">
-                                    <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="form-control" placeholder="Enter Default Values" value="{{$attributes['defaults']}}">
+                                    <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" data-role="tagsinput" class="tags" placeholder="Enter Default Values" value="{{$attributes['defaults']}}">
                                     <button type="button" class="btn btn-small btn-default m-t-5" onclick="deleteRoomTypeAttribute({{$project['id']}},{{$attributes['id']}});"><i class="fa fa-trash"></i> Delete</button>
                                 </div>
                             </div>
@@ -252,7 +253,7 @@
                         <div class="col-md-5">
                             <div class="form-inline">
                                 <div class="form-group">
-                                    <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="form-control" placeholder="Enter Default Values">
+                                    <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" data-role="tagsinput" class="tags" placeholder="Enter Default Values">
                                     <!--<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>-->
                                      <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes('proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}',this)"><i class="fa fa-plus"></i> Add</button>
                                 </div>

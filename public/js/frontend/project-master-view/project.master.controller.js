@@ -30,7 +30,7 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.checkPropertyType();
       }
-      if (project.get('project_master').front !== "") {
+      if (project.get('project_master').length !== 0) {
         return this.show(new CommonFloor.ProjectMasterView);
       } else {
         return this.show(new CommonFloor.NothingFoundView);
@@ -177,7 +177,7 @@
         if (unit.length === 0) {
           return;
         }
-        if (buildingModel.get('building_master').front === "") {
+        if (buildingModel.get('building_master').length === 0) {
           CommonFloor.navigate('/building/' + id + '/apartments', true);
           return CommonFloor.router.storeRoute();
         } else {
@@ -241,7 +241,7 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
+        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('unit_variant_name') + ' Sq.ft </div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
         $('#' + id).attr('class', 'layer villa ' + availability);
         $('#unit' + id).attr('class', 'unit blocks active');
         return $('.layer').tooltipster('content', html);
@@ -285,10 +285,7 @@
       $.each(breakpoints, function(index, value) {
         return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/master/master-' + value + '.svg';
       });
-      $.merge(transitionImages, project.get('project_master')['right-front']);
-      $.merge(transitionImages, project.get('project_master')['back-right']);
-      $.merge(transitionImages, project.get('project_master')['left-back']);
-      $.merge(transitionImages, project.get('project_master')['front-left']);
+      $.merge(transitionImages, project.get('project_master'));
       $('.region').load(svgs[0], $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
       $('.first_image').load(function() {
         var response;
