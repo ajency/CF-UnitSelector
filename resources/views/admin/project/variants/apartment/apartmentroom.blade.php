@@ -1,13 +1,11 @@
 <form method="POST" id="formroomdetails" name="formroomdetails">
     <div class="grid simple">
         <div class="grid-title">
-            <h3 class="inline">Room <span class="semi-bold">Details</span></h3>
-
-            <div class="user-description-box inline">
-
-                <p>Add rooms (which are created on attributes page) which are present at each level (floor).
-                    Click on Add Level button to add new levels. </p>
-            </div>
+            <h3 class="inline">Room <span class="semi-bold">Details</span></h3>&nbsp;
+ <a class="inline" data-toggle="popover" data-content="Add rooms (which are created on attributes page) which are present at each level (floor).
+                    Click on Add Level button to add new levels. " 
+  data-original-title="" title=""><i class="fa fa-info"></i></a>
+           
         </div>
         <?php
         $i = 0;

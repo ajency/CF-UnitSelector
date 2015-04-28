@@ -6,7 +6,7 @@
 	
     <h2 >Attributes</h2>
      
-</div><a  class="inline" data-toggle="popover" 
+</div>&nbsp;&nbsp;<a  class="inline" data-toggle="popover" 
  data-content="Create different rooms ( e.g. Bedroom, Kitchen etc) and define attributes for each of them.The values entered for Selected box and Multi selectbox for these attributes will be available as options on variant page.
     Enter each of the options as comma separated values here e.g. Wooden, Tiles"><i class="fa fa-info"></i></a>
 

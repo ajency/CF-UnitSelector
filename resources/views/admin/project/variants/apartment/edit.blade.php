@@ -12,13 +12,12 @@
 
 @section('content')
 <!-- BEGIN PAGE TITLE -->
-<div class="page-title">	
-    <h2 class="inline"><span class="semi-bold">Add</span> Unit Variant</h2>
-    <div class="user-description-box inline">
-                <p>Unit variant defines the model of a unit type and can be reused across each unit which have the same specification.</p>
-            </div>
-            
-</div>
+<div class="page-title inline">	
+    <h2><span class="semi-bold">Add</span> Unit Variant</h2>
+ </div>&nbsp;&nbsp;
+
+   <a class="inline" data-toggle="popover" data-content="Unit variant defines the model of a unit type and can be reused across each unit which have the same specification." 
+  data-original-title="" title=""><i class="fa fa-info"></i></a>
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
 <div class="grid simple">
