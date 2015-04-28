@@ -297,7 +297,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$.each breakpoints,(index,value)->
 			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/master/master-'+value+'.svg'
 
-		
+		console.log svgs[0]
 		$.merge transitionImages ,  project.get('project_master')
 		$('.region').load(svgs[0],
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
