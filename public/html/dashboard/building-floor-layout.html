@@ -169,97 +169,131 @@
                     <!-- END PAGE TITLE -->
 
                     <!-- BEGIN PlACE PAGE CONTENT HERE -->
+                    <div class="row">
+                    <div class="col-md-6">
                     <div class="grid simple">
-                        <div class="grid-title">
+                        <div class="grid-title" style="border-bottom:1px solid #f68121 !important;">
+                        <div class="pull-right"><i class="fa fa-check text-success"></i></div>
                             <h3 class="inline"><span class="semi-bold">Floor Layout</span> Details</h3> 
                             <div class="clearfix"></div>
                         </div>
                         <div class="grid-body">
                             <form>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
+                                <div class="form-group">
+                                  <div class="row">
+                                        <div class="col-md-3">
                                             <label class="form-label">Name</label>
+                                             </div>
+                                              <div class="col-md-9">
                                             <input type="text" class="form-control" name="flrname" placeholder="Enter Floor Name">
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
+                                        </div>
+                                     </div>
+                                   
                                         <div class="form-group">
+                                        <div class="row">
+                                        <div class="col-md-3">
                                             <label class="form-label">Number of Flats</label>
+                                            </div>
+                                            <div class="col-md-9">
                                             <input type="text" class="form-control" name="flrname" placeholder="Enter number of Flats">
                                         </div>
-                                    </div>
-                                </div>
+                                         </div>
+                                        </div>
+                                    
+                                
                             </form>
                             <hr/>
-                            <div>
+                            <div class="grid simple">
                                 <h4 class="inline">Floor Layout Detailed SVG</span></h4>  
-                                <div>
-                                    <img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail"  style="width:150px;">   
+                                <div class="grid-body">
+                                    <img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail"  style="width:160px;">   
+                                    <div class="m-t-5"><small>SVG 1</small></div>
                                 </div> 
                             </div>
-                            <hr/>
-                            <div>
-                                <h4 class="inline">Floor Layout Basic SVG</span></h4><div>
-                                    <img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail"  style="width:150px;">  
+                            
+                            <div class="grid simple">
+                                <h4 class="inline">Floor Layout Basic SVG</span></h4>
+                                <div  class="grid-body">
+                                    <img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail"  style="width:160px;">  
+                                    <div class="m-t-5"><small>SVG 2</small></div>
                                 </div>  
                             </div>
                             <div class="form-actions">  
-                                <div class="pull-rigunitt">
-                                    <button type="submit" class="btn btn-primary btn-cons">Save</button>
-                                    <button type="submit" class="btn btn-default btn-cons">Cancel</button>
+                                <div class="pull-right">
+                                    <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
+                                    <button type="submit" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+ </div>
+ <iv class="col-md-6">
                     <div class="grid simple">
-                        <div class="grid-title">
+                        <div class="grid-title"  style="border-bottom:1px solid #f68121 !important;">
+                        <div class="pull-right"><i class="fa fa-check text-success"></i></div>
                             <h3 class="inline"><span class="semi-bold">Position</span> Details</h3> 
 
                             <div class="clearfix"></div>
                         </div>
-                        <div class="grid-body"><h3>Position 1</h3>
-                            <div class="row m-b-15">
-                                <div class="col-md-9">
-                                    <form>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <div>
-                                                        <label class="form-label">Unit Type</label>
+                        <div class="grid-body">
+                        <div role="tabpanel">
+                          <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Position 1</a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Position 2</a></li>
+    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Position 3</a></li>
+    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Position 4</a></li>
+  </ul>
+<div class="grid-body">
+ <div class="tab-content">
+<div role="tabpanel" class="tab-pane" id="home">
+    <div >
+             <div>
+                     <div>
+                              <form>
+                                    <div class="row">
+                                     <div class="form-group">
+                                        <div class="col-md-3">
+                                                  <label class="form-label">Unit Type</label>
                                                     </div>
-                                                    <select>
+                                                    <div class="col-md-9">
+                                                    <select class="full-width m-b-5">
                                                         <option>Controls</option>
                                                         <option> Text Box</option>
                                                         <option>Select Box</option>
                                                         <option> Multiple Select Box</option>
                                                         <option> Number </option>
                                                     </select>
-                                                    <div>Unit Type is required</div>
+                                                    <div class="text-danger">Unit Type is required</div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <div>
+                                                <div class="clearfix"></div>
+                                                </div>
+                                                </div>
+                                            <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-3">
                                                         <label class="form-label">Unit Variant</label>
                                                     </div>
-                                                    <select>
+                                                    <div class="col-md-9">
+                                                    <select class="full-width m-b-5">
                                                         <option>Controls</option>
                                                         <option> Text Box</option>
                                                         <option>Select Box</option>
                                                         <option> Multiple Select Box</option>
                                                         <option> Number </option>
                                                     </select>
-                                                    <div>Unit Variant is required</div>
+                                                    <div class="text-danger">Unit Variant is required</div>
+                                                </div>
                                                 </div>
                                             </div> 
-                                        </div>
                                     </form>
                                 </div>
-                                <div class="col-md-3 text-right">
-                                    <img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail"  style="width:160px;">  
+                                <div class="grid simple">
+                                <div class="grid-title" style="background: #EDEDED;">SVG 1</div>
+                                <div class="grid-body text-center">
+                                    <img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail"  style="width:200px;">  
                                 </div> 
+                                 </div> 
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -270,111 +304,56 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="grid simple">
-                        <div class="grid-title">
-                            <h3 class="inline"><span class="semi-bold">Position</span> Details</h3> 
-
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="grid-body"><h3>Position 2</h3>
-                            <div class="row m-b-15">
-                                <div class="col-md-9">
+    </div>
+  <div role="tabpanel" class="tab-pane" id="profile">
+<div>  <div>
+                                <div>
                                     <form>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <div>
-                                                        <label class="form-label">Unit Type</label>
+                                    <div class="row">
+                                     <div class="form-group">
+                                        
+                                           <div class="col-md-4">
+                                                  <label class="form-label">Unit Type</label>
                                                     </div>
-                                                    <select>
+                                                    <div class="col-md-8">
+                                                    <select class="full-width m-b-5">
                                                         <option>Controls</option>
                                                         <option> Text Box</option>
                                                         <option>Select Box</option>
                                                         <option> Multiple Select Box</option>
                                                         <option> Number </option>
                                                     </select>
-                                                    <div>Unit Type is required</div>
+                                                    <div class="text-danger">Unit Type is required</div>
                                                 </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <div>
+                                                <div class="clearfix"></div>
+                                                </div>
+                                                </div>
+                                            <div class="form-group">
+                                            <div class="row">
+                                                
+                                                    <div class="col-md-4">
                                                         <label class="form-label">Unit Variant</label>
                                                     </div>
-                                                    <select>
+                                                    <div class="col-md-8">
+                                                    <select class="full-width m-b-5">
                                                         <option>Controls</option>
                                                         <option> Text Box</option>
                                                         <option>Select Box</option>
                                                         <option> Multiple Select Box</option>
                                                         <option> Number </option>
                                                     </select>
-                                                    <div>Unit Variant is required</div>
+                                                    <div class="text-danger">Unit Variant is required</div>
+                                                </div>
                                                 </div>
                                             </div> 
-                                        </div>
                                     </form>
                                 </div>
-                                <div class="col-md-3 text-right">
-                                    <img src="http://cfunitselectortest.com/projects/3/master/step-2-front.jpg" class="img-responsive img-thumbnail"  style="width:160px;"></div> 
-                            </div>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="pull-right">
-                                        <button class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
-                                        <button class="btn btn-small btn-default"><i class="fa fa-trash"></i> Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="grid simple">
-                        <div class="grid-title">
-                            <h3 class="inline"><span class="semi-bold">Position</span> Details</h3> 
-
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="grid-body"><h3>Position 3</h3>
-                            <div class="row m-b-15">
-                                <div class="col-md-9">
-                                    <form>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <div>
-                                                        <label class="form-label">Unit Type</label>
-                                                    </div>
-                                                    <select>
-                                                        <option>Controls</option>
-                                                        <option> Text Box</option>
-                                                        <option>Select Box</option>
-                                                        <option> Multiple Select Box</option>
-                                                        <option> Number </option>
-                                                    </select>
-                                                    <div>Unit Type is required</div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <div>
-                                                        <label class="form-label">Unit Variant</label>
-                                                    </div>
-                                                    <select>
-                                                        <option>Controls</option>
-                                                        <option> Text Box</option>
-                                                        <option>Select Box</option>
-                                                        <option> Multiple Select Box</option>
-                                                        <option> Number </option>
-                                                    </select>
-                                                    <div>Unit Variant is required</div>
-                                                </div>
-                                            </div> 
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="col-md-3 text-right">
-                                    <img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail"  style="width:160px;">  
+                                <div class="grid simple">
+                                <div class="grid-title" style="background: #EDEDED;">SVG 2</div>
+                                <div class="grid-body text-center">
+                                    <img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail"  style="width:200px;">  
                                 </div> 
+                                 </div> 
                             </div>
                             <div class="row">
                                 <div class="col-md-12">
@@ -384,11 +363,135 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="messages">
+    <div>
+                            <div>
+                                <div>
+                                    <form>
+                                    <div class="row">
+                                     <div class="form-group">
+                                        
+                                           <div class="col-md-4">
+                                                  <label class="form-label">Unit Type</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                    <select class="full-width m-b-5">
+                                                        <option>Controls</option>
+                                                        <option> Text Box</option>
+                                                        <option>Select Box</option>
+                                                        <option> Multiple Select Box</option>
+                                                        <option> Number </option>
+                                                    </select>
+                                                    <div class="text-danger">Unit Type is required</div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                </div>
+                                                </div>
+                                            <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                        <label class="form-label">Unit Variant</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                    <select class="full-width m-b-5">
+                                                        <option>Controls</option>
+                                                        <option> Text Box</option>
+                                                        <option>Select Box</option>
+                                                        <option> Multiple Select Box</option>
+                                                        <option> Number </option>
+                                                    </select>
+                                                    <div class="text-danger">Unit Variant is required</div>
+                                                </div>
+                                                </div>
+                                            </div> 
+                                    </form>
+                                </div>
+                                <div class="grid simple">
+                                <div class="grid-title" style="background: #EDEDED;">SVG 3</div>
+                                <div class="grid-body text-center">
+                                    <img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail"  style="width:200px;">  
+                                </div> 
+                                 </div> 
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="pull-right">
+                                        <button class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
+                                        <button class="btn btn-small btn-default"><i class="fa fa-trash"></i> Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="settings">
+   <div ><div>
+                    <div>
+                                    <form>
+                                    <div class="row">
+                                     <div class="form-group">
+                                        <div class="col-md-4">
+                                                  <label class="form-label">Unit Type</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                    <select class="full-width m-b-5">
+                                                        <option>Controls</option>
+                                                        <option> Text Box</option>
+                                                        <option>Select Box</option>
+                                                        <option> Multiple Select Box</option>
+                                                        <option> Number </option>
+                                                    </select>
+                                                    <div class="text-danger">Unit Type is required</div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                </div>
+                                                </div>
+                                            <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                        <label class="form-label">Unit Variant</label>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                    <select class="full-width m-b-5">
+                                                        <option>Controls</option>
+                                                        <option> Text Box</option>
+                                                        <option>Select Box</option>
+                                                        <option> Multiple Select Box</option>
+                                                        <option> Number </option>
+                                                    </select>
+                                                    <div class="text-danger">Unit Variant is required</div>
+                                                </div>
+                                                </div>
+                                            </div> 
+                                    </form>
+                                </div>
+                                <div class="grid simple">
+                                <div class="grid-title" style="background: #EDEDED;">SVG 4</div>
+                                <div class="grid-body text-center">
+                                    <img src="../../images/demo/sky-view.jpg" class="img-responsive img-thumbnail"  style="width:200px;">  
+                                </div> 
+                                 </div> 
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="pull-right">
+                                        <button class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
+                                        <button class="btn btn-small btn-default"><i class="fa fa-trash"></i> Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    </div>
+  </div>
+</div></div>
+ </div></div>
                         </div>
                     </div>
                 </div>
                 <!-- END PLACE PAGE CONTENT HERE -->
             </div>
+        </div>
         </div>
         <!-- END PAGE CONTAINER -->
     </div>
