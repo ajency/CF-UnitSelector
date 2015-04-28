@@ -44,20 +44,11 @@ class Building extends Model {
         $svgImages = [];
 
         foreach ($buildingMasters as $key => $images) {
-            if (is_array( $images )) {
-                $transitionImages = [];
-                foreach ($images as $image) {
-                    $imageName = Media::find( $image )->image_name;
-                    $transitionImages[] = url() . "/projects/" . $projectId . "/buildings/" . $buildingId . "/" . $imageName;
-                }
-                $svgImages[$key] = $transitionImages;
-            } else {
-                $svgImages[$key] = "";
                 if ($images != '' && is_numeric( $images )) {
                     $imageName = Media::find( $images )->image_name;
-                    $svgImages[$key] = url() . "/projects/" . $projectId . "/buildings/" . $buildingId . "/" . $imageName;
+                    $svgImages[] = url() . "/projects/" . $projectId . "/buildings/" . $buildingId . "/" . $imageName;
                 }
-            }
+            
         }
         $data['building_master'] = $svgImages; 
         return $data;
