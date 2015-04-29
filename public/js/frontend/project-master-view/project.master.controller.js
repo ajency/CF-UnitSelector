@@ -164,10 +164,8 @@
 
     CenterMasterView.prototype.events = {
       'click @ui.trig': function(e) {
-        var width;
         $('.us-left-content').toggleClass('col-0 col-md-3');
         $('.us-right-content').toggleClass('col-md-12 col-md-9');
-        width = this.ui.svgContainer.width() / 1.46;
         return $('#spritespin').height(width);
       },
       'click .building': function(e) {
@@ -284,7 +282,6 @@
       var breakpoints, first, height, svgs, that, transitionImages;
       $('.first_image').lazyLoadXT();
       height = this.ui.svgContainer.width() / 1.46;
-      $('.us-left-content').css('height', height);
       $('.units').css('height', height - 162);
       $('#spritespin').hide();
       that = this;

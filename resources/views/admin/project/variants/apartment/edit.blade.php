@@ -48,7 +48,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Carpet Area</label>
-                        <input type="text" class="form-control" name="carpet_area" value="{{ $unitVariant['carpet_area'] }}" placeholder="Enter Carpet Area">
+                        <input type="text" class="form-control" name="carpet_area" value="{{ $unitVariant['carpet_area'] }}" placeholder="Enter Carpet Area" data-parsley-required>
                     </div> 
                 </div>
                 </div>
@@ -56,19 +56,19 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Built Up Area</label>
-                        <input type="text" class="form-control" name="builtup_area" value="{{ $unitVariant['built_up_area'] }}" placeholder="Enter Built Up Area">
+                        <input type="text" class="form-control" name="builtup_area" value="{{ $unitVariant['built_up_area'] }}" placeholder="Enter Built Up Area" data-parsley-required>
                     </div> 
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Super Built Up Area</label>
-                        <input type="text" class="form-control" name="superbuiltup_area" value="{{ $unitVariant['super_built_up_area'] }}" placeholder="Enter Super Built Up Area">
+                        <input type="text" class="form-control" name="superbuiltup_area" value="{{ $unitVariant['super_built_up_area'] }}" placeholder="Enter Super Built Up Area" data-parsley-required>
                     </div> 
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Per sq ft Price</label>
-                        <input type="text" class="form-control" name="per_sq_ft_price" value="{{ $unitVariant['per_sq_ft_price'] }}" placeholder="Enter Per sq ft Price">
+                        <input type="text" class="form-control" name="per_sq_ft_price" value="{{ $unitVariant['per_sq_ft_price'] }}" placeholder="Enter Per sq ft Price" data-parsley-required>
                     </div> 
                 </div>
                 </div>

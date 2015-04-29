@@ -3,6 +3,22 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
+function validateTitle(obj)
+{
+    $(obj).next("div.cf-loader").removeClass('hidden');
+    $.ajax({
+        url: "/admin/project/validateprojecttitle",
+        type: "POST",
+        data: {
+            title: obj.value
+        },
+        dataType: "JSON",
+        success: function (response) {
+ 
+            $(obj).next("div.cf-loader").addClass('hidden');
+        }
+    });
+}
 
 function addRoomtype(project_id)
 {
@@ -28,11 +44,33 @@ function addRoomtype(project_id)
             var str = '<form name="frmroomtype_' + roomtypeId + '" id="frmroomtype_' + roomtypeId + '">';
             str += '<div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 m-b-10 text-grey">';
             str += '<div class = "form-inline m-b-10 m-t-10" >';
-            str += '<div class = "form-group" >';
+            str += '<div class = "form-group" ><label>Room Name</label>';
             str += '<input type = "text" name = "room_typename_' + roomtypeId + '" class = "form-control" value = "' + roomtypename + '" >';
             str += '</div>';
             str += '</div>';
-
+            str += '<div class="row">';
+            str += '<div class="col-md-3">';
+            str += '<div class="form-group">';
+            str += '<label class="form-label">Attribute Name</label>';
+            str += '<i class="fa fa-question-circle " data-toggle="tooltip" data-placement="right" title="Attributes Name will be the specification for each room type for example (Area, Length * Width, etc)."></i>';
+            str += '</div>';
+            str += '</div>';
+            str += '<div class="col-md-4">';
+            str += '<div class="form-inline">';
+            str += '<div class="form-group full-width">';
+            str += '<label class="form-label">Control Type</label>';
+            str += '<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="The selected control type will be available as input on the Variant page."></i>';
+            str += '</div>';
+            str += '</div>';
+            str += '</div>';
+            str += '<div class="col-md-5" id="controltype_values_{{$roomtypeId}}">';
+            str += '<div class="form-inline">';
+            str += '<div class="form-group">';
+            str += '<label class="form-label">Default Values</label></div>';
+            str += '</div>';
+            str += '</div>';
+            str += '</div>';
+            
             str += '<div class = "row" >';
             str += '<div class = "col-md-3" >';
             str += '<div class = "form-group" >';

@@ -147,9 +147,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 	events :
 		'click @ui.trig':(e)->
+			# $('.us-left-content').css('height', 0)
+			# $('.units').css('height', 0)
 			$('.us-left-content').toggleClass 'col-0 col-md-3'
 			$('.us-right-content').toggleClass 'col-md-12 col-md-9'
-			width = @ui.svgContainer.width() / 1.46
+			# height = @ui.svgContainer.width() / 1.46
 			$('#spritespin').height(width)
 		  
 		'click .building':(e)->
@@ -296,7 +298,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 	onShow:->
 		$('.first_image').lazyLoadXT()
 		height =  @ui.svgContainer.width() / 1.46
-		$('.us-left-content').css('height',height)
+		# $('.us-left-content').css('height',height)
 		$('.units').css('height',height-162)
 		$('#spritespin').hide()
 		that = @
