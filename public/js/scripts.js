@@ -10,11 +10,14 @@ function validateTitle(obj)
         url: "/admin/project/validateprojecttitle",
         type: "POST",
         data: {
-            title: obj.value
+            title: obj.value,
+            project_id: PROJECTID
         },
         dataType: "JSON",
         success: function (response) {
- 
+            if(!response.data)
+                $(obj).val('');
+            
             $(obj).next("div.cf-loader").addClass('hidden');
         }
     });
@@ -70,7 +73,7 @@ function addRoomtype(project_id)
             str += '</div>';
             str += '</div>';
             str += '</div>';
-            
+
             str += '<div class = "row" >';
             str += '<div class = "col-md-3" >';
             str += '<div class = "form-group" >';
@@ -96,11 +99,12 @@ function addRoomtype(project_id)
             str += '</div>';
             str += '</div>';
             str += '<div class = "col-md-5" id = "controltype_values_' + roomtypeId + '">';
-            str += '<div class = "form-inline" >';
             str += '<div class = "form-group" >';
-            str += '<input type="text" name="controltypevalues_' + roomtypeId + '" data-role="tagsinput" class="tags" placeholder="Enter Default values" >';
-            str += ' <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes(' + roomtypeId + ',this)"><i class="fa fa-plus"></i> Add</button>';
-            //str += ' <button class = "btn btn-small btn-default m-t-5"  > <i class = "fa fa-trash" > </i> Delete</button>';
+            str += '<div class="col-lg-8 col-md-7">';
+            str += '<input type="text" name= "controltypevalues_' + roomtypeId + '" data-role="tagsinput" class="tags" >';
+            str += '</div>';
+            str += '<div class="col-lg-4 col-md-5">';
+            str += ' <button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes(\'' + roomtypeId + '\',this)"> <i class="fa fa-plus"></i> Add New</button>';
             str += '</div>';
             str += '</div>';
             str += '</div>';
@@ -190,11 +194,13 @@ function addRoomtypeAttributes(roomtypeId, obj)
     str += '</div>';
     str += '</div>';
     str += '<div class = "col-md-5" id = "controltype_values_' + roomtypeId + '" >';
-    str += '<div class = "form-inline" >';
+
     str += '<div class = "form-group" >';
-    str += '<input type="text" name= "controltypevalues_' + roomtypeId + '" data-role="tagsinput" class="tags" placeholder="Enter Default values" >';
-    //str += '<button class = "btn btn-small btn-default m-t-5" > <i class = "fa fa-trash" > </i> Delete</button>';
-    str += ' <button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes(\'' + roomtypeId + '\',this)"> <i class="fa fa-plus"></i> Add</button>';
+    str += '<div class="col-lg-8 col-md-7">';
+    str += '<input type="text" name= "controltypevalues_' + roomtypeId + '" data-role="tagsinput" class="tags" >';
+    str += '</div>';
+    str += '<div class="col-lg-4 col-md-5">';
+    str += ' <button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes(\'' + roomtypeId + '\',this)"> <i class="fa fa-plus"></i> Add New</button>';
     str += '</div>';
     str += '</div>';
     str += '</div>';
@@ -520,7 +526,7 @@ function setUpFloorLevelUploader() {
         uploader3d.init();
 
     });
- 
+
 }
 
 function deleteLayout(mediaId, type)
@@ -587,15 +593,15 @@ function setUpFloorLayoutUploader() {
                 },
                 FilesAdded: function (up, files) {
 
-                    $("#"+uploadBtnId).next("div.selectedImages").html('<div class="col-md-3"><strong>' + files.length + ' svg selected. Click on upload button to start upload.</strong><div class="cf-loader"></div></div>');
-                    $("#"+uploadBtnId).removeClass('hidden');
+                    $("#" + uploadBtnId).next("div.selectedImages").html('<div class="col-md-3"><strong>' + files.length + ' svg selected. Click on upload button to start upload.</strong><div class="cf-loader"></div></div>');
+                    $("#" + uploadBtnId).removeClass('hidden');
                 },
                 FileUploaded: function (up, file, xhr) {
                     fileResponse = JSON.parse(xhr.response);
                     div.find('.uploaded-image').html('<object width="150" id="svg1" data="' + fileResponse.data.media_path + '" type="image/svg+xml" />');
                     div.find('[name="' + divName + '"]').val(fileResponse.data.media_id);
-                    $("#"+uploadBtnId).next("div.selectedImages").html('');
-                    $("#"+uploadBtnId).addClass('hidden');
+                    $("#" + uploadBtnId).next("div.selectedImages").html('');
+                    $("#" + uploadBtnId).addClass('hidden');
                 }
             }
         });
