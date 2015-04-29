@@ -41,39 +41,15 @@
       availability = this.model.get('availability');
       status = s.decapitalize(availability);
       classname = $('#unit' + id).attr('class');
-      $('#unit' + id).attr('class', classname + ' ' + status);
-      return this.iniTooltip();
-    };
-
-    BunglowListView.prototype.iniTooltip = function() {
-      return $('.layer').tooltipster({
-        theme: 'tooltipster-shadow',
-        contentAsHTML: true,
-        onlyOne: true,
-        arrow: false,
-        offsetX: 50,
-        offsetY: -10
-      });
+      return $('#unit' + id).attr('class', classname + ' ' + status);
     };
 
     BunglowListView.prototype.events = {
       'mouseover': function(e) {
-        var html, id, response;
+        var id;
         id = this.model.get('id');
         $('#' + id + '.villa').attr('class', 'layer villa ' + this.model.get('status'));
-        $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status') + ' active');
-        html = '';
-        if (id === void 0) {
-          html += '<div class="svg-info"> <div class="details"> Villa details not entered </div> </div>';
-          $('#' + id + '.layer').tooltipster('content', html);
-          return;
-        }
-        response = window.unit.getUnitDetails(id);
-        window.convertRupees(response[3]);
-        html = "";
-        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('unit_variant_name') + ' Sq.ft </div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
-        console.log(html);
-        return $('#' + id + '.layer').tooltipster('content', html);
+        return $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status') + ' active');
       },
       'mouseout': function(e) {
         var id;

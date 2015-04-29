@@ -22,8 +22,12 @@
 
                 <div>
                     <input id="master_pickfiles" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/> 
+
                     <button id="master_uploadfiles" type="button" class="btn btn-small btn-primary" data-toggle="collapse" data-target="#master-img" >Upload</button>
                     <div class="row selectedImages m-t-15">
+
+                   
+
                     </div>
                 </div>
                 <hr/>
