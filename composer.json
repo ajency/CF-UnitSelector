@@ -9,7 +9,8 @@
         "barryvdh/laravel-ide-helper": "~2.0",
         "illuminate/html": "5.0.*@dev",
         "jildertmiedema/laravel-plupload": "dev-master",
-        "masterexploder/phpthumb" : "*"
+        "masterexploder/phpthumb" : "*",
+        "zizaco/entrust": "dev-laravel-5"
 
     },
     "require-dev": {

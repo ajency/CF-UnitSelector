@@ -387,7 +387,7 @@ function setUpProjectMasterUploader() {
             },
             FilesAdded: function (up, files) {
 
-                $("#master_uploadfiles").next("div.selectedImages").html('<div class="col-md-3"><strong>' + files.length + ' image selected. Click on upload button to start upload.</strong><div class="cf-loader"></div></div>');
+                $("#master_uploadfiles").next("div.selectedImages").html('<strong>' + files.length + ' image selected. Click on upload button to start upload.</strong><div class="cf-loader"></div>');
                 $("#master_uploadfiles").removeClass('hidden');
             },
             FileUploaded: function (up, file, xhr) {
@@ -469,7 +469,7 @@ function setUpFloorLevelUploader() {
                 },
                 FilesAdded: function (up, files) {
 
-                    $('#uploadfiles_2d_' + value).next("div.selectedImages").html('<div class="col-md-3"><strong>' + files.length + ' image selected. Click on upload button to start upload.</strong><div class="cf-loader"></div></div>');
+                    $('#uploadfiles_2d_' + value).next("div.selectedImages").html('<strong>' + files.length + ' image selected. Click on upload button to start upload.</strong><div class="cf-loader"></div>');
                     $('#uploadfiles_2d_' + value).removeClass('hidden');
                 },
                 FileUploaded: function (up, file, xhr) {
@@ -512,7 +512,7 @@ function setUpFloorLevelUploader() {
                 },
                 FilesAdded: function (up, files) {
 
-                    $('#uploadfiles_3d_' + value).next("div.selectedImages").html('<div class="col-md-3"><strong>' + files.length + ' image selected. Click on upload button to start upload.</strong><div class="cf-loader"></div></div>');
+                    $('#uploadfiles_3d_' + value).next("div.selectedImages").html('<strong>' + files.length + ' image selected. Click on upload button to start upload.</strong><div class="cf-loader"></div>');
                     $('#uploadfiles_3d_' + value).removeClass('hidden');
                 },
                 FileUploaded: function (up, file, xhr) {
@@ -593,7 +593,7 @@ function setUpFloorLayoutUploader() {
                 },
                 FilesAdded: function (up, files) {
 
-                    $("#" + uploadBtnId).next("div.selectedImages").html('<div class="col-md-3"><strong>' + files.length + ' svg selected. Click on upload button to start upload.</strong><div class="cf-loader"></div></div>');
+                    $("#" + uploadBtnId).next("div.selectedImages").html('<strong>' + files.length + ' svg selected. Click on upload button to start upload.</strong><div class="cf-loader"></div>');
                     $("#" + uploadBtnId).removeClass('hidden');
                 },
                 FileUploaded: function (up, file, xhr) {
@@ -643,7 +643,7 @@ $(document).ready(function () {
             },
             FilesAdded: function (up, files) {
 
-                $("#uploadfiles").next("div.selectedImages").html('<div class="col-md-3"><strong>' + files.length + ' svg selected. Click on upload button to start upload.</strong><div class="cf-loader"></div></div>');
+                $("#uploadfiles").next("div.selectedImages").html('<strong>' + files.length + ' svg selected. Click on upload button to start upload.</strong><div class="cf-loader"></div>');
                 $("#uploadfiles").removeClass('hidden');
             },
             FileUploaded: function (up, file, xhr) {
@@ -684,7 +684,7 @@ $(document).ready(function () {
             },
             FilesAdded: function (up, files) {
 
-                $("#skyview_uploadfiles").next("div.selectedImages").html('<div class="col-md-3"><strong>' + files.length + ' image selected. Click on upload button to start upload.</strong><div class="cf-loader"></div></div>');
+                $("#skyview_uploadfiles").next("div.selectedImages").html('<strong>' + files.length + ' image selected. Click on upload button to start upload.</strong><div class="cf-loader"></div>');
                 $("#skyview_uploadfiles").removeClass('hidden');
             },
             FileUploaded: function (up, file, xhr) {
@@ -729,7 +729,7 @@ $(document).ready(function () {
             },
             FilesAdded: function (up, files) {
 
-                $('#uploadfiles_ext3d').next("div.selectedImages").html('<div class="col-md-3"><strong>' + files.length + ' image selected. Click on upload button to start upload.</strong><div class="cf-loader"></div></div>');
+                $('#uploadfiles_ext3d').next("div.selectedImages").html('<strong>' + files.length + ' image selected. Click on upload button to start upload.</strong><div class="cf-loader"></div>');
                 $('#uploadfiles_ext3d').removeClass('hidden');
             },
             FileUploaded: function (up, file, xhr) {
@@ -772,7 +772,7 @@ $(document).ready(function () {
             },
             FilesAdded: function (up, files) {
 
-                $('#uploadfiles_gallery').next("div.selectedImages").html('<div class="col-md-3"><strong>' + files.length + ' image selected. Click on upload button to start upload.</strong><div class="cf-loader"></div></div>');
+                $('#uploadfiles_gallery').next("div.selectedImages").html('<strong>' + files.length + ' image selected. Click on upload button to start upload.</strong><div class="cf-loader"></div>');
                 $('#uploadfiles_gallery').removeClass('hidden');
             },
             FileUploaded: function (up, file, xhr) {
