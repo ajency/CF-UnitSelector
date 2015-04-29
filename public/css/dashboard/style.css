@@ -8192,13 +8192,6 @@ body.rtl .footer-widget {
 .inner-wrapper h2 {
   word-break: break-word;
 }
-.toggle {
-  width: 90px!important;
-  height: 33px!important;
-}
-.toggle .btn {
-  min-height: 33px!important;
-}
 .fa-question-circle {
   font-size: 15px;
 }
@@ -8226,21 +8219,21 @@ body.rtl .footer-widget {
   text-align: left;
 }
 /* Popover */
-.popover.right {
-  top: 54px;
+/* .popover.fade{
+top: 54px;
   left: 175.828125px;
   display: block;
   background: #f2f4f6;
   border: 1px solid #6f7b8a;
   font-style: italic;
-}
-.popover.right .popover-content {
-  color: #6f7b8a;
-}
-.popover.right .arrow:after {
-  border-right-color: #6F7B8A;
-  left: 0;
-}
+  .popover-content{
+    color: #6f7b8a;
+  }
+  .arrow:after{
+      border-right-color:#6F7B8A;
+      left:0;
+    }
+}*/
 /* Accordion */
 #accordion .grid-title {
   border-bottom: 1px solid #DDD;
