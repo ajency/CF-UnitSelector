@@ -34,7 +34,7 @@
         </div>
         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
             <div class="grid-body">
-                <form action="/admin/project/{{ $project['id'] }}/bunglow-variant/{{ $unitVariant['id'] }}" method="POST" data-parsley-validate>
+                <form action="/admin/project/{{ $project['id'] }}/plot-variant/{{ $unitVariant['id'] }}" method="POST" data-parsley-validate>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -55,22 +55,11 @@
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="form-label">Carpet Area</label>
-                                <input type="text" class="form-control" name="carpet_area" value="{{ $unitVariant['carpet_area'] }}" placeholder="Enter Carpet Area" data-parsley-required>
+                                <label class="form-label">Size</label>
+                                <input type="text" class="form-control" name="size" value="{{ $unitVariant['size'] }}" placeholder="Enter Carpet Area" data-parsley-required>
                             </div> 
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-label">Built Up Area</label>
-                                <input type="text" class="form-control" name="builtup_area" value="{{ $unitVariant['built_up_area'] }}" placeholder="Enter Built Up Area" data-parsley-required>
-                            </div> 
-                        </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-label">Super Built Up Area</label>
-                                <input type="text" class="form-control" name="superbuiltup_area" value="{{ $unitVariant['super_built_up_area'] }}" placeholder="Enter Super Built Up Area" data-parsley-required>
-                            </div> 
-                        </div>
+                         
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Per sq ft Price</label>
@@ -127,8 +116,7 @@
             </div>
         </div>
     </div>
-
-    @include('admin.project.variantrooms')
+ 
 
     <div class="grid simple">
         <div class="grid-title" role="tab" id="headingThree">
@@ -161,8 +149,7 @@
                     </div>
                 </div>
             </div>
-
-            @include('admin.project.variantlayouts')
+ 
             <div class="grid-body"> 
                 <h5 class="semi-bold inline">Gallery</h5>
                 <div>
@@ -189,14 +176,10 @@
 
     </div> 
     <script>
-                var ROOMTYPES = '';
-                @foreach($availableRoomTypes as $room_type)
-                ROOMTYPES += "<option value=\"{{$room_type['id']}}\">{{$room_type['name']}}</option>";
-                @endforeach
-
-                var BASEURL = '{{ url() }}';
-                var FLOORLEVELS = [<?php echo implode(",", array_keys($variantRooms)); ?>];
-                var variantId = {{ $unitVariant['id'] }};
+        var ROOMTYPES = '';
+        var BASEURL = '{{ url() }}';
+        var FLOORLEVELS = [0];
+        var variantId = {{ $unitVariant['id'] }};
     </script>
     <!-- END PLACE PAGE CONTENT HERE -->
     @endsection
