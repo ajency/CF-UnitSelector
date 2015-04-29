@@ -319,8 +319,6 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		@initializeRotate(transitionImages,svgs)
 		
 
-		
-		 
 
 	applyClasses:->
 		$('.villa').each (ind,item)->
