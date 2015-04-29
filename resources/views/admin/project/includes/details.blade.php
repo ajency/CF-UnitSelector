@@ -100,7 +100,7 @@
                         @foreach($propertyTypes as $propertyType)
                         
                         <div class="col-md-3">
-                        <div class="property-type-{{ $propertyType->id }} {{ isset($unitTypes[$propertyType->id]) ? '' : 'hidden' }}">
+                        <div class="property-type-{{ $propertyType->id }} {{ isset($unitTypes[$propertyType->id]) ? '' : 'hidden' }} form-group">
                             <label class="form-label inline m-b-10 m-t-10">Unit Types for {{ $propertyType->name }}</label>&nbsp;&nbsp;<i class="fa fa-question-circle " data-toggle="tooltip" data-placement="right" title="Enter BHK Type for the Property(e.g 2BHK, 3BHK)"></i>
                             @if(isset($unitTypes[$propertyType->id]))
                             @foreach( $unitTypes[$propertyType->id] as $propertyTypeId => $projectUnitType )
