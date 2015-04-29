@@ -23,49 +23,37 @@
     </div>
 
     <div class="grid-body">
-        <form action="/admin/project/{{ $project['id'] }}/bunglow-variant" method="POST" data-parsley-validate>
+        <form action="/admin/project/{{ $project['id'] }}/plot-variant" method="POST" data-parsley-validate>
             <div>
                 <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Name</label>
-                        <input type="text" class="form-control" name="unit_variant_name" placeholder="Enter Name" data-parsley-required>
-                    </div> 
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" name="unit_variant_name" placeholder="Enter Name" data-parsley-required>
+                        </div> 
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Unit Type</label>
+                            <select name="unit_type" class="select2 form-control" data-parsley-required>
+                                <option value="">Select Unit Type</option>
+                                @foreach($unit_type_arr as $unit_type)
+                                <option value="{{$unit_type['id']}}">{{$unit_type['unittype_name']}}</option>
+                                @endforeach
+                            </select>
+                        </div> 
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Size</label>
+                            <input type="text" class="form-control" name="size" value="" placeholder="Enter Size" data-parsley-required>
+                        </div> 
+                    </div>
+
+
+
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Unit Type</label>
-                        <select name="unit_type" class="select2 form-control" data-parsley-required>
-                            <option value="">Select Unit Type</option>
-                            @foreach($unit_type_arr as $unit_type)
-                            <option value="{{$unit_type['id']}}">{{$unit_type['unittype_name']}}</option>
-                            @endforeach
-                        </select>
-                    </div> 
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Carpet Area</label>
-                        <input type="text" class="form-control" name="carpet_area" value="" placeholder="Enter Carpet Area" data-parsley-required>
-                    </div> 
-                </div>
-             
- 
-              
-            </div>
-               <div class="row">
-                  <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Built Up Area</label>
-                        <input type="text" class="form-control" name="builtup_area" value="" placeholder="Enter Built Up Area" data-parsley-required>
-                    </div> 
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Super Built Up Area</label>
-                        <input type="text" class="form-control" name="superbuiltup_area" value="" placeholder="Enter Super Built Up Area" data-parsley-required>
-                    </div> 
-                </div>
+
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Per sq ft Price</label>
@@ -78,7 +66,7 @@
                         <label class="form-label">{{$attributes['label']}}</label> 
                         @if('textbox' === $attributes['control_type'])
                         <input type="text" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]"  placeholder="Enter {{$attributes['label']}}">
-                         @elseif('number' === $attributes['control_type'])
+                        @elseif('number' === $attributes['control_type'])
                         <input type="number" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]" value="" placeholder="Enter {{$attributes['label']}}">
                         @elseif('select' === $attributes['control_type'])
                         <?php
@@ -104,9 +92,9 @@
                     </div> 
                 </div>
                 @endforeach
-                
+
             </div>
- 
+
             <div class="form-actions">  
                 <div class="pull-right">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>

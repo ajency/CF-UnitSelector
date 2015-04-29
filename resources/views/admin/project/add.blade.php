@@ -62,7 +62,7 @@
                             <div class="form-group">
                                 <label class="form-label" >Project Title<span class="text-primary">*</span></label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"  title=" Project Title to be displayed on unit selector page"></i> 
                                 <input  name="project_title" type="text" class="form-control" placeholder="Enter Project Title" 
-                                        data-parsley-required>
+                                        data-parsley-required onchange="validateTitle(this);"><div class="cf-loader hidden"></div>
                                 <input  name="hidden_project_title" type="hidden" class="form-control">
                             </div>
                             <div class="form-group">
@@ -103,5 +103,8 @@
         </div>
     </div>
 </div>
+<script>
+    var PROJECTID = 0;
+</script>
 <!-- END PLACE PAGE CONTENT HERE -->
 @endsection
