@@ -152,7 +152,8 @@
     CenterMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div id="trig" class="toggle-button">List View</div> <div class="list-view-container animated fadeInRight"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img src=""  data-alwaysprocess="true" data-ratio="0.5" data-srcwidth="1600" data-crop="1" class="primage first_image img-responsive"> <div class="region inactive"></div> </div> <div class="cf-loader hidden"></div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
 
     CenterMasterView.prototype.ui = {
-      svgContainer: '.list-view-container'
+      svgContainer: '.list-view-container',
+      trig: '#trig'
     };
 
     CenterMasterView.prototype.initialize = function() {
@@ -162,6 +163,13 @@
     };
 
     CenterMasterView.prototype.events = {
+      'click @ui.trig': function(e) {
+        var width;
+        $('.us-left-content').toggleClass('col-0 col-md-3');
+        $('.us-right-content').toggleClass('col-md-12 col-md-9');
+        width = this.ui.svgContainer.width() / 1.46;
+        return $('#spritespin').height(width);
+      },
       'click .building': function(e) {
         var buildingModel, id, unit;
         id = parseInt(e.target.id);
@@ -260,7 +268,7 @@
         floors = buildingModel.get('floors');
         floors = Object.keys(floors).length;
         unitTypes = building.getUnitTypes(id);
-        console.log(response = building.getUnitTypesCount(id, unitTypes));
+        response = building.getUnitTypesCount(id, unitTypes);
         html = '<div class="svg-info"> <h4 class="pull-left">' + buildingModel.get('building_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div>';
         $.each(response, function(index, value) {
           return html += '<div class="details"> <div> <label>' + value.name + '</label> - ' + value.units + '</div>';
@@ -274,6 +282,7 @@
 
     CenterMasterView.prototype.onShow = function() {
       var breakpoints, first, height, svgs, that, transitionImages;
+      $('.first_image').lazyLoadXT();
       height = this.ui.svgContainer.width() / 1.46;
       $('.us-left-content').css('height', height);
       $('.units').css('height', height - 162);
@@ -287,20 +296,16 @@
       });
       first = _.values(svgs);
       $.merge(transitionImages, project.get('project_master'));
-      $('.region').load(first[0], $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
+      $('.region').load(first[0], $('.first_image').attr('data-src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
       $('.first_image').load(function() {
         var response;
+        that.applyClasses();
         response = project.checkRotationView();
         if (response === 1) {
           return $('.cf-loader').removeClass('hidden');
         }
       });
-      this.initializeRotate(transitionImages, svgs);
-      this.applyClasses();
-      return $('#trig').on('click', function() {
-        $('.search-left-content').toggleClass('col-0 col-md-3');
-        $('.us-right-content').toggleClass('col-md-12 col-md-9');
-      });
+      return this.initializeRotate(transitionImages, svgs);
     };
 
     CenterMasterView.prototype.applyClasses = function() {
@@ -310,9 +315,9 @@
         unit = unitCollection.findWhere({
           id: id
         });
-        availability = unit.get('availability');
-        availability = s.decapitalize(availability);
-        if (availability !== void 0) {
+        if (!_.isUndefined(unit)) {
+          availability = unit.get('availability');
+          availability = s.decapitalize(availability);
           return $('#' + id).attr('class', 'layer villa ' + availability);
         }
       });
@@ -348,14 +353,15 @@
         height: this.ui.svgContainer.width() / 1.46,
         animate: false
       });
+      console.log(spin.height());
       that = this;
       api = spin.spritespin("api");
       spin.bind("onFrame", function() {
         var data, url;
         data = api.data;
         if (data.frame === data.stopFrame) {
-          console.log(url = svgs[data.frame]);
-          return $('.region').load(url, that.iniTooltip).addClass('active').removeClass('inactive');
+          url = svgs[data.frame];
+          return $('.region').load(url, that.iniTooltip, that.applyClasses()).addClass('active').removeClass('inactive');
         }
       });
       return spin.bind("onLoad", function() {

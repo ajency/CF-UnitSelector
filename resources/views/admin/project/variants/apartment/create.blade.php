@@ -12,9 +12,13 @@
 
 @section('content')
 <!-- BEGIN PAGE TITLE -->
-<div class="page-title">	
+<div class="page-title inline">	
     <h2><span class="semi-bold">Add</span> Unit Variant</h2>
-</div>
+</div>&nbsp;&nbsp;
+
+<a class="inline" data-toggle="popover" data-content="Unit variant defines the model of a unit type and can be reused across each unit which have the same specification." 
+   data-original-title="" title=""><i class="fa fa-info"></i></a>
+
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
 <div class="grid simple">
@@ -63,6 +67,9 @@
                         <input type="text" class="form-control" name="carpet_area" value="" placeholder="Enter Carpet Area" data-parsley-required>
                     </div> 
                 </div>
+                </div>
+                <div class="row">
+                
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Built Up Area</label>
@@ -75,12 +82,13 @@
                         <input type="text" class="form-control" name="superbuiltup_area" value="" placeholder="Enter Super Built Up Area" data-parsley-required>
                     </div> 
                 </div>
+                
                  <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Per sq ft Price</label>
                                 <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price" data-parsley-required>
                             </div> 
-                        </div>
+                        </div></div>
                 @foreach($projectPropertyTypeAttributes as $attribute)
                 <div class="col-md-4">
                     <div class="form-group">
@@ -113,12 +121,12 @@
                 </div>
                 @endforeach
 
-            </div>
+            
 
             <div class="form-actions">  
                 <div class="pull-right">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-                    <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i>Save</button>
+                    <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
                 </div>
             </div>
         </form>

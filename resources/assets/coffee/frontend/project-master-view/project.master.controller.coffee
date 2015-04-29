@@ -136,6 +136,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 	ui :
 		svgContainer : '.list-view-container'
+		trig          : '#trig'
 
 	
 	initialize:->
@@ -145,6 +146,12 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		
 
 	events :
+		'click @ui.trig':(e)->
+			$('.us-left-content').toggleClass 'col-0 col-md-3'
+			$('.us-right-content').toggleClass 'col-md-12 col-md-9'
+			width = @ui.svgContainer.width() / 1.46
+			$('#spritespin').height(width)
+		  
 		'click .building':(e)->
 			id = parseInt e.target.id
 			buildingModel = buildingCollection.findWhere
@@ -262,7 +269,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			floors = buildingModel.get 'floors'
 			floors = Object.keys(floors).length
 			unitTypes = building.getUnitTypes(id)
-			console.log response = building.getUnitTypesCount(id,unitTypes)
+			response = building.getUnitTypesCount(id,unitTypes)
 			html = '<div class="svg-info">
 						<h4 class="pull-left">'+buildingModel.get('building_name')+'</h4>
 						<!--<span class="label label-success"></span-->
@@ -287,6 +294,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 	onShow:->
+		$('.first_image').lazyLoadXT()
 		height =  @ui.svgContainer.width() / 1.46
 		$('.us-left-content').css('height',height)
 		$('.units').css('height',height-162)
@@ -302,27 +310,24 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		first = _.values svgs
 		$.merge transitionImages ,  project.get('project_master')
 		$('.region').load(first[0],
-			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
+			$('.first_image').attr('data-src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
 		$('.first_image').load ()->
+			that.applyClasses()
 			response = project.checkRotationView()
 			if response is 1
 				$('.cf-loader').removeClass 'hidden'
 		@initializeRotate(transitionImages,svgs)
-		@applyClasses()
+		
 
-		$('#trig').on 'click', ->
-		  $('.search-left-content').toggleClass 'col-0 col-md-3'
-		  $('.us-right-content').toggleClass 'col-md-12 col-md-9'
-		  return
 
 	applyClasses:->
 		$('.villa').each (ind,item)->
 			id = parseInt item.id
 			unit = unitCollection.findWhere 
 				id :  id 
-			availability = unit.get('availability')
-			availability = s.decapitalize(availability)
-			if availability != undefined
+			if ! _.isUndefined unit 
+				availability = unit.get('availability')
+				availability = s.decapitalize(availability)
 				$('#'+id).attr('class' ,'layer villa '+availability) 
 		
 		
@@ -356,13 +361,14 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			height: @ui.svgContainer.width() / 1.46
 			animate: false
 		)
+		console.log spin.height()
 		that = @
 		api = spin.spritespin("api")
 		spin.bind("onFrame" , ()->
 			data = api.data
 			if data.frame is data.stopFrame
-				console.log url = svgs[data.frame]
-				$('.region').load(url,that.iniTooltip).addClass('active').removeClass('inactive')
+				url = svgs[data.frame]
+				$('.region').load(url,that.iniTooltip,that.applyClasses()).addClass('active').removeClass('inactive')
 				
 		)
 

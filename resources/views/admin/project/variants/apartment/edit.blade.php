@@ -14,9 +14,9 @@
 <!-- BEGIN PAGE TITLE -->
 <div class="page-title inline">	
     <h2><span class="semi-bold">Add</span> Unit Variant</h2>
-</div>&nbsp;&nbsp;
+</div>&nbsp;
 
-<a class="inline" data-toggle="popover" data-content="Unit variant defines the model of a unit type and can be reused across each unit which have the same specification." 
+&nbsp;<a class="inline" data-toggle="popover" data-content="Unit variant defines the model of a unit type and can be reused across each unit which have the same specification." 
    data-original-title="" title=""><i class="fa fa-info"></i></a>
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
@@ -51,6 +51,8 @@
                         <input type="text" class="form-control" name="carpet_area" value="{{ $unitVariant['carpet_area'] }}" placeholder="Enter Carpet Area" data-parsley-required>
                     </div> 
                 </div>
+                </div>
+                <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Built Up Area</label>
@@ -68,6 +70,7 @@
                         <label class="form-label">Per sq ft Price</label>
                         <input type="text" class="form-control" name="per_sq_ft_price" value="{{ $unitVariant['per_sq_ft_price'] }}" placeholder="Enter Per sq ft Price" data-parsley-required>
                     </div> 
+                </div>
                 </div>
                 @foreach($project_property_type_attributes as $attributes)
                 <div class="col-md-4">
@@ -104,7 +107,7 @@
                 @endforeach
 
 
-            </div>
+            
 
             <div class="form-actions">  
                 <div class="pull-right">
