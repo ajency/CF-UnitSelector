@@ -5,6 +5,7 @@
         <link type="text/css" rel="stylesheet" href="http://ak.asset1.cfcdn.com/cfassets/css/search.caz.css?ver=1427977000" />
         <link href="{{ asset('css/frontend/custom.css')}}" rel="stylesheet">
         <link rel="icon" type="image/png" href="{{ asset('images/others/favicon.ico')}}">
+        <link rel="stylesheet" href="{{ asset('bower_components/lazyloadxt/dist/jquery.lazyloadxt.spinner.css' )}}"></script>
     </head>
     <body>
                   

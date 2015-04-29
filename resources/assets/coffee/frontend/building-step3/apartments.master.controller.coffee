@@ -248,8 +248,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			html = ""
-			html += '<div class="svg-info">
-						<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
+			html += Handlebars.compile('<div class="svg-info">
+						<h4 class="pull-left">{{unit.unit_name}}</h4>
 						<!--<span class="label label-success"></span-->
 						<div class="clearfix"></div>
 						<div class="details">
@@ -263,7 +263,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 								<label>Price </label> - '+$('#price').val()+'
 							</div>  
 						</div>  
-					</div>'
+					</div>')
 
 			# @class = $('#'+id).attr('class')
 			$('#'+id).attr('class' ,'layer '+availability) 
@@ -289,7 +289,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$('#spritespin').hide()
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
-		console.log building = buildingCollection.findWhere
+		building = buildingCollection.findWhere
 							id : building_id
 		transitionImages = []
 		svgs = {}
@@ -301,12 +301,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$.merge transitionImages ,  building.get('building_master')
 		first = _.values svgs
 		$('.region').load(first[0],
-			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
-		# $('.first_image').bttrlazyloading(
-		# 	animation: 'fadeIn'
-		# 	placeholder: 'data:image/gif;base64,R0lGODlhMgAyAKUAAO7u...'
-
-		# 	)
+			$('.first_image').attr('data-src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
 		$('.first_image').load ()->
 			response = building.checkRotationView(building_id)
 			if response is 1
