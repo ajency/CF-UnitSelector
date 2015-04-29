@@ -286,6 +286,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 	onShow:->
+		$('.first_image').lazyLoadXT()
 		height =  @ui.svgContainer.width() / 1.46
 		$('.us-left-content').css('height',height)
 		$('.units').css('height',height-162)
@@ -301,22 +302,23 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		first = _.values svgs
 		$.merge transitionImages ,  project.get('project_master')
 		$('.region').load(first[0],
-			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
+			$('.first_image').attr('data-src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
 		$('.first_image').load ()->
+			that.applyClasses()
 			response = project.checkRotationView()
 			if response is 1
 				$('.cf-loader').removeClass 'hidden'
 		@initializeRotate(transitionImages,svgs)
-		@applyClasses()
+		
 
 	applyClasses:->
 		$('.villa').each (ind,item)->
 			id = parseInt item.id
 			unit = unitCollection.findWhere 
 				id :  id 
-			availability = unit.get('availability')
-			availability = s.decapitalize(availability)
-			if availability != undefined
+			if ! _.isUndefined unit 
+				availability = unit.get('availability')
+				availability = s.decapitalize(availability)
 				$('#'+id).attr('class' ,'layer villa '+availability) 
 		
 		
@@ -355,8 +357,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		spin.bind("onFrame" , ()->
 			data = api.data
 			if data.frame is data.stopFrame
-				console.log url = svgs[data.frame]
-				$('.region').load(url,that.iniTooltip).addClass('active').removeClass('inactive')
+				url = svgs[data.frame]
+				$('.region').load(url,that.iniTooltip,that.applyClasses()).addClass('active').removeClass('inactive')
 				
 		)
 

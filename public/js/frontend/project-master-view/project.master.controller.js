@@ -274,6 +274,7 @@
 
     CenterMasterView.prototype.onShow = function() {
       var breakpoints, first, height, svgs, that, transitionImages;
+      $('.first_image').lazyLoadXT();
       height = this.ui.svgContainer.width() / 1.46;
       $('.us-left-content').css('height', height);
       $('.units').css('height', height - 162);
@@ -287,16 +288,16 @@
       });
       first = _.values(svgs);
       $.merge(transitionImages, project.get('project_master'));
-      $('.region').load(first[0], $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
+      $('.region').load(first[0], $('.first_image').attr('data-src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
       $('.first_image').load(function() {
         var response;
+        that.applyClasses();
         response = project.checkRotationView();
         if (response === 1) {
           return $('.cf-loader').removeClass('hidden');
         }
       });
-      this.initializeRotate(transitionImages, svgs);
-      return this.applyClasses();
+      return this.initializeRotate(transitionImages, svgs);
     };
 
     CenterMasterView.prototype.applyClasses = function() {
@@ -306,9 +307,9 @@
         unit = unitCollection.findWhere({
           id: id
         });
-        availability = unit.get('availability');
-        availability = s.decapitalize(availability);
-        if (availability !== void 0) {
+        if (!_.isUndefined(unit)) {
+          availability = unit.get('availability');
+          availability = s.decapitalize(availability);
           return $('#' + id).attr('class', 'layer villa ' + availability);
         }
       });
@@ -350,8 +351,8 @@
         var data, url;
         data = api.data;
         if (data.frame === data.stopFrame) {
-          console.log(url = svgs[data.frame]);
-          return $('.region').load(url, that.iniTooltip).addClass('active').removeClass('inactive');
+          url = svgs[data.frame];
+          return $('.region').load(url, that.iniTooltip, that.applyClasses()).addClass('active').removeClass('inactive');
         }
       });
       return spin.bind("onLoad", function() {
