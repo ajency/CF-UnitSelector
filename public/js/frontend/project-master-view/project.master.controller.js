@@ -149,10 +149,11 @@
       return CenterMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div class="list-view-container animated fadeInRight"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img src=""  data-alwaysprocess="true" data-ratio="0.5" data-srcwidth="1600" data-crop="1" class="primage first_image img-responsive"> <div class="region inactive"></div> </div> <div class="cf-loader hidden"></div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
+    CenterMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div id="trig" class="toggle-button">List View</div> <div class="list-view-container animated fadeInRight"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img src=""  data-alwaysprocess="true" data-ratio="0.5" data-srcwidth="1600" data-crop="1" class="primage first_image img-responsive"> <div class="region inactive"></div> </div> <div class="cf-loader hidden"></div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
 
     CenterMasterView.prototype.ui = {
-      svgContainer: '.list-view-container'
+      svgContainer: '.list-view-container',
+      trig: '#trig'
     };
 
     CenterMasterView.prototype.initialize = function() {
@@ -162,6 +163,13 @@
     };
 
     CenterMasterView.prototype.events = {
+      'click @ui.trig': function(e) {
+        var width;
+        $('.us-left-content').toggleClass('col-0 col-md-3');
+        $('.us-right-content').toggleClass('col-md-12 col-md-9');
+        width = this.ui.svgContainer.width() / 1.46;
+        return $('#spritespin').height(width);
+      },
       'click .building': function(e) {
         var buildingModel, id, unit;
         id = parseInt(e.target.id);
@@ -260,7 +268,7 @@
         floors = buildingModel.get('floors');
         floors = Object.keys(floors).length;
         unitTypes = building.getUnitTypes(id);
-        console.log(response = building.getUnitTypesCount(id, unitTypes));
+        response = building.getUnitTypesCount(id, unitTypes);
         html = '<div class="svg-info"> <h4 class="pull-left">' + buildingModel.get('building_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div>';
         $.each(response, function(index, value) {
           return html += '<div class="details"> <div> <label>' + value.name + '</label> - ' + value.units + '</div>';
@@ -345,6 +353,7 @@
         height: this.ui.svgContainer.width() / 1.46,
         animate: false
       });
+      console.log(spin.height());
       that = this;
       api = spin.spritespin("api");
       spin.bind("onFrame", function() {

@@ -251,6 +251,7 @@ jQuery(document).ready ($)->
 		if parseInt(noOfFloors) is 0 then return
 		$(@).closest('.row').find('.select-floor').removeClass 'hidden'
 		floorSelection.empty()
+		floorSelection.append "<option value=''>Select floor</option>"
 		for i in [0...noOfFloors]
 			floorSelection.append "<option value='#{i+1}'>#{i+1}</option>"	
 			

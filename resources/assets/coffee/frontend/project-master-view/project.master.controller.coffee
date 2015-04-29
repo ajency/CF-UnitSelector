@@ -107,6 +107,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
+									<div id="trig" class="toggle-button">List View</div>
 									<div class="list-view-container animated fadeInRight">
 										<!--<div class="controls mapView">
 											<div class="toggle">
@@ -135,6 +136,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 	ui :
 		svgContainer : '.list-view-container'
+		trig          : '#trig'
 
 	
 	initialize:->
@@ -144,6 +146,12 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		
 
 	events :
+		'click @ui.trig':(e)->
+			$('.us-left-content').toggleClass 'col-0 col-md-3'
+			$('.us-right-content').toggleClass 'col-md-12 col-md-9'
+			width = @ui.svgContainer.width() / 1.46
+			$('#spritespin').height(width)
+		  
 		'click .building':(e)->
 			id = parseInt e.target.id
 			buildingModel = buildingCollection.findWhere
@@ -261,7 +269,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			floors = buildingModel.get 'floors'
 			floors = Object.keys(floors).length
 			unitTypes = building.getUnitTypes(id)
-			console.log response = building.getUnitTypesCount(id,unitTypes)
+			response = building.getUnitTypesCount(id,unitTypes)
 			html = '<div class="svg-info">
 						<h4 class="pull-left">'+buildingModel.get('building_name')+'</h4>
 						<!--<span class="label label-success"></span-->
@@ -311,6 +319,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		@initializeRotate(transitionImages,svgs)
 		
 
+		
+		 
+
 	applyClasses:->
 		$('.villa').each (ind,item)->
 			id = parseInt item.id
@@ -352,6 +363,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			height: @ui.svgContainer.width() / 1.46
 			animate: false
 		)
+		console.log spin.height()
 		that = @
 		api = spin.spritespin("api")
 		spin.bind("onFrame" , ()->
