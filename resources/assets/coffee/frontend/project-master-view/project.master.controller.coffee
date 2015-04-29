@@ -313,6 +313,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$('#trig').on 'click', ->
 		  $('.search-left-content').toggleClass 'col-0 col-md-3'
 		  $('.us-right-content').toggleClass 'col-md-12 col-md-9'
+		  $('.us-left-content').css('height', 0)
+		  $('.units').css('height', 0)
 		  return
 
 	applyClasses:->
