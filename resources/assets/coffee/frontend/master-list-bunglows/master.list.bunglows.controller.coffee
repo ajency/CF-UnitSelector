@@ -106,7 +106,7 @@ class BunglowListView extends Marionette.ItemView
 #view for list of bungalows : Collection
 class MasterBunglowListView extends Marionette.CompositeView
 
-	template : Handlebars.compile('<div class="col-md-3 us-left-content">
+	template : Handlebars.compile('<div class="col-xs-12 col-sm-12 col-md-3 us-left-content">
 									<div class="list-view-container w-map animated fadeInLeft">
 							            <!--<div class="controls map-View">
 								            <div class="toggle">
@@ -148,6 +148,7 @@ class MasterBunglowListView extends Marionette.CompositeView
 				                			</div>-->
 							                <ul class="units two">
 							                </ul>
+							                <div class="clearfix"></div>
 										</div>
 							        </div>
 							       </div>')

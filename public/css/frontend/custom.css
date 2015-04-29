@@ -61,12 +61,12 @@ body {
 /* Left Container */
 .search-left-content {
   position: relative;
-  -webkit-transition: all 0.3s ease-in 0s;
-          transition: all 0.3s ease-in 0s;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
 }
 .us-left-content {
-  -webkit-transition: all 0.3s ease-in 0s;
-          transition: all 0.3s ease-in 0s;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
 }
 .builder-logo {
   max-width: 200px;
@@ -92,8 +92,8 @@ body {
 /* Right Container */
 .us-right-content {
   padding-left: 0;
-  -webkit-transition: all 0.3s ease-in 0s;
-          transition: all 0.3s ease-in 0s;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
 }
 .us-right-content .svg-area {
   width: 100%;
@@ -564,8 +564,8 @@ body {
 }
 /* Transition */
 .ease {
-  -webkit-transition: all 0.3s ease-in 0s;
-          transition: all 0.3s ease-in 0s;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
 }
 /* Back Button */
 .breadcrumb-bar .bread-crumb-list {
@@ -590,7 +590,7 @@ body {
   -webkit-transform: rotate(270deg);
       -ms-transform: rotate(270deg);
           transform: rotate(270deg);
-  left: -34px;
+  left: -24px;
   top: 45%;
   cursor: pointer;
   z-index: 999;
@@ -701,8 +701,8 @@ svg .layer:hover {
   cursor: pointer;
 }
 svg polygon {
-  -webkit-transition: all 0.3s ease-in 0s;
-          transition: all 0.3s ease-in 0s;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
 }
 .list-view-container {
   padding: 10px;
@@ -1025,7 +1025,9 @@ svg polygon {
 }
 .units {
   list-style-type: none;
-  overflow-y: auto
+  overflow-y: auto;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s
   /* List of Villas */
   /* List of Buildings */
 }
@@ -1172,8 +1174,8 @@ svg polygon {
   width: 100%;
   background-color: #ffffff;
   opacity: 0.75;
-  -webkit-transition: all 0.3s ease-in 0s;
-          transition: all 0.3s ease-in 0s;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
 }
 .slider .layouts span {
   position: absolute;
@@ -1185,8 +1187,8 @@ svg polygon {
   font-weight: bold;
   text-align: center;
   opacity: 1;
-  -webkit-transition: all 0.3s ease-in 0s;
-          transition: all 0.3s ease-in 0s;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
 }
 .slider .layouts:hover .img-overlay {
   opacity: 0;
@@ -1243,8 +1245,8 @@ svg polygon {
   width: 100%;
   background-color: #ffffff;
   opacity: 0.75;
-  -webkit-transition: all 0.3s ease-in 0s;
-          transition: all 0.3s ease-in 0s;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
 }
 .slider .gallery-img:hover .img-overlay {
   opacity: 0;
