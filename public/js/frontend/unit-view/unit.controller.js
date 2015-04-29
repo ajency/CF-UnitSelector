@@ -320,7 +320,7 @@
       $('.images').html(html);
       $('.level').attr('class', 'level ' + _.last(response[2]));
       if (response[3].get('external3durl') !== void 0) {
-        html = '<img class="img"  data-src="' + response[3].get('external3durl') + '" />';
+        html = '<img class="img lazy-hidden"  data-src="' + response[3].get('external3durl') + '" />';
         $('.images').html(html);
         $('.external').addClass('current');
         $('.threeD').removeClass('current');
