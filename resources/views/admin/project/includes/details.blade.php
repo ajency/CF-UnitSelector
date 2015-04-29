@@ -1,14 +1,15 @@
 <div class="grid simple">
-    <div class="grid-title"  role="tab" id="headingOne">
        <a class="" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+
+    <div class="grid-title"  role="tab" id="headingOne">
        <div class="pull-right"><i class="fa fa-angle-up "></i>
 <i class="fa fa-angle-down grid-angle-down"></i>
        </div>
        <h3>
            Project <span class="semi-bold">Details</span>
        </h3>
-    </a>
-    </div>
+    
+    </div></a>
 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
     <div class="grid-body">
         <form action="{{ url('/admin/project/'. $project['id']) }}" method="POST" data-parsley-validate>
@@ -141,8 +142,8 @@
  
                        
                        <div class="pull-right">
-                       <a data-toggle="popover" data-content="The project enters the draft mode on save and will only be available on unit selector when 
-               the project status is changed to Published." data-placement="right"><i class="fa fa-info"></i></a>&nbsp;
+                       <a data-toggle="popover" data-trigger="hover" data-content="The project enters the draft mode on save and will only be available on unit selector when 
+               the project status is changed to Published." data-placement="left"><i class="fa fa-info"></i></a>&nbsp;
 
                             <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" value="DETAILS" name="project_update"/>

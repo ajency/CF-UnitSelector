@@ -64,7 +64,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Carpet Area</label>
-                        <input type="text" class="form-control" name="carpet_area" value="" placeholder="Enter Carpet Area" data-parsley-required>
+                        <input type="text" class="form-control" name="carpet_area" value="" placeholder="Enter Carpet Area">
                     </div> 
                 </div>
                 </div>
@@ -73,20 +73,20 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Built Up Area</label>
-                        <input type="text" class="form-control" name="builtup_area" value="" placeholder="Enter Built Up Area" data-parsley-required>
+                        <input type="text" class="form-control" name="builtup_area" value="" placeholder="Enter Built Up Area">
                     </div> 
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Super Built Up Area</label>
-                        <input type="text" class="form-control" name="superbuiltup_area" value="" placeholder="Enter Super Built Up Area" data-parsley-required>
+                        <input type="text" class="form-control" name="superbuiltup_area" value="" placeholder="Enter Super Built Up Area">
                     </div> 
                 </div>
                 
                  <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Per sq ft Price</label>
-                                <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price" data-parsley-required>
+                                <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price">
                             </div> 
                         </div></div>
                 @foreach($projectPropertyTypeAttributes as $attribute)
@@ -120,10 +120,7 @@
                     </div> 
                 </div>
                 @endforeach
-
-            
-
-            <div class="form-actions">  
+        <div class="form-actions">  
                 <div class="pull-right">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                     <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
