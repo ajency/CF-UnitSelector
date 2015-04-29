@@ -71,8 +71,10 @@
                 <div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 m-b-10 text-grey">
                     <div class="form-inline m-b-10 m-t-10">
                         <div class="form-group">
-                            <label>Room Name</label>
-                            <input type="text" name="room_typename_{{$roomtypeId}}" class="form-control" value="{{$roomtype['NAME']}}">
+                        <div>
+                            <label class="form-label">Room Name</label>
+                            </div>
+                            <input type="text" name="room_typename_{{$roomtypeId}}" class="form-control" value="{{$roomtype['NAME']}}" placeholder="Enter Room Name">
                         </div>
                     </div>
                     @foreach($roomtype['ATTRIBUTES'] as $attributes)    
@@ -80,7 +82,7 @@
                         <div class="col-md-3">
                             <div class="form-group">
                                 <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Attributes Name will be the specification for each room type for example (Area, Length * Width, etc)."></i>
-                                    <label class="control-label">Attribute Name</label>
+                                    <label class="form-label">Attribute Name</label>
                                 
                                     <input type="text" name="attribute_name_{{$roomtypeId}}" class="form-control" value="{{$attributes['label']}}" placeholder="Enter Attribute Name"><i class="fa fa-question-circle" title="Attributes Name will be the specification for each room type for example (Area, Length * Width, etc)."></i>
                                     <input type="hidden" name="attribute_id_{{$roomtypeId}}" value="{{$attributes['id']}}">
@@ -91,7 +93,7 @@
                             <div class="form-inline">
                                 <div class="form-group full-width">
                              <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="The selected control type will be available as input on the Variant page."></i>
-                                <label>Control Type</label>
+                                <label class="form-label">Control Type</label>
                                     <select name="controltype_{{$roomtypeId}}" onchange="defaultBlock(this.value,{{$roomtypeId}});" class="full-width inline">
                                         <option value="">Select Controls Type</option>
                                         <option value="textbox" @if($attributes['control_type']=='textbox'){{'selected'}}@endif> Text Box</option>
@@ -106,7 +108,7 @@
                             <div class="form-inline">
 
                                 <div class="form-group">
-                                    <input type="text" name="controltypevalues_{{$roomtypeId}}" data-role="tagsinput" class="tags" value="{{$attributes['defaults']}}" placeholder="Enter Default Values">
+                                    <input type="text" name="controltypevalues_{{$roomtypeId}}" data-role="tagsinput" class="tags" value="{{$attributes['defaults']}}">
                                     <button type="button" class="btn btn-small btn-default m-t-5" onclick="deleteRoomTypeAttribute({{$project['id']}},{{$attributes['id']}});"><i class="fa fa-trash"></i> Delete</button>
                                 </div>
                             </div>
@@ -118,8 +120,7 @@
                             <div class="form-group">
                                     <label class="form-label">Attribute Name</label>
                                 <i class="fa fa-question-circle " data-toggle="tooltip" data-placement="right" title="Attributes Name will be the specification for each room type for example (Area, Length * Width, etc)."></i>
-
-                                    <input type="text" name="attribute_name_{{$roomtypeId}}" class="form-control" placeholder="Enter Attribute Name">
+<input type="text" name="attribute_name_{{$roomtypeId}}" class="form-control" placeholder="Enter Attribute Name">
                                     <input type="hidden" name="attribute_id_{{$roomtypeId}}" value="">
                                 
                             </div>
@@ -141,14 +142,20 @@
                             </div>
                         </div>
                         <div class="col-md-5" id="controltype_values_{{$roomtypeId}}">
-                            <div class="form-inline">
+                            
                                 <div class="form-group">
-<input type="text" name="controltypevalues_{{$roomtypeId}}" data-role="tagsinput" class="tags" placeholder="Enter Default Values">
-
+                                <label class="form-label">Default Values</label>
+                                <div class="row">
+                                <div class="col-lg-8 col-md-7">
+                      <input type="text" name="controltypevalues_{{$roomtypeId}}" data-role="tagsinput" class="tags">
+                          </div>
+                              <div class="col-lg-4 col-md-5">
                                     <!--<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>-->
-                                    <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes({{$roomtypeId}},this)"><i class="fa fa-plus"></i> Add</button>
+                                    <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes({{$roomtypeId}},this)"><i class="fa fa-plus"></i> Add New</button>
                                 </div>
-                            </div>
+                                </div>
+                                </div>
+                            
                         </div>
                     </div>
                     <div class="row"  id="addroomtypeattributeblock_{{$roomtypeId}}">
@@ -170,7 +177,7 @@
                         <div class="form-group">
                             <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                             <input type="text" name="roomtype" id="roomtype" class="form-control" placeholder="Add Room Type">
-                            <button class="btn btn-white" onclick="addRoomtype({{$project['id']}});"><i class="fa fa-plus"></i> Add</button>
+                            <button class="btn btn-white" onclick="addRoomtype({{$project['id']}});"><i class="fa fa-plus"></i> Add New</button>
                             <div class="cf-loader" id="loader" style="display:none" ></div>   
                         </div>
                     </div>
@@ -199,6 +206,7 @@
                     <div class="row" id="roomtypeattribute_{{$attributes['id']}}">
                         <div class="col-md-3">
                             <div class="form-group">
+
                                 <div class="">
                                     <input type="text" name="attribute_name_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="form-control" value="{{$attributes['label']}}" placeholder="Enter Attribute Name">
                                     <input type="hidden" name="attribute_id_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" value="{{$attributes['id']}}">
@@ -221,17 +229,19 @@
                         <div class="col-md-5" id="controltype_values_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
                             <div class="form-inline">
                                 <div class="form-group">
-                                    <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" data-role="tagsinput" class="tags" placeholder="Enter Default Values" value="{{$attributes['defaults']}}" size="16" >
+
+                                    <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" data-role="tagsinput" class="tags" value="{{$attributes['defaults']}}" size="16" >
                                     <button type="button" class="btn btn-small btn-default m-t-5" onclick="deleteRoomTypeAttribute({{$project['id']}},{{$attributes['id']}});"><i class="fa fa-trash"></i> Delete</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                     @endforeach
-                    <div class="row">
+                    <div class="row m-t-10 m-b-10">
                         <div class="col-md-3">
                             <div class="form-group">
                                 <div class="">
+                                <label class="form-label">Attribute Name</label><i class="fa fa-question-circle " data-toggle="tooltip" data-placement="right" title="" data-original-title="Attributes Name will be the specification for each room type for example (Area, Length * Width, etc)."></i>
                                     <input type="text" name="attribute_name_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="form-control" placeholder="Enter Attribute Name">
                                     <input type="hidden" name="attribute_id_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" value="">
                                 </div>
@@ -240,6 +250,7 @@
                         <div class="col-md-4" id="controltype_values_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
                             <div class="form-inline">
                                 <div class="form-group full-width">
+                                <label class="form-label">Control Type</label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="" data-original-title="The selected control type will be available as input on the Variant page."></i>
                                     <select name="controltype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="full-width">
                                         <option value="">Select Controls Type</option>
                                         <option value="textbox" > Text Box</option>
@@ -251,13 +262,20 @@
                             </div>
                         </div>
                         <div class="col-md-5">
-                            <div class="form-inline">
+                           
                                 <div class="form-group">
-                                    <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" data-role="tagsinput" class="tags" placeholder="Enter Default Values">
+                                <label class="form-label">Default Values</label>
+                                <div class="row">
+                                <div class="col-lg-8 col-md-7">
+                                    <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" data-role="tagsinput" class="tags">
                                     <!--<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>-->
-                                     <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes('proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}',this)"><i class="fa fa-plus"></i> Add</button>
+                                     </div>
+                                     <div class="col-lg-4 col-md-5">
+                                     <button type="button" class="btn btn-white" onclick="addRoomtypeAttributes('proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}',this)"><i class="fa fa-plus"></i> Add New</button>
                                 </div>
-                            </div>
+                                </div>
+                                </div>
+                            
                         </div>
                     </div>
                     <div class="row"  id="addroomtypeattributeblock_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
