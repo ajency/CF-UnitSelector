@@ -168,9 +168,9 @@ class ProjectFloorLayoutController extends Controller {
         
        return response()->json( [
             'code' => 'unittype_variants',
-            'message' => 'Unit Type Variants',
+            'message' => '',
             'data' => $str
-        ], 203 );
+        ], 201 );
     }
 
 }

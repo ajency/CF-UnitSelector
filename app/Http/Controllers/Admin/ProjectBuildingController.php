@@ -168,9 +168,9 @@ class ProjectBuildingController extends Controller {
         
         return response()->json( [
             'code' => 'layout_position',
-            'message' => 'Layout Positions',
+            'message' => '',
             'data' => $position
-        ], 203 );
+        ], 201 );
     }
 
 }

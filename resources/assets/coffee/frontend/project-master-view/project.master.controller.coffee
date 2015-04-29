@@ -147,12 +147,12 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 	events :
 		'click @ui.trig':(e)->
-			# $('.us-left-content').css('height', 0)
-			# $('.units').css('height', 0)
 			$('.us-left-content').toggleClass 'col-0 col-md-3'
 			$('.us-right-content').toggleClass 'col-md-12 col-md-9'
-			# height = @ui.svgContainer.width() / 1.46
-			$('#spritespin').height(width)
+			that = @
+			$('#spritespin').delay(5000).queue (next)-> 
+					console.log height = that.ui.svgContainer.width() / 1.46
+					$('#spritespin').height(height)
 		  
 		'click .building':(e)->
 			id = parseInt e.target.id
@@ -363,7 +363,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			height: @ui.svgContainer.width() / 1.46
 			animate: false
 		)
-		console.log spin.height()
+		console.log @ui.svgContainer.width() 
 		that = @
 		api = spin.spritespin("api")
 		spin.bind("onFrame" , ()->
@@ -393,6 +393,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			arrow : false
 			offsetX : 50
 			offsetY : -10
+
 		)
 	
 

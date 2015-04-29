@@ -164,9 +164,15 @@
 
     CenterMasterView.prototype.events = {
       'click @ui.trig': function(e) {
+        var that;
         $('.us-left-content').toggleClass('col-0 col-md-3');
         $('.us-right-content').toggleClass('col-md-12 col-md-9');
-        return $('#spritespin').height(width);
+        that = this;
+        return $('#spritespin').delay(5000).queue(function(next) {
+          var height;
+          console.log(height = that.ui.svgContainer.width() / 1.46);
+          return $('#spritespin').height(height);
+        });
       },
       'click .building': function(e) {
         var buildingModel, id, unit;
@@ -350,7 +356,7 @@
         height: this.ui.svgContainer.width() / 1.46,
         animate: false
       });
-      console.log(spin.height());
+      console.log(this.ui.svgContainer.width());
       that = this;
       api = spin.spritespin("api");
       spin.bind("onFrame", function() {
