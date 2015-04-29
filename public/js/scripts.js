@@ -10,7 +10,8 @@ function validateTitle(obj)
         url: "/admin/project/validateprojecttitle",
         type: "POST",
         data: {
-            title: obj.value
+            title: obj.value,
+            project_id: PROJECTID
         },
         dataType: "JSON",
         success: function (response) {

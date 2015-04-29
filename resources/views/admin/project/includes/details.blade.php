@@ -29,7 +29,7 @@
                     <div class="form-group">
                         <label class="form-label">Project Title<span class="text-primary">*</span></label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"  title=" Project Title to be displayed on unit selector page"></i> 
                         <input type="text" class="form-control" placeholder="Enter Project Title" 
-                               value="{{ $project['project_title'] }}" name="project_title" data-parsley-required>
+                               value="{{ $project['project_title'] }}" name="project_title" data-parsley-required onchange="validateTitle(this);" ><div class="cf-loader hidden"></div>
                     </div>
 
                     <div class="row hidden">

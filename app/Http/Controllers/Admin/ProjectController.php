@@ -8,6 +8,7 @@ use CommonFloor\Repositories\ProjectRepository;
 use CommonFloor\Project;
 use CommonFloor\Media;
 use CommonFloor\PropertyType;
+ 
 
 class ProjectController extends Controller {
 
@@ -45,7 +46,7 @@ class ProjectController extends Controller {
 
         $project = $projectRepository->createProject($request->all());
         if ($project !== null) {
-            return redirect("/admin/project");
+            return redirect("/admin/project/" . $project->id . "/edit");
         }
     }
 
@@ -57,19 +58,18 @@ class ProjectController extends Controller {
      */
     public function edit($id, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($id);
-        $projectMeta = $project->projectMeta()->whereNotIn('meta_key',['master','google_earth','skyview','breakpoints','cf'])->get()->toArray(); 
+        $projectMeta = $project->projectMeta()->whereNotIn('meta_key', ['master', 'google_earth', 'skyview', 'breakpoints', 'cf'])->get()->toArray();
         $propertyTypes = PropertyType::all();
-        $unitTypes = $projectCost= [];
-        
-        foreach ($projectMeta as $meta)
-        {
-           $projectCost[$meta['meta_key']] = ['ID'=>$meta['id'],'VALUE'=>$meta['meta_value']];
+        $unitTypes = $projectCost = [];
+
+        foreach ($projectMeta as $meta) {
+            $projectCost[$meta['meta_key']] = ['ID' => $meta['id'], 'VALUE' => $meta['meta_value']];
         }
-         
+
         foreach ($project->projectPropertyTypes as $projectPropertyType) {
             $unitTypes[$projectPropertyType->property_type_id] = $project->getUnitTypesToArray($projectPropertyType->id);
         }
- 
+
         return view('admin.project.settings')
                         ->with('project', $project->toArray())
                         ->with('projectCost', $projectCost)
@@ -118,13 +118,12 @@ class ProjectController extends Controller {
                             $svgImages[$metaValues['meta_key']][$key]['ID'] = $images;
                             $svgImages[$metaValues['meta_key']][$key]['NAME'] = $imageName;
                             $svgImages[$metaValues['meta_key']][$key]['IMAGE'] = url() . "/projects/" . $id . "/" . $metaValues['meta_key'] . "/" . $imageName;
-                        }
-                        else
-                          $svgImages[$metaValues['meta_key']][$key]['ID'] = $images;  
+                        } else
+                            $svgImages[$metaValues['meta_key']][$key]['ID'] = $images;
                     }
                 }
-            } elseif ('breakpoints' === $metaValues['meta_key']) { 
-                $svgImages[$metaValues['meta_key']] = (!empty($metaValues['meta_value']))? unserialize($metaValues['meta_value']) :[];
+            } elseif ('breakpoints' === $metaValues['meta_key']) {
+                $svgImages[$metaValues['meta_key']] = (!empty($metaValues['meta_value'])) ? unserialize($metaValues['meta_value']) : [];
             } else {
                 $mediaId = $metaValues['meta_value'];
                 if (is_numeric($mediaId)) {
@@ -134,12 +133,38 @@ class ProjectController extends Controller {
                 }
             }
         }
-       
+
         return view('admin.project.svg')
                         ->with('project', $project->toArray())
                         ->with('svgImages', $svgImages)
                         ->with('current', 'svg')
                         ->with('project_property_type', $project->projectPropertyTypes()->get());
+    }
+
+    public function validateProjectTitle(Request $request) {
+        $title = $request->input('title');
+        $projectId = $request->input('project_id');
+        $msg ='';
+        $flag =true;
+ 
+        if($projectId)
+           $projectData = Project::where('project_title',$title)->where('id', '!=', $projectId)->get()->toArray(); 
+        else
+            $projectData = Project::where('project_title',$title)->get()->toArray();
+
+ 
+        if(!empty($projectData))
+        {
+            $msg = 'Project Title Already Taken';
+            $flag =false;
+        }
+        
+         
+        return response()->json([
+                    'code' => 'project_title_validation',
+                    'message' => $msg,
+                    'data' => ['flag' => $flag]
+                        ], 202);
     }
 
 }
