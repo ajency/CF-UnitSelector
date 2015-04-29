@@ -140,7 +140,7 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 									<div class="list-view-container w-map animated fadeInLeft">
 										<div class="filters-wrapper ">
 											<div class="advncd-filter-wrp  unit-list">
-												<div class="legend">
+												<div class="legend clearfix">
 												  <ul>
 												    <li class="available">AVAILABLE</li>
 												    <li class="sold">SOLD</li>
