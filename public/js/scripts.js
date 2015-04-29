@@ -301,6 +301,7 @@ function addFloorLevel(variantId)
     str += '</div> ';
 
     $("#addFloorlevel").before(str);
+    $("select").select2();
     $("#counter").val(i);
 }
 
