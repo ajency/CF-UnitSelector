@@ -15,7 +15,9 @@ function validateTitle(obj)
         },
         dataType: "JSON",
         success: function (response) {
-
+            if(!response.data)
+                $(obj).val('');
+            
             $(obj).next("div.cf-loader").addClass('hidden');
         }
     });

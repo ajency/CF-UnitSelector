@@ -163,7 +163,7 @@ class ProjectController extends Controller {
         return response()->json([
                     'code' => 'project_title_validation',
                     'message' => $msg,
-                    'data' => ['flag' => $flag]
+                    'data' =>  $flag,
                         ], 202);
     }
 
