@@ -1,14 +1,15 @@
 <div class="grid simple">
-<div class="grid-title"  role="tab" id="headingThree">
            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+
+<div class="grid-title"  role="tab" id="headingThree">
             <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
 <i class="fa fa-angle-up "></i>
          </div>
             <h3>
                 Project <span class="semi-bold">Costs</span>
            </h3>
-            </a>
-        </div> 
+           
+        </div>  </a>
             <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
 
         <div class="grid-body">

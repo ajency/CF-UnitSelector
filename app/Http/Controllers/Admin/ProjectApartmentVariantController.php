@@ -282,7 +282,7 @@ class ProjectApartmentVariantController extends Controller {
         
          return response()->json([
                     'code' => 'unit_variant',
-                    'message' => 'Property Type Data',
+                    'message' => '',
                     'data' => [
                         'unit_types' => $unitTypeStr,
                         'attributes' => $attributes

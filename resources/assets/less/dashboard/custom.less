@@ -60,7 +60,7 @@
 }
 }
 /* Popover */
-/* .popover.fade{
+ .popover.fade{
 top: 54px;
   left: 175.828125px;
   display: block;
@@ -70,11 +70,15 @@ top: 54px;
   .popover-content{
     color: #6f7b8a;
   }
-  .arrow:after{
+  &.right .arrow:after{
       border-right-color:#6F7B8A;
       left:0;
     }
-}*/
+  &.left .arrow:after{
+      border-left-color:#6F7B8A;
+      right:0;
+    }
+}
 
 /* Accordion */
 #accordion{
@@ -93,7 +97,6 @@ top: 54px;
 .grid-angle-down{
   display: none;
   font-size: 20px!important;
-
 }
 
 .panel-group{

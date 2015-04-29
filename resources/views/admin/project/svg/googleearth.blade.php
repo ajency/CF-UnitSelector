@@ -1,19 +1,19 @@
 
 <div class="grid simple">
-    <div class="grid-title"  role="tab" id="headingOne">
        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+       <div class="grid-title"  role="tab" id="headingOne">
       <div class="pull-right">
             <i class="fa fa-angle-up "></i>
             <i class="fa fa-angle-down grid-angle-down"></i>
        </div>
         <h3 class="inline"><span class="semi-bold">Google Earth</span> View</h3>&nbsp;
-         <a  class="inline" data-toggle="popover" 
+         <span  class="inline" data-toggle="popover" data-trigger="hover"
  data-content=" Upload Google Earth image of the project. Image dimensions should be Image size :
-  1600*1095. Resolution - 300 DPI."><i class="fa fa-info"></i></a>
-</a>
+  1600*1095. Resolution - 300 DPI."><i class="fa fa-info"></i></span>
+
  <div class="clearfix"></div>
-       </a>
-        </div>
+       
+        </div></a>
    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 
     <div class="grid-body">
@@ -22,7 +22,7 @@
       <input type="hidden" value="{{ csrf_token()}}" name="_token"/> 
             <input id="pickfiles" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/> 
             <button id="uploadfiles" type="button" class="btn btn-small btn-primary hidden" data-toggle="collapse" data-target="#g-map-1">Upload</button>
-            <div class="row selectedImages">
+            <div class="row selectedImages m-t-15">
             </div>
         </div>
 
