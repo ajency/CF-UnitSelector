@@ -248,7 +248,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			html = ""
-			html += Handlebars.compile('<div class="svg-info">
+			html += '<div class="svg-info">
 						<h4 class="pull-left">{{unit.unit_name}}</h4>
 						<!--<span class="label label-success"></span-->
 						<div class="clearfix"></div>
@@ -263,7 +263,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 								<label>Price </label> - '+$('#price').val()+'
 							</div>  
 						</div>  
-					</div>')
+					</div>'
 
 			# @class = $('#'+id).attr('class')
 			console.log html
@@ -302,7 +302,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$.merge transitionImages ,  building.get('building_master')
 		console.log first = _.values svgs
 		$('.region').load(first[0],
-			$('.first_image').attr('data-src',transitionImages[0])).addClass('active').removeClass('inactive')
+			$('.first_image').attr('data-src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
 		$('.first_image').load ()->
 			response = building.checkRotationView(building_id)
 			$('.cf-loader').removeClass 'hidden'
