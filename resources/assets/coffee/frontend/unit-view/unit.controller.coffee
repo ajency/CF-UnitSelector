@@ -381,7 +381,13 @@ class CenterUnitView extends Marionette.ItemView
 		response = @generateLevels()
 		html = ''
 		$.each response[0],(index,value)->
-			html += '<img class="img" data-src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>'
+			html += '<div class="layouts animated fadeIn">
+						<a class="fancybox" href="'+value+'">
+							<img class="img" data-src="'+value+'" />
+							<div class="img-overlay"></div>
+							<span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
+						</a>
+					</div>'
 		$('.twoD').addClass('current')
 		$('.threeD').removeClass('current')
 		$('.external').removeClass('current')
@@ -397,7 +403,7 @@ class CenterUnitView extends Marionette.ItemView
 		
 
 		$('.images').html html
-		$('.level').attr 'class' , 'level '+ _.last(response[2])
+		$('.level').attr 'class' , 'level Level_0 '+ _.last(response[2])
 			
 			
 
