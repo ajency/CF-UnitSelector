@@ -907,13 +907,20 @@ function getPropertTypeData(obj, flag)
             else
             {
                 //FLOOR LAYOUT
-                $('select[name="unit_type"]').empty();
-                $('select[name="unit_type"]').append('<option value=""> Choose Unit Type</option>');
-                $('select[name="unit_type"]').append(response.data.unit_types);
+                $(obj).closest('.row').find('select[name="unit_type"]').empty();
+                $(obj).closest('.row').find('select[name="unit_type"]').empty();
+                $(obj).closest('.row').find('select[name="unit_type"]').append('<option value=""> Choose Unit Type</option>');
+                $(obj).closest('.row').find('select[name="unit_type"]').append(response.data.unit_types);
             }
 
             $("select").select2();
         }
     });
+}
+
+function saveAndAddAnother()
+{
+    $("#addanother").val(1);
+    $("form").submit();
 }
 

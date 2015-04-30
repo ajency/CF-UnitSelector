@@ -162,7 +162,7 @@
       return CenterMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div id="trig" class="toggle-button">List View</div> <div class="list-view-container animated fadeInRight"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img src=""  data-alwaysprocess="true" data-ratio="0.5" data-srcwidth="1600" data-crop="1" class="primage first_image img-responsive"> <div class="region inactive"></div> </div> <div class="cf-loader hidden"></div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
+    CenterMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div id="trig" class="toggle-button">List View</div> <div class="list-view-container animated fadeIn"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img src=""  data-alwaysprocess="true" data-ratio="0.5" data-srcwidth="1600" data-crop="1" class="primage first_image img-responsive"> <div class="region inactive"></div> </div> <div class="cf-loader hidden"></div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
 
     CenterMasterView.prototype.ui = {
       svgContainer: '.list-view-container',
@@ -190,43 +190,51 @@
             animate: false
           });
           return $('.svg-maps > div').first().css('width', that.ui.svgContainer.width());
-        }, 5000);
+        }, 650);
       },
       'click .building': function(e) {
-        var buildingModel, id, unit;
-        id = parseInt(e.target.id);
-        buildingModel = buildingCollection.findWhere({
-          'id': id
-        });
-        if (buildingModel === void 0) {
-          return false;
-        }
-        unit = unitCollection.where({
-          'building_id': id
-        });
-        if (unit.length === 0) {
-          return;
-        }
-        if (Object.keys(buildingModel.get('building_master')).length === 0) {
-          CommonFloor.navigate('/building/' + id + '/apartments', true);
-          return CommonFloor.router.storeRoute();
-        } else {
-          CommonFloor.navigate('/building/' + id + '/master-view', true);
-          return CommonFloor.router.storeRoute();
-        }
+        $('.spritespin-canvas').addClass('zoom');
+        $('.us-left-content').addClass('animated fadeOut');
+        return setTimeout(function(x) {
+          var buildingModel, id, unit;
+          id = parseInt(e.target.id);
+          buildingModel = buildingCollection.findWhere({
+            'id': id
+          });
+          if (buildingModel === void 0) {
+            return false;
+          }
+          unit = unitCollection.where({
+            'building_id': id
+          });
+          if (unit.length === 0) {
+            return;
+          }
+          if (Object.keys(buildingModel.get('building_master')).length === 0) {
+            CommonFloor.navigate('/building/' + id + '/apartments', true);
+            return CommonFloor.router.storeRoute();
+          } else {
+            CommonFloor.navigate('/building/' + id + '/master-view', true);
+            return CommonFloor.router.storeRoute();
+          }
+        }, 500);
       },
       'click .villa': function(e) {
-        var id, unitModel;
-        id = parseInt(e.target.id);
-        unitModel = unitCollection.findWhere({
-          'id': id
-        });
-        if (unitModel === void 0) {
-          return false;
-        }
-        CommonFloor.defaults['unit'] = id;
-        CommonFloor.navigate('/unit-view/' + id, true);
-        return CommonFloor.router.storeRoute();
+        $('.spritespin-canvas').addClass('zoom');
+        $('.us-left-content').addClass('animated fadeOut');
+        return setTimeout(function(x) {
+          var id, unitModel;
+          id = parseInt(e.target.id);
+          unitModel = unitCollection.findWhere({
+            'id': id
+          });
+          if (unitModel === void 0) {
+            return false;
+          }
+          CommonFloor.defaults['unit'] = id;
+          CommonFloor.navigate('/unit-view/' + id, true);
+          return CommonFloor.router.storeRoute();
+        }, 500);
       },
       'click #prev': function() {
         return this.setDetailIndex(this.currentBreakPoint - 1);

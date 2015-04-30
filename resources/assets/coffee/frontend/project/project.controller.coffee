@@ -24,7 +24,7 @@ class CommonFloor.ProjectCtrl extends Marionette.RegionController
 class TopView extends Marionette.ItemView
 
 	#template
-	template : Handlebars.compile('<div class="col-md-12 col-xs-12 col-sm-12">
+	template : Handlebars.compile('<div class="col-md-12 col-xs-12 col-sm-12 animated fadeIn">
 					<div class="search-header-wrap">
 					  <h1 class="pull-left">{{i10n "explore"}} {{project_title}}</h1>
 					  <!--<div class="pull-right">
@@ -56,7 +56,7 @@ class CommonFloor.TopCtrl extends Marionette.RegionController
 #View for the left view of Project
 class LeftView extends Marionette.ItemView
 	#template
-	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
+	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content animated fadeIn">
 										<div class="filters-wrapper">
 											<div class="blck-wrap">
 											  <h3><strong>{{i10n "project_by"}}</strong></h3>
@@ -134,8 +134,8 @@ class CommonFloor.LeftCtrl extends Marionette.RegionController
 #View for the center view of Project
 class CenterView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="col-md-9 us-right-content">
-					<div class="svg-area width="350" height="525" id="prImage-2" title="" alt="" 
+	template : Handlebars.compile('<div class="col-md-9 us-right-content animated fadeIn">
+					<div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" 
 						data-nodebug="" data-alwaysprocess="" 
 						data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" 
 						class="primage fill-width">
@@ -145,7 +145,12 @@ class CenterView extends Marionette.ItemView
 
 	events:
 		'click .step1-marker':(e)->
-			CommonFloor.checkPropertyType()
+			# $('svg').addClass 'zoom'
+			$('svg').attr('class' ,'zoom') 
+			$('.search-left-content').addClass 'animated fadeOut'
+			setTimeout( (x)->
+				CommonFloor.checkPropertyType()
+			, 250)			
 			
 	onShow:->
 		# $('.svg-area').lazyLoadXT()

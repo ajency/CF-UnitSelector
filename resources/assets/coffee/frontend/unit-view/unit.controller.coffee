@@ -20,7 +20,7 @@ class CommonFloor.UnitCtrl extends Marionette.RegionController
 #Top View for unit
 class TopUnitView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="row">
+	template : Handlebars.compile('<div class="row animated fadeIn">
 				<div class="col-md-12 col-xs-12 col-sm-12">
 						<div class="row breadcrumb-bar">
 							<div class="col-xs-12 col-md-12">
@@ -89,7 +89,7 @@ class CommonFloor.TopUnitCtrl extends Marionette.RegionController
 #Left View for unit
 class LeftUnitView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content unit-details">
+	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content unit-details animated fadeIn">
 							<div class="filters-wrapper">
 								<div class="blck-wrap title-row">
 									<!--<h3 class="pull-left"><strong>{{unit_name}}</strong></h3>
@@ -257,7 +257,7 @@ class CommonFloor.LeftUnitCtrl extends Marionette.RegionController
 #Center Controller for unit
 class CenterUnitView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="col-md-9 us-right-content">
+	template : Handlebars.compile('<div class="col-md-9 us-right-content animated fadeIn">
 						<div class="svg-area">
 							<div class="liquid-slider slider" id="slider-id">
 								<div class="ls-wrapper ls-responsive">

@@ -7,9 +7,9 @@
        <h3>
            Project <span class="semi-bold">Details</span>
        </h3>
+       </div>
     </a>
-    </div>
-<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
     <div class="grid-body">
         <form action="{{ url('/admin/project/'. $project['id']) }}" method="POST" data-parsley-validate>
             <div class="row">

@@ -93,7 +93,11 @@ class ProjectPlotUnitController extends Controller {
         $unit->save();
         $unitid = $unit->id;
 
-        return redirect("/admin/project/" . $project_id . "/plot-unit/" . $unitid . '/edit');
+        $addanother = $request->input('addanother');
+        if($addanother==1)
+            return redirect(url("/admin/project/" . $project_id . "/plot-unit/create"));
+        else
+            return redirect("/admin/project/" . $project_id . "/plot-unit/" . $unitid . '/edit');
     }
 
     /**
@@ -153,7 +157,11 @@ class ProjectPlotUnitController extends Controller {
         $unit->availability = $request->input('unit_status');
         $unit->save();
 
-        return redirect("/admin/project/" . $project_id . "/plot-unit/" . $id . '/edit');
+        $addanother = $request->input('addanother');
+        if($addanother==1)
+            return redirect("/admin/project/" . $project_id . "/plot-unit/create");
+        else
+            return redirect("/admin/project/" . $project_id . "/plot-unit/" . $id . '/edit');
     }
 
     /**

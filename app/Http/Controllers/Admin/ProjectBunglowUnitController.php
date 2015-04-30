@@ -90,8 +90,14 @@ class ProjectBunglowUnitController extends Controller {
         $unit->availability = $request->input('unit_status');
         $unit->save();
         $unitid = $unit->id;
-
-        return redirect("/admin/project/" . $project_id . "/bunglow-unit/" . $unitid . '/edit');
+        
+        $addanother = $request->input('addanother');
+        
+        if($addanother==1)
+            return redirect("/admin/project/" . $project_id . "/bunglow-unit/create");
+        else
+            return redirect("/admin/project/" . $project_id . "/bunglow-unit/" . $unitid . '/edit');
+        
     }
 
     /**
@@ -150,8 +156,12 @@ class ProjectBunglowUnitController extends Controller {
         $unit->unit_variant_id = $request->input('unit_variant');
         $unit->availability = $request->input('unit_status');
         $unit->save();
-
-        return redirect("/admin/project/" . $project_id . "/bunglow-unit/" . $id . '/edit');
+        $addanother = $request->input('addanother');
+        
+        if($addanother==1)
+            return redirect("/admin/project/" . $project_id . "/bunglow-unit/create");
+        else
+            return redirect("/admin/project/" . $project_id . "/bunglow-unit/" . $id . '/edit');
     }
 
     /**

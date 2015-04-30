@@ -117,7 +117,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 									<div id="trig" class="toggle-button">List View</div>
-									<div class="list-view-container animated fadeInRight">
+									<div class="list-view-container animated fadeIn">
 										<!--<div class="controls mapView">
 											<div class="toggle">
 												<a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a>
@@ -169,42 +169,54 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				)
 				$('.svg-maps > div').first().css('width',that.ui.svgContainer.width())
 
-			, 5000)
+			, 650)
 			
 					
 
 		  
 		'click .building':(e)->
-			id = parseInt e.target.id
-			buildingModel = buildingCollection.findWhere
-							'id' : id
+			$('.spritespin-canvas').addClass 'zoom'
+			$('.us-left-content').addClass 'animated fadeOut'
+			setTimeout( (x)->
+				id = parseInt e.target.id
+				buildingModel = buildingCollection.findWhere
+								'id' : id
 
-			if buildingModel == undefined
-				return false
+				if buildingModel == undefined
+					return false
 
-			unit = unitCollection.where 
-				'building_id' :  id 
-			if unit.length is 0
-				return 
+				unit = unitCollection.where 
+					'building_id' :  id 
+				if unit.length is 0
+					return 
 
-			if Object.keys(buildingModel.get('building_master')).length == 0
-				CommonFloor.navigate '/building/'+id+'/apartments' , true
-				CommonFloor.router.storeRoute()
-			else
-				CommonFloor.navigate '/building/'+id+'/master-view' , true
-				CommonFloor.router.storeRoute()
+				if Object.keys(buildingModel.get('building_master')).length == 0
+					CommonFloor.navigate '/building/'+id+'/apartments' , true
+					CommonFloor.router.storeRoute()
+				else
+					CommonFloor.navigate '/building/'+id+'/master-view' , true
+					CommonFloor.router.storeRoute()
+
+			, 500)
+			
 
 		'click .villa':(e)->
-			id = parseInt e.target.id
+			$('.spritespin-canvas').addClass 'zoom'
+			$('.us-left-content').addClass 'animated fadeOut'
+			setTimeout( (x)->
+				id = parseInt e.target.id
 
-			unitModel = unitCollection.findWhere
-							'id' : id
-			if unitModel == undefined
-				return false
+				unitModel = unitCollection.findWhere
+								'id' : id
+				if unitModel == undefined
+					return false
 
-			CommonFloor.defaults['unit'] =id
-			CommonFloor.navigate '/unit-view/'+id , true
-			CommonFloor.router.storeRoute()
+				CommonFloor.defaults['unit'] =id
+				CommonFloor.navigate '/unit-view/'+id , true
+				CommonFloor.router.storeRoute()
+
+			, 500)
+			
 
 		'click #prev':->
 			@setDetailIndex(@currentBreakPoint - 1)
