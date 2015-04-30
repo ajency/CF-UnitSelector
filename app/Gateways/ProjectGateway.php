@@ -50,7 +50,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             'project_property_types' => $this->propertyTypeUnits($projectId)
 
         ];
- 
+       
         return $projectData;
     }
 
@@ -65,7 +65,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             $projectPropertyTypeIds [$propertTypename] = $projectPropertyType['id'];
             $propertyTypes[$projectPropertyType['id']] =get_property_type( $projectPropertyType['property_type_id'] );
         }
- 
+      
         $unitTypes = \CommonFloor\UnitType::whereIn( 'project_property_type_id', $projectPropertyTypeIds )->get();
         $unitTypeArr = [];
         $unitTypeIds = [];
@@ -87,6 +87,7 @@ class ProjectGateway implements ProjectGatewayInterface {
        }  
       $apartmentunits = \CommonFloor\Unit::whereIn('building_id', $buildingIds)->get()->toArray(); 
        $variantIds = $bunglowVariantData = $appartmentVariantData =$plotVariantData= $penthouseVariantData =[];
+
         foreach ($unitTypeIds as $key => $unitTypeId)
         {
             if($key=='bunglow')
@@ -107,7 +108,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             }
             elseif($key=='plot')
             {
-                $plotVariants =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['plot'] )->get()->toArray();   
+                $plotVariants =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['plot'] )->get();
                 foreach ($plotVariants as $plotVariant) {
                         $variantIds[] += $plotVariant->id;
                     }
