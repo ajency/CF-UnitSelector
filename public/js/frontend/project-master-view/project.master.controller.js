@@ -329,6 +329,7 @@
           return $('.cf-loader').removeClass('hidden');
         }
       });
+      $('.first_image').lazyLoadXT();
       return this.initializeRotate(transitionImages, svgs);
     };
 

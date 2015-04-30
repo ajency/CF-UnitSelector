@@ -348,6 +348,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			response = project.checkRotationView()
 			if response is 1
 				$('.cf-loader').removeClass 'hidden'
+		$('.first_image').lazyLoadXT()
 		@initializeRotate(transitionImages,svgs)
 		
 
