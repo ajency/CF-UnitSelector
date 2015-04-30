@@ -17,7 +17,7 @@ class FloorLayoutRepository {
             throw new Exception( 'Layout name missing' );
 
         $floorLayout = new FloorLayout();
-        $floorLayout->layout_name = $floorLayoutData['layout_name'];
+        $floorLayout->layout_name = ucfirst($floorLayoutData['layout_name']);
         $floorLayout->no_of_flats = $floorLayoutData['no_of_flats'];
         $floorLayout->detailed_svg = 0;
         $floorLayout->basic_svg = 0;
@@ -34,7 +34,7 @@ class FloorLayoutRepository {
             throw new Exception( 'Layout name missing' );
 
         $floorLayout =  FloorLayout::find($floorLayoutId);
-        $floorLayout->layout_name = $floorLayoutData['layout_name'];
+        $floorLayout->layout_name = ucfirst($floorLayoutData['layout_name']);
         $floorLayout->no_of_flats = $floorLayoutData['no_of_flats'];
         $floorLayout->save();
 

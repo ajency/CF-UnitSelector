@@ -39,7 +39,7 @@ class PhaseController extends Controller {
 
         $phase = new Phase();
         $phase->project_id = $project_id;
-        $phase->phase_name = $phase_name;
+        $phase->phase_name = ucfirst($phase_name);
         $phase->save();
 
         $phase_id = $phase->id;

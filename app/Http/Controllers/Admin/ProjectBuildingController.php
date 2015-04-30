@@ -61,7 +61,7 @@ class ProjectBuildingController extends Controller {
     public function store( $projectId, Request $request ) {
         $formData = $request->all();
         $building = new Building;
-        $building->building_name = $formData['building_name'];
+        $building->building_name = ucfirst($formData['building_name']);
         $building->phase_id = $formData['phase_id'];
         $building->no_of_floors = $formData['no_of_floors'];
         $building->floors = [];
@@ -127,7 +127,7 @@ class ProjectBuildingController extends Controller {
 
         switch ($updateSection) {
             case 'building':
-                $building->building_name = $request->get( 'building_name' );
+                $building->building_name = ucfirst($request->get( 'building_name' ));
                 $building->phase_id = $request->get( 'phase_id' );
                 $building->no_of_floors = $request->get( 'no_of_floors' );
                 break;

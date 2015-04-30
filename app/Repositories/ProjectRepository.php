@@ -24,8 +24,8 @@ class ProjectRepository implements ProjectRepositoryInterface {
 
     public function createProject( $projectData ) {
         $project = new Project();
-        $project->project_title = $projectData['project_title'];
-        $project->project_address = $projectData['project_address'];
+        $project->project_title = ucfirst($projectData['project_title']);
+        $project->project_address = ucfirst($projectData['project_address']);
         $property_types = $projectData['property_types'];   
         $project->cf_project_id = $projectData['cf_project_id'];
         $project->city = $projectData['city'];
@@ -99,8 +99,8 @@ class ProjectRepository implements ProjectRepositoryInterface {
 
         if (isset( $projectData['project_update'] ) && 'DETAILS'===$projectData['project_update']) {
 
-            $project_title = $projectData['project_title'];
-            $project_address = $projectData['project_address'];
+            $project_title = ucfirst($projectData['project_title']);
+            $project_address = ucfirst($projectData['project_address']);
             $property_types_arr = $projectData['property_types'];
             $property_status = $projectData['property_status'];
 
@@ -149,13 +149,13 @@ class ProjectRepository implements ProjectRepositoryInterface {
                             
                             $projectPropertyTypeId = ProjectPropertyType::where(['project_id' => $project->id, 'property_type_id' => $propertytypeId])->pluck('id');
                             $unittype->project_property_type_id = $projectPropertyTypeId;
-                            $unittype->unittype_name = $unitname;
+                            $unittype->unittype_name = ucfirst($unitname);
                             $unittype->save();    
                                                             
                             } else {
                                
                             $unittype_id = $unitkeyArr[$propertytypeId][$key];
-                            $data = array("unittype_name" => $unitname);
+                            $data = array("unittype_name" => ucfirst($unitname));
                             UnitType::where( 'id', $unittype_id )->update( $data );
                         }
                         

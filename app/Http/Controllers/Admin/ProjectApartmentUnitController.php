@@ -53,7 +53,7 @@ class ProjectApartmentUnitController extends Controller {
     public function store( $projectId, Request $request ) {
 
         $unit = new Unit;
-        $unit->unit_name = $request->get( 'unit_name' );
+        $unit->unit_name = ucfirst($request->get( 'unit_name' ));
         $unit->unit_variant_id = 0;
         $unit->building_id = $request->get( 'building_id' );
         $unit->floor = $request->get( 'floor' );
@@ -119,7 +119,7 @@ class ProjectApartmentUnitController extends Controller {
     public function update($project_id, $id, Request $request) {
         
         $unit = Unit::find($id);
-        $unit->unit_name = $request->get( 'unit_name' );
+        $unit->unit_name = ucfirst($request->get( 'unit_name' ));
         $unit->unit_variant_id = 0;
         $unit->building_id = $request->get( 'building_id' );
         $unit->floor = $request->get( 'floor' );

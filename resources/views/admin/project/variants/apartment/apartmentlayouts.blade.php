@@ -11,7 +11,7 @@
                         @else
                         <input id="pickfiles_2d_0" type="button" name="fileToUpload" class="btn btn-small btn-white" value="Select your file" data-filename-placement="inside"/>
                         <button id="uploadfiles_2d_0"  type="button" class="btn btn-small hidden btn-primary">Upload</button>												
-                        <div class="row selectedImages">
+                        <div class="row selectedImages m-t-15">
                         </div>
                         @endif
                     </div>
@@ -27,7 +27,7 @@
                         @else
                         <input id="pickfiles_3d_0" type="button" name="fileToUpload" class="btn btn-small btn-white" value="Select your file" data-filename-placement="inside"/>
                         <button  id="uploadfiles_3d_0"type="button" class="btn btn-small hidden btn-primary">Upload</button>												
-                        <div class="row selectedImages">
+                        <div class="row selectedImages m-t-15">
                         </div>
                         @endif
                     </div>
