@@ -222,7 +222,15 @@
         return this.setDetailIndex(this.currentBreakPoint + 1);
       },
       'mouseout .villa': function(e) {
-        return CommonFloor.applyVillaClasses();
+        var availability, id, unit;
+        id = parseInt(e.target.id);
+        unit = unitCollection.findWhere({
+          id: id
+        });
+        availability = unit.get('availability');
+        availability = s.decapitalize(availability);
+        CommonFloor.applyVillaClasses();
+        return $('#unit' + id).attr('class', 'unit blocks ' + availability);
       },
       'mouseout .building': function(e) {
         var id;
@@ -341,7 +349,10 @@
         data = api.data;
         if (data.frame === data.stopFrame) {
           url = svgs[data.frame];
-          return $('.region').load(url, that.iniTooltip, CommonFloor.applyVillaClasses()).addClass('active').removeClass('inactive');
+          return $('.region').load(url, function() {
+            that.iniTooltip();
+            return CommonFloor.applyVillaClasses();
+          }).addClass('active').removeClass('inactive');
         }
       });
       return spin.bind("onLoad", function() {
@@ -351,7 +362,8 @@
           $('.first_image').remove();
           $('.rotate').removeClass('hidden');
           $('#spritespin').show();
-          return $('.cf-loader').addClass('hidden');
+          $('.cf-loader').addClass('hidden');
+          return CommonFloor.applyVillaClasses();
         }
       });
     };

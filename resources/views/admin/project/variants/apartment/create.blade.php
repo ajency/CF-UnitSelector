@@ -61,12 +61,7 @@
                         </select>
                     </div> 
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Carpet Area</label>
-                        <input type="text" class="form-control" name="carpet_area" value="" placeholder="Enter Carpet Area" data-parsley-required data-parsley-type="number">
-                    </div> 
-                </div>
+
                 </div>
                 <div class="row">
                 
@@ -88,7 +83,17 @@
                                 <label class="form-label">Per sq ft Price</label>
                                 <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
                             </div> 
-                        </div></div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                     <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Carpet Area</label>
+                        <input type="text" class="form-control" name="carpet_area" value="" placeholder="Enter Carpet Area">
+                    </div> 
+                    </div> 
+                </div>
                 @foreach($projectPropertyTypeAttributes as $attribute)
                 <div class="col-md-4">
                     <div class="form-group">
