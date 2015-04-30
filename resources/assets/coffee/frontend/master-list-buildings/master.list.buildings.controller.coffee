@@ -80,7 +80,7 @@ class ListItemView extends Marionette.ItemView
 class MasterBuildingListView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-3 us-left-content">
-			<div class="list-view-container w-map animated fadeInLeft">
+			<div class="list-view-container w-map animated fadeIn">
 			<!--<div class="controls map-View">
 	            <div class="toggle">
 	            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
@@ -130,10 +130,22 @@ class MasterBuildingListView extends Marionette.CompositeView
 			new CommonFloor.MasterBunglowListCtrl region : @region
 			# MasterBuildingListCtrl@trigger "load:units" , data
 
+		'click .Plots':(e)->
+			units = plotVariantCollection.getPlotUnits()
+			data = {}
+			data.units = units
+			data.type = 'plot'
+			@region =  new Marionette.Region el : '#leftregion'
+			new CommonFloor.MasterPlotListCtrl region : @region
+			# @trigger "load:units" , data
+
 
 	onShow:->
 		if bunglowVariantCollection.length != 0
 			$('.Villas').removeClass 'hidden'
+
+		if plotVariantCollection.length != 0
+			$('.Plots').removeClass 'hidden'
 			
 		$('.units').mCustomScrollbar
 			theme: 'inset'

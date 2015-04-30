@@ -98,6 +98,7 @@ body {
 }
 .us-right-content .svg-area {
   width: 100%;
+  overflow: hidden;
 }
 .us-right-content .svg-area img {
   width: 100%;
@@ -498,6 +499,17 @@ body {
   position: absolute;
   top: 0px;
   left: 0px;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
+}
+.zoom {
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transform: scale(2, 2);
+      -ms-transform: scale(2, 2);
+          transform: scale(2, 2);
+  -webkit-filter: blur(10px);
+          filter: blur(10px);
 }
 .text-primary {
   color: #f68121;

@@ -98,9 +98,21 @@ class BuildingListView extends Marionette.CompositeView
 			new CommonFloor.VillaListCtrl region : @region
 			# @trigger "load:units" , data
 
+		'click .Plots':(e)->
+			units = plotVariantCollection.getPlotUnits()
+			data = {}
+			data.units = units
+			data.type = 'plot'
+			@region =  new Marionette.Region el : '#centerregion'
+			new CommonFloor.VillaListCtrl region : @region
+			# @trigger "load:units" , data
+
 	onShow:->
 		if bunglowVariantCollection.length != 0
 			$('.Villas').removeClass 'hidden'
+
+		if plotVariantCollection.length != 0
+			$('.Plots').removeClass 'hidden'
 
 
 
