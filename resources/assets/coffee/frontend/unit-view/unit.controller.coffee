@@ -200,7 +200,7 @@ class LeftUnitView extends Marionette.ItemView
 		data.area = response[0].get('super_built_up_area')
 		data.type = response[1].get('name')
 		data.unit_variant = response[0].get('unit_variant_name')
-		data.levels  = @generateLevels(floor,response)
+		data.levels  = @generateLevels(floor,response,unit)
 		data.attributes  = attributes
 		data.similarUnits = temp
 		data
@@ -219,7 +219,8 @@ class LeftUnitView extends Marionette.ItemView
 		units
 
 
-	generateLevels:(floor,response)->
+	generateLevels:(floor,response,unit)->
+		console.log unit
 		levels = []
 		$.each floor,(index,value)->
 			rooms = []

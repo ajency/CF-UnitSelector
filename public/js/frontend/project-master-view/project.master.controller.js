@@ -419,7 +419,6 @@
         height: this.ui.svgContainer.width() / 1.46,
         animate: false
       });
-      console.log(this.ui.svgContainer.width());
       that = this;
       api = spin.spritespin("api");
       spin.bind("onFrame", function() {
@@ -441,8 +440,7 @@
           $('.first_image').remove();
           $('.rotate').removeClass('hidden');
           $('#spritespin').show();
-          $('.cf-loader').addClass('hidden');
-          return CommonFloor.applyVillaClasses();
+          return $('.cf-loader').addClass('hidden');
         }
       });
     };

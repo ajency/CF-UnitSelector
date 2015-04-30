@@ -145,7 +145,7 @@
       data.area = response[0].get('super_built_up_area');
       data.type = response[1].get('name');
       data.unit_variant = response[0].get('unit_variant_name');
-      data.levels = this.generateLevels(floor, response);
+      data.levels = this.generateLevels(floor, response, unit);
       data.attributes = attributes;
       data.similarUnits = temp;
       return data;
@@ -168,8 +168,9 @@
       return units;
     };
 
-    LeftUnitView.prototype.generateLevels = function(floor, response) {
+    LeftUnitView.prototype.generateLevels = function(floor, response, unit) {
       var levels;
+      console.log(unit);
       levels = [];
       $.each(floor, function(index, value) {
         var level_name, rooms;
