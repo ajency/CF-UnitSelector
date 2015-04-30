@@ -53,10 +53,7 @@
         return $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status') + ' active');
       },
       'mouseout': function(e) {
-        var id;
-        id = this.model.get('id');
-        $('#' + id + '.villa').attr('class', 'layer villa');
-        return $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status'));
+        return CommonFloor.applyVillaClasses();
       },
       'click': function(e) {
         if (this.model.get('status') === 'available') {

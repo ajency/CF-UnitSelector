@@ -253,6 +253,7 @@
           return html += '<div class="layouts animated fadeIn"> <a class="fancybox" rel="3d" href="' + value + '" title="' + s.replaceAll(response[2][index], "_", " ") + '"> <img class="img" data-src="' + value + '" /> <div class="img-overlay"></div> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </a> </div>';
         });
         $('.images').html(html);
+        $('.img').lazyLoadXT();
         $('.threeD').addClass('current');
         $('.external').removeClass('current');
         $('.twoD').removeClass('current');
@@ -266,6 +267,7 @@
           return html += '<div class="layouts animated fadeIn"> <a class="fancybox" rel="2d" href="' + value + '" title="' + s.replaceAll(response[2][index], "_", " ") + '"> <img class="img" data-src="' + value + '" /> <div class="img-overlay"></div> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </a> </div>';
         });
         $('.images').html(html);
+        $('.img').lazyLoadXT();
         $('.twoD').addClass('current');
         $('.external').removeClass('current');
         $('.threeD').removeClass('current');
@@ -277,6 +279,7 @@
         html = '';
         html += '<div class="animated fadeIn"> <img class="img" data-src="' + response[3].get('external3durl') + '" /> </div>';
         $('.images').html(html);
+        $('.img').lazyLoadXT();
         $('.external').addClass('current');
         $('.threeD').removeClass('current');
         $('.twoD').removeClass('current');
@@ -290,6 +293,7 @@
           return html += '<div class="animated fadeIn gallery-img"> <a class="fancybox" rel="gall" href="' + value + '"> <img class="img" data-src="' + value + '" /> <div class="img-overlay"></div> </a> </div>';
         });
         $('.images').html(html);
+        $('.img').lazyLoadXT();
         $('.gallery').addClass('current');
         $('.threeD').removeClass('current');
         $('.twoD').removeClass('current');

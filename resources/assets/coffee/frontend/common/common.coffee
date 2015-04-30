@@ -108,6 +108,17 @@ CommonFloor.propertyTypes = ()->
 
 	Router
 
+CommonFloor.applyVillaClasses = ()->
+	$('.villa').each (ind,item)->
+		console.log id = parseInt item.id
+		unit = unitCollection.findWhere 
+			id :  id 
+		if ! _.isUndefined unit 
+			availability = unit.get('availability')
+			availability = s.decapitalize(availability)
+			$('#'+id).attr('class' ,'layer villa '+availability) 
+
+
 
 
 

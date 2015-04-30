@@ -319,12 +319,14 @@ class CenterUnitView extends Marionette.ItemView
 							</a>
 						</div>'
 			$('.images').html html
+			$('.img').lazyLoadXT()
 			$('.threeD').addClass('current')
 			$('.external').removeClass('current')
 			$('.twoD').removeClass('current')
 			$('.gallery').removeClass('current')
 
 		'click .twoD':(e)->
+
 			response = @generateLevels()
 			html = ''
 			$.each response[0],(index,value)->
@@ -336,6 +338,7 @@ class CenterUnitView extends Marionette.ItemView
 							</a>
 						</div>'
 			$('.images').html html
+			$('.img').lazyLoadXT()
 			$('.twoD').addClass('current')
 			$('.external').removeClass('current')
 			$('.threeD').removeClass('current')
@@ -348,6 +351,7 @@ class CenterUnitView extends Marionette.ItemView
 						<img class="img" data-src="'+response[3].get('external3durl')+'" />
 					</div>'
 			$('.images').html html
+			$('.img').lazyLoadXT()
 			$('.external').addClass('current')
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
@@ -365,6 +369,7 @@ class CenterUnitView extends Marionette.ItemView
 						</div>'
 			
 			$('.images').html html
+			$('.img').lazyLoadXT()
 			$('.gallery').addClass('current')
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
@@ -372,6 +377,7 @@ class CenterUnitView extends Marionette.ItemView
 		
 
 	onShow:->
+
 		response = @generateLevels()
 		html = ''
 		$.each response[0],(index,value)->

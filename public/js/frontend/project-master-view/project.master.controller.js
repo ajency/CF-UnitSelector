@@ -222,18 +222,7 @@
         return this.setDetailIndex(this.currentBreakPoint + 1);
       },
       'mouseout .villa': function(e) {
-        var availability, id, unit;
-        id = parseInt(e.target.id);
-        unit = unitCollection.findWhere({
-          id: id
-        });
-        if (unit === void 0) {
-          return;
-        }
-        availability = unit.get('availability');
-        availability = s.decapitalize(availability);
-        $('.layer').attr('class', 'layer villa');
-        return $('#unit' + id).attr('class', 'unit blocks ' + availability);
+        return CommonFloor.applyVillaClasses();
       },
       'mouseout .building': function(e) {
         var id;
@@ -291,7 +280,6 @@
 
     CenterMasterView.prototype.onShow = function() {
       var breakpoints, first, height, svgs, that, transitionImages;
-      $('.first_image').lazyLoadXT();
       height = this.ui.svgContainer.width() / 1.46;
       $('.units').css('height', height - 162);
       $('#spritespin').hide();
@@ -307,28 +295,12 @@
       $('.region').load(first[0], $('.first_image').attr('data-src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
       $('.first_image').load(function() {
         var response;
-        that.applyClasses();
         response = project.checkRotationView();
         if (response === 1) {
           return $('.cf-loader').removeClass('hidden');
         }
       });
       return this.initializeRotate(transitionImages, svgs);
-    };
-
-    CenterMasterView.prototype.applyClasses = function() {
-      return $('.villa').each(function(ind, item) {
-        var availability, id, unit;
-        id = parseInt(item.id);
-        unit = unitCollection.findWhere({
-          id: id
-        });
-        if (!_.isUndefined(unit)) {
-          availability = unit.get('availability');
-          availability = s.decapitalize(availability);
-          return $('#' + id).attr('class', 'layer villa ' + availability);
-        }
-      });
     };
 
     CenterMasterView.prototype.setDetailIndex = function(index) {
@@ -368,8 +340,8 @@
         var data, url;
         data = api.data;
         if (data.frame === data.stopFrame) {
-          console.log(url = svgs[data.frame]);
-          return $('.region').load(url, that.iniTooltip, that.applyClasses()).addClass('active').removeClass('inactive');
+          url = svgs[data.frame];
+          return $('.region').load(url, that.iniTooltip, CommonFloor.applyVillaClasses()).addClass('active').removeClass('inactive');
         }
       });
       return spin.bind("onLoad", function() {
