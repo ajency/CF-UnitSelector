@@ -333,7 +333,6 @@
         height: this.ui.svgContainer.width() / 1.46,
         animate: false
       });
-      console.log(this.ui.svgContainer.width());
       that = this;
       api = spin.spritespin("api");
       spin.bind("onFrame", function() {
@@ -341,7 +340,10 @@
         data = api.data;
         if (data.frame === data.stopFrame) {
           url = svgs[data.frame];
-          return $('.region').load(url, that.iniTooltip, CommonFloor.applyVillaClasses()).addClass('active').removeClass('inactive');
+          return $('.region').load(url, function() {
+            that.iniTooltip();
+            return CommonFloor.applyVillaClasses();
+          }).addClass('active').removeClass('inactive');
         }
       });
       return spin.bind("onLoad", function() {
@@ -351,7 +353,8 @@
           $('.first_image').remove();
           $('.rotate').removeClass('hidden');
           $('#spritespin').show();
-          return $('.cf-loader').addClass('hidden');
+          $('.cf-loader').addClass('hidden');
+          return CommonFloor.applyVillaClasses();
         }
       });
     };

@@ -331,6 +331,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 	setDetailIndex:(index)->
 		$('.region').empty()
 		$('.region').addClass('inactive').removeClass('active')
+
 		@currentBreakPoint = index;
 		if (@currentBreakPoint < 0) 
 			@currentBreakPoint = @breakPoints.length - 1
@@ -356,14 +357,14 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			height: @ui.svgContainer.width() / 1.46
 			animate: false
 		)
-		console.log @ui.svgContainer.width() 
+		
 		that = @
 		api = spin.spritespin("api")
 		spin.bind("onFrame" , ()->
 			data = api.data
 			if data.frame is data.stopFrame
 				url = svgs[data.frame]
-				$('.region').load(url,that.iniTooltip,CommonFloor.applyVillaClasses()).addClass('active').removeClass('inactive')
+				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses()).addClass('active').removeClass('inactive')
 				
 		)
 
@@ -374,6 +375,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
 				$('.cf-loader').addClass 'hidden'
+				CommonFloor.applyVillaClasses()
+
 
 				
 		)
