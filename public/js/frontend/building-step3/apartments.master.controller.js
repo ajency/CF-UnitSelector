@@ -310,14 +310,12 @@
         return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/buildings/' + building_id + '/master-' + value + '.svg';
       });
       $.merge(transitionImages, building.get('building_master'));
-      first = _.values(svgs);
+      console.log(first = _.values(svgs));
       $('.region').load(first[0], $('.first_image').attr('data-src', transitionImages[0])).addClass('active').removeClass('inactive');
       $('.first_image').load(function() {
         var response;
         response = building.checkRotationView(building_id);
-        if (response === 1) {
-          return $('.cf-loader').removeClass('hidden');
-        }
+        return $('.cf-loader').removeClass('hidden');
       });
       return this.initializeRotate(transitionImages, svgs, building);
     };
@@ -366,7 +364,7 @@
       });
       return spin.bind("onLoad", function() {
         var response;
-        console.log(response = building.checkRotationView(building_id));
+        response = building.checkRotationView(building_id);
         if (response === 1) {
           $('.first_image').remove();
           $('.rotate').removeClass('hidden');
