@@ -110,7 +110,7 @@ CommonFloor.propertyTypes = ()->
 
 CommonFloor.applyVillaClasses = ()->
 	$('.villa').each (ind,item)->
-		id = parseInt item.id
+		console.log id = parseInt item.id
 		unit = unitCollection.findWhere 
 			id :  id 
 		if ! _.isUndefined unit 
