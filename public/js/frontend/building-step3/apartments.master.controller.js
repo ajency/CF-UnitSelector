@@ -266,7 +266,7 @@
           $('.layer').tooltipster('content', html);
           return false;
         }
-        console.log(response = window.unit.getUnitDetails(id));
+        response = window.unit.getUnitDetails(id);
         window.convertRupees(response[3]);
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
@@ -311,7 +311,7 @@
       });
       $.merge(transitionImages, building.get('building_master'));
       first = _.values(svgs);
-      $('.region').load(first[0], $('.first_image').attr('data-src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
+      $('.region').load(first[0], $('.first_image').attr('data-src', transitionImages[0])).addClass('active').removeClass('inactive');
       $('.first_image').load(function() {
         var response;
         response = building.checkRotationView(building_id);
