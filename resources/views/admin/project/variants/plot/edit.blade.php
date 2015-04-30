@@ -143,7 +143,7 @@
                                 @else
                                 <input id="pickfiles_ext3d" type="button" name="fileToUpload" class="btn btn-small btn-white" value="Select your file" data-filename-placement="inside"/>
                                 <button  id="uploadfiles_ext3d"type="button" class="btn hidden btn-small btn-primary">Upload</button>												
-                                <div class="row selectedImages">
+                                <div class="row selectedImages m-t-15">
                                 </div>
                                 @endif
                             </div>
@@ -157,7 +157,7 @@
                 <div>
                     <input id="pickfiles_gallery" type="button" name="fileToUpload" class="btn btn-small btn-white" value="Select your file" data-filename-placement="inside"/>
                     <button  id="uploadfiles_gallery"type="button" class="btn btn-small hidden btn-primary">Upload</button>
-                    <div class="row selectedImages">
+                    <div class="row selectedImages m-t-15">
                     </div>         
                 </div>
                 <div id="galleryimages">

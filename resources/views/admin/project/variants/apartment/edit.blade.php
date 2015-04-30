@@ -144,7 +144,7 @@
         <div class="m-b-15">
             <input id="pickfiles_gallery" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/>
             <button  id="uploadfiles_gallery"type="button" class="btn btn-small hidden btn-primary">Upload</button>
-            <div class="row selectedImages">
+            <div class="row selectedImages m-t-15">
             </div>        
         </div>
         <div id="galleryimages">
