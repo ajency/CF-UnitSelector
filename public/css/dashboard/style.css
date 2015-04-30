@@ -8205,13 +8205,13 @@ body.rtl .footer-widget {
   position: relative;
   top: -3px;
 }
-.grid-body .in {
+.grid-body .tooltip {
   width: 180px;
 }
-.grid-body .in .tooltip-arrow {
+.grid-body .tooltip .tooltip-arrow {
   border-right-color: #f68121;
 }
-.grid-body .in .tooltip-inner {
+.grid-body .tooltip .tooltip-inner {
   background: #F0C79E;
   color: #000;
   border: 1px solid #f68121;
