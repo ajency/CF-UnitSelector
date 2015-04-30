@@ -13,7 +13,7 @@
 @section('content')
 <!-- BEGIN PAGE TITLE -->
 <div class="page-title inline">	
-    <h2><span class="semi-bold">Add</span> Unit Variant</h2>
+    <h2><span class="semi-bold">Edit</span> Unit Variant</h2>
 </div>&nbsp;
 
 &nbsp;<a class="inline" data-toggle="popover" data-content="Unit variant defines the model of a unit type and can be reused across each unit which have the same specification." 

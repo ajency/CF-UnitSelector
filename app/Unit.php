@@ -25,8 +25,9 @@ class Unit extends Model {
             $floorlayoutIds = Building::find( $buildingId )->floors;
             if (isset( $floorlayoutIds[$floor] )) {
                 $layout = FloorLayout::find( $floorlayoutIds[$floor] );
-                $position = $layout->positions()->where('position', $unitPosition)->first()->toArray();
-                $data['unit_variant_id'] = $position['unit_variant_id'];
+                $positions = $layout->positions()->where('position', $unitPosition)->get()->toArray(); 
+                if(!empty($positions))
+                    $data['unit_variant_id'] = $positions[0]['unit_variant_id'];
             }
         }
         
