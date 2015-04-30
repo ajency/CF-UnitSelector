@@ -3,9 +3,11 @@
 @section('breadcrumb')
 <!-- BEGIN BREADCRUMBS -->
 <ul class="breadcrumb">
-    <li><a href="/admin">Dashboard</a> </li>
-    <li><a href="/admin/project">Projects</a> </li>
-    <li><a href="#" class="active">Add Unit Variant</a> </li>
+    <li><a href="{{ url( 'admin/') }}">Dashboard</a> </li>
+    <li><a href="{{ url( 'admin/project/') }}">Projects</a> </li>
+    <li><a href="{{ url( 'admin/project/' . $project['id'].'/edit') }}">{{ $project['project_title'] }}</a> </li>
+    <li><a href="#">Villa Variants</a> </li>
+    <li><a href="#" class="active">Edit Unit Variants</a> </li>
 </ul>
 <!-- END BREADCRUMBS -->
 @endsection
@@ -13,7 +15,7 @@
 @section('content')
 <!-- BEGIN PAGE TITLE -->
 <div class="page-title inline">	
-    <h2 ><span class="semi-bold">Add</span> Unit Variant</h2>
+    <h2 ><span class="semi-bold">Edit</span> Unit Variant</h2>
 </div>&nbsp;&nbsp;
 <a class="inline" data-toggle="popover" data-trigger="hover" data-content="Unit variant defines the model of a unit type and can be reused across each unit which have the same specification." data-original-title="" title=""><i class="fa fa-info"></i></a>
 
