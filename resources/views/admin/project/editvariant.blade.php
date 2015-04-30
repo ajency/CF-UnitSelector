@@ -24,16 +24,14 @@
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
     <div class="grid simple">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
         <div class="grid-title"  role="tab" id="headingOne">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-
                 <div class="pull-right"><i class="fa fa-angle-up "></i>
                     <i class="fa fa-angle-down grid-angle-down"></i>
                 </div>             
                 <h3>Villa <span class="semi-bold">Details</span></h3>
-
-            </a>
         </div>
+    </a>
         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
             <div class="grid-body">
                 <form action="/admin/project/{{ $project['id'] }}/bunglow-variant/{{ $unitVariant['id'] }}" method="POST" data-parsley-validate>
@@ -133,14 +131,13 @@
     @include('admin.project.variantrooms')
 
     <div class="grid simple">
+       <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
         <div class="grid-title" role="tab" id="headingThree">
-            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                 <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
                     <i class="fa fa-angle-up "></i>
                 </div>
                 <h3><span class="semi-bold">Layouts</span></h3>
-            </a>
-        </div>
+        </div></a>
         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree"> 
             <div class="grid-body"> 
                 <h5 class="semi-bold inline">External</h5>
@@ -153,9 +150,9 @@
                                 <img src="{{ $layouts['external']['3d']['IMAGE'] }}" class="img-responsive img-thumbnail">
                                 <button onclick="deleteLayout({{ $layouts['external']['3d']['ID'] }}, 'external');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>     
                                 @else
-                                <input id="pickfiles_ext3d" type="button" name="fileToUpload" class="btn btn-small btn-white" value="Select your file" data-filename-placement="inside"/>
+                                <input id="pickfiles_ext3d" type="button" name="fileToUpload" class="btn btn-small btn-default" value="Select your file" data-filename-placement="inside"/>
                                 <button  id="uploadfiles_ext3d"type="button" class="btn hidden btn-small btn-primary">Upload</button>												
-                                <div class="row selectedImages">
+                                <div class="row selectedImages m-t-15">
                                 </div>
                                 @endif
                             </div>
@@ -168,9 +165,9 @@
             <div class="grid-body"> 
                 <h5 class="semi-bold inline">Gallery</h5>
                 <div>
-                    <input id="pickfiles_gallery" type="button" name="fileToUpload" class="btn btn-small btn-white" value="Select your file" data-filename-placement="inside"/>
+                    <input id="pickfiles_gallery" type="button" name="fileToUpload" class="btn btn-small btn-default" value="Select your file" data-filename-placement="inside"/>
                     <button  id="uploadfiles_gallery"type="button" class="btn btn-small hidden btn-primary">Upload</button>
-                    <div class="row selectedImages">
+                    <div class="row selectedImages m-t-15">
                     </div>         
                 </div>
                 <div id="galleryimages">

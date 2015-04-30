@@ -113,7 +113,7 @@
                     <form data-parsley-validate>
                         <div class="grid-body"><h3>Position {{ $i }}</h3>
                             <div class="row m-b-15">
-                                <div class="col-md-9">
+                                <div class="col-md-12">
                                     <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">

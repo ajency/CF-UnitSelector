@@ -72,7 +72,7 @@
                                     <input type="hidden" name="update_section" value="building">
                                     <button data-building-id="{{ $building->id }}" type="button" 
                                             class="btn btn-primary btn-cons update-building">Update</button>
-                                    <button type="button" class="btn btn-default btn-cons">Cancel</button>
+                                    <button type="button" class="btn btn-default btn-cons"><i class="fa fa-check"></i> Cancel</button>
                                 </div>
                             </div>
                         </form>
@@ -94,10 +94,10 @@
                             <div  class="col-md-4">
                                 <h4 class="semi-bold">Floor</h3>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <h4 class="semi-bold">Floor Layout</h3>
                             </div>
-                            <div class="col-md-4 text-right">
+                            <div class="col-md-5 text-right">
                                 <h4 class="semi-bold">Floor Layout SVG</h3>
                             </div>
                         </div>
@@ -106,8 +106,8 @@
                             <hr/>
                             <div class="row">
                                 <div  class="col-md-4">{{ $i }}</div>
-                                <div class="col-md-4">
-                                    <select required="" name="floors[{{ $i }}]">
+                                <div class="col-md-3">
+                                    <select required="" name="floors[{{ $i }}]" class="full-width">
                                         <option>Choose floor layout</option>
                                         @foreach($floorLayouts as $floorLayout)
                                         <option {{ (isset($building->floors[$i]) && $building->floors[$i] == $floorLayout->id) ? 'selected' : '' }} 
@@ -115,7 +115,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-md-4 text-right">
+                                <div class="col-md-5 text-right">
                                     <a href="#" data-toggle="modal" data-target="#myModal">
                                         View layout SVG
                                     </a>
