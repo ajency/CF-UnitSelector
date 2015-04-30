@@ -205,7 +205,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 		'mouseout .villa':(e)->
-			CommonFloor.applyVillaClasses()  
+			id = parseInt e.target.id
+			unit = unitCollection.findWhere 
+				id :  id 
+			availability = unit.get('availability')
+			availability = s.decapitalize(availability)
+			CommonFloor.applyVillaClasses()
+			$('#unit'+id).attr('class' ,'unit blocks '+availability)  
 
 		'mouseout .building':(e)->
 			id = parseInt e.target.id
@@ -331,7 +337,6 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 	setDetailIndex:(index)->
 		$('.region').empty()
 		$('.region').addClass('inactive').removeClass('active')
-
 		@currentBreakPoint = index;
 		if (@currentBreakPoint < 0) 
 			@currentBreakPoint = @breakPoints.length - 1
@@ -357,7 +362,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			height: @ui.svgContainer.width() / 1.46
 			animate: false
 		)
-		
+		console.log @ui.svgContainer.width() 
 		that = @
 		api = spin.spritespin("api")
 		spin.bind("onFrame" , ()->
@@ -376,7 +381,6 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				$('#spritespin').show()
 				$('.cf-loader').addClass 'hidden'
 				CommonFloor.applyVillaClasses()
-
 
 				
 		)

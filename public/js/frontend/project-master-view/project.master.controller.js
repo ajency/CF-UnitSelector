@@ -222,7 +222,15 @@
         return this.setDetailIndex(this.currentBreakPoint + 1);
       },
       'mouseout .villa': function(e) {
-        return CommonFloor.applyVillaClasses();
+        var availability, id, unit;
+        id = parseInt(e.target.id);
+        unit = unitCollection.findWhere({
+          id: id
+        });
+        availability = unit.get('availability');
+        availability = s.decapitalize(availability);
+        CommonFloor.applyVillaClasses();
+        return $('#unit' + id).attr('class', 'unit blocks ' + availability);
       },
       'mouseout .building': function(e) {
         var id;
@@ -333,6 +341,7 @@
         height: this.ui.svgContainer.width() / 1.46,
         animate: false
       });
+      console.log(this.ui.svgContainer.width());
       that = this;
       api = spin.spritespin("api");
       spin.bind("onFrame", function() {
