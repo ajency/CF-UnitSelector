@@ -249,7 +249,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			availability = s.decapitalize(availability)
 			html = ""
 			html += '<div class="svg-info">
-						<h4 class="pull-left">{{unit.unit_name}}</h4>
+						<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
 						<!--<span class="label label-success"></span-->
 						<div class="clearfix"></div>
 						<div class="details">
