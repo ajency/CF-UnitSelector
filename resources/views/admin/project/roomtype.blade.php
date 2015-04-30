@@ -172,10 +172,9 @@
                     <i class="fa fa-angle-up "></i>
                 </div>
                 <h3><span class="semi-bold">{{ get_property_type($propertytypeId) }}</span> Attributes</h3>
+                </div>
             </a>
-        </div>
-        <div id="collapse{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-
+                <div id="collapse{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
             <div class="grid-body">
                 <form name="frmroomtype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" id="frmroomtype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
                     <div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 m-b-10 text-grey">

@@ -60,8 +60,12 @@ class ProjectApartmentUnitController extends Controller {
         $unit->position = $request->get( 'position' );
         $unit->availability = $request->get( 'availability' );
         $unit->save();
-
-        return redirect( url( '/admin/project/' . $projectId . '/apartment-unit/' . $unit->id . '/edit' ) );
+        
+        $addanother = $request->input('addanother');
+        if($addanother==1)
+            return redirect( url( '/admin/project/' . $projectId . '/apartment-unit/create' ) );
+        else
+            return redirect( url( '/admin/project/' . $projectId . '/apartment-unit/' . $unit->id . '/edit' ) );
     }
 
     /**
@@ -123,7 +127,11 @@ class ProjectApartmentUnitController extends Controller {
         $unit->availability = $request->get( 'availability' );
         $unit->save();
         
-        return redirect("/admin/project/" . $project_id . "/apartment-unit/" . $id . '/edit');
+        $addanother = $request->input('addanother');
+       if($addanother==1)
+            return redirect( url( '/admin/project/' . $project_id . '/apartment-unit/create' ) );
+        else
+            return redirect("/admin/project/" . $project_id . "/apartment-unit/" . $id . '/edit');
     }
 
     /**

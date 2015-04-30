@@ -44,7 +44,7 @@ class ProjectPlotUnitController extends Controller {
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
                         ->with('unit_arr', $unitArr)
-                        ->with('current', '');
+                        ->with('current', 'plot-unit');
 
         //
     }
@@ -77,7 +77,7 @@ class ProjectPlotUnitController extends Controller {
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
                         ->with('unit_variant_arr', $unitVariantArr)
-                        ->with('current', '');
+                        ->with('current', 'plot-unit');
     }
 
     /**
@@ -93,7 +93,11 @@ class ProjectPlotUnitController extends Controller {
         $unit->save();
         $unitid = $unit->id;
 
-        return redirect("/admin/project/" . $project_id . "/plot-unit/" . $unitid . '/edit');
+        $addanother = $request->input('addanother');
+        if($addanother==1)
+            return redirect(url("/admin/project/" . $project_id . "/plot-unit/create"));
+        else
+            return redirect("/admin/project/" . $project_id . "/plot-unit/" . $unitid . '/edit');
     }
 
     /**
@@ -137,7 +141,7 @@ class ProjectPlotUnitController extends Controller {
                         ->with('project_property_type', $propertyTypeArr)
                         ->with('unit_variant_arr', $unitVariantArr)
                         ->with('unit', $unit->toArray())
-                        ->with('current', '');
+                        ->with('current', 'plot-unit');
     }
 
     /**
@@ -153,7 +157,11 @@ class ProjectPlotUnitController extends Controller {
         $unit->availability = $request->input('unit_status');
         $unit->save();
 
-        return redirect("/admin/project/" . $project_id . "/plot-unit/" . $id . '/edit');
+        $addanother = $request->input('addanother');
+        if($addanother==1)
+            return redirect("/admin/project/" . $project_id . "/plot-unit/create");
+        else
+            return redirect("/admin/project/" . $project_id . "/plot-unit/" . $id . '/edit');
     }
 
     /**

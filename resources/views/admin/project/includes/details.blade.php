@@ -1,15 +1,15 @@
 <div class="grid simple">
+ <a class="" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
     <div class="grid-title"  role="tab" id="headingOne">
-       <a class="" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
        <div class="pull-right"><i class="fa fa-angle-up "></i>
 <i class="fa fa-angle-down grid-angle-down"></i>
        </div>
        <h3>
            Project <span class="semi-bold">Details</span>
        </h3>
+       </div>
     </a>
-    </div>
-<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
     <div class="grid-body">
         <form action="{{ url('/admin/project/'. $project['id']) }}" method="POST" data-parsley-validate>
             <div class="row">
@@ -129,15 +129,18 @@
             </div>
             <div class="form-actions">  
  
-                       <a class="inline" data-toggle="popover" data-content="The project enters the draft mode on save and will only be available on unit selector when 
-               the project status is changed to Published."><i class="fa fa-info"></i></a>
+            
 
                        <div class="pull-right">
+                        <a class="inline" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="The project enters the draft mode on save and will only be available on unit selector when 
+               the project status is changed to Published."><i class="fa fa-info"></i>
+           </a>&nbsp;
+                      <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
+
                             <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" value="DETAILS" name="project_update"/>
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-                    <button type="button" data-p-id="{{ $project['id'] }}" class="btn btn-primary update-response-table btn-cons">Update Response Table</button>
-                    <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
+                    <button type="button" data-p-id="{{ $project['id'] }}" class="btn btn-default update-response-table btn-cons">Update Response Table</button>
                 
                         </div>
            </div>
