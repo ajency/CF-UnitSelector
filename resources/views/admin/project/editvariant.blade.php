@@ -15,7 +15,7 @@
 <div class="page-title inline">	
     <h2 ><span class="semi-bold">Add</span> Unit Variant</h2>
 </div>&nbsp;&nbsp;
-<a class="inline" data-toggle="popover" data-content="Unit variant defines the model of a unit type and can be reused across each unit which have the same specification." data-original-title="" title=""><i class="fa fa-info"></i></a>
+<a class="inline" data-toggle="popover" data-trigger="hover" data-content="Unit variant defines the model of a unit type and can be reused across each unit which have the same specification." data-original-title="" title=""><i class="fa fa-info"></i></a>
 
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
@@ -120,7 +120,7 @@
                         <div class="pull-right">
                             <input type="hidden" name="_method" value="PUT">
                             <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-                            <button type="submit" class="btn btn-primary btn-cons">Save</button>
+                            <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
                         </div>
                     </div>
                 </form>

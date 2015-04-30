@@ -62,8 +62,8 @@
                      <input type="hidden" id="addanother" name="addanother" value="">
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-                    <button type="submit" class="btn btn-primary btn-cons">Save</button>
-                    <button type="button" onclick="saveAndAddAnother();" class="btn btn-primary btn-cons">Save And Add Another</button>
+                    <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
+                    <button type="button" onclick="saveAndAddAnother();" class="btn btn-default btn-cons">Save And Add Another</button>
                 </div>
             </div>
         </form>

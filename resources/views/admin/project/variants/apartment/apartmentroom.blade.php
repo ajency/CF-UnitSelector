@@ -2,7 +2,7 @@
     <div class="grid simple">
         <div class="grid-title">
             <h3 class="inline">Room <span class="semi-bold">Details</span></h3>&nbsp;
- <a class="inline" data-toggle="popover" data-content="Add rooms (which are created on attributes page) which are present at each level (floor).
+ <a class="inline" data-toggle="popover" data-trigger="hover" data-content="Add rooms (which are created on attributes page) which are present at each level (floor).
                     Click on Add Level button to add new levels. " 
   data-original-title="" title=""><i class="fa fa-info"></i></a>
            

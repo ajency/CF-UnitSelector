@@ -89,12 +89,12 @@
  
                     <div class="form-actions "> 
                    <div class="pull-right">
-                    <a class="inline" data-toggle="popover" data-content="The project enters the draft mode on save and will only be available on unit selector when 
+                    <a class="inline" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="The project enters the draft mode on save and will only be available on unit selector when 
                the project status is changed to Published." data-original-title="" title=""><i class="fa fa-info"></i></a>&nbsp;
                             <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                             <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
                             <button type="reset" class="hidden" />
-                            <a href="{{ url('admin/project') }}"><button type="button" class="btn btn-white btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
+                            <a href="{{ url('admin/project') }}"><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
                         </div>
                       
                     </div>
