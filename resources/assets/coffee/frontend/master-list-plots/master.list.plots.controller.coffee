@@ -52,13 +52,13 @@ class PlotListView extends Marionette.ItemView
 			id = @model.get('id')
 			$('.layer').attr('class','layer plot')
 			$('#'+id+'.plot').attr('class' ,'layer plot '+@model.get('status'))
-			$('#unit'+id).attr('class' ,'unit blocks'+' '+@model.get('status')+' active')
+			$('#unit'+id).attr('class' ,'bldg blocks'+' '+@model.get('status')+' active')
 			
 			
 		'mouseout':(e)->
 			id = @model.get('id')
 			# $('#'+id+'.villa').attr('class' ,'layer villa')
-			$('#unit'+id).attr('class' , 'unit blocks'+' '+@model.get('status'))
+			$('#unit'+id).attr('class' , 'bldg blocks'+' '+@model.get('status'))
 			CommonFloor.applyPlotClasses()
 
 		'click' :(e)->

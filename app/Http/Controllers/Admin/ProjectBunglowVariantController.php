@@ -226,6 +226,7 @@ class ProjectBunglowVariantController extends Controller {
             foreach ($attributedata as $key=>$value)
                $variantattributedata[$key]= ucfirst($value);    
         }
+        
         $attributeStr = serialize( $variantattributedata );
         $unitVariant->variant_attributes = $attributeStr;
         $unitVariant->save();

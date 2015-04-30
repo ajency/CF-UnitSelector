@@ -282,7 +282,7 @@
           availability = unit.get('availability');
           availability = s.decapitalize(availability);
           CommonFloor.applyPlotClasses();
-          return $('#unit' + id).attr('class', 'unit blocks ' + availability);
+          return $('#unit' + id).attr('class', 'bldg blocks ' + availability);
         }
       },
       'mouseout .building': function(e) {
@@ -334,7 +334,7 @@
         html = "";
         html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Variant</label> - ' + response[0].get('unit_variant_name') + '</div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
         $('#' + id).attr('class', 'layer plot ' + availability);
-        $('#unit' + id).attr('class', 'unit blocks active');
+        $('#unit' + id).attr('class', 'bldg blocks active');
         return $('.layer').tooltipster('content', html);
       },
       'mouseover .building': function(e) {
