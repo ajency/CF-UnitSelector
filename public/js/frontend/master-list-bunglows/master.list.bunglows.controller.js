@@ -48,7 +48,7 @@
       'mouseover': function(e) {
         var id;
         id = this.model.get('id');
-        $('.layer').attr('class', 'layer villa');
+        $('.villa').attr('class', 'layer villa');
         $('#' + id + '.villa').attr('class', 'layer villa ' + this.model.get('status'));
         return $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status') + ' active');
       },

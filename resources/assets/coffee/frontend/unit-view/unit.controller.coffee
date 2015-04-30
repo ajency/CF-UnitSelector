@@ -101,6 +101,9 @@ class LeftUnitView extends Marionette.ItemView
 											<label>Price: </label> <span class="price"></span>
 										</div>
 										<div>
+											<label>Unit Variant:</label> {{unit_variant}}
+										</div>
+										<div>
 											<label>Unit Type:</label> {{type}}
 										</div>
 										<div>
@@ -196,7 +199,7 @@ class LeftUnitView extends Marionette.ItemView
 		console.log temp
 		data.area = response[0].get('super_built_up_area')
 		data.type = response[1].get('name')
-		data.unit_name = unit.get('unit_name')
+		data.unit_variant = response[0].get('unit_variant_name')
 		data.levels  = @generateLevels(floor,response)
 		data.attributes  = attributes
 		data.similarUnits = temp

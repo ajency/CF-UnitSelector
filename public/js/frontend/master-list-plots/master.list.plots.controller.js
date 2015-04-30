@@ -48,15 +48,15 @@
       'mouseover': function(e) {
         var id;
         id = this.model.get('id');
-        $('.layer').attr('class', 'layer villa');
-        $('#' + id + '.villa').attr('class', 'layer villa ' + this.model.get('status'));
+        $('.layer').attr('class', 'layer plot');
+        $('#' + id + '.plot').attr('class', 'layer plot ' + this.model.get('status'));
         return $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status') + ' active');
       },
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
         $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status'));
-        return CommonFloor.applyVillaClasses();
+        return CommonFloor.applyPlotClasses();
       },
       'click': function(e) {
         if (this.model.get('status') === 'available') {
