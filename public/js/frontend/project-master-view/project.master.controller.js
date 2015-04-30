@@ -368,7 +368,7 @@
         var data, url;
         data = api.data;
         if (data.frame === data.stopFrame) {
-          url = svgs[data.frame];
+          console.log(url = svgs[data.frame]);
           return $('.region').load(url, that.iniTooltip, that.applyClasses()).addClass('active').removeClass('inactive');
         }
       });

@@ -380,7 +380,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		spin.bind("onFrame" , ()->
 			data = api.data
 			if data.frame is data.stopFrame
-				url = svgs[data.frame]
+				console.log url = svgs[data.frame]
 				$('.region').load(url,that.iniTooltip,that.applyClasses()).addClass('active').removeClass('inactive')
 				
 		)
