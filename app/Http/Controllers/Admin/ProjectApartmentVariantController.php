@@ -86,14 +86,20 @@ class ProjectApartmentVariantController extends Controller {
      */
     public function store( $projectId, Request $request ) {
         $unitVariant = new UnitVariant();
-        $unitVariant->unit_variant_name = $request->input( 'unit_variant_name' );
+        $unitVariant->unit_variant_name = ucfirst($request->input( 'unit_variant_name' ));
         $unitVariant->unit_type_id = $request->input( 'unit_type' );
         $unitVariant->carpet_area = $request->input( 'carpet_area' );
         $unitVariant->built_up_area = $request->input( 'builtup_area' );
         $unitVariant->super_built_up_area = $request->input( 'superbuiltup_area' );
         $unitVariant->per_sq_ft_price = $request->input('per_sq_ft_price');
         $attributedata = $request->input( 'attributes' );
-        $attributeStr = serialize( $attributedata );
+        $variantattributedata=[];
+        if(!empty($attributedata))
+        {
+            foreach ($attributedata as $key=>$value)
+               $variantattributedata[$key]= ucfirst($value);    
+        }
+        $attributeStr = serialize( $variantattributedata );
         $unitVariant->variant_attributes = $attributeStr;
         $unitVariant->save();
         $unitVariantID = $unitVariant->id;
@@ -204,14 +210,20 @@ class ProjectApartmentVariantController extends Controller {
     public function update($project_id, $id, Request $request) {
         
         $unitVariant = UnitVariant::find($id);
-        $unitVariant->unit_variant_name = $request->input('unit_variant_name');
+        $unitVariant->unit_variant_name = ucfirst($request->input('unit_variant_name'));
         $unitVariant->unit_type_id = $request->input('unit_type');
         $unitVariant->carpet_area = $request->input('carpet_area');
         $unitVariant->built_up_area = $request->input('builtup_area');
         $unitVariant->super_built_up_area = $request->input('superbuiltup_area');
         $unitVariant->per_sq_ft_price = $request->input('per_sq_ft_price');
         $attributedata = $request->input('attributes');
-        $attributeStr = serialize($attributedata);
+        $variantattributedata=[];
+        if(!empty($attributedata))
+        {
+            foreach ($attributedata as $key=>$value)
+               $variantattributedata[$key]= ucfirst($value);    
+        }
+        $attributeStr = serialize( $variantattributedata );
         $unitVariant->variant_attributes = $attributeStr;
         $unitVariant->save();
 

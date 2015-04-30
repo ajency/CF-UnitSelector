@@ -48,15 +48,15 @@
       'mouseover': function(e) {
         var id;
         id = this.model.get('id');
-        $('.layer').attr('class', 'layer villa');
-        $('#' + id + '.villa').attr('class', 'layer villa ' + this.model.get('status'));
+        $('.layer').attr('class', 'layer plot');
+        $('#' + id + '.plot').attr('class', 'layer plot ' + this.model.get('status'));
         return $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status') + ' active');
       },
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
         $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status'));
-        return CommonFloor.applyVillaClasses();
+        return CommonFloor.applyPlotClasses();
       },
       'click': function(e) {
         if (this.model.get('status') === 'available') {
@@ -78,7 +78,7 @@
       return MasterPlotListView.__super__.constructor.apply(this, arguments);
     }
 
-    MasterPlotListView.prototype.template = Handlebars.compile('<div class="col-xs-12 col-sm-12 col-md-3 us-left-content"> <div class="list-view-container w-map animated fadeInLeft"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings hidden">Buildings</li> <li class="prop-type Villas  hidden ">Villas/Bungalows</li> <li class="prop-type Plots active">Plots</li> </ul> </div> <div class="advncd-filter-wrp  unit-list"> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <p class="text-center help-text">Hover on the units for more details</p> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> <ul class="units two"> </ul> <div class="clearfix"></div> </div> </div> </div>');
+    MasterPlotListView.prototype.template = Handlebars.compile('<div class="col-xs-12 col-sm-12 col-md-3 us-left-content"> <div class="list-view-container w-map animated fadeInLeft"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings hidden">Buildings</li> <li class="prop-type Villas  hidden ">Villas/Bungalows</li> <li class="prop-type Plots active">Plots</li> </ul> </div> <div class="advncd-filter-wrp  bldg-list"> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <p class="text-center help-text">Hover on the units for more details</p> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> <ul class="units one"> </ul> <div class="clearfix"></div> </div> </div> </div>');
 
     MasterPlotListView.prototype.childView = PlotListView;
 
@@ -127,7 +127,7 @@
     };
 
     MasterPlotListView.prototype.onShow = function() {
-      if (apartmentVariantCollection.length !== 0) {
+      if (buildingCollection.length !== 0) {
         $('.buildings').removeClass('hidden');
       }
       if (bunglowVariantCollection.length !== 0) {

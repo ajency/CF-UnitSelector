@@ -30,7 +30,7 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.checkPropertyType();
       }
-      if (Object.keys(project.get('project_master')).length !== 0) {
+      if (Object.keys(project.get('project_master')).length !== 0 && unitCollection.length !== 0) {
         return this.show(new CommonFloor.ProjectMasterView);
       } else {
         return this.show(new CommonFloor.NothingFoundView);
@@ -193,8 +193,6 @@
         }, 650);
       },
       'click .building': function(e) {
-        $('.spritespin-canvas').addClass('zoom');
-        $('.us-left-content').addClass('animated fadeOut');
         return setTimeout(function(x) {
           var buildingModel, id, unit;
           id = parseInt(e.target.id);
@@ -210,6 +208,8 @@
           if (unit.length === 0) {
             return;
           }
+          $('.spritespin-canvas').addClass('zoom');
+          $('.us-left-content').addClass('animated fadeOut');
           if (Object.keys(buildingModel.get('building_master')).length === 0) {
             CommonFloor.navigate('/building/' + id + '/apartments', true);
             return CommonFloor.router.storeRoute();
@@ -220,8 +220,6 @@
         }, 500);
       },
       'click .villa': function(e) {
-        $('.spritespin-canvas').addClass('zoom');
-        $('.us-left-content').addClass('animated fadeOut');
         return setTimeout(function(x) {
           var id, unitModel;
           id = parseInt(e.target.id);
@@ -231,6 +229,25 @@
           if (unitModel === void 0) {
             return false;
           }
+          $('.spritespin-canvas').addClass('zoom');
+          $('.us-left-content').addClass('animated fadeOut');
+          CommonFloor.defaults['unit'] = id;
+          CommonFloor.navigate('/unit-view/' + id, true);
+          return CommonFloor.router.storeRoute();
+        }, 500);
+      },
+      'click .plot': function(e) {
+        return setTimeout(function(x) {
+          var id, unitModel;
+          id = parseInt(e.target.id);
+          unitModel = unitCollection.findWhere({
+            'id': id
+          });
+          if (unitModel === void 0) {
+            return false;
+          }
+          $('.spritespin-canvas').addClass('zoom');
+          $('.us-left-content').addClass('animated fadeOut');
           CommonFloor.defaults['unit'] = id;
           CommonFloor.navigate('/unit-view/' + id, true);
           return CommonFloor.router.storeRoute();
@@ -248,19 +265,35 @@
         unit = unitCollection.findWhere({
           id: id
         });
-        availability = unit.get('availability');
-        availability = s.decapitalize(availability);
-        CommonFloor.applyVillaClasses();
-        return $('#unit' + id).attr('class', 'unit blocks ' + availability);
+        if (unit !== void 0) {
+          availability = unit.get('availability');
+          availability = s.decapitalize(availability);
+          CommonFloor.applyVillaClasses();
+          return $('#unit' + id).attr('class', 'unit blocks ' + availability);
+        }
+      },
+      'mouseout .plot': function(e) {
+        var availability, id, unit;
+        id = parseInt(e.target.id);
+        unit = unitCollection.findWhere({
+          id: id
+        });
+        if (unit !== void 0) {
+          availability = unit.get('availability');
+          availability = s.decapitalize(availability);
+          CommonFloor.applyPlotClasses();
+          return $('#unit' + id).attr('class', 'unit blocks ' + availability);
+        }
       },
       'mouseout .building': function(e) {
         var id;
         id = parseInt(e.target.id);
-        $('.layer').attr('class', 'layer building');
+        $('.building').attr('class', 'layer building');
         return $('#bldg' + id).attr('class', 'bldg blocks');
       },
       'mouseover .villa': function(e) {
         var availability, html, id, response, unit;
+        $('.villa').attr('class', 'layer villa');
         id = parseInt(e.target.id);
         html = "";
         unit = unitCollection.findWhere({
@@ -276,8 +309,31 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Variant</label> - ' + response[0].get('unit_variant_name') + ' Sq.ft </div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
+        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Variant</label> - ' + response[0].get('unit_variant_name') + '</div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
         $('#' + id).attr('class', 'layer villa ' + availability);
+        $('#unit' + id).attr('class', 'unit blocks active');
+        return $('.layer').tooltipster('content', html);
+      },
+      'mouseover .plot': function(e) {
+        var availability, html, id, response, unit;
+        $('.plot').attr('class', 'layer plot');
+        id = parseInt(e.target.id);
+        html = "";
+        unit = unitCollection.findWhere({
+          id: id
+        });
+        if (unit === void 0) {
+          html += '<div class="svg-info"> <div class="details"> Plot details not entered </div> </div>';
+          $('.layer').tooltipster('content', html);
+          return;
+        }
+        response = window.unit.getUnitDetails(id);
+        window.convertRupees(response[3]);
+        availability = unit.get('availability');
+        availability = s.decapitalize(availability);
+        html = "";
+        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Variant</label> - ' + response[0].get('unit_variant_name') + '</div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
+        $('#' + id).attr('class', 'layer plot ' + availability);
         $('#unit' + id).attr('class', 'unit blocks active');
         return $('.layer').tooltipster('content', html);
       },
@@ -363,7 +419,6 @@
         height: this.ui.svgContainer.width() / 1.46,
         animate: false
       });
-      console.log(this.ui.svgContainer.width());
       that = this;
       api = spin.spritespin("api");
       spin.bind("onFrame", function() {
@@ -385,8 +440,7 @@
           $('.first_image').remove();
           $('.rotate').removeClass('hidden');
           $('#spritespin').show();
-          $('.cf-loader').addClass('hidden');
-          return CommonFloor.applyVillaClasses();
+          return $('.cf-loader').addClass('hidden');
         }
       });
     };

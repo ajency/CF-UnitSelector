@@ -20,7 +20,7 @@
         'id': parseInt(unit_model.get('unit_variant_id'))
       });
       if (unitVarinatModel !== void 0) {
-        basic_cost = (parseFloat(unitVarinatModel.get('per_sq_ft_price'))) * parseFloat(unitVarinatModel.get('super_built_up_area'));
+        basic_cost = (parseFloat(unitVarinatModel.get('per_sq_ft_price'))) * parseFloat(unitVarinatModel.get('size'));
         basicCost = basic_cost.toFixed(2);
       }
       return basicCost;

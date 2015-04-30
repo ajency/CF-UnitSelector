@@ -10,7 +10,7 @@ class PlotVariant extends Backbone.Model
 			'id':parseInt(unit_model.get('unit_variant_id'))})
 		if unitVarinatModel != undefined
 			basic_cost = ( parseFloat(unitVarinatModel.get('per_sq_ft_price'))) *
-							parseFloat(unitVarinatModel.get('super_built_up_area'))
+							parseFloat(unitVarinatModel.get('size'))
 			basicCost = basic_cost.toFixed(2)
 		basicCost
 

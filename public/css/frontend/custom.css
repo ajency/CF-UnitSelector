@@ -139,6 +139,10 @@ body {
 .unit-list .blck-wrap.no-hover:hover {
   background: none;
 }
+.bldg-list {
+  overflow-y: auto;
+  overflow-x: hidden;
+}
 /* Buttons */
 .cf-btn-white {
   display: inline-block;
