@@ -54,8 +54,8 @@
                                 </div>
                             </div>
                             <div class="col-md-5">
-                                <div class="form-group">
-                                    <label class="form-label">Default Values</label>
+                                <div class="form-group m-l-15">
+                                    <label class="form-label m-l-15">Default Values</label>
 
                                 </div>
                             </div>
@@ -192,7 +192,7 @@
                             </div>
                             <div class="col-md-5">
                                 <div class="form-group">
-                                    <label class="form-label">Default Values</label>
+                                    <label class="form-label m-l-15">Default Values</label>
 
                                 </div>
                             </div>
