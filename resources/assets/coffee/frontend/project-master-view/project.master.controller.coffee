@@ -12,7 +12,7 @@ class CommonFloor.ProjectMasterCtrl extends Marionette.RegionController
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID)
 			CommonFloor.checkPropertyType()
-		if  Object.keys(project.get('project_master')).length  != 0
+		if  Object.keys(project.get('project_master')).length  != 0 && unitCollection.length != 0
 			@show new CommonFloor.ProjectMasterView
 		else
 			@show new CommonFloor.NothingFoundView
