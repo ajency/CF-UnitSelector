@@ -236,11 +236,12 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 		'mouseout .building':(e)->
 			id = parseInt e.target.id
-			$('.layer').attr('class' ,'layer building') 
+			$('.building').attr('class' ,'layer building') 
 			$('#bldg'+id).attr('class' ,'bldg blocks') 
 
 
 		'mouseover .villa':(e)->
+			$('.villa').attr('class' ,'layer villa') 
 			id  = parseInt e.target.id
 			html = ""
 			unit = unitCollection.findWhere 

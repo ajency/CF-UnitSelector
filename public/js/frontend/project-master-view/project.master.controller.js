@@ -256,11 +256,12 @@
       'mouseout .building': function(e) {
         var id;
         id = parseInt(e.target.id);
-        $('.layer').attr('class', 'layer building');
+        $('.building').attr('class', 'layer building');
         return $('#bldg' + id).attr('class', 'bldg blocks');
       },
       'mouseover .villa': function(e) {
         var availability, html, id, response, unit;
+        $('.villa').attr('class', 'layer villa');
         id = parseInt(e.target.id);
         html = "";
         unit = unitCollection.findWhere({
