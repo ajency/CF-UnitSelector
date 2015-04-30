@@ -8205,6 +8205,9 @@ body.rtl .footer-widget {
   position: relative;
   top: -3px;
 }
+.grid-body .in {
+  width: 180px;
+}
 .grid-body .in .tooltip-arrow {
   border-right-color: #f68121;
 }

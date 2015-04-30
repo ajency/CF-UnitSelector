@@ -273,7 +273,7 @@
                                 <div class="form-group">
 
                                     <div class="col-lg-8 col-md-7">
-                                        <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" data-role="tagsinput" class="tags">
+                                        <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" data-role="tagsinput" class="tags" placeholder=" ">
                                         <!--<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>-->
                                     </div>
                                     <div class="col-lg-4 col-md-5">
