@@ -205,7 +205,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 		'mouseout .villa':(e)->
-			CommonFloor.applyVillaClasses()  
+			id = parseInt e.target.id
+			unit = unitCollection.findWhere 
+				id :  id 
+			availability = unit.get('availability')
+			availability = s.decapitalize(availability)
+			CommonFloor.applyVillaClasses()
+			$('#unit'+id).attr('class' ,'unit blocks '+availability)  
 
 		'mouseout .building':(e)->
 			id = parseInt e.target.id
@@ -363,7 +369,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			data = api.data
 			if data.frame is data.stopFrame
 				url = svgs[data.frame]
-				$('.region').load(url,that.iniTooltip,CommonFloor.applyVillaClasses()).addClass('active').removeClass('inactive')
+				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses()).addClass('active').removeClass('inactive')
 				
 		)
 
@@ -374,6 +380,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
 				$('.cf-loader').addClass 'hidden'
+				CommonFloor.applyVillaClasses()
 
 				
 		)

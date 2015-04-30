@@ -109,6 +109,7 @@ CommonFloor.propertyTypes = ()->
 	Router
 
 CommonFloor.applyVillaClasses = ()->
+	console.log "aaaaaaaaaaaaaaaaaa"
 	$('.villa').each (ind,item)->
 		console.log id = parseInt item.id
 		unit = unitCollection.findWhere 

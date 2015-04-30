@@ -61,27 +61,27 @@
                         </select>
                     </div> 
                 </div>
-               
+
                 </div>
                 <div class="row">
                 
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Built Up Area</label>
-                        <input type="text" class="form-control" name="builtup_area" value="" placeholder="Enter Built Up Area">
+                        <input type="text" class="form-control" name="builtup_area" value="" placeholder="Enter Built Up Area" data-parsley-required data-parsley-type="number">
                     </div> 
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Super Built Up Area</label>
-                        <input type="text" class="form-control" name="superbuiltup_area" value="" placeholder="Enter Super Built Up Area">
+                        <input type="text" class="form-control" name="superbuiltup_area" value="" placeholder="Enter Super Built Up Area" data-parsley-required data-parsley-type="number">
                     </div> 
                 </div>
                 
                  <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Per sq ft Price</label>
-                                <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price">
+                                <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
                             </div> 
                         </div>
                     </div>
