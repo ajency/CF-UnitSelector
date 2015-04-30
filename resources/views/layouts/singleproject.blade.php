@@ -45,8 +45,11 @@
         @endforeach
        
         @if(isset($apartmentPenthouse))
+        <?php
+        $apartmentpenthouse= implode("/",$apartmentPenthouse);
+        ?>
         <div class="inner-menu-content" >            
-            <p class="menu-title">{{ implode("/",$apartmentPenthouse) }}</p>    
+            <p class="menu-title">{{ $apartmentpenthouse }}</p>    
         </div>
         <ul class="big-items">
             <li class="{{ $current === 'floor-layout' ? 'active' : '' }}">
