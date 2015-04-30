@@ -85,7 +85,7 @@
                             <div class="form-inline">
                                 <div class="form-group">
                                     <input type="text" class="form-control unit-type" placeholder="Add Unit Type" data-parsley-excluded>
-                                    <button class="btn btn-white add-unit-type-btn " title="Click to add" type="button" property-type="{{ $propertyType->id }}">
+                                    <button class="btn btn-white add-unit-type-btn " data-toggle="tooltip" data-placement="right" data-original-title="Click to add" type="button" property-type="{{ $propertyType->id }}">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </div>
