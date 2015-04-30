@@ -216,6 +216,23 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				CommonFloor.router.storeRoute()
 
 			, 500)
+
+		'click .plot':(e)->
+			$('.spritespin-canvas').addClass 'zoom'
+			$('.us-left-content').addClass 'animated fadeOut'
+			setTimeout( (x)->
+				id = parseInt e.target.id
+
+				unitModel = unitCollection.findWhere
+								'id' : id
+				if unitModel == undefined
+					return false
+
+				CommonFloor.defaults['unit'] =id
+				CommonFloor.navigate '/unit-view/'+id , true
+				CommonFloor.router.storeRoute()
+
+			, 500)
 			
 
 		'click #prev':->
@@ -233,6 +250,16 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				availability = unit.get('availability')
 				availability = s.decapitalize(availability)
 				CommonFloor.applyVillaClasses()
+				$('#unit'+id).attr('class' ,'unit blocks '+availability) 
+
+		'mouseout .plot':(e)->
+			id = parseInt e.target.id
+			unit = unitCollection.findWhere 
+				id :  id 
+			if unit != undefined
+				availability = unit.get('availability')
+				availability = s.decapitalize(availability)
+				CommonFloor.applyPlotClasses()
 				$('#unit'+id).attr('class' ,'unit blocks '+availability)  
 
 		'mouseout .building':(e)->
@@ -282,6 +309,50 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					</div>'
 
 			$('#'+id).attr('class' ,'layer villa '+availability) 
+			$('#unit'+id).attr('class' ,'unit blocks active') 
+			$('.layer').tooltipster('content', html)
+
+		'mouseover .plot':(e)->
+			$('.plot').attr('class' ,'layer plot') 
+			id  = parseInt e.target.id
+			html = ""
+			unit = unitCollection.findWhere 
+				id :  id 
+			if unit is undefined
+				html += '<div class="svg-info">
+							<div class="details">
+								Plot details not entered 
+							</div>  
+						</div>'
+				$('.layer').tooltipster('content', html)
+				return 
+
+			response = window.unit.getUnitDetails(id)
+			window.convertRupees(response[3])
+			availability = unit.get('availability')
+			availability = s.decapitalize(availability)
+			html = ""
+			html += '<div class="svg-info">
+						<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
+						<!--<span class="label label-success"></span-->
+						<div class="clearfix"></div>
+						<div class="details">
+							<div>
+								<label>Variant</label> - '+response[0].get('unit_variant_name')+'
+							</div>
+							<div>
+								<label>Area</label> - '+response[0].get('super_built_up_area')+' Sq.ft
+							</div> 
+							<div>
+								<label>Unit Type </label> - '+response[1].get('name')+'
+							</div>
+							<div>
+								<label>Price </label> - '+$('#price').val()+'
+							</div>  
+						</div>  
+					</div>'
+
+			$('#'+id).attr('class' ,'layer plot '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
 			$('.layer').tooltipster('content', html)
 

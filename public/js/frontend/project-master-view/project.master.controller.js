@@ -236,6 +236,23 @@
           return CommonFloor.router.storeRoute();
         }, 500);
       },
+      'click .plot': function(e) {
+        $('.spritespin-canvas').addClass('zoom');
+        $('.us-left-content').addClass('animated fadeOut');
+        return setTimeout(function(x) {
+          var id, unitModel;
+          id = parseInt(e.target.id);
+          unitModel = unitCollection.findWhere({
+            'id': id
+          });
+          if (unitModel === void 0) {
+            return false;
+          }
+          CommonFloor.defaults['unit'] = id;
+          CommonFloor.navigate('/unit-view/' + id, true);
+          return CommonFloor.router.storeRoute();
+        }, 500);
+      },
       'click #prev': function() {
         return this.setDetailIndex(this.currentBreakPoint - 1);
       },
@@ -252,6 +269,19 @@
           availability = unit.get('availability');
           availability = s.decapitalize(availability);
           CommonFloor.applyVillaClasses();
+          return $('#unit' + id).attr('class', 'unit blocks ' + availability);
+        }
+      },
+      'mouseout .plot': function(e) {
+        var availability, id, unit;
+        id = parseInt(e.target.id);
+        unit = unitCollection.findWhere({
+          id: id
+        });
+        if (unit !== void 0) {
+          availability = unit.get('availability');
+          availability = s.decapitalize(availability);
+          CommonFloor.applyPlotClasses();
           return $('#unit' + id).attr('class', 'unit blocks ' + availability);
         }
       },
@@ -281,6 +311,29 @@
         html = "";
         html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Variant</label> - ' + response[0].get('unit_variant_name') + '</div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
         $('#' + id).attr('class', 'layer villa ' + availability);
+        $('#unit' + id).attr('class', 'unit blocks active');
+        return $('.layer').tooltipster('content', html);
+      },
+      'mouseover .plot': function(e) {
+        var availability, html, id, response, unit;
+        $('.plot').attr('class', 'layer plot');
+        id = parseInt(e.target.id);
+        html = "";
+        unit = unitCollection.findWhere({
+          id: id
+        });
+        if (unit === void 0) {
+          html += '<div class="svg-info"> <div class="details"> Plot details not entered </div> </div>';
+          $('.layer').tooltipster('content', html);
+          return;
+        }
+        response = window.unit.getUnitDetails(id);
+        window.convertRupees(response[3]);
+        availability = unit.get('availability');
+        availability = s.decapitalize(availability);
+        html = "";
+        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Variant</label> - ' + response[0].get('unit_variant_name') + '</div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
+        $('#' + id).attr('class', 'layer plot ' + availability);
         $('#unit' + id).attr('class', 'unit blocks active');
         return $('.layer').tooltipster('content', html);
       },
