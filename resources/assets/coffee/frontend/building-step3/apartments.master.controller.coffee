@@ -266,6 +266,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					</div>')
 
 			# @class = $('#'+id).attr('class')
+			console.log html
 			$('#'+id).attr('class' ,'layer '+availability) 
 			$('#apartment'+id).attr('class' ,' unit blocks '+availability+' active') 
 			$('.layer').tooltipster('content', html)
@@ -345,7 +346,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			data = api.data
 			if data.frame is data.stopFrame
 				url = svgs[data.frame]
-				$('.region').load(url,that.iniTooltip).addClass('active').removeClass('inactive')
+				$('.region').load(url,()->that.iniTooltip()).addClass('active').removeClass('inactive')
 				
 				
 		)
