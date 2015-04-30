@@ -45,7 +45,7 @@
                                 <br>
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapsephase" aria-expanded="true" aria-controls="collapseOne">+ Add Phase</a>
                                 <div id="collapsephase" class="panel-collapse collapse p-t-10" role="tabpanel" aria-labelledby="headingOne">
-                                    <input type="text" class="form-control phase-name m-b-5" placeholder="Add Phase">
+                                    <input type="text" class="form-control phase-name m-b-10" placeholder="Add Phase">
                                     <button type="button" class="btn btn-small btn-primary add-phase-btn"><i class="fa fa-save"></i> Save</button>
                                 </div>
                             </div> 
@@ -60,8 +60,8 @@
                     <div class="form-actions">  
                         <div class="pull-right">
                             <input type="hidden" value="{{ csrf_token()}}" name="_token"/>    
-                            <button type="submit" class="btn btn-primary btn-cons">Save</button>
-                            <button type="button" class="btn btn-default btn-cons">Cancel</button>
+                            <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
+                            <button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button>
                         </div>
                     </div>
                 </form>
