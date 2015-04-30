@@ -266,6 +266,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					</div>')
 
 			# @class = $('#'+id).attr('class')
+			console.log html
 			$('#'+id).attr('class' ,'layer '+availability) 
 			$('#apartment'+id).attr('class' ,' unit blocks '+availability+' active') 
 			$('.layer').tooltipster('content', html)
@@ -299,13 +300,12 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/buildings/'+building_id+'/master-'+value+'.svg'
 		
 		$.merge transitionImages ,  building.get('building_master')
-		first = _.values svgs
+		console.log first = _.values svgs
 		$('.region').load(first[0],
-			$('.first_image').attr('data-src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
+			$('.first_image').attr('data-src',transitionImages[0])).addClass('active').removeClass('inactive')
 		$('.first_image').load ()->
 			response = building.checkRotationView(building_id)
-			if response is 1
-				$('.cf-loader').removeClass 'hidden'
+			$('.cf-loader').removeClass 'hidden'
 		
 		@initializeRotate(transitionImages,svgs,building)
 
@@ -346,12 +346,12 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			data = api.data
 			if data.frame is data.stopFrame
 				url = svgs[data.frame]
-				$('.region').load(url,that.iniTooltip).addClass('active').removeClass('inactive')
+				$('.region').load(url,()->that.iniTooltip()).addClass('active').removeClass('inactive')
 				
 				
 		)
 		spin.bind("onLoad" , ()->
-			console.log response = building.checkRotationView(building_id)
+			response = building.checkRotationView(building_id)
 			if response is 1
 				$('.first_image').remove()
 				$('.rotate').removeClass 'hidden'

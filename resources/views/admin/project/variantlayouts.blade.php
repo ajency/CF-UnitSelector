@@ -11,8 +11,12 @@
                         @if(isset($layouts[$level]['2d']))
                         <img src="{{ $layouts[$level]['2d']['IMAGE'] }}" class="img-responsive">
                         <button onclick="deleteLayout({{ $layouts[$level]['2d']['ID'] }}, '2d');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
-                         @else
-                        <input id="pickfiles_2d_{{$level}}" type="button" name="fileToUpload" class="btn btn-small btn-white" value="Select your file" data-filename-placement="inside"/>
+
+                        <div class="row">
+                        </div>
+                        @else
+                        <input id="pickfiles_2d_{{$level}}" type="button" name="fileToUpload" class="btn btn-small btn-default" value="Select your file" data-filename-placement="inside"/>
+
                         <button id="uploadfiles_2d_{{$level}}" type="button" class="btn btn-small hidden btn-primary">Upload</button>												
                         <div class="row selectedImages m-t-15">
                         </div>
@@ -28,7 +32,7 @@
                         <img src="{{ $layouts[$level]['3d']['IMAGE'] }}" class="img-responsive img-thumbnail">
                         <button onclick="deleteLayout({{ $layouts[$level]['3d']['ID'] }}, '3d');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>               
                         @else
-                        <input id="pickfiles_3d_{{$level}}" type="button" name="fileToUpload" class="btn btn-small btn-white" value="Select your file" data-filename-placement="inside"/>
+                        <input id="pickfiles_3d_{{$level}}" type="button" name="fileToUpload" class="btn btn-small btn-default" value="Select your file" data-filename-placement="inside"/>
                         <button  id="uploadfiles_3d_{{$level}}"type="button" class="btn btn-small hidden btn-primary">Upload</button>												
                         <div class="row selectedImages m-t-15">
                         </div>
