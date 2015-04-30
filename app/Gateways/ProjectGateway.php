@@ -86,7 +86,7 @@ class ProjectGateway implements ProjectGatewayInterface {
          $buildingIds[] =$building->id;  
        }  
       $apartmentunits = \CommonFloor\Unit::whereIn('building_id', $buildingIds)->get()->toArray(); 
-       $variantIds = $bunglowVariantData = $appartmentVariantData =$plotVariantData= [];
+       $variantIds = $bunglowVariantData = $appartmentVariantData =$plotVariantData= $penthouseVariantData =[];
         foreach ($unitTypeIds as $key => $unitTypeId)
         {
             if($key=='bunglow')
@@ -101,9 +101,18 @@ class ProjectGateway implements ProjectGatewayInterface {
             {
                 $appartmentVariantData =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['apartment'] )->get()->toArray();   
             }
+            elseif($key=='penthouse')
+            {
+                $penthouseVariantData =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['penthouse'] )->get()->toArray();   
+            }
             elseif($key=='plot')
             {
-                $plotVariantData =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['plot'] )->get()->toArray();   
+                $plotVariants =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['plot'] )->get()->toArray();   
+                foreach ($plotVariants as $plotVariant) {
+                        $variantIds[] += $plotVariant->id;
+                    }
+                $plotVariantData =$plotVariants->toArray(); 
+                
             }
         }
      $units = \CommonFloor\Unit::whereIn('unit_variant_id', $variantIds)->get()->toArray();
@@ -114,6 +123,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             'buildings' => $buildings->toArray(),
             'bunglow_variants' => $bunglowVariantData,
             'apartment_variants' => $appartmentVariantData,
+            'penthouse_variants' => $penthouseVariantData,
             'plot_variants' => $plotVariantData,
             'property_types' => $propertyTypes,
             'settings' => $this->projectSettings($projectId),
