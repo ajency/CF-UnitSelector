@@ -1,5 +1,5 @@
-#view for each villa
-class VillaItemView extends Marionette.ItemView
+#view for each plot
+class PlotItemView extends Marionette.ItemView
 
 	template : Handlebars.compile('<li class="unit blocks {{status}}">
                   <div class="pull-left info">
@@ -15,7 +15,7 @@ class VillaItemView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
-		unitVariant = bunglowVariantCollection.findWhere
+		unitVariant = plotVariantCollection.findWhere
 							'id' : @model.get('unit_variant_id')
 		unitType = unitTypeCollection.findWhere
 							'id' : unitVariant.get('unit_type_id')
@@ -35,8 +35,8 @@ class VillaItemView extends Marionette.ItemView
 
 
 
-#Composite view for villas
-class VillaView extends Marionette.CompositeView
+#Composite view for plots
+class PlotView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-12 us-right-content">
 									<div class="list-view-container animated fadeInUp">
@@ -48,8 +48,8 @@ class VillaView extends Marionette.CompositeView
 							            <div class="text-center">
 							              <ul class="prop-select">
 							                <li class="prop-type buildings hidden">Buildings</li>
-							                <li class="prop-type Villas active ">Villas/Bungalows</li>
-							                <li class="prop-type Plots hidden">Plots</li>
+							                <li class="prop-type Villas hidden ">Villas/Bungalows</li>
+							                <li class="prop-type Plots active">Plots</li>
 							              </ul>
 							            </div>
 							            <div class="legend">
@@ -68,7 +68,7 @@ class VillaView extends Marionette.CompositeView
 							        </div>
 							       </div>')
 
-	childView : VillaItemView
+	childView : PlotItemView
 
 	childViewContainer : '.units'
 
@@ -106,17 +106,17 @@ class VillaView extends Marionette.CompositeView
 	onShow:->
 		if apartmentVariantCollection.length != 0
 			$('.buildings').removeClass 'hidden'
-		if plotVariantCollection.length != 0
-			$('.Plots').removeClass 'hidden'
+		if bunglowVariantCollection.length != 0
+			$('.Villas').removeClass 'hidden'
 		
 
-#controller for the listing all the villas
-class CommonFloor.VillaListCtrl extends Marionette.RegionController
+#controller for the listing all the plots
+class CommonFloor.PlotListCtrl extends Marionette.RegionController
 
 	initialize:->
-		newUnits = bunglowVariantCollection.getBunglowUnits()
+		newUnits = plotVariantCollection.getPlotUnits()
 		unitsCollection = new Backbone.Collection newUnits 		
-		@view = view = new VillaView
+		@view = view = new PlotView
 			collection : unitsCollection
 		@listenTo @view,"load:units" ,@loadController
 		@show view

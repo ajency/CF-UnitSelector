@@ -22,10 +22,7 @@ class ApartmentVariant extends Backbone.Model
 
 class ApartmentVariantCollection extends Backbone.Collection
 	model : ApartmentVariant
-	#url to fetch Apartment Variants
-	url : ->
-		"http://commonfloor.local/methods/functions.php?action=load_apartment_variants"
-
+	
 
 	#set attributes of a Apartment Variant model
 	setApartmentVariantAttributes:(data)->

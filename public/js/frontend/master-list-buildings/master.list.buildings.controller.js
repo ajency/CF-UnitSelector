@@ -124,12 +124,28 @@
         return new CommonFloor.MasterBunglowListCtrl({
           region: this.region
         });
+      },
+      'click .Plots': function(e) {
+        var data, units;
+        units = plotVariantCollection.getPlotUnits();
+        data = {};
+        data.units = units;
+        data.type = 'plot';
+        this.region = new Marionette.Region({
+          el: '#leftregion'
+        });
+        return new CommonFloor.MasterPlotListCtrl({
+          region: this.region
+        });
       }
     };
 
     MasterBuildingListView.prototype.onShow = function() {
       if (bunglowVariantCollection.length !== 0) {
         $('.Villas').removeClass('hidden');
+      }
+      if (plotVariantCollection.length !== 0) {
+        $('.Plots').removeClass('hidden');
       }
       return $('.units').mCustomScrollbar({
         theme: 'inset'

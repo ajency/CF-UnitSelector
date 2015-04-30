@@ -253,8 +253,7 @@
           return html += '<div class="layouts animated fadeIn"> <a class="fancybox" rel="3d" href="' + value + '" title="' + s.replaceAll(response[2][index], "_", " ") + '"> <img class="img" data-src="' + value + '" /> <div class="img-overlay"></div> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </a> </div>';
         });
         $('.images').html(html);
-        $('.img').lazyLoadXT();
-        $('.threeD').addClass('current');
+        $('.img').lazyLoadXT() - $('.threeD').addClass('current');
         $('.external').removeClass('current');
         $('.twoD').removeClass('current');
         return $('.gallery').removeClass('current');

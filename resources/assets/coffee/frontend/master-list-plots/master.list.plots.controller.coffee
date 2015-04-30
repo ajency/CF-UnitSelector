@@ -1,5 +1,5 @@
-#view for a bungalow : model
-class BunglowListView extends Marionette.ItemView
+#view for a plot : model
+class PlotListView extends Marionette.ItemView
 
 	template : Handlebars.compile('	<div class=" info">
 						                <label class="pull-left">{{unit_name}}</label> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft-->
@@ -66,8 +66,8 @@ class BunglowListView extends Marionette.ItemView
 
 
 
-#view for list of bungalows : Collection
-class MasterBunglowListView extends Marionette.CompositeView
+#view for list of plots : Collection
+class MasterPlotListView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-xs-12 col-sm-12 col-md-3 us-left-content">
 									<div class="list-view-container w-map animated fadeInLeft">
@@ -80,8 +80,8 @@ class MasterBunglowListView extends Marionette.CompositeView
 							              <ul class="prop-select">
 
 							                <li class="prop-type buildings hidden">Buildings</li>
-							                <li class="prop-type Villas active ">Villas/Bungalows</li>
-											<li class="prop-type Plots hidden">Plots</li>
+							                <li class="prop-type Villas  hidden ">Villas/Bungalows</li>
+							                <li class="prop-type Plots active">Plots</li>
 							              </ul>
 							            </div>
 							            <div class="advncd-filter-wrp  unit-list">
@@ -115,7 +115,7 @@ class MasterBunglowListView extends Marionette.CompositeView
 							        </div>
 							       </div>')
 
-	childView : BunglowListView
+	childView :PlotListView
 
 	childViewContainer : '.units'
 
@@ -129,9 +129,6 @@ class MasterBunglowListView extends Marionette.CompositeView
 			@region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.MasterBuildingListCtrl region : @region
 			# @trigger "load:units" , data
-
-
-			
 
 		'click .Villas':(e)->
 			units = bunglowVariantCollection.getBunglowUnits()
@@ -150,26 +147,26 @@ class MasterBunglowListView extends Marionette.CompositeView
 			@region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.MasterPlotListCtrl region : @region
 			# @trigger "load:units" , data
+
 			
 
 	onShow:->
 		if apartmentVariantCollection.length != 0
 			$('.buildings').removeClass 'hidden'
-		if plotVariantCollection.length != 0
-			$('.Plots').removeClass 'hidden'
-		
+		if bunglowVariantCollection.length != 0
+			$('.Villas').removeClass 'hidden'
 
 		$('.units').mCustomScrollbar
 			theme: 'inset'
 		
 
 #controller for the Center region
-class CommonFloor.MasterBunglowListCtrl extends Marionette.RegionController
+class CommonFloor.MasterPlotListCtrl extends Marionette.RegionController
 
 	initialize:->
-		newUnits = bunglowVariantCollection.getBunglowUnits()
+		newUnits = plotVariantCollection.getPlotUnits()
 		unitsCollection = new Backbone.Collection newUnits 		
-		@view = view = new MasterBunglowListView
+		@view = view = new MasterPlotListView
 			collection : unitsCollection
 		@listenTo @view,"load:units" ,@loadController
 		@show view

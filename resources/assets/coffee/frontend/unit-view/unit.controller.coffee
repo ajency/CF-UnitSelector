@@ -319,7 +319,7 @@ class CenterUnitView extends Marionette.ItemView
 							</a>
 						</div>'
 			$('.images').html html
-			$('.img').lazyLoadXT()
+			$('.img').lazyLoadXT()-
 			$('.threeD').addClass('current')
 			$('.external').removeClass('current')
 			$('.twoD').removeClass('current')

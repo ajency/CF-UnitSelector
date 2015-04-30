@@ -100,6 +100,15 @@ class CommonFloor.LeftMasterCtrl extends Marionette.RegionController
 			new CommonFloor.MasterBuildingListCtrl region : @region
 			@parent().trigger "load:units" , data
 
+		if response.type is 'plot' 
+			units = plotVariantCollection.getPlotUnits()
+			data = {}
+			data.units = units
+			data.type = 'plot'
+			@region =  new Marionette.Region el : '#leftregion'
+			new CommonFloor.MasterPlotListCtrl region : @region
+			@parent().trigger "load:units" , data
+
 
 #Center view for project master
 class CommonFloor.CenterMasterView extends Marionette.ItemView
