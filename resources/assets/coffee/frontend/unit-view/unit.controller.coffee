@@ -397,7 +397,7 @@ class CenterUnitView extends Marionette.ItemView
 
 				
 		if response[3].get('external3durl') != undefined
-			html = '<img class="img"  data-src="'+response[3].get('external3durl')+'" />'
+			html = '<img class="img lazy-hidden"  data-src="'+response[3].get('external3durl')+'" />'
 			$('.images').html html
 			$('.external').addClass('current')
 			$('.threeD').removeClass('current')

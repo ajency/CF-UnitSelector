@@ -275,7 +275,9 @@ jQuery(document).ready ($)->
 			type : 'GET'
 			success : (resp)->
 
-	$('[data-toggle="tooltip"]').tooltip()
+	$('[data-toggle="tooltip"]').tooltip({
+		animation: false
+		})
 	$('[data-toggle="popover"]').popover()
 
 				

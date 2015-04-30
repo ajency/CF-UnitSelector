@@ -4,6 +4,7 @@
 @import "../../bower_components/tooltipster/css/themes/tooltipster-shadow.css";
 @import "../../bower_components/fancybox/source/jquery.fancybox.css";
 @import "../../bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css";
+@import "../../bower_components/lazyloadxt/dist/jquery.lazyloadxt.spinner.css";
 /* External CSS */
 /* Site Styles */
 html,
@@ -603,6 +604,12 @@ body {
 .toggle-button:hover {
   background-color: #f68121;
   color: #ffffff;
+}
+/* Lazy Load Loader */
+.lazy-hidden {
+  opacity: 1;
+  background: url('../../images/loader.gif') no-repeat 50% 50%;
+  background-size: 40px;
 }
 .rotate-controls {
   position: absolute;

@@ -28,7 +28,7 @@
                 <div class="pull-right"><i class="fa fa-angle-up "></i>
                     <i class="fa fa-angle-down grid-angle-down"></i>
                 </div>             
-                <h3>Villa <span class="semi-bold">Details</span></h3>
+                <h3>Plot <span class="semi-bold">Details</span></h3>
 
             </a>
         </div>

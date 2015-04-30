@@ -6,21 +6,22 @@
 
     <h2 >Attributes</h2>
 
-</div>&nbsp;&nbsp;<a  class="inline" data-toggle="popover" 
+</div>&nbsp;&nbsp;<a  class="inline" data-toggle="popover" data-trigger="hover"
                       data-content="Create different rooms ( e.g. Bedroom, Kitchen etc) and define attributes for each of them.The values entered for Selected box and Multi selectbox for these attributes will be available as options on variant page.
                       Enter each of the options as comma separated values here e.g. Wooden, Tiles"><i class="fa fa-info"></i></a>
 
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
     <div class="grid simple">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+
         <div class="grid-title" role="tab" id="headingOne">
-            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                 <div class="pull-right"><i class="fa fa-angle-up "></i>
                     <i class="fa fa-angle-down grid-angle-down"></i>
                 </div>
                 <h3><span class="semi-bold">Room</span> Type</h3>
-            </a>
-        </div>
+            
+        </div></a>
         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
             <div class="grid-body">
 
@@ -164,8 +165,9 @@
 
     @foreach($projectpropertytypeAttribute as $propertytypeId=>$propertytypeAttribute)
     <div class="grid simple">
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" aria-expanded="false" aria-controls="collapse{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
+
         <div class="grid-title" role="tab" id="headingTwo">
-            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" aria-expanded="false" aria-controls="collapse{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
                 <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
                     <i class="fa fa-angle-up "></i>
                 </div>

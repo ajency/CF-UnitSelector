@@ -19,7 +19,7 @@
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
 <div class="grid simple">
     <div class="grid-title">
-        <h3>Villa <span class="semi-bold">Details</span></h3>
+        <h3>Plot <span class="semi-bold">Details</span></h3>
     </div>
 
     <div class="grid-body">

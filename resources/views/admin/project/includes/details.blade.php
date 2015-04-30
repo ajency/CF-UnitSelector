@@ -58,7 +58,41 @@
                             @endforeach 
                         </select>
                     </div>
-                   
+                    <div class="add-unit-types">
+                        <?php
+                        $flag='';
+                        ?>
+                        @foreach($propertyTypes as $propertyType)
+                        <div class="property-type-{{ $propertyType->id }} {{ isset($unitTypes[$propertyType->id]) ? '' : 'hidden' }}">
+                            <h5 class="semi-bold inline">Unit Types for {{ $propertyType->name }}</h5> <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Enter BHK Type for the Property(e.g 2BHK, 3BHK)"></i>
+                            @if(isset($unitTypes[$propertyType->id]))
+                            @foreach( $unitTypes[$propertyType->id] as $propertyTypeId => $projectUnitType )
+                            <?php
+                            $flag='1';
+                            ?>
+                            <div class="form-inline m-b-10">
+                                <div class="form-group">
+                                    <input type="text" name="unittype[{{ $propertyTypeId }}][]" 
+                                           class="form-control" value="{{ $projectUnitType->unittype_name }}">
+                                    <input type="hidden" name="unittypekey[{{ $propertyTypeId }}][]" value="{{ $projectUnitType->id }}">
+                                    <button type="button" data-unit-type-id="{{ $projectUnitType->id }}" class="btn btn-small btn-default m-t-5 remove-unit-type">
+                                        <i class="fa fa-trash"></i> Delete
+                                    </button>
+                                </div>
+                            </div> 
+                            @endforeach
+                            @endif
+                            <div class="form-inline">
+                                <div class="form-group">
+                                    <input type="text" class="form-control unit-type" placeholder="Add Unit Type" data-parsley-excluded>
+                                    <button class="btn btn-white add-unit-type-btn " title="Click to add" type="button" property-type="{{ $propertyType->id }}">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
                 </div>
                 <div class="col-md-6">
 
@@ -71,11 +105,12 @@
                             <option value="archived" @if($project['status']=='archived'){{'selected'}}@endif>Archived</option>
                         </select>
                     </div>
-                
+                </div>
+                <div class="col-md-6">
 
                     <div class="user-description-box">
  <div class="row">
-                  <div class="col-sm-8">
+                            <div class="col-sm-8">
                                 <h4 class="semi-bold">{{ array_get($project, 'cf.project_title') }} - <span class="bold text-primary">{{ array_get($project, 'cf_project_id') }}</span></h4>
                                 <i class="fa fa-map-marker"></i> <b>Address:</b>
                                 <p>{{ array_get($project, 'cf.project_address') }}</p>
@@ -92,64 +127,18 @@
                     </div>
                 </div>
             </div>
-             <div class="add-unit-types m-t-20">
-                        <?php
-                        $flag='';
-                        ?>
-                        <div class="row">
-                        @foreach($propertyTypes as $propertyType)
-                        
-                        <div class="col-md-3">
-                        <div class="property-type-{{ $propertyType->id }} {{ isset($unitTypes[$propertyType->id]) ? '' : 'hidden' }} form-group">
-                            <label class="form-label inline m-b-10 m-t-10">Unit Types for {{ $propertyType->name }}</label>&nbsp;&nbsp;<i class="fa fa-question-circle " data-toggle="tooltip" data-placement="right" title="Enter BHK Type for the Property(e.g 2BHK, 3BHK)"></i>
-                            @if(isset($unitTypes[$propertyType->id]))
-                            @foreach( $unitTypes[$propertyType->id] as $propertyTypeId => $projectUnitType )
-                            <?php
-                            $flag='1';
-                            ?>
-                            <div class="">
-                                <div class="form-group">
-                                    <input type="text" name="unittype[{{ $propertyTypeId }}][]" 
-                                           class="form-control" value="{{ $projectUnitType->unittype_name }}">
-                                    <input type="hidden" name="unittypekey[{{ $propertyTypeId }}][]" value="{{ $projectUnitType->id }}">
-                                    <div class="text-right m-t-15">
-                                    <button type="button" data-unit-type-id="{{ $projectUnitType->id }}" class="btn btn-small btn-default remove-unit-type">
-                                        <i class="fa fa-trash"></i> Delete
-                                    </button>
-                                    </div>
-                                </div>
-                            </div> 
-                            <hr/>
-                            @endforeach
-                            @endif
-                            <div >
-                                <div class="form-group">
-                                    <input type="text" class="form-control unit-type" placeholder="Add Unit Type" data-parsley-excluded>
-                                    <div class="text-right m-t-15">
-                                    <button class="btn btn-small btn-primary add-unit-type-btn " title="Click to Add entered Unit Type" data-toggle="tooltip" data-placement="right" type="button" property-type="{{ $propertyType->id }}">
-                                        <i class="fa fa-save"> Save</i>
-                                    </button>
-                                    </div>
-                                </div>
-                            </div>
-                            </div>
-                            </div>
-                        
-                        @endforeach
-                    </div></div>
             <div class="form-actions">  
  
-                       
-                       <div class="pull-right">
-                       <a data-toggle="popover" data-content="The project enters the draft mode on save and will only be available on unit selector when 
-               the project status is changed to Published." data-placement="right"><i class="fa fa-info"></i></a>&nbsp;
+                       <a class="inline" data-toggle="popover" data-content="The project enters the draft mode on save and will only be available on unit selector when 
+               the project status is changed to Published."><i class="fa fa-info"></i></a>
 
+                       <div class="pull-right">
                             <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" value="DETAILS" name="project_update"/>
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
+                    <button type="button" data-p-id="{{ $project['id'] }}" class="btn btn-primary update-response-table btn-cons">Update Response Table</button>
                     <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
-                   <button type="button" data-p-id="{{ $project['id'] }}" class="btn btn-default update-response-table btn-cons">Update Response Table</button>
-
+                
                         </div>
            </div>
         </form>

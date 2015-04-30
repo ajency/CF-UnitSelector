@@ -271,7 +271,9 @@
         success: function(resp) {}
       });
     });
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip({
+      animation: false
+    });
     return $('[data-toggle="popover"]').popover();
   });
 

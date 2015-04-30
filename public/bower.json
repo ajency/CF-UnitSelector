@@ -59,7 +59,8 @@
     "autoNumeric": "~1.9.30",
     "fancybox": "~2.1.5",
     "malihu-custom-scrollbar-plugin": "~3.0.8",
-    "lazyloadxt": "~1.0.5"
+    "lazyloadxt": "~1.0.5",
+    "bootstrap-toggle": "~2.2.0"
   },
   "resolutions": {
     "underscore": "~1.8.2",
