@@ -457,7 +457,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			height: @ui.svgContainer.width() / 1.46
 			animate: false
 		)
-		console.log @ui.svgContainer.width() 
+		
 		that = @
 		api = spin.spritespin("api")
 		spin.bind("onFrame" , ()->
@@ -476,7 +476,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
 				$('.cf-loader').addClass 'hidden'
-				CommonFloor.applyVillaClasses()
+				
 
 				
 		)
