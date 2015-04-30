@@ -8263,6 +8263,9 @@ body.rtl .footer-widget {
   display: none;
 }
 /*Tags Input*/
+.bootstrap-tagsinput input {
+  min-width: 150px;
+}
 .bootstrap-tagsinput .label-info {
   background: #f68121;
 }
