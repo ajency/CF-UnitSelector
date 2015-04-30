@@ -3,9 +3,11 @@
 @section('breadcrumb')
 <!-- BEGIN BREADCRUMBS -->
 <ul class="breadcrumb">
-    <li><a href="/admin">Dashboard</a> </li>
-    <li><a href="/admin/project">Projects</a> </li>
-    <li><a href="#" class="active">Add Unit Variant</a> </li>
+    <li><a href="{{ url( 'admin/') }}">Dashboard</a> </li>
+    <li><a href="{{ url( 'admin/project/') }}">Projects</a> </li>
+    <li><a href="{{ url( 'admin/project/' . $project['id'].'/edit') }}">{{ $project['project_title'] }}</a> </li>
+    <li><a href="#">Villa Variants</a> </li>
+    <li><a href="#" class="active">Add Unit Variants</a> </li>
 </ul>
 <!-- END BREADCRUMBS -->
 @endsection
@@ -110,7 +112,7 @@
             <div class="form-actions">  
                 <div class="pull-right">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-                    <button type="submit" class="btn btn-primary btn-cons">Save</button>
+                    <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
                 </div>
             </div>
         </form>

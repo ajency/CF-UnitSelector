@@ -3,8 +3,10 @@
 @section('breadcrumb')
 <!-- BEGIN BREADCRUMBS -->
 <ul class="breadcrumb">
-    <li><a href="/admin">Dashboard</a> </li>
-    <li><a href="/admin/project">Projects</a> </li>
+    <li><a href="{{ url( 'admin/') }}">Dashboard</a> </li>
+    <li><a href="{{ url( 'admin/project/') }}">Projects</a> </li>
+    <li><a href="{{ url( 'admin/project/' . $project['id'].'/edit') }}">{{ $project['project_title'] }}</a> </li>
+    <li><a href="#">Buildings</a> </li>
     <li><a href="#" class="active">Edit Building</a> </li>
 </ul>
 <!-- END BREADCRUMBS -->
@@ -21,14 +23,14 @@
     <div class="row">
         <div class="col-md-12">
             <div class="grid simple">
+               <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                 <div class="grid-title role="tab" id="headingOne"">
-                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         <div class="pull-right"><i class="fa fa-angle-up "></i>
                             <i class="fa fa-angle-down grid-angle-down"></i>
                         </div>
                         <h3 ><span class="semi-bold">Building</span> Details</h3> 
-                    </a>
-                </div>
+                 </div>
+               </a>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                     <div class="grid-body">
                         <form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/building') }}">
@@ -78,14 +80,14 @@
                 </div>
             </div>
             <div class="grid simple">
+               <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                 <div class="grid-title" role="tab" id="headingTwo">
-                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                         <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
                             <i class="fa fa-angle-up "></i>
                         </div>
                         <h3><span class="semi-bold">Floor</span> Details</h3> 
-                    </a>
                 </div>
+               </a>
                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                     <div class="grid-body">
                         <div class="row">
@@ -132,17 +134,18 @@
                 </div>
             </div>
             <div class="grid simple">
+             <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                 <div class="grid-title" role="tab" id="headingThree">
-                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                         <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
                             <i class="fa fa-angle-up "></i>
                         </div>                        
                         <h3 class="inline">Building <span class="semi-bold">Master</span></h3>&nbsp;
-                        <a class="inline" data-toggle="popover" data-content="Upload 3D view of the project. To enable 360 degree rotation of the project ,upload images in the sequence ( Front -> Right -> Back -> Left). Image dimension should be Image size : 1600*1095. Resolution - 300 DPI. 
+                        <span class="inline" data-toggle="popover" data-trigger="hover" data-content="Upload 3D view of the project. To enable 360 degree rotation of the project ,upload images in the sequence ( Front -> Right -> Back -> Left). Image dimension should be Image size : 1600*1095. Resolution - 300 DPI. 
                            Naming convention to be followed for the images uploaded - ProjectName01(first image), ProjectName02 and so on. 
-                           " data-original-title="" title=""><i class="fa fa-info"></i></a>
-                    </a>
+                           " data-original-title="" title=""><i class="fa fa-info"></i>
+                        </span>
                 </div>
+             </a>
                 <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                     <div class="grid-body object-master-images" data-object-id="{{ $building->id }}" data-object-type="building">
                         <div class="row project-master-images">

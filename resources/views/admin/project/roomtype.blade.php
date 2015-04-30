@@ -1,5 +1,14 @@
 @extends('layouts.singleproject')
-
+@section('breadcrumb')
+<!-- BEGIN BREADCRUMBS -->
+<ul class="breadcrumb">
+    <li><a href="{{ url( 'admin/') }}">Dashboard</a> </li>
+    <li><a href="{{ url( 'admin/project/') }}">Projects</a> </li>
+    <li><a href="{{ url( 'admin/project/' . $project['id'].'/edit') }}">{{ $project['project_title'] }}</a> </li>
+    <li><a href="#" class="active">Attributes</a> </li>
+</ul>
+<!-- END BREADCRUMBS -->
+@endsection
 @section('content')
 
 <div class="page-title inline">
@@ -264,7 +273,7 @@
                                 <div class="form-group">
 
                                     <div class="col-lg-8 col-md-7">
-                                        <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" data-role="tagsinput" class="tags">
+                                        <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" data-role="tagsinput" class="tags" placeholder=" ">
                                         <!--<button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>-->
                                     </div>
                                     <div class="col-lg-4 col-md-5">

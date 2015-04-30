@@ -6,7 +6,7 @@
 <div class="inner-menu nav-collapse">   
     <div id="inner-menu">
         <div class="inner-wrapper" >    
-            <h2 class="text-white b-g b-b p-b-20">{{ $project['project_title'] }}{{ $current  }}</h2>
+            <h2 class="text-white b-g b-b p-b-20">{{ $project['project_title'] }}</h2>
         </div>
         <div class="inner-menu-content">
             <p class="menu-title">Project <span class="pull-right"><i class="icon-refresh"></i></span></p>
@@ -45,8 +45,11 @@
         @endforeach
        
         @if(isset($apartmentPenthouse))
+        <?php
+        $apartmentpenthouse= implode("/",$apartmentPenthouse);
+        ?>
         <div class="inner-menu-content" >            
-            <p class="menu-title">{{ implode("/",$apartmentPenthouse) }}</p>    
+            <p class="menu-title">{{ $apartmentpenthouse }}</p>    
         </div>
         <ul class="big-items">
             <li class="{{ $current === 'floor-layout' ? 'active' : '' }}">
