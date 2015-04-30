@@ -248,10 +248,12 @@
         unit = unitCollection.findWhere({
           id: id
         });
-        availability = unit.get('availability');
-        availability = s.decapitalize(availability);
-        CommonFloor.applyVillaClasses();
-        return $('#unit' + id).attr('class', 'unit blocks ' + availability);
+        if (unit !== void 0) {
+          availability = unit.get('availability');
+          availability = s.decapitalize(availability);
+          CommonFloor.applyVillaClasses();
+          return $('#unit' + id).attr('class', 'unit blocks ' + availability);
+        }
       },
       'mouseout .building': function(e) {
         var id;

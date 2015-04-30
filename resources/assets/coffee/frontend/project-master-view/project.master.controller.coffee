@@ -229,10 +229,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			id = parseInt e.target.id
 			unit = unitCollection.findWhere 
 				id :  id 
-			availability = unit.get('availability')
-			availability = s.decapitalize(availability)
-			CommonFloor.applyVillaClasses()
-			$('#unit'+id).attr('class' ,'unit blocks '+availability)  
+			if unit != undefined
+				availability = unit.get('availability')
+				availability = s.decapitalize(availability)
+				CommonFloor.applyVillaClasses()
+				$('#unit'+id).attr('class' ,'unit blocks '+availability)  
 
 		'mouseout .building':(e)->
 			id = parseInt e.target.id
