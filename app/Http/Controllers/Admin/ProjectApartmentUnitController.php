@@ -58,7 +58,7 @@ class ProjectApartmentUnitController extends Controller {
         $unit->building_id = $request->get( 'building_id' );
         $unit->floor = $request->get( 'floor' );
         $unit->position = $request->get( 'position' );
-        $unit->availability = $request->get( 'availability' );
+        $unit->availability = $request->get( 'unit_status' );
         $unit->save();
         
         $addanother = $request->input('addanother');
@@ -124,7 +124,7 @@ class ProjectApartmentUnitController extends Controller {
         $unit->building_id = $request->get( 'building_id' );
         $unit->floor = $request->get( 'floor' );
         $unit->position = $request->get( 'position' );
-        $unit->availability = $request->get( 'availability' );
+        $unit->availability = $request->get( 'unit_status' );
         $unit->save();
         
         $addanother = $request->input('addanother');
