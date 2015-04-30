@@ -86,7 +86,7 @@ class ProjectGateway implements ProjectGatewayInterface {
          $buildingIds[] =$building->id;  
        }  
       $apartmentunits = \CommonFloor\Unit::whereIn('building_id', $buildingIds)->get()->toArray(); 
-       $variantIds = $bunglowVariantData = $appartmentVariantData = [];
+       $variantIds = $bunglowVariantData = $appartmentVariantData =$plotVariantData= [];
         foreach ($unitTypeIds as $key => $unitTypeId)
         {
             if($key=='bunglow')
@@ -101,6 +101,10 @@ class ProjectGateway implements ProjectGatewayInterface {
             {
                 $appartmentVariantData =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['apartment'] )->get()->toArray();   
             }
+            elseif($key=='plot')
+            {
+                $plotVariantData =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['plot'] )->get()->toArray();   
+            }
         }
      $units = \CommonFloor\Unit::whereIn('unit_variant_id', $variantIds)->get()->toArray();
         $units = array_merge($units,$apartmentunits);
@@ -110,7 +114,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             'buildings' => $buildings->toArray(),
             'bunglow_variants' => $bunglowVariantData,
             'apartment_variants' => $appartmentVariantData,
-            'plot_variants' => [],
+            'plot_variants' => $plotVariantData,
             'property_types' => $propertyTypes,
             'settings' => $this->projectSettings($projectId),
             'units' =>$units,
