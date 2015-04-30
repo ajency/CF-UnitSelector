@@ -266,7 +266,7 @@
           $('.layer').tooltipster('content', html);
           return false;
         }
-        response = window.unit.getUnitDetails(id);
+        console.log(response = window.unit.getUnitDetails(id));
         window.convertRupees(response[3]);
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
