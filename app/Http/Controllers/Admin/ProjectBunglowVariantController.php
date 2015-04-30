@@ -74,7 +74,7 @@ class ProjectBunglowVariantController extends Controller {
                         ->with('project_property_type', $propertyTypeArr)
                         ->with('unit_type_arr', $unitTypeArr)
                         ->with('project_property_type_attributes', $propertyTypeAttributes)
-                        ->with('current', '');
+                        ->with( 'current', 'bunglow-variant' );
     }
 
     /**
@@ -195,7 +195,7 @@ class ProjectBunglowVariantController extends Controller {
                         ->with('variantRooms', $variantRoomArr)
                         ->with('roomTypeAttributes', $roomTypeAttributes)
                         ->with('layouts', $layouts)
-                        ->with('current', '');
+                        ->with( 'current', 'bunglow-variant' );
         //
     }
 

@@ -44,7 +44,7 @@ class ProjectPlotUnitController extends Controller {
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
                         ->with('unit_arr', $unitArr)
-                        ->with('current', '');
+                        ->with('current', 'plot-unit');
 
         //
     }
@@ -77,7 +77,7 @@ class ProjectPlotUnitController extends Controller {
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
                         ->with('unit_variant_arr', $unitVariantArr)
-                        ->with('current', '');
+                        ->with('current', 'plot-unit');
     }
 
     /**
@@ -137,7 +137,7 @@ class ProjectPlotUnitController extends Controller {
                         ->with('project_property_type', $propertyTypeArr)
                         ->with('unit_variant_arr', $unitVariantArr)
                         ->with('unit', $unit->toArray())
-                        ->with('current', '');
+                        ->with('current', 'plot-unit');
     }
 
     /**

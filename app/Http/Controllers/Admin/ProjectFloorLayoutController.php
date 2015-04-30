@@ -32,7 +32,7 @@ class ProjectFloorLayoutController extends Controller {
         
         return view( 'admin.project.floorlayout.list' )
                         ->with( 'project', $project->toArray() )
-                        ->with( 'current', 'list-floor-layout' )
+                        ->with( 'current', 'floor-layout' )
                         ->with( 'floorLayouts', $floorLayouts );
     }
 
@@ -55,7 +55,7 @@ class ProjectFloorLayoutController extends Controller {
         return view( 'admin.project.floorlayout.create' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'projectPropertyTypes', $projectPropertyTypes )
-                        ->with( 'current', 'add-floor-layout' );
+                        ->with( 'current', 'floor-layout' );
     }
 
     /**
@@ -122,7 +122,7 @@ class ProjectFloorLayoutController extends Controller {
       
         return view( 'admin.project.floorlayout.edit' )
                         ->with( 'project', $project->toArray() )
-                        ->with( 'current', 'add-floor-layout' )
+                        ->with( 'current', 'floor-layout' )
                         ->with( 'floorLayout', $floorLayout )
                         ->with( 'floorLayoutPositions', $formattedFloorLayoutPositions)
                         ->with( 'unitTypes', $unitTypes )

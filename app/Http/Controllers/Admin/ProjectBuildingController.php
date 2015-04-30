@@ -34,7 +34,7 @@ class ProjectBuildingController extends Controller {
         return view( 'admin.project.building.list' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'buildings', $buildings )
-                        ->with( 'current', '' );
+                        ->with( 'current', 'building' );
     }
 
     /**
