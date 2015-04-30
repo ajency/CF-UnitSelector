@@ -41,10 +41,6 @@
 
     ApartmentVariantCollection.prototype.model = ApartmentVariant;
 
-    ApartmentVariantCollection.prototype.url = function() {
-      return "http://commonfloor.local/methods/functions.php?action=load_apartment_variants";
-    };
-
     ApartmentVariantCollection.prototype.setApartmentVariantAttributes = function(data) {
       return apartmentVariantCollection.reset(data);
     };

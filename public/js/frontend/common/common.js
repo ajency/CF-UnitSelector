@@ -44,7 +44,8 @@
         unitTypeCollection.setUnitTypeAttributes(response.unit_types);
         buildingCollection.setBuildingAttributes(response.buildings);
         apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants);
-        return floorLayoutCollection.setFloorLayoutAttributes(response.floor_layout);
+        floorLayoutCollection.setFloorLayoutAttributes(response.floor_layout);
+        return plotVariantCollection.setPlotVariantAttributes(response.plot_variants);
       },
       error: function(response) {
         this.region = new Marionette.Region({
@@ -68,7 +69,10 @@
       'type': 'building',
       'count': apartmentVariantCollection.getApartmentUnits()
     });
-    console.log(Router);
+    Router.push({
+      'type': 'plot',
+      'count': plotVariantCollection.getPlotUnits()
+    });
     controller = _.max(Router, function(item) {
       return parseInt(item.count.length);
     });
@@ -132,6 +136,12 @@
         'count': buildingCollection.toArray()
       });
     }
+    if (plotVariantCollection.getPlotUnits().length !== 0) {
+      Router.push({
+        'type': s.capitalize('plots'),
+        'count': plotVariantCollection.getPlotUnits()
+      });
+    }
     controller = _.max(Router, function(item) {
       return parseInt(item.count.length);
     });
@@ -139,7 +149,6 @@
   };
 
   CommonFloor.applyVillaClasses = function() {
-    console.log("aaaaaaaaaaaaaaaaaa");
     return $('.villa').each(function(ind, item) {
       var availability, id, unit;
       console.log(id = parseInt(item.id));

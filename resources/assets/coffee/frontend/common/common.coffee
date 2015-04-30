@@ -26,6 +26,7 @@ CommonFloor.loadJSONData = ()->
 			buildingCollection.setBuildingAttributes(response.buildings)
 			apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants)
 			floorLayoutCollection.setFloorLayoutAttributes(response.floor_layout)
+			plotVariantCollection.setPlotVariantAttributes(response.plot_variants)
 			
 		error :(response)->
 			@region =  new Marionette.Region el : '#noFound-template'
@@ -41,7 +42,10 @@ CommonFloor.propertyMaxUnits = ()->
 	Router.push 
 		'type'  : 'building'
 		'count' :apartmentVariantCollection.getApartmentUnits()
-	console.log Router
+	Router.push 
+		'type'  : 'plot'
+		'count' :plotVariantCollection.getPlotUnits()
+	
 	controller = _.max Router , (item)->
 		return parseInt item.count.length
 
@@ -102,6 +106,10 @@ CommonFloor.propertyTypes = ()->
 		Router.push 
 			'type'  : s.capitalize 'buildings'
 			'count' :buildingCollection.toArray()
+	if plotVariantCollection.getPlotUnits().length != 0
+		Router.push 
+			'type'  : s.capitalize 'plots'
+			'count' :plotVariantCollection.getPlotUnits()
 	controller = _.max Router , (item)->
 		return parseInt item.count.length
 
@@ -109,7 +117,6 @@ CommonFloor.propertyTypes = ()->
 	Router
 
 CommonFloor.applyVillaClasses = ()->
-	console.log "aaaaaaaaaaaaaaaaaa"
 	$('.villa').each (ind,item)->
 		console.log id = parseInt item.id
 		unit = unitCollection.findWhere 
