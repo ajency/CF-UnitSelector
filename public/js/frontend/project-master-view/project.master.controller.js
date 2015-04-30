@@ -168,11 +168,16 @@
         $('.us-left-content').toggleClass('col-0 col-md-3');
         $('.us-right-content').toggleClass('col-md-12 col-md-9');
         that = this;
-        return $('#spritespin').delay(5000).queue(function(next) {
-          var height;
-          console.log(height = that.ui.svgContainer.width() / 1.46);
-          return $('#spritespin').height(height);
-        });
+        return setTimeout(function(x) {
+          console.log(that.ui.svgContainer.width());
+          $('#spritespin').spritespin({
+            width: that.ui.svgContainer.width(),
+            sense: -1,
+            height: that.ui.svgContainer.width() / 1.46,
+            animate: false
+          });
+          return $('.svg-maps > div').first().css('width', that.ui.svgContainer.width());
+        }, 5000);
       },
       'click .building': function(e) {
         var buildingModel, id, unit;
