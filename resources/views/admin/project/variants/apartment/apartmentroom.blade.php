@@ -2,7 +2,7 @@
     <div class="grid simple">
         <div class="grid-title">
             <h3 class="inline">Room <span class="semi-bold">Details</span></h3>&nbsp;
- <a class="inline" data-toggle="popover" data-content="Add rooms (which are created on attributes page) which are present at each level (floor).
+ <a class="inline" data-toggle="popover" data-trigger="hover" data-content="Add rooms (which are created on attributes page) which are present at each level (floor).
                     Click on Add Level button to add new levels. " 
   data-original-title="" title=""><i class="fa fa-info"></i></a>
            
@@ -18,6 +18,7 @@
                 @foreach($variantRooms[0] as $roomId => $room)              
                 <div class="form-inline">
                     <div class="form-group">
+                        <label class="form-label">Room Name</label>
                         <input type="hidden" name="variantroomid_{{$i}}[]" value="{{ $roomId }}">
                         <select name="room_name_{{ $i }}[]" class="select2 form-control" onchange="getRoomTypeAttributes(this,{{ $unitVariant['id'] }},{{$i}});">
                             <option value="">Select Room</option>
@@ -36,7 +37,7 @@
                 </div>
                 <div >
                     <!--Attributes-->     
-                    <div class="m-t-10">
+                    <div class="m-t-10 m-b-10">
                         <div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 text-grey">	
                             <div class="row"> 
                                 @foreach($roomTypeAttributes[$room['ROOMTYPEID']] as $attributes)
@@ -85,6 +86,7 @@
                 <div class="col-sm-12" id="levelblock_0"> 
                     <div class="form-inline">
                         <div class="form-group">
+                            <label class="form-label">Room Name</label>
                             <input type="hidden" name="variantroomid_{{$i}}[]" value="">
                             <select name="room_name_{{$i}}[]" class="select2 form-control"  onchange="getRoomTypeAttributes(this,{{ $unitVariant['id'] }},{{$i}});">
                                 <option value="">Select Room</option>

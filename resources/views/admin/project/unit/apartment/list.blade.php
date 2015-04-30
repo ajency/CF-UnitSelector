@@ -4,10 +4,11 @@
 @section('breadcrumb')
 <!-- BEGIN BREADCRUMBS -->
 <ul class="breadcrumb">
-    <li><a href="/admin">Dashboard</a> </li>
-    <li><a href="/admin/project">Projects</a> </li>
-    <li><a href="#">Apartment Unit</a> </li>
-    <li><a href="#" class="active">View</a> </li>
+    <li><a href="{{ url( 'admin/') }}">Dashboard</a> </li>
+    <li><a href="{{ url( 'admin/project/') }}">Projects</a> </li>
+    <li><a href="{{ url( 'admin/project/' . $project['id'].'/edit') }}">{{ $project['project_title'] }}</a> </li>
+    <li><a href="#"> Unit</a> </li>
+    <li><a href="#" class="active">View Unit</a> </li>
 </ul>
 <!-- END BREADCRUMBS -->
 @endsection
@@ -15,7 +16,7 @@
 @section('content')
 <!-- BEGIN PAGE TITLE -->
 <div class="page-title">	
-    <h2><span class="semi-bold">View</span> Apartment units</h2>
+    <h2><span class="semi-bold">View</span> units</h2>
 </div>
 <div class="row">
     <div class="col-md-12">

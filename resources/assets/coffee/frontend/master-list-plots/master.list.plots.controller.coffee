@@ -151,7 +151,7 @@ class MasterPlotListView extends Marionette.CompositeView
 			
 
 	onShow:->
-		if apartmentVariantCollection.length != 0
+		if buildingCollection.length != 0
 			$('.buildings').removeClass 'hidden'
 		if bunglowVariantCollection.length != 0
 			$('.Villas').removeClass 'hidden'

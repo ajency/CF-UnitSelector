@@ -47,7 +47,7 @@ class BunglowListView extends Marionette.ItemView
 
 		'mouseover' :(e)->
 			id = @model.get('id')
-			$('.layer').attr('class','layer villa')
+			$('.villa').attr('class','layer villa')
 			$('#'+id+'.villa').attr('class' ,'layer villa '+@model.get('status'))
 			$('#unit'+id).attr('class' ,'unit blocks'+' '+@model.get('status')+' active')
 			
@@ -153,7 +153,7 @@ class MasterBunglowListView extends Marionette.CompositeView
 			
 
 	onShow:->
-		if apartmentVariantCollection.length != 0
+		if buildingCollection.length != 0
 			$('.buildings').removeClass 'hidden'
 		if plotVariantCollection.length != 0
 			$('.Plots').removeClass 'hidden'

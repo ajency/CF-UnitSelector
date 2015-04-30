@@ -48,7 +48,7 @@
       'mouseover': function(e) {
         var id;
         id = this.model.get('id');
-        $('.layer').attr('class', 'layer villa');
+        $('.villa').attr('class', 'layer villa');
         $('#' + id + '.villa').attr('class', 'layer villa ' + this.model.get('status'));
         return $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status') + ' active');
       },
@@ -127,7 +127,7 @@
     };
 
     MasterBunglowListView.prototype.onShow = function() {
-      if (apartmentVariantCollection.length !== 0) {
+      if (buildingCollection.length !== 0) {
         $('.buildings').removeClass('hidden');
       }
       if (plotVariantCollection.length !== 0) {
