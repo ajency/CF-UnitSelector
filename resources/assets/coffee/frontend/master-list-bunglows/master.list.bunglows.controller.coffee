@@ -70,7 +70,7 @@ class BunglowListView extends Marionette.ItemView
 class MasterBunglowListView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-xs-12 col-sm-12 col-md-3 us-left-content">
-									<div class="list-view-container w-map animated fadeInLeft">
+									<div class="list-view-container w-map animated fadeIn">
 							            <!--<div class="controls map-View">
 								            <div class="toggle">
 								            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
