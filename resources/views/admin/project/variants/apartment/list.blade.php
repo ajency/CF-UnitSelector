@@ -20,7 +20,7 @@
     <div class="col-md-12">
         <div class="grid simple">
             <div class="grid-title">
-                <h4>List of <span class="semi-bold">Apartment Variants</span></h4>
+                <h4>List of <span class="semi-bold">Variants</span></h4>
                 <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/apartment-variant/create') }}" >+ Add variant</a>
             </div>
             <div class="grid-body">

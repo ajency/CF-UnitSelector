@@ -11,7 +11,7 @@
       return ListItemView.__super__.constructor.apply(this, arguments);
     }
 
-    ListItemView.prototype.template = Handlebars.compile('<div class="bldg-img"></div> <div class="info"> <h2 class="m-b-5">{{building_name}}</h2> <div class="floors"><span>{{floors}}</span> floors</div> </div> <div class="clearfix"></div> <div class="unit-type-info"> <ul> {{#types}} <li> {{name}}<!--: <span>{{units}}</span>--> </li> {{/types}} </ul> <span class="area {{areaname}}">{{area}} Sq.Ft</span> <div class="price {{classname}}">From <span>Rs.{{price}}</span></div> </ul> </div>');
+    ListItemView.prototype.template = Handlebars.compile('<div class="bldg-img"></div> <div class="info"> <h2 class="m-b-5">{{building_name}}</h2> <div class="floors"><span>{{floors}}</span> floors</div> </div> <div class="clearfix"></div> <div class="unit-type-info"> <ul> {{#types}} <li> {{name}}<!--: <span>{{units}}</span>--> </li> {{/types}} </ul> <span class="area {{areaname}}">{{area}} Sq.Ft</span> <div class="price {{classname}}">From <span>{{price}}</span></div> </ul> </div>');
 
     ListItemView.prototype.tagName = 'li';
 
@@ -40,7 +40,8 @@
         data.classname = 'hidden';
       }
       console.log(data.classname);
-      data.price = window.numDifferentiation(cost);
+      window.convertRupees(cost);
+      data.price = $('#price').val();
       data.floors = Object.keys(floors).length;
       data.types = types;
       return data;

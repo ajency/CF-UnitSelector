@@ -151,7 +151,7 @@
   CommonFloor.applyVillaClasses = function() {
     return $('.villa').each(function(ind, item) {
       var availability, id, unit;
-      console.log(id = parseInt(item.id));
+      id = parseInt(item.id);
       unit = unitCollection.findWhere({
         id: id
       });
@@ -159,6 +159,21 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         return $('#' + id).attr('class', 'layer villa ' + availability);
+      }
+    });
+  };
+
+  CommonFloor.applyPlotClasses = function() {
+    return $('.plot').each(function(ind, item) {
+      var availability, id, unit;
+      id = parseInt(item.id);
+      unit = unitCollection.findWhere({
+        id: id
+      });
+      if (!_.isUndefined(unit)) {
+        availability = unit.get('availability');
+        availability = s.decapitalize(availability);
+        return $('#' + id).attr('class', 'layer plot ' + availability);
       }
     });
   };

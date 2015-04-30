@@ -53,12 +53,12 @@ class ProjectApartmentUnitController extends Controller {
     public function store( $projectId, Request $request ) {
 
         $unit = new Unit;
-        $unit->unit_name = $request->get( 'unit_name' );
+        $unit->unit_name = ucfirst($request->get( 'unit_name' ));
         $unit->unit_variant_id = 0;
         $unit->building_id = $request->get( 'building_id' );
         $unit->floor = $request->get( 'floor' );
         $unit->position = $request->get( 'position' );
-        $unit->availability = $request->get( 'availability' );
+        $unit->availability = $request->get( 'unit_status' );
         $unit->save();
         
         $addanother = $request->input('addanother');
@@ -119,12 +119,12 @@ class ProjectApartmentUnitController extends Controller {
     public function update($project_id, $id, Request $request) {
         
         $unit = Unit::find($id);
-        $unit->unit_name = $request->get( 'unit_name' );
+        $unit->unit_name = ucfirst($request->get( 'unit_name' ));
         $unit->unit_variant_id = 0;
         $unit->building_id = $request->get( 'building_id' );
         $unit->floor = $request->get( 'floor' );
         $unit->position = $request->get( 'position' );
-        $unit->availability = $request->get( 'availability' );
+        $unit->availability = $request->get( 'unit_status' );
         $unit->save();
         
         $addanother = $request->input('addanother');

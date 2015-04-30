@@ -85,7 +85,7 @@ class ProjectBunglowUnitController extends Controller {
      */
     public function store($project_id, Request $request) {
         $unit = new Unit();
-        $unit->unit_name = $request->input('unit_name');
+        $unit->unit_name = ucfirst($request->input('unit_name'));
         $unit->unit_variant_id = $request->input('unit_variant');
         $unit->availability = $request->input('unit_status');
         $unit->save();
@@ -152,7 +152,7 @@ class ProjectBunglowUnitController extends Controller {
      */
     public function update($project_id, $id, Request $request) {
         $unit = Unit::find($id);
-        $unit->unit_name = $request->input('unit_name');
+        $unit->unit_name = ucfirst($request->input('unit_name'));
         $unit->unit_variant_id = $request->input('unit_variant');
         $unit->availability = $request->input('unit_status');
         $unit->save();

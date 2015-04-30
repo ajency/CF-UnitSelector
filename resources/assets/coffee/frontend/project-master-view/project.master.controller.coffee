@@ -175,8 +175,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 		  
 		'click .building':(e)->
-			$('.spritespin-canvas').addClass 'zoom'
-			$('.us-left-content').addClass 'animated fadeOut'
+			
 			setTimeout( (x)->
 				id = parseInt e.target.id
 				buildingModel = buildingCollection.findWhere
@@ -184,12 +183,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 				if buildingModel == undefined
 					return false
-
+				
 				unit = unitCollection.where 
 					'building_id' :  id 
 				if unit.length is 0
 					return 
-
+				$('.spritespin-canvas').addClass 'zoom'
+				$('.us-left-content').addClass 'animated fadeOut'
 				if Object.keys(buildingModel.get('building_master')).length == 0
 					CommonFloor.navigate '/building/'+id+'/apartments' , true
 					CommonFloor.router.storeRoute()
@@ -201,8 +201,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			
 
 		'click .villa':(e)->
-			$('.spritespin-canvas').addClass 'zoom'
-			$('.us-left-content').addClass 'animated fadeOut'
+			
 			setTimeout( (x)->
 				id = parseInt e.target.id
 
@@ -210,7 +209,25 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 								'id' : id
 				if unitModel == undefined
 					return false
+				$('.spritespin-canvas').addClass 'zoom'
+				$('.us-left-content').addClass 'animated fadeOut'
+				CommonFloor.defaults['unit'] =id
+				CommonFloor.navigate '/unit-view/'+id , true
+				CommonFloor.router.storeRoute()
 
+			, 500)
+
+		'click .plot':(e)->
+			
+			setTimeout( (x)->
+				id = parseInt e.target.id
+
+				unitModel = unitCollection.findWhere
+								'id' : id
+				if unitModel == undefined
+					return false
+				$('.spritespin-canvas').addClass 'zoom'
+				$('.us-left-content').addClass 'animated fadeOut'
 				CommonFloor.defaults['unit'] =id
 				CommonFloor.navigate '/unit-view/'+id , true
 				CommonFloor.router.storeRoute()
@@ -229,10 +246,21 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			id = parseInt e.target.id
 			unit = unitCollection.findWhere 
 				id :  id 
-			availability = unit.get('availability')
-			availability = s.decapitalize(availability)
-			CommonFloor.applyVillaClasses()
-			$('#unit'+id).attr('class' ,'unit blocks '+availability)  
+			if unit != undefined
+				availability = unit.get('availability')
+				availability = s.decapitalize(availability)
+				CommonFloor.applyVillaClasses()
+				$('#unit'+id).attr('class' ,'unit blocks '+availability) 
+
+		'mouseout .plot':(e)->
+			id = parseInt e.target.id
+			unit = unitCollection.findWhere 
+				id :  id 
+			if unit != undefined
+				availability = unit.get('availability')
+				availability = s.decapitalize(availability)
+				CommonFloor.applyPlotClasses()
+				$('#unit'+id).attr('class' ,'unit blocks '+availability)  
 
 		'mouseout .building':(e)->
 			id = parseInt e.target.id
@@ -281,6 +309,50 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					</div>'
 
 			$('#'+id).attr('class' ,'layer villa '+availability) 
+			$('#unit'+id).attr('class' ,'unit blocks active') 
+			$('.layer').tooltipster('content', html)
+
+		'mouseover .plot':(e)->
+			$('.plot').attr('class' ,'layer plot') 
+			id  = parseInt e.target.id
+			html = ""
+			unit = unitCollection.findWhere 
+				id :  id 
+			if unit is undefined
+				html += '<div class="svg-info">
+							<div class="details">
+								Plot details not entered 
+							</div>  
+						</div>'
+				$('.layer').tooltipster('content', html)
+				return 
+
+			response = window.unit.getUnitDetails(id)
+			window.convertRupees(response[3])
+			availability = unit.get('availability')
+			availability = s.decapitalize(availability)
+			html = ""
+			html += '<div class="svg-info">
+						<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
+						<!--<span class="label label-success"></span-->
+						<div class="clearfix"></div>
+						<div class="details">
+							<div>
+								<label>Variant</label> - '+response[0].get('unit_variant_name')+'
+							</div>
+							<div>
+								<label>Area</label> - '+response[0].get('super_built_up_area')+' Sq.ft
+							</div> 
+							<div>
+								<label>Unit Type </label> - '+response[1].get('name')+'
+							</div>
+							<div>
+								<label>Price </label> - '+$('#price').val()+'
+							</div>  
+						</div>  
+					</div>'
+
+			$('#'+id).attr('class' ,'layer plot '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
 			$('.layer').tooltipster('content', html)
 
@@ -385,7 +457,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			height: @ui.svgContainer.width() / 1.46
 			animate: false
 		)
-		console.log @ui.svgContainer.width() 
+		
 		that = @
 		api = spin.spritespin("api")
 		spin.bind("onFrame" , ()->
@@ -404,7 +476,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
 				$('.cf-loader').addClass 'hidden'
-				CommonFloor.applyVillaClasses()
+				
 
 				
 		)

@@ -16,7 +16,7 @@ class ListItemView extends Marionette.ItemView
 					                        {{/types}}
 						                   </ul>
 					                      <span class="area {{areaname}}">{{area}} Sq.Ft</span>
-					                      <div class="price {{classname}}">From <span>Rs.{{price}}</span></div>
+					                      <div class="price {{classname}}">From <span>{{price}}</span></div>
 											</ul>
 										 </div>')
 
@@ -45,7 +45,9 @@ class ListItemView extends Marionette.ItemView
 		if cost == 0
 			data.classname = 'hidden'
 		console.log data.classname
-		data.price = window.numDifferentiation(cost)
+		# data.price = window.numDifferentiation(cost)
+		window.convertRupees(cost)
+		data.price = $('#price').val()
 		data.floors = Object.keys(floors).length
 		data.types = types
 		data

@@ -7,7 +7,9 @@ class PlotListView extends Marionette.ItemView
 						            </div>
 					                <div class="cost">
 					                  {{price}}
-					                </div>')
+					                </div>
+
+					                ')
 
 	initialize:->
 		@$el.prop("id", 'unit'+@model.get("id"))
@@ -47,8 +49,8 @@ class PlotListView extends Marionette.ItemView
 
 		'mouseover' :(e)->
 			id = @model.get('id')
-			$('.layer').attr('class','layer villa')
-			$('#'+id+'.villa').attr('class' ,'layer villa '+@model.get('status'))
+			$('.layer').attr('class','layer plot')
+			$('#'+id+'.plot').attr('class' ,'layer plot '+@model.get('status'))
 			$('#unit'+id).attr('class' ,'unit blocks'+' '+@model.get('status')+' active')
 			
 			
@@ -56,7 +58,7 @@ class PlotListView extends Marionette.ItemView
 			id = @model.get('id')
 			# $('#'+id+'.villa').attr('class' ,'layer villa')
 			$('#unit'+id).attr('class' , 'unit blocks'+' '+@model.get('status'))
-			CommonFloor.applyVillaClasses()
+			CommonFloor.applyPlotClasses()
 
 		'click' :(e)->
 			if @model.get('status') == 'available'
@@ -84,7 +86,7 @@ class MasterPlotListView extends Marionette.CompositeView
 							                <li class="prop-type Plots active">Plots</li>
 							              </ul>
 							            </div>
-							            <div class="advncd-filter-wrp  unit-list">
+							            <div class="advncd-filter-wrp  bldg-list">
 							            	<div class="legend clearfix">
 							            	  <ul>
 							            	    <li class="available">AVAILABLE</li>
@@ -108,7 +110,7 @@ class MasterPlotListView extends Marionette.CompositeView
 								                    </div>
 				                  				</div>
 				                			</div>-->
-							                <ul class="units two">
+							                <ul class="units one">
 							                </ul>
 							                <div class="clearfix"></div>
 										</div>

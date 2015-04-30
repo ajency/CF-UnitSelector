@@ -57,7 +57,7 @@
                                 <div id="floor-layout-detailed_svg-container"> 
                                     <input type="button" name="fileToUpload" class="btn btn-small master_pickfiles" value="Select your file"/> 
                                     <button type="button" class="btn hidden btn-small btn-primary master_uploadfiles" >Upload</button>
-                                    <div class="row selectedImages">
+                                    <div class="row selectedImages m-t-15">
                                     </div>
                                     <input type="hidden" name="detailed_svg" value="0" />
                                     <div class="uploaded-image">
@@ -74,7 +74,7 @@
                                     <input type="button" name="fileToUpload" class="btn btn-small master_pickfiles" 
                                            value="Select your file" data-filename-placement="inside"/> 
                                     <button type="button" class="btn btn-small hidden btn-primary master_uploadfiles" >Upload</button>
-                                    <div class="row selectedImages">
+                                    <div class="row selectedImages m-t-15">
                                     </div>
                                     <input type="hidden" name="basic_svg" value="0" />
                                     <div class="uploaded-image">

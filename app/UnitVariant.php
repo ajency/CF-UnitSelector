@@ -46,6 +46,12 @@ class UnitVariant extends Model {
 
         foreach ($variantMeta as $meta) {
             $metakey = $meta['meta_key'];
+            if(!$projectId)
+            {
+                $unitTypeID = UnitVariant::find($meta['unit_variant_id'])->unit_type_id;
+                $projectPropertyTypeId = UnitType::find($unitTypeID)->project_property_type_id;
+                $projectId = ProjectPropertyType::find($projectPropertyTypeId)->project_id;
+            }
             if ($metakey == 'gallery') {
                 $metaValue = unserialize($meta['meta_value']);
                 if (!empty($metaValue)) {

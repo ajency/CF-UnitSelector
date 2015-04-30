@@ -116,6 +116,7 @@ class ProjectGateway implements ProjectGatewayInterface {
                 
             }
         }
+     $appartmentVariantData = array_merge($appartmentVariantData,$penthouseVariantData);   
      $units = \CommonFloor\Unit::whereIn('unit_variant_id', $variantIds)->get()->toArray();
         $units = array_merge($units,$apartmentunits);
  
@@ -124,7 +125,6 @@ class ProjectGateway implements ProjectGatewayInterface {
             'buildings' => $buildings->toArray(),
             'bunglow_variants' => $bunglowVariantData,
             'apartment_variants' => $appartmentVariantData,
-            'penthouse_variants' => $penthouseVariantData,
             'plot_variants' => $plotVariantData,
             'property_types' => $propertyTypes,
             'settings' => $this->projectSettings($projectId),
