@@ -192,7 +192,7 @@ class ProjectApartmentVariantController extends Controller {
                         ->with( 'variantRooms', $variantRoomArr )
                         ->with( 'layouts', $layouts )
                         ->with( 'roomTypeAttributes', $roomTypeAttributes )
-                        ->with( 'current', '' );
+                        ->with( 'current', 'apartment-variant' );
     }
 
     /**
