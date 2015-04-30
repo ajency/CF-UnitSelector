@@ -10,6 +10,22 @@
       return PlotVariant.__super__.constructor.apply(this, arguments);
     }
 
+    PlotVariant.prototype.findUnitPrice = function(unit_model) {
+      var basicCost, basic_cost, unitVarinatModel;
+      basicCost = "";
+      if (!(unit_model instanceof Backbone.Model) || unit_model === "") {
+        return;
+      }
+      unitVarinatModel = plotVariantCollection.findWhere({
+        'id': parseInt(unit_model.get('unit_variant_id'))
+      });
+      if (unitVarinatModel !== void 0) {
+        basic_cost = (parseFloat(unitVarinatModel.get('per_sq_ft_price'))) * parseFloat(unitVarinatModel.get('super_built_up_area'));
+        basicCost = basic_cost.toFixed(2);
+      }
+      return basicCost;
+    };
+
     return PlotVariant;
 
   })(Backbone.Model);
@@ -50,6 +66,8 @@
 
   window.plotVariantCollection = new PlotVariantCollection;
 
+  window.plotVariant = new PlotVariant;
+
 }).call(this);
 
-//# sourceMappingURL=../../frontend/entities/plot.variant.js.map
+//# sourceMappingURL=../../frontend/entities/plot.variant.entity.js.map

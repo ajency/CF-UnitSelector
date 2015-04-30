@@ -140,6 +140,7 @@
         <script src="{{ asset('js/frontend/entities/building.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/entities/apartment.variant.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/entities/floor.layout.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/plot.variant.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/common/common.js' )}}"></script>
         <script src="{{ asset('js/frontend/project/project.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/project-master-view/project.master.controller.js' )}}"></script>
@@ -151,6 +152,8 @@
         <script src="{{ asset('js/frontend/building-step3/apartments.master.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/master-list-bunglows/master.list.bunglows.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/master-list-buildings/master.list.buildings.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/master-list-plots/master.list.plots.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/project-list-view/plot.list.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/router.js' )}}"></script>
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
         <input type="hidden" id="price" data-m-dec="" data-a-sign="Rs. " data-d-group="2" value="" />

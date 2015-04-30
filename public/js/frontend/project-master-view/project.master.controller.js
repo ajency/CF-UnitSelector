@@ -134,6 +134,19 @@
         new CommonFloor.MasterBuildingListCtrl({
           region: this.region
         });
+        this.parent().trigger("load:units", data);
+      }
+      if (response.type === 'plot') {
+        units = plotVariantCollection.getPlotUnits();
+        data = {};
+        data.units = units;
+        data.type = 'plot';
+        this.region = new Marionette.Region({
+          el: '#leftregion'
+        });
+        new CommonFloor.MasterPlotListCtrl({
+          region: this.region
+        });
         return this.parent().trigger("load:units", data);
       }
     };
@@ -316,6 +329,7 @@
           return $('.cf-loader').removeClass('hidden');
         }
       });
+      $('.first_image').lazyLoadXT();
       return this.initializeRotate(transitionImages, svgs);
     };
 

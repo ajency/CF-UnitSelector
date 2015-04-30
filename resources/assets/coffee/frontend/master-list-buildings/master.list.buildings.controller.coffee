@@ -130,10 +130,22 @@ class MasterBuildingListView extends Marionette.CompositeView
 			new CommonFloor.MasterBunglowListCtrl region : @region
 			# MasterBuildingListCtrl@trigger "load:units" , data
 
+		'click .Plots':(e)->
+			units = plotVariantCollection.getPlotUnits()
+			data = {}
+			data.units = units
+			data.type = 'plot'
+			@region =  new Marionette.Region el : '#leftregion'
+			new CommonFloor.MasterPlotListCtrl region : @region
+			# @trigger "load:units" , data
+
 
 	onShow:->
 		if bunglowVariantCollection.length != 0
 			$('.Villas').removeClass 'hidden'
+
+		if plotVariantCollection.length != 0
+			$('.Plots').removeClass 'hidden'
 			
 		$('.units').mCustomScrollbar
 			theme: 'inset'

@@ -359,7 +359,8 @@
         theme: 'inset'
       });
       $('.images').html(html);
-      return $(".fancybox").fancybox();
+      $(".fancybox").fancybox();
+      return $('.img').lazyLoadXT();
     };
 
     CenterUnitView.prototype.generateLevels = function() {

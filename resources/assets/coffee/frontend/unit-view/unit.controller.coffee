@@ -442,7 +442,7 @@ class CenterUnitView extends Marionette.ItemView
 
 		$('.images').html html
 		$(".fancybox").fancybox()
-
+		$('.img').lazyLoadXT()
 
 	generateLevels:->
 		url = Backbone.history.fragment
