@@ -264,7 +264,7 @@ function saveRoomdetails(project_id, variantId)
         type: "POST",
         data: $("#formroomdetails").serializeArray(),
         success: function (response) {
-            //window.location.reload();
+            window.location.reload();
         }
     });
 }
