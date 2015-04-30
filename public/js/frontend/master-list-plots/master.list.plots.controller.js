@@ -127,7 +127,7 @@
     };
 
     MasterPlotListView.prototype.onShow = function() {
-      if (apartmentVariantCollection.length !== 0) {
+      if (buildingCollection.length !== 0) {
         $('.buildings').removeClass('hidden');
       }
       if (bunglowVariantCollection.length !== 0) {

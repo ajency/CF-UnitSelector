@@ -127,7 +127,7 @@
     };
 
     MasterBunglowListView.prototype.onShow = function() {
-      if (apartmentVariantCollection.length !== 0) {
+      if (buildingCollection.length !== 0) {
         $('.buildings').removeClass('hidden');
       }
       if (plotVariantCollection.length !== 0) {
