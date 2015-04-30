@@ -153,7 +153,7 @@ class MasterBunglowListView extends Marionette.CompositeView
 			
 
 	onShow:->
-		if apartmentVariantCollection.length != 0
+		if buildingCollection.length != 0
 			$('.buildings').removeClass 'hidden'
 		if plotVariantCollection.length != 0
 			$('.Plots').removeClass 'hidden'
