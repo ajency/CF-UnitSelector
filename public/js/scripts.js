@@ -264,7 +264,7 @@ function saveRoomdetails(project_id, variantId)
         type: "POST",
         data: $("#formroomdetails").serializeArray(),
         success: function (response) {
-            window.location.reload();
+            //window.location.reload();
         }
     });
 }
@@ -424,7 +424,7 @@ function setUpProjectMasterUploader() {
 
                 $("#master_uploadfiles").next("div.selectedImages").html('');
                 $("#master_uploadfiles").addClass('hidden');
-
+                $('input[name="position[]"]').bootstrapToggle();
             }
         }
     });
