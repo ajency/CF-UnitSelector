@@ -50,12 +50,12 @@
         id = this.model.get('id');
         $('.layer').attr('class', 'layer plot');
         $('#' + id + '.plot').attr('class', 'layer plot ' + this.model.get('status'));
-        return $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status') + ' active');
+        return $('#unit' + id).attr('class', 'bldg blocks' + ' ' + this.model.get('status') + ' active');
       },
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
-        $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status'));
+        $('#unit' + id).attr('class', 'bldg blocks' + ' ' + this.model.get('status'));
         return CommonFloor.applyPlotClasses();
       },
       'click': function(e) {
