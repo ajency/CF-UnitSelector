@@ -193,8 +193,6 @@
         }, 650);
       },
       'click .building': function(e) {
-        $('.spritespin-canvas').addClass('zoom');
-        $('.us-left-content').addClass('animated fadeOut');
         return setTimeout(function(x) {
           var buildingModel, id, unit;
           id = parseInt(e.target.id);
@@ -210,6 +208,8 @@
           if (unit.length === 0) {
             return;
           }
+          $('.spritespin-canvas').addClass('zoom');
+          $('.us-left-content').addClass('animated fadeOut');
           if (Object.keys(buildingModel.get('building_master')).length === 0) {
             CommonFloor.navigate('/building/' + id + '/apartments', true);
             return CommonFloor.router.storeRoute();
@@ -220,8 +220,6 @@
         }, 500);
       },
       'click .villa': function(e) {
-        $('.spritespin-canvas').addClass('zoom');
-        $('.us-left-content').addClass('animated fadeOut');
         return setTimeout(function(x) {
           var id, unitModel;
           id = parseInt(e.target.id);
@@ -231,14 +229,14 @@
           if (unitModel === void 0) {
             return false;
           }
+          $('.spritespin-canvas').addClass('zoom');
+          $('.us-left-content').addClass('animated fadeOut');
           CommonFloor.defaults['unit'] = id;
           CommonFloor.navigate('/unit-view/' + id, true);
           return CommonFloor.router.storeRoute();
         }, 500);
       },
       'click .plot': function(e) {
-        $('.spritespin-canvas').addClass('zoom');
-        $('.us-left-content').addClass('animated fadeOut');
         return setTimeout(function(x) {
           var id, unitModel;
           id = parseInt(e.target.id);
@@ -248,6 +246,8 @@
           if (unitModel === void 0) {
             return false;
           }
+          $('.spritespin-canvas').addClass('zoom');
+          $('.us-left-content').addClass('animated fadeOut');
           CommonFloor.defaults['unit'] = id;
           CommonFloor.navigate('/unit-view/' + id, true);
           return CommonFloor.router.storeRoute();

@@ -175,8 +175,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 		  
 		'click .building':(e)->
-			$('.spritespin-canvas').addClass 'zoom'
-			$('.us-left-content').addClass 'animated fadeOut'
+			
 			setTimeout( (x)->
 				id = parseInt e.target.id
 				buildingModel = buildingCollection.findWhere
@@ -184,12 +183,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 				if buildingModel == undefined
 					return false
-
+				
 				unit = unitCollection.where 
 					'building_id' :  id 
 				if unit.length is 0
 					return 
-
+				$('.spritespin-canvas').addClass 'zoom'
+				$('.us-left-content').addClass 'animated fadeOut'
 				if Object.keys(buildingModel.get('building_master')).length == 0
 					CommonFloor.navigate '/building/'+id+'/apartments' , true
 					CommonFloor.router.storeRoute()
@@ -201,8 +201,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			
 
 		'click .villa':(e)->
-			$('.spritespin-canvas').addClass 'zoom'
-			$('.us-left-content').addClass 'animated fadeOut'
+			
 			setTimeout( (x)->
 				id = parseInt e.target.id
 
@@ -210,7 +209,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 								'id' : id
 				if unitModel == undefined
 					return false
-
+				$('.spritespin-canvas').addClass 'zoom'
+				$('.us-left-content').addClass 'animated fadeOut'
 				CommonFloor.defaults['unit'] =id
 				CommonFloor.navigate '/unit-view/'+id , true
 				CommonFloor.router.storeRoute()
@@ -218,8 +218,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			, 500)
 
 		'click .plot':(e)->
-			$('.spritespin-canvas').addClass 'zoom'
-			$('.us-left-content').addClass 'animated fadeOut'
+			
 			setTimeout( (x)->
 				id = parseInt e.target.id
 
@@ -227,7 +226,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 								'id' : id
 				if unitModel == undefined
 					return false
-
+				$('.spritespin-canvas').addClass 'zoom'
+				$('.us-left-content').addClass 'animated fadeOut'
 				CommonFloor.defaults['unit'] =id
 				CommonFloor.navigate '/unit-view/'+id , true
 				CommonFloor.router.storeRoute()
