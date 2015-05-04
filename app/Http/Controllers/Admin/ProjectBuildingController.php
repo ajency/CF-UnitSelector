@@ -34,7 +34,7 @@ class ProjectBuildingController extends Controller {
         return view( 'admin.project.building.list' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'buildings', $buildings )
-                        ->with( 'current', '' );
+                        ->with( 'current', 'building' );
     }
 
     /**
@@ -61,20 +61,12 @@ class ProjectBuildingController extends Controller {
     public function store( $projectId, Request $request ) {
         $formData = $request->all();
         $building = new Building;
-        $building->building_name = $formData['building_name'];
+        $building->building_name = ucfirst($formData['building_name']);
         $building->phase_id = $formData['phase_id'];
         $building->no_of_floors = $formData['no_of_floors'];
         $building->floors = [];
-        $building->building_master = [
-            'front' => '',
-            'left' => '',
-            'back' => '',
-            'right' => '',
-            'front-left' => [],
-            'left-back' => [],
-            'back-right' => [],
-            'right-front' => []
-        ];
+        $building->building_master = [];
+        $building->breakpoints = [];
         $building->save();
         return redirect( url( 'admin/project/' . $projectId . '/building/' . $building->id . '/edit' ) );
     }
@@ -101,23 +93,16 @@ class ProjectBuildingController extends Controller {
         $phases = Phase::where( 'project_id', $projectId )->get();
 
         $building = Building::find( $buildingId );
-        $floorLayouts = FloorLayout::where( 'project_property_type_id', $project->getProjectPropertyTypeId( 1 ) )->get();
+        $floorLayouts = $project->floorLayout()->get();
         $svgImages = [];
             
         foreach ($building->building_master as $key => $images) {
-            if (is_array($images)) {
-                $transitionImages = [];
-                foreach ($images as $image) {
-                    $imageName = Media::find($image)->image_name;
-                    $transitionImages[] =["ID"=>$image, "IMAGE"=> url() . "/projects/" . $projectId . "/buildings/". $buildingId ."/" . $imageName];
-                }
-                $svgImages['building'][$key] = $transitionImages;
-            } else {
                 if (is_numeric($images)) {
                     $imageName = Media::find($images)->image_name;
-                    $svgImages['building'][$key] = ["ID"=>$images, "IMAGE"=> url() . "/projects/" . $projectId . "/buildings/". $buildingId ."/" . $imageName]; 
+                    $svgImages[$key] = ["ID"=>$images,"NAME"=>$imageName, "IMAGE"=> url() . "/projects/" . $projectId . "/buildings/". $buildingId ."/" . $imageName]; 
                 }
-            }
+                else
+                    $svgImages[$key]['ID'] = $images;
         }
             
         return view( 'admin.project.building.edit' )
@@ -142,7 +127,7 @@ class ProjectBuildingController extends Controller {
 
         switch ($updateSection) {
             case 'building':
-                $building->building_name = $request->get( 'building_name' );
+                $building->building_name = ucfirst($request->get( 'building_name' ));
                 $building->phase_id = $request->get( 'phase_id' );
                 $building->no_of_floors = $request->get( 'no_of_floors' );
                 break;
@@ -183,9 +168,9 @@ class ProjectBuildingController extends Controller {
         
         return response()->json( [
             'code' => 'layout_position',
-            'message' => 'Layout Positions',
+            'message' => '',
             'data' => $position
-        ], 203 );
+        ], 201 );
     }
 
 }

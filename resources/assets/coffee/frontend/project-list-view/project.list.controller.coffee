@@ -9,7 +9,7 @@ class CommonFloor.ProjectListCtrl extends Marionette.RegionController
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID);
 			CommonFloor.loadJSONData()
-		if bunglowVariantCollection.length == 0 && apartmentVariantCollection.length == 0
+		if bunglowVariantCollection.length == 0 && apartmentVariantCollection.length == 0 && plotVariantCollection.length == 0  
 			@show new CommonFloor.NothingFoundView
 		else
 			@show new CommonFloor.ProjectListView
@@ -29,7 +29,7 @@ class TopListView extends Marionette.ItemView
 										<li class="">
 											<span class="bread-crumb-current">
 												<span class=".icon-arrow-right2"></span><a class="unit_back" href="#">
-													Back to Poject Overview</a>
+													Back to Project Overview</a>
 											</span>
 										</li>
 									</ul>

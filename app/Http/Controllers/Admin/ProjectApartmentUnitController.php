@@ -53,15 +53,19 @@ class ProjectApartmentUnitController extends Controller {
     public function store( $projectId, Request $request ) {
 
         $unit = new Unit;
-        $unit->unit_name = $request->get( 'unit_name' );
+        $unit->unit_name = ucfirst($request->get( 'unit_name' ));
         $unit->unit_variant_id = 0;
         $unit->building_id = $request->get( 'building_id' );
         $unit->floor = $request->get( 'floor' );
         $unit->position = $request->get( 'position' );
-        $unit->availability = $request->get( 'availability' );
+        $unit->availability = $request->get( 'unit_status' );
         $unit->save();
-
-        return redirect( url( '/admin/project/' . $projectId . '/apartment-unit/' . $unit->id . '/edit' ) );
+        
+        $addanother = $request->input('addanother');
+        if($addanother==1)
+            return redirect( url( '/admin/project/' . $projectId . '/apartment-unit/create' ) );
+        else
+            return redirect( url( '/admin/project/' . $projectId . '/apartment-unit/' . $unit->id . '/edit' ) );
     }
 
     /**
@@ -115,15 +119,19 @@ class ProjectApartmentUnitController extends Controller {
     public function update($project_id, $id, Request $request) {
         
         $unit = Unit::find($id);
-        $unit->unit_name = $request->get( 'unit_name' );
+        $unit->unit_name = ucfirst($request->get( 'unit_name' ));
         $unit->unit_variant_id = 0;
         $unit->building_id = $request->get( 'building_id' );
         $unit->floor = $request->get( 'floor' );
         $unit->position = $request->get( 'position' );
-        $unit->availability = $request->get( 'availability' );
+        $unit->availability = $request->get( 'unit_status' );
         $unit->save();
         
-        return redirect("/admin/project/" . $project_id . "/apartment-unit/" . $id . '/edit');
+        $addanother = $request->input('addanother');
+       if($addanother==1)
+            return redirect( url( '/admin/project/' . $project_id . '/apartment-unit/create' ) );
+        else
+            return redirect("/admin/project/" . $project_id . "/apartment-unit/" . $id . '/edit');
     }
 
     /**

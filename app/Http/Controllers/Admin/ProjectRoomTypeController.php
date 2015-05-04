@@ -67,7 +67,7 @@ class ProjectRoomTypeController extends Controller {
 
         $roomtype = new RoomType();
         $roomtype->project_id = $projectId;
-        $roomtype->name = $roomtype_name;
+        $roomtype->name = ucfirst($roomtype_name);
         $roomtype->save();
 
         $roomtypeId = $roomtype->id;
@@ -125,7 +125,7 @@ class ProjectRoomTypeController extends Controller {
             $roomType = RoomType::find( $reffereceId );
             $roomtypeName = $data['room_typename_' . $reffereceId][0];
 
-            $roomType->name = $roomtypeName;
+            $roomType->name = ucfirst($roomtypeName);
             $roomType->save();
 
             $objecttype = 'RoomType';
@@ -140,6 +140,7 @@ class ProjectRoomTypeController extends Controller {
 
         if (!empty( $attributeNameArr )) {
             foreach ($attributeNameArr as $key => $attributeName) {
+                $attributeName = ucfirst($attributeName);
                 $controlType = $controlTypeArr[$key];
                 $controlValues = (isset( $controlValueArr[$key] )) ? $controlValueArr[$key] : '';
                 $attributeId = $attributeIdArr[$key];

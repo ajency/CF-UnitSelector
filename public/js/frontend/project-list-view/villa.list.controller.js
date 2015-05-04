@@ -87,17 +87,28 @@
         return new CommonFloor.VillaListCtrl({
           region: this.region
         });
+      },
+      'click .Plots': function(e) {
+        var data, units;
+        units = plotVariantCollection.getPlotUnits();
+        data = {};
+        data.units = units;
+        data.type = 'plot';
+        this.region = new Marionette.Region({
+          el: '#centerregion'
+        });
+        return new CommonFloor.VillaListCtrl({
+          region: this.region
+        });
       }
     };
 
     VillaView.prototype.onShow = function() {
-      if (project.get('project_master').front === "") {
-        $('.map-View').hide();
-      } else {
-        $('.map-View').show();
-      }
       if (apartmentVariantCollection.length !== 0) {
-        return $('.buildings').removeClass('hidden');
+        $('.buildings').removeClass('hidden');
+      }
+      if (plotVariantCollection.length !== 0) {
+        return $('.Plots').removeClass('hidden');
       }
     };
 

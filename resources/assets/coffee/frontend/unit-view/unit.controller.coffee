@@ -20,7 +20,7 @@ class CommonFloor.UnitCtrl extends Marionette.RegionController
 #Top View for unit
 class TopUnitView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="row">
+	template : Handlebars.compile('<div class="row animated fadeIn">
 				<div class="col-md-12 col-xs-12 col-sm-12">
 						<div class="row breadcrumb-bar">
 							<div class="col-xs-12 col-md-12">
@@ -29,7 +29,7 @@ class TopUnitView extends Marionette.ItemView
 										<li class="">
 											<span class="bread-crumb-current">
 												<span class=".icon-arrow-right2"></span><a class="unit_back" href="#">
-													Back to Poject Overview</a>
+													Back to Project Overview</a>
 											</span>
 										</li>
 									</ul>
@@ -89,91 +89,91 @@ class CommonFloor.TopUnitCtrl extends Marionette.RegionController
 #Left View for unit
 class LeftUnitView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
-						<div class="filters-wrapper">
-							<div class="blck-wrap title-row">
-								<!--<h3 class="pull-left"><strong>{{unit_name}}</strong></h3>
-								 <span class="label label-success">For Sale</span> -->
-								<div class="clearfix"></div>
+	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content unit-details animated fadeIn">
+							<div class="filters-wrapper">
+								<div class="blck-wrap title-row">
+									<!--<h3 class="pull-left"><strong>{{unit_name}}</strong></h3>
+									 <span class="label label-success">For Sale</span> -->
+									<div class="clearfix"></div>
 
-								<div class="details">
-									<div>
-										<label>Price: </label> <span class="price"></span>
+									<div class="details">
+										<div>
+											<label>Price: </label> <span class="price"></span>
+										</div>
+										<div>
+											<label>Unit Variant:</label> {{unit_variant}}
+										</div>
+										<div>
+											<label>Unit Type:</label> {{type}}
+										</div>
+										<div>
+											<label>Area:</label> {{area}} sqft
+										</div>
 									</div>
-									<div>
-										<label>Unit Type:</label> {{type}}
+
+									<div class="room-attr m-t-10">
+										<label class="property hidden">Property Attributes</label>
+										{{#attributes}}
+											<div class="m-b-5">
+												<span>{{attribute}}</span>: {{value}} 
+											</div>
+										{{/attributes}}
 									</div>
-									<div>
-										<label>Area:</label> {{area}} sqft
-									</div>
+
 								</div>
 
-								<div class="room-attr m-t-10">
-									<label class="property hidden">Property Attributes</label>
-									{{#attributes}}
-										<div class="m-b-5">
-											<span>{{attribute}}</span>: {{value}} 
-										</div>
-									{{/attributes}}
-								</div>
+								<div class="unit-list">
+									
+									{{#levels}}
+									<div class="blck-wrap no-hover">
+										<h4 class="m-b-10 m-t-10 text-primary">{{level_name}}</h4>
 
-							</div>
-
-							<div class="unit-list">
-								
-								{{#levels}}
-								<div class="blck-wrap no-hover">
-									<h4 class="m-b-10 m-t-10 text-primary">{{level_name}}</h4>
-
-									<!--<div class="blck-wrap title-row">
-										<div class="row">
-											<div class="col-sm-4">
-												<h5 class="accord-head">Rooms</h5>                      
+										<!--<div class="blck-wrap title-row">
+											<div class="row">
+												<div class="col-sm-4">
+													<h5 class="accord-head">Rooms</h5>                      
+												</div>
+												<div class="col-sm-4">
+													<h5 class="accord-head">No</h5>                      
+												</div>
+												<div class="col-sm-4">
+													<h5 class="accord-head">Area</h5>                      
+												</div>
 											</div>
-											<div class="col-sm-4">
-												<h5 class="accord-head">No</h5>                      
-											</div>
-											<div class="col-sm-4">
-												<h5 class="accord-head">Area</h5>                      
-											</div>
-										</div>
-									</div>-->
+										</div>-->
 
-									{{#rooms}}
-									<div class="room-attr">
-										<div class="m-b-15">
-											<h5 class="m-b-5">{{room_name}}</h5>  
-											{{#attributes}}  
-											<div class=""><span>{{attribute}}</span>: {{value}} </div>
-											{{/attributes}}                    
-											<!--<h6 class="">{{size}}sqft</h6>-->
+										{{#rooms}}
+										<div class="room-attr">
+											<div class="m-b-15">
+												<h5 class="m-b-5">{{room_name}}</h5>  
+												{{#attributes}}  
+												<div class=""><span>{{attribute}}</span>: {{value}} </div>
+												{{/attributes}}                    
+												<!--<h6 class="">{{size}}sqft</h6>-->
+											</div>
 										</div>
+										{{/rooms}}
+										
 									</div>
-									{{/rooms}}
+									{{/levels}}
 									
 								</div>
-								{{/levels}}
-								
+
 							</div>
-
-						</div>
-						<div class="clearfix"></div>
+							<div class="clearfix"></div>
 						
+							<div class="similar-section">
+					            <label>Similar Villas based on your filters:</label><br>
+					            <!--<p>Pool View, Garden, 3BHK</p>-->
+					            <ul>
+					              	{{#similarUnits}}
+					            	<li class="">
+					                	{{unit_name}}
+					                </li>
+					                {{/similarUnits}}
+					            </ul>
+				            </div>
 						</div>
-						<div class="similar-section">
-				              <label>Similar Villas based on your filters:</label><br>
-				              <!--<p>Pool View, Garden, 3BHK</p>-->
-				              <ul>
-				              {{#similarUnits}}
-				                <li class="">
-				                 {{unit_name}}
-				                </li>
-				               
-				               
-				                {{/similarUnits}}
-				              </ul>
-			            </div>
-
 					</div>')
 
 	serializeData:->
@@ -199,8 +199,8 @@ class LeftUnitView extends Marionette.ItemView
 		console.log temp
 		data.area = response[0].get('super_built_up_area')
 		data.type = response[1].get('name')
-		data.unit_name = unit.get('unit_name')
-		data.levels  = @generateLevels(floor,response)
+		data.unit_variant = response[0].get('unit_variant_name')
+		data.levels  = @generateLevels(floor,response,unit)
 		data.attributes  = attributes
 		data.similarUnits = temp
 		data
@@ -219,7 +219,8 @@ class LeftUnitView extends Marionette.ItemView
 		units
 
 
-	generateLevels:(floor,response)->
+	generateLevels:(floor,response,unit)->
+		console.log unit
 		levels = []
 		$.each floor,(index,value)->
 			rooms = []
@@ -260,7 +261,7 @@ class CommonFloor.LeftUnitCtrl extends Marionette.RegionController
 #Center Controller for unit
 class CenterUnitView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="col-md-9 us-right-content">
+	template : Handlebars.compile('<div class="col-md-9 us-right-content animated fadeIn">
 						<div class="svg-area">
 							<div class="liquid-slider slider" id="slider-id">
 								<div class="ls-wrapper ls-responsive">
@@ -296,7 +297,7 @@ class CenterUnitView extends Marionette.ItemView
 								<div class="liquid-slider slider">
 									<div class="panel-wrapper">
 										<div class="level ">
-											<div class="images animated fadeIn">
+											<div class="images animated fadeIn text-center">
 											</div>
 										</div>
 									</div>
@@ -304,6 +305,9 @@ class CenterUnitView extends Marionette.ItemView
 							</div>
 						</div>
 					</div>')
+
+	ui :
+		imagesContainer : '.us-right-content'
 
 
 	events:
@@ -313,29 +317,32 @@ class CenterUnitView extends Marionette.ItemView
 			$.each response[1],(index,value)->
 				html += '<div class="layouts animated fadeIn">
 							<a class="fancybox" rel="3d" href="'+value+'" title="'+s.replaceAll(response[2][index], "_", " ")+'">
-								<img class="img" src="'+value+'" />
+								<img class="img" data-src="'+value+'" />
 								<div class="img-overlay"></div>
+								<span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
 							</a>
-							<span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
 						</div>'
 			$('.images').html html
+			$('.img').lazyLoadXT()
 			$('.threeD').addClass('current')
 			$('.external').removeClass('current')
 			$('.twoD').removeClass('current')
 			$('.gallery').removeClass('current')
 
 		'click .twoD':(e)->
+
 			response = @generateLevels()
 			html = ''
 			$.each response[0],(index,value)->
 				html += '<div class="layouts animated fadeIn">
 							<a class="fancybox" rel="2d" href="'+value+'" title="'+s.replaceAll(response[2][index], "_", " ")+'">
-								<img class="img" src="'+value+'" />
+								<img class="img" data-src="'+value+'" />
 								<div class="img-overlay"></div>
+								<span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
 							</a>
-							<span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
 						</div>'
 			$('.images').html html
+			$('.img').lazyLoadXT()
 			$('.twoD').addClass('current')
 			$('.external').removeClass('current')
 			$('.threeD').removeClass('current')
@@ -345,9 +352,10 @@ class CenterUnitView extends Marionette.ItemView
 			response = @generateLevels()
 			html = ''
 			html += '<div class="animated fadeIn">
-						<img class="img" src="'+response[3].get('external3durl')+'" />
+						<img class="img" data-src="'+response[3].get('external3durl')+'" />
 					</div>'
 			$('.images').html html
+			$('.img').lazyLoadXT()
 			$('.external').addClass('current')
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
@@ -357,9 +365,15 @@ class CenterUnitView extends Marionette.ItemView
 			response = @generateLevels()
 			html = ''
 			$.each response[3].get('galleryurl'),(index,value)->
-				html += '<div class="animated fadeIn"><img class="img" src="'+value+'" /></div>'
+				html += '<div class="animated fadeIn gallery-img">
+							<a class="fancybox" rel="gall" href="'+value+'">
+								<img class="img" data-src="'+value+'" />
+								<div class="img-overlay"></div>
+							</a>
+						</div>'
 			
 			$('.images').html html
+			$('.img').lazyLoadXT()
 			$('.gallery').addClass('current')
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
@@ -367,18 +381,24 @@ class CenterUnitView extends Marionette.ItemView
 		
 
 	onShow:->
-		
+
 		response = @generateLevels()
 		html = ''
 		$.each response[0],(index,value)->
-			html += '<img class="img" src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>'
+			html += '<div class="layouts animated fadeIn">
+						<a class="fancybox" href="'+value+'">
+							<img class="img" data-src="'+value+'" />
+							<div class="img-overlay"></div>
+							<span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
+						</a>
+					</div>'
 		$('.twoD').addClass('current')
 		$('.threeD').removeClass('current')
 		$('.external').removeClass('current')
 		$('.gallery').removeClass('current')
 		if response[0].length == 0
 			$.each response[1],(index,value)->
-				html += '<img class="img" src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>'
+				html += '<img data-src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>'
 			$('.threeD').addClass('current')
 			$('.external').removeClass('current')
 			$('.twoD').removeClass('current')
@@ -387,13 +407,13 @@ class CenterUnitView extends Marionette.ItemView
 		
 
 		$('.images').html html
-		$('.level').attr 'class' , 'level '+ _.last(response[2])
+		$('.level').attr 'class' , 'level Level_0 '+ _.last(response[2])
 			
 			
 
 				
 		if response[3].get('external3durl') != undefined
-			html = '<img class="img" src="'+response[3].get('external3durl')+'" />'
+			html = '<img class="img lazy-hidden"  data-src="'+response[3].get('external3durl')+'" />'
 			$('.images').html html
 			$('.external').addClass('current')
 			$('.threeD').removeClass('current')
@@ -420,17 +440,19 @@ class CenterUnitView extends Marionette.ItemView
 			$('.twoD').removeClass('current')
 			$('.external').removeClass('current')
 			$.each response[3].get('galleryurl'),(index,value)->
-				html += '<div class="animated fadeIn"><img class="img" src="'+value+'" /></div>'
+				html += '<div class="animated fadeIn"><img class="img" data-src="'+value+'" /></div>'
+
+
+		height =  @ui.imagesContainer.height()
+		$('.search-left-content').css('height',height)
+		$('.unit-list').css('height',height-162)
+		$('.unit-list').mCustomScrollbar
+			theme: 'inset'
 
 
 		$('.images').html html
-		# $('.img').bttrlazyloading(
-		# 	animation: 'fadeIn',
-		# 	placeholder : '<div class="cf-loader"></div>'
-
-		# 	)
 		$(".fancybox").fancybox()
-
+		$('.img').lazyLoadXT()
 
 	generateLevels:->
 		url = Backbone.history.fragment

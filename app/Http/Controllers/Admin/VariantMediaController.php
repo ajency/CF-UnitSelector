@@ -134,7 +134,8 @@ class VariantMediaController extends Controller {
      */
     public function destroy($variantId,$id) {
         
-        $type = Input::get( 'type' );  
+        $type = Input::get( 'type' ); 
+        $projectId = Input::get( 'projectId' );
  
         if($type=='gallery')
         {
@@ -153,7 +154,10 @@ class VariantMediaController extends Controller {
             VariantMeta::where('meta_value',$id)->delete();
         }
  
-        Media::find( $id )->delete();
+        $media = Media::find( $id );
+        $targetDir = public_path() . "/projects/" . $projectId . "/variants/" . $variantId . "/".$media->image_name;
+        unlink($targetDir);
+        $media->delete();
 
         return response()->json( [
                     'code' => 'media_deleted',

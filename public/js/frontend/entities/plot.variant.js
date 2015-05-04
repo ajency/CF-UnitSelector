@@ -23,22 +23,25 @@
 
     PlotVariantCollection.prototype.model = PlotVariant;
 
-    PlotVariantCollection.prototype.setPlotVariantAttributes = function(project_id) {
-      if (this.length === 0) {
-        return plotVariantCollection.fetch({
-          async: false,
-          data: {
-            project_id: project_id
-          },
-          success: (function(_this) {
-            return function(collection, response) {
-              if (response === 0) {
-                return _this.reset();
-              }
-            };
-          })(this)
+    PlotVariantCollection.prototype.setPlotVariantAttributes = function(data) {
+      return plotVariantCollection.reset(data);
+    };
+
+    PlotVariantCollection.prototype.getPlotUnits = function() {
+      var newUnits, units;
+      units = [];
+      newUnits = [];
+      plotVariantCollection.each(function(model) {
+        var plotUnits;
+        plotUnits = unitCollection.where({
+          unit_variant_id: model.get('id')
         });
-      }
+        return units.push(plotUnits);
+      });
+      $.each(units, function(index, value) {
+        return newUnits = $.merge(newUnits, value);
+      });
+      return newUnits;
     };
 
     return PlotVariantCollection;

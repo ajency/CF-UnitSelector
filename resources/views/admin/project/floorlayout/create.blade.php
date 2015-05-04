@@ -3,9 +3,11 @@
 @section('breadcrumb')
 <!-- BEGIN BREADCRUMBS -->
 <ul class="breadcrumb">
-    <li><a href="/admin">Dashboard</a> </li>
-    <li><a href="/admin/project">Projects</a> </li>
-    <li><a href="#" class="active">Add Floor Layout</a> </li>
+    <li><a href="{{ url( 'admin/') }}">Dashboard</a> </li>
+    <li><a href="{{ url( 'admin/project/') }}">Projects</a> </li>
+    <li><a href="{{ url( 'admin/project/' . $project['id'].'/edit') }}">{{ $project['project_title'] }}</a> </li>
+    <li><a href="#">Floor layouts</a> </li>
+    <li><a href="#" class="active">Add Floor layout</a> </li>
 </ul>
 <!-- END BREADCRUMBS -->
 @endsection
@@ -36,16 +38,17 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Number of Flats</label>
-                                <input required class="form-control" name="no_of_flats" type="number" />
+                                <input data-parsley-min="1" required class="form-control" name="no_of_flats" type="number" />
                             </div>
                         </div>
+                        
                     </div>
                     <hr/>
                     <div class="form-actions">  
                         <div class="pull-right">
                             <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-                            <button type="submit" class="btn btn-primary btn-cons">Save</button>
-                            <button type="button" class="btn btn-default btn-cons">Cancel</button>
+                            <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
+                            <button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button>
                         </div>
                     </div>
                 </form>

@@ -6,6 +6,15 @@ body{
     min-width: initial;
 }
 
+.col-0 {
+    width: 0;
+    padding: 0;
+    div, ul, li{
+        margin: 0;
+        padding: 0;
+    }
+}
+
 /* Header */
 .cf-hdr-blk .cf-us-logo {
     background:url(../../images/unit-selector_logo.png) no-repeat;
@@ -51,14 +60,13 @@ body{
 /* Left Container */
 .search-left-content{
     position: relative;
-    .similar-section{
-        position: absolute;
-        bottom: 0;
-    }
+    .ease;
 }
 
 .us-left-content{
-    overflow-y: auto;
+    // overflow-y: auto;
+    // height: 0;
+    .ease;
 }
 .builder-logo{
     max-width: 200px;
@@ -96,8 +104,10 @@ body{
 /* Right Container */
 .us-right-content{
     padding-left: 0;
+    .ease;
     .svg-area{
         width: 100%;
+        overflow: hidden;
         img{
             width: 100%;
         }

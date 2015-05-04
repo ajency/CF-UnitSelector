@@ -27,7 +27,8 @@ CommonFloor.loadJSONData = ()->
 			floorLayoutCollection.setFloorLayoutAttributes(response.floor_layout)
 			window.propertyTypes = response.property_types
 			unitCollection.setUnitAttributes(response.units)
-			
+			plotVariantCollection.setPlotVariantAttributes(response.plot_variants)
+
 			
 		error :(response)->
 			@region =  new Marionette.Region el : '#noFound-template'
@@ -43,7 +44,10 @@ CommonFloor.propertyMaxUnits = ()->
 	Router.push 
 		'type'  : 'building'
 		'count' :apartmentVariantCollection.getApartmentUnits()
-	console.log Router
+	Router.push 
+		'type'  : 'plot'
+		'count' :plotVariantCollection.getPlotUnits()
+	
 	controller = _.max Router , (item)->
 		return parseInt item.count.length
 
@@ -53,7 +57,7 @@ CommonFloor.propertyMaxUnits = ()->
 #function to load the default controller fro master view
 CommonFloor.checkPropertyType = ()->
 	CommonFloor.loadJSONData()
-	if project.get('project_master').front  == ""
+	if Object.keys(project.get('project_master')).length  ==  0
 		CommonFloor.navigate '#/list-view' , true
 		CommonFloor.router.storeRoute()
 	else
@@ -104,11 +108,37 @@ CommonFloor.propertyTypes = ()->
 		Router.push 
 			'type'  : s.capitalize 'buildings'
 			'count' :buildingCollection.toArray()
+	if plotVariantCollection.getPlotUnits().length != 0
+		Router.push 
+			'type'  : s.capitalize 'plots'
+			'count' :plotVariantCollection.getPlotUnits()
 	controller = _.max Router , (item)->
 		return parseInt item.count.length
 
 
 	Router
+
+CommonFloor.applyVillaClasses = ()->
+	$('.villa').each (ind,item)->
+		id = parseInt item.id
+		unit = unitCollection.findWhere 
+			id :  id 
+		if ! _.isUndefined unit 
+			availability = unit.get('availability')
+			availability = s.decapitalize(availability)
+			$('#'+id).attr('class' ,'layer villa '+availability)
+
+
+CommonFloor.applyPlotClasses = ()->
+	$('.plot').each (ind,item)->
+		id = parseInt item.id
+		unit = unitCollection.findWhere 
+			id :  id 
+		if ! _.isUndefined unit 
+			availability = unit.get('availability')
+			availability = s.decapitalize(availability)
+			$('#'+id).attr('class' ,'layer plot '+availability)  
+
 
 
 CommonFloor.filter = ()->

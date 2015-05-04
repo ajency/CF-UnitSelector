@@ -39,7 +39,7 @@ class BuildingItemView extends Marionette.ItemView
 				return 
 			buildingModel = buildingCollection.findWhere
 							'id' : id
-			if buildingModel.get('building_master').front == ""
+			if Object.keys(buildingModel.get('building_master')).length == 0
 				CommonFloor.navigate '/building/'+id+'/apartments' , true
 				CommonFloor.router.storeRoute()
 			else
@@ -98,14 +98,21 @@ class BuildingListView extends Marionette.CompositeView
 			new CommonFloor.VillaListCtrl region : @region
 			# @trigger "load:units" , data
 
-	onShow:->
-		if project.get('project_master').front  == ""
-			$('.map-View').hide()
-		else
-			$('.map-View').show()
+		'click .Plots':(e)->
+			units = plotVariantCollection.getPlotUnits()
+			data = {}
+			data.units = units
+			data.type = 'plot'
+			@region =  new Marionette.Region el : '#centerregion'
+			new CommonFloor.VillaListCtrl region : @region
+			# @trigger "load:units" , data
 
+	onShow:->
 		if bunglowVariantCollection.length != 0
 			$('.Villas').removeClass 'hidden'
+
+		if plotVariantCollection.length != 0
+			$('.Plots').removeClass 'hidden'
 
 
 

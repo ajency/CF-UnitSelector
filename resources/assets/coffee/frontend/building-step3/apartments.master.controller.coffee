@@ -140,7 +140,7 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 									<div class="list-view-container w-map animated fadeInLeft">
 										<div class="filters-wrapper ">
 											<div class="advncd-filter-wrp  unit-list">
-												<div class="legend">
+												<div class="legend clearfix">
 												  <ul>
 												    <li class="available">AVAILABLE</li>
 												    <li class="sold">SOLD</li>
@@ -266,6 +266,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					</div>'
 
 			# @class = $('#'+id).attr('class')
+			console.log html
 			$('#'+id).attr('class' ,'layer '+availability) 
 			$('#apartment'+id).attr('class' ,' unit blocks '+availability+' active') 
 			$('.layer').tooltipster('content', html)
@@ -289,35 +290,22 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$('#spritespin').hide()
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
-		console.log building = buildingCollection.findWhere
+		building = buildingCollection.findWhere
 							id : building_id
 		transitionImages = []
 		svgs = {}
 		that = @
 		breakpoints = building.get 'breakpoints'
 		$.each breakpoints,(index,value)->
-			console.log value
 			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/buildings/'+building_id+'/master-'+value+'.svg'
-		# svgs[0] = building.get('building_master').front 
-		# svgs[4] = building.get('building_master').right
-		# svgs[8] = building.get('building_master').back
-		# svgs[12] =  building.get('building_master').left
 		
-		$.merge transitionImages , building.get('building_master')['right-front']
-		$.merge transitionImages , building.get('building_master')['back-right']
-		$.merge transitionImages , building.get('building_master')['left-back']
-		$.merge transitionImages , building.get('building_master')['front-left']
-		$('.region').load(svgs[0],
-			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
-		# $('.first_image').bttrlazyloading(
-		# 	animation: 'fadeIn'
-		# 	placeholder: 'data:image/gif;base64,R0lGODlhMgAyAKUAAO7u...'
-
-		# 	)
+		$.merge transitionImages ,  building.get('building_master')
+		console.log first = _.values svgs
+		$('.region').load(first[0],
+			$('.first_image').attr('data-src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
 		$('.first_image').load ()->
 			response = building.checkRotationView(building_id)
-			if response is 1
-				$('.cf-loader').removeClass 'hidden'
+			$('.cf-loader').removeClass 'hidden'
 		
 		@initializeRotate(transitionImages,svgs,building)
 
@@ -358,12 +346,12 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			data = api.data
 			if data.frame is data.stopFrame
 				url = svgs[data.frame]
-				$('.region').load(url,that.iniTooltip).addClass('active').removeClass('inactive')
+				$('.region').load(url,()->that.iniTooltip()).addClass('active').removeClass('inactive')
 				
 				
 		)
 		spin.bind("onLoad" , ()->
-			console.log response = building.checkRotationView(building_id)
+			response = building.checkRotationView(building_id)
 			if response is 1
 				$('.first_image').remove()
 				$('.rotate').removeClass 'hidden'

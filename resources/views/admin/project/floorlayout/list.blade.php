@@ -3,14 +3,15 @@
 @section('breadcrumb')
 <!-- BEGIN BREADCRUMBS -->
 <ul class="breadcrumb">
-    <li><a href="/admin">Dashboard</a> </li>
-    <li><a href="/admin/project">Projects</a> </li>
+    <li><a href="{{ url( 'admin/') }}">Dashboard</a> </li>
+    <li><a href="{{ url( 'admin/project/') }}">Projects</a> </li>
+    <li><a href="{{ url( 'admin/project/' . $project['id'].'/edit') }}">{{ $project['project_title'] }}</a> </li>
     <li><a href="#">Floor layouts</a> </li>
-    <li><a href="#" class="active">View</a> </li>
+    <li><a href="#" class="active">View Floor layouts</a> </li>
 </ul>
 <!-- END BREADCRUMBS -->
 @endsection
-
+ 
 @section('content')
 <!-- BEGIN PAGE TITLE -->
 <div class="page-title">	
@@ -41,7 +42,7 @@
                                         {{ $floorLayout->layout_name }}
                                     </a>
                                 </td>
-                                <td>{{ $floorLayout->no_of_flats }}</td>
+                                 <td>{{ $floorLayout->no_of_flats }}</td>
                                 <td>{{ date('d/m/Y', strtotime($floorLayout->created_at)) }}</td>
                                 <td>{{  date('d/m/Y', strtotime($floorLayout->updated_at)) }}</td>
                             </tr>

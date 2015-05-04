@@ -1,5 +1,12 @@
 @extends('layouts.master')
-
+@section('breadcrumb')
+<!-- BEGIN BREADCRUMBS -->
+<ul class="breadcrumb">
+    <li><a href="{{ url( 'admin/') }}">Dashboard</a> </li>
+    <li><a href="#" class="active">Projects</a> </li>
+ </ul>
+<!-- END BREADCRUMBS -->
+@endsection
 @section('content')
 <!-- BEGIN PAGE TITLE -->
 <div class="page-title">	

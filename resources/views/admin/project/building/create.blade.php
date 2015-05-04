@@ -3,8 +3,10 @@
 @section('breadcrumb')
 <!-- BEGIN BREADCRUMBS -->
 <ul class="breadcrumb">
-    <li><a href="/admin">Dashboard</a> </li>
-    <li><a href="/admin/project">Projects</a> </li>
+    <li><a href="{{ url( 'admin/') }}">Dashboard</a> </li>
+    <li><a href="{{ url( 'admin/project/') }}">Projects</a> </li>
+    <li><a href="{{ url( 'admin/project/' . $project['id'].'/edit') }}">{{ $project['project_title'] }}</a> </li>
+    <li><a href="#">Buildings</a> </li>
     <li><a href="#" class="active">Add Building</a> </li>
 </ul>
 <!-- END BREADCRUMBS -->
@@ -43,22 +45,25 @@
                                     @endforeach
                                 </select>
                                 <br>
-                                <input type="text" class="form-control phase-name" placeholder="Add Phase">
-                                <button type="button" class="btn btn-small btn-primary add-phase-btn"><i class="fa fa-save"></i> Save</button>
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapsephase" aria-expanded="true" aria-controls="collapseOne">+ Add Phase</a>
+                                <div id="collapsephase" class="panel-collapse collapse p-t-10" role="tabpanel" aria-labelledby="headingOne">
+                                    <input type="text" class="form-control phase-name m-b-10" placeholder="Add Phase">
+                                    <button type="button" class="btn btn-small btn-primary add-phase-btn"><i class="fa fa-save"></i> Save</button>
+                                </div>
                             </div> 
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Number of Floors</label>
-                                <input type="number" required="" class="form-control" name="no_of_floors" placeholder="Enter Number of Floors">
+                                <input type="number" data-parsley-min="1" required="" class="form-control" name="no_of_floors" placeholder="Enter Number of Floors">
                             </div>
                         </div>
                     </div>
                     <div class="form-actions">  
                         <div class="pull-right">
                             <input type="hidden" value="{{ csrf_token()}}" name="_token"/>    
-                            <button type="submit" class="btn btn-primary btn-cons">Save</button>
-                            <button type="button" class="btn btn-default btn-cons">Cancel</button>
+                            <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
+                            <button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button>
                         </div>
                     </div>
                 </form>

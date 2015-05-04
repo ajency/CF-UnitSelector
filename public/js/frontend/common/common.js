@@ -45,7 +45,8 @@
         apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants);
         floorLayoutCollection.setFloorLayoutAttributes(response.floor_layout);
         window.propertyTypes = response.property_types;
-        return unitCollection.setUnitAttributes(response.units);
+        unitCollection.setUnitAttributes(response.units);
+        return plotVariantCollection.setPlotVariantAttributes(response.plot_variants);
       },
       error: function(response) {
         this.region = new Marionette.Region({
@@ -69,7 +70,10 @@
       'type': 'building',
       'count': apartmentVariantCollection.getApartmentUnits()
     });
-    console.log(Router);
+    Router.push({
+      'type': 'plot',
+      'count': plotVariantCollection.getPlotUnits()
+    });
     controller = _.max(Router, function(item) {
       return parseInt(item.count.length);
     });
@@ -78,7 +82,7 @@
 
   CommonFloor.checkPropertyType = function() {
     CommonFloor.loadJSONData();
-    if (project.get('project_master').front === "") {
+    if (Object.keys(project.get('project_master')).length === 0) {
       CommonFloor.navigate('#/list-view', true);
       return CommonFloor.router.storeRoute();
     } else {
@@ -133,10 +137,46 @@
         'count': buildingCollection.toArray()
       });
     }
+    if (plotVariantCollection.getPlotUnits().length !== 0) {
+      Router.push({
+        'type': s.capitalize('plots'),
+        'count': plotVariantCollection.getPlotUnits()
+      });
+    }
     controller = _.max(Router, function(item) {
       return parseInt(item.count.length);
     });
     return Router;
+  };
+
+  CommonFloor.applyVillaClasses = function() {
+    return $('.villa').each(function(ind, item) {
+      var availability, id, unit;
+      id = parseInt(item.id);
+      unit = unitCollection.findWhere({
+        id: id
+      });
+      if (!_.isUndefined(unit)) {
+        availability = unit.get('availability');
+        availability = s.decapitalize(availability);
+        return $('#' + id).attr('class', 'layer villa ' + availability);
+      }
+    });
+  };
+
+  CommonFloor.applyPlotClasses = function() {
+    return $('.plot').each(function(ind, item) {
+      var availability, id, unit;
+      id = parseInt(item.id);
+      unit = unitCollection.findWhere({
+        id: id
+      });
+      if (!_.isUndefined(unit)) {
+        availability = unit.get('availability');
+        availability = s.decapitalize(availability);
+        return $('#' + id).attr('class', 'layer plot ' + availability);
+      }
+    });
   };
 
   CommonFloor.filter = function() {

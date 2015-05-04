@@ -22,6 +22,13 @@ class Unit extends Backbone.Model
 			type = 'apartment'
 			price = window.apartmentVariant.findUnitPrice(unit)
 			attributes = unitVariant.get('variant_attributes')
+		else if plotVariantCollection.get(unit.get('unit_variant_id')) != undefined
+			unitVariant = plotVariantCollection.findWhere
+								'id' : unit.get('unit_variant_id')
+			unitVariant.set 'super_built_up_area' , unitVariant.get 'size'
+			type = 'apartment'
+			price = window.plotVariant.findUnitPrice(unit)
+			attributes = unitVariant.get('variant_attributes')
 		unitType = unitTypeCollection.findWhere
 							'id' :  unitVariant.get('unit_type_id')
 		[unitVariant,unitType,type,price,attributes]

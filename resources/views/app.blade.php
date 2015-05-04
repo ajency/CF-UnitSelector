@@ -28,7 +28,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">
+                    <a class="navbar-brand" href="#" style="padding:6px!important;          ">
                         <img src="{{ asset('images/inner-header-logo.png') }}" class="logo" alt="" 
                                 data-src="{{ asset('images/inner-header-logo.png') }}"
                                 data-src-retina="{{ asset('images/logo2x.png') }}">

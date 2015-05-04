@@ -44,6 +44,7 @@ class BuildingMediaController extends Controller {
         if ($request->hasFile('file')) {
             $file = $request->file('file');
             $fileName = $file->getClientOriginalName();
+            $fileData = explode('.', $fileName);
             $newFilename = $fileName;
             $request->file('file')->move($targetDir, $newFilename);
         }
@@ -53,15 +54,12 @@ class BuildingMediaController extends Controller {
         $media->mediable_id = $buildingId;
         $media->mediable_type = 'CommonFloor\Building';
         $media->save();
-        $section = $request->get('section');
         $buildingMaster = $building->building_master;
-        if (strpos($section, '-') !== false) {
-            $sectionImages = $buildingMaster[$section];
-            $sectionImages[] = $media->id;
-            $buildingMaster[$section] = array_unique($sectionImages);
-        } else {
-            $buildingMaster[$section] = $media->id;
-        }
+        $file =  $fileData[0];
+        $fileArr = explode('-', $file);
+        $position = $fileArr[1];
+        
+        $buildingMaster[$position] = $media->id;
         $building->building_master = $buildingMaster;
         $building->save();
 
@@ -70,7 +68,9 @@ class BuildingMediaController extends Controller {
                     'message' => 'building added',
                     'data' => [
                         'media_id' => $media->id,
-                        'media_path' => url() . '/projects/' . $projectId . '/buildings/' . $buildingId . '/' . $newFilename
+                        'position' => $position,
+                        'filename' => $file,
+                        'image_path' => url() . '/projects/' . $projectId . '/buildings/' . $buildingId . '/' . $newFilename
                     ]
                         ], 201);
     }
@@ -115,28 +115,47 @@ class BuildingMediaController extends Controller {
 
         $type = Input::get('type');
         $refference = Input::get('refference');
+        $projectId = Input::get( 'projectId' );
 
         $building = Building::find($buildingId);
         $metaValue = $building->building_master;
+        $breakpoints = $building->breakpoints; 
         $data = [];
         
-        $masterTypes = ['front', 'left', 'back', 'right'];
-        $masterTypesMultipleImage = ['front-left', 'left-back', 'back-right', 'right-front'];
-        if (in_array($refference, $masterTypes)) {
-            $metaValue[$refference] = '';
-        } elseif (in_array($refference, $masterTypesMultipleImage)) {
-            $metaValueKey = array_search($id, $metaValue[$refference]);
-            unset($metaValue[$refference][$metaValueKey]);
-        }
-
+        $breakpoints = unserialize($breakpoints);
+        $breakpointKey = array_search ($refference, $breakpoints);
+        unset($breakpoints[$breakpointKey]);
+        $breakpoints = serialize($breakpoints);
+        
+        $metaValueKey = array_search ($id, $metaValue);
+        $metaValue[$metaValueKey]='';
+  
+        $building->breakpoints = $breakpoints;
         $building->building_master = $metaValue;
         $building->save();
-        Media::find($id)->delete();
+       
+        $media = Media::find( $id );
+        $targetDir = public_path() . "/projects/" . $projectId . "/buildings/" . $buildingId . "/".$media->image_name;
+        unlink($targetDir);
+        $media->delete();
 
         return response()->json([
                     'code' => 'media_deleted',
                     'message' => 'SVG Successfully Deleted'
                         ], 204);
+    }
+    
+     public function updateBreakPoint($buildingId)
+    {
+        $position = Input::get( 'position' ); 
+        $building = Building::find($buildingId);
+        $building->breakpoints = serialize($position);
+        $building->save(); 
+        
+         return response()->json( [
+            'code' => 'master_breakpoints',
+            'message' => 'Break Points Successfully Updated', 
+                ], 201 );
     }
 
 }

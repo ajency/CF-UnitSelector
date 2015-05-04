@@ -37,7 +37,6 @@
 
     BunglowListView.prototype.onShow = function() {
       var availability, classname, id, status;
-      console.log(unitTempCollection);
       id = this.model.get('id');
       availability = this.model.get('availability');
       status = s.decapitalize(availability);
@@ -49,14 +48,15 @@
       'mouseover': function(e) {
         var id;
         id = this.model.get('id');
+        $('.villa').attr('class', 'layer villa');
         $('#' + id + '.villa').attr('class', 'layer villa ' + this.model.get('status'));
         return $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status') + ' active');
       },
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
-        $('#' + id + '.villa').attr('class', 'layer villa');
-        return $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status'));
+        $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status'));
+        return CommonFloor.applyVillaClasses();
       },
       'click': function(e) {
         if (this.model.get('status') === 'available') {
@@ -78,7 +78,7 @@
       return MasterBunglowListView.__super__.constructor.apply(this, arguments);
     }
 
-    MasterBunglowListView.prototype.template = Handlebars.compile('<div class="col-md-3 us-left-content"> <div class="list-view-container w-map animated fadeInLeft"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings hidden">Buildings</li> <li class="prop-type Villas active ">Villas/Bungalows</li> <li class="prop-type Plots hidden">Plots</li> </ul> </div> <div class="advncd-filter-wrp  unit-list"> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <p class="text-center help-text">Hover on the units for more details</p> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> <ul class="units two"> </ul> </div> </div> </div>');
+    MasterBunglowListView.prototype.template = Handlebars.compile('<div class="col-xs-12 col-sm-12 col-md-3 us-left-content"> <div class="list-view-container w-map animated fadeIn"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings hidden">Buildings</li> <li class="prop-type Villas active ">Villas/Bungalows</li> <li class="prop-type Plots hidden">Plots</li> </ul> </div> <div class="advncd-filter-wrp  unit-list"> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <p class="text-center help-text">Hover on the units for more details</p> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> <ul class="units two"> </ul> <div class="clearfix"></div> </div> </div> </div>');
 
     MasterBunglowListView.prototype.childView = BunglowListView;
 
@@ -110,13 +110,32 @@
         return new CommonFloor.MasterBunglowListCtrl({
           region: this.region
         });
+      },
+      'click .Plots': function(e) {
+        var data, units;
+        units = plotVariantCollection.getPlotUnits();
+        data = {};
+        data.units = units;
+        data.type = 'plot';
+        this.region = new Marionette.Region({
+          el: '#leftregion'
+        });
+        return new CommonFloor.MasterPlotListCtrl({
+          region: this.region
+        });
       }
     };
 
     MasterBunglowListView.prototype.onShow = function() {
-      if (apartmentVariantCollection.length !== 0) {
-        return $('.buildings').removeClass('hidden');
+      if (buildingCollection.length !== 0) {
+        $('.buildings').removeClass('hidden');
       }
+      if (plotVariantCollection.length !== 0) {
+        $('.Plots').removeClass('hidden');
+      }
+      return $('.units').mCustomScrollbar({
+        theme: 'inset'
+      });
     };
 
     return MasterBunglowListView;

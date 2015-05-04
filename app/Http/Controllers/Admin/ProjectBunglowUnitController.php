@@ -38,13 +38,13 @@ class ProjectBunglowUnitController extends Controller {
         foreach($unitvariantArr as $unitvariant)
             $unitVariantIdArr[] =$unitvariant['id'];
         
-        $unitArr = Unit::whereIn('unit_variant_id',$unitVariantIdArr)->orderBy('unit_name')->get()->toArray();
+        $unitArr = Unit::whereIn('unit_variant_id',$unitVariantIdArr)->orderBy('unit_name')->get();
 
         return view('admin.project.listunit')
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
                         ->with('unit_arr', $unitArr)
-                        ->with('current', '');
+                        ->with('current', 'bunglow-unit');
     }
 
     /**
@@ -75,7 +75,7 @@ class ProjectBunglowUnitController extends Controller {
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
                         ->with('unit_variant_arr', $unitVariantArr)
-                        ->with('current', '');
+                        ->with('current', 'bunglow-unit');
     }
 
     /**
@@ -85,13 +85,19 @@ class ProjectBunglowUnitController extends Controller {
      */
     public function store($project_id, Request $request) {
         $unit = new Unit();
-        $unit->unit_name = $request->input('unit_name');
+        $unit->unit_name = ucfirst($request->input('unit_name'));
         $unit->unit_variant_id = $request->input('unit_variant');
         $unit->availability = $request->input('unit_status');
         $unit->save();
         $unitid = $unit->id;
-
-        return redirect("/admin/project/" . $project_id . "/bunglow-unit/" . $unitid . '/edit');
+        
+        $addanother = $request->input('addanother');
+        
+        if($addanother==1)
+            return redirect("/admin/project/" . $project_id . "/bunglow-unit/create");
+        else
+            return redirect("/admin/project/" . $project_id . "/bunglow-unit/" . $unitid . '/edit');
+        
     }
 
     /**
@@ -135,7 +141,7 @@ class ProjectBunglowUnitController extends Controller {
                         ->with('project_property_type', $propertyTypeArr)
                         ->with('unit_variant_arr', $unitVariantArr)
                         ->with('unit', $unit->toArray())
-                        ->with('current', '');
+                        ->with('current', 'bunglow-unit');
     }
 
     /**
@@ -146,12 +152,16 @@ class ProjectBunglowUnitController extends Controller {
      */
     public function update($project_id, $id, Request $request) {
         $unit = Unit::find($id);
-        $unit->unit_name = $request->input('unit_name');
+        $unit->unit_name = ucfirst($request->input('unit_name'));
         $unit->unit_variant_id = $request->input('unit_variant');
         $unit->availability = $request->input('unit_status');
         $unit->save();
-
-        return redirect("/admin/project/" . $project_id . "/bunglow-unit/" . $id . '/edit');
+        $addanother = $request->input('addanother');
+        
+        if($addanother==1)
+            return redirect("/admin/project/" . $project_id . "/bunglow-unit/create");
+        else
+            return redirect("/admin/project/" . $project_id . "/bunglow-unit/" . $id . '/edit');
     }
 
     /**

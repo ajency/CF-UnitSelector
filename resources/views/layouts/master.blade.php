@@ -17,7 +17,8 @@
         <link href="{{ asset('bower_components/datatables-responsive/css/dataTables.responsive.css') }}" rel="stylesheet" type="text/css" media="screen">
         <link href="{{ asset('bower_components/select2/select2.css') }}" rel="stylesheet" type="text/css" media="screen">
         <link href="{{ asset('bower_components/animate.css/animate.min.css') }}" rel="stylesheet" type="text/css"/>
-
+        <link href="{{ asset('bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset('bower_components/bootstrap-toggle/css/bootstrap-toggle.min.css') }}" rel="stylesheet" type="text/css"/>
 
         <link href="{{ asset('css/app.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('css/dashboard/style.css') }}" rel="stylesheet" type="text/css"/>
@@ -153,8 +154,8 @@
         <!-- BEGIN CORE JS FRAMEWORK--> 
         <script src="{{ asset('bower_components/lodash/lodash.js') }}"></script>
         <script src="{{ asset('bower_components/jquery/dist/jquery.js') }}"></script>
-        <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.js' ) }}"></script>
         <script src="{{ asset('bower_components/jquery-ui/jquery-ui.js' ) }}" type="text/javascript"></script> 
+        <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.js' ) }}"></script>
         <script src="{{ asset('bower_components/jquery-unveil/jquery.unveil.js' ) }}" type="text/javascript"></script> 
         <script src="{{ asset('bower_components/jquery.scrollbar/jquery.scrollbar.js' ) }}" type="text/javascript"></script>
         <script src="{{ asset('bower_components/pace/pace.js' ) }}" type="text/javascript"></script>  
@@ -168,6 +169,8 @@
         <script src="{{ asset('bower_components/jquery.breakpoints/breakpoints.js' ) }}" type="text/javascript"></script>
         <script src="{{ asset('bower_components/bootstrap-file-input/bootstrap.file-input.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bower_components/notifyjs/dist/notify-combined.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js' ) }}" type="text/javascript"></script>
+        <script src="{{ asset('bower_components/bootstrap-toggle/js/bootstrap-toggle.min.js' ) }}" type="text/javascript"></script>
         
         <script src="{{ asset('bower_components/DataTables/media/js/jquery.dataTables.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bower_components/datatables-tabletools/js/dataTables.tableTools.js' ) }}" type="text/javascript"></script>

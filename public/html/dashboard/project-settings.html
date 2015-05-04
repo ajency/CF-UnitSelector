@@ -237,7 +237,9 @@
 
                     <div class="grid simple">
 
-                        <div class="grid-title">
+                        <div class="grid-title" style="border-bottom: 1px solid #f68121 !important;">
+                        <div class="pull-right"><i class="fa fa-check text-success"></i></div>
+
                             <h3>Project <span class="semi-bold">Details</span></h3>
                         </div>
                         <div class="grid-body">
@@ -245,44 +247,59 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label class="form-label">City</label>
-                                            <input type="text" name="city" class="form-control" placeholder="City" value="Bangalore" disabled>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="form-label">CF Project Name</label>
-                                            <span class="help">From CommonFloor database</span>
-                                            <input type="text" name="cf_proj_name" class="form-control" disabled>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="form-label">Project Title<span class="text-primary">*</span></label>
-                                            <input type="text" class="form-control" placeholder="Enter Project Title" value="Goyal Footprints">
-                                        </div>
-
                                         <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label class="form-label">Project Logo</label>
-                                                    <div>
-                                                        <img src="../../images/demo/footprints_logo.jpg" class="img-responsive img-thumbnail"><br>
-                                                        <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
-                                                    </div>
-                                                    <!-- <div>
-                                                            <input type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
-                                                            <button type="button" class="btn btn-small btn-primary">Upload</button>
-                                                    </div> -->
-                                                </div>
+                                        <div class="col-md-3"
+                                            <label class="form-label">City</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                            <input type="text" name="city" class="form-control" placeholder="City" value="Bangalore" disabled>
                                             </div>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label class="form-label">Address<span class="text-primary">*</span></label>
-                                            <textarea class="form-control" placeholder="Enter Project Address">Near provident Harmony Apartments Thanisandra Main Road</textarea>
+                                        </div>
+                                          <div class="form-group">
+                                        <div class="row">
+                                        <div class="col-md-3"
+                                            <label class="form-label">CF Project Name</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                            <input type="text" name="cf_proj_name" class="form-control" disabled>
+                                            <span class="help">From CommonFloor database</span>
+                                            </div>
+                                        </div>
                                         </div>
 
                                         <div class="form-group">
+                                        <div class="row">
+                                        <div class="col-md-3">
+                                            <label class="form-label">Project Title<span class="text-primary">*</span></label>
+                                            </div>
+<div class="col-md-9">
+                                            <input type="text" class="form-control" placeholder="Enter Project Title" value="Goyal Footprints">
+                                        </div>
+                                        </div>
+                                        </div>
+
+                                     
+                                        <div class="form-group">
+                                        <div class="row">
+                                        <div class="col-md-3">
+                                            <label class="form-label">Address<span class="text-primary">*</span></label>
+                                            </div>
+                                            <div class="col-md-9">
+                                            <textarea class="form-control" placeholder="Enter Project Address">Near provident Harmony Apartments Thanisandra Main Road</textarea>
+                                            </div>
+                                        </div>
+                                        </div>
+   
+                                           
+                                            
+
+                                        <div class="form-group">
+                                        <div class="row">
+                                        <div class="col-md-3">
                                             <label class="form-label">Property types</label>
+                                            </div>
+                                            <div class="col-md-9">
                                             <select id="unit_types" class="select2 form-control" multiple>
                                                 <option>Apartments</option>
                                                 <option>Bungalows/Villas</option>
@@ -290,40 +307,49 @@
                                                 <option>Penthouse</option>
                                             </select>
                                         </div>
+                                         </div>
 
-                                        <div class="add-unit-types">
-                                            <h5 class="semi-bold inline">Unit Types for Apartments</h5>
-                                            <div class="form-inline m-b-10">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" value="2BHK">
-                                                    <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
-                                                </div>
-                                            </div>
-                                            <div class="form-inline m-b-10">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" value="3BHK">
-                                                    <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
-                                                </div>
-                                            </div>
-                                            <div class="form-inline">
-                                                <div class="form-group">
-                                                    <input type="text" class="form-control" placeholder="Add Unit Type">
-                                                    <button class="btn btn-white"><i class="fa fa-plus"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <div class="col-md-6">
+                                         </div>
 
                                         <div class="form-group">
+                                        <div class="row">
+                                        <div class="col-md-3">
                                             <label class="form-label">Project Status</label>
+                                            </div>
+                                            <div class="col-md-9">
                                             <select id="proj_status" class="select2 form-control">
                                                 <option>Published</option>
                                                 <option>Draft</option>
                                                 <option>Archived</option>
                                             </select>
                                         </div>
+                                        </div>
+                                        </div>
+     <div class="form-group">
+                                                <div class="grid simple">
+                                                <div class="row">
+                                                <div class="col-md-3">
+                                                    <label class="form-label">Project Logo</label>
+</div>
+<div class="col-md-9">
+                                                    <div class="grid-body text-center">
+                                                     <button class="btn btn-small btn-default pull-right"><i class="fa fa-trash"></i> Delete</button>
+
+                                                        <img src="../../images/demo/footprints_logo.jpg" class="img-responsive img-thumbnail"><br>
+                                                    </div>
+                                                    </div>
+                                                    <!-- <div>
+                                                            <input type="file" name="fileToUpload" class="btn btn-small" title="Select your file" data-filename-placement="inside"/>
+                                                            <button type="button" class="btn btn-small btn-primary">Upload</button>
+                                                    </div> -->
+                                                </div>
+                                                </div>
+                                                </div>
+                                        
+
+                                    </div>
+                                    <div class="col-md-6">
+
                                         <div class="user-description-box">
                                             <div class="row">
                                                 <div class="col-sm-8">
@@ -341,9 +367,162 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="add-unit-types">
+                                        <div class="row m-b-15">
+                                            <div class="col-md-6">
+                                                <div class="grid-body">
+                                        <h5 class="semi-bold inline">Unit Types for Apartments</h5>
+                                         <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-original-title="Enter BHK Type for the Property(e.g 2BHK, 3BHK)"></i>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" value="2BHK">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                    <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
+                                                </div>
+                                                </div>
+                                                </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" value="3BHK">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                    <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
+                                                </div>
+                                                </div>
+                                                </div>
+                                             <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-9">
+                                                  <input type="text" class="form-control" placeholder="Add Unit Type">
+                                                  </div>
+                                                  <div class="col-md-3">
+                                                    <button class="btn btn-white" type="button"><i class="fa fa-plus" data-toggle="tooltip" data-placement="right" title="Click to Add"></i></button>
+                                                 </div>
+                                                </div>
+                                                </div>
+                                             </div>
+                                             </div>
+                                    <div class="col-md-6">
+                                         <div class="grid-body">
+                                        <h5 class="semi-bold inline">Unit Types for Bunglows/Villa</h5>
+                                         <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-original-title="Enter BHK Type for the Property(e.g 2BHK, 3BHK)"></i>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" value="2BHK">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                    <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
+                                                </div>
+                                                </div>
+                                                </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" value="3BHK">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                    <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
+                                                </div>
+                                                </div>
+                                                </div>
+                                            <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-9">
+                                                  <input type="text" class="form-control" placeholder="Add Unit Type">
+                                                  </div>
+                                                  <div class="col-md-3">
+                                                    <button class="btn btn-white" type="button"><i class="fa fa-plus" data-toggle="tooltip" data-placement="right" title="Click to Add"></i></button>
+                                                 </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                         </div>
+                                            </div>
+                                            <div class="row">
+                                                 <div class="col-md-6">
+                                                    <div class="grid-body">
+                                        <h5 class="semi-bold inline">Unit Types for Plot</h5>
+                                         <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-original-title="Enter BHK Type for the Property(e.g 2BHK, 3BHK)"></i>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" value="2BHK">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                    <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
+                                                </div>
+                                                </div>
+                                                </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" value="3BHK">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                    <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
+                                                </div>
+                                                </div>
+                                                </div>
+                                            <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-9">
+                                                  <input type="text" class="form-control" placeholder="Add Unit Type">
+                                                  </div>
+                                                  <div class="col-md-3">
+                                                    <button class="btn btn-white" type="button"><i class="fa fa-plus" data-toggle="tooltip" data-placement="right" title="Click to Add"></i></button>
+                                                 </div>
+                                                </div>
+                                                </div>
+                                                </div>
+                                         </div>
+                                          <div class="col-md-6">
+                                            <div class="grid-body">
+                                        <h5 class="semi-bold inline">Unit Types for Penthouse</h5>
+                                        <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-original-title="Enter BHK Type for the Property(e.g 2BHK, 3BHK)"></i>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" value="2BHK">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                    <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
+                                                </div>
+                                                </div>
+                                                </div>
+                                            <div class="form-group">
+                                                <div class="row">
+                                                <div class="col-md-9">
+                                                    <input type="text" class="form-control" value="3BHK">
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                    <button class="btn btn-small btn-default m-t-5"><i class="fa fa-trash"></i> Delete</button>
+                                                </div>
+                                                </div>
+                                                </div>
+                                            
+                                           
+                                                <div class="form-group">
+                                                    <div class="row">
+                                                        <div class="col-md-9">
+                                                  <input type="text" class="form-control" placeholder="Add Unit Type">
+                                                  </div>
+                                                  <div class="col-md-3">
+                                                    <button class="btn btn-white" type="button"><i class="fa fa-plus" data-toggle="tooltip" data-placement="right" title="Click to Add"></i></button>
+                                                 </div>
+                                                </div>
+                                                </div>
+                                             </div>
+                                         </div>
+                                         </div>
+                                            </div>
+                                        </div>
                                 <div class="form-actions">  
                                     <div class="pull-right">
-                                        <button type="submit" class="btn btn-primary btn-cons">Save</button>
+                                        <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
                                     </div>
                                 </div>
                             </form>
@@ -352,25 +531,40 @@
 
                 
 
-
+<di class="row">
+<div class="col-md-6">
                     <div class="grid simple">
 
-                        <div class="grid-title">
+                        <div class="grid-title" style="border-bottom: 1px solid #f68121 !important;">
+<div class="pull-right"><i class="fa fa-check text-success"></i></div>
                             <h3>Project <span class="semi-bold">Phases</span></h3>
                         </div>
                         <div class="grid-body">
                             <form>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-inline">
+                               
+                                    
+                                       
                                             <div class="form-group">
-                                                <input type="text" class="form-control" placeholder="Add Phase">
-                                                <button class="btn btn-white"><i class="fa fa-plus"></i></button>
+                                            <div clas="row">
+                                            <div class="col-md-3">
+                                            <label class="form-label">Add Phase</label>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <div class="p-t-5">
+                                             <div class="col-md-9">
+                                                 <div class="input-group">
+      
+      <input type="text" class="form-control" placeholder="Add Phase">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button"><i class="fa fa-plus"></i></button>
+      </span>
+    </div>
+                                            </div>
+                                            </div>
+                                            </div>
+                                        
+                                    <div clas="row">
+                                    <div class="col-md-3"></div>
+                                   <div class="col-md-9">
+                                        <div class="p-t-10">
                                             <div class="pull-left m-r-10">
                                                 <strong>Phase 1</strong><button class="btn btn-small btn-link"><span class="fa fa-times text-danger"></span></button>
                                             </div>
@@ -382,15 +576,19 @@
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
+                                        </div>
                                     </div>
-                                </div>
+                              
                             </form>
                         </div>
                     </div>
-
+</div>
+<div class="col-md-6">
                     <div class="grid simple">
 
-                        <div class="grid-title">
+                        <div class="grid-title" style="border-bottom: 1px solid #f68121 !important;">
+                        <div class="pull-right"><i class="fa fa-check text-success"></i></div>
+
                             <h3>Project <span class="semi-bold">Costs</span></h3>
                         </div>
                         <div class="grid-body">
@@ -494,13 +692,14 @@
                                 </div>
                                 <div class="form-actions">  
                                     <div class="pull-right">
-                                        <button type="submit" class="btn btn-primary btn-cons">Save</button>
+                                        <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
                                     </div>
                                 </div>
                             </form>
                         </div>
                     </div>
-
+                    </div>
+</di>div>
                     <!-- <div class="row">
                             <div class="col-sm-6">					
                                     <div class="grid simple">

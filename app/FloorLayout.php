@@ -9,11 +9,7 @@ class FloorLayout extends Model {
     public function svgs() {
         return $this->morphMany( 'CommonFloor\Media', 'mediable' );
     }
-
-    public function projectPropertyType() {
-        return $this->belongsTo( 'CommonFloor\ProjectPropertyType' );
-    }
-
+ 
     public function detailedSvg() {
         return $this->hasOne( 'CommonFloor\Media', 'id', 'detailed_svg' );
     }
@@ -23,11 +19,11 @@ class FloorLayout extends Model {
     }
 
     public function getDetailedSvgPath() {
-        return $this->detailedSvg->getFullPath( $this->projectPropertyType->project_id );
+        return $this->detailedSvg->getFullPath( $this->project_id );
     }
 
     public function getBasicSvgPath() {
-        return $this->basicSvg->getFullPath( $this->projectPropertyType->project_id );
+        return $this->basicSvg->getFullPath( $this->project_id );
     }
 
     public function hasDetailedSvg() {

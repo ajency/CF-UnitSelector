@@ -38,7 +38,7 @@
         buildingModel = buildingCollection.findWhere({
           'id': id
         });
-        if (buildingModel.get('building_master').front === "") {
+        if (Object.keys(buildingModel.get('building_master')).length === 0) {
           CommonFloor.navigate('/building/' + id + '/apartments', true);
           return CommonFloor.router.storeRoute();
         } else {
@@ -91,17 +91,28 @@
         return new CommonFloor.VillaListCtrl({
           region: this.region
         });
+      },
+      'click .Plots': function(e) {
+        var data, units;
+        units = plotVariantCollection.getPlotUnits();
+        data = {};
+        data.units = units;
+        data.type = 'plot';
+        this.region = new Marionette.Region({
+          el: '#centerregion'
+        });
+        return new CommonFloor.VillaListCtrl({
+          region: this.region
+        });
       }
     };
 
     BuildingListView.prototype.onShow = function() {
-      if (project.get('project_master').front === "") {
-        $('.map-View').hide();
-      } else {
-        $('.map-View').show();
-      }
       if (bunglowVariantCollection.length !== 0) {
-        return $('.Villas').removeClass('hidden');
+        $('.Villas').removeClass('hidden');
+      }
+      if (plotVariantCollection.length !== 0) {
+        return $('.Plots').removeClass('hidden');
       }
     };
 

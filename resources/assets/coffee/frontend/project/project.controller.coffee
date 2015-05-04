@@ -24,7 +24,7 @@ class CommonFloor.ProjectCtrl extends Marionette.RegionController
 class TopView extends Marionette.ItemView
 
 	#template
-	template : Handlebars.compile('<div class="col-md-12 col-xs-12 col-sm-12">
+	template : Handlebars.compile('<div class="col-md-12 col-xs-12 col-sm-12 animated fadeIn">
 					<div class="search-header-wrap">
 					  <h1 class="pull-left">{{i10n "explore"}} {{project_title}}</h1>
 					  <!--<div class="pull-right">
@@ -56,51 +56,49 @@ class CommonFloor.TopCtrl extends Marionette.RegionController
 #View for the left view of Project
 class LeftView extends Marionette.ItemView
 	#template
-	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
+	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content animated fadeIn">
 										<div class="filters-wrapper">
-										  	<div class="tab-main-container">                
-												<div class="blck-wrap">
-												  <h3><strong>{{i10n "project_by"}}</strong></h3>
-												  <img src="{{logo}}" class="img-responsive builder-logo">
-												</div>
-												<div class="proj-details blck-wrap no-hover">
-												  <h3><strong>{{i10n "project_details"}}</strong></h3>
-													<div class="">
-												  	<span class="icon-map-marker"></span>
-												  	<strong>Address: </strong><br>
-													   {{address}}
-													</div>
-												
-
-											  	<div class="detail-pts">
-												{{#propertyTypes}}
-														<h4 class="m-b-5 m-t-0 text-primary">{{prop_type}}</h4>
-														<!--  <span>{{i10n "project_type"}}:</span> {{prop_type}}
-														<p>
-														  <span>{{i10n "starting_area"}}:</span> {{starting_area}} Sq.Ft.
-														</p>-->
-														<p>
-														  <span>{{i10n "unit_types"}}:</span> {{unit_types}}
-														</p>
-														<!--<p>
-														  <span>Available:</span> {{#availability}}
-														  {{count}}	{{status}} 
-														  {{/availability}}
-														</p>-->
-														<!--<p>
-														  <span>{{i10n "starting_price"}}:</span>  {{starting_price}}
-														</p>-->
-												{{/propertyTypes}}
-													</div>
-												</div>
-					
-												<div class="blck-wrap">
-												  	<div class="text-center">
-														<img src="../images/marker-img.png" class="img-responsive marker-img">
-														{{i10n "know_your_neighbour"}}
-													</div>
-											  	</div>
+											<div class="blck-wrap">
+											  <h3><strong>{{i10n "project_by"}}</strong></h3>
+											  <img src="{{logo}}" class="img-responsive builder-logo">
 											</div>
+											<div class="proj-details blck-wrap no-hover">
+											  <h3><strong>{{i10n "project_details"}}</strong></h3>
+												<div class="">
+											  	<span class="icon-map-marker"></span>
+											  	<strong>Address: </strong><br>
+												   {{address}}
+												</div>
+											
+
+										  	<div class="detail-pts">
+											{{#propertyTypes}}
+													<h4 class="m-b-5 m-t-0 text-primary">{{prop_type}}</h4>
+													<!--  <span>{{i10n "project_type"}}:</span> {{prop_type}}
+													<p>
+													  <span>{{i10n "starting_area"}}:</span> {{starting_area}} Sq.Ft.
+													</p>-->
+													<p>
+													  <span>{{i10n "unit_types"}}:</span> {{unit_types}}
+													</p>
+													<!--<p>
+													  <span>Available:</span> {{#availability}}
+													  {{count}}	{{status}} 
+													  {{/availability}}
+													</p>-->
+													<!--<p>
+													  <span>{{i10n "starting_price"}}:</span>  {{starting_price}}
+													</p>-->
+											{{/propertyTypes}}
+												</div>
+											</div>
+				
+											<div class="blck-wrap">
+											  	<div class="text-center">
+													<img src="../images/marker-img.png" class="img-responsive marker-img">
+													{{i10n "know_your_neighbour"}}
+												</div>
+										  	</div>
 										</div>
 									</div>')
 
@@ -136,8 +134,8 @@ class CommonFloor.LeftCtrl extends Marionette.RegionController
 #View for the center view of Project
 class CenterView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="col-md-9 us-right-content">
-					<div class="svg-area width="350" height="525" id="prImage-2" title="" alt="" 
+	template : Handlebars.compile('<div class="col-md-9 us-right-content animated fadeIn">
+					<div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" 
 						data-nodebug="" data-alwaysprocess="" 
 						data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" 
 						class="primage fill-width">
@@ -147,11 +145,19 @@ class CenterView extends Marionette.ItemView
 
 	events:
 		'click .step1-marker':(e)->
-			CommonFloor.checkPropertyType()
+			# $('svg').addClass 'zoom'
+			$('svg').attr('class' ,'zoom') 
+			$('.search-left-content').addClass 'animated fadeOut'
+			setTimeout( (x)->
+				CommonFloor.checkPropertyType()
+			, 250)			
 			
 	onShow:->
+		# $('.svg-area').lazyLoadXT()
 		path = @model.get('step_one').svg
 		$('.svg-area').load(path)
+
+		
 
 #Controller for the cneter view of Project
 class CommonFloor.CenterCtrl extends Marionette.RegionController

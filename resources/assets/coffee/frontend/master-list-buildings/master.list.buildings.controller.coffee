@@ -16,7 +16,7 @@ class ListItemView extends Marionette.ItemView
 					                        {{/types}}
 						                   </ul>
 					                      <span class="area {{areaname}}">{{area}} Sq.Ft</span>
-					                      <div class="price {{classname}}">From <span>Rs.{{price}}</span></div>
+					                      <div class="price {{classname}}">From <span>{{price}}</span></div>
 											</ul>
 										 </div>')
 
@@ -45,7 +45,9 @@ class ListItemView extends Marionette.ItemView
 		if cost == 0
 			data.classname = 'hidden'
 		console.log data.classname
-		data.price = window.numDifferentiation(cost)
+		# data.price = window.numDifferentiation(cost)
+		window.convertRupees(cost)
+		data.price = $('#price').val()
 		data.floors = Object.keys(floors).length
 		data.types = types
 		data
@@ -69,7 +71,7 @@ class ListItemView extends Marionette.ItemView
 				return
 			buildingModel = buildingCollection.findWhere
 							'id' : id
-			if buildingModel.get('building_master').front == ""
+			if Object.keys(buildingModel.get('building_master')).length == 0
 				CommonFloor.navigate '/building/'+id+'/apartments' , true
 				CommonFloor.router.storeRoute()
 			else
@@ -79,31 +81,31 @@ class ListItemView extends Marionette.ItemView
 #view for list of buildings : Collection
 class MasterBuildingListView extends Marionette.CompositeView
 
-	template : Handlebars.compile('<div class="col-md-3 us-left-content">
-			<div class="list-view-container w-map animated fadeInLeft">
-			<!--<div class="controls map-View">
-	            <div class="toggle">
-	            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
-	            </div>
-            </div>-->
-			<div class="text-center">
-              <ul class="prop-select">
+	template : Handlebars.compile('<div class="col-xs-12 col-sm-12 col-md-3 us-left-content">
+										<div class="list-view-container w-map animated fadeIn">
+										<!--<div class="controls map-View">
+								            <div class="toggle">
+								            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
+								            </div>
+							            </div>-->
+										<div class="text-center">
+							              <ul class="prop-select">
 
-                <li class="prop-type buildings active">Buildings</li>
-                <li class="prop-type Villas hidden">Villas/Bungalows</li>
+							                <li class="prop-type buildings active">Buildings</li>
+							                <li class="prop-type Villas hidden">Villas/Bungalows</li>
 
-                <li class="prop-type Plots hidden">Plots</li>
-              </ul>
-            </div>
-			<div class="bldg-list">
-			<p class="text-center help-text">Hover on the buildings for more details</p>
-			  	<ul class="units one">				
-				
-			  	</ul>
-			  	<div class="clearfix"></div>
-			</div>
-			</div>
-		  </div>')
+							                <li class="prop-type Plots hidden">Plots</li>
+							              </ul>
+							            </div>
+										<div class="bldg-list">
+										<p class="text-center help-text">Hover on the buildings for more details</p>
+										  	<ul class="units one">				
+											
+										  	</ul>
+										  	<div class="clearfix"></div>
+										</div>
+										</div>
+									  </div>')
 
 	childView : ListItemView
 
@@ -130,10 +132,25 @@ class MasterBuildingListView extends Marionette.CompositeView
 			new CommonFloor.MasterBunglowListCtrl region : @region
 			# MasterBuildingListCtrl@trigger "load:units" , data
 
+		'click .Plots':(e)->
+			units = plotVariantCollection.getPlotUnits()
+			data = {}
+			data.units = units
+			data.type = 'plot'
+			@region =  new Marionette.Region el : '#leftregion'
+			new CommonFloor.MasterPlotListCtrl region : @region
+			# @trigger "load:units" , data
+
 
 	onShow:->
 		if bunglowVariantCollection.length != 0
 			$('.Villas').removeClass 'hidden'
+
+		if plotVariantCollection.length != 0
+			$('.Plots').removeClass 'hidden'
+			
+		$('.units').mCustomScrollbar
+			theme: 'inset'
 
 
 

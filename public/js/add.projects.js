@@ -86,8 +86,9 @@
     };
     registerRemovePhaseListener();
     $('.add-phase-btn').click(function() {
-      var phaseName, successFn;
+      var objectType, phaseName, successFn;
       phaseName = $('.phase-name').val();
+      objectType = $('div.object-phases').attr('data-object-type');
       if (phaseName === '') {
         alert('Please enter phase name');
         return;
@@ -97,8 +98,13 @@
         if (xhr.status === 201) {
           $('.phase-name').val('');
           phaseId = resp.data.phase_id;
-          phasesContainer = $('.phases');
-          html = '<div class="pull-left m-r-10"> <strong>{{ phase_name }}</strong> <button type="button" data-phase-id="{{ phase_id }}" class="btn btn-small btn-link remove-phase"> <span class="fa fa-times text-danger"></span></button> </div>';
+          if (objectType === 'building') {
+            phasesContainer = $('select[name="phase_id"]');
+            html = '<option value="{{ phase_id }}">{{ phase_name }}</option>';
+          } else {
+            phasesContainer = $('.phases');
+            html = '<div class="pull-left m-r-10"> <strong>{{ phase_name }}</strong> <button type="button" data-phase-id="{{ phase_id }}" class="btn btn-small btn-link remove-phase"> <span class="fa fa-times text-danger"></span></button> </div>';
+          }
           compile = Handlebars.compile(html);
           phasesContainer.append(compile({
             phase_name: phaseName,
@@ -236,6 +242,7 @@
       }
       $(this).closest('.row').find('.select-floor').removeClass('hidden');
       floorSelection.empty();
+      floorSelection.append("<option value=''>Select floor</option>");
       results = [];
       for (i = j = 0, ref = noOfFloors; 0 <= ref ? j < ref : j > ref; i = 0 <= ref ? ++j : --j) {
         results.push(floorSelection.append("<option value='" + (i + 1) + "'>" + (i + 1) + "</option>"));
@@ -255,7 +262,7 @@
         success: function(resp) {}
       });
     });
-    return $('.update-response-table').click(function() {
+    $('.update-response-table').click(function() {
       var projectId;
       projectId = $(this).attr('data-p-id');
       return $.ajax({
@@ -264,6 +271,10 @@
         success: function(resp) {}
       });
     });
+    $('[data-toggle="tooltip"]').tooltip({
+      animation: false
+    });
+    return $('[data-toggle="popover"]').popover();
   });
 
 }).call(this);

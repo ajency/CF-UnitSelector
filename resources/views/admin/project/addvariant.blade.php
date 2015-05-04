@@ -3,9 +3,11 @@
 @section('breadcrumb')
 <!-- BEGIN BREADCRUMBS -->
 <ul class="breadcrumb">
-    <li><a href="/admin">Dashboard</a> </li>
-    <li><a href="/admin/project">Projects</a> </li>
-    <li><a href="#" class="active">Add Unit Variant</a> </li>
+    <li><a href="{{ url( 'admin/') }}">Dashboard</a> </li>
+    <li><a href="{{ url( 'admin/project/') }}">Projects</a> </li>
+    <li><a href="{{ url( 'admin/project/' . $project['id'].'/edit') }}">{{ $project['project_title'] }}</a> </li>
+    <li><a href="#">Villa Variants</a> </li>
+    <li><a href="#" class="active">Add Unit Variants</a> </li>
 </ul>
 <!-- END BREADCRUMBS -->
 @endsection
@@ -46,7 +48,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Carpet Area</label>
-                        <input type="text" class="form-control" name="carpet_area" value="" placeholder="Enter Carpet Area">
+                        <input type="text" class="form-control" name="carpet_area" value="" placeholder="Enter Carpet Area" data-parsley-required data-parsley-type="number">
                     </div> 
                 </div>
              
@@ -57,19 +59,19 @@
                   <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Built Up Area</label>
-                        <input type="text" class="form-control" name="builtup_area" value="" placeholder="Enter Built Up Area">
+                        <input type="text" class="form-control" name="builtup_area" value="" placeholder="Enter Built Up Area" data-parsley-required data-parsley-type="number">
                     </div> 
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Super Built Up Area</label>
-                        <input type="text" class="form-control" name="superbuiltup_area" value="" placeholder="Enter Super Built Up Area">
+                        <input type="text" class="form-control" name="superbuiltup_area" value="" placeholder="Enter Super Built Up Area" data-parsley-required data-parsley-type="number">
                     </div> 
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Per sq ft Price</label>
-                        <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price">
+                        <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
                     </div> 
                 </div>
                 @foreach($project_property_type_attributes as $attributes)
@@ -110,7 +112,7 @@
             <div class="form-actions">  
                 <div class="pull-right">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-                    <button type="submit" class="btn btn-primary btn-cons">Save</button>
+                    <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
                 </div>
             </div>
         </form>

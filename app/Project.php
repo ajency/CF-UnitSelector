@@ -19,6 +19,10 @@ class Project extends Model {
     public function projectMeta() {
         return $this->hasMany( 'CommonFloor\ProjectMeta' );
     }
+    
+    public function floorLayout() {
+        return $this->hasMany( 'CommonFloor\FloorLayout' );
+    }
 
     public function projectJson() {
         return $this->hasMany( 'CommonFloor\ProjectJson' );
@@ -64,24 +68,16 @@ class Project extends Model {
 
     public function getProjectMasterImages() {
         $masterValue = $this->projectMeta()->where( 'meta_key', 'master' )->get()->first()->meta_value;
-        $svgImages = unserialize( $masterValue );
-
-        foreach ($svgImages as $key => $images) {
-            if (is_array( $images )) {
-                $transitionImages = [];
-                foreach ($images as $image) {
-                    $imageName = Media::find( $image )->image_name;
-                    $transitionImages[] = url() . "/projects/" . $this->id . "/master/" . $imageName;
-                }
-                $svgImages[$key] = $transitionImages;
-            } else {
-                if (is_numeric( $images )) {
-                    $imageName = Media::find( $images )->image_name;
-                    $svgImages[$key] = url() . "/projects/" . $this->id . "/master/" . $imageName;
-                }
+        $masterImages = unserialize( $masterValue );
+        $Images =[];
+        if(!empty($masterImages))
+        {
+            foreach ($masterImages as $key => $images) {
+                $imageName = Media::find($images)->image_name;
+                $Images[] = url() . "/projects/" .  $this->id . "/master/" . $imageName;
             }
         }
-        return $svgImages;
+        return $Images;
     }
 
     public function getCFProjectStatus() {
@@ -109,7 +105,7 @@ class Project extends Model {
                 $data[$property['meta_key']][] = $property['meta_value'];
             }
             $data[$property['meta_key']] = $property['meta_value'];
-        }
+        } 
         return $data;
     }
 

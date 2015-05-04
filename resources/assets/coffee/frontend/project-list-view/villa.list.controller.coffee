@@ -92,16 +92,22 @@ class VillaView extends Marionette.CompositeView
 			@region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.VillaListCtrl region : @region
 			# @trigger "load:units" , data
+
+		'click .Plots':(e)->
+			units = plotVariantCollection.getPlotUnits()
+			data = {}
+			data.units = units
+			data.type = 'plot'
+			@region =  new Marionette.Region el : '#centerregion'
+			new CommonFloor.VillaListCtrl region : @region
+			# @trigger "load:units" , data
 			
 
 	onShow:->
-		if project.get('project_master').front  == ""
-			$('.map-View').hide()
-		else
-			$('.map-View').show()
-
 		if apartmentVariantCollection.length != 0
 			$('.buildings').removeClass 'hidden'
+		if plotVariantCollection.length != 0
+			$('.Plots').removeClass 'hidden'
 		
 
 #controller for the listing all the villas

@@ -37,21 +37,27 @@ class BunglowListView extends Marionette.ItemView
 		availability = @model.get('availability')
 		status = s.decapitalize(availability)
 		classname =  $('#unit'+id).attr('class')
-		if _.isUndefined(unitTempCollection.get(@model.get('id')))
-			$('#unit'+id).attr('class' , classname+' '+status)
-		else
-			$('#unit'+id).attr('class' , classname+' not_in_selection)
+		$('#unit'+id).attr('class' , classname+' '+status)
+		# $('#'+id).attr('class' ,'layer villa  '+ status) 
+		# @iniTooltip()
+
+	
+
 
 	events:
 
 		'mouseover' :(e)->
 			id = @model.get('id')
+			$('.villa').attr('class','layer villa')
 			$('#'+id+'.villa').attr('class' ,'layer villa '+@model.get('status'))
 			$('#unit'+id).attr('class' ,'unit blocks'+' '+@model.get('status')+' active')
+			
+			
 		'mouseout':(e)->
 			id = @model.get('id')
-			$('#'+id+'.villa').attr('class' ,'layer villa')
+			# $('#'+id+'.villa').attr('class' ,'layer villa')
 			$('#unit'+id).attr('class' , 'unit blocks'+' '+@model.get('status'))
+			CommonFloor.applyVillaClasses()
 
 		'click' :(e)->
 			if @model.get('status') == 'available'
@@ -64,48 +70,50 @@ class BunglowListView extends Marionette.ItemView
 #view for list of bungalows : Collection
 class MasterBunglowListView extends Marionette.CompositeView
 
-	template : Handlebars.compile('<div class="col-md-3 us-left-content">
-									<div class="list-view-container w-map animated fadeInLeft">
-										<!--<div class="controls map-View">
-											<div class="toggle">
-												<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
-											</div>
-										</div>-->
-										<div class="text-center">
-										  <ul class="prop-select">
 
-											<li class="prop-type buildings hidden">Buildings</li>
-											<li class="prop-type Villas active ">Villas/Bungalows</li>
+	template : Handlebars.compile('<div class="col-xs-12 col-sm-12 col-md-3 us-left-content">
+									<div class="list-view-container w-map animated fadeIn">
+							            <!--<div class="controls map-View">
+								            <div class="toggle">
+								            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
+								            </div>
+							            </div>-->
+							            <div class="text-center">
+							              <ul class="prop-select">
 
+							                <li class="prop-type buildings hidden">Buildings</li>
+							                <li class="prop-type Villas active ">Villas/Bungalows</li>
 											<li class="prop-type Plots hidden">Plots</li>
-										  </ul>
-										</div>
-										<div class="advncd-filter-wrp  unit-list">
-											<div class="legend clearfix">
-											  <ul>
-												<li class="available">AVAILABLE</li>
-												<li class="sold">SOLD</li>
-												<li class="blocked">BLOCKED</li>
-												<li class="na">N/A</li>
-											  </ul>
-											</div>
+							              </ul>
+							            </div>
+							            <div class="advncd-filter-wrp  unit-list">
+							            	<div class="legend clearfix">
+							            	  <ul>
+							            	    <li class="available">AVAILABLE</li>
+							            	    <li class="sold">SOLD</li>
+							            	    <li class="blocked">BLOCKED</li>
+							            	    <li class="na">N/A</li>
+							            	  </ul>
+							            	</div>
 
-											<p class="text-center help-text">Hover on the units for more details</p>
+							            	<p class="text-center help-text">Hover on the units for more details</p>
 											<!--<div class="blck-wrap title-row">
-												<div class="row">
-													<div class="col-sm-4">
-													  <h5 class="accord-head">Villa No</h5>                      
-													</div>
-													<div class="col-sm-4">
-													  <h5 class="accord-head">Type</h5>                      
-													</div>
-													<div class="col-sm-4">
-													  <h5 class="accord-head">Area</h5>                      
-													</div>
-												</div>
-											</div>-->
-											<ul class="units two">
-											</ul>
+				                  				<div class="row">
+								                    <div class="col-sm-4">
+								                      <h5 class="accord-head">Villa No</h5>                      
+								                    </div>
+								                    <div class="col-sm-4">
+								                      <h5 class="accord-head">Type</h5>                      
+								                    </div>
+								                    <div class="col-sm-4">
+								                      <h5 class="accord-head">Area</h5>                      
+								                    </div>
+				                  				</div>
+				                			</div>-->
+							                <ul class="units two">
+							                </ul>
+							                <div class="clearfix"></div>
+
 										</div>
 									</div>
 								   </div>')
@@ -137,11 +145,25 @@ class MasterBunglowListView extends Marionette.CompositeView
 			new CommonFloor.MasterBunglowListCtrl region : @region
 			# @trigger "load:units" , data
 
+		'click .Plots':(e)->
+			units = plotVariantCollection.getPlotUnits()
+			data = {}
+			data.units = units
+			data.type = 'plot'
+			@region =  new Marionette.Region el : '#leftregion'
+			new CommonFloor.MasterPlotListCtrl region : @region
+			# @trigger "load:units" , data
 			
 
 	onShow:->
-		if apartmentVariantCollection.length != 0
+		if buildingCollection.length != 0
 			$('.buildings').removeClass 'hidden'
+		if plotVariantCollection.length != 0
+			$('.Plots').removeClass 'hidden'
+		
+
+		$('.units').mCustomScrollbar
+			theme: 'inset'
 		
 
 #controller for the Center region

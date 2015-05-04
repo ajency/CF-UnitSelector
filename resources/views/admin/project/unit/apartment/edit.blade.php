@@ -3,8 +3,10 @@
 @section('breadcrumb')
 <!-- BEGIN BREADCRUMBS -->
 <ul class="breadcrumb">
-    <li><a href="/admin">Dashboard</a> </li>
-    <li><a href="/admin/project">Projects</a> </li>
+    <li><a href="{{ url( 'admin/') }}">Dashboard</a> </li>
+    <li><a href="{{ url( 'admin/project/') }}">Projects</a> </li>
+    <li><a href="{{ url( 'admin/project/' . $project['id'].'/edit') }}">{{ $project['project_title'] }}</a> </li>
+    <li><a href="#"> Unit</a> </li>
     <li><a href="#" class="active">Edit Unit</a> </li>
 </ul>
 <!-- END BREADCRUMBS -->
@@ -19,11 +21,11 @@
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
 <div class="grid simple">
     <div class="grid-title">
-        <h3>Apartment <span class="semi-bold">Unit Details</span></h3>
+        <h3>Unit <span class="semi-bold"> Details</span></h3>
     </div>
 
     <div class="grid-body">
-        <form action="{{ url('/admin/project/' . $project['id'] .'/apartment-unit/'.$unit['id']) }}" method="POST" data-parsley-validate>
+        <form action="{{ url('/admin/project/' . $project['id'] .'/apartment-unit/'.$unit['id']) }}" method="POST" data-parsley-savwlidate>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -81,9 +83,11 @@
             </div>
             <div class="form-actions">  
                 <div class="pull-right">
+                    <input type="hidden" id="addanother" name="addanother" value="">
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-                    <button type="submit" class="btn btn-primary btn-cons">Save</button>
+                    <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
+                    <button type="button" onclick="saveAndAddAnother();" class="btn btn-default btn-cons">Save And Add Another</button>
                 </div>
             </div>
         </form>

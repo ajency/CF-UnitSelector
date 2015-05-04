@@ -3,10 +3,11 @@
 @section('breadcrumb')
 <!-- BEGIN BREADCRUMBS -->
 <ul class="breadcrumb">
-    <li><a href="/admin">Dashboard</a> </li>
-    <li><a href="/admin/project">Projects</a> </li>
+    <li><a href="{{ url( 'admin/') }}">Dashboard</a> </li>
+    <li><a href="{{ url( 'admin/project/') }}">Projects</a> </li>
+    <li><a href="{{ url( 'admin/project/' . $project['id'].'/edit') }}">{{ $project['project_title'] }}</a> </li>
     <li><a href="#">Buildings</a> </li>
-    <li><a href="#" class="active">View</a> </li>
+    <li><a href="#" class="active">View Buildings</a> </li>
 </ul>
 <!-- END BREADCRUMBS -->
 @endsection

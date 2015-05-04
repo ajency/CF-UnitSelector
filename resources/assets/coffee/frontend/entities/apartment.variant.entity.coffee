@@ -22,9 +22,6 @@ class ApartmentVariant extends Backbone.Model
 
 class ApartmentVariantCollection extends Backbone.Collection
 	model : ApartmentVariant
-	#url to fetch Apartment Variants
-	
-
 	#set attributes of a Apartment Variant model
 	setApartmentVariantAttributes:(data)->
 
