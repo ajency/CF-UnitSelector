@@ -37,7 +37,7 @@
       return NoUnitsView.__super__.constructor.apply(this, arguments);
     }
 
-    NoUnitsView.prototype.template = '<div><div class="col-xs-12 col-sm-12 col-md-3 us-left-content"> <div class="list-view-container w-map animated fadeIn"></div> No units </div></div>';
+    NoUnitsView.prototype.template = '<div><div class="col-xs-12 col-sm-12 col-md-3 us-left-content"> <div class="list-view-container w-map animated fadeIn"></div> No units matching the selection </div></div>';
 
     return NoUnitsView;
 

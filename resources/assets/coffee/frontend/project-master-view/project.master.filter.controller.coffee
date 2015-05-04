@@ -3,7 +3,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 	template : Handlebars.compile('{{#villaFilters}}
 									<div class="filters-wrapper">
 										<div class="filter-chkbox-block">
-											<input type="checkbox" name="villa" class="custom-chckbx"    />
+											
 											<label for="villa">Villa</label>
 										</div>
 										
@@ -77,7 +77,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 								<br/>
 								{{#apartmentFilters}}
-									<input type="checkbox" name="apartment" value="1" checked />Apartments
+									Apartments
 									<br/>Unit Types
 									{{#unitTypes}}
 
@@ -160,21 +160,21 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		apply : '.apply'
 
 	events:
-		'click @ui.villaPropType':(e)->
-			if $(e.target).is(':checked')
-				$(@ui.villaFilters).prop('checked' ,true)
-				$(@ui.villaFilters).prop('disabled' ,false)
-			else
-				$(@ui.villaFilters).prop('checked' ,false)
-				$(@ui.villaFilters).prop('disabled' ,true)
+		# 'click @ui.villaPropType':(e)->
+		# 	if $(e.target).is(':checked')
+		# 		$(@ui.villaFilters).prop('checked' ,true)
+		# 		$(@ui.villaFilters).prop('disabled' ,false)
+		# 	else
+		# 		$(@ui.villaFilters).prop('checked' ,false)
+		# 		$(@ui.villaFilters).prop('disabled' ,true)
 
-		'click @ui.apartmentPropType':(e)->
-			if $(e.target).is(':checked')
-				$(@ui.aptFilters).prop('checked' ,true)
-				$(@ui.aptFilters).prop('disabled' ,false)
-			else
-				$(@ui.aptFilters).prop('checked' ,false)
-				$(@ui.aptFilters).prop('disabled' ,true)
+		# 'click @ui.apartmentPropType':(e)->
+		# 	if $(e.target).is(':checked')
+		# 		$(@ui.aptFilters).prop('checked' ,true)
+		# 		$(@ui.aptFilters).prop('disabled' ,false)
+		# 	else
+		# 		$(@ui.aptFilters).prop('checked' ,false)
+		# 		$(@ui.aptFilters).prop('disabled' ,true)
 
 		'click @ui.unitTypes':(e)->
 			if $(e.currentTarget).is(':checked')

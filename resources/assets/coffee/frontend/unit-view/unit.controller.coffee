@@ -445,8 +445,8 @@ class CenterUnitView extends Marionette.ItemView
 
 		height =  @ui.imagesContainer.height()
 		$('.search-left-content').css('height',height)
-		$('.unit-list').css('height',height-162)
-		$('.unit-list').mCustomScrollbar
+		# $('.unit-list').css('height',height-162)
+		$('.search-left-content').mCustomScrollbar
 			theme: 'inset'
 
 
@@ -469,8 +469,7 @@ class CenterUnitView extends Marionette.ItemView
 			if value.url3dlayout_image != undefined &&  value.url3dlayout_image != ""
 				threeD.push value.url3dlayout_image
 			level_name =  'Level  '+ index  
-			if response[2] != 'apartment'
-				level.push s.replaceAll('Level '+i, " ", "_")
+			level.push s.replaceAll('Level '+i, " ", "_")
 			
 			i = i + 1	
 

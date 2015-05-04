@@ -13,7 +13,7 @@ class CommonFloor.NoUnitsView extends Marionette.ItemView
 	
 	template : '<div><div class="col-xs-12 col-sm-12 col-md-3 us-left-content">
 					<div class="list-view-container w-map animated fadeIn"></div>
-					No units
+					No units matching the selection
 						</div></div>'
 
 class CommonFloor.NoUnitsCtrl extends Marionette.RegionController

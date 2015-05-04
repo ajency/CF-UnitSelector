@@ -39,7 +39,7 @@
           'id': unit.get('unit_variant_id')
         });
         unitVariant.set('super_built_up_area', unitVariant.get('size'));
-        type = 'apartment';
+        type = 'plot';
         price = window.plotVariant.findUnitPrice(unit);
         attributes = unitVariant.get('variant_attributes');
       }
