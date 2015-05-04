@@ -24,6 +24,7 @@ class PlotVariantCollection extends Backbone.Collection
 	#set attributes of a Plot Variant model
 	setPlotVariantAttributes:(data)->
 		plotVariantCollection.reset data
+		plotVariantMasterCollection.reset data
 
 	#set plot units
 	getPlotUnits:->
@@ -39,4 +40,5 @@ class PlotVariantCollection extends Backbone.Collection
 		newUnits
 
 window.plotVariantCollection  = new PlotVariantCollection
+window.plotVariantMasterCollection  = new PlotVariantCollection
 window.plotVariant = new PlotVariant

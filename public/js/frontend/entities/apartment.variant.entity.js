@@ -42,7 +42,8 @@
     ApartmentVariantCollection.prototype.model = ApartmentVariant;
 
     ApartmentVariantCollection.prototype.setApartmentVariantAttributes = function(data) {
-      return apartmentVariantCollection.reset(data);
+      apartmentVariantCollection.reset(data);
+      return apartmentVariantMasterCollection.reset(data);
     };
 
     ApartmentVariantCollection.prototype.getApartmentUnits = function() {
@@ -68,7 +69,7 @@
 
   window.apartmentVariantCollection = new ApartmentVariantCollection;
 
-  window.apartmentVariantTempCollection = new ApartmentVariantCollection;
+  window.apartmentVariantMasterCollection = new ApartmentVariantCollection;
 
   window.apartmentVariant = new ApartmentVariant;
 

@@ -122,6 +122,7 @@ class MasterPlotListView extends Marionette.CompositeView
 
 	childViewContainer : '.units'
 
+	
 	events : 
 		'click .buildings':(e)->
 			units = buildingCollection

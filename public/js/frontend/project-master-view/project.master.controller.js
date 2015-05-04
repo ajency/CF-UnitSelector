@@ -91,6 +91,11 @@
     }
 
     TopMasterCtrl.prototype.initialize = function() {
+      this.renderView();
+      return unitTempCollection.on("change reset add remove", this.renderView, this);
+    };
+
+    TopMasterCtrl.prototype.renderView = function() {
       return this.show(new TopMasterView({
         model: project
       }));
@@ -108,8 +113,23 @@
     }
 
     LeftMasterCtrl.prototype.initialize = function() {
-      var data, response, units;
+      this.renderView();
+      return unitTempCollection.on("change reset add remove", this.renderView);
+    };
+
+    LeftMasterCtrl.prototype.renderView = function() {
+      var data, region, response, units;
       response = CommonFloor.checkListView();
+      console.log(response.count.length);
+      if (response.count.length === 0) {
+        region = new Marionette.Region({
+          el: '#leftregion'
+        });
+        new CommonFloor.NoUnitsCtrl({
+          region: region
+        });
+        return;
+      }
       if (response.type === 'bunglows') {
         units = bunglowVariantCollection.getBunglowUnits();
         data = {};
@@ -121,7 +141,6 @@
         new CommonFloor.MasterBunglowListCtrl({
           region: this.region
         });
-        this.parent().trigger("load:units", data);
       }
       if (response.type === 'building') {
         units = buildingCollection;
@@ -134,7 +153,6 @@
         new CommonFloor.MasterBuildingListCtrl({
           region: this.region
         });
-        this.parent().trigger("load:units", data);
       }
       if (response.type === 'plot') {
         units = plotVariantCollection.getPlotUnits();
@@ -144,10 +162,9 @@
         this.region = new Marionette.Region({
           el: '#leftregion'
         });
-        new CommonFloor.MasterPlotListCtrl({
+        return new CommonFloor.MasterPlotListCtrl({
           region: this.region
         });
-        return this.parent().trigger("load:units", data);
       }
     };
 
@@ -182,7 +199,6 @@
         $('.us-right-content').toggleClass('col-md-12 col-md-9');
         that = this;
         return setTimeout(function(x) {
-          console.log(that.ui.svgContainer.width());
           $('#spritespin').spritespin({
             width: that.ui.svgContainer.width(),
             sense: -1,
@@ -425,7 +441,7 @@
         var data, url;
         data = api.data;
         if (data.frame === data.stopFrame) {
-          console.log(url = svgs[data.frame]);
+          url = svgs[data.frame];
           return $('.region').load(url, function() {
             that.iniTooltip();
             CommonFloor.applyVillaClasses();
@@ -436,7 +452,7 @@
       return spin.bind("onLoad", function() {
         var first, response, url;
         first = _.values(svgs);
-        console.log(url = first[0]);
+        url = first[0];
         $('#trig').removeClass('hidden');
         response = project.checkRotationView();
         if (response === 1) {

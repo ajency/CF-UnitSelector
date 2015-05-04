@@ -44,7 +44,7 @@
         attributes = unitVariant.get('variant_attributes');
       }
       unitType = unitTypeCollection.findWhere({
-        'id': unitVariant.get('unit_type_id')
+        'id': unit.get('unit_type_id')
       });
       return [unitVariant, unitType, type, price, attributes];
     };
@@ -66,7 +66,8 @@
       var response;
       response = this.setUnitType(data);
       unitCollection.reset(response);
-      return unitTempCollection.reset(response);
+      unitMasterCollection.reset(response);
+      return window.unitTempCollection = unitCollection.clone();
     };
 
     UnitCollection.prototype.setUnitType = function(data) {
@@ -80,6 +81,11 @@
         }
         if (apartmentVariantCollection.get(value.unit_variant_id) !== void 0) {
           unitVariant = apartmentVariantCollection.findWhere({
+            'id': value.unit_variant_id
+          });
+        }
+        if (plotVariantCollection.get(value.unit_variant_id) !== void 0) {
+          unitVariant = plotVariantCollection.findWhere({
             'id': value.unit_variant_id
           });
         }
@@ -97,7 +103,7 @@
 
   window.unitCollection = new UnitCollection;
 
-  window.unitTempCollection = new UnitCollection;
+  window.unitMasterCollection = new UnitCollection;
 
   window.unit = new Unit;
 

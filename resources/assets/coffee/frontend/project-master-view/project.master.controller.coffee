@@ -76,6 +76,10 @@ class TopMasterView extends Marionette.ItemView
 class CommonFloor.TopMasterCtrl extends Marionette.RegionController
 
 	initialize:->
+		@renderView()
+		unitTempCollection.on("change reset add remove", @renderView, @)
+
+	renderView:->
 		@show new TopMasterView
 			model : project
 
@@ -83,7 +87,17 @@ class CommonFloor.TopMasterCtrl extends Marionette.RegionController
 class CommonFloor.LeftMasterCtrl extends Marionette.RegionController
 
 	initialize:->
+		@renderView()
+		unitTempCollection.on("change reset add remove", @renderView)
+
+	renderView:->
 		response = CommonFloor.checkListView()
+		console.log response.count.length
+		if response.count.length == 0
+			region =  new Marionette.Region el : '#leftregion'
+			new CommonFloor.NoUnitsCtrl region : region
+			return
+			
 		if response.type is 'bunglows' 
 			units = bunglowVariantCollection.getBunglowUnits()
 			data = {}
@@ -91,7 +105,7 @@ class CommonFloor.LeftMasterCtrl extends Marionette.RegionController
 			data.type = 'villa'
 			@region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.MasterBunglowListCtrl region : @region
-			@parent().trigger "load:units" , data
+			# @parent().trigger "load:units" , data
 
 		if response.type is 'building' 
 			units = buildingCollection
@@ -100,7 +114,7 @@ class CommonFloor.LeftMasterCtrl extends Marionette.RegionController
 			data.type = 'building'
 			@region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.MasterBuildingListCtrl region : @region
-			@parent().trigger "load:units" , data
+			# @parent().trigger "load:units" , data
 
 		if response.type is 'plot' 
 			units = plotVariantCollection.getPlotUnits()
@@ -109,7 +123,7 @@ class CommonFloor.LeftMasterCtrl extends Marionette.RegionController
 			data.type = 'plot'
 			@region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.MasterPlotListCtrl region : @region
-			@parent().trigger "load:units" , data
+			# @parent().trigger "load:units" , data
 
 
 #Center view for project master
@@ -162,7 +176,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('.us-right-content').toggleClass 'col-md-12 col-md-9'
 			that = @
 			setTimeout( (x)->
-				console.log that.ui.svgContainer.width()
+				
 				$('#spritespin').spritespin(
 					width: that.ui.svgContainer.width() 
 					sense: -1
@@ -465,14 +479,14 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		spin.bind("onFrame" , ()->
 			data = api.data
 			if data.frame is data.stopFrame
-				console.log url = svgs[data.frame]
+				url = svgs[data.frame]
 				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses();CommonFloor.applyPlotClasses()).addClass('active').removeClass('inactive')
 				
 		)
 
 		spin.bind("onLoad" , ()->
 			first = _.values svgs
-			console.log url = first[0]
+			url = first[0]
 			$('#trig').removeClass 'hidden'
 			response = project.checkRotationView()
 			if response is 1

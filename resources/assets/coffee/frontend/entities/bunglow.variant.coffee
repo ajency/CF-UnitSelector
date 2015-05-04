@@ -28,7 +28,7 @@ class BunglowVariantCollection extends Backbone.Collection
 
 		# @set BunglowData
 		bunglowVariantCollection.reset data
-		bunglowVariantTempCollection.reset data
+		bunglowVariantMasterCollection.reset data
 
 	#get all the bungalow units
 	getBunglowUnits:()->
@@ -43,5 +43,5 @@ class BunglowVariantCollection extends Backbone.Collection
 		newUnits
 
 window.bunglowVariantCollection  = new BunglowVariantCollection
-window.bunglowVariantTempCollection  = new BunglowVariantCollection
+window.bunglowVariantMasterCollection  = new BunglowVariantCollection
 window.bunglowVariant  = new BunglowVariant

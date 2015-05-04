@@ -69,6 +69,7 @@
   </script>
 
 <script id="project-view-template" type="text/template">
+<div id="projectregion">
   <div class="inner-container">
    <div ui-region="filter" id="filterregion">
             </div>
@@ -80,7 +81,7 @@
         <div ui-region="center" id="centerregion">
         </div>
       </div>
-
+ </div>
   </div>
 </script>
 

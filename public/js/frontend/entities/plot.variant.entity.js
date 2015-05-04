@@ -40,7 +40,8 @@
     PlotVariantCollection.prototype.model = PlotVariant;
 
     PlotVariantCollection.prototype.setPlotVariantAttributes = function(data) {
-      return plotVariantCollection.reset(data);
+      plotVariantCollection.reset(data);
+      return plotVariantMasterCollection.reset(data);
     };
 
     PlotVariantCollection.prototype.getPlotUnits = function() {
@@ -65,6 +66,8 @@
   })(Backbone.Collection);
 
   window.plotVariantCollection = new PlotVariantCollection;
+
+  window.plotVariantMasterCollection = new PlotVariantCollection;
 
   window.plotVariant = new PlotVariant;
 

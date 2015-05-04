@@ -34,7 +34,6 @@ class PlotItemView extends Marionette.ItemView
 					CommonFloor.router.storeRoute()
 
 
-
 #Composite view for plots
 class PlotView extends Marionette.CompositeView
 
@@ -72,6 +71,7 @@ class PlotView extends Marionette.CompositeView
 
 	childViewContainer : '.units'
 
+	
 	events : 
 		'click .buildings':(e)->
 			units = buildingCollection

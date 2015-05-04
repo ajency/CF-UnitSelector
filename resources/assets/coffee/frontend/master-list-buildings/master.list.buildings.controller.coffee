@@ -78,6 +78,8 @@ class ListItemView extends Marionette.ItemView
 				CommonFloor.navigate '/building/'+id+'/master-view' , true
 				CommonFloor.router.storeRoute()
 
+
+
 #view for list of buildings : Collection
 class MasterBuildingListView extends Marionette.CompositeView
 
@@ -111,6 +113,7 @@ class MasterBuildingListView extends Marionette.CompositeView
 
 	childViewContainer : '.units'
 
+	
 	events : 
 		'click .buildings':(e)->
 			console.log units = buildingCollection

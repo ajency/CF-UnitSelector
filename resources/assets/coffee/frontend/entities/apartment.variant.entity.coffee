@@ -27,6 +27,7 @@ class ApartmentVariantCollection extends Backbone.Collection
 
 		# @set apartmentApartmentData
 		apartmentVariantCollection.reset data
+		apartmentVariantMasterCollection.reset data
 
 	#set apartment units
 	getApartmentUnits:->
@@ -42,5 +43,5 @@ class ApartmentVariantCollection extends Backbone.Collection
 		newUnits
 
 window.apartmentVariantCollection  = new ApartmentVariantCollection
-window.apartmentVariantTempCollection  = new ApartmentVariantCollection
+window.apartmentVariantMasterCollection  = new ApartmentVariantCollection
 window.apartmentVariant  = new ApartmentVariant

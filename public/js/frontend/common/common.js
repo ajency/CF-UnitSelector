@@ -30,6 +30,34 @@
 
   })(Marionette.RegionController);
 
+  CommonFloor.NoUnitsView = (function(superClass) {
+    extend(NoUnitsView, superClass);
+
+    function NoUnitsView() {
+      return NoUnitsView.__super__.constructor.apply(this, arguments);
+    }
+
+    NoUnitsView.prototype.template = '<div><div class="col-xs-12 col-sm-12 col-md-3 us-left-content"> <div class="list-view-container w-map animated fadeIn"></div> No units </div></div>';
+
+    return NoUnitsView;
+
+  })(Marionette.ItemView);
+
+  CommonFloor.NoUnitsCtrl = (function(superClass) {
+    extend(NoUnitsCtrl, superClass);
+
+    function NoUnitsCtrl() {
+      return NoUnitsCtrl.__super__.constructor.apply(this, arguments);
+    }
+
+    NoUnitsCtrl.prototype.initialize = function() {
+      return this.show(new CommonFloor.NoUnitsView);
+    };
+
+    return NoUnitsCtrl;
+
+  })(Marionette.RegionController);
+
   CommonFloor.loadJSONData = function() {
     return $.ajax({
       type: 'GET',
@@ -45,8 +73,8 @@
         apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants);
         floorLayoutCollection.setFloorLayoutAttributes(response.floor_layout);
         window.propertyTypes = response.property_types;
-        unitCollection.setUnitAttributes(response.units);
-        return plotVariantCollection.setPlotVariantAttributes(response.plot_variants);
+        plotVariantCollection.setPlotVariantAttributes(response.plot_variants);
+        return unitCollection.setUnitAttributes(response.units);
       },
       error: function(response) {
         this.region = new Marionette.Region({
@@ -198,7 +226,7 @@
       var collection, param_val, param_val_arr, value_arr;
       value_arr = value.split(':');
       param_key = value_arr[0];
-      if (param_key !== 'price_min' && param_key !== 'price_max') {
+      if (param_key !== 'price_min' && param_key !== 'price_max' && value_arr[1] !== "") {
         param_val = value_arr[1];
         param_val_arr = param_val.split(',');
         collection = [];
@@ -209,10 +237,9 @@
           if (param_key === 'availability') {
             paramkey[param_key] = value;
           }
-          console.log(paramkey);
-          return $.merge(collection, unitTempCollection.where(paramkey));
+          return $.merge(collection, unitCollection.where(paramkey));
         });
-        return unitTempCollection.reset(collection);
+        return unitCollection.reset(collection);
       }
     });
     CommonFloor.filterBudget();
@@ -220,40 +247,55 @@
   };
 
   CommonFloor.resetCollections = function() {
-    var apartments, bunglows, unitTypes;
+    var apartments, buildings, bunglows, plots, unitTypes;
     apartments = [];
     bunglows = [];
     unitTypes = [];
-    unitTempCollection.each(function(item) {
-      var property, unitType;
-      unitType = unitTypeCollection.findWhere({
+    plots = [];
+    buildings = [];
+    unitCollection.each(function(item) {
+      var building, property, unitType;
+      unitType = unitTypeMasterCollection.findWhere({
         'id': item.get('unit_type_id')
       });
+      if (item.get('building_id') !== 0) {
+        building = buildingMasterCollection.findWhere({
+          'id': item.get('building_id')
+        });
+        buildings.push(building);
+      }
       property = window.propertyTypes[unitType.get('property_type_id')];
-      if (s.decapitalize(property) === 'apartments') {
-        apartments.push(apartmentVariantCollection.get(item.get('unit_variant_id')));
+      if (s.decapitalize(property) === 'apartments' || s.decapitalize(property) === 'penthouse') {
+        apartments.push(apartmentVariantMasterCollection.get(item.get('unit_variant_id')));
       }
       if (s.decapitalize(property) === 'villas/Bungalows') {
-        bunglows.push(bunglowVariantCollection.get(item.get('unit_variant_id')));
+        bunglows.push(bunglowVariantMasterCollection.get(item.get('unit_variant_id')));
+      }
+      if (s.decapitalize(property) === 'plot') {
+        plots.push(plotVariantMasterCollection.get(item.get('unit_variant_id')));
       }
       return unitTypes.push(unitType);
     });
-    apartmentVariantTempCollection.reset(apartments);
-    bunglowVariantTempCollection.reset(bunglows);
-    return unitTypeTempCollection.reset(unitTypes);
+    apartmentVariantCollection.reset(apartments);
+    bunglowVariantCollection.reset(bunglows);
+    plotVariantCollection.reset(plots);
+    unitTypeCollection.reset(unitTypes);
+    buildingCollection.reset(buildings);
+    return unitTempCollection.reset(unitCollection.toArray());
   };
 
   CommonFloor.filterBudget = function() {
     var budget;
+    CommonFloor.resetCollections();
     budget = [];
-    unitTempCollection.each(function(item) {
+    unitCollection.each(function(item) {
       var unitPrice;
-      console.log(unitPrice = window.unit.getUnitDetails(item.get('id'))[3]);
-      if (unitPrice > parseInt(CommonFloor.defaults['price_min']) && unitPrice < parseInt(CommonFloor.defaults['price_max'])) {
+      unitPrice = window.unit.getUnitDetails(item.get('id'))[3];
+      if (unitPrice >= parseInt(CommonFloor.defaults['price_min']) && unitPrice <= parseInt(CommonFloor.defaults['price_max'])) {
         return budget.push(item);
       }
     });
-    return unitTempCollection.reset(budget);
+    return unitCollection.reset(budget);
   };
 
 }).call(this);

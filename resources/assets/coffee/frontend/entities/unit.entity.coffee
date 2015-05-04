@@ -30,7 +30,7 @@ class Unit extends Backbone.Model
 			price = window.plotVariant.findUnitPrice(unit)
 			attributes = unitVariant.get('variant_attributes')
 		unitType = unitTypeCollection.findWhere
-							'id' :  unitVariant.get('unit_type_id')
+							'id' :  unit.get('unit_type_id')
 		[unitVariant,unitType,type,price,attributes]
 
 
@@ -49,7 +49,8 @@ class UnitCollection extends Backbone.Collection
 		
 		response = @setUnitType(data)
 		unitCollection.reset response
-		unitTempCollection.reset response
+		unitMasterCollection.reset response
+		window.unitTempCollection = unitCollection.clone()
 
 	setUnitType:(data)->
 		$.each data,(index,value)->
@@ -60,6 +61,9 @@ class UnitCollection extends Backbone.Collection
 			if apartmentVariantCollection.get(value.unit_variant_id) != undefined
 				unitVariant = apartmentVariantCollection.findWhere
 								'id' : value.unit_variant_id
+			if plotVariantCollection.get(value.unit_variant_id) != undefined
+				unitVariant = plotVariantCollection.findWhere
+								'id' : value.unit_variant_id
 			unitType = unitTypeCollection.findWhere
 							'id' :  unitVariant.get('unit_type_id')
 			value['unit_type_id'] = unitType.get('id')
@@ -68,5 +72,5 @@ class UnitCollection extends Backbone.Collection
 
 
 window.unitCollection  = new UnitCollection
-window.unitTempCollection  = new UnitCollection
+window.unitMasterCollection  = new UnitCollection
 window.unit  = new Unit

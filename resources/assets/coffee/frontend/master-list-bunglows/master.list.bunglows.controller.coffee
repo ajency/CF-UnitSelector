@@ -17,6 +17,8 @@ class BunglowListView extends Marionette.ItemView
 
 	className : 'unit blocks'
 
+
+
 	serializeData:->
 		data = super()
 		response = window.unit.getUnitDetails(@model.get('id'))
@@ -122,6 +124,9 @@ class MasterBunglowListView extends Marionette.CompositeView
 
 	childViewContainer : '.units'
 
+	
+
+	
 	events : 
 		'click .buildings':(e)->
 			units = buildingCollection

@@ -8,6 +8,19 @@ class CommonFloor.NothingFoundCtrl extends Marionette.RegionController
 	initialize:->
 		@show new CommonFloor.NothingFoundView
 
+#No Found Controller and veiw
+class CommonFloor.NoUnitsView extends Marionette.ItemView
+	
+	template : '<div><div class="col-xs-12 col-sm-12 col-md-3 us-left-content">
+					<div class="list-view-container w-map animated fadeIn"></div>
+					No units
+						</div></div>'
+
+class CommonFloor.NoUnitsCtrl extends Marionette.RegionController
+
+	initialize:->
+		@show new CommonFloor.NoUnitsView
+
 #api required to load second step
 CommonFloor.loadJSONData = ()->
 
@@ -16,6 +29,7 @@ CommonFloor.loadJSONData = ()->
 		url  : BASERESTURL+'/project/'+	PROJECTID+'/step-two'
 		async : false
 		success :(response)->
+
 			#parsing the integer fields 
 			response = window.convertToInt(response)
 			response = response.data
@@ -26,8 +40,9 @@ CommonFloor.loadJSONData = ()->
 			apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants)
 			floorLayoutCollection.setFloorLayoutAttributes(response.floor_layout)
 			window.propertyTypes = response.property_types
-			unitCollection.setUnitAttributes(response.units)
 			plotVariantCollection.setPlotVariantAttributes(response.plot_variants)
+			unitCollection.setUnitAttributes(response.units)
+			
 
 			
 		error :(response)->
@@ -163,26 +178,24 @@ CommonFloor.filter = ()->
 				'&price_min:'+CommonFloor.defaults['price_min']+'price_max:'+CommonFloor.defaults['price_max']+
 				'&availability:'+CommonFloor.defaults['availability']
 
+
 	param_arr = params.split('&')
 	$.each param_arr, (index,value)->
 			value_arr  =  value.split(':')
 			param_key = value_arr[0]
-			if param_key != 'price_min' && param_key != 'price_max'
+			if param_key != 'price_min' && param_key != 'price_max' && value_arr[1] != ""
 				param_val = value_arr[1]
 				param_val_arr = param_val.split(',')
 				collection = []
 				$.each param_val_arr, (index,value)->
 						paramkey = {}
 						paramkey[param_key] = parseInt(value)
-						# if _.isString(value)
-						# 	paramkey[param_key] = value
 						if param_key == 'availability'
 							paramkey[param_key] = value
-						console.log paramkey
-						$.merge collection, unitTempCollection.where paramkey
+						$.merge collection, unitCollection.where paramkey
 						
 				
-				unitTempCollection.reset collection
+				unitCollection.reset collection
 	CommonFloor.filterBudget()
    
 	CommonFloor.resetCollections()
@@ -191,27 +204,41 @@ CommonFloor.resetCollections = ()->
 	apartments = []
 	bunglows   = []
 	unitTypes = []
-	unitTempCollection.each (item)->
-		unitType = unitTypeCollection.findWhere
+	plots = []
+	buildings = []
+	unitCollection.each (item)->
+		unitType = unitTypeMasterCollection.findWhere
 							'id' :  item.get('unit_type_id')
-
+		if item.get('building_id') != 0 
+			building = buildingMasterCollection.findWhere
+						'id' : item.get('building_id')
+			buildings.push building
 		property = window.propertyTypes[unitType.get('property_type_id')]
-		if s.decapitalize(property) == 'apartments'
-			apartments.push apartmentVariantCollection.get(item.get('unit_variant_id'))
+		if s.decapitalize(property) == 'apartments' || s.decapitalize(property) == 'penthouse'
+			apartments.push apartmentVariantMasterCollection.get(item.get('unit_variant_id'))
 		if s.decapitalize(property) == 'villas/Bungalows'
-			bunglows.push bunglowVariantCollection.get(item.get('unit_variant_id'))
+			bunglows.push bunglowVariantMasterCollection.get(item.get('unit_variant_id'))
+		if s.decapitalize(property) == 'plot'
+			plots.push plotVariantMasterCollection.get(item.get('unit_variant_id'))
 		unitTypes.push unitType
-	apartmentVariantTempCollection.reset apartments
-	bunglowVariantTempCollection.reset bunglows
-	unitTypeTempCollection.reset unitTypes
+		
+	apartmentVariantCollection.reset apartments
+	bunglowVariantCollection.reset bunglows
+	plotVariantCollection.reset plots
+	unitTypeCollection.reset unitTypes
+	buildingCollection.reset buildings
+	unitTempCollection.reset unitCollection.toArray()
+	
 
 CommonFloor.filterBudget = ()->
+	CommonFloor.resetCollections()
 	budget = []
-	unitTempCollection.each (item)->
-        console.log unitPrice = window.unit.getUnitDetails(item.get('id'))[3]
-        if unitPrice > parseInt(CommonFloor.defaults['price_min']) && unitPrice < parseInt(CommonFloor.defaults['price_max'])
+	unitCollection.each (item)->
+        unitPrice = window.unit.getUnitDetails(item.get('id'))[3]
+        if unitPrice >= parseInt(CommonFloor.defaults['price_min']) && unitPrice <= parseInt(CommonFloor.defaults['price_max'])
             budget.push item
-    unitTempCollection.reset budget
+
+    unitCollection.reset budget
 
 		
 

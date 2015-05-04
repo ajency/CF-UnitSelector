@@ -41,7 +41,7 @@
 
     BunglowVariantCollection.prototype.setBunglowVariantAttributes = function(data) {
       bunglowVariantCollection.reset(data);
-      return bunglowVariantTempCollection.reset(data);
+      return bunglowVariantMasterCollection.reset(data);
     };
 
     BunglowVariantCollection.prototype.getBunglowUnits = function() {
@@ -67,7 +67,7 @@
 
   window.bunglowVariantCollection = new BunglowVariantCollection;
 
-  window.bunglowVariantTempCollection = new BunglowVariantCollection;
+  window.bunglowVariantMasterCollection = new BunglowVariantCollection;
 
   window.bunglowVariant = new BunglowVariant;
 

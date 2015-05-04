@@ -25,7 +25,7 @@
 
     UnitTypeCollection.prototype.setUnitTypeAttributes = function(data) {
       unitTypeCollection.reset(data);
-      return unitTypeTempCollection.reset(data);
+      return unitTypeMasterCollection.reset(data);
     };
 
     return UnitTypeCollection;
@@ -34,7 +34,7 @@
 
   window.unitTypeCollection = new UnitTypeCollection;
 
-  window.unitTypeTempCollection = new UnitTypeCollection;
+  window.unitTypeMasterCollection = new UnitTypeCollection;
 
 }).call(this);
 
