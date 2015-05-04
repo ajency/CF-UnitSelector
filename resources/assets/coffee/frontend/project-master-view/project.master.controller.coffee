@@ -463,8 +463,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		spin.bind("onFrame" , ()->
 			data = api.data
 			if data.frame is data.stopFrame
-				url = svgs[data.frame]
-				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses()).addClass('active').removeClass('inactive')
+				console.log url = svgs[data.frame]
+				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses();CommonFloor.applyPlotClasses()).addClass('active').removeClass('inactive')
 				
 		)
 
@@ -476,6 +476,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
 				$('.cf-loader').addClass 'hidden'
+				CommonFloor.applyVillaClasses()
+				CommonFloor.applyPlotClasses()
 				
 
 				

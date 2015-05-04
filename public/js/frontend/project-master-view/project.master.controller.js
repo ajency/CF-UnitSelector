@@ -425,10 +425,11 @@
         var data, url;
         data = api.data;
         if (data.frame === data.stopFrame) {
-          url = svgs[data.frame];
+          console.log(url = svgs[data.frame]);
           return $('.region').load(url, function() {
             that.iniTooltip();
-            return CommonFloor.applyVillaClasses();
+            CommonFloor.applyVillaClasses();
+            return CommonFloor.applyPlotClasses();
           }).addClass('active').removeClass('inactive');
         }
       });
@@ -440,7 +441,9 @@
           $('.first_image').remove();
           $('.rotate').removeClass('hidden');
           $('#spritespin').show();
-          return $('.cf-loader').addClass('hidden');
+          $('.cf-loader').addClass('hidden');
+          CommonFloor.applyVillaClasses();
+          return CommonFloor.applyPlotClasses();
         }
       });
     };
