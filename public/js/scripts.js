@@ -424,7 +424,7 @@ function setUpProjectMasterUploader() {
 
                 $("#master_uploadfiles").next("div.selectedImages").html('');
                 $("#master_uploadfiles").addClass('hidden');
-
+                $('input[name="position[]"]').bootstrapToggle();
             }
         }
     });
