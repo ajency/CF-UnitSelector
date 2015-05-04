@@ -434,7 +434,9 @@
         }
       });
       return spin.bind("onLoad", function() {
-        var response;
+        var first, response, url;
+        first = _.values(svgs);
+        console.log(url = first[0]);
         $('#trig').removeClass('hidden');
         response = project.checkRotationView();
         if (response === 1) {
@@ -442,8 +444,11 @@
           $('.rotate').removeClass('hidden');
           $('#spritespin').show();
           $('.cf-loader').addClass('hidden');
-          CommonFloor.applyVillaClasses();
-          return CommonFloor.applyPlotClasses();
+          return $('.region').load(url, function() {
+            that.iniTooltip();
+            CommonFloor.applyVillaClasses();
+            return CommonFloor.applyPlotClasses();
+          });
         }
       });
     };

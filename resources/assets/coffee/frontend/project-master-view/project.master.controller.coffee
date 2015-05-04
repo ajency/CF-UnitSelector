@@ -469,6 +469,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		)
 
 		spin.bind("onLoad" , ()->
+			first = _.values svgs
+			console.log url = first[0]
 			$('#trig').removeClass 'hidden'
 			response = project.checkRotationView()
 			if response is 1
@@ -476,8 +478,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
 				$('.cf-loader').addClass 'hidden'
-				CommonFloor.applyVillaClasses()
-				CommonFloor.applyPlotClasses()
+				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses();CommonFloor.applyPlotClasses())
+				
 				
 
 				
