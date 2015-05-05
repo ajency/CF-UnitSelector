@@ -248,7 +248,7 @@ class ProjectApartmentVariantController extends Controller {
         $unitTypes = $project->getUnitTypesToArray( $propertyTypeId ); 
         $propertyTypeAttributes = ProjectPropertyType::find( $propertyTypeId )->attributes->toArray();
         
-        $unitTypeStr ='<option value=""></option>';
+        $unitTypeStr ='';
         foreach($unitTypes as $unitType)
         {
             $unitTypeStr .='<option value="'.$unitType->id.'">'.$unitType->unittype_name .'</option>';

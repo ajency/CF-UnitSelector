@@ -129,12 +129,15 @@ class ProjectRoomTypeController extends Controller {
             $roomType->save();
 
             $objecttype = 'RoomType';
+            $messageType = 'Room Type';
         } elseif ('property_type' === $reffereceType) {
             $project = Project::find( $project_id );
             $objecttype = 'PropertyType';
             $reffereceidArr = explode( '_', $reffereceId );
             $reffereceId = $reffereceidArr[1];
             $projectPropertytype = ProjectPropertyType::find( $reffereceId );
+            $propertyTypeId = $projectPropertytype->property_type_id;
+            $messageType = get_property_type($propertyTypeId);
         }
 
 
@@ -166,7 +169,7 @@ class ProjectRoomTypeController extends Controller {
 
         return response()->json( [
                     'code' => 'room_type_attributes',
-                    'message' => 'Room Type Attributes Successfully Created',
+                    'message' => $messageType.' Attributes Successfully Created',
                     'data' => ['refferece_id' => $reffereceId]
                         ], 201 );
         //

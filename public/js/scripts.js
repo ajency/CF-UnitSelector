@@ -15,9 +15,9 @@ function validateTitle(obj)
         },
         dataType: "JSON",
         success: function (response) {
-            if(!response.data)
+            if (!response.data)
                 $(obj).val('');
-            
+
             $(obj).next("div.cf-loader").addClass('hidden');
         }
     });
@@ -897,20 +897,23 @@ function getPropertTypeData(obj, flag)
             property_type_id: obj.value,
         },
         success: function (response) {
-
+            var unitTypes = response.data.unit_types;
             if (flag)
             {
                 //VARIANT CODE
                 $(obj).closest('.row').append(response.data.attributes);
-                $('select[name="unit_type"]').append(response.data.unit_types);
+
+                if (unitTypes.trim() != '')
+                    $('select[name="unit_type"]').append(unitTypes);
             }
             else
             {
                 //FLOOR LAYOUT
                 $(obj).closest('.row').find('select[name="unit_type"]').empty();
-                $(obj).closest('.row').find('select[name="unit_type"]').empty();
                 $(obj).closest('.row').find('select[name="unit_type"]').append('<option value=""> Choose Unit Type</option>');
-                $(obj).closest('.row').find('select[name="unit_type"]').append(response.data.unit_types);
+
+                if (unitTypes.trim() != '')
+                    $(obj).closest('.row').find('select[name="unit_type"]').append(unitTypes);
             }
 
             $("select").select2();
