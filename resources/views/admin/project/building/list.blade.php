@@ -22,7 +22,7 @@
         <div class="grid simple">
             <div class="grid-title">
                 <h4>List of <span class="semi-bold">Buildings</span></h4>
-                <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/building/create') }}" >+ Add Building</a>
+                <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/building/create') }}" ><i class="fa fa-plus"></i> Add Building</a>
             </div>
             <div class="grid-body">
                 <table class="table table-striped" id="example2" >

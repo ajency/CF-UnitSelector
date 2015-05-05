@@ -98,7 +98,10 @@
                                 @endforeach
                             </select>
                             <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this,{{ $unitVariant['id'] }})"><i class="fa fa-plus"></i></button>
-                        </div> 
+                            <div>
+                             <a href="#" data-toggle="modal" data-target="#myModal">+ Add Room </a>
+                         </div>
+                        </div>
                     </div>
                     <div >
                         <!--Attributes-->  
@@ -106,7 +109,7 @@
                 </div> 
             </div>
             <div class="form-actions">  
-                <div class="pull-right">
+                <div class="text-right">
                     <button onclick="saveRoomdetails({{$project['id']}},{{ $unitVariant['id'] }});"
                             type="button" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
                 </div>
@@ -114,3 +117,22 @@
         </div>
     </div>
 </form>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-left" id="myModalLabel">Add Room </h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">    
+          <button type="button" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

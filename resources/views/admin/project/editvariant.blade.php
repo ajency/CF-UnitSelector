@@ -112,10 +112,7 @@
                             </div> 
                         </div>
                         @endforeach
-
-
                     </div>
-
                     <div class="form-actions">  
                         <div class="pull-right">
                             <input type="hidden" name="_method" value="PUT">
@@ -170,12 +167,15 @@
                     <div class="row selectedImages m-t-15">
                     </div>         
                 </div>
-                <div id="galleryimages">
+                <div id="galleryimages" class="row">
                     @if(isset($layouts['gallery']))
                     @foreach($layouts['gallery'] as $gallery)
-                    <div class="col-sm-3" id="gallery_{{ $gallery['ID'] }}">   
-                        <img src="{{ $gallery['IMAGE'] }}" class="img-responsive img-thumbnail">
-                        <button onclick="deleteLayout({{ $gallery['ID'] }}, 'gallery');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>
+                    <div class="col-sm-3 gallery" id="gallery_{{ $gallery['ID'] }}">   
+                        <div class="onhover">
+                            <button type="button" class="btn btn-small btn-default"><i class="fa fa-trash"></i></button>
+                        </div>
+                       <img src="{{ $gallery['IMAGE'] }}" class="img-responsive img-thumbnail">
+                        <button onclick="deleteLayout({{ $gallery['ID'] }}, 'gallery');" type="button" class="btn btn-small btn-default m-t-10 pull-right"><i class="fa fa-trash"></i> Delete</button>
                     </div>    
                     @endforeach									
                     @endif
@@ -183,7 +183,7 @@
                 </div>         
 
             </div>
-
+ 
         </div>    
 
     </div> 

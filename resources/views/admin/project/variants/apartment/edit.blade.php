@@ -147,7 +147,7 @@
             <div class="row selectedImages m-t-15">
             </div>        
         </div>
-        <div id="galleryimages">
+        <div id="galleryimages" class="row">
             @if(isset($layouts['gallery']))
             @foreach($layouts['gallery'] as $gallery)
             <div class="col-sm-3" id="gallery_{{ $gallery['ID'] }}">   

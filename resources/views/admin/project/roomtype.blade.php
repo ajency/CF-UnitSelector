@@ -38,8 +38,8 @@
 
                 <form name="frmroomtype_{{$roomtypeId}}" id="frmroomtype_{{$roomtypeId}}">
                     <div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 m-b-10 text-grey">
-                        <div class="form-inline m-b-10 m-t-10">
-                            <div class="form-group">
+                        <div class="row m-b-10 m-t-10">
+                            <div class="form-group col-sm-3">
                                 <div>
                                     <label class="form-label">Room Name</label>
                                 </div>
@@ -50,14 +50,14 @@
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label class="form-label">Attribute Name</label>
-                                    <i class="fa fa-question-circle " data-toggle="tooltip" data-placement="right" title="Attributes Name will be the specification for each room type for example (Area, Length * Width, etc)."></i>
+                                    <i class="fa fa-question-circle " data-toggle="tooltip" data-placement="right" data-original-title="Attributes Name will be the specification for each room type for example (Area, Length * Width, etc)."></i>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-inline">
                                     <div class="form-group full-width">
                                         <label class="form-label">Control Type</label>
-                                        <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="The selected control type will be available as input on the Variant page."></i>
+                                        <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-original-title="The selected control type will be available as input on the Variant page."></i>
 
                                     </div>
                                 </div>
@@ -143,27 +143,25 @@
 
                             </div>
                         </div>
-                        <div class="row"  id="addroomtypeattributeblock_{{$roomtypeId}}">
-                            <div class="col-md-12">
-                                <div class="text-right"> 
+                        <div id="addroomtypeattributeblock_{{$roomtypeId}}">
+                                    <div class="text-right"> 
                                     <button type="button" class="btn btn-small btn-primary" onclick="saveRoomypeattribute({{$project['id']}},{{$roomtypeId}}, 'room_type');"><i class="fa fa-save"></i> Save</button>
                                     <button type="button" class="btn btn-small btn-default" onclick="deleteRoomType({{$project['id']}},{{$roomtypeId}});"><i class="fa fa-trash"></i> Delete</button>
                                     <div class="cf-loader" id="loader_{{$roomtypeId}}" style="display:none" ></div>
                                 </div>
-                            </div>
                         </div>
                     </div>  
                 </form>    
                 @endforeach 
 
                 <div class="row" id="addroomtypeblock">
-                    <div class="col-md-4">
+                    <div class="col-md-6">
                         <div class="form-inline">
                             <div class="form-group">
                                 <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                                 <input type="text" name="roomtype" id="roomtype" class="form-control" placeholder="Add Room Type">
                                 <button class="btn btn-white" onclick="addRoomtype({{$project['id']}});"><i class="fa fa-plus"></i> Add New</button>
-                                <div class="cf-loader" id="loader" style="display:none" ></div>   
+                                <span class="cf-loader" id="loader" style="display:none" ></span>   
                             </div>
                         </div>
                     </div>
@@ -190,12 +188,12 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label class="form-label">Attribute Name</label><i class="fa fa-question-circle " data-toggle="tooltip" data-placement="right" title="" data-original-title="Attributes Name will be the specification for each room type for example (Area, Length * Width, etc)."></i></div>
+                                    <label class="form-label">Attribute Name</label><i class="fa fa-question-circle " data-toggle="tooltip" data-placement="right" data-original-title="Attributes Name will be the specification for each room type for example (Area, Length * Width, etc)."></i></div>
                             </div>
                             <div class="col-md-4">
                                 <div class="form-inline">
                                     <div class="form-group full-width">
-                                        <label class="form-label">Control Type</label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="" data-original-title="The selected control type will be available as input on the Variant page."></i>
+                                        <label class="form-label">Control Type</label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" data-original-title="The selected control type will be available as input on the Variant page."></i>
                                     </div>
                                 </div>
                             </div>
@@ -284,17 +282,13 @@
 
                             </div>
                         </div>
-                        <div class="row"  id="addroomtypeattributeblock_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
-                            <div class="col-md-12">
-                                <div class="text-right"> 
+                        <div id="addroomtypeattributeblock_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
+                           <div class="text-right"> 
                                     <button type="button" class="btn btn-small btn-primary" onclick="saveRoomypeattribute({{$project['id']}}, 'proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}', 'property_type');"><i class="fa fa-save"></i> Save</button>
                                     <!--<button type="button" class="btn btn-small btn-default"><i class="fa fa-trash"></i> Delete</button>-->
                                     <div class="cf-loader" id="loader_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" style="display:none" ></div>
                                 </div>
-
-
                             </div>
-                        </div>
                     </div>  
                 </form>  
             </div>

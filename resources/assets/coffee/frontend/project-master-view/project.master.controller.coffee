@@ -508,8 +508,24 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				$('.first_image').remove()
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
+				# panZoomTiger = svgPanZoom('.region')
+				# $("svg").svgPanZoom()
 				$('.cf-loader').addClass 'hidden'
 				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses();CommonFloor.applyPlotClasses())
+				$panzoom = $('svg').panzoom()
+				$panzoom.parent().on 'mousewheel.focal', (e) ->
+				  e.preventDefault()
+				  delta = e.delta or e.originalEvent.wheelDelta
+				  zoomOut = if delta then delta < 0 else e.originalEvent.deltaY > 0
+				  $panzoom.panzoom 'zoom', zoomOut,
+				    increment: 0.5
+				    minScale: 1
+				    maxScale: 1.5
+				    contain: true
+				    animate: false
+				    $set: $('.spritespin-canvas')
+				    focal: e
+				  return
 				
 				
 

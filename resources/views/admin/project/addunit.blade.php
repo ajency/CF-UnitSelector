@@ -36,12 +36,13 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Unit Variant</label>
-                        <select name="unit_variant" class="select2 form-control" data-parsley-required>
+                        <select name="unit_variant" class="select2 form-control m-b-5" data-parsley-required>
                             <option value="">Select Unit Variant</option>
                             @foreach($unit_variant_arr as $unit_variant)
                             <option value="{{$unit_variant['id']}}">{{$unit_variant['unit_variant_name']}}</option>
                             @endforeach
                         </select>
+                   <a type="button" href="#" data-toggle="modal" data-target="#AddVariant">+ Add Variant</a>
                     </div> 
                 </div>
                 <!--<div class="col-md-4">
@@ -90,3 +91,22 @@
 
 <!-- END PLACE PAGE CONTENT HERE -->
 @endsection
+
+<!-- Modal -->
+<div class="modal fade" id="AddVariant" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-left" id="myModalLabel">Add Variant</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

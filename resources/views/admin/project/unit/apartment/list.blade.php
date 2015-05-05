@@ -23,7 +23,7 @@
         <div class="grid simple">
             <div class="grid-title">
                 <h4>List of <span class="semi-bold">Apartment UNits</span></h4>
-                <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/apartment-unit/create') }}" >+ Add unit</a>
+                <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/apartment-unit/create') }}" ><i class="fa fa-plus"></i> Add unit</a>
             </div>
             <div class="grid-body">
                 <table class="table table-striped" id="example2" >
