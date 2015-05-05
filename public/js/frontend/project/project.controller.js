@@ -144,7 +144,7 @@
         $('.search-left-content').addClass('animated fadeOut');
         return setTimeout(function(x) {
           return CommonFloor.checkPropertyType();
-        }, 1000);
+        }, 750);
       }
     };
 
