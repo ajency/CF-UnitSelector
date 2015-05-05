@@ -2,6 +2,8 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 	template : Handlebars.compile('
 									<div class="collapse" id="collapsefilters">
+										
+
 										{{#villaFilters}}
 										<div class="filters-wrapper">
 											<h3>Villa</h3>
@@ -33,7 +35,6 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 									
 
 
-										</div>
 										{{/villaFilters}}
 
 										{{#apartmentFilters}}
@@ -94,7 +95,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 
 										</div>
-<
+
 										{{/plotFilters}}
 
 										<div class="filters-wrapper">
@@ -131,13 +132,15 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 													</select>
 											</div>
 										</div>
-										<div class="blck-wrap">
-											<h5>Availability</h5>
-											<div class="filter-chkbox-block">
-												{{#status}}
-												<input type="checkbox" class="aptFilters status custom-chckbx" name="{{id}}" id="{{id}}" value="1"  />
-												<label for="{{id}}">{{name}}</label>
-												{{/status}}
+										<div class="filters-wrapper">
+											<div class="blck-wrap">
+												<h5>Availability</h5>
+												<div class="filter-chkbox-block">
+													{{#status}}
+													<input type="checkbox" class="aptFilters status custom-chckbx" name="{{id}}" id="{{id}}" value="1"  />
+													<label for="{{id}}">{{name}}</label>
+													{{/status}}
+												</div>
 											</div>
 										</div>
 									</div>
@@ -343,27 +346,20 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		unitVariants = []
 		status = []
 		bunglowVariantCollection.each (item)->
-			unitTypeModel = unitTypeCollection.findWhere
-								'id' : item.get 'unit_type_id'
-			if $.inArray(item.get('unit_type_id'),unit_types) == -1
-				unit_types.push parseInt unitTypeModel.get 'id'
-				unitTypes.push 
-						'id' : unitTypeModel.get 'id'
-						'name' : unitTypeModel.get 'name'
-			unitVariants.push 
-					'id' : item.get 'id'
-					'area' : item.get 'super_built_up_area'
+			units = unitMasterCollection.where 
+						'unit_variant_id' : item.get('id')
+			if units.length != 0
+				unitTypeModel = unitTypeCollection.findWhere
+									'id' : item.get 'unit_type_id'
+				if $.inArray(item.get('unit_type_id'),unit_types) == -1
+					unit_types.push parseInt unitTypeModel.get 'id'
+					unitTypes.push 
+							'id' : unitTypeModel.get 'id'
+							'name' : unitTypeModel.get 'name'
+				unitVariants.push 
+						'id' : item.get 'id'
+						'area' : item.get 'super_built_up_area'
 			
-		# status = []
-		# status_arr = []
-		# villaUnits = bunglowVariantCollection.getBunglowUnits()
-		# $.each villaUnits,(index,value)->
-		# 	if ($.inArray value.get('availability') , status_arr) ==  -1
-		# 		status_arr.push value.get 'availability'
-		# 		status.push 
-		# 			'id': value.get 'availability'
-		# 			'name': s.humanize value.get 'availability'
-		
 		if unitVariants.length != 0
 			filters.push
 					'unitTypes' 	: unitTypes
@@ -380,26 +376,20 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		unitVariants = []
 		status = []
 		apartmentVariantCollection.each (item)->
-			unitTypeModel = unitTypeCollection.findWhere
-								'id' : item.get 'unit_type_id'
-			if $.inArray(item.get('unit_type_id'),unit_types) == -1
-				unit_types.push parseInt unitTypeModel.get 'id'
-				unitTypes.push 
-						'id' : unitTypeModel.get 'id'
-						'name' : unitTypeModel.get 'name'
-			unitVariants.push 
-					'id' : item.get 'id'
-					'area' : item.get 'super_built_up_area'
+			units = unitMasterCollection.where 
+						'unit_variant_id' : item.get('id')
+			if units.length != 0
+				unitTypeModel = unitTypeCollection.findWhere
+									'id' : item.get 'unit_type_id'
+				if $.inArray(item.get('unit_type_id'),unit_types) == -1
+					unit_types.push parseInt unitTypeModel.get 'id'
+					unitTypes.push 
+							'id' : unitTypeModel.get 'id'
+							'name' : unitTypeModel.get 'name'
+				unitVariants.push 
+						'id' : item.get 'id'
+						'area' : item.get 'super_built_up_area'
 			
-		# status = []
-		# status_arr = []
-		# apartmentUnits = apartmentVariantCollection.getApartmentUnits()
-		# $.each apartmentUnits,(index,value)->
-		# 	if ($.inArray value.get('availability') , status_arr) ==  -1
-		# 		status_arr.push value.get 'availability'
-		# 		status.push 
-		# 			'id': value.get 'availability'
-		# 			'name': s.humanize value.get 'availability'
 		if unitVariants.length != 0
 			filters.push
 					'unitTypes' 	: unitTypes
@@ -415,26 +405,20 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		unitVariants = []
 		status = []
 		plotVariantCollection.each (item)->
-			unitTypeModel = unitTypeCollection.findWhere
-								'id' : item.get 'unit_type_id'
-			if $.inArray(item.get('unit_type_id'),unit_types) == -1
-				unit_types.push parseInt unitTypeModel.get 'id'
-				unitTypes.push 
-						'id' : unitTypeModel.get 'id'
-						'name' : unitTypeModel.get 'name'
-			unitVariants.push 
-					'id' : item.get 'id'
-					'area' : item.get 'size'
+			units = unitMasterCollection.where 
+						'unit_variant_id' : item.get('id')
+			if units.length != 0
+				unitTypeModel = unitTypeCollection.findWhere
+									'id' : item.get 'unit_type_id'
+				if $.inArray(item.get('unit_type_id'),unit_types) == -1
+					unit_types.push parseInt unitTypeModel.get 'id'
+					unitTypes.push 
+							'id' : unitTypeModel.get 'id'
+							'name' : unitTypeModel.get 'name'
+				unitVariants.push 
+						'id' : item.get 'id'
+						'area' : item.get 'size'
 			
-		# status = []
-		# status_arr = []
-		# plotUnits = plotVariantCollection.getPlotUnits()
-		# $.each plotUnits,(index,value)->
-		# 	if ($.inArray value.get('availability') , status_arr) ==  -1
-		# 		status_arr.push value.get 'availability'
-		# 		status.push 
-		# 			'id': value.get 'availability'
-		# 			'name': s.humanize value.get 'availability'
 		if unitVariants.length != 0
 			filters.push
 					'unitTypes' 	: unitTypes

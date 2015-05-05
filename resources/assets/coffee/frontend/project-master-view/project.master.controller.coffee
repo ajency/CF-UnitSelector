@@ -42,20 +42,16 @@ class TopMasterView extends Marionette.ItemView
 				<h1 class="pull-left proj-name">{{project_title}}</h1> 
 				<div class="proj-type-count">
 					{{#types}} 
-<<<<<<< HEAD
-					<h1 class="text-primary pull-left">{{count.length}}</h1> <p class="pull-left">{{type}}</p>
-					{{/types}}<br/>
-					{{#each  filters}}<br/>
-					{{@key}}: {{#each this}}<br/>{{@key}}:{{this}}{{/each}}
-					{{/each }}<br/>{{#each status}}{{@key}}:{{this}}{{/each}}
-=======
-					<!--<h1 class="text-primary pull-left">{{count.length}}</h1> <p class="pull-left">{{type}}</p>-->
+			<h1 class="text-primary pull-left">{{count.length}}</h1> <p class="pull-left">{{type}}</p>
 					{{/types}}
 
 					{{#each  filters}}
-					<h1 class="text-primary pull-left">{{#each this}}{{this}}{{/each}}</h1> <p class="pull-left">{{@key}}</p>
+					<h1 class="text-primary pull-left">{{#each this}}{{@key}}{{this}}{{/each}}</h1> <p class="pull-left">{{@key}}</p>
 					{{/each }}
->>>>>>> 9a1468af25b143d3107d508dc91a772cb27fa424
+					{{#each status}}
+					<h1 class="text-primary pull-left">{{this}}</h1> <p class="pull-left">{{@key}}</p>
+					{{/each}}
+
 					<div class="clearfix"></div>
 				</div>
 				<button class="btn btn-primary cf-btn-white pull-right m-t-25" type="button" data-toggle="collapse" data-target="#collapsefilters">
@@ -72,7 +68,6 @@ class TopMasterView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
-		console.log CommonFloor.getFilters()
 		status = CommonFloor.getStatusFilters()
 		if status.length != 0
 			data.status = status
