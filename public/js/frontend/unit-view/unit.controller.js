@@ -324,7 +324,7 @@
       }
       $('.images').html(html);
       $('.level').attr('class', 'level Level_0 ' + _.last(response[2]));
-      if (response[3].get('external3durl') !== void 0) {
+      if (!_.isUndefined(response[3].get('external3durl'))) {
         html = '<img class="img lazy-hidden"  data-src="' + response[3].get('external3durl') + '" />';
         $('.images').html(html);
         $('.external').addClass('current');
@@ -338,20 +338,22 @@
       if (response[1].length === 0) {
         $('.threeD').hide();
       }
-      if (response[3].get('external3durl') === void 0) {
+      if (_.isUndefined(response[3].get('external3durl'))) {
         $('.external').hide();
       }
-      if (response[3].get('galleryurl') === void 0) {
+      if (_.isUndefined(response[3].get('galleryurl'))) {
         $('.gallery').hide();
       }
-      if (response[0].length === 0 && response[1].length === 0 && response[3].get('external3durl') === void 0) {
+      if (response[0].length === 0 && response[1].length === 0 && _.isUndefined(response[3].get('external3durl'))) {
         $('.gallery').addClass('current');
         $('.threeD').removeClass('current');
         $('.twoD').removeClass('current');
         $('.external').removeClass('current');
-        $.each(response[3].get('galleryurl'), function(index, value) {
-          return html += '<div class="animated fadeIn"><img class="img" data-src="' + value + '" /></div>';
-        });
+        if (!_.isUndefined(response[3].get('galleryurl'))) {
+          $.each(response[3].get('galleryurl'), function(index, value) {
+            return html += '<div class="animated fadeIn"><img class="img" data-src="' + value + '" /></div>';
+          });
+        }
       }
       height = this.ui.imagesContainer.height();
       $('.search-left-content').css('height', height);
@@ -375,10 +377,10 @@
       i = 0;
       $.each(floor, function(index, value) {
         var level_name;
-        if (value.url2dlayout_image !== void 0 && value.url2dlayout_image !== "") {
+        if (!_.isUndefined(value.url2dlayout_image) && value.url2dlayout_image !== "") {
           twoD.push(value.url2dlayout_image);
         }
-        if (value.url3dlayout_image !== void 0 && value.url3dlayout_image !== "") {
+        if (!_.isUndefined(value.url3dlayout_image) && value.url3dlayout_image !== "") {
           threeD.push(value.url3dlayout_image);
         }
         level_name = 'Level  ' + index;

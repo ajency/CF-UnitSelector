@@ -135,7 +135,81 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 									{{/status}}
 
 								{{/apartmentFilters}}
+								<br/>
+								{{#plotFilters}}
+									<div class="filters-wrapper">
+										<div class="filter-chkbox-block">
+											
+											<label for="villa">Plot</label>
+										</div>
+										
+										Unit Types
+										{{#unitTypes}}
+										<div class="filter-chkbox-block">
 
+											<input type="checkbox" class="villaFilters unit_types custom-chckbx" name="unit_type{{id}}" id="unit_type{{id}}" value="1" data-value={{id}} />
+											<label for="unit_type{{id}}">{{name}}</label>
+
+										</div>
+										{{/unitTypes}}
+
+										<br/>
+										Unit Variants
+										<br/>
+										{{#unitVariants}}
+										<div class="filter-chkbox-block">
+
+											<input type="checkbox" class="villaFilters unitvariants custom-chckbx" name="unit_variant{{id}}" id="unit_variant{{id}}" value="1" data-value={{id}} />
+											<label for="unit_variant{{id}}">{{area}} Sq.Ft</label>
+
+										</div>
+										{{/unitVariants}}
+										<br/>
+										Budget
+										<br/>
+										<select class="price_min" name="price_min">
+											<option selected="" value="">Min</option> <option value="500000">5 Lac</option>
+											 <option value="1000000">10 Lac</option> <option value="2000000">20 Lac</option> 
+											 <option value="3000000">30 Lac</option> <option value="4000000">40 Lac</option> 
+											 <option value="5000000">50 Lac</option> <option value="6000000">60 Lac</option> 
+											 <option value="7000000">70 Lac</option> <option value="8000000">80 Lac</option> 
+											 <option value="9000000">90 Lac</option> <option value="10000000">1 Cr</option> 
+											 <option value="12000000">1.2 Cr</option> <option value="14000000">1.4 Cr</option> 
+											 <option value="16000000">1.6 Cr</option> <option value="18000000">1.8 Cr</option> 
+											 <option value="20000000">2 Cr</option> <option value="23000000">2.3 Cr</option> 
+											 <option value="26000000">2.6 Cr</option> <option value="30000000">3 Cr</option> 
+											 <option value="35000000">3.5 Cr</option> <option value="40000000">4 Cr</option> 
+											 <option value="45000000">4.5 Cr</option> <option value="50000000">5 Cr</option>
+										</select>
+										<select class="price_max" name="pice_max">
+											<option style="display: block;" selected="" value="">Max</option> <option style="display: none;" value="500000">5 Lac</option> 
+											<option style="display: none;" value="1000000">10 Lac</option> <option style="display: block;" value="2000000">20 Lac</option> 
+											<option style="display: block;" value="3000000">30 Lac</option> <option style="display: block;" value="4000000">40 Lac</option> 
+											<option style="display: block;" value="5000000">50 Lac</option> <option style="display: block;" value="6000000">60 Lac</option> 
+											<option style="display: block;" value="7000000">70 Lac</option> <option style="display: block;" value="8000000">80 Lac</option> 
+											<option style="display: block;" value="9000000">90 Lac</option> <option style="display: block;" value="10000000">1 Cr</option> 
+											<option style="display: block;" value="12000000">1.2 Cr</option> <option style="display: block;" value="14000000">1.4 Cr</option> 
+											<option style="display: block;" value="16000000">1.6 Cr</option> <option style="display: block;" value="18000000">1.8 Cr</option> 
+											<option style="display: block;" value="20000000">2 Cr</option> <option style="display: block;" value="23000000">2.3 Cr</option> 
+											<option style="display: block;" value="26000000">2.6 Cr</option> <option style="display: block;" value="30000000">3 Cr</option> 
+											<option style="display: block;" value="35000000">3.5 Cr</option> <option style="display: block;" value="40000000">4 Cr</option> 
+											<option style="display: block;" value="45000000">4.5 Cr</option> <option style="display: block;" value="50000000">5 Cr</option> 
+											<option style="display: block;" value="999999900">&gt; 5 Cr</option></select>
+										
+										<br/>
+										Availability
+										<br/>
+										{{#status}}
+										<div class="filter-chkbox-block">
+
+											<input type="checkbox" class="villaFilters status custom-chckbx" name="{{name}}" id="{{name}}" value="1"  />
+											<label for="{{name}}">{{name}}</label>
+
+										</div>
+										{{/status}}
+
+									</div>
+									{{/plotFilters}}
 								<input type="button" name="apply" class="apply" value="Apply" />
 
 								')
@@ -276,6 +350,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		data = super()
 		data.villaFilters = Marionette.getOption(@,'villaFilters')
 		data.apartmentFilters = Marionette.getOption(@,'apartmentFilters')
+		data.plotFilters = Marionette.getOption(@,'plotFilters')
 		data
 
 	onShow:->
@@ -312,9 +387,11 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 	initialize:->
 		villaFilters = @getVillaFilters()
 		apartmentFilters = @getApartmentFilters()
+		plotFilters = @getPlotFilters()
 		@view = view = new CommonFloor.FilterMsterView
 				'villaFilters' : villaFilters
 				'apartmentFilters' : apartmentFilters
+				'plotFilters'		: plotFilters
 
 		# @listenTo @view,"load:units" ,@loadController
 		
@@ -349,7 +426,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		$.each villaUnits,(index,value)->
 			if ($.inArray value.get('availability') , status_arr) ==  -1
 				status_arr.push value.get 'availability'
-				status.push 'name': value.get 'availability'
+				status.push 'name': s.humanize value.get 'availability'
 		
 		if unitVariants.length != 0
 			filters.push
@@ -385,7 +462,41 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		$.each apartmentUnits,(index,value)->
 			if ($.inArray value.get('availability') , status_arr) ==  -1
 				status_arr.push value.get 'availability'
-				status.push 'name': value.get 'availability'
+				status.push 'name': s.humanize value.get 'availability'
+		if unitVariants.length != 0
+			filters.push
+					'unitTypes' 	: unitTypes
+					'unitVariants'  : unitVariants
+					'status'		: status
+		filters
+
+
+		#function to generate all the plot filters
+	getPlotFilters:->
+		filters = []
+		unitTypes = []
+		unit_types = []
+		unitVariants = []
+		status = []
+		plotVariantCollection.each (item)->
+			unitTypeModel = unitTypeCollection.findWhere
+								'id' : item.get 'unit_type_id'
+			if $.inArray(item.get('unit_type_id'),unit_types) == -1
+				unit_types.push parseInt unitTypeModel.get 'id'
+				unitTypes.push 
+						'id' : unitTypeModel.get 'id'
+						'name' : unitTypeModel.get 'name'
+			unitVariants.push 
+					'id' : item.get 'id'
+					'area' : item.get 'size'
+			
+		status = []
+		status_arr = []
+		plotUnits = plotVariantCollection.getPlotUnits()
+		$.each plotUnits,(index,value)->
+			if ($.inArray value.get('availability') , status_arr) ==  -1
+				status_arr.push value.get 'availability'
+				status.push 'name': s.humanize value.get 'availability'
 		if unitVariants.length != 0
 			filters.push
 					'unitTypes' 	: unitTypes

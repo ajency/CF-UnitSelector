@@ -116,7 +116,7 @@
       return ApartmentsView.__super__.constructor.apply(this, arguments);
     }
 
-    ApartmentsView.prototype.template = Handlebars.compile('	<div class=" info"> <label class="pull-left">{{unit_name}}</label> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft--> <div class="clearfix"></div> </div> <div class="cost"> {{price}} </div>');
+    ApartmentsView.prototype.template = Handlebars.compile('	<div class=" info"> <label class="pull-left">{{unit_name}}</label> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft--> <div class="clearfix"></div> </div> <div class="cost"> {{price}} </div><label>{{property}}</label>');
 
     ApartmentsView.prototype.initialize = function() {
       return this.$el.prop("id", 'apartment' + this.model.get("id"));
@@ -127,7 +127,7 @@
     ApartmentsView.prototype.className = 'unit blocks';
 
     ApartmentsView.prototype.serializeData = function() {
-      var availability, data, response, status;
+      var availability, data, property, response, status, unitType;
       data = ApartmentsView.__super__.serializeData.call(this);
       response = window.unit.getUnitDetails(this.model.get('id'));
       data.unit_type = response[1].get('name');
@@ -137,6 +137,11 @@
       this.model.set('status', status);
       window.convertRupees(response[3]);
       data.price = $('#price').val();
+      unitType = unitTypeMasterCollection.findWhere({
+        'id': this.model.get('unit_type_id')
+      });
+      property = window.propertyTypes[unitType.get('property_type_id')];
+      data.property = s.capitalize(property);
       return data;
     };
 

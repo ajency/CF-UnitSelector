@@ -102,6 +102,7 @@ class ApartmentsView extends Marionette.ItemView
 					                      <label>{{unit_name}}</label>
 					                      ({{unit_type}} {{super_built_up_area}}sqft)
 					                    </div>
+					                    <label>{{property}}</label>
 					                    <div class="clearfix"></div>
 					                   
 					                  </li>')
@@ -117,6 +118,10 @@ class ApartmentsView extends Marionette.ItemView
 		data.unit_type = unitType.get('name')
 		data.super_built_up_area = unitVariant.get('super_built_up_area')
 		data.status = status
+		unitType = unitTypeMasterCollection.findWhere
+							'id' :  @model.get('unit_type_id')
+		property = window.propertyTypes[unitType.get('property_type_id')]
+		data.property = s.capitalize(property)
 		data
 
 	events:

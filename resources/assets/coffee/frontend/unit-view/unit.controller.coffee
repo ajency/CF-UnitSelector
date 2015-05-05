@@ -405,14 +405,14 @@ class CenterUnitView extends Marionette.ItemView
 			$('.gallery').removeClass('current')
 		
 		
-
+		
 		$('.images').html html
 		$('.level').attr 'class' , 'level Level_0 '+ _.last(response[2])
 			
 			
 
 				
-		if response[3].get('external3durl') != undefined
+		if ! _.isUndefined(response[3].get('external3durl'))
 			html = '<img class="img lazy-hidden"  data-src="'+response[3].get('external3durl')+'" />'
 			$('.images').html html
 			$('.external').addClass('current')
@@ -428,24 +428,24 @@ class CenterUnitView extends Marionette.ItemView
 		if response[1].length == 0
 			$('.threeD').hide()
 
-		if response[3].get('external3durl') == undefined
+		if _.isUndefined(response[3].get('external3durl')) 
 			$('.external').hide()
 
-		if response[3].get('galleryurl') == undefined 
+		if _.isUndefined(response[3].get('galleryurl')) 
 			$('.gallery').hide()
 			
-		if response[0].length == 0 &&  response[1].length == 0 && response[3].get('external3durl') == undefined
+		if response[0].length == 0 &&  response[1].length == 0 && _.isUndefined(response[3].get('external3durl'))
 			$('.gallery').addClass('current')
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
 			$('.external').removeClass('current')
-			$.each response[3].get('galleryurl'),(index,value)->
-				html += '<div class="animated fadeIn"><img class="img" data-src="'+value+'" /></div>'
+			if ! _.isUndefined(response[3].get('galleryurl'))
+				$.each response[3].get('galleryurl'),(index,value)->
+					html += '<div class="animated fadeIn"><img class="img" data-src="'+value+'" /></div>'
 
 
 		height =  @ui.imagesContainer.height()
 		$('.search-left-content').css('height',height)
-		# $('.unit-list').css('height',height-162)
 		$('.search-left-content').mCustomScrollbar
 			theme: 'inset'
 
@@ -464,15 +464,14 @@ class CenterUnitView extends Marionette.ItemView
 		floor = response[0].get('floor')
 		i = 0
 		$.each floor,(index,value)->
-			if value.url2dlayout_image != undefined &&  value.url2dlayout_image != ""
+			if ! _.isUndefined(value.url2dlayout_image) &&  value.url2dlayout_image != ""
 				twoD.push value.url2dlayout_image
-			if value.url3dlayout_image != undefined &&  value.url3dlayout_image != ""
+			if ! _.isUndefined(value.url3dlayout_image) &&  value.url3dlayout_image != ""
 				threeD.push value.url3dlayout_image
 			level_name =  'Level  '+ index  
 			level.push s.replaceAll('Level '+i, " ", "_")
 			
 			i = i + 1	
-
 		[twoD,threeD,level,response[0]]
 #Center View for the unit
 class CommonFloor.CenterUnitCtrl extends Marionette.RegionController
