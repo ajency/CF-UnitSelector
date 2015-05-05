@@ -260,7 +260,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				availability = unit.get('availability')
 				availability = s.decapitalize(availability)
 				CommonFloor.applyPlotClasses()
-				$('#unit'+id).attr('class' ,'unit blocks '+availability)  
+				$('#unit'+id).attr('class' ,'bldg blocks '+availability)  
 
 		'mouseout .building':(e)->
 			id = parseInt e.target.id
@@ -353,7 +353,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					</div>'
 
 			$('#'+id).attr('class' ,'layer plot '+availability) 
-			$('#unit'+id).attr('class' ,'unit blocks active') 
+			$('#unit'+id).attr('class' ,'bldg blocks active') 
 			$('.layer').tooltipster('content', html)
 
 		'mouseover .building':(e)->
@@ -463,12 +463,14 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		spin.bind("onFrame" , ()->
 			data = api.data
 			if data.frame is data.stopFrame
-				url = svgs[data.frame]
-				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses()).addClass('active').removeClass('inactive')
+				console.log url = svgs[data.frame]
+				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses();CommonFloor.applyPlotClasses()).addClass('active').removeClass('inactive')
 				
 		)
 
 		spin.bind("onLoad" , ()->
+			first = _.values svgs
+			console.log url = first[0]
 			$('#trig').removeClass 'hidden'
 			response = project.checkRotationView()
 			if response is 1
@@ -476,6 +478,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
 				$('.cf-loader').addClass 'hidden'
+				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses();CommonFloor.applyPlotClasses())
+				
 				
 
 				

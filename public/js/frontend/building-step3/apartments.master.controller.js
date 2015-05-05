@@ -266,12 +266,13 @@
           $('.layer').tooltipster('content', html);
           return false;
         }
-        console.log(response = window.unit.getUnitDetails(id));
+        response = window.unit.getUnitDetails(id);
         window.convertRupees(response[3]);
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += Handlebars.compile('<div class="svg-info"> <h4 class="pull-left">{{unit.unit_name}}</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>');
+        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
+        console.log(html);
         $('#' + id).attr('class', 'layer ' + availability);
         $('#apartment' + id).attr('class', ' unit blocks ' + availability + ' active');
         return $('.layer').tooltipster('content', html);
@@ -310,14 +311,12 @@
         return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/buildings/' + building_id + '/master-' + value + '.svg';
       });
       $.merge(transitionImages, building.get('building_master'));
-      first = _.values(svgs);
+      console.log(first = _.values(svgs));
       $('.region').load(first[0], $('.first_image').attr('data-src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
       $('.first_image').load(function() {
         var response;
         response = building.checkRotationView(building_id);
-        if (response === 1) {
-          return $('.cf-loader').removeClass('hidden');
-        }
+        return $('.cf-loader').removeClass('hidden');
       });
       return this.initializeRotate(transitionImages, svgs, building);
     };
@@ -361,12 +360,14 @@
         data = api.data;
         if (data.frame === data.stopFrame) {
           url = svgs[data.frame];
-          return $('.region').load(url, that.iniTooltip).addClass('active').removeClass('inactive');
+          return $('.region').load(url, function() {
+            return that.iniTooltip();
+          }).addClass('active').removeClass('inactive');
         }
       });
       return spin.bind("onLoad", function() {
         var response;
-        console.log(response = building.checkRotationView(building_id));
+        response = building.checkRotationView(building_id);
         if (response === 1) {
           $('.first_image').remove();
           $('.rotate').removeClass('hidden');

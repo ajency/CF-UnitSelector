@@ -1,13 +1,14 @@
 #view for a plot : model
 class PlotListView extends Marionette.ItemView
 
-	template : Handlebars.compile('	<div class=" info">
-						                <label class="pull-left">{{unit_name}}</label> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft-->
-						            	<div class="clearfix"></div>
-						            </div>
-					                <div class="cost">
-					                  {{price}}
-					                </div>
+	template : Handlebars.compile('	<div class="info">
+                                      <h2 class="m-b-5">{{unit_name}}</h2>
+                						<div class="floors"><span>{{unit_type}}</span></div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="unit-type-info">
+                                      <div class="price {{classname}}"> <span>{{price}}</span></div>
+                					 </div>
 
 					                ')
 
@@ -17,7 +18,7 @@ class PlotListView extends Marionette.ItemView
 	
 	tagName: 'li'
 
-	className : 'unit blocks'
+	className : 'bldg blocks'
 
 	serializeData:->
 		data = super()
@@ -51,13 +52,13 @@ class PlotListView extends Marionette.ItemView
 			id = @model.get('id')
 			$('.layer').attr('class','layer plot')
 			$('#'+id+'.plot').attr('class' ,'layer plot '+@model.get('status'))
-			$('#unit'+id).attr('class' ,'unit blocks'+' '+@model.get('status')+' active')
+			$('#unit'+id).attr('class' ,'bldg blocks'+' '+@model.get('status')+' active')
 			
 			
 		'mouseout':(e)->
 			id = @model.get('id')
 			# $('#'+id+'.villa').attr('class' ,'layer villa')
-			$('#unit'+id).attr('class' , 'unit blocks'+' '+@model.get('status'))
+			$('#unit'+id).attr('class' , 'bldg blocks'+' '+@model.get('status'))
 			CommonFloor.applyPlotClasses()
 
 		'click' :(e)->
@@ -72,7 +73,7 @@ class PlotListView extends Marionette.ItemView
 class MasterPlotListView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-xs-12 col-sm-12 col-md-3 us-left-content">
-									<div class="list-view-container w-map animated fadeInLeft">
+									<div class="list-view-container w-map animated fadeIn">
 							            <!--<div class="controls map-View">
 								            <div class="toggle">
 								            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
@@ -86,7 +87,7 @@ class MasterPlotListView extends Marionette.CompositeView
 							                <li class="prop-type Plots active">Plots</li>
 							              </ul>
 							            </div>
-							            <div class="advncd-filter-wrp  bldg-list">
+							            <div class="bldg-list">
 							            	<div class="legend clearfix">
 							            	  <ul>
 							            	    <li class="available">AVAILABLE</li>
