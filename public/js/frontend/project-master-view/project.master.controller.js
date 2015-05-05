@@ -434,7 +434,7 @@
         }
       });
       return spin.bind("onLoad", function() {
-        var first, response, url;
+        var $panzoom, first, response, url;
         first = _.values(svgs);
         console.log(url = first[0]);
         $('#trig').removeClass('hidden');
@@ -444,10 +444,26 @@
           $('.rotate').removeClass('hidden');
           $('#spritespin').show();
           $('.cf-loader').addClass('hidden');
-          return $('.region').load(url, function() {
+          $('.region').load(url, function() {
             that.iniTooltip();
             CommonFloor.applyVillaClasses();
             return CommonFloor.applyPlotClasses();
+          });
+          $panzoom = $('svg').panzoom();
+          return $panzoom.parent().on('mousewheel.focal', function(e) {
+            var delta, zoomOut;
+            e.preventDefault();
+            delta = e.delta || e.originalEvent.wheelDelta;
+            zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
+            $panzoom.panzoom('zoom', zoomOut, {
+              increment: 0.5,
+              minScale: 1,
+              maxScale: 1.5,
+              contain: true,
+              animate: false,
+              $set: $('.spritespin-canvas'),
+              focal: e
+            });
           });
         }
       });

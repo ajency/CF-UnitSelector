@@ -8,15 +8,14 @@ class ListItemView extends Marionette.ItemView
 					                    </div>
 					                    <div class="clearfix"></div>
 					                    <div class="unit-type-info">
-					                      <ul>
-					                     	{{#types}}
-					                        <li>
-					                          {{name}}<!--: <span>{{units}}</span>-->
-					                        </li>
-					                        {{/types}}
-						                   </ul>
-					                      <span class="area {{areaname}}">{{area}} Sq.Ft</span>
-					                      <div class="price {{classname}}">From <span>{{price}}</span></div>
+					                      	<ul>
+						                     	{{#types}}
+						                        <li>
+						                          {{name}}<!--: <span>{{units}}</span>-->
+						                        </li>
+						                        {{/types}}
+					                      		<span class="area {{areaname}}">{{area}} Sq.Ft</span>
+					                      		<div class="price {{classname}}">From <span>{{price}}</span></div>
 											</ul>
 										 </div>')
 
