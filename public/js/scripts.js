@@ -15,9 +15,9 @@ function validateTitle(obj)
         },
         dataType: "JSON",
         success: function (response) {
-            if(!response.data)
+            if (!response.data)
                 $(obj).val('');
-            
+
             $(obj).next("div.cf-loader").addClass('hidden');
         }
     });
@@ -285,18 +285,25 @@ function addFloorLevel(variantId)
     str += '</div> ';
     str += '</div> ';
     str += '</div>';
-
-    str += '<div class="form-inline">';
-    str += '<div class="form-group full-width">';
+    
+    str += '<div class="room-block">';
+    str += '<div class="form-group">';
+    str += '<div class="row">';
+    str += '<div class="col-md-4">';
     str += ' <input type="hidden" name="variantroomid_' + i + '[]" value="">';
     str += '<select name="room_name_' + i + '[]" class="select2 form-control" onchange="getRoomTypeAttributes(this,' + variantId + ',' + i + ');">';
     str += '<option value="">Select Room</option>';
     str += ROOMTYPES;
     str += '</select>';
+    str += '</div>';
+    str += '<div class="col-md-8">';                        
     str += ' <button type="button" onclick="addRoomAttributes(' + i + ',this,' + variantId + ')" class="btn btn-white"><i class="fa fa-plus"></i></button>';
     str += '</div> ';
-
-    str += '</div>';
+    str += '</div> ';
+    str += '</div> ';
+    str += '</div> ';
+    str += '<div>';
+    
     str += '<div></div>';
     str += '</div> ';
 
@@ -316,7 +323,7 @@ function getRoomTypeAttributes(obj, variantId, level)
         },
         success: function (response) {
             var attribute_str = response.data.attributes;
-            $(obj).closest('.form-inline').next('div').html(attribute_str);
+            $(obj).closest('.room-block').next('div').html(attribute_str);
             $("select").select2();
         }
     });
@@ -326,7 +333,7 @@ function getRoomTypeAttributes(obj, variantId, level)
 
 function addRoomAttributes(level, obj, variantId)
 {
-    var room_type = $(obj).closest('.form-inline').find('select[name="room_name_' + level + '[]"]').val();
+    var room_type = $(obj).closest('.room-block').find('select[name="room_name_' + level + '[]"]').val();
     if (room_type.trim() == '')
     {
         alert('Select Room Type');
@@ -334,17 +341,23 @@ function addRoomAttributes(level, obj, variantId)
     }
     var str = '';
 
-    str += '<div class="form-inline">';
+    str += '<div class="room-block">';
     str += '<div class="form-group">';
+    str += '<div class="row">';
+    str += '<div class="col-md-4">';
     str += ' <input type="hidden" name="variantroomid_' + level + '[]" value="">';
     str += '<select name="room_name_' + level + '[]" class="select2 form-control" onchange="getRoomTypeAttributes(this,' + variantId + ',' + level + ');">';
     str += '<option value="">Select Room</option>';
     str += ROOMTYPES;
     str += '</select>';
+    str += '</div>';
+    str += '<div class="col-md-8">';                        
     str += ' <button type="button" onclick="addRoomAttributes(' + level + ',this,' + variantId + ')" class="btn btn-white"><i class="fa fa-plus"></i></button>';
     str += '</div> ';
     str += '</div> ';
-    str += '<div></div>';
+    str += '</div> ';
+    str += '</div> ';
+    str += '<div>';
 
     $(obj).hide();
     $("#levelblock_" + level).append(str);
@@ -897,20 +910,23 @@ function getPropertTypeData(obj, flag)
             property_type_id: obj.value,
         },
         success: function (response) {
-
+            var unitTypes = response.data.unit_types;
             if (flag)
             {
                 //VARIANT CODE
                 $(obj).closest('.row').append(response.data.attributes);
-                $('select[name="unit_type"]').append(response.data.unit_types);
+
+                if (unitTypes.trim() != '')
+                    $('select[name="unit_type"]').append(unitTypes);
             }
             else
             {
                 //FLOOR LAYOUT
                 $(obj).closest('.row').find('select[name="unit_type"]').empty();
-                $(obj).closest('.row').find('select[name="unit_type"]').empty();
                 $(obj).closest('.row').find('select[name="unit_type"]').append('<option value=""> Choose Unit Type</option>');
-                $(obj).closest('.row').find('select[name="unit_type"]').append(response.data.unit_types);
+
+                if (unitTypes.trim() != '')
+                    $(obj).closest('.row').find('select[name="unit_type"]').append(unitTypes);
             }
 
             $("select").select2();
@@ -924,3 +940,21 @@ function saveAndAddAnother()
     $("form").submit();
 }
 
+function addUnitType()
+{
+    var projectPropertyTypeId = $("#property_type").val();
+    var unitTypeName = $("#unit_type_name").val();
+    $.ajax({
+        url: BASEURL + "/admin/project/" + PROJECTID + "/unittype",
+        type: "POST",
+        data: {
+            unit_type: unitTypeName,
+            project_property_type_id: projectPropertyTypeId,
+        },
+        success: function (response) {
+            var unitTypeId = response.data.unitTypeId;
+            $('select[name="unit_type"]').append('<option value="'+unitTypeId+'">'+unitTypeName+'</option>');
+        }
+    });
+    
+}

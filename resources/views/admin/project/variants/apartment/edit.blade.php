@@ -39,12 +39,19 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Unit Type</label>
-                        <select name="unit_type" class="select2 form-control" data-parsley-required>
+                        <select name="unit_type" class="select2 form-control m-b-5" data-parsley-required>
                             <option value="">Select Unit Type</option>
                             @foreach($unit_type_arr as $unit_type)
                             <option  @if($unitVariant['unit_type_id']==$unit_type['id']){{'selected'}}@endif  value="{{$unit_type['id']}}">{{$unit_type['unittype_name']}}</option>
                             @endforeach
                         </select>
+                        <input type="hidden" name="property_type" id="property_type" value="{{ $projectPropertyTypeID }}">
+                        
+                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseUnitType" aria-expanded="true" aria-controls="collapseOne">+ Add Unit Type</a>
+                        <div id="collapseUnitType" class="panel-collapse collapse p-t-10" role="tabpanel" aria-labelledby="headingOne">
+                            <input type="text" name="unit_type_name" id="unit_type_name" class="form-control  m-b-10" placeholder="Add Unit Type">
+                            <button onclick="addUnitType();" type="button" class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
+                        </div>
                     </div> 
                 </div>
                 <div class="col-md-4">
@@ -73,7 +80,7 @@
                         <input type="text" class="form-control" name="per_sq_ft_price" value="{{ $unitVariant['per_sq_ft_price'] }}" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
                     </div> 
                 </div>
-                </div>
+               
                 @foreach($project_property_type_attributes as $attributes)
                 <div class="col-md-4">
                     <div class="form-group">
@@ -107,7 +114,7 @@
                     </div> 
                 </div>
                 @endforeach
-
+            </div>
 
             
 

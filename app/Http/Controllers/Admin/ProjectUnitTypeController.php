@@ -3,6 +3,7 @@
 namespace CommonFloor\Http\Controllers\Admin;
 
 use CommonFloor\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use CommonFloor\UnitType;
 
 class ProjectUnitTypeController extends Controller {
@@ -30,8 +31,25 @@ class ProjectUnitTypeController extends Controller {
      *
      * @return Response
      */
-    public function store() {
-        //
+    public function store(Request $request) {
+ 
+        $unitTypeName = $request->input('unit_type');
+        $projectPropertyTypeId = $request->input('project_property_type_id');
+
+        $unitType = new UnitType();
+        $unitType->project_property_type_id = $projectPropertyTypeId;
+        $unitType->unittype_name = ucfirst($unitTypeName);
+        $unitType->save();
+
+        $unitTypeId = $unitType->id;
+
+        return response()->json([
+                    'code' => 'unittype_created',
+                    'message' => 'Unit Type Successfully Created',
+                    'data' => [
+                        'unitTypeId' => $unitTypeId
+                    ]
+                        ], 201);
     }
 
     /**
@@ -40,7 +58,7 @@ class ProjectUnitTypeController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function show( $id ) {
+    public function show($id) {
         //
     }
 
@@ -50,7 +68,7 @@ class ProjectUnitTypeController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit( $id ) {
+    public function edit($id) {
         //
     }
 
@@ -60,7 +78,7 @@ class ProjectUnitTypeController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update( $id ) {
+    public function update($id) {
         //
     }
 
@@ -70,13 +88,13 @@ class ProjectUnitTypeController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy( $projectId, $unitTypeId ) {
-        $unitType = UnitType::find( $unitTypeId );
+    public function destroy($projectId, $unitTypeId) {
+        $unitType = UnitType::find($unitTypeId);
         $unitType->delete();
         return response()->json([
-            'code' => 'unittype_deleted',
-            'message' => 'Unit type deleted successfully'
-        ], 204);
+                    'code' => 'unittype_deleted',
+                    'message' => 'Unit type deleted successfully'
+                        ], 204);
     }
 
 }

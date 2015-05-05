@@ -26,8 +26,7 @@
 
     <div class="grid-body">
         <form action="/admin/project/{{ $project['id'] }}/plot-variant" method="POST" data-parsley-validate>
-            <div>
-                <div class="row">
+            <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label">Name</label>
@@ -43,6 +42,12 @@
                                 <option value="{{$unit_type['id']}}">{{$unit_type['unittype_name']}}</option>
                                 @endforeach
                             </select>
+                            <input type="hidden" name="property_type" id="property_type" value="{{ $projectPropertyTypeID }}">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseUnitType" aria-expanded="true" aria-controls="collapseOne">+ Add Unit Type</a>
+                            <div id="collapseUnitType" class="panel-collapse collapse p-t-10" role="tabpanel" aria-labelledby="headingOne">
+                                <input   name="unit_type_name" id="unit_type_name"type="text" class="form-control m-b-5" placeholder="Add Unit Type">
+                                <button  onclick="addUnitType();"  type="button" class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
+                            </div>
                         </div> 
                     </div>
                     <div class="col-md-4">
@@ -51,18 +56,15 @@
                             <input type="text" class="form-control" name="size" value="" placeholder="Enter Size" data-parsley-required data-parsley-type="number">
                         </div> 
                     </div>
-
+                    </div>
+                    <div class="row">
                     <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Per sq ft Price</label>
                         <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
                     </div> 
                      </div>
-
-                </div>
-
-                
-                @foreach($project_property_type_attributes as $attributes)
+                    @foreach($project_property_type_attributes as $attributes)
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">{{$attributes['label']}}</label> 
@@ -93,10 +95,8 @@
                         @endif  
                     </div> 
                 </div>
-                @endforeach
-
-            </div>
-
+                @endforeach    
+                </div>
             <div class="form-actions">  
                 <div class="pull-right">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>

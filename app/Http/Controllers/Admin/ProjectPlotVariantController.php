@@ -72,6 +72,7 @@ class ProjectPlotVariantController extends Controller {
         return view('admin.project.variants.plot.add')
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
+                        ->with( 'projectPropertyTypeID', $projectPropertytypeId )
                         ->with('unit_type_arr', $unitTypeArr)
                         ->with('project_property_type_attributes', $propertyTypeAttributes)
                         ->with('current', '');
@@ -178,6 +179,7 @@ class ProjectPlotVariantController extends Controller {
         return view('admin.project.variants.plot.edit')
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
+                        ->with( 'projectPropertyTypeID', $projectPropertytypeId )
                         ->with('project_property_type_attributes', $propertyTypeAttributes)
                         ->with('unit_type_arr', $unitTypeArr)
                         ->with('unitVariant', $unitVariant->toArray())
