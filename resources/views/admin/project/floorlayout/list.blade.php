@@ -22,7 +22,7 @@
         <div class="grid simple">
             <div class="grid-title">
                 <h4>List of <span class="semi-bold">Floor layouts</span></h4>
-                <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/floor-layout/create') }}" >+ Add Floor layout</a>
+                <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/floor-layout/create') }}" ><i class="fa fa-plus"></i> Add Floor layout</a>
             </div>
             <div class="grid-body">
                 <table class="table table-striped" id="example2" >

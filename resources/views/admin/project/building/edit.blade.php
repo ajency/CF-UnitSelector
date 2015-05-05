@@ -44,14 +44,14 @@
                                 <div class="col-md-4">
                                     <div class="form-group object-phases" data-object-type="building">
                                         <label class="form-label">Phase</label>
-                                        <select  name="phase_id" class="select2 form-control">
+                                        <select  name="phase_id" class="select2 form-control m-b-5">
                                             <option value="">Select Phase</option>
                                             @foreach( $phases as $phase )
                                             <option {{ $building->phase_id === $phase->id ? 'selected="true"' : '' }}  value="{{ $phase->id }}">{{ $phase->phase_name }}</option>
                                             @endforeach
                                         </select>
 
-                                        <br>
+                                       
                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapsephase" aria-expanded="true" aria-controls="collapseOne">+ Add Phase</a>
                                         <div id="collapsephase" class="panel-collapse collapse p-t-10" role="tabpanel" aria-labelledby="headingOne">
                                             <input type="text" class="form-control phase-name m-b-5" placeholder="Add Phase">
@@ -72,7 +72,7 @@
                                     <input type="hidden" name="update_section" value="building">
                                     <button data-building-id="{{ $building->id }}" type="button" 
                                             class="btn btn-primary btn-cons update-building">Update</button>
-                                    <button type="button" class="btn btn-default btn-cons"><i class="fa fa-check"></i> Cancel</button>
+                                    <button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button>
                                 </div>
                             </div>
                         </form>
@@ -107,13 +107,16 @@
                             <div class="row">
                                 <div  class="col-md-4">{{ $i }}</div>
                                 <div class="col-md-3">
-                                    <select required="" name="floors[{{ $i }}]" class="full-width">
+                                    <select required="" name="floors[{{ $i }}]" class="full-width m-b-5">
                                         <option>Choose floor layout</option>
                                         @foreach($floorLayouts as $floorLayout)
                                         <option {{ (isset($building->floors[$i]) && $building->floors[$i] == $floorLayout->id) ? 'selected' : '' }} 
                                             value="{{ $floorLayout->id }}" > {{ $floorLayout->layout_name }} </option>
                                         @endforeach
                                     </select>
+                                    <a href="#" data-toggle="modal" data-target="#AddFloorLayout">
+                                      + Add Floor Layout
+                                    </a>
                                 </div>
                                 <div class="col-md-5 text-right">
                                     <a href="#" data-toggle="modal" data-target="#myModal">
@@ -147,8 +150,8 @@
                 </div>
              </a>
                 <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                    <div class="grid-body object-master-images" data-object-id="{{ $building->id }}" data-object-type="building">
-                        <div class="row project-master-images">
+                    <div class="object-master-images" data-object-id="{{ $building->id }}" data-object-type="building">
+                        <div class="grid-body project-master-images">
                             <div>
                                 <input id="master_pickfiles" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/> 
                                 <button id="master_uploadfiles" type="button" class="btn btn-small hidden btn-primary" data-toggle="collapse" data-target="#master-img" >Upload</button>
@@ -165,8 +168,7 @@
                                     <h4  class="semi-bold">Position</h4>
                                 </div>
                                 <div class="col-md-4">
-                                    <h4  class="semi-bold">Breakpoint<button style="float: right" type="button" onclick="saveBreakPoint()" class="btn btn-small btn-primary" >Save Breakpoint</button></h4>
-
+                                    <h4  class="semi-bold">Breakpoint<button style="float: right" type="button" onclick="saveBreakPoint()" class="btn btn-primary" >Save Breakpoint</button></h4>
                                 </div>
                             </div>
 
@@ -220,3 +222,23 @@
 </div>
 
 @endsection
+
+
+<!-- Modal -->
+<div class="modal fade" id="AddFloorLayout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-left" id="myModalLabel">Add Floor Layout</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

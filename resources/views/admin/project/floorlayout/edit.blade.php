@@ -23,14 +23,15 @@
     <div class="row">
         <div class="col-md-12">
             <div class="grid simple">
+               <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                 <div class="grid-title" role="tab" id="headingOne">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                         <div class="pull-right"><i class="fa fa-angle-up "></i>
                             <i class="fa fa-angle-down grid-angle-down"></i>
                         </div>
                         <h3 ><span class="semi-bold">Floor Layout</span> Details</h3> 
-                    </a>
+                    
                 </div>
+            </a>
                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                     <div class="grid-body">
                         <form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/floor-layout/'.$floorLayout->id) }}"> 
@@ -88,9 +89,9 @@
                                 <div class="pull-right">
                                     <input type="hidden" name="_method" value="PUT">
                                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-                                    <button type="submit" class="btn btn-primary btn-cons">Save</button>
+                                    <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
                                     <a href="{{ url('admin/project/'. $project['id'] .'/floor-layout') }}" class="btn btn-default btn-cons">
-                                        Cancel
+                                        <i class="fa fa-ban"></i> Cancel
                                     </a>
                                 </div>
                             </div>
@@ -99,22 +100,21 @@
                 </div>
             </div>
             <div class="grid simple floor-position">
-                <div class="grid-title" role="tab" id="headingTwo">
-                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" 
+                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" 
                        aria-controls="collapseTwo">
-                        <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+                <div class="grid-title" role="tab" id="headingTwo">
+                    <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
                             <i class="fa fa-angle-up "></i>
                         </div>
                         <h3 ><span class="semi-bold">Position</span> Details</h3> 
-                    </a>
-                </div>
+                    </div>
+                 </a>
                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                     @for($i = 1; $i <= $floorLayout->no_of_flats; $i++)
                     <form data-parsley-validate>
                         <div class="grid-body"><h3>Position {{ $i }}</h3>
-                            <div class="row m-b-15">
-                                <div class="col-md-12">
-                                    <div class="row">
+                            <div class="form-group">
+                                <div class="row">
                                         <div class="col-md-4">
                                             <div class="form-group">
                                                 <label class="form-label">Property Type</label>
@@ -139,7 +139,6 @@
                                                     <option {{ (isset($unitTypeIds[$i]) && $unitTypeIds[$i] === $unitType['id']) ? 'selected' : '' }}  value="{{ $unitType['id'] }}">{{ $unitType['unittype_name'] }}</option>
                                                     @endforeach
                                                     @endif
-
                                                 </select>
                                             </div>
                                         </div>
@@ -149,7 +148,7 @@
                                                     <label class="form-label">Unit Variant</label>
                                                 </div>
 
-                                                <select required="" name="unit_variant_id" class="full-width">
+                                                <select required="" name="unit_variant_id" class="full-width m-b-5">
                                                     @if( isset($unitTypeIds[$i]) && isset($allUnitVariants[$unitTypeIds[$i]]) )
                                                     @foreach($allUnitVariants[$unitTypeIds[$i]] as $unitTypeId => $unitVariant)
                                                     <option {{ isset($floorLayoutPositions[$i]) && $floorLayoutPositions[$i]['unit_variant_id'] === $unitVariant['id'] ? 'selected' : '' }} 
@@ -160,17 +159,12 @@
                                                 @else 
                                                 <option value="">Choose Variant</option>
                                                 @endif
-
                                             </select>
+                                          <a type="button" href="#" data-toggle="modal" data-target="#AddVariant">+ Add Variant</a>
                                         </div>
                                     </div> 
                                 </div>
                             </div>
-
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-12">
                                 <div class="pull-right">
                                     <input type="hidden" name="position" value="{{ $i }}" />
                                     <input type="hidden" name="floor_layout_id" value="{{ $floorLayout->id }}" />
@@ -178,12 +172,8 @@
                                         <i class="fa fa-save"></i> Save
                                     </button>
                                     <div class="cf-loader hidden"></div>
-                                </div>
-
                             </div>
-                        </div>
                     </div>
-
                 </form>
                 @endfor
             </div>
@@ -193,3 +183,23 @@
 </div>
 </div>
 @endsection
+
+
+<!-- Modal -->
+<div class="modal fade" id="AddVariant" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-left" id="myModalLabel">Add Variant</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

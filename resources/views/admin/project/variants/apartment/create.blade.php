@@ -55,18 +55,21 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Unit Type</label>
-                        <select name="unit_type" class="select2 form-control" data-parsley-required>
+                        <select name="unit_type" class="select2 form-control m-b-5" data-parsley-required>
                             <option value="">Select Type</option>
                             @foreach($unitTypes as $unitType)
                             <option value="{{ $unitType->id }}">{{ $unitType->unittype_name }}</option>
                             @endforeach
                         </select>
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseUnitType" aria-expanded="true" aria-controls="collapseOne">+ Add Unit Type</a>
+                                <div id="collapseUnitType" class="panel-collapse collapse p-t-10" role="tabpanel" aria-labelledby="headingOne">
+                                    <input type="text" class="form-control  m-b-10" placeholder="Add Unit Type">
+                                    <button type="button" class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
+                                </div>
                     </div> 
                 </div>
-
                 </div>
                 <div class="row">
-                
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Built Up Area</label>
@@ -139,3 +142,4 @@
 
 <!-- END PLACE PAGE CONTENT HERE -->
 @endsection
+

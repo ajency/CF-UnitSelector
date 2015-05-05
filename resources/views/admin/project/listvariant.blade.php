@@ -20,7 +20,7 @@
         <div class="grid simple">
             <div class="grid-title">
                 <h4>List of <span class="semi-bold">Unit Variant</span></h4>
-                <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/bunglow-variant/create') }}" >+ Add Variant</a>
+                <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/bunglow-variant/create') }}" ><i class="fa fa-plus"></i> Add Variant</a>
             </div>
             <div class="grid-body">
                 <table class="table table-striped" id="example2" >

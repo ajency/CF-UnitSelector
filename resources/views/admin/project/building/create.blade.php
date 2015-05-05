@@ -38,13 +38,13 @@
                         <div class="col-md-4">
                             <div class="form-group object-phases" data-object-type="building">
                                 <label class="form-label">Phase</label>
-                                <select  name="phase_id" class="select2 form-control">
+                                <select  name="phase_id" class="select2 form-control m-b-5">
                                     <option value="">Select Phase</option>
                                     @foreach( $phases as $phase )
                                     <option value="{{ $phase->id }}">{{ $phase->phase_name }}</option>
                                     @endforeach
                                 </select>
-                                <br>
+                             
                                 <a data-toggle="collapse" data-parent="#accordion" href="#collapsephase" aria-expanded="true" aria-controls="collapseOne">+ Add Phase</a>
                                 <div id="collapsephase" class="panel-collapse collapse p-t-10" role="tabpanel" aria-labelledby="headingOne">
                                     <input type="text" class="form-control phase-name m-b-10" placeholder="Add Phase">

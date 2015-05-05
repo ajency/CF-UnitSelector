@@ -139,7 +139,7 @@
                             <div id="ext3dlayout">
                                 @if(isset($layouts['external']['3d']))
                                 <img src="{{ $layouts['external']['3d']['IMAGE'] }}" class="img-responsive img-thumbnail">
-                                <button onclick="deleteLayout({{ $layouts['external']['3d']['ID'] }}, 'external');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>     
+                                <button onclick="deleteLayout({{ $layouts['external']['3d']['ID'] }}, 'external');" type="button" class="btn btn-small btn-default m-t-10 pull-right"><i class="fa fa-trash"></i> Delete</button>     
                                 @else
                                 <input id="pickfiles_ext3d" type="button" name="fileToUpload" class="btn btn-small btn-white" value="Select your file" data-filename-placement="inside"/>
                                 <button  id="uploadfiles_ext3d"type="button" class="btn hidden btn-small btn-primary">Upload</button>												
@@ -160,7 +160,7 @@
                     <div class="row selectedImages m-t-15">
                     </div>         
                 </div>
-                <div id="galleryimages">
+                <div id="galleryimages" class="row">
                     @if(isset($layouts['gallery']))
                     @foreach($layouts['gallery'] as $gallery)
                     <div class="col-sm-3" id="gallery_{{ $gallery['ID'] }}">   
