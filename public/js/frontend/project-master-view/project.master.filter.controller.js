@@ -9,7 +9,7 @@
       return FilterMsterView.__super__.constructor.apply(this, arguments);
     }
 
-    FilterMsterView.prototype.template = Handlebars.compile('{{#villaFilters}} <div class="filters-wrapper"> <h3>Villa</h3> <div class="blck-wrap"> <h5>Unit Types</h5> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="villaFilters unit_types custom-chckbx" name="unit_type{{id}}" id="unit_type{{id}}" value="1" data-value={{id}} /> <label for="unit_type{{id}}">{{name}}</label> {{/unitTypes}} </div> </div> <div class="blck-wrap"> <h5>Unit Variants</h5> <div class="filter-chkbox-block"> {{#unitVariants}} <input type="checkbox" class="villaFilters unitvariants custom-chckbx" name="unit_variant{{id}}" id="unit_variant{{id}}" value="1" data-value={{id}} /> <label for="unit_variant{{id}}">{{area}} Sq.Ft</label> {{/unitVariants}} </div> </div> <div class="blck-wrap"> <h5>Availability</h5> <div class="filter-chkbox-block"> {{#status}} <input type="checkbox" class="villaFilters status custom-chckbx" name="{{name}}" id="{{name}}" value="1"  /> <label for="{{name}}">{{name}}</label> {{/status}} </div> </div> </div> {{/villaFilters}} {{#apartmentFilters}} <div class="filters-wrapper"> <h3>Apartments</h3> <div class="blck-wrap"> <h5>Unit Types</h5> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="aptFilters unit_types custom-chckbx" name="unit_type{{id}}" id="unit_type{{id}}" value="1" data-value={{id}} /> <label for="unit_type{{id}}">{{name}}</label> {{/unitTypes}} </div> </div> <div class="blck-wrap"> <h5>Unit Variants</h5> <div class="filter-chkbox-block"> {{#unitVariants}} <input type="checkbox" class="aptFilters unitvariants custom-chckbx" name="unit_variant{{id}}" id="unit_variant{{id}}" value="1" data-value={{id}} /> <label for="unit_variant{{id}}">{{area}} Sq.Ft</label> {{/unitVariants}} </div> </div> <div class="blck-wrap"> <h5>Availability</h5> <div class="filter-chkbox-block"> {{#status}} <input type="checkbox" class="aptFilters status custom-chckbx" name="{{name}}" id="{{name}}" value="1"  /> <label for="{{name}}">{{name}}</label> {{/status}} </div> </div> </div> {{/apartmentFilters}} {{#plotFilters}} <div class="filters-wrapper"> <h3>Plots</h3> <div class="blck-wrap"> <h5>Unit Types</h5> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="aptFilters unit_types custom-chckbx" name="unit_type{{id}}" id="unit_type{{id}}" value="1" data-value={{id}} /> <label for="unit_type{{id}}">{{name}}</label> {{/unitTypes}} </div> </div> <div class="blck-wrap"> <h5>Unit Variants</h5> <div class="filter-chkbox-block"> {{#unitVariants}} <input type="checkbox" class="aptFilters unitvariants custom-chckbx" name="unit_variant{{id}}" id="unit_variant{{id}}" value="1" data-value={{id}} /> <label for="unit_variant{{id}}">{{area}} Sq.Ft</label> {{/unitVariants}} </div> </div> <div class="blck-wrap"> <h5>Availability</h5> <div class="filter-chkbox-block"> {{#status}} <input type="checkbox" class="aptFilters status custom-chckbx" name="{{name}}" id="{{name}}" value="1"  /> <label for="{{name}}">{{name}}</label> {{/status}} </div> </div> </div> {{/plotFilters}} <div class="blck-wrap clearfix"> <h5>Budget</h5> <select class="price_min form-control budget-range min-budget addCft" name="price_min"> <option selected="" value="">Min</option> <option value="500000">5 Lac</option> <option value="1000000">10 Lac</option> <option value="2000000">20 Lac</option> <option value="3000000">30 Lac</option> <option value="4000000">40 Lac</option> <option value="5000000">50 Lac</option> <option value="6000000">60 Lac</option> <option value="7000000">70 Lac</option> <option value="8000000">80 Lac</option> <option value="9000000">90 Lac</option> <option value="10000000">1 Cr</option> <option value="12000000">1.2 Cr</option> <option value="14000000">1.4 Cr</option> <option value="16000000">1.6 Cr</option> <option value="18000000">1.8 Cr</option> <option value="20000000">2 Cr</option> <option value="23000000">2.3 Cr</option> <option value="26000000">2.6 Cr</option> <option value="30000000">3 Cr</option> <option value="35000000">3.5 Cr</option> <option value="40000000">4 Cr</option> <option value="45000000">4.5 Cr</option> <option value="50000000">5 Cr</option> </select> <select class="price_max form-control budget-range addCft" name="pice_max"> <option style="display: block;" selected="" value="">Max</option> <option style="display: none;" value="500000">5 Lac</option> <option style="display: none;" value="1000000">10 Lac</option> <option style="display: block;" value="2000000">20 Lac</option> <option style="display: block;" value="3000000">30 Lac</option> <option style="display: block;" value="4000000">40 Lac</option> <option style="display: block;" value="5000000">50 Lac</option> <option style="display: block;" value="6000000">60 Lac</option> <option style="display: block;" value="7000000">70 Lac</option> <option style="display: block;" value="8000000">80 Lac</option> <option style="display: block;" value="9000000">90 Lac</option> <option style="display: block;" value="10000000">1 Cr</option> <option style="display: block;" value="12000000">1.2 Cr</option> <option style="display: block;" value="14000000">1.4 Cr</option> <option style="display: block;" value="16000000">1.6 Cr</option> <option style="display: block;" value="18000000">1.8 Cr</option> <option style="display: block;" value="20000000">2 Cr</option> <option style="display: block;" value="23000000">2.3 Cr</option> <option style="display: block;" value="26000000">2.6 Cr</option> <option style="display: block;" value="30000000">3 Cr</option> <option style="display: block;" value="35000000">3.5 Cr</option> <option style="display: block;" value="40000000">4 Cr</option> <option style="display: block;" value="45000000">4.5 Cr</option> <option style="display: block;" value="50000000">5 Cr</option> <option style="display: block;" value="999999900">&gt; 5 Cr</option> </select> </div>');
+    FilterMsterView.prototype.template = Handlebars.compile('{{#villaFilters}} <div class="filters-wrapper"> <h3>Villa</h3> <div class="blck-wrap"> <h5>Unit Types</h5> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="villaFilters unit_types custom-chckbx" name="unit_type{{id}}" id="unit_type{{id}}" value="1" data-value={{id}} /> <label for="unit_type{{id}}">{{name}}</label> {{/unitTypes}} </div> </div> <div class="blck-wrap"> <h5>Unit Variants</h5> <div class="filter-chkbox-block"> {{#unitVariants}} <input type="checkbox" class="villaFilters unitvariants custom-chckbx" name="unit_variant{{id}}" id="unit_variant{{id}}" value="1" data-value={{id}} /> <label for="unit_variant{{id}}">{{area}} Sq.Ft</label> {{/unitVariants}} </div> </div> </div> {{/villaFilters}} {{#apartmentFilters}} <div class="filters-wrapper"> <h3>Apartments</h3> <div class="blck-wrap"> <h5>Unit Types</h5> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="aptFilters unit_types custom-chckbx" name="unit_type{{id}}" id="unit_type{{id}}" value="1" data-value={{id}} /> <label for="unit_type{{id}}">{{name}}</label> {{/unitTypes}} </div> </div> <div class="blck-wrap"> <h5>Unit Variants</h5> <div class="filter-chkbox-block"> {{#unitVariants}} <input type="checkbox" class="aptFilters unitvariants custom-chckbx" name="unit_variant{{id}}" id="unit_variant{{id}}" value="1" data-value={{id}} /> <label for="unit_variant{{id}}">{{area}} Sq.Ft</label> {{/unitVariants}} </div> </div> </div> {{/apartmentFilters}} {{#plotFilters}} <div class="filters-wrapper"> <h3>Plots</h3> <div class="blck-wrap"> <h5>Unit Types</h5> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="aptFilters unit_types custom-chckbx" name="unit_type{{id}}" id="unit_type{{id}}" value="1" data-value={{id}} /> <label for="unit_type{{id}}">{{name}}</label> {{/unitTypes}} </div> </div> <div class="blck-wrap"> <h5>Unit Variants</h5> <div class="filter-chkbox-block"> {{#unitVariants}} <input type="checkbox" class="aptFilters unitvariants custom-chckbx" name="unit_variant{{id}}" id="unit_variant{{id}}" value="1" data-value={{id}} /> <label for="unit_variant{{id}}">{{area}} Sq.Ft</label> {{/unitVariants}} </div> </div> </div> {{/plotFilters}} <div class="blck-wrap clearfix"> <h5>Budget</h5> <select class="price_min form-control budget-range min-budget addCft" name="price_min"> <option selected="" value="">Min</option> <option value="500000">5 Lac</option> <option value="1000000">10 Lac</option> <option value="2000000">20 Lac</option> <option value="3000000">30 Lac</option> <option value="4000000">40 Lac</option> <option value="5000000">50 Lac</option> <option value="6000000">60 Lac</option> <option value="7000000">70 Lac</option> <option value="8000000">80 Lac</option> <option value="9000000">90 Lac</option> <option value="10000000">1 Cr</option> <option value="12000000">1.2 Cr</option> <option value="14000000">1.4 Cr</option> <option value="16000000">1.6 Cr</option> <option value="18000000">1.8 Cr</option> <option value="20000000">2 Cr</option> <option value="23000000">2.3 Cr</option> <option value="26000000">2.6 Cr</option> <option value="30000000">3 Cr</option> <option value="35000000">3.5 Cr</option> <option value="40000000">4 Cr</option> <option value="45000000">4.5 Cr</option> <option value="50000000">5 Cr</option> </select> <select class="price_max form-control budget-range addCft" name="pice_max"> <option style="display: block;" selected="" value="">Max</option> <option style="display: none;" value="500000">5 Lac</option> <option style="display: none;" value="1000000">10 Lac</option> <option style="display: block;" value="2000000">20 Lac</option> <option style="display: block;" value="3000000">30 Lac</option> <option style="display: block;" value="4000000">40 Lac</option> <option style="display: block;" value="5000000">50 Lac</option> <option style="display: block;" value="6000000">60 Lac</option> <option style="display: block;" value="7000000">70 Lac</option> <option style="display: block;" value="8000000">80 Lac</option> <option style="display: block;" value="9000000">90 Lac</option> <option style="display: block;" value="10000000">1 Cr</option> <option style="display: block;" value="12000000">1.2 Cr</option> <option style="display: block;" value="14000000">1.4 Cr</option> <option style="display: block;" value="16000000">1.6 Cr</option> <option style="display: block;" value="18000000">1.8 Cr</option> <option style="display: block;" value="20000000">2 Cr</option> <option style="display: block;" value="23000000">2.3 Cr</option> <option style="display: block;" value="26000000">2.6 Cr</option> <option style="display: block;" value="30000000">3 Cr</option> <option style="display: block;" value="35000000">3.5 Cr</option> <option style="display: block;" value="40000000">4 Cr</option> <option style="display: block;" value="45000000">4.5 Cr</option> <option style="display: block;" value="50000000">5 Cr</option> <option style="display: block;" value="999999900">&gt; 5 Cr</option> </select> </div> <div class="blck-wrap"> <h5>Availability</h5> <div class="filter-chkbox-block"> {{#status}} <input type="checkbox" class="aptFilters status custom-chckbx" name="{{id}}" id="{{id}}" value="1"  /> <label for="{{id}}">{{name}}</label> {{/status}} </div> </div>');
 
     FilterMsterView.prototype.initialize = function() {
       this.unitTypes = [];
@@ -131,6 +131,7 @@
       data.villaFilters = Marionette.getOption(this, 'villaFilters');
       data.apartmentFilters = Marionette.getOption(this, 'apartmentFilters');
       data.plotFilters = Marionette.getOption(this, 'plotFilters');
+      data.status = Marionette.getOption(this, 'status');
       return data;
     };
 
@@ -173,7 +174,8 @@
       this.view = view = new CommonFloor.FilterMsterView({
         'villaFilters': villaFilters,
         'apartmentFilters': apartmentFilters,
-        'plotFilters': plotFilters
+        'plotFilters': plotFilters,
+        'status': CommonFloor.getStatus()
       });
       return this.show(this.view);
     };
@@ -185,7 +187,7 @@
     };
 
     FilterMasterCtrl.prototype.getVillaFilters = function() {
-      var filters, status, status_arr, unitTypes, unitVariants, unit_types, villaUnits;
+      var filters, status, unitTypes, unitVariants, unit_types;
       filters = [];
       unitTypes = [];
       unit_types = [];
@@ -208,29 +210,17 @@
           'area': item.get('super_built_up_area')
         });
       });
-      status = [];
-      status_arr = [];
-      villaUnits = bunglowVariantCollection.getBunglowUnits();
-      $.each(villaUnits, function(index, value) {
-        if (($.inArray(value.get('availability'), status_arr)) === -1) {
-          status_arr.push(value.get('availability'));
-          return status.push({
-            'name': s.humanize(value.get('availability'))
-          });
-        }
-      });
       if (unitVariants.length !== 0) {
         filters.push({
           'unitTypes': unitTypes,
-          'unitVariants': unitVariants,
-          'status': status
+          'unitVariants': unitVariants
         });
       }
       return filters;
     };
 
     FilterMasterCtrl.prototype.getApartmentFilters = function() {
-      var apartmentUnits, filters, status, status_arr, unitTypes, unitVariants, unit_types;
+      var filters, status, unitTypes, unitVariants, unit_types;
       filters = [];
       unitTypes = [];
       unit_types = [];
@@ -253,29 +243,17 @@
           'area': item.get('super_built_up_area')
         });
       });
-      status = [];
-      status_arr = [];
-      apartmentUnits = apartmentVariantCollection.getApartmentUnits();
-      $.each(apartmentUnits, function(index, value) {
-        if (($.inArray(value.get('availability'), status_arr)) === -1) {
-          status_arr.push(value.get('availability'));
-          return status.push({
-            'name': s.humanize(value.get('availability'))
-          });
-        }
-      });
       if (unitVariants.length !== 0) {
         filters.push({
           'unitTypes': unitTypes,
-          'unitVariants': unitVariants,
-          'status': status
+          'unitVariants': unitVariants
         });
       }
       return filters;
     };
 
     FilterMasterCtrl.prototype.getPlotFilters = function() {
-      var filters, plotUnits, status, status_arr, unitTypes, unitVariants, unit_types;
+      var filters, status, unitTypes, unitVariants, unit_types;
       filters = [];
       unitTypes = [];
       unit_types = [];
@@ -298,22 +276,10 @@
           'area': item.get('size')
         });
       });
-      status = [];
-      status_arr = [];
-      plotUnits = plotVariantCollection.getPlotUnits();
-      $.each(plotUnits, function(index, value) {
-        if (($.inArray(value.get('availability'), status_arr)) === -1) {
-          status_arr.push(value.get('availability'));
-          return status.push({
-            'name': s.humanize(value.get('availability'))
-          });
-        }
-      });
       if (unitVariants.length !== 0) {
         filters.push({
           'unitTypes': unitTypes,
-          'unitVariants': unitVariants,
-          'status': status
+          'unitVariants': unitVariants
         });
       }
       return filters;

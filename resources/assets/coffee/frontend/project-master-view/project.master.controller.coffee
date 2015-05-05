@@ -46,7 +46,7 @@ class TopMasterView extends Marionette.ItemView
 					{{/types}}<br/>
 					{{#each  filters}}<br/>
 					{{@key}}: {{#each this}}<br/>{{@key}}:{{this}}{{/each}}
-					{{/each }}
+					{{/each }}<br/>{{#each status}}{{@key}}:{{this}}{{/each}}
 					<div class="clearfix"></div>
 				</div>
 				<div class="clearfix"></div>
@@ -60,8 +60,11 @@ class TopMasterView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
-		console.log CommonFloor.getFilters()[0]
-		data.filters  = CommonFloor.getFilters()[0]
+		console.log CommonFloor.getFilters()
+		status = CommonFloor.getStatusFilters()
+		if status.length != 0
+			data.status = status
+		data.filters  = CommonFloor.getFilters()
 		response = CommonFloor.propertyTypes() 
 		data.types = response
 		data

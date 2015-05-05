@@ -54,6 +54,8 @@ class BunglowVariantCollection extends Backbone.Collection
 
 		unit_types
 
+	
+
 window.bunglowVariantCollection  = new BunglowVariantCollection
 window.bunglowVariantMasterCollection  = new BunglowVariantCollection
 window.bunglowVariant  = new BunglowVariant

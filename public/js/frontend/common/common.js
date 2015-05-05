@@ -299,41 +299,51 @@
   };
 
   CommonFloor.getFilters = function() {
-    var aptfilters, filters, plotfilters, villafilters;
-    filters = [];
+    var aptfilters, filters, min, plotfilters, villafilters;
     villafilters = CommonFloor.getVillaFilters();
     aptfilters = CommonFloor.getApartmentFilters();
     plotfilters = CommonFloor.getPlotFilters();
-    filters.push({
+    if (CommonFloor.defaults['price_min'] !== 0) {
+      min = CommonFloor.defaults['price_min'];
+    }
+    filters = {
       'Villa': villafilters,
       'Apartment/Penthouse': aptfilters,
       'Plot': plotfilters
-    });
+    };
     return filters;
   };
 
   CommonFloor.getVillaFilters = function() {
-    var filters, unitTypes, unitVariants, unit_type, unit_variant;
+    var filters, status, unitTypes, unitVariants, unit_type, unit_variant;
     unitVariants = [];
     unit_variant = '';
     unitTypes = [];
     unit_type = '';
-    $.each(CommonFloor.defaults, function(index, value) {
-      if (value !== "" && index === 'unitVariants') {
-        if (!_.isUndefined(bunglowVariantMasterCollection.get(parseInt(value)))) {
-          unit_variant = bunglowVariantMasterCollection.findWhere({
-            'id': parseInt(value)
-          });
-          unitVariants.push(unit_variant.get('unit_variant_name'));
-        }
-      }
-      if (value !== "" && index === 'unitTypes' && $.inArray(parseInt(value), bunglowVariantMasterCollection.getVillaUnitTypes()) > -1) {
-        unit_type = unitTypeMasterCollection.findWhere({
-          'id': parseInt(value)
+    status = [];
+    $.each(CommonFloor.defaults, function(ind, val) {
+      var param_val_arr;
+      if (ind !== 'price_min' && ind !== 'price_max' && val !== "") {
+        param_val_arr = val.split(',');
+        return $.each(param_val_arr, function(index, value) {
+          if (value !== "" && ind === 'unitVariants') {
+            if (!_.isUndefined(bunglowVariantMasterCollection.get(parseInt(value)))) {
+              unit_variant = bunglowVariantMasterCollection.findWhere({
+                'id': parseInt(value)
+              });
+              unitVariants.push(unit_variant.get('unit_variant_name'));
+            }
+          }
+          if (value !== "" && ind === 'unitTypes' && $.inArray(parseInt(value), bunglowVariantMasterCollection.getVillaUnitTypes()) > -1) {
+            unit_type = unitTypeMasterCollection.findWhere({
+              'id': parseInt(value)
+            });
+            return unitTypes.push(unit_type.get('name'));
+          }
         });
-        return unitTypes.push(unit_type.get('name'));
       }
     });
+    console.log(unitTypes);
     filters = {
       'unitVariants': unitVariants,
       'unitTypes': unitTypes,
@@ -348,25 +358,32 @@
   };
 
   CommonFloor.getApartmentFilters = function() {
-    var filters, unitTypes, unitVariants, unit_type, unit_variant;
+    var filters, status, unitTypes, unitVariants, unit_type, unit_variant;
     unitVariants = [];
     unit_variant = '';
     unitTypes = [];
     unit_type = '';
-    $.each(CommonFloor.defaults, function(index, value) {
-      if (value !== "" && index === 'unitVariants') {
-        if (!_.isUndefined(apartmentVariantMasterCollection.get(parseInt(value)))) {
-          unit_variant = apartmentVariantMasterCollection.findWhere({
-            'id': parseInt(value)
-          });
-          unitVariants.push(unit_variant.get('unit_variant_name'));
-        }
-      }
-      if (value !== "" && index === 'unitTypes' && $.inArray(parseInt(value), apartmentVariantMasterCollection.getApartmentUnitTypes()) > -1) {
-        unit_type = unitTypeMasterCollection.findWhere({
-          'id': parseInt(value)
+    status = [];
+    $.each(CommonFloor.defaults, function(ind, val) {
+      var param_val_arr;
+      if (ind !== 'price_min' && ind !== 'price_max' && val !== "") {
+        param_val_arr = val.split(',');
+        return $.each(param_val_arr, function(index, value) {
+          if (value !== "" && ind === 'unitVariants') {
+            if (!_.isUndefined(apartmentVariantMasterCollection.get(parseInt(value)))) {
+              unit_variant = apartmentVariantMasterCollection.findWhere({
+                'id': parseInt(value)
+              });
+              unitVariants.push(unit_variant.get('unit_variant_name'));
+            }
+          }
+          if (value !== "" && ind === 'unitTypes' && $.inArray(parseInt(value), apartmentVariantMasterCollection.getApartmentUnitTypes()) > -1) {
+            unit_type = unitTypeMasterCollection.findWhere({
+              'id': parseInt(value)
+            });
+            return unitTypes.push(unit_type.get('name'));
+          }
         });
-        return unitTypes.push(unit_type.get('name'));
       }
     });
     filters = {
@@ -383,26 +400,32 @@
   };
 
   CommonFloor.getPlotFilters = function() {
-    var filters, unitTypes, unitVariants, unit_type, unit_variant;
+    var filters, status, unitTypes, unitVariants, unit_type, unit_variant;
     unitVariants = [];
     unit_variant = '';
     unitTypes = [];
     unit_type = '';
-    filters = [];
-    $.each(CommonFloor.defaults, function(index, value) {
-      if (value !== "" && index === 'unitVariants') {
-        if (!_.isUndefined(plotVariantMasterCollection.get(parseInt(value)))) {
-          unit_variant = plotVariantMasterCollection.findWhere({
-            'id': parseInt(value)
-          });
-          unitVariants.push(unit_variant.get('unit_variant_name'));
-        }
-      }
-      if (value !== "" && index === 'unitTypes' && $.inArray(parseInt(value), plotVariantMasterCollection.getPlotUnitTypes()) > -1) {
-        unit_type = unitTypeMasterCollection.findWhere({
-          'id': parseInt(value)
+    status = [];
+    $.each(CommonFloor.defaults, function(ind, val) {
+      var param_val_arr;
+      if (ind !== 'price_min' && ind !== 'price_max' && val !== "") {
+        param_val_arr = val.split(',');
+        return $.each(param_val_arr, function(index, value) {
+          if (value !== "" && ind === 'unitVariants') {
+            if (!_.isUndefined(plotVariantMasterCollection.get(parseInt(value)))) {
+              unit_variant = plotVariantMasterCollection.findWhere({
+                'id': parseInt(value)
+              });
+              unitVariants.push(unit_variant.get('unit_variant_name'));
+            }
+          }
+          if (value !== "" && ind === 'unitTypes' && $.inArray(parseInt(value), plotVariantMasterCollection.getPlotUnitTypes()) > -1) {
+            unit_type = unitTypeMasterCollection.findWhere({
+              'id': parseInt(value)
+            });
+            return unitTypes.push(unit_type.get('name'));
+          }
         });
-        return unitTypes.push(unit_type.get('name'));
       }
     });
     filters = {
@@ -416,6 +439,44 @@
       }
     });
     return filters;
+  };
+
+  CommonFloor.getStatus = function() {
+    var status, status_arr;
+    status = [];
+    status_arr = [];
+    unitMasterCollection.each(function(item) {
+      if (($.inArray(item.get('availability'), status_arr)) === -1) {
+        status_arr.push(item.get('availability'));
+        return status.push({
+          'id': item.get('availability'),
+          'name': s.humanize(item.get('availability'))
+        });
+      }
+    });
+    return status;
+  };
+
+  CommonFloor.getStatusFilters = function() {
+    var response, status, statusColl, statusIds;
+    status = [];
+    response = CommonFloor.getStatus();
+    statusColl = new Backbone.Collection(response);
+    console.log(statusIds = statusColl.pluck('id'));
+    $.each(CommonFloor.defaults, function(ind, val) {
+      var param_val_arr;
+      if (ind !== 'price_min' && ind !== 'price_max' && val !== "") {
+        param_val_arr = val.split(',');
+        return $.each(param_val_arr, function(index, value) {
+          if (value !== "" && ind === 'availability' && $.inArray(value, statusIds) > -1) {
+            return status.push(s.humanize(value));
+          }
+        });
+      }
+    });
+    return {
+      'status': status
+    };
   };
 
 }).call(this);

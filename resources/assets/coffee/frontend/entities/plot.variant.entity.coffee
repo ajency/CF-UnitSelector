@@ -51,6 +51,8 @@ class PlotVariantCollection extends Backbone.Collection
 
 		unit_types
 
+	
+
 window.plotVariantCollection  = new PlotVariantCollection
 window.plotVariantMasterCollection  = new PlotVariantCollection
 window.plotVariant = new PlotVariant

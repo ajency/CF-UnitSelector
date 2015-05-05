@@ -26,15 +26,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 										
 										
 
-										<div class="blck-wrap">
-											<h5>Availability</h5>
-											<div class="filter-chkbox-block">
-												{{#status}}
-												<input type="checkbox" class="villaFilters status custom-chckbx" name="{{name}}" id="{{name}}" value="1"  />
-												<label for="{{name}}">{{name}}</label>
-												{{/status}}
-											</div>
-										</div>
+									
 
 									</div>
 									{{/villaFilters}}
@@ -63,15 +55,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 											</div>
 										</div>
 
-										<div class="blck-wrap">
-											<h5>Availability</h5>
-											<div class="filter-chkbox-block">
-												{{#status}}
-												<input type="checkbox" class="aptFilters status custom-chckbx" name="{{name}}" id="{{name}}" value="1"  />
-												<label for="{{name}}">{{name}}</label>
-												{{/status}}
-											</div>
-										</div>
+										
 
 									</div>
 									{{/apartmentFilters}}
@@ -102,15 +86,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 											</div>
 										</div>
 
-										<div class="blck-wrap">
-											<h5>Availability</h5>
-											<div class="filter-chkbox-block">
-												{{#status}}
-												<input type="checkbox" class="aptFilters status custom-chckbx" name="{{name}}" id="{{name}}" value="1"  />
-												<label for="{{name}}">{{name}}</label>
-												{{/status}}
-											</div>
-										</div>
+										
 
 									</div>
 									{{/plotFilters}}
@@ -145,6 +121,15 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 												<option style="display: block;" value="45000000">4.5 Cr</option> <option style="display: block;" value="50000000">5 Cr</option> 
 												<option style="display: block;" value="999999900">&gt; 5 Cr</option>
 											</select>
+										</div>
+										<div class="blck-wrap">
+											<h5>Availability</h5>
+											<div class="filter-chkbox-block">
+												{{#status}}
+												<input type="checkbox" class="aptFilters status custom-chckbx" name="{{id}}" id="{{id}}" value="1"  />
+												<label for="{{id}}">{{name}}</label>
+												{{/status}}
+											</div>
 										</div>
 
 								')
@@ -287,6 +272,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		data.villaFilters = Marionette.getOption(@,'villaFilters')
 		data.apartmentFilters = Marionette.getOption(@,'apartmentFilters')
 		data.plotFilters = Marionette.getOption(@,'plotFilters')
+		data.status = Marionette.getOption(@,'status')
 		data
 
 	onShow:->
@@ -328,6 +314,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 				'villaFilters' : villaFilters
 				'apartmentFilters' : apartmentFilters
 				'plotFilters'		: plotFilters
+				'status'			:CommonFloor.getStatus()
 
 		# @listenTo @view,"load:units" ,@loadController
 		
@@ -356,19 +343,20 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 					'id' : item.get 'id'
 					'area' : item.get 'super_built_up_area'
 			
-		status = []
-		status_arr = []
-		villaUnits = bunglowVariantCollection.getBunglowUnits()
-		$.each villaUnits,(index,value)->
-			if ($.inArray value.get('availability') , status_arr) ==  -1
-				status_arr.push value.get 'availability'
-				status.push 'name': s.humanize value.get 'availability'
+		# status = []
+		# status_arr = []
+		# villaUnits = bunglowVariantCollection.getBunglowUnits()
+		# $.each villaUnits,(index,value)->
+		# 	if ($.inArray value.get('availability') , status_arr) ==  -1
+		# 		status_arr.push value.get 'availability'
+		# 		status.push 
+		# 			'id': value.get 'availability'
+		# 			'name': s.humanize value.get 'availability'
 		
 		if unitVariants.length != 0
 			filters.push
 					'unitTypes' 	: unitTypes
 					'unitVariants'  : unitVariants
-					'status'		: status
 
 
 		filters
@@ -392,18 +380,19 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 					'id' : item.get 'id'
 					'area' : item.get 'super_built_up_area'
 			
-		status = []
-		status_arr = []
-		apartmentUnits = apartmentVariantCollection.getApartmentUnits()
-		$.each apartmentUnits,(index,value)->
-			if ($.inArray value.get('availability') , status_arr) ==  -1
-				status_arr.push value.get 'availability'
-				status.push 'name': s.humanize value.get 'availability'
+		# status = []
+		# status_arr = []
+		# apartmentUnits = apartmentVariantCollection.getApartmentUnits()
+		# $.each apartmentUnits,(index,value)->
+		# 	if ($.inArray value.get('availability') , status_arr) ==  -1
+		# 		status_arr.push value.get 'availability'
+		# 		status.push 
+		# 			'id': value.get 'availability'
+		# 			'name': s.humanize value.get 'availability'
 		if unitVariants.length != 0
 			filters.push
 					'unitTypes' 	: unitTypes
 					'unitVariants'  : unitVariants
-					'status'		: status
 		filters
 
 
@@ -426,17 +415,18 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 					'id' : item.get 'id'
 					'area' : item.get 'size'
 			
-		status = []
-		status_arr = []
-		plotUnits = plotVariantCollection.getPlotUnits()
-		$.each plotUnits,(index,value)->
-			if ($.inArray value.get('availability') , status_arr) ==  -1
-				status_arr.push value.get 'availability'
-				status.push 'name': s.humanize value.get 'availability'
+		# status = []
+		# status_arr = []
+		# plotUnits = plotVariantCollection.getPlotUnits()
+		# $.each plotUnits,(index,value)->
+		# 	if ($.inArray value.get('availability') , status_arr) ==  -1
+		# 		status_arr.push value.get 'availability'
+		# 		status.push 
+		# 			'id': value.get 'availability'
+		# 			'name': s.humanize value.get 'availability'
 		if unitVariants.length != 0
 			filters.push
 					'unitTypes' 	: unitTypes
 					'unitVariants'  : unitVariants
-					'status'		: status
 		filters
 								

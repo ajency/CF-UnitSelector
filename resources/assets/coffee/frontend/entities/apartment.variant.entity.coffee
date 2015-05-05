@@ -54,6 +54,8 @@ class ApartmentVariantCollection extends Backbone.Collection
 
 		unit_types
 
+	
+
 window.apartmentVariantCollection  = new ApartmentVariantCollection
 window.apartmentVariantMasterCollection  = new ApartmentVariantCollection
 window.apartmentVariant  = new ApartmentVariant
