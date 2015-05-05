@@ -74,7 +74,7 @@
 
                             <div class="form-group">
                                 <label class="form-label" >Property Types <span class="text-primary">*</span></label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"  title=" Property Types in the project available for sale "></i>
-                                <select placeholder="Add Property Type" name="property_types[]" 
+                                <select placeholder="Add Property Types" name="property_types[]" 
                                         data-parsley-required class="select2 form-control" multiple="multiple" >
                                    @foreach($property_type as $type) 
                                     <option value="{{$type['id']}}">{{$type['name']}}</option>

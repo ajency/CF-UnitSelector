@@ -11,7 +11,7 @@
 @endsection
 @section('content')
     <div class="page-title">	
-        <h2><span class="semi-bold">Project</span> Settings</h2>
+        <h2>Project <span class="semi-bold">Settings</span></h2>
     </div>
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     @include('admin.project.includes.details')

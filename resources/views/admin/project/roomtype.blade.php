@@ -84,7 +84,7 @@
                                     <div class="form-group full-width">
 
                                         <select name="controltype_{{$roomtypeId}}" onchange="defaultBlock(this.value,{{$roomtypeId}});" class="full-width">
-                                            <option value="">Select Controls Type</option>
+                                            <option value="">Select Control Type</option>
                                             <option value="textbox" @if($attributes['control_type']=='textbox'){{'selected'}}@endif> Text Box</option>
                                             <option value="select" @if($attributes['control_type']=='select'){{'selected'}}@endif>Select Box</option>
                                             <option value="multiple" @if($attributes['control_type']=='multiple'){{'selected'}}@endif> Multiple Select Box</option>
@@ -219,7 +219,7 @@
                                 <div class="form-inline">
                                     <div class="form-group full-width">
                                         <select name="controltype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="full-width">
-                                            <option value="">Select Controls Type</option>
+                                            <option value="">Select Control Type</option>
                                             <option value="textbox" @if($attributes['control_type']=='textbox'){{'selected'}}@endif> Text Box</option>
                                             <option value="select" @if($attributes['control_type']=='select'){{'selected'}}@endif>Select Box</option>
                                             <option value="multiple" @if($attributes['control_type']=='multiple'){{'selected'}}@endif> Multiple Select Box</option>
@@ -257,7 +257,7 @@
                                 <div class="form-inline">
                                     <div class="form-group full-width">
                                         <select name="controltype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="full-width">
-                                            <option value="">Select Controls Type</option>
+                                            <option value="">Select Control Type</option>
                                             <option value="textbox" > Text Box</option>
                                             <option value="select" >Select Box</option>
                                             <option value="multiple" > Multiple Select Box</option>
