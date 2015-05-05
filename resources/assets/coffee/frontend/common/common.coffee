@@ -365,7 +365,8 @@ CommonFloor.getStatusFilters = ()->
 	statusColl = new Backbone.Collection response
 	console.log statusIds = statusColl.pluck 'id'
 	$.each CommonFloor.defaults,(ind,val)->
-		if ind != 'price_min' && ind != 'price_max' && val != ""
+		if ind == 'availability' && val != ""
+			console.log val
 			param_val_arr = val.split(',')
 			$.each param_val_arr, (index,value)->
 				if value != "" && ind == 'availability' && $.inArray(value,statusIds) > -1

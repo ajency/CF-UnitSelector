@@ -56,6 +56,7 @@
 
     TopMasterView.prototype.serializeData = function() {
       var data, response, status;
+      console.log("aaaaa");
       data = TopMasterView.__super__.serializeData.call(this);
       status = CommonFloor.getStatusFilters();
       if (status.length !== 0) {
@@ -252,7 +253,6 @@
           }
           $('.spritespin-canvas').addClass('zoom');
           $('.us-left-content').addClass('animated fadeOut');
-          CommonFloor.defaults['unit'] = id;
           CommonFloor.navigate('/unit-view/' + id, true);
           return CommonFloor.router.storeRoute();
         }, 500);
@@ -269,7 +269,6 @@
           }
           $('.spritespin-canvas').addClass('zoom');
           $('.us-left-content').addClass('animated fadeOut');
-          CommonFloor.defaults['unit'] = id;
           CommonFloor.navigate('/unit-view/' + id, true);
           return CommonFloor.router.storeRoute();
         }, 500);

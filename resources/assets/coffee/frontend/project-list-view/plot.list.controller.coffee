@@ -29,7 +29,6 @@ class PlotItemView extends Marionette.ItemView
 	events:
 		'click .unit' :(e)->
 				if @model.get('status') == 'available'
-					CommonFloor.defaults['unit'] = @model.get('id')
 					CommonFloor.navigate '/unit-view/'+@model.get('id') , true
 					CommonFloor.router.storeRoute()
 

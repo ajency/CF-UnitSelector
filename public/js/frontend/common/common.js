@@ -465,7 +465,8 @@
     console.log(statusIds = statusColl.pluck('id'));
     $.each(CommonFloor.defaults, function(ind, val) {
       var param_val_arr;
-      if (ind !== 'price_min' && ind !== 'price_max' && val !== "") {
+      if (ind === 'availability' && val !== "") {
+        console.log(val);
         param_val_arr = val.split(',');
         return $.each(param_val_arr, function(index, value) {
           if (value !== "" && ind === 'availability' && $.inArray(value, statusIds) > -1) {

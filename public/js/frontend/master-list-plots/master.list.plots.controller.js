@@ -60,7 +60,6 @@
       },
       'click': function(e) {
         if (this.model.get('status') === 'available') {
-          CommonFloor.defaults['unit'] = this.model.get('id');
           CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
           return CommonFloor.router.storeRoute();
         }

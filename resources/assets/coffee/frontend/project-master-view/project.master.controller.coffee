@@ -67,6 +67,7 @@ class TopMasterView extends Marionette.ItemView
 		unitBack : '.unit_back'
 
 	serializeData:->
+		console.log "aaaaa"
 		data = super()
 		status = CommonFloor.getStatusFilters()
 		if status.length != 0
@@ -242,7 +243,6 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					return false
 				$('.spritespin-canvas').addClass 'zoom'
 				$('.us-left-content').addClass 'animated fadeOut'
-				CommonFloor.defaults['unit'] =id
 				CommonFloor.navigate '/unit-view/'+id , true
 				CommonFloor.router.storeRoute()
 
@@ -259,7 +259,6 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					return false
 				$('.spritespin-canvas').addClass 'zoom'
 				$('.us-left-content').addClass 'animated fadeOut'
-				CommonFloor.defaults['unit'] =id
 				CommonFloor.navigate '/unit-view/'+id , true
 				CommonFloor.router.storeRoute()
 

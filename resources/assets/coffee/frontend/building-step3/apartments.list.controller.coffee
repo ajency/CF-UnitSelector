@@ -127,7 +127,6 @@ class ApartmentsView extends Marionette.ItemView
 	events:
 		'click .unit':(e)->
 			if @model.get('availability') == 'available'
-				CommonFloor.defaults['unit'] = @model.get('id')
 				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
 				CommonFloor.router.storeRoute()
 
