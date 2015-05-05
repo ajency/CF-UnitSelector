@@ -26,8 +26,7 @@
 
     <div class="grid-body">
         <form action="/admin/project/{{ $project['id'] }}/plot-variant" method="POST" data-parsley-validate>
-            <div>
-                <div class="row">
+            <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
                             <label class="form-label">Name</label>
@@ -57,7 +56,8 @@
                             <input type="text" class="form-control" name="size" value="" placeholder="Enter Size" data-parsley-required data-parsley-type="number">
                         </div> 
                     </div>
-
+                    </div>
+                    <div class="row">
                     <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Per sq ft Price</label>
@@ -97,8 +97,6 @@
                 </div>
                 @endforeach    
                 </div>
-            </div>
-
             <div class="form-actions">  
                 <div class="pull-right">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
