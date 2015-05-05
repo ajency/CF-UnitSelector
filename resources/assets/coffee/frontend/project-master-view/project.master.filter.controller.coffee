@@ -63,14 +63,6 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 											</div>
 										</div>
 
-										{{/unitVariants}}
-										<br/>
-										
-										Availability
-										<br/>
-										{{#status}}
-										<div class="filter-chkbox-block">
-
 										<div class="blck-wrap">
 											<h5>Availability</h5>
 											<div class="filter-chkbox-block">
@@ -85,46 +77,40 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 									{{/apartmentFilters}}
 
 									
+								
 								{{#plotFilters}}
-									<div class="filters-wrapper">
-										<div class="filter-chkbox-block">
-											
-											<label for="villa">Plot</label>
-										</div>
+								<div class="filters-wrapper">
+										<h3>Plots</h3>
 										
-										Unit Types
-										{{#unitTypes}}
-										<div class="filter-chkbox-block">
-
-											<input type="checkbox" class="villaFilters unit_types custom-chckbx" name="unit_type{{id}}" id="unit_type{{id}}" value="1" data-value={{id}} />
-											<label for="unit_type{{id}}">{{name}}</label>
-
+										<div class="blck-wrap">
+											<h5>Unit Types</h5>
+											<div class="filter-chkbox-block">
+												{{#unitTypes}}
+												<input type="checkbox" class="aptFilters unit_types custom-chckbx" name="unit_type{{id}}" id="unit_type{{id}}" value="1" data-value={{id}} />
+												<label for="unit_type{{id}}">{{name}}</label>
+												{{/unitTypes}}
+											</div>
 										</div>
-										{{/unitTypes}}
 
-										<br/>
-										Unit Variants
-										<br/>
-										{{#unitVariants}}
-										<div class="filter-chkbox-block">
-
-											<input type="checkbox" class="villaFilters unitvariants custom-chckbx" name="unit_variant{{id}}" id="unit_variant{{id}}" value="1" data-value={{id}} />
-											<label for="unit_variant{{id}}">{{area}} Sq.Ft</label>
-
+										<div class="blck-wrap">
+											<h5>Unit Variants</h5>
+											<div class="filter-chkbox-block">
+												{{#unitVariants}}
+												<input type="checkbox" class="aptFilters unitvariants custom-chckbx" name="unit_variant{{id}}" id="unit_variant{{id}}" value="1" data-value={{id}} />
+												<label for="unit_variant{{id}}">{{area}} Sq.Ft</label>
+												{{/unitVariants}}
+											</div>
 										</div>
-										{{/unitVariants}}
-										
-										<br/>
-										Availability
-										<br/>
-										{{#status}}
-										<div class="filter-chkbox-block">
 
-											<input type="checkbox" class="villaFilters status custom-chckbx" name="{{name}}" id="{{name}}" value="1"  />
-											<label for="{{name}}">{{name}}</label>
-
+										<div class="blck-wrap">
+											<h5>Availability</h5>
+											<div class="filter-chkbox-block">
+												{{#status}}
+												<input type="checkbox" class="aptFilters status custom-chckbx" name="{{name}}" id="{{name}}" value="1"  />
+												<label for="{{name}}">{{name}}</label>
+												{{/status}}
+											</div>
 										</div>
-										{{/status}}
 
 									</div>
 									{{/plotFilters}}
@@ -160,7 +146,6 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 												<option style="display: block;" value="999999900">&gt; 5 Cr</option>
 											</select>
 										</div>
-							
 
 								')
 
