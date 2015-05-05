@@ -49,20 +49,26 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Building</label>
-                        <select name="building_id" class="select2 form-control apartment-unit-building" data-parsley-required>
+                        <select name="building_id" class="select2 form-control apartment-unit-building m-b-5" data-parsley-required>
                             <option value="">Select building</option>
                             @foreach($buildings as $building)
                             <option data-no-of-floors="{{ $building->no_of_floors }}" value="{{ $building->id }}">{{ $building->building_name }}</option>
                             @endforeach
                         </select>
+                        <a data-toggle="modal" data-target="#AddBuilding" href="#">
+                        + Add Building
+                        </a>
                     </div> 
                 </div>
                 <div class="col-md-4">
                     <div class="form-group hidden select-floor" >
                         <label class="form-label">Floor</label>
-                        <select id="floor" name="floor" onchange="getPositions(this.value);"   class="select2 form-control apartment-unit-floor-no">
+                        <select id="floor" name="floor" onchange="getPositions(this.value);"   class="select2 form-control apartment-unit-floor-no m-b-5">
                             <option value="">Select Floor</option>
                         </select>
+                        <a data-toggle="modal" data-target="#AddFloor" href="#">
+                        + Add floor Layout
+                        </a>
                     </div> 
                 </div>
                 <div class="col-md-4">
@@ -90,3 +96,41 @@
 
 <!-- END PLACE PAGE CONTENT HERE -->
 @endsection
+
+<!-- Modal -->
+<div class="modal fade" id="AddBuilding" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-left" id="myModalLabel">Add Building</h4>
+      </div>
+      <div class="modal-body">
+        <iframe width="100%"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="AddFloor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-left" id="myModalLabel">Add Floor Layout</h4>
+      </div>
+      <div class="modal-body">
+        <iframe width="100%"></iframe>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
