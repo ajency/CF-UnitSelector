@@ -11,10 +11,19 @@ class CommonFloor.NothingFoundCtrl extends Marionette.RegionController
 #No Found Controller and veiw
 class CommonFloor.NoUnitsView extends Marionette.ItemView
 	
-	template : '<div><div class="col-xs-12 col-sm-12 col-md-3 us-left-content">
-					<div class="list-view-container w-map animated fadeIn"></div>
-					No units matching the selection
-						</div></div>'
+	template : '<div>
+					<div class="col-xs-12 col-sm-12 col-md-3 us-left-content">
+						<div class="list-view-container w-map animated fadeIn">
+							<div class="text-center" id="searchSorryPageWidget">
+								<div class="m-t-10">
+									<span class="icon-wondering"></span>
+									<div class="m-t-10">Sorry! We havent found any properties matching your search.</div>
+									<div>Please retry with different search options.</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>'
 
 class CommonFloor.NoUnitsCtrl extends Marionette.RegionController
 
