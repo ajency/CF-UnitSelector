@@ -8309,11 +8309,8 @@ body.rtl .footer-widget {
 .list-group-item {
   padding: 14px;
 }
-.list-group-item input[type=checkbox]:after {
-  content: " ";
-  background-color: #000;
-  display: inline-block;
-  visibility: visible;
+.list-group-item #blankCheckbox {
+  font-size: 16px;
 }
 /* Loader */
 .cf-loader {

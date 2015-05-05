@@ -65,6 +65,8 @@
                                 <input type="text" class="form-control" name="carpet_area" value="{{ $unitVariant['carpet_area'] }}" placeholder="Enter Carpet Area" data-parsley-required data-parsley-type="number">
                             </div> 
                         </div>
+                        </div>
+                        <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Built Up Area</label>
@@ -83,6 +85,8 @@
                                 <input type="text" class="form-control" name="per_sq_ft_price" value="{{ $unitVariant['per_sq_ft_price'] }}" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
                             </div> 
                         </div>
+                    </div>
+                    <div class="row">
                         @foreach($project_property_type_attributes as $attributes)
                         <div class="col-md-4">
                             <div class="form-group">

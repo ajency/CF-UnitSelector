@@ -12,14 +12,16 @@
         ?>
         <input type="hidden" name="floorlevel[]" value="{{$i}}">
         <div class="grid-body">
-            <div class="row m-t-20">
+            <div >
                 <?php $j = 1; ?>
                 @if(isset($variantRooms[0]))
                 @foreach($variantRooms[0] as $roomId => $room)              
-                <div class="form-inline">
+                <div class="room-block">
                     <div class="form-group">
-
                         <label class="form-label">Room Name</label>
+                        <div class="row">
+                   
+                        <div class="col-md-4">
                         <input type="hidden" name="variantroomid_{{$i}}[]" value="{{ $roomId }}">
                         <select name="room_name_{{ $i }}[]" class="select2 form-control" onchange="getRoomTypeAttributes(this,{{ $unitVariant['id'] }},{{$i}});">
                             <option value="">Select Room</option>
@@ -29,17 +31,19 @@
                             </option>
                             @endforeach
                         </select>
+                    </div>
+                    <div class="col-md-8">
                         @if($j === count($variantRooms[0]))
                         <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this,{{ $unitVariant['id'] }})"><i class="fa fa-plus"></i></button>
                         @endif
-
-
+                    </div>
+                    </div>
                     </div> 
                 </div>
-                <div >
+                <div>
                     <!--Attributes-->     
                     <div class="m-t-10">
-                        <div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 text-grey">	
+                        <div class="b-grey b-t b-b b-l b-r p-t-15 p-r-15 p-l-15 p-b-15 text-grey">	
                             <div class="row"> 
                                 @foreach($roomTypeAttributes[$room['ROOMTYPEID']] as $attributes)
                                 <div class="col-md-4">
@@ -81,15 +85,16 @@
                         </div>
                     </div>
                 </div> 
+                <hr/>
                 <?php $j++; ?>
                 @endforeach
                 @endif  
-                <div class="col-sm-12" id="levelblock_0"> 
-                    <div class="form-inline">
+                <div id="levelblock_0"> 
+                    <div class="room-block">
                         <div class="form-group">
-                            <div>
-                            <label class="form-label">Room Name</label>
-                        </div>
+                        <label class="form-label">Room Name</label>
+                        <div class="row m-b-5">
+                            <div class="col-md-4">
                             <input type="hidden" name="variantroomid_{{$i}}[]" value="">
                             <select name="room_name_{{$i}}[]" class="select2 form-control"  onchange="getRoomTypeAttributes(this,{{ $unitVariant['id'] }},{{$i}});">
                                 <option value="">Select Room</option>
@@ -97,16 +102,21 @@
                                 <option value="{{ $roomType['id'] }}">{{ $roomType['name'] }}</option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="col-md-8">
                             <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this,{{ $unitVariant['id'] }})"><i class="fa fa-plus"></i></button>
-                            <div>
-                             <a href="#" data-toggle="modal" data-target="#myModal">+ Add Room </a>
-                         </div>
+                        </div>
+                        </div>
+                        <div>
+                        <a href="#" data-toggle="modal" data-target="#myModal">+ Add Room </a>
+                        </div>
                         </div>
                     </div>
                     <div >
                         <!--Attributes-->  
                     </div>
                 </div> 
+                <hr/>
             </div>
             <div class="form-actions">  
                 <div class="text-right">

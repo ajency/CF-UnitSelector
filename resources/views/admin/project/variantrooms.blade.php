@@ -12,7 +12,7 @@
         </a>
             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                 <div class="grid-body">
-                    <div class="m-t-20">
+                    <div>
                         <?php $i = 0; ?>
                         @foreach($variantRooms as $level=>$roomTypes)
                         <div id="levelblock_{{$i}}"> 
@@ -24,6 +24,8 @@
                             @foreach($roomTypes as $variantRoomId=> $roomType)              
                             <div class="room-block">
                                 <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
                                     <input type="hidden" name="variantroomid_{{$i}}[]" value="{{$variantRoomId}}">
                                     <select name="room_name_{{$i}}[]" class="select2 form-control" onchange="getRoomTypeAttributes(this,{{ $unitVariant['id'] }},{{$i}});">
                                         <option value="">Select Room</option>
@@ -31,16 +33,19 @@
                                         <option @if($roomType['ROOMTYPEID']==$room_type['id']){{'selected'}}@endif   value="{{$room_type['id']}}">{{$room_type['name']}}</option>
                                         @endforeach
                                     </select>
+                                </div>
+                                <div class="col-md-8">
                                     @if($j === count($roomTypes))
                                     <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this,{{ $unitVariant['id'] }})"><i class="fa fa-plus"></i></button>
                                     @endif
-
+                                </div>
+                                </div>
                                 </div>
                             </div>
                             <div>
                                 <!--Attributes-->     
                                 <div class="m-t-10">
-                                    <div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 text-grey">	
+                                    <div class="b-grey b-t b-b b-l b-r p-t-15 p-r-15 p-l-15 p-b-15 text-grey">	
                                         <div class="row"> 
                                             @foreach($roomTypeAttributes[$roomType['ROOMTYPEID']] as $attributes)
                                             <div class="col-md-4">
@@ -84,20 +89,21 @@
                             </div>     
                             <?php $j++; ?>
                             @endforeach   
-                        </div> 
+                        </div>
+                        <hr/> 
                         <?php $i++; ?>   
                         @endforeach
                         <div id="levelblock_{{$i}}"> 
-                            <div class="row">
-                                <div class="col-sm-12">
+                            
                                     <div class="form-group">
                                         <h3>Level {{$i}}</h3>
                                         <input type="hidden" name="floorlevel[]" value="{{$i}}">
                                     </div> 
-                                </div> 
-                            </div>
+                                
                             <div class="room-block">
                                 <div class="form-group">
+                                    <div class="row m-b-5">
+                                        <div class="col-md-4">
                                     <input type="hidden" name="variantroomid_{{$i}}[]" value="">
                                     <select name="room_name_{{$i}}[]" class="select2 form-control" onchange="getRoomTypeAttributes(this,{{ $unitVariant['id'] }},{{$i}});">
                                         <option value="">Select Room</option>
@@ -105,17 +111,21 @@
                                         <option value="{{$room_type['id']}}">{{$room_type['name']}}</option>
                                         @endforeach
                                     </select>
-
+                                   </div>
+                                    <div class="col-md-8">
                                     <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this,{{ $unitVariant['id'] }})"><i class="fa fa-plus"></i></button>
-                                <div>
-                                    <a href="#" data-toggle="modal" data-target="#myModal">+ Add Room </a>
                                 </div>
+                                 </div>
+
+                                    <a href="#" data-toggle="modal" data-target="#myModal">+ Add Room </a>
+                                
                                 </div>
                             </div>
                             <div >
                                 <!--Attributes-->  
                             </div>
                         </div>
+                        <hr/>
                         <div class="text-right m-t-10" id="addFloorlevel">  
                             <input type="hidden" id="counter" name="counter" value="{{$i}}">
                             <button type="button" class="btn btn-small btn-default" onclick="addFloorLevel({{ $unitVariant['id'] }});">Add Level</button>
