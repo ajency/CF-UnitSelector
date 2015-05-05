@@ -4,7 +4,7 @@
     <form>
         <h5 class="semi-bold inline">Level {{$level}}</h5>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group object-layouts" data-object-type="2d">
                     <label class="form-label">2D Layout</label>
                     <div id="2dlayout_{{$level}}">
@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="form-group">
                     <label class="form-label">3D Layout</label>
                     <div id="3dlayout_{{$level}}">
