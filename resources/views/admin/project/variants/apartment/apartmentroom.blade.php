@@ -127,7 +127,7 @@
         <h4 class="modal-title text-left" id="myModalLabel">Add Room </h4>
       </div>
       <div class="modal-body">
-        ...
+       <iframe src="" width="100%"></iframe>
       </div>
       <div class="modal-footer">    
           <button type="button" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
