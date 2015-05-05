@@ -144,7 +144,7 @@ class ProjectApartmentVariantController extends Controller {
         $roomTypeAttributes = [];
 
         $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertyTypeId)->get()->toArray();
-        
+         
         foreach ($variantRooms as $variantRoom) {
             $level = ($propertyTypeID==1)? 0:$variantRoom['floorlevel'];
             $variantRoomArr[$level][$variantRoom['id']]['ROOMTYPEID'] = $variantRoom['roomtype_id'];
@@ -198,6 +198,7 @@ class ProjectApartmentVariantController extends Controller {
                         ->with( 'variantRooms', $variantRoomArr )
                         ->with( 'layouts', $layouts )
                         ->with( 'roomTypeAttributes', $roomTypeAttributes )
+                        ->with( 'projectPropertyTypeID', $projectPropertyTypeId )
                         ->with( 'current', 'apartment-variant' );
     }
 

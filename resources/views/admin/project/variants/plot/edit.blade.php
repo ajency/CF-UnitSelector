@@ -53,6 +53,12 @@
                                     <option  @if($unitVariant['unit_type_id']==$unit_type['id']){{'selected'}}@endif  value="{{$unit_type['id']}}">{{$unit_type['unittype_name']}}</option>
                                     @endforeach
                                 </select>
+                                <input type="hidden" name="property_type" id="property_type" value="{{ $projectPropertyTypeID }}">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseUnitType" aria-expanded="true" aria-controls="collapseOne">+ Add Unit Type</a>
+                            <div id="collapseUnitType" class="panel-collapse collapse p-t-10" role="tabpanel" aria-labelledby="headingOne">
+                                <input   name="unit_type_name" id="unit_type_name"type="text" class="form-control m-b-5" placeholder="Add Unit Type">
+                                <button  onclick="addUnitType();"  type="button" class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
+                            </div>
                             </div> 
                         </div>
                         <div class="col-md-4">

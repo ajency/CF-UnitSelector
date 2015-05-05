@@ -72,6 +72,7 @@ class ProjectBunglowVariantController extends Controller {
         return view('admin.project.addvariant')
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
+                        ->with( 'projectPropertyTypeID', $projectPropertytypeId )
                         ->with('unit_type_arr', $unitTypeArr)
                         ->with('project_property_type_attributes', $propertyTypeAttributes)
                         ->with( 'current', 'bunglow-variant' );
@@ -194,6 +195,7 @@ class ProjectBunglowVariantController extends Controller {
         return view('admin.project.editvariant')
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
+                        ->with( 'projectPropertyTypeID', $projectPropertytypeId )
                         ->with('project_property_type_attributes', $propertyTypeAttributes)
                         ->with('unit_type_arr', $unitTypeArr)
                         ->with( 'availableRoomTypes', $availableRoomTypes )

@@ -41,7 +41,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Property Type</label>
-                        <select onchange="getPropertTypeData(this, 1);" name="property_type" class="select2 form-control" data-parsley-required>
+                        <select onchange="getPropertTypeData(this, 1);" name="property_type" id="property_type" class="select2 form-control" data-parsley-required>
                             <option value="">Select Type</option>
                             @foreach($projectPropertyTypes as $projectPropertyType)
                             <option value="{{ $projectPropertyType['ID'] }}">{{ $projectPropertyType['NAME'] }}</option>
@@ -50,7 +50,7 @@
                     </div> 
                 </div>
                 @else
-                <input type="hidden" name="property_type" value="{{ $projectPropertyTypes[0]['ID'] }}">
+                <input type="hidden" name="property_type" id="property_type" value="{{ $projectPropertyTypes[0]['ID'] }}">
                 @endif
                 <div class="col-md-4">
                     <div class="form-group">
@@ -63,13 +63,12 @@
                         </select>
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseUnitType" aria-expanded="true" aria-controls="collapseOne">+ Add Unit Type</a>
                         <div id="collapseUnitType" class="panel-collapse collapse p-t-10" role="tabpanel" aria-labelledby="headingOne">
-                            <input type="text" name="unitType" id="unitType" class="form-control  m-b-10" placeholder="Add Unit Type">
+                            <input type="text" name="unit_type_name" id="unit_type_name" class="form-control  m-b-10" placeholder="Add Unit Type">
                             <button onclick="addUnitType();" type="button" class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
                         </div>
                     </div> 
                 </div>
-            </div>
-            <div class="row">
+
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Built Up Area</label>

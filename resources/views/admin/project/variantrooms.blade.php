@@ -22,7 +22,7 @@
                                     </div> 
                             <?php $j = 1; ?>
                             @foreach($roomTypes as $variantRoomId=> $roomType)              
-                            <div class="form-inline">
+                            <div class="room-block">
                                 <div class="form-group">
                                     <input type="hidden" name="variantroomid_{{$i}}[]" value="{{$variantRoomId}}">
                                     <select name="room_name_{{$i}}[]" class="select2 form-control" onchange="getRoomTypeAttributes(this,{{ $unitVariant['id'] }},{{$i}});">
@@ -37,7 +37,7 @@
 
                                 </div>
                             </div>
-                            <div >
+                            <div>
                                 <!--Attributes-->     
                                 <div class="m-t-10">
                                     <div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 text-grey">	
@@ -96,7 +96,7 @@
                                     </div> 
                                 </div> 
                             </div>
-                            <div class="form-inline">
+                            <div class="room-block">
                                 <div class="form-group">
                                     <input type="hidden" name="variantroomid_{{$i}}[]" value="">
                                     <select name="room_name_{{$i}}[]" class="select2 form-control" onchange="getRoomTypeAttributes(this,{{ $unitVariant['id'] }},{{$i}});">
@@ -142,7 +142,7 @@
         <h4 class="modal-title text-left" id="myModalLabel">Add Room </h4>
       </div>
       <div class="modal-body">
-        <iframe src="" width="100%"></iframe>
+        <iframe src="" width="100%" ></iframe>
       </div>
       <div class="modal-footer">    
           <button type="button" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
