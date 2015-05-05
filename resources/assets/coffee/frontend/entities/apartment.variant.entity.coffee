@@ -42,6 +42,18 @@ class ApartmentVariantCollection extends Backbone.Collection
 
 		newUnits
 
+	getApartmentUnitTypes:->
+		unit_types = []
+		apartmentVariantMasterCollection.each (item)->
+			unitTypeModel = unitTypeMasterCollection.findWhere
+								'id' : item.get 'unit_type_id'
+			if $.inArray(item.get('unit_type_id'),unit_types) == -1
+				unit_types.push parseInt unitTypeModel.get 'id'
+				
+						
+
+		unit_types
+
 window.apartmentVariantCollection  = new ApartmentVariantCollection
 window.apartmentVariantMasterCollection  = new ApartmentVariantCollection
 window.apartmentVariant  = new ApartmentVariant

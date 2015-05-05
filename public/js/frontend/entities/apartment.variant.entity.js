@@ -63,6 +63,21 @@
       return newUnits;
     };
 
+    ApartmentVariantCollection.prototype.getApartmentUnitTypes = function() {
+      var unit_types;
+      unit_types = [];
+      apartmentVariantMasterCollection.each(function(item) {
+        var unitTypeModel;
+        unitTypeModel = unitTypeMasterCollection.findWhere({
+          'id': item.get('unit_type_id')
+        });
+        if ($.inArray(item.get('unit_type_id'), unit_types) === -1) {
+          return unit_types.push(parseInt(unitTypeModel.get('id')));
+        }
+      });
+      return unit_types;
+    };
+
     return ApartmentVariantCollection;
 
   })(Backbone.Collection);

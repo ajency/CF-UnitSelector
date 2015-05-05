@@ -39,6 +39,18 @@ class PlotVariantCollection extends Backbone.Collection
 
 		newUnits
 
+	getPlotUnitTypes:->
+		unit_types = []
+		plotVariantMasterCollection.each (item)->
+			unitTypeModel = unitTypeMasterCollection.findWhere
+								'id' : item.get 'unit_type_id'
+			if $.inArray(item.get('unit_type_id'),unit_types) == -1
+				unit_types.push parseInt unitTypeModel.get 'id'
+				
+						
+
+		unit_types
+
 window.plotVariantCollection  = new PlotVariantCollection
 window.plotVariantMasterCollection  = new PlotVariantCollection
 window.plotVariant = new PlotVariant

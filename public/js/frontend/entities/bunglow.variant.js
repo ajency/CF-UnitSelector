@@ -61,6 +61,21 @@
       return newUnits;
     };
 
+    BunglowVariantCollection.prototype.getVillaUnitTypes = function() {
+      var unit_types;
+      unit_types = [];
+      bunglowVariantMasterCollection.each(function(item) {
+        var unitTypeModel;
+        unitTypeModel = unitTypeMasterCollection.findWhere({
+          'id': item.get('unit_type_id')
+        });
+        if ($.inArray(item.get('unit_type_id'), unit_types) === -1) {
+          return unit_types.push(parseInt(unitTypeModel.get('id')));
+        }
+      });
+      return unit_types;
+    };
+
     return BunglowVariantCollection;
 
   })(Backbone.Collection);

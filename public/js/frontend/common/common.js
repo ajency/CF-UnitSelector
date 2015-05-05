@@ -298,6 +298,126 @@
     return unitCollection.reset(budget);
   };
 
+  CommonFloor.getFilters = function() {
+    var aptfilters, filters, plotfilters, villafilters;
+    filters = [];
+    villafilters = CommonFloor.getVillaFilters();
+    aptfilters = CommonFloor.getApartmentFilters();
+    plotfilters = CommonFloor.getPlotFilters();
+    filters.push({
+      'Villa': villafilters,
+      'Apartment/Penthouse': aptfilters,
+      'Plot': plotfilters
+    });
+    return filters;
+  };
+
+  CommonFloor.getVillaFilters = function() {
+    var filters, unitTypes, unitVariants, unit_type, unit_variant;
+    unitVariants = [];
+    unit_variant = '';
+    unitTypes = [];
+    unit_type = '';
+    $.each(CommonFloor.defaults, function(index, value) {
+      if (value !== "" && index === 'unitVariants') {
+        if (!_.isUndefined(bunglowVariantMasterCollection.get(parseInt(value)))) {
+          unit_variant = bunglowVariantMasterCollection.findWhere({
+            'id': parseInt(value)
+          });
+          unitVariants.push(unit_variant.get('unit_variant_name'));
+        }
+      }
+      if (value !== "" && index === 'unitTypes' && $.inArray(parseInt(value), bunglowVariantMasterCollection.getVillaUnitTypes()) > -1) {
+        unit_type = unitTypeMasterCollection.findWhere({
+          'id': parseInt(value)
+        });
+        return unitTypes.push(unit_type.get('name'));
+      }
+    });
+    filters = {
+      'unitVariants': unitVariants,
+      'unitTypes': unitTypes,
+      'count': bunglowVariantMasterCollection.getBunglowUnits().length
+    };
+    $.each(filters, function(index, value) {
+      if (value.length === 0) {
+        return filters = _.omit(filters, index);
+      }
+    });
+    return filters;
+  };
+
+  CommonFloor.getApartmentFilters = function() {
+    var filters, unitTypes, unitVariants, unit_type, unit_variant;
+    unitVariants = [];
+    unit_variant = '';
+    unitTypes = [];
+    unit_type = '';
+    $.each(CommonFloor.defaults, function(index, value) {
+      if (value !== "" && index === 'unitVariants') {
+        if (!_.isUndefined(apartmentVariantMasterCollection.get(parseInt(value)))) {
+          unit_variant = apartmentVariantMasterCollection.findWhere({
+            'id': parseInt(value)
+          });
+          unitVariants.push(unit_variant.get('unit_variant_name'));
+        }
+      }
+      if (value !== "" && index === 'unitTypes' && $.inArray(parseInt(value), apartmentVariantMasterCollection.getApartmentUnitTypes()) > -1) {
+        unit_type = unitTypeMasterCollection.findWhere({
+          'id': parseInt(value)
+        });
+        return unitTypes.push(unit_type.get('name'));
+      }
+    });
+    filters = {
+      'unitVariants': unitVariants,
+      'unitTypes': unitTypes,
+      'count': apartmentVariantMasterCollection.getApartmentUnits().length
+    };
+    $.each(filters, function(index, value) {
+      if (value.length === 0) {
+        return filters = _.omit(filters, index);
+      }
+    });
+    return filters;
+  };
+
+  CommonFloor.getPlotFilters = function() {
+    var filters, unitTypes, unitVariants, unit_type, unit_variant;
+    unitVariants = [];
+    unit_variant = '';
+    unitTypes = [];
+    unit_type = '';
+    filters = [];
+    $.each(CommonFloor.defaults, function(index, value) {
+      if (value !== "" && index === 'unitVariants') {
+        if (!_.isUndefined(plotVariantMasterCollection.get(parseInt(value)))) {
+          unit_variant = plotVariantMasterCollection.findWhere({
+            'id': parseInt(value)
+          });
+          unitVariants.push(unit_variant.get('unit_variant_name'));
+        }
+      }
+      if (value !== "" && index === 'unitTypes' && $.inArray(parseInt(value), plotVariantMasterCollection.getPlotUnitTypes()) > -1) {
+        unit_type = unitTypeMasterCollection.findWhere({
+          'id': parseInt(value)
+        });
+        return unitTypes.push(unit_type.get('name'));
+      }
+    });
+    filters = {
+      'unitVariants': unitVariants,
+      'unitTypes': unitTypes,
+      'count': plotVariantMasterCollection.getPlotUnits().length
+    };
+    $.each(filters, function(index, value) {
+      if (value.length === 0) {
+        return filters = _.omit(filters, index);
+      }
+    });
+    return filters;
+  };
+
 }).call(this);
 
 //# sourceMappingURL=../../frontend/common/common.js.map
