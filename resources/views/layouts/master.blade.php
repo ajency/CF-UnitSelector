@@ -28,6 +28,7 @@
             var BASEURL = '{{ url() }}';
             var FLOORLEVELS = [];
             var variantId = 0;
+            var PROJECTID = 0;
         </script>
     <body>
         <!-- BEGIN HEADER -->
