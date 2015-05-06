@@ -108,7 +108,7 @@
                         </div>
                         </div>
                         <div>
-                        <a href="#" data-toggle="modal" data-target="#myModal">+ Add Room </a>
+                        <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">+ Add Room </a>
                         </div>
                         </div>
                     </div>
@@ -129,8 +129,8 @@
 </form>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<div  class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>

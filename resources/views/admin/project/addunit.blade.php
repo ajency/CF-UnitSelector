@@ -42,7 +42,7 @@
                             <option value="{{$unit_variant['id']}}">{{$unit_variant['unit_variant_name']}}</option>
                             @endforeach
                         </select>
-                   <a type="button" href="#" data-toggle="modal" data-target="#AddVariant">+ Add Variant</a>
+                   <a type="button" href="#" data-toggle="modal" data-target=".bs-example-modal-lg">+ Add Variant</a>
                     </div> 
                 </div>
                 <!--<div class="col-md-4">
@@ -93,8 +93,8 @@
 @endsection
 
 <!-- Modal -->
-<div class="modal fade" id="AddVariant" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
