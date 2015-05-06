@@ -54,11 +54,11 @@
                                     @endforeach
                                 </select>
                                 <input type="hidden" name="property_type" id="property_type" value="{{ $projectPropertyTypeID }}">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseUnitType" aria-expanded="true" aria-controls="collapseOne">+ Add Unit Type</a>
-                            <div id="collapseUnitType" class="panel-collapse collapse p-t-10" role="tabpanel" aria-labelledby="headingOne">
-                                <input   name="unit_type_name" id="unit_type_name"type="text" class="form-control m-b-5" placeholder="Add Unit Type">
-                                <button  onclick="addUnitType();"  type="button" class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
-                            </div>
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseUnitType" aria-expanded="true" aria-controls="collapseOne">+ Add Unit Type</a>
+                                <div id="collapseUnitType" class="panel-collapse collapse p-t-10" role="tabpanel" aria-labelledby="headingOne">
+                                    <input   name="unit_type_name" id="unit_type_name"type="text" class="form-control m-b-5" placeholder="Add Unit Type">
+                                    <button  onclick="addUnitType();"  type="button" class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
+                                </div>
                             </div> 
                         </div>
                         <div class="col-md-4">
@@ -67,7 +67,7 @@
                                 <input type="text" class="form-control" name="size" value="{{ $unitVariant['size'] }}" placeholder="Enter Carpet Area" data-parsley-required>
                             </div> 
                         </div>
-                         
+
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Per sq ft Price</label>
@@ -124,7 +124,7 @@
             </div>
         </div>
     </div>
- 
+
 
     <div class="grid simple">
         <div class="grid-title" role="tab" id="headingThree">
@@ -157,7 +157,7 @@
                     </div>
                 </div>
             </div>
- 
+
             <div class="grid-body"> 
                 <h5 class="semi-bold inline">Gallery</h5>
                 <div>
@@ -184,10 +184,10 @@
 
     </div> 
     <script>
-        var ROOMTYPES = '';
-        var BASEURL = '{{ url() }}';
-        var FLOORLEVELS = [0];
-        var variantId = {{ $unitVariant['id'] }};
+                var ROOMTYPES = '';
+                var BASEURL = '{{ url() }}';
+                var FLOORLEVELS = [0];
+                var variantId = {{ $unitVariant['id'] }};
     </script>
     <!-- END PLACE PAGE CONTENT HERE -->
     @endsection

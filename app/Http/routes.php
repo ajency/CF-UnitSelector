@@ -61,8 +61,9 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::post( 'project/{id}/media/updatebreakpoint', 'Admin\ProjectMediaController@updateBreakPoint' );
     Route::post( 'building/{id}/media/updatebreakpoint', 'Admin\BuildingMediaController@updateBreakPoint' );
     Route::post( 'project/{projectid}/apartment-variant/getpropertytypedata', 'Admin\ProjectApartmentVariantController@getPropertyTypeData' );
+    Route::get( 'project/{projectid}/attributes/addroomtype', 'Admin\ProjectRoomTypeController@addRoomType' );
     
-} );
+});
 
 /**
  * REST API routes

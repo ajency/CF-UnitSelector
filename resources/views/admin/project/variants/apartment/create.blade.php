@@ -68,8 +68,7 @@
                         </div>
                     </div> 
                 </div>
-                </div>
-                <div class="row">
+
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Built Up Area</label>
@@ -89,8 +88,7 @@
                         <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
                     </div> 
                 </div>
-            </div>
-            <div class="row">
+
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Carpet Area</label>
@@ -129,7 +127,7 @@
                     </div> 
                 </div>
                 @endforeach
-              </div>
+            </div>
             <div class="form-actions">  
                 <div class="pull-right">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>

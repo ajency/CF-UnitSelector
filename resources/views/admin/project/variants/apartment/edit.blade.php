@@ -19,7 +19,7 @@
 </div>&nbsp;
 
 &nbsp;<a class="inline" data-toggle="popover" data-trigger="hover" data-content="Unit variant defines the model of a unit type and can be reused across each unit which have the same specification." 
-   data-original-title="" title=""><i class="fa fa-info"></i></a>
+         data-original-title="" title=""><i class="fa fa-info"></i></a>
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
 <div class="grid simple">
@@ -46,8 +46,8 @@
                             @endforeach
                         </select>
                         <input type="hidden" name="property_type" id="property_type" value="{{ $projectPropertyTypeID }}">
-                        
-                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseUnitType" aria-expanded="true" aria-controls="collapseOne">+ Add Unit Type</a>
+
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseUnitType" aria-expanded="true" aria-controls="collapseOne">+ Add Unit Type</a>
                         <div id="collapseUnitType" class="panel-collapse collapse p-t-10" role="tabpanel" aria-labelledby="headingOne">
                             <input type="text" name="unit_type_name" id="unit_type_name" class="form-control  m-b-10" placeholder="Add Unit Type">
                             <button onclick="addUnitType();" type="button" class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
@@ -60,8 +60,7 @@
                         <input type="text" class="form-control" name="carpet_area" value="{{ $unitVariant['carpet_area'] }}" placeholder="Enter Carpet Area" data-parsley-required data-parsley-type="number">
                     </div> 
                 </div>
-                </div>
-                <div class="row">
+
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Built Up Area</label>
@@ -80,7 +79,7 @@
                         <input type="text" class="form-control" name="per_sq_ft_price" value="{{ $unitVariant['per_sq_ft_price'] }}" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
                     </div> 
                 </div>
-               
+
                 @foreach($project_property_type_attributes as $attributes)
                 <div class="col-md-4">
                     <div class="form-group">
@@ -115,9 +114,6 @@
                 </div>
                 @endforeach
             </div>
-
-            
-
             <div class="form-actions">  
                 <div class="pull-right">
                     <input type="hidden" name="_method" value="PUT">
@@ -178,9 +174,9 @@
 
             var BASEURL = '{{ url() }}';
             @if ($propertyTypeID == 1)
-                var FLOORLEVELS = ['0'];
-            @else
-                 var FLOORLEVELS = [<?php echo implode(",", array_keys($variantRooms)); ?>];
+            var FLOORLEVELS = ['0'];
+            @ else
+            var FLOORLEVELS = [<?php echo implode(",", array_keys($variantRooms)); ?>];
             @endif
             var variantId = {{ $unitVariant['id'] }};
 </script>

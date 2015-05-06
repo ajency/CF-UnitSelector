@@ -9,6 +9,7 @@ use CommonFloor\Project;
 use CommonFloor\RoomType;
 use CommonFloor\Attribute;
 use CommonFloor\ProjectPropertyType;
+use \Input;
 
 class ProjectRoomTypeController extends Controller {
 
@@ -198,8 +199,9 @@ class ProjectRoomTypeController extends Controller {
                         ], 204);
     }
 
-    public function addRoomType($id, ProjectRepository $projectRepository) {
-        $project = $projectRepository->getProjectById($id);
+    public function addRoomType( $projectId , ProjectRepository $projectRepository) {  
+         
+        $project = $projectRepository->getProjectById($projectId);
         $roomTypeArr = $project->roomTypes()->get();
         $roomtypeAttribute = [];
 
@@ -208,7 +210,9 @@ class ProjectRoomTypeController extends Controller {
             $roomtypeAttribute[$roomType['id']]['ATTRIBUTES'] = $roomType->attributes->toArray();
         }
 
-        return view('admin.project.addroomtype')->with('roomtypeAttributes', $roomtypeAttribute);
+        return view('admin.project.shortcutaddroomtype')
+                ->with('project', $project->toArray())
+                ->with('roomtypeAttributes', $roomtypeAttribute);
     }
 
 }
