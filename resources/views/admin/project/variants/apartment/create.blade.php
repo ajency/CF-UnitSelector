@@ -95,7 +95,8 @@
                         <input type="text" class="form-control" name="carpet_area" value="" placeholder="Enter Carpet Area">
                     </div> 
                 </div> 
-
+                
+               <div id="property_type_attributes"> 
                 @foreach($projectPropertyTypeAttributes as $attribute)
                 <div class="col-md-4">
                     <div class="form-group">
@@ -127,6 +128,7 @@
                     </div> 
                 </div>
                 @endforeach
+               </div>  
             </div>
             <div class="form-actions">  
                 <div class="pull-right">

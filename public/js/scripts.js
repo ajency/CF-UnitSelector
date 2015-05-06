@@ -916,7 +916,7 @@ function getPropertTypeData(obj, flag)
             if (flag)
             {
                 //VARIANT CODE
-                $(obj).closest('.row').append(response.data.attributes);
+                $('#property_type_attributes').html(response.data.attributes);
 
                 if (unitTypes.trim() != '')
                     $('select[name="unit_type"]').append(unitTypes);

@@ -88,7 +88,7 @@
                                 <input type="text" class="form-control" name="per_sq_ft_price" value="{{ $unitVariant['per_sq_ft_price'] }}" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
                             </div> 
                         </div>
-
+                        <div id="property_type_attributes">     
                         @foreach($project_property_type_attributes as $attributes)
                         <div class="col-md-4">
                             <div class="form-group">
@@ -122,6 +122,7 @@
                             </div> 
                         </div>
                         @endforeach
+                       </div>  
                     </div>
                     <div class="form-actions">  
                         <div class="pull-right">
