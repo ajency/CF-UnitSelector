@@ -187,11 +187,13 @@
             @endforeach
 
             var BASEURL = '{{ url() }}';
-            @if ($propertyTypeID == 1)
-            var FLOORLEVELS = ['0'];
-            @ else
-            var FLOORLEVELS = [<?php echo implode(",", array_keys($variantRooms)); ?>];
+            
+            @if($propertyTypeID == 1)
+                var FLOORLEVELS = ['0'];
+            @else
+                 var FLOORLEVELS = [<?php echo implode(",", array_keys($variantRooms)); ?>];
             @endif
+            
             var variantId = {{ $unitVariant['id'] }};
 </script>
 <!-- END PLACE PAGE CONTENT HERE -->
