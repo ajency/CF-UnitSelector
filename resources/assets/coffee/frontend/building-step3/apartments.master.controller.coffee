@@ -287,6 +287,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 
 	onShow:->
+		$('img').lazyLoadXT()
 		height =  @ui.svgContainer.width() / 1.46
 		$('.search-left-content').css('height',height)
 		$('#spritespin').hide()

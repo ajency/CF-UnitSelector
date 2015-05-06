@@ -385,6 +385,7 @@
 
     CenterMasterView.prototype.onShow = function() {
       var breakpoints, first, height, svgs, that, transitionImages;
+      $('img').lazyLoadXT();
       height = this.ui.svgContainer.width() / 1.46;
       $('.units').css('height', height - 162);
       $('#spritespin').hide();
@@ -405,7 +406,6 @@
           return $('.cf-loader').removeClass('hidden');
         }
       });
-      $('.first_image').lazyLoadXT();
       return this.initializeRotate(transitionImages, svgs);
     };
 

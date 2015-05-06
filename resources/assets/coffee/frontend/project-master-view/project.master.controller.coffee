@@ -429,7 +429,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 	onShow:->
-		# $('.first_image').lazyLoadXT()
+		$('img').lazyLoadXT()
 		height =  @ui.svgContainer.width() / 1.46
 		# $('.us-left-content').css('height',height)
 		$('.units').css('height',height-162)
@@ -446,12 +446,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$.merge transitionImages ,  project.get('project_master')
 		$('.region').load(first[0],
 			$('.first_image').attr('data-src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
+		
 		$('.first_image').load ()->
 			
 			response = project.checkRotationView()
 			if response is 1
 				$('.cf-loader').removeClass 'hidden'
-		$('.first_image').lazyLoadXT()
+		
 		@initializeRotate(transitionImages,svgs)
 		
 

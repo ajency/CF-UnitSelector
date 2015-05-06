@@ -299,6 +299,7 @@
 
     CenterApartmentMasterView.prototype.onShow = function() {
       var breakpoints, building, building_id, first, height, svgs, that, transitionImages, url;
+      $('img').lazyLoadXT();
       height = this.ui.svgContainer.width() / 1.46;
       $('.search-left-content').css('height', height);
       $('#spritespin').hide();
