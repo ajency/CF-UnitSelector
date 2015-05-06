@@ -162,7 +162,7 @@
       return CenterMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div id="trig" class="toggle-button hidden">List View</div> <div class="list-view-container animated fadeIn"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img src=""  data-alwaysprocess="true" data-ratio="0.5" data-srcwidth="1600" data-crop="1" class="primage first_image img-responsive"> <div class="region inactive"></div> </div> <div class="cf-loader hidden"></div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
+    CenterMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div id="trig" class="toggle-button hidden">List View</div> <div class="list-view-container master animated fadeIn"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img src=""  data-alwaysprocess="true" data-ratio="0.5" data-srcwidth="1600" data-crop="1" class="primage first_image img-responsive"> <div class="region inactive"></div> </div> <div class="cf-loader hidden"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
 
     CenterMasterView.prototype.ui = {
       svgContainer: '.list-view-container',
@@ -436,7 +436,7 @@
       return spin.bind("onLoad", function() {
         var first, response, url;
         first = _.values(svgs);
-        console.log(url = first[0]);
+        url = first[0];
         $('#trig').removeClass('hidden');
         response = project.checkRotationView();
         if (response === 1) {
@@ -447,7 +447,8 @@
           return $('.region').load(url, function() {
             that.iniTooltip();
             CommonFloor.applyVillaClasses();
-            return CommonFloor.applyPlotClasses();
+            CommonFloor.applyPlotClasses();
+            return that.loadZoom();
           });
         }
       });
@@ -461,6 +462,22 @@
         arrow: false,
         offsetX: 50,
         offsetY: -10
+      });
+    };
+
+    CenterMasterView.prototype.loadZoom = function() {
+      var $panzoom;
+      $panzoom = $('.master').panzoom({
+        contain: 'invert',
+        minScale: 1,
+        maxScale: 2
+      });
+      return $panzoom.on('mousewheel.focal', function(e) {
+        var delta, zoomOut;
+        e.preventDefault();
+        delta = e.delta || e.originalEvent.wheelDelta;
+        zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
+        return $panzoom.panzoom('zoom', zoomOut);
       });
     };
 

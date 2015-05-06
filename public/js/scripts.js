@@ -285,18 +285,25 @@ function addFloorLevel(variantId)
     str += '</div> ';
     str += '</div> ';
     str += '</div>';
-
+    
     str += '<div class="room-block">';
-    str += '<div class="form-group full-width">';
+    str += '<div class="form-group">';
+    str += '<div class="row">';
+    str += '<div class="col-md-4">';
     str += ' <input type="hidden" name="variantroomid_' + i + '[]" value="">';
     str += '<select name="room_name_' + i + '[]" class="select2 form-control" onchange="getRoomTypeAttributes(this,' + variantId + ',' + i + ');">';
     str += '<option value="">Select Room</option>';
     str += ROOMTYPES;
     str += '</select>';
+    str += '</div>';
+    str += '<div class="col-md-8">';                        
     str += ' <button type="button" onclick="addRoomAttributes(' + i + ',this,' + variantId + ')" class="btn btn-white"><i class="fa fa-plus"></i></button>';
     str += '</div> ';
-
-    str += '</div>';
+    str += '</div> ';
+    str += '</div> ';
+    str += '</div> ';
+    str += '<div>';
+    
     str += '<div></div>';
     str += '</div> ';
 
@@ -336,15 +343,21 @@ function addRoomAttributes(level, obj, variantId)
 
     str += '<div class="room-block">';
     str += '<div class="form-group">';
+    str += '<div class="row">';
+    str += '<div class="col-md-4">';
     str += ' <input type="hidden" name="variantroomid_' + level + '[]" value="">';
     str += '<select name="room_name_' + level + '[]" class="select2 form-control" onchange="getRoomTypeAttributes(this,' + variantId + ',' + level + ');">';
     str += '<option value="">Select Room</option>';
     str += ROOMTYPES;
     str += '</select>';
+    str += '</div>';
+    str += '<div class="col-md-8">';                        
     str += ' <button type="button" onclick="addRoomAttributes(' + level + ',this,' + variantId + ')" class="btn btn-white"><i class="fa fa-plus"></i></button>';
     str += '</div> ';
     str += '</div> ';
-    str += '<div></div>';
+    str += '</div> ';
+    str += '</div> ';
+    str += '<div>';
 
     $(obj).hide();
     $("#levelblock_" + level).append(str);
