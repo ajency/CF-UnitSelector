@@ -19,7 +19,7 @@
         <input type="hidden" name="floorlevel[]" value="{{$i}}">
         <div class="grid-body">
             <div >
-                <?php $j = 1; ?>
+                 
                 @if(isset($variantRooms[0]))
                 @foreach($variantRooms[0] as $roomId => $room)              
                 <div class="room-block">
@@ -38,11 +38,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-8">
-                        @if($j === count($variantRooms[0]))
-                        <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this,{{ $unitVariant['id'] }})"><i class="fa fa-plus"></i></button>
-                        @endif
-                    </div>
+          
                     </div>
                     </div> 
                 </div>
@@ -91,7 +87,7 @@
                     </div>
                 </div> 
                 <hr/>
-                <?php $j++; ?>
+              
                 @endforeach
                 @endif  
                 <div id="levelblock_0"> 
@@ -120,8 +116,9 @@
                     <div >
                         <!--Attributes-->  
                     </div>
+                    <hr/>
                 </div> 
-                <hr/>
+                
             </div>
             <div class="form-actions">  
                 <div class="text-right">
@@ -143,7 +140,7 @@
         <h4 class="modal-title text-left" id="myModalLabel">Add Room </h4>
       </div>
       <div class="modal-body">
-       <iframe src="" width="100%"></iframe>
+       <iframe src="/admin/project/{{ $project['id'] }}/attributes/addroomtype" width="100%"></iframe>
       </div>
       <div class="modal-footer">    
           <button type="button" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>

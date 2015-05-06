@@ -18,168 +18,167 @@
     <h2><span class="semi-bold">Edit</span> Unit Variant</h2>
 </div>&nbsp;
 
-&nbsp;<span class="inline" data-toggle="popover" data-trigger="hover" data-content="Unit variant defines the model of a unit type and can be reused across each unit which have the same specification." 
-   data-original-title="" title=""><i class="fa fa-info"></i></span>
+
+<span class="inline" data-toggle="popover" data-trigger="hover" data-content="Unit variant defines the model of a unit type and can be reused across each unit which have the same specification." 
+      data-original-title="" title=""><i class="fa fa-info"></i></span>
+
+
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
 <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     <div class="grid simple">
-    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-    <div class="grid-title" role="tab" id="headingOne">
-        <div class="pull-right"><i class="fa fa-angle-up "></i>
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+            <div class="grid-title" role="tab" id="headingOne">
+                <div class="pull-right"><i class="fa fa-angle-up "></i>
                     <i class="fa fa-angle-down grid-angle-down"></i>
                 </div>
-        <h3>{{ get_property_type($propertyTypeID) }} variant <span class="semi-bold">Details</span></h3>
-    </div>
-    </a>
-    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-    <div class="grid-body">
-        <form action="/admin/project/{{ $project['id'] }}/apartment-variant/{{ $unitVariant['id'] }}" method="POST" data-parsley-validate>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Name</label>
-                        <input type="text" class="form-control" name="unit_variant_name" placeholder="Enter Name" data-parsley-required value="{{ $unitVariant['unit_variant_name'] }}">
-                    </div> 
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Unit Type</label>
-                        <select name="unit_type" class="select2 form-control m-b-5" data-parsley-required>
-                            <option value="">Select Unit Type</option>
-                            @foreach($unit_type_arr as $unit_type)
-                            <option  @if($unitVariant['unit_type_id']==$unit_type['id']){{'selected'}}@endif  value="{{$unit_type['id']}}">{{$unit_type['unittype_name']}}</option>
-                            @endforeach
-                        </select>
-                        <input type="hidden" name="property_type" id="property_type" value="{{ $projectPropertyTypeID }}">
-                        
-                          <a data-toggle="collapse" data-parent="#accordion" href="#collapseUnitType" aria-expanded="true" aria-controls="collapseOne">+ Add Unit Type</a>
-                        <div id="collapseUnitType" class="panel-collapse collapse p-t-10" role="tabpanel" aria-labelledby="headingOne">
-                            <input type="text" name="unit_type_name" id="unit_type_name" class="form-control  m-b-10" placeholder="Add Unit Type">
-                            <button onclick="addUnitType();" type="button" class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
+                <h3>{{ get_property_type($propertyTypeID) }} variant <span class="semi-bold">Details</span></h3>
+            </div>
+        </a>
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div class="grid-body">
+                <form action="/admin/project/{{ $project['id'] }}/apartment-variant/{{ $unitVariant['id'] }}" method="POST" data-parsley-validate>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Name</label>
+                                <input type="text" class="form-control" name="unit_variant_name" placeholder="Enter Name" data-parsley-required value="{{ $unitVariant['unit_variant_name'] }}">
+                            </div> 
                         </div>
-                    </div> 
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Carpet Area</label>
-                        <input type="text" class="form-control" name="carpet_area" value="{{ $unitVariant['carpet_area'] }}" placeholder="Enter Carpet Area" data-parsley-required data-parsley-type="number">
-                    </div> 
-                </div>
-                </div>
-                <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Built Up Area</label>
-                        <input type="text" class="form-control" name="builtup_area" value="{{ $unitVariant['built_up_area'] }}" placeholder="Enter Built Up Area" data-parsley-required data-parsley-type="number">
-                    </div> 
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Super Built Up Area</label>
-                        <input type="text" class="form-control" name="superbuiltup_area" value="{{ $unitVariant['super_built_up_area'] }}" placeholder="Enter Super Built Up Area" data-parsley-required data-parsley-type="number">
-                    </div> 
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Per sq ft Price</label>
-                        <input type="text" class="form-control" name="per_sq_ft_price" value="{{ $unitVariant['per_sq_ft_price'] }}" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
-                    </div> 
-                </div>
-               
-                @foreach($project_property_type_attributes as $attributes)
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">{{$attributes['label']}}</label>
-                        <?php
-                        $value = (isset($unitVariant['variant_attributes'][property_type_slug($attributes['label'])])) ? $unitVariant['variant_attributes'][property_type_slug($attributes['label'])] : ''
-                        ?>
-                        @if('textbox' === $attributes['control_type'])
-                        <input type="text" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]" value="{{ $value }}" placeholder="Enter {{$attributes['label']}}">
-                        @elseif('select' === $attributes['control_type'])
-                        <?php
-                        $options = explode(',', $attributes['defaults']);
-                        ?>
-                        <select name="attributes[{{property_type_slug($attributes['label'])}}]" class="select2 form-control">
-                            <option value="">Select {{$attributes['label']}}</option>   
-                            @foreach($options as $option)
-                            <option @if($value==property_type_slug($option)){{'selected'}}@endif  value="{{property_type_slug($option)}}">{{$option}}</option>
-                            @endforeach
-                        </select>
-                        @elseif('multiple' === $attributes['control_type'])
-                        <?php
-                        $options = explode(',', $attributes['defaults']);
-                        ?>
-                        <select multiple name="attributes[{{property_type_slug($attributes['label'])}}][]" class="select2 form-control">
-                            <option value="">Select {{$attributes['label']}}</option>   
-                            @foreach($options as $option)
-                            <option {{ (!empty($value) && in_array(property_type_slug($option),$value)) ? 'selected="selected"' : '' }}  value="{{property_type_slug($option)}}">{{$option}}</option>
-                            @endforeach
-                        </select>
-                        @endif        
-                    </div> 
-                </div>
-                @endforeach
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Unit Type</label>
+                                <select name="unit_type" class="select2 form-control m-b-5" data-parsley-required>
+                                    <option value="">Select Unit Type</option>
+                                    @foreach($unit_type_arr as $unit_type)
+                                    <option  @if($unitVariant['unit_type_id']==$unit_type['id']){{'selected'}}@endif  value="{{$unit_type['id']}}">{{$unit_type['unittype_name']}}</option>
+                                    @endforeach
+                                </select>
+                                <input type="hidden" name="property_type" id="property_type" value="{{ $projectPropertyTypeID }}">
+
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseUnitType" aria-expanded="true" aria-controls="collapseOne">+ Add Unit Type</a>
+                                <div id="collapseUnitType" class="panel-collapse collapse p-t-10" role="tabpanel" aria-labelledby="headingOne">
+                                    <input type="text" name="unit_type_name" id="unit_type_name" class="form-control  m-b-10" placeholder="Add Unit Type">
+                                    <button onclick="addUnitType();" type="button" class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Carpet Area</label>
+                                <input type="text" class="form-control" name="carpet_area" value="{{ $unitVariant['carpet_area'] }}" placeholder="Enter Carpet Area" data-parsley-required data-parsley-type="number">
+                            </div> 
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Built Up Area</label>
+                                <input type="text" class="form-control" name="builtup_area" value="{{ $unitVariant['built_up_area'] }}" placeholder="Enter Built Up Area" data-parsley-required data-parsley-type="number">
+                            </div> 
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Super Built Up Area</label>
+                                <input type="text" class="form-control" name="superbuiltup_area" value="{{ $unitVariant['super_built_up_area'] }}" placeholder="Enter Super Built Up Area" data-parsley-required data-parsley-type="number">
+                            </div> 
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">Per sq ft Price</label>
+                                <input type="text" class="form-control" name="per_sq_ft_price" value="{{ $unitVariant['per_sq_ft_price'] }}" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
+                            </div> 
+                        </div>
+
+                        @foreach($project_property_type_attributes as $attributes)
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="form-label">{{$attributes['label']}}</label>
+                                <?php
+                                $value = (isset($unitVariant['variant_attributes'][property_type_slug($attributes['label'])])) ? $unitVariant['variant_attributes'][property_type_slug($attributes['label'])] : ''
+                                ?>
+                                @if('textbox' === $attributes['control_type'])
+                                <input type="text" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]" value="{{ $value }}" placeholder="Enter {{$attributes['label']}}">
+                                @elseif('select' === $attributes['control_type'])
+                                <?php
+                                $options = explode(',', $attributes['defaults']);
+                                ?>
+                                <select name="attributes[{{property_type_slug($attributes['label'])}}]" class="select2 form-control">
+                                    <option value="">Select {{$attributes['label']}}</option>   
+                                    @foreach($options as $option)
+                                    <option @if($value==property_type_slug($option)){{'selected'}}@endif  value="{{property_type_slug($option)}}">{{$option}}</option>
+                                    @endforeach
+                                </select>
+                                @elseif('multiple' === $attributes['control_type'])
+                                <?php
+                                $options = explode(',', $attributes['defaults']);
+                                ?>
+                                <select multiple name="attributes[{{property_type_slug($attributes['label'])}}][]" class="select2 form-control">
+                                    <option value="">Select {{$attributes['label']}}</option>   
+                                    @foreach($options as $option)
+                                    <option {{ (!empty($value) && in_array(property_type_slug($option),$value)) ? 'selected="selected"' : '' }}  value="{{property_type_slug($option)}}">{{$option}}</option>
+                                    @endforeach
+                                </select>
+                                @endif        
+                            </div> 
+                        </div>
+                        @endforeach
+                    </div>
+                    <div class="form-actions">  
+                        <div class="pull-right">
+                            <input type="hidden" name="_method" value="PUT">
+                            <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
+                            <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
+                        </div>
+                    </div>
+                </form>
             </div>
-
-            
-
-            <div class="form-actions">  
-                <div class="pull-right">
-                    <input type="hidden" name="_method" value="PUT">
-                    <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-                    <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
-</div>
-
-@if($propertyTypeID ==1)
-@include('admin.project.variants.apartment.apartmentroom')
-@else
-@include('admin.project.variantrooms')
-@endif
-
-<div class="grid simple">
-    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-        <div class="grid-title" role="tab" id="headingThree">
-            <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
-                    <i class="fa fa-angle-up "></i>
-            </div>
-            <h3><span class="semi-bold">Layouts</span></h3>
         </div>
-    </a>
-    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree"> 
+    </div>
 
     @if($propertyTypeID ==1)
-    @include('admin.project.variants.apartment.apartmentlayouts')
+    @include('admin.project.variants.apartment.apartmentroom')
     @else
-    @include('admin.project.variantlayouts')
+    @include('admin.project.variantrooms')
     @endif
 
-    <div class="grid-body"> 
-        <h5 class="semi-bold inline">Gallery</h5>
-        <div class="m-b-15">
-            <input id="pickfiles_gallery" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/>
-            <button  id="uploadfiles_gallery"type="button" class="btn btn-small hidden btn-primary">Upload</button>
-            <div class="row selectedImages m-t-15">
-            </div>        
-        </div>
-        <div id="galleryimages" class="row">
-            @if(isset($layouts['gallery']))
-            @foreach($layouts['gallery'] as $gallery)
-            <div class="col-sm-3" id="gallery_{{ $gallery['ID'] }}">   
-                <img src="{{ $gallery['IMAGE'] }}" class="img-responsive">
-                <button onclick="deleteLayout({{ $gallery['ID'] }}, 'gallery');" type="button" class="btn btn-small btn-default m-t-10"><i class="fa fa-trash"></i> Delete</button>
-            </div>    
-            @endforeach									
+    <div class="grid simple">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <div class="grid-title" role="tab" id="headingThree">
+                <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+                    <i class="fa fa-angle-up "></i>
+                </div>
+                <h3><span class="semi-bold">Layouts</span></h3>
+            </div>
+        </a>
+        <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree"> 
+
+            @if($propertyTypeID ==1)
+            @include('admin.project.variants.apartment.apartmentlayouts')
+            @else
+            @include('admin.project.variantlayouts')
             @endif
-        </div>         
+
+            <div class="grid-body"> 
+                <h5 class="semi-bold inline">Gallery</h5>
+                <div class="m-b-15">
+                    <input id="pickfiles_gallery" type="button" name="fileToUpload" class="btn btn-small" value="Select your file" data-filename-placement="inside"/>
+                    <button  id="uploadfiles_gallery"type="button" class="btn btn-small hidden btn-primary">Upload</button>
+                    <div class="row selectedImages m-t-15">
+                    </div>        
+                </div>
+                <div id="galleryimages" class="row">
+                    @if(isset($layouts['gallery']))
+                    @foreach($layouts['gallery'] as $gallery)
+                    <div class="col-sm-3" id="gallery_{{ $gallery['ID'] }}">   
+                        <img src="{{ $gallery['IMAGE'] }}" class="img-responsive">
+                        <button onclick="deleteLayout({{ $gallery['ID'] }}, 'gallery');" type="button" class="btn btn-small btn-default m-t-10"><i class="fa fa-trash"></i> Delete</button>
+                    </div>    
+                    @endforeach									
+                    @endif
+                </div>         
+            </div>
+        </div>
     </div>
-</div>
-</div>
 </div> 
 <script>
             var ROOMTYPES = '';
@@ -188,11 +187,13 @@
             @endforeach
 
             var BASEURL = '{{ url() }}';
-            @if ($propertyTypeID == 1)
+            
+            @if($propertyTypeID == 1)
                 var FLOORLEVELS = ['0'];
             @else
                  var FLOORLEVELS = [<?php echo implode(",", array_keys($variantRooms)); ?>];
             @endif
+            
             var variantId = {{ $unitVariant['id'] }};
 </script>
 <!-- END PLACE PAGE CONTENT HERE -->
