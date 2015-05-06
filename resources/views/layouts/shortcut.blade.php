@@ -28,127 +28,15 @@
             var BASEURL = '{{ url() }}';
             var FLOORLEVELS = [];
             var variantId = 0;
-            var PROJECTID = 0;
         </script>
     <body>
-        <!-- BEGIN HEADER -->
-        <div class="header navbar navbar-inverse"> 
-            <!-- BEGIN TOP NAVIGATION BAR -->
-            <div class="navbar-inner">
-                <!-- BEGIN NAVIGATION HEADER -->
-                <div class="header-seperation"> 
-                    <!-- BEGIN MOBILE HEADER -->
-                    <ul class="nav pull-left notifcation-center" id="main-menu-toggle-wrapper" style="display:none">	
-                        <li class="dropdown">
-                            <a id="main-menu-toggle" href="#main-menu" class="">
-                                <div class="iconset top-menu-toggle-white"></div>
-                            </a>
-                        </li>		 
-                    </ul>
-                    <!-- END MOBILE HEADER -->
-                    <!-- BEGIN LOGO -->	
-                    <a href="#">
-                        <img src="{{ asset('images/inner-header-logo.png') }}" class="logo" alt="" 
-                             data-src="{{ asset('images/inner-header-logo.png') }}" 
-                             data-src-retina="{{ asset('images/logo2x.png') }}"/>
-                    </a>
-                    <!-- END LOGO -->
-                </div>
-                <!-- END NAVIGATION HEADER -->
-                <!-- BEGIN CONTENT HEADER -->
-                <div class="header-quick-nav"> 
-                    <!-- BEGIN HEADER LEFT SIDE SECTION -->
-                    <div class="pull-left"> 
-                        <!-- BEGIN SLIM NAVIGATION TOGGLE -->
-                        <ul class="nav quick-section">
-                            <li class="quicklinks">
-                                <a href="#" class="" id="layout-condensed-toggle">
-                                    <div class="iconset top-menu-toggle-dark"></div>
-                                </a>
-                            </li>
-                        </ul>
-                        <!-- END SLIM NAVIGATION TOGGLE -->								
-                    </div>
-                    <!-- END HEADER LEFT SIDE SECTION -->
-                    <!-- BEGIN HEADER RIGHT SIDE SECTION -->
-                    <div class="pull-right"> 
-                        <div class="chat-toggler">	
-                            <!-- BEGIN NOTIFICATION CENTER -->
-                            <a href="#" data-toggle="dropdown" class="dropdown-toggle" id="user-options">
-                                <div class="user-details"> 
-                                    <div class="username">
-                                        <span class="bold">{{ Auth::user()->name }}</span>
-                                        <div class="iconset top-down-arrow"></div>								
-                                    </div>						
-                                </div> 
-                            </a>
-                            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
-                                <li><a href="{{ url('auth/logout' ) }}"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
-                            </ul>  			
-                        </div>
-                    </div>
-                    <!-- END HEADER RIGHT SIDE SECTION -->
-                </div> 
-                <!-- END CONTENT HEADER --> 
-            </div>
-            <!-- END TOP NAVIGATION BAR --> 
-        </div>
-        <!-- END HEADER -->
-
-
-        <!-- BEGIN CONTENT -->
-        <div class="page-container row-fluid">
-            <!-- BEGIN SIDEBAR -->
-            <!-- BEGIN MENU -->
-            <!--TODO remove mini mini-mobile class 4 list view-->
-            <div class="page-sidebar @if(!isset($menuFlag)){{'mini mini-mobile'}}@endif " id="main-menu"> 
-                <div class="page-sidebar-wrapper scrollbar-dynamic" id="main-menu-wrapper">
-                    <p class="menu-title"></p>
-
-                    <!-- BEGIN SIDEBAR MENU -->	
-                    <ul>	
-                        <li class="">
-                            <a href="javascript:;">
-                                <i class="fa fa-building-o"></i>
-                                <span class="title">Projects</span>
-                                <span class="arrow"></span>
-                            </a>
-                            <ul class="sub-menu">
-                                <li><a href="{{ url( 'admin/project/create' ) }}">Add</a></li>
-                                <li><a href="{{ url( 'admin/project' ) }}">View</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <!-- END SIDEBAR MENU -->
-
-                </div>
-
-                @yield('innermenu')
-
-            </div>
-            <!-- BEGIN SCROLL UP HOVER -->
-            <a href="#" class="scrollup">Scroll</a>
-            <!-- END SCROLL UP HOVER -->
-            <!-- END MENU -->
-            <!-- BEGIN SIDEBAR FOOTER WIDGET -->
-            <div class="footer-widget">		
-                <div class="pull-right">
-                    <!-- <a href="#"><i class="fa fa-power-off"></i></a> -->
-                </div>
-            </div>
-            <!-- END SIDEBAR FOOTER WIDGET -->
-            <!-- END SIDEBAR --> 
-            <!-- BEGIN PAGE CONTAINER-->
-            <div class="page-content"> 
+ 
                 <div class="content">  
-
-                    @yield('breadcrumb')
+ 
                     @yield('content')
 
                 </div>
-            </div>
-            <!-- END PAGE CONTAINER -->
-        </div>
+ 
         <!-- END CONTENT --> 
 
 

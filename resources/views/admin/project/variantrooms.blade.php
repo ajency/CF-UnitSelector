@@ -11,15 +11,21 @@
             </div>
         </a>
             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+
                 <div class="grid-body">
+                   <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg" class="pull-right"><i class="fa fa-share"></i> Add New Room </a>
                     <div>
                         <?php $i = 0; ?>
                         @foreach($variantRooms as $level=>$roomTypes)
                         <div id="levelblock_{{$i}}"> 
+                            <div class="form-inline">
                                         <div class="form-group">
+
                                         <h3>Level {{$i}}</h3>
+
                                         <input type="hidden" name="floorlevel[]" value="{{$i}}">
                                     </div> 
+                                    </div>
                             <?php $j = 1; ?>
                             @foreach($roomTypes as $variantRoomId=> $roomType)              
                             <div class="room-block">
@@ -117,7 +123,6 @@
                                 </div>
                                  </div>
 
-                                    <a href="#" data-toggle="modal" data-target="#myModal">+ Add Room </a>
                                 
                                 </div>
                             </div>
@@ -144,8 +149,8 @@
 </form>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -154,10 +159,6 @@
       <div class="modal-body">
         <iframe src="" width="100%" ></iframe>
       </div>
-      <div class="modal-footer">    
-          <button type="button" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
-      </div>
-    </div>
+         </div>
   </div>
 </div>

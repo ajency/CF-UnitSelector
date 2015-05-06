@@ -304,7 +304,7 @@ function addFloorLevel(variantId)
     str += '</div> ';
     str += '<div>';
     
-    str += '<div></div>';
+    str += '<div></div><hr/>';
     str += '</div> ';
 
     $("#addFloorlevel").before(str);
@@ -342,8 +342,8 @@ function addRoomAttributes(level, obj, variantId)
     var str = '';
 
     str += '<div class="room-block">';
-    str += '<div class="form-group">';
-    str += '<div class="row">';
+    str += '<div class="form-group"><label class="form-label">Room Name</label>';
+    str += '<div class="row  m-b-5">';
     str += '<div class="col-md-4">';
     str += ' <input type="hidden" name="variantroomid_' + level + '[]" value="">';
     str += '<select name="room_name_' + level + '[]" class="select2 form-control" onchange="getRoomTypeAttributes(this,' + variantId + ',' + level + ');">';
@@ -357,6 +357,8 @@ function addRoomAttributes(level, obj, variantId)
     str += '</div> ';
     str += '</div> ';
     str += '</div> ';
+    str += '<div>';
+    str += '</div><hr/>';
     str += '<div>';
 
     $(obj).hide();
@@ -914,7 +916,7 @@ function getPropertTypeData(obj, flag)
             if (flag)
             {
                 //VARIANT CODE
-                $(obj).closest('.row').append(response.data.attributes);
+                $('#property_type_attributes').html(response.data.attributes);
 
                 if (unitTypes.trim() != '')
                     $('select[name="unit_type"]').append(unitTypes);

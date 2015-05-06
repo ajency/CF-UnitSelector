@@ -1,19 +1,28 @@
 <form method="POST" id="formroomdetails" name="formroomdetails">
     <div class="grid simple">
-        <div class="grid-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <div class="grid-title" role="tab" id="headingTwo">
+            <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+                        <i class="fa fa-angle-up "></i>
+                    </div>
             <h3 class="inline">Room <span class="semi-bold">Details</span></h3>&nbsp;
- <a class="inline" data-toggle="popover" data-trigger="hover" data-content="Add rooms (which are created on attributes page) which are present at each level (floor).
+ <span class="inline" data-toggle="popover" data-trigger="hover" data-content="Add rooms (which are created on attributes page) which are present at each level (floor).
                     Click on Add Level button to add new levels. " 
-  data-original-title="" title=""><i class="fa fa-info"></i></a>
+  data-original-title="" title=""><i class="fa fa-info"></i></span>
            
         </div>
+    </a>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
         <?php
         $i = 0;
         ?>
         <input type="hidden" name="floorlevel[]" value="{{$i}}">
         <div class="grid-body">
+            <div>
+             <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg" class="pull-right"><i class="fa fa-share"></i> Add New Room </a>
+                        </div>
             <div >
-                <?php $j = 1; ?>
+                 
                 @if(isset($variantRooms[0]))
                 @foreach($variantRooms[0] as $roomId => $room)              
                 <div class="room-block">
@@ -32,11 +41,7 @@
                             @endforeach
                         </select>
                     </div>
-                    <div class="col-md-8">
-                        @if($j === count($variantRooms[0]))
-                        <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this,{{ $unitVariant['id'] }})"><i class="fa fa-plus"></i></button>
-                        @endif
-                    </div>
+          
                     </div>
                     </div> 
                 </div>
@@ -80,13 +85,12 @@
                                     </div> 
                                 </div>
                                 @endforeach
-
                             </div>
                         </div>
                     </div>
                 </div> 
                 <hr/>
-                <?php $j++; ?>
+              
                 @endforeach
                 @endif  
                 <div id="levelblock_0"> 
@@ -107,16 +111,15 @@
                             <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this,{{ $unitVariant['id'] }})"><i class="fa fa-plus"></i></button>
                         </div>
                         </div>
-                        <div>
-                        <a href="#" data-toggle="modal" data-target="#myModal">+ Add Room </a>
-                        </div>
+                        
                         </div>
                     </div>
                     <div >
                         <!--Attributes-->  
                     </div>
+                    <hr/>
                 </div> 
-                <hr/>
+                
             </div>
             <div class="form-actions">  
                 <div class="text-right">
@@ -125,24 +128,22 @@
                 </div>
             </div>   
         </div>
+        </div>
     </div>
 </form>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<div  class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title text-left" id="myModalLabel">Add Room </h4>
       </div>
       <div class="modal-body">
-       <iframe src="" width="100%"></iframe>
+       <iframe src="/admin/project/{{ $project['id'] }}/attributes/addroomtype" width="100%"></iframe>
       </div>
-      <div class="modal-footer">    
-          <button type="button" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
-      </div>
+     
     </div>
   </div>
 </div>
