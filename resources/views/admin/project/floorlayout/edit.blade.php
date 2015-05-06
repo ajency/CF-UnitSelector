@@ -110,9 +110,15 @@
                     </div>
                  </a>
                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                    <div class="grid-body"><div class="row">
+                        <div class="col-md-12">
+                        <a type="button" href="#" data-toggle="modal" data-target=".bs-example-modal-lg" class="pull-right"><i class="fa fa-share"></i> Add New Variant</a>
+                        </div>
+                    </div>
                     @for($i = 1; $i <= $floorLayout->no_of_flats; $i++)
+
                     <form data-parsley-validate>
-                        <div class="grid-body"><h3>Position {{ $i }}</h3>
+                        <h3>Position {{ $i }}</h3>
                             <div class="form-group">
                                 <div class="row">
                                         <div class="col-md-4">
@@ -160,12 +166,11 @@
                                                 <option value="">Choose Variant</option>
                                                 @endif
                                             </select>
-                                          <a type="button" href="#" data-toggle="modal" data-target=".bs-example-modal-lg">+ Add Variant</a>
                                         </div>
                                     </div> 
                                 </div>
-                            </div>
-                                <div class="pull-right">
+                            
+                                <div class="text-right">
                                     <input type="hidden" name="position" value="{{ $i }}" />
                                     <input type="hidden" name="floor_layout_id" value="{{ $floorLayout->id }}" />
                                     <button type="button" class="btn btn-small btn-primary save-position">
@@ -173,11 +178,12 @@
                                     </button>
                                     <div class="cf-loader hidden"></div>
                             </div>
-                    </div>
-                </form>
+                        </div>
+                    </form>
+                <hr/>
                 @endfor
             </div>
-        </div>
+        </div></div>
 
     </div> 
 </div>
@@ -196,10 +202,6 @@
       <div class="modal-body">
         <iframe src="" width="100%"></iframe>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
-      </div>
-    </div>
+        </div>
   </div>
 </div>

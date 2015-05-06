@@ -108,10 +108,7 @@
       <div class="modal-body">
         <iframe width="100%"></iframe>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
-      </div>
+      
     </div>
   </div>
 </div>
@@ -127,10 +124,7 @@
       <div class="modal-body">
         <iframe width="100%"></iframe>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
-      </div>
+     
     </div>
   </div>
 </div>

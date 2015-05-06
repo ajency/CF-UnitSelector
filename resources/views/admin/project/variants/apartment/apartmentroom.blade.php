@@ -18,6 +18,9 @@
         ?>
         <input type="hidden" name="floorlevel[]" value="{{$i}}">
         <div class="grid-body">
+            <div>
+             <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg" class="pull-right"><i class="fa fa-share"></i> Add New Room </a>
+                        </div>
             <div >
                  
                 @if(isset($variantRooms[0]))
@@ -108,9 +111,7 @@
                             <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this,{{ $unitVariant['id'] }})"><i class="fa fa-plus"></i></button>
                         </div>
                         </div>
-                        <div>
-                        <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">+ Add Room </a>
-                        </div>
+                        
                         </div>
                     </div>
                     <div >
@@ -142,10 +143,7 @@
       <div class="modal-body">
        <iframe src="/admin/project/{{ $project['id'] }}/attributes/addroomtype" width="100%"></iframe>
       </div>
-      <div class="modal-footer">    
-          <button type="button" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
-      </div>
+     
     </div>
   </div>
 </div>

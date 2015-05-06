@@ -11,15 +11,21 @@
             </div>
         </a>
             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+
                 <div class="grid-body">
+                   <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg" class="pull-right"><i class="fa fa-share"></i> Add New Room </a>
                     <div>
                         <?php $i = 0; ?>
                         @foreach($variantRooms as $level=>$roomTypes)
                         <div id="levelblock_{{$i}}"> 
+                            <div class="form-inline">
                                         <div class="form-group">
+
                                         <h3>Level {{$i}}</h3>
+
                                         <input type="hidden" name="floorlevel[]" value="{{$i}}">
                                     </div> 
+                                    </div>
                             <?php $j = 1; ?>
                             @foreach($roomTypes as $variantRoomId=> $roomType)              
                             <div class="room-block">
@@ -81,14 +87,12 @@
                                                     @endif        
                                                 </div> 
                                             </div>
-                                          
                                             @endforeach
 
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <hr/>
+                            </div>     
                             <?php $j++; ?>
                             @endforeach   
                         </div>
@@ -99,8 +103,6 @@
                             
                                     <div class="form-group">
                                         <h3>Level {{$i}}</h3>
-                                                                            <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">+ Add Room </a>
-
                                         <input type="hidden" name="floorlevel[]" value="{{$i}}">
                                     </div> 
                                 
@@ -120,12 +122,13 @@
                                     <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this,{{ $unitVariant['id'] }})"><i class="fa fa-plus"></i></button>
                                 </div>
                                  </div>
+
+                                
                                 </div>
                             </div>
                             <div >
                                 <!--Attributes-->  
                             </div>
-                            <hr/>
                         </div>
                         <hr/>
                         <div class="text-right m-t-10" id="addFloorlevel">  
@@ -154,12 +157,8 @@
         <h4 class="modal-title text-left" id="myModalLabel">Add Room </h4>
       </div>
       <div class="modal-body">
-        <iframe src="/admin/project/{{ $project['id'] }}/attributes/addroomtype" width="100%" ></iframe>
+        <iframe src="" width="100%" ></iframe>
       </div>
-      <div class="modal-footer">    
-          <button type="button" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
-      </div>
-    </div>
+         </div>
   </div>
 </div>
