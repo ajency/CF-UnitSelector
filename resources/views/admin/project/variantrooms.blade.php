@@ -97,6 +97,8 @@
                             
                                     <div class="form-group">
                                         <h3>Level {{$i}}</h3>
+                                                                            <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">+ Add Room </a>
+
                                         <input type="hidden" name="floorlevel[]" value="{{$i}}">
                                     </div> 
                                 
@@ -116,9 +118,6 @@
                                     <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this,{{ $unitVariant['id'] }})"><i class="fa fa-plus"></i></button>
                                 </div>
                                  </div>
-
-                                    <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">+ Add Room </a>
-                                
                                 </div>
                             </div>
                             <div >
