@@ -18,15 +18,21 @@
     <h2><span class="semi-bold">Edit</span> Unit Variant</h2>
 </div>&nbsp;
 
-&nbsp;<a class="inline" data-toggle="popover" data-trigger="hover" data-content="Unit variant defines the model of a unit type and can be reused across each unit which have the same specification." 
-   data-original-title="" title=""><i class="fa fa-info"></i></a>
+&nbsp;<span class="inline" data-toggle="popover" data-trigger="hover" data-content="Unit variant defines the model of a unit type and can be reused across each unit which have the same specification." 
+   data-original-title="" title=""><i class="fa fa-info"></i></span>
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
-<div class="grid simple">
-    <div class="grid-title">
+<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+    <div class="grid simple">
+    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+    <div class="grid-title" role="tab" id="headingOne">
+        <div class="pull-right"><i class="fa fa-angle-up "></i>
+                    <i class="fa fa-angle-down grid-angle-down"></i>
+                </div>
         <h3>{{ get_property_type($propertyTypeID) }} variant <span class="semi-bold">Details</span></h3>
     </div>
-
+    </a>
+    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
     <div class="grid-body">
         <form action="/admin/project/{{ $project['id'] }}/apartment-variant/{{ $unitVariant['id'] }}" method="POST" data-parsley-validate>
             <div class="row">
@@ -128,6 +134,7 @@
         </form>
     </div>
 </div>
+</div>
 
 @if($propertyTypeID ==1)
 @include('admin.project.variants.apartment.apartmentroom')
@@ -136,9 +143,15 @@
 @endif
 
 <div class="grid simple">
-    <div class="grid-title">
-        <h3><span class="semi-bold">Layouts</span></h3>
-    </div>
+    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        <div class="grid-title" role="tab" id="headingThree">
+            <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+                    <i class="fa fa-angle-up "></i>
+            </div>
+            <h3><span class="semi-bold">Layouts</span></h3>
+        </div>
+    </a>
+    <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree"> 
 
     @if($propertyTypeID ==1)
     @include('admin.project.variants.apartment.apartmentlayouts')
@@ -163,12 +176,10 @@
             </div>    
             @endforeach									
             @endif
-
         </div>         
-
     </div>
-
-
+</div>
+</div>
 </div> 
 <script>
             var ROOMTYPES = '';

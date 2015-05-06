@@ -1,12 +1,18 @@
 <form method="POST" id="formroomdetails" name="formroomdetails">
     <div class="grid simple">
-        <div class="grid-title">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <div class="grid-title" role="tab" id="headingTwo">
+            <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
+                        <i class="fa fa-angle-up "></i>
+                    </div>
             <h3 class="inline">Room <span class="semi-bold">Details</span></h3>&nbsp;
- <a class="inline" data-toggle="popover" data-trigger="hover" data-content="Add rooms (which are created on attributes page) which are present at each level (floor).
+ <span class="inline" data-toggle="popover" data-trigger="hover" data-content="Add rooms (which are created on attributes page) which are present at each level (floor).
                     Click on Add Level button to add new levels. " 
-  data-original-title="" title=""><i class="fa fa-info"></i></a>
+  data-original-title="" title=""><i class="fa fa-info"></i></span>
            
         </div>
+    </a>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
         <?php
         $i = 0;
         ?>
@@ -80,7 +86,6 @@
                                     </div> 
                                 </div>
                                 @endforeach
-
                             </div>
                         </div>
                     </div>
@@ -124,6 +129,7 @@
                             type="button" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
                 </div>
             </div>   
+        </div>
         </div>
     </div>
 </form>
