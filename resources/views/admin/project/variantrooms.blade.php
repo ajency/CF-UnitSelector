@@ -87,7 +87,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>     
+                            </div>
+                            <hr/>
                             <?php $j++; ?>
                             @endforeach   
                         </div>
@@ -125,6 +126,7 @@
                             <div >
                                 <!--Attributes-->  
                             </div>
+                            <hr/>
                         </div>
                         <hr/>
                         <div class="text-right m-t-10" id="addFloorlevel">  
