@@ -162,11 +162,12 @@
       return CenterMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content"> <div id="trig" class="toggle-button hidden">List View</div> <div class="list-view-container master animated fadeIn"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img src=""  data-alwaysprocess="true" data-ratio="0.5" data-srcwidth="1600" data-crop="1" class="primage first_image img-responsive"> <div class="region inactive"></div> </div> <div class="cf-loader hidden"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
+    CenterMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content mobile visible"> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master animated fadeIn"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img src=""  data-alwaysprocess="true" data-ratio="0.5" data-srcwidth="1600" data-crop="1" class="primage first_image img-responsive"> <div class="region inactive"></div> </div> <div class="cf-loader hidden"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
 
     CenterMasterView.prototype.ui = {
-      svgContainer: '.list-view-container',
-      trig: '#trig'
+      svgContainer: '.master',
+      trig: '#trig',
+      viewtog: '#view_toggle'
     };
 
     CenterMasterView.prototype.initialize = function() {
@@ -191,6 +192,10 @@
           });
           return $('.svg-maps > div').first().css('width', that.ui.svgContainer.width());
         }, 650);
+      },
+      'click @ui.viewtog': function(e) {
+        $('.us-left-content').toggleClass('not-visible visible');
+        return $('.us-right-content').toggleClass('not-visible visible');
       },
       'click .building': function(e) {
         return setTimeout(function(x) {
