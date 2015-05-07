@@ -25,7 +25,7 @@
     </div>
 
     <div class="grid-body">
-         <form action="{{ url('/admin/project/' . $project['id'] .'/apartment-unit') }}" method="POST" data-parsley-validate>
+        <form action="{{ url('/admin/project/' . $project['id'] .'/apartment-unit') }}" method="POST" data-parsley-validate>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -56,7 +56,7 @@
                             @endforeach
                         </select>
                         <a data-toggle="modal" data-target=".bs-example-modal-lg1" href="#">
-                        + Add Building
+                            + Add Building
                         </a>
                     </div> 
                 </div>
@@ -67,7 +67,7 @@
                             <option value="">Select Floor</option>
                         </select>
                         <a data-toggle="modal" data-target=".bs-example-modal-lg2" href="#">
-                        + Add floor Layout
+                            + Add floor Layout
                         </a>
                     </div> 
                 </div>
@@ -76,7 +76,7 @@
                         <label class="form-label">Position</label>
                         <select id="flat_position" required="" name="position" class="select2 form-control">
                             <option value="">Select Position</option>
-      
+
                         </select>
                     </div> 
 
@@ -99,32 +99,32 @@
 
 <!-- Modal -->
 <div class="modal fade bs-example-modal-lg1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title text-left" id="myModalLabel">Add Building</h4>
-      </div>
-      <div class="modal-body">
-        <iframe width="100%"></iframe>
-      </div>
-      
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-left" id="myModalLabel">Add Building</h4>
+            </div>
+            <div class="modal-body">
+                <iframe width="100%"></iframe>
+            </div>
+
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Modal -->
 <div class="modal fade bs-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title text-left" id="myModalLabel">Add Floor Layout</h4>
-      </div>
-      <div class="modal-body">
-        <iframe width="100%"></iframe>
-      </div>
-     
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-left" id="myModalLabel">Add Floor Layout</h4>
+            </div>
+            <div class="modal-body">
+                <iframe width="100%"></iframe>
+            </div>
+
+        </div>
     </div>
-  </div>
 </div>
