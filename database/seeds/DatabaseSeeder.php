@@ -41,8 +41,8 @@ class PropertyTypeTableSeeder extends Seeder {
     public function run() {
         PropertyType::create( ['name' => 'Apartments'] );
         PropertyType::create( ['name' => 'Villas/Bungalows'] );
-        PropertyType::create( ['name' => 'Plots'] );
-        PropertyType::create( ['name' => 'Penthouses'] );
+        PropertyType::create( ['name' => 'Plot'] );
+        PropertyType::create( ['name' => 'Penthouse'] );
     }
 
 }

@@ -25,7 +25,7 @@
     </div>
 
     <div class="grid-body">
-        <form action="{{ url('/admin/project/' . $project['id'] .'/apartment-unit') }}" method="POST" data-parsley-validate>
+         <form action="{{ url('/admin/project/' . $project['id'] .'/apartment-unit') }}" method="POST" data-parsley-validate>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
@@ -36,7 +36,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Unit Status</label>
-                        <select  class="select2 form-control" required="" name="availability">
+                        <select  class="select2 form-control" required="" name="unit_status">
                             <option value="available">Available</option>
                             <option value="sold">Sold</option>
                             <option value="not_released">Not Released</option>
