@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Add User - CommonFloor</title>
+		<title>View Users - CommonFloor</title>
 		<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -99,7 +99,7 @@
 		<div class="page-container row-fluid">
 			<!-- BEGIN SIDEBAR -->
 			<!-- BEGIN MENU -->
-			<div class="page-sidebar" id="main-menu"> 
+			<div class="page-sidebar mini mini-mobile" id="main-menu" data-inner-menu="1"> 
 				<div class="page-sidebar-wrapper scrollbar-dynamic" id="main-menu-wrapper">
 					<p class="menu-title"></p>
 					<!-- BEGIN SIDEBAR MENU -->	
@@ -121,28 +121,48 @@
 								<span class="arrow"></span>
 							</a>
 							<ul class="sub-menu">
-								<li><a href="project-view.html">All Projects</a></li>
-								<li><a href="project-add.html">Add Project</a></li>
-								
+								<li><a href="project-add.html">Add</a></li>
+								<li><a href="project-view.html">View</a></li>
 							</ul>
 						</li>
 						<!-- END ONE LEVEL MENU -->	
 						<!-- BEGIN SINGLE LINK -->
-						<li class="">
-							<a href="javascript:;">
+						<!-- <li class="">
+							<a href="#">
 								<i class="fa fa-user"></i>
 								<span class="title">Users</span>
-								<span class="arrow"></span>
 							</a>
-							<ul class="sub-menu">
-								<li class="active"><a href="users-add.html">Add</a></li>
-								<li><a href="user-list-view.html">View</a></li>
-							</ul>
-						</li>
+						</li> -->
 						<!-- END SINGLE LINK -->    
 					</ul>
 					<!-- END SIDEBAR MENU -->
 				</div>
+				<!-- BEGIN INNER MENU -->
+				<div class="inner-menu nav-collapse">   
+				  	<div id="inner-menu">
+				      	<div class="inner-wrapper" >    
+				        	<h2 class="text-white b-g b-b p-b-20">Goyal Footprints</h2>
+				       	</div>
+				       	<div class="inner-menu-content">
+				        	<p class="menu-title">Project <span class="pull-right"><i class="icon-refresh"></i></span></p>
+				       	</div>
+				       	<ul class="big-items">
+				        	<!-- <li>
+				        		<span class="fa fa-check text-success"></span><a href="project-svg.html" > SVGs</a>
+				        	</li> -->
+				        	<li>
+				        		<a href="project-settings.html">Settings</a>
+				        	</li>
+				       	</ul>
+
+				       		<!-- <li>
+				       			<a href="building-svg.html">SVGs</a>
+				       		</li> -->
+				      	</ul>
+
+				   </div> 
+				</div>
+				<!-- END INNER MENU -->
 			</div>
 			<!-- BEGIN SCROLL UP HOVER -->
 			<a href="#" class="scrollup">Scroll</a>
@@ -163,13 +183,12 @@
 					<!-- BEGIN BREADCRUMBS -->
 					<ul class="breadcrumb">
 				        <li><a href="#">Dashboard</a> </li>
-				        <li><a href="#">Users</a> </li>
-				        <li><a href="#" class="active">Add User</a> </li>
+				 		<li><a href="#" class="active">Users</a></li>
 				    </ul>
 				    <!-- END BREADCRUMBS -->
 					<!-- BEGIN PAGE TITLE -->
 					<div class="page-title">	
-						<h2><span class="semi-bold">Add</span> User</h2>
+						<h2><span class="semi-bold">View</span> Users</h2>
 					</div>
 					<!-- END PAGE TITLE -->
 
@@ -177,52 +196,77 @@
 					<div class="row">
 			            <div class="col-md-12">
 			              	<div class="grid simple">
-			                	<div class="grid-body no-border"> <br>
-									<form id="add_project" action="#" novalidate="novalidate">
-										<div class="row">
-					                        <div class="col-md-4">
-		                                        <div class="form-group">
-		                                            <label class="form-label">Name</label>
-		                                            <input type="text" name="name" class="form-control" placeholder="Enter User Name">
-		                                            <div class="text-danger"><span class="fa fa-asterisk"></span> This field is required</div>
-		                                        </div>
-		                                    </div>
-		                                    <div class="col-md-4">
-		                                        <div class="form-group">
-		                                            <label class="form-label">Email</label>
-		                                            <input type="email" name="email" class="form-control" placeholder="Enter Email ID">
-		                                            <div class="text-danger"><span class="fa fa-asterisk"></span> This field is required</div>
-		                                        </div>
-		                                    </div>
-		                                     <div class="col-md-4">
-		                                        <div class="form-group">
-		                                            <label class="form-label">Phone Number</label>
-		                                            <input type="text" name="number" class="form-control" placeholder="Enter Phone Number">
-		                                            <div class="text-danger"><span class="fa fa-asterisk"></span> This field is required</div>
-		                                        </div>
-		                                    </div>
-		                                  
-					                    </div>
-					                    <div class="row">
-					                    	<div class="col-md-4">
-		                                        <div class="form-group">
-							                        <label class="form-label">Status</label>
-							                        <select id="status" class="select2 form-control">
-							                        	<option value="">Select a Status</option>
-							                        	<option>Active</option>
-							                        	<option>Inactive</option>
-							                        </select>
-							                        <div class="text-danger"><span class="fa fa-asterisk"></span> This field is required</div>
-							                    </div>
-					                        </div>
-										</div>
-					                   <div class="form-actions">  
-											<div class="pull-right">
-											  <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-plus-circle"></i> Create</button>
-											  <button type="submit" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button>
-											</div>
-										</div>
-									</form>
+			              		<div class="grid-title">
+			              		<a class="btn btn-primary pull-right" href="users-add.html"><i class="fa fa-plus"></i> Add User</a>
+              		              	<h4>List of <span class="semi-bold">Users</span></h4>
+              		            </div>
+			                	<div class="grid-body">
+			                		<table class="table table-striped" id="example2" >
+			                		  <thead>
+			                		    <tr>
+			                		      <th>Name</th>
+			                		      <th>Email</th>
+			                		      <th>Phone Number</th>
+			                		     
+			                		      <th>Status</th>
+			                		      <th>Created On</th>
+			                		      <th>Created By</th>
+			                		      <th>Modified By</th>
+			                		    </tr>
+			                		  </thead>
+			                		  <tbody>
+			                		    <tr class="">
+			                		      <td><a href="users-add.html">Amit Adav</a></td>
+			                		      <td>shraddha@ajency.in</td>
+			                		      <td>9422835672</td>
+			                		      
+			                		      <td>Active</td>
+			                		      <td>05/12/14</td>
+			                		      <td>John Smith</td>
+			                		      <td class="center">Arya Jain</td>
+			                		    </tr>
+			                		     <tr class="">
+			                		      <td><a href="users-add.html">Amit Adav</a></td>
+			                		      <td>alisha@ajency.in</td>
+			                		      <td>0832-2541715</td>
+			                		      
+			                		      <td>Inactive</td>
+			                		      <td>05/12/14</td>
+			                		      <td>John Smith</td>
+			                		      <td class="center">Arya Jain</td>
+			                		    </tr>
+			                		     <tr class="">
+			                		      <td><a href="users-add.html">Amit Adav</a></td>
+			                		      <td>amit@ajency.in</td>
+			                		      <td>141-2542225</td>
+			                		      
+			                		      <td>Active</td>
+			                		      <td>05/12/14</td>
+			                		      <td>John Smith</td>
+			                		      <td class="center">Arya Jain</td>
+			                		    </tr>
+			                		     <tr class="">
+			                		      <td><a href="users-add.html">Amit Adav</a></td>
+			                		      <td>smita@gmail.in</td>
+			                		      <td>0832-2542225</td>
+			                		     
+			                		      <td>Active</td>
+			                		      <td>05/12/14</td>
+			                		      <td>John Smith</td>
+			                		      <td class="center">Arya Jain</td>
+			                		    </tr>
+			                		     <tr class="">
+			                		      <td><a href="users-add.html">Amit Adav</a></td>
+			                		      <td>sayali@gmail.in</td>
+			                		      <td>011-2542225</td>
+			                		      
+			                		      <td>Active</td>
+			                		      <td>05/12/14</td>
+			                		      <td>John Smith</td>
+			                		      <td class="center">Arya Jain</td>
+			                		    </tr>
+			                		  </tbody>
+			                		</table>
 			                	</div>
 			              	</div>
 			            </div>
@@ -255,6 +299,7 @@
 		<script src="../../bower_components/select2/select2.min.js" type="text/javascript"></script>
 
 		<script src="../../bower_components/bootstrap-file-input/bootstrap.file-input.js" type="text/javascript"></script>
+		<script src="../../plugins/datatables.js" type="text/javascript"></script> 
 
 		<!-- END PAGE LEVEL PLUGINS -->  	
 
@@ -265,11 +310,6 @@
 		<!-- END CORE TEMPLATE JS --> 
 
 		<!-- END NEED TO WORK ON -->
-
-		<script type="text/javascript">
-			$("#status").select2();
-			$("#unit_types").select2();
-		</script>
 
 	</body>
 </html>
