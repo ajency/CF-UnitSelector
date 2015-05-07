@@ -90,7 +90,6 @@ class ProjectPlotVariantController extends Controller {
         $unitVariant->size = $request->input('size');
         $unitVariant->per_sq_ft_price = $request->input('per_sq_ft_price');
         $attributedata = $request->input('attributes');
-        $attributeStr = serialize($attributedata);
         $variantattributedata=[];
         if(!empty($attributedata))
         {
@@ -98,6 +97,8 @@ class ProjectPlotVariantController extends Controller {
                $variantattributedata[$key]= ucfirst($value);    
         }
         $attributeStr = serialize( $variantattributedata );
+        $unitVariant->variant_attributes = $attributeStr;
+ 
         $unitVariant->save();
         $unitVariantID = $unitVariant->id;
 

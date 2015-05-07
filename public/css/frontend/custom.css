@@ -607,10 +607,12 @@ body {
   -webkit-transform: rotate(270deg);
       -ms-transform: rotate(270deg);
           transform: rotate(270deg);
-  left: -24px;
+  left: -34px;
   top: 45%;
   cursor: pointer;
   z-index: 999;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
 }
 .toggle-button::before {
   content: "\e756";
@@ -620,6 +622,50 @@ body {
 .toggle-button:hover {
   background-color: #f68121;
   color: #ffffff;
+}
+.toggle-view-button {
+  display: none;
+}
+@media (max-width: 767px) {
+  .toggle-button {
+    display: none;
+  }
+  /* Mobile toggle */
+  .toggle-view-button {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    display: block;
+    border: 1px solid #f68121;
+    border-radius: 50px;
+    background-color: #ffffff;
+    color: #f68121;
+    cursor: pointer;
+    padding: 8px 13px;
+    z-index: 999;
+  }
+  .toggle-view-button.map::before {
+    content: "\e610";
+    font-family: icomoon;
+    font-size: 22px;
+  }
+  .toggle-view-button.list::before {
+    content: "\e756";
+    font-family: icomoon;
+    font-size: 22px;
+  }
+  .toggle-view-button:hover {
+    background-color: #f68121;
+    color: #ffffff;
+  }
+  .us-right-content.mobile.visible,
+  .us-left-content.mobile.visible {
+    display: block;
+  }
+  .us-right-content.mobile.not-visible,
+  .us-left-content.mobile.not-visible {
+    display: none;
+  }
 }
 /* Lazy Load Loader */
 .lazy-hidden {

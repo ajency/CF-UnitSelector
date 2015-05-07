@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Unit Status</label>
+                        <label class="form-label">Unit Status</label> 
                         <select  class="select2 form-control" name="unit_status">
                             <option @if($unit['availability']=='available'){{'selected'}}@endif value="available">Available</option>
                             <option @if($unit['availability']=='sold'){{'selected'}}@endif value="sold">Sold</option>
@@ -62,7 +62,7 @@
                         <label class="form-label">Floor</label>
                         <select id="floor" name="floor" onchange="getPositions(this.value);"   class="select2 form-control apartment-unit-floor-no">
                             <option value="">Select Floor</option>
-                             @for($i=1; $i<= $floors ; $i++)
+                            @for($i=1; $i<= $floors ; $i++)
                             <option  @if($unit['floor']==$i){{'selected'}} @endif value="{{ $i }}">{{ $i }}</option>
                             @endfor
                         </select>
@@ -73,7 +73,7 @@
                         <label class="form-label">Position</label>
                         <select id="flat_position" required="" name="position" class="select2 form-control">
                             <option value="">Select Position</option>
-                             @for($i=1; $i<= $position ; $i++)
+                            @for($i=1; $i<= $position ; $i++)
                             <option  @if($unit['position']==$i){{'selected'}} @endif value="{{ $i }}">{{ $i }}</option>
                             @endfor
                         </select>
