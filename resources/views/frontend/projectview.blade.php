@@ -110,7 +110,6 @@
         <script src="{{ asset('bower_components/liquidslider/js/jquery.liquid-slider.min.js' )}}"></script>
         <script src="{{ asset('bower_components/spritespin/release/spritespin.js' )}}"></script>
         <script src="{{ asset('bower_components/autoNumeric/autoNumeric.js' )}}"></script>
-        <script src="{{ asset('bower_components/imagesloaded/imagesloaded.js' )}}"></script>
         <script src="{{ asset('bower_components/fancybox/source/jquery.fancybox.js' )}}"></script>
         <script src="{{ asset('bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.js' )}}"></script>
         <script src="{{ asset('bower_components/lazyloadxt/dist/jquery.lazyloadxt.js' )}}"></script>
@@ -123,7 +122,7 @@
         CommonFloor = new Marionette.Application 
         BASEURL = '{{url()}}'
         //global variable to keep track of the filtr the user has selected
-        CommonFloor.defaults = {'unit' : ""}
+        CommonFloor.defaults = {'unit' : "" , 'unitVariants': "",'unitTypes':"",'price_min':'','price_max':'','availability':''}
   
         window.locale = {
 
@@ -146,6 +145,7 @@
         <script src="{{ asset('js/frontend/common/common.js' )}}"></script>
         <script src="{{ asset('js/frontend/project/project.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/project-master-view/project.master.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/project-master-view/project.master.filter.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/unit-view/unit.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/project-list-view/project.list.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/project-list-view/building.list.controller.js' )}}"></script>

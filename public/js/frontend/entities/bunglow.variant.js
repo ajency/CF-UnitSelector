@@ -40,7 +40,8 @@
     BunglowVariantCollection.prototype.model = BunglowVariant;
 
     BunglowVariantCollection.prototype.setBunglowVariantAttributes = function(data) {
-      return bunglowVariantCollection.reset(data);
+      bunglowVariantCollection.reset(data);
+      return bunglowVariantMasterCollection.reset(data);
     };
 
     BunglowVariantCollection.prototype.getBunglowUnits = function() {
@@ -57,8 +58,22 @@
       $.each(units, function(index, value) {
         return newUnits = $.merge(newUnits, value);
       });
-      console.log(newUnits);
       return newUnits;
+    };
+
+    BunglowVariantCollection.prototype.getVillaUnitTypes = function() {
+      var unit_types;
+      unit_types = [];
+      bunglowVariantMasterCollection.each(function(item) {
+        var unitTypeModel;
+        unitTypeModel = unitTypeMasterCollection.findWhere({
+          'id': item.get('unit_type_id')
+        });
+        if ($.inArray(item.get('unit_type_id'), unit_types) === -1) {
+          return unit_types.push(parseInt(unitTypeModel.get('id')));
+        }
+      });
+      return unit_types;
     };
 
     return BunglowVariantCollection;
@@ -66,6 +81,8 @@
   })(Backbone.Collection);
 
   window.bunglowVariantCollection = new BunglowVariantCollection;
+
+  window.bunglowVariantMasterCollection = new BunglowVariantCollection;
 
   window.bunglowVariant = new BunglowVariant;
 

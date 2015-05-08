@@ -39,12 +39,12 @@
           'id': unit.get('unit_variant_id')
         });
         unitVariant.set('super_built_up_area', unitVariant.get('size'));
-        type = 'apartment';
+        type = 'plot';
         price = window.plotVariant.findUnitPrice(unit);
         attributes = unitVariant.get('variant_attributes');
       }
       unitType = unitTypeCollection.findWhere({
-        'id': unitVariant.get('unit_type_id')
+        'id': unit.get('unit_type_id')
       });
       return [unitVariant, unitType, type, price, attributes];
     };
@@ -63,7 +63,38 @@
     UnitCollection.prototype.model = Unit;
 
     UnitCollection.prototype.setUnitAttributes = function(data) {
-      return unitCollection.reset(data);
+      var response;
+      response = this.setUnitType(data);
+      unitCollection.reset(response);
+      unitMasterCollection.reset(response);
+      return window.unitTempCollection = unitCollection.clone();
+    };
+
+    UnitCollection.prototype.setUnitType = function(data) {
+      $.each(data, function(index, value) {
+        var unitType, unitVariant;
+        unitVariant = '';
+        if (bunglowVariantCollection.get(value.unit_variant_id) !== void 0) {
+          unitVariant = bunglowVariantCollection.findWhere({
+            'id': value.unit_variant_id
+          });
+        }
+        if (apartmentVariantCollection.get(value.unit_variant_id) !== void 0) {
+          unitVariant = apartmentVariantCollection.findWhere({
+            'id': value.unit_variant_id
+          });
+        }
+        if (plotVariantCollection.get(value.unit_variant_id) !== void 0) {
+          unitVariant = plotVariantCollection.findWhere({
+            'id': value.unit_variant_id
+          });
+        }
+        unitType = unitTypeCollection.findWhere({
+          'id': unitVariant.get('unit_type_id')
+        });
+        return value['unit_type_id'] = unitType.get('id');
+      });
+      return data;
     };
 
     return UnitCollection;
@@ -71,6 +102,8 @@
   })(Backbone.Collection);
 
   window.unitCollection = new UnitCollection;
+
+  window.unitMasterCollection = new UnitCollection;
 
   window.unit = new Unit;
 

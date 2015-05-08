@@ -107,7 +107,10 @@
       'click @ui.viewtog': function(e) {
         $('.us-left-content').toggleClass('not-visible visible');
         return $('.us-right-content').toggleClass('not-visible visible');
-      },
+      }
+    };
+
+    MasterBuildingListView.prototype.events = {
       'click .buildings': function(e) {
         var data, units;
         console.log(units = buildingCollection);

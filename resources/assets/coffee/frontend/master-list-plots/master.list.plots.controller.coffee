@@ -63,7 +63,6 @@ class PlotListView extends Marionette.ItemView
 
 		'click' :(e)->
 			if @model.get('status') == 'available'
-				CommonFloor.defaults['unit'] = @model.get('id')
 				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
 				CommonFloor.router.storeRoute()
 
