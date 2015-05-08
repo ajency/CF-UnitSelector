@@ -93,6 +93,7 @@ body {
 /* Right Container */
 .us-right-content {
   padding-left: 0;
+  padding-right: 0;
   -webkit-transition: all 0.3s ease-in-out 0.3s;
           transition: all 0.3s ease-in-out 0.3s;
 }
@@ -637,7 +638,7 @@ body {
     right: 20px;
     display: block;
     border: 1px solid #f68121;
-    border-radius: 50px;
+    border-radius: 50%;
     background-color: #ffffff;
     color: #f68121;
     cursor: pointer;
@@ -666,6 +667,42 @@ body {
   .us-left-content.mobile.not-visible {
     display: none;
   }
+}
+/* Zoom Controls */
+.zoom-controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: block;
+  z-index: 999;
+}
+.zoom-controls .zoom-in,
+.zoom-controls .zoom-out {
+  border: 1px solid #f68121;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #f68121;
+  cursor: pointer;
+  padding: 0 10px;
+  text-align: center;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
+}
+.zoom-controls .zoom-in::before,
+.zoom-controls .zoom-out::before {
+  content: "+";
+  font-size: 22px;
+}
+.zoom-controls .zoom-in:hover,
+.zoom-controls .zoom-out:hover {
+  background-color: #f68121;
+  color: #ffffff;
+}
+.zoom-controls .zoom-out {
+  margin-top: 5px;
+}
+.zoom-controls .zoom-out::before {
+  content: "-";
 }
 /* Lazy Load Loader */
 .lazy-hidden {

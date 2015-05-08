@@ -149,6 +149,10 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content mobile visible">
+										<div class="zoom-controls">
+											<div class="zoom-in"></div>
+											<div class="zoom-out"></div>
+										</div>
 										<div id="view_toggle" class="toggle-view-button list"></div>
 										<div id="trig" class="toggle-button hidden">List View</div>
 										<div class=" master animated fadeIn">
@@ -487,7 +491,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		frames = transitionImages
 		@breakPoints = project.get('breakpoints')
 		@currentBreakPoint = 0
-		width = @ui.svgContainer.width() + 20
+		width = @ui.svgContainer.width()
 		$('.svg-maps > div').first().removeClass('inactive').addClass('active').css('width',width);
 		spin = $('#spritespin')
 		spin.spritespin(
@@ -541,19 +545,10 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			contain: 'invert'
 			minScale: 1
 			maxScale: 2
+			increment: 0.2
+			$zoomIn: $('.zoom-in')
+			$zoomOut: $('.zoom-out')
 			# $set: $('.spritespin-canvas')
-		$panzoom.on 'mousewheel.focal', (e) ->
-			e.preventDefault()
-			delta = e.delta or e.originalEvent.wheelDelta
-			zoomOut = if delta then delta < 0 else e.originalEvent.deltaY > 0
-			$panzoom.panzoom 'zoom', zoomOut,
-				minScale: 1,
-			    maxScale: 1.5,
-			    contain: true,
-			    animate: false,
-			    focal: e
-			return
-
 
 	
 
