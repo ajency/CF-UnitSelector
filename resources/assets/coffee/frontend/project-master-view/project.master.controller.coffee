@@ -20,35 +20,28 @@ class CommonFloor.ProjectMasterCtrl extends Marionette.RegionController
 #View for Poject Master top view 
 class TopMasterView extends Marionette.ItemView
 	#template
-	template : Handlebars.compile('<div class="row">
-		<div class="col-md-12 col-xs-12 col-sm-12">
-			<div class="search-header-wrap">
-				<div class="row breadcrumb-bar">
-							<div class="col-xs-12 col-md-12">
-								<div class="bread-crumb-list">
-									<ul class="brdcrmb-wrp clearfix">
-										<li class="">
-											<span class="bread-crumb-current">
-												<span class=".icon-arrow-right2"></span><a class="unit_back" href="#">
-													Back to Project Overview</a>
-											</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-				<h1 class="pull-left proj-name">{{project_title}}</h1> 
-				<div class="proj-type-count">
-					{{#types}} 
-					<h1 class="text-primary pull-left">{{count.length}}</h1> <p class="pull-left">{{type}}</p>
-					{{/types}}
-					<div class="clearfix"></div>
-				</div>
-				<div class="clearfix"></div>
+	template : Handlebars.compile('<div class="container-fluid">
+										<div class="row">
+											<div class="col-md-12 col-xs-12 col-sm-12 text-center">
 
-			</div>
-		  </div>
-		</div>')
+													<div class="breadcrumb-bar">
+														<a class="unit_back" href="#">
+															Back to Project Overview
+														</a>
+													</div>
+
+													<h2 class="proj-name">{{project_title}}</h2> 
+													<!--<div class="proj-type-count">
+														{{#types}} 
+														<h2 class=" pull-left m-t-10">{{count.length}}</h2> <p class="pull-left">{{type}}</p>
+														{{/types}}
+														<div class="clearfix"></div>
+													</div>-->
+													<div class="clearfix"></div>
+
+											</div>
+										</div>
+									</div>')
 
 	ui  :
 		unitBack : '.unit_back'
@@ -171,7 +164,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				$('#spritespin').spritespin(
 					width: that.ui.svgContainer.width() 
 					sense: -1
-					height: that.ui.svgContainer.width() / 1.46
+					height: that.ui.svgContainer.width() / 2
 					animate: false
 				)
 				$('.svg-maps > div').first().css('width',that.ui.svgContainer.width())
@@ -410,7 +403,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 	onShow:->
 		# $('.first_image').lazyLoadXT()
-		height =  @ui.svgContainer.width() / 1.46
+		height =  @ui.svgContainer.width() / 2
 		# $('.us-left-content').css('height',height)
 		$('.units').css('height',height-162)
 		$('#spritespin').hide()
@@ -464,7 +457,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			source: frames
 			width: @ui.svgContainer.width() 
 			sense: -1
-			height: @ui.svgContainer.width() / 1.46
+			height: @ui.svgContainer.width() / 2
 			animate: false
 		)
 		
@@ -507,7 +500,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 	loadZoom:->
 		$panzoom =  $('.master').panzoom
 			contain: 'invert'
-			minScale: 1
+			minScale: 0.5
 			maxScale: 2
 			increment: 0.2
 			$zoomIn: $('.zoom-in')

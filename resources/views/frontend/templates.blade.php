@@ -45,9 +45,8 @@
 </script>
 
 <script id="project-template" type="text/template">
-        <div class="inner-container">
-            <div ui-region="top" id="topregion">
-            </div>
+        <div ui-region="top" id="topregion" class="us-header"></div>
+        <div class="container-fluid">
             <div class="row">
                 <div ui-region="left" id="leftregion">
                 </div>
@@ -67,23 +66,19 @@
   </script>
 
 <script id="project-view-template" type="text/template">
-  <div class="inner-container">
-      <div ui-region="top" id="topregion">
-      </div>
+    <div ui-region="top" id="topregion" class="us-header"></div>
+    <div class="container-fluid">
       <div class="row">
-        <div ui-region="left" id="leftregion">
-        </div>
-        <div ui-region="center" id="centerregion">
-        </div>
+        <div ui-region="left" id="leftregion"></div>
+        <div ui-region="center" id="centerregion"></div>
       </div>
-
   </div>
 </script>
 
 <script id="unit-view-template" type="text/template">
-    <div class="inner-container">
-        <div ui-region="top" id="topregion">
-        </div>
+      <div ui-region="top" id="topregion" class="us-header">
+      </div>
+      <div class="container-fluid">
         <div class="row">
           <div ui-region="left" id="leftregion">
           </div>

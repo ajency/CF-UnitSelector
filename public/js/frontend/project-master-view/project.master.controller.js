@@ -48,7 +48,7 @@
       return TopMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="search-header-wrap"> <div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span><a class="unit_back" href="#"> Back to Project Overview</a> </span> </li> </ul> </div> </div> </div> <h1 class="pull-left proj-name">{{project_title}}</h1> <div class="proj-type-count"> {{#types}} <h1 class="text-primary pull-left">{{count.length}}</h1> <p class="pull-left">{{type}}</p> {{/types}} <div class="clearfix"></div> </div> <div class="clearfix"></div> </div> </div> </div>');
+    TopMasterView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> Back to Project Overview </a> </div> <h2 class="proj-name">{{project_title}}</h2> <!--<div class="proj-type-count"> {{#types}} <h2 class=" pull-left m-t-10">{{count.length}}</h2> <p class="pull-left">{{type}}</p> {{/types}} <div class="clearfix"></div> </div>--> <div class="clearfix"></div> </div> </div> </div>');
 
     TopMasterView.prototype.ui = {
       unitBack: '.unit_back'
@@ -187,7 +187,7 @@
           $('#spritespin').spritespin({
             width: that.ui.svgContainer.width(),
             sense: -1,
-            height: that.ui.svgContainer.width() / 1.46,
+            height: that.ui.svgContainer.width() / 2,
             animate: false
           });
           return $('.svg-maps > div').first().css('width', that.ui.svgContainer.width());
@@ -370,7 +370,7 @@
 
     CenterMasterView.prototype.onShow = function() {
       var breakpoints, first, height, svgs, that, transitionImages;
-      height = this.ui.svgContainer.width() / 1.46;
+      height = this.ui.svgContainer.width() / 2;
       $('.units').css('height', height - 162);
       $('#spritespin').hide();
       that = this;
@@ -421,7 +421,7 @@
         source: frames,
         width: this.ui.svgContainer.width(),
         sense: -1,
-        height: this.ui.svgContainer.width() / 1.46,
+        height: this.ui.svgContainer.width() / 2,
         animate: false
       });
       that = this;
@@ -474,7 +474,7 @@
       var $panzoom;
       return $panzoom = $('.master').panzoom({
         contain: 'invert',
-        minScale: 1,
+        minScale: 0.5,
         maxScale: 2,
         increment: 0.2,
         $zoomIn: $('.zoom-in'),

@@ -24,26 +24,26 @@ class CommonFloor.ProjectCtrl extends Marionette.RegionController
 class TopView extends Marionette.ItemView
 
 	#template
-	template : Handlebars.compile('<div class="col-md-12 col-xs-12 col-sm-12 animated fadeIn">
-					<div class="search-header-wrap">
-					  <h1 class="pull-left">{{i10n "explore"}} {{project_title}}</h1>
-					  <!--<div class="pull-right">
-						<div class="toggle_radio">
-						  <input type="radio" checked class="toggle_option" id="first_toggle" name="toggle_option">
-						  <input type="radio" class="toggle_option" id="second_toggle" name="toggle_option">
-						  <input type="radio" class="toggle_option" id="third_toggle" name="toggle_option">
-						  <label for="first_toggle"><p>Morning</p></label>
-						  <label for="second_toggle"><p>Afternoon</p></label>
-						  <label for="third_toggle"><p>Evening</p></label>
-						  <div class="toggle_option_slider">
-						  </div>
-						</div>
-					  </div>-->
-					  <div class="clearfix"></div>
-					</div>
-				  </div>')
+	template : Handlebars.compile('<div class="row">
+										<div class="col-md-12 col-xs-12 col-sm-12 text-center animated fadeIn">
+										  	<h2 class="proj-name">{{i10n "explore"}} {{project_title}}</h2>
+										  	<!--<div class="pull-right">
+												<div class="toggle_radio">
+												  <input type="radio" checked class="toggle_option" id="first_toggle" name="toggle_option">
+												  <input type="radio" class="toggle_option" id="second_toggle" name="toggle_option">
+												  <input type="radio" class="toggle_option" id="third_toggle" name="toggle_option">
+												  <label for="first_toggle"><p>Morning</p></label>
+												  <label for="second_toggle"><p>Afternoon</p></label>
+												  <label for="third_toggle"><p>Evening</p></label>
+												  <div class="toggle_option_slider">
+												  </div>
+												</div>
+										  	</div>-->
+										  	<div class="clearfix"></div>
+										</div>
+									</div>')
 
-	className : 'row'
+	className : 'container-fluid'
 
 #Controller for the top view of Project
 class CommonFloor.TopCtrl extends Marionette.RegionController
