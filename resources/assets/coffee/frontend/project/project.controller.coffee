@@ -150,12 +150,15 @@ class CenterView extends Marionette.ItemView
 			$('.search-left-content').addClass 'animated fadeOut'
 			setTimeout( (x)->
 				CommonFloor.checkPropertyType()
+
 			, 650)			
+
 			
 	onShow:->
-		# $('.svg-area').lazyLoadXT()
+		$('img').lazyLoadXT()
 		path = @model.get('step_one').svg
 		$('.svg-area').load(path)
+
 
 		
 

@@ -9,7 +9,7 @@
       return FilterMsterView.__super__.constructor.apply(this, arguments);
     }
 
-    FilterMsterView.prototype.template = Handlebars.compile('{{#villaFilters}} <input type="checkbox" name="villa" value="" checked  />Villa <br/>Unit Types {{#unitTypes}} <input type="checkbox" class="villaFilters unit_types" name="{{id}}" id="{{id}}" value="1" checked />{{name}} {{/unitTypes}} <br/> Unit Variants <br/> {{#unitVariants}} <input type="checkbox" class="villaFilters unitvariants" name="{{id}}" id="{{id}}" value="1" checked />{{area}} Sq.Ft {{/unitVariants}} <br/> Budget <br/> <select class="price_min" name="price_min"> <option selected="" value="">Min</option> <option value="500000">5 Lac</option> <option value="1000000">10 Lac</option> <option value="2000000">20 Lac</option> <option value="3000000">30 Lac</option> <option value="4000000">40 Lac</option> <option value="5000000">50 Lac</option> <option value="6000000">60 Lac</option> <option value="7000000">70 Lac</option> <option value="8000000">80 Lac</option> <option value="9000000">90 Lac</option> <option value="10000000">1 Cr</option> <option value="12000000">1.2 Cr</option> <option value="14000000">1.4 Cr</option> <option value="16000000">1.6 Cr</option> <option value="18000000">1.8 Cr</option> <option value="20000000">2 Cr</option> <option value="23000000">2.3 Cr</option> <option value="26000000">2.6 Cr</option> <option value="30000000">3 Cr</option> <option value="35000000">3.5 Cr</option> <option value="40000000">4 Cr</option> <option value="45000000">4.5 Cr</option> <option value="50000000">5 Cr</option> </select> <select class="price_max" name="pice_max"> <option style="display: block;" selected="" value="">Max</option> <option style="display: none;" value="500000">5 Lac</option> <option style="display: none;" value="1000000">10 Lac</option> <option style="display: block;" value="2000000">20 Lac</option> <option style="display: block;" value="3000000">30 Lac</option> <option style="display: block;" value="4000000">40 Lac</option> <option style="display: block;" value="5000000">50 Lac</option> <option style="display: block;" value="6000000">60 Lac</option> <option style="display: block;" value="7000000">70 Lac</option> <option style="display: block;" value="8000000">80 Lac</option> <option style="display: block;" value="9000000">90 Lac</option> <option style="display: block;" value="10000000">1 Cr</option> <option style="display: block;" value="12000000">1.2 Cr</option> <option style="display: block;" value="14000000">1.4 Cr</option> <option style="display: block;" value="16000000">1.6 Cr</option> <option style="display: block;" value="18000000">1.8 Cr</option> <option style="display: block;" value="20000000">2 Cr</option> <option style="display: block;" value="23000000">2.3 Cr</option> <option style="display: block;" value="26000000">2.6 Cr</option> <option style="display: block;" value="30000000">3 Cr</option> <option style="display: block;" value="35000000">3.5 Cr</option> <option style="display: block;" value="40000000">4 Cr</option> <option style="display: block;" value="45000000">4.5 Cr</option> <option style="display: block;" value="50000000">5 Cr</option> <option style="display: block;" value="999999900">&gt; 5 Cr</option></select> <!--{{#price}} # 	<input type="checkbox" class="villaFilters price" name="{{name}}" id="{{name}}" value="1" checked />{{name}} # {{/price}}--> <br/> Availability <br/> {{#status}} <input type="checkbox" class="villaFilters status" name="{{name}}" id="{{name}}" value="1" checked />{{name}} {{/status}} {{/villaFilters}} <br/> {{#apartmentFilters}} <input type="checkbox" name="apartment" value="1" checked />Apartments <br/>Unit Types {{#unitTypes}} <input type="checkbox" class="aptFilters unit_types" name="{{id}}" id="{{id}}" value="1" checked />{{name}} {{/unitTypes}} <br/> Unit Variants <br/> {{#unitVariants}} <input type="checkbox" class="aptFilters unitvariants" name="{{id}}" id="{{id}}" value="1" checked />{{area}} Sq.Ft {{/unitVariants}} <br/> Budget <br/> <select class="price_min" name="price_min"> <option selected="" value="">Min</option> <option value="500000">5 Lac</option> <option value="1000000">10 Lac</option> <option value="2000000">20 Lac</option> <option value="3000000">30 Lac</option> <option value="4000000">40 Lac</option> <option value="5000000">50 Lac</option> <option value="6000000">60 Lac</option> <option value="7000000">70 Lac</option> <option value="8000000">80 Lac</option> <option value="9000000">90 Lac</option> <option value="10000000">1 Cr</option> <option value="12000000">1.2 Cr</option> <option value="14000000">1.4 Cr</option> <option value="16000000">1.6 Cr</option> <option value="18000000">1.8 Cr</option> <option value="20000000">2 Cr</option> <option value="23000000">2.3 Cr</option> <option value="26000000">2.6 Cr</option> <option value="30000000">3 Cr</option> <option value="35000000">3.5 Cr</option> <option value="40000000">4 Cr</option> <option value="45000000">4.5 Cr</option> <option value="50000000">5 Cr</option> </select> <select class="price_max" name="pice_max"> <option style="display: block;" selected="" value="">Max</option> <option style="display: none;" value="500000">5 Lac</option> <option style="display: none;" value="1000000">10 Lac</option> <option style="display: block;" value="2000000">20 Lac</option> <option style="display: block;" value="3000000">30 Lac</option> <option style="display: block;" value="4000000">40 Lac</option> <option style="display: block;" value="5000000">50 Lac</option> <option style="display: block;" value="6000000">60 Lac</option> <option style="display: block;" value="7000000">70 Lac</option> <option style="display: block;" value="8000000">80 Lac</option> <option style="display: block;" value="9000000">90 Lac</option> <option style="display: block;" value="10000000">1 Cr</option> <option style="display: block;" value="12000000">1.2 Cr</option> <option style="display: block;" value="14000000">1.4 Cr</option> <option style="display: block;" value="16000000">1.6 Cr</option> <option style="display: block;" value="18000000">1.8 Cr</option> <option style="display: block;" value="20000000">2 Cr</option> <option style="display: block;" value="23000000">2.3 Cr</option> <option style="display: block;" value="26000000">2.6 Cr</option> <option style="display: block;" value="30000000">3 Cr</option> <option style="display: block;" value="35000000">3.5 Cr</option> <option style="display: block;" value="40000000">4 Cr</option> <option style="display: block;" value="45000000">4.5 Cr</option> <option style="display: block;" value="50000000">5 Cr</option> <option style="display: block;" value="999999900">&gt; 5 Cr</option></select> <!--{{#price}} # 	<input type="checkbox" class="villaFilters price" name="{{name}}" id="{{name}}" value="1" checked />{{name}} # {{/price}}--> <br/> Availability <br/> {{#status}} <input type="checkbox" class="aptFilters status" name="{{name}}" id="{{name}}" value="1" checked />{{name}} {{/status}} {{/apartmentFilters}} <input type="button" name="apply" class="apply" value="Apply" />');
+    FilterMsterView.prototype.template = Handlebars.compile('<div class="collapse" id="collapsefilters"> {{#villaFilters}} <div class="filters-wrapper"> <h3>Villa</h3> <div class="blck-wrap"> <h5>Unit Types</h5> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="villaFilters unit_types custom-chckbx" name="unit_type{{id}}" id="unit_type{{id}}" value="1" data-value={{id}} /> <label for="unit_type{{id}}">{{name}}</label> {{/unitTypes}} </div> </div> <div class="blck-wrap"> <h5>Unit Variants</h5> <div class="filter-chkbox-block"> {{#unitVariants}} <input type="checkbox" class="villaFilters unitvariants custom-chckbx" name="unit_variant{{id}}" id="unit_variant{{id}}" value="1" data-value={{id}} /> <label for="unit_variant{{id}}">{{area}} Sq.Ft</label> {{/unitVariants}} </div> </div> </div> {{/villaFilters}} {{#apartmentFilters}} <div class="filters-wrapper"> <h3>Apartments</h3> <div class="blck-wrap"> <h5>Unit Types</h5> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="aptFilters unit_types custom-chckbx" name="unit_type{{id}}" id="unit_type{{id}}" value="1" data-value={{id}} /> <label for="unit_type{{id}}">{{name}}</label> {{/unitTypes}} </div> </div> <div class="blck-wrap"> <h5>Unit Variants</h5> <div class="filter-chkbox-block"> {{#unitVariants}} <input type="checkbox" class="aptFilters unitvariants custom-chckbx" name="unit_variant{{id}}" id="unit_variant{{id}}" value="1" data-value={{id}} /> <label for="unit_variant{{id}}">{{area}} Sq.Ft</label> {{/unitVariants}} </div> </div> </div> {{/apartmentFilters}} {{#plotFilters}} <div class="filters-wrapper"> <h3>Plots</h3> <div class="blck-wrap"> <h5>Unit Types</h5> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="aptFilters unit_types custom-chckbx" name="unit_type{{id}}" id="unit_type{{id}}" value="1" data-value={{id}} /> <label for="unit_type{{id}}">{{name}}</label> {{/unitTypes}} </div> </div> <div class="blck-wrap"> <h5>Unit Variants</h5> <div class="filter-chkbox-block"> {{#unitVariants}} <input type="checkbox" class="aptFilters unitvariants custom-chckbx" name="unit_variant{{id}}" id="unit_variant{{id}}" value="1" data-value={{id}} /> <label for="unit_variant{{id}}">{{area}} Sq.Ft</label> {{/unitVariants}} </div> </div> </div> {{/plotFilters}} <div class="filters-wrapper"> <div class="blck-wrap clearfix"> <h5>Budget</h5> <select class="price_min form-control budget-range min-budget addCft" name="price_min"> <option selected="" value="">Min</option> <option value="500000">5 Lac</option> <option value="1000000">10 Lac</option> <option value="2000000">20 Lac</option> <option value="3000000">30 Lac</option> <option value="4000000">40 Lac</option> <option value="5000000">50 Lac</option> <option value="6000000">60 Lac</option> <option value="7000000">70 Lac</option> <option value="8000000">80 Lac</option> <option value="9000000">90 Lac</option> <option value="10000000">1 Cr</option> <option value="12000000">1.2 Cr</option> <option value="14000000">1.4 Cr</option> <option value="16000000">1.6 Cr</option> <option value="18000000">1.8 Cr</option> <option value="20000000">2 Cr</option> <option value="23000000">2.3 Cr</option> <option value="26000000">2.6 Cr</option> <option value="30000000">3 Cr</option> <option value="35000000">3.5 Cr</option> <option value="40000000">4 Cr</option> <option value="45000000">4.5 Cr</option> <option value="50000000">5 Cr</option> </select> <select class="price_max form-control budget-range addCft" name="pice_max"> <option style="display: block;" selected="" value="">Max</option> <option style="display: none;" value="500000">5 Lac</option> <option style="display: none;" value="1000000">10 Lac</option> <option style="display: block;" value="2000000">20 Lac</option> <option style="display: block;" value="3000000">30 Lac</option> <option style="display: block;" value="4000000">40 Lac</option> <option style="display: block;" value="5000000">50 Lac</option> <option style="display: block;" value="6000000">60 Lac</option> <option style="display: block;" value="7000000">70 Lac</option> <option style="display: block;" value="8000000">80 Lac</option> <option style="display: block;" value="9000000">90 Lac</option> <option style="display: block;" value="10000000">1 Cr</option> <option style="display: block;" value="12000000">1.2 Cr</option> <option style="display: block;" value="14000000">1.4 Cr</option> <option style="display: block;" value="16000000">1.6 Cr</option> <option style="display: block;" value="18000000">1.8 Cr</option> <option style="display: block;" value="20000000">2 Cr</option> <option style="display: block;" value="23000000">2.3 Cr</option> <option style="display: block;" value="26000000">2.6 Cr</option> <option style="display: block;" value="30000000">3 Cr</option> <option style="display: block;" value="35000000">3.5 Cr</option> <option style="display: block;" value="40000000">4 Cr</option> <option style="display: block;" value="45000000">4.5 Cr</option> <option style="display: block;" value="50000000">5 Cr</option> <option style="display: block;" value="999999900">&gt; 5 Cr</option> </select> </div> </div> <div class="filters-wrapper"> <div class="blck-wrap"> <h5>Availability</h5> <div class="filter-chkbox-block"> {{#status}} <input type="checkbox" class="aptFilters status custom-chckbx" name="{{id}}" id="{{id}}" value="1"  /> <label for="{{id}}">{{name}}</label> {{/status}} </div> </div> </div> </div>');
 
     FilterMsterView.prototype.initialize = function() {
       this.unitTypes = [];
@@ -31,78 +31,55 @@
     };
 
     FilterMsterView.prototype.events = {
-      'click @ui.villaPropType': function(e) {
-        if ($(e.target).is(':checked')) {
-          $(this.ui.villaFilters).prop('checked', true);
-          return $(this.ui.villaFilters).prop('disabled', false);
-        } else {
-          $(this.ui.villaFilters).prop('checked', false);
-          return $(this.ui.villaFilters).prop('disabled', true);
-        }
-      },
-      'click @ui.apartmentPropType': function(e) {
-        if ($(e.target).is(':checked')) {
-          $(this.ui.aptFilters).prop('checked', true);
-          return $(this.ui.aptFilters).prop('disabled', false);
-        } else {
-          $(this.ui.aptFilters).prop('checked', false);
-          return $(this.ui.aptFilters).prop('disabled', true);
-        }
-      },
       'click @ui.unitTypes': function(e) {
-        if ($(e.target).is(':checked')) {
-          unitTempCollection.reset(unitCollection.toArray());
-          this.unitTypes.push(parseInt(e.target.id));
+        if ($(e.currentTarget).is(':checked')) {
+          this.unitTypes.push(parseInt($(e.currentTarget).attr('data-value')));
         } else {
-          this.unitTypes = _.without(this.unitTypes, parseInt(e.target.id));
+          this.unitTypes = _.without(this.unitTypes, parseInt($(e.currentTarget).attr('data-value')));
         }
         console.log(this.unitTypes);
         CommonFloor.defaults['unitTypes'] = this.unitTypes.join(',');
-        CommonFloor.filter();
-        return this.resetFilters();
+        unitCollection.reset(unitMasterCollection.toArray());
+        return CommonFloor.filter();
       },
       'click @ui.unitVariants': function(e) {
-        if ($(e.target).is(':checked')) {
-          unitTempCollection.reset(unitCollection.toArray());
-          this.unitVariants.push(parseInt(e.target.id));
+        if ($(e.currentTarget).is(':checked')) {
+          this.unitVariants.push(parseInt($(e.currentTarget).attr('data-value')));
         } else {
-          this.unitVariants = _.without(this.unitVariants, parseInt(e.target.id));
+          this.unitVariants = _.without(this.unitVariants, parseInt($(e.currentTarget).attr('data-value')));
         }
         CommonFloor.defaults['unitVariants'] = this.unitVariants.join(',');
-        CommonFloor.filter();
-        return this.resetFilters();
+        unitCollection.reset(unitMasterCollection.toArray());
+        return CommonFloor.filter();
       },
       'change @ui.priceMin': function(e) {
-        if ($(e.target).val() !== "") {
-          unitTempCollection.reset(unitCollection.toArray());
-          CommonFloor.defaults['price_min'] = $(e.target).val();
+        if ($(e.currentTarget).val() !== "") {
+          CommonFloor.defaults['price_min'] = $(e.currentTarget).val();
         } else {
           CommonFloor.defaults['price_min'] = 0;
         }
-        CommonFloor.filter();
-        return this.resetFilters();
+        unitCollection.reset(unitMasterCollection.toArray());
+        return CommonFloor.filter();
       },
       'change @ui.priceMax': function(e) {
-        if ($(e.target).val() !== "") {
-          unitTempCollection.reset(unitCollection.toArray());
-          CommonFloor.defaults['price_max'] = $(e.target).val();
+        if ($(e.currentTarget).val() !== "") {
+          CommonFloor.defaults['price_max'] = $(e.currentTarget).val();
         } else {
           CommonFloor.defaults['price_max'] = 999999900;
         }
-        CommonFloor.filter();
-        return this.resetFilters();
+        unitCollection.reset(unitMasterCollection.toArray());
+        return CommonFloor.filter();
       },
       'click @ui.status': function(e) {
-        if ($(e.target).is(':checked')) {
-          unitTempCollection.reset(unitCollection.toArray());
-          this.status.push(e.target.id);
+        if ($(e.currentTarget).is(':checked')) {
+          this.status.push(e.currentTarget.id);
         } else {
-          this.status = _.without(this.status, e.target.id);
+          this.status = _.without(this.status, e.currentTarget.id);
         }
         console.log(this.status);
         CommonFloor.defaults['availability'] = this.status.join(',');
-        CommonFloor.filter();
-        return this.resetFilters();
+        unitCollection.reset(unitMasterCollection.toArray());
+        return CommonFloor.filter();
       },
       'click @ui.apply': function(e) {}
     };
@@ -125,7 +102,6 @@
       unitTempCollection.each(function(item) {
         return status.push(item.get('availability'));
       });
-      console.log(bunglows);
       $(this.ui.unitTypes).each(function(ind, item) {
         $('#' + item.id).prop('checked', true);
         if ($.inArray(parseInt(item.id), unittypes) === -1) {
@@ -154,6 +130,8 @@
       data = FilterMsterView.__super__.serializeData.call(this);
       data.villaFilters = Marionette.getOption(this, 'villaFilters');
       data.apartmentFilters = Marionette.getOption(this, 'apartmentFilters');
+      data.plotFilters = Marionette.getOption(this, 'plotFilters');
+      data.status = Marionette.getOption(this, 'status');
       return data;
     };
 
@@ -162,31 +140,19 @@
       CommonFloor.defaults['price_min'] = 0;
       CommonFloor.defaults['price_max'] = 999999900;
       villaFilters = Marionette.getOption(this, 'villaFilters');
-      apartmentFilters = Marionette.getOption(this, 'apartmentFilters');
-      if (villaFilters.length !== 0) {
-        this.assignVillaValues(villaFilters);
-      }
-      if (apartmentFilters.length !== 0) {
-        return this.assignAptValues(apartmentFilters);
-      }
+      return apartmentFilters = Marionette.getOption(this, 'apartmentFilters');
     };
 
     FilterMsterView.prototype.assignVillaValues = function(villaFilters) {
       $.merge(this.unitTypes, _.pluck(villaFilters[0].unitTypes, 'id'));
-      CommonFloor.defaults['unitTypes'] = this.unitTypes.join(',');
       $.merge(this.unitVariants, _.pluck(villaFilters[0].unitVariants, 'id'));
-      CommonFloor.defaults['unitVariants'] = this.unitVariants.join(',');
-      $.merge(this.status, _.pluck(villaFilters[0].status, 'name'));
-      return CommonFloor.defaults['availability'] = this.status.join(',');
+      return $.merge(this.status, _.pluck(villaFilters[0].status, 'name'));
     };
 
     FilterMsterView.prototype.assignAptValues = function(apartmentFilters) {
       $.merge(this.unitTypes, _.pluck(apartmentFilters[0].unitTypes, 'id'));
-      CommonFloor.defaults['unitTypes'] = this.unitTypes.join(',');
       $.merge(this.unitVariants, _.pluck(apartmentFilters[0].unitVariants, 'id'));
-      CommonFloor.defaults['unitVariants'] = this.unitVariants.join(',');
-      $.merge(this.status, _.pluck(apartmentFilters[0].status, 'name'));
-      return CommonFloor.defaults['availability'] = this.status.join(',');
+      return $.merge(this.status, _.pluck(apartmentFilters[0].status, 'name'));
     };
 
     return FilterMsterView;
@@ -201,107 +167,134 @@
     }
 
     FilterMasterCtrl.prototype.initialize = function() {
-      var apartmentFilters, view, villaFilters;
+      var apartmentFilters, plotFilters, view, villaFilters;
       villaFilters = this.getVillaFilters();
       apartmentFilters = this.getApartmentFilters();
+      plotFilters = this.getPlotFilters();
       this.view = view = new CommonFloor.FilterMsterView({
         'villaFilters': villaFilters,
-        'apartmentFilters': apartmentFilters
+        'apartmentFilters': apartmentFilters,
+        'plotFilters': plotFilters,
+        'status': CommonFloor.getStatus()
       });
       return this.show(this.view);
     };
 
     FilterMasterCtrl.prototype.loadController = function() {
       var apartmentFilters;
-      console.log(apartmentFilters = this.getApartmentFilters());
+      apartmentFilters = this.getApartmentFilters();
       return this.view.triggerMethod("filter:data", apartmentFilters);
     };
 
     FilterMasterCtrl.prototype.getVillaFilters = function() {
-      var filters, status, status_arr, unitTypes, unitVariants, unit_types, villaUnits;
+      var filters, status, unitTypes, unitVariants, unit_types;
       filters = [];
       unitTypes = [];
       unit_types = [];
       unitVariants = [];
       status = [];
       bunglowVariantCollection.each(function(item) {
-        var unitTypeModel;
-        unitTypeModel = unitTypeCollection.findWhere({
-          'id': item.get('unit_type_id')
+        var unitTypeModel, units;
+        units = unitMasterCollection.where({
+          'unit_variant_id': item.get('id')
         });
-        if ($.inArray(item.get('unit_type_id', unit_types)) === -1) {
-          unit_types.push(unitTypeModel.get('id'));
-          unitTypes.push({
-            'id': unitTypeModel.get('id'),
-            'name': unitTypeModel.get('name')
+        if (units.length !== 0) {
+          unitTypeModel = unitTypeCollection.findWhere({
+            'id': item.get('unit_type_id')
           });
-        }
-        return unitVariants.push({
-          'id': item.get('id'),
-          'area': item.get('super_built_up_area')
-        });
-      });
-      status = [];
-      status_arr = [];
-      villaUnits = bunglowVariantCollection.getBunglowUnits();
-      $.each(villaUnits, function(index, value) {
-        if (($.inArray(value.get('availability'), status_arr)) === -1) {
-          status_arr.push(value.get('availability'));
-          return status.push({
-            'name': value.get('availability')
+          if ($.inArray(item.get('unit_type_id'), unit_types) === -1) {
+            unit_types.push(parseInt(unitTypeModel.get('id')));
+            unitTypes.push({
+              'id': unitTypeModel.get('id'),
+              'name': unitTypeModel.get('name')
+            });
+          }
+          return unitVariants.push({
+            'id': item.get('id'),
+            'area': item.get('super_built_up_area')
           });
         }
       });
       if (unitVariants.length !== 0) {
         filters.push({
           'unitTypes': unitTypes,
-          'unitVariants': unitVariants,
-          'status': status
+          'unitVariants': unitVariants
         });
       }
       return filters;
     };
 
     FilterMasterCtrl.prototype.getApartmentFilters = function() {
-      var apartmentUnits, filters, status, status_arr, unitTypes, unitVariants, unit_types;
+      var filters, status, unitTypes, unitVariants, unit_types;
       filters = [];
       unitTypes = [];
       unit_types = [];
       unitVariants = [];
       status = [];
       apartmentVariantCollection.each(function(item) {
-        var unitTypeModel;
-        unitTypeModel = unitTypeCollection.findWhere({
-          'id': item.get('unit_type_id')
+        var unitTypeModel, units;
+        units = unitMasterCollection.where({
+          'unit_variant_id': item.get('id')
         });
-        if ($.inArray(item.get('unit_type_id', unit_types)) === -1) {
-          unit_types.push(unitTypeModel.get('id'));
-          unitTypes.push({
-            'id': unitTypeModel.get('id'),
-            'name': unitTypeModel.get('name')
+        if (units.length !== 0) {
+          unitTypeModel = unitTypeCollection.findWhere({
+            'id': item.get('unit_type_id')
           });
-        }
-        return unitVariants.push({
-          'id': item.get('id'),
-          'area': item.get('super_built_up_area')
-        });
-      });
-      status = [];
-      status_arr = [];
-      apartmentUnits = apartmentVariantCollection.getApartmentUnits();
-      $.each(apartmentUnits, function(index, value) {
-        if (($.inArray(value.get('availability'), status_arr)) === -1) {
-          status_arr.push(value.get('availability'));
-          return status.push({
-            'name': value.get('availability')
+          if ($.inArray(item.get('unit_type_id'), unit_types) === -1) {
+            unit_types.push(parseInt(unitTypeModel.get('id')));
+            unitTypes.push({
+              'id': unitTypeModel.get('id'),
+              'name': unitTypeModel.get('name')
+            });
+          }
+          return unitVariants.push({
+            'id': item.get('id'),
+            'area': item.get('super_built_up_area')
           });
         }
       });
       if (unitVariants.length !== 0) {
         filters.push({
           'unitTypes': unitTypes,
-          'unitVariants': unitVariants,
-          'status': status
+          'unitVariants': unitVariants
+        });
+      }
+      return filters;
+    };
+
+    FilterMasterCtrl.prototype.getPlotFilters = function() {
+      var filters, status, unitTypes, unitVariants, unit_types;
+      filters = [];
+      unitTypes = [];
+      unit_types = [];
+      unitVariants = [];
+      status = [];
+      plotVariantCollection.each(function(item) {
+        var unitTypeModel, units;
+        units = unitMasterCollection.where({
+          'unit_variant_id': item.get('id')
+        });
+        if (units.length !== 0) {
+          unitTypeModel = unitTypeCollection.findWhere({
+            'id': item.get('unit_type_id')
+          });
+          if ($.inArray(item.get('unit_type_id'), unit_types) === -1) {
+            unit_types.push(parseInt(unitTypeModel.get('id')));
+            unitTypes.push({
+              'id': unitTypeModel.get('id'),
+              'name': unitTypeModel.get('name')
+            });
+          }
+          return unitVariants.push({
+            'id': item.get('id'),
+            'area': item.get('size')
+          });
+        }
+      });
+      if (unitVariants.length !== 0) {
+        filters.push({
+          'unitTypes': unitTypes,
+          'unitVariants': unitVariants
         });
       }
       return filters;
