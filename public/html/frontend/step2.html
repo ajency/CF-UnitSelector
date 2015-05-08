@@ -64,7 +64,7 @@
       <div class="inner-container">
         <div class="row">
           <div class="col-md-12 col-xs-12 col-sm-12">
-            <div class="row breadcrumb-bar">
+        <!--     <div class="row breadcrumb-bar">
               <div class="col-xs-12 col-md-12">
                 <div class="bread-crumb-list">
                   <ul class="brdcrmb-wrp clearfix">
@@ -76,12 +76,155 @@
                   </ul>
                 </div>
               </div>
-            </div>
+            </div> -->
 
-            <div class="search-header-wrap">
-              <h1>We are now at Artha Zen's upcoming project having 50 villa's</h1>
+          <div class="search-header-wrap" >
+              <div class="filter-button pull-right">Filter </div>
+              <div class="clearfix"></div>
+            </div> 
+            <!-- Filter Start -->
+               <div class="row">
+                    <div class=" col-xs-12 col-sm-12 search-left-content">
+                         <div class="filters-wrapper">
+                              <div class="row">
+                                  <div class="col-sm-4 col-md-4 ">
+                                    <h5># PROPERTY TYPE</h5>
+                                      <div class="filter-chkbox-block">
+                                        <input type="checkbox" class="custom-chckbx addCft" id="villa" value="villa"><label for="villa" class="-lbl">Villas (V)</label> 
+                                        <input type="checkbox" class="custom-chckbx addCft" id="building" value="building"> 
+                                        <label for="building" class="-lbl">Buildings (B)</label> 
+                                        <input type="checkbox" class="custom-chckbx addCft" id="Plots" value="Plots"> 
+                                        <label for="Plots" class="-lbl">Plots (P)</label>
+                                        <input type="checkbox" class="custom-chckbx addCft" id="Penthouse" value="Penthouse"> 
+                                        <label for="Penthouse" class="-lbl">Penthouse (PH)</label> 
+                                
+                                    </div>
+  
+                                  </div>
+                                  <div class="col-sm-4 col-md-4 ">
+                                    <h5># UNIT TYPE</h5>
+                                    <div class="filter-chkbox-block">
+                                      <input type="checkbox" class="custom-chckbx addCft" id="1bhk" value="1bhk"> 
+                                      <label for="1bhk" class="-lbl">1BHK</label> 
+                                      <input type="checkbox" class="custom-chckbx addCft" id="2bhk" value="2bhk"> 
+                                      <label for="2bhk" class="-lbl">2BHK</label> 
+                                      <input type="checkbox" class="custom-chckbx addCft" id="3bhk" value="3bhk"> 
+                                      <label for="3bhk" class="-lbl">3BHK</label>
+                                      <input type="checkbox" class="custom-chckbx addCft" id="4bhk" value="2bhk"> 
+                                      <label for="4bhk" class="-lbl">4BHK</label> 
+                                      <input type="checkbox" class="custom-chckbx addCft" id="5bhk" value="3bhk"> 
+                                      <label for="5bhk" class="-lbl">5BHK</label>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-4 col-md-4 ">
+                                    <h5># VARIANT</h5>
+                                       <div class="filter-chkbox-block">
+                                       <input type="checkbox" class="custom-chckbx addCft" id="Heiwashen" value="Heiwashen"> 
+                                        <label for="Heiwashen" class="-lbl">Heiwa shen</label> 
+                                       <input type="checkbox" class="custom-chckbx addCft" id="Satori" value="Satori"> 
+                                      <label for="Satori" class="-lbl">Satori</label> 
+                                      <input type="checkbox" class="custom-chckbx addCft" id="Seion" value="Seion"> 
+                                      <label for="Seion" class="-lbl">Seion</label> 
+                                      <input type="checkbox" class="custom-chckbx addCft" id="Seion1" value="Seion1"> 
+                                      <label for="Seion1" class="-lbl">Seion 1</label> 
+                                      <input type="checkbox" class="custom-chckbx addCft" id="Heiwashen1" value="Heiwashen1"> 
+                                        <label for="Heiwashen1" class="-lbl">Heiwa shen 1</label> 
+                                         <input type="checkbox" class="custom-chckbx addCft" id="Heiwasatori" value="Heiwasatori"> 
+                                        <label for="Heiwasatori" class="-lbl">Heiwa Satori </label> 
+                                        <a href="#" class="hide-div">+ Show More</a>
+                                    </div>
+                                  </div>
+                              </div>  
+                          </div>
+                      </div>
+                  </div>
+
+                       <div class="row">
+                    <div class=" col-xs-12 col-sm-12 search-left-content">
+                         <div class="filters-wrapper">
+                              <div class="row">
+                                  <div class="col-sm-4 col-md-4 ">
+                                    <h5># AREA (Sqft)</h5>
+                                <input type="text" id="example_id" name="example_name" value="" />
+  
+                                  </div>
+                                  <div class="col-sm-4 col-md-4 ">
+                                    <h5># BUDGET </h5>
+                                    <input type="text" id="budget" name="example_name" value="" />
+                                  </div>
+                                  <div class="col-sm-4 col-md-4 ">
+                                  
+                                  </div>
+                              </div>  
+                          </div>
+                      </div>
+                  </div>
+
+
+                       <div class="row">
+                    <div class=" col-xs-12 col-sm-12 search-left-content">
+                         <div class="filters-wrapper">
+                              <div class="row">
+                                  <div class="col-sm-4 col-md-4 ">
+                                    <h5># FACING</h5>
+                                      <div class="filter-chkbox-block">
+                                        <input type="checkbox" class="custom-chckbx addCft" id="N" value="N"><label for="N" class="-lbl">N</label> 
+                                        <input type="checkbox" class="custom-chckbx addCft" id="S" value="S"> 
+                                        <label for="S" class="-lbl">S</label> 
+                                        <input type="checkbox" class="custom-chckbx addCft" id="W" value="W"> 
+                                        <label for="W" class="-lbl">W</label>
+                                        <input type="checkbox" class="custom-chckbx addCft" id="E" value="E"> 
+                                        <label for="E" class="-lbl">E</label> 
+                                         <input type="checkbox" class="custom-chckbx addCft" id="NW" value="NW"><label for="NW" class="-lbl">N - W</label> 
+                                        <input type="checkbox" class="custom-chckbx addCft" id="NE" value="NE"> 
+                                        <label for="NE" class="-lbl">N - E</label> 
+                                        <input type="checkbox" class="custom-chckbx addCft" id="S-W" value="S-W"> 
+                                        <label for="S-W" class="-lbl">S - W</label>
+                                        <input type="checkbox" class="custom-chckbx addCft" id="S-E" value="S-E"> 
+                                        <label for="S-E" class="-lbl">S - E</label> 
+                                    </div>
+  
+                                  </div>
+                                  <div class="col-sm-4 col-md-4 ">
+                                    <h5># VIEWS </h5>
+                                    <div class="filter-chkbox-block">
+                                      <input type="checkbox" class="custom-chckbx addCft" id="Courtyard" value="Courtyard"> 
+                                      <label for="Courtyard" class="-lbl">Courtyard</label> 
+                                      <input type="checkbox" class="custom-chckbx addCft" id="Playground" value="Playground"> 
+                                      <label for="2bhk" class="-lbl">Playground</label> 
+                                      <input type="checkbox" class="custom-chckbx addCft" id="Central Park" value="Central Park"> 
+                                      <label for="3bhk" class="-lbl">Central Park</label>
+                                      <input type="checkbox" class="custom-chckbx addCft" id="Central Park" value="Central Park"> 
+                                      <label for="Central Park" class="-lbl">Central Park</label> 
+                                      <input type="checkbox" class="custom-chckbx addCft" id="Parking" value="Parking"> 
+                                      <label for="Parking" class="-lbl">Parking</label>
+                                       <a href="#" class="hide-div">+ Show More</a>
+                                    </div>
+                                  </div>
+                                  <div class="col-sm-4 col-md-4 ">
+                                    <h5># AVAILABILITY</h5>
+                                    <div class="alert ">
+
+                                      <input type="checkbox" class="custom-chckbx addCft" id="Available" value="Available"> 
+                                       <label for="Available" class="-lbl">Show Available Units Only  (What's this?)</label> 
+                                    </div>
+                                  </div>
+                              </div>  
+                          </div>
+                          <hr class="seperator">
+                          <div class="row">
+                              <div class="col-sm-6 col-md-6">
+                                Clear all
+                              </div>
+                              <div class="col-sm-6 col-md-6">
+                                Close Filter
+                              </div>
+                          </div>
+                          <hr class="seperator">
+                      </div>
+                  </div>
+            <!-- Filter End -->
             </div>
-          </div>
         </div>
 
         <div class="row">
@@ -417,7 +560,7 @@
     <script src="../../bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script> 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
-
+ <script src="../../bower_components/ionrangeslider/js/ion.rangeSlider.min.js" type="text/javascript"></script>
     <script type="text/javascript">
       // $('.us-right-content').imagesLoaded( function() {
       //   var divHeight = $('.us-right-content').height();
@@ -428,6 +571,27 @@
           $('.search-left-content').toggleClass('col-0 col-md-3');
           $('.us-right-content').toggleClass('col-md-12 col-md-9');
       });
+
+      $("#example_id").ionRangeSlider({
+    type: "double",
+    min: 1000,
+    max: 2000,
+    from: 1200,
+    to: 1800,
+    hide_min_max: true,
+    hide_from_to: false,
+    grid: false
+});
+           $("#budget").ionRangeSlider({
+    type: "double",
+    min: 1000,
+    max: 2000,
+    from: 1200,
+    to: 1800,
+    hide_min_max: true,
+    hide_from_to: false,
+    grid: false
+});
     </script>
   </body>
 </html>
