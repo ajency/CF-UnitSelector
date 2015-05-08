@@ -273,7 +273,7 @@
     right: 20px;
     display: block;
     border: 1px solid @brand-primary;
-    border-radius: 50px;
+    border-radius: 50%;
     background-color: @white;
     color: @brand-primary;
     cursor: pointer;
@@ -308,6 +308,39 @@
       }
     }
   } 
+}
+
+/* Zoom Controls */
+.zoom-controls{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: block;
+  z-index: 999;
+  .zoom-in, .zoom-out{
+    border: 1px solid @brand-primary;
+    border-radius: 5px;
+    background-color: @white;
+    color: @brand-primary;
+    cursor: pointer;
+    padding: 0 10px;
+    text-align: center;
+    .ease;
+    &::before{
+      content: "+";
+      font-size: 22px;
+    }
+    &:hover{
+      background-color: @brand-primary;
+      color: @white;
+    }
+  }
+  .zoom-out{
+    margin-top: 5px;
+    &::before{
+      content: "-";
+    }
+  }
 }
 
 /* Lazy Load Loader */
