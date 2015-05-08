@@ -4,99 +4,53 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 									<div class="collapse" id="collapsefilters">
 										
 
-										{{#villaFilters}}
-										<div class="filters-wrapper">
-											<h3>Villa</h3>
-											
-											<div class="blck-wrap">
-												<h5>Unit Types</h5>
-												<div class="filter-chkbox-block">
-													{{#unitTypes}}
-													<input type="checkbox" class="villaFilters unit_types custom-chckbx" name="unit_type{{id}}" id="unit_type{{id}}" value="1" data-value={{id}} />
-													<label for="unit_type{{id}}">{{name}}</label>
-													{{/unitTypes}}
-												</div>
-											</div>
-
-											<div class="blck-wrap">
-												<h5>Unit Variants</h5>
-												<div class="filter-chkbox-block">
-													{{#unitVariants}}
-													<input type="checkbox" class="villaFilters unitvariants custom-chckbx" name="unit_variant{{id}}" id="unit_variant{{id}}" value="1" data-value={{id}} />
-													<label for="unit_variant{{id}}">{{area}} Sq.Ft</label>
-													{{/unitVariants}}
-												</div>
-											</div>
-
-										</div>
-										
-										
-
 									
-
-
-										{{/villaFilters}}
-
-										{{#apartmentFilters}}
-										<div class="filters-wrapper">
-											<h3>Apartments</h3>
-											
-											<div class="blck-wrap">
-												<h5>Unit Types</h5>
-												<div class="filter-chkbox-block">
-													{{#unitTypes}}
-													<input type="checkbox" class="aptFilters unit_types custom-chckbx" name="unit_type{{id}}" id="unit_type{{id}}" value="1" data-value={{id}} />
-													<label for="unit_type{{id}}">{{name}}</label>
-													{{/unitTypes}}
-												</div>
-											</div>
-
-											<div class="blck-wrap">
-												<h5>Unit Variants</h5>
-												<div class="filter-chkbox-block">
-													{{#unitVariants}}
-													<input type="checkbox" class="aptFilters unitvariants custom-chckbx" name="unit_variant{{id}}" id="unit_variant{{id}}" value="1" data-value={{id}} />
-													<label for="unit_variant{{id}}">{{area}} Sq.Ft</label>
-													{{/unitVariants}}
-												</div>
-											</div>
-
-
-
-										</div>
-										{{/apartmentFilters}}
-
 										
-									
-										{{#plotFilters}}
-										<div class="filters-wrapper">
-											<h3>Plots</h3>
-											
-											<div class="blck-wrap">
-												<h5>Unit Types</h5>
-												<div class="filter-chkbox-block">
-													{{#unitTypes}}
-													<input type="checkbox" class="aptFilters unit_types custom-chckbx" name="unit_type{{id}}" id="unit_type{{id}}" value="1" data-value={{id}} />
-													<label for="unit_type{{id}}">{{name}}</label>
-													{{/unitTypes}}
-												</div>
-											</div>
+										  <div class="filters-wrapper">	
 
-											<div class="blck-wrap">
-												<h5>Unit Variants</h5>
-												<div class="filter-chkbox-block">
-													{{#unitVariants}}
-													<input type="checkbox" class="aptFilters unitvariants custom-chckbx" name="unit_variant{{id}}" id="unit_variant{{id}}" value="1" data-value={{id}} />
-													<label for="unit_variant{{id}}">{{area}} Sq.Ft</label>
-													{{/unitVariants}}
-												</div>
-											</div>
+											<div class="col-sm-4 col-md-4 ">
+			                                    <h5># UNIT TYPE</h5>
+			                                    <div class="filter-chkbox-block">
+			                                    {{#unitTypes}}
+			                                      <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > 
+			                                      <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> 
+			                                    {{/unitTypes}} 
+			                                    </div>
+			                                </div>
 
+			                                <div class="col-sm-4 col-md-4 ">
+			                                    <h5># VARIANT</h5>
+			                                       <div class="filter-chkbox-block">
+			                                       	{{#unitVariantNames}}
+				                                       	<input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > 
+				                                        <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> 
+			                                       	{{/unitVariantNames}}
+			                                       	<a href="#" class="hide-div">+ Show More</a>
+			                                    </div>
+			                                  </div>
 
+			                               </div>
+											<div class="row">
+							                    <div class=" col-xs-12 col-sm-12 search-left-content">
+							                         <div class="filters-wrapper">
+							                              <div class="row">
+							                                  <div class="col-sm-4 col-md-4 ">
+							                                    <h5># AREA (Sqft)</h5>
+							                                <input type="text" id="example_id" name="example_name" value="" />
+							  
+							                                  </div>
+							                                  <div class="col-sm-4 col-md-4 ">
+							                                    <h5># BUDGET </h5>
+							                                    <input type="text" id="budget" name="example_name" value="" />
+							                                  </div>
+							                                  <div class="col-sm-4 col-md-4 ">
+							                                  
+							                                  </div>
+							                              </div>  
+							                          </div>
+							                      </div>
+							                  </div>
 
-										</div>
-
-										{{/plotFilters}}
 
 										<div class="filters-wrapper">
 											<div class="blck-wrap clearfix">
@@ -152,7 +106,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 	initialize:->
 		@unitTypes = []
 		@unitVariants = []
-		# @price = []
+		@variantNames = []
 		@status = []
 
 
@@ -167,6 +121,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		priceMax : '.price_max'
 		status : '.status'
 		apply : '.apply'
+		variantNames : '.variant_names'
 
 	events:
 		# 'click @ui.villaPropType':(e)->
@@ -196,7 +151,14 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			CommonFloor.filter()
 			# @resetFilters()
 			
-			
+		'click @ui.variantNames':(e)->
+			if $(e.currentTarget).is(':checked')
+				@variantNames.push parseInt $(e.currentTarget).attr('data-value')
+			else
+				@variantNames = _.without @variantNames ,parseInt $(e.currentTarget).attr('data-value')
+			CommonFloor.defaults['unitVariants'] = @variantNames.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()	
 
 
 		'click @ui.unitVariants':(e)->
@@ -204,7 +166,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 				@unitVariants.push parseInt $(e.currentTarget).attr('data-value')
 			else
 				@unitVariants = _.without @unitVariants ,parseInt $(e.currentTarget).attr('data-value')
-			CommonFloor.defaults['unitVariants'] = @unitVariants.join(',')
+			CommonFloor.defaults['area'] = @unitVariants.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
 			
@@ -283,17 +245,23 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
-		data.villaFilters = Marionette.getOption(@,'villaFilters')
-		data.apartmentFilters = Marionette.getOption(@,'apartmentFilters')
-		data.plotFilters = Marionette.getOption(@,'plotFilters')
-		data.status = Marionette.getOption(@,'status')
+		data.unitTypes = Marionette.getOption(@,'unitTypes')
+		data.unitVariants = Marionette.getOption(@,'unitVariants')
+		data.unitVariantNames = Marionette.getOption(@,'unitVariantNames')
 		data
 
 	onShow:->
 		CommonFloor.defaults['price_min'] = 0
 		CommonFloor.defaults['price_max'] = 999999900
-		villaFilters = Marionette.getOption(@,'villaFilters')
-		apartmentFilters = Marionette.getOption(@,'apartmentFilters')
+		unitVariants = Marionette.getOption(@,'unitVariants')
+		min = _.min unitVariants
+		max = _.max unitVariants
+		$("#example_id").ionRangeSlider(
+		    type: "double",
+		    min: min,
+		    max: max,
+		    grid: false
+		)
 		# if villaFilters.length != 0
 		# 	@assignVillaValues(villaFilters)
 		# if apartmentFilters.length != 0
@@ -321,14 +289,28 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 
 	initialize:->
+		unitTypes = []
+		unitVariants = []
+		unitVariantNames = []
+		area = []
 		villaFilters = @getVillaFilters()
+		$.merge unitTypes , villaFilters[0].unitTypes
+		$.merge unitVariants , villaFilters[0].unitVariants
+		$.merge unitVariantNames , villaFilters[0].unitVariantNames
 		apartmentFilters = @getApartmentFilters()
+		$.merge unitTypes , apartmentFilters[0].unitTypes
+		$.merge unitVariants , apartmentFilters[0].unitVariants
+		$.merge unitVariantNames , apartmentFilters[0].unitVariantNames
 		plotFilters = @getPlotFilters()
+		$.merge unitTypes , plotFilters[0].unitTypes
+		$.merge unitVariants , plotFilters[0].unitVariants
+		$.merge unitVariantNames , plotFilters[0].unitVariantNames
+		console.log unitTypes
+		console.log unitVariants
 		@view = view = new CommonFloor.FilterMsterView
-				'villaFilters' : villaFilters
-				'apartmentFilters' : apartmentFilters
-				'plotFilters'		: plotFilters
-				'status'			:CommonFloor.getStatus()
+				'unitTypes' : unitTypes
+				'unitVariants' : _.uniq unitVariants
+				'unitVariantNames' : unitVariantNames
 
 		# @listenTo @view,"load:units" ,@loadController
 		
@@ -344,7 +326,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		unitTypes = []
 		unit_types = []
 		unitVariants = []
-		status = []
+		unitVariantNames = []
 		bunglowVariantCollection.each (item)->
 			units = unitMasterCollection.where 
 						'unit_variant_id' : item.get('id')
@@ -356,14 +338,18 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 					unitTypes.push 
 							'id' : unitTypeModel.get 'id'
 							'name' : unitTypeModel.get 'name'
-				unitVariants.push 
+							'type'	: 'V'
+				unitVariants.push item.get 'super_built_up_area'
+				unitVariantNames.push
 						'id' : item.get 'id'
-						'area' : item.get 'super_built_up_area'
+						'name'	: item.get 'unit_variant_name'
+						'type'	: 'V'
 			
 		if unitVariants.length != 0
 			filters.push
 					'unitTypes' 	: unitTypes
 					'unitVariants'  : unitVariants
+					'unitVariantNames' : unitVariantNames
 
 
 		filters
@@ -374,7 +360,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		unitTypes = []
 		unit_types = []
 		unitVariants = []
-		status = []
+		unitVariantNames = []
 		apartmentVariantCollection.each (item)->
 			units = unitMasterCollection.where 
 						'unit_variant_id' : item.get('id')
@@ -386,14 +372,18 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 					unitTypes.push 
 							'id' : unitTypeModel.get 'id'
 							'name' : unitTypeModel.get 'name'
-				unitVariants.push 
+							'type'	: 'B'
+				unitVariants.push item.get 'super_built_up_area'
+				unitVariantNames.push
 						'id' : item.get 'id'
-						'area' : item.get 'super_built_up_area'
+						'name'	: item.get 'unit_variant_name'
+						'type'	: 'A'
 			
 		if unitVariants.length != 0
 			filters.push
 					'unitTypes' 	: unitTypes
 					'unitVariants'  : unitVariants
+					'unitVariantNames' : unitVariantNames
 		filters
 
 
@@ -403,7 +393,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		unitTypes = []
 		unit_types = []
 		unitVariants = []
-		status = []
+		unitVariantNames = []
 		plotVariantCollection.each (item)->
 			units = unitMasterCollection.where 
 						'unit_variant_id' : item.get('id')
@@ -415,13 +405,17 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 					unitTypes.push 
 							'id' : unitTypeModel.get 'id'
 							'name' : unitTypeModel.get 'name'
-				unitVariants.push 
+							'type'	: 'P'
+				unitVariants.push item.get 'size'
+				unitVariantNames.push
 						'id' : item.get 'id'
-						'area' : item.get 'size'
+						'name'	: item.get 'unit_variant_name'
+						'type'	: 'P'
 			
 		if unitVariants.length != 0
 			filters.push
 					'unitTypes' 	: unitTypes
 					'unitVariants'  : unitVariants
+					'unitVariantNames' : unitVariantNames
 		filters
 								

@@ -88,11 +88,13 @@
           unitVariant = plotVariantCollection.findWhere({
             'id': value.unit_variant_id
           });
+          unitVariant.set('super_built_up_area', unitVariant.get('size'));
         }
         unitType = unitTypeCollection.findWhere({
           'id': unitVariant.get('unit_type_id')
         });
-        return value['unit_type_id'] = unitType.get('id');
+        value['unit_type_id'] = unitType.get('id');
+        return value['area'] = unitVariant.get('super_built_up_area');
       });
       return data;
     };

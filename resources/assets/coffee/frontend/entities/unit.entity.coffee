@@ -64,9 +64,11 @@ class UnitCollection extends Backbone.Collection
 			if plotVariantCollection.get(value.unit_variant_id) != undefined
 				unitVariant = plotVariantCollection.findWhere
 								'id' : value.unit_variant_id
+				unitVariant.set 'super_built_up_area' ,unitVariant.get('size')
 			unitType = unitTypeCollection.findWhere
 							'id' :  unitVariant.get('unit_type_id')
 			value['unit_type_id'] = unitType.get('id')
+			value['area'] = unitVariant.get('super_built_up_area')
 
 		data
 
