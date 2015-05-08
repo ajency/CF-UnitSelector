@@ -149,7 +149,8 @@
     BuildingCollection.prototype.model = Building;
 
     BuildingCollection.prototype.setBuildingAttributes = function(data) {
-      return buildingCollection.reset(data);
+      buildingCollection.reset(data);
+      return buildingMasterCollection.reset(data);
     };
 
     return BuildingCollection;
@@ -157,6 +158,8 @@
   })(Backbone.Collection);
 
   window.buildingCollection = new BuildingCollection;
+
+  window.buildingMasterCollection = new BuildingCollection;
 
   window.building = new Building;
 

@@ -18,6 +18,8 @@ jQuery(document).ready ($)->
 					ctrl : 'LeftMasterCtrl'
 				'center' :
 					ctrl : 'CenterMasterCtrl'
+				'filter' :
+					ctrl : 'FilterMasterCtrl'
 	CommonFloor.state 'unit',
 			url : '/unit-view/:id'
 			sections:

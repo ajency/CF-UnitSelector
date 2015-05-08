@@ -89,6 +89,11 @@
     }
 
     TopListCtrl.prototype.initialize = function() {
+      this.renderView();
+      return unitTempCollection.on("change reset add remove", this.renderView, this);
+    };
+
+    TopListCtrl.prototype.renderView = function() {
       return this.show(new TopListView({
         model: project
       }));
@@ -138,6 +143,11 @@
     }
 
     CenterListCtrl.prototype.initialize = function() {
+      this.renderView();
+      return unitTempCollection.on("change reset add remove", this.renderView);
+    };
+
+    CenterListCtrl.prototype.renderView = function() {
       var data, response, units;
       response = CommonFloor.checkListView();
       if (response.type === 'bunglows') {

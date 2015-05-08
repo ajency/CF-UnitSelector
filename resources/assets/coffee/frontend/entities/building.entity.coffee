@@ -115,6 +115,8 @@ class BuildingCollection extends Backbone.Collection
 
 		# @set buildingData
 		buildingCollection.reset data
+		buildingMasterCollection.reset data
 
 window.buildingCollection  = new BuildingCollection
+window.buildingMasterCollection  = new BuildingCollection
 window.building  = new Building

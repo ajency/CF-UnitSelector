@@ -28,6 +28,7 @@ class BunglowVariantCollection extends Backbone.Collection
 
 		# @set BunglowData
 		bunglowVariantCollection.reset data
+		bunglowVariantMasterCollection.reset data
 
 	#get all the bungalow units
 	getBunglowUnits:()->
@@ -39,8 +40,22 @@ class BunglowVariantCollection extends Backbone.Collection
 			units.push  bunglowUnits
 		$.each units,(index,value)->
 			newUnits = $.merge(newUnits , value)
-		console.log newUnits
 		newUnits
 
+	getVillaUnitTypes:->
+		unit_types = []
+		bunglowVariantMasterCollection.each (item)->
+			unitTypeModel = unitTypeMasterCollection.findWhere
+								'id' : item.get 'unit_type_id'
+			if $.inArray(item.get('unit_type_id'),unit_types) == -1
+				unit_types.push parseInt unitTypeModel.get 'id'
+				
+						
+
+		unit_types
+
+	
+
 window.bunglowVariantCollection  = new BunglowVariantCollection
+window.bunglowVariantMasterCollection  = new BunglowVariantCollection
 window.bunglowVariant  = new BunglowVariant

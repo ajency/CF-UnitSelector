@@ -29,10 +29,8 @@ class PlotItemView extends Marionette.ItemView
 	events:
 		'click .unit' :(e)->
 				if @model.get('status') == 'available'
-					CommonFloor.defaults['unit'] = @model.get('id')
 					CommonFloor.navigate '/unit-view/'+@model.get('id') , true
 					CommonFloor.router.storeRoute()
-
 
 
 #Composite view for plots
@@ -72,6 +70,7 @@ class PlotView extends Marionette.CompositeView
 
 	childViewContainer : '.units'
 
+	
 	events : 
 		'click .buildings':(e)->
 			units = buildingCollection
