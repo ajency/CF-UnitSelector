@@ -55,9 +55,9 @@
                             <option data-no-of-floors="{{ $building->no_of_floors }}" value="{{ $building->id }}">{{ $building->building_name }}</option>
                             @endforeach
                         </select>
-                        <a data-toggle="modal" data-target=".bs-example-modal-lg1" href="#">
+                        <!--<a data-toggle="modal" data-target=".bs-example-modal-lg1" href="#">
                             + Add Building
-                        </a>
+                        </a>-->
                     </div> 
                 </div>
                 <div class="col-md-4">
@@ -66,9 +66,9 @@
                         <select id="floor" name="floor" onchange="getPositions(this.value);"   class="select2 form-control apartment-unit-floor-no m-b-5">
                             <option value="">Select Floor</option>
                         </select>
-                        <a data-toggle="modal" data-target=".bs-example-modal-lg2" href="#">
+                        <!--<a data-toggle="modal" data-target=".bs-example-modal-lg2" href="#">
                             + Add floor Layout
-                        </a>
+                        </a>-->
                     </div> 
                 </div>
                 <div class="col-md-4">
