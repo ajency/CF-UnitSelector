@@ -166,5 +166,46 @@ class ProjectController extends Controller {
                     'data' =>  $flag,
                         ], 202);
     }
+    //added by Surekha//
+    public function loadMasterSvgTool($id, ProjectRepository $projectRepository) {
+        
+        $project = $projectRepository->getProjectById($id);
+        $projectMeta = $project->projectMeta()->whereIn('meta_key', ['master', 'google_earth', 'skyview', 'breakpoints'])->get()->toArray();
+        $svgImages = [];
 
+        foreach ($projectMeta as $metaValues) {
+
+            if ('master' === $metaValues['meta_key']) {
+                $masterImages = unserialize($metaValues['meta_value']);
+
+                if (!empty($masterImages)) {
+                    foreach ($masterImages as $key => $images) {
+                        if (is_numeric($images)) {
+                            $imageName = Media::find($images)->image_name;
+                            $svgImages[$metaValues['meta_key']][$key]['ID'] = $images;
+                            $svgImages[$metaValues['meta_key']][$key]['NAME'] = $imageName;
+                            $svgImages[$metaValues['meta_key']][$key]['IMAGE'] = url() . "/projects/" . $id . "/" . $metaValues['meta_key'] . "/" . $imageName;
+                        } else
+                            $svgImages[$metaValues['meta_key']][$key]['ID'] = $images;
+                    }
+                }
+            } elseif ('breakpoints' === $metaValues['meta_key']) {
+                $svgImages[$metaValues['meta_key']] = (!empty($metaValues['meta_value'])) ? unserialize($metaValues['meta_value']) : [];
+            } else {
+                $mediaId = $metaValues['meta_value'];
+                if (is_numeric($mediaId)) {
+                    $imageName = Media::find($mediaId)->image_name;
+                    $svgImages[$metaValues['meta_key']]['ID'] = $mediaId;
+                    $svgImages[$metaValues['meta_key']]['IMAGE'] = url() . "/projects/" . $id . "/" . $metaValues['meta_key'] . "/" . $imageName;
+                }
+            }
+        }
+        
+
+        return view('admin.project.mastersvgtool')
+                        ->with('project', $project->toArray())
+                        ->with('svgImage', $svgImages['master'][12]['IMAGE'])
+                        ->with('current', 'mastersvgtool');
+    }
+    //added by Surekha//
 }

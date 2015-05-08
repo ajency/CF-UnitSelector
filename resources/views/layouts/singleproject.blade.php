@@ -21,6 +21,9 @@
             <li class="{{ $current === 'room_type' ? 'active' : '' }}">
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/roomtype/create/') }}">@if($current === 'room_type')<span class='fa fa-check text-success'></span>@endif Attributes</a>
             </li>
+            <li class="{{ $current === 'mastersvgtool' ? 'active' : '' }}">
+                <a href="{{ url( 'admin/project/' . $project['id'] . '/master/authoring-tool/') }}">@if($current === 'mastersvgtool')<span class='fa fa-check text-success'></span>@endif SVG Authoring Tool</a>
+            </li>
         </ul> 
         @foreach(project_property_types($project['id']) as $propertyTypeId => $projectPropertyType)
         <?php
