@@ -146,10 +146,10 @@
       return ApartmentsView.__super__.constructor.apply(this, arguments);
     }
 
-    ApartmentsView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="bldg-img"></div> <div class="info"> <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}}sqft) </div> <div class="clearfix"></div> </li>');
+    ApartmentsView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="bldg-img"></div> <div class="info"> <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}}sqft) </div> <label>{{property}}</label> <div class="clearfix"></div> </li>');
 
     ApartmentsView.prototype.serializeData = function() {
-      var data, status, unitType, unitVariant;
+      var data, property, status, unitType, unitVariant;
       data = ApartmentsView.__super__.serializeData.call(this);
       status = s.decapitalize(this.model.get('availability'));
       unitVariant = apartmentVariantCollection.findWhere({
@@ -161,13 +161,17 @@
       data.unit_type = unitType.get('name');
       data.super_built_up_area = unitVariant.get('super_built_up_area');
       data.status = status;
+      unitType = unitTypeMasterCollection.findWhere({
+        'id': this.model.get('unit_type_id')
+      });
+      property = window.propertyTypes[unitType.get('property_type_id')];
+      data.property = s.capitalize(property);
       return data;
     };
 
     ApartmentsView.prototype.events = {
       'click .unit': function(e) {
         if (this.model.get('availability') === 'available') {
-          CommonFloor.defaults['unit'] = this.model.get('id');
           CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
           return CommonFloor.router.storeRoute();
         }

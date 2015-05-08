@@ -2,12 +2,12 @@
 class BunglowListView extends Marionette.ItemView
 
 	template : Handlebars.compile('	<div class=" info">
-						                <label class="pull-left">{{unit_name}}</label> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft-->
-						            	<div class="clearfix"></div>
-						            </div>
-					                <div class="cost">
-					                  {{price}}
-					                </div>')
+										<label class="pull-left">{{unit_name}}</label> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft-->
+										<div class="clearfix"></div>
+									</div>
+									<div class="cost">
+									  {{price}}
+									</div>')
 
 	initialize:->
 		@$el.prop("id", 'unit'+@model.get("id"))
@@ -16,6 +16,8 @@ class BunglowListView extends Marionette.ItemView
 	tagName: 'li'
 
 	className : 'unit blocks'
+
+
 
 	serializeData:->
 		data = super()
@@ -43,6 +45,7 @@ class BunglowListView extends Marionette.ItemView
 
 	
 
+
 	events:
 
 		'mouseover' :(e)->
@@ -60,7 +63,6 @@ class BunglowListView extends Marionette.ItemView
 
 		'click' :(e)->
 			if @model.get('status') == 'available'
-				CommonFloor.defaults['unit'] = @model.get('id')
 				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
 				CommonFloor.router.storeRoute()
 
@@ -69,8 +71,10 @@ class BunglowListView extends Marionette.ItemView
 #view for list of bungalows : Collection
 class MasterBunglowListView extends Marionette.CompositeView
 
+
 	template : Handlebars.compile('<div class="col-xs-12 col-sm-12 col-md-3 us-left-content mobile not-visible">
 									<div id="view_toggle" class="toggle-view-button map"></div>
+
 									<div class="list-view-container w-map animated fadeIn">
 							            <!--<div class="controls map-View">
 								            <div class="toggle">
@@ -112,13 +116,15 @@ class MasterBunglowListView extends Marionette.CompositeView
 							                <ul class="units two">
 							                </ul>
 							                <div class="clearfix"></div>
+
 										</div>
-							        </div>
-							       </div>')
+									</div>
+								   </div>')
 
 	childView : BunglowListView
 
 	childViewContainer : '.units'
+
 
 	ui :
 		viewtog      : '#view_toggle'
@@ -185,4 +191,3 @@ class CommonFloor.MasterBunglowListCtrl extends Marionette.RegionController
 	loadController:(data)=>
 		Backbone.trigger "load:units" , data
 
-		

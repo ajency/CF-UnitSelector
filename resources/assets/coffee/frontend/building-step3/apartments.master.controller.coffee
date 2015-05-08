@@ -80,7 +80,7 @@ class ApartmentsView extends Marionette.ItemView
 						            </div>
 					                <div class="cost">
 					                  {{price}}
-					                </div>')
+					                </div><label>{{property}}</label>')
 
 	initialize:->
 		@$el.prop("id", 'apartment'+@model.get("id"))
@@ -92,7 +92,6 @@ class ApartmentsView extends Marionette.ItemView
 	serializeData:->
 		data = super()
 		response = window.unit.getUnitDetails(@model.get('id'))
-		
 		data.unit_type = response[1].get('name')
 		data.super_built_up_area = response[0].get('super_built_up_area')
 		availability = @model.get('availability')
@@ -100,6 +99,10 @@ class ApartmentsView extends Marionette.ItemView
 		@model.set 'status' , status
 		window.convertRupees(response[3])
 		data.price = $('#price').val()
+		unitType = unitTypeMasterCollection.findWhere
+							'id' :  @model.get('unit_type_id')
+		property = window.propertyTypes[unitType.get('property_type_id')]
+		data.property = s.capitalize(property)
 		data
 
 	events:
@@ -114,7 +117,6 @@ class ApartmentsView extends Marionette.ItemView
 
 		'click':(e)->
 			if @model.get('availability') == 'available'
-				CommonFloor.defaults['unit'] = @model.get('id')
 				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
 				CommonFloor.router.storeRoute()
 
@@ -277,6 +279,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 
 	onShow:->
+		$('img').lazyLoadXT()
 		height =  @ui.svgContainer.width() / 1.46
 		$('.search-left-content').css('height',height)
 		$('#spritespin').hide()

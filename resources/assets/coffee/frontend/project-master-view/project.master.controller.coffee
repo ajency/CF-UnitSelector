@@ -17,6 +17,8 @@ class CommonFloor.ProjectMasterCtrl extends Marionette.RegionController
 		else
 			@show new CommonFloor.NothingFoundView
 
+
+
 #View for Poject Master top view 
 class TopMasterView extends Marionette.ItemView
 	#template
@@ -30,13 +32,26 @@ class TopMasterView extends Marionette.ItemView
 														</a>
 													</div>
 
-													<h2 class="proj-name">{{project_title}}</h2> 
-													<!--<div class="proj-type-count">
+													<h2 class="proj-name">{{project_title}}</h2>
+
+													<div class="proj-type-count">
 														{{#types}} 
-														<h2 class=" pull-left m-t-10">{{count.length}}</h2> <p class="pull-left">{{type}}</p>
+														<h1 class="text-primary pull-left">{{count.length}}</h1> <p class="pull-left">{{type}}</p>
 														{{/types}}
+
+														{{#each  filters}}
+														<h1 class="text-primary pull-left">{{#each this}}{{@key}}{{this}}{{/each}}</h1> <p class="pull-left">{{@key}}</p>
+														{{/each }}
+														{{#each status}}
+														<h1 class="text-primary pull-left">{{this}}</h1> <p class="pull-left">{{@key}}</p>
+														{{/each}}
+
 														<div class="clearfix"></div>
-													</div>-->
+													</div>
+
+													<button class="btn btn-primary cf-btn-white pull-right m-t-25" type="button" data-toggle="collapse" data-target="#collapsefilters">
+														Filter
+													</button>
 													<div class="clearfix"></div>
 
 											</div>
@@ -47,7 +62,12 @@ class TopMasterView extends Marionette.ItemView
 		unitBack : '.unit_back'
 
 	serializeData:->
+		console.log "aaaaa"
 		data = super()
+		status = CommonFloor.getStatusFilters()
+		if status.length != 0
+			data.status = status
+		data.filters  = CommonFloor.getFilters()
 		response = CommonFloor.propertyTypes() 
 		data.types = response
 		data
@@ -67,6 +87,10 @@ class TopMasterView extends Marionette.ItemView
 class CommonFloor.TopMasterCtrl extends Marionette.RegionController
 
 	initialize:->
+		@renderView()
+		unitTempCollection.on("change reset add remove", @renderView, @)
+
+	renderView:->
 		@show new TopMasterView
 			model : project
 
@@ -74,7 +98,17 @@ class CommonFloor.TopMasterCtrl extends Marionette.RegionController
 class CommonFloor.LeftMasterCtrl extends Marionette.RegionController
 
 	initialize:->
+		@renderView()
+		unitTempCollection.on("change reset add remove", @renderView)
+
+	renderView:->
 		response = CommonFloor.checkListView()
+		console.log response.count.length
+		if response.count.length == 0
+			region =  new Marionette.Region el : '#leftregion'
+			new CommonFloor.NoUnitsCtrl region : region
+			return
+			
 		if response.type is 'bunglows' 
 			units = bunglowVariantCollection.getBunglowUnits()
 			data = {}
@@ -82,7 +116,7 @@ class CommonFloor.LeftMasterCtrl extends Marionette.RegionController
 			data.type = 'villa'
 			@region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.MasterBunglowListCtrl region : @region
-			@parent().trigger "load:units" , data
+			# @parent().trigger "load:units" , data
 
 		if response.type is 'building' 
 			units = buildingCollection
@@ -91,7 +125,7 @@ class CommonFloor.LeftMasterCtrl extends Marionette.RegionController
 			data.type = 'building'
 			@region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.MasterBuildingListCtrl region : @region
-			@parent().trigger "load:units" , data
+			# @parent().trigger "load:units" , data
 
 		if response.type is 'plot' 
 			units = plotVariantCollection.getPlotUnits()
@@ -100,11 +134,12 @@ class CommonFloor.LeftMasterCtrl extends Marionette.RegionController
 			data.type = 'plot'
 			@region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.MasterPlotListCtrl region : @region
-			@parent().trigger "load:units" , data
+			# @parent().trigger "load:units" , data
 
 
 #Center view for project master
 class CommonFloor.CenterMasterView extends Marionette.ItemView
+
 
 
 
@@ -129,16 +164,18 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 												data-ratio="0.5" data-srcwidth="1600" data-crop="1" class="primage first_image img-responsive">
 												
 												<div class="region inactive"></div>
+
 											</div>
 											<div class="cf-loader hidden"></div>
 											
 										</div>
-									
+
 										<div class="rotate rotate-controls hidden">
 											<div id="prev" class="rotate-left">Left</div>
 											<span class="rotate-text">Rotate</span>
 											<div id="next" class="rotate-right">Right</div>
 										</div>
+
 
 									</div>')
 
@@ -160,7 +197,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('.us-right-content').toggleClass 'col-md-12 col-md-9'
 			that = @
 			setTimeout( (x)->
-				console.log that.ui.svgContainer.width()
+				
 				$('#spritespin').spritespin(
 					width: that.ui.svgContainer.width() 
 					sense: -1
@@ -214,7 +251,6 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					return false
 				$('.spritespin-canvas').addClass 'zoom'
 				$('.us-left-content').addClass 'animated fadeOut'
-				CommonFloor.defaults['unit'] =id
 				CommonFloor.navigate '/unit-view/'+id , true
 				CommonFloor.router.storeRoute()
 
@@ -231,7 +267,6 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					return false
 				$('.spritespin-canvas').addClass 'zoom'
 				$('.us-left-content').addClass 'animated fadeOut'
-				CommonFloor.defaults['unit'] =id
 				CommonFloor.navigate '/unit-view/'+id , true
 				CommonFloor.router.storeRoute()
 
@@ -402,7 +437,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 	onShow:->
-		# $('.first_image').lazyLoadXT()
+
+		$('img').lazyLoadXT()
 		height =  @ui.svgContainer.width() / 2
 		# $('.us-left-content').css('height',height)
 		$('.units').css('height',height-162)
@@ -419,12 +455,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$.merge transitionImages ,  project.get('project_master')
 		$('.region').load(first[0],
 			$('.first_image').attr('data-src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
+		
 		$('.first_image').load ()->
 			
 			response = project.checkRotationView()
 			if response is 1
 				$('.cf-loader').removeClass 'hidden'
-		$('.first_image').lazyLoadXT()
+		
 		@initializeRotate(transitionImages,svgs)
 		
 
@@ -466,7 +503,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		spin.bind("onFrame" , ()->
 			data = api.data
 			if data.frame is data.stopFrame
-				console.log url = svgs[data.frame]
+				url = svgs[data.frame]
 				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses();CommonFloor.applyPlotClasses()).addClass('active').removeClass('inactive')
 				
 		)
@@ -484,6 +521,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				# $("svg").svgPanZoom()
 				$('.cf-loader').addClass 'hidden'
 				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses();CommonFloor.applyPlotClasses();that.loadZoom())
+
 		)
 	#intialize tooltip 
 	iniTooltip:->
@@ -498,6 +536,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		)
 
 	loadZoom:->
+
 		$panzoom =  $('.master').panzoom
 			contain: 'invert'
 			minScale: 0.5
@@ -506,12 +545,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$zoomIn: $('.zoom-in')
 			$zoomOut: $('.zoom-out')
 			# $set: $('.spritespin-canvas')
-		# $panzoom.on 'mousewheel.focal', (e) ->
-		# 	e.preventDefault()
-		# 	delta = e.delta or e.originalEvent.wheelDelta
-		# 	zoomOut = if delta then delta < 0 else e.originalEvent.deltaY > 0
-		# 	$panzoom.panzoom 'zoom', zoomOut,
-			    
+
 	
 
 #controller for the center view

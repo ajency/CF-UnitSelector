@@ -30,6 +30,34 @@
 
   })(Marionette.RegionController);
 
+  CommonFloor.NoUnitsView = (function(superClass) {
+    extend(NoUnitsView, superClass);
+
+    function NoUnitsView() {
+      return NoUnitsView.__super__.constructor.apply(this, arguments);
+    }
+
+    NoUnitsView.prototype.template = '<div> <div class="col-xs-12 col-sm-12 col-md-3 us-left-content"> <div class="list-view-container w-map animated fadeIn"> <div class="text-center" id="searchSorryPageWidget"> <div class="m-t-10 bldg-list"> <span class="icon-wondering"></span> <div class="m-t-10">Sorry! We havent found any properties matching your search.</div> <div>Please retry with different search options.</div> </div> </div> </div> </div> </div>';
+
+    return NoUnitsView;
+
+  })(Marionette.ItemView);
+
+  CommonFloor.NoUnitsCtrl = (function(superClass) {
+    extend(NoUnitsCtrl, superClass);
+
+    function NoUnitsCtrl() {
+      return NoUnitsCtrl.__super__.constructor.apply(this, arguments);
+    }
+
+    NoUnitsCtrl.prototype.initialize = function() {
+      return this.show(new CommonFloor.NoUnitsView);
+    };
+
+    return NoUnitsCtrl;
+
+  })(Marionette.RegionController);
+
   CommonFloor.loadJSONData = function() {
     return $.ajax({
       type: 'GET',
@@ -40,12 +68,13 @@
         response = response.data;
         bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants);
         settings.setSettingsAttributes(response.settings);
-        unitCollection.setUnitAttributes(response.units);
         unitTypeCollection.setUnitTypeAttributes(response.unit_types);
         buildingCollection.setBuildingAttributes(response.buildings);
         apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants);
         floorLayoutCollection.setFloorLayoutAttributes(response.floor_layout);
-        return plotVariantCollection.setPlotVariantAttributes(response.plot_variants);
+        window.propertyTypes = response.property_types;
+        plotVariantCollection.setPlotVariantAttributes(response.plot_variants);
+        return unitCollection.setUnitAttributes(response.units);
       },
       error: function(response) {
         this.region = new Marionette.Region({
@@ -176,6 +205,279 @@
         return $('#' + id).attr('class', 'layer plot ' + availability);
       }
     });
+  };
+
+  CommonFloor.filter = function() {
+    var element, i, index, len, param_arr, param_key, params, paramsArray;
+    if (window.location.href.indexOf('=') > -1) {
+      params = params;
+      paramsArray = params.split('&');
+      for (index = i = 0, len = paramsArray.length; i < len; index = ++i) {
+        element = paramsArray[index];
+        param_key = element.split('=');
+        CommonFloor.defaults[param_key[0]] = param_key[1];
+      }
+      params = 'unit_variant_id:' + CommonFloor.defaults['unitVariants'] + '&unit_type_id:' + CommonFloor.defaults['unitTypes'] + '&price_min:' + CommonFloor.defaults['price_min'] + '&price_max:' + CommonFloor.defaults['price_max'] + '&availability:' + CommonFloor.defaults['availability'] + '&area:' + CommonFloor.defaults['area'];
+    } else {
+      params = 'unit_variant_id:' + CommonFloor.defaults['unitVariants'] + '&unit_type_id:' + CommonFloor.defaults['unitTypes'] + '&price_min:' + CommonFloor.defaults['price_min'] + '&price_max:' + CommonFloor.defaults['price_max'] + '&availability:' + CommonFloor.defaults['availability'] + '&area:' + CommonFloor.defaults['area'];
+    }
+    param_arr = params.split('&');
+    $.each(param_arr, function(index, value) {
+      var collection, param_val, param_val_arr, value_arr;
+      value_arr = value.split(':');
+      param_key = value_arr[0];
+      if (param_key !== 'price_min' && param_key !== 'price_max' && value_arr[1] !== "") {
+        param_val = value_arr[1];
+        param_val_arr = param_val.split(',');
+        collection = [];
+        $.each(param_val_arr, function(index, value) {
+          var paramkey;
+          paramkey = {};
+          paramkey[param_key] = parseInt(value);
+          if (param_key === 'availability') {
+            paramkey[param_key] = value;
+          }
+          return $.merge(collection, unitCollection.where(paramkey));
+        });
+        return unitCollection.reset(collection);
+      }
+    });
+    CommonFloor.filterBudget();
+    return CommonFloor.resetCollections();
+  };
+
+  CommonFloor.resetCollections = function() {
+    var apartments, buildings, bunglows, plots, unitTypes;
+    apartments = [];
+    bunglows = [];
+    unitTypes = [];
+    plots = [];
+    buildings = [];
+    unitCollection.each(function(item) {
+      var building, property, unitType;
+      unitType = unitTypeMasterCollection.findWhere({
+        'id': item.get('unit_type_id')
+      });
+      if (item.get('building_id') !== 0) {
+        building = buildingMasterCollection.findWhere({
+          'id': item.get('building_id')
+        });
+        buildings.push(building);
+      }
+      property = window.propertyTypes[unitType.get('property_type_id')];
+      if (s.decapitalize(property) === 'apartments' || s.decapitalize(property) === 'penthouse') {
+        apartments.push(apartmentVariantMasterCollection.get(item.get('unit_variant_id')));
+      }
+      if (s.decapitalize(property) === 'villas/Bungalows') {
+        bunglows.push(bunglowVariantMasterCollection.get(item.get('unit_variant_id')));
+      }
+      if (s.decapitalize(property) === 'plot') {
+        plots.push(plotVariantMasterCollection.get(item.get('unit_variant_id')));
+      }
+      return unitTypes.push(unitType);
+    });
+    apartmentVariantCollection.reset(apartments);
+    bunglowVariantCollection.reset(bunglows);
+    plotVariantCollection.reset(plots);
+    unitTypeCollection.reset(unitTypes);
+    buildingCollection.reset(buildings);
+    return unitTempCollection.reset(unitCollection.toArray());
+  };
+
+  CommonFloor.filterBudget = function() {
+    var budget;
+    CommonFloor.resetCollections();
+    budget = [];
+    unitCollection.each(function(item) {
+      var unitPrice;
+      unitPrice = window.unit.getUnitDetails(item.get('id'))[3];
+      if (unitPrice >= parseInt(CommonFloor.defaults['price_min']) && unitPrice <= parseInt(CommonFloor.defaults['price_max'])) {
+        return budget.push(item);
+      }
+    });
+    return unitCollection.reset(budget);
+  };
+
+  CommonFloor.getFilters = function() {
+    var aptfilters, filters, min, plotfilters, villafilters;
+    villafilters = CommonFloor.getVillaFilters();
+    aptfilters = CommonFloor.getApartmentFilters();
+    plotfilters = CommonFloor.getPlotFilters();
+    if (CommonFloor.defaults['price_min'] !== 0) {
+      min = CommonFloor.defaults['price_min'];
+    }
+    filters = {
+      'Villa': villafilters,
+      'Apartment/Penthouse': aptfilters,
+      'Plot': plotfilters
+    };
+    return filters;
+  };
+
+  CommonFloor.getVillaFilters = function() {
+    var filters, status, unitTypes, unitVariants, unit_type, unit_variant;
+    unitVariants = [];
+    unit_variant = '';
+    unitTypes = [];
+    unit_type = '';
+    status = [];
+    $.each(CommonFloor.defaults, function(ind, val) {
+      var param_val_arr;
+      if (ind !== 'price_min' && ind !== 'price_max' && val !== "") {
+        param_val_arr = val.split(',');
+        return $.each(param_val_arr, function(index, value) {
+          if (value !== "" && ind === 'unitVariants') {
+            if (!_.isUndefined(bunglowVariantMasterCollection.get(parseInt(value)))) {
+              unit_variant = bunglowVariantMasterCollection.findWhere({
+                'id': parseInt(value)
+              });
+              unitVariants.push(unit_variant.get('unit_variant_name'));
+            }
+          }
+          if (value !== "" && ind === 'unitTypes' && $.inArray(parseInt(value), bunglowVariantMasterCollection.getVillaUnitTypes()) > -1) {
+            unit_type = unitTypeMasterCollection.findWhere({
+              'id': parseInt(value)
+            });
+            return unitTypes.push(unit_type.get('name'));
+          }
+        });
+      }
+    });
+    console.log(unitTypes);
+    filters = {
+      'unitVariants': unitVariants,
+      'unitTypes': unitTypes,
+      'count': bunglowVariantMasterCollection.getBunglowUnits().length
+    };
+    $.each(filters, function(index, value) {
+      if (value.length === 0) {
+        return filters = _.omit(filters, index);
+      }
+    });
+    return filters;
+  };
+
+  CommonFloor.getApartmentFilters = function() {
+    var filters, status, unitTypes, unitVariants, unit_type, unit_variant;
+    unitVariants = [];
+    unit_variant = '';
+    unitTypes = [];
+    unit_type = '';
+    status = [];
+    $.each(CommonFloor.defaults, function(ind, val) {
+      var param_val_arr;
+      if (ind !== 'price_min' && ind !== 'price_max' && val !== "") {
+        param_val_arr = val.split(',');
+        return $.each(param_val_arr, function(index, value) {
+          if (value !== "" && ind === 'unitVariants') {
+            if (!_.isUndefined(apartmentVariantMasterCollection.get(parseInt(value)))) {
+              unit_variant = apartmentVariantMasterCollection.findWhere({
+                'id': parseInt(value)
+              });
+              unitVariants.push(unit_variant.get('unit_variant_name'));
+            }
+          }
+          if (value !== "" && ind === 'unitTypes' && $.inArray(parseInt(value), apartmentVariantMasterCollection.getApartmentUnitTypes()) > -1) {
+            unit_type = unitTypeMasterCollection.findWhere({
+              'id': parseInt(value)
+            });
+            return unitTypes.push(unit_type.get('name'));
+          }
+        });
+      }
+    });
+    filters = {
+      'unitVariants': unitVariants,
+      'unitTypes': unitTypes,
+      'count': apartmentVariantMasterCollection.getApartmentUnits().length
+    };
+    $.each(filters, function(index, value) {
+      if (value.length === 0) {
+        return filters = _.omit(filters, index);
+      }
+    });
+    return filters;
+  };
+
+  CommonFloor.getPlotFilters = function() {
+    var filters, status, unitTypes, unitVariants, unit_type, unit_variant;
+    unitVariants = [];
+    unit_variant = '';
+    unitTypes = [];
+    unit_type = '';
+    status = [];
+    $.each(CommonFloor.defaults, function(ind, val) {
+      var param_val_arr;
+      if (ind !== 'price_min' && ind !== 'price_max' && val !== "") {
+        param_val_arr = val.split(',');
+        return $.each(param_val_arr, function(index, value) {
+          if (value !== "" && ind === 'unitVariants') {
+            if (!_.isUndefined(plotVariantMasterCollection.get(parseInt(value)))) {
+              unit_variant = plotVariantMasterCollection.findWhere({
+                'id': parseInt(value)
+              });
+              unitVariants.push(unit_variant.get('unit_variant_name'));
+            }
+          }
+          if (value !== "" && ind === 'unitTypes' && $.inArray(parseInt(value), plotVariantMasterCollection.getPlotUnitTypes()) > -1) {
+            unit_type = unitTypeMasterCollection.findWhere({
+              'id': parseInt(value)
+            });
+            return unitTypes.push(unit_type.get('name'));
+          }
+        });
+      }
+    });
+    filters = {
+      'unitVariants': unitVariants,
+      'unitTypes': unitTypes,
+      'count': plotVariantMasterCollection.getPlotUnits().length
+    };
+    $.each(filters, function(index, value) {
+      if (value.length === 0) {
+        return filters = _.omit(filters, index);
+      }
+    });
+    return filters;
+  };
+
+  CommonFloor.getStatus = function() {
+    var status, status_arr;
+    status = [];
+    status_arr = [];
+    unitMasterCollection.each(function(item) {
+      if (($.inArray(item.get('availability'), status_arr)) === -1) {
+        status_arr.push(item.get('availability'));
+        return status.push({
+          'id': item.get('availability'),
+          'name': s.humanize(item.get('availability'))
+        });
+      }
+    });
+    return status;
+  };
+
+  CommonFloor.getStatusFilters = function() {
+    var response, status, statusColl, statusIds;
+    status = [];
+    response = CommonFloor.getStatus();
+    statusColl = new Backbone.Collection(response);
+    console.log(statusIds = statusColl.pluck('id'));
+    $.each(CommonFloor.defaults, function(ind, val) {
+      var param_val_arr;
+      if (ind === 'availability' && val !== "") {
+        console.log(val);
+        param_val_arr = val.split(',');
+        return $.each(param_val_arr, function(index, value) {
+          if (value !== "" && ind === 'availability' && $.inArray(value, statusIds) > -1) {
+            return status.push(s.humanize(value));
+          }
+        });
+      }
+    });
+    return {
+      'status': status
+    };
   };
 
 }).call(this);

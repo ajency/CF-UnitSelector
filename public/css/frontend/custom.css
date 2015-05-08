@@ -5,6 +5,9 @@
 @import "../../bower_components/fancybox/source/jquery.fancybox.css";
 @import "../../bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css";
 @import "../../bower_components/lazyloadxt/dist/jquery.lazyloadxt.spinner.css";
+@import "../../bower_components/ionrangeslider/css/normalize.css";
+@import "../../bower_components/ionrangeslider/css/ion.rangeSlider.css";
+@import "../../bower_components/ionrangeslider/css/ion.rangeSlider.skinFlat.css";
 /* External CSS */
 /* Site Styles */
 html,
@@ -64,6 +67,7 @@ body {
   position: relative;
   -webkit-transition: all 0.3s ease-in-out 0.3s;
           transition: all 0.3s ease-in-out 0.3s;
+  margin-top: 10px;
 }
 .us-left-content {
   -webkit-transition: all 0.3s ease-in-out 0.3s;
@@ -1367,6 +1371,30 @@ svg polygon {
   display: none;
   position: absolute;
   bottom: 15px;
+}
+.filter-button {
+  border: 1px solid #f68121;
+  border-radius: 3px;
+  background-color: #ffffff;
+  color: #999999;
+  padding: 6px 12px;
+  margin: 18px 0px;
+}
+.filters-wrapper {
+  margin-bottom: 20px;
+}
+.filters-wrapper a {
+  color: #f68121;
+}
+.filters-wrapper .filter-chkbox-block label {
+  color: #999999;
+}
+.alert {
+  background: #EAEAEA;
+  padding: 20px;
+}
+.seperator {
+  border-bottom: 1px solid #ddd;
 }
 /* Plugins */
 /* Slider */

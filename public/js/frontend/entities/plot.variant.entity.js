@@ -40,7 +40,8 @@
     PlotVariantCollection.prototype.model = PlotVariant;
 
     PlotVariantCollection.prototype.setPlotVariantAttributes = function(data) {
-      return plotVariantCollection.reset(data);
+      plotVariantCollection.reset(data);
+      return plotVariantMasterCollection.reset(data);
     };
 
     PlotVariantCollection.prototype.getPlotUnits = function() {
@@ -60,11 +61,28 @@
       return newUnits;
     };
 
+    PlotVariantCollection.prototype.getPlotUnitTypes = function() {
+      var unit_types;
+      unit_types = [];
+      plotVariantMasterCollection.each(function(item) {
+        var unitTypeModel;
+        unitTypeModel = unitTypeMasterCollection.findWhere({
+          'id': item.get('unit_type_id')
+        });
+        if ($.inArray(item.get('unit_type_id'), unit_types) === -1) {
+          return unit_types.push(parseInt(unitTypeModel.get('id')));
+        }
+      });
+      return unit_types;
+    };
+
     return PlotVariantCollection;
 
   })(Backbone.Collection);
 
   window.plotVariantCollection = new PlotVariantCollection;
+
+  window.plotVariantMasterCollection = new PlotVariantCollection;
 
   window.plotVariant = new PlotVariant;
 

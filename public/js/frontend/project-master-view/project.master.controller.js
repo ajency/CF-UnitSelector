@@ -48,15 +48,21 @@
       return TopMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopMasterView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> Back to Project Overview </a> </div> <h2 class="proj-name">{{project_title}}</h2> <!--<div class="proj-type-count"> {{#types}} <h2 class=" pull-left m-t-10">{{count.length}}</h2> <p class="pull-left">{{type}}</p> {{/types}} <div class="clearfix"></div> </div>--> <div class="clearfix"></div> </div> </div> </div>');
+    TopMasterView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> Back to Project Overview </a> </div> <h2 class="proj-name">{{project_title}}</h2> <div class="proj-type-count"> {{#types}} <h1 class="text-primary pull-left">{{count.length}}</h1> <p class="pull-left">{{type}}</p> {{/types}} {{#each  filters}} <h1 class="text-primary pull-left">{{#each this}}{{@key}}{{this}}{{/each}}</h1> <p class="pull-left">{{@key}}</p> {{/each }} {{#each status}} <h1 class="text-primary pull-left">{{this}}</h1> <p class="pull-left">{{@key}}</p> {{/each}} <div class="clearfix"></div> </div> <button class="btn btn-primary cf-btn-white pull-right m-t-25" type="button" data-toggle="collapse" data-target="#collapsefilters"> Filter </button> <div class="clearfix"></div> </div> </div> </div>');
 
     TopMasterView.prototype.ui = {
       unitBack: '.unit_back'
     };
 
     TopMasterView.prototype.serializeData = function() {
-      var data, response;
+      var data, response, status;
+      console.log("aaaaa");
       data = TopMasterView.__super__.serializeData.call(this);
+      status = CommonFloor.getStatusFilters();
+      if (status.length !== 0) {
+        data.status = status;
+      }
+      data.filters = CommonFloor.getFilters();
       response = CommonFloor.propertyTypes();
       data.types = response;
       return data;
@@ -91,6 +97,11 @@
     }
 
     TopMasterCtrl.prototype.initialize = function() {
+      this.renderView();
+      return unitTempCollection.on("change reset add remove", this.renderView, this);
+    };
+
+    TopMasterCtrl.prototype.renderView = function() {
       return this.show(new TopMasterView({
         model: project
       }));
@@ -108,8 +119,23 @@
     }
 
     LeftMasterCtrl.prototype.initialize = function() {
-      var data, response, units;
+      this.renderView();
+      return unitTempCollection.on("change reset add remove", this.renderView);
+    };
+
+    LeftMasterCtrl.prototype.renderView = function() {
+      var data, region, response, units;
       response = CommonFloor.checkListView();
+      console.log(response.count.length);
+      if (response.count.length === 0) {
+        region = new Marionette.Region({
+          el: '#leftregion'
+        });
+        new CommonFloor.NoUnitsCtrl({
+          region: region
+        });
+        return;
+      }
       if (response.type === 'bunglows') {
         units = bunglowVariantCollection.getBunglowUnits();
         data = {};
@@ -121,7 +147,6 @@
         new CommonFloor.MasterBunglowListCtrl({
           region: this.region
         });
-        this.parent().trigger("load:units", data);
       }
       if (response.type === 'building') {
         units = buildingCollection;
@@ -134,7 +159,6 @@
         new CommonFloor.MasterBuildingListCtrl({
           region: this.region
         });
-        this.parent().trigger("load:units", data);
       }
       if (response.type === 'plot') {
         units = plotVariantCollection.getPlotUnits();
@@ -144,10 +168,9 @@
         this.region = new Marionette.Region({
           el: '#leftregion'
         });
-        new CommonFloor.MasterPlotListCtrl({
+        return new CommonFloor.MasterPlotListCtrl({
           region: this.region
         });
-        return this.parent().trigger("load:units", data);
       }
     };
 
@@ -183,7 +206,6 @@
         $('.us-right-content').toggleClass('col-md-12 col-md-9');
         that = this;
         return setTimeout(function(x) {
-          console.log(that.ui.svgContainer.width());
           $('#spritespin').spritespin({
             width: that.ui.svgContainer.width(),
             sense: -1,
@@ -236,7 +258,6 @@
           }
           $('.spritespin-canvas').addClass('zoom');
           $('.us-left-content').addClass('animated fadeOut');
-          CommonFloor.defaults['unit'] = id;
           CommonFloor.navigate('/unit-view/' + id, true);
           return CommonFloor.router.storeRoute();
         }, 500);
@@ -253,7 +274,6 @@
           }
           $('.spritespin-canvas').addClass('zoom');
           $('.us-left-content').addClass('animated fadeOut');
-          CommonFloor.defaults['unit'] = id;
           CommonFloor.navigate('/unit-view/' + id, true);
           return CommonFloor.router.storeRoute();
         }, 500);
@@ -370,6 +390,7 @@
 
     CenterMasterView.prototype.onShow = function() {
       var breakpoints, first, height, svgs, that, transitionImages;
+      $('img').lazyLoadXT();
       height = this.ui.svgContainer.width() / 2;
       $('.units').css('height', height - 162);
       $('#spritespin').hide();
@@ -390,7 +411,6 @@
           return $('.cf-loader').removeClass('hidden');
         }
       });
-      $('.first_image').lazyLoadXT();
       return this.initializeRotate(transitionImages, svgs);
     };
 
@@ -430,7 +450,7 @@
         var data, url;
         data = api.data;
         if (data.frame === data.stopFrame) {
-          console.log(url = svgs[data.frame]);
+          url = svgs[data.frame];
           return $('.region').load(url, function() {
             that.iniTooltip();
             CommonFloor.applyVillaClasses();

@@ -72,6 +72,10 @@ class TopListView extends Marionette.ItemView
 class CommonFloor.TopListCtrl extends Marionette.RegionController
 
 	initialize:->
+		@renderView()
+		unitTempCollection.on("change reset add remove", @renderView, @)
+
+	renderView:->
 		@show new TopListView 
 				model : project
 
@@ -97,6 +101,10 @@ class CommonFloor.LeftListCtrl extends Marionette.RegionController
 class CommonFloor.CenterListCtrl extends Marionette.RegionController
 
 	initialize:->
+		@renderView()
+		unitTempCollection.on("change reset add remove", @renderView)
+		
+	renderView:->
 		response = CommonFloor.checkListView()
 		if response.type is 'bunglows' 
 			units = bunglowVariantCollection.getBunglowUnits()

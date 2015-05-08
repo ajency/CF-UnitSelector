@@ -25,6 +25,9 @@
         },
         'center': {
           ctrl: 'CenterMasterCtrl'
+        },
+        'filter': {
+          ctrl: 'FilterMasterCtrl'
         }
       }
     });

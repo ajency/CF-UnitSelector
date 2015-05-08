@@ -150,6 +150,7 @@
 
     CenterView.prototype.onShow = function() {
       var path;
+      $('img').lazyLoadXT();
       path = this.model.get('step_one').svg;
       return $('.svg-area').load(path);
     };
