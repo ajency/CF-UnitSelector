@@ -23,4 +23,4 @@
 
 }).call(this);
 
-//# sourceMappingURL=../../authoring-tool/master/svg.authoring.controller.js.map
+//# sourceMappingURL=../authoring-tool/svg.authoring.controller.js.map

@@ -18,6 +18,6 @@
 <script src="{{ asset('bower_components/jquery/dist/jquery.min.js' )}}"></script>
 <script src="{{ asset('bower_components/fabric/dist/fabric.min.js' )}}"></script>
 <!-- <script src="{{ asset('js/jquery.canvasAreaDraw.min.js' )}}"></script> -->
-<script src="{{ asset('js/authoring-tool/master/svg.authoring.controller.js' )}}"></script>
+<script src="{{ asset('js/authoring-tool/svg.authoring.controller.js' )}}"></script>
 </body>
 </html>
