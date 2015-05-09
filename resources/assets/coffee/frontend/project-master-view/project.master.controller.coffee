@@ -46,10 +46,10 @@ class TopMasterView extends Marionette.ItemView
 					{{/types}}
 
 					{{#each  filters}}
-					<h1 class="text-primary pull-left">{{#each this}}{{@key}}{{this}}{{/each}}</h1> <p class="pull-left">{{@key}}</p>
+					<h1 class="text-primary pull-left">{{#each this}}{{this.name}}{{this.type}}{{/each}}</h1>
 					{{/each }}
-					{{#each status}}
-					<h1 class="text-primary pull-left">{{this}}</h1> <p class="pull-left">{{@key}}</p>
+					{{#each results}}
+					<h1 class="text-primary pull-left">{{this.count}}{{this.type}}</h1> 
 					{{/each}}
 
 					<div class="clearfix"></div>
@@ -67,12 +67,12 @@ class TopMasterView extends Marionette.ItemView
 		unitBack : '.unit_back'
 
 	serializeData:->
-		console.log "aaaaa"
 		data = super()
 		status = CommonFloor.getStatusFilters()
 		if status.length != 0
 			data.status = status
-		data.filters  = CommonFloor.getFilters()
+		data.filters  = CommonFloor.getFilters()[0]
+		data.results  = CommonFloor.getFilters()[1]
 		response = CommonFloor.propertyTypes() 
 		data.types = response
 		data

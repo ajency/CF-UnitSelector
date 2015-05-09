@@ -9,13 +9,12 @@
       return FilterMsterView.__super__.constructor.apply(this, arguments);
     }
 
-    FilterMsterView.prototype.template = Handlebars.compile('<div class="collapse" id="collapsefilters"> <div class="filters-wrapper"> <div class="col-sm-4 col-md-4 "> <h5># UNIT TYPE</h5> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class="col-sm-4 col-md-4 "> <h5># VARIANT</h5> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <a href="#" class="hide-div">+ Show More</a> </div> </div> </div> <div class="row"> <div class=" col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="row"> <div class="col-sm-4 col-md-4 "> <h5># AREA (Sqft)</h5> <input type="text" id="example_id" name="example_name" value="" /> </div> <div class="col-sm-4 col-md-4 "> <h5># BUDGET </h5> <input type="text" id="budget" name="example_name" value="" /> </div> <div class="col-sm-4 col-md-4 "> </div> </div> </div> </div> </div> <div class="filters-wrapper"> <div class="blck-wrap clearfix"> <h5>Budget</h5> <select class="price_min form-control budget-range min-budget addCft" name="price_min"> <option selected="" value="">Min</option> <option value="500000">5 Lac</option> <option value="1000000">10 Lac</option> <option value="2000000">20 Lac</option> <option value="3000000">30 Lac</option> <option value="4000000">40 Lac</option> <option value="5000000">50 Lac</option> <option value="6000000">60 Lac</option> <option value="7000000">70 Lac</option> <option value="8000000">80 Lac</option> <option value="9000000">90 Lac</option> <option value="10000000">1 Cr</option> <option value="12000000">1.2 Cr</option> <option value="14000000">1.4 Cr</option> <option value="16000000">1.6 Cr</option> <option value="18000000">1.8 Cr</option> <option value="20000000">2 Cr</option> <option value="23000000">2.3 Cr</option> <option value="26000000">2.6 Cr</option> <option value="30000000">3 Cr</option> <option value="35000000">3.5 Cr</option> <option value="40000000">4 Cr</option> <option value="45000000">4.5 Cr</option> <option value="50000000">5 Cr</option> </select> <select class="price_max form-control budget-range addCft" name="pice_max"> <option style="display: block;" selected="" value="">Max</option> <option style="display: none;" value="500000">5 Lac</option> <option style="display: none;" value="1000000">10 Lac</option> <option style="display: block;" value="2000000">20 Lac</option> <option style="display: block;" value="3000000">30 Lac</option> <option style="display: block;" value="4000000">40 Lac</option> <option style="display: block;" value="5000000">50 Lac</option> <option style="display: block;" value="6000000">60 Lac</option> <option style="display: block;" value="7000000">70 Lac</option> <option style="display: block;" value="8000000">80 Lac</option> <option style="display: block;" value="9000000">90 Lac</option> <option style="display: block;" value="10000000">1 Cr</option> <option style="display: block;" value="12000000">1.2 Cr</option> <option style="display: block;" value="14000000">1.4 Cr</option> <option style="display: block;" value="16000000">1.6 Cr</option> <option style="display: block;" value="18000000">1.8 Cr</option> <option style="display: block;" value="20000000">2 Cr</option> <option style="display: block;" value="23000000">2.3 Cr</option> <option style="display: block;" value="26000000">2.6 Cr</option> <option style="display: block;" value="30000000">3 Cr</option> <option style="display: block;" value="35000000">3.5 Cr</option> <option style="display: block;" value="40000000">4 Cr</option> <option style="display: block;" value="45000000">4.5 Cr</option> <option style="display: block;" value="50000000">5 Cr</option> <option style="display: block;" value="999999900">&gt; 5 Cr</option> </select> </div> </div> <div class="filters-wrapper"> <div class="blck-wrap"> <h5>Availability</h5> <div class="filter-chkbox-block"> {{#status}} <input type="checkbox" class="aptFilters status custom-chckbx" name="{{id}}" id="{{id}}" value="1"  /> <label for="{{id}}">{{name}}</label> {{/status}} </div> </div> </div> </div>');
+    FilterMsterView.prototype.template = Handlebars.compile('<div class="collapse" id="collapsefilters"> <div class="filters-wrapper"> <div class="col-sm-4 col-md-4 "> <h5># UNIT TYPE</h5> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class="col-sm-4 col-md-4 "> <h5># VARIANT</h5> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <a href="#" class="hide-div">+ Show More</a> </div> </div> </div> <div class="row"> <div class=" col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="row"> <div class="col-sm-4 col-md-4 "> <h5># AREA (Sqft)</h5> <input type="text" id="area" name="area" value="" /> </div> <div class="col-sm-4 col-md-4 "> <h5># BUDGET </h5> <input type="text" id="budget" name="budget" value="" /> </div> <div class="col-sm-4 col-md-4 "> </div> </div> </div> </div> </div> <div "> <h5># AVAILABILITY</h5> <div class="alert "> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="Available" class="-lbl">Show Available Units Only  (What\'s this?)</label> </div> </div> </div>');
 
     FilterMsterView.prototype.initialize = function() {
       this.unitTypes = [];
       this.unitVariants = [];
-      this.variantNames = [];
-      return this.status = [];
+      return this.variantNames = [];
     };
 
     FilterMsterView.prototype.ui = {
@@ -29,7 +28,9 @@
       priceMax: '.price_max',
       status: '.status',
       apply: '.apply',
-      variantNames: '.variant_names'
+      variantNames: '.variant_names',
+      area: '#area',
+      budget: '#budget'
     };
 
     FilterMsterView.prototype.events = {
@@ -54,16 +55,6 @@
         unitCollection.reset(unitMasterCollection.toArray());
         return CommonFloor.filter();
       },
-      'click @ui.unitVariants': function(e) {
-        if ($(e.currentTarget).is(':checked')) {
-          this.unitVariants.push(parseInt($(e.currentTarget).attr('data-value')));
-        } else {
-          this.unitVariants = _.without(this.unitVariants, parseInt($(e.currentTarget).attr('data-value')));
-        }
-        CommonFloor.defaults['area'] = this.unitVariants.join(',');
-        unitCollection.reset(unitMasterCollection.toArray());
-        return CommonFloor.filter();
-      },
       'change @ui.priceMin': function(e) {
         if ($(e.currentTarget).val() !== "") {
           CommonFloor.defaults['price_min'] = $(e.currentTarget).val();
@@ -83,17 +74,23 @@
         return CommonFloor.filter();
       },
       'click @ui.status': function(e) {
-        if ($(e.currentTarget).is(':checked')) {
-          this.status.push(e.currentTarget.id);
-        } else {
-          this.status = _.without(this.status, e.currentTarget.id);
-        }
-        console.log(this.status);
-        CommonFloor.defaults['availability'] = this.status.join(',');
+        CommonFloor.defaults['availability'] = e.currentTarget.id;
         unitCollection.reset(unitMasterCollection.toArray());
         return CommonFloor.filter();
       },
-      'click @ui.apply': function(e) {}
+      'click @ui.apply': function(e) {},
+      'change @ui.area': function(e) {
+        CommonFloor.defaults['area_max'] = parseFloat($(e.target).val().split(';')[1]);
+        CommonFloor.defaults['area_min'] = parseFloat($(e.target).val().split(';')[0]);
+        unitCollection.reset(unitMasterCollection.toArray());
+        return CommonFloor.filter();
+      },
+      'change @ui.budget': function(e) {
+        CommonFloor.defaults['price_max'] = parseFloat($(e.target).val().split(';')[1]);
+        CommonFloor.defaults['price_min'] = parseFloat($(e.target).val().split(';')[0]);
+        unitCollection.reset(unitMasterCollection.toArray());
+        return CommonFloor.filter();
+      }
     };
 
     FilterMsterView.prototype.resetFilters = function() {
@@ -147,17 +144,28 @@
     };
 
     FilterMsterView.prototype.onShow = function() {
-      var max, min, unitVariants;
-      CommonFloor.defaults['price_min'] = 0;
-      CommonFloor.defaults['price_max'] = 999999900;
+      var budget, max, min, minimum, priceMax, priceMin, unitVariants;
       unitVariants = Marionette.getOption(this, 'unitVariants');
+      budget = Marionette.getOption(this, 'budget');
       min = _.min(unitVariants);
       max = _.max(unitVariants);
-      return $("#example_id").ionRangeSlider({
+      priceMin = _.min(budget);
+      console.log(priceMax = _.max(budget));
+      console.log(minimum = window.numDifferentiation(priceMin));
+      $("#area").ionRangeSlider({
         type: "double",
         min: min,
         max: max,
         grid: false
+      });
+      return $("#budget").ionRangeSlider({
+        type: "double",
+        min: priceMin,
+        max: priceMax,
+        grid: false,
+        prettify: function(num) {
+          return window.numDifferentiation(num);
+        }
       });
     };
 
@@ -185,29 +193,34 @@
     }
 
     FilterMasterCtrl.prototype.initialize = function() {
-      var apartmentFilters, area, plotFilters, unitTypes, unitVariantNames, unitVariants, view, villaFilters;
+      var apartmentFilters, area, budget, plotFilters, unitTypes, unitVariantNames, unitVariants, view, villaFilters;
       unitTypes = [];
       unitVariants = [];
       unitVariantNames = [];
       area = [];
+      budget = [];
       villaFilters = this.getVillaFilters();
       $.merge(unitTypes, villaFilters[0].unitTypes);
       $.merge(unitVariants, villaFilters[0].unitVariants);
       $.merge(unitVariantNames, villaFilters[0].unitVariantNames);
+      $.merge(budget, villaFilters[0].budget);
       apartmentFilters = this.getApartmentFilters();
       $.merge(unitTypes, apartmentFilters[0].unitTypes);
       $.merge(unitVariants, apartmentFilters[0].unitVariants);
       $.merge(unitVariantNames, apartmentFilters[0].unitVariantNames);
+      $.merge(budget, apartmentFilters[0].budget);
       plotFilters = this.getPlotFilters();
       $.merge(unitTypes, plotFilters[0].unitTypes);
       $.merge(unitVariants, plotFilters[0].unitVariants);
       $.merge(unitVariantNames, plotFilters[0].unitVariantNames);
+      $.merge(budget, plotFilters[0].budget);
       console.log(unitTypes);
-      console.log(unitVariants);
+      console.log(budget);
       this.view = view = new CommonFloor.FilterMsterView({
         'unitTypes': unitTypes,
         'unitVariants': _.uniq(unitVariants),
-        'unitVariantNames': unitVariantNames
+        'unitVariantNames': unitVariantNames,
+        'budget': budget
       });
       return this.show(this.view);
     };
@@ -219,14 +232,15 @@
     };
 
     FilterMasterCtrl.prototype.getVillaFilters = function() {
-      var filters, unitTypes, unitVariantNames, unitVariants, unit_types;
+      var budget, filters, unitTypes, unitVariantNames, unitVariants, unit_types;
       filters = [];
       unitTypes = [];
       unit_types = [];
       unitVariants = [];
       unitVariantNames = [];
+      budget = [];
       bunglowVariantCollection.each(function(item) {
-        var unitTypeModel, units;
+        var unitTypeModel, units, unitsArr;
         units = unitMasterCollection.where({
           'unit_variant_id': item.get('id')
         });
@@ -243,30 +257,38 @@
             });
           }
           unitVariants.push(item.get('super_built_up_area'));
-          return unitVariantNames.push({
+          unitVariantNames.push({
             'id': item.get('id'),
             'name': item.get('unit_variant_name'),
             'type': 'V'
           });
         }
+        unitsArr = bunglowVariantCollection.getBunglowUnits();
+        return $.each(unitsArr, function(index, value) {
+          var unitDetails;
+          unitDetails = window.unit.getUnitDetails(value.id);
+          return budget.push(parseFloat(unitDetails[3]));
+        });
       });
       if (unitVariants.length !== 0) {
         filters.push({
           'unitTypes': unitTypes,
           'unitVariants': unitVariants,
-          'unitVariantNames': unitVariantNames
+          'unitVariantNames': unitVariantNames,
+          'budget': budget
         });
       }
       return filters;
     };
 
     FilterMasterCtrl.prototype.getApartmentFilters = function() {
-      var filters, unitTypes, unitVariantNames, unitVariants, unit_types;
+      var budget, filters, unitTypes, unitVariantNames, unitVariants, unit_types, unitsArr;
       filters = [];
       unitTypes = [];
       unit_types = [];
       unitVariants = [];
       unitVariantNames = [];
+      budget = [];
       apartmentVariantCollection.each(function(item) {
         var unitTypeModel, units;
         units = unitMasterCollection.where({
@@ -292,23 +314,31 @@
           });
         }
       });
+      unitsArr = apartmentVariantCollection.getApartmentUnits();
+      $.each(unitsArr, function(index, value) {
+        var unitDetails;
+        unitDetails = window.unit.getUnitDetails(value.id);
+        return budget.push(parseFloat(unitDetails[3]));
+      });
       if (unitVariants.length !== 0) {
         filters.push({
           'unitTypes': unitTypes,
           'unitVariants': unitVariants,
-          'unitVariantNames': unitVariantNames
+          'unitVariantNames': unitVariantNames,
+          'budget': budget
         });
       }
       return filters;
     };
 
     FilterMasterCtrl.prototype.getPlotFilters = function() {
-      var filters, unitTypes, unitVariantNames, unitVariants, unit_types;
+      var budget, filters, unitTypes, unitVariantNames, unitVariants, unit_types, unitsArr;
       filters = [];
       unitTypes = [];
       unit_types = [];
       unitVariants = [];
       unitVariantNames = [];
+      budget = [];
       plotVariantCollection.each(function(item) {
         var unitTypeModel, units;
         units = unitMasterCollection.where({
@@ -334,11 +364,18 @@
           });
         }
       });
+      unitsArr = plotVariantCollection.getPlotUnits();
+      $.each(unitsArr, function(index, value) {
+        var unitDetails;
+        unitDetails = window.unit.getUnitDetails(value.id);
+        return budget.push(parseFloat(unitDetails[3]));
+      });
       if (unitVariants.length !== 0) {
         filters.push({
           'unitTypes': unitTypes,
           'unitVariants': unitVariants,
-          'unitVariantNames': unitVariantNames
+          'unitVariantNames': unitVariantNames,
+          'budget': budget
         });
       }
       return filters;
