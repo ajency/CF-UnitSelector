@@ -15,6 +15,17 @@ jQuery(document).ready ($)->
 		
 	img.src = svgImg
 
+	window.canvas.on
+		'touch:drag':()-> 
+		    console.log "aaaaaaaaaa"
+
+
+	
+  
+
+
+	 
+
 
 
 

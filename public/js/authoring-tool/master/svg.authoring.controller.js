@@ -13,7 +13,12 @@
       });
       return m();
     };
-    return img.src = svgImg;
+    img.src = svgImg;
+    return window.canvas.on({
+      'touch:drag': function() {
+        return console.log("aaaaaaaaaa");
+      }
+    });
   });
 
 }).call(this);
