@@ -121,8 +121,9 @@
 								<span class="arrow"></span>
 							</a>
 							<ul class="sub-menu">
-								<li><a href="project-add.html">Add</a></li>
-								<li><a href="project-view.html">View</a></li>
+								<li><a href="project-view.html">All Projects</a></li>
+								<li><a href="project-add.html">Add Project</a></li>
+								
 							</ul>
 						</li>
 						<!-- END ONE LEVEL MENU -->	
@@ -135,7 +136,7 @@
 							</a>
 							<ul class="sub-menu">
 								<li class="active"><a href="users-add.html">Add</a></li>
-								<li><a href="project-view.html">View</a></li>
+								<li><a href="user-list-view.html">View</a></li>
 							</ul>
 						</li>
 						<!-- END SINGLE LINK -->    
@@ -181,174 +182,44 @@
 										<div class="row">
 					                        <div class="col-md-4">
 		                                        <div class="form-group">
-		                                            <label class="form-label">User Name</label>
+		                                            <label class="form-label">Name</label>
 		                                            <input type="text" name="name" class="form-control" placeholder="Enter User Name">
+		                                            <div class="text-danger"><span class="fa fa-asterisk"></span> This field is required</div>
 		                                        </div>
 		                                    </div>
 		                                    <div class="col-md-4">
 		                                        <div class="form-group">
-		                                            <label class="form-label">Email ID</label>
+		                                            <label class="form-label">Email</label>
 		                                            <input type="email" name="email" class="form-control" placeholder="Enter Email ID">
+		                                            <div class="text-danger"><span class="fa fa-asterisk"></span> This field is required</div>
 		                                        </div>
 		                                    </div>
-		                                    <div class="col-md-4">
+		                                     <div class="col-md-4">
 		                                        <div class="form-group">
-		                                            <label class="form-label">Password</label>
-		                                            <input type="password" name="password" class="form-control" placeholder="Enter Password">
+		                                            <label class="form-label">Phone Number</label>
+		                                            <input type="text" name="number" class="form-control" placeholder="Enter Phone Number">
+		                                            <div class="text-danger"><span class="fa fa-asterisk"></span> This field is required</div>
 		                                        </div>
-					                        </div>
+		                                    </div>
+		                                  
 					                    </div>
 					                    <div class="row">
-		                                    <div class="col-md-4">
+					                    	<div class="col-md-4">
 		                                        <div class="form-group">
-							                        <label class="form-label">User Role</label>
-							                        <select id="unit_types" class="select2 form-control">
-							                        	<option value="">Select a Role</option>
-							                        	<option>Admin</option>
-							                        	<option>CF Executive</option>
-							                        	<option>Project Owner</option>
-							                        	<option>Agent</option>
+							                        <label class="form-label">Status</label>
+							                        <select id="status" class="select2 form-control">
+							                        	<option value="">Select a Status</option>
+							                        	<option>Active</option>
+							                        	<option>Inactive</option>
 							                        </select>
+							                        <div class="text-danger"><span class="fa fa-asterisk"></span> This field is required</div>
 							                    </div>
 					                        </div>
-					                    </div>
-
-					                    <!-- <h4 class="semi-bold">Capabilities</h4>
-					                    <div class="row">
-					                    	<div class="col-sm-3">
-					                    		<div class="row-fluid">
-						                    		<div class="checkbox check-primary">
-	                    		                    	<input id="cap1" type="checkbox" value="1" checked>
-	                    		                    	<label for="cap1">Capability 1</label>
-	                    		                    </div>
-                    		                    </div>
-                    		                    <div class="row-fluid">
-						                    		<div class="checkbox check-primary">
-	                    		                    	<input id="cap5" type="checkbox" value="1">
-	                    		                    	<label for="cap5">Capability 5</label>
-	                    		                    </div>
-                    		                    </div>
-                    		                    <div class="row-fluid">
-						                    		<div class="checkbox check-primary">
-	                    		                    	<input id="cap9" type="checkbox" value="1">
-	                    		                    	<label for="cap9">Capability 9</label>
-	                    		                    </div>
-                    		                    </div>
-                    		                    <div class="row-fluid">
-						                    		<div class="checkbox check-primary">
-	                    		                    	<input id="cap13" type="checkbox" value="1">
-	                    		                    	<label for="cap13">Capability 13</label>
-	                    		                    </div>
-                    		                    </div>
-                    		                    <div class="row-fluid">
-						                    		<div class="checkbox check-primary">
-	                    		                    	<input id="cap17" type="checkbox" value="1" checked>
-	                    		                    	<label for="cap17">Capability 17</label>
-	                    		                    </div>
-                    		                    </div>
-					                    	</div>
-					                    	<div class="col-sm-3">
-					                    		<div class="row-fluid">
-						                    		<div class="checkbox check-primary">
-	                    		                    	<input id="cap2" type="checkbox" value="1">
-	                    		                    	<label for="cap2">Capability 2</label>
-	                    		                    </div>
-                    		                    </div>
-                    		                    <div class="row-fluid">
-						                    		<div class="checkbox check-primary">
-	                    		                    	<input id="cap6" type="checkbox" value="1" checked>
-	                    		                    	<label for="cap6">Capability 6</label>
-	                    		                    </div>
-                    		                    </div>
-                    		                    <div class="row-fluid">
-						                    		<div class="checkbox check-primary">
-	                    		                    	<input id="cap10" type="checkbox" value="1">
-	                    		                    	<label for="cap10">Capability 10</label>
-	                    		                    </div>
-                    		                    </div>
-                    		                    <div class="row-fluid">
-						                    		<div class="checkbox check-primary">
-	                    		                    	<input id="cap14" type="checkbox" value="1">
-	                    		                    	<label for="cap14">Capability 14</label>
-	                    		                    </div>
-                    		                    </div>
-                    		                    <div class="row-fluid">
-						                    		<div class="checkbox check-primary">
-	                    		                    	<input id="cap18" type="checkbox" value="1" checked>
-	                    		                    	<label for="cap18">Capability 18</label>
-	                    		                    </div>
-                    		                    </div>
-					                    	</div>
-					                    	<div class="col-sm-3">
-					                    		<div class="row-fluid">
-						                    		<div class="checkbox check-primary">
-	                    		                    	<input id="cap3" type="checkbox" value="1" checked>
-	                    		                    	<label for="cap3">Capability 3</label>
-	                    		                    </div>
-                    		                    </div>
-                    		                    <div class="row-fluid">
-						                    		<div class="checkbox check-primary">
-	                    		                    	<input id="cap7" type="checkbox" value="1">
-	                    		                    	<label for="cap7">Capability 7</label>
-	                    		                    </div>
-                    		                    </div>
-                    		                    <div class="row-fluid">
-						                    		<div class="checkbox check-primary">
-	                    		                    	<input id="cap11" type="checkbox" value="1" checked>
-	                    		                    	<label for="cap11">Capability 11</label>
-	                    		                    </div>
-                    		                    </div>
-                    		                    <div class="row-fluid">
-						                    		<div class="checkbox check-primary">
-	                    		                    	<input id="cap15" type="checkbox" value="1">
-	                    		                    	<label for="cap15">Capability 15</label>
-	                    		                    </div>
-                    		                    </div>
-                    		                    <div class="row-fluid">
-						                    		<div class="checkbox check-primary">
-	                    		                    	<input id="cap19" type="checkbox" value="1" checked>
-	                    		                    	<label for="cap19">Capability 19</label>
-	                    		                    </div>
-                    		                    </div>
-					                    	</div>
-					                    	<div class="col-sm-3">
-					                    		<div class="row-fluid">
-						                    		<div class="checkbox check-primary">
-	                    		                    	<input id="cap4" type="checkbox" value="1">
-	                    		                    	<label for="cap4">Capability 4</label>
-	                    		                    </div>
-                    		                    </div>
-                    		                    <div class="row-fluid">
-						                    		<div class="checkbox check-primary">
-	                    		                    	<input id="cap8" type="checkbox" value="1">
-	                    		                    	<label for="cap8">Capability 8</label>
-	                    		                    </div>
-                    		                    </div>
-                    		                    <div class="row-fluid">
-						                    		<div class="checkbox check-primary">
-	                    		                    	<input id="cap12" type="checkbox" value="1" checked>
-	                    		                    	<label for="cap12">Capability 12</label>
-	                    		                    </div>
-                    		                    </div>
-                    		                    <div class="row-fluid">
-						                    		<div class="checkbox check-primary">
-	                    		                    	<input id="cap16" type="checkbox" value="1">
-	                    		                    	<label for="cap16">Capability 16</label>
-	                    		                    </div>
-                    		                    </div>
-                    		                    <div class="row-fluid">
-						                    		<div class="checkbox check-primary">
-	                    		                    	<input id="cap20" type="checkbox" value="1" checked>
-	                    		                    	<label for="cap20">Capability 20</label>
-	                    		                    </div>
-                    		                    </div>
-					                    	</div>
-					                    </div> -->
-
-					            		
-									  	<div class="form-actions">  
+										</div>
+					                   <div class="form-actions">  
 											<div class="pull-right">
-											  <button type="submit" class="btn btn-primary btn-cons">Save</button>
+											  <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-plus-circle"></i> Create</button>
+											  <button type="submit" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button>
 											</div>
 										</div>
 									</form>
@@ -396,7 +267,7 @@
 		<!-- END NEED TO WORK ON -->
 
 		<script type="text/javascript">
-			$("#city").select2();
+			$("#status").select2();
 			$("#unit_types").select2();
 		</script>
 

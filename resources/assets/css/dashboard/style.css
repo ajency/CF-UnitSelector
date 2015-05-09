@@ -8182,15 +8182,14 @@ body.rtl .footer-widget {
   font-size: 12px;
   color: #f34235;
 }
+.dataTables_length {
+  display: none;
+}
 .navbar-brand {
   padding: 6px!important;
 }
 .full-width {
   width: 100%!important;
-}
-/* Inner Menu */
-.inner-wrapper h2 {
-  word-break: break-word;
 }
 .fa-question-circle {
   font-size: 15px;
@@ -8209,10 +8208,13 @@ body.rtl .footer-widget {
   position: relative;
   top: -3px;
 }
-.grid-body .in .tooltip-arrow {
+.grid-body .tooltip {
+  width: 160px;
+}
+.grid-body .tooltip .tooltip-arrow {
   border-right-color: #f68121;
 }
-.grid-body .in .tooltip-inner {
+.grid-body .tooltip .tooltip-inner {
   background: #F0C79E;
   color: #000;
   border: 1px solid #f68121;
@@ -8252,10 +8254,10 @@ body.rtl .footer-widget {
 }*/
 .grid-angle-down {
   display: none;
-  font-size: 20px!important;
+  font-size: 18px!important;
 }
 .panel-group .fa-angle-up {
-  font-size: 20px!important;
+  font-size: 18px!important;
 }
 .panel-group .collapsed .grid-angle-down {
   display: block!important;
@@ -8264,11 +8266,54 @@ body.rtl .footer-widget {
   display: none;
 }
 /*Tags Input*/
+.bootstrap-tagsinput input {
+  min-width: 150px;
+}
 .bootstrap-tagsinput .label-info {
   background: #f68121;
 }
-.notifyjs-corner .notifyjs-wrapper .notifyjs-hidable {
-  background: #000;
+/* Sidebar */
+.inner-menu .inner-wrapper h2 {
+  word-break: break-word;
+}
+.inner-menu .inner-menu-content {
+  margin-top: 10px;
+  letter-spacing: 1px;
+}
+.inner-menu .inner-menu-content .menu-title {
+  color: #F8F8F8;
+}
+.inner-menu .big-items li {
+  padding: 3px 25px 4px!important;
+}
+.inner-menu .big-items li a {
+  font-size: 16px!important;
+}
+/* Gallery */
+.gallery img {
+  width: 210px;
+  height: 108px;
+}
+.gallery:hover .onhover {
+  width: 210px;
+  height: 108px;
+  background: rgba(11, 4, 4, 0.54);
+  position: absolute;
+}
+/* Notification */
+.notifyjs-bootstrap-base {
+  width: 300px;
+  background: #F0C79E;
+  color: #000;
+  padding: 15px;
+  border: none;
+  font-weight: normal;
+}
+.list-group-item {
+  padding: 14px;
+}
+.list-group-item #blankCheckbox {
+  font-size: 16px;
 }
 /* Loader */
 .cf-loader {

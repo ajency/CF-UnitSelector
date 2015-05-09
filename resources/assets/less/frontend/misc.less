@@ -241,10 +241,11 @@
   color: @brand-primary;
   padding: 6px 12px;
   transform: rotate(270deg);
-  left: -24px;
+  left: -34px;
   top: 45%;
   cursor: pointer;
   z-index: 999;
+  .ease;
   &::before{
     content: "\e756";
     font-family: icomoon;
@@ -253,6 +254,92 @@
   &:hover{
     background-color: @brand-primary;
     color: @white;
+  }
+}
+
+.toggle-view-button{
+  display: none;
+}
+
+@media(max-width:767px){
+  .toggle-button{
+    display: none;
+  }
+
+  /* Mobile toggle */
+  .toggle-view-button{
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    display: block;
+    border: 1px solid @brand-primary;
+    border-radius: 50%;
+    background-color: @white;
+    color: @brand-primary;
+    cursor: pointer;
+    padding: 8px 13px;
+    z-index: 999;
+    &.map{
+      &::before{
+        content: "\e610";
+        font-family: icomoon;
+        font-size: 22px;
+      }
+    }
+    &.list{
+      &::before{
+        content: "\e756";
+        font-family: icomoon;
+        font-size: 22px;
+      }
+    }
+    &:hover{
+      background-color: @brand-primary;
+      color: @white;
+    }
+  }
+  .us-right-content, .us-left-content{
+    &.mobile{
+      &.visible{
+        display: block;
+      }
+      &.not-visible{
+        display: none;
+      }
+    }
+  } 
+}
+
+/* Zoom Controls */
+.zoom-controls{
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: block;
+  z-index: 999;
+  .zoom-in, .zoom-out{
+    border: 1px solid @brand-primary;
+    border-radius: 5px;
+    background-color: @white;
+    color: @brand-primary;
+    cursor: pointer;
+    padding: 0 10px;
+    text-align: center;
+    .ease;
+    &::before{
+      content: "+";
+      font-size: 22px;
+    }
+    &:hover{
+      background-color: @brand-primary;
+      color: @white;
+    }
+  }
+  .zoom-out{
+    margin-top: 5px;
+    &::before{
+      content: "-";
+    }
   }
 }
 

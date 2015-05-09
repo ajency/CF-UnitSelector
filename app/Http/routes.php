@@ -63,7 +63,10 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::post( 'project/{projectid}/apartment-variant/getpropertytypedata', 'Admin\ProjectApartmentVariantController@getPropertyTypeData' );
     //added by Surekha//
     Route::get( 'project/{id}/master/authoring-tool', 'Admin\ProjectController@loadMasterSvgTool' );
-} );
+    Route::get( 'project/{projectid}/attributes/addroomtype', 'Admin\ProjectRoomTypeController@addRoomType' );
+    
+});
+
 
 /**
  * REST API routes

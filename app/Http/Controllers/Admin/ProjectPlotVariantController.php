@@ -72,6 +72,7 @@ class ProjectPlotVariantController extends Controller {
         return view('admin.project.variants.plot.add')
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
+                        ->with( 'projectPropertyTypeID', $projectPropertytypeId )
                         ->with('unit_type_arr', $unitTypeArr)
                         ->with('project_property_type_attributes', $propertyTypeAttributes)
                         ->with('current', '');
@@ -89,7 +90,6 @@ class ProjectPlotVariantController extends Controller {
         $unitVariant->size = $request->input('size');
         $unitVariant->per_sq_ft_price = $request->input('per_sq_ft_price');
         $attributedata = $request->input('attributes');
-        $attributeStr = serialize($attributedata);
         $variantattributedata=[];
         if(!empty($attributedata))
         {
@@ -97,6 +97,8 @@ class ProjectPlotVariantController extends Controller {
                $variantattributedata[$key]= ucfirst($value);    
         }
         $attributeStr = serialize( $variantattributedata );
+        $unitVariant->variant_attributes = $attributeStr;
+ 
         $unitVariant->save();
         $unitVariantID = $unitVariant->id;
 
@@ -178,6 +180,7 @@ class ProjectPlotVariantController extends Controller {
         return view('admin.project.variants.plot.edit')
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
+                        ->with( 'projectPropertyTypeID', $projectPropertytypeId )
                         ->with('project_property_type_attributes', $propertyTypeAttributes)
                         ->with('unit_type_arr', $unitTypeArr)
                         ->with('unitVariant', $unitVariant->toArray())

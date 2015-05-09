@@ -8182,6 +8182,9 @@ body.rtl .footer-widget {
   font-size: 12px;
   color: #f34235;
 }
+.dataTables_length {
+  display: none;
+}
 .navbar-brand {
   padding: 6px!important;
 }
@@ -8206,7 +8209,7 @@ body.rtl .footer-widget {
   top: -3px;
 }
 .grid-body .tooltip {
-  width: 180px;
+  width: 160px;
 }
 .grid-body .tooltip .tooltip-arrow {
   border-right-color: #f68121;
@@ -8305,6 +8308,12 @@ body.rtl .footer-widget {
   padding: 15px;
   border: none;
   font-weight: normal;
+}
+.list-group-item {
+  padding: 14px;
+}
+.list-group-item #blankCheckbox {
+  font-size: 16px;
 }
 /* Loader */
 .cf-loader {

@@ -82,7 +82,8 @@ class ListItemView extends Marionette.ItemView
 #view for list of buildings : Collection
 class MasterBuildingListView extends Marionette.CompositeView
 
-	template : Handlebars.compile('<div class="col-xs-12 col-sm-12 col-md-3 us-left-content">
+	template : Handlebars.compile('<div class="col-xs-12 col-sm-12 col-md-3 us-left-content mobile not-visible">
+										<div id="view_toggle" class="toggle-view-button map"></div>
 										<div class="list-view-container w-map animated fadeIn">
 										<!--<div class="controls map-View">
 								            <div class="toggle">
@@ -112,7 +113,15 @@ class MasterBuildingListView extends Marionette.CompositeView
 
 	childViewContainer : '.units'
 
-	
+
+	ui :
+		viewtog      : '#view_toggle'
+
+	events :
+		'click @ui.viewtog':(e)->
+			$('.us-left-content').toggleClass 'not-visible visible'
+			$('.us-right-content').toggleClass 'not-visible visible'
+
 	events : 
 		'click .buildings':(e)->
 			console.log units = buildingCollection

@@ -13,13 +13,13 @@
 @section('content')
 <!-- BEGIN PAGE TITLE -->
 <div class="page-title">	
-    <h2><span class="semi-bold">View</span> Unit Variant</h2>
+    <h2><span class="semi-bold">View</span> Unit Variants</h2>
 </div>
 <div class="row">
     <div class="col-md-12">
         <div class="grid simple">
             <div class="grid-title">
-                <h4>List of <span class="semi-bold">Unit Variant</span></h4>
+                <h4>List of <span class="semi-bold">Unit Variants</span></h4>
                 <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/bunglow-variant/create') }}" ><i class="fa fa-plus"></i> Add Variant</a>
             </div>
             <div class="grid-body">

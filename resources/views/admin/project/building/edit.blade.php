@@ -94,10 +94,14 @@
                             <div  class="col-md-4">
                                 <h4 class="semi-bold">Floor</h3>
                             </div>
-                            <div class="col-md-3">
-                                <h4 class="semi-bold">Floor Layout</h3>
+                            <div class="col-md-4">
+
+                                <h4 class="semi-bold inline">Floor Layout</h3>&nbsp;&nbsp;&nbsp;&nbsp;
+                                <!--<a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">
+                                      <i class="fa fa-share"></i> Add Floor Layout
+                                    </a>-->
                             </div>
-                            <div class="col-md-5 text-right">
+                            <div class="col-md-4 text-right">
                                 <h4 class="semi-bold">Floor Layout SVG</h3>
                             </div>
                         </div>
@@ -106,7 +110,7 @@
                             <hr/>
                             <div class="row">
                                 <div  class="col-md-4">{{ $i }}</div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <select required="" name="floors[{{ $i }}]" class="full-width m-b-5">
                                         <option>Choose floor layout</option>
                                         @foreach($floorLayouts as $floorLayout)
@@ -114,11 +118,9 @@
                                             value="{{ $floorLayout->id }}" > {{ $floorLayout->layout_name }} </option>
                                         @endforeach
                                     </select>
-                                    <a href="#" data-toggle="modal" data-target="#AddFloorLayout">
-                                      + Add Floor Layout
-                                    </a>
+                                    
                                 </div>
-                                <div class="col-md-5 text-right">
+                                <div class="col-md-4 text-right">
                                     <a href="#" data-toggle="modal" data-target="#myModal">
                                         View layout SVG
                                     </a>
@@ -225,20 +227,16 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="AddFloorLayout" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title text-left" id="myModalLabel">Add Floor Layout</h4>
       </div>
       <div class="modal-body">
-        ...
+        <iframe src="" width="100%"></iframe>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
-      </div>
-    </div>
+         </div>
   </div>
 </div>

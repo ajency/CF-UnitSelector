@@ -5,6 +5,9 @@
 @import "../../bower_components/fancybox/source/jquery.fancybox.css";
 @import "../../bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css";
 @import "../../bower_components/lazyloadxt/dist/jquery.lazyloadxt.spinner.css";
+@import "../../bower_components/ionrangeslider/css/normalize.css";
+@import "../../bower_components/ionrangeslider/css/ion.rangeSlider.css";
+@import "../../bower_components/ionrangeslider/css/ion.rangeSlider.skinFlat.css";
 /* External CSS */
 /* Site Styles */
 html,
@@ -62,12 +65,11 @@ body {
 /* Left Container */
 .search-left-content {
   position: relative;
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
+  transition: all 0.3s ease-in-out 0.3s;
+  margin-top: 10px;
 }
 .us-left-content {
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
+  transition: all 0.3s ease-in-out 0.3s;
 }
 .builder-logo {
   max-width: 200px;
@@ -93,8 +95,7 @@ body {
 /* Right Container */
 .us-right-content {
   padding-left: 0;
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
+  transition: all 0.3s ease-in-out 0.3s;
 }
 .us-right-content .svg-area {
   width: 100%;
@@ -152,8 +153,7 @@ body {
   font-size: 14px;
   border: 1px solid #f68121;
   text-align: center;
-  -webkit-transition: all ease .2s;
-          transition: all ease .2s;
+  transition: all ease .2s;
   cursor: pointer;
   background-color: transparent;
   vertical-align: middle;
@@ -503,17 +503,12 @@ body {
   position: absolute;
   top: 0px;
   left: 0px;
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
+  transition: all 0.3s ease-in-out 0.3s;
 }
 .zoom {
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
-  -webkit-transform: scale(2, 2);
-      -ms-transform: scale(2, 2);
-          transform: scale(2, 2);
-  -webkit-filter: blur(10px);
-          filter: blur(10px);
+  transition: all 0.3s ease-in-out 0.3s;
+  transform: scale(2, 2);
+  filter: blur(10px);
 }
 .text-primary {
   color: #f68121;
@@ -528,10 +523,12 @@ body {
   display: block;
   -webkit-box-align: center;
   -webkit-align-items: center;
+  -moz-box-align: center;
   -ms-flex-align: center;
   align-items: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
+  -moz-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
 }
@@ -542,8 +539,12 @@ body {
   width: 15px;
   height: 15px;
   -webkit-animation: rotate 0.6s linear infinite;
+  -moz-animation: rotate 0.6s linear infinite;
   -ms-animation: rotate 0.6s linear infinite;
+  -o-animation: rotate 0.6s linear infinite;
   animation: rotate 0.6s linear infinite;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
   border-radius: 100%;
   border-top: 2px solid #f68121;
   border-bottom: 2px solid #ffffff;
@@ -579,10 +580,37 @@ body {
     -o-transform: rotateZ(0deg);
   }
 }
+@-moz-keyframes rotate {
+  0% {
+    transform: rotateZ(-360deg);
+    -webkit-transform: rotateZ(-360deg);
+    -moz-transform: rotateZ(-360deg);
+    -o-transform: rotateZ(-360deg);
+  }
+  100% {
+    transform: rotateZ(0deg);
+    -webkit-transform: rotateZ(0deg);
+    -moz-transform: rotateZ(0deg);
+    -o-transform: rotateZ(0deg);
+  }
+}
+@-o-keyframes rotate {
+  0% {
+    transform: rotateZ(-360deg);
+    -webkit-transform: rotateZ(-360deg);
+    -moz-transform: rotateZ(-360deg);
+    -o-transform: rotateZ(-360deg);
+  }
+  100% {
+    transform: rotateZ(0deg);
+    -webkit-transform: rotateZ(0deg);
+    -moz-transform: rotateZ(0deg);
+    -o-transform: rotateZ(0deg);
+  }
+}
 /* Transition */
 .ease {
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
+  transition: all 0.3s ease-in-out 0.3s;
 }
 /* Back Button */
 .breadcrumb-bar .bread-crumb-list {
@@ -604,13 +632,12 @@ body {
   background-color: #ffffff;
   color: #f68121;
   padding: 6px 12px;
-  -webkit-transform: rotate(270deg);
-      -ms-transform: rotate(270deg);
-          transform: rotate(270deg);
-  left: -24px;
+  transform: rotate(270deg);
+  left: -34px;
   top: 45%;
   cursor: pointer;
   z-index: 999;
+  transition: all 0.3s ease-in-out 0.3s;
 }
 .toggle-button::before {
   content: "\e756";
@@ -620,6 +647,50 @@ body {
 .toggle-button:hover {
   background-color: #f68121;
   color: #ffffff;
+}
+.toggle-view-button {
+  display: none;
+}
+@media (max-width: 767px) {
+  .toggle-button {
+    display: none;
+  }
+  /* Mobile toggle */
+  .toggle-view-button {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    display: block;
+    border: 1px solid #f68121;
+    border-radius: 50px;
+    background-color: #ffffff;
+    color: #f68121;
+    cursor: pointer;
+    padding: 8px 13px;
+    z-index: 999;
+  }
+  .toggle-view-button.map::before {
+    content: "\e610";
+    font-family: icomoon;
+    font-size: 22px;
+  }
+  .toggle-view-button.list::before {
+    content: "\e756";
+    font-family: icomoon;
+    font-size: 22px;
+  }
+  .toggle-view-button:hover {
+    background-color: #f68121;
+    color: #ffffff;
+  }
+  .us-right-content.mobile.visible,
+  .us-left-content.mobile.visible {
+    display: block;
+  }
+  .us-right-content.mobile.not-visible,
+  .us-left-content.mobile.not-visible {
+    display: none;
+  }
 }
 /* Lazy Load Loader */
 .lazy-hidden {
@@ -647,14 +718,11 @@ body {
   margin: auto;
   display: inline-block;
   cursor: pointer;
-  -webkit-transition: all 0.3s ease;
-          transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 .rotate-controls .rotate-left:hover,
 .rotate-controls .rotate-right:hover {
-  -webkit-transform: scale(1.1, 1.1);
-      -ms-transform: scale(1.1, 1.1);
-          transform: scale(1.1, 1.1);
+  transform: scale(1.1, 1.1);
 }
 .rotate-controls .rotate-right {
   background-position: -125px -5px;
@@ -728,8 +796,7 @@ svg .layer:hover {
   cursor: pointer;
 }
 svg polygon {
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
+  transition: all 0.3s ease-in-out 0.3s;
 }
 .list-view-container {
   padding: 10px;
@@ -1053,8 +1120,7 @@ svg polygon {
 .units {
   list-style-type: none;
   overflow-y: auto;
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s
+  transition: all 0.3s ease-in-out 0.3s;
   /* List of Villas */
   /* List of Buildings */
 }
@@ -1131,9 +1197,7 @@ svg polygon {
 }
 .single-bldg .prev {
   left: 20px;
-  -webkit-transform: rotate(180deg);
-      -ms-transform: rotate(180deg);
-          transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 .single-bldg .next {
   right: 35px;
@@ -1188,9 +1252,7 @@ svg polygon {
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   width: 100%;
 }
 .slider .layouts .img-overlay {
@@ -1201,8 +1263,7 @@ svg polygon {
   width: 100%;
   background-color: #ffffff;
   opacity: 0.75;
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
+  transition: all 0.3s ease-in-out 0.3s;
 }
 .slider .layouts span {
   position: absolute;
@@ -1214,8 +1275,7 @@ svg polygon {
   font-weight: bold;
   text-align: center;
   opacity: 1;
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
+  transition: all 0.3s ease-in-out 0.3s;
 }
 .slider .layouts:hover .img-overlay {
   opacity: 0;
@@ -1258,9 +1318,7 @@ svg polygon {
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   width: 100%;
 }
 .slider .gallery-img .img-overlay {
@@ -1272,8 +1330,7 @@ svg polygon {
   width: 100%;
   background-color: #ffffff;
   opacity: 0.75;
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
+  transition: all 0.3s ease-in-out 0.3s;
 }
 .slider .gallery-img:hover .img-overlay {
   opacity: 0;
@@ -1283,12 +1340,38 @@ svg polygon {
   position: absolute;
   bottom: 15px;
 }
+.filter-button {
+  border: 1px solid #f68121;
+  border-radius: 3px;
+  background-color: #ffffff;
+  color: #999999;
+  padding: 6px 12px;
+  margin: 18px 0px;
+}
+.filters-wrapper {
+  margin-bottom: 20px;
+}
+.filters-wrapper a {
+  color: #f68121;
+}
+.filters-wrapper .filter-chkbox-block label {
+  color: #999999;
+}
+.alert {
+  background: #EAEAEA;
+  padding: 20px;
+}
+.seperator {
+  border-bottom: 1px solid #ddd;
+}
 /* Plugins */
 /* Slider */
 .toggle_radio {
   background: #cccccc;
   margin: 30px auto 0;
   padding: 0 !important;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
   border-radius: 50px;
   position: relative;
   height: 4px;
@@ -1298,7 +1381,7 @@ svg polygon {
   float: left;
 }
 .toggle_radio input[type=radio] {
-  display: none
+  display: none;
   /*position: fixed;*/
 }
 .toggle_radio label {
@@ -1310,11 +1393,13 @@ svg polygon {
   height: 20px;
   margin: 0 3px;
   padding-top: 15px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
   border-radius: 50px;
   cursor: pointer;
   z-index: 1;
   /*background: rgba(0,0,0,.1);*/
-  text-align: center
+  text-align: center;
   /*margin: 0 2px;*/
   /*background: blue;*/
   /*make it blue*/
@@ -1332,8 +1417,13 @@ label.third_toggle {
   height: 8px;
   position: absolute;
   top: -2px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
   border-radius: 50px;
   -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  -ms-transition: all .2s ease;
   transition: all .2s ease;
 }
 .toggle_option_slider {
@@ -1343,8 +1433,13 @@ label.third_toggle {
   height: 35px;
   position: absolute;
   top: -16px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
   border-radius: 50px;
   -webkit-transition: all .4s ease;
+  -moz-transition: all .4s ease;
+  -o-transition: all .4s ease;
+  -ms-transition: all .4s ease;
   transition: all .4s ease;
 }
 #first_toggle:checked ~ .toggle_option_slider {
@@ -1440,4 +1535,3 @@ label.third_toggle {
 .panel-wrapper {
   padding: 10px 20px;
 }
-/*# sourceMappingURL=custom.css.map */

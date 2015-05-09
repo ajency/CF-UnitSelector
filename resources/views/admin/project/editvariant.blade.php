@@ -25,13 +25,13 @@
 
     <div class="grid simple">
         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-        <div class="grid-title"  role="tab" id="headingOne">
+            <div class="grid-title"  role="tab" id="headingOne">
                 <div class="pull-right"><i class="fa fa-angle-up "></i>
                     <i class="fa fa-angle-down grid-angle-down"></i>
                 </div>             
                 <h3>Villa <span class="semi-bold">Details</span></h3>
-        </div>
-    </a>
+            </div>
+        </a>
         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
             <div class="grid-body">
                 <form action="/admin/project/{{ $project['id'] }}/bunglow-variant/{{ $unitVariant['id'] }}" method="POST" data-parsley-validate>
@@ -51,6 +51,12 @@
                                     <option  @if($unitVariant['unit_type_id']==$unit_type['id']){{'selected'}}@endif  value="{{$unit_type['id']}}">{{$unit_type['unittype_name']}}</option>
                                     @endforeach
                                 </select>
+                                <input type="hidden" name="property_type" id="property_type" value="{{ $projectPropertyTypeID }}">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseUnitType" aria-expanded="true" aria-controls="collapseOne">+ Add Unit Type</a>
+                                <div id="collapseUnitType" class="panel-collapse collapse p-t-10" role="tabpanel" aria-labelledby="headingOne">
+                                    <input   name="unit_type_name" id="unit_type_name" type="text" class="form-control m-b-5" placeholder="Add Unit Type">
+                                    <button  onclick="addUnitType();"  type="button" class="btn btn-small btn-primary "><i class="fa fa-save"></i> Save</button>
+                                </div>
                             </div> 
                         </div>
                         <div class="col-md-4">
@@ -59,6 +65,8 @@
                                 <input type="text" class="form-control" name="carpet_area" value="{{ $unitVariant['carpet_area'] }}" placeholder="Enter Carpet Area" data-parsley-required data-parsley-type="number">
                             </div> 
                         </div>
+                        </div>
+                        <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Built Up Area</label>
@@ -77,6 +85,8 @@
                                 <input type="text" class="form-control" name="per_sq_ft_price" value="{{ $unitVariant['per_sq_ft_price'] }}" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
                             </div> 
                         </div>
+                    </div>
+                    <div class="row">
                         @foreach($project_property_type_attributes as $attributes)
                         <div class="col-md-4">
                             <div class="form-group">
@@ -128,13 +138,13 @@
     @include('admin.project.variantrooms')
 
     <div class="grid simple">
-       <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-        <div class="grid-title" role="tab" id="headingThree">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+            <div class="grid-title" role="tab" id="headingThree">
                 <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
                     <i class="fa fa-angle-up "></i>
                 </div>
                 <h3><span class="semi-bold">Layouts</span></h3>
-        </div></a>
+            </div></a>
         <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree"> 
             <div class="grid-body"> 
                 <h5 class="semi-bold inline">External</h5>
@@ -174,7 +184,7 @@
                         <div class="onhover">
                             <button type="button" class="btn btn-small btn-default"><i class="fa fa-trash"></i></button>
                         </div>
-                       <img src="{{ $gallery['IMAGE'] }}" class="img-responsive img-thumbnail">
+                        <img src="{{ $gallery['IMAGE'] }}" class="img-responsive img-thumbnail">
                         <button onclick="deleteLayout({{ $gallery['ID'] }}, 'gallery');" type="button" class="btn btn-small btn-default m-t-10 pull-right"><i class="fa fa-trash"></i> Delete</button>
                     </div>    
                     @endforeach									
@@ -183,19 +193,19 @@
                 </div>         
 
             </div>
- 
+
         </div>    
 
     </div> 
     <script>
-                var ROOMTYPES = '';
-                @foreach($availableRoomTypes as $room_type)
-                ROOMTYPES += "<option value=\"{{$room_type['id']}}\">{{$room_type['name']}}</option>";
-                @endforeach
+        var ROOMTYPES = '';
+        @foreach($availableRoomTypes as $room_type)
+        ROOMTYPES += "<option value=\"{{$room_type['id']}}\">{{$room_type['name']}}</option>";
+        @endforeach
 
-                var BASEURL = '{{ url() }}';
-                var FLOORLEVELS = [<?php echo implode(",", array_keys($variantRooms)); ?>];
-                var variantId = {{ $unitVariant['id'] }};
+        var BASEURL = '{{ url() }}';
+        var FLOORLEVELS = [<?php echo implode(",", array_keys($variantRooms)); ?>];
+        var variantId = {{ $unitVariant['id'] }};
     </script>
     <!-- END PLACE PAGE CONTENT HERE -->
     @endsection

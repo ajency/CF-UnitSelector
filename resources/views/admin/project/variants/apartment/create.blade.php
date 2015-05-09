@@ -37,11 +37,11 @@
                         <input type="text" class="form-control" name="unit_variant_name" placeholder="Enter Name" data-parsley-required>
                     </div> 
                 </div>
-               @if(count($projectPropertyTypes) > 1)
+                @if(count($projectPropertyTypes) > 1)
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Property Type</label>
-                        <select onchange="getPropertTypeData(this,1);" name="property_type" class="select2 form-control" data-parsley-required>
+                        <select onchange="getPropertTypeData(this, 1);" name="property_type" id="property_type" class="select2 form-control" data-parsley-required>
                             <option value="">Select Type</option>
                             @foreach($projectPropertyTypes as $projectPropertyType)
                             <option value="{{ $projectPropertyType['ID'] }}">{{ $projectPropertyType['NAME'] }}</option>
@@ -50,7 +50,7 @@
                     </div> 
                 </div>
                 @else
-                <input type="hidden" name="" value="{{ $projectPropertyTypes[0]['ID'] }}">
+                <input type="hidden" name="property_type" id="property_type" value="{{ $projectPropertyTypes[0]['ID'] }}">
                 @endif
                 <div class="col-md-4">
                     <div class="form-group">
@@ -62,14 +62,13 @@
                             @endforeach
                         </select>
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseUnitType" aria-expanded="true" aria-controls="collapseOne">+ Add Unit Type</a>
-                                <div id="collapseUnitType" class="panel-collapse collapse p-t-10" role="tabpanel" aria-labelledby="headingOne">
-                                    <input type="text" class="form-control  m-b-10" placeholder="Add Unit Type">
-                                    <button type="button" class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
-                                </div>
+                        <div id="collapseUnitType" class="panel-collapse collapse p-t-10" role="tabpanel" aria-labelledby="headingOne">
+                            <input type="text" name="unit_type_name" id="unit_type_name" class="form-control  m-b-10" placeholder="Add Unit Type">
+                            <button onclick="addUnitType();" type="button" class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
+                        </div>
                     </div> 
                 </div>
-                </div>
-                <div class="row">
+
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Built Up Area</label>
@@ -82,30 +81,29 @@
                         <input type="text" class="form-control" name="superbuiltup_area" value="" placeholder="Enter Super Built Up Area" data-parsley-required data-parsley-type="number">
                     </div> 
                 </div>
-                
-                 <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-label">Per sq ft Price</label>
-                                <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
-                            </div> 
-                        </div>
-                    </div>
 
-                    <div class="row">
-                     <div class="col-md-4">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Per sq ft Price</label>
+                        <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
+                    </div> 
+                </div>
+
+                <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Carpet Area</label>
                         <input type="text" class="form-control" name="carpet_area" value="" placeholder="Enter Carpet Area">
                     </div> 
-                    </div> 
-                </div>
+                </div> 
+                
+               <div id="property_type_attributes"> 
                 @foreach($projectPropertyTypeAttributes as $attribute)
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">{{ $attribute['label'] }}</label>
                         @if('textbox' === $attribute['control_type'])
                         <input type="text" class="form-control" name="attributes[{{ property_type_slug($attribute['label']) }}]"  
-                                placeholder="Enter {{ $attribute['label'] }}">
+                               placeholder="Enter {{ $attribute['label'] }}">
                         @elseif('select' === $attribute['control_type'])
                         <?php
                         $options = explode(',', $attribute['defaults']);
@@ -130,7 +128,9 @@
                     </div> 
                 </div>
                 @endforeach
-        <div class="form-actions">  
+               </div>  
+            </div>
+            <div class="form-actions">  
                 <div class="pull-right">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                     <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>

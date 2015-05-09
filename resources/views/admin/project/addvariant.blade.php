@@ -28,101 +28,102 @@
         <form action="/admin/project/{{ $project['id'] }}/bunglow-variant" method="POST" data-parsley-validate>
             <div>
                 <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Name</label>
-                        <input type="text" class="form-control" name="unit_variant_name" placeholder="Enter Name" data-parsley-required>
-                    </div> 
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Unit Type</label>
-                        <select name="unit_type" class="select2 form-control m-b-5" data-parsley-required>
-                            <option value="">Select Unit Type</option>
-                            @foreach($unit_type_arr as $unit_type)
-                            <option value="{{$unit_type['id']}}">{{$unit_type['unittype_name']}}</option>
-                            @endforeach
-                        </select>
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseUnitType" aria-expanded="true" aria-controls="collapseOne">+ Add Unit Type</a>
-                        <div id="collapseUnitType" class="panel-collapse collapse p-t-10" role="tabpanel" aria-labelledby="headingOne">
-                            <input type="text" class="form-control phase-name m-b-5" placeholder="Add Unit Type">
-                            <button type="button" class="btn btn-small btn-primary add-phase-btn"><i class="fa fa-save"></i> Save</button>
-                        </div>
-                    </div> 
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Carpet Area</label>
-                        <input type="text" class="form-control" name="carpet_area" value="" placeholder="Enter Carpet Area" data-parsley-required data-parsley-type="number">
-                    </div> 
-                </div>
-             
- 
-              
-            </div>
-               <div class="row">
-                  <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Built Up Area</label>
-                        <input type="text" class="form-control" name="builtup_area" value="" placeholder="Enter Built Up Area" data-parsley-required data-parsley-type="number">
-                    </div> 
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Super Built Up Area</label>
-                        <input type="text" class="form-control" name="superbuiltup_area" value="" placeholder="Enter Super Built Up Area" data-parsley-required data-parsley-type="number">
-                    </div> 
-                </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Per sq ft Price</label>
-                        <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
-                    </div> 
-                </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" name="unit_variant_name" placeholder="Enter Name" data-parsley-required>
+                        </div> 
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Unit Type</label>
+                            <select name="unit_type" class="select2 form-control m-b-5" data-parsley-required>
+                                <option value="">Select Unit Type</option>
+                                @foreach($unit_type_arr as $unit_type)
+                                <option value="{{$unit_type['id']}}">{{$unit_type['unittype_name']}}</option>
+                                @endforeach
+                            </select>
+                            <input type="hidden" name="property_type" id="property_type" value="{{ $projectPropertyTypeID }}">
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseUnitType" aria-expanded="true" aria-controls="collapseOne">+ Add Unit Type</a>
+                            <div id="collapseUnitType" class="panel-collapse collapse p-t-10" role="tabpanel" aria-labelledby="headingOne">
+                                <input   name="unit_type_name" id="unit_type_name"type="text" class="form-control m-b-5" placeholder="Add Unit Type">
+                                <button  onclick="addUnitType();"  type="button" class="btn btn-small btn-primary"><i class="fa fa-save"></i> Save</button>
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Carpet Area</label>
+                            <input type="text" class="form-control" name="carpet_area" value="" placeholder="Enter Carpet Area" data-parsley-required data-parsley-type="number">
+                        </div> 
+                    </div>
+
+
+
                 </div>
                 <div class="row">
-                @foreach($project_property_type_attributes as $attributes)
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">{{$attributes['label']}}</label> 
-                        @if('textbox' === $attributes['control_type'])
-                        <input type="text" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]"  placeholder="Enter {{$attributes['label']}}">
-                         @elseif('number' === $attributes['control_type'])
-                        <input type="number" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]" value="" placeholder="Enter {{$attributes['label']}}">
-                        @elseif('select' === $attributes['control_type'])
-                        <?php
-                        $options = explode(',', $attributes['defaults']);
-                        ?>
-                        <select name="attributes[{{property_type_slug($attributes['label'])}}]" class="select2 form-control">
-                            <option value="">Select {{$attributes['label']}}</option>   
-                            @foreach($options as $option)
-                            <option  value="{{property_type_slug($option)}}">{{$option}}</option>
-                            @endforeach
-                        </select>
-                        @elseif('multiple' === $attributes['control_type'])
-                        <?php
-                        $options = explode(',', $attributes['defaults']);
-                        ?>
-                        <select multiple name="attributes[{{property_type_slug($attributes['label'])}}][]" class="select2 form-control">
-                            <option value="">Select {{$attributes['label']}}</option>   
-                            @foreach($options as $option)
-                            <option value="{{property_type_slug($option)}}">{{$option}}</option>
-                            @endforeach
-                        </select>
-                        @endif  
-                    </div> 
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Built Up Area</label>
+                            <input type="text" class="form-control" name="builtup_area" value="" placeholder="Enter Built Up Area" data-parsley-required data-parsley-type="number">
+                        </div> 
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Super Built Up Area</label>
+                            <input type="text" class="form-control" name="superbuiltup_area" value="" placeholder="Enter Super Built Up Area" data-parsley-required data-parsley-type="number">
+                        </div> 
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">Per sq ft Price</label>
+                            <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
+                        </div> 
+                    </div>
                 </div>
-               @endforeach
-               </div>
-                
-            
- 
-            <div class="form-actions">  
-                <div class="pull-right">
-                    <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-                    <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
+                <div class="row">
+                    @foreach($project_property_type_attributes as $attributes)
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="form-label">{{$attributes['label']}}</label> 
+                            @if('textbox' === $attributes['control_type'])
+                            <input type="text" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]"  placeholder="Enter {{$attributes['label']}}">
+                            @elseif('number' === $attributes['control_type'])
+                            <input type="number" class="form-control" name="attributes[{{property_type_slug($attributes['label'])}}]" value="" placeholder="Enter {{$attributes['label']}}">
+                            @elseif('select' === $attributes['control_type'])
+                            <?php
+                            $options = explode(',', $attributes['defaults']);
+                            ?>
+                            <select name="attributes[{{property_type_slug($attributes['label'])}}]" class="select2 form-control">
+                                <option value="">Select {{$attributes['label']}}</option>   
+                                @foreach($options as $option)
+                                <option  value="{{property_type_slug($option)}}">{{$option}}</option>
+                                @endforeach
+                            </select>
+                            @elseif('multiple' === $attributes['control_type'])
+                            <?php
+                            $options = explode(',', $attributes['defaults']);
+                            ?>
+                            <select multiple name="attributes[{{property_type_slug($attributes['label'])}}][]" class="select2 form-control">
+                                <option value="">Select {{$attributes['label']}}</option>   
+                                @foreach($options as $option)
+                                <option value="{{property_type_slug($option)}}">{{$option}}</option>
+                                @endforeach
+                            </select>
+                            @endif  
+                        </div> 
+                    </div>
+                    @endforeach
                 </div>
-            </div>
+
+
+
+                <div class="form-actions">  
+                    <div class="pull-right">
+                        <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
+                        <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
+                    </div>
+                </div>
         </form>
     </div>
 </div>
