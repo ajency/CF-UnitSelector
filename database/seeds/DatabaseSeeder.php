@@ -46,3 +46,4 @@ class PropertyTypeTableSeeder extends Seeder {
     }
 
 }
+
