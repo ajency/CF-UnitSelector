@@ -555,6 +555,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 class CommonFloor.CenterMasterCtrl extends Marionette.RegionController
 
 	initialize:->
+		
 		@show new CommonFloor.CenterMasterView
 				model :project
 
