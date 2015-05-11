@@ -42,11 +42,9 @@ class TopMasterView extends Marionette.ItemView
 										<div class="proj-type-count">
 
 											{{#each  filters}}
-											<h2 class="text-primary pull-right m-t-10">{{#each this}}{{@key}}{{this}}{{/each}}</h2> <p class="pull-right">{{@key}}</p>
+											<h2 class="text-primary pull-right m-t-10">{{#each this}}{{this.name}}{{this.type}}{{/each}}</h2> 
 											{{/each }}
-											{{#each status}}
-											<h2 class="text-primary pull-right m-t-10">{{this}}</h2> <p class="pull-right">{{@key}}</p>
-											{{/each}}
+											
 											
 											{{#types}} 
 											<p class="pull-right">{{type}}</p><h2 class="text-primary pull-right m-t-10">{{count.length}}</h2> 
@@ -243,21 +241,21 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			, 500)
 			
 
-		'click .villa':(e)->
+		# 'click .villa':(e)->
 			
-			setTimeout( (x)->
-				id = parseInt e.target.id
+		# 	setTimeout( (x)->
+		# 		id = parseInt e.target.id
 
-				unitModel = unitCollection.findWhere
-								'id' : id
-				if unitModel == undefined
-					return false
-				$('.spritespin-canvas').addClass 'zoom'
-				$('.us-left-content').addClass 'animated fadeOut'
-				CommonFloor.navigate '/unit-view/'+id , true
-				CommonFloor.router.storeRoute()
+		# 		unitModel = unitCollection.findWhere
+		# 						'id' : id
+		# 		if unitModel == undefined
+		# 			return false
+		# 		$('.spritespin-canvas').addClass 'zoom'
+		# 		$('.us-left-content').addClass 'animated fadeOut'
+		# 		CommonFloor.navigate '/unit-view/'+id , true
+		# 		CommonFloor.router.storeRoute()
 
-			, 500)
+		# 	, 500)
 
 		'click .plot':(e)->
 			
@@ -309,7 +307,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('#bldg'+id).attr('class' ,'bldg blocks') 
 
 
-		'mouseover .villa':(e)->
+		'click .villa':(e)->
 			$('.villa').attr('class' ,'layer villa') 
 			id  = parseInt e.target.id
 			html = ""
@@ -348,12 +346,12 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 							</div>  
 						</div>  
 					</div>'
-
-			$('#'+id).attr('class' ,'layer villa '+availability) 
+			classname = $('#'+id).attr('class') 
+			$('#'+id).attr('class' ,'layer'+classname+' '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
 			$('.layer').tooltipster('content', html)
 
-		'mouseover .plot':(e)->
+		'click .plot':(e)->
 			$('.plot').attr('class' ,'layer plot') 
 			id  = parseInt e.target.id
 			html = ""
@@ -392,8 +390,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 							</div>  
 						</div>  
 					</div>'
-
-			$('#'+id).attr('class' ,'layer plot '+availability) 
+			classname = $('#'+id).attr('class')
+			$('#'+id).attr('class' ,'layer plot '+classname+' '+availability) 
 			$('#unit'+id).attr('class' ,'bldg blocks active') 
 			$('.layer').tooltipster('content', html)
 

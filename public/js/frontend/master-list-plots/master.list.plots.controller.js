@@ -14,7 +14,8 @@
     PlotListView.prototype.template = Handlebars.compile('	<div class="info"> <h2 class="m-b-5">{{unit_name}}</h2> <div class="floors"><span>{{unit_type}}</span></div> </div> <div class="clearfix"></div> <div class="unit-type-info"> <div class="price {{classname}}"> <span>{{price}}</span></div> </div>');
 
     PlotListView.prototype.initialize = function() {
-      return this.$el.prop("id", 'unit' + this.model.get("id"));
+      this.$el.prop("id", 'unit' + this.model.get("id"));
+      return this.classname = '';
     };
 
     PlotListView.prototype.tagName = 'li';
@@ -48,6 +49,7 @@
       'mouseover': function(e) {
         var id;
         id = this.model.get('id');
+        this.classname = $('#' + id + '.villa').attr('class');
         $('.layer').attr('class', 'layer plot');
         $('#' + id + '.plot').attr('class', 'layer plot ' + this.model.get('status'));
         return $('#unit' + id).attr('class', 'bldg blocks' + ' ' + this.model.get('status') + ' active');
@@ -56,7 +58,7 @@
         var id;
         id = this.model.get('id');
         $('#unit' + id).attr('class', 'bldg blocks' + ' ' + this.model.get('status'));
-        return CommonFloor.applyPlotClasses();
+        return CommonFloor.applyPlotClasses(this.classname);
       },
       'click': function(e) {
         if (this.model.get('status') === 'available') {

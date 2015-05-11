@@ -83,7 +83,11 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 	events:
 		'click @ui.types':(e)->
+			$.each CommonFloor.defaults,(index,value)->
+				CommonFloor.defaults[index] = ""
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+
 			if e.target.id == 'Villas'
 				@trigger "load:villa:filters" 
 			if e.target.id == 'Apartments/Penthouse'

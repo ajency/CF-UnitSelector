@@ -34,7 +34,11 @@
 
     FilterMsterView.prototype.events = {
       'click @ui.types': function(e) {
+        $.each(CommonFloor.defaults, function(index, value) {
+          return CommonFloor.defaults[index] = "";
+        });
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.filter();
         if (e.target.id === 'Villas') {
           this.trigger("load:villa:filters");
         }

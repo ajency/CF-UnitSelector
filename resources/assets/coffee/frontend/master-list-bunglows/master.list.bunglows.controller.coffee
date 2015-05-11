@@ -11,6 +11,7 @@ class BunglowListView extends Marionette.ItemView
 
 	initialize:->
 		@$el.prop("id", 'unit'+@model.get("id"))
+		@classname = ''
 
 	
 	tagName: 'li'
@@ -50,8 +51,9 @@ class BunglowListView extends Marionette.ItemView
 
 		'mouseover' :(e)->
 			id = @model.get('id')
+			@classname = $('#'+id+'.villa').attr('class')
 			$('.villa').attr('class','layer villa')
-			$('#'+id+'.villa').attr('class' ,'layer villa '+@model.get('status'))
+			$('#'+id+'.villa').attr('class' ,@classname+' '+@model.get('status'))
 			$('#unit'+id).attr('class' ,'unit blocks'+' '+@model.get('status')+' active')
 			
 			
@@ -59,7 +61,7 @@ class BunglowListView extends Marionette.ItemView
 			id = @model.get('id')
 			# $('#'+id+'.villa').attr('class' ,'layer villa')
 			$('#unit'+id).attr('class' , 'unit blocks'+' '+@model.get('status'))
-			CommonFloor.applyVillaClasses()
+			CommonFloor.applyVillaClasses(@classname)
 
 		'click' :(e)->
 			if @model.get('status') == 'available'

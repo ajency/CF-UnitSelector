@@ -145,26 +145,34 @@ CommonFloor.propertyTypes = ()->
 
 	Router
 
-CommonFloor.applyVillaClasses = (classname = null)->
+CommonFloor.applyVillaClasses = (classname) ->
 	$('.villa').each (ind,item)->
 		id = parseInt item.id
+		class_name = $('#'+id).attr('class')
+		if classname != ""
+			class_name = classname
 		unit = unitCollection.findWhere 
 			id :  id 
+		$('#'+id).attr('class' ,class_name)
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' ,'layer villa '+classname+' '+availability)
+			$('#'+id).attr('class' ,class_name+' '+availability)
 
 
-CommonFloor.applyPlotClasses = (classname = null)->
+CommonFloor.applyPlotClasses = (classname)->
 	$('.plot').each (ind,item)->
 		id = parseInt item.id
+		class_name = $('#'+id).attr('class')
+		if classname != ""
+			class_name = classname
 		unit = unitCollection.findWhere 
 			id :  id 
+		$('#'+id).attr('class' ,class_name)
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' ,'layer plot '+classname+' '+availability)  
+			$('#'+id).attr('class' ,class_name+' '+availability)  
 
 
 
@@ -221,20 +229,20 @@ CommonFloor.filter = ()->
 
 
 CommonFloor.applyFliterClass = ()->
-	CommonFloor.applyPlotClasses('unit_fadein')
-	CommonFloor.applyVillaClasses('unit_fadein')
+	CommonFloor.applyPlotClasses()
+	CommonFloor.applyVillaClasses()
 	actualunits = _.pluck unitMasterCollection ,'id'
 	filterunits = _.pluck unitCollection ,'id'
 	notSelecteUnits = _.difference actualunits , filterunits
 	$('.villa').each (ind,item)->
 		id = parseInt item.id
 		if $.inArray id , notSelecteUnits
-			$('#'+id).attr('class' ,'layer villa not_in_selection')
+			$('#'+id).attr('class' ,'layer villa unit_fadein not_in_selection')
 
 	$('.plot').each (ind,item)->
 		id = parseInt item.id
 		if $.inArray id , notSelecteUnits
-			$('#'+id).attr('class' ,'layer plot not_in_selection')
+			$('#'+id).attr('class' ,'layer plot unit_fadein not_in_selection')
 
 CommonFloor.resetCollections = ()->
 	apartments = []
