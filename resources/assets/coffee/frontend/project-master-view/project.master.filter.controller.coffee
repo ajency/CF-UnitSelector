@@ -49,7 +49,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 					                                  	<h5># AVAILABILITY</h5>
 					                                    <div class="alert ">
 					                                      	<input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> 
-					                                       	<label for="Available" class="-lbl">Show Available Units Only</label> 
+					                                       	<label for="available" class="-lbl">Show Available Units Only</label> 
 					                                    </div>
 					                                </div>
 					                            </div>  
@@ -200,7 +200,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		    	return window.numDifferentiation(num)
 
 		)
-		unitVariantColl = _.pluck plotVariantCollection.toArray() , 'id'
+		unitVariantColl = _.pluck bunglowVariantCollection.toArray() , 'id'
 		unitVariantArray = unitVariantColl.map (item)->
 			return parseInt item
 		unittypesColl = _.pluck unitTypeCollection.toArray() , 'id'
@@ -242,7 +242,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		    	return window.numDifferentiation(num)
 
 		)
-		unitVariantColl = _.pluck plotVariantCollection.toArray() , 'id'
+		unitVariantColl = _.pluck apartmentVariantCollection.toArray() , 'id'
 		unitVariantArray = unitVariantColl.map (item)->
 			return parseInt item
 		unittypesColl = _.pluck unitTypeCollection.toArray() , 'id'
