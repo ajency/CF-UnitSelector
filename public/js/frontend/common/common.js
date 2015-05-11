@@ -180,7 +180,10 @@
     return Router;
   };
 
-  CommonFloor.applyVillaClasses = function() {
+  CommonFloor.applyVillaClasses = function(classname) {
+    if (classname == null) {
+      classname = null;
+    }
     return $('.villa').each(function(ind, item) {
       var availability, id, unit;
       id = parseInt(item.id);
@@ -190,12 +193,15 @@
       if (!_.isUndefined(unit)) {
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        return $('#' + id).attr('class', 'layer villa ' + availability);
+        return $('#' + id).attr('class', 'layer villa ' + classname + ' ' + availability);
       }
     });
   };
 
-  CommonFloor.applyPlotClasses = function() {
+  CommonFloor.applyPlotClasses = function(classname) {
+    if (classname == null) {
+      classname = null;
+    }
     return $('.plot').each(function(ind, item) {
       var availability, id, unit;
       id = parseInt(item.id);
@@ -205,7 +211,7 @@
       if (!_.isUndefined(unit)) {
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        return $('#' + id).attr('class', 'layer plot ' + availability);
+        return $('#' + id).attr('class', 'layer plot ' + classname + ' ' + availability);
       }
     });
   };
@@ -251,7 +257,31 @@
     if (CommonFloor.defaults['area_max'] !== "") {
       CommonFloor.filterArea();
     }
+    CommonFloor.applyFliterClass();
     return CommonFloor.resetCollections();
+  };
+
+  CommonFloor.applyFliterClass = function() {
+    var actualunits, filterunits, notSelecteUnits;
+    CommonFloor.applyPlotClasses('unit_fadein');
+    CommonFloor.applyVillaClasses('unit_fadein');
+    actualunits = _.pluck(unitMasterCollection, 'id');
+    filterunits = _.pluck(unitCollection, 'id');
+    notSelecteUnits = _.difference(actualunits, filterunits);
+    $('.villa').each(function(ind, item) {
+      var id;
+      id = parseInt(item.id);
+      if ($.inArray(id, notSelecteUnits)) {
+        return $('#' + id).attr('class', 'layer villa not_in_selection');
+      }
+    });
+    return $('.plot').each(function(ind, item) {
+      var id;
+      id = parseInt(item.id);
+      if ($.inArray(id, notSelecteUnits)) {
+        return $('#' + id).attr('class', 'layer plot not_in_selection');
+      }
+    });
   };
 
   CommonFloor.resetCollections = function() {

@@ -145,7 +145,7 @@ CommonFloor.propertyTypes = ()->
 
 	Router
 
-CommonFloor.applyVillaClasses = ()->
+CommonFloor.applyVillaClasses = (classname = null)->
 	$('.villa').each (ind,item)->
 		id = parseInt item.id
 		unit = unitCollection.findWhere 
@@ -153,10 +153,10 @@ CommonFloor.applyVillaClasses = ()->
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' ,'layer villa '+availability)
+			$('#'+id).attr('class' ,'layer villa '+classname+' '+availability)
 
 
-CommonFloor.applyPlotClasses = ()->
+CommonFloor.applyPlotClasses = (classname = null)->
 	$('.plot').each (ind,item)->
 		id = parseInt item.id
 		unit = unitCollection.findWhere 
@@ -164,7 +164,9 @@ CommonFloor.applyPlotClasses = ()->
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' ,'layer plot '+availability)  
+			$('#'+id).attr('class' ,'layer plot '+classname+' '+availability)  
+
+
 
 
 
@@ -214,8 +216,25 @@ CommonFloor.filter = ()->
 		CommonFloor.filterBudget()
 	if CommonFloor.defaults['area_max'] != ""
 		CommonFloor.filterArea()
-   
+	CommonFloor.applyFliterClass()
 	CommonFloor.resetCollections()
+
+
+CommonFloor.applyFliterClass = ()->
+	CommonFloor.applyPlotClasses('unit_fadein')
+	CommonFloor.applyVillaClasses('unit_fadein')
+	actualunits = _.pluck unitMasterCollection ,'id'
+	filterunits = _.pluck unitCollection ,'id'
+	notSelecteUnits = _.difference actualunits , filterunits
+	$('.villa').each (ind,item)->
+		id = parseInt item.id
+		if $.inArray id , notSelecteUnits
+			$('#'+id).attr('class' ,'layer villa not_in_selection')
+
+	$('.plot').each (ind,item)->
+		id = parseInt item.id
+		if $.inArray id , notSelecteUnits
+			$('#'+id).attr('class' ,'layer plot not_in_selection')
 
 CommonFloor.resetCollections = ()->
 	apartments = []
