@@ -55,19 +55,24 @@ class UserController extends Controller {
         $user->save();
         $userId = $user->id;
 
-        $data = 'Dear ' . $name;
-        $data .='Welcome to CommonFloor Unit Selector!';
-        $data .='Your Account on CommonFloor Unit Selector has been created with the following credentials -';
-        $data .='Login Email address : ';
-        $data .='Your account has been set with a randomly generated password :'.$password;
+        $data = 'Dear ' . $name.'<br><br>';
+        $data .='Welcome to CommonFloor Unit Selector!<br>';
+        $data .='Your Account on CommonFloor Unit Selector has been created with the following credentials -<br>';
+        $data .='Login Email address : '.$email .'<br>';
+        $data .='Your account has been set with a randomly generated password :'.$password.'<br>';
         $data .= '<a href="' . url() . '"><button class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button></a>';
-        $data .='or copy paste the link below in your browser to login to your account';
-        $data .= url();
-        $data .='You can update the password to one of your choice from the profile page.';
-        $data .='Thanks,';
+        $data .='or copy paste the link below in your browser to login to your account<br>';
+        $data .= url().'<br>';
+        $data .='You can update the password to one of your choice from the profile page.<br><br>';
+        $data .='Thanks,<br>';
         $data .='Team CommonFloor Unit Selector';
+        
+        $headers = 'From: CommonFloor Unit Selector' . "\r\n" .
+            'Reply-To: prajay@ajency.in' . "\r\n" .
+            'X-Mailer: PHP/' . phpversion();
 
-         mail($email,"Welcome to CommonFloor Unit Selector!",$data);
+
+         mail($email,"Welcome to CommonFloor Unit Selector!",$data, $headers);
 
         $addanother = $request->input('addanother');
 
