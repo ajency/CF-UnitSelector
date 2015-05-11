@@ -238,25 +238,31 @@
     };
 
     FilterMsterView.prototype.onShow = function() {
-      var budget, max, min, minimum, priceMax, priceMin, unitVariants;
+      var budget, max, min, minimum, priceMax, priceMin, subArea, subBudget, unitVariants;
       unitVariants = Marionette.getOption(this, 'unitVariants');
       budget = Marionette.getOption(this, 'budget');
       min = _.min(unitVariants);
       max = _.max(unitVariants);
+      subArea = (max - min) / 20;
+      console.log(subArea = subArea.toFixed(0));
       priceMin = _.min(budget);
-      console.log(priceMax = _.max(budget));
-      console.log(minimum = window.numDifferentiation(priceMin));
+      priceMax = _.max(budget);
+      subBudget = (priceMax - priceMin) / 20;
+      console.log(subBudget = subBudget.toFixed(0));
+      minimum = window.numDifferentiation(priceMin);
       $("#area").ionRangeSlider({
         type: "double",
         min: min,
         max: max,
-        grid: false
+        grid: false,
+        step: subArea
       });
       $("#budget").ionRangeSlider({
         type: "double",
         min: priceMin,
         max: priceMax,
         grid: false,
+        step: subBudget,
         prettify: function(num) {
           return window.numDifferentiation(num);
         }
