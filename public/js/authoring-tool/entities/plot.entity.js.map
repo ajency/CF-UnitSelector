@@ -1,0 +1,1 @@
+{"version":3,"sources":["authoring-tool/entities/plot.entity.coffee"],"names":[],"mappings":"AAAA;AAAA;AAAA","file":"authoring-tool/entities/plot.entity.js","sourceRoot":"/source/","sourcesContent":["#View and Controller for a plot\r\n#Function to show the details of a plot if marked\r\n#event handler functions"]}

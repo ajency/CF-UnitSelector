@@ -1,0 +1,1 @@
+{"version":3,"sources":["authoring-tool/entities/apartment.entity.coffee"],"names":[],"mappings":"AAAA;AAAA;AAAA","file":"authoring-tool/entities/apartment.entity.js","sourceRoot":"/source/","sourcesContent":["#View and Controller for apartment/penthouse\r\n#Function to show the details of an apartment if marked\r\n#event handler functions"]}
