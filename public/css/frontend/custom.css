@@ -95,6 +95,7 @@ body {
 /* Right Container */
 .us-right-content {
   padding-left: 0;
+  padding-right: 0;
   transition: all 0.3s ease-in-out 0.3s;
 }
 .us-right-content .svg-area {
@@ -662,7 +663,7 @@ body {
     right: 20px;
     display: block;
     border: 1px solid #f68121;
-    border-radius: 50px;
+    border-radius: 50%;
     background-color: #ffffff;
     color: #f68121;
     cursor: pointer;
@@ -691,6 +692,41 @@ body {
   .us-left-content.mobile.not-visible {
     display: none;
   }
+}
+/* Zoom Controls */
+.zoom-controls {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: block;
+  z-index: 999;
+}
+.zoom-controls .zoom-in,
+.zoom-controls .zoom-out {
+  border: 1px solid #f68121;
+  border-radius: 5px;
+  background-color: #ffffff;
+  color: #f68121;
+  cursor: pointer;
+  padding: 0 10px;
+  text-align: center;
+  transition: all 0.3s ease-in-out 0.3s;
+}
+.zoom-controls .zoom-in::before,
+.zoom-controls .zoom-out::before {
+  content: "+";
+  font-size: 22px;
+}
+.zoom-controls .zoom-in:hover,
+.zoom-controls .zoom-out:hover {
+  background-color: #f68121;
+  color: #ffffff;
+}
+.zoom-controls .zoom-out {
+  margin-top: 5px;
+}
+.zoom-controls .zoom-out::before {
+  content: "-";
 }
 /* Lazy Load Loader */
 .lazy-hidden {
@@ -1346,16 +1382,18 @@ svg polygon {
   background-color: #ffffff;
   color: #999999;
   padding: 6px 12px;
-  margin: 18px 0px;
+}
+.filter-result {
+  margin: 20px 0px;
 }
 .filters-wrapper {
-  margin-bottom: 20px;
-}
-.filters-wrapper a {
-  color: #f68121;
+  margin: 20px 0px 20px 0;
 }
 .filters-wrapper .filter-chkbox-block label {
   color: #999999;
+}
+.filter-link {
+  color: #000;
 }
 .alert {
   background: #EAEAEA;
@@ -1363,6 +1401,32 @@ svg polygon {
 }
 .seperator {
   border-bottom: 1px solid #ddd;
+}
+.desc-wrapper {
+  margin: 0 auto;
+  margin-bottom: 15px;
+  max-height: 50px;
+  overflow: hidden;
+}
+.more-info {
+  /* Hide more info to begin with and reveal if text inside desc is too long*/
+  display: none;
+  color: #f68121;
+}
+/* Only display 'more' to begin with */
+.more-info .less,
+.more-info.expand .more {
+  display: none;
+}
+.more-info.expand .less {
+  display: inline;
+}
+/* Misc, just to make things look a bit prettier */
+.more-info:focus {
+  outline: none;
+}
+span.glyphicon {
+  margin-left: 3px;
 }
 /* Plugins */
 /* Slider */
