@@ -43,11 +43,19 @@ class TopMasterView extends Marionette.ItemView
 										<button class="btn btn-primary cf-btn-white pull-right m-t-10" type="button" data-toggle="collapse" data-target="#collapsefilters">
 											Filters <span class="icon-funnel"></span>
 										</button>
-
+										<div class="row search-header-wrap filter-result">
+							              <div class="col-xs-6 col-md-6">
+							              	{{#each  filters}}
+							              	{{#each this}}
+											<div class="filter-pill types"  id="{{id_name}}" data-id="{{id}}" >{{this.name}}{{this.type}}<span class="icon-cross" ></span>
+							               </div>	{{/each}}{{/each }}
+							               
+							                <div class="clearfix"></div>
+							              </div>
+							               
+							            </div>
 										<div class="proj-type-count">
-											{{#each  filters}}
-											<h2 class="text-primary pull-right m-t-10">{{#each this}}{{this.name}}{{this.type}}{{/each}}</h2> 
-											{{/each }}
+											
 											
 											
 											{{#types}} 
@@ -60,6 +68,87 @@ class TopMasterView extends Marionette.ItemView
 
 	ui  :
 		unitBack : '.unit_back'
+		unitTypes : '.unit_types'
+		priceMin : '.price_min'
+		priceMax : '.price_max'
+		status : '.status'
+		apply : '.apply'
+		variantNames : '.variant_names'
+		area : '#area'
+		budget : '#budget'
+		types : '.types'
+
+	events:
+		'click #filter_Villas':(e)->
+			console.log CommonFloor.defaults['type']
+			type = _.without CommonFloor.defaults['type'] ,e.target.id
+			CommonFloor.defaults['type'] = type
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			
+
+			
+		'click @ui.unitTypes':(e)->
+			if $(e.currentTarget).is(':checked')
+				@unitTypes.push parseInt $(e.currentTarget).attr('data-value')
+			else
+				@unitTypes = _.without @unitTypes ,parseInt $(e.currentTarget).attr('data-value')
+			console.log @unitTypes
+			CommonFloor.defaults['unitTypes'] = @unitTypes.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			# @resetFilters()
+			
+		'click @ui.variantNames':(e)->
+			if $(e.currentTarget).is(':checked')
+				@variantNames.push parseInt $(e.currentTarget).attr('data-value')
+			else
+				@variantNames = _.without @variantNames ,parseInt $(e.currentTarget).attr('data-value')
+			CommonFloor.defaults['unitVariants'] = @variantNames.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()	
+
+		'change @ui.priceMin':(e)->
+			if $(e.currentTarget).val() != ""
+				CommonFloor.defaults['price_min'] = $(e.currentTarget).val()
+			else
+				CommonFloor.defaults['price_min'] = 0
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			
+
+		'change @ui.priceMax':(e)->
+			if $(e.currentTarget).val() != ""
+				CommonFloor.defaults['price_max'] = $(e.currentTarget).val()
+			else
+				CommonFloor.defaults['price_max'] = 999999900
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			# @resetFilters()
+			
+
+		'click @ui.status':(e)->
+			CommonFloor.defaults['availability'] = e.currentTarget.id
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			# @resetFilters()
+
+
+		'click @ui.apply':(e)->
+			# @region =  new Marionette.Region el : '#leftregion'
+			# new CommonFloor.LeftMasterCtrl region : @region
+
+		'change @ui.area':(e)->
+			CommonFloor.defaults['area_max'] = parseFloat $(e.target).val().split(';')[1]
+			CommonFloor.defaults['area_min'] = parseFloat $(e.target).val().split(';')[0]
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+
+		'change @ui.budget':(e)->
+			CommonFloor.defaults['price_max'] = parseFloat $(e.target).val().split(';')[1]
+			CommonFloor.defaults['price_min'] = parseFloat $(e.target).val().split(';')[0]
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
 
 	serializeData:->
 		data = super()

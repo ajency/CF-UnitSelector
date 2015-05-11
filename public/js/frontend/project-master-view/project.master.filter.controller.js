@@ -22,7 +22,6 @@
 
     FilterMsterView.prototype.ui = {
       unitTypes: '.unit_types',
-      unitVariants: '.unitvariants',
       priceMin: '.price_min',
       priceMax: '.price_max',
       status: '.status',

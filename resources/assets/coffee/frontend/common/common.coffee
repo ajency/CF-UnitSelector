@@ -324,6 +324,7 @@ CommonFloor.getFilters = ()->
 	$.merge unitVariants , plotFilters.unitVariants
 	price = []
 	area = []
+	type= []
 	results.push
 		'type'	: 'Villa(s)'
 		'count' : villaFilters.count
@@ -339,23 +340,40 @@ CommonFloor.getFilters = ()->
 		price.push 
 				'name' : min_price+'-'+max_price
 				'type'  : '' 
+				'id' : 'budget'
+				'id_name' : 'filter_budget'
+				'classname' : 'budget'
 	if CommonFloor.defaults['area_max'] != ""
 		area_min = CommonFloor.defaults['area_min']
 		area_max = CommonFloor.defaults['area_max']
 		area.push 
 				'name' : area_min+'-'+area_max
 				'type'  : 'Sq.Ft' 
+				'id' : 'area'
+				'id_name' : 'filter_area'
+				'classname' : 'area'
+
+	if CommonFloor.defaults['type'] != ""
+		typeArr = CommonFloor.defaults['type'].split(',')
+		$.each typeArr, (index,value)->
+			type.push 
+				'name' : value
+				'classname' : 'types'
+				'id'		: 'value'
+				'id_name' : 'filter_'+value
 	
 	filters = {'unitTypes' : unitTypes
 				,'unitVariants' : unitVariants
 				,'price' : price
-				,'area' : area}
+				,'area' : area
+				'type' : type}
 	$.each filters,(index,value)->
 		if value.length == 0
 			filters = _.omit(filters, index)
 	$.each results,(index,value)->
 		if value.count == 0
 			results = _.omit(results, index) 
+
 	[filters,results]	
 			
 CommonFloor.getVillaFilters = ()->
@@ -375,6 +393,9 @@ CommonFloor.getVillaFilters = ()->
 						unitVariants.push 
 									'name'	: unit_variant.get 'unit_variant_name'
 									'type'	: '(V)'
+									'classname' : 'variant_names'
+									'id' : unit_variant.get 'id'
+									'id_name' : 'filter_varinat_name'+unit_variant.get 'id'
 				if value != "" && ind == 'unitTypes' && $.inArray(parseInt(value),bunglowVariantMasterCollection.getVillaUnitTypes()) > -1
 					unit_type = unitTypeMasterCollection.findWhere
 									'id' : parseInt value
@@ -382,6 +403,9 @@ CommonFloor.getVillaFilters = ()->
 					unitTypes.push 
 								'name' : unit_type.get 'name'
 								'type'	: '(V)'
+								'classname' : 'unit_types'
+								'id' : unit_type.get 'id'
+								'id_name' : 'filter_unit_type'+unit_type.get 'id'
 
 	
 	filters = {'unitVariants' : unitVariants,'unitTypes': unitTypes
@@ -409,6 +433,9 @@ CommonFloor.getApartmentFilters = ()->
 						unitVariants.push 
 									'name'	: unit_variant.get 'unit_variant_name'
 									'type'	: '(A)'
+									'classname' : 'variant_names'
+									'id' : unit_variant.get 'id'
+									'id_name' : 'filter_varinat_name'+unit_variant.get 'id'
 				if value != "" && ind == 'unitTypes' && $.inArray(parseInt(value),apartmentVariantMasterCollection.getApartmentUnitTypes()) > -1
 					unit_type = unitTypeMasterCollection.findWhere
 									'id' : parseInt value
@@ -416,6 +443,9 @@ CommonFloor.getApartmentFilters = ()->
 					unitTypes.push 
 								'name' : unit_type.get 'name'
 								'type'	: '(A)'
+								'classname' : 'unit_types'
+								'id' : unit_type.get 'id'
+								'id_name' : 'filter_unit_type'+unit_type.get 'id'
 		
 	filters = {'unitVariants' : unitVariants,'unitTypes': unitTypes 
 				,'count': apartmentVariantMasterCollection.getApartmentUnits().length}
@@ -441,6 +471,9 @@ CommonFloor.getPlotFilters = ()->
 						unitVariants.push 
 									'name'	: unit_variant.get 'unit_variant_name'
 									'type'	: '(P)'
+									'classname' : 'variant_names'
+									'id' : unit_variant.get 'id'
+									'id_name' : 'filter_varinat_name'+unit_variant.get 'id'
 				if value != "" && ind == 'unitTypes' && $.inArray(parseInt(value),plotVariantMasterCollection.getPlotUnitTypes()) > -1
 					unit_type = unitTypeMasterCollection.findWhere
 									'id' : parseInt value
@@ -448,6 +481,9 @@ CommonFloor.getPlotFilters = ()->
 					unitTypes.push 
 								'name' : unit_type.get 'name'
 								'type'	: '(P)'
+								'classname' : 'unit_types'
+								'id' : unit_type.get 'id'
+								'id_name' : 'filter_unit_type'+unit_type.get 'id'
 		
 	filters = {'unitVariants' : unitVariants,'unitTypes': unitTypes 
 				,'count': plotVariantMasterCollection.getPlotUnits().length}

@@ -48,10 +48,87 @@
       return TopMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopMasterView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> Back to Project Overview </a> </div> <h2 class="proj-name">{{project_title}}</h2> </div> </div> </div> <div class="filter-summary-area"> <button class="btn btn-primary cf-btn-white pull-right m-t-10" type="button" data-toggle="collapse" data-target="#collapsefilters"> Filters <span class="icon-funnel"></span> </button> <div class="proj-type-count"> {{#each  filters}} <h2 class="text-primary pull-right m-t-10">{{#each this}}{{this.name}}{{this.type}}{{/each}}</h2> {{/each }} {{#types}} <p class="pull-right">{{type}}</p><h2 class="text-primary pull-right m-t-10">{{count.length}}</h2> {{/types}} </div> <div class="clearfix"></div> </div>');
+    TopMasterView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> Back to Project Overview </a> </div> <h2 class="proj-name">{{project_title}}</h2> </div> </div> </div> <div class="filter-summary-area"> <button class="btn btn-primary cf-btn-white pull-right m-t-10" type="button" data-toggle="collapse" data-target="#collapsefilters"> Filters <span class="icon-funnel"></span> </button> <div class="row search-header-wrap filter-result"> <div class="col-xs-6 col-md-6"> {{#each  filters}} {{#each this}} <div class="filter-pill types"  id="{{id_name}}" data-id="{{id}}" >{{this.name}}{{this.type}}<span class="icon-cross" ></span> </div>	{{/each}}{{/each }} <div class="clearfix"></div> </div> </div> <div class="proj-type-count"> {{#types}} <p class="pull-right">{{type}}</p><h2 class="text-primary pull-right m-t-10">{{count.length}}</h2> {{/types}} </div> <div class="clearfix"></div> </div>');
 
     TopMasterView.prototype.ui = {
-      unitBack: '.unit_back'
+      unitBack: '.unit_back',
+      unitTypes: '.unit_types',
+      priceMin: '.price_min',
+      priceMax: '.price_max',
+      status: '.status',
+      apply: '.apply',
+      variantNames: '.variant_names',
+      area: '#area',
+      budget: '#budget',
+      types: '.types'
+    };
+
+    TopMasterView.prototype.events = {
+      'click #filter_Villas': function(e) {
+        var type;
+        console.log(CommonFloor.defaults['type']);
+        type = _.without(CommonFloor.defaults['type'], e.target.id);
+        CommonFloor.defaults['type'] = type;
+        unitCollection.reset(unitMasterCollection.toArray());
+        return CommonFloor.filter();
+      },
+      'click @ui.unitTypes': function(e) {
+        if ($(e.currentTarget).is(':checked')) {
+          this.unitTypes.push(parseInt($(e.currentTarget).attr('data-value')));
+        } else {
+          this.unitTypes = _.without(this.unitTypes, parseInt($(e.currentTarget).attr('data-value')));
+        }
+        console.log(this.unitTypes);
+        CommonFloor.defaults['unitTypes'] = this.unitTypes.join(',');
+        unitCollection.reset(unitMasterCollection.toArray());
+        return CommonFloor.filter();
+      },
+      'click @ui.variantNames': function(e) {
+        if ($(e.currentTarget).is(':checked')) {
+          this.variantNames.push(parseInt($(e.currentTarget).attr('data-value')));
+        } else {
+          this.variantNames = _.without(this.variantNames, parseInt($(e.currentTarget).attr('data-value')));
+        }
+        CommonFloor.defaults['unitVariants'] = this.variantNames.join(',');
+        unitCollection.reset(unitMasterCollection.toArray());
+        return CommonFloor.filter();
+      },
+      'change @ui.priceMin': function(e) {
+        if ($(e.currentTarget).val() !== "") {
+          CommonFloor.defaults['price_min'] = $(e.currentTarget).val();
+        } else {
+          CommonFloor.defaults['price_min'] = 0;
+        }
+        unitCollection.reset(unitMasterCollection.toArray());
+        return CommonFloor.filter();
+      },
+      'change @ui.priceMax': function(e) {
+        if ($(e.currentTarget).val() !== "") {
+          CommonFloor.defaults['price_max'] = $(e.currentTarget).val();
+        } else {
+          CommonFloor.defaults['price_max'] = 999999900;
+        }
+        unitCollection.reset(unitMasterCollection.toArray());
+        return CommonFloor.filter();
+      },
+      'click @ui.status': function(e) {
+        CommonFloor.defaults['availability'] = e.currentTarget.id;
+        unitCollection.reset(unitMasterCollection.toArray());
+        return CommonFloor.filter();
+      },
+      'click @ui.apply': function(e) {},
+      'change @ui.area': function(e) {
+        CommonFloor.defaults['area_max'] = parseFloat($(e.target).val().split(';')[1]);
+        CommonFloor.defaults['area_min'] = parseFloat($(e.target).val().split(';')[0]);
+        unitCollection.reset(unitMasterCollection.toArray());
+        return CommonFloor.filter();
+      },
+      'change @ui.budget': function(e) {
+        CommonFloor.defaults['price_max'] = parseFloat($(e.target).val().split(';')[1]);
+        CommonFloor.defaults['price_min'] = parseFloat($(e.target).val().split(';')[0]);
+        unitCollection.reset(unitMasterCollection.toArray());
+        return CommonFloor.filter();
+      }
     };
 
     TopMasterView.prototype.serializeData = function() {
