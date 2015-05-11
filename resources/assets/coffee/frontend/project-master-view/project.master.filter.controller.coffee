@@ -49,10 +49,14 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 					                                  	<h5># AVAILABILITY</h5>
 					                                    <div class="alert ">
 					                                      	<input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> 
-					                                       	<label for="Available" class="-lbl">Show Available Units Only  (What\'s this?)</label> 
+					                                       	<label for="Available" class="-lbl">Show Available Units Only</label> 
 					                                    </div>
 					                                </div>
 					                            </div>  
+					                        </div>
+
+					                        <div class="filters-bottom clearfix">
+					                        	<a href="javascript:void(0)" data-toggle="collapse" data-target="#collapsefilters" class="text-primary pull-right m-b-10"><span class="icon-cross"></span> Close </a>
 					                        </div>
 											
 										</div>

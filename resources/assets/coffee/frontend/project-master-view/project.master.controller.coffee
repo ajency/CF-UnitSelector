@@ -39,8 +39,12 @@ class TopMasterView extends Marionette.ItemView
 									</div>
 
 									<div class="filter-summary-area">
-										<div class="proj-type-count">
 
+										<button class="btn btn-primary cf-btn-white pull-right m-t-10" type="button" data-toggle="collapse" data-target="#collapsefilters">
+											Filters <span class="icon-funnel"></span>
+										</button>
+
+										<div class="proj-type-count">
 											{{#each  filters}}
 											<h2 class="text-primary pull-right m-t-10">{{#each this}}{{@key}}{{this}}{{/each}}</h2> <p class="pull-right">{{@key}}</p>
 											{{/each }}
@@ -51,13 +55,8 @@ class TopMasterView extends Marionette.ItemView
 											{{#types}} 
 											<p class="pull-right">{{type}}</p><h2 class="text-primary pull-right m-t-10">{{count.length}}</h2> 
 											{{/types}}
-
-											<div class="clearfix"></div>
 										</div>
 
-										<button class="btn btn-primary cf-btn-white pull-right m-t-10" type="button" data-toggle="collapse" data-target="#collapsefilters">
-											Filter
-										</button>
 										<div class="clearfix"></div>
 									</div>')
 
