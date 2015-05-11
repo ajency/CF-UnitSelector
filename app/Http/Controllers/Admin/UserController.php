@@ -55,16 +55,16 @@ class UserController extends Controller {
         $user->save();
         $userId = $user->id;
 
-        $data = 'Dear ' . $name.'<br><br>';
-        $data .='Welcome to CommonFloor Unit Selector!<br>';
-        $data .='Your Account on CommonFloor Unit Selector has been created with the following credentials -<br>';
-        $data .='Login Email address : '.$email .'<br>';
-        $data .='Your account has been set with a randomly generated password :'.$password.'<br>';
+        $data = 'Dear ' . $name. "\r\n\n";
+        $data .='Welcome to CommonFloor Unit Selector!'. "\r\n";
+        $data .='Your Account on CommonFloor Unit Selector has been created with the following credentials -'. "\r\n";
+        $data .='Login Email address : '.$email . "\r\n";
+        $data .='Your account has been set with a randomly generated password :'.$password. "\r\n";
         $data .= '<a href="' . url() . '"><button class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button></a>';
-        $data .='or copy paste the link below in your browser to login to your account<br>';
-        $data .= url().'<br>';
-        $data .='You can update the password to one of your choice from the profile page.<br><br>';
-        $data .='Thanks,<br>';
+        $data .='or copy paste the link below in your browser to login to your account'. "\r\n";
+        $data .= url(). "\r\n";
+        $data .='You can update the password to one of your choice from the profile page.'. "\r\n\n";
+        $data .='Thanks,'. "\r\n";
         $data .='Team CommonFloor Unit Selector';
         
         $headers = 'From: CommonFloor Unit Selector' . "\r\n" .
@@ -72,7 +72,8 @@ class UserController extends Controller {
             'X-Mailer: PHP/' . phpversion();
 
 
-         mail($email,"Welcome to CommonFloor Unit Selector!",$data, $headers);
+         //mail($email,"Welcome to CommonFloor Unit Selector!",$data, $headers);
+         mail('prajay@ajency.in',"Welcome to CommonFloor Unit Selector!",$data, $headers);
 
         $addanother = $request->input('addanother');
 
