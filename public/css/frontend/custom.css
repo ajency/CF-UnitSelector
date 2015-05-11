@@ -5,7 +5,6 @@
 @import "../../bower_components/fancybox/source/jquery.fancybox.css";
 @import "../../bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css";
 @import "../../bower_components/lazyloadxt/dist/jquery.lazyloadxt.spinner.css";
-@import "../../bower_components/ionrangeslider/css/normalize.css";
 @import "../../bower_components/ionrangeslider/css/ion.rangeSlider.css";
 @import "../../bower_components/ionrangeslider/css/ion.rangeSlider.skinFlat.css";
 /* External CSS */
@@ -28,6 +27,10 @@ body {
   padding: 0;
 }
 /* Header */
+.us-header {
+  background-color: #f68121;
+  color: #ffffff;
+}
 .cf-hdr-blk .cf-us-logo {
   background: url(../../images/unit-selector_logo.png) no-repeat;
   display: block;
@@ -37,19 +40,16 @@ body {
   height: 38px;
 }
 .proj-name {
-  padding-right: 15px;
-  margin-right: 15px;
-  border-right: 1px solid #cccccc;
+  margin-bottom: 10px;
+  margin-top: 10px;
 }
 .proj-type-count {
   float: left;
 }
 .proj-type-count p {
-  margin: 36px 15px 0 2px;
+  margin: 16px 15px 0 2px;
   font-weight: bold;
-}
-.inner-container {
-  border-bottom: 1px solid #ddd;
+  color: #4d4d4d;
 }
 .wrapper {
   min-height: 100%;
@@ -65,11 +65,13 @@ body {
 /* Left Container */
 .search-left-content {
   position: relative;
-  transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
   margin-top: 10px;
 }
 .us-left-content {
-  transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
 }
 .builder-logo {
   max-width: 200px;
@@ -96,7 +98,8 @@ body {
 .us-right-content {
   padding-left: 0;
   padding-right: 0;
-  transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
 }
 .us-right-content .svg-area {
   width: 100%;
@@ -154,7 +157,8 @@ body {
   font-size: 14px;
   border: 1px solid #f68121;
   text-align: center;
-  transition: all ease .2s;
+  -webkit-transition: all ease .2s;
+          transition: all ease .2s;
   cursor: pointer;
   background-color: transparent;
   vertical-align: middle;
@@ -504,12 +508,17 @@ body {
   position: absolute;
   top: 0px;
   left: 0px;
-  transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
 }
 .zoom {
-  transition: all 0.3s ease-in-out 0.3s;
-  transform: scale(2, 2);
-  filter: blur(10px);
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transform: scale(2, 2);
+      -ms-transform: scale(2, 2);
+          transform: scale(2, 2);
+  -webkit-filter: blur(10px);
+          filter: blur(10px);
 }
 .text-primary {
   color: #f68121;
@@ -524,12 +533,10 @@ body {
   display: block;
   -webkit-box-align: center;
   -webkit-align-items: center;
-  -moz-box-align: center;
   -ms-flex-align: center;
   align-items: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
-  -moz-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
 }
@@ -540,12 +547,8 @@ body {
   width: 15px;
   height: 15px;
   -webkit-animation: rotate 0.6s linear infinite;
-  -moz-animation: rotate 0.6s linear infinite;
   -ms-animation: rotate 0.6s linear infinite;
-  -o-animation: rotate 0.6s linear infinite;
   animation: rotate 0.6s linear infinite;
-  -webkit-border-radius: 100%;
-  -moz-border-radius: 100%;
   border-radius: 100%;
   border-top: 2px solid #f68121;
   border-bottom: 2px solid #ffffff;
@@ -581,47 +584,22 @@ body {
     -o-transform: rotateZ(0deg);
   }
 }
-@-moz-keyframes rotate {
-  0% {
-    transform: rotateZ(-360deg);
-    -webkit-transform: rotateZ(-360deg);
-    -moz-transform: rotateZ(-360deg);
-    -o-transform: rotateZ(-360deg);
-  }
-  100% {
-    transform: rotateZ(0deg);
-    -webkit-transform: rotateZ(0deg);
-    -moz-transform: rotateZ(0deg);
-    -o-transform: rotateZ(0deg);
-  }
-}
-@-o-keyframes rotate {
-  0% {
-    transform: rotateZ(-360deg);
-    -webkit-transform: rotateZ(-360deg);
-    -moz-transform: rotateZ(-360deg);
-    -o-transform: rotateZ(-360deg);
-  }
-  100% {
-    transform: rotateZ(0deg);
-    -webkit-transform: rotateZ(0deg);
-    -moz-transform: rotateZ(0deg);
-    -o-transform: rotateZ(0deg);
-  }
-}
 /* Transition */
 .ease {
-  transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
 }
 /* Back Button */
-.breadcrumb-bar .bread-crumb-list {
+.breadcrumb-bar {
+  position: absolute;
+  padding: 15px 0 0 15px;
   padding-bottom: 0;
 }
-.breadcrumb-bar .bread-crumb-list .brdcrmb-wrp li a {
-  color: #f68121;
+.breadcrumb-bar a {
+  color: #ffffff;
   font-weight: bold;
 }
-.breadcrumb-bar .bread-crumb-list .brdcrmb-wrp li a::before {
+.breadcrumb-bar a::before {
   content: "\e77a";
   font-family: icomoon;
 }
@@ -633,12 +611,15 @@ body {
   background-color: #ffffff;
   color: #f68121;
   padding: 6px 12px;
-  transform: rotate(270deg);
+  -webkit-transform: rotate(270deg);
+      -ms-transform: rotate(270deg);
+          transform: rotate(270deg);
   left: -34px;
   top: 45%;
   cursor: pointer;
   z-index: 999;
-  transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
 }
 .toggle-button::before {
   content: "\e756";
@@ -710,7 +691,8 @@ body {
   cursor: pointer;
   padding: 0 10px;
   text-align: center;
-  transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
 }
 .zoom-controls .zoom-in::before,
 .zoom-controls .zoom-out::before {
@@ -754,11 +736,14 @@ body {
   margin: auto;
   display: inline-block;
   cursor: pointer;
-  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+          transition: all 0.3s ease;
 }
 .rotate-controls .rotate-left:hover,
 .rotate-controls .rotate-right:hover {
-  transform: scale(1.1, 1.1);
+  -webkit-transform: scale(1.1, 1.1);
+      -ms-transform: scale(1.1, 1.1);
+          transform: scale(1.1, 1.1);
 }
 .rotate-controls .rotate-right {
   background-position: -125px -5px;
@@ -773,7 +758,8 @@ body {
 }
 svg {
   width: 100%;
-  height: auto;
+  height: auto
+  /* ON HOVER */
 }
 svg .caption {
   font-size: 14px;
@@ -802,7 +788,7 @@ svg .available {
   opacity: 0.5 !important;
 }
 svg .blocked {
-  fill: #f5f3c3 !important;
+  fill: rgba(244, 173, 0, 0.36) !important;
   opacity: 0.8 !important;
 }
 svg .sold {
@@ -812,6 +798,10 @@ svg .sold {
 svg .not_released {
   fill: #cccccc !important;
   opacity: 0.5 !important;
+}
+svg .not_in_selection {
+  fill: #000;
+  opacity: .7;
 }
 svg .disable {
   fill: #999;
@@ -832,7 +822,56 @@ svg .layer:hover {
   cursor: pointer;
 }
 svg polygon {
-  transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
+}
+svg .layer {
+  stroke: #f68121;
+  stroke-width: 0px;
+  stroke-dasharray: 20 300;
+  stroke-dashoffset: 400;
+  -webkit-transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
+          transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
+}
+svg .layer:hover {
+  stroke-width: 5px;
+  stroke-dasharray: 320 0;
+  stroke-dashoffset: 0;
+}
+svg .layer.unit_fadein {
+  transition: 1s ease-in-out;
+  -webkit-transition: 1s ease-in-out;
+}
+svg .layer.unit_fadein:hover {
+  opacity: 0.7;
+  -webkit-transform: scale(0.99, 0.99);
+      -ms-transform: scale(0.99, 0.99);
+          transform: scale(0.99, 0.99);
+  cursor: pointer;
+}
+/* Filter Selection */
+.unit_fadein {
+  opacity: .5;
+  animation: unit_fadein 0.6s;
+  -webkit-animation: unit_fadein 0.6s;
+}
+@keyframes unit_fadein {
+  0% {
+    -webkit-transform: translateX(100px) translateY(100px) scale(0);
+            transform: translateX(100px) translateY(100px) scale(0);
+  }
+  100% {
+    -webkit-transform: translateX(0) translateY(0) scale(1);
+            transform: translateX(0) translateY(0) scale(1);
+  }
+}
+@-webkit-keyframes unit_fadein {
+  0% {
+    -webkit-transform: translateX(100px) translateY(100px) scale(0);
+  }
+  100% {
+    -webkit-transform: translateX(0) translateY(0) scale(1);
+  }
 }
 .list-view-container {
   padding: 10px;
@@ -1156,7 +1195,8 @@ svg polygon {
 .units {
   list-style-type: none;
   overflow-y: auto;
-  transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s
   /* List of Villas */
   /* List of Buildings */
 }
@@ -1233,7 +1273,9 @@ svg polygon {
 }
 .single-bldg .prev {
   left: 20px;
-  transform: rotate(180deg);
+  -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+          transform: rotate(180deg);
 }
 .single-bldg .next {
   right: 35px;
@@ -1288,7 +1330,9 @@ svg polygon {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
   width: 100%;
 }
 .slider .layouts .img-overlay {
@@ -1299,7 +1343,8 @@ svg polygon {
   width: 100%;
   background-color: #ffffff;
   opacity: 0.75;
-  transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
 }
 .slider .layouts span {
   position: absolute;
@@ -1311,7 +1356,8 @@ svg polygon {
   font-weight: bold;
   text-align: center;
   opacity: 1;
-  transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
 }
 .slider .layouts:hover .img-overlay {
   opacity: 0;
@@ -1354,7 +1400,9 @@ svg polygon {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
   width: 100%;
 }
 .slider .gallery-img .img-overlay {
@@ -1366,7 +1414,8 @@ svg polygon {
   width: 100%;
   background-color: #ffffff;
   opacity: 0.75;
-  transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: all 0.3s ease-in-out 0.3s;
+          transition: all 0.3s ease-in-out 0.3s;
 }
 .slider .gallery-img:hover .img-overlay {
   opacity: 0;
@@ -1393,14 +1442,14 @@ svg polygon {
   color: #999999;
 }
 .filter-link {
-  color: #000;
+  color: #000000;
 }
 .alert {
   background: #EAEAEA;
   padding: 20px;
 }
 .seperator {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #cccccc;
 }
 .desc-wrapper {
   margin: 0 auto;
@@ -1428,14 +1477,17 @@ svg polygon {
 span.glyphicon {
   margin-left: 3px;
 }
+.filter-summary-area {
+  background-color: #ffffff;
+  padding: 5px 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
 /* Plugins */
 /* Slider */
 .toggle_radio {
   background: #cccccc;
   margin: 30px auto 0;
   padding: 0 !important;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
   border-radius: 50px;
   position: relative;
   height: 4px;
@@ -1445,7 +1497,7 @@ span.glyphicon {
   float: left;
 }
 .toggle_radio input[type=radio] {
-  display: none;
+  display: none
   /*position: fixed;*/
 }
 .toggle_radio label {
@@ -1457,13 +1509,11 @@ span.glyphicon {
   height: 20px;
   margin: 0 3px;
   padding-top: 15px;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
   border-radius: 50px;
   cursor: pointer;
   z-index: 1;
   /*background: rgba(0,0,0,.1);*/
-  text-align: center;
+  text-align: center
   /*margin: 0 2px;*/
   /*background: blue;*/
   /*make it blue*/
@@ -1481,13 +1531,8 @@ label.third_toggle {
   height: 8px;
   position: absolute;
   top: -2px;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
   border-radius: 50px;
   -webkit-transition: all .2s ease;
-  -moz-transition: all .2s ease;
-  -o-transition: all .2s ease;
-  -ms-transition: all .2s ease;
   transition: all .2s ease;
 }
 .toggle_option_slider {
@@ -1497,13 +1542,8 @@ label.third_toggle {
   height: 35px;
   position: absolute;
   top: -16px;
-  -webkit-border-radius: 50px;
-  -moz-border-radius: 50px;
   border-radius: 50px;
   -webkit-transition: all .4s ease;
-  -moz-transition: all .4s ease;
-  -o-transition: all .4s ease;
-  -ms-transition: all .4s ease;
   transition: all .4s ease;
 }
 #first_toggle:checked ~ .toggle_option_slider {
@@ -1599,3 +1639,4 @@ label.third_toggle {
 .panel-wrapper {
   padding: 10px 20px;
 }
+/*# sourceMappingURL=custom.css.map */

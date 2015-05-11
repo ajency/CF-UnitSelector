@@ -20,33 +20,25 @@ class CommonFloor.ApartmentsMasterCtrl extends Marionette.RegionController
 
 class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="row">
-		          <div class="col-md-12 col-xs-12 col-sm-12">
-		            <div class="row breadcrumb-bar">
-		              <div class="col-xs-12 col-md-12">
-		                <div class="bread-crumb-list">
-		                  <ul class="brdcrmb-wrp clearfix">
-		                    <li class="">
-		                      <span class="bread-crumb-current">
-		                        <span class=".icon-arrow-right2"></span><a class="unit_back" href="#">
-													Back to Poject Overview</a>
-		                      </span>
-		                    </li>
-		                  </ul>
-		                </div>
-		              </div>
-		            </div>
+	template : Handlebars.compile('<div class="container-fluid">
+							          	<div class="row">
+								          	<div class="col-md-12 col-xs-12 col-sm-12 text-center">
 
-		            <div class="search-header-wrap">
-		              	<h1 class="pull-left proj-name">{{project_title}}</h1> 
-		              	  <div class="proj-type-count">
-		              	  	<h1 class="text-primary pull-left">{{building_name}}</h1>
-		              	  	<div class="clearfix"></div>
-		              	  </div>
-		                <div class="clearfix"></div>
-		            </div>
-		          </div>
-		        </div>')
+									            <div class="breadcrumb-bar">
+									                <a class="unit_back" href="#">
+														Back to Poject Overview
+													</a>
+									            </div>
+
+								              	<h2 class="proj-name">{{project_title}}</h2> 
+								              	  <!--<div class="proj-type-count">
+								              	  	<h2 class="text-primary pull-left">{{building_name}}</h2>
+								              	  	<div class="clearfix"></div>
+								              	  </div>-->
+								                <div class="clearfix"></div>
+								          	</div>
+							          	</div>
+							        </div>')
 	
 	ui  :
 		unitBack : '.unit_back'

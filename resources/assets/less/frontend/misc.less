@@ -220,10 +220,12 @@
 }
 
 /* Back Button */
-.breadcrumb-bar .bread-crumb-list{
+.breadcrumb-bar{
+  position: absolute;
+  padding: 15px 0 0 15px;
   padding-bottom: 0;
-  .brdcrmb-wrp li a {
-    color: @brand-primary;
+  a {
+    color: @white;
     font-weight: bold;
     &::before{
       content: "\e77a";

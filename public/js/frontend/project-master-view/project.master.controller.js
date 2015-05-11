@@ -48,7 +48,7 @@
       return TopMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="search-header-wrap"> <div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span><a class="unit_back" href="#"> Back to Project Overview</a> </span> </li> </ul> </div> </div> </div> <h1 class="pull-left proj-name">{{project_title}}</h1> <div class="proj-type-count"> {{#types}} <h1 class="text-primary pull-left">{{count.length}}</h1> <p class="pull-left">{{type}}</p> {{/types}} {{#each  filters}} <h1 class="text-primary pull-left">{{#each this}}{{this.name}}{{this.type}}{{/each}}</h1> {{/each }} {{#each results}} <h1 class="text-primary pull-left">{{this.count}}{{this.type}}</h1> {{/each}} <div class="clearfix"></div> </div> <button class="btn btn-primary cf-btn-white pull-right m-t-25" type="button" data-toggle="collapse" data-target="#collapsefilters"> Filter </button> <div class="clearfix"></div> </div> </div> </div>');
+    TopMasterView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> Back to Project Overview </a> </div> <h2 class="proj-name">{{project_title}}</h2> </div> </div> </div> <div class="filter-summary-area"> <div class="proj-type-count"> {{#each  filters}} <h2 class="text-primary pull-right m-t-10">{{#each this}}{{@key}}{{this}}{{/each}}</h2> <p class="pull-right">{{@key}}</p> {{/each }} {{#each status}} <h2 class="text-primary pull-right m-t-10">{{this}}</h2> <p class="pull-right">{{@key}}</p> {{/each}} {{#types}} <p class="pull-right">{{type}}</p><h2 class="text-primary pull-right m-t-10">{{count.length}}</h2> {{/types}} <div class="clearfix"></div> </div> <button class="btn btn-primary cf-btn-white pull-right m-t-10" type="button" data-toggle="collapse" data-target="#collapsefilters"> Filter </button> <div class="clearfix"></div> </div>');
 
     TopMasterView.prototype.ui = {
       unitBack: '.unit_back'
@@ -209,7 +209,7 @@
           $('#spritespin').spritespin({
             width: that.ui.svgContainer.width(),
             sense: -1,
-            height: that.ui.svgContainer.width() / 1.46,
+            height: that.ui.svgContainer.width() / 2,
             animate: false
           });
           return $('.svg-maps > div').first().css('width', that.ui.svgContainer.width());
@@ -391,7 +391,7 @@
     CenterMasterView.prototype.onShow = function() {
       var breakpoints, first, height, svgs, that, transitionImages;
       $('img').lazyLoadXT();
-      height = this.ui.svgContainer.width() / 1.46;
+      height = this.ui.svgContainer.width() / 2;
       $('.units').css('height', height - 162);
       $('#spritespin').hide();
       that = this;
@@ -441,7 +441,7 @@
         source: frames,
         width: this.ui.svgContainer.width(),
         sense: -1,
-        height: this.ui.svgContainer.width() / 1.46,
+        height: this.ui.svgContainer.width() / 2,
         animate: false
       });
       that = this;
