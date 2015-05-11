@@ -48,7 +48,7 @@
       return TopMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopMasterView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> Back to Project Overview </a> </div> <h2 class="proj-name">{{project_title}}</h2> <div class="proj-type-count"> {{#types}} <h1 class="text-primary pull-left">{{count.length}}</h1> <p class="pull-left">{{type}}</p> {{/types}} {{#each  filters}} <h1 class="text-primary pull-left">{{#each this}}{{@key}}{{this}}{{/each}}</h1> <p class="pull-left">{{@key}}</p> {{/each }} {{#each status}} <h1 class="text-primary pull-left">{{this}}</h1> <p class="pull-left">{{@key}}</p> {{/each}} <div class="clearfix"></div> </div> <button class="btn btn-primary cf-btn-white pull-right m-t-25" type="button" data-toggle="collapse" data-target="#collapsefilters"> Filter </button> <div class="clearfix"></div> </div> </div> </div>');
+    TopMasterView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> Back to Project Overview </a> </div> <h2 class="proj-name">{{project_title}}</h2> </div> </div> </div> <div class="filter-summary-area"> <div class="proj-type-count"> {{#each  filters}} <h2 class="text-primary pull-right m-t-10">{{#each this}}{{@key}}{{this}}{{/each}}</h2> <p class="pull-right">{{@key}}</p> {{/each }} {{#each status}} <h2 class="text-primary pull-right m-t-10">{{this}}</h2> <p class="pull-right">{{@key}}</p> {{/each}} {{#types}} <p class="pull-right">{{type}}</p><h2 class="text-primary pull-right m-t-10">{{count.length}}</h2> {{/types}} <div class="clearfix"></div> </div> <button class="btn btn-primary cf-btn-white pull-right m-t-10" type="button" data-toggle="collapse" data-target="#collapsefilters"> Filter </button> <div class="clearfix"></div> </div>');
 
     TopMasterView.prototype.ui = {
       unitBack: '.unit_back'
@@ -494,7 +494,7 @@
       var $panzoom;
       return $panzoom = $('.master').panzoom({
         contain: 'invert',
-        minScale: 0.5,
+        minScale: 1,
         maxScale: 2,
         increment: 0.2,
         $zoomIn: $('.zoom-in'),

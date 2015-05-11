@@ -5,7 +5,6 @@
 @import "../../bower_components/fancybox/source/jquery.fancybox.css";
 @import "../../bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css";
 @import "../../bower_components/lazyloadxt/dist/jquery.lazyloadxt.spinner.css";
-@import "../../bower_components/ionrangeslider/css/normalize.css";
 @import "../../bower_components/ionrangeslider/css/ion.rangeSlider.css";
 @import "../../bower_components/ionrangeslider/css/ion.rangeSlider.skinFlat.css";
 /* External CSS */
@@ -50,6 +49,7 @@ body {
 .proj-type-count p {
   margin: 16px 15px 0 2px;
   font-weight: bold;
+  color: #4d4d4d;
 }
 .wrapper {
   min-height: 100%;
@@ -758,7 +758,8 @@ body {
 }
 svg {
   width: 100%;
-  height: auto;
+  height: auto
+  /* ON HOVER */
 }
 svg .caption {
   font-size: 14px;
@@ -787,7 +788,7 @@ svg .available {
   opacity: 0.5 !important;
 }
 svg .blocked {
-  fill: #f5f3c3 !important;
+  fill: rgba(244, 173, 0, 0.36) !important;
   opacity: 0.8 !important;
 }
 svg .sold {
@@ -797,6 +798,10 @@ svg .sold {
 svg .not_released {
   fill: #cccccc !important;
   opacity: 0.5 !important;
+}
+svg .not_in_selection {
+  fill: #000;
+  opacity: .7;
 }
 svg .disable {
   fill: #999;
@@ -819,6 +824,54 @@ svg .layer:hover {
 svg polygon {
   -webkit-transition: all 0.3s ease-in-out 0.3s;
           transition: all 0.3s ease-in-out 0.3s;
+}
+svg .layer {
+  stroke: #f68121;
+  stroke-width: 0px;
+  stroke-dasharray: 20 300;
+  stroke-dashoffset: 400;
+  -webkit-transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
+          transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
+}
+svg .layer:hover {
+  stroke-width: 5px;
+  stroke-dasharray: 320 0;
+  stroke-dashoffset: 0;
+}
+svg .layer.unit_fadein {
+  transition: 1s ease-in-out;
+  -webkit-transition: 1s ease-in-out;
+}
+svg .layer.unit_fadein:hover {
+  opacity: 0.7;
+  -webkit-transform: scale(0.99, 0.99);
+      -ms-transform: scale(0.99, 0.99);
+          transform: scale(0.99, 0.99);
+  cursor: pointer;
+}
+/* Filter Selection */
+.unit_fadein {
+  opacity: .5;
+  animation: unit_fadein 0.6s;
+  -webkit-animation: unit_fadein 0.6s;
+}
+@keyframes unit_fadein {
+  0% {
+    -webkit-transform: translateX(100px) translateY(100px) scale(0);
+            transform: translateX(100px) translateY(100px) scale(0);
+  }
+  100% {
+    -webkit-transform: translateX(0) translateY(0) scale(1);
+            transform: translateX(0) translateY(0) scale(1);
+  }
+}
+@-webkit-keyframes unit_fadein {
+  0% {
+    -webkit-transform: translateX(100px) translateY(100px) scale(0);
+  }
+  100% {
+    -webkit-transform: translateX(0) translateY(0) scale(1);
+  }
 }
 .list-view-container {
   padding: 10px;
@@ -1389,14 +1442,14 @@ svg polygon {
   color: #999999;
 }
 .filter-link {
-  color: #000;
+  color: #000000;
 }
 .alert {
   background: #EAEAEA;
   padding: 20px;
 }
 .seperator {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #cccccc;
 }
 .desc-wrapper {
   margin: 0 auto;
@@ -1423,6 +1476,11 @@ svg polygon {
 }
 span.glyphicon {
   margin-left: 3px;
+}
+.filter-summary-area {
+  background-color: #ffffff;
+  padding: 5px 20px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 /* Plugins */
 /* Slider */

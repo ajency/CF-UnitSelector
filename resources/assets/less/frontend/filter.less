@@ -1,7 +1,7 @@
 .filter-button{
   border: 1px solid @brand-primary;
   border-radius: 3px;
-  background-color: #ffffff;
+  background-color: @white;
   color: @gray-light;
   padding: 6px 12px;
 }
@@ -16,14 +16,14 @@
 	}
 } 
 .filter-link{
-  color:#000;
+  color:darken(@gray, 50%);
 }
 .alert{
 	    background: #EAEAEA;
   		padding: 20px;
 }
 .seperator{
-	  border-bottom: 1px solid #ddd;
+	  border-bottom: 1px solid @gray-lighter;
 }
 
 .desc-wrapper {
@@ -54,4 +54,11 @@
 }
 span.glyphicon {
   margin-left: 3px;
+}
+
+
+.filter-summary-area{
+  background-color: @white;
+  padding: 5px 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
