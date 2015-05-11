@@ -7,7 +7,17 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 									
 										
 										  <div class="filters-wrapper">	
-
+										  	<div class="col-sm-4 col-md-4 ">
+			                                    <h5># PROPERTY TYPE</h5>
+			                                      <div class="filter-chkbox-block">
+			                                      	{{#types}}
+			                                        <input type="checkbox" class="custom-chckbx addCft types" id="{{type}}" value="{{type}}">
+			                                        	<label for="{{type}}" class="-lbl">{{type}}{{type_name}}</label> 
+			                                        
+			                                		{{/types}}
+			                                    </div>
+  
+                                 			 </div>
 											<div class="col-sm-4 col-md-4 ">
 			                                    <h5># UNIT TYPE</h5>
 			                                    <div class="filter-chkbox-block">
@@ -36,12 +46,12 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 							                              <div class="row">
 							                                  <div class="col-sm-4 col-md-4 ">
 							                                    <h5># AREA (Sqft)</h5>
-							                                <input type="text" id="example_id" name="example_name" value="" />
+							                                <input type="text" id="area" name="area" value="" />
 							  
 							                                  </div>
 							                                  <div class="col-sm-4 col-md-4 ">
 							                                    <h5># BUDGET </h5>
-							                                    <input type="text" id="budget" name="example_name" value="" />
+							                                    <input type="text" id="budget" name="budget" value="" />
 							                                  </div>
 							                                  <div class="col-sm-4 col-md-4 ">
 							                                  
@@ -52,51 +62,15 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 							                  </div>
 
 
-										<div class="filters-wrapper">
-											<div class="blck-wrap clearfix">
-													<h5>Budget</h5>
-													<select class="price_min form-control budget-range min-budget addCft" name="price_min">
-														<option selected="" value="">Min</option> <option value="500000">5 Lac</option>
-														 <option value="1000000">10 Lac</option> <option value="2000000">20 Lac</option> 
-														 <option value="3000000">30 Lac</option> <option value="4000000">40 Lac</option> 
-														 <option value="5000000">50 Lac</option> <option value="6000000">60 Lac</option> 
-														 <option value="7000000">70 Lac</option> <option value="8000000">80 Lac</option> 
-														 <option value="9000000">90 Lac</option> <option value="10000000">1 Cr</option> 
-														 <option value="12000000">1.2 Cr</option> <option value="14000000">1.4 Cr</option> 
-														 <option value="16000000">1.6 Cr</option> <option value="18000000">1.8 Cr</option> 
-														 <option value="20000000">2 Cr</option> <option value="23000000">2.3 Cr</option> 
-														 <option value="26000000">2.6 Cr</option> <option value="30000000">3 Cr</option> 
-														 <option value="35000000">3.5 Cr</option> <option value="40000000">4 Cr</option> 
-														 <option value="45000000">4.5 Cr</option> <option value="50000000">5 Cr</option>
-													</select>
-													<select class="price_max form-control budget-range addCft" name="pice_max">
-														<option style="display: block;" selected="" value="">Max</option> <option style="display: none;" value="500000">5 Lac</option> 
-														<option style="display: none;" value="1000000">10 Lac</option> <option style="display: block;" value="2000000">20 Lac</option> 
-														<option style="display: block;" value="3000000">30 Lac</option> <option style="display: block;" value="4000000">40 Lac</option> 
-														<option style="display: block;" value="5000000">50 Lac</option> <option style="display: block;" value="6000000">60 Lac</option> 
-														<option style="display: block;" value="7000000">70 Lac</option> <option style="display: block;" value="8000000">80 Lac</option> 
-														<option style="display: block;" value="9000000">90 Lac</option> <option style="display: block;" value="10000000">1 Cr</option> 
-														<option style="display: block;" value="12000000">1.2 Cr</option> <option style="display: block;" value="14000000">1.4 Cr</option> 
-														<option style="display: block;" value="16000000">1.6 Cr</option> <option style="display: block;" value="18000000">1.8 Cr</option> 
-														<option style="display: block;" value="20000000">2 Cr</option> <option style="display: block;" value="23000000">2.3 Cr</option> 
-														<option style="display: block;" value="26000000">2.6 Cr</option> <option style="display: block;" value="30000000">3 Cr</option> 
-														<option style="display: block;" value="35000000">3.5 Cr</option> <option style="display: block;" value="40000000">4 Cr</option> 
-														<option style="display: block;" value="45000000">4.5 Cr</option> <option style="display: block;" value="50000000">5 Cr</option> 
-														<option style="display: block;" value="999999900">&gt; 5 Cr</option>
-													</select>
-											</div>
-										</div>
-										<div class="filters-wrapper">
-											<div class="blck-wrap">
-												<h5>Availability</h5>
-												<div class="filter-chkbox-block">
-													{{#status}}
-													<input type="checkbox" class="aptFilters status custom-chckbx" name="{{id}}" id="{{id}}" value="1"  />
-													<label for="{{id}}">{{name}}</label>
-													{{/status}}
-												</div>
-											</div>
-										</div>
+										<div ">
+		                                    <h5># AVAILABILITY</h5>
+		                                    <div class="alert ">
+
+		                                      <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> 
+		                                       <label for="Available" class="-lbl">Show Available Units Only  (What\'s this?)</label> 
+		                                    </div>
+		                                  </div>
+										
 									</div>
 
 
@@ -107,14 +81,13 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		@unitTypes = []
 		@unitVariants = []
 		@variantNames = []
-		@status = []
+		@price = ''
+		@area = ''
+		
+		
 
 
 	ui:
-		villaPropType : 'input[name="villa"]'
-		villaFilters : '.villaFilters'
-		apartmentPropType : 'input[name="apartment"]'
-		aptFilters : '.aptFilters'
 		unitTypes : '.unit_types'
 		unitVariants : '.unitvariants'
 		priceMin : '.price_min'
@@ -122,23 +95,19 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		status : '.status'
 		apply : '.apply'
 		variantNames : '.variant_names'
+		area : '#area'
+		budget : '#budget'
+		types : '.types'
 
 	events:
-		# 'click @ui.villaPropType':(e)->
-		# 	if $(e.target).is(':checked')
-		# 		$(@ui.villaFilters).prop('checked' ,true)
-		# 		$(@ui.villaFilters).prop('disabled' ,false)
-		# 	else
-		# 		$(@ui.villaFilters).prop('checked' ,false)
-		# 		$(@ui.villaFilters).prop('disabled' ,true)
-
-		# 'click @ui.apartmentPropType':(e)->
-		# 	if $(e.target).is(':checked')
-		# 		$(@ui.aptFilters).prop('checked' ,true)
-		# 		$(@ui.aptFilters).prop('disabled' ,false)
-		# 	else
-		# 		$(@ui.aptFilters).prop('checked' ,false)
-		# 		$(@ui.aptFilters).prop('disabled' ,true)
+		'click @ui.types':(e)->
+			unitCollection.reset unitMasterCollection.toArray()
+			if e.target.id == 'Villas'
+				@trigger "load:villa:filters" 
+			if e.target.id == 'Apartments/Penthouse'
+				@trigger "load:apt:filters" 
+			if e.target.id == 'Plots'
+				@trigger "load:plot:filters"
 
 		'click @ui.unitTypes':(e)->
 			if $(e.currentTarget).is(':checked')
@@ -160,17 +129,6 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()	
 
-
-		'click @ui.unitVariants':(e)->
-			if $(e.currentTarget).is(':checked')
-				@unitVariants.push parseInt $(e.currentTarget).attr('data-value')
-			else
-				@unitVariants = _.without @unitVariants ,parseInt $(e.currentTarget).attr('data-value')
-			CommonFloor.defaults['area'] = @unitVariants.join(',')
-			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filter()
-			
-
 		'change @ui.priceMin':(e)->
 			if $(e.currentTarget).val() != ""
 				CommonFloor.defaults['price_min'] = $(e.currentTarget).val()
@@ -191,12 +149,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			
 
 		'click @ui.status':(e)->
-			if $(e.currentTarget).is(':checked')
-				@status.push  e.currentTarget.id
-			else
-				@status = _.without @status , e.currentTarget.id
-			console.log @status
-			CommonFloor.defaults['availability'] = @status.join(',')
+			CommonFloor.defaults['availability'] = e.currentTarget.id
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
 			# @resetFilters()
@@ -206,40 +159,130 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			# @region =  new Marionette.Region el : '#leftregion'
 			# new CommonFloor.LeftMasterCtrl region : @region
 
+		'change @ui.area':(e)->
+			CommonFloor.defaults['area_max'] = parseFloat $(e.target).val().split(';')[1]
+			CommonFloor.defaults['area_min'] = parseFloat $(e.target).val().split(';')[0]
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+
+		'change @ui.budget':(e)->
+			CommonFloor.defaults['price_max'] = parseFloat $(e.target).val().split(';')[1]
+			CommonFloor.defaults['price_min'] = parseFloat $(e.target).val().split(';')[0]
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			
+
 
 			
 	
 	#function to check the filters dependency
-	resetFilters:->
-		unittypes = []
-		apartments = []
-		bunglows = []
-		status = []
-		unitTypeTempCollection.each (item)->
-			unittypes.push item.get 'id'
-		apartmentVariantTempCollection.each (item)->
-			apartments.push item.get 'id'
-		bunglowVariantTempCollection.each (item)->
-			bunglows.push item.get 'id'
-		unitTempCollection.each (item)->
-			status.push item.get 'availability'
-		
+	onVillaFilters:(data)->
+		min = _.min data[0].unitVariants
+		max = _.max data[0].unitVariants
+		priceMin = _.min data[0].budget
+		priceMax = _.max data[0].budget
+		@area.destroy()
+		@price.destroy()
+		$("#area").ionRangeSlider(
+		    type: "double",
+		    min: min,
+		    max: max,
+		    grid: false
+		)
+		$("#budget").ionRangeSlider(
+		    type: "double",
+		    min: priceMin,
+		    max: priceMax,
+		    grid: false
+		    prettify :(num)->
+		    	return window.numDifferentiation(num)
+
+		)
+		unittypes = _.pluck data[0].unitTypes , 'id'
+		unitVariantNames = _.pluck data[0].unitVariantNames , 'id'
 		$(@ui.unitTypes).each (ind,item)->
-			$('#'+item.id).prop('checked',true)
-			if $.inArray(parseInt(item.id),unittypes) is -1
+			$('#'+item.id).attr('disabled',false)
+			if $.inArray(parseInt($(item).attr('data-value')),unittypes) is -1
 				$('#'+item.id).prop('checked',false)
-		$(@ui.unitVariants).each (ind,item)->
-			$('#'+item.id).prop('checked',true)
-			if $.inArray(parseInt(item.id),apartments) is -1 && apartmentVariantTempCollection.length != 0
+				$('#'+item.id).attr('disabled',true)
+		$(@ui.variantNames).each (ind,item)->
+			$('#'+item.id).attr('disabled',false)
+			if $.inArray(parseInt($(item).attr('data-value')),unitVariantNames) is -1
 				$('#'+item.id).prop('checked',false)
-			if $.inArray(parseInt(item.id),bunglows) is -1 && bunglowVariantTempCollection.length != 0
+				$('#'+item.id).attr('disabled',true)
+
+	#function to check the filters dependency
+	onAptFilters:(data)->
+		min = _.min data[0].unitVariants
+		max = _.max data[0].unitVariants
+		priceMin = _.min data[0].budget
+		priceMax = _.max data[0].budget
+		@area.destroy()
+		@price.destroy()
+		$("#area").ionRangeSlider(
+		    type: "double",
+		    min: min,
+		    max: max,
+		    grid: false
+		)
+		$("#budget").ionRangeSlider(
+		    type: "double",
+		    min: priceMin,
+		    max: priceMax,
+		    grid: false
+		    prettify :(num)->
+		    	return window.numDifferentiation(num)
+
+		)
+		unittypes = _.pluck data[0].unitTypes , 'id'
+		unitVariantNames = _.pluck data[0].unitVariantNames , 'id'
+		$(@ui.unitTypes).each (ind,item)->
+			$('#'+item.id).attr('disabled',false)
+			if $.inArray(parseInt($(item).attr('data-value')),unittypes) is -1
 				$('#'+item.id).prop('checked',false)
-		$(@ui.status).each (ind,item)->
-			$('#'+item.id).prop('checked',true)
-			if $.inArray(item.id,status) is -1
+				$('#'+item.id).attr('disabled',true)
+		$(@ui.variantNames).each (ind,item)->
+			$('#'+item.id).attr('disabled',false)
+			if $.inArray(parseInt($(item).attr('data-value')),unitVariantNames) is -1
 				$('#'+item.id).prop('checked',false)
+				$('#'+item.id).attr('disabled',true)
 
 
+	onPlotFilters:(data)->
+		min = _.min data[0].unitVariants
+		max = _.max data[0].unitVariants
+		priceMin = _.min data[0].budget
+		priceMax = _.max data[0].budget
+		@area.destroy()
+		@price.destroy()
+		$("#area").ionRangeSlider(
+		    type: "double",
+		    min: min,
+		    max: max,
+		    grid: false
+		)
+		$("#budget").ionRangeSlider(
+		    type: "double",
+		    min: priceMin,
+		    max: priceMax,
+		    grid: false
+		    prettify :(num)->
+		    	return window.numDifferentiation(num)
+
+		)
+		unittypes = _.pluck data[0].unitTypes , 'id'
+		unitVariantNames = _.pluck data[0].unitVariantNames , 'id'
+		$(@ui.unitTypes).each (ind,item)->
+			$('#'+item.id).attr('disabled',false)
+			if $.inArray(parseInt($(item).attr('data-value')),unittypes) is -1
+				$('#'+item.id).prop('checked',false)
+				$('#'+item.id).attr('disabled',true)
+		$(@ui.variantNames).each (ind,item)->
+			$('#'+item.id).attr('disabled',false)
+			if $.inArray(parseInt($(item).attr('data-value')),unitVariantNames) is -1
+				$('#'+item.id).prop('checked',false)
+				$('#'+item.id).attr('disabled',true)
+		
 
 
 
@@ -248,20 +291,34 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		data.unitTypes = Marionette.getOption(@,'unitTypes')
 		data.unitVariants = Marionette.getOption(@,'unitVariants')
 		data.unitVariantNames = Marionette.getOption(@,'unitVariantNames')
+		data.types = Marionette.getOption(@,'types')
 		data
 
 	onShow:->
-		CommonFloor.defaults['price_min'] = 0
-		CommonFloor.defaults['price_max'] = 999999900
 		unitVariants = Marionette.getOption(@,'unitVariants')
+		budget = Marionette.getOption(@,'budget')
 		min = _.min unitVariants
 		max = _.max unitVariants
-		$("#example_id").ionRangeSlider(
+		priceMin = _.min budget
+		console.log priceMax = _.max budget
+		console.log minimum = window.numDifferentiation(priceMin)
+		$("#area").ionRangeSlider(
 		    type: "double",
 		    min: min,
 		    max: max,
 		    grid: false
 		)
+		$("#budget").ionRangeSlider(
+		    type: "double",
+		    min: priceMin,
+		    max: priceMax,
+		    grid: false
+		    prettify :(num)->
+		    	return window.numDifferentiation(num)
+
+		)
+		@price = $("#budget").data("ionRangeSlider")
+		@area = $("#area").data("ionRangeSlider")
 		# if villaFilters.length != 0
 		# 	@assignVillaValues(villaFilters)
 		# if apartmentFilters.length != 0
@@ -293,32 +350,56 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		unitVariants = []
 		unitVariantNames = []
 		area = []
+		budget = []
 		villaFilters = @getVillaFilters()
 		$.merge unitTypes , villaFilters[0].unitTypes
 		$.merge unitVariants , villaFilters[0].unitVariants
 		$.merge unitVariantNames , villaFilters[0].unitVariantNames
+		$.merge budget , villaFilters[0].budget
 		apartmentFilters = @getApartmentFilters()
 		$.merge unitTypes , apartmentFilters[0].unitTypes
 		$.merge unitVariants , apartmentFilters[0].unitVariants
 		$.merge unitVariantNames , apartmentFilters[0].unitVariantNames
+		$.merge budget , apartmentFilters[0].budget
 		plotFilters = @getPlotFilters()
 		$.merge unitTypes , plotFilters[0].unitTypes
 		$.merge unitVariants , plotFilters[0].unitVariants
 		$.merge unitVariantNames , plotFilters[0].unitVariantNames
-		console.log unitTypes
-		console.log unitVariants
+		$.merge budget , plotFilters[0].budget
+		types = CommonFloor.propertyTypes()
+		$.each types,(index,value)->
+			if value.count == 0
+				types = _.omit(types, index) 
+			if value.type == 'Buildings'
+				value.type = 'Apartments/Penthouse'
+				value.type_name = '(A)/(PH)'
+		
 		@view = view = new CommonFloor.FilterMsterView
 				'unitTypes' : unitTypes
 				'unitVariants' : _.uniq unitVariants
 				'unitVariantNames' : unitVariantNames
+				'budget'			: budget
+				'types'			: types
 
-		# @listenTo @view,"load:units" ,@loadController
+		@listenTo @view,"load:villa:filters" ,@loadVillaFilter
+
+		@listenTo @view,"load:apt:filters" ,@loadAptFilter
+
+		@listenTo @view,"load:plot:filters" ,@loadPlotFilter
 		
 		@show @view
 
-	loadController:->
-		apartmentFilters = @getApartmentFilters()
-		@view.triggerMethod "filter:data", apartmentFilters
+	loadVillaFilter:->
+		villaFilters = @getVillaFilters()
+		@view.triggerMethod "villa:filters", villaFilters
+
+	loadAptFilter:->
+		aptFilters = @getApartmentFilters()
+		@view.triggerMethod "apt:filters", aptFilters
+
+	loadPlotFilter:->
+		plotFilters = @getPlotFilters()
+		@view.triggerMethod "plot:filters", plotFilters
 
 	#function to generate all the villa filters
 	getVillaFilters:->
@@ -327,9 +408,11 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		unit_types = []
 		unitVariants = []
 		unitVariantNames = []
+		budget = []
 		bunglowVariantCollection.each (item)->
 			units = unitMasterCollection.where 
 						'unit_variant_id' : item.get('id')
+			
 			if units.length != 0
 				unitTypeModel = unitTypeCollection.findWhere
 									'id' : item.get 'unit_type_id'
@@ -344,12 +427,17 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 						'id' : item.get 'id'
 						'name'	: item.get 'unit_variant_name'
 						'type'	: 'V'
+			unitsArr = bunglowVariantCollection.getBunglowUnits()
+			$.each unitsArr,(index,value)->
+				unitDetails = window.unit.getUnitDetails(value.id)
+				budget.push parseFloat unitDetails[3]
 			
 		if unitVariants.length != 0
 			filters.push
 					'unitTypes' 	: unitTypes
 					'unitVariants'  : unitVariants
 					'unitVariantNames' : unitVariantNames
+					'budget'			: budget
 
 
 		filters
@@ -361,9 +449,11 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		unit_types = []
 		unitVariants = []
 		unitVariantNames = []
+		budget = []
 		apartmentVariantCollection.each (item)->
 			units = unitMasterCollection.where 
 						'unit_variant_id' : item.get('id')
+			
 			if units.length != 0
 				unitTypeModel = unitTypeCollection.findWhere
 									'id' : item.get 'unit_type_id'
@@ -372,18 +462,24 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 					unitTypes.push 
 							'id' : unitTypeModel.get 'id'
 							'name' : unitTypeModel.get 'name'
-							'type'	: 'B'
+							'type'	: 'A'
 				unitVariants.push item.get 'super_built_up_area'
 				unitVariantNames.push
 						'id' : item.get 'id'
 						'name'	: item.get 'unit_variant_name'
 						'type'	: 'A'
-			
+				
+
+		unitsArr = apartmentVariantCollection.getApartmentUnits()
+		$.each unitsArr,(index,value)->
+			unitDetails = window.unit.getUnitDetails(value.id)
+			budget.push parseFloat unitDetails[3]
 		if unitVariants.length != 0
 			filters.push
 					'unitTypes' 	: unitTypes
 					'unitVariants'  : unitVariants
 					'unitVariantNames' : unitVariantNames
+					'budget'			: budget
 		filters
 
 
@@ -394,9 +490,11 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		unit_types = []
 		unitVariants = []
 		unitVariantNames = []
+		budget = []
 		plotVariantCollection.each (item)->
 			units = unitMasterCollection.where 
 						'unit_variant_id' : item.get('id')
+			
 			if units.length != 0
 				unitTypeModel = unitTypeCollection.findWhere
 									'id' : item.get 'unit_type_id'
@@ -411,11 +509,17 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 						'id' : item.get 'id'
 						'name'	: item.get 'unit_variant_name'
 						'type'	: 'P'
-			
+
+				
+		unitsArr = plotVariantCollection.getPlotUnits()
+		$.each unitsArr,(index,value)->
+			unitDetails = window.unit.getUnitDetails(value.id)
+			budget.push parseFloat unitDetails[3]	
 		if unitVariants.length != 0
 			filters.push
 					'unitTypes' 	: unitTypes
 					'unitVariants'  : unitVariants
 					'unitVariantNames' : unitVariantNames
+					'budget'			: budget
 		filters
 								

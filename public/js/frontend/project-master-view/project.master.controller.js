@@ -56,13 +56,13 @@
 
     TopMasterView.prototype.serializeData = function() {
       var data, response, status;
-      console.log("aaaaa");
       data = TopMasterView.__super__.serializeData.call(this);
       status = CommonFloor.getStatusFilters();
       if (status.length !== 0) {
         data.status = status;
       }
-      data.filters = CommonFloor.getFilters();
+      data.filters = CommonFloor.getFilters()[0];
+      data.results = CommonFloor.getFilters()[1];
       response = CommonFloor.propertyTypes();
       data.types = response;
       return data;

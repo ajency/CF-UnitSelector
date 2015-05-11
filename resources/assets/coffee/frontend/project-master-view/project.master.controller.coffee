@@ -62,12 +62,12 @@ class TopMasterView extends Marionette.ItemView
 		unitBack : '.unit_back'
 
 	serializeData:->
-		console.log "aaaaa"
 		data = super()
 		status = CommonFloor.getStatusFilters()
 		if status.length != 0
 			data.status = status
-		data.filters  = CommonFloor.getFilters()
+		data.filters  = CommonFloor.getFilters()[0]
+		data.results  = CommonFloor.getFilters()[1]
 		response = CommonFloor.propertyTypes() 
 		data.types = response
 		data

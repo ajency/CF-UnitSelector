@@ -1378,16 +1378,18 @@ svg polygon {
   background-color: #ffffff;
   color: #999999;
   padding: 6px 12px;
-  margin: 18px 0px;
+}
+.filter-result {
+  margin: 20px 0px;
 }
 .filters-wrapper {
-  margin-bottom: 20px;
-}
-.filters-wrapper a {
-  color: #f68121;
+  margin: 20px 0px 20px 0;
 }
 .filters-wrapper .filter-chkbox-block label {
   color: #999999;
+}
+.filter-link {
+  color: #000;
 }
 .alert {
   background: #EAEAEA;
@@ -1395,6 +1397,32 @@ svg polygon {
 }
 .seperator {
   border-bottom: 1px solid #ddd;
+}
+.desc-wrapper {
+  margin: 0 auto;
+  margin-bottom: 15px;
+  max-height: 50px;
+  overflow: hidden;
+}
+.more-info {
+  /* Hide more info to begin with and reveal if text inside desc is too long*/
+  display: none;
+  color: #f68121;
+}
+/* Only display 'more' to begin with */
+.more-info .less,
+.more-info.expand .more {
+  display: none;
+}
+.more-info.expand .less {
+  display: inline;
+}
+/* Misc, just to make things look a bit prettier */
+.more-info:focus {
+  outline: none;
+}
+span.glyphicon {
+  margin-left: 3px;
 }
 /* Plugins */
 /* Slider */
