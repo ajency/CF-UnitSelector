@@ -68,8 +68,8 @@
 
 <script id="project-view-template" type="text/template">
     <div ui-region="top" id="topregion" class="us-header"></div>
+    <div ui-region="filter" id="filterregion" class="filters-area"></div>
     <div class="container-fluid">
-      <div ui-region="filter" id="filterregion"></div>
       <div class="row">
         <div ui-region="left" id="leftregion"></div>
         <div ui-region="center" id="centerregion"></div>

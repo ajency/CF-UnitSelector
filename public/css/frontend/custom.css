@@ -1437,6 +1437,8 @@ svg .layer.unit_fadein:hover {
 }
 .filters-wrapper {
   margin: 20px 0px 20px 0;
+  padding: 15px;
+  border-top: 1px solid #cccccc;
 }
 .filters-wrapper .filter-chkbox-block label {
   color: #999999;
@@ -1476,6 +1478,9 @@ svg .layer.unit_fadein:hover {
 }
 span.glyphicon {
   margin-left: 3px;
+}
+.filters-area {
+  background-color: #ffffff;
 }
 .filter-summary-area {
   background-color: #ffffff;
