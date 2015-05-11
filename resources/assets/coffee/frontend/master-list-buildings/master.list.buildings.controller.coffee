@@ -117,12 +117,12 @@ class MasterBuildingListView extends Marionette.CompositeView
 	ui :
 		viewtog      : '#view_toggle'
 
-	events :
+
+	events : 
 		'click @ui.viewtog':(e)->
 			$('.us-left-content').toggleClass 'not-visible visible'
 			$('.us-right-content').toggleClass 'not-visible visible'
-
-	events : 
+			
 		'click .buildings':(e)->
 			console.log units = buildingCollection
 			data = {}
