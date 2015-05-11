@@ -73,6 +73,7 @@ svg {
 	  	stroke-width: 0px;
 	  	stroke-dasharray: 20 300;
 	  	stroke-dashoffset: 400;
+	  	transform: scale(.99, .99);
 	  	transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
 	}
 
@@ -89,7 +90,6 @@ svg {
 
 	.layer.unit_fadein:hover{
 		opacity:0.7;
-		transform: scale(.99, .99);
 		cursor:pointer;
 	}
 }
@@ -98,24 +98,24 @@ svg {
 
 .unit_fadein {
 	opacity: .5;
-	animation: unit_fadein 0.6s;
-	-webkit-animation: unit_fadein 0.6s;
+	animation: unit_fadein 0.6s 1;
+	-webkit-animation: unit_fadein 0.6s 1;
 }
 
 @keyframes unit_fadein {
 	0% {
-		transform: translateX(100px) translateY(100px) scale(0);
+		transform: translateX(480px) translateY(480px) opacity(0);
 	}
 	100% {
-		transform: translateX(0) translateY(0) scale(1);
+		transform: translateX(0) translateY(0) opacity(1);
 	}
 }
 @-webkit-keyframes unit_fadein {
 	0% {
-		-webkit-transform: translateX(100px) translateY(100px) scale(0);
+		-webkit-transform: translateX(480px) translateY(480px) opacity(0);
 	}
 	100% {
-		-webkit-transform: translateX(0) translateY(0) scale(1);
+		-webkit-transform: translateX(0) translateY(0) opacity(1);
 	}
 }
 

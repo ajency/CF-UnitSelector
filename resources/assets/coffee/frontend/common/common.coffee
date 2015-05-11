@@ -148,31 +148,31 @@ CommonFloor.propertyTypes = ()->
 CommonFloor.applyVillaClasses = (classname) ->
 	$('.villa').each (ind,item)->
 		id = parseInt item.id
-		class_name = $('#'+id).attr('class')
-		if classname != ""
-			class_name = classname
+		# class_name = $('#'+id).attr('class')
+		# if classname != undefined
+		# 	class_name = classname
 		unit = unitCollection.findWhere 
 			id :  id 
-		$('#'+id).attr('class' ,class_name)
+		# $('#'+id).attr('class' ,class_name)
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' ,class_name+' '+availability)
+			$('#'+id).attr('class' , 'layer villa unit_fadein '+availability)
 
 
 CommonFloor.applyPlotClasses = (classname)->
 	$('.plot').each (ind,item)->
 		id = parseInt item.id
-		class_name = $('#'+id).attr('class')
-		if classname != ""
-			class_name = classname
+		# class_name = $('#'+id).attr('class')
+		# if classname != ""
+		# 	class_name = classname
 		unit = unitCollection.findWhere 
 			id :  id 
-		$('#'+id).attr('class' ,class_name)
+		# $('#'+id).attr('class' ,class_name)
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' ,class_name+' '+availability)  
+			$('#'+id).attr('class' ,'layer plot unit_fadein '+availability)  
 
 
 

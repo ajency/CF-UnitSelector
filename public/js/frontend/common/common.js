@@ -182,40 +182,30 @@
 
   CommonFloor.applyVillaClasses = function(classname) {
     return $('.villa').each(function(ind, item) {
-      var availability, class_name, id, unit;
+      var availability, id, unit;
       id = parseInt(item.id);
-      class_name = $('#' + id).attr('class');
-      if (classname !== "") {
-        class_name = classname;
-      }
       unit = unitCollection.findWhere({
         id: id
       });
-      $('#' + id).attr('class', class_name);
       if (!_.isUndefined(unit)) {
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        return $('#' + id).attr('class', class_name + ' ' + availability);
+        return $('#' + id).attr('class', 'layer villa unit_fadein ' + availability);
       }
     });
   };
 
   CommonFloor.applyPlotClasses = function(classname) {
     return $('.plot').each(function(ind, item) {
-      var availability, class_name, id, unit;
+      var availability, id, unit;
       id = parseInt(item.id);
-      class_name = $('#' + id).attr('class');
-      if (classname !== "") {
-        class_name = classname;
-      }
       unit = unitCollection.findWhere({
         id: id
       });
-      $('#' + id).attr('class', class_name);
       if (!_.isUndefined(unit)) {
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        return $('#' + id).attr('class', class_name + ' ' + availability);
+        return $('#' + id).attr('class', 'layer plot unit_fadein ' + availability);
       }
     });
   };

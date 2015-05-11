@@ -301,7 +301,7 @@
         return $('#bldg' + id).attr('class', 'bldg blocks');
       },
       'click .villa': function(e) {
-        var availability, classname, html, id, response, unit;
+        var availability, html, id, response, unit;
         $('.villa').attr('class', 'layer villa');
         id = parseInt(e.target.id);
         html = "";
@@ -319,13 +319,13 @@
         availability = s.decapitalize(availability);
         html = "";
         html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Variant</label> - ' + response[0].get('unit_variant_name') + '</div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
-        classname = $('#' + id).attr('class');
-        $('#' + id).attr('class', 'layer' + classname + ' ' + availability);
+        $('#' + id).attr('class', 'layer villa  ' + availability);
         $('#unit' + id).attr('class', 'unit blocks active');
+        console.log(html);
         return $('.layer').tooltipster('content', html);
       },
       'click .plot': function(e) {
-        var availability, classname, html, id, response, unit;
+        var availability, html, id, response, unit;
         $('.plot').attr('class', 'layer plot');
         id = parseInt(e.target.id);
         html = "";
@@ -343,8 +343,7 @@
         availability = s.decapitalize(availability);
         html = "";
         html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Variant</label> - ' + response[0].get('unit_variant_name') + '</div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
-        classname = $('#' + id).attr('class');
-        $('#' + id).attr('class', 'layer plot ' + classname + ' ' + availability);
+        $('#' + id).attr('class', 'layer plot ' + availability);
         $('#unit' + id).attr('class', 'bldg blocks active');
         return $('.layer').tooltipster('content', html);
       },
@@ -472,7 +471,8 @@
         onlyOne: true,
         arrow: false,
         offsetX: 50,
-        offsetY: -10
+        offsetY: -10,
+        trigger: 'click'
       });
     };
 
