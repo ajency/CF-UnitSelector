@@ -60,7 +60,7 @@ class UserController extends Controller {
         $data .='Your Account on CommonFloor Unit Selector has been created with the following credentials -'. "\r\n";
         $data .='Login Email address : '.$email . "\r\n";
         $data .='Your account has been set with a randomly generated password :'.$password. "\r\n";
-        $data .= '<a href="' . url() . '"><button class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button></a>';
+        $data .= "<a href='" . url() . "'><button class='btn btn-primary btn-cons'><i class='fa fa-check'></i> Save</button></a>";
         $data .='or copy paste the link below in your browser to login to your account'. "\r\n";
         $data .= url(). "\r\n";
         $data .='You can update the password to one of your choice from the profile page.'. "\r\n\n";
@@ -72,8 +72,8 @@ class UserController extends Controller {
             'X-Mailer: PHP/' . phpversion();
 
 
-         //mail($email,"Welcome to CommonFloor Unit Selector!",$data, $headers);
-         mail('prajay@ajency.in',"Welcome to CommonFloor Unit Selector!",$data, $headers);
+         mail($email,"Welcome to CommonFloor Unit Selector!",$data, $headers);
+         
 
         $addanother = $request->input('addanother');
 
