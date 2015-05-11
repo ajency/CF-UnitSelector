@@ -60,7 +60,7 @@ body {
   background-color: #f2f2f2;
 }
 .no-found-container {
-  margin-top: 25vh;
+  padding-top: 25vh;
 }
 /* Left Container */
 .search-left-content {
@@ -1437,6 +1437,8 @@ svg .layer.unit_fadein:hover {
 }
 .filters-wrapper {
   margin: 20px 0px 20px 0;
+  padding: 15px;
+  border-top: 1px solid #cccccc;
 }
 .filters-wrapper .filter-chkbox-block label {
   color: #999999;
@@ -1477,10 +1479,27 @@ svg .layer.unit_fadein:hover {
 span.glyphicon {
   margin-left: 3px;
 }
+.filters-area {
+  background-color: #ffffff;
+}
 .filter-summary-area {
   background-color: #ffffff;
   padding: 5px 20px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+/* Slider */
+.irs-line-mid,
+.irs-line-left,
+.irs-line-right,
+.irs-bar,
+.irs-bar-edge,
+.irs-slider {
+  background-image: url('../../images/sprite-skin-flat.png');
+}
+.irs-from,
+.irs-to,
+.irs-single {
+  background-color: #f68121;
 }
 /* Plugins */
 /* Slider */
