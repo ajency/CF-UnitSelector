@@ -14,7 +14,8 @@
     BunglowListView.prototype.template = Handlebars.compile('	<div class=" info"> <label class="pull-left">{{unit_name}}</label> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft--> <div class="clearfix"></div> </div> <div class="cost"> {{price}} </div>');
 
     BunglowListView.prototype.initialize = function() {
-      return this.$el.prop("id", 'unit' + this.model.get("id"));
+      this.$el.prop("id", 'unit' + this.model.get("id"));
+      return this.classname = '';
     };
 
     BunglowListView.prototype.tagName = 'li';
@@ -48,15 +49,16 @@
       'mouseover': function(e) {
         var id;
         id = this.model.get('id');
+        this.classname = $('#' + id + '.villa').attr('class');
         $('.villa').attr('class', 'layer villa');
-        $('#' + id + '.villa').attr('class', 'layer villa ' + this.model.get('status'));
+        $('#' + id + '.villa').attr('class', this.classname + ' ' + this.model.get('status'));
         return $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status') + ' active');
       },
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
         $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status'));
-        return CommonFloor.applyVillaClasses();
+        return CommonFloor.applyVillaClasses(this.classname);
       },
       'click': function(e) {
         if (this.model.get('status') === 'available') {

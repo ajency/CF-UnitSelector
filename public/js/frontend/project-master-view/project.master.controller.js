@@ -48,7 +48,7 @@
       return TopMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopMasterView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> Back to Project Overview </a> </div> <h2 class="proj-name">{{project_title}}</h2> </div> </div> </div> <div class="filter-summary-area"> <button class="btn btn-primary cf-btn-white pull-right m-t-10" type="button" data-toggle="collapse" data-target="#collapsefilters"> Filters <span class="icon-funnel"></span> </button> <div class="proj-type-count"> {{#each  filters}} <h2 class="text-primary pull-right m-t-10">{{#each this}}{{@key}}{{this}}{{/each}}</h2> <p class="pull-right">{{@key}}</p> {{/each }} {{#each status}} <h2 class="text-primary pull-right m-t-10">{{this}}</h2> <p class="pull-right">{{@key}}</p> {{/each}} {{#types}} <p class="pull-right">{{type}}</p><h2 class="text-primary pull-right m-t-10">{{count.length}}</h2> {{/types}} </div> <div class="clearfix"></div> </div>');
+    TopMasterView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> Back to Project Overview </a> </div> <h2 class="proj-name">{{project_title}}</h2> </div> </div> </div> <div class="filter-summary-area"> <button class="btn btn-primary cf-btn-white pull-right m-t-10" type="button" data-toggle="collapse" data-target="#collapsefilters"> Filters <span class="icon-funnel"></span> </button> <div class="proj-type-count"> {{#each  filters}} <h2 class="text-primary pull-right m-t-10">{{#each this}}{{this.name}}{{this.type}}{{/each}}</h2> {{/each }} {{#types}} <p class="pull-right">{{type}}</p><h2 class="text-primary pull-right m-t-10">{{count.length}}</h2> {{/types}} </div> <div class="clearfix"></div> </div>');
 
     TopMasterView.prototype.ui = {
       unitBack: '.unit_back'
@@ -246,22 +246,6 @@
           }
         }, 500);
       },
-      'click .villa': function(e) {
-        return setTimeout(function(x) {
-          var id, unitModel;
-          id = parseInt(e.target.id);
-          unitModel = unitCollection.findWhere({
-            'id': id
-          });
-          if (unitModel === void 0) {
-            return false;
-          }
-          $('.spritespin-canvas').addClass('zoom');
-          $('.us-left-content').addClass('animated fadeOut');
-          CommonFloor.navigate('/unit-view/' + id, true);
-          return CommonFloor.router.storeRoute();
-        }, 500);
-      },
       'click .plot': function(e) {
         return setTimeout(function(x) {
           var id, unitModel;
@@ -316,8 +300,8 @@
         $('.building').attr('class', 'layer building');
         return $('#bldg' + id).attr('class', 'bldg blocks');
       },
-      'mouseover .villa': function(e) {
-        var availability, html, id, response, unit;
+      'click .villa': function(e) {
+        var availability, classname, html, id, response, unit;
         $('.villa').attr('class', 'layer villa');
         id = parseInt(e.target.id);
         html = "";
@@ -335,12 +319,13 @@
         availability = s.decapitalize(availability);
         html = "";
         html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Variant</label> - ' + response[0].get('unit_variant_name') + '</div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
-        $('#' + id).attr('class', 'layer villa ' + availability);
+        classname = $('#' + id).attr('class');
+        $('#' + id).attr('class', 'layer' + classname + ' ' + availability);
         $('#unit' + id).attr('class', 'unit blocks active');
         return $('.layer').tooltipster('content', html);
       },
-      'mouseover .plot': function(e) {
-        var availability, html, id, response, unit;
+      'click .plot': function(e) {
+        var availability, classname, html, id, response, unit;
         $('.plot').attr('class', 'layer plot');
         id = parseInt(e.target.id);
         html = "";
@@ -358,7 +343,8 @@
         availability = s.decapitalize(availability);
         html = "";
         html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Variant</label> - ' + response[0].get('unit_variant_name') + '</div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
-        $('#' + id).attr('class', 'layer plot ' + availability);
+        classname = $('#' + id).attr('class');
+        $('#' + id).attr('class', 'layer plot ' + classname + ' ' + availability);
         $('#unit' + id).attr('class', 'bldg blocks active');
         return $('.layer').tooltipster('content', html);
       },

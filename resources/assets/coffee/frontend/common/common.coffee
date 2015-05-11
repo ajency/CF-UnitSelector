@@ -145,26 +145,34 @@ CommonFloor.propertyTypes = ()->
 
 	Router
 
-CommonFloor.applyVillaClasses = (classname = null)->
+CommonFloor.applyVillaClasses = (classname) ->
 	$('.villa').each (ind,item)->
 		id = parseInt item.id
+		class_name = $('#'+id).attr('class')
+		if classname != ""
+			class_name = classname
 		unit = unitCollection.findWhere 
 			id :  id 
+		$('#'+id).attr('class' ,class_name)
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' ,'layer villa '+classname+' '+availability)
+			$('#'+id).attr('class' ,class_name+' '+availability)
 
 
-CommonFloor.applyPlotClasses = (classname = null)->
+CommonFloor.applyPlotClasses = (classname)->
 	$('.plot').each (ind,item)->
 		id = parseInt item.id
+		class_name = $('#'+id).attr('class')
+		if classname != ""
+			class_name = classname
 		unit = unitCollection.findWhere 
 			id :  id 
+		$('#'+id).attr('class' ,class_name)
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' ,'layer plot '+classname+' '+availability)  
+			$('#'+id).attr('class' ,class_name+' '+availability)  
 
 
 
@@ -182,14 +190,14 @@ CommonFloor.filter = ()->
 
 
 		#set the params with the filters selected by the user
-		params = 'unit_variant_id:'+CommonFloor.defaults['unitVariants']+'&unit_type_id:'+CommonFloor.defaults['unitTypes']+
+		params = 'type:'+CommonFloor.defaults['type']+'&unit_variant_id:'+CommonFloor.defaults['unitVariants']+'&unit_type_id:'+CommonFloor.defaults['unitTypes']+
 				'&price_min:'+CommonFloor.defaults['price_min']+'&price_max:'+CommonFloor.defaults['price_max']+
 				'&availability:'+CommonFloor.defaults['availability']+'&area_min:'+CommonFloor.defaults['area_min']+
 				'&area_max:'+CommonFloor.defaults['area_max']
 	else
 
 		#url doesnt contain any parameters take the value of the defaults
-		params = 'unit_variant_id:'+CommonFloor.defaults['unitVariants']+'&unit_type_id:'+CommonFloor.defaults['unitTypes']+
+		params = 'type:'+CommonFloor.defaults['type']+'&unit_variant_id:'+CommonFloor.defaults['unitVariants']+'&unit_type_id:'+CommonFloor.defaults['unitTypes']+
 				'&price_min:'+CommonFloor.defaults['price_min']+'&price_max:'+CommonFloor.defaults['price_max']+
 				'&availability:'+CommonFloor.defaults['availability']+'&area_min:'+CommonFloor.defaults['area_min']+
 				'&area_max:'+CommonFloor.defaults['area_max']
@@ -199,7 +207,10 @@ CommonFloor.filter = ()->
 	$.each param_arr, (index,value)->
 			value_arr  =  value.split(':')
 			param_key = value_arr[0]
-			if param_key != 'price_min' && param_key != 'price_max' && value_arr[1] != "" && param_key != 'area_min' && param_key != 'area_max'
+			if param_key == 'type' && value_arr[1] != ""
+				CommonFloor.resetCollections()
+				collection = CommonFloor.resetProperyType(value_arr[1])	
+			if param_key != 'price_min' && param_key != 'price_max' && value_arr[1] != "" && param_key != 'area_min' && param_key != 'area_max' && param_key != 'type'
 				param_val = value_arr[1]
 				param_val_arr = param_val.split(',')
 				collection = []
@@ -209,7 +220,7 @@ CommonFloor.filter = ()->
 						if param_key == 'availability'
 							paramkey[param_key] = value
 						$.merge collection, unitCollection.where paramkey
-						
+					
 				
 				unitCollection.reset collection
 	if CommonFloor.defaults['price_max'] != ""
@@ -219,22 +230,34 @@ CommonFloor.filter = ()->
 	CommonFloor.applyFliterClass()
 	CommonFloor.resetCollections()
 
+CommonFloor.resetProperyType = (param)->
+	param_val_arr = param.split(',')
+	collection = []
+	$.each param_val_arr, (index,value)->
+		if value == 'Villas'
+			$.merge collection , bunglowVariantCollection.getBunglowUnits()
+		if value == 'Apartments'
+			$.merge collection , apartmentVariantCollection.getApartmentUnits()
+		if value == 'Plots'
+			$.merge collection , plotVariantCollection.getPlotUnits()
+	unitCollection.reset collection
+
 
 CommonFloor.applyFliterClass = ()->
-	CommonFloor.applyPlotClasses('unit_fadein')
-	CommonFloor.applyVillaClasses('unit_fadein')
+	CommonFloor.applyPlotClasses()
+	CommonFloor.applyVillaClasses()
 	actualunits = _.pluck unitMasterCollection ,'id'
 	filterunits = _.pluck unitCollection ,'id'
 	notSelecteUnits = _.difference actualunits , filterunits
 	$('.villa').each (ind,item)->
 		id = parseInt item.id
 		if $.inArray id , notSelecteUnits
-			$('#'+id).attr('class' ,'layer villa not_in_selection')
+			$('#'+id).attr('class' ,'layer villa unit_fadein not_in_selection')
 
 	$('.plot').each (ind,item)->
 		id = parseInt item.id
 		if $.inArray id , notSelecteUnits
-			$('#'+id).attr('class' ,'layer plot not_in_selection')
+			$('#'+id).attr('class' ,'layer plot unit_fadein not_in_selection')
 
 CommonFloor.resetCollections = ()->
 	apartments = []
@@ -342,7 +365,7 @@ CommonFloor.getVillaFilters = ()->
 	unit_type = ''
 	status = []
 	$.each CommonFloor.defaults,(ind,val)->
-		if ind != 'price_min' && ind != 'price_max' && val != "" && ind != 'area_min' && ind != 'area_max'
+		if ind != 'price_min' && ind != 'price_max' && val != "" && ind != 'area_min' && ind != 'area_max' && ind != 'type'
 			param_val_arr = val.split(',')
 			$.each param_val_arr, (index,value)->
 				if value != "" && ind == 'unitVariants'
@@ -375,7 +398,7 @@ CommonFloor.getApartmentFilters = ()->
 	unit_type = ''
 	status = []
 	$.each CommonFloor.defaults,(ind,val)->
-		if ind != 'price_min' && ind != 'price_max' && val != "" && ind != 'area_min' && ind != 'area_max'
+		if ind != 'price_min' && ind != 'price_max' && val != "" && ind != 'area_min' && ind != 'area_max' && ind != 'type'
 			param_val_arr = val.split(',')
 			$.each param_val_arr, (index,value)->
 				if value != "" && ind == 'unitVariants'
@@ -408,7 +431,7 @@ CommonFloor.getPlotFilters = ()->
 	unit_type = ''
 	status = []
 	$.each CommonFloor.defaults,(ind,val)->
-		if ind != 'price_min' && ind != 'price_max' && val != "" && ind != 'area_min' && ind != 'area_max'
+		if ind != 'price_min' && ind != 'price_max' && val != "" && ind != 'area_min' && ind != 'area_max' && ind != 'type'
 			param_val_arr = val.split(',')
 			$.each param_val_arr, (index,value)->
 				if value != "" && ind == 'unitVariants'
