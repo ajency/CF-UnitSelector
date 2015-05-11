@@ -34,7 +34,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Email</label>
-                                <input type="email" name="email" class="form-control" placeholder="Enter Email ID" data-parsley-type="email" data-parsley-required>
+                                <input type="email" name="email" onchange="validateEmail(this,0)" class="form-control" placeholder="Enter Email ID" data-parsley-type="email" data-parsley-required><div class="cf-loader hidden"></div>
                                 <div class="text-danger"><span class="fa fa-asterisk"></span> This field is required</div>
                             </div>
                         </div>

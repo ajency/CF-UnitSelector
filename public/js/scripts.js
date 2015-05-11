@@ -5,7 +5,7 @@ $.ajaxSetup({
 });
 function validateTitle(obj)
 {
-    $(obj).next("div.cf-loader").removeClass('hidden');
+    $(".cf-loader").removeClass('hidden');
     $.ajax({
         url: "/admin/project/validateprojecttitle",
         type: "POST",
@@ -18,14 +18,34 @@ function validateTitle(obj)
             if (!response.data)
                 $(obj).val('');
 
-            $(obj).next("div.cf-loader").addClass('hidden');
+            $(".cf-loader").addClass('hidden');
+        }
+    });
+}
+
+function validateEmail(obj,userId)
+{
+    $(obj).closest(".form-group").find(".cf-loader").removeClass('hidden');
+    $.ajax({
+        url: "/admin/user/validateuseremail",
+        type: "POST",
+        data: {
+            email: obj.value,
+            user_id: userId
+        },
+        dataType: "JSON",
+        success: function (response) {
+            if (!response.data)
+                $(obj).val('');
+
+            $(obj).closest(".form-group").find(".cf-loader").addClass('hidden');
         }
     });
 }
 
 function validateUserPassword(obj,userId)
 {
-    $(".cf-loader").removeClass('hidden');
+    $(obj).closest(".form-group").find(".cf-loader").removeClass('hidden');
     $.ajax({
         url: "/admin/user/validateuserpassword",
         type: "POST",
@@ -38,7 +58,7 @@ function validateUserPassword(obj,userId)
             if (!response.data)
                 $(obj).val('');
 
-            $(".cf-loader").addClass('hidden');
+            $(obj).closest(".form-group").find(".cf-loader").addClass('hidden');
         }
     });
 }
