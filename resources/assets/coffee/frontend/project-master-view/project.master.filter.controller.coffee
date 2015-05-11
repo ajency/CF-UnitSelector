@@ -35,8 +35,10 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 					                                    </div>
 					                                </div>
 					                            </div>
+					                        </div>
 
-					                            <div class="row m-t-20">
+											<div class="filters-wrapper">
+					                            <div class="row">
 					                                <div class="col-sm-4 col-md-4 ">
 					                                    <h5># AREA (Sqft)</h5>
 					                                	<input type="text" id="area" name="area" value="" />

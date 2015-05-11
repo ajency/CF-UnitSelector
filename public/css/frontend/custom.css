@@ -1436,12 +1436,15 @@ svg .layer.unit_fadein:hover {
   margin: 20px 0px;
 }
 .filters-wrapper {
-  margin: 20px 0px 20px 0;
   padding: 15px;
   border-top: 1px solid #cccccc;
 }
 .filters-wrapper .filter-chkbox-block label {
+  color: #666666;
+}
+.filters-wrapper input[disabled] + label {
   color: #999999;
+  cursor: not-allowed;
 }
 .filter-link {
   color: #000000;
