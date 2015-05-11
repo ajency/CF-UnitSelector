@@ -217,9 +217,9 @@
         param_key = element.split('=');
         CommonFloor.defaults[param_key[0]] = param_key[1];
       }
-      params = 'unit_variant_id:' + CommonFloor.defaults['unitVariants'] + '&unit_type_id:' + CommonFloor.defaults['unitTypes'] + '&price_min:' + CommonFloor.defaults['price_min'] + 'price_max:' + CommonFloor.defaults['price_max'] + '&availability:' + CommonFloor.defaults['availability'];
+      params = 'unit_variant_id:' + CommonFloor.defaults['unitVariants'] + '&unit_type_id:' + CommonFloor.defaults['unitTypes'] + '&price_min:' + CommonFloor.defaults['price_min'] + '&price_max:' + CommonFloor.defaults['price_max'] + '&availability:' + CommonFloor.defaults['availability'] + '&area:' + CommonFloor.defaults['area'];
     } else {
-      params = 'unit_variant_id:' + CommonFloor.defaults['unitVariants'] + '&unit_type_id:' + CommonFloor.defaults['unitTypes'] + '&price_min:' + CommonFloor.defaults['price_min'] + 'price_max:' + CommonFloor.defaults['price_max'] + '&availability:' + CommonFloor.defaults['availability'];
+      params = 'unit_variant_id:' + CommonFloor.defaults['unitVariants'] + '&unit_type_id:' + CommonFloor.defaults['unitTypes'] + '&price_min:' + CommonFloor.defaults['price_min'] + '&price_max:' + CommonFloor.defaults['price_max'] + '&availability:' + CommonFloor.defaults['availability'] + '&area:' + CommonFloor.defaults['area'];
     }
     param_arr = params.split('&');
     $.each(param_arr, function(index, value) {

@@ -178,14 +178,14 @@ CommonFloor.filter = ()->
 
 		#set the params with the filters selected by the user
 		params = 'unit_variant_id:'+CommonFloor.defaults['unitVariants']+'&unit_type_id:'+CommonFloor.defaults['unitTypes']+
-				'&price_min:'+CommonFloor.defaults['price_min']+'price_max:'+CommonFloor.defaults['price_max']+
-				'&availability:'+CommonFloor.defaults['availability']
+				'&price_min:'+CommonFloor.defaults['price_min']+'&price_max:'+CommonFloor.defaults['price_max']+
+				'&availability:'+CommonFloor.defaults['availability']+'&area:'+CommonFloor.defaults['area']
 	else
 
 		#url doesnt contain any parameters take the value of the defaults
 		params = 'unit_variant_id:'+CommonFloor.defaults['unitVariants']+'&unit_type_id:'+CommonFloor.defaults['unitTypes']+
-				'&price_min:'+CommonFloor.defaults['price_min']+'price_max:'+CommonFloor.defaults['price_max']+
-				'&availability:'+CommonFloor.defaults['availability']
+				'&price_min:'+CommonFloor.defaults['price_min']+'&price_max:'+CommonFloor.defaults['price_max']+
+				'&availability:'+CommonFloor.defaults['availability']+'&area:'+CommonFloor.defaults['area']
 
 
 	param_arr = params.split('&')

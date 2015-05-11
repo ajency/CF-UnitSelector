@@ -123,7 +123,7 @@
         CommonFloor = new Marionette.Application 
         BASEURL = '{{url()}}'
         //global variable to keep track of the filtr the user has selected
-        CommonFloor.defaults = {'unit' : "" , 'unitVariants': "",'unitTypes':"",'price_min':'','price_max':'','availability':''}
+        CommonFloor.defaults = {'unit' : "" , 'unitVariants': "",'unitTypes':"",'price_min':'','price_max':'','availability':'','area' : ''}
   
         window.locale = {
 
