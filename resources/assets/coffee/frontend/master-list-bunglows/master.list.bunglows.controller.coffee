@@ -53,7 +53,7 @@ class BunglowListView extends Marionette.ItemView
 			id = @model.get('id')
 			@classname = $('#'+id+'.villa').attr('class')
 			$('.villa').attr('class','layer villa')
-			$('#'+id+'.villa').attr('class' ,@classname+' '+@model.get('status'))
+			$('#'+id+'.villa').attr('class' ,'layer villa '+@model.get('status'))
 			$('#unit'+id).attr('class' ,'unit blocks'+' '+@model.get('status')+' active')
 			
 			

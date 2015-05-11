@@ -830,6 +830,9 @@ svg .layer {
   stroke-width: 0px;
   stroke-dasharray: 20 300;
   stroke-dashoffset: 400;
+  -webkit-transform: scale(0.99, 0.99);
+      -ms-transform: scale(0.99, 0.99);
+          transform: scale(0.99, 0.99);
   -webkit-transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
           transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
 }
@@ -844,33 +847,30 @@ svg .layer.unit_fadein {
 }
 svg .layer.unit_fadein:hover {
   opacity: 0.7;
-  -webkit-transform: scale(0.99, 0.99);
-      -ms-transform: scale(0.99, 0.99);
-          transform: scale(0.99, 0.99);
   cursor: pointer;
 }
 /* Filter Selection */
 .unit_fadein {
   opacity: .5;
-  animation: unit_fadein 0.6s;
-  -webkit-animation: unit_fadein 0.6s;
+  animation: unit_fadein 0.6s 1;
+  -webkit-animation: unit_fadein 0.6s 1;
 }
 @keyframes unit_fadein {
   0% {
-    -webkit-transform: translateX(100px) translateY(100px) scale(0);
-            transform: translateX(100px) translateY(100px) scale(0);
+    -webkit-transform: translateX(480px) translateY(480px) opacity(0);
+            transform: translateX(480px) translateY(480px) opacity(0);
   }
   100% {
-    -webkit-transform: translateX(0) translateY(0) scale(1);
-            transform: translateX(0) translateY(0) scale(1);
+    -webkit-transform: translateX(0) translateY(0) opacity(1);
+            transform: translateX(0) translateY(0) opacity(1);
   }
 }
 @-webkit-keyframes unit_fadein {
   0% {
-    -webkit-transform: translateX(100px) translateY(100px) scale(0);
+    -webkit-transform: translateX(480px) translateY(480px) opacity(0);
   }
   100% {
-    -webkit-transform: translateX(0) translateY(0) scale(1);
+    -webkit-transform: translateX(0) translateY(0) opacity(1);
   }
 }
 .list-view-container {
@@ -1437,7 +1437,6 @@ svg .layer.unit_fadein:hover {
 }
 .filters-wrapper {
   padding: 15px;
-  border-top: 1px solid #cccccc;
 }
 .filters-wrapper .filter-chkbox-block label {
   color: #666666;

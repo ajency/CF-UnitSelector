@@ -345,9 +345,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 							</div>  
 						</div>  
 					</div>'
-			classname = $('#'+id).attr('class') 
-			$('#'+id).attr('class' ,'layer'+classname+' '+availability) 
+			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
+			console.log html
 			$('.layer').tooltipster('content', html)
 
 		'click .plot':(e)->
@@ -389,8 +389,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 							</div>  
 						</div>  
 					</div>'
-			classname = $('#'+id).attr('class')
-			$('#'+id).attr('class' ,'layer plot '+classname+' '+availability) 
+			
+			$('#'+id).attr('class' ,'layer plot '+availability) 
 			$('#unit'+id).attr('class' ,'bldg blocks active') 
 			$('.layer').tooltipster('content', html)
 
@@ -532,6 +532,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			arrow : false
 			offsetX : 50
 			offsetY : -10
+			trigger : 'click'
 
 		)
 
