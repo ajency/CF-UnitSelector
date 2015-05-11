@@ -15,7 +15,7 @@
 @section('content')
 <!-- BEGIN PAGE TITLE -->
 <div class="page-title">	
-    <h2><span class="semi-bold">Add</span> Unit </h2>
+    <h2><span class="semi-bold">Edit</span> Unit </h2>
 </div>
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->

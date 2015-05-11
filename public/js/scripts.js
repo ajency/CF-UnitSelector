@@ -23,6 +23,26 @@ function validateTitle(obj)
     });
 }
 
+function validateUserPassword(obj,userId)
+{
+    $(".cf-loader").removeClass('hidden');
+    $.ajax({
+        url: "/admin/user/validateuserpassword",
+        type: "POST",
+        data: {
+            password: obj.value,
+            user_id: userId
+        },
+        dataType: "JSON",
+        success: function (response) {
+            if (!response.data)
+                $(obj).val('');
+
+            $(".cf-loader").addClass('hidden');
+        }
+    });
+}
+
 function addRoomtype(project_id)
 {
     var roomtypename = $("#roomtype").val();
