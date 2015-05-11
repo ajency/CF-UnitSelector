@@ -128,14 +128,17 @@ CommonFloor.propertyTypes = ()->
 		Router.push 
 			'type'  : s.capitalize 'villas'
 			'count' :bunglowVariantCollection.getBunglowUnits()
+			'type_name' : '(V)'
 	if buildingCollection.toArray().length != 0
 		Router.push 
 			'type'  : s.capitalize 'buildings'
 			'count' :buildingCollection.toArray()
+			'type_name' : '(A)'
 	if plotVariantCollection.getPlotUnits().length != 0
 		Router.push 
 			'type'  : s.capitalize 'plots'
 			'count' :plotVariantCollection.getPlotUnits()
+			'type_name' : '(P)'
 	controller = _.max Router , (item)->
 		return parseInt item.count.length
 

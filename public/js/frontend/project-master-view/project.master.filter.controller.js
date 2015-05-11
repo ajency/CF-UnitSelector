@@ -9,19 +9,17 @@
       return FilterMsterView.__super__.constructor.apply(this, arguments);
     }
 
-    FilterMsterView.prototype.template = Handlebars.compile('<div class="collapse" id="collapsefilters"> <div class="filters-wrapper"> <div class="col-sm-4 col-md-4 "> <h5># UNIT TYPE</h5> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class="col-sm-4 col-md-4 "> <h5># VARIANT</h5> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <a href="#" class="hide-div">+ Show More</a> </div> </div> </div> <div class="row"> <div class=" col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="row"> <div class="col-sm-4 col-md-4 "> <h5># AREA (Sqft)</h5> <input type="text" id="area" name="area" value="" /> </div> <div class="col-sm-4 col-md-4 "> <h5># BUDGET </h5> <input type="text" id="budget" name="budget" value="" /> </div> <div class="col-sm-4 col-md-4 "> </div> </div> </div> </div> </div> <div "> <h5># AVAILABILITY</h5> <div class="alert "> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="Available" class="-lbl">Show Available Units Only  (What\'s this?)</label> </div> </div> </div>');
+    FilterMsterView.prototype.template = Handlebars.compile('<div class="collapse" id="collapsefilters"> <div class="filters-wrapper"> <div class="col-sm-4 col-md-4 "> <h5># PROPERTY TYPE</h5> <div class="filter-chkbox-block"> {{#types}} <input type="checkbox" class="custom-chckbx addCft types" id="{{type}}" value="{{type}}"> <label for="{{type}}" class="-lbl">{{type}}{{type_name}}</label> {{/types}} </div> </div> <div class="col-sm-4 col-md-4 "> <h5># UNIT TYPE</h5> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class="col-sm-4 col-md-4 "> <h5># VARIANT</h5> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <a href="#" class="hide-div">+ Show More</a> </div> </div> </div> <div class="row"> <div class=" col-xs-12 col-sm-12 search-left-content"> <div class="filters-wrapper"> <div class="row"> <div class="col-sm-4 col-md-4 "> <h5># AREA (Sqft)</h5> <input type="text" id="area" name="area" value="" /> </div> <div class="col-sm-4 col-md-4 "> <h5># BUDGET </h5> <input type="text" id="budget" name="budget" value="" /> </div> <div class="col-sm-4 col-md-4 "> </div> </div> </div> </div> </div> <div "> <h5># AVAILABILITY</h5> <div class="alert "> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="Available" class="-lbl">Show Available Units Only  (What\'s this?)</label> </div> </div> </div>');
 
     FilterMsterView.prototype.initialize = function() {
       this.unitTypes = [];
       this.unitVariants = [];
-      return this.variantNames = [];
+      this.variantNames = [];
+      this.price = '';
+      return this.area = '';
     };
 
     FilterMsterView.prototype.ui = {
-      villaPropType: 'input[name="villa"]',
-      villaFilters: '.villaFilters',
-      apartmentPropType: 'input[name="apartment"]',
-      aptFilters: '.aptFilters',
       unitTypes: '.unit_types',
       unitVariants: '.unitvariants',
       priceMin: '.price_min',
@@ -30,10 +28,23 @@
       apply: '.apply',
       variantNames: '.variant_names',
       area: '#area',
-      budget: '#budget'
+      budget: '#budget',
+      types: '.types'
     };
 
     FilterMsterView.prototype.events = {
+      'click @ui.types': function(e) {
+        unitCollection.reset(unitMasterCollection.toArray());
+        if (e.target.id === 'Villas') {
+          this.trigger("load:villa:filters");
+        }
+        if (e.target.id === 'Apartments/Penthouse') {
+          this.trigger("load:apt:filters");
+        }
+        if (e.target.id === 'Plots') {
+          return this.trigger("load:plot:filters");
+        }
+      },
       'click @ui.unitTypes': function(e) {
         if ($(e.currentTarget).is(':checked')) {
           this.unitTypes.push(parseInt($(e.currentTarget).attr('data-value')));
@@ -93,43 +104,125 @@
       }
     };
 
-    FilterMsterView.prototype.resetFilters = function() {
-      var apartments, bunglows, status, unittypes;
-      unittypes = [];
-      apartments = [];
-      bunglows = [];
-      status = [];
-      unitTypeTempCollection.each(function(item) {
-        return unittypes.push(item.get('id'));
+    FilterMsterView.prototype.onVillaFilters = function(data) {
+      var max, min, priceMax, priceMin, unitVariantNames, unittypes;
+      min = _.min(data[0].unitVariants);
+      max = _.max(data[0].unitVariants);
+      priceMin = _.min(data[0].budget);
+      priceMax = _.max(data[0].budget);
+      this.area.destroy();
+      this.price.destroy();
+      $("#area").ionRangeSlider({
+        type: "double",
+        min: min,
+        max: max,
+        grid: false
       });
-      apartmentVariantTempCollection.each(function(item) {
-        return apartments.push(item.get('id'));
+      $("#budget").ionRangeSlider({
+        type: "double",
+        min: priceMin,
+        max: priceMax,
+        grid: false,
+        prettify: function(num) {
+          return window.numDifferentiation(num);
+        }
       });
-      bunglowVariantTempCollection.each(function(item) {
-        return bunglows.push(item.get('id'));
-      });
-      unitTempCollection.each(function(item) {
-        return status.push(item.get('availability'));
-      });
+      unittypes = _.pluck(data[0].unitTypes, 'id');
+      unitVariantNames = _.pluck(data[0].unitVariantNames, 'id');
       $(this.ui.unitTypes).each(function(ind, item) {
-        $('#' + item.id).prop('checked', true);
-        if ($.inArray(parseInt(item.id), unittypes) === -1) {
-          return $('#' + item.id).prop('checked', false);
-        }
-      });
-      $(this.ui.unitVariants).each(function(ind, item) {
-        $('#' + item.id).prop('checked', true);
-        if ($.inArray(parseInt(item.id), apartments) === -1 && apartmentVariantTempCollection.length !== 0) {
+        $('#' + item.id).attr('disabled', false);
+        if ($.inArray(parseInt($(item).attr('data-value')), unittypes) === -1) {
           $('#' + item.id).prop('checked', false);
-        }
-        if ($.inArray(parseInt(item.id), bunglows) === -1 && bunglowVariantTempCollection.length !== 0) {
-          return $('#' + item.id).prop('checked', false);
+          return $('#' + item.id).attr('disabled', true);
         }
       });
-      return $(this.ui.status).each(function(ind, item) {
-        $('#' + item.id).prop('checked', true);
-        if ($.inArray(item.id, status) === -1) {
-          return $('#' + item.id).prop('checked', false);
+      return $(this.ui.variantNames).each(function(ind, item) {
+        $('#' + item.id).attr('disabled', false);
+        if ($.inArray(parseInt($(item).attr('data-value')), unitVariantNames) === -1) {
+          $('#' + item.id).prop('checked', false);
+          return $('#' + item.id).attr('disabled', true);
+        }
+      });
+    };
+
+    FilterMsterView.prototype.onAptFilters = function(data) {
+      var max, min, priceMax, priceMin, unitVariantNames, unittypes;
+      min = _.min(data[0].unitVariants);
+      max = _.max(data[0].unitVariants);
+      priceMin = _.min(data[0].budget);
+      priceMax = _.max(data[0].budget);
+      this.area.destroy();
+      this.price.destroy();
+      $("#area").ionRangeSlider({
+        type: "double",
+        min: min,
+        max: max,
+        grid: false
+      });
+      $("#budget").ionRangeSlider({
+        type: "double",
+        min: priceMin,
+        max: priceMax,
+        grid: false,
+        prettify: function(num) {
+          return window.numDifferentiation(num);
+        }
+      });
+      unittypes = _.pluck(data[0].unitTypes, 'id');
+      unitVariantNames = _.pluck(data[0].unitVariantNames, 'id');
+      $(this.ui.unitTypes).each(function(ind, item) {
+        $('#' + item.id).attr('disabled', false);
+        if ($.inArray(parseInt($(item).attr('data-value')), unittypes) === -1) {
+          $('#' + item.id).prop('checked', false);
+          return $('#' + item.id).attr('disabled', true);
+        }
+      });
+      return $(this.ui.variantNames).each(function(ind, item) {
+        $('#' + item.id).attr('disabled', false);
+        if ($.inArray(parseInt($(item).attr('data-value')), unitVariantNames) === -1) {
+          $('#' + item.id).prop('checked', false);
+          return $('#' + item.id).attr('disabled', true);
+        }
+      });
+    };
+
+    FilterMsterView.prototype.onPlotFilters = function(data) {
+      var max, min, priceMax, priceMin, unitVariantNames, unittypes;
+      min = _.min(data[0].unitVariants);
+      max = _.max(data[0].unitVariants);
+      priceMin = _.min(data[0].budget);
+      priceMax = _.max(data[0].budget);
+      this.area.destroy();
+      this.price.destroy();
+      $("#area").ionRangeSlider({
+        type: "double",
+        min: min,
+        max: max,
+        grid: false
+      });
+      $("#budget").ionRangeSlider({
+        type: "double",
+        min: priceMin,
+        max: priceMax,
+        grid: false,
+        prettify: function(num) {
+          return window.numDifferentiation(num);
+        }
+      });
+      unittypes = _.pluck(data[0].unitTypes, 'id');
+      unitVariantNames = _.pluck(data[0].unitVariantNames, 'id');
+      $(this.ui.unitTypes).each(function(ind, item) {
+        $('#' + item.id).attr('disabled', false);
+        if ($.inArray(parseInt($(item).attr('data-value')), unittypes) === -1) {
+          $('#' + item.id).prop('checked', false);
+          return $('#' + item.id).attr('disabled', true);
+        }
+      });
+      return $(this.ui.variantNames).each(function(ind, item) {
+        $('#' + item.id).attr('disabled', false);
+        if ($.inArray(parseInt($(item).attr('data-value')), unitVariantNames) === -1) {
+          $('#' + item.id).prop('checked', false);
+          return $('#' + item.id).attr('disabled', true);
         }
       });
     };
@@ -140,6 +233,7 @@
       data.unitTypes = Marionette.getOption(this, 'unitTypes');
       data.unitVariants = Marionette.getOption(this, 'unitVariants');
       data.unitVariantNames = Marionette.getOption(this, 'unitVariantNames');
+      data.types = Marionette.getOption(this, 'types');
       return data;
     };
 
@@ -158,7 +252,7 @@
         max: max,
         grid: false
       });
-      return $("#budget").ionRangeSlider({
+      $("#budget").ionRangeSlider({
         type: "double",
         min: priceMin,
         max: priceMax,
@@ -167,6 +261,8 @@
           return window.numDifferentiation(num);
         }
       });
+      this.price = $("#budget").data("ionRangeSlider");
+      return this.area = $("#area").data("ionRangeSlider");
     };
 
     FilterMsterView.prototype.assignVillaValues = function(villaFilters) {
@@ -193,7 +289,7 @@
     }
 
     FilterMasterCtrl.prototype.initialize = function() {
-      var apartmentFilters, area, budget, plotFilters, unitTypes, unitVariantNames, unitVariants, view, villaFilters;
+      var apartmentFilters, area, budget, plotFilters, types, unitTypes, unitVariantNames, unitVariants, view, villaFilters;
       unitTypes = [];
       unitVariants = [];
       unitVariantNames = [];
@@ -214,21 +310,45 @@
       $.merge(unitVariants, plotFilters[0].unitVariants);
       $.merge(unitVariantNames, plotFilters[0].unitVariantNames);
       $.merge(budget, plotFilters[0].budget);
-      console.log(unitTypes);
-      console.log(budget);
+      types = CommonFloor.propertyTypes();
+      $.each(types, function(index, value) {
+        if (value.count === 0) {
+          types = _.omit(types, index);
+        }
+        if (value.type === 'Buildings') {
+          value.type = 'Apartments/Penthouse';
+          return value.type_name = '(A)/(PH)';
+        }
+      });
       this.view = view = new CommonFloor.FilterMsterView({
         'unitTypes': unitTypes,
         'unitVariants': _.uniq(unitVariants),
         'unitVariantNames': unitVariantNames,
-        'budget': budget
+        'budget': budget,
+        'types': types
       });
+      this.listenTo(this.view, "load:villa:filters", this.loadVillaFilter);
+      this.listenTo(this.view, "load:apt:filters", this.loadAptFilter);
+      this.listenTo(this.view, "load:plot:filters", this.loadPlotFilter);
       return this.show(this.view);
     };
 
-    FilterMasterCtrl.prototype.loadController = function() {
-      var apartmentFilters;
-      apartmentFilters = this.getApartmentFilters();
-      return this.view.triggerMethod("filter:data", apartmentFilters);
+    FilterMasterCtrl.prototype.loadVillaFilter = function() {
+      var villaFilters;
+      villaFilters = this.getVillaFilters();
+      return this.view.triggerMethod("villa:filters", villaFilters);
+    };
+
+    FilterMasterCtrl.prototype.loadAptFilter = function() {
+      var aptFilters;
+      aptFilters = this.getApartmentFilters();
+      return this.view.triggerMethod("apt:filters", aptFilters);
+    };
+
+    FilterMasterCtrl.prototype.loadPlotFilter = function() {
+      var plotFilters;
+      plotFilters = this.getPlotFilters();
+      return this.view.triggerMethod("plot:filters", plotFilters);
     };
 
     FilterMasterCtrl.prototype.getVillaFilters = function() {
@@ -303,7 +423,7 @@
             unitTypes.push({
               'id': unitTypeModel.get('id'),
               'name': unitTypeModel.get('name'),
-              'type': 'B'
+              'type': 'A'
             });
           }
           unitVariants.push(item.get('super_built_up_area'));

@@ -156,19 +156,22 @@
     if (bunglowVariantCollection.getBunglowUnits().length !== 0) {
       Router.push({
         'type': s.capitalize('villas'),
-        'count': bunglowVariantCollection.getBunglowUnits()
+        'count': bunglowVariantCollection.getBunglowUnits(),
+        'type_name': '(V)'
       });
     }
     if (buildingCollection.toArray().length !== 0) {
       Router.push({
         'type': s.capitalize('buildings'),
-        'count': buildingCollection.toArray()
+        'count': buildingCollection.toArray(),
+        'type_name': '(A)'
       });
     }
     if (plotVariantCollection.getPlotUnits().length !== 0) {
       Router.push({
         'type': s.capitalize('plots'),
-        'count': plotVariantCollection.getPlotUnits()
+        'count': plotVariantCollection.getPlotUnits(),
+        'type_name': '(P)'
       });
     }
     controller = _.max(Router, function(item) {

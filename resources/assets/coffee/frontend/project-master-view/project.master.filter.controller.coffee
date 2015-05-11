@@ -7,7 +7,17 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 									
 										
 										  <div class="filters-wrapper">	
-
+										  	<div class="col-sm-4 col-md-4 ">
+			                                    <h5># PROPERTY TYPE</h5>
+			                                      <div class="filter-chkbox-block">
+			                                      	{{#types}}
+			                                        <input type="checkbox" class="custom-chckbx addCft types" id="{{type}}" value="{{type}}">
+			                                        	<label for="{{type}}" class="-lbl">{{type}}{{type_name}}</label> 
+			                                        
+			                                		{{/types}}
+			                                    </div>
+  
+                                 			 </div>
 											<div class="col-sm-4 col-md-4 ">
 			                                    <h5># UNIT TYPE</h5>
 			                                    <div class="filter-chkbox-block">
@@ -71,15 +81,13 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		@unitTypes = []
 		@unitVariants = []
 		@variantNames = []
+		@price = ''
+		@area = ''
 		
 		
 
 
 	ui:
-		villaPropType : 'input[name="villa"]'
-		villaFilters : '.villaFilters'
-		apartmentPropType : 'input[name="apartment"]'
-		aptFilters : '.aptFilters'
 		unitTypes : '.unit_types'
 		unitVariants : '.unitvariants'
 		priceMin : '.price_min'
@@ -89,23 +97,17 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		variantNames : '.variant_names'
 		area : '#area'
 		budget : '#budget'
+		types : '.types'
 
 	events:
-		# 'click @ui.villaPropType':(e)->
-		# 	if $(e.target).is(':checked')
-		# 		$(@ui.villaFilters).prop('checked' ,true)
-		# 		$(@ui.villaFilters).prop('disabled' ,false)
-		# 	else
-		# 		$(@ui.villaFilters).prop('checked' ,false)
-		# 		$(@ui.villaFilters).prop('disabled' ,true)
-
-		# 'click @ui.apartmentPropType':(e)->
-		# 	if $(e.target).is(':checked')
-		# 		$(@ui.aptFilters).prop('checked' ,true)
-		# 		$(@ui.aptFilters).prop('disabled' ,false)
-		# 	else
-		# 		$(@ui.aptFilters).prop('checked' ,false)
-		# 		$(@ui.aptFilters).prop('disabled' ,true)
+		'click @ui.types':(e)->
+			unitCollection.reset unitMasterCollection.toArray()
+			if e.target.id == 'Villas'
+				@trigger "load:villa:filters" 
+			if e.target.id == 'Apartments/Penthouse'
+				@trigger "load:apt:filters" 
+			if e.target.id == 'Plots'
+				@trigger "load:plot:filters"
 
 		'click @ui.unitTypes':(e)->
 			if $(e.currentTarget).is(':checked')
@@ -126,17 +128,6 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			CommonFloor.defaults['unitVariants'] = @variantNames.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()	
-
-
-		# 'click @ui.unitVariants':(e)->
-		# 	if $(e.currentTarget).is(':checked')
-		# 		@unitVariants.push parseInt $(e.currentTarget).attr('data-value')
-		# 	else
-		# 		@unitVariants = _.without @unitVariants ,parseInt $(e.currentTarget).attr('data-value')
-		# 	CommonFloor.defaults['area'] = @unitVariants.join(',')
-		# 	unitCollection.reset unitMasterCollection.toArray()
-		# 	CommonFloor.filter()
-			
 
 		'change @ui.priceMin':(e)->
 			if $(e.currentTarget).val() != ""
@@ -185,36 +176,113 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			
 	
 	#function to check the filters dependency
-	resetFilters:->
-		unittypes = []
-		apartments = []
-		bunglows = []
-		status = []
-		unitTypeTempCollection.each (item)->
-			unittypes.push item.get 'id'
-		apartmentVariantTempCollection.each (item)->
-			apartments.push item.get 'id'
-		bunglowVariantTempCollection.each (item)->
-			bunglows.push item.get 'id'
-		unitTempCollection.each (item)->
-			status.push item.get 'availability'
-		
+	onVillaFilters:(data)->
+		min = _.min data[0].unitVariants
+		max = _.max data[0].unitVariants
+		priceMin = _.min data[0].budget
+		priceMax = _.max data[0].budget
+		@area.destroy()
+		@price.destroy()
+		$("#area").ionRangeSlider(
+		    type: "double",
+		    min: min,
+		    max: max,
+		    grid: false
+		)
+		$("#budget").ionRangeSlider(
+		    type: "double",
+		    min: priceMin,
+		    max: priceMax,
+		    grid: false
+		    prettify :(num)->
+		    	return window.numDifferentiation(num)
+
+		)
+		unittypes = _.pluck data[0].unitTypes , 'id'
+		unitVariantNames = _.pluck data[0].unitVariantNames , 'id'
 		$(@ui.unitTypes).each (ind,item)->
-			$('#'+item.id).prop('checked',true)
-			if $.inArray(parseInt(item.id),unittypes) is -1
+			$('#'+item.id).attr('disabled',false)
+			if $.inArray(parseInt($(item).attr('data-value')),unittypes) is -1
 				$('#'+item.id).prop('checked',false)
-		$(@ui.unitVariants).each (ind,item)->
-			$('#'+item.id).prop('checked',true)
-			if $.inArray(parseInt(item.id),apartments) is -1 && apartmentVariantTempCollection.length != 0
+				$('#'+item.id).attr('disabled',true)
+		$(@ui.variantNames).each (ind,item)->
+			$('#'+item.id).attr('disabled',false)
+			if $.inArray(parseInt($(item).attr('data-value')),unitVariantNames) is -1
 				$('#'+item.id).prop('checked',false)
-			if $.inArray(parseInt(item.id),bunglows) is -1 && bunglowVariantTempCollection.length != 0
+				$('#'+item.id).attr('disabled',true)
+
+	#function to check the filters dependency
+	onAptFilters:(data)->
+		min = _.min data[0].unitVariants
+		max = _.max data[0].unitVariants
+		priceMin = _.min data[0].budget
+		priceMax = _.max data[0].budget
+		@area.destroy()
+		@price.destroy()
+		$("#area").ionRangeSlider(
+		    type: "double",
+		    min: min,
+		    max: max,
+		    grid: false
+		)
+		$("#budget").ionRangeSlider(
+		    type: "double",
+		    min: priceMin,
+		    max: priceMax,
+		    grid: false
+		    prettify :(num)->
+		    	return window.numDifferentiation(num)
+
+		)
+		unittypes = _.pluck data[0].unitTypes , 'id'
+		unitVariantNames = _.pluck data[0].unitVariantNames , 'id'
+		$(@ui.unitTypes).each (ind,item)->
+			$('#'+item.id).attr('disabled',false)
+			if $.inArray(parseInt($(item).attr('data-value')),unittypes) is -1
 				$('#'+item.id).prop('checked',false)
-		$(@ui.status).each (ind,item)->
-			$('#'+item.id).prop('checked',true)
-			if $.inArray(item.id,status) is -1
+				$('#'+item.id).attr('disabled',true)
+		$(@ui.variantNames).each (ind,item)->
+			$('#'+item.id).attr('disabled',false)
+			if $.inArray(parseInt($(item).attr('data-value')),unitVariantNames) is -1
 				$('#'+item.id).prop('checked',false)
+				$('#'+item.id).attr('disabled',true)
 
 
+	onPlotFilters:(data)->
+		min = _.min data[0].unitVariants
+		max = _.max data[0].unitVariants
+		priceMin = _.min data[0].budget
+		priceMax = _.max data[0].budget
+		@area.destroy()
+		@price.destroy()
+		$("#area").ionRangeSlider(
+		    type: "double",
+		    min: min,
+		    max: max,
+		    grid: false
+		)
+		$("#budget").ionRangeSlider(
+		    type: "double",
+		    min: priceMin,
+		    max: priceMax,
+		    grid: false
+		    prettify :(num)->
+		    	return window.numDifferentiation(num)
+
+		)
+		unittypes = _.pluck data[0].unitTypes , 'id'
+		unitVariantNames = _.pluck data[0].unitVariantNames , 'id'
+		$(@ui.unitTypes).each (ind,item)->
+			$('#'+item.id).attr('disabled',false)
+			if $.inArray(parseInt($(item).attr('data-value')),unittypes) is -1
+				$('#'+item.id).prop('checked',false)
+				$('#'+item.id).attr('disabled',true)
+		$(@ui.variantNames).each (ind,item)->
+			$('#'+item.id).attr('disabled',false)
+			if $.inArray(parseInt($(item).attr('data-value')),unitVariantNames) is -1
+				$('#'+item.id).prop('checked',false)
+				$('#'+item.id).attr('disabled',true)
+		
 
 
 
@@ -223,6 +291,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		data.unitTypes = Marionette.getOption(@,'unitTypes')
 		data.unitVariants = Marionette.getOption(@,'unitVariants')
 		data.unitVariantNames = Marionette.getOption(@,'unitVariantNames')
+		data.types = Marionette.getOption(@,'types')
 		data
 
 	onShow:->
@@ -248,6 +317,8 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		    	return window.numDifferentiation(num)
 
 		)
+		@price = $("#budget").data("ionRangeSlider")
+		@area = $("#area").data("ionRangeSlider")
 		# if villaFilters.length != 0
 		# 	@assignVillaValues(villaFilters)
 		# if apartmentFilters.length != 0
@@ -295,21 +366,40 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		$.merge unitVariants , plotFilters[0].unitVariants
 		$.merge unitVariantNames , plotFilters[0].unitVariantNames
 		$.merge budget , plotFilters[0].budget
-		console.log unitTypes
-		console.log budget
+		types = CommonFloor.propertyTypes()
+		$.each types,(index,value)->
+			if value.count == 0
+				types = _.omit(types, index) 
+			if value.type == 'Buildings'
+				value.type = 'Apartments/Penthouse'
+				value.type_name = '(A)/(PH)'
+		
 		@view = view = new CommonFloor.FilterMsterView
 				'unitTypes' : unitTypes
 				'unitVariants' : _.uniq unitVariants
 				'unitVariantNames' : unitVariantNames
 				'budget'			: budget
+				'types'			: types
 
-		# @listenTo @view,"load:units" ,@loadController
+		@listenTo @view,"load:villa:filters" ,@loadVillaFilter
+
+		@listenTo @view,"load:apt:filters" ,@loadAptFilter
+
+		@listenTo @view,"load:plot:filters" ,@loadPlotFilter
 		
 		@show @view
 
-	loadController:->
-		apartmentFilters = @getApartmentFilters()
-		@view.triggerMethod "filter:data", apartmentFilters
+	loadVillaFilter:->
+		villaFilters = @getVillaFilters()
+		@view.triggerMethod "villa:filters", villaFilters
+
+	loadAptFilter:->
+		aptFilters = @getApartmentFilters()
+		@view.triggerMethod "apt:filters", aptFilters
+
+	loadPlotFilter:->
+		plotFilters = @getPlotFilters()
+		@view.triggerMethod "plot:filters", plotFilters
 
 	#function to generate all the villa filters
 	getVillaFilters:->
@@ -372,7 +462,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 					unitTypes.push 
 							'id' : unitTypeModel.get 'id'
 							'name' : unitTypeModel.get 'name'
-							'type'	: 'B'
+							'type'	: 'A'
 				unitVariants.push item.get 'super_built_up_area'
 				unitVariantNames.push
 						'id' : item.get 'id'
