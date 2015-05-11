@@ -10,8 +10,8 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 					                                    <h5># PROPERTY TYPE</h5>
 					                                    <div class="filter-chkbox-block">
 					                                      	{{#types}}
-					                                        <input type="checkbox" class="custom-chckbx addCft types" id="{{type}}" value="{{type}}">
-					                                        <label for="{{type}}" class="-lbl">{{type}}{{type_name}}</label> 
+					                                        <input type="checkbox" class="custom-chckbx addCft types" id="{{id}}" value="{{type}}">
+					                                        <label for="{{id}}" class="-lbl">{{type}}{{type_name}}</label> 
 					                                		{{/types}}
 					                                    </div>	  
 		                                 			</div>
@@ -66,6 +66,8 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		@variantNames = []
 		@price = ''
 		@area = ''
+		@type  = []
+		
 		
 		
 
@@ -84,18 +86,27 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 	events:
 		'click @ui.types':(e)->
+			@unitTypes = []
+			@unitVariants = []
+			@variantNames = []
 			$.each CommonFloor.defaults,(index,value)->
-				CommonFloor.defaults[index] = ""
+				if index != 'type'
+						CommonFloor.defaults[index] = ""
+			if $(e.currentTarget).is(':checked')
+				@type.push e.target.id
+			else
+				@type = _.without @type ,e.target.id
+			CommonFloor.defaults['type'] = @type.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
-
 			if e.target.id == 'Villas'
 				@trigger "load:villa:filters" 
-			if e.target.id == 'Apartments/Penthouse'
+			if e.target.id == 'Apartments'
 				@trigger "load:apt:filters" 
 			if e.target.id == 'Plots'
 				@trigger "load:plot:filters"
 
+			
 		'click @ui.unitTypes':(e)->
 			if $(e.currentTarget).is(':checked')
 				@unitTypes.push parseInt $(e.currentTarget).attr('data-value')
@@ -185,16 +196,22 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		    	return window.numDifferentiation(num)
 
 		)
-		unittypes = _.pluck data[0].unitTypes , 'id'
-		unitVariantNames = _.pluck data[0].unitVariantNames , 'id'
+		unitVariantColl = _.pluck plotVariantCollection.toArray() , 'id'
+		unitVariantArray = unitVariantColl.map (item)->
+			return parseInt item
+		unittypesColl = _.pluck unitTypeCollection.toArray() , 'id'
+		unittypesArray = unittypesColl.map (item)->
+			return parseInt item
 		$(@ui.unitTypes).each (ind,item)->
 			$('#'+item.id).attr('disabled',false)
-			if $.inArray(parseInt($(item).attr('data-value')),unittypes) is -1
+			$('#'+item.id).attr('checked',false)
+			if $.inArray(parseInt($(item).attr('data-value')),unittypesArray) is -1 
 				$('#'+item.id).prop('checked',false)
 				$('#'+item.id).attr('disabled',true)
 		$(@ui.variantNames).each (ind,item)->
+			$('#'+item.id).attr('checked',false)
 			$('#'+item.id).attr('disabled',false)
-			if $.inArray(parseInt($(item).attr('data-value')),unitVariantNames) is -1
+			if $.inArray(parseInt($(item).attr('data-value')),unitVariantArray) is -1 
 				$('#'+item.id).prop('checked',false)
 				$('#'+item.id).attr('disabled',true)
 
@@ -221,16 +238,22 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		    	return window.numDifferentiation(num)
 
 		)
-		unittypes = _.pluck data[0].unitTypes , 'id'
-		unitVariantNames = _.pluck data[0].unitVariantNames , 'id'
+		unitVariantColl = _.pluck plotVariantCollection.toArray() , 'id'
+		unitVariantArray = unitVariantColl.map (item)->
+			return parseInt item
+		unittypesColl = _.pluck unitTypeCollection.toArray() , 'id'
+		unittypesArray = unittypesColl.map (item)->
+			return parseInt item
 		$(@ui.unitTypes).each (ind,item)->
+			$('#'+item.id).attr('checked',false)
 			$('#'+item.id).attr('disabled',false)
-			if $.inArray(parseInt($(item).attr('data-value')),unittypes) is -1
+			if $.inArray(parseInt($(item).attr('data-value')),unittypesArray) is -1
 				$('#'+item.id).prop('checked',false)
 				$('#'+item.id).attr('disabled',true)
 		$(@ui.variantNames).each (ind,item)->
+			$('#'+item.id).attr('checked',false)
 			$('#'+item.id).attr('disabled',false)
-			if $.inArray(parseInt($(item).attr('data-value')),unitVariantNames) is -1
+			if $.inArray(parseInt($(item).attr('data-value')),unitVariantArray) is -1
 				$('#'+item.id).prop('checked',false)
 				$('#'+item.id).attr('disabled',true)
 
@@ -257,16 +280,22 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		    	return window.numDifferentiation(num)
 
 		)
-		unittypes = _.pluck data[0].unitTypes , 'id'
-		unitVariantNames = _.pluck data[0].unitVariantNames , 'id'
+		unitVariantColl = _.pluck plotVariantCollection.toArray() , 'id'
+		unitVariantArray = unitVariantColl.map (item)->
+			return parseInt item
+		unittypesColl = _.pluck unitTypeCollection.toArray() , 'id'
+		unittypesArray = unittypesColl.map (item)->
+			return parseInt item
 		$(@ui.unitTypes).each (ind,item)->
+			$('#'+item.id).attr('checked',false)
 			$('#'+item.id).attr('disabled',false)
-			if $.inArray(parseInt($(item).attr('data-value')),unittypes) is -1
+			if $.inArray(parseInt($(item).attr('data-value')),unittypesArray) is -1
 				$('#'+item.id).prop('checked',false)
 				$('#'+item.id).attr('disabled',true)
 		$(@ui.variantNames).each (ind,item)->
+			$('#'+item.id).attr('checked',false)
 			$('#'+item.id).attr('disabled',false)
-			if $.inArray(parseInt($(item).attr('data-value')),unitVariantNames) is -1
+			if $.inArray(parseInt($(item).attr('data-value')),unitVariantArray) is -1
 				$('#'+item.id).prop('checked',false)
 				$('#'+item.id).attr('disabled',true)
 		
@@ -366,9 +395,11 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		$.each types,(index,value)->
 			if value.count == 0
 				types = _.omit(types, index) 
+			value['id'] = value.type
 			if value.type == 'Buildings'
 				value.type = 'Apartments/Penthouse'
 				value.type_name = '(A)/(PH)'
+				value['id'] = 'Apartments'
 		
 		@view = view = new CommonFloor.FilterMsterView
 				'unitTypes' : unitTypes
@@ -428,12 +459,11 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 				unitDetails = window.unit.getUnitDetails(value.id)
 				budget.push parseFloat unitDetails[3]
 			
-		if unitVariants.length != 0
-			filters.push
-					'unitTypes' 	: unitTypes
-					'unitVariants'  : unitVariants
-					'unitVariantNames' : unitVariantNames
-					'budget'			: budget
+		filters.push
+			'unitTypes' 	: unitTypes
+			'unitVariants'  : unitVariants
+			'unitVariantNames' : unitVariantNames
+			'budget'			: budget
 
 
 		filters
@@ -470,12 +500,11 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		$.each unitsArr,(index,value)->
 			unitDetails = window.unit.getUnitDetails(value.id)
 			budget.push parseFloat unitDetails[3]
-		if unitVariants.length != 0
-			filters.push
-					'unitTypes' 	: unitTypes
-					'unitVariants'  : unitVariants
-					'unitVariantNames' : unitVariantNames
-					'budget'			: budget
+		filters.push
+			'unitTypes' 	: unitTypes
+			'unitVariants'  : unitVariants
+			'unitVariantNames' : unitVariantNames
+			'budget'			: budget
 		filters
 
 
@@ -511,11 +540,10 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		$.each unitsArr,(index,value)->
 			unitDetails = window.unit.getUnitDetails(value.id)
 			budget.push parseFloat unitDetails[3]	
-		if unitVariants.length != 0
-			filters.push
-					'unitTypes' 	: unitTypes
-					'unitVariants'  : unitVariants
-					'unitVariantNames' : unitVariantNames
-					'budget'			: budget
+		filters.push
+			'unitTypes' 	: unitTypes
+			'unitVariants'  : unitVariants
+			'unitVariantNames' : unitVariantNames
+			'budget'			: budget
 		filters
 								

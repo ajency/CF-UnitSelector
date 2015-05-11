@@ -9,14 +9,15 @@
       return FilterMsterView.__super__.constructor.apply(this, arguments);
     }
 
-    FilterMsterView.prototype.template = Handlebars.compile('<div class="collapse" id="collapsefilters"> <div class="container-fluid""> <div class="filters-wrapper"> <div class="row"> <div class="col-sm-4 col-md-4 "> <h5># PROPERTY TYPE</h5> <div class="filter-chkbox-block"> {{#types}} <input type="checkbox" class="custom-chckbx addCft types" id="{{type}}" value="{{type}}"> <label for="{{type}}" class="-lbl">{{type}}{{type_name}}</label> {{/types}} </div> </div> <div class="col-sm-4 col-md-4 "> <h5># UNIT TYPE</h5> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class="col-sm-4 col-md-4 "> <h5># VARIANT</h5> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <a href="#" class="hide-div">+ Show More</a> </div> </div> </div> <div class="row m-t-20"> <div class="col-sm-4 col-md-4 "> <h5># AREA (Sqft)</h5> <input type="text" id="area" name="area" value="" /> </div> <div class="col-sm-4 col-md-4 "> <h5># BUDGET </h5> <input type="text" id="budget" name="budget" value="" /> </div> <div class="col-sm-4 col-md-4 "> <h5># AVAILABILITY</h5> <div class="alert "> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="Available" class="-lbl">Show Available Units Only  (What\'s this?)</label> </div> </div> </div> </div> </div> </div>');
+    FilterMsterView.prototype.template = Handlebars.compile('<div class="collapse" id="collapsefilters"> <div class="container-fluid""> <div class="filters-wrapper"> <div class="row"> <div class="col-sm-4 col-md-4 "> <h5># PROPERTY TYPE</h5> <div class="filter-chkbox-block"> {{#types}} <input type="checkbox" class="custom-chckbx addCft types" id="{{id}}" value="{{type}}"> <label for="{{id}}" class="-lbl">{{type}}{{type_name}}</label> {{/types}} </div> </div> <div class="col-sm-4 col-md-4 "> <h5># UNIT TYPE</h5> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class="col-sm-4 col-md-4 "> <h5># VARIANT</h5> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <a href="#" class="hide-div">+ Show More</a> </div> </div> </div> <div class="row m-t-20"> <div class="col-sm-4 col-md-4 "> <h5># AREA (Sqft)</h5> <input type="text" id="area" name="area" value="" /> </div> <div class="col-sm-4 col-md-4 "> <h5># BUDGET </h5> <input type="text" id="budget" name="budget" value="" /> </div> <div class="col-sm-4 col-md-4 "> <h5># AVAILABILITY</h5> <div class="alert "> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="Available" class="-lbl">Show Available Units Only  (What\'s this?)</label> </div> </div> </div> </div> </div> </div>');
 
     FilterMsterView.prototype.initialize = function() {
       this.unitTypes = [];
       this.unitVariants = [];
       this.variantNames = [];
       this.price = '';
-      return this.area = '';
+      this.area = '';
+      return this.type = [];
     };
 
     FilterMsterView.prototype.ui = {
@@ -34,15 +35,26 @@
 
     FilterMsterView.prototype.events = {
       'click @ui.types': function(e) {
+        this.unitTypes = [];
+        this.unitVariants = [];
+        this.variantNames = [];
         $.each(CommonFloor.defaults, function(index, value) {
-          return CommonFloor.defaults[index] = "";
+          if (index !== 'type') {
+            return CommonFloor.defaults[index] = "";
+          }
         });
+        if ($(e.currentTarget).is(':checked')) {
+          this.type.push(e.target.id);
+        } else {
+          this.type = _.without(this.type, e.target.id);
+        }
+        CommonFloor.defaults['type'] = this.type.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filter();
         if (e.target.id === 'Villas') {
           this.trigger("load:villa:filters");
         }
-        if (e.target.id === 'Apartments/Penthouse') {
+        if (e.target.id === 'Apartments') {
           this.trigger("load:apt:filters");
         }
         if (e.target.id === 'Plots') {
@@ -109,7 +121,7 @@
     };
 
     FilterMsterView.prototype.onVillaFilters = function(data) {
-      var max, min, priceMax, priceMin, unitVariantNames, unittypes;
+      var max, min, priceMax, priceMin, unitVariantArray, unitVariantColl, unittypesArray, unittypesColl;
       min = _.min(data[0].unitVariants);
       max = _.max(data[0].unitVariants);
       priceMin = _.min(data[0].budget);
@@ -131,18 +143,26 @@
           return window.numDifferentiation(num);
         }
       });
-      unittypes = _.pluck(data[0].unitTypes, 'id');
-      unitVariantNames = _.pluck(data[0].unitVariantNames, 'id');
+      unitVariantColl = _.pluck(plotVariantCollection.toArray(), 'id');
+      unitVariantArray = unitVariantColl.map(function(item) {
+        return parseInt(item);
+      });
+      unittypesColl = _.pluck(unitTypeCollection.toArray(), 'id');
+      unittypesArray = unittypesColl.map(function(item) {
+        return parseInt(item);
+      });
       $(this.ui.unitTypes).each(function(ind, item) {
         $('#' + item.id).attr('disabled', false);
-        if ($.inArray(parseInt($(item).attr('data-value')), unittypes) === -1) {
+        $('#' + item.id).attr('checked', false);
+        if ($.inArray(parseInt($(item).attr('data-value')), unittypesArray) === -1) {
           $('#' + item.id).prop('checked', false);
           return $('#' + item.id).attr('disabled', true);
         }
       });
       return $(this.ui.variantNames).each(function(ind, item) {
+        $('#' + item.id).attr('checked', false);
         $('#' + item.id).attr('disabled', false);
-        if ($.inArray(parseInt($(item).attr('data-value')), unitVariantNames) === -1) {
+        if ($.inArray(parseInt($(item).attr('data-value')), unitVariantArray) === -1) {
           $('#' + item.id).prop('checked', false);
           return $('#' + item.id).attr('disabled', true);
         }
@@ -150,7 +170,7 @@
     };
 
     FilterMsterView.prototype.onAptFilters = function(data) {
-      var max, min, priceMax, priceMin, unitVariantNames, unittypes;
+      var max, min, priceMax, priceMin, unitVariantArray, unitVariantColl, unittypesArray, unittypesColl;
       min = _.min(data[0].unitVariants);
       max = _.max(data[0].unitVariants);
       priceMin = _.min(data[0].budget);
@@ -172,18 +192,26 @@
           return window.numDifferentiation(num);
         }
       });
-      unittypes = _.pluck(data[0].unitTypes, 'id');
-      unitVariantNames = _.pluck(data[0].unitVariantNames, 'id');
+      unitVariantColl = _.pluck(plotVariantCollection.toArray(), 'id');
+      unitVariantArray = unitVariantColl.map(function(item) {
+        return parseInt(item);
+      });
+      unittypesColl = _.pluck(unitTypeCollection.toArray(), 'id');
+      unittypesArray = unittypesColl.map(function(item) {
+        return parseInt(item);
+      });
       $(this.ui.unitTypes).each(function(ind, item) {
+        $('#' + item.id).attr('checked', false);
         $('#' + item.id).attr('disabled', false);
-        if ($.inArray(parseInt($(item).attr('data-value')), unittypes) === -1) {
+        if ($.inArray(parseInt($(item).attr('data-value')), unittypesArray) === -1) {
           $('#' + item.id).prop('checked', false);
           return $('#' + item.id).attr('disabled', true);
         }
       });
       return $(this.ui.variantNames).each(function(ind, item) {
+        $('#' + item.id).attr('checked', false);
         $('#' + item.id).attr('disabled', false);
-        if ($.inArray(parseInt($(item).attr('data-value')), unitVariantNames) === -1) {
+        if ($.inArray(parseInt($(item).attr('data-value')), unitVariantArray) === -1) {
           $('#' + item.id).prop('checked', false);
           return $('#' + item.id).attr('disabled', true);
         }
@@ -191,7 +219,7 @@
     };
 
     FilterMsterView.prototype.onPlotFilters = function(data) {
-      var max, min, priceMax, priceMin, unitVariantNames, unittypes;
+      var max, min, priceMax, priceMin, unitVariantArray, unitVariantColl, unittypesArray, unittypesColl;
       min = _.min(data[0].unitVariants);
       max = _.max(data[0].unitVariants);
       priceMin = _.min(data[0].budget);
@@ -213,18 +241,26 @@
           return window.numDifferentiation(num);
         }
       });
-      unittypes = _.pluck(data[0].unitTypes, 'id');
-      unitVariantNames = _.pluck(data[0].unitVariantNames, 'id');
+      unitVariantColl = _.pluck(plotVariantCollection.toArray(), 'id');
+      unitVariantArray = unitVariantColl.map(function(item) {
+        return parseInt(item);
+      });
+      unittypesColl = _.pluck(unitTypeCollection.toArray(), 'id');
+      unittypesArray = unittypesColl.map(function(item) {
+        return parseInt(item);
+      });
       $(this.ui.unitTypes).each(function(ind, item) {
+        $('#' + item.id).attr('checked', false);
         $('#' + item.id).attr('disabled', false);
-        if ($.inArray(parseInt($(item).attr('data-value')), unittypes) === -1) {
+        if ($.inArray(parseInt($(item).attr('data-value')), unittypesArray) === -1) {
           $('#' + item.id).prop('checked', false);
           return $('#' + item.id).attr('disabled', true);
         }
       });
       return $(this.ui.variantNames).each(function(ind, item) {
+        $('#' + item.id).attr('checked', false);
         $('#' + item.id).attr('disabled', false);
-        if ($.inArray(parseInt($(item).attr('data-value')), unitVariantNames) === -1) {
+        if ($.inArray(parseInt($(item).attr('data-value')), unitVariantArray) === -1) {
           $('#' + item.id).prop('checked', false);
           return $('#' + item.id).attr('disabled', true);
         }
@@ -331,9 +367,11 @@
         if (value.count === 0) {
           types = _.omit(types, index);
         }
+        value['id'] = value.type;
         if (value.type === 'Buildings') {
           value.type = 'Apartments/Penthouse';
-          return value.type_name = '(A)/(PH)';
+          value.type_name = '(A)/(PH)';
+          return value['id'] = 'Apartments';
         }
       });
       this.view = view = new CommonFloor.FilterMsterView({
@@ -406,14 +444,12 @@
           return budget.push(parseFloat(unitDetails[3]));
         });
       });
-      if (unitVariants.length !== 0) {
-        filters.push({
-          'unitTypes': unitTypes,
-          'unitVariants': unitVariants,
-          'unitVariantNames': unitVariantNames,
-          'budget': budget
-        });
-      }
+      filters.push({
+        'unitTypes': unitTypes,
+        'unitVariants': unitVariants,
+        'unitVariantNames': unitVariantNames,
+        'budget': budget
+      });
       return filters;
     };
 
@@ -456,14 +492,12 @@
         unitDetails = window.unit.getUnitDetails(value.id);
         return budget.push(parseFloat(unitDetails[3]));
       });
-      if (unitVariants.length !== 0) {
-        filters.push({
-          'unitTypes': unitTypes,
-          'unitVariants': unitVariants,
-          'unitVariantNames': unitVariantNames,
-          'budget': budget
-        });
-      }
+      filters.push({
+        'unitTypes': unitTypes,
+        'unitVariants': unitVariants,
+        'unitVariantNames': unitVariantNames,
+        'budget': budget
+      });
       return filters;
     };
 
@@ -506,14 +540,12 @@
         unitDetails = window.unit.getUnitDetails(value.id);
         return budget.push(parseFloat(unitDetails[3]));
       });
-      if (unitVariants.length !== 0) {
-        filters.push({
-          'unitTypes': unitTypes,
-          'unitVariants': unitVariants,
-          'unitVariantNames': unitVariantNames,
-          'budget': budget
-        });
-      }
+      filters.push({
+        'unitTypes': unitTypes,
+        'unitVariants': unitVariants,
+        'unitVariantNames': unitVariantNames,
+        'budget': budget
+      });
       return filters;
     };
 
