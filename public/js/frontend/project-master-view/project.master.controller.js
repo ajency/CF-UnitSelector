@@ -261,7 +261,6 @@
     };
 
     TopMasterCtrl.prototype.renderView = function() {
-      console.log("enterd");
       this.view = new TopMasterView({
         model: project
       });

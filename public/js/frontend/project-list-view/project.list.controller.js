@@ -259,9 +259,26 @@
     };
 
     TopListCtrl.prototype.renderView = function() {
-      return this.show(new TopListView({
+      this.view = new TopListView({
         model: project
-      }));
+      });
+      this.listenTo(this.view, "render:view", this.loadController);
+      return this.show(this.view);
+    };
+
+    TopListCtrl.prototype.loadController = function() {
+      window.unitTypes = [];
+      window.unitVariants = [];
+      window.variantNames = [];
+      window.price = '';
+      window.area = '';
+      window.type = [];
+      this.region = new Marionette.Region({
+        el: '#filterregion'
+      });
+      return new CommonFloor.FilterMasterCtrl({
+        region: this.region
+      });
     };
 
     return TopListCtrl;
@@ -326,10 +343,8 @@
         new CommonFloor.VillaListCtrl({
           region: this.region
         });
-        this.parent().trigger("load:units", data);
       }
       if (response.type === 'building') {
-        console.log(this.parent());
         units = buildingCollection;
         data = {};
         data.units = units;
@@ -337,10 +352,9 @@
         this.region = new Marionette.Region({
           el: '#centerregion'
         });
-        new CommonFloor.BuildingListCtrl({
+        return new CommonFloor.BuildingListCtrl({
           region: this.region
         });
-        return this.parent().trigger("load:units", data);
       }
     };
 

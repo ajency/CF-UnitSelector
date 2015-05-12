@@ -329,7 +329,6 @@
       unitsArr = [];
       unittypesColl = [];
       $.each(types, function(index, value) {
-        console.log(value);
         if (value === 'Villas') {
           $.merge(unitsArr, bunglowVariantMasterCollection.getBunglowMasterUnits());
         }
@@ -347,7 +346,7 @@
       });
       $.each(unitsArr, function(index, value) {
         var unitDetails;
-        console.log(unitDetails = window.unit.getUnitDetails(value.id));
+        unitDetails = window.unit.getUnitDetails(value.id);
         id.push(parseInt(unitDetails[0].get('id')));
         return unittypesColl.push(parseFloat(unitDetails[1].get('id')));
       });
@@ -357,7 +356,6 @@
         budget.push(parseFloat(unitDetails[3]));
         return area.push(parseFloat(unitDetails[0].get('super_built_up_area')));
       });
-      console.log(budget);
       $(this.ui.unitTypes).each(function(ind, item) {
         $('#' + item.id).attr('checked', true);
         $('#' + item.id).attr('disabled', false);

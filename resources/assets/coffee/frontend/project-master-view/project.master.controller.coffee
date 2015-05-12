@@ -236,7 +236,6 @@ class CommonFloor.TopMasterCtrl extends Marionette.RegionController
 		unitTempCollection.on("change reset add remove", @renderView, @)
 
 	renderView:->
-		console.log "enterd"
 		@view =  new TopMasterView
 			model : project
 

@@ -317,9 +317,7 @@ CommonFloor.filterBudget = ()->
 	CommonFloor.resetCollections()
 	budget = []
 	unitCollection.each (item)->
-		console.log unitPrice = parseFloat window.unit.getFilterUnitDetails(item.get('id'))[3]
-		console.log parseFloat(CommonFloor.defaults['price_min'])
-		console.log parseFloat(CommonFloor.defaults['price_max'])
+		unitPrice = parseFloat window.unit.getFilterUnitDetails(item.get('id'))[3]
 		if unitPrice >= parseFloat(CommonFloor.defaults['price_min']) && unitPrice <= parseFloat(CommonFloor.defaults['price_max'])
 			budget.push item
 
@@ -534,10 +532,9 @@ CommonFloor.getStatusFilters = ()->
 	status = []
 	response = CommonFloor.getStatus()
 	statusColl = new Backbone.Collection response
-	console.log statusIds = statusColl.pluck 'id'
+	statusIds = statusColl.pluck 'id'
 	$.each CommonFloor.defaults,(ind,val)->
 		if ind == 'availability' && val != ""
-			console.log val
 			param_val_arr = val.split(',')
 			$.each param_val_arr, (index,value)->
 				if value != "" && ind == 'availability' && $.inArray(value,statusIds) > -1

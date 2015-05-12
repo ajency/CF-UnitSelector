@@ -111,7 +111,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 				@apartmentFilters()
 			if e.target.id == 'Plots'
 				@plotFilters()
-
+			
 			
 		'click @ui.unitTypes':(e)->
 			if $(e.currentTarget).is(':checked')
@@ -355,7 +355,6 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		unitsArr = []
 		unittypesColl = []
 		$.each types,(index,value)->
-			console.log value
 			if value == 'Villas'
 				$.merge unitsArr, bunglowVariantMasterCollection.getBunglowMasterUnits()
 			if value == 'Apartments'
@@ -368,7 +367,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 				$.merge unitsArr, plotVariantMasterCollection.getPlotUnits()
 
 		$.each unitsArr,(index,value)->
-			console.log unitDetails = window.unit.getUnitDetails(value.id)
+			unitDetails = window.unit.getUnitDetails(value.id)
 			id.push parseInt unitDetails[0].get 'id'
 			unittypesColl.push parseFloat unitDetails[1].get 'id'
 		$.each unitCollection.toArray(), (index,value)->
@@ -377,7 +376,6 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			area.push parseFloat unitDetails[0].get 'super_built_up_area'
 			
 
-		console.log budget
 		$(@ui.unitTypes).each (ind,item)->
 			$('#'+item.id).attr('checked',true)
 			$('#'+item.id).attr('disabled',false)
