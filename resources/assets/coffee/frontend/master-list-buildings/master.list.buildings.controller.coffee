@@ -82,7 +82,7 @@ class ListItemView extends Marionette.ItemView
 #view for list of buildings : Collection
 class MasterBuildingListView extends Marionette.CompositeView
 
-	template : Handlebars.compile('<div class="col-xs-12 col-sm-12 col-0 us-left-content mobile not-visible">
+	template : Handlebars.compile('
 										<div id="view_toggle" class="toggle-view-button map"></div>
 										<div class="list-view-container w-map animated fadeIn">
 										<!--<div class="controls map-View">
@@ -106,8 +106,7 @@ class MasterBuildingListView extends Marionette.CompositeView
 										  	</ul>
 										  	<div class="clearfix"></div>
 										</div>
-										</div>
-									  </div>')
+										</div>')
 
 	childView : ListItemView
 

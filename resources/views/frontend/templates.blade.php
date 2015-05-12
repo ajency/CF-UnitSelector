@@ -46,8 +46,8 @@
 
 <script id="project-template" type="text/template">
         <div ui-region="top" id="topregion" class="us-header"></div>
+        <div ui-region="filter" id="filterregion" class="filters-area"></div>
         <div class="container-fluid">
-          <div ui-region="filter" id="filterregion"></div>
             <div class="row">
                 <div ui-region="left" id="leftregion">
                 </div>
@@ -71,7 +71,9 @@
     <div ui-region="filter" id="filterregion" class="filters-area"></div>
     <div class="container-fluid">
       <div class="row">
-        <div ui-region="left" id="leftregion"></div>
+        <div class="col-xs-12 col-sm-12 col-0 us-left-content mobile not-visible">
+          <div ui-region="left" id="leftregion"></div>
+        </div>
         <div ui-region="center" id="centerregion"></div>
       </div>
     </div>

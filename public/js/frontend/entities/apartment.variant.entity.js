@@ -16,7 +16,7 @@
       if (!(unitModel instanceof Backbone.Model) || unitModel === "") {
         return;
       }
-      unitVarinatModel = apartmentVariantCollection.findWhere({
+      unitVarinatModel = apartmentVariantMasterCollection.findWhere({
         'id': parseInt(unitModel.get('unit_variant_id'))
       });
       if (!_.isUndefined(unitVarinatModel)) {
@@ -53,6 +53,23 @@
       apartmentVariantCollection.each(function(model) {
         var apartmentUnits;
         apartmentUnits = unitCollection.where({
+          unit_variant_id: model.get('id')
+        });
+        return units.push(apartmentUnits);
+      });
+      $.each(units, function(index, value) {
+        return newUnits = $.merge(newUnits, value);
+      });
+      return newUnits;
+    };
+
+    ApartmentVariantCollection.prototype.getApartmentMasterUnits = function() {
+      var newUnits, units;
+      units = [];
+      newUnits = [];
+      apartmentVariantMasterCollection.each(function(model) {
+        var apartmentUnits;
+        apartmentUnits = unitMasterCollection.where({
           unit_variant_id: model.get('id')
         });
         return units.push(apartmentUnits);

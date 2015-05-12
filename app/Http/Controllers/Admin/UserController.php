@@ -178,5 +178,31 @@ class UserController extends Controller {
                     'data' => $flag,
                         ], 200);
     }
+    
+    public function validateEmail(Request $request) {
+        $email = $request->input('email');
+        $userId = $request->input('user_id');
+        $msg ='';
+        $flag =true;
+ 
+        if($userId)
+           $userData = User::where('email',$email)->where('id', '!=', $userId)->get()->toArray(); 
+        else
+            $userData = User::where('email',$email)->get()->toArray();
+
+ 
+        if(!empty($userData))
+        {
+            $msg = 'User Email Already Taken';
+            $flag =false;
+        }
+        
+         
+        return response()->json([
+                    'code' => 'user_email_validation',
+                    'message' => $msg,
+                    'data' =>  $flag,
+                        ], 200);
+    }
 
 }

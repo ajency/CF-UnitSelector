@@ -837,7 +837,7 @@ svg .layer {
           transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
 }
 svg .layer:hover {
-  stroke-width: 4px;
+  stroke-width: 2px;
   stroke-dasharray: 320 0;
   stroke-dashoffset: 0;
 }
@@ -1433,7 +1433,7 @@ svg .layer.unit_fadein:hover {
   padding: 6px 12px;
 }
 .filter-result {
-  margin: 20px 0px;
+  margin: 20px 0 0;
 }
 .filters-wrapper {
   padding: 15px;

@@ -55,6 +55,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource( 'floor-layout.media', 'Admin\FloorLayoutMediaController' );
     Route::post( 'project/validateprojecttitle', 'Admin\ProjectController@validateProjectTitle' );
     Route::post( 'user/validateuserpassword', 'Admin\UserController@validateCurrentPassword' );
+    Route::post( 'user/validateuseremail', 'Admin\UserController@validateEmail' );
     Route::get( 'user/{id}/changepassword', 'Admin\UserController@changePassword' );
     Route::get( 'project/{id}/svg', 'Admin\ProjectController@svg' );
     Route::post( 'project/{projectid}/bunglow-variant/{id}/roomtypeattributes', 'Admin\ProjectBunglowVariantController@roomtypeAttributes' );

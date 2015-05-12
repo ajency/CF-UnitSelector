@@ -180,6 +180,36 @@
     return Router;
   };
 
+  CommonFloor.masterPropertyTypes = function() {
+    var Router, controller;
+    Router = [];
+    if (bunglowVariantCollection.getBunglowMasterUnits().length !== 0) {
+      Router.push({
+        'type': s.capitalize('villas'),
+        'count': bunglowVariantCollection.getBunglowMasterUnits(),
+        'type_name': '(V)'
+      });
+    }
+    if (apartmentVariantCollection.getApartmentMasterUnits().length !== 0) {
+      Router.push({
+        'type': s.capitalize('apartments'),
+        'count': apartmentVariantCollection.getApartmentMasterUnits(),
+        'type_name': '(A)'
+      });
+    }
+    if (plotVariantCollection.getPlotMasterUnits().length !== 0) {
+      Router.push({
+        'type': s.capitalize('plots'),
+        'count': plotVariantCollection.getPlotMasterUnits(),
+        'type_name': '(P)'
+      });
+    }
+    controller = _.max(Router, function(item) {
+      return parseInt(item.count.length);
+    });
+    return Router;
+  };
+
   CommonFloor.applyVillaClasses = function(classname) {
     return $('.villa').each(function(ind, item) {
       var availability, id, unit;
@@ -287,14 +317,14 @@
     $('.villa').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
-      if ($.inArray(id, notSelecteUnits)) {
+      if ($.inArray(id, notSelecteUnits) > -1) {
         return $('#' + id).attr('class', 'layer villa unit_fadein not_in_selection');
       }
     });
     return $('.plot').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
-      if ($.inArray(id, notSelecteUnits)) {
+      if ($.inArray(id, notSelecteUnits) > -1) {
         return $('#' + id).attr('class', 'layer plot unit_fadein not_in_selection');
       }
     });
@@ -344,8 +374,10 @@
     budget = [];
     unitCollection.each(function(item) {
       var unitPrice;
-      unitPrice = window.unit.getUnitDetails(item.get('id'))[3];
-      if (unitPrice >= parseInt(CommonFloor.defaults['price_min']) && unitPrice <= parseInt(CommonFloor.defaults['price_max'])) {
+      console.log(unitPrice = parseFloat(window.unit.getFilterUnitDetails(item.get('id'))[3]));
+      console.log(parseFloat(CommonFloor.defaults['price_min']));
+      console.log(parseFloat(CommonFloor.defaults['price_max']));
+      if (unitPrice >= parseFloat(CommonFloor.defaults['price_min']) && unitPrice <= parseFloat(CommonFloor.defaults['price_max'])) {
         return budget.push(item);
       }
     });
@@ -367,7 +399,7 @@
   };
 
   CommonFloor.getFilters = function() {
-    var apartmentFilters, area, area_max, area_min, filters, max_price, min_price, plotFilters, price, results, unitTypes, unitVariants, villaFilters;
+    var apartmentFilters, area, area_max, area_min, filters, max_price, min_price, plotFilters, price, results, type, typeArr, unitTypes, unitVariants, villaFilters;
     unitTypes = [];
     unitVariants = [];
     results = [];
@@ -382,6 +414,7 @@
     $.merge(unitVariants, plotFilters.unitVariants);
     price = [];
     area = [];
+    type = [];
     results.push({
       'type': 'Villa(s)',
       'count': villaFilters.count
@@ -399,7 +432,10 @@
       max_price = window.numDifferentiation(CommonFloor.defaults['price_max']);
       price.push({
         'name': min_price + '-' + max_price,
-        'type': ''
+        'type': '',
+        'id': 'budget',
+        'id_name': 'filter_budget',
+        'classname': 'budget'
       });
     }
     if (CommonFloor.defaults['area_max'] !== "") {
@@ -407,14 +443,29 @@
       area_max = CommonFloor.defaults['area_max'];
       area.push({
         'name': area_min + '-' + area_max,
-        'type': 'Sq.Ft'
+        'type': 'Sq.Ft',
+        'id': 'area',
+        'id_name': 'filter_area',
+        'classname': 'area'
+      });
+    }
+    if (CommonFloor.defaults['type'] !== "") {
+      typeArr = CommonFloor.defaults['type'].split(',');
+      $.each(typeArr, function(index, value) {
+        return type.push({
+          'name': value,
+          'classname': 'types',
+          'id': value,
+          'id_name': 'filter_' + value
+        });
       });
     }
     filters = {
       'unitTypes': unitTypes,
       'unitVariants': unitVariants,
       'price': price,
-      'area': area
+      'area': area,
+      'type': type
     };
     $.each(filters, function(index, value) {
       if (value.length === 0) {
@@ -448,7 +499,10 @@
               });
               unitVariants.push({
                 'name': unit_variant.get('unit_variant_name'),
-                'type': '(V)'
+                'type': '(V)',
+                'classname': 'variant_names',
+                'id': unit_variant.get('id'),
+                'id_name': 'filter_varinat_name' + unit_variant.get('id')
               });
             }
           }
@@ -458,7 +512,10 @@
             });
             return unitTypes.push({
               'name': unit_type.get('name'),
-              'type': '(V)'
+              'type': '(V)',
+              'classname': 'unit_types',
+              'id': unit_type.get('id'),
+              'id_name': 'filter_unit_type' + unit_type.get('id')
             });
           }
         });
@@ -491,7 +548,10 @@
               });
               unitVariants.push({
                 'name': unit_variant.get('unit_variant_name'),
-                'type': '(A)'
+                'type': '(A)',
+                'classname': 'variant_names',
+                'id': unit_variant.get('id'),
+                'id_name': 'filter_varinat_name' + unit_variant.get('id')
               });
             }
           }
@@ -501,7 +561,10 @@
             });
             return unitTypes.push({
               'name': unit_type.get('name'),
-              'type': '(A)'
+              'type': '(A)',
+              'classname': 'unit_types',
+              'id': unit_type.get('id'),
+              'id_name': 'filter_unit_type' + unit_type.get('id')
             });
           }
         });
@@ -534,7 +597,10 @@
               });
               unitVariants.push({
                 'name': unit_variant.get('unit_variant_name'),
-                'type': '(P)'
+                'type': '(P)',
+                'classname': 'variant_names',
+                'id': unit_variant.get('id'),
+                'id_name': 'filter_varinat_name' + unit_variant.get('id')
               });
             }
           }
@@ -544,7 +610,10 @@
             });
             return unitTypes.push({
               'name': unit_type.get('name'),
-              'type': '(P)'
+              'type': '(P)',
+              'classname': 'unit_types',
+              'id': unit_type.get('id'),
+              'id_name': 'filter_unit_type' + unit_type.get('id')
             });
           }
         });

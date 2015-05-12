@@ -153,6 +153,7 @@
         <script src="{{ asset('js/frontend/project-list-view/villa.list.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/building-step3/apartments.list.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/building-step3/apartments.master.controller.js' )}}"></script>
+        <script src="{{ asset('js/frontend/building-step3/apartment.filter.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/master-list-bunglows/master.list.bunglows.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/master-list-buildings/master.list.buildings.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/master-list-plots/master.list.plots.controller.js' )}}"></script>
