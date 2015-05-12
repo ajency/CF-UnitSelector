@@ -275,12 +275,12 @@ CommonFloor.applyFliterClass = ()->
 	notSelecteUnits = _.difference actualunits , filterunits
 	$('.villa').each (ind,item)->
 		id = parseInt item.id
-		if $.inArray id , notSelecteUnits
+		if $.inArray(id , notSelecteUnits) > -1
 			$('#'+id).attr('class' ,'layer villa unit_fadein not_in_selection')
 
 	$('.plot').each (ind,item)->
 		id = parseInt item.id
-		if $.inArray id , notSelecteUnits
+		if $.inArray(id , notSelecteUnits) > -1
 			$('#'+id).attr('class' ,'layer plot unit_fadein not_in_selection')
 
 CommonFloor.resetCollections = ()->

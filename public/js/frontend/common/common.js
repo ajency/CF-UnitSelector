@@ -317,14 +317,14 @@
     $('.villa').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
-      if ($.inArray(id, notSelecteUnits)) {
+      if ($.inArray(id, notSelecteUnits) > -1) {
         return $('#' + id).attr('class', 'layer villa unit_fadein not_in_selection');
       }
     });
     return $('.plot').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
-      if ($.inArray(id, notSelecteUnits)) {
+      if ($.inArray(id, notSelecteUnits) > -1) {
         return $('#' + id).attr('class', 'layer plot unit_fadein not_in_selection');
       }
     });
