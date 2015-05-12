@@ -650,7 +650,7 @@
         offsetY: -25,
         interactive: true,
         animation: 'grow',
-        delay: 500
+        delay: 100
       });
     };
 

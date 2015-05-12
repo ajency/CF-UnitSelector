@@ -694,7 +694,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			offsetY : -25
 			interactive : true
 			animation : 'grow'
-			delay : 500
+			delay : 100
 			# trigger: 'click'
 		)
 

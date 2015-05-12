@@ -37,7 +37,7 @@
       return NoUnitsView.__super__.constructor.apply(this, arguments);
     }
 
-    NoUnitsView.prototype.template = '<div> <div class="col-xs-12 col-sm-12 col-md-3 us-left-content"> <div class="list-view-container w-map animated fadeIn"> <div class="text-center" id="searchSorryPageWidget"> <div class="m-t-10 bldg-list"> <span class="icon-wondering"></span> <div class="m-t-10">Sorry! We havent found any properties matching your search.</div> <div>Please retry with different search options.</div> </div> </div> </div> </div> </div>';
+    NoUnitsView.prototype.template = '<div> <div class="list-view-container w-map animated fadeIn"> <div class="text-center" id="searchSorryPageWidget"> <div class="m-t-10 bldg-list"> <span class="icon-wondering"></span> <div class="m-t-10">Sorry! We havent found any properties matching your search.</div> <div>Please retry with different search options.</div> </div> </div> </div> </div>';
 
     return NoUnitsView;
 
