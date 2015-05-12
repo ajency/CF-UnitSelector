@@ -374,21 +374,20 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 		  
 		'click .building':(e)->
-			
-			setTimeout( (x)->
-				id = parseInt e.target.id
-				buildingModel = buildingCollection.findWhere
-								'id' : id
+			id = parseInt e.target.id
+			buildingModel = buildingCollection.findWhere
+							'id' : id
 
-				if buildingModel == undefined
-					return false
-				
-				unit = unitCollection.where 
-					'building_id' :  id 
-				if unit.length is 0
-					return 
-				$('.spritespin-canvas').addClass 'zoom'
-				$('.us-left-content').addClass 'animated fadeOut'
+			if buildingModel == undefined
+				return false
+			
+			unit = unitCollection.where 
+				'building_id' :  id 
+			if unit.length is 0
+				return 
+			$('.spritespin-canvas').addClass 'zoom'
+			$('.us-left-content').addClass 'animated fadeOut'
+			setTimeout( (x)->
 				if Object.keys(buildingModel.get('building_master')).length == 0
 					CommonFloor.navigate '/building/'+id+'/apartments' , true
 					CommonFloor.router.storeRoute()
@@ -399,21 +398,20 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			, 500)
 			
 
-		# 'click .villa':(e)->
-			
-		# 	setTimeout( (x)->
-		# 		id = parseInt e.target.id
+		'click .villa_unit':(e)->
+			id = parseInt e.target.id
 
-		# 		unitModel = unitCollection.findWhere
-		# 						'id' : id
-		# 		if unitModel == undefined
-		# 			return false
-		# 		$('.spritespin-canvas').addClass 'zoom'
-		# 		$('.us-left-content').addClass 'animated fadeOut'
-		# 		CommonFloor.navigate '/unit-view/'+id , true
-		# 		CommonFloor.router.storeRoute()
+			unitModel = unitCollection.findWhere
+							'id' : id
+			if unitModel == undefined
+				return false
+			$('.spritespin-canvas').addClass 'zoom'
+			$('.us-left-content').addClass 'animated fadeOut'
+			setTimeout( (x)->
+				CommonFloor.navigate '/unit-view/'+id , true
+				CommonFloor.router.storeRoute()
 
-		# 	, 500)
+			, 500)
 
 		'click .plot':(e)->
 			
@@ -468,9 +466,21 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		'mouseover .villa':(e)->
 			# $('.villa').attr('class' ,'layer villa') 
 			id  = parseInt e.target.id
+			
+			
 			html = ""
 			unit = unitCollection.findWhere 
 				id :  id 
+			unitMaster = unitMasterCollection.findWhere 
+				id :  id 
+			if unit is undefined && unitMaster != undefined
+				html = '<div class="svg-info">
+							<div class="details">
+								Not in selection
+							</div>  
+						</div>'
+				$('.layer').tooltipster('content', html)
+				return 
 			if unit is undefined
 				html += '<div class="svg-info">
 							<div class="details empty">
@@ -479,6 +489,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return 
+
 
 			response = window.unit.getUnitDetails(id)
 			window.convertRupees(response[3])
@@ -499,14 +510,14 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 							</div> 
 						</div>
-						<div class="action-bar">
+						<div class="action-bar villa_unit">
 							To Move forward Click Here
 							<span class="icon-chevron-right pull-right"></span>
 						</div>
 					</div>'
+			
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
-			console.log html
 			$('.layer').tooltipster('content', html)
 
 		'click .plot':(e)->
@@ -515,6 +526,16 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			html = ""
 			unit = unitCollection.findWhere 
 				id :  id 
+			unitMaster = unitMasterCollection.findWhere 
+				id :  id 
+			if unit is undefined && unitMaster != undefined
+				html = '<div class="svg-info">
+							<div class="details">
+								Not in selection
+							</div>  
+						</div>'
+				$('.layer').tooltipster('content', html)
+				return 
 			if unit is undefined
 				html += '<div class="svg-info">
 							<div class="details">
@@ -523,6 +544,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return 
+			
 
 			response = window.unit.getUnitDetails(id)
 			window.convertRupees(response[3])
@@ -622,8 +644,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				$('.cf-loader').removeClass 'hidden'
 		
 		@initializeRotate(transitionImages,svgs)
+	
 		
-
+	
 
 	
 
@@ -685,17 +708,19 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 	#intialize tooltip 
 	iniTooltip:->
 		$('.layer').tooltipster(
-			theme: 'tooltipster-shadow'
-			contentAsHTML: true
-			onlyOne : true
-			arrow : false
-			offsetX : 50
-			offsetY : -25
-			interactive : true
-			animation : 'grow'
-			delay : 100
-			# trigger: 'click'
+				theme: 'tooltipster-shadow'
+				contentAsHTML: true
+				onlyOne : true
+				arrow : false
+				offsetX : 50
+				offsetY : -25
+				interactive : true
+				# animation : 'grow'
+				trigger: 'hover'
+				
 		)
+		
+	
 
 	loadZoom:->
 

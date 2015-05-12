@@ -395,23 +395,23 @@
         return $('.us-right-content').toggleClass('not-visible visible');
       },
       'click .building': function(e) {
+        var buildingModel, id, unit;
+        id = parseInt(e.target.id);
+        buildingModel = buildingCollection.findWhere({
+          'id': id
+        });
+        if (buildingModel === void 0) {
+          return false;
+        }
+        unit = unitCollection.where({
+          'building_id': id
+        });
+        if (unit.length === 0) {
+          return;
+        }
+        $('.spritespin-canvas').addClass('zoom');
+        $('.us-left-content').addClass('animated fadeOut');
         return setTimeout(function(x) {
-          var buildingModel, id, unit;
-          id = parseInt(e.target.id);
-          buildingModel = buildingCollection.findWhere({
-            'id': id
-          });
-          if (buildingModel === void 0) {
-            return false;
-          }
-          unit = unitCollection.where({
-            'building_id': id
-          });
-          if (unit.length === 0) {
-            return;
-          }
-          $('.spritespin-canvas').addClass('zoom');
-          $('.us-left-content').addClass('animated fadeOut');
           if (Object.keys(buildingModel.get('building_master')).length === 0) {
             CommonFloor.navigate('/building/' + id + '/apartments', true);
             return CommonFloor.router.storeRoute();
@@ -419,6 +419,22 @@
             CommonFloor.navigate('/building/' + id + '/master-view', true);
             return CommonFloor.router.storeRoute();
           }
+        }, 500);
+      },
+      'click .villa_unit': function(e) {
+        var id, unitModel;
+        id = parseInt(e.target.id);
+        unitModel = unitCollection.findWhere({
+          'id': id
+        });
+        if (unitModel === void 0) {
+          return false;
+        }
+        $('.spritespin-canvas').addClass('zoom');
+        $('.us-left-content').addClass('animated fadeOut');
+        return setTimeout(function(x) {
+          CommonFloor.navigate('/unit-view/' + id, true);
+          return CommonFloor.router.storeRoute();
         }, 500);
       },
       'click .plot': function(e) {
@@ -476,12 +492,20 @@
         return $('#bldg' + id).attr('class', 'bldg blocks');
       },
       'mouseover .villa': function(e) {
-        var availability, html, id, response, unit;
+        var availability, html, id, response, unit, unitMaster;
         id = parseInt(e.target.id);
         html = "";
         unit = unitCollection.findWhere({
           id: id
         });
+        unitMaster = unitMasterCollection.findWhere({
+          id: id
+        });
+        if (unit === void 0 && unitMaster !== void 0) {
+          html = '<div class="svg-info"> <div class="details"> Not in selection </div> </div>';
+          $('.layer').tooltipster('content', html);
+          return;
+        }
         if (unit === void 0) {
           html += '<div class="svg-info"> <div class="details empty"> Villa details not entered </div> </div>';
           $('.layer').tooltipster('content', html);
@@ -492,19 +516,26 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info ' + availability + ' "> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <span class="pull-right icon-cross"></span> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div> <div class="action-bar"> To Move forward Click Here <span class="icon-chevron-right pull-right"></span> </div> </div>';
+        html += '<div class="svg-info ' + availability + ' "> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <span class="pull-right icon-cross"></span> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div> <div class="action-bar villa_unit"> To Move forward Click Here <span class="icon-chevron-right pull-right"></span> </div> </div>';
         $('#' + id).attr('class', 'layer villa  ' + availability);
         $('#unit' + id).attr('class', 'unit blocks active');
-        console.log(html);
         return $('.layer').tooltipster('content', html);
       },
       'click .plot': function(e) {
-        var availability, html, id, response, unit;
+        var availability, html, id, response, unit, unitMaster;
         id = parseInt(e.target.id);
         html = "";
         unit = unitCollection.findWhere({
           id: id
         });
+        unitMaster = unitMasterCollection.findWhere({
+          id: id
+        });
+        if (unit === void 0 && unitMaster !== void 0) {
+          html = '<div class="svg-info"> <div class="details"> Not in selection </div> </div>';
+          $('.layer').tooltipster('content', html);
+          return;
+        }
         if (unit === void 0) {
           html += '<div class="svg-info"> <div class="details"> Plot details not entered </div> </div>';
           $('.layer').tooltipster('content', html);
@@ -646,8 +677,7 @@
         offsetX: 50,
         offsetY: -25,
         interactive: true,
-        animation: 'grow',
-        delay: 100
+        trigger: 'hover'
       });
     };
 
