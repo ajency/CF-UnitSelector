@@ -356,7 +356,6 @@
         budget.push(parseFloat(unitDetails[3]));
         return area.push(parseFloat(unitDetails[0].get('super_built_up_area')));
       });
-      console.log(budget);
       $(this.ui.unitTypes).each(function(ind, item) {
         $('#' + item.id).attr('checked', true);
         $('#' + item.id).attr('disabled', false);

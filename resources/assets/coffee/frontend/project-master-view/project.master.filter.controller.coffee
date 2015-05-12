@@ -376,7 +376,6 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			area.push parseFloat unitDetails[0].get 'super_built_up_area'
 			
 
-		console.log budget
 		$(@ui.unitTypes).each (ind,item)->
 			$('#'+item.id).attr('checked',true)
 			$('#'+item.id).attr('disabled',false)

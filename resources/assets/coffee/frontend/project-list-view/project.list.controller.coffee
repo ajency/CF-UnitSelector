@@ -231,8 +231,23 @@ class CommonFloor.TopListCtrl extends Marionette.RegionController
 		unitTempCollection.on("change reset add remove", @renderView, @)
 
 	renderView:->
-		@show new TopListView 
+		@view =  new TopListView 
 				model : project
+
+		@listenTo @view,"render:view" ,@loadController
+
+		@show @view 
+
+	loadController:->
+		# Backbone.trigger "render:view" 
+		window.unitTypes = []
+		window.unitVariants = []
+		window.variantNames = []
+		window.price = ''
+		window.area = ''
+		window.type  = []
+		@region =  new Marionette.Region el : '#filterregion'
+		new CommonFloor.FilterMasterCtrl region : @region
 
 		# @listenTo Backbone , "load:units" , @showViews
 
@@ -268,17 +283,16 @@ class CommonFloor.CenterListCtrl extends Marionette.RegionController
 			data.type = 'villa'
 			@region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.VillaListCtrl region : @region
-			@parent().trigger "load:units" , data
+			# @parent().trigger "load:units" , data
 
 		if response.type is 'building' 
-			console.log @parent()
 			units = buildingCollection
 			data = {}
 			data.units = units
 			data.type = 'building'
 			@region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.BuildingListCtrl region : @region
-			@parent().trigger "load:units" , data
+			# @parent().trigger "load:units" , data
 
 		
 			
