@@ -329,7 +329,6 @@
       unitsArr = [];
       unittypesColl = [];
       $.each(types, function(index, value) {
-        console.log(value);
         if (value === 'Villas') {
           $.merge(unitsArr, bunglowVariantMasterCollection.getBunglowMasterUnits());
         }
@@ -347,7 +346,7 @@
       });
       $.each(unitsArr, function(index, value) {
         var unitDetails;
-        console.log(unitDetails = window.unit.getUnitDetails(value.id));
+        unitDetails = window.unit.getUnitDetails(value.id);
         id.push(parseInt(unitDetails[0].get('id')));
         return unittypesColl.push(parseFloat(unitDetails[1].get('id')));
       });
