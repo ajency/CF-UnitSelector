@@ -1639,6 +1639,7 @@ label.third_toggle {
   font-size: 8px;
   font-weight: bold;
   cursor: pointer;
+  display: none;
 }
 .svg-info .details {
   font-size: 12px;
