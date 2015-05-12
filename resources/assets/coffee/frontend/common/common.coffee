@@ -145,34 +145,58 @@ CommonFloor.propertyTypes = ()->
 
 	Router
 
+#Get all the property type with the count of units
+CommonFloor.masterPropertyTypes = ()->
+	Router = []
+	if bunglowVariantCollection.getBunglowMasterUnits().length != 0
+		Router.push 
+			'type'  : s.capitalize 'villas'
+			'count' :bunglowVariantCollection.getBunglowMasterUnits()
+			'type_name' : '(V)'
+	if apartmentVariantCollection.getApartmentMasterUnits().length != 0
+		Router.push 
+			'type'  : s.capitalize 'apartments'
+			'count' :apartmentVariantCollection.getApartmentMasterUnits()
+			'type_name' : '(A)'
+	if plotVariantCollection.getPlotMasterUnits().length != 0
+		Router.push 
+			'type'  : s.capitalize 'plots'
+			'count' :plotVariantCollection.getPlotMasterUnits()
+			'type_name' : '(P)'
+	controller = _.max Router , (item)->
+		return parseInt item.count.length
+
+
+	Router
+
 CommonFloor.applyVillaClasses = (classname) ->
 	$('.villa').each (ind,item)->
 		id = parseInt item.id
-		class_name = $('#'+id).attr('class')
-		if classname != ""
-			class_name = classname
+		# class_name = $('#'+id).attr('class')
+		# if classname != undefined
+		# 	class_name = classname
 		unit = unitCollection.findWhere 
 			id :  id 
-		$('#'+id).attr('class' ,class_name)
+		# $('#'+id).attr('class' ,class_name)
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' ,class_name+' '+availability)
+			$('#'+id).attr('class' , 'layer villa unit_fadein '+availability)
 
 
 CommonFloor.applyPlotClasses = (classname)->
 	$('.plot').each (ind,item)->
 		id = parseInt item.id
-		class_name = $('#'+id).attr('class')
-		if classname != ""
-			class_name = classname
+		# class_name = $('#'+id).attr('class')
+		# if classname != ""
+		# 	class_name = classname
 		unit = unitCollection.findWhere 
 			id :  id 
-		$('#'+id).attr('class' ,class_name)
+		# $('#'+id).attr('class' ,class_name)
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' ,class_name+' '+availability)  
+			$('#'+id).attr('class' ,'layer plot unit_fadein '+availability)  
 
 
 
@@ -293,8 +317,10 @@ CommonFloor.filterBudget = ()->
 	CommonFloor.resetCollections()
 	budget = []
 	unitCollection.each (item)->
-		unitPrice = window.unit.getUnitDetails(item.get('id'))[3]
-		if unitPrice >= parseInt(CommonFloor.defaults['price_min']) && unitPrice <= parseInt(CommonFloor.defaults['price_max'])
+		console.log unitPrice = parseFloat window.unit.getFilterUnitDetails(item.get('id'))[3]
+		console.log parseFloat(CommonFloor.defaults['price_min'])
+		console.log parseFloat(CommonFloor.defaults['price_max'])
+		if unitPrice >= parseFloat(CommonFloor.defaults['price_min']) && unitPrice <= parseFloat(CommonFloor.defaults['price_max'])
 			budget.push item
 
 	unitCollection.reset budget
@@ -359,7 +385,7 @@ CommonFloor.getFilters = ()->
 			type.push 
 				'name' : value
 				'classname' : 'types'
-				'id'		: 'value'
+				'id'		: value
 				'id_name' : 'filter_'+value
 	
 	filters = {'unitTypes' : unitTypes

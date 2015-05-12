@@ -92,6 +92,11 @@
     }
 
     TopApartmentMasterCtrl.prototype.initialize = function() {
+      this.renderView();
+      return unitTempCollection.on("change reset add remove", this.renderView, this);
+    };
+
+    TopApartmentMasterCtrl.prototype.renderView = function() {
       var buildingModel, building_id, response, url;
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
@@ -204,6 +209,11 @@
     }
 
     LeftApartmentMasterCtrl.prototype.initialize = function() {
+      this.renderView();
+      return unitTempCollection.on("change reset add remove", this.renderView, this);
+    };
+
+    LeftApartmentMasterCtrl.prototype.renderView = function() {
       var building_id, response, unitsCollection, url;
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);

@@ -180,42 +180,62 @@
     return Router;
   };
 
+  CommonFloor.masterPropertyTypes = function() {
+    var Router, controller;
+    Router = [];
+    if (bunglowVariantCollection.getBunglowMasterUnits().length !== 0) {
+      Router.push({
+        'type': s.capitalize('villas'),
+        'count': bunglowVariantCollection.getBunglowMasterUnits(),
+        'type_name': '(V)'
+      });
+    }
+    if (apartmentVariantCollection.getApartmentMasterUnits().length !== 0) {
+      Router.push({
+        'type': s.capitalize('apartments'),
+        'count': apartmentVariantCollection.getApartmentMasterUnits(),
+        'type_name': '(A)'
+      });
+    }
+    if (plotVariantCollection.getPlotMasterUnits().length !== 0) {
+      Router.push({
+        'type': s.capitalize('plots'),
+        'count': plotVariantCollection.getPlotMasterUnits(),
+        'type_name': '(P)'
+      });
+    }
+    controller = _.max(Router, function(item) {
+      return parseInt(item.count.length);
+    });
+    return Router;
+  };
+
   CommonFloor.applyVillaClasses = function(classname) {
     return $('.villa').each(function(ind, item) {
-      var availability, class_name, id, unit;
+      var availability, id, unit;
       id = parseInt(item.id);
-      class_name = $('#' + id).attr('class');
-      if (classname !== "") {
-        class_name = classname;
-      }
       unit = unitCollection.findWhere({
         id: id
       });
-      $('#' + id).attr('class', class_name);
       if (!_.isUndefined(unit)) {
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        return $('#' + id).attr('class', class_name + ' ' + availability);
+        return $('#' + id).attr('class', 'layer villa unit_fadein ' + availability);
       }
     });
   };
 
   CommonFloor.applyPlotClasses = function(classname) {
     return $('.plot').each(function(ind, item) {
-      var availability, class_name, id, unit;
+      var availability, id, unit;
       id = parseInt(item.id);
-      class_name = $('#' + id).attr('class');
-      if (classname !== "") {
-        class_name = classname;
-      }
       unit = unitCollection.findWhere({
         id: id
       });
-      $('#' + id).attr('class', class_name);
       if (!_.isUndefined(unit)) {
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        return $('#' + id).attr('class', class_name + ' ' + availability);
+        return $('#' + id).attr('class', 'layer plot unit_fadein ' + availability);
       }
     });
   };
@@ -354,8 +374,10 @@
     budget = [];
     unitCollection.each(function(item) {
       var unitPrice;
-      unitPrice = window.unit.getUnitDetails(item.get('id'))[3];
-      if (unitPrice >= parseInt(CommonFloor.defaults['price_min']) && unitPrice <= parseInt(CommonFloor.defaults['price_max'])) {
+      console.log(unitPrice = parseFloat(window.unit.getFilterUnitDetails(item.get('id'))[3]));
+      console.log(parseFloat(CommonFloor.defaults['price_min']));
+      console.log(parseFloat(CommonFloor.defaults['price_max']));
+      if (unitPrice >= parseFloat(CommonFloor.defaults['price_min']) && unitPrice <= parseFloat(CommonFloor.defaults['price_max'])) {
         return budget.push(item);
       }
     });
@@ -433,7 +455,7 @@
         return type.push({
           'name': value,
           'classname': 'types',
-          'id': 'value',
+          'id': value,
           'id_name': 'filter_' + value
         });
       });

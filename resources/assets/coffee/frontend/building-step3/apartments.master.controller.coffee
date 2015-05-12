@@ -63,6 +63,10 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 class CommonFloor.TopApartmentMasterCtrl extends Marionette.RegionController
 
 	initialize:->
+		@renderView()
+		unitTempCollection.on("change reset add remove", @renderView, @)
+
+	renderView:->
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		response = window.building.getBuildingUnits(building_id)
@@ -159,6 +163,10 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 class CommonFloor.LeftApartmentMasterCtrl extends Marionette.RegionController
 
 	initialize:->
+		@renderView()
+		unitTempCollection.on("change reset add remove", @renderView, @)
+
+	renderView:->
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		response = window.building.getBuildingUnits(building_id)

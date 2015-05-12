@@ -16,7 +16,7 @@
       if (!(unit_model instanceof Backbone.Model) || unit_model === "") {
         return;
       }
-      unitVarinatModel = plotVariantCollection.findWhere({
+      unitVarinatModel = plotVariantMasterCollection.findWhere({
         'id': parseInt(unit_model.get('unit_variant_id'))
       });
       if (unitVarinatModel !== void 0) {
@@ -51,6 +51,23 @@
       plotVariantCollection.each(function(model) {
         var plotUnits;
         plotUnits = unitCollection.where({
+          unit_variant_id: model.get('id')
+        });
+        return units.push(plotUnits);
+      });
+      $.each(units, function(index, value) {
+        return newUnits = $.merge(newUnits, value);
+      });
+      return newUnits;
+    };
+
+    PlotVariantCollection.prototype.getPlotMasterUnits = function() {
+      var newUnits, units;
+      units = [];
+      newUnits = [];
+      plotVariantMasterCollection.each(function(model) {
+        var plotUnits;
+        plotUnits = unitMasterCollection.where({
           unit_variant_id: model.get('id')
         });
         return units.push(plotUnits);

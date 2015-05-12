@@ -12,11 +12,13 @@
       globalPosition: 'bottom right'
     });
     $(document).ajaxComplete(function() {
-      var args, ref, xhr;
+      var args, ref, ref1, xhr;
       args = 1 <= arguments.length ? slice.call(arguments, 0) : [];
       xhr = args[1];
       if ((ref = xhr.status) === 201 || ref === 202 || ref === 203) {
         return $.notify(xhr.responseJSON.message, 'success');
+      } else if ((ref1 = xhr.status) === 200) {
+        return $.notify(xhr.responseJSON.message, 'error');
       }
     });
     $('form button[type="reset"]').click();
