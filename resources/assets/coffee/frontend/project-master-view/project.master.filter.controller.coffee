@@ -12,8 +12,8 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 											<div class="filters-wrapper">
 											  	<div class="row">
-												  	<div class="col-sm-4 col-md-4 ">
-					                                    <h5 class="property_type"># PROPERTY TYPE</h5>
+												  	<div class="col-sm-4 col-md-4 property_type ">
+					                                    <h5># PROPERTY TYPE</h5>
 					                                    <div class="filter-chkbox-block">
 					                                      	{{#types}}
 					                                        <input type="checkbox" class="custom-chckbx addCft types" id="{{id}}" value="{{type}}">
@@ -94,7 +94,6 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			window.unitTypes = []
 			window.unitVariants = []
 			window.variantNames = []
-			console.log window.type
 			$.each CommonFloor.defaults,(index,value)->
 				if index != 'type'
 						CommonFloor.defaults[index] = ""
@@ -118,7 +117,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 				window.unitTypes.push parseInt $(e.currentTarget).attr('data-value')
 			else
 				window.unitTypes = _.without window.unitTypes ,parseInt $(e.currentTarget).attr('data-value')
-			console.log window.unitTypes =   _.uniq window.unitTypes 
+			window.unitTypes =   _.uniq window.unitTypes 
 			CommonFloor.defaults['unitTypes'] = window.unitTypes.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
@@ -338,11 +337,15 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 	onShow:->
 		types = Marionette.getOption(@,'types')
+
 		if types.length == 1
 			$('.property_type').hide()
 		@loadSelectedFilters()
 
 	loadSelectedFilters:->
+		types = Marionette.getOption(@,'types')
+		if types.length == 1
+			CommonFloor.defaults['type'] = types[0].type
 		unittypesArray = []
 		unitTypes = CommonFloor.defaults['unitTypes'].split(',')
 		unitVariantsArray = []
@@ -375,11 +378,14 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			budget.push parseFloat unitDetails[3]
 			area.push parseFloat unitDetails[0].get 'super_built_up_area'
 			
-
+		console.log unitTypes
+		console.log unittypesColl = _.uniq unittypesColl
 		$(@ui.unitTypes).each (ind,item)->
 			$('#'+item.id).attr('checked',true)
 			$('#'+item.id).attr('disabled',false)
+			console.log $.inArray($(item).attr('data-value'),unitTypes)
 			if $.inArray($(item).attr('data-value'),unitTypes) is -1
+				console.log item.id
 				$('#'+item.id).prop('checked',false)
 				$('#'+item.id).attr('disabled',false)
 			if $.inArray(parseInt($(item).attr('data-value')),unittypesColl) is -1
@@ -406,7 +412,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		subArea = (max - min)/ 20 
 		subArea = subArea.toFixed(0)
 		priceMin = _.min budget
-		console.log priceMax = _.max budget		
+		priceMax = _.max budget		
 		subBudget = (priceMax - priceMin)/ 20
 		subBudget = subBudget.toFixed(0)
 		$("#area").ionRangeSlider(
