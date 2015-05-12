@@ -1,3 +1,9 @@
+window.unitTypes = []
+window.unitVariants = []
+window.variantNames = []
+window.price = ''
+window.area = ''
+window.type  = []
 class CommonFloor.FilterApartmentView extends Marionette.ItemView
 
 	template : Handlebars.compile('
@@ -58,16 +64,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 									')
 
 
-	initialize:->
-		@unitTypes = []
-		@unitVariants = []
-		@variantNames = []
-		@price = ''
-		@area = ''
-		@type  = []
-		
-		
-		
+	
 
 
 	ui:
@@ -84,21 +81,21 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 	events:
 		'click @ui.unitTypes':(e)->
 			if $(e.currentTarget).is(':checked')
-				@unitTypes.push parseInt $(e.currentTarget).attr('data-value')
+				window.unitTypes.push parseInt $(e.currentTarget).attr('data-value')
 			else
-				@unitTypes = _.without @unitTypes ,parseInt $(e.currentTarget).attr('data-value')
-			console.log @unitTypes
-			CommonFloor.defaults['unitTypes'] = @unitTypes.join(',')
+				window.unitTypes = _.without window.unitTypes ,parseInt $(e.currentTarget).attr('data-value')
+			console.log window.unitTypes
+			CommonFloor.defaults['unitTypes'] = window.unitTypes.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
 			# @resetFilters()
 			
 		'click @ui.variantNames':(e)->
 			if $(e.currentTarget).is(':checked')
-				@variantNames.push parseInt $(e.currentTarget).attr('data-value')
+				window.variantNames.push parseInt $(e.currentTarget).attr('data-value')
 			else
-				@variantNames = _.without @variantNames ,parseInt $(e.currentTarget).attr('data-value')
-			CommonFloor.defaults['unitVariants'] = @variantNames.join(',')
+				window.variantNames = _.without window.variantNames ,parseInt $(e.currentTarget).attr('data-value')
+			CommonFloor.defaults['unitVariants'] = window.variantNames.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()	
 
@@ -152,8 +149,8 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		max = _.max data[0].unitVariants
 		priceMin = _.min data[0].budget
 		priceMax = _.max data[0].budget
-		@area.destroy()
-		@price.destroy()
+		window.area.destroy()
+		window.price.destroy()
 		$("#area").ionRangeSlider(
 		    type: "double",
 		    min: min,

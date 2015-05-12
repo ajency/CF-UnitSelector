@@ -61,12 +61,23 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 	
 	ui  :
 		unitBack : '.unit_back'
+		unitTypes : '.unit_types'
+		priceMin : '.price_min'
+		priceMax : '.price_max'
+		status : '.status'
+		apply : '.apply'
+		variantNames : '.variant_names'
+		area : '#filter_area'
+		budget : '#filter_budget'
+		types : '.types'
 
 	serializeData:->
 		data = super()
 		units = Marionette.getOption( @, 'units' )
 		data.units = units.length
 		data.project_title = project.get('project_title')
+		data.filters  = CommonFloor.getFilters()[0]
+		data.results  = CommonFloor.getFilters()[1]
 		data
 
 	events:->
@@ -75,9 +86,41 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			previousRoute = CommonFloor.router.previous()
 			CommonFloor.navigate '/'+previousRoute , true
 
-	onShow:->
-		if CommonFloor.router.history.length == 1
-			@ui.unitBack.hide()
+		'click @ui.unitTypes':(e)->
+			unitTypes = CommonFloor.defaults['unitTypes'].split(',')
+			unitTypes = _.without unitTypes , $(e.currentTarget).attr('data-id')
+			CommonFloor.defaults['unitTypes'] = unitTypes.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			@trigger  'render:view'
+			
+		'click @ui.variantNames':(e)->
+			variantNames = CommonFloor.defaults['unitVariants'].split(',')
+			variantNames = _.without variantNames , $(e.currentTarget).attr('data-id')
+			CommonFloor.defaults['unitVariants'] = variantNames.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()	
+			@trigger  'render:view'
+
+		# 'click @ui.status':(e)->
+		# 	CommonFloor.defaults['availability'] = e.currentTarget.id
+		# 	unitCollection.reset unitMasterCollection.toArray()
+		# 	CommonFloor.filter()
+			
+
+		'click @ui.area':(e)->
+			CommonFloor.defaults['area_max'] = ""
+			CommonFloor.defaults['area_min'] = ""
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			@trigger  'render:view'
+
+		'click @ui.budget':(e)->
+			CommonFloor.defaults['price_max'] = ""
+			CommonFloor.defaults['price_min'] = ""
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			@trigger  'render:view'
 
 class CommonFloor.TopApartmentMasterCtrl extends Marionette.RegionController
 
@@ -91,9 +134,24 @@ class CommonFloor.TopApartmentMasterCtrl extends Marionette.RegionController
 		response = window.building.getBuildingUnits(building_id)
 		buildingModel = buildingCollection.findWhere
 							id : building_id
-		@show new CommonFloor.TopApartmentMasterView
+		@view =  new CommonFloor.TopApartmentMasterView
 					model : buildingModel
 					units : response
+
+		@listenTo @view,"render:view" ,@loadController
+
+		@show @view
+
+	loadController:->
+		# Backbone.trigger "render:view" 
+		window.unitTypes = []
+		window.unitVariants = []
+		window.variantNames = []
+		window.price = ''
+		window.area = ''
+		window.type  = []
+		@region =  new Marionette.Region el : '#filterregion'
+		new CommonFloor.FilterApartmentCtrl region : @region
 
 class ApartmentsView extends Marionette.ItemView
 

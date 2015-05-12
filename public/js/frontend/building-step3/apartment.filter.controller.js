@@ -2,6 +2,18 @@
   var extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
+  window.unitTypes = [];
+
+  window.unitVariants = [];
+
+  window.variantNames = [];
+
+  window.price = '';
+
+  window.area = '';
+
+  window.type = [];
+
   CommonFloor.FilterApartmentView = (function(superClass) {
     extend(FilterApartmentView, superClass);
 
@@ -10,15 +22,6 @@
     }
 
     FilterApartmentView.prototype.template = Handlebars.compile('<div class="collapse" id="collapsefilters"> <div class="container-fluid""> <div class="filters-wrapper"> <div class="row"> <div class="col-sm-4 col-md-4 "> <h5># UNIT TYPE</h5> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class="col-sm-4 col-md-4 "> <h5># VARIANT</h5> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <a href="#" class="hide-div">+ Show More</a> </div> </div> </div> </div> <div class="filters-wrapper"> <div class="row"> <div class="col-sm-4 col-md-4 "> <h5># AREA (Sqft)</h5> <input type="text" id="area" name="area" value="" /> </div> <div class="col-sm-4 col-md-4 "> <h5># BUDGET </h5> <input type="text" id="budget" name="budget" value="" /> </div> <div class="col-sm-4 col-md-4 "> <h5># AVAILABILITY</h5> <div class="alert "> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="available" class="-lbl">Show Available Units Only</label> </div> </div> </div> </div> <div class="filters-bottom clearfix"> <a href="javascript:void(0)" data-toggle="collapse" data-target="#collapsefilters" class="text-primary pull-right m-b-10"><span class="icon-cross"></span> Close </a> </div> </div> </div>');
-
-    FilterApartmentView.prototype.initialize = function() {
-      this.unitTypes = [];
-      this.unitVariants = [];
-      this.variantNames = [];
-      this.price = '';
-      this.area = '';
-      return this.type = [];
-    };
 
     FilterApartmentView.prototype.ui = {
       unitTypes: '.unit_types',
@@ -34,22 +37,22 @@
     FilterApartmentView.prototype.events = {
       'click @ui.unitTypes': function(e) {
         if ($(e.currentTarget).is(':checked')) {
-          this.unitTypes.push(parseInt($(e.currentTarget).attr('data-value')));
+          window.unitTypes.push(parseInt($(e.currentTarget).attr('data-value')));
         } else {
-          this.unitTypes = _.without(this.unitTypes, parseInt($(e.currentTarget).attr('data-value')));
+          window.unitTypes = _.without(window.unitTypes, parseInt($(e.currentTarget).attr('data-value')));
         }
-        console.log(this.unitTypes);
-        CommonFloor.defaults['unitTypes'] = this.unitTypes.join(',');
+        console.log(window.unitTypes);
+        CommonFloor.defaults['unitTypes'] = window.unitTypes.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         return CommonFloor.filter();
       },
       'click @ui.variantNames': function(e) {
         if ($(e.currentTarget).is(':checked')) {
-          this.variantNames.push(parseInt($(e.currentTarget).attr('data-value')));
+          window.variantNames.push(parseInt($(e.currentTarget).attr('data-value')));
         } else {
-          this.variantNames = _.without(this.variantNames, parseInt($(e.currentTarget).attr('data-value')));
+          window.variantNames = _.without(window.variantNames, parseInt($(e.currentTarget).attr('data-value')));
         }
-        CommonFloor.defaults['unitVariants'] = this.variantNames.join(',');
+        CommonFloor.defaults['unitVariants'] = window.variantNames.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         return CommonFloor.filter();
       },
@@ -96,8 +99,8 @@
       max = _.max(data[0].unitVariants);
       priceMin = _.min(data[0].budget);
       priceMax = _.max(data[0].budget);
-      this.area.destroy();
-      this.price.destroy();
+      window.area.destroy();
+      window.price.destroy();
       $("#area").ionRangeSlider({
         type: "double",
         min: min,

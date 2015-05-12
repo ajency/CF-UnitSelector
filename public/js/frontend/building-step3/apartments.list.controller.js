@@ -49,7 +49,16 @@
     TopApartmentView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> Back to Poject Overview </a> </div> <h2 class="proj-name">{{project_title}}</h2> </div> </div> </div> <div class="filter-summary-area"> <button class="btn btn-primary cf-btn-white pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters"> Filters <span class="icon-funnel"></span> </button> <div class="pull-left filter-result"> {{#each  filters}} {{#each this}} <div class="filter-pill"  > {{this.name}}{{this.type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div> {{/each}}{{/each }} </div> <div class="proj-type-count"> {{#types}} <p class="pull-right">{{type}}</p><h1 class="text-primary pull-right m-t-10">{{count.length}}</h1> {{/types}} </div> <div class="clearfix"></div> </div>');
 
     TopApartmentView.prototype.ui = {
-      unitBack: '.unit_back'
+      unitBack: '.unit_back',
+      unitTypes: '.unit_types',
+      priceMin: '.price_min',
+      priceMax: '.price_max',
+      status: '.status',
+      apply: '.apply',
+      variantNames: '.variant_names',
+      area: '#filter_area',
+      budget: '#filter_budget',
+      types: '.types'
     };
 
     TopApartmentView.prototype.serializeData = function() {
@@ -58,6 +67,8 @@
       units = Marionette.getOption(this, 'units');
       data.units = units.length;
       data.project_title = project.get('project_title');
+      data.filters = CommonFloor.getFilters()[0];
+      data.results = CommonFloor.getFilters()[1];
       return data;
     };
 
@@ -68,6 +79,38 @@
           e.preventDefault();
           previousRoute = CommonFloor.router.previous();
           return CommonFloor.navigate('/' + previousRoute, true);
+        },
+        'click @ui.unitTypes': function(e) {
+          var unitTypes;
+          unitTypes = CommonFloor.defaults['unitTypes'].split(',');
+          unitTypes = _.without(unitTypes, $(e.currentTarget).attr('data-id'));
+          CommonFloor.defaults['unitTypes'] = unitTypes.join(',');
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          return this.trigger('render:view');
+        },
+        'click @ui.variantNames': function(e) {
+          var variantNames;
+          variantNames = CommonFloor.defaults['unitVariants'].split(',');
+          variantNames = _.without(variantNames, $(e.currentTarget).attr('data-id'));
+          CommonFloor.defaults['unitVariants'] = variantNames.join(',');
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          return this.trigger('render:view');
+        },
+        'click @ui.area': function(e) {
+          CommonFloor.defaults['area_max'] = "";
+          CommonFloor.defaults['area_min'] = "";
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          return this.trigger('render:view');
+        },
+        'click @ui.budget': function(e) {
+          CommonFloor.defaults['price_max'] = "";
+          CommonFloor.defaults['price_min'] = "";
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          return this.trigger('render:view');
         }
       };
     };
@@ -102,10 +145,27 @@
       buildingModel = buildingCollection.findWhere({
         id: building_id
       });
-      return this.show(new CommonFloor.TopApartmentView({
+      this.view = new CommonFloor.TopApartmentView({
         model: buildingModel,
         units: response
-      }));
+      });
+      this.listenTo(this.view, "render:view", this.loadController);
+      return this.show(this.view);
+    };
+
+    TopApartmentCtrl.prototype.loadController = function() {
+      window.unitTypes = [];
+      window.unitVariants = [];
+      window.variantNames = [];
+      window.price = '';
+      window.area = '';
+      window.type = [];
+      this.region = new Marionette.Region({
+        el: '#filterregion'
+      });
+      return new CommonFloor.FilterApartmentCtrl({
+        region: this.region
+      });
     };
 
     return TopApartmentCtrl;
