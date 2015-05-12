@@ -50,8 +50,7 @@
         var id;
         id = this.model.get('id');
         this.classname = $('#' + id + '.villa').attr('class');
-        $('.villa').attr('class', 'layer villa');
-        $('#' + id + '.villa').attr('class', 'layer villa ' + this.model.get('status'));
+        $('#' + id + '.villa').attr('class', 'layer villa svg_active ' + this.model.get('status'));
         return $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status') + ' active');
       },
       'mouseout': function(e) {

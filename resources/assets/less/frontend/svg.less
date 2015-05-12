@@ -24,24 +24,33 @@ svg {
 		fill: #FF7400  !important;
 	  	opacity: 0.5 !important;
 	}
+	.layer{
+		fill: #cccccc !important;
+		opacity: 0.7 !important;
+	}
 	.available {
-	  fill: #7EBB11 !important;
+	  fill: rgba(204, 204, 204, 0) !important;
 	  opacity: 0.5 !important;
+	  &.svg_active{
+		  	stroke-width: 6px;
+		  	stroke-dasharray: 320 0;
+		  	stroke-dashoffset: 0;
+	  }
 	}
 	.blocked{
-		fill: rgba(244, 173, 0, 0.36) !important;
-	  	opacity: 0.8 !important;
+		// fill: rgba(244, 173, 0, 0.36) !important;
+	 //  	opacity: 0.8 !important;
 	}
 	.sold{
-		fill: #FF6565 !important;
-		opacity: 0.5 !important;
+		// fill: #FF6565 !important;
+		// opacity: 0.5 !important;
 	}
 	.not_released{
-	 	fill: #cccccc !important;
-	 	opacity: 0.5 !important;
+	 	// fill: #cccccc !important;
+	 	// opacity: 0.5 !important;
 	}
 	.not_in_selection{
-		fill: #000;
+		fill: #000 !important;
 		opacity: .7;
 	}
 	.disable{
@@ -78,7 +87,7 @@ svg {
 	}
 
 	.layer:hover{
-	  	stroke-width: 2px;
+	  	stroke-width: 4px;
 	  	stroke-dasharray: 320 0;
 	  	stroke-dashoffset: 0;
 	}

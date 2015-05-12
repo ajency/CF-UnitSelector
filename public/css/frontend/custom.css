@@ -783,24 +783,21 @@ svg .active_bldg {
   fill: #FF7400  !important;
   opacity: 0.5 !important;
 }
-svg .available {
-  fill: #7EBB11 !important;
-  opacity: 0.5 !important;
-}
-svg .blocked {
-  fill: rgba(244, 173, 0, 0.36) !important;
-  opacity: 0.8 !important;
-}
-svg .sold {
-  fill: #FF6565 !important;
-  opacity: 0.5 !important;
-}
-svg .not_released {
+svg .layer {
   fill: #cccccc !important;
+  opacity: 0.7 !important;
+}
+svg .available {
+  fill: rgba(204, 204, 204, 0) !important;
   opacity: 0.5 !important;
+}
+svg .available.svg_active {
+  stroke-width: 6px;
+  stroke-dasharray: 320 0;
+  stroke-dashoffset: 0;
 }
 svg .not_in_selection {
-  fill: #000;
+  fill: #000 !important;
   opacity: .7;
 }
 svg .disable {
@@ -837,7 +834,7 @@ svg .layer {
           transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
 }
 svg .layer:hover {
-  stroke-width: 2px;
+  stroke-width: 4px;
   stroke-dasharray: 320 0;
   stroke-dashoffset: 0;
 }

@@ -466,7 +466,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 		'mouseover .villa':(e)->
-			$('.villa').attr('class' ,'layer villa') 
+			# $('.villa').attr('class' ,'layer villa') 
 			id  = parseInt e.target.id
 			html = ""
 			unit = unitCollection.findWhere 
@@ -510,7 +510,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('.layer').tooltipster('content', html)
 
 		'click .plot':(e)->
-			$('.plot').attr('class' ,'layer plot') 
+			# $('.plot').attr('class' ,'layer plot') 
 			id  = parseInt e.target.id
 			html = ""
 			unit = unitCollection.findWhere 

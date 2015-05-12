@@ -477,7 +477,6 @@
       },
       'mouseover .villa': function(e) {
         var availability, html, id, response, unit;
-        $('.villa').attr('class', 'layer villa');
         id = parseInt(e.target.id);
         html = "";
         unit = unitCollection.findWhere({
@@ -501,7 +500,6 @@
       },
       'click .plot': function(e) {
         var availability, html, id, response, unit;
-        $('.plot').attr('class', 'layer plot');
         id = parseInt(e.target.id);
         html = "";
         unit = unitCollection.findWhere({
