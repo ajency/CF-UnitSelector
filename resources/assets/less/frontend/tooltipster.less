@@ -4,19 +4,68 @@
 
 .svg-info{
 	font-family: OpenSans,Arial,sans-serif;
-	padding: 0 5px;
-    h4{
-    	color: @brand-primary;
+	padding: 0;
+    h5{
+    	// color: @brand-primary;
     	font-weight: bold;
     }
     .label{
     	margin: 10px 0 0 5px;
     	display: inline-block;
     }
+    .icon-cross{
+        font-size: 8px;
+        font-weight: bold;
+        cursor: pointer;
+    }
     .details{
     	font-size: 12px;
     	label{
     		color: @gray-light;
     	}
+        div{
+            padding-bottom: 5px;
+        }
+        &.empty{
+            text-align: center;
+            padding-bottom: 5px;
+        }
     }
+    .action-bar{
+        min-width: 250px;
+        padding: 10px;
+        margin-left: -10px;
+        margin-right: -10px;
+        margin-top: 5px;
+        color: @white;
+        font-size: 12px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        cursor: pointer;
+    }
+    &.available{
+        .action-bar{
+            background-color: @success;
+        }
+    }
+    &.sold{
+        .action-bar{
+            background-color: @danger-darker;
+        }
+    }
+    &.not_released{
+        .action-bar{
+            background-color: @gray;
+        }
+    }
+    &.blocked{
+        .action-bar{
+            background-color: @warning-darker;
+            color: @gray;
+        }
+    }
+}
+
+.tooltipster-shadow .tooltipster-content{
+    padding-bottom: 0;
 }

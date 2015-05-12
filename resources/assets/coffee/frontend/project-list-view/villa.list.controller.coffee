@@ -54,7 +54,7 @@ class VillaView extends Marionette.CompositeView
 							            </div>
 							            <div class="clearfix"></div>
 							            <div class="villa-list">
-							            	<ul class="units">
+							            	<ul class="units eight">
 							            	</ul>
 							            </div>
 							        </div>

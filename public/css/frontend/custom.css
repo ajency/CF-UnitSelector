@@ -1607,21 +1607,60 @@ label.third_toggle {
 }
 .svg-info {
   font-family: OpenSans, Arial, sans-serif;
-  padding: 0 5px;
+  padding: 0;
 }
-.svg-info h4 {
-  color: #f68121;
+.svg-info h5 {
   font-weight: bold;
 }
 .svg-info .label {
   margin: 10px 0 0 5px;
   display: inline-block;
 }
+.svg-info .icon-cross {
+  font-size: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
 .svg-info .details {
   font-size: 12px;
 }
 .svg-info .details label {
   color: #999999;
+}
+.svg-info .details div {
+  padding-bottom: 5px;
+}
+.svg-info .details.empty {
+  text-align: center;
+  padding-bottom: 5px;
+}
+.svg-info .action-bar {
+  min-width: 250px;
+  padding: 10px;
+  margin-left: -10px;
+  margin-right: -10px;
+  margin-top: 5px;
+  color: #ffffff;
+  font-size: 12px;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  cursor: pointer;
+}
+.svg-info.available .action-bar {
+  background-color: #5ab319;
+}
+.svg-info.sold .action-bar {
+  background-color: #d06d72;
+}
+.svg-info.not_released .action-bar {
+  background-color: #666666;
+}
+.svg-info.blocked .action-bar {
+  background-color: #f4ed5a;
+  color: #666666;
+}
+.tooltipster-shadow .tooltipster-content {
+  padding-bottom: 0;
 }
 .ls-nav ul {
   width: 100% !important;
