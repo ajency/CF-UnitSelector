@@ -149,24 +149,75 @@
     };
 
     FilterApartmentView.prototype.onShow = function() {
-      var budget, max, min, minimum, priceMax, priceMin, subArea, subBudget, unitVariants;
-      unitVariants = Marionette.getOption(this, 'unitVariants');
-      budget = Marionette.getOption(this, 'budget');
-      min = _.min(unitVariants);
-      max = _.max(unitVariants);
+      return this.loadSelectedFilters();
+    };
+
+    FilterApartmentView.prototype.loadSelectedFilters = function() {
+      var area, budget, id, max, min, priceMax, priceMin, subArea, subBudget, types, typesArray, unitTypes, unitVariants, unitVariantsArray, unitsArr, unittypesArray, unittypesColl;
+      unittypesArray = [];
+      unitTypes = CommonFloor.defaults['unitTypes'].split(',');
+      unitVariantsArray = [];
+      unitVariants = CommonFloor.defaults['unitVariants'].split(',');
+      typesArray = [];
+      types = CommonFloor.defaults['type'].split(',');
+      budget = [];
+      area = [];
+      id = [];
+      unitsArr = [];
+      unittypesColl = [];
+      $.merge(unitsArr, apartmentVariantMasterCollection.getApartmentMasterUnits());
+      $.each(unitsArr, function(index, value) {
+        var unitDetails;
+        unitDetails = window.unit.getUnitDetails(value.id);
+        id.push(parseInt(unitDetails[0].get('id')));
+        return unittypesColl.push(parseFloat(unitDetails[1].get('id')));
+      });
+      $.each(unitCollection.toArray(), function(index, value) {
+        var unitDetails;
+        unitDetails = window.unit.getUnitDetails(value.id);
+        budget.push(parseFloat(unitDetails[3]));
+        return area.push(parseFloat(unitDetails[0].get('super_built_up_area')));
+      });
+      console.log(budget);
+      $(this.ui.unitTypes).each(function(ind, item) {
+        $('#' + item.id).attr('checked', true);
+        $('#' + item.id).attr('disabled', false);
+        if ($.inArray($(item).attr('data-value'), unitTypes) === -1) {
+          $('#' + item.id).prop('checked', false);
+          $('#' + item.id).attr('disabled', false);
+        }
+        if ($.inArray(parseInt($(item).attr('data-value')), unittypesColl) === -1) {
+          $('#' + item.id).prop('checked', false);
+          return $('#' + item.id).attr('disabled', true);
+        }
+      });
+      $(this.ui.variantNames).each(function(ind, item) {
+        console.log($(item).attr('data-value'));
+        $('#' + item.id).attr('checked', true);
+        $('#' + item.id).attr('disabled', false);
+        if ($.inArray($(item).attr('data-value'), unitVariants) === -1) {
+          $('#' + item.id).prop('checked', false);
+          $('#' + item.id).attr('disabled', false);
+        }
+        if ($.inArray(parseInt($(item).attr('data-value')), id) === -1) {
+          $('#' + item.id).prop('checked', false);
+          return $('#' + item.id).attr('disabled', true);
+        }
+      });
+      min = _.min(area);
+      max = _.max(area);
       subArea = (max - min) / 20;
-      console.log(subArea = subArea.toFixed(0));
+      subArea = subArea.toFixed(0);
       priceMin = _.min(budget);
       priceMax = _.max(budget);
       subBudget = (priceMax - priceMin) / 20;
-      console.log(subBudget = subBudget.toFixed(0));
-      minimum = window.numDifferentiation(priceMin);
+      subBudget = subBudget.toFixed(0);
       $("#area").ionRangeSlider({
         type: "double",
         min: min,
         max: max,
-        grid: false,
-        step: subArea
+        step: subArea,
+        grid: false
       });
       $("#budget").ionRangeSlider({
         type: "double",
@@ -178,8 +229,37 @@
           return window.numDifferentiation(num);
         }
       });
-      this.price = $("#budget").data("ionRangeSlider");
-      return this.area = $("#area").data("ionRangeSlider");
+      min = _.min(CommonFloor.defaults['area_min']);
+      max = _.max(CommonFloor.defaults['area_max']);
+      subArea = (max - min) / 20;
+      subArea = subArea.toFixed(0);
+      priceMin = _.min(CommonFloor.defaults['price_min']);
+      priceMax = _.max(CommonFloor.defaults['price_max']);
+      subBudget = (priceMax - priceMin) / 20;
+      subBudget = subBudget.toFixed(0);
+      if (CommonFloor.defaults['area_min'] !== "" && CommonFloor.defaults['area_min'] !== "") {
+        $("#area").ionRangeSlider({
+          type: "double",
+          min: min,
+          max: max,
+          grid: false,
+          step: subArea
+        });
+      }
+      if (CommonFloor.defaults['price_min'] !== "" && CommonFloor.defaults['price_max'] !== "") {
+        $("#budget").ionRangeSlider({
+          type: "double",
+          min: priceMin,
+          max: priceMax,
+          grid: false,
+          step: subBudget,
+          prettify: function(num) {
+            return window.numDifferentiation(num);
+          }
+        });
+      }
+      window.price = $("#budget").data("ionRangeSlider");
+      return window.area = $("#area").data("ionRangeSlider");
     };
 
     return FilterApartmentView;
@@ -211,8 +291,7 @@
         'unitTypes': unitTypes,
         'unitVariants': _.uniq(unitVariants),
         'unitVariantNames': unitVariantNames,
-        'budget': budget,
-        'types': types
+        'budget': budget
       });
       this.listenTo(this.view, "load:apt:filters", this.loadAptFilter);
       return this.show(this.view);

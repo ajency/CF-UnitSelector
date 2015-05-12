@@ -424,21 +424,29 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		    	return window.numDifferentiation(num)
 
 		)
+		min = _.min CommonFloor.defaults['area_min']
+		max = _.max CommonFloor.defaults['area_max']
+		subArea = (max - min)/ 20 
+		subArea = subArea.toFixed(0)
+		priceMin = _.min CommonFloor.defaults['price_min']
+		priceMax = _.max CommonFloor.defaults['price_max']		
+		subBudget = (priceMax - priceMin)/ 20
+		subBudget = subBudget.toFixed(0)
 		if CommonFloor.defaults['area_min'] != "" && CommonFloor.defaults['area_min'] != ""
-			window.area.destroy()
 			$("#area").ionRangeSlider(
 			    type: "double",
-			    min: CommonFloor.defaults['area_min'],
-			    max: CommonFloor.defaults['area_max'],
-			    grid: false
+			    min: min,
+			    max: max,
+			    grid: false,
+			    step : subArea
 			)
 		if CommonFloor.defaults['price_min'] != "" && CommonFloor.defaults['price_max'] != ""
-			window.price.destroy()
 			$("#budget").ionRangeSlider(
 			    type: "double",
-			    min: CommonFloor.defaults['price_min'],
-			    max: CommonFloor.defaults['price_max'],
-			    grid: false
+			    min: priceMin,
+			    max: priceMax,
+			    grid: false,
+		    	step : subBudget,
 			    prettify :(num)->
 			    	return window.numDifferentiation(num)
 
