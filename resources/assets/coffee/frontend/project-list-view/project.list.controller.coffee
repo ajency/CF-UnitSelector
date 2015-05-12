@@ -60,12 +60,27 @@ class TopListView extends Marionette.ItemView
 
 	ui  :
 		unitBack : '.unit_back'
+		unitTypes : '.unit_types'
+		priceMin : '.price_min'
+		priceMax : '.price_max'
+		status : '.status'
+		apply : '.apply'
+		variantNames : '.variant_names'
+		area : '#filter_area'
+		budget : '#filter_budget'
+		types : '.types'
 
 	serializeData:->
 		data = super()
+		status = CommonFloor.getStatusFilters()
+		if status.length != 0
+			data.status = status
+		data.filters  = CommonFloor.getFilters()[0]
+		data.results  = CommonFloor.getFilters()[1]
 		response = CommonFloor.propertyTypes() 
 		data.types = response
 		data
+
 
 	events:->
 		'click @ui.unitBack':(e)->
@@ -73,9 +88,140 @@ class TopListView extends Marionette.ItemView
 			previousRoute = CommonFloor.router.previous()
 			CommonFloor.navigate '/'+previousRoute , true
 
+		'click @ui.types':(e)->
+			arr = CommonFloor.defaults['type'].split(',')
+			index = arr.indexOf $(e.target).attr('data-id')
+			arr.splice(index, 1)
+			CommonFloor.defaults['type'] = arr.join(',')
+			
+			
+			if $(e.target).attr('data-id') == 'Villas'
+				@removeVillaFilters()
+			if $(e.target).attr('data-id') == 'Apartments'
+				@removeAptFilters()
+			if $(e.target).attr('data-id') == 'Plots'
+				@removePlotFilters()
+			@trigger  'render:view'
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			
+
+			
+		'click @ui.unitTypes':(e)->
+			unitTypes = CommonFloor.defaults['unitTypes'].split(',')
+			unitTypes = _.without unitTypes , $(e.currentTarget).attr('data-id')
+			CommonFloor.defaults['unitTypes'] = unitTypes.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			@trigger  'render:view'
+			
+		'click @ui.variantNames':(e)->
+			variantNames = CommonFloor.defaults['unitVariants'].split(',')
+			variantNames = _.without variantNames , $(e.currentTarget).attr('data-id')
+			CommonFloor.defaults['unitVariants'] = variantNames.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()	
+			@trigger  'render:view'
+
+		# 'click @ui.status':(e)->
+		# 	CommonFloor.defaults['availability'] = e.currentTarget.id
+		# 	unitCollection.reset unitMasterCollection.toArray()
+		# 	CommonFloor.filter()
+			
+
+		'click @ui.area':(e)->
+			CommonFloor.defaults['area_max'] = ""
+			CommonFloor.defaults['area_min'] = ""
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			@trigger  'render:view'
+
+		'click @ui.budget':(e)->
+			CommonFloor.defaults['price_max'] = ""
+			CommonFloor.defaults['price_min'] = ""
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			@trigger  'render:view'
+
 	onShow:->
 		if CommonFloor.router.history.length == 1
 			@ui.unitBack.hide()
+
+
+	removeVillaFilters:->
+		variants = []
+		unittypes = []
+		unitsArr = bunglowVariantCollection.getBunglowMasterUnits()
+		$.each unitsArr,(index,value)->
+			unitDetails = window.unit.getUnitDetails(value.id)
+			variants.push  parseInt unitDetails[0].get 'id'
+			unittypes.push parseInt unitDetails[1].get 'id'
+		unitTypes = CommonFloor.defaults['unitTypes'].split(',')
+		unitTypesArr = unitTypes.map (item)->
+				return parseInt item
+		
+		$.each unittypes,(index,value)->
+			if $.inArray(parseInt(value), unitTypesArr) > -1
+				unitTypes = _.without unitTypesArr , parseInt(value)
+		
+		CommonFloor.defaults['unitTypes'] = unitTypes.join(',')
+		unitVariants = CommonFloor.defaults['unitVariants'].split(',')
+		unitVariantsArr = unitVariants.map (item)->
+				return parseInt item
+		$.each variants,(index,value)->
+			if $.inArray(parseInt(value), unitVariantsArr) > -1
+				unitVariants = _.without unitVariantsArr , parseInt(value)
+		CommonFloor.defaults['unitVariants'] = unitVariants.join(',')
+
+	removeAptFilters:->
+		variants = []
+		unittypes = []
+		unitsArr = apartmentVariantCollection.getApartmentMasterUnits()
+		$.each unitsArr,(index,value)->
+			unitDetails = window.unit.getUnitDetails(value.id)
+			variants.push  parseInt unitDetails[0].get 'id'
+			unittypes.push parseInt unitDetails[1].get 'id'
+		unitTypes = CommonFloor.defaults['unitTypes'].split(',')
+		unitTypesArr = unitTypes.map (item)->
+				return parseInt item
+		
+		$.each unittypes,(index,value)->
+			if $.inArray(parseInt(value), unitTypesArr) > -1
+				unitTypes = _.without unitTypesArr , parseInt(value)
+		
+		CommonFloor.defaults['unitTypes'] = unitTypes.join(',')
+		unitVariants = CommonFloor.defaults['unitVariants'].split(',')
+		unitVariantsArr = unitVariants.map (item)->
+				return parseInt item
+		$.each variants,(index,value)->
+			if $.inArray(parseInt(value), unitVariantsArr) > -1
+				unitVariants = _.without unitVariantsArr , parseInt(value)
+		CommonFloor.defaults['unitVariants'] = unitVariants.join(',')
+
+	removePlotFilters:->
+		variants = []
+		unittypes = []
+		unitsArr = plotVariantCollection.getPlotMasterUnits()
+		$.each unitsArr,(index,value)->
+			unitDetails = window.unit.getUnitDetails(value.id)
+			variants.push  parseInt unitDetails[0].get 'id'
+			unittypes.push parseInt unitDetails[1].get 'id'
+		unitTypes = CommonFloor.defaults['unitTypes'].split(',')
+		unitTypesArr = unitTypes.map (item)->
+				return parseInt item
+		
+		$.each unittypes,(index,value)->
+			if $.inArray(parseInt(value), unitTypesArr) > -1
+				unitTypes = _.without unitTypesArr , parseInt(value)
+		
+		CommonFloor.defaults['unitTypes'] = unitTypes.join(',')
+		unitVariants = CommonFloor.defaults['unitVariants'].split(',')
+		unitVariantsArr = unitVariants.map (item)->
+				return parseInt item
+		$.each variants,(index,value)->
+			if $.inArray(parseInt(value), unitVariantsArr) > -1
+				unitVariants = _.without unitVariantsArr , parseInt(value)
+		CommonFloor.defaults['unitVariants'] = unitVariants.join(',')
 
 #controller for the top region
 class CommonFloor.TopListCtrl extends Marionette.RegionController

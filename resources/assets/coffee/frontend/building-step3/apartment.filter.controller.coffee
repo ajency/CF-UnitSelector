@@ -199,40 +199,107 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		data
 
 	onShow:->
-		unitVariants = Marionette.getOption(@,'unitVariants')
-		budget = Marionette.getOption(@,'budget')
-		min = _.min unitVariants
-		max = _.max unitVariants
+		@loadSelectedFilters()
+
+	loadSelectedFilters:->
+		unittypesArray = []
+		unitTypes = CommonFloor.defaults['unitTypes'].split(',')
+		unitVariantsArray = []
+		unitVariants = CommonFloor.defaults['unitVariants'].split(',')
+		typesArray = []
+		types = CommonFloor.defaults['type'].split(',')
+		budget = []
+		area = []
+		id = []
+		unitsArr = []
+		unittypesColl = []
+		$.merge unitsArr, apartmentVariantMasterCollection.getApartmentMasterUnits()
+			
+		$.each unitsArr,(index,value)->
+			unitDetails = window.unit.getUnitDetails(value.id)
+			id.push parseInt unitDetails[0].get 'id'
+			unittypesColl.push parseFloat unitDetails[1].get 'id'
+		$.each unitCollection.toArray(), (index,value)->
+			unitDetails = window.unit.getUnitDetails(value.id)
+			budget.push parseFloat unitDetails[3]
+			area.push parseFloat unitDetails[0].get 'super_built_up_area'
+			
+
+		console.log budget
+		$(@ui.unitTypes).each (ind,item)->
+			$('#'+item.id).attr('checked',true)
+			$('#'+item.id).attr('disabled',false)
+			if $.inArray($(item).attr('data-value'),unitTypes) is -1
+				$('#'+item.id).prop('checked',false)
+				$('#'+item.id).attr('disabled',false)
+			if $.inArray(parseInt($(item).attr('data-value')),unittypesColl) is -1
+				$('#'+item.id).prop('checked',false)
+				$('#'+item.id).attr('disabled',true)
+		$(@ui.variantNames).each (ind,item)->
+			console.log $(item).attr('data-value')
+			$('#'+item.id).attr('checked',true)
+			$('#'+item.id).attr('disabled',false)
+			if $.inArray($(item).attr('data-value'),unitVariants) is -1 
+				$('#'+item.id).prop('checked',false)
+				$('#'+item.id).attr('disabled',false)
+			if $.inArray(parseInt($(item).attr('data-value')),id) is -1 
+				$('#'+item.id).prop('checked',false)
+				$('#'+item.id).attr('disabled',true)
+		
+		min = _.min area
+		max = _.max area
 		subArea = (max - min)/ 20 
-		console.log subArea = subArea.toFixed(0)
+		subArea = subArea.toFixed(0)
 		priceMin = _.min budget
-		priceMax = _.max budget
+		priceMax = _.max budget		
 		subBudget = (priceMax - priceMin)/ 20
-		console.log subBudget = subBudget.toFixed(0)
-		minimum = window.numDifferentiation(priceMin)
+		subBudget = subBudget.toFixed(0)
 		$("#area").ionRangeSlider(
 		    type: "double",
 		    min: min,
-		    max: max,
+		    max:  max,
+		    step : subArea,
 		    grid: false
-		    step : subArea
 		)
 		$("#budget").ionRangeSlider(
 		    type: "double",
 		    min: priceMin,
 		    max: priceMax,
-		    grid: false
-		    step : subBudget
+		    grid: false,
+		    step : subBudget,
 		    prettify :(num)->
 		    	return window.numDifferentiation(num)
 
 		)
-		@price = $("#budget").data("ionRangeSlider")
-		@area = $("#area").data("ionRangeSlider")
-		# if villaFilters.length != 0
-		# 	@assignVillaValues(villaFilters)
-		# if apartmentFilters.length != 0
-		# 	@assignAptValues(apartmentFilters)
+		min = _.min CommonFloor.defaults['area_min']
+		max = _.max CommonFloor.defaults['area_max']
+		subArea = (max - min)/ 20 
+		subArea = subArea.toFixed(0)
+		priceMin = _.min CommonFloor.defaults['price_min']
+		priceMax = _.max CommonFloor.defaults['price_max']		
+		subBudget = (priceMax - priceMin)/ 20
+		subBudget = subBudget.toFixed(0)
+		if CommonFloor.defaults['area_min'] != "" && CommonFloor.defaults['area_min'] != ""
+			$("#area").ionRangeSlider(
+			    type: "double",
+			    min: min,
+			    max: max,
+			    grid: false,
+			    step : subArea
+			)
+		if CommonFloor.defaults['price_min'] != "" && CommonFloor.defaults['price_max'] != ""
+			$("#budget").ionRangeSlider(
+			    type: "double",
+			    min: priceMin,
+			    max: priceMax,
+			    grid: false,
+		    	step : subBudget,
+			    prettify :(num)->
+			    	return window.numDifferentiation(num)
+
+			)
+		window.price = $("#budget").data("ionRangeSlider")
+		window.area = $("#area").data("ionRangeSlider")
 		
 	
 
@@ -257,7 +324,6 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 				'unitVariants' : _.uniq unitVariants
 				'unitVariantNames' : unitVariantNames
 				'budget'			: budget
-				'types'			: types
 
 		@listenTo @view,"load:apt:filters" ,@loadAptFilter
 
