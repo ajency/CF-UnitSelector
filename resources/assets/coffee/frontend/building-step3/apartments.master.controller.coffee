@@ -1,7 +1,7 @@
 api = ""
 class CommonFloor.ApartmentsMasterView extends Marionette.LayoutView
 
-	template : '#project-template'
+	template : '#project-view-template'
 
 
 
@@ -31,14 +31,33 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 									            </div>
 
 								              	<h2 class="proj-name">{{project_title}}</h2> 
-								              	  <!--<div class="proj-type-count">
-								              	  	<h2 class="text-primary pull-left">{{building_name}}</h2>
-								              	  	<div class="clearfix"></div>
-								              	  </div>-->
-								                <div class="clearfix"></div>
+
 								          	</div>
 							          	</div>
-							        </div>')
+							        </div>
+
+					        		<div class="filter-summary-area">
+
+					        			<button class="btn btn-primary cf-btn-white pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters">
+					        				Filters <span class="icon-funnel"></span>
+					        			</button>
+					                    <div class="pull-left filter-result">
+					                      	{{#each  filters}}
+					                      	{{#each this}}
+					        				<div class="filter-pill"  >
+					        					{{this.name}}{{this.type}}
+					        					<span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span>
+					                      	</div>	
+					                      	{{/each}}{{/each }}							               
+					                    </div>
+					        			<div class="proj-type-count">
+					        				{{#types}} 
+					        				<p class="pull-right">{{type}}</p><h1 class="text-primary pull-right m-t-10">{{count.length}}</h1> 
+					        				{{/types}}
+					        			</div>
+
+					        			<div class="clearfix"></div>
+					        		</div>')
 	
 	ui  :
 		unitBack : '.unit_back'

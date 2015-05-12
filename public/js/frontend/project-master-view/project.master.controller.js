@@ -48,7 +48,7 @@
       return TopMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopMasterView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> Back to Project Overview </a> </div> <h2 class="proj-name">{{project_title}}</h2> </div> </div> </div> <div class="filter-summary-area"> <button class="btn btn-primary cf-btn-white pull-right m-t-10" type="button" data-toggle="collapse" data-target="#collapsefilters"> Filters <span class="icon-funnel"></span> </button> <div class="row search-header-wrap filter-result"> <div class="col-xs-6 col-md-6"> {{#each  filters}} {{#each this}} <div class="filter-pill"  >{{this.name}}{{this.type}}<span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div>	{{/each}}{{/each }} <div class="clearfix"></div> </div> </div> <div class="proj-type-count"> {{#types}} <p class="pull-right">{{type}}</p><h2 class="text-primary pull-right m-t-10">{{count.length}}</h2> {{/types}} </div> <div class="clearfix"></div> </div>');
+    TopMasterView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> Back to Project Overview </a> </div> <h2 class="proj-name">{{project_title}}</h2> </div> </div> </div> <div class="filter-summary-area"> <button class="btn btn-primary cf-btn-white pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters"> Filters <span class="icon-funnel"></span> </button> <div class="pull-left filter-result"> {{#each  filters}} {{#each this}} <div class="filter-pill"  > {{this.name}}{{this.type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div> {{/each}}{{/each }} </div> <div class="proj-type-count"> {{#types}} <p class="pull-right">{{type}}</p><h1 class="text-primary pull-right m-t-10">{{count.length}}</h1> {{/types}} </div> <div class="clearfix"></div> </div>');
 
     TopMasterView.prototype.ui = {
       unitBack: '.unit_back',
@@ -362,7 +362,7 @@
       return CenterMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content mobile visible"> <div class="zoom-controls"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master animated fadeIn"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img src=""  data-alwaysprocess="true" data-ratio="0.5" data-srcwidth="1600" data-crop="1" class="primage first_image img-responsive"> <div class="region inactive"></div> </div> <div class="cf-loader hidden"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
+    CenterMasterView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content mobile visible"> <div class="zoom-controls"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master animated fadeIn"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img src=""  data-alwaysprocess="true" data-ratio="0.5" data-srcwidth="1600" data-crop="1" class="primage first_image img-responsive"> <div class="region inactive"></div> </div> <div class="cf-loader hidden"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
 
     CenterMasterView.prototype.ui = {
       svgContainer: '.master',
@@ -477,7 +477,7 @@
         $('.building').attr('class', 'layer building');
         return $('#bldg' + id).attr('class', 'bldg blocks');
       },
-      'click .villa': function(e) {
+      'mouseover .villa': function(e) {
         var availability, html, id, response, unit;
         $('.villa').attr('class', 'layer villa');
         id = parseInt(e.target.id);
@@ -554,7 +554,7 @@
       var breakpoints, first, height, svgs, that, transitionImages;
       $('img').lazyLoadXT();
       height = this.ui.svgContainer.width() / 2;
-      $('.units').css('height', height - 162);
+      $('.units').css('height', height - 380);
       $('#spritespin').hide();
       that = this;
       transitionImages = [];
@@ -648,8 +648,9 @@
         onlyOne: true,
         arrow: false,
         offsetX: 50,
-        offsetY: -10,
-        trigger: 'click'
+        offsetY: -20,
+        interactive: true,
+        animation: 'grow'
       });
     };
 

@@ -47,11 +47,15 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 					                            <div class="row">
 					                                <div class="col-sm-4 col-md-4 ">
 					                                    <h5># AREA (Sqft)</h5>
-					                                	<input type="text" id="area" name="area" value="" />
+					                                	<div class="range-container">
+					                                		<input type="text" id="area" name="area" value="" />
+					                                	</div>
 					                                </div>
 					                                <div class="col-sm-4 col-md-4 ">
 					                                    <h5># BUDGET </h5>
-					                                    <input type="text" id="budget" name="budget" value="" />
+					                                    <div class="range-container">
+					                                    	<input type="text" id="budget" name="budget" value="" />
+					                                    </div>
 					                                </div>
 					                                <div class="col-sm-4 col-md-4 ">
 					                                  	<h5># AVAILABILITY</h5>
