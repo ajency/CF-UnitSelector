@@ -59,6 +59,7 @@
 	.legend{
 		text-align: center;
 		padding: 10px 0 20px;
+		display: none;
 		ul{
 			list-style: none;
 			li{
@@ -75,16 +76,16 @@
 					margin-right: 5px;
 				}
 				&.available, &.sold, &.blocked, &.na{
-					opacity: 1 !important;
+					// opacity: 1 !important;
 				}
 				&.available::before{
-					background-color: @white;
+					// background-color: @white;
 				}
 				&.sold::before{
-					background-color: @danger;
+					background-color: fade(@danger-darker, 50%);
 				}
 				&.blocked::before{
-					background-color: @warning;
+					// background-color: @warning;
 				}
 				&.na::before{
 					background-color: @gray-lighter;
@@ -133,9 +134,9 @@
 	&.active{
 		border: 1px solid @brand-primary;
 	}
-	&.sold{
-		background-color: @danger;
-		opacity: 1 !important;
+	&.sold, &.blocked, &.not_released{
+		background-color: fade(@danger-darker, 50%);
+		// opacity: 1 !important;
 		.info{
 			color: @danger-darker;
 			label{
@@ -146,32 +147,32 @@
 			color: @danger-darker;
 		}
 	}
-	&.blocked{
-		background-color: @warning;
-		opacity: 1 !important;
-		.info{
-			color: @gray-light;
-			label{
-				color: @gray;
-			}
-		}
-		.cost{
-			color: @gray;
-		}
-	}
-	&.not_released{
-		background-color: @gray-lighter;
-		opacity: 1 !important;
-		.info{
-			color: @gray-light;
-			label{
-				color: @gray;
-			}
-		}
-		.cost{
-			color: @gray;
-		}
-	}
+	// &.blocked{
+	// 	background-color: @warning;
+	// 	opacity: 1 !important;
+	// 	.info{
+	// 		color: @gray-light;
+	// 		label{
+	// 			color: @gray;
+	// 		}
+	// 	}
+	// 	.cost{
+	// 		color: @gray;
+	// 	}
+	// }
+	// &.not_released{
+	// 	background-color: @gray-lighter;
+	// 	opacity: 1 !important;
+	// 	.info{
+	// 		color: @gray-light;
+	// 		label{
+	// 			color: @gray;
+	// 		}
+	// 	}
+	// 	.cost{
+	// 		color: @gray;
+	// 	}
+	// }
 }
 .eight{
 	.blocks{
@@ -236,7 +237,7 @@
 			.info{
 				label{
 					display: block;
-					color: @brand-primary;					
+					color: @gray;					
 				}
 				span{
 					// color: @brand-primary;
@@ -412,6 +413,51 @@
 				}
 				span{
 					color: @brand-primary;
+				}
+			}
+		}
+	}
+}
+
+.us-right-content{
+	.legend{
+		text-align: center;
+		padding: 10px 0 15px;
+		position: absolute;
+		top: 0;
+		width: 100%;
+		left: 0;
+		background-color: fade(@gray-darker, 60%);
+		z-index: 999;
+		ul{
+			list-style: none;
+			li{
+				display: inline-block;
+				margin-left: 20px;
+				font-size: 14px;
+				color: @gray-lighter;
+				&::before{
+					height: 18px;
+					width: 40px;
+					border: 1px solid @gray-lighter;
+					content: '';
+					display: inline-block;
+					margin-right: 5px;
+				}
+				&.available, &.sold, &.blocked, &.na{
+					// opacity: 1 !important;
+				}
+				&.available::before{
+					// background-color: @white;
+				}
+				&.sold::before{
+					background-color: fade(@danger-darker, 50%);
+				}
+				&.blocked::before{
+					// background-color: @warning;
+				}
+				&.na::before{
+					background-color: fade(@gray-darker, 50%);
 				}
 			}
 		}
