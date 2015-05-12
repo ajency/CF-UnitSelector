@@ -263,7 +263,6 @@ class CommonFloor.LeftMasterCtrl extends Marionette.RegionController
 
 	renderView:->
 		response = CommonFloor.checkListView()
-		console.log response.count.length
 		if response.count.length == 0
 			region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.NoUnitsCtrl region : region

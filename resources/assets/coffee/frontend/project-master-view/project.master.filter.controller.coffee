@@ -343,15 +343,17 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		@loadSelectedFilters()
 
 	loadSelectedFilters:->
-		types = Marionette.getOption(@,'types')
-		if types.length == 1
-			CommonFloor.defaults['type'] = types[0].type
+		types = []
+		pt_types = Marionette.getOption(@,'types')
+		types = CommonFloor.defaults['type'].split(',')
+		if pt_types.length == 1
+			types.push pt_types[0].type
 		unittypesArray = []
 		unitTypes = CommonFloor.defaults['unitTypes'].split(',')
 		unitVariantsArray = []
 		unitVariants = CommonFloor.defaults['unitVariants'].split(',')
 		typesArray = []
-		types = CommonFloor.defaults['type'].split(',')
+		
 		budget = []
 		area = []
 		id = []

@@ -315,17 +315,18 @@
     };
 
     FilterMsterView.prototype.loadSelectedFilters = function() {
-      var area, budget, id, max, min, priceMax, priceMin, subArea, subBudget, types, typesArray, unitTypes, unitVariants, unitVariantsArray, unitsArr, unittypesArray, unittypesColl;
-      types = Marionette.getOption(this, 'types');
-      if (types.length === 1) {
-        CommonFloor.defaults['type'] = types[0].type;
+      var area, budget, id, max, min, priceMax, priceMin, pt_types, subArea, subBudget, types, typesArray, unitTypes, unitVariants, unitVariantsArray, unitsArr, unittypesArray, unittypesColl;
+      types = [];
+      pt_types = Marionette.getOption(this, 'types');
+      types = CommonFloor.defaults['type'].split(',');
+      if (pt_types.length === 1) {
+        types.push(pt_types[0].type);
       }
       unittypesArray = [];
       unitTypes = CommonFloor.defaults['unitTypes'].split(',');
       unitVariantsArray = [];
       unitVariants = CommonFloor.defaults['unitVariants'].split(',');
       typesArray = [];
-      types = CommonFloor.defaults['type'].split(',');
       budget = [];
       area = [];
       id = [];

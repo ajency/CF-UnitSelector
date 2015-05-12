@@ -270,9 +270,9 @@ CommonFloor.resetProperyType = (param)->
 CommonFloor.applyFliterClass = ()->
 	CommonFloor.applyPlotClasses()
 	CommonFloor.applyVillaClasses()
-	actualunits = _.pluck unitMasterCollection ,'id'
-	filterunits = _.pluck unitCollection ,'id'
-	notSelecteUnits = _.difference actualunits , filterunits
+	console.log actualunits = _.pluck unitMasterCollection.toArray() ,'id'
+	console.log filterunits = _.pluck unitCollection.toArray() ,'id'
+	console.log notSelecteUnits = _.difference actualunits , filterunits
 	$('.villa').each (ind,item)->
 		id = parseInt item.id
 		if $.inArray(id , notSelecteUnits) > -1

@@ -302,7 +302,6 @@
     LeftMasterCtrl.prototype.renderView = function() {
       var data, region, response, units;
       response = CommonFloor.checkListView();
-      console.log(response.count.length);
       if (response.count.length === 0) {
         region = new Marionette.Region({
           el: '#leftregion'
