@@ -40,18 +40,18 @@ class TopMasterView extends Marionette.ItemView
 
 									<div class="filter-summary-area">
 
-										<button class="btn btn-primary cf-btn-white pull-right m-t-10" type="button" data-toggle="collapse" data-target="#collapsefilters">
+										<button class="btn btn-primary cf-btn-white pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters">
 											Filters <span class="icon-funnel"></span>
 										</button>
 
 										<div class="proj-type-count">
 											{{#each  filters}}
-											<h2 class="text-primary pull-right m-t-10">{{#each this}}{{this.name}}{{this.type}}{{/each}}</h2> 
+											<h1 class="text-primary pull-right m-t-10">{{#each this}}{{this.name}}{{this.type}}{{/each}}</h1> 
 											{{/each }}
 											
 											
 											{{#types}} 
-											<p class="pull-right">{{type}}</p><h2 class="text-primary pull-right m-t-10">{{count.length}}</h2> 
+											<p class="pull-right">{{type}}</p><h1 class="text-primary pull-right m-t-10">{{count.length}}</h1> 
 											{{/types}}
 										</div>
 
@@ -143,7 +143,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 
-	template : Handlebars.compile('<div class="col-md-9 us-right-content mobile visible">
+	template : Handlebars.compile('<div class="col-md-12 us-right-content mobile visible">
 										<div class="zoom-controls">
 											<div class="zoom-in"></div>
 											<div class="zoom-out"></div>
@@ -306,7 +306,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('#bldg'+id).attr('class' ,'bldg blocks') 
 
 
-		'click .villa':(e)->
+		'mouseover .villa':(e)->
 			$('.villa').attr('class' ,'layer villa') 
 			id  = parseInt e.target.id
 			html = ""
@@ -441,7 +441,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$('img').lazyLoadXT()
 		height =  @ui.svgContainer.width() / 2
 		# $('.us-left-content').css('height',height)
-		$('.units').css('height',height-162)
+		$('.units').css('height',height-380)
 		$('#spritespin').hide()
 		that = @
 		transitionImages = []
@@ -526,14 +526,15 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 	#intialize tooltip 
 	iniTooltip:->
 		$('.layer').tooltipster(
-			theme: 'tooltipster-shadow',
+			theme: 'tooltipster-shadow'
 			contentAsHTML: true
 			onlyOne : true
 			arrow : false
 			offsetX : 50
-			offsetY : -10
-			trigger : 'click'
-
+			offsetY : -20
+			interactive : true
+			animation : 'grow'
+			# trigger: 'click'
 		)
 
 	loadZoom:->

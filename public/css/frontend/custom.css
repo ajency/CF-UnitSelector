@@ -47,7 +47,7 @@ body {
   float: right;
 }
 .proj-type-count p {
-  margin: 16px 15px 0 2px;
+  margin: 26px 15px 0 2px;
   font-weight: bold;
   color: #4d4d4d;
 }
@@ -1447,6 +1447,9 @@ svg .layer.unit_fadein:hover {
 }
 .filter-link {
   color: #000000;
+}
+.range-container {
+  max-width: 200px;
 }
 .alert {
   background: #EAEAEA;
