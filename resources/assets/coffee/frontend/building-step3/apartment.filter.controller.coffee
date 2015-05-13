@@ -295,6 +295,9 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			    	return window.numDifferentiation(num)
 
 			)
+		@ui.status.prop('checked',false)
+		if CommonFloor.defaults['availability'] != "" 
+			 @ui.status.prop('checked',true)
 		window.price = $("#budget").data("ionRangeSlider")
 		window.area = $("#area").data("ionRangeSlider")
 		

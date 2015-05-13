@@ -347,6 +347,7 @@ CommonFloor.getFilters = ()->
 	price = []
 	area = []
 	type= []
+	status= []
 	results.push
 		'type'	: 'Villa(s)'
 		'count' : villaFilters.count
@@ -383,12 +384,18 @@ CommonFloor.getFilters = ()->
 				'classname' : 'types'
 				'id'		: value
 				'id_name' : 'filter_'+value
-	
+	if CommonFloor.defaults['availability'] != ""
+		status.push 
+			'name' : 'Available'
+			'classname' : 'types'
+			'id'		: 'available'
+			'id_name' : 'filter_available'
 	filters = {'unitTypes' : unitTypes
 				,'unitVariants' : unitVariants
 				,'price' : price
 				,'area' : area
-				'type' : type}
+				'type' : type
+				'status' : status}
 	$.each filters,(index,value)->
 		if value.length == 0
 			filters = _.omit(filters, index)

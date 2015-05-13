@@ -160,13 +160,7 @@
         <script src="{{ asset('js/frontend/project-list-view/plot.list.controller.js' )}}"></script>
         <script src="{{ asset('js/frontend/router.js' )}}"></script>
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
-        <script type="text/javascript">
-       $(document).ready(function(){
-        $('body').bind( 'click', '.villa_unit', function(){
-            console.log('fdsfsfs')
-        })
-        })
-        </script>
+        
         <input type="hidden" id="price" data-m-dec="" data-a-sign="Rs. " data-d-group="2" value="" />
       
     </body>

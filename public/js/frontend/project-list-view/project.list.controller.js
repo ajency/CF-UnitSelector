@@ -53,7 +53,7 @@
       unitTypes: '.unit_types',
       priceMin: '.price_min',
       priceMax: '.price_max',
-      status: '.status',
+      status: '#filter_available',
       apply: '.apply',
       variantNames: '.variant_names',
       area: '#filter_area',
@@ -116,6 +116,12 @@
           variantNames = CommonFloor.defaults['unitVariants'].split(',');
           variantNames = _.without(variantNames, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['unitVariants'] = variantNames.join(',');
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          return this.trigger('render:view');
+        },
+        'click @ui.status': function(e) {
+          CommonFloor.defaults['availability'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
           return this.trigger('render:view');

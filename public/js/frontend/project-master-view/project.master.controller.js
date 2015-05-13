@@ -60,7 +60,8 @@
       variantNames: '.variant_names',
       area: '#filter_area',
       budget: '#filter_budget',
-      types: '.types'
+      types: '.types',
+      status: '#filter_available'
     };
 
     TopMasterView.prototype.serializeData = function() {
@@ -118,6 +119,12 @@
           variantNames = CommonFloor.defaults['unitVariants'].split(',');
           variantNames = _.without(variantNames, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['unitVariants'] = variantNames.join(',');
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          return this.trigger('render:view');
+        },
+        'click @ui.status': function(e) {
+          CommonFloor.defaults['availability'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
           return this.trigger('render:view');
@@ -421,38 +428,6 @@
           }
         }, 500);
       },
-      'click .villa_unit': function(e) {
-        var id, unitModel;
-        id = parseInt(e.target.id);
-        unitModel = unitCollection.findWhere({
-          'id': id
-        });
-        if (unitModel === void 0) {
-          return false;
-        }
-        $('.spritespin-canvas').addClass('zoom');
-        $('.us-left-content').addClass('animated fadeOut');
-        return setTimeout(function(x) {
-          CommonFloor.navigate('/unit-view/' + id, true);
-          return CommonFloor.router.storeRoute();
-        }, 500);
-      },
-      'click .plot': function(e) {
-        return setTimeout(function(x) {
-          var id, unitModel;
-          id = parseInt(e.target.id);
-          unitModel = unitCollection.findWhere({
-            'id': id
-          });
-          if (unitModel === void 0) {
-            return false;
-          }
-          $('.spritespin-canvas').addClass('zoom');
-          $('.us-left-content').addClass('animated fadeOut');
-          CommonFloor.navigate('/unit-view/' + id, true);
-          return CommonFloor.router.storeRoute();
-        }, 500);
-      },
       'click #prev': function() {
         return this.setDetailIndex(this.currentBreakPoint - 1);
       },
@@ -516,7 +491,7 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info ' + availability + ' "> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <span class="pull-right icon-cross"></span> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div> <div class="action-bar villa_unit"> To Move forward Click Here <span class="icon-chevron-right pull-right"></span> </div> </div>';
+        html += '<div class="svg-info ' + availability + ' "> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <span class="pull-right icon-cross"></span> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div> <div class="action-bar "> <a href="#unit-view/' + id + '" class="icon-chevron-right pull-right">To Move forward Click Here</a> </div> </div>';
         $('#' + id).attr('class', 'layer villa  ' + availability);
         $('#unit' + id).attr('class', 'unit blocks active');
         return $('.layer').tooltipster('content', html);
@@ -546,7 +521,7 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Variant</label> - ' + response[0].get('unit_variant_name') + '</div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
+        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Variant</label> - ' + response[0].get('unit_variant_name') + '</div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> <div class="action-bar "> <a href="#unit-view/' + id + '" class="icon-chevron-right pull-right">To Move forward Click Here</a> </div> </div>';
         $('#' + id).attr('class', 'layer plot ' + availability);
         $('#unit' + id).attr('class', 'bldg blocks active');
         return $('.layer').tooltipster('content', html);

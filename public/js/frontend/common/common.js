@@ -397,7 +397,7 @@
   };
 
   CommonFloor.getFilters = function() {
-    var apartmentFilters, area, area_max, area_min, filters, max_price, min_price, plotFilters, price, results, type, typeArr, unitTypes, unitVariants, villaFilters;
+    var apartmentFilters, area, area_max, area_min, filters, max_price, min_price, plotFilters, price, results, status, type, typeArr, unitTypes, unitVariants, villaFilters;
     unitTypes = [];
     unitVariants = [];
     results = [];
@@ -413,6 +413,7 @@
     price = [];
     area = [];
     type = [];
+    status = [];
     results.push({
       'type': 'Villa(s)',
       'count': villaFilters.count
@@ -458,12 +459,21 @@
         });
       });
     }
+    if (CommonFloor.defaults['availability'] !== "") {
+      status.push({
+        'name': 'Available',
+        'classname': 'types',
+        'id': 'available',
+        'id_name': 'filter_available'
+      });
+    }
     filters = {
       'unitTypes': unitTypes,
       'unitVariants': unitVariants,
       'price': price,
       'area': area,
-      'type': type
+      'type': type,
+      'status': status
     };
     $.each(filters, function(index, value) {
       if (value.length === 0) {

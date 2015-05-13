@@ -63,7 +63,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 		unitTypes : '.unit_types'
 		priceMin : '.price_min'
 		priceMax : '.price_max'
-		status : '.status'
+		status : '#filter_available'
 		apply : '.apply'
 		variantNames : '.variant_names'
 		area : '#filter_area'
@@ -101,10 +101,12 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 			CommonFloor.filter()	
 			@trigger  'render:view'
 
-		# 'click @ui.status':(e)->
-		# 	CommonFloor.defaults['availability'] = e.currentTarget.id
-		# 	unitCollection.reset unitMasterCollection.toArray()
-		# 	CommonFloor.filter()
+		'click @ui.status':(e)->
+			CommonFloor.defaults['availability'] = ""
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			@trigger  'render:view'
+
 			
 
 		'click @ui.area':(e)->

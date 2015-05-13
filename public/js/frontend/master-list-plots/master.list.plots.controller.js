@@ -47,18 +47,21 @@
 
     PlotListView.prototype.events = {
       'mouseover': function(e) {
-        var id;
+        var html, id;
+        this.iniTooltip(this.model.get('id'));
+        html = this.getHtml(this.model.get('id'));
         id = this.model.get('id');
-        this.classname = $('#' + id + '.villa').attr('class');
         $('.layer').attr('class', 'layer plot');
         $('#' + id + '.plot').attr('class', 'layer plot ' + this.model.get('status'));
-        return $('#unit' + id).attr('class', 'bldg blocks' + ' ' + this.model.get('status') + ' active');
+        $('#unit' + id).attr('class', 'bldg blocks' + ' ' + this.model.get('status') + ' active');
+        return $('#' + id).tooltipster('content', html);
       },
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
         $('#unit' + id).attr('class', 'bldg blocks' + ' ' + this.model.get('status'));
-        return CommonFloor.applyPlotClasses(this.classname);
+        CommonFloor.applyPlotClasses(this.classname);
+        return $('#' + id).tooltipster('show');
       },
       'click': function(e) {
         if (this.model.get('status') === 'available') {
@@ -66,6 +69,30 @@
           return CommonFloor.router.storeRoute();
         }
       }
+    };
+
+    PlotListView.prototype.iniTooltip = function(id) {
+      return $('#' + id).trigger('mouseover');
+    };
+
+    PlotListView.prototype.getHtml = function(id) {
+      var availability, html, response, unit;
+      html = "";
+      unit = unitCollection.findWhere({
+        id: parseInt(id)
+      });
+      if (unit === void 0) {
+        html += '<div class="svg-info"> <div class="details empty"> Villa details not entered </div> </div>';
+        $('.layer').tooltipster('content', html);
+        return;
+      }
+      response = window.unit.getUnitDetails(id);
+      window.convertRupees(response[3]);
+      availability = unit.get('availability');
+      availability = s.decapitalize(availability);
+      html = "";
+      html += '<div class="svg-info ' + availability + ' "> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <span class="pull-right icon-cross"></span> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div> <div class="action-bar villa_unit"> To Move forward Click Here <span class="icon-chevron-right pull-right"></span> </div> </div>';
+      return html;
     };
 
     return PlotListView;

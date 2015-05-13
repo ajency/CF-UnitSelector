@@ -450,6 +450,10 @@
           }
         });
       }
+      this.ui.status.prop('checked', false);
+      if (CommonFloor.defaults['availability'] !== "") {
+        this.ui.status.prop('checked', true);
+      }
       window.price = $("#budget").data("ionRangeSlider");
       return window.area = $("#area").data("ionRangeSlider");
     };
