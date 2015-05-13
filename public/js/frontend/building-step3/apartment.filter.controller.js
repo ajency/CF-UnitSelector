@@ -321,7 +321,7 @@
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
       apartmentVariantMasterCollection.each(function(item) {
-        var unitTypeModel, units;
+        var type, unitTypeModel, units;
         units = unitMasterCollection.where({
           'unit_variant_id': item.get('id')
         });
@@ -329,19 +329,23 @@
           unitTypeModel = unitTypeMasterCollection.findWhere({
             'id': item.get('unit_type_id')
           });
+          type = 'A';
+          if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouse') {
+            type = 'P';
+          }
           if ($.inArray(item.get('unit_type_id'), unit_types) === -1) {
             unit_types.push(parseInt(unitTypeModel.get('id')));
             unitTypes.push({
               'id': unitTypeModel.get('id'),
               'name': unitTypeModel.get('name'),
-              'type': 'A'
+              'type': type
             });
           }
           unitVariants.push(item.get('super_built_up_area'));
           return unitVariantNames.push({
             'id': item.get('id'),
             'name': item.get('unit_variant_name'),
-            'type': 'A'
+            'type': type
           });
         }
       });
