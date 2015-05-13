@@ -330,8 +330,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 											
 											<div id="spritespin"></div>
 											<div class="svg-maps">
-												<img src=""  data-alwaysprocess="true" 
-												data-ratio="0.5" data-srcwidth="1600" data-crop="1" class="primage first_image img-responsive">
+												<img src=""  class="first_image img-responsive">
 												
 												<div class="region inactive"></div>
 
@@ -369,12 +368,12 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			setTimeout( (x)->
 				
 				$('#spritespin').spritespin(
-					width: that.ui.svgContainer.width() 
+					width: that.ui.svgContainer.width() + 13
 					sense: -1
 					height: that.ui.svgContainer.width() / 2
 					animate: false
 				)
-				$('.svg-maps > div').first().css('width',that.ui.svgContainer.width())
+				$('.svg-maps > div').first().css('width',that.ui.svgContainer.width() + 13)
 
 			, 650)
 
@@ -521,7 +520,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 							</div> 
 						</div>
-							<a href="#unit-view/'+id+'" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a>
+						<a href="#unit-view/'+id+'" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a>
 					</div>'
 			
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
@@ -648,7 +647,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		first = _.values svgs
 		$.merge transitionImages ,  project.get('project_master')
 		$('.region').load(first[0],
-			$('.first_image').attr('data-src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
+			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
 		
 		$('.first_image').load ()->
 			
@@ -715,7 +714,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				# panZoomTiger = svgPanZoom('.region')
 				# $("svg").svgPanZoom()
 				$('.cf-loader').addClass 'hidden'
-				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses();CommonFloor.applyPlotClasses();that.loadZoom())
+			$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses();CommonFloor.applyPlotClasses();that.loadZoom())
 
 		)
 	#intialize tooltip 

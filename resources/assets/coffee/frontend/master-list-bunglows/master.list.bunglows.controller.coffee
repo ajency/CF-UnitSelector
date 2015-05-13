@@ -2,7 +2,7 @@
 class BunglowListView extends Marionette.ItemView
 
 	template : Handlebars.compile('	<div class=" info">
-										<label class="pull-left">{{unit_name}}</label> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft-->
+										<label class="pull-left">{{unit_name}}</label><span class="status-icon"></span> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft-->
 										<div class="clearfix"></div>
 									</div>
 									<div class="cost">
@@ -107,10 +107,7 @@ class BunglowListView extends Marionette.ItemView
 							Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 						</div> 
 					</div>
-					<div class="action-bar villa_unit">
-						To Move forward Click Here
-						<span class="icon-chevron-right pull-right"></span>
-					</div>
+					<a href="#unit-view/'+id+'" class="action-bar villa_unit">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a>
 				</div>'
 		html
 

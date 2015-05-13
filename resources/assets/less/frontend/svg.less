@@ -21,37 +21,67 @@ svg {
 	    opacity: 0.85;
 	}
 	.active_bldg{
-		fill: #FF7400  !important;
-	  	opacity: 0.5 !important;
+		fill: #FF7400;
+	  	opacity: 0.5;
 	}
+
 	.layer{
-		fill: #5C2424 !important;
-		opacity: 0.75 !important;
-	}
-	.available {
-	  fill: rgba(204, 204, 204, 0) !important;
-	  opacity: 0.5 !important;
-	  &.svg_active{
+		fill: #5C2424;
+		opacity: 0.75;
+		stroke: #f68121;
+	  	stroke-width: 0px;
+	  	stroke-dasharray: 20 300;
+	  	stroke-dashoffset: 400;
+	  	// transform: scale(.99, .99);
+	  	transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
+		// transform-origin: 50% 50%;
+	  	&.svg_active{
 		  	stroke-width: 6px;
 		  	stroke-dasharray: 320 0;
 		  	stroke-dashoffset: 0;
-	  }
+	  	}
+	  	&.not_in_selection {
+			opacity: .5;
+			animation: unit_fadein 0.6s;
+			-webkit-animation: unit_fadein 0.6s;
+		}
+		&:hover{
+		  	stroke-width: 4px;
+		  	stroke-dasharray: 320 0;
+		  	stroke-dashoffset: 0;
+		}
+	}
+
+
+	.layer.unit_fadein{
+		// transition:0.5s ease-in-out ;
+		// -webkit-transition:0.5s ease-in-out ;
+	}
+
+	.layer.unit_fadein:hover{
+		// opacity:0.7;
+		// cursor:pointer;
+	}
+	
+	.available {
+	  	fill: rgba(204, 204, 204, 0);
+	  	opacity: 0.5;
 	}
 	.blocked{
-		// fill: rgba(244, 173, 0, 0.36) !important;
-	 //  	opacity: 0.8 !important;
+		// fill: rgba(244, 173, 0, 0.36);
+	 //  	opacity: 0.8;
 	}
 	.sold{
-		// fill: #FF6565 !important;
-		// opacity: 0.5 !important;
+		// fill: #FF6565;
+		// opacity: 0.5;
 	}
 	.not_released{
-	 	// fill: #cccccc !important;
-	 	// opacity: 0.5 !important;
+	 	// fill: #cccccc;
+	 	// opacity: 0.5;
 	}
 	.not_in_selection{
-		fill: #000 !important;
-		opacity: .75 !important;
+		fill: #000;
+		opacity: .75;
 	}
 	.disable{
 		fill: #999; 
@@ -73,42 +103,10 @@ svg {
 	}
 	polygon{
 		.ease;
-	}
-
-	/* ON HOVER */
-	 
-	.layer{
-		stroke: #f68121;
-	  	stroke-width: 0px;
-	  	stroke-dasharray: 20 300;
-	  	stroke-dashoffset: 400;
-	  	// transform: scale(.99, .99);
-	  	transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
-	}
-
-	.layer:hover{
-	  	stroke-width: 4px;
-	  	stroke-dasharray: 320 0;
-	  	stroke-dashoffset: 0;
-	}
-
-	.layer.unit_fadein{
-		transition:0.5s ease-in-out ;
-		-webkit-transition:0.5s ease-in-out ;
-	}
-
-	.layer.unit_fadein:hover{
-		opacity:0.7;
-		cursor:pointer;
-	}
-	.layer.not_in_selection {
-		opacity: .5;
-		animation: unit_fadein 0.6s;
-		-webkit-animation: unit_fadein 0.6s;
-	}
+	}	 
+	
 }
 
-/* Filter Selection */
 
 
 
