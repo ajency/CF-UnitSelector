@@ -60,6 +60,7 @@
         var id;
         id = this.model.get('id');
         $('#unit' + id).attr('class', 'bldg blocks' + ' ' + this.model.get('status'));
+        $('#' + id).tooltipster('hide');
         CommonFloor.applyPlotClasses(this.classname);
         return $('#' + id).tooltipster('show');
       },

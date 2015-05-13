@@ -521,10 +521,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 							</div> 
 						</div>
-						<div class="action-bar ">
-							
-							<a href="#unit-view/'+id+'" class="icon-chevron-right pull-right">To Move forward Click Here</a>
-						</div>
+							<a href="#unit-view/'+id+'" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a>
 					</div>'
 			
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
