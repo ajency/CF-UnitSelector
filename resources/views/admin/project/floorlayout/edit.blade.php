@@ -112,7 +112,7 @@
                 <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                     <div class="grid-body"><div class="row">
                         <div class="col-md-12">
-                        <a type="button" href="#" data-toggle="modal" data-target=".bs-example-modal-lg" class="pull-right"><i class="fa fa-share"></i> Add New Variant</a>
+                       <!-- <a type="button" href="#" data-toggle="modal" data-target=".bs-example-modal-lg" class="pull-right"><i class="fa fa-share"></i> Add New Variant</a>-->
                         </div>
                     </div>
                     @for($i = 1; $i <= $floorLayout->no_of_flats; $i++)
