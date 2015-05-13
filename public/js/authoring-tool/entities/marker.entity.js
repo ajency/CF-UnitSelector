@@ -1,5 +1,5 @@
 (function() {
-
+  window.marker = new Backbone.Model;
 
 }).call(this);
 

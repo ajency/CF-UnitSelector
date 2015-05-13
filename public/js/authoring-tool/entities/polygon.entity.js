@@ -1,5 +1,69 @@
 (function() {
+  var Polygon,
+    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
 
+  Polygon = (function(superClass) {
+    extend(Polygon, superClass);
+
+    function Polygon() {
+      return Polygon.__super__.constructor.apply(this, arguments);
+    }
+
+    Polygon.prototype.initialize = function() {
+      this.node = "";
+      return this.pointList = [];
+    };
+
+    Polygon.prototype.createPolgyonTag = function(item) {
+      this.node = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+      this.points(item.points);
+      this.addClass(item.details["class"]);
+      return this.node;
+    };
+
+    Polygon.prototype.attribute = function(key, val) {
+      if (val === void 0) {
+        return false;
+      }
+      return this.node.setAttribute(key, val);
+    };
+
+    Polygon.prototype.build = function(arg) {
+      var i, l, res;
+      res = [];
+      i = 0;
+      l = arg.length;
+      while (i < l) {
+        res.push(arg[i].join(','));
+        i++;
+      }
+      return res.join(' ');
+    };
+
+    Polygon.prototype.points = function(args) {
+      var i, l;
+      i = 0;
+      l = args.length;
+      while (i < l) {
+        this.pointList.push([args[i], args[i + 1]]);
+        i += 2;
+      }
+      return this.attribute('points', this.build(this.pointList));
+    };
+
+    Polygon.prototype.addClass = function(classname) {
+      if (classname === void 0 || classname === null) {
+        return false;
+      }
+      return this.node.setAttribute('class', classname);
+    };
+
+    return Polygon;
+
+  })(Backbone.Model);
+
+  window.polygon = new Polygon;
 
 }).call(this);
 
