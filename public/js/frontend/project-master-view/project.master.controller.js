@@ -502,7 +502,7 @@
           id: id
         });
         if (unit === void 0 && unitMaster !== void 0) {
-          html = '<div class="svg-info"> <div class="details"> Not in selection </div> </div>';
+          html = '<div class="svg-info"> <div class="details empty"> Not in selection </div> </div>';
           $('.layer').tooltipster('content', html);
           return;
         }
@@ -675,7 +675,7 @@
         onlyOne: true,
         arrow: false,
         offsetX: 50,
-        offsetY: -25,
+        offsetY: -20,
         interactive: true,
         trigger: 'hover'
       });

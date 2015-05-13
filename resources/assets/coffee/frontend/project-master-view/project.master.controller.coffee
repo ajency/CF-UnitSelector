@@ -474,8 +474,6 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		'mouseover .villa':(e)->
 			# $('.villa').attr('class' ,'layer villa') 
 			id  = parseInt e.target.id
-			
-			
 			html = ""
 			unit = unitCollection.findWhere 
 				id :  id 
@@ -483,7 +481,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				id :  id 
 			if unit is undefined && unitMaster != undefined
 				html = '<div class="svg-info">
-							<div class="details">
+							<div class="details empty">
 								Not in selection
 							</div>  
 						</div>'
@@ -721,7 +719,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				onlyOne : true
 				arrow : false
 				offsetX : 50
-				offsetY : -25
+				offsetY : -20
 				interactive : true
 				# animation : 'grow'
 				trigger: 'hover'

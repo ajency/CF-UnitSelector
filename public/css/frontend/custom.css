@@ -65,13 +65,13 @@ body {
 /* Left Container */
 .search-left-content {
   position: relative;
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
   margin-top: 10px;
 }
 .us-left-content {
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 .builder-logo {
   max-width: 200px;
@@ -98,8 +98,8 @@ body {
 .us-right-content {
   padding-left: 0;
   padding-right: 0;
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 .us-right-content .svg-area {
   width: 100%;
@@ -508,12 +508,12 @@ body {
   position: absolute;
   top: 0px;
   left: 0px;
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 .zoom {
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
   -webkit-transform: scale(2, 2);
       -ms-transform: scale(2, 2);
           transform: scale(2, 2);
@@ -586,8 +586,8 @@ body {
 }
 /* Transition */
 .ease {
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 /* Back Button */
 .breadcrumb-bar {
@@ -618,8 +618,8 @@ body {
   top: 45%;
   cursor: pointer;
   z-index: 999;
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 .toggle-button::before {
   content: "\e756";
@@ -691,8 +691,8 @@ body {
   cursor: pointer;
   padding: 0 10px;
   text-align: center;
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 .zoom-controls .zoom-in::before,
 .zoom-controls .zoom-out::before {
@@ -819,8 +819,8 @@ svg .layer:hover {
   cursor: pointer;
 }
 svg polygon {
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 svg .layer {
   stroke: #f68121;
@@ -1181,8 +1181,8 @@ svg .layer.not_in_selection {
 .units {
   list-style-type: none;
   overflow-y: auto;
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s
+  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1)
   /* List of Villas */
   /* List of Buildings */
 }
@@ -1362,8 +1362,8 @@ svg .layer.not_in_selection {
   width: 100%;
   background-color: #ffffff;
   opacity: 0.75;
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 .slider .layouts span {
   position: absolute;
@@ -1375,8 +1375,8 @@ svg .layer.not_in_selection {
   font-weight: bold;
   text-align: center;
   opacity: 1;
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 .slider .layouts:hover .img-overlay {
   opacity: 0;
@@ -1433,8 +1433,8 @@ svg .layer.not_in_selection {
   width: 100%;
   background-color: #ffffff;
   opacity: 0.75;
-  -webkit-transition: all 0.3s ease-in-out 0.3s;
-          transition: all 0.3s ease-in-out 0.3s;
+  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 .slider .gallery-img:hover .img-overlay {
   opacity: 0;

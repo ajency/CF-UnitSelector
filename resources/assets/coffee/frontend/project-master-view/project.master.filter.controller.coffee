@@ -37,7 +37,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 						                                       	<input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > 
 						                                        <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> 
 						                                       	{{/unitVariantNames}}
-					                                       	<a href="#" class="hide-div">+ Show More</a>
+					                                       	<!--<a href="#" class="hide-div">+ Show More</a>-->
 					                                    </div>
 					                                </div>
 					                            </div>

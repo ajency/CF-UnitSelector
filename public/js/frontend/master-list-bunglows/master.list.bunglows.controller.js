@@ -59,6 +59,7 @@
         var id;
         id = this.model.get('id');
         $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status'));
+        $('#' + id).tooltipster('hide');
         return CommonFloor.applyVillaClasses(this.classname);
       },
       'click': function(e) {
