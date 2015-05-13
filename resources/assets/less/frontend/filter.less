@@ -11,6 +11,8 @@
 .filters-wrapper{
     // margin: 20px 0px 20px 0;
     padding: 15px;
+    max-width: 1200px;
+    margin: auto;
     // border-top: 1px solid @gray-lighter;
 
 	.filter-chkbox-block label {
@@ -84,9 +86,22 @@ span.glyphicon {
 
 /* Slider */
 .irs-line-mid, .irs-line-left, .irs-line-right, .irs-bar, .irs-bar-edge, .irs-slider{
-  background-image: url('../../images/sprite-skin-flat.png');
+  // background-image: url('../../images/sprite-skin-flat.png');
 }
 
 .irs-from, .irs-to, .irs-single{
-  background-color: @brand-primary;
+  background: @brand-primary;
+  font-size: 11px;
+}
+
+.irs-bar{
+  background: @brand-primary;
+  border-top-color: @brand-primary-darker;
+  border-bottom-color: @brand-primary-darker;
+}
+
+.irs-slider{
+  top: 26px;
+  height: 22px;
+  width: 22px;
 }

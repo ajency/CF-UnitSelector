@@ -154,12 +154,18 @@
 		// opacity: 1 !important;
 		.ease;
 		&:hover{
-			box-shadow: inset 0 0 4px 1px @brand-primary;
+			box-shadow: inset 0 0 10px 1px @brand-primary;
+			animation-name: hvr-back-pulse;
+			animation-duration: 1s;
+			animation-delay: 0;
+			animation-timing-function: linear;
+			animation-iteration-count: infinite;
+			// background-color: lighten(@gray-lighter, 10%);
 		}		
 	}
 	&.active{
 		// border: 1px solid @brand-primary;
-		box-shadow: inset 0 0 4px 1px @brand-primary;
+		// box-shadow: inset 0 0 4px 1px @brand-primary;
 	}
 	&.sold, &.blocked, &.not_released{
 		// background-color: fade(@danger-darker, 50%);
@@ -175,6 +181,7 @@
 		// }
 		.status-icon{
 			border: 2px solid fade(@danger-darker, 80%);
+			background-color: fade(@danger-darker, 80%);
 		}
 	}
 	
@@ -498,4 +505,16 @@
 			}
 		}
 	}
+}
+
+@-webkit-keyframes hvr-back-pulse {
+  50% {
+    box-shadow: inset 0 0 2px 2px @brand-primary;
+  }
+}
+
+@keyframes hvr-back-pulse {
+  50% {
+    box-shadow: inset 0 0 2px 2px @brand-primary;
+  }
 }

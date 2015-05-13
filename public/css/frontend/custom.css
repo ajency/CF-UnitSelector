@@ -6,7 +6,7 @@
 @import "../../bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css";
 @import "../../bower_components/lazyloadxt/dist/jquery.lazyloadxt.spinner.css";
 @import "../../bower_components/ionrangeslider/css/ion.rangeSlider.css";
-@import "../../bower_components/ionrangeslider/css/ion.rangeSlider.skinFlat.css";
+@import "../../bower_components/ionrangeslider/css/ion.rangeSlider.skinHTML5.css";
 /* External CSS */
 /* Site Styles */
 html,
@@ -1014,15 +1014,23 @@ svg polygon {
 }
 .blocks.available:hover,
 .blocks.active:hover {
-  box-shadow: inset 0 0 4px 1px #f68121;
-}
-.blocks.active {
-  box-shadow: inset 0 0 4px 1px #f68121;
+  box-shadow: inset 0 0 10px 1px #f68121;
+  -webkit-animation-name: hvr-back-pulse;
+          animation-name: hvr-back-pulse;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-delay: 0;
+          animation-delay: 0;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
 }
 .blocks.sold .status-icon,
 .blocks.blocked .status-icon,
 .blocks.not_released .status-icon {
   border: 2px solid rgba(208, 109, 114, 0.8);
+  background-color: rgba(208, 109, 114, 0.8);
 }
 .eight .blocks {
   padding: 10px;
@@ -1260,6 +1268,16 @@ svg polygon {
 .us-right-content .legend ul li.na::before {
   background-color: rgba(38, 38, 38, 0.5);
 }
+@-webkit-keyframes hvr-back-pulse {
+  50% {
+    box-shadow: inset 0 0 2px 2px #f68121;
+  }
+}
+@keyframes hvr-back-pulse {
+  50% {
+    box-shadow: inset 0 0 2px 2px #f68121;
+  }
+}
 /* Single Building SVG Area */
 .single-bldg .prev,
 .single-bldg .next {
@@ -1448,6 +1466,8 @@ svg polygon {
 }
 .filters-wrapper {
   padding: 15px;
+  max-width: 1200px;
+  margin: auto;
 }
 .filters-wrapper .filter-chkbox-block label {
   color: #666666;
@@ -1509,18 +1529,21 @@ span.glyphicon {
   padding-top: 10px;
 }
 /* Slider */
-.irs-line-mid,
-.irs-line-left,
-.irs-line-right,
-.irs-bar,
-.irs-bar-edge,
-.irs-slider {
-  background-image: url('../../images/sprite-skin-flat.png');
-}
 .irs-from,
 .irs-to,
 .irs-single {
-  background-color: #f68121;
+  background: #f68121;
+  font-size: 11px;
+}
+.irs-bar {
+  background: #f68121;
+  border-top-color: #db6809;
+  border-bottom-color: #db6809;
+}
+.irs-slider {
+  top: 26px;
+  height: 22px;
+  width: 22px;
 }
 /* Plugins */
 /* Slider */
