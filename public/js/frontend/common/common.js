@@ -419,7 +419,7 @@
       'count': villaFilters.count
     });
     results.push({
-      'type': 'Apartment(s)',
+      'type': 'Apartment(s)/Penthouse(s)',
       'count': apartmentFilters.count
     });
     results.push({

@@ -330,8 +330,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 											
 											<div id="spritespin"></div>
 											<div class="svg-maps">
-												<img src=""  data-alwaysprocess="true" 
-												data-ratio="0.5" data-srcwidth="1600" data-crop="1" class="primage first_image img-responsive">
+												<img src=""  class="first_image img-responsive">
 												
 												<div class="region inactive"></div>
 
@@ -648,7 +647,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		first = _.values svgs
 		$.merge transitionImages ,  project.get('project_master')
 		$('.region').load(first[0],
-			$('.first_image').attr('data-src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
+			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
 		
 		$('.first_image').load ()->
 			
@@ -715,7 +714,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				# panZoomTiger = svgPanZoom('.region')
 				# $("svg").svgPanZoom()
 				$('.cf-loader').addClass 'hidden'
-				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses();CommonFloor.applyPlotClasses();that.loadZoom())
+			$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses();CommonFloor.applyPlotClasses();that.loadZoom())
 
 		)
 	#intialize tooltip 
