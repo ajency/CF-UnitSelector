@@ -634,7 +634,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$('img').lazyLoadXT()
 		height =  @ui.svgContainer.width() / 2
 		# $('.us-left-content').css('height',height)
-		$('.units').css('height',height-380)
+		$('.units').css('height',height-310)
 		$('#spritespin').hide()
 		that = @
 		transitionImages = []
@@ -725,7 +725,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				onlyOne : true
 				arrow : false
 				offsetX : 50
-				offsetY : -20
+				offsetY : -10
 				interactive : true
 				# animation : 'grow'
 				trigger: 'hover'
@@ -739,8 +739,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$panzoom =  $('.master').panzoom
 			contain: 'invert'
 			minScale: 1
-			maxScale: 2
-			increment: 0.2
+			maxScale: 2.4
+			increment: 0.4
 			$zoomIn: $('.zoom-in')
 			$zoomOut: $('.zoom-out')
 			# $set: $('.spritespin-canvas')

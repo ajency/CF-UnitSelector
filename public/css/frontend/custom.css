@@ -67,6 +67,7 @@ body {
   -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
           transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
   margin-top: 10px;
+  min-height: 750px;
 }
 .us-left-content {
   -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
