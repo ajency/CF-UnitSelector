@@ -343,6 +343,8 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 		unitVariants = []
 		unitVariantNames = []
 		budget = []
+		url = Backbone.history.fragment
+		building_id = parseInt url.split('/')[1]
 		apartmentVariantMasterCollection.each (item)->
 			units = unitMasterCollection.where 
 						'unit_variant_id' : item.get('id')

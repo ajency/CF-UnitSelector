@@ -418,6 +418,8 @@
         }
         $('.spritespin-canvas').addClass('zoom');
         $('.us-left-content').addClass('animated fadeOut');
+        CommonFloor.defaults['building'] = jQuery.makeArray(id).join(',');
+        CommonFloor.filter();
         return setTimeout(function(x) {
           if (Object.keys(buildingModel.get('building_master')).length === 0) {
             CommonFloor.navigate('/building/' + id + '/apartments', true);

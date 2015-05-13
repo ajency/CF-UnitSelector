@@ -39,6 +39,9 @@ class BuildingItemView extends Marionette.ItemView
 				return 
 			buildingModel = buildingCollection.findWhere
 							'id' : id
+			console.log jQuery.makeArray(id).join(',')
+			CommonFloor.defaults['building'] = jQuery.makeArray(id).join(',')
+			CommonFloor.filter()
 			if Object.keys(buildingModel.get('building_master')).length == 0
 				CommonFloor.navigate '/building/'+id+'/apartments' , true
 				CommonFloor.router.storeRoute()

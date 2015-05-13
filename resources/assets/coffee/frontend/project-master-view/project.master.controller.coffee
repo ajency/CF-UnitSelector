@@ -398,6 +398,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				return 
 			$('.spritespin-canvas').addClass 'zoom'
 			$('.us-left-content').addClass 'animated fadeOut'
+			CommonFloor.defaults['building'] = jQuery.makeArray(id).join(',')
+			CommonFloor.filter()
 			setTimeout( (x)->
 				if Object.keys(buildingModel.get('building_master')).length == 0
 					CommonFloor.navigate '/building/'+id+'/apartments' , true
