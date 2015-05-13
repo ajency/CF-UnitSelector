@@ -164,7 +164,7 @@ class ProjectController extends Controller {
                     'code' => 'project_title_validation',
                     'message' => $msg,
                     'data' =>  $flag,
-                        ], 202);
+                        ], 200);
     }
     //added by Surekha//
     public function loadMasterSvgTool($id, ProjectRepository $projectRepository) {

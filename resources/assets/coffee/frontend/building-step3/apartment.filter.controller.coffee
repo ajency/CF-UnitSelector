@@ -29,7 +29,11 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 						                                       	<input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > 
 						                                        <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> 
 						                                       	{{/unitVariantNames}}
+<<<<<<< HEAD
 					                                       	<a href="#" class="hide-div">+ Show More</a>
+=======
+					                                       	<!--<a href="#" class="hide-div">+ Show More</a>-->
+>>>>>>> 5a921f3f8b6b4a5f6f0ccdad44f851e2524f28d8
 					                                    </div>
 					                                </div>
 					                            </div>
@@ -39,11 +43,23 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 					                            <div class="row">
 					                                <div class="col-sm-4 col-md-4 ">
 					                                    <h5># AREA (Sqft)</h5>
+<<<<<<< HEAD
 					                                	<input type="text" id="area" name="area" value="" />
 					                                </div>
 					                                <div class="col-sm-4 col-md-4 ">
 					                                    <h5># BUDGET </h5>
 					                                    <input type="text" id="budget" name="budget" value="" />
+=======
+					                                    <div class="range-container">
+					                                		<input type="text" id="area" name="area" value="" />
+					                                	</div>
+					                                </div>
+					                                <div class="col-sm-4 col-md-4 ">
+					                                    <h5># BUDGET </h5>
+					                                    <div class="range-container">
+					                                    	<input type="text" id="budget" name="budget" value="" />
+					                                    </div>
+>>>>>>> 5a921f3f8b6b4a5f6f0ccdad44f851e2524f28d8
 					                                </div>
 					                                <div class="col-sm-4 col-md-4 ">
 					                                  	<h5># AVAILABILITY</h5>

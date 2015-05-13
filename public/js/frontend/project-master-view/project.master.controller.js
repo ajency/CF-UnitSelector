@@ -48,21 +48,31 @@
       return TopMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="search-header-wrap"> <div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span><a class="unit_back" href="#"> Back to Project Overview</a> </span> </li> </ul> </div> </div> </div> <h1 class="pull-left proj-name">{{project_title}}</h1> <div class="proj-type-count"> {{#types}} <h1 class="text-primary pull-left">{{count.length}}</h1> <p class="pull-left">{{type}}</p> {{/types}} {{#each  filters}} <h1 class="text-primary pull-left">{{#each this}}{{@key}}{{this}}{{/each}}</h1> <p class="pull-left">{{@key}}</p> {{/each }} {{#each status}} <h1 class="text-primary pull-left">{{this}}</h1> <p class="pull-left">{{@key}}</p> {{/each}} <div class="clearfix"></div> </div> <button class="btn btn-primary cf-btn-white pull-right m-t-25" type="button" data-toggle="collapse" data-target="#collapsefilters"> Filter </button> <div class="clearfix"></div> </div> </div> </div>');
+    TopMasterView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> Back to Project Overview </a> </div> <h2 class="proj-name">{{project_title}}</h2> </div> </div> </div> <div class="filter-summary-area"> <button class="btn btn-primary cf-btn-white pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters"> Filters <span class="icon-funnel"></span> </button> <div class="pull-left filter-result"> {{#each  filters}} {{#each this}} <div class="filter-pill"  > {{this.name}}{{this.type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div> {{/each}}{{/each }} </div> <div class="proj-type-count"> {{#types}} <p class="pull-right">{{type}}</p><h1 class="text-primary pull-right m-t-10">{{count.length}}</h1> {{/types}} </div> <div class="clearfix"></div> </div>');
 
     TopMasterView.prototype.ui = {
-      unitBack: '.unit_back'
+      unitBack: '.unit_back',
+      unitTypes: '.unit_types',
+      priceMin: '.price_min',
+      priceMax: '.price_max',
+      status: '.status',
+      apply: '.apply',
+      variantNames: '.variant_names',
+      area: '#filter_area',
+      budget: '#filter_budget',
+      types: '.types',
+      status: '#filter_available'
     };
 
     TopMasterView.prototype.serializeData = function() {
       var data, response, status;
-      console.log("aaaaa");
       data = TopMasterView.__super__.serializeData.call(this);
       status = CommonFloor.getStatusFilters();
       if (status.length !== 0) {
         data.status = status;
       }
-      data.filters = CommonFloor.getFilters();
+      data.filters = CommonFloor.getFilters()[0];
+      data.results = CommonFloor.getFilters()[1];
       response = CommonFloor.propertyTypes();
       data.types = response;
       return data;
@@ -75,6 +85,63 @@
           e.preventDefault();
           previousRoute = CommonFloor.router.previous();
           return CommonFloor.navigate('/' + previousRoute, true);
+        },
+        'click @ui.types': function(e) {
+          var arr, index;
+          arr = CommonFloor.defaults['type'].split(',');
+          index = arr.indexOf($(e.target).attr('data-id'));
+          arr.splice(index, 1);
+          CommonFloor.defaults['type'] = arr.join(',');
+          if ($(e.target).attr('data-id') === 'Villas') {
+            this.removeVillaFilters();
+          }
+          if ($(e.target).attr('data-id') === 'Apartments') {
+            this.removeAptFilters();
+          }
+          if ($(e.target).attr('data-id') === 'Plots') {
+            this.removePlotFilters();
+          }
+          this.trigger('render:view');
+          unitCollection.reset(unitMasterCollection.toArray());
+          return CommonFloor.filter();
+        },
+        'click @ui.unitTypes': function(e) {
+          var unitTypes;
+          unitTypes = CommonFloor.defaults['unitTypes'].split(',');
+          unitTypes = _.without(unitTypes, $(e.currentTarget).attr('data-id'));
+          CommonFloor.defaults['unitTypes'] = unitTypes.join(',');
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          return this.trigger('render:view');
+        },
+        'click @ui.variantNames': function(e) {
+          var variantNames;
+          variantNames = CommonFloor.defaults['unitVariants'].split(',');
+          variantNames = _.without(variantNames, $(e.currentTarget).attr('data-id'));
+          CommonFloor.defaults['unitVariants'] = variantNames.join(',');
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          return this.trigger('render:view');
+        },
+        'click @ui.status': function(e) {
+          CommonFloor.defaults['availability'] = "";
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          return this.trigger('render:view');
+        },
+        'click @ui.area': function(e) {
+          CommonFloor.defaults['area_max'] = "";
+          CommonFloor.defaults['area_min'] = "";
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          return this.trigger('render:view');
+        },
+        'click @ui.budget': function(e) {
+          CommonFloor.defaults['price_max'] = "";
+          CommonFloor.defaults['price_min'] = "";
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          return this.trigger('render:view');
         }
       };
     };
@@ -83,6 +150,105 @@
       if (CommonFloor.router.history.length === 1) {
         return this.ui.unitBack.hide();
       }
+    };
+
+    TopMasterView.prototype.removeVillaFilters = function() {
+      var unitTypes, unitTypesArr, unitVariants, unitVariantsArr, unitsArr, unittypes, variants;
+      variants = [];
+      unittypes = [];
+      unitsArr = bunglowVariantCollection.getBunglowMasterUnits();
+      $.each(unitsArr, function(index, value) {
+        var unitDetails;
+        unitDetails = window.unit.getUnitDetails(value.id);
+        variants.push(parseInt(unitDetails[0].get('id')));
+        return unittypes.push(parseInt(unitDetails[1].get('id')));
+      });
+      unitTypes = CommonFloor.defaults['unitTypes'].split(',');
+      unitTypesArr = unitTypes.map(function(item) {
+        return parseInt(item);
+      });
+      $.each(unittypes, function(index, value) {
+        if ($.inArray(parseInt(value), unitTypesArr) > -1) {
+          return unitTypes = _.without(unitTypesArr, parseInt(value));
+        }
+      });
+      CommonFloor.defaults['unitTypes'] = unitTypes.join(',');
+      unitVariants = CommonFloor.defaults['unitVariants'].split(',');
+      unitVariantsArr = unitVariants.map(function(item) {
+        return parseInt(item);
+      });
+      $.each(variants, function(index, value) {
+        if ($.inArray(parseInt(value), unitVariantsArr) > -1) {
+          return unitVariants = _.without(unitVariantsArr, parseInt(value));
+        }
+      });
+      return CommonFloor.defaults['unitVariants'] = unitVariants.join(',');
+    };
+
+    TopMasterView.prototype.removeAptFilters = function() {
+      var unitTypes, unitTypesArr, unitVariants, unitVariantsArr, unitsArr, unittypes, variants;
+      variants = [];
+      unittypes = [];
+      unitsArr = apartmentVariantCollection.getApartmentMasterUnits();
+      $.each(unitsArr, function(index, value) {
+        var unitDetails;
+        unitDetails = window.unit.getUnitDetails(value.id);
+        variants.push(parseInt(unitDetails[0].get('id')));
+        return unittypes.push(parseInt(unitDetails[1].get('id')));
+      });
+      unitTypes = CommonFloor.defaults['unitTypes'].split(',');
+      unitTypesArr = unitTypes.map(function(item) {
+        return parseInt(item);
+      });
+      $.each(unittypes, function(index, value) {
+        if ($.inArray(parseInt(value), unitTypesArr) > -1) {
+          return unitTypes = _.without(unitTypesArr, parseInt(value));
+        }
+      });
+      CommonFloor.defaults['unitTypes'] = unitTypes.join(',');
+      unitVariants = CommonFloor.defaults['unitVariants'].split(',');
+      unitVariantsArr = unitVariants.map(function(item) {
+        return parseInt(item);
+      });
+      $.each(variants, function(index, value) {
+        if ($.inArray(parseInt(value), unitVariantsArr) > -1) {
+          return unitVariants = _.without(unitVariantsArr, parseInt(value));
+        }
+      });
+      return CommonFloor.defaults['unitVariants'] = unitVariants.join(',');
+    };
+
+    TopMasterView.prototype.removePlotFilters = function() {
+      var unitTypes, unitTypesArr, unitVariants, unitVariantsArr, unitsArr, unittypes, variants;
+      variants = [];
+      unittypes = [];
+      unitsArr = plotVariantCollection.getPlotMasterUnits();
+      $.each(unitsArr, function(index, value) {
+        var unitDetails;
+        unitDetails = window.unit.getUnitDetails(value.id);
+        variants.push(parseInt(unitDetails[0].get('id')));
+        return unittypes.push(parseInt(unitDetails[1].get('id')));
+      });
+      unitTypes = CommonFloor.defaults['unitTypes'].split(',');
+      unitTypesArr = unitTypes.map(function(item) {
+        return parseInt(item);
+      });
+      $.each(unittypes, function(index, value) {
+        if ($.inArray(parseInt(value), unitTypesArr) > -1) {
+          return unitTypes = _.without(unitTypesArr, parseInt(value));
+        }
+      });
+      CommonFloor.defaults['unitTypes'] = unitTypes.join(',');
+      unitVariants = CommonFloor.defaults['unitVariants'].split(',');
+      unitVariantsArr = unitVariants.map(function(item) {
+        return parseInt(item);
+      });
+      $.each(variants, function(index, value) {
+        if ($.inArray(parseInt(value), unitVariantsArr) > -1) {
+          return unitVariants = _.without(unitVariantsArr, parseInt(value));
+        }
+      });
+      return CommonFloor.defaults['unitVariants'] = unitVariants.join(',');
     };
 
     return TopMasterView;
@@ -102,9 +268,26 @@
     };
 
     TopMasterCtrl.prototype.renderView = function() {
-      return this.show(new TopMasterView({
+      this.view = new TopMasterView({
         model: project
-      }));
+      });
+      this.listenTo(this.view, "render:view", this.loadController);
+      return this.show(this.view);
+    };
+
+    TopMasterCtrl.prototype.loadController = function() {
+      window.unitTypes = [];
+      window.unitVariants = [];
+      window.variantNames = [];
+      window.price = '';
+      window.area = '';
+      window.type = [];
+      this.region = new Marionette.Region({
+        el: '#filterregion'
+      });
+      return new CommonFloor.FilterMasterCtrl({
+        region: this.region
+      });
     };
 
     return TopMasterCtrl;
@@ -126,7 +309,6 @@
     LeftMasterCtrl.prototype.renderView = function() {
       var data, region, response, units;
       response = CommonFloor.checkListView();
-      console.log(response.count.length);
       if (response.count.length === 0) {
         region = new Marionette.Region({
           el: '#leftregion'
@@ -185,7 +367,7 @@
       return CenterMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterMasterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content mobile visible"> <div class="zoom-controls"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master animated fadeIn"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img src=""  data-alwaysprocess="true" data-ratio="0.5" data-srcwidth="1600" data-crop="1" class="primage first_image img-responsive"> <div class="region inactive"></div> </div> <div class="cf-loader hidden"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
+    CenterMasterView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content mobile visible"> <div class="legend clearfix"> <ul> <!--<li class="available">AVAILABLE</li>--> <li class="sold">Not Available</li> <!--<li class="blocked">BLOCKED</li>--> <li class="na">Not in Selection</li> </ul> </div> <div class="zoom-controls"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master animated fadeIn"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img src=""  data-alwaysprocess="true" data-ratio="0.5" data-srcwidth="1600" data-crop="1" class="primage first_image img-responsive"> <div class="region inactive"></div> </div> <div class="cf-loader hidden"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
 
     CenterMasterView.prototype.ui = {
       svgContainer: '.master',
@@ -209,7 +391,7 @@
           $('#spritespin').spritespin({
             width: that.ui.svgContainer.width(),
             sense: -1,
-            height: that.ui.svgContainer.width() / 1.46,
+            height: that.ui.svgContainer.width() / 2,
             animate: false
           });
           return $('.svg-maps > div').first().css('width', that.ui.svgContainer.width());
@@ -220,23 +402,25 @@
         return $('.us-right-content').toggleClass('not-visible visible');
       },
       'click .building': function(e) {
+        var buildingModel, id, unit;
+        id = parseInt(e.target.id);
+        buildingModel = buildingCollection.findWhere({
+          'id': id
+        });
+        if (buildingModel === void 0) {
+          return false;
+        }
+        unit = unitCollection.where({
+          'building_id': id
+        });
+        if (unit.length === 0) {
+          return;
+        }
+        $('.spritespin-canvas').addClass('zoom');
+        $('.us-left-content').addClass('animated fadeOut');
+        CommonFloor.defaults['building'] = jQuery.makeArray(id).join(',');
+        CommonFloor.filter();
         return setTimeout(function(x) {
-          var buildingModel, id, unit;
-          id = parseInt(e.target.id);
-          buildingModel = buildingCollection.findWhere({
-            'id': id
-          });
-          if (buildingModel === void 0) {
-            return false;
-          }
-          unit = unitCollection.where({
-            'building_id': id
-          });
-          if (unit.length === 0) {
-            return;
-          }
-          $('.spritespin-canvas').addClass('zoom');
-          $('.us-left-content').addClass('animated fadeOut');
           if (Object.keys(buildingModel.get('building_master')).length === 0) {
             CommonFloor.navigate('/building/' + id + '/apartments', true);
             return CommonFloor.router.storeRoute();
@@ -244,38 +428,6 @@
             CommonFloor.navigate('/building/' + id + '/master-view', true);
             return CommonFloor.router.storeRoute();
           }
-        }, 500);
-      },
-      'click .villa': function(e) {
-        return setTimeout(function(x) {
-          var id, unitModel;
-          id = parseInt(e.target.id);
-          unitModel = unitCollection.findWhere({
-            'id': id
-          });
-          if (unitModel === void 0) {
-            return false;
-          }
-          $('.spritespin-canvas').addClass('zoom');
-          $('.us-left-content').addClass('animated fadeOut');
-          CommonFloor.navigate('/unit-view/' + id, true);
-          return CommonFloor.router.storeRoute();
-        }, 500);
-      },
-      'click .plot': function(e) {
-        return setTimeout(function(x) {
-          var id, unitModel;
-          id = parseInt(e.target.id);
-          unitModel = unitCollection.findWhere({
-            'id': id
-          });
-          if (unitModel === void 0) {
-            return false;
-          }
-          $('.spritespin-canvas').addClass('zoom');
-          $('.us-left-content').addClass('animated fadeOut');
-          CommonFloor.navigate('/unit-view/' + id, true);
-          return CommonFloor.router.storeRoute();
         }, 500);
       },
       'click #prev': function() {
@@ -317,15 +469,22 @@
         return $('#bldg' + id).attr('class', 'bldg blocks');
       },
       'mouseover .villa': function(e) {
-        var availability, html, id, response, unit;
-        $('.villa').attr('class', 'layer villa');
+        var availability, html, id, response, unit, unitMaster;
         id = parseInt(e.target.id);
         html = "";
         unit = unitCollection.findWhere({
           id: id
         });
+        unitMaster = unitMasterCollection.findWhere({
+          id: id
+        });
+        if (unit === void 0 && unitMaster !== void 0) {
+          html = '<div class="svg-info"> <div class="details empty"> Not in selection </div> </div>';
+          $('.layer').tooltipster('content', html);
+          return;
+        }
         if (unit === void 0) {
-          html += '<div class="svg-info"> <div class="details"> Villa details not entered </div> </div>';
+          html += '<div class="svg-info"> <div class="details empty"> Villa details not entered </div> </div>';
           $('.layer').tooltipster('content', html);
           return;
         }
@@ -334,19 +493,26 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Variant</label> - ' + response[0].get('unit_variant_name') + '</div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
-        $('#' + id).attr('class', 'layer villa ' + availability);
+        html += '<div class="svg-info ' + availability + ' "> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <span class="pull-right icon-cross"></span> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div> <a href="#unit-view/' + id + '" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a> </div>';
+        $('#' + id).attr('class', 'layer villa  ' + availability);
         $('#unit' + id).attr('class', 'unit blocks active');
         return $('.layer').tooltipster('content', html);
       },
-      'mouseover .plot': function(e) {
-        var availability, html, id, response, unit;
-        $('.plot').attr('class', 'layer plot');
+      'click .plot': function(e) {
+        var availability, html, id, response, unit, unitMaster;
         id = parseInt(e.target.id);
         html = "";
         unit = unitCollection.findWhere({
           id: id
         });
+        unitMaster = unitMasterCollection.findWhere({
+          id: id
+        });
+        if (unit === void 0 && unitMaster !== void 0) {
+          html = '<div class="svg-info"> <div class="details"> Not in selection </div> </div>';
+          $('.layer').tooltipster('content', html);
+          return;
+        }
         if (unit === void 0) {
           html += '<div class="svg-info"> <div class="details"> Plot details not entered </div> </div>';
           $('.layer').tooltipster('content', html);
@@ -357,7 +523,7 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Variant</label> - ' + response[0].get('unit_variant_name') + '</div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
+        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Variant</label> - ' + response[0].get('unit_variant_name') + '</div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> <div class="action-bar "> <a href="#unit-view/' + id + '" class="icon-chevron-right pull-right">To Move forward Click Here</a> </div> </div>';
         $('#' + id).attr('class', 'layer plot ' + availability);
         $('#unit' + id).attr('class', 'bldg blocks active');
         return $('.layer').tooltipster('content', html);
@@ -391,8 +557,8 @@
     CenterMasterView.prototype.onShow = function() {
       var breakpoints, first, height, svgs, that, transitionImages;
       $('img').lazyLoadXT();
-      height = this.ui.svgContainer.width() / 1.46;
-      $('.units').css('height', height - 162);
+      height = this.ui.svgContainer.width() / 2;
+      $('.units').css('height', height - 380);
       $('#spritespin').hide();
       that = this;
       transitionImages = [];
@@ -441,7 +607,7 @@
         source: frames,
         width: this.ui.svgContainer.width(),
         sense: -1,
-        height: this.ui.svgContainer.width() / 1.46,
+        height: this.ui.svgContainer.width() / 2,
         animate: false
       });
       that = this;
@@ -486,7 +652,9 @@
         onlyOne: true,
         arrow: false,
         offsetX: 50,
-        offsetY: -10
+        offsetY: -20,
+        interactive: true,
+        trigger: 'hover'
       });
     };
 

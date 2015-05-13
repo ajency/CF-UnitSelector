@@ -6,7 +6,7 @@ class ApartmentVariant extends Backbone.Model
 		basicCost = 0.00
 		if unitModel not instanceof Backbone.Model || unitModel == ""
 			return 
-		unitVarinatModel = apartmentVariantCollection.findWhere({
+		unitVarinatModel = apartmentVariantMasterCollection.findWhere({
 			'id':parseInt(unitModel.get('unit_variant_id'))})
 		if ! _.isUndefined unitVarinatModel 
 			floorRiseArray = settings.generateFloorRise(unitModel.get('building_id'))
@@ -35,6 +35,19 @@ class ApartmentVariantCollection extends Backbone.Collection
 		newUnits = []
 		apartmentVariantCollection.each (model)->
 			apartmentUnits = unitCollection.where
+				unit_variant_id : model.get('id')
+			units.push  apartmentUnits
+		$.each units,(index,value)->
+			newUnits = $.merge(newUnits , value)
+
+		newUnits
+
+	#set apartment units
+	getApartmentMasterUnits:->
+		units = []
+		newUnits = []
+		apartmentVariantMasterCollection.each (model)->
+			apartmentUnits = unitMasterCollection.where
 				unit_variant_id : model.get('id')
 			units.push  apartmentUnits
 		$.each units,(index,value)->

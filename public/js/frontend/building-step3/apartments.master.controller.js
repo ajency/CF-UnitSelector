@@ -12,7 +12,7 @@
       return ApartmentsMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    ApartmentsMasterView.prototype.template = '#project-template';
+    ApartmentsMasterView.prototype.template = '#project-view-template';
 
     return ApartmentsMasterView;
 
@@ -48,10 +48,19 @@
       return TopApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="row breadcrumb-bar"> <div class="col-xs-12 col-md-12"> <div class="bread-crumb-list"> <ul class="brdcrmb-wrp clearfix"> <li class=""> <span class="bread-crumb-current"> <span class=".icon-arrow-right2"></span><a class="unit_back" href="#"> Back to Poject Overview</a> </span> </li> </ul> </div> </div> </div> <div class="search-header-wrap"> <h1 class="pull-left proj-name">{{project_title}}</h1> <div class="proj-type-count"> <h1 class="text-primary pull-left">{{building_name}}</h1> <div class="clearfix"></div> </div> <div class="clearfix"></div> </div> </div> </div>');
+    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> Back to Poject Overview </a> </div> <h2 class="proj-name">{{project_title}}</h2> </div> </div> </div> <div class="filter-summary-area"> <button class="btn btn-primary cf-btn-white pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters"> Filters <span class="icon-funnel"></span> </button> <div class="pull-left filter-result"> {{#each  filters}} {{#each this}} <div class="filter-pill"  > {{this.name}}{{this.type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div> {{/each}}{{/each }} </div> <div class="proj-type-count"> {{#types}} <p class="pull-right">{{type}}</p><h1 class="text-primary pull-right m-t-10">{{count.length}}</h1> {{/types}} </div> <div class="clearfix"></div> </div>');
 
     TopApartmentMasterView.prototype.ui = {
-      unitBack: '.unit_back'
+      unitBack: '.unit_back',
+      unitTypes: '.unit_types',
+      priceMin: '.price_min',
+      priceMax: '.price_max',
+      status: '#filter_available',
+      apply: '.apply',
+      variantNames: '.variant_names',
+      area: '#filter_area',
+      budget: '#filter_budget',
+      types: '.types'
     };
 
     TopApartmentMasterView.prototype.serializeData = function() {
@@ -60,6 +69,8 @@
       units = Marionette.getOption(this, 'units');
       data.units = units.length;
       data.project_title = project.get('project_title');
+      data.filters = CommonFloor.getFilters()[0];
+      data.results = CommonFloor.getFilters()[1];
       return data;
     };
 
@@ -70,14 +81,46 @@
           e.preventDefault();
           previousRoute = CommonFloor.router.previous();
           return CommonFloor.navigate('/' + previousRoute, true);
+        },
+        'click @ui.unitTypes': function(e) {
+          var unitTypes;
+          unitTypes = CommonFloor.defaults['unitTypes'].split(',');
+          unitTypes = _.without(unitTypes, $(e.currentTarget).attr('data-id'));
+          CommonFloor.defaults['unitTypes'] = unitTypes.join(',');
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          return this.trigger('render:view');
+        },
+        'click @ui.variantNames': function(e) {
+          var variantNames;
+          variantNames = CommonFloor.defaults['unitVariants'].split(',');
+          variantNames = _.without(variantNames, $(e.currentTarget).attr('data-id'));
+          CommonFloor.defaults['unitVariants'] = variantNames.join(',');
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          return this.trigger('render:view');
+        },
+        'click @ui.status': function(e) {
+          CommonFloor.defaults['availability'] = "";
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          return this.trigger('render:view');
+        },
+        'click @ui.area': function(e) {
+          CommonFloor.defaults['area_max'] = "";
+          CommonFloor.defaults['area_min'] = "";
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          return this.trigger('render:view');
+        },
+        'click @ui.budget': function(e) {
+          CommonFloor.defaults['price_max'] = "";
+          CommonFloor.defaults['price_min'] = "";
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          return this.trigger('render:view');
         }
       };
-    };
-
-    TopApartmentMasterView.prototype.onShow = function() {
-      if (CommonFloor.router.history.length === 1) {
-        return this.ui.unitBack.hide();
-      }
     };
 
     return TopApartmentMasterView;
@@ -92,6 +135,11 @@
     }
 
     TopApartmentMasterCtrl.prototype.initialize = function() {
+      this.renderView();
+      return unitTempCollection.on("change reset add remove", this.renderView, this);
+    };
+
+    TopApartmentMasterCtrl.prototype.renderView = function() {
       var buildingModel, building_id, response, url;
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
@@ -99,10 +147,27 @@
       buildingModel = buildingCollection.findWhere({
         id: building_id
       });
-      return this.show(new CommonFloor.TopApartmentMasterView({
+      this.view = new CommonFloor.TopApartmentMasterView({
         model: buildingModel,
         units: response
-      }));
+      });
+      this.listenTo(this.view, "render:view", this.loadController);
+      return this.show(this.view);
+    };
+
+    TopApartmentMasterCtrl.prototype.loadController = function() {
+      window.unitTypes = [];
+      window.unitVariants = [];
+      window.variantNames = [];
+      window.price = '';
+      window.area = '';
+      window.type = [];
+      this.region = new Marionette.Region({
+        el: '#filterregion'
+      });
+      return new CommonFloor.FilterApartmentCtrl({
+        region: this.region
+      });
     };
 
     return TopApartmentMasterCtrl;
@@ -204,6 +269,11 @@
     }
 
     LeftApartmentMasterCtrl.prototype.initialize = function() {
+      this.renderView();
+      return unitTempCollection.on("change reset add remove", this.renderView, this);
+    };
+
+    LeftApartmentMasterCtrl.prototype.renderView = function() {
       var building_id, response, unitsCollection, url;
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);

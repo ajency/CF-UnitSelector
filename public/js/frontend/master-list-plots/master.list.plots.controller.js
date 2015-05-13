@@ -14,7 +14,8 @@
     PlotListView.prototype.template = Handlebars.compile('	<div class="info"> <h2 class="m-b-5">{{unit_name}}</h2> <div class="floors"><span>{{unit_type}}</span></div> </div> <div class="clearfix"></div> <div class="unit-type-info"> <div class="price {{classname}}"> <span>{{price}}</span></div> </div>');
 
     PlotListView.prototype.initialize = function() {
-      return this.$el.prop("id", 'unit' + this.model.get("id"));
+      this.$el.prop("id", 'unit' + this.model.get("id"));
+      return this.classname = '';
     };
 
     PlotListView.prototype.tagName = 'li';
@@ -46,17 +47,22 @@
 
     PlotListView.prototype.events = {
       'mouseover': function(e) {
-        var id;
+        var html, id;
+        this.iniTooltip(this.model.get('id'));
+        html = this.getHtml(this.model.get('id'));
         id = this.model.get('id');
         $('.layer').attr('class', 'layer plot');
         $('#' + id + '.plot').attr('class', 'layer plot ' + this.model.get('status'));
-        return $('#unit' + id).attr('class', 'bldg blocks' + ' ' + this.model.get('status') + ' active');
+        $('#unit' + id).attr('class', 'bldg blocks' + ' ' + this.model.get('status') + ' active');
+        return $('#' + id).tooltipster('content', html);
       },
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
         $('#unit' + id).attr('class', 'bldg blocks' + ' ' + this.model.get('status'));
-        return CommonFloor.applyPlotClasses();
+        $('#' + id).tooltipster('hide');
+        CommonFloor.applyPlotClasses(this.classname);
+        return $('#' + id).tooltipster('show');
       },
       'click': function(e) {
         if (this.model.get('status') === 'available') {
@@ -64,6 +70,30 @@
           return CommonFloor.router.storeRoute();
         }
       }
+    };
+
+    PlotListView.prototype.iniTooltip = function(id) {
+      return $('#' + id).trigger('mouseover');
+    };
+
+    PlotListView.prototype.getHtml = function(id) {
+      var availability, html, response, unit;
+      html = "";
+      unit = unitCollection.findWhere({
+        id: parseInt(id)
+      });
+      if (unit === void 0) {
+        html += '<div class="svg-info"> <div class="details empty"> Villa details not entered </div> </div>';
+        $('.layer').tooltipster('content', html);
+        return;
+      }
+      response = window.unit.getUnitDetails(id);
+      window.convertRupees(response[3]);
+      availability = unit.get('availability');
+      availability = s.decapitalize(availability);
+      html = "";
+      html += '<div class="svg-info ' + availability + ' "> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <span class="pull-right icon-cross"></span> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div> <div class="action-bar villa_unit"> To Move forward Click Here <span class="icon-chevron-right pull-right"></span> </div> </div>';
+      return html;
     };
 
     return PlotListView;
@@ -77,7 +107,7 @@
       return MasterPlotListView.__super__.constructor.apply(this, arguments);
     }
 
-    MasterPlotListView.prototype.template = Handlebars.compile('<div class="col-xs-12 col-sm-12 col-md-3 us-left-content mobile not-visible"> <div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeIn"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings hidden">Buildings</li> <li class="prop-type Villas  hidden ">Villas/Bungalows</li> <li class="prop-type Plots active">Plots</li> </ul> </div> <div class="bldg-list"> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <p class="text-center help-text">Hover on the units for more details</p> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> <ul class="units one"> </ul> <div class="clearfix"></div> </div> </div> </div>');
+    MasterPlotListView.prototype.template = Handlebars.compile('<div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeIn"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings hidden">Buildings</li> <li class="prop-type Villas  hidden ">Villas/Bungalows</li> <li class="prop-type Plots active">Plots</li> </ul> </div> <div class="bldg-list"> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <p class="text-center help-text">Hover on the units for more details</p> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Villa No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Type</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> <ul class="units one"> </ul> <div class="clearfix"></div> </div> </div>');
 
     MasterPlotListView.prototype.childView = PlotListView;
 

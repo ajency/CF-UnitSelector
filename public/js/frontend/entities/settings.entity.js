@@ -15,7 +15,7 @@
       if (building === "") {
         return;
       }
-      buildingModel = buildingCollection.findWhere({
+      buildingModel = buildingMasterCollection.findWhere({
         'id': building
       });
       i = 0;

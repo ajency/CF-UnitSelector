@@ -24,7 +24,7 @@
         <link href="{{ asset('css/dashboard/style.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('css/dashboard/responsive.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset('css/dashboard/custom-icon-set.css') }}" rel="stylesheet" type="text/css"/>
-       <script>
+        <script>
             var BASEURL = '{{ url() }}';
             var FLOORLEVELS = [];
             var variantId = 0;
@@ -118,6 +118,30 @@
                                 <li><a href="{{ url( 'admin/project' ) }}">View</a></li>
                             </ul>
                         </li>
+                        <li class="">
+                            <a href="javascript:;">
+                                <i class="fa fa-user"></i>
+                                <span class="title">Users</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="{{ url( 'admin/user/' ) }}">All Users</a></li>
+                                <li ><a href="{{ url( 'admin/user/create' ) }}">Add User</a></li>
+
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="javascript:;">
+                                <i class="fa fa-user-secret"></i>
+                                <span class="title">Roles</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="{{ url( 'admin/role/' ) }}">All Roles</a></li>
+                                <li ><a href="{{ url( 'admin/role/create' ) }}">Add Role</a></li>
+
+                            </ul>
+                        </li>
                     </ul>
                     <!-- END SIDEBAR MENU -->
 
@@ -172,7 +196,7 @@
         <script src="{{ asset('bower_components/notifyjs/dist/notify-combined.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js' ) }}" type="text/javascript"></script>
         <script src="{{ asset('bower_components/bootstrap-toggle/js/bootstrap-toggle.min.js' ) }}" type="text/javascript"></script>
-        
+
         <script src="{{ asset('bower_components/DataTables/media/js/jquery.dataTables.js') }}" type="text/javascript"></script>
         <script src="{{ asset('bower_components/datatables-tabletools/js/dataTables.tableTools.js' ) }}" type="text/javascript"></script>
         <script src="{{ asset('bower_components/datatables-responsive/js/dataTables.responsive.js' ) }}" type="text/javascript"></script>
@@ -182,6 +206,6 @@
         <script src="{{ asset('plugins/datatables.js') }}" type="text/javascript"></script>
         <script src="{{ asset('js/add.projects.js') }}" type="text/javascript"></script> 
         <script src="{{ asset('js/scripts.js') }}" type="text/javascript"></script>
-        
+
     </body>
 </html>

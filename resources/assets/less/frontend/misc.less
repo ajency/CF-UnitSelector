@@ -216,14 +216,17 @@
 
 /* Transition */
 .ease {
-  transition: all 0.3s ease-in-out 0.3s;
+  // transition: all 0.3s ease-in-out 0.3s;
+  transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Back Button */
-.breadcrumb-bar .bread-crumb-list{
+.breadcrumb-bar{
+  position: absolute;
+  padding: 15px 0 0 15px;
   padding-bottom: 0;
-  .brdcrmb-wrp li a {
-    color: @brand-primary;
+  a {
+    color: @white;
     font-weight: bold;
     &::before{
       content: "\e77a";
@@ -313,8 +316,8 @@
 /* Zoom Controls */
 .zoom-controls{
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 75px;
+  right: 15px;
   display: block;
   z-index: 999;
   .zoom-in, .zoom-out{

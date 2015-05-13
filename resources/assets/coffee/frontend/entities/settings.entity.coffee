@@ -5,7 +5,7 @@ class Settings extends Backbone.Model
 	generateFloorRise:(building)->
 		if building == ""
 			return
-		buildingModel = buildingCollection.findWhere
+		buildingModel = buildingMasterCollection.findWhere
 							'id' : building
 		i = 0 
 		floors = buildingModel.get 'floors'

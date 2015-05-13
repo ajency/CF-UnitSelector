@@ -13,62 +13,66 @@ jQuery(document).ready ($)->
 	
 	# $('.area').canvasAreaDraw()
 
-	window.svgData = [
-					{
-						'id' : 1,
-						'type' : 'villa',
-						'name' : 'Villa 1',
-						'canvas_type' : 'polygon',
-						'details' : {'class':'marked'},
-						'points'  : [208,221,208,202,198,199,201,191,218,176,229,155,221,132,196,117,169,131,157,158,163,172,177,164,173,180,190,185,192,199,187,201,185,222]
-					},
-					{
-						'id' : 2,
-						'type' : 'villa',
-						'name' : 'Villa 2',
-						'canvas_type' : '',
-						'details' : '',
-						'points'  : []
-					},
-					{
-						'id' : 3,
-						'type' : 'villa',
-						'name' : 'Villa 3',
-						'canvas_type' : 'polygon',
-						'details' : {'class':'marked'},
-						'points'  : [208,221,208,202,198,199,201,191,218,176,229,155,221,132,196,117,169,131,157,158,163,172,177,164,173,180,190,185,192,199,187,201,185,222]
-					},
-					{
-						'id' : 4,
-						'type' : 'villa',
-						'name' : 'Villa 4',
-						'canvas_type' : '',
-						'details' : '',
-						'points'  : []
-					},
-					{
-						'id' : 5,
-						'type' : 'villa',
-						'name' : 'Villa 5',
-						'canvas_type' : 'polygon',
-						'details' : {'class':'marked'},
-						'points'  : [208,221,208,202,198,199,201,191,218,176,229,155,221,132,196,117,169,131,157,158,163,172,177,164,173,180,190,185,192,199,187,201,185,222]
-					}
+	window.svgData = {
+					'image':''
+					'data' : [
+								{
+									'id' : 1,
+									'type' : 'villa',
+									'name' : 'Villa 1',
+									'canvas_type' : 'polygon',
+									'details' : {'class':'marked'},
+									'points'  : [208,221,208,202,198,199,201,191,218,176,229,155,221,132,196,117,169,131,157,158,163,172,177,164,173,180,190,185,192,199,187,201,185,222]
+								},
+								{
+									'id' : 2,
+									'type' : 'villa',
+									'name' : 'Villa 2',
+									'canvas_type' : '',
+									'details' : '',
+									'points'  : []
+								},
+								{
+									'id' : 3,
+									'type' : 'villa',
+									'name' : 'Villa 3',
+									'canvas_type' : 'polygon',
+									'details' : {'class':'marked'},
+									'points'  : [208,221,208,202,198,199,201,191,218,176,229,155,221,132,196,117,169,131,157,158,163,172,177,164,173,180,190,185,192,199,187,201,185,222]
+								},
+								{
+									'id' : 4,
+									'type' : 'villa',
+									'name' : 'Villa 4',
+									'canvas_type' : '',
+									'details' : '',
+									'points'  : []
+								},
+								{
+									'id' : 5,
+									'type' : 'villa',
+									'name' : 'Villa 5',
+									'canvas_type' : 'polygon',
+									'details' : {'class':'marked'},
+									'points'  : [208,221,208,202,198,199,201,191,218,176,229,155,221,132,196,117,169,131,157,158,163,172,177,164,173,180,190,185,192,199,187,201,185,222]
+								}
 
 
-				]
+							]
+					'supported_types' : ['polygon']
+				}
 
 	window.createSvg = (svgData)->
 		window.rawSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
-		rawSvg.setAttribute('id', 'Layer_1');
-		rawSvg.setAttribute('style', 'border: 1px solid black');
-		rawSvg.setAttribute('width', '100%');
-		rawSvg.setAttribute('height', '100%');
+		rawSvg.setAttribute('id', 'Layer_1')
+		rawSvg.setAttribute('style', 'border: 1px solid black')
+		rawSvg.setAttribute('width', '100%')
+		rawSvg.setAttribute('height', '100%')
 		rawSvg.setAttributeNS(null,'x','0')
 		rawSvg.setAttributeNS(null,'y','0')
 		rawSvg.setAttributeNS(null,'viewBox','0 0 1600 1095')
 		rawSvg.setAttributeNS(null,'enable-background','new 0 0 1600 1095')
-		rawSvg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
+		rawSvg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink")
 
 		window.createImageTag()
 		$.each svgData,(index,value)->
@@ -95,10 +99,11 @@ jQuery(document).ready ($)->
 		svgimg.setAttributeNS(null, 'visibility', 'visible')
 		rawSvg.appendChild(svgimg)
 
-	window.createSvg(window.svgData)
+	# window.createPanel(window.svgData.data.)
+	window.createSvg(window.svgData.data)
 	draw = SVG('aj-imp-builder-drag-drop')
-	s = new XMLSerializer();
-	str = s.serializeToString(rawSvg);
+	s = new XMLSerializer()
+	str = s.serializeToString(rawSvg)
 	draw.svg str
 
 
