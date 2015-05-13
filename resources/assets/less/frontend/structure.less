@@ -39,7 +39,7 @@ body{
 }
 .proj-type-count{
     // margin-top: 10px;
-    float: right;
+    float: left;
     p{
         margin: 26px 15px 0 2px;
         font-weight: bold;
@@ -54,11 +54,12 @@ body{
 .wrapper{
     min-height: 100%;
     margin-bottom: -98px;
-    background-color: lighten(@gray-lighter, 15%);
+    // background-color: lighten(@gray-lighter, 15%);
 }
 
 .component-body{
-    background-color: lighten(@gray-lighter, 15%);
+    // background-color: lighten(@gray-lighter, 15%);
+    background-color: @white;
 }
 
 .no-found-container{
@@ -130,6 +131,9 @@ body{
 /* Footer */
 #footer{
     // margin: 0 -15px;
+    .footer-section1{
+        background-color: @white;
+    }
 }
 
 .footer-push{

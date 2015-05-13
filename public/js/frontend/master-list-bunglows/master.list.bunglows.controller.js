@@ -11,7 +11,7 @@
       return BunglowListView.__super__.constructor.apply(this, arguments);
     }
 
-    BunglowListView.prototype.template = Handlebars.compile('	<div class=" info"> <label class="pull-left">{{unit_name}}</label> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft--> <div class="clearfix"></div> </div> <div class="cost"> {{price}} </div>');
+    BunglowListView.prototype.template = Handlebars.compile('	<div class=" info"> <label class="pull-left">{{unit_name}}</label><span class="status-icon"></span> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft--> <div class="clearfix"></div> </div> <div class="cost"> {{price}} </div>');
 
     BunglowListView.prototype.initialize = function() {
       this.$el.prop("id", 'unit' + this.model.get("id"));
@@ -47,16 +47,19 @@
 
     BunglowListView.prototype.events = {
       'mouseover': function(e) {
-        var id;
+        var html, id;
+        this.iniTooltip(this.model.get('id'));
+        html = this.getHtml(this.model.get('id'));
         id = this.model.get('id');
         $('#' + id + '.villa').attr('class', 'layer villa svg_active ' + this.model.get('status'));
         $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status') + ' active');
-        return $('#' + id).tooltipster('show');
+        return $('#' + id).tooltipster('content', html);
       },
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
         $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status'));
+        $('#' + id).tooltipster('hide');
         return CommonFloor.applyVillaClasses(this.classname);
       },
       'click': function(e) {
@@ -69,6 +72,26 @@
 
     BunglowListView.prototype.iniTooltip = function(id) {
       return $('#' + id).trigger('mouseover');
+    };
+
+    BunglowListView.prototype.getHtml = function(id) {
+      var availability, html, response, unit;
+      html = "";
+      unit = unitCollection.findWhere({
+        id: parseInt(id)
+      });
+      if (unit === void 0) {
+        html += '<div class="svg-info"> <div class="details empty"> Villa details not entered </div> </div>';
+        $('.layer').tooltipster('content', html);
+        return;
+      }
+      response = window.unit.getUnitDetails(id);
+      window.convertRupees(response[3]);
+      availability = unit.get('availability');
+      availability = s.decapitalize(availability);
+      html = "";
+      html += '<div class="svg-info ' + availability + ' "> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <span class="pull-right icon-cross"></span> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div> <a href="#unit-view/' + id + '" class="action-bar villa_unit">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a> </div>';
+      return html;
     };
 
     return BunglowListView;

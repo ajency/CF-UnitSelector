@@ -13,7 +13,7 @@
             <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 
                 <div class="grid-body">
-                   <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg" class="pull-right"><i class="fa fa-share"></i> Add New Room </a>
+                   <!--<a href="#" data-toggle="modal" data-target=".bs-example-modal-lg" class="pull-right"><i class="fa fa-share"></i> Add New Room </a>-->
                     <div>
                         <?php $i = 0; ?>
                         @foreach($variantRooms as $level=>$roomTypes)

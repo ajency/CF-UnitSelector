@@ -97,9 +97,9 @@
                             <div class="col-md-4">
 
                                 <h4 class="semi-bold inline">Floor Layout</h3>&nbsp;&nbsp;&nbsp;&nbsp;
-                                <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">
+                                <!--<a href="#" data-toggle="modal" data-target=".bs-example-modal-lg">
                                       <i class="fa fa-share"></i> Add Floor Layout
-                                    </a>
+                                    </a>-->
                             </div>
                             <div class="col-md-4 text-right">
                                 <h4 class="semi-bold">Floor Layout SVG</h3>

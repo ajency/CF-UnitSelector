@@ -19,7 +19,7 @@
         <input type="hidden" name="floorlevel[]" value="{{$i}}">
         <div class="grid-body">
             <div>
-             <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg" class="pull-right"><i class="fa fa-share"></i> Add New Room </a>
+             <!--<a href="#" data-toggle="modal" data-target=".bs-example-modal-lg" class="pull-right"><i class="fa fa-share"></i> Add New Room </a>-->
                         </div>
             <div >
                  

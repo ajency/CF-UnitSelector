@@ -368,12 +368,12 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			setTimeout( (x)->
 				
 				$('#spritespin').spritespin(
-					width: that.ui.svgContainer.width() 
+					width: that.ui.svgContainer.width() + 13
 					sense: -1
 					height: that.ui.svgContainer.width() / 2
 					animate: false
 				)
-				$('.svg-maps > div').first().css('width',that.ui.svgContainer.width())
+				$('.svg-maps > div').first().css('width',that.ui.svgContainer.width() + 13)
 
 			, 650)
 
@@ -478,8 +478,6 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		'mouseover .villa':(e)->
 			# $('.villa').attr('class' ,'layer villa') 
 			id  = parseInt e.target.id
-			
-			
 			html = ""
 			unit = unitCollection.findWhere 
 				id :  id 
@@ -487,7 +485,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				id :  id 
 			if unit is undefined && unitMaster != undefined
 				html = '<div class="svg-info">
-							<div class="details">
+							<div class="details empty">
 								Not in selection
 							</div>  
 						</div>'
@@ -522,10 +520,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 							</div> 
 						</div>
-						<div class="action-bar ">
-							
-							<a href="#unit-view/'+id+'" class="icon-chevron-right pull-right">To Move forward Click Here</a>
-						</div>
+						<a href="#unit-view/'+id+'" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a>
 					</div>'
 			
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
@@ -730,7 +725,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				onlyOne : true
 				arrow : false
 				offsetX : 50
-				offsetY : -25
+				offsetY : -20
 				interactive : true
 				# animation : 'grow'
 				trigger: 'hover'

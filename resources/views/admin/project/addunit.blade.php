@@ -42,7 +42,7 @@
                             <option value="{{$unit_variant['id']}}">{{$unit_variant['unit_variant_name']}}</option>
                             @endforeach
                         </select>
-                   <a type="button" href="#" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-share"></i> Add Variant</a>
+                   <!--<a type="button" href="#" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-share"></i> Add Variant</a>-->
                     </div> 
                 </div>
                 <!--<div class="col-md-4">
