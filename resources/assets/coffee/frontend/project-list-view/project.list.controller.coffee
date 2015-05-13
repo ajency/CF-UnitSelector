@@ -281,6 +281,10 @@ class CommonFloor.CenterListCtrl extends Marionette.RegionController
 		
 	renderView:->
 		response = CommonFloor.checkListView()
+		if response.count.length == 0
+			region =  new Marionette.Region el : '#centerregion'
+			new CommonFloor.NoUnitsCtrl region : region
+			return
 		if response.type is 'bunglows' 
 			units = bunglowVariantCollection.getBunglowUnits()
 			data = {}

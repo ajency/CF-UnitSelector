@@ -341,8 +341,17 @@
     };
 
     CenterListCtrl.prototype.renderView = function() {
-      var data, response, units;
+      var data, region, response, units;
       response = CommonFloor.checkListView();
+      if (response.count.length === 0) {
+        region = new Marionette.Region({
+          el: '#centerregion'
+        });
+        new CommonFloor.NoUnitsCtrl({
+          region: region
+        });
+        return;
+      }
       if (response.type === 'bunglows') {
         units = bunglowVariantCollection.getBunglowUnits();
         data = {};

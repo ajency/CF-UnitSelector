@@ -50,6 +50,12 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 					                                    </div>
 					                                </div>
 					                                <div class="col-sm-4 col-md-4 ">
+					                                    <h5># FLOOR </h5>
+					                                    <div class="range-container">
+					                                    	<input type="text" id="floor" name="floor" value="" />
+					                                    </div>
+					                                </div>
+					                                <div class="col-sm-4 col-md-4 ">
 					                                  	<h5># AVAILABILITY</h5>
 					                                    <div class="alert ">
 					                                      	<input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> 
@@ -82,6 +88,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		area : '#area'
 		budget : '#budget'
 		clear : '.clear'
+		floor : '#floor'
 
 	events:
 		'click @ui.clear':(e)->
@@ -146,6 +153,12 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		'change @ui.budget':(e)->
 			CommonFloor.defaults['price_max'] = parseFloat $(e.target).val().split(';')[1]
 			CommonFloor.defaults['price_min'] = parseFloat $(e.target).val().split(';')[0]
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+
+		'change @ui.floor':(e)->
+			CommonFloor.defaults['floor_max'] = parseFloat $(e.target).val().split(';')[1]
+			CommonFloor.defaults['floor_min'] = parseFloat $(e.target).val().split(';')[0]
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
 			
@@ -239,8 +252,10 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			budget.push parseFloat unitDetails[3]
 			area.push parseFloat unitDetails[0].get 'super_built_up_area'
 			
-
-		
+		url = Backbone.history.fragment
+		building_id = parseInt url.split('/')[1]
+		floor = buildingCollection.findWhere
+					'id' : building_id
 		$(@ui.unitTypes).each (ind,item)->
 			$('#'+item.id).attr('checked',true)
 			$('#'+item.id).attr('disabled',false)
@@ -285,8 +300,17 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		    	return window.numDifferentiation(num)
 
 		)
+		$("#floor").ionRangeSlider(
+		    type: "double",
+		    min: 1,
+		    max: floor.get('no_of_floors'),
+		    grid: false
+		    
+
+		)
 		window.price = $("#budget").data("ionRangeSlider")
 		window.area = $("#area").data("ionRangeSlider")
+		window.floor = $("#floor").data("ionRangeSlider")
 		window.area.update(
 		   from : min
 		   to  : max
@@ -294,6 +318,10 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		window.price.update(
 		   from : priceMin
 		   to  : priceMax
+		)
+		window.floor.update(
+		   from : 1
+		   to  : floor.get('no_of_floors')
 		)
 		min = _.min CommonFloor.defaults['area_min']
 		max = _.max CommonFloor.defaults['area_max']
@@ -312,6 +340,11 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			window.price.update(
 			   from : priceMin
 			   to  : priceMax
+		)
+		if CommonFloor.defaults['floor_min'] != "" && CommonFloor.defaults['floor_max'] != ""
+			window.floor.update(
+			   from : parseInt CommonFloor.defaults['floor_min']
+			   to  : parseInt CommonFloor.defaults['floor_max']
 		)
 		@ui.status.prop('checked',false)
 		if CommonFloor.defaults['availability'] != "" 

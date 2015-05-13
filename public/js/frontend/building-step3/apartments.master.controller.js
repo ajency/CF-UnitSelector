@@ -60,7 +60,8 @@
       variantNames: '.variant_names',
       area: '#filter_area',
       budget: '#filter_budget',
-      types: '.types'
+      types: '.types',
+      floor: '.floor'
     };
 
     TopApartmentMasterView.prototype.serializeData = function() {
@@ -121,6 +122,13 @@
         'click @ui.budget': function(e) {
           CommonFloor.defaults['price_max'] = "";
           CommonFloor.defaults['price_min'] = "";
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          return this.trigger('render:view');
+        },
+        'click @ui.floor': function(e) {
+          CommonFloor.defaults['floor_max'] = "";
+          CommonFloor.defaults['floor_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
           return this.trigger('render:view');
@@ -290,10 +298,19 @@
     };
 
     LeftApartmentMasterCtrl.prototype.renderView = function() {
-      var building_id, response, unitsCollection, url;
+      var building_id, region, response, unitsCollection, url;
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
       response = window.building.getBuildingUnits(building_id);
+      if (response.length === 0) {
+        region = new Marionette.Region({
+          el: '#leftregion'
+        });
+        new CommonFloor.NoUnitsCtrl({
+          region: region
+        });
+        return;
+      }
       unitsCollection = new Backbone.Collection(response);
       return this.show(new CommonFloor.LeftApartmentMasterView({
         collection: unitsCollection

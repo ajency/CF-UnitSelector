@@ -70,6 +70,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		area : '#filter_area'
 		budget : '#filter_budget'
 		types : '.types'
+		floor : '.floor'
 
 	serializeData:->
 		data = super()
@@ -124,6 +125,13 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		'click @ui.budget':(e)->
 			CommonFloor.defaults['price_max'] = ""
 			CommonFloor.defaults['price_min'] = ""
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			@trigger  'render:view'
+
+		'click @ui.floor':(e)->
+			CommonFloor.defaults['floor_max'] = ""
+			CommonFloor.defaults['floor_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
 			@trigger  'render:view'
@@ -258,9 +266,14 @@ class CommonFloor.LeftApartmentMasterCtrl extends Marionette.RegionController
 		unitTempCollection.on("change reset add remove", @renderView, @)
 
 	renderView:->
+		
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		response = window.building.getBuildingUnits(building_id)
+		if response.length == 0
+			region =  new Marionette.Region el : '#leftregion'
+			new CommonFloor.NoUnitsCtrl region : region
+			return
 		unitsCollection = new Backbone.Collection response
 		@show new CommonFloor.LeftApartmentMasterView
 				collection : unitsCollection
