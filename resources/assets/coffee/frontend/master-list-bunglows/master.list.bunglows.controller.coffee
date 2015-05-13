@@ -99,10 +99,10 @@ class MasterBunglowListView extends Marionette.CompositeView
 							            <div class="advncd-filter-wrp  unit-list">
 							            	<div class="legend clearfix">
 							            	  <ul>
-							            	    <li class="available">AVAILABLE</li>
-							            	    <li class="sold">SOLD</li>
-							            	    <li class="blocked">BLOCKED</li>
-							            	    <li class="na">N/A</li>
+							            	    <!--<li class="available">AVAILABLE</li>-->
+							            	    <li class="sold">Not Available</li>
+							            	    <!--<li class="blocked">BLOCKED</li>-->
+							            	    <li class="na">Not in Selection</li>
 							            	  </ul>
 							            	</div>
 

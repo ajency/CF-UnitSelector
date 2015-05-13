@@ -306,6 +306,14 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 	template : Handlebars.compile('<div class="col-md-12 us-right-content mobile visible">
+										<div class="legend clearfix">
+										  <ul>
+										    <!--<li class="available">AVAILABLE</li>-->
+										    <li class="sold">Not Available</li>
+										    <!--<li class="blocked">BLOCKED</li>-->
+										    <li class="na">Not in Selection</li>
+										  </ul>
+										</div>
 										<div class="zoom-controls">
 											<div class="zoom-in"></div>
 											<div class="zoom-out"></div>
