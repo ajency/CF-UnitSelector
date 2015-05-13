@@ -389,12 +389,12 @@
         that = this;
         return setTimeout(function(x) {
           $('#spritespin').spritespin({
-            width: that.ui.svgContainer.width(),
+            width: that.ui.svgContainer.width() + 13,
             sense: -1,
             height: that.ui.svgContainer.width() / 2,
             animate: false
           });
-          return $('.svg-maps > div').first().css('width', that.ui.svgContainer.width());
+          return $('.svg-maps > div').first().css('width', that.ui.svgContainer.width() + 13);
         }, 650);
       },
       'click @ui.viewtog': function(e) {

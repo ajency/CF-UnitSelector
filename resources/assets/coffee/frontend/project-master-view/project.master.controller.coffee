@@ -369,12 +369,12 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			setTimeout( (x)->
 				
 				$('#spritespin').spritespin(
-					width: that.ui.svgContainer.width() 
+					width: that.ui.svgContainer.width() + 13
 					sense: -1
 					height: that.ui.svgContainer.width() / 2
 					animate: false
 				)
-				$('.svg-maps > div').first().css('width',that.ui.svgContainer.width())
+				$('.svg-maps > div').first().css('width',that.ui.svgContainer.width() + 13)
 
 			, 650)
 
@@ -521,7 +521,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 							</div> 
 						</div>
-							<a href="#unit-view/'+id+'" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a>
+						<a href="#unit-view/'+id+'" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a>
 					</div>'
 			
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
