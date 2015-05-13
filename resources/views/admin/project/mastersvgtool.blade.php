@@ -39,7 +39,7 @@
 
          <div class="aj-imp-browser-preview">
             <!-- browser header-->
-            <div class="aj-imp-browser-header">
+            <!-- <div class="aj-imp-browser-header">
                <div class="lock-message hidden">
                   <div class="lock-container">
                      <div class="locker">
@@ -107,7 +107,7 @@
                </div>
                
             
-            </div>
+            </div> -->
             <!-- browser body-->
             <div id="aj-imp-browser-body">
                <!-- TODO: remove inline style-->
@@ -157,39 +157,39 @@
             <!-- #content elements-->
             <div id="content-elements">
                <ul class="aj-imp-builder-items clearfix">
-                  <li class="element" data-element="Text">
+                  <li class="element polygon" data-element="Text">
                      <a href="#" class="drag builder-element">
                         <div class="aj-imp-builder-icon bicon icon-uniF111"></div>
                         <div class="aj-imp-builder-title">POLYGON</div>
                      </a>
                     
                   </li>
-                  <li class="element" data-element="Title">
+                  <li class="element rectangle" data-element="Title">
                      <a href="#" class="drag builder-element">
                         <div class="aj-imp-builder-icon bicon icon-uniF11C"></div>
                         <div class="aj-imp-builder-title">RECTANGLE</div>
                      </a>
                   </li>
-                  <li class="element" data-element="Image">
+                  <li class="element square" data-element="Image">
                      <a href="#" class="drag builder-element">
                         <div class="aj-imp-builder-icon bicon icon-uniF10E"><i class="fa fa-square-o"></i></div>
                         <div class="aj-imp-builder-title">SQUARE</div>
                      </a>
                      
                   </li>
-                  <li class="element" data-element="ImageWithText">
+                  <li class="element circle" data-element="ImageWithText">
                      <a href="#" class="drag builder-element">
                         <div class="aj-imp-builder-icon bicon icon-uniF112"><i class="fa fa-circle-o"></i></div>
                         <div class="aj-imp-builder-title">CIRCLE</div>
                      </a>
                   </li>
-                  <li class="element" data-element="Table">
+                  <li class="element marker" data-element="Table">
                      <a href="#" class="drag builder-element" data-toggle="modal" data-target=".bs-example-modal-sm">
                         <div class="aj-imp-builder-icon bicon icon-uniF166"><i class="fa fa-map-marker"></i></div>
                         <div class="aj-imp-builder-title">MARKER 1</div>
                      </a>
                   </li>
-                  <li class="element" data-element="Link">
+                  <li class="element marker" data-element="Link">
                      <a href="#" class="drag builder-element"  data-toggle="modal" data-target=".bs-example-modal-sm">
                         <div class="aj-imp-builder-icon bicon icon-uniF149"><i class="fa fa-map-marker"></i></div>
                         <div class="aj-imp-builder-title">MARKER 2</div>
