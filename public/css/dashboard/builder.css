@@ -24,24 +24,28 @@ body.modal-open {
 }
 /* Custom Styles*/
 .sold {
-  background: #d3a0d1;
-  border: 2px solid #ff3333;
-  opacity: 0.5;
+  fill: #d3a0d1;
+  stroke-width: 2;
+  stroke: #ff3333;
+  fill-opacity: 0.5;
 }
 .available {
-  background: #9dca5b;
-  border: 2px solid #ff3333;
-  opacity: 0.5;
+  fill: #9dca5b;
+  stroke-width: 2;
+  stroke: #ff3333;
+  fill-opacity: 0.5;
 }
 .marked {
-  background: #0B0D0F;
-  border: 2px solid #ff3333;
-  opacity: 0.5;
+  fill: #0B0D0F;
+  stroke-width: 2;
+  stroke: #ff3333;
+  fill-opacity: 0.5;
 }
 .not_in_selection {
-  background: #ffffff;
-  border: 2px solid #ff3333;
-  opacity: 0.5;
+  fill: #ffffff;
+  stroke-width: 2;
+  stroke: #ff3333;
+  fill-opacity: 0.5;
 }
 /* Custom Styles*/
 .tags {
