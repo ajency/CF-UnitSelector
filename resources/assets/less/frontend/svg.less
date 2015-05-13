@@ -24,21 +24,34 @@ svg {
 		fill: #FF7400  !important;
 	  	opacity: 0.5 !important;
 	}
+	.layer{
+		fill: #5C2424 !important;
+		opacity: 0.75 !important;
+	}
 	.available {
-	  fill: #7EBB11 !important;
+	  fill: rgba(204, 204, 204, 0) !important;
 	  opacity: 0.5 !important;
+	  &.svg_active{
+		  	stroke-width: 6px;
+		  	stroke-dasharray: 320 0;
+		  	stroke-dashoffset: 0;
+	  }
 	}
 	.blocked{
-		fill: #f5f3c3 !important;
-	  	opacity: 0.8 !important;
+		// fill: rgba(244, 173, 0, 0.36) !important;
+	 //  	opacity: 0.8 !important;
 	}
 	.sold{
-		fill: #FF6565 !important;
-		opacity: 0.5 !important;
+		// fill: #FF6565 !important;
+		// opacity: 0.5 !important;
 	}
 	.not_released{
-	 	fill: #cccccc !important;
-	 	opacity: 0.5 !important;
+	 	// fill: #cccccc !important;
+	 	// opacity: 0.5 !important;
+	}
+	.not_in_selection{
+		fill: #000 !important;
+		opacity: .75 !important;
 	}
 	.disable{
 		fill: #999; 
@@ -61,5 +74,60 @@ svg {
 	polygon{
 		.ease;
 	}
+
+	/* ON HOVER */
+	 
+	.layer{
+		stroke: #f68121;
+	  	stroke-width: 0px;
+	  	stroke-dasharray: 20 300;
+	  	stroke-dashoffset: 400;
+	  	// transform: scale(.99, .99);
+	  	transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
+	}
+
+	.layer:hover{
+	  	stroke-width: 4px;
+	  	stroke-dasharray: 320 0;
+	  	stroke-dashoffset: 0;
+	}
+
+	.layer.unit_fadein{
+		transition:0.5s ease-in-out ;
+		-webkit-transition:0.5s ease-in-out ;
+	}
+
+	.layer.unit_fadein:hover{
+		opacity:0.7;
+		cursor:pointer;
+	}
+	.layer.not_in_selection {
+		opacity: .5;
+		animation: unit_fadein 0.6s;
+		-webkit-animation: unit_fadein 0.6s;
+	}
 }
+
+/* Filter Selection */
+
+
+
+@keyframes unit_fadein {
+	0% { 
+        opacity: 0; 
+        transform: translateY(-400px); 
+    } 
+    60% { 
+        opacity: 1; 
+        transform: translateY(30px); 
+    } 
+    80% { 
+        transform: translateY(-10px); 
+    } 
+    100% { 
+        transform: translateY(0); 
+    }
+}
+
+
 	

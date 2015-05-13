@@ -1,7 +1,7 @@
 api = ""
 class CommonFloor.ApartmentsMasterView extends Marionette.LayoutView
 
-	template : '#project-template'
+	template : '#project-view-template'
 
 
 
@@ -20,42 +20,64 @@ class CommonFloor.ApartmentsMasterCtrl extends Marionette.RegionController
 
 class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="row">
-		          <div class="col-md-12 col-xs-12 col-sm-12">
-		            <div class="row breadcrumb-bar">
-		              <div class="col-xs-12 col-md-12">
-		                <div class="bread-crumb-list">
-		                  <ul class="brdcrmb-wrp clearfix">
-		                    <li class="">
-		                      <span class="bread-crumb-current">
-		                        <span class=".icon-arrow-right2"></span><a class="unit_back" href="#">
-													Back to Poject Overview</a>
-		                      </span>
-		                    </li>
-		                  </ul>
-		                </div>
-		              </div>
-		            </div>
+	template : Handlebars.compile('<div class="container-fluid">
+							          	<div class="row">
+								          	<div class="col-md-12 col-xs-12 col-sm-12 text-center">
 
-		            <div class="search-header-wrap">
-		              	<h1 class="pull-left proj-name">{{project_title}}</h1> 
-		              	  <div class="proj-type-count">
-		              	  	<h1 class="text-primary pull-left">{{building_name}}</h1>
-		              	  	<div class="clearfix"></div>
-		              	  </div>
-		                <div class="clearfix"></div>
-		            </div>
-		          </div>
-		        </div>')
+									            <div class="breadcrumb-bar">
+									                <a class="unit_back" href="#">
+														Back to Poject Overview
+													</a>
+									            </div>
+
+								              	<h2 class="proj-name">{{project_title}}</h2> 
+
+								          	</div>
+							          	</div>
+							        </div>
+
+					        		<div class="filter-summary-area">
+
+					        			<button class="btn btn-primary cf-btn-white pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters">
+					        				Filters <span class="icon-funnel"></span>
+					        			</button>
+					                    <div class="pull-left filter-result">
+					                      	{{#each  filters}}
+					                      	{{#each this}}
+					        				<div class="filter-pill"  >
+					        					{{this.name}}{{this.type}}
+					        					<span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span>
+					                      	</div>	
+					                      	{{/each}}{{/each }}							               
+					                    </div>
+					        			<div class="proj-type-count">
+					        				{{#types}} 
+					        				<p class="pull-right">{{type}}</p><h1 class="text-primary pull-right m-t-10">{{count.length}}</h1> 
+					        				{{/types}}
+					        			</div>
+
+					        			<div class="clearfix"></div>
+					        		</div>')
 	
 	ui  :
 		unitBack : '.unit_back'
+		unitTypes : '.unit_types'
+		priceMin : '.price_min'
+		priceMax : '.price_max'
+		status : '#filter_available'
+		apply : '.apply'
+		variantNames : '.variant_names'
+		area : '#filter_area'
+		budget : '#filter_budget'
+		types : '.types'
 
 	serializeData:->
 		data = super()
 		units = Marionette.getOption( @, 'units' )
 		data.units = units.length
 		data.project_title = project.get('project_title')
+		data.filters  = CommonFloor.getFilters()[0]
+		data.results  = CommonFloor.getFilters()[1]
 		data
 
 	events:->
@@ -64,21 +86,74 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			previousRoute = CommonFloor.router.previous()
 			CommonFloor.navigate '/'+previousRoute , true
 
-	onShow:->
-		if CommonFloor.router.history.length == 1
-			@ui.unitBack.hide()
+		'click @ui.unitTypes':(e)->
+			unitTypes = CommonFloor.defaults['unitTypes'].split(',')
+			unitTypes = _.without unitTypes , $(e.currentTarget).attr('data-id')
+			CommonFloor.defaults['unitTypes'] = unitTypes.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			@trigger  'render:view'
+			
+		'click @ui.variantNames':(e)->
+			variantNames = CommonFloor.defaults['unitVariants'].split(',')
+			variantNames = _.without variantNames , $(e.currentTarget).attr('data-id')
+			CommonFloor.defaults['unitVariants'] = variantNames.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()	
+			@trigger  'render:view'
+
+		'click @ui.status':(e)->
+			CommonFloor.defaults['availability'] = ""
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			@trigger  'render:view'
+
+			
+
+		'click @ui.area':(e)->
+			CommonFloor.defaults['area_max'] = ""
+			CommonFloor.defaults['area_min'] = ""
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			@trigger  'render:view'
+
+		'click @ui.budget':(e)->
+			CommonFloor.defaults['price_max'] = ""
+			CommonFloor.defaults['price_min'] = ""
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			@trigger  'render:view'
 
 class CommonFloor.TopApartmentMasterCtrl extends Marionette.RegionController
 
 	initialize:->
+		@renderView()
+		unitTempCollection.on("change reset add remove", @renderView, @)
+
+	renderView:->
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		response = window.building.getBuildingUnits(building_id)
 		buildingModel = buildingCollection.findWhere
 							id : building_id
-		@show new CommonFloor.TopApartmentMasterView
+		@view =  new CommonFloor.TopApartmentMasterView
 					model : buildingModel
 					units : response
+
+		@listenTo @view,"render:view" ,@loadController
+
+		@show @view
+
+	loadController:->
+		# Backbone.trigger "render:view" 
+		window.unitTypes = []
+		window.unitVariants = []
+		window.variantNames = []
+		window.price = ''
+		window.area = ''
+		window.type  = []
+		@region =  new Marionette.Region el : '#filterregion'
+		new CommonFloor.FilterApartmentCtrl region : @region
 
 class ApartmentsView extends Marionette.ItemView
 
@@ -167,6 +242,10 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 class CommonFloor.LeftApartmentMasterCtrl extends Marionette.RegionController
 
 	initialize:->
+		@renderView()
+		unitTempCollection.on("change reset add remove", @renderView, @)
+
+	renderView:->
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		response = window.building.getBuildingUnits(building_id)

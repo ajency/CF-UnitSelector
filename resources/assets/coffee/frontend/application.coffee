@@ -38,6 +38,8 @@ jQuery(document).ready ($)->
 					ctrl : 'LeftListCtrl'
 				'center' :
 					ctrl : 'CenterListCtrl'
+				'filter' :
+					ctrl : 'FilterMasterCtrl'
 	CommonFloor.state 'apartmentsList',
 			url : '/building/:id/apartments'
 			sections:
@@ -47,6 +49,8 @@ jQuery(document).ready ($)->
 					ctrl : 'LeftApartmentCtrl'
 				'center' :
 					ctrl : 'CenterApartmentCtrl'
+				'filter' :
+					ctrl : 'FilterApartmentCtrl'
 
 	CommonFloor.state 'apartmentsMaster',
 			url : '/building/:id/master-view'
@@ -57,6 +61,8 @@ jQuery(document).ready ($)->
 					ctrl : 'LeftApartmentMasterCtrl'
 				'center' :
 					ctrl : 'CenterApartmentMasterCtrl'
+				'filter' :
+					ctrl : 'FilterApartmentCtrl'
 	
 
 

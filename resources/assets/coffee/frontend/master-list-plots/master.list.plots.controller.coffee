@@ -14,6 +14,7 @@ class PlotListView extends Marionette.ItemView
 
 	initialize:->
 		@$el.prop("id", 'unit'+@model.get("id"))
+		@classname = ''
 
 	
 	tagName: 'li'
@@ -49,29 +50,77 @@ class PlotListView extends Marionette.ItemView
 	events:
 
 		'mouseover' :(e)->
+			@iniTooltip(@model.get('id'))
+			html = @getHtml(@model.get('id'))
 			id = @model.get('id')
 			$('.layer').attr('class','layer plot')
 			$('#'+id+'.plot').attr('class' ,'layer plot '+@model.get('status'))
 			$('#unit'+id).attr('class' ,'bldg blocks'+' '+@model.get('status')+' active')
+			$('#'+id).tooltipster('content', html)
 			
 			
 		'mouseout':(e)->
 			id = @model.get('id')
 			# $('#'+id+'.villa').attr('class' ,'layer villa')
 			$('#unit'+id).attr('class' , 'bldg blocks'+' '+@model.get('status'))
-			CommonFloor.applyPlotClasses()
+			$('#'+id).tooltipster('hide')
+			CommonFloor.applyPlotClasses(@classname)
+			$('#'+id).tooltipster('show')
 
 		'click' :(e)->
 			if @model.get('status') == 'available'
 				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
 				CommonFloor.router.storeRoute()
 
+	iniTooltip:(id)->
+		$('#'+id).trigger('mouseover')
+
+	getHtml:(id)->
+		html = ""
+		unit = unitCollection.findWhere 
+			id :  parseInt id 
+		if unit is undefined
+			html += '<div class="svg-info">
+						<div class="details empty">
+							Villa details not entered 
+						</div>  
+					</div>'
+			$('.layer').tooltipster('content', html)
+			return 
+
+
+		response = window.unit.getUnitDetails(id)
+		window.convertRupees(response[3])
+		availability = unit.get('availability')
+		availability = s.decapitalize(availability)
+		html = ""
+		html += '<div class="svg-info '+availability+' ">
+					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
+					<span class="pull-right icon-cross"></span>
+					<!--<span class="label label-success"></span-->
+					<div class="clearfix"></div>
+					<div class="details">
+						<div>
+							'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
+							<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
+						</div>
+						<div>
+							Starting Price <span class="text-primary">'+$('#price').val()+'</span>
+						</div> 
+					</div>
+					<div class="action-bar villa_unit">
+						To Move forward Click Here
+						<span class="icon-chevron-right pull-right"></span>
+					</div>
+				</div>'
+		html
+
 
 
 #view for list of plots : Collection
 class MasterPlotListView extends Marionette.CompositeView
 
-	template : Handlebars.compile('<div class="col-xs-12 col-sm-12 col-md-3 us-left-content mobile not-visible">
+	template : Handlebars.compile('
 									<div id="view_toggle" class="toggle-view-button map"></div>
 									<div class="list-view-container w-map animated fadeIn">
 							            <!--<div class="controls map-View">
@@ -115,8 +164,7 @@ class MasterPlotListView extends Marionette.CompositeView
 							                </ul>
 							                <div class="clearfix"></div>
 										</div>
-							        </div>
-							       </div>')
+							        </div>')
 
 	childView :PlotListView
 

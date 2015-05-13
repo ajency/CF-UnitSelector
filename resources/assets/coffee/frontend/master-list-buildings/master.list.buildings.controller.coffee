@@ -70,6 +70,8 @@ class ListItemView extends Marionette.ItemView
 				return
 			buildingModel = buildingCollection.findWhere
 							'id' : id
+			CommonFloor.defaults['building'] = jQuery.makeArray(id).join(',')
+			CommonFloor.filter()
 			if Object.keys(buildingModel.get('building_master')).length == 0
 				CommonFloor.navigate '/building/'+id+'/apartments' , true
 				CommonFloor.router.storeRoute()
@@ -82,7 +84,7 @@ class ListItemView extends Marionette.ItemView
 #view for list of buildings : Collection
 class MasterBuildingListView extends Marionette.CompositeView
 
-	template : Handlebars.compile('<div class="col-xs-12 col-sm-12 col-md-3 us-left-content mobile not-visible">
+	template : Handlebars.compile('
 										<div id="view_toggle" class="toggle-view-button map"></div>
 										<div class="list-view-container w-map animated fadeIn">
 										<!--<div class="controls map-View">
@@ -106,8 +108,7 @@ class MasterBuildingListView extends Marionette.CompositeView
 										  	</ul>
 										  	<div class="clearfix"></div>
 										</div>
-										</div>
-									  </div>')
+										</div>')
 
 	childView : ListItemView
 
@@ -117,12 +118,12 @@ class MasterBuildingListView extends Marionette.CompositeView
 	ui :
 		viewtog      : '#view_toggle'
 
-	events :
+
+	events : 
 		'click @ui.viewtog':(e)->
 			$('.us-left-content').toggleClass 'not-visible visible'
 			$('.us-right-content').toggleClass 'not-visible visible'
-
-	events : 
+			
 		'click .buildings':(e)->
 			console.log units = buildingCollection
 			data = {}

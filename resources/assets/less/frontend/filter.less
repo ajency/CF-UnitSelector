@@ -1,24 +1,92 @@
 .filter-button{
   border: 1px solid @brand-primary;
   border-radius: 3px;
-  background-color: #ffffff;
+  background-color: @white;
   color: @gray-light;
   padding: 6px 12px;
-  margin: 18px 0px;
+}
+.filter-result{
+  margin: 20px 0 0;
 }
 .filters-wrapper{
-margin-bottom:20px;
-a{
-	color: @brand-primary;
-}
+    // margin: 20px 0px 20px 0;
+    padding: 15px;
+    // border-top: 1px solid @gray-lighter;
+
 	.filter-chkbox-block label {
-		color:@gray-light;
+		color:@gray;
 	}
+  input[disabled]+label{
+    color: @gray-light;
+    cursor: not-allowed;
+  }
 } 
+.filter-link{
+  color:darken(@gray, 50%);
+}
+.range-container{
+  max-width: 200px;
+}
 .alert{
 	    background: #EAEAEA;
   		padding: 20px;
 }
 .seperator{
-	  border-bottom: 1px solid #ddd;
+	  border-bottom: 1px solid @gray-lighter;
+}
+
+.desc-wrapper {
+  margin: 0 auto;
+  margin-bottom: 15px;
+  max-height: 50px;
+  overflow: hidden;
+}
+
+.more-info {
+  /* Hide more info to begin with and reveal if text inside desc is too long*/
+  display: none;
+  color: @brand-primary;
+}
+
+/* Only display 'more' to begin with */
+.more-info .less,
+.more-info.expand .more {
+  display: none;
+}
+.more-info.expand .less {
+  display: inline;
+}
+
+/* Misc, just to make things look a bit prettier */
+.more-info:focus {
+  outline: none;
+}
+span.glyphicon {
+  margin-left: 3px;
+}
+
+.filters-area{
+  background-color: lighten(@gray-lighter, 16%);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.filter-summary-area{
+  background-color: lighten(@gray-lighter, 16%);
+  padding: 5px 20px;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.filters-bottom{
+  border-top: 1px solid @gray-lighter;
+  padding-top: 10px;
+}
+
+
+/* Slider */
+.irs-line-mid, .irs-line-left, .irs-line-right, .irs-bar, .irs-bar-edge, .irs-slider{
+  background-image: url('../../images/sprite-skin-flat.png');
+}
+
+.irs-from, .irs-to, .irs-single{
+  background-color: @brand-primary;
 }

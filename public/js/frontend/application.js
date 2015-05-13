@@ -56,6 +56,9 @@
         },
         'center': {
           ctrl: 'CenterListCtrl'
+        },
+        'filter': {
+          ctrl: 'FilterMasterCtrl'
         }
       }
     });
@@ -70,6 +73,9 @@
         },
         'center': {
           ctrl: 'CenterApartmentCtrl'
+        },
+        'filter': {
+          ctrl: 'FilterApartmentCtrl'
         }
       }
     });
@@ -84,6 +90,9 @@
         },
         'center': {
           ctrl: 'CenterApartmentMasterCtrl'
+        },
+        'filter': {
+          ctrl: 'FilterApartmentCtrl'
         }
       }
     });

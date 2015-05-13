@@ -6,7 +6,7 @@ class BunglowVariant extends Backbone.Model
 		basicCost = ""
 		if unit_model not instanceof Backbone.Model || unit_model == ""
 			return 
-		unitVarinatModel = bunglowVariantCollection.findWhere({
+		unitVarinatModel = bunglowVariantMasterCollection.findWhere({
 			'id':parseInt(unit_model.get('unit_variant_id'))})
 		if unitVarinatModel != undefined
 			basic_cost = ( parseFloat(unitVarinatModel.get('per_sq_ft_price'))) *
@@ -41,6 +41,20 @@ class BunglowVariantCollection extends Backbone.Collection
 		$.each units,(index,value)->
 			newUnits = $.merge(newUnits , value)
 		newUnits
+
+
+	#get all the bungalow units
+	getBunglowMasterUnits:()->
+		units = []
+		newUnits = []
+		bunglowVariantMasterCollection.each (model)->
+			bunglowUnits = unitMasterCollection.where
+				unit_variant_id : model.get('id')
+			units.push  bunglowUnits
+		$.each units,(index,value)->
+			newUnits = $.merge(newUnits , value)
+		newUnits
+
 
 	getVillaUnitTypes:->
 		unit_types = []

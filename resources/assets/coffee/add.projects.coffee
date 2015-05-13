@@ -10,6 +10,11 @@ jQuery(document).ready ($)->
 		xhr = args[1]
 		if xhr.status in [201,202,203]
 			$.notify xhr.responseJSON.message, 'success'
+		else if xhr.status in [200]
+			$.notify xhr.responseJSON.message, 'error'
+
+								
+								
 
 		
 	$('form button[type="reset"]').click();
@@ -189,7 +194,7 @@ jQuery(document).ready ($)->
 		html = '<div class="form-inline m-b-10">
 					<div class="form-group">
 						<input type="text" name="unittype[{{ property_type }}][]" 
-							   class="form-control" value="{{  unittype_name }}">
+								 class="form-control" value="{{  unittype_name }}">
 						<input type="hidden" name="unittypekey[]" value="">
 						<button type="button" data-unit-type-id="0" class="btn btn-small btn-default m-t-5 remove-unit-type">
 							<i class="fa fa-trash"></i> Delete

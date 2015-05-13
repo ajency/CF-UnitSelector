@@ -128,7 +128,8 @@ return [
         'CommonFloor\Providers\ConfigServiceProvider',
         'CommonFloor\Providers\EventServiceProvider',
         'CommonFloor\Providers\RouteServiceProvider',
-        'Illuminate\Html\HtmlServiceProvider'
+        'Illuminate\Html\HtmlServiceProvider',
+        'Zizaco\Entrust\EntrustServiceProvider'
     ],
     /*
       |--------------------------------------------------------------------------
@@ -174,6 +175,7 @@ return [
         'URL' => 'Illuminate\Support\Facades\URL',
         'Validator' => 'Illuminate\Support\Facades\Validator',
         'View' => 'Illuminate\Support\Facades\View',
-        'Form' => 'Illuminate\Html\FormFacade'
+        'Form' => 'Illuminate\Html\FormFacade',
+        'Entrust' => 'Zizaco\Entrust\EntrustFacade'
     ],
 ];
