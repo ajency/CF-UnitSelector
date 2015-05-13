@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Edit User - CommonFloor</title>
+		<title>Project Name - CommonFloor</title>
 		<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -84,7 +84,7 @@
 								<li><a href="#"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
 							</ul>
 
-							<!-- END NOTIFICATION CENTER -->    			
+							<!-- END NOTIFICATION CENTER -->   			
 						</div>
 					</div>
 					<!-- END HEADER RIGHT SIDE SECTION -->
@@ -99,7 +99,7 @@
 		<div class="page-container row-fluid">
 			<!-- BEGIN SIDEBAR -->
 			<!-- BEGIN MENU -->
-			<div class="page-sidebar" id="main-menu"> 
+			<div class="page-sidebar mini mini-mobile" id="main-menu" data-inner-menu="1"> 
 				<div class="page-sidebar-wrapper scrollbar-dynamic" id="main-menu-wrapper">
 					<p class="menu-title"></p>
 					<!-- BEGIN SIDEBAR MENU -->	
@@ -121,27 +121,95 @@
 								<span class="arrow"></span>
 							</a>
 							<ul class="sub-menu">
-								<li><a href="project-add.html">Add</a></li>
-								<li><a href="project-view.html">View</a></li>
+								<li><a href="project-view.html">All Projects</a></li>
+								<li><a href="project-add.html">Add Project</a></li>
 							</ul>
 						</li>
 						<!-- END ONE LEVEL MENU -->	
 						<!-- BEGIN SINGLE LINK -->
-						<li class="">
-							<a href="javascript:;">
+						<!-- <li class="">
+							<a href="#">
 								<i class="fa fa-user"></i>
 								<span class="title">Users</span>
-								<span class="arrow"></span>
 							</a>
-							<ul class="sub-menu">
-								<li class="active"><a href="users-add.html">Add</a></li>
-								<li><a href="user-list-view.html">View</a></li>
-							</ul>
-						</li>
+						</li> -->
 						<!-- END SINGLE LINK -->    
 					</ul>
 					<!-- END SIDEBAR MENU -->
 				</div>
+
+				<!-- BEGIN INNER MENU -->
+				<div class="inner-menu nav-collapse">   
+				  	<div id="inner-menu">
+				      	<div class="inner-wrapper" >    
+				        	<h2 class="text-white b-g b-b p-b-20">Goyal Footprints</h2>
+				       	</div>
+				       	 <div class="inner-menu-content">
+                            <p class="menu-title">Project <span class="pull-right"><i class="icon-refresh"></i></span></p>
+                        </div>
+                          <ul class="big-items">
+                          
+                            <li >
+                                <a href="project-settings.html">Configuration</a>
+                            </li>
+                              <li >
+                                <a href="project-room-type.html">Costs</a>
+                            </li>
+                             <li >
+                                <a href="project-room-type.html"> SVGs</a>
+                            </li>
+                            <li >
+                                <a href="project-room-type.html"> Users</a>
+                            </li>
+                        </ul>
+
+				      	<div class="inner-menu-content" >            
+                            <p class="menu-title">Villas/Bunglows</p>    
+                        </div>
+                        <ul class="big-items">
+                            <li>
+                                <a href="building-view.html">Configuration</a>
+                            </li>
+                            <li>
+                                <a href="building-add.html">Units</a>
+                            </li>
+                            <!-- <li>
+                                    <a href="building-svg.html">SVGs</a>
+                            </li> -->
+                        </ul>
+
+				      	<div class="inner-menu-content" >            
+                            <p class="menu-title">Plots</p>    
+                        </div>
+                        <ul class="big-items">
+                            <li>
+                                <a href="unit-view_variant.html">Configuration</a>
+                            </li>
+                            <li>
+                                <a href="unit-add_variant.html">Units</a>
+                            </li>
+                        </ul>
+			      		 <div class="inner-menu-content" >            
+                            <p class="menu-title">Apartments/Penthouses</p>    
+                        </div>
+                        <ul class="big-items">
+                            <li>
+                                <a href="unit-view.html">Configuration</a>
+                            </li>
+                            <li>
+                                <a href="unit-add.html">Floor Layouts</a>
+                            </li>
+                            <li class="active">
+                                <a href="unit-add.html"><i class="text-success fa fa-check"></i> Buildings</a>
+                            </li>
+                            <li>
+                                <a href="unit-add.html">Units</a>
+                            </li>
+                        </ul>
+				   </div> 
+				</div>
+				<!-- END INNER MENU -->
+
 			</div>
 			<!-- BEGIN SCROLL UP HOVER -->
 			<a href="#" class="scrollup">Scroll</a>
@@ -162,111 +230,76 @@
 					<!-- BEGIN BREADCRUMBS -->
 					<ul class="breadcrumb">
 				        <li><a href="#">Dashboard</a> </li>
-				        <li><a href="#">Users</a> </li>
-				        <li><a href="#" class="active">Edit User</a> </li>
+				        <li><a href="#">Projects</a> </li>
+				        <li><a href="#">Goyal Footprints</a> </li>
+				        <li><a href="#">Buildings</a></li>
+				        <li><a href="#" class="active">Add Building</a></li>
 				    </ul>
 				    <!-- END BREADCRUMBS -->
 					<!-- BEGIN PAGE TITLE -->
-					<div class="page-title">	
-						<h2><span class="semi-bold">Edit</span> User</h2>
-					</div>
+					
+						
+					
 					<!-- END PAGE TITLE -->
 
 					<!-- BEGIN PlACE PAGE CONTENT HERE -->
 					
-			              	<div class="grid simple">
-			              		<div class="grid-title">
-			              			<h3>User <span class="semi-bold">Details</span></h3>
-			              		</div>
-			                	<div class="grid-body "> <br>
-									<form id="add_project" action="#" novalidate="novalidate">
-										<div class="row">
-					                        <div class="col-md-4">
-		                                        <div class="form-group">
-		                                            <label class="form-label">Name</label>
-		                                            <input type="text" name="name" class="form-control" placeholder="Enter User Name">
-		                                            <span>
-		                                            <div class="text-danger"><span class="fa fa-asterisk"></span>This field is required</div>
-		                                        </div>
-		                                    </div>
-		                                    <div class="col-md-4">
-		                                        <div class="form-group">
-		                                            <label class="form-label">Email</label>
-		                                            <input type="email" name="email" class="form-control" placeholder="Enter Email ID">
-		                                            <div class="text-danger"><span class="fa fa-asterisk"></span>This field is required</div>
-		                                        </div>
-		                                    </div>
-		                                     <div class="col-md-4">
-		                                        <div class="form-group">
-		                                            <label class="form-label">Phone Number</label>
-		                                            <input type="text" name="number" class="form-control" placeholder="Enter Phone Number">
-		                                            <div class="text-danger"><span class="fa fa-asterisk"></span>This field is required</div>
-		                                        </div>
-		                                    </div>
-		                                  
-					                    </div>
-					                    <div class="row">
-					                    	<div class="col-md-4">
-		                                        <div class="form-group">
-							                        <label class="form-label">Status</label>
-							                        <select id="status" class="select2 form-control">
-							                        	<option value="">Select a Status</option>
-							                        	<option>Active</option>
-							                        	<option>Inactive</option>
-							                        </select>
-							                        <div class="text-danger"><span class="fa fa-asterisk"></span>This field is required</div>
-							                    </div>
-					                        </div>
-					                    </div>
-					                   <div class="form-actions">  
-											<div class="pull-right">
-											  <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
-											  <button type="submit" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button>
-											</div>
+					<div class="grid simple">
+						<div class="grid-title" style="border-bottom: 1px solid #f68121;">
+						<h2>Add <span class="semi-bold">Building</span></h2>
+					</div>
+						<div class="grid-body">
+							<h3 class="m-b-20"><span class="semi-bold">Building</span> Details</h3>
+							<form>
+								<div class="row">
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="form-label">Name<span class="text-primary">*</span></label>
+											<input type="text" class="form-control m-b-5" name="bldgname" placeholder="Enter Building Name" value="Tower 2">
+											 <div class="text-danger">This field is required</div>
 										</div>
-									</form>
-			                	</div>
-			              	</div>
-			              	<div class="grid simple">
-			              		<div class="grid-title">
-			              			<h3>Change <span class="semi-bold">Password</span></h3>
-			              		</div>
-			                	<div class="grid-body "> <br>
-									<form id="add_project" action="#" novalidate="novalidate">
-									<div class="row">
-					                    	<div class="col-md-4">
-		                                        <div class="form-group">
-		                                            <label class="form-label">Current Password</label>
-		                                            <input type="password" name="password" class="form-control" placeholder="Enter Password">
-		                                        <div class="text-danger"><span class="fa fa-asterisk"></span> This field is required</div>
-		                                        </div>
-		                                    </div>
-		                                     <div class="col-md-4">
-		                                        <div class="form-group">
-		                                            <label class="form-label">New Password</label>
-		                                            <input type="password" name="confirmpassword" class="form-control" placeholder="Re-enter Password">
-		                                            <div class="text-danger"><span class="fa fa-asterisk"></span> This field is required</div>
-		                                        </div>
-		                                    </div>
-					                          <div class="col-md-4">
-		                                        <div class="form-group">
-		                                            <label class="form-label">Confirm Password</label>
-		                                            <input type="password" name="confirmpassword" class="form-control" placeholder="Re-enter Password">
-		                                            <div class="text-danger"><span class="fa fa-asterisk"></span> This field is required</div>
-		                                        </div>
-		                                    </div>
-										</div>
-					                   <div class="form-actions">  
-											<div class="pull-right">
-											  <button type="submit" class="btn btn-primary btn-cons">Confirm Password</button>
-											  <button type="submit" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button>
-											</div>
-										</div>
-									</form>
-			                	</div>
-			              	</div>
-			        
-					
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="form-label">Phase<span class="text-primary">*</span></label>
+										    <select id="bldg_phase" class="select2 form-control m-b-5">
+										    	<option value="">Select Phase</option>
+										    	<option selected>Phase 1</option>
+										    	<option>Phase 2</option>
+										    	<option>Phase 3</option>
+										    	<option>Phase 4</option>
+										    	<option><a href="" data-toggle="modal" data-target="#myModal">Add Phase</a></option>
+										    </select>
+										    <div class="text-danger">This field is required</div>
+										</div> 
+									</div>
+									<div class="col-md-4">
+										<div class="form-group">
+											<label class="form-label">Number of Floors<span class="text-primary">*</span></label>
+										    <select id="bldg_milestone" class="select2 form-control m-b-5">
+										    	<option value="">Select Number of Floors</option>
+										    	<option>1</option>
+										    	<option selected>2</option>
+										    	<option>3</option>
+										    	<option>4</option>
+										    </select>
+										     <div class="text-danger">This field is required</div>
+										</div> 
+									</div>
+								</div>
+							</form>
+						<div>
+						<div class="form-actions">  
+									<div class="pull-right">
+									  <a type="submit" class="btn btn-primary btn-cons" href="building-edit.html"><i class="fa fa-plus-circle"></i> Create</a>
+									  <a type="submit" class="btn btn-default btn-cons" href="floor-layout.html"><i class="fa fa-ban"></i> Cancel</a>
+									</div>
+								</div>
+							
+						</div>
+					</div>
+					</div>
+
 					<!-- END PLACE PAGE CONTENT HERE -->
 				</div>
 			</div>
@@ -295,7 +328,7 @@
 
 		<script src="../../bower_components/bootstrap-file-input/bootstrap.file-input.js" type="text/javascript"></script>
 
-		<!-- END PAGE LEVEL PLUGINS -->  	
+		<!-- END PAGE LEVEL PLUGINS --> 	
 
 		<!-- BEGIN CORE TEMPLATE JS --> 
 		<script src="../../plugins/dashboard-theme-core/core.js" type="text/javascript"></script> 
@@ -306,9 +339,33 @@
 		<!-- END NEED TO WORK ON -->
 
 		<script type="text/javascript">
-			$("#status").select2();
-			$("#unit_types").select2();
+			$("#bldg_phase").select2();
+			$("#bldg_milestone").select2();
+			$("#buildings").select2();
+			$("#floor").select2();
+			$("#floor_2").select2();
+			$("#floor_3").select2();
+			$("#floor_4").select2();
 		</script>
+
+		/* Modal */
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 	</body>
 </html>
