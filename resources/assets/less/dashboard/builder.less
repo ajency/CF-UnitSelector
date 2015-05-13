@@ -24,7 +24,9 @@ Version:        0.1.0
 @dark-blue: #29333F;
 @error-red: #ff3333;
 @color-white:#fff;
-
+@color-light-pink:#D3A0D1;
+@color-light-green:#9DCA5B;
+@color-beige:#F5BF48;
 body{
 	font-size:14px;
 	line-height: 1.2;
@@ -33,6 +35,28 @@ body{
 		overflow: hidden;
 		max-height: 100vh;
 	}
+}
+/* Custom Styles*/
+.sold{
+	background: @color-light-pink;
+	 border: 2px solid @error-red;
+	 opacity:0.5;
+}
+.available{
+	background: @color-light-green;
+	 border: 2px solid @error-red;
+	  opacity:0.5;
+}
+.marked{
+	 background: #0B0D0F;
+	 border: 2px solid @error-red;
+
+	 opacity:0.5;
+}
+.not_in_selection{
+	background: @color-white;
+	border: 2px solid @error-red;
+	opacity:0.5;
 }
 /* Custom Styles*/
 .tags{
@@ -46,38 +70,38 @@ body{
     }
 .tag-sold{
 width: 33px;
- background: #D3A0D1;
+ background: @color-light-pink;
   height: 13px;
   display: inline-block;
-  border: 2px solid #FF1414;
+  border: 2px solid @error-red;
 	}
 	.tag-available{
   width: 33px;
-  background: #9DCA5B;
+  background: @color-light-green;
   height: 13px;
   display: inline-block;
-  border: 2px solid #FF1414;
+  border: 2px solid @error-red;
 	}
 	.tag-blocked{
     width: 33px;
-  background: #F5BF48;
+  background: @color-beige;
   height: 13px;
   display: inline-block;
-  border: 2px solid #FF1414;
+  border: 2px solid @error-red;
 	}
 	.tag-not{
     width: 33px;
-  background: #fff;
+  background: @color-white;
   height: 13px;
   display: inline-block;
-  border: 2px solid #FF1414;
+  border: 2px solid @error-red;
 	}
 	.tag-marked{
     width: 33px;
   background: #0B0D0F;
   height: 13px;
   display: inline-block;
-  border: 2px solid #FF1414;
+  border: 2px solid @error-red;
 	}
 }
 .marker-modal{
@@ -198,7 +222,7 @@ a {
 /****Dropdown Menu Styles****/
 .dropdown-menu {
 	border-radius: 0;
-	background: #fff;
+	background: @color-white;
 	box-shadow: 1px 1px 3px 1px @dash-grey;
 	display: none;
 	li {
@@ -210,9 +234,9 @@ a {
 			}
 			&:hover {
 				background: @blue-grey;
-				color: #fff;
+				color: @color-white;
 				.text {
-					color: #fff;
+					color: @color-white;
 				}
 			}
 		}
@@ -220,7 +244,7 @@ a {
 			a {
 				background: @orange;
 				.text {
-					color: #fff;
+					color: @color-white;
 				}
 				&:hover {
 					background: @blue-grey;
@@ -294,7 +318,7 @@ a {
 				background: @orange;
 				transition-duration: 0.6s;
 				.glyphicon {
-					color: #fff;
+					color:@color-white;
 				}
 			}
 			
@@ -322,7 +346,7 @@ a {
 					background: transparent;
 					border: 0;
 					border-bottom: 2px solid @orange;
-					color: #fff;
+					color: @color-white;
 				}
 			}
 		}
@@ -372,7 +396,7 @@ a {
 					background: @orange;
 					transition-duration: 0.6s;
 					a {
-						color: #fff;
+						color: @color-white;
 						background: rgba(0, 0, 0, 0);
 					}
 				}
