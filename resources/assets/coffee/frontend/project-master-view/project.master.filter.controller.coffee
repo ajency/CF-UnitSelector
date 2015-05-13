@@ -68,7 +68,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 					                        </div>
 
 					                        <div class="filters-bottom clearfix">
-					                        	<a href="javascript:void(0)"  class="text-primary pull-left m-b-10"><span class="icon-cross"></span> Clear Filters </a>
+					                        	<a href="javascript:void(0)"  class="text-primary pull-left m-b-10"><span class="icon-cross clear"></span> Clear Filters </a>
 					                        	<a href="javascript:void(0)" data-toggle="collapse" data-target="#collapsefilters" class="text-primary pull-right m-b-10"><span class="icon-chevron-up"></span> Close </a>
 					                        </div>
 											
@@ -89,8 +89,16 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		area : '#area'
 		budget : '#budget'
 		types : '.types'
+		clear : '.clear'
 
 	events:
+		'click @ui.clear':(e)->
+			$.each CommonFloor.defaults,(index,value)->
+				CommonFloor.defaults[index] = ""
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			@loadSelectedFilters()
+
 		'click @ui.types':(e)->
 			window.unitTypes = []
 			window.unitVariants = []
@@ -99,9 +107,9 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 				if index != 'type'
 						CommonFloor.defaults[index] = ""
 			if $(e.currentTarget).is(':checked')
-				window.type.push e.target.id
+				window.type.push $(e.target).val()
 			else
-				window.type = _.without window.type ,e.target.id
+				window.type = _.without window.type ,$(e.target).val()
 			CommonFloor.defaults['type'] = window.type.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
@@ -186,22 +194,14 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 		min = _.min areaArray
 		max = _.max areaArray
-		window.area.destroy()
-		window.price.destroy()
-		$("#area").ionRangeSlider(
-		    type: "double",
-		    min: min,
-		    max: max,
-		    grid: false
+		
+		window.area.update(
+		   from : min
+		   to  : max
 		)
-		$("#budget").ionRangeSlider(
-		    type: "double",
-		    min: priceMin,
-		    max: priceMax,
-		    grid: false
-		    prettify :(num)->
-		    	return window.numDifferentiation(num)
-
+		window.price.update(
+		   from : priceMin
+		   to  : priceMax
 		)
 		$(@ui.unitTypes).each (ind,item)->
 			$('#'+item.id).attr('disabled',false)
@@ -240,22 +240,13 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 		min = _.min areaArray
 		max = _.max areaArray
-		window.area.destroy()
-		window.price.destroy()
-		$("#area").ionRangeSlider(
-		    type: "double",
-		    min: min,
-		    max: max,
-		    grid: false
+		window.area.update(
+		   from : min
+		   to  : max
 		)
-		$("#budget").ionRangeSlider(
-		    type: "double",
-		    min: priceMin,
-		    max: priceMax,
-		    grid: false
-		    prettify :(num)->
-		    	return window.numDifferentiation(num)
-
+		window.price.update(
+		   from : priceMin
+		   to  : priceMax
 		)
 		$(@ui.unitTypes).each (ind,item)->
 			$('#'+item.id).attr('checked',false)
@@ -295,22 +286,14 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 		min = _.min areaArray
 		max = _.max areaArray
-		window.area.destroy()
-		window.price.destroy()
-		$("#area").ionRangeSlider(
-		    type: "double",
-		    min: min,
-		    max: max,
-		    grid: false
+		
+		window.area.update(
+		   from : min
+		   to  : max
 		)
-		$("#budget").ionRangeSlider(
-		    type: "double",
-		    min: priceMin,
-		    max: priceMax,
-		    grid: false
-		    prettify :(num)->
-		    	return window.numDifferentiation(num)
-
+		window.price.update(
+		   from : priceMin
+		   to  : priceMax
 		)
 		$(@ui.unitTypes).each (ind,item)->
 			$('#'+item.id).attr('checked',false)
@@ -338,7 +321,12 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 	onShow:->
 		types = Marionette.getOption(@,'types')
-
+		flag = 0
+		$.each CommonFloor.defaults,(index,value)->
+				if CommonFloor.defaults[index] != ""
+					flag = 1
+		if flag == 1
+			$('#collapsefilters').collapse('show')
 		if types.length == 1
 			$('.property_type').hide()
 		@loadSelectedFilters()
@@ -363,7 +351,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		$.each types,(index,value)->
 			if value == 'Villas'
 				$.merge unitsArr, bunglowVariantMasterCollection.getBunglowMasterUnits()
-			if value == 'Apartments'
+			if value == 'Apartments/Penthouse'
 				$.merge unitsArr, apartmentVariantMasterCollection.getApartmentMasterUnits()
 			if value == 'Plots'
 				$.merge unitsArr, plotVariantMasterCollection.getPlotMasterUnits()
@@ -381,8 +369,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			budget.push parseFloat unitDetails[3]
 			area.push parseFloat unitDetails[0].get 'super_built_up_area'
 			
-		console.log unitTypes
-		console.log unittypesColl = _.uniq unittypesColl
+		unittypesColl = _.uniq unittypesColl
 		$(@ui.unitTypes).each (ind,item)->
 			$('#'+item.id).attr('checked',true)
 			$('#'+item.id).attr('disabled',false)
@@ -418,6 +405,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		priceMax = _.max budget		
 		subBudget = (priceMax - priceMin)/ 20
 		subBudget = subBudget.toFixed(0)
+		
 		$("#area").ionRangeSlider(
 		    type: "double",
 		    min: min,
@@ -435,6 +423,17 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		    	return window.numDifferentiation(num)
 
 		)
+		window.price = $("#budget").data("ionRangeSlider")
+		window.area = $("#area").data("ionRangeSlider")
+		window.area.update(
+		   from : min
+		   to  : max
+		)
+		window.price.update(
+		   from : priceMin
+		   to  : priceMax
+		)
+
 		min = _.min CommonFloor.defaults['area_min']
 		max = _.max CommonFloor.defaults['area_max']
 		subArea = (max - min)/ 20 
@@ -443,32 +442,20 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		priceMax = _.max CommonFloor.defaults['price_max']		
 		subBudget = (priceMax - priceMin)/ 20
 		subBudget = subBudget.toFixed(0)
-		if CommonFloor.defaults['area_min'] != "" && CommonFloor.defaults['area_min'] != ""
-			$("#area").ionRangeSlider(
-			    type: "double",
-			    min: min,
-			    max: max,
-			    grid: false,
-			    step : subArea
-			)
-		if CommonFloor.defaults['price_min'] != "" && CommonFloor.defaults['price_max'] != ""
-			$("#budget").ionRangeSlider(
-			    type: "double",
-			    min: priceMin,
-			    max: priceMax,
-			    grid: false,
-		    	step : subBudget,
-			    prettify :(num)->
-			    	return window.numDifferentiation(num)
 
-			)
+		if CommonFloor.defaults['area_min'] != "" && CommonFloor.defaults['area_min'] != ""
+			window.area.update(
+			   from : min
+			   to  : max
+		)
+		if CommonFloor.defaults['price_min'] != "" && CommonFloor.defaults['price_max'] != ""
+			window.price.update(
+			   from : priceMin
+			   to  : priceMax
+		)
 		@ui.status.prop('checked',false)
 		if CommonFloor.defaults['availability'] != "" 
 			 @ui.status.prop('checked',true)
-
-		window.price = $("#budget").data("ionRangeSlider")
-		window.area = $("#area").data("ionRangeSlider")
-				
 
 		
 		
@@ -581,7 +568,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 									'id' : item.get 'unit_type_id'
 				type = 'A'
 				if window.propertyTypes[unitTypeModel.get('property_type_id')] == 'Penthouse'
-						type = 'P'
+						type = 'PH'
 				if $.inArray(item.get('unit_type_id'),unit_types) == -1
 					unit_types.push parseInt unitTypeModel.get 'id'
 					

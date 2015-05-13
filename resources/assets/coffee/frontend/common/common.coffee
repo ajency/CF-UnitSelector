@@ -258,7 +258,7 @@ CommonFloor.resetProperyType = (param)->
 	$.each param_val_arr, (index,value)->
 		if value == 'Villas'
 			$.merge collection , bunglowVariantCollection.getBunglowUnits()
-		if value == 'Apartments'
+		if value == 'Apartments/Penthouse'
 			$.merge collection , apartmentVariantCollection.getApartmentUnits()
 		if value == 'Plots'
 			$.merge collection , plotVariantCollection.getPlotUnits()
@@ -268,9 +268,9 @@ CommonFloor.resetProperyType = (param)->
 CommonFloor.applyFliterClass = ()->
 	CommonFloor.applyPlotClasses()
 	CommonFloor.applyVillaClasses()
-	console.log actualunits = _.pluck unitMasterCollection.toArray() ,'id'
-	console.log filterunits = _.pluck unitCollection.toArray() ,'id'
-	console.log notSelecteUnits = _.difference actualunits , filterunits
+	actualunits = _.pluck unitMasterCollection.toArray() ,'id'
+	filterunits = _.pluck unitCollection.toArray() ,'id'
+	notSelecteUnits = _.difference actualunits , filterunits
 	$('.villa').each (ind,item)->
 		id = parseInt item.id
 		if $.inArray(id , notSelecteUnits) > -1
@@ -458,20 +458,26 @@ CommonFloor.getApartmentFilters = ()->
 					if !_.isUndefined apartmentVariantMasterCollection.get(parseInt(value))
 						unit_variant = apartmentVariantMasterCollection.findWhere
 									'id' : parseInt value
-
+						unitTypeModel = unitTypeMasterCollection.findWhere
+									'id' : parseInt unit_variant.get('id')
+						type = 'A'
+						if window.propertyTypes[unitTypeModel.get('property_type_id')] == 'Penthouse'
+								type = 'PH'
 						unitVariants.push 
 									'name'	: unit_variant.get 'unit_variant_name'
-									'type'	: '(A)'
+									'type'	: '('+type+')'
 									'classname' : 'variant_names'
 									'id' : unit_variant.get 'id'
 									'id_name' : 'filter_varinat_name'+unit_variant.get 'id'
 				if value != "" && ind == 'unitTypes' && $.inArray(parseInt(value),apartmentVariantMasterCollection.getApartmentUnitTypes()) > -1
 					unit_type = unitTypeMasterCollection.findWhere
 									'id' : parseInt value
-
+					type = 'A'
+					if window.propertyTypes[unit_type.get('property_type_id')] == 'Penthouse'
+								type = 'PH'
 					unitTypes.push 
 								'name' : unit_type.get 'name'
-								'type'	: '(A)'
+								'type'	: '('+type+')'
 								'classname' : 'unit_types'
 								'id' : unit_type.get 'id'
 								'id_name' : 'filter_unit_type'+unit_type.get 'id'

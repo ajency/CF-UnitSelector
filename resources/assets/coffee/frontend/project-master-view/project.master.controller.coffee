@@ -101,7 +101,7 @@ class TopMasterView extends Marionette.ItemView
 			
 			if $(e.target).attr('data-id') == 'Villas'
 				@removeVillaFilters()
-			if $(e.target).attr('data-id') == 'Apartments'
+			if $(e.target).attr('data-id') == 'Apartments/Penthouse'
 				@removeAptFilters()
 			if $(e.target).attr('data-id') == 'Plots'
 				@removePlotFilters()
@@ -152,7 +152,9 @@ class TopMasterView extends Marionette.ItemView
 	onShow:->
 		if CommonFloor.router.history.length == 1
 			@ui.unitBack.hide()
-
+		response = CommonFloor.propertyTypes() 
+		if response.length == 0
+			$('.proj-type-count').text 'No results found'
 
 	removeVillaFilters:->
 		variants = []
@@ -522,7 +524,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						</div>
 						<a href="#unit-view/'+id+'" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a>
 					</div>'
-			
+			CommonFloor.router.storeRoute()
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
 			$('.layer').tooltipster('content', html)
@@ -581,7 +583,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 							<a href="#unit-view/'+id+'" class="icon-chevron-right pull-right">To Move forward Click Here</a>
 						</div> 
 					</div>'
-			
+			CommonFloor.router.storeRoute()
 			$('#'+id).attr('class' ,'layer plot '+availability) 
 			$('#unit'+id).attr('class' ,'bldg blocks active') 
 			$('.layer').tooltipster('content', html)

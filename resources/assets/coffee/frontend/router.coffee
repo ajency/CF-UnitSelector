@@ -3,7 +3,7 @@ _.extend Marionette.AppStates::,
 	history : []
 
 	storeRoute:->
-		console.log url = Backbone.history.fragment
+		url = Backbone.history.fragment
 		if $.inArray(url, @history ) == -1
 			@history.push Backbone.history.fragment
 

@@ -46,7 +46,7 @@
       return TopApartmentView.__super__.constructor.apply(this, arguments);
     }
 
-    TopApartmentView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> Back to Poject Overview </a> </div> <h2 class="proj-name">{{project_title}}</h2> </div> </div> </div> <div class="filter-summary-area"> <button class="btn btn-primary cf-btn-white pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters"> Filters <span class="icon-funnel"></span> </button> <div class="pull-left filter-result"> {{#each  filters}} {{#each this}} <div class="filter-pill"  > {{this.name}}{{this.type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div> {{/each}}{{/each }} </div> <div class="proj-type-count"> {{#types}} <p class="pull-right">{{type}}</p><h1 class="text-primary pull-right m-t-10">{{count.length}}</h1> {{/types}} </div> <div class="clearfix"></div> </div>');
+    TopApartmentView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> Back to Poject Overview </a> </div> <h2 class="proj-name">{{project_title}}</h2> </div> </div> </div> <div class="filter-summary-area"> <button class="btn btn-primary cf-btn-white pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters"> Filters <span class="icon-funnel"></span> </button> <div class="pull-left filter-result"> {{#each  filters}} {{#each this}} <div class="filter-pill"  > {{this.name}}{{this.type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div> {{/each}}{{/each }} </div> <div class="proj-type-count"> {{#results}} <p class="pull-right">{{type}}</p><h1 class="text-primary pull-right m-t-10">{{count.length}}</h1> {{/results}} </div> <div class="clearfix"></div> </div>');
 
     TopApartmentView.prototype.ui = {
       unitBack: '.unit_back',
@@ -77,6 +77,11 @@
         'click @ui.unitBack': function(e) {
           var previousRoute;
           e.preventDefault();
+          $.each(CommonFloor.defaults, function(index, value) {
+            return CommonFloor.defaults[index] = "";
+          });
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
           previousRoute = CommonFloor.router.previous();
           return CommonFloor.navigate('/' + previousRoute, true);
         },
@@ -122,8 +127,13 @@
     };
 
     TopApartmentView.prototype.onShow = function() {
+      var results;
       if (CommonFloor.router.history.length === 1) {
-        return this.ui.unitBack.hide();
+        this.ui.unitBack.hide();
+      }
+      results = CommonFloor.getFilters()[1];
+      if (results.length === 0) {
+        return $('.proj-type-count').text('No results found');
       }
     };
 

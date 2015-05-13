@@ -50,9 +50,9 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 					                      	{{/each}}{{/each }}							               
 					                    </div>
 					        			<div class="proj-type-count">
-					        				{{#types}} 
+					        				{{#results}} 
 					        				<p class="pull-right">{{type}}</p><h1 class="text-primary pull-right m-t-10">{{count.length}}</h1> 
-					        				{{/types}}
+					        				{{/results}}
 					        			</div>
 
 					        			<div class="clearfix"></div>
@@ -82,6 +82,10 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 	events:->
 		'click @ui.unitBack':(e)->
 			e.preventDefault()
+			$.each CommonFloor.defaults,(index,value)->
+				CommonFloor.defaults[index] = ""
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
 			previousRoute = CommonFloor.router.previous()
 			CommonFloor.navigate '/'+previousRoute , true
 
@@ -126,6 +130,9 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 	onShow:->
 		if CommonFloor.router.history.length == 1
 			@ui.unitBack.hide()
+		results  = CommonFloor.getFilters()[1]
+		if results.length == 0
+			$('.proj-type-count').text 'No results found'
 
 
 	
