@@ -136,7 +136,7 @@
       </div>
    </div>
    <div id="elements-box-region">
-      <div id="controls-drag" class="aj-imp-drag-menu open" style="position: fixed; line-height: 1; height: 600px; top: 80px; left: -3px;">
+      <div id="controls-drag" class="aj-imp-drag-menu open hidden" style="position: fixed; line-height: 1; height: 600px; top: 80px; left: -3px;">
          <div class="handle" style="display: block; outline: none; position: absolute; top: 0px; right: -36px;"><span class="bicon icon-uniF162"><i class="fa fa-comments"></i></span></div>
          <!-- element box description-->
          <!-- <p class="desc move-cursor">
@@ -153,43 +153,43 @@
          <!-- tab type-->
          
          <!-- tab content-->
-         <div class="help-bar">
+         <div class="help-bar ">
             <!-- #content elements-->
             <div id="content-elements">
                <ul class="aj-imp-builder-items clearfix">
-                  <li class="element polygon" data-element="Text">
+                  <li class="element polygon hidden" data-element="Text">
                      <a href="#" class="drag builder-element">
                         <div class="aj-imp-builder-icon bicon icon-uniF111"></div>
                         <div class="aj-imp-builder-title">POLYGON</div>
                      </a>
                     
                   </li>
-                  <li class="element rectangle" data-element="Title">
+                  <li class="element rectangle hidden" data-element="Title">
                      <a href="#" class="drag builder-element">
                         <div class="aj-imp-builder-icon bicon icon-uniF11C"></div>
                         <div class="aj-imp-builder-title">RECTANGLE</div>
                      </a>
                   </li>
-                  <li class="element square" data-element="Image">
+                  <li class="element square hidden" data-element="Image">
                      <a href="#" class="drag builder-element">
                         <div class="aj-imp-builder-icon bicon icon-uniF10E"><i class="fa fa-square-o"></i></div>
                         <div class="aj-imp-builder-title">SQUARE</div>
                      </a>
                      
                   </li>
-                  <li class="element circle" data-element="ImageWithText">
+                  <li class="element circle hidden" data-element="ImageWithText">
                      <a href="#" class="drag builder-element">
                         <div class="aj-imp-builder-icon bicon icon-uniF112"><i class="fa fa-circle-o"></i></div>
                         <div class="aj-imp-builder-title">CIRCLE</div>
                      </a>
                   </li>
-                  <li class="element marker" data-element="Table">
+                  <li class="element marker hidden " data-element="Table">
                      <a href="#" class="drag builder-element" data-toggle="modal" data-target=".bs-example-modal-sm">
                         <div class="aj-imp-builder-icon bicon icon-uniF166"><i class="fa fa-map-marker"></i></div>
                         <div class="aj-imp-builder-title">MARKER 1</div>
                      </a>
                   </li>
-                  <li class="element marker" data-element="Link">
+                  <li class="element marker hidden" data-element="Link">
                      <a href="#" class="drag builder-element"  data-toggle="modal" data-target=".bs-example-modal-sm">
                         <div class="aj-imp-builder-icon bicon icon-uniF149"><i class="fa fa-map-marker"></i></div>
                         <div class="aj-imp-builder-title">MARKER 2</div>
@@ -334,8 +334,9 @@
 <script src="{{ asset('bower_components/svg.js/dist/svg.min.js' )}}"></script>
 <script src="{{ asset('js/svg.parser.min.js' )}}"></script>
 <script src="{{ asset('js/svg.import.min.js' )}}"></script>
+<script src="{{ asset('js/svg.draggable.min.js' )}}"></script>
 <script src="{{ asset('js/jquery.canvasAreaDraw.min.js' )}}"></script>
-
+<script src="{{ asset('js/authoring-tool/common.js' )}}"></script>
 <script src="{{ asset('js/authoring-tool/entities/polygon.entity.js' )}}"></script>
 <script src="{{ asset('js/authoring-tool/svg.authoring.controller.js' )}}"></script>
 <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}" type="text/javascript"></script>

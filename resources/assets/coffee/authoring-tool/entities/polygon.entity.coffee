@@ -4,7 +4,7 @@
 #event handler functions
 #3.Function to duplicate a polygon
 
-
+#model for Polygon
 class Polygon extends Backbone.Model
 
 	initialize:->
@@ -12,12 +12,13 @@ class Polygon extends Backbone.Model
 		@pointList = []
 
 	createPolgyonTag:(item)->
+		@pointList = []
 		@node = document.createElementNS('http://www.w3.org/2000/svg','polygon')
 		@points(item.points)
-		@addClass(item.details.class)
+		@attribute('class',item.details.class)
 		@node
 		
-		
+	
 	attribute:(key,val)->
 		if val == undefined
 			return false
@@ -40,14 +41,11 @@ class Polygon extends Backbone.Model
 			i+=2
 		@attribute('points',@build(@pointList))
 	
-	addClass:(classname)->
-		if classname == undefined || classname == null
-			return false
-		@node.setAttribute('class',classname)
-
 	
 	
 	
 
 
 window.polygon = new Polygon
+
+	

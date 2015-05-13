@@ -1,6 +1,7 @@
 (function() {
   jQuery(document).ready(function($) {
-    var draw, s, str;
+    var s, str;
+    window.draw = SVG('aj-imp-builder-drag-drop');
     window.svgData = {
       'image': '',
       'data': [
@@ -12,7 +13,7 @@
           'details': {
             'class': 'marked'
           },
-          'points': [208, 221, 208, 202, 198, 199, 201, 191, 218, 176, 229, 155, 221, 132, 196, 117, 169, 131, 157, 158, 163, 172, 177, 164, 173, 180, 190, 185, 192, 199, 187, 201, 185, 222]
+          'points': ["197.333", "566.667 199.333", "495.333 206.667", "490 207.333", "479.333 218", "472.667 218", "456 230.667", "448.667 267.333", "454 267.333", "474.667 283.333", "477.333 281.333", "517.333 275.333", "519.333 275.333", "587"]
         }, {
           'id': 2,
           'type': 'villa',
@@ -28,7 +29,7 @@
           'details': {
             'class': 'marked'
           },
-          'points': [208, 221, 208, 202, 198, 199, 201, 191, 218, 176, 229, 155, 221, 132, 196, 117, 169, 131, 157, 158, 163, 172, 177, 164, 173, 180, 190, 185, 192, 199, 187, 201, 185, 222]
+          'points': ["307.333", "459.333 293.333", "468 294", "482.667 284", "490 281.333", "517.333 275.333", "519.333 275.333", "587 341.333", "602.667 342.667", "580 356.667", "570.667 358", "489.333 343.333", "488 342.667", "463.333"]
         }, {
           'id': 4,
           'type': 'villa',
@@ -44,7 +45,7 @@
           'details': {
             'class': 'marked'
           },
-          'points': [208, 221, 208, 202, 198, 199, 201, 191, 218, 176, 229, 155, 221, 132, 196, 117, 169, 131, 157, 158, 163, 172, 177, 164, 173, 180, 190, 185, 192, 199, 187, 201, 185, 222]
+          'points': ["382.665", "469.999 369.332", "479.999 370.665", "495.332 361.998", "501.999 356.667", "570.667 342.667", "580 341.333", "602.667 421.332", "615.999 419.998", "590.666 435.998", "582.666 435.998", "514.666 449.332", "505.332 450.665", "489.332 419.665", "485.332 420.665", "474.666"]
         }
       ],
       'supported_types': ['polygon']
@@ -66,6 +67,7 @@
         if (value.canvas_type === 'polygon') {
           tag = window.polygon.createPolgyonTag(value);
           if (tag !== "") {
+            window.makeDraggable();
             rawSvg.appendChild(tag);
           }
         }
@@ -77,16 +79,26 @@
     window.createImageTag = function() {
       var svgimg;
       svgimg = document.createElementNS('http://www.w3.org/2000/svg', 'image');
-      svgimg.setAttributeNS(null, 'height', '1600');
-      svgimg.setAttributeNS(null, 'width', '1600');
+      svgimg.setAttributeNS(null, 'height', '100%');
+      svgimg.setAttributeNS(null, 'width', '100%');
       svgimg.setAttributeNS('http://www.w3.org/1999/xlink', 'href', svgImg);
       svgimg.setAttributeNS(null, 'x', '10');
       svgimg.setAttributeNS(null, 'y', '10');
       svgimg.setAttributeNS(null, 'visibility', 'visible');
       return rawSvg.appendChild(svgimg);
     };
+    window.createPanel = function(data) {
+      return $.each(data, function(index, value) {
+        return $('.' + value).removeClass('hidden');
+      });
+    };
+    window.makeDraggable = function(data) {
+      var element;
+      element = draw.polygon(data);
+      return element.draggable();
+    };
+    window.createPanel(window.svgData.supported_types);
     window.createSvg(window.svgData.data);
-    draw = SVG('aj-imp-builder-drag-drop');
     s = new XMLSerializer();
     str = s.serializeToString(rawSvg);
     return draw.svg(str);

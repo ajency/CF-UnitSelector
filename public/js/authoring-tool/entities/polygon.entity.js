@@ -16,9 +16,10 @@
     };
 
     Polygon.prototype.createPolgyonTag = function(item) {
+      this.pointList = [];
       this.node = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
       this.points(item.points);
-      this.addClass(item.details["class"]);
+      this.attribute('class', item.details["class"]);
       return this.node;
     };
 
@@ -50,13 +51,6 @@
         i += 2;
       }
       return this.attribute('points', this.build(this.pointList));
-    };
-
-    Polygon.prototype.addClass = function(classname) {
-      if (classname === void 0 || classname === null) {
-        return false;
-      }
-      return this.node.setAttribute('class', classname);
     };
 
     return Polygon;
