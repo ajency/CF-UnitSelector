@@ -524,7 +524,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						</div>
 						<a href="#unit-view/'+id+'" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a>
 					</div>'
-			CommonFloor.router.storeRoute()
+			
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
 			$('.layer').tooltipster('content', html)
@@ -583,7 +583,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 							<a href="#unit-view/'+id+'" class="icon-chevron-right pull-right">To Move forward Click Here</a>
 						</div> 
 					</div>'
-			CommonFloor.router.storeRoute()
+			
 			$('#'+id).attr('class' ,'layer plot '+availability) 
 			$('#unit'+id).attr('class' ,'bldg blocks active') 
 			$('.layer').tooltipster('content', html)

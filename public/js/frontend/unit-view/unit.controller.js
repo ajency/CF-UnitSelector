@@ -72,6 +72,7 @@
     };
 
     TopUnitView.prototype.onShow = function() {
+      CommonFloor.router.storeRoute();
       if (CommonFloor.router.history.length === 1) {
         return this.ui.unitBack.hide();
       }

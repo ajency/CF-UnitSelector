@@ -56,6 +56,7 @@ class TopUnitView extends Marionette.ItemView
 			CommonFloor.navigate '/'+previousRoute , true
 
 	onShow:->
+		CommonFloor.router.storeRoute()
 		if CommonFloor.router.history.length == 1
 			@ui.unitBack.hide()
 
