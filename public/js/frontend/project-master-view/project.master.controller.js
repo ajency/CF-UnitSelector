@@ -558,7 +558,7 @@
       var breakpoints, first, height, svgs, that, transitionImages;
       $('img').lazyLoadXT();
       height = this.ui.svgContainer.width() / 2;
-      $('.units').css('height', height - 380);
+      $('.units').css('height', height - 310);
       $('#spritespin').hide();
       that = this;
       transitionImages = [];
@@ -652,7 +652,7 @@
         onlyOne: true,
         arrow: false,
         offsetX: 50,
-        offsetY: -20,
+        offsetY: -10,
         interactive: true,
         trigger: 'hover'
       });
@@ -663,8 +663,8 @@
       return $panzoom = $('.master').panzoom({
         contain: 'invert',
         minScale: 1,
-        maxScale: 2,
-        increment: 0.2,
+        maxScale: 2.4,
+        increment: 0.4,
         $zoomIn: $('.zoom-in'),
         $zoomOut: $('.zoom-out')
       });
