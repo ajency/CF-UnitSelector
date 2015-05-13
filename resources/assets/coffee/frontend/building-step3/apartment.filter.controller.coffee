@@ -299,6 +299,9 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			    	return window.numDifferentiation(num)
 
 			)
+		@ui.status.prop('checked',false)
+		if CommonFloor.defaults['availability'] != "" 
+			 @ui.status.prop('checked',true)
 		window.price = $("#budget").data("ionRangeSlider")
 		window.area = $("#area").data("ionRangeSlider")
 		
@@ -344,6 +347,8 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 		unitVariants = []
 		unitVariantNames = []
 		budget = []
+		url = Backbone.history.fragment
+		building_id = parseInt url.split('/')[1]
 		apartmentVariantMasterCollection.each (item)->
 			units = unitMasterCollection.where 
 						'unit_variant_id' : item.get('id')

@@ -261,6 +261,10 @@
           }
         });
       }
+      this.ui.status.prop('checked', false);
+      if (CommonFloor.defaults['availability'] !== "") {
+        this.ui.status.prop('checked', true);
+      }
       window.price = $("#budget").data("ionRangeSlider");
       return window.area = $("#area").data("ionRangeSlider");
     };
@@ -307,13 +311,15 @@
     };
 
     FilterApartmentCtrl.prototype.getApartmentFilters = function() {
-      var budget, filters, unitTypes, unitVariantNames, unitVariants, unit_types, unitsArr;
+      var budget, building_id, filters, unitTypes, unitVariantNames, unitVariants, unit_types, unitsArr, url;
       filters = [];
       unitTypes = [];
       unit_types = [];
       unitVariants = [];
       unitVariantNames = [];
       budget = [];
+      url = Backbone.history.fragment;
+      building_id = parseInt(url.split('/')[1]);
       apartmentVariantMasterCollection.each(function(item) {
         var unitTypeModel, units;
         units = unitMasterCollection.where({

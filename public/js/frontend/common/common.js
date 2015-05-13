@@ -250,9 +250,9 @@
         param_key = element.split('=');
         CommonFloor.defaults[param_key[0]] = param_key[1];
       }
-      params = 'type:' + CommonFloor.defaults['type'] + '&unit_variant_id:' + CommonFloor.defaults['unitVariants'] + '&unit_type_id:' + CommonFloor.defaults['unitTypes'] + '&price_min:' + CommonFloor.defaults['price_min'] + '&price_max:' + CommonFloor.defaults['price_max'] + '&availability:' + CommonFloor.defaults['availability'] + '&area_min:' + CommonFloor.defaults['area_min'] + '&area_max:' + CommonFloor.defaults['area_max'];
+      params = 'type:' + CommonFloor.defaults['type'] + '&unit_variant_id:' + CommonFloor.defaults['unitVariants'] + '&unit_type_id:' + CommonFloor.defaults['unitTypes'] + '&price_min:' + CommonFloor.defaults['price_min'] + '&price_max:' + CommonFloor.defaults['price_max'] + '&availability:' + CommonFloor.defaults['availability'] + '&area_min:' + CommonFloor.defaults['area_min'] + '&area_max:' + CommonFloor.defaults['area_max'] + '&building_id:' + CommonFloor.defaults['building'];
     } else {
-      params = 'type:' + CommonFloor.defaults['type'] + '&unit_variant_id:' + CommonFloor.defaults['unitVariants'] + '&unit_type_id:' + CommonFloor.defaults['unitTypes'] + '&price_min:' + CommonFloor.defaults['price_min'] + '&price_max:' + CommonFloor.defaults['price_max'] + '&availability:' + CommonFloor.defaults['availability'] + '&area_min:' + CommonFloor.defaults['area_min'] + '&area_max:' + CommonFloor.defaults['area_max'];
+      params = 'type:' + CommonFloor.defaults['type'] + '&unit_variant_id:' + CommonFloor.defaults['unitVariants'] + '&unit_type_id:' + CommonFloor.defaults['unitTypes'] + '&price_min:' + CommonFloor.defaults['price_min'] + '&price_max:' + CommonFloor.defaults['price_max'] + '&availability:' + CommonFloor.defaults['availability'] + '&area_min:' + CommonFloor.defaults['area_min'] + '&area_max:' + CommonFloor.defaults['area_max'] + '&building_id:' + CommonFloor.defaults['building'];
     }
     param_arr = params.split('&');
     $.each(param_arr, function(index, value) {
@@ -397,7 +397,7 @@
   };
 
   CommonFloor.getFilters = function() {
-    var apartmentFilters, area, area_max, area_min, filters, max_price, min_price, plotFilters, price, results, type, typeArr, unitTypes, unitVariants, villaFilters;
+    var apartmentFilters, area, area_max, area_min, filters, max_price, min_price, plotFilters, price, results, status, type, typeArr, unitTypes, unitVariants, villaFilters;
     unitTypes = [];
     unitVariants = [];
     results = [];
@@ -413,6 +413,7 @@
     price = [];
     area = [];
     type = [];
+    status = [];
     results.push({
       'type': 'Villa(s)',
       'count': villaFilters.count
@@ -458,12 +459,21 @@
         });
       });
     }
+    if (CommonFloor.defaults['availability'] !== "") {
+      status.push({
+        'name': 'Available',
+        'classname': 'types',
+        'id': 'available',
+        'id_name': 'filter_available'
+      });
+    }
     filters = {
       'unitTypes': unitTypes,
       'unitVariants': unitVariants,
       'price': price,
       'area': area,
-      'type': type
+      'type': type,
+      'status': status
     };
     $.each(filters, function(index, value) {
       if (value.length === 0) {

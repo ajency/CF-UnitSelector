@@ -215,14 +215,14 @@ CommonFloor.filter = ()->
 		params = 'type:'+CommonFloor.defaults['type']+'&unit_variant_id:'+CommonFloor.defaults['unitVariants']+'&unit_type_id:'+CommonFloor.defaults['unitTypes']+
 				'&price_min:'+CommonFloor.defaults['price_min']+'&price_max:'+CommonFloor.defaults['price_max']+
 				'&availability:'+CommonFloor.defaults['availability']+'&area_min:'+CommonFloor.defaults['area_min']+
-				'&area_max:'+CommonFloor.defaults['area_max']
+				'&area_max:'+CommonFloor.defaults['area_max']+'&building_id:'+CommonFloor.defaults['building']
 	else
 
 		#url doesnt contain any parameters take the value of the defaults
 		params = 'type:'+CommonFloor.defaults['type']+'&unit_variant_id:'+CommonFloor.defaults['unitVariants']+'&unit_type_id:'+CommonFloor.defaults['unitTypes']+
 				'&price_min:'+CommonFloor.defaults['price_min']+'&price_max:'+CommonFloor.defaults['price_max']+
 				'&availability:'+CommonFloor.defaults['availability']+'&area_min:'+CommonFloor.defaults['area_min']+
-				'&area_max:'+CommonFloor.defaults['area_max']
+				'&area_max:'+CommonFloor.defaults['area_max']+'&building_id:'+CommonFloor.defaults['building']
 
 
 	param_arr = params.split('&')
@@ -347,6 +347,7 @@ CommonFloor.getFilters = ()->
 	price = []
 	area = []
 	type= []
+	status= []
 	results.push
 		'type'	: 'Villa(s)'
 		'count' : villaFilters.count
@@ -383,12 +384,18 @@ CommonFloor.getFilters = ()->
 				'classname' : 'types'
 				'id'		: value
 				'id_name' : 'filter_'+value
-	
+	if CommonFloor.defaults['availability'] != ""
+		status.push 
+			'name' : 'Available'
+			'classname' : 'types'
+			'id'		: 'available'
+			'id_name' : 'filter_available'
 	filters = {'unitTypes' : unitTypes
 				,'unitVariants' : unitVariants
 				,'price' : price
 				,'area' : area
-				'type' : type}
+				'type' : type
+				'status' : status}
 	$.each filters,(index,value)->
 		if value.length == 0
 			filters = _.omit(filters, index)
