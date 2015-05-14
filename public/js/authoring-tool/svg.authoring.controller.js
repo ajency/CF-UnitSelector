@@ -1,6 +1,6 @@
 (function() {
   jQuery(document).ready(function($) {
-    var s, str;
+    var s, str, types;
     window.draw = SVG('aj-imp-builder-drag-drop');
     window.svgData = {
       'image': '',
@@ -97,8 +97,46 @@
       element = draw.polygon(data);
       return element.draggable();
     };
+    window.getPendingObjects = function(svgData) {
+      var collection, type, uniqTypes;
+      type = [];
+      collection = new Backbone.Collection(svgData);
+      uniqTypes = _.pluck(svgData, 'type');
+      uniqTypes = _.uniq(uniqTypes);
+      $.each(uniqTypes, function(index, value) {
+        var items, notMarked;
+        items = collection.where({
+          'type': value
+        });
+        notMarked = [];
+        $.each(items, function(ind, val) {
+          if (val.get('canvas_type') === "") {
+            return notMarked.push(val);
+          }
+        });
+        return type.push({
+          'name': value,
+          'id': value,
+          'total': items.length,
+          'unmarked': notMarked.length
+        });
+      });
+      return type;
+    };
+    window.showPendingObjects = function(data) {
+      var html;
+      html = '';
+      $.each(data, function(index, value) {
+        console.log(value);
+        return html += '<input type="checkbox" name="' + value.id + '" id="' + value.id + '" value="">' + value.name + '<strong>Display marked units</strong>' + '<strong class="pull-right" style="line-height:70px;margin-right: 20px;  color: #FF7E00;">' + 'Pending: ' + value.unmarked + ' ' + value.name + '(s) | Total : ' + value.total + ' ' + value.name + '(s)</strong>';
+      });
+      console.log(html);
+      return $('.pending').html(html);
+    };
     window.createPanel(window.svgData.supported_types);
     window.createSvg(window.svgData.data);
+    types = window.getPendingObjects(window.svgData.data);
+    window.showPendingObjects(types);
     s = new XMLSerializer();
     str = s.serializeToString(rawSvg);
     return draw.svg(str);

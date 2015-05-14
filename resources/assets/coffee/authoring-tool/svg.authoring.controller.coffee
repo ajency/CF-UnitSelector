@@ -111,9 +111,42 @@ jQuery(document).ready ($)->
 		element = draw.polygon(data)
 		element.draggable()
 	
+	window.getPendingObjects  = (svgData)->
+		type = []
+		collection = new Backbone.Collection svgData
+		uniqTypes = _.pluck svgData , 'type'
+		uniqTypes = _.uniq uniqTypes
+		$.each uniqTypes ,(index,value)->
+			items = collection.where
+						'type' : value
+			notMarked = []
+			$.each items,(ind,val)->
+				if val.get('canvas_type') == ""
+					notMarked.push val
+
+			type.push
+				'name' : value
+				'id'   : value
+				'total' : items.length
+				'unmarked' : notMarked.length
+
+		type
+
+	window.showPendingObjects = (data)->
+		html = ''
+		$.each data ,(index,value)->
+			console.log value
+			html += '<input type="checkbox" name="'+value.id+'" id="'+value.id+'" value="">'+value.name+
+					'<strong>Display marked units</strong>'+
+					'<strong class="pull-right" style="line-height:70px;margin-right: 20px;  color: #FF7E00;">'+
+					'Pending: '+value.unmarked+' '+value.name+'(s) | Total : '+value.total+' '+value.name+'(s)</strong>'
+		console.log html
+		$('.pending').html html
 
 	window.createPanel(window.svgData.supported_types)
 	window.createSvg(window.svgData.data)
+	types = window.getPendingObjects(window.svgData.data) 
+	window.showPendingObjects(types)
 	s = new XMLSerializer()
 	str = s.serializeToString(rawSvg)
 	draw.svg str

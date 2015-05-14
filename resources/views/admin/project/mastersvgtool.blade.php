@@ -27,11 +27,8 @@
                   <div><small>PREVIEW</small>
                   
                </button>
-               <div>
-               <input type="checkbox" aria-label="...">
-               <strong>Display marked units</strong>
-               <strong class="pull-right" style="line-height:70px;margin-right: 20px;  color: #FF7E00;">
-                  Pending: 46 Villa's | 2 Plot's</strong>
+               <div class='pending'>
+              
                </div>
 
             </div>
@@ -109,8 +106,13 @@
             
             </div> -->
             <!-- browser body-->
+             <div class="zoom-controls">
+											<button id="in" class="zoom-in">in</button>
+											<button id="out" class="zoom-out">out</button>
+										</div>
             <div id="aj-imp-browser-body">
                <!-- TODO: remove inline style-->
+              
                <div id="aj-imp-builder-drag-drop" >
                 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm2">Small modal</button>
                  --><!--  <textarea name="coords2" rows=3 class="area hidden" disabled 
@@ -322,16 +324,13 @@
     </div>
   </div>
 </div>
-<script type="text/javascript">
-	
-	svgImg = '{{$svgImage}}';
 
-</script>
 <script src="{{ asset('bower_components/underscore/underscore-min.js' )}}"></script>
 <script src="{{ asset('bower_components/underscore.string/dist/underscore.string.min.js' )}}"></script>
 <script src="{{ asset('bower_components/backbone/backbone.js' )}}"></script>
 <script src="{{ asset('bower_components/jquery/dist/jquery.min.js' )}}"></script>
 <script src="{{ asset('bower_components/svg.js/dist/svg.min.js' )}}"></script>
+<script src="{{ asset('bower_components/jquery.panzoom/dist/jquery.panzoom.min.js' )}}"></script>
 <script src="{{ asset('js/svg.parser.min.js' )}}"></script>
 <script src="{{ asset('js/svg.import.min.js' )}}"></script>
 <script src="{{ asset('js/svg.draggable.min.js' )}}"></script>
@@ -340,6 +339,19 @@
 <script src="{{ asset('js/authoring-tool/entities/polygon.entity.js' )}}"></script>
 <script src="{{ asset('js/authoring-tool/svg.authoring.controller.js' )}}"></script>
 <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}" type="text/javascript"></script>
+<script type="text/javascript">
+	
+	svgImg = '{{$svgImage}}';
+	panzoom = $('#aj-imp-builder-drag-drop').panzoom({
+			contain: 'invert',
+			minScale: 1,
+			maxScale: 2.4,
+			increment: 0.4,
+			$zoomIn: $('.zoom-in'),
+			$zoomOut: $('.zoom-out')
 
+		})
+
+</script>
 	</body>
 </html>
