@@ -407,6 +407,7 @@
             animate: false
           });
           $('.svg-maps > div').first().css('width', that.ui.svgContainer.width() + 13);
+          $('.first_image').first().css('width', that.ui.svgContainer.width() + 13);
           height = that.ui.svgContainer.width() / 2;
           return $('.units').css('height', height - 120);
         }, 650);
@@ -605,6 +606,7 @@
       $('.first_image').load(function() {
         var response;
         response = project.checkRotationView();
+        $('.first_image').first().css('width', that.ui.svgContainer.width());
         if (response === 1) {
           return $('.cf-loader').removeClass('hidden');
         }

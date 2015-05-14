@@ -384,6 +384,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					animate: false
 				)
 				$('.svg-maps > div').first().css('width',that.ui.svgContainer.width() + 13)
+				$('.first_image').first().css('width',that.ui.svgContainer.width() + 13)
 
 				height= that.ui.svgContainer.width() / 2
 				$('.units').css('height',height-120)
@@ -679,6 +680,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$('.first_image').load ()->
 			
 			response = project.checkRotationView()
+			$('.first_image').first().css('width',that.ui.svgContainer.width())
 			if response is 1
 				$('.cf-loader').removeClass 'hidden'
 		
