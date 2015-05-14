@@ -50,6 +50,12 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 					                                    </div>
 					                                </div>
 					                                <div class="col-sm-4 col-md-4 ">
+					                                    <h5># FLOOR </h5>
+					                                    <div class="range-container">
+					                                    	<input type="text" id="floor" name="floor" value="" />
+					                                    </div>
+					                                </div>
+					                                <div class="col-sm-4 col-md-4 ">
 					                                  	<h5># AVAILABILITY</h5>
 					                                    <div class="alert ">
 					                                      	<input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> 
@@ -60,6 +66,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 					                        </div>
 
 					                        <div class="filters-bottom clearfix">
+					                        	<a href="javascript:void(0)"  class="text-primary pull-left m-b-10"><span class="icon-cross clear"></span> Clear Filters </a>
 					                        	<a href="javascript:void(0)" data-toggle="collapse" data-target="#collapsefilters" class="text-primary pull-right m-b-10"><span class="icon-cross"></span> Close </a>
 					                        </div>
 											
@@ -80,9 +87,17 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		variantNames : '.variant_names'
 		area : '#area'
 		budget : '#budget'
-		
+		clear : '.clear'
+		floor : '#floor'
 
 	events:
+		'click @ui.clear':(e)->
+			$.each CommonFloor.defaults,(index,value)->
+				CommonFloor.defaults[index] = ""
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			@loadSelectedFilters()
+
 		'click @ui.unitTypes':(e)->
 			if $(e.currentTarget).is(':checked')
 				window.unitTypes.push parseInt $(e.currentTarget).attr('data-value')
@@ -140,6 +155,12 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			CommonFloor.defaults['price_min'] = parseFloat $(e.target).val().split(';')[0]
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+
+		'change @ui.floor':(e)->
+			CommonFloor.defaults['floor_max'] = parseFloat $(e.target).val().split(';')[1]
+			CommonFloor.defaults['floor_min'] = parseFloat $(e.target).val().split(';')[0]
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
 			
 
 
@@ -147,47 +168,47 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 	
 	
 
-	#function to check the filters dependency
-	onAptFilters:(data)->
-		min = _.min data[0].unitVariants
-		max = _.max data[0].unitVariants
-		priceMin = _.min data[0].budget
-		priceMax = _.max data[0].budget
-		window.area.destroy()
-		window.price.destroy()
-		$("#area").ionRangeSlider(
-		    type: "double",
-		    min: min,
-		    max: max,
-		    grid: false
-		)
-		$("#budget").ionRangeSlider(
-		    type: "double",
-		    min: priceMin,
-		    max: priceMax,
-		    grid: false
-		    prettify :(num)->
-		    	return window.numDifferentiation(num)
+	# #function to check the filters dependency
+	# onAptFilters:(data)->
+	# 	min = _.min data[0].unitVariants
+	# 	max = _.max data[0].unitVariants
+	# 	priceMin = _.min data[0].budget
+	# 	priceMax = _.max data[0].budget
+	# 	window.area.destroy()
+	# 	window.price.destroy()
+	# 	$("#area").ionRangeSlider(
+	# 	    type: "double",
+	# 	    min: min,
+	# 	    max: max,
+	# 	    grid: false
+	# 	)
+	# 	$("#budget").ionRangeSlider(
+	# 	    type: "double",
+	# 	    min: priceMin,
+	# 	    max: priceMax,
+	# 	    grid: false
+	# 	    prettify :(num)->
+	# 	    	return window.numDifferentiation(num)
 
-		)
-		unitVariantColl = _.pluck apartmentVariantCollection.toArray() , 'id'
-		unitVariantArray = unitVariantColl.map (item)->
-			return parseInt item
-		unittypesColl = _.pluck unitTypeCollection.toArray() , 'id'
-		unittypesArray = unittypesColl.map (item)->
-			return parseInt item
-		$(@ui.unitTypes).each (ind,item)->
-			$('#'+item.id).attr('checked',false)
-			$('#'+item.id).attr('disabled',false)
-			if $.inArray(parseInt($(item).attr('data-value')),unittypesArray) is -1
-				$('#'+item.id).prop('checked',false)
-				$('#'+item.id).attr('disabled',true)
-		$(@ui.variantNames).each (ind,item)->
-			$('#'+item.id).attr('checked',false)
-			$('#'+item.id).attr('disabled',false)
-			if $.inArray(parseInt($(item).attr('data-value')),unitVariantArray) is -1
-				$('#'+item.id).prop('checked',false)
-				$('#'+item.id).attr('disabled',true)
+	# 	)
+	# 	unitVariantColl = _.pluck apartmentVariantCollection.toArray() , 'id'
+	# 	unitVariantArray = unitVariantColl.map (item)->
+	# 		return parseInt item
+	# 	unittypesColl = _.pluck unitTypeCollection.toArray() , 'id'
+	# 	unittypesArray = unittypesColl.map (item)->
+	# 		return parseInt item
+	# 	$(@ui.unitTypes).each (ind,item)->
+	# 		$('#'+item.id).attr('checked',false)
+	# 		$('#'+item.id).attr('disabled',false)
+	# 		if $.inArray(parseInt($(item).attr('data-value')),unittypesArray) is -1
+	# 			$('#'+item.id).prop('checked',false)
+	# 			$('#'+item.id).attr('disabled',true)
+	# 	$(@ui.variantNames).each (ind,item)->
+	# 		$('#'+item.id).attr('checked',false)
+	# 		$('#'+item.id).attr('disabled',false)
+	# 		if $.inArray(parseInt($(item).attr('data-value')),unitVariantArray) is -1
+	# 			$('#'+item.id).prop('checked',false)
+	# 			$('#'+item.id).attr('disabled',true)
 
 
 	
@@ -200,53 +221,16 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		data
 
 	onShow:->
-		@loadSelectedFilters()
-
-	loadSelectedFilters:->
-		unittypesArray = []
-		unitTypes = CommonFloor.defaults['unitTypes'].split(',')
-		unitVariantsArray = []
-		unitVariants = CommonFloor.defaults['unitVariants'].split(',')
-		typesArray = []
-		types = CommonFloor.defaults['type'].split(',')
 		budget = []
 		area = []
-		id = []
-		unitsArr = []
-		unittypesColl = []
-		$.merge unitsArr, apartmentVariantMasterCollection.getApartmentMasterUnits()
-			
-		$.each unitsArr,(index,value)->
-			unitDetails = window.unit.getUnitDetails(value.id)
-			id.push parseInt unitDetails[0].get 'id'
-			unittypesColl.push parseFloat unitDetails[1].get 'id'
+		url = Backbone.history.fragment
+		building_id = parseInt url.split('/')[1]
+		floor = buildingCollection.findWhere
+					'id' : building_id
 		$.each unitCollection.toArray(), (index,value)->
 			unitDetails = window.unit.getUnitDetails(value.id)
 			budget.push parseFloat unitDetails[3]
 			area.push parseFloat unitDetails[0].get 'super_built_up_area'
-			
-
-		console.log budget
-		$(@ui.unitTypes).each (ind,item)->
-			$('#'+item.id).attr('checked',true)
-			$('#'+item.id).attr('disabled',false)
-			if $.inArray($(item).attr('data-value'),unitTypes) is -1
-				$('#'+item.id).prop('checked',false)
-				$('#'+item.id).attr('disabled',false)
-			if $.inArray(parseInt($(item).attr('data-value')),unittypesColl) is -1
-				$('#'+item.id).prop('checked',false)
-				$('#'+item.id).attr('disabled',true)
-		$(@ui.variantNames).each (ind,item)->
-			console.log $(item).attr('data-value')
-			$('#'+item.id).attr('checked',true)
-			$('#'+item.id).attr('disabled',false)
-			if $.inArray($(item).attr('data-value'),unitVariants) is -1 
-				$('#'+item.id).prop('checked',false)
-				$('#'+item.id).attr('disabled',false)
-			if $.inArray(parseInt($(item).attr('data-value')),id) is -1 
-				$('#'+item.id).prop('checked',false)
-				$('#'+item.id).attr('disabled',true)
-		
 		min = _.min area
 		max = _.max area
 		subArea = (max - min)/ 20 
@@ -272,38 +256,103 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		    	return window.numDifferentiation(num)
 
 		)
-		min = _.min CommonFloor.defaults['area_min']
-		max = _.max CommonFloor.defaults['area_max']
-		subArea = (max - min)/ 20 
-		subArea = subArea.toFixed(0)
-		priceMin = _.min CommonFloor.defaults['price_min']
-		priceMax = _.max CommonFloor.defaults['price_max']		
-		subBudget = (priceMax - priceMin)/ 20
-		subBudget = subBudget.toFixed(0)
-		if CommonFloor.defaults['area_min'] != "" && CommonFloor.defaults['area_min'] != ""
-			$("#area").ionRangeSlider(
-			    type: "double",
-			    min: min,
-			    max: max,
-			    grid: false,
-			    step : subArea
-			)
-		if CommonFloor.defaults['price_min'] != "" && CommonFloor.defaults['price_max'] != ""
-			$("#budget").ionRangeSlider(
-			    type: "double",
-			    min: priceMin,
-			    max: priceMax,
-			    grid: false,
-		    	step : subBudget,
-			    prettify :(num)->
-			    	return window.numDifferentiation(num)
+		$("#floor").ionRangeSlider(
+		    type: "double",
+		    min: 1,
+		    max: floor.get('no_of_floors'),
+		    grid: false
+		    
 
-			)
+		)
+		flag = 0
+		$.each CommonFloor.defaults,(index,value)->
+				if CommonFloor.defaults[index] != ""
+					flag = 1
+		if flag == 1
+			$('#collapsefilters').collapse('show')
+		@loadSelectedFilters()
+
+	loadSelectedFilters:->
+		unittypesArray = []
+		unitTypes = CommonFloor.defaults['unitTypes'].split(',')
+		unitVariantsArray = []
+		unitVariants = CommonFloor.defaults['unitVariants'].split(',')
+		typesArray = []
+		types = CommonFloor.defaults['type'].split(',')
+		
+		id = []
+		unitsArr = []
+		unittypesColl = []
+		$.merge unitsArr, apartmentVariantMasterCollection.getApartmentMasterUnits()
+			
+		$.each unitsArr,(index,value)->
+			unitDetails = window.unit.getUnitDetails(value.id)
+			id.push parseInt unitDetails[0].get 'id'
+			unittypesColl.push parseInt unitDetails[1].get 'id'
+		
+			
+		
+		$(@ui.unitTypes).each (ind,item)->
+			$('#'+item.id).attr('checked',true)
+			$('#'+item.id).attr('disabled',false)
+			if $.inArray($(item).attr('data-value'),unitTypes) is -1
+				$('#'+item.id).prop('checked',false)
+				$('#'+item.id).attr('disabled',false)
+			if $.inArray(parseInt($(item).attr('data-value')),unittypesColl) is -1
+				$('#'+item.id).prop('checked',false)
+				$('#'+item.id).attr('disabled',true)
+		$(@ui.variantNames).each (ind,item)->
+			$('#'+item.id).attr('checked',true)
+			$('#'+item.id).attr('disabled',false)
+			if $.inArray($(item).attr('data-value'),unitVariants) is -1 
+				$('#'+item.id).prop('checked',false)
+				$('#'+item.id).attr('disabled',false)
+			if $.inArray(parseInt($(item).attr('data-value')),id) is -1 
+				$('#'+item.id).prop('checked',false)
+				$('#'+item.id).attr('disabled',true)
+		
+		
+		# window.price = $("#budget").data("ionRangeSlider")
+		# window.area = $("#area").data("ionRangeSlider")
+		# window.floor = $("#floor").data("ionRangeSlider")
+		# window.area.update(
+		#    from : min
+		#    to  : max
+		# )
+		# window.price.update(
+		#    from : priceMin
+		#    to  : priceMax
+		# )
+		# window.floor.update(
+		#    from : 1
+		#    to  : floor.get('no_of_floors')
+		# )
+		# min = _.min CommonFloor.defaults['area_min']
+		# max = _.max CommonFloor.defaults['area_max']
+		# subArea = (max - min)/ 20 
+		# subArea = subArea.toFixed(0)
+		# priceMin = _.min CommonFloor.defaults['price_min']
+		# priceMax = _.max CommonFloor.defaults['price_max']		
+		# subBudget = (priceMax - priceMin)/ 20
+		# subBudget = subBudget.toFixed(0)
+		# if CommonFloor.defaults['area_min'] != "" && CommonFloor.defaults['area_min'] != ""
+		# 	window.area.update(
+		# 	   from : min
+		# 	   to  : max
+		# )
+		# if CommonFloor.defaults['price_min'] != "" && CommonFloor.defaults['price_max'] != ""
+		# 	window.price.update(
+		# 	   from : priceMin
+		# 	   to  : priceMax
+		# )
+		# if CommonFloor.defaults['floor_min'] != "" && CommonFloor.defaults['floor_max'] != ""
+		# 	window.floor.update(
+		# 	   from : parseInt CommonFloor.defaults['floor_min']
+		# 	   to  : parseInt CommonFloor.defaults['floor_max']
+		# )
 		@ui.status.prop('checked',false)
 		if CommonFloor.defaults['availability'] != "" 
 			 @ui.status.prop('checked',true)
-		window.price = $("#budget").data("ionRangeSlider")
-		window.area = $("#area").data("ionRangeSlider")
 		
 	
 
@@ -358,7 +407,7 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 									'id' : item.get 'unit_type_id'
 				type = 'A'
 				if window.propertyTypes[unitTypeModel.get('property_type_id')] == 'Penthouse'
-						type = 'P'
+						type = 'PH'
 				if $.inArray(item.get('unit_type_id'),unit_types) == -1
 					unit_types.push parseInt unitTypeModel.get 'id'
 					unitTypes.push 

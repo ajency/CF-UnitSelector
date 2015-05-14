@@ -25,7 +25,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 
 									            <div class="breadcrumb-bar">
 									                <a class="unit_back" href="#">
-														Back to Poject Overview
+														Back to Poject Master Overview
 													</a>
 									            </div>
 
@@ -50,9 +50,9 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 					                      	{{/each}}{{/each }}							               
 					                    </div>
 					        			<div class="proj-type-count">
-					        				{{#types}} 
-					        				<p class="pull-right">{{type}}</p><h1 class="text-primary pull-right m-t-10">{{count.length}}</h1> 
-					        				{{/types}}
+					        				
+					        				<p class="pull-right">Apartment(s)/Penthouse(s)</p><h1 class="text-primary pull-right m-t-10">{{results}}</h1> 
+					        			
 					        			</div>
 
 					        			<div class="clearfix"></div>
@@ -69,6 +69,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 		area : '#filter_area'
 		budget : '#filter_budget'
 		types : '.types'
+		floor : '.floor'
 
 	serializeData:->
 		data = super()
@@ -76,12 +77,16 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 		data.units = units.length
 		data.project_title = project.get('project_title')
 		data.filters  = CommonFloor.getFilters()[0]
-		data.results  = CommonFloor.getFilters()[1]
+		data.results  = CommonFloor.getApartmentFilters().count
 		data
 
 	events:->
 		'click @ui.unitBack':(e)->
 			e.preventDefault()
+			$.each CommonFloor.defaults,(index,value)->
+				CommonFloor.defaults[index] = ""
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
 			previousRoute = CommonFloor.router.previous()
 			CommonFloor.navigate '/'+previousRoute , true
 
@@ -123,9 +128,19 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 			CommonFloor.filter()
 			@trigger  'render:view'
 
+		'click @ui.floor':(e)->
+			CommonFloor.defaults['floor_max'] = ""
+			CommonFloor.defaults['floor_min'] = ""
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			@trigger  'render:view'
+
 	onShow:->
 		if CommonFloor.router.history.length == 1
 			@ui.unitBack.hide()
+		results  = CommonFloor.getFilters()[1]
+		if results.length == 0
+			$('.proj-type-count').text 'No results found'
 
 
 	
@@ -138,6 +153,7 @@ class CommonFloor.TopApartmentCtrl extends Marionette.RegionController
 		unitTempCollection.on("change reset add remove", @renderView, @)
 
 	renderView:->
+
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		response = window.building.getBuildingUnits(building_id)
@@ -270,9 +286,14 @@ class CommonFloor.CenterApartmentCtrl extends Marionette.RegionController
 		unitTempCollection.on("change reset add remove", @renderView, @)
 
 	renderView:->
+
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		response = window.building.getBuildingUnits(building_id)
+		if response.length == 0
+			region =  new Marionette.Region el : '#centerregion'
+			new CommonFloor.NoUnitsCtrl region : region
+			return
 		unitsCollection = new Backbone.Collection response
 		@show new CommonFloor.CenterApartmentView
 					collection : unitsCollection

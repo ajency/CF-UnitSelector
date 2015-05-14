@@ -3,7 +3,7 @@
     history: [],
     storeRoute: function() {
       var url;
-      console.log(url = Backbone.history.fragment);
+      url = Backbone.history.fragment;
       if ($.inArray(url, this.history) === -1) {
         return this.history.push(Backbone.history.fragment);
       }

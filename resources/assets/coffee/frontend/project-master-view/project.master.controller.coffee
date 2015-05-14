@@ -101,7 +101,7 @@ class TopMasterView extends Marionette.ItemView
 			
 			if $(e.target).attr('data-id') == 'Villas'
 				@removeVillaFilters()
-			if $(e.target).attr('data-id') == 'Apartments'
+			if $(e.target).attr('data-id') == 'Apartments/Penthouse'
 				@removeAptFilters()
 			if $(e.target).attr('data-id') == 'Plots'
 				@removePlotFilters()
@@ -152,7 +152,9 @@ class TopMasterView extends Marionette.ItemView
 	onShow:->
 		if CommonFloor.router.history.length == 1
 			@ui.unitBack.hide()
-
+		response = CommonFloor.propertyTypes() 
+		if response.length == 0
+			$('.proj-type-count').text 'No results found'
 
 	removeVillaFilters:->
 		variants = []

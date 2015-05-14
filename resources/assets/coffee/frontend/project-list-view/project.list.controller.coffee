@@ -97,7 +97,7 @@ class TopListView extends Marionette.ItemView
 			
 			if $(e.target).attr('data-id') == 'Villas'
 				@removeVillaFilters()
-			if $(e.target).attr('data-id') == 'Apartments'
+			if $(e.target).attr('data-id') == 'Apartments/Penthouse'
 				@removeAptFilters()
 			if $(e.target).attr('data-id') == 'Plots'
 				@removePlotFilters()
@@ -148,6 +148,9 @@ class TopListView extends Marionette.ItemView
 	onShow:->
 		if CommonFloor.router.history.length == 1
 			@ui.unitBack.hide()
+		response = CommonFloor.propertyTypes() 
+		if response.length == 0
+			$('.proj-type-count').text 'No results found'
 
 
 	removeVillaFilters:->
@@ -278,6 +281,10 @@ class CommonFloor.CenterListCtrl extends Marionette.RegionController
 		
 	renderView:->
 		response = CommonFloor.checkListView()
+		if response.count.length == 0
+			region =  new Marionette.Region el : '#centerregion'
+			new CommonFloor.NoUnitsCtrl region : region
+			return
 		if response.type is 'bunglows' 
 			units = bunglowVariantCollection.getBunglowUnits()
 			data = {}

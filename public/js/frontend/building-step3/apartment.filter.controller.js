@@ -21,7 +21,7 @@
       return FilterApartmentView.__super__.constructor.apply(this, arguments);
     }
 
-    FilterApartmentView.prototype.template = Handlebars.compile('<div class="collapse" id="collapsefilters"> <div class="container-fluid""> <div class="filters-wrapper"> <div class="row"> <div class="col-sm-4 col-md-4 "> <h5># UNIT TYPE</h5> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class="col-sm-4 col-md-4 "> <h5># VARIANT</h5> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> </div> </div> <div class="filters-wrapper"> <div class="row"> <div class="col-sm-4 col-md-4 "> <h5># AREA (Sqft)</h5> <div class="range-container"> <input type="text" id="area" name="area" value="" /> </div> </div> <div class="col-sm-4 col-md-4 "> <h5># BUDGET </h5> <div class="range-container"> <input type="text" id="budget" name="budget" value="" /> </div> </div> <div class="col-sm-4 col-md-4 "> <h5># AVAILABILITY</h5> <div class="alert "> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="available" class="-lbl">Show Available Units Only</label> </div> </div> </div> </div> <div class="filters-bottom clearfix"> <a href="javascript:void(0)" data-toggle="collapse" data-target="#collapsefilters" class="text-primary pull-right m-b-10"><span class="icon-cross"></span> Close </a> </div> </div> </div>');
+    FilterApartmentView.prototype.template = Handlebars.compile('<div class="collapse" id="collapsefilters"> <div class="container-fluid""> <div class="filters-wrapper"> <div class="row"> <div class="col-sm-4 col-md-4 "> <h5># UNIT TYPE</h5> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class="col-sm-4 col-md-4 "> <h5># VARIANT</h5> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> </div> </div> <div class="filters-wrapper"> <div class="row"> <div class="col-sm-4 col-md-4 "> <h5># AREA (Sqft)</h5> <div class="range-container"> <input type="text" id="area" name="area" value="" /> </div> </div> <div class="col-sm-4 col-md-4 "> <h5># BUDGET </h5> <div class="range-container"> <input type="text" id="budget" name="budget" value="" /> </div> </div> <div class="col-sm-4 col-md-4 "> <h5># FLOOR </h5> <div class="range-container"> <input type="text" id="floor" name="floor" value="" /> </div> </div> <div class="col-sm-4 col-md-4 "> <h5># AVAILABILITY</h5> <div class="alert "> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="available" class="-lbl">Show Available Units Only</label> </div> </div> </div> </div> <div class="filters-bottom clearfix"> <a href="javascript:void(0)"  class="text-primary pull-left m-b-10"><span class="icon-cross clear"></span> Clear Filters </a> <a href="javascript:void(0)" data-toggle="collapse" data-target="#collapsefilters" class="text-primary pull-right m-b-10"><span class="icon-cross"></span> Close </a> </div> </div> </div>');
 
     FilterApartmentView.prototype.ui = {
       unitTypes: '.unit_types',
@@ -31,10 +31,20 @@
       apply: '.apply',
       variantNames: '.variant_names',
       area: '#area',
-      budget: '#budget'
+      budget: '#budget',
+      clear: '.clear',
+      floor: '#floor'
     };
 
     FilterApartmentView.prototype.events = {
+      'click @ui.clear': function(e) {
+        $.each(CommonFloor.defaults, function(index, value) {
+          return CommonFloor.defaults[index] = "";
+        });
+        unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.filter();
+        return this.loadSelectedFilters();
+      },
       'click @ui.unitTypes': function(e) {
         if ($(e.currentTarget).is(':checked')) {
           window.unitTypes.push(parseInt($(e.currentTarget).attr('data-value')));
@@ -90,56 +100,13 @@
         CommonFloor.defaults['price_min'] = parseFloat($(e.target).val().split(';')[0]);
         unitCollection.reset(unitMasterCollection.toArray());
         return CommonFloor.filter();
+      },
+      'change @ui.floor': function(e) {
+        CommonFloor.defaults['floor_max'] = parseFloat($(e.target).val().split(';')[1]);
+        CommonFloor.defaults['floor_min'] = parseFloat($(e.target).val().split(';')[0]);
+        unitCollection.reset(unitMasterCollection.toArray());
+        return CommonFloor.filter();
       }
-    };
-
-    FilterApartmentView.prototype.onAptFilters = function(data) {
-      var max, min, priceMax, priceMin, unitVariantArray, unitVariantColl, unittypesArray, unittypesColl;
-      min = _.min(data[0].unitVariants);
-      max = _.max(data[0].unitVariants);
-      priceMin = _.min(data[0].budget);
-      priceMax = _.max(data[0].budget);
-      window.area.destroy();
-      window.price.destroy();
-      $("#area").ionRangeSlider({
-        type: "double",
-        min: min,
-        max: max,
-        grid: false
-      });
-      $("#budget").ionRangeSlider({
-        type: "double",
-        min: priceMin,
-        max: priceMax,
-        grid: false,
-        prettify: function(num) {
-          return window.numDifferentiation(num);
-        }
-      });
-      unitVariantColl = _.pluck(apartmentVariantCollection.toArray(), 'id');
-      unitVariantArray = unitVariantColl.map(function(item) {
-        return parseInt(item);
-      });
-      unittypesColl = _.pluck(unitTypeCollection.toArray(), 'id');
-      unittypesArray = unittypesColl.map(function(item) {
-        return parseInt(item);
-      });
-      $(this.ui.unitTypes).each(function(ind, item) {
-        $('#' + item.id).attr('checked', false);
-        $('#' + item.id).attr('disabled', false);
-        if ($.inArray(parseInt($(item).attr('data-value')), unittypesArray) === -1) {
-          $('#' + item.id).prop('checked', false);
-          return $('#' + item.id).attr('disabled', true);
-        }
-      });
-      return $(this.ui.variantNames).each(function(ind, item) {
-        $('#' + item.id).attr('checked', false);
-        $('#' + item.id).attr('disabled', false);
-        if ($.inArray(parseInt($(item).attr('data-value')), unitVariantArray) === -1) {
-          $('#' + item.id).prop('checked', false);
-          return $('#' + item.id).attr('disabled', true);
-        }
-      });
     };
 
     FilterApartmentView.prototype.serializeData = function() {
@@ -152,60 +119,19 @@
     };
 
     FilterApartmentView.prototype.onShow = function() {
-      return this.loadSelectedFilters();
-    };
-
-    FilterApartmentView.prototype.loadSelectedFilters = function() {
-      var area, budget, id, max, min, priceMax, priceMin, subArea, subBudget, types, typesArray, unitTypes, unitVariants, unitVariantsArray, unitsArr, unittypesArray, unittypesColl;
-      unittypesArray = [];
-      unitTypes = CommonFloor.defaults['unitTypes'].split(',');
-      unitVariantsArray = [];
-      unitVariants = CommonFloor.defaults['unitVariants'].split(',');
-      typesArray = [];
-      types = CommonFloor.defaults['type'].split(',');
+      var area, budget, building_id, flag, floor, max, min, priceMax, priceMin, subArea, subBudget, url;
       budget = [];
       area = [];
-      id = [];
-      unitsArr = [];
-      unittypesColl = [];
-      $.merge(unitsArr, apartmentVariantMasterCollection.getApartmentMasterUnits());
-      $.each(unitsArr, function(index, value) {
-        var unitDetails;
-        unitDetails = window.unit.getUnitDetails(value.id);
-        id.push(parseInt(unitDetails[0].get('id')));
-        return unittypesColl.push(parseFloat(unitDetails[1].get('id')));
+      url = Backbone.history.fragment;
+      building_id = parseInt(url.split('/')[1]);
+      floor = buildingCollection.findWhere({
+        'id': building_id
       });
       $.each(unitCollection.toArray(), function(index, value) {
         var unitDetails;
         unitDetails = window.unit.getUnitDetails(value.id);
         budget.push(parseFloat(unitDetails[3]));
         return area.push(parseFloat(unitDetails[0].get('super_built_up_area')));
-      });
-      console.log(budget);
-      $(this.ui.unitTypes).each(function(ind, item) {
-        $('#' + item.id).attr('checked', true);
-        $('#' + item.id).attr('disabled', false);
-        if ($.inArray($(item).attr('data-value'), unitTypes) === -1) {
-          $('#' + item.id).prop('checked', false);
-          $('#' + item.id).attr('disabled', false);
-        }
-        if ($.inArray(parseInt($(item).attr('data-value')), unittypesColl) === -1) {
-          $('#' + item.id).prop('checked', false);
-          return $('#' + item.id).attr('disabled', true);
-        }
-      });
-      $(this.ui.variantNames).each(function(ind, item) {
-        console.log($(item).attr('data-value'));
-        $('#' + item.id).attr('checked', true);
-        $('#' + item.id).attr('disabled', false);
-        if ($.inArray($(item).attr('data-value'), unitVariants) === -1) {
-          $('#' + item.id).prop('checked', false);
-          $('#' + item.id).attr('disabled', false);
-        }
-        if ($.inArray(parseInt($(item).attr('data-value')), id) === -1) {
-          $('#' + item.id).prop('checked', false);
-          return $('#' + item.id).attr('disabled', true);
-        }
       });
       min = _.min(area);
       max = _.max(area);
@@ -232,41 +158,70 @@
           return window.numDifferentiation(num);
         }
       });
-      min = _.min(CommonFloor.defaults['area_min']);
-      max = _.max(CommonFloor.defaults['area_max']);
-      subArea = (max - min) / 20;
-      subArea = subArea.toFixed(0);
-      priceMin = _.min(CommonFloor.defaults['price_min']);
-      priceMax = _.max(CommonFloor.defaults['price_max']);
-      subBudget = (priceMax - priceMin) / 20;
-      subBudget = subBudget.toFixed(0);
-      if (CommonFloor.defaults['area_min'] !== "" && CommonFloor.defaults['area_min'] !== "") {
-        $("#area").ionRangeSlider({
-          type: "double",
-          min: min,
-          max: max,
-          grid: false,
-          step: subArea
-        });
+      $("#floor").ionRangeSlider({
+        type: "double",
+        min: 1,
+        max: floor.get('no_of_floors'),
+        grid: false
+      });
+      flag = 0;
+      $.each(CommonFloor.defaults, function(index, value) {
+        if (CommonFloor.defaults[index] !== "") {
+          return flag = 1;
+        }
+      });
+      if (flag === 1) {
+        $('#collapsefilters').collapse('show');
       }
-      if (CommonFloor.defaults['price_min'] !== "" && CommonFloor.defaults['price_max'] !== "") {
-        $("#budget").ionRangeSlider({
-          type: "double",
-          min: priceMin,
-          max: priceMax,
-          grid: false,
-          step: subBudget,
-          prettify: function(num) {
-            return window.numDifferentiation(num);
-          }
-        });
-      }
+      return this.loadSelectedFilters();
+    };
+
+    FilterApartmentView.prototype.loadSelectedFilters = function() {
+      var id, types, typesArray, unitTypes, unitVariants, unitVariantsArray, unitsArr, unittypesArray, unittypesColl;
+      unittypesArray = [];
+      unitTypes = CommonFloor.defaults['unitTypes'].split(',');
+      unitVariantsArray = [];
+      unitVariants = CommonFloor.defaults['unitVariants'].split(',');
+      typesArray = [];
+      types = CommonFloor.defaults['type'].split(',');
+      id = [];
+      unitsArr = [];
+      unittypesColl = [];
+      $.merge(unitsArr, apartmentVariantMasterCollection.getApartmentMasterUnits());
+      $.each(unitsArr, function(index, value) {
+        var unitDetails;
+        unitDetails = window.unit.getUnitDetails(value.id);
+        id.push(parseInt(unitDetails[0].get('id')));
+        return unittypesColl.push(parseInt(unitDetails[1].get('id')));
+      });
+      $(this.ui.unitTypes).each(function(ind, item) {
+        $('#' + item.id).attr('checked', true);
+        $('#' + item.id).attr('disabled', false);
+        if ($.inArray($(item).attr('data-value'), unitTypes) === -1) {
+          $('#' + item.id).prop('checked', false);
+          $('#' + item.id).attr('disabled', false);
+        }
+        if ($.inArray(parseInt($(item).attr('data-value')), unittypesColl) === -1) {
+          $('#' + item.id).prop('checked', false);
+          return $('#' + item.id).attr('disabled', true);
+        }
+      });
+      $(this.ui.variantNames).each(function(ind, item) {
+        $('#' + item.id).attr('checked', true);
+        $('#' + item.id).attr('disabled', false);
+        if ($.inArray($(item).attr('data-value'), unitVariants) === -1) {
+          $('#' + item.id).prop('checked', false);
+          $('#' + item.id).attr('disabled', false);
+        }
+        if ($.inArray(parseInt($(item).attr('data-value')), id) === -1) {
+          $('#' + item.id).prop('checked', false);
+          return $('#' + item.id).attr('disabled', true);
+        }
+      });
       this.ui.status.prop('checked', false);
       if (CommonFloor.defaults['availability'] !== "") {
-        this.ui.status.prop('checked', true);
+        return this.ui.status.prop('checked', true);
       }
-      window.price = $("#budget").data("ionRangeSlider");
-      return window.area = $("#area").data("ionRangeSlider");
     };
 
     return FilterApartmentView;
@@ -331,7 +286,7 @@
           });
           type = 'A';
           if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouse') {
-            type = 'P';
+            type = 'PH';
           }
           if ($.inArray(item.get('unit_type_id'), unit_types) === -1) {
             unit_types.push(parseInt(unitTypeModel.get('id')));

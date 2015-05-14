@@ -56,6 +56,7 @@ class TopUnitView extends Marionette.ItemView
 			CommonFloor.navigate '/'+previousRoute , true
 
 	onShow:->
+		CommonFloor.router.storeRoute()
 		if CommonFloor.router.history.length == 1
 			@ui.unitBack.hide()
 
@@ -195,9 +196,11 @@ class LeftUnitView extends Marionette.ItemView
 	getSimilarUnits:(unit)->
 		units = []
 		i = 0
+		url = Backbone.history.fragment
+		unitid = parseInt url.split('/')[1]
 		unitsArr = unitCollection.toArray()
 		$.each unitsArr, (item,value)->
-			if value.get('unit_variant_id') == unit.get('unit_variant_id') 
+			if value.get('id') != unitid
 				units.push value
 				i++
 			if i == 3

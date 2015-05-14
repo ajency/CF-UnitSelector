@@ -72,6 +72,7 @@
     };
 
     TopUnitView.prototype.onShow = function() {
+      CommonFloor.router.storeRoute();
       if (CommonFloor.router.history.length === 1) {
         return this.ui.unitBack.hide();
       }
@@ -152,12 +153,14 @@
     };
 
     LeftUnitView.prototype.getSimilarUnits = function(unit) {
-      var i, units, unitsArr;
+      var i, unitid, units, unitsArr, url;
       units = [];
       i = 0;
+      url = Backbone.history.fragment;
+      unitid = parseInt(url.split('/')[1]);
       unitsArr = unitCollection.toArray();
       $.each(unitsArr, function(item, value) {
-        if (value.get('unit_variant_id') === unit.get('unit_variant_id')) {
+        if (value.get('id') !== unitid) {
           units.push(value);
           i++;
         }

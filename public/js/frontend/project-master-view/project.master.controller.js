@@ -95,7 +95,7 @@
           if ($(e.target).attr('data-id') === 'Villas') {
             this.removeVillaFilters();
           }
-          if ($(e.target).attr('data-id') === 'Apartments') {
+          if ($(e.target).attr('data-id') === 'Apartments/Penthouse') {
             this.removeAptFilters();
           }
           if ($(e.target).attr('data-id') === 'Plots') {
@@ -147,8 +147,13 @@
     };
 
     TopMasterView.prototype.onShow = function() {
+      var response;
       if (CommonFloor.router.history.length === 1) {
-        return this.ui.unitBack.hide();
+        this.ui.unitBack.hide();
+      }
+      response = CommonFloor.propertyTypes();
+      if (response.length === 0) {
+        return $('.proj-type-count').text('No results found');
       }
     };
 
