@@ -38,6 +38,12 @@
 
     FilterMsterView.prototype.events = {
       'click @ui.clear': function(e) {
+        window.unitTypes = [];
+        window.unitVariants = [];
+        window.variantNames = [];
+        window.price = '';
+        window.area = '';
+        window.type = [];
         $.each(CommonFloor.defaults, function(index, value) {
           return CommonFloor.defaults[index] = "";
         });

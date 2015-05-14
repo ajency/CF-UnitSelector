@@ -80,6 +80,15 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		data
 
 	events:->
+		'click @ui.types':(e)->
+			arr = CommonFloor.defaults['type'].split(',')
+			index = arr.indexOf $(e.target).attr('data-id')
+			arr.splice(index, 1)
+			CommonFloor.defaults['type'] = arr.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			@trigger  'render:view'
+
 		'click @ui.unitBack':(e)->
 			e.preventDefault()
 			$.each CommonFloor.defaults,(index,value)->

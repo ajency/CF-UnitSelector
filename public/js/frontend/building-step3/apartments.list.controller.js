@@ -75,6 +75,16 @@
 
     TopApartmentView.prototype.events = function() {
       return {
+        'click @ui.types': function(e) {
+          var arr, index;
+          arr = CommonFloor.defaults['type'].split(',');
+          index = arr.indexOf($(e.target).attr('data-id'));
+          arr.splice(index, 1);
+          CommonFloor.defaults['type'] = arr.join(',');
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          return this.trigger('render:view');
+        },
         'click @ui.unitBack': function(e) {
           var previousRoute;
           e.preventDefault();
