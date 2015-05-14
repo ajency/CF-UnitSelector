@@ -377,6 +377,10 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 			, 650)
 
+			setTimeout( (x)->
+				$('.master').panzoom('resetDimensions');				
+			, 800)
+
 			
 		'click @ui.viewtog':(e)->
 			$('.us-left-content').toggleClass 'not-visible visible'
