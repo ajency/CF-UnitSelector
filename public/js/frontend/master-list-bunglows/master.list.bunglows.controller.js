@@ -173,9 +173,11 @@
       if (plotVariantCollection.length !== 0) {
         $('.Plots').removeClass('hidden');
       }
-      return $('.units').mCustomScrollbar({
-        theme: 'inset'
-      });
+      if ($(window).width() > 991) {
+        return $('.units').mCustomScrollbar({
+          theme: 'inset'
+        });
+      }
     };
 
     return MasterBunglowListView;

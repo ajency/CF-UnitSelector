@@ -6,16 +6,6 @@ body{
     min-width: initial;
 }
 
-.col-0 {
-    width: 0;
-    padding: 0;
-    height: 0;
-    div, ul, li{
-        margin: 0;
-        padding: 0;
-    }
-}
-
 /* Header */
 .us-header{
     background-color: @brand-primary;
@@ -69,10 +59,17 @@ body{
 
 /* Left Container */
 .search-left-content{
-    position: relative;
     .ease;
+    position: relative;
     margin-top:10px;
-    min-height: 750px;
+    padding-right: 15px;
+}
+
+@media(min-width:992px){
+    .search-left-content{
+        min-height: 750px;
+        padding-right: 0;
+    }
 }
 
 .us-left-content{
@@ -125,10 +122,38 @@ body{
             width: 100%;
         }
     }
-    @media(max-width:991px){
-        padding-left: 15px;
+}
+
+.col-0 {
+    width: 0;
+    padding: 0;
+    height: 0;
+    div, ul, li{
+        margin: 0;
+        padding: 0;
+    }
+    &.not-visible{
+        .two .blocks{
+            padding: 0;
+        }
     }
 }
+
+@media(max-width:991px){
+    .us-right-content, .us-left-content{
+      &.mobile{
+        &.visible{
+          display: block;
+          height: 100%;
+          width: 100%;
+        }
+        &.not-visible{
+          display: none;
+        }
+      }
+    }
+}
+
 
 /* Footer */
 #footer{

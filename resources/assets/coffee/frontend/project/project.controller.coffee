@@ -135,23 +135,24 @@ class CommonFloor.LeftCtrl extends Marionette.RegionController
 class CenterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content animated fadeIn">
-					<div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" 
-						data-nodebug="" data-alwaysprocess="" 
-						data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" 
-						class="primage fill-width">
-					</div>
-				</div>')
+										<div class="cf-loader loader-center hidden"></div>
+										<div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" 
+											data-nodebug="" data-alwaysprocess="" 
+											data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" 
+											class="primage fill-width">
+										</div>
+									</div>')
 
 
 	events:
 		'click .step1-marker':(e)->
-			# $('svg').addClass 'zoom'
+			# $('.svg-area').addClass 'zoom'
+			$('.cf-loader').removeClass 'hidden'
 			$('svg').attr('class' ,'zoom') 
 			$('.search-left-content').addClass 'animated fadeOut'
 			setTimeout( (x)->
 				CommonFloor.checkPropertyType()
-
-			, 650)			
+			, 100)			
 
 			
 	onShow:->
