@@ -368,7 +368,7 @@
     plotVariantCollection.reset(plots);
     unitTypeCollection.reset(unitTypes);
     buildingCollection.reset(buildings);
-    return unitTempCollection.reset(unitCollection.toArray());
+    return unitCollection.reset(unitCollection.toArray());
   };
 
   CommonFloor.filterBudget = function() {
@@ -713,6 +713,18 @@
     return {
       'status': status
     };
+  };
+
+  CommonFloor.filterBuilding = function(id) {
+    var collection;
+    collection = unitCollection.where({
+      'building_id': id
+    });
+    console.log(unitCollection.reset(collection));
+    CommonFloor.applyFliterClass();
+    CommonFloor.resetCollections();
+    unitTempCollection.reset(unitCollection.toArray());
+    return window.building_id = id;
   };
 
 }).call(this);

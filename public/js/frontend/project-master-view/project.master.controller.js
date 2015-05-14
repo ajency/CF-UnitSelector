@@ -103,7 +103,8 @@
           }
           this.trigger('render:view');
           unitCollection.reset(unitMasterCollection.toArray());
-          return CommonFloor.filter();
+          CommonFloor.filter();
+          return unitCollection.trigger('available');
         },
         'click @ui.unitTypes': function(e) {
           var unitTypes;
@@ -112,6 +113,7 @@
           CommonFloor.defaults['unitTypes'] = unitTypes.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
+          unitCollection.trigger('available');
           return this.trigger('render:view');
         },
         'click @ui.variantNames': function(e) {
@@ -121,12 +123,14 @@
           CommonFloor.defaults['unitVariants'] = variantNames.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
+          unitCollection.trigger('available');
           return this.trigger('render:view');
         },
         'click @ui.status': function(e) {
           CommonFloor.defaults['availability'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
+          unitCollection.trigger('available');
           return this.trigger('render:view');
         },
         'click @ui.area': function(e) {
@@ -134,6 +138,7 @@
           CommonFloor.defaults['area_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
+          unitCollection.trigger('available');
           return this.trigger('render:view');
         },
         'click @ui.budget': function(e) {
@@ -141,6 +146,7 @@
           CommonFloor.defaults['price_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
+          unitCollection.trigger('available');
           return this.trigger('render:view');
         }
       };
@@ -268,11 +274,11 @@
     }
 
     TopMasterCtrl.prototype.initialize = function() {
-      this.renderView();
-      return unitTempCollection.on("change reset add remove", this.renderView, this);
+      this.renderToppView();
+      return unitCollection.bind("available", this.renderToppView, this);
     };
 
-    TopMasterCtrl.prototype.renderView = function() {
+    TopMasterCtrl.prototype.renderToppView = function() {
       this.view = new TopMasterView({
         model: project
       });
@@ -307,17 +313,17 @@
     }
 
     LeftMasterCtrl.prototype.initialize = function() {
-      this.renderView();
-      return unitTempCollection.on("change reset add remove", this.renderView);
+      this.renderLeftMasterView();
+      return unitCollection.bind("available", this.renderLeftMasterView, this);
     };
 
-    LeftMasterCtrl.prototype.renderView = function() {
+    LeftMasterCtrl.prototype.renderLeftMasterView = function() {
       var data, region, response, units;
       response = CommonFloor.checkListView();
       if (response.count.length === 0) {
-        region = new Marionette.Region({
+        console.log(region = new Marionette.Region({
           el: '#leftregion'
-        });
+        }));
         new CommonFloor.NoUnitsCtrl({
           region: region
         });
@@ -501,7 +507,12 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info ' + availability + ' "> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <span class="pull-right icon-cross"></span> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div> <a href="#unit-view/' + id + '" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a> </div>';
+        html += '<div class="svg-info ' + availability + ' "> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <span class="pull-right icon-cross"></span> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div>';
+        if (availability === 'available') {
+          html += '<a href="#unit-view/' + id + '" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a> </div>';
+        } else {
+          html += '</div>';
+        }
         $('#' + id).attr('class', 'layer villa  ' + availability);
         $('#unit' + id).attr('class', 'unit blocks active');
         return $('.layer').tooltipster('content', html);
@@ -531,10 +542,18 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Variant</label> - ' + response[0].get('unit_variant_name') + '</div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> <div class="action-bar "> <a href="#unit-view/' + id + '" class="icon-chevron-right pull-right">To Move forward Click Here</a> </div> </div>';
+        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Variant</label> - ' + response[0].get('unit_variant_name') + '</div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
+        if (availability === 'available') {
+          html += '<a href="#unit-view/' + id + '" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a> </div>';
+        } else {
+          html += '</div>';
+        }
         $('#' + id).attr('class', 'layer plot ' + availability);
         $('#unit' + id).attr('class', 'bldg blocks active');
-        return $('.layer').tooltipster('content', html);
+        $('.layer').tooltipster('content', html);
+        if (availability !== 'available') {
+          return $('.unitClass').hide();
+        }
       },
       'mouseover .building': function(e) {
         var buildingModel, floors, html, id, response, unitTypes;

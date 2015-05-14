@@ -105,9 +105,12 @@ class TopMasterView extends Marionette.ItemView
 				@removeAptFilters()
 			if $(e.target).attr('data-id') == 'Plots'
 				@removePlotFilters()
+			
 			@trigger  'render:view'
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
+			
 			
 
 			
@@ -117,6 +120,7 @@ class TopMasterView extends Marionette.ItemView
 			CommonFloor.defaults['unitTypes'] = unitTypes.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 			
 		'click @ui.variantNames':(e)->
@@ -125,12 +129,14 @@ class TopMasterView extends Marionette.ItemView
 			CommonFloor.defaults['unitVariants'] = variantNames.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()	
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 		'click @ui.status':(e)->
 			CommonFloor.defaults['availability'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 			
@@ -140,6 +146,7 @@ class TopMasterView extends Marionette.ItemView
 			CommonFloor.defaults['area_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 		'click @ui.budget':(e)->
@@ -147,6 +154,7 @@ class TopMasterView extends Marionette.ItemView
 			CommonFloor.defaults['price_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 	onShow:->
@@ -237,10 +245,10 @@ class CommonFloor.TopMasterCtrl extends Marionette.RegionController
 
 	initialize:->
 
-		@renderView()
-		unitTempCollection.on("change reset add remove", @renderView, @)
+		@renderToppView()
+		unitCollection.bind( "available", @renderToppView, @) 
 
-	renderView:->
+	renderToppView:->
 		@view =  new TopMasterView
 			model : project
 
@@ -263,13 +271,13 @@ class CommonFloor.TopMasterCtrl extends Marionette.RegionController
 class CommonFloor.LeftMasterCtrl extends Marionette.RegionController
 
 	initialize:->
-		@renderView()
-		unitTempCollection.on("change reset add remove", @renderView)
+		@renderLeftMasterView()
+		unitCollection.bind( "available", @renderLeftMasterView, @)  
 
-	renderView:->
+	renderLeftMasterView:->
 		response = CommonFloor.checkListView()
 		if response.count.length == 0
-			region =  new Marionette.Region el : '#leftregion'
+			console.log region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.NoUnitsCtrl region : region
 			return
 			
@@ -525,13 +533,17 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 							<div>
 								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 							</div> 
-						</div>
-						<a href="#unit-view/'+id+'" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a>
+						</div>'
+			if availability == 'available'
+				html +='<a href="#unit-view/'+id+'" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a>
 					</div>'
+			else
+				html += '</div>'
 			
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
 			$('.layer').tooltipster('content', html)
+			
 
 		'click .plot':(e)->
 			# $('.plot').attr('class' ,'layer plot') 
@@ -582,15 +594,19 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 								<label>Price </label> - '+$('#price').val()+'
 							</div>  
 						</div> 
-						<div class="action-bar ">
-							
-							<a href="#unit-view/'+id+'" class="icon-chevron-right pull-right">To Move forward Click Here</a>
-						</div> 
+						</div>'
+			if availability == 'available'
+				html +='<a href="#unit-view/'+id+'" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a>
 					</div>'
+			else
+				html += '</div>'
 			
 			$('#'+id).attr('class' ,'layer plot '+availability) 
 			$('#unit'+id).attr('class' ,'bldg blocks active') 
 			$('.layer').tooltipster('content', html)
+			if availability != 'available'
+				$('.unitClass').hide()
+
 
 		'mouseover .building':(e)->
 			id  = parseInt e.target.id

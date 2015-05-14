@@ -312,7 +312,7 @@ CommonFloor.resetCollections = ()->
 	plotVariantCollection.reset plots
 	unitTypeCollection.reset unitTypes
 	buildingCollection.reset buildings
-	unitTempCollection.reset unitCollection.toArray()
+	unitCollection.reset unitCollection.toArray()
 	
 
 CommonFloor.filterBudget = ()->
@@ -578,3 +578,14 @@ CommonFloor.getStatusFilters = ()->
 					status.push s.humanize value
 
 	{'status' : status}
+
+
+CommonFloor.filterBuilding = (id)->
+	collection = unitCollection.where
+					'building_id' : id
+	console.log unitCollection.reset collection
+	CommonFloor.applyFliterClass()
+	CommonFloor.resetCollections()
+	unitTempCollection.reset unitCollection.toArray()
+	window.building_id = id
+	

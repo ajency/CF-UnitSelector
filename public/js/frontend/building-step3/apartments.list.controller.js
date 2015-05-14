@@ -62,6 +62,13 @@
       floor: '.floor'
     };
 
+    TopApartmentView.prototype.initialize = function() {
+      var building_id, url;
+      url = Backbone.history.fragment;
+      building_id = parseInt(url.split('/')[1]);
+      return console.log(this.building_id = building_id);
+    };
+
     TopApartmentView.prototype.serializeData = function() {
       var data, units;
       data = TopApartmentView.__super__.serializeData.call(this);
@@ -82,17 +89,14 @@
           arr.splice(index, 1);
           CommonFloor.defaults['type'] = arr.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
+          unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         },
         'click @ui.unitBack': function(e) {
           var previousRoute;
           e.preventDefault();
-          $.each(CommonFloor.defaults, function(index, value) {
-            return CommonFloor.defaults[index] = "";
-          });
-          unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filter();
           previousRoute = CommonFloor.router.previous();
           return CommonFloor.navigate('/' + previousRoute, true);
         },
@@ -102,7 +106,9 @@
           unitTypes = _.without(unitTypes, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['unitTypes'] = unitTypes.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
+          unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         },
         'click @ui.variantNames': function(e) {
@@ -111,34 +117,44 @@
           variantNames = _.without(variantNames, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['unitVariants'] = variantNames.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
+          unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         },
         'click @ui.status': function(e) {
           CommonFloor.defaults['availability'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
+          unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         },
         'click @ui.area': function(e) {
           CommonFloor.defaults['area_max'] = "";
           CommonFloor.defaults['area_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
+          unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         },
         'click @ui.budget': function(e) {
           CommonFloor.defaults['price_max'] = "";
           CommonFloor.defaults['price_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
+          unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         },
         'click @ui.floor': function(e) {
           CommonFloor.defaults['floor_max'] = "";
           CommonFloor.defaults['floor_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
+          unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         }
       };
@@ -167,11 +183,11 @@
     }
 
     TopApartmentCtrl.prototype.initialize = function() {
-      this.renderView();
-      return unitTempCollection.on("change reset add remove", this.renderView, this);
+      this.renderTopView();
+      return unitTempCollection.bind("filter_available", this.renderTopView, this);
     };
 
-    TopApartmentCtrl.prototype.renderView = function() {
+    TopApartmentCtrl.prototype.renderTopView = function() {
       var buildingModel, building_id, response, url;
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
@@ -254,12 +270,14 @@
       unitVariant = apartmentVariantCollection.findWhere({
         'id': this.model.get('unit_variant_id')
       });
-      unitType = unitTypeCollection.findWhere({
-        'id': unitVariant.get('unit_type_id')
-      });
-      data.unit_type = unitType.get('name');
-      data.super_built_up_area = unitVariant.get('super_built_up_area');
-      data.status = status;
+      if (!_.isUndefined(unitVariant)) {
+        unitType = unitTypeCollection.findWhere({
+          'id': unitVariant.get('unit_type_id')
+        });
+        data.unit_type = unitType.get('name');
+        data.super_built_up_area = unitVariant.get('super_built_up_area');
+        data.status = status;
+      }
       unitType = unitTypeMasterCollection.findWhere({
         'id': this.model.get('unit_type_id')
       });
@@ -325,11 +343,11 @@
     }
 
     CenterApartmentCtrl.prototype.initialize = function() {
-      this.renderView();
-      return unitTempCollection.on("change reset add remove", this.renderView, this);
+      this.renderListView();
+      return unitTempCollection.bind("filter_available", this.renderListView, this);
     };
 
-    CenterApartmentCtrl.prototype.renderView = function() {
+    CenterApartmentCtrl.prototype.renderListView = function() {
       var building_id, region, response, unitsCollection, url;
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
@@ -344,9 +362,10 @@
         return;
       }
       unitsCollection = new Backbone.Collection(response);
-      return this.show(new CommonFloor.CenterApartmentView({
+      this.view = new CommonFloor.CenterApartmentView({
         collection: unitsCollection
-      }));
+      });
+      return this.show(this.view);
     };
 
     return CenterApartmentCtrl;

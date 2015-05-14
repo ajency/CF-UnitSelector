@@ -100,7 +100,8 @@
           }
           this.trigger('render:view');
           unitCollection.reset(unitMasterCollection.toArray());
-          return CommonFloor.filter();
+          CommonFloor.filter();
+          return unitCollection.trigger('available');
         },
         'click @ui.unitTypes': function(e) {
           var unitTypes;
@@ -109,6 +110,7 @@
           CommonFloor.defaults['unitTypes'] = unitTypes.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
+          unitCollection.trigger('available');
           return this.trigger('render:view');
         },
         'click @ui.variantNames': function(e) {
@@ -118,12 +120,14 @@
           CommonFloor.defaults['unitVariants'] = variantNames.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
+          unitCollection.trigger('available');
           return this.trigger('render:view');
         },
         'click @ui.status': function(e) {
           CommonFloor.defaults['availability'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
+          unitCollection.trigger('available');
           return this.trigger('render:view');
         },
         'click @ui.area': function(e) {
@@ -131,6 +135,7 @@
           CommonFloor.defaults['area_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
+          unitCollection.trigger('available');
           return this.trigger('render:view');
         },
         'click @ui.budget': function(e) {
@@ -138,6 +143,7 @@
           CommonFloor.defaults['price_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
+          unitCollection.trigger('available');
           return this.trigger('render:view');
         }
       };
@@ -265,11 +271,11 @@
     }
 
     TopListCtrl.prototype.initialize = function() {
-      this.renderView();
-      return unitTempCollection.on("change reset add remove", this.renderView, this);
+      this.renderTopListView();
+      return unitCollection.bind("available", this.renderTopListView, this);
     };
 
-    TopListCtrl.prototype.renderView = function() {
+    TopListCtrl.prototype.renderTopListView = function() {
       this.view = new TopListView({
         model: project
       });
@@ -336,11 +342,11 @@
     }
 
     CenterListCtrl.prototype.initialize = function() {
-      this.renderView();
-      return unitTempCollection.on("change reset add remove", this.renderView);
+      this.renderCenterListView();
+      return unitCollection.bind("available", this.renderCenterListView, this);
     };
 
-    CenterListCtrl.prototype.renderView = function() {
+    CenterListCtrl.prototype.renderCenterListView = function() {
       var data, region, response, units;
       response = CommonFloor.checkListView();
       if (response.count.length === 0) {
@@ -372,7 +378,19 @@
         this.region = new Marionette.Region({
           el: '#centerregion'
         });
-        return new CommonFloor.BuildingListCtrl({
+        new CommonFloor.BuildingListCtrl({
+          region: this.region
+        });
+      }
+      if (response.type === 'plot') {
+        units = plotVariantCollection.getBunglowUnits();
+        data = {};
+        data.units = units;
+        data.type = 'plot';
+        this.region = new Marionette.Region({
+          el: '#centerregion'
+        });
+        return new CommonFloor.PlotListCtrl({
           region: this.region
         });
       }

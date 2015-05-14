@@ -103,6 +103,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 				CommonFloor.defaults[index] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			@loadSelectedFilters()
 
 		'click @ui.types':(e)->
@@ -119,6 +120,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			CommonFloor.defaults['type'] = window.type.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			if e.target.id == 'Villas'
 				@villaFilters() 
 			if e.target.id == 'Apartments'
@@ -136,6 +138,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			CommonFloor.defaults['unitTypes'] = window.unitTypes.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			# @resetFilters()
 			
 		'click @ui.variantNames':(e)->
@@ -147,6 +150,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			CommonFloor.defaults['unitVariants'] = window.variantNames.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()	
+			unitCollection.trigger('available')
 
 		'click @ui.status':(e)->
 			if $(e.currentTarget).is(':checked')
@@ -156,6 +160,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 				
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			# @resetFilters()
 
 
@@ -164,6 +169,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			CommonFloor.defaults['area_min'] = parseFloat $(e.target).val().split(';')[0]
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 
 		'change @ui.budget':(e)->
 			console.log $(e.target).val()
@@ -171,6 +177,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			CommonFloor.defaults['price_min'] = parseFloat $(e.target).val().split(';')[0]
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			
 
 
@@ -362,9 +369,9 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		types = Marionette.getOption(@,'types')
 		flag = 0
 		$.each CommonFloor.defaults,(index,value)->
-				if CommonFloor.defaults[index] != ""
+				if CommonFloor.defaults[index] != "" 
 					flag = 1
-		if flag == 1
+		if flag == 1  
 			$('#collapsefilters').collapse('show')
 		if types.length == 1
 			$('.property_type').hide()
@@ -429,7 +436,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		$(@ui.types).each (ind,item)->
 			$('#'+item.id).attr('checked',true)
 			$('#'+item.id).attr('disabled',false)
-			if $.inArray(item.id,types) is -1
+			if $.inArray($('#'+item.id).val(),types) is -1
 				$('#'+item.id).prop('checked',false)
 
 		
