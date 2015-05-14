@@ -26,7 +26,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 
 									            <div class="breadcrumb-bar">
 									                <a class="unit_back" href="#">
-														Back to Poject Overview
+														Back to Poject Master Overview
 													</a>
 									            </div>
 
@@ -51,9 +51,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 					                      	{{/each}}{{/each }}							               
 					                    </div>
 					        			<div class="proj-type-count">
-					        				{{#results}} 
-					        				<p class="pull-right">{{type}}</p><h1 class="text-primary pull-right m-t-10">{{count.length}}</h1> 
-					        				{{/results}}
+					        				<p class="pull-right">Apartment(s)/Penthouse(s)</p><h1 class="text-primary pull-right m-t-10">{{results}}</h1> 
 					        			</div>
 
 					        			<div class="clearfix"></div>
@@ -78,7 +76,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		data.units = units.length
 		data.project_title = project.get('project_title')
 		data.filters  = CommonFloor.getFilters()[0]
-		data.results  = CommonFloor.getFilters()[1]
+		data.results  = CommonFloor.getApartmentFilters().count
 		data
 
 	events:->

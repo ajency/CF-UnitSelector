@@ -221,60 +221,16 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		data
 
 	onShow:->
-		flag = 0
-		$.each CommonFloor.defaults,(index,value)->
-				if CommonFloor.defaults[index] != ""
-					flag = 1
-		if flag == 1
-			$('#collapsefilters').collapse('show')
-		@loadSelectedFilters()
-
-	loadSelectedFilters:->
-		unittypesArray = []
-		unitTypes = CommonFloor.defaults['unitTypes'].split(',')
-		unitVariantsArray = []
-		unitVariants = CommonFloor.defaults['unitVariants'].split(',')
-		typesArray = []
-		types = CommonFloor.defaults['type'].split(',')
 		budget = []
 		area = []
-		id = []
-		unitsArr = []
-		unittypesColl = []
-		$.merge unitsArr, apartmentVariantMasterCollection.getApartmentMasterUnits()
-			
-		$.each unitsArr,(index,value)->
-			unitDetails = window.unit.getUnitDetails(value.id)
-			id.push parseInt unitDetails[0].get 'id'
-			unittypesColl.push parseFloat unitDetails[1].get 'id'
-		$.each unitCollection.toArray(), (index,value)->
-			unitDetails = window.unit.getUnitDetails(value.id)
-			budget.push parseFloat unitDetails[3]
-			area.push parseFloat unitDetails[0].get 'super_built_up_area'
-			
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		floor = buildingCollection.findWhere
 					'id' : building_id
-		$(@ui.unitTypes).each (ind,item)->
-			$('#'+item.id).attr('checked',true)
-			$('#'+item.id).attr('disabled',false)
-			if $.inArray($(item).attr('data-value'),unitTypes) is -1
-				$('#'+item.id).prop('checked',false)
-				$('#'+item.id).attr('disabled',false)
-			if $.inArray(parseInt($(item).attr('data-value')),unittypesColl) is -1
-				$('#'+item.id).prop('checked',false)
-				$('#'+item.id).attr('disabled',true)
-		$(@ui.variantNames).each (ind,item)->
-			$('#'+item.id).attr('checked',true)
-			$('#'+item.id).attr('disabled',false)
-			if $.inArray($(item).attr('data-value'),unitVariants) is -1 
-				$('#'+item.id).prop('checked',false)
-				$('#'+item.id).attr('disabled',false)
-			if $.inArray(parseInt($(item).attr('data-value')),id) is -1 
-				$('#'+item.id).prop('checked',false)
-				$('#'+item.id).attr('disabled',true)
-		
+		$.each unitCollection.toArray(), (index,value)->
+			unitDetails = window.unit.getUnitDetails(value.id)
+			budget.push parseFloat unitDetails[3]
+			area.push parseFloat unitDetails[0].get 'super_built_up_area'
 		min = _.min area
 		max = _.max area
 		subArea = (max - min)/ 20 
@@ -308,44 +264,92 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		    
 
 		)
-		window.price = $("#budget").data("ionRangeSlider")
-		window.area = $("#area").data("ionRangeSlider")
-		window.floor = $("#floor").data("ionRangeSlider")
-		window.area.update(
-		   from : min
-		   to  : max
-		)
-		window.price.update(
-		   from : priceMin
-		   to  : priceMax
-		)
-		window.floor.update(
-		   from : 1
-		   to  : floor.get('no_of_floors')
-		)
-		min = _.min CommonFloor.defaults['area_min']
-		max = _.max CommonFloor.defaults['area_max']
-		subArea = (max - min)/ 20 
-		subArea = subArea.toFixed(0)
-		priceMin = _.min CommonFloor.defaults['price_min']
-		priceMax = _.max CommonFloor.defaults['price_max']		
-		subBudget = (priceMax - priceMin)/ 20
-		subBudget = subBudget.toFixed(0)
-		if CommonFloor.defaults['area_min'] != "" && CommonFloor.defaults['area_min'] != ""
-			window.area.update(
-			   from : min
-			   to  : max
-		)
-		if CommonFloor.defaults['price_min'] != "" && CommonFloor.defaults['price_max'] != ""
-			window.price.update(
-			   from : priceMin
-			   to  : priceMax
-		)
-		if CommonFloor.defaults['floor_min'] != "" && CommonFloor.defaults['floor_max'] != ""
-			window.floor.update(
-			   from : parseInt CommonFloor.defaults['floor_min']
-			   to  : parseInt CommonFloor.defaults['floor_max']
-		)
+		flag = 0
+		$.each CommonFloor.defaults,(index,value)->
+				if CommonFloor.defaults[index] != ""
+					flag = 1
+		if flag == 1
+			$('#collapsefilters').collapse('show')
+		@loadSelectedFilters()
+
+	loadSelectedFilters:->
+		unittypesArray = []
+		unitTypes = CommonFloor.defaults['unitTypes'].split(',')
+		unitVariantsArray = []
+		unitVariants = CommonFloor.defaults['unitVariants'].split(',')
+		typesArray = []
+		types = CommonFloor.defaults['type'].split(',')
+		
+		id = []
+		unitsArr = []
+		unittypesColl = []
+		$.merge unitsArr, apartmentVariantMasterCollection.getApartmentMasterUnits()
+			
+		$.each unitsArr,(index,value)->
+			unitDetails = window.unit.getUnitDetails(value.id)
+			id.push parseInt unitDetails[0].get 'id'
+			unittypesColl.push parseInt unitDetails[1].get 'id'
+		
+			
+		
+		$(@ui.unitTypes).each (ind,item)->
+			$('#'+item.id).attr('checked',true)
+			$('#'+item.id).attr('disabled',false)
+			if $.inArray($(item).attr('data-value'),unitTypes) is -1
+				$('#'+item.id).prop('checked',false)
+				$('#'+item.id).attr('disabled',false)
+			if $.inArray(parseInt($(item).attr('data-value')),unittypesColl) is -1
+				$('#'+item.id).prop('checked',false)
+				$('#'+item.id).attr('disabled',true)
+		$(@ui.variantNames).each (ind,item)->
+			$('#'+item.id).attr('checked',true)
+			$('#'+item.id).attr('disabled',false)
+			if $.inArray($(item).attr('data-value'),unitVariants) is -1 
+				$('#'+item.id).prop('checked',false)
+				$('#'+item.id).attr('disabled',false)
+			if $.inArray(parseInt($(item).attr('data-value')),id) is -1 
+				$('#'+item.id).prop('checked',false)
+				$('#'+item.id).attr('disabled',true)
+		
+		
+		# window.price = $("#budget").data("ionRangeSlider")
+		# window.area = $("#area").data("ionRangeSlider")
+		# window.floor = $("#floor").data("ionRangeSlider")
+		# window.area.update(
+		#    from : min
+		#    to  : max
+		# )
+		# window.price.update(
+		#    from : priceMin
+		#    to  : priceMax
+		# )
+		# window.floor.update(
+		#    from : 1
+		#    to  : floor.get('no_of_floors')
+		# )
+		# min = _.min CommonFloor.defaults['area_min']
+		# max = _.max CommonFloor.defaults['area_max']
+		# subArea = (max - min)/ 20 
+		# subArea = subArea.toFixed(0)
+		# priceMin = _.min CommonFloor.defaults['price_min']
+		# priceMax = _.max CommonFloor.defaults['price_max']		
+		# subBudget = (priceMax - priceMin)/ 20
+		# subBudget = subBudget.toFixed(0)
+		# if CommonFloor.defaults['area_min'] != "" && CommonFloor.defaults['area_min'] != ""
+		# 	window.area.update(
+		# 	   from : min
+		# 	   to  : max
+		# )
+		# if CommonFloor.defaults['price_min'] != "" && CommonFloor.defaults['price_max'] != ""
+		# 	window.price.update(
+		# 	   from : priceMin
+		# 	   to  : priceMax
+		# )
+		# if CommonFloor.defaults['floor_min'] != "" && CommonFloor.defaults['floor_max'] != ""
+		# 	window.floor.update(
+		# 	   from : parseInt CommonFloor.defaults['floor_min']
+		# 	   to  : parseInt CommonFloor.defaults['floor_max']
+		# )
 		@ui.status.prop('checked',false)
 		if CommonFloor.defaults['availability'] != "" 
 			 @ui.status.prop('checked',true)

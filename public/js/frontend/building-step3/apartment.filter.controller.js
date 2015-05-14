@@ -119,73 +119,19 @@
     };
 
     FilterApartmentView.prototype.onShow = function() {
-      var flag;
-      flag = 0;
-      $.each(CommonFloor.defaults, function(index, value) {
-        if (CommonFloor.defaults[index] !== "") {
-          return flag = 1;
-        }
-      });
-      if (flag === 1) {
-        $('#collapsefilters').collapse('show');
-      }
-      return this.loadSelectedFilters();
-    };
-
-    FilterApartmentView.prototype.loadSelectedFilters = function() {
-      var area, budget, building_id, floor, id, max, min, priceMax, priceMin, subArea, subBudget, types, typesArray, unitTypes, unitVariants, unitVariantsArray, unitsArr, unittypesArray, unittypesColl, url;
-      unittypesArray = [];
-      unitTypes = CommonFloor.defaults['unitTypes'].split(',');
-      unitVariantsArray = [];
-      unitVariants = CommonFloor.defaults['unitVariants'].split(',');
-      typesArray = [];
-      types = CommonFloor.defaults['type'].split(',');
+      var area, budget, building_id, flag, floor, max, min, priceMax, priceMin, subArea, subBudget, url;
       budget = [];
       area = [];
-      id = [];
-      unitsArr = [];
-      unittypesColl = [];
-      $.merge(unitsArr, apartmentVariantMasterCollection.getApartmentMasterUnits());
-      $.each(unitsArr, function(index, value) {
-        var unitDetails;
-        unitDetails = window.unit.getUnitDetails(value.id);
-        id.push(parseInt(unitDetails[0].get('id')));
-        return unittypesColl.push(parseFloat(unitDetails[1].get('id')));
+      url = Backbone.history.fragment;
+      building_id = parseInt(url.split('/')[1]);
+      floor = buildingCollection.findWhere({
+        'id': building_id
       });
       $.each(unitCollection.toArray(), function(index, value) {
         var unitDetails;
         unitDetails = window.unit.getUnitDetails(value.id);
         budget.push(parseFloat(unitDetails[3]));
         return area.push(parseFloat(unitDetails[0].get('super_built_up_area')));
-      });
-      url = Backbone.history.fragment;
-      building_id = parseInt(url.split('/')[1]);
-      floor = buildingCollection.findWhere({
-        'id': building_id
-      });
-      $(this.ui.unitTypes).each(function(ind, item) {
-        $('#' + item.id).attr('checked', true);
-        $('#' + item.id).attr('disabled', false);
-        if ($.inArray($(item).attr('data-value'), unitTypes) === -1) {
-          $('#' + item.id).prop('checked', false);
-          $('#' + item.id).attr('disabled', false);
-        }
-        if ($.inArray(parseInt($(item).attr('data-value')), unittypesColl) === -1) {
-          $('#' + item.id).prop('checked', false);
-          return $('#' + item.id).attr('disabled', true);
-        }
-      });
-      $(this.ui.variantNames).each(function(ind, item) {
-        $('#' + item.id).attr('checked', true);
-        $('#' + item.id).attr('disabled', false);
-        if ($.inArray($(item).attr('data-value'), unitVariants) === -1) {
-          $('#' + item.id).prop('checked', false);
-          $('#' + item.id).attr('disabled', false);
-        }
-        if ($.inArray(parseInt($(item).attr('data-value')), id) === -1) {
-          $('#' + item.id).prop('checked', false);
-          return $('#' + item.id).attr('disabled', true);
-        }
       });
       min = _.min(area);
       max = _.max(area);
@@ -218,47 +164,60 @@
         max: floor.get('no_of_floors'),
         grid: false
       });
-      window.price = $("#budget").data("ionRangeSlider");
-      window.area = $("#area").data("ionRangeSlider");
-      window.floor = $("#floor").data("ionRangeSlider");
-      window.area.update({
-        from: min,
-        to: max
+      flag = 0;
+      $.each(CommonFloor.defaults, function(index, value) {
+        if (CommonFloor.defaults[index] !== "") {
+          return flag = 1;
+        }
       });
-      window.price.update({
-        from: priceMin,
-        to: priceMax
+      if (flag === 1) {
+        $('#collapsefilters').collapse('show');
+      }
+      return this.loadSelectedFilters();
+    };
+
+    FilterApartmentView.prototype.loadSelectedFilters = function() {
+      var id, types, typesArray, unitTypes, unitVariants, unitVariantsArray, unitsArr, unittypesArray, unittypesColl;
+      unittypesArray = [];
+      unitTypes = CommonFloor.defaults['unitTypes'].split(',');
+      unitVariantsArray = [];
+      unitVariants = CommonFloor.defaults['unitVariants'].split(',');
+      typesArray = [];
+      types = CommonFloor.defaults['type'].split(',');
+      id = [];
+      unitsArr = [];
+      unittypesColl = [];
+      $.merge(unitsArr, apartmentVariantMasterCollection.getApartmentMasterUnits());
+      $.each(unitsArr, function(index, value) {
+        var unitDetails;
+        unitDetails = window.unit.getUnitDetails(value.id);
+        id.push(parseInt(unitDetails[0].get('id')));
+        return unittypesColl.push(parseInt(unitDetails[1].get('id')));
       });
-      window.floor.update({
-        from: 1,
-        to: floor.get('no_of_floors')
+      $(this.ui.unitTypes).each(function(ind, item) {
+        $('#' + item.id).attr('checked', true);
+        $('#' + item.id).attr('disabled', false);
+        if ($.inArray($(item).attr('data-value'), unitTypes) === -1) {
+          $('#' + item.id).prop('checked', false);
+          $('#' + item.id).attr('disabled', false);
+        }
+        if ($.inArray(parseInt($(item).attr('data-value')), unittypesColl) === -1) {
+          $('#' + item.id).prop('checked', false);
+          return $('#' + item.id).attr('disabled', true);
+        }
       });
-      min = _.min(CommonFloor.defaults['area_min']);
-      max = _.max(CommonFloor.defaults['area_max']);
-      subArea = (max - min) / 20;
-      subArea = subArea.toFixed(0);
-      priceMin = _.min(CommonFloor.defaults['price_min']);
-      priceMax = _.max(CommonFloor.defaults['price_max']);
-      subBudget = (priceMax - priceMin) / 20;
-      subBudget = subBudget.toFixed(0);
-      if (CommonFloor.defaults['area_min'] !== "" && CommonFloor.defaults['area_min'] !== "") {
-        window.area.update({
-          from: min,
-          to: max
-        });
-      }
-      if (CommonFloor.defaults['price_min'] !== "" && CommonFloor.defaults['price_max'] !== "") {
-        window.price.update({
-          from: priceMin,
-          to: priceMax
-        });
-      }
-      if (CommonFloor.defaults['floor_min'] !== "" && CommonFloor.defaults['floor_max'] !== "") {
-        window.floor.update({
-          from: parseInt(CommonFloor.defaults['floor_min']),
-          to: parseInt(CommonFloor.defaults['floor_max'])
-        });
-      }
+      $(this.ui.variantNames).each(function(ind, item) {
+        $('#' + item.id).attr('checked', true);
+        $('#' + item.id).attr('disabled', false);
+        if ($.inArray($(item).attr('data-value'), unitVariants) === -1) {
+          $('#' + item.id).prop('checked', false);
+          $('#' + item.id).attr('disabled', false);
+        }
+        if ($.inArray(parseInt($(item).attr('data-value')), id) === -1) {
+          $('#' + item.id).prop('checked', false);
+          return $('#' + item.id).attr('disabled', true);
+        }
+      });
       this.ui.status.prop('checked', false);
       if (CommonFloor.defaults['availability'] !== "") {
         return this.ui.status.prop('checked', true);

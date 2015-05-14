@@ -119,7 +119,7 @@
     };
 
     FilterMsterView.prototype.villaFilters = function() {
-      var area, areaArray, budget, id, max, min, priceMax, priceMin, unitsArr, unittypesArray, unittypesColl;
+      var area, budget, id, unitsArr, unittypesArray, unittypesColl;
       budget = [];
       area = [];
       id = [];
@@ -137,21 +137,6 @@
         budget.push(parseFloat(unitDetails[3]));
         area.push(parseFloat(unitDetails[0].get('super_built_up_area')));
         return id.push(parseInt(unitDetails[0].get('id')));
-      });
-      priceMin = _.min(budget);
-      priceMax = _.max(budget);
-      areaArray = area.map(function(item) {
-        return parseFloat(item);
-      });
-      min = _.min(areaArray);
-      max = _.max(areaArray);
-      window.area.update({
-        from: min,
-        to: max
-      });
-      window.price.update({
-        from: priceMin,
-        to: priceMax
       });
       $(this.ui.unitTypes).each(function(ind, item) {
         $('#' + item.id).attr('disabled', false);
@@ -172,7 +157,7 @@
     };
 
     FilterMsterView.prototype.apartmentFilters = function() {
-      var area, areaArray, budget, id, max, min, priceMax, priceMin, unitsArr, unittypesArray, unittypesColl;
+      var area, budget, id, unitsArr, unittypesArray, unittypesColl;
       budget = [];
       area = [];
       id = [];
@@ -190,21 +175,6 @@
         budget.push(parseFloat(unitDetails[3]));
         area.push(parseFloat(unitDetails[0].get('super_built_up_area')));
         return id.push(parseInt(unitDetails[0].get('id')));
-      });
-      priceMin = _.min(budget);
-      priceMax = _.max(budget);
-      areaArray = area.map(function(item) {
-        return parseFloat(item);
-      });
-      min = _.min(areaArray);
-      max = _.max(areaArray);
-      window.area.update({
-        from: min,
-        to: max
-      });
-      window.price.update({
-        from: priceMin,
-        to: priceMax
       });
       $(this.ui.unitTypes).each(function(ind, item) {
         $('#' + item.id).attr('checked', false);
@@ -225,7 +195,7 @@
     };
 
     FilterMsterView.prototype.plotFilters = function() {
-      var area, areaArray, budget, id, max, min, priceMax, priceMin, unitsArr, unittypesArray, unittypesColl;
+      var area, budget, id, unitsArr, unittypesArray, unittypesColl;
       budget = [];
       area = [];
       id = [];
@@ -243,21 +213,6 @@
         budget.push(parseFloat(unitDetails[3]));
         area.push(parseFloat(unitDetails[0].get('super_built_up_area')));
         return id.push(parseInt(unitDetails[0].get('id')));
-      });
-      priceMin = _.min(budget);
-      priceMax = _.max(budget);
-      areaArray = area.map(function(item) {
-        return parseFloat(item);
-      });
-      min = _.min(areaArray);
-      max = _.max(areaArray);
-      window.area.update({
-        from: min,
-        to: max
-      });
-      window.price.update({
-        from: priceMin,
-        to: priceMax
       });
       $(this.ui.unitTypes).each(function(ind, item) {
         $('#' + item.id).attr('checked', false);
@@ -288,7 +243,40 @@
     };
 
     FilterMsterView.prototype.onShow = function() {
-      var flag, types;
+      var area, budget, flag, max, min, priceMax, priceMin, subArea, subBudget, types;
+      budget = [];
+      area = [];
+      $.each(unitMasterCollection.toArray(), function(index, value) {
+        var unitDetails;
+        unitDetails = window.unit.getUnitDetails(value.id);
+        budget.push(parseFloat(unitDetails[3]));
+        return area.push(parseFloat(unitDetails[0].get('super_built_up_area')));
+      });
+      min = _.min(area);
+      max = _.max(area);
+      subArea = (max - min) / 20;
+      subArea = subArea.toFixed(0);
+      priceMin = _.min(budget);
+      priceMax = _.max(budget);
+      subBudget = (priceMax - priceMin) / 20;
+      subBudget = subBudget.toFixed(0);
+      $("#area").ionRangeSlider({
+        type: "double",
+        min: min,
+        max: max,
+        step: subArea,
+        grid: false
+      });
+      $("#budget").ionRangeSlider({
+        type: "double",
+        min: priceMin,
+        max: priceMax,
+        grid: false,
+        step: subBudget,
+        prettify: function(num) {
+          return window.numDifferentiation(num);
+        }
+      });
       types = Marionette.getOption(this, 'types');
       flag = 0;
       $.each(CommonFloor.defaults, function(index, value) {
@@ -306,7 +294,7 @@
     };
 
     FilterMsterView.prototype.loadSelectedFilters = function() {
-      var area, budget, id, max, min, priceMax, priceMin, pt_types, subArea, subBudget, types, typesArray, unitTypes, unitVariants, unitVariantsArray, unitsArr, unittypesArray, unittypesColl;
+      var id, pt_types, types, typesArray, unitTypes, unitVariants, unitVariantsArray, unitsArr, unittypesArray, unittypesColl;
       types = [];
       pt_types = Marionette.getOption(this, 'types');
       types = CommonFloor.defaults['type'].split(',');
@@ -318,8 +306,6 @@
       unitVariantsArray = [];
       unitVariants = CommonFloor.defaults['unitVariants'].split(',');
       typesArray = [];
-      budget = [];
-      area = [];
       id = [];
       unitsArr = [];
       unittypesColl = [];
@@ -344,12 +330,6 @@
         unitDetails = window.unit.getUnitDetails(value.id);
         id.push(parseInt(unitDetails[0].get('id')));
         return unittypesColl.push(parseFloat(unitDetails[1].get('id')));
-      });
-      $.each(unitCollection.toArray(), function(index, value) {
-        var unitDetails;
-        unitDetails = window.unit.getUnitDetails(value.id);
-        budget.push(parseFloat(unitDetails[3]));
-        return area.push(parseFloat(unitDetails[0].get('super_built_up_area')));
       });
       unittypesColl = _.uniq(unittypesColl);
       $(this.ui.unitTypes).each(function(ind, item) {
@@ -386,61 +366,6 @@
           return $('#' + item.id).prop('checked', false);
         }
       });
-      min = _.min(area);
-      max = _.max(area);
-      subArea = (max - min) / 20;
-      subArea = subArea.toFixed(0);
-      priceMin = _.min(budget);
-      priceMax = _.max(budget);
-      subBudget = (priceMax - priceMin) / 20;
-      subBudget = subBudget.toFixed(0);
-      $("#area").ionRangeSlider({
-        type: "double",
-        min: min,
-        max: max,
-        step: subArea,
-        grid: false
-      });
-      $("#budget").ionRangeSlider({
-        type: "double",
-        min: priceMin,
-        max: priceMax,
-        grid: false,
-        step: subBudget,
-        prettify: function(num) {
-          return window.numDifferentiation(num);
-        }
-      });
-      window.price = $("#budget").data("ionRangeSlider");
-      window.area = $("#area").data("ionRangeSlider");
-      window.area.update({
-        from: min,
-        to: max
-      });
-      window.price.update({
-        from: priceMin,
-        to: priceMax
-      });
-      min = _.min(CommonFloor.defaults['area_min']);
-      max = _.max(CommonFloor.defaults['area_max']);
-      subArea = (max - min) / 20;
-      subArea = subArea.toFixed(0);
-      priceMin = _.min(CommonFloor.defaults['price_min']);
-      priceMax = _.max(CommonFloor.defaults['price_max']);
-      subBudget = (priceMax - priceMin) / 20;
-      subBudget = subBudget.toFixed(0);
-      if (CommonFloor.defaults['area_min'] !== "" && CommonFloor.defaults['area_min'] !== "") {
-        window.area.update({
-          from: min,
-          to: max
-        });
-      }
-      if (CommonFloor.defaults['price_min'] !== "" && CommonFloor.defaults['price_max'] !== "") {
-        window.price.update({
-          from: priceMin,
-          to: priceMax
-        });
-      }
       this.ui.status.prop('checked', false);
       if (CommonFloor.defaults['availability'] !== "") {
         return this.ui.status.prop('checked', true);

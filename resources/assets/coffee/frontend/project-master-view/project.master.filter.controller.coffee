@@ -187,22 +187,22 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			budget.push parseFloat unitDetails[3]
 			area.push parseFloat unitDetails[0].get 'super_built_up_area'
 			id.push parseInt unitDetails[0].get 'id'
-		priceMin = _.min budget
-		priceMax = _.max budget
-		areaArray = area.map (item)->
-			return parseFloat item
+		# priceMin = _.min budget
+		# priceMax = _.max budget
+		# areaArray = area.map (item)->
+		# 	return parseFloat item
 
-		min = _.min areaArray
-		max = _.max areaArray
+		# min = _.min areaArray
+		# max = _.max areaArray
 		
-		window.area.update(
-		   from : min
-		   to  : max
-		)
-		window.price.update(
-		   from : priceMin
-		   to  : priceMax
-		)
+		# window.area.update(
+		#    from : min
+		#    to  : max
+		# )
+		# window.price.update(
+		#    from : priceMin
+		#    to  : priceMax
+		# )
 		$(@ui.unitTypes).each (ind,item)->
 			$('#'+item.id).attr('disabled',false)
 			$('#'+item.id).attr('checked',false)
@@ -233,21 +233,21 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			budget.push parseFloat unitDetails[3]
 			area.push parseFloat unitDetails[0].get 'super_built_up_area'
 			id.push parseInt unitDetails[0].get 'id'
-		priceMin = _.min budget
-		priceMax = _.max budget
-		areaArray = area.map (item)->
-			return parseFloat item
+		# priceMin = _.min budget
+		# priceMax = _.max budget
+		# areaArray = area.map (item)->
+		# 	return parseFloat item
 
-		min = _.min areaArray
-		max = _.max areaArray
-		window.area.update(
-		   from : min
-		   to  : max
-		)
-		window.price.update(
-		   from : priceMin
-		   to  : priceMax
-		)
+		# min = _.min areaArray
+		# max = _.max areaArray
+		# window.area.update(
+		#    from : min
+		#    to  : max
+		# )
+		# window.price.update(
+		#    from : priceMin
+		#    to  : priceMax
+		# )
 		$(@ui.unitTypes).each (ind,item)->
 			$('#'+item.id).attr('checked',false)
 			$('#'+item.id).attr('disabled',false)
@@ -279,22 +279,22 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			budget.push parseFloat unitDetails[3]
 			area.push parseFloat unitDetails[0].get 'super_built_up_area'
 			id.push parseInt unitDetails[0].get 'id'
-		priceMin = _.min budget
-		priceMax = _.max budget
-		areaArray = area.map (item)->
-			return parseFloat item
+		# priceMin = _.min budget
+		# priceMax = _.max budget
+		# areaArray = area.map (item)->
+		# 	return parseFloat item
 
-		min = _.min areaArray
-		max = _.max areaArray
+		# min = _.min areaArray
+		# max = _.max areaArray
 		
-		window.area.update(
-		   from : min
-		   to  : max
-		)
-		window.price.update(
-		   from : priceMin
-		   to  : priceMax
-		)
+		# window.area.update(
+		#    from : min
+		#    to  : max
+		# )
+		# window.price.update(
+		#    from : priceMin
+		#    to  : priceMax
+		# )
 		$(@ui.unitTypes).each (ind,item)->
 			$('#'+item.id).attr('checked',false)
 			$('#'+item.id).attr('disabled',false)
@@ -320,6 +320,39 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		data
 
 	onShow:->
+		budget = []
+		area = []
+		$.each unitMasterCollection.toArray(), (index,value)->
+			unitDetails = window.unit.getUnitDetails(value.id)
+			budget.push parseFloat unitDetails[3]
+			area.push parseFloat unitDetails[0].get 'super_built_up_area'
+		min = _.min area
+		max = _.max area
+		subArea = (max - min)/ 20 
+		subArea = subArea.toFixed(0)
+		priceMin = _.min budget
+		priceMax = _.max budget		
+		subBudget = (priceMax - priceMin)/ 20
+		subBudget = subBudget.toFixed(0)
+		
+		$("#area").ionRangeSlider(
+		    type: "double",
+		    min: min,
+		    max:  max,
+		    step : subArea,
+		    grid: false
+		)
+		$("#budget").ionRangeSlider(
+		    type: "double",
+		    min: priceMin,
+		    max: priceMax,
+		    grid: false,
+		    step : subBudget,
+		    prettify :(num)->
+		    	return window.numDifferentiation(num)
+
+		)
+		
 		types = Marionette.getOption(@,'types')
 		flag = 0
 		$.each CommonFloor.defaults,(index,value)->
@@ -343,8 +376,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		unitVariants = CommonFloor.defaults['unitVariants'].split(',')
 		typesArray = []
 		
-		budget = []
-		area = []
+		
 		id = []
 		unitsArr = []
 		unittypesColl = []
@@ -364,10 +396,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			unitDetails = window.unit.getUnitDetails(value.id)
 			id.push parseInt unitDetails[0].get 'id'
 			unittypesColl.push parseFloat unitDetails[1].get 'id'
-		$.each unitCollection.toArray(), (index,value)->
-			unitDetails = window.unit.getUnitDetails(value.id)
-			budget.push parseFloat unitDetails[3]
-			area.push parseFloat unitDetails[0].get 'super_built_up_area'
+		
 			
 		unittypesColl = _.uniq unittypesColl
 		$(@ui.unitTypes).each (ind,item)->
@@ -397,62 +426,35 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			if $.inArray(item.id,types) is -1
 				$('#'+item.id).prop('checked',false)
 
-		min = _.min area
-		max = _.max area
-		subArea = (max - min)/ 20 
-		subArea = subArea.toFixed(0)
-		priceMin = _.min budget
-		priceMax = _.max budget		
-		subBudget = (priceMax - priceMin)/ 20
-		subBudget = subBudget.toFixed(0)
 		
-		$("#area").ionRangeSlider(
-		    type: "double",
-		    min: min,
-		    max:  max,
-		    step : subArea,
-		    grid: false
-		)
-		$("#budget").ionRangeSlider(
-		    type: "double",
-		    min: priceMin,
-		    max: priceMax,
-		    grid: false,
-		    step : subBudget,
-		    prettify :(num)->
-		    	return window.numDifferentiation(num)
+		# window.area.update(
+		#    from : min
+		#    to  : max
+		# )
+		# window.price.update(
+		#    from : priceMin
+		#    to  : priceMax
+		# )
 
-		)
-		window.price = $("#budget").data("ionRangeSlider")
-		window.area = $("#area").data("ionRangeSlider")
-		window.area.update(
-		   from : min
-		   to  : max
-		)
-		window.price.update(
-		   from : priceMin
-		   to  : priceMax
-		)
+		# min = _.min CommonFloor.defaults['area_min']
+		# max = _.max CommonFloor.defaults['area_max']
+		# subArea = (max - min)/ 20 
+		# subArea = subArea.toFixed(0)
+		# priceMin = _.min CommonFloor.defaults['price_min']
+		# priceMax = _.max CommonFloor.defaults['price_max']		
+		# subBudget = (priceMax - priceMin)/ 20
+		# subBudget = subBudget.toFixed(0)
 
-		min = _.min CommonFloor.defaults['area_min']
-		max = _.max CommonFloor.defaults['area_max']
-		subArea = (max - min)/ 20 
-		subArea = subArea.toFixed(0)
-		priceMin = _.min CommonFloor.defaults['price_min']
-		priceMax = _.max CommonFloor.defaults['price_max']		
-		subBudget = (priceMax - priceMin)/ 20
-		subBudget = subBudget.toFixed(0)
-
-		if CommonFloor.defaults['area_min'] != "" && CommonFloor.defaults['area_min'] != ""
-			window.area.update(
-			   from : min
-			   to  : max
-		)
-		if CommonFloor.defaults['price_min'] != "" && CommonFloor.defaults['price_max'] != ""
-			window.price.update(
-			   from : priceMin
-			   to  : priceMax
-		)
+		# if CommonFloor.defaults['area_min'] != "" && CommonFloor.defaults['area_min'] != ""
+		# 	window.area.update(
+		# 	   from : min
+		# 	   to  : max
+		# )
+		# if CommonFloor.defaults['price_min'] != "" && CommonFloor.defaults['price_max'] != ""
+		# 	window.price.update(
+		# 	   from : priceMin
+		# 	   to  : priceMax
+		# )
 		@ui.status.prop('checked',false)
 		if CommonFloor.defaults['availability'] != "" 
 			 @ui.status.prop('checked',true)
