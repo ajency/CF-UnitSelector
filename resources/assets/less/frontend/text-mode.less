@@ -133,11 +133,11 @@
 	    margin-right: 0;
 	}
 	.status-icon{
-		width: 10px;
-		height: 10px;
-		margin: 5px 0 0 5px;
-		float: left;
-		border-radius: 50%;
+		// width: 10px;
+		// height: 10px;
+		// margin: 5px 0 0 5px;
+		// float: left;
+		// border-radius: 50%;
 	}
 	&::after{
 		border-right: 1px solid @gray;
@@ -179,9 +179,11 @@
 		// .cost{
 		// 	color: @danger-darker;
 		// }
+		background-color: lighten(@gray-lighter, 8%);
+		opacity: 0.5;
 		.status-icon{
-			border: 2px solid fade(@danger-darker, 80%);
-			background-color: fade(@danger-darker, 80%);
+			// border: 2px solid fade(@danger-darker, 80%);
+			// background-color: fade(@danger-darker, 80%);
 		}
 	}
 	

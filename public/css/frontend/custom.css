@@ -597,6 +597,7 @@ body {
 }
 @media (min-width: 992px) {
   .cf-loader.loader-center {
+    top: 45%;
     left: -30%;
   }
 }
@@ -1026,13 +1027,6 @@ svg polygon {
 .blocks:nth-child(3n) {
   margin-right: 0;
 }
-.blocks .status-icon {
-  width: 10px;
-  height: 10px;
-  margin: 5px 0 0 5px;
-  float: left;
-  border-radius: 50%;
-}
 .blocks::after {
   border-right: 1px solid #666666;
   content: "";
@@ -1060,11 +1054,11 @@ svg polygon {
   -webkit-animation-iteration-count: infinite;
           animation-iteration-count: infinite;
 }
-.blocks.sold .status-icon,
-.blocks.blocked .status-icon,
-.blocks.not_released .status-icon {
-  border: 2px solid rgba(208, 109, 114, 0.8);
-  background-color: rgba(208, 109, 114, 0.8);
+.blocks.sold,
+.blocks.blocked,
+.blocks.not_released {
+  background-color: #e0e0e0;
+  opacity: 0.5;
 }
 .eight .blocks {
   padding: 10px;
