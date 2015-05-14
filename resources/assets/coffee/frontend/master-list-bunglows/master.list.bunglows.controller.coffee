@@ -214,10 +214,12 @@ class MasterBunglowListView extends Marionette.CompositeView
 			$('.buildings').removeClass 'hidden'
 		if plotVariantCollection.length != 0
 			$('.Plots').removeClass 'hidden'
-		
 
-		$('.units').mCustomScrollbar
-			theme: 'inset'
+		# if!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
+		# $(window).resize ->
+		if $(window).width() > 991
+			$('.units').mCustomScrollbar
+				theme: 'inset'
 		
 
 #controller for the Center region

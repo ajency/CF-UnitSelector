@@ -22,7 +22,7 @@ class CommonFloor.ProjectMasterCtrl extends Marionette.RegionController
 #View for Poject Master top view 
 class TopMasterView extends Marionette.ItemView
 	#template
-	template : Handlebars.compile('<div class="container-fluid">
+	template : Handlebars.compile('<div class="container-fluid animated fadeIn">
 										<div class="row">
 											<div class="col-md-12 col-xs-12 col-sm-12 text-center">
 
@@ -307,7 +307,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 
-	template : Handlebars.compile('<div class="col-md-12 us-right-content mobile visible">
+	template : Handlebars.compile('<div class="col-md-12 us-right-content mobile visible animated fadeIn">
 										<div class="legend clearfix">
 										  <ul>
 										    <!--<li class="available">AVAILABLE</li>-->
@@ -376,6 +376,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					animate: false
 				)
 				$('.svg-maps > div').first().css('width',that.ui.svgContainer.width() + 13)
+
+				height= that.ui.svgContainer.width() / 2
+				$('.units').css('height',height-120)
 
 			, 650)
 
@@ -640,7 +643,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$('img').lazyLoadXT()
 		height =  @ui.svgContainer.width() / 2
 		# $('.us-left-content').css('height',height)
-		$('.units').css('height',height-310)
+		# if!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
+		if $(window).width() > 991
+			$('.units').css('height',height-310)
 		$('#spritespin').hide()
 		that = @
 		transitionImages = []

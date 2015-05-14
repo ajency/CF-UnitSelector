@@ -16,17 +16,6 @@ body {
 body {
   min-width: initial;
 }
-.col-0 {
-  width: 0;
-  padding: 0;
-  height: 0;
-}
-.col-0 div,
-.col-0 ul,
-.col-0 li {
-  margin: 0;
-  padding: 0;
-}
 /* Header */
 .us-header {
   background-color: #f68121;
@@ -64,11 +53,17 @@ body {
 }
 /* Left Container */
 .search-left-content {
-  position: relative;
   -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
           transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
   margin-top: 10px;
-  min-height: 750px;
+  padding-right: 15px;
+}
+@media (min-width: 992px) {
+  .search-left-content {
+    min-height: 750px;
+    padding-right: 0;
+  }
 }
 .us-left-content {
   -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
@@ -109,9 +104,30 @@ body {
 .us-right-content .svg-area img {
   width: 100%;
 }
+.col-0 {
+  width: 0;
+  padding: 0;
+  height: 0;
+}
+.col-0 div,
+.col-0 ul,
+.col-0 li {
+  margin: 0;
+  padding: 0;
+}
+.col-0.not-visible .two .blocks {
+  padding: 0;
+}
 @media (max-width: 991px) {
-  .us-right-content {
-    padding-left: 15px;
+  .us-right-content.mobile.visible,
+  .us-left-content.mobile.visible {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+  .us-right-content.mobile.not-visible,
+  .us-left-content.mobile.not-visible {
+    display: none;
   }
 }
 /* Footer */
@@ -516,13 +532,32 @@ body {
           transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 .zoom {
-  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-  -webkit-transform: scale(2, 2);
-      -ms-transform: scale(2, 2);
-          transform: scale(2, 2);
-  -webkit-filter: blur(10px);
-          filter: blur(10px);
+  -webkit-animation: project-zoom 1s linear;
+          animation: project-zoom 1s linear;
+}
+@-webkit-keyframes project-zoom {
+  from,
+  to {
+    -webkit-transform: none;
+            transform: none;
+  }
+  100% {
+    -webkit-transform: scale(3);
+            transform: scale(3);
+    opacity: 0;
+  }
+}
+@keyframes project-zoom {
+  from,
+  to {
+    -webkit-transform: none;
+            transform: none;
+  }
+  100% {
+    -webkit-transform: scale(3);
+            transform: scale(3);
+    opacity: 0;
+  }
 }
 .text-primary {
   color: #f68121;
@@ -559,6 +594,11 @@ body {
   border-left: 2px solid #f68121;
   border-right: 2px solid #ffffff;
   content: '';
+}
+@media (min-width: 992px) {
+  .cf-loader.loader-center {
+    left: -30%;
+  }
 }
 @keyframes rotate {
   0% {
@@ -637,7 +677,7 @@ body {
 .toggle-view-button {
   display: none;
 }
-@media (max-width: 767px) {
+@media (max-width: 991px) {
   .toggle-button {
     display: none;
   }
@@ -668,14 +708,6 @@ body {
   .toggle-view-button:hover {
     background-color: #f68121;
     color: #ffffff;
-  }
-  .us-right-content.mobile.visible,
-  .us-left-content.mobile.visible {
-    display: block;
-  }
-  .us-right-content.mobile.not-visible,
-  .us-left-content.mobile.not-visible {
-    display: none;
   }
 }
 /* Zoom Controls */
@@ -1139,15 +1171,18 @@ svg polygon {
   display: none;
   font-weight: bold;
 }
+@media (min-width: 992px) and (max-width: 1200px) {
+  .two .blocks {
+    width: 100%;
+    border-right: none;
+  }
+}
 @media (max-width: 767px) {
   .blocks {
     width: 49.2%;
   }
   .blocks:nth-child(2n) {
     margin-right: 0;
-  }
-  .blocks:nth-child(3n) {
-    margin-right: 1.6%;
   }
   .eight .blocks {
     width: 24.4%;
@@ -1182,7 +1217,6 @@ svg polygon {
 .units {
   list-style-type: none;
   overflow-y: auto;
-  padding: 0 15px;
   -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
           transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1)
   /* List of Villas */
@@ -1452,7 +1486,6 @@ svg polygon {
   opacity: 0;
 }
 .similar-section {
-  display: none;
   position: absolute;
   bottom: 15px;
 }
