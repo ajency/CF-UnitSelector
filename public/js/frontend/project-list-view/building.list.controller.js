@@ -102,7 +102,7 @@
         this.region = new Marionette.Region({
           el: '#centerregion'
         });
-        return new CommonFloor.VillaListCtrl({
+        return new CommonFloor.PlotListCtrl({
           region: this.region
         });
       }
