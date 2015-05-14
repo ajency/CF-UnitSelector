@@ -36,6 +36,13 @@
       floor: '#floor'
     };
 
+    FilterApartmentView.prototype.initialize = function() {
+      var building_id, url;
+      url = Backbone.history.fragment;
+      building_id = parseInt(url.split('/')[1]);
+      return console.log(this.building_id = building_id);
+    };
+
     FilterApartmentView.prototype.events = {
       'click @ui.clear': function(e) {
         window.unitTypes = [];
@@ -48,7 +55,9 @@
           return CommonFloor.defaults[index] = "";
         });
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.filterBuilding(this.building_id);
         CommonFloor.filter();
+        unitTempCollection.trigger("filter_available");
         return this.loadSelectedFilters();
       },
       'click @ui.unitTypes': function(e) {
@@ -60,7 +69,9 @@
         console.log(window.unitTypes);
         CommonFloor.defaults['unitTypes'] = window.unitTypes.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
-        return CommonFloor.filter();
+        CommonFloor.filterBuilding(this.building_id);
+        CommonFloor.filter();
+        return unitTempCollection.trigger("filter_available");
       },
       'click @ui.variantNames': function(e) {
         if ($(e.currentTarget).is(':checked')) {
@@ -70,7 +81,9 @@
         }
         CommonFloor.defaults['unitVariants'] = window.variantNames.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
-        return CommonFloor.filter();
+        CommonFloor.filterBuilding(this.building_id);
+        CommonFloor.filter();
+        return unitTempCollection.trigger("filter_available");
       },
       'change @ui.priceMin': function(e) {
         if ($(e.currentTarget).val() !== "") {
@@ -79,7 +92,9 @@
           CommonFloor.defaults['price_min'] = 0;
         }
         unitCollection.reset(unitMasterCollection.toArray());
-        return CommonFloor.filter();
+        CommonFloor.filterBuilding(this.building_id);
+        CommonFloor.filter();
+        return unitTempCollection.trigger("filter_available");
       },
       'change @ui.priceMax': function(e) {
         if ($(e.currentTarget).val() !== "") {
@@ -88,30 +103,40 @@
           CommonFloor.defaults['price_max'] = 999999900;
         }
         unitCollection.reset(unitMasterCollection.toArray());
-        return CommonFloor.filter();
+        CommonFloor.filterBuilding(this.building_id);
+        CommonFloor.filter();
+        return unitTempCollection.trigger("filter_available");
       },
       'click @ui.status': function(e) {
         CommonFloor.defaults['availability'] = e.currentTarget.id;
         unitCollection.reset(unitMasterCollection.toArray());
-        return CommonFloor.filter();
+        CommonFloor.filterBuilding(this.building_id);
+        CommonFloor.filter();
+        return unitTempCollection.trigger("filter_available");
       },
       'change @ui.area': function(e) {
         CommonFloor.defaults['area_max'] = parseFloat($(e.target).val().split(';')[1]);
         CommonFloor.defaults['area_min'] = parseFloat($(e.target).val().split(';')[0]);
         unitCollection.reset(unitMasterCollection.toArray());
-        return CommonFloor.filter();
+        CommonFloor.filterBuilding(this.building_id);
+        CommonFloor.filter();
+        return unitTempCollection.trigger("filter_available");
       },
       'change @ui.budget': function(e) {
         CommonFloor.defaults['price_max'] = parseFloat($(e.target).val().split(';')[1]);
         CommonFloor.defaults['price_min'] = parseFloat($(e.target).val().split(';')[0]);
         unitCollection.reset(unitMasterCollection.toArray());
-        return CommonFloor.filter();
+        CommonFloor.filterBuilding(this.building_id);
+        CommonFloor.filter();
+        return unitTempCollection.trigger("filter_available");
       },
       'change @ui.floor': function(e) {
         CommonFloor.defaults['floor_max'] = parseFloat($(e.target).val().split(';')[1]);
         CommonFloor.defaults['floor_min'] = parseFloat($(e.target).val().split(';')[0]);
         unitCollection.reset(unitMasterCollection.toArray());
-        return CommonFloor.filter();
+        CommonFloor.filterBuilding(this.building_id);
+        CommonFloor.filter();
+        return unitTempCollection.trigger("filter_available");
       }
     };
 

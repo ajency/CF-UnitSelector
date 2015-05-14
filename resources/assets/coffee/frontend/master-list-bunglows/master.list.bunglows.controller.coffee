@@ -106,9 +106,12 @@ class BunglowListView extends Marionette.ItemView
 						<div>
 							Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 						</div> 
-					</div>
-					<a href="#unit-view/'+id+'" class="action-bar villa_unit">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a>
-				</div>'
+					</div>'
+		if availability == 'available'
+				html +='<a href="#unit-view/'+id+'" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a>
+					</div>'
+			else
+				html += '</div>'
 		html
 
 
@@ -226,11 +229,11 @@ class MasterBunglowListView extends Marionette.CompositeView
 class CommonFloor.MasterBunglowListCtrl extends Marionette.RegionController
 
 	initialize:->
-		newUnits = bunglowVariantCollection.getBunglowUnits()
+		console.log newUnits = bunglowVariantCollection.getBunglowUnits()
 		unitsCollection = new Backbone.Collection newUnits 		
 		@view = view = new MasterBunglowListView
 			collection : unitsCollection
-		@listenTo @view,"load:units" ,@loadController
+		# @listenTo @view,"load:units" ,@loadController
 		@show view
 
 	loadController:(data)=>

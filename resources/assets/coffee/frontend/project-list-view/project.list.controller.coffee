@@ -104,6 +104,7 @@ class TopListView extends Marionette.ItemView
 			@trigger  'render:view'
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			
 
 			
@@ -113,6 +114,7 @@ class TopListView extends Marionette.ItemView
 			CommonFloor.defaults['unitTypes'] = unitTypes.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 			
 		'click @ui.variantNames':(e)->
@@ -120,13 +122,15 @@ class TopListView extends Marionette.ItemView
 			variantNames = _.without variantNames , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['unitVariants'] = variantNames.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filter()	
+			CommonFloor.filter()
+			unitCollection.trigger('available')	
 			@trigger  'render:view'
 
 		'click @ui.status':(e)->
 			CommonFloor.defaults['availability'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 			
@@ -136,6 +140,7 @@ class TopListView extends Marionette.ItemView
 			CommonFloor.defaults['area_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 		'click @ui.budget':(e)->
@@ -143,6 +148,7 @@ class TopListView extends Marionette.ItemView
 			CommonFloor.defaults['price_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 	onShow:->
@@ -232,12 +238,12 @@ class TopListView extends Marionette.ItemView
 class CommonFloor.TopListCtrl extends Marionette.RegionController
 
 	initialize:->
-		@renderView()
-		unitTempCollection.on("change reset add remove", @renderView, @)
+		@renderTopListView()
+		unitCollection.bind( "available", @renderTopListView, @) 
 
-	renderView:->
+	renderTopListView:->
 		@view =  new TopListView 
-				model : project
+					model : project
 
 		@listenTo @view,"render:view" ,@loadController
 
@@ -276,12 +282,12 @@ class CommonFloor.LeftListCtrl extends Marionette.RegionController
 class CommonFloor.CenterListCtrl extends Marionette.RegionController
 
 	initialize:->
-		@renderView()
-		unitTempCollection.on("change reset add remove", @renderView)
+		@renderCenterListView()
+		unitCollection.bind( "available", @renderCenterListView, @)  
 		
-	renderView:->
+	renderCenterListView:->
 		response = CommonFloor.checkListView()
-		if response.count.length == 0
+		if response.count.length == 0 
 			region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.NoUnitsCtrl region : region
 			return
@@ -301,6 +307,15 @@ class CommonFloor.CenterListCtrl extends Marionette.RegionController
 			data.type = 'building'
 			@region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.BuildingListCtrl region : @region
+			# @parent().trigger "load:units" , data
+
+		if response.type is 'plot' 
+			units = plotVariantCollection.getBunglowUnits()
+			data = {}
+			data.units = units
+			data.type = 'plot'
+			@region =  new Marionette.Region el : '#centerregion'
+			new CommonFloor.PlotListCtrl region : @region
 			# @parent().trigger "load:units" , data
 
 		

@@ -64,6 +64,13 @@
       floor: '.floor'
     };
 
+    TopApartmentMasterView.prototype.initialize = function() {
+      var building_id, url;
+      url = Backbone.history.fragment;
+      building_id = parseInt(url.split('/')[1]);
+      return console.log(this.building_id = building_id);
+    };
+
     TopApartmentMasterView.prototype.serializeData = function() {
       var data, units;
       data = TopApartmentMasterView.__super__.serializeData.call(this);
@@ -84,17 +91,14 @@
           arr.splice(index, 1);
           CommonFloor.defaults['type'] = arr.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
+          unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         },
         'click @ui.unitBack': function(e) {
           var previousRoute;
           e.preventDefault();
-          $.each(CommonFloor.defaults, function(index, value) {
-            return CommonFloor.defaults[index] = "";
-          });
-          unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filter();
           previousRoute = CommonFloor.router.previous();
           return CommonFloor.navigate('/' + previousRoute, true);
         },
@@ -104,7 +108,9 @@
           unitTypes = _.without(unitTypes, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['unitTypes'] = unitTypes.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
+          unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         },
         'click @ui.variantNames': function(e) {
@@ -113,34 +119,44 @@
           variantNames = _.without(variantNames, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['unitVariants'] = variantNames.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
+          unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         },
         'click @ui.status': function(e) {
           CommonFloor.defaults['availability'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
+          unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         },
         'click @ui.area': function(e) {
           CommonFloor.defaults['area_max'] = "";
           CommonFloor.defaults['area_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
+          unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         },
         'click @ui.budget': function(e) {
           CommonFloor.defaults['price_max'] = "";
           CommonFloor.defaults['price_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
+          unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         },
         'click @ui.floor': function(e) {
           CommonFloor.defaults['floor_max'] = "";
           CommonFloor.defaults['floor_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
+          unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         }
       };
@@ -169,11 +185,11 @@
     }
 
     TopApartmentMasterCtrl.prototype.initialize = function() {
-      this.renderView();
-      return unitTempCollection.on("change reset add remove", this.renderView, this);
+      this.renderMasterTopView();
+      return unitTempCollection.bind("filter_available", this.renderMasterTopView, this);
     };
 
-    TopApartmentMasterCtrl.prototype.renderView = function() {
+    TopApartmentMasterCtrl.prototype.renderMasterTopView = function() {
       var buildingModel, building_id, response, url;
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
@@ -303,8 +319,8 @@
     }
 
     LeftApartmentMasterCtrl.prototype.initialize = function() {
-      this.renderView();
-      return unitTempCollection.on("change reset add remove", this.renderView, this);
+      this.renderLeftView();
+      return unitTempCollection.bind("filter_available", this.renderLeftView, this);
     };
 
     LeftApartmentMasterCtrl.prototype.renderView = function() {

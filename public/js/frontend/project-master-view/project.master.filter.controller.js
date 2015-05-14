@@ -49,6 +49,7 @@
         });
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filter();
+        unitCollection.trigger('available');
         return this.loadSelectedFilters();
       },
       'click @ui.types': function(e) {
@@ -68,6 +69,7 @@
         CommonFloor.defaults['type'] = window.type.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filter();
+        unitCollection.trigger('available');
         if (e.target.id === 'Villas') {
           this.villaFilters();
         }
@@ -87,7 +89,8 @@
         window.unitTypes = _.uniq(window.unitTypes);
         CommonFloor.defaults['unitTypes'] = window.unitTypes.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
-        return CommonFloor.filter();
+        CommonFloor.filter();
+        return unitCollection.trigger('available');
       },
       'click @ui.variantNames': function(e) {
         if ($(e.currentTarget).is(':checked')) {
@@ -98,7 +101,8 @@
         window.variantNames = _.uniq(window.variantNames);
         CommonFloor.defaults['unitVariants'] = window.variantNames.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
-        return CommonFloor.filter();
+        CommonFloor.filter();
+        return unitCollection.trigger('available');
       },
       'click @ui.status': function(e) {
         if ($(e.currentTarget).is(':checked')) {
@@ -107,20 +111,23 @@
           CommonFloor.defaults['availability'] = "";
         }
         unitCollection.reset(unitMasterCollection.toArray());
-        return CommonFloor.filter();
+        CommonFloor.filter();
+        return unitCollection.trigger('available');
       },
       'change @ui.area': function(e) {
         CommonFloor.defaults['area_max'] = parseFloat($(e.target).val().split(';')[1]);
         CommonFloor.defaults['area_min'] = parseFloat($(e.target).val().split(';')[0]);
         unitCollection.reset(unitMasterCollection.toArray());
-        return CommonFloor.filter();
+        CommonFloor.filter();
+        return unitCollection.trigger('available');
       },
       'change @ui.budget': function(e) {
         console.log($(e.target).val());
         CommonFloor.defaults['price_max'] = parseFloat($(e.target).val().split(';')[1]);
         CommonFloor.defaults['price_min'] = parseFloat($(e.target).val().split(';')[0]);
         unitCollection.reset(unitMasterCollection.toArray());
-        return CommonFloor.filter();
+        CommonFloor.filter();
+        return unitCollection.trigger('available');
       }
     };
 
@@ -368,7 +375,7 @@
       $(this.ui.types).each(function(ind, item) {
         $('#' + item.id).attr('checked', true);
         $('#' + item.id).attr('disabled', false);
-        if ($.inArray(item.id, types) === -1) {
+        if ($.inArray($('#' + item.id).val(), types) === -1) {
           return $('#' + item.id).prop('checked', false);
         }
       });

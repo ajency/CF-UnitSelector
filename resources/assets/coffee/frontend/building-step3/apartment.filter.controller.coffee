@@ -90,6 +90,11 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		clear : '.clear'
 		floor : '#floor'
 
+	initialize:->
+		url = Backbone.history.fragment
+		building_id = parseInt url.split('/')[1]
+		console.log @building_id = building_id
+
 	events:
 		'click @ui.clear':(e)->
 			window.unitTypes = []
@@ -101,7 +106,9 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			$.each CommonFloor.defaults,(index,value)->
 				CommonFloor.defaults[index] = ""
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
+			unitTempCollection.trigger( "filter_available") 
 			@loadSelectedFilters()
 
 		'click @ui.unitTypes':(e)->
@@ -112,7 +119,9 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			console.log window.unitTypes
 			CommonFloor.defaults['unitTypes'] = window.unitTypes.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
+			unitTempCollection.trigger( "filter_available") 
 			# @resetFilters()
 			
 		'click @ui.variantNames':(e)->
@@ -122,7 +131,9 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 				window.variantNames = _.without window.variantNames ,parseInt $(e.currentTarget).attr('data-value')
 			CommonFloor.defaults['unitVariants'] = window.variantNames.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()	
+			unitTempCollection.trigger( "filter_available") 
 
 		'change @ui.priceMin':(e)->
 			if $(e.currentTarget).val() != ""
@@ -130,7 +141,9 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			else
 				CommonFloor.defaults['price_min'] = 0
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
+			unitTempCollection.trigger( "filter_available") 
 			
 
 		'change @ui.priceMax':(e)->
@@ -139,14 +152,18 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			else
 				CommonFloor.defaults['price_max'] = 999999900
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
+			unitTempCollection.trigger( "filter_available") 
 			# @resetFilters()
 			
 
 		'click @ui.status':(e)->
 			CommonFloor.defaults['availability'] = e.currentTarget.id
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
+			unitTempCollection.trigger( "filter_available") 
 			# @resetFilters()
 
 
@@ -154,19 +171,25 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			CommonFloor.defaults['area_max'] = parseFloat $(e.target).val().split(';')[1]
 			CommonFloor.defaults['area_min'] = parseFloat $(e.target).val().split(';')[0]
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
+			unitTempCollection.trigger( "filter_available") 
 
 		'change @ui.budget':(e)->
 			CommonFloor.defaults['price_max'] = parseFloat $(e.target).val().split(';')[1]
 			CommonFloor.defaults['price_min'] = parseFloat $(e.target).val().split(';')[0]
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
+			unitTempCollection.trigger( "filter_available") 
 
 		'change @ui.floor':(e)->
 			CommonFloor.defaults['floor_max'] = parseFloat $(e.target).val().split(';')[1]
 			CommonFloor.defaults['floor_min'] = parseFloat $(e.target).val().split(';')[0]
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
+			unitTempCollection.trigger( "filter_available") 
 			
 
 

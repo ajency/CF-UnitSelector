@@ -107,12 +107,12 @@ class PlotListView extends Marionette.ItemView
 						<div>
 							Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 						</div> 
-					</div>
-					<div class="action-bar villa_unit">
-						To Move forward Click Here
-						<span class="icon-chevron-right pull-right"></span>
-					</div>
-				</div>'
+					</div>'
+		if availability == 'available'
+				html +='<a href="#unit-view/'+id+'" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a>
+					</div>'
+			else
+				html += '</div>'
 		html
 
 

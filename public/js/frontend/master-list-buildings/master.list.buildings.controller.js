@@ -72,8 +72,7 @@
         buildingModel = buildingCollection.findWhere({
           'id': id
         });
-        CommonFloor.defaults['building'] = jQuery.makeArray(id).join(',');
-        CommonFloor.filter();
+        CommonFloor.filterBuilding(id);
         if (Object.keys(buildingModel.get('building_master')).length === 0) {
           CommonFloor.navigate('/building/' + id + '/apartments', true);
           return CommonFloor.router.storeRoute();
