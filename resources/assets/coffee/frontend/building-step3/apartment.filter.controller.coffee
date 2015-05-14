@@ -92,6 +92,12 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 
 	events:
 		'click @ui.clear':(e)->
+			window.unitTypes = []
+			window.unitVariants = []
+			window.variantNames = []
+			window.price = ''
+			window.area = ''
+			window.type  = []
 			$.each CommonFloor.defaults,(index,value)->
 				CommonFloor.defaults[index] = ""
 			unitCollection.reset unitMasterCollection.toArray()
