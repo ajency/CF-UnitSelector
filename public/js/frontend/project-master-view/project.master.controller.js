@@ -392,7 +392,7 @@
         $('.us-left-content').toggleClass('col-0 col-md-3');
         $('.us-right-content').toggleClass('col-md-12 col-md-9');
         that = this;
-        return setTimeout(function(x) {
+        setTimeout(function(x) {
           $('#spritespin').spritespin({
             width: that.ui.svgContainer.width() + 13,
             sense: -1,
@@ -401,6 +401,9 @@
           });
           return $('.svg-maps > div').first().css('width', that.ui.svgContainer.width() + 13);
         }, 650);
+        return setTimeout(function(x) {
+          return $('.master').panzoom('resetDimensions');
+        }, 800);
       },
       'click @ui.viewtog': function(e) {
         $('.us-left-content').toggleClass('not-visible visible');

@@ -19,6 +19,7 @@ body {
 .col-0 {
   width: 0;
   padding: 0;
+  height: 0;
 }
 .col-0 div,
 .col-0 ul,
