@@ -86,7 +86,7 @@ class LeftUnitView extends Marionette.ItemView
 
 									<div class="details">
 										<div>
-											<label>Price: </label> <span class="price"></span>
+											<label>Price: </label> <span class="icon-rupee-icn price"></span>
 										</div>
 										<div>
 											<label>Unit Variant:</label> {{unit_variant}}
@@ -151,7 +151,7 @@ class LeftUnitView extends Marionette.ItemView
 							<div class="clearfix"></div>
 						
 							<div class="similar-section">
-					            <label>Similar Villas based on your filters:</label><br>
+					            <span class="similar">{{similarUnitsText}}</span><br>
 					            <!--<p>Pool View, Garden, 3BHK</p>-->
 					            <ul>
 					              	{{#similarUnits}}
@@ -179,18 +179,18 @@ class LeftUnitView extends Marionette.ItemView
 						'attribute' : s.capitalize index
 						'value'     : value
 
-		similarUnits = @getSimilarUnits(unit)
+		similarUnits = @getSimilarUnits(unit)[0]
 		temp = []
 		$.each similarUnits, (index,value)->
 			temp.push 
 				'unit_name' : value.get('unit_name')
-		console.log temp
 		data.area = response[0].get('super_built_up_area')
 		data.type = response[1].get('name')
 		data.unit_variant = response[0].get('unit_variant_name')
 		data.levels  = @generateLevels(floor,response,unit)
 		data.attributes  = attributes
 		data.similarUnits = temp
+		data.similarUnitsText = @getSimilarUnits(unit)[1]
 		data
 
 	getSimilarUnits:(unit)->
@@ -198,6 +198,21 @@ class LeftUnitView extends Marionette.ItemView
 		i = 0
 		url = Backbone.history.fragment
 		unitid = parseInt url.split('/')[1]
+		unitModel = unitMasterCollection.findWhere
+					'id' : unitid
+		unitType = unitTypeMasterCollection.findWhere
+							'id' :  unitModel.get('unit_type_id')
+		property = window.propertyTypes[unitType.get('property_type_id')]
+		text = ''
+		if s.decapitalize(property) == 'apartments' || s.decapitalize(property) == 'penthouse'
+			unitCollection.reset apartmentVariantCollection.getApartmentUnits()
+			text =  'Similar '+s.decapitalize(property)+' based on your filters'
+		if s.decapitalize(property) == 'villas/Bungalows'
+			unitCollection.reset bunglowVariantCollection.getBunglowUnits()
+			text =  'Similar '+s.decapitalize(property)+' based on your filters'
+		if s.decapitalize(property) == 'plot'
+			unitCollection.reset plotVariantCollection.getPlotUnits()
+			text =  'Similar '+s.decapitalize(property)+' based on your filters'
 		unitsArr = unitCollection.toArray()
 		$.each unitsArr, (item,value)->
 			if value.get('id') != unitid
@@ -205,12 +220,12 @@ class LeftUnitView extends Marionette.ItemView
 				i++
 			if i == 3
 				return false
-			
-		units
+		if unitsArr.length == 1
+			text = ''
+		[units,text]
 
 
 	generateLevels:(floor,response,unit)->
-		console.log unit
 		levels = []
 		$.each floor,(index,value)->
 			rooms = []
@@ -237,9 +252,8 @@ class LeftUnitView extends Marionette.ItemView
 		url = Backbone.history.fragment
 		unitid = parseInt url.split('/')[1]
 		response = window.unit.getUnitDetails(unitid)
-		window.convertRupees(response[3])
-		$('.price').text $('#price').val()
-		if response[4] != null
+		$('.price').text window.numDifferentiation(response[3])
+		if response[4] != null || _.isUndefined response[4]
 			$('.property').removeClass 'hidden'
 	
 #Left Controller for unit
@@ -371,7 +385,7 @@ class CenterUnitView extends Marionette.ItemView
 		
 
 	onShow:->
-
+		@getNextPrevUnit()
 		response = @generateLevels()
 		html = ''
 		$.each response[0],(index,value)->
@@ -463,6 +477,26 @@ class CenterUnitView extends Marionette.ItemView
 			
 			i = i + 1	
 		[twoD,threeD,level,response[0]]
+
+
+	getNextPrevUnit:->
+		url = Backbone.history.fragment
+		unitid = parseInt url.split('/')[1]
+		unitModel = unitCollection.findWhere
+					'id' : unitid
+		unitType = unitTypeMasterCollection.findWhere
+							'id' :  unitModel.get('unit_type_id')
+		property = window.propertyTypes[unitType.get('property_type_id')]
+		if s.decapitalize(property) == 'apartments' || s.decapitalize(property) == 'penthouse'
+			unitCollection.reset apartmentVariantCollection.getApartmentUnits()
+		if s.decapitalize(property) == 'villas/Bungalows'
+			unitCollection.reset bunglowVariantCollection.getBunglowUnits()
+		if s.decapitalize(property) == 'plot'
+			unitCollection.reset plotVariantCollection.getPlotUnits()
+		unitCollection.setRecord(unitModel)
+		console.log next = unitCollection.next()
+		console.log prev = unitCollection.prev()
+
 #Center View for the unit
 class CommonFloor.CenterUnitCtrl extends Marionette.RegionController
 

@@ -323,7 +323,7 @@
       return unitTempCollection.bind("filter_available", this.renderLeftView, this);
     };
 
-    LeftApartmentMasterCtrl.prototype.renderView = function() {
+    LeftApartmentMasterCtrl.prototype.renderLeftView = function() {
       var building_id, region, response, unitsCollection, url;
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
@@ -423,11 +423,47 @@
         availability = s.decapitalize(availability);
         $('#' + id).attr('class', 'layer ');
         return $('#apartment' + id).attr('class', 'unit blocks ' + availability);
+      },
+      'mouseover .next,.prev': function(e) {
+        var buildingModel, floors, html, id, images, response, unitTypes;
+        id = parseInt(e.target.id);
+        buildingModel = buildingMasterCollection.findWhere({
+          'id': id
+        });
+        images = Object.keys(buildingModel.get('building_master')).length;
+        if (images !== 0) {
+          console.log("show image");
+        }
+        floors = buildingModel.get('floors');
+        floors = Object.keys(floors).length;
+        unitTypes = window.building.getUnitTypes(id);
+        response = window.building.getUnitTypesCount(id, unitTypes);
+        html = '<div class="svg-info"> <h4 class="pull-left">' + buildingModel.get('building_name') + '</h4> <h4 class="pull-left">' + window.building.getMinimumCost(id) + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div>';
+        $.each(response, function(index, value) {
+          return html += '<div class="details"> <div> <label>' + value.name + '</label> - ' + value.units + '</div>';
+        });
+        html += '<div> <label>No. of floors</label> - ' + floors + '</div> </div> </div>';
+        return console.log(html);
+      },
+      'click .next,.prev': function(e) {
+        var buildingModel, id;
+        id = parseInt(e.target.id);
+        buildingModel = buildingMasterCollection.findWhere({
+          'id': id
+        });
+        if (Object.keys(buildingModel.get('building_master')).length === 0) {
+          CommonFloor.navigate('/building/' + id + '/apartments', true);
+          return CommonFloor.router.storeRoute();
+        } else {
+          CommonFloor.navigate('/building/' + id + '/master-view', true);
+          return CommonFloor.router.storeRoute();
+        }
       }
     };
 
     CenterApartmentMasterView.prototype.onShow = function() {
       var breakpoints, building, building_id, first, height, svgs, that, transitionImages, url;
+      this.getNextPrev();
       $('img').lazyLoadXT();
       height = this.ui.svgContainer.width() / 1.46;
       $('.search-left-content').css('height', height);
@@ -453,6 +489,28 @@
         return $('.cf-loader').removeClass('hidden');
       });
       return this.initializeRotate(transitionImages, svgs, building);
+    };
+
+    CenterApartmentMasterView.prototype.getNextPrev = function() {
+      var buildingModel, building_id, next, prev, url;
+      url = Backbone.history.fragment;
+      building_id = parseInt(url.split('/')[1]);
+      buildingModel = buildingMasterCollection.findWhere({
+        'id': building_id
+      });
+      buildingMasterCollection.setRecord(buildingModel);
+      console.log(next = buildingMasterCollection.next());
+      if (_.isUndefined(next)) {
+        $('.next').hide();
+      } else {
+        $('.next').attr('data-id', next.get('id'));
+      }
+      console.log(prev = buildingMasterCollection.prev());
+      if (_.isUndefined(prev)) {
+        return $('.prev').hide();
+      } else {
+        return $('.prev').attr('data-id', next.get('id'));
+      }
     };
 
     CenterApartmentMasterView.prototype.setDetailIndex = function(index) {

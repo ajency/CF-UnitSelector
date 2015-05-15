@@ -291,7 +291,7 @@ class CommonFloor.LeftApartmentMasterCtrl extends Marionette.RegionController
 		@renderLeftView()
 		unitTempCollection.bind( "filter_available", @renderLeftView, @) 
 
-	renderView:->
+	renderLeftView:->
 		
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
@@ -413,10 +413,55 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			availability = s.decapitalize(availability)
 			$('#'+id).attr('class' ,'layer ') 
 			$('#apartment'+id).attr('class' ,'unit blocks '+availability)
+
+		'mouseover .next,.prev':(e)->
+			id = parseInt e.target.id
+			buildingModel = buildingMasterCollection.findWhere
+								'id' : id
+			images = Object.keys(buildingModel.get('building_master')).length
+			if images != 0
+				console.log "show image"
+			floors = buildingModel.get 'floors'
+			floors = Object.keys(floors).length
+			unitTypes = window.building.getUnitTypes(id)
+			response = window.building.getUnitTypesCount(id,unitTypes)
+			html = '<div class="svg-info">
+						<h4 class="pull-left">'+buildingModel.get('building_name')+'</h4>
+							<h4 class="pull-left">'+window.building.getMinimumCost(id)+'</h4>
+						<!--<span class="label label-success"></span-->
+						<div class="clearfix"></div>'
+			$.each response,(index,value)->
+				html += '<div class="details">
+							<div>
+								<label>'+value.name+'</label> - '+value.units+'
+							</div>'
+
+			html += '<div>
+						<label>No. of floors</label> - '+floors+'
+					</div>
+					</div>
+
+					</div>' 
+			console.log html
+
+		'click .next,.prev':(e)->
+			id = parseInt e.target.id
+			buildingModel = buildingMasterCollection.findWhere
+								'id' : id
+			if Object.keys(buildingModel.get('building_master')).length == 0
+				CommonFloor.navigate '/building/'+id+'/apartments' , true
+				CommonFloor.router.storeRoute()
+			else
+				CommonFloor.navigate '/building/'+id+'/master-view' , true
+				CommonFloor.router.storeRoute()
+				
+
+
 		
 
 
 	onShow:->
+		@getNextPrev()
 		$('img').lazyLoadXT()
 		height =  @ui.svgContainer.width() / 1.46
 		$('.search-left-content').css('height',height)
@@ -441,6 +486,23 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('.cf-loader').removeClass 'hidden'
 		
 		@initializeRotate(transitionImages,svgs,building)
+
+	getNextPrev:->
+		url = Backbone.history.fragment
+		building_id = parseInt url.split('/')[1]
+		buildingModel = buildingMasterCollection.findWhere
+					'id' : building_id
+		buildingMasterCollection.setRecord(buildingModel)
+		console.log next = buildingMasterCollection.next()
+		if _.isUndefined next
+			$('.next').hide()
+		else
+			$('.next').attr('data-id',next.get('id'))
+		console.log prev = buildingMasterCollection.prev()
+		if _.isUndefined prev
+			$('.prev').hide()
+		else
+			$('.prev').attr('data-id',next.get('id'))
 
 
 	setDetailIndex:(index)->

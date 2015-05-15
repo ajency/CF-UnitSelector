@@ -114,7 +114,7 @@
       return LeftUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content unit-details animated fadeIn"> <div class="filters-wrapper"> <div class="blck-wrap title-row"> <!--<h3 class="pull-left"><strong>{{unit_name}}</strong></h3> <span class="label label-success">For Sale</span> --> <div class="clearfix"></div> <div class="details"> <div> <label>Price: </label> <span class="price"></span> </div> <div> <label>Unit Variant:</label> {{unit_variant}} </div> <div> <label>Unit Type:</label> {{type}} </div> <div> <label>Area:</label> {{area}} sqft </div> </div> <div class="room-attr m-t-10"> <label class="property hidden">Property Attributes</label> {{#attributes}} <div class="m-b-5"> <span>{{attribute}}</span>: {{value}} </div> {{/attributes}} </div> </div> <div class="unit-list"> {{#levels}} <div class="blck-wrap no-hover"> <h4 class="m-b-10 m-t-10 text-primary">{{level_name}}</h4> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Rooms</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> {{#rooms}} <div class="room-attr"> <div class="m-b-15"> <h5 class="m-b-5">{{room_name}}</h5> {{#attributes}} <div class=""><span>{{attribute}}</span>: {{value}} </div> {{/attributes}} <!--<h6 class="">{{size}}sqft</h6>--> </div> </div> {{/rooms}} </div> {{/levels}} </div> </div> <div class="clearfix"></div> <div class="similar-section"> <label>Similar Villas based on your filters:</label><br> <!--<p>Pool View, Garden, 3BHK</p>--> <ul> {{#similarUnits}} <li class=""> {{unit_name}} </li> {{/similarUnits}} </ul> </div> </div> </div>');
+    LeftUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content unit-details animated fadeIn"> <div class="filters-wrapper"> <div class="blck-wrap title-row"> <!--<h3 class="pull-left"><strong>{{unit_name}}</strong></h3> <span class="label label-success">For Sale</span> --> <div class="clearfix"></div> <div class="details"> <div> <label>Price: </label> <span class="icon-rupee-icn price"></span> </div> <div> <label>Unit Variant:</label> {{unit_variant}} </div> <div> <label>Unit Type:</label> {{type}} </div> <div> <label>Area:</label> {{area}} sqft </div> </div> <div class="room-attr m-t-10"> <label class="property hidden">Property Attributes</label> {{#attributes}} <div class="m-b-5"> <span>{{attribute}}</span>: {{value}} </div> {{/attributes}} </div> </div> <div class="unit-list"> {{#levels}} <div class="blck-wrap no-hover"> <h4 class="m-b-10 m-t-10 text-primary">{{level_name}}</h4> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Rooms</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> {{#rooms}} <div class="room-attr"> <div class="m-b-15"> <h5 class="m-b-5">{{room_name}}</h5> {{#attributes}} <div class=""><span>{{attribute}}</span>: {{value}} </div> {{/attributes}} <!--<h6 class="">{{size}}sqft</h6>--> </div> </div> {{/rooms}} </div> {{/levels}} </div> </div> <div class="clearfix"></div> <div class="similar-section"> <span class="similar">{{similarUnitsText}}</span><br> <!--<p>Pool View, Garden, 3BHK</p>--> <ul> {{#similarUnits}} <li class=""> {{unit_name}} </li> {{/similarUnits}} </ul> </div> </div> </div>');
 
     LeftUnitView.prototype.serializeData = function() {
       var attributes, data, floor, response, similarUnits, temp, unit, unitid, url;
@@ -135,29 +135,49 @@
           });
         });
       }
-      similarUnits = this.getSimilarUnits(unit);
+      similarUnits = this.getSimilarUnits(unit)[0];
       temp = [];
       $.each(similarUnits, function(index, value) {
         return temp.push({
           'unit_name': value.get('unit_name')
         });
       });
-      console.log(temp);
       data.area = response[0].get('super_built_up_area');
       data.type = response[1].get('name');
       data.unit_variant = response[0].get('unit_variant_name');
       data.levels = this.generateLevels(floor, response, unit);
       data.attributes = attributes;
       data.similarUnits = temp;
+      data.similarUnitsText = this.getSimilarUnits(unit)[1];
       return data;
     };
 
     LeftUnitView.prototype.getSimilarUnits = function(unit) {
-      var i, unitid, units, unitsArr, url;
+      var i, property, text, unitModel, unitType, unitid, units, unitsArr, url;
       units = [];
       i = 0;
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
+      unitModel = unitMasterCollection.findWhere({
+        'id': unitid
+      });
+      unitType = unitTypeMasterCollection.findWhere({
+        'id': unitModel.get('unit_type_id')
+      });
+      property = window.propertyTypes[unitType.get('property_type_id')];
+      text = '';
+      if (s.decapitalize(property) === 'apartments' || s.decapitalize(property) === 'penthouse') {
+        unitCollection.reset(apartmentVariantCollection.getApartmentUnits());
+        text = 'Similar ' + s.decapitalize(property) + ' based on your filters';
+      }
+      if (s.decapitalize(property) === 'villas/Bungalows') {
+        unitCollection.reset(bunglowVariantCollection.getBunglowUnits());
+        text = 'Similar ' + s.decapitalize(property) + ' based on your filters';
+      }
+      if (s.decapitalize(property) === 'plot') {
+        unitCollection.reset(plotVariantCollection.getPlotUnits());
+        text = 'Similar ' + s.decapitalize(property) + ' based on your filters';
+      }
       unitsArr = unitCollection.toArray();
       $.each(unitsArr, function(item, value) {
         if (value.get('id') !== unitid) {
@@ -168,12 +188,14 @@
           return false;
         }
       });
-      return units;
+      if (unitsArr.length === 1) {
+        text = '';
+      }
+      return [units, text];
     };
 
     LeftUnitView.prototype.generateLevels = function(floor, response, unit) {
       var levels;
-      console.log(unit);
       levels = [];
       $.each(floor, function(index, value) {
         var level_name, rooms;
@@ -209,9 +231,8 @@
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
       response = window.unit.getUnitDetails(unitid);
-      window.convertRupees(response[3]);
-      $('.price').text($('#price').val());
-      if (response[4] !== null) {
+      $('.price').text(window.numDifferentiation(response[3]));
+      if (response[4] !== null || _.isUndefined(response[4])) {
         return $('.property').removeClass('hidden');
       }
     };
@@ -307,6 +328,7 @@
 
     CenterUnitView.prototype.onShow = function() {
       var height, html, response;
+      this.getNextPrevUnit();
       response = this.generateLevels();
       html = '';
       $.each(response[0], function(index, value) {
@@ -391,6 +413,31 @@
         return i = i + 1;
       });
       return [twoD, threeD, level, response[0]];
+    };
+
+    CenterUnitView.prototype.getNextPrevUnit = function() {
+      var next, prev, property, unitModel, unitType, unitid, url;
+      url = Backbone.history.fragment;
+      unitid = parseInt(url.split('/')[1]);
+      unitModel = unitCollection.findWhere({
+        'id': unitid
+      });
+      unitType = unitTypeMasterCollection.findWhere({
+        'id': unitModel.get('unit_type_id')
+      });
+      property = window.propertyTypes[unitType.get('property_type_id')];
+      if (s.decapitalize(property) === 'apartments' || s.decapitalize(property) === 'penthouse') {
+        unitCollection.reset(apartmentVariantCollection.getApartmentUnits());
+      }
+      if (s.decapitalize(property) === 'villas/Bungalows') {
+        unitCollection.reset(bunglowVariantCollection.getBunglowUnits());
+      }
+      if (s.decapitalize(property) === 'plot') {
+        unitCollection.reset(plotVariantCollection.getPlotUnits());
+      }
+      unitCollection.setRecord(unitModel);
+      console.log(next = unitCollection.next());
+      return console.log(prev = unitCollection.prev());
     };
 
     return CenterUnitView;
