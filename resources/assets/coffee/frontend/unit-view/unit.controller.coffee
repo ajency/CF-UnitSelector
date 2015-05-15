@@ -153,13 +153,28 @@ class LeftUnitView extends Marionette.ItemView
 							<div class="similar-section">
 					            <span class="similar">{{similarUnitsText}}</span><br>
 					            <!--<p>Pool View, Garden, 3BHK</p>-->
-					            <ul>
+					          
 					              	{{#similarUnits}}
-					            	<li class="">
-					                	{{unit_name}}
-					                </li>
+					              	<div class="details">
+					              		<div>
+											<label>Name: </label> {{unit_name}}
+										</div>
+										<div>
+											<label>Price: </label> <span class="icon-rupee-icn">{{price}}</span>
+										</div>
+										<div>
+											<label>Unit Variant:</label> {{variant}}
+										</div>
+										<div>
+											<label>Unit Type:</label> {{unit_type}}
+										</div>
+										<div>
+											<label>Area:</label> {{area}} sqft
+										</div>
+									</div>
+					            	
 					                {{/similarUnits}}
-					            </ul>
+					            
 				            </div>
 						</div>
 					</div>')
@@ -179,18 +194,22 @@ class LeftUnitView extends Marionette.ItemView
 						'attribute' : s.capitalize index
 						'value'     : value
 
-		similarUnits = @getSimilarUnits(unit)[0]
+		similarUnits = @getSimilarUnits(unit)
 		temp = []
-		$.each similarUnits, (index,value)->
+		$.each similarUnits[0], (index,value)->
 			temp.push 
 				'unit_name' : value.get('unit_name')
+				'unit_type' : response[1].get 'name'
+				'price' : window.numDifferentiation(response[3])
+				'area':response[0].get 'super_built_up_area'
+				'variant':response[0].get 'unit_variant_name'
 		data.area = response[0].get('super_built_up_area')
 		data.type = response[1].get('name')
 		data.unit_variant = response[0].get('unit_variant_name')
 		data.levels  = @generateLevels(floor,response,unit)
 		data.attributes  = attributes
 		data.similarUnits = temp
-		data.similarUnitsText = @getSimilarUnits(unit)[1]
+		data.similarUnitsText = similarUnits[1]
 		data
 
 	getSimilarUnits:(unit)->
@@ -203,12 +222,13 @@ class LeftUnitView extends Marionette.ItemView
 		unitColl = CommonFloor.getUnitsProperty(unitModel)
 		unitsArr = unitColl[0]
 		text = unitColl[1]
-		unitsArr.each ( item)->
-			if item.get('id') != unitid
-				units.push item
+		$.each unitsArr.toArray(), (index, value)->
+			if value.id != unitid
+				units.push value
 				i++
 			if i == 3
 				return false
+				
 		if unitsArr.length == 1
 			text = ''
 		[units,text]

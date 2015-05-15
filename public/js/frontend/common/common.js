@@ -311,12 +311,15 @@
   };
 
   CommonFloor.applyFliterClass = function() {
-    var actualunits, filterunits, notSelecteUnits;
+    var actualbuildings, actualunits, filterbuildings, filterunits, notSelecteUnits, notSelectebuildings;
     CommonFloor.applyPlotClasses();
     CommonFloor.applyVillaClasses();
     actualunits = _.pluck(unitMasterCollection.toArray(), 'id');
     filterunits = _.pluck(unitCollection.toArray(), 'id');
     notSelecteUnits = _.difference(actualunits, filterunits);
+    actualbuildings = _.pluck(buildingMasterCollection.toArray(), 'id');
+    filterbuildings = _.pluck(buildingCollection.toArray(), 'id');
+    notSelectebuildings = _.difference(actualbuildings, filterbuildings);
     $('.villa').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
@@ -324,11 +327,25 @@
         return $('#' + id).attr('class', 'layer villa unit_fadein not_in_selection');
       }
     });
-    return $('.plot').each(function(ind, item) {
+    $('.plot').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
       if ($.inArray(id, notSelecteUnits) > -1) {
         return $('#' + id).attr('class', 'layer plot unit_fadein not_in_selection');
+      }
+    });
+    $('.building').each(function(ind, item) {
+      var id;
+      id = parseInt(item.id);
+      if ($.inArray(id, notSelectebuildings) > -1) {
+        return $('#' + id).attr('class', 'layer building unit_fadein not_in_selection');
+      }
+    });
+    return $('.apartment').each(function(ind, item) {
+      var id;
+      id = parseInt(item.id);
+      if ($.inArray(id, notSelectebuildings) > -1) {
+        return $('#' + id).attr('class', 'layer apartment unit_fadein not_in_selection');
       }
     });
   };
