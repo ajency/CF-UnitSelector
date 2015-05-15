@@ -383,7 +383,7 @@
         });
       }
       if (response.type === 'plot') {
-        units = plotVariantCollection.getBunglowUnits();
+        units = plotVariantCollection.getPlotUnits();
         data = {};
         data.units = units;
         data.type = 'plot';
