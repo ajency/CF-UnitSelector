@@ -91,6 +91,14 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		types : '.types'
 		clear : '.clear'
 
+	initialize:->
+		if CommonFloor.defaults['unitTypes']!= ""
+			window.unitTypes = CommonFloor.defaults['unitTypes'].split(',')
+		if CommonFloor.defaults['unitVariants']!= ""
+			window.variantNames = CommonFloor.defaults['unitVariants'].split(',')
+		if CommonFloor.defaults['type']!= ""
+			window.type  = CommonFloor.defaults['type'].split(',')
+
 	events:
 		'click @ui.clear':(e)->
 			window.unitTypes = []

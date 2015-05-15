@@ -94,6 +94,12 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		console.log @building_id = building_id
+		if CommonFloor.defaults['unitTypes']!= ""
+			window.unitTypes = CommonFloor.defaults['unitTypes'].split(',')
+		if CommonFloor.defaults['unitVariants']!= ""
+			window.variantNames = CommonFloor.defaults['unitVariants'].split(',')
+		if CommonFloor.defaults['type']!= ""
+			window.type  = CommonFloor.defaults['type'].split(',')
 
 	events:
 		'click @ui.clear':(e)->

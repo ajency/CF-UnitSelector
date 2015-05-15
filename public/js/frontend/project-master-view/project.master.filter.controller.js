@@ -36,6 +36,18 @@
       clear: '.clear'
     };
 
+    FilterMsterView.prototype.initialize = function() {
+      if (CommonFloor.defaults['unitTypes'] !== "") {
+        window.unitTypes = CommonFloor.defaults['unitTypes'].split(',');
+      }
+      if (CommonFloor.defaults['unitVariants'] !== "") {
+        window.variantNames = CommonFloor.defaults['unitVariants'].split(',');
+      }
+      if (CommonFloor.defaults['type'] !== "") {
+        return window.type = CommonFloor.defaults['type'].split(',');
+      }
+    };
+
     FilterMsterView.prototype.events = {
       'click @ui.clear': function(e) {
         window.unitTypes = [];
