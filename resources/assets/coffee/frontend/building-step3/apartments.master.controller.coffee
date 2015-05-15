@@ -314,6 +314,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			            </div>
 		            </div>-->
 	              <div class="single-bldg">
+	              	<button class="prev"></button>
+	                <button class="next"></button>
 	                <div class="prev"></div>
 	                <div class="next"></div>
 	              </div>
@@ -414,7 +416,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('#'+id).attr('class' ,'layer ') 
 			$('#apartment'+id).attr('class' ,'unit blocks '+availability)
 
-		'mouseover .next,.prev':(e)->
+		'mouseover .next':(e)->
+			console.log "aaaaaaaa"
 			id = parseInt e.target.id
 			buildingModel = buildingMasterCollection.findWhere
 								'id' : id

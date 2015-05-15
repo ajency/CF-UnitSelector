@@ -134,7 +134,6 @@
         return unitCollection.trigger('available');
       },
       'change @ui.budget': function(e) {
-        console.log($(e.target).val());
         CommonFloor.defaults['price_max'] = parseFloat($(e.target).val().split(';')[1]);
         CommonFloor.defaults['price_min'] = parseFloat($(e.target).val().split(';')[0]);
         unitCollection.reset(unitMasterCollection.toArray());
@@ -360,9 +359,7 @@
       $(this.ui.unitTypes).each(function(ind, item) {
         $('#' + item.id).attr('checked', true);
         $('#' + item.id).attr('disabled', false);
-        console.log($.inArray($(item).attr('data-value'), unitTypes));
         if ($.inArray($(item).attr('data-value'), unitTypes) === -1) {
-          console.log(item.id);
           $('#' + item.id).prop('checked', false);
           $('#' + item.id).attr('disabled', false);
         }
@@ -372,7 +369,6 @@
         }
       });
       $(this.ui.variantNames).each(function(ind, item) {
-        console.log($(item).attr('data-value'));
         $('#' + item.id).attr('checked', true);
         $('#' + item.id).attr('disabled', false);
         if ($.inArray($(item).attr('data-value'), unitVariants) === -1) {

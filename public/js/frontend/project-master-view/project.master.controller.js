@@ -321,9 +321,9 @@
       var data, region, response, units;
       response = CommonFloor.checkListView();
       if (response.count.length === 0) {
-        console.log(region = new Marionette.Region({
+        region = new Marionette.Region({
           el: '#leftregion'
-        }));
+        });
         new CommonFloor.NoUnitsCtrl({
           region: region
         });
@@ -617,7 +617,7 @@
     CenterMasterView.prototype.setDetailIndex = function(index) {
       $('.region').empty();
       $('.region').addClass('inactive').removeClass('active');
-      this.currentBreakPoint = index;
+      console.log(this.currentBreakPoint = index);
       if (this.currentBreakPoint < 0) {
         this.currentBreakPoint = this.breakPoints.length - 1;
       }
@@ -631,7 +631,7 @@
 
     CenterMasterView.prototype.initializeRotate = function(transitionImages, svgs) {
       var frames, spin, that, width;
-      frames = transitionImages;
+      console.log(frames = transitionImages);
       this.breakPoints = project.get('breakpoints');
       this.currentBreakPoint = 0;
       width = this.ui.svgContainer.width();
@@ -648,7 +648,7 @@
       api = spin.spritespin("api");
       spin.bind("onFrame", function() {
         var data, url;
-        data = api.data;
+        console.log(data = api.data);
         if (data.frame === data.stopFrame) {
           url = svgs[data.frame];
           return $('.region').load(url, function() {

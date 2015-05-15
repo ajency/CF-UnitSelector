@@ -180,7 +180,6 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			unitCollection.trigger('available')
 
 		'change @ui.budget':(e)->
-			console.log $(e.target).val()
 			CommonFloor.defaults['price_max'] = parseFloat $(e.target).val().split(';')[1]
 			CommonFloor.defaults['price_min'] = parseFloat $(e.target).val().split(';')[0]
 			unitCollection.reset unitMasterCollection.toArray()
@@ -423,16 +422,13 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		$(@ui.unitTypes).each (ind,item)->
 			$('#'+item.id).attr('checked',true)
 			$('#'+item.id).attr('disabled',false)
-			console.log $.inArray($(item).attr('data-value'),unitTypes)
 			if $.inArray($(item).attr('data-value'),unitTypes) is -1
-				console.log item.id
 				$('#'+item.id).prop('checked',false)
 				$('#'+item.id).attr('disabled',false)
 			if $.inArray(parseInt($(item).attr('data-value')),unittypesColl) is -1
 				$('#'+item.id).prop('checked',false)
 				$('#'+item.id).attr('disabled',true)
 		$(@ui.variantNames).each (ind,item)->
-			console.log $(item).attr('data-value')
 			$('#'+item.id).attr('checked',true)
 			$('#'+item.id).attr('disabled',false)
 			if $.inArray($(item).attr('data-value'),unitVariants) is -1 
