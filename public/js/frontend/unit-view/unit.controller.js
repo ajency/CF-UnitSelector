@@ -153,7 +153,7 @@
     };
 
     LeftUnitView.prototype.getSimilarUnits = function(unit) {
-      var i, property, text, unitModel, unitType, unitid, units, unitsArr, url;
+      var i, text, unitColl, unitModel, unitid, units, unitsArr, url;
       units = [];
       i = 0;
       url = Backbone.history.fragment;
@@ -161,27 +161,12 @@
       unitModel = unitMasterCollection.findWhere({
         'id': unitid
       });
-      unitType = unitTypeMasterCollection.findWhere({
-        'id': unitModel.get('unit_type_id')
-      });
-      property = window.propertyTypes[unitType.get('property_type_id')];
-      text = '';
-      if (s.decapitalize(property) === 'apartments' || s.decapitalize(property) === 'penthouse') {
-        unitCollection.reset(apartmentVariantCollection.getApartmentUnits());
-        text = 'Similar ' + s.decapitalize(property) + ' based on your filters';
-      }
-      if (s.decapitalize(property) === 'villas/Bungalows') {
-        unitCollection.reset(bunglowVariantCollection.getBunglowUnits());
-        text = 'Similar ' + s.decapitalize(property) + ' based on your filters';
-      }
-      if (s.decapitalize(property) === 'plot') {
-        unitCollection.reset(plotVariantCollection.getPlotUnits());
-        text = 'Similar ' + s.decapitalize(property) + ' based on your filters';
-      }
-      unitsArr = unitCollection.toArray();
-      $.each(unitsArr, function(item, value) {
-        if (value.get('id') !== unitid) {
-          units.push(value);
+      unitColl = CommonFloor.getUnitsProperty(unitModel);
+      unitsArr = unitColl[0];
+      text = unitColl[1];
+      unitsArr.each(function(item) {
+        if (item.get('id') !== unitid) {
+          units.push(item);
           i++;
         }
         if (i === 3) {
@@ -417,28 +402,16 @@
     };
 
     CenterUnitView.prototype.getNextPrevUnit = function() {
-      var next, prev, property, unitModel, unitType, unitid, url;
+      var next, prev, unitModel, unitid, url;
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
       unitModel = unitCollection.findWhere({
         'id': unitid
       });
-      unitType = unitTypeMasterCollection.findWhere({
-        'id': unitModel.get('unit_type_id')
-      });
-      property = window.propertyTypes[unitType.get('property_type_id')];
-      if (s.decapitalize(property) === 'apartments' || s.decapitalize(property) === 'penthouse') {
-        unitCollection.reset(apartmentVariantCollection.getApartmentUnits());
-      }
-      if (s.decapitalize(property) === 'villas/Bungalows') {
-        unitCollection.reset(bunglowVariantCollection.getBunglowUnits());
-      }
-      if (s.decapitalize(property) === 'plot') {
-        unitCollection.reset(plotVariantCollection.getPlotUnits());
-      }
-      unitCollection.setRecord(unitModel);
-      console.log(next = unitCollection.next());
-      return console.log(prev = unitCollection.prev());
+      CommonFloor.getUnitsProperty(unitModel);
+      window.tempColl.setRecord(unitModel);
+      console.log(next = tempColl.next());
+      return console.log(prev = tempColl.prev());
     };
 
     return CenterUnitView;

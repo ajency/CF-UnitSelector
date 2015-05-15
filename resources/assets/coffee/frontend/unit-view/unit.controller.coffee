@@ -200,23 +200,12 @@ class LeftUnitView extends Marionette.ItemView
 		unitid = parseInt url.split('/')[1]
 		unitModel = unitMasterCollection.findWhere
 					'id' : unitid
-		unitType = unitTypeMasterCollection.findWhere
-							'id' :  unitModel.get('unit_type_id')
-		property = window.propertyTypes[unitType.get('property_type_id')]
-		text = ''
-		if s.decapitalize(property) == 'apartments' || s.decapitalize(property) == 'penthouse'
-			unitCollection.reset apartmentVariantCollection.getApartmentUnits()
-			text =  'Similar '+s.decapitalize(property)+' based on your filters'
-		if s.decapitalize(property) == 'villas/Bungalows'
-			unitCollection.reset bunglowVariantCollection.getBunglowUnits()
-			text =  'Similar '+s.decapitalize(property)+' based on your filters'
-		if s.decapitalize(property) == 'plot'
-			unitCollection.reset plotVariantCollection.getPlotUnits()
-			text =  'Similar '+s.decapitalize(property)+' based on your filters'
-		unitsArr = unitCollection.toArray()
-		$.each unitsArr, (item,value)->
-			if value.get('id') != unitid
-				units.push value
+		unitColl = CommonFloor.getUnitsProperty(unitModel)
+		unitsArr = unitColl[0]
+		text = unitColl[1]
+		unitsArr.each ( item)->
+			if item.get('id') != unitid
+				units.push item
 				i++
 			if i == 3
 				return false
@@ -485,18 +474,10 @@ class CenterUnitView extends Marionette.ItemView
 		unitid = parseInt url.split('/')[1]
 		unitModel = unitCollection.findWhere
 					'id' : unitid
-		unitType = unitTypeMasterCollection.findWhere
-							'id' :  unitModel.get('unit_type_id')
-		property = window.propertyTypes[unitType.get('property_type_id')]
-		if s.decapitalize(property) == 'apartments' || s.decapitalize(property) == 'penthouse'
-			unitCollection.reset apartmentVariantCollection.getApartmentUnits()
-		if s.decapitalize(property) == 'villas/Bungalows'
-			unitCollection.reset bunglowVariantCollection.getBunglowUnits()
-		if s.decapitalize(property) == 'plot'
-			unitCollection.reset plotVariantCollection.getPlotUnits()
-		unitCollection.setRecord(unitModel)
-		console.log next = unitCollection.next()
-		console.log prev = unitCollection.prev()
+		CommonFloor.getUnitsProperty(unitModel)
+		window.tempColl.setRecord(unitModel)
+		console.log next = tempColl.next()
+		console.log prev = tempColl.prev()
 
 #Center View for the unit
 class CommonFloor.CenterUnitCtrl extends Marionette.RegionController

@@ -727,6 +727,29 @@
     return window.building_id = id;
   };
 
+  CommonFloor.getUnitsProperty = function(unitModel) {
+    var property, text, unitType;
+    unitType = unitTypeMasterCollection.findWhere({
+      'id': unitModel.get('unit_type_id')
+    });
+    property = window.propertyTypes[unitType.get('property_type_id')];
+    text = '';
+    window.tempColl = unitCollection.clone();
+    if (s.decapitalize(property) === 'apartments' || s.decapitalize(property) === 'penthouse') {
+      window.tempColl.reset(apartmentVariantCollection.getApartmentUnits());
+      text = 'Similar ' + s.decapitalize(property) + ' based on your filters';
+    }
+    if (s.decapitalize(property) === 'villas/Bungalows') {
+      window.tempColl.reset(bunglowVariantCollection.getBunglowUnits());
+      text = 'Similar ' + s.decapitalize(property) + ' based on your filters';
+    }
+    if (s.decapitalize(property) === 'plot') {
+      window.tempColl.reset(plotVariantCollection.getPlotUnits());
+      text = 'Similar ' + s.decapitalize(property) + ' based on your filters';
+    }
+    return [window.tempColl, text];
+  };
+
 }).call(this);
 
 //# sourceMappingURL=../../frontend/common/common.js.map
