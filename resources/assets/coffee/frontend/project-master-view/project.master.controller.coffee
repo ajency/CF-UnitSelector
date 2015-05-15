@@ -269,7 +269,7 @@ class CommonFloor.LeftMasterCtrl extends Marionette.RegionController
 	renderLeftMasterView:->
 		response = CommonFloor.checkListView()
 		if response.count.length == 0
-			console.log region =  new Marionette.Region el : '#leftregion'
+			region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.NoUnitsCtrl region : region
 			return
 			
@@ -693,7 +693,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$('.region').addClass('inactive').removeClass('active')
 		@currentBreakPoint = index;
 		if (@currentBreakPoint < 0) 
-			@currentBreakPoint = @breakPoints.length - 1
+			@currentBreakPoint = @breakPoints.length-1
 		
 		if (@currentBreakPoint >= @breakPoints.length) 
 			@currentBreakPoint = 0
@@ -721,6 +721,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		api = spin.spritespin("api")
 		spin.bind("onFrame" , ()->
 			data = api.data
+			data.frame
 			if data.frame is data.stopFrame
 				url = svgs[data.frame]
 				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses();CommonFloor.applyPlotClasses()).addClass('active').removeClass('inactive')

@@ -310,7 +310,7 @@ class CommonFloor.CenterListCtrl extends Marionette.RegionController
 			# @parent().trigger "load:units" , data
 
 		if response.type is 'plot' 
-			units = plotVariantCollection.getBunglowUnits()
+			units = plotVariantCollection.getPlotUnits()
 			data = {}
 			data.units = units
 			data.type = 'plot'

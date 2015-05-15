@@ -21,7 +21,7 @@
       return FilterMsterView.__super__.constructor.apply(this, arguments);
     }
 
-    FilterMsterView.prototype.template = Handlebars.compile('<div class="collapse" id="collapsefilters"> <div class="container-fluid""> <div class="filters-wrapper"> <div class="row"> <div class="col-sm-4 col-md-4 property_type "> <h5># PROPERTY TYPE</h5> <div class="filter-chkbox-block"> {{#types}} <input type="checkbox" class="custom-chckbx addCft types" id="{{id}}" value="{{type}}"> <label for="{{id}}" class="-lbl">{{type}}{{type_name}}</label> {{/types}} </div> </div> <div class="col-sm-4 col-md-4 "> <h5># UNIT TYPE</h5> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class="col-sm-4 col-md-4 "> <h5># VARIANT</h5> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> </div> </div> <div class="filters-wrapper"> <div class="row"> <div class="col-sm-4 col-md-4 "> <h5># AREA (Sqft)</h5> <div class="range-container"> <input type="text" id="area" name="area" value="" /> </div> </div> <div class="col-sm-4 col-md-4 "> <h5># BUDGET </h5> <div class="range-container"> <input type="text" id="budget" name="budget" value="" /> </div> </div> <div class="col-sm-4 col-md-4 "> <h5># AVAILABILITY</h5> <div class="alert "> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="available" class="-lbl">Show Available Units Only</label> </div> </div> </div> </div> <div class="filters-bottom clearfix"> <a href="javascript:void(0)"  class="text-primary pull-left m-b-10"><span class="icon-cross clear"></span> Clear Filters </a> <a href="javascript:void(0)" data-toggle="collapse" data-target="#collapsefilters" class="text-primary pull-right m-b-10"><span class="icon-chevron-up"></span> Close </a> </div> </div> </div>');
+    FilterMsterView.prototype.template = Handlebars.compile('<div class="collapse" id="collapsefilters"> <div class="container-fluid""> <div class="filters-wrapper"> <div class="row"> <div class="col-sm-4 col-md-4 property_type "> <h5># PROPERTY TYPE</h5> <div class="filter-chkbox-block"> {{#types}} <input type="checkbox" class="custom-chckbx addCft types" id="{{id}}" value="{{type}}"> <label for="{{id}}" class="-lbl">{{type}}{{type_name}}</label> {{/types}} </div> </div> <div class="col-sm-4 col-md-4 "> <h5># UNIT TYPE</h5> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class="col-sm-4 col-md-4 "> <h5># VARIANT</h5> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> </div> </div> <div class="filters-wrapper"> <div class="row"> <div class="col-sm-4 col-md-4 "> <h5># AREA (Sqft)</h5> <div class="range-container"> <input type="text" id="area" name="area" value="" /> </div> </div> <div class="col-sm-4 col-md-4 "> <h5># BUDGET </h5> <div class="range-container"> <input type="text" id="budget" name="budget" value="" /> </div> </div> <div class="col-sm-4 col-md-4 "> <h5># AVAILABILITY</h5> <div class="alert "> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="available" class="-lbl">Show Available Units Only</label> </div> </div> </div> </div> <div class="filters-bottom clearfix"> <a href="javascript:void(0)"  class="text-primary pull-left m-b-10 clear"><span class="icon-cross clear"></span> Clear Filters </a> <a href="javascript:void(0)" data-toggle="collapse" data-target="#collapsefilters" class="text-primary pull-right m-b-10"><span class="icon-chevron-up"></span> Close </a> </div> </div> </div>');
 
     FilterMsterView.prototype.ui = {
       unitTypes: '.unit_types',
@@ -34,6 +34,18 @@
       budget: '#budget',
       types: '.types',
       clear: '.clear'
+    };
+
+    FilterMsterView.prototype.initialize = function() {
+      if (CommonFloor.defaults['unitTypes'] !== "") {
+        window.unitTypes = CommonFloor.defaults['unitTypes'].split(',');
+      }
+      if (CommonFloor.defaults['unitVariants'] !== "") {
+        window.variantNames = CommonFloor.defaults['unitVariants'].split(',');
+      }
+      if (CommonFloor.defaults['type'] !== "") {
+        return window.type = CommonFloor.defaults['type'].split(',');
+      }
     };
 
     FilterMsterView.prototype.events = {
@@ -122,7 +134,6 @@
         return unitCollection.trigger('available');
       },
       'change @ui.budget': function(e) {
-        console.log($(e.target).val());
         CommonFloor.defaults['price_max'] = parseFloat($(e.target).val().split(';')[1]);
         CommonFloor.defaults['price_min'] = parseFloat($(e.target).val().split(';')[0]);
         unitCollection.reset(unitMasterCollection.toArray());
@@ -348,9 +359,7 @@
       $(this.ui.unitTypes).each(function(ind, item) {
         $('#' + item.id).attr('checked', true);
         $('#' + item.id).attr('disabled', false);
-        console.log($.inArray($(item).attr('data-value'), unitTypes));
         if ($.inArray($(item).attr('data-value'), unitTypes) === -1) {
-          console.log(item.id);
           $('#' + item.id).prop('checked', false);
           $('#' + item.id).attr('disabled', false);
         }
@@ -360,7 +369,6 @@
         }
       });
       $(this.ui.variantNames).each(function(ind, item) {
-        console.log($(item).attr('data-value'));
         $('#' + item.id).attr('checked', true);
         $('#' + item.id).attr('disabled', false);
         if ($.inArray($(item).attr('data-value'), unitVariants) === -1) {

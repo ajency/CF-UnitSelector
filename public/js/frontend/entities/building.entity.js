@@ -148,6 +148,52 @@
 
     BuildingCollection.prototype.model = Building;
 
+    BuildingCollection.prototype.getRecord = function() {
+      return this.currentModel;
+    };
+
+    BuildingCollection.prototype.setRecord = function(model) {
+      return this.currentModel = model;
+    };
+
+    BuildingCollection.prototype.next = function() {
+      var first, next, record, units;
+      units = _.pluck(this.toArray(), 'id');
+      next = this.at(this.indexOf(this.getRecord()) + 1);
+      if (_.isUndefined(next)) {
+        first = _.first(units);
+        if (this.currentModel.get('id') === first) {
+          return next;
+        } else {
+          record = this.findWhere({
+            'id': first
+          });
+          return record;
+        }
+      } else {
+        return next;
+      }
+    };
+
+    BuildingCollection.prototype.prev = function() {
+      var last, prev, record, units;
+      units = _.pluck(this.toArray(), 'id');
+      prev = this.at(this.indexOf(this.getRecord()) - 1);
+      if (_.isUndefined(prev)) {
+        last = _.last(units);
+        if (this.currentModel.get('id') === last) {
+          return prev;
+        } else {
+          record = this.findWhere({
+            'id': last
+          });
+          return record;
+        }
+      } else {
+        return prev;
+      }
+    };
+
     BuildingCollection.prototype.setBuildingAttributes = function(data) {
       buildingCollection.reset(data);
       return buildingMasterCollection.reset(data);

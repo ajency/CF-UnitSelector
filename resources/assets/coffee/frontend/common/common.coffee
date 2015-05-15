@@ -275,6 +275,9 @@ CommonFloor.applyFliterClass = ()->
 	actualunits = _.pluck unitMasterCollection.toArray() ,'id'
 	filterunits = _.pluck unitCollection.toArray() ,'id'
 	notSelecteUnits = _.difference actualunits , filterunits
+	actualbuildings = _.pluck buildingMasterCollection.toArray() ,'id'
+	filterbuildings = _.pluck buildingCollection.toArray() ,'id'
+	notSelectebuildings = _.difference actualbuildings , filterbuildings
 	$('.villa').each (ind,item)->
 		id = parseInt item.id
 		if $.inArray(id , notSelecteUnits) > -1
@@ -284,6 +287,16 @@ CommonFloor.applyFliterClass = ()->
 		id = parseInt item.id
 		if $.inArray(id , notSelecteUnits) > -1
 			$('#'+id).attr('class' ,'layer plot unit_fadein not_in_selection')
+
+	$('.building').each (ind,item)->
+		id = parseInt item.id
+		if $.inArray(id , notSelectebuildings) > -1
+			$('#'+id).attr('class' ,'layer building unit_fadein not_in_selection')
+
+	$('.apartment').each (ind,item)->
+		id = parseInt item.id
+		if $.inArray(id , notSelectebuildings) > -1
+			$('#'+id).attr('class' ,'layer apartment unit_fadein not_in_selection')
 
 CommonFloor.resetCollections = ()->
 	apartments = []
@@ -588,4 +601,23 @@ CommonFloor.filterBuilding = (id)->
 	CommonFloor.resetCollections()
 	unitTempCollection.reset unitCollection.toArray()
 	window.building_id = id
-	
+
+
+CommonFloor.getUnitsProperty = (unitModel)->	
+	unitType = unitTypeMasterCollection.findWhere
+							'id' :  unitModel.get('unit_type_id')
+	property = window.propertyTypes[unitType.get('property_type_id')]
+	text = ''
+	window.tempColl = unitCollection.clone()
+	if s.decapitalize(property) == 'apartments' || s.decapitalize(property) == 'penthouse'
+		window.tempColl.reset apartmentVariantCollection.getApartmentUnits()
+		text =  'Similar '+s.decapitalize(property)+' based on your filters'
+	if s.decapitalize(property) == 'villas/Bungalows'
+		window.tempColl.reset bunglowVariantCollection.getBunglowUnits()
+		text =  'Similar '+s.decapitalize(property)+' based on your filters'
+	if s.decapitalize(property) == 'plot'
+		window.tempColl.reset plotVariantCollection.getPlotUnits()
+		text =  'Similar '+s.decapitalize(property)+' based on your filters'
+
+
+	[window.tempColl,text]

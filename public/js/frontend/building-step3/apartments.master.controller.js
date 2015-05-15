@@ -323,7 +323,7 @@
       return unitTempCollection.bind("filter_available", this.renderLeftView, this);
     };
 
-    LeftApartmentMasterCtrl.prototype.renderView = function() {
+    LeftApartmentMasterCtrl.prototype.renderLeftView = function() {
       var building_id, region, response, unitsCollection, url;
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
@@ -354,7 +354,7 @@
       return CenterApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterApartmentMasterView.prototype.template = Handlebars.compile('<button class="btn btn-primary filter-button pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters"> <span class="icon-funnel"></span> </button> <div class="col-md-12 us-right-content mobile visible animated fadeIn"> <div class="zoom-controls"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <!--<div class="controls mapView"> <div class="toggle"> <a href="#" class="map active">Map</a><a href="#" class="list">List</a> </div> </div>--> <div class=" master animated fadeIn"> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="spritespin"></div> <div class="svg-maps"> <img class="first_image img-responsive" src="" /> <div class="region inactive"></div> </div> <div class="cf-loader hidden"></div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div> </div>');
+    CenterApartmentMasterView.prototype.template = Handlebars.compile('<button class="btn btn-primary filter-button pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters"> <span class="icon-funnel"></span> </button> <div class="col-md-12 us-right-content mobile visible animated fadeIn"> <div class="zoom-controls"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master animated fadeIn"> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="spritespin"></div> <div class="svg-maps"> <img class="first_image img-responsive" src="" /> <div class="region inactive"></div> </div> </div> <div class="cf-loader hidden"></div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
 
     CenterApartmentMasterView.prototype.ui = {
       svgContainer: '.master',
@@ -451,11 +451,48 @@
         availability = s.decapitalize(availability);
         $('#' + id).attr('class', 'layer ');
         return $('#apartment' + id).attr('class', 'unit blocks ' + availability);
+      },
+      'mouseover .next': function(e) {
+        var buildingModel, floors, html, id, images, response, unitTypes;
+        console.log("aaaaaaaa");
+        id = parseInt(e.target.id);
+        buildingModel = buildingMasterCollection.findWhere({
+          'id': id
+        });
+        images = Object.keys(buildingModel.get('building_master')).length;
+        if (images !== 0) {
+          console.log("show image");
+        }
+        floors = buildingModel.get('floors');
+        floors = Object.keys(floors).length;
+        unitTypes = window.building.getUnitTypes(id);
+        response = window.building.getUnitTypesCount(id, unitTypes);
+        html = '<div class="svg-info"> <h4 class="pull-left">' + buildingModel.get('building_name') + '</h4> <h4 class="pull-left">' + window.building.getMinimumCost(id) + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div>';
+        $.each(response, function(index, value) {
+          return html += '<div class="details"> <div> <label>' + value.name + '</label> - ' + value.units + '</div>';
+        });
+        html += '<div> <label>No. of floors</label> - ' + floors + '</div> </div> </div>';
+        return console.log(html);
+      },
+      'click .next,.prev': function(e) {
+        var buildingModel, id;
+        id = parseInt(e.target.id);
+        buildingModel = buildingMasterCollection.findWhere({
+          'id': id
+        });
+        if (Object.keys(buildingModel.get('building_master')).length === 0) {
+          CommonFloor.navigate('/building/' + id + '/apartments', true);
+          return CommonFloor.router.storeRoute();
+        } else {
+          CommonFloor.navigate('/building/' + id + '/master-view', true);
+          return CommonFloor.router.storeRoute();
+        }
       }
     };
 
     CenterApartmentMasterView.prototype.onShow = function() {
       var breakpoints, building, building_id, first, height, svgs, that, transitionImages, url;
+      this.getNextPrev();
       $('img').lazyLoadXT();
       height = this.ui.svgContainer.width() / 2;
       $('.search-left-content').css('height', height);
@@ -481,6 +518,28 @@
         return $('.cf-loader').removeClass('hidden');
       });
       return this.initializeRotate(transitionImages, svgs, building);
+    };
+
+    CenterApartmentMasterView.prototype.getNextPrev = function() {
+      var buildingModel, building_id, next, prev, url;
+      url = Backbone.history.fragment;
+      building_id = parseInt(url.split('/')[1]);
+      buildingModel = buildingMasterCollection.findWhere({
+        'id': building_id
+      });
+      buildingMasterCollection.setRecord(buildingModel);
+      console.log(next = buildingMasterCollection.next());
+      if (_.isUndefined(next)) {
+        $('.next').hide();
+      } else {
+        $('.next').attr('data-id', next.get('id'));
+      }
+      console.log(prev = buildingMasterCollection.prev());
+      if (_.isUndefined(prev)) {
+        return $('.prev').hide();
+      } else {
+        return $('.prev').attr('data-id', next.get('id'));
+      }
     };
 
     CenterApartmentMasterView.prototype.setDetailIndex = function(index) {

@@ -68,7 +68,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 					                        </div>
 
 					                        <div class="filters-bottom clearfix">
-					                        	<a href="javascript:void(0)"  class="text-primary pull-left m-b-10"><span class="icon-cross clear"></span> Clear Filters </a>
+					                        	<a href="javascript:void(0)"  class="text-primary pull-left m-b-10 clear"><span class="icon-cross clear"></span> Clear Filters </a>
 					                        	<a href="javascript:void(0)" data-toggle="collapse" data-target="#collapsefilters" class="text-primary pull-right m-b-10"><span class="icon-chevron-up"></span> Close </a>
 					                        </div>
 											
@@ -90,6 +90,14 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		budget : '#budget'
 		types : '.types'
 		clear : '.clear'
+
+	initialize:->
+		if CommonFloor.defaults['unitTypes']!= ""
+			window.unitTypes = CommonFloor.defaults['unitTypes'].split(',')
+		if CommonFloor.defaults['unitVariants']!= ""
+			window.variantNames = CommonFloor.defaults['unitVariants'].split(',')
+		if CommonFloor.defaults['type']!= ""
+			window.type  = CommonFloor.defaults['type'].split(',')
 
 	events:
 		'click @ui.clear':(e)->
@@ -172,7 +180,6 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			unitCollection.trigger('available')
 
 		'change @ui.budget':(e)->
-			console.log $(e.target).val()
 			CommonFloor.defaults['price_max'] = parseFloat $(e.target).val().split(';')[1]
 			CommonFloor.defaults['price_min'] = parseFloat $(e.target).val().split(';')[0]
 			unitCollection.reset unitMasterCollection.toArray()
@@ -415,16 +422,13 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		$(@ui.unitTypes).each (ind,item)->
 			$('#'+item.id).attr('checked',true)
 			$('#'+item.id).attr('disabled',false)
-			console.log $.inArray($(item).attr('data-value'),unitTypes)
 			if $.inArray($(item).attr('data-value'),unitTypes) is -1
-				console.log item.id
 				$('#'+item.id).prop('checked',false)
 				$('#'+item.id).attr('disabled',false)
 			if $.inArray(parseInt($(item).attr('data-value')),unittypesColl) is -1
 				$('#'+item.id).prop('checked',false)
 				$('#'+item.id).attr('disabled',true)
 		$(@ui.variantNames).each (ind,item)->
-			console.log $(item).attr('data-value')
 			$('#'+item.id).attr('checked',true)
 			$('#'+item.id).attr('disabled',false)
 			if $.inArray($(item).attr('data-value'),unitVariants) is -1 

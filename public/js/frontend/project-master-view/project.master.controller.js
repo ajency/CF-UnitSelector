@@ -321,9 +321,9 @@
       var data, region, response, units;
       response = CommonFloor.checkListView();
       if (response.count.length === 0) {
-        console.log(region = new Marionette.Region({
+        region = new Marionette.Region({
           el: '#leftregion'
-        }));
+        });
         new CommonFloor.NoUnitsCtrl({
           region: region
         });
@@ -649,6 +649,7 @@
       spin.bind("onFrame", function() {
         var data, url;
         data = api.data;
+        data.frame;
         if (data.frame === data.stopFrame) {
           url = svgs[data.frame];
           return $('.region').load(url, function() {
