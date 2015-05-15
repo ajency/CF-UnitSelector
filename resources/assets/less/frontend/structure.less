@@ -21,20 +21,37 @@ body{
     height:38px
 }
 
+.header-cta{
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 18px;
+}
+
 .proj-name{
     // padding-right: 15px;
     // margin-right: 15px;
-    margin-bottom: 10px;
-    margin-top: 10px;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    display: inline-block;
+    text-transform: capitalize;
     // border-right: 1px solid @gray-lighter;
+    small{
+        color: @white;
+    }
 }
 .proj-type-count{
     // margin-top: 10px;
     float: left;
+    h1{
+        margin: 0 5px 0 15px;
+        padding: 5px 5px 10px 10px;
+        border-left: 1px solid @brand-primary-darker;
+    }
     p{
-        margin: 26px 15px 0 2px;
+        margin: 22px 15px 0 2px;
         font-weight: bold;
-        color: darken(@gray, 10%)
+        // color: darken(@gray, 10%)
     }
 }
 
@@ -76,23 +93,6 @@ body{
     // overflow-y: auto;
     // height: 0;
     .ease;
-}
-.builder-logo{
-    max-width: 200px;
-}
-
-.proj-details{
-    // margin-top: 15px;
-    .detail-pts{
-        margin-top: 20px;
-        p{
-            margin: 0 0 20px;
-            // font-size: 13px;
-            span{
-                color: #666;
-            }
-        } 
-    }
 }
 
 .filters-wrapper{
@@ -167,3 +167,81 @@ body{
     height: 98px;
 }
 
+
+
+/* Step 1*/
+.step1{
+    padding-right: 15px;
+    // padding-bottom: 170px;
+    .section{
+        // border-bottom: 1px solid @gray-lighter;
+    }
+    .proj-logo, .proj-details{
+        padding: 10px 0 0 10px;
+        h3{
+            text-transform: uppercase;
+        }
+        .img{
+            max-width: 200px;
+        }
+    }
+    .prop-types{
+        padding: 15px 0 10px 10px;
+        border-bottom: 1px solid lighten(@gray-lighter, 10%);
+        &.Apartments{
+            .prop-icon{
+                height: 32px;
+                width: 40px;
+                background: url('../../images/sprite-popover2.png') no-repeat;
+                // background-color: rgba(255, 0, 0, 0.25);
+                background-position: -50px -15px;
+                background-size: 200px;
+                display: inline-block;
+            }
+        }
+        &.Villas, &.Bungalows{
+            .prop-icon{
+                background-position: -8px -15px;
+            }
+        }
+        &.Plot{
+            .prop-icon{
+                background-position: -100px -15px;
+            }
+        }
+
+        .unit-types{
+            display: inline-block;
+            margin-left: 10px;
+            span{
+                font-weight: bold;
+            }
+        }
+    }
+
+    .info-slider{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 160px;
+        img{
+            width: 100px;
+        }
+    }
+}
+
+/* Step 2 */
+.header-info{
+    margin-left: 60px;
+}
+
+hr.embossed {
+    width:100%; 
+    height:0; 
+    color:none; 
+    background:none; 
+    border:none; 
+    border-bottom:1px solid lighten(@gray-lighter, 10%); 
+    border-top:1px solid lighten(@gray-lighter, 14%); 
+}

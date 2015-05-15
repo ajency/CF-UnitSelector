@@ -1,16 +1,52 @@
 .filter-button{
-  border: 1px solid @brand-primary;
-  border-radius: 3px;
+  border: 1px solid @white;
   background-color: @white;
   color: @gray-light;
   padding: 6px 12px;
+  position: absolute;
+  z-index: 9999;
+  right: 20px;
+  top: 15px;
+  font-size: 28px;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  .ease;
+  &:active{
+    background-color: @white;
+    border: 1px solid @white;
+    outline: none;
+  }
+  &:hover{
+    border: 1px solid @white;
+    box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.16);
+    transform: scale(1.05);
+    background-color: @white;
+    color: @brand-primary;
+  }
+  &:focus{
+    outline: none;
+    background-color: @white;
+    color: @brand-primary;
+    border: 1px solid @white;
+  }
 }
 .filter-result{
   margin: 20px 0 0;
+  .filter-pill{
+    margin-bottom: 0;
+    padding: 2px 0 2px 8px;
+    background-color: @brand-primary-darker;
+    color: @white;
+    cursor: default;
+    span.icon-cross{
+      color: @white;
+      cursor: pointer;
+    }
+  }
 }
 .filters-wrapper{
     // margin: 20px 0px 20px 0;
-    padding: 15px;
+    padding: 10px;
     max-width: 1200px;
     margin: auto;
     // border-top: 1px solid @gray-lighter;

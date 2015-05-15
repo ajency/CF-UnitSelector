@@ -29,17 +29,32 @@ body {
   width: 173px;
   height: 38px;
 }
+.header-cta {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 18px;
+}
 .proj-name {
-  margin-bottom: 10px;
-  margin-top: 10px;
+  margin-bottom: 15px;
+  margin-top: 15px;
+  display: inline-block;
+  text-transform: capitalize;
+}
+.proj-name small {
+  color: #ffffff;
 }
 .proj-type-count {
   float: left;
 }
+.proj-type-count h1 {
+  margin: 0 5px 0 15px;
+  padding: 5px 5px 10px 10px;
+  border-left: 1px solid #db6809;
+}
 .proj-type-count p {
-  margin: 26px 15px 0 2px;
+  margin: 22px 15px 0 2px;
   font-weight: bold;
-  color: #4d4d4d;
 }
 .wrapper {
   min-height: 100%;
@@ -68,18 +83,6 @@ body {
 .us-left-content {
   -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
           transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-}
-.builder-logo {
-  max-width: 200px;
-}
-.proj-details .detail-pts {
-  margin-top: 20px;
-}
-.proj-details .detail-pts p {
-  margin: 0 0 20px;
-}
-.proj-details .detail-pts p span {
-  color: #666;
 }
 .filters-wrapper .tab-main-container {
   border-right: 0;
@@ -136,6 +139,71 @@ body {
 }
 .footer-push {
   height: 98px;
+}
+/* Step 1*/
+.step1 {
+  padding-right: 15px;
+}
+.step1 .proj-logo,
+.step1 .proj-details {
+  padding: 10px 0 0 10px;
+}
+.step1 .proj-logo h3,
+.step1 .proj-details h3 {
+  text-transform: uppercase;
+}
+.step1 .proj-logo .img,
+.step1 .proj-details .img {
+  max-width: 200px;
+}
+.step1 .prop-types {
+  padding: 15px 0 10px 10px;
+  border-bottom: 1px solid #e6e6e6;
+}
+.step1 .prop-types.Apartments .prop-icon {
+  height: 32px;
+  width: 40px;
+  background: url('../../images/sprite-popover2.png') no-repeat;
+  background-position: -50px -15px;
+  background-size: 200px;
+  display: inline-block;
+}
+.step1 .prop-types.Villas .prop-icon,
+.step1 .prop-types.Bungalows .prop-icon {
+  background-position: -8px -15px;
+}
+.step1 .prop-types.Plot .prop-icon {
+  background-position: -100px -15px;
+}
+.step1 .prop-types .unit-types {
+  display: inline-block;
+  margin-left: 10px;
+}
+.step1 .prop-types .unit-types span {
+  font-weight: bold;
+}
+.step1 .info-slider {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 160px;
+}
+.step1 .info-slider img {
+  width: 100px;
+}
+/* Step 2 */
+.header-info {
+  margin-left: 60px;
+}
+hr.embossed {
+  width: 100%;
+  height: 0;
+  color: none;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #e6e6e6;
+  border-top: 1px solid #f0f0f0;
 }
 .unit-list {
   overflow-y: auto;
@@ -637,15 +705,18 @@ body {
 /* Back Button */
 .breadcrumb-bar {
   position: absolute;
-  padding: 15px 0 0 15px;
-  padding-bottom: 0;
+  left: 0;
 }
 .breadcrumb-bar a {
+  display: inline-block;
+  padding: 15px 20px;
+  background-color: #db6809;
   color: #ffffff;
   font-weight: bold;
+  font-size: 18px;
 }
 .breadcrumb-bar a::before {
-  content: "\e77a";
+  content: "\e761";
   font-family: icomoon;
 }
 /* Toggle Button */
@@ -714,8 +785,8 @@ body {
 /* Zoom Controls */
 .zoom-controls {
   position: absolute;
-  top: 75px;
-  right: 15px;
+  top: 70px;
+  left: 15px;
   display: block;
   z-index: 999;
 }
@@ -1484,17 +1555,56 @@ svg polygon {
   bottom: 15px;
 }
 .filter-button {
-  border: 1px solid #f68121;
-  border-radius: 3px;
+  border: 1px solid #ffffff;
   background-color: #ffffff;
   color: #999999;
   padding: 6px 12px;
+  position: absolute;
+  z-index: 9999;
+  right: 20px;
+  top: 15px;
+  font-size: 28px;
+  border-radius: 50%;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+}
+.filter-button:active {
+  background-color: #ffffff;
+  border: 1px solid #ffffff;
+  outline: none;
+}
+.filter-button:hover {
+  border: 1px solid #ffffff;
+  box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.16);
+  -webkit-transform: scale(1.05);
+      -ms-transform: scale(1.05);
+          transform: scale(1.05);
+  background-color: #ffffff;
+  color: #f68121;
+}
+.filter-button:focus {
+  outline: none;
+  background-color: #ffffff;
+  color: #f68121;
+  border: 1px solid #ffffff;
 }
 .filter-result {
   margin: 20px 0 0;
 }
+.filter-result .filter-pill {
+  margin-bottom: 0;
+  padding: 2px 0 2px 8px;
+  background-color: #db6809;
+  color: #ffffff;
+  cursor: default;
+}
+.filter-result .filter-pill span.icon-cross {
+  color: #ffffff;
+  cursor: pointer;
+}
 .filters-wrapper {
-  padding: 15px;
+  padding: 10px;
   max-width: 1200px;
   margin: auto;
 }

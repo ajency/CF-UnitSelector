@@ -24,41 +24,33 @@ class TopMasterView extends Marionette.ItemView
 	#template
 	template : Handlebars.compile('<div class="container-fluid animated fadeIn">
 										<div class="row">
-											<div class="col-md-12 col-xs-12 col-sm-12 text-center">
+											<div class="col-md-12 col-xs-12 col-sm-12">
 
 												<div class="breadcrumb-bar">
-													<a class="unit_back" href="#">
-														Back to Project Overview
-													</a>
+													<a class="unit_back" href="#"></a>
 												</div>
 
-												<h2 class="proj-name">{{project_title}}</h2>
+												<div class="header-info">
+													<h2 class="pull-left proj-name">{{project_title}}</h2>
+													<div class="proj-type-count">
+														{{#types}} 
+														<h1 class="pull-left">{{count.length}}</h1><p class="pull-left">{{type}}</p> 
+														{{/types}}
+													</div>
+													<div class="pull-left filter-result">
+										              	{{#each  filters}}
+										              	{{#each this}}
+														<div class="filter-pill"  >
+															{{this.name}}{{this.type}}
+															<span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span>
+										              	</div>	
+										              	{{/each}}{{/each }}							               
+										            </div>
+												</div>
+												
 
 											</div>
 										</div>
-									</div>
-
-									<div class="filter-summary-area">
-
-										<button class="btn btn-primary cf-btn-white pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters">
-											Filters <span class="icon-funnel"></span>
-										</button>
-							            <div class="pull-left filter-result">
-							              	{{#each  filters}}
-							              	{{#each this}}
-											<div class="filter-pill"  >
-												{{this.name}}{{this.type}}
-												<span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span>
-							              	</div>	
-							              	{{/each}}{{/each }}							               
-							            </div>
-										<div class="proj-type-count">
-											{{#types}} 
-											<p class="pull-right">{{type}}</p><h1 class="text-primary pull-right m-t-10">{{count.length}}</h1> 
-											{{/types}}
-										</div>
-
-										<div class="clearfix"></div>
 									</div>')
 
 	ui  :
@@ -315,7 +307,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 
-	template : Handlebars.compile('<div class="col-md-12 us-right-content mobile visible animated fadeIn">
+	template : Handlebars.compile('<button class="btn btn-primary filter-button pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters">
+										<span class="icon-funnel"></span>
+									</button>
+									<div class="col-md-12 us-right-content mobile visible animated fadeIn">
+										
 										<div class="legend clearfix">
 										  <ul>
 										    <!--<li class="available">AVAILABLE</li>-->
