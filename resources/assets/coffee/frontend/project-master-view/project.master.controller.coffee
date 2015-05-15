@@ -656,7 +656,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 	onShow:->
 
-		$('img').lazyLoadXT()
+		
 		height =  @ui.svgContainer.width() / 2
 		# $('.us-left-content').css('height',height)
 		# if!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
@@ -675,7 +675,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$.merge transitionImages ,  project.get('project_master')
 		$('.region').load(first[0],
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
-		
+		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
 			
 			response = project.checkRotationView()

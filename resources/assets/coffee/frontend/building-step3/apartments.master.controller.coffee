@@ -340,6 +340,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 									        <span class="rotate-text">Rotate</span>
 									        <div id="next" class="rotate-right">Right</div>
 							    		</div>
+							    		<div style="width:300px;height:150px;position:relative;z-index:999">
+							    		<img class="firstimage img-responsive" src=""style="width:300px;height:150px;position:absolute;z-index:999" />
+							    		<div class="project_master" style="width:300px;height:150px;position:absolute;z-index:999">
+							    		</div></div>
 							              
 							        </div>')
 
@@ -405,7 +409,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			CommonFloor.navigate '/building/'+building_id+'/master-view' , true
 			CommonFloor.router.storeRoute()
 
-		'mouseover .layer':(e)->
+		'mouseover .apartment':(e)->
 			id = parseInt e.target.id
 			unit = unitCollection.findWhere
 					'id' : id
@@ -524,6 +528,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		console.log first = _.values svgs
 		$('.region').load(first[0],
 			$('.first_image').attr('data-src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
+		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
 			response = building.checkRotationView(building_id)
 			$('.cf-loader').removeClass 'hidden'
@@ -531,6 +536,24 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('.cf-loader').removeClass 'hidden'
 		
 		@initializeRotate(transitionImages,svgs,building)
+		@loadProjectMaster()
+
+	loadProjectMaster:->
+		svgs = []
+		breakpoints = project.get('breakpoints')
+		$.each breakpoints,(index,value)->
+			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/master/master-'+value+'.svg'
+
+		
+		first = _.values svgs
+		transitionImages = []
+		$.merge transitionImages ,  project.get('project_master')
+		$('.project_master').load(first[0],
+			$('.firstimage').attr('src',transitionImages[0])
+			url = Backbone.history.fragment
+			building_id = parseInt url.split('/')[1]
+			$('#'+building_id+'.building').attr('layer building active_bldg'))
+		
 
 	getNextPrev:->
 		url = Backbone.history.fragment

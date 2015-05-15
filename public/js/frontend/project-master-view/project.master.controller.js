@@ -590,7 +590,6 @@
 
     CenterMasterView.prototype.onShow = function() {
       var breakpoints, first, height, svgs, that, transitionImages;
-      $('img').lazyLoadXT();
       height = this.ui.svgContainer.width() / 2;
       if ($(window).width() > 991) {
         $('.units').css('height', height - 310);
@@ -606,6 +605,7 @@
       first = _.values(svgs);
       $.merge(transitionImages, project.get('project_master'));
       $('.region').load(first[0], $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
+      $('.first_image').lazyLoadXT();
       $('.first_image').load(function() {
         var response;
         response = project.checkRotationView();
