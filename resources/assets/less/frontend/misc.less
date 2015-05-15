@@ -240,13 +240,16 @@
 /* Back Button */
 .breadcrumb-bar{
   position: absolute;
-  padding: 15px 0 0 15px;
-  padding-bottom: 0;
+  left: 0;
   a {
+    display: inline-block;
+    padding: 15px 20px;
+    background-color: @brand-primary-darker;
     color: @white;
     font-weight: bold;
+    font-size: 18px;
     &::before{
-      content: "\e77a";
+      content: "\e761";
       font-family: icomoon;
     }
   } 
@@ -323,8 +326,8 @@
 /* Zoom Controls */
 .zoom-controls{
   position: absolute;
-  top: 75px;
-  right: 15px;
+  top: 70px;
+  left: 15px;
   display: block;
   z-index: 999;
   .zoom-in, .zoom-out{

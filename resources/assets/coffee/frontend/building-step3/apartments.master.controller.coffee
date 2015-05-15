@@ -259,24 +259,23 @@ class ApartmentsView extends Marionette.ItemView
 
 class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 
-	template : '	<div><div class="col-md-3 col-xs-12 col-sm-12 search-left-content p-t-10">
-									<div class="list-view-container w-map animated fadeInLeft">
-										<div class="filters-wrapper ">
-											<div class="advncd-filter-wrp  unit-list">
-												<div class="legend clearfix">
-												  <ul>
-												    <li class="available">AVAILABLE</li>
-												    <li class="sold">SOLD</li>
-												    <li class="blocked">BLOCKED</li>
-												    <li class="na">N/A</li>
-												  </ul>
-												 </div>
-				                  				<p class="text-center help-text">Hover on the units for more details</p>
-								               	<ul class="units two">
-							                	</ul>					                			
-											</div>
-										</div></div>
-									</div></div>'
+	template : '<div>
+					<div class="list-view-container w-map animated fadeInLeft">
+						<div class="advncd-filter-wrp  unit-list">
+							<div class="legend clearfix">
+							  <ul>
+							    <li class="available">AVAILABLE</li>
+							    <li class="sold">SOLD</li>
+							    <li class="blocked">BLOCKED</li>
+							    <li class="na">N/A</li>
+							  </ul>
+							 </div>
+              				<p class="text-center help-text">Hover on the units for more details</p>
+			               	<ul class="units two">
+		                	</ul>					                			
+						</div>
+					</div>
+				</div>'
 
 	childView : ApartmentsView
 
@@ -306,34 +305,51 @@ class CommonFloor.LeftApartmentMasterCtrl extends Marionette.RegionController
 
 class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="col-md-9 us-right-content">
-	            <div class="list-view-container">
-	            <!--<div class="controls mapView">
-			            <div class="toggle">
-			            	<a href="#" class="map active">Map</a><a href="#" class="list">List</a>
-			            </div>
-		            </div>-->
-	              <div class="single-bldg">
-	                <div class="prev"></div>
-	                <div class="next"></div>
-	              </div>
-	              <div id="spritespin"></div>
-										<div class="svg-maps">
-											<img class="first_image img-responsive" src="" />
-											<div class="region inactive"></div>
+	template : Handlebars.compile('<button class="btn btn-primary filter-button pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters">
+										<span class="icon-funnel"></span>
+									</button>
+									<div class="col-md-12 us-right-content mobile visible animated fadeIn">
+
+										<div class="zoom-controls">
+											<div class="zoom-in"></div>
+											<div class="zoom-out"></div>
 										</div>
-										<div class="cf-loader hidden"></div>
-							            <div class="rotate rotate-controls hidden">
-									        <div id="prev" class="rotate-left">Left</div>
-									        <span class="rotate-text">Rotate</span>
-									        <div id="next" class="rotate-right">Right</div>
-							    		</div>
-	              
-	            </div>
-	          </div>')
+										<div id="view_toggle" class="toggle-view-button list"></div>
+										<div id="trig" class="toggle-button hidden">List View</div>
+
+						            	<!--<div class="controls mapView">
+								            <div class="toggle">
+								            	<a href="#" class="map active">Map</a><a href="#" class="list">List</a>
+								            </div>
+							            </div>-->
+
+							            <div class=" master animated fadeIn">
+
+							              	<div class="single-bldg">
+							                	<div class="prev"></div>
+							                	<div class="next"></div>
+							              	</div>
+
+							              	<div id="spritespin"></div>
+											<div class="svg-maps">
+												<img class="first_image img-responsive" src="" />
+												<div class="region inactive"></div>
+											</div>
+											<div class="cf-loader hidden"></div>
+								            <div class="rotate rotate-controls hidden">
+										        <div id="prev" class="rotate-left">Left</div>
+										        <span class="rotate-text">Rotate</span>
+										        <div id="next" class="rotate-right">Right</div>
+								    		</div>
+
+								    	</div>
+							              
+							        </div>')
 
 	ui :
-		svgContainer : '.list-view-container'
+		svgContainer : '.master'
+		trig         : '#trig'
+		viewtog      : '#view_toggle'
 
 	
 	initialize:->
@@ -342,6 +358,35 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		
 
 	events:
+		'click @ui.trig':(e)->
+			$('.us-left-content').toggleClass 'col-0 col-md-3'
+			$('.us-right-content').toggleClass 'col-md-12 col-md-9'
+			that = @
+			setTimeout( (x)->
+				
+				$('#spritespin').spritespin(
+					width: that.ui.svgContainer.width() + 13
+					sense: -1
+					height: that.ui.svgContainer.width() / 2
+					animate: false
+				)
+				$('.svg-maps > div').first().css('width',that.ui.svgContainer.width() + 13)
+				$('.first_image').first().css('width',that.ui.svgContainer.width() + 13)
+
+				height= that.ui.svgContainer.width() / 2
+				$('.units').css('height',height-120)
+
+			, 650)
+
+			setTimeout( (x)->
+				$('.master').panzoom('resetDimensions');				
+			, 800)
+
+			
+		'click @ui.viewtog':(e)->
+			$('.us-left-content').toggleClass 'not-visible visible'
+			$('.us-right-content').toggleClass 'not-visible visible'
+			
 		'click #prev':->
 			@setDetailIndex(@currentBreakPoint - 1)
 
@@ -418,7 +463,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 	onShow:->
 		$('img').lazyLoadXT()
-		height =  @ui.svgContainer.width() / 1.46
+		height =  @ui.svgContainer.width() / 2
 		$('.search-left-content').css('height',height)
 		$('#spritespin').hide()
 		url = Backbone.history.fragment
@@ -470,7 +515,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			source: frames
 			width: @ui.svgContainer.width() 
 			sense: -1
-			height: @ui.svgContainer.width() / 1.46
+			height: @ui.svgContainer.width() / 2
 			animate: false
 		)
 		that = @
