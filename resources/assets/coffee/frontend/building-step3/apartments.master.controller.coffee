@@ -308,28 +308,28 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 us-right-content">
 	            <div class="list-view-container">
+	            	<div class="single-bldg">
+
+	                <div class="prev"></div>
+	                <div class="next"></div>
+	              </div>
 	            <!--<div class="controls mapView">
 			            <div class="toggle">
 			            	<a href="#" class="map active">Map</a><a href="#" class="list">List</a>
 			            </div>
 		            </div>-->
-	              <div class="single-bldg">
-	              	<button class="prev"></button>
-	                <button class="next"></button>
-	                <div class="prev"></div>
-	                <div class="next"></div>
-	              </div>
+	              
 	              <div id="spritespin"></div>
-										<div class="svg-maps">
-											<img class="first_image img-responsive" src="" />
-											<div class="region inactive"></div>
-										</div>
-										<div class="cf-loader hidden"></div>
-							            <div class="rotate rotate-controls hidden">
-									        <div id="prev" class="rotate-left">Left</div>
-									        <span class="rotate-text">Rotate</span>
-									        <div id="next" class="rotate-right">Right</div>
-							    		</div>
+					<div class="svg-maps">
+						<img class="first_image img-responsive" src="" />
+						<div class="region inactive"></div>
+					</div>
+					<div class="cf-loader hidden"></div>
+		            <div class="rotate rotate-controls hidden">
+				        <div id="prev" class="rotate-left">Left</div>
+				        <span class="rotate-text">Rotate</span>
+				        <div id="next" class="rotate-right">Right</div>
+		    		</div>
 	              
 	            </div>
 	          </div>')
@@ -417,9 +417,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('#apartment'+id).attr('class' ,'unit blocks '+availability)
 
 		'mouseover .next':(e)->
-			console.log "aaaaaaaa"
-			id = parseInt e.target.id
-			buildingModel = buildingMasterCollection.findWhere
+			id = parseInt $(e.target).attr('data-id')
+			buildingModel = buildingCollection.findWhere
 								'id' : id
 			images = Object.keys(buildingModel.get('building_master')).length
 			if images != 0
@@ -445,10 +444,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					</div>
 
 					</div>' 
-			console.log html
+			$(e.target).tooltipster('content', html)
 
 		'click .next,.prev':(e)->
-			id = parseInt e.target.id
+			id = parseInt $(e.target).attr('data-id')
 			buildingModel = buildingMasterCollection.findWhere
 								'id' : id
 			if Object.keys(buildingModel.get('building_master')).length == 0
@@ -487,6 +486,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$('.first_image').load ()->
 			response = building.checkRotationView(building_id)
 			$('.cf-loader').removeClass 'hidden'
+			if response is 1
+				$('.cf-loader').removeClass 'hidden'
 		
 		@initializeRotate(transitionImages,svgs,building)
 
@@ -496,7 +497,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		buildingModel = buildingMasterCollection.findWhere
 					'id' : building_id
 		buildingMasterCollection.setRecord(buildingModel)
-		console.log next = buildingMasterCollection.next()
+		next = buildingMasterCollection.next()
 		if _.isUndefined next
 			$('.next').hide()
 		else
@@ -555,12 +556,14 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
 				$('.cf-loader').addClass 'hidden'
+			$('.region').load(url,()->that.iniTooltip())
+
 
 				
 		)
 
 	iniTooltip:->
-		$('.layer').tooltipster(
+		$('.layer,.next,.prev').tooltipster(
 			theme: 'tooltipster-shadow',
 			contentAsHTML: true
 			onlyOne : true

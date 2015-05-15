@@ -474,7 +474,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			if unit != undefined
 				availability = unit.get('availability')
 				availability = s.decapitalize(availability)
-				CommonFloor.applyVillaClasses()
+				# CommonFloor.applyVillaClasses()
 				$('#unit'+id).attr('class' ,'unit blocks '+availability) 
 
 		'mouseout .plot':(e)->
@@ -484,13 +484,16 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			if unit != undefined
 				availability = unit.get('availability')
 				availability = s.decapitalize(availability)
-				CommonFloor.applyPlotClasses()
+				# CommonFloor.applyPlotClasses()
 				$('#unit'+id).attr('class' ,'bldg blocks '+availability)  
 
 		'mouseout .building':(e)->
 			id = parseInt e.target.id
-			$('.building').attr('class' ,'layer building') 
-			$('#bldg'+id).attr('class' ,'bldg blocks') 
+			building = buildingCollection.findWhere 
+				id :  id 
+			if building != undefined
+				$('.building').attr('class' ,'layer building') 
+				$('#bldg'+id).attr('class' ,'bldg blocks') 
 
 
 		'mouseover .villa':(e)->
@@ -549,7 +552,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('.layer').tooltipster('content', html)
 			
 
-		'click .plot':(e)->
+		'mouseover .plot':(e)->
 			# $('.plot').attr('class' ,'layer plot') 
 			id  = parseInt e.target.id
 			html = ""

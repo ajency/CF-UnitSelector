@@ -150,12 +150,14 @@ class LeftUnitView extends Marionette.ItemView
 							</div>
 							<div class="clearfix"></div>
 						
-							<div class="similar-section">
+							<div >
 					            <span class="similar">{{similarUnitsText}}</span><br>
 					            <!--<p>Pool View, Garden, 3BHK</p>-->
 					          
 					              	{{#similarUnits}}
-					              	<div class="details">
+					              	<a href="/#unit-view/{{id}}">
+					              	<div>
+					              		
 					              		<div>
 											<label>Name: </label> {{unit_name}}
 										</div>
@@ -172,7 +174,7 @@ class LeftUnitView extends Marionette.ItemView
 											<label>Area:</label> {{area}} sqft
 										</div>
 									</div>
-					            	
+					            	</a>
 					                {{/similarUnits}}
 					            
 				            </div>
@@ -316,6 +318,11 @@ class CenterUnitView extends Marionette.ItemView
 										</div>
 									</div>
 								</div>
+								<div class="single-bldg">
+	              	
+					                <div class="prev"></div>
+					                <div class="next"></div>
+				              </div>
 							</div>
 						</div>
 					</div>')
@@ -392,6 +399,30 @@ class CenterUnitView extends Marionette.ItemView
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
 			$('.external').removeClass('current')
+
+		'mouseover .next,.prev':(e)->
+			id = parseInt $(e.target).attr('data-id')
+			unitModel = unitCollection.findWhere
+								'id' : id
+			response = window.unit.getUnitDetails(id)
+			html = '<div class="svg-info">
+						<h4 class="pull-left">'+unitModel.get('unit_name')+'</h4><br/>
+							<h4 class="pull-left">'+window.numDifferentiation(response[3])+'</h4><br/>
+								<h4 class="pull-left">'+response[0].get('super_built_up_area')+'Sq.Ft</h4><br/>
+									<h4 class="pull-left">'+response[0].get('unit_variant_name')+'</h4><br/>
+										<h4 class="pull-left">'+response[1].get('name')+'</h4>
+
+						<div class="clearfix"></div></div>'
+			
+			$(e.target).tooltipster('content', html)
+
+		'click .next,.prev':(e)->
+			id = parseInt $(e.target).attr('data-id')
+			unitModel = unitCollection.findWhere
+								'id' : id
+			CommonFloor.navigate '/unit-view/'+id , true
+			CommonFloor.router.storeRoute()
+			
 		
 
 	onShow:->
@@ -467,6 +498,21 @@ class CenterUnitView extends Marionette.ItemView
 		$('.images').html html
 		$(".fancybox").fancybox()
 		$('.img').lazyLoadXT()
+		@iniTooltip()
+
+	iniTooltip:->
+		$('.next,.prev').tooltipster(
+				theme: 'tooltipster-shadow'
+				contentAsHTML: true
+				onlyOne : true
+				arrow : false
+				offsetX : 50
+				offsetY : -10
+				interactive : true
+				# animation : 'grow'
+				trigger: 'hover'
+				
+		)
 
 	generateLevels:->
 		url = Backbone.history.fragment
@@ -496,8 +542,16 @@ class CenterUnitView extends Marionette.ItemView
 					'id' : unitid
 		CommonFloor.getUnitsProperty(unitModel)
 		window.tempColl.setRecord(unitModel)
-		console.log next = tempColl.next()
-		console.log prev = tempColl.prev()
+		next = tempColl.next()
+		if _.isUndefined next
+			$('.next').hide()
+		else
+			$('.next').attr('data-id',next.get('id'))
+		prev = tempColl.prev()
+		if _.isUndefined prev
+			$('.prev').hide()
+		else
+			$('.prev').attr('data-id',next.get('id'))
 
 #Center View for the unit
 class CommonFloor.CenterUnitCtrl extends Marionette.RegionController
