@@ -463,7 +463,6 @@
         if (unit !== void 0) {
           availability = unit.get('availability');
           availability = s.decapitalize(availability);
-          CommonFloor.applyVillaClasses();
           return $('#unit' + id).attr('class', 'unit blocks ' + availability);
         }
       },
@@ -476,15 +475,19 @@
         if (unit !== void 0) {
           availability = unit.get('availability');
           availability = s.decapitalize(availability);
-          CommonFloor.applyPlotClasses();
           return $('#unit' + id).attr('class', 'bldg blocks ' + availability);
         }
       },
       'mouseout .building': function(e) {
-        var id;
+        var building, id;
         id = parseInt(e.target.id);
-        $('.building').attr('class', 'layer building');
-        return $('#bldg' + id).attr('class', 'bldg blocks');
+        building = buildingCollection.findWhere({
+          id: id
+        });
+        if (building !== void 0) {
+          $('.building').attr('class', 'layer building');
+          return $('#bldg' + id).attr('class', 'bldg blocks');
+        }
       },
       'mouseover .villa': function(e) {
         var availability, html, id, response, unit, unitMaster;
@@ -521,7 +524,7 @@
         $('#unit' + id).attr('class', 'unit blocks active');
         return $('.layer').tooltipster('content', html);
       },
-      'click .plot': function(e) {
+      'mouseover .plot': function(e) {
         var availability, html, id, response, unit, unitMaster;
         id = parseInt(e.target.id);
         html = "";
@@ -587,7 +590,6 @@
 
     CenterMasterView.prototype.onShow = function() {
       var breakpoints, first, height, svgs, that, transitionImages;
-      $('img').lazyLoadXT();
       height = this.ui.svgContainer.width() / 2;
       if ($(window).width() > 991) {
         $('.units').css('height', height - 310);
@@ -603,6 +605,7 @@
       first = _.values(svgs);
       $.merge(transitionImages, project.get('project_master'));
       $('.region').load(first[0], $('.first_image').attr('src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
+      $('.first_image').lazyLoadXT();
       $('.first_image').load(function() {
         var response;
         response = project.checkRotationView();

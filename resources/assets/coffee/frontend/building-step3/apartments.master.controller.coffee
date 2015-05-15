@@ -305,6 +305,7 @@ class CommonFloor.LeftApartmentMasterCtrl extends Marionette.RegionController
 
 class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
+
 	template : Handlebars.compile('<button class="btn btn-primary filter-button pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters">
 										<span class="icon-funnel"></span>
 									</button>
@@ -339,8 +340,13 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 									        <span class="rotate-text">Rotate</span>
 									        <div id="next" class="rotate-right">Right</div>
 							    		</div>
+							    		<div style="width:300px;height:150px;position:relative;z-index:999">
+							    		<img class="firstimage img-responsive" src=""style="width:300px;height:150px;position:absolute;z-index:999" />
+							    		<div class="project_master" style="width:300px;height:150px;position:absolute;z-index:999">
+							    		</div></div>
 							              
 							        </div>')
+
 
 	ui :
 		svgContainer : '.master'
@@ -403,7 +409,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			CommonFloor.navigate '/building/'+building_id+'/master-view' , true
 			CommonFloor.router.storeRoute()
 
-		'mouseover .layer':(e)->
+		'mouseover .apartment':(e)->
 			id = parseInt e.target.id
 			unit = unitCollection.findWhere
 					'id' : id
@@ -444,7 +450,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('#apartment'+id).attr('class' ,' unit blocks '+availability+' active') 
 			$('.layer').tooltipster('content', html)
 		
-		'mouseout .layer':(e)->
+		'mouseout .apartment':(e)->
 			id = parseInt e.target.id
 			unit = unitCollection.findWhere
 					'id' : id
@@ -456,9 +462,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('#apartment'+id).attr('class' ,'unit blocks '+availability)
 
 		'mouseover .next':(e)->
-			console.log "aaaaaaaa"
-			id = parseInt e.target.id
-			buildingModel = buildingMasterCollection.findWhere
+			id = parseInt $(e.target).attr('data-id')
+			buildingModel = buildingCollection.findWhere
 								'id' : id
 			images = Object.keys(buildingModel.get('building_master')).length
 			if images != 0
@@ -484,10 +489,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					</div>
 
 					</div>' 
-			console.log html
+			$(e.target).tooltipster('content', html)
 
 		'click .next,.prev':(e)->
-			id = parseInt e.target.id
+			id = parseInt $(e.target).attr('data-id')
 			buildingModel = buildingMasterCollection.findWhere
 								'id' : id
 			if Object.keys(buildingModel.get('building_master')).length == 0
@@ -523,11 +528,33 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		console.log first = _.values svgs
 		$('.region').load(first[0],
 			$('.first_image').attr('data-src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
+		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
 			response = building.checkRotationView(building_id)
 			$('.cf-loader').removeClass 'hidden'
+			if response is 1
+				$('.cf-loader').removeClass 'hidden'
 		
 		@initializeRotate(transitionImages,svgs,building)
+		@loadProjectMaster()
+
+	loadProjectMaster:->
+		svgs = []
+		breakpoints = project.get('breakpoints')
+		$.each breakpoints,(index,value)->
+			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/master/master-'+value+'.svg'
+
+		
+		first = _.values svgs
+		transitionImages = []
+		$.merge transitionImages ,  project.get('project_master')
+		if project.get('project_master').length != 0
+			$('.project_master').load(first[0],
+				$('.firstimage').attr('src',transitionImages[0])
+				url = Backbone.history.fragment
+				console.log building_id = parseInt url.split('/')[1]
+				$('#'+building_id+'.building').attr('layer building active_bldg'))
+		
 
 	getNextPrev:->
 		url = Backbone.history.fragment
@@ -535,7 +562,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		buildingModel = buildingMasterCollection.findWhere
 					'id' : building_id
 		buildingMasterCollection.setRecord(buildingModel)
-		console.log next = buildingMasterCollection.next()
+		next = buildingMasterCollection.next()
 		if _.isUndefined next
 			$('.next').hide()
 		else
@@ -594,12 +621,14 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
 				$('.cf-loader').addClass 'hidden'
+			$('.region').load(url,()->that.iniTooltip())
+
 
 				
 		)
 
 	iniTooltip:->
-		$('.layer').tooltipster(
+		$('.layer,.next,.prev').tooltipster(
 			theme: 'tooltipster-shadow',
 			contentAsHTML: true
 			onlyOne : true

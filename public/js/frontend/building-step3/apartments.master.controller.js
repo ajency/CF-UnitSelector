@@ -354,7 +354,7 @@
       return CenterApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterApartmentMasterView.prototype.template = Handlebars.compile('<button class="btn btn-primary filter-button pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters"> <span class="icon-funnel"></span> </button> <div class="col-md-12 us-right-content mobile visible animated fadeIn"> <div class="zoom-controls"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master animated fadeIn"> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="spritespin"></div> <div class="svg-maps"> <img class="first_image img-responsive" src="" /> <div class="region inactive"></div> </div> </div> <div class="cf-loader hidden"></div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
+    CenterApartmentMasterView.prototype.template = Handlebars.compile('<button class="btn btn-primary filter-button pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters"> <span class="icon-funnel"></span> </button> <div class="col-md-12 us-right-content mobile visible animated fadeIn"> <div class="zoom-controls"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master animated fadeIn"> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="spritespin"></div> <div class="svg-maps"> <img class="first_image img-responsive" src="" /> <div class="region inactive"></div> </div> </div> <div class="cf-loader hidden"></div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> <div style="width:300px;height:150px;position:relative;z-index:999"> <img class="firstimage img-responsive" src=""style="width:300px;height:150px;position:absolute;z-index:999" /> <div class="project_master" style="width:300px;height:150px;position:absolute;z-index:999"> </div></div> </div>');
 
     CenterApartmentMasterView.prototype.ui = {
       svgContainer: '.master',
@@ -416,7 +416,7 @@
         CommonFloor.navigate('/building/' + building_id + '/master-view', true);
         return CommonFloor.router.storeRoute();
       },
-      'mouseover .layer': function(e) {
+      'mouseover .apartment': function(e) {
         var availability, html, id, response, unit;
         id = parseInt(e.target.id);
         unit = unitCollection.findWhere({
@@ -438,7 +438,7 @@
         $('#apartment' + id).attr('class', ' unit blocks ' + availability + ' active');
         return $('.layer').tooltipster('content', html);
       },
-      'mouseout .layer': function(e) {
+      'mouseout .apartment': function(e) {
         var availability, id, unit;
         id = parseInt(e.target.id);
         unit = unitCollection.findWhere({
@@ -454,9 +454,8 @@
       },
       'mouseover .next': function(e) {
         var buildingModel, floors, html, id, images, response, unitTypes;
-        console.log("aaaaaaaa");
-        id = parseInt(e.target.id);
-        buildingModel = buildingMasterCollection.findWhere({
+        id = parseInt($(e.target).attr('data-id'));
+        buildingModel = buildingCollection.findWhere({
           'id': id
         });
         images = Object.keys(buildingModel.get('building_master')).length;
@@ -472,11 +471,11 @@
           return html += '<div class="details"> <div> <label>' + value.name + '</label> - ' + value.units + '</div>';
         });
         html += '<div> <label>No. of floors</label> - ' + floors + '</div> </div> </div>';
-        return console.log(html);
+        return $(e.target).tooltipster('content', html);
       },
       'click .next,.prev': function(e) {
         var buildingModel, id;
-        id = parseInt(e.target.id);
+        id = parseInt($(e.target).attr('data-id'));
         buildingModel = buildingMasterCollection.findWhere({
           'id': id
         });
@@ -512,12 +511,32 @@
       $.merge(transitionImages, building.get('building_master'));
       console.log(first = _.values(svgs));
       $('.region').load(first[0], $('.first_image').attr('data-src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
+      $('.first_image').lazyLoadXT();
       $('.first_image').load(function() {
         var response;
         response = building.checkRotationView(building_id);
-        return $('.cf-loader').removeClass('hidden');
+        $('.cf-loader').removeClass('hidden');
+        if (response === 1) {
+          return $('.cf-loader').removeClass('hidden');
+        }
       });
-      return this.initializeRotate(transitionImages, svgs, building);
+      this.initializeRotate(transitionImages, svgs, building);
+      return this.loadProjectMaster();
+    };
+
+    CenterApartmentMasterView.prototype.loadProjectMaster = function() {
+      var breakpoints, building_id, first, svgs, transitionImages, url;
+      svgs = [];
+      breakpoints = project.get('breakpoints');
+      $.each(breakpoints, function(index, value) {
+        return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/master/master-' + value + '.svg';
+      });
+      first = _.values(svgs);
+      transitionImages = [];
+      $.merge(transitionImages, project.get('project_master'));
+      if (project.get('project_master').length !== 0) {
+        return $('.project_master').load(first[0], $('.firstimage').attr('src', transitionImages[0]), url = Backbone.history.fragment, console.log(building_id = parseInt(url.split('/')[1])), $('#' + building_id + '.building').attr('layer building active_bldg'));
+      }
     };
 
     CenterApartmentMasterView.prototype.getNextPrev = function() {
@@ -528,7 +547,7 @@
         'id': building_id
       });
       buildingMasterCollection.setRecord(buildingModel);
-      console.log(next = buildingMasterCollection.next());
+      next = buildingMasterCollection.next();
       if (_.isUndefined(next)) {
         $('.next').hide();
       } else {
@@ -593,13 +612,16 @@
           $('.first_image').remove();
           $('.rotate').removeClass('hidden');
           $('#spritespin').show();
-          return $('.cf-loader').addClass('hidden');
+          $('.cf-loader').addClass('hidden');
         }
+        return $('.region').load(url, function() {
+          return that.iniTooltip();
+        });
       });
     };
 
     CenterApartmentMasterView.prototype.iniTooltip = function() {
-      return $('.layer').tooltipster({
+      return $('.layer,.next,.prev').tooltipster({
         theme: 'tooltipster-shadow',
         contentAsHTML: true,
         onlyOne: true,

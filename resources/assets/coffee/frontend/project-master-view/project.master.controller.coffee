@@ -467,7 +467,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			if unit != undefined
 				availability = unit.get('availability')
 				availability = s.decapitalize(availability)
-				CommonFloor.applyVillaClasses()
+				# CommonFloor.applyVillaClasses()
 				$('#unit'+id).attr('class' ,'unit blocks '+availability) 
 
 		'mouseout .plot':(e)->
@@ -477,13 +477,16 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			if unit != undefined
 				availability = unit.get('availability')
 				availability = s.decapitalize(availability)
-				CommonFloor.applyPlotClasses()
+				# CommonFloor.applyPlotClasses()
 				$('#unit'+id).attr('class' ,'bldg blocks '+availability)  
 
 		'mouseout .building':(e)->
 			id = parseInt e.target.id
-			$('.building').attr('class' ,'layer building') 
-			$('#bldg'+id).attr('class' ,'bldg blocks') 
+			building = buildingCollection.findWhere 
+				id :  id 
+			if building != undefined
+				$('.building').attr('class' ,'layer building') 
+				$('#bldg'+id).attr('class' ,'bldg blocks') 
 
 
 		'mouseover .villa':(e)->
@@ -542,7 +545,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('.layer').tooltipster('content', html)
 			
 
-		'click .plot':(e)->
+		'mouseover .plot':(e)->
 			# $('.plot').attr('class' ,'layer plot') 
 			id  = parseInt e.target.id
 			html = ""
@@ -650,7 +653,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 	onShow:->
 
-		$('img').lazyLoadXT()
+		
 		height =  @ui.svgContainer.width() / 2
 		# $('.us-left-content').css('height',height)
 		# if!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
@@ -669,7 +672,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$.merge transitionImages ,  project.get('project_master')
 		$('.region').load(first[0],
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
-		
+		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
 			
 			response = project.checkRotationView()
