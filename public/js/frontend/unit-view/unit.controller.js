@@ -232,7 +232,8 @@
       unitid = parseInt(url.split('/')[1]);
       response = window.unit.getUnitDetails(unitid);
       $('.price').text(window.numDifferentiation(response[3]));
-      if (response[4] !== null || response[4].length === 0) {
+      console.log(response[4]);
+      if (response[4] !== null && response[4].length !== 0) {
         return $('.property').removeClass('hidden');
       }
     };
