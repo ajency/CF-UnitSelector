@@ -438,7 +438,7 @@
         $('#apartment' + id).attr('class', ' unit blocks ' + availability + ' active');
         return $('.layer').tooltipster('content', html);
       },
-      'mouseout .layer': function(e) {
+      'mouseout .apartment': function(e) {
         var availability, id, unit;
         id = parseInt(e.target.id);
         unit = unitCollection.findWhere({
@@ -534,7 +534,9 @@
       first = _.values(svgs);
       transitionImages = [];
       $.merge(transitionImages, project.get('project_master'));
-      return $('.project_master').load(first[0], $('.firstimage').attr('src', transitionImages[0]), url = Backbone.history.fragment, building_id = parseInt(url.split('/')[1]), $('#' + building_id + '.building').attr('layer building active_bldg'));
+      if (project.get('project_master').length !== 0) {
+        return $('.project_master').load(first[0], $('.firstimage').attr('src', transitionImages[0]), url = Backbone.history.fragment, console.log(building_id = parseInt(url.split('/')[1])), $('#' + building_id + '.building').attr('layer building active_bldg'));
+      }
     };
 
     CenterApartmentMasterView.prototype.getNextPrev = function() {
