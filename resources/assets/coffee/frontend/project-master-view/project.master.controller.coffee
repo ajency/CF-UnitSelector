@@ -695,7 +695,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 	setDetailIndex:(index)->
 		$('.region').empty()
 		$('.region').addClass('inactive').removeClass('active')
-		console.log @currentBreakPoint = index;
+		@currentBreakPoint = index;
 		if (@currentBreakPoint < 0) 
 			@currentBreakPoint = @breakPoints.length-1
 		
@@ -707,7 +707,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		)
 	#initialize rotate plugin
 	initializeRotate:(transitionImages,svgs)->
-		console.log frames = transitionImages
+		frames = transitionImages
 		@breakPoints = project.get('breakpoints')
 		@currentBreakPoint = 0
 		width = @ui.svgContainer.width()
@@ -724,7 +724,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		that = @
 		api = spin.spritespin("api")
 		spin.bind("onFrame" , ()->
-			console.log data = api.data
+			data = api.data
+			data.frame
 			if data.frame is data.stopFrame
 				url = svgs[data.frame]
 				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses();CommonFloor.applyPlotClasses()).addClass('active').removeClass('inactive')

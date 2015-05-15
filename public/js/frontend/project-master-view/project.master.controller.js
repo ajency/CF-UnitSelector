@@ -617,7 +617,7 @@
     CenterMasterView.prototype.setDetailIndex = function(index) {
       $('.region').empty();
       $('.region').addClass('inactive').removeClass('active');
-      console.log(this.currentBreakPoint = index);
+      this.currentBreakPoint = index;
       if (this.currentBreakPoint < 0) {
         this.currentBreakPoint = this.breakPoints.length - 1;
       }
@@ -631,7 +631,7 @@
 
     CenterMasterView.prototype.initializeRotate = function(transitionImages, svgs) {
       var frames, spin, that, width;
-      console.log(frames = transitionImages);
+      frames = transitionImages;
       this.breakPoints = project.get('breakpoints');
       this.currentBreakPoint = 0;
       width = this.ui.svgContainer.width();
@@ -648,7 +648,8 @@
       api = spin.spritespin("api");
       spin.bind("onFrame", function() {
         var data, url;
-        console.log(data = api.data);
+        data = api.data;
+        data.frame;
         if (data.frame === data.stopFrame) {
           url = svgs[data.frame];
           return $('.region').load(url, function() {

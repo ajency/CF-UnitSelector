@@ -66,7 +66,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 					                        </div>
 
 					                        <div class="filters-bottom clearfix">
-					                        	<a href="javascript:void(0)"  class="text-primary pull-left m-b-10"><span class="icon-cross clear"></span> Clear Filters </a>
+					                        	<a href="javascript:void(0)"  class="text-primary pull-left m-b-10 clear"><span class="icon-cross clear"></span> Clear Filters </a>
 					                        	<a href="javascript:void(0)" data-toggle="collapse" data-target="#collapsefilters" class="text-primary pull-right m-b-10"><span class="icon-cross"></span> Close </a>
 					                        </div>
 											
