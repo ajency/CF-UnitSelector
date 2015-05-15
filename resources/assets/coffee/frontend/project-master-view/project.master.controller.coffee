@@ -307,10 +307,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 
-	template : Handlebars.compile('<button class="btn btn-primary filter-button pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters">
-										<span class="icon-funnel"></span>
-									</button>
-									<div class="col-md-12 us-right-content mobile visible animated fadeIn">
+	template : Handlebars.compile('<div class="col-md-12 us-right-content mobile visible animated fadeIn">
 										
 										<div class="legend clearfix">
 										  <ul>

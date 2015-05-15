@@ -20,6 +20,12 @@ body {
 .us-header {
   background-color: #f68121;
   color: #ffffff;
+  width: 100%;
+  position: fixed;
+  z-index: 9998;
+}
+.top-spacing {
+  padding-top: 56px;
 }
 .cf-hdr-blk .cf-us-logo {
   background: url(../../images/unit-selector_logo.png) no-repeat;
@@ -48,7 +54,7 @@ body {
   float: left;
 }
 .proj-type-count h1 {
-  margin: 0 5px 0 15px;
+  margin: 0 0 0 15px;
   padding: 5px 5px 10px 10px;
   border-left: 1px solid #db6809;
 }
@@ -1554,40 +1560,68 @@ svg polygon {
   position: absolute;
   bottom: 15px;
 }
-.filter-button {
-  border: 1px solid #ffffff;
-  background-color: #ffffff;
-  color: #999999;
-  padding: 6px 12px;
-  position: absolute;
+.fliters-container {
+  position: fixed;
   z-index: 9999;
   right: 20px;
-  top: 15px;
-  font-size: 28px;
-  border-radius: 50%;
+  top: 25px;
+  padding: 0;
+  overflow: hidden;
+  -webkit-transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+          transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+  background-color: #ffffff;
+  width: 340px;
+  height: 400px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+}
+.fliters-container.closed {
+  width: 0;
+  height: 0;
+  padding: 27px;
+  border-radius: 50%;
+}
+.fliters-container.closed .filters-wrapper {
+  opacity: 0;
+}
+.fliters-container.closed .filter-button {
+  font-size: 28px;
+}
+.fliters-container.closed .filter-button .icon-place:after {
+  content: "\e789";
+}
+.filter-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 1px solid transparent;
+  background-color: transparent;
+  color: #999999;
+  padding: 6px 12px;
+  font-size: 15px;
+  border-radius: 50%;
+  -webkit-transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+          transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: 9999;
+}
+.filter-button .icon-place:after {
+  content: "\e75e";
+  font-family: icomoon;
 }
 .filter-button:active {
-  background-color: #ffffff;
-  border: 1px solid #ffffff;
+  background-color: transparent;
+  border: 1px solid transparent;
   outline: none;
 }
 .filter-button:hover {
-  border: 1px solid #ffffff;
-  box-shadow: 0 6px 15px 0 rgba(0, 0, 0, 0.16);
-  -webkit-transform: scale(1.05);
-      -ms-transform: scale(1.05);
-          transform: scale(1.05);
-  background-color: #ffffff;
+  border: 1px solid transparent;
+  background-color: transparent;
   color: #f68121;
 }
 .filter-button:focus {
   outline: none;
-  background-color: #ffffff;
+  background-color: transparent;
   color: #f68121;
-  border: 1px solid #ffffff;
+  border: 1px solid transparent;
 }
 .filter-result {
   margin: 20px 0 0;
@@ -1604,9 +1638,17 @@ svg polygon {
   cursor: pointer;
 }
 .filters-wrapper {
-  padding: 10px;
-  max-width: 1200px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 20px 20px 10px;
   margin: auto;
+  -webkit-transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+          transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+.filters-wrapper div {
+  -webkit-transition: all 1.5s;
+          transition: all 1.5s;
 }
 .filters-wrapper .filter-chkbox-block label {
   color: #666666;
