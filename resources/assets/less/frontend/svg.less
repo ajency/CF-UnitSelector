@@ -26,19 +26,22 @@ svg {
 	}
 
 	.layer{
-		fill: #5C2424;
-		opacity: 0.75;
-		stroke: #f68121;
+		// fill: #5C2424;
+		// opacity: 0.75;
+		// stroke: #f68121;
 	  	stroke-width: 0px;
 	  	stroke-dasharray: 20 300;
 	  	stroke-dashoffset: 400;
 	  	// transform: scale(.99, .99);
-	  	transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
-		// transform-origin: 50% 50%;
+	  	// transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
+	  	transition: .5s ease-in;
+		transform-origin: 50% 50%;
 	  	&.svg_active{
-		  	stroke-width: 6px;
+		  	stroke-width: 4px;
 		  	stroke-dasharray: 320 0;
 		  	stroke-dashoffset: 0;
+		  	stroke: #f68121;
+		  	transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
 	  	}
 	  	&.not_in_selection {
 			opacity: .5;
@@ -46,9 +49,16 @@ svg {
 			-webkit-animation: unit_fadein 0.6s;
 		}
 		&:hover{
-		  	stroke-width: 4px;
-		  	stroke-dasharray: 320 0;
-		  	stroke-dashoffset: 0;
+		  	// stroke-width: 4px;
+		  	// stroke-dasharray: 320 0;
+		  	// stroke-dashoffset: 0;
+		  	transform: scale(1.06);
+	  		cursor: default;
+	  		stroke: #f68121;
+	  		stroke-width: 4px;
+	  		stroke-dasharray: 320 0;
+	  		stroke-dashoffset: 0;
+	  		transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
 		}
 	}
 
@@ -62,30 +72,42 @@ svg {
 		// opacity:0.7;
 		// cursor:pointer;
 	}
-	
+	.villa, .building, .plot, .penthouse{
+		opacity: 0.5;
+		fill: #0F1308;
+	}
 	.available {
-	  	fill: rgba(204, 204, 204, 0);
+	  	// fill: rgba(204, 204, 204, 0);
 	  	opacity: 0.5;
+	  	fill-opacity: 0.6;
+	  	fill: @white;
+	  	stroke: #000;
+	  	stroke-width: 1px;
+	  	stroke-opacity: 1;
 	}
 	.blocked{
 		// fill: rgba(244, 173, 0, 0.36);
-	 //  	opacity: 0.8;
+	 	opacity: 0.5;
+	 	fill: #0F1308;
 	}
 	.sold{
 		// fill: #FF6565;
-		// opacity: 0.5;
+		opacity: 0.5;
+		fill: #0F1308;
 	}
 	.not_released{
 	 	// fill: #cccccc;
-	 	// opacity: 0.5;
+	 	opacity: 0.5;
+	 	fill: #0F1308;
 	}
 	.not_in_selection{
 		fill: #000;
 		opacity: .75;
 	}
+
 	.disable{
-		fill: #999; 
-		opacity:0.9;
+		// fill: #999; 
+		// opacity:0.9;
 	}
 	.marker-area:hover polygon{
 		opacity:0.6;
@@ -97,16 +119,32 @@ svg {
 	.marker-area:hover rect{
 		opacity:0.6;
 	}
-	.layer:hover{
-		opacity:0.6;
-		cursor:pointer;
-	}
 	polygon{
 		.ease;
 	}	 
 	
 }
 
+.step1-marker{
+	cursor: pointer;
+	transform-origin: 50% 50%;
+	opacity: 0.3;
+	&:hover{
+		animation: pulse 1s infinite; 
+	}
+}
+
+@keyframes pulse {
+    0% { 
+        transform: scale(1); 
+    }
+    50% { 
+        transform: scale(1.05); 
+    }
+    100% { 
+        transform: scale(1); 
+    }
+}
 
 
 

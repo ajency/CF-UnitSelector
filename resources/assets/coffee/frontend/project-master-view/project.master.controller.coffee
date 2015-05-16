@@ -311,9 +311,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 										<div class="legend clearfix">
 										  <ul>
 										    <!--<li class="available">AVAILABLE</li>-->
-										    <li class="sold">Not Available</li>
+										    <li class="sold">N/A</li>
 										    <!--<li class="blocked">BLOCKED</li>-->
-										    <li class="na">Not in Selection</li>
+										    <li class="na">Available</li>
 										  </ul>
 										</div>
 										<div class="zoom-controls">

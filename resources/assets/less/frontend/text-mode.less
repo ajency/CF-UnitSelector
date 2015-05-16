@@ -475,19 +475,19 @@
 
 .us-right-content{
 	.legend{
-		text-align: center;
-		padding: 10px 0 15px;
+		// text-align: center;
+		padding: 15px;
 		position: absolute;
-		top: 0;
-		width: 100%;
+		bottom: 0;
+		// width: 100%;
 		left: 0;
 		background-color: fade(@gray-darker, 60%);
 		z-index: 999;
 		ul{
 			list-style: none;
 			li{
-				display: inline-block;
-				margin-left: 20px;
+				display: block;
+				// margin-left: 20px;
 				font-size: 14px;
 				color: @gray-lighter;
 				&::before{
@@ -505,13 +505,14 @@
 					// background-color: @white;
 				}
 				&.sold::before{
-					background-color: fade(@danger-darker, 50%);
+					background-color: fade(#0F1308, 50%);
 				}
 				&.blocked::before{
 					// background-color: @warning;
 				}
 				&.na::before{
-					background-color: fade(@gray-darker, 50%);
+					border: 1px solid @gray-darker;
+					background-color: fade(@white, 70%);
 				}
 			}
 		}

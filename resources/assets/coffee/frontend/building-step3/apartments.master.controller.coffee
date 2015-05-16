@@ -304,6 +304,15 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 									</button>
 									<div class="col-md-12 us-right-content mobile visible animated fadeIn">
 
+										<div class="legend clearfix">
+										  <ul>
+										    <!--<li class="available">AVAILABLE</li>-->
+										    <li class="sold">N/A</li>
+										    <!--<li class="blocked">BLOCKED</li>-->
+										    <li class="na">Available</li>
+										  </ul>
+										</div>
+
 										<div class="zoom-controls">
 											<div class="zoom-in"></div>
 											<div class="zoom-out"></div>

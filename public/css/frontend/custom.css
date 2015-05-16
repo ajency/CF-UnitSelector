@@ -984,19 +984,22 @@ svg .active_bldg {
   opacity: 0.5;
 }
 svg .layer {
-  fill: #5C2424;
-  opacity: 0.75;
-  stroke: #f68121;
   stroke-width: 0px;
   stroke-dasharray: 20 300;
   stroke-dashoffset: 400;
-  -webkit-transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
-          transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
+  -webkit-transition: 0.5s ease-in;
+          transition: 0.5s ease-in;
+  -webkit-transform-origin: 50% 50%;
+      -ms-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
 }
 svg .layer.svg_active {
-  stroke-width: 6px;
+  stroke-width: 4px;
   stroke-dasharray: 320 0;
   stroke-dashoffset: 0;
+  stroke: #f68121;
+  -webkit-transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
+          transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
 }
 svg .layer.not_in_selection {
   opacity: .5;
@@ -1004,21 +1007,47 @@ svg .layer.not_in_selection {
   -webkit-animation: unit_fadein 0.6s;
 }
 svg .layer:hover {
+  -webkit-transform: scale(1.06);
+      -ms-transform: scale(1.06);
+          transform: scale(1.06);
+  cursor: default;
+  stroke: #f68121;
   stroke-width: 4px;
   stroke-dasharray: 320 0;
   stroke-dashoffset: 0;
+  -webkit-transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
+          transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
+}
+svg .villa,
+svg .building,
+svg .plot,
+svg .penthouse {
+  opacity: 0.5;
+  fill: #0F1308;
 }
 svg .available {
-  fill: rgba(204, 204, 204, 0);
   opacity: 0.5;
+  fill-opacity: 0.6;
+  fill: #ffffff;
+  stroke: #000;
+  stroke-width: 1px;
+  stroke-opacity: 1;
+}
+svg .blocked {
+  opacity: 0.5;
+  fill: #0F1308;
+}
+svg .sold {
+  opacity: 0.5;
+  fill: #0F1308;
+}
+svg .not_released {
+  opacity: 0.5;
+  fill: #0F1308;
 }
 svg .not_in_selection {
   fill: #000;
   opacity: .75;
-}
-svg .disable {
-  fill: #999;
-  opacity: 0.9;
 }
 svg .marker-area:hover polygon {
   opacity: 0.6;
@@ -1030,13 +1059,48 @@ svg .marker-area:hover image {
 svg .marker-area:hover rect {
   opacity: 0.6;
 }
-svg .layer:hover {
-  opacity: 0.6;
-  cursor: pointer;
-}
 svg polygon {
   -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
           transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+}
+.step1-marker {
+  cursor: pointer;
+  -webkit-transform-origin: 50% 50%;
+      -ms-transform-origin: 50% 50%;
+          transform-origin: 50% 50%;
+  opacity: 0.3;
+}
+.step1-marker:hover {
+  -webkit-animation: pulse 1s infinite;
+          animation: pulse 1s infinite;
+}
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@keyframes pulse {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
 }
 @-webkit-keyframes unit_fadein {
   0% {
@@ -1429,11 +1493,9 @@ svg polygon {
   color: #f68121;
 }
 .us-right-content .legend {
-  text-align: center;
-  padding: 10px 0 15px;
+  padding: 15px;
   position: absolute;
-  top: 0;
-  width: 100%;
+  bottom: 0;
   left: 0;
   background-color: rgba(38, 38, 38, 0.6);
   z-index: 999;
@@ -1442,8 +1504,7 @@ svg polygon {
   list-style: none;
 }
 .us-right-content .legend ul li {
-  display: inline-block;
-  margin-left: 20px;
+  display: block;
   font-size: 14px;
   color: #cccccc;
 }
@@ -1456,10 +1517,11 @@ svg polygon {
   margin-right: 5px;
 }
 .us-right-content .legend ul li.sold::before {
-  background-color: rgba(208, 109, 114, 0.5);
+  background-color: rgba(15, 19, 8, 0.5);
 }
 .us-right-content .legend ul li.na::before {
-  background-color: rgba(38, 38, 38, 0.5);
+  border: 1px solid #262626;
+  background-color: rgba(255, 255, 255, 0.7);
 }
 @-webkit-keyframes hvr-back-pulse {
   50% {
