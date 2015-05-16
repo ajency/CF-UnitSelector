@@ -1534,6 +1534,20 @@ svg polygon {
 .bldg_info .unit-type-info li span {
   color: #f68121;
 }
+/* Mini Map */
+.mini-map {
+  width: 300px;
+  height: 150px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 999;
+}
+.mini-map .project_master {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
 .room-attr span {
   color: #999999;
 }
@@ -1717,18 +1731,27 @@ svg polygon {
   border: 1px solid transparent;
 }
 .filter-result {
-  margin: 20px 0 0;
+  position: absolute;
+  top: 56px;
+  width: 100%;
+  left: 0;
+  background-color: rgba(38, 38, 38, 0.6);
+  z-index: 999;
 }
 .filter-result .filter-pill {
-  margin-bottom: 0;
+  margin: 15px 5px;
+  margin-left: 0;
   padding: 2px 0 2px 8px;
-  background-color: #db6809;
-  color: #ffffff;
+  background-color: #ffffff;
+  color: #666666;
   cursor: default;
 }
 .filter-result .filter-pill span.icon-cross {
-  color: #ffffff;
+  color: #999999;
   cursor: pointer;
+}
+.filter-result .filter-pill:first-child {
+  margin-left: 15px;
 }
 .filters-wrapper {
   position: absolute;

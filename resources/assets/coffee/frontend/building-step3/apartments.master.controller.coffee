@@ -333,10 +333,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 									        <span class="rotate-text">Rotate</span>
 									        <div id="next" class="rotate-right">Right</div>
 							    		</div>
-							    		<div style="width:300px;height:150px;position:relative;z-index:999">
-							    		<img class="firstimage img-responsive" src=""style="width:300px;height:150px;position:absolute;z-index:999" />
-							    		<div class="project_master" style="width:300px;height:150px;position:absolute;z-index:999">
-							    		</div></div>
+							    		<div style="mini-map">
+							    			<img class="firstimage img-responsive" src="" />
+							    			<div class="project_master"></div>
+							    		</div>
 							              
 							        </div>')
 
