@@ -17,7 +17,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 										<div class="filters-wrapper">
 											<div class="filters-content">
 											  	<div class="property_type">
-				                                    <h6 class="m-b-0">PROPERTY TYPE</h6>
+				                                    <h6 class="">PROPERTY TYPE</h6>
 				                                    <div class="filter-chkbox-block">
 				                                      	{{#types}}
 				                                        <input type="checkbox" class="custom-chckbx addCft types" id="{{id}}" value="{{type}}">
@@ -26,7 +26,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 				                                    </div>	  
 	                                 			</div>
 												<div class="">
-				                                    <h6 class="m-b-0">UNIT TYPE</h6>
+				                                    <h6 class="">UNIT TYPE</h6>
 				                                    <div class="filter-chkbox-block">
 					                                    {{#unitTypes}}
 					                                      <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > 
@@ -35,7 +35,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 				                                    </div>
 				                                </div>
 				                                <div class="">
-				                                    <h6 class="m-b-0">VARIANT</h6>
+				                                    <h6 class="">VARIANT</h6>
 				                                       <div class="filter-chkbox-block">
 					                                       	{{#unitVariantNames}}
 					                                       	<input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > 
@@ -46,19 +46,19 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 				                                </div>
 
 				                                <div class="">
-				                                    <h6 class="m-b-0">AREA (Sqft)</h6>
+				                                    <h6 class="">AREA (Sqft)</h6>
 				                                	<div class="range-container">
 				                                		<input type="text" id="area" name="area" value="" />
 				                                	</div>
 				                                </div>
 				                                <div class="">
-				                                    <h6 class="m-b-0">BUDGET </h6>
+				                                    <h6 class="">BUDGET </h6>
 				                                    <div class="range-container">
 				                                    	<input type="text" id="budget" name="budget" value="" />
 				                                    </div>
 				                                </div>
 				                                <div class="">
-				                                  	<h6 class="m-b-0 availability">AVAILABILITY</h6>
+				                                  	<h6 class="availability">AVAILABILITY</h6>
 				                                  	<div class="filter-chkbox-block">
 				                                      	<input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> 
 				                                       	<label for="available" class="-lbl">Show Available Units Only</label>
@@ -69,8 +69,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 				                        <!--<div class="filters-bottom">
 				                        	<a href="#">+ More Filters</a>
 				                        </div>-->
-									</div>
-									')
+									</div>')
 
 
 	

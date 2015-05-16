@@ -20,42 +20,35 @@ class CommonFloor.ApartmentsMasterCtrl extends Marionette.RegionController
 
 class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="container-fluid">
+	template : Handlebars.compile('<div class="container-fluid animated fadeIn">
 							          	<div class="row">
 								          	<div class="col-md-12 col-xs-12 col-sm-12 text-center">
 
 									            <div class="breadcrumb-bar">
-									                <a class="unit_back" href="#">
-														Back to Poject Master Overview
-													</a>
+									                <a class="unit_back" href="#"></a>
 									            </div>
 
-								              	<h2 class="proj-name">{{project_title}}</h2> 
+						              			<div class="header-info">
+						              				<h2 class="pull-left proj-name">{{project_title}}</h2>
+						              				<div class="proj-type-count">
+						              					{{#types}} 
+						              					<h1 class="pull-left">{{results}}</h1><p class="pull-left">Apartment(s)/Penthouse(s)</p> 
+						              					{{/types}}
+						              				</div>
+						              				<div class="pull-left filter-result">
+						              	              	{{#each  filters}}
+						              	              	{{#each this}}
+						              					<div class="filter-pill"  >
+						              						{{this.name}}{{this.type}}
+						              						<span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span>
+						              	              	</div>	
+						              	              	{{/each}}{{/each }}							               
+						              	            </div>
+						              			</div>
 
 								          	</div>
 							          	</div>
-							        </div>
-
-					        		<div class="filter-summary-area">
-
-					        			<button class="btn btn-primary cf-btn-white pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters">
-					        				Filters <span class="icon-funnel"></span>
-					        			</button>
-					                    <div class="pull-left filter-result">
-					                      	{{#each  filters}}
-					                      	{{#each this}}
-					        				<div class="filter-pill"  >
-					        					{{this.name}}{{this.type}}
-					        					<span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span>
-					                      	</div>	
-					                      	{{/each}}{{/each }}							               
-					                    </div>
-					        			<div class="proj-type-count">
-					        				<p class="pull-right">Apartment(s)/Penthouse(s)</p><h1 class="text-primary pull-right m-t-10">{{results}}</h1> 
-					        			</div>
-
-					        			<div class="clearfix"></div>
-					        		</div>')
+							        </div>')
 	
 	ui  :
 		unitBack : '.unit_back'
@@ -340,10 +333,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 									        <span class="rotate-text">Rotate</span>
 									        <div id="next" class="rotate-right">Right</div>
 							    		</div>
-							    		<div style="width:300px;height:150px;position:relative;z-index:999">
-							    		<img class="firstimage img-responsive" src=""style="width:300px;height:150px;position:absolute;z-index:999" />
-							    		<div class="project_master" style="width:300px;height:150px;position:absolute;z-index:999">
-							    		</div></div>
+							    		<div style="mini-map">
+							    			<img class="firstimage img-responsive" src="" />
+							    			<div class="project_master"></div>
+							    		</div>
 							              
 							        </div>')
 
@@ -621,7 +614,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
 				$('.cf-loader').addClass 'hidden'
-			$('.region').load(url,()->that.iniTooltip())
+			$('.region').load(url,()->that.iniTooltip();that.loadZoom())
 
 
 				
@@ -636,6 +629,16 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			offsetX : 50
 			offsetY : -10
 		)
+
+	loadZoom:->
+		$panzoom =  $('.master').panzoom
+			contain: 'invert'
+			minScale: 1
+			maxScale: 2.4
+			increment: 0.4
+			$zoomIn: $('.zoom-in')
+			$zoomOut: $('.zoom-out')
+			# $set: $('.spritespin-canvas')
 	
 
 

@@ -47,7 +47,6 @@ class TopMasterView extends Marionette.ItemView
 										              	{{/each}}{{/each }}							               
 										            </div>
 												</div>
-												
 
 											</div>
 										</div>
