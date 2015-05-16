@@ -5,12 +5,12 @@
   top: 25px;
   padding: 0;
   overflow: hidden;
-  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
-  background-color: fade(@white, 100%);
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  background-color: fade(@white, 90%);
   width: 340px;
   height: 340px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-  border-radius: 5px;
+  border-radius: 3px;
   &.closed{
     width: 0;
     height: 0;
@@ -113,7 +113,8 @@
 
   h6{
     font-weight: bold;
-    margin-top: 5px;
+    margin-top: 15px;
+    margin-bottom: 0;
     &.availability{
       margin-top: 20px;
     }

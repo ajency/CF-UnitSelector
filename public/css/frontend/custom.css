@@ -1116,12 +1116,11 @@ svg polygon {
 .list-view-container .prop-select {
   margin-bottom: 10px;
   list-style-type: none;
-  background-color: #f2f2f2;
 }
 .list-view-container .prop-select .prop-type {
   font-weight: bold;
   display: inline-block;
-  padding: 15px 15px 10px;
+  padding: 15px 15px 5px;
   color: #999999;
   cursor: pointer;
 }
@@ -1129,10 +1128,9 @@ svg polygon {
   color: #f68121;
 }
 .list-view-container .prop-select .prop-type.active {
-  color: #666666;
+  color: #f68121;
   background-color: #ffffff;
-  border: 1px solid #cccccc;
-  border-bottom: none;
+  border-bottom: 2px solid #f68121;
 }
 .list-view-container .legend {
   text-align: center;
@@ -1179,6 +1177,7 @@ svg polygon {
   color: #666666;
   padding-bottom: 10px;
   border-bottom: 1px solid #e6e6e6;
+  display: none;
 }
 .blocks {
   float: left;
@@ -1654,13 +1653,13 @@ svg polygon {
   top: 25px;
   padding: 0;
   overflow: hidden;
-  -webkit-transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
-          transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
-  background-color: #ffffff;
+  -webkit-transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+          transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  background-color: rgba(255, 255, 255, 0.9);
   width: 340px;
   height: 340px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-  border-radius: 5px;
+  border-radius: 3px;
 }
 .fliters-container.closed {
   width: 0;
@@ -1755,7 +1754,8 @@ svg polygon {
 }
 .filters-wrapper h6 {
   font-weight: bold;
-  margin-top: 5px;
+  margin-top: 15px;
+  margin-bottom: 0;
 }
 .filters-wrapper h6.availability {
   margin-top: 20px;
