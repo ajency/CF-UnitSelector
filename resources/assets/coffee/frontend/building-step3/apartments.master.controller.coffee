@@ -317,7 +317,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 										</div>
 
 										<div id="view_toggle" class="toggle-view-button list"></div>
-										<div id="trig" class="toggle-button hidden">List View</div>
+										<div id="trig" class="toggle-button">List View</div>
 							              
 							            <div class=" master animated fadeIn">
 

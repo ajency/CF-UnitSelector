@@ -1,0 +1,37 @@
+.rotate-controls {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+.rotate-controls .rotate-left,
+.rotate-controls .rotate-right {
+  background: url('../../images/rotate.png') no-repeat;
+  height: 60px;
+  width: 25px;
+  background-position: -10px -5px;
+  text-indent: -9999px;
+  text-align: center;
+  position: relative;
+  left: 0;
+  margin: auto;
+  display: inline-block;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.rotate-controls .rotate-left:hover,
+.rotate-controls .rotate-right:hover {
+  transform: scale(1.1, 1.1);
+}
+.rotate-controls .rotate-right {
+  background-position: -125px -5px;
+}
+.rotate-controls .rotate-text {
+  background: url('../../images/rotate.png') no-repeat;
+  height: 65px;
+  width: 80px;
+  background-position: -40px -5px;
+  text-indent: -9999px;
+  display: inline-block;
+}

@@ -8,65 +8,67 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="fliters-container closed" id="collapsefilters">
 
+										<a href="javascript:void(0)"  class="text-primary filters-clear clear">Clear Filters </a>
+
 										<button class="btn btn-primary filter-button" type="button">
 											<span class="icon-place"></span>											
 										</button>
 									
 										<div class="filters-wrapper">
-										  	<div class="property_type">
-			                                    <h5># PROPERTY TYPE</h5>
-			                                    <div class="filter-chkbox-block">
-			                                      	{{#types}}
-			                                        <input type="checkbox" class="custom-chckbx addCft types" id="{{id}}" value="{{type}}">
-			                                        <label for="{{id}}" class="-lbl">{{type}}{{type_name}}</label> 
-			                                		{{/types}}
-			                                    </div>	  
-                                 			</div>
-											<div class="">
-			                                    <h5># UNIT TYPE</h5>
-			                                    <div class="filter-chkbox-block">
-				                                    {{#unitTypes}}
-				                                      <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > 
-				                                      <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> 
-				                                    {{/unitTypes}} 
-			                                    </div>
-			                                </div>
-			                                <div class="">
-			                                    <h5># VARIANT</h5>
-			                                       <div class="filter-chkbox-block">
-				                                       	{{#unitVariantNames}}
-				                                       	<input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > 
-				                                        <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> 
-				                                       	{{/unitVariantNames}}
-			                                       	<!--<a href="#" class="hide-div">+ Show More</a>-->
-			                                    </div>
-			                                </div>
+											<div class="filters-content">
+											  	<div class="property_type">
+				                                    <h6 class="m-b-0">PROPERTY TYPE</h6>
+				                                    <div class="filter-chkbox-block">
+				                                      	{{#types}}
+				                                        <input type="checkbox" class="custom-chckbx addCft types" id="{{id}}" value="{{type}}">
+				                                        <label for="{{id}}" class="-lbl">{{type}}{{type_name}}</label> 
+				                                		{{/types}}
+				                                    </div>	  
+	                                 			</div>
+												<div class="">
+				                                    <h6 class="m-b-0">UNIT TYPE</h6>
+				                                    <div class="filter-chkbox-block">
+					                                    {{#unitTypes}}
+					                                      <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > 
+					                                      <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> 
+					                                    {{/unitTypes}} 
+				                                    </div>
+				                                </div>
+				                                <div class="">
+				                                    <h6 class="m-b-0">VARIANT</h6>
+				                                       <div class="filter-chkbox-block">
+					                                       	{{#unitVariantNames}}
+					                                       	<input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > 
+					                                        <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> 
+					                                       	{{/unitVariantNames}}
+				                                       	<!--<a href="#" class="hide-div">+ Show More</a>-->
+				                                    </div>
+				                                </div>
 
-			                                <div class="">
-			                                    <h5># AREA (Sqft)</h5>
-			                                	<div class="range-container">
-			                                		<input type="text" id="area" name="area" value="" />
-			                                	</div>
-			                                </div>
-			                                <div class="">
-			                                    <h5># BUDGET </h5>
-			                                    <div class="range-container">
-			                                    	<input type="text" id="budget" name="budget" value="" />
-			                                    </div>
-			                                </div>
-			                                <div class="">
-			                                  	<h5># AVAILABILITY</h5>
-			                                    <div class="alert ">
-			                                      	<input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> 
-			                                       	<label for="available" class="-lbl">Show Available Units Only</label> 
-			                                    </div>
-			                                </div>
-
-					                        <div class="filters-bottom clearfix">
-					                        	<a href="javascript:void(0)"  class="text-primary pull-left m-b-10 clear"><span class="icon-cross clear"></span> Clear Filters </a>
+				                                <div class="">
+				                                    <h6 class="m-b-0">AREA (Sqft)</h6>
+				                                	<div class="range-container">
+				                                		<input type="text" id="area" name="area" value="" />
+				                                	</div>
+				                                </div>
+				                                <div class="">
+				                                    <h6 class="m-b-0">BUDGET </h6>
+				                                    <div class="range-container">
+				                                    	<input type="text" id="budget" name="budget" value="" />
+				                                    </div>
+				                                </div>
+				                                <div class="">
+				                                  	<h6 class="m-b-0 availability">AVAILABILITY</h6>
+				                                  	<div class="filter-chkbox-block">
+				                                      	<input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> 
+				                                       	<label for="available" class="-lbl">Show Available Units Only</label>
+				                                    </div>
+				                                </div>
 					                        </div>
-
-				                        </div>											
+										</div>
+				                        <!--<div class="filters-bottom">
+				                        	<a href="#">+ More Filters</a>
+				                        </div>-->
 									</div>
 									')
 
@@ -338,6 +340,9 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 		$('.filter-button').on 'click', (e) ->
 			$('.fliters-container').toggleClass 'closed'
+		$('.filters-content').mCustomScrollbar
+			theme: 'inset'
+
 
 		budget = []
 		area = []

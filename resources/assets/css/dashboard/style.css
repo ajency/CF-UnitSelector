@@ -8171,6 +8171,9 @@ body.rtl .footer-widget {
 .grid .simple .grid-title {
   border-bottom: 1px solid #f68121 !important;
 }
+.modal-body {
+  background: #fff;
+}
 /* Parsley Styles */
 h4,
 h3,
@@ -8196,6 +8199,10 @@ h5 {
 }
 .fa-question-circle {
   font-size: 15px;
+}
+.fa-circle {
+  font-size: 7px;
+  color: #505458;
 }
 .fa-info {
   cursor: pointer;
@@ -8309,6 +8316,24 @@ h5 {
 }
 .list-group-item {
   padding: 14px;
+}
+.dl-horizontal {
+  color: #55606e;
+}
+.dl-horizontal dt {
+  width: 77px!important;
+  texr-align: left!important;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: normal;
+}
+.dl-horizontal dt h5 {
+  margin: 0;
+}
+.dl-horizontal dd {
+  padding: 10px;
+  margin-left: 85px;
+  border-bottom: 1px solid #DDD;
 }
 #blankCheckbox {
   font-size: 16px!important;
