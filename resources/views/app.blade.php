@@ -28,11 +28,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#" style="padding:6px!important;          ">
+                    <!-- <a class="navbar-brand" href="#" style="padding:6px!important;          ">
                         <img src="{{ asset('images/inner-header-logo.png') }}" class="logo" alt="" 
                                 data-src="{{ asset('images/inner-header-logo.png') }}"
                                 data-src-retina="{{ asset('images/logo2x.png') }}">
-                    </a>
+                    </a> -->
                 </div>
 
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -44,7 +44,7 @@
                         @if (Auth::guest())
                         <li><a href="{{ url('/') }}">Home</a></li>
                         <li><a href="{{ url('auth/login') }}">Login</a></li>
-                        <li><a href="{{ url('auth/register') }}">Register</a></li>
+                    
                         @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>

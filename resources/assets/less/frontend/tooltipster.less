@@ -1,6 +1,22 @@
 .svg-tooltip{
     display: none;
 }
+.big-tooltip{
+    width:471px;
+    .b-r{
+      border-left: 1px solid #ccc;
+    }
+    .icon-location{
+        float:left;
+        margin-right:10px;
+        font-size:30px;
+        color: @brand-primary;
+    }
+      .icon-cross{
+        position: absolute;
+        right: 8px;
+    }
+}
 
 .svg-info{
 	font-family: OpenSans,Arial,sans-serif;
@@ -18,6 +34,8 @@
         font-weight: bold;
         cursor: pointer;
         display: none;
+        position: absolute;
+        right: 8px;
     }
     .details{
     	font-size: 12px;

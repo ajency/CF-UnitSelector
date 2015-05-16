@@ -1970,6 +1970,22 @@ label.third_toggle {
 .svg-tooltip {
   display: none;
 }
+.big-tooltip {
+  width: 471px;
+}
+.big-tooltip .b-r {
+  border-left: 1px solid #ccc;
+}
+.big-tooltip .icon-location {
+  float: left;
+  margin-right: 10px;
+  font-size: 30px;
+  color: #f68121;
+}
+.big-tooltip .icon-cross {
+  position: absolute;
+  right: 8px;
+}
 .svg-info {
   font-family: OpenSans, Arial, sans-serif;
   padding: 0;
@@ -1986,6 +2002,8 @@ label.third_toggle {
   font-weight: bold;
   cursor: pointer;
   display: none;
+  position: absolute;
+  right: 8px;
 }
 .svg-info .details {
   font-size: 12px;
