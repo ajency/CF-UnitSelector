@@ -217,38 +217,41 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label">Name</label>
-                                            <input type="text" class="form-control" name="name" placeholder="Enter Name">
+                                            <label class="form-label">Name<span class="text-primary">*</span></label>
+                                            <input type="text" class="form-control m-b-5" name="name" placeholder="Enter Name">
+                                            <div class="text-danger">* This field is required</div>
                                         </div> 
                                     </div>
                                    <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label">Unit Variant</label>
-                                            <select id="unit_variant"  class="select2 form-control">
+                                            <label class="form-label">Unit Variant<span class="text-primary">*</span></label>
+                                            <select id="unit_variant"  class="select2 form-control m-b-5">
                                                 <option value="">Select Unit Variant</option>
                                                 <option>var 1</option>
                                                 <option>var 2</option>
                                                 <option>Add Variant</option>
                                             </select>
+                                            <div class="text-danger">* This field is required</div>
                                         </div> 
                                     </div>
                                     
                                      <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label">Status</label>
-                                            <select id="status" name="status" class="select2 form-control">
+                                            <label class="form-label">Status<span class="text-primary">*</span></label>
+                                            <select id="status" name="status" class="select2 form-control m-b-5">
                                                 <option value="">Select Status</option>
                                                 <option>Available</option>
                                                 <option>Sold</option>
                                                 <option>Not Released</option>
                                                 <option>Blocked</option>
                                             </select>
+                                            <div class="text-danger">* This field is required</div>
                                         </div> 
                                     </div>
                                 </div>
                                 <div class="form-actions">  
                                     <div class="pull-right">
-                                        <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
+                                        <a type="submit" class="btn btn-primary btn-cons" href="plot-unit-list.html"><i class="fa fa-plus-circle"></i> Create</a>
                                         <button type="button"  class="btn btn-default btn-cons">Save And Add Another</button>
                                     </div>
                                 </div>

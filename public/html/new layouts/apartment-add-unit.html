@@ -217,63 +217,68 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label">Name</label>
-                                            <input type="text" class="form-control" name="name" placeholder="Enter Name">
+                                            <label class="form-label">Name<span class="text-primary">*</span></label>
+                                            <input type="text" class="form-control m-b-5" name="name" placeholder="Enter Name">
+                                            <div class="text-danger">* This field is required</div>
                                         </div> 
                                     </div>
                                   <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label">Status</label>
-                                            <select id="status" name="status" class="select2 form-control">
+                                            <label class="form-label">Status<span class="text-primary">*</span></label>
+                                            <select id="status" name="status" class="select2 form-control m-b-5">
                                                 <option value="">Select Status</option>
                                                 <option>Available</option>
                                                 <option>Sold</option>
                                                 <option>Not Released</option>
                                                 <option>Blocked</option>
                                             </select>
+                                            <div class="text-danger">* This field is required</div>
                                         </div> 
                                     </div>
                                     <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label">Building</label>
-                                            <select id="Building" name="status" class="select2 form-control">
+                                            <label class="form-label">Building<span class="text-primary">*</span></label>
+                                            <select id="Building" name="status" class="select2 form-control m-b-5">
                                                 <option value="">Select Building</option>
                                                 <option>Maple</option>
                                                 <option>Crown Concave</option>
                                                 <option>Add New</option>
                                             </select>
+                                            <div class="text-danger">* This field is required</div>
                                         </div> 
                                     </div>
                                 </div>
                                 <div class="row">
                                      <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label">Floor</label>
-                                            <select id="Floor" name="status" class="select2 form-control">
+                                            <label class="form-label">Floor<span class="text-primary">*</span></label>
+                                            <select id="Floor" name="status" class="select2 form-control m-b-5">
                                                 <option value="">Select Floor</option>
                                                 <option>1</option>
                                                 <option>2</option>
                                                 <option>3</option>
                                                 <option>Add New</option>
                                             </select>
+                                            <div class="text-danger">* This field is required</div>
                                         </div> 
                                     </div>
                                      <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label">Position</label>
-                                            <select id="Position" name="status" class="select2 form-control">
+                                            <label class="form-label">Position<span class="text-primary">*</span></label>
+                                            <select id="Position" name="status" class="select2 form-control m-b-5">
                                                 <option value="">Select Status</option>
                                                 <option>Available</option>
                                                 <option>Sold</option>
                                                 <option>Not Released</option>
                                                 <option>Blocked</option>
                                             </select>
+                                            <div class="text-danger">* This field is required</div>
                                         </div> 
                                     </div>
                                 </div>
                                 <div class="form-actions">  
                                     <div class="pull-right">
-                                        <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
+                                        <a type="submit" class="btn btn-primary btn-cons" href="apartment-unit-list.html"><i class="fa fa-plus-circle"></i> Create</a>
                                         <button type="button"  class="btn btn-default btn-cons">Save And Add Another</button>
                                     </div>
                                 </div>

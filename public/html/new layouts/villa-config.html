@@ -593,55 +593,100 @@
             <!-- END PAGE CONTAINER -->
         </div>
         <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
+<!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title text-left" id="myModalLabel">Edit Room Details</h4>
       </div>
       <div class="modal-body">
         <form>
-   <div class="row">
-    <div class="col-md-3">
-        <label class="form-label">Attribute Name</label>
-    </div>
+            <div class="row form-group">
+                <div class="col-md-4">
+                <label class="form-label">Room Name</label>
+                 <input type="text" class="form-control" name="name" value="Kitchen">
+                </div>
+            </div>
+                    <div class="row form-group">
+                    <div class="col-md-3">
+                          <label class="form-label">Attribute Name</label>
+                    </div>
      <div class="col-md-3">
         <label class="form-label">Control Type</label>
-    </div>
+                    </div>
      <div class="col-md-3">
         <label class="form-label">Default Values</label>
-    </div>
-   </div>
-   <div class="row">
-    <div class="col-md-3">
-        <input type="text" class="form-control" name="name" placeholder="Enter Attribute Name">
-    </div>
+                    </div>
+                    </div>
+                    <div class="row form-group">
+                      <div class="col-md-3">
+                          <input type="text" class="form-control" name="name" placeholder="Enter Attribute Name" value="Size">
+                    </div>
      <div class="col-md-3">
-         <select id="modal-ctrl-type" class="select2 form-control">
-                                                <option value="">Select Room</option>
-                                                <option selected>Bedroom</option>
-                                                <option>Balcony</option>
-                                                <option>Add New</option>
+         <select id="modal-ctrl-type1" class="select2 form-control">
+                                                <option selected>Textbox</option>
+                                                <option >Select Box</option>
+                                                <option >Multiple Select Box</option>
+                                                <option>Number</option>
                                             </select>
-    </div>
-     <div class="col-md-4">
-        <input type="text" data-role="tagsinput" class="tags" /> 
-    </div>
-    <div class="col-md-2 text-right">
-        <a href="#">+ Attribute</a>
-    </div>
-   </div>
-</form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
-        
-      </div>
-    </div>
-  </div>
-</div>
+                    </div>
+                    <div class="col-md-4">
+                          
+                    </div>
+                    <div class="col-md-2 ">
+                          <button class="btn btn-small btn-white"><i class="fa fa-trash"></i></button>
+                    </div>
+                    </div>
+                    <div class="row form-group">
+                    <div class="col-md-3">
+                          <input type="text" class="form-control" name="name" value="Dimension">
+                    </div>
+                    <div class="col-md-3">
+         <select id="modal-ctrl-type2" class="select2 form-control">
+                                                 <option selected>Textbox</option>
+                                                <option >Select Box</option>
+                                                <option >Multiple Select Box</option>
+                                                <option>Number</option>
+                                            </select>
+                    </div>
+                    <div class="col-md-4">
+                          
+                    </div>
+                    <div class="col-md-2 ">
+                          <button class="btn btn-small btn-white"><i class="fa fa-trash"></i></button>
+                    </div>
+                    </div>
+                    <div class="row form-group">
+                    <div class="col-md-3">
+                          <input type="text" class="form-control" name="name" placeholder="Enter Attribute Name">
+                    </div>
+                    <div class="col-md-3">
+         <select id="modal-ctrl-type3" class="select2 form-control">
+                                                 <option>Textbox</option>
+                                                <option selected>Select Box</option>
+                                                <option >Multiple Select Box</option>
+                                                <option>Number</option>
+                                            </select>
+                    </div>
+                    <div class="col-md-4">
+                          <input type="text" data-role="tagsinput" class="tags" /> 
+                    </div>
+                      <h6 class="col-md-2 semi-bold">
+                          <a href="#">+ Attribute</a>
+                      </h6>
+                    </div>
+                </form>
+                </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-primary"><i class="fa fa-check"></i> Save</button>
+                      <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- END CONTENT --> 
         <!-- BEGIN CORE JS FRAMEWORK--> 
         <script src="../../bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script> 
@@ -683,7 +728,9 @@
             $("#buildings").select2();
             $("#room_type").select2();
             $("#room_type1").select2();
-             $("#modal-ctrl-type").select2();
+             $("#modal-ctrl-type1").select2();
+             $("#modal-ctrl-type2").select2();
+             $("#modal-ctrl-type3").select2();
              $(".tags").tagsinput("");
         </script>	
 
