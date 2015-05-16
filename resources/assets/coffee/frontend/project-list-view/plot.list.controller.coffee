@@ -98,7 +98,7 @@ class PlotView extends Marionette.CompositeView
 			data.units = units
 			data.type = 'plot'
 			@region =  new Marionette.Region el : '#centerregion'
-			new CommonFloor.VillaListCtrl region : @region
+			new CommonFloor.PlotListCtrl region : @region
 			# @trigger "load:units" , data
 			
 

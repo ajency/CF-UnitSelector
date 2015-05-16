@@ -22,43 +22,35 @@ class CommonFloor.ProjectMasterCtrl extends Marionette.RegionController
 #View for Poject Master top view 
 class TopMasterView extends Marionette.ItemView
 	#template
-	template : Handlebars.compile('<div class="container-fluid">
+	template : Handlebars.compile('<div class="container-fluid animated fadeIn">
 										<div class="row">
-											<div class="col-md-12 col-xs-12 col-sm-12 text-center">
+											<div class="col-md-12 col-xs-12 col-sm-12">
 
 												<div class="breadcrumb-bar">
-													<a class="unit_back" href="#">
-														Back to Project Overview
-													</a>
+													<a class="unit_back" href="#"></a>
 												</div>
 
-												<h2 class="proj-name">{{project_title}}</h2>
+												<div class="header-info">
+													<h2 class="pull-left proj-name">{{project_title}}</h2>
+													<div class="proj-type-count">
+														{{#types}} 
+														<h1 class="pull-left">{{count.length}}</h1><p class="pull-left">{{type}}</p> 
+														{{/types}}
+													</div>
+													<div class="pull-left filter-result">
+										              	{{#each  filters}}
+										              	{{#each this}}
+														<div class="filter-pill"  >
+															{{this.name}}{{this.type}}
+															<span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span>
+										              	</div>	
+										              	{{/each}}{{/each }}							               
+										            </div>
+												</div>
+												
 
 											</div>
 										</div>
-									</div>
-
-									<div class="filter-summary-area">
-
-										<button class="btn btn-primary cf-btn-white pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters">
-											Filters <span class="icon-funnel"></span>
-										</button>
-							            <div class="pull-left filter-result">
-							              	{{#each  filters}}
-							              	{{#each this}}
-											<div class="filter-pill"  >
-												{{this.name}}{{this.type}}
-												<span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span>
-							              	</div>	
-							              	{{/each}}{{/each }}							               
-							            </div>
-										<div class="proj-type-count">
-											{{#types}} 
-											<p class="pull-right">{{type}}</p><h1 class="text-primary pull-right m-t-10">{{count.length}}</h1> 
-											{{/types}}
-										</div>
-
-										<div class="clearfix"></div>
 									</div>')
 
 	ui  :
@@ -101,13 +93,16 @@ class TopMasterView extends Marionette.ItemView
 			
 			if $(e.target).attr('data-id') == 'Villas'
 				@removeVillaFilters()
-			if $(e.target).attr('data-id') == 'Apartments'
+			if $(e.target).attr('data-id') == 'Apartments/Penthouse'
 				@removeAptFilters()
 			if $(e.target).attr('data-id') == 'Plots'
 				@removePlotFilters()
+			
 			@trigger  'render:view'
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
+			
 			
 
 			
@@ -117,6 +112,7 @@ class TopMasterView extends Marionette.ItemView
 			CommonFloor.defaults['unitTypes'] = unitTypes.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 			
 		'click @ui.variantNames':(e)->
@@ -125,12 +121,14 @@ class TopMasterView extends Marionette.ItemView
 			CommonFloor.defaults['unitVariants'] = variantNames.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()	
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 		'click @ui.status':(e)->
 			CommonFloor.defaults['availability'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 			
@@ -140,6 +138,7 @@ class TopMasterView extends Marionette.ItemView
 			CommonFloor.defaults['area_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 		'click @ui.budget':(e)->
@@ -147,12 +146,15 @@ class TopMasterView extends Marionette.ItemView
 			CommonFloor.defaults['price_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 	onShow:->
 		if CommonFloor.router.history.length == 1
 			@ui.unitBack.hide()
-
+		response = CommonFloor.propertyTypes() 
+		if response.length == 0
+			$('.proj-type-count').text 'No results found'
 
 	removeVillaFilters:->
 		variants = []
@@ -235,10 +237,10 @@ class CommonFloor.TopMasterCtrl extends Marionette.RegionController
 
 	initialize:->
 
-		@renderView()
-		unitTempCollection.on("change reset add remove", @renderView, @)
+		@renderToppView()
+		unitCollection.bind( "available", @renderToppView, @) 
 
-	renderView:->
+	renderToppView:->
 		@view =  new TopMasterView
 			model : project
 
@@ -261,10 +263,10 @@ class CommonFloor.TopMasterCtrl extends Marionette.RegionController
 class CommonFloor.LeftMasterCtrl extends Marionette.RegionController
 
 	initialize:->
-		@renderView()
-		unitTempCollection.on("change reset add remove", @renderView)
+		@renderLeftMasterView()
+		unitCollection.bind( "available", @renderLeftMasterView, @)  
 
-	renderView:->
+	renderLeftMasterView:->
 		response = CommonFloor.checkListView()
 		if response.count.length == 0
 			region =  new Marionette.Region el : '#leftregion'
@@ -305,7 +307,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 
-	template : Handlebars.compile('<div class="col-md-12 us-right-content mobile visible">
+	template : Handlebars.compile('<div class="col-md-12 us-right-content mobile visible animated fadeIn">
+										
 										<div class="legend clearfix">
 										  <ul>
 										    <!--<li class="available">AVAILABLE</li>-->
@@ -374,8 +377,16 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					animate: false
 				)
 				$('.svg-maps > div').first().css('width',that.ui.svgContainer.width() + 13)
+				$('.first_image').first().css('width',that.ui.svgContainer.width() + 13)
+
+				height= that.ui.svgContainer.width() / 2
+				$('.units').css('height',height-120)
 
 			, 650)
+
+			setTimeout( (x)->
+				$('.master').panzoom('resetDimensions');				
+			, 800)
 
 			
 		'click @ui.viewtog':(e)->
@@ -456,7 +467,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			if unit != undefined
 				availability = unit.get('availability')
 				availability = s.decapitalize(availability)
-				CommonFloor.applyVillaClasses()
+				# CommonFloor.applyVillaClasses()
 				$('#unit'+id).attr('class' ,'unit blocks '+availability) 
 
 		'mouseout .plot':(e)->
@@ -466,13 +477,16 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			if unit != undefined
 				availability = unit.get('availability')
 				availability = s.decapitalize(availability)
-				CommonFloor.applyPlotClasses()
+				# CommonFloor.applyPlotClasses()
 				$('#unit'+id).attr('class' ,'bldg blocks '+availability)  
 
 		'mouseout .building':(e)->
 			id = parseInt e.target.id
-			$('.building').attr('class' ,'layer building') 
-			$('#bldg'+id).attr('class' ,'bldg blocks') 
+			building = buildingCollection.findWhere 
+				id :  id 
+			if building != undefined
+				$('.building').attr('class' ,'layer building') 
+				$('#bldg'+id).attr('class' ,'bldg blocks') 
 
 
 		'mouseover .villa':(e)->
@@ -519,15 +533,19 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 							<div>
 								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 							</div> 
-						</div>
-						<a href="#unit-view/'+id+'" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a>
+						</div>'
+			if availability == 'available'
+				html +='<a href="#unit-view/'+id+'" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a>
 					</div>'
+			else
+				html += '</div>'
 			
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
 			$('.layer').tooltipster('content', html)
+			
 
-		'click .plot':(e)->
+		'mouseover .plot':(e)->
 			# $('.plot').attr('class' ,'layer plot') 
 			id  = parseInt e.target.id
 			html = ""
@@ -576,15 +594,19 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 								<label>Price </label> - '+$('#price').val()+'
 							</div>  
 						</div> 
-						<div class="action-bar ">
-							
-							<a href="#unit-view/'+id+'" class="icon-chevron-right pull-right">To Move forward Click Here</a>
-						</div> 
+						</div>'
+			if availability == 'available'
+				html +='<a href="#unit-view/'+id+'" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a>
 					</div>'
+			else
+				html += '</div>'
 			
 			$('#'+id).attr('class' ,'layer plot '+availability) 
 			$('#unit'+id).attr('class' ,'bldg blocks active') 
 			$('.layer').tooltipster('content', html)
+			if availability != 'available'
+				$('.unitClass').hide()
+
 
 		'mouseover .building':(e)->
 			id  = parseInt e.target.id
@@ -631,10 +653,12 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 	onShow:->
 
-		$('img').lazyLoadXT()
+		
 		height =  @ui.svgContainer.width() / 2
 		# $('.us-left-content').css('height',height)
-		$('.units').css('height',height-380)
+		# if!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
+		if $(window).width() > 991
+			$('.units').css('height',height-310)
 		$('#spritespin').hide()
 		that = @
 		transitionImages = []
@@ -648,10 +672,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$.merge transitionImages ,  project.get('project_master')
 		$('.region').load(first[0],
 			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
-		
+		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
 			
 			response = project.checkRotationView()
+			$('.first_image').first().css('width',that.ui.svgContainer.width())
 			if response is 1
 				$('.cf-loader').removeClass 'hidden'
 		
@@ -668,7 +693,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$('.region').addClass('inactive').removeClass('active')
 		@currentBreakPoint = index;
 		if (@currentBreakPoint < 0) 
-			@currentBreakPoint = @breakPoints.length - 1
+			@currentBreakPoint = @breakPoints.length-1
 		
 		if (@currentBreakPoint >= @breakPoints.length) 
 			@currentBreakPoint = 0
@@ -696,6 +721,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		api = spin.spritespin("api")
 		spin.bind("onFrame" , ()->
 			data = api.data
+			data.frame
 			if data.frame is data.stopFrame
 				url = svgs[data.frame]
 				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses();CommonFloor.applyPlotClasses()).addClass('active').removeClass('inactive')
@@ -725,7 +751,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				onlyOne : true
 				arrow : false
 				offsetX : 50
-				offsetY : -20
+				offsetY : -10
 				interactive : true
 				# animation : 'grow'
 				trigger: 'hover'
@@ -739,8 +765,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$panzoom =  $('.master').panzoom
 			contain: 'invert'
 			minScale: 1
-			maxScale: 2
-			increment: 0.2
+			maxScale: 2.4
+			increment: 0.4
 			$zoomIn: $('.zoom-in')
 			$zoomOut: $('.zoom-out')
 			# $set: $('.spritespin-canvas')

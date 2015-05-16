@@ -92,7 +92,7 @@
           if ($(e.target).attr('data-id') === 'Villas') {
             this.removeVillaFilters();
           }
-          if ($(e.target).attr('data-id') === 'Apartments') {
+          if ($(e.target).attr('data-id') === 'Apartments/Penthouse') {
             this.removeAptFilters();
           }
           if ($(e.target).attr('data-id') === 'Plots') {
@@ -100,7 +100,8 @@
           }
           this.trigger('render:view');
           unitCollection.reset(unitMasterCollection.toArray());
-          return CommonFloor.filter();
+          CommonFloor.filter();
+          return unitCollection.trigger('available');
         },
         'click @ui.unitTypes': function(e) {
           var unitTypes;
@@ -109,6 +110,7 @@
           CommonFloor.defaults['unitTypes'] = unitTypes.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
+          unitCollection.trigger('available');
           return this.trigger('render:view');
         },
         'click @ui.variantNames': function(e) {
@@ -118,12 +120,14 @@
           CommonFloor.defaults['unitVariants'] = variantNames.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
+          unitCollection.trigger('available');
           return this.trigger('render:view');
         },
         'click @ui.status': function(e) {
           CommonFloor.defaults['availability'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
+          unitCollection.trigger('available');
           return this.trigger('render:view');
         },
         'click @ui.area': function(e) {
@@ -131,6 +135,7 @@
           CommonFloor.defaults['area_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
+          unitCollection.trigger('available');
           return this.trigger('render:view');
         },
         'click @ui.budget': function(e) {
@@ -138,14 +143,20 @@
           CommonFloor.defaults['price_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
+          unitCollection.trigger('available');
           return this.trigger('render:view');
         }
       };
     };
 
     TopListView.prototype.onShow = function() {
+      var response;
       if (CommonFloor.router.history.length === 1) {
-        return this.ui.unitBack.hide();
+        this.ui.unitBack.hide();
+      }
+      response = CommonFloor.propertyTypes();
+      if (response.length === 0) {
+        return $('.proj-type-count').text('No results found');
       }
     };
 
@@ -260,11 +271,11 @@
     }
 
     TopListCtrl.prototype.initialize = function() {
-      this.renderView();
-      return unitTempCollection.on("change reset add remove", this.renderView, this);
+      this.renderTopListView();
+      return unitCollection.bind("available", this.renderTopListView, this);
     };
 
-    TopListCtrl.prototype.renderView = function() {
+    TopListCtrl.prototype.renderTopListView = function() {
       this.view = new TopListView({
         model: project
       });
@@ -331,13 +342,22 @@
     }
 
     CenterListCtrl.prototype.initialize = function() {
-      this.renderView();
-      return unitTempCollection.on("change reset add remove", this.renderView);
+      this.renderCenterListView();
+      return unitCollection.bind("available", this.renderCenterListView, this);
     };
 
-    CenterListCtrl.prototype.renderView = function() {
-      var data, response, units;
+    CenterListCtrl.prototype.renderCenterListView = function() {
+      var data, region, response, units;
       response = CommonFloor.checkListView();
+      if (response.count.length === 0) {
+        region = new Marionette.Region({
+          el: '#centerregion'
+        });
+        new CommonFloor.NoUnitsCtrl({
+          region: region
+        });
+        return;
+      }
       if (response.type === 'bunglows') {
         units = bunglowVariantCollection.getBunglowUnits();
         data = {};
@@ -358,7 +378,19 @@
         this.region = new Marionette.Region({
           el: '#centerregion'
         });
-        return new CommonFloor.BuildingListCtrl({
+        new CommonFloor.BuildingListCtrl({
+          region: this.region
+        });
+      }
+      if (response.type === 'plot') {
+        units = plotVariantCollection.getPlotUnits();
+        data = {};
+        data.units = units;
+        data.type = 'plot';
+        this.region = new Marionette.Region({
+          el: '#centerregion'
+        });
+        return new CommonFloor.PlotListCtrl({
           region: this.region
         });
       }

@@ -90,7 +90,12 @@
       availability = unit.get('availability');
       availability = s.decapitalize(availability);
       html = "";
-      html += '<div class="svg-info ' + availability + ' "> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <span class="pull-right icon-cross"></span> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div> <a href="#unit-view/' + id + '" class="action-bar villa_unit">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a> </div>';
+      html += '<div class="svg-info ' + availability + ' "> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <span class="pull-right icon-cross"></span> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div>';
+      if (availability === 'available') {
+        html += '<a href="#unit-view/' + id + '" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a> </div>';
+      } else {
+        html += '</div>';
+      }
       return html;
     };
 
@@ -168,9 +173,11 @@
       if (plotVariantCollection.length !== 0) {
         $('.Plots').removeClass('hidden');
       }
-      return $('.units').mCustomScrollbar({
-        theme: 'inset'
-      });
+      if ($(window).width() > 991) {
+        return $('.units').mCustomScrollbar({
+          theme: 'inset'
+        });
+      }
     };
 
     return MasterBunglowListView;
@@ -187,12 +194,11 @@
 
     MasterBunglowListCtrl.prototype.initialize = function() {
       var newUnits, unitsCollection, view;
-      newUnits = bunglowVariantCollection.getBunglowUnits();
+      console.log(newUnits = bunglowVariantCollection.getBunglowUnits());
       unitsCollection = new Backbone.Collection(newUnits);
       this.view = view = new MasterBunglowListView({
         collection: unitsCollection
       });
-      this.listenTo(this.view, "load:units", this.loadController);
       return this.show(view);
     };
 

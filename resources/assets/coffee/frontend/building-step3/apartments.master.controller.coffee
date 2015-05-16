@@ -26,7 +26,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 
 									            <div class="breadcrumb-bar">
 									                <a class="unit_back" href="#">
-														Back to Poject Overview
+														Back to Poject Master Overview
 													</a>
 									            </div>
 
@@ -51,9 +51,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 					                      	{{/each}}{{/each }}							               
 					                    </div>
 					        			<div class="proj-type-count">
-					        				{{#types}} 
-					        				<p class="pull-right">{{type}}</p><h1 class="text-primary pull-right m-t-10">{{count.length}}</h1> 
-					        				{{/types}}
+					        				<p class="pull-right">Apartment(s)/Penthouse(s)</p><h1 class="text-primary pull-right m-t-10">{{results}}</h1> 
 					        			</div>
 
 					        			<div class="clearfix"></div>
@@ -70,6 +68,12 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		area : '#filter_area'
 		budget : '#filter_budget'
 		types : '.types'
+		floor : '.floor'
+
+	initialize:->
+		url = Backbone.history.fragment
+		building_id = parseInt url.split('/')[1]
+		console.log @building_id = building_id
 
 	serializeData:->
 		data = super()
@@ -77,12 +81,27 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		data.units = units.length
 		data.project_title = project.get('project_title')
 		data.filters  = CommonFloor.getFilters()[0]
-		data.results  = CommonFloor.getFilters()[1]
+		data.results  = CommonFloor.getApartmentFilters().count
 		data
 
 	events:->
+		'click @ui.types':(e)->
+			arr = CommonFloor.defaults['type'].split(',')
+			index = arr.indexOf $(e.target).attr('data-id')
+			arr.splice(index, 1)
+			CommonFloor.defaults['type'] = arr.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterBuilding(@building_id)
+			CommonFloor.filter()
+			unitTempCollection.trigger( "filter_available") 
+			@trigger  'render:view'
+
 		'click @ui.unitBack':(e)->
 			e.preventDefault()
+			# $.each CommonFloor.defaults,(index,value)->
+			# 	CommonFloor.defaults[index] = ""
+			# unitCollection.reset unitMasterCollection.toArray()
+			# CommonFloor.filter()
 			previousRoute = CommonFloor.router.previous()
 			CommonFloor.navigate '/'+previousRoute , true
 
@@ -91,7 +110,9 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			unitTypes = _.without unitTypes , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['unitTypes'] = unitTypes.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
+			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
 			
 		'click @ui.variantNames':(e)->
@@ -99,13 +120,17 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			variantNames = _.without variantNames , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['unitVariants'] = variantNames.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filter()	
+			CommonFloor.filterBuilding(@building_id)
+			CommonFloor.filter()
+			unitTempCollection.trigger( "filter_available") 	
 			@trigger  'render:view'
 
 		'click @ui.status':(e)->
 			CommonFloor.defaults['availability'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
+			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
 
 			
@@ -114,23 +139,44 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			CommonFloor.defaults['area_max'] = ""
 			CommonFloor.defaults['area_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
+			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
 
 		'click @ui.budget':(e)->
 			CommonFloor.defaults['price_max'] = ""
 			CommonFloor.defaults['price_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
+			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
+
+		'click @ui.floor':(e)->
+			CommonFloor.defaults['floor_max'] = ""
+			CommonFloor.defaults['floor_min'] = ""
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterBuilding(@building_id)
+			CommonFloor.filter()
+			unitTempCollection.trigger( "filter_available") 
+			@trigger  'render:view'
+
+	onShow:->
+		if CommonFloor.router.history.length == 1
+			@ui.unitBack.hide()
+		results  = CommonFloor.getFilters()[1]
+		if results.length == 0
+			$('.proj-type-count').text 'No results found'
+
 
 class CommonFloor.TopApartmentMasterCtrl extends Marionette.RegionController
 
 	initialize:->
-		@renderView()
-		unitTempCollection.on("change reset add remove", @renderView, @)
+		@renderMasterTopView()
+		unitTempCollection.bind( "filter_available", @renderMasterTopView, @) 
 
-	renderView:->
+	renderMasterTopView:->
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		response = window.building.getBuildingUnits(building_id)
@@ -213,24 +259,23 @@ class ApartmentsView extends Marionette.ItemView
 
 class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 
-	template : '	<div><div class="col-md-3 col-xs-12 col-sm-12 search-left-content p-t-10">
-									<div class="list-view-container w-map animated fadeInLeft">
-										<div class="filters-wrapper ">
-											<div class="advncd-filter-wrp  unit-list">
-												<div class="legend clearfix">
-												  <ul>
-												    <li class="available">AVAILABLE</li>
-												    <li class="sold">SOLD</li>
-												    <li class="blocked">BLOCKED</li>
-												    <li class="na">N/A</li>
-												  </ul>
-												 </div>
-				                  				<p class="text-center help-text">Hover on the units for more details</p>
-								               	<ul class="units two">
-							                	</ul>					                			
-											</div>
-										</div></div>
-									</div></div>'
+	template : '<div>
+					<div class="list-view-container w-map animated fadeInLeft">
+						<div class="advncd-filter-wrp  unit-list">
+							<div class="legend clearfix">
+							  <ul>
+							    <li class="available">AVAILABLE</li>
+							    <li class="sold">SOLD</li>
+							    <li class="blocked">BLOCKED</li>
+							    <li class="na">N/A</li>
+							  </ul>
+							 </div>
+              				<p class="text-center help-text">Hover on the units for more details</p>
+			               	<ul class="units two">
+		                	</ul>					                			
+						</div>
+					</div>
+				</div>'
 
 	childView : ApartmentsView
 
@@ -242,47 +287,71 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 class CommonFloor.LeftApartmentMasterCtrl extends Marionette.RegionController
 
 	initialize:->
-		@renderView()
-		unitTempCollection.on("change reset add remove", @renderView, @)
+		@renderLeftView()
+		unitTempCollection.bind( "filter_available", @renderLeftView, @) 
 
-	renderView:->
+	renderLeftView:->
+		
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		response = window.building.getBuildingUnits(building_id)
+		if response.length == 0
+			region =  new Marionette.Region el : '#leftregion'
+			new CommonFloor.NoUnitsCtrl region : region
+			return
 		unitsCollection = new Backbone.Collection response
 		@show new CommonFloor.LeftApartmentMasterView
 				collection : unitsCollection
 
 class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="col-md-9 us-right-content">
-	            <div class="list-view-container">
-	            <!--<div class="controls mapView">
-			            <div class="toggle">
-			            	<a href="#" class="map active">Map</a><a href="#" class="list">List</a>
-			            </div>
-		            </div>-->
-	              <div class="single-bldg">
-	                <div class="prev"></div>
-	                <div class="next"></div>
-	              </div>
-	              <div id="spritespin"></div>
-										<div class="svg-maps">
-											<img class="first_image img-responsive" src="" />
-											<div class="region inactive"></div>
+
+	template : Handlebars.compile('<button class="btn btn-primary filter-button pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters">
+										<span class="icon-funnel"></span>
+									</button>
+									<div class="col-md-12 us-right-content mobile visible animated fadeIn">
+
+										<div class="zoom-controls">
+											<div class="zoom-in"></div>
+											<div class="zoom-out"></div>
 										</div>
+
+										<div id="view_toggle" class="toggle-view-button list"></div>
+										<div id="trig" class="toggle-button">List View</div>
+							              
+							            <div class=" master animated fadeIn">
+
+								            <div class="single-bldg">
+								                <div class="prev"></div>
+								                <div class="next"></div>
+								            </div>
+		              						
+		              						<div id="spritespin"></div>
+											<div class="svg-maps">
+												<img class="first_image img-responsive" src="" />
+												<div class="region inactive"></div>
+											</div>
+
+								    	</div>
+										
 										<div class="cf-loader hidden"></div>
 							            <div class="rotate rotate-controls hidden">
 									        <div id="prev" class="rotate-left">Left</div>
 									        <span class="rotate-text">Rotate</span>
 									        <div id="next" class="rotate-right">Right</div>
 							    		</div>
-	              
-	            </div>
-	          </div>')
+							    		<div style="width:300px;height:150px;position:relative;z-index:999">
+							    		<img class="firstimage img-responsive" src=""style="width:300px;height:150px;position:absolute;z-index:999" />
+							    		<div class="project_master" style="width:300px;height:150px;position:absolute;z-index:999">
+							    		</div></div>
+							              
+							        </div>')
+
 
 	ui :
-		svgContainer : '.list-view-container'
+		svgContainer : '.master'
+		trig         : '#trig'
+		viewtog      : '#view_toggle'
 
 	
 	initialize:->
@@ -291,6 +360,35 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		
 
 	events:
+		'click @ui.trig':(e)->
+			$('.us-left-content').toggleClass 'col-0 col-md-3'
+			$('.us-right-content').toggleClass 'col-md-12 col-md-9'
+			that = @
+			setTimeout( (x)->
+				
+				$('#spritespin').spritespin(
+					width: that.ui.svgContainer.width() + 13
+					sense: -1
+					height: that.ui.svgContainer.width() / 2
+					animate: false
+				)
+				$('.svg-maps > div').first().css('width',that.ui.svgContainer.width() + 13)
+				$('.first_image').first().css('width',that.ui.svgContainer.width() + 13)
+
+				height= that.ui.svgContainer.width() / 2
+				$('.units').css('height',height-120)
+
+			, 650)
+
+			setTimeout( (x)->
+				$('.master').panzoom('resetDimensions');				
+			, 800)
+
+			
+		'click @ui.viewtog':(e)->
+			$('.us-left-content').toggleClass 'not-visible visible'
+			$('.us-right-content').toggleClass 'not-visible visible'
+			
 		'click #prev':->
 			@setDetailIndex(@currentBreakPoint - 1)
 
@@ -311,7 +409,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			CommonFloor.navigate '/building/'+building_id+'/master-view' , true
 			CommonFloor.router.storeRoute()
 
-		'mouseover .layer':(e)->
+		'mouseover .apartment':(e)->
 			id = parseInt e.target.id
 			unit = unitCollection.findWhere
 					'id' : id
@@ -352,7 +450,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('#apartment'+id).attr('class' ,' unit blocks '+availability+' active') 
 			$('.layer').tooltipster('content', html)
 		
-		'mouseout .layer':(e)->
+		'mouseout .apartment':(e)->
 			id = parseInt e.target.id
 			unit = unitCollection.findWhere
 					'id' : id
@@ -362,12 +460,57 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			availability = s.decapitalize(availability)
 			$('#'+id).attr('class' ,'layer ') 
 			$('#apartment'+id).attr('class' ,'unit blocks '+availability)
+
+		'mouseover .next':(e)->
+			id = parseInt $(e.target).attr('data-id')
+			buildingModel = buildingCollection.findWhere
+								'id' : id
+			images = Object.keys(buildingModel.get('building_master')).length
+			if images != 0
+				console.log "show image"
+			floors = buildingModel.get 'floors'
+			floors = Object.keys(floors).length
+			unitTypes = window.building.getUnitTypes(id)
+			response = window.building.getUnitTypesCount(id,unitTypes)
+			html = '<div class="svg-info">
+						<h4 class="pull-left">'+buildingModel.get('building_name')+'</h4>
+							<h4 class="pull-left">'+window.building.getMinimumCost(id)+'</h4>
+						<!--<span class="label label-success"></span-->
+						<div class="clearfix"></div>'
+			$.each response,(index,value)->
+				html += '<div class="details">
+							<div>
+								<label>'+value.name+'</label> - '+value.units+'
+							</div>'
+
+			html += '<div>
+						<label>No. of floors</label> - '+floors+'
+					</div>
+					</div>
+
+					</div>' 
+			$(e.target).tooltipster('content', html)
+
+		'click .next,.prev':(e)->
+			id = parseInt $(e.target).attr('data-id')
+			buildingModel = buildingMasterCollection.findWhere
+								'id' : id
+			if Object.keys(buildingModel.get('building_master')).length == 0
+				CommonFloor.navigate '/building/'+id+'/apartments' , true
+				CommonFloor.router.storeRoute()
+			else
+				CommonFloor.navigate '/building/'+id+'/master-view' , true
+				CommonFloor.router.storeRoute()
+				
+
+
 		
 
 
 	onShow:->
+		@getNextPrev()
 		$('img').lazyLoadXT()
-		height =  @ui.svgContainer.width() / 1.46
+		height =  @ui.svgContainer.width() / 2
 		$('.search-left-content').css('height',height)
 		$('#spritespin').hide()
 		url = Backbone.history.fragment
@@ -385,11 +528,50 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		console.log first = _.values svgs
 		$('.region').load(first[0],
 			$('.first_image').attr('data-src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
+		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
 			response = building.checkRotationView(building_id)
 			$('.cf-loader').removeClass 'hidden'
+			if response is 1
+				$('.cf-loader').removeClass 'hidden'
 		
 		@initializeRotate(transitionImages,svgs,building)
+		@loadProjectMaster()
+
+	loadProjectMaster:->
+		svgs = []
+		breakpoints = project.get('breakpoints')
+		$.each breakpoints,(index,value)->
+			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/master/master-'+value+'.svg'
+
+		
+		first = _.values svgs
+		transitionImages = []
+		$.merge transitionImages ,  project.get('project_master')
+		if project.get('project_master').length != 0
+			$('.project_master').load(first[0],
+				$('.firstimage').attr('src',transitionImages[0])
+				url = Backbone.history.fragment
+				console.log building_id = parseInt url.split('/')[1]
+				$('#'+building_id+'.building').attr('layer building active_bldg'))
+		
+
+	getNextPrev:->
+		url = Backbone.history.fragment
+		building_id = parseInt url.split('/')[1]
+		buildingModel = buildingMasterCollection.findWhere
+					'id' : building_id
+		buildingMasterCollection.setRecord(buildingModel)
+		next = buildingMasterCollection.next()
+		if _.isUndefined next
+			$('.next').hide()
+		else
+			$('.next').attr('data-id',next.get('id'))
+		console.log prev = buildingMasterCollection.prev()
+		if _.isUndefined prev
+			$('.prev').hide()
+		else
+			$('.prev').attr('data-id',next.get('id'))
 
 
 	setDetailIndex:(index)->
@@ -419,7 +601,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			source: frames
 			width: @ui.svgContainer.width() 
 			sense: -1
-			height: @ui.svgContainer.width() / 1.46
+			height: @ui.svgContainer.width() / 2
 			animate: false
 		)
 		that = @
@@ -439,12 +621,14 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
 				$('.cf-loader').addClass 'hidden'
+			$('.region').load(url,()->that.iniTooltip())
+
 
 				
 		)
 
 	iniTooltip:->
-		$('.layer').tooltipster(
+		$('.layer,.next,.prev').tooltipster(
 			theme: 'tooltipster-shadow',
 			contentAsHTML: true
 			onlyOne : true

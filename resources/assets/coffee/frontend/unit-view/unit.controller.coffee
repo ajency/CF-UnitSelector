@@ -56,6 +56,7 @@ class TopUnitView extends Marionette.ItemView
 			CommonFloor.navigate '/'+previousRoute , true
 
 	onShow:->
+		CommonFloor.router.storeRoute()
 		if CommonFloor.router.history.length == 1
 			@ui.unitBack.hide()
 
@@ -85,7 +86,7 @@ class LeftUnitView extends Marionette.ItemView
 
 									<div class="details">
 										<div>
-											<label>Price: </label> <span class="price"></span>
+											<label>Price: </label> <span class="icon-rupee-icn price"></span>
 										</div>
 										<div>
 											<label>Unit Variant:</label> {{unit_variant}}
@@ -149,16 +150,33 @@ class LeftUnitView extends Marionette.ItemView
 							</div>
 							<div class="clearfix"></div>
 						
-							<div class="similar-section">
-					            <label>Similar Villas based on your filters:</label><br>
+							<div >
+					            <span class="similar">{{similarUnitsText}}</span><br>
 					            <!--<p>Pool View, Garden, 3BHK</p>-->
-					            <ul>
+					          
 					              	{{#similarUnits}}
-					            	<li class="">
-					                	{{unit_name}}
-					                </li>
+					              	<a href="/#unit-view/{{id}}">
+					              	<div>
+					              		
+					              		<div>
+											<label>Name: </label> {{unit_name}}
+										</div>
+										<div>
+											<label>Price: </label> <span class="icon-rupee-icn">{{price}}</span>
+										</div>
+										<div>
+											<label>Unit Variant:</label> {{variant}}
+										</div>
+										<div>
+											<label>Unit Type:</label> {{unit_type}}
+										</div>
+										<div>
+											<label>Area:</label> {{area}} sqft
+										</div>
+									</div>
+					            	</a>
 					                {{/similarUnits}}
-					            </ul>
+					            
 				            </div>
 						</div>
 					</div>')
@@ -180,34 +198,45 @@ class LeftUnitView extends Marionette.ItemView
 
 		similarUnits = @getSimilarUnits(unit)
 		temp = []
-		$.each similarUnits, (index,value)->
+		$.each similarUnits[0], (index,value)->
 			temp.push 
 				'unit_name' : value.get('unit_name')
-		console.log temp
+				'unit_type' : response[1].get 'name'
+				'price' : window.numDifferentiation(response[3])
+				'area':response[0].get 'super_built_up_area'
+				'variant':response[0].get 'unit_variant_name'
 		data.area = response[0].get('super_built_up_area')
 		data.type = response[1].get('name')
 		data.unit_variant = response[0].get('unit_variant_name')
 		data.levels  = @generateLevels(floor,response,unit)
 		data.attributes  = attributes
 		data.similarUnits = temp
+		data.similarUnitsText = similarUnits[1]
 		data
 
 	getSimilarUnits:(unit)->
 		units = []
 		i = 0
-		unitsArr = unitCollection.toArray()
-		$.each unitsArr, (item,value)->
-			if value.get('unit_variant_id') == unit.get('unit_variant_id') 
+		url = Backbone.history.fragment
+		unitid = parseInt url.split('/')[1]
+		unitModel = unitMasterCollection.findWhere
+					'id' : unitid
+		unitColl = CommonFloor.getUnitsProperty(unitModel)
+		unitsArr = unitColl[0]
+		text = unitColl[1]
+		$.each unitsArr.toArray(), (index, value)->
+			if value.id != unitid
 				units.push value
 				i++
 			if i == 3
 				return false
-			
-		units
+				
+		if unitsArr.length == 1
+			text = ''
+		[units,text]
 
 
 	generateLevels:(floor,response,unit)->
-		console.log unit
 		levels = []
 		$.each floor,(index,value)->
 			rooms = []
@@ -234,9 +263,9 @@ class LeftUnitView extends Marionette.ItemView
 		url = Backbone.history.fragment
 		unitid = parseInt url.split('/')[1]
 		response = window.unit.getUnitDetails(unitid)
-		window.convertRupees(response[3])
-		$('.price').text $('#price').val()
-		if response[4] != null
+		$('.price').text window.numDifferentiation(response[3])
+		console.log response[4]
+		if response[4] != null && response[4].length != 0
 			$('.property').removeClass 'hidden'
 	
 #Left Controller for unit
@@ -289,6 +318,11 @@ class CenterUnitView extends Marionette.ItemView
 										</div>
 									</div>
 								</div>
+								<div class="single-bldg">
+	              	
+					                <div class="prev"></div>
+					                <div class="next"></div>
+				              </div>
 							</div>
 						</div>
 					</div>')
@@ -365,10 +399,34 @@ class CenterUnitView extends Marionette.ItemView
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
 			$('.external').removeClass('current')
+
+		'mouseover .next,.prev':(e)->
+			id = parseInt $(e.target).attr('data-id')
+			unitModel = unitCollection.findWhere
+								'id' : id
+			response = window.unit.getUnitDetails(id)
+			html = '<div class="svg-info">
+						<h4 class="pull-left">'+unitModel.get('unit_name')+'</h4><br/>
+							<h4 class="pull-left">'+window.numDifferentiation(response[3])+'</h4><br/>
+								<h4 class="pull-left">'+response[0].get('super_built_up_area')+'Sq.Ft</h4><br/>
+									<h4 class="pull-left">'+response[0].get('unit_variant_name')+'</h4><br/>
+										<h4 class="pull-left">'+response[1].get('name')+'</h4>
+
+						<div class="clearfix"></div></div>'
+			
+			$(e.target).tooltipster('content', html)
+
+		'click .next,.prev':(e)->
+			id = parseInt $(e.target).attr('data-id')
+			unitModel = unitCollection.findWhere
+								'id' : id
+			CommonFloor.navigate '/unit-view/'+id , true
+			CommonFloor.router.storeRoute()
+			
 		
 
 	onShow:->
-
+		@getNextPrevUnit()
 		response = @generateLevels()
 		html = ''
 		$.each response[0],(index,value)->
@@ -440,6 +498,21 @@ class CenterUnitView extends Marionette.ItemView
 		$('.images').html html
 		$(".fancybox").fancybox()
 		$('.img').lazyLoadXT()
+		@iniTooltip()
+
+	iniTooltip:->
+		$('.next,.prev').tooltipster(
+				theme: 'tooltipster-shadow'
+				contentAsHTML: true
+				onlyOne : true
+				arrow : false
+				offsetX : 50
+				offsetY : -10
+				interactive : true
+				# animation : 'grow'
+				trigger: 'hover'
+				
+		)
 
 	generateLevels:->
 		url = Backbone.history.fragment
@@ -460,6 +533,26 @@ class CenterUnitView extends Marionette.ItemView
 			
 			i = i + 1	
 		[twoD,threeD,level,response[0]]
+
+
+	getNextPrevUnit:->
+		url = Backbone.history.fragment
+		unitid = parseInt url.split('/')[1]
+		unitModel = unitCollection.findWhere
+					'id' : unitid
+		CommonFloor.getUnitsProperty(unitModel)
+		window.tempColl.setRecord(unitModel)
+		next = tempColl.next()
+		if _.isUndefined next
+			$('.next').hide()
+		else
+			$('.next').attr('data-id',next.get('id'))
+		prev = tempColl.prev()
+		if _.isUndefined prev
+			$('.prev').hide()
+		else
+			$('.prev').attr('data-id',next.get('id'))
+
 #Center View for the unit
 class CommonFloor.CenterUnitCtrl extends Marionette.RegionController
 

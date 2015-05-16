@@ -104,10 +104,18 @@
 }
 
 .zoom{
-  .ease;
-  transform: scale(2,2);
-  filter: blur(10px);
+  animation: project-zoom 1s linear;
+  // transform: scale(2,2);
+  // filter: blur(10px);
   // opacity: .5;
+}
+
+@keyframes project-zoom {
+  from, to { transform: none; }
+  100% { 
+    transform: scale(3);
+    opacity: 0;
+  }
 }
 
 .text-primary{
@@ -153,6 +161,15 @@
   border-left: 2px solid @brand-primary;
   border-right: 2px solid @white;
   content: '';
+}
+
+@media(min-width:992px){
+  .cf-loader {
+    &.loader-center{
+      top: 45%;
+      left: -30%;
+    }
+  }
 }
 
 
@@ -223,13 +240,16 @@
 /* Back Button */
 .breadcrumb-bar{
   position: absolute;
-  padding: 15px 0 0 15px;
-  padding-bottom: 0;
+  left: 0;
   a {
+    display: inline-block;
+    padding: 15px 20px;
+    background-color: @brand-primary-darker;
     color: @white;
     font-weight: bold;
+    font-size: 18px;
     &::before{
-      content: "\e77a";
+      content: "\e761";
       font-family: icomoon;
     }
   } 
@@ -264,7 +284,7 @@
   display: none;
 }
 
-@media(max-width:767px){
+@media(max-width:991px){
   .toggle-button{
     display: none;
   }
@@ -300,24 +320,14 @@
       background-color: @brand-primary;
       color: @white;
     }
-  }
-  .us-right-content, .us-left-content{
-    &.mobile{
-      &.visible{
-        display: block;
-      }
-      &.not-visible{
-        display: none;
-      }
-    }
   } 
 }
 
 /* Zoom Controls */
 .zoom-controls{
   position: absolute;
-  top: 75px;
-  right: 15px;
+  top: 70px;
+  left: 15px;
   display: block;
   z-index: 999;
   .zoom-in, .zoom-out{

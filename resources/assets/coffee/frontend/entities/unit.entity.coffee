@@ -1,6 +1,8 @@
 #Unit model and Unit collection Definition
 class Unit extends Backbone.Model
 
+
+
 	#get the unit details 
 	getUnitDetails:(unit_id)->
 		id  = parseInt unit_id
@@ -74,6 +76,40 @@ class Unit extends Backbone.Model
 	
 class UnitCollection extends Backbone.Collection
 	model : Unit
+
+	getRecord:->
+		@currentModel
+
+	setRecord:(model)->
+		@currentModel = model
+
+	next:->
+		units = _.pluck @.toArray(), 'id'
+		next = @at(@indexOf(@getRecord()) + 1)
+		if _.isUndefined next
+			first = _.first units
+			if @currentModel.get('id') == first
+				next
+			else
+				record = @findWhere
+					'id' : first
+				record
+		else
+			next
+
+	prev:->
+		units = _.pluck @.toArray(), 'id'
+		prev = @at(@indexOf(@getRecord()) - 1)
+		if _.isUndefined prev
+			last = _.last units
+			if @currentModel.get('id') == last
+				prev
+			else
+				record = @findWhere
+					'id' : last
+				record
+		else
+			prev
 	
 
 	#set the attributes of a unit model

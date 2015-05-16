@@ -101,6 +101,52 @@
 
     UnitCollection.prototype.model = Unit;
 
+    UnitCollection.prototype.getRecord = function() {
+      return this.currentModel;
+    };
+
+    UnitCollection.prototype.setRecord = function(model) {
+      return this.currentModel = model;
+    };
+
+    UnitCollection.prototype.next = function() {
+      var first, next, record, units;
+      units = _.pluck(this.toArray(), 'id');
+      next = this.at(this.indexOf(this.getRecord()) + 1);
+      if (_.isUndefined(next)) {
+        first = _.first(units);
+        if (this.currentModel.get('id') === first) {
+          return next;
+        } else {
+          record = this.findWhere({
+            'id': first
+          });
+          return record;
+        }
+      } else {
+        return next;
+      }
+    };
+
+    UnitCollection.prototype.prev = function() {
+      var last, prev, record, units;
+      units = _.pluck(this.toArray(), 'id');
+      prev = this.at(this.indexOf(this.getRecord()) - 1);
+      if (_.isUndefined(prev)) {
+        last = _.last(units);
+        if (this.currentModel.get('id') === last) {
+          return prev;
+        } else {
+          record = this.findWhere({
+            'id': last
+          });
+          return record;
+        }
+      } else {
+        return prev;
+      }
+    };
+
     UnitCollection.prototype.setUnitAttributes = function(data) {
       var response;
       response = this.setUnitType(data);
