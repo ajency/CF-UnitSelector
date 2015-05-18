@@ -342,7 +342,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 									        <span class="rotate-text">Rotate</span>
 									        <div id="next" class="rotate-right">Right</div>
 							    		</div>
-							    		<div style="mini-map">
+							    		<div class="mini-map">
 							    			<img class="firstimage img-responsive" src="" />
 							    			<div class="project_master"></div>
 							    		</div>
