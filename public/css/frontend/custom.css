@@ -74,8 +74,7 @@ body {
 }
 /* Left Container */
 .search-left-content {
-  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   margin-top: 10px;
   padding-right: 15px;
@@ -87,8 +86,7 @@ body {
   }
 }
 .us-left-content {
-  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 .filters-wrapper .tab-main-container {
   border-right: 0;
@@ -103,8 +101,7 @@ body {
 .us-right-content {
   padding-left: 0;
   padding-right: 0;
-  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 .us-right-content .svg-area {
   width: 100%;
@@ -244,8 +241,7 @@ hr.embossed {
   /* adjust as needed */
   color: grey;
   /* adjust as needed */
-  -ms-transform: rotate(0deg);
-      transform: rotate(0deg);
+  transform: rotate(0deg);
   -webkit-transform: rotate(0deg);
   -moz-transform: rotate(0deg);
 }
@@ -259,8 +255,7 @@ hr.embossed {
   /* adjust as needed */
   color: grey;
   /* adjust as needed */
-  -ms-transform: rotate(180deg);
-      transform: rotate(180deg);
+  transform: rotate(180deg);
   -webkit-transform: rotate(180deg);
   -moz-transform: rotate(180deg);
 }
@@ -338,8 +333,7 @@ hr.embossed {
   font-size: 14px;
   border: 1px solid #f68121;
   text-align: center;
-  -webkit-transition: all ease .2s;
-          transition: all ease .2s;
+  transition: all ease .2s;
   cursor: pointer;
   background-color: transparent;
   vertical-align: middle;
@@ -689,34 +683,18 @@ hr.embossed {
   position: absolute;
   top: 0px;
   left: 0px;
-  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 .zoom {
-  -webkit-animation: project-zoom 1s linear;
-          animation: project-zoom 1s linear;
-}
-@-webkit-keyframes project-zoom {
-  from,
-  to {
-    -webkit-transform: none;
-            transform: none;
-  }
-  100% {
-    -webkit-transform: scale(3);
-            transform: scale(3);
-    opacity: 0;
-  }
+  animation: project-zoom 1s linear;
 }
 @keyframes project-zoom {
   from,
   to {
-    -webkit-transform: none;
-            transform: none;
+    transform: none;
   }
   100% {
-    -webkit-transform: scale(3);
-            transform: scale(3);
+    transform: scale(3);
     opacity: 0;
   }
 }
@@ -733,10 +711,12 @@ hr.embossed {
   display: block;
   -webkit-box-align: center;
   -webkit-align-items: center;
+  -moz-box-align: center;
   -ms-flex-align: center;
   align-items: center;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
+  -moz-box-pack: center;
   -ms-flex-pack: center;
   justify-content: center;
 }
@@ -747,8 +727,12 @@ hr.embossed {
   width: 15px;
   height: 15px;
   -webkit-animation: rotate 0.6s linear infinite;
+  -moz-animation: rotate 0.6s linear infinite;
   -ms-animation: rotate 0.6s linear infinite;
+  -o-animation: rotate 0.6s linear infinite;
   animation: rotate 0.6s linear infinite;
+  -webkit-border-radius: 100%;
+  -moz-border-radius: 100%;
   border-radius: 100%;
   border-top: 2px solid #f68121;
   border-bottom: 2px solid #ffffff;
@@ -790,10 +774,37 @@ hr.embossed {
     -o-transform: rotateZ(0deg);
   }
 }
+@-moz-keyframes rotate {
+  0% {
+    transform: rotateZ(-360deg);
+    -webkit-transform: rotateZ(-360deg);
+    -moz-transform: rotateZ(-360deg);
+    -o-transform: rotateZ(-360deg);
+  }
+  100% {
+    transform: rotateZ(0deg);
+    -webkit-transform: rotateZ(0deg);
+    -moz-transform: rotateZ(0deg);
+    -o-transform: rotateZ(0deg);
+  }
+}
+@-o-keyframes rotate {
+  0% {
+    transform: rotateZ(-360deg);
+    -webkit-transform: rotateZ(-360deg);
+    -moz-transform: rotateZ(-360deg);
+    -o-transform: rotateZ(-360deg);
+  }
+  100% {
+    transform: rotateZ(0deg);
+    -webkit-transform: rotateZ(0deg);
+    -moz-transform: rotateZ(0deg);
+    -o-transform: rotateZ(0deg);
+  }
+}
 /* Transition */
 .ease {
-  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 /* Back Button */
 .breadcrumb-bar {
@@ -820,15 +831,12 @@ hr.embossed {
   background-color: #ffffff;
   color: #f68121;
   padding: 6px 12px;
-  -webkit-transform: rotate(270deg);
-      -ms-transform: rotate(270deg);
-          transform: rotate(270deg);
+  transform: rotate(270deg);
   left: -34px;
   top: 45%;
   cursor: pointer;
   z-index: 999;
-  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 .toggle-button::before {
   content: "\e756";
@@ -892,8 +900,7 @@ hr.embossed {
   cursor: pointer;
   padding: 0 10px;
   text-align: center;
-  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 .zoom-controls .zoom-in::before,
 .zoom-controls .zoom-out::before {
@@ -937,14 +944,11 @@ hr.embossed {
   margin: auto;
   display: inline-block;
   cursor: pointer;
-  -webkit-transition: all 0.3s ease;
-          transition: all 0.3s ease;
+  transition: all 0.3s ease;
 }
 .rotate-controls .rotate-left:hover,
 .rotate-controls .rotate-right:hover {
-  -webkit-transform: scale(1.1, 1.1);
-      -ms-transform: scale(1.1, 1.1);
-          transform: scale(1.1, 1.1);
+  transform: scale(1.1, 1.1);
 }
 .rotate-controls .rotate-right {
   background-position: -125px -5px;
@@ -987,19 +991,15 @@ svg .layer {
   stroke-width: 0px;
   stroke-dasharray: 20 300;
   stroke-dashoffset: 400;
-  -webkit-transition: 0.5s ease-in;
-          transition: 0.5s ease-in;
-  -webkit-transform-origin: 50% 50%;
-      -ms-transform-origin: 50% 50%;
-          transform-origin: 50% 50%;
+  transition: 0.5s ease-in;
+  transform-origin: 50% 50%;
 }
 svg .layer.svg_active {
   stroke-width: 4px;
   stroke-dasharray: 320 0;
   stroke-dashoffset: 0;
   stroke: #f68121;
-  -webkit-transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
-          transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
+  transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
 }
 svg .layer.not_in_selection {
   opacity: .5;
@@ -1007,16 +1007,13 @@ svg .layer.not_in_selection {
   -webkit-animation: unit_fadein 0.6s;
 }
 svg .layer:hover {
-  -webkit-transform: scale(1.06);
-      -ms-transform: scale(1.06);
-          transform: scale(1.06);
+  transform: scale(1.06);
   cursor: default;
   stroke: #f68121;
   stroke-width: 4px;
   stroke-dasharray: 320 0;
   stroke-dashoffset: 0;
-  -webkit-transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
-          transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
+  transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
 }
 svg .villa,
 svg .building,
@@ -1060,86 +1057,41 @@ svg .marker-area:hover rect {
   opacity: 0.6;
 }
 svg polygon {
-  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 .step1-marker {
   cursor: pointer;
-  -webkit-transform-origin: 50% 50%;
-      -ms-transform-origin: 50% 50%;
-          transform-origin: 50% 50%;
+  transform-origin: 50% 50%;
   opacity: 0.3;
 }
 .step1-marker:hover {
-  -webkit-animation: pulse 1s infinite;
-          animation: pulse 1s infinite;
-}
-@-webkit-keyframes pulse {
-  0% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  50% {
-    -webkit-transform: scale(1.05);
-            transform: scale(1.05);
-  }
-  100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
+  animation: pulse 1s infinite;
 }
 @keyframes pulse {
   0% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
+    transform: scale(1);
   }
   50% {
-    -webkit-transform: scale(1.05);
-            transform: scale(1.05);
+    transform: scale(1.05);
   }
   100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-}
-@-webkit-keyframes unit_fadein {
-  0% {
-    opacity: 0;
-    -webkit-transform: translateY(-400px);
-            transform: translateY(-400px);
-  }
-  60% {
-    opacity: 1;
-    -webkit-transform: translateY(30px);
-            transform: translateY(30px);
-  }
-  80% {
-    -webkit-transform: translateY(-10px);
-            transform: translateY(-10px);
-  }
-  100% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: scale(1);
   }
 }
 @keyframes unit_fadein {
   0% {
     opacity: 0;
-    -webkit-transform: translateY(-400px);
-            transform: translateY(-400px);
+    transform: translateY(-400px);
   }
   60% {
     opacity: 1;
-    -webkit-transform: translateY(30px);
-            transform: translateY(30px);
+    transform: translateY(30px);
   }
   80% {
-    -webkit-transform: translateY(-10px);
-            transform: translateY(-10px);
+    transform: translateY(-10px);
   }
   100% {
-    -webkit-transform: translateY(0);
-            transform: translateY(0);
+    transform: translateY(0);
   }
 }
 .list-view-container {
@@ -1264,22 +1216,16 @@ svg polygon {
 }
 .blocks.available,
 .blocks.active {
-  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 .blocks.available:hover,
 .blocks.active:hover {
   box-shadow: inset 0 0 10px 1px #f68121;
-  -webkit-animation-name: hvr-back-pulse;
-          animation-name: hvr-back-pulse;
-  -webkit-animation-duration: 1s;
-          animation-duration: 1s;
-  -webkit-animation-delay: 0;
-          animation-delay: 0;
-  -webkit-animation-timing-function: linear;
-          animation-timing-function: linear;
-  -webkit-animation-iteration-count: infinite;
-          animation-iteration-count: infinite;
+  animation-name: hvr-back-pulse;
+  animation-duration: 1s;
+  animation-delay: 0;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
 }
 .blocks.sold,
 .blocks.blocked,
@@ -1438,8 +1384,7 @@ svg polygon {
 .units {
   list-style-type: none;
   overflow-y: auto;
-  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1)
+  transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
   /* List of Villas */
   /* List of Buildings */
 }
@@ -1557,9 +1502,7 @@ svg polygon {
 }
 .single-bldg .prev {
   left: 20px;
-  -webkit-transform: rotate(180deg);
-      -ms-transform: rotate(180deg);
-          transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 .single-bldg .next {
   right: 35px;
@@ -1582,13 +1525,11 @@ svg polygon {
 }
 .bldg_info .unit-type-info li {
   font-size: 12px;
-  float: left;
+  display: inline;
   text-align: center;
-  width: 50%;
 }
 .bldg_info .unit-type-info li::after {
   content: '|';
-  float: right;
 }
 .bldg_info .unit-type-info li:nth-child(2n)::after {
   content: '';
@@ -1628,9 +1569,7 @@ svg polygon {
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   width: 100%;
 }
 .slider .layouts .img-overlay {
@@ -1641,8 +1580,7 @@ svg polygon {
   width: 100%;
   background-color: #ffffff;
   opacity: 0.75;
-  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 .slider .layouts span {
   position: absolute;
@@ -1654,8 +1592,7 @@ svg polygon {
   font-weight: bold;
   text-align: center;
   opacity: 1;
-  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 .slider .layouts:hover .img-overlay {
   opacity: 0;
@@ -1698,9 +1635,7 @@ svg polygon {
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-      -ms-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
   width: 100%;
 }
 .slider .gallery-img .img-overlay {
@@ -1712,8 +1647,7 @@ svg polygon {
   width: 100%;
   background-color: #ffffff;
   opacity: 0.75;
-  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+  transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 .slider .gallery-img:hover .img-overlay {
   opacity: 0;
@@ -1729,8 +1663,7 @@ svg polygon {
   top: 25px;
   padding: 0;
   overflow: hidden;
-  -webkit-transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-          transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
   background-color: rgba(255, 255, 255, 0.9);
   width: 340px;
   height: 340px;
@@ -1768,8 +1701,7 @@ svg polygon {
   padding: 6px 12px;
   font-size: 15px;
   border-radius: 50%;
-  -webkit-transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
-          transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
   z-index: 9999;
 }
 .filter-button .icon-place:after {
@@ -1823,12 +1755,10 @@ svg polygon {
   padding: 5px 15px 5px 20px;
   margin-top: 30px;
   border-top: 1px solid #cccccc;
-  -webkit-transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
-          transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .filters-wrapper div {
-  -webkit-transition: all 1.5s;
-          transition: all 1.5s;
+  transition: all 1.5s;
 }
 .filters-wrapper .filter-chkbox-block label {
   color: #666666;
@@ -1847,8 +1777,7 @@ svg polygon {
 }
 .filters-wrapper .filters-content {
   height: 295px;
-  -webkit-transition: none;
-          transition: none;
+  transition: none;
 }
 .filters-wrapper .filter-chkbox-block label {
   margin: 4px 15px 4px 0;
@@ -1863,8 +1792,7 @@ svg polygon {
   top: 8px;
   left: 15px;
   z-index: 9999;
-  -webkit-transition: all 1s;
-          transition: all 1s;
+  transition: all 1s;
 }
 .filter-link {
   color: #000000;
@@ -1923,8 +1851,7 @@ span.glyphicon {
   width: 100%;
   text-align: center;
   background: #e6e6e6;
-  -webkit-transition: all 1.5s;
-          transition: all 1.5s;
+  transition: all 1.5s;
 }
 .filters-bottom a {
   color: #999999;
@@ -1967,6 +1894,8 @@ span.glyphicon {
   background: #cccccc;
   margin: 30px auto 0;
   padding: 0 !important;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
   border-radius: 50px;
   position: relative;
   height: 4px;
@@ -1976,7 +1905,7 @@ span.glyphicon {
   float: left;
 }
 .toggle_radio input[type=radio] {
-  display: none
+  display: none;
   /*position: fixed;*/
 }
 .toggle_radio label {
@@ -1988,11 +1917,13 @@ span.glyphicon {
   height: 20px;
   margin: 0 3px;
   padding-top: 15px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
   border-radius: 50px;
   cursor: pointer;
   z-index: 1;
   /*background: rgba(0,0,0,.1);*/
-  text-align: center
+  text-align: center;
   /*margin: 0 2px;*/
   /*background: blue;*/
   /*make it blue*/
@@ -2010,8 +1941,13 @@ label.third_toggle {
   height: 8px;
   position: absolute;
   top: -2px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
   border-radius: 50px;
   -webkit-transition: all .2s ease;
+  -moz-transition: all .2s ease;
+  -o-transition: all .2s ease;
+  -ms-transition: all .2s ease;
   transition: all .2s ease;
 }
 .toggle_option_slider {
@@ -2021,8 +1957,13 @@ label.third_toggle {
   height: 35px;
   position: absolute;
   top: -16px;
+  -webkit-border-radius: 50px;
+  -moz-border-radius: 50px;
   border-radius: 50px;
   -webkit-transition: all .4s ease;
+  -moz-transition: all .4s ease;
+  -o-transition: all .4s ease;
+  -ms-transition: all .4s ease;
   transition: all .4s ease;
 }
 #first_toggle:checked ~ .toggle_option_slider {
@@ -2218,4 +2159,3 @@ label.third_toggle {
 .panel-wrapper {
   padding: 10px 20px;
 }
-/*# sourceMappingURL=custom.css.map */
