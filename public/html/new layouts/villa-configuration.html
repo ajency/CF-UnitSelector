@@ -263,7 +263,6 @@
                                         <div class="col-md-4">
                                           <div class="form-group">
                                         <label class="form-label">Unit Type<span class="text-primary">*</span></label>
-                                        
                                         <div class="input-with-icon  right error-control">
                                         <i class="fa fa-exclamation"></i>
                                         <div class="select2-container select2 form-control select2-container-active" id="s2id_gendericonic"><a href="javascript:void(0)"                                         onclick="return false;" class="select2-choice" tabindex="-1">   <span class="select2-chosen">Select Unit Type</span><abbr class                                        ="select2-search-choice-close"></abbr>   <span class="select2-arrow"><b></b></span></a>
@@ -281,6 +280,7 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                             <label class="form-label">Carpet Area<span class="text-primary">*</span></label>
+                                            <small class="text-muted">/ (Sq. Ft.)</small>
                                             <div class="input-with-icon  right error-control">
                                             <i class="fa fa-exclamation"></i>
                                             <input type="text" name="form1Name" id="form1Name" class="form-control">
@@ -292,6 +292,7 @@
                                               <div class="col-md-4">
                                             <div class="form-group">
                                             <label class="form-label">Built Up Area<span class="text-primary">*</span></label>
+                                            <small class="text-muted">/ (Sq. Ft.)</small>
                                             <div class="input-with-icon  right error-control">
                                             <i class="fa fa-exclamation"></i>
                                             <input type="text" name="form1Name" id="form1Name" class="form-control">
@@ -301,6 +302,7 @@
                                           <div class="col-md-4">
                                             <div class="form-group">
                                             <label class="form-label">Super Built Up Area<span class="text-primary">*</span></label>
+                                            <small class="text-muted">/ (Sq. Ft.)</small>
                                             <div class="input-with-icon  right error-control">
                                             <i class="fa fa-exclamation"></i>
                                             <input type="text" name="form1Name" id="form1Name" class="form-control">
@@ -310,6 +312,7 @@
                                           <div class="col-md-4">
                                             <div class="form-group">
                                             <label class="form-label">Price<span class="text-primary">*</span></label>
+                                            <small class="text-muted">/ (Sq. Ft.)</small>
                                             <div class="input-with-icon  right error-control">
                                             <i class="fa fa-exclamation"></i>
                                             <input type="text" name="form1Name" id="form1Name" class="form-control">
@@ -326,18 +329,15 @@
                                      <button class="btn btn-small btn-default pull-right m-r-25"><i class="fa fa-plus"></i> Add New Level</button>
                                                 <h3><i class="fa fa-angle-double-right text-primary"></i> Room <span class="semi-bold">Details</span></h3>
                                             </div>
-                                            <div class="grid simple">
-                                                <div class="grid-body no-border">
+                                            <div class="grid simple" style="margin-bottom:0;">
+                                            <div class="grid-body no-border" style="padding-bottom:0;">
                                             <div class="grid simple vertical orange">
-                                                <div class="grid-title">
+                                            <div class="grid-title">
                                                     <h4>Level 0</h4>
-                                                </div>
-
-                                                <div class="grid-body">
-
-                                <h4> <span class="semi-bold">Layouts</span></h4>
-                                <div class="row">
-                                    <div class="col-md-6">
+                                            </div>
+                                        <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4>
+                                        <div class="row">
+                                        <div class="col-md-6">
                                         <div class="grid simple">
                                                     <div class="grid-body">
                                             <div class="inline">2D Layout</div>
@@ -348,17 +348,17 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="grid simple">
+                                        <div class="grid simple" >
                                                     <div class="grid-body">
-                                            <div class="inline">2D Layout</div>
+                                            <div class="inline">3D Layout</div>
                                             <div class="pull-right">
                                              <a class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image"></i> Select file</a>
                                        </div>
                                         </div>
                                         </div>
                                     </div>
-                                </div>
-                                                        <div class="row user-description-box">
+                                    </div>
+                                        <div class="row user-description-box">
                                                     <div class="col-md-4">
                                                     <div>
                                                     <label class="form-label">Select Room</label>
@@ -424,7 +424,7 @@
                                                 <label class="form-label">Room Name</label>
                                                 <div class="input-with-icon  right">
                                                 <i class=""></i>
-                                                <input type="text" name="form1Name" id="form1Name" class="form-control" value="Kitchen" disabled>
+                                                <input type="text" name="form1Name" id="form1Name" class="form-control" value="Bedroom" disabled>
                                                 </div>
                                                 </div> 
                                             </div>
@@ -457,6 +457,92 @@
                                                 <label class="form-label">Room Name</label>
                                                 <div class="input-with-icon  right">
                                                 <i class=""></i>
+                                                <input type="text" name="form1Name" id="form1Name" class="form-control" value="Balcony" disabled>
+                                                </div>
+                                                </div> 
+                                            </div>
+                                    <div class="col-md-4">
+                                         <div class="form-group">
+                                                <label class="form-label">Size</label>
+                                                <div class="input-with-icon  right">
+                                                <i class=""></i>
+                                                <input type="text" name="form1Name" id="form1Name" class="form-control" placeholder="Enter Size">
+                                                </div>
+                                                </div> 
+                                     </div>
+                                    
+                                 </div>
+                                 </div>
+                                </div>
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div class="row">
+                                <div class="no-border">
+                                   
+                                            <div class="grid simple" style="margin-bottom:0;">
+                                            <div class="grid-body no-border" style="padding-bottom:0;">
+                                            <div class="grid simple vertical orange">
+                                            <div class="grid-title">
+                                                    <h4>Level 1</h4>
+                                            </div>
+                                        <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4>
+                                        <div class="row">
+                                        <div class="col-md-6">
+                                        <div class="grid simple">
+                                                    <div class="grid-body">
+                                            <div class="inline">2D Layout</div>
+                                            <div class="pull-right">
+                                             <a class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image"></i> Select file</a>
+                                        </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="grid simple" >
+                                                    <div class="grid-body">
+                                            <div class="inline">3D Layout</div>
+                                            <div class="pull-right">
+                                             <a class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image"></i> Select file</a>
+                                       </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                        <div class="row user-description-box">
+                                                    <div class="col-md-4">
+                                                    <div>
+                                                    <label class="form-label">Select Room</label>
+                                                    <div class="row">
+                                                    <div class="col-md-9">
+                                                    <select id="room_type" class="select2 form-control">
+                                                        <option value="">Select Room</option>
+                                                        <option selected>Kitchen</option>
+                                                        <option>Balcony</option>
+                                                        <option>Add New</option>
+                                                    </select>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button class="btn btn-white"><i class="fa fa-plus inline"></i> Add Room to Level</button>
+                                        </div>
+                                        </div>
+                                        </div> 
+                                    </div>
+                                    <div class="col-md-8"></div>
+                                     </div>
+
+                                         <div class="p-r-15 p-l-15">
+                                             <div class="text-right">
+                                            <button class="btn btn-white btn-small" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-white btn-small"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                        <div class="row">
+                                           <div class="col-md-4">
+                                                <div class="form-group">
+                                                <label class="form-label">Room Name</label>
+                                                <div class="input-with-icon  right">
+                                                <i class=""></i>
                                                 <input type="text" name="form1Name" id="form1Name" class="form-control" value="Kitchen" disabled>
                                                 </div>
                                                 </div> 
@@ -478,6 +564,67 @@
                                     </div>
                                  </div>
                                  </div>
+                                <hr/>
+                                 <div class="p-r-15 p-l-15">
+                                             <div class="text-right">
+                                            <button class="btn btn-white btn-small" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-white btn-small"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                        <div class="row">
+                                           <div class="col-md-4">
+                                                <div class="form-group">
+                                                <label class="form-label">Room Name</label>
+                                                <div class="input-with-icon  right">
+                                                <i class=""></i>
+                                                <input type="text" name="form1Name" id="form1Name" class="form-control" value="Bedroom" disabled>
+                                                </div>
+                                                </div> 
+                                            </div>
+                                    <div class="col-md-4">
+                                         <div class="form-group">
+                                                <label class="form-label">Size</label>
+                                                <div class="input-with-icon  right">
+                                                <i class=""></i>
+                                                <input type="text" name="form1Name" id="form1Name" class="form-control" placeholder="Enter Size">
+                                                </div>
+                                                </div> 
+                                     </div>
+                                     <div class="col-md-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Dimension</label>
+                                              <input type="text" class="form-control" name="name" placeholder="Enter Dimension">
+                                        </div>
+                                    </div>
+                                 </div>
+                                 </div>
+                                 <hr/>
+                                  <div class="p-r-15 p-l-15">
+                                             <div class="text-right">
+                                            <button class="btn btn-white btn-small" data-toggle="modal" data-target="#myModal"><i class="fa fa-pencil"></i></button>
+                                            <button class="btn btn-white btn-small"><i class="fa fa-trash"></i></button>
+                                        </div>
+                                        <div class="row">
+                                           <div class="col-md-4">
+                                                <div class="form-group">
+                                                <label class="form-label">Room Name</label>
+                                                <div class="input-with-icon  right">
+                                                <i class=""></i>
+                                                <input type="text" name="form1Name" id="form1Name" class="form-control" value="Balcony" disabled>
+                                                </div>
+                                                </div> 
+                                            </div>
+                                    <div class="col-md-4">
+                                         <div class="form-group">
+                                                <label class="form-label">Size</label>
+                                                <div class="input-with-icon  right">
+                                                <i class=""></i>
+                                                <input type="text" name="form1Name" id="form1Name" class="form-control" placeholder="Enter Size">
+                                                </div>
+                                                </div> 
+                                     </div>
+                                    
+                                 </div>
+                                 </div>
                                 </div>
                                 </div>
                                 </div>
@@ -485,7 +632,7 @@
                             </div>
                         
                         <hr/>
-                        <div class="row">
+                        <div >
                             <div class="m-l-5 no-border">
                                     <h3><i class="fa fa-angle-double-right text-primary"></i><span class="semi-bold"> Layouts</span></h3>
                             </div>
@@ -494,7 +641,7 @@
                                     <div class="grid simple">
                                         <div class="grid-title no-border">
                                         <h4 style="margin-left:10px;">
-                                             External <span class="semi-bold">(3D Layout)</span>
+                                             External <span class="semi-bold">3D</span>
                                         </h4>
                                         </div>
                                         <div class="grid-body no-border">
