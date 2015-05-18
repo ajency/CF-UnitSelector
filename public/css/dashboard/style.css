@@ -8180,6 +8180,10 @@ body.rtl .footer-widget {
   font-size: 12px;
   color: #f34235;
 }
+.orange {
+  background: #F68121;
+  border-left: 4px solid #F68121;
+}
 .img-hover {
   position: relative;
   width: 160px;
@@ -8201,6 +8205,9 @@ body.rtl .footer-widget {
   padding-right: 28px;
 }
 .checkbox label {
+  margin-bottom: 0;
+}
+.alert-error {
   margin-bottom: 0;
 }
 .add-unit {
