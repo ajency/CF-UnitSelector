@@ -5,12 +5,12 @@
   top: 25px;
   padding: 0;
   overflow: hidden;
-  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
-  background-color: fade(@white, 100%);
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  background-color: fade(@white, 90%);
   width: 340px;
   height: 340px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-  border-radius: 5px;
+  border-radius: 3px;
   &.closed{
     width: 0;
     height: 0;
@@ -73,16 +73,27 @@
   }
 }
 .filter-result{
-  margin: 20px 0 0;
+  // margin: 20px 0 0;
+  // padding: 15px;
+  position: absolute;
+  top: 56px;
+  width: 100%;
+  left: 0;
+  background-color: rgba(38, 38, 38, 0.6);
+  z-index: 999;
   .filter-pill{
-    margin-bottom: 0;
+    margin: 15px 5px;
+    margin-left: 0;
     padding: 2px 0 2px 8px;
-    background-color: @brand-primary-darker;
-    color: @white;
+    background-color: @white;
+    color: @gray;
     cursor: default;
     span.icon-cross{
-      color: @white;
+      color: @gray-light;
       cursor: pointer;
+    }
+    &:first-child{
+      margin-left: 15px;
     }
   }
 }
@@ -99,7 +110,7 @@
     border-top: 1px solid @gray-lighter;
     transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
     div{
-      transition: all 1.5s;
+      // transition: all 1.5s;
     }
     // border-top: 1px solid @gray-lighter;
 
@@ -113,7 +124,8 @@
 
   h6{
     font-weight: bold;
-    margin-top: 5px;
+    margin-top: 15px;
+    margin-bottom: 0;
     &.availability{
       margin-top: 20px;
     }
