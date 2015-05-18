@@ -239,18 +239,15 @@
                     </ul>
                     <!-- END BREADCRUMBS -->
                     <!-- BEGIN PlACE PAGE CONTENT HERE -->
+                     <div class="page-title">
+                    <h2><span class="semi-bold">Project </span> Configuration</h2>
+                    </div>
                         <div class="grid simple">
-                        <div class="grid-title" style="border-bottom: 1px solid #f68121 !important;">
-                            <div class="pull-right">
-                                <a class="btn btn-default btn-medium" href="project-config.html"><i class="fa fa-pencil"></i> Edit</a>
-                            </div>
-                        <h2>Project <span class="semi-bold">Configuration</span></h2>
+                        <div class="grid-title no-border">
+                       <h3 > <i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Details</span></h3>
                         </div>
-                        <div class="grid-body">
-                        <h3 class="p-b-10">Project <span class="semi-bold">Details</span></h3>
-
-                            <form>
-                                <div class="row">
+                        <div class="grid-body no-border">
+                         <div class="row">
                                     <div class="col-md-6">
                                         <dl class="dl-horizontal">
                                           <dt><h5 class="semi-bold">City</h5></dt>
@@ -280,23 +277,48 @@
                                         </div>
                                     </div>
                                 </div>
-                                <hr/>
-                                <div class="add-unit-types">
-                                     <h3 class="p-b-10">Property <span class="semi-bold">Types</span></h3>
-                                      <div class="row m-b-15">
-                                            <div class="col-md-6">
-                                                <div class="grid simple">
-                                                    <div class="grid-title" style="background: #EDEDED;border-bottom:none!important;">
-                                                        <div class="pull-right">
-                                                        <input type="checkbox" id="blankCheckbox" value="option1" aria-label="..." checked disabled>
-                                                        </div>
-                                                        <h4>Bungalows/Villas</h4>
-                                                    </div>
+                                </div>
+                            </div>
+                            <div class="grid simple">
+                                <div class="grid-title no-border">
+                                <h3 > <i class="fa fa-angle-double-right text-primary"></i> Measurement <span class="semi-bold">Units</span></h3>
+                                </div>
+                                <div class="grid-body no-border">
+                                    <h5 class="semi-bold inline">The unit for measurement selected is : </h5> <span> Square Feet (Sq. Ft.)</span>
+                                </div>
+                            </div>
+                             <div class="grid simple">
+                                <div class="grid-title no-border">
+                                <h3 > <i class="fa fa-angle-double-right text-primary"></i> Property <span class="semi-bold">Types</span></h3>
+                                </div>
+                                <div class="grid-body no-border">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="grid simple">
+                                                <div class="grid-title ">
+                                                    <div class="checkbox check-primary pull-left">
+                                                <input id="checkbox6" type="checkbox" value="1" checked="checked" disabled>
+                                                <label for="checkbox6"></label>
+                                                </div>
+                                                    <h4>Bungalows/Villas</h4>
+
+                                                </div>
                                                 <div class="grid-body">
-                                                
-                                                <h5 class="semi-bold m-b-20">Unit Types Selected :
-                                                    
-                                                </h5>
+                                                    <h4>Unit Types Selected :</h4>
+                                                    <div class="row m-b-10">
+                                                <div class="col-md-3">
+                                                     <i class="fa fa-circle"></i> 1 BHK  
+                                                </div>
+                                                <div class="col-md-3">
+                                                      <i class="fa fa-circle"></i> 2.5 BHK 
+                                                </div>
+                                                <div class="col-md-3">
+                                                      <i class="fa fa-circle"></i> 5 BHK 
+                                                </div>
+                                                 <div class="col-md-3">
+                                                       <i class="fa fa-circle"></i> 4.5 BHK
+                                                </div>
+                                                </div>
                                                 <div class="row m-b-10">
                                                 <div class="col-md-3">
                                                      <i class="fa fa-circle"></i> 1 BHK  
@@ -311,152 +333,146 @@
                                                        <i class="fa fa-circle"></i> 4.5 BHK
                                                 </div>
                                                 </div>
-                                               
-                                             <div class="row m-b-10">
-                                                <div class="col-md-3">
-                                                     <i class="fa fa-circle"></i> 1 BHK  
-                                                </div>
-                                                <div class="col-md-3">
-                                                      <i class="fa fa-circle"></i> 2.5 BHK 
-                                                </div>
-                                                <div class="col-md-3">
-                                                      <i class="fa fa-circle"></i> 5 BHK 
-                                                </div>
-                                                 <div class="col-md-3">
-                                                       <i class="fa fa-circle"></i> 4.5 BHK
-                                                </div>
-                                                </div>
-                                                 <div class="row m-b-10">
-                                                <div class="col-md-3">
-                                                     <i class="fa fa-circle"></i> 1 BHK  
-                                                </div>
-                                                <div class="col-md-3">
-                                                      
-                                                </div>
-                                                <div class="col-md-3">
-                                                     
-                                                </div>
-                                                 <div class="col-md-3">
-                                                       
-                                                </div>
-                                                </div>
-                                             <hr/>
-                                                <div class="form-group">
-                                                <h5 class="semi-bold m-b-20">Attributes</h5>
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                        <th>Name</th>
-                                                        <th>Control Type</th>
-                                                        <th>Value</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Flooring</td>
-                                                            <td>Textbox</td>
-                                                            <td>wooden, tiles </td>
-                                                        </tr>
-                                                         <tr>
-                                                            <td>Flooring</td>
-                                                            <td>Textbox</td>
-                                                            <td>wooden, tiles </td>
-                                                        </tr>
-                                                         <tr>
-                                                            <td>Flooring</td>
-                                                            <td>Textbox</td>
-                                                            <td>wooden, tiles </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                              </div> 
-                                       
-                                            </div>
-                                            </div>
-                                            </div>
-                                    <div class="col-md-6">
-                                                <div class="grid simple">
-                                                    <div class="grid-title" style="background: #EDEDED;border-bottom:none!important;">
-                                                        <div class="pull-right">
-                                                        <input type="checkbox" id="blankCheckbox" value="option1" aria-label="..." checked disabled>
-                                                        </div>
-                                                        <h4>Plots</h4>
-                                                    </div>
-                                                <div class="grid-body">
-                                                
-                                                <h5 class="semi-bold m-b-20">Unit Types Selected :
-                                                    
-                                                </h5>
                                                 <div class="row m-b-10">
                                                 <div class="col-md-3">
-                                                     <i class="fa fa-circle"></i> 30X40 SQ.FT
+                                                     <i class="fa fa-circle"></i> 1 BHK  
+                                                </div>
+                                                </div>
+                                                <hr/>
+                                                <div class="dataTables_wrapper form-inline" role="grid">
+                            <table class="table no-more-tables" id="example" aria-describedby="example_info">
+                                <thead>
+                                <tr><th style="width: 10%;" data-hide="phone,tablet" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Name</th>
+                                <th style="width: 9%;" data-hide="phone,tablet" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Control Type</th>
+
+                                <th style="width: 9%;" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Value</th>
+
+                                </tr></thead>
+                                <tbody>
+                                    <tr class="gradeX odd">
+                                        <td class="">Flooring</td>
+                                        <td class=" "><span class="muted">Textbox</span></td>
+                                        <td class=" ">Wooden, Tiles</td>
+                                    </tr>
+                                    <tr class="gradeX odd">
+                                        <td class="">Flooring</td>
+                                        <td class=" "><span class="muted">Textbox</span></td>
+                                        <td class=" ">Wooden, Tiles</td>
+                                    </tr>
+                                    <tr class="gradeX odd">
+                                        <td class="">Flooring</td>
+                                        <td class=" "><span class="muted">Textbox</span></td>
+                                        <td class=" ">Wooden, Tiles</td>
+                                    </tr>
+                                     <tr class="gradeX odd">
+                                        <td class="">Flooring</td>
+                                        <td class=" "><span class="muted">Textbox</span></td>
+                                        <td class=" ">Wooden, Tiles</td>
+                                    </tr>
+                                     <tr class="gradeX odd">
+                                        <td class="">Flooring</td>
+                                        <td class=" "><span class="muted">Textbox</span></td>
+                                        <td class=" ">Wooden, Tiles</td>
+                                    </tr>
+                                  </tbody>
+                            </table>
+                         </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="grid simple">
+                                                <div class="grid-title ">
+                                                    <div class="checkbox check-primary pull-left">
+                                                <input id="checkbox6" type="checkbox" value="1" checked="checked" disabled>
+                                                <label for="checkbox6"></label>
+                                                </div>
+                                                    <h4>Plots</h4>
+
+                                                </div>
+                                                <div class="grid-body">
+                                                    <h4>Unit Types Selected :</h4>
+                                                    <div class="row m-b-10">
+                                                <div class="col-md-3">
+                                                     <i class="fa fa-circle"></i> 30X40 SQ.FT 
                                                 </div>
                                                 <div class="col-md-3">
                                                       <i class="fa fa-circle"></i> 30X50 SQ.FT
                                                 </div>
                                                 <div class="col-md-3">
-                                                      <i class="fa fa-circle"></i> 40X70 SQ.FT
+                                                      <i class="fa fa-circle"></i> 40X70 SQ.FT 
                                                 </div>
                                                  <div class="col-md-3">
                                                        <i class="fa fa-circle"></i> 40X70 SQ.FT
                                                 </div>
                                                 </div>
-                                               
-                                             <div class="row m-b-10">
+                                                <div class="row m-b-10">
                                                 <div class="col-md-3">
-                                                     <i class="fa fa-circle"></i> 40X70 SQ.FT 
+                                                     <i class="fa fa-circle"></i> 40X70 SQ.FT  
                                                 </div>
-                                                
                                                 </div>
-                                             <hr/>
-                                                <div class="form-group">
-                                                <h5 class="semi-bold m-b-20">Attributes</h5>
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                        <th>Name</th>
-                                                        <th>Control Type</th>
-                                                        <th>Value</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Flooring</td>
-                                                            <td>Textbox</td>
-                                                            <td>wooden, tiles </td>
-                                                        </tr>
-                                                         <tr>
-                                                            <td>Flooring</td>
-                                                            <td>Textbox</td>
-                                                            <td>wooden, tiles </td>
-                                                        </tr>
-                                                         <tr>
-                                                            <td>Flooring</td>
-                                                            <td>Textbox</td>
-                                                            <td>wooden, tiles </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                              </div> 
-                                       
+                                                <hr/>
+                                                <div class="dataTables_wrapper form-inline" role="grid">
+                            <table class="table no-more-tables" id="example" aria-describedby="example_info">
+                                <thead>
+                                <tr><th style="width: 10%;" data-hide="phone,tablet" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Name</th>
+                                <th style="width: 9%;" data-hide="phone,tablet" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Control Type</th>
+
+                                <th style="width: 9%;" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Value</th>
+
+                                </tr></thead>
+                                <tbody>
+                                    <tr class="gradeX odd">
+                                        <td class="">Flooring</td>
+                                        <td class=" "><span class="muted">Textbox</span></td>
+                                        <td class=" ">Wooden, Tiles</td>
+                                    </tr>
+                                    <tr class="gradeX odd">
+                                        <td class="">Flooring</td>
+                                        <td class=" "><span class="muted">Textbox</span></td>
+                                        <td class=" ">Wooden, Tiles</td>
+                                    </tr>
+                                    <tr class="gradeX odd">
+                                        <td class="">Flooring</td>
+                                        <td class=" "><span class="muted">Textbox</span></td>
+                                        <td class=" ">Wooden, Tiles</td>
+                                    </tr>
+                                     
+                                  </tbody>
+                            </table>
+                         </div>
+                                                </div>
                                             </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            <div class="row">
-                                                 <div class="col-md-6">
-                                                <div class="grid simple">
-                                                    <div class="grid-title" style="background: #EDEDED;border-bottom:none!important;">
-                                                        <div class="pull-right">
-                                                        <input type="checkbox" id="blankCheckbox" value="option1" aria-label="..." checked disabled>
-                                                        </div>
-                                                        <h4>Apartments</h4>
-                                                    </div>
+                                        
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="grid simple">
+                                                <div class="grid-title ">
+                                                    <div class="checkbox check-primary pull-left">
+                                                <input id="checkbox6" type="checkbox" value="1" checked="checked" disabled>
+                                                <label for="checkbox6"></label>
+                                                </div>
+                                                    <h4>Apartments</h4>
+
+                                                </div>
                                                 <div class="grid-body">
-                                                
-                                                <h5 class="semi-bold m-b-20">Unit Types Selected :
-                                                    
-                                                </h5>
+                                                    <h4>Unit Types Selected :</h4>
+                                                    <div class="row m-b-10">
+                                                <div class="col-md-3">
+                                                     <i class="fa fa-circle"></i> 1 BHK  
+                                                </div>
+                                                <div class="col-md-3">
+                                                      <i class="fa fa-circle"></i> 2.5 BHK 
+                                                </div>
+                                                <div class="col-md-3">
+                                                      <i class="fa fa-circle"></i> 5 BHK 
+                                                </div>
+                                                 <div class="col-md-3">
+                                                       <i class="fa fa-circle"></i> 4.5 BHK
+                                                </div>
+                                                </div>
                                                 <div class="row m-b-10">
                                                 <div class="col-md-3">
                                                      <i class="fa fa-circle"></i> 1 BHK  
@@ -471,8 +487,66 @@
                                                        <i class="fa fa-circle"></i> 4.5 BHK
                                                 </div>
                                                 </div>
-                                               
-                                             <div class="row m-b-10">
+                                                <div class="row m-b-10">
+                                                <div class="col-md-3">
+                                                     <i class="fa fa-circle"></i> 1 BHK  
+                                                </div>
+                                                </div>
+                                                <hr/>
+                                                <div class="dataTables_wrapper form-inline" role="grid">
+                            <table class="table no-more-tables" id="example" aria-describedby="example_info">
+                                <thead>
+                                <tr><th style="width: 10%;" data-hide="phone,tablet" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Name</th>
+                                <th style="width: 9%;" data-hide="phone,tablet" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Control Type</th>
+
+                                <th style="width: 9%;" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Value</th>
+
+                                </tr></thead>
+                                <tbody>
+                                    <tr class="gradeX odd">
+                                        <td class="">Flooring</td>
+                                        <td class=" "><span class="muted">Textbox</span></td>
+                                        <td class=" ">Wooden, Tiles</td>
+                                    </tr>
+                                    <tr class="gradeX odd">
+                                        <td class="">Flooring</td>
+                                        <td class=" "><span class="muted">Textbox</span></td>
+                                        <td class=" ">Wooden, Tiles</td>
+                                    </tr>
+                                    <tr class="gradeX odd">
+                                        <td class="">Flooring</td>
+                                        <td class=" "><span class="muted">Textbox</span></td>
+                                        <td class=" ">Wooden, Tiles</td>
+                                    </tr>
+                                     <tr class="gradeX odd">
+                                        <td class="">Flooring</td>
+                                        <td class=" "><span class="muted">Textbox</span></td>
+                                        <td class=" ">Wooden, Tiles</td>
+                                    </tr>
+                                     <tr class="gradeX odd">
+                                        <td class="">Flooring</td>
+                                        <td class=" "><span class="muted">Textbox</span></td>
+                                        <td class=" ">Wooden, Tiles</td>
+                                    </tr>
+                                  </tbody>
+                            </table>
+                         </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="grid simple">
+                                                <div class="grid-title ">
+                                                    <div class="checkbox check-primary pull-left">
+                                                <input id="checkbox6" type="checkbox" value="1" checked="checked" disabled>
+                                                <label for="checkbox6"></label>
+                                                </div>
+                                                    <h4> Penthouse</h4>
+
+                                                </div>
+                                                <div class="grid-body">
+                                                    <h4>Unit Types Selected :</h4>
+                                                  <div class="row m-b-10">
                                                 <div class="col-md-3">
                                                      <i class="fa fa-circle"></i> 1 BHK  
                                                 </div>
@@ -486,68 +560,6 @@
                                                        <i class="fa fa-circle"></i> 4.5 BHK
                                                 </div>
                                                 </div>
-                                                 <div class="row m-b-10">
-                                                <div class="col-md-3">
-                                                     <i class="fa fa-circle"></i> 1 BHK  
-                                                </div>
-                                                <div class="col-md-3">
-                                                      
-                                                </div>
-                                                <div class="col-md-3">
-                                                     
-                                                </div>
-                                                 <div class="col-md-3">
-                                                       
-                                                </div>
-                                                </div>
-                                             <hr/>
-                                                <div class="form-group">
-                                                <h5 class="semi-bold m-b-20">Attributes</h5>
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                        <th>Name</th>
-                                                        <th>Control Type</th>
-                                                        <th>Value</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Flooring</td>
-                                                            <td>Textbox</td>
-                                                            <td>wooden, tiles </td>
-                                                        </tr>
-                                                         <tr>
-                                                            <td>Flooring</td>
-                                                            <td>Textbox</td>
-                                                            <td>wooden, tiles </td>
-                                                        </tr>
-                                                         <tr>
-                                                            <td>Flooring</td>
-                                                            <td>Textbox</td>
-                                                            <td>wooden, tiles </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                              </div> 
-                                       
-                                            </div>
-                                            </div>
-                                            
-                                         </div>
-                                          <div class="col-md-6">
-                                            <div class="grid simple">
-                                                    <div class="grid-title" style="background: #EDEDED;border-bottom:none!important;">
-                                                        <div class="pull-right">
-                                                        <input type="checkbox" id="blankCheckbox" value="option1" aria-label="..." checked disabled>
-                                                        </div>
-                                                        <h4>Penthouse</h4>
-                                                    </div>
-                                                <div class="grid-body">
-                                                
-                                                <h5 class="semi-bold m-b-20">Unit Types Selected :
-                                                    
-                                                </h5>
                                                 <div class="row m-b-10">
                                                 <div class="col-md-3">
                                                      <i class="fa fa-circle"></i> 1 BHK  
@@ -562,82 +574,49 @@
                                                        <i class="fa fa-circle"></i> 4.5 BHK
                                                 </div>
                                                 </div>
-                                               
-                                             <div class="row m-b-10">
+                                                <div class="row m-b-10">
                                                 <div class="col-md-3">
                                                      <i class="fa fa-circle"></i> 1 BHK  
                                                 </div>
-                                                <div class="col-md-3">
-                                                      <i class="fa fa-circle"></i> 2.5 BHK 
                                                 </div>
-                                                <div class="col-md-3">
-                                                      <i class="fa fa-circle"></i> 5 BHK 
+                                                <hr/>
+                                                <div class="dataTables_wrapper form-inline" role="grid">
+                            <table class="table no-more-tables" id="example" aria-describedby="example_info">
+                                <thead>
+                                <tr><th style="width: 10%;" data-hide="phone,tablet" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Name</th>
+                                <th style="width: 9%;" data-hide="phone,tablet" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Control Type</th>
+
+                                <th style="width: 9%;" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Price: activate to sort column ascending">Value</th>
+
+                                </tr></thead>
+                                <tbody>
+                                    <tr class="gradeX odd">
+                                        <td class="">Flooring</td>
+                                        <td class=" "><span class="muted">Textbox</span></td>
+                                        <td class=" ">Wooden, Tiles</td>
+                                    </tr>
+                                    <tr class="gradeX odd">
+                                        <td class="">Flooring</td>
+                                        <td class=" "><span class="muted">Multiple Select Box</span></td>
+                                        <td class=" ">Wooden, Tiles</td>
+                                    </tr>
+                                    <tr class="gradeX odd">
+                                        <td class="">Flooring</td>
+                                        <td class=" "><span class="muted">Select Box</span></td>
+                                        <td class=" ">Wooden, Tiles</td>
+                                    </tr>
+                                     
+                                  </tbody>
+                            </table>
+                         </div>
                                                 </div>
-                                                 <div class="col-md-3">
-                                                       <i class="fa fa-circle"></i> 4.5 BHK
-                                                </div>
-                                                </div>
-                                                 <div class="row m-b-10">
-                                                <div class="col-md-3">
-                                                     <i class="fa fa-circle"></i> 1 BHK  
-                                                </div>
-                                                <div class="col-md-3">
-                                                      
-                                                </div>
-                                                <div class="col-md-3">
-                                                     
-                                                </div>
-                                                 <div class="col-md-3">
-                                                       
-                                                </div>
-                                                </div>
-                                             <hr/>
-                                                <div class="form-group">
-                                                <h5 class="semi-bold m-b-20">Attributes</h5>
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                        <th>Name</th>
-                                                        <th>Control Type</th>
-                                                        <th>Value</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr>
-                                                            <td>Flooring</td>
-                                                            <td>Textbox</td>
-                                                            <td>wooden, tiles </td>
-                                                        </tr>
-                                                         <tr>
-                                                            <td>Flooring</td>
-                                                            <td>Textbox</td>
-                                                            <td>wooden, tiles </td>
-                                                        </tr>
-                                                         <tr>
-                                                            <td>Flooring</td>
-                                                            <td>Textbox</td>
-                                                            <td>wooden, tiles </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                              </div> 
-                                       
                                             </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            </div>
-                                            <div class="grid simple">
-                                                <div class="grid-body">
-                                                <h5 class="semi-bold inline">
-                                                    Measurement Units :
-                                                </h5>&nbsp;&nbsp;
-                                                <span class="form-label">Sq.ft</span>
-                                               </div>
-                                            </div>
-                                       </div>
-                                    </form>
+                                        
+                                        </div>
+                                    </div>
                                 </div>
+                            </div>
+                             </div>
                             </div>
       
                                                                          
