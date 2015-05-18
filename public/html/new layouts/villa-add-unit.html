@@ -206,47 +206,59 @@
                     <!-- END PAGE TITLE -->
 
                     <!-- BEGIN PlACE PAGE CONTENT HERE -->
+                     <div class="page-title">
+                    <h2><span class="semi-bold">Add </span> Unit</h2>
+                    </div>
 
                     <div class="grid simple">
-<div class="grid-title" style="border-bottom: 1px solid #f68121;">
-    <h2><span class="semi-bold">Add</span> Unit</h2>
-</div>
-  <div class="grid-body">
-    <h3 class="p-b-10">Villa <span class="semi-bold">Details</span></h3>
-                            <form>
+                         <div class="grid-title no-border">
+                       <h3 > <i class="fa fa-angle-double-right text-primary"></i> Villa <span class="semi-bold">Details</span></h3>
+                        </div>
+                    <div class="grid-body no-border">
+                        <form>
                                 <div class="row">
                                     <div class="col-md-4">
-                                        <div class="form-group">
+                                         <div class="form-group">
                                             <label class="form-label">Name<span class="text-primary">*</span></label>
-                                            <input type="text" class="form-control m-b-5" name="name" placeholder="Enter Name">
-                                             <div class="text-danger">* This field is required</div>
-                                        </div> 
+                                            <div class="input-with-icon  right error-control">
+                                            <i class="fa fa-exclamation"></i>
+                                            <input type="text" name="form1Name" id="form1Name" class="form-control">
+                                            </div>
+                                            </div> 
                                     </div>
                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label">Unit Variant<span class="text-primary">*</span></label>
-                                            <select id="unit_variant"  class="select2 form-control m-b-5">
+                                         <div class="form-group">
+                                        <label class="form-label">Unit Variant<span class="text-primary">*</span></label>
+                                        
+                                        <div class="input-with-icon  right error-control">
+                                        <i class="fa fa-exclamation"></i>
+                                        <div class="select2-container select2 form-control select2-container-active" id="s2id_gendericonic"><a href="javascript:void(0)"                                         onclick="return false;" class="select2-choice" tabindex="-1">   <span class="select2-chosen">Select Unit Variant</span><abbr class                                        ="select2-search-choice-close"></abbr>   <span class="select2-arrow"><b></b></span></a>
+                                            <!-- <input class="select2-focusser select2-offscreen" type="text" id="s2id_autogen2"> --></div><select name="gendericonic" id="gendericonic" class="select2 form-control                                       select2-offscreen" tabindex="-1">
                                                 <option value="">Select Unit Variant</option>
                                                 <option>var 1</option>
                                                 <option>var 2</option>
-                                                <option>Add Variant</option>
-                                            </select>
-                                             <div class="text-danger">* This field is required</div>
-                                        </div> 
+                                                <option>Add New</option>
+                                        </select>
+                                        </div>
+                                        </div>
                                     </div>
                                     
                                      <div class="col-md-4">
                                         <div class="form-group">
-                                            <label class="form-label">Status<span class="text-primary">*</span></label>
-                                            <select id="status" name="status" class="select2 form-control m-b-5">
+                                        <label class="form-label">Status<span class="text-primary">*</span></label>
+                                        
+                                        <div class="input-with-icon  right error-control">
+                                        <i class="fa fa-exclamation"></i>
+                                        <div class="select2-container select2 form-control select2-container-active" id="s2id_gendericonic"><a href="javascript:void(0)"                                         onclick="return false;" class="select2-choice" tabindex="-1">   <span class="select2-chosen">Select Status</span><abbr class                                        ="select2-search-choice-close"></abbr>   <span class="select2-arrow"><b></b></span></a>
+                                            <!-- <input class="select2-focusser select2-offscreen" type="text" id="s2id_autogen2"> --></div><select name="gendericonic" id="gendericonic" class="select2 form-control                                       select2-offscreen" tabindex="-1">
                                                 <option value="">Select Status</option>
                                                 <option>Available</option>
                                                 <option>Sold</option>
                                                 <option>Not Released</option>
                                                 <option>Blocked</option>
-                                            </select>
-                                            <div class="text-danger">* This field is required</div>
-                                        </div> 
+                                        </select>
+                                        </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-actions">  

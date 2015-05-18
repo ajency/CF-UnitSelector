@@ -8180,6 +8180,10 @@ body.rtl .footer-widget {
   font-size: 12px;
   color: #f34235;
 }
+.orange {
+  background: #F68121;
+  border-left: 4px solid #F68121;
+}
 .img-hover {
   position: relative;
   width: 160px;
@@ -8203,8 +8207,14 @@ body.rtl .footer-widget {
 .checkbox label {
   margin-bottom: 0;
 }
+.alert-error {
+  margin-bottom: 0;
+}
 .add-unit {
   background: #EEEEEE;
+}
+table.dataTable.no-footer {
+  border-bottom: none;
 }
 .dataTables_length {
   display: none;
@@ -8216,8 +8226,8 @@ body.rtl .footer-widget {
   font-size: 15px;
 }
 .fa-circle {
-  font-size: 7px;
-  color: #505458;
+  font-size: 4px;
+  color: #F68121;
 }
 .fa-info {
   cursor: pointer;
@@ -8332,9 +8342,6 @@ body.rtl .footer-widget {
 .list-group-item {
   padding: 14px;
 }
-.dl-horizontal {
-  color: #55606e;
-}
 .dl-horizontal dt {
   width: 77px!important;
   texr-align: left!important;
@@ -8445,4 +8452,3 @@ body.rtl .footer-widget {
     -o-transform: rotateZ(0deg);
   }
 }
-/*# sourceMappingURL=style.css.map */

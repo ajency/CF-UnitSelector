@@ -239,108 +239,183 @@
                     </ul>
                     <!-- END BREADCRUMBS -->
                     <!-- BEGIN PlACE PAGE CONTENT HERE -->
-                        <div class="grid simple">
-                        <div class="grid-title" style="border-bottom: 1px solid #f68121 !important;">
-                        <h2><span class="semi-bold">Edit Plot</span> Variant</h2>
+                         <div class="page-title">
+                    <h2><span class="semi-bold">Edit Plot</span> Variant</h2>
+                    </div>
+                    <div class="grid simple">
+                        <div class="grid-title no-border">
+                            <h3 > <i class="fa fa-angle-double-right text-primary"></i> Plot <span class="semi-bold">Details</span></h3>
                         </div>
-                        <div class="grid-body">
-                        <h3 style="color:#505458;" class="p-b-10">Plot <span class="semi-bold">Details</span></h3>
-
-                            <form>
-                                    <div class="row">
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label">Name
-                                                <span class="text-primary">*</span>
-                                            </label>
-                                              <input type="text" class="form-control m-b-5" name="name" placeholder="Enter Name">
-                                              <div class="text-danger">* This field is required</div>
-                                        </div> 
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label">Unit Type
-                                                <span class="text-primary">*</span>
-                                            </label>
-                                            <select id="unit_type" class="select2 form-control m-b-5">
-                                                <option value="">Select Unit Type</option>
-                                                <option>2 Bhk</option>
-                                                <option>3 Bhk</option>
-                                                <option>4 Bhk</option>
-                                                <option>5 Bhk</option>
-                                                <option>Add New</option>
-                                            </select>
-                                            <div class="text-danger">* This field is required</div>
-                                        </div> 
-                                    </div>
-                                  <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label">Size</label>
-                                              <input type="text" class="form-control" name="name" placeholder="Enter Size">
-                                        </div> 
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    
-                                  <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label class="form-label">Price</label>
-                                              <input type="text" class="form-control" name="name" placeholder="Enter Price">
-                                        </div> 
-                                    </div>
-                                    <div class="col-md-4">
-                                         
-                                    </div>
-                                     <div class="col-md-4">
+                        <div class="grid-body no-border">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form>
+                                        <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                            <label class="form-label">Name<span class="text-primary">*</span></label>
+                                            <div class="input-with-icon  right error-control">
+                                            <i class="fa fa-exclamation"></i>
+                                            <input type="text" name="form1Name" id="form1Name" class="form-control">
+                                            </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                        <label class="form-label">Unit Type<span class="text-primary">*</span></label>
                                         
+                                        <div class="input-with-icon  right error-control">
+                                        <i class="fa fa-exclamation"></i>
+                                        <div class="select2-container select2 form-control select2-container-active" id="s2id_gendericonic"><a href="javascript:void(0)"                                         onclick="return false;" class="select2-choice" tabindex="-1">   <span class="select2-chosen">Select Unit Type</span><abbr class                                        ="select2-search-choice-close"></abbr>   <span class="select2-arrow"><b></b></span></a>
+                                            <!-- <input class="select2-focusser select2-offscreen" type="text" id="s2id_autogen2"> --></div><select name="gendericonic" id="gendericonic" class="select2 form-control                                       select2-offscreen" tabindex="-1">
+                                                <option value="">Select Unit Type</option>
+                                                <option>30X40 SQ.FT</option>
+                                                <option>30X50 SQ.FT</option>
+                                                <option>40X60 SQ.FT</option>
+                                                <option>40X70 SQ.FT</option>
+                                                <option>60X40 SQ.FT</option>
+                                                <option>Not Available</option>
+                                                <option>Add New</option>
+                                        </select>
+                                        </div>
+                                        </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                            <label class="form-label">Size<span class="text-primary">*</span></label>
+                                            <div class="input-with-icon  right error-control">
+                                            <i class="fa fa-exclamation"></i>
+                                            <input type="text" name="form1Name" id="form1Name" class="form-control">
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                            <label class="form-label">Price<span class="text-primary">*</span></label>
+                                            <div class="input-with-icon  right error-control">
+                                            <i class="fa fa-exclamation"></i>
+                                            <input type="text" name="form1Name" id="form1Name" class="form-control">
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+                             <hr/>
+                             <div class="row"> 
+                             
+                                 <div class="m-l-5 no-border">
+                                    <h3 class="inline"><i class="fa fa-angle-double-right text-primary"></i><span class="semi-bold"> Layouts</span></h3>
+                             </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="grid simple">
+                                        <div class="grid-title no-border">
+                                            
+                                        <h4>
+                                             External <span class="semi-bold">(3D Layout)</span>
+                                        </h4>
+                                        </div>
+                                        <div class="grid-body no-border">
+                                           <div class="col-md-3">
+                                <div class="img-hover img-thumbnail">
+                                   
+                                <div style="width: 150px;height:109px;background:#BEBEBE;display: table;">
+                                   <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
+                                    <i class="fa fa-image" style="font-size:30px;"></i>
+                                    <p class="">Select File</p>
                                     </div>
                                 </div>
-                                </form>
-                                <hr/>
-                                <h3 class="p-b-10"><span class="semi-bold">Layouts</span></h3>
-                                         <div class="grid simple">
-                                         <div class="grid-title" style="background: #EDEDED;border-bottom: none!important;">
-                                            <h5 class="inline m-b-20" ><span class="semi-bold">External</span></h5>&nbsp;
+                                 
+                                </div>
+                                </div>
+                                <div class="col-md-3">
+                                <div class="img-hover img-thumbnail">
+                                    <a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>
+                                <div style="  width: 150px;height: 93px;"></div>
+                                <div class="progress progress-small " style="margin:0;">
+                                    <div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%; margin: 0px;"></div>
+                                </div>
+                                 <div class="dz-size" data-dz-size=""><strong>1</strong>Google-earth.jpg</div>
+                                </div>
+                                </div>
+                                <div class="col-md-3">
+                                <div class="img-hover img-thumbnail">
+                                    <a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>
+                                <img data-dz-thumbnail="" src="http://www.websofia.com/wp-content/uploads/2013/02/gmap-publicity.png" style="  width: 150px;height: 93px;" alt="dsfs">
+                                 <div class="dz-size" data-dz-size=""><strong>1</strong>Google-earth.jpg</div>
+                                </div>
+                                </div>
                                         </div>
-                                       <div class="grid-body">
-                                       
-                                       <div class="row">
-                                        <div class="col-md-12">
-                                          <h4 class="semi-bold inline">3D Layout</h4>&nbsp
-                                          <button class="btn btn-small btn-default">Select your file</button>
-                                          <button class="btn btn-small btn-primary">Upload</button>
-                                     </div>
-                                            <div class="col-md-6">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                             <hr/>
+                            <div class="row">
+                                <div>
+                                    <div class="grid simple">
+                                        <div class="grid-title no-border">
                                             
+                                                
+                                           
+                                        <h4>
+                                             <span class="semi-bold">Gallery <a class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image"></i> Select file (s)</a></span>
+                                        </h4>
+                                        </div>
+                                        <div class="grid-body no-border">
+                                            <div class="row">
+                                            <div class="col-md-3">
+                                            <div class="img-hover img-thumbnail">
+                                                <a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>
+                                            <div style="  width: 150px;height: 93px;"></div>
+                                            <div class="progress progress-small " style="margin:0;">
+                                                <div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%; margin: 0px;"></div>
+                                            </div>
+                                             <div class="dz-size" data-dz-size=""><strong>1</strong>Google-earth.jpg</div>
+                                            </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                            <div class="img-hover img-thumbnail">
+                                            <a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>
+                                            <img data-dz-thumbnail="" src="http://www.websofia.com/wp-content/uploads/2013/02/gmap-publicity.png" style="  width: 150px;height: 93px;" alt="dsfs">
+                                             <div class="dz-size" data-dz-size=""><strong>1</strong>Google-earth.jpg</div>
+                                            </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                            <div class="img-hover img-thumbnail">
+                                            <a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>
+                                            <img data-dz-thumbnail="" src="http://www.websofia.com/wp-content/uploads/2013/02/gmap-publicity.png" style="  width: 150px;height: 93px;" alt="dsfs">
+                                             <div class="dz-size" data-dz-size=""><strong>1</strong>Google-earth.jpg</div>
+                                            </div>
+                                             </div>
+                                            <div class="col-md-3">
+                                            <div class="img-hover img-thumbnail">
+                                            <a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>
+                                            <img data-dz-thumbnail="" src="http://www.websofia.com/wp-content/uploads/2013/02/gmap-publicity.png" style="  width: 150px;height: 93px;" alt="dsfs">
+                                             <div class="dz-size" data-dz-size=""><strong>1</strong>Google-earth.jpg</div>
                                             </div>
                                         </div>
-                                       </div>
-                                       </div>   
-                                           <div class="grid simple">
-                                         <div class="grid-title"  style="background: #EDEDED;border-bottom: none!important;">
-                                           <h5 class="inline m-b-20 semi-bold">Gallery</h5>
-                                        </div>
-                                       <div class="grid-body">
-                                        <h4 class="semi-bold inline">Images</h4>&nbsp
-                                     <button class="btn btn-small btn-default">Select your file</button>
-                                          <button class="btn btn-small btn-primary">Upload</button>
-                                          <div class="row">
-                                            <div class="col-md-3">
-                                            </div>
-                                            <div class="col-md-3">
-                                            </div>
-                                            <div class="col-md-3">
-                                            </div>
-                                            <div class="col-md-3">
-                                            </div>
-                                          </div>
-                                       </div>
-                                       </div>  
-                                        <div class="form-actions">  
-                                            <div class="text-right">
-                                                <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i>  Save</button>
-                                                <button type="submit" class="btn btn-default btn-cons"><i class="fa fa-ban"></i>    Cancel</button>
-                                            </div></div>
+                                   
+                                        
+                                    
+                                </div>
+                            </div>
+                            </div>
+                             </div>
+                            </div>
+                            <div class="form-actions">  
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
+                            <button type="submit" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button>
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                     
                                         </div>
                                         </div>
                                     
