@@ -21,6 +21,9 @@
 .svg-info{
     font-family: OpenSans,Arial,sans-serif;
     padding: 0;
+    &.available, &.sold, &.blocked, &.not_released{
+        min-width: 290px;
+    }
     h5{
         // color: @brand-primary;
         font-weight: bold;
@@ -35,6 +38,7 @@
         cursor: pointer;
         position: absolute;
         right: 8px;
+        display: none;
     }
     .details{
         font-size: 12px;

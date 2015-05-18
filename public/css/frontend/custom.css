@@ -1826,10 +1826,6 @@ svg polygon {
   -webkit-transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
           transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
 }
-.filters-wrapper div {
-  -webkit-transition: all 1.5s;
-          transition: all 1.5s;
-}
 .filters-wrapper .filter-chkbox-block label {
   color: #666666;
 }
@@ -2075,6 +2071,12 @@ label.third_toggle {
   font-family: OpenSans, Arial, sans-serif;
   padding: 0;
 }
+.svg-info.available,
+.svg-info.sold,
+.svg-info.blocked,
+.svg-info.not_released {
+  min-width: 290px;
+}
 .svg-info h5 {
   font-weight: bold;
 }
@@ -2088,6 +2090,7 @@ label.third_toggle {
   cursor: pointer;
   position: absolute;
   right: 8px;
+  display: none;
 }
 .svg-info .details {
   font-size: 12px;
