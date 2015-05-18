@@ -80,7 +80,7 @@
       return LeftView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 step1 animated fadeIn"> <div class="proj-info"> <div class="proj-logo section"> <h3 class="m-t-10"><strong>{{i10n "project_by"}}</strong></h3> <img src="{{logo}}" class="img-responsive builder-logo"> </div> <hr class="embossed" /> <div class="proj-details"> <h3 class="m-t-0"><strong>{{i10n "project_details"}}</strong></h3> <!--<span class="icon-map-marker"></span> <strong>Address: </strong><br>--> {{address}} </div> <hr class="embossed m-b-0" /> {{#propertyTypes}} <div class="prop-types {{prop_type}}"> <!--<h4 class="m-b-5 m-t-0 text-primary">{{prop_type}}</h4> <span>{{i10n "project_type"}}:</span> {{prop_type}} <p> <span>{{i10n "starting_area"}}:</span> {{starting_area}} Sq.Ft. </p>--> <span class="prop-icon"></span> <div class="unit-types"> {{i10n "unit_types"}}:<br> <span>{{unit_types}}</span> </div> <!--<p> <span>Available:</span> {{#availability}} {{count}}	{{status}} {{/availability}} </p> <p> <span>{{i10n "starting_price"}}:</span>  {{starting_price}} </p>--> </div> {{/propertyTypes}} </div> <!--<div class="info-slider"> <div class="text-center"> <img src="../images/marker-img.png" class="img-responsive marker-img"> {{i10n "know_your_neighbour"}} </div> </div>--> </div>');
+    LeftView.prototype.template = Handlebars.compile('<div class="hidden"> <div id="proj_info"> <div class="big-tooltip"> <div class="row"> <div class="col-sm-4"> <div class="m-t-15"> <h5>{{i10n "project_by"}}</h5> <img src="{{logo}}" class="img-responsive builder-logo"> </div> </div> <div class="col-sm-8 b-r"> <div class="m-t-15"> {{#propertyTypes}} <h6>{{prop_type}} <span class="text-muted">( {{unit_types}} )</span></h6> {{/propertyTypes}} <br> <span class="icon-location "></span>{{address}} <div class="clearfix"></div><br> </div> </div> </div> </div> </div> <div class="proj-info"> <div class="proj-logo section"> <h3 class="m-t-10"><strong>{{i10n "project_by"}}</strong></h3> <img src="{{logo}}" class="img-responsive builder-logo"> </div> <hr class="embossed" /> <div class="proj-details"> <h3 class="m-t-0"><strong>{{i10n "project_details"}}</strong></h3> <!--<span class="icon-map-marker"></span> <strong>Address: </strong><br>--> {{address}} </div> <hr class="embossed m-b-0" /> {{#propertyTypes}} <div class="prop-types {{prop_type}}"> <!--<h4 class="m-b-5 m-t-0 text-primary">{{prop_type}}</h4> <span>{{i10n "project_type"}}:</span> {{prop_type}} <p> <span>{{i10n "starting_area"}}:</span> {{starting_area}} Sq.Ft. </p>--> <span class="prop-icon"></span> <div class="unit-types"> {{i10n "unit_types"}}:<br> <span>{{unit_types}}</span> </div> <!--<p> <span>Available:</span> {{#availability}} {{count}}	{{status}} {{/availability}} </p> <p> <span>{{i10n "starting_price"}}:</span>  {{starting_price}} </p>--> </div> {{/propertyTypes}} </div> <!--<div class="info-slider"> <div class="text-center"> <img src="../images/marker-img.png" class="img-responsive marker-img"> {{i10n "know_your_neighbour"}} </div> </div>--> </div>');
 
     LeftView.prototype.serializeData = function() {
       var availability, data, properties, propertyTypes, propertyTypesData;
@@ -136,7 +136,7 @@
       return CenterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content animated fadeIn"> <div class="cf-loader loader-center hidden"></div> <div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" data-nodebug="" data-alwaysprocess="" data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" class="primage fill-width"> </div> </div>');
+    CenterView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content animated fadeIn"> <div class="cf-loader loader-center hidden"></div> <div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" data-nodebug="" data-alwaysprocess="" data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" class="primage fill-width"> </div> </div>');
 
     CenterView.prototype.ui = {
       svgContainer: '.us-right-content'
@@ -157,7 +157,20 @@
       var path;
       $('img').lazyLoadXT();
       path = this.model.get('step_one').svg;
-      return $('.svg-area').load(path);
+      $('.svg-area').load(path);
+      return $('.marker').tooltipster({
+        theme: 'tooltipster-shadow',
+        contentAsHTML: true,
+        onlyOne: true,
+        arrow: false,
+        offsetX: 30,
+        interactive: true,
+        animation: 'grow',
+        trigger: 'hover',
+        functionInit: function() {
+          return $('#proj_info').html();
+        }
+      });
     };
 
     return CenterView;
