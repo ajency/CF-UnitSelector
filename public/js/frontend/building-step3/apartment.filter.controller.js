@@ -213,7 +213,13 @@
       if (flag === 1) {
         $('#collapsefilters').collapse('show');
       }
-      return this.loadSelectedFilters();
+      this.loadSelectedFilters();
+      $('.filter-button').on('click', function(e) {
+        return $('.fliters-container').toggleClass('closed');
+      });
+      return $('.filters-content').mCustomScrollbar({
+        theme: 'inset'
+      });
     };
 
     FilterApartmentView.prototype.loadSelectedFilters = function() {

@@ -494,9 +494,10 @@ class CenterUnitView extends Marionette.ItemView
 
 
 		height =  @ui.imagesContainer.height()
-		$('.search-left-content').css('height',height)
-		$('.search-left-content').mCustomScrollbar
-			theme: 'inset'
+		if $(window).width() > 991
+			$('.search-left-content').css('height',height)
+			$('.search-left-content').mCustomScrollbar
+				theme: 'inset'
 
 
 		$('.images').html html

@@ -300,6 +300,11 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			$('#collapsefilters').collapse('show')
 		@loadSelectedFilters()
 
+		$('.filter-button').on 'click', (e) ->
+			$('.fliters-container').toggleClass 'closed'
+		$('.filters-content').mCustomScrollbar
+			theme: 'inset'
+
 	loadSelectedFilters:->
 		unittypesArray = []
 		unitTypes = CommonFloor.defaults['unitTypes'].split(',')

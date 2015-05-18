@@ -109,6 +109,7 @@ body {
 .us-right-content .svg-area {
   width: 100%;
   overflow: hidden;
+  min-width: 1024px;
 }
 .us-right-content .svg-area img {
   width: 100%;
@@ -137,6 +138,13 @@ body {
   .us-right-content.mobile.not-visible,
   .us-left-content.mobile.not-visible {
     display: none;
+  }
+  .us-right-content {
+    overflow: auto;
+  }
+  .us-right-content .svg-area,
+  .us-right-content .master {
+    min-width: 165vh;
   }
 }
 /* Footer */
@@ -759,7 +767,6 @@ hr.embossed {
 @media (min-width: 992px) {
   .cf-loader.loader-center {
     top: 45%;
-    left: -30%;
   }
 }
 @keyframes rotate {
@@ -857,7 +864,7 @@ hr.embossed {
     background-color: #ffffff;
     color: #f68121;
     cursor: pointer;
-    padding: 8px 13px;
+    padding: 8px 13px !important;
     z-index: 999;
   }
   .toggle-view-button.map::before {
@@ -923,6 +930,8 @@ hr.embossed {
   left: 0;
   right: 0;
   text-align: center;
+  width: 140px;
+  margin: auto;
 }
 .rotate-controls .rotate-left,
 .rotate-controls .rotate-right {
@@ -1019,35 +1028,39 @@ svg .layer:hover {
           transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
 }
 svg .villa,
-svg .building,
 svg .plot,
 svg .penthouse {
-  opacity: 0.5;
+  opacity: 0.9;
   fill: #0F1308;
+  fill-opacity: 0.7;
 }
-svg .available {
-  opacity: 0.5;
-  fill-opacity: 0.6;
+svg .available,
+svg .building {
+  opacity: 0.9;
+  fill-opacity: 0.2;
   fill: #ffffff;
   stroke: #000;
   stroke-width: 1px;
   stroke-opacity: 1;
 }
 svg .blocked {
-  opacity: 0.5;
+  opacity: 0.9;
   fill: #0F1308;
 }
 svg .sold {
-  opacity: 0.5;
+  opacity: 0.9;
   fill: #0F1308;
+  fill-opacity: 0.7;
 }
 svg .not_released {
-  opacity: 0.5;
+  opacity: 0.9;
   fill: #0F1308;
+  fill-opacity: 0.7;
 }
 svg .not_in_selection {
+  opacity: 0.9;
   fill: #000;
-  opacity: .75;
+  fill-opacity: 0.7;
 }
 svg .marker-area:hover polygon {
   opacity: 0.6;
@@ -1764,6 +1777,7 @@ svg polygon {
   height: 0;
   padding: 27px;
   border-radius: 50%;
+  background-color: #ffffff;
 }
 .fliters-container.closed .filters-wrapper {
   opacity: 0;
@@ -1779,6 +1793,22 @@ svg polygon {
 }
 .fliters-container.closed .filters-bottom {
   opacity: 0;
+}
+@media (max-width: 767px) {
+  .fliters-container {
+    right: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff;
+  }
+  .fliters-container.closed {
+    right: 20px;
+    top: 80px;
+  }
+  .fliters-container .filters-wrapper .filters-content {
+    height: auto;
+  }
 }
 .filter-button {
   position: absolute;

@@ -48,7 +48,7 @@
       return TopMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopMasterView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}}</h2> <div class="proj-type-count"> {{#types}} <h1 class="pull-left">{{count.length}}</h1><p class="pull-left">{{type}}</p> {{/types}} </div> <div class="pull-left filter-result"> {{#each  filters}} {{#each this}} <div class="filter-pill"  > {{this.name}}{{this.type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div> {{/each}}{{/each }} </div> </div> </div> </div> </div>');
+    TopMasterView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}}</h2> <div class="proj-type-count"> {{#types}} <h1 class="pull-left">{{count.length}}</h1><p class="pull-left">{{type}}</p> {{/types}} </div> <div class="pull-left filter-result"> {{#each  filters}} {{#each this}} <div class="filter-pill"  > {{this.name}}{{this.type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div> {{/each}}{{/each }} </div> <div class="clearfix"></div> </div> </div> </div> </div>');
 
     TopMasterView.prototype.ui = {
       unitBack: '.unit_back',
@@ -535,12 +535,12 @@
           id: id
         });
         if (unit === void 0 && unitMaster !== void 0) {
-          html = '<div class="svg-info"> <div class="details"> Not in selection </div> </div>';
+          html = '<div class="svg-info"> <div class="details empty"> Not in selection </div> </div>';
           $('.layer').tooltipster('content', html);
           return;
         }
         if (unit === void 0) {
-          html += '<div class="svg-info"> <div class="details"> Plot details not entered </div> </div>';
+          html += '<div class="svg-info"> <div class="details empty"> Plot details not entered </div> </div>';
           $('.layer').tooltipster('content', html);
           return;
         }
@@ -549,9 +549,9 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Variant</label> - ' + response[0].get('unit_variant_name') + '</div> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
+        html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="plot"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br> <br> <!--<span class="pull-right icon-cross"></span> <span class="label label-success"></span <div class="clearfix"></div>--> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div>';
         if (availability === 'available') {
-          html += '<a href="#unit-view/' + id + '" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a> </div>';
+          html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> </div>';
         } else {
           html += '</div>';
         }
@@ -569,7 +569,7 @@
           'id': id
         });
         if (buildingModel === void 0) {
-          html = '<div class="svg-info"> <div class="details"> Building details not entered </div> </div>';
+          html = '<div class="svg-info"> <div class="details empty"> Building details not entered </div> </div>';
           $('.layer').tooltipster('content', html);
           return;
         }
@@ -577,9 +577,9 @@
         floors = Object.keys(floors).length;
         unitTypes = building.getUnitTypes(id);
         response = building.getUnitTypesCount(id, unitTypes);
-        html = '<div class="svg-info"> <h4 class="pull-left">' + buildingModel.get('building_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div>';
+        html = '<div class="svg-info"> <div class="action-bar"> <div class="building"></div> </div> <h5 class="pull-left m-t-0">' + buildingModel.get('building_name') + '</h5> <br> <br> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div> <div class="details">';
         $.each(response, function(index, value) {
-          return html += '<div class="details"> <div> <label>' + value.name + '</label> - ' + value.units + '</div>';
+          return html += '' + value.name + ' (' + value.units + '),';
         });
         html += '<div> <label>No. of floors</label> - ' + floors + '</div> </div> </div>';
         $('.layer').tooltipster('content', html);
