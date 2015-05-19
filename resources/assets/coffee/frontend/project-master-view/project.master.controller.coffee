@@ -650,7 +650,6 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						<br> <br>
 						<div class="details">
 							<div>
-								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
 								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 							</div>
 							<div>
@@ -781,7 +780,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				# animation : 'grow'
 				trigger: 'hover'
 				functionInit : (origin,content)->
-					return content
+					content
 
 				
 		)

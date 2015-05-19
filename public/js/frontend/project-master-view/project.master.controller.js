@@ -578,7 +578,7 @@
         floors = Object.keys(floors).length;
         unitTypes = building.getUnitTypes(id);
         response = building.getUnitTypesCount(id, unitTypes);
-        html = '<div class="svg-info"> <div class="action-bar"> <div class="building"></div> </div> <h5 class="pull-left m-t-0">' + buildingModel.get('building_name') + '</h5> <br> <br> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div> <div class="details">';
+        html = '<div class="svg-info"> <div class="action-bar"> <div class="building"></div> </div> <h5 class="pull-left m-t-0">' + buildingModel.get('building_name') + '</h5> <br> <br> <div class="details"> <div> <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div> <div class="details">';
         $.each(response, function(index, value) {
           return html += '' + value.name + ' (' + value.units + '),';
         });
