@@ -549,8 +549,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('.project_master').load(first[0],
 				$('.firstimage').attr('src',transitionImages[0])
 				url = Backbone.history.fragment
-				console.log building_id = parseInt url.split('/')[1]
-				$('#'+building_id+'.building').attr('layer building active_bldg'))
+				console.log building_id = url.split('/')[1]
+				$('#'+building_id+'.building').attr('class' ,'layer building active_bldg'))
 		
 
 	getNextPrev:->
