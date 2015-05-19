@@ -1043,3 +1043,12 @@ function createUnitType(obj,propertyTypeId)
    
   }
 }
+ 
+$('input[name="property_types[]"]').change(function(event) {
+    if ($(this).is (':checked'))
+      $(this).closest('.row').find('.propertyTypeUnitsAttributes').removeClass('hidden');
+    else
+      $(this).closest('.row').find('.propertyTypeUnitsAttributes').addClass('hidden');
+     
+});
+

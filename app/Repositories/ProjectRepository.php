@@ -88,7 +88,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
     }
 
     public function updateProject($projectId, $projectData) {
- 
+
         $project = Project::find($projectId);
 
         $project_title = ucfirst($projectData['project_title']);
@@ -100,6 +100,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
         $project->project_address = $project_address;
         $project->measurement_units = $property_measurement_units;
         $project->save();
+ 
 
         //Get Project Property Type
         $existingpropertyTypeArr = [];
@@ -138,10 +139,10 @@ class ProjectRepository implements ProjectRepositoryInterface {
                     if ($unitname == '')
                         continue;
 
-
+                    $projectPropertyTypeId = ProjectPropertyType::where(['project_id' => $project->id, 'property_type_id' => $propertytypeId])->pluck('id');
 
                     if ((isset($unitCustomeArr[$propertytypeId][$key])) && $unitCustomeArr[$propertytypeId][$key] === 'CUSTOME') {
-                        $propertyTypeIds = [ "1" => "villa_unit_types", "2" => "plot_unit_types","3" => "appartment_unit_types", "4" => "penthouse_unit_types"];
+                        $propertyTypeIds = [ "1" => "villa_unit_types", "2" => "plot_unit_types", "3" => "appartment_unit_types", "4" => "penthouse_unit_types"];
                         $default = new Defaults();
                         $default->type = 'custome_' . $propertyTypeIds[$propertytypeId];
                         $default->label = $unitname;
@@ -152,7 +153,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
 
                     if ((isset($unitkeyArr[$propertytypeId][$key])) && $unitkeyArr[$propertytypeId][$key] == '') {
                         $unittype = new UnitType();
-                        $projectPropertyTypeId = ProjectPropertyType::where(['project_id' => $project->id, 'property_type_id' => $propertytypeId])->pluck('id');
+
                         $unittype->project_property_type_id = $projectPropertyTypeId;
                         $unittype->unittype_name = ucfirst($unitname);
                         $unittype->save();
@@ -163,41 +164,52 @@ class ProjectRepository implements ProjectRepositoryInterface {
                         UnitType::where('id', $unittype_id)->update($data);
                     }
                 }
+
             }
         }
-
         //ATTRIBUTES
-        $objecttype = 'PropertyType';
         
-        foreach ($projectPropertytypes as $projectPropertyType) {
-            $projectPropertyTypeId = $projectPropertyType['id'];
-            $attributeNameArr = $projectData['attribute_name_' . $projectPropertyTypeId];
-            $controlTypeArr = $projectData['controltype_' . $projectPropertyTypeId]; 
-            $controlValueArr = (isset($projectData['controltypevalues_' . $projectPropertyTypeId])) ? $projectData['controltypevalues_' . $projectPropertyTypeId] : [];
-            $attributeIdArr = $projectData['attribute_id_' . $projectPropertyTypeId];
-            $attribute = [];
- 
-            
-            if (!empty($attributeNameArr)) {
-                foreach ($attributeNameArr as $key => $attributeName) {
-                    $attributeName = ucfirst($attributeName);
-                    $controlType = $controlTypeArr[$key];
-                    $controlValues = (isset($controlValueArr[$key])) ? $controlValueArr[$key] : '';
-                    $attributeId = $attributeIdArr[$key];
+        $objecttype = 'PropertyType';
+        $projectPropertytypes = $project->projectPropertyTypes()->get()->toArray();
+        if (!empty($projectPropertytypes)) {
 
-                    if ($attributeId == '') {
-                        if ($attributeName != '')
-                            $attribute[] = new Attribute(['label' => $attributeName, 'control_type' => $controlType, 'defaults' => $controlValues,
-                                'object_type' => $objecttype, 'object_id' => $projectPropertyTypeId]);
-                    } else {
-                        $data = array("label" => $attributeName, "control_type" => $controlType, 'defaults' => $controlValues);
-                        Attribute::where('id', $attributeId)->update($data);
+            foreach ($projectPropertytypes as $projectpropertytype) {
+                
+                $propertytypeId = $projectpropertytype['property_type_id'];
+                $projectPropertyTypeId = $projectpropertytype['id'];
+  
+                $attributeNameArr = $projectData['attribute_name_' . $propertytypeId];
+                $controlTypeArr = $projectData['controltype_' . $propertytypeId];
+                $controlValueArr = (isset($projectData['controltypevalues_' . $propertytypeId])) ? $projectData['controltypevalues_' . $propertytypeId] : [];
+                $attributeIdArr = $projectData['attribute_id_' . $propertytypeId];
+                $attributes = [];
+
+
+                if (!empty($attributeNameArr)) {
+                    foreach ($attributeNameArr as $key => $attributeName) {
+                        $attributeName = ucfirst($attributeName);
+                        $controlType = $controlTypeArr[$key];
+                        $controlValues = (isset($controlValueArr[$key])) ? $controlValueArr[$key] : '';
+                        $attributeId = $attributeIdArr[$key];
+
+                        if ($attributeId == '') {
+                            if ($attributeName != '')
+                                $attributes[] = new Attribute(['label' => $attributeName, 'control_type' => $controlType, 'defaults' => $controlValues,
+                                    'object_type' => $objecttype, 'object_id' => $projectPropertyTypeId]);
+                        } else {
+                            $data = array("label" => $attributeName, "control_type" => $controlType, 'defaults' => $controlValues);
+                            Attribute::where('id', $attributeId)->update($data);
+                        }
+                        if (!empty($attributes)) {
+                            ProjectPropertyType::find($projectPropertyTypeId)->attributes()->saveMany($attributes);
+                        }
                     }
-                   if(!empty($attribute)) 
-                       ProjectPropertyType::find ($projectPropertyTypeId)->attributes()->saveMany($attribute);
                 }
+                
             }
         }
+
+
 
         return $project;
     }

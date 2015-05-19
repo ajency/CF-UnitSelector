@@ -102,7 +102,7 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function edit($id, ProjectRepository $projectRepository) {
- 
+        
         $project = $projectRepository->getProjectById($id);
         $projectMeta = $project->projectMeta()->whereNotIn('meta_key', ['master', 'google_earth', 'skyview', 'breakpoints', 'cf'])->get()->toArray();
         $propertyTypes = get_all_property_type(); 
@@ -130,8 +130,7 @@ class ProjectController extends Controller {
             $propertytypeAttributes[$projectPropertyType->property_type_id]['PROJECTPROPERTYTYPEID'] = $projectPropertyType->id;
             $propertytypeAttributes[$projectPropertyType->property_type_id]['ATTRIBUTES'] = ProjectPropertyType::find($projectPropertyType->id)->attributes->toArray();
         }
-     
-     
+   
         return view('admin.project.settings')
                         ->with('project', $project->toArray())
                         ->with('projectCost', $projectCost)

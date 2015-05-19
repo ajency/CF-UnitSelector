@@ -17,8 +17,8 @@
                     </h4>
 
                 </div>
-                @if(isset($unitTypes[$propertyTypeId])) 
-                <div class="grid-body no-border">
+               
+                <div class="grid-body no-border propertyTypeUnitsAttributes  {{ (isset($unitTypes[$propertyTypeId])) ? '' : 'hidden' }}">
 
                     <div class="row column-seperation">
                         <div class="col-md-5" style="border-right: none">
@@ -57,7 +57,8 @@
                                             @endforeach
                                             <option value="add_new">Add New</option>
                                         </select>
-
+                                        <input type="hidden" name="unittypekey[{{ $propertyTypeId }}][]" value="">
+                                        <input type="hidden" name="unittypecustome[{{ $propertyTypeId }}][]" value=""> 
                                         <div class="text-right">
                                             <a property-type="{{ $propertyTypeId }}" class="add-unit-type-btn btn btn-link"><i class="fa fa-"></i> Add Another Unit Type</a>
                                         </div>
@@ -91,20 +92,17 @@
 
                                 </div>
                             </div>
-                            <?php
-                            $propjectPropertyTypeId = $propertytypeAttributes[$propertyTypeId]['PROJECTPROPERTYTYPEID'];
-                            ?>
-
+                            @if(isset($propertytypeAttributes[$propertyTypeId]))
                             @foreach($propertytypeAttributes[$propertyTypeId]['ATTRIBUTES'] as $propertytypeAttribute)
 
                             <div class="row">
                                 <div class="col-md-3">
-                                    <input type="text" name="attribute_name_{{ $propjectPropertyTypeId }}[]" class="form-control" value="{{$propertytypeAttribute['label']}}" placeholder="Enter Attribute Name" disabled>
-                                    <input type="hidden" name="attribute_id_{{ $propjectPropertyTypeId }}[]" value="{{$propertytypeAttribute['id']}}" disabled>
+                                    <input type="text" name="attribute_name_{{ $propertyTypeId }}[]" class="form-control" value="{{$propertytypeAttribute['label']}}" placeholder="Enter Attribute Name" disabled>
+                                    <input type="hidden" name="attribute_id_{{ $propertyTypeId }}[]" value="{{$propertytypeAttribute['id']}}" disabled>
 
                                 </div>
                                 <div class="col-md-3">
-                                    <select name="controltype_{{ $propjectPropertyTypeId }}[]" class="select2-container select2 form-control" disabled>
+                                    <select name="controltype_{{ $propertyTypeId }}[]" class="select2-container select2 form-control" disabled>
                                         <option value="">Select Control Type</option>
                                         <option value="textbox" @if($propertytypeAttribute['control_type']=='textbox'){{'selected'}}@endif> Text Box</option>
                                         <option value="select" @if($propertytypeAttribute['control_type']=='select'){{'selected'}}@endif>Select Box</option>
@@ -113,7 +111,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" name="controltypevalues_{{ $propjectPropertyTypeId }}[]" data-role="tagsinput" class="tags" value="{{$propertytypeAttribute['defaults']}}" disabled >
+                                    <input type="text" name="controltypevalues_{{ $propertyTypeId }}[]" data-role="tagsinput" class="tags" value="{{$propertytypeAttribute['defaults']}}" disabled >
 
                                 </div>
                                 <div class="col-md-2">
@@ -121,15 +119,15 @@
                                 </div>
                             </div>
                             @endforeach
-
+                            @endif
                             <div class="row">
                                 <div class="col-md-3">
-                                    <input type="text" name="attribute_name_{{ $propjectPropertyTypeId }}[]" class="form-control" placeholder="Enter Attribute Name">
-                                    <input type="hidden" name="attribute_id_{{ $propjectPropertyTypeId }}[]" value="">
+                                    <input type="text" name="attribute_name_{{ $propertyTypeId }}[]" class="form-control" placeholder="Enter Attribute Name">
+                                    <input type="hidden" name="attribute_id_{{ $propertyTypeId }}[]" value="">
 
                                 </div>
                                 <div class="col-md-3">
-                                    <select name="controltype_{{ $propjectPropertyTypeId }}[]"  class="select2-container select2 form-control" >
+                                    <select name="controltype_{{ $propertyTypeId }}[]"  class="select2-container select2 form-control" >
                                         <option value="">Select Control Type</option>
                                         <option value="textbox" > Text Box</option>
                                         <option value="select" >Select Box</option>
@@ -139,17 +137,17 @@
 
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" name="controltypevalues_{{ $propjectPropertyTypeId }}[]" data-role="tagsinput" class="tags">
+                                    <input type="text" name="controltypevalues_{{ $propertyTypeId }}[]" data-role="tagsinput" class="tags">
                                 </div>
                                 <div class="col-md-2">
-                                    <a class="btn btn-link" onclick="addAttributes({{ $propjectPropertyTypeId }}, this)"><i class="fa fa-plus"></i> Attribute</a>
+                                    <a class="btn btn-link" onclick="addAttributes({{ $propertyTypeId }}, this)"><i class="fa fa-plus"></i> Attribute</a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                 </div>
-                @endif
+             
             </div>
         </div>
     </div>
