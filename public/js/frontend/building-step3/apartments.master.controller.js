@@ -417,11 +417,19 @@
         return CommonFloor.router.storeRoute();
       },
       'mouseover .apartment': function(e) {
-        var availability, html, id, response, unit;
+        var availability, html, id, response, unit, unitMaster;
         id = parseInt(e.target.id);
         unit = unitCollection.findWhere({
           'id': id
         });
+        unitMaster = unitMasterCollection.findWhere({
+          id: id
+        });
+        if (unit === void 0 && unitMaster !== void 0) {
+          html = '<div class="svg-info"> <div class="details empty"> Not in selection </div> </div>';
+          $('.layer').tooltipster('content', html);
+          return;
+        }
         if (unit === void 0) {
           html = '<div class="svg-info"> <div class="details"> Apartment details not entered </div> </div>';
           $('.layer').tooltipster('content', html);

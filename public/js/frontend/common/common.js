@@ -344,7 +344,7 @@
     return $('.apartment').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
-      if ($.inArray(id, notSelectebuildings) > -1) {
+      if ($.inArray(id, notSelecteUnits) > -1) {
         return $('#' + id).attr('class', 'layer apartment unit_fadein not_in_selection');
       }
     });

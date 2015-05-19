@@ -67,10 +67,15 @@
         return $('#' + id).tooltipster('show');
       },
       'click': function(e) {
-        if (this.model.get('status') === 'available') {
-          CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
-          return CommonFloor.router.storeRoute();
-        }
+        var html, id;
+        this.iniTooltip(this.model.get('id'));
+        html = this.getHtml(this.model.get('id'));
+        id = this.model.get('id');
+        $('.layer').attr('class', 'layer plot');
+        $('#' + id + '.plot').attr('class', 'layer plot ' + this.model.get('status'));
+        $('#unit' + id).attr('class', 'bldg blocks' + ' ' + this.model.get('status') + ' active');
+        $('#' + id).tooltipster('content', html);
+        return $('.tooltip-overlay').attr('class', 'tooltip-overlay');
       }
     };
 

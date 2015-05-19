@@ -295,7 +295,7 @@ CommonFloor.applyFliterClass = ()->
 
 	$('.apartment').each (ind,item)->
 		id = parseInt item.id
-		if $.inArray(id , notSelectebuildings) > -1
+		if $.inArray(id , notSelecteUnits) > -1
 			$('#'+id).attr('class' ,'layer apartment unit_fadein not_in_selection')
 
 CommonFloor.resetCollections = ()->
