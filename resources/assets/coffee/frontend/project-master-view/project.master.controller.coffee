@@ -694,7 +694,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$.merge transitionImages ,  project.get('project_master')
 		$('.region').load(first[0],()->
 				$('.first_image').attr('src',transitionImages[0])
-				that.iniTooltip()).addClass('active').removeClass('inactive')
+				).addClass('active').removeClass('inactive')
 		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
 			
@@ -769,12 +769,12 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				# panZoomTiger = svgPanZoom('.region')
 				# $("svg").svgPanZoom()
 				$('.cf-loader').addClass 'hidden'
-			# $('.region').load(url,()->
-			# 	that.iniTooltip()
-			# 	CommonFloor.applyVillaClasses()
-			# 	CommonFloor.applyPlotClasses()
-			# 	that.loadZoom()
-			# ).addClass('active').removeClass('inactive')
+			$('.region').load(url,()->
+				that.iniTooltip()
+				CommonFloor.applyVillaClasses()
+				CommonFloor.applyPlotClasses()
+				that.loadZoom()
+			).addClass('active').removeClass('inactive')
 
 		)
 	#intialize tooltip 

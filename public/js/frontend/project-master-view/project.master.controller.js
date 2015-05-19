@@ -606,8 +606,7 @@
       first = _.values(svgs);
       $.merge(transitionImages, project.get('project_master'));
       $('.region').load(first[0], function() {
-        $('.first_image').attr('src', transitionImages[0]);
-        return that.iniTooltip();
+        return $('.first_image').attr('src', transitionImages[0]);
       }).addClass('active').removeClass('inactive');
       $('.first_image').lazyLoadXT();
       $('.first_image').load(function() {
@@ -678,8 +677,14 @@
           $('.first_image').remove();
           $('.rotate').removeClass('hidden');
           $('#spritespin').show();
-          return $('.cf-loader').addClass('hidden');
+          $('.cf-loader').addClass('hidden');
         }
+        return $('.region').load(url, function() {
+          that.iniTooltip();
+          CommonFloor.applyVillaClasses();
+          CommonFloor.applyPlotClasses();
+          return that.loadZoom();
+        }).addClass('active').removeClass('inactive');
       });
     };
 
