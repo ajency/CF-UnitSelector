@@ -611,6 +611,10 @@
       $('.first_image').lazyLoadXT();
       $('.first_image').load(function() {
         var response;
+        that.iniTooltip();
+        CommonFloor.applyVillaClasses();
+        CommonFloor.applyPlotClasses();
+        that.loadZoom();
         response = project.checkRotationView();
         $('.first_image').first().css('width', that.ui.svgContainer.width());
         if (response === 1) {

@@ -701,7 +701,10 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				).addClass('active').removeClass('inactive')
 		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
-			
+			that.iniTooltip()
+			CommonFloor.applyVillaClasses()
+			CommonFloor.applyPlotClasses()
+			that.loadZoom()
 			response = project.checkRotationView()
 			$('.first_image').first().css('width',that.ui.svgContainer.width())
 			if response is 1
