@@ -769,12 +769,12 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				# panZoomTiger = svgPanZoom('.region')
 				# $("svg").svgPanZoom()
 				$('.cf-loader').addClass 'hidden'
-			$('.region').load(url,()->
-				that.iniTooltip()
-				CommonFloor.applyVillaClasses()
-				CommonFloor.applyPlotClasses()
-				that.loadZoom()
-			).addClass('active').removeClass('inactive')
+			# $('.region').load(url,()->
+			# 	that.iniTooltip()
+			# 	CommonFloor.applyVillaClasses()
+			# 	CommonFloor.applyPlotClasses()
+			# 	that.loadZoom()
+			# ).addClass('active').removeClass('inactive')
 
 		)
 	#intialize tooltip 

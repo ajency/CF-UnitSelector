@@ -678,14 +678,8 @@
           $('.first_image').remove();
           $('.rotate').removeClass('hidden');
           $('#spritespin').show();
-          $('.cf-loader').addClass('hidden');
+          return $('.cf-loader').addClass('hidden');
         }
-        return $('.region').load(url, function() {
-          that.iniTooltip();
-          CommonFloor.applyVillaClasses();
-          CommonFloor.applyPlotClasses();
-          return that.loadZoom();
-        }).addClass('active').removeClass('inactive');
       });
     };
 
