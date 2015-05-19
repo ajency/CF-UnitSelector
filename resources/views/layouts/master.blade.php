@@ -114,8 +114,8 @@
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu">
-                                <li><a href="{{ url( 'admin/project/create' ) }}">Add</a></li>
-                                <li><a href="{{ url( 'admin/project' ) }}">View</a></li>
+                                <li><a href="{{ url( 'admin/project' ) }}">All Projects</a></li>
+                                <li><a href="{{ url( 'admin/project/create' ) }}">Add Project</a></li>
                             </ul>
                         </li>
                         <li class="">
