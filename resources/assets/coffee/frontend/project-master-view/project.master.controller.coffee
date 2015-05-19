@@ -770,12 +770,12 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
 				$('.cf-loader').addClass 'hidden'
-			$('.region').load(url,()->
-				that.iniTooltip()
-				CommonFloor.applyVillaClasses()
-				CommonFloor.applyPlotClasses()
-				that.loadZoom()
-			).addClass('active').removeClass('inactive')
+			# $('.region').load(url,()->
+			# 	that.iniTooltip()
+			# 	CommonFloor.applyVillaClasses()
+			# 	CommonFloor.applyPlotClasses()
+			# 	that.loadZoom()
+			# ).addClass('active').removeClass('inactive')
 
 		)
 	#intialize tooltip 
