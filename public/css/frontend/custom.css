@@ -701,28 +701,29 @@ hr.embossed {
           transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
 .zoom {
-  -webkit-animation: project-zoom 1s linear;
-          animation: project-zoom 1s linear;
+  -webkit-animation: project-zoom 1s linear forwards;
+          animation: project-zoom 1s linear forwards;
+  -moz-animation: project-zoom 1s linear forwards;
 }
 @-webkit-keyframes project-zoom {
-  from,
-  to {
-    -webkit-transform: none;
-            transform: none;
+  from {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
   }
-  100% {
+  to {
     -webkit-transform: scale(3);
             transform: scale(3);
     opacity: 0;
   }
 }
 @keyframes project-zoom {
-  from,
-  to {
-    -webkit-transform: none;
-            transform: none;
+  from {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+    opacity: 1;
   }
-  100% {
+  to {
     -webkit-transform: scale(3);
             transform: scale(3);
     opacity: 0;
@@ -998,17 +999,10 @@ svg .layer {
   stroke-dashoffset: 400;
   -webkit-transition: 0.5s ease-in;
           transition: 0.5s ease-in;
-  -webkit-transform-origin: 50% 50%;
-      -ms-transform-origin: 50% 50%;
-          transform-origin: 50% 50%;
 }
 svg .layer.svg_active {
-  stroke-width: 4px;
-  stroke-dasharray: 320 0;
-  stroke-dashoffset: 0;
-  stroke: #f68121;
-  -webkit-transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
-          transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
+  -webkit-animation: blink 0.8s ease-in-out infinite alternate;
+          animation: blink 0.8s ease-in-out infinite alternate;
 }
 svg .layer.not_in_selection {
   opacity: .5;
@@ -1016,9 +1010,6 @@ svg .layer.not_in_selection {
   -webkit-animation: unit_fadein 0.6s;
 }
 svg .layer:hover {
-  -webkit-transform: scale(1.06);
-      -ms-transform: scale(1.06);
-          transform: scale(1.06);
   cursor: default;
   stroke: #f68121;
   stroke-width: 4px;
@@ -1084,8 +1075,9 @@ svg polygon {
   opacity: 0.3;
 }
 .step1-marker:hover {
-  -webkit-animation: pulse 1s infinite;
-          animation: pulse 1s infinite;
+  -webkit-animation: blink 0.5s ease-in-out infinite alternate;
+          animation: blink 0.5s ease-in-out infinite alternate;
+  -moz-animation: blink 0.5s ease-in-out infinite alternate;
 }
 @-webkit-keyframes pulse {
   0% {
@@ -1153,6 +1145,22 @@ svg polygon {
   100% {
     -webkit-transform: translateY(0);
             transform: translateY(0);
+  }
+}
+@-webkit-keyframes blink {
+  100% {
+    fill: #F68121;
+    fill-opacity: 0.5;
+    opacity: .9;
+    border: 1px solid #000;
+  }
+}
+@keyframes blink {
+  100% {
+    fill: #F68121;
+    fill-opacity: 0.5;
+    opacity: .9;
+    border: 1px solid #000;
   }
 }
 .list-view-container {
