@@ -101,7 +101,7 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#"><img src="http://ak.asset2.cfcdn.com/cfassets/images/logo-tab.png"/></a>
+                        <a class="navbar-brand" href="#"><img src="http://asset2.cfcdn.com/cfassets/images/logo-tab.png"/></a>
                     </div>
 
                     <!-- Collect the nav links, forms, and other content for toggling -->

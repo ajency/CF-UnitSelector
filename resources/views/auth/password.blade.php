@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="panel panel-default">
-             <img src="http://ak.asset2.cfcdn.com/cfassets/images/logo-tab.png" class="inline">
+             <img src="http://asset2.cfcdn.com/cfassets/images/logo-tab.png" class="inline">
 <span class="header">Reset Password</span>
                 <div class="panel-body">
                     @if (session('status'))
