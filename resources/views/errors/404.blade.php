@@ -10,8 +10,8 @@
                 height: 100%;
                 color: #B0BEC5;
                 display: table;
-                font-weight: 100;
-                font-family: 'Lato';
+                background-color: #ededed;
+                  
             }
 
             .container {
@@ -33,21 +33,44 @@
                     bottom: 40px;
                 }
             .title {
-                font-size: 72px;
+                
                 margin-bottom: 40px;
                 padding: 70px;
-                padding-top: 45px;
-                color:#646464;
+                padding-top: 0;
+                font-family: sans-serif;
             }
+                     .error-number{
+                      color: #22262e;
+  font-size: 120px;
+  text-align: center;
+  
+}
+.error-description{
+      color: #22262e;
+  font-size: 32px!important;
+  text-align: center;
+  font-weight: 300;
+  padding-bottom: 15px;
+}
+  .error-description-mini{
+      color: #22262e;
+  font-size: 18px;
+  text-align: center;
+  font-weight: 300;
+  padding-bottom: 15px;
+   }            
         </style>
     </head>
     <body>
         <div class="container">
            <div class="content">
-               <img src="http://ak.asset2.cfcdn.com/cfassets/images/logo-tab.png">
+               <img src="http://asset2.cfcdn.com/cfassets/images/logo-tab.png">
                 <div class="title">
-                    <div>404!!!! </div>
-                    Sorry. Page not Found!!!
+                    <div class="error-number">404</div>
+                    
+                    <div class="error-description"> We seem to have lost you in the clouds. </div>
+                    <div class="error-description-mini"> The page your looking for is not here </div>
+                    <a class="btn btn-link btn-cons" type="button" href="">Let's help you get back</a>
                 </div>
             </div>
         
