@@ -196,13 +196,17 @@ class CommonFloor.TopApartmentMasterCtrl extends Marionette.RegionController
 
 class ApartmentsView extends Marionette.ItemView
 
-	template : Handlebars.compile('	<div class=" info">
-						                <label class="pull-left">{{unit_name}}</label> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft-->
-						            	<div class="clearfix"></div>
-						            </div>
-					                <div class="cost">
-					                  {{price}}
-					                </div><label>{{property}}</label>')
+	template : Handlebars.compile('	<div class="row">
+					                      <div class="col-sm-4  info">
+					                        <b class="bold">F1</b> - {{unit_name}} 
+					                  </div>  
+					                      <div class="col-sm-3  info">
+					                        	{{unit_type}}                   
+					                      </div> 
+					                       <div class="col-sm-5 text-primary">
+					                          <span class="icon-rupee-icn"></span>{{price}} <span class="tick"></span>
+					                      </div> 
+					                  </div>')
 
 	initialize:->
 		@$el.prop("id", 'apartment'+@model.get("id"))
@@ -264,7 +268,7 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 							  </ul>
 							 </div>
               				<p class="text-center help-text">Hover on the units for more details</p>
-			               	<ul class="units two">
+			               	<ul class="units one">
 		                	</ul>					                			
 						</div>
 					</div>
