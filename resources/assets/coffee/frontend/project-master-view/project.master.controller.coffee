@@ -761,6 +761,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('#trig').removeClass 'hidden'
 			response = project.checkRotationView()
 			if response is 1
+				$('.region').empty()
+				$('.region').addClass('inactive').removeClass('active')
 				$('.first_image').remove()
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
