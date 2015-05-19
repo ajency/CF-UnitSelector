@@ -523,8 +523,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		
 		$.merge transitionImages ,  building.get('building_master')
 		console.log first = _.values svgs
-		$('.region').load(first[0],
-			$('.first_image').attr('data-src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
+		$('.region').load(first[0],()->
+				$('.first_image').attr('data-src',transitionImages[0])
+				that.iniTooltip()
+				).addClass('active').removeClass('inactive')
 		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
 			response = building.checkRotationView(building_id)
@@ -546,7 +548,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		transitionImages = []
 		$.merge transitionImages ,  project.get('project_master')
 		if project.get('project_master').length != 0
-			$('.project_master').load(first[0],
+			$('.project_master').load(first[0],()->
 				$('.firstimage').attr('src',transitionImages[0])
 				url = Backbone.history.fragment
 				console.log building_id = url.split('/')[1]
