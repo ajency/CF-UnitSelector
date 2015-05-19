@@ -57,10 +57,16 @@ class ProjectController extends Controller {
                 
         $project = $projectRepository->getProjectById($id);
         $projectMeta = $project->projectMeta()->whereNotIn('meta_key', ['master', 'google_earth', 'skyview', 'breakpoints', 'cf'])->get()->toArray();
-        $propertyTypes = get_all_property_type(); 
+        $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray(); 
         $defaultunitTypes = get_all_unit_type();
-        $unitTypes = $projectunitTypes = $projectCost = $propertytypeAttributes = [];
-
+        $propertyTypes = $unitTypes = $projectunitTypes = $projectCost = $propertytypeAttributes = [];
+        
+        foreach ($projectpropertyTypes as $projectpropertyType)
+        {
+            $propertyTypes[$projectpropertyType['property_type_id']]=get_property_type($projectpropertyType['property_type_id']);
+        }
+       
+        
         foreach ($projectMeta as $meta) {
             $projectCost[$meta['meta_key']] = ['ID' => $meta['id'], 'VALUE' => $meta['meta_value']];
         }
