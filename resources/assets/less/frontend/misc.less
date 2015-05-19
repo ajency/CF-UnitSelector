@@ -104,15 +104,19 @@
 }
 
 .zoom{
-  animation: project-zoom 1s linear;
+  animation: project-zoom 1s linear forwards;
+  -moz-animation: project-zoom 1s linear forwards;
   // transform: scale(2,2);
   // filter: blur(10px);
   // opacity: .5;
 }
 
 @keyframes project-zoom {
-  from, to { transform: none; }
-  100% { 
+  from{
+    transform: scale(1);
+    opacity: 1;
+  } 
+  to { 
     transform: scale(3);
     opacity: 0;
   }
