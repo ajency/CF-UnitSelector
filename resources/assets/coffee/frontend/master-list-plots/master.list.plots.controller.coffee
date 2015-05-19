@@ -65,14 +65,19 @@ class PlotListView extends Marionette.ItemView
 			id = @model.get('id')
 			# $('#'+id+'.villa').attr('class' ,'layer villa')
 			$('#unit'+id).attr('class' , 'bldg blocks'+' '+@model.get('status'))
-			$('#'+id).tooltipster('hide')
+			# $('#'+id).tooltipster('hide')
 			CommonFloor.applyPlotClasses(@classname)
 			$('#'+id).tooltipster('show')
 
 		'click' :(e)->
-			if @model.get('status') == 'available'
-				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
-				CommonFloor.router.storeRoute()
+			@iniTooltip(@model.get('id'))
+			html = @getHtml(@model.get('id'))
+			id = @model.get('id')
+			$('.layer').attr('class','layer plot')
+			$('#'+id+'.plot').attr('class' ,'layer plot '+@model.get('status'))
+			$('#unit'+id).attr('class' ,'bldg blocks'+' '+@model.get('status')+' active')
+			$('#'+id).tooltipster('content', html)
+			$('.tooltip-overlay').attr('class','tooltip-overlay')
 
 	iniTooltip:(id)->
 		$('#'+id).trigger('mouseover')

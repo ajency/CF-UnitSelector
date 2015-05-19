@@ -225,6 +225,21 @@
     });
   };
 
+  CommonFloor.applyAptClasses = function(classname) {
+    return $('.apartment').each(function(ind, item) {
+      var availability, id, unit;
+      id = parseInt(item.id);
+      unit = unitCollection.findWhere({
+        id: id
+      });
+      if (!_.isUndefined(unit)) {
+        availability = unit.get('availability');
+        availability = s.decapitalize(availability);
+        return $('#' + id).attr('class', 'layer apartment unit_fadein ' + availability);
+      }
+    });
+  };
+
   CommonFloor.applyPlotClasses = function(classname) {
     return $('.plot').each(function(ind, item) {
       var availability, id, unit;
@@ -314,6 +329,7 @@
     var actualbuildings, actualunits, filterbuildings, filterunits, notSelecteUnits, notSelectebuildings;
     CommonFloor.applyPlotClasses();
     CommonFloor.applyVillaClasses();
+    CommonFloor.applyAptClasses();
     actualunits = _.pluck(unitMasterCollection.toArray(), 'id');
     filterunits = _.pluck(unitCollection.toArray(), 'id');
     notSelecteUnits = _.difference(actualunits, filterunits);
@@ -344,7 +360,7 @@
     return $('.apartment').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
-      if ($.inArray(id, notSelectebuildings) > -1) {
+      if ($.inArray(id, notSelecteUnits) > -1) {
         return $('#' + id).attr('class', 'layer apartment unit_fadein not_in_selection');
       }
     });

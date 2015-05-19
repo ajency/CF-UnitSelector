@@ -306,6 +306,217 @@ hr.embossed {
   display: block;
   background-position: -116px -18px;
 }
+/* Bootstrap responsive utilities */
+@-ms-viewport {
+  width: device-width;
+}
+.visible-xs,
+.visible-sm,
+.visible-md,
+.visible-lg {
+  display: none !important;
+}
+.visible-xs-block,
+.visible-xs-inline,
+.visible-xs-inline-block,
+.visible-sm-block,
+.visible-sm-inline,
+.visible-sm-inline-block,
+.visible-md-block,
+.visible-md-inline,
+.visible-md-inline-block,
+.visible-lg-block,
+.visible-lg-inline,
+.visible-lg-inline-block {
+  display: none !important;
+}
+@media (max-width: 767px) {
+  .visible-xs {
+    display: block !important;
+  }
+  table.visible-xs {
+    display: table;
+  }
+  tr.visible-xs {
+    display: table-row !important;
+  }
+  th.visible-xs,
+  td.visible-xs {
+    display: table-cell !important;
+  }
+}
+@media (max-width: 767px) {
+  .visible-xs-block {
+    display: block !important;
+  }
+}
+@media (max-width: 767px) {
+  .visible-xs-inline {
+    display: inline !important;
+  }
+}
+@media (max-width: 767px) {
+  .visible-xs-inline-block {
+    display: inline-block !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .visible-sm {
+    display: block !important;
+  }
+  table.visible-sm {
+    display: table;
+  }
+  tr.visible-sm {
+    display: table-row !important;
+  }
+  th.visible-sm,
+  td.visible-sm {
+    display: table-cell !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .visible-sm-block {
+    display: block !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .visible-sm-inline {
+    display: inline !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .visible-sm-inline-block {
+    display: inline-block !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .visible-md {
+    display: block !important;
+  }
+  table.visible-md {
+    display: table;
+  }
+  tr.visible-md {
+    display: table-row !important;
+  }
+  th.visible-md,
+  td.visible-md {
+    display: table-cell !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .visible-md-block {
+    display: block !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .visible-md-inline {
+    display: inline !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .visible-md-inline-block {
+    display: inline-block !important;
+  }
+}
+@media (min-width: 1200px) {
+  .visible-lg {
+    display: block !important;
+  }
+  table.visible-lg {
+    display: table;
+  }
+  tr.visible-lg {
+    display: table-row !important;
+  }
+  th.visible-lg,
+  td.visible-lg {
+    display: table-cell !important;
+  }
+}
+@media (min-width: 1200px) {
+  .visible-lg-block {
+    display: block !important;
+  }
+}
+@media (min-width: 1200px) {
+  .visible-lg-inline {
+    display: inline !important;
+  }
+}
+@media (min-width: 1200px) {
+  .visible-lg-inline-block {
+    display: inline-block !important;
+  }
+}
+@media (max-width: 767px) {
+  .hidden-xs {
+    display: none !important;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .hidden-sm {
+    display: none !important;
+  }
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+  .hidden-md {
+    display: none !important;
+  }
+}
+@media (min-width: 1200px) {
+  .hidden-lg {
+    display: none !important;
+  }
+}
+.visible-print {
+  display: none !important;
+}
+@media print {
+  .visible-print {
+    display: block !important;
+  }
+  table.visible-print {
+    display: table;
+  }
+  tr.visible-print {
+    display: table-row !important;
+  }
+  th.visible-print,
+  td.visible-print {
+    display: table-cell !important;
+  }
+}
+.visible-print-block {
+  display: none !important;
+}
+@media print {
+  .visible-print-block {
+    display: block !important;
+  }
+}
+.visible-print-inline {
+  display: none !important;
+}
+@media print {
+  .visible-print-inline {
+    display: inline !important;
+  }
+}
+.visible-print-inline-block {
+  display: none !important;
+}
+@media print {
+  .visible-print-inline-block {
+    display: inline-block !important;
+  }
+}
+@media print {
+  .hidden-print {
+    display: none !important;
+  }
+}
 .unit-list {
   overflow-y: auto;
   overflow-x: hidden;
@@ -731,6 +942,11 @@ hr.embossed {
 }
 .text-primary {
   color: #f68121;
+}
+.tooltip-overlay {
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
 }
 /* Loader */
 .cf-loader {
@@ -1275,6 +1491,14 @@ svg polygon {
 .blocks:nth-child(3n) {
   margin-right: 0;
 }
+.blocks .row {
+  margin: 0 -5px;
+}
+.blocks .col-sm-3,
+.blocks .col-sm-4,
+.blocks .col-sm-5 {
+  padding: 0 5px;
+}
 .blocks::after {
   border-right: 1px solid #666666;
   content: "";
@@ -1345,27 +1569,43 @@ svg polygon {
 .three .blocks.unit .info span {
   color: #f68121;
 }
-.two .blocks {
+.two .blocks,
+.one .blocks {
   padding: 10px;
   width: 50%;
 }
-.two .blocks .cost {
+.two .blocks .cost,
+.one .blocks .cost {
   float: none;
   color: #f68121;
   font-weight: bold;
 }
-.two .blocks.unit .info label {
+.two .blocks.unit .info label,
+.one .blocks.unit .info label {
   display: block;
   color: #666666;
 }
-.two .blocks:nth-child(even) {
+.two .blocks.unit .info .bold,
+.one .blocks.unit .info .bold {
+  color: #000000;
+  font-weight: 900;
+}
+.two .blocks:nth-child(even),
+.one .blocks:nth-child(even) {
   border-right: none;
 }
 .one .blocks {
-  padding: 15px 10px;
+  padding: 10px 10px;
   width: 100%;
   margin-right: 0;
   border-right: none;
+}
+.one .blocks .tick {
+  background: url(../../images/tick.png) no-repeat;
+  width: 23px;
+  height: 24px;
+  display: inline-block;
+  float: right;
 }
 .one .blocks.bldg .bldg-img {
   display: none;
@@ -1459,6 +1699,7 @@ svg polygon {
 .units {
   list-style-type: none;
   overflow-y: auto;
+  overflow-x: hidden;
   -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
           transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1)
   /* List of Villas */
@@ -1554,6 +1795,7 @@ svg polygon {
     box-shadow: inset 0 0 2px 2px #f68121;
   }
 }
+/*text*/
 /* Single Building SVG Area */
 .single-bldg .prev,
 .single-bldg .next {
@@ -1856,9 +2098,12 @@ svg polygon {
   position: absolute;
   top: 56px;
   width: 100%;
-  left: 0;
+  right: 0;
   background-color: rgba(38, 38, 38, 0.6);
   z-index: 999;
+}
+.filter-result.full {
+  width: 100%;
 }
 .filter-result .filter-pill {
   margin: 15px 5px;
@@ -2150,7 +2395,6 @@ label.third_toggle {
   cursor: pointer;
   position: absolute;
   right: 8px;
-  display: none;
 }
 .svg-info .details {
   font-size: 12px;
@@ -2167,7 +2411,7 @@ label.third_toggle {
 }
 .svg-info .action-bar {
   width: 60px;
-  height: 90px;
+  height: 105px;
   float: left;
   padding: 10px;
   margin-left: -10px;
@@ -2211,12 +2455,14 @@ label.third_toggle {
   width: 50px;
   height: 50px;
   display: block;
+  margin-top: 40%;
 }
 .svg-info .villa {
   background: url(../../images/sprite-popover.png) no-repeat;
   width: 50px;
   height: 50px;
   display: block;
+  margin-top: 40%;
   background-position: -10px;
 }
 .svg-info .building {
@@ -2224,6 +2470,7 @@ label.third_toggle {
   width: 50px;
   height: 50px;
   display: block;
+  margin-top: 40%;
   background-position: -64px;
 }
 .svg-info .plot {
@@ -2231,7 +2478,11 @@ label.third_toggle {
   width: 50px;
   height: 50px;
   display: block;
+  margin-top: 40%;
   background-position: -115px;
+}
+.svg-info .text-default {
+  opacity: .5;
 }
 .tooltipster-shadow .tooltipster-content {
   padding-bottom: 0;

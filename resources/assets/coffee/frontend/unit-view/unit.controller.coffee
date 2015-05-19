@@ -105,7 +105,7 @@ class LeftUnitView extends Marionette.ItemView
 									<div class="col-sm-6 col-xs-12">
 										<span class="facts-icon icon-rupee-icn"></span>
 										<div class="unit-label">
-											<h3>{{price}}</h3>
+											<h3 class="price">{{price}}</h3>
 											<h5 class="text-muted">Price</h5>      
 										</div>
 									</div>
@@ -132,13 +132,13 @@ class LeftUnitView extends Marionette.ItemView
 
 											<div class="panel-heading" role="tab" id="headingTwo">
 											  	<h4 class="panel-title m-b-15 p-b-10">
-											   		<a class="accordion-toggle collapsed text-primary " data-toggle="collapse" data-parent="#accordion" href="#{{level_name}}" aria-expanded="false" >
+											   		<a class="accordion-toggle collapsed text-primary " data-toggle="collapse" data-parent="#accordion" href="#{{id}}" aria-expanded="false" >
 												    	{{level_name}}
 													</a>
 											  	</h4>
 											</div>
 
-											<div id="{{level_name}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+											<div id="{{id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 					                           	<div class="panel-body">
 					                           		{{#rooms}}
 					                          		<div class="room-attr"> 
@@ -209,6 +209,7 @@ class LeftUnitView extends Marionette.ItemView
 				'price' : window.numDifferentiation(response[3])
 				'area':response[0].get 'super_built_up_area'
 				'variant':response[0].get 'unit_variant_name'
+				'id' : value.get('id')
 		data.area = response[0].get('super_built_up_area')
 		data.type = response[1].get('name')
 		data.unit_variant = response[0].get('unit_variant_name')
@@ -256,10 +257,11 @@ class LeftUnitView extends Marionette.ItemView
 				rooms.push 
 					'room_name' : val.room_name
 					'attributes' : attributes
-			
+			level_id = s.replaceAll(level_name, " ", "_")
 			levels.push 
 				'level_name' : level_name
 				'rooms'			 : rooms
+				'id'    : level_id
 
 		levels
 

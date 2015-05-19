@@ -108,6 +108,21 @@
       return data;
     };
 
+    LeftView.prototype.onShow = function() {
+      $('#proj_info').tooltipster({
+        theme: 'tooltipster-shadow',
+        contentAsHTML: true,
+        onlyOne: true,
+        arrow: false,
+        offsetX: 30,
+        interactive: true,
+        animation: 'grow',
+        trigger: 'hover',
+        content: $('#proj_info').html()
+      });
+      return $('#proj_info').trigger('mouseover');
+    };
+
     return LeftView;
 
   })(Marionette.ItemView);
@@ -157,20 +172,7 @@
       var path;
       $('img').lazyLoadXT();
       path = this.model.get('step_one').svg;
-      $('.svg-area').load(path);
-      return $('.marker').tooltipster({
-        theme: 'tooltipster-shadow',
-        contentAsHTML: true,
-        onlyOne: true,
-        arrow: false,
-        offsetX: 30,
-        interactive: true,
-        animation: 'grow',
-        trigger: 'hover',
-        functionInit: function() {
-          return $('#proj_info').html();
-        }
-      });
+      return $('.svg-area').load(path);
     };
 
     return CenterView;

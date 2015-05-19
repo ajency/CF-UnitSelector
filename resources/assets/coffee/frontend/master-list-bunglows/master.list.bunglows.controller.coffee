@@ -57,25 +57,26 @@ class BunglowListView extends Marionette.ItemView
 			$('#'+id+'.villa').attr('class' ,'layer villa svg_active '+@model.get('status'))
 			$('#unit'+id).attr('class' ,'unit blocks'+' '+@model.get('status')+' active')
 			$('#'+id).tooltipster('content', html)
-			$('.region').attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;')
+		
 			
 			
 		'mouseout':(e)->
 			id = @model.get('id')
 			# $('#'+id+'.villa').attr('class' ,'layer villa')
 			$('#unit'+id).attr('class' , 'unit blocks'+' '+@model.get('status'))
-			$('#'+id).tooltipster('hide')
+			# $('#'+id).tooltipster('hide')
 			CommonFloor.applyVillaClasses(@classname)
+			
 
 		'click' :(e)->
 			@iniTooltip(@model.get('id'))
 			html = @getHtml(@model.get('id'))
 			id = @model.get('id')
-			# $('.villa').attr('class','layer villa')
+			$('.tooltip-overlay').attr('class','tooltip-overlay')
 			$('#'+id+'.villa').attr('class' ,'layer villa svg_active '+@model.get('status'))
 			$('#unit'+id).attr('class' ,'unit blocks'+' '+@model.get('status')+' active')
 			$('#'+id).tooltipster('content', html)
-			$('.region').attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;')
+			
 
 	iniTooltip:(id)->
 		$('#'+id).trigger('mouseover')
