@@ -161,19 +161,7 @@ class LeftView extends Marionette.ItemView
 		data.propertyTypes = propertyTypes
 		data
 
-	onShow:->
-		$('#proj_info').tooltipster(
-			theme: 'tooltipster-shadow'
-			contentAsHTML: true
-			onlyOne : true
-			arrow : false
-			offsetX : 30
-			interactive : true
-			animation : 'grow'
-			trigger: 'hover'
-			content : $('#proj_info').html()
-		)
-		$('#proj_info').trigger('mouseover')
+		
 #Controller for the left view of Project
 class CommonFloor.LeftCtrl extends Marionette.RegionController
 
@@ -186,7 +174,7 @@ class CommonFloor.LeftCtrl extends Marionette.RegionController
 #View for the center view of Project
 class CenterView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="col-md-12 us-right-content animated fadeIn">
+	template : Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content animated fadeIn">
 										<div class="cf-loader loader-center hidden"></div>
 										<div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" 
 											data-nodebug="" data-alwaysprocess="" 
@@ -214,6 +202,19 @@ class CenterView extends Marionette.ItemView
 		$('img').lazyLoadXT()
 		path = @model.get('step_one').svg
 		$('.svg-area').load(path)
+
+		$('.marker').tooltipster(
+			theme: 'tooltipster-shadow'
+			contentAsHTML: true
+			onlyOne : true
+			arrow : false
+			offsetX : 30
+			interactive : true
+			animation : 'grow'
+			trigger: 'hover'
+			content : $('#proj_info').html()
+		)
+		$('#proj_info').trigger('mouseover')
 
 		
 		
