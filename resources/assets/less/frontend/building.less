@@ -29,7 +29,7 @@
 	}
 }
 
-/* Pop up Styles */
+/* Pop up Styles s */
 .bldg_info{
 	background-color: @white;
 	cursor: pointer;
@@ -45,12 +45,12 @@
 		margin-top: 5px;
 		li{
 			font-size: 12px;
-			float: left;
+			display:inline;
 			text-align: center;
-			width: 50%;
+			
 			&::after{
 				content: '|';
-				float: right;
+				
 			}
 			&:nth-child(2n)::after{
 				content: '';
@@ -59,5 +59,21 @@
 				color: @brand-primary;
 			}
 		}
+	}
+}
+
+
+/* Mini Map */
+.mini-map{
+	width: 300px;
+	height: 150px;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	z-index: 999;
+	.project_master{
+		position: absolute;
+		bottom: 0;
+		right: 0;
 	}
 }

@@ -1,29 +1,50 @@
 .svg-tooltip{
     display: none;
 }
+.big-tooltip{
+    width:471px;
+    .b-r{
+      border-left: 1px solid #ccc;
+    }
+    .icon-location{
+        float:left;
+        margin-right:10px;
+        font-size:30px;
+        color: @brand-primary;
+    }
+      .icon-cross{
+        position: absolute;
+        right: 8px;
+    }
+}
 
 .svg-info{
-	font-family: OpenSans,Arial,sans-serif;
-	padding: 0;
+    font-family: OpenSans,Arial,sans-serif;
+    padding: 0;
+    &.available, &.sold, &.blocked, &.not_released{
+        min-width: 290px;
+    }
     h5{
-    	// color: @brand-primary;
-    	font-weight: bold;
+        // color: @brand-primary;
+        font-weight: bold;
     }
     .label{
-    	margin: 10px 0 0 5px;
-    	display: inline-block;
+        margin: 10px 0 0 5px;
+        display: inline-block;
     }
     .icon-cross{
         font-size: 8px;
         font-weight: bold;
         cursor: pointer;
+        position: absolute;
+        right: 8px;
         display: none;
     }
     .details{
-    	font-size: 12px;
-    	label{
-    		color: @gray-light;
-    	}
+        font-size: 12px;
+        label{
+            color: @gray-light;
+        }
         div{
             padding-bottom: 5px;
         }
@@ -33,17 +54,19 @@
         }
     }
     .action-bar{
-        min-width: 250px;
-        padding: 10px;
-        margin-left: -10px;
-        margin-right: -10px;
-        margin-top: 5px;
-        color: @white;
-        font-size: 12px;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-        cursor: pointer;
-        display: block;
+            width: 60px;
+  height: 90px;
+  float: left;
+  padding: 10px;
+  margin-left: -10px;
+  margin-top: -10px;
+  margin-right: 11px;
+            color: @white;
+            font-size: 12px;
+            border-bottom-left-radius: 5px;
+            border-top-left-radius: 5px;
+            cursor: pointer;
+            display: block;
     }
     &.available{
         .action-bar{
@@ -65,6 +88,38 @@
             background-color: @warning-darker;
             color: @gray;
         }
+    }
+    .circle{
+        width:40px;
+        height:40px;
+        border-radius:100%;
+        background:@brand-primary;
+        position: absolute;
+        right: -20px;
+        top: 30%;
+        text-align: center;
+        line-height: 40px;
+        color: @white;
+        font-size: 15px;
+       
+    }
+    .step2-sprite{
+        background: url(../../images/sprite-popover.png) no-repeat;
+      width: 50px;
+      height: 50px;
+      display: block;
+    }
+    .villa{
+      .step2-sprite;
+        background-position: -10px;
+    }
+    .building{
+     .step2-sprite;
+      background-position: -64px;
+    }
+     .plot{
+    .step2-sprite;
+      background-position: -115px;
     }
 }
 

@@ -10,7 +10,14 @@ body{
 .us-header{
     background-color: @brand-primary;
     color: @white;
+    width: 100%;
+    position: fixed;
+    z-index: 9998;
     // margin: 0 -15px;
+}
+
+.top-spacing{
+    padding-top: 56px;
 }
 .cf-hdr-blk .cf-us-logo {
     background:url(../../images/unit-selector_logo.png) no-repeat;
@@ -44,7 +51,7 @@ body{
     // margin-top: 10px;
     float: left;
     h1{
-        margin: 0 5px 0 15px;
+        margin: 0 0 0 15px;
         padding: 5px 5px 10px 10px;
         border-left: 1px solid @brand-primary-darker;
     }
@@ -118,6 +125,7 @@ body{
     .svg-area{
         width: 100%;
         overflow: hidden;
+        min-width: 1024px;
         img{
             width: 100%;
         }
@@ -151,6 +159,15 @@ body{
           display: none;
         }
       }
+    }
+    .us-right-content{
+        overflow: auto;
+        .svg-area, .master{
+            min-width: 165vh;
+        }
+    }
+    .top-spacing{
+        // padding-top: 110px;
     }
 }
 
@@ -244,4 +261,71 @@ hr.embossed {
     border:none; 
     border-bottom:1px solid lighten(@gray-lighter, 10%); 
     border-top:1px solid lighten(@gray-lighter, 14%); 
+}
+
+
+/* Step 3 */
+.p-b-10{
+    padding-bottom:15px;
+}
+.detail-list{
+  margin-bottom: 20px;
+        .facts-icon{
+            font-size: 40px;
+            width: 40px;
+            float: left;
+            margin-right: 10px;
+            color:#5F5F5F;
+        }
+        .unit-label{
+             float: left;
+            h3{
+              margin: 0px 0px 6px;
+            }
+        }
+}
+.panel-title{
+    border-bottom:1px solid #ccc;
+}
+.panel-heading .accordion-toggle:after {
+    /* symbol for "opening" panels */
+     font-family: icomoon;  /* essential for enabling glyphicon */
+      content: "\e642";   /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: grey;         /* adjust as needed */
+      transform: rotate(0deg);
+      -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+}
+.panel-heading .accordion-toggle.collapsed:after {
+    /* symbol for "opening" panels */
+     font-family: icomoon;  /* essential for enabling glyphicon */
+      content: "\e642";   /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: grey;         /* adjust as needed */
+     transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+     -moz-transform: rotate(180deg);
+}
+.property-sprite{
+    background: url(../../images/sprite-popovergray.png) no-repeat;
+    width: 40px;
+    height: 40px;
+    display: block;
+}
+.villa-ico{
+    .property-sprite;
+    background-position: -8px;
+}
+.apartment-ico{
+    .property-sprite;
+    background-position: -68px;
+}
+.penthouse-ico{
+    .property-sprite;
+    background-position: -165px;
+}
+.plot-ico{
+    .property-sprite;
+    background-position: -116px -18px; 
 }

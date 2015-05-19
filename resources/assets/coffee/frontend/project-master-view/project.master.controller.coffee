@@ -46,8 +46,8 @@ class TopMasterView extends Marionette.ItemView
 										              	</div>	
 										              	{{/each}}{{/each }}							               
 										            </div>
+										            <div class="clearfix"></div>
 												</div>
-												
 
 											</div>
 										</div>
@@ -307,17 +307,14 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 
-	template : Handlebars.compile('<button class="btn btn-primary filter-button pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters">
-										<span class="icon-funnel"></span>
-									</button>
-									<div class="col-md-12 us-right-content mobile visible animated fadeIn">
+	template : Handlebars.compile('<div class="col-md-12 us-right-content mobile visible animated fadeIn">
 										
 										<div class="legend clearfix">
 										  <ul>
 										    <!--<li class="available">AVAILABLE</li>-->
-										    <li class="sold">Not Available</li>
+										    <li class="sold">N/A</li>
 										    <!--<li class="blocked">BLOCKED</li>-->
-										    <li class="na">Not in Selection</li>
+										    <li class="na">Available</li>
 										  </ul>
 										</div>
 										<div class="zoom-controls">
@@ -524,10 +521,15 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			availability = s.decapitalize(availability)
 			html = ""
 			html += '<div class="svg-info '+availability+' ">
+						<div class="action-bar">
+							<div class="villa"></div>
+						</div>
+
 						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
-						<span class="pull-right icon-cross"></span>
-						<!--<span class="label label-success"></span-->
-						<div class="clearfix"></div>
+						<br> <br>
+						<!--<span class="pull-right icon-cross"></span>
+						<span class="label label-success"></span
+						<div class="clearfix"></div>-->
 						<div class="details">
 							<div>
 								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
@@ -537,11 +539,17 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 							</div> 
 						</div>'
+
 			if availability == 'available'
-				html +='<a href="#unit-view/'+id+'" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a>
+				html +='<div class="circle">
+							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
+						</div> 
 					</div>'
 			else
 				html += '</div>'
+
+						
+			
 			
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
@@ -558,7 +566,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				id :  id 
 			if unit is undefined && unitMaster != undefined
 				html = '<div class="svg-info">
-							<div class="details">
+							<div class="details empty">
 								Not in selection
 							</div>  
 						</div>'
@@ -566,7 +574,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				return 
 			if unit is undefined
 				html += '<div class="svg-info">
-							<div class="details">
+							<div class="details empty">
 								Plot details not entered 
 							</div>  
 						</div>'
@@ -579,27 +587,30 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			html = ""
-			html += '<div class="svg-info">
-						<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
-						<!--<span class="label label-success"></span-->
-						<div class="clearfix"></div>
+			html += '<div class="svg-info '+availability+' ">
+						<div class="action-bar">
+							<div class="plot"></div>
+						</div>
+
+						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
+						<br> <br>
+						<!--<span class="pull-right icon-cross"></span>
+						<span class="label label-success"></span
+						<div class="clearfix"></div>-->
 						<div class="details">
 							<div>
-								<label>Variant</label> - '+response[0].get('unit_variant_name')+'
+								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
+								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 							</div>
 							<div>
-								<label>Area</label> - '+response[0].get('super_built_up_area')+' Sq.ft
+								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 							</div> 
-							<div>
-								<label>Unit Type </label> - '+response[1].get('name')+'
-							</div>
-							<div>
-								<label>Price </label> - '+$('#price').val()+'
-							</div>  
-						</div> 
 						</div>'
+
 			if availability == 'available'
-				html +='<a href="#unit-view/'+id+'" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a>
+				html +='<div class="circle">
+							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
+						</div> 
 					</div>'
 			else
 				html += '</div>'
@@ -618,7 +629,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 			if buildingModel == undefined
 				html = '<div class="svg-info">
-							<div class="details">
+							<div class="details empty">
 								Building details not entered 
 							</div>  
 						</div>'
@@ -631,14 +642,25 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			unitTypes = building.getUnitTypes(id)
 			response = building.getUnitTypesCount(id,unitTypes)
 			html = '<div class="svg-info">
-						<h4 class="pull-left">'+buildingModel.get('building_name')+'</h4>
-						<!--<span class="label label-success"></span-->
-						<div class="clearfix"></div>'
-			$.each response,(index,value)->
-				html += '<div class="details">
+						<div class="action-bar">
+							<div class="building"></div>
+						</div>
+
+						<h5 class="pull-left m-t-0">'+buildingModel.get('building_name')+'</h5>
+						<br> <br>
+						<div class="details">
 							<div>
-								<label>'+value.name+'</label> - '+value.units+'
-							</div>'
+								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
+								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
+							</div>
+							<div>
+								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
+							</div> 
+						</div>
+						<div class="details">'
+
+			$.each response,(index,value)->
+				html +=''+value.name+' ('+value.units+'),'
 
 			html += '<div>
 						<label>No. of floors</label> - '+floors+'

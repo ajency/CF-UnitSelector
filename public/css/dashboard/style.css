@@ -8168,15 +8168,10 @@ body.rtl .footer-widget {
   right: 0;
   left: auto;
 }
-.grid .simple .grid-title {
-  border-bottom: 1px solid #f68121 !important;
+.modal-body {
+  background: #fff;
 }
 /* Parsley Styles */
-h4,
-h3,
-h5 {
-  color: #505458!important;
-}
 .parsley-errors-list {
   padding: 0;
   list-style-type: none;
@@ -8185,17 +8180,54 @@ h5 {
   font-size: 12px;
   color: #f34235;
 }
+.orange {
+  background: #F68121;
+  border-left: 4px solid #F68121;
+}
+.img-hover {
+  position: relative;
+  width: 160px;
+  height: 120px;
+  overflow: hidden;
+}
+.img-hover .overlay {
+  position: absolute;
+  z-index: 999;
+  right: 0px;
+  top: 0px;
+  width: 37px;
+  height: 38px;
+  background: rgba(69, 69, 69, 0.6);
+  border-radius: 37%;
+  margin-right: -12px;
+  top: -12px;
+  padding-top: 13px;
+  padding-right: 28px;
+}
+.checkbox label {
+  margin-bottom: 0;
+}
+.alert-error {
+  margin-bottom: 0;
+}
+.add-unit {
+  background: #EEEEEE;
+}
+table.dataTable.no-footer {
+  border-bottom: none;
+}
 .dataTables_length {
   display: none;
-}
-.navbar-brand {
-  padding: 6px!important;
 }
 .full-width {
   width: 100%!important;
 }
 .fa-question-circle {
   font-size: 15px;
+}
+.fa-circle {
+  font-size: 4px;
+  color: #F68121;
 }
 .fa-info {
   cursor: pointer;
@@ -8310,6 +8342,21 @@ h5 {
 .list-group-item {
   padding: 14px;
 }
+.dl-horizontal dt {
+  width: 77px!important;
+  texr-align: left!important;
+  padding: 10px;
+  font-size: 14px;
+  font-weight: normal;
+}
+.dl-horizontal dt h5 {
+  margin: 0;
+}
+.dl-horizontal dd {
+  padding: 10px;
+  margin-left: 85px;
+  border-bottom: 1px solid #DDD;
+}
 #blankCheckbox {
   font-size: 16px!important;
 }
@@ -8405,3 +8452,4 @@ h5 {
     -o-transform: rotateZ(0deg);
   }
 }
+/*# sourceMappingURL=style.css.map */
