@@ -73,7 +73,7 @@ class TopMasterView extends Marionette.ItemView
 			data.status = status
 		data.filters  = CommonFloor.getFilters()[0]
 		data.results  = CommonFloor.getFilters()[1]
-		response = CommonFloor.propertyTypes() 
+		response = CommonFloor.masterPropertyTypes() 
 		data.types = response
 		data
 
@@ -550,7 +550,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 						
 			
-			
+			console.log html
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
 			$('.layer').tooltipster('content', html)

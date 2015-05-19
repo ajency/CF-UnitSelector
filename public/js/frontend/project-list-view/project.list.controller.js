@@ -70,7 +70,7 @@
       }
       data.filters = CommonFloor.getFilters()[0];
       data.results = CommonFloor.getFilters()[1];
-      response = CommonFloor.propertyTypes();
+      response = CommonFloor.masterPropertyTypes();
       data.types = response;
       return data;
     };

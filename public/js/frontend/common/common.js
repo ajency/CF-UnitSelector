@@ -185,21 +185,21 @@
     Router = [];
     if (bunglowVariantCollection.getBunglowMasterUnits().length !== 0) {
       Router.push({
-        'type': s.capitalize('villas'),
+        'type': s.capitalize('villa(s)'),
         'count': bunglowVariantCollection.getBunglowMasterUnits(),
         'type_name': '(V)'
       });
     }
     if (apartmentVariantCollection.getApartmentMasterUnits().length !== 0) {
       Router.push({
-        'type': s.capitalize('apartments'),
+        'type': s.capitalize('apartment(s)'),
         'count': apartmentVariantCollection.getApartmentMasterUnits(),
         'type_name': '(A)'
       });
     }
     if (plotVariantCollection.getPlotMasterUnits().length !== 0) {
       Router.push({
-        'type': s.capitalize('plots'),
+        'type': s.capitalize('plot(s)'),
         'count': plotVariantCollection.getPlotMasterUnits(),
         'type_name': '(P)'
       });
