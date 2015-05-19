@@ -484,7 +484,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
 			$('.layer').tooltipster('content', html)
-			$('.overlay').show()
+			$('.tooltip-overlay').show()
 
 		# 'click .plot':(e)->
 			

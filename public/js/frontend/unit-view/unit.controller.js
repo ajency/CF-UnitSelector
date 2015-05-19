@@ -114,7 +114,7 @@
       return LeftUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content animated fadeIn"> <div class="unit-details"> <div class="row detail-list"> <div class="col-sm-6 col-xs-12"> <span class="facts-icon icon-total-units"></span> <div class="unit-label"> <h3>{{unit_variant}}</h3> <h5 class="text-muted">Unit Variant</h5> </div> </div> <div class="col-sm-6 col-xs-12"> <span class="facts-icon icon-BHKtype"></span> <div class="unit-label"> <h3>{{type}}</h3> <h5 class="text-muted">Unit Type</h5> </div> </div> </div> <div class="row detail-list"> <div class="col-sm-6 col-xs-12"> <span class="facts-icon icon-BHK-area-2"></span> <div class="unit-label"> <h3>{{area}} sq.ft</h3> <h5 class="text-muted">Area</h5> </div> </div> <div class="col-sm-6 col-xs-12"> <span class="facts-icon icon-rupee-icn"></span> <div class="unit-label"> <h3>{{price}}</h3> <h5 class="text-muted">Price</h5> </div> </div> </div> <div class="advncd-filter-wrp"> <div class="blck-wrap title-row"> <h5 class="accord-head">Property Attributes</h5> </div> {{#attributes}} <div class="row"> <div class="col-sm-12"> <h6><span class="text-muted">{{attribute}}:</span> {{value}}</h6> </div> </div> {{/attributes}} </div> <div class=" title-row"> <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"> {{#levels}} <div class="panel panel-default"> <div class="panel-heading" role="tab" id="headingTwo"> <h4 class="panel-title m-b-15 p-b-10"> <a class="accordion-toggle collapsed text-primary " data-toggle="collapse" data-parent="#accordion" href="#{{level_name}}" aria-expanded="false" > {{level_name}} </a> </h4> </div> <div id="{{level_name}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo"> <div class="panel-body"> {{#rooms}} <div class="room-attr"> <div class="m-b-15"> <h5 class="m-b-5">{{room_name}}</h5> {{#attributes}} <div class=""><span>{{attribute}}</span>: {{value}}</div> {{/attributes}} </div> </div> {{/rooms}} </div> </div> </div> {{/levels}} </div> </div> </div> <div class="clearfix"></div> <div class="similar-section"> <h5 class="m-b-15">{{similarUnitsText}}</h5> {{#similarUnits}} <div class="row m-b-15"> <div class="col-sm-3 hidden-xs"> <div class="alert "> <i class="villa-ico"></i> </div> </div> <div class="col-sm-9 col-xs-12"> <h5><a href="/#unit-view/{{id}}">{{unit_name}}</a> <span class="text-primary pull-right"><span class="icon-rupee-icn"></span>{{price}}</span></h5> <span class="text-muted">Unit Variant: </span>{{variant}}<br> <span class="text-muted">Unit Type:</span> {{unit_type}}<br> <span class="text-muted"> Area:</span> {{area}} sqft </div> </div> {{/similarUnits}} </div> </div> </div>');
+    LeftUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content animated fadeIn"> <div class="unit-details"> <div class="row detail-list"> <div class="col-sm-6 col-xs-12"> <span class="facts-icon icon-total-units"></span> <div class="unit-label"> <h3>{{unit_variant}}</h3> <h5 class="text-muted">Unit Variant</h5> </div> </div> <div class="col-sm-6 col-xs-12"> <span class="facts-icon icon-BHKtype"></span> <div class="unit-label"> <h3>{{type}}</h3> <h5 class="text-muted">Unit Type</h5> </div> </div> </div> <div class="row detail-list"> <div class="col-sm-6 col-xs-12"> <span class="facts-icon icon-BHK-area-2"></span> <div class="unit-label"> <h3>{{area}} sq.ft</h3> <h5 class="text-muted">Area</h5> </div> </div> <div class="col-sm-6 col-xs-12"> <span class="facts-icon icon-rupee-icn"></span> <div class="unit-label"> <h3 class="price">{{price}}</h3> <h5 class="text-muted">Price</h5> </div> </div> </div> <div class="advncd-filter-wrp"> <div class="blck-wrap title-row"> <h5 class="accord-head">Property Attributes</h5> </div> {{#attributes}} <div class="row"> <div class="col-sm-12"> <h6><span class="text-muted">{{attribute}}:</span> {{value}}</h6> </div> </div> {{/attributes}} </div> <div class=" title-row"> <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"> {{#levels}} <div class="panel panel-default"> <div class="panel-heading" role="tab" id="headingTwo"> <h4 class="panel-title m-b-15 p-b-10"> <a class="accordion-toggle collapsed text-primary " data-toggle="collapse" data-parent="#accordion" href="#{{id}}" aria-expanded="false" > {{level_name}} </a> </h4> </div> <div id="{{id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo"> <div class="panel-body"> {{#rooms}} <div class="room-attr"> <div class="m-b-15"> <h5 class="m-b-5">{{room_name}}</h5> {{#attributes}} <div class=""><span>{{attribute}}</span>: {{value}}</div> {{/attributes}} </div> </div> {{/rooms}} </div> </div> </div> {{/levels}} </div> </div> </div> <div class="clearfix"></div> <div class="similar-section"> <h5 class="m-b-15">{{similarUnitsText}}</h5> {{#similarUnits}} <div class="row m-b-15"> <div class="col-sm-3 hidden-xs"> <div class="alert "> <i class="villa-ico"></i> </div> </div> <div class="col-sm-9 col-xs-12"> <h5><a href="/#unit-view/{{id}}">{{unit_name}}</a> <span class="text-primary pull-right"><span class="icon-rupee-icn"></span>{{price}}</span></h5> <span class="text-muted">Unit Variant: </span>{{variant}}<br> <span class="text-muted">Unit Type:</span> {{unit_type}}<br> <span class="text-muted"> Area:</span> {{area}} sqft </div> </div> {{/similarUnits}} </div> </div> </div>');
 
     LeftUnitView.prototype.serializeData = function() {
       var attributes, data, floor, response, similarUnits, temp, unit, unitid, url;
@@ -143,7 +143,8 @@
           'unit_type': response[1].get('name'),
           'price': window.numDifferentiation(response[3]),
           'area': response[0].get('super_built_up_area'),
-          'variant': response[0].get('unit_variant_name')
+          'variant': response[0].get('unit_variant_name'),
+          'id': value.get('id')
         });
       });
       data.area = response[0].get('super_built_up_area');
@@ -187,7 +188,7 @@
       var levels;
       levels = [];
       $.each(floor, function(index, value) {
-        var level_name, rooms;
+        var level_id, level_name, rooms;
         rooms = [];
         level_name = 'Level  ' + index;
         if (response[2] === 'apartment') {
@@ -207,9 +208,11 @@
             'attributes': attributes
           });
         });
+        level_id = s.replaceAll(level_name, " ", "_");
         return levels.push({
           'level_name': level_name,
-          'rooms': rooms
+          'rooms': rooms,
+          'id': level_id
         });
       });
       return levels;

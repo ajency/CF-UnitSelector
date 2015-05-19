@@ -482,7 +482,7 @@
         $('#' + id).attr('class', 'layer villa  ' + availability);
         $('#unit' + id).attr('class', 'unit blocks active');
         $('.layer').tooltipster('content', html);
-        return $('.overlay').show();
+        return $('.tooltip-overlay').show();
       },
       'click #prev': function() {
         return this.setDetailIndex(this.currentBreakPoint - 1);

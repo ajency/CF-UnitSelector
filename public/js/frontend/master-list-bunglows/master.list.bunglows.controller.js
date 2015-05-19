@@ -61,7 +61,7 @@
         $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status'));
         $('#' + id).tooltipster('hide');
         CommonFloor.applyVillaClasses(this.classname);
-        return $('.overlay').hide();
+        return $('.tooltip-overlay').hide();
       },
       'click': function(e) {
         var html, id;
@@ -71,7 +71,7 @@
         $('#' + id + '.villa').attr('class', 'layer villa svg_active ' + this.model.get('status'));
         $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status') + ' active');
         $('#' + id).tooltipster('content', html);
-        return $('.overlay').show();
+        return $('.tooltip-overlay').show();
       }
     };
 
