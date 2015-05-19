@@ -73,13 +73,12 @@
         $('.layer').attr('class', 'layer plot');
         $('#' + id + '.plot').attr('class', 'layer plot ' + this.model.get('status'));
         $('#unit' + id).attr('class', 'bldg blocks' + ' ' + this.model.get('status') + ' active');
-        $('#' + id).tooltipster('content', html);
-        return $('.tooltip-overlay').attr('class', 'tooltip-overlay');
+        return $('#' + id).tooltipster('content', html);
       }
     };
 
     PlotListView.prototype.iniTooltip = function(id) {
-      return $('#' + id).trigger('mouseover');
+      return $('#' + id).trigger('click');
     };
 
     PlotListView.prototype.getHtml = function(id) {

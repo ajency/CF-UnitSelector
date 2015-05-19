@@ -50,13 +50,14 @@ class BunglowListView extends Marionette.ItemView
 	events:
 
 		'mouseover' :(e)->
-			@iniTooltip(@model.get('id'))
+			# @iniTooltip(@model.get('id'))
 			html = @getHtml(@model.get('id'))
 			id = @model.get('id')
 			# $('.villa').attr('class','layer villa')
 			$('#'+id+'.villa').attr('class' ,'layer villa svg_active '+@model.get('status'))
 			$('#unit'+id).attr('class' ,'unit blocks'+' '+@model.get('status')+' active')
 			$('#'+id).tooltipster('content', html)
+			$('#'+id).tooltipster('show')
 		
 			
 			
@@ -64,7 +65,7 @@ class BunglowListView extends Marionette.ItemView
 			id = @model.get('id')
 			# $('#'+id+'.villa').attr('class' ,'layer villa')
 			$('#unit'+id).attr('class' , 'unit blocks'+' '+@model.get('status'))
-			# $('#'+id).tooltipster('hide')
+			$('#'+id).tooltipster('hide')
 			CommonFloor.applyVillaClasses(@classname)
 			
 
@@ -72,14 +73,15 @@ class BunglowListView extends Marionette.ItemView
 			@iniTooltip(@model.get('id'))
 			html = @getHtml(@model.get('id'))
 			id = @model.get('id')
-			$('.tooltip-overlay').attr('class','tooltip-overlay')
+			# $('.tooltip-overlay').attr('class','tooltip-overlay')
 			$('#'+id+'.villa').attr('class' ,'layer villa svg_active '+@model.get('status'))
 			$('#unit'+id).attr('class' ,'unit blocks'+' '+@model.get('status')+' active')
 			$('#'+id).tooltipster('content', html)
 			
+			
 
 	iniTooltip:(id)->
-		$('#'+id).trigger('mouseover')
+		$('#'+id).trigger('click')
 
 	getHtml:(id)->
 		html = ""
@@ -107,9 +109,9 @@ class BunglowListView extends Marionette.ItemView
 
 					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
 					<br> <br>
-					<!--<span class="pull-right icon-cross"></span>
+					<span class="pull-right icon-cross"></span>
 					<span class="label label-success"></span
-					<div class="clearfix"></div>-->
+					<div class="clearfix"></div>
 					<div class="details">
 						<div>
 							'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
