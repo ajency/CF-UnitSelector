@@ -60,13 +60,18 @@
         id = this.model.get('id');
         $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status'));
         $('#' + id).tooltipster('hide');
-        return CommonFloor.applyVillaClasses(this.classname);
+        CommonFloor.applyVillaClasses(this.classname);
+        return $('.overlay').hide();
       },
       'click': function(e) {
-        if (this.model.get('status') === 'available') {
-          CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
-          return CommonFloor.router.storeRoute();
-        }
+        var html, id;
+        this.iniTooltip(this.model.get('id'));
+        html = this.getHtml(this.model.get('id'));
+        id = this.model.get('id');
+        $('#' + id + '.villa').attr('class', 'layer villa svg_active ' + this.model.get('status'));
+        $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status') + ' active');
+        $('#' + id).tooltipster('content', html);
+        return $('.overlay').show();
       }
     };
 

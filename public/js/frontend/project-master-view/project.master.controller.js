@@ -448,6 +448,42 @@
           }
         }, 500);
       },
+      'click .villa': function(e) {
+        var availability, html, id, response, unit, unitMaster;
+        id = parseInt(e.target.id);
+        html = "";
+        unit = unitCollection.findWhere({
+          id: id
+        });
+        unitMaster = unitMasterCollection.findWhere({
+          id: id
+        });
+        if (unit === void 0 && unitMaster !== void 0) {
+          html = '<div class="svg-info"> <div class="details empty"> Not in selection </div> </div>';
+          $('.layer').tooltipster('content', html);
+          return;
+        }
+        if (unit === void 0) {
+          html += '<div class="svg-info"> <div class="details empty"> Villa details not entered </div> </div>';
+          $('.layer').tooltipster('content', html);
+          return;
+        }
+        response = window.unit.getUnitDetails(id);
+        window.convertRupees(response[3]);
+        availability = unit.get('availability');
+        availability = s.decapitalize(availability);
+        html = "";
+        html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="villa"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br> <br> <!--<span class="pull-right icon-cross"></span> <span class="label label-success"></span <div class="clearfix"></div>--> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div>';
+        if (availability === 'available') {
+          html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> </div>';
+        } else {
+          html += '</div>';
+        }
+        $('#' + id).attr('class', 'layer villa  ' + availability);
+        $('#unit' + id).attr('class', 'unit blocks active');
+        $('.layer').tooltipster('content', html);
+        return $('.overlay').show();
+      },
       'click #prev': function() {
         return this.setDetailIndex(this.currentBreakPoint - 1);
       },
@@ -520,7 +556,6 @@
         } else {
           html += '</div>';
         }
-        console.log(html);
         $('#' + id).attr('class', 'layer villa  ' + availability);
         $('#unit' + id).attr('class', 'unit blocks active');
         return $('.layer').tooltipster('content', html);
