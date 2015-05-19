@@ -694,10 +694,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$.merge transitionImages ,  project.get('project_master')
 		$('.region').load(first[0],()->
 				$('.first_image').attr('src',transitionImages[0])
-				that.iniTooltip()
-				CommonFloor.applyVillaClasses()
-				CommonFloor.applyPlotClasses()
-				that.loadZoom()).addClass('active').removeClass('inactive')
+				# that.iniTooltip()
+				# CommonFloor.applyVillaClasses()
+				# CommonFloor.applyPlotClasses()
+				# that.loadZoom()
+				).addClass('active').removeClass('inactive')
 		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
 			
