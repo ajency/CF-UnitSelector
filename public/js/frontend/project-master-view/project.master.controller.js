@@ -520,10 +520,10 @@
         } else {
           html += '</div>';
         }
-        console.log(html);
         $('#' + id).attr('class', 'layer villa  ' + availability);
         $('#unit' + id).attr('class', 'unit blocks active');
-        return $('.layer').tooltipster('content', html);
+        $('.layer').tooltipster('content', html);
+        return $('.region').attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
       },
       'mouseover .plot': function(e) {
         var availability, html, id, response, unit, unitMaster;

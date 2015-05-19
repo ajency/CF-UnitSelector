@@ -550,10 +550,10 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 						
 			
-			console.log html
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
 			$('.layer').tooltipster('content', html)
+			$('.region').attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;')
 			
 
 		'mouseover .plot':(e)->
