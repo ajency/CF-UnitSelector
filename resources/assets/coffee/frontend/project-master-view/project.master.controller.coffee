@@ -649,9 +649,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						<h5 class="pull-left m-t-0">'+buildingModel.get('building_name')+'</h5>
 						<br> <br>
 						<div class="details">
-							<div>
-								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
-							</div>
+							
 							<div>
 								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 							</div> 
@@ -695,7 +693,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		first = _.values svgs
 		$.merge transitionImages ,  project.get('project_master')
 		$('.region').load(first[0],
-			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
+			$('.first_image').attr('src',transitionImages[0])).addClass('active').removeClass('inactive')
 		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
 			
@@ -779,9 +777,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				interactive : true
 				# animation : 'grow'
 				trigger: 'hover'
-				functionInit : (origin,content)->
-					content
-
+				
 				
 		)
 		
