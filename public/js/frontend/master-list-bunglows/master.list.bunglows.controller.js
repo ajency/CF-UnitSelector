@@ -46,7 +46,7 @@
     };
 
     BunglowListView.prototype.events = {
-      'mouseover,click': function(e) {
+      'mouseover': function(e) {
         var html, id;
         this.iniTooltip(this.model.get('id'));
         html = this.getHtml(this.model.get('id'));

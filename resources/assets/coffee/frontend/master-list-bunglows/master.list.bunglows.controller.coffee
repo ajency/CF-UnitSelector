@@ -49,7 +49,7 @@ class BunglowListView extends Marionette.ItemView
 
 	events:
 
-		'mouseover,click' :(e)->
+		'mouseover' :(e)->
 			@iniTooltip(@model.get('id'))
 			html = @getHtml(@model.get('id'))
 			id = @model.get('id')
