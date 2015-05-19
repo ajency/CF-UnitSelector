@@ -732,6 +732,10 @@ hr.embossed {
 .text-primary {
   color: #f68121;
 }
+.tooltip-overlay {
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
 /* Loader */
 .cf-loader {
   position: absolute;
@@ -1855,10 +1859,13 @@ svg polygon {
 .filter-result {
   position: absolute;
   top: 56px;
-  width: 100%;
-  left: 0;
+  width: 75%;
+  right: 0;
   background-color: rgba(38, 38, 38, 0.6);
   z-index: 999;
+}
+.filter-result.full {
+  width: 100%;
 }
 .filter-result .filter-pill {
   margin: 15px 5px;
@@ -2150,7 +2157,6 @@ label.third_toggle {
   cursor: pointer;
   position: absolute;
   right: 8px;
-  display: none;
 }
 .svg-info .details {
   font-size: 12px;

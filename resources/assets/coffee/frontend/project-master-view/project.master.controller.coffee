@@ -333,6 +333,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 											
 											<div id="spritespin"></div>
 											<div class="svg-maps">
+												<div class="tooltip-overlay hidden"></div>
 												<img src=""  class="first_image img-responsive">
 												
 												<div class="region inactive"></div>
@@ -367,6 +368,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		'click @ui.trig':(e)->
 			$('.us-left-content').toggleClass 'col-0 col-md-3'
 			$('.us-right-content').toggleClass 'col-md-12 col-md-9'
+			# $('.filter-result').toggleClass 'full'
 			that = @
 			setTimeout( (x)->
 				
@@ -527,8 +529,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
 						<br> <br>
-						<!--<span class="pull-right icon-cross"></span>
-						<span class="label label-success"></span
+						<span class="pull-right icon-cross"></span>
+						<!--<span class="label label-success"></span
 						<div class="clearfix"></div>-->
 						<div class="details">
 							<div>
@@ -805,6 +807,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$zoomIn: $('.zoom-in')
 			$zoomOut: $('.zoom-out')
 			# $set: $('.spritespin-canvas')
+
+		$('.master').on 'mousedown touchstart', (e) ->
+			e.stopImmediatePropagation()
 
 	
 
