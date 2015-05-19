@@ -59,7 +59,31 @@ class CommonFloor.TopCtrl extends Marionette.RegionController
 #View for the left view of Project
 class LeftView extends Marionette.ItemView
 	#template
-	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 step1 animated fadeIn">
+	template : Handlebars.compile('<div class="hidden">
+
+										<div id="proj_info">
+											<div class="big-tooltip">
+												<div class="row">
+												    <div class="col-sm-4">
+												        <div class="m-t-15">
+												           	<h5>{{i10n "project_by"}}</h5>
+												          	<img src="{{logo}}" class="img-responsive builder-logo">
+												        </div>
+												    </div>
+												   	<div class="col-sm-8 b-r">
+												        <div class="m-t-15">
+												        	{{#propertyTypes}}
+												          	<h6>{{prop_type}} <span class="text-muted">( {{unit_types}} )</span></h6>
+												        	{{/propertyTypes}}
+
+												         	<br>
+												       		<span class="icon-location "></span>{{address}}
+												        	<div class="clearfix"></div><br>
+												        </div> 
+												    </div>
+												</div>
+											</div>
+										</div>
 
 										<div class="proj-info">
 											<div class="proj-logo section">
@@ -148,7 +172,7 @@ class CommonFloor.LeftCtrl extends Marionette.RegionController
 #View for the center view of Project
 class CenterView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="col-md-9 us-right-content animated fadeIn">
+	template : Handlebars.compile('<div class="col-md-12 us-right-content animated fadeIn">
 										<div class="cf-loader loader-center hidden"></div>
 										<div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" 
 											data-nodebug="" data-alwaysprocess="" 
@@ -169,13 +193,26 @@ class CenterView extends Marionette.ItemView
 			$('.step1').addClass 'animated fadeOut'
 			setTimeout( (x)->
 				CommonFloor.checkPropertyType()
-			, 100)			
+			, 100)
 
 			
 	onShow:->
 		$('img').lazyLoadXT()
 		path = @model.get('step_one').svg
 		$('.svg-area').load(path)
+
+		$('.marker').tooltipster(
+			theme: 'tooltipster-shadow'
+			contentAsHTML: true
+			onlyOne : true
+			arrow : false
+			offsetX : 30
+			interactive : true
+			animation : 'grow'
+			trigger: 'hover'
+			functionInit: ->
+				$('#proj_info').html();
+		)
 		
 
 		# if $(window).width() > 991

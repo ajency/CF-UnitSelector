@@ -160,11 +160,11 @@
         'type_name': '(V)'
       });
     }
-    if (buildingCollection.toArray().length !== 0) {
+    if (apartmentVariantCollection.getApartmentMasterUnits().length !== 0) {
       Router.push({
-        'type': s.capitalize('building(s)'),
-        'count': buildingCollection.toArray(),
-        'type_name': '(A)'
+        'type': s.capitalize('apartment(s)/Penthouse(s)'),
+        'count': apartmentVariantCollection.getApartmentMasterUnits(),
+        'type_name': '(A)/(PH)'
       });
     }
     if (plotVariantCollection.getPlotUnits().length !== 0) {

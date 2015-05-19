@@ -53,13 +53,18 @@ class ListItemView extends Marionette.ItemView
 
 	events:
 		'mouseover':(e)->
-			id = @model.get 'id'
+			@iniTooltip(@model.get('id'))
+			html = @getHtml(@model.get('id'))
+			id = @model.get('id')
 			$('#'+id+'.building').attr('class' ,'layer building active_bldg')
 			$('#bldg'+id).attr('class' ,'bldg blocks active')
+			$('#'+id).tooltipster('content', html)
+
 		'mouseout' :(e)->
 			id = @model.get 'id'
 			$('#'+id+'.building').attr('class' ,'layer building')
 			$('#bldg'+id).attr('class' ,'bldg blocks')
+			$('#'+id).tooltipster('hide')
 			
 				
 		'click ':(e)->
@@ -80,7 +85,49 @@ class ListItemView extends Marionette.ItemView
 				CommonFloor.navigate '/building/'+id+'/master-view' , true
 				CommonFloor.router.storeRoute()
 
+	iniTooltip:(id)->
+		$('#'+id).trigger('mouseover')
 
+
+	getHtml:(id)->
+		html = ""
+		id  = parseInt id
+		buildingModel = buildingCollection.findWhere
+						'id' : id
+
+		if buildingModel == undefined
+			html = '<div class="svg-info">
+						<div class="details">
+							Building details not entered 
+						</div>  
+					</div>'
+			$('.layer').tooltipster('content', html)
+			return 
+
+
+		floors = buildingModel.get 'floors'
+		floors = Object.keys(floors).length
+		unitTypes = building.getUnitTypes(id)
+		response = building.getUnitTypesCount(id,unitTypes)
+		html = '<div class="svg-info">
+					<h4 class="pull-left">'+buildingModel.get('building_name')+'</h4>
+					<!--<span class="label label-success"></span-->
+					<div class="clearfix"></div>'
+		$.each response,(index,value)->
+			html += '<div class="details">
+						<div>
+							<label>'+value.name+'</label> - '+value.units+'
+						</div>'
+
+		html += '<div>
+					<label>No. of floors</label> - '+floors+'
+				</div>
+				</div>
+
+				</div>'
+		$('.layer').tooltipster('content', html)
+		$('#bldg'+id).attr('class' ,'bldg blocks active') 
+		$('#'+id).attr('class' ,'layer building active_bldg')
 
 #view for list of buildings : Collection
 class MasterBuildingListView extends Marionette.CompositeView

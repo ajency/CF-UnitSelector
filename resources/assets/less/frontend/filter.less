@@ -16,6 +16,7 @@
     height: 0;
     padding: 27px;
     border-radius: 50%;
+    background-color: @white;
     .filters-wrapper{
       opacity: 0
     }
@@ -31,10 +32,29 @@
       }
     }
     .filters-bottom{
-      opacity: 0;
+      opacity: 0;      
     }
   }
- }
+}
+
+@media(max-width:767px){
+  .fliters-container{
+    right: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: @white;
+    &.closed{
+      right: 20px;
+      top: 80px;
+    }
+    .filters-wrapper{
+      .filters-content{
+        height: auto;
+      }
+    }    
+  }
+}
 
 .filter-button{
   position: absolute;

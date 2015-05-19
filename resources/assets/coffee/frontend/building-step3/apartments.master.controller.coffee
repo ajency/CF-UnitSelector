@@ -22,7 +22,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="container-fluid animated fadeIn">
 							          	<div class="row">
-								          	<div class="col-md-12 col-xs-12 col-sm-12 text-center">
+								          	<div class="col-md-12 col-xs-12 col-sm-12">
 
 									            <div class="breadcrumb-bar">
 									                <a class="unit_back" href="#"></a>
@@ -230,11 +230,11 @@ class ApartmentsView extends Marionette.ItemView
 	events:
 		'mouseover':(e)->
 			id = @model.get 'id'
-			$('#'+id).attr('class' ,'layer '+@model.get('availability'))
+			$('#'+id).attr('class' ,'layer apartment '+@model.get('availability'))
 			$('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability')+' active')
 		'mouseout':(e)->
 			id = @model.get 'id'
-			$('#'+id).attr('class' ,'layer')
+			$('#'+id).attr('class' ,'layer apartment')
 			$('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability'))
 
 		'click':(e)->
@@ -299,10 +299,7 @@ class CommonFloor.LeftApartmentMasterCtrl extends Marionette.RegionController
 class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 
-	template : Handlebars.compile('<button class="btn btn-primary filter-button pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters">
-										<span class="icon-funnel"></span>
-									</button>
-									<div class="col-md-12 us-right-content mobile visible animated fadeIn">
+	template : Handlebars.compile('<div class="col-md-12 us-right-content mobile visible animated fadeIn">
 
 										<div class="legend clearfix">
 										  <ul>
@@ -446,9 +443,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 						</div>  
 					</div>'
 
-			# @class = $('#'+id).attr('class')
-			console.log html
-			$('#'+id).attr('class' ,'layer '+availability) 
+			$('#'+id).attr('class' ,'layer apartment '+availability) 
 			$('#apartment'+id).attr('class' ,' unit blocks '+availability+' active') 
 			$('.layer').tooltipster('content', html)
 		
@@ -460,7 +455,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				return
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' ,'layer ') 
+			$('#'+id).attr('class' ,'layer apartment') 
 			$('#apartment'+id).attr('class' ,'unit blocks '+availability)
 
 		'mouseover .next':(e)->
@@ -528,8 +523,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		
 		$.merge transitionImages ,  building.get('building_master')
 		console.log first = _.values svgs
-		$('.region').load(first[0],
-			$('.first_image').attr('data-src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
+		$('.region').load(first[0],()->
+				$('.first_image').attr('data-src',transitionImages[0])
+				that.iniTooltip()
+				).addClass('active').removeClass('inactive')
 		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
 			response = building.checkRotationView(building_id)
@@ -551,11 +548,11 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		transitionImages = []
 		$.merge transitionImages ,  project.get('project_master')
 		if project.get('project_master').length != 0
-			$('.project_master').load(first[0],
+			$('.project_master').load(first[0],()->
 				$('.firstimage').attr('src',transitionImages[0])
 				url = Backbone.history.fragment
-				console.log building_id = parseInt url.split('/')[1]
-				$('#'+building_id+'.building').attr('layer building active_bldg'))
+				console.log building_id = url.split('/')[1]
+				$('#'+building_id+'.building').attr('class' ,'layer building active_bldg'))
 		
 
 	getNextPrev:->
