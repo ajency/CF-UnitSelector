@@ -57,7 +57,7 @@ class BunglowListView extends Marionette.ItemView
 			$('#'+id+'.villa').attr('class' ,'layer villa svg_active '+@model.get('status'))
 			$('#unit'+id).attr('class' ,'unit blocks'+' '+@model.get('status')+' active')
 			$('#'+id).tooltipster('content', html)
-			$('.region').attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;')
+		
 			
 			
 		'mouseout':(e)->
@@ -66,6 +66,7 @@ class BunglowListView extends Marionette.ItemView
 			$('#unit'+id).attr('class' , 'unit blocks'+' '+@model.get('status'))
 			$('#'+id).tooltipster('hide')
 			CommonFloor.applyVillaClasses(@classname)
+			$('.overlay').hide()
 
 		'click' :(e)->
 			@iniTooltip(@model.get('id'))
@@ -75,7 +76,7 @@ class BunglowListView extends Marionette.ItemView
 			$('#'+id+'.villa').attr('class' ,'layer villa svg_active '+@model.get('status'))
 			$('#unit'+id).attr('class' ,'unit blocks'+' '+@model.get('status')+' active')
 			$('#'+id).tooltipster('content', html)
-			$('.region').attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;')
+			$('.overlay').show()
 
 	iniTooltip:(id)->
 		$('#'+id).trigger('mouseover')

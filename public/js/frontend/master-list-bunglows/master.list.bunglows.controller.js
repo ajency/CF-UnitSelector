@@ -53,15 +53,15 @@
         id = this.model.get('id');
         $('#' + id + '.villa').attr('class', 'layer villa svg_active ' + this.model.get('status'));
         $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status') + ' active');
-        $('#' + id).tooltipster('content', html);
-        return $('.region').attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
+        return $('#' + id).tooltipster('content', html);
       },
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
         $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status'));
         $('#' + id).tooltipster('hide');
-        return CommonFloor.applyVillaClasses(this.classname);
+        CommonFloor.applyVillaClasses(this.classname);
+        return $('.overlay').hide();
       },
       'click': function(e) {
         var html, id;
@@ -71,7 +71,7 @@
         $('#' + id + '.villa').attr('class', 'layer villa svg_active ' + this.model.get('status'));
         $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status') + ' active');
         $('#' + id).tooltipster('content', html);
-        return $('.region').attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
+        return $('.overlay').show();
       }
     };
 
