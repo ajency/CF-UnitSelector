@@ -65,7 +65,7 @@ class PlotListView extends Marionette.ItemView
 			id = @model.get('id')
 			# $('#'+id+'.villa').attr('class' ,'layer villa')
 			$('#unit'+id).attr('class' , 'bldg blocks'+' '+@model.get('status'))
-			$('#'+id).tooltipster('hide')
+			# $('#'+id).tooltipster('hide')
 			CommonFloor.applyPlotClasses(@classname)
 			$('#'+id).tooltipster('show')
 

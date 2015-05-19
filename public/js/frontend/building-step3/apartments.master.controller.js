@@ -270,7 +270,6 @@
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
-        $('#' + id).attr('class', 'layer apartment');
         return $('#apartment' + id).attr('class', 'unit blocks ' + this.model.get('availability'));
       },
       'click': function(e) {

@@ -234,7 +234,7 @@ class ApartmentsView extends Marionette.ItemView
 			$('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability')+' active')
 		'mouseout':(e)->
 			id = @model.get 'id'
-			$('#'+id).attr('class' ,'layer apartment')
+			# $('#'+id).attr('class' ,'layer apartment')
 			$('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability'))
 
 		'click':(e)->
