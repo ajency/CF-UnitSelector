@@ -606,7 +606,11 @@
       first = _.values(svgs);
       $.merge(transitionImages, project.get('project_master'));
       $('.region').load(first[0], function() {
-        return $('.first_image').attr('src', transitionImages[0]);
+        $('.first_image').attr('src', transitionImages[0]);
+        that.iniTooltip();
+        CommonFloor.applyVillaClasses();
+        CommonFloor.applyPlotClasses();
+        return that.loadZoom();
       }).addClass('active').removeClass('inactive');
       $('.first_image').lazyLoadXT();
       $('.first_image').load(function() {
