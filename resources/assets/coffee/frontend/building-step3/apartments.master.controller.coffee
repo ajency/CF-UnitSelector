@@ -237,11 +237,11 @@ class ApartmentsView extends Marionette.ItemView
 	events:
 		'mouseover':(e)->
 			id = @model.get 'id'
-			$('#'+id).attr('class' ,'layer '+@model.get('availability'))
+			$('#'+id).attr('class' ,'layer apartment '+@model.get('availability'))
 			$('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability')+' active')
 		'mouseout':(e)->
 			id = @model.get 'id'
-			$('#'+id).attr('class' ,'layer')
+			$('#'+id).attr('class' ,'layer apartment')
 			$('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability'))
 
 		'click':(e)->
@@ -444,9 +444,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 						</div>  
 					</div>'
 
-			# @class = $('#'+id).attr('class')
-			console.log html
-			$('#'+id).attr('class' ,'layer '+availability) 
+			$('#'+id).attr('class' ,'layer apartment '+availability) 
 			$('#apartment'+id).attr('class' ,' unit blocks '+availability+' active') 
 			$('.layer').tooltipster('content', html)
 		
@@ -458,7 +456,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				return
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' ,'layer ') 
+			$('#'+id).attr('class' ,'layer apartment') 
 			$('#apartment'+id).attr('class' ,'unit blocks '+availability)
 
 		'mouseover .next':(e)->

@@ -264,13 +264,13 @@
       'mouseover': function(e) {
         var id;
         id = this.model.get('id');
-        $('#' + id).attr('class', 'layer ' + this.model.get('availability'));
+        $('#' + id).attr('class', 'layer apartment ' + this.model.get('availability'));
         return $('#apartment' + id).attr('class', 'unit blocks ' + this.model.get('availability') + ' active');
       },
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
-        $('#' + id).attr('class', 'layer');
+        $('#' + id).attr('class', 'layer apartment');
         return $('#apartment' + id).attr('class', 'unit blocks ' + this.model.get('availability'));
       },
       'click': function(e) {
@@ -433,8 +433,7 @@
         availability = s.decapitalize(availability);
         html = "";
         html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
-        console.log(html);
-        $('#' + id).attr('class', 'layer ' + availability);
+        $('#' + id).attr('class', 'layer apartment ' + availability);
         $('#apartment' + id).attr('class', ' unit blocks ' + availability + ' active');
         return $('.layer').tooltipster('content', html);
       },
@@ -449,7 +448,7 @@
         }
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        $('#' + id).attr('class', 'layer ');
+        $('#' + id).attr('class', 'layer apartment');
         return $('#apartment' + id).attr('class', 'unit blocks ' + availability);
       },
       'mouseover .next': function(e) {

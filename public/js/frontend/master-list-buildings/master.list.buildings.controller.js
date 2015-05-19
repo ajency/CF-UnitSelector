@@ -49,16 +49,20 @@
 
     ListItemView.prototype.events = {
       'mouseover': function(e) {
-        var id;
+        var html, id;
+        this.iniTooltip(this.model.get('id'));
+        html = this.getHtml(this.model.get('id'));
         id = this.model.get('id');
         $('#' + id + '.building').attr('class', 'layer building active_bldg');
-        return $('#bldg' + id).attr('class', 'bldg blocks active');
+        $('#bldg' + id).attr('class', 'bldg blocks active');
+        return $('#' + id).tooltipster('content', html);
       },
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
         $('#' + id + '.building').attr('class', 'layer building');
-        return $('#bldg' + id).attr('class', 'bldg blocks');
+        $('#bldg' + id).attr('class', 'bldg blocks');
+        return $('#' + id).tooltipster('hide');
       },
       'click ': function(e) {
         var buildingModel, id, units;
@@ -81,6 +85,36 @@
           return CommonFloor.router.storeRoute();
         }
       }
+    };
+
+    ListItemView.prototype.iniTooltip = function(id) {
+      return $('#' + id).trigger('mouseover');
+    };
+
+    ListItemView.prototype.getHtml = function(id) {
+      var buildingModel, floors, html, response, unitTypes;
+      html = "";
+      id = parseInt(id);
+      buildingModel = buildingCollection.findWhere({
+        'id': id
+      });
+      if (buildingModel === void 0) {
+        html = '<div class="svg-info"> <div class="details"> Building details not entered </div> </div>';
+        $('.layer').tooltipster('content', html);
+        return;
+      }
+      floors = buildingModel.get('floors');
+      floors = Object.keys(floors).length;
+      unitTypes = building.getUnitTypes(id);
+      response = building.getUnitTypesCount(id, unitTypes);
+      html = '<div class="svg-info"> <h4 class="pull-left">' + buildingModel.get('building_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div>';
+      $.each(response, function(index, value) {
+        return html += '<div class="details"> <div> <label>' + value.name + '</label> - ' + value.units + '</div>';
+      });
+      html += '<div> <label>No. of floors</label> - ' + floors + '</div> </div> </div>';
+      $('.layer').tooltipster('content', html);
+      $('#bldg' + id).attr('class', 'bldg blocks active');
+      return $('#' + id).attr('class', 'layer building active_bldg');
     };
 
     return ListItemView;
