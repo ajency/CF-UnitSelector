@@ -339,29 +339,35 @@
     $('.villa').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
-      if ($.inArray(id, notSelecteUnits) > -1) {
-        return $('#' + id).attr('class', 'layer villa unit_fadein not_in_selection');
+      if ($.inArray(id, filterunits) > -1) {
+        return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
+      } else {
+        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
       }
     });
     $('.plot').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
-      if ($.inArray(id, notSelecteUnits) > -1) {
-        return $('#' + id).attr('class', 'layer plot unit_fadein not_in_selection');
+      if ($.inArray(id, filterunits) > -1) {
+        return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
+      } else {
+        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
       }
     });
     $('.building').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
       if ($.inArray(id, notSelectebuildings) > -1) {
-        return $('#' + id).attr('class', 'layer building unit_fadein not_in_selection');
+        return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
       }
     });
     return $('.apartment').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
-      if ($.inArray(id, notSelecteUnits) > -1) {
-        return $('#' + id).attr('class', 'layer apartment unit_fadein not_in_selection');
+      if ($.inArray(id, filterunits) > -1) {
+        return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
+      } else {
+        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
       }
     });
   };
