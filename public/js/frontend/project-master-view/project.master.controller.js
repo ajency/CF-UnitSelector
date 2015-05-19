@@ -73,7 +73,7 @@
       }
       data.filters = CommonFloor.getFilters()[0];
       data.results = CommonFloor.getFilters()[1];
-      response = CommonFloor.masterPropertyTypes();
+      response = CommonFloor.propertyTypes();
       data.types = response;
       return data;
     };
@@ -693,7 +693,10 @@
         offsetX: 50,
         offsetY: -10,
         interactive: true,
-        trigger: 'hover'
+        trigger: 'hover',
+        functionInit: function(origin, content) {
+          return content;
+        }
       });
     };
 

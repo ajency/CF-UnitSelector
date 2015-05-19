@@ -77,7 +77,7 @@ class TopListView extends Marionette.ItemView
 			data.status = status
 		data.filters  = CommonFloor.getFilters()[0]
 		data.results  = CommonFloor.getFilters()[1]
-		response = CommonFloor.masterPropertyTypes() 
+		response = CommonFloor.propertyTypes() 
 		data.types = response
 		data
 

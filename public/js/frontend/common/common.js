@@ -160,11 +160,11 @@
         'type_name': '(V)'
       });
     }
-    if (buildingCollection.toArray().length !== 0) {
+    if (apartmentVariantCollection.getApartmentMasterUnits().length !== 0) {
       Router.push({
-        'type': s.capitalize('building(s)'),
-        'count': buildingCollection.toArray(),
-        'type_name': '(A)'
+        'type': s.capitalize('apartment(s)/Penthouse(s)'),
+        'count': apartmentVariantCollection.getApartmentMasterUnits(),
+        'type_name': '(A)/(PH)'
       });
     }
     if (plotVariantCollection.getPlotUnits().length !== 0) {
@@ -185,21 +185,21 @@
     Router = [];
     if (bunglowVariantCollection.getBunglowMasterUnits().length !== 0) {
       Router.push({
-        'type': s.capitalize('villa(s)'),
+        'type': s.capitalize('villas'),
         'count': bunglowVariantCollection.getBunglowMasterUnits(),
         'type_name': '(V)'
       });
     }
     if (apartmentVariantCollection.getApartmentMasterUnits().length !== 0) {
       Router.push({
-        'type': s.capitalize('apartment(s)'),
+        'type': s.capitalize('apartments'),
         'count': apartmentVariantCollection.getApartmentMasterUnits(),
         'type_name': '(A)'
       });
     }
     if (plotVariantCollection.getPlotMasterUnits().length !== 0) {
       Router.push({
-        'type': s.capitalize('plot(s)'),
+        'type': s.capitalize('plots'),
         'count': plotVariantCollection.getPlotMasterUnits(),
         'type_name': '(P)'
       });

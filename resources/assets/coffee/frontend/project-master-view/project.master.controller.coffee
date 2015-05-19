@@ -73,7 +73,7 @@ class TopMasterView extends Marionette.ItemView
 			data.status = status
 		data.filters  = CommonFloor.getFilters()[0]
 		data.results  = CommonFloor.getFilters()[1]
-		response = CommonFloor.masterPropertyTypes() 
+		response = CommonFloor.propertyTypes() 
 		data.types = response
 		data
 
@@ -780,6 +780,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				interactive : true
 				# animation : 'grow'
 				trigger: 'hover'
+				functionInit : (origin,content)->
+					return content
+
 				
 		)
 		
