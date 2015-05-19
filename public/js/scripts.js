@@ -144,7 +144,7 @@ function addRoomtype(project_id)
             str += '<input type="text" name= "controltypevalues_' + roomtypeId + '" data-role="tagsinput" class="tags" >';
             str += '</div>';
             str += '<div class="col-lg-4 col-md-5">';
-            str += ' <button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes(\'' + roomtypeId + '\',this)"> <i class="fa fa-plus"></i> Add New</button>';
+            str += ' <button type="button" class = "btn btn-white" onclick="addAttributes(\'' + roomtypeId + '\',this)"> <i class="fa fa-plus"></i> Add New</button>';
             str += '</div>';
             str += '</div>';
             str += '</div>';
@@ -185,9 +185,9 @@ function deleteRoomType(project_id, roomtypeId)
     });
 }
 
-function addRoomtypeAttributes(roomtypeId, obj)
-{
-    var attributename = $(obj).closest('.row').find('input[name="attribute_name_' + roomtypeId + '"]').val();
+function addAttributes(keyId, obj)
+{  
+    var attributename = $(obj).closest('.row').find('input[name="attribute_name_' + keyId + '[]"]').val();
 
     if (attributename.trim() == '')
     {
@@ -195,60 +195,47 @@ function addRoomtypeAttributes(roomtypeId, obj)
         return false;
     }
 
-    var control_type = $(obj).closest('.row').find('select[name="controltype_' + roomtypeId + '"]').val();
+    var control_type = $(obj).closest('.row').find('select[name="controltype_' + keyId + '[]"]').val();
     if (control_type.trim() == '')
     {
         alert('Select Control Type');
         return false;
     }
 
-    var defaultval = $(obj).closest('.row').find('input[name="controltypevalues_' + roomtypeId + '"]').val();
+    var defaultval = $(obj).closest('.row').find('input[name="controltypevalues_' + keyId + '[]"]').val();
     if ((control_type.trim() == 'select' || control_type.trim() == 'multiple') && (defaultval.trim() == ''))
     {
         alert('Enter Default Values');
         return false;
     }
 
-    var str = '<div class = "row" >';
-    str += '<div class = "col-md-3" >';
-    str += '<div class = "form-group" >';
-    str += '<div class = "" >';
-    str += '<input type = "text" name = "attribute_name_' + roomtypeId + '" class = "form-control" placeholder ="Enter Attribute Name">';
-    str += '<input type = "hidden" name = "attribute_id_' + roomtypeId + '" value = "" >';
-    str += ' </div>';
+    var str = '<div class="row">';
+    str += '<div class="col-md-3">';
+    str += '<input type="text" name = "attribute_name_' + keyId + '[]" class="form-control" placeholder="Enter Attribute Name">';
+    str += '<input type="hidden" name = "attribute_id_' + keyId + '[]" value="">';
     str += '</div>';
-    str += '</div>';
-    str += '<div class = "col-md-4" >';
-    str += '<div class = "form-inline" >';
-    str += '<div class = "form-group full-width" >';
-    str += '<select name = "controltype_' + roomtypeId + '" onchange="defaultBlock(this.value,\'' + roomtypeId + '\')" class="full-width" >';
-    str += '<option value = "" >Select Controls  Type</option>';
-    str += '<option value = "textbox" > Text Box </option>';
-    str += '<option value = "textarea" > Textarea </option>';
-    str += '<option value = "select" > Select Box </option>';
-    str += '<option value = "multiple" > Multiple Select Box </option>';
-    str += '<option value = "number" > Number </option>';
+    str += '<div class="col-md-3">';
+    str += '<select name = "controltype_' + keyId + '[]"  class="select2-container select2 form-control" >';
+    str += '<option value="">Select Control Type</option>';
+    str += '<option value="textbox" > Text Box</option>';
+    str += '<option value="select" >Select Box</option>';
+    str += '<option value="multiple" > Multiple Select Box</option>';
+    str += '<option value="number"> Number </option>';
     str += '</select>';
+    str += '</div>';
+    str += '<div class="col-md-4">';
+    str += '<input type="text"  name= "controltypevalues_' + keyId + '[]" data-role="tagsinput" class="tags">';
+    str += '</div>';
+    str += '<div class="col-md-2">';
+    str += '<a class="btn btn-link" onclick="addAttributes(\'' + keyId + '\',this)"><i class="fa fa-plus"></i> Attribute</a>';
+    str += '</div>';
+    str += '</div>';
+ 
 
-    str += '</div>';
-    str += '</div>';
-    str += '</div>';
-    str += '<div class = "col-md-5" id = "controltype_values_' + roomtypeId + '" >';
-
-    str += '<div class = "form-group" >';
-    str += '<div class="col-lg-8 col-md-7">';
-    str += '<input type="text" name= "controltypevalues_' + roomtypeId + '" data-role="tagsinput" class="tags" >';
-    str += '</div>';
-    str += '<div class="col-lg-4 col-md-5">';
-    str += ' <button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes(\'' + roomtypeId + '\',this)"> <i class="fa fa-plus"></i> Add New</button>';
-    str += '</div>';
-    str += '</div>';
-    str += '</div>';
-    str += '</div>';
-
-
-    $("#addroomtypeattributeblock_" + roomtypeId).before(str);
-    $(obj).hide();
+    
+    $(obj).closest('.row').after(str);
+    $(obj).closest('.row').find('.col-md-2').html('<a class="btn btn-link" onclick="deleteAttribute('+ PROJECTID +',0,this);"><i class="fa fa-close"></i></a>');
+  
     $("select").select2();
     $(".tags").tagsinput("");
 
@@ -272,19 +259,25 @@ function saveRoomypeattribute(project_id, roomtypeId, reffrence_type)
 }
 
 
-function deleteRoomTypeAttribute(project_id, attributeId)
+function deleteAttribute(project_id, attributeId,obj)
 {
     if (confirm('Are you sure you want to delete this room type attribute?') === false) {
         return;
     }
-
-    $.ajax({
-        url: "/admin/project/" + project_id + "/roomtype/" + attributeId + "/deleteroomtypeattributes",
-        type: "DELETE",
-        success: function (response) {
-            $("#roomtypeattribute_" + attributeId).remove();
-        }
-    });
+    if(attributeId)
+    {
+        $.ajax({
+            url: "/admin/project/" + project_id + "/roomtype/" + attributeId + "/deleteroomtypeattributes",
+            type: "DELETE",
+            success: function (response) {
+                 $(obj).closest('.row').remove();  
+            }
+        });
+    }
+    else
+    {  
+      $(obj).closest('.row').remove();  
+    }
 }
 
 
@@ -431,9 +424,7 @@ function setUpProjectMasterUploader() {
                     extensions: "jpg,png,jpeg"
                 }]
         },
-        FilesAdded: function (up, files) {
-            alert(files.length)
-        },
+       
         init: {
             PostInit: function () {
                 document.getElementById('master_uploadfiles').onclick = function () {
@@ -442,27 +433,22 @@ function setUpProjectMasterUploader() {
                 };
             },
             FilesAdded: function (up, files) {
-
-                $("#master_uploadfiles").next("div.selectedImages").html('<strong class="col-md-12">' + files.length + ' image selected. Click on upload button to start upload.<div class="cf-loader"></div></strong>');
-                $("#master_uploadfiles").removeClass('hidden');
+                up.start();
+               // $("#master_uploadfiles").next("div.selectedImages").html('<strong class="col-md-12">' + files.length + ' image selected. Click on upload button to start upload.<div class="cf-loader"></div></strong>');
+               // $("#master_uploadfiles").removeClass('hidden');
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
                 var str = newstr = '';
+    
 
-                str += '<div class="col-md-4">';
-                str += '<img src="' + fileResponse.data.image_path + '" style="width:150px;height:90px;" class="img-thumbnail">';
-
-                str += '<h4><small class="m-l-30">' + fileResponse.data.filename + '</small></h4>';
-                str += '</div>';
-                str += '<div class="col-md-4">';
-                str += '<h4>' + fileResponse.data.position + '</h4>';
-                str += '</div>';
-                str += '<div class="col-md-4">';
-                str += '<input  name="position[]" type="checkbox" value="' + fileResponse.data.position + '" data-toggle="toggle">';
-                str += '<button onclick="deleteSvg(' + fileResponse.data.media_id + ',\'master\',\'' + fileResponse.data.position + '\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>';
-                str += '</div>';
-
+                str += '<td>' + fileResponse.data.filename + '</td>';
+                str += '<td class=""><span class="muted">' + fileResponse.data.position + '</span></td>';
+                str += '<td class=""><div class="checkbox check-primary" ><input id="checkbox' + fileResponse.data.position + '" name="position[]" type="checkbox" value="' + fileResponse.data.position + '"><label for="checkbox' + fileResponse.data.position + '"></label></td>';
+                 str += '<td><a class="hidden">Authoring Tool</a></td>';
+                str += '<td class="text-right">';      
+                str += '<a class="text-primary" onclick="deleteSvg(' + fileResponse.data.media_id + ',\'master\',\'' + fileResponse.data.position + '\');" ><i class="fa fa-close"></i></a>';         
+                str += '</td>';
 
                 if ($('#position-' + fileResponse.data.position).length != 0) {
 
@@ -470,16 +456,15 @@ function setUpProjectMasterUploader() {
                 }
                 else
                 {
-                    newstr += '<div class="row" id="position-' + fileResponse.data.position + '">';
+                    newstr += '<tr class="" id="position-' + fileResponse.data.position + '">';
                     newstr += str;
-                    newstr += '</div>';
-                    newstr += '<hr/>';
+                    newstr += '</tr>';
                     $("#master-img").append(newstr);
                 }
 
                 $("#master_uploadfiles").next("div.selectedImages").html('');
                 $("#master_uploadfiles").addClass('hidden');
-                $('input[name="position[]"]').bootstrapToggle();
+                
             }
         }
     });
@@ -697,16 +682,40 @@ $(document).ready(function () {
                     return false;
                 };
             },
-            FilesAdded: function (up, files) {
-
-                $("#uploadfiles").next("div.selectedImages").html('<strong class="col-md-12">' + files.length + ' svg selected. Click on upload button to start upload.<div class="cf-loader"></div></strong>');
-                $("#uploadfiles").removeClass('hidden');
+            FilesAdded: function (up, files) { 
+                var str='<div class="col-md-3">';
+                str +='<div class="img-hover img-thumbnail">';
+                str +='<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
+                str +='<div style="  width: 150px;height: 93px;"></div>';
+                str +='<div class="progress progress-small " style="margin:0;">';
+                str +='<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
+                str +='</div>';
+                str +='<div class="dz-size" data-dz-size="">' + files[0].name + '</div>';
+                str +='</div>';
+                str +='</div>';
+                $("#google_earth_image").html(str);
+                up.start();
+               
+                
+                
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
-                $("#project_googleearth_image").html('<object width="150" id="svg1" data="' + fileResponse.data.image_path + '" type="image/svg+xml" /> <button onclick="deleteSvg(' + fileResponse.data.media_id + ',\'google_earth\',\'\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
-                $("#uploadfiles").next("div.selectedImages").html('');
-                $("#uploadfiles").addClass('hidden');
+                
+                var str='<div class="col-md-3">';
+                str+='<div class="img-hover img-thumbnail">';
+                str+='<a class="btn btn-link btn-danger overlay" onclick="deleteSvg(' + fileResponse.data.media_id + ',\'google_earth\',\'\');"><i class="fa fa-close text-primary"></i></a>';
+                str+='<object style="width:150px;height:93px;" class="img-thumbnail" id="svg1" data="' + fileResponse.data.image_path + '" type="image/svg+xml" />';
+                str+='<div class="dz-size" data-dz-size=""><strong></strong>' + fileResponse.data.filename + '</div>';
+                str+='</div>';
+                str+='</div>';
+                str+='<div class="col-md-3">';
+                str+='<h5 class="semi-bold">To use the Authoring Tool<a href="#" class="text-primary"> click here</a></h5>';
+                str+='</div>';
+            
+                
+                $("#google_earth_image").html(str);
+ 
             }
         }
     });
@@ -999,4 +1008,38 @@ function addUnitType()
         }
     });
     
+}
+
+function createUnitType(obj,propertyTypeId)
+{ 
+  if($(obj).val()=='add_new')
+  {
+      
+      if($(obj).closest('.unit_type_block').find('input[type="hidden"]').length)
+      {
+         var unitTypeId = $(obj).closest('.unit_type_block').find('input[type="hidden"]').val(); 
+         var html ='<input type="text" name="unittype['+propertyTypeId+'][]" value="">';
+         html +='<input type="hidden" name="unittypekey['+propertyTypeId+'][]" value="'+unitTypeId+'">';
+         html +='<input type="hidden" name="unittypecustome['+propertyTypeId+'][]" value="CUSTOME">';
+         $(obj).closest('.unit_type_block').find('.col-md-10').html(html);
+  
+      }
+      else
+      {
+           var html = '<div class="row m-b-10 unit_type_block">';
+           html +='<div class="col-md-10">';
+           html +='<input type="text" name="unittype['+propertyTypeId+'][]" >';
+           html +='<input type="hidden" name="unittypekey['+propertyTypeId+'][]" value="">';
+           html +='<input type="hidden" name="unittypecustome['+propertyTypeId+'][]" value="CUSTOME">';
+           html +='</div>';
+           html +='<div class="col-md-2 text-center">';
+           html +='<a  data-unit-type-id="0" class="btn btn-link remove-unit-type"><i class="fa fa-close"></i> </a>';
+           html +='</div>';
+           html +='</div>';
+           $(obj).closest('.unit_type_block').before(html);
+           $(obj).val('')
+      }
+      
+   
+  }
 }

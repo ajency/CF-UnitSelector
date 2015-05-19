@@ -23,6 +23,7 @@ class ProjectBunglowVariantController extends Controller {
      * @return Response
      */
     public function index($id, ProjectRepository $projectRepository) {
+ 
         $project = $projectRepository->getProjectById($id);
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
         $unitTypes = [];
@@ -54,6 +55,7 @@ class ProjectBunglowVariantController extends Controller {
      * @return Response
      */
     public function create($id, ProjectRepository $projectRepository) {
+ 
         $project = $projectRepository->getProjectById($id);
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
         $propertyTypeArr = [];
@@ -84,6 +86,7 @@ class ProjectBunglowVariantController extends Controller {
      * @return Response
      */
     public function store($project_id, Request $request) {
+ 
         $unitVariant = new UnitVariant();
         $unitVariant->unit_variant_name = ucfirst($request->input('unit_variant_name'));
         $unitVariant->unit_type_id = $request->input('unit_type');
@@ -130,6 +133,7 @@ class ProjectBunglowVariantController extends Controller {
      * @return Response
      */
     public function edit($project_id, $id, ProjectRepository $projectRepository) {
+ 
         $unitVariant = UnitVariant::find($id);
         $project = $projectRepository->getProjectById($project_id);
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
@@ -214,6 +218,7 @@ class ProjectBunglowVariantController extends Controller {
      * @return Response
      */
     public function update($project_id, $id, Request $request) {
+ 
         $unitVariant = UnitVariant::find($id);
         $unitVariant->unit_variant_name = ucfirst($request->input('unit_variant_name'));
         $unitVariant->unit_type_id = $request->input('unit_type');

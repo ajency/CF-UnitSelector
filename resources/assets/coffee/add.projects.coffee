@@ -142,20 +142,6 @@ jQuery(document).ready ($)->
 				$(@).find('.unit-type-name').removeAttr 'data-parsley-required'
 			
 				
-	
-	checkUnitTypeRequired()
-	$('[name="property_types[]"]').change (evt)->
-		
-		$('.add-unit-types > div').addClass 'hidden'
-		propertyTypes = $(@).val()
-		
-		_.each propertyTypes, (propertyType)->
-			$('.add-unit-types').find(".property-type-#{propertyType}").removeClass 'hidden'
-		
-		checkUnitTypeRequired()
-			
-				
-				
 	registerRemoveUnitType = ->
 		$('.remove-unit-type').off 'click'
 		$('.remove-unit-type').on 'click', ->
@@ -163,7 +149,7 @@ jQuery(document).ready ($)->
 			unitTypeId = $(@).attr 'data-unit-type-id'
 			
 			if parseInt(unitTypeId) is 0
-				$(@).closest('.form-inline').remove()
+				$(@).closest('.unit_type_block').remove()
 				return
 			
 			if confirm('Are you sure you want to delete this unit type? 
@@ -172,45 +158,55 @@ jQuery(document).ready ($)->
 			
 			successFn = (resp, status, xhr)=>
 				if xhr.status is 204
-					$(@).closest('.form-inline').remove()
+					$(@).closest('.unit_type_block').remove()
 
 			$.ajax 
 				url : "/admin/project/#{PROJECTID}/unittype/#{unitTypeId}"
 				type : 'DELETE'
 				success : successFn
 			
-				
-			
-			
 	registerRemoveUnitType()
-	$('.add-unit-type-btn').click ->
-		unitType = $(@).parent().find('input').val()
+	$('.add-unit-types').on 'click', '.add-unit-type-btn', ->
+		unitType = $(@).closest('.unit_type_block').find('select').val()
+
 		if unitType is ''
-			alert 'please enter unit type'
+			alert 'please select unit type'
 			return
-			
-		$(@).parent().find('input').removeAttr 'data-parsley-required'
-		
-		html = '<div class="form-inline m-b-10">
-					<div class="form-group">
-						<input type="text" name="unittype[{{ property_type }}][]" 
-								 class="form-control" value="{{  unittype_name }}">
-						<input type="hidden" name="unittypekey[]" value="">
-						<button type="button" data-unit-type-id="0" class="btn btn-small btn-default m-t-5 remove-unit-type">
-							<i class="fa fa-trash"></i> Delete
-						</button>
-					</div>
-				</div>'
-		compile = Handlebars.compile html
 		propertyType = $(@).attr 'property-type'
+		html = '<div class="row m-b-10 unit_type_block">
+                  <div class="col-md-10">
+                      <select name="unittype[{{ property_type }}][]" class="select2-container select2 form-control select2-container-active">
+                          '
+    
+		html+=  $(@).closest('.unit_type_block').find('select').html()
+		html+= '</select>
+              <input type="hidden" name="unittypekey[{{ property_type }}][]" value="">
+              <input type="hidden" name="unittypecustome[{{ property_type }}][]" value="">      
+                      </div>
+                        <div class="col-md-2 text-center">
+                            <a  data-unit-type-id="0" class="btn btn-link remove-unit-type"><i class="fa fa-close"></i> </a>
+                        </div>
+                                </div>'
+                                    
+		compile = Handlebars.compile html
+		
 		data = 
 			property_type : propertyType
-			unittype_name : unitType
-		$('.add-unit-types').find(".property-type-#{propertyType}")
-			.children('.form-inline').last().before compile data
-		$(@).parent().find('input').val ''
+
+		$(@).closest('.unit_type_block').before compile data
+		$(@).closest('.unit_type_block').find('select').val('')
+		$(@).closest('.unit_type_block').prev('.unit_type_block').find('select').val(unitType)
+		$('select').select2()
 		registerRemoveUnitType()
-		
+                                 
+	$('.add_new_unit_type').click ->
+     newUnitType = $(@).closest('.form-group').find('input').val()
+     if newUnitType is ''
+       alert 'please enter unit type'	
+       return
+
+     selectoption = "<option value='#{newUnitType}'>#{newUnitType}</option>"
+     $(@).prev('.form-group').find('select').remove()  	
 		
 	$('.floor-position button.save-position').click ->	
 		form = $(@).closest('form')

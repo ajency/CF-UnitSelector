@@ -20,7 +20,9 @@
         <div class="grid simple">
             <div class="grid-title">
                 <h4>List of <span class="semi-bold">Unit Variants</span></h4>
+                 @if(hasPermission($project['id'],['configure_project']))
                 <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/bunglow-variant/create') }}" ><i class="fa fa-plus"></i> Add Variant</a>
+                @endif
             </div>
             <div class="grid-body">
                 <table class="table table-striped" id="example2" >

@@ -18,6 +18,7 @@ class ProjectPlotUnitController extends Controller {
      *
      * @return Response
      */
+ 
     public function index($id, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($id);
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
@@ -94,7 +95,7 @@ class ProjectPlotUnitController extends Controller {
         $unitid = $unit->id;
 
         $addanother = $request->input('addanother');
-        if($addanother==1)
+        if ($addanother == 1)
             return redirect(url("/admin/project/" . $project_id . "/plot-unit/create"));
         else
             return redirect("/admin/project/" . $project_id . "/plot-unit/" . $unitid . '/edit');
@@ -158,7 +159,7 @@ class ProjectPlotUnitController extends Controller {
         $unit->save();
 
         $addanother = $request->input('addanother');
-        if($addanother==1)
+        if ($addanother == 1)
             return redirect("/admin/project/" . $project_id . "/plot-unit/create");
         else
             return redirect("/admin/project/" . $project_id . "/plot-unit/" . $id . '/edit');

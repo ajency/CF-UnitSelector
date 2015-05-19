@@ -18,6 +18,9 @@ class ProjectBunglowUnitController extends Controller {
      *
      * @return Response
      */
+    
+ 
+    
     public function index($id, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($id);
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
@@ -26,7 +29,7 @@ class ProjectBunglowUnitController extends Controller {
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if ($propertyTypes['property_type_id']=='2')
+            if ($propertyTypes['property_type_id']==BUNGLOWID)
                 $projectPropertytypeId = $propertyTypes['id'];
         }
         $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
@@ -53,6 +56,7 @@ class ProjectBunglowUnitController extends Controller {
      * @return Response
      */
     public function create($id, ProjectRepository $projectRepository) {
+
         $project = $projectRepository->getProjectById($id);
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
         $propertyTypeArr = [];

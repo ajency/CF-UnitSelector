@@ -18,9 +18,6 @@ class ProjectRoomTypeController extends Controller {
      *
      * @return Response
      */
-    public function index() {
-        //
-    }
 
     /**
      * Show the form for creating a new resource.
@@ -28,6 +25,7 @@ class ProjectRoomTypeController extends Controller {
      * @return Response
      */
     public function create($id, ProjectRepository $projectRepository) {
+       
         $project = $projectRepository->getProjectById($id);
         $roomTypeArr = $project->roomTypes()->get();
         $roomtypeAttribute = [];
@@ -63,6 +61,7 @@ class ProjectRoomTypeController extends Controller {
      */
     public function store(Request $request) {
         $projectId = $request->input('project_id');
+       
         $roomtype_name = $request->input('roomtypename');
 
         $roomtype = new RoomType();
@@ -107,7 +106,7 @@ class ProjectRoomTypeController extends Controller {
      * @return Response
      */
     public function update($project_id, $reffereceId, Request $request) {
-
+ 
         $reffereceType = $request->input('reffrence_type');
         $datainput = $request->input('roomtypeattrData');
         $data = [];

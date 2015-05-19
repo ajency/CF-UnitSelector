@@ -136,23 +136,13 @@
         }
       });
     };
-    checkUnitTypeRequired();
-    $('[name="property_types[]"]').change(function(evt) {
-      var propertyTypes;
-      $('.add-unit-types > div').addClass('hidden');
-      propertyTypes = $(this).val();
-      _.each(propertyTypes, function(propertyType) {
-        return $('.add-unit-types').find(".property-type-" + propertyType).removeClass('hidden');
-      });
-      return checkUnitTypeRequired();
-    });
     registerRemoveUnitType = function() {
       $('.remove-unit-type').off('click');
       return $('.remove-unit-type').on('click', function() {
         var successFn, unitTypeId;
         unitTypeId = $(this).attr('data-unit-type-id');
         if (parseInt(unitTypeId) === 0) {
-          $(this).closest('.form-inline').remove();
+          $(this).closest('.unit_type_block').remove();
           return;
         }
         if (confirm('Are you sure you want to delete this unit type? All properties will be affected by this action. Continue?') === false) {
@@ -161,7 +151,7 @@
         successFn = (function(_this) {
           return function(resp, status, xhr) {
             if (xhr.status === 204) {
-              return $(_this).closest('.form-inline').remove();
+              return $(_this).closest('.unit_type_block').remove();
             }
           };
         })(this);
@@ -173,24 +163,36 @@
       });
     };
     registerRemoveUnitType();
-    $('.add-unit-type-btn').click(function() {
+    $('.add-unit-types').on('click', '.add-unit-type-btn', function() {
       var compile, data, html, propertyType, unitType;
-      unitType = $(this).parent().find('input').val();
+      unitType = $(this).closest('.unit_type_block').find('select').val();
       if (unitType === '') {
+        alert('please select unit type');
+        return;
+      }
+      propertyType = $(this).attr('property-type');
+      html = '<div class="row m-b-10 unit_type_block"> <div class="col-md-10"> <select name="unittype[{{ property_type }}][]" class="select2-container select2 form-control select2-container-active">';
+      html += $(this).closest('.unit_type_block').find('select').html();
+      html += '</select> <input type="hidden" name="unittypekey[{{ property_type }}][]" value=""> <input type="hidden" name="unittypecustome[{{ property_type }}][]" value=""> </div> <div class="col-md-2 text-center"> <a  data-unit-type-id="0" class="btn btn-link remove-unit-type"><i class="fa fa-close"></i> </a> </div> </div>';
+      compile = Handlebars.compile(html);
+      data = {
+        property_type: propertyType
+      };
+      $(this).closest('.unit_type_block').before(compile(data));
+      $(this).closest('.unit_type_block').find('select').val('');
+      $(this).closest('.unit_type_block').prev('.unit_type_block').find('select').val(unitType);
+      $('select').select2();
+      return registerRemoveUnitType();
+    });
+    $('.add_new_unit_type').click(function() {
+      var newUnitType, selectoption;
+      newUnitType = $(this).closest('.form-group').find('input').val();
+      if (newUnitType === '') {
         alert('please enter unit type');
         return;
       }
-      $(this).parent().find('input').removeAttr('data-parsley-required');
-      html = '<div class="form-inline m-b-10"> <div class="form-group"> <input type="text" name="unittype[{{ property_type }}][]" class="form-control" value="{{  unittype_name }}"> <input type="hidden" name="unittypekey[]" value=""> <button type="button" data-unit-type-id="0" class="btn btn-small btn-default m-t-5 remove-unit-type"> <i class="fa fa-trash"></i> Delete </button> </div> </div>';
-      compile = Handlebars.compile(html);
-      propertyType = $(this).attr('property-type');
-      data = {
-        property_type: propertyType,
-        unittype_name: unitType
-      };
-      $('.add-unit-types').find(".property-type-" + propertyType).children('.form-inline').last().before(compile(data));
-      $(this).parent().find('input').val('');
-      return registerRemoveUnitType();
+      selectoption = "<option value='" + newUnitType + "'>" + newUnitType + "</option>";
+      return $(this).prev('.form-group').find('select').remove();
     });
     $('.floor-position button.save-position').click(function() {
       var floorLayoutId, form, formData;

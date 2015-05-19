@@ -21,11 +21,12 @@ class ProjectApartmentVariantController extends Controller {
      * @return Response
      */
     public function index( $projectId ) {
+ 
         $project = Project::find( $projectId );
         $unitTypes = []; 
         $projectPropertytypeIds = [];
         $propertyType = [];
-        $projectPropertytypes = $project->projectPropertyTypes()->whereIn( 'property_type_id', [1,4] )->get()->toArray();
+        $projectPropertytypes = $project->projectPropertyTypes()->whereIn( 'property_type_id', [APARTMENTID,PENTHOUSEID] )->get()->toArray();
         
         foreach($projectPropertytypes as $projectPropertytype)
         {
@@ -55,9 +56,10 @@ class ProjectApartmentVariantController extends Controller {
      * @return Response
      */
     public function create( $projectId ) {
+ 
         $project = Project::find( $projectId );
         $unitTypes = $propertyTypeAttributes = [];
-        $propertyTypes = $project->projectPropertyTypes()->whereIn( 'property_type_id', [1,4] )->get()->toArray();
+        $propertyTypes = $project->projectPropertyTypes()->whereIn( 'property_type_id', [APARTMENTID,PENTHOUSEID] )->get()->toArray();
         $projectPropertyTypes = [];
         
         foreach($propertyTypes as $propertyType)
@@ -85,6 +87,7 @@ class ProjectApartmentVariantController extends Controller {
      * @return Response
      */
     public function store( $projectId, Request $request ) {
+       
         $unitVariant = new UnitVariant();
         $unitVariant->unit_variant_name = ucfirst($request->input( 'unit_variant_name' ));
         $unitVariant->unit_type_id = $request->input( 'unit_type' );
@@ -130,6 +133,7 @@ class ProjectApartmentVariantController extends Controller {
      * @return Response
      */
     public function edit( $projectId, $id ) {
+ 
         $unitVariant = UnitVariant::find( $id );
         $project = Project::find( $projectId );
         $unitTypeId = $unitVariant->unit_type_id;
@@ -146,7 +150,7 @@ class ProjectApartmentVariantController extends Controller {
         $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertyTypeId)->get()->toArray();
          
         foreach ($variantRooms as $variantRoom) {
-            $level = ($propertyTypeID==1)? 0:$variantRoom['floorlevel'];
+            $level = ($propertyTypeID == APARTMENTID)? 0:$variantRoom['floorlevel'];
             $variantRoomArr[$level][$variantRoom['id']]['ROOMTYPEID'] = $variantRoom['roomtype_id'];
             $variantRoomArr[$level][$variantRoom['id']]['ATTRIBUTES'] = unserialize($variantRoom['variant_room_attributes']);
             
@@ -209,7 +213,7 @@ class ProjectApartmentVariantController extends Controller {
      * @return Response
      */
     public function update($project_id, $id, Request $request) {
-        
+       
         $unitVariant = UnitVariant::find($id);
         $unitVariant->unit_variant_name = ucfirst($request->input('unit_variant_name'));
         $unitVariant->unit_type_id = $request->input('unit_type');

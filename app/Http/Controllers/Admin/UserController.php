@@ -7,7 +7,11 @@ use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use CommonFloor\User;
+use CommonFloor\Role;
 use Illuminate\Support\Facades\Mail;
+use CommonFloor\UserRole;
+use CommonFloor\UserProject;
+
 
 class UserController extends Controller {
 
@@ -16,6 +20,7 @@ class UserController extends Controller {
      *
      * @return Response
      */
+
     public function index() {
         $users = User::orderBy('name')->get()->toArray();
         return view('admin.user.list')
@@ -29,8 +34,10 @@ class UserController extends Controller {
      * @return Response
      */
     public function create() {
-
-        return view('admin.user.add')->with('menuFlag', FALSE);
+        
+        $roles = Role::all()->toArray();
+        return view('admin.user.add')->with('roles', $roles)
+                                    ->with('menuFlag', FALSE);
     }
 
     /**
@@ -44,6 +51,8 @@ class UserController extends Controller {
         $email = $request->input('email');
         $phone_number = $request->input('phone_number');
         $user_status = $request->input('user_status');
+        $user_role = $request->input('user_role');
+        
         $password = rand();
 
         $user = new User();
@@ -54,7 +63,18 @@ class UserController extends Controller {
         $user->status = $user_status;
         $user->save();
         $userId = $user->id;
-
+        
+        $userRole = new UserRole();
+        $userRole->user_id = $userId;
+        $userRole->role_id = $user_role;
+        $userRole->save();
+        $userRoleId = $userRole->id;
+        
+        $userProject = new UserProject();
+        $userProject->role_user_id = $userRoleId;
+        $userProject->project_id = 0;
+        $userProject->save();
+    
         $data = 'Dear ' . $name. "\r\n\n";
         $data .='Welcome to CommonFloor Unit Selector!'. "\r\n";
         $data .='Your Account on CommonFloor Unit Selector has been created with the following credentials -'. "\r\n";
@@ -99,11 +119,16 @@ class UserController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit($id) {
-        $user = User::find($id);
-
+    public function edit($id) { 
+        
+        $user = User::find($id)->toArray();
+        $roles = Role::all()->toArray(); 
+        $defaultRole = getDefaultRole($id);
+        $user['default_role_id'] = $defaultRole['role_id'];
+        
         return view('admin.user.edit')
-                        ->with('user', $user->toArray())
+                        ->with('roles', $roles)
+                        ->with('user', $user)
                         ->with('menuFlag', FALSE);
     }
 
@@ -119,15 +144,22 @@ class UserController extends Controller {
         $email = $request->input('email');
         $phone_number = $request->input('phone_number');
         $user_status = $request->input('user_status');
+        
+        $user_role = $request->input('user_role');
 
         $user = User::find($id);
         $user->name = ucfirst($name);
         $user->email = $email;
         $user->phone = $phone_number;
         $user->status = $user_status;
+        
         $user->save();
-
-
+        
+        $defaultRoleId = getDefaultRole($id);  
+        $userRole = UserRole::find($defaultRoleId['id']);
+        $userRole->role_id = $user_role;
+        $userRole->update(); 
+  
         $addanother = $request->input('addanother');
 
         if ($addanother == 1)

@@ -12,33 +12,36 @@
             <p class="menu-title">Project <span class="pull-right"><i class="icon-refresh"></i></span></p>
         </div>
         <ul class="big-items">
+            <li class="{{ $current === 'settings' ? 'active' : '' }}">
+                <a href="{{ url( 'admin/project/' . $project['id']) }}">@if($current === 'settings')<span class='fa fa-check text-success'></span>@endif Configuration</a>
+            </li>
+            <li class="{{ $current === 'cost' ? 'active' : '' }}">
+                <a href="{{ url( 'admin/project/' . $project['id'] . '/cost') }}">@if($current === 'cost')<span class='fa fa-check text-success'></span>@endif Cost</a>
+            </li>
             <li class="{{ $current === 'svg' ? 'active' : '' }}">
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/svg' ) }}" >@if($current === 'svg')<span class='fa fa-check text-success'></span>@endif SVGs</a>
             </li>
-            <li class="{{ $current === 'settings' ? 'active' : '' }}">
-                <a href="{{ url( 'admin/project/' . $project['id'] . '/edit') }}">@if($current === 'settings')<span class='fa fa-check text-success'></span>@endif Settings</a>
-            </li>
-            <li class="{{ $current === 'room_type' ? 'active' : '' }}">
-                <a href="{{ url( 'admin/project/' . $project['id'] . '/roomtype/create/') }}">@if($current === 'room_type')<span class='fa fa-check text-success'></span>@endif Attributes</a>
+            <li class="{{ $current === 'project_users' ? 'active' : '' }}">
+                <a href="{{ url( 'admin/project/' . $project['id'] . '/user' ) }}" >@if($current === 'project_users')<span class='fa fa-check text-success'></span>@endif Users</a>
             </li>
         </ul> 
         @foreach(project_property_types($project['id']) as $propertyTypeId => $projectPropertyType)
         <?php
-           if($projectPropertyType->name === 'Apartments' ||  $projectPropertyType->name === 'Penthouse')
+           if($projectPropertyType === 'Apartments' ||  $projectPropertyType === 'Penthouse')
            {
-               $apartmentPenthouse[] =  $projectPropertyType->name;
+               $apartmentPenthouse[] =  $projectPropertyType;
                continue;
            } 
         ?>
         <div class="inner-menu-content" >            
-            <p class="menu-title">{{ $projectPropertyType->name }}</p>    
+            <p class="menu-title">{{ $projectPropertyType }}</p>    
         </div>
         <ul class="big-items">
-            <li class="{{ $current === property_type_slug($projectPropertyType->name) . '-variant' ? 'active' : '' }}">
-                <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType->name) . '-variant/') }}">@if($current === property_type_slug($projectPropertyType->name) . '-variant')<span class='fa fa-check text-success'></span>@endif Variants</a>
+            <li class="{{ $current === property_type_slug($projectPropertyType) . '-variant' ? 'active' : '' }}">
+                <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType) . '-variant/') }}">@if($current === property_type_slug($projectPropertyType) . '-variant')<span class='fa fa-check text-success'></span>@endif Configuration</a>
             </li>
-            <li class="{{ $current === property_type_slug($projectPropertyType->name) . '-unit' ? 'active' : '' }}">
-                <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType->name) . '-unit/') }}">@if($current === property_type_slug($projectPropertyType->name) . '-unit')<span class='fa fa-check text-success'></span>@endif Units</a>
+            <li class="{{ $current === property_type_slug($projectPropertyType) . '-unit' ? 'active' : '' }}">
+                <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType) . '-unit/') }}">@if($current === property_type_slug($projectPropertyType) . '-unit')<span class='fa fa-check text-success'></span>@endif Units</a>
             </li>
 
         </ul>
@@ -59,7 +62,7 @@
                 <a href="{{ url('/admin/project/' . $project['id'] . '/building') }}">@if($current === 'building')<span class='fa fa-check text-success'></span>@endif Buildings</a>
             </li>
             <li class="{{ $current === 'apartment-variant' ? 'active' : '' }}">
-                <a href="{{ url('/admin/project/' . $project['id'] . '/apartment-variant/') }}">@if($current === 'apartment-variant')<span class='fa fa-check text-success'></span>@endif Variants</a>
+                <a href="{{ url('/admin/project/' . $project['id'] . '/apartment-variant/') }}">@if($current === 'apartment-variant')<span class='fa fa-check text-success'></span>@endif Configuration</a>
             </li>
             <li class="{{ $current === 'apartment-unit' ? 'active' : '' }}">
                 <a href="{{ url('/admin/project/' . $project['id'] . '/apartment-unit/') }}">@if($current === 'apartment-unit')<span class='fa fa-check text-success'></span>@endif Units</a>

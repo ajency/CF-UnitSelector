@@ -121,7 +121,9 @@
                 <div class="form-actions">  
                     <div class="pull-right">
                         <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
+
                         <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
+
                     </div>
                 </div>
         </form>

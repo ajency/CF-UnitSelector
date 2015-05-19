@@ -32,7 +32,7 @@ Route::get( 'project/{id}', 'ProjectController@show' )->where( 'id', '[0-9]+' );
 /**
  * Backend Admin routes
  */
-Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
+Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], function() {
     Route::get( '/', 'Admin\AdminController@index' );
     Route::resource( 'project', 'Admin\ProjectController' );
     Route::resource( 'user', 'Admin\UserController' );
@@ -57,16 +57,18 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::post( 'user/validateuserpassword', 'Admin\UserController@validateCurrentPassword' );
     Route::post( 'user/validateuseremail', 'Admin\UserController@validateEmail' );
     Route::get( 'user/{id}/changepassword', 'Admin\UserController@changePassword' );
-    Route::get( 'project/{id}/svg', 'Admin\ProjectController@svg' );
-    Route::post( 'project/{projectid}/bunglow-variant/{id}/roomtypeattributes', 'Admin\ProjectBunglowVariantController@roomtypeAttributes' );
-    Route::delete( 'project/{projectid}/roomtype/{id}/deleteroomtypeattributes', 'Admin\ProjectRoomTypeController@deleteRoomTypeAttribute' );
-    Route::post( 'project/{projectid}/bunglow-variant/{id}/getroomtypeattributes', 'Admin\ProjectBunglowVariantController@getRoomTypeAttributes' );
-    Route::post( 'project/{projectid}/building/{id}/getpositions', 'Admin\ProjectBuildingController@getPositions' );
-    Route::post( 'project/{projectid}/floor-layout/{id}/getunittypevariants', 'Admin\ProjectFloorLayoutController@getUnitTypeVariant' );
-    Route::post( 'project/{id}/media/updatebreakpoint', 'Admin\ProjectMediaController@updateBreakPoint' );
+    Route::get( 'project/{project}/svg', 'Admin\ProjectController@svg' );
+    Route::get( 'project/{project}/cost', 'Admin\ProjectController@cost' );
+    Route::post( 'project/{project}/costupdate', 'Admin\ProjectController@costUpdate' );
+    Route::post( 'project/{project}/bunglow-variant/{id}/roomtypeattributes', 'Admin\ProjectBunglowVariantController@roomtypeAttributes' );
+    Route::delete( 'project/{project}/roomtype/{id}/deleteroomtypeattributes', 'Admin\ProjectRoomTypeController@deleteRoomTypeAttribute' );
+    Route::post( 'project/{project}/bunglow-variant/{id}/getroomtypeattributes', 'Admin\ProjectBunglowVariantController@getRoomTypeAttributes' );
+    Route::post( 'project/{project}/building/{id}/getpositions', 'Admin\ProjectBuildingController@getPositions' );
+    Route::post( 'project/{project}/floor-layout/{id}/getunittypevariants', 'Admin\ProjectFloorLayoutController@getUnitTypeVariant' );
+    Route::post( 'project/{project}/media/updatebreakpoint', 'Admin\ProjectMediaController@updateBreakPoint' );
     Route::post( 'building/{id}/media/updatebreakpoint', 'Admin\BuildingMediaController@updateBreakPoint' );
-    Route::post( 'project/{projectid}/apartment-variant/getpropertytypedata', 'Admin\ProjectApartmentVariantController@getPropertyTypeData' );
-    Route::get( 'project/{projectid}/attributes/addroomtype', 'Admin\ProjectRoomTypeController@addRoomType' );
+    Route::post( 'project/{project}/apartment-variant/getpropertytypedata', 'Admin\ProjectApartmentVariantController@getPropertyTypeData' );
+    Route::get( 'project/{project}/attributes/addroomtype', 'Admin\ProjectRoomTypeController@addRoomType' );
     
 });
 

@@ -42,7 +42,7 @@
                                 <div class="row">
                                     <div class="col-md-6">{{ $permission['display_name'] }}</div>
                                     <div class="col-md-6 text-right">
-                                        <input  {{ (in_array($permission['id'],$permissionrole)) ? 'checked' : '' }} type="checkbox" id="permissions" name="permissions[]" class="text-success" value="{{ $permission['id'] }}" aria-label="..." >
+                                        <input required {{ (in_array($permission['id'],$permissionrole)) ? 'checked' : '' }} type="checkbox" id="permissions" name="permissions[]" class="text-success" value="{{ $permission['id'] }}" aria-label="..." >
                                     </div>
                                 </div>
                             </a>
@@ -50,7 +50,48 @@
                         </div>
 
                     </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a class="list-group-item">
+                                <div class="row">
+                                    <div class="col-md-6">Project Access</div>
+                                    <div class="col-md-6 text-right">
+                                        <input required type="radio" id="project_access_all" name="project_access" value="all" aria-label="..." checked >All &nbsp;
+                                        <input required type="radio" id="project_access_specific" name="project_access" value="specific" aria-label="..." {{ ($role['project_access']=='specific') ? 'checked' : '' }} >Specific
+                                    </div>
+                                </div>
+                            </a>
+                            @foreach($projectPermissions as $projectPermission)
+                            <a class="list-group-item">
+                                <div class="row">
+                                    <div class="col-md-6">{{ $projectPermission['display_name'] }}</div>
+                                    <div class="col-md-6 text-right">
+                                        <input required {{ (in_array($projectPermission['id'],$permissionrole)) ? 'checked' : '' }} type="checkbox" id="permissions" name="permissions[]" class="text-success" value="{{ $projectPermission['id'] }}" aria-label="..." >
+                                    </div>
+                                </div>
+                            </a>
+                            @endforeach
+                        </div>
 
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            
+                            <a class="list-group-item">
+                                <div class="row">
+                                    <div class="col-md-6">Is Agent</div>
+                                    <div class="col-md-6 text-right">
+                                        <input type="checkbox" {{ ($role['is_agent']=='yes') ? 'checked' : '' }} id="is_agent" name="is_agent" class="text-success" value="yes" aria-label="..." >
+                                    </div>
+                                </div>
+                            </a>
+                           
+                        </div>
+
+                    </div>
+                    
                     <div class="form-actions "> 
                         <div class="pull-right">
                             <input type="hidden" id="addanother" name="addanother" value="">

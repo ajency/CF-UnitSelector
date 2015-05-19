@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 use CommonFloor\Repositories\ProjectRepository;
 use CommonFloor\Project;
 use CommonFloor\Media;
-use CommonFloor\PropertyType;
- 
+use CommonFloor\ProjectMeta;
+use CommonFloor\Defaults;
+use CommonFloor\ProjectPropertyType;
 
 class ProjectController extends Controller {
 
@@ -18,6 +19,9 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function index() {
+
+        if (!hasPermission(0, ['read_project', 'configure_project']))
+            abort(403);
 
         $projects = Project::orderBy('project_title')->get()->toArray();
         return view('admin.project.list')
@@ -31,9 +35,8 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function create() {
-        $propertyType = PropertyType::all();
+ 
         return view('admin.project.add')
-                        ->with('property_type', $propertyType)
                         ->with('menuFlag', FALSE);
     }
 
@@ -43,11 +46,53 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function store(Request $request, ProjectRepository $projectRepository) {
-
+ 
         $project = $projectRepository->createProject($request->all());
         if ($project !== null) {
-            return redirect("/admin/project/" . $project->id . "/edit");
+            return redirect("/admin/project/" . $project->id );
         }
+    }
+
+    public function show($id, ProjectRepository $projectRepository) {
+                
+        $project = $projectRepository->getProjectById($id);
+        $projectMeta = $project->projectMeta()->whereNotIn('meta_key', ['master', 'google_earth', 'skyview', 'breakpoints', 'cf'])->get()->toArray();
+        $propertyTypes = get_all_property_type(); 
+        $defaultunitTypes = get_all_unit_type();
+        $unitTypes = $projectunitTypes = $projectCost = $propertytypeAttributes = [];
+
+        foreach ($projectMeta as $meta) {
+            $projectCost[$meta['meta_key']] = ['ID' => $meta['id'], 'VALUE' => $meta['meta_value']];
+        }
+        
+     
+        foreach ($project->projectPropertyTypes as $projectPropertyType) {
+            
+            $unitTypes = $project->getUnitTypesToArray($projectPropertyType->id);
+            foreach ($unitTypes as $unitType)
+            {
+                if(!isset($defaultunitTypes[$projectPropertyType->property_type_id][$unitType->unittype_name]))
+                {
+                  $projectDefaultUnitType = Defaults::find($unitType->unittype_name)->toArray();  
+                  $defaultunitTypes[$projectPropertyType->property_type_id][$projectDefaultUnitType['id']] = $projectDefaultUnitType['label']; 
+                }
+            }
+            $projectunitTypes[$projectPropertyType->property_type_id] = $unitTypes;
+            
+            $propertytypeAttributes[$projectPropertyType->property_type_id]['PROJECTPROPERTYTYPEID'] = $projectPropertyType->id;
+            $propertytypeAttributes[$projectPropertyType->property_type_id]['ATTRIBUTES'] = ProjectPropertyType::find($projectPropertyType->id)->attributes->toArray();
+        }
+     
+     
+        return view('admin.project.readconfig')
+                        ->with('project', $project->toArray())
+                        ->with('projectCost', $projectCost)
+                        ->with('propertyTypes', $propertyTypes)
+                        ->with('defaultunitTypes', $defaultunitTypes)
+                        ->with('unitTypes', $projectunitTypes)
+                        ->with('propertytypeAttributes', $propertytypeAttributes)
+                        ->with('current', 'settings');
+ 
     }
 
     /**
@@ -57,24 +102,43 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function edit($id, ProjectRepository $projectRepository) {
+ 
         $project = $projectRepository->getProjectById($id);
         $projectMeta = $project->projectMeta()->whereNotIn('meta_key', ['master', 'google_earth', 'skyview', 'breakpoints', 'cf'])->get()->toArray();
-        $propertyTypes = PropertyType::all();
-        $unitTypes = $projectCost = [];
+        $propertyTypes = get_all_property_type(); 
+        $defaultunitTypes = get_all_unit_type();
+        $unitTypes = $projectunitTypes = $projectCost = $propertytypeAttributes = [];
 
         foreach ($projectMeta as $meta) {
             $projectCost[$meta['meta_key']] = ['ID' => $meta['id'], 'VALUE' => $meta['meta_value']];
         }
-
+        
+     
         foreach ($project->projectPropertyTypes as $projectPropertyType) {
-            $unitTypes[$projectPropertyType->property_type_id] = $project->getUnitTypesToArray($projectPropertyType->id);
+            
+            $unitTypes = $project->getUnitTypesToArray($projectPropertyType->id);
+            foreach ($unitTypes as $unitType)
+            {
+                if(!isset($defaultunitTypes[$projectPropertyType->property_type_id][$unitType->unittype_name]))
+                {
+                  $projectDefaultUnitType = Defaults::find($unitType->unittype_name)->toArray();  
+                  $defaultunitTypes[$projectPropertyType->property_type_id][$projectDefaultUnitType['id']] = $projectDefaultUnitType['label']; 
+                }
+            }
+            $projectunitTypes[$projectPropertyType->property_type_id] = $unitTypes;
+            
+            $propertytypeAttributes[$projectPropertyType->property_type_id]['PROJECTPROPERTYTYPEID'] = $projectPropertyType->id;
+            $propertytypeAttributes[$projectPropertyType->property_type_id]['ATTRIBUTES'] = ProjectPropertyType::find($projectPropertyType->id)->attributes->toArray();
         }
- 
+     
+     
         return view('admin.project.settings')
                         ->with('project', $project->toArray())
                         ->with('projectCost', $projectCost)
                         ->with('propertyTypes', $propertyTypes)
-                        ->with('unitTypes', $unitTypes)
+                        ->with('defaultunitTypes', $defaultunitTypes)
+                        ->with('unitTypes', $projectunitTypes)
+                        ->with('propertytypeAttributes', $propertytypeAttributes)
                         ->with('current', 'settings');
     }
 
@@ -85,7 +149,7 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function update($id, Request $request, ProjectRepository $projectRepository) {
-
+ 
         $project = $projectRepository->updateProject($id, $request->all());
 
         return redirect("/admin/project/" . $id . "/edit");
@@ -101,11 +165,41 @@ class ProjectController extends Controller {
         //
     }
 
+    public function cost($id, ProjectRepository $projectRepository) {
+        $project = $projectRepository->getProjectById($id);
+        $projectMeta = $project->projectMeta()->whereNotIn('meta_key', ['master', 'google_earth', 'skyview', 'breakpoints', 'cf'])->get()->toArray();
+        $projectCost = [];
+
+        foreach ($projectMeta as $meta) {
+            $projectCost[$meta['meta_key']] = ['ID' => $meta['id'], 'VALUE' => $meta['meta_value']];
+        }
+        return view('admin.project.cost')
+                        ->with('project', $project->toArray())
+                        ->with('projectCost', $projectCost)
+                        ->with('current', 'cost');
+    }
+
+    public function costUpdate($id, Request $request, ProjectRepository $projectRepository) {
+ 
+        $projectCost = $request->all();
+
+        foreach ($projectCost as $meta_key => $meta_value) {
+            $keyArr = explode("_", $meta_key);
+            $projectmetaId = $keyArr[0];
+
+            $data = array("meta_value" => $meta_value);
+            ProjectMeta::where('id', $projectmetaId)->update($data);
+        }
+
+        return redirect("/admin/project/" . $id . "/cost");
+    }
+
     public function svg($id, ProjectRepository $projectRepository) {
+ 
         $project = $projectRepository->getProjectById($id);
         $projectMeta = $project->projectMeta()->whereIn('meta_key', ['master', 'google_earth', 'skyview', 'breakpoints'])->get()->toArray();
         $svgImages = [];
-
+ 
         foreach ($projectMeta as $metaValues) {
 
             if ('master' === $metaValues['meta_key']) {
@@ -129,6 +223,7 @@ class ProjectController extends Controller {
                 if (is_numeric($mediaId)) {
                     $imageName = Media::find($mediaId)->image_name;
                     $svgImages[$metaValues['meta_key']]['ID'] = $mediaId;
+                    $svgImages[$metaValues['meta_key']]['NAME'] = $imageName;
                     $svgImages[$metaValues['meta_key']]['IMAGE'] = url() . "/projects/" . $id . "/" . $metaValues['meta_key'] . "/" . $imageName;
                 }
             }
@@ -144,26 +239,25 @@ class ProjectController extends Controller {
     public function validateProjectTitle(Request $request) {
         $title = $request->input('title');
         $projectId = $request->input('project_id');
-        $msg ='';
-        $flag =true;
- 
-        if($projectId)
-           $projectData = Project::where('project_title',$title)->where('id', '!=', $projectId)->get()->toArray(); 
-        else
-            $projectData = Project::where('project_title',$title)->get()->toArray();
+        $msg = '';
+        $flag = true;
 
- 
-        if(!empty($projectData))
-        {
+        if ($projectId)
+            $projectData = Project::where('project_title', $title)->where('id', '!=', $projectId)->get()->toArray();
+        else
+            $projectData = Project::where('project_title', $title)->get()->toArray();
+
+
+        if (!empty($projectData)) {
             $msg = 'Project Title Already Taken';
-            $flag =false;
+            $flag = false;
         }
-        
-         
+
+
         return response()->json([
                     'code' => 'project_title_validation',
                     'message' => $msg,
-                    'data' =>  $flag,
+                    'data' => $flag,
                         ], 200);
     }
 

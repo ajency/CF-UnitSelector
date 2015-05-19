@@ -18,6 +18,7 @@ class AddPermissions extends Migration {
             Permission::create( ['name' => 'read_project','display_name' => 'Read Project'] );
             Permission::create( ['name' => 'publish_project','display_name' => 'Publish Project'] );
             Permission::create( ['name' => 'configure_building','display_name' => 'Configure Building'] );
+            Permission::create( ['name' => 'configure_unit','display_name' => 'Add/Edit Unit'] );
             Permission::create( ['name' => 'unit_status_update','display_name' => 'Status update of units'] );
             Permission::create( ['name' => 'svg_auth_tool','display_name' => 'SVG authoring tool'] );
             Permission::create( ['name' => 'manage_users','display_name' => 'Manage Users'] );

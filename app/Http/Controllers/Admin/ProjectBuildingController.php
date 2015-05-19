@@ -18,6 +18,7 @@ class ProjectBuildingController extends Controller {
 
     public function __construct( ProjectRepository $projectRepository ) {
         $this->projectRepository = $projectRepository;
+            
     }
 
     /**
@@ -43,6 +44,7 @@ class ProjectBuildingController extends Controller {
      * @return Response
      */
     public function create( $projectId ) {
+        
         $project = $this->projectRepository->getProjectById( $projectId );
 
         $phases = Phase::where( 'project_id', $projectId )->get();
@@ -59,6 +61,7 @@ class ProjectBuildingController extends Controller {
      * @return Response
      */
     public function store( $projectId, Request $request ) {
+            
         $formData = $request->all();
         $building = new Building;
         $building->building_name = ucfirst($formData['building_name']);
@@ -88,6 +91,7 @@ class ProjectBuildingController extends Controller {
      * @return Response
      */
     public function edit( $projectId, $buildingId ) {
+  
         $project = Project::find( $projectId );
 
         $phases = Phase::where( 'project_id', $projectId )->get();
@@ -121,7 +125,7 @@ class ProjectBuildingController extends Controller {
      * @return Response
      */
     public function update( $projectId, $buildingId, Request $request ) {
-
+            
         $updateSection = $request->get( 'update_section' );
         $building = Building::find( $buildingId );
 
