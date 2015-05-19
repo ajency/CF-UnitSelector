@@ -65,6 +65,9 @@
         <hr/>
 
         <div class="row">
+             @if($project['created_at']===$project['updated_at'])
+                <h5 class="bg-success text-center text-success p-t-20 p-b-20" style="border: 1px solid #CEE2CF;"><i class="fa fa-check-circle" style="font-size: 17px;"></i> Your project has been created successfully.Go ahead and configure it !</h5>
+                @endif
             <div class="m-l-5 no-border">
                 <h3><i class="fa fa-angle-double-right text-primary"></i> Measurement <span class="semi-bold">Units</span></h3>
             </div>
@@ -89,6 +92,7 @@
                     <?php
                     $j=1;
                     ?>
+                    @if(!empty($propertyTypes))
                     @foreach($propertyTypes as $propertyTypeId=> $propertyType)
                     <div class="col-md-6">
                         <div class="grid simple">
@@ -164,6 +168,9 @@
                     $j++;
                     ?>
                     @endforeach
+                    @else
+                    <b>Property Type Not Selected</b>
+                    @endif
                     
                 </div>
                 

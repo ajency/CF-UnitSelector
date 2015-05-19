@@ -211,6 +211,7 @@ class ProjectController extends Controller {
                 $masterImages = unserialize($metaValues['meta_value']);
 
                 if (!empty($masterImages)) {
+                    ksort($masterImages);
                     foreach ($masterImages as $key => $images) {
                         if (is_numeric($images)) {
                             $imageName = Media::find($images)->image_name;
