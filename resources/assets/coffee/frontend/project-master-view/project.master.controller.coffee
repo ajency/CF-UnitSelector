@@ -550,7 +550,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 						
 			
-			
+			console.log html
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
 			$('.layer').tooltipster('content', html)
@@ -649,10 +649,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						<h5 class="pull-left m-t-0">'+buildingModel.get('building_name')+'</h5>
 						<br> <br>
 						<div class="details">
-							<div>
-								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
-								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
-							</div>
+							
 							<div>
 								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 							</div> 
@@ -695,8 +692,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		
 		first = _.values svgs
 		$.merge transitionImages ,  project.get('project_master')
-		$('.region').load(first[0],
-			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
+		$('.region').load(first[0],()->
+				$('.first_image').attr('src',transitionImages[0])
+				# that.iniTooltip()
+				# CommonFloor.applyVillaClasses()
+				# CommonFloor.applyPlotClasses()
+				# that.loadZoom()
+				).addClass('active').removeClass('inactive')
 		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
 			
@@ -749,7 +751,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			data.frame
 			if data.frame is data.stopFrame
 				url = svgs[data.frame]
-				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses();CommonFloor.applyPlotClasses()).addClass('active').removeClass('inactive')
+				$('.region').load(url,()->
+					that.iniTooltip()
+					CommonFloor.applyVillaClasses()
+					CommonFloor.applyPlotClasses()
+					).addClass('active').removeClass('inactive')
 				
 		)
 
@@ -759,13 +765,18 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('#trig').removeClass 'hidden'
 			response = project.checkRotationView()
 			if response is 1
+				$('.region').empty()
+				$('.region').addClass('inactive').removeClass('active')
 				$('.first_image').remove()
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
-				# panZoomTiger = svgPanZoom('.region')
-				# $("svg").svgPanZoom()
 				$('.cf-loader').addClass 'hidden'
-			$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses();CommonFloor.applyPlotClasses();that.loadZoom())
+			# $('.region').load(url,()->
+			# 	that.iniTooltip()
+			# 	CommonFloor.applyVillaClasses()
+			# 	CommonFloor.applyPlotClasses()
+			# 	that.loadZoom()
+			# ).addClass('active').removeClass('inactive')
 
 		)
 	#intialize tooltip 
@@ -780,6 +791,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				interactive : true
 				# animation : 'grow'
 				trigger: 'hover'
+				
 				
 		)
 		

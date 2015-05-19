@@ -264,13 +264,13 @@
       'mouseover': function(e) {
         var id;
         id = this.model.get('id');
-        $('#' + id).attr('class', 'layer ' + this.model.get('availability'));
+        $('#' + id).attr('class', 'layer apartment ' + this.model.get('availability'));
         return $('#apartment' + id).attr('class', 'unit blocks ' + this.model.get('availability') + ' active');
       },
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
-        $('#' + id).attr('class', 'layer');
+        $('#' + id).attr('class', 'layer apartment');
         return $('#apartment' + id).attr('class', 'unit blocks ' + this.model.get('availability'));
       },
       'click': function(e) {
@@ -433,8 +433,7 @@
         availability = s.decapitalize(availability);
         html = "";
         html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
-        console.log(html);
-        $('#' + id).attr('class', 'layer ' + availability);
+        $('#' + id).attr('class', 'layer apartment ' + availability);
         $('#apartment' + id).attr('class', ' unit blocks ' + availability + ' active');
         return $('.layer').tooltipster('content', html);
       },
@@ -449,7 +448,7 @@
         }
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        $('#' + id).attr('class', 'layer ');
+        $('#' + id).attr('class', 'layer apartment');
         return $('#apartment' + id).attr('class', 'unit blocks ' + availability);
       },
       'mouseover .next': function(e) {
@@ -510,7 +509,10 @@
       });
       $.merge(transitionImages, building.get('building_master'));
       console.log(first = _.values(svgs));
-      $('.region').load(first[0], $('.first_image').attr('data-src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
+      $('.region').load(first[0], function() {
+        $('.first_image').attr('data-src', transitionImages[0]);
+        return that.iniTooltip();
+      }).addClass('active').removeClass('inactive');
       $('.first_image').lazyLoadXT();
       $('.first_image').load(function() {
         var response;
@@ -525,7 +527,7 @@
     };
 
     CenterApartmentMasterView.prototype.loadProjectMaster = function() {
-      var breakpoints, building_id, first, svgs, transitionImages, url;
+      var breakpoints, first, svgs, transitionImages;
       svgs = [];
       breakpoints = project.get('breakpoints');
       $.each(breakpoints, function(index, value) {
@@ -535,7 +537,13 @@
       transitionImages = [];
       $.merge(transitionImages, project.get('project_master'));
       if (project.get('project_master').length !== 0) {
-        return $('.project_master').load(first[0], $('.firstimage').attr('src', transitionImages[0]), url = Backbone.history.fragment, console.log(building_id = parseInt(url.split('/')[1])), $('#' + building_id + '.building').attr('layer building active_bldg'));
+        return $('.project_master').load(first[0], function() {
+          var building_id, url;
+          $('.firstimage').attr('src', transitionImages[0]);
+          url = Backbone.history.fragment;
+          console.log(building_id = url.split('/')[1]);
+          return $('#' + building_id + '.building').attr('class', 'layer building active_bldg');
+        });
       }
     };
 
