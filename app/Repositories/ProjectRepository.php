@@ -100,6 +100,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
         $project->project_title = $project_title;
         $project->project_address = $project_address;
         $project->measurement_units = $property_measurement_units;
+        $project->updated_by = Auth::user()->id;
         $project->save();
  
 

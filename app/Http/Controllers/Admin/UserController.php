@@ -80,7 +80,7 @@ class UserController extends Controller {
         $data .='Your Account on CommonFloor Unit Selector has been created with the following credentials -'. "\r\n";
         $data .='Login Email address : '.$email . "\r\n";
         $data .='Your account has been set with a randomly generated password :'.$password. "\r\n";
-        $data .= "<a href='" . url() . "'><button class='btn btn-primary btn-cons'><i class='fa fa-check'></i> Save</button></a>";
+        $data .= '<a href="' . url() . '"><button class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button></a>'. "\r\n";
         $data .='or copy paste the link below in your browser to login to your account'. "\r\n";
         $data .= url(). "\r\n";
         $data .='You can update the password to one of your choice from the profile page.'. "\r\n\n";
