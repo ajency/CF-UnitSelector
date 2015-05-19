@@ -694,17 +694,14 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$.merge transitionImages ,  project.get('project_master')
 		$('.region').load(first[0],()->
 				$('.first_image').attr('src',transitionImages[0])
-				# that.iniTooltip()
-				# CommonFloor.applyVillaClasses()
-				# CommonFloor.applyPlotClasses()
-				# that.loadZoom()
+				that.iniTooltip()
+				CommonFloor.applyVillaClasses()
+				CommonFloor.applyPlotClasses()
+				that.loadZoom()
 				).addClass('active').removeClass('inactive')
 		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
-			that.iniTooltip()
-			CommonFloor.applyVillaClasses()
-			CommonFloor.applyPlotClasses()
-			that.loadZoom()
+			
 			response = project.checkRotationView()
 			$('.first_image').first().css('width',that.ui.svgContainer.width())
 			if response is 1
@@ -768,18 +765,16 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('#trig').removeClass 'hidden'
 			response = project.checkRotationView()
 			if response is 1
-				$('.region').empty()
-				$('.region').addClass('inactive').removeClass('active')
 				$('.first_image').remove()
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
 				$('.cf-loader').addClass 'hidden'
-			# $('.region').load(url,()->
-			# 	that.iniTooltip()
-			# 	CommonFloor.applyVillaClasses()
-			# 	CommonFloor.applyPlotClasses()
-			# 	that.loadZoom()
-			# ).addClass('active').removeClass('inactive')
+			$('.region').load(url,()->
+				that.iniTooltip()
+				CommonFloor.applyVillaClasses()
+				CommonFloor.applyPlotClasses()
+				that.loadZoom()
+			).addClass('active').removeClass('inactive')
 
 		)
 	#intialize tooltip 

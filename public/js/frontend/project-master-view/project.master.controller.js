@@ -606,15 +606,15 @@
       first = _.values(svgs);
       $.merge(transitionImages, project.get('project_master'));
       $('.region').load(first[0], function() {
-        return $('.first_image').attr('src', transitionImages[0]);
+        $('.first_image').attr('src', transitionImages[0]);
+        that.iniTooltip();
+        CommonFloor.applyVillaClasses();
+        CommonFloor.applyPlotClasses();
+        return that.loadZoom();
       }).addClass('active').removeClass('inactive');
       $('.first_image').lazyLoadXT();
       $('.first_image').load(function() {
         var response;
-        that.iniTooltip();
-        CommonFloor.applyVillaClasses();
-        CommonFloor.applyPlotClasses();
-        that.loadZoom();
         response = project.checkRotationView();
         $('.first_image').first().css('width', that.ui.svgContainer.width());
         if (response === 1) {
@@ -676,13 +676,17 @@
         $('#trig').removeClass('hidden');
         response = project.checkRotationView();
         if (response === 1) {
-          $('.region').empty();
-          $('.region').addClass('inactive').removeClass('active');
           $('.first_image').remove();
           $('.rotate').removeClass('hidden');
           $('#spritespin').show();
-          return $('.cf-loader').addClass('hidden');
+          $('.cf-loader').addClass('hidden');
         }
+        return $('.region').load(url, function() {
+          that.iniTooltip();
+          CommonFloor.applyVillaClasses();
+          CommonFloor.applyPlotClasses();
+          return that.loadZoom();
+        }).addClass('active').removeClass('inactive');
       });
     };
 
