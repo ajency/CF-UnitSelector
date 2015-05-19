@@ -182,6 +182,21 @@ CommonFloor.applyVillaClasses = (classname) ->
 			$('#'+id).attr('class' , 'layer villa unit_fadein '+availability)
 
 
+CommonFloor.applyAptClasses = (classname) ->
+	$('.apartment').each (ind,item)->
+		id = parseInt item.id
+		# class_name = $('#'+id).attr('class')
+		# if classname != undefined
+		# 	class_name = classname
+		unit = unitCollection.findWhere 
+			id :  id 
+		# $('#'+id).attr('class' ,class_name)
+		if ! _.isUndefined unit 
+			availability = unit.get('availability')
+			availability = s.decapitalize(availability)
+			$('#'+id).attr('class' , 'layer apartment unit_fadein '+availability)
+
+
 CommonFloor.applyPlotClasses = (classname)->
 	$('.plot').each (ind,item)->
 		id = parseInt item.id
@@ -272,6 +287,7 @@ CommonFloor.resetProperyType = (param)->
 CommonFloor.applyFliterClass = ()->
 	CommonFloor.applyPlotClasses()
 	CommonFloor.applyVillaClasses()
+	CommonFloor.applyAptClasses()
 	actualunits = _.pluck unitMasterCollection.toArray() ,'id'
 	filterunits = _.pluck unitCollection.toArray() ,'id'
 	notSelecteUnits = _.difference actualunits , filterunits

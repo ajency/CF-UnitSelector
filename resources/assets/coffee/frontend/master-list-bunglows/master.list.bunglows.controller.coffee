@@ -64,7 +64,7 @@ class BunglowListView extends Marionette.ItemView
 			id = @model.get('id')
 			# $('#'+id+'.villa').attr('class' ,'layer villa')
 			$('#unit'+id).attr('class' , 'unit blocks'+' '+@model.get('status'))
-			$('#'+id).tooltipster('hide')
+			# $('#'+id).tooltipster('hide')
 			CommonFloor.applyVillaClasses(@classname)
 			
 

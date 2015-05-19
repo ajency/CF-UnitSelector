@@ -270,7 +270,6 @@
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
-        $('#' + id).attr('class', 'layer apartment');
         return $('#apartment' + id).attr('class', 'unit blocks ' + this.model.get('availability'));
       },
       'click': function(e) {
@@ -519,7 +518,8 @@
       console.log(first = _.values(svgs));
       $('.region').load(first[0], function() {
         $('.first_image').attr('data-src', transitionImages[0]);
-        return that.iniTooltip();
+        that.iniTooltip();
+        return CommonFloor.applyAptClasses();
       }).addClass('active').removeClass('inactive');
       $('.first_image').lazyLoadXT();
       $('.first_image').load(function() {
@@ -617,7 +617,8 @@
         if (data.frame === data.stopFrame) {
           url = svgs[data.frame];
           return $('.region').load(url, function() {
-            return that.iniTooltip();
+            that.iniTooltip();
+            return CommonFloor.applyAptClasses();
           }).addClass('active').removeClass('inactive');
         }
       });
@@ -632,7 +633,8 @@
         }
         return $('.region').load(url, function() {
           that.iniTooltip();
-          return that.loadZoom();
+          that.loadZoom();
+          return CommonFloor.applyAptClasses();
         });
       });
     };

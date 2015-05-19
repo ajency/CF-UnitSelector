@@ -238,7 +238,7 @@ class ApartmentsView extends Marionette.ItemView
 			$('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability')+' active')
 		'mouseout':(e)->
 			id = @model.get 'id'
-			$('#'+id).attr('class' ,'layer apartment')
+			# $('#'+id).attr('class' ,'layer apartment')
 			$('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability'))
 
 		'click':(e)->
@@ -540,6 +540,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$('.region').load(first[0],()->
 				$('.first_image').attr('data-src',transitionImages[0])
 				that.iniTooltip()
+				CommonFloor.applyAptClasses()
 				).addClass('active').removeClass('inactive')
 		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
@@ -623,7 +624,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			data = api.data
 			if data.frame is data.stopFrame
 				url = svgs[data.frame]
-				$('.region').load(url,()->that.iniTooltip()).addClass('active').removeClass('inactive')
+				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyAptClasses()).addClass('active').removeClass('inactive')
 				
 				
 		)
@@ -634,7 +635,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
 				$('.cf-loader').addClass 'hidden'
-			$('.region').load(url,()->that.iniTooltip();that.loadZoom())
+			$('.region').load(url,()->that.iniTooltip();that.loadZoom();CommonFloor.applyAptClasses())
 
 
 				
