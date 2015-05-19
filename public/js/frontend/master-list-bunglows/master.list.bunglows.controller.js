@@ -46,7 +46,7 @@
     };
 
     BunglowListView.prototype.events = {
-      'mouseover': function(e) {
+      'mouseover,click': function(e) {
         var html, id;
         this.iniTooltip(this.model.get('id'));
         html = this.getHtml(this.model.get('id'));
@@ -61,12 +61,6 @@
         $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status'));
         $('#' + id).tooltipster('hide');
         return CommonFloor.applyVillaClasses(this.classname);
-      },
-      'click': function(e) {
-        if (this.model.get('status') === 'available') {
-          CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
-          return CommonFloor.router.storeRoute();
-        }
       }
     };
 

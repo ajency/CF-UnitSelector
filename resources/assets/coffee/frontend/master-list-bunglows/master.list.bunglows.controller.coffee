@@ -49,7 +49,7 @@ class BunglowListView extends Marionette.ItemView
 
 	events:
 
-		'mouseover' :(e)->
+		'mouseover,click' :(e)->
 			@iniTooltip(@model.get('id'))
 			html = @getHtml(@model.get('id'))
 			id = @model.get('id')
@@ -66,10 +66,12 @@ class BunglowListView extends Marionette.ItemView
 			$('#'+id).tooltipster('hide')
 			CommonFloor.applyVillaClasses(@classname)
 
-		'click' :(e)->
-			if @model.get('status') == 'available'
-				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
-				CommonFloor.router.storeRoute()
+		# 'click' :(e)->
+		# 	id = @model.get('id')
+		# 	$('#'+id).trigger('mouseover')
+		# 	# if @model.get('status') == 'available'
+		# 	# 	CommonFloor.navigate '/unit-view/'+@model.get('id') , true
+		# 	# 	CommonFloor.router.storeRoute()
 
 	iniTooltip:(id)->
 		$('#'+id).trigger('mouseover')
