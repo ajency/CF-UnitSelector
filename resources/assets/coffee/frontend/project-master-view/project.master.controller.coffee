@@ -333,6 +333,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 											
 											<div id="spritespin"></div>
 											<div class="svg-maps">
+												<div class="tooltip-overlay hidden"></div>
 												<img src=""  class="first_image img-responsive">
 												
 												<div class="region inactive"></div>
@@ -367,6 +368,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		'click @ui.trig':(e)->
 			$('.us-left-content').toggleClass 'col-0 col-md-3'
 			$('.us-right-content').toggleClass 'col-md-12 col-md-9'
+			# $('.filter-result').toggleClass 'full'
 			that = @
 			setTimeout( (x)->
 				
@@ -421,20 +423,70 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			, 500)
 			
 
-		# 'click .villa_unit':(e)->
-		# 	id = parseInt e.target.id
+		'click .villa':(e)->
+			id  = parseInt e.target.id
+			html = ""
+			unit = unitCollection.findWhere 
+				id :  id 
+			unitMaster = unitMasterCollection.findWhere 
+				id :  id 
+			if unit is undefined && unitMaster != undefined
+				html = '<div class="svg-info">
+							<div class="details empty">
+								Not in selection
+							</div>  
+						</div>'
+				$('.layer').tooltipster('content', html)
+				return 
+			if unit is undefined
+				html += '<div class="svg-info">
+							<div class="details empty">
+								Villa details not entered 
+							</div>  
+						</div>'
+				$('.layer').tooltipster('content', html)
+				return 
 
-		# 	unitModel = unitCollection.findWhere
-		# 					'id' : id
-		# 	if unitModel == undefined
-		# 		return false
-		# 	$('.spritespin-canvas').addClass 'zoom'
-		# 	$('.us-left-content').addClass 'animated fadeOut'
-		# 	setTimeout( (x)->
-		# 		CommonFloor.navigate '/unit-view/'+id , true
-		# 		CommonFloor.router.storeRoute()
 
-		# 	, 500)
+			response = window.unit.getUnitDetails(id)
+			window.convertRupees(response[3])
+			availability = unit.get('availability')
+			availability = s.decapitalize(availability)
+			html = ""
+			html += '<div class="svg-info '+availability+' ">
+						<div class="action-bar">
+							<div class="villa"></div>
+						</div>
+
+						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
+						<br> <br>
+						<!--<span class="pull-right icon-cross"></span>
+						<span class="label label-success"></span
+						<div class="clearfix"></div>-->
+						<div class="details">
+							<div>
+								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
+								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
+							</div>
+							<div>
+								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
+							</div> 
+						</div>'
+
+			if availability == 'available'
+				html +='<div class="circle">
+							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
+						</div> 
+					</div>'
+			else
+				html += '</div>'
+
+						
+			
+			$('#'+id).attr('class' ,'layer villa  '+availability) 
+			$('#unit'+id).attr('class' ,'unit blocks active') 
+			$('.layer').tooltipster('content', html)
+			$('.tooltip-overlay').show()
 
 		# 'click .plot':(e)->
 			
@@ -527,8 +579,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
 						<br> <br>
-						<!--<span class="pull-right icon-cross"></span>
-						<span class="label label-success"></span
+						<span class="pull-right icon-cross"></span>
+						<!--<span class="label label-success"></span
 						<div class="clearfix"></div>-->
 						<div class="details">
 							<div>
@@ -550,10 +602,10 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 						
 			
-			console.log html
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
 			$('.layer').tooltipster('content', html)
+		
 			
 
 		'mouseover .plot':(e)->
@@ -649,10 +701,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						<h5 class="pull-left m-t-0">'+buildingModel.get('building_name')+'</h5>
 						<br> <br>
 						<div class="details">
-							<div>
-								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
-								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
-							</div>
+							
 							<div>
 								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 							</div> 
@@ -695,8 +744,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		
 		first = _.values svgs
 		$.merge transitionImages ,  project.get('project_master')
-		$('.region').load(first[0],
-			$('.first_image').attr('src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
+		$('.region').load(first[0],()->
+				$('.first_image').attr('src',transitionImages[0])
+				that.iniTooltip()
+				CommonFloor.applyVillaClasses()
+				CommonFloor.applyPlotClasses()
+				that.loadZoom()
+				).addClass('active').removeClass('inactive')
 		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
 			
@@ -749,7 +803,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			data.frame
 			if data.frame is data.stopFrame
 				url = svgs[data.frame]
-				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses();CommonFloor.applyPlotClasses()).addClass('active').removeClass('inactive')
+				$('.region').load(url,()->
+					that.iniTooltip()
+					CommonFloor.applyVillaClasses()
+					CommonFloor.applyPlotClasses()
+					).addClass('active').removeClass('inactive')
 				
 		)
 
@@ -762,10 +820,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				$('.first_image').remove()
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
-				# panZoomTiger = svgPanZoom('.region')
-				# $("svg").svgPanZoom()
 				$('.cf-loader').addClass 'hidden'
-			$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses();CommonFloor.applyPlotClasses();that.loadZoom())
+			$('.region').load(url,()->
+				that.iniTooltip()
+				CommonFloor.applyVillaClasses()
+				CommonFloor.applyPlotClasses()
+				that.loadZoom()
+			).addClass('active').removeClass('inactive')
 
 		)
 	#intialize tooltip 
@@ -780,9 +841,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				interactive : true
 				# animation : 'grow'
 				trigger: 'hover'
-				functionInit : (origin,content)->
-					return content
-
+				
 				
 		)
 		
@@ -798,6 +857,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$zoomIn: $('.zoom-in')
 			$zoomOut: $('.zoom-out')
 			# $set: $('.spritespin-canvas')
+
+		$('.master').on 'mousedown touchstart', (e) ->
+			e.stopImmediatePropagation()
 
 	
 

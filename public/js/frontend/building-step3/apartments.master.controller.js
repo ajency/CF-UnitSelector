@@ -509,7 +509,10 @@
       });
       $.merge(transitionImages, building.get('building_master'));
       console.log(first = _.values(svgs));
-      $('.region').load(first[0], $('.first_image').attr('data-src', transitionImages[0]), that.iniTooltip).addClass('active').removeClass('inactive');
+      $('.region').load(first[0], function() {
+        $('.first_image').attr('data-src', transitionImages[0]);
+        return that.iniTooltip();
+      }).addClass('active').removeClass('inactive');
       $('.first_image').lazyLoadXT();
       $('.first_image').load(function() {
         var response;
@@ -524,7 +527,7 @@
     };
 
     CenterApartmentMasterView.prototype.loadProjectMaster = function() {
-      var breakpoints, building_id, first, svgs, transitionImages, url;
+      var breakpoints, first, svgs, transitionImages;
       svgs = [];
       breakpoints = project.get('breakpoints');
       $.each(breakpoints, function(index, value) {
@@ -534,7 +537,13 @@
       transitionImages = [];
       $.merge(transitionImages, project.get('project_master'));
       if (project.get('project_master').length !== 0) {
-        return $('.project_master').load(first[0], $('.firstimage').attr('src', transitionImages[0]), url = Backbone.history.fragment, console.log(building_id = url.split('/')[1]), $('#' + building_id + '.building').attr('class', 'layer building active_bldg'));
+        return $('.project_master').load(first[0], function() {
+          var building_id, url;
+          $('.firstimage').attr('src', transitionImages[0]);
+          url = Backbone.history.fragment;
+          console.log(building_id = url.split('/')[1]);
+          return $('#' + building_id + '.building').attr('class', 'layer building active_bldg');
+        });
       }
     };
 

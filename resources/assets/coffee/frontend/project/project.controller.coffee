@@ -160,6 +160,20 @@ class LeftView extends Marionette.ItemView
 				'availability'		: availability
 		data.propertyTypes = propertyTypes
 		data
+
+	onShow:->
+		$('#proj_info').tooltipster(
+			theme: 'tooltipster-shadow'
+			contentAsHTML: true
+			onlyOne : true
+			arrow : false
+			offsetX : 30
+			interactive : true
+			animation : 'grow'
+			trigger: 'hover'
+			content : $('#proj_info').html()
+		)
+		$('#proj_info').trigger('mouseover')
 #Controller for the left view of Project
 class CommonFloor.LeftCtrl extends Marionette.RegionController
 
@@ -201,18 +215,7 @@ class CenterView extends Marionette.ItemView
 		path = @model.get('step_one').svg
 		$('.svg-area').load(path)
 
-		$('.marker').tooltipster(
-			theme: 'tooltipster-shadow'
-			contentAsHTML: true
-			onlyOne : true
-			arrow : false
-			offsetX : 30
-			interactive : true
-			animation : 'grow'
-			trigger: 'hover'
-			functionInit: ->
-				$('#proj_info').html();
-		)
+		
 		
 
 		# if $(window).width() > 991

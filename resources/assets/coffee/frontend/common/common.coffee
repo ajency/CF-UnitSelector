@@ -127,10 +127,10 @@ CommonFloor.propertyTypes = ()->
 			'type'  : s.capitalize 'villa(s)'
 			'count' :bunglowVariantCollection.getBunglowUnits()
 			'type_name' : '(V)'
-	if apartmentVariantCollection.getApartmentMasterUnits().length != 0
+	if apartmentVariantCollection.getApartmentUnits().length != 0
 		Router.push 
 			'type'  : s.capitalize 'apartment(s)/Penthouse(s)'
-			'count' :apartmentVariantCollection.getApartmentMasterUnits()
+			'count' :apartmentVariantCollection.getApartmentUnits()
 			'type_name' : '(A)/(PH)'
 	if plotVariantCollection.getPlotUnits().length != 0
 		Router.push 
