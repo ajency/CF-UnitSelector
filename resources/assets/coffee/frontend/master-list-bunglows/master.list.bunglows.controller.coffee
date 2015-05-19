@@ -66,17 +66,17 @@ class BunglowListView extends Marionette.ItemView
 			$('#unit'+id).attr('class' , 'unit blocks'+' '+@model.get('status'))
 			$('#'+id).tooltipster('hide')
 			CommonFloor.applyVillaClasses(@classname)
-			$('.tooltip-overlay').hide()
+			
 
 		'click' :(e)->
 			@iniTooltip(@model.get('id'))
 			html = @getHtml(@model.get('id'))
 			id = @model.get('id')
-			# $('.villa').attr('class','layer villa')
+			$('.tooltip-overlay').attr('class','tooltip-overlay')
 			$('#'+id+'.villa').attr('class' ,'layer villa svg_active '+@model.get('status'))
 			$('#unit'+id).attr('class' ,'unit blocks'+' '+@model.get('status')+' active')
 			$('#'+id).tooltipster('content', html)
-			$('.tooltip-overlay').show()
+			
 
 	iniTooltip:(id)->
 		$('#'+id).trigger('mouseover')

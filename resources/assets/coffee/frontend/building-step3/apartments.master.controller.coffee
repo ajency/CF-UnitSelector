@@ -412,6 +412,16 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			id = parseInt e.target.id
 			unit = unitCollection.findWhere
 					'id' : id
+			unitMaster = unitMasterCollection.findWhere 
+				id :  id 
+			if unit is undefined && unitMaster != undefined
+				html = '<div class="svg-info">
+							<div class="details empty">
+								Not in selection
+							</div>  
+						</div>'
+				$('.layer').tooltipster('content', html)
+				return 
 			if unit is undefined
 				html = '<div class="svg-info">
 							<div class="details">

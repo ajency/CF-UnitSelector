@@ -48,7 +48,7 @@
                 </div>
             </header> -->
           </div>
-          <div ui-region class="tooltipdiv"></div>
+          <div ui-region></div>
         </div>
         <div class="footer-push"></div>
       </div>

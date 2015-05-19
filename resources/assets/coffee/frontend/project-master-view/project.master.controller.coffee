@@ -333,10 +333,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 											
 											<div id="spritespin"></div>
 											<div class="svg-maps">
-												<div class="tooltip-overlay hidden"></div>
+												
 												<img src=""  class="first_image img-responsive">
 												
 												<div class="region inactive"></div>
+													<div class="tooltip-overlay hidden"></div>
 
 											</div>
 											<div class="cf-loader hidden"></div>
@@ -486,7 +487,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
 			$('.layer').tooltipster('content', html)
-			$('.tooltip-overlay').show()
+			$('.tooltip-overlay').removeClass 'hidden'
 
 		# 'click .plot':(e)->
 			
@@ -670,6 +671,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('#'+id).attr('class' ,'layer plot '+availability) 
 			$('#unit'+id).attr('class' ,'bldg blocks active') 
 			$('.layer').tooltipster('content', html)
+			$('.tooltip-overlay').removeClass 'hidden'
 			if availability != 'available'
 				$('.unitClass').hide()
 
