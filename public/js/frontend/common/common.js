@@ -337,16 +337,7 @@
     actualbuildings = _.pluck(buildingMasterCollection.toArray(), 'id');
     filterbuildings = _.pluck(buildingCollection.toArray(), 'id');
     notSelectebuildings = _.difference(actualbuildings, filterbuildings);
-    $('.villa').each(function(ind, item) {
-      var id;
-      id = parseInt(item.id);
-      if ($.inArray(id, filterunits) > -1) {
-        return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
-      } else {
-        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
-      }
-    });
-    $('.plot').each(function(ind, item) {
+    $('.villa,.plot,.apartment').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
       if ($.inArray(id, filterunits) > -1) {
@@ -364,15 +355,29 @@
         return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
       }
     });
-    return $('.apartment').each(function(ind, item) {
-      var id;
-      id = parseInt(item.id);
-      if ($.inArray(id, filterunits) > -1) {
-        return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
-      } else {
-        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
+    return CommonFloor.applyNonFilterClass();
+  };
+
+  CommonFloor.applyNonFilterClass = function() {
+    var flag;
+    flag = 0;
+    $.each(CommonFloor.defaults, function(index, value) {
+      if (CommonFloor.defaults[index] !== "") {
+        return flag = 1;
       }
     });
+    if (flag === 0) {
+      $('.villa,.plot,.apartment').each(function(ind, item) {
+        var id;
+        id = parseInt(item.id);
+        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
+      });
+      return $('.building').each(function(ind, item) {
+        var id;
+        id = parseInt(item.id);
+        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
+      });
+    }
   };
 
   CommonFloor.resetCollections = function() {

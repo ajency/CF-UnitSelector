@@ -300,31 +300,48 @@ CommonFloor.applyFliterClass = ()->
 	actualbuildings = _.pluck buildingMasterCollection.toArray() ,'id'
 	filterbuildings = _.pluck buildingCollection.toArray() ,'id'
 	notSelectebuildings = _.difference actualbuildings , filterbuildings
-	$('.villa').each (ind,item)->
+	$('.villa,.plot,.apartment').each (ind,item)->
 		id = parseInt item.id
 		if $.inArray(id , filterunits) > -1
 			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
 		else
 			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
 
-	$('.plot').each (ind,item)->
-		id = parseInt item.id
-		if $.inArray(id , filterunits) > -1
-			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
-		else
-			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
+	# $('.plot').each (ind,item)->
+	# 	id = parseInt item.id
+	# 	if $.inArray(id , filterunits) > -1
+	# 		$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
+	# 	else
+	# 		$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
 	$('.building').each (ind,item)->
 		id = parseInt item.id
 		if $.inArray(id , filterbuildings) > -1
 			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
 		else
 			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
-	$('.apartment').each (ind,item)->
-		id = parseInt item.id
-		if $.inArray(id , filterunits) > -1
-			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
-		else
-			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
+	# $('.apartment').each (ind,item)->
+	# 	id = parseInt item.id
+	# 	if $.inArray(id , filterunits) > -1
+	# 		$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
+	# 	else
+	# 		$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
+	CommonFloor.applyNonFilterClass()
+
+CommonFloor.applyNonFilterClass = ()->
+	flag = 0
+	$.each CommonFloor.defaults,(index,value)->
+		if CommonFloor.defaults[index]  != ""
+			flag = 1
+
+	if flag == 0
+		$('.villa,.plot,.apartment').each (ind,item)->
+			id = parseInt item.id
+			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;')
+		$('.building').each (ind,item)->
+			id = parseInt item.id
+			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;')
+
+
 
 CommonFloor.resetCollections = ()->
 	apartments = []
