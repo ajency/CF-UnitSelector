@@ -180,6 +180,7 @@ CommonFloor.applyVillaClasses = (classname) ->
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			$('#'+id).attr('class' , 'layer villa unit_fadein '+availability)
+			
 
 
 CommonFloor.applyAptClasses = (classname) ->
@@ -195,6 +196,7 @@ CommonFloor.applyAptClasses = (classname) ->
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			$('#'+id).attr('class' , 'layer apartment unit_fadein '+availability)
+			
 
 
 CommonFloor.applyPlotClasses = (classname)->
@@ -210,7 +212,7 @@ CommonFloor.applyPlotClasses = (classname)->
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			$('#'+id).attr('class' ,'layer plot unit_fadein '+availability)  
-
+			
 
 
 
@@ -296,24 +298,29 @@ CommonFloor.applyFliterClass = ()->
 	notSelectebuildings = _.difference actualbuildings , filterbuildings
 	$('.villa').each (ind,item)->
 		id = parseInt item.id
-		if $.inArray(id , notSelecteUnits) > -1
-			$('#'+id).attr('class' ,'layer villa unit_fadein not_in_selection')
+		if $.inArray(id , filterunits) > -1
+			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
+		else
+			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
 
 	$('.plot').each (ind,item)->
 		id = parseInt item.id
-		if $.inArray(id , notSelecteUnits) > -1
-			$('#'+id).attr('class' ,'layer plot unit_fadein not_in_selection')
-
+		if $.inArray(id , filterunits) > -1
+			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
+		else
+			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
 	$('.building').each (ind,item)->
 		id = parseInt item.id
 		if $.inArray(id , notSelectebuildings) > -1
-			$('#'+id).attr('class' ,'layer building unit_fadein not_in_selection')
+			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
 
 	$('.apartment').each (ind,item)->
 		id = parseInt item.id
-		if $.inArray(id , notSelecteUnits) > -1
-			$('#'+id).attr('class' ,'layer apartment unit_fadein not_in_selection')
-
+		if $.inArray(id , filterunits) > -1
+			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
+		else
+			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
+	
 CommonFloor.resetCollections = ()->
 	apartments = []
 	bunglows   = []

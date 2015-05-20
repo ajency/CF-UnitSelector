@@ -146,6 +146,18 @@ body {
   .us-right-content .master {
     min-width: 165vh;
   }
+  .us-right-content.unit-slides {
+    overflow: visible;
+  }
+  .us-right-content.unit-slides .svg-area {
+    min-width: 0;
+  }
+}
+@media (max-width: 767px) {
+  .us-right-content.mobile,
+  .us-left-content.mobile {
+    margin-top: 44px;
+  }
 }
 /* Footer */
 #footer .footer-section1 {
@@ -209,6 +221,30 @@ body {
 /* Step 2 */
 .header-info {
   margin-left: 60px;
+}
+@media (max-width: 767px) {
+  .header-info {
+    margin-left: 0;
+  }
+  .header-info .proj-name {
+    font-size: 20px;
+    margin-left: 35px;
+    margin-bottom: 8px;
+  }
+  .header-info .proj-type-count {
+    width: 100%;
+    margin: 10px 0;
+    background-color: #db6809;
+  }
+  .header-info .proj-type-count h1 {
+    padding: 5px;
+    font-size: 24px;
+    margin: 0;
+  }
+  .header-info .proj-type-count p {
+    margin: 12px 10px 0 2px;
+    font-size: 12px;
+  }
 }
 hr.embossed {
   width: 100%;
@@ -1036,6 +1072,12 @@ hr.embossed {
   content: "\e761";
   font-family: icomoon;
 }
+@media (max-width: 991px) {
+  .breadcrumb-bar a {
+    padding: 15px;
+    font-size: 14px;
+  }
+}
 /* Toggle Button */
 .toggle-button {
   position: absolute;
@@ -1083,6 +1125,11 @@ hr.embossed {
     cursor: pointer;
     padding: 8px 13px !important;
     z-index: 999;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  }
+  .toggle-view-button.map {
+    position: fixed;
+    bottom: 45px;
   }
   .toggle-view-button.map::before {
     content: "\e610";
@@ -1102,7 +1149,7 @@ hr.embossed {
 /* Zoom Controls */
 .zoom-controls {
   position: absolute;
-  top: 70px;
+  bottom: 85px;
   left: 15px;
   display: block;
   z-index: 999;
@@ -1894,6 +1941,24 @@ svg polygon {
 .unit-details a:hover {
   color: #db6809;
 }
+@media (max-width: 991px) {
+  .unit-details .detail-list {
+    text-align: center;
+  }
+  .unit-details .detail-list .facts-icon {
+    width: 100%;
+    font-size: 28px;
+  }
+  .unit-details .detail-list .unit-label {
+    width: 100%;
+  }
+  .unit-details .detail-list .unit-label h3 {
+    font-size: 16px;
+  }
+  .unit-details .detail-list .unit-label h5 {
+    font-size: 12px;
+  }
+}
 .slider .layouts {
   float: left;
   position: relative;
@@ -2119,6 +2184,11 @@ svg polygon {
 }
 .filter-result .filter-pill:first-child {
   margin-left: 15px;
+}
+@media (max-width: 767px) {
+  .filter-result {
+    top: 100px;
+  }
 }
 .filters-wrapper {
   position: absolute;

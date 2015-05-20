@@ -77,10 +77,10 @@ class PlotListView extends Marionette.ItemView
 			$('#'+id+'.plot').attr('class' ,'layer plot '+@model.get('status'))
 			$('#unit'+id).attr('class' ,'bldg blocks'+' '+@model.get('status')+' active')
 			$('#'+id).tooltipster('content', html)
-			$('.tooltip-overlay').attr('class','tooltip-overlay')
+			# $('.tooltip-overlay').attr('class','tooltip-overlay')
 
 	iniTooltip:(id)->
-		$('#'+id).trigger('mouseover')
+		$('#'+id).trigger('click')
 
 	getHtml:(id)->
 		html = ""

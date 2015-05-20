@@ -76,7 +76,7 @@ class LeftUnitView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content animated fadeIn">
 							<div class="unit-details">
 								<div class="row detail-list">
-									<div class="col-sm-6 col-xs-12">
+									<div class="col-sm-6 col-xs-6">
 										<span class="facts-icon icon-total-units"></span>
 										<div class="unit-label">
 											<h3>{{unit_variant}}</h3>
@@ -84,7 +84,7 @@ class LeftUnitView extends Marionette.ItemView
 										</div>
 									</div>
 
-									<div class="col-sm-6 col-xs-12">
+									<div class="col-sm-6 col-xs-6">
 										<span class="facts-icon icon-BHKtype"></span>
 										<div class="unit-label">
 											<h3>{{type}}</h3>
@@ -94,7 +94,7 @@ class LeftUnitView extends Marionette.ItemView
 								</div>
 
 								<div class="row detail-list">
-									<div class="col-sm-6 col-xs-12">
+									<div class="col-sm-6 col-xs-6">
 										<span class="facts-icon icon-BHK-area-2"></span>
 										<div class="unit-label">
 											<h3>{{area}} sq.ft</h3>
@@ -102,7 +102,7 @@ class LeftUnitView extends Marionette.ItemView
 										</div>
 									</div>
 
-									<div class="col-sm-6 col-xs-12">
+									<div class="col-sm-6 col-xs-6">
 										<span class="facts-icon icon-rupee-icn"></span>
 										<div class="unit-label">
 											<h3 class="price">{{price}}</h3>
@@ -283,7 +283,7 @@ class CommonFloor.LeftUnitCtrl extends Marionette.RegionController
 #Center Controller for unit
 class CenterUnitView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="col-md-9 us-right-content animated fadeIn">
+	template : Handlebars.compile('<div class="col-md-9 col-sm-12 col-xs-12 us-right-content unit-slides animated fadeIn">
 						<div class="svg-area">
 							<div class="liquid-slider slider" id="slider-id">
 								<div class="ls-wrapper ls-responsive">
