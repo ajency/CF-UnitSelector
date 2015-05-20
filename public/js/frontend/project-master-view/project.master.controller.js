@@ -649,6 +649,7 @@
         that.iniTooltip();
         CommonFloor.applyVillaClasses();
         CommonFloor.applyPlotClasses();
+        CommonFloor.randomClass();
         return that.loadZoom();
       }).addClass('active').removeClass('inactive');
       $('.first_image').lazyLoadXT();
@@ -704,7 +705,8 @@
           return $('.region').load(url, function() {
             that.iniTooltip();
             CommonFloor.applyVillaClasses();
-            return CommonFloor.applyPlotClasses();
+            CommonFloor.applyPlotClasses();
+            return CommonFloor.randomClass();
           }).addClass('active').removeClass('inactive');
         }
       });
