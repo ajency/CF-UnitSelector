@@ -104,6 +104,8 @@
         'click @ui.unitBack': function(e) {
           var previousRoute;
           e.preventDefault();
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
           previousRoute = CommonFloor.router.previous();
           return CommonFloor.navigate('/' + previousRoute, true);
         },
