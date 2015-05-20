@@ -8171,6 +8171,16 @@ body.rtl .footer-widget {
 .modal-body {
   background: #fff;
 }
+.grid-title h4 {
+  width: 0;
+  overflow: visible;
+  text-overflow: ;
+}
+.grid-padding {
+  padding-left: 18px!important;
+  padding-right: 18px!important;
+  padding-bottom: 18px!important;
+}
 /* Parsley Styles */
 .parsley-errors-list {
   padding: 0;
@@ -8207,11 +8217,24 @@ body.rtl .footer-widget {
 .checkbox label {
   margin-bottom: 0;
 }
-.alert-error {
-  margin-bottom: 0;
+.checkbox .p-l {
+  padding-left: 24px!important;
 }
 .add-unit {
   background: #EEEEEE;
+}
+.info {
+  background: #EDEDED;
+  padding: 5px;
+}
+.summary .border-right {
+  border-right: 1px dotted #969696;
+}
+.summary .value {
+  font-weight: 100;
+  font-size: 15px;
+  color: black;
+  font-family: sans-serif;
 }
 table.dataTable.no-footer {
   border-bottom: none;
@@ -8452,4 +8475,3 @@ table.dataTable.no-footer {
     -o-transform: rotateZ(0deg);
   }
 }
-/*# sourceMappingURL=style.css.map */
