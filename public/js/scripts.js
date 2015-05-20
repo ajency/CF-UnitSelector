@@ -1035,12 +1035,12 @@ function addUnitType()
 }
 
 function createUnitType(obj, propertyTypeId)
-{ 
+{
     if ($(obj).val() == 'add_new')
-    { 
+    {
 
         if (!$(obj).closest('.unit_type_block').find('input[name="add_new_unit_type"]').length)
-        { 
+        {
             var unitTypeId = $(obj).closest('.unit_type_block').find('input[type="hidden"]').val();
             var html = '<input type="text" name="unittype[' + propertyTypeId + '][]" value="">';
             html += '<input type="hidden" name="unittypekey[' + propertyTypeId + '][]" value="' + unitTypeId + '">';
@@ -1049,7 +1049,7 @@ function createUnitType(obj, propertyTypeId)
 
         }
         else
-        { 
+        {
             var html = '<div class="row m-b-10 unit_type_block">';
             html += '<div class="col-md-10">';
             html += '<input type="text" name="unittype[' + propertyTypeId + '][]" >';
@@ -1075,4 +1075,30 @@ $('input[name="property_types[]"]').change(function (event) {
         $(this).closest('.row').find('.propertyTypeUnitsAttributes').addClass('hidden');
 
 });
+
+function saveProjectConfig()
+{
+    var flag =true;
+    if (!$('input[name="property_types[]"]:checked').length) {
+        alert('Please select property type');
+         flag= false;
+    }
+
+    $('input[name="property_types[]"]:checked').each(function () {
+        // To pass this value to its nearby hidden input
+        var propertyTypeId = $(this).val(); 
+        var unitTypecount = $('select[name="unittype['+ propertyTypeId +'][]"]').length;
+        if(unitTypecount==1 && $('select[name="unittype['+ propertyTypeId +'][]"]').val()=='')
+        {
+           var propertType =$(this).closest('.row').attr('data-type');
+           alert('Select Unit type for '+propertType);
+           flag= false;
+        }
+ 
+    });
+    
+    if(flag)
+     $('form').submit(); 
+
+}
 

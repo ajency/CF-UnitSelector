@@ -3,12 +3,12 @@
         <h3><i class="fa fa-angle-double-right text-primary"></i> Property <span class="semi-bold">Types</span></h3>
     </div>
     @foreach($propertyTypes as $propertyTypeId=> $propertyType)
-    <div class="row">
+    <div class="row"  data-type="{{ $propertyType }}">
         <div class="col-md-12">
             <div class="grid simple">
                 <div class="grid-title no-border">
                     <div class="checkbox check-primary pull-left" >
-                        <input required {{ (isset($unitTypes[$propertyTypeId])) ? 'checked' : '' }} type="checkbox" id="property_types_{{ $propertyTypeId }}" value="{{ $propertyTypeId }}" name="property_types[]" aria-label="...">
+                        <input {{ (isset($unitTypes[$propertyTypeId])) ? 'checked' : '' }} type="checkbox" id="property_types_{{ $propertyTypeId }}" value="{{ $propertyTypeId }}" name="property_types[]" aria-label="...">
                         <label for="property_types_{{ $propertyTypeId }}"></label>
                     </div>
 
@@ -157,3 +157,4 @@
 
 
 </div>
+ 
