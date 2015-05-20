@@ -56,7 +56,7 @@ class PlotListView extends Marionette.ItemView
 			html = @getHtml(@model.get('id'))
 			id = @model.get('id')
 			$('.layer').attr('class','layer plot')
-			$('#'+id+'.plot').attr('class' ,'layer plot '+@model.get('status'))
+			$('#'+id+'.plot').attr('class' ,'layer plot svg_active '+@model.get('status'))
 			$('#unit'+id).attr('class' ,'bldg blocks'+' '+@model.get('status')+' active')
 			$('#'+id).tooltipster('content', html)
 			
