@@ -147,8 +147,9 @@ class ProjectMediaController extends Controller {
         if($type=='master')
         {
             $breakpoints = ProjectMeta::where(['meta_key'=>'breakpoints','project_id'=>$project_id])->pluck('meta_value');
-            $breakpoints = unserialize($breakpoints); 
-            if(in_array($refference, $breakpoints))
+            $breakpoints = unserialize($breakpoints);
+            
+            if(!empty($breakpoints) && in_array($refference, $breakpoints))
             {
                 $breakpointKey = array_search ($refference, $breakpoints);
                 unset($breakpoints[$breakpointKey]);
