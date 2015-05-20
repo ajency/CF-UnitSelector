@@ -165,9 +165,23 @@ body{
         .svg-area, .master{
             min-width: 165vh;
         }
+        &.unit-slides{
+            overflow: visible;
+            .svg-area{
+                min-width: 0;
+            }
+        }
     }
     .top-spacing{
         // padding-top: 110px;
+    }
+}
+
+@media(max-width:767px){
+    .us-right-content, .us-left-content{
+        &.mobile{
+            margin-top: 44px;
+        }
     }
 }
 
@@ -251,6 +265,31 @@ body{
 /* Step 2 */
 .header-info{
     margin-left: 60px;
+}
+
+@media(max-width:767px){
+    .header-info{
+        margin-left: 0;
+        .proj-name{
+            font-size: 20px;
+            margin-left: 35px;
+            margin-bottom: 8px;
+        }
+        .proj-type-count{
+            width: 100%;
+            margin: 10px 0;
+            background-color: @brand-primary-darker;
+            h1{
+                padding: 5px;
+                font-size: 24px;
+                margin: 0;
+            }
+            p{
+                margin: 12px 10px 0 2px;
+                font-size: 12px;
+            }
+        } 
+    }
 }
 
 hr.embossed {

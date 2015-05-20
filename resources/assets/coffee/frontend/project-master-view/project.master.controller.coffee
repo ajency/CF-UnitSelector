@@ -307,7 +307,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 
-	template : Handlebars.compile('<div class="col-md-12 us-right-content mobile visible animated fadeIn">
+	template : Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn">
 										
 										<div class="legend clearfix">
 										  <ul>
@@ -862,7 +862,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$zoomOut: $('.zoom-out')
 			# $set: $('.spritespin-canvas')
 
-		$('.master').on 'mousedown touchstart', (e) ->
+		$('.master polygon').on 'mousedown touchstart', (e) ->
 			e.stopImmediatePropagation()
 
 	
