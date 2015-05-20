@@ -56,7 +56,7 @@ class ListItemView extends Marionette.ItemView
 			@iniTooltip(@model.get('id'))
 			html = @getHtml(@model.get('id'))
 			id = @model.get('id')
-			$('#'+id+'.building').attr('class' ,'layer building active_bldg')
+			$('#'+id+'.building').attr('class' ,'layer building svg_active')
 			$('#bldg'+id).attr('class' ,'bldg blocks active')
 			$('#'+id).tooltipster('content', html)
 

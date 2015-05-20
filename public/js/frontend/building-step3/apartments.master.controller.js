@@ -104,6 +104,8 @@
         'click @ui.unitBack': function(e) {
           var previousRoute;
           e.preventDefault();
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
           previousRoute = CommonFloor.router.previous();
           return CommonFloor.navigate('/' + previousRoute, true);
         },
@@ -555,7 +557,7 @@
           url = Backbone.history.fragment;
           console.log(building_id = url.split('/')[1]);
           console.log($('#' + building_id + '.building'));
-          return $('#' + building_id + '.building').attr('class', 'layer building active_bldg');
+          return $('#' + building_id + '.building').attr('class', 'layer building svg_active');
         });
       }
     };

@@ -593,13 +593,9 @@
         $('#' + id).attr('class', 'layer plot ' + availability);
         $('#unit' + id).attr('class', 'bldg blocks active');
         $('.layer').tooltipster('content', html);
-        $('.tooltip-overlay').removeClass('hidden');
         if (availability !== 'available') {
           return $('.unitClass').hide();
         }
-      },
-      'click .cross': function(e) {
-        return $('.tooltip-overlay').addClass('hidden');
       },
       'mouseover .building': function(e) {
         var buildingModel, floors, html, id, response, unitTypes;
@@ -624,6 +620,12 @@
         $('.layer').tooltipster('content', html);
         $('#bldg' + id).attr('class', 'bldg blocks active');
         return $('#' + id).attr('class', 'layer building active_bldg');
+      },
+      'mousedown .layer': function(e) {
+        return e.preventDefault();
+      },
+      'mousedown .layer': function(e) {
+        return e.preventDefault();
       }
     };
 
@@ -746,16 +748,13 @@
 
     CenterMasterView.prototype.loadZoom = function() {
       var $panzoom;
-      $panzoom = $('.master').panzoom({
+      return $panzoom = $('.master').panzoom({
         contain: 'invert',
         minScale: 1,
         maxScale: 2.4,
         increment: 0.4,
         $zoomIn: $('.zoom-in'),
         $zoomOut: $('.zoom-out')
-      });
-      return $('.master polygon').on('mousedown touchstart', function(e) {
-        return e.stopImmediatePropagation();
       });
     };
 

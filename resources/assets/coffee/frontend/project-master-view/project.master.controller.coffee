@@ -671,12 +671,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('#'+id).attr('class' ,'layer plot '+availability) 
 			$('#unit'+id).attr('class' ,'bldg blocks active') 
 			$('.layer').tooltipster('content', html)
-			$('.tooltip-overlay').removeClass 'hidden'
+			# $('.tooltip-overlay').removeClass 'hidden'
 			if availability != 'available'
 				$('.unitClass').hide()
 
-		'click .cross':(e)->
-			$('.tooltip-overlay').addClass 'hidden'
+		
 
 		'mouseover .building':(e)->
 			id  = parseInt e.target.id
@@ -724,6 +723,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('.layer').tooltipster('content', html)
 			$('#bldg'+id).attr('class' ,'bldg blocks active') 
 			$('#'+id).attr('class' ,'layer building active_bldg')
+
+		'mousedown .layer':(e)->
+			e.preventDefault()
+
+		'mousedown .layer':(e)->
+			e.preventDefault()
+
 
 
 			
@@ -865,9 +871,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$zoomOut: $('.zoom-out')
 			# $set: $('.spritespin-canvas')
 
-		$('.master polygon').on 'mousedown touchstart', (e) ->
-			e.stopImmediatePropagation()
-
+		
 	
 
 #controller for the center view
