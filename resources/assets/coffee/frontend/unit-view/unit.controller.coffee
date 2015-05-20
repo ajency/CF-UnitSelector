@@ -412,13 +412,14 @@ class CenterUnitView extends Marionette.ItemView
 								'id' : id
 			response = window.unit.getUnitDetails(id)
 			html = '<div class="svg-info">
-						<h4 class="pull-left">'+unitModel.get('unit_name')+'</h4><br/>
-							<h4 class="pull-left">'+window.numDifferentiation(response[3])+'</h4><br/>
-								<h4 class="pull-left">'+response[0].get('super_built_up_area')+'Sq.Ft</h4><br/>
-									<h4 class="pull-left">'+response[0].get('unit_variant_name')+'</h4><br/>
-										<h4 class="pull-left">'+response[1].get('name')+'</h4>
-
-						<div class="clearfix"></div></div>'
+						<h5 class=" m-t-0">'+unitModel.get('unit_name')+'</h5>
+						<div class="details">
+							<div>Approx Rs.<span class="text-primary">'+window.numDifferentiation(response[3])+'</span></div>
+							<div>Area: <span>'+response[0].get('super_built_up_area')+'Sq.Ft</span></div>
+							<div>Variant: <span>'+response[0].get('unit_variant_name')+'</span></div>
+							<div>Unit Type: <span>'+response[1].get('name')+'</span></div>
+						</div>
+					</div>'
 			
 			$(e.target).tooltipster('content', html)
 
