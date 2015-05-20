@@ -54,7 +54,7 @@
         html = this.getHtml(this.model.get('id'));
         id = this.model.get('id');
         $('.layer').attr('class', 'layer plot');
-        $('#' + id + '.plot').attr('class', 'layer plot ' + this.model.get('status'));
+        $('#' + id + '.plot').attr('class', 'layer plot svg_active ' + this.model.get('status'));
         $('#unit' + id).attr('class', 'bldg blocks' + ' ' + this.model.get('status') + ' active');
         return $('#' + id).tooltipster('content', html);
       },
