@@ -384,7 +384,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('.first_image').first().css('width',that.ui.svgContainer.width() + 13)
 
 				height= that.ui.svgContainer.width() / 2
-				$('.units').css('height',height-120)
+				$('.units').css('height',height-10)
 
 			, 650)
 
@@ -556,6 +556,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		
 		@initializeRotate(transitionImages,svgs,building)
 		@loadProjectMaster()
+
+		if $(window).width() > 991
+			$('.units').mCustomScrollbar
+				theme: 'inset'
 
 	loadProjectMaster:->
 		svgs = []

@@ -654,6 +654,7 @@
       $('.first_image').lazyLoadXT();
       $('.first_image').load(function() {
         var response;
+        $('#trig').removeClass('hidden');
         response = project.checkRotationView();
         $('.first_image').first().css('width', that.ui.svgContainer.width());
         if (response === 1) {
