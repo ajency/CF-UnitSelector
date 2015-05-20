@@ -220,7 +220,7 @@
       if (!_.isUndefined(unit)) {
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        return $('#' + id).attr('class', 'layer villa unit_fadein ' + availability);
+        return $('#' + id).attr('class', 'layer villa processed ' + availability);
       }
     });
   };
@@ -235,7 +235,7 @@
       if (!_.isUndefined(unit)) {
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        return $('#' + id).attr('class', 'layer apartment unit_fadein ' + availability);
+        return $('#' + id).attr('class', 'layer apartment processed ' + availability);
       }
     });
   };
@@ -250,7 +250,7 @@
       if (!_.isUndefined(unit)) {
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        return $('#' + id).attr('class', 'layer plot unit_fadein ' + availability);
+        return $('#' + id).attr('class', 'layer plot processed ' + availability);
       }
     });
   };
@@ -327,9 +327,6 @@
 
   CommonFloor.applyFliterClass = function() {
     var actualbuildings, actualunits, filterbuildings, filterunits, notSelecteUnits, notSelectebuildings;
-    CommonFloor.applyPlotClasses();
-    CommonFloor.applyVillaClasses();
-    CommonFloor.applyAptClasses();
     actualunits = _.pluck(unitMasterCollection.toArray(), 'id');
     filterunits = _.pluck(unitCollection.toArray(), 'id');
     notSelecteUnits = _.difference(actualunits, filterunits);
@@ -357,8 +354,10 @@
     $('.building').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
-      if ($.inArray(id, notSelectebuildings) > -1) {
+      if ($.inArray(id, filterbuildings) > -1) {
         return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
+      } else {
+        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
       }
     });
     return $('.apartment').each(function(ind, item) {

@@ -179,7 +179,7 @@ CommonFloor.applyVillaClasses = (classname) ->
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' , 'layer villa unit_fadein '+availability)
+			$('#'+id).attr('class' , 'layer villa processed '+availability)
 			
 
 
@@ -195,7 +195,7 @@ CommonFloor.applyAptClasses = (classname) ->
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' , 'layer apartment unit_fadein '+availability)
+			$('#'+id).attr('class' , 'layer apartment processed '+availability)
 			
 
 
@@ -211,7 +211,7 @@ CommonFloor.applyPlotClasses = (classname)->
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' ,'layer plot unit_fadein '+availability)  
+			$('#'+id).attr('class' ,'layer plot processed '+availability)  
 			
 
 
@@ -287,9 +287,9 @@ CommonFloor.resetProperyType = (param)->
 
 
 CommonFloor.applyFliterClass = ()->
-	CommonFloor.applyPlotClasses()
-	CommonFloor.applyVillaClasses()
-	CommonFloor.applyAptClasses()
+	# CommonFloor.applyPlotClasses()
+	# CommonFloor.applyVillaClasses()
+	# CommonFloor.applyAptClasses()
 	actualunits = _.pluck unitMasterCollection.toArray() ,'id'
 	filterunits = _.pluck unitCollection.toArray() ,'id'
 	notSelecteUnits = _.difference actualunits , filterunits
@@ -311,16 +311,17 @@ CommonFloor.applyFliterClass = ()->
 			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
 	$('.building').each (ind,item)->
 		id = parseInt item.id
-		if $.inArray(id , notSelectebuildings) > -1
+		if $.inArray(id , filterbuildings) > -1
 			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
-
+		else
+			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
 	$('.apartment').each (ind,item)->
 		id = parseInt item.id
 		if $.inArray(id , filterunits) > -1
 			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
 		else
 			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
-	
+
 CommonFloor.resetCollections = ()->
 	apartments = []
 	bunglows   = []

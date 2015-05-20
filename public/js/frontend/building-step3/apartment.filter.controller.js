@@ -146,6 +146,13 @@
         CommonFloor.filterBuilding(this.building_id);
         CommonFloor.filter();
         return unitTempCollection.trigger("filter_available");
+      },
+      'click .filter-button': function(e) {
+        window.flag1 = 0;
+        $('.fliters-container').toggleClass('closed');
+        if ($('.fliters-container').hasClass("closed")) {
+          return window.flag1 = 1;
+        }
       }
     };
 
@@ -159,7 +166,7 @@
     };
 
     FilterApartmentView.prototype.onShow = function() {
-      var area, budget, building_id, flag, floor, max, min, priceMax, priceMin, subArea, subBudget, url;
+      var area, budget, building_id, floor, max, min, priceMax, priceMin, subArea, subBudget, url;
       budget = [];
       area = [];
       url = Backbone.history.fragment;
@@ -204,19 +211,7 @@
         max: floor.get('no_of_floors'),
         grid: false
       });
-      flag = 0;
-      $.each(CommonFloor.defaults, function(index, value) {
-        if (CommonFloor.defaults[index] !== "") {
-          return flag = 1;
-        }
-      });
-      if (flag === 1) {
-        $('#collapsefilters').collapse('show');
-      }
       this.loadSelectedFilters();
-      $('.filter-button').on('click', function(e) {
-        return $('.fliters-container').toggleClass('closed');
-      });
       return $('.filters-content').mCustomScrollbar({
         theme: 'inset'
       });
@@ -266,7 +261,12 @@
       });
       this.ui.status.prop('checked', false);
       if (CommonFloor.defaults['availability'] !== "") {
-        return this.ui.status.prop('checked', true);
+        this.ui.status.prop('checked', true);
+      }
+      if (window.flag1 === 0) {
+        return $('.fliters-container').removeClass('closed');
+      } else {
+        return $('.fliters-container').addClass('closed');
       }
     };
 

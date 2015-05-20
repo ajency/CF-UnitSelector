@@ -95,7 +95,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 			arr.splice(index, 1)
 			CommonFloor.defaults['type'] = arr.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filterBuilding(@building_id)
+			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
@@ -115,7 +115,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 			unitTypes = _.without unitTypes , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['unitTypes'] = unitTypes.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filterBuilding(@building_id)
+			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
@@ -126,7 +126,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 			variantNames = _.without variantNames , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['unitVariants'] = variantNames.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filterBuilding(@building_id)
+			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()	
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
@@ -134,7 +134,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 		'click @ui.status':(e)->
 			CommonFloor.defaults['availability'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filterBuilding(@building_id)
+			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
@@ -145,7 +145,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 			CommonFloor.defaults['area_max'] = ""
 			CommonFloor.defaults['area_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filterBuilding(@building_id)
+			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
@@ -154,7 +154,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 			CommonFloor.defaults['price_max'] = ""
 			CommonFloor.defaults['price_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filterBuilding(@building_id)
+			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
@@ -163,7 +163,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 			CommonFloor.defaults['floor_max'] = ""
 			CommonFloor.defaults['floor_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filterBuilding(@building_id)
+			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'

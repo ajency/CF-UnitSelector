@@ -13,7 +13,7 @@ function get_property_type( $type_id ) {
     }
 
     return $types[$type_id];
-}
+}    
 
 function project_property_types( $projectId ) {
     $propertyTypes = [];

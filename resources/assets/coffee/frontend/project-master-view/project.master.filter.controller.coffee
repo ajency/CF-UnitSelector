@@ -87,12 +87,15 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		clear : '.clear'
 
 	initialize:->
+		unitTypes = []
 		if CommonFloor.defaults['unitTypes']!= ""
-			window.unitTypes = CommonFloor.defaults['unitTypes'].split(',')
+			unitTypes = CommonFloor.defaults['unitTypes'].split(',')
 		if CommonFloor.defaults['unitVariants']!= ""
 			window.variantNames = CommonFloor.defaults['unitVariants'].split(',')
 		if CommonFloor.defaults['type']!= ""
 			window.type  = CommonFloor.defaults['type'].split(',')
+		window.unitTypes = unitTypes.map (item)->
+			return parseInt item
 
 	events:
 
@@ -138,7 +141,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 				window.unitTypes.push parseInt $(e.currentTarget).attr('data-value')
 			else
 				window.unitTypes = _.without window.unitTypes ,parseInt $(e.currentTarget).attr('data-value')
-			window.unitTypes =   _.uniq window.unitTypes 
+			console.log window.unitTypes =   _.uniq window.unitTypes 
 			CommonFloor.defaults['unitTypes'] = window.unitTypes.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
@@ -181,6 +184,15 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
 			unitCollection.trigger('available')
+
+		'click .filter-button':(e)->
+			window.flag = 0
+			$('.fliters-container').toggleClass 'closed'
+			if $('.fliters-container').hasClass( "closed")
+				window.flag = 1
+
+
+
 			
 
 
@@ -337,8 +349,6 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 	onShow:->
 
-		$('.filter-button').on 'click', (e) ->
-			$('.fliters-container').toggleClass 'closed'
 		$('.filters-content').mCustomScrollbar
 			theme: 'inset'
 
@@ -377,12 +387,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		)
 		
 		types = Marionette.getOption(@,'types')
-		flag = 0
-		$.each CommonFloor.defaults,(index,value)->
-				if CommonFloor.defaults[index] != "" 
-					flag = 1
-		# if flag == 1  
-		# 	$('#collapsefilters').collapse('show')
+		
 		if types.length == 1
 			$('.property_type').hide()
 		@loadSelectedFilters()
@@ -478,6 +483,12 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		@ui.status.prop('checked',false)
 		if CommonFloor.defaults['availability'] != "" 
 			 @ui.status.prop('checked',true)
+
+		if window.flag == 0
+			$('.fliters-container').removeClass 'closed'
+		else
+			$('.fliters-container').addClass 'closed'
+
 
 		
 		
