@@ -197,24 +197,28 @@ class CenterView extends Marionette.ItemView
 				CommonFloor.checkPropertyType()
 			, 100)
 
+		
 			
 	onShow:->
 		$('img').lazyLoadXT()
 		path = @model.get('step_one').svg
-		$('.svg-area').load(path)
+		$('.svg-area').load(path, ()->
+			$('.marker').tooltipster(
+				theme: 'tooltipster-shadow'
+				contentAsHTML: true
+				onlyOne : true
+				arrow : false
+				offsetX : 30
+				interactive : true
+				animation : 'grow'
+				trigger: 'hover'
+				content : $('#proj_info').html()
+			)
+			$('.marker').trigger('mouseover')
 
-		$('.marker').tooltipster(
-			theme: 'tooltipster-shadow'
-			contentAsHTML: true
-			onlyOne : true
-			arrow : false
-			offsetX : 30
-			interactive : true
-			animation : 'grow'
-			trigger: 'hover'
-			content : $('#proj_info').html()
-		)
-		$('#proj_info').trigger('mouseover')
+			)
+
+		
 
 		
 		

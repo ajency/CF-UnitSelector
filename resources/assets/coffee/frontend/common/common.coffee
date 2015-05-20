@@ -168,6 +168,7 @@ CommonFloor.masterPropertyTypes = ()->
 	Router
 
 CommonFloor.applyVillaClasses = (classname) ->
+	console.log "aaaaaa"
 	$('.villa').each (ind,item)->
 		id = parseInt item.id
 		# class_name = $('#'+id).attr('class')

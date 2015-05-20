@@ -211,6 +211,7 @@
   };
 
   CommonFloor.applyVillaClasses = function(classname) {
+    console.log("aaaaaa");
     return $('.villa').each(function(ind, item) {
       var availability, id, unit;
       id = parseInt(item.id);
