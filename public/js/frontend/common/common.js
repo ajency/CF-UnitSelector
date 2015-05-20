@@ -361,6 +361,7 @@
       var id;
       id = parseInt(item.id);
       if ($.inArray(id, filterbuildings) > -1) {
+        console.log("building");
         return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
       } else {
         return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
@@ -381,11 +382,9 @@
       return $('.villa,.plot,.apartment').each(function(ind, item) {
         var id;
         id = parseInt(item.id);
-        setTimeout(function() {
+        return setTimeout(function() {
           return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
         }, Math.random() * 2000);
-        id = parseInt(item.id);
-        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
       });
     }
   };
