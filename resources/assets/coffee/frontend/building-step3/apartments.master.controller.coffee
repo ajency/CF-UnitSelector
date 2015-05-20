@@ -27,7 +27,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 									            <div class="breadcrumb-bar">
 									                <a class="unit_back" href="#"></a>
 									            </div>
-
+									           
 						              			<div class="header-info">
 						              				<h2 class="pull-left proj-name">{{project_title}}</h2>
 						              				<div class="proj-type-count">
@@ -66,15 +66,20 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 	initialize:->
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
-		console.log @building_id = building_id
+		@building_id = building_id
 
 	serializeData:->
 		data = super()
+		url = Backbone.history.fragment
+		building_id = parseInt url.split('/')[1]
 		units = Marionette.getOption( @, 'units' )
 		data.units = units.length
 		data.project_title = project.get('project_title')
 		data.filters  = CommonFloor.getFilters()[0]
 		data.results  = CommonFloor.getApartmentFilters().count
+		console.log model = buildingCollection.findWhere
+						'id' : building_id
+		data.name  = model.get 'building_name'
 		data
 
 	events:->

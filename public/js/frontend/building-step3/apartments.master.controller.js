@@ -68,17 +68,23 @@
       var building_id, url;
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
-      return console.log(this.building_id = building_id);
+      return this.building_id = building_id;
     };
 
     TopApartmentMasterView.prototype.serializeData = function() {
-      var data, units;
+      var building_id, data, model, units, url;
       data = TopApartmentMasterView.__super__.serializeData.call(this);
+      url = Backbone.history.fragment;
+      building_id = parseInt(url.split('/')[1]);
       units = Marionette.getOption(this, 'units');
       data.units = units.length;
       data.project_title = project.get('project_title');
       data.filters = CommonFloor.getFilters()[0];
       data.results = CommonFloor.getApartmentFilters().count;
+      console.log(model = buildingCollection.findWhere({
+        'id': building_id
+      }));
+      data.name = model.get('building_name');
       return data;
     };
 
