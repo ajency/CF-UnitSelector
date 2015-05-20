@@ -1234,6 +1234,20 @@ svg {
   width: 100%;
   height: auto;
 }
+svg polygon {
+  -webkit-transform: rotateY(-180deg) scale(0);
+          transform: rotateY(-180deg) scale(0);
+  -webkit-transition: all 0.4s cubic-bezier(0.59, 0.72, 0.375, 1.65);
+          transition: all 0.4s cubic-bezier(0.59, 0.72, 0.375, 1.65);
+  -webkit-transform-origin: center;
+      -ms-transform-origin: center;
+          transform-origin: center;
+  -moz-transform-origin: center;
+}
+svg polygon.processed {
+  -webkit-transform: rotateY(0deg) scale(1);
+          transform: rotateY(0deg) scale(1);
+}
 svg .caption {
   font-size: 14px;
   font-family: arial;
