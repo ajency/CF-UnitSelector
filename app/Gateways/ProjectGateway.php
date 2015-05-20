@@ -5,6 +5,7 @@ namespace CommonFloor\Gateways;
 use CommonFloor\Repositories\ProjectRepositoryInterface;
 use CommonFloor\ProjectPropertyType;
 use CommonFloor\UnitType;
+use CommonFloor\Defaults;
 
 /**
  * Description of ProjectGateway
@@ -74,7 +75,8 @@ class ProjectGateway implements ProjectGatewayInterface {
         foreach ($unitTypes as $unitType) {
             $projectPropertyTypekey = array_search( $unitType->project_property_type_id , $projectPropertyTypeIds);
             $unitTypeIds[$projectPropertyTypekey][] = $unitType->id;
-            $unitTypeArr[] = array('id' => $unitType->id ,'name'=> $unitType->unittype_name ,'property_type_id'=> $unitType->project_property_type_id);   
+            $unitTypeName = Defaults::find($unitType->unittype_name)->label;
+            $unitTypeArr[] = array('id' => $unitType->id ,'name'=> $unitTypeName ,'property_type_id'=> $unitType->project_property_type_id);   
         }
        
        $project = $this->projectRepository->getProjectById( $projectId );
@@ -149,7 +151,8 @@ class ProjectGateway implements ProjectGatewayInterface {
             $unitTypes = ProjectPropertyType::find( $projectpropertyTypeId )->projectUnitType()->get()->toArray();
             $data[$propertyTypeId]['unit_types'] = [];
             foreach ($unitTypes as $unitType) {
-                $data[$propertyTypeId]['unit_types'][] = $unitType['unittype_name'];
+                $unitTypeName = Defaults::find($unitType['unittype_name'])->label;
+                $data[$propertyTypeId]['unit_types'][] = $unitTypeName;
             }
             $data[$propertyTypeId]['starting_area'] = $faker->randomNumber();
             $data[$propertyTypeId]['availability'] = [
@@ -158,8 +161,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             ];
             $data[$propertyTypeId]['starting_price'] = $faker->randomNumber();
         }
-
-
+ 
         return $data;
     }
 

@@ -426,10 +426,10 @@ function setUpProjectMasterUploader() {
         },
         init: {
             PostInit: function () {
-                document.getElementById('master_uploadfiles').onclick = function () {
+               /* document.getElementById('master_uploadfiles').onclick = function () {
                     master_uploader.start();
                     return false;
-                };
+                };*/
             },
             FilesAdded: function (up, files) {
                 up.start();
@@ -486,8 +486,6 @@ function setUpProjectMasterUploader() {
 
                 $('#position-' + fileResponse.data.position).html(str);
 
-                $("#master_uploadfiles").next("div.selectedImages").html('');
-                $("#master_uploadfiles").addClass('hidden');
 
             }
         }
@@ -701,10 +699,10 @@ $(document).ready(function () {
         },
         init: {
             PostInit: function () {
-                document.getElementById('uploadfiles').onclick = function () {
+               /* document.getElementById('uploadfiles').onclick = function () {
                     uploader.start();
                     return false;
-                };
+                };*/
             },
             FilesAdded: function (up, files) {
                 var str = '<div class="col-md-3">';
