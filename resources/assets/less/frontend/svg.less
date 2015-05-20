@@ -2,15 +2,12 @@ svg {
   width: 100%;
   height: auto;
 
-  	// polygon {
-	  // 	transform: rotateY(-180deg) scale(0);
-	  // 	transition: all 0.4s cubic-bezier(0.59, 0.72, 0.375, 1.65);
-	  // 	transform-origin: center;
-	  // 	-moz-transform-origin: center;
-	  // 	&.processed {
-	  // 		transform: rotateY(0deg) scale(1);
-	  // 	}
-  	// }
+  	polygon {
+	  	transform: rotateY(-180deg) scale(0);
+	  	transition: all 0.4s cubic-bezier(0.59, 0.72, 0.375, 1.65);
+	  	transform-origin: center;
+	  	-moz-transform-origin: center;
+  	}
 
 	.caption{
 		font-size: 14px;
@@ -44,7 +41,7 @@ svg {
 	  	stroke-dashoffset: 400;
 	  	// transform: scale(.99, .99);
 	  	// transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
-	  	transition: .5s ease-in;
+	  	// transition: .5s ease-in;
 		// transform-origin: 50% 50%;
 	  	&.svg_active{
 	  		animation: blink 0.8s ease-in-out infinite alternate; 
@@ -138,6 +135,10 @@ svg {
 		.ease;
 	}	 
 	
+}
+
+.marker{
+	cursor: pointer;
 }
 
 .step1-marker{

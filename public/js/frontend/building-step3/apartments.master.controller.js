@@ -68,17 +68,23 @@
       var building_id, url;
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
-      return console.log(this.building_id = building_id);
+      return this.building_id = building_id;
     };
 
     TopApartmentMasterView.prototype.serializeData = function() {
-      var data, units;
+      var building_id, data, model, units, url;
       data = TopApartmentMasterView.__super__.serializeData.call(this);
+      url = Backbone.history.fragment;
+      building_id = parseInt(url.split('/')[1]);
       units = Marionette.getOption(this, 'units');
       data.units = units.length;
       data.project_title = project.get('project_title');
       data.filters = CommonFloor.getFilters()[0];
       data.results = CommonFloor.getApartmentFilters().count;
+      console.log(model = buildingCollection.findWhere({
+        'id': building_id
+      }));
+      data.name = model.get('building_name');
       return data;
     };
 
@@ -91,7 +97,6 @@
           arr.splice(index, 1);
           CommonFloor.defaults['type'] = arr.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -108,7 +113,6 @@
           unitTypes = _.without(unitTypes, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['unitTypes'] = unitTypes.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -119,7 +123,6 @@
           variantNames = _.without(variantNames, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['unitVariants'] = variantNames.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -127,7 +130,6 @@
         'click @ui.status': function(e) {
           CommonFloor.defaults['availability'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -136,7 +138,6 @@
           CommonFloor.defaults['area_max'] = "";
           CommonFloor.defaults['area_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -145,7 +146,6 @@
           CommonFloor.defaults['price_max'] = "";
           CommonFloor.defaults['price_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -154,7 +154,6 @@
           CommonFloor.defaults['floor_max'] = "";
           CommonFloor.defaults['floor_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -383,7 +382,7 @@
           $('.svg-maps > div').first().css('width', that.ui.svgContainer.width() + 13);
           $('.first_image').first().css('width', that.ui.svgContainer.width() + 13);
           height = that.ui.svgContainer.width() / 2;
-          return $('.units').css('height', height - 120);
+          return $('.units').css('height', height - 10);
         }, 650);
         return setTimeout(function(x) {
           return $('.master').panzoom('resetDimensions');
@@ -531,7 +530,12 @@
         }
       });
       this.initializeRotate(transitionImages, svgs, building);
-      return this.loadProjectMaster();
+      this.loadProjectMaster();
+      if ($(window).width() > 991) {
+        return $('.units').mCustomScrollbar({
+          theme: 'inset'
+        });
+      }
     };
 
     CenterApartmentMasterView.prototype.loadProjectMaster = function() {
@@ -550,6 +554,7 @@
           $('.firstimage').attr('src', transitionImages[0]);
           url = Backbone.history.fragment;
           console.log(building_id = url.split('/')[1]);
+          console.log($('#' + building_id + '.building'));
           return $('#' + building_id + '.building').attr('class', 'layer building active_bldg');
         });
       }

@@ -168,6 +168,7 @@ CommonFloor.masterPropertyTypes = ()->
 	Router
 
 CommonFloor.applyVillaClasses = (classname) ->
+	console.log "aaaaaa"
 	$('.villa').each (ind,item)->
 		id = parseInt item.id
 		# class_name = $('#'+id).attr('class')
@@ -175,11 +176,12 @@ CommonFloor.applyVillaClasses = (classname) ->
 		# 	class_name = classname
 		unit = unitCollection.findWhere 
 			id :  id 
-		# $('#'+id).attr('class' ,class_name)
+		
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' , 'layer villa unit_fadein '+availability)
+			$('#'+id).attr('class' , 'layer villa '+availability)
+			
 			
 
 
@@ -191,11 +193,12 @@ CommonFloor.applyAptClasses = (classname) ->
 		# 	class_name = classname
 		unit = unitCollection.findWhere 
 			id :  id 
-		# $('#'+id).attr('class' ,class_name)
+		
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' , 'layer apartment unit_fadein '+availability)
+			$('#'+id).attr('class' , 'layer apartment '+availability)
+			
 			
 
 
@@ -207,12 +210,19 @@ CommonFloor.applyPlotClasses = (classname)->
 		# 	class_name = classname
 		unit = unitCollection.findWhere 
 			id :  id 
-		# $('#'+id).attr('class' ,class_name)
+		
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' ,'layer plot unit_fadein '+availability)  
+			$('#'+id).attr('class' ,'layer plot '+availability)
 			
+			
+CommonFloor.randomClass = ()->
+	$('.layer').each (ind,item)->
+		console.log id = parseInt item.id
+		setTimeout( ()->
+			$('#'+id).attr('style' , 'transform: rotateY(0deg) scale(1); ')
+		,Math.random() * 2000)
 
 
 
@@ -287,40 +297,60 @@ CommonFloor.resetProperyType = (param)->
 
 
 CommonFloor.applyFliterClass = ()->
-	CommonFloor.applyPlotClasses()
-	CommonFloor.applyVillaClasses()
-	CommonFloor.applyAptClasses()
+	# CommonFloor.applyPlotClasses()
+	# CommonFloor.applyVillaClasses()
+	# CommonFloor.applyAptClasses()
 	actualunits = _.pluck unitMasterCollection.toArray() ,'id'
 	filterunits = _.pluck unitCollection.toArray() ,'id'
 	notSelecteUnits = _.difference actualunits , filterunits
 	actualbuildings = _.pluck buildingMasterCollection.toArray() ,'id'
 	filterbuildings = _.pluck buildingCollection.toArray() ,'id'
 	notSelectebuildings = _.difference actualbuildings , filterbuildings
-	$('.villa').each (ind,item)->
+	flag = CommonFloor.applyNonFilterClass()
+	if flag == 0
+		return false
+	$('.villa,.plot,.apartment').each (ind,item)->
 		id = parseInt item.id
 		if $.inArray(id , filterunits) > -1
-			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
+			setTimeout( ()->
+				$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
+			,Math.random() * 2000)
+			
 		else
-			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
+			setTimeout( ()->
+				$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
+			,Math.random() * 2000)
+			
 
-	$('.plot').each (ind,item)->
-		id = parseInt item.id
-		if $.inArray(id , filterunits) > -1
-			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
-		else
-			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
 	$('.building').each (ind,item)->
 		id = parseInt item.id
-		if $.inArray(id , notSelectebuildings) > -1
-			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
-
-	$('.apartment').each (ind,item)->
-		id = parseInt item.id
-		if $.inArray(id , filterunits) > -1
-			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
+		if $.inArray(id , filterbuildings) > -1 && buildingMasterCollection.length != buildingCollection.length
+			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
 		else
-			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
+			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
 	
+
+CommonFloor.applyNonFilterClass = ()->
+	flag = 0
+	$.each CommonFloor.defaults,(index,value)->
+		if CommonFloor.defaults[index]  != ""
+			flag = 1
+
+	if flag == 0
+		$('.villa,.plot,.apartment').each (ind,item)->
+			id = parseInt item.id
+			setTimeout( ()->
+				$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
+			,Math.random() * 2000)
+		$('.building').each (ind,item)->
+			id = parseInt item.id
+			setTimeout( ()->
+				$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
+			,Math.random() * 2000)
+	return flag
+			
+
+
 CommonFloor.resetCollections = ()->
 	apartments = []
 	bunglows   = []

@@ -1234,6 +1234,16 @@ svg {
   width: 100%;
   height: auto;
 }
+svg polygon {
+  -webkit-transform: rotateY(-180deg) scale(0);
+          transform: rotateY(-180deg) scale(0);
+  -webkit-transition: all 0.4s cubic-bezier(0.59, 0.72, 0.375, 1.65);
+          transition: all 0.4s cubic-bezier(0.59, 0.72, 0.375, 1.65);
+  -webkit-transform-origin: center;
+      -ms-transform-origin: center;
+          transform-origin: center;
+  -moz-transform-origin: center;
+}
 svg .caption {
   font-size: 14px;
   font-family: arial;
@@ -1260,8 +1270,6 @@ svg .layer {
   stroke-width: 0px;
   stroke-dasharray: 20 300;
   stroke-dashoffset: 400;
-  -webkit-transition: 0.5s ease-in;
-          transition: 0.5s ease-in;
 }
 svg .layer.svg_active {
   -webkit-animation: blink 0.8s ease-in-out infinite alternate;
@@ -1329,6 +1337,9 @@ svg .marker-area:hover rect {
 svg polygon {
   -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
           transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+}
+.marker {
+  cursor: pointer;
 }
 .step1-marker {
   cursor: pointer;

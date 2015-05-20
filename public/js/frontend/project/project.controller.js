@@ -157,19 +157,20 @@
       var path;
       $('img').lazyLoadXT();
       path = this.model.get('step_one').svg;
-      $('.svg-area').load(path);
-      $('.marker').tooltipster({
-        theme: 'tooltipster-shadow',
-        contentAsHTML: true,
-        onlyOne: true,
-        arrow: false,
-        offsetX: 30,
-        interactive: true,
-        animation: 'grow',
-        trigger: 'hover',
-        content: $('#proj_info').html()
+      return $('.svg-area').load(path, function() {
+        $('.marker').tooltipster({
+          theme: 'tooltipster-shadow',
+          contentAsHTML: true,
+          onlyOne: true,
+          arrow: false,
+          offsetX: 30,
+          interactive: true,
+          animation: 'grow',
+          trigger: 'hover',
+          content: $('#proj_info').html()
+        });
+        return $('.marker').trigger('mouseover');
       });
-      return $('#proj_info').trigger('mouseover');
     };
 
     return CenterView;

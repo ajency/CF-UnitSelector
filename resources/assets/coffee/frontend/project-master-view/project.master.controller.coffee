@@ -337,7 +337,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 												<img src=""  class="first_image img-responsive">
 												
 												<div class="region inactive"></div>
-													<div class="tooltip-overlay hidden"></div>
+												<div class="tooltip-overlay hidden"></div>
 
 											</div>
 											<div class="cf-loader hidden"></div>
@@ -462,7 +462,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
 						<br> <br>
 						<!--<span class="pull-right icon-cross"></span>
-						<span class="label label-success"></span
+						<span class="label label-success"></span>
 						<div class="clearfix"></div>-->
 						<div class="details">
 							<div>
@@ -580,8 +580,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
 						<br> <br>
-						<span class="pull-right icon-cross"></span>
-						<!--<span class="label label-success"></span
+						<!--<span class="pull-right icon-cross"></span>
+						<span class="label label-success"></span
 						<div class="clearfix"></div>-->
 						<div class="details">
 							<div>
@@ -647,9 +647,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
 						<br> <br>
-						<span class="pull-right icon-cross cross"></span>
+						<!--<span class="pull-right icon-cross cross"></span>
 						<span class="label label-success"></span
-						<div class="clearfix"></div>
+						<div class="clearfix"></div>-->
 						<div class="details">
 							<div>
 								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
@@ -753,11 +753,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				that.iniTooltip()
 				CommonFloor.applyVillaClasses()
 				CommonFloor.applyPlotClasses()
+				CommonFloor.randomClass()
 				that.loadZoom()
 				).addClass('active').removeClass('inactive')
 		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
 			
+			$('#trig').removeClass 'hidden'
 			response = project.checkRotationView()
 			$('.first_image').first().css('width',that.ui.svgContainer.width())
 			if response is 1
@@ -811,6 +813,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					that.iniTooltip()
 					CommonFloor.applyVillaClasses()
 					CommonFloor.applyPlotClasses()
+					CommonFloor.randomClass()
 					).addClass('active').removeClass('inactive')
 				
 		)

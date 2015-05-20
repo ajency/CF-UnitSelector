@@ -27,7 +27,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 									            <div class="breadcrumb-bar">
 									                <a class="unit_back" href="#"></a>
 									            </div>
-
+									           
 						              			<div class="header-info">
 						              				<h2 class="pull-left proj-name">{{project_title}}</h2>
 						              				<div class="proj-type-count">
@@ -66,15 +66,20 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 	initialize:->
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
-		console.log @building_id = building_id
+		@building_id = building_id
 
 	serializeData:->
 		data = super()
+		url = Backbone.history.fragment
+		building_id = parseInt url.split('/')[1]
 		units = Marionette.getOption( @, 'units' )
 		data.units = units.length
 		data.project_title = project.get('project_title')
 		data.filters  = CommonFloor.getFilters()[0]
 		data.results  = CommonFloor.getApartmentFilters().count
+		console.log model = buildingCollection.findWhere
+						'id' : building_id
+		data.name  = model.get 'building_name'
 		data
 
 	events:->
@@ -84,7 +89,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			arr.splice(index, 1)
 			CommonFloor.defaults['type'] = arr.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filterBuilding(@building_id)
+			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
@@ -103,7 +108,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			unitTypes = _.without unitTypes , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['unitTypes'] = unitTypes.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filterBuilding(@building_id)
+			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
@@ -113,7 +118,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			variantNames = _.without variantNames , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['unitVariants'] = variantNames.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filterBuilding(@building_id)
+			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 	
 			@trigger  'render:view'
@@ -121,7 +126,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		'click @ui.status':(e)->
 			CommonFloor.defaults['availability'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filterBuilding(@building_id)
+			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
@@ -132,7 +137,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			CommonFloor.defaults['area_max'] = ""
 			CommonFloor.defaults['area_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filterBuilding(@building_id)
+			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
@@ -141,7 +146,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			CommonFloor.defaults['price_max'] = ""
 			CommonFloor.defaults['price_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filterBuilding(@building_id)
+			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
@@ -150,7 +155,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			CommonFloor.defaults['floor_max'] = ""
 			CommonFloor.defaults['floor_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filterBuilding(@building_id)
+			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
@@ -379,7 +384,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('.first_image').first().css('width',that.ui.svgContainer.width() + 13)
 
 				height= that.ui.svgContainer.width() / 2
-				$('.units').css('height',height-120)
+				$('.units').css('height',height-10)
 
 			, 650)
 
@@ -552,6 +557,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		@initializeRotate(transitionImages,svgs,building)
 		@loadProjectMaster()
 
+		if $(window).width() > 991
+			$('.units').mCustomScrollbar
+				theme: 'inset'
+
 	loadProjectMaster:->
 		svgs = []
 		breakpoints = project.get('breakpoints')
@@ -567,6 +576,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('.firstimage').attr('src',transitionImages[0])
 				url = Backbone.history.fragment
 				console.log building_id = url.split('/')[1]
+				console.log $('#'+building_id+'.building')
 				$('#'+building_id+'.building').attr('class' ,'layer building active_bldg'))
 		
 

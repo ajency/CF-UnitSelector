@@ -19,7 +19,7 @@ function get_property_type( $type_id ) {
     }
     
     return $types[$type_id];
-}
+}    
 
 function get_all_property_type() {
     $types = [];
