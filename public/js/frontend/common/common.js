@@ -221,7 +221,8 @@
       if (!_.isUndefined(unit)) {
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        return $('#' + id).attr('class', 'layer villa processed ' + availability);
+        $('#' + id).attr('class', 'layer villa ' + availability);
+        return $('#' + id).attr('style', 'transform: rotateY(0deg) scale(1); ');
       }
     });
   };
@@ -236,7 +237,8 @@
       if (!_.isUndefined(unit)) {
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        return $('#' + id).attr('class', 'layer apartment processed ' + availability);
+        $('#' + id).attr('class', 'layer apartment ' + availability);
+        return $('#' + id).attr('style', 'transform: rotateY(0deg) scale(1); ');
       }
     });
   };
@@ -251,7 +253,8 @@
       if (!_.isUndefined(unit)) {
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        return $('#' + id).attr('class', 'layer plot processed ' + availability);
+        $('#' + id).attr('class', 'layer plot ' + availability);
+        return $('#' + id).attr('style', 'transform: rotateY(0deg) scale(1); ');
       }
     });
   };

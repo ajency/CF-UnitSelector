@@ -1244,10 +1244,6 @@ svg polygon {
           transform-origin: center;
   -moz-transform-origin: center;
 }
-svg polygon.processed {
-  -webkit-transform: rotateY(0deg) scale(1);
-          transform: rotateY(0deg) scale(1);
-}
 svg .caption {
   font-size: 14px;
   font-family: arial;
@@ -1274,8 +1270,6 @@ svg .layer {
   stroke-width: 0px;
   stroke-dasharray: 20 300;
   stroke-dashoffset: 400;
-  -webkit-transition: 0.5s ease-in;
-          transition: 0.5s ease-in;
 }
 svg .layer.svg_active {
   -webkit-animation: blink 0.8s ease-in-out infinite alternate;

@@ -180,7 +180,8 @@ CommonFloor.applyVillaClasses = (classname) ->
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' , 'layer villa processed '+availability)
+			$('#'+id).attr('class' , 'layer villa '+availability)
+			$('#'+id).attr('style' , 'transform: rotateY(0deg) scale(1); ')
 			
 
 
@@ -196,7 +197,8 @@ CommonFloor.applyAptClasses = (classname) ->
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' , 'layer apartment processed '+availability)
+			$('#'+id).attr('class' , 'layer apartment '+availability)
+			$('#'+id).attr('style' , 'transform: rotateY(0deg) scale(1); ')
 			
 
 
@@ -212,7 +214,8 @@ CommonFloor.applyPlotClasses = (classname)->
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' ,'layer plot processed '+availability)  
+			$('#'+id).attr('class' ,'layer plot '+availability)
+			$('#'+id).attr('style' , 'transform: rotateY(0deg) scale(1); ')
 			
 
 

@@ -109,9 +109,7 @@ class BunglowListView extends Marionette.ItemView
 
 					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
 					<br> <br>
-					<span class="pull-right icon-cross"></span>
-					<span class="label label-success"></span
-					<div class="clearfix"></div>
+					<!--<span class="pull-right icon-cross"></span>-->
 					<div class="details">
 						<div>
 							'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)

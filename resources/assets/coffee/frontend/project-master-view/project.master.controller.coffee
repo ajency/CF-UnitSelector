@@ -462,7 +462,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
 						<br> <br>
 						<!--<span class="pull-right icon-cross"></span>
-						<span class="label label-success"></span
+						<span class="label label-success"></span>
 						<div class="clearfix"></div>-->
 						<div class="details">
 							<div>
