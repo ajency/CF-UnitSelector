@@ -724,6 +724,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('#bldg'+id).attr('class' ,'bldg blocks active') 
 			$('#'+id).attr('class' ,'layer building active_bldg')
 
+		'mousedown .layer':(e)->
+			e.preventDefault()
+
+		'mousedown .layer':(e)->
+			e.preventDefault()
+
+
 
 			
 
@@ -864,9 +871,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$zoomOut: $('.zoom-out')
 			# $set: $('.spritespin-canvas')
 
-		$('.master polygon').on 'mousedown touchstart', (e) ->
-			e.stopImmediatePropagation()
-
+		
 	
 
 #controller for the center view
