@@ -753,6 +753,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				that.iniTooltip()
 				CommonFloor.applyVillaClasses()
 				CommonFloor.applyPlotClasses()
+				CommonFloor.randomClass()
 				that.loadZoom()
 				).addClass('active').removeClass('inactive')
 		$('.first_image').lazyLoadXT()
@@ -812,6 +813,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					that.iniTooltip()
 					CommonFloor.applyVillaClasses()
 					CommonFloor.applyPlotClasses()
+					CommonFloor.randomClass()
 					).addClass('active').removeClass('inactive')
 				
 		)

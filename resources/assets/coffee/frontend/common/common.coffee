@@ -176,12 +176,12 @@ CommonFloor.applyVillaClasses = (classname) ->
 		# 	class_name = classname
 		unit = unitCollection.findWhere 
 			id :  id 
-		# $('#'+id).attr('class' ,class_name)
+		
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			$('#'+id).attr('class' , 'layer villa '+availability)
-			$('#'+id).attr('style' , 'transform: rotateY(0deg) scale(1); ')
+			
 			
 
 
@@ -193,12 +193,12 @@ CommonFloor.applyAptClasses = (classname) ->
 		# 	class_name = classname
 		unit = unitCollection.findWhere 
 			id :  id 
-		# $('#'+id).attr('class' ,class_name)
+		
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			$('#'+id).attr('class' , 'layer apartment '+availability)
-			$('#'+id).attr('style' , 'transform: rotateY(0deg) scale(1); ')
+			
 			
 
 
@@ -210,13 +210,19 @@ CommonFloor.applyPlotClasses = (classname)->
 		# 	class_name = classname
 		unit = unitCollection.findWhere 
 			id :  id 
-		# $('#'+id).attr('class' ,class_name)
+		
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			$('#'+id).attr('class' ,'layer plot '+availability)
-			$('#'+id).attr('style' , 'transform: rotateY(0deg) scale(1); ')
 			
+			
+CommonFloor.randomClass = ()->
+	$('.layer').each (ind,item)->
+		console.log id = parseInt item.id
+		setTimeout( ()->
+			$('#'+id).attr('style' , 'transform: rotateY(0deg) scale(1); ')
+		,Math.random() * 2000)
 
 
 
@@ -303,9 +309,15 @@ CommonFloor.applyFliterClass = ()->
 	$('.villa,.plot,.apartment').each (ind,item)->
 		id = parseInt item.id
 		if $.inArray(id , filterunits) > -1
-			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
+			setTimeout( ()->
+				$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
+			,Math.random() * 2000)
+			
 		else
-			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
+			setTimeout( ()->
+				$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
+			,Math.random() * 2000)
+			
 
 	# $('.plot').each (ind,item)->
 	# 	id = parseInt item.id
@@ -316,9 +328,9 @@ CommonFloor.applyFliterClass = ()->
 	$('.building').each (ind,item)->
 		id = parseInt item.id
 		if $.inArray(id , filterbuildings) > -1
-			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
+			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
 		else
-			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
+			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
 	# $('.apartment').each (ind,item)->
 	# 	id = parseInt item.id
 	# 	if $.inArray(id , filterunits) > -1
@@ -336,10 +348,11 @@ CommonFloor.applyNonFilterClass = ()->
 	if flag == 0
 		$('.villa,.plot,.apartment').each (ind,item)->
 			id = parseInt item.id
-			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;')
-		$('.building').each (ind,item)->
+			setTimeout( ()->
+				$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
+			,Math.random() * 2000)
 			id = parseInt item.id
-			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;')
+			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);')
 
 
 

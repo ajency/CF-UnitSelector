@@ -221,8 +221,7 @@
       if (!_.isUndefined(unit)) {
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        $('#' + id).attr('class', 'layer villa ' + availability);
-        return $('#' + id).attr('style', 'transform: rotateY(0deg) scale(1); ');
+        return $('#' + id).attr('class', 'layer villa ' + availability);
       }
     });
   };
@@ -237,8 +236,7 @@
       if (!_.isUndefined(unit)) {
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        $('#' + id).attr('class', 'layer apartment ' + availability);
-        return $('#' + id).attr('style', 'transform: rotateY(0deg) scale(1); ');
+        return $('#' + id).attr('class', 'layer apartment ' + availability);
       }
     });
   };
@@ -253,9 +251,18 @@
       if (!_.isUndefined(unit)) {
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        $('#' + id).attr('class', 'layer plot ' + availability);
-        return $('#' + id).attr('style', 'transform: rotateY(0deg) scale(1); ');
+        return $('#' + id).attr('class', 'layer plot ' + availability);
       }
+    });
+  };
+
+  CommonFloor.randomClass = function() {
+    return $('.layer').each(function(ind, item) {
+      var id;
+      console.log(id = parseInt(item.id));
+      return setTimeout(function() {
+        return $('#' + id).attr('style', 'transform: rotateY(0deg) scale(1); ');
+      }, Math.random() * 2000);
     });
   };
 
@@ -341,18 +348,22 @@
       var id;
       id = parseInt(item.id);
       if ($.inArray(id, filterunits) > -1) {
-        return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
+        return setTimeout(function() {
+          return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
+        }, Math.random() * 2000);
       } else {
-        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
+        return setTimeout(function() {
+          return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
+        }, Math.random() * 2000);
       }
     });
     $('.building').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
       if ($.inArray(id, filterbuildings) > -1) {
-        return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
+        return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
       } else {
-        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
+        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
       }
     });
     return CommonFloor.applyNonFilterClass();
@@ -367,15 +378,14 @@
       }
     });
     if (flag === 0) {
-      $('.villa,.plot,.apartment').each(function(ind, item) {
+      return $('.villa,.plot,.apartment').each(function(ind, item) {
         var id;
         id = parseInt(item.id);
-        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
-      });
-      return $('.building').each(function(ind, item) {
-        var id;
+        setTimeout(function() {
+          return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
+        }, Math.random() * 2000);
         id = parseInt(item.id);
-        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
+        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
       });
     }
   };
