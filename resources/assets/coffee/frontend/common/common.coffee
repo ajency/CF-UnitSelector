@@ -311,9 +311,10 @@ CommonFloor.applyFliterClass = ()->
 			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
 	$('.building').each (ind,item)->
 		id = parseInt item.id
-		if $.inArray(id , notSelectebuildings) > -1
+		if $.inArray(id , filterbuildings) > -1
 			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
-
+		else
+			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
 	$('.apartment').each (ind,item)->
 		id = parseInt item.id
 		if $.inArray(id , filterunits) > -1
