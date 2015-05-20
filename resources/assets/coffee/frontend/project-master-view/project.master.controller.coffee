@@ -602,7 +602,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				html += '</div>'
 
 						
-			console.log html
+			
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
 			$('.layer').tooltipster('content', html)

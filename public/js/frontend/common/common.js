@@ -337,13 +337,17 @@
   };
 
   CommonFloor.applyFliterClass = function() {
-    var actualbuildings, actualunits, filterbuildings, filterunits, notSelecteUnits, notSelectebuildings;
+    var actualbuildings, actualunits, filterbuildings, filterunits, flag, notSelecteUnits, notSelectebuildings;
     actualunits = _.pluck(unitMasterCollection.toArray(), 'id');
     filterunits = _.pluck(unitCollection.toArray(), 'id');
     notSelecteUnits = _.difference(actualunits, filterunits);
     actualbuildings = _.pluck(buildingMasterCollection.toArray(), 'id');
     filterbuildings = _.pluck(buildingCollection.toArray(), 'id');
     notSelectebuildings = _.difference(actualbuildings, filterbuildings);
+    flag = CommonFloor.applyNonFilterClass();
+    if (flag === 0) {
+      return false;
+    }
     $('.villa,.plot,.apartment').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
@@ -357,7 +361,7 @@
         }, Math.random() * 2000);
       }
     });
-    $('.building').each(function(ind, item) {
+    return $('.building').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
       if ($.inArray(id, filterbuildings) > -1) {
@@ -367,7 +371,6 @@
         return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
       }
     });
-    return CommonFloor.applyNonFilterClass();
   };
 
   CommonFloor.applyNonFilterClass = function() {
@@ -379,7 +382,14 @@
       }
     });
     if (flag === 0) {
-      return $('.villa,.plot,.apartment').each(function(ind, item) {
+      $('.villa,.plot,.apartment').each(function(ind, item) {
+        var id;
+        id = parseInt(item.id);
+        return setTimeout(function() {
+          return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
+        }, Math.random() * 2000);
+      });
+      $('.building').each(function(ind, item) {
         var id;
         id = parseInt(item.id);
         return setTimeout(function() {
@@ -387,6 +397,7 @@
         }, Math.random() * 2000);
       });
     }
+    return flag;
   };
 
   CommonFloor.resetCollections = function() {

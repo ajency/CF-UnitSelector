@@ -555,7 +555,6 @@
         } else {
           html += '</div>';
         }
-        console.log(html);
         $('#' + id).attr('class', 'layer villa  ' + availability);
         $('#unit' + id).attr('class', 'unit blocks active');
         return $('.layer').tooltipster('content', html);

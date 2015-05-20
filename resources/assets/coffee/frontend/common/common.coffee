@@ -306,6 +306,9 @@ CommonFloor.applyFliterClass = ()->
 	actualbuildings = _.pluck buildingMasterCollection.toArray() ,'id'
 	filterbuildings = _.pluck buildingCollection.toArray() ,'id'
 	notSelectebuildings = _.difference actualbuildings , filterbuildings
+	flag = CommonFloor.applyNonFilterClass()
+	if flag == 0
+		return false
 	$('.villa,.plot,.apartment').each (ind,item)->
 		id = parseInt item.id
 		if $.inArray(id , filterunits) > -1
@@ -319,12 +322,6 @@ CommonFloor.applyFliterClass = ()->
 			,Math.random() * 2000)
 			
 
-	# $('.plot').each (ind,item)->
-	# 	id = parseInt item.id
-	# 	if $.inArray(id , filterunits) > -1
-	# 		$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
-	# 	else
-	# 		$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
 	$('.building').each (ind,item)->
 		id = parseInt item.id
 		if $.inArray(id , filterbuildings) > -1
@@ -332,13 +329,7 @@ CommonFloor.applyFliterClass = ()->
 			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
 		else
 			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
-	# $('.apartment').each (ind,item)->
-	# 	id = parseInt item.id
-	# 	if $.inArray(id , filterunits) > -1
-	# 		$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;');
-	# 	else
-	# 		$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;');
-	CommonFloor.applyNonFilterClass()
+	
 
 CommonFloor.applyNonFilterClass = ()->
 	flag = 0
@@ -352,6 +343,12 @@ CommonFloor.applyNonFilterClass = ()->
 			setTimeout( ()->
 				$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
 			,Math.random() * 2000)
+		$('.building').each (ind,item)->
+			id = parseInt item.id
+			setTimeout( ()->
+				$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
+			,Math.random() * 2000)
+	return flag
 			
 
 
