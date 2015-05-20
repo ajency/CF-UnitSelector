@@ -580,8 +580,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
 						<br> <br>
-						<span class="pull-right icon-cross"></span>
-						<!--<span class="label label-success"></span
+						<!--<span class="pull-right icon-cross"></span>
+						<span class="label label-success"></span
 						<div class="clearfix"></div>-->
 						<div class="details">
 							<div>
@@ -602,7 +602,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				html += '</div>'
 
 						
-			
+			console.log html
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
 			$('.layer').tooltipster('content', html)
@@ -647,9 +647,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
 						<br> <br>
-						<span class="pull-right icon-cross cross"></span>
+						<!--<span class="pull-right icon-cross cross"></span>
 						<span class="label label-success"></span
-						<div class="clearfix"></div>
+						<div class="clearfix"></div>-->
 						<div class="details">
 							<div>
 								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
