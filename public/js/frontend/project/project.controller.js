@@ -108,21 +108,6 @@
       return data;
     };
 
-    LeftView.prototype.onShow = function() {
-      $('#proj_info').tooltipster({
-        theme: 'tooltipster-shadow',
-        contentAsHTML: true,
-        onlyOne: true,
-        arrow: false,
-        offsetX: 30,
-        interactive: true,
-        animation: 'grow',
-        trigger: 'hover',
-        content: $('#proj_info').html()
-      });
-      return $('#proj_info').trigger('mouseover');
-    };
-
     return LeftView;
 
   })(Marionette.ItemView);
@@ -151,7 +136,7 @@
       return CenterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content animated fadeIn"> <div class="cf-loader loader-center hidden"></div> <div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" data-nodebug="" data-alwaysprocess="" data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" class="primage fill-width"> </div> </div>');
+    CenterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content animated fadeIn"> <div class="cf-loader loader-center hidden"></div> <div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" data-nodebug="" data-alwaysprocess="" data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" class="primage fill-width"> </div> </div>');
 
     CenterView.prototype.ui = {
       svgContainer: '.us-right-content'
@@ -172,7 +157,20 @@
       var path;
       $('img').lazyLoadXT();
       path = this.model.get('step_one').svg;
-      return $('.svg-area').load(path);
+      return $('.svg-area').load(path, function() {
+        $('.marker').tooltipster({
+          theme: 'tooltipster-shadow',
+          contentAsHTML: true,
+          onlyOne: true,
+          arrow: false,
+          offsetX: 30,
+          interactive: true,
+          animation: 'grow',
+          trigger: 'hover',
+          content: $('#proj_info').html()
+        });
+        return $('.marker').trigger('mouseover');
+      });
     };
 
     return CenterView;

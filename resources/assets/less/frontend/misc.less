@@ -126,6 +126,12 @@
   color: @brand-primary;
 }
 
+.tooltip-overlay{
+  height: 100%;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}  
+
 /* Loader */
 .cf-loader {
   position: absolute;
@@ -257,6 +263,12 @@
     }
   } 
 }
+@media(max-width:991px){
+  .breadcrumb-bar a{
+    padding: 15px;
+    font-size: 14px;
+  }
+}
 
 /* Toggle Button */
 .toggle-button{
@@ -305,7 +317,10 @@
     cursor: pointer;
     padding: 8px 13px !important;
     z-index: 999;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
     &.map{
+      position: fixed;
+      bottom: 45px;
       &::before{
         content: "\e610";
         font-family: icomoon;
@@ -329,7 +344,7 @@
 /* Zoom Controls */
 .zoom-controls{
   position: absolute;
-  top: 70px;
+  bottom: 85px;
   left: 15px;
   display: block;
   z-index: 999;

@@ -307,7 +307,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 
-	template : Handlebars.compile('<div class="col-md-12 us-right-content mobile visible animated fadeIn">
+	template : Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn">
 										
 										<div class="legend clearfix">
 										  <ul>
@@ -333,9 +333,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 											
 											<div id="spritespin"></div>
 											<div class="svg-maps">
+												
 												<img src=""  class="first_image img-responsive">
 												
 												<div class="region inactive"></div>
+												<div class="tooltip-overlay hidden"></div>
 
 											</div>
 											<div class="cf-loader hidden"></div>
@@ -367,6 +369,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		'click @ui.trig':(e)->
 			$('.us-left-content').toggleClass 'col-0 col-md-3'
 			$('.us-right-content').toggleClass 'col-md-12 col-md-9'
+			# $('.filter-result').toggleClass 'full'
 			that = @
 			setTimeout( (x)->
 				
@@ -459,7 +462,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
 						<br> <br>
 						<!--<span class="pull-right icon-cross"></span>
-						<span class="label label-success"></span
+						<span class="label label-success"></span>
 						<div class="clearfix"></div>-->
 						<div class="details">
 							<div>
@@ -484,7 +487,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
 			$('.layer').tooltipster('content', html)
-			$('.overlay').show()
+			# $('.tooltip-overlay').removeClass 'hidden'
 
 		# 'click .plot':(e)->
 			
@@ -644,7 +647,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
 						<br> <br>
-						<!--<span class="pull-right icon-cross"></span>
+						<!--<span class="pull-right icon-cross cross"></span>
 						<span class="label label-success"></span
 						<div class="clearfix"></div>-->
 						<div class="details">
@@ -668,9 +671,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('#'+id).attr('class' ,'layer plot '+availability) 
 			$('#unit'+id).attr('class' ,'bldg blocks active') 
 			$('.layer').tooltipster('content', html)
+			# $('.tooltip-overlay').removeClass 'hidden'
 			if availability != 'available'
 				$('.unitClass').hide()
 
+		
 
 		'mouseover .building':(e)->
 			id  = parseInt e.target.id
@@ -719,6 +724,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('#bldg'+id).attr('class' ,'bldg blocks active') 
 			$('#'+id).attr('class' ,'layer building active_bldg')
 
+		'mousedown .layer':(e)->
+			e.preventDefault()
+
+		'mousedown .layer':(e)->
+			e.preventDefault()
+
+
 
 			
 
@@ -747,11 +759,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				that.iniTooltip()
 				CommonFloor.applyVillaClasses()
 				CommonFloor.applyPlotClasses()
+				CommonFloor.randomClass()
 				that.loadZoom()
 				).addClass('active').removeClass('inactive')
 		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
 			
+			$('#trig').removeClass 'hidden'
 			response = project.checkRotationView()
 			$('.first_image').first().css('width',that.ui.svgContainer.width())
 			if response is 1
@@ -805,6 +819,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					that.iniTooltip()
 					CommonFloor.applyVillaClasses()
 					CommonFloor.applyPlotClasses()
+					CommonFloor.randomClass()
 					).addClass('active').removeClass('inactive')
 				
 		)
@@ -856,6 +871,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$zoomOut: $('.zoom-out')
 			# $set: $('.spritespin-canvas')
 
+		
 	
 
 #controller for the center view

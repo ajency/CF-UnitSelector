@@ -68,17 +68,23 @@
       var building_id, url;
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
-      return console.log(this.building_id = building_id);
+      return this.building_id = building_id;
     };
 
     TopApartmentMasterView.prototype.serializeData = function() {
-      var data, units;
+      var building_id, data, model, units, url;
       data = TopApartmentMasterView.__super__.serializeData.call(this);
+      url = Backbone.history.fragment;
+      building_id = parseInt(url.split('/')[1]);
       units = Marionette.getOption(this, 'units');
       data.units = units.length;
       data.project_title = project.get('project_title');
       data.filters = CommonFloor.getFilters()[0];
       data.results = CommonFloor.getApartmentFilters().count;
+      console.log(model = buildingCollection.findWhere({
+        'id': building_id
+      }));
+      data.name = model.get('building_name');
       return data;
     };
 
@@ -91,7 +97,6 @@
           arr.splice(index, 1);
           CommonFloor.defaults['type'] = arr.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -99,6 +104,8 @@
         'click @ui.unitBack': function(e) {
           var previousRoute;
           e.preventDefault();
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
           previousRoute = CommonFloor.router.previous();
           return CommonFloor.navigate('/' + previousRoute, true);
         },
@@ -108,7 +115,6 @@
           unitTypes = _.without(unitTypes, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['unitTypes'] = unitTypes.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -119,7 +125,6 @@
           variantNames = _.without(variantNames, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['unitVariants'] = variantNames.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -127,7 +132,6 @@
         'click @ui.status': function(e) {
           CommonFloor.defaults['availability'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -136,7 +140,6 @@
           CommonFloor.defaults['area_max'] = "";
           CommonFloor.defaults['area_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -145,7 +148,6 @@
           CommonFloor.defaults['price_max'] = "";
           CommonFloor.defaults['price_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -154,7 +156,6 @@
           CommonFloor.defaults['floor_max'] = "";
           CommonFloor.defaults['floor_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -231,7 +232,7 @@
       return ApartmentsView.__super__.constructor.apply(this, arguments);
     }
 
-    ApartmentsView.prototype.template = Handlebars.compile('	<div class=" info"> <label class="pull-left">{{unit_name}}</label> <div class="pull-right">{{unit_type}}</div> <!--{{super_built_up_area}}sqft--> <div class="clearfix"></div> </div> <div class="cost"> {{price}} </div><label>{{property}}</label>');
+    ApartmentsView.prototype.template = Handlebars.compile('	<div class="row"> <div class="col-sm-4  info"> <b class="bold">F1</b> - {{unit_name}} </div> <div class="col-sm-3  info"> {{unit_type}} </div> <div class="col-sm-5 text-primary"> <span class="icon-rupee-icn"></span>{{price}} <span class="tick"></span> </div> </div>');
 
     ApartmentsView.prototype.initialize = function() {
       return this.$el.prop("id", 'apartment' + this.model.get("id"));
@@ -270,7 +271,6 @@
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
-        $('#' + id).attr('class', 'layer apartment');
         return $('#apartment' + id).attr('class', 'unit blocks ' + this.model.get('availability'));
       },
       'click': function(e) {
@@ -301,7 +301,7 @@
       return LeftApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftApartmentMasterView.prototype.template = '<div> <div class="list-view-container w-map animated fadeInLeft"> <div class="advncd-filter-wrp  unit-list"> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <p class="text-center help-text">Hover on the units for more details</p> <ul class="units two"> </ul> </div> </div> </div>';
+    LeftApartmentMasterView.prototype.template = '<div> <div class="list-view-container w-map animated fadeInLeft"> <div class="advncd-filter-wrp  unit-list"> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <p class="text-center help-text">Hover on the units for more details</p> <ul class="units one"> </ul> </div> </div> </div>';
 
     LeftApartmentMasterView.prototype.childView = ApartmentsView;
 
@@ -384,7 +384,7 @@
           $('.svg-maps > div').first().css('width', that.ui.svgContainer.width() + 13);
           $('.first_image').first().css('width', that.ui.svgContainer.width() + 13);
           height = that.ui.svgContainer.width() / 2;
-          return $('.units').css('height', height - 120);
+          return $('.units').css('height', height - 10);
         }, 650);
         return setTimeout(function(x) {
           return $('.master').panzoom('resetDimensions');
@@ -417,11 +417,19 @@
         return CommonFloor.router.storeRoute();
       },
       'mouseover .apartment': function(e) {
-        var availability, html, id, response, unit;
+        var availability, html, id, response, unit, unitMaster;
         id = parseInt(e.target.id);
         unit = unitCollection.findWhere({
           'id': id
         });
+        unitMaster = unitMasterCollection.findWhere({
+          id: id
+        });
+        if (unit === void 0 && unitMaster !== void 0) {
+          html = '<div class="svg-info"> <div class="details empty"> Not in selection </div> </div>';
+          $('.layer').tooltipster('content', html);
+          return;
+        }
         if (unit === void 0) {
           html = '<div class="svg-info"> <div class="details"> Apartment details not entered </div> </div>';
           $('.layer').tooltipster('content', html);
@@ -511,7 +519,8 @@
       console.log(first = _.values(svgs));
       $('.region').load(first[0], function() {
         $('.first_image').attr('data-src', transitionImages[0]);
-        return that.iniTooltip();
+        that.iniTooltip();
+        return CommonFloor.applyAptClasses();
       }).addClass('active').removeClass('inactive');
       $('.first_image').lazyLoadXT();
       $('.first_image').load(function() {
@@ -523,7 +532,12 @@
         }
       });
       this.initializeRotate(transitionImages, svgs, building);
-      return this.loadProjectMaster();
+      this.loadProjectMaster();
+      if ($(window).width() > 991) {
+        return $('.units').mCustomScrollbar({
+          theme: 'inset'
+        });
+      }
     };
 
     CenterApartmentMasterView.prototype.loadProjectMaster = function() {
@@ -542,7 +556,8 @@
           $('.firstimage').attr('src', transitionImages[0]);
           url = Backbone.history.fragment;
           console.log(building_id = url.split('/')[1]);
-          return $('#' + building_id + '.building').attr('class', 'layer building active_bldg');
+          console.log($('#' + building_id + '.building'));
+          return $('#' + building_id + '.building').attr('class', 'layer building svg_active');
         });
       }
     };
@@ -609,7 +624,8 @@
         if (data.frame === data.stopFrame) {
           url = svgs[data.frame];
           return $('.region').load(url, function() {
-            return that.iniTooltip();
+            that.iniTooltip();
+            return CommonFloor.applyAptClasses();
           }).addClass('active').removeClass('inactive');
         }
       });
@@ -624,7 +640,8 @@
         }
         return $('.region').load(url, function() {
           that.iniTooltip();
-          return that.loadZoom();
+          that.loadZoom();
+          return CommonFloor.applyAptClasses();
         });
       });
     };

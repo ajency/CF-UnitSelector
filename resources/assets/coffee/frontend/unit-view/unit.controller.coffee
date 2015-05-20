@@ -76,7 +76,7 @@ class LeftUnitView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content animated fadeIn">
 							<div class="unit-details">
 								<div class="row detail-list">
-									<div class="col-sm-6 col-xs-12">
+									<div class="col-sm-6 col-xs-6">
 										<span class="facts-icon icon-total-units"></span>
 										<div class="unit-label">
 											<h3>{{unit_variant}}</h3>
@@ -84,7 +84,7 @@ class LeftUnitView extends Marionette.ItemView
 										</div>
 									</div>
 
-									<div class="col-sm-6 col-xs-12">
+									<div class="col-sm-6 col-xs-6">
 										<span class="facts-icon icon-BHKtype"></span>
 										<div class="unit-label">
 											<h3>{{type}}</h3>
@@ -94,7 +94,7 @@ class LeftUnitView extends Marionette.ItemView
 								</div>
 
 								<div class="row detail-list">
-									<div class="col-sm-6 col-xs-12">
+									<div class="col-sm-6 col-xs-6">
 										<span class="facts-icon icon-BHK-area-2"></span>
 										<div class="unit-label">
 											<h3>{{area}} sq.ft</h3>
@@ -102,10 +102,10 @@ class LeftUnitView extends Marionette.ItemView
 										</div>
 									</div>
 
-									<div class="col-sm-6 col-xs-12">
+									<div class="col-sm-6 col-xs-6">
 										<span class="facts-icon icon-rupee-icn"></span>
 										<div class="unit-label">
-											<h3>{{price}}</h3>
+											<h3 class="price">{{price}}</h3>
 											<h5 class="text-muted">Price</h5>      
 										</div>
 									</div>
@@ -132,13 +132,13 @@ class LeftUnitView extends Marionette.ItemView
 
 											<div class="panel-heading" role="tab" id="headingTwo">
 											  	<h4 class="panel-title m-b-15 p-b-10">
-											   		<a class="accordion-toggle collapsed text-primary " data-toggle="collapse" data-parent="#accordion" href="#{{level_name}}" aria-expanded="false" >
+											   		<a class="accordion-toggle collapsed text-primary " data-toggle="collapse" data-parent="#accordion" href="#{{id}}" aria-expanded="false" >
 												    	{{level_name}}
 													</a>
 											  	</h4>
 											</div>
 
-											<div id="{{level_name}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+											<div id="{{id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
 					                           	<div class="panel-body">
 					                           		{{#rooms}}
 					                          		<div class="room-attr"> 
@@ -209,6 +209,7 @@ class LeftUnitView extends Marionette.ItemView
 				'price' : window.numDifferentiation(response[3])
 				'area':response[0].get 'super_built_up_area'
 				'variant':response[0].get 'unit_variant_name'
+				'id' : value.get('id')
 		data.area = response[0].get('super_built_up_area')
 		data.type = response[1].get('name')
 		data.unit_variant = response[0].get('unit_variant_name')
@@ -256,10 +257,11 @@ class LeftUnitView extends Marionette.ItemView
 				rooms.push 
 					'room_name' : val.room_name
 					'attributes' : attributes
-			
+			level_id = s.replaceAll(level_name, " ", "_")
 			levels.push 
 				'level_name' : level_name
 				'rooms'			 : rooms
+				'id'    : level_id
 
 		levels
 
@@ -281,7 +283,7 @@ class CommonFloor.LeftUnitCtrl extends Marionette.RegionController
 #Center Controller for unit
 class CenterUnitView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="col-md-9 us-right-content animated fadeIn">
+	template : Handlebars.compile('<div class="col-md-9 col-sm-12 col-xs-12 us-right-content unit-slides animated fadeIn">
 						<div class="svg-area">
 							<div class="liquid-slider slider" id="slider-id">
 								<div class="ls-wrapper ls-responsive">
@@ -410,13 +412,14 @@ class CenterUnitView extends Marionette.ItemView
 								'id' : id
 			response = window.unit.getUnitDetails(id)
 			html = '<div class="svg-info">
-						<h4 class="pull-left">'+unitModel.get('unit_name')+'</h4><br/>
-							<h4 class="pull-left">'+window.numDifferentiation(response[3])+'</h4><br/>
-								<h4 class="pull-left">'+response[0].get('super_built_up_area')+'Sq.Ft</h4><br/>
-									<h4 class="pull-left">'+response[0].get('unit_variant_name')+'</h4><br/>
-										<h4 class="pull-left">'+response[1].get('name')+'</h4>
-
-						<div class="clearfix"></div></div>'
+						<h5 class=" m-t-0">'+unitModel.get('unit_name')+'</h5>
+						<div class="details">
+							<div>Approx Rs.<span class="text-primary">'+window.numDifferentiation(response[3])+'</span></div>
+							<div>Area: <span>'+response[0].get('super_built_up_area')+'Sq.Ft</span></div>
+							<div>Variant: <span>'+response[0].get('unit_variant_name')+'</span></div>
+							<div>Unit Type: <span>'+response[1].get('name')+'</span></div>
+						</div>
+					</div>'
 			
 			$(e.target).tooltipster('content', html)
 

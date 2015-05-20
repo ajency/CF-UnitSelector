@@ -132,6 +132,12 @@
 	&:nth-child(3n){
 	    margin-right: 0;
 	}
+	.row{
+		margin: 0 -5px;
+	}
+	.col-sm-3, .col-sm-4, .col-sm-5{
+		padding: 0 5px;
+	}
 	.status-icon{
 		// width: 10px;
 		// height: 10px;
@@ -264,7 +270,7 @@
 		}
 	}
 }
-.two{
+.two, .one{
 	.blocks{
 		padding: 10px;
 		width: 50%;
@@ -280,6 +286,10 @@
 				label{
 					display: block;
 					color: @gray;					
+				}
+				.bold{
+					color:@black;
+					  font-weight: 900;
 				}
 				span{
 					// color: @brand-primary;
@@ -297,11 +307,17 @@
 }
 .one{
 	.blocks{
-		padding: 15px 10px;
+		padding: 10px 10px;
 		width: 100%;
 		margin-right: 0;
 		border-right: none;
-
+		.tick{
+				background:url(../../images/tick.png)no-repeat;
+				width:23px;
+				height:24px;
+				display: inline-block;
+  				float: right;
+			}
 		&.bldg{
 			.bldg-img{
 				display: none;
@@ -322,6 +338,7 @@
 					// color: @brand-primary;
 				}
 			}
+
 			.unit-type-info{
 				.price{
 					font-size: 13px;
@@ -414,6 +431,7 @@
 .units{
 	list-style-type: none;
 	overflow-y: auto;
+	  overflow-x: hidden;
 	// padding: 0 15px;
 	.ease;
 	/* List of Villas */
@@ -530,3 +548,4 @@
     box-shadow: inset 0 0 2px 2px @brand-primary;
   }
 }
+/*text*/

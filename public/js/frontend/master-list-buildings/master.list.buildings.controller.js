@@ -53,7 +53,7 @@
         this.iniTooltip(this.model.get('id'));
         html = this.getHtml(this.model.get('id'));
         id = this.model.get('id');
-        $('#' + id + '.building').attr('class', 'layer building active_bldg');
+        $('#' + id + '.building').attr('class', 'layer building svg_active');
         $('#bldg' + id).attr('class', 'bldg blocks active');
         return $('#' + id).tooltipster('content', html);
       },
