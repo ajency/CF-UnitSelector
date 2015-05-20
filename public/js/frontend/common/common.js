@@ -220,7 +220,7 @@
       if (!_.isUndefined(unit)) {
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        return $('#' + id).attr('class', 'layer villa unit_fadein ' + availability);
+        return $('#' + id).attr('class', 'layer villa processed ' + availability);
       }
     });
   };
@@ -235,7 +235,7 @@
       if (!_.isUndefined(unit)) {
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        return $('#' + id).attr('class', 'layer apartment unit_fadein ' + availability);
+        return $('#' + id).attr('class', 'layer apartment processed ' + availability);
       }
     });
   };
@@ -250,7 +250,7 @@
       if (!_.isUndefined(unit)) {
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        return $('#' + id).attr('class', 'layer plot unit_fadein ' + availability);
+        return $('#' + id).attr('class', 'layer plot processed ' + availability);
       }
     });
   };
@@ -327,9 +327,6 @@
 
   CommonFloor.applyFliterClass = function() {
     var actualbuildings, actualunits, filterbuildings, filterunits, notSelecteUnits, notSelectebuildings;
-    CommonFloor.applyPlotClasses();
-    CommonFloor.applyVillaClasses();
-    CommonFloor.applyAptClasses();
     actualunits = _.pluck(unitMasterCollection.toArray(), 'id');
     filterunits = _.pluck(unitCollection.toArray(), 'id');
     notSelecteUnits = _.difference(actualunits, filterunits);

@@ -190,6 +190,11 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
 			
+		'click .filter-button':(e)->
+			window.flag1 = 0
+			$('.fliters-container').toggleClass 'closed'
+			if $('.fliters-container').hasClass( "closed")
+				window.flag1 = 1
 
 
 			
@@ -292,16 +297,8 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		    
 
 		)
-		flag = 0
-		$.each CommonFloor.defaults,(index,value)->
-				if CommonFloor.defaults[index] != ""
-					flag = 1
-		if flag == 1
-			$('#collapsefilters').collapse('show')
 		@loadSelectedFilters()
 
-		$('.filter-button').on 'click', (e) ->
-			$('.fliters-container').toggleClass 'closed'
 		$('.filters-content').mCustomScrollbar
 			theme: 'inset'
 
@@ -386,6 +383,11 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		@ui.status.prop('checked',false)
 		if CommonFloor.defaults['availability'] != "" 
 			 @ui.status.prop('checked',true)
+
+		if window.flag1 == 0
+			$('.fliters-container').removeClass 'closed'
+		else
+			$('.fliters-container').addClass 'closed'
 		
 	
 

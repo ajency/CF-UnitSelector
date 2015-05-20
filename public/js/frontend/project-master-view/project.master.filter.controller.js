@@ -37,15 +37,20 @@
     };
 
     FilterMsterView.prototype.initialize = function() {
+      var unitTypes;
+      unitTypes = [];
       if (CommonFloor.defaults['unitTypes'] !== "") {
-        window.unitTypes = CommonFloor.defaults['unitTypes'].split(',');
+        unitTypes = CommonFloor.defaults['unitTypes'].split(',');
       }
       if (CommonFloor.defaults['unitVariants'] !== "") {
         window.variantNames = CommonFloor.defaults['unitVariants'].split(',');
       }
       if (CommonFloor.defaults['type'] !== "") {
-        return window.type = CommonFloor.defaults['type'].split(',');
+        window.type = CommonFloor.defaults['type'].split(',');
       }
+      return window.unitTypes = unitTypes.map(function(item) {
+        return parseInt(item);
+      });
     };
 
     FilterMsterView.prototype.events = {
@@ -98,7 +103,7 @@
         } else {
           window.unitTypes = _.without(window.unitTypes, parseInt($(e.currentTarget).attr('data-value')));
         }
-        window.unitTypes = _.uniq(window.unitTypes);
+        console.log(window.unitTypes = _.uniq(window.unitTypes));
         CommonFloor.defaults['unitTypes'] = window.unitTypes.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filter();
@@ -139,6 +144,13 @@
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filter();
         return unitCollection.trigger('available');
+      },
+      'click .filter-button': function(e) {
+        window.flag = 0;
+        $('.fliters-container').toggleClass('closed');
+        if ($('.fliters-container').hasClass("closed")) {
+          return window.flag = 1;
+        }
       }
     };
 
@@ -267,10 +279,7 @@
     };
 
     FilterMsterView.prototype.onShow = function() {
-      var area, budget, flag, max, min, priceMax, priceMin, subArea, subBudget, types;
-      $('.filter-button').on('click', function(e) {
-        return $('.fliters-container').toggleClass('closed');
-      });
+      var area, budget, max, min, priceMax, priceMin, subArea, subBudget, types;
       $('.filters-content').mCustomScrollbar({
         theme: 'inset'
       });
@@ -308,12 +317,6 @@
         }
       });
       types = Marionette.getOption(this, 'types');
-      flag = 0;
-      $.each(CommonFloor.defaults, function(index, value) {
-        if (CommonFloor.defaults[index] !== "") {
-          return flag = 1;
-        }
-      });
       if (types.length === 1) {
         $('.property_type').hide();
       }
@@ -392,7 +395,12 @@
       });
       this.ui.status.prop('checked', false);
       if (CommonFloor.defaults['availability'] !== "") {
-        return this.ui.status.prop('checked', true);
+        this.ui.status.prop('checked', true);
+      }
+      if (window.flag === 0) {
+        return $('.fliters-container').removeClass('closed');
+      } else {
+        return $('.fliters-container').addClass('closed');
       }
     };
 
