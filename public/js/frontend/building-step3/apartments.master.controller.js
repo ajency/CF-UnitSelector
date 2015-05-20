@@ -382,7 +382,7 @@
           $('.svg-maps > div').first().css('width', that.ui.svgContainer.width() + 13);
           $('.first_image').first().css('width', that.ui.svgContainer.width() + 13);
           height = that.ui.svgContainer.width() / 2;
-          return $('.units').css('height', height - 120);
+          return $('.units').css('height', height - 10);
         }, 650);
         return setTimeout(function(x) {
           return $('.master').panzoom('resetDimensions');
@@ -530,7 +530,12 @@
         }
       });
       this.initializeRotate(transitionImages, svgs, building);
-      return this.loadProjectMaster();
+      this.loadProjectMaster();
+      if ($(window).width() > 991) {
+        return $('.units').mCustomScrollbar({
+          theme: 'inset'
+        });
+      }
     };
 
     CenterApartmentMasterView.prototype.loadProjectMaster = function() {

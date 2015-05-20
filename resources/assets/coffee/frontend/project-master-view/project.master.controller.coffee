@@ -337,7 +337,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 												<img src=""  class="first_image img-responsive">
 												
 												<div class="region inactive"></div>
-													<div class="tooltip-overlay hidden"></div>
+												<div class="tooltip-overlay hidden"></div>
 
 											</div>
 											<div class="cf-loader hidden"></div>
@@ -759,6 +759,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
 			
+			$('#trig').removeClass 'hidden'
 			response = project.checkRotationView()
 			$('.first_image').first().css('width',that.ui.svgContainer.width())
 			if response is 1
