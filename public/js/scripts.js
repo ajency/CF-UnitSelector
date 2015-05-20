@@ -23,7 +23,7 @@ function validateTitle(obj)
     });
 }
 
-function validateEmail(obj,userId)
+function validateEmail(obj, userId)
 {
     $(obj).closest(".form-group").find(".cf-loader").removeClass('hidden');
     $.ajax({
@@ -43,7 +43,7 @@ function validateEmail(obj,userId)
     });
 }
 
-function validateUserPassword(obj,userId)
+function validateUserPassword(obj, userId)
 {
     $(obj).closest(".form-group").find(".cf-loader").removeClass('hidden');
     $.ajax({
@@ -186,7 +186,7 @@ function deleteRoomType(project_id, roomtypeId)
 }
 
 function addAttributes(keyId, obj)
-{  
+{
     var attributename = $(obj).closest('.row').find('input[name="attribute_name_' + keyId + '[]"]').val();
 
     if (attributename.trim() == '')
@@ -230,12 +230,12 @@ function addAttributes(keyId, obj)
     str += '<a class="btn btn-link" onclick="addAttributes(\'' + keyId + '\',this)"><i class="fa fa-plus"></i> Attribute</a>';
     str += '</div>';
     str += '</div>';
- 
 
-    
+
+
     $(obj).closest('.row').after(str);
-    $(obj).closest('.row').find('.col-md-2').html('<a class="btn btn-link" onclick="deleteAttribute('+ PROJECTID +',0,this);"><i class="fa fa-close"></i></a>');
-  
+    $(obj).closest('.row').find('.col-md-2').html('<a class="btn btn-link" onclick="deleteAttribute(' + PROJECTID + ',0,this);"><i class="fa fa-close"></i></a>');
+
     $("select").select2();
     $(".tags").tagsinput("");
 
@@ -259,24 +259,24 @@ function saveRoomypeattribute(project_id, roomtypeId, reffrence_type)
 }
 
 
-function deleteAttribute(project_id, attributeId,obj)
+function deleteAttribute(project_id, attributeId, obj)
 {
     if (confirm('Are you sure you want to delete this room type attribute?') === false) {
         return;
     }
-    if(attributeId)
+    if (attributeId)
     {
         $.ajax({
             url: "/admin/project/" + project_id + "/roomtype/" + attributeId + "/deleteroomtypeattributes",
             type: "DELETE",
             success: function (response) {
-                 $(obj).closest('.row').remove();  
+                $(obj).closest('.row').remove();
             }
         });
     }
     else
-    {  
-      $(obj).closest('.row').remove();  
+    {
+        $(obj).closest('.row').remove();
     }
 }
 
@@ -318,7 +318,7 @@ function addFloorLevel(variantId)
     str += '</div> ';
     str += '</div> ';
     str += '</div>';
-    
+
     str += '<div class="room-block">';
     str += '<div class="form-group">';
     str += '<div class="row">';
@@ -329,14 +329,14 @@ function addFloorLevel(variantId)
     str += ROOMTYPES;
     str += '</select>';
     str += '</div>';
-    str += '<div class="col-md-8">';                        
+    str += '<div class="col-md-8">';
     str += ' <button type="button" onclick="addRoomAttributes(' + i + ',this,' + variantId + ')" class="btn btn-white"><i class="fa fa-plus"></i></button>';
     str += '</div> ';
     str += '</div> ';
     str += '</div> ';
     str += '</div> ';
     str += '<div>';
-    
+
     str += '<div></div><hr/>';
     str += '</div> ';
 
@@ -384,7 +384,7 @@ function addRoomAttributes(level, obj, variantId)
     str += ROOMTYPES;
     str += '</select>';
     str += '</div>';
-    str += '<div class="col-md-8">';                        
+    str += '<div class="col-md-8">';
     str += ' <button type="button" onclick="addRoomAttributes(' + level + ',this,' + variantId + ')" class="btn btn-white"><i class="fa fa-plus"></i></button>';
     str += '</div> ';
     str += '</div> ';
@@ -424,7 +424,6 @@ function setUpProjectMasterUploader() {
                     extensions: "jpg,png,jpeg"
                 }]
         },
-       
         init: {
             PostInit: function () {
                 document.getElementById('master_uploadfiles').onclick = function () {
@@ -434,37 +433,62 @@ function setUpProjectMasterUploader() {
             },
             FilesAdded: function (up, files) {
                 up.start();
-               // $("#master_uploadfiles").next("div.selectedImages").html('<strong class="col-md-12">' + files.length + ' image selected. Click on upload button to start upload.<div class="cf-loader"></div></strong>');
-               // $("#master_uploadfiles").removeClass('hidden');
+
+                for (var i = 0; i < files.length; i++)
+                {
+                    var fileName = files[i].name;
+                    var fileData = fileName.split('.');
+                    var fileData_1 = fileData[0].split('-');
+                    var position = fileData_1[1];
+
+                    var load_newstr = '';
+                    var load_str = '<td>';
+                    load_str += '<div class="progress progress-small " style="margin:0;">';
+                    load_str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="20%" style="width: 20%;margin:0;"></div>';
+                    load_str += '</div>';
+                    load_str += '</td>';
+                    load_str += '<td class=" "><span class="muted"></span></td>';
+                    load_str += '<td class=" ">';
+                    load_str += '</td>';
+                    load_str += '<td class=" ">';
+                    load_str += '</td>';
+                    load_str += '<td class="text-right">';
+                    load_str += '<a class="text-primary" href="#"><i class="fa fa-close"></i></a>';
+                    load_str += '</td>';
+
+                    if ($('#position-' + position).length != 0) {
+                        $('#position-' + position).html(load_str);
+                    }
+                    else
+                    {
+                        load_newstr += '<tr class="" id="position-' + position + '">';
+                        load_newstr += load_str;
+                        load_newstr += '</tr>';
+                        $("#master-img").append(load_newstr);
+                    }
+                    $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="50%" style="width: 50%;margin:0;"></div>');
+                    $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="70%" style="width: 70%;margin:0;"></div>');
+
+                }
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
                 var str = newstr = '';
-    
+                $('#position-' + fileResponse.data.position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="90%" style="width: 90%;margin:0;"></div>');
 
                 str += '<td>' + fileResponse.data.filename + '</td>';
                 str += '<td class=""><span class="muted">' + fileResponse.data.position + '</span></td>';
                 str += '<td class=""><div class="checkbox check-primary" ><input id="checkbox' + fileResponse.data.position + '" name="position[]" type="checkbox" value="' + fileResponse.data.position + '"><label for="checkbox' + fileResponse.data.position + '"></label></td>';
-                 str += '<td><a class="hidden">Authoring Tool</a></td>';
-                str += '<td class="text-right">';      
-                str += '<a class="text-primary" onclick="deleteSvg(' + fileResponse.data.media_id + ',\'master\',\'' + fileResponse.data.position + '\');" ><i class="fa fa-close"></i></a>';         
+                str += '<td><a class="hidden">Authoring Tool</a></td>';
+                str += '<td class="text-right">';
+                str += '<a class="text-primary" onclick="deleteSvg(' + fileResponse.data.media_id + ',\'master\',\'' + fileResponse.data.position + '\');" ><i class="fa fa-close"></i></a>';
                 str += '</td>';
 
-                if ($('#position-' + fileResponse.data.position).length != 0) {
-
-                    $('#position-' + fileResponse.data.position).html(str);
-                }
-                else
-                {
-                    newstr += '<tr class="" id="position-' + fileResponse.data.position + '">';
-                    newstr += str;
-                    newstr += '</tr>';
-                    $("#master-img").append(newstr);
-                }
+                $('#position-' + fileResponse.data.position).html(str);
 
                 $("#master_uploadfiles").next("div.selectedImages").html('');
                 $("#master_uploadfiles").addClass('hidden');
-                
+
             }
         }
     });
@@ -682,40 +706,40 @@ $(document).ready(function () {
                     return false;
                 };
             },
-            FilesAdded: function (up, files) { 
-                var str='<div class="col-md-3">';
-                str +='<div class="img-hover img-thumbnail">';
-                str +='<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
-                str +='<div style="  width: 150px;height: 93px;"></div>';
-                str +='<div class="progress progress-small " style="margin:0;">';
-                str +='<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
-                str +='</div>';
-                str +='<div class="dz-size" data-dz-size="">' + files[0].name + '</div>';
-                str +='</div>';
-                str +='</div>';
+            FilesAdded: function (up, files) {
+                var str = '<div class="col-md-3">';
+                str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
+                str += '<div style="  width: 150px;height: 93px;"></div>';
+                str += '<div class="progress progress-small " style="margin:0;">';
+                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
+                str += '</div>';
+                str += '<div class="dz-size" data-dz-size="">' + files[0].name + '</div>';
+                str += '</div>';
+                str += '</div>';
                 $("#google_earth_image").html(str);
                 up.start();
-               
-                
-                
+
+
+
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
-                
-                var str='<div class="col-md-3">';
-                str+='<div class="img-hover img-thumbnail">';
-                str+='<a class="btn btn-link btn-danger overlay" onclick="deleteSvg(' + fileResponse.data.media_id + ',\'google_earth\',\'\');"><i class="fa fa-close text-primary"></i></a>';
-                str+='<object style="width:150px;height:93px;" class="img-thumbnail" id="svg1" data="' + fileResponse.data.image_path + '" type="image/svg+xml" />';
-                str+='<div class="dz-size" data-dz-size=""><strong></strong>' + fileResponse.data.filename + '</div>';
-                str+='</div>';
-                str+='</div>';
-                str+='<div class="col-md-3">';
-                str+='<h5 class="semi-bold">To use the Authoring Tool<a href="#" class="text-primary"> click here</a></h5>';
-                str+='</div>';
-            
-                
+
+                var str = '<div class="col-md-3">';
+                str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay" onclick="deleteSvg(' + fileResponse.data.media_id + ',\'google_earth\',\'\');"><i class="fa fa-close text-primary"></i></a>';
+                str += '<object style="width:150px;height:93px;" class="img-thumbnail" id="svg1" data="' + fileResponse.data.image_path + '" type="image/svg+xml" />';
+                str += '<div class="dz-size" data-dz-size=""><strong></strong>' + fileResponse.data.filename + '</div>';
+                str += '</div>';
+                str += '</div>';
+                str += '<div class="col-md-3">';
+                str += '<h5 class="semi-bold">To use the Authoring Tool<a href="#" class="text-primary"> click here</a></h5>';
+                str += '</div>';
+
+
                 $("#google_earth_image").html(str);
- 
+
             }
         }
     });
@@ -1004,51 +1028,51 @@ function addUnitType()
         },
         success: function (response) {
             var unitTypeId = response.data.unitTypeId;
-            $('select[name="unit_type"]').append('<option value="'+unitTypeId+'">'+unitTypeName+'</option>');
+            $('select[name="unit_type"]').append('<option value="' + unitTypeId + '">' + unitTypeName + '</option>');
         }
     });
-    
+
 }
 
-function createUnitType(obj,propertyTypeId)
+function createUnitType(obj, propertyTypeId)
 { 
-  if($(obj).val()=='add_new')
-  {
-      
-      if($(obj).closest('.unit_type_block').find('input[type="hidden"]').length)
-      {
-         var unitTypeId = $(obj).closest('.unit_type_block').find('input[type="hidden"]').val(); 
-         var html ='<input type="text" name="unittype['+propertyTypeId+'][]" value="">';
-         html +='<input type="hidden" name="unittypekey['+propertyTypeId+'][]" value="'+unitTypeId+'">';
-         html +='<input type="hidden" name="unittypecustome['+propertyTypeId+'][]" value="CUSTOME">';
-         $(obj).closest('.unit_type_block').find('.col-md-10').html(html);
-  
-      }
-      else
-      {
-           var html = '<div class="row m-b-10 unit_type_block">';
-           html +='<div class="col-md-10">';
-           html +='<input type="text" name="unittype['+propertyTypeId+'][]" >';
-           html +='<input type="hidden" name="unittypekey['+propertyTypeId+'][]" value="">';
-           html +='<input type="hidden" name="unittypecustome['+propertyTypeId+'][]" value="CUSTOME">';
-           html +='</div>';
-           html +='<div class="col-md-2 text-center">';
-           html +='<a  data-unit-type-id="0" class="btn btn-link remove-unit-type"><i class="fa fa-close"></i> </a>';
-           html +='</div>';
-           html +='</div>';
-           $(obj).closest('.unit_type_block').before(html);
-           $(obj).val('')
-      }
-      
-   
-  }
+    if ($(obj).val() == 'add_new')
+    { 
+
+        if (!$(obj).closest('.unit_type_block').find('input[name="add_new_unit_type"]').length)
+        { 
+            var unitTypeId = $(obj).closest('.unit_type_block').find('input[type="hidden"]').val();
+            var html = '<input type="text" name="unittype[' + propertyTypeId + '][]" value="">';
+            html += '<input type="hidden" name="unittypekey[' + propertyTypeId + '][]" value="' + unitTypeId + '">';
+            html += '<input type="hidden" name="unittypecustome[' + propertyTypeId + '][]" value="CUSTOME">';
+            $(obj).closest('.unit_type_block').find('.col-md-10').html(html);
+
+        }
+        else
+        { 
+            var html = '<div class="row m-b-10 unit_type_block">';
+            html += '<div class="col-md-10">';
+            html += '<input type="text" name="unittype[' + propertyTypeId + '][]" >';
+            html += '<input type="hidden" name="unittypekey[' + propertyTypeId + '][]" value="">';
+            html += '<input type="hidden" name="unittypecustome[' + propertyTypeId + '][]" value="CUSTOME">';
+            html += '</div>';
+            html += '<div class="col-md-2 text-center">';
+            html += '<a  data-unit-type-id="0" class="btn btn-link remove-unit-type"><i class="fa fa-close"></i> </a>';
+            html += '</div>';
+            html += '</div>';
+            $(obj).closest('.unit_type_block').before(html);
+            $(obj).val('')
+        }
+
+
+    }
 }
- 
-$('input[name="property_types[]"]').change(function(event) {
-    if ($(this).is (':checked'))
-      $(this).closest('.row').find('.propertyTypeUnitsAttributes').removeClass('hidden');
+
+$('input[name="property_types[]"]').change(function (event) {
+    if ($(this).is(':checked'))
+        $(this).closest('.row').find('.propertyTypeUnitsAttributes').removeClass('hidden');
     else
-      $(this).closest('.row').find('.propertyTypeUnitsAttributes').addClass('hidden');
-     
+        $(this).closest('.row').find('.propertyTypeUnitsAttributes').addClass('hidden');
+
 });
 

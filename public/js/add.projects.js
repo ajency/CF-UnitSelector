@@ -171,7 +171,7 @@
         return;
       }
       propertyType = $(this).attr('property-type');
-      html = '<div class="row m-b-10 unit_type_block"> <div class="col-md-10"> <select name="unittype[{{ property_type }}][]" class="select2-container select2 form-control select2-container-active">';
+      html = '<div class="row m-b-10 unit_type_block"> <div class="col-md-10"> <select onchange="createUnitType(this,{{ property_type }})" name="unittype[{{ property_type }}][]" class="select2-container select2 form-control select2-container-active">';
       html += $(this).closest('.unit_type_block').find('select').html();
       html += '</select> <input type="hidden" name="unittypekey[{{ property_type }}][]" value=""> <input type="hidden" name="unittypecustome[{{ property_type }}][]" value=""> </div> <div class="col-md-2 text-center"> <a  data-unit-type-id="0" class="btn btn-link remove-unit-type"><i class="fa fa-close"></i> </a> </div> </div>';
       compile = Handlebars.compile(html);

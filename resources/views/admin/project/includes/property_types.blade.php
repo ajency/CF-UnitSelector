@@ -59,6 +59,7 @@
                                         </select>
                                         <input type="hidden" name="unittypekey[{{ $propertyTypeId }}][]" value="">
                                         <input type="hidden" name="unittypecustome[{{ $propertyTypeId }}][]" value=""> 
+                                        <input type="hidden" name="add_new_unit_type" value="">
                                         <div class="text-right">
                                             <a property-type="{{ $propertyTypeId }}" class="add-unit-type-btn btn btn-link"><i class="fa fa-"></i> Add Another Unit Type</a>
                                         </div>

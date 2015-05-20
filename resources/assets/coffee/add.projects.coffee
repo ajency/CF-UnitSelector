@@ -175,7 +175,7 @@ jQuery(document).ready ($)->
 		propertyType = $(@).attr 'property-type'
 		html = '<div class="row m-b-10 unit_type_block">
                   <div class="col-md-10">
-                      <select name="unittype[{{ property_type }}][]" class="select2-container select2 form-control select2-container-active">
+                      <select onchange="createUnitType(this,{{ property_type }})" name="unittype[{{ property_type }}][]" class="select2-container select2 form-control select2-container-active">
                           '
     
 		html+=  $(@).closest('.unit_type_block').find('select').html()
