@@ -593,13 +593,9 @@
         $('#' + id).attr('class', 'layer plot ' + availability);
         $('#unit' + id).attr('class', 'bldg blocks active');
         $('.layer').tooltipster('content', html);
-        $('.tooltip-overlay').removeClass('hidden');
         if (availability !== 'available') {
           return $('.unitClass').hide();
         }
-      },
-      'click .cross': function(e) {
-        return $('.tooltip-overlay').addClass('hidden');
       },
       'mouseover .building': function(e) {
         var buildingModel, floors, html, id, response, unitTypes;

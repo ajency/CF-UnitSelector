@@ -671,12 +671,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('#'+id).attr('class' ,'layer plot '+availability) 
 			$('#unit'+id).attr('class' ,'bldg blocks active') 
 			$('.layer').tooltipster('content', html)
-			$('.tooltip-overlay').removeClass 'hidden'
+			# $('.tooltip-overlay').removeClass 'hidden'
 			if availability != 'available'
 				$('.unitClass').hide()
 
-		'click .cross':(e)->
-			$('.tooltip-overlay').addClass 'hidden'
+		
 
 		'mouseover .building':(e)->
 			id  = parseInt e.target.id
