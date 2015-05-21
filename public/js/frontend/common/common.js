@@ -226,16 +226,17 @@
     });
     return $('.building').each(function(ind, item) {
       var class_name, id, unit;
-      console.log(id = parseInt(item.id));
-      console.log(class_name = $('#' + id).attr('class'));
+      id = parseInt(item.id);
+      class_name = $('#' + id).attr('class');
       unit = unitCollection.where({
         'building_id': id,
         'availability': 'available'
       });
-      console.log(unit.length);
       if (unit.length > 0) {
+        console.log("Aaaaaaaaaa");
         return $('#' + id).attr('class', class_name + ' available');
       } else {
+        console.log("aaaaaaaa");
         return $('#' + id).attr('class', class_name + ' sold');
       }
     });

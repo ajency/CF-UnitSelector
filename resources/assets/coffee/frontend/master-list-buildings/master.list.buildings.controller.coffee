@@ -59,6 +59,7 @@ class ListItemView extends Marionette.ItemView
 			$('#'+id+'.building').attr('class' ,'layer building svg_active')
 			$('#bldg'+id).attr('class' ,'bldg blocks active')
 			$('#'+id).tooltipster('content', html)
+			$('#'+id).tooltipster('show')
 
 		'mouseout' :(e)->
 			id = @model.get 'id'
