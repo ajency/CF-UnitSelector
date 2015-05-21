@@ -503,7 +503,7 @@
         }
       },
       'mouseover .villa': function(e) {
-        var availability, html, id, response, unit, unitMaster;
+        var availability, html, id, price, response, unit, unitMaster;
         id = parseInt(e.target.id);
         html = "";
         unit = unitCollection.findWhere({
@@ -523,7 +523,7 @@
           return;
         }
         response = window.unit.getUnitDetails(id);
-        window.convertRupees(response[3]);
+        price = window.numDifferentiation(response[3]);
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";

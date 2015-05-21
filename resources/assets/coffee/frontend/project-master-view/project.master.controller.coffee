@@ -586,7 +586,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 			response = window.unit.getUnitDetails(id)
-			window.convertRupees(response[3])
+			price = window.numDifferentiation(response[3])
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			html = ""
@@ -604,7 +604,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 							</div>
 							<div>
-								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
+								Starting Price <span class="text-primary">'+price+'</span>
 							</div> 
 							 
 						</div>'
