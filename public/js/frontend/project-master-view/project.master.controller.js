@@ -460,12 +460,12 @@
           id: id
         });
         if (unit === void 0 && unitMaster !== void 0) {
-          html = '<div class="svg-info"> <div class="details empty"> Not in selection </div> </div>';
+          html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Not in selection </h5> </div>';
           $('.layer').tooltipster('content', html);
           return;
         }
         if (unit === void 0) {
-          html += '<div class="svg-info"> <div class="details empty"> Villa details not entered </div> </div>';
+          html += '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left">Villa details not entered </h5> </div>';
           $('.layer').tooltipster('content', html);
           return;
         }
@@ -474,7 +474,7 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="villa"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br> <br> <!--<span class="pull-right icon-cross"></span> <span class="label label-success"></span> <div class="clearfix"></div>--> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div>';
+        html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="villa"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br> <br> <!--<span class="pull-right icon-cross"></span> <span class="label label-success"></span> <div class="clearfix"></div>--> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> <div class="text-muted text-default"> To Move Forward Click Arrow</div> </div>';
         if (availability === 'available') {
           html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> </div>';
         } else {
@@ -535,12 +535,12 @@
           id: id
         });
         if (unit === void 0 && unitMaster !== void 0) {
-          html = '<div class="svg-info"> <div class="details empty"> Not in selection </div> </div>';
+          html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Not in selection </h5> </div>';
           $('.layer').tooltipster('content', html);
           return;
         }
         if (unit === void 0) {
-          html += '<div class="svg-info"> <div class="details empty"> Villa details not entered </div> </div>';
+          html += '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left">Villa details not entered </h5> </div>';
           $('.layer').tooltipster('content', html);
           return;
         }
@@ -549,7 +549,7 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="villa"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br> <br> <span class="pull-right icon-cross cross"></span> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div>';
+        html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="villa"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br> <br> <span class="pull-right icon-cross cross"></span> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> <div class="text-muted text-default"> To Move Forward Click Arrow</div> </div>';
         if (availability === 'available') {
           html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> </div>';
         } else {
@@ -579,12 +579,12 @@
           id: id
         });
         if (unit === void 0 && unitMaster !== void 0) {
-          html = '<div class="svg-info"> <div class="details empty"> Not in selection </div> </div>';
+          html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Not in selection </h5> </div>';
           $('.layer').tooltipster('content', html);
           return;
         }
         if (unit === void 0) {
-          html += '<div class="svg-info"> <div class="details empty"> Plot details not entered </div> </div>';
+          html += '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Plot details not entered </h5> </div>';
           $('.layer').tooltipster('content', html);
           return;
         }
@@ -593,7 +593,7 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="plot"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br> <br> <!--<span class="pull-right icon-cross cross"></span> <span class="label label-success"></span <div class="clearfix"></div>--> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div>';
+        html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="plot"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br> <br> <!--<span class="pull-right icon-cross cross"></span> <span class="label label-success"></span <div class="clearfix"></div>--> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> <div class="text-muted text-default"> To Move Forward Click Arrow</div> </div>';
         if (availability === 'available') {
           html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> </div>';
         } else {
@@ -613,7 +613,7 @@
           'id': id
         });
         if (buildingModel === void 0) {
-          html = '<div class="svg-info"> <div class="details empty"> Building details not entered </div> </div>';
+          html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Building details not entered </h5> </div>';
           $('.layer').tooltipster('content', html);
           return;
         }
@@ -621,11 +621,11 @@
         floors = Object.keys(floors).length;
         unitTypes = building.getUnitTypes(id);
         response = building.getUnitTypesCount(id, unitTypes);
-        html = '<div class="svg-info"> <div class="action-bar"> <div class="building"></div> </div> <h5 class="pull-left m-t-0">' + buildingModel.get('building_name') + '</h5> <br> <br> <div class="details"> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div> <div class="details">';
+        html = '<div class="svg-info"> <div class="action-bar"> <div class="building"></div> </div> <h5 class="t m-t-0">' + buildingModel.get('building_name') + '</h5> <div class="details"> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div> <div class="details">';
         $.each(response, function(index, value) {
           return html += '' + value.name + ' (' + value.units + '),';
         });
-        html += '<div> <label>No. of floors</label> - ' + floors + '</div> </div> </div>';
+        html += '<div> <label>No. of floors</label> - ' + floors + '</div> <div class="text-muted text-default"> To Move Forward Click Arrow</div> </div> </div>';
         $('.layer').tooltipster('content', html);
         $('#bldg' + id).attr('class', 'bldg blocks active');
         return $('#' + id).attr('class', 'layer building active_bldg');
