@@ -166,10 +166,7 @@
         
         <input type="hidden" id="price" data-m-dec="" data-a-sign="Rs. " data-d-group="2" value="" />
       <script type="text/javascript">
-        $(document).bind("click",".close",function(){ 
-               $(".layer").bind('mouseenter mouseleave')
-                $('.tooltip-overlay').addClass('hidden')
-            });
+      
        
 
       </script>

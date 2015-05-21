@@ -31,7 +31,7 @@ class PlotListView extends Marionette.ItemView
 		status = s.decapitalize(availability)
 		@model.set 'status' , status
 		window.convertRupees(response[3])
-		data.price = $('#price').val()
+		data.price = window.numDifferentiation(response[3])
 		data
 
 
@@ -70,14 +70,16 @@ class PlotListView extends Marionette.ItemView
 			# $('#'+id).tooltipster('show')
 
 		'click' :(e)->
-			@iniTooltip(@model.get('id'))
-			html = @getHtml(@model.get('id'))
 			id = @model.get('id')
-			# $('.layer').attr('class','layer plot')
-			# $('#'+id+'.plot').attr('class' ,'layer plot '+@model.get('status'))
-			# $('#unit'+id).attr('class' ,'bldg blocks'+' '+@model.get('status')+' active')
-			$('#'+id).tooltipster('content', html)
-			# $('.tooltip-overlay').attr('class','tooltip-overlay')
+			unit = unitCollection.findWhere 
+				id :  id 
+		
+			if ! _.isUndefined unit 
+				setTimeout( (x)->
+					CommonFloor.navigate '/unit-view/'+id , trigger : true
+					CommonFloor.router.storeRoute()
+
+				, 500)
 
 	iniTooltip:(id)->
 		$('#'+id).trigger('click')
@@ -251,7 +253,7 @@ class CommonFloor.MasterPlotListCtrl extends Marionette.RegionController
 		unitsCollection = new Backbone.Collection newUnits 		
 		@view = view = new MasterPlotListView
 			collection : unitsCollection
-		@listenTo @view,"load:units" ,@loadController
+		# @listenTo @view,"load:units" ,@loadController
 		@show view
 
 	loadController:(data)=>

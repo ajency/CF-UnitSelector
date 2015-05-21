@@ -276,7 +276,8 @@
         var id;
         id = this.model.get('id');
         $('#apartment' + id).attr('class', 'unit blocks ' + this.model.get('availability'));
-        return $('#' + id).attr('class', 'layer apartment ' + this.model.get('availability'));
+        $('#' + id).attr('class', 'layer apartment ' + this.model.get('availability'));
+        return $('#' + id).tooltipster('hide');
       },
       'click': function(e) {
         if (this.model.get('availability') === 'available') {
@@ -289,7 +290,7 @@
     ApartmentsView.prototype.getHtml = function(id) {
       var availability, html, response, unit, unitMaster;
       html = "";
-      id = parseInt(e.target.id);
+      id = parseInt(id);
       unit = unitCollection.findWhere({
         'id': id
       });
@@ -490,7 +491,7 @@
         }
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        $('#' + id).attr('class', 'layer apartment');
+        $('#' + id).attr('class', 'layer apartment ' + availability);
         return $('#apartment' + id).attr('class', 'unit blocks ' + availability);
       },
       'mouseover .next': function(e) {

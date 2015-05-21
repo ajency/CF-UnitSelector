@@ -32,7 +32,7 @@
       status = s.decapitalize(availability);
       this.model.set('status', status);
       window.convertRupees(response[3]);
-      data.price = $('#price').val();
+      data.price = window.numDifferentiation(response[3]);
       return data;
     };
 

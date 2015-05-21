@@ -612,8 +612,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			if availability == 'available'
 				html +='<div class="circle">
 							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
-						</div> 
-						<div class="text-muted text-default"> To Move Forward Click Arrow</div>
+						</div>
+						<div class="details">
+							<div class="text-muted text-default"> To Move Forward Click Arrow</div>
+						</div>
+
 					</div>'
 			else
 				html += '</div>'
@@ -705,8 +708,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			if availability == 'available'
 				html +='<div class="circle">
 							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
-						</div> 
-						<div class="text-muted text-default"> To Move Forward Click Arrow</div>
+						</div>
+						<div class="details">
+							<div class="text-muted text-default"> To Move Forward Click Arrow</div>
+						</div>
+
 					</div>'
 			else
 				html += '</div>'

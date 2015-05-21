@@ -32,7 +32,7 @@
       status = s.decapitalize(availability);
       this.model.set('status', status);
       window.convertRupees(response[3]);
-      data.price = $('#price').val();
+      data.price = window.numDifferentiation(response[3]);
       return data;
     };
 
@@ -66,11 +66,19 @@
         return $('#' + id).tooltipster('hide');
       },
       'click': function(e) {
-        var html, id;
-        this.iniTooltip(this.model.get('id'));
-        html = this.getHtml(this.model.get('id'));
+        var id, unit;
         id = this.model.get('id');
-        return $('#' + id).tooltipster('content', html);
+        unit = unitCollection.findWhere({
+          id: id
+        });
+        if (!_.isUndefined(unit)) {
+          return setTimeout(function(x) {
+            CommonFloor.navigate('/unit-view/' + id, {
+              trigger: true
+            });
+            return CommonFloor.router.storeRoute();
+          }, 500);
+        }
       }
     };
 
@@ -205,7 +213,6 @@
       this.view = view = new MasterPlotListView({
         collection: unitsCollection
       });
-      this.listenTo(this.view, "load:units", this.loadController);
       return this.show(view);
     };
 

@@ -43,10 +43,10 @@ class ListItemView extends Marionette.ItemView
 		data.classname = ""
 		if cost == 0
 			data.classname = 'hidden'
-		console.log data.classname
 		# data.price = window.numDifferentiation(cost)
 		window.convertRupees(cost)
-		data.price = $('#price').val()
+		window.numDifferentiation
+		data.price = window.numDifferentiation(cost)
 		data.floors = Object.keys(floors).length
 		data.types = types
 		data
