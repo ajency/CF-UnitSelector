@@ -38,15 +38,15 @@ class TopMasterView extends Marionette.ItemView
 														{{/types}}
 													</div>
 													<div class="pull-left filter-result">
-										              	{{#each  filters}}
-										              	{{#each this}}
+														{{#each  filters}}
+														{{#each this}}
 														<div class="filter-pill"  >
 															{{this.name}}{{this.type}}
 															<span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span>
-										              	</div>	
-										              	{{/each}}{{/each }}							               
-										            </div>
-										            <div class="clearfix"></div>
+														</div>	
+														{{/each}}{{/each }}							               
+													</div>
+													<div class="clearfix"></div>
 												</div>
 
 											</div>
@@ -154,7 +154,7 @@ class TopMasterView extends Marionette.ItemView
 			@ui.unitBack.hide()
 		response = CommonFloor.propertyTypes() 
 		if response.length == 0
-			$('.proj-type-count').text 'No results found'
+			$('.proj-type-count').html '<p class="p-l-15">No results found</p>'
 
 	removeVillaFilters:->
 		variants = []
@@ -311,10 +311,10 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 										
 										<div class="legend clearfix">
 										  <ul>
-										    <!--<li class="available">AVAILABLE</li>-->
-										    <li class="sold">N/A</li>
-										    <!--<li class="blocked">BLOCKED</li>-->
-										    <li class="na">Available</li>
+											<!--<li class="available">AVAILABLE</li>-->
+											<li class="sold">N/A</li>
+											<!--<li class="blocked">BLOCKED</li>-->
+											<li class="na">Available</li>
 										  </ul>
 										</div>
 										<div class="zoom-controls">
@@ -425,7 +425,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			
 
 		'click .villa':(e)->
-			id  = parseInt e.target.id
+			$(".layer").unbind('mouseenter mouseleave')	
+			console.log id  = parseInt e.target.id
 			html = ""
 			unit = unitCollection.findWhere 
 				id :  id 
@@ -486,8 +487,10 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
-			$('.layer').tooltipster('content', html)
-			# $('.tooltip-overlay').removeClass 'hidden'
+			# $('#'+id).tooltipster(trigger:'click')
+			
+			# $('#'+id).webuiPopover('show')
+			
 
 		# 'click .plot':(e)->
 			
@@ -580,9 +583,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
 						<br> <br>
-						<!--<span class="pull-right icon-cross"></span>
-						<span class="label label-success"></span
-						<div class="clearfix"></div>-->
+						<span class="pull-right icon-cross cross"></span>
 						<div class="details">
 							<div>
 								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
@@ -605,10 +606,21 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
-			$('.layer').tooltipster('content', html)
-		
 			
+			$('.layer').tooltipster('content', html)
+			
+			$('#'+id).webuiPopover(
+				trigger : 'click'
+				content : html
 
+			).on('show.webui.popover', (e)->
+				$(".layer").unbind('mouseenter mouseleave')
+				$('.cross').hide()
+				$('.layer').tooltipster('hide')
+				$('.tooltip-overlay').removeClass 'hidden'
+				)
+			
+		
 		'mouseover .plot':(e)->
 			# $('.plot').attr('class' ,'layer plot') 
 			id  = parseInt e.target.id
@@ -736,7 +748,6 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 	onShow:->
-
 		
 		height =  @ui.svgContainer.width() / 2
 		# $('.us-left-content').css('height',height)
@@ -772,7 +783,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				$('.cf-loader').removeClass 'hidden'
 		
 		@initializeRotate(transitionImages,svgs)
-	
+		
+
 		
 	
 
@@ -857,6 +869,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				
 				
 		)
+
 		
 	
 
