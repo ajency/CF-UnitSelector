@@ -69,15 +69,7 @@ class PlotListView extends Marionette.ItemView
 			$('#'+id).tooltipster('hide')
 			# $('#'+id).tooltipster('show')
 
-		# 'click' :(e)->
-		# 	@iniTooltip(@model.get('id'))
-		# 	html = @getHtml(@model.get('id'))
-		# 	id = @model.get('id')
-		# 	# $('.layer').attr('class','layer plot')
-		# 	# $('#'+id+'.plot').attr('class' ,'layer plot '+@model.get('status'))
-		# 	# $('#unit'+id).attr('class' ,'bldg blocks'+' '+@model.get('status')+' active')
-		# 	$('#'+id).tooltipster('content', html)
-		# 	# $('.tooltip-overlay').attr('class','tooltip-overlay')
+		
 
 		'click' :(e)->
 			id = @model.get('id')
@@ -265,7 +257,7 @@ class CommonFloor.MasterPlotListCtrl extends Marionette.RegionController
 		unitsCollection = new Backbone.Collection newUnits 		
 		@view = view = new MasterPlotListView
 			collection : unitsCollection
-		@listenTo @view,"load:units" ,@loadController
+		# @listenTo @view,"load:units" ,@loadController
 		@show view
 
 	loadController:(data)=>

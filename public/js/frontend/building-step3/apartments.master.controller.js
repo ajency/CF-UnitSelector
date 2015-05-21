@@ -289,7 +289,7 @@
     ApartmentsView.prototype.getHtml = function(id) {
       var availability, html, response, unit, unitMaster;
       html = "";
-      id = parseInt(e.target.id);
+      id = parseInt(id);
       unit = unitCollection.findWhere({
         'id': id
       });

@@ -213,7 +213,6 @@
       this.view = view = new MasterPlotListView({
         collection: unitsCollection
       });
-      this.listenTo(this.view, "load:units", this.loadController);
       return this.show(view);
     };
 

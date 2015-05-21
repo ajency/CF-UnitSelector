@@ -260,7 +260,7 @@ class ApartmentsView extends Marionette.ItemView
 
 	getHtml:(id)->
 		html = ""
-		id = parseInt e.target.id
+		id = parseInt id
 		unit = unitCollection.findWhere
 				'id' : id
 		unitMaster = unitMasterCollection.findWhere 
