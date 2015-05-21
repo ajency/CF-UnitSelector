@@ -832,6 +832,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					CommonFloor.applyVillaClasses()
 					CommonFloor.applyPlotClasses()
 					CommonFloor.randomClass()
+					CommonFloor.applyFliterClass()
 					).addClass('active').removeClass('inactive')
 				
 		)
@@ -851,6 +852,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				CommonFloor.applyVillaClasses()
 				CommonFloor.applyPlotClasses()
 				that.loadZoom()
+				CommonFloor.randomClass()
+				CommonFloor.applyFliterClass()
 			).addClass('active').removeClass('inactive')
 
 		)

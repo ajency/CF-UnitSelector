@@ -717,7 +717,8 @@
             that.iniTooltip();
             CommonFloor.applyVillaClasses();
             CommonFloor.applyPlotClasses();
-            return CommonFloor.randomClass();
+            CommonFloor.randomClass();
+            return CommonFloor.applyFliterClass();
           }).addClass('active').removeClass('inactive');
         }
       });
@@ -737,7 +738,9 @@
           that.iniTooltip();
           CommonFloor.applyVillaClasses();
           CommonFloor.applyPlotClasses();
-          return that.loadZoom();
+          that.loadZoom();
+          CommonFloor.randomClass();
+          return CommonFloor.applyFliterClass();
         }).addClass('active').removeClass('inactive');
       });
     };
