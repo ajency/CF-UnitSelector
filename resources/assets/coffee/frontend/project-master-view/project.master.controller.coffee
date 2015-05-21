@@ -434,17 +434,21 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				id :  id 
 			if unit is undefined && unitMaster != undefined
 				html = '<div class="svg-info">
-							<div class="details empty">
+					   		<div class="action-bar2">
+						        <div class="txt-dft"></div>
+						    </div> 
+							<h5 class="pull-left">
 								Not in selection
-							</div>  
+							</h5>  
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return 
 			if unit is undefined
 				html += '<div class="svg-info">
-							<div class="details empty">
-								Villa details not entered 
-							</div>  
+							<div class="action-bar2">
+						        <div class="txt-dft"></div>
+						    </div> 
+							<h5 class="pull-left">Villa details not entered </h5> 
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return 
@@ -473,6 +477,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 							<div>
 								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 							</div> 
+							 <div class="text-muted text-default"> To Move Forward Click Arrow</div>
 						</div>'
 
 			if availability == 'available'
@@ -555,17 +560,22 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				id :  id 
 			if unit is undefined && unitMaster != undefined
 				html = '<div class="svg-info">
-							<div class="details empty">
+							<div class="action-bar2">
+						        <div class="txt-dft"></div>
+						    </div> 
+							<h5 class="pull-left">
 								Not in selection
-							</div>  
+							</h5>  
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return 
 			if unit is undefined
 				html += '<div class="svg-info">
-							<div class="details empty">
-								Villa details not entered 
-							</div>  
+							<div class="action-bar2">
+						        <div class="txt-dft"></div>
+						    </div> 
+							<h5 class="pull-left">Villa details not entered </h5>
+							 
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return 
@@ -592,6 +602,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 							<div>
 								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 							</div> 
+							 <div class="text-muted text-default"> To Move Forward Click Arrow</div>
 						</div>'
 
 			if availability == 'available'
@@ -638,17 +649,23 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				id :  id 
 			if unit is undefined && unitMaster != undefined
 				html = '<div class="svg-info">
-							<div class="details empty">
+							<div class="action-bar2">
+						        <div class="txt-dft"></div>
+						    </div> 
+							<h5 class="pull-left">
 								Not in selection
-							</div>  
+							</h5>  
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return 
 			if unit is undefined
 				html += '<div class="svg-info">
-							<div class="details empty">
+							<div class="action-bar2">
+						        <div class="txt-dft"></div>
+						    </div> 
+							<h5 class="pull-left">
 								Plot details not entered 
-							</div>  
+							</h5>  
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return 
@@ -677,6 +694,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 							<div>
 								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 							</div> 
+							 <div class="text-muted text-default"> To Move Forward Click Arrow</div>
 						</div>'
 
 			if availability == 'available'
@@ -703,9 +721,12 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 			if buildingModel == undefined
 				html = '<div class="svg-info">
-							<div class="details empty">
+							<div class="action-bar2">
+						        <div class="txt-dft"></div>
+						    </div> 
+							<h5 class="pull-left">
 								Building details not entered 
-							</div>  
+							</h5>  
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return 
@@ -720,13 +741,14 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 							<div class="building"></div>
 						</div>
 
-						<h5 class="pull-left m-t-0">'+buildingModel.get('building_name')+'</h5>
-						<br> <br>
+						<h5 class="t m-t-0">'+buildingModel.get('building_name')+'	<label class="text-muted">( No. of floors - '+floors+' )</label></h5>
+						
 						<div class="details">
 							
 							<div>
 								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 							</div> 
+
 						</div>
 						<div class="details">'
 
@@ -734,8 +756,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				html +=''+value.name+' ('+value.units+'),'
 
 			html += '<div>
-						<label>No. of floors</label> - '+floors+'
+					
 					</div>
+					<div class="text-muted text-default"> To Move Forward Click Arrow</div>
 					</div>
 
 					</div>'

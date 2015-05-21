@@ -2479,6 +2479,7 @@ label.third_toggle {
 .svg-info {
   font-family: OpenSans, Arial, sans-serif;
   padding: 0;
+  min-width: 290px;
 }
 .svg-info.available,
 .svg-info.sold,
@@ -2513,6 +2514,22 @@ label.third_toggle {
   text-align: center;
   padding-bottom: 5px;
 }
+.svg-info .action-bar2 {
+  width: 60px;
+  height: 60px;
+  float: left;
+  padding: 10px;
+  margin-left: -10px;
+  margin-top: -10px;
+  margin-right: 11px;
+  color: #ffffff;
+  font-size: 14px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  cursor: pointer;
+  display: block;
+  background: #666666;
+}
 .svg-info .action-bar {
   width: 60px;
   height: 105px;
@@ -2527,6 +2544,7 @@ label.third_toggle {
   border-top-left-radius: 5px;
   cursor: pointer;
   display: block;
+  background: #666666;
 }
 .svg-info.available .action-bar {
   background-color: #5ab319;
@@ -2584,6 +2602,17 @@ label.third_toggle {
   display: block;
   margin-top: 40%;
   background-position: -115px;
+}
+.svg-info .txt-dft {
+  margin-top: -2% !important;
+  width: 37px !important;
+  height: 37px!important;
+  background: url(../../images/sprite-popover.png) no-repeat;
+  width: 50px;
+  height: 50px;
+  display: block;
+  margin-top: 40%;
+  background-position: -177px;
 }
 .svg-info .text-default {
   opacity: .5;
