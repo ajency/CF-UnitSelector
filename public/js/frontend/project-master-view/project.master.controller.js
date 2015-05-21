@@ -446,13 +446,32 @@
           }
         }, 500);
       },
-      'click .villa,.plot': function(e) {
+      'click .villa': function(e) {
         var id, unit;
         id = parseInt(e.target.id);
         unit = unitCollection.findWhere({
           id: id
         });
         if (!_.isUndefined(unit)) {
+          $('.spritespin-canvas').addClass('zoom');
+          $('.us-left-content').addClass('animated fadeOut');
+          return setTimeout(function(x) {
+            CommonFloor.navigate('/unit-view/' + id, {
+              trigger: true
+            });
+            return CommonFloor.router.storeRoute();
+          }, 500);
+        }
+      },
+      'click .plot': function(e) {
+        var id, unit;
+        id = parseInt(e.target.id);
+        unit = unitCollection.findWhere({
+          id: id
+        });
+        if (!_.isUndefined(unit)) {
+          $('.spritespin-canvas').addClass('zoom');
+          $('.us-left-content').addClass('animated fadeOut');
           return setTimeout(function(x) {
             CommonFloor.navigate('/unit-view/' + id, {
               trigger: true
@@ -503,7 +522,7 @@
         }
       },
       'mouseover .villa': function(e) {
-        var availability, html, id, response, unit, unitMaster;
+        var availability, html, id, price, response, unit, unitMaster;
         id = parseInt(e.target.id);
         html = "";
         unit = unitCollection.findWhere({
@@ -523,13 +542,13 @@
           return;
         }
         response = window.unit.getUnitDetails(id);
-        window.convertRupees(response[3]);
+        price = window.numDifferentiation(response[3]);
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="villa"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br> <br> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div>';
+        html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="villa"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br> <br> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + price + '</span> </div> </div>';
         if (availability === 'available') {
-          html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default"> To Move Forward Click Arrow</div> </div> </div>';
+          html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
         } else {
           html += '</div>';
         }
@@ -564,7 +583,7 @@
         html = "";
         html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="plot"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br> <br> <!--<span class="pull-right icon-cross cross"></span> <span class="label label-success"></span <div class="clearfix"></div>--> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + price + '</span> </div> </div>';
         if (availability === 'available') {
-          html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default"> To Move Forward Click Arrow</div> </div> </div>';
+          html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
         } else {
           html += '</div>';
         }
@@ -573,11 +592,19 @@
         return $('#' + id).tooltipster('content', html);
       },
       'mouseover .building': function(e) {
-        var availability, buildingModel, floors, html, id, minprice, price, response, unit, unitTypes;
+        var availability, buildingMaster, buildingModel, floors, html, id, minprice, price, response, unit, unitTypes;
         id = parseInt(e.target.id);
         buildingModel = buildingCollection.findWhere({
           'id': id
         });
+        buildingMaster = buildingMasterCollection.findWhere({
+          'id': id
+        });
+        if (buildingModel === void 0 && buildingMaster !== void 0) {
+          html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Not in selection </h5> </div>';
+          $('.layer').tooltipster('content', html);
+          return;
+        }
         if (buildingModel === void 0) {
           html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Building details not entered </h5> </div>';
           $('.layer').tooltipster('content', html);
@@ -602,7 +629,7 @@
         $.each(response, function(index, value) {
           return html += '' + value.name + ' (' + value.units + '),';
         });
-        html += '<div class="text-muted text-default"> To Move Forward Click Arrow</div> </div> </div>';
+        html += '<div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
         $('.layer').tooltipster('content', html);
         $('#bldg' + id).attr('class', 'bldg blocks active');
         return $('#' + id).attr('class', 'layer building active_bldg');

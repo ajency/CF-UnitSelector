@@ -15,7 +15,7 @@ class ListItemView extends Marionette.ItemView
 						                        </li>
 						                        {{/types}}
 					                      		<span class="area {{areaname}}">{{area}} Sq.Ft</span>
-					                      		<div class="price {{classname}}">From <span>{{price}}</span></div>
+					                      		<div class="price {{classname}}">Starting price <span>{{price}}</span></div>
 											</ul>
 										 </div>')
 
@@ -95,13 +95,13 @@ class ListItemView extends Marionette.ItemView
 		html = ""
 		id  = parseInt id
 		buildingModel = buildingCollection.findWhere
-						'id' : id
+							'id' : id
 
 		if buildingModel == undefined
 			html = '<div class="svg-info">
-					<div class="action-bar2">
-						        <div class="txt-dft"></div>
-						    </div> 
+						<div class="action-bar2">
+					        <div class="txt-dft"></div>
+					    </div> 
 						<h5 class="pull-left">
 							Building details not entered 
 						</h5>  
@@ -114,20 +114,37 @@ class ListItemView extends Marionette.ItemView
 		floors = Object.keys(floors).length
 		unitTypes = building.getUnitTypes(id)
 		response = building.getUnitTypesCount(id,unitTypes)
-		html = '<div class="svg-info">
-					<h4 class="pull-left">'+buildingModel.get('building_name')+' <label class="text-muted">( No. of floors - '+floors+' )</label></h4>
-					<!--<span class="label label-success"></span-->
-					<div class="clearfix"></div>'
-		$.each response,(index,value)->
-			html += '<div class="details">
-						<div>
-							<label>'+value.name+'</label> - '+value.units+'
-						</div>
+		minprice = building.getMinimumCost(id)
+		price = window.numDifferentiation(minprice)
+		unit = unitCollection.where 
+			'building_id' :  id 
+			'availability' : 'available'
+		if unit.length > 0 
+			availability = ' available'
+		else
+			availability = ' sold'
+		html = '<div class="svg-info '+availability+' ">
+					<div class="action-bar">
+						<div class="building"></div>
+					</div>
+
+					<h5 class="t m-t-0">'+buildingModel.get('building_name')+'	<label class="text-muted">( No. of floors - '+floors+' )</label></h5>
+					
+					<div class="details">
 						
-						</div>'
-		$('.layer').tooltipster('content', html)
-		$('#bldg'+id).attr('class' ,'bldg blocks active') 
-		$('#'+id).attr('class' ,'layer building active_bldg')
+						<div>
+							Starting Price <span class="text-primary">'+price+'</span>
+						</div> 
+
+					</div>
+					<div class="details">'
+
+		$.each response,(index,value)->
+			html +=''+value.name+' ('+value.units+'),'
+
+		html += '<div class="text-muted text-default">Click arrow to move forward</div>
+				</div></div>'
+		html
 
 #view for list of buildings : Collection
 class MasterBuildingListView extends Marionette.CompositeView

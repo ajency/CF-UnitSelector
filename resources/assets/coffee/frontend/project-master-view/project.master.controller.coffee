@@ -424,11 +424,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			, 500)
 			
 
-		'click .villa,.plot':(e)->
+		'click .villa':(e)->
 			id = parseInt e.target.id
 			unit = unitCollection.findWhere 
 				id :  id 
 			if ! _.isUndefined unit 
+				$('.spritespin-canvas').addClass 'zoom'
+				$('.us-left-content').addClass 'animated fadeOut'
 				setTimeout( (x)->
 					CommonFloor.navigate '/unit-view/'+id , trigger : true
 					CommonFloor.router.storeRoute()
@@ -501,21 +503,19 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			# $('#'+id).webuiPopover('show')
 			
 
-		# 'click .plot':(e)->
-			
-		# 	setTimeout( (x)->
-		# 		id = parseInt e.target.id
+		'click .plot':(e)->
+			id = parseInt e.target.id
+			unit = unitCollection.findWhere 
+				id :  id 
 
-		# 		unitModel = unitCollection.findWhere
-		# 						'id' : id
-		# 		if unitModel == undefined
-		# 			return false
-		# 		$('.spritespin-canvas').addClass 'zoom'
-		# 		$('.us-left-content').addClass 'animated fadeOut'
-		# 		CommonFloor.navigate '/unit-view/'+id , true
-		# 		CommonFloor.router.storeRoute()
+			if ! _.isUndefined unit 
+				$('.spritespin-canvas').addClass 'zoom'
+				$('.us-left-content').addClass 'animated fadeOut'
+				setTimeout( (x)->
+					CommonFloor.navigate '/unit-view/'+id , trigger : true
+					CommonFloor.router.storeRoute()
 
-		# 	, 500)
+				, 500)
 			
 
 		'click #prev':->
@@ -532,7 +532,6 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			if unit != undefined
 				availability = unit.get('availability')
 				availability = s.decapitalize(availability)
-				# CommonFloor.applyVillaClasses()
 				$('#unit'+id).attr('class' ,'unit blocks '+availability) 
 
 		'mouseout .plot':(e)->
@@ -586,7 +585,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 			response = window.unit.getUnitDetails(id)
-			window.convertRupees(response[3])
+			price = window.numDifferentiation(response[3])
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			html = ""
@@ -604,7 +603,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 							</div>
 							<div>
-								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
+								Starting Price <span class="text-primary">'+price+'</span>
 							</div> 
 							 
 						</div>'
@@ -614,7 +613,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
 						</div>
 						<div class="details">
-							<div class="text-muted text-default"> To Move Forward Click Arrow</div>
+							<div class="text-muted text-default">Click arrow to move forward</div>
 						</div>
 					</div>'
 			else
@@ -709,7 +708,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
 						</div>
 						<div class="details">
-							<div class="text-muted text-default"> To Move Forward Click Arrow</div>
+							<div class="text-muted text-default">Click arrow to move forward</div>
 						</div>
 					</div>'
 			else
@@ -741,7 +740,19 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			id  = parseInt e.target.id
 			buildingModel = buildingCollection.findWhere
 							'id' : id
-
+			buildingMaster = buildingMasterCollection.findWhere 
+							'id' :  id 
+			if buildingModel is undefined && buildingMaster != undefined
+				html = '<div class="svg-info">
+							<div class="action-bar2">
+						        <div class="txt-dft"></div>
+						    </div> 
+							<h5 class="pull-left">
+								Not in selection
+							</h5>  
+						</div>'
+				$('.layer').tooltipster('content', html)
+				return 
 			if buildingModel == undefined
 				html = '<div class="svg-info">
 							<div class="action-bar2">
@@ -787,7 +798,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$.each response,(index,value)->
 				html +=''+value.name+' ('+value.units+'),'
 
-			html += '<div class="text-muted text-default"> To Move Forward Click Arrow</div>
+			html += '<div class="text-muted text-default">Click arrow to move forward</div>
 					</div>
 
 					</div>'

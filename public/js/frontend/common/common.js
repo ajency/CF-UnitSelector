@@ -348,7 +348,9 @@
     return $('.building').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
-      if ($.inArray(id, filterbuildings) > -1 && buildingMasterCollection.length !== buildingCollection.length) {
+      console.log(apartmentVariantMasterCollection.length);
+      console.log(apartmentVariantCollection.length);
+      if ($.inArray(id, filterbuildings) > -1 && apartmentVariantMasterCollection.length !== apartmentVariantCollection.length) {
         return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
       } else {
         return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
