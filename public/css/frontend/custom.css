@@ -342,6 +342,9 @@ hr.embossed {
   display: block;
   background-position: -116px -18px;
 }
+.step3 .tooltipster-shadow {
+  border-radius: 100%;
+}
 /* Bootstrap responsive utilities */
 @-ms-viewport {
   width: device-width;
@@ -983,6 +986,9 @@ hr.embossed {
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.5);
+}
+.overflow-h {
+  overflow: hidden;
 }
 /* Loader */
 .cf-loader {

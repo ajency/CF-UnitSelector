@@ -206,20 +206,21 @@
                     <!-- END PAGE TITLE -->
 
                     <!-- BEGIN PlACE PAGE CONTENT HERE -->
-
+                    <div class="page-title">
+                    <h2><span class="semi-bold">Edit </span> Unit</h2>
+                    </div>
                     <div class="grid simple">
-<div class="grid-title" style="border-bottom: 1px solid #f68121;">
-    <h2><span class="semi-bold">Edit</span> Unit</h2>
-</div>
-  <div class="grid-body">
-    <h3 class="p-b-10">Plot <span class="semi-bold">Details</span></h3>
+                        <div class="grid-title no-border">
+                        <h3 > <i class="fa fa-angle-double-right text-primary"></i> Plot <span class="semi-bold">Details</span></h3>
+                        </div>
+                        <div class="grid-body no-border">
                             <form>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label">Name<span class="text-primary">*</span></label>
                                             <input type="text" class="form-control m-b-5" name="name" placeholder="Enter Name">
-                                            <div class="text-danger">* This field is required</div>
+                                           <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                                         </div> 
                                     </div>
                                    <div class="col-md-4">
@@ -231,7 +232,7 @@
                                                 <option>var 2</option>
                                                 <option>Add Variant</option>
                                             </select>
-                                            <div class="text-danger">* This field is required</div>
+                                            <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                                         </div> 
                                     </div>
                                     
@@ -245,17 +246,19 @@
                                                 <option>Not Released</option>
                                                 <option>Blocked</option>
                                             </select>
-                                            <div class="text-danger">* This field is required</div>
+                                            <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                                         </div> 
                                     </div>
                                 </div>
+                                
+                            </form>
                                 <div class="form-actions">  
                                     <div class="pull-right">
                                         <a type="submit" class="btn btn-primary btn-cons" href="plot-unit-list.html"><i class="fa fa-check"></i> Save</a>
                                         <button type="button"  class="btn btn-default btn-cons">Save And Add Another</button>
                                     </div>
                                 </div>
-                            </form>
+                            
                         </div>
                     </div>
                  <!-- END PLACE PAGE CONTENT HERE -->
@@ -299,8 +302,8 @@
         <script type="text/javascript">
             $("#unit_variant").select2();
             $("#status").select2();
-           
-
+            $("#facing").select2();
+            $("#phase").select2();
             /* Bootstrap File Input */
             $('input[type=file]').bootstrapFileInput();
             $('.file-inputs').bootstrapFileInput();

@@ -214,32 +214,27 @@
                         <div class="grid-title no-border">
                        <h3 > <i class="fa fa-angle-double-right text-primary"></i> Villa <span class="semi-bold">Details</span></h3>
                         </div>
-                       <div class="grid-body no-border">
+                       <div class="grid-body no-border prig-padding">
                             <form>
                                 <div class="row">
                                     <div class="col-md-4">
                                         <div class="form-group">
                                             <label class="form-label">Name<span class="text-primary">*</span></label>
-                                            <div class="input-with-icon  right error-control">
-                                            <i class="fa fa-exclamation"></i>
-                                            <input type="text" name="form1Name" id="form1Name" class="form-control">
-                                            </div>
+                                            <input type="text" name="form1Name" id="form1Name" class="form-control m-b-5">
+                                            <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                                             </div> 
                                     </div>
                                    <div class="col-md-4">
                                          <div class="form-group">
                                         <label class="form-label">Unit Variant<span class="text-primary">*</span></label>
-                                        
-                                        <div class="input-with-icon  right error-control">
-                                        <i class="fa fa-exclamation"></i>
-                                        <div class="select2-container select2 form-control select2-container-active" id="s2id_gendericonic"><a href="javascript:void(0)"                                         onclick="return false;" class="select2-choice" tabindex="-1">   <span class="select2-chosen">Select Unit Variant</span><abbr class                                        ="select2-search-choice-close"></abbr>   <span class="select2-arrow"><b></b></span></a>
-                                            <!-- <input class="select2-focusser select2-offscreen" type="text" id="s2id_autogen2"> --></div><select name="gendericonic" id="gendericonic" class="select2 form-control                                       select2-offscreen" tabindex="-1">
+                                        <select name="unit-variant" id="unit_variant" class="select2 form-control m-b-5" tabindex="-1">
                                                 <option value="">Select Unit Variant</option>
                                                 <option>var 1</option>
                                                 <option>var 2</option>
                                                 <option>Add New</option>
                                         </select>
-                                        </div>
+                                         <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
+                                        
                                         </div>
                                     </div>
                                     
@@ -247,27 +242,29 @@
                                         <div class="form-group">
                                         <label class="form-label">Status<span class="text-primary">*</span></label>
                                         
-                                        <div class="input-with-icon  right error-control">
-                                        <i class="fa fa-exclamation"></i>
-                                        <div class="select2-container select2 form-control select2-container-active" id="s2id_gendericonic"><a href="javascript:void(0)"                                         onclick="return false;" class="select2-choice" tabindex="-1">   <span class="select2-chosen">Select Status</span><abbr class                                        ="select2-search-choice-close"></abbr>   <span class="select2-arrow"><b></b></span></a>
-                                            <!-- <input class="select2-focusser select2-offscreen" type="text" id="s2id_autogen2"> --></div><select name="gendericonic" id="gendericonic" class="select2 form-control                                       select2-offscreen" tabindex="-1">
+                                        <select name="status" id="status" class="select2 form-control m-b-5" tabindex="-1">
                                                 <option value="">Select Status</option>
                                                 <option>Available</option>
                                                 <option>Sold</option>
                                                 <option>Not Released</option>
                                                 <option>Blocked</option>
                                         </select>
+                                         <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                                         </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="form-actions">  
+                              
+                                   
+                                </form>
+                                    <div class="form-actions">  
                                     <div class="pull-right">
                                         <a type="submit" class="btn btn-primary btn-cons" href="villa-unit-list.html"><i class="fa fa-check"></i> Save</a>
                                         <button type="button"  class="btn btn-default btn-cons">Save And Create Another</button>
                                     </div>
                                 </div>
-                            </form>
+                                </div>
+                                
+                            
                         </div>
                     </div>
                  <!-- END PLACE PAGE CONTENT HERE -->
@@ -311,8 +308,8 @@
         <script type="text/javascript">
             $("#unit_variant").select2();
             $("#status").select2();
-           
-
+            $("#phase").select2();
+            $("#facing").select2();
             /* Bootstrap File Input */
             $('input[type=file]').bootstrapFileInput();
             $('.file-inputs').bootstrapFileInput();
