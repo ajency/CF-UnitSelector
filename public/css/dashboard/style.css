@@ -8201,6 +8201,7 @@ body.rtl .footer-widget {
   width: 160px;
   height: 120px;
   overflow: hidden;
+  cursor: pointer;
 }
 .img-hover .overlay {
   position: absolute;
@@ -8477,4 +8478,3 @@ table.dataTable.no-footer {
     -o-transform: rotateZ(0deg);
   }
 }
-/*# sourceMappingURL=style.css.map */

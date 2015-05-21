@@ -10,12 +10,11 @@
 <!-- END BREADCRUMBS -->
 @endsection
 @section('content')
+ <div class="page-title">
+                    <h2>Project<span class="semi-bold"> Costs</span></h2>
+                    </div>
 <div class="grid simple">
-
-    <div class="grid-title" style="border-bottom: 1px solid #f68121 !important;">
-        <h3>Project <span class="semi-bold">Costs</span></h3>
-    </div>
-    <div class="grid-body">
+<div class="grid-body">
         <form action="{{ url('admin/project/' . $project['id'].'/costupdate') }}" method="POST" data-parsley-validate>
                 <div class="row">
                     <div class="col-md-4">

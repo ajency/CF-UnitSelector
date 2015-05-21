@@ -5,7 +5,10 @@
             <div class="grid-title no-border">
                 <div class="row">
                     <div class="col-md-4">
-                        <h3> <i class="fa fa-angle-double-right text-primary"></i> <span class="semi-bold">Google Earth</span> View</h3>
+                        <h3 class="inline"> <i class="fa fa-angle-double-right text-primary"></i> <span class="semi-bold">Google Earth</span> View</h3>
+                        &nbsp;<span  class="inline" data-toggle="popover" data-trigger="hover"
+                                data-content=" Upload Google Earth image of the project. Image dimensions should be Image size :
+                                    1600*1095. Resolution - 300 DPI."><i class="fa fa-info"></i></span>
                     </div>
                     <div class="col-md-8">
                         <div class="alert alert-error hidden">

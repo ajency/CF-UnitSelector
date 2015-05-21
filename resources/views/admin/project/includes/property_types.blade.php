@@ -53,7 +53,7 @@
                                         <select onchange="createUnitType(this,{{ $propertyTypeId }})" name="unittype[{{ $propertyTypeId }}][]" class="select2-container select2 form-control select2-container-active">
                                             <option value="">Select Unit Type</option>
                                             @foreach($defaultunitTypes[$propertyTypeId] as $defaultunitTypeId=> $defaultunitType)
-                                            <option value="{{ $defaultunitTypeId }}">{{ $defaultunitType }}</option>
+                                            <option value="{{ $defaultunitTypeId }}"> {{ $defaultunitType }}</option>
                                             @endforeach
                                             <option value="add_new">Add New</option>
                                         </select>

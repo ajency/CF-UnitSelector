@@ -20,11 +20,10 @@
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
 <div class="grid simple">
-    <div class="grid-title">
-        <h3>Villa <span class="semi-bold">Details</span></h3>
+    <div class="grid-title no-border">
+        <h3><i class="fa fa-angle-double-right text-primary"></i> Villa <span class="semi-bold">Details</span></h3>
     </div>
-
-    <div class="grid-body">
+    <div class="grid-body no-border">
         <form action="/admin/project/{{ $project['id'] }}/bunglow-variant" method="POST" data-parsley-validate>
             <div>
                 <div class="row">
