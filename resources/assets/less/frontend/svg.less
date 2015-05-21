@@ -61,12 +61,8 @@ svg {
 		  	// stroke-dasharray: 320 0;
 		  	// stroke-dashoffset: 0;
 		  	// transform: scale(1.06);
-	  		cursor: default;
-	  		stroke: #f68121;
-	  		stroke-width: 4px;
-	  		stroke-dasharray: 320 0;
-	  		stroke-dashoffset: 0;
-	  		transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
+	  		cursor: pointer;
+	  		animation: blink 0.8s ease-in-out infinite alternate;
 		}
 	}
 
@@ -139,6 +135,10 @@ svg {
 
 .marker{
 	cursor: pointer;
+}
+
+.marker-area{
+	cursor: default;
 }
 
 .step1-marker{

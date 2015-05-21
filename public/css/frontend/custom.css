@@ -1287,13 +1287,9 @@ svg .layer.not_in_selection {
   -webkit-animation: unit_fadein 0.6s;
 }
 svg .layer:hover {
-  cursor: default;
-  stroke: #f68121;
-  stroke-width: 4px;
-  stroke-dasharray: 320 0;
-  stroke-dashoffset: 0;
-  -webkit-transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
-          transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
+  cursor: pointer;
+  -webkit-animation: blink 0.8s ease-in-out infinite alternate;
+          animation: blink 0.8s ease-in-out infinite alternate;
 }
 svg .villa,
 svg .plot,
@@ -1346,6 +1342,9 @@ svg polygon {
 }
 .marker {
   cursor: pointer;
+}
+.marker-area {
+  cursor: default;
 }
 .step1-marker {
   cursor: pointer;
