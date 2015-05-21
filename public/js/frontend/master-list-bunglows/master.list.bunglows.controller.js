@@ -63,13 +63,19 @@
         return $('#' + id).tooltipster('hide');
       },
       'click': function(e) {
-        var html, id;
-        this.iniTooltip(this.model.get('id'));
-        html = this.getHtml(this.model.get('id'));
+        var id, unit;
         id = this.model.get('id');
-        $('#' + id + '.villa').attr('class', 'layer villa svg_active ' + this.model.get('status'));
-        $('#unit' + id).attr('class', 'unit blocks' + ' ' + this.model.get('status') + ' active');
-        return $('#' + id).tooltipster('content', html);
+        unit = unitCollection.findWhere({
+          id: id
+        });
+        if (!_.isUndefined(unit)) {
+          return setTimeout(function(x) {
+            CommonFloor.navigate('/unit-view/' + id, {
+              trigger: true
+            });
+            return CommonFloor.router.storeRoute();
+          }, 500);
+        }
       }
     };
 

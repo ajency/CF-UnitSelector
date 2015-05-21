@@ -167,38 +167,38 @@ CommonFloor.masterPropertyTypes = ()->
 
 	Router
 
-CommonFloor.applyVillaClasses = (classname) ->
-	$('.villa').each (ind,item)->
-		id = parseInt item.id
-		unit = unitCollection.findWhere 
-			id :  id 
+# CommonFloor.applyVillaClasses = (classname) ->
+# 	$('.villa').each (ind,item)->
+# 		id = parseInt item.id
+# 		unit = unitCollection.findWhere 
+# 			id :  id 
 		
-		if ! _.isUndefined unit 
-			availability = unit.get('availability')
-			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' , 'layer villa '+availability)
+# 		if ! _.isUndefined unit 
+# 			availability = unit.get('availability')
+# 			availability = s.decapitalize(availability)
+# 			$('#'+id).attr('class' , 'layer villa '+availability)
 			
 			
 
 
-CommonFloor.applyAptClasses = (classname) ->
-	$('.apartment').each (ind,item)->
-		id = parseInt item.id
-		unit = unitCollection.findWhere 
-			id :  id 
+# CommonFloor.applyAptClasses = (classname) ->
+# 	$('.apartment').each (ind,item)->
+# 		id = parseInt item.id
+# 		unit = unitCollection.findWhere 
+# 			id :  id 
 		
-		if ! _.isUndefined unit 
-			availability = unit.get('availability')
-			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' , 'layer apartment '+availability)
+# 		if ! _.isUndefined unit 
+# 			availability = unit.get('availability')
+# 			availability = s.decapitalize(availability)
+# 			$('#'+id).attr('class' , 'layer apartment '+availability)
 			
 			
 
 
-CommonFloor.applyPlotClasses = (classname)->
-	$('.plot').each (ind,item)->
+CommonFloor.applyAvailabilClasses = (classname)->
+	$('.layer').each (ind,item)->
 		id = parseInt item.id
-		# class_name = $('#'+id).attr('class')
+		class_name = $('#'+id).attr('class')
 		# if classname != ""
 		# 	class_name = classname
 		unit = unitCollection.findWhere 
@@ -207,7 +207,7 @@ CommonFloor.applyPlotClasses = (classname)->
 		if ! _.isUndefined unit 
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' ,'layer plot '+availability)
+			$('#'+id).attr('class' ,class_name+' '+availability)
 			
 			
 CommonFloor.randomClass = ()->

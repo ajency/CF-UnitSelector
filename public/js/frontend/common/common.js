@@ -210,47 +210,18 @@
     return Router;
   };
 
-  CommonFloor.applyVillaClasses = function(classname) {
-    return $('.villa').each(function(ind, item) {
-      var availability, id, unit;
+  CommonFloor.applyAvailabilClasses = function(classname) {
+    return $('.layer').each(function(ind, item) {
+      var availability, class_name, id, unit;
       id = parseInt(item.id);
+      class_name = $('#' + id).attr('class');
       unit = unitCollection.findWhere({
         id: id
       });
       if (!_.isUndefined(unit)) {
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        return $('#' + id).attr('class', 'layer villa ' + availability);
-      }
-    });
-  };
-
-  CommonFloor.applyAptClasses = function(classname) {
-    return $('.apartment').each(function(ind, item) {
-      var availability, id, unit;
-      id = parseInt(item.id);
-      unit = unitCollection.findWhere({
-        id: id
-      });
-      if (!_.isUndefined(unit)) {
-        availability = unit.get('availability');
-        availability = s.decapitalize(availability);
-        return $('#' + id).attr('class', 'layer apartment ' + availability);
-      }
-    });
-  };
-
-  CommonFloor.applyPlotClasses = function(classname) {
-    return $('.plot').each(function(ind, item) {
-      var availability, id, unit;
-      id = parseInt(item.id);
-      unit = unitCollection.findWhere({
-        id: id
-      });
-      if (!_.isUndefined(unit)) {
-        availability = unit.get('availability');
-        availability = s.decapitalize(availability);
-        return $('#' + id).attr('class', 'layer plot ' + availability);
+        return $('#' + id).attr('class', class_name + ' ' + availability);
       }
     });
   };

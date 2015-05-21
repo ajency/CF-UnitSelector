@@ -203,7 +203,7 @@ class ApartmentsView extends Marionette.ItemView
 
 	template : Handlebars.compile('	<div class="row">
 					                      <div class="col-sm-4  info">
-					                        <b class="bold">F1</b> - {{unit_name}} 
+					                        <b class="bold">{{floor}}</b> - {{unit_name}} 
 					                  </div>  
 					                      <div class="col-sm-3  info">
 					                        	{{unit_type}}                   
@@ -234,6 +234,7 @@ class ApartmentsView extends Marionette.ItemView
 							'id' :  @model.get('unit_type_id')
 		property = window.propertyTypes[unitType.get('property_type_id')]
 		data.property = s.capitalize(property)
+		data.floor = 'F' + @model.get('floor')
 		data
 
 	events:

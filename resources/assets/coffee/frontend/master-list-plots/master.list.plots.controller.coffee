@@ -67,15 +67,28 @@ class PlotListView extends Marionette.ItemView
 			# $('#'+id).tooltipster('hide')
 			$('#'+id).tooltipster('show')
 
+		# 'click' :(e)->
+		# 	@iniTooltip(@model.get('id'))
+		# 	html = @getHtml(@model.get('id'))
+		# 	id = @model.get('id')
+		# 	# $('.layer').attr('class','layer plot')
+		# 	# $('#'+id+'.plot').attr('class' ,'layer plot '+@model.get('status'))
+		# 	# $('#unit'+id).attr('class' ,'bldg blocks'+' '+@model.get('status')+' active')
+		# 	$('#'+id).tooltipster('content', html)
+		# 	# $('.tooltip-overlay').attr('class','tooltip-overlay')
+
 		'click' :(e)->
-			@iniTooltip(@model.get('id'))
-			html = @getHtml(@model.get('id'))
 			id = @model.get('id')
-			# $('.layer').attr('class','layer plot')
-			# $('#'+id+'.plot').attr('class' ,'layer plot '+@model.get('status'))
-			# $('#unit'+id).attr('class' ,'bldg blocks'+' '+@model.get('status')+' active')
-			$('#'+id).tooltipster('content', html)
-			# $('.tooltip-overlay').attr('class','tooltip-overlay')
+			unit = unitCollection.findWhere 
+				id :  id 
+		
+			if ! _.isUndefined unit 
+				setTimeout( (x)->
+					CommonFloor.navigate '/unit-view/'+id , trigger : true
+					CommonFloor.router.storeRoute()
+
+				, 500)
+			
 
 	iniTooltip:(id)->
 		$('#'+id).trigger('click')
