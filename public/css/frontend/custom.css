@@ -1248,7 +1248,7 @@ svg polygon {
   -webkit-transform-origin: center;
       -ms-transform-origin: center;
           transform-origin: center;
-  -moz-transform-origin: center;
+  -moz-transform-origin: 0 0;
 }
 svg .caption {
   font-size: 14px;
