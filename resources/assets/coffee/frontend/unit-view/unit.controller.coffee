@@ -166,12 +166,12 @@ class LeftUnitView extends Marionette.ItemView
 					          
 					              	{{#similarUnits}}
 					              	<div class="row m-b-15">
-					              	    <div class="col-sm-3 hidden-xs">
+					              	    <div class="col-sm-4 hidden-xs">
 				              	            <div class="alert ">
 				              	              <i class="villa-ico"></i>
 				              	            </div> 
 					              	    </div>
-					              	    <div class="col-sm-9 col-xs-12">
+					              	    <div class="col-sm-8 col-xs-12">
 			              	              	<h5><a href="/#unit-view/{{id}}">{{unit_name}}</a> <span class="text-primary pull-right"><span class="icon-rupee-icn"></span>{{price}}</span></h5>
 			              	              	<span class="text-muted">Unit Variant: </span>{{variant}}<br>
 			              	             	<span class="text-muted">Unit Type:</span> {{unit_type}}<br>
