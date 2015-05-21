@@ -624,11 +624,11 @@
         floors = Object.keys(floors).length;
         unitTypes = building.getUnitTypes(id);
         response = building.getUnitTypesCount(id, unitTypes);
-        html = '<div class="svg-info"> <div class="action-bar"> <div class="building"></div> </div> <h5 class="t m-t-0">' + buildingModel.get('building_name') + '</h5> <div class="details"> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div> <div class="details">';
+        html = '<div class="svg-info"> <div class="action-bar"> <div class="building"></div> </div> <h5 class="t m-t-0">' + buildingModel.get('building_name') + '	<label class="text-muted">( No. of floors - ' + floors + ' )</label></h5> <div class="details"> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div> <div class="details">';
         $.each(response, function(index, value) {
           return html += '' + value.name + ' (' + value.units + '),';
         });
-        html += '<div> <label>No. of floors</label> - ' + floors + '</div> <div class="text-muted text-default"> To Move Forward Click Arrow</div> </div> </div>';
+        html += '<div> </div> <div class="text-muted text-default"> To Move Forward Click Arrow</div> </div> </div>';
         $('.layer').tooltipster('content', html);
         $('#bldg' + id).attr('class', 'bldg blocks active');
         return $('#' + id).attr('class', 'layer building active_bldg');

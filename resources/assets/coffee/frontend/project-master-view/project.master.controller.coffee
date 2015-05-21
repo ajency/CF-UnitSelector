@@ -741,7 +741,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 							<div class="building"></div>
 						</div>
 
-						<h5 class="t m-t-0">'+buildingModel.get('building_name')+'</h5>
+						<h5 class="t m-t-0">'+buildingModel.get('building_name')+'	<label class="text-muted">( No. of floors - '+floors+' )</label></h5>
 						
 						<div class="details">
 							
@@ -756,7 +756,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				html +=''+value.name+' ('+value.units+'),'
 
 			html += '<div>
-						<label>No. of floors</label> - '+floors+'
+					
 					</div>
 					<div class="text-muted text-default"> To Move Forward Click Arrow</div>
 					</div>
