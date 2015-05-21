@@ -583,7 +583,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
 						<br> <br>
-						<span class="pull-right icon-cross cross"></span>
+						
 						<div class="details">
 							<div>
 								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
@@ -607,18 +607,25 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
 			
-			# $('.layer').tooltipster('content', html)
+			$('.layer').tooltipster('content', html)
 			
 			$('#'+id).webuiPopover(
 				trigger : 'click'
 				content : html
+				closeable:true
 
-			).on('show.webui.popover', (e)->
-				$(".layer").unbind('mouseenter mouseleave')
-				$('.cross').hide()
+			).on('shown.webui.popover', (e)->
+				$('.close').bind('click', (e)->
+					$('.layer').tooltipster('content', html)
+					$('.tooltip-overlay').addClass 'hidden'
+				)
+				# $(".layer").unbind('mouseenter mouseleave')
 				$('.layer').tooltipster('hide')
 				$('.tooltip-overlay').removeClass 'hidden'
-				)
+			)
+			
+			
+			
 			
 		
 		'mouseover .plot':(e)->
@@ -854,6 +861,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				that.loadZoom()
 				# CommonFloor.randomClass()
 				CommonFloor.applyFliterClass()
+
 			).addClass('active').removeClass('inactive')
 
 		)
