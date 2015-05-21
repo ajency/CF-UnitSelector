@@ -76,14 +76,17 @@
         buildingModel = buildingCollection.findWhere({
           'id': id
         });
-        CommonFloor.filterBuilding(id);
-        if (Object.keys(buildingModel.get('building_master')).length === 0) {
-          CommonFloor.navigate('/building/' + id + '/apartments', true);
-          return CommonFloor.router.storeRoute();
-        } else {
-          CommonFloor.navigate('/building/' + id + '/master-view', true);
-          return CommonFloor.router.storeRoute();
-        }
+        $('.spritespin-canvas').addClass('zoom');
+        $('.us-left-content').addClass('animated fadeOut');
+        return setTimeout(function(x) {
+          if (Object.keys(buildingModel.get('building_master')).length === 0) {
+            CommonFloor.navigate('/building/' + id + '/apartments', true);
+            return CommonFloor.router.storeRoute();
+          } else {
+            CommonFloor.navigate('/building/' + id + '/master-view', true);
+            return CommonFloor.router.storeRoute();
+          }
+        }, 500);
       }
     };
 

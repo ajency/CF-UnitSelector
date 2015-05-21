@@ -943,7 +943,7 @@ hr.embossed {
   position: relative;
 }
 #spritespin,
-.svg-maps div {
+.svg-maps svg {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -1357,6 +1357,16 @@ svg polygon {
   -webkit-animation: blink 0.5s ease-in-out infinite alternate;
           animation: blink 0.5s ease-in-out infinite alternate;
   -moz-animation: blink 0.5s ease-in-out infinite alternate;
+}
+.svg-area {
+  height: 0;
+  padding-top: 50%;
+  position: relative;
+}
+.svg-area svg {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 @-webkit-keyframes pulse {
   0% {

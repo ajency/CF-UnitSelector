@@ -58,7 +58,8 @@ class BunglowListView extends Marionette.ItemView
 			$('#unit'+id).attr('class' ,'unit blocks'+' '+@model.get('status')+' active')
 			$('#'+id).tooltipster('content', html)
 			$('#'+id).tooltipster('show')
-		
+			
+	
 			
 			
 		'mouseout':(e)->
@@ -70,13 +71,40 @@ class BunglowListView extends Marionette.ItemView
 			
 
 		'click' :(e)->
-			@iniTooltip(@model.get('id'))
-			html = @getHtml(@model.get('id'))
 			id = @model.get('id')
-			# $('.tooltip-overlay').attr('class','tooltip-overlay')
-			$('#'+id+'.villa').attr('class' ,'layer villa svg_active '+@model.get('status'))
-			$('#unit'+id).attr('class' ,'unit blocks'+' '+@model.get('status')+' active')
-			$('#'+id).tooltipster('content', html)
+			unit = unitCollection.findWhere 
+				id :  id 
+		
+			if ! _.isUndefined unit 
+				setTimeout( (x)->
+					CommonFloor.navigate '/unit-view/'+id , trigger : true
+					CommonFloor.router.storeRoute()
+
+				, 500)
+
+			# html = @getHtml(@model.get('id'))
+			# id = @model.get('id')
+			# $('#'+id+'.villa').attr('class' ,'layer villa svg_active '+@model.get('status'))
+			# $('#unit'+id).attr('class' ,'unit blocks'+' '+@model.get('status')+' active')
+			# $('#'+id).webuiPopover(
+			# 	trigger : 'manual'
+			# 	content : html
+			# 	closeable:true
+			# 	placement : 'top'
+
+			# )
+			# $('#'+id).webuiPopover('show')
+			# # $('#'+id).webuiPopover().on('shown.webui.popover', (e)->
+
+			# # 	$('.close').bind('click', (e)->
+			# # 		$('.layer').tooltipster('content', html)
+			# # 		$('.tooltip-overlay').addClass 'hidden'
+			# # 	)
+			# # 	$('.layer').tooltipster('hide')
+			# # 	$('.tooltip-overlay').removeClass 'hidden'
+			# # )
+			
+			
 			
 			
 
@@ -130,6 +158,7 @@ class BunglowListView extends Marionette.ItemView
 			html +='<div class="circle">
 						<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
 					</div> 
+					<div class="text-muted text-default"> To Move Forward Click Arrow</div>
 				</div>'
 		else
 			html += '</div>'

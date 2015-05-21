@@ -210,47 +210,32 @@
     return Router;
   };
 
-  CommonFloor.applyVillaClasses = function(classname) {
-    return $('.villa').each(function(ind, item) {
-      var availability, id, unit;
+  CommonFloor.applyAvailabilClasses = function(classname) {
+    $('.layer').each(function(ind, item) {
+      var availability, class_name, id, unit;
       id = parseInt(item.id);
+      class_name = $('#' + id).attr('class');
       unit = unitCollection.findWhere({
         id: id
       });
       if (!_.isUndefined(unit)) {
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        return $('#' + id).attr('class', 'layer villa ' + availability);
+        return $('#' + id).attr('class', class_name + ' ' + availability);
       }
     });
-  };
-
-  CommonFloor.applyAptClasses = function(classname) {
-    return $('.apartment').each(function(ind, item) {
-      var availability, id, unit;
+    return $('.building').each(function(ind, item) {
+      var class_name, id, unit;
       id = parseInt(item.id);
-      unit = unitCollection.findWhere({
-        id: id
+      class_name = $('#' + id).attr('class');
+      unit = unitCollection.where({
+        'building_id': id,
+        'availability': 'available'
       });
-      if (!_.isUndefined(unit)) {
-        availability = unit.get('availability');
-        availability = s.decapitalize(availability);
-        return $('#' + id).attr('class', 'layer apartment ' + availability);
-      }
-    });
-  };
-
-  CommonFloor.applyPlotClasses = function(classname) {
-    return $('.plot').each(function(ind, item) {
-      var availability, id, unit;
-      id = parseInt(item.id);
-      unit = unitCollection.findWhere({
-        id: id
-      });
-      if (!_.isUndefined(unit)) {
-        availability = unit.get('availability');
-        availability = s.decapitalize(availability);
-        return $('#' + id).attr('class', 'layer plot ' + availability);
+      if (unit.length > 0) {
+        return $('#' + id).attr('class', class_name + ' available');
+      } else {
+        return $('#' + id).attr('class', class_name + ' sold');
       }
     });
   };
@@ -338,7 +323,7 @@
   CommonFloor.applyFliterClass = function() {
     var actualbuildings, actualunits, filterbuildings, filterunits, flag, notSelecteUnits, notSelectebuildings;
     actualunits = _.pluck(unitMasterCollection.toArray(), 'id');
-    filterunits = _.pluck(unitCollection.toArray(), 'id');
+    console.log(filterunits = _.pluck(unitCollection.toArray(), 'id'));
     notSelecteUnits = _.difference(actualunits, filterunits);
     actualbuildings = _.pluck(buildingMasterCollection.toArray(), 'id');
     filterbuildings = _.pluck(buildingCollection.toArray(), 'id');
