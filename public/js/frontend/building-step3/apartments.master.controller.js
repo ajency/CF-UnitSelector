@@ -276,7 +276,8 @@
         var id;
         id = this.model.get('id');
         $('#apartment' + id).attr('class', 'unit blocks ' + this.model.get('availability'));
-        return $('#' + id).attr('class', 'layer apartment ' + this.model.get('availability'));
+        $('#' + id).attr('class', 'layer apartment ' + this.model.get('availability'));
+        return $('#' + id).tooltipster('hide');
       },
       'click': function(e) {
         if (this.model.get('availability') === 'available') {
