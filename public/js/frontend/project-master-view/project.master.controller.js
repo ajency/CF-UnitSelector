@@ -557,7 +557,6 @@
         }
         $('#' + id).attr('class', 'layer villa  ' + availability);
         $('#unit' + id).attr('class', 'unit blocks active');
-        $('.layer').tooltipster('content', html);
         return $('#' + id).webuiPopover({
           trigger: 'click',
           content: html
@@ -739,7 +738,6 @@
           CommonFloor.applyVillaClasses();
           CommonFloor.applyPlotClasses();
           that.loadZoom();
-          CommonFloor.randomClass();
           return CommonFloor.applyFliterClass();
         }).addClass('active').removeClass('inactive');
       });

@@ -607,7 +607,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks active') 
 			
-			$('.layer').tooltipster('content', html)
+			# $('.layer').tooltipster('content', html)
 			
 			$('#'+id).webuiPopover(
 				trigger : 'click'
@@ -852,7 +852,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				CommonFloor.applyVillaClasses()
 				CommonFloor.applyPlotClasses()
 				that.loadZoom()
-				CommonFloor.randomClass()
+				# CommonFloor.randomClass()
 				CommonFloor.applyFliterClass()
 			).addClass('active').removeClass('inactive')
 
