@@ -55,7 +55,8 @@
         id = this.model.get('id');
         $('#' + id + '.building').attr('class', 'layer building svg_active');
         $('#bldg' + id).attr('class', 'bldg blocks active');
-        return $('#' + id).tooltipster('content', html);
+        $('#' + id).tooltipster('content', html);
+        return $('#' + id).tooltipster('show');
       },
       'mouseout': function(e) {
         var id;

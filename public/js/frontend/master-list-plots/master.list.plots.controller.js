@@ -50,19 +50,20 @@
     PlotListView.prototype.events = {
       'mouseover': function(e) {
         var html, id;
-        this.iniTooltip(this.model.get('id'));
         html = this.getHtml(this.model.get('id'));
         id = this.model.get('id');
         $('.layer').attr('class', 'layer plot');
         $('#' + id + '.plot').attr('class', 'layer plot svg_active ' + this.model.get('status'));
         $('#unit' + id).attr('class', 'bldg blocks' + ' ' + this.model.get('status') + ' active');
-        return $('#' + id).tooltipster('content', html);
+        $('#' + id).tooltipster('content', html);
+        return $('#' + id).tooltipster('show');
       },
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
+        $('#' + id + '.villa').attr('class', 'layer plot ' + this.model.get('status'));
         $('#unit' + id).attr('class', 'bldg blocks' + ' ' + this.model.get('status'));
-        return $('#' + id).tooltipster('show');
+        return $('#' + id).tooltipster('hide');
       },
       'click': function(e) {
         var html, id;

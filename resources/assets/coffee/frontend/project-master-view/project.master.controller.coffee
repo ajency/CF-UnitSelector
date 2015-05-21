@@ -582,7 +582,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 			response = window.unit.getUnitDetails(id)
-			window.convertRupees(response[3])
+			price = window.numDifferentiation(response[3])
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			html = ""
@@ -600,7 +600,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 							</div>
 							<div>
-								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
+								Starting Price <span class="text-primary">'+price+'</span>
 							</div> 
 							 <div class="text-muted text-default"> To Move Forward Click Arrow</div>
 						</div>'
@@ -672,7 +672,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			
 
 			response = window.unit.getUnitDetails(id)
-			window.convertRupees(response[3])
+			price = window.numDifferentiation(response[3])
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			html = ""
@@ -692,7 +692,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 							</div>
 							<div>
-								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
+								Starting Price <span class="text-primary">'+price+'</span>
 							</div> 
 							 <div class="text-muted text-default"> To Move Forward Click Arrow</div>
 						</div>'
@@ -736,7 +736,16 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			floors = Object.keys(floors).length
 			unitTypes = building.getUnitTypes(id)
 			response = building.getUnitTypesCount(id,unitTypes)
-			html = '<div class="svg-info">
+			minprice = building.getMinimumCost(id)
+			price = window.numDifferentiation(minprice)
+			unit = unitCollection.where 
+				'building_id' :  id 
+				'availability' : 'available'
+			if unit.length > 0 
+				availability = ' available'
+			else
+				availability = ' sold'
+			html = '<div class="svg-info '+availability+' ">
 						<div class="action-bar">
 							<div class="building"></div>
 						</div>
@@ -746,7 +755,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						<div class="details">
 							
 							<div>
-								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
+								Starting Price <span class="text-primary">'+price+'</span>
 							</div> 
 
 						</div>

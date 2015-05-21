@@ -52,20 +52,22 @@ class PlotListView extends Marionette.ItemView
 	events:
 
 		'mouseover' :(e)->
-			@iniTooltip(@model.get('id'))
+			# @iniTooltip(@model.get('id'))
 			html = @getHtml(@model.get('id'))
 			id = @model.get('id')
 			$('.layer').attr('class','layer plot')
 			$('#'+id+'.plot').attr('class' ,'layer plot svg_active '+@model.get('status'))
 			$('#unit'+id).attr('class' ,'bldg blocks'+' '+@model.get('status')+' active')
 			$('#'+id).tooltipster('content', html)
+			$('#'+id).tooltipster('show')
 			
 			
 		'mouseout':(e)->
 			id = @model.get('id')
+			$('#'+id+'.villa').attr('class' ,'layer plot '+@model.get('status'))
 			$('#unit'+id).attr('class' , 'bldg blocks'+' '+@model.get('status'))
-			# $('#'+id).tooltipster('hide')
-			$('#'+id).tooltipster('show')
+			$('#'+id).tooltipster('hide')
+			# $('#'+id).tooltipster('show')
 
 		'click' :(e)->
 			@iniTooltip(@model.get('id'))

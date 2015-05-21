@@ -208,7 +208,7 @@ class ApartmentsView extends Marionette.ItemView
 					                  </div>  
 
 					                      <div class="col-sm-3  info">
-					                        	{{unit_type}}                   
+					                        	{{unit_type}}
 					                      </div> 
 					                       <div class="col-sm-5 text-primary">
 					                          <!--<span class="icon-rupee-icn"></span>-->{{price}} <!--<span class="tick"></span>-->
@@ -251,6 +251,7 @@ class ApartmentsView extends Marionette.ItemView
 		'mouseout':(e)->
 			id = @model.get 'id'
 			$('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability'))
+			$('#'+id).attr('class' ,'layer apartment '+@model.get('availability'))
 
 		'click':(e)->
 			if @model.get('availability') == 'available'
