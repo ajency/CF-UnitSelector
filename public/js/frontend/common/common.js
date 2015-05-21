@@ -652,11 +652,8 @@
             }
           }
           if (value !== "" && ind === 'unitTypes' && $.inArray(parseInt(value), apartmentVariantMasterCollection.getApartmentUnitTypes()) > -1) {
-            unit_variant = apartmentVariantMasterCollection.findWhere({
-              'id': parseInt(value)
-            });
             unit_type = unitTypeMasterCollection.findWhere({
-              'id': parseInt(unit_variant.get('unit_type_id'))
+              'id': parseInt(value)
             });
             type = 'A';
             if (window.propertyTypes[unit_type.get('property_type_id')] === 'Penthouse') {
