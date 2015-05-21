@@ -30,7 +30,7 @@ class BunglowListView extends Marionette.ItemView
 		status = s.decapitalize(availability)
 		@model.set 'status' , status
 		window.convertRupees(response[3])
-		data.price = $('#price').val()
+		data.price = window.numDifferentiation(response[3])
 		data
 
 

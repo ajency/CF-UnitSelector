@@ -252,6 +252,7 @@ class ApartmentsView extends Marionette.ItemView
 			id = @model.get 'id'
 			$('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability'))
 			$('#'+id).attr('class' ,'layer apartment '+@model.get('availability'))
+			$('#'+id).tooltipster('hide')
 
 		'click':(e)->
 			if @model.get('availability') == 'available'
