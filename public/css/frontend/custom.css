@@ -943,7 +943,7 @@ hr.embossed {
   position: relative;
 }
 #spritespin,
-.svg-maps div {
+.svg-maps svg {
   position: absolute;
   top: 0px;
   left: 0px;
