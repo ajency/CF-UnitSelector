@@ -491,7 +491,7 @@
         }
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        $('#' + id).attr('class', 'layer apartment');
+        $('#' + id).attr('class', 'layer apartment ' + availability);
         return $('#apartment' + id).attr('class', 'unit blocks ' + availability);
       },
       'mouseover .next': function(e) {
