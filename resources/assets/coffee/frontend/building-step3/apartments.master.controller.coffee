@@ -289,6 +289,9 @@ class ApartmentsView extends Marionette.ItemView
 		availability = s.decapitalize(availability)
 		html = ""
 		html += '<div class="svg-info">
+					<div class="action-bar">
+									<div class="apartment"></div>
+								</div>
 					<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
 					<!--<span class="label label-success"></span-->
 					<div class="clearfix"></div>

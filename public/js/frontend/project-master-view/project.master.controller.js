@@ -463,7 +463,7 @@
           }, 500);
         }
       },
-      'click .plot': function(e) {
+      'click .plotdgddh': function(e) {
         var id, unit;
         id = parseInt(e.target.id);
         unit = unitCollection.findWhere({

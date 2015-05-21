@@ -503,7 +503,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			# $('#'+id).webuiPopover('show')
 			
 
-		'click .plot':(e)->
+		'click .plotdgddh':(e)->
 			id = parseInt e.target.id
 			unit = unitCollection.findWhere 
 				id :  id 
@@ -803,7 +803,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 			html += '<div class="text-muted text-default">Click arrow to move forward</div>
 				</div></div>'
-				
+
 			$('.layer').tooltipster('content', html)
 			$('#bldg'+id).attr('class' ,'bldg blocks active') 
 			$('#'+id).attr('class' ,'layer building active_bldg')

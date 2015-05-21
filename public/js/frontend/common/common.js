@@ -298,8 +298,8 @@
     if (CommonFloor.defaults['floor_max'] !== "") {
       CommonFloor.filterFloor();
     }
-    CommonFloor.applyFliterClass();
-    return CommonFloor.resetCollections();
+    CommonFloor.resetCollections();
+    return CommonFloor.applyFliterClass();
   };
 
   CommonFloor.resetProperyType = function(param) {
@@ -348,9 +348,7 @@
     return $('.building').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
-      console.log(apartmentVariantMasterCollection.length);
-      console.log(apartmentVariantCollection.length);
-      if ($.inArray(id, filterbuildings) > -1 && apartmentVariantMasterCollection.length !== apartmentVariantCollection.length) {
+      if ($.inArray(id, filterbuildings) > -1 && apartmentVariantMasterCollection.length !== apartmentVariantCollection.length && apartmentVariantCollection.length !== 0) {
         return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
       } else {
         return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
@@ -638,7 +636,7 @@
                 'id': parseInt(value)
               });
               unitTypeModel = unitTypeMasterCollection.findWhere({
-                'id': parseInt(unit_variant.get('id'))
+                'id': parseInt(unit_variant.get('unit_type_id'))
               });
               type = 'A';
               if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouse') {
@@ -654,8 +652,11 @@
             }
           }
           if (value !== "" && ind === 'unitTypes' && $.inArray(parseInt(value), apartmentVariantMasterCollection.getApartmentUnitTypes()) > -1) {
-            unit_type = unitTypeMasterCollection.findWhere({
+            unit_variant = apartmentVariantMasterCollection.findWhere({
               'id': parseInt(value)
+            });
+            unit_type = unitTypeMasterCollection.findWhere({
+              'id': parseInt(unit_variant.get('unit_type_id'))
             });
             type = 'A';
             if (window.propertyTypes[unit_type.get('property_type_id')] === 'Penthouse') {
