@@ -615,6 +615,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						<div class="details">
 							<div class="text-muted text-default">Click arrow to move forward</div>
 						</div>
+
 					</div>'
 			else
 				html += '</div>'
@@ -710,6 +711,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						<div class="details">
 							<div class="text-muted text-default">Click arrow to move forward</div>
 						</div>
+
 					</div>'
 			else
 				html += '</div>'
@@ -798,10 +800,10 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$.each response,(index,value)->
 				html +=''+value.name+' ('+value.units+'),'
 
-			html += '<div class="text-muted text-default">Click arrow to move forward</div>
-					</div>
 
-					</div>'
+			html += '<div class="text-muted text-default">Click arrow to move forward</div>
+				</div></div>'
+				
 			$('.layer').tooltipster('content', html)
 			$('#bldg'+id).attr('class' ,'bldg blocks active') 
 			$('#'+id).attr('class' ,'layer building active_bldg')

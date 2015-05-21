@@ -629,7 +629,7 @@
         $.each(response, function(index, value) {
           return html += '' + value.name + ' (' + value.units + '),';
         });
-        html += '<div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
+        html += '<div class="text-muted text-default">Click arrow to move forward</div> </div></div>';
         $('.layer').tooltipster('content', html);
         $('#bldg' + id).attr('class', 'bldg blocks active');
         return $('#' + id).attr('class', 'layer building active_bldg');

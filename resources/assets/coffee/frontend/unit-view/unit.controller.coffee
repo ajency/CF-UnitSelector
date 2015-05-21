@@ -166,13 +166,18 @@ class LeftUnitView extends Marionette.ItemView
 					          
 					              	{{#similarUnits}}
 					              	<div class="row m-b-15">
-					              	    <div class="col-sm-3 hidden-xs">
+					              	    <div class="col-sm-4 hidden-xs">
 				              	            <div class="alert ">
 				              	              <i class="villa-ico"></i>
 				              	            </div> 
 					              	    </div>
+<<<<<<< HEAD
+					              	    <div class="col-sm-8 col-xs-12">
+			              	              	<h5><a href="/#unit-view/{{id}}">{{unit_name}}</a> <span class="text-primary pull-right"><span class="icon-rupee-icn"></span>{{price}}</span></h5>
+=======
 					              	    <div class="col-sm-9 col-xs-12">
 			              	              	<h5><a href="'+BASEURL+'/'+PROJECTID+'/#unit-view/{{id}}">{{unit_name}}</a> <span class="text-primary pull-right"><span class="icon-rupee-icn"></span>{{price}}</span></h5>
+>>>>>>> 3bf9a7cef4b2727b1e3814cee004adaf355db5c2
 			              	              	<span class="text-muted">Unit Variant: </span>{{variant}}<br>
 			              	             	<span class="text-muted">Unit Type:</span> {{unit_type}}<br>
 			              	             	<span class="text-muted"> Area:</span> {{area}} sqft     
@@ -284,7 +289,7 @@ class CommonFloor.LeftUnitCtrl extends Marionette.RegionController
 class CenterUnitView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 col-sm-12 col-xs-12 us-right-content unit-slides animated fadeIn">
-						<div class="svg-area">
+						<div class="">
 							<div class="liquid-slider slider" id="slider-id">
 								<div class="ls-wrapper ls-responsive">
 									<div class="ls-nav">
@@ -379,7 +384,7 @@ class CenterUnitView extends Marionette.ItemView
 			response = @generateLevels()
 			html = ''
 			html += '<div class="animated fadeIn">
-						<img class="img" data-src="'+response[3].get('external3durl')+'" />
+						<img class="img img-responsive" data-src="'+response[3].get('external3durl')+'" />
 					</div>'
 			$('.images').html html
 			$('.img').lazyLoadXT()
@@ -464,7 +469,7 @@ class CenterUnitView extends Marionette.ItemView
 
 				
 		if ! _.isUndefined(response[3].get('external3durl'))
-			html = '<img class="img lazy-hidden"  data-src="'+response[3].get('external3durl')+'" />'
+			html = '<img class="img lazy-hidden img-responsive"  data-src="'+response[3].get('external3durl')+'" />'
 			$('.images').html html
 			$('.external').addClass('current')
 			$('.threeD').removeClass('current')
