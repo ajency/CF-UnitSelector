@@ -306,18 +306,31 @@
 	}
 }
 .one{
+.onview:before{
+				  background: @white;
+				  content: "NOT IN VIEW";
+				  color: #888;
+				  position: absolute;
+				  width: 91%;
+				  text-align: center;
+				  z-index: 99;
+				  -webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
+			
+			}
+.onview:hover:before{
+				 
+				 opacity: 0;
+			
+			}
 	.blocks{
 		padding: 10px 10px;
 		width: 100%;
 		margin-right: 0;
 		border-right: none;
-		.tick{
-				background:url(../../images/tick.png)no-repeat;
-				width:23px;
-				height:24px;
-				display: inline-block;
-  				float: right;
-			}
+		  position: relative;
 		&.bldg{
 			.bldg-img{
 				display: none;
