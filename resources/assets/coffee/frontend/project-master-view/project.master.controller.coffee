@@ -37,7 +37,7 @@ class TopMasterView extends Marionette.ItemView
 														<h1 class="pull-left">{{count.length}}</h1><p class="pull-left">{{type}}</p> 
 														{{/types}}
 													</div>
-													<div class="pull-left filter-result">
+													<div class="pull-left filter-result full">
 														{{#each  filters}}
 														{{#each this}}
 														<div class="filter-pill"  >
@@ -612,8 +612,10 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			if availability == 'available'
 				html +='<div class="circle">
 							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
-						</div> 
-						<div class="text-muted text-default"> To Move Forward Click Arrow</div>
+						</div>
+						<div class="details">
+							<div class="text-muted text-default"> To Move Forward Click Arrow</div>
+						</div>
 					</div>'
 			else
 				html += '</div>'
@@ -705,8 +707,10 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			if availability == 'available'
 				html +='<div class="circle">
 							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
-						</div> 
-						<div class="text-muted text-default"> To Move Forward Click Arrow</div>
+						</div>
+						<div class="details">
+							<div class="text-muted text-default"> To Move Forward Click Arrow</div>
+						</div>
 					</div>'
 			else
 				html += '</div>'
@@ -783,10 +787,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$.each response,(index,value)->
 				html +=''+value.name+' ('+value.units+'),'
 
-			html += '<div>
-					
-					</div>
-					<div class="text-muted text-default"> To Move Forward Click Arrow</div>
+			html += '<div class="text-muted text-default"> To Move Forward Click Arrow</div>
 					</div>
 
 					</div>'
