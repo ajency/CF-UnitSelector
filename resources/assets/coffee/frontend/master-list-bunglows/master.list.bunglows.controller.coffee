@@ -151,7 +151,7 @@ class BunglowListView extends Marionette.ItemView
 						<div>
 							Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 						</div> 
-						<div class="text-muted text-default"> To Move Forward Click Arrow</div>
+						
 					</div>'
 
 		if availability == 'available'

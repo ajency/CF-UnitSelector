@@ -123,7 +123,7 @@ class ListItemView extends Marionette.ItemView
 						<div>
 							<label>'+value.name+'</label> - '+value.units+'
 						</div>
-						<div class="text-muted text-default"> To Move Forward Click Arrow</div>
+						
 						</div>'
 		$('.layer').tooltipster('content', html)
 		$('#bldg'+id).attr('class' ,'bldg blocks active') 

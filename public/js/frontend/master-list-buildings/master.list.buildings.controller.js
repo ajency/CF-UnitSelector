@@ -113,7 +113,7 @@
       response = building.getUnitTypesCount(id, unitTypes);
       html = '<div class="svg-info"> <h4 class="pull-left">' + buildingModel.get('building_name') + ' <label class="text-muted">( No. of floors - ' + floors + ' )</label></h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div>';
       $.each(response, function(index, value) {
-        return html += '<div class="details"> <div> <label>' + value.name + '</label> - ' + value.units + '</div> <div class="text-muted text-default"> To Move Forward Click Arrow</div> </div>';
+        return html += '<div class="details"> <div> <label>' + value.name + '</label> - ' + value.units + '</div> </div>';
       });
       $('.layer').tooltipster('content', html);
       $('#bldg' + id).attr('class', 'bldg blocks active');
