@@ -573,7 +573,7 @@
         return $('#' + id).tooltipster('content', html);
       },
       'mouseover .building': function(e) {
-        var buildingModel, floors, html, id, response, unitTypes;
+        var availability, buildingModel, floors, html, id, response, unit, unitTypes;
         id = parseInt(e.target.id);
         buildingModel = buildingCollection.findWhere({
           'id': id
@@ -587,7 +587,16 @@
         floors = Object.keys(floors).length;
         unitTypes = building.getUnitTypes(id);
         response = building.getUnitTypesCount(id, unitTypes);
-        html = '<div class="svg-info"> <div class="action-bar"> <div class="building"></div> </div> <h5 class="t m-t-0">' + buildingModel.get('building_name') + '	<label class="text-muted">( No. of floors - ' + floors + ' )</label></h5> <div class="details"> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div> <div class="details">';
+        unit = unitCollection.where({
+          'building_id': id,
+          'availability': 'available'
+        });
+        if (unit.length > 0) {
+          availability = ' available';
+        } else {
+          availability = ' sold';
+        }
+        html = '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="building"></div> </div> <h5 class="t m-t-0">' + buildingModel.get('building_name') + '	<label class="text-muted">( No. of floors - ' + floors + ' )</label></h5> <div class="details"> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div> <div class="details">';
         $.each(response, function(index, value) {
           return html += '' + value.name + ' (' + value.units + '),';
         });

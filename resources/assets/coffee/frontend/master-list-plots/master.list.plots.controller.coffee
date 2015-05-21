@@ -52,7 +52,7 @@ class PlotListView extends Marionette.ItemView
 	events:
 
 		'mouseover' :(e)->
-			@iniTooltip(@model.get('id'))
+			# @iniTooltip(@model.get('id'))
 			html = @getHtml(@model.get('id'))
 			id = @model.get('id')
 			$('.layer').attr('class','layer plot')

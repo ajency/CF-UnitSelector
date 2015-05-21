@@ -216,10 +216,8 @@ CommonFloor.applyAvailabilClasses = (classname)->
 			'building_id' :  id 
 			'availability' : 'available'
 		if unit.length > 0 
-			console.log "Aaaaaaaaaa"
 			$('#'+id).attr('class' ,class_name+' available')
 		else
-			console.log "aaaaaaaa"
 			$('#'+id).attr('class' ,class_name+' sold')
 			
 			

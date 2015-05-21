@@ -233,10 +233,8 @@
         'availability': 'available'
       });
       if (unit.length > 0) {
-        console.log("Aaaaaaaaaa");
         return $('#' + id).attr('class', class_name + ' available');
       } else {
-        console.log("aaaaaaaa");
         return $('#' + id).attr('class', class_name + ' sold');
       }
     });

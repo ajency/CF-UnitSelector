@@ -50,7 +50,6 @@
     PlotListView.prototype.events = {
       'mouseover': function(e) {
         var html, id;
-        this.iniTooltip(this.model.get('id'));
         html = this.getHtml(this.model.get('id'));
         id = this.model.get('id');
         $('.layer').attr('class', 'layer plot');
