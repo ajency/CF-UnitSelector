@@ -168,12 +168,8 @@ CommonFloor.masterPropertyTypes = ()->
 	Router
 
 CommonFloor.applyVillaClasses = (classname) ->
-	console.log "aaaaaa"
 	$('.villa').each (ind,item)->
 		id = parseInt item.id
-		# class_name = $('#'+id).attr('class')
-		# if classname != undefined
-		# 	class_name = classname
 		unit = unitCollection.findWhere 
 			id :  id 
 		
@@ -188,9 +184,6 @@ CommonFloor.applyVillaClasses = (classname) ->
 CommonFloor.applyAptClasses = (classname) ->
 	$('.apartment').each (ind,item)->
 		id = parseInt item.id
-		# class_name = $('#'+id).attr('class')
-		# if classname != undefined
-		# 	class_name = classname
 		unit = unitCollection.findWhere 
 			id :  id 
 		

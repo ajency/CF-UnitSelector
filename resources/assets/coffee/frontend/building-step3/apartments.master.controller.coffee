@@ -308,7 +308,7 @@ class CommonFloor.LeftApartmentMasterCtrl extends Marionette.RegionController
 class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 
-	template : Handlebars.compile('<div class="col-md-12 us-right-content mobile visible animated fadeIn">
+	template : Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn overflow-h">
 
 										<div class="legend clearfix">
 										  <ul>
