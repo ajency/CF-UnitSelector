@@ -208,6 +208,17 @@ CommonFloor.applyAvailabilClasses = (classname)->
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			$('#'+id).attr('class' ,class_name+' '+availability)
+
+	$('.building').each (ind,item)->
+		id = parseInt item.id
+		class_name = $('#'+id).attr('class')
+		unit = unitCollection.where 
+			'building_id' :  id 
+			'availability' : 'available'
+		if unit.length > 0 
+			$('#'+id).attr('class' ,class_name+' available')
+		else
+			$('#'+id).attr('class' ,class_name+' sold')
 			
 			
 CommonFloor.randomClass = ()->
@@ -290,11 +301,8 @@ CommonFloor.resetProperyType = (param)->
 
 
 CommonFloor.applyFliterClass = ()->
-	# CommonFloor.applyPlotClasses()
-	# CommonFloor.applyVillaClasses()
-	# CommonFloor.applyAptClasses()
 	actualunits = _.pluck unitMasterCollection.toArray() ,'id'
-	filterunits = _.pluck unitCollection.toArray() ,'id'
+	console.log filterunits = _.pluck unitCollection.toArray() ,'id'
 	notSelecteUnits = _.difference actualunits , filterunits
 	actualbuildings = _.pluck buildingMasterCollection.toArray() ,'id'
 	filterbuildings = _.pluck buildingCollection.toArray() ,'id'

@@ -240,17 +240,67 @@ class ApartmentsView extends Marionette.ItemView
 	events:
 		'mouseover':(e)->
 			id = @model.get 'id'
+			html = @getHtml(@model.get('id'))
 			$('#'+id).attr('class' ,'layer apartment '+@model.get('availability'))
 			$('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability')+' active')
+			$('#'+id).tooltipster('content', html)
+			$('#'+id).tooltipster('show')
+
 		'mouseout':(e)->
 			id = @model.get 'id'
-			# $('#'+id).attr('class' ,'layer apartment')
 			$('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability'))
 
 		'click':(e)->
 			if @model.get('availability') == 'available'
 				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
 				CommonFloor.router.storeRoute()
+
+	getHtml:(id)->
+		html = ""
+		id = parseInt e.target.id
+		unit = unitCollection.findWhere
+				'id' : id
+		unitMaster = unitMasterCollection.findWhere 
+			id :  id 
+		if unit is undefined && unitMaster != undefined
+			html = '<div class="svg-info">
+						<div class="details empty">
+							Not in selection
+						</div>  
+					</div>'
+			$('.layer').tooltipster('content', html)
+			return 
+		if unit is undefined
+			html = '<div class="svg-info">
+						<div class="details">
+							Apartment details not entered 
+						</div>  
+					</div>'
+			$('.layer').tooltipster('content', html)
+			return false
+
+		response = window.unit.getUnitDetails(id)
+		window.convertRupees(response[3])
+		availability = unit.get('availability')
+		availability = s.decapitalize(availability)
+		html = ""
+		html += '<div class="svg-info">
+					<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
+					<!--<span class="label label-success"></span-->
+					<div class="clearfix"></div>
+					<div class="details">
+						<div>
+							<label>Area</label> - '+response[0].get('super_built_up_area')+' Sq.ft
+						</div> 
+						<div>
+							<label>Unit Type </label> - '+response[1].get('name')+'
+						</div>
+						<div>
+							<label>Price </label> - '+$('#price').val()+'
+						</div>  
+					</div>  
+				</div>'
+		html
 
 	onShow:->
 		id = @model.get 'id'
@@ -546,8 +596,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$('.region').load(first[0],()->
 				$('.first_image').attr('data-src',transitionImages[0])
 				that.iniTooltip()
-				CommonFloor.applyAptClasses()
-				).addClass('active').removeClass('inactive')
+				CommonFloor.applyAvailabilClasses()
+				CommonFloor.randomClass()
+				CommonFloor.applyFliterClass()
+				that.loadZoom()).addClass('active').removeClass('inactive')
 		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
 			response = building.checkRotationView(building_id)
@@ -576,8 +628,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('.project_master').load(first[0],()->
 				$('.firstimage').attr('src',transitionImages[0])
 				url = Backbone.history.fragment
-				console.log building_id = url.split('/')[1]
-				console.log $('#'+building_id+'.building')
+				building_id = url.split('/')[1]
 				$('#'+building_id+'.building').attr('class' ,'layer building svg_active'))
 		
 
@@ -592,7 +643,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('.next').hide()
 		else
 			$('.next').attr('data-id',next.get('id'))
-		console.log prev = buildingMasterCollection.prev()
+		prev = buildingMasterCollection.prev()
 		if _.isUndefined prev
 			$('.prev').hide()
 		else
@@ -635,7 +686,12 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			data = api.data
 			if data.frame is data.stopFrame
 				url = svgs[data.frame]
-				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyAptClasses()).addClass('active').removeClass('inactive')
+				$('.region').load(url,()->
+					that.iniTooltip()
+					CommonFloor.applyAvailabilClasses()
+					CommonFloor.randomClass()
+					CommonFloor.applyFliterClass()
+					that.loadZoom()).addClass('active').removeClass('inactive')
 				
 				
 		)
@@ -646,7 +702,13 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
 				$('.cf-loader').addClass 'hidden'
-			$('.region').load(url,()->that.iniTooltip();that.loadZoom();CommonFloor.applyAptClasses())
+			$('.region').load(url,()->
+				that.iniTooltip()
+				that.loadZoom()
+				CommonFloor.applyAvailabilClasses()
+				CommonFloor.randomClass()
+				CommonFloor.applyFliterClass()
+				that.loadZoom()).addClass('active').removeClass('inactive')
 
 
 				

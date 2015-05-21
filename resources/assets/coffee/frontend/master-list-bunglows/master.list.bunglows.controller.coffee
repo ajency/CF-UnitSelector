@@ -154,6 +154,7 @@ class BunglowListView extends Marionette.ItemView
 			html +='<div class="circle">
 						<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
 					</div> 
+					<div class="text-muted text-default"> To Move Forward Click Arrow</div>
 				</div>'
 		else
 			html += '</div>'

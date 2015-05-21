@@ -211,12 +211,12 @@ class CenterView extends Marionette.ItemView
 				offsetX : 30
 				interactive : true
 				animation : 'grow'
-				trigger: 'hover'
+				trigger: 'click'
 				content : $('#proj_info').html()
 			)
-			$('.marker').trigger('mouseover')
+			$('.marker').tooltipster('show')
 
-			)
+		)
 
 		
 

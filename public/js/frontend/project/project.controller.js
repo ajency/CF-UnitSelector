@@ -166,10 +166,10 @@
           offsetX: 30,
           interactive: true,
           animation: 'grow',
-          trigger: 'hover',
+          trigger: 'click',
           content: $('#proj_info').html()
         });
-        return $('.marker').trigger('mouseover');
+        return $('.marker').tooltipster('show');
       });
     };
 
