@@ -308,7 +308,7 @@
         response = this.generateLevels();
         html = '';
         $.each(response[3].get('galleryurl'), function(index, value) {
-          return html += '<div class="animated fadeIn gallery-img"> <a class="fancybox" rel="gall" href="' + value + '"> <img class="img" data-src="' + value + '" /> <div class="img-overlay"></div> </a> </div>';
+          return html += '<div class="animated fadeIn gallery-img"> <a class="fancybox" rel="gall" href="' + value + '"> <img class="img" data-src="' + value + '" /> </a> </div>';
         });
         $('.images').html(html);
         $('.img').lazyLoadXT();
