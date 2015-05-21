@@ -75,7 +75,6 @@ class UserTableSeeder extends Seeder {
         UserProject::create( [
             'role_user_id' => '1',
             'project_id' => '0'
-
         ]);
     }
 
