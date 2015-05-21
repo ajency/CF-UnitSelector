@@ -98,8 +98,8 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			e.preventDefault()
 			# $.each CommonFloor.defaults,(index,value)->
 			# 	CommonFloor.defaults[index] = ""
-			# unitCollection.reset unitMasterCollection.toArray()
-			# CommonFloor.filter()
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
 			previousRoute = CommonFloor.router.previous()
 			CommonFloor.navigate '/'+previousRoute , true
 
@@ -577,7 +577,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				url = Backbone.history.fragment
 				console.log building_id = url.split('/')[1]
 				console.log $('#'+building_id+'.building')
-				$('#'+building_id+'.building').attr('class' ,'layer building active_bldg'))
+				$('#'+building_id+'.building').attr('class' ,'layer building svg_active'))
 		
 
 	getNextPrev:->

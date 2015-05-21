@@ -62,7 +62,8 @@
     "lazyloadxt": "~1.0.5",
     "bootstrap-toggle": "~2.2.0",
     "jquery.panzoom": "~2.0.5",
-    "ionrangeslider": "~2.0.6"
+    "ionrangeslider": "~2.0.6",
+    "webui-popover": "~1.1.4"
   },
   "resolutions": {
     "underscore": "~1.8.2",
