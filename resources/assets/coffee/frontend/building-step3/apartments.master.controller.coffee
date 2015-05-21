@@ -535,6 +535,11 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('#'+id).attr('class' ,'layer apartment '+availability) 
 			$('#apartment'+id).attr('class' ,'unit blocks '+availability)
 
+		'click .apartment':(e)->
+			id = parseInt e.target.id
+			CommonFloor.navigate '/unit-view/'+id , true
+			CommonFloor.router.storeRoute()
+
 		'mouseover .next':(e)->
 			id = parseInt $(e.target).attr('data-id')
 			buildingModel = buildingCollection.findWhere

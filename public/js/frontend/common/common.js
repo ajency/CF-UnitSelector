@@ -246,7 +246,7 @@
       console.log(id = parseInt(item.id));
       return setTimeout(function() {
         return $('#' + id).attr('style', 'transform: rotateY(0deg) scale(1); ');
-      }, Math.random() * 2000);
+      }, Math.random() * 500);
     });
   };
 
@@ -338,11 +338,11 @@
       if ($.inArray(id, filterunits) > -1) {
         return setTimeout(function() {
           return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
-        }, Math.random() * 2000);
+        }, Math.random() * 500);
       } else {
         return setTimeout(function() {
           return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
-        }, Math.random() * 2000);
+        }, Math.random() * 500);
       }
     });
     return $('.building').each(function(ind, item) {

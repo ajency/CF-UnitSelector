@@ -226,7 +226,7 @@ CommonFloor.randomClass = ()->
 		console.log id = parseInt item.id
 		setTimeout( ()->
 			$('#'+id).attr('style' , 'transform: rotateY(0deg) scale(1); ')
-		,Math.random() * 2000)
+		,Math.random() * 500)
 
 
 
@@ -316,12 +316,12 @@ CommonFloor.applyFliterClass = ()->
 		if $.inArray(id , filterunits) > -1
 			setTimeout( ()->
 				$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
-			,Math.random() * 2000)
+			,Math.random() * 500)
 			
 		else
 			setTimeout( ()->
 				$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
-			,Math.random() * 2000)
+			,Math.random() * 500)
 			
 
 	$('.building').each (ind,item)->

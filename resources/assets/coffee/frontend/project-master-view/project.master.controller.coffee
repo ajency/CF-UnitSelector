@@ -503,7 +503,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			# $('#'+id).webuiPopover('show')
 			
 
-		'click .plotdgddh':(e)->
+		'click .plot':(e)->
 			id = parseInt e.target.id
 			unit = unitCollection.findWhere 
 				id :  id 

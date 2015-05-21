@@ -494,6 +494,12 @@
         $('#' + id).attr('class', 'layer apartment ' + availability);
         return $('#apartment' + id).attr('class', 'unit blocks ' + availability);
       },
+      'click .apartment': function(e) {
+        var id;
+        id = parseInt(e.target.id);
+        CommonFloor.navigate('/unit-view/' + id, true);
+        return CommonFloor.router.storeRoute();
+      },
       'mouseover .next': function(e) {
         var buildingModel, floors, html, id, images, response, unitTypes;
         id = parseInt($(e.target).attr('data-id'));
