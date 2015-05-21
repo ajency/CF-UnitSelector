@@ -202,14 +202,14 @@ class CommonFloor.TopApartmentMasterCtrl extends Marionette.RegionController
 class ApartmentsView extends Marionette.ItemView
 
 	template : Handlebars.compile('	<div class="row">
-					                      <div class="col-sm-4  info">
-					                        <b class="bold">F1</b> - {{unit_name}} 
-					                  </div>  
+					                    <div class="col-sm-4  info">
+					                        <!--<b class="bold">F1</b>--> - {{unit_name}}
+					                  	</div>  
 					                      <div class="col-sm-3  info">
 					                        	{{unit_type}}                   
 					                      </div> 
 					                       <div class="col-sm-5 text-primary">
-					                          <span class="icon-rupee-icn"></span>{{price}} <span class="tick"></span>
+					                          <!--<span class="icon-rupee-icn"></span>-->{{price}} <!--<span class="tick"></span>-->
 					                      </div> 
 					                  </div>')
 
