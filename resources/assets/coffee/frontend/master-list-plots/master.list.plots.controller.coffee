@@ -63,7 +63,7 @@ class PlotListView extends Marionette.ItemView
 			
 		'mouseout':(e)->
 			id = @model.get('id')
-			$('#'+id+'.villa').attr('class' ,'layer plot '+@model.get('status'))
+			$('#'+id+'.plot').attr('class' ,'layer plot '+@model.get('status'))
 			$('#unit'+id).attr('class' , 'bldg blocks'+' '+@model.get('status'))
 			$('#'+id).tooltipster('hide')
 			# $('#'+id).tooltipster('show')

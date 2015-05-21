@@ -60,7 +60,7 @@
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
-        $('#' + id + '.villa').attr('class', 'layer plot ' + this.model.get('status'));
+        $('#' + id + '.plot').attr('class', 'layer plot ' + this.model.get('status'));
         $('#unit' + id).attr('class', 'bldg blocks' + ' ' + this.model.get('status'));
         return $('#' + id).tooltipster('hide');
       },
