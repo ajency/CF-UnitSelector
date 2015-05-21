@@ -50,26 +50,35 @@
     PlotListView.prototype.events = {
       'mouseover': function(e) {
         var html, id;
-        this.iniTooltip(this.model.get('id'));
         html = this.getHtml(this.model.get('id'));
         id = this.model.get('id');
         $('.layer').attr('class', 'layer plot');
         $('#' + id + '.plot').attr('class', 'layer plot svg_active ' + this.model.get('status'));
         $('#unit' + id).attr('class', 'bldg blocks' + ' ' + this.model.get('status') + ' active');
-        return $('#' + id).tooltipster('content', html);
+        $('#' + id).tooltipster('content', html);
+        return $('#' + id).tooltipster('show');
       },
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
+        $('#' + id + '.villa').attr('class', 'layer plot ' + this.model.get('status'));
         $('#unit' + id).attr('class', 'bldg blocks' + ' ' + this.model.get('status'));
-        return $('#' + id).tooltipster('show');
+        return $('#' + id).tooltipster('hide');
       },
       'click': function(e) {
-        var html, id;
-        this.iniTooltip(this.model.get('id'));
-        html = this.getHtml(this.model.get('id'));
+        var id, unit;
         id = this.model.get('id');
-        return $('#' + id).tooltipster('content', html);
+        unit = unitCollection.findWhere({
+          id: id
+        });
+        if (!_.isUndefined(unit)) {
+          return setTimeout(function(x) {
+            CommonFloor.navigate('/unit-view/' + id, {
+              trigger: true
+            });
+            return CommonFloor.router.storeRoute();
+          }, 500);
+        }
       }
     };
 
@@ -85,7 +94,7 @@
         id: id
       });
       if (unit === void 0) {
-        html += '<div class="svg-info"> <div class="details"> Plot details not entered </div> </div>';
+        html += '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Plot details not entered </h5> </div>';
         $('.layer').tooltipster('content', html);
         return;
       }
@@ -94,9 +103,9 @@
       availability = unit.get('availability');
       availability = s.decapitalize(availability);
       html = "";
-      html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="plot"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br> <br> <!--<span class="pull-right icon-cross"></span> <span class="label label-success"></span> <div class="clearfix"></div>--> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> </div>';
+      html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="plot"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br> <br> <!--<span class="pull-right icon-cross"></span> <span class="label label-success"></span> <div class="clearfix"></div>--> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' Sq.ft) <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div> Starting Price <span class="text-primary">' + $('#price').val() + '</span> </div> <div class="text-muted text-default"> To Move Forward Click Arrow</div> </div>';
       if (availability === 'available') {
-        html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> </div>';
+        html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> <div class="text-muted text-default"> To Move Forward Click Arrow</div> </div>';
       } else {
         html += '</div>';
       }

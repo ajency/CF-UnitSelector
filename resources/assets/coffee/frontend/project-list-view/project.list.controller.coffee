@@ -23,12 +23,7 @@ class TopListView extends Marionette.ItemView
 										<div class="row">
 											<div class="col-md-12 col-xs-12 col-sm-12 text-center">
 
-												<div class="breadcrumb-bar">
-													<a class="unit_back" href="#">
-														Back to Project Overview
-													</a>
-												</div>
-
+						
 												<h2 class="proj-name">{{project_title}}</h2>
 
 											</div>

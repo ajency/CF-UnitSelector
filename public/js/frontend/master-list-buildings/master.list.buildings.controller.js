@@ -55,7 +55,8 @@
         id = this.model.get('id');
         $('#' + id + '.building').attr('class', 'layer building svg_active');
         $('#bldg' + id).attr('class', 'bldg blocks active');
-        return $('#' + id).tooltipster('content', html);
+        $('#' + id).tooltipster('content', html);
+        return $('#' + id).tooltipster('show');
       },
       'mouseout': function(e) {
         var id;
@@ -76,14 +77,17 @@
         buildingModel = buildingCollection.findWhere({
           'id': id
         });
-        CommonFloor.filterBuilding(id);
-        if (Object.keys(buildingModel.get('building_master')).length === 0) {
-          CommonFloor.navigate('/building/' + id + '/apartments', true);
-          return CommonFloor.router.storeRoute();
-        } else {
-          CommonFloor.navigate('/building/' + id + '/master-view', true);
-          return CommonFloor.router.storeRoute();
-        }
+        $('.spritespin-canvas').addClass('zoom');
+        $('.us-left-content').addClass('animated fadeOut');
+        return setTimeout(function(x) {
+          if (Object.keys(buildingModel.get('building_master')).length === 0) {
+            CommonFloor.navigate('/building/' + id + '/apartments', true);
+            return CommonFloor.router.storeRoute();
+          } else {
+            CommonFloor.navigate('/building/' + id + '/master-view', true);
+            return CommonFloor.router.storeRoute();
+          }
+        }, 500);
       }
     };
 
@@ -99,7 +103,7 @@
         'id': id
       });
       if (buildingModel === void 0) {
-        html = '<div class="svg-info"> <div class="details"> Building details not entered </div> </div>';
+        html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Building details not entered </h5> </div>';
         $('.layer').tooltipster('content', html);
         return;
       }
@@ -107,11 +111,10 @@
       floors = Object.keys(floors).length;
       unitTypes = building.getUnitTypes(id);
       response = building.getUnitTypesCount(id, unitTypes);
-      html = '<div class="svg-info"> <h4 class="pull-left">' + buildingModel.get('building_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div>';
+      html = '<div class="svg-info"> <h4 class="pull-left">' + buildingModel.get('building_name') + ' <label class="text-muted">( No. of floors - ' + floors + ' )</label></h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div>';
       $.each(response, function(index, value) {
-        return html += '<div class="details"> <div> <label>' + value.name + '</label> - ' + value.units + '</div>';
+        return html += '<div class="details"> <div> <label>' + value.name + '</label> - ' + value.units + '</div> <div class="text-muted text-default"> To Move Forward Click Arrow</div> </div>';
       });
-      html += '<div> <label>No. of floors</label> - ' + floors + '</div> </div> </div>';
       $('.layer').tooltipster('content', html);
       $('#bldg' + id).attr('class', 'bldg blocks active');
       return $('#' + id).attr('class', 'layer building active_bldg');

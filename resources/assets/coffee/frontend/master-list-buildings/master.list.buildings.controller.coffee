@@ -59,6 +59,7 @@ class ListItemView extends Marionette.ItemView
 			$('#'+id+'.building').attr('class' ,'layer building svg_active')
 			$('#bldg'+id).attr('class' ,'bldg blocks active')
 			$('#'+id).tooltipster('content', html)
+			$('#'+id).tooltipster('show')
 
 		'mouseout' :(e)->
 			id = @model.get 'id'
@@ -66,7 +67,6 @@ class ListItemView extends Marionette.ItemView
 			$('#bldg'+id).attr('class' ,'bldg blocks')
 			$('#'+id).tooltipster('hide')
 			
-				
 		'click ':(e)->
 			id = @model.get 'id'
 			units = unitCollection.where 
@@ -75,15 +75,17 @@ class ListItemView extends Marionette.ItemView
 				return
 			buildingModel = buildingCollection.findWhere
 							'id' : id
-			# CommonFloor.defaults['building'] = jQuery.makeArray(id).join(',')
-			# CommonFloor.filter()
-			CommonFloor.filterBuilding(id)
-			if Object.keys(buildingModel.get('building_master')).length == 0
-				CommonFloor.navigate '/building/'+id+'/apartments' , true
-				CommonFloor.router.storeRoute()
-			else
-				CommonFloor.navigate '/building/'+id+'/master-view' , true
-				CommonFloor.router.storeRoute()
+			$('.spritespin-canvas').addClass 'zoom'
+			$('.us-left-content').addClass 'animated fadeOut'
+			setTimeout( (x)->
+				if Object.keys(buildingModel.get('building_master')).length == 0
+					CommonFloor.navigate '/building/'+id+'/apartments' , true
+					CommonFloor.router.storeRoute()
+				else
+					CommonFloor.navigate '/building/'+id+'/master-view' , true
+					CommonFloor.router.storeRoute()
+
+			, 500)
 
 	iniTooltip:(id)->
 		$('#'+id).trigger('mouseover')
@@ -97,9 +99,12 @@ class ListItemView extends Marionette.ItemView
 
 		if buildingModel == undefined
 			html = '<div class="svg-info">
-						<div class="details">
+					<div class="action-bar2">
+						        <div class="txt-dft"></div>
+						    </div> 
+						<h5 class="pull-left">
 							Building details not entered 
-						</div>  
+						</h5>  
 					</div>'
 			$('.layer').tooltipster('content', html)
 			return 
@@ -110,21 +115,16 @@ class ListItemView extends Marionette.ItemView
 		unitTypes = building.getUnitTypes(id)
 		response = building.getUnitTypesCount(id,unitTypes)
 		html = '<div class="svg-info">
-					<h4 class="pull-left">'+buildingModel.get('building_name')+'</h4>
+					<h4 class="pull-left">'+buildingModel.get('building_name')+' <label class="text-muted">( No. of floors - '+floors+' )</label></h4>
 					<!--<span class="label label-success"></span-->
 					<div class="clearfix"></div>'
 		$.each response,(index,value)->
 			html += '<div class="details">
 						<div>
 							<label>'+value.name+'</label> - '+value.units+'
+						</div>
+						<div class="text-muted text-default"> To Move Forward Click Arrow</div>
 						</div>'
-
-		html += '<div>
-					<label>No. of floors</label> - '+floors+'
-				</div>
-				</div>
-
-				</div>'
 		$('.layer').tooltipster('content', html)
 		$('#bldg'+id).attr('class' ,'bldg blocks active') 
 		$('#'+id).attr('class' ,'layer building active_bldg')
