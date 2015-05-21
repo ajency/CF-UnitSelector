@@ -395,7 +395,6 @@ class CenterUnitView extends Marionette.ItemView
 				html += '<div class="animated fadeIn gallery-img">
 							<a class="fancybox" rel="gall" href="'+value+'">
 								<img class="img" data-src="'+value+'" />
-								<div class="img-overlay"></div>
 							</a>
 						</div>'
 			
