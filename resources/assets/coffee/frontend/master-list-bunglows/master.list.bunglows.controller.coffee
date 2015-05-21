@@ -89,9 +89,12 @@ class BunglowListView extends Marionette.ItemView
 			id :  parseInt id 
 		if unit is undefined
 			html += '<div class="svg-info">
-						<div class="details empty">
+				<div class="action-bar2">
+						        <div class="txt-dft"></div>
+						    </div> 
+						<h5 class="pull-left">
 							Villa details not entered 
-						</div>  
+						</h5>  
 					</div>'
 			$('.layer').tooltipster('content', html)
 			return 
@@ -120,6 +123,7 @@ class BunglowListView extends Marionette.ItemView
 						<div>
 							Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 						</div> 
+						<div class="text-muted text-default"> To Move Forward Click Arrow</div>
 					</div>'
 
 		if availability == 'available'
