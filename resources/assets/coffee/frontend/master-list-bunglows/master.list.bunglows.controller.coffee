@@ -30,7 +30,7 @@ class BunglowListView extends Marionette.ItemView
 		status = s.decapitalize(availability)
 		@model.set 'status' , status
 		window.convertRupees(response[3])
-		data.price = $('#price').val()
+		data.price = window.numDifferentiation(response[3])
 		data
 
 
@@ -151,7 +151,7 @@ class BunglowListView extends Marionette.ItemView
 						<div>
 							Starting Price <span class="text-primary">'+$('#price').val()+'</span>
 						</div> 
-						<div class="text-muted text-default"> To Move Forward Click Arrow</div>
+						
 					</div>'
 
 		if availability == 'available'

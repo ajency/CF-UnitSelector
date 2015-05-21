@@ -275,7 +275,9 @@
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
-        return $('#apartment' + id).attr('class', 'unit blocks ' + this.model.get('availability'));
+        $('#apartment' + id).attr('class', 'unit blocks ' + this.model.get('availability'));
+        $('#' + id).attr('class', 'layer apartment ' + this.model.get('availability'));
+        return $('#' + id).tooltipster('hide');
       },
       'click': function(e) {
         if (this.model.get('availability') === 'available') {
@@ -288,7 +290,7 @@
     ApartmentsView.prototype.getHtml = function(id) {
       var availability, html, response, unit, unitMaster;
       html = "";
-      id = parseInt(e.target.id);
+      id = parseInt(id);
       unit = unitCollection.findWhere({
         'id': id
       });

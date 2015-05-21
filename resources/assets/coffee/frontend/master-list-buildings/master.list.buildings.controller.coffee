@@ -43,10 +43,10 @@ class ListItemView extends Marionette.ItemView
 		data.classname = ""
 		if cost == 0
 			data.classname = 'hidden'
-		console.log data.classname
 		# data.price = window.numDifferentiation(cost)
 		window.convertRupees(cost)
-		data.price = $('#price').val()
+		window.numDifferentiation
+		data.price = window.numDifferentiation(cost)
 		data.floors = Object.keys(floors).length
 		data.types = types
 		data
@@ -123,7 +123,7 @@ class ListItemView extends Marionette.ItemView
 						<div>
 							<label>'+value.name+'</label> - '+value.units+'
 						</div>
-						<div class="text-muted text-default"> To Move Forward Click Arrow</div>
+						
 						</div>'
 		$('.layer').tooltipster('content', html)
 		$('#bldg'+id).attr('class' ,'bldg blocks active') 
