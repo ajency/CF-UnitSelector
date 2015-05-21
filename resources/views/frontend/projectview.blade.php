@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
     <head>
         <title>CommonFloor - {{ $project_title }}</title>
@@ -6,6 +6,7 @@
         <link href="{{ asset('css/frontend/custom.css')}}" rel="stylesheet">
          <link href="{{ asset('bower_components/webui-popover/dist/jquery.webui-popover.css')}}" rel="stylesheet">
         <link rel="icon" type="image/png" href="{{ asset('images/others/favicon.ico')}}">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     </head>
     <body>
