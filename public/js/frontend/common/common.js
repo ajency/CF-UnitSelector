@@ -321,7 +321,7 @@
   CommonFloor.applyFliterClass = function() {
     var actualbuildings, actualunits, filterbuildings, filterunits, flag, notSelecteUnits, notSelectebuildings;
     actualunits = _.pluck(unitMasterCollection.toArray(), 'id');
-    filterunits = _.pluck(unitCollection.toArray(), 'id');
+    console.log(filterunits = _.pluck(unitCollection.toArray(), 'id'));
     notSelecteUnits = _.difference(actualunits, filterunits);
     actualbuildings = _.pluck(buildingMasterCollection.toArray(), 'id');
     filterbuildings = _.pluck(buildingCollection.toArray(), 'id');
@@ -370,16 +370,12 @@
       $('.villa,.plot,.apartment').each(function(ind, item) {
         var id;
         id = parseInt(item.id);
-        return setTimeout(function() {
-          return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
-        }, Math.random() * 2000);
+        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
       });
       $('.building').each(function(ind, item) {
         var id;
         id = parseInt(item.id);
-        return setTimeout(function() {
-          return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
-        }, Math.random() * 2000);
+        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
       });
     }
     return flag;

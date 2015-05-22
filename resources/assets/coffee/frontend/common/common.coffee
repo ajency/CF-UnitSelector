@@ -302,7 +302,7 @@ CommonFloor.resetProperyType = (param)->
 
 CommonFloor.applyFliterClass = ()->
 	actualunits = _.pluck unitMasterCollection.toArray() ,'id'
-	filterunits = _.pluck unitCollection.toArray() ,'id'
+	console.log filterunits = _.pluck unitCollection.toArray() ,'id'
 	notSelecteUnits = _.difference actualunits , filterunits
 	actualbuildings = _.pluck buildingMasterCollection.toArray() ,'id'
 	filterbuildings = _.pluck buildingCollection.toArray() ,'id'
@@ -344,14 +344,12 @@ CommonFloor.applyNonFilterClass = ()->
 	if flag == 0
 		$('.villa,.plot,.apartment').each (ind,item)->
 			id = parseInt item.id
-			setTimeout( ()->
-				$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
-			,Math.random() * 2000)
+			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
+			
 		$('.building').each (ind,item)->
 			id = parseInt item.id
-			setTimeout( ()->
-				$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
-			,Math.random() * 2000)
+			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
+			
 	return flag
 			
 
