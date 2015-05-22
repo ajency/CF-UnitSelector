@@ -796,18 +796,25 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 							<div>
 								Starting Price <span class="text-primary">'+price+'</span>
 							</div> 
-							<div class="circle">
-							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
-						</div>
-						</div>
-						<div class="details">'
+							
+						</div>'
 
 			$.each response,(index,value)->
 				html +=''+value.name+' ('+value.units+'),'
 
+			if unit.length > 0 
+				if Object.keys(buildingModel.get('building_master')).length == 0
+					url =  '/building/'+id+'/apartments'
+					
+				else
+					url = '/building/'+id+'/master-view' 
+					
+				html += '<div class="circle">
+						<a href="#'+url+'" class="arrow-up icon-chevron-right"></a>
+						</div><div class="text-muted text-default">Click arrow to move forward</div>'
+			
+			html += '</div>'
 
-			html += '<div class="text-muted text-default">Click arrow to move forward</div>
-				</div></div>'
 
 			$('.layer').tooltipster('content', html)
 			$('#bldg'+id).attr('class' ,'bldg blocks active') 
