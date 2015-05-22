@@ -163,7 +163,7 @@ class MasterBuildingListView extends Marionette.CompositeView
 							                <li class="prop-type buildings active">Buildings</li>
 							                <li class="prop-type Villas hidden">Villas/Bungalows</li>
 
-							                <li class="prop-type Plots hidden">Plots</li>
+							                <li class="prop-type Plots_tab hidden">Plots</li>
 							              </ul>
 							            </div>
 										<div class="bldg-list">
@@ -209,7 +209,7 @@ class MasterBuildingListView extends Marionette.CompositeView
 			new CommonFloor.MasterBunglowListCtrl region : @region
 			# MasterBuildingListCtrl@trigger "load:units" , data
 
-		'click .Plots':(e)->
+		'click .Plots_tab':(e)->
 			units = plotVariantCollection.getPlotUnits()
 			data = {}
 			data.units = units
@@ -224,7 +224,7 @@ class MasterBuildingListView extends Marionette.CompositeView
 			$('.Villas').removeClass 'hidden'
 
 		if plotVariantCollection.length != 0
-			$('.Plots').removeClass 'hidden'
+			$('.Plots_tab').removeClass 'hidden'
 			
 		$('.units').mCustomScrollbar
 			theme: 'inset'
