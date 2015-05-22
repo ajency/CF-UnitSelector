@@ -79,7 +79,6 @@
         });
         $('.spritespin-canvas').addClass('zoom');
         $('.us-left-content').addClass('animated fadeOut');
-        window.building_id = id;
         return setTimeout(function(x) {
           if (Object.keys(buildingModel.get('building_master')).length === 0) {
             return CommonFloor.navigate('/building/' + id + '/apartments', true);
