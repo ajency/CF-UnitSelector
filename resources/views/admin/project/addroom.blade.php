@@ -30,7 +30,7 @@
             <div class="attributes_block">
                 <div class="row form-group">
                     <div class="col-md-3">
-                        <input  name="attribute_name_room[]" type="text" class="form-control"  placeholder="Enter Attribute Name" value="Size">
+                        <input  name="attribute_name_room[]" type="text" class="form-control"  placeholder="Enter Attribute Name" value="Size / ({{ $project['measurement_units'] }})">
                     </div>
                     <div class="col-md-3">
                          <input type="hidden" name="controltype_room[]" value="textbox">

@@ -23,7 +23,7 @@
                 @endif
             </div>
             <div class="grid-body">
-                <table class="table table-striped projectList" id="example2" >
+                <table class="table table-bordered projectList" id="example2" >
                     <thead>
                         <tr>
                             <th>Project Name</th>
@@ -37,8 +37,8 @@
                     </thead>
                     <tbody> 
                         @foreach ($projects as $project)
-                            <tr class="">
-                                <td><a href="{{ url( '/admin/project/' . $project['id']) }}">{{ $project['project_title'] }}</a></td>
+                            <tr class="" onclick="location.href='{{ url( '/admin/project/' . $project['id']) }}'">
+                                <td>{{ $project['project_title'] }}</td>
                                 <td>{{ $project['city'] }}</td>
                                 <td>{{ ucfirst($project['status']) }}</td>
                                 <td>{{ date('d/m/Y',strtotime($project['created_at'])) }}</td>

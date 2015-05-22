@@ -410,7 +410,10 @@
     function openRoomTypeModal(obj, id)
     {
         if (obj.value == 'add_new')
+        {
                 $('#myModal').modal('show');
+                $("#roomtypeiframe").attr("src", "/admin/project/{{ $project['id']}}/roomtype/create");
+            }
          else
         {
             if(id)

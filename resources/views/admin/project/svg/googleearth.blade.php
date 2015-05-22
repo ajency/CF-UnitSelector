@@ -5,7 +5,10 @@
             <div class="grid-title no-border">
                 <div class="row">
                     <div class="col-md-4">
-                        <h3> <i class="fa fa-angle-double-right text-primary"></i> <span class="semi-bold">Google Earth</span> View</h3>
+                        <h3 class="inline"> <i class="fa fa-angle-double-right text-primary"></i> <span class="semi-bold">Google Earth</span> View</h3>
+                        &nbsp;<span  class="inline" data-toggle="popover" data-trigger="hover"
+                                data-content=" Upload Google Earth image of the project. Image dimensions should be Image size :
+                                    1600*1095. Resolution - 300 DPI."><i class="fa fa-info"></i></span>
                     </div>
                     <div class="col-md-8">
                         <div class="alert alert-error hidden">
@@ -22,15 +25,14 @@
                         <div class="img-hover img-thumbnail">
                             <a class="btn btn-link btn-danger overlay" onclick="deleteSvg({{$svgImages['google_earth']['ID']}}, 'google_earth', '');"><i class="fa fa-close text-primary"></i></a>
                             <object style="  width: 150px;height: 93px;" id="svg1" data="{{ $svgImages['google_earth']['IMAGE'] }}" type="image/svg+xml"></object>
-                            <div class="dz-size" data-dz-size="" style="padding: 3px;">{{ $svgImages['google_earth']['NAME'] }}</div>
+                            <div class="dz-size" data-dz-size="">{{ $svgImages['google_earth']['NAME'] }}</div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-5">
                         <h5 class="semi-bold">To use the Authoring Tool<a href="#" class="text-primary"> click here</a></h5>
 
                     </div>
-                    <div class="col-md-2">
-                    </div>
+                    
                     <div class="col-md-4 hidden">
 
                         <div class="user-description-box hidden">

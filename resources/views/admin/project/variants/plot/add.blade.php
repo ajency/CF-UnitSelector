@@ -20,22 +20,22 @@
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
 <div class="grid simple">
-    <div class="grid-title">
-        <h3>Plot <span class="semi-bold">Details</span></h3>
+   <div class="grid-title no-border">
+        <h3><i class="fa fa-angle-double-right text-primary"></i> Plot <span class="semi-bold">Details</span></h3>
     </div>
 
-    <div class="grid-body">
+    <div class="grid-body no-border">
         <form action="/admin/project/{{ $project['id'] }}/plot-variant" method="POST" data-parsley-validate>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Name</label>
+                        <label class="form-label">Name<span class="text-primary">*</span></label>
                         <input type="text" class="form-control" name="unit_variant_name" placeholder="Enter Name" data-parsley-required>
                     </div> 
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Unit Type</label>
+                        <label class="form-label">Unit Type<span class="text-primary">*</span></label>
                         <select name="unit_type" class="select2 form-control m-b-5" data-parsley-required>
                             <option value="">Select Unit Type</option>
                             @foreach($unit_type_arr as $unit_type)
@@ -52,14 +52,14 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Size</label>
+                        <label class="form-label">Size<span class="text-primary">*</span></label>
                         <input type="text" class="form-control" name="size" value="" placeholder="Enter Size" data-parsley-required data-parsley-type="number">
                     </div> 
                 </div>
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Per sq ft Price</label>
+                        <label class="form-label">Per sq ft Price<span class="text-primary">*</span></label>
                         <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
                     </div> 
                 </div>

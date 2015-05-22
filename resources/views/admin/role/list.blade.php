@@ -20,7 +20,7 @@
                 <a class="btn btn-primary pull-right" href="{{ url('/admin/role/create') }}" ><i class="fa fa-plus"></i> Add User</a>
             </div>
             <div class="grid-body">
-                <table class="table table-striped roleList" id="example2" >
+                <table class="table table-bordered roleList" id="example2" >
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -30,8 +30,8 @@
                     </thead>
                     <tbody> 
                         @foreach ($roles as $role)
-                            <tr class="">
-                                <td><a href="{{ url( '/admin/role/' . $role['id'] . '/edit') }}">{{ $role['name'] }}</a></td>
+                            <tr class="" onclick="location.href='{{ url( '/admin/role/' . $role['id'] . '/edit') }}'">
+                                <td>{{ $role['name'] }}</td>
                                 <td>{{ date('d/m/Y',strtotime($role['created_at'])) }}</td>
                                 <td>{{  date('d/m/Y',strtotime($role['updated_at'])) }}</td>
                             </tr>

@@ -24,7 +24,7 @@
                 <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/apartment-variant/create') }}" ><i class="fa fa-plus"></i> Add variant</a>
             </div>
             <div class="grid-body">
-                <table class="table table-striped" id="example2" >
+                <table class="table table-bordered" id="example2" >
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -39,8 +39,8 @@
                     </thead>
                     <tbody> 
                         @foreach ($unitVariants as $unitVariant)
-                            <tr class="">
-                                <td><a href="{{ url( '/admin/project/' . $project['id'] . '/apartment-variant/'.$unitVariant['id'].'/edit') }}">{{ $unitVariant['unit_variant_name'] }}</a></td>
+                            <tr class="" onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/apartment-variant/'.$unitVariant['id'].'/edit') }}'">
+                                <td>{{ $unitVariant['unit_variant_name'] }}</td>
                                 <td>{{ $propertyTypes[$unitVariant['unit_type_id']] }}</td>
                                 <td>{{ $unitTypes[$unitVariant['unit_type_id']] }}</td>
                                 <td>{{ $unitVariant['carpet_area'] }}</td>

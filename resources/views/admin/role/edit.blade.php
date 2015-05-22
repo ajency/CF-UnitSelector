@@ -27,16 +27,17 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="form-label">Role Name</label>
-                                <input type="text" name="name" class="form-control" placeholder="Enter Role Name" value="{{ $role['name'] }}" data-parsley-required>
-                                <div class="text-danger"><span class="fa fa-asterisk"></span>This field is required</div>	                                        
+                                <label class="form-label">Role Name<span class="text-primary">*</span></label>
+                                <input type="text" name="name" class="form-control m-b-5" placeholder="Enter Role Name" value="{{ $role['name'] }}" data-parsley-required>
                             </div>
                         </div>
                     </div>
                     <hr/>
-                    <h3 class="m-b-20">Permissions</h3>
+                  <div class="m-l-5 no-border">
+                <h3><i class="fa fa-angle-double-right text-primary"></i> Permissions</h3>
+            </div>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             @foreach($permissions as $permission)
                             <a class="list-group-item">
                                 <div class="row">
@@ -52,15 +53,19 @@
                     </div>
                     <br>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <a class="list-group-item">
-                                <div class="row">
-                                    <div class="col-md-6">Project Access</div>
-                                    <div class="col-md-6 text-right">
-                                        <input required type="radio" id="project_access_all" name="project_access" value="all" aria-label="..." checked >All &nbsp;
-                                        <input required type="radio" id="project_access_specific" name="project_access" value="specific" aria-label="..." {{ ($role['project_access']=='specific') ? 'checked' : '' }} >Specific
+                                <div class="pull-right">
+                                        <div class="radio radio-primary">
+                                        <input required type="radio" id="project_access_all" name="project_access" value="all" aria-label="..." checked >
+                                        <label for="project_access_all" class="form-label">All &nbsp;</label> 
+                                        <input required type="radio" id="project_access_specific" name="project_access" value="specific" aria-label="..." {{ ($role['project_access']=='specific') ? 'checked' : '' }} >
+                                        <label for="project_access_specific" class="form-label">Specific &nbsp;</label> 
+
+                                        </div>
                                     </div>
-                                </div>
+                                <label class="form-label">Is Agent</label>
+                                    
                             </a>
                             @foreach($projectPermissions as $projectPermission)
                             <a class="list-group-item">
@@ -77,7 +82,7 @@
                     </div>
                     <br>
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             
                             <a class="list-group-item">
                                 <div class="row">
