@@ -462,7 +462,7 @@
           return false;
         }
         response = window.unit.getUnitDetails(id);
-        price = window.numDifferentiation(response[3]);
+        console.log(price = window.numDifferentiation(response[3]));
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
@@ -473,6 +473,7 @@
         } else {
           html += '</div>';
         }
+        console.log(html);
         $('#' + id).attr('class', 'layer apartment ' + availability);
         $('#apartment' + id).attr('class', ' unit blocks ' + availability + ' active');
         return $('.apartment').tooltipster('content', html);

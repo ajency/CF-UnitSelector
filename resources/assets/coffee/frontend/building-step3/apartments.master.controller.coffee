@@ -505,7 +505,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				return false
 
 			response = window.unit.getUnitDetails(id)
-			price =  window.numDifferentiation(response[3])
+			console.log price =  window.numDifferentiation(response[3])
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			html = ""
@@ -537,7 +537,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					</div>'
 			else
 				html += '</div>'
-
+			console.log html 
 			$('#'+id).attr('class' ,'layer apartment '+availability) 
 			$('#apartment'+id).attr('class' ,' unit blocks '+availability+' active') 
 			$('.apartment').tooltipster('content', html)
