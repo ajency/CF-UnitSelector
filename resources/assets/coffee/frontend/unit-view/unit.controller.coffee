@@ -55,10 +55,11 @@ class TopUnitView extends Marionette.ItemView
 			unitType = unitTypeMasterCollection.findWhere
 							'id' :  unit.get('unit_type_id')
 			property = window.propertyTypes[unitType.get('property_type_id')]
-			buildingModel = buildingCollection.findWhere
-							'id' : unit.get 'building_id'
-			building_id = buildingModel.get 'id'
+			
 			if s.decapitalize(property) == 'penthouse' || s.decapitalize(property) == 'apartments'
+				buildingModel = buildingCollection.findWhere
+							'id' : unit.get 'building_id'
+				building_id = buildingModel.get 'id'
 				if Object.keys(buildingModel.get('building_master')).length == 0
 					CommonFloor.navigate '/building/'+building_id+'/apartments' , true
 				else
