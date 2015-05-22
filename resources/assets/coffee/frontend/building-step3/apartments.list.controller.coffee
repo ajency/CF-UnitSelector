@@ -28,22 +28,13 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 
 									            <div class="breadcrumb-bar">
 									                <a class="unit_back" href="#">
-														Back to Poject Master Overview
+													
 													</a>
 									            </div>
-
-								              	<h2 class="proj-name">{{project_title}}</h2> 
-
-								          	</div>
-							          	</div>
-							        </div>
-
-					        		<div class="filter-summary-area">
-
-					        			<button class="btn btn-primary cf-btn-white pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters">
-					        				Filters <span class="icon-funnel"></span>
-					        			</button>
-					                    <div class="pull-left filter-result">
+									            <div class="header-info">
+								              	<h2 class="proj-name pull-left">{{project_title}}</h2> 
+								              	</div>
+								              	 <div class="pull-left filter-result full">
 					                      	{{#each  filters}}
 					                      	{{#each this}}
 					        				<div class="filter-pill"  >
@@ -54,12 +45,13 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 					                    </div>
 					        			<div class="proj-type-count">
 					        				
-					        				<p class="pull-right">Apartment(s)/Penthouse(s)</p><h1 class="text-primary pull-right m-t-10">{{results}}</h1> 
+					        				<p class="pull-right">Apartment(s)/Penthouse(s)</p><h1 class=" pull-right m-t-10">{{results}}</h1> 
 					        			
 					        			</div>
-
-					        			<div class="clearfix"></div>
-					        		</div>')
+								          	</div>
+							          	</div>
+							        </div>
+							      ')
 
 	ui  :
 		unitBack : '.unit_back'
@@ -229,11 +221,15 @@ class ApartmentsView extends Marionette.ItemView
 
 	template : Handlebars.compile('<li class="unit blocks {{status}}">
 					                    <div class="bldg-img"></div>
+					                     <div class="apartment pull-left icon"></div>	
+					                   <div class="pull-left bldg-info">
 					                    <div class="info">
 					                      <label>{{unit_name}}</label>
 					                      ({{unit_type}} {{super_built_up_area}}sqft)
 					                    </div>
-					                    <label>{{property}}</label>
+					                    <label>2nd Floor</label><br>
+					                    <label class="text-primary">Aprox. 35 Lacs</label>
+					                    </div>
 					                    <div class="clearfix"></div>
 					                   
 					                  </li>')
@@ -282,6 +278,10 @@ class CommonFloor.CenterApartmentView extends Marionette.CompositeView
 				                <li class="na">N/A</li>
 				              </ul>
 				            </div>
+				            <h2 class="text-center">List of Apartments/Penthouse <span class="pull-right top-legend">     <ul>
+				                <li class="available">AVAILABLE</li>
+				                <li class="na">N/AVAILABLE</li>
+				              </ul></span></h2><hr>
 							<div class="villa-list">
 								<ul class="units eight">
 								</ul>
