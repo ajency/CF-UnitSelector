@@ -295,10 +295,12 @@ class ApartmentsView extends Marionette.ItemView
 		availability = s.decapitalize(availability)
 		html = ""
 		html += '<div class="svg-info">
-				<div class="action-bar">
-							<div class="villa"></div>
-						</div>
-					<h5 class="pull-left  m-t-0">'+unit.get('unit_name')+'</h5>
+
+					<div class="action-bar">
+									<div class="apartment"></div>
+								</div>
+					<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
+
 					<!--<span class="label label-success"></span-->
 					<div class="clearfix"></div>
 					<div class="details">
@@ -540,6 +542,11 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			availability = s.decapitalize(availability)
 			$('#'+id).attr('class' ,'layer apartment '+availability) 
 			$('#apartment'+id).attr('class' ,'unit blocks '+availability)
+
+		'click .apartment':(e)->
+			id = parseInt e.target.id
+			CommonFloor.navigate '/unit-view/'+id , true
+			CommonFloor.router.storeRoute()
 
 		'mouseover .next':(e)->
 			id = parseInt $(e.target).attr('data-id')

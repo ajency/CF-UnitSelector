@@ -226,7 +226,7 @@ CommonFloor.randomClass = ()->
 		console.log id = parseInt item.id
 		setTimeout( ()->
 			$('#'+id).attr('style' , 'transform: rotateY(0deg) scale(1); ')
-		,Math.random() * 2000)
+		,Math.random() * 500)
 
 
 
@@ -284,8 +284,9 @@ CommonFloor.filter = ()->
 		CommonFloor.filterArea()
 	if CommonFloor.defaults['floor_max'] != ""
 		CommonFloor.filterFloor()
-	CommonFloor.applyFliterClass()
 	CommonFloor.resetCollections()
+	CommonFloor.applyFliterClass()
+	
 
 CommonFloor.resetProperyType = (param)->
 	param_val_arr = param.split(',')
@@ -302,7 +303,7 @@ CommonFloor.resetProperyType = (param)->
 
 CommonFloor.applyFliterClass = ()->
 	actualunits = _.pluck unitMasterCollection.toArray() ,'id'
-	console.log filterunits = _.pluck unitCollection.toArray() ,'id'
+	filterunits = _.pluck unitCollection.toArray() ,'id'
 	notSelecteUnits = _.difference actualunits , filterunits
 	actualbuildings = _.pluck buildingMasterCollection.toArray() ,'id'
 	filterbuildings = _.pluck buildingCollection.toArray() ,'id'
@@ -315,17 +316,17 @@ CommonFloor.applyFliterClass = ()->
 		if $.inArray(id , filterunits) > -1
 			setTimeout( ()->
 				$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
-			,Math.random() * 2000)
+			,Math.random() * 500)
 			
 		else
 			setTimeout( ()->
 				$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
-			,Math.random() * 2000)
+			,Math.random() * 500)
 			
 
 	$('.building').each (ind,item)->
 		id = parseInt item.id
-		if $.inArray(id , filterbuildings) > -1 && buildingMasterCollection.length != buildingCollection.length
+		if $.inArray(id , filterbuildings) > -1 && apartmentVariantMasterCollection.length != apartmentVariantCollection.length && apartmentVariantCollection.length !=0
 			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
 		else
 			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
@@ -552,7 +553,7 @@ CommonFloor.getApartmentFilters = ()->
 						unit_variant = apartmentVariantMasterCollection.findWhere
 									'id' : parseInt value
 						unitTypeModel = unitTypeMasterCollection.findWhere
-									'id' : parseInt unit_variant.get('id')
+									'id' : parseInt unit_variant.get('unit_type_id')
 						type = 'A'
 						if window.propertyTypes[unitTypeModel.get('property_type_id')] == 'Penthouse'
 								type = 'PH'

@@ -312,7 +312,7 @@
       availability = unit.get('availability');
       availability = s.decapitalize(availability);
       html = "";
-      html += '<div class="svg-info"> <div class="action-bar"> <div class="villa"></div> </div> <h5 class="pull-left  m-t-0">' + unit.get('unit_name') + '</h5> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
+      html += '<div class="svg-info"> <div class="action-bar"> <div class="apartment"></div> </div> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
       return html;
     };
 
@@ -493,6 +493,12 @@
         availability = s.decapitalize(availability);
         $('#' + id).attr('class', 'layer apartment ' + availability);
         return $('#apartment' + id).attr('class', 'unit blocks ' + availability);
+      },
+      'click .apartment': function(e) {
+        var id;
+        id = parseInt(e.target.id);
+        CommonFloor.navigate('/unit-view/' + id, true);
+        return CommonFloor.router.storeRoute();
       },
       'mouseover .next': function(e) {
         var buildingModel, floors, html, id, images, response, unitTypes;

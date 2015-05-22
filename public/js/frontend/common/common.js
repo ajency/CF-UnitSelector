@@ -246,7 +246,7 @@
       console.log(id = parseInt(item.id));
       return setTimeout(function() {
         return $('#' + id).attr('style', 'transform: rotateY(0deg) scale(1); ');
-      }, Math.random() * 2000);
+      }, Math.random() * 500);
     });
   };
 
@@ -298,8 +298,8 @@
     if (CommonFloor.defaults['floor_max'] !== "") {
       CommonFloor.filterFloor();
     }
-    CommonFloor.applyFliterClass();
-    return CommonFloor.resetCollections();
+    CommonFloor.resetCollections();
+    return CommonFloor.applyFliterClass();
   };
 
   CommonFloor.resetProperyType = function(param) {
@@ -323,7 +323,7 @@
   CommonFloor.applyFliterClass = function() {
     var actualbuildings, actualunits, filterbuildings, filterunits, flag, notSelecteUnits, notSelectebuildings;
     actualunits = _.pluck(unitMasterCollection.toArray(), 'id');
-    console.log(filterunits = _.pluck(unitCollection.toArray(), 'id'));
+    filterunits = _.pluck(unitCollection.toArray(), 'id');
     notSelecteUnits = _.difference(actualunits, filterunits);
     actualbuildings = _.pluck(buildingMasterCollection.toArray(), 'id');
     filterbuildings = _.pluck(buildingCollection.toArray(), 'id');
@@ -338,17 +338,17 @@
       if ($.inArray(id, filterunits) > -1) {
         return setTimeout(function() {
           return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
-        }, Math.random() * 2000);
+        }, Math.random() * 500);
       } else {
         return setTimeout(function() {
           return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
-        }, Math.random() * 2000);
+        }, Math.random() * 500);
       }
     });
     return $('.building').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
-      if ($.inArray(id, filterbuildings) > -1 && buildingMasterCollection.length !== buildingCollection.length) {
+      if ($.inArray(id, filterbuildings) > -1 && apartmentVariantMasterCollection.length !== apartmentVariantCollection.length && apartmentVariantCollection.length !== 0) {
         return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
       } else {
         return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
@@ -636,7 +636,7 @@
                 'id': parseInt(value)
               });
               unitTypeModel = unitTypeMasterCollection.findWhere({
-                'id': parseInt(unit_variant.get('id'))
+                'id': parseInt(unit_variant.get('unit_type_id'))
               });
               type = 'A';
               if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouse') {

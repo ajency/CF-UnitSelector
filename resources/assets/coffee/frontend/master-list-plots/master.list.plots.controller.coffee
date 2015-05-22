@@ -55,7 +55,6 @@ class PlotListView extends Marionette.ItemView
 			# @iniTooltip(@model.get('id'))
 			html = @getHtml(@model.get('id'))
 			id = @model.get('id')
-			$('.layer').attr('class','layer plot')
 			$('#'+id+'.plot').attr('class' ,'layer plot svg_active '+@model.get('status'))
 			$('#unit'+id).attr('class' ,'bldg blocks'+' '+@model.get('status')+' active')
 			$('#'+id).tooltipster('content', html)
@@ -64,7 +63,7 @@ class PlotListView extends Marionette.ItemView
 			
 		'mouseout':(e)->
 			id = @model.get('id')
-			$('#'+id+'.villa').attr('class' ,'layer plot '+@model.get('status'))
+			$('#'+id+'.plot').attr('class' ,'layer plot '+@model.get('status'))
 			$('#unit'+id).attr('class' , 'bldg blocks'+' '+@model.get('status'))
 			$('#'+id).tooltipster('hide')
 			# $('#'+id).tooltipster('show')
@@ -88,22 +87,35 @@ class PlotListView extends Marionette.ItemView
 		html = ""
 		id = parseInt id
 		unit = unitCollection.findWhere 
-				id :  id 
+			id :  id 
+		unitMaster = unitMasterCollection.findWhere 
+			id :  id 
+		if unit is undefined && unitMaster != undefined
+			html = '<div class="svg-info">
+						<div class="action-bar2">
+					        <div class="txt-dft"></div>
+					    </div> 
+						<h5 class="pull-left">
+							Not in selection
+						</h5>  
+					</div>'
+			$('.layer').tooltipster('content', html)
+			return 
 		if unit is undefined
 			html += '<div class="svg-info">
 						<div class="action-bar2">
-						        <div class="txt-dft"></div>
-						    </div> 
+					        <div class="txt-dft"></div>
+					    </div> 
 						<h5 class="pull-left">
 							Plot details not entered 
-						</div>  
+						</h5>  
 					</div>'
 			$('.layer').tooltipster('content', html)
 			return 
 		
 
 		response = window.unit.getUnitDetails(id)
-		window.convertRupees(response[3])
+		price = window.numDifferentiation(response[3])
 		availability = unit.get('availability')
 		availability = s.decapitalize(availability)
 		html = ""
@@ -114,8 +126,8 @@ class PlotListView extends Marionette.ItemView
 
 					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
 					<br> <br>
-					<!--<span class="pull-right icon-cross"></span>
-					<span class="label label-success"></span>
+					<!--<span class="pull-right icon-cross cross"></span>
+					<span class="label label-success"></span
 					<div class="clearfix"></div>-->
 					<div class="details">
 						<div>
@@ -123,23 +135,23 @@ class PlotListView extends Marionette.ItemView
 							<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 						</div>
 						<div>
-							Starting Price <span class="text-primary">'+$('#price').val()+'</span>
+							Starting Price <span class="text-primary">'+price+'</span>
 						</div> 
-						
+						 
 					</div>'
 
 		if availability == 'available'
 			html +='<div class="circle">
 						<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
-					</div> 
+					</div>
+					<div class="details">
+						<div class="text-muted text-default">Click arrow to move forward</div>
+					</div>
 				</div>'
 		else
 			html += '</div>'
 		html
 		
-		$('#'+id).attr('class' ,'layer plot '+availability) 
-		$('#unit'+id).attr('class' ,'bldg blocks active') 
-		$('.layer').tooltipster('content', html)
 			
 
 
@@ -249,6 +261,7 @@ class MasterPlotListView extends Marionette.CompositeView
 class CommonFloor.MasterPlotListCtrl extends Marionette.RegionController
 
 	initialize:->
+		console.log "aaaaaaaaa"
 		newUnits = plotVariantCollection.getPlotUnits()
 		unitsCollection = new Backbone.Collection newUnits 		
 		@view = view = new MasterPlotListView
