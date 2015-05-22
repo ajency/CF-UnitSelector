@@ -15,7 +15,7 @@ class ListItemView extends Marionette.ItemView
 						                        </li>
 						                        {{/types}}
 					                      		<span class="area {{areaname}}">{{area}} Sq.Ft</span>
-					                      		<div class="price {{classname}}">Starting price <span class="icon-rupee-icn">{{price}}</span></div>
+					                      		<div class="text-primary price {{classname}}">Starting price <span class="icon-rupee-icn"></span>{{price}}</div>
 											</ul>
 										 </div>')
 
@@ -133,9 +133,7 @@ class ListItemView extends Marionette.ItemView
 					
 					<div class="details">
 						
-						<div>
-							Starting Price <span class="text-primary icon-rupee-icn">'+price+'</span>
-						</div> 
+					
 							<div class="circle">
 							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
 						</div>
@@ -145,7 +143,9 @@ class ListItemView extends Marionette.ItemView
 		$.each response,(index,value)->
 			html +=''+value.name+' ('+value.units+'),'
 
-		html += '<div class="text-muted text-default">Click arrow to move forward</div>
+		html += '	<div>
+							Starting Price <span class="text-primary icon-rupee-icn"></span>'+price+'
+						</div> <div class="text-muted text-default">Click arrow to move forward</div>
 				</div></div>'
 		html
 
