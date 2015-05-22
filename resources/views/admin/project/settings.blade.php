@@ -49,6 +49,32 @@
     </div>
 </div>
 
+<script>
+function saveProjectConfig()
+{
+    var flag = true;
+    if (!$('input[name="property_types[]"]:checked').length) {
+        alert('Please select property type');
+        flag = false;
+    }
 
+    $('input[name="property_types[]"]:checked').each(function () {
+        // To pass this value to its nearby hidden input
+        var propertyTypeId = $(this).val();
+        var unitTypecount = $('select[name="unittype[' + propertyTypeId + '][]"]').length;
+        if (unitTypecount == 1 && $('select[name="unittype[' + propertyTypeId + '][]"]').val() == '')
+        {
+            var propertType = $(this).closest('.row').attr('data-type');
+            alert('Select Unit type for ' + propertType);
+            flag = false;
+        }
+
+    });
+
+    if (flag)
+        $('form').submit();
+
+}
+    </script>
 
 @endsection

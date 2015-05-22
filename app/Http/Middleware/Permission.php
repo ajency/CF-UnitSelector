@@ -44,7 +44,7 @@ class Permission {
                     
                              'admin.variant.media.store'=>'configure_project',
                              'admin.variant.media.destroy'=>'configure_project',
-                    
+                                                 
                              'admin.project.building.index'=>'configure_building',
                              'admin.project.building.create'=>'configure_building',
                              'admin.project.building.store'=>'configure_building',
@@ -57,7 +57,13 @@ class Permission {
                              'admin.project.floor-layout.edit'=>'configure_building',
                              'admin.project.floor-layout.update'=>'configure_building',
                     
-                    
+                             'admin.project.variant.media.store'=>'configure_project',
+                             
+                             'admin.project.roomtype.create'=>'configure_project',
+                             'admin.project.roomtype.store'=>'configure_project',
+                             'admin.project.roomtype.edit'=>'configure_project',
+                             'admin.project.roomtype.update'=>'configure_project',
+                             'admin.project.roomtype.destroy'=>'configure_project',   
                              
                              /*'admin.project.bunglow-unit.index'=>'configure_unit',
                              'admin.project.bunglow-unit.create'=>'configure_unit',
@@ -98,13 +104,14 @@ class Permission {
                               'admin/project/validateprojecttitle'=>'configure_project', 
                               'admin/project/{project}/roomtype/{id}/deleteroomtypeattributes'=>'configure_project',
                               'admin/project/{project}/media/updatebreakpoint'=>'configure_project',
-                    
+                               'admin/project/{project}/roomtype/{roomtype}'=>'configure_project',
+                               'admin/project/{project}/roomtype/{id}/getroomtypeattributes'=>'configure_project',
                               'admin/user/validateuseremail'=>'manage_users', 
                               'admin/user/validateuserpassword'=>'manage_users', 
                 ];
                
                 
-                $resourceName = $request->route()->getName();   
+                $resourceName = $request->route()->getName();
                 $uriPath =$request->route()->getPath();  
                 
                 if($uriPath != 'admin')

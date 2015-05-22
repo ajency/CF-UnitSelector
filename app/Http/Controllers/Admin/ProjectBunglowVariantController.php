@@ -14,6 +14,8 @@ use CommonFloor\ProjectPropertyType;
 use CommonFloor\RoomType;
 use CommonFloor\Media;
 use CommonFloor\VariantMeta;
+use CommonFloor\Defaults;
+use \File;
 
 class ProjectBunglowVariantController extends Controller {
 
@@ -29,7 +31,7 @@ class ProjectBunglowVariantController extends Controller {
         $unitTypes = [];
         $projectPropertytypeId = 0;
         foreach ($projectPropertytype as $propertyTypes) {
-             if ($propertyTypes['property_type_id'] == '2')
+             if ($propertyTypes['property_type_id'] == BUNGLOWID)
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
@@ -37,9 +39,10 @@ class ProjectBunglowVariantController extends Controller {
         $unitTypeIdArr = [];
         foreach ($unitTypeArr as $unitType) {
             $unitTypeIdArr[] = $unitType['id'];
-            $unitTypes[$unitType['id']] = $unitType['unittype_name'];
+            $unitTypeName = Defaults::find($unitType['unittype_name'])->label;
+            $unitTypes[$unitType['id']] = $unitTypeName;
         }
-
+        
         $unitvariantArr = UnitVariant::whereIn('unit_type_id', $unitTypeIdArr)->orderBy('unit_variant_name')->get()->toArray();
 
         return view('admin.project.listvariant')
@@ -63,11 +66,18 @@ class ProjectBunglowVariantController extends Controller {
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if ($propertyTypes['property_type_id'] == '2')
+            if ($propertyTypes['property_type_id'] == BUNGLOWID)
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
         $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
+        $unitTypes = [];
+        foreach ($unitTypeArr as $unitType) {
+            $unitTypeName = Defaults::find($unitType['unittype_name'])->label;
+            $unitTypes[$unitType['id']] = $unitTypeName;
+        }
+        
+        $availableRoomTypes = $project->roomTypes()->get()->toArray();
         $propertyTypeAttributes = ProjectPropertyType::find($projectPropertytypeId)->attributes->toArray();
 
 
@@ -75,7 +85,8 @@ class ProjectBunglowVariantController extends Controller {
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
                         ->with( 'projectPropertyTypeID', $projectPropertytypeId )
-                        ->with('unit_type_arr', $unitTypeArr)
+                         ->with( 'availableRoomTypes', $availableRoomTypes )
+                        ->with('unitTypes', $unitTypes)
                         ->with('project_property_type_attributes', $propertyTypeAttributes)
                         ->with( 'current', 'bunglow-variant' );
     }
@@ -86,7 +97,7 @@ class ProjectBunglowVariantController extends Controller {
      * @return Response
      */
     public function store($project_id, Request $request) {
- 
+         
         $unitVariant = new UnitVariant();
         $unitVariant->unit_variant_name = ucfirst($request->input('unit_variant_name'));
         $unitVariant->unit_type_id = $request->input('unit_type');
@@ -94,7 +105,7 @@ class ProjectBunglowVariantController extends Controller {
         $unitVariant->built_up_area = $request->input('builtup_area');
         $unitVariant->super_built_up_area = $request->input('superbuiltup_area');
         $unitVariant->per_sq_ft_price = $request->input('per_sq_ft_price');
-        $attributedata = $request->input('attributes');
+        $attributedata = $request->input('villa_attributes');
         $variantattributedata=[];
         if(!empty($attributedata))
         {
@@ -104,14 +115,90 @@ class ProjectBunglowVariantController extends Controller {
         $attributeStr = serialize( $variantattributedata );
         $unitVariant->variant_attributes = $attributeStr;
         $unitVariant->save();
-        $unitVariantID = $unitVariant->id;        
+        $unitVariantID = $unitVariant->id;  
         
-      
+        $targetDir = public_path() . "/projects/" . $project_id . "/variants/" . $unitVariantID . "/";
+        $tempDir = public_path() . "/projects/" . $project_id . "/variants/temp/";
+        File::makeDirectory($targetDir, $mode = 0755, true, true);
+        
+        
+        $image_gallery = $request->input('image_gallery');
+        if(!empty($image_gallery))
+        {
+            foreach ($image_gallery as $mediaId)
+            {
+                $media = Media::find($mediaId);
+                $media->mediable_id = $unitVariantID;
+                $media->save();
+
+                $imageName = $media->image_name;
+                copy($tempDir.$imageName, $targetDir.$imageName);
+                unlink($tempDir.$imageName);
+            }
+        }
         $variantMeta = new VariantMeta();
         $variantMeta->unit_variant_id = $unitVariantID;
         $variantMeta->meta_key = 'gallery';
-        $variantMeta->meta_value = serialize('');
+        $variantMeta->meta_value = serialize($image_gallery);
         $variantMeta->save();
+        
+        $levels = $request->input('levels');
+        foreach($levels as $level)
+        {
+            $twoDImageId = $request->input('image_'.$level.'_2d_id');
+            if($twoDImageId!='')
+            {
+                $variantMeta = new VariantMeta();
+                $variantMeta->unit_variant_id = $unitVariantID;
+                $variantMeta->meta_key = $level.'-2d';
+                $variantMeta->meta_value = $twoDImageId;
+                $variantMeta->save();
+                $media = Media::find($twoDImageId);
+                $media->mediable_id = $unitVariantID;
+                $media->save();
+                
+                $imageName = $media->image_name;
+                copy($tempDir.$imageName, $targetDir.$imageName);
+                unlink($tempDir.$imageName);
+            } 
+            $threeDImageId = $request->input('image_'.$level.'_3d_id');
+            if($threeDImageId!='')
+            {
+                $variantMeta = new VariantMeta();
+                $variantMeta->unit_variant_id = $unitVariantID;
+                $variantMeta->meta_key = $level.'-3d';
+                $variantMeta->meta_value = $threeDImageId;
+                $variantMeta->save();
+                $media = Media::find($threeDImageId);
+                $media->mediable_id = $unitVariantID;
+                $media->save();
+                
+                $imageName = $media->image_name;
+                copy($tempDir.$imageName, $targetDir.$imageName);
+                unlink($tempDir.$imageName);
+            } 
+            
+            $attributes = $request->input('attributes'); 
+            $roomIds = $request->input('room_id');
+            if(!empty($roomIds))
+            {
+            foreach($roomIds as $roomId)
+            {
+                if (isset($attributes[$level][$roomId])) {
+
+                    $variantRoom = new VariantRoom();
+                    $variantRoom->unit_variant_id = $unitVariantID;
+                    $variantRoom->roomtype_id = $roomId;
+                    $variantRoom->floorlevel = $level;
+                    $variantRoom->variant_room_attributes = serialize($attributes[$level][$roomId]);
+                    $variantRoom->save();
+
+                }
+            }
+            }
+        }
+        
+        
  
         return redirect("/admin/project/" . $project_id . "/bunglow-variant/" . $unitVariantID . '/edit');
     }
@@ -137,17 +224,27 @@ class ProjectBunglowVariantController extends Controller {
         $unitVariant = UnitVariant::find($id);
         $project = $projectRepository->getProjectById($project_id);
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
-        $propertyTypeArr = [];
+        $propertyTypeArr =$availableRoomTypes= [];
 
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if ($propertyTypes['property_type_id'] == '2')
+            if ($propertyTypes['property_type_id'] == BUNGLOWID)
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
         $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
-        $availableRoomTypes = $project->roomTypes()->get()->toArray();
+        $unitTypes = [];
+        foreach ($unitTypeArr as $unitType) {
+            $unitTypeName = Defaults::find($unitType['unittype_name'])->label;
+            $unitTypes[$unitType['id']] = $unitTypeName;
+        }
+        
+        $RoomTypes = $project->roomTypes()->get()->toArray();
+        foreach($RoomTypes as $RoomType)
+        {
+            $availableRoomTypes[$RoomType['id']]=$RoomType['name'];
+        }
         $variantRooms = $unitVariant->variantRoomAttributes()->get()->toArray();
         $variantRoomArr = [];
         $propertyTypeAttributes = ProjectPropertyType::find($projectPropertytypeId)->attributes->toArray();
@@ -195,13 +292,13 @@ class ProjectBunglowVariantController extends Controller {
             }
         }
       
-
+ 
         return view('admin.project.editvariant')
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
                         ->with( 'projectPropertyTypeID', $projectPropertytypeId )
                         ->with('project_property_type_attributes', $propertyTypeAttributes)
-                        ->with('unit_type_arr', $unitTypeArr)
+                        ->with('unitTypes', $unitTypes)
                         ->with( 'availableRoomTypes', $availableRoomTypes )
                         ->with('unitVariant', $unitVariant->toArray())
                         ->with('variantRooms', $variantRoomArr)
@@ -218,7 +315,7 @@ class ProjectBunglowVariantController extends Controller {
      * @return Response
      */
     public function update($project_id, $id, Request $request) {
- 
+       
         $unitVariant = UnitVariant::find($id);
         $unitVariant->unit_variant_name = ucfirst($request->input('unit_variant_name'));
         $unitVariant->unit_type_id = $request->input('unit_type');
@@ -226,7 +323,7 @@ class ProjectBunglowVariantController extends Controller {
         $unitVariant->built_up_area = $request->input('builtup_area');
         $unitVariant->super_built_up_area = $request->input('superbuiltup_area');
         $unitVariant->per_sq_ft_price = $request->input('per_sq_ft_price');
-        $attributedata = $request->input('attributes');
+        $attributedata = $request->input('villa_attributes');
         $variantattributedata=[];
         if(!empty($attributedata))
         {
@@ -237,6 +334,39 @@ class ProjectBunglowVariantController extends Controller {
         $attributeStr = serialize( $variantattributedata );
         $unitVariant->variant_attributes = $attributeStr;
         $unitVariant->save();
+        
+        $levels = $request->input('levels');
+        $attributes = $request->input('attributes');  
+        $variantRoomId = $request->input('variantroomid');//dd($variantRoomId);
+        $roomIds = $request->input('room_id'); //dd($roomIds);
+        
+        foreach($levels as $level)
+        {
+             if(!empty($roomIds))
+            {
+            foreach($roomIds as $key=> $roomId)
+            {
+                if (isset($attributes[$level][$roomId])) {
+                    
+                 
+                     if ($variantRoomId[$key] == '') {
+                            $variantRoom = new VariantRoom();
+                            $variantRoom->unit_variant_id = $id;
+                            $variantRoom->roomtype_id = $roomId;
+                            $variantRoom->floorlevel = $level;
+                            $variantRoom->variant_room_attributes = serialize($attributes[$level][$roomId]);
+                            $variantRoom->save();
+                        } else {
+                            $variantRoom = VariantRoom::find($variantRoomId[$key]);
+                            $variantRoom->roomtype_id = $roomId;
+                            $variantRoom->variant_room_attributes = serialize($attributes[$level][$roomId]);
+                            $variantRoom->save();
+                        }
+
+                }
+            }
+            }
+        }
 
         return redirect("/admin/project/" . $project_id . "/bunglow-variant/" . $id . '/edit');
     }
@@ -284,74 +414,7 @@ class ProjectBunglowVariantController extends Controller {
                         ], 201);
     }
 
-    public function getRoomTypeAttributes($project_id, $id, Request $request) {
-        $roomTypeId = $request->input('roomtype_id');
-        $str = '';
-        if ($roomTypeId != '') {
-            $level = $request->input('level');
-            $roomType = RoomType::find($roomTypeId);
-            $attributes = $roomType->attributes->toArray();
-
-
-            $str = '<div class="m-t-10">';
-            $str.='<div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 text-grey">';
-            $str.='<div class="row">';
-            if(!empty($attributes))
-            {
-            foreach ($attributes as $attribute) {
-                $str.='<div class="col-md-4">';
-                $str.='<div class="form-group">';
-                $str.='<label class="form-label">' . $attribute['label'] . '</label>';
-                if ('textbox' === $attribute['control_type']) {
-                    $str.='<input type="text" class="form-control" name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . ']" placeholder="Enter ' . $attribute['label'] . '">';
-                } elseif ('number' === $attribute['control_type']) {
-                    $str.='<input type="number" class="form-control" name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . ']" placeholder="Enter ' . $attribute['label'] . '">';
-                } elseif ('select' === $attribute['control_type']) {
-                    $options = explode(',', $attribute['defaults']);
-
-                    $str.='<select name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . ']" class="select2 form-control">';
-                    $str.='<option value="">Select ' . $attribute['label'] . '</option>';
-                    foreach ($options as $option) {
-                        $str.='<option value="' . property_type_slug($option) . '">' . $option . '</option>';
-                    }
-                    $str.='</select>';
-                } elseif ('multiple' === $attribute['control_type']) {
-                    $options = explode(',', $attribute['defaults']);
-
-                    $str.='<select multiple name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . '][]" class="select2 form-control">';
-                    $str.='<option value="">Select ' . $attribute['label'] . '</option>';
-                    foreach ($options as $option) {
-                        $str.='<option value="' . property_type_slug($option) . '">' . $option . '</option>';
-                    }
-                    $str.='</select>';
-                }
-
-
-                $str.='</div>';
-                $str.='</div>';
-            }
-            }
-            else
-            {
-               $str.='<div class="col-md-4">';
-                $str.='<div class="form-group">';
-                $str.='<label class="form-label">Room Attributes Not Defined</label>'; 
-                $str.='</div>';
-                $str.='</div>';
-            }
-            $str.='</div>';
-
-            $str.='</div>';
-            $str.='</div>';
-        }
-        return response()->json([
-                    'code' => 'roomtype_attributes',
-                    'message' => '',
-                    'data' => [
-                        'attributes' => $str
-                    ]
-                        ], 201);
-    }
+    
 
     /**
      * Remove the specified resource from storage.

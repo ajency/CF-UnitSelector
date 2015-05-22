@@ -28,6 +28,7 @@
             var BASEURL = '{{ url() }}';
             var FLOORLEVELS = [];
             var variantId = 0;
+             var PROJECTID = {{ $project['id'] }};
         </script>
     <body>
  
