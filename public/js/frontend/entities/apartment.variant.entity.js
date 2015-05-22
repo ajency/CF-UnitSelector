@@ -64,16 +64,15 @@
     };
 
     ApartmentVariantCollection.prototype.getPenthouseUnits = function() {
-      var newUnits, units;
+      var units;
       units = [];
-      newUnits = [];
       unitCollection.each(function(model) {
         var property, unitType;
         unitType = unitTypeMasterCollection.findWhere({
           'id': model.get('unit_type_id')
         });
-        console.log(property = window.propertyTypes[unitType.get('property_type_id')]);
-        if (property === 'penthouse') {
+        property = window.propertyTypes[unitType.get('property_type_id')];
+        if (s.decapitalize(property) === 'penthouse') {
           return units.push(model);
         }
       });

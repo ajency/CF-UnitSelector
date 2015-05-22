@@ -666,20 +666,24 @@ CommonFloor.getUnitsProperty = (unitModel)->
 							'id' :  unitModel.get('unit_type_id')
 	property = window.propertyTypes[unitType.get('property_type_id')]
 	text = ''
+	type = ''
 	window.tempColl = unitCollection.clone()
 	if s.decapitalize(property) == 'apartments' 
 		window.tempColl.reset apartmentVariantCollection.getApartmentUnits()
 		text =  'Similar '+s.decapitalize(property)+' based on your filters'
+		type = 'apartment'
 	if s.decapitalize(property) == 'penthouse'
 		console.log apartmentVariantCollection.getPenthouseUnits()
 		window.tempColl.reset apartmentVariantCollection.getPenthouseUnits()
 		text =  'Similar '+s.decapitalize(property)+' based on your filters'
+		type = s.decapitalize(property)
 	if s.decapitalize(property) == 'villas/Bungalows'
 		window.tempColl.reset bunglowVariantCollection.getBunglowUnits()
 		text =  'Similar '+s.decapitalize(property)+' based on your filters'
+		type = 'villa'
 	if s.decapitalize(property) == 'plot'
 		window.tempColl.reset plotVariantCollection.getPlotUnits()
 		text =  'Similar '+s.decapitalize(property)+' based on your filters'
+		type = s.decapitalize(property)
 
-
-	[window.tempColl,text]
+	[window.tempColl,text,type]
