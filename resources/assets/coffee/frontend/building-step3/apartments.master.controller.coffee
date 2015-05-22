@@ -263,15 +263,15 @@ class ApartmentsView extends Marionette.ItemView
 		html = ""
 		id = parseInt id
 		unit = unitCollection.findWhere
-				'id' : id
+					'id' : id
 		unitMaster = unitMasterCollection.findWhere 
 			id :  id 
 		if unit is undefined && unitMaster != undefined
 			html = '<div class="svg-info">
-						<div class="action-bar2">
-						        <div class="txt-dft"></div>
-						    </div> 
-							<h5 class="pull-left">
+							<div class="action-bar2">
+					        <div class="txt-dft"></div>
+					    </div> 
+						<h5 class="pull-left">
 							Not in selection
 						</div>  
 					</div>'
@@ -279,10 +279,10 @@ class ApartmentsView extends Marionette.ItemView
 			return 
 		if unit is undefined
 			html = '<div class="svg-info">
-						<div class="action-bar2">
-						        <div class="txt-dft"></div>
-						    </div> 
-							<h5 class="pull-left">
+							<div class="action-bar2">
+					        <div class="txt-dft"></div>
+					    </div> 
+						<h5 class="pull-left">
 							Apartment details not entered 
 						</div>  
 					</div>'
@@ -295,16 +295,15 @@ class ApartmentsView extends Marionette.ItemView
 		availability = s.decapitalize(availability)
 		html = ""
 		html += '<div class="svg-info">
-
 					<div class="action-bar">
-									<div class="apartment"></div>
-								</div>
-					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' (Area - '+response[0].get('super_built_up_area')+' Sq.ft)</h5>
+								<div class="apartment"></div>
+					</div>
+					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' ( Area - '+response[0].get('super_built_up_area')+' Sq.ft)</h5>
 
 					<!--<span class="label label-success"></span-->
-			
+					<br><br>
 					<div class="details">
-						<div>
+                       <div>
 							<label>Unit Type </label> - '+response[1].get('name')+'
 						</div>
 						<div>
@@ -519,6 +518,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 									<div class="apartment"></div>
 						</div>
 						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' ( Area - '+response[0].get('super_built_up_area')+' Sq.ft)</h5>
+
 						<!--<span class="label label-success"></span-->
 						<br><br>
 						<div class="details">

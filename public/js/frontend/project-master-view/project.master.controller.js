@@ -420,23 +420,6 @@
         $('.us-left-content').toggleClass('not-visible visible');
         return $('.us-right-content').toggleClass('not-visible visible');
       },
-      'click @ui.plotunit': function(e) {
-        var id, unit;
-        id = parseInt(e.target.id);
-        unit = unitCollection.findWhere({
-          id: id
-        });
-        if (!_.isUndefined(unit)) {
-          $('.spritespin-canvas').addClass('zoom');
-          $('.us-left-content').addClass('animated fadeOut');
-          return setTimeout(function(x) {
-            CommonFloor.navigate('/unit-view/' + id, {
-              trigger: true
-            });
-            return CommonFloor.router.storeRoute();
-          }, 500);
-        }
-      },
       'click .building': function(e) {
         var buildingModel, id, unit;
         id = parseInt(e.target.id);
@@ -593,7 +576,7 @@
         return $('#' + id).tooltipster('content', html);
       },
       'mouseover .building': function(e) {
-        var availability, buildingMaster, buildingModel, floors, html, id, minprice, price, response, unit, unitTypes;
+        var availability, buildingMaster, buildingModel, floors, html, id, minprice, price, response, unit, unitTypes, url;
         id = parseInt(e.target.id);
         buildingModel = buildingCollection.findWhere({
           'id': id
@@ -626,11 +609,19 @@
         } else {
           availability = ' sold';
         }
-        html = '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="building"></div> </div> <h5 class="t m-t-0">' + buildingModel.get('building_name') + '	<label class="text-muted">( No. of floors - ' + floors + ' )</label></h5> <div class="details"> <div> Starting Price <span class="text-primary">' + price + '</span> </div> <div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> </div> <div class="details">';
+        html = '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="building"></div> </div> <h5 class="t m-t-0">' + buildingModel.get('building_name') + '	<label class="text-muted">( No. of floors - ' + floors + ' )</label></h5> <div class="details"> <div> Starting Price <span class="text-primary">' + price + '</span> </div> </div>';
         $.each(response, function(index, value) {
           return html += '' + value.name + ' (' + value.units + '),';
         });
-        html += '<div class="text-muted text-default">Click arrow to move forward</div> </div></div>';
+        if (unit.length > 0) {
+          if (Object.keys(buildingModel.get('building_master')).length === 0) {
+            url = '/building/' + id + '/apartments';
+          } else {
+            url = '/building/' + id + '/master-view';
+          }
+          html += '<div class="circle"> <a href="#' + url + '" class="arrow-up icon-chevron-right"></a> </div><div class="text-muted text-default">Click arrow to move forward</div>';
+        }
+        html += '</div>';
         $('.layer').tooltipster('content', html);
         $('#bldg' + id).attr('class', 'bldg blocks active');
         return $('#' + id).attr('class', 'layer building active_bldg');
