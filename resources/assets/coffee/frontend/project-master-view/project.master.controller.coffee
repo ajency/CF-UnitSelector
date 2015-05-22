@@ -603,9 +603,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
 								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 							</div>
-							<div>
-								Starting Price <span class="text-primary icon-rupee-icn">'+price+'</span>
-							</div> 
+							<div class="text-primary">
+							 <span class="text-primary icon-rupee-icn"></span>'+price+'
+						</div> 
 							 
 						</div>'
 
@@ -699,9 +699,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
 								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 							</div>
-							<div>
-								Starting Price <span class="text-primary icon-rupee-icn">'+price+'</span>
-							</div> 
+							<div class="text-primary">
+							 <span class="text-primary icon-rupee-icn"></span>'+price+'
+						</div>
 							 
 						</div>'
 
@@ -791,9 +791,6 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						
 						<div class="details">
 							
-							<div>
-								Starting Price <span class="text-primary icon-rupee-icn">'+price+'</span>
-							</div> 
 							
 						</div>'
 
@@ -809,9 +806,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				else
 					url = '/building/'+id+'/master-view' 
 					
-				html += '<div class="circle">
+				html += '<div class="details">
+								Starting Price <span class="text-primary icon-rupee-icn"></span>'+price+'
+							</div> <div class="circle">
 						<a href="#'+url+'" class="arrow-up icon-chevron-right"></a>
 						</div>
+						
+							
 						<div class="details">
 							<div class="text-muted text-default">Click arrow to move forward</div>
 						</div>'

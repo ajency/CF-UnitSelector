@@ -7,7 +7,7 @@ class PlotListView extends Marionette.ItemView
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="unit-type-info">
-                                      <div class="price {{classname}}"> <span class="icon-rupee-icn">{{price}}</span></div>
+                                      <div class=" text-primary price {{classname}}"> <span class="icon-rupee-icn"></span>{{price}}</div>
                 					 </div>
 
 					                ')
@@ -134,8 +134,8 @@ class PlotListView extends Marionette.ItemView
 							'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
 							<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 						</div>
-						<div>
-							Starting Price <span class="text-primary icon-rupee-icn">'+price+'</span>
+						<div class="text-primary">
+							 <span class="text-primary icon-rupee-icn"></span>'+price+'
 						</div> 
 						 
 					</div>'

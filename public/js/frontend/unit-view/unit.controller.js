@@ -338,7 +338,7 @@
         });
         response = window.unit.getUnitDetails(id);
         unitColl = CommonFloor.getUnitsProperty(unitModel);
-        html = '<div class="svg-info"> <i class="' + unitColl[2] + '-ico"></i> <h5 class=" m-t-0">' + unitModel.get('unit_name') + '</h5> <div class="details"> <span>' + response[1].get('name') + '</span></br> Approx Rs.<span class="text-primary">' + window.numDifferentiation(response[3]) + '</span> <!--<div>Area: <span>' + response[0].get('super_built_up_area') + 'Sq.Ft</span></div> <div>Variant: <span>' + response[0].get('unit_variant_name') + '</span></div>--> </div> </div>';
+        html = '<div class="svg-info"> <i class="' + unitColl[2] + '-ico"></i> <h5 class=" m-t-0">' + unitModel.get('unit_name') + '</h5> <div class="details"> <span>' + response[1].get('name') + '</span></br> <div class="text-primary"><span class="text-primary facts-icon icon-rupee-icn"></span>' + window.numDifferentiation(response[3]) + '</div> <!--<div>Area: <span>' + response[0].get('super_built_up_area') + 'Sq.Ft</span></div> <div>Variant: <span>' + response[0].get('unit_variant_name') + '</span></div>--> </div> </div>';
         return $(e.target).tooltipster('content', html);
       },
       'click .next,.prev': function(e) {
