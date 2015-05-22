@@ -475,7 +475,7 @@
       if (_.isUndefined(prev)) {
         return $('.prev').hide();
       } else {
-        return $('.prev').attr('data-id', next.get('id'));
+        return $('.prev').attr('data-id', prev.get('id'));
       }
     };
 

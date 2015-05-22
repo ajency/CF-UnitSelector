@@ -577,7 +577,7 @@ class CenterUnitView extends Marionette.ItemView
 		if _.isUndefined prev
 			$('.prev').hide()
 		else
-			$('.prev').attr('data-id',next.get('id'))
+			$('.prev').attr('data-id',prev.get('id'))
 
 #Center View for the unit
 class CommonFloor.CenterUnitCtrl extends Marionette.RegionController

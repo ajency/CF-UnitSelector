@@ -551,7 +551,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		# 	CommonFloor.navigate '/unit-view/'+id , true
 		# 	# CommonFloor.router.storeRoute()
 
-		'mouseover .next':(e)->
+		'mouseover .next,.prev':(e)->
 			id = parseInt $(e.target).attr('data-id')
 			buildingModel = buildingCollection.findWhere
 								'id' : id
@@ -673,7 +673,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		if _.isUndefined prev
 			$('.prev').hide()
 		else
-			$('.prev').attr('data-id',next.get('id'))
+			$('.prev').attr('data-id',prev.get('id'))
 
 
 	setDetailIndex:(index)->

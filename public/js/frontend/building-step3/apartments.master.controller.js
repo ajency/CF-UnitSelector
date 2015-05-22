@@ -488,7 +488,7 @@
         $('#' + id).attr('class', 'layer apartment ' + availability);
         return $('#apartment' + id).attr('class', 'unit blocks ' + availability);
       },
-      'mouseover .next': function(e) {
+      'mouseover .next,.prev': function(e) {
         var buildingModel, floors, html, id, images, response, unitTypes;
         id = parseInt($(e.target).attr('data-id'));
         buildingModel = buildingCollection.findWhere({
@@ -614,7 +614,7 @@
       if (_.isUndefined(prev)) {
         return $('.prev').hide();
       } else {
-        return $('.prev').attr('data-id', next.get('id'));
+        return $('.prev').attr('data-id', prev.get('id'));
       }
     };
 
