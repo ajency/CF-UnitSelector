@@ -2091,6 +2091,9 @@ svg polygon {
   float: none;
   margin: 0 auto 20px;
 }
+.slider .external-img {
+  width: 100%;
+}
 .slider .gallery-img {
   width: 45%;
   display: inline-block;
