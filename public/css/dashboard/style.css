@@ -5072,12 +5072,12 @@ form legend,
   opacity: 1;
 }
 .alert-success {
-    color: #438a85;
-  background-color: #f3faf8;
+  color: #db6809;
+  background-color: #f89d52;
   border-color: #bfd1cf;
 }
 .alert-success .link {
-  color: #438a85;
+  color: #db6809;
 }
 .alert-success .alert-heading {
   color: #db6809 !important;
@@ -8229,14 +8229,28 @@ body.rtl .footer-widget {
 .summary .border-right {
   border-right: 1px dotted #969696;
 }
+.summary .dl-horizontal dt {
+  width: 123px!important;
+}
+.summary .dl-horizontal dd {
+  margin-left: 137px;
+}
 .summary .value {
   font-weight: 100;
   font-size: 15px;
   color: black;
   font-family: sans-serif;
 }
-table.dataTable.no-footer {
-  border-bottom: none;
+.alert-success {
+  color: #438a85;
+  background-color: #f3faf8;
+  border-color: #bfd1cf;
+}
+table tr {
+  cursor: pointer;
+}
+table tr .sorting {
+  background-image: none!important;
 }
 .dataTables_length {
   display: none;
