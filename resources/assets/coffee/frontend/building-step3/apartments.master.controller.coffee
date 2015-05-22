@@ -268,7 +268,10 @@ class ApartmentsView extends Marionette.ItemView
 			id :  id 
 		if unit is undefined && unitMaster != undefined
 			html = '<div class="svg-info">
-						<div class="details empty">
+						<div class="action-bar2">
+						        <div class="txt-dft"></div>
+						    </div> 
+							<h5 class="pull-left">
 							Not in selection
 						</div>  
 					</div>'
@@ -276,7 +279,10 @@ class ApartmentsView extends Marionette.ItemView
 			return 
 		if unit is undefined
 			html = '<div class="svg-info">
-						<div class="details">
+						<div class="action-bar2">
+						        <div class="txt-dft"></div>
+						    </div> 
+							<h5 class="pull-left">
 							Apartment details not entered 
 						</div>  
 					</div>'
@@ -289,10 +295,12 @@ class ApartmentsView extends Marionette.ItemView
 		availability = s.decapitalize(availability)
 		html = ""
 		html += '<div class="svg-info">
+
 					<div class="action-bar">
 									<div class="apartment"></div>
 								</div>
 					<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
+
 					<!--<span class="label label-success"></span-->
 					<div class="clearfix"></div>
 					<div class="details">

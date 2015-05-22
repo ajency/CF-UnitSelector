@@ -298,12 +298,12 @@
         id: id
       });
       if (unit === void 0 && unitMaster !== void 0) {
-        html = '<div class="svg-info"> <div class="details empty"> Not in selection </div> </div>';
+        html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Not in selection </div> </div>';
         $('.layer').tooltipster('content', html);
         return;
       }
       if (unit === void 0) {
-        html = '<div class="svg-info"> <div class="details"> Apartment details not entered </div> </div>';
+        html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Apartment details not entered </div> </div>';
         $('.layer').tooltipster('content', html);
         return false;
       }

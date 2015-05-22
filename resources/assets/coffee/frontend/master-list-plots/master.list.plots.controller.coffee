@@ -266,10 +266,7 @@ class CommonFloor.MasterPlotListCtrl extends Marionette.RegionController
 		unitsCollection = new Backbone.Collection newUnits 		
 		@view = view = new MasterPlotListView
 			collection : unitsCollection
-		# @listenTo @view,"load:units" ,@loadController
 		@show view
 
-	loadController:(data)=>
-		Backbone.trigger "load:units" , data
-
+	
 		

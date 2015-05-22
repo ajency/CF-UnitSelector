@@ -135,7 +135,9 @@ class ListItemView extends Marionette.ItemView
 						<div>
 							Starting Price <span class="text-primary">'+price+'</span>
 						</div> 
-
+							<div class="circle">
+							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
+						</div>
 					</div>
 					<div class="details">'
 
@@ -163,7 +165,7 @@ class MasterBuildingListView extends Marionette.CompositeView
 							                <li class="prop-type buildings active">Buildings</li>
 							                <li class="prop-type Villas hidden">Villas/Bungalows</li>
 
-							                <li class="prop-type Plots_tab hidden">Plots</li>
+							                <li class="prop-type tab hidden">Plots</li>
 							              </ul>
 							            </div>
 										<div class="bldg-list">
@@ -209,14 +211,14 @@ class MasterBuildingListView extends Marionette.CompositeView
 			new CommonFloor.MasterBunglowListCtrl region : @region
 			# MasterBuildingListCtrl@trigger "load:units" , data
 
-		'click .Plots_tab':(e)->
+		'click .tab':(e)->
 			units = plotVariantCollection.getPlotUnits()
 			data = {}
 			data.units = units
 			data.type = 'plot'
 			@region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.MasterPlotListCtrl region : @region
-			# @trigger "load:units" , data
+			
 
 
 	onShow:->
@@ -224,7 +226,7 @@ class MasterBuildingListView extends Marionette.CompositeView
 			$('.Villas').removeClass 'hidden'
 
 		if plotVariantCollection.length != 0
-			$('.Plots_tab').removeClass 'hidden'
+			$('.tab').removeClass 'hidden'
 			
 		$('.units').mCustomScrollbar
 			theme: 'inset'

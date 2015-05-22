@@ -114,7 +114,7 @@ class LeftUnitView extends Marionette.ItemView
 								<div class="advncd-filter-wrp">
 
 									<div class="blck-wrap title-row">
-										<h5 class="accord-head">Property Attributes</h5>
+										<h5 class="bold">Property Attributes</h5>
 									</div>
 									{{#attributes}}
 									<div class="row">
@@ -162,7 +162,7 @@ class LeftUnitView extends Marionette.ItemView
 							<div class="clearfix"></div>
 						
 							<div class="similar-section">
-					            <h5 class="m-b-15">{{similarUnitsText}}</h5>
+					           <h5 class="bold m-b-15">{{similarUnitsText}}</h5>
 					          
 					              	{{#similarUnits}}
 					              	<div class="row m-b-15">
@@ -171,8 +171,9 @@ class LeftUnitView extends Marionette.ItemView
 				              	              <i class="villa-ico"></i>
 				              	            </div> 
 					              	    </div>
-					              	    <div class="col-sm-9 col-xs-12">
-			              	              	<h5><a href="'+BASEURL+'/'+PROJECTID+'/#unit-view/{{id}}">{{unit_name}}</a> <span class="text-primary pull-right"><span class="icon-rupee-icn"></span>{{price}}</span></h5>
+
+					              	    <div class="col-sm-8 col-xs-12">
+			              	              	<h5><a href="'+BASEURL+'/project/'+PROJECTID+'/#unit-view/{{id}}">{{unit_name}}</a> <span class="text-primary pull-right"><span class="icon-rupee-icn"></span>{{price}}</span></h5>
 
 			              	              	<span class="text-muted">Unit Variant: </span>{{variant}}<br>
 			              	             	<span class="text-muted">Unit Type:</span> {{unit_type}}<br>
@@ -412,12 +413,14 @@ class CenterUnitView extends Marionette.ItemView
 								'id' : id
 			response = window.unit.getUnitDetails(id)
 			html = '<div class="svg-info">
+						<i class="villa-ico"></i>
 						<h5 class=" m-t-0">'+unitModel.get('unit_name')+'</h5>
 						<div class="details">
-							<div>Approx Rs.<span class="text-primary">'+window.numDifferentiation(response[3])+'</span></div>
-							<div>Area: <span>'+response[0].get('super_built_up_area')+'Sq.Ft</span></div>
-							<div>Variant: <span>'+response[0].get('unit_variant_name')+'</span></div>
-							<div>Unit Type: <span>'+response[1].get('name')+'</span></div>
+							<span>'+response[1].get('name')+'</span></br>
+							Approx Rs.<span class="text-primary">'+window.numDifferentiation(response[3])+'</span>
+							<!--<div>Area: <span>'+response[0].get('super_built_up_area')+'Sq.Ft</span></div>	
+							<div>Variant: <span>'+response[0].get('unit_variant_name')+'</span></div>-->
+							
 						</div>
 					</div>'
 			
@@ -510,7 +513,7 @@ class CenterUnitView extends Marionette.ItemView
 
 	iniTooltip:->
 		$('.next,.prev').tooltipster(
-				theme: 'tooltipster-shadow'
+				theme: 'tooltipster-shadow circle-tooltip'
 				contentAsHTML: true
 				onlyOne : true
 				arrow : false

@@ -122,7 +122,7 @@
       } else {
         availability = ' sold';
       }
-      html = '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="building"></div> </div> <h5 class="t m-t-0">' + buildingModel.get('building_name') + '	<label class="text-muted">( No. of floors - ' + floors + ' )</label></h5> <div class="details"> <div> Starting Price <span class="text-primary">' + price + '</span> </div> </div> <div class="details">';
+      html = '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="building"></div> </div> <h5 class="t m-t-0">' + buildingModel.get('building_name') + '	<label class="text-muted">( No. of floors - ' + floors + ' )</label></h5> <div class="details"> <div> Starting Price <span class="text-primary">' + price + '</span> </div> <div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> </div> <div class="details">';
       $.each(response, function(index, value) {
         return html += '' + value.name + ' (' + value.units + '),';
       });
@@ -141,7 +141,7 @@
       return MasterBuildingListView.__super__.constructor.apply(this, arguments);
     }
 
-    MasterBuildingListView.prototype.template = Handlebars.compile('<div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeIn"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings active">Buildings</li> <li class="prop-type Villas hidden">Villas/Bungalows</li> <li class="prop-type Plots_tab hidden">Plots</li> </ul> </div> <div class="bldg-list"> <p class="text-center help-text">Hover on the buildings for more details</p> <ul class="units one"> </ul> <div class="clearfix"></div> </div> </div>');
+    MasterBuildingListView.prototype.template = Handlebars.compile('<div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeIn"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings active">Buildings</li> <li class="prop-type Villas hidden">Villas/Bungalows</li> <li class="prop-type tab hidden">Plots</li> </ul> </div> <div class="bldg-list"> <p class="text-center help-text">Hover on the buildings for more details</p> <ul class="units one"> </ul> <div class="clearfix"></div> </div> </div>');
 
     MasterBuildingListView.prototype.childView = ListItemView;
 
@@ -182,7 +182,7 @@
           region: this.region
         });
       },
-      'click .Plots_tab': function(e) {
+      'click .tab': function(e) {
         var data, units;
         units = plotVariantCollection.getPlotUnits();
         data = {};
@@ -202,7 +202,7 @@
         $('.Villas').removeClass('hidden');
       }
       if (plotVariantCollection.length !== 0) {
-        $('.Plots_tab').removeClass('hidden');
+        $('.tab').removeClass('hidden');
       }
       return $('.units').mCustomScrollbar({
         theme: 'inset'
