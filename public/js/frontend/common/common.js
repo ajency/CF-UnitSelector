@@ -243,10 +243,8 @@
   CommonFloor.randomClass = function() {
     return $('.layer').each(function(ind, item) {
       var id;
-      console.log(id = parseInt(item.id));
-      return setTimeout(function() {
-        return $('#' + id).attr('style', 'transform: rotateY(0deg) scale(1); ');
-      }, Math.random() * 500);
+      id = parseInt(item.id);
+      return $('#' + id).attr('style', 'transform: rotateY(0deg) scale(1); ');
     });
   };
 
@@ -338,20 +336,24 @@
       if ($.inArray(id, filterunits) > -1) {
         return setTimeout(function() {
           return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
-        }, Math.random() * 500);
+        }, Math.random() * 1000);
       } else {
         return setTimeout(function() {
           return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
-        }, Math.random() * 500);
+        }, Math.random() * 1000);
       }
     });
     return $('.building').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
       if ($.inArray(id, filterbuildings) > -1 && apartmentVariantMasterCollection.length !== apartmentVariantCollection.length && apartmentVariantCollection.length !== 0) {
-        return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
+        return setTimeout(function() {
+          return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
+        }, Math.random() * 1000);
       } else {
-        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
+        return setTimeout(function() {
+          return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
+        }, Math.random() * 1000);
       }
     });
   };
@@ -785,8 +787,13 @@
     property = window.propertyTypes[unitType.get('property_type_id')];
     text = '';
     window.tempColl = unitCollection.clone();
-    if (s.decapitalize(property) === 'apartments' || s.decapitalize(property) === 'penthouse') {
+    if (s.decapitalize(property) === 'apartments') {
       window.tempColl.reset(apartmentVariantCollection.getApartmentUnits());
+      text = 'Similar ' + s.decapitalize(property) + ' based on your filters';
+    }
+    if (s.decapitalize(property) === 'penthouse') {
+      console.log(apartmentVariantCollection.getPenthouseUnits());
+      window.tempColl.reset(apartmentVariantCollection.getPenthouseUnits());
       text = 'Similar ' + s.decapitalize(property) + ' based on your filters';
     }
     if (s.decapitalize(property) === 'villas/Bungalows') {

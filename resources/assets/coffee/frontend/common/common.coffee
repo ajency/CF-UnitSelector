@@ -223,10 +223,9 @@ CommonFloor.applyAvailabilClasses = (classname)->
 			
 CommonFloor.randomClass = ()->
 	$('.layer').each (ind,item)->
-		console.log id = parseInt item.id
-		setTimeout( ()->
-			$('#'+id).attr('style' , 'transform: rotateY(0deg) scale(1); ')
-		,Math.random() * 500)
+		id = parseInt item.id
+		$('#'+id).attr('style' , 'transform: rotateY(0deg) scale(1); ')
+		
 
 
 
@@ -316,21 +315,25 @@ CommonFloor.applyFliterClass = ()->
 		if $.inArray(id , filterunits) > -1
 			setTimeout( ()->
 				$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
-			,Math.random() * 500)
+			,Math.random() * 1000)
 			
 		else
 			setTimeout( ()->
 				$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
-			,Math.random() * 500)
+			,Math.random() * 1000)
 			
 
 	$('.building').each (ind,item)->
 		id = parseInt item.id
 		if $.inArray(id , filterbuildings) > -1 && apartmentVariantMasterCollection.length != apartmentVariantCollection.length && apartmentVariantCollection.length !=0
-			$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
+			setTimeout( ()->
+				$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
+			,Math.random() * 1000)
+			
 		else
-			$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
-	
+			setTimeout( ()->
+				$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
+			,Math.random() * 1000)
 
 CommonFloor.applyNonFilterClass = ()->
 	flag = 0
@@ -664,8 +667,12 @@ CommonFloor.getUnitsProperty = (unitModel)->
 	property = window.propertyTypes[unitType.get('property_type_id')]
 	text = ''
 	window.tempColl = unitCollection.clone()
-	if s.decapitalize(property) == 'apartments' || s.decapitalize(property) == 'penthouse'
+	if s.decapitalize(property) == 'apartments' 
 		window.tempColl.reset apartmentVariantCollection.getApartmentUnits()
+		text =  'Similar '+s.decapitalize(property)+' based on your filters'
+	if s.decapitalize(property) == 'penthouse'
+		console.log apartmentVariantCollection.getPenthouseUnits()
+		window.tempColl.reset apartmentVariantCollection.getPenthouseUnits()
 		text =  'Similar '+s.decapitalize(property)+' based on your filters'
 	if s.decapitalize(property) == 'villas/Bungalows'
 		window.tempColl.reset bunglowVariantCollection.getBunglowUnits()
