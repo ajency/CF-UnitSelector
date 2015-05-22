@@ -273,6 +273,7 @@ hr.embossed {
 }
 .detail-list .unit-label h3 {
   margin: 0px 0px 6px;
+  font-size: 15px;
 }
 .panel-title {
   border-bottom: 1px solid #ccc;
@@ -344,6 +345,19 @@ hr.embossed {
 .bold {
   font-weight: bold;
   font-family: arial!important;
+}
+/*Step 4*/
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background-color: #000;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #FFC698;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #aaa;
 }
 /* Bootstrap responsive utilities */
 @-ms-viewport {
@@ -1302,7 +1316,6 @@ svg .available,
 svg .building {
   opacity: 0.9;
   fill-opacity: 0.2;
-  fill: #ffffff;
   stroke: #000;
   stroke-width: 1px;
   stroke-opacity: 1;
@@ -1437,10 +1450,10 @@ svg polygon {
   }
 }
 .marker-blink {
-  -webkit-animation: blink 0.5s ease-in-out infinite alternate;
-          animation: blink 0.5s ease-in-out infinite alternate;
+  -webkit-animation: blink1 0.5s ease-in-out infinite alternate;
+          animation: blink1 0.5s ease-in-out infinite alternate;
 }
-@-webkit-keyframes blink {
+@-webkit-keyframes blink1 {
   0% {
     stroke-width: 0;
   }
@@ -1449,12 +1462,24 @@ svg polygon {
     fill-opacity: 0.5;
   }
 }
-@keyframes blink {
+@keyframes blink1 {
   0% {
     stroke-width: 0;
   }
   100% {
     stroke: #F68121;
+    fill-opacity: 0.5;
+  }
+}
+@-webkit-keyframes blink {
+  100% {
+    fill: #F68121;
+    fill-opacity: 0.5;
+  }
+}
+@keyframes blink {
+  100% {
+    fill: #F68121;
     fill-opacity: 0.5;
   }
 }
@@ -1993,7 +2018,7 @@ svg polygon {
     width: 100%;
   }
   .unit-details .detail-list .unit-label h3 {
-    font-size: 16px;
+    font-size: 15px;
   }
   .unit-details .detail-list .unit-label h5 {
     font-size: 12px;
@@ -2065,6 +2090,9 @@ svg polygon {
 .slider .Level_5 .layouts:nth-child(3n) {
   float: none;
   margin: 0 auto 20px;
+}
+.slider .external-img {
+  width: 100%;
 }
 .slider .gallery-img {
   width: 45%;

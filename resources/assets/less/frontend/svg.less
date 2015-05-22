@@ -85,7 +85,7 @@ svg {
 	  	// fill: rgba(204, 204, 204, 0);
 	  	opacity: 0.9;
 	  	fill-opacity: 0.2;
-	  	fill: @white;
+	  	// fill: @white;
 	  	stroke: #000;
 	  	stroke-width: 1px;
 	  	stroke-opacity: 1;
@@ -198,16 +198,26 @@ svg {
 	
 // }
 .marker-blink{
- 	animation: blink .5s ease-in-out infinite alternate; 
+ 	animation: blink1 .5s ease-in-out infinite alternate; 
 	
  }
-@keyframes blink {
+@keyframes blink1 {
   0% {
 	 stroke-width:0; 
   }
   
   100% {
  	stroke:#F68121;
+ 	fill-opacity: 0.5;
+  }
+}
+@keyframes blink {
+  0% {
+	 
+  }
+  
+  100% {
+ 	fill:#F68121;
  	fill-opacity: 0.5;
   }
 }

@@ -364,7 +364,7 @@
       $('.images').html(html);
       $('.level').attr('class', 'level Level_0 ' + _.last(response[2]));
       if (!_.isUndefined(response[3].get('external3durl'))) {
-        html = '<img class="img lazy-hidden img-responsive"  data-src="' + response[3].get('external3durl') + '" />';
+        html = '<img class="img lazy-hidden img-responsive external-img"  data-src="' + response[3].get('external3durl') + '" />';
         $('.images').html(html);
         $('.external').addClass('current');
         $('.threeD').removeClass('current');
