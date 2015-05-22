@@ -800,7 +800,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						</div>'
 
 			$.each response,(index,value)->
-				html +=''+value.name+' ('+value.units+'),'
+				html +='<div class="details">
+							' +value.name+' ('+value.units+'),
+						</div>'
 
 			if unit.length > 0 
 				if Object.keys(buildingModel.get('building_master')).length == 0
@@ -811,7 +813,10 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					
 				html += '<div class="circle">
 						<a href="#'+url+'" class="arrow-up icon-chevron-right"></a>
-						</div><div class="text-muted text-default">Click arrow to move forward</div>'
+						</div>
+						<div class="details">
+							<div class="text-muted text-default">Click arrow to move forward</div>
+						</div>'
 			
 			html += '</div>'
 
