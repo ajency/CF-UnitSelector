@@ -755,6 +755,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			arrow : false
 			offsetX : 50
 			offsetY : -10
+			multiple : 'true'
+			trigger: 'hover'
 		)
 
 	loadZoom:->
