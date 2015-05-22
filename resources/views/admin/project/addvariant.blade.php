@@ -29,13 +29,13 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label">Name</label>
+                            <label class="form-label">Name<span class="text-primary">*</span></label>
                             <input type="text" class="form-control" name="unit_variant_name" placeholder="Enter Name" data-parsley-required>
                         </div> 
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label">Unit Type</label>
+                            <label class="form-label">Unit Type<span class="text-primary">*</span></label>
                             <select name="unit_type" class="select2 form-control m-b-5" data-parsley-required>
                                 <option value="">Select Unit Type</option>
                                 @foreach($unit_type_arr as $unit_type)
@@ -52,7 +52,7 @@
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label">Carpet Area</label>
+                            <label class="form-label">Carpet Area<span class="text-primary">*</span></label>
                             <input type="text" class="form-control" name="carpet_area" value="" placeholder="Enter Carpet Area" data-parsley-required data-parsley-type="number">
                         </div> 
                     </div>
@@ -63,19 +63,19 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label">Built Up Area</label>
+                            <label class="form-label">Built Up Area<span class="text-primary">*</span></label>
                             <input type="text" class="form-control" name="builtup_area" value="" placeholder="Enter Built Up Area" data-parsley-required data-parsley-type="number">
                         </div> 
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label">Super Built Up Area</label>
+                            <label class="form-label">Super Built Up Area<span class="text-primary">*</span></label>
                             <input type="text" class="form-control" name="superbuiltup_area" value="" placeholder="Enter Super Built Up Area" data-parsley-required data-parsley-type="number">
                         </div> 
                     </div>
                     <div class="col-md-4">
                         <div class="form-group">
-                            <label class="form-label">Per sq ft Price</label>
+                            <label class="form-label">Per sq ft Price<span class="text-primary">*</span></label>
                             <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
                         </div> 
                     </div>

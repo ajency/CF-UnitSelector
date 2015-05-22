@@ -25,15 +25,14 @@
                         <div class="img-hover img-thumbnail">
                             <a class="btn btn-link btn-danger overlay" onclick="deleteSvg({{$svgImages['google_earth']['ID']}}, 'google_earth', '');"><i class="fa fa-close text-primary"></i></a>
                             <object style="  width: 150px;height: 93px;" id="svg1" data="{{ $svgImages['google_earth']['IMAGE'] }}" type="image/svg+xml"></object>
-                            <div class="dz-size" data-dz-size="" style="padding: 3px;">{{ $svgImages['google_earth']['NAME'] }}</div>
+                            <div class="dz-size" data-dz-size="">{{ $svgImages['google_earth']['NAME'] }}</div>
                         </div>
                     </div>
-                    <div class="col-md-3">
+                    <div class="col-md-5">
                         <h5 class="semi-bold">To use the Authoring Tool<a href="#" class="text-primary"> click here</a></h5>
 
                     </div>
-                    <div class="col-md-2">
-                    </div>
+                    
                     <div class="col-md-4 hidden">
 
                         <div class="user-description-box hidden">

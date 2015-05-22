@@ -29,13 +29,13 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Name</label>
+                        <label class="form-label">Name<span class="text-primary">*</span></label>
                         <input type="text" class="form-control" name="unit_variant_name" placeholder="Enter Name" data-parsley-required>
                     </div> 
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Unit Type</label>
+                        <label class="form-label">Unit Type<span class="text-primary">*</span></label>
                         <select name="unit_type" class="select2 form-control m-b-5" data-parsley-required>
                             <option value="">Select Unit Type</option>
                             @foreach($unit_type_arr as $unit_type)
@@ -52,14 +52,14 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Size</label>
+                        <label class="form-label">Size<span class="text-primary">*</span></label>
                         <input type="text" class="form-control" name="size" value="" placeholder="Enter Size" data-parsley-required data-parsley-type="number">
                     </div> 
                 </div>
 
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Per sq ft Price</label>
+                        <label class="form-label">Per sq ft Price<span class="text-primary">*</span></label>
                         <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
                     </div> 
                 </div>

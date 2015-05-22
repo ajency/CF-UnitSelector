@@ -25,7 +25,7 @@
                 <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/bunglow-unit/create') }}" ><i class="fa fa-plus"></i> Add Unit</a>
             </div>
             <div class="grid-body">
-                <table class="table table-striped" id="example2" >
+                <table class="table table-bordered" id="example2" >
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -37,13 +37,12 @@
                     </thead>
                     <tbody> 
                         @foreach ($unit_arr as $unit)
-                            <tr class="">
-                                <td><a href="{{ url( '/admin/project/' . $project['id'] . '/bunglow-unit/'.$unit['id'].'/edit') }}">{{ $unit['unit_name'] }}</a></td>
+                            <tr class="" onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/bunglow-unit/'.$unit['id'].'/edit') }}'">
+                                <td>{{ $unit['unit_name'] }}</td>
                                 <td>{{ ucfirst($unit->availability) }}</td>
                                 <td>{{ $unit->unitVariant->unit_variant_name}}</td>
                                 <td>{{ date('d/m/Y',strtotime($unit['created_at'])) }}</td>
                                 <td>{{  date('d/m/Y',strtotime($unit['updated_at'])) }}</td>
-
                             </tr>
                         @endforeach
                     </tbody>

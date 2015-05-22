@@ -20,7 +20,7 @@
                 <a class="btn btn-primary pull-right" href="{{ url('/admin/user/create') }}" ><i class="fa fa-plus"></i> Add User</a>
             </div>
             <div class="grid-body">
-                <table class="table table-striped userList" id="example2" >
+                <table class="table table-bordered userList" id="example2" >
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -33,8 +33,8 @@
                     </thead>
                     <tbody> 
                         @foreach ($users as $user)
-                            <tr class="">
-                                <td><a href="{{ url( '/admin/user/' . $user['id'] . '/edit') }}">{{ $user['name'] }}</a></td>
+                            <tr class="" onclick="location.href='{{ url( '/admin/user/' . $user['id'] . '/edit') }}'">
+                                <td>{{ $user['name'] }}</td>
                                 <td>{{ $user['email'] }}</td>
                                 <td>{{ $user['phone'] }}</td>
                                 <td>{{ ucfirst($user['status']) }}</td>

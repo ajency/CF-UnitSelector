@@ -28,7 +28,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label">City <span class="text-primary">*</span></label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"  title="Location of the project"></i>                                <!-- //TODO fix the required validation  -->
+                                        <label class="form-label">City<span class="text-primary">*</span></label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"  title="Location of the project"></i>                                <!-- //TODO fix the required validation  -->
                                         <select name="city" class="select2 form-control" data-parsley-required>
                                             <option value="">Choose City</option>
                                             <option value="Mumbai">Mumbai</option>
@@ -55,7 +55,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label">CF Project Name <span class="text-primary">*</span></label>
+                                        <label class="form-label">CF Project Name<span class="text-primary">*</span></label>
                                         <span class="help">From CommonFloor database</span>
                                         <select data-parsley-required name="cf_project_id" class="select2 form-control">
                                             <option value="">Choose Commonfloor Project</option>
