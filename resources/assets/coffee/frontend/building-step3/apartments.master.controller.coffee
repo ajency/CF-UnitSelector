@@ -299,14 +299,11 @@ class ApartmentsView extends Marionette.ItemView
 					<div class="action-bar">
 									<div class="apartment"></div>
 								</div>
-					<h5 class="pull-left">'+unit.get('unit_name')+'</h4>
+					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' (Area - '+response[0].get('super_built_up_area')+' Sq.ft)</h5>
 
 					<!--<span class="label label-success"></span-->
-					<div class="clearfix"></div>
+			
 					<div class="details">
-						<div>
-							<label>Area</label> - '+response[0].get('super_built_up_area')+' Sq.ft
-						</div> 
 						<div>
 							<label>Unit Type </label> - '+response[1].get('name')+'
 						</div>
@@ -521,14 +518,11 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 						<div class="action-bar">
 									<div class="apartment"></div>
 						</div>
-						<h5 class="pull-left">'+unit.get('unit_name')+'</h4>
+						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' ( Area - '+response[0].get('super_built_up_area')+' Sq.ft)</h5>
 						<!--<span class="label label-success"></span-->
-						<div class="clearfix"></div>
+						<br><br>
 						<div class="details">
-							<div>
-								<label>Area</label> - '+response[0].get('super_built_up_area')+' Sq.ft
-							</div> 
-							<div>
+                           <div>
 								<label>Unit Type </label> - '+response[1].get('name')+'
 							</div>
 							<div>
