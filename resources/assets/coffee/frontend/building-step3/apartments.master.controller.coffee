@@ -31,9 +31,8 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 						              			<div class="header-info">
 						              				<h2 class="pull-left proj-name">{{project_title}}</h2>
 						              				<div class="proj-type-count">
-						              					{{#types}} 
-						              					<h1 class="pull-left">{{results}}</h1><p class="pull-left">Apartment(s)/Penthouse(s)</p> 
-						              					{{/types}}
+						              					<h1 class="pull-left proj-name">{{name}}</h1><h1 class="pull-left">{{results}}</h1><p class="pull-left">Apartment(s)/Penthouse(s)</p> 
+						              					
 						              				</div>
 						              				<div class="pull-left filter-result">
 						              	              	{{#each  filters}}
@@ -101,7 +100,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
 			previousRoute = CommonFloor.router.previous()
-			CommonFloor.navigate '/'+previousRoute , true
+			CommonFloor.navigate '#/master-view' , true
 
 		'click @ui.unitTypes':(e)->
 			unitTypes = CommonFloor.defaults['unitTypes'].split(',')
@@ -161,8 +160,8 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			@trigger  'render:view'
 
 	onShow:->
-		if CommonFloor.router.history.length == 1
-			@ui.unitBack.hide()
+		# if CommonFloor.router.history.length == 1
+		# 	@ui.unitBack.hide()
 		results  = CommonFloor.getFilters()[1]
 		if results.length == 0
 			$('.proj-type-count').text 'No results found'
@@ -257,26 +256,13 @@ class ApartmentsView extends Marionette.ItemView
 		'click':(e)->
 			if @model.get('availability') == 'available'
 				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
-				CommonFloor.router.storeRoute()
+				# CommonFloor.router.storeRoute()
 
 	getHtml:(id)->
 		html = ""
 		id = parseInt id
 		unit = unitCollection.findWhere
 					'id' : id
-		unitMaster = unitMasterCollection.findWhere 
-			id :  id 
-		if unit is undefined && unitMaster != undefined
-			html = '<div class="svg-info">
-							<div class="action-bar2">
-					        <div class="txt-dft"></div>
-					    </div> 
-						<h5 class="pull-left">
-							Not in selection
-						</div>  
-					</div>'
-			$('.layer').tooltipster('content', html)
-			return 
 		if unit is undefined
 			html = '<div class="svg-info">
 							<div class="action-bar2">
@@ -286,7 +272,7 @@ class ApartmentsView extends Marionette.ItemView
 							Apartment details not entered 
 						</div>  
 					</div>'
-			$('.layer').tooltipster('content', html)
+			$('.apartment').tooltipster('content', html)
 			return false
 
 		response = window.unit.getUnitDetails(id)
@@ -294,7 +280,7 @@ class ApartmentsView extends Marionette.ItemView
 		availability = unit.get('availability')
 		availability = s.decapitalize(availability)
 		html = ""
-		html += '<div class="svg-info">
+		html += '<div class="svg-info '+availability+'">
 					<div class="action-bar">
 								<div class="apartment"></div>
 					</div>
@@ -309,8 +295,18 @@ class ApartmentsView extends Marionette.ItemView
 						<div>
 							<label>Price </label> - '+$('#price').val()+'
 						</div>  
-					</div>  
+					</div>' 
+		if availability == 'available'
+			html +='<div class="circle">
+						<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
+					</div>
+					<div class="details">
+						<div class="text-muted text-default">Click arrow to move forward</div>
+					</div>
+
 				</div>'
+		else
+			html += '</div>'
 		html
 
 	onShow:->
@@ -470,14 +466,14 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			url = Backbone.history.fragment
 			building_id = parseInt url.split('/')[1]
 			CommonFloor.navigate '/building/'+building_id+'/apartments' , true
-			CommonFloor.router.storeRoute()
+			# CommonFloor.router.storeRoute()
 
 		'click .map':(e)->
 			e.preventDefault()
 			url = Backbone.history.fragment
 			building_id = parseInt url.split('/')[1]
 			CommonFloor.navigate '/building/'+building_id+'/master-view' , true
-			CommonFloor.router.storeRoute()
+			# CommonFloor.router.storeRoute()
 
 		'mouseover .apartment':(e)->
 			id = parseInt e.target.id
@@ -494,7 +490,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 								Not in selection
 							</div>  
 						</div>'
-				$('.layer').tooltipster('content', html)
+				$('.apartment').tooltipster('content', html)
 				return 
 			if unit is undefined
 				html = '<div class="svg-info">
@@ -505,7 +501,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 								Apartment details not entered 
 							</div>  
 						</div>'
-				$('.layer').tooltipster('content', html)
+				$('.apartment').tooltipster('content', html)
 				return false
 
 			response = window.unit.getUnitDetails(id)
@@ -513,7 +509,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			html = ""
-			html += '<div class="svg-info">
+			html += '<div class="svg-info '+availability+'">
 						<div class="action-bar">
 									<div class="apartment"></div>
 						</div>
@@ -528,12 +524,22 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 							<div>
 								<label>Price </label> - '+$('#price').val()+'
 							</div>  
-						</div>  
+						</div>' 
+			if availability == 'available'
+				html +='<div class="circle">
+							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
+						</div>
+						<div class="details">
+							<div class="text-muted text-default">Click arrow to move forward</div>
+						</div>
+
 					</div>'
+			else
+				html += '</div>'
 
 			$('#'+id).attr('class' ,'layer apartment '+availability) 
 			$('#apartment'+id).attr('class' ,' unit blocks '+availability+' active') 
-			$('.layer').tooltipster('content', html)
+			$('.apartment').tooltipster('content', html)
 		
 		'mouseout .apartment':(e)->
 			id = parseInt e.target.id
@@ -546,12 +552,12 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('#'+id).attr('class' ,'layer apartment '+availability) 
 			$('#apartment'+id).attr('class' ,'unit blocks '+availability)
 
-		'click .apartment':(e)->
-			id = parseInt e.target.id
-			CommonFloor.navigate '/unit-view/'+id , true
-			CommonFloor.router.storeRoute()
+		# 'click .apartment':(e)->
+		# 	id = parseInt e.target.id
+		# 	CommonFloor.navigate '/unit-view/'+id , true
+		# 	# CommonFloor.router.storeRoute()
 
-		'mouseover .next':(e)->
+		'mouseover .next,.prev':(e)->
 			id = parseInt $(e.target).attr('data-id')
 			buildingModel = buildingCollection.findWhere
 								'id' : id
@@ -587,10 +593,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 								'id' : id
 			if Object.keys(buildingModel.get('building_master')).length == 0
 				CommonFloor.navigate '/building/'+id+'/apartments' , true
-				CommonFloor.router.storeRoute()
+				# CommonFloor.router.storeRoute()
 			else
 				CommonFloor.navigate '/building/'+id+'/master-view' , true
-				CommonFloor.router.storeRoute()
+				# CommonFloor.router.storeRoute()
 				
 
 
@@ -652,6 +658,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('.firstimage').attr('src',transitionImages[0])
 				url = Backbone.history.fragment
 				building_id = url.split('/')[1]
+				$('.villa,.plot').each (ind,item)->
+					id = parseInt item.id
+					$('#'+id).attr('class', "")
 				$('#'+building_id+'.building').attr('class' ,'layer building svg_active'))
 		
 
@@ -670,7 +679,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		if _.isUndefined prev
 			$('.prev').hide()
 		else
-			$('.prev').attr('data-id',next.get('id'))
+			$('.prev').attr('data-id',prev.get('id'))
 
 
 	setDetailIndex:(index)->
@@ -738,7 +747,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		)
 
 	iniTooltip:->
-		$('.layer,.next,.prev').tooltipster(
+		$('.apartment,.next,.prev').tooltipster(
 			theme: 'tooltipster-shadow',
 			contentAsHTML: true
 			onlyOne : true

@@ -11,7 +11,6 @@ class CommonFloor.UnitCtrl extends Marionette.RegionController
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID)
 			CommonFloor.loadJSONData()
-		console.log project.toJSON()
 		if jQuery.isEmptyObject(project.toJSON())
 			@show new CommonFloor.NothingFoundView
 		else
@@ -49,12 +48,28 @@ class TopUnitView extends Marionette.ItemView
 		'click @ui.unitBack':(e)->
 			e.preventDefault()
 			previousRoute = CommonFloor.router.previous()
-			CommonFloor.navigate '/'+previousRoute , true
+			url = Backbone.history.fragment
+			unitid = parseInt url.split('/')[1]
+			console.log unit = unitCollection.findWhere
+				id  : unitid
+			unitType = unitTypeMasterCollection.findWhere
+							'id' :  unit.get('unit_type_id')
+			property = window.propertyTypes[unitType.get('property_type_id')]
+			buildingModel = buildingCollection.findWhere
+							'id' : unit.get 'building_id'
+			building_id = buildingModel.get 'id'
+			if s.decapitalize(property) == 'penthouse' || s.decapitalize(property) == 'apartments'
+				if Object.keys(buildingModel.get('building_master')).length == 0
+					CommonFloor.navigate '/building/'+building_id+'/apartments' , true
+				else
+					CommonFloor.navigate '/building/'+building_id+'/master-view' , true
+			else
+				CommonFloor.navigate '/master-view' , true	
 
-	onShow:->
-		CommonFloor.router.storeRoute()
-		if CommonFloor.router.history.length == 1
-			@ui.unitBack.hide()
+	# onShow:->
+	# 	# CommonFloor.router.storeRoute()
+	# 	# if CommonFloor.router.history.length == 1
+	# 	# 	@ui.unitBack.hide()
 
 #Top Controller for unit
 class CommonFloor.TopUnitCtrl extends Marionette.RegionController
@@ -114,7 +129,7 @@ class LeftUnitView extends Marionette.ItemView
 								<div class="advncd-filter-wrp">
 
 									<div class="blck-wrap title-row">
-										<h5 class="bold">Property Attributes</h5>
+										<h5 class="bold property hidden">Property Attributes</h5>
 									</div>
 									{{#attributes}}
 									<div class="row">
@@ -168,7 +183,7 @@ class LeftUnitView extends Marionette.ItemView
 					              	<div class="row m-b-15">
 					              	    <div class="col-sm-4 hidden-xs">
 				              	            <div class="alert ">
-				              	              <i class="villa-ico"></i>
+				              	              <i class="{{type}}-ico"></i>
 				              	            </div> 
 					              	    </div>
 
@@ -194,7 +209,7 @@ class LeftUnitView extends Marionette.ItemView
 		response = window.unit.getUnitDetails(unitid)
 		unit = unitCollection.findWhere
 			id  : unitid
-		console.log floor = response[0].get('floor')
+		floor = response[0].get('floor')
 		attributes = []
 		if response[4] != null
 			$.each response[4] , (index,value)->
@@ -212,6 +227,7 @@ class LeftUnitView extends Marionette.ItemView
 				'area':response[0].get 'super_built_up_area'
 				'variant':response[0].get 'unit_variant_name'
 				'id' : value.get('id')
+				'type' : similarUnits[2]
 		data.area = response[0].get('super_built_up_area')
 		data.type = response[1].get('name')
 		data.unit_variant = response[0].get('unit_variant_name')
@@ -240,13 +256,11 @@ class LeftUnitView extends Marionette.ItemView
 				
 		if unitsArr.length == 1
 			text = ''
-		[units,text]
+		[units,text,unitColl[2]]
 
 
 	generateLevels:(floor,response,unit)->
-		console.log unit
 		levels = []
-		console.log floor
 		$.each floor,(index,value)->
 			rooms = []
 			level_name =  'Level  '+ index  
@@ -274,7 +288,6 @@ class LeftUnitView extends Marionette.ItemView
 		unitid = parseInt url.split('/')[1]
 		response = window.unit.getUnitDetails(unitid)
 		$('.price').text window.numDifferentiation(response[3])
-		console.log response[4]
 		if response[4] != null && response[4].length != 0
 			$('.property').removeClass 'hidden'
 	
@@ -414,8 +427,9 @@ class CenterUnitView extends Marionette.ItemView
 			unitModel = unitCollection.findWhere
 								'id' : id
 			response = window.unit.getUnitDetails(id)
+			unitColl = CommonFloor.getUnitsProperty(unitModel)
 			html = '<div class="svg-info">
-						<i class="villa-ico"></i>
+						<i class="'+unitColl[2]+'-ico"></i>
 						<h5 class=" m-t-0">'+unitModel.get('unit_name')+'</h5>
 						<div class="details">
 							<span>'+response[1].get('name')+'</span></br>
@@ -470,7 +484,7 @@ class CenterUnitView extends Marionette.ItemView
 
 				
 		if ! _.isUndefined(response[3].get('external3durl'))
-			html = '<img class="img lazy-hidden img-responsive"  data-src="'+response[3].get('external3durl')+'" />'
+			html = '<img class="img lazy-hidden img-responsive external-img"  data-src="'+response[3].get('external3durl')+'" />'
 			$('.images').html html
 			$('.external').addClass('current')
 			$('.threeD').removeClass('current')
@@ -564,7 +578,7 @@ class CenterUnitView extends Marionette.ItemView
 		if _.isUndefined prev
 			$('.prev').hide()
 		else
-			$('.prev').attr('data-id',next.get('id'))
+			$('.prev').attr('data-id',prev.get('id'))
 
 #Center View for the unit
 class CommonFloor.CenterUnitCtrl extends Marionette.RegionController

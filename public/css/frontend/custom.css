@@ -2118,6 +2118,9 @@ svg polygon {
   float: none;
   margin: 0 auto 20px;
 }
+.slider .external-img {
+  width: 100%;
+}
 .slider .gallery-img {
   width: 45%;
   display: inline-block;
@@ -2528,10 +2531,14 @@ label.third_toggle {
   display: none;
 }
 .big-tooltip {
-  width: 471px;
+  width: 100%;
+  max-width: 470px;
 }
 .big-tooltip .b-r {
-  border-left: 1px solid #ccc;
+  border-left: 1px solid #cccccc;
+}
+.big-tooltip img {
+  width: 100%;
 }
 .big-tooltip .icon-location {
   float: left;
@@ -2542,6 +2549,10 @@ label.third_toggle {
 .big-tooltip .icon-cross {
   position: absolute;
   right: 8px;
+}
+.big-tooltip .address {
+  float: left;
+  width: 82%;
 }
 .svg-info {
   font-family: OpenSans, Arial, sans-serif;

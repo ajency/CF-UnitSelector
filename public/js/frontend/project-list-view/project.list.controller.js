@@ -78,10 +78,8 @@
     TopListView.prototype.events = function() {
       return {
         'click @ui.unitBack': function(e) {
-          var previousRoute;
           e.preventDefault();
-          previousRoute = CommonFloor.router.previous();
-          return CommonFloor.navigate('/' + previousRoute, true);
+          return CommonFloor.navigate('/', true);
         },
         'click @ui.types': function(e) {
           var arr, index;
@@ -151,9 +149,6 @@
 
     TopListView.prototype.onShow = function() {
       var response;
-      if (CommonFloor.router.history.length === 1) {
-        this.ui.unitBack.hide();
-      }
       response = CommonFloor.propertyTypes();
       if (response.length === 0) {
         return $('.proj-type-count').text('No results found');

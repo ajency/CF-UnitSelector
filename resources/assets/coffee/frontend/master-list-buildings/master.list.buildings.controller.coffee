@@ -77,13 +77,14 @@ class ListItemView extends Marionette.ItemView
 							'id' : id
 			$('.spritespin-canvas').addClass 'zoom'
 			$('.us-left-content').addClass 'animated fadeOut'
+			# window.building_id = id
 			setTimeout( (x)->
 				if Object.keys(buildingModel.get('building_master')).length == 0
 					CommonFloor.navigate '/building/'+id+'/apartments' , true
-					CommonFloor.router.storeRoute()
+					# CommonFloor.router.storeRoute()
 				else
 					CommonFloor.navigate '/building/'+id+'/master-view' , true
-					CommonFloor.router.storeRoute()
+					# CommonFloor.router.storeRoute()
 
 			, 500)
 
