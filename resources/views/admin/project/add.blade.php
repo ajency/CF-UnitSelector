@@ -11,11 +11,17 @@
 @endsection
 
 @section('content')
+ <!-- BEGIN PAGE TITLE -->
+ <div class="page-title">    
+     <h2><span class="semi-bold">Add</span> Project</h2>
+ </div>
+ <!-- END PAGE TITLE -->
 <div class="grid simple">
-    <div class="grid-title" style="border-bottom: 1px solid #f68121 !important;">
-        <h2>Project <span class="semi-bold">Add</span></h2>
-    </div>
-    <div class="grid-body">
+    <div class="grid-title no-border">
+                        <h3> <i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Details</span></h3>
+                        </div>
+    <div class="grid-body no-border">
+      
         <!-- END PAGE TITLE -->
         <!-- BEGIN PlACE PAGE CONTENT HERE -->
         <form id="add_project" method="POST" action="{{ url('admin/project') }}" data-parsley-validate>
@@ -57,8 +63,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label" >Project Title<span class="text-primary">*</span></label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"  title=" Project Title to be displayed on unit selector page"></i> 
-                                        <input  name="project_title" type="text" class="form-control" placeholder="Enter Project Title" 
-                                                data-parsley-required onchange="validateTitle(this);" ><div class="cf-loader hidden"></div>
+                                        <input  name="project_title" type="text" class="form-control m-b-5" placeholder="Enter Project Title" 
+                                                data-parsley-required onchange="validateTitle(this);" > <div class="cf-loader hidden"></div>
                                         <input  name="hidden_project_title" type="hidden" class="form-control">
                                     </div>
                                     <div class="form-group">

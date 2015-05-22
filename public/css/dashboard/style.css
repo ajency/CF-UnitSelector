@@ -5072,12 +5072,12 @@ form legend,
   opacity: 1;
 }
 .alert-success {
-  color: #db6809;
-  background-color: #f89d52;
+    color: #438a85;
+  background-color: #f3faf8;
   border-color: #bfd1cf;
 }
 .alert-success .link {
-  color: #db6809;
+  color: #438a85;
 }
 .alert-success .alert-heading {
   color: #db6809 !important;
@@ -8226,10 +8226,6 @@ body.rtl .footer-widget {
 .add-unit {
   background: #EEEEEE;
 }
-.info {
-  background: #EDEDED;
-  padding: 5px;
-}
 .summary .border-right {
   border-right: 1px dotted #969696;
 }
@@ -8244,9 +8240,6 @@ table.dataTable.no-footer {
 }
 .dataTables_length {
   display: none;
-}
-.full-width {
-  width: 100%!important;
 }
 .fa-question-circle {
   font-size: 15px;
@@ -8289,9 +8282,13 @@ table.dataTable.no-footer {
   background: #f2f4f6;
   border: 1px solid #6f7b8a;
   font-style: italic;
+  width: 272px;
 }
 .popover.fade .popover-content {
   color: #6f7b8a;
+}
+.popover.fade .arrow {
+  top: 48.966387%!important;
 }
 .popover.fade.right .arrow:after {
   border-right-color: #6F7B8A;
