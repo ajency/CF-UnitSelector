@@ -697,7 +697,7 @@
         onlyOne: true,
         arrow: false,
         offsetX: 50,
-        offsetY: -10,
+        offsetY: -30,
         multiple: 'true',
         trigger: 'hover'
       });
