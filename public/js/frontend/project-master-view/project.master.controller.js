@@ -560,7 +560,7 @@
         } else {
           availability = ' sold';
         }
-        html = '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="building"></div> </div> <h5 class="t m-t-0">' + buildingModel.get('building_name') + '	<label class="text-muted">( No. of floors - ' + floors + ' )</label></h5> <div class="details"> </div>';
+        html = '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="building"></div> </div> <h5 class="t m-t-0">' + buildingModel.get('building_name') + '	<label class="text-muted">(' + floors + ' floors)</label></h5> <div class="details"> </div>';
         $.each(response, function(index, value) {
           return html += '<span class="details">' + value.name + ' (' + value.units + '), </span>';
         });
