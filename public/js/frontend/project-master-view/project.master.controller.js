@@ -562,7 +562,7 @@
         }
         html = '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="building"></div> </div> <h5 class="t m-t-0">' + buildingModel.get('building_name') + '	<label class="text-muted">( No. of floors - ' + floors + ' )</label></h5> <div class="details"> <div> Starting Price <span class="text-primary">' + price + '</span> </div> </div>';
         $.each(response, function(index, value) {
-          return html += '<div class="details">' + value.name + ' (' + value.units + '), </div>';
+          return html += '<span class="details">' + value.name + ' (' + value.units + '), </span>';
         });
         if (unit.length > 0) {
           if (Object.keys(buildingModel.get('building_master')).length === 0) {
