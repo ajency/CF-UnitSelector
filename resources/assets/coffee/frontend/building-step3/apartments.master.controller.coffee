@@ -229,8 +229,7 @@ class ApartmentsView extends Marionette.ItemView
 		availability = @model.get('availability')
 		status = s.decapitalize(availability)
 		@model.set 'status' , status
-		window.convertRupees(response[3])
-		data.price = $('#price').val()
+		data.price = window.numDifferentiation(response[3])
 		unitType = unitTypeMasterCollection.findWhere
 							'id' :  @model.get('unit_type_id')
 		property = window.propertyTypes[unitType.get('property_type_id')]
@@ -276,7 +275,7 @@ class ApartmentsView extends Marionette.ItemView
 			return false
 
 		response = window.unit.getUnitDetails(id)
-		window.convertRupees(response[3])
+		price =  window.numDifferentiation(response[3])
 		availability = unit.get('availability')
 		availability = s.decapitalize(availability)
 		html = ""
@@ -293,7 +292,7 @@ class ApartmentsView extends Marionette.ItemView
 							<label>Unit Type </label> - '+response[1].get('name')+'
 						</div>
 						<div>
-							<label>Price </label> - '+$('#price').val()+'
+							<label>Price </label> - '+price+'
 						</div>  
 					</div>' 
 		if availability == 'available'
@@ -505,7 +504,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				return false
 
 			response = window.unit.getUnitDetails(id)
-			window.convertRupees(response[3])
+			price = window.numDifferentiation(response[3])
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			html = ""
@@ -522,7 +521,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 								<label>Unit Type </label> - '+response[1].get('name')+'
 							</div>
 							<div>
-								<label>Price </label> - '+$('#price').val()+'
+								<label>Price </label> - '+price+'
 							</div>  
 						</div>' 
 			if availability == 'available'
