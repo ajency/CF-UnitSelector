@@ -351,8 +351,7 @@ hr.embossed {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background-color: #eaeaea;
-  border-left: 1px solid #ccc;
+  background-color: #000;
 }
 ::-webkit-scrollbar-thumb {
   background-color: #FFC698;
@@ -1317,7 +1316,6 @@ svg .available,
 svg .building {
   opacity: 0.9;
   fill-opacity: 0.2;
-  fill: #ffffff;
   stroke: #000;
   stroke-width: 1px;
   stroke-opacity: 1;
@@ -1452,10 +1450,10 @@ svg polygon {
   }
 }
 .marker-blink {
-  -webkit-animation: blink 0.5s ease-in-out infinite alternate;
-          animation: blink 0.5s ease-in-out infinite alternate;
+  -webkit-animation: blink1 0.5s ease-in-out infinite alternate;
+          animation: blink1 0.5s ease-in-out infinite alternate;
 }
-@-webkit-keyframes blink {
+@-webkit-keyframes blink1 {
   0% {
     stroke-width: 0;
   }
@@ -1464,12 +1462,24 @@ svg polygon {
     fill-opacity: 0.5;
   }
 }
-@keyframes blink {
+@keyframes blink1 {
   0% {
     stroke-width: 0;
   }
   100% {
     stroke: #F68121;
+    fill-opacity: 0.5;
+  }
+}
+@-webkit-keyframes blink {
+  100% {
+    fill: #F68121;
+    fill-opacity: 0.5;
+  }
+}
+@keyframes blink {
+  100% {
+    fill: #F68121;
     fill-opacity: 0.5;
   }
 }
