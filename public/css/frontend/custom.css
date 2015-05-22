@@ -346,6 +346,7 @@ hr.embossed {
   font-weight: bold;
   font-family: arial!important;
 }
+/*Step 3 list*/
 /*Step 4*/
 ::-webkit-scrollbar {
   width: 10px;
@@ -1253,6 +1254,8 @@ hr.embossed {
 svg {
   width: 100%;
   height: auto;
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
 }
 svg polygon {
   -webkit-transform: rotateY(-180deg) scale(0);
@@ -1449,10 +1452,6 @@ svg polygon {
             transform: translateY(0);
   }
 }
-.marker-blink {
-  -webkit-animation: blink1 0.5s ease-in-out infinite alternate;
-          animation: blink1 0.5s ease-in-out infinite alternate;
-}
 @-webkit-keyframes blink1 {
   0% {
     stroke-width: 0;
@@ -1638,9 +1637,16 @@ svg polygon {
 }
 .eight .blocks {
   padding: 10px;
-  width: 11.8%;
+  width: 15.8%;
   margin-right: 0.8%;
   text-align: center;
+}
+.eight .blocks .bldg-info {
+  text-align: left;
+  margin-left: 10px;
+}
+.eight .blocks .icon {
+  color: #999999;
 }
 .eight .blocks .cost {
   display: none;
@@ -1896,6 +1902,29 @@ svg polygon {
 .us-right-content .legend ul li.na::before {
   border: 1px solid #262626;
   background-color: rgba(255, 255, 255, 0.7);
+}
+.top-legend {
+  font-size: 13px;
+  line-height: 27px;
+  position: absolute;
+  right: 25px;
+  top: 38px;
+}
+.top-legend li {
+  display: inline-block;
+  color: #cccccc;
+}
+.top-legend li::before {
+  height: 18px;
+  width: 40px;
+  border: 1px solid #cccccc;
+  content: '';
+  display: inline-block;
+  margin-right: 5px;
+}
+.top-legend li.na::before {
+  border: 1px solid #262626;
+  background-color: rgba(102, 102, 102, 0.7);
 }
 @-webkit-keyframes hvr-back-pulse {
   50% {
@@ -2646,14 +2675,6 @@ label.third_toggle {
   margin-top: 40%;
   background-position: -64px;
 }
-.svg-info .apartment {
-  background: url(../../images/sprite-popover.png) no-repeat;
-  width: 50px;
-  height: 50px;
-  display: block;
-  margin-top: 40%;
-  background-position: -64px;
-}
 .svg-info .plot {
   background: url(../../images/sprite-popover.png) no-repeat;
   width: 50px;
@@ -2662,7 +2683,7 @@ label.third_toggle {
   margin-top: 40%;
   background-position: -115px;
 }
-.svg-info .txt-dft {
+.svg-info xt-dft {
   margin-top: -2% !important;
   width: 37px !important;
   height: 37px!important;
@@ -2675,6 +2696,33 @@ label.third_toggle {
 }
 .svg-info .text-default {
   opacity: .7;
+}
+.icon-moon {
+  font-family: icomoon;
+  speak: none;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.apartment:before {
+  font-size: 30px;
+  text-align: center;
+  display: block;
+  line-height: 80px !important;
+  font-family: icomoon;
+  speak: none;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\e616";
 }
 .tooltipster-shadow .tooltipster-content {
   padding-bottom: 0;
