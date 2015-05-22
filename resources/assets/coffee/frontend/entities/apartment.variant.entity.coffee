@@ -42,6 +42,18 @@ class ApartmentVariantCollection extends Backbone.Collection
 
 		newUnits
 
+
+	#set penthouse units
+	getPenthouseUnits:->
+		units = []
+		unitCollection.each (model)->
+			unitType = unitTypeMasterCollection.findWhere
+							'id' :  model.get('unit_type_id')
+			property = window.propertyTypes[unitType.get('property_type_id')]
+			if s.decapitalize(property) == 'penthouse'
+				units.push model
+		units
+
 	#set apartment units
 	getApartmentMasterUnits:->
 		units = []
