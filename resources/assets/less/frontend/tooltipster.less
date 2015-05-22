@@ -2,9 +2,13 @@
     display: none;
 }
 .big-tooltip{
-    width:471px;
+    width: 100%;
+    max-width:470px;
     .b-r{
-      border-left: 1px solid #ccc;
+      border-left: 1px solid @gray-lighter;
+    }
+    img{
+        width: 100%;
     }
     .icon-location{
         float:left;
@@ -15,6 +19,10 @@
       .icon-cross{
         position: absolute;
         right: 8px;
+    }
+    .address{
+        float: left;
+        width: 82%;
     }
 }
 
