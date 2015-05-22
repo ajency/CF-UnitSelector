@@ -420,23 +420,6 @@
         $('.us-left-content').toggleClass('not-visible visible');
         return $('.us-right-content').toggleClass('not-visible visible');
       },
-      'click @ui.plotunit': function(e) {
-        var id, unit;
-        id = parseInt(e.target.id);
-        unit = unitCollection.findWhere({
-          id: id
-        });
-        if (!_.isUndefined(unit)) {
-          $('.spritespin-canvas').addClass('zoom');
-          $('.us-left-content').addClass('animated fadeOut');
-          return setTimeout(function(x) {
-            CommonFloor.navigate('/unit-view/' + id, {
-              trigger: true
-            });
-            return CommonFloor.router.storeRoute();
-          }, 500);
-        }
-      },
       'click .building': function(e) {
         var buildingModel, id, unit;
         id = parseInt(e.target.id);

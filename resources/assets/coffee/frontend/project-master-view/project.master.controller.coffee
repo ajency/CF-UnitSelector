@@ -397,19 +397,19 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('.us-left-content').toggleClass 'not-visible visible'
 			$('.us-right-content').toggleClass 'not-visible visible'
 
-		'click @ui.plotunit':(e)->
-			id = parseInt e.target.id
-			unit = unitCollection.findWhere 
-				id :  id 
+		# 'click @ui.plotunit':(e)->
+		# 	id = parseInt e.target.id
+		# 	unit = unitCollection.findWhere 
+		# 		id :  id 
 
-			if ! _.isUndefined unit 
-				$('.spritespin-canvas').addClass 'zoom'
-				$('.us-left-content').addClass 'animated fadeOut'
-				setTimeout( (x)->
-					CommonFloor.navigate '/unit-view/'+id , trigger : true
-					CommonFloor.router.storeRoute()
+		# 	if ! _.isUndefined unit 
+		# 		$('.spritespin-canvas').addClass 'zoom'
+		# 		$('.us-left-content').addClass 'animated fadeOut'
+		# 		setTimeout( (x)->
+		# 			CommonFloor.navigate '/unit-view/'+id , trigger : true
+		# 			CommonFloor.router.storeRoute()
 
-				, 500)	
+		# 		, 500)	
 
 		  
 		'click .building':(e)->
