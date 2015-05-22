@@ -8405,3 +8405,11 @@ h5 {
     -o-transform: rotateZ(0deg);
   }
 }
+.svg-canvas > svg {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+/*# sourceMappingURL=style.css.map */
