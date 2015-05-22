@@ -652,6 +652,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('.firstimage').attr('src',transitionImages[0])
 				url = Backbone.history.fragment
 				building_id = url.split('/')[1]
+				$('.villa,.plot,.apartment').each (ind,item)->
+					id = parseInt item.id
+					$('#'+id).attr('class', "")
 				$('#'+building_id+'.building').attr('class' ,'layer building svg_active'))
 		
 
