@@ -1,6 +1,7 @@
 (function() {
   jQuery(document).ready(function($) {
     var s, str, types;
+    $('.area').canvasAreaDraw();
     window.draw = SVG('aj-imp-builder-drag-drop');
     window.svgData = {
       'image': '',
@@ -58,8 +59,6 @@
       rawSvg.setAttribute('height', '100%');
       rawSvg.setAttributeNS(null, 'x', '0');
       rawSvg.setAttributeNS(null, 'y', '0');
-      rawSvg.setAttributeNS(null, 'viewBox', '0 0 1600 1095');
-      rawSvg.setAttributeNS(null, 'enable-background', 'new 0 0 1600 1095');
       rawSvg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
       window.createImageTag();
       return $.each(svgData, function(index, value) {
@@ -82,8 +81,6 @@
       svgimg.setAttributeNS(null, 'height', '100%');
       svgimg.setAttributeNS(null, 'width', '100%');
       svgimg.setAttributeNS('http://www.w3.org/1999/xlink', 'href', svgImg);
-      svgimg.setAttributeNS(null, 'x', '10');
-      svgimg.setAttributeNS(null, 'y', '10');
       svgimg.setAttributeNS(null, 'visibility', 'visible');
       return rawSvg.appendChild(svgimg);
     };
