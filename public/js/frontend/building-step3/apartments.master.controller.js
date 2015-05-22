@@ -229,7 +229,7 @@
       return ApartmentsView.__super__.constructor.apply(this, arguments);
     }
 
-    ApartmentsView.prototype.template = Handlebars.compile('	<div class="row"> <div class="col-sm-4  info"> <b class="bold">{{floor}}</b> - {{unit_name}} </div> <div class="col-sm-3  info"> {{unit_type}} </div> <div class="col-sm-5 text-primary"> <!--<span class="icon-rupee-icn"></span>-->{{price}} <!--<span class="tick"></span>--> </div> </div>');
+    ApartmentsView.prototype.template = Handlebars.compile('	<div class="row"> <div class="col-sm-4  info"> <b class="bold">{{floor}}</b> - {{unit_name}} </div> <div class="col-sm-3  info"> {{unit_type}} </div> <div class="col-sm-5 text-primary"> <span class="icon-rupee-icn">{{price}}</span> <!--<span class="tick"></span>--> </div> </div>');
 
     ApartmentsView.prototype.initialize = function() {
       return this.$el.prop("id", 'apartment' + this.model.get("id"));
@@ -248,8 +248,7 @@
       availability = this.model.get('availability');
       status = s.decapitalize(availability);
       this.model.set('status', status);
-      window.convertRupees(response[3]);
-      data.price = $('#price').val();
+      data.price = window.numDifferentiation(response[3]);
       unitType = unitTypeMasterCollection.findWhere({
         'id': this.model.get('unit_type_id')
       });
@@ -261,11 +260,16 @@
 
     ApartmentsView.prototype.events = {
       'mouseover': function(e) {
-        var html, id;
+        var classname, html, id, viewUnits;
         id = this.model.get('id');
         html = this.getHtml(this.model.get('id'));
         $('#' + id).attr('class', 'layer apartment ' + this.model.get('availability'));
-        $('#apartment' + id).attr('class', 'unit blocks ' + this.model.get('availability') + ' active');
+        console.log(viewUnits = CommonFloor.getApartmentsInView());
+        classname = '';
+        if ($.inArray(parseInt(this.model.get('id')), viewUnits) === -1) {
+          classname = 'onview';
+        }
+        $('#apartment' + id).attr('class', 'unit blocks ' + classname + ' ' + this.model.get('availability') + ' active');
         $('#' + id).tooltipster('content', html);
         return $('#' + id).tooltipster('show');
       },
@@ -284,7 +288,7 @@
     };
 
     ApartmentsView.prototype.getHtml = function(id) {
-      var availability, html, response, unit;
+      var availability, html, price, response, unit;
       html = "";
       id = parseInt(id);
       unit = unitCollection.findWhere({
@@ -296,11 +300,12 @@
         return false;
       }
       response = window.unit.getUnitDetails(id);
-      window.convertRupees(response[3]);
+      price = window.numDifferentiation(response[3]);
       availability = unit.get('availability');
       availability = s.decapitalize(availability);
       html = "";
-      html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + ' ( Area - ' + response[0].get('super_built_up_area') + ' Sq.ft)</h5> <!--<span class="label label-success"></span--> <br><br> <div class="details"> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div>';
+      html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + ' ( Area - ' + response[0].get('super_built_up_area') + ' Sq.ft)</h5> <!--<span class="label label-success"></span--> <br><br> <div class="details"> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - <span class="icon-rupee-icn">' + price + '</span> </div> </div>';
+      console.log(availability);
       if (availability === 'available') {
         html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
       } else {
@@ -443,7 +448,7 @@
         return CommonFloor.navigate('/building/' + building_id + '/master-view', true);
       },
       'mouseover .apartment': function(e) {
-        var availability, html, id, response, unit, unitMaster;
+        var availability, html, id, price, response, unit, unitMaster;
         id = parseInt(e.target.id);
         unit = unitCollection.findWhere({
           'id': id
@@ -462,16 +467,18 @@
           return false;
         }
         response = window.unit.getUnitDetails(id);
-        window.convertRupees(response[3]);
+        console.log(price = window.numDifferentiation(response[3]));
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + ' ( Area - ' + response[0].get('super_built_up_area') + ' Sq.ft)</h5> <!--<span class="label label-success"></span--> <br><br> <div class="details"> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div>';
+        html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + ' ( Area - ' + response[0].get('super_built_up_area') + ' Sq.ft)</h5> <!--<span class="label label-success"></span--> <br><br> <div class="details"> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - <span class="icon-rupee-icn">' + price + '</span> </div> </div>';
+        console.log(availability);
         if (availability === 'available') {
           html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
         } else {
           html += '</div>';
         }
+        console.log(html);
         $('#' + id).attr('class', 'layer apartment ' + availability);
         $('#apartment' + id).attr('class', ' unit blocks ' + availability + ' active');
         return $('.apartment').tooltipster('content', html);
@@ -552,6 +559,7 @@
         CommonFloor.applyAvailabilClasses();
         CommonFloor.randomClass();
         CommonFloor.applyFliterClass();
+        CommonFloor.getApartmentsInView();
         return that.loadZoom();
       }).addClass('active').removeClass('inactive');
       $('.first_image').lazyLoadXT();
@@ -664,6 +672,7 @@
             CommonFloor.applyAvailabilClasses();
             CommonFloor.randomClass();
             CommonFloor.applyFliterClass();
+            CommonFloor.getApartmentsInView();
             return that.loadZoom();
           }).addClass('active').removeClass('inactive');
         }
@@ -683,6 +692,7 @@
           CommonFloor.applyAvailabilClasses();
           CommonFloor.randomClass();
           CommonFloor.applyFliterClass();
+          CommonFloor.getApartmentsInView();
           return that.loadZoom();
         }).addClass('active').removeClass('inactive');
       });
@@ -695,7 +705,9 @@
         onlyOne: true,
         arrow: false,
         offsetX: 50,
-        offsetY: -10
+        offsetY: -40,
+        trigger: 'hover',
+        interactive: true
       });
     };
 

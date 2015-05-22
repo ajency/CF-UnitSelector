@@ -55,10 +55,11 @@ class TopUnitView extends Marionette.ItemView
 			unitType = unitTypeMasterCollection.findWhere
 							'id' :  unit.get('unit_type_id')
 			property = window.propertyTypes[unitType.get('property_type_id')]
-			buildingModel = buildingCollection.findWhere
-							'id' : unit.get 'building_id'
-			building_id = buildingModel.get 'id'
+			
 			if s.decapitalize(property) == 'penthouse' || s.decapitalize(property) == 'apartments'
+				buildingModel = buildingCollection.findWhere
+							'id' : unit.get 'building_id'
+				building_id = buildingModel.get 'id'
 				if Object.keys(buildingModel.get('building_master')).length == 0
 					CommonFloor.navigate '/building/'+building_id+'/apartments' , true
 				else
@@ -433,7 +434,7 @@ class CenterUnitView extends Marionette.ItemView
 						<h5 class=" m-t-0">'+unitModel.get('unit_name')+'</h5>
 						<div class="details">
 							<span>'+response[1].get('name')+'</span></br>
-							Approx Rs.<span class="text-primary">'+window.numDifferentiation(response[3])+'</span>
+							<div class="text-primary"><span class="text-primary facts-icon icon-rupee-icn"></span>'+window.numDifferentiation(response[3])+'</div>
 							<!--<div>Area: <span>'+response[0].get('super_built_up_area')+'Sq.Ft</span></div>	
 							<div>Variant: <span>'+response[0].get('unit_variant_name')+'</span></div>-->
 							

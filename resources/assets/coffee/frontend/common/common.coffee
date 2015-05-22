@@ -689,5 +689,12 @@ CommonFloor.getUnitsProperty = (unitModel)->
 
 #get apartments which are in the view
 CommonFloor.getApartmentsInView = ()->
+	units = []
+	newUnits = []
 	$('.apartment').each (index,value)->
-		console.log value
+		id  = parseInt value.id
+		units.push value.id
+	newUnits  = $.map units, (item)->
+		return parseInt item
+	newUnits
+

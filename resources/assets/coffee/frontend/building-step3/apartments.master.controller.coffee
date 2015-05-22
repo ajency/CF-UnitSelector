@@ -210,12 +210,13 @@ class ApartmentsView extends Marionette.ItemView
 					                        	{{unit_type}}
 					                      </div> 
 					                       <div class="col-sm-5 text-primary">
-					                          <!--<span class="icon-rupee-icn"></span>-->{{price}} <!--<span class="tick"></span>-->
+					                          <span class="icon-rupee-icn">{{price}}</span> <!--<span class="tick"></span>-->
 					                      </div> 
 					                  </div>')
 
 	initialize:->
 		@$el.prop("id", 'apartment'+@model.get("id"))
+		
 
 	tagName: 'li'
 
@@ -229,8 +230,7 @@ class ApartmentsView extends Marionette.ItemView
 		availability = @model.get('availability')
 		status = s.decapitalize(availability)
 		@model.set 'status' , status
-		window.convertRupees(response[3])
-		data.price = $('#price').val()
+		data.price = window.numDifferentiation(response[3])
 		unitType = unitTypeMasterCollection.findWhere
 							'id' :  @model.get('unit_type_id')
 		property = window.propertyTypes[unitType.get('property_type_id')]
@@ -243,7 +243,11 @@ class ApartmentsView extends Marionette.ItemView
 			id = @model.get 'id'
 			html = @getHtml(@model.get('id'))
 			$('#'+id).attr('class' ,'layer apartment '+@model.get('availability'))
-			$('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability')+' active')
+			console.log viewUnits = CommonFloor.getApartmentsInView()
+			classname = ''
+			if $.inArray(parseInt(@model.get('id')), viewUnits) == -1
+				classname = 'onview' 
+			$('#apartment'+id).attr('class' ,'unit blocks '+classname+' '+@model.get('availability')+' active')
 			$('#'+id).tooltipster('content', html)
 			$('#'+id).tooltipster('show')
 
@@ -276,7 +280,7 @@ class ApartmentsView extends Marionette.ItemView
 			return false
 
 		response = window.unit.getUnitDetails(id)
-		window.convertRupees(response[3])
+		price =  window.numDifferentiation(response[3])
 		availability = unit.get('availability')
 		availability = s.decapitalize(availability)
 		html = ""
@@ -293,9 +297,10 @@ class ApartmentsView extends Marionette.ItemView
 							<label>Unit Type </label> - '+response[1].get('name')+'
 						</div>
 						<div>
-							<label>Price </label> - '+$('#price').val()+'
+							<label>Price </label> - <span class="icon-rupee-icn">'+price+'</span>
 						</div>  
-					</div>' 
+					</div>'
+		console.log availability 
 		if availability == 'available'
 			html +='<div class="circle">
 						<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
@@ -505,7 +510,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				return false
 
 			response = window.unit.getUnitDetails(id)
-			window.convertRupees(response[3])
+			console.log price =  window.numDifferentiation(response[3])
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			html = ""
@@ -518,13 +523,14 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 						<!--<span class="label label-success"></span-->
 						<br><br>
 						<div class="details">
-                           <div>
+	                       <div>
 								<label>Unit Type </label> - '+response[1].get('name')+'
 							</div>
 							<div>
-								<label>Price </label> - '+$('#price').val()+'
+								<label>Price </label> - <span class="icon-rupee-icn">'+price+'</span>
 							</div>  
-						</div>' 
+						</div>'
+			console.log availability 
 			if availability == 'available'
 				html +='<div class="circle">
 							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
@@ -536,7 +542,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					</div>'
 			else
 				html += '</div>'
-
+			console.log html 
 			$('#'+id).attr('class' ,'layer apartment '+availability) 
 			$('#apartment'+id).attr('class' ,' unit blocks '+availability+' active') 
 			$('.apartment').tooltipster('content', html)
@@ -628,6 +634,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				CommonFloor.applyAvailabilClasses()
 				CommonFloor.randomClass()
 				CommonFloor.applyFliterClass()
+				CommonFloor.getApartmentsInView()
 				that.loadZoom()).addClass('active').removeClass('inactive')
 		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
@@ -723,6 +730,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					CommonFloor.applyAvailabilClasses()
 					CommonFloor.randomClass()
 					CommonFloor.applyFliterClass()
+					CommonFloor.getApartmentsInView()
 					that.loadZoom()).addClass('active').removeClass('inactive')
 				
 				
@@ -740,6 +748,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				CommonFloor.applyAvailabilClasses()
 				CommonFloor.randomClass()
 				CommonFloor.applyFliterClass()
+				CommonFloor.getApartmentsInView()
 				that.loadZoom()).addClass('active').removeClass('inactive')
 
 
@@ -753,7 +762,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			onlyOne : true
 			arrow : false
 			offsetX : 50
-			offsetY : -10
+			offsetY : -40
+			trigger: 'hover'
+			interactive : true
 		)
 
 	loadZoom:->

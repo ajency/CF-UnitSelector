@@ -22,4 +22,4 @@
 
 }).call(this);
 
-//# sourceMappingURL=../frontend/router.js.map
+//# sourceMappingURL=../frontend/router.js.m/*
