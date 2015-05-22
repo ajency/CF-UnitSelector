@@ -194,7 +194,7 @@ class LeftUnitView extends Marionette.ItemView
 		response = window.unit.getUnitDetails(unitid)
 		unit = unitCollection.findWhere
 			id  : unitid
-		floor = response[0].get('floor')
+		console.log floor = response[0].get('floor')
 		attributes = []
 		if response[4] != null
 			$.each response[4] , (index,value)->
@@ -244,7 +244,9 @@ class LeftUnitView extends Marionette.ItemView
 
 
 	generateLevels:(floor,response,unit)->
+		console.log unit
 		levels = []
+		console.log floor
 		$.each floor,(index,value)->
 			rooms = []
 			level_name =  'Level  '+ index  

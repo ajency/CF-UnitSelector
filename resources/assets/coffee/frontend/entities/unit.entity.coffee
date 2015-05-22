@@ -21,7 +21,12 @@ class Unit extends Backbone.Model
 		else if apartmentVariantMasterCollection.get(unit.get('unit_variant_id')) != undefined
 			unitVariant = apartmentVariantMasterCollection.findWhere
 								'id' : unit.get('unit_variant_id')
+			unitTypeModel = unitTypeMasterCollection.findWhere
+						'id' : parseInt unitVariant.get('unit_type_id')
 			type = 'apartment'
+			if window.propertyTypes[unitTypeModel.get('property_type_id')] == 'Penthouse'
+					type = 'Penthouse'
+			
 			price = window.apartmentVariant.findUnitPrice(unit)
 			attributes = unitVariant.get('variant_attributes')
 		else if plotVariantMasterCollection.get(unit.get('unit_variant_id')) != undefined

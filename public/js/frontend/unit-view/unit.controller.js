@@ -125,7 +125,7 @@
       unit = unitCollection.findWhere({
         id: unitid
       });
-      floor = response[0].get('floor');
+      console.log(floor = response[0].get('floor'));
       attributes = [];
       if (response[4] !== null) {
         $.each(response[4], function(index, value) {
@@ -186,7 +186,9 @@
 
     LeftUnitView.prototype.generateLevels = function(floor, response, unit) {
       var levels;
+      console.log(unit);
       levels = [];
+      console.log(floor);
       $.each(floor, function(index, value) {
         var level_id, level_name, rooms;
         rooms = [];
