@@ -260,11 +260,16 @@
 
     ApartmentsView.prototype.events = {
       'mouseover': function(e) {
-        var html, id;
+        var classname, html, id, viewUnits;
         id = this.model.get('id');
         html = this.getHtml(this.model.get('id'));
         $('#' + id).attr('class', 'layer apartment ' + this.model.get('availability'));
-        $('#apartment' + id).attr('class', 'unit blocks ' + this.model.get('availability') + ' active');
+        console.log(viewUnits = CommonFloor.getApartmentsInView());
+        classname = '';
+        if ($.inArray(this.model.get('id'), viewUnits === -1)) {
+          classname = 'onview';
+        }
+        $('#apartment' + id).attr('class', 'unit blocks classname ' + this.model.get('availability') + ' active');
         $('#' + id).tooltipster('content', html);
         return $('#' + id).tooltipster('show');
       },
@@ -554,6 +559,7 @@
         CommonFloor.applyAvailabilClasses();
         CommonFloor.randomClass();
         CommonFloor.applyFliterClass();
+        CommonFloor.getApartmentsInView();
         return that.loadZoom();
       }).addClass('active').removeClass('inactive');
       $('.first_image').lazyLoadXT();
@@ -666,6 +672,7 @@
             CommonFloor.applyAvailabilClasses();
             CommonFloor.randomClass();
             CommonFloor.applyFliterClass();
+            CommonFloor.getApartmentsInView();
             return that.loadZoom();
           }).addClass('active').removeClass('inactive');
         }
@@ -685,6 +692,7 @@
           CommonFloor.applyAvailabilClasses();
           CommonFloor.randomClass();
           CommonFloor.applyFliterClass();
+          CommonFloor.getApartmentsInView();
           return that.loadZoom();
         }).addClass('active').removeClass('inactive');
       });

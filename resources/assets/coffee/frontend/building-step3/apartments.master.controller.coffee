@@ -216,6 +216,7 @@ class ApartmentsView extends Marionette.ItemView
 
 	initialize:->
 		@$el.prop("id", 'apartment'+@model.get("id"))
+		
 
 	tagName: 'li'
 
@@ -242,7 +243,11 @@ class ApartmentsView extends Marionette.ItemView
 			id = @model.get 'id'
 			html = @getHtml(@model.get('id'))
 			$('#'+id).attr('class' ,'layer apartment '+@model.get('availability'))
-			$('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability')+' active')
+			console.log viewUnits = CommonFloor.getApartmentsInView()
+			classname = ''
+			if $.inArray @model.get('id'), viewUnits == -1
+				classname = 'onview' 
+			$('#apartment'+id).attr('class' ,'unit blocks classname '+@model.get('availability')+' active')
 			$('#'+id).tooltipster('content', html)
 			$('#'+id).tooltipster('show')
 
@@ -629,6 +634,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				CommonFloor.applyAvailabilClasses()
 				CommonFloor.randomClass()
 				CommonFloor.applyFliterClass()
+				CommonFloor.getApartmentsInView()
 				that.loadZoom()).addClass('active').removeClass('inactive')
 		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
@@ -724,6 +730,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					CommonFloor.applyAvailabilClasses()
 					CommonFloor.randomClass()
 					CommonFloor.applyFliterClass()
+					CommonFloor.getApartmentsInView()
 					that.loadZoom()).addClass('active').removeClass('inactive')
 				
 				
@@ -741,6 +748,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				CommonFloor.applyAvailabilClasses()
 				CommonFloor.randomClass()
 				CommonFloor.applyFliterClass()
+				CommonFloor.getApartmentsInView()
 				that.loadZoom()).addClass('active').removeClass('inactive')
 
 
