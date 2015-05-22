@@ -31,9 +31,8 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 						              			<div class="header-info">
 						              				<h2 class="pull-left proj-name">{{project_title}}</h2>
 						              				<div class="proj-type-count">
-						              					{{#types}} 
-						              					<h1 class="pull-left">{{results}}</h1><p class="pull-left">Apartment(s)/Penthouse(s)</p> 
-						              					{{/types}}
+						              					<h1 class="pull-left proj-name">{{name}}</h1><h1 class="pull-left">{{results}}</h1><p class="pull-left">Apartment(s)/Penthouse(s)</p> 
+						              					
 						              				</div>
 						              				<div class="pull-left filter-result">
 						              	              	{{#each  filters}}
@@ -264,19 +263,6 @@ class ApartmentsView extends Marionette.ItemView
 		id = parseInt id
 		unit = unitCollection.findWhere
 					'id' : id
-		unitMaster = unitMasterCollection.findWhere 
-			id :  id 
-		if unit is undefined && unitMaster != undefined
-			html = '<div class="svg-info">
-							<div class="action-bar2">
-					        <div class="txt-dft"></div>
-					    </div> 
-						<h5 class="pull-left">
-							Not in selection
-						</div>  
-					</div>'
-			$('.apartment').tooltipster('content', html)
-			return 
 		if unit is undefined
 			html = '<div class="svg-info">
 							<div class="action-bar2">
@@ -294,7 +280,7 @@ class ApartmentsView extends Marionette.ItemView
 		availability = unit.get('availability')
 		availability = s.decapitalize(availability)
 		html = ""
-		html += '<div class="svg-info">
+		html += '<div class="svg-info '+availability+'">
 					<div class="action-bar">
 								<div class="apartment"></div>
 					</div>
@@ -309,8 +295,18 @@ class ApartmentsView extends Marionette.ItemView
 						<div>
 							<label>Price </label> - '+$('#price').val()+'
 						</div>  
-					</div>  
+					</div>' 
+		if availability == 'available'
+			html +='<div class="circle">
+						<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
+					</div>
+					<div class="details">
+						<div class="text-muted text-default">Click arrow to move forward</div>
+					</div>
+
 				</div>'
+		else
+			html += '</div>'
 		html
 
 	onShow:->
@@ -513,7 +509,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			html = ""
-			html += '<div class="svg-info">
+			html += '<div class="svg-info '+availability+'">
 						<div class="action-bar">
 									<div class="apartment"></div>
 						</div>
@@ -528,8 +524,18 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 							<div>
 								<label>Price </label> - '+$('#price').val()+'
 							</div>  
-						</div>  
+						</div>' 
+			if availability == 'available'
+				html +='<div class="circle">
+							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
+						</div>
+						<div class="details">
+							<div class="text-muted text-default">Click arrow to move forward</div>
+						</div>
+
 					</div>'
+			else
+				html += '</div>'
 
 			$('#'+id).attr('class' ,'layer apartment '+availability) 
 			$('#apartment'+id).attr('class' ,' unit blocks '+availability+' active') 

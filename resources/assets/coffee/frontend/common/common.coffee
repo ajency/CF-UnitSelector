@@ -685,3 +685,9 @@ CommonFloor.getUnitsProperty = (unitModel)->
 		type = s.decapitalize(property)
 
 	[window.tempColl,text,type]
+
+
+#get apartments which are in the view
+CommonFloor.getApartmentsInView = ()->
+	$('.apartment').each (index,value)->
+		console.log value

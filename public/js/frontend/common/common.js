@@ -808,6 +808,12 @@
     return [window.tempColl, text, type];
   };
 
+  CommonFloor.getApartmentsInView = function() {
+    return $('.apartment').each(function(index, value) {
+      return console.log(value);
+    });
+  };
+
 }).call(this);
 
 //# sourceMappingURL=../../frontend/common/common.js.map
