@@ -48,12 +48,27 @@ class TopUnitView extends Marionette.ItemView
 		'click @ui.unitBack':(e)->
 			e.preventDefault()
 			previousRoute = CommonFloor.router.previous()
-			CommonFloor.navigate '/'+previousRoute , true
+			url = Backbone.history.fragment
+			unitid = parseInt url.split('/')[1]
+			unit = unitCollection.findWhere
+				id  : unitid
+			unitType = unitTypeMasterCollection.findWhere
+							'id' :  unit.get('unit_type_id')
+			property = window.propertyTypes[unitType.get('property_type_id')]
+			console.log buildingModel = buildingCollection.findWhere
+							'id' : window.building_id
+			if s.decapitalize(property) == 'penthouse' || s.decapitalize(property) == 'apartments'
+				if Object.keys(buildingModel.get('building_master')).length == 0
+					CommonFloor.navigate '/building/'+window.building_id+'/apartments' , true
+				else
+					CommonFloor.navigate '/building/'+window.building_id+'/master-view' , true
+			else
+				CommonFloor.navigate '/master-view' , true	
 
-	onShow:->
-		CommonFloor.router.storeRoute()
-		if CommonFloor.router.history.length == 1
-			@ui.unitBack.hide()
+	# onShow:->
+	# 	# CommonFloor.router.storeRoute()
+	# 	# if CommonFloor.router.history.length == 1
+	# 	# 	@ui.unitBack.hide()
 
 #Top Controller for unit
 class CommonFloor.TopUnitCtrl extends Marionette.RegionController

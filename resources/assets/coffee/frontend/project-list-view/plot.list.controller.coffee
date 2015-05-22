@@ -30,7 +30,7 @@ class PlotItemView extends Marionette.ItemView
 		'click .unit' :(e)->
 				if @model.get('status') == 'available'
 					CommonFloor.navigate '/unit-view/'+@model.get('id') , true
-					CommonFloor.router.storeRoute()
+					# CommonFloor.router.storeRoute()
 
 
 #Composite view for plots

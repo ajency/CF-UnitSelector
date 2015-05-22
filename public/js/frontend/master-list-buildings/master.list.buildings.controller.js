@@ -79,13 +79,12 @@
         });
         $('.spritespin-canvas').addClass('zoom');
         $('.us-left-content').addClass('animated fadeOut');
+        window.building_id = id;
         return setTimeout(function(x) {
           if (Object.keys(buildingModel.get('building_master')).length === 0) {
-            CommonFloor.navigate('/building/' + id + '/apartments', true);
-            return CommonFloor.router.storeRoute();
+            return CommonFloor.navigate('/building/' + id + '/apartments', true);
           } else {
-            CommonFloor.navigate('/building/' + id + '/master-view', true);
-            return CommonFloor.router.storeRoute();
+            return CommonFloor.navigate('/building/' + id + '/master-view', true);
           }
         }, 500);
       }

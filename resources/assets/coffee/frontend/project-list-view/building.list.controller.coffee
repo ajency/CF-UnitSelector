@@ -45,10 +45,10 @@ class BuildingItemView extends Marionette.ItemView
 			CommonFloor.filterBuilding(id)
 			if Object.keys(buildingModel.get('building_master')).length == 0
 				CommonFloor.navigate '/building/'+id+'/apartments' , true
-				CommonFloor.router.storeRoute()
+				# CommonFloor.router.storeRoute()
 			else
 				CommonFloor.navigate '/building/'+id+'/master-view' , true
-				CommonFloor.router.storeRoute()
+				# CommonFloor.router.storeRoute()
 
 #view for listing buildings : Collection
 class BuildingListView extends Marionette.CompositeView

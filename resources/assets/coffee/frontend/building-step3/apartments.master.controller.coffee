@@ -101,7 +101,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
 			previousRoute = CommonFloor.router.previous()
-			CommonFloor.navigate '/'+previousRoute , true
+			CommonFloor.navigate '#/master-view' , true
 
 		'click @ui.unitTypes':(e)->
 			unitTypes = CommonFloor.defaults['unitTypes'].split(',')
@@ -161,8 +161,8 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			@trigger  'render:view'
 
 	onShow:->
-		if CommonFloor.router.history.length == 1
-			@ui.unitBack.hide()
+		# if CommonFloor.router.history.length == 1
+		# 	@ui.unitBack.hide()
 		results  = CommonFloor.getFilters()[1]
 		if results.length == 0
 			$('.proj-type-count').text 'No results found'
@@ -257,7 +257,7 @@ class ApartmentsView extends Marionette.ItemView
 		'click':(e)->
 			if @model.get('availability') == 'available'
 				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
-				CommonFloor.router.storeRoute()
+				# CommonFloor.router.storeRoute()
 
 	getHtml:(id)->
 		html = ""
@@ -470,14 +470,14 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			url = Backbone.history.fragment
 			building_id = parseInt url.split('/')[1]
 			CommonFloor.navigate '/building/'+building_id+'/apartments' , true
-			CommonFloor.router.storeRoute()
+			# CommonFloor.router.storeRoute()
 
 		'click .map':(e)->
 			e.preventDefault()
 			url = Backbone.history.fragment
 			building_id = parseInt url.split('/')[1]
 			CommonFloor.navigate '/building/'+building_id+'/master-view' , true
-			CommonFloor.router.storeRoute()
+			# CommonFloor.router.storeRoute()
 
 		'mouseover .apartment':(e)->
 			id = parseInt e.target.id
@@ -546,10 +546,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('#'+id).attr('class' ,'layer apartment '+availability) 
 			$('#apartment'+id).attr('class' ,'unit blocks '+availability)
 
-		'click .apartment':(e)->
-			id = parseInt e.target.id
-			CommonFloor.navigate '/unit-view/'+id , true
-			CommonFloor.router.storeRoute()
+		# 'click .apartment':(e)->
+		# 	id = parseInt e.target.id
+		# 	CommonFloor.navigate '/unit-view/'+id , true
+		# 	# CommonFloor.router.storeRoute()
 
 		'mouseover .next':(e)->
 			id = parseInt $(e.target).attr('data-id')
@@ -587,10 +587,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 								'id' : id
 			if Object.keys(buildingModel.get('building_master')).length == 0
 				CommonFloor.navigate '/building/'+id+'/apartments' , true
-				CommonFloor.router.storeRoute()
+				# CommonFloor.router.storeRoute()
 			else
 				CommonFloor.navigate '/building/'+id+'/master-view' , true
-				CommonFloor.router.storeRoute()
+				# CommonFloor.router.storeRoute()
 				
 
 

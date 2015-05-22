@@ -107,7 +107,7 @@
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
           previousRoute = CommonFloor.router.previous();
-          return CommonFloor.navigate('/' + previousRoute, true);
+          return CommonFloor.navigate('#/master-view', true);
         },
         'click @ui.unitTypes': function(e) {
           var unitTypes;
@@ -165,9 +165,6 @@
 
     TopApartmentMasterView.prototype.onShow = function() {
       var results;
-      if (CommonFloor.router.history.length === 1) {
-        this.ui.unitBack.hide();
-      }
       results = CommonFloor.getFilters()[1];
       if (results.length === 0) {
         return $('.proj-type-count').text('No results found');
@@ -281,8 +278,7 @@
       },
       'click': function(e) {
         if (this.model.get('availability') === 'available') {
-          CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
-          return CommonFloor.router.storeRoute();
+          return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
         }
       }
     };
@@ -440,16 +436,14 @@
         e.preventDefault();
         url = Backbone.history.fragment;
         building_id = parseInt(url.split('/')[1]);
-        CommonFloor.navigate('/building/' + building_id + '/apartments', true);
-        return CommonFloor.router.storeRoute();
+        return CommonFloor.navigate('/building/' + building_id + '/apartments', true);
       },
       'click .map': function(e) {
         var building_id, url;
         e.preventDefault();
         url = Backbone.history.fragment;
         building_id = parseInt(url.split('/')[1]);
-        CommonFloor.navigate('/building/' + building_id + '/master-view', true);
-        return CommonFloor.router.storeRoute();
+        return CommonFloor.navigate('/building/' + building_id + '/master-view', true);
       },
       'mouseover .apartment': function(e) {
         var availability, html, id, response, unit, unitMaster;
@@ -494,12 +488,6 @@
         $('#' + id).attr('class', 'layer apartment ' + availability);
         return $('#apartment' + id).attr('class', 'unit blocks ' + availability);
       },
-      'click .apartment': function(e) {
-        var id;
-        id = parseInt(e.target.id);
-        CommonFloor.navigate('/unit-view/' + id, true);
-        return CommonFloor.router.storeRoute();
-      },
       'mouseover .next': function(e) {
         var buildingModel, floors, html, id, images, response, unitTypes;
         id = parseInt($(e.target).attr('data-id'));
@@ -528,11 +516,9 @@
           'id': id
         });
         if (Object.keys(buildingModel.get('building_master')).length === 0) {
-          CommonFloor.navigate('/building/' + id + '/apartments', true);
-          return CommonFloor.router.storeRoute();
+          return CommonFloor.navigate('/building/' + id + '/apartments', true);
         } else {
-          CommonFloor.navigate('/building/' + id + '/master-view', true);
-          return CommonFloor.router.storeRoute();
+          return CommonFloor.navigate('/building/' + id + '/master-view', true);
         }
       }
     };

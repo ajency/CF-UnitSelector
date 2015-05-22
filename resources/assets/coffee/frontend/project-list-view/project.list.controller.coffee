@@ -85,8 +85,8 @@ class TopListView extends Marionette.ItemView
 	events:->
 		'click @ui.unitBack':(e)->
 			e.preventDefault()
-			previousRoute = CommonFloor.router.previous()
-			CommonFloor.navigate '/'+previousRoute , true
+			# previousRoute = CommonFloor.router.previous()
+			CommonFloor.navigate '/' , true
 
 		'click @ui.types':(e)->
 			arr = CommonFloor.defaults['type'].split(',')
@@ -152,8 +152,8 @@ class TopListView extends Marionette.ItemView
 			@trigger  'render:view'
 
 	onShow:->
-		if CommonFloor.router.history.length == 1
-			@ui.unitBack.hide()
+		# if CommonFloor.router.history.length == 1
+		# 	@ui.unitBack.hide()
 		response = CommonFloor.propertyTypes() 
 		if response.length == 0
 			$('.proj-type-count').text 'No results found'

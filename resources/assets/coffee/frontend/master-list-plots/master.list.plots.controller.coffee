@@ -76,7 +76,7 @@ class PlotListView extends Marionette.ItemView
 			if ! _.isUndefined unit 
 				setTimeout( (x)->
 					CommonFloor.navigate '/unit-view/'+id , trigger : true
-					CommonFloor.router.storeRoute()
+					# CommonFloor.router.storeRoute()
 
 				, 500)
 
