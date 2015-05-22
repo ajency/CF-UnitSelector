@@ -299,12 +299,12 @@
       });
       if (unit === void 0 && unitMaster !== void 0) {
         html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Not in selection </div> </div>';
-        $('.layer').tooltipster('content', html);
+        $('.apartment').tooltipster('content', html);
         return;
       }
       if (unit === void 0) {
         html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Apartment details not entered </div> </div>';
-        $('.layer').tooltipster('content', html);
+        $('.apartment').tooltipster('content', html);
         return false;
       }
       response = window.unit.getUnitDetails(id);
@@ -462,12 +462,12 @@
         });
         if (unit === void 0 && unitMaster !== void 0) {
           html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Not in selection </div> </div>';
-          $('.layer').tooltipster('content', html);
+          $('.apartment').tooltipster('content', html);
           return;
         }
         if (unit === void 0) {
           html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Apartment details not entered </div> </div>';
-          $('.layer').tooltipster('content', html);
+          $('.apartment').tooltipster('content', html);
           return false;
         }
         response = window.unit.getUnitDetails(id);
@@ -478,7 +478,7 @@
         html += '<div class="svg-info"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + ' ( Area - ' + response[0].get('super_built_up_area') + ' Sq.ft)</h5> <!--<span class="label label-success"></span--> <br><br> <div class="details"> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
         $('#' + id).attr('class', 'layer apartment ' + availability);
         $('#apartment' + id).attr('class', ' unit blocks ' + availability + ' active');
-        return $('.layer').tooltipster('content', html);
+        return $('.apartment').tooltipster('content', html);
       },
       'mouseout .apartment': function(e) {
         var availability, id, unit;
@@ -696,7 +696,7 @@
     };
 
     CenterApartmentMasterView.prototype.iniTooltip = function() {
-      return $('.layer,.next,.prev').tooltipster({
+      return $('.apartment,.next,.prev').tooltipster({
         theme: 'tooltipster-shadow',
         contentAsHTML: true,
         onlyOne: true,

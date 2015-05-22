@@ -275,7 +275,7 @@ class ApartmentsView extends Marionette.ItemView
 							Not in selection
 						</div>  
 					</div>'
-			$('.layer').tooltipster('content', html)
+			$('.apartment').tooltipster('content', html)
 			return 
 		if unit is undefined
 			html = '<div class="svg-info">
@@ -286,7 +286,7 @@ class ApartmentsView extends Marionette.ItemView
 							Apartment details not entered 
 						</div>  
 					</div>'
-			$('.layer').tooltipster('content', html)
+			$('.apartment').tooltipster('content', html)
 			return false
 
 		response = window.unit.getUnitDetails(id)
@@ -494,7 +494,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 								Not in selection
 							</div>  
 						</div>'
-				$('.layer').tooltipster('content', html)
+				$('.apartment').tooltipster('content', html)
 				return 
 			if unit is undefined
 				html = '<div class="svg-info">
@@ -505,7 +505,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 								Apartment details not entered 
 							</div>  
 						</div>'
-				$('.layer').tooltipster('content', html)
+				$('.apartment').tooltipster('content', html)
 				return false
 
 			response = window.unit.getUnitDetails(id)
@@ -533,7 +533,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 			$('#'+id).attr('class' ,'layer apartment '+availability) 
 			$('#apartment'+id).attr('class' ,' unit blocks '+availability+' active') 
-			$('.layer').tooltipster('content', html)
+			$('.apartment').tooltipster('content', html)
 		
 		'mouseout .apartment':(e)->
 			id = parseInt e.target.id
@@ -738,7 +738,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		)
 
 	iniTooltip:->
-		$('.layer,.next,.prev').tooltipster(
+		$('.apartment,.next,.prev').tooltipster(
 			theme: 'tooltipster-shadow',
 			contentAsHTML: true
 			onlyOne : true
