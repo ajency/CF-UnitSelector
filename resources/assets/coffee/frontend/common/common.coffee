@@ -653,8 +653,8 @@ CommonFloor.getStatusFilters = ()->
 CommonFloor.filterBuilding = (id)->
 	collection = unitCollection.where
 					'building_id' : id
-	console.log unitCollection.reset collection
-	CommonFloor.applyFliterClass()
+	unitCollection.reset collection
+	# CommonFloor.applyFliterClass()
 	CommonFloor.resetCollections()
 	unitTempCollection.reset unitCollection.toArray()
 	window.building_id = id

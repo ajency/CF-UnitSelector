@@ -769,8 +769,7 @@
     collection = unitCollection.where({
       'building_id': id
     });
-    console.log(unitCollection.reset(collection));
-    CommonFloor.applyFliterClass();
+    unitCollection.reset(collection);
     CommonFloor.resetCollections();
     unitTempCollection.reset(unitCollection.toArray());
     return window.building_id = id;
