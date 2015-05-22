@@ -1253,6 +1253,8 @@ hr.embossed {
 svg {
   width: 100%;
   height: auto;
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
 }
 svg polygon {
   -webkit-transform: rotateY(-180deg) scale(0);
