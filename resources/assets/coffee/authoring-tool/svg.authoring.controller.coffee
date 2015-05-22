@@ -10,8 +10,6 @@
 #Function to count the number of pending objects
 
 jQuery(document).ready ($)->
-	
-	# $('.area').canvasAreaDraw()
 	window.draw = SVG('aj-imp-builder-drag-drop')
 	
 	window.svgData = {
@@ -23,7 +21,7 @@ jQuery(document).ready ($)->
 									'name' : 'Villa 1',
 									'canvas_type' : 'polygon',
 									'details' : {'class':'marked'},
-									'points'  : ["197.333","566.667 199.333","495.333 206.667","490 207.333","479.333 218","472.667 218","456 230.667","448.667 267.333","454 267.333","474.667 283.333","477.333 281.333","517.333 275.333","519.333 275.333","587"]
+									'points'  : ["197.333","566.667","495.333","490","479.333","472.667","456","448.667","454","474.667","477.333","517.333","519.333","587"]
 								},
 								{
 									'id' : 2,
@@ -39,7 +37,7 @@ jQuery(document).ready ($)->
 									'name' : 'Villa 3',
 									'canvas_type' : 'polygon',
 									'details' : {'class':'marked'},
-									'points'  : ["307.333","459.333 293.333","468 294","482.667 284","490 281.333","517.333 275.333","519.333 275.333","587 341.333","602.667 342.667","580 356.667","570.667 358","489.333 343.333","488 342.667","463.333"]
+									'points'  : ["307.333","459.333","468","482.667","490","517.333","519.333","587","602.667","580","570.667","489.333","488","463.333"]
 								},
 								{
 									'id' : 4,
@@ -55,7 +53,7 @@ jQuery(document).ready ($)->
 									'name' : 'Villa 5',
 									'canvas_type' : 'polygon',
 									'details' : {'class':'marked'},
-									'points'  : ["382.665","469.999 369.332","479.999 370.665","495.332 361.998","501.999 356.667","570.667 342.667","580 341.333","602.667 421.332","615.999 419.998","590.666 435.998","582.666 435.998","514.666 449.332","505.332 450.665","489.332 419.665","485.332 420.665","474.666"]
+									'points'  : ["382.665","469.999","479.999","495.332","501.999","570.667","580","602.667","615.999","590.666","582.666","514.666","505.332","489.332","485.332","474.666"]
 								}
 
 
@@ -105,7 +103,7 @@ jQuery(document).ready ($)->
 	window.createPanel =(data)->
 		$.each data,(index,value)->
 			$('.'+value).removeClass 'hidden'
-
+			
 	#function to create left side panel
 	window.makeDraggable =(data)->	
 		element = draw.polygon(data)
@@ -135,21 +133,31 @@ jQuery(document).ready ($)->
 	window.showPendingObjects = (data)->
 		html = ''
 		$.each data ,(index,value)->
-			console.log value
 			html += '<input type="checkbox" name="'+value.id+'" id="'+value.id+'" value="">'+value.name+
 					'<strong>Display marked units</strong>'+
 					'<strong class="pull-right" style="line-height:70px;margin-right: 20px;  color: #FF7E00;">'+
 					'Pending: '+value.unmarked+' '+value.name+'(s) | Total : '+value.total+' '+value.name+'(s)</strong>'
-		console.log html
 		$('.pending').html html
 
-	window.createPanel(window.svgData.supported_types)
 	window.createSvg(window.svgData.data)
+	window.createPanel(window.svgData.supported_types)		
 	types = window.getPendingObjects(window.svgData.data) 
 	window.showPendingObjects(types)
 	s = new XMLSerializer()
 	str = s.serializeToString(rawSvg)
 	draw.svg str
+
+	# polygon = draw.polygon('521,38,611,32,620,190,524,201').fill('red')
+	# polygon = draw.polygon('0,0 100,50 50,100').fill('red')
+	# polygon.draggable()
+
+	polygon.dragend = (event) ->
+	  # alert 'end of drag'
+	  console.log event
+	  # $('#Layer_1').addClass 'hidden'
+	  $('.area').removeClass 'hidden'
+	  # $('.area').canvasAreaDraw()
+
 
 
 	
