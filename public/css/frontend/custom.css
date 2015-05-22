@@ -263,7 +263,7 @@ hr.embossed {
   margin-bottom: 20px;
 }
 .detail-list .facts-icon {
-  font-size: 40px;
+  font-size: 25px;
   width: 40px;
   float: left;
   margin-right: 10px;
@@ -342,8 +342,9 @@ hr.embossed {
   display: block;
   background-position: -116px -18px;
 }
-.step3 .tooltipster-shadow {
-  border-radius: 100%;
+.bold {
+  font-weight: bold;
+  font-family: arial!important;
 }
 /* Bootstrap responsive utilities */
 @-ms-viewport {
@@ -1900,7 +1901,7 @@ svg polygon {
   opacity: 1;
 }
 .single-bldg .prev {
-  left: 20px;
+  left: 35px;
   -webkit-transform: rotate(180deg);
       -ms-transform: rotate(180deg);
           transform: rotate(180deg);
@@ -2628,6 +2629,23 @@ label.third_toggle {
 }
 .tooltipster-shadow .tooltipster-content {
   padding-bottom: 0;
+}
+.circle-tooltip {
+  border-radius: 100%;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+}
+.circle-tooltip .svg-info {
+  width: 100% !important;
+  min-width: 100% !important;
+}
+.circle-tooltip .svg-info h5 {
+  margin: 5px 0px 4px;
+}
+.circle-tooltip .svg-info i {
+  display: block;
+  margin: auto;
 }
 .ls-nav ul {
   width: 100% !important;
