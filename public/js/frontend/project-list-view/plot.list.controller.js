@@ -37,8 +37,7 @@
     PlotItemView.prototype.events = {
       'click .unit': function(e) {
         if (this.model.get('status') === 'available') {
-          CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
-          return CommonFloor.router.storeRoute();
+          return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
         }
       }
     };

@@ -62,19 +62,33 @@
     TopUnitView.prototype.events = function() {
       return {
         'click @ui.unitBack': function(e) {
-          var previousRoute;
+          var buildingModel, building_id, previousRoute, property, unit, unitType, unitid, url;
           e.preventDefault();
           previousRoute = CommonFloor.router.previous();
-          return CommonFloor.navigate('/' + previousRoute, true);
+          url = Backbone.history.fragment;
+          unitid = parseInt(url.split('/')[1]);
+          console.log(unit = unitCollection.findWhere({
+            id: unitid
+          }));
+          unitType = unitTypeMasterCollection.findWhere({
+            'id': unit.get('unit_type_id')
+          });
+          property = window.propertyTypes[unitType.get('property_type_id')];
+          buildingModel = buildingCollection.findWhere({
+            'id': unit.get('building_id')
+          });
+          building_id = buildingModel.get('id');
+          if (s.decapitalize(property) === 'penthouse' || s.decapitalize(property) === 'apartments') {
+            if (Object.keys(buildingModel.get('building_master')).length === 0) {
+              return CommonFloor.navigate('/building/' + building_id + '/apartments', true);
+            } else {
+              return CommonFloor.navigate('/building/' + building_id + '/master-view', true);
+            }
+          } else {
+            return CommonFloor.navigate('/master-view', true);
+          }
         }
       };
-    };
-
-    TopUnitView.prototype.onShow = function() {
-      CommonFloor.router.storeRoute();
-      if (CommonFloor.router.history.length === 1) {
-        return this.ui.unitBack.hide();
-      }
     };
 
     return TopUnitView;
@@ -462,7 +476,7 @@
       if (_.isUndefined(prev)) {
         return $('.prev').hide();
       } else {
-        return $('.prev').attr('data-id', next.get('id'));
+        return $('.prev').attr('data-id', prev.get('id'));
       }
     };
 

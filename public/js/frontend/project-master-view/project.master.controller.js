@@ -81,10 +81,8 @@
     TopMasterView.prototype.events = function() {
       return {
         'click @ui.unitBack': function(e) {
-          var previousRoute;
           e.preventDefault();
-          previousRoute = CommonFloor.router.previous();
-          return CommonFloor.navigate('/' + previousRoute, true);
+          return CommonFloor.navigate('/', true);
         },
         'click @ui.types': function(e) {
           var arr, index;
@@ -154,9 +152,6 @@
 
     TopMasterView.prototype.onShow = function() {
       var response;
-      if (CommonFloor.router.history.length === 1) {
-        this.ui.unitBack.hide();
-      }
       response = CommonFloor.propertyTypes();
       if (response.length === 0) {
         return $('.proj-type-count').html('<p class="p-l-15">No results found</p>');
@@ -419,50 +414,6 @@
       'click @ui.viewtog': function(e) {
         $('.us-left-content').toggleClass('not-visible visible');
         return $('.us-right-content').toggleClass('not-visible visible');
-      },
-      'click .building': function(e) {
-        var buildingModel, id, unit;
-        id = parseInt(e.target.id);
-        buildingModel = buildingCollection.findWhere({
-          'id': id
-        });
-        if (buildingModel === void 0) {
-          return false;
-        }
-        unit = unitCollection.where({
-          'building_id': id
-        });
-        if (unit.length === 0) {
-          return;
-        }
-        $('.spritespin-canvas').addClass('zoom');
-        $('.us-left-content').addClass('animated fadeOut');
-        return setTimeout(function(x) {
-          if (Object.keys(buildingModel.get('building_master')).length === 0) {
-            CommonFloor.navigate('/building/' + id + '/apartments', true);
-            return CommonFloor.router.storeRoute();
-          } else {
-            CommonFloor.navigate('/building/' + id + '/master-view', true);
-            return CommonFloor.router.storeRoute();
-          }
-        }, 500);
-      },
-      'click .villa': function(e) {
-        var id, unit;
-        id = parseInt(e.target.id);
-        unit = unitCollection.findWhere({
-          id: id
-        });
-        if (!_.isUndefined(unit)) {
-          $('.spritespin-canvas').addClass('zoom');
-          $('.us-left-content').addClass('animated fadeOut');
-          return setTimeout(function(x) {
-            CommonFloor.navigate('/unit-view/' + id, {
-              trigger: true
-            });
-            return CommonFloor.router.storeRoute();
-          }, 500);
-        }
       },
       'click #prev': function() {
         return this.setDetailIndex(this.currentBreakPoint - 1);

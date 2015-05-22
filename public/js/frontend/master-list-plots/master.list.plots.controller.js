@@ -71,10 +71,9 @@
         });
         if (!_.isUndefined(unit)) {
           return setTimeout(function(x) {
-            CommonFloor.navigate('/unit-view/' + id, {
+            return CommonFloor.navigate('/unit-view/' + id, {
               trigger: true
             });
-            return CommonFloor.router.storeRoute();
           }, 500);
         }
       }

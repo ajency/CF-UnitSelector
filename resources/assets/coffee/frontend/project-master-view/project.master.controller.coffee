@@ -81,8 +81,7 @@ class TopMasterView extends Marionette.ItemView
 	events:->
 		'click @ui.unitBack':(e)->
 			e.preventDefault()
-			previousRoute = CommonFloor.router.previous()
-			CommonFloor.navigate '/'+previousRoute , true
+			CommonFloor.navigate '/' , true
 
 		'click @ui.types':(e)->
 			arr = CommonFloor.defaults['type'].split(',')
@@ -150,8 +149,8 @@ class TopMasterView extends Marionette.ItemView
 			@trigger  'render:view'
 
 	onShow:->
-		if CommonFloor.router.history.length == 1
-			@ui.unitBack.hide()
+		# if CommonFloor.router.history.length == 1
+		# 	@ui.unitBack.hide()
 		response = CommonFloor.propertyTypes() 
 		if response.length == 0
 			$('.proj-type-count').html '<p class="p-l-15">No results found</p>'
@@ -412,45 +411,44 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		# 		, 500)	
 
 		  
-		'click .building':(e)->
-			id = parseInt e.target.id
-			buildingModel = buildingCollection.findWhere
-							'id' : id
+		# 'click .building':(e)->
+		# 	id = parseInt e.target.id
+		# 	buildingModel = buildingCollection.findWhere
+		# 					'id' : id
 
-			if buildingModel == undefined
-				return false
+		# 	if buildingModel == undefined
+		# 		return false
 			
-			unit = unitCollection.where 
-				'building_id' :  id 
-			if unit.length is 0
-				return 
-			$('.spritespin-canvas').addClass 'zoom'
-			$('.us-left-content').addClass 'animated fadeOut'
-			# CommonFloor.defaults['building'] = jQuery.makeArray(id).join(',')
-			# CommonFloor.filter()
-			setTimeout( (x)->
-				if Object.keys(buildingModel.get('building_master')).length == 0
-					CommonFloor.navigate '/building/'+id+'/apartments' , true
-					CommonFloor.router.storeRoute()
-				else
-					CommonFloor.navigate '/building/'+id+'/master-view' , true
-					CommonFloor.router.storeRoute()
+		# 	unit = unitCollection.where 
+		# 		'building_id' :  id 
+		# 	if unit.length is 0
+		# 		return 
+		# 	$('.spritespin-canvas').addClass 'zoom'
+		# 	$('.us-left-content').addClass 'animated fadeOut'
+		# 	window.building_id = id
+		# 	setTimeout( (x)->
+		# 		if Object.keys(buildingModel.get('building_master')).length == 0
+		# 			CommonFloor.navigate '/building/'+id+'/apartments' , true
+		# 			# CommonFloor.router.storeRoute()
+		# 		else
+		# 			CommonFloor.navigate '/building/'+id+'/master-view' , true
+		# 			# CommonFloor.router.storeRoute()
 
-			, 500)
+		# 	, 500)
 			
 
-		'click .villa':(e)->
-			id = parseInt e.target.id
-			unit = unitCollection.findWhere 
-				id :  id 
-			if ! _.isUndefined unit 
-				$('.spritespin-canvas').addClass 'zoom'
-				$('.us-left-content').addClass 'animated fadeOut'
-				setTimeout( (x)->
-					CommonFloor.navigate '/unit-view/'+id , trigger : true
-					CommonFloor.router.storeRoute()
+		# 'click .villa':(e)->
+		# 	id = parseInt e.target.id
+		# 	unit = unitCollection.findWhere 
+		# 		id :  id 
+		# 	if ! _.isUndefined unit 
+		# 		$('.spritespin-canvas').addClass 'zoom'
+		# 		$('.us-left-content').addClass 'animated fadeOut'
+		# 		setTimeout( (x)->
+		# 			CommonFloor.navigate '/unit-view/'+id , trigger : true
+		# 			# CommonFloor.router.storeRoute()
 
-				, 500)
+		# 		, 500)
 			# $(".layer").unbind('mouseenter mouseleave')	
 			# console.log id  = parseInt e.target.id
 			# html = ""

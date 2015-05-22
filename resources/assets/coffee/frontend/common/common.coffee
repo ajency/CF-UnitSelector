@@ -302,7 +302,7 @@ CommonFloor.resetProperyType = (param)->
 
 CommonFloor.applyFliterClass = ()->
 	actualunits = _.pluck unitMasterCollection.toArray() ,'id'
-	console.log filterunits = _.pluck unitCollection.toArray() ,'id'
+	filterunits = _.pluck unitCollection.toArray() ,'id'
 	notSelecteUnits = _.difference actualunits , filterunits
 	actualbuildings = _.pluck buildingMasterCollection.toArray() ,'id'
 	filterbuildings = _.pluck buildingCollection.toArray() ,'id'
@@ -311,7 +311,8 @@ CommonFloor.applyFliterClass = ()->
 	if flag == 0
 		return false
 	$('.villa,.plot,.apartment').each (ind,item)->
-		id = parseInt item.id
+		console.log id = parseInt item.id
+		console.log filterunits
 		if $.inArray(id , filterunits) > -1
 			setTimeout( ()->
 				$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
@@ -652,8 +653,7 @@ CommonFloor.getStatusFilters = ()->
 CommonFloor.filterBuilding = (id)->
 	collection = unitCollection.where
 					'building_id' : id
-	console.log unitCollection.reset collection
-	CommonFloor.applyFliterClass()
+	unitCollection.reset collection
 	CommonFloor.resetCollections()
 	unitTempCollection.reset unitCollection.toArray()
 	window.building_id = id
@@ -685,3 +685,9 @@ CommonFloor.getUnitsProperty = (unitModel)->
 		type = s.decapitalize(property)
 
 	[window.tempColl,text,type]
+
+
+#get apartments which are in the view
+CommonFloor.getApartmentsInView = ()->
+	$('.apartment').each (index,value)->
+		console.log value

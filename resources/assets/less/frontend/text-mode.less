@@ -223,9 +223,16 @@
 .eight{
 	.blocks{
 		padding: 10px;
-		width: 11.8%;
+		width: 15.8%;
 		margin-right: 0.8%;
 		text-align: center;
+		.bldg-info{
+		text-align:left;
+		  margin-left: 10px;
+		}
+		.icon{
+			color:@gray-light;
+		}
 		.cost{
 			display: none;
 		}
@@ -549,7 +556,36 @@
 		}
 	}
 }
-
+.top-legend{
+  font-size: 13px;
+  line-height: 27px;
+  position: absolute;
+  right: 25px;
+  top: 38px;
+  li{
+  	display:inline-block;
+  	color: @gray-lighter;
+				&::before{
+					height: 18px;
+					width: 40px;
+					border: 1px solid @gray-lighter;
+					content: '';
+					display: inline-block;
+					margin-right: 5px;
+				}
+				&.available, &.sold, &.blocked, &.na{
+					// opacity: 1 !important;
+				}
+				&.available::before{
+					// background-color: @white;
+				}
+				
+				&.na::before{
+					border: 1px solid @gray-darker;
+					background-color: fade(@gray, 70%);
+				}
+  }
+}
 @-webkit-keyframes hvr-back-pulse {
   50% {
     box-shadow: inset 0 0 2px 2px @brand-primary;
