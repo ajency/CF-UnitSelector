@@ -173,7 +173,7 @@ class LeftUnitView extends Marionette.ItemView
 					              	    </div>
 
 					              	    <div class="col-sm-8 col-xs-12">
-			              	              	<h5><a href="'+BASEURL+'/'+PROJECTID+'/#unit-view/{{id}}">{{unit_name}}</a> <span class="text-primary pull-right"><span class="icon-rupee-icn"></span>{{price}}</span></h5>
+			              	              	<h5><a href="'+BASEURL+'/project/'+PROJECTID+'/#unit-view/{{id}}">{{unit_name}}</a> <span class="text-primary pull-right"><span class="icon-rupee-icn"></span>{{price}}</span></h5>
 
 			              	              	<span class="text-muted">Unit Variant: </span>{{variant}}<br>
 			              	             	<span class="text-muted">Unit Type:</span> {{unit_type}}<br>

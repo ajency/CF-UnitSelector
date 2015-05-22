@@ -357,6 +357,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		svgContainer : '.master'
 		trig         : '#trig'
 		viewtog      : '#view_toggle'
+		plotunit     : '.plot'
 
 	
 	initialize:->
@@ -394,7 +395,21 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			
 		'click @ui.viewtog':(e)->
 			$('.us-left-content').toggleClass 'not-visible visible'
-			$('.us-right-content').toggleClass 'not-visible visible'	
+			$('.us-right-content').toggleClass 'not-visible visible'
+
+		'click @ui.plotunit':(e)->
+			id = parseInt e.target.id
+			unit = unitCollection.findWhere 
+				id :  id 
+
+			if ! _.isUndefined unit 
+				$('.spritespin-canvas').addClass 'zoom'
+				$('.us-left-content').addClass 'animated fadeOut'
+				setTimeout( (x)->
+					CommonFloor.navigate '/unit-view/'+id , trigger : true
+					CommonFloor.router.storeRoute()
+
+				, 500)	
 
 		  
 		'click .building':(e)->
@@ -503,19 +518,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			# $('#'+id).webuiPopover('show')
 			
 
-		'click .plot':(e)->
-			id = parseInt e.target.id
-			unit = unitCollection.findWhere 
-				id :  id 
-
-			if ! _.isUndefined unit 
-				$('.spritespin-canvas').addClass 'zoom'
-				$('.us-left-content').addClass 'animated fadeOut'
-				setTimeout( (x)->
-					CommonFloor.navigate '/unit-view/'+id , trigger : true
-					CommonFloor.router.storeRoute()
-
-				, 500)
+		
 			
 
 		'click #prev':->
