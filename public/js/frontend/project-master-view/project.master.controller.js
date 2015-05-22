@@ -611,7 +611,7 @@
         }
         html = '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="building"></div> </div> <h5 class="t m-t-0">' + buildingModel.get('building_name') + '	<label class="text-muted">( No. of floors - ' + floors + ' )</label></h5> <div class="details"> <div> Starting Price <span class="text-primary">' + price + '</span> </div> </div>';
         $.each(response, function(index, value) {
-          return html += '' + value.name + ' (' + value.units + '),';
+          return html += '<div class="details">' + value.name + ' (' + value.units + '), </div>';
         });
         if (unit.length > 0) {
           if (Object.keys(buildingModel.get('building_master')).length === 0) {
@@ -619,7 +619,7 @@
           } else {
             url = '/building/' + id + '/master-view';
           }
-          html += '<div class="circle"> <a href="#' + url + '" class="arrow-up icon-chevron-right"></a> </div><div class="text-muted text-default">Click arrow to move forward</div>';
+          html += '<div class="circle"> <a href="#' + url + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div>';
         }
         html += '</div>';
         $('.layer').tooltipster('content', html);
