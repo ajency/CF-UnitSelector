@@ -6,7 +6,7 @@ class BunglowListView extends Marionette.ItemView
 										<div class="clearfix"></div>
 									</div>
 									<div class="cost">
-									  {{price}}
+									 <span class="icon-rupee-icn"> {{price}}</span>
 									</div>')
 
 	initialize:->
@@ -148,7 +148,7 @@ class BunglowListView extends Marionette.ItemView
 							<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 						</div>
 						<div>
-							Starting Price <span class="text-primary">'+price+'</span>
+							Starting Price <span class="text-primary icon-rupee-icn">'+price+'</span>
 						</div> 
 						 
 					</div>'

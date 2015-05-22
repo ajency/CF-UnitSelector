@@ -15,7 +15,7 @@ class ListItemView extends Marionette.ItemView
 						                        </li>
 						                        {{/types}}
 					                      		<span class="area {{areaname}}">{{area}} Sq.Ft</span>
-					                      		<div class="price {{classname}}">Starting price <span>{{price}}</span></div>
+					                      		<div class="price {{classname}}">Starting price <span class="icon-rupee-icn">{{price}}</span></div>
 											</ul>
 										 </div>')
 
@@ -134,7 +134,7 @@ class ListItemView extends Marionette.ItemView
 					<div class="details">
 						
 						<div>
-							Starting Price <span class="text-primary">'+price+'</span>
+							Starting Price <span class="text-primary icon-rupee-icn">'+price+'</span>
 						</div> 
 							<div class="circle">
 							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>

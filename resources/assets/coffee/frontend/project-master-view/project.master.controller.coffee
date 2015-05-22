@@ -604,7 +604,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 							</div>
 							<div>
-								Starting Price <span class="text-primary">'+price+'</span>
+								Starting Price <span class="text-primary icon-rupee-icn">'+price+'</span>
 							</div> 
 							 
 						</div>'
@@ -700,7 +700,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 							</div>
 							<div>
-								Starting Price <span class="text-primary">'+price+'</span>
+								Starting Price <span class="text-primary icon-rupee-icn">'+price+'</span>
 							</div> 
 							 
 						</div>'
@@ -792,7 +792,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						<div class="details">
 							
 							<div>
-								Starting Price <span class="text-primary">'+price+'</span>
+								Starting Price <span class="text-primary icon-rupee-icn">'+price+'</span>
 							</div> 
 							
 						</div>'

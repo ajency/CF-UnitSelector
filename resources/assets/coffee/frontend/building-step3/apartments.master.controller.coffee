@@ -210,7 +210,7 @@ class ApartmentsView extends Marionette.ItemView
 					                        	{{unit_type}}
 					                      </div> 
 					                       <div class="col-sm-5 text-primary">
-					                          <!--<span class="icon-rupee-icn"></span>-->{{price}} <!--<span class="tick"></span>-->
+					                          <span class="icon-rupee-icn">{{price}}</span> <!--<span class="tick"></span>-->
 					                      </div> 
 					                  </div>')
 
@@ -292,7 +292,7 @@ class ApartmentsView extends Marionette.ItemView
 							<label>Unit Type </label> - '+response[1].get('name')+'
 						</div>
 						<div>
-							<label>Price </label> - '+price+'
+							<label>Price </label> - <span class="icon-rupee-icn>'+price+'</span>
 						</div>  
 					</div>' 
 		if availability == 'available'
@@ -521,7 +521,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 								<label>Unit Type </label> - '+response[1].get('name')+'
 							</div>
 							<div>
-								<label>Price </label> - '+price+'
+								<label>Price </label> - <span class="icon-rupee-icn'>+price+'<span>
 							</div>  
 						</div>' 
 			if availability == 'available'
