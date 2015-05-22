@@ -600,7 +600,7 @@
           $('.firstimage').attr('src', transitionImages[0]);
           url = Backbone.history.fragment;
           building_id = url.split('/')[1];
-          $('.villa,.plot,.apartment').each(function(ind, item) {
+          $('.villa,.plot').each(function(ind, item) {
             var id;
             id = parseInt(item.id);
             return $('#' + id).attr('class', "");
