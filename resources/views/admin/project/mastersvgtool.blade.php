@@ -45,9 +45,8 @@
                         <div id="aj-imp-browser-body">
                             <!-- TODO: remove inline style-->
 
-                            <div id="aj-imp-builder-drag-drop">
+                            <div id="aj-imp-builder-drag-drop" class="svg-canvas">
                                 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm2">Small modal</button> -->
-                                <div id="svg-canvas"> </div>
                                 <textarea name="coords2" rows=3 class="area" disabled placeholder="Shape Coordinates" data-image-url="{{$svgImage}}"></textarea>
 
 
