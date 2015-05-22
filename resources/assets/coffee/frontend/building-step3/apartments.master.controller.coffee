@@ -294,7 +294,8 @@ class ApartmentsView extends Marionette.ItemView
 						<div>
 							<label>Price </label> - <span class="icon-rupee-icn>'+price+'</span>
 						</div>  
-					</div>' 
+					</div>'
+		console.log availability 
 		if availability == 'available'
 			html +='<div class="circle">
 						<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
@@ -504,7 +505,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				return false
 
 			response = window.unit.getUnitDetails(id)
-			price = window.numDifferentiation(response[3])
+			price =  window.numDifferentiation(response[3])
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			html = ""
@@ -517,13 +518,14 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 						<!--<span class="label label-success"></span-->
 						<br><br>
 						<div class="details">
-                           <div>
+	                       <div>
 								<label>Unit Type </label> - '+response[1].get('name')+'
 							</div>
 							<div>
-								<label>Price </label> - <span class="icon-rupee-icn'>+price+'<span>
+								<label>Price </label> - <span class="icon-rupee-icn>'+price+'</span>
 							</div>  
-						</div>' 
+						</div>'
+			console.log availability 
 			if availability == 'available'
 				html +='<div class="circle">
 							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
