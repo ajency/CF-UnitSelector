@@ -60,7 +60,6 @@ body {
 }
 .proj-type-count p {
   margin: 22px 15px 0 2px;
-  font-weight: bold;
 }
 .wrapper {
   min-height: 100%;
@@ -1437,20 +1436,26 @@ svg polygon {
             transform: translateY(0);
   }
 }
+.marker-blink {
+  -webkit-animation: blink 0.5s ease-in-out infinite alternate;
+          animation: blink 0.5s ease-in-out infinite alternate;
+}
 @-webkit-keyframes blink {
+  0% {
+    stroke-width: 0;
+  }
   100% {
-    fill: #F68121;
+    stroke: #F68121;
     fill-opacity: 0.5;
-    opacity: .9;
-    border: 1px solid #000;
   }
 }
 @keyframes blink {
+  0% {
+    stroke-width: 0;
+  }
   100% {
-    fill: #F68121;
+    stroke: #F68121;
     fill-opacity: 0.5;
-    opacity: .9;
-    border: 1px solid #000;
   }
 }
 .list-view-container {

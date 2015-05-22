@@ -135,7 +135,9 @@ class ListItemView extends Marionette.ItemView
 						<div>
 							Starting Price <span class="text-primary">'+price+'</span>
 						</div> 
-
+							<div class="circle">
+							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
+						</div>
 					</div>
 					<div class="details">'
 

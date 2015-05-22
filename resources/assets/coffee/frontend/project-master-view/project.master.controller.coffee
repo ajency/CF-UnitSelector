@@ -789,13 +789,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						<h5 class="t m-t-0">'+buildingModel.get('building_name')+'	<label class="text-muted">( No. of floors - '+floors+' )</label></h5>
 						
 						<div class="details">
-							<div class="circle">
-							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
-						</div>
+							
 							<div>
 								Starting Price <span class="text-primary">'+price+'</span>
 							</div> 
-
+							<div class="circle">
+							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
+						</div>
 						</div>
 						<div class="details">'
 
