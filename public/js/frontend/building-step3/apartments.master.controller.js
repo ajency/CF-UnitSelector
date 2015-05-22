@@ -266,10 +266,10 @@
         $('#' + id).attr('class', 'layer apartment ' + this.model.get('availability'));
         console.log(viewUnits = CommonFloor.getApartmentsInView());
         classname = '';
-        if ($.inArray(this.model.get('id'), viewUnits === -1)) {
+        if ($.inArray(parseInt(this.model.get('id')), viewUnits) === -1) {
           classname = 'onview';
         }
-        $('#apartment' + id).attr('class', 'unit blocks classname ' + this.model.get('availability') + ' active');
+        $('#apartment' + id).attr('class', 'unit blocks ' + classname + ' ' + this.model.get('availability') + ' active');
         $('#' + id).tooltipster('content', html);
         return $('#' + id).tooltipster('show');
       },

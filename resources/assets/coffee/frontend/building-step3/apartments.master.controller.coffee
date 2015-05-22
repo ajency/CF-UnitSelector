@@ -245,9 +245,9 @@ class ApartmentsView extends Marionette.ItemView
 			$('#'+id).attr('class' ,'layer apartment '+@model.get('availability'))
 			console.log viewUnits = CommonFloor.getApartmentsInView()
 			classname = ''
-			if $.inArray @model.get('id'), viewUnits == -1
+			if $.inArray(parseInt(@model.get('id')), viewUnits) == -1
 				classname = 'onview' 
-			$('#apartment'+id).attr('class' ,'unit blocks classname '+@model.get('availability')+' active')
+			$('#apartment'+id).attr('class' ,'unit blocks '+classname+' '+@model.get('availability')+' active')
 			$('#'+id).tooltipster('content', html)
 			$('#'+id).tooltipster('show')
 

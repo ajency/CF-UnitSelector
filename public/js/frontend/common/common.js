@@ -809,14 +809,18 @@
   };
 
   CommonFloor.getApartmentsInView = function() {
-    var units;
+    var newUnits, units;
     units = [];
+    newUnits = [];
     $('.apartment').each(function(index, value) {
       var id;
       id = parseInt(value.id);
       return units.push(value.id);
     });
-    return units;
+    newUnits = $.map(units, function(item) {
+      return parseInt(item);
+    });
+    return newUnits;
   };
 
 }).call(this);
