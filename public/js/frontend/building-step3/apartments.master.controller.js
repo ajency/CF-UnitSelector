@@ -697,9 +697,9 @@
         onlyOne: true,
         arrow: false,
         offsetX: 50,
-        offsetY: -30,
-        multiple: 'true',
-        trigger: 'hover'
+        offsetY: -40,
+        trigger: 'hover',
+        interactive: true
       });
     };
 
