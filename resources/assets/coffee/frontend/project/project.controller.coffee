@@ -144,7 +144,7 @@ class LeftView extends Marionette.ItemView
 	serializeData:->
 		data = super()
 		propertyTypesData = @model.get 'project_property_types'
-		console.log properties = @model.get 'property_types'
+		properties = @model.get 'property_types'
 		propertyTypes = [] 
 		availability = []
 		$.each propertyTypesData,(index,value)->

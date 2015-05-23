@@ -16,6 +16,9 @@ body {
 body {
   min-width: initial;
 }
+.margin-none {
+  margin: 0px;
+}
 /* Header */
 .us-header {
   background-color: #f68121;
@@ -49,6 +52,13 @@ body {
 }
 .proj-name small {
   color: #ffffff;
+}
+.proj-title {
+  margin: 0 0 0 15px;
+  padding: 15px 5px 15px 10px;
+  border-left: 1px solid #db6809;
+  display: inline-block;
+  text-transform: capitalize;
 }
 .proj-type-count {
   float: left;
@@ -1721,7 +1731,7 @@ svg polygon {
   border-right: none;
 }
 .one .onview:before {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.82);
   content: "NOT IN VIEW";
   color: #888;
   position: absolute;

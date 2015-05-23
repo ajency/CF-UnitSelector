@@ -81,9 +81,9 @@
       data.project_title = project.get('project_title');
       data.filters = CommonFloor.getFilters()[0];
       data.results = CommonFloor.getApartmentFilters().count;
-      console.log(model = buildingCollection.findWhere({
+      model = buildingMasterCollection.findWhere({
         'id': building_id
-      }));
+      });
       data.name = model.get('building_name');
       return data;
     };
@@ -192,7 +192,7 @@
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
       response = window.building.getBuildingUnits(building_id);
-      buildingModel = buildingCollection.findWhere({
+      buildingModel = buildingMasterCollection.findWhere({
         id: building_id
       });
       this.view = new CommonFloor.TopApartmentMasterView({
@@ -260,23 +260,18 @@
 
     ApartmentsView.prototype.events = {
       'mouseover': function(e) {
-        var classname, html, id, viewUnits;
+        var html, id;
         id = this.model.get('id');
         html = this.getHtml(this.model.get('id'));
-        $('#' + id).attr('class', 'layer apartment ' + this.model.get('availability'));
-        console.log(viewUnits = CommonFloor.getApartmentsInView());
-        classname = '';
-        if ($.inArray(parseInt(this.model.get('id')), viewUnits) === -1) {
-          classname = 'onview';
-        }
-        $('#apartment' + id).attr('class', 'unit blocks ' + classname + ' ' + this.model.get('availability') + ' active');
+        $('#apartment' + id).addClass(' active');
+        $('#' + id).attr('class', 'layer apartment svg_active ' + this.model.get('availability'));
         $('#' + id).tooltipster('content', html);
         return $('#' + id).tooltipster('show');
       },
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
-        $('#apartment' + id).attr('class', 'unit blocks ' + this.model.get('availability'));
+        $('#apartment' + id).removeClass('active');
         $('#' + id).attr('class', 'layer apartment ' + this.model.get('availability'));
         return $('#' + id).tooltipster('hide');
       },
@@ -304,8 +299,7 @@
       availability = unit.get('availability');
       availability = s.decapitalize(availability);
       html = "";
-      html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + ' ( Area - ' + response[0].get('super_built_up_area') + ' Sq.ft)</h5> <!--<span class="label label-success"></span--> <br><br> <div class="details"> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - <span class="icon-rupee-icn">' + price + '</span> </div> </div>';
-      console.log(availability);
+      html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + ' ( Area - ' + response[0].get('super_built_up_area') + ' Sq.ft)</h5> <!--<span class="label label-success"></span--> <br><br> <div class="details"> <label>Unit Type </label> - ' + response[1].get('name') + '<br> <label>Price </label> - <span class="icon-rupee-icn">' + price + '</span><br> </div>';
       if (availability === 'available') {
         html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
       } else {
@@ -320,7 +314,8 @@
       availability = this.model.get('availability');
       status = s.decapitalize(availability);
       classname = $('#apartment' + id).attr('class');
-      return $('#apartment' + id).attr('class', classname + ' ' + status);
+      $('#apartment' + id).addClass(classname + ' ' + status);
+      return CommonFloor.applyOnViewClass();
     };
 
     return ApartmentsView;
@@ -406,6 +401,7 @@
         $('.us-left-content').toggleClass('col-0 col-md-3');
         $('.us-right-content').toggleClass('col-md-12 col-md-9');
         that = this;
+        CommonFloor.applyOnViewClass();
         setTimeout(function(x) {
           var height;
           $('#spritespin').spritespin({
@@ -467,20 +463,18 @@
           return false;
         }
         response = window.unit.getUnitDetails(id);
-        console.log(price = window.numDifferentiation(response[3]));
+        price = window.numDifferentiation(response[3]);
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
         html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + ' ( Area - ' + response[0].get('super_built_up_area') + ' Sq.ft)</h5> <!--<span class="label label-success"></span--> <br><br> <div class="details"> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - <span class="icon-rupee-icn">' + price + '</span> </div> </div>';
-        console.log(availability);
         if (availability === 'available') {
           html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
         } else {
           html += '</div>';
         }
-        console.log(html);
-        $('#' + id).attr('class', 'layer apartment ' + availability);
-        $('#apartment' + id).attr('class', ' unit blocks ' + availability + ' active');
+        $('#' + id).attr('class', 'layer apartment svg_active ' + availability);
+        $('#apartment' + id).addClass(' active');
         return $('.apartment').tooltipster('content', html);
       },
       'mouseout .apartment': function(e) {
@@ -495,18 +489,15 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         $('#' + id).attr('class', 'layer apartment ' + availability);
-        return $('#apartment' + id).attr('class', 'unit blocks ' + availability);
+        return $('#apartment' + id).removeClass(' active');
       },
       'mouseover .next,.prev': function(e) {
         var buildingModel, floors, html, id, images, response, unitTypes;
         id = parseInt($(e.target).attr('data-id'));
-        buildingModel = buildingCollection.findWhere({
+        buildingModel = buildingMasterCollection.findWhere({
           'id': id
         });
         images = Object.keys(buildingModel.get('building_master')).length;
-        if (images !== 0) {
-          console.log("show image");
-        }
         floors = buildingModel.get('floors');
         floors = Object.keys(floors).length;
         unitTypes = window.building.getUnitTypes(id);
@@ -541,7 +532,7 @@
       $('#spritespin').hide();
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
-      building = buildingCollection.findWhere({
+      building = buildingMasterCollection.findWhere({
         id: building_id
       });
       transitionImages = [];
@@ -552,7 +543,7 @@
         return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/buildings/' + building_id + '/master-' + value + '.svg';
       });
       $.merge(transitionImages, building.get('building_master'));
-      console.log(first = _.values(svgs));
+      first = _.values(svgs);
       $('.region').load(first[0], function() {
         $('.first_image').attr('data-src', transitionImages[0]);
         that.iniTooltip();
@@ -673,6 +664,7 @@
             CommonFloor.randomClass();
             CommonFloor.applyFliterClass();
             CommonFloor.getApartmentsInView();
+            CommonFloor.applyOnViewClass();
             return that.loadZoom();
           }).addClass('active').removeClass('inactive');
         }
@@ -707,7 +699,8 @@
         offsetX: 50,
         offsetY: -40,
         trigger: 'hover',
-        interactive: true
+        interactive: true,
+        multiple: true
       });
     };
 

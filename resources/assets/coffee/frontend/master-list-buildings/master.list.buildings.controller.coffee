@@ -193,7 +193,7 @@ class MasterBuildingListView extends Marionette.CompositeView
 			$('.us-right-content').toggleClass 'not-visible visible'
 			
 		'click .buildings':(e)->
-			console.log units = buildingCollection
+			units = buildingCollection
 			data = {}
 			data.units = units
 			data.type = 'building'
@@ -204,7 +204,7 @@ class MasterBuildingListView extends Marionette.CompositeView
 			
 
 		'click .Villas':(e)->
-			console.log units = bunglowVariantCollection.getBunglowUnits()
+			units = bunglowVariantCollection.getBunglowUnits()
 			data = {}
 			data.units = units
 			data.type = 'villa'

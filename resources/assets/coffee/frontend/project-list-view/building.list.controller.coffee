@@ -60,6 +60,10 @@ class BuildingListView extends Marionette.CompositeView
 	            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
 	            </div>
             </div>-->
+            <h2 class="text-center">List of Buildings <span class="pull-right top-legend">     <ul>
+				                <li class="available">AVAILABLE</li>
+				                <li class="na">N/AVAILABLE</li>
+				              </ul></span></h2><hr class="margin-none">	
 			<div class="text-center">
               <ul class="prop-select">
                 <li class="prop-type buildings active">Buildings</li>
@@ -83,7 +87,7 @@ class BuildingListView extends Marionette.CompositeView
 
 	events : 
 		'click .buildings':(e)->
-			console.log units = buildingCollection
+			units = buildingCollection
 			data = {}
 			data.units = units
 			data.type = 'building'
@@ -94,7 +98,7 @@ class BuildingListView extends Marionette.CompositeView
 			
 
 		'click .Villas':(e)->
-			console.log units = bunglowVariantCollection.getBunglowUnits()
+			units = bunglowVariantCollection.getBunglowUnits()
 			data = {}
 			data.units = units
 			data.type = 'villa'

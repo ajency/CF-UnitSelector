@@ -280,7 +280,7 @@ class MasterBunglowListView extends Marionette.CompositeView
 class CommonFloor.MasterBunglowListCtrl extends Marionette.RegionController
 
 	initialize:->
-		console.log newUnits = bunglowVariantCollection.getBunglowUnits()
+		newUnits = bunglowVariantCollection.getBunglowUnits()
 		unitsCollection = new Backbone.Collection newUnits 		
 		@view = view = new MasterBunglowListView
 			collection : unitsCollection

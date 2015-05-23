@@ -86,7 +86,7 @@
       var availability, data, properties, propertyTypes, propertyTypesData;
       data = LeftView.__super__.serializeData.call(this);
       propertyTypesData = this.model.get('project_property_types');
-      console.log(properties = this.model.get('property_types'));
+      properties = this.model.get('property_types');
       propertyTypes = [];
       availability = [];
       $.each(propertyTypesData, function(index, value) {

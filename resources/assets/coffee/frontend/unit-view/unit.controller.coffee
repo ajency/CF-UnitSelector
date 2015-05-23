@@ -524,6 +524,8 @@ class CenterUnitView extends Marionette.ItemView
 
 
 		$('.images').html html
+		if html == ""
+			$('.images').html '<div>No images found</div>'
 		$(".fancybox").fancybox()
 		$('.img').lazyLoadXT()
 		@iniTooltip()

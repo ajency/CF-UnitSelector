@@ -58,7 +58,7 @@
       return BuildingListView.__super__.constructor.apply(this, arguments);
     }
 
-    BuildingListView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <div class="list-view-container animated fadeInDown"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings active">Buildings</li> <li class="prop-type Villas hidden">Villas/Bungalows</li> <li class="prop-type Plots hidden">Plots</li> </ul> </div> <div class="bldg-list"> <ul class="units"> </ul> <div class="clearfix"></div> </div> </div> </div>');
+    BuildingListView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <div class="list-view-container animated fadeInDown"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <h2 class="text-center">List of Buildings <span class="pull-right top-legend">     <ul> <li class="available">AVAILABLE</li> <li class="na">N/AVAILABLE</li> </ul></span></h2><hr class="margin-none"> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings active">Buildings</li> <li class="prop-type Villas hidden">Villas/Bungalows</li> <li class="prop-type Plots hidden">Plots</li> </ul> </div> <div class="bldg-list"> <ul class="units"> </ul> <div class="clearfix"></div> </div> </div> </div>');
 
     BuildingListView.prototype.childView = BuildingItemView;
 
@@ -67,7 +67,7 @@
     BuildingListView.prototype.events = {
       'click .buildings': function(e) {
         var data, units;
-        console.log(units = buildingCollection);
+        units = buildingCollection;
         data = {};
         data.units = units;
         data.type = 'building';
@@ -80,7 +80,7 @@
       },
       'click .Villas': function(e) {
         var data, units;
-        console.log(units = bunglowVariantCollection.getBunglowUnits());
+        units = bunglowVariantCollection.getBunglowUnits();
         data = {};
         data.units = units;
         data.type = 'villa';
