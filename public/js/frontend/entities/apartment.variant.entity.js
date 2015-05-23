@@ -63,6 +63,22 @@
       return newUnits;
     };
 
+    ApartmentVariantCollection.prototype.getPenthouseUnits = function() {
+      var units;
+      units = [];
+      unitCollection.each(function(model) {
+        var property, unitType;
+        unitType = unitTypeMasterCollection.findWhere({
+          'id': model.get('unit_type_id')
+        });
+        property = window.propertyTypes[unitType.get('property_type_id')];
+        if (s.decapitalize(property) === 'penthouse') {
+          return units.push(model);
+        }
+      });
+      return units;
+    };
+
     ApartmentVariantCollection.prototype.getApartmentMasterUnits = function() {
       var newUnits, units;
       units = [];

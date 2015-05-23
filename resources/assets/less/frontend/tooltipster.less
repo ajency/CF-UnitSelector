@@ -2,9 +2,13 @@
     display: none;
 }
 .big-tooltip{
-    width:471px;
+    width: 100%;
+    max-width:470px;
     .b-r{
-      border-left: 1px solid #ccc;
+      border-left: 1px solid @gray-lighter;
+    }
+    img{
+        width: 100%;
     }
     .icon-location{
         float:left;
@@ -16,11 +20,16 @@
         position: absolute;
         right: 8px;
     }
+    .address{
+        float: left;
+        width: 82%;
+    }
 }
 
 .svg-info{
     font-family: OpenSans,Arial,sans-serif;
     padding: 0;
+    min-width: 290px;
     &.available, &.sold, &.blocked, &.not_released{
         min-width: 290px;
     }
@@ -53,6 +62,22 @@
             padding-bottom: 5px;
         }
     }
+     .action-bar2{
+            width: 60px;
+            height: 60px;
+            float: left;
+            padding: 10px;
+            margin-left: -10px;
+            margin-top: -10px;
+            margin-right: 11px;
+            color: @white;
+            font-size: 14px;
+            border-bottom-left-radius: 5px;
+            border-top-left-radius: 5px;
+            cursor: pointer;
+            display: block;
+            background:@gray;
+    }
     .action-bar{
             width: 60px;
             height: 105px;
@@ -67,7 +92,9 @@
             border-top-left-radius: 5px;
             cursor: pointer;
             display: block;
+            background:@gray;
     }
+
     &.available{
         .action-bar{
             background-color: @success;
@@ -103,6 +130,7 @@
         font-size: 15px;
        
     }
+   
     .step2-sprite{
         background: url(../../images/sprite-popover.png) no-repeat;
       width: 50px;
@@ -118,15 +146,59 @@
      .step2-sprite;
       background-position: -64px;
     }
+  
      .plot{
     .step2-sprite;
       background-position: -115px;
     }
+   .txt-dft{
+    margin-top:-2% !important;
+      width: 37px !important;
+  height: 37px!important;
+    .step2-sprite;
+      background-position: -177px;
+    }
     .text-default{
-      opacity:.5;
+      opacity:.7;
     }
 }
-
+ .icon-moon{
+      font-family: icomoon;
+      speak: none;
+      font-style: normal;
+      font-weight: 400;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  .apartment:before{
+      font-size: 30px;
+      text-align: center;
+      display: block;
+      line-height: 80px !important;
+      .icon-moon;
+      content: "\e616";
+    }
+    
 .tooltipster-shadow .tooltipster-content{
     padding-bottom: 0;
 }
+.circle-tooltip{
+        border-radius:100%;
+        width:150px;
+        height:150px;
+        text-align:center;
+        .svg-info {
+            width:100% !important;
+              min-width: 100% !important;
+              h5{
+                margin: 5px 0px 4px;
+              }
+              i{
+                display:block;
+                margin:auto;
+              }
+        }
+    }

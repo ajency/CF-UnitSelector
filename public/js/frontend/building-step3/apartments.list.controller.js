@@ -46,7 +46,7 @@
       return TopApartmentView.__super__.constructor.apply(this, arguments);
     }
 
-    TopApartmentView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> Back to Poject Master Overview </a> </div> <h2 class="proj-name">{{project_title}}</h2> </div> </div> </div> <div class="filter-summary-area"> <button class="btn btn-primary cf-btn-white pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters"> Filters <span class="icon-funnel"></span> </button> <div class="pull-left filter-result"> {{#each  filters}} {{#each this}} <div class="filter-pill"  > {{this.name}}{{this.type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div> {{/each}}{{/each }} </div> <div class="proj-type-count"> <p class="pull-right">Apartment(s)/Penthouse(s)</p><h1 class="text-primary pull-right m-t-10">{{results}}</h1> </div> <div class="clearfix"></div> </div>');
+    TopApartmentView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> </a> </div> <div class="header-info"> <h2 class="proj-name pull-left">{{project_title}}</h2> </div> <div class="pull-left filter-result full"> {{#each  filters}} {{#each this}} <div class="filter-pill"  > {{this.name}}{{this.type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div> {{/each}}{{/each }} </div> <div class="proj-type-count"> <p class="pull-right">Apartment(s)/Penthouse(s)</p><h1 class=" pull-right m-t-10">{{results}}</h1> </div> </div> </div> </div>');
 
     TopApartmentView.prototype.ui = {
       unitBack: '.unit_back',
@@ -97,7 +97,7 @@
           var previousRoute;
           e.preventDefault();
           previousRoute = CommonFloor.router.previous();
-          return CommonFloor.navigate('/' + previousRoute, true);
+          return CommonFloor.navigate('/master-view', true);
         },
         'click @ui.unitTypes': function(e) {
           var unitTypes;
@@ -155,9 +155,6 @@
 
     TopApartmentView.prototype.onShow = function() {
       var results;
-      if (CommonFloor.router.history.length === 1) {
-        this.ui.unitBack.hide();
-      }
       results = CommonFloor.getFilters()[1];
       if (results.length === 0) {
         return $('.proj-type-count').text('No results found');
@@ -185,7 +182,7 @@
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
       response = window.building.getBuildingUnits(building_id);
-      buildingModel = buildingCollection.findWhere({
+      buildingModel = buildingMasterCollection.findWhere({
         id: building_id
       });
       this.view = new CommonFloor.TopApartmentView({
@@ -254,7 +251,7 @@
       return ApartmentsView.__super__.constructor.apply(this, arguments);
     }
 
-    ApartmentsView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="bldg-img"></div> <div class="info"> <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}}sqft) </div> <label>{{property}}</label> <div class="clearfix"></div> </li>');
+    ApartmentsView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="bldg-img"></div> <div class="apartment pull-left icon"></div> <div class="pull-left bldg-info"> <div class="info"> <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}}sqft) </div> <label>2nd Floor</label><br> <label class="text-primary">Aprox. 35 Lacs</label> </div> <div class="clearfix"></div> </li>');
 
     ApartmentsView.prototype.serializeData = function() {
       var data, property, status, unitType, unitVariant;
@@ -282,8 +279,7 @@
     ApartmentsView.prototype.events = {
       'click .unit': function(e) {
         if (this.model.get('availability') === 'available') {
-          CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
-          return CommonFloor.router.storeRoute();
+          return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
         }
       }
     };
@@ -299,7 +295,7 @@
       return CenterApartmentView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterApartmentView.prototype.template = '<div> <div class="col-md-12 us-right-content"> <div class="list-view-container"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#" class="map ">Map</a><a href="#" class="list active">List</a> </div> </div>--> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <div class="villa-list"> <ul class="units eight"> </ul> </div> </div> </div> </div>';
+    CenterApartmentView.prototype.template = '<div> <div class="col-md-12 us-right-content"> <div class="list-view-container"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#" class="map ">Map</a><a href="#" class="list active">List</a> </div> </div>--> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <h2 class="text-center">List of Apartments/Penthouse <span class="pull-right top-legend">     <ul> <li class="available">AVAILABLE</li> <li class="na">N/AVAILABLE</li> </ul></span></h2><hr> <div class="villa-list"> <ul class="units eight"> </ul> </div> </div> </div> </div>';
 
     CenterApartmentView.prototype.childView = ApartmentsView;
 
@@ -311,16 +307,14 @@
         e.preventDefault();
         url = Backbone.history.fragment;
         building_id = parseInt(url.split('/')[1]);
-        CommonFloor.navigate('/building/' + building_id + '/master-view', true);
-        return CommonFloor.router.storeRoute();
+        return CommonFloor.navigate('/building/' + building_id + '/master-view', true);
       },
       'click .list': function(e) {
         var building_id, url;
         e.preventDefault();
         url = Backbone.history.fragment;
         building_id = parseInt(url.split('/')[1]);
-        CommonFloor.navigate('/building/' + building_id + '/apartments', true);
-        return CommonFloor.router.storeRoute();
+        return CommonFloor.navigate('/building/' + building_id + '/apartments', true);
       }
     };
 

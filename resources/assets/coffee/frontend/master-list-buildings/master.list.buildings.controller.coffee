@@ -15,7 +15,7 @@ class ListItemView extends Marionette.ItemView
 						                        </li>
 						                        {{/types}}
 					                      		<span class="area {{areaname}}">{{area}} Sq.Ft</span>
-					                      		<div class="price {{classname}}">From <span>{{price}}</span></div>
+					                      		<div class="text-primary price {{classname}}">Starting price <span class="icon-rupee-icn"></span>{{price}}</div>
 											</ul>
 										 </div>')
 
@@ -43,10 +43,10 @@ class ListItemView extends Marionette.ItemView
 		data.classname = ""
 		if cost == 0
 			data.classname = 'hidden'
-		console.log data.classname
 		# data.price = window.numDifferentiation(cost)
 		window.convertRupees(cost)
-		data.price = $('#price').val()
+		window.numDifferentiation
+		data.price = window.numDifferentiation(cost)
 		data.floors = Object.keys(floors).length
 		data.types = types
 		data
@@ -59,6 +59,7 @@ class ListItemView extends Marionette.ItemView
 			$('#'+id+'.building').attr('class' ,'layer building svg_active')
 			$('#bldg'+id).attr('class' ,'bldg blocks active')
 			$('#'+id).tooltipster('content', html)
+			$('#'+id).tooltipster('show')
 
 		'mouseout' :(e)->
 			id = @model.get 'id'
@@ -66,7 +67,6 @@ class ListItemView extends Marionette.ItemView
 			$('#bldg'+id).attr('class' ,'bldg blocks')
 			$('#'+id).tooltipster('hide')
 			
-				
 		'click ':(e)->
 			id = @model.get 'id'
 			units = unitCollection.where 
@@ -75,15 +75,18 @@ class ListItemView extends Marionette.ItemView
 				return
 			buildingModel = buildingCollection.findWhere
 							'id' : id
-			# CommonFloor.defaults['building'] = jQuery.makeArray(id).join(',')
-			# CommonFloor.filter()
-			CommonFloor.filterBuilding(id)
-			if Object.keys(buildingModel.get('building_master')).length == 0
-				CommonFloor.navigate '/building/'+id+'/apartments' , true
-				CommonFloor.router.storeRoute()
-			else
-				CommonFloor.navigate '/building/'+id+'/master-view' , true
-				CommonFloor.router.storeRoute()
+			$('.spritespin-canvas').addClass 'zoom'
+			$('.us-left-content').addClass 'animated fadeOut'
+			# window.building_id = id
+			setTimeout( (x)->
+				if Object.keys(buildingModel.get('building_master')).length == 0
+					CommonFloor.navigate '/building/'+id+'/apartments' , true
+					# CommonFloor.router.storeRoute()
+				else
+					CommonFloor.navigate '/building/'+id+'/master-view' , true
+					# CommonFloor.router.storeRoute()
+
+			, 500)
 
 	iniTooltip:(id)->
 		$('#'+id).trigger('mouseover')
@@ -93,13 +96,16 @@ class ListItemView extends Marionette.ItemView
 		html = ""
 		id  = parseInt id
 		buildingModel = buildingCollection.findWhere
-						'id' : id
+							'id' : id
 
 		if buildingModel == undefined
 			html = '<div class="svg-info">
-						<div class="details">
+						<div class="action-bar2">
+					        <div class="txt-dft"></div>
+					    </div> 
+						<h5 class="pull-left">
 							Building details not entered 
-						</div>  
+						</h5>  
 					</div>'
 			$('.layer').tooltipster('content', html)
 			return 
@@ -109,25 +115,39 @@ class ListItemView extends Marionette.ItemView
 		floors = Object.keys(floors).length
 		unitTypes = building.getUnitTypes(id)
 		response = building.getUnitTypesCount(id,unitTypes)
-		html = '<div class="svg-info">
-					<h4 class="pull-left">'+buildingModel.get('building_name')+'</h4>
-					<!--<span class="label label-success"></span-->
-					<div class="clearfix"></div>'
+		minprice = building.getMinimumCost(id)
+		price = window.numDifferentiation(minprice)
+		unit = unitCollection.where 
+			'building_id' :  id 
+			'availability' : 'available'
+		if unit.length > 0 
+			availability = ' available'
+		else
+			availability = ' sold'
+		html = '<div class="svg-info '+availability+' ">
+					<div class="action-bar">
+						<div class="building"></div>
+					</div>
+
+					<h5 class="t m-t-0">'+buildingModel.get('building_name')+'	<label class="text-muted">('+floors+' floors)</label></h5>
+					
+					<div class="details">
+						
+					
+							<div class="circle">
+							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
+						</div>
+					</div>
+					<div class="details">'
+
 		$.each response,(index,value)->
-			html += '<div class="details">
-						<div>
-							<label>'+value.name+'</label> - '+value.units+'
-						</div>'
+			html +=''+value.name+' ('+value.units+'),'
 
-		html += '<div>
-					<label>No. of floors</label> - '+floors+'
-				</div>
-				</div>
-
-				</div>'
-		$('.layer').tooltipster('content', html)
-		$('#bldg'+id).attr('class' ,'bldg blocks active') 
-		$('#'+id).attr('class' ,'layer building active_bldg')
+		html += '	<div>
+							Starting Price <span class="text-primary icon-rupee-icn"></span>'+price+'
+						</div> <div class="text-muted text-default">Click arrow to move forward</div>
+				</div></div>'
+		html
 
 #view for list of buildings : Collection
 class MasterBuildingListView extends Marionette.CompositeView
@@ -146,7 +166,7 @@ class MasterBuildingListView extends Marionette.CompositeView
 							                <li class="prop-type buildings active">Buildings</li>
 							                <li class="prop-type Villas hidden">Villas/Bungalows</li>
 
-							                <li class="prop-type Plots hidden">Plots</li>
+							                <li class="prop-type tab hidden">Plots</li>
 							              </ul>
 							            </div>
 										<div class="bldg-list">
@@ -192,14 +212,14 @@ class MasterBuildingListView extends Marionette.CompositeView
 			new CommonFloor.MasterBunglowListCtrl region : @region
 			# MasterBuildingListCtrl@trigger "load:units" , data
 
-		'click .Plots':(e)->
+		'click .tab':(e)->
 			units = plotVariantCollection.getPlotUnits()
 			data = {}
 			data.units = units
 			data.type = 'plot'
 			@region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.MasterPlotListCtrl region : @region
-			# @trigger "load:units" , data
+			
 
 
 	onShow:->
@@ -207,7 +227,7 @@ class MasterBuildingListView extends Marionette.CompositeView
 			$('.Villas').removeClass 'hidden'
 
 		if plotVariantCollection.length != 0
-			$('.Plots').removeClass 'hidden'
+			$('.tab').removeClass 'hidden'
 			
 		$('.units').mCustomScrollbar
 			theme: 'inset'

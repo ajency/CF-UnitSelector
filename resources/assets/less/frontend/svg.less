@@ -1,12 +1,13 @@
 svg {
-  width: 100%;
-  height: auto;
+	width: 100%;
+	height: auto;
+	transform: translateZ(0);
 
   	polygon {
 	  	transform: rotateY(-180deg) scale(0);
 	  	transition: all 0.4s cubic-bezier(0.59, 0.72, 0.375, 1.65);
 	  	transform-origin: center;
-	  	-moz-transform-origin: center;
+	  	-moz-transform-origin: 0 0;
   	}
 
 	.caption{
@@ -61,12 +62,8 @@ svg {
 		  	// stroke-dasharray: 320 0;
 		  	// stroke-dashoffset: 0;
 		  	// transform: scale(1.06);
-	  		cursor: default;
-	  		stroke: #f68121;
-	  		stroke-width: 4px;
-	  		stroke-dasharray: 320 0;
-	  		stroke-dashoffset: 0;
-	  		transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
+	  		cursor: pointer;
+	  		animation: blink 0.8s ease-in-out infinite alternate;
 		}
 	}
 
@@ -89,7 +86,7 @@ svg {
 	  	// fill: rgba(204, 204, 204, 0);
 	  	opacity: 0.9;
 	  	fill-opacity: 0.2;
-	  	fill: @white;
+	  	// fill: @white;
 	  	stroke: #000;
 	  	stroke-width: 1px;
 	  	stroke-opacity: 1;
@@ -141,6 +138,10 @@ svg {
 	cursor: pointer;
 }
 
+.marker-area{
+	cursor: default;
+}
+
 .step1-marker{
 	cursor: pointer;
 	transform-origin: 50% 50%;
@@ -148,6 +149,20 @@ svg {
 	&:hover{
 		animation: blink 0.5s ease-in-out infinite alternate; 
 		-moz-animation: blink 0.5s ease-in-out infinite alternate; 
+	}
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {  
+	/* IE10+ specific styles go here */
+	.svg-area{
+		height: 0;
+		padding-top: 50%;
+		position: relative;
+		svg{
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
 	}
 }
 
@@ -186,17 +201,28 @@ svg {
 // 	animation: blink 1s ease-in-out infinite alternate; 
 	
 // }
-
+//.marker-blink{
+ //	animation: blink1 .5s ease-in-out infinite alternate; 
+	
+// }
+@keyframes blink1 {
+  0% {
+	 stroke-width:0; 
+  }
+  
+  100% {
+ 	stroke:#F68121;
+ 	fill-opacity: 0.5;
+  }
+}
 @keyframes blink {
   0% {
-	  
+	 
   }
   
   100% {
  	fill:#F68121;
  	fill-opacity: 0.5;
- 	opacity:.9;
- 	border:1px solid #000;
   }
 }
 
@@ -215,4 +241,3 @@ svg {
 //   opacity: 0;
 // }
 
-	

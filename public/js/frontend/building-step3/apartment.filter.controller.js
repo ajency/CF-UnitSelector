@@ -40,7 +40,7 @@
       var building_id, url;
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
-      console.log(this.building_id = building_id);
+      this.building_id = building_id;
       if (CommonFloor.defaults['unitTypes'] !== "") {
         window.unitTypes = CommonFloor.defaults['unitTypes'].split(',');
       }
@@ -75,7 +75,6 @@
         } else {
           window.unitTypes = _.without(window.unitTypes, parseInt($(e.currentTarget).attr('data-value')));
         }
-        console.log(window.unitTypes);
         CommonFloor.defaults['unitTypes'] = window.unitTypes.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
@@ -171,7 +170,7 @@
       area = [];
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
-      floor = buildingCollection.findWhere({
+      floor = buildingMasterCollection.findWhere({
         'id': building_id
       });
       $.each(unitCollection.toArray(), function(index, value) {

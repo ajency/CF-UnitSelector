@@ -31,9 +31,8 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 						              			<div class="header-info">
 						              				<h2 class="pull-left proj-name">{{project_title}}</h2>
 						              				<div class="proj-type-count">
-						              					{{#types}} 
-						              					<h1 class="pull-left">{{results}}</h1><p class="pull-left">Apartment(s)/Penthouse(s)</p> 
-						              					{{/types}}
+						              					<h1 class="pull-left proj-name">{{name}}</h1><h1 class="pull-left">{{results}}</h1><p class="pull-left">Apartment(s)/Penthouse(s)</p> 
+						              					
 						              				</div>
 						              				<div class="pull-left filter-result">
 						              	              	{{#each  filters}}
@@ -77,7 +76,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		data.project_title = project.get('project_title')
 		data.filters  = CommonFloor.getFilters()[0]
 		data.results  = CommonFloor.getApartmentFilters().count
-		console.log model = buildingCollection.findWhere
+		model = buildingMasterCollection.findWhere
 						'id' : building_id
 		data.name  = model.get 'building_name'
 		data
@@ -101,7 +100,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
 			previousRoute = CommonFloor.router.previous()
-			CommonFloor.navigate '/'+previousRoute , true
+			CommonFloor.navigate '#/master-view' , true
 
 		'click @ui.unitTypes':(e)->
 			unitTypes = CommonFloor.defaults['unitTypes'].split(',')
@@ -161,8 +160,8 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			@trigger  'render:view'
 
 	onShow:->
-		if CommonFloor.router.history.length == 1
-			@ui.unitBack.hide()
+		# if CommonFloor.router.history.length == 1
+		# 	@ui.unitBack.hide()
 		results  = CommonFloor.getFilters()[1]
 		if results.length == 0
 			$('.proj-type-count').text 'No results found'
@@ -178,7 +177,7 @@ class CommonFloor.TopApartmentMasterCtrl extends Marionette.RegionController
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		response = window.building.getBuildingUnits(building_id)
-		buildingModel = buildingCollection.findWhere
+		buildingModel = buildingMasterCollection.findWhere
 							id : building_id
 		@view =  new CommonFloor.TopApartmentMasterView
 					model : buildingModel
@@ -202,19 +201,22 @@ class CommonFloor.TopApartmentMasterCtrl extends Marionette.RegionController
 class ApartmentsView extends Marionette.ItemView
 
 	template : Handlebars.compile('	<div class="row">
+
 					                      <div class="col-sm-4  info">
-					                        <b class="bold">F1</b> - {{unit_name}} 
+					                        <b class="bold">{{floor}}</b> - {{unit_name}} 
 					                  </div>  
+
 					                      <div class="col-sm-3  info">
-					                        	{{unit_type}}                   
+					                        	{{unit_type}}
 					                      </div> 
 					                       <div class="col-sm-5 text-primary">
-					                          <span class="icon-rupee-icn"></span>{{price}} <span class="tick"></span>
+					                          <span class="icon-rupee-icn"></span>{{price}} <!--<span class="tick"></span>-->
 					                      </div> 
 					                  </div>')
 
 	initialize:->
 		@$el.prop("id", 'apartment'+@model.get("id"))
+		
 
 	tagName: 'li'
 
@@ -228,35 +230,96 @@ class ApartmentsView extends Marionette.ItemView
 		availability = @model.get('availability')
 		status = s.decapitalize(availability)
 		@model.set 'status' , status
-		window.convertRupees(response[3])
-		data.price = $('#price').val()
+		data.price = window.numDifferentiation(response[3])
 		unitType = unitTypeMasterCollection.findWhere
 							'id' :  @model.get('unit_type_id')
 		property = window.propertyTypes[unitType.get('property_type_id')]
 		data.property = s.capitalize(property)
+		data.floor = 'F' + @model.get('floor')
 		data
 
 	events:
 		'mouseover':(e)->
 			id = @model.get 'id'
-			$('#'+id).attr('class' ,'layer apartment '+@model.get('availability'))
-			$('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability')+' active')
+			html = @getHtml(@model.get('id'))
+			$('#apartment'+id).addClass ' active'
+			$('#'+id).attr('class' ,'layer apartment svg_active '+@model.get('availability'))
+			# $('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability')+' active')
+			$('#'+id).tooltipster('content', html)
+			$('#'+id).tooltipster('show')
+
 		'mouseout':(e)->
 			id = @model.get 'id'
-			# $('#'+id).attr('class' ,'layer apartment')
-			$('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability'))
+			# $('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability'))
+			$('#apartment'+id).removeClass 'active'	
+			$('#'+id).attr('class' ,'layer apartment '+@model.get('availability'))
+			$('#'+id).tooltipster('hide')
 
 		'click':(e)->
 			if @model.get('availability') == 'available'
 				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
-				CommonFloor.router.storeRoute()
+				# CommonFloor.router.storeRoute()
+
+	getHtml:(id)->
+		html = ""
+		id = parseInt id
+		unit = unitCollection.findWhere
+					'id' : id
+		if unit is undefined
+			html = '<div class="svg-info">
+							<div class="action-bar2">
+					        <div class="txt-dft"></div>
+					    </div> 
+						<h5 class="pull-left">
+							Apartment details not entered 
+						</div>  
+					</div>'
+			$('.apartment').tooltipster('content', html)
+			return false
+
+		response = window.unit.getUnitDetails(id)
+		price =  window.numDifferentiation(response[3])
+		availability = unit.get('availability')
+		availability = s.decapitalize(availability)
+		html = ""
+		html += '<div class="svg-info '+availability+'">
+					<div class="action-bar">
+								<div class="apartment"></div>
+					</div>
+					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' ( Area - '+response[0].get('super_built_up_area')+' Sq.ft)</h5>
+
+					<!--<span class="label label-success"></span-->
+					<br><br>
+					<div class="details">
+                       
+							<label>Unit Type </label> - '+response[1].get('name')+'<br>
+						
+						
+							<label>Price </label> - <span class="icon-rupee-icn">'+price+'</span><br>
+						
+					</div>'
+		if availability == 'available'
+			html +='<div class="circle">
+						<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
+					</div>
+					<div class="details">
+						<div class="text-muted text-default">Click arrow to move forward</div>
+					</div>
+
+				</div>'
+		else
+			html += '</div>'
+		html
 
 	onShow:->
 		id = @model.get 'id'
 		availability = @model.get('availability')
 		status = s.decapitalize(availability)
 		classname =  $('#apartment'+id).attr('class')
-		$('#apartment'+id).attr('class' , classname+' '+status)
+		
+		$('#apartment'+id).addClass classname+' '+status
+		CommonFloor.applyOnViewClass()
+		# $('#apartment'+id).attr('class' , classname+' '+status)
 
 
 class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
@@ -308,7 +371,7 @@ class CommonFloor.LeftApartmentMasterCtrl extends Marionette.RegionController
 class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 
-	template : Handlebars.compile('<div class="col-md-12 us-right-content mobile visible animated fadeIn">
+	template : Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn overflow-h">
 
 										<div class="legend clearfix">
 										  <ul>
@@ -372,6 +435,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('.us-left-content').toggleClass 'col-0 col-md-3'
 			$('.us-right-content').toggleClass 'col-md-12 col-md-9'
 			that = @
+			CommonFloor.applyOnViewClass()
 			setTimeout( (x)->
 				
 				$('#spritespin').spritespin(
@@ -408,14 +472,14 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			url = Backbone.history.fragment
 			building_id = parseInt url.split('/')[1]
 			CommonFloor.navigate '/building/'+building_id+'/apartments' , true
-			CommonFloor.router.storeRoute()
+			# CommonFloor.router.storeRoute()
 
 		'click .map':(e)->
 			e.preventDefault()
 			url = Backbone.history.fragment
 			building_id = parseInt url.split('/')[1]
 			CommonFloor.navigate '/building/'+building_id+'/master-view' , true
-			CommonFloor.router.storeRoute()
+			# CommonFloor.router.storeRoute()
 
 		'mouseover .apartment':(e)->
 			id = parseInt e.target.id
@@ -425,46 +489,63 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				id :  id 
 			if unit is undefined && unitMaster != undefined
 				html = '<div class="svg-info">
-							<div class="details empty">
+								<div class="action-bar2">
+						        <div class="txt-dft"></div>
+						    </div> 
+							<h5 class="pull-left">
 								Not in selection
 							</div>  
 						</div>'
-				$('.layer').tooltipster('content', html)
+				$('.apartment').tooltipster('content', html)
 				return 
 			if unit is undefined
 				html = '<div class="svg-info">
-							<div class="details">
+								<div class="action-bar2">
+						        <div class="txt-dft"></div>
+						    </div> 
+							<h5 class="pull-left">
 								Apartment details not entered 
 							</div>  
 						</div>'
-				$('.layer').tooltipster('content', html)
+				$('.apartment').tooltipster('content', html)
 				return false
 
 			response = window.unit.getUnitDetails(id)
-			window.convertRupees(response[3])
+			price =  window.numDifferentiation(response[3])
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			html = ""
-			html += '<div class="svg-info">
-						<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
+			html += '<div class="svg-info '+availability+'">
+						<div class="action-bar">
+									<div class="apartment"></div>
+						</div>
+						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' ( Area - '+response[0].get('super_built_up_area')+' Sq.ft)</h5>
+
 						<!--<span class="label label-success"></span-->
-						<div class="clearfix"></div>
+						<br><br>
 						<div class="details">
-							<div>
-								<label>Area</label> - '+response[0].get('super_built_up_area')+' Sq.ft
-							</div> 
-							<div>
+	                       <div>
 								<label>Unit Type </label> - '+response[1].get('name')+'
 							</div>
 							<div>
-								<label>Price </label> - '+$('#price').val()+'
+								<label>Price </label> - <span class="icon-rupee-icn">'+price+'</span>
 							</div>  
-						</div>  
-					</div>'
+						</div>'
+			if availability == 'available'
+				html +='<div class="circle">
+							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
+						</div>
+						<div class="details">
+							<div class="text-muted text-default">Click arrow to move forward</div>
+						</div>
 
-			$('#'+id).attr('class' ,'layer apartment '+availability) 
-			$('#apartment'+id).attr('class' ,' unit blocks '+availability+' active') 
-			$('.layer').tooltipster('content', html)
+					</div>'
+			else
+				html += '</div>'
+			$('#'+id).attr('class' ,'layer apartment svg_active '+availability) 
+			$('#apartment'+id).addClass ' active'
+			# $('#apartment'+id).attr('class' ,' unit blocks '+availability+' active') 
+			$('.apartment').tooltipster('content', html)
 		
 		'mouseout .apartment':(e)->
 			id = parseInt e.target.id
@@ -474,16 +555,22 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				return
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			$('#'+id).attr('class' ,'layer apartment') 
-			$('#apartment'+id).attr('class' ,'unit blocks '+availability)
+			$('#'+id).attr('class' ,'layer apartment '+availability) 
+			# $('#apartment'+id).attr('class' ,'unit blocks '+availability)
+			$('#apartment'+id).removeClass ' active'
 
-		'mouseover .next':(e)->
+		# 'click .apartment':(e)->
+		# 	id = parseInt e.target.id
+		# 	CommonFloor.navigate '/unit-view/'+id , true
+		# 	# CommonFloor.router.storeRoute()
+
+		'mouseover .next,.prev':(e)->
 			id = parseInt $(e.target).attr('data-id')
-			buildingModel = buildingCollection.findWhere
+			buildingModel = buildingMasterCollection.findWhere
 								'id' : id
 			images = Object.keys(buildingModel.get('building_master')).length
-			if images != 0
-				console.log "show image"
+			# if images != 0
+			# 	console.log "show image"
 			floors = buildingModel.get 'floors'
 			floors = Object.keys(floors).length
 			unitTypes = window.building.getUnitTypes(id)
@@ -513,10 +600,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 								'id' : id
 			if Object.keys(buildingModel.get('building_master')).length == 0
 				CommonFloor.navigate '/building/'+id+'/apartments' , true
-				CommonFloor.router.storeRoute()
+				# CommonFloor.router.storeRoute()
 			else
 				CommonFloor.navigate '/building/'+id+'/master-view' , true
-				CommonFloor.router.storeRoute()
+				# CommonFloor.router.storeRoute()
 				
 
 
@@ -531,7 +618,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$('#spritespin').hide()
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
-		building = buildingCollection.findWhere
+		building = buildingMasterCollection.findWhere
 							id : building_id
 		transitionImages = []
 		svgs = {}
@@ -541,12 +628,15 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/buildings/'+building_id+'/master-'+value+'.svg'
 		
 		$.merge transitionImages ,  building.get('building_master')
-		console.log first = _.values svgs
+		first = _.values svgs
 		$('.region').load(first[0],()->
 				$('.first_image').attr('data-src',transitionImages[0])
 				that.iniTooltip()
-				CommonFloor.applyAptClasses()
-				).addClass('active').removeClass('inactive')
+				CommonFloor.applyAvailabilClasses()
+				CommonFloor.randomClass()
+				CommonFloor.applyFliterClass()
+				CommonFloor.getApartmentsInView()
+				that.loadZoom()).addClass('active').removeClass('inactive')
 		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
 			response = building.checkRotationView(building_id)
@@ -575,8 +665,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('.project_master').load(first[0],()->
 				$('.firstimage').attr('src',transitionImages[0])
 				url = Backbone.history.fragment
-				console.log building_id = url.split('/')[1]
-				console.log $('#'+building_id+'.building')
+				building_id = url.split('/')[1]
+				$('.villa,.plot').each (ind,item)->
+					id = parseInt item.id
+					$('#'+id).attr('class', "")
 				$('#'+building_id+'.building').attr('class' ,'layer building svg_active'))
 		
 
@@ -591,11 +683,11 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('.next').hide()
 		else
 			$('.next').attr('data-id',next.get('id'))
-		console.log prev = buildingMasterCollection.prev()
+		prev = buildingMasterCollection.prev()
 		if _.isUndefined prev
 			$('.prev').hide()
 		else
-			$('.prev').attr('data-id',next.get('id'))
+			$('.prev').attr('data-id',prev.get('id'))
 
 
 	setDetailIndex:(index)->
@@ -634,7 +726,14 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			data = api.data
 			if data.frame is data.stopFrame
 				url = svgs[data.frame]
-				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyAptClasses()).addClass('active').removeClass('inactive')
+				$('.region').load(url,()->
+					that.iniTooltip()
+					CommonFloor.applyAvailabilClasses()
+					CommonFloor.randomClass()
+					CommonFloor.applyFliterClass()
+					CommonFloor.getApartmentsInView()
+					CommonFloor.applyOnViewClass()
+					that.loadZoom()).addClass('active').removeClass('inactive')
 				
 				
 		)
@@ -645,20 +744,30 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
 				$('.cf-loader').addClass 'hidden'
-			$('.region').load(url,()->that.iniTooltip();that.loadZoom();CommonFloor.applyAptClasses())
+			$('.region').load(url,()->
+				that.iniTooltip()
+				that.loadZoom()
+				CommonFloor.applyAvailabilClasses()
+				CommonFloor.randomClass()
+				CommonFloor.applyFliterClass()
+				CommonFloor.getApartmentsInView()
+				that.loadZoom()).addClass('active').removeClass('inactive')
 
 
 				
 		)
 
 	iniTooltip:->
-		$('.layer,.next,.prev').tooltipster(
+		$('.apartment,.next,.prev').tooltipster(
 			theme: 'tooltipster-shadow',
 			contentAsHTML: true
 			onlyOne : true
 			arrow : false
 			offsetX : 50
-			offsetY : -10
+			offsetY : -40
+			trigger: 'hover'
+			interactive : true
+			multiple: true
 		)
 
 	loadZoom:->

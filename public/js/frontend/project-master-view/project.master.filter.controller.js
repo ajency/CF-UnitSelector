@@ -67,7 +67,8 @@
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filter();
         unitCollection.trigger('available');
-        return this.loadSelectedFilters();
+        this.loadSelectedFilters();
+        return this.loadClearFilter();
       },
       'click @ui.types': function(e) {
         window.unitTypes = [];
@@ -279,10 +280,20 @@
     };
 
     FilterMsterView.prototype.onShow = function() {
-      var area, budget, max, min, priceMax, priceMin, subArea, subBudget, types;
+      var types;
       $('.filters-content').mCustomScrollbar({
         theme: 'inset'
       });
+      types = Marionette.getOption(this, 'types');
+      if (types.length === 1) {
+        $('.property_type').hide();
+      }
+      this.loadSelectedFilters();
+      return this.loadClearFilter();
+    };
+
+    FilterMsterView.prototype.loadClearFilter = function() {
+      var area, budget, max, min, priceMax, priceMin, subArea, subBudget;
       budget = [];
       area = [];
       $.each(unitMasterCollection.toArray(), function(index, value) {
@@ -306,7 +317,7 @@
         step: subArea,
         grid: false
       });
-      $("#budget").ionRangeSlider({
+      return $("#budget").ionRangeSlider({
         type: "double",
         min: priceMin,
         max: priceMax,
@@ -316,11 +327,6 @@
           return window.numDifferentiation(num);
         }
       });
-      types = Marionette.getOption(this, 'types');
-      if (types.length === 1) {
-        $('.property_type').hide();
-      }
-      return this.loadSelectedFilters();
     };
 
     FilterMsterView.prototype.loadSelectedFilters = function() {
@@ -398,10 +404,12 @@
         this.ui.status.prop('checked', true);
       }
       if (window.flag === 0) {
-        return $('.fliters-container').removeClass('closed');
+        $('.fliters-container').removeClass('closed');
       } else {
-        return $('.fliters-container').addClass('closed');
+        $('.fliters-container').addClass('closed');
       }
+      window.price = $("#budget").data("ionRangeSlider");
+      return window.area = $("#area").data("ionRangeSlider");
     };
 
     return FilterMsterView;

@@ -6,6 +6,9 @@ body{
     min-width: initial;
 }
 
+.margin-none{
+ margin: 0px;
+}
 /* Header */
 .us-header{
     background-color: @brand-primary;
@@ -47,6 +50,13 @@ body{
         color: @white;
     }
 }
+.proj-title{
+    margin: 0 0 0 15px;
+    padding: 15px 5px 15px 10px;
+    border-left: 1px solid #db6809;
+    display: inline-block;
+    text-transform: capitalize;
+}
 .proj-type-count{
     // margin-top: 10px;
     float: left;
@@ -57,7 +67,7 @@ body{
     }
     p{
         margin: 22px 15px 0 2px;
-        font-weight: bold;
+       // font-weight: bold;
         // color: darken(@gray, 10%)
     }
 }
@@ -310,7 +320,7 @@ hr.embossed {
 .detail-list{
   margin-bottom: 20px;
         .facts-icon{
-            font-size: 40px;
+            font-size: 25px;
             width: 40px;
             float: left;
             margin-right: 10px;
@@ -320,6 +330,7 @@ hr.embossed {
              float: left;
             h3{
               margin: 0px 0px 6px;
+              font-size:15px;
             }
         }
 }
@@ -369,10 +380,27 @@ hr.embossed {
     background-position: -116px -18px; 
 }
 
-.step3{
-    .tooltipster-shadow{
-      border-radius: 100%;
-    }
+.bold{
+    font-weight:bold;
+    font-family:arial!important;
+}
+/*Step 3 list*/
+.villa-list{
+
+}
+/*Step 4*/
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background-color: #000;
+    
+}
+::-webkit-scrollbar-thumb {
+    background-color:#FFC698;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #aaa;
 }
 /* Bootstrap responsive utilities */
 @-ms-viewport {

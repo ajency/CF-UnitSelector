@@ -48,7 +48,7 @@
       return TopApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}}</h2> <div class="proj-type-count"> {{#types}} <h1 class="pull-left">{{results}}</h1><p class="pull-left">Apartment(s)/Penthouse(s)</p> {{/types}} </div> <div class="pull-left filter-result"> {{#each  filters}} {{#each this}} <div class="filter-pill"  > {{this.name}}{{this.type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div> {{/each}}{{/each }} </div> </div> </div> </div> </div>');
+    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}}</h2> <div class="proj-type-count"> <h1 class="pull-left proj-name">{{name}}</h1><h1 class="pull-left">{{results}}</h1><p class="pull-left">Apartment(s)/Penthouse(s)</p> </div> <div class="pull-left filter-result"> {{#each  filters}} {{#each this}} <div class="filter-pill"  > {{this.name}}{{this.type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div> {{/each}}{{/each }} </div> </div> </div> </div> </div>');
 
     TopApartmentMasterView.prototype.ui = {
       unitBack: '.unit_back',
@@ -81,9 +81,9 @@
       data.project_title = project.get('project_title');
       data.filters = CommonFloor.getFilters()[0];
       data.results = CommonFloor.getApartmentFilters().count;
-      console.log(model = buildingCollection.findWhere({
+      model = buildingMasterCollection.findWhere({
         'id': building_id
-      }));
+      });
       data.name = model.get('building_name');
       return data;
     };
@@ -107,7 +107,7 @@
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
           previousRoute = CommonFloor.router.previous();
-          return CommonFloor.navigate('/' + previousRoute, true);
+          return CommonFloor.navigate('#/master-view', true);
         },
         'click @ui.unitTypes': function(e) {
           var unitTypes;
@@ -165,9 +165,6 @@
 
     TopApartmentMasterView.prototype.onShow = function() {
       var results;
-      if (CommonFloor.router.history.length === 1) {
-        this.ui.unitBack.hide();
-      }
       results = CommonFloor.getFilters()[1];
       if (results.length === 0) {
         return $('.proj-type-count').text('No results found');
@@ -195,7 +192,7 @@
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
       response = window.building.getBuildingUnits(building_id);
-      buildingModel = buildingCollection.findWhere({
+      buildingModel = buildingMasterCollection.findWhere({
         id: building_id
       });
       this.view = new CommonFloor.TopApartmentMasterView({
@@ -232,7 +229,7 @@
       return ApartmentsView.__super__.constructor.apply(this, arguments);
     }
 
-    ApartmentsView.prototype.template = Handlebars.compile('	<div class="row"> <div class="col-sm-4  info"> <b class="bold">F1</b> - {{unit_name}} </div> <div class="col-sm-3  info"> {{unit_type}} </div> <div class="col-sm-5 text-primary"> <span class="icon-rupee-icn"></span>{{price}} <span class="tick"></span> </div> </div>');
+    ApartmentsView.prototype.template = Handlebars.compile('	<div class="row"> <div class="col-sm-4  info"> <b class="bold">{{floor}}</b> - {{unit_name}} </div> <div class="col-sm-3  info"> {{unit_type}} </div> <div class="col-sm-5 text-primary"> <span class="icon-rupee-icn"></span>{{price}} <!--<span class="tick"></span>--> </div> </div>');
 
     ApartmentsView.prototype.initialize = function() {
       return this.$el.prop("id", 'apartment' + this.model.get("id"));
@@ -251,34 +248,64 @@
       availability = this.model.get('availability');
       status = s.decapitalize(availability);
       this.model.set('status', status);
-      window.convertRupees(response[3]);
-      data.price = $('#price').val();
+      data.price = window.numDifferentiation(response[3]);
       unitType = unitTypeMasterCollection.findWhere({
         'id': this.model.get('unit_type_id')
       });
       property = window.propertyTypes[unitType.get('property_type_id')];
       data.property = s.capitalize(property);
+      data.floor = 'F' + this.model.get('floor');
       return data;
     };
 
     ApartmentsView.prototype.events = {
       'mouseover': function(e) {
-        var id;
+        var html, id;
         id = this.model.get('id');
-        $('#' + id).attr('class', 'layer apartment ' + this.model.get('availability'));
-        return $('#apartment' + id).attr('class', 'unit blocks ' + this.model.get('availability') + ' active');
+        html = this.getHtml(this.model.get('id'));
+        $('#apartment' + id).addClass(' active');
+        $('#' + id).attr('class', 'layer apartment svg_active ' + this.model.get('availability'));
+        $('#' + id).tooltipster('content', html);
+        return $('#' + id).tooltipster('show');
       },
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
-        return $('#apartment' + id).attr('class', 'unit blocks ' + this.model.get('availability'));
+        $('#apartment' + id).removeClass('active');
+        $('#' + id).attr('class', 'layer apartment ' + this.model.get('availability'));
+        return $('#' + id).tooltipster('hide');
       },
       'click': function(e) {
         if (this.model.get('availability') === 'available') {
-          CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
-          return CommonFloor.router.storeRoute();
+          return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
         }
       }
+    };
+
+    ApartmentsView.prototype.getHtml = function(id) {
+      var availability, html, price, response, unit;
+      html = "";
+      id = parseInt(id);
+      unit = unitCollection.findWhere({
+        'id': id
+      });
+      if (unit === void 0) {
+        html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Apartment details not entered </div> </div>';
+        $('.apartment').tooltipster('content', html);
+        return false;
+      }
+      response = window.unit.getUnitDetails(id);
+      price = window.numDifferentiation(response[3]);
+      availability = unit.get('availability');
+      availability = s.decapitalize(availability);
+      html = "";
+      html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + ' ( Area - ' + response[0].get('super_built_up_area') + ' Sq.ft)</h5> <!--<span class="label label-success"></span--> <br><br> <div class="details"> <label>Unit Type </label> - ' + response[1].get('name') + '<br> <label>Price </label> - <span class="icon-rupee-icn">' + price + '</span><br> </div>';
+      if (availability === 'available') {
+        html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
+      } else {
+        html += '</div>';
+      }
+      return html;
     };
 
     ApartmentsView.prototype.onShow = function() {
@@ -287,7 +314,8 @@
       availability = this.model.get('availability');
       status = s.decapitalize(availability);
       classname = $('#apartment' + id).attr('class');
-      return $('#apartment' + id).attr('class', classname + ' ' + status);
+      $('#apartment' + id).addClass(classname + ' ' + status);
+      return CommonFloor.applyOnViewClass();
     };
 
     return ApartmentsView;
@@ -354,7 +382,7 @@
       return CenterApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterApartmentMasterView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content mobile visible animated fadeIn"> <div class="legend clearfix"> <ul> <!--<li class="available">AVAILABLE</li>--> <li class="sold">N/A</li> <!--<li class="blocked">BLOCKED</li>--> <li class="na">Available</li> </ul> </div> <div class="zoom-controls"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button">List View</div> <div class=" master animated fadeIn"> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="spritespin"></div> <div class="svg-maps"> <img class="first_image img-responsive" src="" /> <div class="region inactive"></div> </div> </div> <div class="cf-loader hidden"></div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> <div class="mini-map"> <img class="firstimage img-responsive" src="" /> <div class="project_master"></div> </div> </div>');
+    CenterApartmentMasterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn overflow-h"> <div class="legend clearfix"> <ul> <!--<li class="available">AVAILABLE</li>--> <li class="sold">N/A</li> <!--<li class="blocked">BLOCKED</li>--> <li class="na">Available</li> </ul> </div> <div class="zoom-controls"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button">List View</div> <div class=" master animated fadeIn"> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="spritespin"></div> <div class="svg-maps"> <img class="first_image img-responsive" src="" /> <div class="region inactive"></div> </div> </div> <div class="cf-loader hidden"></div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> <div class="mini-map"> <img class="firstimage img-responsive" src="" /> <div class="project_master"></div> </div> </div>');
 
     CenterApartmentMasterView.prototype.ui = {
       svgContainer: '.master',
@@ -373,6 +401,7 @@
         $('.us-left-content').toggleClass('col-0 col-md-3');
         $('.us-right-content').toggleClass('col-md-12 col-md-9');
         that = this;
+        CommonFloor.applyOnViewClass();
         setTimeout(function(x) {
           var height;
           $('#spritespin').spritespin({
@@ -405,19 +434,17 @@
         e.preventDefault();
         url = Backbone.history.fragment;
         building_id = parseInt(url.split('/')[1]);
-        CommonFloor.navigate('/building/' + building_id + '/apartments', true);
-        return CommonFloor.router.storeRoute();
+        return CommonFloor.navigate('/building/' + building_id + '/apartments', true);
       },
       'click .map': function(e) {
         var building_id, url;
         e.preventDefault();
         url = Backbone.history.fragment;
         building_id = parseInt(url.split('/')[1]);
-        CommonFloor.navigate('/building/' + building_id + '/master-view', true);
-        return CommonFloor.router.storeRoute();
+        return CommonFloor.navigate('/building/' + building_id + '/master-view', true);
       },
       'mouseover .apartment': function(e) {
-        var availability, html, id, response, unit, unitMaster;
+        var availability, html, id, price, response, unit, unitMaster;
         id = parseInt(e.target.id);
         unit = unitCollection.findWhere({
           'id': id
@@ -426,24 +453,29 @@
           id: id
         });
         if (unit === void 0 && unitMaster !== void 0) {
-          html = '<div class="svg-info"> <div class="details empty"> Not in selection </div> </div>';
-          $('.layer').tooltipster('content', html);
+          html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Not in selection </div> </div>';
+          $('.apartment').tooltipster('content', html);
           return;
         }
         if (unit === void 0) {
-          html = '<div class="svg-info"> <div class="details"> Apartment details not entered </div> </div>';
-          $('.layer').tooltipster('content', html);
+          html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Apartment details not entered </div> </div>';
+          $('.apartment').tooltipster('content', html);
           return false;
         }
         response = window.unit.getUnitDetails(id);
-        window.convertRupees(response[3]);
+        price = window.numDifferentiation(response[3]);
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info"> <h4 class="pull-left">' + unit.get('unit_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div> <div class="details"> <div> <label>Area</label> - ' + response[0].get('super_built_up_area') + ' Sq.ft </div> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - ' + $('#price').val() + '</div> </div> </div>';
-        $('#' + id).attr('class', 'layer apartment ' + availability);
-        $('#apartment' + id).attr('class', ' unit blocks ' + availability + ' active');
-        return $('.layer').tooltipster('content', html);
+        html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + ' ( Area - ' + response[0].get('super_built_up_area') + ' Sq.ft)</h5> <!--<span class="label label-success"></span--> <br><br> <div class="details"> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - <span class="icon-rupee-icn">' + price + '</span> </div> </div>';
+        if (availability === 'available') {
+          html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
+        } else {
+          html += '</div>';
+        }
+        $('#' + id).attr('class', 'layer apartment svg_active ' + availability);
+        $('#apartment' + id).addClass(' active');
+        return $('.apartment').tooltipster('content', html);
       },
       'mouseout .apartment': function(e) {
         var availability, id, unit;
@@ -456,19 +488,16 @@
         }
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
-        $('#' + id).attr('class', 'layer apartment');
-        return $('#apartment' + id).attr('class', 'unit blocks ' + availability);
+        $('#' + id).attr('class', 'layer apartment ' + availability);
+        return $('#apartment' + id).removeClass(' active');
       },
-      'mouseover .next': function(e) {
+      'mouseover .next,.prev': function(e) {
         var buildingModel, floors, html, id, images, response, unitTypes;
         id = parseInt($(e.target).attr('data-id'));
-        buildingModel = buildingCollection.findWhere({
+        buildingModel = buildingMasterCollection.findWhere({
           'id': id
         });
         images = Object.keys(buildingModel.get('building_master')).length;
-        if (images !== 0) {
-          console.log("show image");
-        }
         floors = buildingModel.get('floors');
         floors = Object.keys(floors).length;
         unitTypes = window.building.getUnitTypes(id);
@@ -487,11 +516,9 @@
           'id': id
         });
         if (Object.keys(buildingModel.get('building_master')).length === 0) {
-          CommonFloor.navigate('/building/' + id + '/apartments', true);
-          return CommonFloor.router.storeRoute();
+          return CommonFloor.navigate('/building/' + id + '/apartments', true);
         } else {
-          CommonFloor.navigate('/building/' + id + '/master-view', true);
-          return CommonFloor.router.storeRoute();
+          return CommonFloor.navigate('/building/' + id + '/master-view', true);
         }
       }
     };
@@ -505,7 +532,7 @@
       $('#spritespin').hide();
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
-      building = buildingCollection.findWhere({
+      building = buildingMasterCollection.findWhere({
         id: building_id
       });
       transitionImages = [];
@@ -516,11 +543,15 @@
         return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/buildings/' + building_id + '/master-' + value + '.svg';
       });
       $.merge(transitionImages, building.get('building_master'));
-      console.log(first = _.values(svgs));
+      first = _.values(svgs);
       $('.region').load(first[0], function() {
         $('.first_image').attr('data-src', transitionImages[0]);
         that.iniTooltip();
-        return CommonFloor.applyAptClasses();
+        CommonFloor.applyAvailabilClasses();
+        CommonFloor.randomClass();
+        CommonFloor.applyFliterClass();
+        CommonFloor.getApartmentsInView();
+        return that.loadZoom();
       }).addClass('active').removeClass('inactive');
       $('.first_image').lazyLoadXT();
       $('.first_image').load(function() {
@@ -555,8 +586,12 @@
           var building_id, url;
           $('.firstimage').attr('src', transitionImages[0]);
           url = Backbone.history.fragment;
-          console.log(building_id = url.split('/')[1]);
-          console.log($('#' + building_id + '.building'));
+          building_id = url.split('/')[1];
+          $('.villa,.plot').each(function(ind, item) {
+            var id;
+            id = parseInt(item.id);
+            return $('#' + id).attr('class', "");
+          });
           return $('#' + building_id + '.building').attr('class', 'layer building svg_active');
         });
       }
@@ -576,11 +611,11 @@
       } else {
         $('.next').attr('data-id', next.get('id'));
       }
-      console.log(prev = buildingMasterCollection.prev());
+      prev = buildingMasterCollection.prev();
       if (_.isUndefined(prev)) {
         return $('.prev').hide();
       } else {
-        return $('.prev').attr('data-id', next.get('id'));
+        return $('.prev').attr('data-id', prev.get('id'));
       }
     };
 
@@ -625,7 +660,12 @@
           url = svgs[data.frame];
           return $('.region').load(url, function() {
             that.iniTooltip();
-            return CommonFloor.applyAptClasses();
+            CommonFloor.applyAvailabilClasses();
+            CommonFloor.randomClass();
+            CommonFloor.applyFliterClass();
+            CommonFloor.getApartmentsInView();
+            CommonFloor.applyOnViewClass();
+            return that.loadZoom();
           }).addClass('active').removeClass('inactive');
         }
       });
@@ -641,19 +681,26 @@
         return $('.region').load(url, function() {
           that.iniTooltip();
           that.loadZoom();
-          return CommonFloor.applyAptClasses();
-        });
+          CommonFloor.applyAvailabilClasses();
+          CommonFloor.randomClass();
+          CommonFloor.applyFliterClass();
+          CommonFloor.getApartmentsInView();
+          return that.loadZoom();
+        }).addClass('active').removeClass('inactive');
       });
     };
 
     CenterApartmentMasterView.prototype.iniTooltip = function() {
-      return $('.layer,.next,.prev').tooltipster({
+      return $('.apartment,.next,.prev').tooltipster({
         theme: 'tooltipster-shadow',
         contentAsHTML: true,
         onlyOne: true,
         arrow: false,
         offsetX: 50,
-        offsetY: -10
+        offsetY: -40,
+        trigger: 'hover',
+        interactive: true,
+        multiple: true
       });
     };
 

@@ -11,7 +11,7 @@
       return ListItemView.__super__.constructor.apply(this, arguments);
     }
 
-    ListItemView.prototype.template = Handlebars.compile('<div class="bldg-img"></div> <div class="info"> <h2 class="m-b-5">{{building_name}}</h2> <div class="floors"><span>{{floors}}</span> floors</div> </div> <div class="clearfix"></div> <div class="unit-type-info"> <ul> {{#types}} <li> {{name}}<!--: <span>{{units}}</span>--> </li> {{/types}} <span class="area {{areaname}}">{{area}} Sq.Ft</span> <div class="price {{classname}}">From <span>{{price}}</span></div> </ul> </div>');
+    ListItemView.prototype.template = Handlebars.compile('<div class="bldg-img"></div> <div class="info"> <h2 class="m-b-5">{{building_name}}</h2> <div class="floors"><span>{{floors}}</span> floors</div> </div> <div class="clearfix"></div> <div class="unit-type-info"> <ul> {{#types}} <li> {{name}}<!--: <span>{{units}}</span>--> </li> {{/types}} <span class="area {{areaname}}">{{area}} Sq.Ft</span> <div class="text-primary price {{classname}}">Starting price <span class="icon-rupee-icn"></span>{{price}}</div> </ul> </div>');
 
     ListItemView.prototype.tagName = 'li';
 
@@ -39,9 +39,9 @@
       if (cost === 0) {
         data.classname = 'hidden';
       }
-      console.log(data.classname);
       window.convertRupees(cost);
-      data.price = $('#price').val();
+      window.numDifferentiation;
+      data.price = window.numDifferentiation(cost);
       data.floors = Object.keys(floors).length;
       data.types = types;
       return data;
@@ -55,7 +55,8 @@
         id = this.model.get('id');
         $('#' + id + '.building').attr('class', 'layer building svg_active');
         $('#bldg' + id).attr('class', 'bldg blocks active');
-        return $('#' + id).tooltipster('content', html);
+        $('#' + id).tooltipster('content', html);
+        return $('#' + id).tooltipster('show');
       },
       'mouseout': function(e) {
         var id;
@@ -76,14 +77,15 @@
         buildingModel = buildingCollection.findWhere({
           'id': id
         });
-        CommonFloor.filterBuilding(id);
-        if (Object.keys(buildingModel.get('building_master')).length === 0) {
-          CommonFloor.navigate('/building/' + id + '/apartments', true);
-          return CommonFloor.router.storeRoute();
-        } else {
-          CommonFloor.navigate('/building/' + id + '/master-view', true);
-          return CommonFloor.router.storeRoute();
-        }
+        $('.spritespin-canvas').addClass('zoom');
+        $('.us-left-content').addClass('animated fadeOut');
+        return setTimeout(function(x) {
+          if (Object.keys(buildingModel.get('building_master')).length === 0) {
+            return CommonFloor.navigate('/building/' + id + '/apartments', true);
+          } else {
+            return CommonFloor.navigate('/building/' + id + '/master-view', true);
+          }
+        }, 500);
       }
     };
 
@@ -92,14 +94,14 @@
     };
 
     ListItemView.prototype.getHtml = function(id) {
-      var buildingModel, floors, html, response, unitTypes;
+      var availability, buildingModel, floors, html, minprice, price, response, unit, unitTypes;
       html = "";
       id = parseInt(id);
       buildingModel = buildingCollection.findWhere({
         'id': id
       });
       if (buildingModel === void 0) {
-        html = '<div class="svg-info"> <div class="details"> Building details not entered </div> </div>';
+        html = '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Building details not entered </h5> </div>';
         $('.layer').tooltipster('content', html);
         return;
       }
@@ -107,14 +109,23 @@
       floors = Object.keys(floors).length;
       unitTypes = building.getUnitTypes(id);
       response = building.getUnitTypesCount(id, unitTypes);
-      html = '<div class="svg-info"> <h4 class="pull-left">' + buildingModel.get('building_name') + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div>';
-      $.each(response, function(index, value) {
-        return html += '<div class="details"> <div> <label>' + value.name + '</label> - ' + value.units + '</div>';
+      minprice = building.getMinimumCost(id);
+      price = window.numDifferentiation(minprice);
+      unit = unitCollection.where({
+        'building_id': id,
+        'availability': 'available'
       });
-      html += '<div> <label>No. of floors</label> - ' + floors + '</div> </div> </div>';
-      $('.layer').tooltipster('content', html);
-      $('#bldg' + id).attr('class', 'bldg blocks active');
-      return $('#' + id).attr('class', 'layer building active_bldg');
+      if (unit.length > 0) {
+        availability = ' available';
+      } else {
+        availability = ' sold';
+      }
+      html = '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="building"></div> </div> <h5 class="t m-t-0">' + buildingModel.get('building_name') + '	<label class="text-muted">(' + floors + ' floors)</label></h5> <div class="details"> <div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> </div> <div class="details">';
+      $.each(response, function(index, value) {
+        return html += '' + value.name + ' (' + value.units + '),';
+      });
+      html += '	<div> Starting Price <span class="text-primary icon-rupee-icn"></span>' + price + '</div> <div class="text-muted text-default">Click arrow to move forward</div> </div></div>';
+      return html;
     };
 
     return ListItemView;
@@ -128,7 +139,7 @@
       return MasterBuildingListView.__super__.constructor.apply(this, arguments);
     }
 
-    MasterBuildingListView.prototype.template = Handlebars.compile('<div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeIn"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings active">Buildings</li> <li class="prop-type Villas hidden">Villas/Bungalows</li> <li class="prop-type Plots hidden">Plots</li> </ul> </div> <div class="bldg-list"> <p class="text-center help-text">Hover on the buildings for more details</p> <ul class="units one"> </ul> <div class="clearfix"></div> </div> </div>');
+    MasterBuildingListView.prototype.template = Handlebars.compile('<div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeIn"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings active">Buildings</li> <li class="prop-type Villas hidden">Villas/Bungalows</li> <li class="prop-type tab hidden">Plots</li> </ul> </div> <div class="bldg-list"> <p class="text-center help-text">Hover on the buildings for more details</p> <ul class="units one"> </ul> <div class="clearfix"></div> </div> </div>');
 
     MasterBuildingListView.prototype.childView = ListItemView;
 
@@ -169,7 +180,7 @@
           region: this.region
         });
       },
-      'click .Plots': function(e) {
+      'click .tab': function(e) {
         var data, units;
         units = plotVariantCollection.getPlotUnits();
         data = {};
@@ -189,7 +200,7 @@
         $('.Villas').removeClass('hidden');
       }
       if (plotVariantCollection.length !== 0) {
-        $('.Plots').removeClass('hidden');
+        $('.tab').removeClass('hidden');
       }
       return $('.units').mCustomScrollbar({
         theme: 'inset'
