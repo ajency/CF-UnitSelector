@@ -704,7 +704,8 @@ CommonFloor.applyOnViewClass = ()->
 	classview = ''
 	$('.apartment').each (index,value)->
 		id  = parseInt value.id
-		if $.inArray(parseInt(id), viewUnits) == -1
+		console.log $.inArray(id, viewUnits)
+		if $.inArray(id, viewUnits) == -1
 			$('#apartment'+id).addClass 'onview'
 		else
 			$('#apartment'+id).removeClass 'onview'
