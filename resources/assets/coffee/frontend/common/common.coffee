@@ -701,7 +701,7 @@ CommonFloor.getApartmentsInView = ()->
 
 
 CommonFloor.applyOnViewClass = ()->
-	viewUnits = CommonFloor.getApartmentsInView()
+	console.log viewUnits = CommonFloor.getApartmentsInView()
 	classview = ''
 	units = unitCollection.toArray()
 	$.each units,(index,value)->

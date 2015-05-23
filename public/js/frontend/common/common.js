@@ -826,7 +826,7 @@
 
   CommonFloor.applyOnViewClass = function() {
     var classview, units, viewUnits;
-    viewUnits = CommonFloor.getApartmentsInView();
+    console.log(viewUnits = CommonFloor.getApartmentsInView());
     classview = '';
     units = unitCollection.toArray();
     return $.each(units, function(index, value) {
