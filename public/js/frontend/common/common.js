@@ -297,7 +297,8 @@
       CommonFloor.filterFloor();
     }
     CommonFloor.resetCollections();
-    return CommonFloor.applyFliterClass();
+    CommonFloor.applyFliterClass();
+    return CommonFloor.applyOnViewClass();
   };
 
   CommonFloor.resetProperyType = function(param) {

@@ -285,6 +285,7 @@ CommonFloor.filter = ()->
 		CommonFloor.filterFloor()
 	CommonFloor.resetCollections()
 	CommonFloor.applyFliterClass()
+	CommonFloor.applyOnViewClass()
 	
 
 CommonFloor.resetProperyType = (param)->
