@@ -135,8 +135,11 @@ class ProjectApartmentVariantController extends Controller {
                 $media->save();
 
                 $imageName = $media->image_name;
-                copy($tempDir.$imageName, $targetDir.$imageName);
-                unlink($tempDir.$imageName);
+                if(File::exists($tempDir.$imageName))
+                {
+                    copy($tempDir.$imageName, $targetDir.$imageName);
+                    unlink($tempDir.$imageName);
+                }
             }
         }
         
@@ -166,8 +169,11 @@ class ProjectApartmentVariantController extends Controller {
                 $media->save();
                 
                 $imageName = $media->image_name;
-                copy($tempDir.$imageName, $targetDir.$imageName);
-                unlink($tempDir.$imageName);
+                if(File::exists($tempDir.$imageName))
+                {
+                    copy($tempDir.$imageName, $targetDir.$imageName);
+                    unlink($tempDir.$imageName);
+                }
             } 
             $threeDImageId = $request->input('image_'.$level.'_3d_id');
             if($threeDImageId!='')
@@ -182,8 +188,11 @@ class ProjectApartmentVariantController extends Controller {
                 $media->save();
                 
                 $imageName = $media->image_name;
-                copy($tempDir.$imageName, $targetDir.$imageName);
-                unlink($tempDir.$imageName);
+               if(File::exists($tempDir.$imageName))
+                {
+                    copy($tempDir.$imageName, $targetDir.$imageName);
+                    unlink($tempDir.$imageName);
+                }
             } 
                         
             $attributes = $request->input('attributes'); 

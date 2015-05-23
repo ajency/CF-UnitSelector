@@ -53,7 +53,7 @@
                             </div>
                         </div>
                         @else
-                        <input type="hidden" name="property_type" id="property_type" value="{{ $projectPropertyTypes[0]['ID'] }}">
+                        <input type="hidden" name="property_type" id="property_type" data-value="{{ $projectPropertyTypes[0]['NAME'] }}" value="{{ $projectPropertyTypes[0]['ID'] }}">
                         @endif
                         <div class="col-md-4">
                             <div class="form-group">
@@ -160,7 +160,7 @@
                     <div class="grid simple" style="margin-bottom:0;">
                         <div class="grid-body no-border" style="padding-bottom:0;">
                             <div class="grid simple vertical orange">
-                                <div class="grid-title">
+                                <div class="grid-title hidden">
                                     <h4>Level 0</h4>
                                     <input type="hidden" value="0" name="levels[]">
                                 </div>

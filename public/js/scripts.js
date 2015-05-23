@@ -1312,12 +1312,12 @@ function saveVariantConfig()
 {
     var flag = true;
     var isApartment=false; 
-    
+     
     if($('input[name="property_type"]').length || $('select[name="property_type"]').length)
-    { 
-        if($('input[name="property_type"]').val()==3)
+    {  
+        if($('input[name="property_type"]').attr('data-value')==='Apartments')
           isApartment=true;
-        else if($('select[name="property_type"]').val()==3)
+        else if($('select[name="property_type"]').find(":selected").text()==='Apartments')
           isApartment=true;
     }
     

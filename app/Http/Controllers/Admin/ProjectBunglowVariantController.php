@@ -132,8 +132,11 @@ class ProjectBunglowVariantController extends Controller {
                 $media->save();
 
                 $imageName = $media->image_name;
-                copy($tempDir.$imageName, $targetDir.$imageName);
-                unlink($tempDir.$imageName);
+                if(File::exists($tempDir.$imageName))
+                {
+                    copy($tempDir.$imageName, $targetDir.$imageName);
+                    unlink($tempDir.$imageName);
+                }
             }
         }
         $variantMeta = new VariantMeta();
@@ -158,8 +161,11 @@ class ProjectBunglowVariantController extends Controller {
                 $media->save();
                 
                 $imageName = $media->image_name;
-                copy($tempDir.$imageName, $targetDir.$imageName);
-                unlink($tempDir.$imageName);
+                if(File::exists($tempDir.$imageName))
+                {
+                    copy($tempDir.$imageName, $targetDir.$imageName);
+                    unlink($tempDir.$imageName);
+                }
             } 
             $threeDImageId = $request->input('image_'.$level.'_3d_id');
             if($threeDImageId!='')
@@ -174,8 +180,11 @@ class ProjectBunglowVariantController extends Controller {
                 $media->save();
                 
                 $imageName = $media->image_name;
-                copy($tempDir.$imageName, $targetDir.$imageName);
-                unlink($tempDir.$imageName);
+                if(File::exists($tempDir.$imageName))
+                {
+                    copy($tempDir.$imageName, $targetDir.$imageName);
+                    unlink($tempDir.$imageName);
+                }
             } 
             
             $externalimage = $request->input('image_external_3d_id');
@@ -191,8 +200,11 @@ class ProjectBunglowVariantController extends Controller {
                 $media->save();
                 
                 $imageName = $media->image_name;
-                copy($tempDir.$imageName, $targetDir.$imageName);
-                unlink($tempDir.$imageName);
+                if(File::exists($tempDir.$imageName))
+                {
+                    copy($tempDir.$imageName, $targetDir.$imageName);
+                    unlink($tempDir.$imageName);
+                }
             } 
             
             $attributes = $request->input('attributes'); 

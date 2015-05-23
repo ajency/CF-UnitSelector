@@ -128,8 +128,11 @@ class ProjectPlotVariantController extends Controller {
                 $media->save();
 
                 $imageName = $media->image_name;
-                copy($tempDir.$imageName, $targetDir.$imageName);
-                unlink($tempDir.$imageName);
+                if(File::exists($tempDir.$imageName))
+                {
+                    copy($tempDir.$imageName, $targetDir.$imageName);
+                    unlink($tempDir.$imageName);
+                }
             }
         }
         
@@ -152,8 +155,11 @@ class ProjectPlotVariantController extends Controller {
             $media->save();
 
             $imageName = $media->image_name;
-            copy($tempDir.$imageName, $targetDir.$imageName);
-            unlink($tempDir.$imageName);
+            if(File::exists($tempDir.$imageName))
+            {
+                copy($tempDir.$imageName, $targetDir.$imageName);
+                unlink($tempDir.$imageName);
+            }
         } 
         
         return redirect("/admin/project/" . $project_id . "/plot-variant/" . $unitVariantID . '/edit');
