@@ -157,10 +157,10 @@ jQuery(document).ready ($)->
 		_.each svgDataObjects, (svgDataObject, key) =>
 			elemTypeId = $(currentElem).attr("type-id")
 			if parseInt(elemTypeId) is svgDataObject.id
-				console.log "match"
 				points = svgDataObject.points
-				console.log points
 				drawPoly(points)
+				$("input[name=svg-element-id]").val(svgDataObject.id)
+
 			
 		
 
@@ -174,6 +174,30 @@ jQuery(document).ready ($)->
 	$('#aj-imp-builder-drag-drop canvas').ready ->
 		$('#aj-imp-builder-drag-drop canvas').hide()
 		$('#aj-imp-builder-drag-drop .svg-draw-clear').hide()
+
+	$('#save-svg-elem').on 'click', (e) ->
+		console.log "click save-svg-elem"
+		newCoordinates = $('.area').val()
+		newPoints = newCoordinates.split(',').map((point) ->
+		  parseInt point, 10
+		)
+
+		editedElemTypeId = $("input[name=svg-element-id]").val()
+		newSvgData = svgData
+		_.each svgData.data, (svgDataObject, key) =>
+			if svgDataObject.id is parseInt(editedElemTypeId)
+				# change global svg data with new points
+				newSvgData['data'][key]['points'] = newPoints
+				window.svgData = newSvgData
+
+				# regenerate newly modified svg element
+
+
+		$('#aj-imp-builder-drag-drop canvas').hide()
+		$('#aj-imp-builder-drag-drop svg').first().css("position","relative")
+		$("input[name=svg-element-id]").val("")	
+		$(".area").val("")	
+			
 
 			
 

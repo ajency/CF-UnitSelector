@@ -74,6 +74,8 @@
                         <div class="zoom-controls">
                             <button id="in" class="zoom-in">in</button>
                             <button id="out" class="zoom-out">out</button>
+                            <button id="save-svg-elem">save</button>
+                            <input type="hidden" name="svg-element-id">
                         </div>
                         <div id="aj-imp-browser-body">
                             <!-- TODO: remove inline style-->

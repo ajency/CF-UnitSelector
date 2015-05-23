@@ -151,17 +151,38 @@
           var elemTypeId, points;
           elemTypeId = $(currentElem).attr("type-id");
           if (parseInt(elemTypeId) === svgDataObject.id) {
-            console.log("match");
             points = svgDataObject.points;
-            console.log(points);
-            return drawPoly(points);
+            drawPoly(points);
+            return $("input[name=svg-element-id]").val(svgDataObject.id);
           }
         };
       })(this));
     });
-    return $('#aj-imp-builder-drag-drop canvas').ready(function() {
+    $('#aj-imp-builder-drag-drop canvas').ready(function() {
       $('#aj-imp-builder-drag-drop canvas').hide();
       return $('#aj-imp-builder-drag-drop .svg-draw-clear').hide();
+    });
+    return $('#save-svg-elem').on('click', function(e) {
+      var editedElemTypeId, newCoordinates, newPoints, newSvgData;
+      console.log("click save-svg-elem");
+      newCoordinates = $('.area').val();
+      newPoints = newCoordinates.split(',').map(function(point) {
+        return parseInt(point, 10);
+      });
+      editedElemTypeId = $("input[name=svg-element-id]").val();
+      newSvgData = svgData;
+      _.each(svgData.data, (function(_this) {
+        return function(svgDataObject, key) {
+          if (svgDataObject.id === parseInt(editedElemTypeId)) {
+            newSvgData['data'][key]['points'] = newPoints;
+            return window.svgData = newSvgData;
+          }
+        };
+      })(this));
+      $('#aj-imp-builder-drag-drop canvas').hide();
+      $('#aj-imp-builder-drag-drop svg').first().css("position", "relative");
+      $("input[name=svg-element-id]").val("");
+      return $(".area").val("");
     });
   });
 
