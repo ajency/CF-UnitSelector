@@ -37,9 +37,7 @@ class TopListView extends Marionette.ItemView
 
 									<div class="filter-summary-area">
 
-										<button class="btn btn-primary cf-btn-white pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters">
-											Filters <span class="icon-funnel"></span>
-										</button>
+										
 							            <div class="pull-left filter-result">
 							              	{{#each  filters}}
 							              	{{#each this}}
