@@ -22,9 +22,9 @@
       height: 100%;
       z-index: 0;
     }
-    .svg-canvas {
+/*    .svg-canvas {
       transform: none !important;
-    }
+    }*/
     canvas{
       z-index: 999;
       position: relative;
