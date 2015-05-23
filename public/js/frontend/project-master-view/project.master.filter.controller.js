@@ -282,7 +282,7 @@
     FilterMsterView.prototype.onShow = function() {
       var types;
       $('.filters-content').mCustomScrollbar({
-        theme: 'inset'
+        theme: 'cf-scroll'
       });
       types = Marionette.getOption(this, 'types');
       if (types.length === 1) {

@@ -350,7 +350,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 	onShow:->
 
 		$('.filters-content').mCustomScrollbar
-			theme: 'inset'
+			theme: 'cf-scroll'
 
 
 		
