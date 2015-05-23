@@ -26,7 +26,7 @@
         <link href="{{ asset('css/dashboard/custom-icon-set.css') }}" rel="stylesheet" type="text/css"/>
         <script>
             var BASEURL = '{{ url() }}';
-
+            var FLOORLEVELS = [];
             var variantId = 0;
             var PROJECTID = 0;
         </script>

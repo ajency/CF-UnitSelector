@@ -178,6 +178,23 @@ class ProjectBunglowVariantController extends Controller {
                 unlink($tempDir.$imageName);
             } 
             
+            $externalimage = $request->input('image_external_3d_id');
+            if($externalimage!='')
+            {
+                $variantMeta = new VariantMeta();
+                $variantMeta->unit_variant_id = $unitVariantID;
+                $variantMeta->meta_key = 'external-3d';
+                $variantMeta->meta_value = $externalimage;
+                $variantMeta->save();
+                $media = Media::find($externalimage);
+                $media->mediable_id = $unitVariantID;
+                $media->save();
+                
+                $imageName = $media->image_name;
+                copy($tempDir.$imageName, $targetDir.$imageName);
+                unlink($tempDir.$imageName);
+            } 
+            
             $attributes = $request->input('attributes'); 
             $roomIds = $request->input('room_id');
             if(!empty($roomIds))

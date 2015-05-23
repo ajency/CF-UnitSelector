@@ -323,7 +323,7 @@
                             </div>
                             <div class="grid-body no-border" id="3d_external_img">
                                 <div class="col-md-3" >
-       
+
                                     <div class="img-hover img-thumbnail">
                                         <div id="pickfiles_ext3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;">
                                             <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
@@ -333,10 +333,10 @@
                                         </div>
                                     </div>
 
-                                                         
+
                                 </div>
-                                
-                                
+
+
                             </div>
                         </div>
                     </div>
@@ -355,7 +355,7 @@
                             </div>
                             <div class="grid-body no-border">
                                 <div class="row" id="variant_gallery">
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -405,31 +405,30 @@
     var BASEURL = '{{ url() }}';
     var FLOORLEVELS = ['0', '1'];
     var variantId = 0;
-    
 
     function openRoomTypeModal(obj, id)
     {
         if (obj.value == 'add_new')
         {
-                $('#myModal').modal('show');
-                $("#roomtypeiframe").attr("src", "/admin/project/{{ $project['id']}}/roomtype/create");
-            }
-         else
+            $('#myModal').modal('show');
+            $("#roomtypeiframe").attr("src", "/admin/project/{{ $project['id']}}/roomtype/create");
+        }
+        else
         {
-            if(id)
+            if (id)
             {
                 $("#roomtypeiframe").attr("src", "/admin/project/{{ $project['id']}}/roomtype/" + id + "/edit");
                 $(".updateattribute").removeClass("hidden");
                 $('#myModal').modal('show');
             }
         }
-        
-       var level= $(obj).closest('.row').find('input[name="levels[]"]').val();
-       $("#roomtypeiframe").attr("level", level);
-       $("#roomtypeiframe").attr("roomid", id);
+
+        var level = $(obj).closest('.row').find('input[name="levels[]"]').val();
+        $("#roomtypeiframe").attr("level", level);
+        $("#roomtypeiframe").attr("roomid", id);
     }
-    
-    
+
+
 </script>
 
 @endsection

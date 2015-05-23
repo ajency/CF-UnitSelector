@@ -185,7 +185,7 @@
                                             <div class="grid simple" >
                                                 <div class="grid-body">
                                                     <div class="inline">3D Layout</div>
-                                                    <input type="hidden" name="image_0_3d_id" id="image_0_3d_id" value="">            
+                                                    
                                                     <div class="pull-right" id="3d_0_image">
                                                         @if(isset($layouts[0]['3d']))
                                                            
