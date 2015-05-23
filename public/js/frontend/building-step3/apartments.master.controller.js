@@ -310,17 +310,12 @@
     };
 
     ApartmentsView.prototype.onShow = function() {
-      var availability, classname, classview, id, status, viewUnits;
+      var availability, classname, id, status;
       id = this.model.get('id');
       availability = this.model.get('availability');
       status = s.decapitalize(availability);
       classname = $('#apartment' + id).attr('class');
-      console.log(viewUnits = CommonFloor.getApartmentsInView());
-      classview = '';
-      if ($.inArray(parseInt(this.model.get('id')), viewUnits) === -1) {
-        classview = 'onview';
-      }
-      return $('#apartment' + id).addClass(classname + ' ' + classview + ' ' + status);
+      return $('#apartment' + id).addClass(classname + ' ' + status);
     };
 
     return ApartmentsView;
@@ -406,6 +401,7 @@
         $('.us-left-content').toggleClass('col-0 col-md-3');
         $('.us-right-content').toggleClass('col-md-12 col-md-9');
         that = this;
+        CommonFloor.applyOnViewClass();
         setTimeout(function(x) {
           var height;
           $('#spritespin').spritespin({

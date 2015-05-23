@@ -698,3 +698,14 @@ CommonFloor.getApartmentsInView = ()->
 		return parseInt item
 	newUnits
 
+
+CommonFloor.applyOnViewClass = ()->
+	console.log viewUnits = CommonFloor.getApartmentsInView()
+	classview = ''
+	$('.apartment').each (index,value)->
+		id  = parseInt value.id
+		if $.inArray(parseInt(id), viewUnits) == -1
+			$('.apartment'+id).addClass 'onview'
+		else
+			$('.apartment'+id).removeClass 'onview'
+

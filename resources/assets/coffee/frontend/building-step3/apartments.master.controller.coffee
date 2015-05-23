@@ -317,12 +317,9 @@ class ApartmentsView extends Marionette.ItemView
 		availability = @model.get('availability')
 		status = s.decapitalize(availability)
 		classname =  $('#apartment'+id).attr('class')
-		console.log viewUnits = CommonFloor.getApartmentsInView()
-		classview = ''
-		if $.inArray(parseInt(@model.get('id')), viewUnits) == -1
-			classview = 'onview' 
-		$('#apartment'+id).addClass classname+' '+classview+' '+status
 		
+		$('#apartment'+id).addClass classname+' '+status
+		# $('#apartment'+id).attr('class' , classname+' '+status)
 
 
 class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
@@ -438,6 +435,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('.us-left-content').toggleClass 'col-0 col-md-3'
 			$('.us-right-content').toggleClass 'col-md-12 col-md-9'
 			that = @
+			CommonFloor.applyOnViewClass()
 			setTimeout( (x)->
 				
 				$('#spritespin').spritespin(
