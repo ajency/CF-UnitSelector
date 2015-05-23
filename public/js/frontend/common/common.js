@@ -831,9 +831,9 @@
       var id;
       id = parseInt(value.id);
       if ($.inArray(parseInt(id), viewUnits) === -1) {
-        return $('.apartment' + id).addClass('onview');
+        return $('#apartment' + id).addClass('onview');
       } else {
-        return $('.apartment' + id).removeClass('onview');
+        return $('#apartment' + id).removeClass('onview');
       }
     });
   };
