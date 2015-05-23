@@ -286,6 +286,7 @@ CommonFloor.filter = ()->
 	CommonFloor.resetCollections()
 	CommonFloor.applyFliterClass()
 	
+	
 
 CommonFloor.resetProperyType = (param)->
 	param_val_arr = param.split(',')
@@ -311,8 +312,7 @@ CommonFloor.applyFliterClass = ()->
 	if flag == 0
 		return false
 	$('.villa,.plot,.apartment').each (ind,item)->
-		console.log id = parseInt item.id
-		console.log filterunits
+		id = parseInt item.id
 		if $.inArray(id , filterunits) > -1
 			setTimeout( ()->
 				$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
@@ -671,7 +671,6 @@ CommonFloor.getUnitsProperty = (unitModel)->
 		text =  'Similar '+s.decapitalize(property)+' based on your filters'
 		type = 'apartment'
 	if s.decapitalize(property) == 'penthouse'
-		console.log apartmentVariantCollection.getPenthouseUnits()
 		window.tempColl.reset apartmentVariantCollection.getPenthouseUnits()
 		text =  'Similar '+s.decapitalize(property)+' based on your filters'
 		type = s.decapitalize(property)
@@ -705,7 +704,6 @@ CommonFloor.applyOnViewClass = ()->
 	units = unitCollection.toArray()
 	$.each units,(index,value)->
 		id  = parseInt value.id
-		console.log $.inArray(id, viewUnits)
 		if $.inArray(id, viewUnits) == -1
 			$('#apartment'+id).addClass 'onview'
 		else
