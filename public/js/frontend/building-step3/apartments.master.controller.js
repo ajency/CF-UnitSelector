@@ -232,14 +232,7 @@
     ApartmentsView.prototype.template = Handlebars.compile('	<div class="row"> <div class="col-sm-4  info"> <b class="bold">{{floor}}</b> - {{unit_name}} </div> <div class="col-sm-3  info"> {{unit_type}} </div> <div class="col-sm-5 text-primary"> <span class="icon-rupee-icn"></span>{{price}} <!--<span class="tick"></span>--> </div> </div>');
 
     ApartmentsView.prototype.initialize = function() {
-      var classname, viewUnits;
-      this.$el.prop("id", 'apartment' + this.model.get("id"));
-      console.log(viewUnits = CommonFloor.getApartmentsInView());
-      classname = '';
-      if ($.inArray(parseInt(this.model.get('id')), viewUnits) === -1) {
-        classname = 'onview';
-      }
-      return this.$el.addClass(classname);
+      return this.$el.prop("id", 'apartment' + this.model.get("id"));
     };
 
     ApartmentsView.prototype.tagName = 'li';
@@ -317,12 +310,17 @@
     };
 
     ApartmentsView.prototype.onShow = function() {
-      var availability, classname, id, status;
+      var availability, classname, classview, id, status, viewUnits;
       id = this.model.get('id');
       availability = this.model.get('availability');
       status = s.decapitalize(availability);
       classname = $('#apartment' + id).attr('class');
-      return $('#apartment' + id).attr('class', classname + ' ' + status);
+      console.log(viewUnits = CommonFloor.getApartmentsInView());
+      classview = '';
+      if ($.inArray(parseInt(this.model.get('id')), viewUnits) === -1) {
+        classview = 'onview';
+      }
+      return $('#apartment' + id).addClass(classname + ' ' + classview + ' ' + status);
     };
 
     return ApartmentsView;
