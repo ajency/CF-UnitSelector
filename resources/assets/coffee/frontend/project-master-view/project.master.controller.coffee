@@ -787,7 +787,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 							<div class="building"></div>
 						</div>
 
-						<h5 class="t m-t-0">'+buildingModel.get('building_name')+'	<label class="text-muted">( No. of floors - '+floors+' )</label></h5>
+						<h5 class="t m-t-0">'+buildingModel.get('building_name')+'	<label class="text-muted">('+floors+' floors)</label></h5>
 						
 						<div class="details">
 							
@@ -795,9 +795,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						</div>'
 
 			$.each response,(index,value)->
-				html +='<div class="details">
+				html +='<span class="details">
 							' +value.name+' ('+value.units+'),
-						</div>'
+						</span>'
 
 			if unit.length > 0 
 				if Object.keys(buildingModel.get('building_master')).length == 0

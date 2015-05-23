@@ -229,7 +229,7 @@
       return ApartmentsView.__super__.constructor.apply(this, arguments);
     }
 
-    ApartmentsView.prototype.template = Handlebars.compile('	<div class="row"> <div class="col-sm-4  info"> <b class="bold">{{floor}}</b> - {{unit_name}} </div> <div class="col-sm-3  info"> {{unit_type}} </div> <div class="col-sm-5 text-primary"> <span class="icon-rupee-icn">{{price}}</span> <!--<span class="tick"></span>--> </div> </div>');
+    ApartmentsView.prototype.template = Handlebars.compile('	<div class="row"> <div class="col-sm-4  info"> <b class="bold">{{floor}}</b> - {{unit_name}} </div> <div class="col-sm-3  info"> {{unit_type}} </div> <div class="col-sm-5 text-primary"> <span class="icon-rupee-icn"></span>{{price}} <!--<span class="tick"></span>--> </div> </div>');
 
     ApartmentsView.prototype.initialize = function() {
       var classname, viewUnits;

@@ -129,7 +129,7 @@ class ListItemView extends Marionette.ItemView
 						<div class="building"></div>
 					</div>
 
-					<h5 class="t m-t-0">'+buildingModel.get('building_name')+'	<label class="text-muted">( No. of floors - '+floors+' )</label></h5>
+					<h5 class="t m-t-0">'+buildingModel.get('building_name')+'	<label class="text-muted">('+floors+' floors)</label></h5>
 					
 					<div class="details">
 						

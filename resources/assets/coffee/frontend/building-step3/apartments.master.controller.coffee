@@ -210,7 +210,7 @@ class ApartmentsView extends Marionette.ItemView
 					                        	{{unit_type}}
 					                      </div> 
 					                       <div class="col-sm-5 text-primary">
-					                          <span class="icon-rupee-icn">{{price}}</span> <!--<span class="tick"></span>-->
+					                          <span class="icon-rupee-icn"></span>{{price}} <!--<span class="tick"></span>-->
 					                      </div> 
 					                  </div>')
 
