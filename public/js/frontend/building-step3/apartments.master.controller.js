@@ -314,7 +314,8 @@
       availability = this.model.get('availability');
       status = s.decapitalize(availability);
       classname = $('#apartment' + id).attr('class');
-      return $('#apartment' + id).addClass(classname + ' ' + status);
+      $('#apartment' + id).addClass(classname + ' ' + status);
+      return CommonFloor.applyOnViewClass();
     };
 
     return ApartmentsView;
