@@ -828,7 +828,7 @@
     console.log(viewUnits = CommonFloor.getApartmentsInView());
     classview = '';
     console.log(units = unitCollection.toArray());
-    return units.each(function(index, value) {
+    return $.each(units, function(index, value) {
       var id;
       id = parseInt(value.id);
       console.log($.inArray(id, viewUnits));
