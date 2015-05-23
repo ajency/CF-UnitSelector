@@ -63,26 +63,25 @@ class LeftView extends Marionette.ItemView
 
 										<div id="proj_info">
 											<div class="big-tooltip">
-												<div class="row">
-												    <div class="col-sm-4">
-												        <div class="m-t-15">
-												           	<h5>{{i10n "project_by"}}</h5>
+												<div class="svg-info not-available">
+													<div class="action-bar" style="width:140px;height:140px;">
+															<h5>{{i10n "project_by"}}</h5>
 												          	<img src="{{logo}}" class="img-responsive builder-logo">
-												        </div>
-												    </div>
-												   	<div class="col-sm-8 b-r">
-												        <div class="m-t-15">
-												        	{{#propertyTypes}}
-												          	<p>{{prop_type}} <span class="text-muted">({{unit_types}})</span></p>
+													</div>	
+													 <h5 class="pull-left m-t-0">{{address}}</h5>
+													 	  <div class="details">
+													       	{{#propertyTypes}}
+												          	<div>{{prop_type}} <span class="text-muted">({{unit_types}})</span></div>
 												        	{{/propertyTypes}}
 
-												         	<br>
-												       		<span class="icon-location pull-left"></span>
-												       		<p class="address">{{address}}</p>
-												        	<div class="clearfix"></div><br>
-												        </div> 
-												    </div>
-												</div>
+												         	
+													       <div class="text-muted text-default"> To Move Forward Click Arrow</div>
+													      </div>
+													       <div class="circle">
+															    <span class="arrow-up icon-chevron-right"></span>
+															  </div>  
+														</div>	
+											
 											</div>
 										</div>
 

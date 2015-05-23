@@ -4,6 +4,9 @@
 .big-tooltip{
     width: 100%;
     max-width:470px;
+    h5{
+      width:65%;
+    }
     .b-r{
       border-left: 1px solid @gray-lighter;
     }
@@ -36,6 +39,7 @@
     h5{
         // color: @brand-primary;
         font-weight: bold;
+      
     }
     .label{
         margin: 10px 0 0 5px;
@@ -116,21 +120,26 @@
             color: @gray;
         }
     }
-    .circle{
-        width:40px;
-        height:40px;
-        border-radius:100%;
-        background:@brand-primary;
+     .circle{
+       width: 35px;
+        height: 35px;
+        border-radius: 100%;
+        background: #ccc;
         position: absolute;
-        right: -20px;
-        top: 30%;
+        bottom: -15px;
         text-align: center;
-        line-height: 40px;
-        color: @white;
-        font-size: 15px;
-       
+        right: 18px;
+        line-height: 35px;
+        border: 1px solid #999;
+        color: #5F5858 !important;
+        font-size: 13px;
+        &:hover{
+          background: @brand-primary;
+          cursor:pointer;
+          color:@white !important;
+        }
+      
     }
-   
     .step2-sprite{
         background: url(../../images/sprite-popover.png) no-repeat;
       width: 50px;
@@ -162,6 +171,7 @@
       opacity:.7;
     }
 }
+
  .icon-moon{
       font-family: icomoon;
       speak: none;
@@ -202,3 +212,4 @@
               }
         }
     }
+  

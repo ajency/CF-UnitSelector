@@ -432,16 +432,18 @@ hr.embossed {
 /*Step 3 list*/
 /*Step 4*/
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background-color: #000;
+  background-color: #ccc;
+  border: 1px solid #999;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #FFC698;
+  background-color: #666;
+  border-radius: 50px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #aaa;
+  background-color: #f68121;
 }
 /* Bootstrap responsive utilities */
 @-ms-viewport {
@@ -2608,6 +2610,9 @@ label.third_toggle {
   width: 100%;
   max-width: 470px;
 }
+.big-tooltip h5 {
+  width: 65%;
+}
 .big-tooltip .b-r {
   border-left: 1px solid #cccccc;
 }
@@ -2712,17 +2717,23 @@ label.third_toggle {
   color: #666666;
 }
 .svg-info .circle {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border-radius: 100%;
-  background: #f68121;
+  background: #ccc;
   position: absolute;
-  right: -20px;
-  top: 30%;
+  bottom: -15px;
   text-align: center;
-  line-height: 40px;
-  color: #ffffff;
-  font-size: 15px;
+  right: 18px;
+  line-height: 35px;
+  border: 1px solid #999;
+  color: #5F5858 !important;
+  font-size: 13px;
+}
+.svg-info .circle:hover {
+  background: #f68121;
+  cursor: pointer;
+  color: #ffffff !important;
 }
 .svg-info .step2-sprite {
   background: url(../../images/sprite-popover.png) no-repeat;
