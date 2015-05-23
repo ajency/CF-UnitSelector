@@ -1632,6 +1632,19 @@ svg polygon {
   -webkit-animation-iteration-count: infinite;
           animation-iteration-count: infinite;
 }
+.blocks.active {
+  box-shadow: inset 0 0 10px 1px #f68121;
+  -webkit-animation-name: hvr-back-pulse;
+          animation-name: hvr-back-pulse;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-delay: 0;
+          animation-delay: 0;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
 .blocks.sold,
 .blocks.blocked,
 .blocks.not_released {

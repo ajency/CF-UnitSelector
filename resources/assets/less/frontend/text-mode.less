@@ -170,8 +170,12 @@
 		}		
 	}
 	&.active{
-		// border: 1px solid @brand-primary;
-		// box-shadow: inset 0 0 4px 1px @brand-primary;
+		box-shadow: inset 0 0 10px 1px @brand-primary;
+		animation-name: hvr-back-pulse;
+		animation-duration: 1s;
+		animation-delay: 0;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
 	}
 	&.sold, &.blocked, &.not_released{
 		// background-color: fade(@danger-darker, 50%);
