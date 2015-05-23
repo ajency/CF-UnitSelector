@@ -264,7 +264,7 @@
         id = this.model.get('id');
         html = this.getHtml(this.model.get('id'));
         $('#apartment' + id).addClass(' active');
-        $('#' + id).attr('class', 'layer apartment ' + this.model.get('availability'));
+        $('#' + id).attr('class', 'layer apartment svg_active ' + this.model.get('availability'));
         $('#' + id).tooltipster('content', html);
         return $('#' + id).tooltipster('show');
       },
@@ -300,7 +300,6 @@
       availability = s.decapitalize(availability);
       html = "";
       html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + ' ( Area - ' + response[0].get('super_built_up_area') + ' Sq.ft)</h5> <!--<span class="label label-success"></span--> <br><br> <div class="details"> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - <span class="icon-rupee-icn">' + price + '</span> </div> </div>';
-      console.log(availability);
       if (availability === 'available') {
         html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
       } else {
@@ -474,8 +473,7 @@
         } else {
           html += '</div>';
         }
-        console.log(html);
-        $('#' + id).attr('class', 'layer apartment ' + availability);
+        $('#' + id).attr('class', 'layer apartment svg_active ' + availability);
         $('#apartment' + id).addClass(' active');
         return $('.apartment').tooltipster('content', html);
       },
@@ -669,6 +667,7 @@
             CommonFloor.randomClass();
             CommonFloor.applyFliterClass();
             CommonFloor.getApartmentsInView();
+            CommonFloor.applyOnViewClass();
             return that.loadZoom();
           }).addClass('active').removeClass('inactive');
         }
