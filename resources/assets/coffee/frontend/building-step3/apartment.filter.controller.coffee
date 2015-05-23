@@ -84,15 +84,21 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		floor : '#floor'
 
 	initialize:->
+		variantNames = []
+		unitTypes = []
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		@building_id = building_id
 		if CommonFloor.defaults['unitTypes']!= ""
-			window.unitTypes = CommonFloor.defaults['unitTypes'].split(',')
+			unitTypes = CommonFloor.defaults['unitTypes'].split(',')
 		if CommonFloor.defaults['unitVariants']!= ""
-			window.variantNames = CommonFloor.defaults['unitVariants'].split(',')
+			variantNames = CommonFloor.defaults['unitVariants'].split(',')
 		if CommonFloor.defaults['type']!= ""
 			window.type  = CommonFloor.defaults['type'].split(',')
+		window.unitTypes = unitTypes.map (item)->
+			return parseInt item
+		window.variantNames = variantNames.map (item)->
+			return parseInt item
 
 	events:
 		'click @ui.clear':(e)->
@@ -379,6 +385,10 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		# 	   from : parseInt CommonFloor.defaults['floor_min']
 		# 	   to  : parseInt CommonFloor.defaults['floor_max']
 		# )
+		res = CommonFloor.getFilters()[0]
+		if Object.keys(res).length == 0
+			window.flag1 = 1
+
 		@ui.status.prop('checked',false)
 		if CommonFloor.defaults['availability'] != "" 
 			 @ui.status.prop('checked',true)

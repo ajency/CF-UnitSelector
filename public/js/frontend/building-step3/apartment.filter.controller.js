@@ -37,19 +37,27 @@
     };
 
     FilterApartmentView.prototype.initialize = function() {
-      var building_id, url;
+      var building_id, unitTypes, url, variantNames;
+      variantNames = [];
+      unitTypes = [];
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
       this.building_id = building_id;
       if (CommonFloor.defaults['unitTypes'] !== "") {
-        window.unitTypes = CommonFloor.defaults['unitTypes'].split(',');
+        unitTypes = CommonFloor.defaults['unitTypes'].split(',');
       }
       if (CommonFloor.defaults['unitVariants'] !== "") {
-        window.variantNames = CommonFloor.defaults['unitVariants'].split(',');
+        variantNames = CommonFloor.defaults['unitVariants'].split(',');
       }
       if (CommonFloor.defaults['type'] !== "") {
-        return window.type = CommonFloor.defaults['type'].split(',');
+        window.type = CommonFloor.defaults['type'].split(',');
       }
+      window.unitTypes = unitTypes.map(function(item) {
+        return parseInt(item);
+      });
+      return window.variantNames = variantNames.map(function(item) {
+        return parseInt(item);
+      });
     };
 
     FilterApartmentView.prototype.events = {
@@ -217,7 +225,7 @@
     };
 
     FilterApartmentView.prototype.loadSelectedFilters = function() {
-      var id, types, typesArray, unitTypes, unitVariants, unitVariantsArray, unitsArr, unittypesArray, unittypesColl;
+      var id, res, types, typesArray, unitTypes, unitVariants, unitVariantsArray, unitsArr, unittypesArray, unittypesColl;
       unittypesArray = [];
       unitTypes = CommonFloor.defaults['unitTypes'].split(',');
       unitVariantsArray = [];
@@ -258,6 +266,10 @@
           return $('#' + item.id).attr('disabled', true);
         }
       });
+      res = CommonFloor.getFilters()[0];
+      if (Object.keys(res).length === 0) {
+        window.flag1 = 1;
+      }
       this.ui.status.prop('checked', false);
       if (CommonFloor.defaults['availability'] !== "") {
         this.ui.status.prop('checked', true);

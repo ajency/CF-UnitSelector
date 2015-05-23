@@ -37,18 +37,24 @@
     };
 
     FilterMsterView.prototype.initialize = function() {
-      var unitTypes;
+      var unitTypes, variantNames;
+      this.price = '';
+      this.area = '';
       unitTypes = [];
+      variantNames = [];
       if (CommonFloor.defaults['unitTypes'] !== "") {
         unitTypes = CommonFloor.defaults['unitTypes'].split(',');
       }
       if (CommonFloor.defaults['unitVariants'] !== "") {
-        window.variantNames = CommonFloor.defaults['unitVariants'].split(',');
+        variantNames = CommonFloor.defaults['unitVariants'].split(',');
       }
       if (CommonFloor.defaults['type'] !== "") {
         window.type = CommonFloor.defaults['type'].split(',');
       }
-      return window.unitTypes = unitTypes.map(function(item) {
+      window.unitTypes = unitTypes.map(function(item) {
+        return parseInt(item);
+      });
+      return window.variantNames = variantNames.map(function(item) {
         return parseInt(item);
       });
     };
@@ -68,6 +74,10 @@
         CommonFloor.filter();
         unitCollection.trigger('available');
         this.loadSelectedFilters();
+        this.price = $("#budget").data("ionRangeSlider");
+        this.area = $("#area").data("ionRangeSlider");
+        this.price.destroy();
+        this.area.destroy();
         return this.loadClearFilter();
       },
       'click @ui.types': function(e) {
@@ -330,7 +340,7 @@
     };
 
     FilterMsterView.prototype.loadSelectedFilters = function() {
-      var id, pt_types, types, typesArray, unitTypes, unitVariants, unitVariantsArray, unitsArr, unittypesArray, unittypesColl;
+      var id, pt_types, res, types, typesArray, unitTypes, unitVariants, unitVariantsArray, unitsArr, unittypesArray, unittypesColl;
       types = [];
       pt_types = Marionette.getOption(this, 'types');
       types = CommonFloor.defaults['type'].split(',');
@@ -403,13 +413,15 @@
       if (CommonFloor.defaults['availability'] !== "") {
         this.ui.status.prop('checked', true);
       }
-      if (window.flag === 0) {
-        $('.fliters-container').removeClass('closed');
-      } else {
-        $('.fliters-container').addClass('closed');
+      res = CommonFloor.getFilters()[0];
+      if (Object.keys(res).length === 0) {
+        window.flag = 1;
       }
-      window.price = $("#budget").data("ionRangeSlider");
-      return window.area = $("#area").data("ionRangeSlider");
+      if (window.flag === 0) {
+        return $('.fliters-container').removeClass('closed');
+      } else {
+        return $('.fliters-container').addClass('closed');
+      }
     };
 
     return FilterMsterView;
