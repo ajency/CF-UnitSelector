@@ -232,7 +232,14 @@
     ApartmentsView.prototype.template = Handlebars.compile('	<div class="row"> <div class="col-sm-4  info"> <b class="bold">{{floor}}</b> - {{unit_name}} </div> <div class="col-sm-3  info"> {{unit_type}} </div> <div class="col-sm-5 text-primary"> <span class="icon-rupee-icn">{{price}}</span> <!--<span class="tick"></span>--> </div> </div>');
 
     ApartmentsView.prototype.initialize = function() {
-      return this.$el.prop("id", 'apartment' + this.model.get("id"));
+      var classname, viewUnits;
+      this.$el.prop("id", 'apartment' + this.model.get("id"));
+      viewUnits = CommonFloor.getApartmentsInView();
+      classname = '';
+      if ($.inArray(this.model.get('id'), viewUnits)) {
+        classname = 'onview';
+      }
+      return this.$el.addClass(classname);
     };
 
     ApartmentsView.prototype.tagName = 'li';
@@ -260,23 +267,18 @@
 
     ApartmentsView.prototype.events = {
       'mouseover': function(e) {
-        var classname, html, id, viewUnits;
+        var html, id;
         id = this.model.get('id');
         html = this.getHtml(this.model.get('id'));
+        $('#apartment' + id).addClass(' active');
         $('#' + id).attr('class', 'layer apartment ' + this.model.get('availability'));
-        console.log(viewUnits = CommonFloor.getApartmentsInView());
-        classname = '';
-        if ($.inArray(parseInt(this.model.get('id')), viewUnits) === -1) {
-          classname = 'onview';
-        }
-        $('#apartment' + id).attr('class', 'unit blocks ' + classname + ' ' + this.model.get('availability') + ' active');
         $('#' + id).tooltipster('content', html);
         return $('#' + id).tooltipster('show');
       },
       'mouseout': function(e) {
         var id;
         id = this.model.get('id');
-        $('#apartment' + id).attr('class', 'unit blocks ' + this.model.get('availability'));
+        $('#apartment' + id).removeClass('active');
         $('#' + id).attr('class', 'layer apartment ' + this.model.get('availability'));
         return $('#' + id).tooltipster('hide');
       },
@@ -480,7 +482,7 @@
         }
         console.log(html);
         $('#' + id).attr('class', 'layer apartment ' + availability);
-        $('#apartment' + id).attr('class', ' unit blocks ' + availability + ' active');
+        $('#apartment' + id).addClass(' active');
         return $('.apartment').tooltipster('content', html);
       },
       'mouseout .apartment': function(e) {
@@ -495,7 +497,7 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         $('#' + id).attr('class', 'layer apartment ' + availability);
-        return $('#apartment' + id).attr('class', 'unit blocks ' + availability);
+        return $('#apartment' + id).removeClass(' active');
       },
       'mouseover .next,.prev': function(e) {
         var buildingModel, floors, html, id, images, response, unitTypes;

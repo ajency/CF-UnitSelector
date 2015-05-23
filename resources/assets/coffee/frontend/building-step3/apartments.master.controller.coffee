@@ -216,7 +216,11 @@ class ApartmentsView extends Marionette.ItemView
 
 	initialize:->
 		@$el.prop("id", 'apartment'+@model.get("id"))
-		
+		viewUnits = CommonFloor.getApartmentsInView()
+		classname = ''
+		if $.inArray @model.get('id'), viewUnits
+			classname = 'onview' 
+		@$el.addClass classname
 
 	tagName: 'li'
 
@@ -242,18 +246,16 @@ class ApartmentsView extends Marionette.ItemView
 		'mouseover':(e)->
 			id = @model.get 'id'
 			html = @getHtml(@model.get('id'))
+			$('#apartment'+id).addClass ' active'
 			$('#'+id).attr('class' ,'layer apartment '+@model.get('availability'))
-			console.log viewUnits = CommonFloor.getApartmentsInView()
-			classname = ''
-			if $.inArray(parseInt(@model.get('id')), viewUnits) == -1
-				classname = 'onview' 
-			$('#apartment'+id).attr('class' ,'unit blocks '+classname+' '+@model.get('availability')+' active')
+			# $('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability')+' active')
 			$('#'+id).tooltipster('content', html)
 			$('#'+id).tooltipster('show')
 
 		'mouseout':(e)->
 			id = @model.get 'id'
-			$('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability'))
+			# $('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability'))
+			$('#apartment'+id).removeClass 'active'	
 			$('#'+id).attr('class' ,'layer apartment '+@model.get('availability'))
 			$('#'+id).tooltipster('hide')
 
@@ -544,7 +546,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				html += '</div>'
 			console.log html 
 			$('#'+id).attr('class' ,'layer apartment '+availability) 
-			$('#apartment'+id).attr('class' ,' unit blocks '+availability+' active') 
+			$('#apartment'+id).addClass ' active'
+			# $('#apartment'+id).attr('class' ,' unit blocks '+availability+' active') 
 			$('.apartment').tooltipster('content', html)
 		
 		'mouseout .apartment':(e)->
@@ -556,7 +559,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			$('#'+id).attr('class' ,'layer apartment '+availability) 
-			$('#apartment'+id).attr('class' ,'unit blocks '+availability)
+			# $('#apartment'+id).attr('class' ,'unit blocks '+availability)
+			$('#apartment'+id).removeClass ' active'
 
 		# 'click .apartment':(e)->
 		# 	id = parseInt e.target.id
