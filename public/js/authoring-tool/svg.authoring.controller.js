@@ -139,8 +139,12 @@
     draw.svg(str);
     $('#aj-imp-builder-drag-drop canvas').hide();
     console.log("hide ncanvas");
-    return $('.marked').on('dblclick', function(e) {
-      return $('#aj-imp-builder-drag-drop canvas').hide();
+    $('.marked').on('dblclick', function(e) {
+      return $('#aj-imp-builder-drag-drop canvas').show();
+    });
+    return $('#aj-imp-builder-drag-drop canvas').ready(function() {
+      $('#aj-imp-builder-drag-drop canvas').hide();
+      return $('#aj-imp-builder-drag-drop .svg-draw-clear').hide();
     });
   });
 

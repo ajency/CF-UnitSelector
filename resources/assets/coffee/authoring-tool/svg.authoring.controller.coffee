@@ -151,7 +151,12 @@ jQuery(document).ready ($)->
 	console.log "hide ncanvas"
 
 	$('.marked').on 'dblclick', (e) ->
+		$('#aj-imp-builder-drag-drop canvas').show()
+
+	$('#aj-imp-builder-drag-drop canvas').ready ->
 		$('#aj-imp-builder-drag-drop canvas').hide()
+		$('#aj-imp-builder-drag-drop .svg-draw-clear').hide()
+			
 
 	
   
