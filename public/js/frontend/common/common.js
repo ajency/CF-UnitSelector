@@ -823,6 +823,23 @@
     return newUnits;
   };
 
+  CommonFloor.applyOnViewClass = function() {
+    var classview, units, viewUnits;
+    viewUnits = CommonFloor.getApartmentsInView();
+    classview = '';
+    units = unitCollection.toArray();
+    return $.each(units, function(index, value) {
+      var id;
+      id = parseInt(value.id);
+      console.log($.inArray(id, viewUnits));
+      if ($.inArray(id, viewUnits) === -1) {
+        return $('#apartment' + id).addClass('onview');
+      } else {
+        return $('#apartment' + id).removeClass('onview');
+      }
+    });
+  };
+
 }).call(this);
 
 //# sourceMappingURL=../../frontend/common/common.js.map

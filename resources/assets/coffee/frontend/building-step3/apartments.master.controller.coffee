@@ -243,7 +243,7 @@ class ApartmentsView extends Marionette.ItemView
 			id = @model.get 'id'
 			html = @getHtml(@model.get('id'))
 			$('#apartment'+id).addClass ' active'
-			$('#'+id).attr('class' ,'layer apartment '+@model.get('availability'))
+			$('#'+id).attr('class' ,'layer apartment svg_active '+@model.get('availability'))
 			# $('#apartment'+id).attr('class' ,'unit blocks '+@model.get('availability')+' active')
 			$('#'+id).tooltipster('content', html)
 			$('#'+id).tooltipster('show')
@@ -298,7 +298,6 @@ class ApartmentsView extends Marionette.ItemView
 							<label>Price </label> - <span class="icon-rupee-icn">'+price+'</span><br>
 						
 					</div>'
-		console.log availability 
 		if availability == 'available'
 			html +='<div class="circle">
 						<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
@@ -317,12 +316,9 @@ class ApartmentsView extends Marionette.ItemView
 		availability = @model.get('availability')
 		status = s.decapitalize(availability)
 		classname =  $('#apartment'+id).attr('class')
-		console.log viewUnits = CommonFloor.getApartmentsInView()
-		classview = ''
-		if $.inArray(parseInt(@model.get('id')), viewUnits) == -1
-			classview = 'onview' 
-		$('#apartment'+id).addClass classname+' '+classview+' '+status
 		
+		$('#apartment'+id).addClass classname+' '+status
+		# $('#apartment'+id).attr('class' , classname+' '+status)
 
 
 class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
@@ -438,6 +434,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('.us-left-content').toggleClass 'col-0 col-md-3'
 			$('.us-right-content').toggleClass 'col-md-12 col-md-9'
 			that = @
+			CommonFloor.applyOnViewClass()
 			setTimeout( (x)->
 				
 				$('#spritespin').spritespin(
@@ -545,8 +542,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					</div>'
 			else
 				html += '</div>'
-			console.log html 
-			$('#'+id).attr('class' ,'layer apartment '+availability) 
+			$('#'+id).attr('class' ,'layer apartment svg_active '+availability) 
 			$('#apartment'+id).addClass ' active'
 			# $('#apartment'+id).attr('class' ,' unit blocks '+availability+' active') 
 			$('.apartment').tooltipster('content', html)
@@ -736,6 +732,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					CommonFloor.randomClass()
 					CommonFloor.applyFliterClass()
 					CommonFloor.getApartmentsInView()
+					CommonFloor.applyOnViewClass()
 					that.loadZoom()).addClass('active').removeClass('inactive')
 				
 				
