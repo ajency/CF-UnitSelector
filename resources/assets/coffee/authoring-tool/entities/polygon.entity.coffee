@@ -16,6 +16,7 @@ class Polygon extends Backbone.Model
 		@node = document.createElementNS('http://www.w3.org/2000/svg','polygon')
 		@points(item.points)
 		@attribute('class',item.details.class)
+		@attribute('type-id',item.id)
 		@node
 		
 	

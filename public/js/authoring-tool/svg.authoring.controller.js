@@ -14,7 +14,7 @@
           'details': {
             'class': 'marked'
           },
-          'points': ["197.333", "566.667", "495.333", "490", "479.333", "472.667", "456", "448.667", "454", "474.667", "477.333", "517.333", "519.333", "587"]
+          'points': ["359", "332", "418", "365", "345", "359"]
         }, {
           'id': 2,
           'type': 'villa',
@@ -30,14 +30,16 @@
           'details': {
             'class': 'marked'
           },
-          'points': ["307.333", "459.333", "468", "482.667", "490", "517.333", "519.333", "587", "602.667", "580", "570.667", "489.333", "488", "463.333"]
+          'points': ["425", "485", "459", "501", "457", "547", "408", "550"]
         }, {
           'id': 4,
           'type': 'villa',
           'name': 'Villa 4',
-          'canvas_type': '',
-          'details': '',
-          'points': []
+          'canvas_type': 'polygon',
+          'details': {
+            'class': 'marked'
+          },
+          'points': ["629", "490", "667", "476", "704", "474", "709", "499", "706", "536", "635", "539"]
         }, {
           'id': 5,
           'type': 'villa',
@@ -46,7 +48,7 @@
           'details': {
             'class': 'marked'
           },
-          'points': ["382.665", "469.999", "479.999", "495.332", "501.999", "570.667", "580", "602.667", "615.999", "590.666", "582.666", "514.666", "505.332", "489.332", "485.332", "474.666"]
+          'points': []
         }
       ],
       'supported_types': ['polygon']
@@ -59,8 +61,6 @@
       rawSvg.setAttribute('height', '100%');
       rawSvg.setAttributeNS(null, 'x', '0');
       rawSvg.setAttributeNS(null, 'y', '0');
-      rawSvg.setAttributeNS(null, 'viewBox', '0 0 1600 1095');
-      rawSvg.setAttributeNS(null, 'enable-background', 'new 0 0 1600 1095');
       rawSvg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
       window.createImageTag();
       return $.each(svgData, function(index, value) {
@@ -83,6 +83,8 @@
       svgimg.setAttributeNS(null, 'height', '100%');
       svgimg.setAttributeNS(null, 'width', '100%');
       svgimg.setAttributeNS('http://www.w3.org/1999/xlink', 'href', svgImg);
+      svgimg.setAttributeNS(null, 'x', '0');
+      svgimg.setAttributeNS(null, 'y', '0');
       svgimg.setAttributeNS(null, 'visibility', 'visible');
       return rawSvg.appendChild(svgimg);
     };
@@ -138,7 +140,24 @@
     str = s.serializeToString(rawSvg);
     draw.svg(str);
     $('.marked').on('dblclick', function(e) {
-      return $('#aj-imp-builder-drag-drop canvas').show();
+      var currentElem, svgDataObjects;
+      $('#aj-imp-builder-drag-drop canvas').show();
+      $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
+      $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
+      currentElem = e.currentTarget;
+      svgDataObjects = svgData.data;
+      return _.each(svgDataObjects, (function(_this) {
+        return function(svgDataObject, key) {
+          var elemTypeId, points;
+          elemTypeId = $(currentElem).attr("type-id");
+          if (parseInt(elemTypeId) === svgDataObject.id) {
+            console.log("match");
+            points = svgDataObject.points;
+            console.log(points);
+            return drawPoly(points);
+          }
+        };
+      })(this));
     });
     return $('#aj-imp-builder-drag-drop canvas').ready(function() {
       $('#aj-imp-builder-drag-drop canvas').hide();

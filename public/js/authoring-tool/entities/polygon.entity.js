@@ -20,6 +20,7 @@
       this.node = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
       this.points(item.points);
       this.attribute('class', item.details["class"]);
+      this.attribute('type-id', item.id);
       return this.node;
     };
 

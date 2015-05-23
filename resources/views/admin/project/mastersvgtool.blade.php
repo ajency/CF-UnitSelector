@@ -30,8 +30,8 @@
       position: relative;
     }
     .marked {
-      fill: #ff3333 !important;
-      border: 2px solid #ff3333;
+      fill: #FFE533  !important;
+      border: 2px solid #FFE533 ;
       opacity: 0.5;
     }
 /*    .svg-canvas{
