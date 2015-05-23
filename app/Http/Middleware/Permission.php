@@ -106,13 +106,14 @@ class Permission {
                               'admin/project/{project}/media/updatebreakpoint'=>'configure_project',
                                'admin/project/{project}/roomtype/{roomtype}'=>'configure_project',
                                'admin/project/{project}/roomtype/{id}/getroomtypeattributes'=>'configure_project',
+                               'admin/project/{project}/apartment-variant/getpropertytypedata'=>'configure_project',
                               'admin/user/validateuseremail'=>'manage_users', 
                               'admin/user/validateuserpassword'=>'manage_users', 
                 ];
                
                 
                 $resourceName = $request->route()->getName();
-                $uriPath =$request->route()->getPath();  
+                $uriPath =$request->route()->getPath();  //echo $uriPath; exit;
                 
                 if($uriPath != 'admin')
                 {

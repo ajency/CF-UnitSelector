@@ -1,149 +1,169 @@
-<form method="POST" id="formroomdetails" name="formroomdetails">
-    <div class="grid simple">
-        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-        <div class="grid-title" role="tab" id="headingTwo">
-            <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
-                        <i class="fa fa-angle-up "></i>
+<div id="addFloorlevel"> 
+                
+                <div class="row" id="level_0">
+                    <div class="m-l-5 no-border">
+                         
+                        <h3><i class="fa fa-angle-double-right text-primary"></i> Room <span class="semi-bold">Details</span></h3>
                     </div>
-            <h3 class="inline">Room <span class="semi-bold">Details</span></h3>&nbsp;
- <span class="inline" data-toggle="popover" data-trigger="hover" data-content="Add rooms (which are created on attributes page) which are present at each level (floor).
-                    Click on Add Level button to add new levels. " 
-  data-original-title="" title=""><i class="fa fa-info"></i></span>
-           
-        </div>
-    </a>
-        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-        <?php
-        $i = 0;
-        ?>
-        <input type="hidden" name="floorlevel[]" value="{{$i}}">
-        <div class="grid-body">
-            <div>
-             <!--<a href="#" data-toggle="modal" data-target=".bs-example-modal-lg" class="pull-right"><i class="fa fa-share"></i> Add New Room </a>-->
-                        </div>
-            <div >
-                 
-                @if(isset($variantRooms[0]))
-                @foreach($variantRooms[0] as $roomId => $room)              
-                <div class="room-block">
-                    <div class="form-group">
-                        <label class="form-label">Room Name</label>
-                        <div class="row">
-                   
-                        <div class="col-md-4">
-                        <input type="hidden" name="variantroomid_{{$i}}[]" value="{{ $roomId }}">
-                        <select name="room_name_{{ $i }}[]" class="select2 form-control" onchange="getRoomTypeAttributes(this,{{ $unitVariant['id'] }},{{$i}});">
-                            <option value="">Select Room</option>
-                            @foreach($availableRoomTypes as $roomType)
-                            <option {{ $room['ROOMTYPEID'] == $roomType['id'] ? 'selected' : '' }} value="{{ $roomType['id'] }}">
-                                {{ $roomType['name'] }}
-                            </option>
-                            @endforeach
-                        </select>
-                    </div>
-          
-                    </div>
-                    </div> 
-                </div>
-                <div>
-                    <!--Attributes-->     
-                    <div class="m-t-10">
-                        <div class="b-grey b-t b-b b-l b-r p-t-15 p-r-15 p-l-15 p-b-15 text-grey">	
-                            <div class="row"> 
-                                @foreach($roomTypeAttributes[$room['ROOMTYPEID']] as $attributes)
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label class="form-label">{{$attributes['label']}}</label>
-                                        <?php
-                                        $value = (isset($room['ATTRIBUTES'][property_type_slug($attributes['label'])])) ? $room['ATTRIBUTES'][property_type_slug($attributes['label'])] : ''
-                                        ?>
-                                        @if('textbox' === $attributes['control_type'])
-                                        <input type="text" class="form-control" name="attributes[{{ $i }}][{{ $room['ROOMTYPEID'] }}][{{property_type_slug($attributes['label'])}}]" value="{{ $value }}"  placeholder="Enter {{$attributes['label']}}">
-                                        @elseif('number' === $attributes['control_type'])
-                                        <input type="number" class="form-control" name="attributes[{{ $i }}][{{ $room['ROOMTYPEID'] }}][{{property_type_slug($attributes['label'])}}]" value="{{ $value }}"  placeholder="Enter {{$attributes['label']}}">
-                                        @elseif('select' === $attributes['control_type'])
-                                        <?php
-                                        $options = explode(',', $attributes['defaults']);
-                                        ?>
-                                        <select name="attributes[{{ $i }}][{{ $room['ROOMTYPEID'] }}][{{property_type_slug($attributes['label'])}}]" class="select2 form-control">
-                                            <option value="">Select {{$attributes['label']}}</option>   
-                                            @foreach($options as $option)
-                                            <option  @if($value==property_type_slug($option)){{'selected'}}@endif  value="{{property_type_slug($option)}}">{{$option}}</option>
-                                            @endforeach
-                                        </select>
-                                        @elseif('multiple' === $attributes['control_type'])
-                                        <?php
-                                        $options = explode(',', $attributes['defaults']);
-                                        ?>
-                                        <select multiple name="attributes[{{ $i }}][{{ $room['ROOMTYPEID'] }}][{{property_type_slug($attributes['label'])}}][]" class="select2 form-control">
-                                            <option value="">Select {{$attributes['label']}}</option>   
-                                            @foreach($options as $option)
-                                            <option {{ (!empty($value) && in_array(property_type_slug($option),$value)) ? 'selected="selected"' : '' }}  value="{{property_type_slug($option)}}">{{$option}}</option>
-                                            @endforeach
-                                        </select>
-                                        @endif        
-                                    </div> 
+                    <div class="grid simple" style="margin-bottom:0;">
+                        <div class="grid-body no-border" style="padding-bottom:0;">
+                            <div class="grid simple vertical orange">
+                                <div class="grid-title hidden">
+                                    <input type="hidden" value="0" name="levels[]">
                                 </div>
-                                @endforeach
+                                <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="grid simple">
+                                                <div class="grid-body">
+                                                    <div class="inline">2D Layout</div>
+                                                    <input type="hidden" name="image_0_2d_id" id="image_0_2d_id" value=""> 
+                                                    <div class="pull-right" id="2d_0_image">
+                                                       @if(isset($layouts[0]['2d']))
+                                                           
+                                                                <div class="img-hover img-thumbnail">
+                                                                    <a class="btn btn-link btn-danger overlay" onclick="deleteLayout({{ $layouts[0]['2d']['ID'] }}, '2d');"><i class="fa fa-close text-primary"></i></a>
+                                                                    <img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="{{ $layouts[0]['2d']['IMAGE'] }}"   />
+                                                                </div>
+                                                            
+                                                            @else
+                                                           <div class="img-hover img-thumbnail">
+                                                            <div id="pickfiles_0_2d" style="width: 150px;height:109px;background:#BEBEBE;display: table;">
+                                                                <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
+                                                                    <i class="fa fa-image" style="font-size:30px;"></i>
+                                                                    <p class="">Select File</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                            @endif    
+                                                        
+
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="grid simple" >
+                                                <div class="grid-body">
+                                                    <div class="inline">3D Layout</div>
+                                                    
+                                                    <div class="pull-right" id="3d_0_image">
+                                                        @if(isset($layouts[0]['3d']))
+                                                           
+                                                                <div class="img-hover img-thumbnail">
+                                                                    <a class="btn btn-link btn-danger overlay" onclick="deleteLayout({{ $layouts[0]['3d']['ID'] }}, '3d');"><i class="fa fa-close text-primary"></i></a>
+                                                                    <img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="{{ $layouts[0]['3d']['IMAGE'] }}"   />
+                                                                </div>
+                                                            
+                                                            @else
+                                                            <div class="img-hover img-thumbnail">
+                                                            <div id="pickfiles_0_3d" style="width: 150px;height:109px;background:#BEBEBE;display: table;">
+                                                                <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
+                                                                    <i class="fa fa-image" style="font-size:30px;"></i>
+                                                                    <p class="">Select File</p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                            @endif
+                                                        
+                                                        
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row user-description-box">
+                                        <div class="col-md-4">
+                                            <div>
+                                                <label class="form-label">Select Room</label>
+                                                <div class="row">
+                                                    <div class="col-md-9">
+                                                        <select name="room_type[]" onchange="openRoomTypeModal(this, 0)" class="select2 form-control">
+                                                            <option value="">Select Room</option>
+                                                           @foreach($availableRoomTypes as $roomTypeId=> $room_type)
+                                                                <option  value="{{$roomTypeId}}">{{$room_type}}</option>
+                                                                @endforeach
+                                                            <option value="add_new">Add New</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <button type="button" onclick="getRoomTypeAttributes(this, 0);" class="btn btn-white"><i class="fa fa-plus inline"></i> Add Room to Level</button>
+                                                    </div>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                        <div class="col-md-8"></div>
+                                    </div>
+                                    <div class="room_attributes_block">
+                                        @foreach($variantRooms[0] as $variantRoomId=> $roomType) 
+                                        <div class="p-r-15 p-l-15 roomattribute_0_{{$roomType['ROOMTYPEID']}}">
+                                            <div class="text-right">
+                                                <button type="button" class ="btn btn-white btn-small"   onClick="openRoomTypeModal(this,{{ $roomType['ROOMTYPEID'] }});"><i class="fa fa-pencil"></i></button>
+                                                <button class="btn btn-white btn-small"><i class="fa fa-trash"></i></button>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="form-label"></label>
+                                                        <div class="input-with-icon  right">
+                                                            <i class=""></i>
+                                                            <input type="hidden" name="variantroomid[]" value="{{$variantRoomId}}">
+                                                            <input type="hidden" name="room_id[]" value="{{ $roomType['ROOMTYPEID'] }}">
+                                                            Room Name : {{ $availableRoomTypes[$roomType['ROOMTYPEID']] }}
+                                                        </div>
+                                                    </div> 
+                                                </div>
+                                                @foreach($roomTypeAttributes[$roomType['ROOMTYPEID']] as $attributes)
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="form-label">{{$attributes['label']}}</label>
+                                                        <div class="input-with-icon  right">
+                                                            <i class=""></i>
+                                                            <?php
+                                                            $value = (isset($roomType['ATTRIBUTES'][property_type_slug($attributes['label'])])) ? $roomType['ATTRIBUTES'][property_type_slug($attributes['label'])] : ''
+                                                            ?>
+                                                            @if('textbox' === $attributes['control_type'])
+                                                            <input type="text" class="form-control" name="attributes[0][{{ $roomType['ROOMTYPEID'] }}][{{property_type_slug($attributes['label'])}}]" value="{{ $value }}"  placeholder="Enter {{$attributes['label']}}">
+                                                            @elseif('number' === $attributes['control_type'])
+                                                            <input type="number" class="form-control" name="attributes[0][{{ $roomType['ROOMTYPEID'] }}][{{property_type_slug($attributes['label'])}}]" value="{{ $value }}"  placeholder="Enter {{$attributes['label']}}">
+                                                            @elseif('select' === $attributes['control_type'])
+                                                            <?php
+                                                            $options = explode(',', $attributes['defaults']);
+                                                            ?>
+                                                            <select name="attributes[0][{{ $roomType['ROOMTYPEID'] }}][{{property_type_slug($attributes['label'])}}]" class="select2 form-control">
+                                                                <option value="">Select {{$attributes['label']}}</option>   
+                                                                @foreach($options as $option)
+                                                                <option  @if($value==property_type_slug($option)){{'selected'}}@endif  value="{{property_type_slug($option)}}">{{$option}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            @elseif('multiple' === $attributes['control_type'])
+                                                            <?php
+                                                            $options = explode(',', $attributes['defaults']);
+                                                            ?>
+                                                            <select multiple name="attributes[0][{{ $roomType['ROOMTYPEID'] }}][{{property_type_slug($attributes['label'])}}][]" class="select2 form-control">
+                                                                <option value="">Select {{$attributes['label']}}</option>   
+                                                                @foreach($options as $option)
+                                                                <option {{ (!empty($value) && in_array(property_type_slug($option),$value)) ? 'selected="selected"' : '' }}  value="{{property_type_slug($option)}}">{{$option}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            @endif 
+                                                        </div>
+                                                    </div> 
+                                                </div>
+
+                                                @endforeach
+
+
+                                            </div>
+                                        </div>
+
+                                        @endforeach
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div> 
-                <hr/>
-              
-                @endforeach
-                @endif  
-                <div id="levelblock_0"> 
-                    <div class="room-block">
-                        <div class="form-group">
-                        <label class="form-label">Room Name</label>
-                        <div class="row m-b-5">
-                            <div class="col-md-4">
-                            <input type="hidden" name="variantroomid_{{$i}}[]" value="">
-                            <select name="room_name_{{$i}}[]" class="select2 form-control"  onchange="getRoomTypeAttributes(this,{{ $unitVariant['id'] }},{{$i}});">
-                                <option value="">Select Room</option>
-                                @foreach($availableRoomTypes as $roomType)
-                                <option value="{{ $roomType['id'] }}">{{ $roomType['name'] }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <div class="col-md-8">
-                            <button type="button" class="btn btn-white" onclick="addRoomAttributes({{$i}}, this,{{ $unitVariant['id'] }})"><i class="fa fa-plus"></i></button>
-                        </div>
-                        </div>
-                        
-                        </div>
-                    </div>
-                    <div >
-                        <!--Attributes-->  
-                    </div>
-                    <hr/>
-                </div> 
-                
-            </div>
-            <div class="form-actions">  
-                <div class="text-right">
-                    <button onclick="saveRoomdetails({{$project['id']}},{{ $unitVariant['id'] }});"
-                            type="button" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
                 </div>
-            </div>   
-        </div>
-        </div>
-    </div>
-</form>
-
-<!-- Modal -->
-<div  class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title text-left" id="myModalLabel">Add Room </h4>
-      </div>
-      <div class="modal-body">
-       <iframe src="/admin/project/{{ $project['id'] }}/attributes/addroomtype" width="100%"></iframe>
-      </div>
-     
-    </div>
-  </div>
-</div>
+            </div>

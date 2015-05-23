@@ -1192,9 +1192,39 @@ function getPropertTypeData(obj, flag)
             {
                 //VARIANT CODE
                 $('#property_type_attributes').html(response.data.attributes);
+                
+                $('select[name="unit_type"]').empty();
+                $('select[name="unit_type"]').append('<option value=""> Select Unit Type</option>')
 
                 if (unitTypes.trim() != '')
                     $('select[name="unit_type"]').append(unitTypes);
+                
+                if(obj.value==3)                        //APARTMENT
+                {
+                   $(".add_level").addClass('hidden');
+                   $("#level_0").find('.grid-title').addClass('hidden');
+                    $('input[name="levels[]"]').each(function () { 
+ 
+                        if($(this).val()!=0)
+                        {
+                            $("#level_"+$(this).val()).addClass('hidden'); 
+                        }
+                    });
+                     
+                }
+                else if(obj.value==4)                        //PENTHOUSE
+                {
+                   $(".add_level").removeClass('hidden');
+                    $("#level_0").find('.grid-title').removeClass('hidden');
+                    $('input[name="levels[]"]').each(function () { 
+ 
+                        if($(this).val()!=0)
+                        {
+                            $("#level_"+$(this).val()).removeClass('hidden'); 
+                        }
+                    });
+                    
+                }
             }
             else
             {
@@ -1281,10 +1311,25 @@ $('input[name="property_types[]"]').change(function (event) {
 function saveVariantConfig()
 {
     var flag = true;
+    var isApartment=false; 
+    
+    if($('input[name="property_type"]').length || $('select[name="property_type"]').length)
+    { 
+        if($('input[name="property_type"]').val()==3)
+          isApartment=true;
+        else if($('select[name="property_type"]').val()==3)
+          isApartment=true;
+    }
+    
     
 
     $('input[name="levels[]"]').each(function () { 
-        // To pass this value to its nearby hidden input
+         
+        if(isApartment && $(this).val()!=0)
+        {  
+          return false;
+        }
+        
          var roomId = $(this).closest('.row').find('input[name="room_id[]"]').length; 
         if(roomId==0)
         {
@@ -1292,6 +1337,8 @@ function saveVariantConfig()
             alert('Select Room Type For Level ' +  $(this).val());
             flag = false;
         }
+        
+        
 
     });
 
