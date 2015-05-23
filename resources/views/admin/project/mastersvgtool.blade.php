@@ -264,8 +264,8 @@
         <script src="{{ asset('js/svg.parser.min.js' )}}"></script>
         <script src="{{ asset('js/svg.import.min.js' )}}"></script>
         <script src="{{ asset('js/svg.draggable.min.js' )}}"></script>
-        <script src="{{ asset('js/jquery.canvasAreaDraw.min.js' )}}"></script>
-        <!--script src="{{ asset('js/jquery.canvasAreaDraw.js' )}}"></script-->
+        <!--script src="{{ asset('js/jquery.canvasAreaDraw.min.js' )}}"></script-->
+        <script src="{{ asset('js/jquery.canvasAreaDraw.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/common.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/polygon.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/svg.authoring.controller.js' )}}"></script>
