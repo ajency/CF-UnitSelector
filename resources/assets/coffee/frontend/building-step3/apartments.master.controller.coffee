@@ -325,6 +325,9 @@ class ApartmentsView extends Marionette.ItemView
 class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 
 	template : '<div>
+					<div id="trig" class="toggle-button"></div>
+					<div id="view_toggle" class="toggle-view-button map"></div>
+
 					<div class="list-view-container w-map animated fadeInLeft">
 						<div class="advncd-filter-wrp  unit-list">
 							<div class="legend clearfix">
@@ -345,6 +348,18 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 	childView : ApartmentsView
 
 	childViewContainer : '.units'
+
+	ui :
+		viewtog 	: '#view_toggle'
+		trig 		: '#trig'
+
+	events :
+		'click @ui.trig':(e)->
+			$('.list-container').toggleClass 'closed'
+
+		'click @ui.viewtog':(e)->
+			$('.us-left-content').toggleClass 'not-visible visible'
+			$('.us-right-content').toggleClass 'not-visible visible'
 
 
 
@@ -388,7 +403,6 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 										</div>
 
 										<div id="view_toggle" class="toggle-view-button list"></div>
-										<div id="trig" class="toggle-button">List View</div>
 							              
 							            <div class=" master animated fadeIn">
 
@@ -421,7 +435,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 	ui :
 		svgContainer : '.master'
-		trig         : '#trig'
+		# trig         : '#trig'
 		viewtog      : '#view_toggle'
 
 	
@@ -431,30 +445,30 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		
 
 	events:
-		'click @ui.trig':(e)->
-			$('.us-left-content').toggleClass 'col-0 col-md-3'
-			$('.us-right-content').toggleClass 'col-md-12 col-md-9'
-			that = @
-			CommonFloor.applyOnViewClass()
-			setTimeout( (x)->
+		# 'click @ui.trig':(e)->
+		# 	$('.us-left-content').toggleClass 'col-0 col-md-3'
+		# 	$('.us-right-content').toggleClass 'col-md-12 col-md-9'
+		# 	that = @
+		# 	CommonFloor.applyOnViewClass()
+		# 	setTimeout( (x)->
 				
-				$('#spritespin').spritespin(
-					width: that.ui.svgContainer.width() + 13
-					sense: -1
-					height: that.ui.svgContainer.width() / 2
-					animate: false
-				)
-				$('.svg-maps > div').first().css('width',that.ui.svgContainer.width() + 13)
-				$('.first_image').first().css('width',that.ui.svgContainer.width() + 13)
+		# 		$('#spritespin').spritespin(
+		# 			width: that.ui.svgContainer.width() + 13
+		# 			sense: -1
+		# 			height: that.ui.svgContainer.width() / 2
+		# 			animate: false
+		# 		)
+		# 		$('.svg-maps > div').first().css('width',that.ui.svgContainer.width() + 13)
+		# 		$('.first_image').first().css('width',that.ui.svgContainer.width() + 13)
 
-				height= that.ui.svgContainer.width() / 2
-				$('.units').css('height',height-10)
+		# 		height= that.ui.svgContainer.width() / 2
+		# 		$('.units').css('height',height-10)
 
-			, 650)
+		# 	, 650)
 
-			setTimeout( (x)->
-				$('.master').panzoom('resetDimensions');				
-			, 800)
+		# 	setTimeout( (x)->
+		# 		$('.master').panzoom('resetDimensions');				
+		# 	, 800)
 
 			
 		'click @ui.viewtog':(e)->
