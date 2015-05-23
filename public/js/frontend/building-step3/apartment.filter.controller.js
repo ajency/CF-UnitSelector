@@ -171,7 +171,7 @@
       area = [];
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
-      floor = buildingCollection.findWhere({
+      floor = buildingMasterCollection.findWhere({
         'id': building_id
       });
       $.each(unitCollection.toArray(), function(index, value) {

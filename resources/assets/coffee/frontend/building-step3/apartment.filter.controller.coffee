@@ -258,7 +258,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		area = []
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
-		floor = buildingCollection.findWhere
+		floor = buildingMasterCollection.findWhere
 					'id' : building_id
 		$.each unitCollection.toArray(), (index,value)->
 			unitDetails = window.unit.getUnitDetails(value.id)

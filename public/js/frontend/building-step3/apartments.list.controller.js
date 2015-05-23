@@ -182,7 +182,7 @@
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
       response = window.building.getBuildingUnits(building_id);
-      buildingModel = buildingCollection.findWhere({
+      buildingModel = buildingMasterCollection.findWhere({
         id: building_id
       });
       this.view = new CommonFloor.TopApartmentView({

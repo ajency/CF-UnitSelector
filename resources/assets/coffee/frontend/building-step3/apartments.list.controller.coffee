@@ -182,7 +182,7 @@ class CommonFloor.TopApartmentCtrl extends Marionette.RegionController
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		response = window.building.getBuildingUnits(building_id)
-		buildingModel = buildingCollection.findWhere
+		buildingModel = buildingMasterCollection.findWhere
 							id : building_id
 		@view =  new CommonFloor.TopApartmentView
 					model : buildingModel

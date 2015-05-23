@@ -76,7 +76,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		data.project_title = project.get('project_title')
 		data.filters  = CommonFloor.getFilters()[0]
 		data.results  = CommonFloor.getApartmentFilters().count
-		console.log model = buildingCollection.findWhere
+		console.log model = buildingMasterCollection.findWhere
 						'id' : building_id
 		data.name  = model.get 'building_name'
 		data
@@ -177,7 +177,7 @@ class CommonFloor.TopApartmentMasterCtrl extends Marionette.RegionController
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		response = window.building.getBuildingUnits(building_id)
-		buildingModel = buildingCollection.findWhere
+		buildingModel = buildingMasterCollection.findWhere
 							id : building_id
 		@view =  new CommonFloor.TopApartmentMasterView
 					model : buildingModel
@@ -218,7 +218,7 @@ class ApartmentsView extends Marionette.ItemView
 		@$el.prop("id", 'apartment'+@model.get("id"))
 		viewUnits = CommonFloor.getApartmentsInView()
 		classname = ''
-		if $.inArray @model.get('id'), viewUnits
+		if $.inArray(@model.get('id'), viewUnits) == -1
 			classname = 'onview' 
 		@$el.addClass classname
 
@@ -569,7 +569,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 		'mouseover .next,.prev':(e)->
 			id = parseInt $(e.target).attr('data-id')
-			buildingModel = buildingCollection.findWhere
+			buildingModel = buildingMasterCollection.findWhere
 								'id' : id
 			images = Object.keys(buildingModel.get('building_master')).length
 			if images != 0
@@ -621,7 +621,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$('#spritespin').hide()
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
-		building = buildingCollection.findWhere
+		building = buildingMasterCollection.findWhere
 							id : building_id
 		transitionImages = []
 		svgs = {}
