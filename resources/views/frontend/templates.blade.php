@@ -84,7 +84,7 @@
     <div ui-region="filterapt" id="filteraptregion" class="filters-area"></div>
     <div class="container-fluid top-spacing">
       <div class="row">
-        <div class="col-xs-12 col-sm-12 col-0 us-left-content mobile not-visible">
+        <div class="list-container closed us-left-content mobile not-visible">
           <div ui-region="leftapt" id="leftaptregion"></div>
         </div>
         <div ui-region="centerapt" id="centeraptregion"></div>

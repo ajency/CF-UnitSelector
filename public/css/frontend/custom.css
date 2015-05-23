@@ -63,9 +63,9 @@ body {
 .proj-type-count {
   float: left;
 }
-.proj-type-count h1 {
+.proj-type-count h2 {
   margin: 0 0 0 15px;
-  padding: 5px 5px 10px 10px;
+  padding: 15px 5px 10px 10px;
   border-left: 1px solid #db6809;
 }
 .proj-type-count p {
@@ -318,7 +318,7 @@ body {
     margin: 10px 0;
     background-color: #db6809;
   }
-  .header-info .proj-type-count h1 {
+  .header-info .proj-type-count h2 {
     padding: 5px;
     font-size: 24px;
     margin: 0;
