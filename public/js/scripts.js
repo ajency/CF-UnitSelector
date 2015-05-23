@@ -1267,8 +1267,9 @@ function addUnitType()
 }
 
 function createUnitType(obj, propertyTypeId)
-{
-    if ($(obj).val() == 'add_new')
+{ 
+    var val =$(obj).val();
+    if ( val== 'add_new')
     {
 
         if (!$(obj).closest('.unit_type_block').find('input[name="add_new_unit_type"]').length)
@@ -1293,10 +1294,24 @@ function createUnitType(obj, propertyTypeId)
             html += '</div>';
             html += '</div>';
             $(obj).closest('.unit_type_block').before(html);
-            $(obj).val('')
+            $(obj).val('');
         }
 
 
+    }
+    else{
+        $(obj).closest('.propertyTypeUnitsAttributes').find('select').each(function () { 
+         
+            if($(obj).get(0)!=$(this).get(0) && $(this).val()==val)
+            {
+                 alert('Unit Type Already Selected');
+ 
+                 $(obj).select2('val', '');
+ 
+                 return false;
+                 
+            }
+        });
     }
 }
 
