@@ -47,8 +47,7 @@
 
                             <div id="aj-imp-builder-drag-drop" class="svg-canvas">
                                 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm2">Small modal</button> -->
-                                <textarea name="coords2" rows=3 class="area" disabled placeholder="Shape Coordinates" data-image-url="{{$svgImage}}"></textarea>
-
+                              <textarea name="coords2" rows=3 class="area hidden" disabled placeholder="Shape Coordinates" data-image-url="{{$svgImage}}"></textarea>
 
                             </div>
 
@@ -265,6 +264,7 @@
         <script src="{{ asset('js/svg.import.min.js' )}}"></script>
         <script src="{{ asset('js/svg.draggable.min.js' )}}"></script>
         <script src="{{ asset('js/jquery.canvasAreaDraw.min.js' )}}"></script>
+        <!--script src="{{ asset('js/jquery.canvasAreaDraw.js' )}}"></script-->
         <script src="{{ asset('js/authoring-tool/common.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/polygon.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/svg.authoring.controller.js' )}}"></script>
