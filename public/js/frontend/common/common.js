@@ -824,10 +824,11 @@
   };
 
   CommonFloor.applyOnViewClass = function() {
-    var classview, viewUnits;
+    var classview, units, viewUnits;
     console.log(viewUnits = CommonFloor.getApartmentsInView());
     classview = '';
-    return $('.apartment').each(function(index, value) {
+    console.log(units = unitCollection.toArray());
+    return units.each(function(index, value) {
       var id;
       id = parseInt(value.id);
       console.log($.inArray(id, viewUnits));

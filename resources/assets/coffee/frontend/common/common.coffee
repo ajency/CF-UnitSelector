@@ -702,7 +702,8 @@ CommonFloor.getApartmentsInView = ()->
 CommonFloor.applyOnViewClass = ()->
 	console.log viewUnits = CommonFloor.getApartmentsInView()
 	classview = ''
-	$('.apartment').each (index,value)->
+	console.log units = unitCollection.toArray()
+	units.each (index,value)->
 		id  = parseInt value.id
 		console.log $.inArray(id, viewUnits)
 		if $.inArray(id, viewUnits) == -1
