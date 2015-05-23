@@ -59,6 +59,8 @@
       rawSvg.setAttribute('height', '100%');
       rawSvg.setAttributeNS(null, 'x', '0');
       rawSvg.setAttributeNS(null, 'y', '0');
+      rawSvg.setAttributeNS(null, 'viewBox', '0 0 1600 1095');
+      rawSvg.setAttributeNS(null, 'enable-background', 'new 0 0 1600 1095');
       rawSvg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
       window.createImageTag();
       return $.each(svgData, function(index, value) {
@@ -135,10 +137,11 @@
     s = new XMLSerializer();
     str = s.serializeToString(rawSvg);
     draw.svg(str);
-    return polygon.dragend = function(event) {
-      console.log(event);
-      return $('.area').removeClass('hidden');
-    };
+    $('#aj-imp-builder-drag-drop canvas').hide();
+    console.log("hide ncanvas");
+    return $('.marked').on('dblclick', function(e) {
+      return $('#aj-imp-builder-drag-drop canvas').hide();
+    });
   });
 
 }).call(this);

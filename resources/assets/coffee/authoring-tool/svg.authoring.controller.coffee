@@ -70,8 +70,8 @@ jQuery(document).ready ($)->
 		rawSvg.setAttribute('height', '100%')
 		rawSvg.setAttributeNS(null,'x','0')
 		rawSvg.setAttributeNS(null,'y','0')
-		# rawSvg.setAttributeNS(null,'viewBox','0 0 1600 1095')
-		# rawSvg.setAttributeNS(null,'enable-background','new 0 0 1600 1095')
+		rawSvg.setAttributeNS(null,'viewBox','0 0 1600 1095')
+		rawSvg.setAttributeNS(null,'enable-background','new 0 0 1600 1095')
 		rawSvg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink")
 
 		window.createImageTag()
@@ -147,19 +147,11 @@ jQuery(document).ready ($)->
 	s = new XMLSerializer()
 	str = s.serializeToString(rawSvg)
 	draw.svg str
+	$('#aj-imp-builder-drag-drop canvas').hide()
+	console.log "hide ncanvas"
 
-	# polygon = draw.polygon('521,38,611,32,620,190,524,201').fill('red')
-	# polygon = draw.polygon('0,0 100,50 50,100').fill('red')
-	# polygon.draggable()
-
-	polygon.dragend = (event) ->
-	  # alert 'end of drag'
-	  console.log event
-	  # $('#Layer_1').addClass 'hidden'
-	  $('.area').removeClass 'hidden'
-	  # $('.area').canvasAreaDraw()
-
-
+	$('.marked').on 'dblclick', (e) ->
+		$('#aj-imp-builder-drag-drop canvas').hide()
 
 	
   
