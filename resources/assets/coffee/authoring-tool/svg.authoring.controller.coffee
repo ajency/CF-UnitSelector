@@ -147,8 +147,6 @@ jQuery(document).ready ($)->
 	s = new XMLSerializer()
 	str = s.serializeToString(rawSvg)
 	draw.svg str
-	$('#aj-imp-builder-drag-drop canvas').hide()
-	console.log "hide ncanvas"
 
 	$('.marked').on 'dblclick', (e) ->
 		$('#aj-imp-builder-drag-drop canvas').show()
