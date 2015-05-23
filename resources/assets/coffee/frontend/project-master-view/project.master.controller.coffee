@@ -34,7 +34,7 @@ class TopMasterView extends Marionette.ItemView
 													<h2 class="pull-left proj-name">{{project_title}}</h2>
 													<div class="proj-type-count">
 														{{#types}} 
-														<h1 class="pull-left">{{count.length}}</h1><p class="pull-left">{{type}}</p> 
+														<h2 class="pull-left">{{count.length}}</h2><p class="pull-left">{{type}}</p> 
 														{{/types}}
 													</div>
 													<div class="pull-left filter-result full">

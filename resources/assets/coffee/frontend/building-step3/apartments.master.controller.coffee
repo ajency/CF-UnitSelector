@@ -29,10 +29,9 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 									            </div>
 									           
 						              			<div class="header-info">
-						              				<h2 class="pull-left proj-name">{{project_title}}</h2>
+						              				<h2 class="pull-left proj-name">{{project_title}} - {{name}}</h2>
 						              				<div class="proj-type-count">
-						              					<h1 class="pull-left proj-name">{{name}}</h1><h1 class="pull-left">{{results}}</h1><p class="pull-left">Apartment(s)/Penthouse(s)</p> 
-						              					
+						              					<h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p>
 						              				</div>
 						              				<div class="pull-left filter-result">
 						              	              	{{#each  filters}}
