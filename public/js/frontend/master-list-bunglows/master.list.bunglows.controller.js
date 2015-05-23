@@ -205,7 +205,7 @@
 
     MasterBunglowListCtrl.prototype.initialize = function() {
       var newUnits, unitsCollection, view;
-      console.log(newUnits = bunglowVariantCollection.getBunglowUnits());
+      newUnits = bunglowVariantCollection.getBunglowUnits();
       unitsCollection = new Backbone.Collection(newUnits);
       this.view = view = new MasterBunglowListView({
         collection: unitsCollection

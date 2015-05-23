@@ -261,7 +261,6 @@ class MasterPlotListView extends Marionette.CompositeView
 class CommonFloor.MasterPlotListCtrl extends Marionette.RegionController
 
 	initialize:->
-		console.log "aaaaaaaaa"
 		newUnits = plotVariantCollection.getPlotUnits()
 		unitsCollection = new Backbone.Collection newUnits 		
 		@view = view = new MasterPlotListView

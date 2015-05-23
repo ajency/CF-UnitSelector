@@ -485,20 +485,19 @@ CommonFloor.getFilters = ()->
 			'classname' : 'types'
 			'id'		: 'available'
 			'id_name' : 'filter_available'
-	filters = {'unitTypes' : unitTypes
+	filters = {'type' : type
+				,'unitTypes' : unitTypes
 				,'unitVariants' : unitVariants
 				,'price' : price
 				,'area' : area
-				'type' : type
-				'status' : status,
-				'floor': floor}
+				,'status' : status
+				,'floor': floor}
 	$.each filters,(index,value)->
 		if value.length == 0
 			filters = _.omit(filters, index)
 	$.each results,(index,value)->
 		if value.count == 0
 			results = _.omit(results, index) 
-
 	[filters,results]	
 			
 CommonFloor.getVillaFilters = ()->

@@ -209,7 +209,6 @@
 
     MasterPlotListCtrl.prototype.initialize = function() {
       var newUnits, unitsCollection, view;
-      console.log("aaaaaaaaa");
       newUnits = plotVariantCollection.getPlotUnits();
       unitsCollection = new Backbone.Collection(newUnits);
       this.view = view = new MasterPlotListView({

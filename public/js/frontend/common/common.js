@@ -545,11 +545,11 @@
       });
     }
     filters = {
+      'type': type,
       'unitTypes': unitTypes,
       'unitVariants': unitVariants,
       'price': price,
       'area': area,
-      'type': type,
       'status': status,
       'floor': floor
     };

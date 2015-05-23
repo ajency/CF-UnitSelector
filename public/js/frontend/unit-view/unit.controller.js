@@ -414,6 +414,9 @@
         });
       }
       $('.images').html(html);
+      if (html === "") {
+        $('.images').html('<div>No images found</div>');
+      }
       $(".fancybox").fancybox();
       $('.img').lazyLoadXT();
       return this.iniTooltip();

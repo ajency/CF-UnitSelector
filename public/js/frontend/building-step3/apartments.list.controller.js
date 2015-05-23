@@ -66,7 +66,7 @@
       var building_id, url;
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
-      return console.log(this.building_id = building_id);
+      return this.building_id = building_id;
     };
 
     TopApartmentView.prototype.serializeData = function() {
