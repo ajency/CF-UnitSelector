@@ -76,7 +76,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		data.project_title = project.get('project_title')
 		data.filters  = CommonFloor.getFilters()[0]
 		data.results  = CommonFloor.getApartmentFilters().count
-		console.log model = buildingMasterCollection.findWhere
+		model = buildingMasterCollection.findWhere
 						'id' : building_id
 		data.name  = model.get 'building_name'
 		data
@@ -511,7 +511,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				return false
 
 			response = window.unit.getUnitDetails(id)
-			console.log price =  window.numDifferentiation(response[3])
+			price =  window.numDifferentiation(response[3])
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			html = ""
@@ -531,7 +531,6 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 								<label>Price </label> - <span class="icon-rupee-icn">'+price+'</span>
 							</div>  
 						</div>'
-			console.log availability 
 			if availability == 'available'
 				html +='<div class="circle">
 							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
@@ -570,8 +569,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			buildingModel = buildingMasterCollection.findWhere
 								'id' : id
 			images = Object.keys(buildingModel.get('building_master')).length
-			if images != 0
-				console.log "show image"
+			# if images != 0
+			# 	console.log "show image"
 			floors = buildingModel.get 'floors'
 			floors = Object.keys(floors).length
 			unitTypes = window.building.getUnitTypes(id)
@@ -629,7 +628,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/buildings/'+building_id+'/master-'+value+'.svg'
 		
 		$.merge transitionImages ,  building.get('building_master')
-		console.log first = _.values svgs
+		first = _.values svgs
 		$('.region').load(first[0],()->
 				$('.first_image').attr('data-src',transitionImages[0])
 				that.iniTooltip()
@@ -768,6 +767,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			offsetY : -40
 			trigger: 'hover'
 			interactive : true
+			multiple: true
 		)
 
 	loadZoom:->

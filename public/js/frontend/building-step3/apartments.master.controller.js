@@ -81,9 +81,9 @@
       data.project_title = project.get('project_title');
       data.filters = CommonFloor.getFilters()[0];
       data.results = CommonFloor.getApartmentFilters().count;
-      console.log(model = buildingMasterCollection.findWhere({
+      model = buildingMasterCollection.findWhere({
         'id': building_id
-      }));
+      });
       data.name = model.get('building_name');
       return data;
     };
@@ -463,12 +463,11 @@
           return false;
         }
         response = window.unit.getUnitDetails(id);
-        console.log(price = window.numDifferentiation(response[3]));
+        price = window.numDifferentiation(response[3]);
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
         html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + ' ( Area - ' + response[0].get('super_built_up_area') + ' Sq.ft)</h5> <!--<span class="label label-success"></span--> <br><br> <div class="details"> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - <span class="icon-rupee-icn">' + price + '</span> </div> </div>';
-        console.log(availability);
         if (availability === 'available') {
           html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
         } else {
@@ -499,9 +498,6 @@
           'id': id
         });
         images = Object.keys(buildingModel.get('building_master')).length;
-        if (images !== 0) {
-          console.log("show image");
-        }
         floors = buildingModel.get('floors');
         floors = Object.keys(floors).length;
         unitTypes = window.building.getUnitTypes(id);
@@ -547,7 +543,7 @@
         return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/buildings/' + building_id + '/master-' + value + '.svg';
       });
       $.merge(transitionImages, building.get('building_master'));
-      console.log(first = _.values(svgs));
+      first = _.values(svgs);
       $('.region').load(first[0], function() {
         $('.first_image').attr('data-src', transitionImages[0]);
         that.iniTooltip();
@@ -703,7 +699,8 @@
         offsetX: 50,
         offsetY: -40,
         trigger: 'hover',
-        interactive: true
+        interactive: true,
+        multiple: true
       });
     };
 

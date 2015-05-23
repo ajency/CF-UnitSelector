@@ -332,8 +332,7 @@
     }
     $('.villa,.plot,.apartment').each(function(ind, item) {
       var id;
-      console.log(id = parseInt(item.id));
-      console.log(filterunits);
+      id = parseInt(item.id);
       if ($.inArray(id, filterunits) > -1) {
         return setTimeout(function() {
           return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
@@ -790,7 +789,6 @@
       type = 'apartment';
     }
     if (s.decapitalize(property) === 'penthouse') {
-      console.log(apartmentVariantCollection.getPenthouseUnits());
       window.tempColl.reset(apartmentVariantCollection.getPenthouseUnits());
       text = 'Similar ' + s.decapitalize(property) + ' based on your filters';
       type = s.decapitalize(property);
@@ -825,13 +823,12 @@
 
   CommonFloor.applyOnViewClass = function() {
     var classview, units, viewUnits;
-    console.log(viewUnits = CommonFloor.getApartmentsInView());
+    viewUnits = CommonFloor.getApartmentsInView();
     classview = '';
     units = unitCollection.toArray();
     return $.each(units, function(index, value) {
       var id;
       id = parseInt(value.id);
-      console.log($.inArray(id, viewUnits));
       if ($.inArray(id, viewUnits) === -1) {
         return $('#apartment' + id).addClass('onview');
       } else {

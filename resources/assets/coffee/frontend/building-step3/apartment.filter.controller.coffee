@@ -86,7 +86,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 	initialize:->
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
-		console.log @building_id = building_id
+		@building_id = building_id
 		if CommonFloor.defaults['unitTypes']!= ""
 			window.unitTypes = CommonFloor.defaults['unitTypes'].split(',')
 		if CommonFloor.defaults['unitVariants']!= ""
@@ -115,7 +115,6 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 				window.unitTypes.push parseInt $(e.currentTarget).attr('data-value')
 			else
 				window.unitTypes = _.without window.unitTypes ,parseInt $(e.currentTarget).attr('data-value')
-			console.log window.unitTypes
 			CommonFloor.defaults['unitTypes'] = window.unitTypes.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filterBuilding(@building_id)
