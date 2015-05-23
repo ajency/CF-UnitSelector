@@ -87,14 +87,19 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		clear : '.clear'
 
 	initialize:->
+		@price = ''
+		@area = ''
 		unitTypes = []
+		variantNames = []
 		if CommonFloor.defaults['unitTypes']!= ""
 			unitTypes = CommonFloor.defaults['unitTypes'].split(',')
 		if CommonFloor.defaults['unitVariants']!= ""
-			window.variantNames = CommonFloor.defaults['unitVariants'].split(',')
+			variantNames = CommonFloor.defaults['unitVariants'].split(',')
 		if CommonFloor.defaults['type']!= ""
 			window.type  = CommonFloor.defaults['type'].split(',')
 		window.unitTypes = unitTypes.map (item)->
+			return parseInt item
+		window.variantNames = variantNames.map (item)->
 			return parseInt item
 
 	events:
@@ -112,6 +117,10 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			CommonFloor.filter()
 			unitCollection.trigger('available')
 			@loadSelectedFilters()
+			@price = $("#budget").data("ionRangeSlider")
+			@area = $("#area").data("ionRangeSlider")
+			@price.destroy()
+			@area.destroy()
 			@loadClearFilter()
 		'click @ui.types':(e)->
 			window.unitTypes = []
@@ -364,8 +373,6 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		@loadClearFilter()
 
 	loadClearFilter:->
-		# window.price.destroy()
-		# window.area.destroy()
 		budget = []
 		area = []
 		$.each unitMasterCollection.toArray(), (index,value)->
@@ -398,6 +405,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		    	return window.numDifferentiation(num)
 
 		)
+		
 
 	loadSelectedFilters:->
 		types = []
@@ -458,6 +466,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			if $.inArray($('#'+item.id).val(),types) is -1
 				$('#'+item.id).prop('checked',false)
 
+
 		
 		# window.area.update(
 		#    from : min
@@ -492,13 +501,14 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		if CommonFloor.defaults['availability'] != "" 
 			 @ui.status.prop('checked',true)
 
+		res = CommonFloor.getFilters()[0]
+		if Object.keys(res).length == 0
+			window.flag = 1
 		if window.flag == 0
 			$('.fliters-container').removeClass 'closed'
 		else
 			$('.fliters-container').addClass 'closed'
 
-		window.price = $("#budget").data("ionRangeSlider")
-		window.area = $("#area").data("ionRangeSlider")
 		
 		
 		
