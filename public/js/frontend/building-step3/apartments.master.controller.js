@@ -234,9 +234,9 @@
     ApartmentsView.prototype.initialize = function() {
       var classname, viewUnits;
       this.$el.prop("id", 'apartment' + this.model.get("id"));
-      viewUnits = CommonFloor.getApartmentsInView();
+      console.log(viewUnits = CommonFloor.getApartmentsInView());
       classname = '';
-      if ($.inArray(this.model.get('id'), viewUnits) === -1) {
+      if ($.inArray(parseInt(this.model.get('id')), viewUnits) === -1) {
         classname = 'onview';
       }
       return this.$el.addClass(classname);

@@ -216,9 +216,9 @@ class ApartmentsView extends Marionette.ItemView
 
 	initialize:->
 		@$el.prop("id", 'apartment'+@model.get("id"))
-		viewUnits = CommonFloor.getApartmentsInView()
+		console.log viewUnits = CommonFloor.getApartmentsInView()
 		classname = ''
-		if $.inArray(@model.get('id'), viewUnits) == -1
+		if $.inArray(parseInt(@model.get('id')), viewUnits) == -1
 			classname = 'onview' 
 		@$el.addClass classname
 
