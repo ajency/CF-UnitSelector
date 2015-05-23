@@ -43,6 +43,10 @@ class PlotView extends Marionette.CompositeView
 								            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
 								            </div>
 							            </div>-->
+							            	<h2 class="text-center">List of Plots <span class="pull-right top-legend">     <ul>
+				                <li class="available">AVAILABLE</li>
+				                <li class="na">N/AVAILABLE</li>
+				              </ul></span></h2><hr class="margin-none">
 							            <div class="text-center">
 							              <ul class="prop-select">
 							                <li class="prop-type buildings hidden">Buildings</li>

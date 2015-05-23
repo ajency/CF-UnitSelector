@@ -30,15 +30,21 @@ class TopListView extends Marionette.ItemView
 												</div>
 												<div class="header-info">
 												<h2 class="proj-name pull-left">{{project_title}}</h2>
-												</div>			
+															<div class="proj-type-count">
+																{{#types}} 
+																<p class="pull-right">{{type}}</p><h1 class=" pull-right m-t-10">{{count.length}}</h1> 
+																{{/types}}
+															</div>
+															<div class="clearfix"></div>
+													</div>			
 											</div>
 										</div>
 									</div>
 
-									<div class="filter-summary-area">
+									
 
 										
-							            <div class="pull-left filter-result">
+							            <div class="pull-left filter-result full">
 							              	{{#each  filters}}
 							              	{{#each this}}
 											<div class="filter-pill"  >
@@ -47,14 +53,9 @@ class TopListView extends Marionette.ItemView
 							              	</div>	
 							              	{{/each}}{{/each }}							               
 							            </div>
-										<div class="proj-type-count">
-											{{#types}} 
-											<p class="pull-right">{{type}}</p><h1 class="text-primary pull-right m-t-10">{{count.length}}</h1> 
-											{{/types}}
-										</div>
-
+							
 										<div class="clearfix"></div>
-									</div>')
+								')
 
 	ui  :
 		unitBack : '.unit_back'
