@@ -54,7 +54,7 @@ class ApartmentVariantCollection extends Backbone.Collection
 				units.push model
 		units
 
-	#set apartment units
+	#get apartment units
 	getApartmentMasterUnits:->
 		units = []
 		newUnits = []
@@ -78,6 +78,16 @@ class ApartmentVariantCollection extends Backbone.Collection
 						
 
 		unit_types
+
+	getApartmentFlooringAttributes:->
+		attributes = []
+		apartmentVariantMasterCollection.each (item)->
+			if $.inArray(item.get('variant_attributes').flooring,attributes) == -1
+				attributes.push item.get('variant_attributes').flooring
+				
+						
+
+		attributes
 
 	
 

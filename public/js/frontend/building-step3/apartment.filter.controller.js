@@ -38,6 +38,9 @@
 
     FilterApartmentView.prototype.initialize = function() {
       var building_id, unitTypes, url, variantNames;
+      this.price = '';
+      this.area = '';
+      this.floor = '';
       variantNames = [];
       unitTypes = [];
       url = Backbone.history.fragment;
@@ -75,7 +78,14 @@
         CommonFloor.filterBuilding(this.building_id);
         CommonFloor.filter();
         unitTempCollection.trigger("filter_available");
-        return this.loadSelectedFilters();
+        this.loadSelectedFilters();
+        this.price = $("#budget").data("ionRangeSlider");
+        this.area = $("#area").data("ionRangeSlider");
+        this.floor = $("#floor").data("ionRangeSlider");
+        this.price.destroy();
+        this.area.destroy();
+        this.floor.destroy();
+        return this.loadClearFilters();
       },
       'click @ui.unitTypes': function(e) {
         if ($(e.currentTarget).is(':checked')) {
@@ -174,6 +184,10 @@
 
     FilterApartmentView.prototype.onShow = function() {
       var area, budget, building_id, floor, max, min, priceMax, priceMin, subArea, subBudget, url;
+      this.loadSelectedFilters();
+      $('.filters-content').mCustomScrollbar({
+        theme: 'inset'
+      });
       budget = [];
       area = [];
       url = Backbone.history.fragment;
@@ -181,7 +195,7 @@
       floor = buildingMasterCollection.findWhere({
         'id': building_id
       });
-      $.each(unitCollection.toArray(), function(index, value) {
+      $.each(unitMasterCollection.toArray(), function(index, value) {
         var unitDetails;
         unitDetails = window.unit.getUnitDetails(value.id);
         budget.push(parseFloat(unitDetails[3]));
@@ -212,15 +226,62 @@
           return window.numDifferentiation(num);
         }
       });
-      $("#floor").ionRangeSlider({
+      return $("#floor").ionRangeSlider({
         type: "double",
         min: 1,
         max: floor.get('no_of_floors'),
         grid: false
       });
-      this.loadSelectedFilters();
-      return $('.filters-content').mCustomScrollbar({
-        theme: 'inset'
+    };
+
+    FilterApartmentView.prototype.loadClearFilters = function() {
+      var area, budget, building_id, floor, max, min, priceMax, priceMin, subArea, subBudget, url;
+      budget = [];
+      area = [];
+      url = Backbone.history.fragment;
+      building_id = parseInt(url.split('/')[1]);
+      floor = buildingMasterCollection.findWhere({
+        'id': building_id
+      });
+      $.each(unitMasterCollection.toArray(), function(index, value) {
+        var unitDetails;
+        unitDetails = window.unit.getUnitDetails(value.id);
+        budget.push(parseFloat(unitDetails[3]));
+        return area.push(parseFloat(unitDetails[0].get('super_built_up_area')));
+      });
+      min = _.min(area);
+      max = _.max(area);
+      subArea = (max - min) / 20;
+      subArea = subArea.toFixed(0);
+      priceMin = _.min(budget);
+      priceMax = _.max(budget);
+      subBudget = (priceMax - priceMin) / 20;
+      subBudget = subBudget.toFixed(0);
+      $('#area').val(min + ";" + max);
+      $('#budget').val(priceMin + ";" + priceMax);
+      $('#floor').val(1 + ";" + floor.get('no_of_floors'));
+      $("#area").ionRangeSlider({
+        type: "double",
+        min: min,
+        max: max,
+        step: subArea,
+        grid: false
+      });
+      $("#budget").ionRangeSlider({
+        type: "double",
+        min: priceMin,
+        max: priceMax,
+        grid: false,
+        step: subBudget,
+        prettify: function(num) {
+          return window.numDifferentiation(num);
+        }
+      });
+      return $("#floor").ionRangeSlider({
+        type: "double",
+        min: 1,
+        max: floor.get('no_of_floors'),
+        grid: false
       });
     };
 

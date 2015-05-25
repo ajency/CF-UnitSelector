@@ -65,6 +65,7 @@ class TopMasterView extends Marionette.ItemView
 		budget : '#filter_budget'
 		types : '.types'
 		status : '#filter_available'
+		filter_flooring : '.filter_flooring'
 
 	serializeData:->
 		data = super()
@@ -143,6 +144,15 @@ class TopMasterView extends Marionette.ItemView
 		'click @ui.budget':(e)->
 			CommonFloor.defaults['price_max'] = ""
 			CommonFloor.defaults['price_min'] = ""
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			unitCollection.trigger('available')
+			@trigger  'render:view'
+
+		'click @ui.filter_flooring':(e)->
+			flooring = CommonFloor.defaults['flooring'].split(',')
+			flooring = _.without flooring , $(e.currentTarget).attr('data-id')
+			CommonFloor.defaults['flooring'] = flooring.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
 			unitCollection.trigger('available')

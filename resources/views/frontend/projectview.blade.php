@@ -7,6 +7,7 @@
         <link rel="icon" type="image/png" href="{{ asset('images/others/favicon.ico')}}">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <!-- BEGIN TRACKJS --> <script type="text/javascript">window._trackJs = { token: 'b47abea606fa443aa8a488c4eaeaaa75' };</script> <script type="text/javascript" src="//d2zah9y47r7bi2.cloudfront.net/releases/current/tracker.js" crossorigin="anonymous"></script> <!-- END TRACKJS -->
         <!--[if IE]>
             <link href="{{ asset('css/frontend/ie.css')}}" rel="stylesheet" type="text/css" />
         <![endif]-->
@@ -128,7 +129,7 @@
         CommonFloor = new Marionette.Application 
         BASEURL = '{{url()}}'
         //global variable to keep track of the filtr the user has selected
-        CommonFloor.defaults = {'type' : "" , 'unitVariants': "",'unitTypes':"",'price_min':'','price_max':'','availability':'','area_min' : '','area_max' : '','building':'','floor_min' : '','floor_max' : ''}
+        CommonFloor.defaults = {'type' : "" , 'unitVariants': "",'unitTypes':"",'price_min':'','price_max':'','availability':'','area_min' : '','area_max' : '','building':'','floor_min' : '','floor_max' : '','flooring': ''}
   
         window.locale = {
 

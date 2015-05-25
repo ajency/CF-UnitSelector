@@ -111,6 +111,17 @@
       return unit_types;
     };
 
+    ApartmentVariantCollection.prototype.getApartmentFlooringAttributes = function() {
+      var attributes;
+      attributes = [];
+      apartmentVariantMasterCollection.each(function(item) {
+        if ($.inArray(item.get('variant_attributes').flooring, attributes) === -1) {
+          return attributes.push(item.get('variant_attributes').flooring);
+        }
+      });
+      return attributes;
+    };
+
     return ApartmentVariantCollection;
 
   })(Backbone.Collection);

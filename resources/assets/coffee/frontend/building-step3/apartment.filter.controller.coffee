@@ -84,6 +84,9 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		floor : '#floor'
 
 	initialize:->
+		@price = ''
+		@area = ''
+		@floor = ''
 		variantNames = []
 		unitTypes = []
 		url = Backbone.history.fragment
@@ -115,7 +118,13 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
 			@loadSelectedFilters()
-
+			@price = $("#budget").data("ionRangeSlider")
+			@area = $("#area").data("ionRangeSlider")
+			@floor = $("#floor").data("ionRangeSlider")
+			@price.destroy()
+			@area.destroy()
+			@floor.destroy()
+			@loadClearFilters()
 		'click @ui.unitTypes':(e)->
 			if $(e.currentTarget).is(':checked')
 				window.unitTypes.push parseInt $(e.currentTarget).attr('data-value')
@@ -259,13 +268,17 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		data
 
 	onShow:->
+		@loadSelectedFilters()
+
+		$('.filters-content').mCustomScrollbar
+			theme: 'inset'
 		budget = []
 		area = []
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		floor = buildingMasterCollection.findWhere
 					'id' : building_id
-		$.each unitCollection.toArray(), (index,value)->
+		$.each unitMasterCollection.toArray(), (index,value)->
 			unitDetails = window.unit.getUnitDetails(value.id)
 			budget.push parseFloat unitDetails[3]
 			area.push parseFloat unitDetails[0].get 'super_built_up_area'
@@ -277,6 +290,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		priceMax = _.max budget		
 		subBudget = (priceMax - priceMin)/ 20
 		subBudget = subBudget.toFixed(0)
+
 		$("#area").ionRangeSlider(
 		    type: "double",
 		    min: min,
@@ -302,10 +316,56 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		    
 
 		)
-		@loadSelectedFilters()
 
-		$('.filters-content').mCustomScrollbar
-			theme: 'inset'
+	loadClearFilters:->
+		budget = []
+		area = []
+		url = Backbone.history.fragment
+		building_id = parseInt url.split('/')[1]
+		floor = buildingMasterCollection.findWhere
+					'id' : building_id
+		$.each unitMasterCollection.toArray(), (index,value)->
+			unitDetails = window.unit.getUnitDetails(value.id)
+			budget.push parseFloat unitDetails[3]
+			area.push parseFloat unitDetails[0].get 'super_built_up_area'
+		min = _.min area
+		max = _.max area
+		subArea = (max - min)/ 20 
+		subArea = subArea.toFixed(0)
+		priceMin = _.min budget
+		priceMax = _.max budget		
+		subBudget = (priceMax - priceMin)/ 20
+		subBudget = subBudget.toFixed(0)
+
+		$('#area').val(min+";"+max)
+		$('#budget').val(priceMin+";"+priceMax)
+		$('#floor').val(1+";"+floor.get('no_of_floors'))
+		$("#area").ionRangeSlider(
+		    type: "double",
+		    min: min,
+		    max:  max,
+		    step : subArea,
+		    grid: false
+		)
+		$("#budget").ionRangeSlider(
+		    type: "double",
+		    min: priceMin,
+		    max: priceMax,
+		    grid: false,
+		    step : subBudget,
+		    prettify :(num)->
+		    	return window.numDifferentiation(num)
+
+		)
+		$("#floor").ionRangeSlider(
+		    type: "double",
+		    min: 1,
+		    max: floor.get('no_of_floors'),
+		    grid: false
+		    
+
+		)
+		
 
 	loadSelectedFilters:->
 		unittypesArray = []
