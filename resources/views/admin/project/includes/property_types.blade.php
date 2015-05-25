@@ -13,7 +13,7 @@
                     </div>
 
                     <h4 >
-                        Does this project have <span class="semi-bold"> {{ $propertyType }}?</span>
+                        This project has <span class="semi-bold"> {{ $propertyType }}</span>
                     </h4>
 
                 </div>
@@ -21,7 +21,7 @@
                 <div class="grid-body no-border propertyTypeUnitsAttributes  {{ (isset($unitTypes[$propertyTypeId])) ? '' : 'hidden' }}">
 
                     <div class="row column-seperation">
-                        <div class="col-md-5" style="border-right: none">
+                        <div class="col-md-4" style="border-right: none">
                             <h4>Unit Types</h4>
                             @if(isset($unitTypes[$propertyTypeId]))
                             @foreach($unitTypes[$propertyTypeId] as $unitType)
@@ -77,17 +77,17 @@
                                </div> -->
 
                         </div>
-                        <div class="col-md-7 attributes_block" style="border-left: 1px solid #ddd;">
+                        <div class="col-md-8 attributes_block" style="border-left: 1px solid #ddd;">
                             <h4>Attributes</h4>
                             <div class="row form-group">
                                 <div class="col-md-3">
-                                    <label class="form-label">Name</label>
+                                    <label class="form-label">Name</label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title=" Project Address to be displayed on unit selector page "></i>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="form-label">Control Type</label>
+                                    <label class="form-label">Control Type</label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title=" Project Address to be displayed on unit selector page "></i>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="form-label">Value</label>
+                                    <label class="form-label">Value</label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title=" Project Address to be displayed on unit selector page "></i>
                                 </div>
                                 <div class="col-md-1">
 
