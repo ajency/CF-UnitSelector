@@ -21,14 +21,18 @@
                         <h3> <i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Details</span></h3>
                         </div>
     <div class="grid-body no-border">
-      
+        <div class="alert alert-info">
+            <button class="close" data-dismiss="alert"></button>
+            <strong><i class="fa fa-info"></i></strong> The project enters the draft mode on save and will only be available on unit selector when 
+                                       the project status is changed to Published.
+        </div>
         <!-- END PAGE TITLE -->
         <!-- BEGIN PlACE PAGE CONTENT HERE -->
         <form id="add_project" method="POST" action="{{ url('admin/project') }}" data-parsley-validate>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label class="form-label">City<span class="text-primary">*</span></label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"  title="Location of the project"></i>                                <!-- //TODO fix the required validation  -->
+                                        <label class="form-label">City<span class="text-primary">*</span></label><!-- //TODO fix the required validation  -->
                                         <select name="city" class="select2 form-control" data-parsley-required>
                                             <option value="">Choose City</option>
                                             <option value="Mumbai">Mumbai</option>
@@ -62,13 +66,13 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label" >Project Title<span class="text-primary">*</span></label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"  title=" Project Title to be displayed on unit selector page"></i> 
+                                        <label class="form-label" >Project Title<span class="text-primary">*</span></label> 
                                         <input  name="project_title" type="text" class="form-control m-b-5" placeholder="Enter Project Title" 
                                                 data-parsley-required onchange="validateTitle(this);" > <div class="cf-loader hidden"></div>
                                         <input  name="hidden_project_title" type="hidden" class="form-control">
                                     </div>
                                     <div class="form-group">
-                                        <label class="form-label" >Address<span class="text-primary">*</span></label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right"  title=" Project Address to be displayed on unit selector page "></i>
+                                        <label class="form-label" >Address<span class="text-primary">*</span></label>
                                         <textarea  name="project_address" class="form-control" placeholder="Enter Project Address" 
                                                    data-parsley-required></textarea>
                                         <input  name="hidden_project_address" type="hidden" class="form-control">
@@ -81,9 +85,7 @@
 
                             <div class="form-actions "> 
                                 <div class="pull-right">
-                                    <a class="inline" data-toggle="popover" data-placement="left" data-trigger="hover" data-content="The project enters the draft mode on save and will only be available on unit selector when 
-                                       the project status is changed to Published." data-original-title="" title=""><i class="fa fa-info"></i></a>&nbsp;
-                                    <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
+                                   <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                                     <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-plus-circle"></i> Create</button>
                                     <button type="reset" class="hidden" />
                                     <a href="{{ url('admin/project') }}"><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>

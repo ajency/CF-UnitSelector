@@ -5,10 +5,7 @@
                 <div class="row object-master-images" data-object-id="{{ $project['id'] }}" data-object-type="project">
                     <div class="col-md-8 project-master-images">
                         <h3 class="inline"> <i class="fa fa-angle-double-right text-primary"></i> <span class="semi-bold">Project Master</span> Image</h3>&nbsp;&nbsp;    
-                        <span class="inline" data-toggle="popover" data-trigger="hover" data-content="Upload 3D view of the project. To enable 360 degree rotation of the project ,upload images in the sequence ( Front -> Right -> Back -> Left). 
-                            Image dimension should be Image size : 1600*1095. Resolution - 300 DPI.
-                            Naming convention to be followed for the images uploaded - Master-01(first image), Master-02 and so on." data-original-title="" title=""><i class="fa fa-info"></i>
-                            </span>&nbsp;&nbsp;&nbsp;
+                        
                         <a id="master_pickfiles"  class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image"></i> Select file (s)</a>
                         <div class="alert alert-error hidden">
                             <button class="close" data-dismiss="alert"></button>
@@ -25,6 +22,11 @@
                 </div>
             </div>
             <div class="grid-body no-border">
+                <div class="alert alert-info">
+                <strong><i class="fa fa-info"></i></strong> Upload 3D view of the project. To enable 360 degree rotation of the project ,upload images in the sequence ( Front -> Right -> Back -> Left). 
+                            Image dimension should be Image size : 1600X800. Resolution - 300 DPI.
+                            Naming convention to be followed for the images uploaded - Master-01(first image), Master-02 and so on.
+                </div>
                 <div class="dataTables_wrapper form-inline" role="grid">
                     <table class="table table-striped dataTable">
                         <thead>

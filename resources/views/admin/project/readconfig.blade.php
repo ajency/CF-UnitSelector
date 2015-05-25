@@ -26,8 +26,12 @@
 </div>
 <div class="grid simple">
     <div class="grid-title no-border">
-
-        <h3 > <i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Details</span></h3>
+       <div class="alert alert-success ">
+                <button class="close" data-dismiss="alert"></button>
+                <i class="fa fa-check-circle" style="font-size: 17px;"></i> 
+                    Your project has been created successfully.Go ahead and configure it !
+                </div>
+        <h3> <i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Details</span></h3>
     </div>
     <div class="grid-body no-border">
         <div class="row">
@@ -66,10 +70,7 @@
 
         <div class="row">
              @if($project['created_at']===$project['updated_at'])
-                <div class="alert alert-success ">
-                <button class="close" data-dismiss="alert"></button>
-                <i class="fa fa-check-circle" style="font-size: 17px;"></i> 
-                    Your project has been created successfully.Go ahead and configure it !</div>
+
                 @endif
             <div class="m-l-5 no-border">
                 <h3><i class="fa fa-angle-double-right text-primary"></i> Measurement <span class="semi-bold">Units</span></h3>
@@ -173,7 +174,7 @@
                     @endforeach
                     @else
                     <div class="col-md-12">
-                    <h5 class="semi-bold">Property Type Not Selected</h5>
+                    <h5 class="semi-bold">No Property Types selected</h5>
                 </div>
                     @endif
                     
