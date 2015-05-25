@@ -114,16 +114,16 @@
                <!-- TODO: remove inline style-->
               
                <div id="aj-imp-builder-drag-drop" >
-                <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm2">Small modal</button>
-                 --><!--  <textarea name="coords2" rows=3 class="area hidden" disabled 
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm2">Small modal</button>
+                 <textarea name="coords2" rows=3 class="area hidden" disabled 
 				        placeholder="Shape Coordinates" data-image-url="{{$svgImage}}"
-				       ></textarea> -->
+				       ></textarea>
 				 
 
                </div>
 
             </div>
-            <!--browser footer-->
+            <!--browser footer
             
          </div>
          <div class="aj-imp-browser-footer">
