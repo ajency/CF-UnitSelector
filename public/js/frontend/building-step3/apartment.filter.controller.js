@@ -35,7 +35,8 @@
       area: '#area',
       budget: '#budget',
       clear: '.clear',
-      floor: '#floor'
+      floor: '#floor',
+      flooring: '.flooring'
     };
 
     FilterApartmentView.prototype.initialize = function() {

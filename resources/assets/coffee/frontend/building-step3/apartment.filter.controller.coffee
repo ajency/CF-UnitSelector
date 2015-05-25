@@ -93,6 +93,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		budget : '#budget'
 		clear : '.clear'
 		floor : '#floor'
+		flooring : '.flooring'
 
 	initialize:->
 		@price = ''
