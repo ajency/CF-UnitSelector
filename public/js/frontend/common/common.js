@@ -647,7 +647,7 @@
       if (ind !== 'price_min' && ind !== 'price_max' && val !== "" && ind !== 'area_min' && ind !== 'area_max' && ind !== 'type' && ind !== 'floor_min' && ind !== 'floor_max') {
         param_val_arr = val.split(',');
         return $.each(param_val_arr, function(index, value) {
-          var type, unitTypeModel;
+          var attributes, pos, type, types, unitTypeModel;
           if (value !== "" && ind === 'unitVariants') {
             if (!_.isUndefined(apartmentVariantMasterCollection.get(parseInt(value)))) {
               unit_variant = apartmentVariantMasterCollection.findWhere({
@@ -685,10 +685,13 @@
               'id_name': 'filter_unit_type' + unit_type.get('id')
             });
           }
-          if (value !== "" && ind === 'flooring' && $.inArray(value, apartmentVariantMasterCollection.getApartmentFlooringAttributes()) > -1) {
+          attributes = apartmentVariantMasterCollection.getApartmentFlooringAttributes();
+          if (value !== "" && ind === 'flooring' && $.inArray(value, attributes[0]) > -1) {
+            pos = $.inArray(value, attributes[0]);
+            types = attributes[1];
             return flooring.push({
               'name': value,
-              'type': '(' + type + ')',
+              'type': '(' + types[pos] + ')',
               'classname': 'filter_flooring',
               'id': value,
               'id_name': 'filter_' + value

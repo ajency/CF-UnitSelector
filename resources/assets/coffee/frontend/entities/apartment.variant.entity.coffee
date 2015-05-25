@@ -81,13 +81,20 @@ class ApartmentVariantCollection extends Backbone.Collection
 
 	getApartmentFlooringAttributes:->
 		attributes = []
+		types = []
 		apartmentVariantMasterCollection.each (item)->
+			unit_type = unitTypeMasterCollection.findWhere
+									'id' : parseInt item.get('id')
+			type = 'A'
+			if window.propertyTypes[unit_type.get('property_type_id')] == 'Penthouse'
+				type = 'PH'
 			if $.inArray(item.get('variant_attributes').flooring,attributes) == -1
 				attributes.push item.get('variant_attributes').flooring
+				types.push type
 				
 						
 
-		attributes
+		[attributes,types]
 
 	
 

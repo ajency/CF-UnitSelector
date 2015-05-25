@@ -592,10 +592,13 @@ CommonFloor.getApartmentFilters = ()->
 								'classname' : 'unit_types'
 								'id' : unit_type.get 'id'
 								'id_name' : 'filter_unit_type'+unit_type.get 'id'
-				if value != "" && ind == 'flooring' && $.inArray(value,apartmentVariantMasterCollection.getApartmentFlooringAttributes()) > -1
+				attributes = apartmentVariantMasterCollection.getApartmentFlooringAttributes()
+				if value != "" && ind == 'flooring' && $.inArray(value,attributes[0]) > -1
+					pos = $.inArray(value,attributes[0])
+					types  = attributes[1]
 					flooring.push 
 							'name' : value
-							'type'	: '('+type+')'
+							'type'	: '('+types[pos]+')'
 							'classname' : 'filter_flooring'
 							'id' : value
 							'id_name' : 'filter_'+value
