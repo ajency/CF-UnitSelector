@@ -310,7 +310,7 @@
       availability = unit.get('availability');
       availability = s.decapitalize(availability);
       html = "";
-      html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + ' ( Area - ' + response[0].get('super_built_up_area') + ' Sq.ft)</h5> <!--<span class="label label-success"></span--> <br><br> <div class="details"> <label>Unit Type </label> - ' + response[1].get('name') + '<br> <label>Price </label> - <span class="icon-rupee-icn">' + price + '</span><br> </div>';
+      html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + ' ( Area - ' + response[0].get('super_built_up_area') + ' ' + project.get('area_unit') + ')</h5> <!--<span class="label label-success"></span--> <br><br> <div class="details"> <label>Unit Type </label> - ' + response[1].get('name') + '<br> <label>Price </label> - <span class="icon-rupee-icn">' + price + '</span><br> </div>';
       if (availability === 'available') {
         html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
       } else {
@@ -469,7 +469,7 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + ' ( Area - ' + response[0].get('super_built_up_area') + ' Sq.ft)</h5> <!--<span class="label label-success"></span--> <br><br> <div class="details"> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - <span class="icon-rupee-icn">' + price + '</span> </div> </div>';
+        html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + ' ( Area - ' + response[0].get('super_built_up_area') + ' ' + project.get('area_unit') + ')</h5> <!--<span class="label label-success"></span--> <br><br> <div class="details"> <div> <label>Unit Type </label> - ' + response[1].get('name') + '</div> <div> <label>Price </label> - <span class="icon-rupee-icn">' + price + '</span> </div> </div>';
         if (availability === 'available') {
           html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
         } else {

@@ -615,7 +615,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						
 						<div class="details">
 							<div>
-								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
+								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('area_unit')+')
 								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 							</div>
 							<div class="text-primary">
@@ -711,7 +711,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						<div class="clearfix"></div>-->
 						<div class="details">
 							<div>
-								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
+								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('area_unit')+')
 								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 							</div>
 							<div class="text-primary">

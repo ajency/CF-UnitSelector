@@ -244,7 +244,7 @@
     return $('.layer').each(function(ind, item) {
       var id;
       id = parseInt(item.id);
-      return $('#' + id).attr('style', 'transform: rotateY(0deg) scale(1); ');
+      return $('#' + id).attr('style', 'transform: rotateY(0deg) scale(1); -webkit-transform: rotateY(0deg) scale(1);');
     });
   };
 
@@ -338,11 +338,11 @@
       id = parseInt(item.id);
       if ($.inArray(id, filterunits) > -1) {
         return setTimeout(function() {
-          return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
+          return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121; transform: rotateY(0deg) scale(1); -webkit-transform: rotateY(0deg) scale(1);');
         }, Math.random() * 1000);
       } else {
         return setTimeout(function() {
-          return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
+          return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1); -webkit-transform: rotateY(0deg) scale(1);');
         }, Math.random() * 1000);
       }
     });
@@ -351,11 +351,11 @@
       id = parseInt(item.id);
       if ($.inArray(id, filterbuildings) > -1 && apartmentVariantMasterCollection.length !== apartmentVariantCollection.length && apartmentVariantCollection.length !== 0) {
         return setTimeout(function() {
-          return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0;stroke:#F68121;transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;transform: rotateY(0deg) scale(1);');
+          return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0; stroke:#F68121; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
         }, Math.random() * 1000);
       } else {
         return setTimeout(function() {
-          return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
+          return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
         }, Math.random() * 1000);
       }
     });
@@ -373,12 +373,12 @@
       $('.villa,.plot,.apartment').each(function(ind, item) {
         var id;
         id = parseInt(item.id);
-        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
+        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
       });
       $('.building').each(function(ind, item) {
         var id;
         id = parseInt(item.id);
-        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);');
+        return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0;transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
       });
     }
     return flag;
@@ -515,7 +515,7 @@
       area_max = CommonFloor.defaults['area_max'];
       area.push({
         'name': area_min + '-' + area_max,
-        'type': 'Sq.Ft',
+        'type': project.get('area_unit'),
         'id': 'area',
         'id_name': 'filter_area',
         'classname': 'area'

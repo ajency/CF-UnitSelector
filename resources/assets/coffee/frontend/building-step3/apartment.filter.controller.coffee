@@ -17,7 +17,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 										<div class="filters-wrapper">
 										  	<div class="filters-content">
 											  	
-												<div class="">
+												<div class="unit_type_filter">
 				                                    <h6>UNIT TYPE</h6>
 				                                    <div class="filter-chkbox-block">
 					                                    {{#unitTypes}}
@@ -26,7 +26,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 					                                    {{/unitTypes}} 
 				                                    </div>
 				                                </div>
-				                                <div class="">
+				                                <div class="variant_filter">
 				                                    <h6>VARIANT</h6>
 				                                    <div class="filter-chkbox-block">
 					                                       	{{#unitVariantNames}}
@@ -49,7 +49,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 				                                </div>
 
 				                                <div class="">
-				                                    <h6>AREA (Sqft)</h6>
+				                                    <h6>AREA ({{area_unit}})</h6>
 				                                    <div class="range-container">
 				                                		<input type="text" id="area" name="area" value="" />
 				                                	</div>
@@ -346,6 +346,10 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		)
 		if Marionette.getOption(@,'flooring').length == 0
 			$('.flooring_filter').hide()
+		if Marionette.getOption(@,'unitTypes').length == 0
+			$('.unit_type_filter').hide()
+		if Marionette.getOption(@,'unitVariantNames').length == 0
+			$('.variant_filter').hide()
 
 	loadClearFilters:->
 		budget = []
@@ -508,6 +512,7 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 			$.merge budget , apartmentFilters[0].budget
 			$.merge flooring , apartmentFilters[0].flooring
 		@view = view = new CommonFloor.FilterApartmentView
+				model : project
 				'unitTypes' : unitTypes
 				'unitVariants' : _.uniq unitVariants
 				'unitVariantNames' : unitVariantNames
@@ -576,6 +581,10 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 			'unitVariantNames' : unitVariantNames
 			'budget'			: budget
 			'flooring'		: flooringAttributes
+
+		$.each filters[0],(index,value)->
+			if $.inArray(index , project.get('filters').Villa) ==  -1 && index != 'budget' && index != 'unitVariants'
+				filters[0][index] = []
 		filters
 
 
