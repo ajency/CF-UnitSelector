@@ -310,7 +310,7 @@
     FilterMsterView.prototype.onShow = function() {
       var area, budget, max, min, priceMax, priceMin, subArea, subBudget, types;
       $('.filters-content').mCustomScrollbar({
-        theme: 'inset'
+        theme: 'cf-scroll'
       });
       budget = [];
       area = [];

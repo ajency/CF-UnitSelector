@@ -170,15 +170,11 @@ class BunglowListView extends Marionette.ItemView
 class MasterBunglowListView extends Marionette.CompositeView
 
 
-	template : Handlebars.compile('
+	template : Handlebars.compile('	<div id="trig" class="toggle-button"></div>
+
 									<div id="view_toggle" class="toggle-view-button map"></div>
 
 									<div class="list-view-container w-map animated fadeIn">
-							            <!--<div class="controls map-View">
-								            <div class="toggle">
-								            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
-								            </div>
-							            </div>-->
 							            <div class="text-center">
 							              <ul class="prop-select">
 
@@ -224,9 +220,13 @@ class MasterBunglowListView extends Marionette.CompositeView
 
 
 	ui :
-		viewtog      : '#view_toggle'
+		viewtog 	: '#view_toggle'
+		trig 		: '#trig'
 
-	events : 
+	events :
+		'click @ui.trig':(e)->
+			$('.list-container').toggleClass 'closed'
+
 		'click @ui.viewtog':(e)->
 			$('.us-left-content').toggleClass 'not-visible visible'
 			$('.us-right-content').toggleClass 'not-visible visible'
@@ -273,7 +273,7 @@ class MasterBunglowListView extends Marionette.CompositeView
 		# $(window).resize ->
 		if $(window).width() > 991
 			$('.units').mCustomScrollbar
-				theme: 'inset'
+				theme: 'cf-scroll'
 		
 
 #controller for the Center region

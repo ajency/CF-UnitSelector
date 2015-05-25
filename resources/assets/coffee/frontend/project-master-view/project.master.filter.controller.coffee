@@ -341,6 +341,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 	onShow:->
 
 		$('.filters-content').mCustomScrollbar
+<<<<<<< HEAD
 			theme: 'inset'
 		budget = []
 		area = []
@@ -352,6 +353,11 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		max = _.max area
 		subArea = (max - min)/ 20 
 		subArea = subArea.toFixed(0)
+=======
+			theme: 'cf-scroll'
+
+
+>>>>>>> 74f62a8d92d8f96091abc65c1b356fe70ca978da
 		
 		if CommonFloor.defaults['area_min'] != ""
 			$("#area").ionRangeSlider(

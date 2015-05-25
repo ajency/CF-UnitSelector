@@ -34,7 +34,7 @@ class TopMasterView extends Marionette.ItemView
 													<h2 class="pull-left proj-name">{{project_title}}</h2>
 													<div class="proj-type-count">
 														{{#types}} 
-														<h1 class="pull-left">{{count.length}}</h1><p class="pull-left">{{type}}</p> 
+														<h2 class="pull-left">{{count.length}}</h2><p class="pull-left">{{type}}</p> 
 														{{/types}}
 													</div>
 													<div class="pull-left filter-result full">
@@ -322,8 +322,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 										  <ul>
 											<!--<li class="available">AVAILABLE</li>-->
 											<li class="sold">N/A</li>
-											<!--<li class="blocked">BLOCKED</li>-->
-											<li class="na">Available</li>
+											<!--<li class="blocked">BLOCKED</li>
+											<li class="na">Available</li>-->
 										  </ul>
 										</div>
 										<div class="zoom-controls">
@@ -376,30 +376,30 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		
 
 	events :
-		'click @ui.trig':(e)->
-			$('.us-left-content').toggleClass 'col-0 col-md-3'
-			$('.us-right-content').toggleClass 'col-md-12 col-md-9'
-			# $('.filter-result').toggleClass 'full'
-			that = @
-			setTimeout( (x)->
+
+		# 'click @ui.trig':(e)->
+		# 	$('.us-left-content').toggleClass 'col-0 col-md-3'
+		# 	$('.us-right-content').toggleClass 'col-md-12 col-md-9'
+		# 	that = @
+		# 	setTimeout( (x)->
 				
-				$('#spritespin').spritespin(
-					width: that.ui.svgContainer.width() + 13
-					sense: -1
-					height: that.ui.svgContainer.width() / 2
-					animate: false
-				)
-				$('.svg-maps > div').first().css('width',that.ui.svgContainer.width() + 13)
-				$('.first_image').first().css('width',that.ui.svgContainer.width() + 13)
+		# 		$('#spritespin').spritespin(
+		# 			width: that.ui.svgContainer.width() + 13
+		# 			sense: -1
+		# 			height: that.ui.svgContainer.width() / 2
+		# 			animate: false
+		# 		)
+		# 		$('.svg-maps > div').first().css('width',that.ui.svgContainer.width() + 13)
+		# 		$('.first_image').first().css('width',that.ui.svgContainer.width() + 13)
 
-				height= that.ui.svgContainer.width() / 2
-				$('.units').css('height',height-120)
+		# 		height= that.ui.svgContainer.width() / 2
+		# 		$('.units').css('height',height-120)
 
-			, 650)
+		# 	, 650)
 
-			setTimeout( (x)->
-				$('.master').panzoom('resetDimensions');				
-			, 800)
+		# 	setTimeout( (x)->
+		# 		$('.master').panzoom('resetDimensions');				
+		# 	, 800)
 
 			
 		'click @ui.viewtog':(e)->
@@ -850,8 +850,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		height =  @ui.svgContainer.width() / 2
 		# $('.us-left-content').css('height',height)
 		# if!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
-		if $(window).width() > 991
-			$('.units').css('height',height-310)
+		# if $(window).width() > 991
+		# 	$('.units').css('height',height-310)
 		$('#spritespin').hide()
 		that = @
 		transitionImages = []
