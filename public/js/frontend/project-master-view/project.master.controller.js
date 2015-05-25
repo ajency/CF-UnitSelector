@@ -61,7 +61,8 @@
       area: '#filter_area',
       budget: '#filter_budget',
       types: '.types',
-      status: '#filter_available'
+      status: '#filter_available',
+      filter_flooring: '.filter_flooring'
     };
 
     TopMasterView.prototype.serializeData = function() {
@@ -82,6 +83,12 @@
       return {
         'click @ui.unitBack': function(e) {
           e.preventDefault();
+          $.each(CommonFloor.defaults, function(index, value) {
+            return CommonFloor.defaults[index] = "";
+          });
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          unitCollection.trigger('available');
           return CommonFloor.navigate('/', true);
         },
         'click @ui.types': function(e) {
@@ -142,6 +149,16 @@
         'click @ui.budget': function(e) {
           CommonFloor.defaults['price_max'] = "";
           CommonFloor.defaults['price_min'] = "";
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          unitCollection.trigger('available');
+          return this.trigger('render:view');
+        },
+        'click @ui.filter_flooring': function(e) {
+          var flooring;
+          flooring = CommonFloor.defaults['flooring'].split(',');
+          flooring = _.without(flooring, $(e.currentTarget).attr('data-id'));
+          CommonFloor.defaults['flooring'] = flooring.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
           unitCollection.trigger('available');

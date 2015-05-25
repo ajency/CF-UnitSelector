@@ -1,6 +1,7 @@
 window.unitTypes = []
 window.unitVariants = []
 window.variantNames = []
+window.flooring = []
 window.price = ''
 window.area = ''
 window.type  = []
@@ -36,6 +37,16 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 				                                    </div>
 				                                </div>
 
+				                                 <div class="flooring_filter">
+				                                    <h6 class="">Flooring</h6>
+				                                       <div class="filter-chkbox-block">
+					                                       	{{#flooring}}
+					                                       	<input type="checkbox" class="custom-chckbx addCft flooring" id="flooring{{id}}" value="flooring{{id}}" value="1" data-value="{{id}}" > 
+					                                        <label for="flooring{{id}}" class="-lbl">{{name}}({{type}})</label> 
+					                                       	{{/flooring}}
+				                                       	<!--<a href="#" class="hide-div">+ Show More</a>-->
+				                                    </div>
+				                                </div>
 
 				                                <div class="">
 				                                    <h6>AREA (Sqft)</h6>
@@ -82,8 +93,12 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		budget : '#budget'
 		clear : '.clear'
 		floor : '#floor'
+		flooring : '.flooring'
 
 	initialize:->
+		@price = ''
+		@area = ''
+		@floor = ''
 		variantNames = []
 		unitTypes = []
 		url = Backbone.history.fragment
@@ -95,6 +110,8 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			variantNames = CommonFloor.defaults['unitVariants'].split(',')
 		if CommonFloor.defaults['type']!= ""
 			window.type  = CommonFloor.defaults['type'].split(',')
+		if CommonFloor.defaults['flooring']!= ""
+			window.flooring  = CommonFloor.defaults['flooring'].split(',')
 		window.unitTypes = unitTypes.map (item)->
 			return parseInt item
 		window.variantNames = variantNames.map (item)->
@@ -115,7 +132,13 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
 			@loadSelectedFilters()
-
+			@price = $("#budget").data("ionRangeSlider")
+			@area = $("#area").data("ionRangeSlider")
+			@floor = $("#floor").data("ionRangeSlider")
+			@price.destroy()
+			@area.destroy()
+			@floor.destroy()
+			@loadClearFilters()
 		'click @ui.unitTypes':(e)->
 			if $(e.currentTarget).is(':checked')
 				window.unitTypes.push parseInt $(e.currentTarget).attr('data-value')
@@ -194,6 +217,19 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
+
+
+		'click @ui.flooring':(e)->
+			if $(e.currentTarget).is(':checked')
+				window.flooring.push $(e.currentTarget).attr('data-value')
+			else
+				window.flooring = _.without window.flooring ,$(e.currentTarget).attr('data-value')
+			window.flooring =   _.uniq window.flooring 
+			CommonFloor.defaults['flooring'] = window.flooring.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterBuilding(@building_id)
+			CommonFloor.filter()
+			unitTempCollection.trigger( "filter_available") 
 			
 		'click .filter-button':(e)->
 			window.flag1 = 0
@@ -256,16 +292,21 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		data.unitTypes = Marionette.getOption(@,'unitTypes')
 		data.unitVariants = Marionette.getOption(@,'unitVariants')
 		data.unitVariantNames = Marionette.getOption(@,'unitVariantNames')
+		data.flooring = Marionette.getOption(@,'flooring')
 		data
 
 	onShow:->
+		@loadSelectedFilters()
+
+		$('.filters-content').mCustomScrollbar
+			theme: 'inset'
 		budget = []
 		area = []
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		floor = buildingMasterCollection.findWhere
 					'id' : building_id
-		$.each unitCollection.toArray(), (index,value)->
+		$.each unitMasterCollection.toArray(), (index,value)->
 			unitDetails = window.unit.getUnitDetails(value.id)
 			budget.push parseFloat unitDetails[3]
 			area.push parseFloat unitDetails[0].get 'super_built_up_area'
@@ -277,6 +318,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		priceMax = _.max budget		
 		subBudget = (priceMax - priceMin)/ 20
 		subBudget = subBudget.toFixed(0)
+
 		$("#area").ionRangeSlider(
 		    type: "double",
 		    min: min,
@@ -302,10 +344,58 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		    
 
 		)
-		@loadSelectedFilters()
+		if Marionette.getOption(@,'flooring').length == 0
+			$('.flooring_filter').hide()
 
-		$('.filters-content').mCustomScrollbar
-			theme: 'inset'
+	loadClearFilters:->
+		budget = []
+		area = []
+		url = Backbone.history.fragment
+		building_id = parseInt url.split('/')[1]
+		floor = buildingMasterCollection.findWhere
+					'id' : building_id
+		$.each unitMasterCollection.toArray(), (index,value)->
+			unitDetails = window.unit.getUnitDetails(value.id)
+			budget.push parseFloat unitDetails[3]
+			area.push parseFloat unitDetails[0].get 'super_built_up_area'
+		min = _.min area
+		max = _.max area
+		subArea = (max - min)/ 20 
+		subArea = subArea.toFixed(0)
+		priceMin = _.min budget
+		priceMax = _.max budget		
+		subBudget = (priceMax - priceMin)/ 20
+		subBudget = subBudget.toFixed(0)
+
+		$('#area').val(min+";"+max)
+		$('#budget').val(priceMin+";"+priceMax)
+		$('#floor').val(1+";"+floor.get('no_of_floors'))
+		$("#area").ionRangeSlider(
+		    type: "double",
+		    min: min,
+		    max:  max,
+		    step : subArea,
+		    grid: false
+		)
+		$("#budget").ionRangeSlider(
+		    type: "double",
+		    min: priceMin,
+		    max: priceMax,
+		    grid: false,
+		    step : subBudget,
+		    prettify :(num)->
+		    	return window.numDifferentiation(num)
+
+		)
+		$("#floor").ionRangeSlider(
+		    type: "double",
+		    min: 1,
+		    max: floor.get('no_of_floors'),
+		    grid: false
+		    
+
+		)
+		
 
 	loadSelectedFilters:->
 		unittypesArray = []
@@ -409,18 +499,20 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 		unitVariantNames = []
 		area = []
 		budget = []
+		flooring = []
 		apartmentFilters = @getApartmentFilters()
 		if apartmentFilters.length != 0
 			$.merge unitTypes , apartmentFilters[0].unitTypes
 			$.merge unitVariants , apartmentFilters[0].unitVariants
 			$.merge unitVariantNames , apartmentFilters[0].unitVariantNames
 			$.merge budget , apartmentFilters[0].budget
-		
+			$.merge flooring , apartmentFilters[0].flooring
 		@view = view = new CommonFloor.FilterApartmentView
 				'unitTypes' : unitTypes
 				'unitVariants' : _.uniq unitVariants
 				'unitVariantNames' : unitVariantNames
 				'budget'			: budget
+				'flooring'  : flooring
 
 		@listenTo @view,"load:apt:filters" ,@loadAptFilter
 
@@ -440,6 +532,7 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 		unitVariants = []
 		unitVariantNames = []
 		budget = []
+		flooringAttributes = []
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		apartmentVariantMasterCollection.each (item)->
@@ -463,6 +556,14 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 						'id' : item.get 'id'
 						'name'	: item.get 'unit_variant_name'
 						'type'	: type
+
+				if $.inArray(item.get('variant_attributes').flooring,flooring) == -1 && ! _.isUndefined item.get('variant_attributes').flooring
+					flooring.push item.get('variant_attributes').flooring
+					flooringAttributes.push
+							'id' : item.get('variant_attributes').flooring
+							'name' : item.get('variant_attributes').flooring
+							type: type
+				
 				
 
 		unitsArr = apartmentVariantMasterCollection.getApartmentUnits()
@@ -474,6 +575,7 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 			'unitVariants'  : unitVariants
 			'unitVariantNames' : unitVariantNames
 			'budget'			: budget
+			'flooring'		: flooringAttributes
 		filters
 
 

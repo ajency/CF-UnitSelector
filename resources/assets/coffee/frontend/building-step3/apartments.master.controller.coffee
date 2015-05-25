@@ -60,6 +60,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		budget : '#filter_budget'
 		types : '.types'
 		floor : '.floor'
+		filter_flooring : '.filter_flooring'
 
 	initialize:->
 		url = Backbone.history.fragment
@@ -156,6 +157,15 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
+			@trigger  'render:view'
+
+		'click @ui.filter_flooring':(e)->
+			flooring = CommonFloor.defaults['flooring'].split(',')
+			flooring = _.without flooring , $(e.currentTarget).attr('data-id')
+			CommonFloor.defaults['flooring'] = flooring.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			unitCollection.trigger('filter_available')
 			@trigger  'render:view'
 
 	onShow:->

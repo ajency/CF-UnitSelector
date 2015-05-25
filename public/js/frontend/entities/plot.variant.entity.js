@@ -93,6 +93,17 @@
       return unit_types;
     };
 
+    PlotVariantCollection.prototype.getPlotFlooringAttributes = function() {
+      var attributes;
+      attributes = [];
+      plotVariantMasterCollection.each(function(item) {
+        if ($.inArray(item.get('variant_attributes').flooring, attributes) === -1) {
+          return attributes.push(item.get('variant_attributes').flooring);
+        }
+      });
+      return attributes;
+    };
+
     return PlotVariantCollection;
 
   })(Backbone.Collection);
