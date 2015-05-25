@@ -200,11 +200,11 @@
                                                             @foreach($availableRoomTypes as $room_type)
                                                             <option value="{{$room_type['id']}}">{{$room_type['name']}}</option>
                                                             @endforeach
-                                                            <option value="add_new">Add New</option>
+                                                            <option value="add_new">Add New Room</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <button type="button" onclick="getRoomTypeAttributes(this, 0);" class="btn btn-white"><i class="fa fa-plus inline"></i> Add Room to Level</button>
+                                                        <button type="button" onclick="getRoomTypeAttributes(this, 0);" class="btn btn-white">Add Another Room</button>
                                                     </div>
                                                 </div>
                                             </div> 
@@ -281,11 +281,11 @@
                                                                 @foreach($availableRoomTypes as $room_type)
                                                                 <option  value="{{$room_type['id']}}">{{$room_type['name']}}</option>
                                                                 @endforeach
-                                                                <option value="add_new">Add New</option>
+                                                                <option value="add_new">Add New Room</option>
                                                             </select>
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <button type="button" onclick="getRoomTypeAttributes(this, 1);" class="btn btn-white"><i class="fa fa-plus inline"></i> Add Room to Level</button>
+                                                            <button type="button" onclick="getRoomTypeAttributes(this, 1);" class="btn btn-white">Add Another Room</button>
                                                         </div>
                                                     </div>
                                                 </div> 

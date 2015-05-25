@@ -15,6 +15,11 @@
                     </div>
 <div class="grid simple">
 <div class="grid-body">
+    <div class="alert alert-success ">
+                <button class="close" data-dismiss="alert"></button>
+                <i class="fa fa-check-circle" style="font-size: 17px;"></i> 
+                    Project costs have been set successfully.
+                </div>
         <form action="{{ url('admin/project/' . $project['id'].'/costupdate') }}" method="POST" data-parsley-validate>
                 <div class="row">
                     <div class="col-md-4">

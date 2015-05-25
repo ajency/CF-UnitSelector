@@ -81,13 +81,13 @@
                             <h4>Attributes</h4>
                             <div class="row form-group">
                                 <div class="col-md-3">
-                                    <label class="form-label">Name</label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title=" Project Address to be displayed on unit selector page "></i>
+                                    <label class="form-label">Name</label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Attributes Name will be the specification for each room type for example (Area, Length * Width, etc)."></i>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="form-label">Control Type</label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title=" Project Address to be displayed on unit selector page "></i>
+                                    <label class="form-label">Control Type</label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="The selected control type will be available as input on the Variant page."></i>
                                 </div>
                                 <div class="col-md-4">
-                                    <label class="form-label">Value</label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title=" Project Address to be displayed on unit selector page "></i>
+                                    <label class="form-label">Value</label>
                                 </div>
                                 <div class="col-md-1">
 
