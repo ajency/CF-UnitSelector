@@ -18,8 +18,8 @@
       top: 0;
       z-index: -1;
       left: 0px;
-      width: 100%;
-      height: 100%;
+      width: 1600;
+      height: 800;
       z-index: 0;
     }
 /*    .svg-canvas {
@@ -43,7 +43,9 @@
   border: 2px solid #ff3333;
   opacity: 0.5;
 }
-  */  </style>
+  */ 
+
+   </style>
 </head>
 
 <body>
