@@ -13,7 +13,15 @@
             <div class="row form-group">
                 <div class="col-md-4">
                     <label class="form-label">Room Name</label>
-                    <input type="text" class="form-control" name="room_name" value="">
+                    <div id="room_name_box">
+                    <select name="room_name" onchange="createRoomType(this);"  class="select2-container select2 form-control" >
+                        <option value="">Select Control Type</option>
+                        @foreach($defaultRoomTypes as $defaultRoomType)
+                        <option value="{{ $defaultRoomType['id'] }}"> {{ $defaultRoomType['label'] }}</option>
+                        @endforeach
+                        <option value="add_new"> Add New</option>
+                    </select>
+                    </div>    
                 </div>
             </div>
             <div class="row form-group">
@@ -99,5 +107,19 @@
 <!-- END PAGE CONTAINER -->
 </div>
 <!-- END PLACE PAGE CONTENT HERE -->
- 
+<script>
+function createRoomType(obj)
+{ 
+    var val =$(obj).val();
+    if ( val== 'add_new')
+    {
+        var html = '<input type="text" class="form-control" name="room_name" id="room_name" value="">';
+        html += '<input type="hidden" name="roomtypecustome" value="CUSTOME">';
+        $(obj).hide();
+        $("#room_name_box").html(html);
+        
+    }
+   
+}
+</script>
 @endsection

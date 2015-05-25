@@ -10,6 +10,7 @@ use CommonFloor\RoomType;
 use CommonFloor\Attribute;
 use CommonFloor\ProjectPropertyType;
 use \Input;
+use CommonFloor\Defaults;
 
 class ProjectRoomTypeController extends Controller {
     /**
@@ -26,9 +27,10 @@ class ProjectRoomTypeController extends Controller {
     public function create($id, ProjectRepository $projectRepository) {
 
         $project = $projectRepository->getProjectById($id);
-
+        $defaultRoomType = Defaults::where('type','room_types')->get()->toArray();
         return view('admin.project.addroom')
                         ->with('project', $project->toArray())
+                        ->with('defaultRoomTypes', $defaultRoomType)
                         ->with('current', 'room_type');
     }
 
@@ -40,10 +42,20 @@ class ProjectRoomTypeController extends Controller {
     public function store($projectId, Request $request) {
 
         $roomtype_name = $request['room_name'];
+        if(isset($request['roomtypecustome']))
+        {
+            $default = new Defaults();
+            $default->type = 'custome_room_types';
+            $default->label =  ucfirst($roomtype_name);
+            $default->serialize_data = serialize([]);
+            $default->save();
+            $roomtype_name = $default->id;
+        }
+        
 
         $roomtype = new RoomType();
         $roomtype->project_id = $projectId;
-        $roomtype->name = ucfirst($roomtype_name);
+        $roomtype->name = $roomtype_name;
         $roomtype->save();
 
         $roomtypeId = $roomtype->id;
@@ -95,13 +107,25 @@ class ProjectRoomTypeController extends Controller {
     public function edit($projectId, $id, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($projectId);
         $room = RoomType::find($id);
-        $availableRoomTypes = $project->roomTypes()->get()->toArray();
+        $availableRoomTypeData = $project->roomTypes()->get()->toArray();
+        $availableRoomTypes=$customeRoomTypes = [];
+        foreach ($availableRoomTypeData as $availableRoomType)
+        {
+            $defaultRoomData = Defaults::find($availableRoomType['name']);
+            $availableRoomTypes[$availableRoomType['id']] = $defaultRoomData->label;
+            if($defaultRoomData->type=='custome_room_types')
+            $customeRoomTypes[]=Defaults::find($availableRoomType['name'])->toArray();
+        }
 
+        $defaultRoomType = Defaults::where('type','room_types')->get()->toArray();
+                 
         $roomtypeAttribute['ATTRIBUTES'] = $room->attributes->toArray();
 
         return view('admin.project.editroom')
                         ->with('project', $project->toArray())
                         ->with('room', $room->toArray())
+                        ->with('defaultRoomTypes', $defaultRoomType)
+                        ->with('customeRoomTypes', $customeRoomTypes)
                         ->with('availableRoomTypes', $availableRoomTypes)
                         ->with('roomtypeAttributes', $roomtypeAttribute)
                         ->with('current', 'room_type');
@@ -114,6 +138,18 @@ class ProjectRoomTypeController extends Controller {
      * @return Response
      */
     public function update($projectId, $roomId, Request $request) {
+        
+        $roomtype_name = $request['room_name'];
+        if(isset($request['roomtypecustome']))
+        {
+            $default = new Defaults();
+            $default->type = 'custome_room_type';
+            $default->label =  ucfirst($roomtype_name);
+            $default->serialize_data = serialize([]);
+            $default->save();
+            $roomtype_name = $default->id;
+        }
+        
         $roomType = RoomType::find($roomId);
         $roomtype_name = $request['room_name'];
         $roomType->name = ucfirst($roomtype_name);
@@ -159,6 +195,7 @@ class ProjectRoomTypeController extends Controller {
             $type = $request->input('type');
             $roomType = RoomType::find($roomTypeId);
             $attributes = $roomType->attributes->toArray();
+            $roomTypeName = Defaults::find($roomType->name)->label;
             
             $str .= ($type=="add")?'<div class="p-r-15 p-l-15 roomattribute_'.$level.'_'.$roomTypeId.'">':'';
             $str .= '<div class="text-right">';
@@ -171,7 +208,7 @@ class ProjectRoomTypeController extends Controller {
             $str .= '<label class = "form-label"></label>';
             $str .= '<div class="input-with-icon  right">';
             $str .= '<i class = ""></i><input type="hidden" name="variantroomid[]" value="">';
-            $str .= 'Room Name :'.$roomType->name;
+            $str .= 'Room Name :'.$roomTypeName;
             $str .= '<input type="hidden" name="room_id[]" value="'.$roomTypeId.'">';
             $str .= ' </div>';
             $str .= ' </div> ';

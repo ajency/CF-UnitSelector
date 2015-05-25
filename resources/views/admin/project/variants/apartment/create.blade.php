@@ -215,9 +215,9 @@
                                                     <div class="col-md-9">
                                                         <select name="room_type[]" onchange="openRoomTypeModal(this, 0)" class="select2 form-control">
                                                             <option value="">Select Room</option>
-                                                            @foreach($availableRoomTypes as $room_type)
-                                                            <option value="{{$room_type['id']}}">{{$room_type['name']}}</option>
-                                                            @endforeach
+                                                            @foreach($availableRoomTypes as $roomTypeId=> $room_type)
+                                                                <option  value="{{$roomTypeId}}">{{$room_type}}</option>
+                                                                @endforeach
                                                             <option value="add_new">Add New</option>
                                                         </select>
                                                     </div>
@@ -296,8 +296,8 @@
                                                         <div class="col-md-9">
                                                             <select onchange="openRoomTypeModal(this, 0)" name="room_type[]" class="select2 form-control">
                                                                 <option value="">Select Room</option>
-                                                                @foreach($availableRoomTypes as $room_type)
-                                                                <option  value="{{$room_type['id']}}">{{$room_type['name']}}</option>
+                                                                @foreach($availableRoomTypes as $roomTypeId=> $room_type)
+                                                                <option  value="{{$roomTypeId}}">{{$room_type}}</option>
                                                                 @endforeach
                                                                 <option value="add_new">Add New Room</option>
                                                             </select>

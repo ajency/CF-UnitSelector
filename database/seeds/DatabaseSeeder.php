@@ -29,6 +29,9 @@ class DatabaseSeeder extends Seeder {
         $this->call( 'PropertyTypeTableSeeder' );
         $this->command->info( " Property Type Table Seeded! " );
         
+        $this->call( 'RoomTypeTableSeeder' );
+        $this->command->info( " Room Type Table Seeded! " );
+        
         $this->call( 'UnitTypeTableSeeder' );
         $this->command->info( " Unit Type Table Seeded! " );
     }
@@ -126,6 +129,27 @@ class UnitTypeTableSeeder extends Seeder {
        Defaults::create( ['type' => 'plot_unit_types','label'=>"40X60 SQ.FT",'serialize_data'=>  serialize([])]); 
        Defaults::create( ['type' => 'plot_unit_types','label'=>"40X70 SQ.FT",'serialize_data'=>  serialize([])]); 
        Defaults::create( ['type' => 'plot_unit_types','label'=>"60X40 SQ.FT",'serialize_data'=>  serialize([])]); 
+
+    }
+
+}
+
+class RoomTypeTableSeeder extends Seeder {
+
+    public function run() {
+        Defaults::create( ['type' => 'room_types','label'=>"Balcony",'serialize_data'=>  serialize([])]);
+        Defaults::create( ['type' => 'room_types','label'=>"Bedroom",'serialize_data'=>  serialize([])]);
+        Defaults::create(['type' => 'room_types','label'=>"Covered Balcony",'serialize_data'=> serialize([])]);
+        Defaults::create( ['type' => 'room_types','label'=>"Dining",'serialize_data'=>  serialize([])]);  
+        Defaults::create( ['type' => 'room_types','label'=>"Dress",'serialize_data'=>  serialize([])]);
+        Defaults::create( ['type' => 'room_types','label'=>"Foyer",'serialize_data'=>  serialize([])]);
+        Defaults::create(['type' => 'room_types','label'=>"Kitchen",'serialize_data'=> serialize([])]);
+        Defaults::create( ['type' => 'room_types','label'=>"Living",'serialize_data'=>  serialize([])]);   
+        Defaults::create( ['type' => 'room_types','label'=>"Lounge",'serialize_data'=>  serialize([])]);
+        Defaults::create( ['type' => 'room_types','label'=>"Master Bedroom",'serialize_data'=>  serialize([])]);
+        Defaults::create(['type' => 'room_types','label'=>"Powder Room",'serialize_data'=> serialize([])]);
+        Defaults::create( ['type' => 'room_types','label'=>"Toilet",'serialize_data'=>  serialize([])]);  
+        Defaults::create( ['type' => 'room_types','label'=>"Utility",'serialize_data'=>  serialize([])]);
 
     }
 

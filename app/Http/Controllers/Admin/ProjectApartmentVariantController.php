@@ -84,7 +84,12 @@ class ProjectApartmentVariantController extends Controller {
         }
         
         
-        $availableRoomTypes = $project->roomTypes()->get()->toArray();
+        $availableRoomTypeData = $project->roomTypes()->get()->toArray();
+        $availableRoomTypes = [];
+        foreach ($availableRoomTypeData as $availableRoomType)
+        {
+            $availableRoomTypes[$availableRoomType['id']] = Defaults::find($availableRoomType['name'])->label;
+        }
         
         return view( 'admin.project.variants.apartment.create' )
                         ->with( 'project', $project->toArray() )
@@ -151,9 +156,10 @@ class ProjectApartmentVariantController extends Controller {
         
         $levels = $request->input('levels');
         $propertyType = $request->input('property_type');
+        $propertyTypeId = ProjectPropertyType::find($propertyType)->property_type_id;
         foreach($levels as $level)
         {
-            if($propertyType==APARTMENTID && $level!=0)
+            if($propertyTypeId==APARTMENTID && $level!=0)
                 continue;
             
             $twoDImageId = $request->input('image_'.$level.'_2d_id');
@@ -246,7 +252,7 @@ class ProjectApartmentVariantController extends Controller {
         $RoomTypes = $project->roomTypes()->get()->toArray();
         foreach($RoomTypes as $RoomType)
         {
-            $availableRoomTypes[$RoomType['id']]=$RoomType['name'];
+           $availableRoomTypes[$RoomType['id']]=Defaults::find($RoomType['name'])->label;
         }
         $variantRooms = $unitVariant->variantRoomAttributes()->get()->toArray();
         $variantRoomArr = [];
