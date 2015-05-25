@@ -118,7 +118,7 @@
       apartmentVariantMasterCollection.each(function(item) {
         var type, unit_type;
         unit_type = unitTypeMasterCollection.findWhere({
-          'id': parseInt(item.get('id'))
+          'id': parseInt(item.get('unit_type_id'))
         });
         type = 'A';
         if (window.propertyTypes[unit_type.get('property_type_id')] === 'Penthouse') {
@@ -129,7 +129,6 @@
           return types.push(type);
         }
       });
-      console.log(types);
       return [attributes, types];
     };
 

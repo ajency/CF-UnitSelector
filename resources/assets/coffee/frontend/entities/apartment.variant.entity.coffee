@@ -84,7 +84,7 @@ class ApartmentVariantCollection extends Backbone.Collection
 		types = []
 		apartmentVariantMasterCollection.each (item)->
 			unit_type = unitTypeMasterCollection.findWhere
-									'id' : parseInt item.get('id')
+									'id' : parseInt item.get('unit_type_id')
 			type = 'A'
 			if window.propertyTypes[unit_type.get('property_type_id')] == 'Penthouse'
 				type = 'PH'
@@ -93,7 +93,6 @@ class ApartmentVariantCollection extends Backbone.Collection
 				types.push type
 				
 						
-		console.log types
 		[attributes,types]
 
 	
