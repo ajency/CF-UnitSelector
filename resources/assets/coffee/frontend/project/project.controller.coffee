@@ -188,7 +188,9 @@ class CenterView extends Marionette.ItemView
 
 
 			
-
+	events : 
+		'mouseover .step1-marker':(e)->
+			$('.marker').tooltipster('show')
 		
 			
 	onShow:->

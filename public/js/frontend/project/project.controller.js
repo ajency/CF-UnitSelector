@@ -142,6 +142,12 @@
       svgContainer: '.us-right-content'
     };
 
+    CenterView.prototype.events = {
+      'mouseover .step1-marker': function(e) {
+        return $('.marker').tooltipster('show');
+      }
+    };
+
     CenterView.prototype.onShow = function() {
       var path;
       $('img').lazyLoadXT();
