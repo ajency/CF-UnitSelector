@@ -236,7 +236,7 @@ class ApartmentsView extends Marionette.ItemView
 					                   <div class="pull-left bldg-info">
 					                    <div class="info">
 					                      <label>{{unit_name}}</label>
-					                      ({{unit_type}} {{super_built_up_area}}sqft)
+					                      ({{unit_type}} {{super_built_up_area}} {{area_unit}})
 					                    </div>
 					                    <label>2nd Floor</label><br>
 					                    <label class="text-primary">Aprox. 35 Lacs</label>
@@ -261,6 +261,7 @@ class ApartmentsView extends Marionette.ItemView
 							'id' :  @model.get('unit_type_id')
 		property = window.propertyTypes[unitType.get('property_type_id')]
 		data.property = s.capitalize(property)
+		data.area_unit = project.get('area_unit')
 		data
 
 	events:

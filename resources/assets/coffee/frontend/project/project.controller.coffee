@@ -78,7 +78,9 @@ class LeftView extends Marionette.ItemView
 													       <div class="text-muted text-default"> To Move Forward Click Arrow</div>
 													      </div>
 													       <div class="circle">
-															    <span class="arrow-up icon-chevron-right"></span>
+													       		<a href="#/master-view" class="arrow-up icon-chevron-right master"></a>
+													       		<a href="#/list-view" class="arrow-up icon-chevron-right list"></a>
+															   
 															  </div>  
 														</div>	
 											
@@ -108,7 +110,7 @@ class LeftView extends Marionette.ItemView
 												<!--<h4 class="m-b-5 m-t-0 text-primary">{{prop_type}}</h4>
 												  <span>{{i10n "project_type"}}:</span> {{prop_type}}
 												<p>
-												  <span>{{i10n "starting_area"}}:</span> {{starting_area}} Sq.Ft.
+												  <span>{{i10n "starting_area"}}:</span> {{starting_area}}'+project.get('area_unit')+'
 												</p>-->
 
 												<span class="prop-icon"></span>
@@ -160,6 +162,14 @@ class LeftView extends Marionette.ItemView
 				'availability'		: availability
 		data.propertyTypes = propertyTypes
 		data
+
+	onShow:->
+		if Object.keys(project.get('project_master')).length  ==  0
+			$('.master').hide()
+			$('.list').show()
+		else
+			$('.list').hide()
+			$('.master').show()
 
 		
 #Controller for the left view of Project

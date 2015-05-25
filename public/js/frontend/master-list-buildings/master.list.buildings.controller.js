@@ -11,7 +11,7 @@
       return ListItemView.__super__.constructor.apply(this, arguments);
     }
 
-    ListItemView.prototype.template = Handlebars.compile('<div class="bldg-img"></div> <div class="info"> <h2 class="m-b-5">{{building_name}}</h2> <div class="floors"><span>{{floors}}</span> floors</div> </div> <div class="clearfix"></div> <div class="unit-type-info"> <ul> {{#types}} <li> {{name}}<!--: <span>{{units}}</span>--> </li> {{/types}} <span class="area {{areaname}}">{{area}} Sq.Ft</span> <div class="text-primary price {{classname}}">Starting price <span class="icon-rupee-icn"></span>{{price}}</div> </ul> </div>');
+    ListItemView.prototype.template = Handlebars.compile('<div class="bldg-img"></div> <div class="info"> <h2 class="m-b-5">{{building_name}}</h2> <div class="floors"><span>{{floors}}</span> floors</div> </div> <div class="clearfix"></div> <div class="unit-type-info"> <ul> {{#types}} <li> {{name}}<!--: <span>{{units}}</span>--> </li> {{/types}} <span class="area {{areaname}}">{{area}} {{area_unit}}</span> <div class="text-primary price {{classname}}">Starting price <span class="icon-rupee-icn"></span>{{price}}</div> </ul> </div>');
 
     ListItemView.prototype.tagName = 'li';
 
@@ -44,6 +44,7 @@
       data.price = window.numDifferentiation(cost);
       data.floors = Object.keys(floors).length;
       data.types = types;
+      data.area_unit = project.get('area_unit');
       return data;
     };
 

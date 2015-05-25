@@ -57,7 +57,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 				                                </div>
 
 				                                <div class="">
-				                                    <h6 class="">AREA (Sqft)</h6>
+				                                    <h6 class="">AREA ({{area_unit}})</h6>
 				                                	<div class="range-container">
 				                                		<input type="text" id="area" name="area" value="" />
 				                                	</div>
@@ -513,34 +513,6 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 
 		
-		# window.area.update(
-		#    from : min
-		#    to  : max
-		# )
-		# window.price.update(
-		#    from : priceMin
-		#    to  : priceMax
-		# )
-
-		# min = _.min CommonFloor.defaults['area_min']
-		# max = _.max CommonFloor.defaults['area_max']
-		# subArea = (max - min)/ 20 
-		# subArea = subArea.toFixed(0)
-		# priceMin = _.min CommonFloor.defaults['price_min']
-		# priceMax = _.max CommonFloor.defaults['price_max']		
-		# subBudget = (priceMax - priceMin)/ 20
-		# subBudget = subBudget.toFixed(0)
-
-		# if CommonFloor.defaults['area_min'] != "" && CommonFloor.defaults['area_min'] != ""
-		# 	window.area.update(
-		# 	   from : min
-		# 	   to  : max
-		# )
-		# if CommonFloor.defaults['price_min'] != "" && CommonFloor.defaults['price_max'] != ""
-		# 	window.price.update(
-		# 	   from : priceMin
-		# 	   to  : priceMax
-		# )
 		
 		@ui.status.prop('checked',false)
 		if CommonFloor.defaults['availability'] != "" 
@@ -553,6 +525,8 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			$('.fliters-container').removeClass 'closed'
 		else
 			$('.fliters-container').addClass 'closed'
+		
+
 
 		
 		
@@ -600,6 +574,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 				value.type_name = '(A)/(PH)'
 				value['id'] = 'Apartments'
 		@view = view = new CommonFloor.FilterMsterView
+				model : project
 				'unitTypes' : unitTypes
 				'unitVariants' : _.uniq unitVariants
 				'unitVariantNames' : unitVariantNames
@@ -662,6 +637,10 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 			'flooring'			: flooringAttributes
 			'budget'			: budget
 
+		$.each filters[0],(index,value)->
+			if $.inArray(index , project.get('filters').Villa) ==  -1 && index != 'budget' && index != 'unitVariants'
+				filters[0][index] = []
+				
 
 		filters
 
@@ -716,6 +695,11 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 			'unitVariantNames' : unitVariantNames
 			'flooring'		: flooringAttributes
 			'budget'			: budget
+
+		$.each filters[0],(index,value)->
+			if $.inArray(index , project.get('filters').Villa) ==  -1 && index != 'budget' && index != 'unitVariants'
+				filters[0][index] = []
+		
 		filters
 
 
@@ -766,5 +750,10 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 			'unitVariantNames' : unitVariantNames
 			'flooring'			: flooringAttributes
 			'budget'			: budget
+
+		$.each filters[0],(index,value)->
+			if $.inArray(index , project.get('filters').Villa) ==  -1 && index != 'budget' && index != 'unitVariants'
+				filters[0][index] = []
+		
 		filters
 								

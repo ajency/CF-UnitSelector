@@ -464,7 +464,7 @@ CommonFloor.getFilters = ()->
 		area_max = CommonFloor.defaults['area_max']
 		area.push 
 				'name' : area_min+'-'+area_max
-				'type'  : 'Sq.Ft' 
+				'type'  : project.get('area_unit') 
 				'id' : 'area'
 				'id_name' : 'filter_area'
 				'classname' : 'area'
@@ -552,6 +552,8 @@ CommonFloor.getVillaFilters = ()->
 	
 	filters = {'unitVariants' : unitVariants,'unitTypes': unitTypes
 			,'count': bunglowVariantMasterCollection.getBunglowUnits().length,'flooring' : flooring}
+	
+	
 	filters
 
 CommonFloor.getApartmentFilters = ()->

@@ -49,7 +49,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 				                                </div>
 
 				                                <div class="">
-				                                    <h6>AREA (Sqft)</h6>
+				                                    <h6>AREA ({{area_unit}})</h6>
 				                                    <div class="range-container">
 				                                		<input type="text" id="area" name="area" value="" />
 				                                	</div>
@@ -508,6 +508,7 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 			$.merge budget , apartmentFilters[0].budget
 			$.merge flooring , apartmentFilters[0].flooring
 		@view = view = new CommonFloor.FilterApartmentView
+				model : project
 				'unitTypes' : unitTypes
 				'unitVariants' : _.uniq unitVariants
 				'unitVariantNames' : unitVariantNames
