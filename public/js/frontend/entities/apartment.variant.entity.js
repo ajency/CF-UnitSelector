@@ -129,6 +129,7 @@
           return types.push(type);
         }
       });
+      console.log(types);
       return [attributes, types];
     };
 

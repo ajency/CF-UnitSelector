@@ -93,7 +93,7 @@ class ApartmentVariantCollection extends Backbone.Collection
 				types.push type
 				
 						
-
+		console.log types
 		[attributes,types]
 
 	
