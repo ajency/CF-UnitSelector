@@ -106,6 +106,7 @@
           unitTypes = _.without(unitTypes, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['unitTypes'] = unitTypes.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -116,6 +117,7 @@
           variantNames = _.without(variantNames, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['unitVariants'] = variantNames.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -123,6 +125,7 @@
         'click @ui.status': function(e) {
           CommonFloor.defaults['availability'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -131,6 +134,7 @@
           CommonFloor.defaults['area_max'] = "";
           CommonFloor.defaults['area_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -139,6 +143,7 @@
           CommonFloor.defaults['price_max'] = "";
           CommonFloor.defaults['price_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -147,6 +152,7 @@
           CommonFloor.defaults['floor_max'] = "";
           CommonFloor.defaults['floor_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -157,8 +163,9 @@
           flooring = _.without(flooring, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['flooring'] = flooring.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
-          unitCollection.trigger('filter_available');
+          unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         }
       };
