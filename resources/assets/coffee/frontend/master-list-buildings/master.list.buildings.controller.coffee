@@ -14,7 +14,7 @@ class ListItemView extends Marionette.ItemView
 						                          {{name}}<!--: <span>{{units}}</span>-->
 						                        </li>
 						                        {{/types}}
-					                      		<span class="area {{areaname}}">{{area}} Sq.Ft</span>
+					                      		<span class="area {{areaname}}">{{area}} {{area_unit}}</span>
 					                      		<div class="text-primary price {{classname}}">Starting price <span class="icon-rupee-icn"></span>{{price}}</div>
 											</ul>
 										 </div>')
@@ -49,6 +49,7 @@ class ListItemView extends Marionette.ItemView
 		data.price = window.numDifferentiation(cost)
 		data.floors = Object.keys(floors).length
 		data.types = types
+		data.area_unit = project.get('area_unit')
 		data
 
 	events:
@@ -152,7 +153,7 @@ class ListItemView extends Marionette.ItemView
 #view for list of buildings : Collection
 class MasterBuildingListView extends Marionette.CompositeView
 
-	template : Handlebars.compile('
+	template : Handlebars.compile('		<div id="trig" class="toggle-button"></div>
 										<div id="view_toggle" class="toggle-view-button map"></div>
 										<div class="list-view-container w-map animated fadeIn">
 										<!--<div class="controls map-View">
@@ -185,15 +186,18 @@ class MasterBuildingListView extends Marionette.CompositeView
 
 	ui :
 		viewtog      : '#view_toggle'
+		trig 		: '#trig'
 
+	events :
+		'click @ui.trig':(e)->
+			$('.list-container').toggleClass 'closed'
 
-	events : 
 		'click @ui.viewtog':(e)->
 			$('.us-left-content').toggleClass 'not-visible visible'
 			$('.us-right-content').toggleClass 'not-visible visible'
 			
 		'click .buildings':(e)->
-			console.log units = buildingCollection
+			units = buildingCollection
 			data = {}
 			data.units = units
 			data.type = 'building'
@@ -204,7 +208,7 @@ class MasterBuildingListView extends Marionette.CompositeView
 			
 
 		'click .Villas':(e)->
-			console.log units = bunglowVariantCollection.getBunglowUnits()
+			units = bunglowVariantCollection.getBunglowUnits()
 			data = {}
 			data.units = units
 			data.type = 'villa'
@@ -229,8 +233,9 @@ class MasterBuildingListView extends Marionette.CompositeView
 		if plotVariantCollection.length != 0
 			$('.tab').removeClass 'hidden'
 			
-		$('.units').mCustomScrollbar
-			theme: 'inset'
+		if $(window).width() > 991
+			$('.units').mCustomScrollbar
+				theme: 'cf-scroll'
 
 
 

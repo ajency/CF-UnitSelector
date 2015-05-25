@@ -131,7 +131,7 @@ class PlotListView extends Marionette.ItemView
 					<div class="clearfix"></div>-->
 					<div class="details">
 						<div>
-							'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
+							'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('area_unit')+')
 							<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 						</div>
 						<div class="text-primary">
@@ -159,7 +159,7 @@ class PlotListView extends Marionette.ItemView
 #view for list of plots : Collection
 class MasterPlotListView extends Marionette.CompositeView
 
-	template : Handlebars.compile('
+	template : Handlebars.compile('	<div id="trig" class="toggle-button"></div>
 									<div id="view_toggle" class="toggle-view-button map"></div>
 									<div class="list-view-container w-map animated fadeIn">
 							            <!--<div class="controls map-View">
@@ -210,9 +210,13 @@ class MasterPlotListView extends Marionette.CompositeView
 	childViewContainer : '.units'
 
 	ui :
-		viewtog      : '#view_toggle'
+		viewtog     : '#view_toggle'
+		trig 		: '#trig'
 
 	events :
+		'click @ui.trig':(e)->
+			$('.list-container').toggleClass 'closed'
+
 		'click @ui.viewtog':(e)->
 			$('.us-left-content').toggleClass 'not-visible visible'
 			$('.us-right-content').toggleClass 'not-visible visible'
@@ -253,15 +257,15 @@ class MasterPlotListView extends Marionette.CompositeView
 		if bunglowVariantCollection.length != 0
 			$('.Villas').removeClass 'hidden'
 
-		$('.units').mCustomScrollbar
-			theme: 'inset'
+		if $(window).width() > 991
+			$('.units').mCustomScrollbar
+				theme: 'cf-scroll'
 		
 
 #controller for the Center region
 class CommonFloor.MasterPlotListCtrl extends Marionette.RegionController
 
 	initialize:->
-		console.log "aaaaaaaaa"
 		newUnits = plotVariantCollection.getPlotUnits()
 		unitsCollection = new Backbone.Collection newUnits 		
 		@view = view = new MasterPlotListView

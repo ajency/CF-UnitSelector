@@ -63,9 +63,9 @@ body {
 .proj-type-count {
   float: left;
 }
-.proj-type-count h1 {
+.proj-type-count h2 {
   margin: 0 0 0 15px;
-  padding: 5px 5px 10px 10px;
+  padding: 15px 5px 10px 10px;
   border-left: 1px solid #db6809;
 }
 .proj-type-count p {
@@ -136,6 +136,97 @@ body {
 }
 .col-0.not-visible .two .blocks {
   padding: 0;
+}
+.list-container.not-visible {
+  position: fixed;
+  z-index: 9999;
+  left: 20px;
+  top: 115px;
+  padding: 0;
+  overflow: hidden;
+  -webkit-transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+          transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  background-color: rgba(255, 255, 255, 0.9);
+  width: 340px;
+  height: 450px;
+  border: 1px solid #f68121;
+  border-radius: 3px;
+}
+.list-container.not-visible.closed {
+  width: 0;
+  height: 0;
+  padding: 18px 20px;
+  background-color: #ffffff;
+}
+.list-container.not-visible.closed .filters-wrapper {
+  opacity: 0;
+}
+.list-container.not-visible.closed .toggle-button::before {
+  content: "\e756";
+  font-family: icomoon;
+}
+.list-container.not-visible.closed .toggle-button::after {
+  position: relative;
+  right: -50px;
+  top: -1px;
+  -webkit-transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+          transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  content: "List View";
+  font-size: 14px;
+  opacity: 0;
+  width: 60px;
+  display: inline-block;
+}
+.list-container.not-visible.closed:hover {
+  padding-right: 85px;
+}
+.list-container.not-visible.closed:hover .toggle-button::before {
+  margin-right: 5px;
+}
+.list-container.not-visible.closed:hover .toggle-button::after {
+  opacity: 1;
+  right: 0;
+}
+.list-container.not-visible .toggle-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  color: #f68121;
+  padding: 6px 12px;
+  cursor: pointer;
+  z-index: 999;
+  font-size: 16px;
+  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+}
+.list-container.not-visible .toggle-button::before {
+  content: "\e75e";
+  font-family: icomoon;
+}
+.list-container.not-visible .toggle-button:hover {
+  color: #f68121;
+}
+.list-container.not-visible .mCSB_inside > .mCSB_container {
+  margin-right: 20px;
+}
+.list-container.not-visible .mCSB_container.mCS_no_scrollbar_y.mCS_y_hidden {
+  margin-right: 0;
+}
+@media (max-width: 767px) {
+  .fliters-container {
+    right: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff;
+  }
+  .fliters-container.closed {
+    right: 20px;
+    top: 80px;
+  }
+  .fliters-container .filters-wrapper .filters-content {
+    height: auto;
+  }
 }
 @media (max-width: 991px) {
   .us-right-content.mobile.visible,
@@ -245,7 +336,7 @@ body {
     margin: 10px 0;
     background-color: #db6809;
   }
-  .header-info .proj-type-count h1 {
+  .header-info .proj-type-count h2 {
     padding: 5px;
     font-size: 24px;
     margin: 0;
@@ -359,16 +450,18 @@ hr.embossed {
 /*Step 3 list*/
 /*Step 4*/
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background-color: #000;
+  background-color: #ccc;
+  border: 1px solid #999;
 }
 ::-webkit-scrollbar-thumb {
-  background-color: #FFC698;
+  background-color: #666;
+  border-radius: 50px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #aaa;
+  background-color: #f68121;
 }
 /* Bootstrap responsive utilities */
 @-ms-viewport {
@@ -1110,32 +1203,6 @@ hr.embossed {
   }
 }
 /* Toggle Button */
-.toggle-button {
-  position: absolute;
-  border: 1px solid #f68121;
-  border-radius: 3px;
-  background-color: #ffffff;
-  color: #f68121;
-  padding: 6px 12px;
-  -webkit-transform: rotate(270deg);
-      -ms-transform: rotate(270deg);
-          transform: rotate(270deg);
-  left: -34px;
-  top: 45%;
-  cursor: pointer;
-  z-index: 999;
-  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-}
-.toggle-button::before {
-  content: "\e756";
-  font-family: icomoon;
-  margin-right: 5px;
-}
-.toggle-button:hover {
-  background-color: #f68121;
-  color: #ffffff;
-}
 .toggle-view-button {
   display: none;
 }
@@ -1218,6 +1285,17 @@ hr.embossed {
   opacity: 1;
   background: url('../../images/loader.gif') no-repeat 50% 50%;
   background-size: 40px;
+}
+/* Scrollbar */
+.mCS-cf-scroll .mCSB_scrollTools {
+  width: 12px;
+}
+.mCS-cf-scroll .mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+  background-color: rgba(219, 104, 9, 0.75);
+  border-radius: 0;
+}
+.mCS-cf-scroll .mCSB_scrollTools .mCSB_draggerRail {
+  background-color: rgba(204, 204, 204, 0.5);
 }
 .rotate-controls {
   position: absolute;
@@ -1546,7 +1624,6 @@ svg polygon {
 }
 .list-view-container .prop-select .prop-type.active {
   color: #f68121;
-  background-color: #ffffff;
   border-bottom: 2px solid #f68121;
 }
 .list-view-container .legend {
@@ -1578,16 +1655,12 @@ svg polygon {
   background-color: #cccccc;
 }
 .list-view-container.w-map {
-  padding: 10px 0;
+  padding: 20px 10px;
 }
-.list-view-container.w-map .legend {
-  text-align: left;
-  padding: 10px 0 20px 40px;
-}
-.list-view-container.w-map .legend li {
-  width: 50%;
-  margin: 0;
-  float: left;
+@media (min-width: 992px) {
+  .list-view-container.w-map .units {
+    height: 370px;
+  }
 }
 .list-view-container .help-text {
   font-size: 13px;
@@ -1600,7 +1673,6 @@ svg polygon {
   float: left;
   width: 32.2%;
   padding: 15px 10px;
-  background-color: #ffffff;
   border-bottom: 1px solid #e6e6e6;
   border-right: 1px solid #e6e6e6;
 }
@@ -1630,6 +1702,19 @@ svg polygon {
 }
 .blocks.available:hover,
 .blocks.active:hover {
+  box-shadow: inset 0 0 10px 1px #f68121;
+  -webkit-animation-name: hvr-back-pulse;
+          animation-name: hvr-back-pulse;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-delay: 0;
+          animation-delay: 0;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+}
+.blocks.active {
   box-shadow: inset 0 0 10px 1px #f68121;
   -webkit-animation-name: hvr-back-pulse;
           animation-name: hvr-back-pulse;
@@ -1783,12 +1868,6 @@ svg polygon {
   float: left;
   display: none;
   font-weight: bold;
-}
-@media (min-width: 992px) and (max-width: 1200px) {
-  .two .blocks {
-    width: 100%;
-    border-right: none;
-  }
 }
 @media (max-width: 767px) {
   .blocks {
@@ -2549,6 +2628,9 @@ label.third_toggle {
   width: 100%;
   max-width: 470px;
 }
+.big-tooltip h5 {
+  width: 65%;
+}
 .big-tooltip .b-r {
   border-left: 1px solid #cccccc;
 }
@@ -2653,17 +2735,23 @@ label.third_toggle {
   color: #666666;
 }
 .svg-info .circle {
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   border-radius: 100%;
-  background: #f68121;
+  background: #ccc;
   position: absolute;
-  right: -20px;
-  top: 30%;
+  bottom: -15px;
   text-align: center;
-  line-height: 40px;
-  color: #ffffff;
-  font-size: 15px;
+  right: 18px;
+  line-height: 35px;
+  border: 1px solid #999;
+  color: #5F5858 !important;
+  font-size: 13px;
+}
+.svg-info .circle:hover {
+  background: #f68121;
+  cursor: pointer;
+  color: #ffffff !important;
 }
 .svg-info .step2-sprite {
   background: url(../../images/sprite-popover.png) no-repeat;

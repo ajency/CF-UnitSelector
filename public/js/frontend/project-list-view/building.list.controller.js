@@ -67,7 +67,7 @@
     BuildingListView.prototype.events = {
       'click .buildings': function(e) {
         var data, units;
-        console.log(units = buildingCollection);
+        units = buildingCollection;
         data = {};
         data.units = units;
         data.type = 'building';
@@ -80,7 +80,7 @@
       },
       'click .Villas': function(e) {
         var data, units;
-        console.log(units = bunglowVariantCollection.getBunglowUnits());
+        units = bunglowVariantCollection.getBunglowUnits();
         data = {};
         data.units = units;
         data.type = 'villa';

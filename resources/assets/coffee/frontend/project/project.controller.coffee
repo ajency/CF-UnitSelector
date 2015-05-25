@@ -63,26 +63,25 @@ class LeftView extends Marionette.ItemView
 
 										<div id="proj_info">
 											<div class="big-tooltip">
-												<div class="row">
-												    <div class="col-sm-4">
-												        <div class="m-t-15">
-												           	<h5>{{i10n "project_by"}}</h5>
+												<div class="svg-info not-available">
+													<div class="action-bar" style="width:140px;height:140px;">
+															<h5>{{i10n "project_by"}}</h5>
 												          	<img src="{{logo}}" class="img-responsive builder-logo">
-												        </div>
-												    </div>
-												   	<div class="col-sm-8 b-r">
-												        <div class="m-t-15">
-												        	{{#propertyTypes}}
-												          	<p>{{prop_type}} <span class="text-muted">({{unit_types}})</span></p>
+													</div>	
+													 <h5 class="pull-left m-t-0">{{address}}</h5>
+													 	  <div class="details">
+													       	{{#propertyTypes}}
+												          	<div>{{prop_type}} <span class="text-muted">({{unit_types}})</span></div>
 												        	{{/propertyTypes}}
 
-												         	<br>
-												       		<span class="icon-location pull-left"></span>
-												       		<p class="address">{{address}}</p>
-												        	<div class="clearfix"></div><br>
-												        </div> 
-												    </div>
-												</div>
+												         	
+													       <div class="text-muted text-default"> To Move Forward Click Arrow</div>
+													      </div>
+													       <div class="circle">
+													       		 <span class="arrow-up icon-chevron-right master"></span>
+															  </div>  
+														</div>	
+											
 											</div>
 										</div>
 
@@ -109,7 +108,7 @@ class LeftView extends Marionette.ItemView
 												<!--<h4 class="m-b-5 m-t-0 text-primary">{{prop_type}}</h4>
 												  <span>{{i10n "project_type"}}:</span> {{prop_type}}
 												<p>
-												  <span>{{i10n "starting_area"}}:</span> {{starting_area}} Sq.Ft.
+												  <span>{{i10n "starting_area"}}:</span> {{starting_area}}'+project.get('area_unit')+'
 												</p>-->
 
 												<span class="prop-icon"></span>
@@ -144,7 +143,7 @@ class LeftView extends Marionette.ItemView
 	serializeData:->
 		data = super()
 		propertyTypesData = @model.get 'project_property_types'
-		console.log properties = @model.get 'property_types'
+		properties = @model.get 'property_types'
 		propertyTypes = [] 
 		availability = []
 		$.each propertyTypesData,(index,value)->
@@ -188,19 +187,12 @@ class CenterView extends Marionette.ItemView
 		svgContainer : '.us-right-content'
 
 
-	events:
-		'click .step1-marker':(e)->
-			# $('.svg-area').addClass 'zoom'
-			$('.cf-loader').removeClass 'hidden'
-			$('svg').attr('class' ,'zoom') 
-			$('.step1').addClass 'animated fadeOut'
-			setTimeout( (x)->
-				CommonFloor.checkPropertyType()
-			, 100)
+			
 
 		
 			
 	onShow:->
+		
 		$('img').lazyLoadXT()
 		path = @model.get('step_one').svg
 		$('.svg-area').load(path, ()->
@@ -214,6 +206,16 @@ class CenterView extends Marionette.ItemView
 				animation : 'grow'
 				trigger: 'click'
 				content : $('#proj_info').html()
+				functionReady:(e)->
+					$('.master').on('click' , (e)->
+						$('.cf-loader').removeClass 'hidden'
+						$('svg').attr('class' ,'zoom') 
+						$('.step1').addClass 'animated fadeOut'
+						setTimeout( (x)->
+							CommonFloor.checkPropertyType()
+						, 100)
+					)
+
 			)
 			$('.marker').tooltipster('show')
 
@@ -223,13 +225,6 @@ class CenterView extends Marionette.ItemView
 
 		
 		
-
-		# if $(window).width() > 991
-		# 	height= @.ui.svgContainer.width() / 2
-		# 	$('.step1').css('height',height)
-		# 	$('.proj-info').css('height',height-180)
-		# 	$('.proj-info').mCustomScrollbar
-		# 		theme: 'inset'
 
 
 		

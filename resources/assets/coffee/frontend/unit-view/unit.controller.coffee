@@ -113,7 +113,7 @@ class LeftUnitView extends Marionette.ItemView
 									<div class="col-sm-6 col-xs-6">
 										<span class="facts-icon icon-BHK-area-2"></span>
 										<div class="unit-label">
-											<h3>{{area}} sq.ft</h3>
+											<h3>{{area}} {{area_unit}}</h3>
 											<h5 class="text-muted">Area</h5>      
 										</div>
 									</div>
@@ -193,7 +193,7 @@ class LeftUnitView extends Marionette.ItemView
 
 			              	              	<span class="text-muted">Unit Variant: </span>{{variant}}<br>
 			              	             	<span class="text-muted">Unit Type:</span> {{unit_type}}<br>
-			              	             	<span class="text-muted"> Area:</span> {{area}} sqft     
+			              	             	<span class="text-muted"> Area:</span> {{area}} '+project.get('area_unit')+'    
 					              	    </div>
 					              	</div>
 
@@ -236,6 +236,7 @@ class LeftUnitView extends Marionette.ItemView
 		data.attributes  = attributes
 		data.similarUnits = temp
 		data.similarUnitsText = similarUnits[1]
+		data.area_unit = project.get('area_unit')
 		data
 
 	getSimilarUnits:(unit)->
@@ -435,7 +436,7 @@ class CenterUnitView extends Marionette.ItemView
 						<div class="details">
 							<span>'+response[1].get('name')+'</span></br>
 							<div class="text-primary"><span class="text-primary facts-icon icon-rupee-icn"></span>'+window.numDifferentiation(response[3])+'</div>
-							<!--<div>Area: <span>'+response[0].get('super_built_up_area')+'Sq.Ft</span></div>	
+							<!--<div>Area: <span>'+response[0].get('super_built_up_area')+' '+project.get('area_unit')+'</span></div>	
 							<div>Variant: <span>'+response[0].get('unit_variant_name')+'</span></div>-->
 							
 						</div>
@@ -524,6 +525,8 @@ class CenterUnitView extends Marionette.ItemView
 
 
 		$('.images').html html
+		if html == ""
+			$('.images').html '<div>No images found</div>'
 		$(".fancybox").fancybox()
 		$('.img').lazyLoadXT()
 		@iniTooltip()

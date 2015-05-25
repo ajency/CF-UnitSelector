@@ -29,10 +29,9 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 									            </div>
 									           
 						              			<div class="header-info">
-						              				<h2 class="pull-left proj-name">{{project_title}}</h2>
+						              				<h2 class="pull-left proj-name">{{project_title}} - {{name}}</h2>
 						              				<div class="proj-type-count">
-						              					<h1 class="pull-left proj-name">{{name}}</h1><h1 class="pull-left">{{results}}</h1><p class="pull-left">Apartment(s)/Penthouse(s)</p> 
-						              					
+						              					<h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p>
 						              				</div>
 						              				<div class="pull-left filter-result">
 						              	              	{{#each  filters}}
@@ -61,6 +60,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		budget : '#filter_budget'
 		types : '.types'
 		floor : '.floor'
+		filter_flooring : '.filter_flooring'
 
 	initialize:->
 		url = Backbone.history.fragment
@@ -157,6 +157,15 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
+			@trigger  'render:view'
+
+		'click @ui.filter_flooring':(e)->
+			flooring = CommonFloor.defaults['flooring'].split(',')
+			flooring = _.without flooring , $(e.currentTarget).attr('data-id')
+			CommonFloor.defaults['flooring'] = flooring.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			unitCollection.trigger('filter_available')
 			@trigger  'render:view'
 
 	onShow:->
@@ -286,7 +295,7 @@ class ApartmentsView extends Marionette.ItemView
 					<div class="action-bar">
 								<div class="apartment"></div>
 					</div>
-					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' ( Area - '+response[0].get('super_built_up_area')+' Sq.ft)</h5>
+					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' ( Area - '+response[0].get('super_built_up_area')+' '+project.get('area_unit')+')</h5>
 
 					<!--<span class="label label-success"></span-->
 					<br><br>
@@ -325,6 +334,9 @@ class ApartmentsView extends Marionette.ItemView
 class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 
 	template : '<div>
+					<div id="trig" class="toggle-button"></div>
+					<div id="view_toggle" class="toggle-view-button map"></div>
+
 					<div class="list-view-container w-map animated fadeInLeft">
 						<div class="advncd-filter-wrp  unit-list">
 							<div class="legend clearfix">
@@ -345,6 +357,18 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 	childView : ApartmentsView
 
 	childViewContainer : '.units'
+
+	ui :
+		viewtog 	: '#view_toggle'
+		trig 		: '#trig'
+
+	events :
+		'click @ui.trig':(e)->
+			$('.list-container').toggleClass 'closed'
+
+		'click @ui.viewtog':(e)->
+			$('.us-left-content').toggleClass 'not-visible visible'
+			$('.us-right-content').toggleClass 'not-visible visible'
 
 
 
@@ -388,7 +412,6 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 										</div>
 
 										<div id="view_toggle" class="toggle-view-button list"></div>
-										<div id="trig" class="toggle-button">List View</div>
 							              
 							            <div class=" master animated fadeIn">
 
@@ -421,7 +444,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 	ui :
 		svgContainer : '.master'
-		trig         : '#trig'
+		# trig         : '#trig'
 		viewtog      : '#view_toggle'
 
 	
@@ -431,30 +454,30 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		
 
 	events:
-		'click @ui.trig':(e)->
-			$('.us-left-content').toggleClass 'col-0 col-md-3'
-			$('.us-right-content').toggleClass 'col-md-12 col-md-9'
-			that = @
-			CommonFloor.applyOnViewClass()
-			setTimeout( (x)->
+		# 'click @ui.trig':(e)->
+		# 	$('.us-left-content').toggleClass 'col-0 col-md-3'
+		# 	$('.us-right-content').toggleClass 'col-md-12 col-md-9'
+		# 	that = @
+		# 	CommonFloor.applyOnViewClass()
+		# 	setTimeout( (x)->
 				
-				$('#spritespin').spritespin(
-					width: that.ui.svgContainer.width() + 13
-					sense: -1
-					height: that.ui.svgContainer.width() / 2
-					animate: false
-				)
-				$('.svg-maps > div').first().css('width',that.ui.svgContainer.width() + 13)
-				$('.first_image').first().css('width',that.ui.svgContainer.width() + 13)
+		# 		$('#spritespin').spritespin(
+		# 			width: that.ui.svgContainer.width() + 13
+		# 			sense: -1
+		# 			height: that.ui.svgContainer.width() / 2
+		# 			animate: false
+		# 		)
+		# 		$('.svg-maps > div').first().css('width',that.ui.svgContainer.width() + 13)
+		# 		$('.first_image').first().css('width',that.ui.svgContainer.width() + 13)
 
-				height= that.ui.svgContainer.width() / 2
-				$('.units').css('height',height-10)
+		# 		height= that.ui.svgContainer.width() / 2
+		# 		$('.units').css('height',height-10)
 
-			, 650)
+		# 	, 650)
 
-			setTimeout( (x)->
-				$('.master').panzoom('resetDimensions');				
-			, 800)
+		# 	setTimeout( (x)->
+		# 		$('.master').panzoom('resetDimensions');				
+		# 	, 800)
 
 			
 		'click @ui.viewtog':(e)->
@@ -519,7 +542,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 						<div class="action-bar">
 									<div class="apartment"></div>
 						</div>
-						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' ( Area - '+response[0].get('super_built_up_area')+' Sq.ft)</h5>
+						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' ( Area - '+response[0].get('super_built_up_area')+' '+project.get('area_unit')+')</h5>
 
 						<!--<span class="label label-success"></span-->
 						<br><br>
