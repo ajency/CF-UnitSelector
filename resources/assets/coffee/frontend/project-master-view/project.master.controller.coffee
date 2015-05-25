@@ -82,6 +82,8 @@ class TopMasterView extends Marionette.ItemView
 	events:->
 		'click @ui.unitBack':(e)->
 			e.preventDefault()
+			$.each CommonFloor.defaults , (index,value)->
+				 CommonFloor.defaults[index] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()	
 			unitCollection.trigger('available')
