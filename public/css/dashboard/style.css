@@ -8178,7 +8178,7 @@ body.rtl .footer-widget {
   text-overflow:;
   }
 }*/
-.select2-container .select2-choice:first-child {
+.select2-choice:first-child {
   color: #A7ABB1;
 }
 .grid-padding {

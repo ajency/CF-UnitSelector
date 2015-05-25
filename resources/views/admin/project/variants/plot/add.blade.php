@@ -15,7 +15,7 @@
 @section('content')
 <!-- BEGIN PAGE TITLE -->
 <div class="page-title">	
-    <h2><span class="semi-bold">Add Plot</span> Unit Variant</h2>
+    <h2><span class="semi-bold">Add</span> Unit Variant</h2>
 </div>
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
@@ -33,7 +33,6 @@
                             <div class="form-group">
                                 <label class="form-label">Name<span class="text-primary">*</span></label>
                                 <input type="text" class="form-control" name="unit_variant_name" placeholder="Enter Name" data-parsley-required>
-                                <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -46,7 +45,6 @@
                                         <option value="{{$unitTypeId}}">{{ $unitType }}</option>
                                         @endforeach
                                     </select>
-                                <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -54,7 +52,6 @@
                                 <label class="form-label">Size<span class="text-primary">*</span></label>
                                 <small class="text-muted">/ ({{ $project['measurement_units'] }})</small>
                                 <input type="text" class="form-control" name="size" value="" placeholder="Enter Size" data-parsley-required data-parsley-type="number">
-                                <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                             </div>
                         </div>
                     </div>
@@ -63,7 +60,6 @@
                             <div class="form-group">
                                 <label class="form-label">Price<span class="text-primary">*</span></label>
                                 <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
-                                <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                             </div>
                         </div>
                         @foreach($propertyTypeAttributes as $propertyTypeAttribute)
@@ -161,7 +157,7 @@
             </div>   <div class="form-actions">  
                 <div class="text-right">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-                    <button  type="submit"   class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
+                    <button  type="submit"   class="btn btn-primary btn-cons"><i class="fa fa-plus-circle"></i> Create</button>
                     <a  href=""><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
                 </div>
             </div>
