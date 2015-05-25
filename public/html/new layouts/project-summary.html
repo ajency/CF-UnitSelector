@@ -240,9 +240,7 @@
                     </ul>
                     <!-- END BREADCRUMBS -->
                     <!-- BEGIN PlACE PAGE CONTENT HERE -->
-                     <div class="pull-right">
-                            <button class="btn btn-primary btn-medium"><i class="fa fa-pencil"></i> Edit</button>
-                        </div>
+                     
                      <div class="page-title">
 
                     <h2><span class="semi-bold">Project </span> Summary</h2>
@@ -253,13 +251,20 @@
                             <button class="close" data-dismiss="alert"></button>
                             Danger:&nbsp;The daily <a href="#" class="link">cronjob</a> has failed.
                             </div>
-                        <div class="grid-title no-border">
-                            <div class="pull-right">
+
+                        <div class="grid-body grid-padding no-border summary">
+                             <div class=" m-t-15 m-b-15 no-border">
+                            <div class="row">
+                        <h3 class="col-md-4"> <i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Details</span></h3>
+
+                        <div class="col-md-4 text-center">
+                                    <h4 class="inline semi-bold">Status : </h4>&nbsp;&nbsp;<span class="text-primary">DRAFT</span>
+                                    </div>
+                        <div class="col-md-4 text-right">
                                 <button class="btn btn-info btn-small" data-toggle="modal" data-target=".bs-example-modal-lg">PUBLISH</button>
                             </div>
-                        <h3> <i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Details</span></h3>
                         </div>
-                        <div class="grid-body grid-padding no-border summary">
+                        </div>
                        <div class="row">
                                     <div class="col-md-8">
                                         <div class="user-description-box">
@@ -276,13 +281,23 @@
                                     </div>
                                         </div>
                                     <h5 class="semi-bold">
-                                        To check out the frontend of Unit Selector <a hreh="#" class="text-primary">cick here >></a>
+                                        To check out the frontend of Unit Selector <a hreh="#" class="text-primary">click here >></a>
                                     </h5>
                                 </div>
                                <hr/>
+                               <div class="row">
+                                <div class="col-md-5">
                                <div class="m-l-5 no-border">
                                            <h3><i class="fa fa-angle-double-right text-primary"></i> Project<span class="semi-bold"> Phases</span></h3>
                                 </div>
+                            </div>
+                            <div class="col-md-7">
+                                <div class="alert alert-success">
+                                <button class="close" data-dismiss="alert"></button>
+                                Phase published successfully.
+                                </div>
+                                </div>
+                            </div>
                                 <table class="table table-bordered no-pointer">
                                                     <thead>
                                                         <tr>
@@ -339,44 +354,71 @@
                                                         </tr>
                                                     </tbody>
                                                 </table>
-                                <div class="row">
-                                    <div class="col-md-12">
+                               
                                         <div class="row m-b-20">
-                                    <div class="col-md-5">
+                                            <div class="col-md-12">
                                         <div class="add-unit p-t-10 p-r-10 p-l-10 p-b-15 ">
-                                        <label class="form-label">Enter New Phase<span class="text-primary">*</span></label>
+                                        
                                         <div class="row">
-                                        <div class="col-md-9">
-                                        <input type="text" name="form1Name" id="form1Name" class="form-control">
+                                        <div class="col-md-4">
+                                        <input type="text" name="form1Name" id="form1Name" class="form-control" placeholder="Enter Phase">
                                         </div>
-                                        <div class="col-md-3">
-                                                   <a href="#" class="btn btn-link"><i class="fa fa-plus"></i> Add </a>
+                                        <div class="col-md-8">
+                                                   <a href="#" class="btn btn-link">Add New Phase</a>
                                                </div>
                                         </div>
                                         </div>
                                     </div>
                                    
-                                    </div>
-                              </div> 
+                                  
                                     </div>           
                                 <hr/>
                                <div class="m-l-5 no-border">
                                            <h3><i class="fa fa-angle-double-right text-primary"></i> Project<span class="semi-bold"> SVGs</span></h3>
                                 </div>
+                                <h5 class="semi-bold inline m-l-5">
+                                        Google Earth Image :
+                                    </h5><span class="text-warning"> Pending SVG Authoring</span><br>
+                                    <h5 class="semi-bold inline m-l-5">
+                                        Project Master Image :
+                                    </h5> <div class="checkbox check-primary checkbox-inline">
+                                               <input id="checkbox7" type="checkbox" value="1" checked="checked" disabled>
+                                                <label for="checkbox7" class="p-l">Available</label>
+                                                </div><br>
+                                                <ul class="list-inline m-b-10 m-l-5">
+                                                   
+                                                        <h5 class="semi-bold inline">
+                                                            Images Uploaded : </h5> 3 |
+                                                   
+                                                    
+                                                        <h5 class="semi-bold inline">
+                                                            Breakpoints : </h5> 2 |
+                                                   
+                                                   
+                                                        <h5 class="semi-bold inline">
+                                                            Rotation : </h5> Yes
+                                                   
+                                                </ul>
                               <table class="table table-bordered no-pointer">
                                                     <thead>
                                                         <tr>
-                                                            <td width="16%"><span class="semi-bold">Images Uploaded</span></td>
-                                                            <td width="18%"><span class="semi-bold">Breakpoints</span></td>
-                                                            <td width="18%"><span class="semi-bold">Rotation</span></td>
+                                                            <td width="16%"><span class="semi-bold">Breakpoint Position</span></td>
+                                                            <td width="18%"><span class="semi-bold">Units Marked</span></td>
+                                                            <td width="18%"><span class="semi-bold">Pending</span></td>
                                                             <td><span class="semi-bold">Status</span></td>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                          <tr>
-                                                            <td>10</td>
+                                                            <td>00</td>
                                                             <td>2</td>
-                                                            <td>Yes</td>
+                                                            <td>3</td>
+                                                            <td><span class="text-warning">Pending SVG Authoring</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>02</td>
+                                                            <td>1</td>
+                                                            <td>5</td>
                                                             <td><span class="text-warning">Pending SVG Authoring</span></td>
                                                         </tr>
                                                     </tbody>
@@ -389,7 +431,7 @@
                                                     <thead>
                                                         <tr>
                                                             <td width="16%"><span class="semi-bold">Phase</span></td>
-                                                            <td width="16%"><span class="semi-bold">Unit Type</span></td>
+                                                            <td width="16%"><span class="semi-bold">Building Name</span></td>
                                                             <td width="16%"><span class="semi-bold">Available</span></td>
                                                             <td width="18%"><span class="semi-bold">Sold</span></td>
                                                             <td width="18%"><span class="semi-bold">Blocked</span></td>
@@ -583,25 +625,35 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title text-left" id="myModalLabel">Update Phase-1</h4>
+        <h4 class="modal-title text-left" id="myModalLabel">Update Phase Status</h4>
       </div>
       <div class="modal-body">
+          <div class="row m-b-5">
+            <div class="col-md-12">
+                <div class="alert">
+<strong>NOTE : </strong>To go live, all the units in this phase should have authoring done.
+</div>
+</div>
+</div>
         <div class="row m-b-10">
             <div class="col-md-12">
                 <div class="alert alert-error m-b-20">
-<h5><span class="semi-bold">3 Building units</span> have no authoring done.</h5>
+                    <ul  class="list-inline">
+                        <li><i class="fa fa-circle"></i> No Units available in this phase.<li>
+                    </ul>
+<h5><span class="semi-bold">3 Buildings</span> have no authoring done.</h5>
 <ul class="list-inline">
     <li><i class="fa fa-circle"></i> Artha Zen</li>
      <li><i class="fa fa-circle"></i> Mrs. Nakia Cummings</li>
       <li><i class="fa fa-circle"></i> Helga Schultz</li>
 </ul>
-<h5><span class="semi-bold">2 Villa units</span> have no authoring done.</h5>
+<h5><span class="semi-bold">2 Villas</span> have no authoring done.</h5>
 <ul class="list-inline">
     <li><i class="fa fa-circle"></i> Artha Zen</li>
      <li><i class="fa fa-circle"></i> Mrs. Nakia Cummings</li>
      
 </ul>
-<h5><span class="semi-bold">3 Plot units</span> have no authoring done.</h5>
+<h5><span class="semi-bold">3 Plots</span> have no authoring done.</h5>
 <ul class="list-inline">
     <li><i class="fa fa-circle"></i> Artha Zen</li>
      <li><i class="fa fa-circle"></i> Mrs. Nakia Cummings</li>
@@ -614,8 +666,8 @@
         <table class="table table-bordered">
             <thead>
                 <tr>
-                   <td width="15%"><span class="semi-bold">Property Type</span></td> 
-                   <td><span class="semi-bold">Units for Phase1</span></td> 
+                   <td width="15%"><span class="semi-bold">Type</span></td> 
+                   <td><span class="semi-bold">Units in Phase-1</span></td> 
                 </tr>
             </thead>
             <tbody>
@@ -633,13 +685,7 @@
                 </tr>
             </tbody>
         </table>
-          <div class="row m-b-10">
-            <div class="col-md-12">
-                <div class="alert m-b-20">
-<strong>NOTE : </strong>To go live, all the units in this phase should have authoring done.
-</div>
-</div>
-</div>
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary">Go Live</button>
@@ -659,40 +705,29 @@
         <h4 class="modal-title text-left" id="myModalLabel">Publish Project</h4>
       </div>
       <div class="modal-body">
+                 <div class="row m-b-5">
+            <div class="col-md-12">
+                <div class="alert">
+<strong>NOTE : </strong>Project should have at least one Phase with status as Live to publish the project.
+</div>
+</div>
+</div>
         <h5 class="semi-bold inline">Resolve the errors below to Publish the Project</h5>
         <div class="row m-b-10">
             <div class="col-md-12">
                 <div class="alert alert-error m-b-20">
-<h5 class="semi-bold inline">Error Messages (3)</h5>
+
 <ul>
-    <li>No Units created.</li>
-     <li>No direction selected for Floor Layout (n) Position (n).</li>
-      <li>Building Master not configured.</li>
+    <li>No phase available with status Live.</li>
+   
 </ul>
 
 </div>
-           <div class="alert m-b-20">
-
-<h5 class="semi-bold inline">Error Messages (10)</h5>
-<ul>
-    <li>No Units created for Unit Type : 3 BHK, 4BHK.</li>
-     <li>No Units added for Variant : 4000 Sq. Ft., 5000 Sq. Ft..</li>
-      <li>Layoutts missing for Variants : Variant (n) .</li>
-      <li>Rooms missing for Variants : Variant (n) .</li>
-      <li>No Units for Floor : Floor (n) .</li>
-      <li>No view selected for Floor Layout Floor (n) Position (n).</li>
-      <li>No rotation for Building Master.</li>
-
-</ul>
-
-</div>
+  
             </div>
 
         </div>
-       <div class="checkbox check-primary">
-                                               <input id="checkbox30" type="checkbox" value="1">
-                                                <label for="checkbox30" class="p-l">Check to ignore warnings</label>
-                                                </div>
+
       </div>
 
       <div class="modal-footer">
