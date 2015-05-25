@@ -34,8 +34,8 @@
                                         @endforeach
                                         <option value="add_new">Add New</option>
                                     </select>
-                                    <input type="hidden" name="unittypekey[{{ $propertyTypeId }}][]" value="{{ $unitType->id }}">
-                                    <input type="hidden" name="unittypecustome[{{ $propertyTypeId }}][]" value="">        
+                                    <input type="hidden" name="unittypekey[{{ $propertyTypeId }}][]" value="{{ $unitType->id }}" class="form-control">
+                                    <input type="hidden" name="unittypecustome[{{ $propertyTypeId }}][]" value="" class="form-control">        
                                 </div>
                                 <div class="col-md-2 text-center">
                                     <a  data-unit-type-id="{{ $unitType->id }}" class="btn btn-link remove-unit-type"><i class="fa fa-close"></i> </a>
@@ -57,9 +57,9 @@
                                             @endforeach
                                             <option value="add_new">Add New</option>
                                         </select>
-                                        <input type="hidden" name="unittypekey[{{ $propertyTypeId }}][]" value="">
-                                        <input type="hidden" name="unittypecustome[{{ $propertyTypeId }}][]" value=""> 
-                                        <input type="hidden" name="add_new_unit_type" value="">
+                                        <input type="hidden" name="unittypekey[{{ $propertyTypeId }}][]" value="" class="form-control">
+                                        <input type="hidden" name="unittypecustome[{{ $propertyTypeId }}][]" value="" class="form-control"> 
+                                        <input type="hidden" name="add_new_unit_type" value="" class="form-control">
                                         <div class="text-right">
                                             <a property-type="{{ $propertyTypeId }}" class="add-unit-type-btn btn btn-link"><i class="fa fa-"></i> Add Another Unit Type</a>
                                         </div>
