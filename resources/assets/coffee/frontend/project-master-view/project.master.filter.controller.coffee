@@ -45,7 +45,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 				                                       	<!--<a href="#" class="hide-div">+ Show More</a>-->
 				                                    </div>
 				                                </div>
-				                                <div class="">
+				                                <div class="flooring_filter">
 				                                    <h6 class="">Flooring</h6>
 				                                       <div class="filter-chkbox-block">
 					                                       	{{#flooring}}
@@ -411,6 +411,8 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			$('.property_type').hide()
 		if Marionette.getOption(@,'flooring').length == 0
 			$('.property_type').hide()
+		if Marionette.getOption(@,'flooring').length == 0
+			$('.flooring_filter').hide()
 		@loadSelectedFilters()
 		
 

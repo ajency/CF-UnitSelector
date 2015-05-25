@@ -8,6 +8,8 @@
 
   window.variantNames = [];
 
+  window.flooring = [];
+
   window.price = '';
 
   window.area = '';
@@ -21,7 +23,7 @@
       return FilterApartmentView.__super__.constructor.apply(this, arguments);
     }
 
-    FilterApartmentView.prototype.template = Handlebars.compile('<div class="fliters-container closed" id="collapsefilters"> <a href="javascript:void(0)"  class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button" type="button"> <span class="icon-place"></span> </button> <div class="filters-wrapper"> <div class="filters-content"> <div class=""> <h6>UNIT TYPE</h6> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class=""> <h6>VARIANT</h6> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> <div class=""> <h6>AREA (Sqft)</h6> <div class="range-container"> <input type="text" id="area" name="area" value="" /> </div> </div> <div class=""> <h6>BUDGET </h6> <div class="range-container"> <input type="text" id="budget" name="budget" value="" /> </div> </div> <div class=""> <h6>FLOOR </h6> <div class="range-container"> <input type="text" id="floor" name="floor" value="" /> </div> </div> <div class=""> <h6 class="availability">AVAILABILITY</h6> <div class="filter-chkbox-block"> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="available" class="-lbl">Show Available Units Only</label> </div> </div> </div> </div> </div>');
+    FilterApartmentView.prototype.template = Handlebars.compile('<div class="fliters-container closed" id="collapsefilters"> <a href="javascript:void(0)"  class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button" type="button"> <span class="icon-place"></span> </button> <div class="filters-wrapper"> <div class="filters-content"> <div class=""> <h6>UNIT TYPE</h6> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class=""> <h6>VARIANT</h6> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> <div class="flooring_filter"> <h6 class="">Flooring</h6> <div class="filter-chkbox-block"> {{#flooring}} <input type="checkbox" class="custom-chckbx addCft flooring" id="flooring{{id}}" value="flooring{{id}}" value="1" data-value="{{id}}" > <label for="flooring{{id}}" class="-lbl">{{name}}({{type}})</label> {{/flooring}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> <div class=""> <h6>AREA (Sqft)</h6> <div class="range-container"> <input type="text" id="area" name="area" value="" /> </div> </div> <div class=""> <h6>BUDGET </h6> <div class="range-container"> <input type="text" id="budget" name="budget" value="" /> </div> </div> <div class=""> <h6>FLOOR </h6> <div class="range-container"> <input type="text" id="floor" name="floor" value="" /> </div> </div> <div class=""> <h6 class="availability">AVAILABILITY</h6> <div class="filter-chkbox-block"> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="available" class="-lbl">Show Available Units Only</label> </div> </div> </div> </div> </div>');
 
     FilterApartmentView.prototype.ui = {
       unitTypes: '.unit_types',
@@ -54,6 +56,9 @@
       }
       if (CommonFloor.defaults['type'] !== "") {
         window.type = CommonFloor.defaults['type'].split(',');
+      }
+      if (CommonFloor.defaults['flooring'] !== "") {
+        window.flooring = CommonFloor.defaults['flooring'].split(',');
       }
       window.unitTypes = unitTypes.map(function(item) {
         return parseInt(item);
@@ -164,6 +169,18 @@
         CommonFloor.filter();
         return unitTempCollection.trigger("filter_available");
       },
+      'click @ui.flooring': function(e) {
+        if ($(e.currentTarget).is(':checked')) {
+          window.flooring.push($(e.currentTarget).attr('data-value'));
+        } else {
+          window.flooring = _.without(window.flooring, $(e.currentTarget).attr('data-value'));
+        }
+        window.flooring = _.uniq(window.flooring);
+        CommonFloor.defaults['flooring'] = window.flooring.join(',');
+        unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.filter();
+        return unitCollection.trigger('filter_available');
+      },
       'click .filter-button': function(e) {
         window.flag1 = 0;
         $('.fliters-container').toggleClass('closed');
@@ -179,6 +196,7 @@
       data.unitTypes = Marionette.getOption(this, 'unitTypes');
       data.unitVariants = Marionette.getOption(this, 'unitVariants');
       data.unitVariantNames = Marionette.getOption(this, 'unitVariantNames');
+      data.flooring = Marionette.getOption(this, 'flooring');
       return data;
     };
 
@@ -226,12 +244,15 @@
           return window.numDifferentiation(num);
         }
       });
-      return $("#floor").ionRangeSlider({
+      $("#floor").ionRangeSlider({
         type: "double",
         min: 1,
         max: floor.get('no_of_floors'),
         grid: false
       });
+      if (Marionette.getOption(this, 'flooring').length === 0) {
+        return $('.flooring_filter').hide();
+      }
     };
 
     FilterApartmentView.prototype.loadClearFilters = function() {
@@ -354,24 +375,27 @@
     }
 
     FilterApartmentCtrl.prototype.initialize = function() {
-      var apartmentFilters, area, budget, unitTypes, unitVariantNames, unitVariants, view;
+      var apartmentFilters, area, budget, flooring, unitTypes, unitVariantNames, unitVariants, view;
       unitTypes = [];
       unitVariants = [];
       unitVariantNames = [];
       area = [];
       budget = [];
+      flooring = [];
       apartmentFilters = this.getApartmentFilters();
       if (apartmentFilters.length !== 0) {
         $.merge(unitTypes, apartmentFilters[0].unitTypes);
         $.merge(unitVariants, apartmentFilters[0].unitVariants);
         $.merge(unitVariantNames, apartmentFilters[0].unitVariantNames);
         $.merge(budget, apartmentFilters[0].budget);
+        $.merge(flooring, apartmentFilters[0].flooring);
       }
       this.view = view = new CommonFloor.FilterApartmentView({
         'unitTypes': unitTypes,
         'unitVariants': _.uniq(unitVariants),
         'unitVariantNames': unitVariantNames,
-        'budget': budget
+        'budget': budget,
+        'flooring': flooring
       });
       this.listenTo(this.view, "load:apt:filters", this.loadAptFilter);
       return this.show(this.view);
@@ -384,13 +408,14 @@
     };
 
     FilterApartmentCtrl.prototype.getApartmentFilters = function() {
-      var budget, building_id, filters, unitTypes, unitVariantNames, unitVariants, unit_types, unitsArr, url;
+      var budget, building_id, filters, flooringAttributes, unitTypes, unitVariantNames, unitVariants, unit_types, unitsArr, url;
       filters = [];
       unitTypes = [];
       unit_types = [];
       unitVariants = [];
       unitVariantNames = [];
       budget = [];
+      flooringAttributes = [];
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
       apartmentVariantMasterCollection.each(function(item) {
@@ -415,11 +440,19 @@
             });
           }
           unitVariants.push(item.get('super_built_up_area'));
-          return unitVariantNames.push({
+          unitVariantNames.push({
             'id': item.get('id'),
             'name': item.get('unit_variant_name'),
             'type': type
           });
+          if ($.inArray(item.get('variant_attributes').flooring, flooring) === -1 && !_.isUndefined(item.get('variant_attributes').flooring)) {
+            flooring.push(item.get('variant_attributes').flooring);
+            return flooringAttributes.push({
+              'id': item.get('variant_attributes').flooring,
+              'name': item.get('variant_attributes').flooring,
+              type: type
+            });
+          }
         }
       });
       unitsArr = apartmentVariantMasterCollection.getApartmentUnits();
@@ -432,7 +465,8 @@
         'unitTypes': unitTypes,
         'unitVariants': unitVariants,
         'unitVariantNames': unitVariantNames,
-        'budget': budget
+        'budget': budget,
+        'flooring': flooringAttributes
       });
       return filters;
     };

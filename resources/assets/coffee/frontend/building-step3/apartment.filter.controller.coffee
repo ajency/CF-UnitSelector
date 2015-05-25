@@ -1,6 +1,7 @@
 window.unitTypes = []
 window.unitVariants = []
 window.variantNames = []
+window.flooring = []
 window.price = ''
 window.area = ''
 window.type  = []
@@ -36,6 +37,16 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 				                                    </div>
 				                                </div>
 
+				                                 <div class="flooring_filter">
+				                                    <h6 class="">Flooring</h6>
+				                                       <div class="filter-chkbox-block">
+					                                       	{{#flooring}}
+					                                       	<input type="checkbox" class="custom-chckbx addCft flooring" id="flooring{{id}}" value="flooring{{id}}" value="1" data-value="{{id}}" > 
+					                                        <label for="flooring{{id}}" class="-lbl">{{name}}({{type}})</label> 
+					                                       	{{/flooring}}
+				                                       	<!--<a href="#" class="hide-div">+ Show More</a>-->
+				                                    </div>
+				                                </div>
 
 				                                <div class="">
 				                                    <h6>AREA (Sqft)</h6>
@@ -98,6 +109,8 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			variantNames = CommonFloor.defaults['unitVariants'].split(',')
 		if CommonFloor.defaults['type']!= ""
 			window.type  = CommonFloor.defaults['type'].split(',')
+		if CommonFloor.defaults['flooring']!= ""
+			window.flooring  = CommonFloor.defaults['flooring'].split(',')
 		window.unitTypes = unitTypes.map (item)->
 			return parseInt item
 		window.variantNames = variantNames.map (item)->
@@ -203,6 +216,18 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
+
+
+		'click @ui.flooring':(e)->
+			if $(e.currentTarget).is(':checked')
+				window.flooring.push $(e.currentTarget).attr('data-value')
+			else
+				window.flooring = _.without window.flooring ,$(e.currentTarget).attr('data-value')
+			window.flooring =   _.uniq window.flooring 
+			CommonFloor.defaults['flooring'] = window.flooring.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			unitCollection.trigger('filter_available')
 			
 		'click .filter-button':(e)->
 			window.flag1 = 0
@@ -265,6 +290,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		data.unitTypes = Marionette.getOption(@,'unitTypes')
 		data.unitVariants = Marionette.getOption(@,'unitVariants')
 		data.unitVariantNames = Marionette.getOption(@,'unitVariantNames')
+		data.flooring = Marionette.getOption(@,'flooring')
 		data
 
 	onShow:->
@@ -316,6 +342,8 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		    
 
 		)
+		if Marionette.getOption(@,'flooring').length == 0
+			$('.flooring_filter').hide()
 
 	loadClearFilters:->
 		budget = []
@@ -469,18 +497,20 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 		unitVariantNames = []
 		area = []
 		budget = []
+		flooring = []
 		apartmentFilters = @getApartmentFilters()
 		if apartmentFilters.length != 0
 			$.merge unitTypes , apartmentFilters[0].unitTypes
 			$.merge unitVariants , apartmentFilters[0].unitVariants
 			$.merge unitVariantNames , apartmentFilters[0].unitVariantNames
 			$.merge budget , apartmentFilters[0].budget
-		
+			$.merge flooring , apartmentFilters[0].flooring
 		@view = view = new CommonFloor.FilterApartmentView
 				'unitTypes' : unitTypes
 				'unitVariants' : _.uniq unitVariants
 				'unitVariantNames' : unitVariantNames
 				'budget'			: budget
+				'flooring'  : flooring
 
 		@listenTo @view,"load:apt:filters" ,@loadAptFilter
 
@@ -500,6 +530,7 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 		unitVariants = []
 		unitVariantNames = []
 		budget = []
+		flooringAttributes = []
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		apartmentVariantMasterCollection.each (item)->
@@ -523,6 +554,14 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 						'id' : item.get 'id'
 						'name'	: item.get 'unit_variant_name'
 						'type'	: type
+
+				if $.inArray(item.get('variant_attributes').flooring,flooring) == -1 && ! _.isUndefined item.get('variant_attributes').flooring
+					flooring.push item.get('variant_attributes').flooring
+					flooringAttributes.push
+							'id' : item.get('variant_attributes').flooring
+							'name' : item.get('variant_attributes').flooring
+							type: type
+				
 				
 
 		unitsArr = apartmentVariantMasterCollection.getApartmentUnits()
@@ -534,6 +573,7 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 			'unitVariants'  : unitVariants
 			'unitVariantNames' : unitVariantNames
 			'budget'			: budget
+			'flooring'		: flooringAttributes
 		filters
 
 

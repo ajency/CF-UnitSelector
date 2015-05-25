@@ -59,7 +59,8 @@
       area: '#filter_area',
       budget: '#filter_budget',
       types: '.types',
-      floor: '.floor'
+      floor: '.floor',
+      filter_flooring: '.filter_flooring'
     };
 
     TopApartmentView.prototype.initialize = function() {
@@ -148,6 +149,16 @@
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
+          return this.trigger('render:view');
+        },
+        'click @ui.filter_flooring': function(e) {
+          var flooring;
+          flooring = CommonFloor.defaults['flooring'].split(',');
+          flooring = _.without(flooring, $(e.currentTarget).attr('data-id'));
+          CommonFloor.defaults['flooring'] = flooring.join(',');
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          unitCollection.trigger('filter_available');
           return this.trigger('render:view');
         }
       };

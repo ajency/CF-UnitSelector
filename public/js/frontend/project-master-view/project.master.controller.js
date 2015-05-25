@@ -83,6 +83,9 @@
       return {
         'click @ui.unitBack': function(e) {
           e.preventDefault();
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          unitCollection.trigger('available');
           return CommonFloor.navigate('/', true);
         },
         'click @ui.types': function(e) {

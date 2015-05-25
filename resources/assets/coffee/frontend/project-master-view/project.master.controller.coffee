@@ -82,6 +82,9 @@ class TopMasterView extends Marionette.ItemView
 	events:->
 		'click @ui.unitBack':(e)->
 			e.preventDefault()
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()	
+			unitCollection.trigger('available')
 			CommonFloor.navigate '/' , true
 
 		'click @ui.types':(e)->
