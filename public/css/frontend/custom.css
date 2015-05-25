@@ -25,7 +25,7 @@ body {
   color: #ffffff;
   width: 100%;
   position: fixed;
-  z-index: 9998;
+  z-index: 1000;
 }
 .top-spacing {
   padding-top: 56px;
