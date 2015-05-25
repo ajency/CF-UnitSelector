@@ -168,34 +168,58 @@ body{
   background-color: fade(@white, 90%);
   width: 340px;
   height: 450px;
-  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  border: 1px solid @brand-primary;
+  // box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   border-radius: 3px;
   &.closed{
     width: 0;
     height: 0;
-    padding: 27px;
-    border-radius: 50%;
+    padding: 18px 20px;
     background-color: @white;
     .filters-wrapper{
       opacity: 0
     }
     .toggle-button{
-      font-size: 24px;
+      // font-size: 24px;
       &::before{
         content: "\e756";
         font-family: icomoon;
       }
+      &::after{
+        position: relative;
+        right: -50px;
+        top: -1px;
+        transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        content: "List View";
+        font-size: 14px;
+        opacity: 0;
+          width: 60px;
+          display: inline-block;
+      }
+    }
+    &:hover{
+      padding-right: 85px;
+      .toggle-button{
+        // font-size: 24px;
+        &::before{
+          margin-right: 5px;
+        }
+        &::after{
+          opacity:1;
+          right: 0;
+        }
+    }
     }
   }
   .toggle-button{
     position: absolute;
     top: 0;
     left: 0;
-    color: @gray-light;
-    padding: 10px 15px; 
+    color: @brand-primary;
+    padding: 6px 12px; 
     cursor: pointer;
     z-index: 999;
-    font-size: 15px;
+    font-size: 16px;
     .ease;
     &::before{
       content: "\e75e";
