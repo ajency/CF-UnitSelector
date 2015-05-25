@@ -347,12 +347,27 @@ function addFloorLevel(variantId)
 
 function getRoomTypeAttributes(obj, level)
 {
-    var roomId = $(obj).closest('.row').find('select').val();
+    var roomId = $(obj).closest('.row').find('select').val(); 
+    var flag =true;
     if(!roomId)
     {
         alert("Select Room Type");
         return false;
     }
+    
+    $(obj).closest('.grid-body').find('input[name="room_id[]"]').each(function () { 
+             if($(this).val()== roomId)
+            {
+                 alert('Room Type Already Selected');
+ 
+                 $(obj).select2('val', '');
+ 
+                 flag= false;
+                 
+            }
+        });
+   if(flag)
+   {
     $.ajax({
         url: BASEURL + "/admin/project/" + PROJECTID + "/roomtype/" + roomId + "/getroomtypeattributes",
         type: "POST",
@@ -366,13 +381,14 @@ function getRoomTypeAttributes(obj, level)
             $("select").select2();
         }
     });
-
+    }
 
 }
 
 function updateRoomAttributes()
 {
    var level =$("#roomtypeiframe").attr("level");  
+   var roomid = $("#roomtypeiframe").attr("roomid");  
    var roomid = $("#roomtypeiframe").attr("roomid");  
    $("#level_"+level).find('select[name="room_type[]"]').val(roomid);
    
@@ -385,7 +401,9 @@ function updateRoomAttributes()
         },
         success: function (response) {
             var attribute_str = response.data.attributes; 
+            var variantRoomId = $('.roomattribute_'+level+'_'+roomid).find('input[name="variantroomid[]"]').val();
             $('.roomattribute_'+level+'_'+roomid).html(attribute_str);
+            $('.roomattribute_'+level+'_'+roomid).find('input[name="variantroomid[]"]').val(variantRoomId);
             $("select").select2();
         }
     });
@@ -1198,8 +1216,8 @@ function getPropertTypeData(obj, flag)
 
                 if (unitTypes.trim() != '')
                     $('select[name="unit_type"]').append(unitTypes);
-                
-                if(obj.value==3)                        //APARTMENT
+                 
+                if($(obj).find(":selected").text()=='Apartments')                        //APARTMENT
                 {
                    $(".add_level").addClass('hidden');
                    $("#level_0").find('.grid-title').addClass('hidden');
@@ -1212,8 +1230,8 @@ function getPropertTypeData(obj, flag)
                     });
                      
                 }
-                else if(obj.value==4)                        //PENTHOUSE
-                {
+                else if($(obj).find(":selected").text()=='Penthouse')                        //PENTHOUSE
+                { 
                    $(".add_level").removeClass('hidden');
                     $("#level_0").find('.grid-title').removeClass('hidden');
                     $('input[name="levels[]"]').each(function () { 

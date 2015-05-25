@@ -77,7 +77,12 @@ class ProjectBunglowVariantController extends Controller {
             $unitTypes[$unitType['id']] = $unitTypeName;
         }
         
-        $availableRoomTypes = $project->roomTypes()->get()->toArray();
+        $availableRoomTypeData = $project->roomTypes()->get()->toArray();
+        $availableRoomTypes = [];
+        foreach ($availableRoomTypeData as $availableRoomType)
+        {
+            $availableRoomTypes[$availableRoomType['id']] = Defaults::find($availableRoomType['name'])->label;
+        }
         $propertyTypeAttributes = ProjectPropertyType::find($projectPropertytypeId)->attributes->toArray();
 
 
@@ -272,7 +277,7 @@ class ProjectBunglowVariantController extends Controller {
         $RoomTypes = $project->roomTypes()->get()->toArray();
         foreach($RoomTypes as $RoomType)
         {
-            $availableRoomTypes[$RoomType['id']]=$RoomType['name'];
+            $availableRoomTypes[$RoomType['id']]=Defaults::find($RoomType['name'])->label;
         }
         $variantRooms = $unitVariant->variantRoomAttributes()->get()->toArray();
         $variantRoomArr = [];
