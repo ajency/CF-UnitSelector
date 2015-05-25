@@ -179,8 +179,9 @@
         window.flooring = _.uniq(window.flooring);
         CommonFloor.defaults['flooring'] = window.flooring.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.filterBuilding(this.building_id);
         CommonFloor.filter();
-        return unitCollection.trigger('filter_available');
+        return unitTempCollection.trigger("filter_available");
       },
       'click .filter-button': function(e) {
         window.flag1 = 0;

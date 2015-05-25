@@ -227,8 +227,9 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			window.flooring =   _.uniq window.flooring 
 			CommonFloor.defaults['flooring'] = window.flooring.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
-			unitCollection.trigger('filter_available')
+			unitTempCollection.trigger( "filter_available") 
 			
 		'click .filter-button':(e)->
 			window.flag1 = 0
