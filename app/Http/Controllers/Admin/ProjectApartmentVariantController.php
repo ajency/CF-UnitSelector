@@ -8,10 +8,13 @@ use CommonFloor\Project;
 use CommonFloor\ProjectPropertyType;
 use CommonFloor\PropertyType;
 use CommonFloor\UnitVariant;
+use CommonFloor\VariantRoom;
 use CommonFloor\UnitType;
 use CommonFloor\RoomType;
 use CommonFloor\Media;
 use CommonFloor\VariantMeta;
+use CommonFloor\Defaults;
+use \File;
 
 class ProjectApartmentVariantController extends Controller {
 
@@ -37,7 +40,8 @@ class ProjectApartmentVariantController extends Controller {
         $unitTypeIdArr = [];
         foreach ($unitTypeArr as $unitType) {   
             $unitTypeIdArr[] = $unitType->id;
-            $unitTypes[$unitType->id] = $unitType->unittype_name;
+            $unitTypeName = Defaults::find($unitType->unittype_name)->label;
+            $unitTypes[$unitType->id] = $unitTypeName;
             $propertyTypeId = ProjectPropertyType::find($unitType->project_property_type_id)->property_type_id;
             $propertyType[$unitType->id]=  get_property_type($propertyTypeId);
         }
@@ -69,15 +73,25 @@ class ProjectApartmentVariantController extends Controller {
         } 
         if(count($projectPropertyTypes)==1)
         {
-            $unitTypes = $project->getUnitTypesToArray( $projectPropertyTypes[0]['ID'] );
+            
+            $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertyTypes[0]['ID'])->get()->toArray();
+            $unitTypes = [];
+            foreach ($unitTypeArr as $unitType) {
+                $unitTypeName = Defaults::find($unitType['unittype_name'])->label;
+                $unitTypes[$unitType['id']] = $unitTypeName;
+            }
             $propertyTypeAttributes = ProjectPropertyType::find( $projectPropertyTypes[0]['ID'] )->attributes->toArray();
         }
+        
+        
+        $availableRoomTypes = $project->roomTypes()->get()->toArray();
         
         return view( 'admin.project.variants.apartment.create' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'apartment-variant' )
                         ->with( 'projectPropertyTypes', $projectPropertyTypes )
                         ->with( 'unitTypes', $unitTypes )
+                        ->with( 'availableRoomTypes', $availableRoomTypes )
                         ->with( 'projectPropertyTypeAttributes', $propertyTypeAttributes );
     }
 
@@ -87,7 +101,7 @@ class ProjectApartmentVariantController extends Controller {
      * @return Response
      */
     public function store( $projectId, Request $request ) {
-       
+      
         $unitVariant = new UnitVariant();
         $unitVariant->unit_variant_name = ucfirst($request->input( 'unit_variant_name' ));
         $unitVariant->unit_type_id = $request->input( 'unit_type' );
@@ -95,7 +109,7 @@ class ProjectApartmentVariantController extends Controller {
         $unitVariant->built_up_area = $request->input( 'builtup_area' );
         $unitVariant->super_built_up_area = $request->input( 'superbuiltup_area' );
         $unitVariant->per_sq_ft_price = $request->input('per_sq_ft_price');
-        $attributedata = $request->input( 'attributes' );
+        $attributedata = $request->input( 'apartment_attributes' );
         $variantattributedata=[];
         if(!empty($attributedata))
         {
@@ -107,12 +121,99 @@ class ProjectApartmentVariantController extends Controller {
         $unitVariant->save();
         $unitVariantID = $unitVariant->id;
         
+        $targetDir = public_path() . "/projects/" . $projectId . "/variants/" . $unitVariantID . "/";
+        $tempDir = public_path() . "/projects/" . $projectId . "/variants/temp/";
+        File::makeDirectory($targetDir, $mode = 0755, true, true);
+        
+        $image_gallery = $request->input('image_gallery');
+        if(!empty($image_gallery))
+        {
+            foreach ($image_gallery as $mediaId)
+            {
+                $media = Media::find($mediaId);
+                $media->mediable_id = $unitVariantID;
+                $media->save();
+
+                $imageName = $media->image_name;
+                if(File::exists($tempDir.$imageName))
+                {
+                    copy($tempDir.$imageName, $targetDir.$imageName);
+                    unlink($tempDir.$imageName);
+                }
+            }
+        }
+        
         $variantMeta = new VariantMeta();
         $variantMeta->unit_variant_id = $unitVariantID;
         $variantMeta->meta_key = 'gallery';
-        $variantMeta->meta_value = serialize('');
+        $variantMeta->meta_value = serialize($image_gallery);
         $variantMeta->save();
+        
+        $levels = $request->input('levels');
+        $propertyType = $request->input('property_type');
+        foreach($levels as $level)
+        {
+            if($propertyType==APARTMENTID && $level!=0)
+                continue;
+            
+            $twoDImageId = $request->input('image_'.$level.'_2d_id');
+            if($twoDImageId!='')
+            {
+                $variantMeta = new VariantMeta();
+                $variantMeta->unit_variant_id = $unitVariantID;
+                $variantMeta->meta_key = $level.'-2d';
+                $variantMeta->meta_value = $twoDImageId;
+                $variantMeta->save();
+                $media = Media::find($twoDImageId);
+                $media->mediable_id = $unitVariantID;
+                $media->save();
+                
+                $imageName = $media->image_name;
+                if(File::exists($tempDir.$imageName))
+                {
+                    copy($tempDir.$imageName, $targetDir.$imageName);
+                    unlink($tempDir.$imageName);
+                }
+            } 
+            $threeDImageId = $request->input('image_'.$level.'_3d_id');
+            if($threeDImageId!='')
+            {
+                $variantMeta = new VariantMeta();
+                $variantMeta->unit_variant_id = $unitVariantID;
+                $variantMeta->meta_key = $level.'-3d';
+                $variantMeta->meta_value = $threeDImageId;
+                $variantMeta->save();
+                $media = Media::find($threeDImageId);
+                $media->mediable_id = $unitVariantID;
+                $media->save();
+                
+                $imageName = $media->image_name;
+               if(File::exists($tempDir.$imageName))
+                {
+                    copy($tempDir.$imageName, $targetDir.$imageName);
+                    unlink($tempDir.$imageName);
+                }
+            } 
+                        
+            $attributes = $request->input('attributes'); 
+            $roomIds = $request->input('room_id');
+            if(!empty($roomIds))
+            {
+            foreach($roomIds as $roomId)
+            {
+                if (isset($attributes[$level][$roomId])) {
 
+                    $variantRoom = new VariantRoom();
+                    $variantRoom->unit_variant_id = $unitVariantID;
+                    $variantRoom->roomtype_id = $roomId;
+                    $variantRoom->floorlevel = $level;
+                    $variantRoom->variant_room_attributes = serialize($attributes[$level][$roomId]);
+                    $variantRoom->save();
+
+                }
+            }
+            }
+        }
         return redirect( "/admin/project/" . $projectId . "/apartment-variant/" . $unitVariantID . '/edit' );
     }
 
@@ -141,14 +242,23 @@ class ProjectApartmentVariantController extends Controller {
         $projectPropertyType = ProjectPropertyType ::find( $projectPropertyTypeId );
         $propertyTypeID = $projectPropertyType->property_type_id;
         
-        $availableRoomTypes = $project->roomTypes()->get()->toArray(); 
+        $availableRoomTypes = []; 
+        $RoomTypes = $project->roomTypes()->get()->toArray();
+        foreach($RoomTypes as $RoomType)
+        {
+            $availableRoomTypes[$RoomType['id']]=$RoomType['name'];
+        }
         $variantRooms = $unitVariant->variantRoomAttributes()->get()->toArray();
         $variantRoomArr = [];
         $propertyTypeAttributes = $projectPropertyType->attributes->toArray();
         $roomTypeAttributes = [];
 
         $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertyTypeId)->get()->toArray();
-         
+        foreach ($unitTypeArr as $unitType) {
+                $unitTypeName = Defaults::find($unitType['unittype_name'])->label;
+                $unitTypes[$unitType['id']] = $unitTypeName;
+            }
+      
         foreach ($variantRooms as $variantRoom) {
             $level = ($propertyTypeID == APARTMENTID)? 0:$variantRoom['floorlevel'];
             $variantRoomArr[$level][$variantRoom['id']]['ROOMTYPEID'] = $variantRoom['roomtype_id'];
@@ -156,7 +266,7 @@ class ProjectApartmentVariantController extends Controller {
             
             $roomTypeAttributes[$variantRoom['roomtype_id']] = RoomType::find($variantRoom['roomtype_id'])->attributes->toArray();
         }
-
+ 
         $variantMeta = $unitVariant->variantMeta()->get()->toArray();
          
         $layouts = [];
@@ -191,12 +301,12 @@ class ProjectApartmentVariantController extends Controller {
                 }
             }
         }
- 
+        
         return view( 'admin.project.variants.apartment.edit' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'propertyTypeID', $propertyTypeID )
-                        ->with( 'project_property_type_attributes', $propertyTypeAttributes )
-                        ->with( 'unit_type_arr', $unitTypeArr )
+                        ->with( 'projectPropertyTypeAttributes', $propertyTypeAttributes )
+                        ->with( 'unitTypes', $unitTypes )
                         ->with( 'availableRoomTypes', $availableRoomTypes )
                         ->with( 'unitVariant', $unitVariant->toArray() )
                         ->with( 'variantRooms', $variantRoomArr )
@@ -221,7 +331,7 @@ class ProjectApartmentVariantController extends Controller {
         $unitVariant->built_up_area = $request->input('builtup_area');
         $unitVariant->super_built_up_area = $request->input('superbuiltup_area');
         $unitVariant->per_sq_ft_price = $request->input('per_sq_ft_price');
-        $attributedata = $request->input('attributes');
+        $attributedata = $request->input('apartment_attributes');
         $variantattributedata=[];
         if(!empty($attributedata))
         {
@@ -231,6 +341,39 @@ class ProjectApartmentVariantController extends Controller {
         $attributeStr = serialize( $variantattributedata );
         $unitVariant->variant_attributes = $attributeStr;
         $unitVariant->save();
+        
+        $levels = $request->input('levels');
+        $attributes = $request->input('attributes');  
+        $variantRoomId = $request->input('variantroomid');//dd($variantRoomId);
+        $roomIds = $request->input('room_id'); //dd($roomIds);
+        
+        foreach($levels as $level)
+        {
+             if(!empty($roomIds))
+            {
+            foreach($roomIds as $key=> $roomId)
+            {
+                if (isset($attributes[$level][$roomId])) {
+                    
+                 
+                     if ($variantRoomId[$key] == '') {
+                            $variantRoom = new VariantRoom();
+                            $variantRoom->unit_variant_id = $id;
+                            $variantRoom->roomtype_id = $roomId;
+                            $variantRoom->floorlevel = $level;
+                            $variantRoom->variant_room_attributes = serialize($attributes[$level][$roomId]);
+                            $variantRoom->save();
+                        } else {
+                            $variantRoom = VariantRoom::find($variantRoomId[$key]);
+                            $variantRoom->roomtype_id = $roomId;
+                            $variantRoom->variant_room_attributes = serialize($attributes[$level][$roomId]);
+                            $variantRoom->save();
+                        }
+
+                }
+            }
+            }
+        }
 
         return redirect("/admin/project/" . $project_id . "/apartment-variant/" . $id . '/edit');
     }
@@ -256,7 +399,8 @@ class ProjectApartmentVariantController extends Controller {
         $unitTypeStr ='';
         foreach($unitTypes as $unitType)
         {
-            $unitTypeStr .='<option value="'.$unitType->id.'">'.$unitType->unittype_name .'</option>';
+            $unitTypeName = Defaults::find($unitType->unittype_name)->label;
+            $unitTypeStr .='<option value="'.$unitType->id.'">'.$unitTypeName .'</option>';
         }
        
         $attributes ='';

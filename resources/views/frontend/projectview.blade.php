@@ -4,10 +4,13 @@
         <title>CommonFloor - {{ $project_title }}</title>
         <link type="text/css" rel="stylesheet" href="http://asset1.cfcdn.com/cfassets/css/search.caz.css?ver=1427977000" />
         <link href="{{ asset('css/frontend/custom.css')}}" rel="stylesheet">
-         <link href="{{ asset('bower_components/webui-popover/dist/jquery.webui-popover.css')}}" rel="stylesheet">
+        <link href="{{ asset('bower_components/webui-popover/dist/jquery.webui-popover.css')}}" rel="stylesheet">
         <link rel="icon" type="image/png" href="{{ asset('images/others/favicon.ico')}}">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <!--[if IE]>
+            <link href="{{ asset('css/frontend/ie.css')}}" rel="stylesheet" type="text/css" />
+        <![endif]-->
     </head>
     <body>
                   
@@ -117,7 +120,6 @@
         <script src="{{ asset('bower_components/lazyloadxt/dist/jquery.lazyloadxt.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery.panzoom/dist/jquery.panzoom.min.js' )}}"></script>
         <script src="{{ asset('bower_components/ionrangeslider/js/ion.rangeSlider.min.js' )}}"></script>
-        <script src="{{ asset('bower_components/webui-popover/dist/jquery.webui-popover.js' )}}"></script>
         <!-- end plugins -->
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
         <script>
@@ -165,6 +167,10 @@
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
         
         <input type="hidden" id="price" data-m-dec="" data-a-sign="Rs. " data-d-group="2" value="" />
+      <script type="text/javascript">
       
+       
+
+      </script>
     </body>
 </html>

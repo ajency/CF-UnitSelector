@@ -73,11 +73,12 @@ class LeftView extends Marionette.ItemView
 												   	<div class="col-sm-8 b-r">
 												        <div class="m-t-15">
 												        	{{#propertyTypes}}
-												          	<h6>{{prop_type}} <span class="text-muted">( {{unit_types}} )</span></h6>
+												          	<p>{{prop_type}} <span class="text-muted">({{unit_types}})</span></p>
 												        	{{/propertyTypes}}
 
 												         	<br>
-												       		<span class="icon-location "></span>{{address}}
+												       		<span class="icon-location pull-left"></span>
+												       		<p class="address">{{address}}</p>
 												        	<div class="clearfix"></div><br>
 												        </div> 
 												    </div>
@@ -211,12 +212,12 @@ class CenterView extends Marionette.ItemView
 				offsetX : 30
 				interactive : true
 				animation : 'grow'
-				trigger: 'hover'
+				trigger: 'click'
 				content : $('#proj_info').html()
 			)
-			$('.marker').trigger('mouseover')
+			$('.marker').tooltipster('show')
 
-			)
+		)
 
 		
 

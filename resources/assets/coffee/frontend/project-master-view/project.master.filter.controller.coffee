@@ -112,7 +112,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			CommonFloor.filter()
 			unitCollection.trigger('available')
 			@loadSelectedFilters()
-
+			@loadClearFilter()
 		'click @ui.types':(e)->
 			window.unitTypes = []
 			window.unitVariants = []
@@ -353,6 +353,19 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			theme: 'inset'
 
 
+		
+		
+		
+		types = Marionette.getOption(@,'types')
+		
+		if types.length == 1
+			$('.property_type').hide()
+		@loadSelectedFilters()
+		@loadClearFilter()
+
+	loadClearFilter:->
+		# window.price.destroy()
+		# window.area.destroy()
 		budget = []
 		area = []
 		$.each unitMasterCollection.toArray(), (index,value)->
@@ -385,12 +398,6 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		    	return window.numDifferentiation(num)
 
 		)
-		
-		types = Marionette.getOption(@,'types')
-		
-		if types.length == 1
-			$('.property_type').hide()
-		@loadSelectedFilters()
 
 	loadSelectedFilters:->
 		types = []
@@ -480,6 +487,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		# 	   from : priceMin
 		# 	   to  : priceMax
 		# )
+		
 		@ui.status.prop('checked',false)
 		if CommonFloor.defaults['availability'] != "" 
 			 @ui.status.prop('checked',true)
@@ -489,7 +497,9 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		else
 			$('.fliters-container').addClass 'closed'
 
-
+		window.price = $("#budget").data("ionRangeSlider")
+		window.area = $("#area").data("ionRangeSlider")
+		
 		
 		
 	

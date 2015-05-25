@@ -11,7 +11,7 @@
     }
 
     Unit.prototype.getUnitDetails = function(unit_id) {
-      var attributes, id, price, type, unit, unitType, unitVariant;
+      var attributes, id, price, type, unit, unitType, unitTypeModel, unitVariant;
       id = parseInt(unit_id);
       unit = unitMasterCollection.findWhere({
         id: id
@@ -31,7 +31,13 @@
         unitVariant = apartmentVariantMasterCollection.findWhere({
           'id': unit.get('unit_variant_id')
         });
+        unitTypeModel = unitTypeMasterCollection.findWhere({
+          'id': parseInt(unitVariant.get('unit_type_id'))
+        });
         type = 'apartment';
+        if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouse') {
+          type = 'Penthouse';
+        }
         price = window.apartmentVariant.findUnitPrice(unit);
         attributes = unitVariant.get('variant_attributes');
       } else if (plotVariantMasterCollection.get(unit.get('unit_variant_id')) !== void 0) {

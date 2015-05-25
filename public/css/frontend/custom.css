@@ -16,6 +16,9 @@ body {
 body {
   min-width: initial;
 }
+.margin-none {
+  margin: 0px;
+}
 /* Header */
 .us-header {
   background-color: #f68121;
@@ -50,6 +53,13 @@ body {
 .proj-name small {
   color: #ffffff;
 }
+.proj-title {
+  margin: 0 0 0 15px;
+  padding: 15px 5px 15px 10px;
+  border-left: 1px solid #db6809;
+  display: inline-block;
+  text-transform: capitalize;
+}
 .proj-type-count {
   float: left;
 }
@@ -60,7 +70,6 @@ body {
 }
 .proj-type-count p {
   margin: 22px 15px 0 2px;
-  font-weight: bold;
 }
 .wrapper {
   min-height: 100%;
@@ -263,7 +272,7 @@ hr.embossed {
   margin-bottom: 20px;
 }
 .detail-list .facts-icon {
-  font-size: 40px;
+  font-size: 25px;
   width: 40px;
   float: left;
   margin-right: 10px;
@@ -274,6 +283,7 @@ hr.embossed {
 }
 .detail-list .unit-label h3 {
   margin: 0px 0px 6px;
+  font-size: 15px;
 }
 .panel-title {
   border-bottom: 1px solid #ccc;
@@ -342,8 +352,23 @@ hr.embossed {
   display: block;
   background-position: -116px -18px;
 }
-.step3 .tooltipster-shadow {
-  border-radius: 100%;
+.bold {
+  font-weight: bold;
+  font-family: arial!important;
+}
+/*Step 3 list*/
+/*Step 4*/
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background-color: #000;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #FFC698;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #aaa;
 }
 /* Bootstrap responsive utilities */
 @-ms-viewport {
@@ -943,7 +968,7 @@ hr.embossed {
   position: relative;
 }
 #spritespin,
-.svg-maps div {
+.svg-maps svg {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -986,6 +1011,9 @@ hr.embossed {
   height: 100%;
   width: 100%;
   background: rgba(0, 0, 0, 0.5);
+}
+.overflow-h {
+  overflow: hidden;
 }
 /* Loader */
 .cf-loader {
@@ -1236,6 +1264,8 @@ hr.embossed {
 svg {
   width: 100%;
   height: auto;
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
 }
 svg polygon {
   -webkit-transform: rotateY(-180deg) scale(0);
@@ -1245,7 +1275,7 @@ svg polygon {
   -webkit-transform-origin: center;
       -ms-transform-origin: center;
           transform-origin: center;
-  -moz-transform-origin: center;
+  -moz-transform-origin: 0 0;
 }
 svg .caption {
   font-size: 14px;
@@ -1284,13 +1314,9 @@ svg .layer.not_in_selection {
   -webkit-animation: unit_fadein 0.6s;
 }
 svg .layer:hover {
-  cursor: default;
-  stroke: #f68121;
-  stroke-width: 4px;
-  stroke-dasharray: 320 0;
-  stroke-dashoffset: 0;
-  -webkit-transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
-          transition: stroke-width 1s, stroke-dasharray 3s, stroke-dashoffset 1s;
+  cursor: pointer;
+  -webkit-animation: blink 0.8s ease-in-out infinite alternate;
+          animation: blink 0.8s ease-in-out infinite alternate;
 }
 svg .villa,
 svg .plot,
@@ -1303,7 +1329,6 @@ svg .available,
 svg .building {
   opacity: 0.9;
   fill-opacity: 0.2;
-  fill: #ffffff;
   stroke: #000;
   stroke-width: 1px;
   stroke-opacity: 1;
@@ -1344,6 +1369,9 @@ svg polygon {
 .marker {
   cursor: pointer;
 }
+.marker-area {
+  cursor: default;
+}
 .step1-marker {
   cursor: pointer;
   -webkit-transform-origin: 50% 50%;
@@ -1355,6 +1383,19 @@ svg polygon {
   -webkit-animation: blink 0.5s ease-in-out infinite alternate;
           animation: blink 0.5s ease-in-out infinite alternate;
   -moz-animation: blink 0.5s ease-in-out infinite alternate;
+}
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  /* IE10+ specific styles go here */
+  .svg-area {
+    height: 0;
+    padding-top: 50%;
+    position: relative;
+  }
+  .svg-area svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
 }
 @-webkit-keyframes pulse {
   0% {
@@ -1424,20 +1465,34 @@ svg polygon {
             transform: translateY(0);
   }
 }
+@-webkit-keyframes blink1 {
+  0% {
+    stroke-width: 0;
+  }
+  100% {
+    stroke: #F68121;
+    fill-opacity: 0.5;
+  }
+}
+@keyframes blink1 {
+  0% {
+    stroke-width: 0;
+  }
+  100% {
+    stroke: #F68121;
+    fill-opacity: 0.5;
+  }
+}
 @-webkit-keyframes blink {
   100% {
     fill: #F68121;
     fill-opacity: 0.5;
-    opacity: .9;
-    border: 1px solid #000;
   }
 }
 @keyframes blink {
   100% {
     fill: #F68121;
     fill-opacity: 0.5;
-    opacity: .9;
-    border: 1px solid #000;
   }
 }
 .list-view-container {
@@ -1595,9 +1650,16 @@ svg polygon {
 }
 .eight .blocks {
   padding: 10px;
-  width: 11.8%;
+  width: 15.8%;
   margin-right: 0.8%;
   text-align: center;
+}
+.eight .blocks .bldg-info {
+  text-align: left;
+  margin-left: 10px;
+}
+.eight .blocks .icon {
+  color: #999999;
 }
 .eight .blocks .cost {
   display: none;
@@ -1656,7 +1718,7 @@ svg polygon {
   border-right: none;
 }
 .one .onview:before {
-  background: #ffffff;
+  background: rgba(255, 255, 255, 0.82);
   content: "NOT IN VIEW";
   color: #888;
   position: absolute;
@@ -1854,6 +1916,29 @@ svg polygon {
   border: 1px solid #262626;
   background-color: rgba(255, 255, 255, 0.7);
 }
+.top-legend {
+  font-size: 13px;
+  line-height: 27px;
+  position: absolute;
+  right: 25px;
+  top: 38px;
+}
+.top-legend li {
+  display: inline-block;
+  color: #cccccc;
+}
+.top-legend li::before {
+  height: 18px;
+  width: 40px;
+  border: 1px solid #cccccc;
+  content: '';
+  display: inline-block;
+  margin-right: 5px;
+}
+.top-legend li.na::before {
+  border: 1px solid #262626;
+  background-color: rgba(102, 102, 102, 0.7);
+}
 @-webkit-keyframes hvr-back-pulse {
   50% {
     box-shadow: inset 0 0 2px 2px #f68121;
@@ -1888,7 +1973,7 @@ svg polygon {
   opacity: 1;
 }
 .single-bldg .prev {
-  left: 20px;
+  left: 35px;
   -webkit-transform: rotate(180deg);
       -ms-transform: rotate(180deg);
           transform: rotate(180deg);
@@ -1975,7 +2060,7 @@ svg polygon {
     width: 100%;
   }
   .unit-details .detail-list .unit-label h3 {
-    font-size: 16px;
+    font-size: 15px;
   }
   .unit-details .detail-list .unit-label h5 {
     font-size: 12px;
@@ -2048,6 +2133,9 @@ svg polygon {
   float: none;
   margin: 0 auto 20px;
 }
+.slider .external-img {
+  width: 100%;
+}
 .slider .gallery-img {
   width: 45%;
   display: inline-block;
@@ -2081,6 +2169,15 @@ svg polygon {
 }
 .slider .gallery-img:hover .img-overlay {
   opacity: 0;
+}
+@media (max-width: 767px) {
+  .slider .Level_1 .layouts,
+  .slider .Level_3 .layouts,
+  .slider .Level_2 .layouts,
+  .slider .Level_5 .layouts,
+  .slider .gallery-img .layouts {
+    width: 100%;
+  }
 }
 .similar-section {
   margin-top: 20px;
@@ -2184,7 +2281,7 @@ svg polygon {
 .filter-result {
   position: absolute;
   top: 56px;
-  width: 100%;
+  width: 75%;
   right: 0;
   background-color: rgba(38, 38, 38, 0.6);
   z-index: 999;
@@ -2449,10 +2546,14 @@ label.third_toggle {
   display: none;
 }
 .big-tooltip {
-  width: 471px;
+  width: 100%;
+  max-width: 470px;
 }
 .big-tooltip .b-r {
-  border-left: 1px solid #ccc;
+  border-left: 1px solid #cccccc;
+}
+.big-tooltip img {
+  width: 100%;
 }
 .big-tooltip .icon-location {
   float: left;
@@ -2464,9 +2565,14 @@ label.third_toggle {
   position: absolute;
   right: 8px;
 }
+.big-tooltip .address {
+  float: left;
+  width: 82%;
+}
 .svg-info {
   font-family: OpenSans, Arial, sans-serif;
   padding: 0;
+  min-width: 290px;
 }
 .svg-info.available,
 .svg-info.sold,
@@ -2501,6 +2607,22 @@ label.third_toggle {
   text-align: center;
   padding-bottom: 5px;
 }
+.svg-info .action-bar2 {
+  width: 60px;
+  height: 60px;
+  float: left;
+  padding: 10px;
+  margin-left: -10px;
+  margin-top: -10px;
+  margin-right: 11px;
+  color: #ffffff;
+  font-size: 14px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  cursor: pointer;
+  display: block;
+  background: #666666;
+}
 .svg-info .action-bar {
   width: 60px;
   height: 105px;
@@ -2515,6 +2637,7 @@ label.third_toggle {
   border-top-left-radius: 5px;
   cursor: pointer;
   display: block;
+  background: #666666;
 }
 .svg-info.available .action-bar {
   background-color: #5ab319;
@@ -2573,11 +2696,66 @@ label.third_toggle {
   margin-top: 40%;
   background-position: -115px;
 }
+.svg-info .txt-dft {
+  margin-top: -2% !important;
+  width: 37px !important;
+  height: 37px!important;
+  background: url(../../images/sprite-popover.png) no-repeat;
+  width: 50px;
+  height: 50px;
+  display: block;
+  margin-top: 40%;
+  background-position: -177px;
+}
 .svg-info .text-default {
-  opacity: .5;
+  opacity: .7;
+}
+.icon-moon {
+  font-family: icomoon;
+  speak: none;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.apartment:before {
+  font-size: 30px;
+  text-align: center;
+  display: block;
+  line-height: 80px !important;
+  font-family: icomoon;
+  speak: none;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\e616";
 }
 .tooltipster-shadow .tooltipster-content {
   padding-bottom: 0;
+}
+.circle-tooltip {
+  border-radius: 100%;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+}
+.circle-tooltip .svg-info {
+  width: 100% !important;
+  min-width: 100% !important;
+}
+.circle-tooltip .svg-info h5 {
+  margin: 5px 0px 4px;
+}
+.circle-tooltip .svg-info i {
+  display: block;
+  margin: auto;
 }
 .ls-nav ul {
   width: 100% !important;

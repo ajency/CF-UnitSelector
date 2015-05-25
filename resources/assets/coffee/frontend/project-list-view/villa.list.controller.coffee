@@ -30,13 +30,17 @@ class VillaItemView extends Marionette.ItemView
 		'click .unit' :(e)->
 				if @model.get('status') == 'available'
 					CommonFloor.navigate '/unit-view/'+@model.get('id') , true
-					CommonFloor.router.storeRoute()
+					# CommonFloor.router.storeRoute()
 
 #Composite view for villas
 class VillaView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-12 us-right-content">
 									<div class="list-view-container animated fadeIn">
+										<h2 class="text-center">List of Villas <span class="pull-right top-legend">     <ul>
+				                <li class="available">AVAILABLE</li>
+				                <li class="na">N/AVAILABLE</li>
+				              </ul></span></h2><hr class="margin-none">
 							            <div class="text-center">
 							              <ul class="prop-select">
 							                <li class="prop-type buildings hidden">Buildings</li>

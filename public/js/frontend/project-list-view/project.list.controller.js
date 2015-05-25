@@ -46,7 +46,7 @@
       return TopListView.__super__.constructor.apply(this, arguments);
     }
 
-    TopListView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> Back to Project Overview </a> </div> <h2 class="proj-name">{{project_title}}</h2> </div> </div> </div> <div class="filter-summary-area"> <button class="btn btn-primary cf-btn-white pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters"> Filters <span class="icon-funnel"></span> </button> <div class="pull-left filter-result"> {{#each  filters}} {{#each this}} <div class="filter-pill"  > {{this.name}}{{this.type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div> {{/each}}{{/each }} </div> <div class="proj-type-count"> {{#types}} <p class="pull-right">{{type}}</p><h1 class="text-primary pull-right m-t-10">{{count.length}}</h1> {{/types}} </div> <div class="clearfix"></div> </div>');
+    TopListView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> </a> </div> <div class="header-info"> <h2 class="proj-name pull-left">{{project_title}}</h2> <div class="proj-type-count"> {{#types}} <p class="pull-right">{{type}}</p><h1 class=" pull-right m-t-10">{{count.length}}</h1> {{/types}} </div> <div class="clearfix"></div> </div> </div> </div> </div> <div class="pull-left filter-result full"> {{#each  filters}} {{#each this}} <div class="filter-pill"  > {{this.name}}{{this.type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div> {{/each}}{{/each }} </div> <div class="clearfix"></div>');
 
     TopListView.prototype.ui = {
       unitBack: '.unit_back',
@@ -78,10 +78,8 @@
     TopListView.prototype.events = function() {
       return {
         'click @ui.unitBack': function(e) {
-          var previousRoute;
           e.preventDefault();
-          previousRoute = CommonFloor.router.previous();
-          return CommonFloor.navigate('/' + previousRoute, true);
+          return CommonFloor.navigate('/', true);
         },
         'click @ui.types': function(e) {
           var arr, index;
@@ -151,9 +149,6 @@
 
     TopListView.prototype.onShow = function() {
       var response;
-      if (CommonFloor.router.history.length === 1) {
-        this.ui.unitBack.hide();
-      }
       response = CommonFloor.propertyTypes();
       if (response.length === 0) {
         return $('.proj-type-count').text('No results found');

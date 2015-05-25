@@ -26,9 +26,9 @@
                 </div>
                 <div class="col-md-12">
                     <div class="radio radio-primary">
-                        <input id="measurement_units_sqft" type="radio" name="measurement_units" value="Sq.ft" checked>
+                        <input id="measurement_units_sqft" type="radio" name="measurement_units" value="Sq. Ft." checked>
                         <label for="measurement_units_sqft" class="form-label">Square Feet (Sq. Ft.)</label>
-                        <input id="measurement_units_sqm" type="radio" name="measurement_units" value="Sq.m" {{ ($project['measurement_units'] == 'Sq.m') ? 'checked' : '' }}>
+                        <input id="measurement_units_sqm" type="radio" name="measurement_units" value="Sq. Mt." {{ ($project['measurement_units'] == 'Sq.m') ? 'checked' : '' }}>
                         <label for="measurement_units_sqm" class="form-label">Square Meter (Sq. Mt.)</label>
                     </div>
 
@@ -42,6 +42,7 @@
                     <input type="hidden" value="DETAILS" name="project_update"/>
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                     <button onclick="saveProjectConfig();" type="button" class="btn btn-primary btn-cons"><i class="fa fa-check"></i>  Save</button>
+                    <button type="button" data-p-id="{{ $project['id'] }}" class="btn btn-default update-response-table btn-cons">Update Response Table</button>
                     <a href="{{ url('/admin/project') }}"><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i>    Cancel</button></a>
                 </div>
             </div>
@@ -49,6 +50,32 @@
     </div>
 </div>
 
+<script>
+function saveProjectConfig()
+{
+    var flag = true;
+    if (!$('input[name="property_types[]"]:checked').length) {
+        alert('Please select property type');
+        flag = false;
+    }
 
+    $('input[name="property_types[]"]:checked').each(function () {
+        // To pass this value to its nearby hidden input
+        var propertyTypeId = $(this).val();
+        var unitTypecount = $('select[name="unittype[' + propertyTypeId + '][]"]').length;
+        if (unitTypecount == 1 && $('select[name="unittype[' + propertyTypeId + '][]"]').val() == '')
+        {
+            var propertType = $(this).closest('.row').attr('data-type');
+            alert('Select Unit type for ' + propertType);
+            flag = false;
+        }
+
+    });
+
+    if (flag)
+        $('form').submit();
+
+}
+    </script>
 
 @endsection

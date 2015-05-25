@@ -11,7 +11,6 @@ class CommonFloor.UnitCtrl extends Marionette.RegionController
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID)
 			CommonFloor.loadJSONData()
-		console.log project.toJSON()
 		if jQuery.isEmptyObject(project.toJSON())
 			@show new CommonFloor.NothingFoundView
 		else
@@ -49,12 +48,29 @@ class TopUnitView extends Marionette.ItemView
 		'click @ui.unitBack':(e)->
 			e.preventDefault()
 			previousRoute = CommonFloor.router.previous()
-			CommonFloor.navigate '/'+previousRoute , true
+			url = Backbone.history.fragment
+			unitid = parseInt url.split('/')[1]
+			console.log unit = unitCollection.findWhere
+				id  : unitid
+			unitType = unitTypeMasterCollection.findWhere
+							'id' :  unit.get('unit_type_id')
+			property = window.propertyTypes[unitType.get('property_type_id')]
+			
+			if s.decapitalize(property) == 'penthouse' || s.decapitalize(property) == 'apartments'
+				buildingModel = buildingCollection.findWhere
+							'id' : unit.get 'building_id'
+				building_id = buildingModel.get 'id'
+				if Object.keys(buildingModel.get('building_master')).length == 0
+					CommonFloor.navigate '/building/'+building_id+'/apartments' , true
+				else
+					CommonFloor.navigate '/building/'+building_id+'/master-view' , true
+			else
+				CommonFloor.navigate '/master-view' , true	
 
-	onShow:->
-		CommonFloor.router.storeRoute()
-		if CommonFloor.router.history.length == 1
-			@ui.unitBack.hide()
+	# onShow:->
+	# 	# CommonFloor.router.storeRoute()
+	# 	# if CommonFloor.router.history.length == 1
+	# 	# 	@ui.unitBack.hide()
 
 #Top Controller for unit
 class CommonFloor.TopUnitCtrl extends Marionette.RegionController
@@ -114,7 +130,7 @@ class LeftUnitView extends Marionette.ItemView
 								<div class="advncd-filter-wrp">
 
 									<div class="blck-wrap title-row">
-										<h5 class="accord-head">Property Attributes</h5>
+										<h5 class="bold property hidden">Property Attributes</h5>
 									</div>
 									{{#attributes}}
 									<div class="row">
@@ -162,17 +178,19 @@ class LeftUnitView extends Marionette.ItemView
 							<div class="clearfix"></div>
 						
 							<div class="similar-section">
-					            <h5 class="m-b-15">{{similarUnitsText}}</h5>
+					           <h5 class="bold m-b-15">{{similarUnitsText}}</h5>
 					          
 					              	{{#similarUnits}}
 					              	<div class="row m-b-15">
-					              	    <div class="col-sm-3 hidden-xs">
+					              	    <div class="col-sm-4 hidden-xs">
 				              	            <div class="alert ">
-				              	              <i class="villa-ico"></i>
+				              	              <i class="{{type}}-ico"></i>
 				              	            </div> 
 					              	    </div>
-					              	    <div class="col-sm-9 col-xs-12">
-			              	              	<h5><a href="/#unit-view/{{id}}">{{unit_name}}</a> <span class="text-primary pull-right"><span class="icon-rupee-icn"></span>{{price}}</span></h5>
+
+					              	    <div class="col-sm-8 col-xs-12">
+			              	              	<h5><a href="'+BASEURL+'/project/'+PROJECTID+'/#unit-view/{{id}}">{{unit_name}}</a> <span class="text-primary pull-right"><span class="icon-rupee-icn"></span>{{price}}</span></h5>
+
 			              	              	<span class="text-muted">Unit Variant: </span>{{variant}}<br>
 			              	             	<span class="text-muted">Unit Type:</span> {{unit_type}}<br>
 			              	             	<span class="text-muted"> Area:</span> {{area}} sqft     
@@ -210,6 +228,7 @@ class LeftUnitView extends Marionette.ItemView
 				'area':response[0].get 'super_built_up_area'
 				'variant':response[0].get 'unit_variant_name'
 				'id' : value.get('id')
+				'type' : similarUnits[2]
 		data.area = response[0].get('super_built_up_area')
 		data.type = response[1].get('name')
 		data.unit_variant = response[0].get('unit_variant_name')
@@ -238,7 +257,7 @@ class LeftUnitView extends Marionette.ItemView
 				
 		if unitsArr.length == 1
 			text = ''
-		[units,text]
+		[units,text,unitColl[2]]
 
 
 	generateLevels:(floor,response,unit)->
@@ -270,7 +289,6 @@ class LeftUnitView extends Marionette.ItemView
 		unitid = parseInt url.split('/')[1]
 		response = window.unit.getUnitDetails(unitid)
 		$('.price').text window.numDifferentiation(response[3])
-		console.log response[4]
 		if response[4] != null && response[4].length != 0
 			$('.property').removeClass 'hidden'
 	
@@ -284,7 +302,7 @@ class CommonFloor.LeftUnitCtrl extends Marionette.RegionController
 class CenterUnitView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-9 col-sm-12 col-xs-12 us-right-content unit-slides animated fadeIn">
-						<div class="svg-area">
+						<div class="">
 							<div class="liquid-slider slider" id="slider-id">
 								<div class="ls-wrapper ls-responsive">
 									<div class="ls-nav">
@@ -379,7 +397,7 @@ class CenterUnitView extends Marionette.ItemView
 			response = @generateLevels()
 			html = ''
 			html += '<div class="animated fadeIn">
-						<img class="img" data-src="'+response[3].get('external3durl')+'" />
+						<img class="img img-responsive" data-src="'+response[3].get('external3durl')+'" />
 					</div>'
 			$('.images').html html
 			$('.img').lazyLoadXT()
@@ -395,7 +413,6 @@ class CenterUnitView extends Marionette.ItemView
 				html += '<div class="animated fadeIn gallery-img">
 							<a class="fancybox" rel="gall" href="'+value+'">
 								<img class="img" data-src="'+value+'" />
-								<div class="img-overlay"></div>
 							</a>
 						</div>'
 			
@@ -411,13 +428,16 @@ class CenterUnitView extends Marionette.ItemView
 			unitModel = unitCollection.findWhere
 								'id' : id
 			response = window.unit.getUnitDetails(id)
+			unitColl = CommonFloor.getUnitsProperty(unitModel)
 			html = '<div class="svg-info">
+						<i class="'+unitColl[2]+'-ico"></i>
 						<h5 class=" m-t-0">'+unitModel.get('unit_name')+'</h5>
 						<div class="details">
-							<div>Approx Rs.<span class="text-primary">'+window.numDifferentiation(response[3])+'</span></div>
-							<div>Area: <span>'+response[0].get('super_built_up_area')+'Sq.Ft</span></div>
-							<div>Variant: <span>'+response[0].get('unit_variant_name')+'</span></div>
-							<div>Unit Type: <span>'+response[1].get('name')+'</span></div>
+							<span>'+response[1].get('name')+'</span></br>
+							<div class="text-primary"><span class="text-primary facts-icon icon-rupee-icn"></span>'+window.numDifferentiation(response[3])+'</div>
+							<!--<div>Area: <span>'+response[0].get('super_built_up_area')+'Sq.Ft</span></div>	
+							<div>Variant: <span>'+response[0].get('unit_variant_name')+'</span></div>-->
+							
 						</div>
 					</div>'
 			
@@ -465,7 +485,7 @@ class CenterUnitView extends Marionette.ItemView
 
 				
 		if ! _.isUndefined(response[3].get('external3durl'))
-			html = '<img class="img lazy-hidden"  data-src="'+response[3].get('external3durl')+'" />'
+			html = '<img class="img lazy-hidden img-responsive external-img"  data-src="'+response[3].get('external3durl')+'" />'
 			$('.images').html html
 			$('.external').addClass('current')
 			$('.threeD').removeClass('current')
@@ -510,7 +530,7 @@ class CenterUnitView extends Marionette.ItemView
 
 	iniTooltip:->
 		$('.next,.prev').tooltipster(
-				theme: 'tooltipster-shadow'
+				theme: 'tooltipster-shadow circle-tooltip'
 				contentAsHTML: true
 				onlyOne : true
 				arrow : false
@@ -559,7 +579,7 @@ class CenterUnitView extends Marionette.ItemView
 		if _.isUndefined prev
 			$('.prev').hide()
 		else
-			$('.prev').attr('data-id',next.get('id'))
+			$('.prev').attr('data-id',prev.get('id'))
 
 #Center View for the unit
 class CommonFloor.CenterUnitCtrl extends Marionette.RegionController

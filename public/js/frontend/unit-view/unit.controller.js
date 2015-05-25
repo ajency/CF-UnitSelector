@@ -28,7 +28,6 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.loadJSONData();
       }
-      console.log(project.toJSON());
       if (jQuery.isEmptyObject(project.toJSON())) {
         return this.show(new CommonFloor.NothingFoundView);
       } else {
@@ -63,19 +62,33 @@
     TopUnitView.prototype.events = function() {
       return {
         'click @ui.unitBack': function(e) {
-          var previousRoute;
+          var buildingModel, building_id, previousRoute, property, unit, unitType, unitid, url;
           e.preventDefault();
           previousRoute = CommonFloor.router.previous();
-          return CommonFloor.navigate('/' + previousRoute, true);
+          url = Backbone.history.fragment;
+          unitid = parseInt(url.split('/')[1]);
+          console.log(unit = unitCollection.findWhere({
+            id: unitid
+          }));
+          unitType = unitTypeMasterCollection.findWhere({
+            'id': unit.get('unit_type_id')
+          });
+          property = window.propertyTypes[unitType.get('property_type_id')];
+          if (s.decapitalize(property) === 'penthouse' || s.decapitalize(property) === 'apartments') {
+            buildingModel = buildingCollection.findWhere({
+              'id': unit.get('building_id')
+            });
+            building_id = buildingModel.get('id');
+            if (Object.keys(buildingModel.get('building_master')).length === 0) {
+              return CommonFloor.navigate('/building/' + building_id + '/apartments', true);
+            } else {
+              return CommonFloor.navigate('/building/' + building_id + '/master-view', true);
+            }
+          } else {
+            return CommonFloor.navigate('/master-view', true);
+          }
         }
       };
-    };
-
-    TopUnitView.prototype.onShow = function() {
-      CommonFloor.router.storeRoute();
-      if (CommonFloor.router.history.length === 1) {
-        return this.ui.unitBack.hide();
-      }
     };
 
     return TopUnitView;
@@ -114,7 +127,7 @@
       return LeftUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content animated fadeIn"> <div class="unit-details"> <div class="row detail-list"> <div class="col-sm-6 col-xs-6"> <span class="facts-icon icon-total-units"></span> <div class="unit-label"> <h3>{{unit_variant}}</h3> <h5 class="text-muted">Unit Variant</h5> </div> </div> <div class="col-sm-6 col-xs-6"> <span class="facts-icon icon-BHKtype"></span> <div class="unit-label"> <h3>{{type}}</h3> <h5 class="text-muted">Unit Type</h5> </div> </div> </div> <div class="row detail-list"> <div class="col-sm-6 col-xs-6"> <span class="facts-icon icon-BHK-area-2"></span> <div class="unit-label"> <h3>{{area}} sq.ft</h3> <h5 class="text-muted">Area</h5> </div> </div> <div class="col-sm-6 col-xs-6"> <span class="facts-icon icon-rupee-icn"></span> <div class="unit-label"> <h3 class="price">{{price}}</h3> <h5 class="text-muted">Price</h5> </div> </div> </div> <div class="advncd-filter-wrp"> <div class="blck-wrap title-row"> <h5 class="accord-head">Property Attributes</h5> </div> {{#attributes}} <div class="row"> <div class="col-sm-12"> <h6><span class="text-muted">{{attribute}}:</span> {{value}}</h6> </div> </div> {{/attributes}} </div> <div class=" title-row"> <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"> {{#levels}} <div class="panel panel-default"> <div class="panel-heading" role="tab" id="headingTwo"> <h4 class="panel-title m-b-15 p-b-10"> <a class="accordion-toggle collapsed text-primary " data-toggle="collapse" data-parent="#accordion" href="#{{id}}" aria-expanded="false" > {{level_name}} </a> </h4> </div> <div id="{{id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo"> <div class="panel-body"> {{#rooms}} <div class="room-attr"> <div class="m-b-15"> <h5 class="m-b-5">{{room_name}}</h5> {{#attributes}} <div class=""><span>{{attribute}}</span>: {{value}}</div> {{/attributes}} </div> </div> {{/rooms}} </div> </div> </div> {{/levels}} </div> </div> </div> <div class="clearfix"></div> <div class="similar-section"> <h5 class="m-b-15">{{similarUnitsText}}</h5> {{#similarUnits}} <div class="row m-b-15"> <div class="col-sm-3 hidden-xs"> <div class="alert "> <i class="villa-ico"></i> </div> </div> <div class="col-sm-9 col-xs-12"> <h5><a href="/#unit-view/{{id}}">{{unit_name}}</a> <span class="text-primary pull-right"><span class="icon-rupee-icn"></span>{{price}}</span></h5> <span class="text-muted">Unit Variant: </span>{{variant}}<br> <span class="text-muted">Unit Type:</span> {{unit_type}}<br> <span class="text-muted"> Area:</span> {{area}} sqft </div> </div> {{/similarUnits}} </div> </div> </div>');
+    LeftUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content animated fadeIn"> <div class="unit-details"> <div class="row detail-list"> <div class="col-sm-6 col-xs-6"> <span class="facts-icon icon-total-units"></span> <div class="unit-label"> <h3>{{unit_variant}}</h3> <h5 class="text-muted">Unit Variant</h5> </div> </div> <div class="col-sm-6 col-xs-6"> <span class="facts-icon icon-BHKtype"></span> <div class="unit-label"> <h3>{{type}}</h3> <h5 class="text-muted">Unit Type</h5> </div> </div> </div> <div class="row detail-list"> <div class="col-sm-6 col-xs-6"> <span class="facts-icon icon-BHK-area-2"></span> <div class="unit-label"> <h3>{{area}} sq.ft</h3> <h5 class="text-muted">Area</h5> </div> </div> <div class="col-sm-6 col-xs-6"> <span class="facts-icon icon-rupee-icn"></span> <div class="unit-label"> <h3 class="price">{{price}}</h3> <h5 class="text-muted">Price</h5> </div> </div> </div> <div class="advncd-filter-wrp"> <div class="blck-wrap title-row"> <h5 class="bold property hidden">Property Attributes</h5> </div> {{#attributes}} <div class="row"> <div class="col-sm-12"> <h6><span class="text-muted">{{attribute}}:</span> {{value}}</h6> </div> </div> {{/attributes}} </div> <div class=" title-row"> <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"> {{#levels}} <div class="panel panel-default"> <div class="panel-heading" role="tab" id="headingTwo"> <h4 class="panel-title m-b-15 p-b-10"> <a class="accordion-toggle collapsed text-primary " data-toggle="collapse" data-parent="#accordion" href="#{{id}}" aria-expanded="false" > {{level_name}} </a> </h4> </div> <div id="{{id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo"> <div class="panel-body"> {{#rooms}} <div class="room-attr"> <div class="m-b-15"> <h5 class="m-b-5">{{room_name}}</h5> {{#attributes}} <div class=""><span>{{attribute}}</span>: {{value}}</div> {{/attributes}} </div> </div> {{/rooms}} </div> </div> </div> {{/levels}} </div> </div> </div> <div class="clearfix"></div> <div class="similar-section"> <h5 class="bold m-b-15">{{similarUnitsText}}</h5> {{#similarUnits}} <div class="row m-b-15"> <div class="col-sm-4 hidden-xs"> <div class="alert "> <i class="{{type}}-ico"></i> </div> </div> <div class="col-sm-8 col-xs-12"> <h5><a href="' + BASEURL + '/project/' + PROJECTID + '/#unit-view/{{id}}">{{unit_name}}</a> <span class="text-primary pull-right"><span class="icon-rupee-icn"></span>{{price}}</span></h5> <span class="text-muted">Unit Variant: </span>{{variant}}<br> <span class="text-muted">Unit Type:</span> {{unit_type}}<br> <span class="text-muted"> Area:</span> {{area}} sqft </div> </div> {{/similarUnits}} </div> </div> </div>');
 
     LeftUnitView.prototype.serializeData = function() {
       var attributes, data, floor, response, similarUnits, temp, unit, unitid, url;
@@ -144,7 +157,8 @@
           'price': window.numDifferentiation(response[3]),
           'area': response[0].get('super_built_up_area'),
           'variant': response[0].get('unit_variant_name'),
-          'id': value.get('id')
+          'id': value.get('id'),
+          'type': similarUnits[2]
         });
       });
       data.area = response[0].get('super_built_up_area');
@@ -181,7 +195,7 @@
       if (unitsArr.length === 1) {
         text = '';
       }
-      return [units, text];
+      return [units, text, unitColl[2]];
     };
 
     LeftUnitView.prototype.generateLevels = function(floor, response, unit) {
@@ -224,7 +238,6 @@
       unitid = parseInt(url.split('/')[1]);
       response = window.unit.getUnitDetails(unitid);
       $('.price').text(window.numDifferentiation(response[3]));
-      console.log(response[4]);
       if (response[4] !== null && response[4].length !== 0) {
         return $('.property').removeClass('hidden');
       }
@@ -256,7 +269,7 @@
       return CenterUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 col-sm-12 col-xs-12 us-right-content unit-slides animated fadeIn"> <div class="svg-area"> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <div class="images animated fadeIn text-center"> </div> </div> </div> </div> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> </div> </div> </div>');
+    CenterUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 col-sm-12 col-xs-12 us-right-content unit-slides animated fadeIn"> <div class=""> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <div class="images animated fadeIn text-center"> </div> </div> </div> </div> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> </div> </div> </div>');
 
     CenterUnitView.prototype.ui = {
       imagesContainer: '.us-right-content'
@@ -295,7 +308,7 @@
         var html, response;
         response = this.generateLevels();
         html = '';
-        html += '<div class="animated fadeIn"> <img class="img" data-src="' + response[3].get('external3durl') + '" /> </div>';
+        html += '<div class="animated fadeIn"> <img class="img img-responsive" data-src="' + response[3].get('external3durl') + '" /> </div>';
         $('.images').html(html);
         $('.img').lazyLoadXT();
         $('.external').addClass('current');
@@ -308,7 +321,7 @@
         response = this.generateLevels();
         html = '';
         $.each(response[3].get('galleryurl'), function(index, value) {
-          return html += '<div class="animated fadeIn gallery-img"> <a class="fancybox" rel="gall" href="' + value + '"> <img class="img" data-src="' + value + '" /> <div class="img-overlay"></div> </a> </div>';
+          return html += '<div class="animated fadeIn gallery-img"> <a class="fancybox" rel="gall" href="' + value + '"> <img class="img" data-src="' + value + '" /> </a> </div>';
         });
         $('.images').html(html);
         $('.img').lazyLoadXT();
@@ -318,13 +331,14 @@
         return $('.external').removeClass('current');
       },
       'mouseover .next,.prev': function(e) {
-        var html, id, response, unitModel;
+        var html, id, response, unitColl, unitModel;
         id = parseInt($(e.target).attr('data-id'));
         unitModel = unitCollection.findWhere({
           'id': id
         });
         response = window.unit.getUnitDetails(id);
-        html = '<div class="svg-info"> <h5 class=" m-t-0">' + unitModel.get('unit_name') + '</h5> <div class="details"> <div>Approx Rs.<span class="text-primary">' + window.numDifferentiation(response[3]) + '</span></div> <div>Area: <span>' + response[0].get('super_built_up_area') + 'Sq.Ft</span></div> <div>Variant: <span>' + response[0].get('unit_variant_name') + '</span></div> <div>Unit Type: <span>' + response[1].get('name') + '</span></div> </div> </div>';
+        unitColl = CommonFloor.getUnitsProperty(unitModel);
+        html = '<div class="svg-info"> <i class="' + unitColl[2] + '-ico"></i> <h5 class=" m-t-0">' + unitModel.get('unit_name') + '</h5> <div class="details"> <span>' + response[1].get('name') + '</span></br> <div class="text-primary"><span class="text-primary facts-icon icon-rupee-icn"></span>' + window.numDifferentiation(response[3]) + '</div> <!--<div>Area: <span>' + response[0].get('super_built_up_area') + 'Sq.Ft</span></div> <div>Variant: <span>' + response[0].get('unit_variant_name') + '</span></div>--> </div> </div>';
         return $(e.target).tooltipster('content', html);
       },
       'click .next,.prev': function(e) {
@@ -362,7 +376,7 @@
       $('.images').html(html);
       $('.level').attr('class', 'level Level_0 ' + _.last(response[2]));
       if (!_.isUndefined(response[3].get('external3durl'))) {
-        html = '<img class="img lazy-hidden"  data-src="' + response[3].get('external3durl') + '" />';
+        html = '<img class="img lazy-hidden img-responsive external-img"  data-src="' + response[3].get('external3durl') + '" />';
         $('.images').html(html);
         $('.external').addClass('current');
         $('.threeD').removeClass('current');
@@ -407,7 +421,7 @@
 
     CenterUnitView.prototype.iniTooltip = function() {
       return $('.next,.prev').tooltipster({
-        theme: 'tooltipster-shadow',
+        theme: 'tooltipster-shadow circle-tooltip',
         contentAsHTML: true,
         onlyOne: true,
         arrow: false,
@@ -462,7 +476,7 @@
       if (_.isUndefined(prev)) {
         return $('.prev').hide();
       } else {
-        return $('.prev').attr('data-id', next.get('id'));
+        return $('.prev').attr('data-id', prev.get('id'));
       }
     };
 

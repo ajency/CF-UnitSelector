@@ -345,23 +345,50 @@ function addFloorLevel(variantId)
     $("#counter").val(i);
 }
 
-function getRoomTypeAttributes(obj, variantId, level)
+function getRoomTypeAttributes(obj, level)
 {
+    var roomId = $(obj).closest('.row').find('select').val();
+    if(!roomId)
+    {
+        alert("Select Room Type");
+        return false;
+    }
     $.ajax({
-        url: BASEURL + "/admin/project/" + PROJECTID + "/bunglow-variant/" + variantId + "/getroomtypeattributes",
+        url: BASEURL + "/admin/project/" + PROJECTID + "/roomtype/" + roomId + "/getroomtypeattributes",
         type: "POST",
         data: {
-            roomtype_id: obj.value,
             level: level,
+            type :"add",
         },
         success: function (response) {
-            var attribute_str = response.data.attributes;
-            $(obj).closest('.room-block').next('div').html(attribute_str);
+            var attribute_str = response.data.attributes; 
+            $(obj).closest('.grid-body').find('.room_attributes_block').append(attribute_str);
             $("select").select2();
         }
     });
 
 
+}
+
+function updateRoomAttributes()
+{
+   var level =$("#roomtypeiframe").attr("level");  
+   var roomid = $("#roomtypeiframe").attr("roomid");  
+   $("#level_"+level).find('select[name="room_type[]"]').val(roomid);
+   
+   $.ajax({
+        url: BASEURL + "/admin/project/" + PROJECTID + "/roomtype/" + roomid + "/getroomtypeattributes",
+        type: "POST",
+        data: {
+            level: level,
+            type :"edit",
+        },
+        success: function (response) {
+            var attribute_str = response.data.attributes; 
+            $('.roomattribute_'+level+'_'+roomid).html(attribute_str);
+            $("select").select2();
+        }
+    });
 }
 
 function addRoomAttributes(level, obj, variantId)
@@ -426,10 +453,10 @@ function setUpProjectMasterUploader() {
         },
         init: {
             PostInit: function () {
-               /* document.getElementById('master_uploadfiles').onclick = function () {
-                    master_uploader.start();
-                    return false;
-                };*/
+                /* document.getElementById('master_uploadfiles').onclick = function () {
+                 master_uploader.start();
+                 return false;
+                 };*/
             },
             FilesAdded: function (up, files) {
                 up.start();
@@ -495,7 +522,153 @@ function setUpProjectMasterUploader() {
 
 }
 
-function setUpFloorLevelUploader() {
+function addFloorLevelUploader(level) { 
+
+    var selectBtnId_2d = 'pickfiles_' + level + '_2d';
+    var selectBtnId_3d = 'pickfiles_' + level + '_3d'; 
+    
+    var uploader_2d = new plupload.Uploader({
+        runtimes: 'html5,flash,silverlight,html4',
+        browse_button: selectBtnId_2d, // you can pass in id...
+        url: '/admin/variant/' + variantId + '/media',
+        flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+        silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+        headers: {
+            "x-csrf-token": $("[name=_token]").val()
+        },
+        multipart_params: {
+            "level": level,
+            "layout": "2d",
+            "projectId": PROJECTID
+        },
+        filters: {
+            max_file_size: '10mb',
+            mime_types: [{
+                    title: "Image files",
+                    extensions: "svg,jpg,png,jpeg"
+                }]
+        },
+        init: {
+            PostInit: function () {
+                /* document.getElementById('uploadfiles').onclick = function () {
+                 uploader.start();
+                 return false;
+                 };*/
+            },
+            FilesAdded: function (up, files) {
+                var str = ' ';
+                str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
+                str += '<div style="  width: 150px;height: 93px;"></div>';
+                str += '<div class="progress progress-small " style="margin:0;">';
+                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
+                str += '</div>';
+                str += '</div>';
+                str += ' ';
+                $("#2d_" + level + "_image").html(str);
+                up.start();
+
+
+
+            },
+            FileUploaded: function (up, file, xhr) {
+                fileResponse = JSON.parse(xhr.response);
+
+                var str = ' ';
+                str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay" onclick="deleteLayout(' + fileResponse.data.media_id + ',\'2d\');"><i class="fa fa-close text-primary"></i></a>';
+                str += '<img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="' + fileResponse.data.image_path + '" />';
+                str += '</div>';
+                str += '</div>';
+            
+
+                $("#2d_" + level + "_image").html(str);
+                if(!variantId)
+                    $("#image_" + level + "_2d_id").val(fileResponse.data.media_id);
+
+            }
+        }
+    });
+    uploader_2d.init();
+    
+    
+    var uploader_3d = new plupload.Uploader({
+        runtimes: 'html5,flash,silverlight,html4',
+        browse_button: selectBtnId_3d, // you can pass in id...
+        url: '/admin/variant/' + variantId + '/media',
+        flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+        silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+        headers: {
+            "x-csrf-token": $("[name=_token]").val()
+        },
+        multipart_params: {
+            "level": level,
+            "layout": "3d",
+            "projectId": PROJECTID
+        },
+        filters: {
+            max_file_size: '10mb',
+            mime_types: [{
+                    title: "Image files",
+                    extensions: "svg,jpg,png,jpeg"
+                }]
+        },
+        init: {
+            PostInit: function () {
+                /* document.getElementById('uploadfiles').onclick = function () {
+                 uploader.start();
+                 return false;
+                 };*/
+            },
+            FilesAdded: function (up, files) {
+                var str = ' ';
+                str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
+                str += '<div style="  width: 150px;height: 93px;"></div>';
+                str += '<div class="progress progress-small " style="margin:0;">';
+                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
+                str += '</div>';
+                str += '</div>';
+                str += ' ';
+                $("#3d_" + level + "_image").html(str);
+                up.start();
+
+
+
+            },
+            FileUploaded: function (up, file, xhr) {
+                fileResponse = JSON.parse(xhr.response);
+
+                var str = ' ';
+                str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay" onclick="deleteLayout(' + fileResponse.data.media_id + ',\'3d\');"><i class="fa fa-close text-primary"></i></a>';
+                str += '<img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="' + fileResponse.data.image_path + '"   />';
+                str += '</div>';
+                str += '</div>';
+             
+
+                $("#3d_" + level + "_image").html(str);
+                if(!variantId)
+                    $("#image_" + level + "_3d_id").val(fileResponse.data.media_id)
+            }
+        }
+    });
+    uploader_3d.init();
+
+
+}
+function setUpFloorLevelUploader()
+{  
+     if (FLOORLEVELS.length === 0)
+        return false;
+
+    $.each(FLOORLEVELS, function (index, value) { 
+        addFloorLevelUploader(value);
+    });
+        
+}
+
+/*function setUpFloorLevelUploader() {
 
     if (FLOORLEVELS.length === 0)
         return false;
@@ -590,10 +763,11 @@ function setUpFloorLevelUploader() {
 
     });
 
-}
+}*/
 
 function deleteLayout(mediaId, type)
 {
+
     if (confirm('Are you sure you want to delete this media file? ') === false) {
         return;
     }
@@ -673,10 +847,11 @@ function setUpFloorLayoutUploader() {
 }
 
 $(document).ready(function () {
-
+ 
     setUpProjectMasterUploader()
     setUpFloorLevelUploader()
     setUpFloorLayoutUploader()
+
 
     var uploader = new plupload.Uploader({
         runtimes: 'html5,flash,silverlight,html4',
@@ -699,10 +874,10 @@ $(document).ready(function () {
         },
         init: {
             PostInit: function () {
-               /* document.getElementById('uploadfiles').onclick = function () {
-                    uploader.start();
-                    return false;
-                };*/
+                /* document.getElementById('uploadfiles').onclick = function () {
+                 uploader.start();
+                 return false;
+                 };*/
             },
             FilesAdded: function (up, files) {
                 var str = '<div class="col-md-3">';
@@ -809,21 +984,37 @@ $(document).ready(function () {
         },
         init: {
             PostInit: function () {
-                document.getElementById('uploadfiles_ext3d').onclick = function () {
-                    uploader_ext3d.start();
-                    return false;
-                };
+                
             },
             FilesAdded: function (up, files) {
-
-                $('#uploadfiles_ext3d').next("div.selectedImages").html('<strong class="col-md-12">' + files.length + ' image selected. Click on upload button to start upload.<div class="cf-loader"></div></strong>');
-                $('#uploadfiles_ext3d').removeClass('hidden');
+                var str = '<div class="col-md-3">';
+                str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
+                str += '<div style="  width: 150px;height: 93px;"></div>';
+                str += '<div class="progress progress-small " style="margin:0;">';
+                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
+                str += '</div>';
+                  str += '</div>';
+                str += '</div>';
+                $("#google_earth_image").html(str);
+                up.start();
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
-                $("#ext3dlayout").html('<img src="' + fileResponse.data.image_path + '" class="img-responsive img-thumbnail">  <button onclick="deleteLayout(' + fileResponse.data.media_id + '\'external\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
-                $('#uploadfiles_ext3d').next("div.selectedImages").html('');
-                $('#uploadfiles_ext3d').addClass('hidden');
+
+                var str = '<div class="col-md-3">';
+                str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay" onclick="deleteLayout(' + fileResponse.data.media_id + ',\'external\');"><i class="fa fa-close text-primary"></i></a>';
+                str += '<img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="' + fileResponse.data.image_path + '"   />';
+                str += '</div>';
+                str += '</div>';
+                str += '<div class="col-md-3">'; 
+                str += '</div>';
+
+
+                $("#3d_external_img").html(str);
+                if(!variantId)
+                    $("#image_external_3d_id").val(fileResponse.data.media_id)
             }
         }
     });
@@ -847,28 +1038,41 @@ $(document).ready(function () {
             max_file_size: '10mb',
             mime_types: [{
                     title: "Image files",
-                    extensions: "svg,jpg,png,jpeg"
+                    extensions: "jpg,png,jpeg"
                 }]
         },
         init: {
             PostInit: function () {
-                document.getElementById('uploadfiles_gallery').onclick = function () {
-                    uploader_gallery.start();
-                    return false;
-                };
+                 
             },
             FilesAdded: function (up, files) {
-
-                $('#uploadfiles_gallery').next("div.selectedImages").html('<strong class="col-md-12">' + files.length + ' image selected. Click on upload button to start upload.<div class="cf-loader"></div></strong>');
-                $('#uploadfiles_gallery').removeClass('hidden');
+                var str = '<div class="col-md-3 variant-gallery-image">';
+                str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
+                str += '<div style="  width: 150px;height: 93px;"></div>';
+                str += '<div class="progress progress-small " style="margin:0;">';
+                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
+                str += '</div>';
+                  str += '</div>';
+                str += '</div>';
+                $("#variant_gallery").append(str);
+                 up.start();
+             
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
-                $("#galleryimages").append('<div class="col-sm-3">\n\
-                            <img width="150" height="150" src="' + fileResponse.data.image_path + '" class="img-responsive" ><button onclick="deleteLayout(' + fileResponse.data.media_id + ',\'gallery\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>\n\
-                            </div>');
-                $('#uploadfiles_gallery').next("div.selectedImages").html('');
-                $('#uploadfiles_gallery').addClass('hidden');
+                var str = '<div class="col-md-3">';
+                str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay" onclick="deleteLayout(' + fileResponse.data.media_id + ',\'gallery\');"><i class="fa fa-close text-primary"></i></a>';
+                str += '<img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="' + fileResponse.data.image_path + '"   />';
+                str += '<input type="hidden" name="image_gallery[]" id="image_external_3d_id" value="' + fileResponse.data.media_id + '"> ';
+                str += '</div>';
+                str += '</div>';
+ 
+                $(".variant-gallery-image").remove();
+                $("#variant_gallery").append(str);
+                
+               
 
             }
         }
@@ -988,9 +1192,39 @@ function getPropertTypeData(obj, flag)
             {
                 //VARIANT CODE
                 $('#property_type_attributes').html(response.data.attributes);
+                
+                $('select[name="unit_type"]').empty();
+                $('select[name="unit_type"]').append('<option value=""> Select Unit Type</option>')
 
                 if (unitTypes.trim() != '')
                     $('select[name="unit_type"]').append(unitTypes);
+                
+                if(obj.value==3)                        //APARTMENT
+                {
+                   $(".add_level").addClass('hidden');
+                   $("#level_0").find('.grid-title').addClass('hidden');
+                    $('input[name="levels[]"]').each(function () { 
+ 
+                        if($(this).val()!=0)
+                        {
+                            $("#level_"+$(this).val()).addClass('hidden'); 
+                        }
+                    });
+                     
+                }
+                else if(obj.value==4)                        //PENTHOUSE
+                {
+                   $(".add_level").removeClass('hidden');
+                    $("#level_0").find('.grid-title').removeClass('hidden');
+                    $('input[name="levels[]"]').each(function () { 
+ 
+                        if($(this).val()!=0)
+                        {
+                            $("#level_"+$(this).val()).removeClass('hidden'); 
+                        }
+                    });
+                    
+                }
             }
             else
             {
@@ -1033,8 +1267,9 @@ function addUnitType()
 }
 
 function createUnitType(obj, propertyTypeId)
-{
-    if ($(obj).val() == 'add_new')
+{ 
+    var val =$(obj).val();
+    if ( val== 'add_new')
     {
 
         if (!$(obj).closest('.unit_type_block').find('input[name="add_new_unit_type"]').length)
@@ -1059,10 +1294,24 @@ function createUnitType(obj, propertyTypeId)
             html += '</div>';
             html += '</div>';
             $(obj).closest('.unit_type_block').before(html);
-            $(obj).val('')
+            $(obj).val('');
         }
 
 
+    }
+    else{
+        $(obj).closest('.propertyTypeUnitsAttributes').find('select').each(function () { 
+         
+            if($(obj).get(0)!=$(this).get(0) && $(this).val()==val)
+            {
+                 alert('Unit Type Already Selected');
+ 
+                 $(obj).select2('val', '');
+ 
+                 return false;
+                 
+            }
+        });
     }
 }
 
@@ -1074,29 +1323,42 @@ $('input[name="property_types[]"]').change(function (event) {
 
 });
 
-function saveProjectConfig()
+function saveVariantConfig()
 {
-    var flag =true;
-    if (!$('input[name="property_types[]"]:checked').length) {
-        alert('Please select property type');
-         flag= false;
+    var flag = true;
+    var isApartment=false; 
+     
+    if($('input[name="property_type"]').length || $('select[name="property_type"]').length)
+    {  
+        if($('input[name="property_type"]').attr('data-value')==='Apartments')
+          isApartment=true;
+        else if($('select[name="property_type"]').find(":selected").text()==='Apartments')
+          isApartment=true;
     }
-
-    $('input[name="property_types[]"]:checked').each(function () {
-        // To pass this value to its nearby hidden input
-        var propertyTypeId = $(this).val(); 
-        var unitTypecount = $('select[name="unittype['+ propertyTypeId +'][]"]').length;
-        if(unitTypecount==1 && $('select[name="unittype['+ propertyTypeId +'][]"]').val()=='')
-        {
-           var propertType =$(this).closest('.row').attr('data-type');
-           alert('Select Unit type for '+propertType);
-           flag= false;
-        }
- 
-    });
     
-    if(flag)
-     $('form').submit(); 
+    
+
+    $('input[name="levels[]"]').each(function () { 
+         
+        if(isApartment && $(this).val()!=0)
+        {  
+          return false;
+        }
+        
+         var roomId = $(this).closest('.row').find('input[name="room_id[]"]').length; 
+        if(roomId==0)
+        {
+ 
+            alert('Select Room Type For Level ' +  $(this).val());
+            flag = false;
+        }
+        
+        
+
+    });
+
+     if (flag)
+        $('form').submit(); 
 
 }
 

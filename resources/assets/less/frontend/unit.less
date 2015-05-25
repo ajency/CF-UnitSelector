@@ -40,7 +40,7 @@
 			.unit-label{
 				width: 100%;
 				h3{
-					font-size: 16px;
+					font-size: 15px;
 				}
 				h5{
 					font-size: 12px;
@@ -122,6 +122,10 @@
 		}
 	}
 
+	.external-img{
+		width: 100%;
+	}
+
 	.gallery-img{
 		width: 45%;
 		display: inline-block;
@@ -152,6 +156,14 @@
 		&:hover{
 			.img-overlay{
 				opacity: 0;
+			}
+		}
+	}
+
+	@media(max-width:767px){
+		.Level_1, .Level_3, .Level_2, .Level_5, .gallery-img{
+			.layouts{
+				width: 100%;
 			}
 		}
 	}

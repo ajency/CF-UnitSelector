@@ -6,7 +6,7 @@ class BunglowListView extends Marionette.ItemView
 										<div class="clearfix"></div>
 									</div>
 									<div class="cost">
-									  {{price}}
+									 <span class="icon-rupee-icn"> </span>{{price}}
 									</div>')
 
 	initialize:->
@@ -30,7 +30,7 @@ class BunglowListView extends Marionette.ItemView
 		status = s.decapitalize(availability)
 		@model.set 'status' , status
 		window.convertRupees(response[3])
-		data.price = $('#price').val()
+		data.price = window.numDifferentiation(response[3])
 		data
 
 
@@ -58,7 +58,8 @@ class BunglowListView extends Marionette.ItemView
 			$('#unit'+id).attr('class' ,'unit blocks'+' '+@model.get('status')+' active')
 			$('#'+id).tooltipster('content', html)
 			$('#'+id).tooltipster('show')
-		
+			
+	
 			
 			
 		'mouseout':(e)->
@@ -70,13 +71,40 @@ class BunglowListView extends Marionette.ItemView
 			
 
 		'click' :(e)->
-			@iniTooltip(@model.get('id'))
-			html = @getHtml(@model.get('id'))
 			id = @model.get('id')
-			# $('.tooltip-overlay').attr('class','tooltip-overlay')
-			$('#'+id+'.villa').attr('class' ,'layer villa svg_active '+@model.get('status'))
-			$('#unit'+id).attr('class' ,'unit blocks'+' '+@model.get('status')+' active')
-			$('#'+id).tooltipster('content', html)
+			unit = unitCollection.findWhere 
+				id :  id 
+		
+			if ! _.isUndefined unit 
+				setTimeout( (x)->
+					CommonFloor.navigate '/unit-view/'+id , trigger : true
+					# CommonFloor.router.storeRoute()
+
+				, 500)
+
+			# html = @getHtml(@model.get('id'))
+			# id = @model.get('id')
+			# $('#'+id+'.villa').attr('class' ,'layer villa svg_active '+@model.get('status'))
+			# $('#unit'+id).attr('class' ,'unit blocks'+' '+@model.get('status')+' active')
+			# $('#'+id).webuiPopover(
+			# 	trigger : 'manual'
+			# 	content : html
+			# 	closeable:true
+			# 	placement : 'top'
+
+			# )
+			# $('#'+id).webuiPopover('show')
+			# # $('#'+id).webuiPopover().on('shown.webui.popover', (e)->
+
+			# # 	$('.close').bind('click', (e)->
+			# # 		$('.layer').tooltipster('content', html)
+			# # 		$('.tooltip-overlay').addClass 'hidden'
+			# # 	)
+			# # 	$('.layer').tooltipster('hide')
+			# # 	$('.tooltip-overlay').removeClass 'hidden'
+			# # )
+			
+			
 			
 			
 
@@ -86,19 +114,23 @@ class BunglowListView extends Marionette.ItemView
 	getHtml:(id)->
 		html = ""
 		unit = unitCollection.findWhere 
-			id :  parseInt id 
+			id :  id 
+		unitMaster = unitMasterCollection.findWhere 
+			id :  id 
 		if unit is undefined
 			html += '<div class="svg-info">
-						<div class="details empty">
-							Villa details not entered 
-						</div>  
+						<div class="action-bar2">
+					        <div class="txt-dft"></div>
+					    </div> 
+						<h5 class="pull-left">Villa details not entered </h5>
+						 
 					</div>'
 			$('.layer').tooltipster('content', html)
 			return 
 
 
 		response = window.unit.getUnitDetails(id)
-		window.convertRupees(response[3])
+		price = window.numDifferentiation(response[3])
 		availability = unit.get('availability')
 		availability = s.decapitalize(availability)
 		html = ""
@@ -109,23 +141,25 @@ class BunglowListView extends Marionette.ItemView
 
 					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
 					<br> <br>
-					<!--<span class="pull-right icon-cross"></span>
-					<span class="label label-success"></span>
-					<div class="clearfix"></div>-->
+					
 					<div class="details">
 						<div>
 							'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
 							<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 						</div>
-						<div>
-							Starting Price <span class="text-primary">'+$('#price').val()+'</span>
-						</div> 
+						<div class="text-primary">
+							 <span class="text-primary icon-rupee-icn"></span>'+price+'
+						</div>
+						 
 					</div>'
 
 		if availability == 'available'
 			html +='<div class="circle">
 						<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
-					</div> 
+					</div>
+					<div class="details">
+						<div class="text-muted text-default">Click arrow to move forward</div>
+					</div>
 				</div>'
 		else
 			html += '</div>'
@@ -150,7 +184,7 @@ class MasterBunglowListView extends Marionette.CompositeView
 
 							                <li class="prop-type buildings hidden">Buildings</li>
 							                <li class="prop-type Villas active ">Villas/Bungalows</li>
-											<li class="prop-type Plots hidden">Plots</li>
+											<li class="prop-type Plots_tab hidden">Plots</li>
 							              </ul>
 							            </div>
 							            <div class="advncd-filter-wrp  unit-list">
@@ -219,7 +253,7 @@ class MasterBunglowListView extends Marionette.CompositeView
 			new CommonFloor.MasterBunglowListCtrl region : @region
 			# @trigger "load:units" , data
 
-		'click .Plots':(e)->
+		'click .Plots_tab':(e)->
 			units = plotVariantCollection.getPlotUnits()
 			data = {}
 			data.units = units
@@ -233,7 +267,7 @@ class MasterBunglowListView extends Marionette.CompositeView
 		if buildingCollection.length != 0
 			$('.buildings').removeClass 'hidden'
 		if plotVariantCollection.length != 0
-			$('.Plots').removeClass 'hidden'
+			$('.Plots_tab').removeClass 'hidden'
 
 		# if!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
 		# $(window).resize ->
