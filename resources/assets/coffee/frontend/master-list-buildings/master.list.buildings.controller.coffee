@@ -165,7 +165,7 @@ class MasterBuildingListView extends Marionette.CompositeView
 							              <ul class="prop-select">
 
 							                <li class="prop-type buildings active">Buildings</li>
-							                <li class="prop-type Villas hidden">Villas/Bungalows</li>
+							                <li class="prop-type Villas hidden">Villas</li>
 
 							                <li class="prop-type tab hidden">Plots</li>
 							              </ul>
