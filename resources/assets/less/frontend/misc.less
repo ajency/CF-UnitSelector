@@ -273,7 +273,12 @@
     font-size: 14px;
   }
 }
-
+@media(max-width:767px){
+  .breadcrumb-bar a{
+    padding: 10px;
+    background-color: none;
+  }
+}
 /* Toggle Button */
 .toggle-view-button{
   display: none;
@@ -351,6 +356,13 @@
     &::before{
       content: "-";
     }
+  }
+}
+
+@media(max-width:767px){
+  .zoom-controls{
+    top: 15px;
+    bottom: initial;
   }
 }
 
