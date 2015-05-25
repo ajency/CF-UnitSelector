@@ -27,7 +27,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 				                                    </div>	  
 	                                 			</div>
 												<div class="">
-				                                    <h6 class="">UNIT TYPE</h6>
+				                                    <h6 class="unit_type_filter">UNIT TYPE</h6>
 				                                    <div class="filter-chkbox-block">
 					                                    {{#unitTypes}}
 					                                      <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > 
@@ -36,7 +36,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 				                                    </div>
 				                                </div>
 				                                <div class="">
-				                                    <h6 class="">VARIANT</h6>
+				                                    <h6 class="variant_filter">VARIANT</h6>
 				                                       <div class="filter-chkbox-block">
 					                                       	{{#unitVariantNames}}
 					                                       	<input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > 
@@ -410,9 +410,11 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		if types.length == 1
 			$('.property_type').hide()
 		if Marionette.getOption(@,'flooring').length == 0
-			$('.property_type').hide()
-		if Marionette.getOption(@,'flooring').length == 0
 			$('.flooring_filter').hide()
+		if Marionette.getOption(@,'unitTypes').length == 0
+			$('.unit_type_filter').hide()
+		if Marionette.getOption(@,'unitVariantNames').length == 0
+			$('.variant_filter').hide()
 		@loadSelectedFilters()
 		
 
