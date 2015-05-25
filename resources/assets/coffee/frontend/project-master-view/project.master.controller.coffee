@@ -851,8 +851,27 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 	onShow:->
+
+		setHeight = ->
+			windowHeight = $(window).innerHeight() - 56
+			$('.master').css 'height', windowHeight
+			return
+
+		if $(window).width() < 1025
+			setHeight = ->
+				windowHeight = $(window).innerHeight() - 62
+				$('.master').css 'height', windowHeight
+				$('.master').css 'min-width', windowHeight * 2
+				return
+
+		setHeight()
+		$(window).resize ->
+			setHeight()
+			return
+
 		
-		height =  @ui.svgContainer.width() / 2
+		# height =  @ui.svgContainer.width() / 2
+
 		# $('.us-left-content').css('height',height)
 		# if!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
 		# if $(window).width() > 991
@@ -988,6 +1007,10 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$zoomIn: $('.zoom-in')
 			$zoomOut: $('.zoom-out')
 			# $set: $('.spritespin-canvas')
+
+		$('.master polygon').on 'mousedown touchstart', (e) ->
+			e.stopImmediatePropagation()
+			return
 
 		
 	

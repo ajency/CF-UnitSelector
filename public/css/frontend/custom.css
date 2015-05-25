@@ -228,6 +228,11 @@ body {
     height: auto;
   }
 }
+.master {
+  -webkit-transform: matrix(1, 0, 0, 1, 0, 0);
+      -ms-transform: matrix(1, 0, 0, 1, 0, 0);
+          transform: matrix(1, 0, 0, 1, 0, 0);
+}
 @media (max-width: 991px) {
   .us-right-content.mobile.visible,
   .us-left-content.mobile.visible {
@@ -241,10 +246,6 @@ body {
   }
   .us-right-content {
     overflow: auto;
-  }
-  .us-right-content .svg-area,
-  .us-right-content .master {
-    min-width: 165vh;
   }
   .us-right-content.unit-slides {
     overflow: visible;
@@ -1209,7 +1210,7 @@ hr.embossed {
 @media (max-width: 767px) {
   .breadcrumb-bar a {
     padding: 10px;
-    background-color: none;
+    background: none;
   }
 }
 /* Toggle Button */
@@ -1315,7 +1316,7 @@ hr.embossed {
 }
 .rotate-controls {
   position: absolute;
-  bottom: 30px;
+  bottom: 15px;
   left: 0;
   right: 0;
   text-align: center;
@@ -1460,14 +1461,10 @@ svg polygon {
   -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
           transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
-.marker {
-  cursor: pointer;
-}
 .marker-area {
   cursor: default;
 }
 .step1-marker {
-  cursor: pointer;
   -webkit-transform-origin: 50% 50%;
       -ms-transform-origin: 50% 50%;
           transform-origin: 50% 50%;
