@@ -64,6 +64,16 @@ class PlotVariantCollection extends Backbone.Collection
 
 		unit_types
 
+	getPlotFlooringAttributes:->
+		attributes = []
+		plotVariantMasterCollection.each (item)->
+			if $.inArray(item.get('variant_attributes').flooring,attributes) == -1
+				attributes.push item.get('variant_attributes').flooring
+				
+						
+
+		attributes
+
 	
 
 window.plotVariantCollection  = new PlotVariantCollection

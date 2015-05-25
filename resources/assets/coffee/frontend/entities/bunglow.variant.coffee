@@ -68,6 +68,16 @@ class BunglowVariantCollection extends Backbone.Collection
 
 		unit_types
 
+	getVillaFlooringAttributes:->
+		attributes = []
+		bunglowVariantMasterCollection.each (item)->
+			if $.inArray(item.get('variant_attributes').flooring,attributes) == -1
+				attributes.push item.get('variant_attributes').flooring
+				
+						
+
+		attributes
+
 	
 
 window.bunglowVariantCollection  = new BunglowVariantCollection

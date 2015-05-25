@@ -93,6 +93,17 @@
       return unit_types;
     };
 
+    BunglowVariantCollection.prototype.getVillaFlooringAttributes = function() {
+      var attributes;
+      attributes = [];
+      bunglowVariantMasterCollection.each(function(item) {
+        if ($.inArray(item.get('variant_attributes').flooring, attributes) === -1) {
+          return attributes.push(item.get('variant_attributes').flooring);
+        }
+      });
+      return attributes;
+    };
+
     return BunglowVariantCollection;
 
   })(Backbone.Collection);

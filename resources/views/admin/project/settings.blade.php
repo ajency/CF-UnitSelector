@@ -12,6 +12,9 @@
 @section('content')
 <div class="grid simple">
     <div class="grid-title no-border">
+        <div class="pull-right">
+                            <h5 class="semi-bold">Click here to <a href="project-summary.html" class="text-primary">View Project Summary &gt;&gt;</a></h5><h5>
+                        </h5></div>
         <h3 > <i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Details</span></h3>
     </div>
     <div class="grid-body no-border">
@@ -20,7 +23,6 @@
 
             <hr/>
             <div class="row">
-   
                 <div class="m-l-5 no-border">
                     <h3><i class="fa fa-angle-double-right text-primary"></i> Measurement <span class="semi-bold">Units</span></h3>
                 </div>

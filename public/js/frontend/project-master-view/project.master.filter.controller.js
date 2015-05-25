@@ -8,6 +8,8 @@
 
   window.variantNames = [];
 
+  window.flooring = [];
+
   window.price = '';
 
   window.area = '';
@@ -21,7 +23,7 @@
       return FilterMsterView.__super__.constructor.apply(this, arguments);
     }
 
-    FilterMsterView.prototype.template = Handlebars.compile('<div class="fliters-container closed" id="collapsefilters"> <a href="javascript:void(0)"  class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button" type="button"> <span class="icon-place"></span> </button> <div class="filters-wrapper"> <div class="filters-content"> <div class="property_type"> <h6 class="">PROPERTY TYPE</h6> <div class="filter-chkbox-block"> {{#types}} <input type="checkbox" class="custom-chckbx addCft types" id="{{id}}" value="{{type}}"> <label for="{{id}}" class="-lbl">{{type}}{{type_name}}</label> {{/types}} </div> </div> <div class=""> <h6 class="">UNIT TYPE</h6> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class=""> <h6 class="">VARIANT</h6> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> <div class=""> <h6 class="">AREA (Sqft)</h6> <div class="range-container"> <input type="text" id="area" name="area" value="" /> </div> </div> <div class=""> <h6 class="">BUDGET </h6> <div class="range-container"> <input type="text" id="budget" name="budget" value="" /> </div> </div> <div class=""> <h6 class="availability">AVAILABILITY</h6> <div class="filter-chkbox-block"> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="available" class="-lbl">Show Available Units Only</label> </div> </div> </div> </div> <!--<div class="filters-bottom"> <a href="#">+ More Filters</a> </div>--> </div>');
+    FilterMsterView.prototype.template = Handlebars.compile('<div class="fliters-container closed" id="collapsefilters"> <a href="javascript:void(0)"  class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button" type="button"> <span class="icon-place"></span> </button> <div class="filters-wrapper"> <div class="filters-content"> <div class="property_type"> <h6 class="">PROPERTY TYPE</h6> <div class="filter-chkbox-block"> {{#types}} <input type="checkbox" class="custom-chckbx addCft types" id="{{id}}" value="{{type}}"> <label for="{{id}}" class="-lbl">{{type}}{{type_name}}</label> {{/types}} </div> </div> <div class=""> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class=""> <h6 class="variant_filter">VARIANT</h6> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> <div class="flooring_filter"> <h6 class="">Flooring</h6> <div class="filter-chkbox-block"> {{#flooring}} <input type="checkbox" class="custom-chckbx addCft flooring" id="flooring{{id}}" value="flooring{{id}}" value="1" data-value="{{id}}" > <label for="flooring{{id}}" class="-lbl">{{name}}({{type}})</label> {{/flooring}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> <div class=""> <h6 class="">AREA ({{area_unit}})</h6> <div class="range-container"> <input type="text" id="area" name="area" value="" /> </div> </div> <div class=""> <h6 class="">BUDGET </h6> <div class="range-container"> <input type="text" id="budget" name="budget" value="" /> </div> </div> <div class=""> <h6 class="availability">AVAILABILITY</h6> <div class="filter-chkbox-block"> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="available" class="-lbl">Show Available Units Only</label> </div> </div> </div> </div> <!--<div class="filters-bottom"> <a href="#">+ More Filters</a> </div>--> </div>');
 
     FilterMsterView.prototype.ui = {
       unitTypes: '.unit_types',
@@ -33,22 +35,32 @@
       area: '#area',
       budget: '#budget',
       types: '.types',
-      clear: '.clear'
+      clear: '.clear',
+      flooring: '.flooring'
     };
 
     FilterMsterView.prototype.initialize = function() {
-      var unitTypes;
+      var unitTypes, variantNames;
+      this.price = '';
+      this.area = '';
       unitTypes = [];
+      variantNames = [];
       if (CommonFloor.defaults['unitTypes'] !== "") {
         unitTypes = CommonFloor.defaults['unitTypes'].split(',');
       }
       if (CommonFloor.defaults['unitVariants'] !== "") {
-        window.variantNames = CommonFloor.defaults['unitVariants'].split(',');
+        variantNames = CommonFloor.defaults['unitVariants'].split(',');
       }
       if (CommonFloor.defaults['type'] !== "") {
         window.type = CommonFloor.defaults['type'].split(',');
       }
-      return window.unitTypes = unitTypes.map(function(item) {
+      if (CommonFloor.defaults['flooring'] !== "") {
+        window.flooring = CommonFloor.defaults['flooring'].split(',');
+      }
+      window.unitTypes = unitTypes.map(function(item) {
+        return parseInt(item);
+      });
+      return window.variantNames = variantNames.map(function(item) {
         return parseInt(item);
       });
     };
@@ -68,6 +80,10 @@
         CommonFloor.filter();
         unitCollection.trigger('available');
         this.loadSelectedFilters();
+        this.price = $("#budget").data("ionRangeSlider");
+        this.area = $("#area").data("ionRangeSlider");
+        this.price.destroy();
+        this.area.destroy();
         return this.loadClearFilter();
       },
       'click @ui.types': function(e) {
@@ -104,7 +120,7 @@
         } else {
           window.unitTypes = _.without(window.unitTypes, parseInt($(e.currentTarget).attr('data-value')));
         }
-        console.log(window.unitTypes = _.uniq(window.unitTypes));
+        window.unitTypes = _.uniq(window.unitTypes);
         CommonFloor.defaults['unitTypes'] = window.unitTypes.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filter();
@@ -142,6 +158,18 @@
       'change @ui.budget': function(e) {
         CommonFloor.defaults['price_max'] = parseFloat($(e.target).val().split(';')[1]);
         CommonFloor.defaults['price_min'] = parseFloat($(e.target).val().split(';')[0]);
+        unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.filter();
+        return unitCollection.trigger('available');
+      },
+      'click @ui.flooring': function(e) {
+        if ($(e.currentTarget).is(':checked')) {
+          window.flooring.push($(e.currentTarget).attr('data-value'));
+        } else {
+          window.flooring = _.without(window.flooring, $(e.currentTarget).attr('data-value'));
+        }
+        window.flooring = _.uniq(window.flooring);
+        CommonFloor.defaults['flooring'] = window.flooring.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filter();
         return unitCollection.trigger('available');
@@ -211,9 +239,8 @@
         unitDetails = window.unit.getUnitDetails(value.id);
         budget.push(parseFloat(unitDetails[3]));
         area.push(parseFloat(unitDetails[0].get('super_built_up_area')));
-        return id.push(parseInt(unitDetails[0].get('id')));
-      });
-      $(this.ui.unitTypes).each(function(ind, item) {
+        id.push(parseInt(unitDetails[0].get('id')));
+        $(this.ui.unitTypes).each(function(ind, item) {});
         $('#' + item.id).attr('checked', false);
         $('#' + item.id).attr('disabled', false);
         if ($.inArray(parseInt($(item).attr('data-value')), unittypesArray) === -1) {
@@ -275,21 +302,92 @@
       data.unitTypes = Marionette.getOption(this, 'unitTypes');
       data.unitVariants = Marionette.getOption(this, 'unitVariants');
       data.unitVariantNames = Marionette.getOption(this, 'unitVariantNames');
+      data.flooring = Marionette.getOption(this, 'flooring');
       data.types = Marionette.getOption(this, 'types');
       return data;
     };
 
     FilterMsterView.prototype.onShow = function() {
-      var types;
+      var area, budget, max, min, priceMax, priceMin, subArea, subBudget, types;
       $('.filters-content').mCustomScrollbar({
-        theme: 'inset'
+        theme: 'cf-scroll'
       });
+      budget = [];
+      area = [];
+      $.each(unitMasterCollection.toArray(), function(index, value) {
+        var unitDetails;
+        unitDetails = window.unit.getUnitDetails(value.id);
+        budget.push(parseFloat(unitDetails[3]));
+        return area.push(parseFloat(unitDetails[0].get('super_built_up_area')));
+      });
+      min = _.min(area);
+      max = _.max(area);
+      subArea = (max - min) / 20;
+      subArea = subArea.toFixed(0);
+      if (CommonFloor.defaults['area_min'] !== "") {
+        $("#area").ionRangeSlider({
+          type: "double",
+          min: min,
+          max: max,
+          from: CommonFloor.defaults['area_min']
+        }, {
+          to: CommonFloor.defaults['area_max']
+        }, {
+          step: subArea,
+          grid: false
+        });
+      } else {
+        $("#area").ionRangeSlider({
+          type: "double",
+          min: min,
+          max: max,
+          step: subArea,
+          grid: false
+        });
+      }
+      priceMin = _.min(budget);
+      priceMax = _.max(budget);
+      subBudget = (priceMax - priceMin) / 20;
+      subBudget = subBudget.toFixed(0);
+      if (CommonFloor.defaults['price_min'] !== "") {
+        $("#budget").ionRangeSlider({
+          type: "double",
+          min: priceMin,
+          max: priceMax,
+          from: CommonFloor.defaults['price_min'],
+          to: CommonFloor.defaults['price_max'],
+          grid: false,
+          step: subBudget,
+          prettify: function(num) {
+            return window.numDifferentiation(num);
+          }
+        });
+      } else {
+        $("#budget").ionRangeSlider({
+          type: "double",
+          min: priceMin,
+          max: priceMax,
+          grid: false,
+          step: subBudget,
+          prettify: function(num) {
+            return window.numDifferentiation(num);
+          }
+        });
+      }
       types = Marionette.getOption(this, 'types');
       if (types.length === 1) {
         $('.property_type').hide();
       }
-      this.loadSelectedFilters();
-      return this.loadClearFilter();
+      if (Marionette.getOption(this, 'flooring').length === 0) {
+        $('.flooring_filter').hide();
+      }
+      if (Marionette.getOption(this, 'unitTypes').length === 0) {
+        $('.unit_type_filter').hide();
+      }
+      if (Marionette.getOption(this, 'unitVariantNames').length === 0) {
+        $('.variant_filter').hide();
+      }
+      return this.loadSelectedFilters();
     };
 
     FilterMsterView.prototype.loadClearFilter = function() {
@@ -310,6 +408,8 @@
       priceMax = _.max(budget);
       subBudget = (priceMax - priceMin) / 20;
       subBudget = subBudget.toFixed(0);
+      $('#area').val(min + ";" + max);
+      $('#budget').val(priceMin + ";" + priceMax);
       $("#area").ionRangeSlider({
         type: "double",
         min: min,
@@ -330,7 +430,7 @@
     };
 
     FilterMsterView.prototype.loadSelectedFilters = function() {
-      var id, pt_types, types, typesArray, unitTypes, unitVariants, unitVariantsArray, unitsArr, unittypesArray, unittypesColl;
+      var id, pt_types, res, types, typesArray, unitTypes, unitVariants, unitVariantsArray, unitsArr, unittypesArray, unittypesColl;
       types = [];
       pt_types = Marionette.getOption(this, 'types');
       types = CommonFloor.defaults['type'].split(',');
@@ -375,7 +475,7 @@
           $('#' + item.id).prop('checked', false);
           $('#' + item.id).attr('disabled', false);
         }
-        if ($.inArray(parseInt($(item).attr('data-value')), unittypesColl) === -1) {
+        if ($.inArray(parseInt($(item).attr('data-value')), unittypesColl) === -1 && CommonFloor.defaults['type'] !== '') {
           $('#' + item.id).prop('checked', false);
           return $('#' + item.id).attr('disabled', true);
         }
@@ -387,7 +487,7 @@
           $('#' + item.id).prop('checked', false);
           $('#' + item.id).attr('disabled', false);
         }
-        if ($.inArray(parseInt($(item).attr('data-value')), id) === -1) {
+        if ($.inArray(parseInt($(item).attr('data-value')), id) === -1 && CommonFloor.defaults['type'] !== '') {
           $('#' + item.id).prop('checked', false);
           return $('#' + item.id).attr('disabled', true);
         }
@@ -403,13 +503,15 @@
       if (CommonFloor.defaults['availability'] !== "") {
         this.ui.status.prop('checked', true);
       }
-      if (window.flag === 0) {
-        $('.fliters-container').removeClass('closed');
-      } else {
-        $('.fliters-container').addClass('closed');
+      res = CommonFloor.getFilters()[0];
+      if (Object.keys(res).length === 0) {
+        window.flag = 1;
       }
-      window.price = $("#budget").data("ionRangeSlider");
-      return window.area = $("#area").data("ionRangeSlider");
+      if (window.flag === 0) {
+        return $('.fliters-container').removeClass('closed');
+      } else {
+        return $('.fliters-container').addClass('closed');
+      }
     };
 
     return FilterMsterView;
@@ -424,18 +526,20 @@
     }
 
     FilterMasterCtrl.prototype.initialize = function() {
-      var apartmentFilters, area, budget, plotFilters, types, unitTypes, unitVariantNames, unitVariants, view, villaFilters;
+      var apartmentFilters, area, budget, flooring, plotFilters, types, unitTypes, unitVariantNames, unitVariants, view, villaFilters;
       unitTypes = [];
       unitVariants = [];
       unitVariantNames = [];
       area = [];
       budget = [];
+      flooring = [];
       villaFilters = this.getVillaFilters();
       if (villaFilters.length !== 0) {
         $.merge(unitTypes, villaFilters[0].unitTypes);
         $.merge(unitVariants, villaFilters[0].unitVariants);
         $.merge(unitVariantNames, villaFilters[0].unitVariantNames);
         $.merge(budget, villaFilters[0].budget);
+        $.merge(flooring, villaFilters[0].flooring);
       }
       apartmentFilters = this.getApartmentFilters();
       if (apartmentFilters.length !== 0) {
@@ -443,6 +547,7 @@
         $.merge(unitVariants, apartmentFilters[0].unitVariants);
         $.merge(unitVariantNames, apartmentFilters[0].unitVariantNames);
         $.merge(budget, apartmentFilters[0].budget);
+        $.merge(flooring, apartmentFilters[0].flooring);
       }
       plotFilters = this.getPlotFilters();
       if (plotFilters.length !== 0) {
@@ -450,6 +555,7 @@
         $.merge(unitVariants, plotFilters[0].unitVariants);
         $.merge(unitVariantNames, plotFilters[0].unitVariantNames);
         $.merge(budget, plotFilters[0].budget);
+        $.merge(flooring, plotFilters[0].flooring);
       }
       types = CommonFloor.masterPropertyTypes();
       $.each(types, function(index, value) {
@@ -464,23 +570,27 @@
         }
       });
       this.view = view = new CommonFloor.FilterMsterView({
+        model: project,
         'unitTypes': unitTypes,
         'unitVariants': _.uniq(unitVariants),
         'unitVariantNames': unitVariantNames,
         'budget': budget,
-        'types': types
+        'types': types,
+        'flooring': flooring
       });
       return this.show(this.view);
     };
 
     FilterMasterCtrl.prototype.getVillaFilters = function() {
-      var budget, filters, unitTypes, unitVariantNames, unitVariants, unit_types;
+      var budget, filters, flooring, flooringAttributes, unitTypes, unitVariantNames, unitVariants, unit_types;
       filters = [];
       unitTypes = [];
       unit_types = [];
       unitVariants = [];
       unitVariantNames = [];
+      flooringAttributes = [];
       budget = [];
+      flooring = [];
       bunglowVariantMasterCollection.each(function(item) {
         var unitTypeModel, units, unitsArr;
         units = unitMasterCollection.where({
@@ -504,6 +614,14 @@
             'name': item.get('unit_variant_name'),
             'type': 'V'
           });
+          if ($.inArray(item.get('variant_attributes').flooring, flooring) === -1 && !_.isUndefined(item.get('variant_attributes').flooring)) {
+            flooring.push(item.get('variant_attributes').flooring);
+            flooringAttributes.push({
+              'id': item.get('variant_attributes').flooring,
+              'name': item.get('variant_attributes').flooring,
+              type: 'V'
+            });
+          }
         }
         unitsArr = bunglowVariantMasterCollection.getBunglowUnits();
         return $.each(unitsArr, function(index, value) {
@@ -516,19 +634,27 @@
         'unitTypes': unitTypes,
         'unitVariants': unitVariants,
         'unitVariantNames': unitVariantNames,
+        'flooring': flooringAttributes,
         'budget': budget
+      });
+      $.each(filters[0], function(index, value) {
+        if ($.inArray(index, project.get('filters').Villa) === -1 && index !== 'budget' && index !== 'unitVariants') {
+          return filters[0][index] = [];
+        }
       });
       return filters;
     };
 
     FilterMasterCtrl.prototype.getApartmentFilters = function() {
-      var budget, filters, unitTypes, unitVariantNames, unitVariants, unit_types, unitsArr;
+      var budget, filters, flooring, flooringAttributes, unitTypes, unitVariantNames, unitVariants, unit_types, unitsArr;
       filters = [];
       unitTypes = [];
       unit_types = [];
       unitVariants = [];
       unitVariantNames = [];
       budget = [];
+      flooringAttributes = [];
+      flooring = [];
       apartmentVariantMasterCollection.each(function(item) {
         var type, unitTypeModel, units;
         units = unitMasterCollection.where({
@@ -551,11 +677,19 @@
             });
           }
           unitVariants.push(item.get('super_built_up_area'));
-          return unitVariantNames.push({
+          unitVariantNames.push({
             'id': item.get('id'),
             'name': item.get('unit_variant_name'),
             'type': type
           });
+          if ($.inArray(item.get('variant_attributes').flooring, flooring) === -1 && !_.isUndefined(item.get('variant_attributes').flooring)) {
+            flooring.push(item.get('variant_attributes').flooring);
+            return flooringAttributes.push({
+              'id': item.get('variant_attributes').flooring,
+              'name': item.get('variant_attributes').flooring,
+              type: type
+            });
+          }
         }
       });
       unitsArr = apartmentVariantMasterCollection.getApartmentUnits();
@@ -568,19 +702,27 @@
         'unitTypes': unitTypes,
         'unitVariants': unitVariants,
         'unitVariantNames': unitVariantNames,
+        'flooring': flooringAttributes,
         'budget': budget
+      });
+      $.each(filters[0], function(index, value) {
+        if ($.inArray(index, project.get('filters').Villa) === -1 && index !== 'budget' && index !== 'unitVariants') {
+          return filters[0][index] = [];
+        }
       });
       return filters;
     };
 
     FilterMasterCtrl.prototype.getPlotFilters = function() {
-      var budget, filters, unitTypes, unitVariantNames, unitVariants, unit_types, unitsArr;
+      var budget, filters, flooring, flooringAttributes, unitTypes, unitVariantNames, unitVariants, unit_types, unitsArr;
       filters = [];
       unitTypes = [];
       unit_types = [];
       unitVariants = [];
       unitVariantNames = [];
+      flooringAttributes = [];
       budget = [];
+      flooring = [];
       plotVariantMasterCollection.each(function(item) {
         var unitTypeModel, units;
         units = unitMasterCollection.where({
@@ -599,11 +741,19 @@
             });
           }
           unitVariants.push(item.get('size'));
-          return unitVariantNames.push({
+          unitVariantNames.push({
             'id': item.get('id'),
             'name': item.get('unit_variant_name'),
             'type': 'P'
           });
+          if ($.inArray(item.get('variant_attributes').flooring, flooring) === -1 && !_.isUndefined(item.get('variant_attributes').flooring)) {
+            flooring.push(item.get('variant_attributes').flooring);
+            return flooringAttributes.push({
+              'id': item.get('variant_attributes').flooring,
+              'name': item.get('variant_attributes').flooring,
+              type: 'P'
+            });
+          }
         }
       });
       unitsArr = plotVariantMasterCollection.getPlotUnits();
@@ -616,7 +766,13 @@
         'unitTypes': unitTypes,
         'unitVariants': unitVariants,
         'unitVariantNames': unitVariantNames,
+        'flooring': flooringAttributes,
         'budget': budget
+      });
+      $.each(filters[0], function(index, value) {
+        if ($.inArray(index, project.get('filters').Villa) === -1 && index !== 'budget' && index !== 'unitVariants') {
+          return filters[0][index] = [];
+        }
       });
       return filters;
     };

@@ -59,14 +59,15 @@
       area: '#filter_area',
       budget: '#filter_budget',
       types: '.types',
-      floor: '.floor'
+      floor: '.floor',
+      filter_flooring: '.filter_flooring'
     };
 
     TopApartmentView.prototype.initialize = function() {
       var building_id, url;
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
-      return console.log(this.building_id = building_id);
+      return this.building_id = building_id;
     };
 
     TopApartmentView.prototype.serializeData = function() {
@@ -105,6 +106,7 @@
           unitTypes = _.without(unitTypes, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['unitTypes'] = unitTypes.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -115,6 +117,7 @@
           variantNames = _.without(variantNames, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['unitVariants'] = variantNames.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -122,6 +125,7 @@
         'click @ui.status': function(e) {
           CommonFloor.defaults['availability'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -130,6 +134,7 @@
           CommonFloor.defaults['area_max'] = "";
           CommonFloor.defaults['area_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -138,6 +143,7 @@
           CommonFloor.defaults['price_max'] = "";
           CommonFloor.defaults['price_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -146,6 +152,18 @@
           CommonFloor.defaults['floor_max'] = "";
           CommonFloor.defaults['floor_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
+          CommonFloor.filter();
+          unitTempCollection.trigger("filter_available");
+          return this.trigger('render:view');
+        },
+        'click @ui.filter_flooring': function(e) {
+          var flooring;
+          flooring = CommonFloor.defaults['flooring'].split(',');
+          flooring = _.without(flooring, $(e.currentTarget).attr('data-id'));
+          CommonFloor.defaults['flooring'] = flooring.join(',');
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterBuilding(this.building_id);
           CommonFloor.filter();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -251,7 +269,7 @@
       return ApartmentsView.__super__.constructor.apply(this, arguments);
     }
 
-    ApartmentsView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="bldg-img"></div> <div class="apartment pull-left icon"></div> <div class="pull-left bldg-info"> <div class="info"> <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}}sqft) </div> <label>2nd Floor</label><br> <label class="text-primary">Aprox. 35 Lacs</label> </div> <div class="clearfix"></div> </li>');
+    ApartmentsView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="bldg-img"></div> <div class="apartment pull-left icon"></div> <div class="pull-left bldg-info"> <div class="info"> <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}} {{area_unit}}) </div> <label>2nd Floor</label><br> <label class="text-primary">Aprox. 35 Lacs</label> </div> <div class="clearfix"></div> </li>');
 
     ApartmentsView.prototype.serializeData = function() {
       var data, property, status, unitType, unitVariant;
@@ -273,6 +291,7 @@
       });
       property = window.propertyTypes[unitType.get('property_type_id')];
       data.property = s.capitalize(property);
+      data.area_unit = project.get('area_unit');
       return data;
     };
 

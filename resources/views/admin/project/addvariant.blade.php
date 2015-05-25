@@ -32,33 +32,26 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Name<span class="text-primary">*</span></label>
-                                <div class="input-with-icon">
                                     <input type="text" class="form-control" name="unit_variant_name" placeholder="Enter Name" data-parsley-required>
-                                </div>
+                               
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Unit Type<span class="text-primary">*</span></label>
-                                <div class="input-with-icon">
-
-                                    <select name="unit_type" class="select2 form-control select2-offscreen" data-parsley-required>
+                               <select name="unit_type" class="select2 form-control select2-offscreen" data-parsley-required>
                                         <option value="">Select Unit Type</option>
                                         @foreach($unitTypes as $unitTypeId=> $unitType)
                                         <option value="{{$unitTypeId}}">{{$unitType}}</option>
                                         @endforeach
                                     </select>
-
                                 </div>
-                            </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Carpet Area<span class="text-primary">*</span></label>
                                 <small class="text-muted">/ ({{ $project['measurement_units'] }})</small>
-                                <div class="input-with-icon">
-                                    <input type="text" class="form-control" name="carpet_area" value="" placeholder="Enter Carpet Area" data-parsley-required data-parsley-type="number">
-                                </div>
+                               <input type="text" class="form-control" name="carpet_area" value="" placeholder="Enter Carpet Area" data-parsley-required data-parsley-type="number">
                             </div>
                         </div>
                     </div>
@@ -67,27 +60,21 @@
                             <div class="form-group">
                                 <label class="form-label">Built Up Area<span class="text-primary">*</span></label>
                                 <small class="text-muted">/ ({{ $project['measurement_units'] }})</small>
-                                <div class="input-with-icon">
-                                    <input type="text" class="form-control" name="builtup_area" value="" placeholder="Enter Built Up Area" data-parsley-required data-parsley-type="number">
-                                </div>
+                               <input type="text" class="form-control" name="builtup_area" value="" placeholder="Enter Built Up Area" data-parsley-required data-parsley-type="number">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Super Built Up Area<span class="text-primary">*</span></label>
                                 <small class="text-muted">/ ({{ $project['measurement_units'] }})</small>
-                                <div class="input-with-icon">
-                                    <input type="text" class="form-control" name="superbuiltup_area" value="" placeholder="Enter Super Built Up Area" data-parsley-required data-parsley-type="number">
-                                </div>
+                                <input type="text" class="form-control" name="superbuiltup_area" value="" placeholder="Enter Super Built Up Area" data-parsley-required data-parsley-type="number">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Price<span class="text-primary">*</span></label>
                                 <small class="text-muted">/ ({{ $project['measurement_units'] }})</small>
-                                <div class="input-with-icon">
-                                    <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
-                                </div>
+                               <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
                             </div>
                         </div>
                     </div>
@@ -97,7 +84,7 @@
                             <div class="form-group">
                                 <label class="form-label">{{$attributes['label']}}</label>
 
-                                <div class="input-with-icon">
+                                <div>
                                     @if('textbox' === $attributes['control_type'])
                                     <input type="text" class="form-control" name="villa_attributes[{{property_type_slug($attributes['label'])}}]"  placeholder="Enter {{$attributes['label']}}">
                                     @elseif('number' === $attributes['control_type'])
@@ -153,7 +140,7 @@
                                                 <div class="grid-body">
                                                     <div class="inline">2D Layout</div>
                                                     <input type="hidden" name="image_0_2d_id" id="image_0_2d_id" value=""> 
-                                                    <div class="pull-right" id="2d_0_image">
+                                                    <div class="text-center" id="2d_0_image">
 
                                                         <div class="img-hover img-thumbnail">
                                                             <div id="pickfiles_0_2d" style="width: 150px;height:109px;background:#BEBEBE;display: table;">
@@ -174,7 +161,7 @@
                                                 <div class="grid-body">
                                                     <div class="inline">3D Layout</div>
                                                     <input type="hidden" name="image_0_3d_id" id="image_0_3d_id" value="">            
-                                                    <div class="pull-right" id="3d_0_image">
+                                                    <div class="text-center" id="3d_0_image">
                                                         <div class="img-hover img-thumbnail">
                                                             <div id="pickfiles_0_3d" style="width: 150px;height:109px;background:#BEBEBE;display: table;">
                                                                 <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
@@ -197,14 +184,17 @@
                                                     <div class="col-md-9">
                                                         <select name="room_type[]" onchange="openRoomTypeModal(this, 0)" class="select2 form-control">
                                                             <option value="">Select Room</option>
+
+
                                                              @foreach($availableRoomTypes as $roomTypeId=> $room_type)
                                                                 <option  value="{{$roomTypeId}}">{{$room_type}}</option>
                                                                 @endforeach
-                                                            <option value="add_new">Add New</option>
+                                                            <option value="add_new">Add New Room</option>
+
                                                         </select>
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <button type="button" onclick="getRoomTypeAttributes(this, 0);" class="btn btn-white"><i class="fa fa-plus inline"></i> Add Room to Level</button>
+                                                        <button type="button" onclick="getRoomTypeAttributes(this, 0);" class="btn btn-white">Add Another Room</button>
                                                     </div>
                                                 </div>
                                             </div> 
@@ -221,7 +211,6 @@
                 </div>
                 <div class="row" id="level_1">
                     <div class="no-border">
-
                         <div class="grid simple" style="margin-bottom:0;">
                             <div class="grid-body no-border" style="padding-bottom:0;">
                                 <div class="grid simple vertical orange">
@@ -236,7 +225,7 @@
                                                     <div class="grid-body">
                                                         <div class="inline">2D Layout</div>
                                                         <input type="hidden" name="image_1_2d_id" id="image_1_2d_id" value="">   
-                                                        <div class="pull-right" id="2d_1_image">
+                                                        <div class="text-center" id="2d_1_image">
                                                             <div class="img-hover img-thumbnail">
                                                                 <div id="pickfiles_1_2d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;">
                                                                     <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
@@ -255,7 +244,7 @@
                                                     <div class="grid-body">
                                                         <div class="inline">3D Layout</div>
                                                         <input type="hidden" name="image_1_3d_id" id="image_1_3d_id" value="">    
-                                                        <div class="pull-right" id="3d_1_image">
+                                                        <div class="text-center" id="3d_1_image">
                                                             <div class="img-hover img-thumbnail">
                                                                 <div id="pickfiles_1_3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;">
                                                                     <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
@@ -281,11 +270,11 @@
                                                                  @foreach($availableRoomTypes as $roomTypeId=> $room_type)
                                                                 <option  value="{{$roomTypeId}}">{{$room_type}}</option>
                                                                 @endforeach
-                                                                <option value="add_new">Add New</option>
+                                                                <option value="add_new">Add New Room</option>
                                                             </select>
                                                         </div>
                                                         <div class="col-md-3">
-                                                            <button type="button" onclick="getRoomTypeAttributes(this, 1);" class="btn btn-white"><i class="fa fa-plus inline"></i> Add Room to Level</button>
+                                                            <button type="button" onclick="getRoomTypeAttributes(this, 1);" class="btn btn-white">Add Another Room</button>
                                                         </div>
                                                     </div>
                                                 </div> 
@@ -367,7 +356,7 @@
                 <div class="text-right">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
 
-                    <button  type="button" onclick="saveVariantConfig();" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
+                    <button  type="button" onclick="saveVariantConfig();" class="btn btn-primary btn-cons"><i class="fa fa-plus-circle"></i> Create</button>
 
                     <a  href=""><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
                 </div>
@@ -379,12 +368,12 @@
 <!-- END PAGE CONTAINER -->
 </div>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+<div class="modal fade  bs-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title text-left" id="myModalLabel">Room Details</h4>
+                <h4 class="modal-title text-left" id="myModalLabel">Add New Room</h4>
             </div>
             <div class="modal-body">
                 <iframe level="" id="roomtypeiframe" width="100%" src="/admin/project/{{ $project['id']}}/roomtype/create"></iframe>

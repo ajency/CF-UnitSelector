@@ -22,7 +22,6 @@
                         </div>
     <div class="grid-body no-border">
         <div class="alert alert-info">
-            <button class="close" data-dismiss="alert"></button>
             <strong><i class="fa fa-info"></i></strong> The project enters the draft mode on save and will only be available on unit selector when 
                                        the project status is changed to Published.
         </div>
@@ -33,7 +32,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label class="form-label">City<span class="text-primary">*</span></label><!-- //TODO fix the required validation  -->
-                                        <select name="city" class="select2 form-control" data-parsley-required>
+                                        <select name="city" class="select2 form-control ff" data-parsley-required>
                                             <option value="">Choose City</option>
                                             <option value="Mumbai">Mumbai</option>
                                             <option value="Pune">Pune</option>

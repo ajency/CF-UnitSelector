@@ -65,11 +65,12 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 		budget : '#filter_budget'
 		types : '.types'
 		floor : '.floor'
+		filter_flooring : '.filter_flooring'
 
 	initialize:->
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
-		console.log @building_id = building_id
+		@building_id = building_id
 
 	serializeData:->
 		data = super()
@@ -107,7 +108,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 			unitTypes = _.without unitTypes , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['unitTypes'] = unitTypes.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
-			# CommonFloor.filterBuilding(@building_id)
+			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
@@ -118,7 +119,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 			variantNames = _.without variantNames , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['unitVariants'] = variantNames.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
-			# CommonFloor.filterBuilding(@building_id)
+			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()	
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
@@ -126,7 +127,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 		'click @ui.status':(e)->
 			CommonFloor.defaults['availability'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
-			# CommonFloor.filterBuilding(@building_id)
+			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
@@ -137,7 +138,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 			CommonFloor.defaults['area_max'] = ""
 			CommonFloor.defaults['area_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
-			# CommonFloor.filterBuilding(@building_id)
+			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
@@ -146,7 +147,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 			CommonFloor.defaults['price_max'] = ""
 			CommonFloor.defaults['price_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
-			# CommonFloor.filterBuilding(@building_id)
+			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
@@ -155,7 +156,17 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 			CommonFloor.defaults['floor_max'] = ""
 			CommonFloor.defaults['floor_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
-			# CommonFloor.filterBuilding(@building_id)
+			CommonFloor.filterBuilding(@building_id)
+			CommonFloor.filter()
+			unitTempCollection.trigger( "filter_available") 
+			@trigger  'render:view'
+
+		'click @ui.filter_flooring':(e)->
+			flooring = CommonFloor.defaults['flooring'].split(',')
+			flooring = _.without flooring , $(e.currentTarget).attr('data-id')
+			CommonFloor.defaults['flooring'] = flooring.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filter()
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
@@ -225,7 +236,7 @@ class ApartmentsView extends Marionette.ItemView
 					                   <div class="pull-left bldg-info">
 					                    <div class="info">
 					                      <label>{{unit_name}}</label>
-					                      ({{unit_type}} {{super_built_up_area}}sqft)
+					                      ({{unit_type}} {{super_built_up_area}} {{area_unit}})
 					                    </div>
 					                    <label>2nd Floor</label><br>
 					                    <label class="text-primary">Aprox. 35 Lacs</label>
@@ -250,6 +261,7 @@ class ApartmentsView extends Marionette.ItemView
 							'id' :  @model.get('unit_type_id')
 		property = window.propertyTypes[unitType.get('property_type_id')]
 		data.property = s.capitalize(property)
+		data.area_unit = project.get('area_unit')
 		data
 
 	events:

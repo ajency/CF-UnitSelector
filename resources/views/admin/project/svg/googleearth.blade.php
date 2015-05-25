@@ -18,10 +18,9 @@
             </div>
             <div class="grid-body no-border">
                 <div class="alert alert-info">
-            <button class="close" data-dismiss="alert"></button>
-            <strong><i class="fa fa-info"></i></strong>  Upload Google Earth image of the project. Image dimensions should be Image size :
+                <strong><i class="fa fa-info"></i></strong>  Upload Google Earth image of the project. Image dimensions should be Image size :
                                             1600*1095. Resolution - 300 DPI.
-        </div>
+                </div>
           
                 @if(!empty($svgImages['google_earth']['IMAGE']))
                 <div class="row" >
