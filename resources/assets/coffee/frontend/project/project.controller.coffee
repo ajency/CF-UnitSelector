@@ -78,9 +78,7 @@ class LeftView extends Marionette.ItemView
 													       <div class="text-muted text-default"> To Move Forward Click Arrow</div>
 													      </div>
 													       <div class="circle">
-													       		<a href="#/master-view" class="arrow-up icon-chevron-right master"></a>
-													       		<a href="#/list-view" class="arrow-up icon-chevron-right list"></a>
-															   
+													       		 <span class="arrow-up icon-chevron-right master"></span>
 															  </div>  
 														</div>	
 											
@@ -163,14 +161,6 @@ class LeftView extends Marionette.ItemView
 		data.propertyTypes = propertyTypes
 		data
 
-	onShow:->
-		if Object.keys(project.get('project_master')).length  ==  0
-			$('.master').hide()
-			$('.list').show()
-		else
-			$('.list').hide()
-			$('.master').show()
-
 		
 #Controller for the left view of Project
 class CommonFloor.LeftCtrl extends Marionette.RegionController
@@ -197,19 +187,12 @@ class CenterView extends Marionette.ItemView
 		svgContainer : '.us-right-content'
 
 
-	events:
-		'click .step1-marker':(e)->
-			# $('.svg-area').addClass 'zoom'
-			$('.cf-loader').removeClass 'hidden'
-			$('svg').attr('class' ,'zoom') 
-			$('.step1').addClass 'animated fadeOut'
-			setTimeout( (x)->
-				CommonFloor.checkPropertyType()
-			, 100)
+			
 
 		
 			
 	onShow:->
+		
 		$('img').lazyLoadXT()
 		path = @model.get('step_one').svg
 		$('.svg-area').load(path, ()->
@@ -223,6 +206,16 @@ class CenterView extends Marionette.ItemView
 				animation : 'grow'
 				trigger: 'click'
 				content : $('#proj_info').html()
+				functionReady:(e)->
+					$('.master').on('click' , (e)->
+						$('.cf-loader').removeClass 'hidden'
+						$('svg').attr('class' ,'zoom') 
+						$('.step1').addClass 'animated fadeOut'
+						setTimeout( (x)->
+							CommonFloor.checkPropertyType()
+						, 100)
+					)
+
 			)
 			$('.marker').tooltipster('show')
 
@@ -232,13 +225,6 @@ class CenterView extends Marionette.ItemView
 
 		
 		
-
-		# if $(window).width() > 991
-		# 	height= @.ui.svgContainer.width() / 2
-		# 	$('.step1').css('height',height)
-		# 	$('.proj-info').css('height',height-180)
-		# 	$('.proj-info').mCustomScrollbar
-		# 		theme: 'inset'
 
 
 		
