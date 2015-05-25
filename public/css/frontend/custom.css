@@ -2358,6 +2358,7 @@ svg polygon {
   border: 1px solid transparent;
 }
 .filter-result {
+  padding: 0 15px;
   position: absolute;
   top: 56px;
   width: 75%;
@@ -2379,9 +2380,6 @@ svg polygon {
 .filter-result .filter-pill span.icon-cross {
   color: #999999;
   cursor: pointer;
-}
-.filter-result .filter-pill:first-child {
-  margin-left: 15px;
 }
 @media (max-width: 767px) {
   .filter-result {
