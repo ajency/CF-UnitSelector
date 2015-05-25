@@ -203,9 +203,9 @@ class ProjectApartmentVariantController extends Controller {
                         
             $attributes = $request->input('attributes'); 
             $roomIds = $request->input('room_id');
-            if(!empty($roomIds))
+            if(!empty($roomIds[$level]))
             {
-            foreach($roomIds as $roomId)
+            foreach($roomIds[$level] as $roomId)
             {
                 if (isset($attributes[$level][$roomId])) {
 
@@ -355,14 +355,14 @@ class ProjectApartmentVariantController extends Controller {
         
         foreach($levels as $level)
         {
-             if(!empty($roomIds))
+             if(!empty($roomIds[$level]))
             {
-            foreach($roomIds as $key=> $roomId)
+            foreach($roomIds[$level] as $key=> $roomId)
             {
                 if (isset($attributes[$level][$roomId])) {
                     
                  
-                     if ($variantRoomId[$key] == '') {
+                     if ($variantRoomId[$level][$key] == '') {
                             $variantRoom = new VariantRoom();
                             $variantRoom->unit_variant_id = $id;
                             $variantRoom->roomtype_id = $roomId;
@@ -370,7 +370,7 @@ class ProjectApartmentVariantController extends Controller {
                             $variantRoom->variant_room_attributes = serialize($attributes[$level][$roomId]);
                             $variantRoom->save();
                         } else {
-                            $variantRoom = VariantRoom::find($variantRoomId[$key]);
+                            $variantRoom = VariantRoom::find($variantRoomId[$level][$key]);
                             $variantRoom->roomtype_id = $roomId;
                             $variantRoom->variant_room_attributes = serialize($attributes[$level][$roomId]);
                             $variantRoom->save();

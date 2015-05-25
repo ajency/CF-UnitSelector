@@ -1358,16 +1358,17 @@ function saveVariantConfig()
 
     $('input[name="levels[]"]').each(function () { 
          
-        if(isApartment && $(this).val()!=0)
+        var level = $(this).val(); 
+        if(isApartment && level!=0)
         {  
           return false;
         }
         
-         var roomId = $(this).closest('.row').find('input[name="room_id[]"]').length; 
+         var roomId = $(this).closest('.row').find('input[name="room_id['+level+'][]"]').length; 
         if(roomId==0)
         {
  
-            alert('Select Room Type For Level ' +  $(this).val());
+            alert('Select Room Type For Level ' +  level);
             flag = false;
         }
         

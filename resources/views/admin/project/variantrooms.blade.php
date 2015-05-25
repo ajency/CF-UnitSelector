@@ -110,8 +110,8 @@
                                                         <label class="form-label"></label>
                                                         <div class="input-with-icon  right">
                                                             <i class=""></i>
-                                                            <input type="hidden" name="variantroomid[]" value="{{$variantRoomId}}">
-                                                            <input type="hidden" name="room_id[]" value="{{ $roomType['ROOMTYPEID'] }}">
+                                                            <input type="hidden" name="variantroomid[0][]" value="{{$variantRoomId}}">
+                                                            <input type="hidden" name="room_id[0][]" value="{{ $roomType['ROOMTYPEID'] }}">
                                                             Room Name : {{ $availableRoomTypes[$roomType['ROOMTYPEID']] }}
                                                         </div>
                                                     </div> 
@@ -274,8 +274,8 @@
                                                             <label class="form-label"></label>
                                                             <div class="input-with-icon  right">
                                                                 <i class=""></i>
-                                                                <input type="hidden" name="room_id[]" value="{{ $roomType['ROOMTYPEID'] }}">
-                                                                <input type="hidden" name="variantroomid[]" value="{{$variantRoomId}}">
+                                                                <input type="hidden" name="room_id[1][]" value="{{ $roomType['ROOMTYPEID'] }}">
+                                                                <input type="hidden" name="variantroomid[1][]" value="{{$variantRoomId}}">
                                                                 Room Name : {{ $availableRoomTypes[$roomType['ROOMTYPEID']] }}
                                                             </div>
                                                         </div> 
@@ -447,8 +447,8 @@
                                                             <label class="form-label"></label>
                                                             <div class="input-with-icon  right">
                                                                 <i class=""></i>
-                                                                <input type="hidden" name="room_id[]" value="{{ $roomType['ROOMTYPEID'] }}">
-                                                                <input type="hidden" name="variantroomid[]" value="{{$variantRoomId}}">
+                                                                <input type="hidden" name="room_id[{{$level}}][]" value="{{ $roomType['ROOMTYPEID'] }}">
+                                                                <input type="hidden" name="variantroomid[{{$level}}][]" value="{{$variantRoomId}}">
                                                                 Room Name : {{ $availableRoomTypes[$roomType['ROOMTYPEID']] }}
                                                             </div>
                                                         </div> 
