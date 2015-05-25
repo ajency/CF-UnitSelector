@@ -74,7 +74,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		units = Marionette.getOption( @, 'units' )
 		data.units = units.length
 		data.project_title = project.get('project_title')
-		data.filters  = CommonFloor.getFilters()[0]
+		console.log data.filters  = CommonFloor.getFilters()[0]
 		data.results  = CommonFloor.getApartmentFilters().count
 		model = buildingMasterCollection.findWhere
 						'id' : building_id
