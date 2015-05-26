@@ -852,22 +852,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 	onShow:->
 
-		setHeight = ->
-			windowHeight = $(window).innerHeight() - 56
-			$('.master').css 'height', windowHeight
-			return
+		windowHeight = $(window).innerHeight() - 56
+		$('.master').css 'height', windowHeight
+		$('.master').css 'min-width', windowHeight * 2
 
-		if $(window).width() < 1025
-			setHeight = ->
-				windowHeight = $(window).innerHeight() - 62
-				$('.master').css 'height', windowHeight
-				$('.master').css 'min-width', windowHeight * 2
-				return
-
-		setHeight()
-		$(window).resize ->
-			setHeight()
-			return
+		# if $(window).width() < 1025
+		# 	$('.master').css 'height', windowHeight
+		# 	$('.master').css 'min-width', windowHeight * 2
 
 		
 		# height =  @ui.svgContainer.width() / 2

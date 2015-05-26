@@ -149,24 +149,10 @@
     };
 
     CenterView.prototype.onShow = function() {
-      var path, setHeight;
-      setHeight = function() {
-        var windowHeight;
-        windowHeight = $(window).innerHeight() - 56;
-        $('.svg-area').css('height', windowHeight);
-      };
-      if ($(window).width() < 1025) {
-        setHeight = function() {
-          var windowHeight;
-          windowHeight = $(window).innerHeight() - 56;
-          $('.svg-area').css('height', windowHeight);
-          $('.svg-area').css('min-width', windowHeight * 2);
-        };
-      }
-      setHeight();
-      $(window).resize(function() {
-        setHeight();
-      });
+      var path, windowHeight;
+      windowHeight = $(window).innerHeight() - 56;
+      $('.svg-area').css('height', windowHeight);
+      $('.svg-area').css('min-width', windowHeight * 2);
       $('img').lazyLoadXT();
       path = this.model.get('step_one').svg;
       return $('.svg-area').load(path, function() {
@@ -177,11 +163,11 @@
           arrow: false,
           offsetX: 30,
           interactive: true,
-          animation: 'grow',
+          animation: 'fade',
           trigger: 'click',
           content: $('#proj_info').html(),
           functionReady: function(e) {
-            var tooltipHeight;
+            var svgHeight, svgWidth, tooltipHeight;
             $('.action_button').on('click', function(e) {
               $('.cf-loader').removeClass('hidden');
               $('svg').attr('class', 'zoom');
@@ -192,7 +178,13 @@
               }, 100);
             });
             tooltipHeight = $('.tooltipster-content').height() + 10;
-            return $('.action-bar').css('min-height', tooltipHeight);
+            $('.action-bar').css('min-height', tooltipHeight);
+            svgHeight = $(window).innerHeight() - 56;
+            svgWidth = svgHeight * 2;
+            if ($(window).width() < 1025) {
+              $('svg').css('min-height', svgHeight);
+              return $('svg').css('min-width', svgWidth);
+            }
           }
         });
         return $('.marker').tooltipster('show');

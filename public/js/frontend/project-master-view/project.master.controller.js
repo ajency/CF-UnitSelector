@@ -581,24 +581,10 @@
     };
 
     CenterMasterView.prototype.onShow = function() {
-      var breakpoints, first, setHeight, svgs, that, transitionImages;
-      setHeight = function() {
-        var windowHeight;
-        windowHeight = $(window).innerHeight() - 56;
-        $('.master').css('height', windowHeight);
-      };
-      if ($(window).width() < 1025) {
-        setHeight = function() {
-          var windowHeight;
-          windowHeight = $(window).innerHeight() - 62;
-          $('.master').css('height', windowHeight);
-          $('.master').css('min-width', windowHeight * 2);
-        };
-      }
-      setHeight();
-      $(window).resize(function() {
-        setHeight();
-      });
+      var breakpoints, first, svgs, that, transitionImages, windowHeight;
+      windowHeight = $(window).innerHeight() - 56;
+      $('.master').css('height', windowHeight);
+      $('.master').css('min-width', windowHeight * 2);
       $('#spritespin').hide();
       that = this;
       transitionImages = [];
