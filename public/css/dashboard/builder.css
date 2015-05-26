@@ -5107,3 +5107,14 @@ nav.aj-navbar .toggle i {
 .zoom-controls {
   padding: 25px;
 }
+/*Header*/
+.total-count {
+  line-height: 70px;
+  margin-right: 20px;
+  color: #000;
+}
+.title-count {
+  line-height: 70px;
+  margin-right: 20px;
+  color: #FF7E00;
+}
