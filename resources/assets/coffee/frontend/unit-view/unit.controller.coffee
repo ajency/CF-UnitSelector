@@ -92,37 +92,37 @@ class LeftUnitView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content animated fadeIn">
 							<div class="unit-details">
 								<div class="row detail-list">
-									<div class="col-sm-6 col-xs-6">
+									<div class="col-sm-6 col-xs-6 text-center">
 										<span class="facts-icon icon-total-units"></span>
-										<div class="unit-label">
+										<div class="unit-label m-t-10">
 											<h3>{{unit_variant}}</h3>
-											<h5 class="text-muted">Unit Variant</h5>      
+											<h6 class="text-muted">Unit Variant</h6>      
 										</div>
 									</div>
 
-									<div class="col-sm-6 col-xs-6">
+									<div class="col-sm-6 col-xs-6 text-center">
 										<span class="facts-icon icon-BHKtype"></span>
-										<div class="unit-label">
+										<div class="unit-label m-t-10">
 											<h3>{{type}}</h3>
-											<h5 class="text-muted">Unit Type</h5>      
+											<h6 class="text-muted">Unit Type</h6>      
 										</div>
 									</div>
 								</div>
 
 								<div class="row detail-list">
-									<div class="col-sm-6 col-xs-6">
+									<div class="col-sm-6 col-xs-6 text-center">
 										<span class="facts-icon icon-BHK-area-2"></span>
-										<div class="unit-label">
+										<div class="unit-label m-t-10">
 											<h3>{{area}} {{area_unit}}</h3>
-											<h5 class="text-muted">Area</h5>      
+											<h6 class="text-muted">Area</h6>      
 										</div>
 									</div>
 
-									<div class="col-sm-6 col-xs-6">
+									<div class="col-sm-6 col-xs-6 text-center">
 										<span class="facts-icon icon-rupee-icn"></span>
-										<div class="unit-label">
+										<div class="unit-label m-t-10">
 											<h3 class="price">{{price}}</h3>
-											<h5 class="text-muted">Price</h5>      
+											<h6 class="text-muted">Price</h6>      
 										</div>
 									</div>
 								</div>
