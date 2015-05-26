@@ -19,13 +19,16 @@ body {
 .margin-none {
   margin: 0px;
 }
+.sm-text {
+  font-size: .6em;
+}
 /* Header */
 .us-header {
   background-color: #f68121;
   color: #ffffff;
   width: 100%;
   position: fixed;
-  z-index: 9998;
+  z-index: 1000;
 }
 .top-spacing {
   padding-top: 56px;
@@ -228,6 +231,11 @@ body {
     height: auto;
   }
 }
+.master {
+  -webkit-transform: matrix(1, 0, 0, 1, 0, 0);
+      -ms-transform: matrix(1, 0, 0, 1, 0, 0);
+          transform: matrix(1, 0, 0, 1, 0, 0);
+}
 @media (max-width: 991px) {
   .us-right-content.mobile.visible,
   .us-left-content.mobile.visible {
@@ -241,10 +249,6 @@ body {
   }
   .us-right-content {
     overflow: auto;
-  }
-  .us-right-content .svg-area,
-  .us-right-content .master {
-    min-width: 165vh;
   }
   .us-right-content.unit-slides {
     overflow: visible;
@@ -327,23 +331,27 @@ body {
     margin-left: 0;
   }
   .header-info .proj-name {
-    font-size: 20px;
-    margin-left: 35px;
-    margin-bottom: 8px;
+    font-size: 16px;
+    margin-left: 25px;
+    margin-bottom: 5px;
+    margin-top: 12px;
   }
   .header-info .proj-type-count {
     width: 100%;
-    margin: 10px 0;
-    background-color: #db6809;
+    margin: 2px 0;
   }
   .header-info .proj-type-count h2 {
-    padding: 5px;
-    font-size: 24px;
+    padding: 5px 2px;
+    font-size: 14px;
     margin: 0;
+    border: none;
   }
   .header-info .proj-type-count p {
-    margin: 12px 10px 0 2px;
-    font-size: 12px;
+    margin: 6px 4px 0 2px;
+    font-size: 11px;
+  }
+  .top-spacing {
+    padding-top: 18px;
   }
 }
 hr.embossed {
@@ -1202,6 +1210,12 @@ hr.embossed {
     font-size: 14px;
   }
 }
+@media (max-width: 767px) {
+  .breadcrumb-bar a {
+    padding: 10px;
+    background: none;
+  }
+}
 /* Toggle Button */
 .toggle-view-button {
   display: none;
@@ -1280,6 +1294,12 @@ hr.embossed {
 .zoom-controls .zoom-out::before {
   content: "-";
 }
+@media (max-width: 767px) {
+  .zoom-controls {
+    top: 15px;
+    bottom: initial;
+  }
+}
 /* Lazy Load Loader */
 .lazy-hidden {
   opacity: 1;
@@ -1299,7 +1319,7 @@ hr.embossed {
 }
 .rotate-controls {
   position: absolute;
-  bottom: 30px;
+  bottom: 15px;
   left: 0;
   right: 0;
   text-align: center;
@@ -1444,14 +1464,10 @@ svg polygon {
   -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
           transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
-.marker {
-  cursor: pointer;
-}
 .marker-area {
   cursor: default;
 }
 .step1-marker {
-  cursor: pointer;
   -webkit-transform-origin: 50% 50%;
       -ms-transform-origin: 50% 50%;
           transform-origin: 50% 50%;
@@ -1952,11 +1968,11 @@ svg polygon {
   font-size: 12px;
   float: left;
   text-align: center;
-  width: 33.3%;
 }
 .units .bldg .unit-type-info li::after {
   content: '|';
   float: right;
+  margin: 0px 4px;
 }
 .units .bldg .unit-type-info li:last-child::after {
   content: '';
@@ -1994,6 +2010,17 @@ svg polygon {
 .us-right-content .legend ul li.na::before {
   border: 1px solid #262626;
   background-color: rgba(255, 255, 255, 0.7);
+}
+@media (max-width: 767px) {
+  .us-right-content .legend {
+    padding: 8px;
+  }
+  .us-right-content .legend ul li {
+    font-size: 12px;
+  }
+  .us-right-content .legend ul li:before {
+    width: 25px;
+  }
 }
 .top-legend {
   font-size: 13px;
@@ -2316,8 +2343,8 @@ svg polygon {
     background-color: #ffffff;
   }
   .fliters-container.closed {
-    right: 20px;
-    top: 80px;
+    right: 15px;
+    top: 75px;
   }
   .fliters-container .filters-wrapper .filters-content {
     height: auto;
@@ -2358,6 +2385,7 @@ svg polygon {
   border: 1px solid transparent;
 }
 .filter-result {
+  padding: 0 15px;
   position: absolute;
   top: 56px;
   width: 75%;
@@ -2380,12 +2408,9 @@ svg polygon {
   color: #999999;
   cursor: pointer;
 }
-.filter-result .filter-pill:first-child {
-  margin-left: 15px;
-}
 @media (max-width: 767px) {
   .filter-result {
-    top: 100px;
+    display: none;
   }
 }
 .filters-wrapper {
@@ -2738,7 +2763,7 @@ label.third_toggle {
   width: 35px;
   height: 35px;
   border-radius: 100%;
-  background: #ccc;
+  background: #fff;
   position: absolute;
   bottom: -15px;
   text-align: center;
@@ -2747,10 +2772,16 @@ label.third_toggle {
   border: 1px solid #999;
   color: #5F5858 !important;
   font-size: 13px;
+  z-index: 999;
+}
+.svg-info .circle a {
+  color: #5F5858 !important;
 }
 .svg-info .circle:hover {
   background: #f68121;
   cursor: pointer;
+}
+.svg-info .circle:hover a {
   color: #ffffff !important;
 }
 .svg-info .step2-sprite {

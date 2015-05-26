@@ -45,8 +45,8 @@
     height: 100vh;
     background-color: @white;
     &.closed{
-      right: 20px;
-      top: 80px;
+      right: 15px;
+      top: 75px;
     }
     .filters-wrapper{
       .filters-content{
@@ -94,7 +94,7 @@
 }
 .filter-result{
   // margin: 20px 0 0;
-  // padding: 15px;
+  padding: 0 15px;
   position: absolute;
   top: 56px;
   width: 75%;
@@ -116,13 +116,13 @@
       cursor: pointer;
     }
     &:first-child{
-      margin-left: 15px;
+      // margin-left: 15px;
     }
   }
 }
 @media(max-width:767px){
   .filter-result{
-    top: 100px;
+    display: none;
   }
 }
 .filters-wrapper{

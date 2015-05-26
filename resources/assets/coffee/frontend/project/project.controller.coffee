@@ -64,7 +64,7 @@ class LeftView extends Marionette.ItemView
 										<div id="proj_info">
 											<div class="big-tooltip">
 												<div class="svg-info not-available">
-													<div class="action-bar" style="width:140px;height:140px;">
+													<div class="action-bar" style="width:140px;height:170px;">
 															<h5>{{i10n "project_by"}}</h5>
 												          	<img src="{{logo}}" class="img-responsive builder-logo">
 													</div>	

@@ -504,10 +504,10 @@
 				font-size: 12px;
 				float: left;
 				text-align: center;
-				width: 33.3%;
 				&::after{
 					content: '|';
 					float: right;
+					margin: 0px 4px
 				}
 				&:last-child::after{
 					content: '';
@@ -560,6 +560,20 @@
 				&.na::before{
 					border: 1px solid @gray-darker;
 					background-color: fade(@white, 70%);
+				}
+			}
+		}
+	}
+
+	@media(max-width:767px){
+		.legend{
+			padding: 8px;
+			ul{
+				li{
+					font-size: 12px;
+					&:before{
+						width: 25px;
+					}
 				}
 			}
 		}
