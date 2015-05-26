@@ -11,12 +11,15 @@ class Polygon extends Backbone.Model
 		@node = ""
 		@pointList = []
 
+	createPolgyon:->
+		@node = document.createElementNS('http://www.w3.org/2000/svg','polygon')
+
 	createPolgyonTag:(item)->
 		@pointList = []
-		@node = document.createElementNS('http://www.w3.org/2000/svg','polygon')
+		@createPolgyon()
 		@points(item.points)
 		@attribute('class',item.details.class)
-		@attribute('type-id',item.id)
+		@attribute('id',item.id)
 		@node
 		
 	
@@ -41,6 +44,8 @@ class Polygon extends Backbone.Model
 			@pointList.push([args[i],args[i+1]])
 			i+=2
 		@attribute('points',@build(@pointList))
+		@node
+
 	
 	
 	

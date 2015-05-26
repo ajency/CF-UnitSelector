@@ -15,12 +15,16 @@
       return this.pointList = [];
     };
 
+    Polygon.prototype.createPolgyon = function() {
+      return this.node = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    };
+
     Polygon.prototype.createPolgyonTag = function(item) {
       this.pointList = [];
-      this.node = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+      this.createPolgyon();
       this.points(item.points);
       this.attribute('class', item.details["class"]);
-      this.attribute('type-id', item.id);
+      this.attribute('id', item.id);
       return this.node;
     };
 
@@ -51,7 +55,8 @@
         this.pointList.push([args[i], args[i + 1]]);
         i += 2;
       }
-      return this.attribute('points', this.build(this.pointList));
+      this.attribute('points', this.build(this.pointList));
+      return this.node;
     };
 
     return Polygon;

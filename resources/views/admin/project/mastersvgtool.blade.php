@@ -76,12 +76,37 @@
                         <div class="zoom-controls">
                             <button id="in" class="zoom-in">in</button>
                             <button id="out" class="zoom-out">out</button>
-                            <button id="save-svg-elem">save</button>
+                            
                             <input type="hidden" name="svg-element-id">
                         </div>
                         <div id="aj-imp-browser-body">
-                            <!-- TODO: remove inline style-->
-
+                              <div class="edit-box hidden">
+                   <h4>Unit Details</h4>
+                   <form>
+                   <div class="form-group">
+                     <label for="exampleInputEmail1">Property Type</label>
+                    <select class="form-control property_type">
+                       <option value="Villa">Villa</option>
+                       <option value="Building">Building</option>
+                       <option value="Plot">Plot</option>
+                       <option value="Amenities">Amenities</option>
+                       
+                     </select>
+                   </div>
+                   <div class="form-group">
+                     <label for="exampleInputPassword1">Unit Type</label>
+                    <select class="form-control Villas">
+                       <option value="1">Villa 1</option>
+                       <option value="2">Villa 2</option>
+                       <option value="3">Villa 3</option>
+                       <option value="4">Villa 4</option>
+                       <option value="5">Villa 5</option>
+                     </select>
+                   </div>
+                   <button type="button" class="btn btn-primary submit" >Submit</button>
+                 </form>
+               </div>
+                          <button id="save-svg-elem" class="save">save</button>
                             <div id="aj-imp-builder-drag-drop" class="svg-canvas">
                                 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm2">Small modal</button> -->
                               <textarea name="coords2" rows=3 class="area hidden" disabled placeholder="Shape Coordinates" data-image-url="{{$svgImage}}"></textarea>
