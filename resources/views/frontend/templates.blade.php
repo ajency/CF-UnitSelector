@@ -93,4 +93,71 @@
     </div>
 </script>
 
+ <script id="main-template" type="text/template">
+
+          <div ui-region="top" id="topregion">
+            <div class="aj-imp-builder-area">
+                <div class="builder-header">
+                    <div class="header-sections">
+                        <div class="aj-imp-browser-address-bar clearfix">
+                            <h4><span>SVG</span> PROJECT MASTER</h4>
+                        </div>
+
+                        <button class="color-switch btn btn-default">
+                            <i class="fa fa-eye"></i>
+                            <div><small>PREVIEW</small>
+
+                        </button>
+                        <div class='pending'>
+
+                        </div>
+
+                        </div>
+                    </div>
+
+                    <div class="aj-imp-browser-preview">
+                        <!-- browser body-->
+                        <div class="zoom-controls">
+                            <button id="in" class="zoom-in">in</button>
+                            <button id="out" class="zoom-out">out</button>
+                            <button id="save-svg-elem">save</button>
+                            <input type="hidden" namaj-imp-builder-drag-drope="svg-element-id">
+                        </div>
+
+                     </div>
+                  </div>
+               </div>
+               
+            
+            </div> 
+          </div>
+
+          
+          <div ui-region="center" id="centerregion">
+              <div>
+            <div id="aj-imp-browser-body">
+                            <button id="add" class="marked">add</button>
+                            <div id="aj-imp-builder-drag-drop" class="svg-canvas">
+                               <textarea name="coords2" style="display:none" rows=3 class="area" disabled placeholder="Shape Coordinates" data-image-url="{{$svgImage}}"></textarea>
+
+  
+                            </div>
+                       </div>
+                       
+
+                   
+                    <div class="aj-imp-browser-footer">
+                        <ul class="text-center tags list-inline">
+                            <li><span class="tag-sold"></span>&nbsp;&nbsp;SOLD</li>
+                            <li><span class="tag-available"></span>&nbsp;&nbsp;AVAILABLE</li>
+                            <li><span class="tag-blocked"></span>&nbsp;&nbsp;BLOCKED</li>
+                            <li><span class="tag-not"></span>&nbsp;&nbsp;NOT RELEASED</li>
+                            <li><span class="tag-marked"></span>&nbsp;&nbsp;MARKED</li>
+                        </ul>
+                    </div>
+                </div>
+          </div>
+
+        </script>
+
         

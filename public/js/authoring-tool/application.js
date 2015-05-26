@@ -1,16 +1,13 @@
 (function() {
   jQuery(document).ready(function($) {
     AuthoringTool.state('svgAuthoring', {
-      url: '/authoring-tool',
+      url: '/',
       sections: {
         'top': {
           ctrl: 'TopCtrl'
         },
-        'left': {
-          ctrl: 'LeftCtrl'
-        },
-        'right': {
-          ctrl: 'RightCtrl'
+        'center': {
+          ctrl: 'CenterCtrl'
         }
       }
     });
