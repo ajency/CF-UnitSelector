@@ -1,7 +1,7 @@
 (function() {
   jQuery(document).ready(function($) {
-    return AuthoringTool.state('svgAuthoring', {
-      url: '/',
+    AuthoringTool.state('svgAuthoring', {
+      url: '/authoring-tool',
       sections: {
         'top': {
           ctrl: 'TopCtrl'
@@ -11,12 +11,13 @@
         },
         'right': {
           ctrl: 'RightCtrl'
-        },
-        'dynamic': {
-          ctrl: 'DynamicCtrl'
         }
       }
     });
+    AuthoringTool.addInitializer(function() {
+      return Backbone.history.start();
+    });
+    return AuthoringTool.start();
   });
 
 }).call(this);

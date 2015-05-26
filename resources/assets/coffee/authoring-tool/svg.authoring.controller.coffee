@@ -149,9 +149,7 @@ jQuery(document).ready ($)->
 	window.showPendingObjects = (data)->
 		html = ''
 		$.each data ,(index,value)->
-			html += '<input type="checkbox" name="'+value.id+'" id="'+value.id+'" value="">'+value.name+
-					'<strong>Display marked units</strong>'+
-					'<strong class="pull-right" style="line-height:70px;margin-right: 20px;  color: #FF7E00;">'+
+			html += '<strong class="pull-right" style="line-height:70px;margin-right: 20px;  color: #FF7E00;">'+
 					'Marked: '+value.marked+' '+value.name+'(s) | Total : '+value.total+' '+value.name+'(s)</strong>'
 		$('.pending').html html
 
@@ -179,10 +177,6 @@ jQuery(document).ready ($)->
 			
 		
 
-		# points1 =  [425, 485, 459, 501, 457, 547, 408, 550]
-		# points2 = [629, 490, 667, 476, 704, 474, 709, 499, 706, 536, 635, 539]
-		# drawPoly(points1)
-		# drawPoly(points2)
 		
 
 
@@ -212,8 +206,49 @@ jQuery(document).ready ($)->
 		$('#aj-imp-builder-drag-drop svg').first().css("position","relative")
 		$("input[name=svg-element-id]").val("")	
 		$(".area").val("")	
-			
 
+
+class AuthoringTool.SvgLayoutView extends Marionette.LayoutView
+
+	template : '#main-template'
+
+
+#starting point:Controller is executed which contains the logic to get the details
+class AuthoringTool.SvgAuthoringCtrl extends Marionette.RegionController
+
+	initialize:->
+		console.log "aaaaaaaaaa"
+		@show new AuthoringTool.SvgLayoutView
+
+
+class AuthoringTool.TopView extends Marionette.ItemView
+
+	template : '<div>sefrsf</div>'
+
+class AuthoringTool.TopCtrl extends Marionette.RegionController
+			
+	initialize:->
+		@show new AuthoringTool.TopView
+
+
+class AuthoringTool.LeftView extends Marionette.ItemView
+
+	template : ''
+
+class AuthoringTool.LeftCtrl extends Marionette.RegionController
+			
+	initialize:->
+		@show new AuthoringTool.LeftView
+
+
+class AuthoringTool.RightView extends Marionette.ItemView
+
+	template : ''
+
+class AuthoringTool.RightCtrl extends Marionette.RegionController
+			
+	initialize:->
+		@show new AuthoringTool.RightView
 			
 
 	

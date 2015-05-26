@@ -1,4 +1,7 @@
 (function() {
+  var extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
   jQuery(document).ready(function($) {
     var s, str, types;
     $('.area').canvasAreaDraw();
@@ -138,7 +141,7 @@
       var html;
       html = '';
       $.each(data, function(index, value) {
-        return html += '<input type="checkbox" name="' + value.id + '" id="' + value.id + '" value="">' + value.name + '<strong>Display marked units</strong>' + '<strong class="pull-right" style="line-height:70px;margin-right: 20px;  color: #FF7E00;">' + 'Marked: ' + value.marked + ' ' + value.name + '(s) | Total : ' + value.total + ' ' + value.name + '(s)</strong>';
+        return html += '<strong class="pull-right" style="line-height:70px;margin-right: 20px;  color: #FF7E00;">' + 'Marked: ' + value.marked + ' ' + value.name + '(s) | Total : ' + value.total + ' ' + value.name + '(s)</strong>';
       });
       return $('.pending').html(html);
     };
@@ -195,6 +198,119 @@
       return $(".area").val("");
     });
   });
+
+  AuthoringTool.SvgLayoutView = (function(superClass) {
+    extend(SvgLayoutView, superClass);
+
+    function SvgLayoutView() {
+      return SvgLayoutView.__super__.constructor.apply(this, arguments);
+    }
+
+    SvgLayoutView.prototype.template = '#main-template';
+
+    return SvgLayoutView;
+
+  })(Marionette.LayoutView);
+
+  AuthoringTool.SvgAuthoringCtrl = (function(superClass) {
+    extend(SvgAuthoringCtrl, superClass);
+
+    function SvgAuthoringCtrl() {
+      return SvgAuthoringCtrl.__super__.constructor.apply(this, arguments);
+    }
+
+    SvgAuthoringCtrl.prototype.initialize = function() {
+      console.log("aaaaaaaaaa");
+      return this.show(new AuthoringTool.SvgLayoutView);
+    };
+
+    return SvgAuthoringCtrl;
+
+  })(Marionette.RegionController);
+
+  AuthoringTool.TopView = (function(superClass) {
+    extend(TopView, superClass);
+
+    function TopView() {
+      return TopView.__super__.constructor.apply(this, arguments);
+    }
+
+    TopView.prototype.template = '<div>sefrsf</div>';
+
+    return TopView;
+
+  })(Marionette.ItemView);
+
+  AuthoringTool.TopCtrl = (function(superClass) {
+    extend(TopCtrl, superClass);
+
+    function TopCtrl() {
+      return TopCtrl.__super__.constructor.apply(this, arguments);
+    }
+
+    TopCtrl.prototype.initialize = function() {
+      return this.show(new AuthoringTool.TopView);
+    };
+
+    return TopCtrl;
+
+  })(Marionette.RegionController);
+
+  AuthoringTool.LeftView = (function(superClass) {
+    extend(LeftView, superClass);
+
+    function LeftView() {
+      return LeftView.__super__.constructor.apply(this, arguments);
+    }
+
+    LeftView.prototype.template = '';
+
+    return LeftView;
+
+  })(Marionette.ItemView);
+
+  AuthoringTool.LeftCtrl = (function(superClass) {
+    extend(LeftCtrl, superClass);
+
+    function LeftCtrl() {
+      return LeftCtrl.__super__.constructor.apply(this, arguments);
+    }
+
+    LeftCtrl.prototype.initialize = function() {
+      return this.show(new AuthoringTool.LeftView);
+    };
+
+    return LeftCtrl;
+
+  })(Marionette.RegionController);
+
+  AuthoringTool.RightView = (function(superClass) {
+    extend(RightView, superClass);
+
+    function RightView() {
+      return RightView.__super__.constructor.apply(this, arguments);
+    }
+
+    RightView.prototype.template = '';
+
+    return RightView;
+
+  })(Marionette.ItemView);
+
+  AuthoringTool.RightCtrl = (function(superClass) {
+    extend(RightCtrl, superClass);
+
+    function RightCtrl() {
+      return RightCtrl.__super__.constructor.apply(this, arguments);
+    }
+
+    RightCtrl.prototype.initialize = function() {
+      return this.show(new AuthoringTool.RightView);
+    };
+
+    return RightCtrl;
+
+  })(Marionette.RegionController);
 
 }).call(this);
 

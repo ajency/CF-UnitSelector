@@ -1,7 +1,7 @@
 jQuery(document).ready ($)->
 	#defined routers
 	AuthoringTool.state 'svgAuthoring',
-			url : '/'
+			url : '/authoring-tool'
 			sections:
 				'top' : 
 					ctrl : 'TopCtrl'
@@ -9,5 +9,13 @@ jQuery(document).ready ($)->
 					ctrl : 'LeftCtrl'
 				'right' :
 					ctrl : 'RightCtrl'
-				'dynamic' :
-					ctrl : 'DynamicCtrl'
+				
+
+
+	AuthoringTool.addInitializer ->
+		Backbone.history.start()
+		
+		
+
+
+	AuthoringTool.start()
