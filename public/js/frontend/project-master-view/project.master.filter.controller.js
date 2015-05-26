@@ -239,8 +239,9 @@
         unitDetails = window.unit.getUnitDetails(value.id);
         budget.push(parseFloat(unitDetails[3]));
         area.push(parseFloat(unitDetails[0].get('super_built_up_area')));
-        id.push(parseInt(unitDetails[0].get('id')));
-        $(this.ui.unitTypes).each(function(ind, item) {});
+        return id.push(parseInt(unitDetails[0].get('id')));
+      });
+      $(this.ui.unitTypes).each(function(ind, item) {
         $('#' + item.id).attr('checked', false);
         $('#' + item.id).attr('disabled', false);
         if ($.inArray(parseInt($(item).attr('data-value')), unittypesArray) === -1) {
