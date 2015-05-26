@@ -4974,6 +4974,22 @@ a.red-link.pull-right {
   margin: 0 -15px;
 }
 /* Svg */
+.svg-canvas > svg {
+  position: relative;
+  top: 0;
+  z-index: -1;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+.svg-canvas {
+  transform: none !important;
+}
+canvas {
+  z-index: 999;
+  position: relative;
+}
 .svg-canvas {
   transform: matrix(1, 0, 0, 1, 0, 0);
   backface-visibility: hidden;
@@ -4982,11 +4998,20 @@ a.red-link.pull-right {
   transition: none;
   -webkit-transition: none;
 }
+#aj-imp-browser-body {
+  height: 800px !important;
+  margin: auto;
+  width: 1330px;
+}
+#aj-imp-browser-body image {
+  cursor: auto;
+}
 nav.aj-navbar {
   display: block;
   position: fixed;
-  top: 7.5em;
-  left: 7em;
+  top: 7.2em;
+  left: 1em;
+  z-index: 99999;
 }
 nav.aj-navbar .toggle {
   height: 40px;
@@ -5071,8 +5096,14 @@ nav.aj-navbar .toggle i {
   border-bottom: 1px solid #CDCDCD;
   padding-bottom: 10px;
 }
-.edit-box .btn-primary {
+.btn-primary {
   background: #FF7E00;
   color: #fff;
   border: none;
+}
+.btn-primary:hover {
+  background: #DF730A;
+}
+.zoom-controls {
+  padding: 25px;
 }

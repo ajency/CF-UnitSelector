@@ -88,8 +88,8 @@ jQuery(document).ready ($)->
 	#function to create image tag
 	window.createImageTag =()->	
 		svgimg = document.createElementNS('http://www.w3.org/2000/svg','image')
-		svgimg.setAttributeNS(null,'height','100%')
-		svgimg.setAttributeNS(null,'width','100%')
+		svgimg.setAttributeNS(null,'height','800')
+		svgimg.setAttributeNS(null,'width','1600')
 		svgimg.setAttributeNS('http://www.w3.org/1999/xlink','href', svgImg)
 		svgimg.setAttributeNS(null,'x','0')
 		svgimg.setAttributeNS(null,'y','0')

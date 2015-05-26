@@ -115,7 +115,12 @@
                         <div class="aj-imp-browser-address-bar clearfix">
                             <h4><span>SVG</span> PROJECT MASTER</h4>
                         </div>
-
+                        <div class="zoom-controls pull-left"><span class="text-muted"> Zoom Level </span>&nbsp;
+                            <button id="in" class="zoom-in btn btn-primary"><i class="fa fa-search-plus"></i></button>
+                            <button id="out" class="zoom-out btn btn-primary"><i class="fa fa-search-minus"></i></button>
+                        <!-- <button id="save-svg-elem">save</button>
+                            <input type="hidden" namaj-imp-builder-drag-drope="svg-element-id">-->
+                        </div>
                         <button class="color-switch btn btn-default">
                             <i class="fa fa-eye"></i>
                             <div><small>PREVIEW</small>
@@ -130,12 +135,7 @@
 
                     <div class="aj-imp-browser-preview">
                         <!-- browser body-->
-                        <div class="zoom-controls">
-                            <button id="in" class="zoom-in">in</button>
-                            <button id="out" class="zoom-out">out</button>
-                            <button id="save-svg-elem">save</button>
-                            <input type="hidden" namaj-imp-builder-drag-drope="svg-element-id">
-                        </div>
+                      
 
                      </div>
                   </div>
