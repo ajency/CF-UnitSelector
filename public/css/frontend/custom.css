@@ -1792,6 +1792,7 @@ svg polygon {
 .one .blocks {
   padding: 10px;
   width: 50%;
+  background-color: #ffffff;
 }
 .two .blocks .cost,
 .one .blocks .cost {
