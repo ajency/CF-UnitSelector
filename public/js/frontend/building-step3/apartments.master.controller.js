@@ -568,7 +568,7 @@
       this.loadProjectMaster();
       if ($(window).width() > 991) {
         return $('.units').mCustomScrollbar({
-          theme: 'inset'
+          theme: 'cf-scroll'
         });
       }
     };

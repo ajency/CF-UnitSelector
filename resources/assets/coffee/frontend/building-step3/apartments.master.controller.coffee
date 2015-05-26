@@ -673,7 +673,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 		if $(window).width() > 991
 			$('.units').mCustomScrollbar
-				theme: 'inset'
+				theme: 'cf-scroll'
 
 	loadProjectMaster:->
 		svgs = []

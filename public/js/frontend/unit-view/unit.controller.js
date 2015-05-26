@@ -411,7 +411,7 @@
       if ($(window).width() > 991) {
         $('.search-left-content').css('height', height);
         $('.search-left-content').mCustomScrollbar({
-          theme: 'inset'
+          theme: 'cf-scroll'
         });
       }
       $('.images').html(html);
