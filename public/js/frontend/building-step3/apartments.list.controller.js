@@ -97,8 +97,10 @@
         'click @ui.unitBack': function(e) {
           var previousRoute;
           e.preventDefault();
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
           previousRoute = CommonFloor.router.previous();
-          return CommonFloor.navigate('/master-view', true);
+          return CommonFloor.navigate('#/master-view', true);
         },
         'click @ui.unitTypes': function(e) {
           var unitTypes;
@@ -269,28 +271,24 @@
       return ApartmentsView.__super__.constructor.apply(this, arguments);
     }
 
-    ApartmentsView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="bldg-img"></div> <div class="apartment pull-left icon"></div> <div class="pull-left bldg-info"> <div class="info"> <label>{{unit_name}} (2 Floor)</label> </div> ({{unit_type}} {{super_built_up_area}} {{area_unit}})<br> <div class="text-primary m-t-5"><span class="icon-rupee-icn"></span> 35 Lacs</div> </div> <div class="clearfix"></div> </li>');
+    ApartmentsView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="bldg-img"></div> <div class="apartment pull-left icon"></div> <div class="pull-left bldg-info"> <div class="info"> <label>{{unit_name}} (Floor - {{floor}} )</label> </div> ({{unit_type}} {{super_built_up_area}} {{area_unit}})<br> <div class="text-primary m-t-5"><span class="icon-rupee-icn"></span>{{price}}</div> </div> <div class="clearfix"></div> </li>');
 
     ApartmentsView.prototype.serializeData = function() {
-      var data, property, status, unitType, unitVariant;
+      var availability, data, property, response, unitType;
       data = ApartmentsView.__super__.serializeData.call(this);
-      status = s.decapitalize(this.model.get('availability'));
-      unitVariant = apartmentVariantCollection.findWhere({
-        'id': this.model.get('unit_variant_id')
-      });
-      if (!_.isUndefined(unitVariant)) {
-        unitType = unitTypeCollection.findWhere({
-          'id': unitVariant.get('unit_type_id')
-        });
-        data.unit_type = unitType.get('name');
-        data.super_built_up_area = unitVariant.get('super_built_up_area');
-        data.status = status;
-      }
+      response = window.unit.getUnitDetails(this.model.get('id'));
+      data.unit_type = response[1].get('name');
+      data.super_built_up_area = response[0].get('super_built_up_area');
+      availability = this.model.get('availability');
+      data.status = s.decapitalize(availability);
+      this.model.set('status', status);
+      data.price = window.numDifferentiation(response[3]);
       unitType = unitTypeMasterCollection.findWhere({
         'id': this.model.get('unit_type_id')
       });
       property = window.propertyTypes[unitType.get('property_type_id')];
       data.property = s.capitalize(property);
+      data.floor = this.model.get('floor');
       data.area_unit = project.get('area_unit');
       return data;
     };

@@ -20,7 +20,7 @@ class BuildingItemView extends Marionette.ItemView
 					                       
 					                      </ul>
 					                    </div> <div class="clearfix"></div>
-					                    <div class="m-t-5 text-primary">Starting from <span class="icon-rupee-icn"></span> 50 lacs</div>
+					                    <div class="m-t-5 text-primary {{classname}}">Starting from <span class="icon-rupee-icn"></span>{{price}}</div>
 					                    </div>
 					                  </li>')
 	serializeData:->
@@ -29,6 +29,11 @@ class BuildingItemView extends Marionette.ItemView
 		response = building.getUnitTypes(id)
 		types = building.getUnitTypesCount(id,response)
 		floors = @model.get 'floors'
+		cost = building.getMinimumCost(id)
+		data.classname = ""
+		if cost == 0
+			data.classname = 'hidden'
+		data.price = window.numDifferentiation(cost)
 		data.floors = Object.keys(floors).length
 		data.types = types
 		data
