@@ -1,15 +1,13 @@
 #view for each building
 class BuildingItemView extends Marionette.ItemView
 
-	template :  Handlebars.compile('<li class="bldg blocks {{status}} row">
+	template :  Handlebars.compile('<li class="bldg blocks {{status}} ">
 										<div class="col-sm-2 col-xs-2">
 					                    <i class="apartment-ico m-t-15 "></i>
 					                    </div>
 					                    <div class="col-sm-10 col-xs-10">
 					                    <div class="info">
 					                      <h2 class="margin-none">{{building_name}} <label class="text-muted sm-text">({{floors}} Floors)</label></h2>
-					                     <div class="m-t-5 text-primary">Starting from Rs.<span>50 lakhs</span></div>
-					                      
 					                    </div>
 					                    <div class="clearfix"></div>
 					                    <div class="unit-type-info m-t-5">
@@ -21,7 +19,8 @@ class BuildingItemView extends Marionette.ItemView
 					                        {{/types}}
 					                       
 					                      </ul>
-					                    </div>
+					                    </div> <div class="clearfix"></div>
+					                    <div class="m-t-5 text-primary {{classname}}">Starting from <span class="icon-rupee-icn"></span>{{price}}</div>
 					                    </div>
 					                  </li>')
 	serializeData:->
@@ -30,6 +29,11 @@ class BuildingItemView extends Marionette.ItemView
 		response = building.getUnitTypes(id)
 		types = building.getUnitTypesCount(id,response)
 		floors = @model.get 'floors'
+		cost = building.getMinimumCost(id)
+		data.classname = ""
+		if cost == 0
+			data.classname = 'hidden'
+		data.price = window.numDifferentiation(cost)
 		data.floors = Object.keys(floors).length
 		data.types = types
 		data

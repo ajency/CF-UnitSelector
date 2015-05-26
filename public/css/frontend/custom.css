@@ -1961,11 +1961,7 @@ svg polygon {
 .units .bldg .info {
   float: left;
 }
-.units .bldg .info div {
-  font-size: 12px;
-}
 .units .bldg .unit-type-info li {
-  font-size: 12px;
   float: left;
   text-align: center;
 }

@@ -2,12 +2,16 @@
 class PlotItemView extends Marionette.ItemView
 
 	template : Handlebars.compile('<li class="unit blocks {{status}}">
+				<div class="col-sm-2 col-xs-2"> <i class="plot-ico m-t-10 "></i> </div>
+					<div class="col-sm-10 col-xs-10">
                   <div class="pull-left info">
                     <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}} {{area_unit}})
                   </div>
-                  <!--<div class="pull-right cost">
-                    50 lakhs
-                  </div>-->
+                   <div class="clearfix"></div>
+                 <div class="text-primary m-t-5">
+                    <span class="icon-rupee-icn"></span>{{price}}
+                  </div>
+                  </div>
                 </li>')
 
 	initialize:->

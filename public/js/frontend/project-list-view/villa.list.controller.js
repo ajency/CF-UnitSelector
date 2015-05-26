@@ -11,7 +11,7 @@
       return VillaItemView.__super__.constructor.apply(this, arguments);
     }
 
-    VillaItemView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="pull-left info"> <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}} {{area_unit}}) </div> <!--<div class="pull-right cost"> 50 lakhs </div>--> </li>');
+    VillaItemView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="villa-ico pull-left icon m-t-10"></div> <div class="pull-left bldg-info"> <div class="info"> <label>{{unit_name}}</label> </div> ({{unit_type}} {{super_built_up_area}} {{area_unit}}) <br> <div class="text-primary m-t-5 "> <span class="icon-rupee-icn"></span>{{price}} </div> </div> <div class="clearfix"></div> </li>');
 
     VillaItemView.prototype.initialize = function() {
       return this.$el.prop("id", 'unit' + this.model.get("id"));
