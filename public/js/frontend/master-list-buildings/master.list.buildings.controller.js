@@ -39,7 +39,6 @@
       if (cost === 0) {
         data.classname = 'hidden';
       }
-      console.log(data.classname);
       window.convertRupees(cost);
       data.price = $('#price').val();
       data.floors = Object.keys(floors).length;

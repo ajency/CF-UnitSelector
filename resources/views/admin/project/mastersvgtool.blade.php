@@ -75,7 +75,7 @@
                             <button id="in" class="zoom-in">in</button>
                             <button id="out" class="zoom-out">out</button>
                             <button id="save-svg-elem">save</button>
-                            <input type="hidden" name="svg-element-id">
+                            <input type="hidden" namaj-imp-builder-drag-drope="svg-element-id">
                         </div>
 
                      </div>
@@ -83,25 +83,11 @@
                </div>
                
             
-            </div> -->
+            </div> 
             <!-- browser body-->
-             <div class="zoom-controls">
-											<button id="in" class="zoom-in">in</button>
-											<button id="out" class="zoom-out">out</button>
-										</div>
+             
             <div id="aj-imp-browser-body">
-               <!-- TODO: remove inline style-->
               
-               <div id="aj-imp-builder-drag-drop" >
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm2">Small modal</button>
-                 <textarea name="coords2" rows=3 class="area hidden" disabled 
-				        placeholder="Shape Coordinates" data-image-url="{{$svgImage}}"
-				       ></textarea>
-				 
-
-               </div>
-
-
                             <div id="aj-imp-builder-drag-drop" class="svg-canvas">
                                 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm2">Small modal</button> -->
                               <textarea name="coords2" rows=3 class="area hidden" disabled placeholder="Shape Coordinates" data-image-url="{{$svgImage}}"></textarea>
@@ -391,20 +377,24 @@
 
         <script src="{{ asset('bower_components/underscore/underscore-min.js' )}}"></script>
         <script src="{{ asset('bower_components/underscore.string/dist/underscore.string.min.js' )}}"></script>
-        <script src="{{ asset('bower_components/backbone/backbone.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery/dist/jquery.min.js' )}}"></script>
+        <script src="{{ asset('bower_components/backbone/backbone.js' )}}"></script>
+        <script src="{{ asset('bower_components/backbone.marionette/lib/backbone.marionette.min.js' )}}"></script>
+        <script src="{{ asset('bower_components/handlebars/handlebars.min.js' )}}"></script>
         <script src="{{ asset('bower_components/svg.js/dist/svg.min.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery.panzoom/dist/jquery.panzoom.min.js' )}}"></script>
+        <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('bower_components/interact/interact.min.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('bower_components/marionette.state/dist/marionette.state.js' )}}"></script>
+        
         <script src="{{ asset('js/svg.parser.min.js' )}}"></script>
         <script src="{{ asset('js/svg.import.min.js' )}}"></script>
         <script src="{{ asset('js/svg.draggable.min.js' )}}"></script>
         <script src="{{ asset('js/jquery.canvasAreaDraw.min.js' )}}"></script>
+        <script src="{{ asset('js/frontend/app.js' )}}"></script>
+        
         <!--script src="{{ asset('js/jquery.canvasAreaDraw.js' )}}"></script-->
-        <script src="{{ asset('js/authoring-tool/common.js' )}}"></script>
-        <script src="{{ asset('js/authoring-tool/entities/polygon.entity.js' )}}"></script>
-        <script src="{{ asset('js/authoring-tool/svg.authoring.controller.js' )}}"></script>
-        <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}" type="text/javascript"></script>
-        <script src="{{ asset('bower_components/interact/interact.min.js')}}" type="text/javascript"></script>
+        
         <script type="text/javascript">
             svgImg = '{{$svgImage}}';
             panzoom = $('#aj-imp-builder-drag-drop').panzoom({
@@ -416,7 +406,15 @@
                 $zoomOut: $('.zoom-out')
 
             })
+
+        AuthoringTool = new Marionette.Application 
+        BASEURL = '{{url()}}'
         </script>
+
+        <script src="{{ asset('js/authoring-tool/common.js' )}}"></script>
+        <script src="{{ asset('js/authoring-tool/entities/polygon.entity.js' )}}"></script>
+        <script src="{{ asset('js/authoring-tool/svg.authoring.controller.js' )}}"></script>
+        <script src="{{ asset('js/authoring-tool/application.js' )}}"></script>
 </body>
 
 </html>

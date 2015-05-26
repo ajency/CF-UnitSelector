@@ -44,14 +44,19 @@
           'id': 5,
           'type': 'villa',
           'name': 'Villa 5',
-          'canvas_type': 'polygon',
-          'details': {
-            'class': 'marked'
-          },
+          'canvas_type': '',
+          'details': '',
+          'points': []
+        }, {
+          'id': 6,
+          'type': 'building',
+          'name': 'Building 1',
+          'canvas_type': '',
+          'details': '',
           'points': []
         }
       ],
-      'supported_types': ['polygon']
+      'supported_types': ['villa', 'building']
     };
     window.createSvg = function(svgData) {
       window.rawSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -67,7 +72,7 @@
         var tag;
         if (value.canvas_type === 'polygon') {
           tag = window.polygon.createPolgyonTag(value);
-          if (tag !== "") {
+          if (!_.isEmpty(tag)) {
             window.makeDraggable();
             rawSvg.appendChild(tag);
           }
@@ -99,28 +104,33 @@
       return element.draggable();
     };
     window.getPendingObjects = function(svgData) {
-      var collection, type, uniqTypes;
+      var collection, supportedTypes, type;
       type = [];
-      collection = new Backbone.Collection(svgData);
-      uniqTypes = _.pluck(svgData, 'type');
-      uniqTypes = _.uniq(uniqTypes);
-      $.each(uniqTypes, function(index, value) {
-        var items, notMarked;
+      collection = new Backbone.Collection(svgData.data);
+      supportedTypes = svgData.supported_types;
+      supportedTypes = _.uniq(supportedTypes);
+      $.each(supportedTypes, function(index, value) {
+        var items, marked;
         items = collection.where({
           'type': value
         });
-        notMarked = [];
+        marked = [];
         $.each(items, function(ind, val) {
-          if (val.get('canvas_type') === "") {
-            return notMarked.push(val);
+          if (!_.isEmpty(val.get('canvas_type'))) {
+            return marked.push(val);
           }
         });
         return type.push({
           'name': value,
           'id': value,
           'total': items.length,
-          'unmarked': notMarked.length
+          'marked': marked.length
         });
+      });
+      $.each(type, function(index, value) {
+        if (value.total === 0) {
+          return type = _.without(type, value);
+        }
       });
       return type;
     };
@@ -128,13 +138,13 @@
       var html;
       html = '';
       $.each(data, function(index, value) {
-        return html += '<input type="checkbox" name="' + value.id + '" id="' + value.id + '" value="">' + value.name + '<strong>Display marked units</strong>' + '<strong class="pull-right" style="line-height:70px;margin-right: 20px;  color: #FF7E00;">' + 'Pending: ' + value.unmarked + ' ' + value.name + '(s) | Total : ' + value.total + ' ' + value.name + '(s)</strong>';
+        return html += '<input type="checkbox" name="' + value.id + '" id="' + value.id + '" value="">' + value.name + '<strong>Display marked units</strong>' + '<strong class="pull-right" style="line-height:70px;margin-right: 20px;  color: #FF7E00;">' + 'Marked: ' + value.marked + ' ' + value.name + '(s) | Total : ' + value.total + ' ' + value.name + '(s)</strong>';
       });
       return $('.pending').html(html);
     };
     window.createSvg(window.svgData.data);
     window.createPanel(window.svgData.supported_types);
-    types = window.getPendingObjects(window.svgData.data);
+    types = window.getPendingObjects(window.svgData);
     window.showPendingObjects(types);
     s = new XMLSerializer();
     str = s.serializeToString(rawSvg);

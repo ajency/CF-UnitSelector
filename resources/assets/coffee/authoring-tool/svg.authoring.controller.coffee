@@ -52,14 +52,22 @@ jQuery(document).ready ($)->
 									'id' : 5,
 									'type' : 'villa',
 									'name' : 'Villa 5',
-									'canvas_type' : 'polygon',
-									'details' : {'class':'marked'},
+									'canvas_type' : '',
+									'details' : '',
+									'points'  : []
+								},
+								{
+									'id' :6,
+									'type' : 'building',
+									'name' : 'Building 1',
+									'canvas_type' : '',
+									'details' : '',
 									'points'  : []
 								}
 
 
 							]
-					'supported_types' : ['polygon']
+					'supported_types' : ['villa','building']
 				}
 	#function to create the svg
 	window.createSvg = (svgData)->
@@ -77,12 +85,12 @@ jQuery(document).ready ($)->
 		window.createImageTag()
 		$.each svgData,(index,value)->
 
-			if value.canvas_type == 'polygon'
+			if value.canvas_type is 'polygon'
 				tag = window.polygon.createPolgyonTag(value)
-				if tag != ""
+				if !_.isEmpty tag 
 					window.makeDraggable()
 					rawSvg.appendChild tag
-			if value.type == 'marker'
+			if value.type is 'marker'
 				window.marker.createMarkerTag(value)
 		
 		
@@ -112,22 +120,29 @@ jQuery(document).ready ($)->
 	
 	window.getPendingObjects  = (svgData)->
 		type = []
-		collection = new Backbone.Collection svgData
-		uniqTypes = _.pluck svgData , 'type'
-		uniqTypes = _.uniq uniqTypes
-		$.each uniqTypes ,(index,value)->
+		collection = new Backbone.Collection svgData.data
+		# uniqTypes = _.pluck svgData , 'type'
+		# uniqTypes = _.uniq uniqTypes
+		# supportedTypes = svgData.supported_types.map (item)->
+		# 	return s.capitalize item
+		supportedTypes = svgData.supported_types
+		supportedTypes = _.uniq supportedTypes
+		$.each supportedTypes ,(index,value)->
 			items = collection.where
 						'type' : value
-			notMarked = []
+			marked = []
 			$.each items,(ind,val)->
-				if val.get('canvas_type') == ""
-					notMarked.push val
+				if !_.isEmpty val.get('canvas_type')
+					marked.push val
 
 			type.push
 				'name' : value
 				'id'   : value
 				'total' : items.length
-				'unmarked' : notMarked.length
+				'marked' : marked.length
+		$.each type,(index,value)->
+			if value.total is 0
+				type = _.without(type, value)
 
 		type
 
@@ -137,12 +152,12 @@ jQuery(document).ready ($)->
 			html += '<input type="checkbox" name="'+value.id+'" id="'+value.id+'" value="">'+value.name+
 					'<strong>Display marked units</strong>'+
 					'<strong class="pull-right" style="line-height:70px;margin-right: 20px;  color: #FF7E00;">'+
-					'Pending: '+value.unmarked+' '+value.name+'(s) | Total : '+value.total+' '+value.name+'(s)</strong>'
+					'Marked: '+value.marked+' '+value.name+'(s) | Total : '+value.total+' '+value.name+'(s)</strong>'
 		$('.pending').html html
 
 	window.createSvg(window.svgData.data)
 	window.createPanel(window.svgData.supported_types)		
-	types = window.getPendingObjects(window.svgData.data) 
+	types = window.getPendingObjects(window.svgData) 
 	window.showPendingObjects(types)
 	s = new XMLSerializer()
 	str = s.serializeToString(rawSvg)
