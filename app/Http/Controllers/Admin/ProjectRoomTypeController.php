@@ -207,9 +207,9 @@ class ProjectRoomTypeController extends Controller {
             $str .= '<div class="form-group">';
             $str .= '<label class = "form-label"></label>';
             $str .= '<div class="input-with-icon  right">';
-            $str .= '<i class = ""></i><input type="hidden" name="variantroomid[]" value="">';
+            $str .= '<i class = ""></i><input type="hidden" name="variantroomid['.$level.'][]" value="">';
             $str .= 'Room Name :'.$roomTypeName;
-            $str .= '<input type="hidden" name="room_id[]" value="'.$roomTypeId.'">';
+            $str .= '<input type="hidden" name="room_id['.$level.'][]" value="'.$roomTypeId.'">';
             $str .= ' </div>';
             $str .= ' </div> ';
             $str .= '</div>';
