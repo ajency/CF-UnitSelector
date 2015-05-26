@@ -6234,38 +6234,5 @@ label,
 .parsley-errors-list {
   display: inline;
 }
-.container {
-  margin-top: 100px;
-  width: 600px;
-}
-.container img {
-  position: relative;
-  top: -15px;
-  right: 18px;
-}
-.container label {
-  font-weight: 500;
-  color: #525353;
-}
-.container .panel-default {
-  border-color: #A9A9A5;
-  border-radius: 0;
-  border-bottom: 6px solid #A9A9A5;
-}
-.container .panel-default .header {
-  font-size: 32px;
-  color: #525353;
-  text-align: center;
-}
-.container .panel-body {
-  padding: 43px;
-  padding-top: 12px;
-}
-.container .btn-default {
-  width: 190px;
-  background: #f68121;
-  color: #fff;
-  border: none;
-}
 
 /*# sourceMappingURL=app.css.map */

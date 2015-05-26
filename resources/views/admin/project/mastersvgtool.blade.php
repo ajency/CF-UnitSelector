@@ -13,7 +13,7 @@
     <link href="{{ asset('css/dashboard/builder.css')}}" rel="stylesheet" type="text/css" />
     <style type="text/css">
 
-    .svg-canvas > svg {
+    /*.svg-canvas > svg {
       position: relative;
       top: 0;
       z-index: -1;
@@ -22,9 +22,9 @@
       height: 100%;
       z-index: 0;
     }
-/*    .svg-canvas {
+    .svg-canvas {
       transform: none !important;
-    }*/
+    }
     canvas{
       z-index: 999;
       position: relative;
@@ -33,7 +33,7 @@
       fill: #FFE533  !important;
       border: 2px solid #FFE533 ;
       opacity: 0.5;
-    }
+    }*/
 /*    .svg-canvas{
    transform: matrix(1, 0, 0, 1, 0,-127) !important;
 
@@ -49,6 +49,7 @@
 <body>
     <div class="aj-imp-builder container-fluid">
        <div id="header-region"></div>
+       
         <div ui-region></div>
     </div> 
         @include('frontend/templates')

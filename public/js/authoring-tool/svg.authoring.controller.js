@@ -104,21 +104,12 @@
     };
 
     CenterView.prototype.onShow = function() {
-      var svgData;
-      $('.area').canvasAreaDraw();
-      window.draw = SVG('aj-imp-builder-drag-drop');
-      svgData = Marionette.getOption(this, 'svgData');
-      draw.svg(svgData);
-      $('#aj-imp-builder-drag-drop canvas').ready(function() {
-        $('#aj-imp-builder-drag-drop canvas').hide();
-        return $('#aj-imp-builder-drag-drop .svg-draw-clear').hide();
-      });
-      return this.loadZoom();
+      console.log($('.area'));
+      return $('.area').canvasAreaDraw();
     };
 
     CenterView.prototype.loadZoom = function() {
-      var panzoom;
-      return panzoom = $('#aj-imp-builder-drag-drop').panzoom({
+      return $('#aj-imp-builder-drag-drop').panzoom({
         contain: 'invert',
         minScale: 1,
         maxScale: 2.4,

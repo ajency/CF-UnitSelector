@@ -138,7 +138,7 @@
             <div id="aj-imp-browser-body">
                             <button id="add" class="marked">add</button>
                             <div id="aj-imp-builder-drag-drop" class="svg-canvas">
-                               <textarea name="coords2" style="display:none" rows=3 class="area" disabled placeholder="Shape Coordinates" data-image-url="{{$svgImage}}"></textarea>
+                               <textarea name="coords2"  rows=3 class="area" disabled placeholder="Shape Coordinates" data-image-url="{{$svgImage}}"></textarea>
 
   
                             </div>

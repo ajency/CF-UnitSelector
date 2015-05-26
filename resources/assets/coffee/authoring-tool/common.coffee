@@ -1,7 +1,7 @@
 jQuery(document).ready ($)->
 	
 
-
+		
 	window.svgData = {
 					'image':''
 					'data' : [
