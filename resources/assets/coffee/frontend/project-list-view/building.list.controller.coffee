@@ -3,16 +3,16 @@ class BuildingItemView extends Marionette.ItemView
 
 	template :  Handlebars.compile('<li class="bldg blocks {{status}} row">
 										<div class="col-sm-2 col-xs-2">
-					                    <i class="apartment-ico "></i>
+					                    <i class="apartment-ico m-t-15 "></i>
 					                    </div>
 					                    <div class="col-sm-10 col-xs-10">
 					                    <div class="info">
-					                      <h2 class="margin-none">{{building_name}}</h2>
-					                      <!--<div>Starting from Rs.<span>50 lakhs</span></div>-->
-					                      <div class="m-t-10">No. of Floors: <span>{{floors}}</span></div>
+					                      <h2 class="margin-none">{{building_name}} <label class="text-muted sm-text">({{floors}} Floors)</label></h2>
+					                     <div class="m-t-5 text-primary">Starting from Rs.<span>50 lakhs</span></div>
+					                      
 					                    </div>
 					                    <div class="clearfix"></div>
-					                    <div class="unit-type-info">
+					                    <div class="unit-type-info m-t-5">
 					                      <ul>
 					                     	{{#types}}
 					                        <li>

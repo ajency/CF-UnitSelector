@@ -19,6 +19,9 @@ body {
 .margin-none {
   margin: 0px;
 }
+.sm-text {
+  font-size: .6em;
+}
 /* Header */
 .us-header {
   background-color: #f68121;

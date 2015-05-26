@@ -300,11 +300,12 @@ class ApartmentsView extends Marionette.ItemView
 					<!--<span class="label label-success"></span-->
 					<br><br>
 					<div class="details">
-                       
-							<label>Unit Type </label> - '+response[1].get('name')+'<br>
-						
-						
-							<label>Price </label> - <span class="icon-rupee-icn">'+price+'</span><br>
+                       	<div>
+						 - '+response[1].get('name')+'
+						</div>
+						<div class="text-primary">
+						<span class="icon-rupee-icn"></span>'+price+'
+						</div>
 						
 					</div>'
 		if availability == 'available'

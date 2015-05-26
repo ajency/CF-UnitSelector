@@ -807,10 +807,10 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						<div class="details">
 							
 							
-						</div>'
+						'
 
 			$.each response,(index,value)->
-				html +='<span class="details">
+				html +='<span>
 							' +value.name+' ('+value.units+'),
 						</span>'
 
@@ -821,18 +821,18 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				else
 					url = '/building/'+id+'/master-view' 
 					
-				html += '<div class="details">
+				html += '<div class=" text-primary">
 								Starting Price <span class="text-primary icon-rupee-icn"></span>'+price+'
 							</div> <div class="circle">
 						<a href="#'+url+'" class="arrow-up icon-chevron-right"></a>
 						</div>
 						
 							
-						<div class="details">
+						<div>
 							<div class="text-muted text-default">Click arrow to move forward</div>
 						</div>'
 			
-			html += '</div>'
+			html += '</div></div>'
 
 
 			$('.layer').tooltipster('content', html)

@@ -555,9 +555,9 @@
         } else {
           availability = ' sold';
         }
-        html = '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="building"></div> </div> <h5 class="t m-t-0">' + buildingModel.get('building_name') + '	<label class="text-muted">(' + floors + ' floors)</label></h5> <div class="details"> </div>';
+        html = '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="building"></div> </div> <h5 class="t m-t-0">' + buildingModel.get('building_name') + '	<label class="text-muted">(' + floors + ' floors)</label></h5> <div class="details">';
         $.each(response, function(index, value) {
-          return html += '<span class="details">' + value.name + ' (' + value.units + '), </span>';
+          return html += '<span>' + value.name + ' (' + value.units + '), </span>';
         });
         if (unit.length > 0) {
           if (Object.keys(buildingModel.get('building_master')).length === 0) {
@@ -565,9 +565,9 @@
           } else {
             url = '/building/' + id + '/master-view';
           }
-          html += '<div class="details"> Starting Price <span class="text-primary icon-rupee-icn"></span>' + price + '</div> <div class="circle"> <a href="#' + url + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div>';
+          html += '<div class=" text-primary"> Starting Price <span class="text-primary icon-rupee-icn"></span>' + price + '</div> <div class="circle"> <a href="#' + url + '" class="arrow-up icon-chevron-right"></a> </div> <div> <div class="text-muted text-default">Click arrow to move forward</div> </div>';
         }
-        html += '</div>';
+        html += '</div></div>';
         $('.layer').tooltipster('content', html);
         $('#bldg' + id).attr('class', 'bldg blocks active');
         return $('#' + id).attr('class', 'layer building active_bldg');
