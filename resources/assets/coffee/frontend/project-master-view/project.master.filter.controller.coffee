@@ -282,7 +282,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			budget.push parseFloat unitDetails[3]
 			area.push parseFloat unitDetails[0].get 'super_built_up_area'
 			id.push parseInt unitDetails[0].get 'id'
-			$(@ui.unitTypes).each (ind,item)->
+		$(@ui.unitTypes).each (ind,item)->
 			$('#'+item.id).attr('checked',false)
 			$('#'+item.id).attr('disabled',false)
 			if $.inArray(parseInt($(item).attr('data-value')),unittypesArray) is -1
