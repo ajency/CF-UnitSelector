@@ -33,7 +33,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Email<span class="text-primary">*</span></label>
-                                <input type="email" name="email" onchange="validateEmail(this, 0)" class="form-control m-b-5" placeholder="Enter Email ID" data-parsley-type="email" data-parsley-required><div class="cf-loader hidden"></div>
+                                <input type="email" name="email" onchange="validateEmail(this, 0)" class="form-control m-b-5" placeholder="Enter Email ID" data-parsley-type="email" data-parsley-required> <span class="cf-loader hidden"></span>
                                 
                             </div>
                         </div>
@@ -44,6 +44,8 @@
                                 
                             </div>
                         </div>
+                        </div>
+                         <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Role<span class="text-primary">*</span></label>
@@ -67,8 +69,8 @@
                                     
                                 </div>
                             </div>
-                       
-                    </div>          
+                       </div>
+                              
 
                     <div class="form-actions "> 
                         <div class="pull-right">
