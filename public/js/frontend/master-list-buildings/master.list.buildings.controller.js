@@ -39,8 +39,6 @@
       if (cost === 0) {
         data.classname = 'hidden';
       }
-      window.convertRupees(cost);
-      window.numDifferentiation;
       data.price = window.numDifferentiation(cost);
       data.floors = Object.keys(floors).length;
       data.types = types;

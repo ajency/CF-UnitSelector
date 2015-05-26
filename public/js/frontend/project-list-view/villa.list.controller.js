@@ -11,25 +11,22 @@
       return VillaItemView.__super__.constructor.apply(this, arguments);
     }
 
-    VillaItemView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="villa-ico pull-left icon m-t-10"></div> <div class="pull-left bldg-info"> <div class="info"> <label>{{unit_name}}</label> </div> ({{unit_type}} {{super_built_up_area}} {{area_unit}}) <br> <div class="text-primary m-t-5 "> <span class="icon-rupee-icn"></span>  50 Lacs </div> </div> <div class="clearfix"></div> </li>');
+    VillaItemView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="villa-ico pull-left icon m-t-10"></div> <div class="pull-left bldg-info"> <div class="info"> <label>{{unit_name}}</label> </div> ({{unit_type}} {{super_built_up_area}} {{area_unit}}) <br> <div class="text-primary m-t-5 "> <span class="icon-rupee-icn"></span>{{price}} </div> </div> <div class="clearfix"></div> </li>');
 
     VillaItemView.prototype.initialize = function() {
       return this.$el.prop("id", 'unit' + this.model.get("id"));
     };
 
     VillaItemView.prototype.serializeData = function() {
-      var availability, data, unitType, unitVariant;
+      var availability, data, response;
       data = VillaItemView.__super__.serializeData.call(this);
-      unitVariant = bunglowVariantCollection.findWhere({
-        'id': this.model.get('unit_variant_id')
-      });
-      unitType = unitTypeCollection.findWhere({
-        'id': unitVariant.get('unit_type_id')
-      });
-      data.unit_type = unitType.get('name');
-      data.super_built_up_area = unitVariant.get('super_built_up_area');
+      response = window.unit.getUnitDetails(this.model.get('id'));
+      data.unit_type = response[1].get('name');
+      data.super_built_up_area = response[0].get('super_built_up_area');
       availability = this.model.get('availability');
       data.status = s.decapitalize(availability);
+      this.model.set('status', status);
+      data.price = window.numDifferentiation(response[3]);
       this.model.set('status', data.status);
       data.area_unit = project.get('area_unit');
       return data;

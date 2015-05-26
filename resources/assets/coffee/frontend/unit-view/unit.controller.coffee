@@ -398,7 +398,7 @@ class CenterUnitView extends Marionette.ItemView
 			response = @generateLevels()
 			html = ''
 			html += '<div class="animated fadeIn">
-						<img class="img img-responsive" data-src="'+response[3].get('external3durl')+'" />
+						<img class="img img-responsive external-img" data-src="'+response[3].get('external3durl')+'" />
 					</div>'
 			$('.images').html html
 			$('.img').lazyLoadXT()
@@ -521,7 +521,7 @@ class CenterUnitView extends Marionette.ItemView
 		if $(window).width() > 991
 			$('.search-left-content').css('height',height)
 			$('.search-left-content').mCustomScrollbar
-				theme: 'inset'
+				theme: 'cf-scroll'
 
 
 		$('.images').html html
