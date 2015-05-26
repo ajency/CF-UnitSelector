@@ -387,9 +387,9 @@ function getRoomTypeAttributes(obj, level)
 
 function updateRoomAttributes()
 {
-   var level =$("#roomtypeiframe").attr("level");  
-   var roomid = $("#roomtypeiframe").attr("roomid");  
-   var roomid = $("#roomtypeiframe").attr("roomid");  
+   var level =window.parent.$("#roomtypeiframe").attr("level");  
+   var roomid = window.parent.$("#roomtypeiframe").attr("roomid");
+ 
    $("#level_"+level).find('select[name="room_type[]"]').val(roomid);
    
    $.ajax({
@@ -402,8 +402,8 @@ function updateRoomAttributes()
         success: function (response) {
             var attribute_str = response.data.attributes; 
             var variantRoomId = $('.roomattribute_'+level+'_'+roomid).find('input[name="variantroomid[]"]').val();
-            $('.roomattribute_'+level+'_'+roomid).html(attribute_str);
-            $('.roomattribute_'+level+'_'+roomid).find('input[name="variantroomid[]"]').val(variantRoomId);
+            window.parent.$('.roomattribute_'+level+'_'+roomid).html(attribute_str);
+            window.parent.$('.roomattribute_'+level+'_'+roomid).find('input[name="variantroomid[]"]').val(variantRoomId);
             $("select").select2();
         }
     });
