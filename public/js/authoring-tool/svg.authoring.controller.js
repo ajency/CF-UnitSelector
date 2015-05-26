@@ -104,8 +104,17 @@
     };
 
     CenterView.prototype.onShow = function() {
+      var svgData;
       console.log($('.area'));
-      return $('.area').canvasAreaDraw();
+      $('.area').canvasAreaDraw();
+      window.draw = SVG('aj-imp-builder-drag-drop');
+      svgData = Marionette.getOption(this, 'svgData');
+      draw.svg(svgData);
+      $('#aj-imp-builder-drag-drop canvas').ready(function() {
+        $('#aj-imp-builder-drag-drop canvas').hide();
+        return $('#aj-imp-builder-drag-drop .svg-draw-clear').hide();
+      });
+      return this.loadZoom();
     };
 
     CenterView.prototype.loadZoom = function() {

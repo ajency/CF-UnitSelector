@@ -55,13 +55,13 @@ class AuthoringTool.CenterView extends Marionette.ItemView
 	onShow:->
 		console.log $('.area')	
 		$('.area').canvasAreaDraw()
-		# window.draw = SVG('aj-imp-builder-drag-drop')
-		# svgData = Marionette.getOption(@,'svgData')
-		# draw.svg svgData
-		# $('#aj-imp-builder-drag-drop canvas').ready ->
-		# 	$('#aj-imp-builder-drag-drop canvas').hide()
-		# 	$('#aj-imp-builder-drag-drop .svg-draw-clear').hide()
-		# @loadZoom()
+		window.draw = SVG('aj-imp-builder-drag-drop')
+		svgData = Marionette.getOption(@,'svgData')
+		draw.svg svgData
+		$('#aj-imp-builder-drag-drop canvas').ready ->
+			$('#aj-imp-builder-drag-drop canvas').hide()
+			$('#aj-imp-builder-drag-drop .svg-draw-clear').hide()
+		@loadZoom()
 
 	loadZoom:->
 		$('#aj-imp-builder-drag-drop').panzoom({
