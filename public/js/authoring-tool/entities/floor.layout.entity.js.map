@@ -1,0 +1,1 @@
+{"version":3,"sources":["authoring-tool/entities/floor.layout.entity.coffee"],"names":[],"mappings":"AAAA;AAAA;AAAA","file":"authoring-tool/entities/floor.layout.entity.js","sourceRoot":"/source/","sourcesContent":["#View and Controller for a floor layout\r\n#Function to show the details of an floor layout if marked\r\n#event handler functions"]}

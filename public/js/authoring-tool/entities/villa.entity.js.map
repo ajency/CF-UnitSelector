@@ -1,0 +1,1 @@
+{"version":3,"sources":["authoring-tool/entities/villa.entity.coffee"],"names":[],"mappings":"AAAA;AAAA;AAAA","file":"authoring-tool/entities/villa.entity.js","sourceRoot":"/source/","sourcesContent":["#View and Controller for a villa\r\n#Function to show the details of a villa if marked\r\n#event handler functions"]}
