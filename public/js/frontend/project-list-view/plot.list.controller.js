@@ -18,18 +18,15 @@
     };
 
     PlotItemView.prototype.serializeData = function() {
-      var availability, data, unitType, unitVariant;
+      var availability, data, response;
       data = PlotItemView.__super__.serializeData.call(this);
-      unitVariant = plotVariantCollection.findWhere({
-        'id': this.model.get('unit_variant_id')
-      });
-      unitType = unitTypeCollection.findWhere({
-        'id': unitVariant.get('unit_type_id')
-      });
-      data.unit_type = unitType.get('name');
-      data.super_built_up_area = unitVariant.get('super_built_up_area');
+      response = window.unit.getUnitDetails(this.model.get('id'));
+      data.unit_type = response[1].get('name');
+      data.super_built_up_area = response[0].get('super_built_up_area');
       availability = this.model.get('availability');
       data.status = s.decapitalize(availability);
+      this.model.set('status', status);
+      data.price = window.numDifferentiation(response[3]);
       this.model.set('status', data.status);
       data.area_unit = project.get('area_unit');
       return data;

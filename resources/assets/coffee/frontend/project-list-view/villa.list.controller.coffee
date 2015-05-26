@@ -15,14 +15,13 @@ class VillaItemView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
-		unitVariant = bunglowVariantCollection.findWhere
-							'id' : @model.get('unit_variant_id')
-		unitType = unitTypeCollection.findWhere
-							'id' : unitVariant.get('unit_type_id')
-		data.unit_type = unitType.get('name')
-		data.super_built_up_area = unitVariant.get('super_built_up_area')
+		response = window.unit.getUnitDetails(@model.get('id'))
+		data.unit_type = response[1].get('name')
+		data.super_built_up_area = response[0].get('super_built_up_area')
 		availability = @model.get('availability')
 		data.status = s.decapitalize(availability)
+		@model.set 'status' , status
+		data.price = window.numDifferentiation(response[3])
 		@model.set 'status' , data.status
 		data.area_unit = project.get('area_unit')
 		data

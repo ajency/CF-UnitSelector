@@ -43,9 +43,6 @@ class ListItemView extends Marionette.ItemView
 		data.classname = ""
 		if cost == 0
 			data.classname = 'hidden'
-		# data.price = window.numDifferentiation(cost)
-		window.convertRupees(cost)
-		window.numDifferentiation
 		data.price = window.numDifferentiation(cost)
 		data.floors = Object.keys(floors).length
 		data.types = types
