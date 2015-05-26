@@ -66,6 +66,7 @@
                             <option value="sold">Sold</option>
                             <option value="not_released">Not Released</option>
                             <option value="blocked">Blocked</option>
+                            <option value="archived">Archived</option>
                         </select>
                         <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                     </div>

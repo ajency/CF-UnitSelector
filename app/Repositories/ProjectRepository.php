@@ -86,12 +86,6 @@ class ProjectRepository implements ProjectRepositoryInterface {
         $projectJson->project_id = $project->id;
         $projectJson->save();
         
-        $phase = new Phase();
-        $phase->project_id = $project->id;
-        $phase->phase_name = 'Archive';
-        $phase->status = 'archive';
-        $phase->save();
-        
         if($property_has_phases=='no')
         {
             $phase = new Phase();
