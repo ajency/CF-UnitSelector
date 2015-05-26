@@ -8255,9 +8255,6 @@ a {
 table tr {
   cursor: pointer;
 }
-table tr .sorting {
-  background-image: none!important;
-}
 .no-pointer tr {
   cursor: inherit;
 }
@@ -8340,6 +8337,9 @@ table tr .sorting {
   display: none;
 }
 /*Tags Input*/
+.bootstrap-tagsinput {
+  margin-bottom: 0;
+}
 .bootstrap-tagsinput input {
   min-width: 77px;
 }

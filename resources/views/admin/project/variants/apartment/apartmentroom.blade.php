@@ -16,9 +16,9 @@
                                         <div class="col-md-6">
                                             <div class="grid simple">
                                                 <div class="grid-body">
-                                                    <div class="inline">2D Layout</div>
+                                                    <div>2D Layout</div>
                                                     <input type="hidden" name="image_0_2d_id" id="image_0_2d_id" value=""> 
-                                                    <div class="pull-right" id="2d_0_image">
+                                                    <div class="text-center" id="2d_0_image">
                                                        @if(isset($layouts[0]['2d']))
                                                            
                                                                 <div class="img-hover img-thumbnail">
@@ -48,7 +48,7 @@
                                                 <div class="grid-body">
                                                     <div class="inline">3D Layout</div>
                                                     
-                                                    <div class="pull-right" id="3d_0_image">
+                                                    <div class="text-center" id="3d_0_image">
                                                         @if(isset($layouts[0]['3d']))
                                                            
                                                                 <div class="img-hover img-thumbnail">
@@ -77,8 +77,7 @@
                                     <div class="row user-description-box">
                                         <div class="col-md-4">
                                             <div>
-                                                <label class="form-label">Select Room</label>
-                                                <div class="row">
+                                               <div class="row">
                                                     <div class="col-md-9">
                                                         <select name="room_type[]" onchange="openRoomTypeModal(this, 0)" class="select2 form-control">
                                                             <option value="">Select Room</option>
@@ -100,14 +99,14 @@
                                         @foreach($variantRooms[0] as $variantRoomId=> $roomType) 
                                         <div class="p-r-15 p-l-15 roomattribute_0_{{$roomType['ROOMTYPEID']}}">
                                             <div class="text-right">
-                                                <button type="button" class ="btn btn-white btn-small"   onClick="openRoomTypeModal(this,{{ $roomType['ROOMTYPEID'] }});"><i class="fa fa-pencil"></i></button>
+                                                <button type="button" class ="btn btn-white btn-small" onClick="openRoomTypeModal(this,{{ $roomType['ROOMTYPEID'] }});"><i class="fa fa-pencil"></i></button>
                                                 <button class="btn btn-white btn-small"><i class="fa fa-trash"></i></button>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="form-label"></label>
-                                                        <div class="input-with-icon  right">
+                                                        <div class=" right">
                                                             <i class=""></i>
                                                             <input type="hidden" name="variantroomid[0][]" value="{{$variantRoomId}}">
                                                             <input type="hidden" name="room_id[0][]" value="{{ $roomType['ROOMTYPEID'] }}">
@@ -119,7 +118,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="form-label">{{$attributes['label']}}</label>
-                                                        <div class="input-with-icon  right">
+                                                        <div class="right">
                                                             <i class=""></i>
                                                             <?php
                                                             $value = (isset($roomType['ATTRIBUTES'][property_type_slug($attributes['label'])])) ? $roomType['ATTRIBUTES'][property_type_slug($attributes['label'])] : ''

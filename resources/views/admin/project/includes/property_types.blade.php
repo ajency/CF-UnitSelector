@@ -38,7 +38,7 @@
                                     <input type="hidden" name="unittypecustome[{{ $propertyTypeId }}][]" value="" class="form-control">        
                                 </div>
                                 <div class="col-md-2 text-center">
-                                    <a  data-unit-type-id="{{ $unitType->id }}" class="btn btn-link remove-unit-type"><i class="fa fa-close"></i> </a>
+                                    <a  data-unit-type-id="{{ $unitType->id }}" class="text-primary remove-unit-type"><i class="fa fa-close"></i> </a>
                                 </div>
                             </div>
 
@@ -47,9 +47,11 @@
 
 
                             <div class=" m-b-10 unit_type_block">
-                                <div class="row  m-r-10">
-                                    <div class="col-md-12 add-unit p-t-8 p-t-10">
-
+                                <div class="row ">
+                                    <div class="col-md-12">
+                                    <div class="add-unit">
+                                        <div class="row p-t-10 p-r-15 p-l-15">
+                                            <div class="col-md-12">
                                         <select onchange="createUnitType(this,{{ $propertyTypeId }})" name="unittype[{{ $propertyTypeId }}][]" class="select2-container select2 form-control select2-container-active">
                                             <option value="">Select Unit Type</option>
                                             @foreach($defaultunitTypes[$propertyTypeId] as $defaultunitTypeId=> $defaultunitType)
@@ -57,11 +59,14 @@
                                             @endforeach
                                             <option value="add_new">Add New</option>
                                         </select>
+
                                         <input type="hidden" name="unittypekey[{{ $propertyTypeId }}][]" value="" class="form-control">
                                         <input type="hidden" name="unittypecustome[{{ $propertyTypeId }}][]" value="" class="form-control"> 
                                         <input type="hidden" name="add_new_unit_type" value="" class="form-control">
                                         <div class="text-right">
                                             <a property-type="{{ $propertyTypeId }}" class="add-unit-type-btn btn btn-link"><i class="fa fa-"></i> Add Another Unit Type</a>
+                                        </div> </div>
+                                        </div>
                                         </div>
                                     </div>
                                 </div>
@@ -89,20 +94,20 @@
                                 <div class="col-md-4">
                                     <label class="form-label">Value</label>
                                 </div>
-                                <div class="col-md-1">
+                                <div class="col-md-1 text-center">
 
                                 </div>
                             </div>
                             @if(isset($propertytypeAttributes[$propertyTypeId]))
                             @foreach($propertytypeAttributes[$propertyTypeId]['ATTRIBUTES'] as $propertytypeAttribute)
 
-                            <div class="row">
+                            <div class="row m-b-10">
                                 <div class="col-md-3">
                                     <input type="text" name="attribute_name_{{ $propertyTypeId }}[]" class="form-control" value="{{$propertytypeAttribute['label']}}" placeholder="Enter Attribute Name" disabled>
                                     <input type="hidden" name="attribute_id_{{ $propertyTypeId }}[]" value="{{$propertytypeAttribute['id']}}" disabled>
 
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <select name="controltype_{{ $propertyTypeId }}[]" class="select2-container select2 form-control" disabled>
                                         <option value="">Select Control Type</option>
                                         <option value="textbox" @if($propertytypeAttribute['control_type']=='textbox'){{'selected'}}@endif> Text Box</option>
@@ -115,20 +120,23 @@
                                     <input type="text" name="controltypevalues_{{ $propertyTypeId }}[]" data-role="tagsinput" class="tags" value="{{$propertytypeAttribute['defaults']}}" disabled >
 
                                 </div>
-                                <div class="col-md-2 text-center">
-                                    <a class="btn btn-link" onclick="deleteAttribute({{$project['id']}},{{$propertytypeAttribute['id']}}, this);"><i class="
+                                <div class="col-md-1 text-center">
+                                    <a class="text-primary" onclick="deleteAttribute({{$project['id']}},{{$propertytypeAttribute['id']}}, this);"><i class="
                                         fa fa-close"></i></a>
                                 </div>
                             </div>
                             @endforeach
                             @endif
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-12">
+                                <div class="add-unit">
+                            <div class="p-t-8 p-t-10">
+                                <div class="col-md-4">
                                     <input type="text" name="attribute_name_{{ $propertyTypeId }}[]" class="form-control" placeholder="Enter Attribute Name">
                                     <input type="hidden" name="attribute_id_{{ $propertyTypeId }}[]" value="">
 
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <select name="controltype_{{ $propertyTypeId }}[]"  class="select2-container select2 form-control" >
                                         <option value="">Select Control Type</option>
                                         <option value="textbox" > Text Box</option>
@@ -139,12 +147,15 @@
 
                                 </div>
                                 <div class="col-md-4">
-                                    <input type="text" name="controltypevalues_{{ $propertyTypeId }}[]" data-role="tagsinput" class="tags">
-                                </div>
-                                <div class="col-md-2">
-                                    <a class="btn btn-link" onclick="addAttributes({{ $propertyTypeId }}, this)"><i class="fa fa-plus"></i> Attribute</a>
+                                    <input type="text" name="controltypevalues_{{ $propertyTypeId }}[]" data-role="tagsinput" class="tags" placeholder="Enter Value">
                                 </div>
                             </div>
+                                <div class="text-right">
+                                    <a class="btn btn-link" onclick="addAttributes({{ $propertyTypeId }}, this)">Add Another Attribute</a>
+                                </div>
+                            </div>
+                            </div>
+                             </div>
                         </div>
                     </div>
 

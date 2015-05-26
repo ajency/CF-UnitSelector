@@ -32,34 +32,30 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Name<span class="text-primary">*</span></label>
-                                <div class="input-with-icon">
+                               
                                    <input type="text" class="form-control" name="unit_variant_name" placeholder="Enter Name" data-parsley-required value="{{ $unitVariant['unit_variant_name'] }}">
-                                </div>
+                                
                             </div>
                         </div>
                         
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Unit Type<span class="text-primary">*</span></label>
-                                <div class="input-with-icon">
-
-                                    <select name="unit_type" class="select2 form-control select2-offscreen" data-parsley-required>
+                                <select name="unit_type" class="select2 form-control select2-offscreen" data-parsley-required>
                                         <option value="">Select Unit Type</option>
                                         @foreach($unitTypes as $unitTypeId=> $unitType)
                                         <option @if($unitVariant['unit_type_id']==$unitTypeId){{'selected'}}@endif  value="{{$unitTypeId}}">{{$unitType}}</option>
                                         @endforeach
                                     </select>
-
-                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Carpet Area<span class="text-primary">*</span></label>
                                 <small class="text-muted">/ ({{ $project['measurement_units'] }})</small>
-                                <div class="input-with-icon">
+                                
                                     <input type="text" class="form-control" name="carpet_area" value="{{ $unitVariant['carpet_area'] }}" placeholder="Enter Carpet Area" data-parsley-required data-parsley-type="number">
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -69,27 +65,23 @@
                             <div class="form-group">
                                 <label class="form-label">Built Up Area<span class="text-primary">*</span></label>
                                 <small class="text-muted">/ ({{ $project['measurement_units'] }})</small>
-                                <div class="input-with-icon">
+                               
                                     <input type="text" class="form-control" name="builtup_area" value="{{ $unitVariant['built_up_area'] }}" placeholder="Enter Built Up Area" data-parsley-required data-parsley-type="number">
-                                </div>
+                               
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Super Built Up Area<span class="text-primary">*</span></label>
                                 <small class="text-muted">/ ({{ $project['measurement_units'] }})</small>
-                                <div class="input-with-icon">
-                                    <input type="text" class="form-control" name="superbuiltup_area" value="{{ $unitVariant['super_built_up_area'] }}" placeholder="Enter Super Built Up Area" data-parsley-required data-parsley-type="number">
-                                </div>
-                            </div>
+                               <input type="text" class="form-control" name="superbuiltup_area" value="{{ $unitVariant['super_built_up_area'] }}" placeholder="Enter Super Built Up Area" data-parsley-required data-parsley-type="number">
+                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Price<span class="text-primary">*</span></label>
                                 <small class="text-muted">/ ({{ $project['measurement_units'] }})</small>
-                                <div class="input-with-icon">
-                                    <input type="text" class="form-control" name="per_sq_ft_price" value="{{ $unitVariant['per_sq_ft_price'] }}" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
-                                </div>
+                                <input type="text" class="form-control" name="per_sq_ft_price" value="{{ $unitVariant['per_sq_ft_price'] }}" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
                             </div>
                         </div>
                     </div>
