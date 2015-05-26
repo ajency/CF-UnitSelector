@@ -45,7 +45,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 					                    </div>
 					        			<div class="proj-type-count">
 					        				
-					        				<p class="pull-right">Apartment(s)/Penthouse(s)</p><h1 class=" pull-right m-t-10">{{results}}</h1> 
+					        				<p class="pull-right">Apartment(s)/Penthouse(s)</p><h2 class=" pull-right m-t-10">{{results}}</h2> 
 					        			
 					        			</div>
 								          	</div>
@@ -235,11 +235,12 @@ class ApartmentsView extends Marionette.ItemView
 					                     <div class="apartment pull-left icon"></div>	
 					                   <div class="pull-left bldg-info">
 					                    <div class="info">
-					                      <label>{{unit_name}}</label>
-					                      ({{unit_type}} {{super_built_up_area}} {{area_unit}})
+					                      <label>{{unit_name}} (2 Floor)</label>
+					                      
 					                    </div>
-					                    <label>2nd Floor</label><br>
-					                    <label class="text-primary">Aprox. 35 Lacs</label>
+					       
+					                    ({{unit_type}} {{super_built_up_area}} {{area_unit}})<br>
+					                    <div class="text-primary m-t-5"><span class="icon-rupee-icn"></span> 35 Lacs</div>
 					                    </div>
 					                    <div class="clearfix"></div>
 					                   
