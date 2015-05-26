@@ -965,6 +965,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				that.loadZoom()
 				CommonFloor.randomClass()
 				CommonFloor.applyFliterClass()
+				$('.svg-maps svg').css('height',width / 2);
 
 			).addClass('active').removeClass('inactive')
 

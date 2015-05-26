@@ -75,7 +75,7 @@ class LeftView extends Marionette.ItemView
 															{{prop_type}} <span class="text-muted">({{unit_types}})</span>
 														</div>
 														{{/propertyTypes}}
-														<div class="text-muted text-default"> To Move Forward Click Arrow</div>
+														<div class="text-muted text-default"> Click arrow to move forward</div>
 													</div>
 													<div class="circle action_button">
 														<span class="arrow-up icon-chevron-right"></span>

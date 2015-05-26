@@ -679,7 +679,8 @@
           CommonFloor.applyAvailabilClasses();
           that.loadZoom();
           CommonFloor.randomClass();
-          return CommonFloor.applyFliterClass();
+          CommonFloor.applyFliterClass();
+          return $('.svg-maps svg').css('height', width / 2);
         }).addClass('active').removeClass('inactive');
       });
     };
