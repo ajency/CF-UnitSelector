@@ -1,153 +1,161 @@
 (function() {
-  jQuery(document).ready(function($) {
-    var s, str, types;
-    $('.area').canvasAreaDraw();
-    window.draw = SVG('aj-imp-builder-drag-drop');
-    window.svgData = {
-      'image': '',
-      'data': [],
-      'supported_types': ['polygon']
+  var extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    hasProp = {}.hasOwnProperty;
+
+  AuthoringTool.SvgLayoutView = (function(superClass) {
+    extend(SvgLayoutView, superClass);
+
+    function SvgLayoutView() {
+      return SvgLayoutView.__super__.constructor.apply(this, arguments);
+    }
+
+    SvgLayoutView.prototype.template = '#main-template';
+
+    return SvgLayoutView;
+
+  })(Marionette.LayoutView);
+
+  AuthoringTool.SvgAuthoringCtrl = (function(superClass) {
+    extend(SvgAuthoringCtrl, superClass);
+
+    function SvgAuthoringCtrl() {
+      return SvgAuthoringCtrl.__super__.constructor.apply(this, arguments);
+    }
+
+    SvgAuthoringCtrl.prototype.initialize = function() {
+      return this.show(new AuthoringTool.SvgLayoutView);
     };
-    window.createSvg = function(svgData) {
-      window.rawSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-      rawSvg.setAttribute('id', 'Layer_1');
-      rawSvg.setAttribute('style', 'border: 1px solid black');
-      rawSvg.setAttribute('width', '100%');
-      rawSvg.setAttribute('height', '100%');
-      rawSvg.setAttributeNS(null, 'x', '0');
-      rawSvg.setAttributeNS(null, 'y', '0');
-      rawSvg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
-      window.createImageTag();
-      return $.each(svgData, function(index, value) {
-        var tag;
-        if (value.canvas_type === 'polygon') {
-          tag = window.polygon.createPolgyonTag(value);
-          if (tag !== "") {
-            window.makeDraggable();
-            rawSvg.appendChild(tag);
-          }
-        }
-        if (value.type === 'marker') {
-          return window.marker.createMarkerTag(value);
-        }
+
+    return SvgAuthoringCtrl;
+
+  })(Marionette.RegionController);
+
+  AuthoringTool.TopView = (function(superClass) {
+    extend(TopView, superClass);
+
+    function TopView() {
+      return TopView.__super__.constructor.apply(this, arguments);
+    }
+
+    TopView.prototype.template = '#topregion';
+
+    TopView.prototype.onShow = function() {
+      var types;
+      types = Marionette.getOption(this, 'types');
+      return window.showPendingObjects(types);
+    };
+
+    return TopView;
+
+  })(Marionette.ItemView);
+
+  AuthoringTool.TopCtrl = (function(superClass) {
+    extend(TopCtrl, superClass);
+
+    function TopCtrl() {
+      return TopCtrl.__super__.constructor.apply(this, arguments);
+    }
+
+    TopCtrl.prototype.initialize = function() {
+      var types;
+      types = window.getPendingObjects(window.svgData);
+      return this.show(new AuthoringTool.TopView({
+        'types': types
+      }));
+    };
+
+    return TopCtrl;
+
+  })(Marionette.RegionController);
+
+  AuthoringTool.CenterView = (function(superClass) {
+    extend(CenterView, superClass);
+
+    function CenterView() {
+      return CenterView.__super__.constructor.apply(this, arguments);
+    }
+
+    CenterView.prototype.template = '#centerregion';
+
+    CenterView.prototype.ui = {
+      marked: '.marked'
+    };
+
+    CenterView.prototype.events = {
+      'dblclick @ui.marked': function(e) {
+        var currentElem, svgDataObjects;
+        $('#aj-imp-builder-drag-drop canvas').show();
+        $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
+        $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
+        currentElem = e.currentTarget;
+        svgDataObjects = svgData.data;
+        return _.each(svgDataObjects, (function(_this) {
+          return function(svgDataObject, key) {
+            var elemTypeId, points;
+            elemTypeId = $(currentElem).attr("type-id");
+            if (parseInt(elemTypeId) === svgDataObject.id) {
+              points = svgDataObject.points;
+              drawPoly(points);
+              return $("input[name=svg-element-id]").val(svgDataObject.id);
+            }
+          };
+        })(this));
+      }
+    };
+
+    CenterView.prototype.onShow = function() {
+      var svgData;
+      console.log($('.area'));
+      $('.area').canvasAreaDraw();
+      window.draw = SVG('aj-imp-builder-drag-drop');
+      svgData = Marionette.getOption(this, 'svgData');
+      draw.svg(svgData);
+      $('#aj-imp-builder-drag-drop canvas').ready(function() {
+        $('#aj-imp-builder-drag-drop canvas').hide();
+        return $('#aj-imp-builder-drag-drop .svg-draw-clear').hide();
+      });
+      $(".toggle").click((function(e) {
+        $(this).toggleClass("expanded");
+        return $('.menu').toggleClass('open');
+      }));
+      return this.loadZoom();
+    };
+
+    CenterView.prototype.loadZoom = function() {
+      return $('#aj-imp-builder-drag-drop').panzoom({
+        contain: 'invert',
+        minScale: 1,
+        maxScale: 2.4,
+        increment: 0.4,
+        $zoomIn: $('.zoom-in'),
+        $zoomOut: $('.zoom-out')
       });
     };
-    window.createImageTag = function() {
-      var svgimg;
-      svgimg = document.createElementNS('http://www.w3.org/2000/svg', 'image');
-      svgimg.setAttributeNS(null, 'height', '800');
-      svgimg.setAttributeNS(null, 'width', '1600');
-      svgimg.setAttributeNS('http://www.w3.org/1999/xlink', 'href', svgImg);
-      svgimg.setAttributeNS(null, 'x', '0');
-      svgimg.setAttributeNS(null, 'y', '0');
-      svgimg.setAttributeNS(null, 'visibility', 'visible');
-      return rawSvg.appendChild(svgimg);
-    };
-    window.createPanel = function(data) {
-      return $.each(data, function(index, value) {
-        return $('.' + value).removeClass('hidden');
-      });
-    };
-    window.makeDraggable = function(data) {
-      var element;
-      element = draw.polygon(data);
-      return element.draggable();
-    };
-    window.getPendingObjects = function(svgData) {
-      var collection, type, uniqTypes;
-      type = [];
-      collection = new Backbone.Collection(svgData);
-      uniqTypes = _.pluck(svgData, 'type');
-      uniqTypes = _.uniq(uniqTypes);
-      $.each(uniqTypes, function(index, value) {
-        var items, notMarked;
-        items = collection.where({
-          'type': value
-        });
-        notMarked = [];
-        $.each(items, function(ind, val) {
-          if (val.get('canvas_type') === "") {
-            return notMarked.push(val);
-          }
-        });
-        return type.push({
-          'name': value,
-          'id': value,
-          'total': items.length,
-          'unmarked': notMarked.length
-        });
-      });
-      return type;
-    };
-    window.showPendingObjects = function(data) {
-      var html;
-      html = '';
-      $.each(data, function(index, value) {
-        return html += '<input type="checkbox" name="' + value.id + '" id="' + value.id + '" value="">' + value.name + '<strong>Display marked units</strong>' + '<strong class="pull-right" style="line-height:70px;margin-right: 20px;  color: #FF7E00;">' + 'Pending: ' + value.unmarked + ' ' + value.name + '(s) | Total : ' + value.total + ' ' + value.name + '(s)</strong>';
-      });
-      return $('.pending').html(html);
-    };
-    window.createSvg(window.svgData.data);
-    window.createPanel(window.svgData.supported_types);
-    types = window.getPendingObjects(window.svgData.data);
-    window.showPendingObjects(types);
-    s = new XMLSerializer();
-    str = s.serializeToString(rawSvg);
-    draw.svg(str);
-    $('.marked,.save').on('dblclick', function(e) {
-      var currentElem, svgDataObjects;
-      window.canvas_type = "polygon";
-      $('#aj-imp-builder-drag-drop canvas').show();
-      $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
-      $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
-      $('.edit-box').removeClass('hidden');
-      currentElem = e.currentTarget;
-      svgDataObjects = svgData.data;
-      return _.each(svgDataObjects, (function(_this) {
-        return function(svgDataObject, key) {
-          var elemTypeId, points;
-          elemTypeId = $(currentElem).attr("type-id");
-          if (parseInt(elemTypeId) === svgDataObject.id) {
-            points = svgDataObject.points;
-            drawPoly(points);
-            return $("input[name=svg-element-id]").val(svgDataObject.id);
-          }
-        };
-      })(this));
-    });
-    $('#aj-imp-builder-drag-drop canvas').ready(function() {
-      $('#aj-imp-builder-drag-drop canvas').hide();
-      return $('#aj-imp-builder-drag-drop .svg-draw-clear').hide();
-    });
-    return $('.submit').on('click', function(e) {
-      var childEle, details, value;
-      console.log(value = $('.area').val().split(','));
-      details = [];
-      details.push({
-        "class": 'villa'
-      });
-      childEle = {};
-      childEle['id'] = $('.Villas').val();
-      childEle['name'] = $(".Villas option:selected").text();
-      childEle['type'] = $('.property_type').val();
-      childEle['points'] = value;
-      childEle['details'] = details;
-      childEle['canvas_type'] = window.canvas_type;
-      console.log(childEle);
-      window.svgData.data.push(childEle);
-      $('#aj-imp-builder-drag-drop canvas').hide();
-      $('#aj-imp-builder-drag-drop svg').show();
-      $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
-      console.log(window.svgData);
+
+    return CenterView;
+
+  })(Marionette.ItemView);
+
+  AuthoringTool.CenterCtrl = (function(superClass) {
+    extend(CenterCtrl, superClass);
+
+    function CenterCtrl() {
+      return CenterCtrl.__super__.constructor.apply(this, arguments);
+    }
+
+    CenterCtrl.prototype.initialize = function() {
+      var s, str;
       window.createSvg(window.svgData.data);
-      window.createPanel(window.svgData.supported_types);
-      types = window.getPendingObjects(window.svgData.data);
-      window.showPendingObjects(types);
       s = new XMLSerializer();
       str = s.serializeToString(rawSvg);
-      return draw.svg(str);
-    });
-  });
+      return this.show(new AuthoringTool.CenterView({
+        'svgData': str
+      }));
+    };
+
+    return CenterCtrl;
+
+  })(Marionette.RegionController);
 
 }).call(this);
 

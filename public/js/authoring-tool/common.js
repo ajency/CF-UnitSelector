@@ -69,7 +69,7 @@
         var tag;
         if (value.canvas_type === 'polygon') {
           tag = window.polygon.createPolgyonTag(value);
-          if (tag !== "") {
+          if (!_.isEmpty(tag)) {
             rawSvg.appendChild(tag);
           }
         }
