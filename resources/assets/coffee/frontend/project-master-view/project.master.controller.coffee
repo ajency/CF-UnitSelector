@@ -22,43 +22,35 @@ class CommonFloor.ProjectMasterCtrl extends Marionette.RegionController
 #View for Poject Master top view 
 class TopMasterView extends Marionette.ItemView
 	#template
-	template : Handlebars.compile('<div class="container-fluid">
+	template : Handlebars.compile('<div class="container-fluid animated fadeIn">
 										<div class="row">
-											<div class="col-md-12 col-xs-12 col-sm-12 text-center">
+											<div class="col-md-12 col-xs-12 col-sm-12">
 
 												<div class="breadcrumb-bar">
-													<a class="unit_back" href="#">
-														Back to Project Overview
-													</a>
+													<a class="unit_back" href="#"></a>
 												</div>
 
-												<h2 class="proj-name">{{project_title}}</h2>
+												<div class="header-info">
+													<h2 class="pull-left proj-name">{{project_title}}</h2>
+													<div class="proj-type-count">
+														{{#types}} 
+														<h2 class="pull-left">{{count.length}}</h2><p class="pull-left">{{type}}</p> 
+														{{/types}}
+													</div>
+													<div class="pull-left filter-result full">
+														{{#each  filters}}
+														{{#each this}}
+														<div class="filter-pill"  >
+															{{this.name}}{{this.type}}
+															<span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span>
+														</div>	
+														{{/each}}{{/each }}							               
+													</div>
+													<div class="clearfix"></div>
+												</div>
 
 											</div>
 										</div>
-									</div>
-
-									<div class="filter-summary-area">
-
-										<button class="btn btn-primary cf-btn-white pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters">
-											Filters <span class="icon-funnel"></span>
-										</button>
-							            <div class="pull-left filter-result">
-							              	{{#each  filters}}
-							              	{{#each this}}
-											<div class="filter-pill"  >
-												{{this.name}}{{this.type}}
-												<span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span>
-							              	</div>	
-							              	{{/each}}{{/each }}							               
-							            </div>
-										<div class="proj-type-count">
-											{{#types}} 
-											<p class="pull-right">{{type}}</p><h1 class="text-primary pull-right m-t-10">{{count.length}}</h1> 
-											{{/types}}
-										</div>
-
-										<div class="clearfix"></div>
 									</div>')
 
 	ui  :
@@ -73,6 +65,7 @@ class TopMasterView extends Marionette.ItemView
 		budget : '#filter_budget'
 		types : '.types'
 		status : '#filter_available'
+		filter_flooring : '.filter_flooring'
 
 	serializeData:->
 		data = super()
@@ -89,8 +82,12 @@ class TopMasterView extends Marionette.ItemView
 	events:->
 		'click @ui.unitBack':(e)->
 			e.preventDefault()
-			previousRoute = CommonFloor.router.previous()
-			CommonFloor.navigate '/'+previousRoute , true
+			$.each CommonFloor.defaults , (index,value)->
+				 CommonFloor.defaults[index] = ""
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()	
+			unitCollection.trigger('available')
+			CommonFloor.navigate '/' , true
 
 		'click @ui.types':(e)->
 			arr = CommonFloor.defaults['type'].split(',')
@@ -101,13 +98,16 @@ class TopMasterView extends Marionette.ItemView
 			
 			if $(e.target).attr('data-id') == 'Villas'
 				@removeVillaFilters()
-			if $(e.target).attr('data-id') == 'Apartments'
+			if $(e.target).attr('data-id') == 'Apartments/Penthouse'
 				@removeAptFilters()
 			if $(e.target).attr('data-id') == 'Plots'
 				@removePlotFilters()
+			
 			@trigger  'render:view'
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
+			
 			
 
 			
@@ -117,6 +117,7 @@ class TopMasterView extends Marionette.ItemView
 			CommonFloor.defaults['unitTypes'] = unitTypes.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 			
 		'click @ui.variantNames':(e)->
@@ -125,12 +126,14 @@ class TopMasterView extends Marionette.ItemView
 			CommonFloor.defaults['unitVariants'] = variantNames.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()	
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 		'click @ui.status':(e)->
 			CommonFloor.defaults['availability'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 			
@@ -140,6 +143,7 @@ class TopMasterView extends Marionette.ItemView
 			CommonFloor.defaults['area_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 		'click @ui.budget':(e)->
@@ -147,12 +151,24 @@ class TopMasterView extends Marionette.ItemView
 			CommonFloor.defaults['price_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
+			@trigger  'render:view'
+
+		'click @ui.filter_flooring':(e)->
+			flooring = CommonFloor.defaults['flooring'].split(',')
+			flooring = _.without flooring , $(e.currentTarget).attr('data-id')
+			CommonFloor.defaults['flooring'] = flooring.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 	onShow:->
-		if CommonFloor.router.history.length == 1
-			@ui.unitBack.hide()
-
+		# if CommonFloor.router.history.length == 1
+		# 	@ui.unitBack.hide()
+		response = CommonFloor.propertyTypes() 
+		if response.length == 0
+			$('.proj-type-count').html '<p class="p-l-15">No results found</p>'
 
 	removeVillaFilters:->
 		variants = []
@@ -235,10 +251,10 @@ class CommonFloor.TopMasterCtrl extends Marionette.RegionController
 
 	initialize:->
 
-		@renderView()
-		unitTempCollection.on("change reset add remove", @renderView, @)
+		@renderToppView()
+		unitCollection.bind( "available", @renderToppView, @) 
 
-	renderView:->
+	renderToppView:->
 		@view =  new TopMasterView
 			model : project
 
@@ -261,10 +277,10 @@ class CommonFloor.TopMasterCtrl extends Marionette.RegionController
 class CommonFloor.LeftMasterCtrl extends Marionette.RegionController
 
 	initialize:->
-		@renderView()
-		unitTempCollection.on("change reset add remove", @renderView)
+		@renderLeftMasterView()
+		unitCollection.bind( "available", @renderLeftMasterView, @)  
 
-	renderView:->
+	renderLeftMasterView:->
 		response = CommonFloor.checkListView()
 		if response.count.length == 0
 			region =  new Marionette.Region el : '#leftregion'
@@ -305,13 +321,14 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 
-	template : Handlebars.compile('<div class="col-md-12 us-right-content mobile visible">
+	template : Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn">
+										
 										<div class="legend clearfix">
 										  <ul>
-										    <!--<li class="available">AVAILABLE</li>-->
-										    <li class="sold">Not Available</li>
-										    <!--<li class="blocked">BLOCKED</li>-->
-										    <li class="na">Not in Selection</li>
+											<!--<li class="available">AVAILABLE</li>-->
+											<li class="sold">N/A</li>
+											<!--<li class="blocked">BLOCKED</li>
+											<li class="na">Available</li>-->
 										  </ul>
 										</div>
 										<div class="zoom-controls">
@@ -330,10 +347,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 											
 											<div id="spritespin"></div>
 											<div class="svg-maps">
-												<img src=""  data-alwaysprocess="true" 
-												data-ratio="0.5" data-srcwidth="1600" data-crop="1" class="primage first_image img-responsive">
+												
+												<img src=""  class="first_image img-responsive">
 												
 												<div class="region inactive"></div>
+												<div class="tooltip-overlay hidden"></div>
 
 											</div>
 											<div class="cf-loader hidden"></div>
@@ -353,6 +371,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		svgContainer : '.master'
 		trig         : '#trig'
 		viewtog      : '#view_toggle'
+		plotunit     : '.plot'
 
 	
 	initialize:->
@@ -362,85 +381,157 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		
 
 	events :
-		'click @ui.trig':(e)->
-			$('.us-left-content').toggleClass 'col-0 col-md-3'
-			$('.us-right-content').toggleClass 'col-md-12 col-md-9'
-			that = @
-			setTimeout( (x)->
-				
-				$('#spritespin').spritespin(
-					width: that.ui.svgContainer.width() 
-					sense: -1
-					height: that.ui.svgContainer.width() / 2
-					animate: false
-				)
-				$('.svg-maps > div').first().css('width',that.ui.svgContainer.width())
 
-			, 650)
+		# 'click @ui.trig':(e)->
+		# 	$('.us-left-content').toggleClass 'col-0 col-md-3'
+		# 	$('.us-right-content').toggleClass 'col-md-12 col-md-9'
+		# 	that = @
+		# 	setTimeout( (x)->
+				
+		# 		$('#spritespin').spritespin(
+		# 			width: that.ui.svgContainer.width() + 13
+		# 			sense: -1
+		# 			height: that.ui.svgContainer.width() / 2
+		# 			animate: false
+		# 		)
+		# 		$('.svg-maps > div').first().css('width',that.ui.svgContainer.width() + 13)
+		# 		$('.first_image').first().css('width',that.ui.svgContainer.width() + 13)
+
+		# 		height= that.ui.svgContainer.width() / 2
+		# 		$('.units').css('height',height-120)
+
+		# 	, 650)
+
+		# 	setTimeout( (x)->
+		# 		$('.master').panzoom('resetDimensions');				
+		# 	, 800)
 
 			
 		'click @ui.viewtog':(e)->
 			$('.us-left-content').toggleClass 'not-visible visible'
-			$('.us-right-content').toggleClass 'not-visible visible'	
+			$('.us-right-content').toggleClass 'not-visible visible'
 
-		  
-		'click .building':(e)->
-			id = parseInt e.target.id
-			buildingModel = buildingCollection.findWhere
-							'id' : id
-
-			if buildingModel == undefined
-				return false
-			
-			unit = unitCollection.where 
-				'building_id' :  id 
-			if unit.length is 0
-				return 
-			$('.spritespin-canvas').addClass 'zoom'
-			$('.us-left-content').addClass 'animated fadeOut'
-			CommonFloor.defaults['building'] = jQuery.makeArray(id).join(',')
-			CommonFloor.filter()
-			setTimeout( (x)->
-				if Object.keys(buildingModel.get('building_master')).length == 0
-					CommonFloor.navigate '/building/'+id+'/apartments' , true
-					CommonFloor.router.storeRoute()
-				else
-					CommonFloor.navigate '/building/'+id+'/master-view' , true
-					CommonFloor.router.storeRoute()
-
-			, 500)
-			
-
-		# 'click .villa_unit':(e)->
+		# 'click @ui.plotunit':(e)->
 		# 	id = parseInt e.target.id
+		# 	unit = unitCollection.findWhere 
+		# 		id :  id 
 
-		# 	unitModel = unitCollection.findWhere
-		# 					'id' : id
-		# 	if unitModel == undefined
-		# 		return false
-		# 	$('.spritespin-canvas').addClass 'zoom'
-		# 	$('.us-left-content').addClass 'animated fadeOut'
-		# 	setTimeout( (x)->
-		# 		CommonFloor.navigate '/unit-view/'+id , true
-		# 		CommonFloor.router.storeRoute()
-
-		# 	, 500)
-
-		# 'click .plot':(e)->
-			
-		# 	setTimeout( (x)->
-		# 		id = parseInt e.target.id
-
-		# 		unitModel = unitCollection.findWhere
-		# 						'id' : id
-		# 		if unitModel == undefined
-		# 			return false
+		# 	if ! _.isUndefined unit 
 		# 		$('.spritespin-canvas').addClass 'zoom'
 		# 		$('.us-left-content').addClass 'animated fadeOut'
-		# 		CommonFloor.navigate '/unit-view/'+id , true
-		# 		CommonFloor.router.storeRoute()
+		# 		setTimeout( (x)->
+		# 			CommonFloor.navigate '/unit-view/'+id , trigger : true
+		# 			CommonFloor.router.storeRoute()
+
+		# 		, 500)	
+
+		  
+		# 'click .building':(e)->
+		# 	id = parseInt e.target.id
+		# 	buildingModel = buildingCollection.findWhere
+		# 					'id' : id
+
+		# 	if buildingModel == undefined
+		# 		return false
+			
+		# 	unit = unitCollection.where 
+		# 		'building_id' :  id 
+		# 	if unit.length is 0
+		# 		return 
+		# 	$('.spritespin-canvas').addClass 'zoom'
+		# 	$('.us-left-content').addClass 'animated fadeOut'
+		# 	window.building_id = id
+		# 	setTimeout( (x)->
+		# 		if Object.keys(buildingModel.get('building_master')).length == 0
+		# 			CommonFloor.navigate '/building/'+id+'/apartments' , true
+		# 			# CommonFloor.router.storeRoute()
+		# 		else
+		# 			CommonFloor.navigate '/building/'+id+'/master-view' , true
+		# 			# CommonFloor.router.storeRoute()
 
 		# 	, 500)
+			
+
+		# 'click .villa':(e)->
+		# 	id = parseInt e.target.id
+		# 	unit = unitCollection.findWhere 
+		# 		id :  id 
+		# 	if ! _.isUndefined unit 
+		# 		$('.spritespin-canvas').addClass 'zoom'
+		# 		$('.us-left-content').addClass 'animated fadeOut'
+		# 		setTimeout( (x)->
+		# 			CommonFloor.navigate '/unit-view/'+id , trigger : true
+		# 			# CommonFloor.router.storeRoute()
+
+		# 		, 500)
+			# $(".layer").unbind('mouseenter mouseleave')	
+			# console.log id  = parseInt e.target.id
+			# html = ""
+			# unit = unitCollection.findWhere 
+			# 	id :  id 
+			# unitMaster = unitMasterCollection.findWhere 
+			# 	id :  id 
+			# if unit is undefined && unitMaster != undefined
+			# 	html = '<div class="svg-info">
+			# 				<div class="details empty">
+			# 					Not in selection
+			# 				</div>  
+			# 			</div>'
+			# 	$('.layer').tooltipster('content', html)
+			# 	return 
+			# if unit is undefined
+			# 	html += '<div class="svg-info">
+			# 				<div class="details empty">
+			# 					Villa details not entered 
+			# 				</div>  
+			# 			</div>'
+			# 	$('.layer').tooltipster('content', html)
+			# 	return 
+
+
+			# response = window.unit.getUnitDetails(id)
+			# window.convertRupees(response[3])
+			# availability = unit.get('availability')
+			# availability = s.decapitalize(availability)
+			# html = ""
+			# html += '<div class="svg-info '+availability+' ">
+			# 			<div class="action-bar">
+			# 				<div class="villa"></div>
+			# 			</div>
+
+			# 			<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
+			# 			<br> <br>
+			# 			<!--<span class="pull-right icon-cross"></span>
+			# 			<span class="label label-success"></span>
+			# 			<div class="clearfix"></div>-->
+			# 			<div class="details">
+			# 				<div>
+			# 					'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
+			# 					<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
+			# 				</div>
+			# 				<div>
+			# 					Starting Price <span class="text-primary">'+$('#price').val()+'</span>
+			# 				</div> 
+			# 			</div>'
+
+			# if availability == 'available'
+			# 	html +='<div class="circle">
+			# 				<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
+			# 			</div> 
+			# 		</div>'
+			# else
+			# 	html += '</div>'
+
+						
+			
+			# $('#'+id).attr('class' ,'layer villa  '+availability) 
+			# $('#unit'+id).attr('class' ,'unit blocks active') 
+			# $('#'+id).tooltipster(trigger:'click')
+			
+			# $('#'+id).webuiPopover('show')
+			
+
+		
 			
 
 		'click #prev':->
@@ -457,7 +548,6 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			if unit != undefined
 				availability = unit.get('availability')
 				availability = s.decapitalize(availability)
-				CommonFloor.applyVillaClasses()
 				$('#unit'+id).attr('class' ,'unit blocks '+availability) 
 
 		'mouseout .plot':(e)->
@@ -467,13 +557,16 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			if unit != undefined
 				availability = unit.get('availability')
 				availability = s.decapitalize(availability)
-				CommonFloor.applyPlotClasses()
+				# CommonFloor.applyPlotClasses()
 				$('#unit'+id).attr('class' ,'bldg blocks '+availability)  
 
 		'mouseout .building':(e)->
 			id = parseInt e.target.id
-			$('.building').attr('class' ,'layer building') 
-			$('#bldg'+id).attr('class' ,'bldg blocks') 
+			building = buildingCollection.findWhere 
+				id :  id 
+			if building != undefined
+				$('.building').attr('class' ,'layer building') 
+				$('#bldg'+id).attr('class' ,'bldg blocks') 
 
 
 		'mouseover .villa':(e)->
@@ -486,49 +579,90 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				id :  id 
 			if unit is undefined && unitMaster != undefined
 				html = '<div class="svg-info">
-							<div class="details empty">
+							<div class="action-bar2">
+						        <div class="txt-dft"></div>
+						    </div> 
+							<h5 class="pull-left">
 								Not in selection
-							</div>  
+							</h5>  
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return 
 			if unit is undefined
 				html += '<div class="svg-info">
-							<div class="details empty">
-								Villa details not entered 
-							</div>  
+							<div class="action-bar2">
+						        <div class="txt-dft"></div>
+						    </div> 
+							<h5 class="pull-left">Villa details not entered </h5>
+							 
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return 
 
 
 			response = window.unit.getUnitDetails(id)
-			window.convertRupees(response[3])
+			price = window.numDifferentiation(response[3])
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			html = ""
 			html += '<div class="svg-info '+availability+' ">
+						<div class="action-bar">
+							<div class="villa"></div>
+						</div>
+
 						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
-						<span class="pull-right icon-cross"></span>
-						<!--<span class="label label-success"></span-->
-						<div class="clearfix"></div>
+						<br> <br>
+						
 						<div class="details">
 							<div>
-								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
+								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('area_unit')+')
 								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 							</div>
-							<div>
-								Starting Price <span class="text-primary">'+$('#price').val()+'</span>
-							</div> 
+							<div class="text-primary">
+							 <span class="text-primary icon-rupee-icn"></span>'+price+'
+						</div> 
+							 
+						</div>'
+
+			if availability == 'available'
+				html +='<div class="circle">
+							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
 						</div>
-							<a href="#unit-view/'+id+'" class="action-bar">To Move forward Click Here <span class="icon-chevron-right pull-right"></span></a>
+						<div class="details">
+							<div class="text-muted text-default">Click arrow to move forward</div>
+						</div>
+
 					</div>'
+			else
+				html += '</div>'
+
+						
 			
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
-			$('#unit'+id).attr('class' ,'unit blocks active') 
-			$('.layer').tooltipster('content', html)
+			$('#unit'+id).attr('class' ,'unit blocks '+availability+'  active') 
+			
+			$('#'+id).tooltipster('content', html)
+			
+			# $('#'+id).webuiPopover(
+			# 	trigger : 'click'
+			# 	content : html
+			# 	closeable:true
+			# 	placement : 'top'
 
-		'click .plot':(e)->
+			# ).on('shown.webui.popover', (e)->
+			# 	$('.close').bind('click', (e)->
+			# 		$('.layer').tooltipster('content', html)
+			# 		$('.tooltip-overlay').addClass 'hidden'
+			# 	)
+			# 	$('.layer').tooltipster('hide')
+			# 	$('.tooltip-overlay').removeClass 'hidden'
+			# )
+			
+			
+			
+			
+		
+		'mouseover .plot':(e)->
 			# $('.plot').attr('class' ,'layer plot') 
 			id  = parseInt e.target.id
 			html = ""
@@ -538,65 +672,113 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				id :  id 
 			if unit is undefined && unitMaster != undefined
 				html = '<div class="svg-info">
-							<div class="details">
+							<div class="action-bar2">
+						        <div class="txt-dft"></div>
+						    </div> 
+							<h5 class="pull-left">
 								Not in selection
-							</div>  
+							</h5>  
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return 
 			if unit is undefined
 				html += '<div class="svg-info">
-							<div class="details">
+							<div class="action-bar2">
+						        <div class="txt-dft"></div>
+						    </div> 
+							<h5 class="pull-left">
 								Plot details not entered 
-							</div>  
+							</h5>  
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return 
 			
 
 			response = window.unit.getUnitDetails(id)
-			window.convertRupees(response[3])
+			price = window.numDifferentiation(response[3])
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
 			html = ""
-			html += '<div class="svg-info">
-						<h4 class="pull-left">'+unit.get('unit_name')+'</h4>
-						<!--<span class="label label-success"></span-->
-						<div class="clearfix"></div>
+			html += '<div class="svg-info '+availability+' ">
+						<div class="action-bar">
+							<div class="plot"></div>
+						</div>
+
+						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
+						<br> <br>
+						<!--<span class="pull-right icon-cross cross"></span>
+						<span class="label label-success"></span
+						<div class="clearfix"></div>-->
 						<div class="details">
 							<div>
-								<label>Variant</label> - '+response[0].get('unit_variant_name')+'
+								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('area_unit')+')
+								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 							</div>
-							<div>
-								<label>Area</label> - '+response[0].get('super_built_up_area')+' Sq.ft
-							</div> 
-							<div>
-								<label>Unit Type </label> - '+response[1].get('name')+'
-							</div>
-							<div>
-								<label>Price </label> - '+$('#price').val()+'
-							</div>  
-						</div> 
-						<div class="action-bar ">
-							
-							<a href="#unit-view/'+id+'" class="icon-chevron-right pull-right">To Move forward Click Here</a>
-						</div> 
+							<div class="text-primary">
+							 <span class="text-primary icon-rupee-icn"></span>'+price+'
+						</div>
+							 
+						</div>'
+
+			if availability == 'available'
+				html +='<div class="circle">
+							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
+						</div>
+						<div class="details">
+							<div class="text-muted text-default">Click arrow to move forward</div>
+						</div>
+
 					</div>'
+			else
+				html += '</div>'
 			
 			$('#'+id).attr('class' ,'layer plot '+availability) 
 			$('#unit'+id).attr('class' ,'bldg blocks active') 
-			$('.layer').tooltipster('content', html)
+			$('#'+id).tooltipster('content', html)
+			
+			# $('#'+id).webuiPopover(
+			# 	trigger : 'click'
+			# 	content : html
+			# 	closeable:true
+
+			# ).on('shown.webui.popover', (e)->
+			# 	$('.close').bind('click', (e)->
+			# 		$('.layer').tooltipster('content', html)
+			# 		$('.tooltip-overlay').addClass 'hidden'
+			# 	)
+			# 	$('.layer').tooltipster('hide')
+			# 	$('.tooltip-overlay').removeClass 'hidden'
+			# )
+			
+			
+
+		
 
 		'mouseover .building':(e)->
 			id  = parseInt e.target.id
 			buildingModel = buildingCollection.findWhere
 							'id' : id
-
+			buildingMaster = buildingMasterCollection.findWhere 
+							'id' :  id 
+			if buildingModel is undefined && buildingMaster != undefined
+				html = '<div class="svg-info">
+							<div class="action-bar2">
+						        <div class="txt-dft"></div>
+						    </div> 
+							<h5 class="pull-left">
+								Not in selection
+							</h5>  
+						</div>'
+				$('.layer').tooltipster('content', html)
+				return 
 			if buildingModel == undefined
 				html = '<div class="svg-info">
-							<div class="details">
+							<div class="action-bar2">
+						        <div class="txt-dft"></div>
+						    </div> 
+							<h5 class="pull-left">
 								Building details not entered 
-							</div>  
+							</h5>  
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return 
@@ -606,25 +788,63 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			floors = Object.keys(floors).length
 			unitTypes = building.getUnitTypes(id)
 			response = building.getUnitTypesCount(id,unitTypes)
-			html = '<div class="svg-info">
-						<h4 class="pull-left">'+buildingModel.get('building_name')+'</h4>
-						<!--<span class="label label-success"></span-->
-						<div class="clearfix"></div>'
+			minprice = building.getMinimumCost(id)
+			price = window.numDifferentiation(minprice)
+			unit = unitCollection.where 
+				'building_id' :  id 
+				'availability' : 'available'
+			if unit.length > 0 
+				availability = ' available'
+			else
+				availability = ' sold'
+			html = '<div class="svg-info '+availability+' ">
+						<div class="action-bar">
+							<div class="building"></div>
+						</div>
+
+						<h5 class="t m-t-0">'+buildingModel.get('building_name')+'	<label class="text-muted">('+floors+' floors)</label></h5>
+						
+						<div class="details">
+							
+							
+						'
+
 			$.each response,(index,value)->
-				html += '<div class="details">
-							<div>
-								<label>'+value.name+'</label> - '+value.units+'
-							</div>'
+				html +='<span>
+							' +value.name+' ('+value.units+'),
+						</span>'
 
-			html += '<div>
-						<label>No. of floors</label> - '+floors+'
-					</div>
-					</div>
+			if unit.length > 0 
+				if Object.keys(buildingModel.get('building_master')).length == 0
+					url =  '/building/'+id+'/apartments'
+					
+				else
+					url = '/building/'+id+'/master-view' 
+					
+				html += '<div class=" text-primary">
+								Starting Price <span class="text-primary icon-rupee-icn"></span>'+price+'
+							</div> <div class="circle">
+						<a href="#'+url+'" class="arrow-up icon-chevron-right"></a>
+						</div>
+						
+							
+						<div>
+							<div class="text-muted text-default">Click arrow to move forward</div>
+						</div>'
+			
+			html += '</div></div>'
 
-					</div>'
+
 			$('.layer').tooltipster('content', html)
 			$('#bldg'+id).attr('class' ,'bldg blocks active') 
 			$('#'+id).attr('class' ,'layer building active_bldg')
+
+		'mousedown .layer':(e)->
+			e.preventDefault()
+
+		'mousedown .layer':(e)->
+			e.preventDefault()
+
 
 
 			
@@ -632,10 +852,30 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 	onShow:->
 
-		$('img').lazyLoadXT()
-		height =  @ui.svgContainer.width() / 2
+		setHeight = ->
+			windowHeight = $(window).innerHeight() - 56
+			$('.master').css 'height', windowHeight
+			return
+
+		if $(window).width() < 1025
+			setHeight = ->
+				windowHeight = $(window).innerHeight() - 62
+				$('.master').css 'height', windowHeight
+				$('.master').css 'min-width', windowHeight * 2
+				return
+
+		setHeight()
+		$(window).resize ->
+			setHeight()
+			return
+
+		
+		# height =  @ui.svgContainer.width() / 2
+
 		# $('.us-left-content').css('height',height)
-		$('.units').css('height',height-380)
+		# if!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
+		# if $(window).width() > 991
+		# 	$('.units').css('height',height-310)
 		$('#spritespin').hide()
 		that = @
 		transitionImages = []
@@ -647,17 +887,26 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		
 		first = _.values svgs
 		$.merge transitionImages ,  project.get('project_master')
-		$('.region').load(first[0],
-			$('.first_image').attr('data-src',transitionImages[0]);that.iniTooltip).addClass('active').removeClass('inactive')
-		
+		$('.region').load(first[0],()->
+				$('.first_image').attr('src',transitionImages[0])
+				that.iniTooltip()
+				CommonFloor.applyAvailabilClasses()
+				CommonFloor.randomClass()
+				CommonFloor.applyFliterClass()
+				that.loadZoom()
+				).addClass('active').removeClass('inactive')
+		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
 			
+			$('#trig').removeClass 'hidden'
 			response = project.checkRotationView()
+			$('.first_image').first().css('width',that.ui.svgContainer.width())
 			if response is 1
 				$('.cf-loader').removeClass 'hidden'
 		
 		@initializeRotate(transitionImages,svgs)
-	
+		
+
 		
 	
 
@@ -669,7 +918,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$('.region').addClass('inactive').removeClass('active')
 		@currentBreakPoint = index;
 		if (@currentBreakPoint < 0) 
-			@currentBreakPoint = @breakPoints.length - 1
+			@currentBreakPoint = @breakPoints.length-1
 		
 		if (@currentBreakPoint >= @breakPoints.length) 
 			@currentBreakPoint = 0
@@ -697,9 +946,15 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		api = spin.spritespin("api")
 		spin.bind("onFrame" , ()->
 			data = api.data
+			data.frame
 			if data.frame is data.stopFrame
 				url = svgs[data.frame]
-				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses();CommonFloor.applyPlotClasses()).addClass('active').removeClass('inactive')
+				$('.region').load(url,()->
+					that.iniTooltip()
+					CommonFloor.applyAvailabilClasses()
+					CommonFloor.randomClass()
+					CommonFloor.applyFliterClass()
+					).addClass('active').removeClass('inactive')
 				
 		)
 
@@ -712,10 +967,15 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				$('.first_image').remove()
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
-				# panZoomTiger = svgPanZoom('.region')
-				# $("svg").svgPanZoom()
 				$('.cf-loader').addClass 'hidden'
-				$('.region').load(url,()->that.iniTooltip();CommonFloor.applyVillaClasses();CommonFloor.applyPlotClasses();that.loadZoom())
+			$('.region').load(url,()->
+				that.iniTooltip()
+				CommonFloor.applyAvailabilClasses()
+				that.loadZoom()
+				CommonFloor.randomClass()
+				CommonFloor.applyFliterClass()
+
+			).addClass('active').removeClass('inactive')
 
 		)
 	#intialize tooltip 
@@ -726,12 +986,14 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				onlyOne : true
 				arrow : false
 				offsetX : 50
-				offsetY : -20
+				offsetY : -10
 				interactive : true
 				# animation : 'grow'
 				trigger: 'hover'
 				
+				
 		)
+
 		
 	
 
@@ -740,12 +1002,17 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$panzoom =  $('.master').panzoom
 			contain: 'invert'
 			minScale: 1
-			maxScale: 2
-			increment: 0.2
+			maxScale: 2.4
+			increment: 0.4
 			$zoomIn: $('.zoom-in')
 			$zoomOut: $('.zoom-out')
 			# $set: $('.spritespin-canvas')
 
+		$('.master polygon').on 'mousedown touchstart', (e) ->
+			e.stopImmediatePropagation()
+			return
+
+		
 	
 
 #controller for the center view

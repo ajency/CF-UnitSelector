@@ -2,12 +2,16 @@
 class PlotItemView extends Marionette.ItemView
 
 	template : Handlebars.compile('<li class="unit blocks {{status}}">
+				<div class="col-sm-2 col-xs-2"> <i class="plot-ico m-t-10 "></i> </div>
+					<div class="col-sm-10 col-xs-10">
                   <div class="pull-left info">
-                    <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}}sqft)
+                    <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}} {{area_unit}})
                   </div>
-                  <!--<div class="pull-right cost">
-                    50 lakhs
-                  </div>-->
+                   <div class="clearfix"></div>
+                 <div class="text-primary m-t-5">
+                    <span class="icon-rupee-icn"></span>{{price}}
+                  </div>
+                  </div>
                 </li>')
 
 	initialize:->
@@ -15,22 +19,22 @@ class PlotItemView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
-		unitVariant = plotVariantCollection.findWhere
-							'id' : @model.get('unit_variant_id')
-		unitType = unitTypeCollection.findWhere
-							'id' : unitVariant.get('unit_type_id')
-		data.unit_type = unitType.get('name')
-		data.super_built_up_area = unitVariant.get('super_built_up_area')
+		response = window.unit.getUnitDetails(@model.get('id'))
+		data.unit_type = response[1].get('name')
+		data.super_built_up_area = response[0].get('super_built_up_area')
 		availability = @model.get('availability')
 		data.status = s.decapitalize(availability)
+		@model.set 'status' , status
+		data.price = window.numDifferentiation(response[3])
 		@model.set 'status' , data.status
+		data.area_unit = project.get('area_unit')
 		data
 
 	events:
 		'click .unit' :(e)->
 				if @model.get('status') == 'available'
 					CommonFloor.navigate '/unit-view/'+@model.get('id') , true
-					CommonFloor.router.storeRoute()
+					# CommonFloor.router.storeRoute()
 
 
 #Composite view for plots
@@ -43,6 +47,10 @@ class PlotView extends Marionette.CompositeView
 								            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
 								            </div>
 							            </div>-->
+							            	<h2 class="text-center">List of Plots <span class="pull-right top-legend">     <ul>
+				                <li class="available">AVAILABLE</li>
+				                <li class="na">N/AVAILABLE</li>
+				              </ul></span></h2><hr class="margin-none">
 							            <div class="text-center">
 							              <ul class="prop-select">
 							                <li class="prop-type buildings hidden">Buildings</li>
@@ -98,7 +106,7 @@ class PlotView extends Marionette.CompositeView
 			data.units = units
 			data.type = 'plot'
 			@region =  new Marionette.Region el : '#centerregion'
-			new CommonFloor.VillaListCtrl region : @region
+			new CommonFloor.PlotListCtrl region : @region
 			# @trigger "load:units" , data
 			
 

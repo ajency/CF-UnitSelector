@@ -114,6 +114,10 @@
         $('#aj-imp-builder-drag-drop canvas').hide();
         return $('#aj-imp-builder-drag-drop .svg-draw-clear').hide();
       });
+      $(".toggle").click((function(e) {
+        $(this).toggleClass("expanded");
+        return $('.menu').toggleClass('open');
+      }));
       return this.loadZoom();
     };
 

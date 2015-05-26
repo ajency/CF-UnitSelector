@@ -28,7 +28,6 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.loadJSONData();
       }
-      console.log(project.toJSON());
       if (jQuery.isEmptyObject(project.toJSON())) {
         return this.show(new CommonFloor.NothingFoundView);
       } else {
@@ -47,7 +46,7 @@
       return TopUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    TopUnitView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row animated fadeIn"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> Back to Project Overview </a> </div> <h2 class="proj-name">{{project_title}} - {{unit_name}}</h2> <!--<div class="pull-right m-t-25"> <button class="btn btn-primary cf-btn-white">Get Price List</button> <button class="btn btn-primary cf-btn-primary">Book Now</button> </div>--> <div class="clearfix"></div> </div> </div> </div>');
+    TopUnitView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}} - {{unit_name}}</h2> </div> <div class="clearfix"></div> </div> </div> </div>');
 
     TopUnitView.prototype.ui = {
       unitBack: '.unit_back'
@@ -63,18 +62,33 @@
     TopUnitView.prototype.events = function() {
       return {
         'click @ui.unitBack': function(e) {
-          var previousRoute;
+          var buildingModel, building_id, previousRoute, property, unit, unitType, unitid, url;
           e.preventDefault();
           previousRoute = CommonFloor.router.previous();
-          return CommonFloor.navigate('/' + previousRoute, true);
+          url = Backbone.history.fragment;
+          unitid = parseInt(url.split('/')[1]);
+          console.log(unit = unitCollection.findWhere({
+            id: unitid
+          }));
+          unitType = unitTypeMasterCollection.findWhere({
+            'id': unit.get('unit_type_id')
+          });
+          property = window.propertyTypes[unitType.get('property_type_id')];
+          if (s.decapitalize(property) === 'penthouse' || s.decapitalize(property) === 'apartments') {
+            buildingModel = buildingCollection.findWhere({
+              'id': unit.get('building_id')
+            });
+            building_id = buildingModel.get('id');
+            if (Object.keys(buildingModel.get('building_master')).length === 0) {
+              return CommonFloor.navigate('/building/' + building_id + '/apartments', true);
+            } else {
+              return CommonFloor.navigate('/building/' + building_id + '/master-view', true);
+            }
+          } else {
+            return CommonFloor.navigate('/master-view', true);
+          }
         }
       };
-    };
-
-    TopUnitView.prototype.onShow = function() {
-      if (CommonFloor.router.history.length === 1) {
-        return this.ui.unitBack.hide();
-      }
     };
 
     return TopUnitView;
@@ -113,7 +127,7 @@
       return LeftUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content unit-details animated fadeIn"> <div class="filters-wrapper"> <div class="blck-wrap title-row"> <!--<h3 class="pull-left"><strong>{{unit_name}}</strong></h3> <span class="label label-success">For Sale</span> --> <div class="clearfix"></div> <div class="details"> <div> <label>Price: </label> <span class="price"></span> </div> <div> <label>Unit Variant:</label> {{unit_variant}} </div> <div> <label>Unit Type:</label> {{type}} </div> <div> <label>Area:</label> {{area}} sqft </div> </div> <div class="room-attr m-t-10"> <label class="property hidden">Property Attributes</label> {{#attributes}} <div class="m-b-5"> <span>{{attribute}}</span>: {{value}} </div> {{/attributes}} </div> </div> <div class="unit-list"> {{#levels}} <div class="blck-wrap no-hover"> <h4 class="m-b-10 m-t-10 text-primary">{{level_name}}</h4> <!--<div class="blck-wrap title-row"> <div class="row"> <div class="col-sm-4"> <h5 class="accord-head">Rooms</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">No</h5> </div> <div class="col-sm-4"> <h5 class="accord-head">Area</h5> </div> </div> </div>--> {{#rooms}} <div class="room-attr"> <div class="m-b-15"> <h5 class="m-b-5">{{room_name}}</h5> {{#attributes}} <div class=""><span>{{attribute}}</span>: {{value}} </div> {{/attributes}} <!--<h6 class="">{{size}}sqft</h6>--> </div> </div> {{/rooms}} </div> {{/levels}} </div> </div> <div class="clearfix"></div> <div class="similar-section"> <label>Similar Villas based on your filters:</label><br> <!--<p>Pool View, Garden, 3BHK</p>--> <ul> {{#similarUnits}} <li class=""> {{unit_name}} </li> {{/similarUnits}} </ul> </div> </div> </div>');
+    LeftUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content animated fadeIn"> <div class="unit-details"> <div class="row detail-list"> <div class="col-sm-6 col-xs-6 text-center"> <span class="facts-icon icon-total-units"></span> <div class="unit-label m-t-10"> <h3>{{unit_variant}}</h3> <h6 class="text-muted">Unit Variant</h6> </div> </div> <div class="col-sm-6 col-xs-6 text-center"> <span class="facts-icon icon-BHKtype"></span> <div class="unit-label m-t-10"> <h3>{{type}}</h3> <h6 class="text-muted">Unit Type</h6> </div> </div> </div> <div class="row detail-list"> <div class="col-sm-6 col-xs-6 text-center"> <span class="facts-icon icon-BHK-area-2"></span> <div class="unit-label m-t-10"> <h3>{{area}} {{area_unit}}</h3> <h6 class="text-muted">Area</h6> </div> </div> <div class="col-sm-6 col-xs-6 text-center"> <span class="facts-icon icon-rupee-icn"></span> <div class="unit-label m-t-10"> <h3 class="price">{{price}}</h3> <h6 class="text-muted">Price</h6> </div> </div> </div> <div class="advncd-filter-wrp"> <div class="blck-wrap title-row"> <h5 class="bold property hidden">Property Attributes</h5> </div> {{#attributes}} <div class="row"> <div class="col-sm-12"> <h6><span class="text-muted">{{attribute}}:</span> {{value}}</h6> </div> </div> {{/attributes}} </div> <div class=" title-row"> <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"> {{#levels}} <div class="panel panel-default"> <div class="panel-heading" role="tab" id="headingTwo"> <h4 class="panel-title m-b-15 p-b-10"> <a class="accordion-toggle collapsed text-primary " data-toggle="collapse" data-parent="#accordion" href="#{{id}}" aria-expanded="false" > {{level_name}} </a> </h4> </div> <div id="{{id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo"> <div class="panel-body"> {{#rooms}} <div class="room-attr"> <div class="m-b-15"> <h5 class="m-b-5">{{room_name}}</h5> {{#attributes}} <div class=""><span>{{attribute}}</span>: {{value}}</div> {{/attributes}} </div> </div> {{/rooms}} </div> </div> </div> {{/levels}} </div> </div> </div> <div class="clearfix"></div> <div class="similar-section"> <h5 class="bold m-b-15">{{similarUnitsText}}</h5> {{#similarUnits}} <div class="row m-b-15"> <div class="col-sm-4 hidden-xs"> <div class="alert "> <i class="{{type}}-ico"></i> </div> </div> <div class="col-sm-8 col-xs-12"> <h5><a href="' + BASEURL + '/project/' + PROJECTID + '/#unit-view/{{id}}">{{unit_name}}</a> <span class="text-primary pull-right"><span class="icon-rupee-icn"></span>{{price}}</span></h5> <span class="text-muted">Unit Variant: </span>{{variant}}<br> <span class="text-muted">Unit Type:</span> {{unit_type}}<br> <span class="text-muted"> Area:</span> {{area}} ' + project.get('area_unit') + '</div> </div> {{/similarUnits}} </div> </div> </div>');
 
     LeftUnitView.prototype.serializeData = function() {
       var attributes, data, floor, response, similarUnits, temp, unit, unitid, url;
@@ -136,28 +150,42 @@
       }
       similarUnits = this.getSimilarUnits(unit);
       temp = [];
-      $.each(similarUnits, function(index, value) {
+      $.each(similarUnits[0], function(index, value) {
         return temp.push({
-          'unit_name': value.get('unit_name')
+          'unit_name': value.get('unit_name'),
+          'unit_type': response[1].get('name'),
+          'price': window.numDifferentiation(response[3]),
+          'area': response[0].get('super_built_up_area'),
+          'variant': response[0].get('unit_variant_name'),
+          'id': value.get('id'),
+          'type': similarUnits[2]
         });
       });
-      console.log(temp);
       data.area = response[0].get('super_built_up_area');
       data.type = response[1].get('name');
       data.unit_variant = response[0].get('unit_variant_name');
       data.levels = this.generateLevels(floor, response, unit);
       data.attributes = attributes;
       data.similarUnits = temp;
+      data.similarUnitsText = similarUnits[1];
+      data.area_unit = project.get('area_unit');
       return data;
     };
 
     LeftUnitView.prototype.getSimilarUnits = function(unit) {
-      var i, units, unitsArr;
+      var i, text, unitColl, unitModel, unitid, units, unitsArr, url;
       units = [];
       i = 0;
-      unitsArr = unitCollection.toArray();
-      $.each(unitsArr, function(item, value) {
-        if (value.get('unit_variant_id') === unit.get('unit_variant_id')) {
+      url = Backbone.history.fragment;
+      unitid = parseInt(url.split('/')[1]);
+      unitModel = unitMasterCollection.findWhere({
+        'id': unitid
+      });
+      unitColl = CommonFloor.getUnitsProperty(unitModel);
+      unitsArr = unitColl[0];
+      text = unitColl[1];
+      $.each(unitsArr.toArray(), function(index, value) {
+        if (value.id !== unitid) {
           units.push(value);
           i++;
         }
@@ -165,15 +193,17 @@
           return false;
         }
       });
-      return units;
+      if (unitsArr.length === 1) {
+        text = '';
+      }
+      return [units, text, unitColl[2]];
     };
 
     LeftUnitView.prototype.generateLevels = function(floor, response, unit) {
       var levels;
-      console.log(unit);
       levels = [];
       $.each(floor, function(index, value) {
-        var level_name, rooms;
+        var level_id, level_name, rooms;
         rooms = [];
         level_name = 'Level  ' + index;
         if (response[2] === 'apartment') {
@@ -193,9 +223,11 @@
             'attributes': attributes
           });
         });
+        level_id = s.replaceAll(level_name, " ", "_");
         return levels.push({
           'level_name': level_name,
-          'rooms': rooms
+          'rooms': rooms,
+          'id': level_id
         });
       });
       return levels;
@@ -206,9 +238,8 @@
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
       response = window.unit.getUnitDetails(unitid);
-      window.convertRupees(response[3]);
-      $('.price').text($('#price').val());
-      if (response[4] !== null) {
+      $('.price').text(window.numDifferentiation(response[3]));
+      if (response[4] !== null && response[4].length !== 0) {
         return $('.property').removeClass('hidden');
       }
     };
@@ -239,7 +270,7 @@
       return CenterUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 us-right-content animated fadeIn"> <div class="svg-area"> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <div class="images animated fadeIn text-center"> </div> </div> </div> </div> </div> </div> </div>');
+    CenterUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 col-sm-12 col-xs-12 us-right-content unit-slides animated fadeIn"> <div class=""> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <div class="images animated fadeIn text-center"> </div> </div> </div> </div> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> </div> </div> </div>');
 
     CenterUnitView.prototype.ui = {
       imagesContainer: '.us-right-content'
@@ -278,7 +309,7 @@
         var html, response;
         response = this.generateLevels();
         html = '';
-        html += '<div class="animated fadeIn"> <img class="img" data-src="' + response[3].get('external3durl') + '" /> </div>';
+        html += '<div class="animated fadeIn"> <img class="img img-responsive external-img" data-src="' + response[3].get('external3durl') + '" /> </div>';
         $('.images').html(html);
         $('.img').lazyLoadXT();
         $('.external').addClass('current');
@@ -291,7 +322,7 @@
         response = this.generateLevels();
         html = '';
         $.each(response[3].get('galleryurl'), function(index, value) {
-          return html += '<div class="animated fadeIn gallery-img"> <a class="fancybox" rel="gall" href="' + value + '"> <img class="img" data-src="' + value + '" /> <div class="img-overlay"></div> </a> </div>';
+          return html += '<div class="animated fadeIn gallery-img"> <a class="fancybox" rel="gall" href="' + value + '"> <img class="img" data-src="' + value + '" /> </a> </div>';
         });
         $('.images').html(html);
         $('.img').lazyLoadXT();
@@ -299,11 +330,32 @@
         $('.threeD').removeClass('current');
         $('.twoD').removeClass('current');
         return $('.external').removeClass('current');
+      },
+      'mouseover .next,.prev': function(e) {
+        var html, id, response, unitColl, unitModel;
+        id = parseInt($(e.target).attr('data-id'));
+        unitModel = unitCollection.findWhere({
+          'id': id
+        });
+        response = window.unit.getUnitDetails(id);
+        unitColl = CommonFloor.getUnitsProperty(unitModel);
+        html = '<div class="svg-info"> <i class="' + unitColl[2] + '-ico"></i> <h5 class=" m-t-0">' + unitModel.get('unit_name') + '</h5> <div class="details"> <span>' + response[1].get('name') + '</span></br> <div class="text-primary"><span class="text-primary facts-icon icon-rupee-icn"></span>' + window.numDifferentiation(response[3]) + '</div> <!--<div>Area: <span>' + response[0].get('super_built_up_area') + ' ' + project.get('area_unit') + '</span></div> <div>Variant: <span>' + response[0].get('unit_variant_name') + '</span></div>--> </div> </div>';
+        return $(e.target).tooltipster('content', html);
+      },
+      'click .next,.prev': function(e) {
+        var id, unitModel;
+        id = parseInt($(e.target).attr('data-id'));
+        unitModel = unitCollection.findWhere({
+          'id': id
+        });
+        CommonFloor.navigate('/unit-view/' + id, true);
+        return CommonFloor.router.storeRoute();
       }
     };
 
     CenterUnitView.prototype.onShow = function() {
       var height, html, response;
+      this.getNextPrevUnit();
       response = this.generateLevels();
       html = '';
       $.each(response[0], function(index, value) {
@@ -325,7 +377,7 @@
       $('.images').html(html);
       $('.level').attr('class', 'level Level_0 ' + _.last(response[2]));
       if (!_.isUndefined(response[3].get('external3durl'))) {
-        html = '<img class="img lazy-hidden"  data-src="' + response[3].get('external3durl') + '" />';
+        html = '<img class="img lazy-hidden img-responsive external-img"  data-src="' + response[3].get('external3durl') + '" />';
         $('.images').html(html);
         $('.external').addClass('current');
         $('.threeD').removeClass('current');
@@ -356,13 +408,32 @@
         }
       }
       height = this.ui.imagesContainer.height();
-      $('.search-left-content').css('height', height);
-      $('.search-left-content').mCustomScrollbar({
-        theme: 'inset'
-      });
+      if ($(window).width() > 991) {
+        $('.search-left-content').css('height', height);
+        $('.search-left-content').mCustomScrollbar({
+          theme: 'cf-scroll'
+        });
+      }
       $('.images').html(html);
+      if (html === "") {
+        $('.images').html('<div>No images found</div>');
+      }
       $(".fancybox").fancybox();
-      return $('.img').lazyLoadXT();
+      $('.img').lazyLoadXT();
+      return this.iniTooltip();
+    };
+
+    CenterUnitView.prototype.iniTooltip = function() {
+      return $('.next,.prev').tooltipster({
+        theme: 'tooltipster-shadow circle-tooltip',
+        contentAsHTML: true,
+        onlyOne: true,
+        arrow: false,
+        offsetX: 50,
+        offsetY: -10,
+        interactive: true,
+        trigger: 'hover'
+      });
     };
 
     CenterUnitView.prototype.generateLevels = function() {
@@ -388,6 +459,29 @@
         return i = i + 1;
       });
       return [twoD, threeD, level, response[0]];
+    };
+
+    CenterUnitView.prototype.getNextPrevUnit = function() {
+      var next, prev, unitModel, unitid, url;
+      url = Backbone.history.fragment;
+      unitid = parseInt(url.split('/')[1]);
+      unitModel = unitCollection.findWhere({
+        'id': unitid
+      });
+      CommonFloor.getUnitsProperty(unitModel);
+      window.tempColl.setRecord(unitModel);
+      next = tempColl.next();
+      if (_.isUndefined(next)) {
+        $('.next').hide();
+      } else {
+        $('.next').attr('data-id', next.get('id'));
+      }
+      prev = tempColl.prev();
+      if (_.isUndefined(prev)) {
+        return $('.prev').hide();
+      } else {
+        return $('.prev').attr('data-id', prev.get('id'));
+      }
     };
 
     return CenterUnitView;

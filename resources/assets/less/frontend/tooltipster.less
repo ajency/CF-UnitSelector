@@ -1,29 +1,63 @@
 .svg-tooltip{
     display: none;
 }
+.big-tooltip{
+    width: 100%;
+    max-width:470px;
+    h5{
+      width:65%;
+    }
+    .b-r{
+      border-left: 1px solid @gray-lighter;
+    }
+    img{
+        width: 100%;
+    }
+    .icon-location{
+        float:left;
+        margin-right:10px;
+        font-size:30px;
+        color: @brand-primary;
+    }
+      .icon-cross{
+        position: absolute;
+        right: 8px;
+    }
+    .address{
+        float: left;
+        width: 82%;
+    }
+}
 
 .svg-info{
-	font-family: OpenSans,Arial,sans-serif;
-	padding: 0;
+    font-family: OpenSans,Arial,sans-serif;
+    padding: 0;
+    min-width: 290px;
+    &.available, &.sold, &.blocked, &.not_released{
+        min-width: 290px;
+    }
     h5{
-    	// color: @brand-primary;
-    	font-weight: bold;
+        // color: @brand-primary;
+        font-weight: bold;
+      
     }
     .label{
-    	margin: 10px 0 0 5px;
-    	display: inline-block;
+        margin: 10px 0 0 5px;
+        display: inline-block;
     }
+
     .icon-cross{
         font-size: 8px;
         font-weight: bold;
         cursor: pointer;
-        display: none;
+        position: absolute;
+        right: 8px;
     }
     .details{
-    	font-size: 12px;
-    	label{
-    		color: @gray-light;
-    	}
+        font-size: 12px;
+        label{
+            color: @gray-light;
+        }
         div{
             padding-bottom: 5px;
         }
@@ -32,18 +66,39 @@
             padding-bottom: 5px;
         }
     }
-    .action-bar{
-        min-width: 250px;
-        padding: 10px;
-        margin-left: -10px;
-        margin-right: -10px;
-        margin-top: 5px;
-        color: @white;
-        font-size: 12px;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-        cursor: pointer;
+     .action-bar2{
+            width: 60px;
+            height: 60px;
+            float: left;
+            padding: 10px;
+            margin-left: -10px;
+            margin-top: -10px;
+            margin-right: 11px;
+            color: @white;
+            font-size: 14px;
+            border-bottom-left-radius: 5px;
+            border-top-left-radius: 5px;
+            cursor: pointer;
+            display: block;
+            background:@gray;
     }
+    .action-bar{
+            width: 60px;
+            height: 105px;
+            float: left;
+            padding: 10px;
+            margin-left: -10px;
+            margin-top: -10px;
+            margin-right: 11px;
+            color: @white;
+            font-size: 12px;
+            border-bottom-left-radius: 5px;
+            border-top-left-radius: 5px;
+            cursor: pointer;
+            display: block;
+            background:@gray;
+    }
+
     &.available{
         .action-bar{
             background-color: @success;
@@ -65,8 +120,101 @@
             color: @gray;
         }
     }
+     .circle{
+       width: 35px;
+        height: 35px;
+        border-radius: 100%;
+        background: #fff;
+        position: absolute;
+        bottom: -15px;
+        text-align: center;
+        right: 18px;
+        line-height: 35px;
+        border: 1px solid #999;
+        color: #5F5858 !important;
+        font-size: 13px;
+        z-index:999;
+        a{ color: #5F5858 !important;}
+        &:hover{
+          background: @brand-primary;
+          cursor:pointer;
+          
+          a{
+          color:@white !important;
+          }
+        }
+      
+    }
+    .step2-sprite{
+        background: url(../../images/sprite-popover.png) no-repeat;
+      width: 50px;
+      height: 50px;
+      display: block;
+      margin-top:40%;
+    }
+    .villa{
+      .step2-sprite;
+        background-position: -10px;
+    }
+    .building{
+     .step2-sprite;
+      background-position: -64px;
+    }
+  
+     .plot{
+    .step2-sprite;
+      background-position: -115px;
+    }
+   .txt-dft{
+    margin-top:-2% !important;
+      width: 37px !important;
+  height: 37px!important;
+    .step2-sprite;
+      background-position: -177px;
+    }
+    .text-default{
+      opacity:.7;
+    }
 }
 
+ .icon-moon{
+      font-family: icomoon;
+      speak: none;
+      font-style: normal;
+      font-weight: 400;
+      font-variant: normal;
+      text-transform: none;
+      line-height: 1;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+  .apartment:before{
+      font-size: 30px;
+      text-align: center;
+      display: block;
+      line-height: 80px !important;
+      .icon-moon;
+      content: "\e616";
+    }
+    
 .tooltipster-shadow .tooltipster-content{
     padding-bottom: 0;
 }
+.circle-tooltip{
+        border-radius:100%;
+        width:150px;
+        height:150px;
+        text-align:center;
+        .svg-info {
+            width:100% !important;
+              min-width: 100% !important;
+              h5{
+                margin: 5px 0px 4px;
+              }
+              i{
+                display:block;
+                margin:auto;
+              }
+        }
+    }
+  

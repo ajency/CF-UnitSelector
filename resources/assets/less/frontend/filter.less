@@ -1,16 +1,145 @@
-.filter-button{
-  border: 1px solid @brand-primary;
+.fliters-container{
+  position: fixed;
+  z-index: 9999;
+  right: 20px;
+  top: 25px;
+  padding: 0;
+  overflow: hidden;
+  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  background-color: fade(@white, 90%);
+  width: 340px;
+  height: 340px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   border-radius: 3px;
-  background-color: @white;
+  &.closed{
+    width: 0;
+    height: 0;
+    padding: 27px;
+    border-radius: 50%;
+    background-color: @white;
+    .filters-wrapper{
+      opacity: 0
+    }
+    .filters-clear{
+      opacity: 0;
+    }
+    .filter-button{
+      font-size: 28px;
+      .icon-place{
+        &:after{
+          content: "\e789";
+        }
+      }
+    }
+    .filters-bottom{
+      opacity: 0;      
+    }
+  }
+}
+
+@media(max-width:767px){
+  .fliters-container{
+    right: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: @white;
+    &.closed{
+      right: 15px;
+      top: 75px;
+    }
+    .filters-wrapper{
+      .filters-content{
+        height: auto;
+      }
+    }    
+  }
+}
+
+.filter-button{
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: 1px solid transparent;
+  background-color: transparent;
   color: @gray-light;
-  padding: 6px 12px;
+  padding: 6px 12px;  
+  font-size: 15px;
+  border-radius: 50%;
+  transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+  z-index: 9999;
+  .icon-place{
+    &:after{
+      content: "\e75e";
+      font-family: icomoon;
+    }
+  }
+  &:active{
+    background-color: transparent;
+    border: 1px solid transparent;
+    outline: none;
+  }
+  &:hover{
+    border: 1px solid transparent;
+    // transform: scale(1.05);
+    background-color: transparent;
+    color: @brand-primary;
+  }
+  &:focus{
+    outline: none;
+    background-color: transparent;
+    color: @brand-primary;
+    border: 1px solid transparent;
+  }
 }
 .filter-result{
-  margin: 20px 0 0;
+  // margin: 20px 0 0;
+  padding: 0 15px;
+  position: absolute;
+  top: 56px;
+  width: 75%;
+  right: 0;
+  background-color: rgba(38, 38, 38, 0.6);
+  z-index: 999;
+  &.full{
+    width: 100%;
+  }
+  .filter-pill{
+    margin: 15px 5px;
+    margin-left: 0;
+    padding: 2px 0 2px 8px;
+    background-color: @white;
+    color: @gray;
+    cursor: default;
+    span.icon-cross{
+      color: @gray-light;
+      cursor: pointer;
+    }
+    &:first-child{
+      // margin-left: 15px;
+    }
+  }
+}
+@media(max-width:767px){
+  .filter-result{
+    display: none;
+  }
 }
 .filters-wrapper{
     // margin: 20px 0px 20px 0;
-    padding: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 2px;
+    padding: 5px 15px 5px 20px;
+    // width: 500px;
+    // height: 500px;
+    margin-top: 30px;
+    border-top: 1px solid @gray-lighter;
+    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+    div{
+      // transition: all 1.5s;
+    }
     // border-top: 1px solid @gray-lighter;
 
 	.filter-chkbox-block label {
@@ -20,12 +149,42 @@
     color: @gray-light;
     cursor: not-allowed;
   }
+
+  h6{
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 0;
+    &.availability{
+      margin-top: 20px;
+    }
+  }
+  .filters-content{
+    height: 295px;
+    transition: none;
+  }
+  .filter-chkbox-block label{
+    margin: 4px 15px 4px 0;
+  }
+  .mCSB_inside>.mCSB_container {
+    margin-right: 15px;
+  }
+
 } 
+.filters-clear{
+  font-size: 12px;
+  display: block;
+  position: absolute;
+  top: 8px;
+  left: 15px;
+  z-index: 9999;
+  transition: all 1s;
+}
 .filter-link{
   color:darken(@gray, 50%);
 }
 .range-container{
-  max-width: 200px;
+  // max-width: 200px;
+  padding: 0 20px;
 }
 .alert{
 	    background: #EAEAEA;
@@ -78,15 +237,52 @@ span.glyphicon {
 
 .filters-bottom{
   border-top: 1px solid @gray-lighter;
-  padding-top: 10px;
+  padding: 5px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  background: lighten(@gray-lighter, 10%);
+  transition: all 1.5s;
+  a{
+    color: @gray-light;
+  }
 }
 
 
 /* Slider */
-.irs-line-mid, .irs-line-left, .irs-line-right, .irs-bar, .irs-bar-edge, .irs-slider{
-  background-image: url('../../images/sprite-skin-flat.png');
+.irs {
+  height: 35px;
+}
+
+.irs-min, .irs-max{
+  font-size: 11px;
+  top: 1px;
+}
+
+.irs-line{
+  height: 5px;
+  top: 20px;
 }
 
 .irs-from, .irs-to, .irs-single{
-  background-color: @brand-primary;
+  background: transparent;
+  font-size: 11px;
+  color: @brand-primary;
 }
+
+.irs-bar{
+  background: @brand-primary;
+  border-top-color: @brand-primary-darker;
+  border-bottom-color: @brand-primary-darker;
+  height: 5px;
+  top:20px;
+}
+
+.irs-slider{
+  top: 15px;
+  height: 15px;
+  width: 15px;
+}
+

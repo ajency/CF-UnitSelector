@@ -7,7 +7,7 @@ class PlotListView extends Marionette.ItemView
                                     </div>
                                     <div class="clearfix"></div>
                                     <div class="unit-type-info">
-                                      <div class="price {{classname}}"> <span>{{price}}</span></div>
+                                      <div class=" text-primary price {{classname}}"> <span class="icon-rupee-icn"></span>{{price}}</div>
                 					 </div>
 
 					                ')
@@ -31,13 +31,15 @@ class PlotListView extends Marionette.ItemView
 		status = s.decapitalize(availability)
 		@model.set 'status' , status
 		window.convertRupees(response[3])
-		data.price = $('#price').val()
+		data.price = window.numDifferentiation(response[3])
 		data
 
 
 
 	onShow:->
-		id = @model.get 'id'
+		@iniTooltip(@model.get('id'))
+		html = @getHtml(@model.get('id'))
+		id = @model.get('id')
 		availability = @model.get('availability')
 		status = s.decapitalize(availability)
 		classname =  $('#unit'+id).attr('class')
@@ -50,77 +52,114 @@ class PlotListView extends Marionette.ItemView
 	events:
 
 		'mouseover' :(e)->
-			@iniTooltip(@model.get('id'))
+			# @iniTooltip(@model.get('id'))
 			html = @getHtml(@model.get('id'))
 			id = @model.get('id')
-			$('.layer').attr('class','layer plot')
-			$('#'+id+'.plot').attr('class' ,'layer plot '+@model.get('status'))
+			$('#'+id+'.plot').attr('class' ,'layer plot svg_active '+@model.get('status'))
 			$('#unit'+id).attr('class' ,'bldg blocks'+' '+@model.get('status')+' active')
 			$('#'+id).tooltipster('content', html)
+			$('#'+id).tooltipster('show')
 			
 			
 		'mouseout':(e)->
 			id = @model.get('id')
-			# $('#'+id+'.villa').attr('class' ,'layer villa')
+			$('#'+id+'.plot').attr('class' ,'layer plot '+@model.get('status'))
 			$('#unit'+id).attr('class' , 'bldg blocks'+' '+@model.get('status'))
 			$('#'+id).tooltipster('hide')
-			CommonFloor.applyPlotClasses(@classname)
-			$('#'+id).tooltipster('show')
+			# $('#'+id).tooltipster('show')
 
 		'click' :(e)->
-			if @model.get('status') == 'available'
-				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
-				CommonFloor.router.storeRoute()
+			id = @model.get('id')
+			unit = unitCollection.findWhere 
+				id :  id 
+		
+			if ! _.isUndefined unit 
+				setTimeout( (x)->
+					CommonFloor.navigate '/unit-view/'+id , trigger : true
+					# CommonFloor.router.storeRoute()
+
+				, 500)
 
 	iniTooltip:(id)->
-		$('#'+id).trigger('mouseover')
+		$('#'+id).trigger('click')
 
 	getHtml:(id)->
 		html = ""
+		id = parseInt id
 		unit = unitCollection.findWhere 
-			id :  parseInt id 
-		if unit is undefined
-			html += '<div class="svg-info">
-						<div class="details empty">
-							Villa details not entered 
-						</div>  
+			id :  id 
+		unitMaster = unitMasterCollection.findWhere 
+			id :  id 
+		if unit is undefined && unitMaster != undefined
+			html = '<div class="svg-info">
+						<div class="action-bar2">
+					        <div class="txt-dft"></div>
+					    </div> 
+						<h5 class="pull-left">
+							Not in selection
+						</h5>  
 					</div>'
 			$('.layer').tooltipster('content', html)
 			return 
-
+		if unit is undefined
+			html += '<div class="svg-info">
+						<div class="action-bar2">
+					        <div class="txt-dft"></div>
+					    </div> 
+						<h5 class="pull-left">
+							Plot details not entered 
+						</h5>  
+					</div>'
+			$('.layer').tooltipster('content', html)
+			return 
+		
 
 		response = window.unit.getUnitDetails(id)
-		window.convertRupees(response[3])
+		price = window.numDifferentiation(response[3])
 		availability = unit.get('availability')
 		availability = s.decapitalize(availability)
 		html = ""
 		html += '<div class="svg-info '+availability+' ">
+					<div class="action-bar">
+						<div class="plot"></div>
+					</div>
+
 					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
-					<span class="pull-right icon-cross"></span>
-					<!--<span class="label label-success"></span-->
-					<div class="clearfix"></div>
+					<br> <br>
+					<!--<span class="pull-right icon-cross cross"></span>
+					<span class="label label-success"></span
+					<div class="clearfix"></div>-->
 					<div class="details">
 						<div>
-							'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' Sq.ft)
+							'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('area_unit')+')
 							<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 						</div>
-						<div>
-							Starting Price <span class="text-primary">'+$('#price').val()+'</span>
+						<div class="text-primary">
+							 <span class="text-primary icon-rupee-icn"></span>'+price+'
 						</div> 
+						 
+					</div>'
+
+		if availability == 'available'
+			html +='<div class="circle">
+						<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
 					</div>
-					<div class="action-bar villa_unit">
-						To Move forward Click Here
-						<span class="icon-chevron-right pull-right"></span>
+					<div class="details">
+						<div class="text-muted text-default">Click arrow to move forward</div>
 					</div>
 				</div>'
+		else
+			html += '</div>'
 		html
+		
+			
 
 
 
 #view for list of plots : Collection
 class MasterPlotListView extends Marionette.CompositeView
 
-	template : Handlebars.compile('
+	template : Handlebars.compile('	<div id="trig" class="toggle-button"></div>
 									<div id="view_toggle" class="toggle-view-button map"></div>
 									<div class="list-view-container w-map animated fadeIn">
 							            <!--<div class="controls map-View">
@@ -132,8 +171,8 @@ class MasterPlotListView extends Marionette.CompositeView
 							              <ul class="prop-select">
 
 							                <li class="prop-type buildings hidden">Buildings</li>
-							                <li class="prop-type Villas  hidden ">Villas/Bungalows</li>
-							                <li class="prop-type Plots active">Plots</li>
+							                <li class="prop-type Villas  hidden ">Villas</li>
+							                <li class="prop-type Plots_tab active">Plots</li>
 							              </ul>
 							            </div>
 							            <div class="bldg-list">
@@ -171,9 +210,13 @@ class MasterPlotListView extends Marionette.CompositeView
 	childViewContainer : '.units'
 
 	ui :
-		viewtog      : '#view_toggle'
+		viewtog     : '#view_toggle'
+		trig 		: '#trig'
 
 	events :
+		'click @ui.trig':(e)->
+			$('.list-container').toggleClass 'closed'
+
 		'click @ui.viewtog':(e)->
 			$('.us-left-content').toggleClass 'not-visible visible'
 			$('.us-right-content').toggleClass 'not-visible visible'
@@ -197,7 +240,7 @@ class MasterPlotListView extends Marionette.CompositeView
 			new CommonFloor.MasterBunglowListCtrl region : @region
 			# @trigger "load:units" , data
 
-		'click .Plots':(e)->
+		'click .Plots_tab':(e)->
 			units = plotVariantCollection.getPlotUnits()
 			data = {}
 			data.units = units
@@ -214,8 +257,9 @@ class MasterPlotListView extends Marionette.CompositeView
 		if bunglowVariantCollection.length != 0
 			$('.Villas').removeClass 'hidden'
 
-		$('.units').mCustomScrollbar
-			theme: 'inset'
+		if $(window).width() > 991
+			$('.units').mCustomScrollbar
+				theme: 'cf-scroll'
 		
 
 #controller for the Center region
@@ -226,10 +270,7 @@ class CommonFloor.MasterPlotListCtrl extends Marionette.RegionController
 		unitsCollection = new Backbone.Collection newUnits 		
 		@view = view = new MasterPlotListView
 			collection : unitsCollection
-		@listenTo @view,"load:units" ,@loadController
 		@show view
 
-	loadController:(data)=>
-		Backbone.trigger "load:units" , data
-
+	
 		

@@ -25,8 +25,8 @@ class TopView extends Marionette.ItemView
 
 	#template
 	template : Handlebars.compile('<div class="row">
-										<div class="col-md-12 col-xs-12 col-sm-12 text-center animated fadeIn">
-										  	<h2 class="proj-name">{{i10n "explore"}} {{project_title}}</h2>
+										<div class="col-md-12 col-xs-12 col-sm-12 animated fadeIn">
+										  	<h2 class="proj-name"><small>{{i10n "explore"}}</small> {{project_title}}</h2>
 										  	<!--<div class="pull-right">
 												<div class="toggle_radio">
 												  <input type="radio" checked class="toggle_option" id="first_toggle" name="toggle_option">
@@ -39,6 +39,9 @@ class TopView extends Marionette.ItemView
 												  </div>
 												</div>
 										  	</div>-->
+										  	<!--<span class="header-cta">
+										  	    Call us on 89555444
+										  	</span>-->
 										  	<div class="clearfix"></div>
 										</div>
 									</div>')
@@ -56,56 +59,91 @@ class CommonFloor.TopCtrl extends Marionette.RegionController
 #View for the left view of Project
 class LeftView extends Marionette.ItemView
 	#template
-	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content animated fadeIn">
-										<div class="filters-wrapper">
-											<div class="blck-wrap">
-											  <h3><strong>{{i10n "project_by"}}</strong></h3>
-											  <img src="{{logo}}" class="img-responsive builder-logo">
-											</div>
-											<div class="proj-details blck-wrap no-hover">
-											  <h3><strong>{{i10n "project_details"}}</strong></h3>
-												<div class="">
-											  	<span class="icon-map-marker"></span>
-											  	<strong>Address: </strong><br>
-												   {{address}}
-												</div>
-											
+	template : Handlebars.compile('<div class="hidden">
 
-										  	<div class="detail-pts">
-											{{#propertyTypes}}
-													<h4 class="m-b-5 m-t-0 text-primary">{{prop_type}}</h4>
-													<!--  <span>{{i10n "project_type"}}:</span> {{prop_type}}
-													<p>
-													  <span>{{i10n "starting_area"}}:</span> {{starting_area}} Sq.Ft.
-													</p>-->
-													<p>
-													  <span>{{i10n "unit_types"}}:</span> {{unit_types}}
-													</p>
-													<!--<p>
-													  <span>Available:</span> {{#availability}}
-													  {{count}}	{{status}} 
-													  {{/availability}}
-													</p>-->
-													<!--<p>
-													  <span>{{i10n "starting_price"}}:</span>  {{starting_price}}
-													</p>-->
-											{{/propertyTypes}}
-												</div>
+										<div id="proj_info">
+											<div class="big-tooltip">
+												<div class="svg-info not-available">
+													<div class="action-bar" style="width:140px;height:170px;">
+															<h5>{{i10n "project_by"}}</h5>
+												          	<img src="{{logo}}" class="img-responsive builder-logo">
+													</div>	
+													 <h5 class="pull-left m-t-0">{{address}}</h5>
+													 	  <div class="details">
+													       	{{#propertyTypes}}
+												          	<div>{{prop_type}} <span class="text-muted">({{unit_types}})</span></div>
+												        	{{/propertyTypes}}
+
+												         	
+													       <div class="text-muted text-default"> To Move Forward Click Arrow</div>
+													      </div>
+													       <div class="circle">
+													       		 <span class="arrow-up icon-chevron-right master"></span>
+															  </div>  
+														</div>	
+											
 											</div>
-				
-											<div class="blck-wrap">
-											  	<div class="text-center">
-													<img src="../images/marker-img.png" class="img-responsive marker-img">
-													{{i10n "know_your_neighbour"}}
-												</div>
-										  	</div>
 										</div>
+
+										<div class="proj-info">
+											<div class="proj-logo section">
+										  		<h3 class="m-t-10"><strong>{{i10n "project_by"}}</strong></h3>
+										  		<img src="{{logo}}" class="img-responsive builder-logo">
+										  	</div>
+
+										  	<hr class="embossed" />
+
+
+											<div class="proj-details">
+											  	<h3 class="m-t-0"><strong>{{i10n "project_details"}}</strong></h3>
+											  	<!--<span class="icon-map-marker"></span>
+											  	<strong>Address: </strong><br>-->
+												{{address}}
+											</div>
+
+											<hr class="embossed m-b-0" />
+											
+											{{#propertyTypes}}
+											<div class="prop-types {{prop_type}}">
+												<!--<h4 class="m-b-5 m-t-0 text-primary">{{prop_type}}</h4>
+												  <span>{{i10n "project_type"}}:</span> {{prop_type}}
+												<p>
+												  <span>{{i10n "starting_area"}}:</span> {{starting_area}}'+project.get('area_unit')+'
+												</p>-->
+
+												<span class="prop-icon"></span>
+											  	<div class="unit-types">
+											  		{{i10n "unit_types"}}:<br>
+											  		<span>{{unit_types}}</span>
+													
+											  	</div>
+
+												<!--<p>
+												  <span>Available:</span> {{#availability}}
+												  {{count}}	{{status}} 
+												  {{/availability}}
+												</p>
+												<p>
+												  <span>{{i10n "starting_price"}}:</span>  {{starting_price}}
+												</p>-->
+											</div>
+											{{/propertyTypes}}
+
+										</div>
+				
+										<!--<div class="info-slider">
+										  	<div class="text-center">
+												<img src="../images/marker-img.png" class="img-responsive marker-img">
+												{{i10n "know_your_neighbour"}}
+											</div>
+									  	</div>-->
+
 									</div>')
 
 	serializeData:->
 		data = super()
 		propertyTypesData = @model.get 'project_property_types'
-		console.log properties = @model.get 'property_types'
+		properties = @model.get 'property_types'
 		propertyTypes = [] 
 		availability = []
 		$.each propertyTypesData,(index,value)->
@@ -122,6 +160,8 @@ class LeftView extends Marionette.ItemView
 				'availability'		: availability
 		data.propertyTypes = propertyTypes
 		data
+
+		
 #Controller for the left view of Project
 class CommonFloor.LeftCtrl extends Marionette.RegionController
 
@@ -134,30 +174,59 @@ class CommonFloor.LeftCtrl extends Marionette.RegionController
 #View for the center view of Project
 class CenterView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="col-md-9 us-right-content animated fadeIn">
-					<div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" 
-						data-nodebug="" data-alwaysprocess="" 
-						data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" 
-						class="primage fill-width">
-					</div>
-				</div>')
+	template : Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content animated fadeIn">
+										<div class="cf-loader loader-center hidden"></div>
+										<div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" 
+											data-nodebug="" data-alwaysprocess="" 
+											data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" 
+											class="primage fill-width">
+										</div>
+									</div>')
 
+	ui :
+		svgContainer : '.us-right-content'
 
-	events:
-		'click .step1-marker':(e)->
-			# $('svg').addClass 'zoom'
-			$('svg').attr('class' ,'zoom') 
-			$('.search-left-content').addClass 'animated fadeOut'
-			setTimeout( (x)->
-				CommonFloor.checkPropertyType()
-
-			, 650)			
 
 			
+	events : 
+		'mouseover .step1-marker':(e)->
+			$('.marker').tooltipster('show')
+		
+			
 	onShow:->
+		
 		$('img').lazyLoadXT()
 		path = @model.get('step_one').svg
-		$('.svg-area').load(path)
+		$('.svg-area').load(path, ()->
+			$('.marker').tooltipster(
+				theme: 'tooltipster-shadow'
+				contentAsHTML: true
+				onlyOne : true
+				arrow : false
+				offsetX : 30
+				interactive : true
+				animation : 'grow'
+				trigger: 'click'
+				content : $('#proj_info').html()
+				functionReady:(e)->
+					$('.master').on('click' , (e)->
+						$('.cf-loader').removeClass 'hidden'
+						$('svg').attr('class' ,'zoom') 
+						$('.step1').addClass 'animated fadeOut'
+						setTimeout( (x)->
+							CommonFloor.checkPropertyType()
+						, 100)
+					)
+
+			)
+			$('.marker').tooltipster('show')
+
+		)
+
+		
+
+		
+		
 
 
 		

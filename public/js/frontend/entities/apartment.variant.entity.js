@@ -63,6 +63,22 @@
       return newUnits;
     };
 
+    ApartmentVariantCollection.prototype.getPenthouseUnits = function() {
+      var units;
+      units = [];
+      unitCollection.each(function(model) {
+        var property, unitType;
+        unitType = unitTypeMasterCollection.findWhere({
+          'id': model.get('unit_type_id')
+        });
+        property = window.propertyTypes[unitType.get('property_type_id')];
+        if (s.decapitalize(property) === 'penthouse') {
+          return units.push(model);
+        }
+      });
+      return units;
+    };
+
     ApartmentVariantCollection.prototype.getApartmentMasterUnits = function() {
       var newUnits, units;
       units = [];
@@ -93,6 +109,27 @@
         }
       });
       return unit_types;
+    };
+
+    ApartmentVariantCollection.prototype.getApartmentFlooringAttributes = function() {
+      var attributes, types;
+      attributes = [];
+      types = [];
+      apartmentVariantMasterCollection.each(function(item) {
+        var type, unit_type;
+        unit_type = unitTypeMasterCollection.findWhere({
+          'id': parseInt(item.get('unit_type_id'))
+        });
+        type = 'A';
+        if (window.propertyTypes[unit_type.get('property_type_id')] === 'Penthouse') {
+          type = 'PH';
+        }
+        if ($.inArray(item.get('variant_attributes').flooring, attributes) === -1) {
+          attributes.push(item.get('variant_attributes').flooring);
+          return types.push(type);
+        }
+      });
+      return [attributes, types];
     };
 
     return ApartmentVariantCollection;

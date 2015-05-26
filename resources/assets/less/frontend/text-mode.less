@@ -37,21 +37,24 @@
 	}
 
 	.prop-select{
-		padding-bottom: 10px;
 		margin-bottom: 10px;
-		border-bottom: 1px solid @gray-lighter;
+		// margin-bottom: 10px;
+		// border-bottom: 1px solid @gray-lighter;
 		list-style-type: none;
+		// background-color: lighten(@gray-lighter, 15%);
 		.prop-type{
 			font-weight: bold;
 			display: inline-block;
-			margin: 15px 15px 0;
-			color: @gray;
+			padding: 15px 15px 5px;
+			color: @gray-light;
 			cursor: pointer;
 			&:hover{
 				color: @brand-primary;
 			}
 			&.active{
 				color: @brand-primary;
+				// background-color: @white;
+				border-bottom: 2px solid @brand-primary;
 			}
 		}
 	}
@@ -95,21 +98,29 @@
 	}
 
 	&.w-map{
-		padding: 10px 0;
-		.legend{
-			text-align: left;
-			padding: 10px 0 20px 40px;
-			li{
-				width: 50%;
-				margin: 0;
-				float: left;
+		padding: 20px 10px;
+		@media (min-width:992px){
+			.units{
+				height: 370px;			
 			}
 		}
+		// .legend{
+		// 	text-align: left;
+		// 	padding: 10px 0 20px 40px;
+		// 	li{
+		// 		width: 50%;
+		// 		margin: 0;
+		// 		float: left;
+		// 	}
+		// }
 	}
 
 	.help-text{
 		font-size: 13px;
 		color: @gray;
+		padding-bottom: 10px;
+		border-bottom: 1px solid #e6e6e6;
+		display: none;
 	}
 }
 
@@ -118,35 +129,79 @@
 	float: left;
 	width: 32.2%;
 	padding: 15px 10px;
-	margin-bottom: 10px;
-	margin-right: 1.6%;
-	background-color: @white;
-	border: 1px solid lighten(@gray-lighter, 10%);
+	// margin-bottom: 10px;
+	// margin-right: 1.6%;
+	// background-color: @white;
+	border-bottom: 1px solid lighten(@gray-lighter, 10%);
+	border-right: 1px solid lighten(@gray-lighter, 10%);
 	&:nth-child(3n){
 	    margin-right: 0;
-	}	
-	&.available, &.active{
-		opacity: 1 !important;
-		&:hover{
-			box-shadow: 0 1px 5px fade(@gray, 40%);
+	}
+	.row{
+		margin: 0 -5px;
+	}
+	.col-sm-3, .col-sm-4, .col-sm-5{
+		padding: 0 5px;
+	}
+	.status-icon{
+		// width: 10px;
+		// height: 10px;
+		// margin: 5px 0 0 5px;
+		// float: left;
+		// border-radius: 50%;
+	}
+	&::after{
+		border-right: 1px solid @gray;
+		content: "";
+		float: right;
+	}
+	&.available{
+		.status-icon{
+			// color: @success;
+			display: none;
 		}
+	}
+	&.available, &.active{
+		// opacity: 1 !important;
+		.ease;
+		&:hover{
+			box-shadow: inset 0 0 10px 1px @brand-primary;
+			animation-name: hvr-back-pulse;
+			animation-duration: 1s;
+			animation-delay: 0;
+			animation-timing-function: linear;
+			animation-iteration-count: infinite;
+			// background-color: lighten(@gray-lighter, 10%);
+		}		
 	}
 	&.active{
-		border: 1px solid @brand-primary;
+		box-shadow: inset 0 0 10px 1px @brand-primary;
+		animation-name: hvr-back-pulse;
+		animation-duration: 1s;
+		animation-delay: 0;
+		animation-timing-function: linear;
+		animation-iteration-count: infinite;
 	}
 	&.sold, &.blocked, &.not_released{
-		background-color: fade(@danger-darker, 50%);
+		// background-color: fade(@danger-darker, 50%);
 		// opacity: 1 !important;
-		.info{
-			color: @danger-darker;
-			label{
-				color: darken(@danger-darker, 10%);
-			}
-		}
-		.cost{
-			color: @danger-darker;
+		// .info{
+		// 	color: @danger-darker;
+		// 	label{
+		// 		color: darken(@danger-darker, 10%);
+		// 	}
+		// }
+		// .cost{
+		// 	color: @danger-darker;
+		// }
+		background-color: lighten(@gray-lighter, 8%);
+		opacity: 0.5;
+		.status-icon{
+			// border: 2px solid fade(@danger-darker, 80%);
+			// background-color: fade(@danger-darker, 80%);
 		}
 	}
+	
 	// &.blocked{
 	// 	background-color: @warning;
 	// 	opacity: 1 !important;
@@ -177,14 +232,25 @@
 .eight{
 	.blocks{
 		padding: 10px;
-		width: 11.8%;
-		margin-right: 0.8%;
+		width: 16.65%;
+		// margin-right: 0.8%;
 		text-align: center;
+		.bldg-info{
+		text-align:left;
+		  margin-left: 10px;
+		}
+		.icon{
+			color:@gray-light;
+		}
 		.cost{
 			display: none;
 		}
 		&:nth-child(8n){
-		    margin-right: 0;
+		    // margin-right: 0;
+		    // border-right: none;
+		}
+		&:first-child{
+			// border-left: 1px solid lighten(@gray-lighter, 10%);
 		}		
 	}
 }
@@ -198,9 +264,10 @@
 		}
 		&:nth-child(4n){
 		    margin-right: 0;
+		    border-right: none;
 		}
 		&:nth-child(3n){
-		    margin-right: 1.6%;
+		    // margin-right: 1.6%;
 		}		
 	}
 }
@@ -222,15 +289,16 @@
 		}
 	}
 }
-.two{
+.two, .one{
 	.blocks{
 		padding: 10px;
-		width: 49.2%;
+		width: 50%;
 		// text-align: center;
+		background-color: @white;
 		.cost{
 			// display: none;
 			float: none;
-			color: @gray;
+			color: @brand-primary;
 			font-weight: bold;
 		}
 		&.unit{
@@ -239,25 +307,47 @@
 					display: block;
 					color: @gray;					
 				}
+				.bold{
+					color:@black;
+					  font-weight: 900;
+				}
 				span{
 					// color: @brand-primary;
 				}
 			}
 		}
 		&:nth-child(even){
-		    margin-right: 0;
+		    // margin-right: 0;
+		    border-right: none;
 		}
 		&:nth-child(odd){
-		    margin-right: 1.6%;
+		    // margin-right: 1.6%;
 		}		
 	}
 }
 .one{
+	.onview:before{
+		   background: rgba(255, 255, 255, 0.82);
+		  content: "NOT IN VIEW";
+		  color: #888;
+		  position: absolute;
+		  width: 91%;
+		  text-align: center;
+		  z-index: 99;
+		-webkit-transition: all .5s ease-in-out;
+		  -moz-transition: all .5s ease-in-out;
+		  -o-transition: all .5s ease-in-out;
+		  transition: all .5s ease-in-out;
+	}
+	.onview:hover:before{
+		opacity: 0;
+	}
 	.blocks{
-		padding: 15px 10px;
+		padding: 10px 10px;
 		width: 100%;
 		margin-right: 0;
-
+		border-right: none;
+		position: relative;
 		&.bldg{
 			.bldg-img{
 				display: none;
@@ -270,7 +360,7 @@
 					font-weight: bold;
 					float: left;
 					margin-right: 5px;
-					color: @brand-primary;
+					// color: @brand-primary;
 				}
 				.floors{
 					float: right;
@@ -278,6 +368,7 @@
 					// color: @brand-primary;
 				}
 			}
+
 			.unit-type-info{
 				.price{
 					font-size: 13px;
@@ -313,6 +404,15 @@
 	}
 }
 
+@media(min-width:992px) and (max-width:1200px){
+	.two{
+		.blocks{
+			// width: 100%;
+			// border-right: none;
+		}
+	}
+}
+
 @media(max-width:767px){
 	.blocks{
 		width: 49.2%;
@@ -320,7 +420,7 @@
 		    margin-right: 0;
 		}
 		&:nth-child(3n){
-		    margin-right: 1.6%;
+		    // margin-right: 1.6%;
 		}
 	}
 	.eight{
@@ -361,6 +461,8 @@
 .units{
 	list-style-type: none;
 	overflow-y: auto;
+	  overflow-x: hidden;
+	// padding: 0 15px;
 	.ease;
 	/* List of Villas */
 	.unit{
@@ -394,19 +496,19 @@
 		.info{
 			float: left;
 			div{
-				font-size: 12px;
+				
 			}
 		}
 		.unit-type-info{
 			// margin-top: 15px;
 			li{
-				font-size: 12px;
+				
 				float: left;
 				text-align: center;
-				width: 33.3%;
 				&::after{
 					content: '|';
 					float: right;
+					margin: 0px 4px
 				}
 				&:last-child::after{
 					content: '';
@@ -421,19 +523,19 @@
 
 .us-right-content{
 	.legend{
-		text-align: center;
-		padding: 10px 0 15px;
+		// text-align: center;
+		padding: 15px;
 		position: absolute;
-		top: 0;
-		width: 100%;
+		bottom: 0;
+		// width: 100%;
 		left: 0;
 		background-color: fade(@gray-darker, 60%);
 		z-index: 999;
 		ul{
 			list-style: none;
 			li{
-				display: inline-block;
-				margin-left: 20px;
+				display: block;
+				// margin-left: 20px;
 				font-size: 14px;
 				color: @gray-lighter;
 				&::before{
@@ -451,15 +553,72 @@
 					// background-color: @white;
 				}
 				&.sold::before{
-					background-color: fade(@danger-darker, 50%);
+					background-color: fade(#0F1308, 50%);
 				}
 				&.blocked::before{
 					// background-color: @warning;
 				}
 				&.na::before{
-					background-color: fade(@gray-darker, 50%);
+					border: 1px solid @gray-darker;
+					background-color: fade(@white, 70%);
+				}
+			}
+		}
+	}
+
+	@media(max-width:767px){
+		.legend{
+			padding: 8px;
+			ul{
+				li{
+					font-size: 12px;
+					&:before{
+						width: 25px;
+					}
 				}
 			}
 		}
 	}
 }
+.top-legend{
+  font-size: 13px;
+  line-height: 27px;
+  position: absolute;
+  right: 25px;
+  top: 38px;
+  li{
+  	display:inline-block;
+  	color: @gray-lighter;
+				&::before{
+					height: 18px;
+					width: 40px;
+					border: 1px solid @gray-lighter;
+					content: '';
+					display: inline-block;
+					margin-right: 5px;
+				}
+				&.available, &.sold, &.blocked, &.na{
+					// opacity: 1 !important;
+				}
+				&.available::before{
+					// background-color: @white;
+				}
+				
+				&.na::before{
+					border: 1px solid @gray-darker;
+					background-color: fade(@gray, 70%);
+				}
+  }
+}
+@-webkit-keyframes hvr-back-pulse {
+  50% {
+    box-shadow: inset 0 0 2px 2px @brand-primary;
+  }
+}
+
+@keyframes hvr-back-pulse {
+  50% {
+    box-shadow: inset 0 0 2px 2px @brand-primary;
+  }
+}
+/*text*/

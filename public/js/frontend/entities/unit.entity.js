@@ -11,7 +11,7 @@
     }
 
     Unit.prototype.getUnitDetails = function(unit_id) {
-      var attributes, id, price, type, unit, unitType, unitVariant;
+      var attributes, id, price, type, unit, unitType, unitTypeModel, unitVariant;
       id = parseInt(unit_id);
       unit = unitMasterCollection.findWhere({
         id: id
@@ -31,7 +31,13 @@
         unitVariant = apartmentVariantMasterCollection.findWhere({
           'id': unit.get('unit_variant_id')
         });
+        unitTypeModel = unitTypeMasterCollection.findWhere({
+          'id': parseInt(unitVariant.get('unit_type_id'))
+        });
         type = 'apartment';
+        if (window.propertyTypes[unitTypeModel.get('property_type_id')] === 'Penthouse') {
+          type = 'Penthouse';
+        }
         price = window.apartmentVariant.findUnitPrice(unit);
         attributes = unitVariant.get('variant_attributes');
       } else if (plotVariantMasterCollection.get(unit.get('unit_variant_id')) !== void 0) {
@@ -100,6 +106,52 @@
     }
 
     UnitCollection.prototype.model = Unit;
+
+    UnitCollection.prototype.getRecord = function() {
+      return this.currentModel;
+    };
+
+    UnitCollection.prototype.setRecord = function(model) {
+      return this.currentModel = model;
+    };
+
+    UnitCollection.prototype.next = function() {
+      var first, next, record, units;
+      units = _.pluck(this.toArray(), 'id');
+      next = this.at(this.indexOf(this.getRecord()) + 1);
+      if (_.isUndefined(next)) {
+        first = _.first(units);
+        if (this.currentModel.get('id') === first) {
+          return next;
+        } else {
+          record = this.findWhere({
+            'id': first
+          });
+          return record;
+        }
+      } else {
+        return next;
+      }
+    };
+
+    UnitCollection.prototype.prev = function() {
+      var last, prev, record, units;
+      units = _.pluck(this.toArray(), 'id');
+      prev = this.at(this.indexOf(this.getRecord()) - 1);
+      if (_.isUndefined(prev)) {
+        last = _.last(units);
+        if (this.currentModel.get('id') === last) {
+          return prev;
+        } else {
+          record = this.findWhere({
+            'id': last
+          });
+          return record;
+        }
+      } else {
+        return prev;
+      }
+    };
 
     UnitCollection.prototype.setUnitAttributes = function(data) {
       var response;

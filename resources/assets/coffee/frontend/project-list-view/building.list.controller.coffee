@@ -1,15 +1,16 @@
 #view for each building
 class BuildingItemView extends Marionette.ItemView
 
-	template :  Handlebars.compile('<li class="bldg blocks {{status}}">
-					                    <div class="bldg-img"></div>
+	template :  Handlebars.compile('<li class="bldg blocks {{status}} ">
+										<div class="col-sm-2 col-xs-2">
+					                    <i class="apartment-ico m-t-15 "></i>
+					                    </div>
+					                    <div class="col-sm-10 col-xs-10">
 					                    <div class="info">
-					                      <h2 class="m-b-5">{{building_name}}</h2>
-					                      <!--<div>Starting from Rs.<span>50 lakhs</span></div>-->
-					                      <div>No. of Floors: <span>{{floors}}</span></div>
+					                      <h2 class="margin-none">{{building_name}} <label class="text-muted sm-text">({{floors}} Floors)</label></h2>
 					                    </div>
 					                    <div class="clearfix"></div>
-					                    <div class="unit-type-info">
+					                    <div class="unit-type-info m-t-5">
 					                      <ul>
 					                     	{{#types}}
 					                        <li>
@@ -18,6 +19,8 @@ class BuildingItemView extends Marionette.ItemView
 					                        {{/types}}
 					                       
 					                      </ul>
+					                    </div> <div class="clearfix"></div>
+					                    <div class="m-t-5 text-primary {{classname}}">Starting from <span class="icon-rupee-icn"></span>{{price}}</div>
 					                    </div>
 					                  </li>')
 	serializeData:->
@@ -26,6 +29,11 @@ class BuildingItemView extends Marionette.ItemView
 		response = building.getUnitTypes(id)
 		types = building.getUnitTypesCount(id,response)
 		floors = @model.get 'floors'
+		cost = building.getMinimumCost(id)
+		data.classname = ""
+		if cost == 0
+			data.classname = 'hidden'
+		data.price = window.numDifferentiation(cost)
 		data.floors = Object.keys(floors).length
 		data.types = types
 		data
@@ -39,15 +47,16 @@ class BuildingItemView extends Marionette.ItemView
 				return 
 			buildingModel = buildingCollection.findWhere
 							'id' : id
-			console.log jQuery.makeArray(id).join(',')
-			CommonFloor.defaults['building'] = jQuery.makeArray(id).join(',')
-			CommonFloor.filter()
+			# CommonFloor.defaults['building'] = jQuery.makeArray(id).join(',')
+			# CommonFloor.filter()
+			
+			CommonFloor.filterBuilding(id)
 			if Object.keys(buildingModel.get('building_master')).length == 0
 				CommonFloor.navigate '/building/'+id+'/apartments' , true
-				CommonFloor.router.storeRoute()
+				# CommonFloor.router.storeRoute()
 			else
 				CommonFloor.navigate '/building/'+id+'/master-view' , true
-				CommonFloor.router.storeRoute()
+				# CommonFloor.router.storeRoute()
 
 #view for listing buildings : Collection
 class BuildingListView extends Marionette.CompositeView
@@ -59,6 +68,10 @@ class BuildingListView extends Marionette.CompositeView
 	            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
 	            </div>
             </div>-->
+            <h2 class="text-center">List of Buildings <span class="pull-right top-legend">     <ul>
+				                <li class="available">AVAILABLE</li>
+				                <li class="na">N/AVAILABLE</li>
+				              </ul></span></h2><hr class="margin-none">	
 			<div class="text-center">
               <ul class="prop-select">
                 <li class="prop-type buildings active">Buildings</li>
@@ -82,7 +95,7 @@ class BuildingListView extends Marionette.CompositeView
 
 	events : 
 		'click .buildings':(e)->
-			console.log units = buildingCollection
+			units = buildingCollection
 			data = {}
 			data.units = units
 			data.type = 'building'
@@ -93,7 +106,7 @@ class BuildingListView extends Marionette.CompositeView
 			
 
 		'click .Villas':(e)->
-			console.log units = bunglowVariantCollection.getBunglowUnits()
+			units = bunglowVariantCollection.getBunglowUnits()
 			data = {}
 			data.units = units
 			data.type = 'villa'
@@ -107,7 +120,7 @@ class BuildingListView extends Marionette.CompositeView
 			data.units = units
 			data.type = 'plot'
 			@region =  new Marionette.Region el : '#centerregion'
-			new CommonFloor.VillaListCtrl region : @region
+			new CommonFloor.PlotListCtrl region : @region
 			# @trigger "load:units" , data
 
 	onShow:->

@@ -1,11 +1,11 @@
 @extends('app')
 
 @section('content')
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
+<div class="container">
+    <div class="panel panel-default">
+
+                <img src="http://asset2.cfcdn.com/cfassets/images/logo-tab.png" class="inline">
+                <span class="header">Sign In</span>
                 <div class="panel-body">
                     @if (count($errors) > 0)
                     <div class="alert alert-danger">
@@ -17,47 +17,50 @@
                         </ul>
                     </div>
                     @endif
-
+                    <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('auth/login') }}">
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
-
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">E-Mail Address</label>
-                            <div class="col-md-6">
+                            <div class="form-group">
+                            <label class="form-label">E-Mail Address</label>
+                            <div class="">
                                 <input type="email" class="form-control" name="email" value="{{ old('email') }}">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label">Password</label>
-                            <div class="col-md-6">
+                            <label class="form-label">Password</label>
+                            <div class="">
                                 <input type="password" class="form-control" name="password">
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember"> Remember Me
-                                    </label>
-                                </div>
-                            </div>
+                       <div class="checkbox">
+                            <label class="form-label">
+                              <input type="checkbox"> Remember Me
+                            </label>
+                          </div>
                         </div>
 
                         <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-default" style="margin-right: 15px;background:#f68121;color:#fff;border: none;width: 130px;">
-                                    Login
+                           
+                               <div class="row">
+                            <div class="col-md-6">
+                            <button type="submit" class="btn btn-default">
+                                    Sign In
                                 </button>
-<div class="pull-right">
-                                <a href="{{ url('password/email') }}">Forgot Your Password?</a>
-                            </div></div>
+                            </div>
+                            <div class="col-md-6 text-right">
+                                <h5>
+                              <a href="{{ url('password/email') }}" >Forgot Your Password?</a>
+                          </h5>
+                          </div>
+                          </div>
                         </div>
+                         
                     </form>
+                    </div>
                 </div>
             </div>
-        </div>
-    </div>
-</div>
+    
 @endsection

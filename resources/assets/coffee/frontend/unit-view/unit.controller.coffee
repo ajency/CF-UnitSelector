@@ -11,7 +11,6 @@ class CommonFloor.UnitCtrl extends Marionette.RegionController
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID)
 			CommonFloor.loadJSONData()
-		console.log project.toJSON()
 		if jQuery.isEmptyObject(project.toJSON())
 			@show new CommonFloor.NothingFoundView
 		else
@@ -20,22 +19,18 @@ class CommonFloor.UnitCtrl extends Marionette.RegionController
 #Top View for unit
 class TopUnitView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="container-fluid">
-										<div class="row animated fadeIn">
-											<div class="col-md-12 col-xs-12 col-sm-12 text-center">
+	template : Handlebars.compile('<div class="container-fluid animated fadeIn">
+										<div class="row">
+											<div class="col-md-12 col-xs-12 col-sm-12">
 
 												<div class="breadcrumb-bar">
-													<a class="unit_back" href="#">
-														Back to Project Overview
-													</a>
+													<a class="unit_back" href="#"></a>
 												</div>
 
-												<h2 class="proj-name">{{project_title}} - {{unit_name}}</h2> 
+												<div class="header-info">
+													<h2 class="pull-left proj-name">{{project_title}} - {{unit_name}}</h2>
+												</div>
 
-											  	<!--<div class="pull-right m-t-25">
-								                	<button class="btn btn-primary cf-btn-white">Get Price List</button>
-								                	<button class="btn btn-primary cf-btn-primary">Book Now</button>
-								              	</div>-->
 											  	<div class="clearfix"></div>
 											</div>
 										</div>
@@ -53,11 +48,29 @@ class TopUnitView extends Marionette.ItemView
 		'click @ui.unitBack':(e)->
 			e.preventDefault()
 			previousRoute = CommonFloor.router.previous()
-			CommonFloor.navigate '/'+previousRoute , true
+			url = Backbone.history.fragment
+			unitid = parseInt url.split('/')[1]
+			console.log unit = unitCollection.findWhere
+				id  : unitid
+			unitType = unitTypeMasterCollection.findWhere
+							'id' :  unit.get('unit_type_id')
+			property = window.propertyTypes[unitType.get('property_type_id')]
+			
+			if s.decapitalize(property) == 'penthouse' || s.decapitalize(property) == 'apartments'
+				buildingModel = buildingCollection.findWhere
+							'id' : unit.get 'building_id'
+				building_id = buildingModel.get 'id'
+				if Object.keys(buildingModel.get('building_master')).length == 0
+					CommonFloor.navigate '/building/'+building_id+'/apartments' , true
+				else
+					CommonFloor.navigate '/building/'+building_id+'/master-view' , true
+			else
+				CommonFloor.navigate '/master-view' , true	
 
-	onShow:->
-		if CommonFloor.router.history.length == 1
-			@ui.unitBack.hide()
+	# onShow:->
+	# 	# CommonFloor.router.storeRoute()
+	# 	# if CommonFloor.router.history.length == 1
+	# 	# 	@ui.unitBack.hide()
 
 #Top Controller for unit
 class CommonFloor.TopUnitCtrl extends Marionette.RegionController
@@ -76,90 +89,117 @@ class CommonFloor.TopUnitCtrl extends Marionette.RegionController
 #Left View for unit
 class LeftUnitView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content unit-details animated fadeIn">
-							<div class="filters-wrapper">
-								<div class="blck-wrap title-row">
-									<!--<h3 class="pull-left"><strong>{{unit_name}}</strong></h3>
-									 <span class="label label-success">For Sale</span> -->
-									<div class="clearfix"></div>
-
-									<div class="details">
-										<div>
-											<label>Price: </label> <span class="price"></span>
-										</div>
-										<div>
-											<label>Unit Variant:</label> {{unit_variant}}
-										</div>
-										<div>
-											<label>Unit Type:</label> {{type}}
-										</div>
-										<div>
-											<label>Area:</label> {{area}} sqft
+	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content animated fadeIn">
+							<div class="unit-details">
+								<div class="row detail-list">
+									<div class="col-sm-6 col-xs-6 text-center">
+										<span class="facts-icon icon-total-units"></span>
+										<div class="unit-label m-t-10">
+											<h3>{{unit_variant}}</h3>
+											<h6 class="text-muted">Unit Variant</h6>      
 										</div>
 									</div>
 
-									<div class="room-attr m-t-10">
-										<label class="property hidden">Property Attributes</label>
-										{{#attributes}}
-											<div class="m-b-5">
-												<span>{{attribute}}</span>: {{value}} 
-											</div>
-										{{/attributes}}
+									<div class="col-sm-6 col-xs-6 text-center">
+										<span class="facts-icon icon-BHKtype"></span>
+										<div class="unit-label m-t-10">
+											<h3>{{type}}</h3>
+											<h6 class="text-muted">Unit Type</h6>      
+										</div>
 									</div>
-
 								</div>
 
-								<div class="unit-list">
-									
-									{{#levels}}
-									<div class="blck-wrap no-hover">
-										<h4 class="m-b-10 m-t-10 text-primary">{{level_name}}</h4>
-
-										<!--<div class="blck-wrap title-row">
-											<div class="row">
-												<div class="col-sm-4">
-													<h5 class="accord-head">Rooms</h5>                      
-												</div>
-												<div class="col-sm-4">
-													<h5 class="accord-head">No</h5>                      
-												</div>
-												<div class="col-sm-4">
-													<h5 class="accord-head">Area</h5>                      
-												</div>
-											</div>
-										</div>-->
-
-										{{#rooms}}
-										<div class="room-attr">
-											<div class="m-b-15">
-												<h5 class="m-b-5">{{room_name}}</h5>  
-												{{#attributes}}  
-												<div class=""><span>{{attribute}}</span>: {{value}} </div>
-												{{/attributes}}                    
-												<!--<h6 class="">{{size}}sqft</h6>-->
-											</div>
+								<div class="row detail-list">
+									<div class="col-sm-6 col-xs-6 text-center">
+										<span class="facts-icon icon-BHK-area-2"></span>
+										<div class="unit-label m-t-10">
+											<h3>{{area}} {{area_unit}}</h3>
+											<h6 class="text-muted">Area</h6>      
 										</div>
-										{{/rooms}}
-										
 									</div>
-									{{/levels}}
-									
+
+									<div class="col-sm-6 col-xs-6 text-center">
+										<span class="facts-icon icon-rupee-icn"></span>
+										<div class="unit-label m-t-10">
+											<h3 class="price">{{price}}</h3>
+											<h6 class="text-muted">Price</h6>      
+										</div>
+									</div>
+								</div>
+
+								<div class="advncd-filter-wrp">
+
+									<div class="blck-wrap title-row">
+										<h5 class="bold property hidden">Property Attributes</h5>
+									</div>
+									{{#attributes}}
+									<div class="row">
+									  <div class="col-sm-12">
+											<h6><span class="text-muted">{{attribute}}:</span> {{value}}</h6>
+										</div>
+									</div>
+									{{/attributes}}
+								</div>
+
+								<div class=" title-row">
+									<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+										{{#levels}}
+										<div class="panel panel-default">
+
+											<div class="panel-heading" role="tab" id="headingTwo">
+											  	<h4 class="panel-title m-b-15 p-b-10">
+											   		<a class="accordion-toggle collapsed text-primary " data-toggle="collapse" data-parent="#accordion" href="#{{id}}" aria-expanded="false" >
+												    	{{level_name}}
+													</a>
+											  	</h4>
+											</div>
+
+											<div id="{{id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+					                           	<div class="panel-body">
+					                           		{{#rooms}}
+					                          		<div class="room-attr"> 
+					                            		<div class="m-b-15"> 
+					                                		<h5 class="m-b-5">{{room_name}}</h5>
+					                                			{{#attributes}} 
+					                                			<div class=""><span>{{attribute}}</span>: {{value}}</div>
+					                                			{{/attributes}}
+					                            		</div> 
+					                          		</div>
+					                         		{{/rooms}}
+					                          	</div>
+					                        </div>
+
+										</div>
+										{{/levels}}
+									</div>
 								</div>
 
 							</div>
 							<div class="clearfix"></div>
 						
 							<div class="similar-section">
-					            <label>Similar Villas based on your filters:</label><br>
-					            <!--<p>Pool View, Garden, 3BHK</p>-->
-					            <ul>
+					           <h5 class="bold m-b-15">{{similarUnitsText}}</h5>
+					          
 					              	{{#similarUnits}}
-					            	<li class="">
-					                	{{unit_name}}
-					                </li>
-					                {{/similarUnits}}
-					            </ul>
+					              	<div class="row m-b-15">
+					              	    <div class="col-sm-4 hidden-xs">
+				              	            <div class="alert ">
+				              	              <i class="{{type}}-ico"></i>
+				              	            </div> 
+					              	    </div>
+
+					              	    <div class="col-sm-8 col-xs-12">
+			              	              	<h5><a href="'+BASEURL+'/project/'+PROJECTID+'/#unit-view/{{id}}">{{unit_name}}</a> <span class="text-primary pull-right"><span class="icon-rupee-icn"></span>{{price}}</span></h5>
+
+			              	              	<span class="text-muted">Unit Variant: </span>{{variant}}<br>
+			              	             	<span class="text-muted">Unit Type:</span> {{unit_type}}<br>
+			              	             	<span class="text-muted"> Area:</span> {{area}} '+project.get('area_unit')+'    
+					              	    </div>
+					              	</div>
+
+					                {{/similarUnits}}					            
 				            </div>
+
 						</div>
 					</div>')
 
@@ -180,34 +220,48 @@ class LeftUnitView extends Marionette.ItemView
 
 		similarUnits = @getSimilarUnits(unit)
 		temp = []
-		$.each similarUnits, (index,value)->
+		$.each similarUnits[0], (index,value)->
 			temp.push 
 				'unit_name' : value.get('unit_name')
-		console.log temp
+				'unit_type' : response[1].get 'name'
+				'price' : window.numDifferentiation(response[3])
+				'area':response[0].get 'super_built_up_area'
+				'variant':response[0].get 'unit_variant_name'
+				'id' : value.get('id')
+				'type' : similarUnits[2]
 		data.area = response[0].get('super_built_up_area')
 		data.type = response[1].get('name')
 		data.unit_variant = response[0].get('unit_variant_name')
 		data.levels  = @generateLevels(floor,response,unit)
 		data.attributes  = attributes
 		data.similarUnits = temp
+		data.similarUnitsText = similarUnits[1]
+		data.area_unit = project.get('area_unit')
 		data
 
 	getSimilarUnits:(unit)->
 		units = []
 		i = 0
-		unitsArr = unitCollection.toArray()
-		$.each unitsArr, (item,value)->
-			if value.get('unit_variant_id') == unit.get('unit_variant_id') 
+		url = Backbone.history.fragment
+		unitid = parseInt url.split('/')[1]
+		unitModel = unitMasterCollection.findWhere
+					'id' : unitid
+		unitColl = CommonFloor.getUnitsProperty(unitModel)
+		unitsArr = unitColl[0]
+		text = unitColl[1]
+		$.each unitsArr.toArray(), (index, value)->
+			if value.id != unitid
 				units.push value
 				i++
 			if i == 3
 				return false
-			
-		units
+				
+		if unitsArr.length == 1
+			text = ''
+		[units,text,unitColl[2]]
 
 
 	generateLevels:(floor,response,unit)->
-		console.log unit
 		levels = []
 		$.each floor,(index,value)->
 			rooms = []
@@ -223,10 +277,11 @@ class LeftUnitView extends Marionette.ItemView
 				rooms.push 
 					'room_name' : val.room_name
 					'attributes' : attributes
-			
+			level_id = s.replaceAll(level_name, " ", "_")
 			levels.push 
 				'level_name' : level_name
 				'rooms'			 : rooms
+				'id'    : level_id
 
 		levels
 
@@ -234,9 +289,8 @@ class LeftUnitView extends Marionette.ItemView
 		url = Backbone.history.fragment
 		unitid = parseInt url.split('/')[1]
 		response = window.unit.getUnitDetails(unitid)
-		window.convertRupees(response[3])
-		$('.price').text $('#price').val()
-		if response[4] != null
+		$('.price').text window.numDifferentiation(response[3])
+		if response[4] != null && response[4].length != 0
 			$('.property').removeClass 'hidden'
 	
 #Left Controller for unit
@@ -248,8 +302,8 @@ class CommonFloor.LeftUnitCtrl extends Marionette.RegionController
 #Center Controller for unit
 class CenterUnitView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="col-md-9 us-right-content animated fadeIn">
-						<div class="svg-area">
+	template : Handlebars.compile('<div class="col-md-9 col-sm-12 col-xs-12 us-right-content unit-slides animated fadeIn">
+						<div class="">
 							<div class="liquid-slider slider" id="slider-id">
 								<div class="ls-wrapper ls-responsive">
 									<div class="ls-nav">
@@ -289,6 +343,11 @@ class CenterUnitView extends Marionette.ItemView
 										</div>
 									</div>
 								</div>
+								<div class="single-bldg">
+	              	
+					                <div class="prev"></div>
+					                <div class="next"></div>
+				              </div>
 							</div>
 						</div>
 					</div>')
@@ -339,7 +398,7 @@ class CenterUnitView extends Marionette.ItemView
 			response = @generateLevels()
 			html = ''
 			html += '<div class="animated fadeIn">
-						<img class="img" data-src="'+response[3].get('external3durl')+'" />
+						<img class="img img-responsive external-img" data-src="'+response[3].get('external3durl')+'" />
 					</div>'
 			$('.images').html html
 			$('.img').lazyLoadXT()
@@ -355,7 +414,6 @@ class CenterUnitView extends Marionette.ItemView
 				html += '<div class="animated fadeIn gallery-img">
 							<a class="fancybox" rel="gall" href="'+value+'">
 								<img class="img" data-src="'+value+'" />
-								<div class="img-overlay"></div>
 							</a>
 						</div>'
 			
@@ -365,10 +423,38 @@ class CenterUnitView extends Marionette.ItemView
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
 			$('.external').removeClass('current')
+
+		'mouseover .next,.prev':(e)->
+			id = parseInt $(e.target).attr('data-id')
+			unitModel = unitCollection.findWhere
+								'id' : id
+			response = window.unit.getUnitDetails(id)
+			unitColl = CommonFloor.getUnitsProperty(unitModel)
+			html = '<div class="svg-info">
+						<i class="'+unitColl[2]+'-ico"></i>
+						<h5 class=" m-t-0">'+unitModel.get('unit_name')+'</h5>
+						<div class="details">
+							<span>'+response[1].get('name')+'</span></br>
+							<div class="text-primary"><span class="text-primary facts-icon icon-rupee-icn"></span>'+window.numDifferentiation(response[3])+'</div>
+							<!--<div>Area: <span>'+response[0].get('super_built_up_area')+' '+project.get('area_unit')+'</span></div>	
+							<div>Variant: <span>'+response[0].get('unit_variant_name')+'</span></div>-->
+							
+						</div>
+					</div>'
+			
+			$(e.target).tooltipster('content', html)
+
+		'click .next,.prev':(e)->
+			id = parseInt $(e.target).attr('data-id')
+			unitModel = unitCollection.findWhere
+								'id' : id
+			CommonFloor.navigate '/unit-view/'+id , true
+			CommonFloor.router.storeRoute()
+			
 		
 
 	onShow:->
-
+		@getNextPrevUnit()
 		response = @generateLevels()
 		html = ''
 		$.each response[0],(index,value)->
@@ -400,7 +486,7 @@ class CenterUnitView extends Marionette.ItemView
 
 				
 		if ! _.isUndefined(response[3].get('external3durl'))
-			html = '<img class="img lazy-hidden"  data-src="'+response[3].get('external3durl')+'" />'
+			html = '<img class="img lazy-hidden img-responsive external-img"  data-src="'+response[3].get('external3durl')+'" />'
 			$('.images').html html
 			$('.external').addClass('current')
 			$('.threeD').removeClass('current')
@@ -432,14 +518,32 @@ class CenterUnitView extends Marionette.ItemView
 
 
 		height =  @ui.imagesContainer.height()
-		$('.search-left-content').css('height',height)
-		$('.search-left-content').mCustomScrollbar
-			theme: 'inset'
+		if $(window).width() > 991
+			$('.search-left-content').css('height',height)
+			$('.search-left-content').mCustomScrollbar
+				theme: 'cf-scroll'
 
 
 		$('.images').html html
+		if html == ""
+			$('.images').html '<div>No images found</div>'
 		$(".fancybox").fancybox()
 		$('.img').lazyLoadXT()
+		@iniTooltip()
+
+	iniTooltip:->
+		$('.next,.prev').tooltipster(
+				theme: 'tooltipster-shadow circle-tooltip'
+				contentAsHTML: true
+				onlyOne : true
+				arrow : false
+				offsetX : 50
+				offsetY : -10
+				interactive : true
+				# animation : 'grow'
+				trigger: 'hover'
+				
+		)
 
 	generateLevels:->
 		url = Backbone.history.fragment
@@ -460,6 +564,26 @@ class CenterUnitView extends Marionette.ItemView
 			
 			i = i + 1	
 		[twoD,threeD,level,response[0]]
+
+
+	getNextPrevUnit:->
+		url = Backbone.history.fragment
+		unitid = parseInt url.split('/')[1]
+		unitModel = unitCollection.findWhere
+					'id' : unitid
+		CommonFloor.getUnitsProperty(unitModel)
+		window.tempColl.setRecord(unitModel)
+		next = tempColl.next()
+		if _.isUndefined next
+			$('.next').hide()
+		else
+			$('.next').attr('data-id',next.get('id'))
+		prev = tempColl.prev()
+		if _.isUndefined prev
+			$('.prev').hide()
+		else
+			$('.prev').attr('data-id',prev.get('id'))
+
 #Center View for the unit
 class CommonFloor.CenterUnitCtrl extends Marionette.RegionController
 

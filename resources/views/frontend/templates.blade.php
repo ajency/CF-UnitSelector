@@ -47,7 +47,7 @@
 <script id="project-template" type="text/template">
         <div ui-region="top" id="topregion" class="us-header"></div>
         <div ui-region="filter" id="filterregion" class="filters-area"></div>
-        <div class="container-fluid">
+        <div class="container-fluid top-spacing">
             <div class="row">
                 <div ui-region="left" id="leftregion">
                 </div>
@@ -69,9 +69,9 @@
 <script id="project-view-template" type="text/template">
     <div ui-region="top" id="topregion" class="us-header"></div>
     <div ui-region="filter" id="filterregion" class="filters-area"></div>
-    <div class="container-fluid">
+    <div class="container-fluid top-spacing">
       <div class="row">
-        <div class="col-xs-12 col-sm-12 col-0 us-left-content mobile not-visible">
+        <div class="list-container closed us-left-content mobile not-visible">
           <div ui-region="left" id="leftregion"></div>
         </div>
         <div ui-region="center" id="centerregion"></div>
@@ -79,10 +79,23 @@
     </div>
 </script>
 
+<script id="apartment-view-template" type="text/template">
+    <div ui-region="topapt" id="topaptregion" class="us-header"></div>
+    <div ui-region="filterapt" id="filteraptregion" class="filters-area"></div>
+    <div class="container-fluid top-spacing">
+      <div class="row">
+        <div class="list-container closed us-left-content mobile not-visible">
+          <div ui-region="leftapt" id="leftaptregion"></div>
+        </div>
+        <div ui-region="centerapt" id="centeraptregion"></div>
+      </div>
+    </div>
+</script>
+
 <script id="unit-view-template" type="text/template">
       <div ui-region="top" id="topregion" class="us-header">
       </div>
-      <div class="container-fluid">
+      <div class="container-fluid top-spacing">
         <div class="row">
           <div ui-region="left" id="leftregion">
           </div>
@@ -136,9 +149,21 @@
           <div ui-region="center" id="centerregion">
               <div>
             <div id="aj-imp-browser-body">
-                            <button id="add" class="marked">add</button>
+            <nav role='navigation' class="aj-navbar">
+                  <div class="toggle">
+                    <span class="container">
+                     <i class="fa fa-plus"></i>
+                    </span>
+                  </div>
+                  <div class="menu">
+                    <ul class="menu-block">
+                      <li><a><i class="fa fa-area-chart"></i> Polygon</a></li>
+                      <li><a><i class="fa fa-map-marker"></i> Marker</a></li>
+                    </ul>
+                  </div>
+                </nav>
                             <div id="aj-imp-builder-drag-drop" class="svg-canvas">
-                               <textarea name="coords2"  rows=3 class="area" disabled placeholder="Shape Coordinates" data-image-url="{{$svgImage}}"></textarea>
+                               <textarea name="coords2" style="display:none" rows=3 class="area" disabled placeholder="Shape Coordinates" data-image-url="{{$svgImage}}"></textarea>
 
   
                             </div>

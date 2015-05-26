@@ -61,6 +61,11 @@ class AuthoringTool.CenterView extends Marionette.ItemView
 		$('#aj-imp-builder-drag-drop canvas').ready ->
 			$('#aj-imp-builder-drag-drop canvas').hide()
 			$('#aj-imp-builder-drag-drop .svg-draw-clear').hide()
+		$(".toggle").click ( (e) ->
+		    $(this).toggleClass("expanded");
+		    $('.menu').toggleClass('open');
+		 
+		    );
 		@loadZoom()
 
 	loadZoom:->

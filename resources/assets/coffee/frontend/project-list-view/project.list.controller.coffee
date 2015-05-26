@@ -25,22 +25,26 @@ class TopListView extends Marionette.ItemView
 
 												<div class="breadcrumb-bar">
 													<a class="unit_back" href="#">
-														Back to Project Overview
+														
 													</a>
 												</div>
-
-												<h2 class="proj-name">{{project_title}}</h2>
-
+												<div class="header-info">
+												<h2 class="proj-name pull-left">{{project_title}}</h2>
+															<div class="proj-type-count">
+																{{#types}} 
+																<p class="pull-right">{{type}}</p><h2 class=" pull-right m-t-10">{{count.length}}</h2> 
+																{{/types}}
+															</div>
+															<div class="clearfix"></div>
+													</div>			
 											</div>
 										</div>
 									</div>
 
-									<div class="filter-summary-area">
+									
 
-										<button class="btn btn-primary cf-btn-white pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters">
-											Filters <span class="icon-funnel"></span>
-										</button>
-							            <div class="pull-left filter-result">
+										
+							            <div class="pull-left filter-result full">
 							              	{{#each  filters}}
 							              	{{#each this}}
 											<div class="filter-pill"  >
@@ -49,14 +53,9 @@ class TopListView extends Marionette.ItemView
 							              	</div>	
 							              	{{/each}}{{/each }}							               
 							            </div>
-										<div class="proj-type-count">
-											{{#types}} 
-											<p class="pull-right">{{type}}</p><h1 class="text-primary pull-right m-t-10">{{count.length}}</h1> 
-											{{/types}}
-										</div>
-
+							
 										<div class="clearfix"></div>
-									</div>')
+								')
 
 	ui  :
 		unitBack : '.unit_back'
@@ -69,6 +68,7 @@ class TopListView extends Marionette.ItemView
 		area : '#filter_area'
 		budget : '#filter_budget'
 		types : '.types'
+		filter_flooring : '.filter_flooring'
 
 	serializeData:->
 		data = super()
@@ -85,8 +85,12 @@ class TopListView extends Marionette.ItemView
 	events:->
 		'click @ui.unitBack':(e)->
 			e.preventDefault()
-			previousRoute = CommonFloor.router.previous()
-			CommonFloor.navigate '/'+previousRoute , true
+			$.each CommonFloor.defaults , (index,value)->
+				 CommonFloor.defaults[index] = ""
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()	
+			unitCollection.trigger('available')
+			CommonFloor.navigate '/' , true
 
 		'click @ui.types':(e)->
 			arr = CommonFloor.defaults['type'].split(',')
@@ -97,13 +101,14 @@ class TopListView extends Marionette.ItemView
 			
 			if $(e.target).attr('data-id') == 'Villas'
 				@removeVillaFilters()
-			if $(e.target).attr('data-id') == 'Apartments'
+			if $(e.target).attr('data-id') == 'Apartments/Penthouse'
 				@removeAptFilters()
 			if $(e.target).attr('data-id') == 'Plots'
 				@removePlotFilters()
 			@trigger  'render:view'
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			
 
 			
@@ -113,6 +118,7 @@ class TopListView extends Marionette.ItemView
 			CommonFloor.defaults['unitTypes'] = unitTypes.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 			
 		'click @ui.variantNames':(e)->
@@ -120,13 +126,15 @@ class TopListView extends Marionette.ItemView
 			variantNames = _.without variantNames , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['unitVariants'] = variantNames.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filter()	
+			CommonFloor.filter()
+			unitCollection.trigger('available')	
 			@trigger  'render:view'
 
 		'click @ui.status':(e)->
 			CommonFloor.defaults['availability'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 			
@@ -136,6 +144,7 @@ class TopListView extends Marionette.ItemView
 			CommonFloor.defaults['area_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 		'click @ui.budget':(e)->
@@ -143,11 +152,24 @@ class TopListView extends Marionette.ItemView
 			CommonFloor.defaults['price_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filter()
+			unitCollection.trigger('available')
+			@trigger  'render:view'
+
+		'click @ui.filter_flooring':(e)->
+			flooring = CommonFloor.defaults['flooring'].split(',')
+			flooring = _.without flooring , $(e.currentTarget).attr('data-id')
+			CommonFloor.defaults['flooring'] = flooring.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 	onShow:->
-		if CommonFloor.router.history.length == 1
-			@ui.unitBack.hide()
+		# if CommonFloor.router.history.length == 1
+		# 	@ui.unitBack.hide()
+		response = CommonFloor.propertyTypes() 
+		if response.length == 0
+			$('.proj-type-count').text 'No results found'
 
 
 	removeVillaFilters:->
@@ -229,12 +251,12 @@ class TopListView extends Marionette.ItemView
 class CommonFloor.TopListCtrl extends Marionette.RegionController
 
 	initialize:->
-		@renderView()
-		unitTempCollection.on("change reset add remove", @renderView, @)
+		@renderTopListView()
+		unitCollection.bind( "available", @renderTopListView, @) 
 
-	renderView:->
+	renderTopListView:->
 		@view =  new TopListView 
-				model : project
+					model : project
 
 		@listenTo @view,"render:view" ,@loadController
 
@@ -273,11 +295,15 @@ class CommonFloor.LeftListCtrl extends Marionette.RegionController
 class CommonFloor.CenterListCtrl extends Marionette.RegionController
 
 	initialize:->
-		@renderView()
-		unitTempCollection.on("change reset add remove", @renderView)
+		@renderCenterListView()
+		unitCollection.bind( "available", @renderCenterListView, @)  
 		
-	renderView:->
+	renderCenterListView:->
 		response = CommonFloor.checkListView()
+		if response.count.length == 0 
+			region =  new Marionette.Region el : '#centerregion'
+			new CommonFloor.NoUnitsCtrl region : region
+			return
 		if response.type is 'bunglows' 
 			units = bunglowVariantCollection.getBunglowUnits()
 			data = {}
@@ -294,6 +320,15 @@ class CommonFloor.CenterListCtrl extends Marionette.RegionController
 			data.type = 'building'
 			@region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.BuildingListCtrl region : @region
+			# @parent().trigger "load:units" , data
+
+		if response.type is 'plot' 
+			units = plotVariantCollection.getPlotUnits()
+			data = {}
+			data.units = units
+			data.type = 'plot'
+			@region =  new Marionette.Region el : '#centerregion'
+			new CommonFloor.PlotListCtrl region : @region
 			# @parent().trigger "load:units" , data
 
 		

@@ -109,6 +109,41 @@ class Building extends Backbone.Model
 
 class BuildingCollection extends Backbone.Collection
 	model : Building
+
+	getRecord:->
+		@currentModel
+
+	setRecord:(model)->
+		@currentModel = model
+
+	next:->
+		units = _.pluck @.toArray(), 'id'
+		next = @at(@indexOf(@getRecord()) + 1)
+		if _.isUndefined next
+			first = _.first units
+			if @currentModel.get('id') == first
+				next
+			else
+				record = @findWhere
+					'id' : first
+				record
+		else
+			next
+
+	prev:->
+		units = _.pluck @.toArray(), 'id'
+		prev = @at(@indexOf(@getRecord()) - 1)
+		if _.isUndefined prev
+			last = _.last units
+			if @currentModel.get('id') == last
+				prev
+			else
+				record = @findWhere
+					'id' : last
+				record
+		else
+			prev
+	
 	
 	#set the attributes of a building model
 	setBuildingAttributes:(data)->

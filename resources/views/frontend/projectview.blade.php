@@ -1,11 +1,16 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
     <head>
         <title>CommonFloor - {{ $project_title }}</title>
-        <link type="text/css" rel="stylesheet" href="http://ak.asset1.cfcdn.com/cfassets/css/search.caz.css?ver=1427977000" />
+        <link type="text/css" rel="stylesheet" href="http://asset1.cfcdn.com/cfassets/css/search.caz.css?ver=1427977000" />
         <link href="{{ asset('css/frontend/custom.css')}}" rel="stylesheet">
         <link rel="icon" type="image/png" href="{{ asset('images/others/favicon.ico')}}">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <!-- BEGIN TRACKJS <script type="text/javascript">window._trackJs = { token: 'b47abea606fa443aa8a488c4eaeaaa75' };</script> <script type="text/javascript" src="//d2zah9y47r7bi2.cloudfront.net/releases/current/tracker.js" crossorigin="anonymous"></script> END TRACKJS -->
+        <!--[if IE]>
+            <link href="{{ asset('css/frontend/ie.css')}}" rel="stylesheet" type="text/css" />
+        <![endif]-->
     </head>
     <body>
                   
@@ -114,7 +119,8 @@
         <script src="{{ asset('bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.js' )}}"></script>
         <script src="{{ asset('bower_components/lazyloadxt/dist/jquery.lazyloadxt.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery.panzoom/dist/jquery.panzoom.min.js' )}}"></script>
-         <script src="{{ asset('bower_components/ionrangeslider/js/ion.rangeSlider.min.js' )}}"></script>
+        <script src="{{ asset('bower_components/ionrangeslider/js/ion.rangeSlider.min.js' )}}"></script>
+         <!--<script src="{{ asset('bower_components/jquery-nearest/src/jquery.nearest.js' )}}"></script> -->
         <!-- end plugins -->
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
         <script>
@@ -123,7 +129,7 @@
         CommonFloor = new Marionette.Application 
         BASEURL = '{{url()}}'
         //global variable to keep track of the filtr the user has selected
-        CommonFloor.defaults = {'type' : "" , 'unitVariants': "",'unitTypes':"",'price_min':'','price_max':'','availability':'','area_min' : '','area_max' : '','building':''}
+        CommonFloor.defaults = {'type' : "" , 'unitVariants': "",'unitTypes':"",'price_min':'','price_max':'','availability':'','area_min' : '','area_max' : '','building':'','floor_min' : '','floor_max' : '','flooring': ''}
   
         window.locale = {
 
@@ -162,6 +168,10 @@
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
         
         <input type="hidden" id="price" data-m-dec="" data-a-sign="Rs. " data-d-group="2" value="" />
+      <script type="text/javascript">
       
+       
+
+      </script>
     </body>
 </html>

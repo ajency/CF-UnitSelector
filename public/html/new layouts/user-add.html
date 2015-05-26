@@ -171,18 +171,21 @@
 					<!-- END PAGE TITLE -->
 
 					<!-- BEGIN PlACE PAGE CONTENT HERE -->
-					<div class="grid simple">
-						<div class="grid-title" style="border-bottom:1px solid #f68121;">
-							<h2><span class="semi-bold">Add Project</span> User</h2>
-						</div>
-			                	<div class="grid-body">
+					 <div class="page-title">
+                    <h2>Add Project<span class="semi-bold"> User</span></h2>
+                    </div>
+					<div class="grid simple ">
+						<div class="grid-title no-border">
+                         <h3 > <i class="fa fa-angle-double-right text-primary"></i> User <span class="semi-bold">Details</span></h3>
+                        </div>
+						<div class="grid-body no-border">
 									<form id="add_project" action="#" novalidate="novalidate">
 										<div class="row">
 					                        <div class="col-md-6">
 		                                        <div class="form-group">
 		                                            <label class="form-label">Name<span class="text-primary">*</span></label>
 		                                            <input type="text" name="name" class="form-control m-b-5" placeholder="Enter User Name">
-		                                            <div class="text-danger">* This field is required</div>
+		                                            <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
 		                                        </div>
 		                                    </div>
 		                                    <div class="col-md-6">
@@ -195,7 +198,7 @@
 										    	<option>Data Entry</option>
 										    	<option>Developer</option>
 										    </select>
-		                                            <div class="text-danger">* This field is required</div>
+		                                           <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
 		                                        </div>
 		                                    </div>
 		                                </div>
@@ -321,7 +324,10 @@
 		                                		</div>
 		                                	</div>
 		                                </div>
-		                                <h3 class="inline m-b-20 m-t-20"><span class="semi-bold">Unit </span>Selected</h3>
+		                                <hr>
+		                                <div class="m-l-5 no-border">
+                                                <h3><i class="fa fa-angle-double-right text-primary"></i> Units <span class="semi-bold">Selected</span></h3>
+                                            </div>
 		                                <div class="row">
 		                                <div class="col-md-6">
 		                                	<div class="grid-simple">

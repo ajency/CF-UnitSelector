@@ -46,7 +46,7 @@
       return TopListView.__super__.constructor.apply(this, arguments);
     }
 
-    TopListView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> Back to Project Overview </a> </div> <h2 class="proj-name">{{project_title}}</h2> </div> </div> </div> <div class="filter-summary-area"> <button class="btn btn-primary cf-btn-white pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters"> Filters <span class="icon-funnel"></span> </button> <div class="pull-left filter-result"> {{#each  filters}} {{#each this}} <div class="filter-pill"  > {{this.name}}{{this.type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div> {{/each}}{{/each }} </div> <div class="proj-type-count"> {{#types}} <p class="pull-right">{{type}}</p><h1 class="text-primary pull-right m-t-10">{{count.length}}</h1> {{/types}} </div> <div class="clearfix"></div> </div>');
+    TopListView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> </a> </div> <div class="header-info"> <h2 class="proj-name pull-left">{{project_title}}</h2> <div class="proj-type-count"> {{#types}} <p class="pull-right">{{type}}</p><h2 class=" pull-right m-t-10">{{count.length}}</h2> {{/types}} </div> <div class="clearfix"></div> </div> </div> </div> </div> <div class="pull-left filter-result full"> {{#each  filters}} {{#each this}} <div class="filter-pill"  > {{this.name}}{{this.type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div> {{/each}}{{/each }} </div> <div class="clearfix"></div>');
 
     TopListView.prototype.ui = {
       unitBack: '.unit_back',
@@ -58,7 +58,8 @@
       variantNames: '.variant_names',
       area: '#filter_area',
       budget: '#filter_budget',
-      types: '.types'
+      types: '.types',
+      filter_flooring: '.filter_flooring'
     };
 
     TopListView.prototype.serializeData = function() {
@@ -78,10 +79,14 @@
     TopListView.prototype.events = function() {
       return {
         'click @ui.unitBack': function(e) {
-          var previousRoute;
           e.preventDefault();
-          previousRoute = CommonFloor.router.previous();
-          return CommonFloor.navigate('/' + previousRoute, true);
+          $.each(CommonFloor.defaults, function(index, value) {
+            return CommonFloor.defaults[index] = "";
+          });
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          unitCollection.trigger('available');
+          return CommonFloor.navigate('/', true);
         },
         'click @ui.types': function(e) {
           var arr, index;
@@ -92,7 +97,7 @@
           if ($(e.target).attr('data-id') === 'Villas') {
             this.removeVillaFilters();
           }
-          if ($(e.target).attr('data-id') === 'Apartments') {
+          if ($(e.target).attr('data-id') === 'Apartments/Penthouse') {
             this.removeAptFilters();
           }
           if ($(e.target).attr('data-id') === 'Plots') {
@@ -100,7 +105,8 @@
           }
           this.trigger('render:view');
           unitCollection.reset(unitMasterCollection.toArray());
-          return CommonFloor.filter();
+          CommonFloor.filter();
+          return unitCollection.trigger('available');
         },
         'click @ui.unitTypes': function(e) {
           var unitTypes;
@@ -109,6 +115,7 @@
           CommonFloor.defaults['unitTypes'] = unitTypes.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
+          unitCollection.trigger('available');
           return this.trigger('render:view');
         },
         'click @ui.variantNames': function(e) {
@@ -118,12 +125,14 @@
           CommonFloor.defaults['unitVariants'] = variantNames.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
+          unitCollection.trigger('available');
           return this.trigger('render:view');
         },
         'click @ui.status': function(e) {
           CommonFloor.defaults['availability'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
+          unitCollection.trigger('available');
           return this.trigger('render:view');
         },
         'click @ui.area': function(e) {
@@ -131,6 +140,7 @@
           CommonFloor.defaults['area_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
+          unitCollection.trigger('available');
           return this.trigger('render:view');
         },
         'click @ui.budget': function(e) {
@@ -138,14 +148,27 @@
           CommonFloor.defaults['price_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filter();
+          unitCollection.trigger('available');
+          return this.trigger('render:view');
+        },
+        'click @ui.filter_flooring': function(e) {
+          var flooring;
+          flooring = CommonFloor.defaults['flooring'].split(',');
+          flooring = _.without(flooring, $(e.currentTarget).attr('data-id'));
+          CommonFloor.defaults['flooring'] = flooring.join(',');
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
+          unitCollection.trigger('available');
           return this.trigger('render:view');
         }
       };
     };
 
     TopListView.prototype.onShow = function() {
-      if (CommonFloor.router.history.length === 1) {
-        return this.ui.unitBack.hide();
+      var response;
+      response = CommonFloor.propertyTypes();
+      if (response.length === 0) {
+        return $('.proj-type-count').text('No results found');
       }
     };
 
@@ -260,11 +283,11 @@
     }
 
     TopListCtrl.prototype.initialize = function() {
-      this.renderView();
-      return unitTempCollection.on("change reset add remove", this.renderView, this);
+      this.renderTopListView();
+      return unitCollection.bind("available", this.renderTopListView, this);
     };
 
-    TopListCtrl.prototype.renderView = function() {
+    TopListCtrl.prototype.renderTopListView = function() {
       this.view = new TopListView({
         model: project
       });
@@ -331,13 +354,22 @@
     }
 
     CenterListCtrl.prototype.initialize = function() {
-      this.renderView();
-      return unitTempCollection.on("change reset add remove", this.renderView);
+      this.renderCenterListView();
+      return unitCollection.bind("available", this.renderCenterListView, this);
     };
 
-    CenterListCtrl.prototype.renderView = function() {
-      var data, response, units;
+    CenterListCtrl.prototype.renderCenterListView = function() {
+      var data, region, response, units;
       response = CommonFloor.checkListView();
+      if (response.count.length === 0) {
+        region = new Marionette.Region({
+          el: '#centerregion'
+        });
+        new CommonFloor.NoUnitsCtrl({
+          region: region
+        });
+        return;
+      }
       if (response.type === 'bunglows') {
         units = bunglowVariantCollection.getBunglowUnits();
         data = {};
@@ -358,7 +390,19 @@
         this.region = new Marionette.Region({
           el: '#centerregion'
         });
-        return new CommonFloor.BuildingListCtrl({
+        new CommonFloor.BuildingListCtrl({
+          region: this.region
+        });
+      }
+      if (response.type === 'plot') {
+        units = plotVariantCollection.getPlotUnits();
+        data = {};
+        data.units = units;
+        data.type = 'plot';
+        this.region = new Marionette.Region({
+          el: '#centerregion'
+        });
+        return new CommonFloor.PlotListCtrl({
           region: this.region
         });
       }

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>View Projects - CommonFloor</title>
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
+
+        <link href="../../bower_components/pace/themes/orange/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
+        <link href="../../bower_components/jquery.scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css"/>
+        <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <!-- <link href="assets/plugins/boostrapv3/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/> -->
+        <link href="../../bower_components/fontawesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+
+        <!-- Datatables Styles -->
+        <link href="../../bower_components/DataTables/media/css/jquery.dataTables.css" rel="stylesheet" type="text/css">
+        <link href="../../bower_components/datatables-responsive-gh/files/1.10/css/datatables.responsive.css" rel="stylesheet" type="text/css" media="screen">
+
+        <!-- Select2 Styles -->
+        <link href="../../bower_components/select2/select2.css" rel="stylesheet" type="text/css" media="screen">
+
+        <link href="../../bower_components/animate.css/animate.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../../css/dashboard/style.css" rel="stylesheet" type="text/css"/>
+        <link href="../../css/dashboard/responsive.css" rel="stylesheet" type="text/css"/>
+        <link href="../../css/dashboard/custom-icon-set.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body class="">
+        <!-- BEGIN HEADER -->
+        <div class="header navbar navbar-inverse"> 
+            <!-- BEGIN TOP NAVIGATION BAR -->
+            <div class="navbar-inner">
+                <!-- BEGIN NAVIGATION HEADER -->
+                <div class="header-seperation"> 
+                    <!-- BEGIN MOBILE HEADER -->
+                    <ul class="nav pull-left notifcation-center" id="main-menu-toggle-wrapper" style="display:none">	
+                        <li class="dropdown">
+                            <a id="main-menu-toggle" href="#main-menu" class="">
+                                <div class="iconset top-menu-toggle-white"></div>
+                            </a>
+                        </li>		 
+                    </ul>
+                    <!-- END MOBILE HEADER -->
+                    <!-- BEGIN LOGO -->	
+                    <a href="#">
+                        <img src="../../images/inner-header-logo.png" class="logo" alt="" data-src="../../images/inner-header-logo.png" data-src-retina="../../images/logo2x.png"/>
+                    </a>
+                    <!-- END LOGO -->
+                </div>
+                <!-- END NAVIGATION HEADER -->
+                <!-- BEGIN CONTENT HEADER -->
+                <div class="header-quick-nav"> 
+                    <!-- BEGIN HEADER LEFT SIDE SECTION -->
+                    <div class="pull-left"> 
+                        <!-- BEGIN SLIM NAVIGATION TOGGLE -->
+                        <ul class="nav quick-section">
+                            <li class="quicklinks">
+                                <a href="#" class="" id="layout-condensed-toggle">
+                                    <div class="iconset top-menu-toggle-dark"></div>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- END SLIM NAVIGATION TOGGLE -->			
+                    </div>
+                    <!-- END HEADER LEFT SIDE SECTION -->
+                    <!-- BEGIN HEADER RIGHT SIDE SECTION -->
+                    <div class="pull-right"> 
+                        <div class="chat-toggler">	
+                            <!-- BEGIN NOTIFICATION CENTER -->
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle" id="user-options">
+                                <div class="user-details"> 
+                                    <div class="username">
+                                        John<span class="bold">&nbsp;Smith</span>
+                                        <div class="iconset top-down-arrow"></div>								
+                                    </div>						
+                                </div> 
+                            </a>
+
+                            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
+                                <li><a href="user-edit.html"><i class="fa fa-user"></i>&nbsp;&nbsp;Profile</a></li> 
+                                <li class="divider"></li>    
+                                <li><a href="#"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
+                            </ul>
+
+                            <!-- END NOTIFICATION CENTER -->    			
+                        </div>
+                    </div>
+                    <!-- END HEADER RIGHT SIDE SECTION -->
+                </div> 
+                <!-- END CONTENT HEADER --> 
+            </div>
+            <!-- END TOP NAVIGATION BAR --> 
+        </div>
+        <!-- END HEADER -->
+
+        <!-- BEGIN CONTENT -->
+        <div class="page-container row-fluid">
+            <!-- BEGIN SIDEBAR -->
+            <!-- BEGIN MENU -->
+            <div class="page-sidebar" id="main-menu"> 
+                <div class="page-sidebar-wrapper scrollbar-dynamic" id="main-menu-wrapper">
+                    <p class="menu-title"></p>
+                    <!-- BEGIN SIDEBAR MENU -->	
+                    <ul>	
+                        <!-- BEGIN SELECTED LINK -->
+                        <!-- <li class="start active">
+                                <a href="#">
+                                        <i class="icon-custom-home"></i>
+                                        <span class="title">Dashboard</span>
+                                        <span class="selected"></span>
+                                </a>
+                        </li> -->
+                        <!-- END SELECTED LINK -->    
+                        <!-- BEGIN ONE LEVEL MENU -->
+                        <li class="">
+                            <a href="javascript:;">
+                                <i class="fa fa-building-o"></i>
+                                <span class="title">Projects</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="project-view.html">All Projects</a></li>
+                                <li class="active"><a href="project-add.html">Add Project</a></li>
+                            </ul>
+                        </li>
+                          <li class="">
+                            <a href="javascript:;">
+                                <i class="fa fa-users"></i>
+                                <span class="title">Users</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="project-view.html">All Users</a></li>
+                                <li class="active"><a href="project-add.html">Add User</a></li>
+                            </ul>
+                        </li>
+                          <li class="">
+                            <a href="javascript:;">
+                                <i class="fa fa-cog"></i>
+                                <span class="title">Roles</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="project-view.html">All Roles</a></li>
+                                <li class="active"><a href="project-add.html">Add Project</a></li>
+                            </ul>
+                        </li>
+                        <!-- END ONE LEVEL MENU -->	
+                        <!-- BEGIN SINGLE LINK -->
+                        <!-- <li class="">
+                                <a href="#">
+                                        <i class="fa fa-user"></i>
+                                        <span class="title">Users</span>
+                                </a>
+                        </li> -->
+                        <!-- END SINGLE LINK -->    
+                    </ul>
+                    <!-- END SIDEBAR MENU -->
+                </div>
+            </div>
+            <!-- BEGIN SCROLL UP HOVER -->
+            <a href="#" class="scrollup">Scroll</a>
+            <!-- END SCROLL UP HOVER -->
+            <!-- END MENU -->
+            <!-- BEGIN SIDEBAR FOOTER WIDGET -->
+            <div class="footer-widget">		
+                <div class="pull-right">
+                    <!-- <a href="#"><i class="fa fa-power-off"></i></a> -->
+                </div>
+            </div>
+            <!-- END SIDEBAR FOOTER WIDGET -->
+            <!-- END SIDEBAR --> 
+            <!-- BEGIN PAGE CONTAINER-->
+            <div class="page-content"> 
+                <div class="content">
+
+                    <!-- BEGIN BREADCRUMBS -->
+                    <ul class="breadcrumb">
+                        <li><a href="#">Dashboard</a> </li>
+                        <li><a href="#">Projects</a> </li>
+                        <li><a href="#" class="active">View Variants</a> </li>
+                    </ul>
+                    <!-- END BREADCRUMBS -->
+                    <!-- BEGIN PAGE TITLE -->
+                    <div class="page-title">	
+                        <h2><span class="semi-bold">View</span> Variants</h2>
+                    </div>
+                    <!-- END PAGE TITLE -->
+
+                    <!-- BEGIN PlACE PAGE CONTENT HERE -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="grid simple">
+                                <div class="grid-title ">
+                                    <a class="btn btn-primary pull-right" href="villa-add-variant.html"><i class="fa fa-plus"></i> Add Variant</a>
+                               <h3> <i class="fa fa-angle-double-right text-primary"></i> List of <span class="semi-bold">Variants</span></h3>
+                                </div>
+                                <div class="grid-body">
+
+                                    <table class="table table-bordered table-hover" id="example2" >
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Property Type</th>
+                                                <th>Unit TYpe</th>
+                                                <th>Carpet Area</th>
+                                                <th>Super Built up Area</th>
+                                                <th>Per sq ft price</th>
+                                                <th>Created On</th>
+                                                <th>Modified on</th>
+                                             </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="bg-success" onclick="location.href='villa-configuration.html'">
+                                                <td>Artha</td>
+                                                    <td>Apartments</td>
+                                                    <td>2Bhk</td>
+                                                    <td>1000</td>
+                                                    <td>2000</td>
+                                                    <td>2000</td>
+                                                    <td>09/09/14</td>
+                                                    <td>05/12/14</td>
+                                            </tr>
+                                          <tr class="" onclick="location.href='villa-configuration.html'">
+                                                <td>Artha</td>
+                                                    <td>Apartments</td>
+                                                    <td>2Bhk</td>
+                                                    <td>1000</td>
+                                                    <td>2000</td>
+                                                    <td>2000</td>
+                                                    <td>09/09/14</td>
+                                                    <td>05/12/14</td>
+                                            </tr>
+                                       <tr class="" onclick="location.href='villa-configuration.html'">
+                                                <td>Artha</td>
+                                                    <td>Apartments</td>
+                                                    <td>2Bhk</td>
+                                                    <td>1000</td>
+                                                    <td>2000</td>
+                                                    <td>2000</td>
+                                                    <td>09/09/14</td>
+                                                    <td>05/12/14</td>
+                                            </tr></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- END PLACE PAGE CONTENT HERE -->
+                </div>
+            </div>
+            <!-- END PAGE CONTAINER -->
+        </div>
+        <!-- END CONTENT --> 
+        <!-- BEGIN CORE JS FRAMEWORK--> 
+        <script src="../../bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script> 
+        <script src="../../bower_components/jquery-ui/jquery-ui.min.js" type="text/javascript"></script> 
+        <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script> 
+        <script src="../../bower_components/jquery.breakpoints/breakpoints.js" type="text/javascript"></script> 
+        <script src="../../bower_components/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script> 
+        <!-- <script src="assets/plugins/jquery-block-ui/jqueryblockui.js" type="text/javascript"></script>  -->
+        <!-- END CORE JS FRAMEWORK --> 
+        <!-- BEGIN PAGE LEVEL JS --> 	
+        <script src="../../bower_components/jquery.scrollbar/jquery.scrollbar.min.js" type="text/javascript"></script>
+        <script src="../../bower_components/pace/pace.min.js" type="text/javascript"></script>  
+        <!-- <script src="assets/plugins/jquery-numberAnimate/jquery.animateNumbers.js" type="text/javascript"></script> -->
+
+        <script src="../../bower_components/DataTables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="../../bower_components/datatables-tabletools/js/dataTables.tableTools.js" type="text/javascript"></script>
+        <script src="../../bower_components/datatables-responsive-gh/files/1.10/js/datatables.responsive.js" type="text/javascript"></script>
+        <!--<script src="../../bower_components/datatables-responsive-gh/files/1.10/js/lodash.min.js" type="text/javascript"></script>-->
+
+        <script src="../../bower_components/select2/select2.min.js" type="text/javascript"></script>
+
+        <script src="../../bower_components/bootstrap-file-input/bootstrap.file-input.js" type="text/javascript"></script>
+        <script src="../../plugins/datatables.js" type="text/javascript"></script> 
+
+        <!-- END PAGE LEVEL PLUGINS -->  	
+
+        <!-- BEGIN CORE TEMPLATE JS --> 
+        <script src="../../plugins/dashboard-theme-core/core.js" type="text/javascript"></script> 
+        <!-- <script src="assets/js/chat.js" type="text/javascript"></script>  -->
+        <!-- <script src="assets/js/demo.js" type="text/javascript"></script>  -->
+        <!-- END CORE TEMPLATE JS --> 
+
+        <!-- END NEED TO WORK ON -->
+
+        <script type="text/javascript">
+            $("#city").select2();
+            $("#unit_types").select2();
+        </script>
+
+    </body>
+</html>
