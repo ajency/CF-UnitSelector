@@ -1751,8 +1751,7 @@ svg polygon {
 }
 .eight .blocks {
   padding: 10px;
-  width: 15.8%;
-  margin-right: 0.8%;
+  width: 16.65%;
   text-align: center;
 }
 .eight .blocks .bldg-info {
@@ -1764,10 +1763,6 @@ svg polygon {
 }
 .eight .blocks .cost {
   display: none;
-}
-.eight .blocks:nth-child(8n) {
-  margin-right: 0;
-  border-right: none;
 }
 .four .blocks {
   padding: 10px;
@@ -1851,7 +1846,6 @@ svg polygon {
   font-weight: bold;
   float: left;
   margin-right: 5px;
-  color: #f68121;
 }
 .one .blocks.bldg .info .floors {
   float: right;
