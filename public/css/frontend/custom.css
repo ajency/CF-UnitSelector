@@ -1952,11 +1952,11 @@ svg polygon {
   font-size: 12px;
   float: left;
   text-align: center;
-  width: 33.3%;
 }
 .units .bldg .unit-type-info li::after {
   content: '|';
   float: right;
+  margin: 0px 4px;
 }
 .units .bldg .unit-type-info li:last-child::after {
   content: '';
@@ -2736,7 +2736,7 @@ label.third_toggle {
   width: 35px;
   height: 35px;
   border-radius: 100%;
-  background: #ccc;
+  background: #fff;
   position: absolute;
   bottom: -15px;
   text-align: center;
@@ -2745,10 +2745,16 @@ label.third_toggle {
   border: 1px solid #999;
   color: #5F5858 !important;
   font-size: 13px;
+  z-index: 999;
+}
+.svg-info .circle a {
+  color: #5F5858 !important;
 }
 .svg-info .circle:hover {
   background: #f68121;
   cursor: pointer;
+}
+.svg-info .circle:hover a {
   color: #ffffff !important;
 }
 .svg-info .step2-sprite {

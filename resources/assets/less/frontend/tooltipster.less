@@ -124,7 +124,7 @@
        width: 35px;
         height: 35px;
         border-radius: 100%;
-        background: #ccc;
+        background: #fff;
         position: absolute;
         bottom: -15px;
         text-align: center;
@@ -133,10 +133,15 @@
         border: 1px solid #999;
         color: #5F5858 !important;
         font-size: 13px;
+        z-index:999;
+        a{ color: #5F5858 !important;}
         &:hover{
           background: @brand-primary;
           cursor:pointer;
+          
+          a{
           color:@white !important;
+          }
         }
       
     }

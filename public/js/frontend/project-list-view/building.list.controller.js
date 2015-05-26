@@ -11,7 +11,7 @@
       return BuildingItemView.__super__.constructor.apply(this, arguments);
     }
 
-    BuildingItemView.prototype.template = Handlebars.compile('<li class="bldg blocks {{status}}"> <div class="bldg-img"></div> <div class="info"> <h2 class="m-b-5">{{building_name}}</h2> <!--<div>Starting from Rs.<span>50 lakhs</span></div>--> <div>No. of Floors: <span>{{floors}}</span></div> </div> <div class="clearfix"></div> <div class="unit-type-info"> <ul> {{#types}} <li> {{name}}: <span>{{units}}</span> </li> {{/types}} </ul> </div> </li>');
+    BuildingItemView.prototype.template = Handlebars.compile('<li class="bldg blocks {{status}} row"> <div class="col-sm-2 col-xs-2"> <i class="apartment-ico "></i> </div> <div class="col-sm-10 col-xs-10"> <div class="info"> <h2 class="margin-none">{{building_name}}</h2> <!--<div>Starting from Rs.<span>50 lakhs</span></div>--> <div class="m-t-10">No. of Floors: <span>{{floors}}</span></div> </div> <div class="clearfix"></div> <div class="unit-type-info"> <ul> {{#types}} <li> {{name}}: <span>{{units}}</span> </li> {{/types}} </ul> </div> </div> </li>');
 
     BuildingItemView.prototype.serializeData = function() {
       var data, floors, id, response, types;

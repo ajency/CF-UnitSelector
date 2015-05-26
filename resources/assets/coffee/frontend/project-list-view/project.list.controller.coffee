@@ -32,7 +32,7 @@ class TopListView extends Marionette.ItemView
 												<h2 class="proj-name pull-left">{{project_title}}</h2>
 															<div class="proj-type-count">
 																{{#types}} 
-																<p class="pull-right">{{type}}</p><h1 class=" pull-right m-t-10">{{count.length}}</h1> 
+																<p class="pull-right">{{type}}</p><h2 class=" pull-right m-t-10">{{count.length}}</h2> 
 																{{/types}}
 															</div>
 															<div class="clearfix"></div>
