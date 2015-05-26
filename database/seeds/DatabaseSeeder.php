@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder {
         
         $this->call( 'UnitTypeTableSeeder' );
         $this->command->info( " Unit Type Table Seeded! " );
+ 
     }
 
 }
@@ -154,4 +155,4 @@ class RoomTypeTableSeeder extends Seeder {
     }
 
 }
-
+ 

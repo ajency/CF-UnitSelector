@@ -10,6 +10,7 @@ use CommonFloor\Project;
 use CommonFloor\UnitVariant;
 use CommonFloor\Unit;
 use CommonFloor\UnitType;
+use CommonFloor\Phase;
 
 class ProjectBunglowUnitController extends Controller {
 
@@ -64,7 +65,7 @@ class ProjectBunglowUnitController extends Controller {
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if ($propertyTypes['property_type_id']=='2')
+            if ($propertyTypes['property_type_id']==BUNGLOWID)
                 $projectPropertytypeId = $propertyTypes['id'];
         }
         
@@ -74,11 +75,13 @@ class ProjectBunglowUnitController extends Controller {
             $unitTypeIdArr[] =$unitType['id'];
        
         $unitVariantArr = UnitVariant::whereIn('unit_type_id',$unitTypeIdArr)->get()->toArray();
+        $phases = $project->projectPhase()->whereIn('status',['not_live','archive'])->get()->toArray();
 
         return view('admin.project.addunit')
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
                         ->with('unit_variant_arr', $unitVariantArr)
+                        ->with('phases', $phases)
                         ->with('current', 'bunglow-unit');
     }
 
@@ -87,11 +90,12 @@ class ProjectBunglowUnitController extends Controller {
      *
      * @return Response
      */
-    public function store($project_id, Request $request) {
+    public function store($project_id, Request $request) { 
         $unit = new Unit();
         $unit->unit_name = ucfirst($request->input('unit_name'));
         $unit->unit_variant_id = $request->input('unit_variant');
         $unit->availability = $request->input('unit_status');
+        $unit->phase_id = $request->input('phase');
         $unit->save();
         $unitid = $unit->id;
         
@@ -129,7 +133,7 @@ class ProjectBunglowUnitController extends Controller {
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if ($propertyTypes['property_type_id']=='2')
+            if ($propertyTypes['property_type_id']==BUNGLOWID)
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
@@ -139,12 +143,14 @@ class ProjectBunglowUnitController extends Controller {
             $unitTypeIdArr[] =$unitType['id'];
        
         $unitVariantArr = UnitVariant::whereIn('unit_type_id',$unitTypeIdArr)->get()->toArray();
-
+        $phases = $project->projectPhase()->whereIn('status',['not_live','archive'])->get()->toArray(); 
+ 
         return view('admin.project.editunit')
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
                         ->with('unit_variant_arr', $unitVariantArr)
                         ->with('unit', $unit->toArray())
+                        ->with('phases', $phases)
                         ->with('current', 'bunglow-unit');
     }
 
@@ -159,6 +165,7 @@ class ProjectBunglowUnitController extends Controller {
         $unit->unit_name = ucfirst($request->input('unit_name'));
         $unit->unit_variant_id = $request->input('unit_variant');
         $unit->availability = $request->input('unit_status');
+        $unit->phase_id = $request->input('phase');
         $unit->save();
         $addanother = $request->input('addanother');
         

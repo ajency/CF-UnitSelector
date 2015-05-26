@@ -10,6 +10,7 @@ use Auth;
 use CommonFloor\ProjectJson;
 use CommonFloor\Defaults;
 use CommonFloor\Attribute;
+use CommonFloor\Phase;
 
 /**
  * Description of ProjectRepository
@@ -84,7 +85,21 @@ class ProjectRepository implements ProjectRepositoryInterface {
         $projectJson->type = 'step_two';
         $projectJson->project_id = $project->id;
         $projectJson->save();
-
+        
+        $phase = new Phase();
+        $phase->project_id = $project->id;
+        $phase->phase_name = 'Archive';
+        $phase->status = 'archive';
+        $phase->save();
+        
+        if($property_has_phases=='no')
+        {
+            $phase = new Phase();
+            $phase->project_id = $project->id;
+            $phase->phase_name = 'Default';
+            $phase->save();
+        }
+             
         return $project;
     }
 
@@ -96,12 +111,39 @@ class ProjectRepository implements ProjectRepositoryInterface {
         $project_address = ucfirst($projectData['project_address']);
         $property_types_arr = (isset($projectData['property_types'])) ? $projectData['property_types'] : [];
         $property_measurement_units = $projectData['measurement_units'];
+        $property_has_phases = $projectData['has_phases'];
+        $property_has_master = $projectData['has_master'];
 
         $project->project_title = $project_title;
         $project->project_address = $project_address;
         $project->measurement_units = $property_measurement_units;
+        $project->has_phase = $property_has_phases;
+        $project->has_master = $property_has_master;
         $project->updated_by = Auth::user()->id;
         $project->save();
+        
+        if($property_has_phases=='no')
+        {
+            $hasphases = Phase::where('status','!=','archive')->where('project_id',$projectId)->get()->toArray();
+            if(empty($hasphases))
+            {
+                $phase = new Phase();
+                $phase->project_id = $projectId;
+                $phase->phase_name = 'Default';
+                $phase->save();
+            }
+            elseif (count($hasphases)==1) {
+                $phase = Phase::find($hasphases[0]['id']);
+                $phase->project_id = $projectId;
+                $phase->phase_name = 'Default';
+                $phase->save();
+            
+            }
+            else {
+                $project->has_phase = 'yes';
+                $project->save();
+            }
+        }
  
 
         //Get Project Property Type

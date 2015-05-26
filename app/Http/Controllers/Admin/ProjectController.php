@@ -266,5 +266,69 @@ class ProjectController extends Controller {
                     'data' => $flag,
                         ], 200);
     }
+    
+    public function summary($id, ProjectRepository $projectRepository) {
+                
+        $project = $projectRepository->getProjectById($id);
+        $phases = $project->projectPhase()->where('status','!=','archive')->where('phase_name','!=','Default')->get()->toArray();
+        $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray();
+         
+        $propertyTypes = $propertyTypeUnitData =$phaseData = $unitTypeData = $count=[];
+        
+        foreach ($projectpropertyTypes as $projectpropertyType)
+        {
+            $propertyTypes[$projectpropertyType['property_type_id']]=get_property_type($projectpropertyType['property_type_id']);
+            
+            $unitTypes = ProjectPropertyType::find($projectpropertyType['id'])->projectUnitType()->get()->toArray();
+                        
+            foreach($unitTypes as $unitType)
+            {
+                $variants = \CommonFloor\UnitType::find($unitType['id'])->unitTypeVariant()->get()->toArray(); 
+                    foreach($variants as $variant)
+                    { 
+                        $units = \CommonFloor\Unit::where('unit_variant_id',$variant['id'])->get()->toArray(); 
+                        foreach ($units as $unit)
+                        {                            
+                            $phaseData[$unit['phase_id']] = \CommonFloor\Phase::find($unit['phase_id'])->phase_name;
+                            $unitTypeData[$unitType['unittype_name']] = Defaults::find($unitType['unittype_name'])->label;
+                            
+                            if(!isset($propertyTypeUnitData[$projectpropertyType['id']][$unit['phase_id']][$unitType['unittype_name']]))
+                            {
+                                $propertyTypeUnitData[$projectpropertyType['id']][$unit['phase_id']][$unitType['unittype_name']]['available'] =0;
+                                $propertyTypeUnitData[$projectpropertyType['id']][$unit['phase_id']][$unitType['unittype_name']]['sold'] =0;
+                                $propertyTypeUnitData[$projectpropertyType['id']][$unit['phase_id']][$unitType['unittype_name']]['not_released'] =0;
+                                $propertyTypeUnitData[$projectpropertyType['id']][$unit['phase_id']][$unitType['unittype_name']]['blocked'] =0;     
+                            }
+
+                                $propertyTypeUnitData[$projectpropertyType['id']][$unit['phase_id']][$unitType['unittype_name']]['available'] +=($unit['availability']=='available')?1:0;
+                                $propertyTypeUnitData[$projectpropertyType['id']][$unit['phase_id']][$unitType['unittype_name']]['sold'] +=($unit['availability']=='sold')?1:0;
+                                $propertyTypeUnitData[$projectpropertyType['id']][$unit['phase_id']][$unitType['unittype_name']]['not_released'] +=($unit['availability']=='not_released')?1:0;
+                                $propertyTypeUnitData[$projectpropertyType['id']][$unit['phase_id']][$unitType['unittype_name']]['blocked'] +=($unit['availability']=='blocked')?1:0;       
+                            
+                        }
+                        
+                    }
+                
+            }
+            
+        }
+        
+        ksort($propertyTypes);
+        $projectData =$project->toArray();
+        $projectData['master'] = unserialize($projectData['master']);
+        $projectData['breakpoints'] = unserialize($projectData['breakpoints']);
+                
+ 
+        return view('admin.project.projectsummary')
+                        ->with('project', $projectData)
+                        ->with('phases', $phases)
+                        ->with('projectpropertyTypes', $projectpropertyTypes)
+                        ->with('propertyTypeUnitData', $propertyTypeUnitData)
+                        ->with('phaseData', $phaseData)
+                        ->with('unitTypeData', $unitTypeData)
+                        ->with('propertyTypes', $propertyTypes)
+                         ->with('current', 'summary');
+ 
+    }
 
 }

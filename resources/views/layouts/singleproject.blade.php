@@ -9,7 +9,7 @@
             <h2 class="text-white b-g b-b p-b-20">{{ $project['project_title'] }}</h2>
         </div>
         <div class="inner-menu-content">
-            <p class="menu-title">Project <span class="pull-right"><i class="icon-refresh"></i></span></p>
+         <a href="{{ url( 'admin/project/' . $project['id'] . '/summary' ) }}" >   <p class="menu-title">Project <span class="pull-right"><i class="icon-refresh"></i></span></p></a>
         </div>
         <ul class="big-items">
             <li class="{{ $current === 'settings' ? 'active' : '' }}">

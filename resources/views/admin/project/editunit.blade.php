@@ -14,51 +14,65 @@
 
 @section('content')
 <!-- BEGIN PAGE TITLE -->
-<div class="page-title">	
-    <h2><span class="semi-bold">Edit</span> Unit </h2>
+<div class="page-title">
+    <h2><span class="semi-bold">Edit </span> Unit</h2>
 </div>
-<!-- END PAGE TITLE -->
-<!-- BEGIN PlACE PAGE CONTENT HERE -->
-<div class="grid simple">
-    <div class="grid-title">
-        <h3>Villa <span class="semi-bold">Details</span></h3>
-    </div>
 
-    <div class="grid-body">
-        <form action="/admin/project/{{ $project['id'] }}/bunglow-unit/{{$unit['id']}}" method="POST" data-parsley-validate>
+<div class="grid simple">
+    <div class="grid-title no-border">
+        <h3 > <i class="fa fa-angle-double-right text-primary"></i> Villa <span class="semi-bold">Details</span></h3>
+    </div>
+    <form action="/admin/project/{{ $project['id'] }}/bunglow-unit/{{$unit['id']}}" method="POST" data-parsley-validate>
+        <div class="grid-body no-border ">
+
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Name</label>
-                        <input type="text" class="form-control" value="{{$unit['unit_name']}}" name="unit_name" placeholder="Enter Name" data-parsley-required>
-                    </div> 
+                        <label class="form-label">Name<span class="text-primary">*</span></label>
+                        <input type="text" class="form-control" name="unit_name" value="{{$unit['unit_name']}}"  placeholder="Enter Name" data-parsley-required>
+                        <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Unit Variant</label>
-                        <select name="unit_variant" class="select2 form-control" data-parsley-required>
+                        <label class="form-label">Unit Variant<span class="text-primary">*</span></label>
+
+                        <select name="unit_variant" class="select2 form-control m-b-5" data-parsley-required>
                             <option value="">Select Unit Variant</option>
                             @foreach($unit_variant_arr as $unit_variant)
                             <option @if($unit['unit_variant_id']==$unit_variant['id']){{'selected'}}@endif value="{{$unit_variant['id']}}">{{$unit_variant['unit_variant_name']}}</option>
                             @endforeach
                         </select>
-                    </div> 
+                        <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
+                    </div>
                 </div>
-               
                 <div class="col-md-4">
-
                     <div class="form-group">
-                        <label class="form-label">Unit Status</label>
+                        <label class="form-label">Phase<span class="text-primary">*</span></label>
+                        <select  class="select2 form-control" name="phase">
+                            <option value="">Select Phase</option>
+                           @foreach($phases as $phase)
+                            <option @if($unit['phase_id']==$phase['id']){{'selected'}}@endif value="{{$phase['id']}}">{{$phase['phase_name']}}</option>
+                            @endforeach
+                        </select>
+                        <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Status<span class="text-primary">*</span></label>
                         <select  class="select2 form-control" name="unit_status">
                             <option @if($unit['availability']=='available'){{'selected'}}@endif value="available">Available</option>
                             <option @if($unit['availability']=='sold'){{'selected'}}@endif value="sold">Sold</option>
                             <option @if($unit['availability']=='not_released'){{'selected'}}@endif value="not_released">Not Released</option>
                             <option @if($unit['availability']=='blocked'){{'selected'}}@endif value="blocked">Blocked</option>
                         </select>
+                        <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                     </div>
                 </div>
-
             </div>
+
+
             <div class="form-actions">  
                 <div class="pull-right">
                     <input type="hidden" id="addanother" name="addanother" value="">
@@ -68,9 +82,12 @@
                     <button type="button" onclick="saveAndAddAnother();" class="btn btn-default btn-cons">Save And Add Another</button>
                 </div>
             </div>
-        </form>
-    </div>
+
+        </div>
+    </form>
 </div>
+
 
 <!-- END PLACE PAGE CONTENT HERE -->
 @endsection
+

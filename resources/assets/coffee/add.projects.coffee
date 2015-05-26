@@ -110,19 +110,30 @@ jQuery(document).ready ($)->
 			if xhr.status is 201
 				$('.phase-name').val ''
 				phaseId = resp.data.phase_id
+				type = resp.data.type
 				
 				if objectType is 'building'
 					phasesContainer = $('select[name="phase_id"]');
 					html = '<option value="{{ phase_id }}">{{ phase_name }}</option>'
 				else
-					phasesContainer = $('.phases')
-					html = '<div class="pull-left m-r-10">
-								<strong>{{ phase_name }}</strong>
-								<button type="button" data-phase-id="{{ phase_id }}" class="btn btn-small btn-link remove-phase">
-								<span class="fa fa-times text-danger"></span></button>
-							</div>'
+					phasesContainer = $('.phase-table tbody')
+					html = '<tr>
+							<td>{{ phase_name }}</td>
+							<td>
+                       		 <select id="phases1" class="select2-container select2 form-control select2-container-active" style="width:50%;">
+                            <option value="">Select Status</option>
+                            <option >Live</option>
+                            <option selected>Not Live</option>
+                        	</select>
+                    		</td>
+                    		<td><a href="#"  data-toggle="modal" data-target="#myModal" class="text-primary hidden">Update</a></td>
+							</tr>'
+
 				compile = Handlebars.compile html
-				phasesContainer.append compile( { phase_name : phaseName, phase_id : phaseId } )
+				if type is 'add'
+					phasesContainer.append compile( { phase_name : phaseName, phase_id : phaseId } )
+				else
+					phasesContainer.html compile( { phase_name : phaseName, phase_id : phaseId } )	
 				registerRemovePhaseListener()
 			
 		$.ajax 

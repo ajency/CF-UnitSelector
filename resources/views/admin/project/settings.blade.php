@@ -30,8 +30,38 @@
                     <div class="radio radio-primary">
                         <input id="measurement_units_sqft" type="radio" name="measurement_units" value="Sq. Ft." checked>
                         <label for="measurement_units_sqft" class="form-label">Square Feet (Sq. Ft.)</label>
-                        <input id="measurement_units_sqm" type="radio" name="measurement_units" value="Sq. Mt." {{ ($project['measurement_units'] == 'Sq.m') ? 'checked' : '' }}>
+                        <input id="measurement_units_sqm" type="radio" name="measurement_units" value="Sq. Mt." {{ ($project['measurement_units'] == 'Sq. Mt.') ? 'checked' : '' }}>
                         <label for="measurement_units_sqm" class="form-label">Square Meter (Sq. Mt.)</label>
+                    </div>
+
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="m-l-5 no-border">
+                    <h3><i class="fa fa-angle-double-right text-primary"></i> Has <span class="semi-bold">Phases</span></h3>
+                </div>
+                <div class="col-md-12">
+                    <div class="radio radio-primary">
+                        <input id="phases_yes" type="radio" name="has_phases" value="yes" checked>
+                        <label for="phases_yes" class="form-label">Yes</label>
+                        <input id="phases_no" type="radio" name="has_phases" value="no" {{ ($project['has_phase'] == 'no') ? 'checked' : '' }}>
+                        <label for="phases_no" class="form-label">No</label>
+                    </div>
+
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="m-l-5 no-border">
+                    <h3><i class="fa fa-angle-double-right text-primary"></i> Has <span class="semi-bold">Master Images</span></h3>
+                </div>
+                <div class="col-md-12">
+                    <div class="radio radio-primary">
+                        <input id="master_yes" type="radio" name="has_master" value="yes" checked>
+                        <label for="master_yes" class="form-label">Yes</label>
+                        <input id="master_no" type="radio" name="has_master" value="no" {{ ($project['has_master'] == 'no') ? 'checked' : '' }}>
+                        <label for="master_no" class="form-label">No</label>
                     </div>
 
                 </div>

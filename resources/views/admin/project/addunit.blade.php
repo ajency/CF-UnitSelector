@@ -14,66 +14,62 @@
 
 @section('content')
 <!-- BEGIN PAGE TITLE -->
-<div class="page-title">	
-    <h2><span class="semi-bold">Add</span> Unit </h2>
+<div class="page-title">
+    <h2><span class="semi-bold">Add </span> Unit</h2>
 </div>
-<!-- END PAGE TITLE -->
-<!-- BEGIN PlACE PAGE CONTENT HERE -->
-<div class="grid simple">
-    <div class="grid-title">
-        <h3>Villa <span class="semi-bold">Details</span></h3>
-    </div>
 
-    <div class="grid-body">
-        <form action="/admin/project/{{ $project['id'] }}/bunglow-unit" method="POST" data-parsley-validate>
+<div class="grid simple">
+    <div class="grid-title no-border">
+        <h3 > <i class="fa fa-angle-double-right text-primary"></i> Villa <span class="semi-bold">Details</span></h3>
+    </div>
+    <form action="/admin/project/{{ $project['id'] }}/bunglow-unit" method="POST" data-parsley-validate>     
+        <div class="grid-body no-border ">
+
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Name</label>
+                        <label class="form-label">Name<span class="text-primary">*</span></label>
                         <input type="text" class="form-control" name="unit_name" placeholder="Enter Name" data-parsley-required>
-                    </div> 
+                        <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Unit Variant</label>
+                        <label class="form-label">Unit Variant<span class="text-primary">*</span></label>
+
                         <select name="unit_variant" class="select2 form-control m-b-5" data-parsley-required>
                             <option value="">Select Unit Variant</option>
                             @foreach($unit_variant_arr as $unit_variant)
                             <option value="{{$unit_variant['id']}}">{{$unit_variant['unit_variant_name']}}</option>
                             @endforeach
                         </select>
-                   <!--<a type="button" href="#" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-share"></i> Add Variant</a>-->
-                    </div> 
-                </div>
-                <!--<div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Facing</label>
-                        <select  class="select2 form-control" name="facing">
-                             <option value="">Select Facing</option>
-                            <option value="north">North</option>
-                            <option value="south">South</option>
-                            <option value="east">East</option>
-                            <option value="west">West</option>
-                            <option value="northeast">North-East</option>
-                            <option value="northwest">North-West</option>
-                            <option value="southeast">South-East</option>
-                            <option value="southwest">South-West</option>
-                        </select>
+                        <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                     </div>
-                </div>-->
+                </div>
                 <div class="col-md-4">
-
                     <div class="form-group">
-                        <label class="form-label">Unit Status</label>
+                        <label class="form-label">Phase<span class="text-primary">*</span></label>
+                        <select  class="select2 form-control" name="phase">
+                           <option value="">Select Phase</option>  
+                           @foreach($phases as $phase)
+                            <option value="{{$phase['id']}}">{{$phase['phase_name']}}</option>
+                            @endforeach
+                        </select>
+                        <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Status<span class="text-primary">*</span></label>
                         <select  class="select2 form-control" name="unit_status">
                             <option value="available">Available</option>
                             <option value="sold">Sold</option>
                             <option value="not_released">Not Released</option>
                             <option value="blocked">Blocked</option>
                         </select>
+                        <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                     </div>
                 </div>
-
             </div>
 
 
@@ -85,24 +81,12 @@
                     <button type="button" onclick="saveAndAddAnother();" class="btn btn-default btn-cons">Save And Add Another</button>
                 </div>
             </div>
-        </form>
-    </div>
+
+        </div>
+    </form>
 </div>
+
 
 <!-- END PLACE PAGE CONTENT HERE -->
 @endsection
 
-<!-- Modal -->
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title text-left" id="myModalLabel">Add Variant</h4>
-      </div>
-      <div class="modal-body">
-        <iframe src="" width="100%"></iframe>
-      </div>
-         </div>
-  </div>
-</div>
