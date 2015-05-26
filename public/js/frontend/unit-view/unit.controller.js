@@ -309,7 +309,7 @@
         var html, response;
         response = this.generateLevels();
         html = '';
-        html += '<div class="animated fadeIn"> <img class="img img-responsive" data-src="' + response[3].get('external3durl') + '" /> </div>';
+        html += '<div class="animated fadeIn"> <img class="img img-responsive external-img" data-src="' + response[3].get('external3durl') + '" /> </div>';
         $('.images').html(html);
         $('.img').lazyLoadXT();
         $('.external').addClass('current');

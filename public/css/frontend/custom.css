@@ -2063,6 +2063,8 @@ svg polygon {
   background: url(../../images/arrow.png);
   background-size: contain;
   background-repeat: no-repeat;
+  background-color: rgba(102, 102, 102, 0.5);
+  border-radius: 50%;
   opacity: 0.5;
 }
 .single-bldg .prev:hover,
