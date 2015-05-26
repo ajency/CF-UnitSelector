@@ -350,9 +350,6 @@ body {
     margin: 6px 4px 0 2px;
     font-size: 11px;
   }
-  .top-spacing {
-    padding-top: 18px;
-  }
 }
 hr.embossed {
   width: 100%;
@@ -2642,32 +2639,41 @@ label.third_toggle {
 .svg-tooltip {
   display: none;
 }
-.big-tooltip {
+.big-tooltip .svg-info {
   width: 100%;
   max-width: 470px;
 }
-.big-tooltip h5 {
-  width: 65%;
+.big-tooltip .svg-info .action-bar {
+  width: 35%;
 }
-.big-tooltip .b-r {
+.big-tooltip .svg-info h5 {
+  width: 64%;
+}
+.big-tooltip .svg-info .details {
+  float: left;
+}
+.big-tooltip .svg-info .b-r {
   border-left: 1px solid #cccccc;
 }
-.big-tooltip img {
+.big-tooltip .svg-info img {
   width: 100%;
 }
-.big-tooltip .icon-location {
+.big-tooltip .svg-info .icon-location {
   float: left;
   margin-right: 10px;
   font-size: 30px;
   color: #f68121;
 }
-.big-tooltip .icon-cross {
+.big-tooltip .svg-info .icon-cross {
   position: absolute;
   right: 8px;
 }
-.big-tooltip .address {
+.big-tooltip .svg-info .address {
   float: left;
   width: 82%;
+}
+.big-tooltip .svg-info .circle:hover {
+  color: #ffffff;
 }
 .svg-info {
   font-family: OpenSans, Arial, sans-serif;
@@ -2763,7 +2769,7 @@ label.third_toggle {
   right: 18px;
   line-height: 35px;
   border: 1px solid #999;
-  color: #5F5858 !important;
+  color: #5F5858;
   font-size: 13px;
   z-index: 999;
 }
