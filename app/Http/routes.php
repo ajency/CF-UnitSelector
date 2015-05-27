@@ -72,7 +72,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::post( 'project/{project}/apartment-variant/getpropertytypedata', 'Admin\ProjectApartmentVariantController@getPropertyTypeData' );
     Route::get( 'project/{project}/attributes/addroomtype', 'Admin\ProjectRoomTypeController@addRoomType' );
     Route::get( 'project/{projectid}/image/{imageid}', 'Admin\SvgController@show' );
-    Route::get( 'project/{id}/master/authoring-tool', 'Admin\ProjectController@loadMasterSvgTool' );
+    Route::get( 'project/{id}/master/{imageid}/authoring-tool', 'Admin\ProjectController@loadMasterSvgTool' );
 
     
 });
