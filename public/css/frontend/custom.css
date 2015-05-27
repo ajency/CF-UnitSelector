@@ -2276,7 +2276,19 @@ svg polygon {
 }
 .similar-section {
   margin-top: 20px;
-  padding-right: 15px;
+}
+.similar-section .sim-icon {
+  width: 20%;
+  float: left;
+}
+.similar-section .sim-icon .alert {
+  padding: 15px 20px 25px;
+}
+.similar-section .sim-details {
+  width: 80%;
+  float: left;
+  padding-left: 10px;
+  font-size: 13px;
 }
 .similar-section h5 {
   margin-top: 0;
@@ -2285,6 +2297,25 @@ svg polygon {
 }
 .similar-section h5 a {
   color: #262626;
+}
+.similar-section h5 a:hover {
+  color: #f68121;
+}
+@media (max-width: 1109px) {
+  .similar-section .sim-icon {
+    display: none;
+  }
+  .similar-section .sim-details {
+    width: 100%;
+  }
+}
+@media (max-width: 1400px) {
+  .similar-section .sim-icon {
+    width: 30%;
+  }
+  .similar-section .sim-details {
+    width: 70%;
+  }
 }
 .fliters-container {
   position: fixed;

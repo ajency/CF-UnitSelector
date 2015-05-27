@@ -181,19 +181,18 @@ class LeftUnitView extends Marionette.ItemView
 					           <h5 class="bold m-b-15">{{similarUnitsText}}</h5>
 					          
 					              	{{#similarUnits}}
-					              	<div class="row m-b-15">
-					              	    <div class="col-sm-4 hidden-xs">
+					              	<div class="m-b-15 clearfix">
+					              	    <div class="sim-icon">
 				              	            <div class="alert ">
 				              	              <i class="{{type}}-ico"></i>
 				              	            </div> 
 					              	    </div>
 
-					              	    <div class="col-sm-8 col-xs-12">
-			              	              	<h5><a href="'+BASEURL+'/project/'+PROJECTID+'/#unit-view/{{id}}">{{unit_name}}</a> <span class="text-primary pull-right"><span class="icon-rupee-icn"></span>{{price}}</span></h5>
-
-			              	              	<span class="text-muted">Unit Variant: </span>{{variant}}<br>
-			              	             	<span class="text-muted">Unit Type:</span> {{unit_type}}<br>
-			              	             	<span class="text-muted"> Area:</span> {{area}} '+project.get('area_unit')+'    
+					              	    <div class="sim-details">
+			              	              	<h5 class="m-b-0"><a href="'+BASEURL+'/project/'+PROJECTID+'/#unit-view/{{id}}">{{unit_name}}</a> </h5>
+			              	             	{{unit_type}} ({{area}} '+project.get('area_unit')+')<br>
+			              	              	{{variant}}<br>
+			              	              	<span class="text-primary"><span class="icon-rupee-icn"></span>{{price}}</span>
 					              	    </div>
 					              	</div>
 
