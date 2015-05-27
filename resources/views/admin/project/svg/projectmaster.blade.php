@@ -65,7 +65,7 @@
                                     </div>
                                 </td>
                                 <td class=" ">
-                                    <a target="_blank" href=" {{$authoringToolUrl}} " class=" {{ (isset($svgImages['breakpoints']) && in_array($position,$svgImages['breakpoints'])) ? '' : 'hidden' }} auth-tool-{{$image['ID']}} " >Authoring Tool</a>
+                                    <a target="_blank" href=" {{$authoringToolUrl}} " class=" {{ (isset($svgImages['breakpoints']) && in_array($position,$svgImages['breakpoints'])) ? '' : 'hidden' }} auth-tool-{{ $position }} " >Authoring Tool</a>
                                 </td>
 
                                 <td class="text-right">
