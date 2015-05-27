@@ -113,11 +113,13 @@ class Permission {
                               'admin/project/{project}/apartment-variant/getpropertytypedata'=>'configure_project',
                               'admin/user/validateuseremail'=>'manage_users', 
                               'admin/user/validateuserpassword'=>'manage_users', 
+                              'admin/project/{id}/master/authoring-tool'=>'configure_project',
                 ];
                
                 
                 $resourceName = $request->route()->getName(); 
-                $uriPath =$request->route()->getPath();  //echo $uriPath; exit;
+                $uriPath =$request->route()->getPath();  
+                // echo $uriPath; exit;
                 
                 if($uriPath != 'admin')
                 {
