@@ -1664,8 +1664,6 @@ svg polygon {
   float: left;
   width: 32.2%;
   padding: 15px 10px;
-  border-bottom: 1px solid #e6e6e6;
-  border-right: 1px solid #e6e6e6;
 }
 .blocks:nth-child(3n) {
   margin-right: 0;
@@ -1682,6 +1680,11 @@ svg polygon {
   border-right: 1px solid #666666;
   content: "";
   float: right;
+}
+.blocks.available {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e6e6e6;
+  border-right: 1px solid #e6e6e6;
 }
 .blocks.available .status-icon {
   display: none;
@@ -1722,7 +1725,24 @@ svg polygon {
 .blocks.blocked,
 .blocks.not_released {
   background-color: #e0e0e0;
+  border-bottom: 1px solid #b3b3b3;
+  border-right: 1px solid #b3b3b3;
   opacity: 0.5;
+}
+.blocks.sold:hover,
+.blocks.blocked:hover,
+.blocks.not_released:hover {
+  box-shadow: inset 0 0 10px 1px #f68121;
+  -webkit-animation-name: hvr-back-pulse;
+          animation-name: hvr-back-pulse;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-delay: 0;
+          animation-delay: 0;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
 }
 .eight .blocks {
   padding: 10px;
@@ -1767,7 +1787,6 @@ svg polygon {
 .one .blocks {
   padding: 10px;
   width: 50%;
-  background-color: #ffffff;
 }
 .two .blocks .cost,
 .one .blocks .cost {
@@ -2098,6 +2117,11 @@ svg polygon {
   position: absolute;
   bottom: 0;
   right: 0;
+}
+@media (max-width: 991px) {
+  .mini-map {
+    display: none;
+  }
 }
 .room-attr span {
   color: #999999;

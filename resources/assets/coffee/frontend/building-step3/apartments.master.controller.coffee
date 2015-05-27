@@ -33,7 +33,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 						              				<div class="proj-type-count">
 						              					<h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p>
 						              				</div>
-						              				<div class="pull-left filter-result">
+						              				<div class="pull-left filter-result full">
 						              	              	{{#each  filters}}
 						              	              	{{#each this}}
 						              					<div class="filter-pill"  >
@@ -402,8 +402,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 										  <ul>
 										    <!--<li class="available">AVAILABLE</li>-->
 										    <li class="sold">N/A</li>
-										    <!--<li class="blocked">BLOCKED</li>-->
-										    <li class="na">Available</li>
+										    <!--<li class="blocked">BLOCKED</li>
+										    <li class="na">Available</li>-->
 										  </ul>
 										</div>
 
@@ -413,9 +413,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 										</div>
 
 										<div id="view_toggle" class="toggle-view-button list"></div>
+										<div id="trig" class="toggle-button hidden">List View</div>
 							              
 							            <div class=" master animated fadeIn">
-
 								            <div class="single-bldg">
 								                <div class="prev"></div>
 								                <div class="next"></div>
@@ -427,14 +427,15 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 												<div class="region inactive"></div>
 											</div>
 
+											<div class="cf-loader hidden"></div>
 								    	</div>
 										
-										<div class="cf-loader hidden"></div>
 							            <div class="rotate rotate-controls hidden">
 									        <div id="prev" class="rotate-left">Left</div>
 									        <span class="rotate-text">Rotate</span>
 									        <div id="next" class="rotate-right">Right</div>
 							    		</div>
+
 							    		<div class="mini-map">
 							    			<img class="firstimage img-responsive" src="" />
 							    			<div class="project_master"></div>
@@ -635,6 +636,11 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 
 	onShow:->
+
+		windowHeight = $(window).innerHeight() - 56
+		$('.master').css 'height', windowHeight
+		$('.master').css 'min-width', windowHeight * 2
+
 		@getNextPrev()
 		$('img').lazyLoadXT()
 		height =  @ui.svgContainer.width() / 2
@@ -791,11 +797,18 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			offsetY : -40
 			trigger: 'hover'
 			interactive : true
-			multiple: true
+			functionReady:(e)->
+				$('.view-unit').on('click' , (e)->
+					$('.layer').tooltipster('hide')
+					$('svg').attr('class' ,'zoom')
+					$('#spritespin').addClass 'zoom'
+					$('.us-right-content').addClass 'fadeOut'
+					$('.cf-loader').removeClass 'hidden'
+				)
 		)
 
 	loadZoom:->
-		$panzoom =  $('.master').panzoom
+		$('.master').panzoom
 			contain: 'invert'
 			minScale: 1
 			maxScale: 2.4
@@ -803,6 +816,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$zoomIn: $('.zoom-in')
 			$zoomOut: $('.zoom-out')
 			# $set: $('.spritespin-canvas')
+
+		$('.master polygon').on 'mousedown touchstart', (e) ->
+			e.stopImmediatePropagation()
 	
 
 
