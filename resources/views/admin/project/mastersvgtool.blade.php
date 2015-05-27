@@ -58,7 +58,7 @@
 
                         </div>
                     </div>
-
+                    <div class="alert alert-info hidden"><span class="info"></span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
                     <div class="aj-imp-browser-preview">
                         <!-- browser body-->
                       
@@ -73,7 +73,8 @@
                        
                      </select>
                    </div>
-                   <div class="form-group">
+                    <div id="dynamice-region"></div>
+                   <!-- <div class="form-group">
                      <label for="exampleInputPassword1">Unit Type</label>
                     <select class="form-control Villas">
                        <option value="1">Villa 1</option>
@@ -82,7 +83,8 @@
                        <option value="4">Villa 4</option>
                        <option value="5">Villa 5</option>
                      </select>
-                   </div>
+                   </div> -->
+                   <br/>
                    <button type="button" class="btn btn-primary submit" >Submit</button>
                  </form>
                </div>
@@ -310,11 +312,11 @@
         </div>
 
 
-        <div class="aj-imp-builder container-fluid">
-       <div id="header-region"></div>
+        
        
         <div ui-region></div>
-    </div>
+       
+   
 
         @include('frontend/templates')
         <script src="{{ asset('bower_components/underscore/underscore-min.js' )}}"></script>
@@ -340,6 +342,7 @@
         
         <script type="text/javascript">
             svgImg = '{{$svgImage}}';
+
            
 
         AuthoringTool = new Marionette.Application 
@@ -357,6 +360,8 @@
 
         <script src="{{ asset('js/authoring-tool/common.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/polygon.entity.js' )}}"></script>
+        <script src="{{ asset('js/authoring-tool/entities/villa.entity.js' )}}"></script>
+        <script src="{{ asset('js/authoring-tool/entities/plot.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/svg.authoring.controller.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/application.js' )}}"></script>
 </body>

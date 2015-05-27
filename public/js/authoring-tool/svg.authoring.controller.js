@@ -5,58 +5,8 @@
     window.draw = SVG('aj-imp-builder-drag-drop');
     window.svgData = {
       'image': '',
-      'data': [
-        {
-          'id': 1,
-          'type': 'villa',
-          'name': 'Villa 1',
-          'canvas_type': 'polygon',
-          'details': {
-            'class': 'marked'
-          },
-          'points': ["359", "332", "418", "365", "345", "359"]
-        }, {
-          'id': 2,
-          'type': 'villa',
-          'name': 'Villa 2',
-          'canvas_type': '',
-          'details': '',
-          'points': []
-        }, {
-          'id': 3,
-          'type': 'villa',
-          'name': 'Villa 3',
-          'canvas_type': 'polygon',
-          'details': {
-            'class': 'marked'
-          },
-          'points': ["425", "485", "459", "501", "457", "547", "408", "550"]
-        }, {
-          'id': 4,
-          'type': 'villa',
-          'name': 'Villa 4',
-          'canvas_type': 'polygon',
-          'details': {
-            'class': 'marked'
-          },
-          'points': ["629", "490", "667", "476", "704", "474", "709", "499", "706", "536", "635", "539"]
-        }, {
-          'id': 5,
-          'type': 'villa',
-          'name': 'Villa 5',
-          'canvas_type': '',
-          'details': '',
-          'points': []
-        }, {
-          'id': 6,
-          'type': 'building',
-          'name': 'Building 1',
-          'canvas_type': '',
-          'details': '',
-          'points': []
-        }
-      ],
-      'supported_types': ['villa', 'building']
+      'data': [],
+      'supported_types': ['villa', 'plot']
     };
     window.createSvg = function(svgData) {
       window.rawSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -141,6 +91,10 @@
       var select, types;
       types = window.svgData.supported_types;
       select = $('.property_type');
+      $('<option />', {
+        value: "",
+        text: 'Select option'
+      }).appendTo(select);
       $.each(types, function(index, value) {
         return $('<option />', {
           value: value,
@@ -165,7 +119,15 @@
       $(this).toggleClass("expanded");
       return $('.menu').toggleClass('open');
     });
-    $('.marked,.save').on('dblclick', function(e) {
+    $('.save').on('dblclick', function(e) {
+      e.preventDefault();
+      window.canvas_type = "polygon";
+      $('#aj-imp-builder-drag-drop canvas').show();
+      $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
+      $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
+      return $('.edit-box').removeClass('hidden');
+    });
+    $('.villa,.plot').on('dblclick', function(e) {
       var currentElem, svgDataObjects;
       e.preventDefault();
       window.canvas_type = "polygon";
@@ -186,15 +148,20 @@
         };
       })(this));
     });
-    return $('.submit').on('click', function(e) {
+    $('.submit').on('click', function(e) {
       var childEle, details, value;
+      if (_.isEmpty($('.area').val())) {
+        $('.info').text('Coordinates not marked');
+        $('.alert').removeClass('hidden');
+        return false;
+      }
       value = $('.area').val().split(',');
       store.remove();
       details = {};
-      details['class'] = 'marked';
+      details['class'] = 'layer ' + $('.property_type').val();
       childEle = {};
-      childEle['id'] = $('.Villas').val();
-      childEle['name'] = $(".Villas option:selected").text();
+      childEle['id'] = $('.units').val();
+      childEle['name'] = $(".units option:selected").text();
       childEle['type'] = $('.property_type').val();
       childEle['points'] = value;
       childEle['details'] = details;
@@ -208,7 +175,36 @@
       window.showPendingObjects(types);
       s = new XMLSerializer();
       str = s.serializeToString(rawSvg);
-      return draw.svg(str);
+      draw.svg(str);
+      $('.area').val("");
+      return window.f = [];
+    });
+    $('.property_type').on('change', function(e) {
+      if ($(e.target).val() === 'villa') {
+        this.region = new Marionette.Region({
+          el: '#dynamice-region'
+        });
+        new AuthoringTool.VillaCtrl({
+          region: this.region
+        });
+      }
+      if ($(e.target).val() === 'plot') {
+        this.region = new Marionette.Region({
+          el: '#dynamice-region'
+        });
+        return new AuthoringTool.PlotCtrl({
+          region: this.region
+        });
+      }
+    });
+    return $('.units').on('change', function(e) {
+      console.log("aaaaaaaaaaaa");
+      return $('.layer').each(function(index, value) {
+        if (value.id === $(e.target).val()) {
+          $('.info').text('Already assigned');
+          $('.alert').removeClass('hidden');
+        }
+      });
     });
   });
 
