@@ -78,9 +78,9 @@
             <div class="col-md-12">
                 <h5 class="semi-bold inline">The unit for measurement selected is : </h5> 
                 <span>  
-                    @if($project['measurement_units'] == 'Sq.m')
+                    @if($project['measurement_units'] == 'Sq. Mt.')
                         Square metre ({{ $project['measurement_units'] }}) 
-                    @elseif($project['measurement_units'] == 'Sq.ft')    
+                    @elseif($project['measurement_units'] == 'Sq. Ft.')    
                        Square Feet ({{ $project['measurement_units'] }})
                        @endif
                 </span>
