@@ -51,9 +51,12 @@
                             <?php
                             //$fileName = $image['NAME'];
                             //$fileData = explode('.', $fileName);
+                         
+                            $authoringToolUrl = url() . "/admin/project/" . $project['id'] . "/master/" .  $image['ID'] . "/authoring-tool";
                             ?>
                             <tr class="gradeX odd" id="position-{{ $position }}">
                                 <td class="">{{ $image['NAME'] }}</td>
+                                <input type="hidden" name="image_id" value="{{$image['ID']}}">
                                 <td class=" "><span class="muted">{{ $position }}</span></td>
                                 <td class=" ">
                                     <div class="checkbox check-primary" >
@@ -62,11 +65,11 @@
                                     </div>
                                 </td>
                                 <td class=" ">
-                                    <a class="{{ (isset($svgImages['breakpoints']) && in_array($position,$svgImages['breakpoints'])) ? '' : 'hidden' }}">Authoring Tool</a>
+                                    <a target="_blank" href=" {{$authoringToolUrl}} " class=" {{ (isset($svgImages['breakpoints']) && in_array($position,$svgImages['breakpoints'])) ? '' : 'hidden' }} auth-tool-{{$image['ID']}} " >Authoring Tool</a>
                                 </td>
 
                                 <td class="text-right">
-                                    <a class="text-primary" onclick="deleteSvg({{ $image['ID'] }}, 'master','{{ $position }}');"><i class="fa fa-close"></i></a>
+                                    <a href="" class="text-primary" onclick="deleteSvg({{ $image['ID'] }}, 'master','{{ $position }}');"><i class="fa fa-close"></i></a>
                                 </td>
                             </tr>
                                 @else
