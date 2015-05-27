@@ -370,6 +370,7 @@ class ProjectController extends Controller {
         return view('admin.project.mastersvgtool')
                         ->with('project', $project->toArray())
                         ->with('svgImage', $svgImagePath)
+                        ->with('token',csrf_token())
                         ->with('current', 'mastersvgtool');
     }
 
