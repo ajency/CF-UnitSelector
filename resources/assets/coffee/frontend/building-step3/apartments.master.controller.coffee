@@ -439,7 +439,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 							    		</div>
 
 							    		<div class="mini-map">
-							    			<img class="firstimage img-responsive lazy-hidden" />
+							    			<img class="firstimage img-responsive" src=""/>
 							    			<div class="project_master"></div>
 							    		</div>
 							              

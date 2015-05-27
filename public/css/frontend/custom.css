@@ -1268,6 +1268,11 @@ hr.embossed {
     top: 15px;
     bottom: initial;
   }
+  .zoom-controls .zoom-in:hover,
+  .zoom-controls .zoom-out:hover {
+    background-color: #ffffff;
+    color: #f68121;
+  }
 }
 /* Lazy Load Loader */
 .lazy-hidden {
@@ -1375,6 +1380,10 @@ svg .layer.svg_active {
   -webkit-animation: blink 0.8s ease-in-out infinite alternate;
           animation: blink 0.8s ease-in-out infinite alternate;
   -moz-animation: blink 0.8s ease-in-out infinite alternate;
+  -webkit-transform: scale(1);
+      -ms-transform: scale(1);
+          transform: scale(1);
+  -moz-transform: scale(1);
 }
 svg .layer.not_in_selection {
   opacity: .5;
