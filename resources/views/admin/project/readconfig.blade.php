@@ -123,8 +123,8 @@
                                         <i class="fa fa-circle"></i> {{ $defaultunitTypes[$propertyTypeId][$unitType->unittype_name] }} 
                                     </div>
                                     @if($i==4)
-                                    </div>
-                                    <div class="row m-b-10">
+                                </div>
+                                <div class="row m-b-10">
                                     @endif
                                     
                                     <?php
