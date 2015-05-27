@@ -33,14 +33,20 @@
                <div>
                <input type="checkbox" aria-label="...">
                <strong>Display marked units</strong>
-               <strong class="pull-right" style="line-height:70px;margin-right: 20px;  color: #FF7E00;">
-                  Pending: 46 Villa's | 2 Plot's</strong>
+               
+                 <strong class="pull-right total-count">
+                 46 Villa(s) | 2 Plot(s)</strong>
+                 <strong class="pull-right title-count"> Pending:</strong>
+                  <strong class="pull-right total-count">
+                16 Villa(s) | 2 Plot(s)</strong>
+                 <strong class="pull-right title-count"> Marked:</strong>
                </div>
 
             </div>
          </div>
 
          <div class="aj-imp-browser-preview">
+        </div>
             <!-- browser header-->
             <div class="aj-imp-browser-header">
                <div class="lock-message hidden">
@@ -159,12 +165,53 @@
                <!--second row-->
             
             </div>
+            <div class="alert alert-info alert-box">
+              Error Msg Blocked Msg
+            </div>
             <!-- browser body-->
             <div id="aj-imp-browser-body">
                <!-- TODO: remove inline style-->
                <div id="aj-imp-builder-drag-drop" style="min-height:800px" class="site-style-container aj-imp-builder-layout-mode">
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm2">Small modal</button>
-
+              <nav role='navigation' class="aj-navbar">
+                  <div class="toggle">
+                    <span class="container">
+                     <i class="fa fa-plus"></i>
+                    </span>
+                  </div>
+                  <div class="menu">
+                    <ul class="menu-block">
+                      <li><a><i class="fa fa-area-chart"></i> Polygon</a></li>
+                      <li><a><i class="fa fa-map-marker"></i> Marker</a></li>
+                    </ul>
+                  </div>
+                </nav>  
+                <div class="edit-box">
+                    <h4>Unit Details</h4>
+                    <form>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Property Type</label>
+                     <select class="form-control">
+                        <option>1 BHK</option>
+                        <option>2 BHK</option>
+                        <option>3 BHK</option>
+                        <option>4 BHK</option>
+                        <option>5 BHK</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Unit Type</label>
+                     <select class="form-control">
+                        <option>1024 sqft</option>
+                        <option>1224 sqft</option>
+                        <option>1324 sqft</option>
+                        <option>3324 sqft</option>
+                        <option>4424 sqft</option>
+                      </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                  </form>
+                </div>
+                <img src="../../images/step1.jpg" class="img-responsive"/>
                </div>
             </div>
             <!--browser footer-->
@@ -181,72 +228,7 @@
             </div>
       </div>
    </div>
-   <div id="elements-box-region">
-      <div id="controls-drag" class="aj-imp-drag-menu open" style="position: fixed; line-height: 1; height: 600px; top: 80px; left: -3px;">
-         <div class="handle" style="display: block; outline: none; position: absolute; top: 0px; right: -36px;"><span class="bicon icon-uniF162"><i class="fa fa-comments"></i></span></div>
-         <!-- element box description-->
-         <!-- <p class="desc move-cursor">
-            Drag and drop the elements below on the builder and add your content
-            </p> -->
-         <!-- builder row element-->
-         <li data-element="Row" data-placeholder-height="120" class="aj-imp-add-row builder-element">
-            <span style="color:#ff7e00;">Tools</span>
-           
-            <h6 style="color:#fff;">Smoothslides is an easy jQuery slider plugin.</h6>
-        
-         </li>
-       
-         <!-- tab type-->
-         
-         <!-- tab content-->
-         <div class="help-bar">
-            <!-- #content elements-->
-            <div id="content-elements">
-               <ul class="aj-imp-builder-items clearfix">
-                  <li class="element" data-element="Text">
-                     <a href="#" class="drag builder-element">
-                        <div class="aj-imp-builder-icon bicon icon-uniF111"></div>
-                        <div class="aj-imp-builder-title">POLYGON</div>
-                     </a>
-                    
-                  </li>
-                  <li class="element" data-element="Title">
-                     <a href="#" class="drag builder-element">
-                        <div class="aj-imp-builder-icon bicon icon-uniF11C"></div>
-                        <div class="aj-imp-builder-title">RECTANGLE</div>
-                     </a>
-                  </li>
-                  <li class="element" data-element="Image">
-                     <a href="#" class="drag builder-element">
-                        <div class="aj-imp-builder-icon bicon icon-uniF10E"><i class="fa fa-square-o"></i></div>
-                        <div class="aj-imp-builder-title">SQUARE</div>
-                     </a>
-                     
-                  </li>
-                  <li class="element" data-element="ImageWithText">
-                     <a href="#" class="drag builder-element">
-                        <div class="aj-imp-builder-icon bicon icon-uniF112"><i class="fa fa-circle-o"></i></div>
-                        <div class="aj-imp-builder-title">CIRCLE</div>
-                     </a>
-                  </li>
-                  <li class="element" data-element="Table">
-                     <a href="#" class="drag builder-element" data-toggle="modal" data-target=".bs-example-modal-sm">
-                        <div class="aj-imp-builder-icon bicon icon-uniF166"><i class="fa fa-map-marker"></i></div>
-                        <div class="aj-imp-builder-title">MARKER 1</div>
-                     </a>
-                  </li>
-                  <li class="element" data-element="Link">
-                     <a href="#" class="drag builder-element"  data-toggle="modal" data-target=".bs-example-modal-sm">
-                        <div class="aj-imp-builder-icon bicon icon-uniF149"><i class="fa fa-map-marker"></i></div>
-                        <div class="aj-imp-builder-title">MARKER 2</div>
-                     </a>
-                  </li> 
-               </ul>
-            </div>
-           
-         </div>
-      </div>
-   </div>
+
 </div>
 
 <!--MODAL1-->
@@ -372,6 +354,28 @@
 <!--SCRIPTS-->
 <script src="../../bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script> 
 	<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+// $(".toggle").click(function(){
+//   $(".menu").addClass("open");
+//   $(".toggle").addClass("shut");
+// });
 
+// $(".toggle .shut").click(function(){
+//   $(".menu").removeClass("open");
+// });
+
+$(".toggle").click(function () {
+    $(this).toggleClass("expanded");
+    $('.menu').toggleClass('open');
+ 
+    });
+
+    $('.alert-box')
+      .delay(3000)
+      .queue( function(next){ 
+        $(this).hide('fade'); 
+        next(); 
+      });
+// </script>
 	</body>
 </html>
