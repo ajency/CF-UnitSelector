@@ -26,6 +26,7 @@
       this.points(item.points);
       this.attribute('class', item.details["class"]);
       this.attribute('id', item.id);
+      this.attribute('type', item.type);
       return this.node;
     };
 

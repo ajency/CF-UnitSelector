@@ -97,9 +97,18 @@ jQuery(document).ready ($)->
 
 	window.showPendingObjects = (data)->
 		html = ''
+		total = []
+		marked = []
 		$.each data ,(index,value)->
-			html += '<strong class="pull-right" style="line-height:70px;margin-right: 20px;  color: #FF7E00;">'+
-					'Marked: '+value.marked+' '+value.name+'(s) | Total : '+value.total+' '+value.name+'(s)</strong>'
+			total.push value.total+' '+value.name+'(s)'
+			marked.push value.marked+' '+value.name+'(s)'
+		console.log total
+		console.log marked
+		html = '<strong class="pull-right total-count">'+total.join(" | ")+'</strong>'+
+				'<strong class="pull-right title-count"> Total:</strong>'+
+				'<strong class="pull-right total-count">'+marked.join(" | ")+'</strong>'+
+				'<strong class="pull-right title-count"> Marked:</strong>'
+		console.log html
 		$('.pending').html html
 
 
@@ -162,42 +171,48 @@ jQuery(document).ready ($)->
 	# 	$("input[name=svg-element-id]").val("")	
 	# 	$(".area").val("")	
 	$(".toggle").click( ()->
-	    $(this).toggleClass("expanded");
-	    $('.menu').toggleClass('open');
+		$(this).toggleClass("expanded");
+		$('.menu').toggleClass('open');
 	 
 	)
 
 	$('.save').on 'dblclick', (e) ->
 		e.preventDefault()
-		console.log f
 		window.canvas_type = "polygon"
 		$('#aj-imp-builder-drag-drop canvas').show()
 		$('#aj-imp-builder-drag-drop .svg-draw-clear').show()
 		$('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
 		$('.edit-box').removeClass 'hidden'
 		
+	window.bindevents = ()->
+		$('.villa,.plot').on 'dblclick', (e) ->
+			e.preventDefault()
+			window.canvas_type = "polygon"
+			$('#aj-imp-builder-drag-drop canvas').show()
+			$('#aj-imp-builder-drag-drop .svg-draw-clear').show()
+			$('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
+			$('.edit-box').removeClass 'hidden'
+			currentElem = e.currentTarget
+			console.log element = currentElem.id
+			console.log classElem = $(currentElem).attr('type')
+			svgDataObjects = svgData.data
+			_.each svgDataObjects, (svgDataObject, key) =>
+				if parseInt(element) is parseInt svgDataObject.id
+					points = svgDataObject.points
+					m(points)
+					window.loadForm(classElem)
+					window.showDetails(currentElem)
 
-	$('.villa,.plot').on 'dblclick', (e) ->
-		e.preventDefault()
-		window.canvas_type = "polygon"
-		$('#aj-imp-builder-drag-drop canvas').show()
-		$('#aj-imp-builder-drag-drop .svg-draw-clear').show()
-		$('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
-		$('.edit-box').removeClass 'hidden'
-		currentElem = e.currentTarget.id
-		svgDataObjects = svgData.data
-		_.each svgDataObjects, (svgDataObject, key) =>
-			if parseInt(currentElem) is svgDataObject.id
-				points = svgDataObject.points
-				drawPoly(points)
-				$("input[name=svg-element-id]").val(svgDataObject.id)
+					
 	
 	$('.submit').on 'click', (e) ->
 		if  _.isEmpty $('.units').val()
 			$('.alert').text 'Unit not assigned'
+			window.hideAlert()
 			return false
 		if  _.isEmpty $('.area').val() 
 			$('.alert').text 'Coordinates not marked'
+			window.hideAlert()
 			return false
 		value =  $('.area').val().split(',')
 		store.remove()
@@ -219,6 +234,7 @@ jQuery(document).ready ($)->
 		s = new XMLSerializer()
 		str = s.serializeToString(rawSvg)
 		draw.svg str
+		window.bindevents()
 		$('.area').val("")
 		window.f = []
 		$("form").trigger("reset")
@@ -234,20 +250,28 @@ jQuery(document).ready ($)->
 		
 
 	$('.property_type').on 'change', (e) ->
+		type = $(e.target).val()
+		window.loadForm(type)
 
-		if $(e.target).val() is 'villa'
+	window.loadForm = (type)->
+		if type is 'villa'
 			@region =  new Marionette.Region el : '#dynamice-region'
 			new AuthoringTool.VillaCtrl region : @region
-		if $(e.target).val() is 'plot'
+		if type is 'plot'
 			@region =  new Marionette.Region el : '#dynamice-region'
 			new AuthoringTool.PlotCtrl region : @region
 
-	 $('.alert-box')
-        .delay(3000)
-        .queue( (next)->
-        	$(this).hide('fade') 
-        	next() 
-    )
+	window.showDetails = (elem)->
+		$('#'+elem.id+'.layer').attr('id' , '')
+		$('.property_type').val $(elem).attr 'type'
+		$('.units').val elem.id
+
+	window.hideAlert = ()->
+		$('.alert').show()
+		$('.alert-box').delay(1000).queue( (next)->
+				$(this).hide('fade') 
+				next() 
+		)
 	
 	
 

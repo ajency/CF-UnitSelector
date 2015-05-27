@@ -25,6 +25,7 @@ class AuthoringTool.PlotView extends Marionette.ItemView
 			$('.plot').each (index,value)->
 				if value.id is $(e.target).val()
 					$('.alert').text 'Already assigned'
+					window.hideAlert()
 					return 
 
 class AuthoringTool.PlotCtrl extends Marionette.RegionController

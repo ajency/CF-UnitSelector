@@ -58,7 +58,7 @@
 
                         </div>
                     </div>
-                    <div class="alert alert-info alert-box">
+                    <div class="alert alert-info alert-box" style="display:none">
                      
                     </div>
                     <div class="aj-imp-browser-preview">

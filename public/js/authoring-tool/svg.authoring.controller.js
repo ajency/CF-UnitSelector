@@ -80,11 +80,18 @@
       return type;
     };
     window.showPendingObjects = function(data) {
-      var html;
+      var html, marked, total;
       html = '';
+      total = [];
+      marked = [];
       $.each(data, function(index, value) {
-        return html += '<strong class="pull-right" style="line-height:70px;margin-right: 20px;  color: #FF7E00;">' + 'Marked: ' + value.marked + ' ' + value.name + '(s) | Total : ' + value.total + ' ' + value.name + '(s)</strong>';
+        total.push(value.total + ' ' + value.name + '(s)');
+        return marked.push(value.marked + ' ' + value.name + '(s)');
       });
+      console.log(total);
+      console.log(marked);
+      html = '<strong class="pull-right total-count">' + total.join(" | ") + '</strong>' + '<strong class="pull-right title-count"> Total:</strong>' + '<strong class="pull-right total-count">' + marked.join(" | ") + '</strong>' + '<strong class="pull-right title-count"> Marked:</strong>';
+      console.log(html);
       return $('.pending').html(html);
     };
     window.generatePropTypes = function() {
@@ -120,42 +127,48 @@
     });
     $('.save').on('dblclick', function(e) {
       e.preventDefault();
-      console.log(f);
       window.canvas_type = "polygon";
       $('#aj-imp-builder-drag-drop canvas').show();
       $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
       $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
       return $('.edit-box').removeClass('hidden');
     });
-    $('.villa,.plot').on('dblclick', function(e) {
-      var currentElem, svgDataObjects;
-      e.preventDefault();
-      window.canvas_type = "polygon";
-      $('#aj-imp-builder-drag-drop canvas').show();
-      $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
-      $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
-      $('.edit-box').removeClass('hidden');
-      currentElem = e.currentTarget.id;
-      svgDataObjects = svgData.data;
-      return _.each(svgDataObjects, (function(_this) {
-        return function(svgDataObject, key) {
-          var points;
-          if (parseInt(currentElem) === svgDataObject.id) {
-            points = svgDataObject.points;
-            drawPoly(points);
-            return $("input[name=svg-element-id]").val(svgDataObject.id);
-          }
-        };
-      })(this));
-    });
+    window.bindevents = function() {
+      return $('.villa,.plot').on('dblclick', function(e) {
+        var classElem, currentElem, element, svgDataObjects;
+        e.preventDefault();
+        window.canvas_type = "polygon";
+        $('#aj-imp-builder-drag-drop canvas').show();
+        $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
+        $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
+        $('.edit-box').removeClass('hidden');
+        currentElem = e.currentTarget;
+        console.log(element = currentElem.id);
+        console.log(classElem = $(currentElem).attr('type'));
+        svgDataObjects = svgData.data;
+        return _.each(svgDataObjects, (function(_this) {
+          return function(svgDataObject, key) {
+            var points;
+            if (parseInt(element) === parseInt(svgDataObject.id)) {
+              points = svgDataObject.points;
+              m(points);
+              window.loadForm(classElem);
+              return window.showDetails(currentElem);
+            }
+          };
+        })(this));
+      });
+    };
     $('.submit').on('click', function(e) {
       var canvas, childEle, ctx, details, value;
       if (_.isEmpty($('.units').val())) {
         $('.alert').text('Unit not assigned');
+        window.hideAlert();
         return false;
       }
       if (_.isEmpty($('.area').val())) {
         $('.alert').text('Coordinates not marked');
+        window.hideAlert();
         return false;
       }
       value = $('.area').val().split(',');
@@ -176,6 +189,7 @@
       s = new XMLSerializer();
       str = s.serializeToString(rawSvg);
       draw.svg(str);
+      window.bindevents();
       $('.area').val("");
       window.f = [];
       $("form").trigger("reset");
@@ -188,8 +202,13 @@
       ctx = canvas.getContext("2d");
       return ctx.clearRect(0, 0, canvas.width, canvas.height);
     });
-    return $('.property_type').on('change', function(e) {
-      if ($(e.target).val() === 'villa') {
+    $('.property_type').on('change', function(e) {
+      var type;
+      type = $(e.target).val();
+      return window.loadForm(type);
+    });
+    window.loadForm = function(type) {
+      if (type === 'villa') {
         this.region = new Marionette.Region({
           el: '#dynamice-region'
         });
@@ -197,19 +216,27 @@
           region: this.region
         });
       }
-      if ($(e.target).val() === 'plot') {
+      if (type === 'plot') {
         this.region = new Marionette.Region({
           el: '#dynamice-region'
         });
-        new AuthoringTool.PlotCtrl({
+        return new AuthoringTool.PlotCtrl({
           region: this.region
         });
       }
-      return $('.alert-box').delay(3000).queue(function(next) {
+    };
+    window.showDetails = function(elem) {
+      $('#' + elem.id + '.layer').attr('id', '');
+      $('.property_type').val($(elem).attr('type'));
+      return $('.units').val(elem.id);
+    };
+    return window.hideAlert = function() {
+      $('.alert').show();
+      return $('.alert-box').delay(1000).queue(function(next) {
         $(this).hide('fade');
         return next();
       });
-    });
+    };
   });
 
 }).call(this);

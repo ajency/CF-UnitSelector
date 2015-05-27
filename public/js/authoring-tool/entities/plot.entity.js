@@ -20,6 +20,7 @@
         return $('.plot').each(function(index, value) {
           if (value.id === $(e.target).val()) {
             $('.alert').text('Already assigned');
+            window.hideAlert();
           }
         });
       }
