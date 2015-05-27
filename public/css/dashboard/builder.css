@@ -10,6 +10,174 @@ Template:       impruw
 Version:        0.1.0
 */
 /****Builder Icon Font****/
+/*** SVG ***/
+svg {
+  width: 100%;
+  height: auto;
+  transform: translateZ(0);
+}
+svg polygon {
+  transform: rotateY(-180deg) scale(0);
+  transition: all 0.4s cubic-bezier(0.59, 0.72, 0.375, 1.65);
+  transform-origin: center;
+  -moz-transform-origin: 0 0;
+}
+svg .caption {
+  font-size: 14px;
+  font-family: arial;
+}
+svg .tooltip {
+  font-size: 1em;
+  font-family: arial;
+  fill: #fff;
+  line-height: 20px;
+  display: inline-block;
+  cursor: pointer;
+}
+svg .tooltip_bg {
+  fill: black;
+  stroke: black;
+  stroke-width: 1;
+  opacity: 0.85;
+}
+svg .active_bldg {
+  fill: #FF7400;
+  opacity: 0.5;
+}
+svg .layer {
+  stroke-width: 0px;
+  stroke-dasharray: 20 300;
+  stroke-dashoffset: 400;
+}
+svg .layer.svg_active {
+  animation: blink 0.8s ease-in-out infinite alternate;
+}
+svg .layer.not_in_selection {
+  opacity: .5;
+  animation: unit_fadein 0.6s;
+  -webkit-animation: unit_fadein 0.6s;
+}
+svg .layer:hover {
+  cursor: pointer;
+  animation: blink 0.8s ease-in-out infinite alternate;
+}
+svg .villa,
+svg .plot,
+svg .penthouse {
+  opacity: 0.9;
+  fill: #0F1308;
+  fill-opacity: 0.7;
+}
+svg .available,
+svg .building {
+  opacity: 0.9;
+  fill-opacity: 0.2;
+  stroke: #000;
+  stroke-width: 1px;
+  stroke-opacity: 1;
+}
+svg .blocked {
+  opacity: 0.9;
+  fill: #0F1308;
+}
+svg .sold {
+  opacity: 0.9;
+  fill: #0F1308;
+  fill-opacity: 0.7;
+}
+svg .not_released {
+  opacity: 0.9;
+  fill: #0F1308;
+  fill-opacity: 0.7;
+}
+svg .not_in_selection {
+  opacity: 0.9;
+  fill: #000;
+  fill-opacity: 0.7;
+}
+svg .marker-area:hover polygon {
+  opacity: 0.6;
+}
+svg .marker-area:hover image {
+  opacity: 9;
+  pointer-event: none;
+}
+svg .marker-area:hover rect {
+  opacity: 0.6;
+}
+svg polygon {
+  /*.ease;*/
+}
+.marker {
+  cursor: pointer;
+}
+.marker-area {
+  cursor: default;
+}
+.step1-marker {
+  cursor: pointer;
+  transform-origin: 50% 50%;
+  opacity: 0.3;
+}
+.step1-marker:hover {
+  animation: blink 0.5s ease-in-out infinite alternate;
+  -moz-animation: blink 0.5s ease-in-out infinite alternate;
+}
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  /* IE10+ specific styles go here */
+  .svg-area {
+    height: 0;
+    padding-top: 50%;
+    position: relative;
+  }
+  .svg-area svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes unit_fadein {
+  0% {
+    opacity: 0;
+    transform: translateY(-400px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(30px);
+  }
+  80% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes blink1 {
+  0% {
+    stroke-width: 0;
+  }
+  100% {
+    stroke: #F68121;
+    fill-opacity: 0.5;
+  }
+}
+@keyframes blink {
+  100% {
+    fill: #F68121;
+    fill-opacity: 0.5;
+  }
+}
 /****Google Fonts****/
 /****Colors****/
 body {
@@ -5105,5 +5273,15 @@ nav.aj-navbar .toggle i {
 .title-count {
   line-height: 70px;
   margin-right: 20px;
+  color: #FF7E00;
+}
+.alert-box {
+  position: absolute;
+  z-index: 999;
+  text-align: center;
+  margin-left: 40%;
+  top: 15%;
+  background: rgba(0, 0, 0, 0.6);
+  border: 0px;
   color: #FF7E00;
 }

@@ -1441,8 +1441,7 @@ svg .marker-area:hover rect {
   opacity: 0.6;
 }
 svg polygon {
-  -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
-          transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+  /*.ease;*/
 }
 .marker {
   cursor: pointer;
