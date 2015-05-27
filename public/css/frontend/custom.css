@@ -2017,7 +2017,7 @@ svg polygon {
   font-size: 13px;
   line-height: 27px;
   position: absolute;
-  right: 25px;
+  left: 25px;
   top: 38px;
 }
 .top-legend li {
@@ -2033,8 +2033,8 @@ svg polygon {
   margin-right: 5px;
 }
 .top-legend li.na::before {
-  border: 1px solid #262626;
-  background-color: rgba(102, 102, 102, 0.7);
+  border: 1px solid #666666;
+  background-color: rgba(102, 102, 102, 0.3);
 }
 @-webkit-keyframes hvr-back-pulse {
   50% {

@@ -168,7 +168,7 @@
       var response;
       response = CommonFloor.propertyTypes();
       if (response.length === 0) {
-        return $('.proj-type-count').text('No results found');
+        return $('.proj-type-count').html('<p class="p-l-15">No results found</p>');
       }
     };
 
