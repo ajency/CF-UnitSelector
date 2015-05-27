@@ -5,58 +5,8 @@
     window.draw = SVG('aj-imp-builder-drag-drop');
     window.svgData = {
       'image': '',
-      'data': [
-        {
-          'id': 1,
-          'type': 'villa',
-          'name': 'Villa 1',
-          'canvas_type': 'polygon',
-          'details': {
-            'class': 'marked'
-          },
-          'points': ["359", "332", "418", "365", "345", "359"]
-        }, {
-          'id': 2,
-          'type': 'villa',
-          'name': 'Villa 2',
-          'canvas_type': '',
-          'details': '',
-          'points': []
-        }, {
-          'id': 3,
-          'type': 'villa',
-          'name': 'Villa 3',
-          'canvas_type': 'polygon',
-          'details': {
-            'class': 'marked'
-          },
-          'points': ["425", "485", "459", "501", "457", "547", "408", "550"]
-        }, {
-          'id': 4,
-          'type': 'villa',
-          'name': 'Villa 4',
-          'canvas_type': 'polygon',
-          'details': {
-            'class': 'marked'
-          },
-          'points': ["629", "490", "667", "476", "704", "474", "709", "499", "706", "536", "635", "539"]
-        }, {
-          'id': 5,
-          'type': 'villa',
-          'name': 'Villa 5',
-          'canvas_type': '',
-          'details': '',
-          'points': []
-        }, {
-          'id': 6,
-          'type': 'building',
-          'name': 'Building 1',
-          'canvas_type': '',
-          'details': '',
-          'points': []
-        }
-      ],
-      'supported_types': ['polygon']
+      'data': [],
+      'supported_types': ['villa', 'building']
     };
     window.createSvg = function(svgData) {
       window.rawSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -104,27 +54,27 @@
       return element.draggable();
     };
     window.getPendingObjects = function(svgData) {
-      var collection, type, uniqTypes;
+      var collection, supportedTypes, type;
       type = [];
-      collection = new Backbone.Collection(svgData);
-      uniqTypes = _.pluck(svgData, 'type');
-      uniqTypes = _.uniq(uniqTypes);
-      $.each(uniqTypes, function(index, value) {
-        var Marked, items;
+      collection = new Backbone.Collection(svgData.data);
+      supportedTypes = svgData.supported_types;
+      console.log(supportedTypes = _.uniq(supportedTypes));
+      $.each(supportedTypes, function(index, value) {
+        var items, marked;
         items = collection.where({
           'type': value
         });
-        Marked = [];
+        marked = [];
         $.each(items, function(ind, val) {
-          if (val.get('canvas_type') !== "") {
-            return Marked.push(val);
+          if (!_.isEmpty(val.get('canvas_type'))) {
+            return marked.push(val);
           }
         });
         return type.push({
           'name': value,
           'id': value,
           'total': items.length,
-          'unmarked': Marked.length
+          'marked': marked.length
         });
       });
       return type;
@@ -133,13 +83,26 @@
       var html;
       html = '';
       $.each(data, function(index, value) {
-        return html += '<strong class="pull-right" style="line-height:70px;margin-right: 20px;  color: #FF7E00;">' + 'Marked: ' + value.unmarked + ' ' + value.name + '(s) | Total : ' + value.total + ' ' + value.name + '(s)</strong>';
+        return html += '<strong class="pull-right" style="line-height:70px;margin-right: 20px;  color: #FF7E00;">' + 'Marked: ' + value.marked + ' ' + value.name + '(s) | Total : ' + value.total + ' ' + value.name + '(s)</strong>';
       });
       return $('.pending').html(html);
     };
+    window.generatePropTypes = function() {
+      var select, types;
+      types = window.svgData.supported_types;
+      select = $('.property_type');
+      $.each(types, function(index, value) {
+        return $('<option />', {
+          value: value,
+          text: value.toUpperCase()
+        }).appendTo(select);
+      });
+      return console.log($('.property_type'));
+    };
     window.createSvg(window.svgData.data);
+    window.generatePropTypes();
     window.createPanel(window.svgData.supported_types);
-    types = window.getPendingObjects(window.svgData.data);
+    types = window.getPendingObjects(window.svgData);
     window.showPendingObjects(types);
     s = new XMLSerializer();
     str = s.serializeToString(rawSvg);
@@ -152,31 +115,7 @@
       $(this).toggleClass("expanded");
       return $('.menu').toggleClass('open');
     });
-    $('.submit').on('click', function(e) {
-      var childEle, details, value;
-      value = $('.area').val().split(',');
-      details = {};
-      details['class'] = 'marked';
-      childEle = {};
-      childEle['id'] = $('.Villas').val();
-      childEle['name'] = $(".Villas option:selected").text();
-      childEle['type'] = $('.property_type').val();
-      childEle['points'] = value;
-      childEle['details'] = details;
-      childEle['canvas_type'] = window.canvas_type;
-      window.svgData.data.push(childEle);
-      $('#aj-imp-builder-drag-drop canvas').hide();
-      $('#aj-imp-builder-drag-drop svg').show();
-      $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
-      $('.edit-box').addClass('hidden');
-      window.createSvg(window.svgData.data);
-      types = window.getPendingObjects(window.svgData.data);
-      window.showPendingObjects(types);
-      s = new XMLSerializer();
-      str = s.serializeToString(rawSvg);
-      return draw.svg(str);
-    });
-    return $('.marked,.save').on('dblclick', function(e) {
+    $('.marked,.save').on('dblclick', function(e) {
       var currentElem, svgDataObjects;
       e.preventDefault();
       window.canvas_type = "polygon";
@@ -196,6 +135,30 @@
           }
         };
       })(this));
+    });
+    return $('.submit').on('click', function(e) {
+      var childEle, details, value;
+      value = $('.area').val().split(',');
+      details = {};
+      details['class'] = 'marked';
+      childEle = {};
+      childEle['id'] = $('.Villas').val();
+      childEle['name'] = $(".Villas option:selected").text();
+      childEle['type'] = $('.property_type').val();
+      childEle['points'] = value;
+      childEle['details'] = details;
+      childEle['canvas_type'] = window.canvas_type;
+      window.svgData.data.push(childEle);
+      $('#aj-imp-builder-drag-drop canvas').hide();
+      $('#aj-imp-builder-drag-drop svg').show();
+      $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
+      $('.edit-box').addClass('hidden');
+      window.createSvg(window.svgData.data);
+      types = window.getPendingObjects(window.svgData);
+      window.showPendingObjects(types);
+      s = new XMLSerializer();
+      str = s.serializeToString(rawSvg);
+      return draw.svg(str);
     });
   });
 

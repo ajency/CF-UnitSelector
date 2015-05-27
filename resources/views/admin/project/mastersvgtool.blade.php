@@ -86,10 +86,7 @@
                    <div class="form-group">
                      <label for="exampleInputEmail1">Property Type</label>
                     <select class="form-control property_type">
-                       <option value="Villa">Villa</option>
-                       <option value="Building">Building</option>
-                       <option value="Plot">Plot</option>
-                       <option value="Amenities">Amenities</option>
+                       
                        
                      </select>
                    </div>
@@ -364,6 +361,15 @@
 
         AuthoringTool = new Marionette.Application 
         BASEURL = '{{url()}}'
+        $('#aj-imp-builder-drag-drop').panzoom({
+                contain: 'invert',
+                minScale: 1,
+                maxScale: 2.4,
+                increment: 0.4,
+                $zoomIn: $('.zoom-in'),
+                $zoomOut: $('.zoom-out')
+
+        })
         </script>
 
         <script src="{{ asset('js/authoring-tool/common.js' )}}"></script>

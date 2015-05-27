@@ -14,57 +14,8 @@ jQuery(document).ready ($)->
 	
 	window.svgData = {
 					'image':''
-					'data' : [
-								{
-									'id' : 1,
-									'type' : 'villa',
-									'name' : 'Villa 1',
-									'canvas_type' : 'polygon',
-									'details' : {'class':'marked'},
-									'points'  : ["359", "332", "418", "365", "345", "359"]
-								},
-								{
-									'id' : 2,
-									'type' : 'villa',
-									'name' : 'Villa 2',
-									'canvas_type' : '',
-									'details' : '',
-									'points'  : []
-								},
-								{
-									'id' : 3,
-									'type' : 'villa',
-									'name' : 'Villa 3',
-									'canvas_type' : 'polygon',
-									'details' : {'class':'marked'},
-									'points'  : ["425", "485", "459", "501", "457", "547", "408", "550"]
-								},
-								{
-									'id' : 4,
-									'type' : 'villa',
-									'name' : 'Villa 4',
-									'canvas_type' : 'polygon',
-									'details' : {'class':'marked'},
-									'points'  : ["629", "490", "667", "476", "704", "474", "709", "499", "706", "536", "635", "539"]
-								},
-								{
-									'id' : 5,
-									'type' : 'villa',
-									'name' : 'Villa 5',
-									'canvas_type' : '',
-									'details' : '',
-									'points'  : []
-								},
-								{
-									'id' :6,
-									'type' : 'building',
-									'name' : 'Building 1',
-									'canvas_type' : '',
-									'details' : '',
-									'points'  : []
-								}
-					]
-					'supported_types' : ['polygon']
+					'data' : []
+					'supported_types' : ['villa','building']
 				}
 	#function to create the svg
 	window.createSvg = (svgData)->
@@ -117,35 +68,54 @@ jQuery(document).ready ($)->
 	
 	window.getPendingObjects  = (svgData)->
 		type = []
-		collection = new Backbone.Collection svgData
-		uniqTypes = _.pluck svgData , 'type'
-		uniqTypes = _.uniq uniqTypes
-		$.each uniqTypes ,(index,value)->
+		collection = new Backbone.Collection svgData.data
+		# uniqTypes = _.pluck svgData , 'type'
+		# uniqTypes = _.uniq uniqTypes
+		# supportedTypes = svgData.supported_types.map (item)->
+		# 	return s.capitalize item
+		supportedTypes = svgData.supported_types
+		console.log supportedTypes = _.uniq supportedTypes
+		$.each supportedTypes ,(index,value)->
 			items = collection.where
 						'type' : value
-			Marked = []
+			marked = []
 			$.each items,(ind,val)->
-				if val.get('canvas_type') != ""
-					Marked.push val
+				if !_.isEmpty val.get('canvas_type')
+					marked.push val
 
 			type.push
 				'name' : value
 				'id'   : value
 				'total' : items.length
-				'unmarked' : Marked.length
+				'marked' : marked.length
+		# $.each type,(index,value)->
+		# 	if value.total is 0
+		# 		type = _.without(type, value)
 
 		type
+
 
 	window.showPendingObjects = (data)->
 		html = ''
 		$.each data ,(index,value)->
 			html += '<strong class="pull-right" style="line-height:70px;margin-right: 20px;  color: #FF7E00;">'+
-					'Marked: '+value.unmarked+' '+value.name+'(s) | Total : '+value.total+' '+value.name+'(s)</strong>'
+					'Marked: '+value.marked+' '+value.name+'(s) | Total : '+value.total+' '+value.name+'(s)</strong>'
 		$('.pending').html html
 
+
+	window.generatePropTypes = ()->
+		types = window.svgData.supported_types
+		select = $('.property_type')
+		$.each types , (index,value)->
+			$('<option />', {value: value, text: value.toUpperCase()}).appendTo(select)
+
+		console.log $('.property_type')
+
+
 	window.createSvg(window.svgData.data)
+	window.generatePropTypes()
 	window.createPanel(window.svgData.supported_types)		
-	types = window.getPendingObjects(window.svgData.data) 
+	types = window.getPendingObjects(window.svgData) 
 	window.showPendingObjects(types)
 	s = new XMLSerializer()
 	str = s.serializeToString(rawSvg)
@@ -196,6 +166,21 @@ jQuery(document).ready ($)->
 	    $('.menu').toggleClass('open');
 	 
 	)
+
+	$('.marked,.save').on 'dblclick', (e) ->
+		e.preventDefault()
+		window.canvas_type = "polygon"
+		$('#aj-imp-builder-drag-drop canvas').show()
+		$('#aj-imp-builder-drag-drop .svg-draw-clear').show()
+		$('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
+		$('.edit-box').removeClass 'hidden'
+		currentElem = e.currentTarget.id
+		svgDataObjects = svgData.data
+		_.each svgDataObjects, (svgDataObject, key) =>
+			if parseInt(currentElem) is svgDataObject.id
+				points = svgDataObject.points
+				drawPoly(points)
+				$("input[name=svg-element-id]").val(svgDataObject.id)
 	
 	$('.submit').on 'click', (e) ->
 		value =  $('.area').val().split(',')
@@ -216,29 +201,17 @@ jQuery(document).ready ($)->
 		$('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
 		$('.edit-box').addClass 'hidden'
 		window.createSvg(window.svgData.data)
-		types = window.getPendingObjects(window.svgData.data) 
+		types = window.getPendingObjects(window.svgData) 
 		window.showPendingObjects(types)
 		s = new XMLSerializer()
 		str = s.serializeToString(rawSvg)
 		draw.svg str
 
-	$('.marked,.save').on 'dblclick', (e) ->
-			e.preventDefault()
-			window.canvas_type = "polygon"
-			$('#aj-imp-builder-drag-drop canvas').show()
-			$('#aj-imp-builder-drag-drop .svg-draw-clear').show()
-			$('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
-			$('.edit-box').removeClass 'hidden'
-			currentElem = e.currentTarget.id
-			svgDataObjects = svgData.data
-			_.each svgDataObjects, (svgDataObject, key) =>
-				if parseInt(currentElem) is svgDataObject.id
-					points = svgDataObject.points
-					drawPoly(points)
-					$("input[name=svg-element-id]").val(svgDataObject.id)
+	
 
 
 	
+
 
 			
 
