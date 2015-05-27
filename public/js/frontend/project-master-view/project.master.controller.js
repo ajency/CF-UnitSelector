@@ -708,8 +708,7 @@
     };
 
     CenterMasterView.prototype.loadZoom = function() {
-      var $panzoom;
-      $panzoom = $('.master').panzoom({
+      $('.master').panzoom({
         contain: 'invert',
         minScale: 1,
         maxScale: 2.4,
@@ -718,7 +717,7 @@
         $zoomOut: $('.zoom-out')
       });
       return $('.master polygon').on('mousedown touchstart', function(e) {
-        e.stopImmediatePropagation();
+        return e.stopImmediatePropagation();
       });
     };
 

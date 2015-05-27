@@ -1004,7 +1004,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 	loadZoom:->
 
-		$panzoom =  $('.master').panzoom
+		$('.master').panzoom
 			contain: 'invert'
 			minScale: 1
 			maxScale: 2.4
@@ -1015,7 +1015,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 		$('.master polygon').on 'mousedown touchstart', (e) ->
 			e.stopImmediatePropagation()
-			return
+
+		# $('.region').on 'touchstart', (e) ->
+		# 	e.stopImmediatePropagation()
 
 		
 	
