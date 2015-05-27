@@ -102,7 +102,7 @@
                             @foreach($propertytypeAttributes[$propertyTypeId]['ATTRIBUTES'] as $propertytypeAttribute)
 
                             <div class="row m-b-10">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <input type="text" name="attribute_name_{{ $propertyTypeId }}[]" class="form-control" value="{{$propertytypeAttribute['label']}}" placeholder="Enter Attribute Name" disabled>
                                     <input type="hidden" name="attribute_id_{{ $propertyTypeId }}[]" value="{{$propertytypeAttribute['id']}}" disabled>
 
@@ -116,7 +116,7 @@
                                         <option value="media" @if($propertytypeAttribute['control_type']=='number'){{'selected'}}@endif> Number </option>
                                     </select>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <input type="text" name="controltypevalues_{{ $propertyTypeId }}[]" data-role="tagsinput" class="tags" value="{{$propertytypeAttribute['defaults']}}" disabled >
 
                                 </div>
@@ -146,8 +146,8 @@
                                     </select>
 
                                 </div>
-                                <div class="col-md-4">
-                                    <input type="text" name="controltypevalues_{{ $propertyTypeId }}[]" data-role="tagsinput" class="tags" placeholder="Enter Value">
+                                <div class="col-md-4 controlvalue">
+                                    <input type="text" name="controltypevalues_{{ $propertyTypeId }}[]" data-role="tagsinput" class="tags">
                                 </div>
                             </div>
                                 <div class="text-right">

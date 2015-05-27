@@ -59,6 +59,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::get( 'user/{id}/changepassword', 'Admin\UserController@changePassword' );
     Route::get( 'project/{project}/svg', 'Admin\ProjectController@svg' );
     Route::get( 'project/{project}/summary', 'Admin\ProjectController@summary' );
+    Route::get( 'project/{project}/getphasedata/{phase}', 'Admin\ProjectController@getPhaseData' );
     Route::get( 'project/{project}/cost', 'Admin\ProjectController@cost' );
     Route::post( 'project/{project}/costupdate', 'Admin\ProjectController@costUpdate' );
     Route::post( 'project/{project}/bunglow-variant/{id}/roomtypeattributes', 'Admin\ProjectBunglowVariantController@roomtypeAttributes' );

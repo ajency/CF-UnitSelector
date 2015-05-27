@@ -10,6 +10,9 @@ use CommonFloor\Media;
 use CommonFloor\ProjectMeta;
 use CommonFloor\Defaults;
 use CommonFloor\ProjectPropertyType;
+use CommonFloor\Phase;
+use CommonFloor\UnitVariant;
+use CommonFloor\UnitType;
 
 class ProjectController extends Controller {
 
@@ -270,49 +273,45 @@ class ProjectController extends Controller {
     public function summary($id, ProjectRepository $projectRepository) {
                 
         $project = $projectRepository->getProjectById($id);
-        $phases = $project->projectPhase()->where('status','!=','archive')->where('phase_name','!=','Default')->get()->toArray();
-        $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray();
-         
+        $phases = $project->projectPhase()->where('phase_name','!=','Default')->get()->toArray(); 
+        $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray(); 
         $propertyTypes = $propertyTypeUnitData =$phaseData = $unitTypeData = $count=[];
         
-        foreach ($projectpropertyTypes as $projectpropertyType)
+        foreach ($phases as $phase)
         {
-            $propertyTypes[$projectpropertyType['property_type_id']]=get_property_type($projectpropertyType['property_type_id']);
+            $phaseId = $phase['id'];
+            $phase = Phase::find($phaseId);
+            $units = $phase->projectUnits()->get()->toArray();
             
-            $unitTypes = ProjectPropertyType::find($projectpropertyType['id'])->projectUnitType()->get()->toArray();
-                        
-            foreach($unitTypes as $unitType)
+            foreach ($units as $unit)
             {
-                $variants = \CommonFloor\UnitType::find($unitType['id'])->unitTypeVariant()->get()->toArray(); 
-                    foreach($variants as $variant)
-                    { 
-                        $units = \CommonFloor\Unit::where('unit_variant_id',$variant['id'])->get()->toArray(); 
-                        foreach ($units as $unit)
-                        {                            
-                            $phaseData[$unit['phase_id']] = \CommonFloor\Phase::find($unit['phase_id'])->phase_name;
-                            $unitTypeData[$unitType['unittype_name']] = Defaults::find($unitType['unittype_name'])->label;
-                            
-                            if(!isset($propertyTypeUnitData[$projectpropertyType['id']][$unit['phase_id']][$unitType['unittype_name']]))
-                            {
-                                $propertyTypeUnitData[$projectpropertyType['id']][$unit['phase_id']][$unitType['unittype_name']]['available'] =0;
-                                $propertyTypeUnitData[$projectpropertyType['id']][$unit['phase_id']][$unitType['unittype_name']]['sold'] =0;
-                                $propertyTypeUnitData[$projectpropertyType['id']][$unit['phase_id']][$unitType['unittype_name']]['not_released'] =0;
-                                $propertyTypeUnitData[$projectpropertyType['id']][$unit['phase_id']][$unitType['unittype_name']]['blocked'] =0;     
-                            }
+                $variantId = $unit['unit_variant_id'];
+                $unitType = UnitVariant::find($variantId)->unitType()->first();
+                $unitTypeId = $unitType->id;
+                $unitTypeName = $unitType->unittype_name;
+                $propertType = UnitType::find($unitTypeId)->projectPropertyType()->first(); 
+                $propertTypeId = $propertType->id;
+                
+                $phaseData[$phaseId] = $phase['phase_name'];
+                $unitTypeData[$unitTypeName] = Defaults::find($unitTypeName)->label;
+                
+                if(!isset($propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]))
+                {
+                    $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['available'] =0;
+                    $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['sold'] =0;
+                    $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['not_released'] =0;
+                    $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['blocked'] =0;     
+                }
 
-                                $propertyTypeUnitData[$projectpropertyType['id']][$unit['phase_id']][$unitType['unittype_name']]['available'] +=($unit['availability']=='available')?1:0;
-                                $propertyTypeUnitData[$projectpropertyType['id']][$unit['phase_id']][$unitType['unittype_name']]['sold'] +=($unit['availability']=='sold')?1:0;
-                                $propertyTypeUnitData[$projectpropertyType['id']][$unit['phase_id']][$unitType['unittype_name']]['not_released'] +=($unit['availability']=='not_released')?1:0;
-                                $propertyTypeUnitData[$projectpropertyType['id']][$unit['phase_id']][$unitType['unittype_name']]['blocked'] +=($unit['availability']=='blocked')?1:0;       
+                    $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['available'] +=($unit['availability']=='available')?1:0;
+                    $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['sold'] +=($unit['availability']=='sold')?1:0;
+                    $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['not_released'] +=($unit['availability']=='not_released')?1:0;
+                    $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['blocked'] +=($unit['availability']=='blocked')?1:0;       
                             
-                        }
-                        
-                    }
                 
             }
-            
         }
-        
+                 
         ksort($propertyTypes);
         $projectData =$project->toArray();
         $projectData['master'] = unserialize($projectData['master']);
@@ -329,6 +328,76 @@ class ProjectController extends Controller {
                         ->with('propertyTypes', $propertyTypes)
                          ->with('current', 'summary');
  
+    }
+    
+    public function getPhaseData($projectId, $phaseId)
+    {
+        $phase = Phase::find($phaseId);
+        $units = $phase->projectUnits()->get()->toArray();
+        $data = [];
+        foreach ($units as $unit)
+        {
+            $variantId = $unit['unit_variant_id'];
+            $unitType = \CommonFloor\UnitVariant::find($variantId)->unitType()->first();
+            $unitTypeId = $unitType->id;
+            $propertType = \CommonFloor\UnitType::find($unitTypeId)->projectPropertyType()->first(); 
+            $propertTypeId = $propertType->property_type_id;
+            $data[$propertTypeId][] = $unit['unit_name'];
+        }
+        $flag= false;
+        $html ='<div class="modal-body">';
+        
+        $html .= '<div class="row m-b-10">
+                <div class="col-md-12">';
+        if(empty($data))
+       {
+        $html .= '<div class="alert alert-error m-b-20">
+            <ul  class="list-inline">
+                        <li><i class="fa fa-circle"></i>Phase cannot be made live as no units have been added to it.<li>
+                            
+                    </ul></div>';
+       }
+        $html .= '
+                    </div>
+                    </div>';
+       if(!empty($data))
+       {
+        $html .= '<table class="table table-bordered">
+                    <thead>
+                        <tr>
+                           <td width="15%"><span class="semi-bold">Type</span></td> 
+                           <td><span class="semi-bold">Units in '.$phase->phase_name.'</span></td> 
+                        </tr>
+                    </thead>
+                    <tbody>';
+        foreach ($data as $key=>$values) 
+        {
+           if(count($values))
+                $flag =true;
+           
+        $html .=' <tr>
+                    <td><span class="semi-bold">' . get_property_type($key) . '</span></td> 
+                    <td>' . implode(", ", $values) . '</td> 
+                 </tr>';
+        }
+        $html .='</tbody>
+                </table>';
+       }
+        $html .= '</div><div class="modal-footer">';
+        //$html .= ($flag)? '<button type="button" class="btn btn-primary">Go Live</button>' :'';
+        $html .='<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+
+              </div>';
+ 
+        return response()->json( [
+                    'code' => 'phase_data',
+                    'message' => '',
+                    'data' => [
+                        'html' => $html,
+                    ]
+            ], 201 );
+          
+                
     }
 
 }

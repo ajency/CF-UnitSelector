@@ -105,6 +105,7 @@ class Permission {
                               'admin/project/{project}/costupdate'=>'configure_project',
                               'admin/project/{project}/svg'=>'configure_project',
                               'admin/project/{project}/summary'=>'configure_project',
+                              'admin/project/{project}/getphasedata/{phase}'=>'configure_project',
                               'admin/project/validateprojecttitle'=>'configure_project', 
                               'admin/project/{project}/roomtype/{id}/deleteroomtypeattributes'=>'configure_project',
                               'admin/project/{project}/media/updatebreakpoint'=>'configure_project',
