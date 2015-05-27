@@ -1016,7 +1016,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$('.master polygon').on 'mousedown touchstart', (e) ->
 			e.stopImmediatePropagation()
 
-		# $('.region').on 'touchstart', (e) ->
+		# $('.master .region').on 'mousedown touchstart', (e) ->
 		# 	e.stopImmediatePropagation()
 
 		

@@ -295,15 +295,15 @@ class ApartmentsView extends Marionette.ItemView
 		html = ""
 		html += '<div class="svg-info '+availability+'">
 					<div class="action-bar">
-								<div class="apartment"></div>
+						<div class="apartment"></div>
 					</div>
-					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' ( Area - '+response[0].get('super_built_up_area')+' '+project.get('area_unit')+')</h5>
+					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' </h5>
 
 					<!--<span class="label label-success"></span-->
 					<br><br>
 					<div class="details">
                        	<div>
-						 - '+response[1].get('name')+'
+							'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('area_unit')+')
 						</div>
 						<div class="text-primary">
 						<span class="icon-rupee-icn"></span>'+price+'
@@ -544,24 +544,27 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			html = ""
 			html += '<div class="svg-info '+availability+'">
 						<div class="action-bar">
-									<div class="apartment"></div>
+							<div class="apartment"></div>
 						</div>
-						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' ( Area - '+response[0].get('super_built_up_area')+' '+project.get('area_unit')+')</h5>
+						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' </h5>
+						<br> <br>
 
 						<!--<span class="label label-success"></span-->
 						<br><br>
 						<div class="details">
-	                       <div>
-								<label>Unit Type </label> - '+response[1].get('name')+'
-							</div>
 							<div>
-								<label>Price </label> - <span class="icon-rupee-icn">'+price+'</span>
+								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('area_unit')+')
+							</div>
+							<div class="text-primary">
+								<span class="icon-rupee-icn"></span>'+price+'
 							</div>  
 						</div>'
 			if availability == 'available'
-				html +='<div class="circle">
-							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
-						</div>
+				html +='<a href="#unit-view/'+id+'" class="view-unit">
+							<div class="circle">
+								<span class="arrow-up icon-chevron-right"></span>
+							</div>
+						</a>
 						<div class="details">
 							<div class="text-muted text-default">Click arrow to move forward</div>
 						</div>
