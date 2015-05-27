@@ -435,11 +435,13 @@ class ProjectController extends Controller {
         // }
         $imageName = Media::find($image_id)->image_name;
         $svgImagePath = url() . "/projects/" . $id . "/master/" . $imageName;
+        $supported_types = array('villa','plot','building','amenities');
         
         return view('admin.project.mastersvgtool')
                         ->with('project', $project->toArray())
                         ->with('svgImage', $svgImagePath)
                         ->with('token',csrf_token())
+                        ->with('supported_types',json_encode($supported_types))
                         ->with('current', 'mastersvgtool');
     }
 
