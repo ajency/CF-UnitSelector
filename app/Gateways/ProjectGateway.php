@@ -51,7 +51,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             'project_property_types' => $this->propertyTypeUnits($projectId)
 
         ];
-       
+      
         return $projectData;
     }
 
@@ -120,8 +120,13 @@ class ProjectGateway implements ProjectGatewayInterface {
         }
      $appartmentVariantData = array_merge($appartmentVariantData,$penthouseVariantData);   
      $units = \CommonFloor\Unit::whereIn('unit_variant_id', $variantIds)->get()->toArray();
-        $units = array_merge($units,$apartmentunits);
- 
+     $units = array_merge($units,$apartmentunits);
+     $unitData = [];
+     foreach ($units as $unit)
+     {
+         unset ($unit['availability']);
+         $unitData[]=$unit;
+     }
 
         $stepTwoData = [
             'buildings' => $buildings->toArray(),
@@ -130,7 +135,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             'plot_variants' => $plotVariantData,
             'property_types' => $propertyTypes,
             'settings' => $this->projectSettings($projectId),
-            'units' =>$units,
+            'units' =>$unitData,
             'unit_types' => $unitTypeArr,
             'floor_layout' => \CommonFloor\FloorLayout::all()->toArray() 
         ];

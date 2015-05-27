@@ -26,11 +26,14 @@
 </div>
 <div class="grid simple">
     <div class="grid-title no-border">
-       <div class="alert alert-success ">
+        @if($project['created_at']===$project['updated_at'])
+            <div class="alert alert-success ">
                 <button class="close" data-dismiss="alert"></button>
                 <i class="fa fa-check-circle" style="font-size: 17px;"></i> 
                     Your project has been created successfully.Go ahead and configure it !
                 </div>
+                @endif
+       
         <h3> <i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Details</span></h3>
     </div>
     <div class="grid-body no-border">
@@ -69,9 +72,7 @@
         <hr/>
 
         <div class="row">
-             @if($project['created_at']===$project['updated_at'])
-
-                @endif
+             
             <div class="m-l-5 no-border">
                 <h3><i class="fa fa-angle-double-right text-primary"></i> Measurement <span class="semi-bold">Units</span></h3>
             </div>
