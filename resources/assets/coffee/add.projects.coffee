@@ -347,6 +347,9 @@ jQuery(document).ready ($)->
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="room_attributes_block">
+
+                                        </div>
                                         <div class="row user-description-box">
                                             <div class="col-md-4">
                                                 <div>
@@ -367,9 +370,7 @@ jQuery(document).ready ($)->
                                             <div class="col-md-8"></div>
                                         </div>
 
-                                        <div class="room_attributes_block">
-
-                                        </div>
+                                        
 
 
                                     </div>

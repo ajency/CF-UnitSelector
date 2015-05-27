@@ -190,6 +190,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="room_attributes_block">
+
+                                    </div>
                                     <div >
                                         <div class="col-md-5 add-unit p-t-10">
                                         <select name="room_type[]" onchange="openRoomTypeModal(this, 0)" class="select2 form-control">
@@ -204,9 +207,7 @@
                                         </div>
                                         </div>
                                      </div>
-                                    <div class="room_attributes_block">
-
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -263,32 +264,26 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row user-description-box">
-                                            <div class="col-md-4">
-                                                <div>
-                                                    <label class="form-label">Select Room</label>
-                                                    <div class="row">
-                                                        <div class="col-md-9">
-                                                            <select onchange="openRoomTypeModal(this, 0)" name="room_type[]" class="select2 form-control">
+                                        <div class="room_attributes_block">
+
+                                        </div>
+                                        <div>
+                                            <div class="col-md-5 add-unit p-t-10">
+                                              <select onchange="openRoomTypeModal(this, 0)" name="room_type[]" class="select2 form-control">
                                                                 <option value="">Select Room</option>
-                                                                @foreach($availableRoomTypes as $roomTypeId=> $room_type)
+                                                                 @foreach($availableRoomTypes as $roomTypeId=> $room_type)
                                                                 <option  value="{{$roomTypeId}}">{{$room_type}}</option>
                                                                 @endforeach
                                                                 <option value="add_new">Add New Room</option>
                                                             </select>
+                                                       
+                                                        <div class="text-right">
+                                                            <button type="button" onclick="getRoomTypeAttributes(this, 1);" class="btn btn-link">Add Another Room</button>
                                                         </div>
-                                                        <div class="col-md-3">
-                                                            <button type="button" onclick="getRoomTypeAttributes(this, 1);" class="btn btn-white">Add Another Room</button>
-                                                        </div>
-                                                    </div>
-                                                </div> 
                                             </div>
-                                            <div class="col-md-8"></div>
-                                        </div>
+                                         </div>
 
-                                        <div class="room_attributes_block">
-
-                                        </div>
+                                        
 
 
                                     </div>
