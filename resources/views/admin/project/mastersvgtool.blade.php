@@ -310,11 +310,11 @@
         </div>
 
 
-        <div class="aj-imp-builder container-fluid">
-       <div id="header-region"></div>
+        
        
         <div ui-region></div>
-    </div>
+        <div id="dynamice-region"></div>
+   
 
         @include('frontend/templates')
         <script src="{{ asset('bower_components/underscore/underscore-min.js' )}}"></script>
@@ -357,6 +357,7 @@
 
         <script src="{{ asset('js/authoring-tool/common.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/polygon.entity.js' )}}"></script>
+        <script src="{{ asset('js/authoring-tool/entities/villa.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/svg.authoring.controller.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/application.js' )}}"></script>
 </body>

@@ -257,9 +257,12 @@ jQuery(document).ready ($)->
 		str = s.serializeToString(rawSvg)
 		draw.svg str
 
-	
+	$('.property_type').on 'change', (e) ->
 
-
+		if $(e.target).val() is 'villa'
+			console.log "aaaaaaaaaa"
+			@region =  new Marionette.Region el : '#dynamice-region'
+			new AuthoringTool.VillaCtrl region : @region
 	
 
 

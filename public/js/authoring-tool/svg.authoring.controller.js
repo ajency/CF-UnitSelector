@@ -186,7 +186,7 @@
         };
       })(this));
     });
-    return $('.submit').on('click', function(e) {
+    $('.submit').on('click', function(e) {
       var childEle, details, value;
       value = $('.area').val().split(',');
       store.remove();
@@ -209,6 +209,17 @@
       s = new XMLSerializer();
       str = s.serializeToString(rawSvg);
       return draw.svg(str);
+    });
+    return $('.property_type').on('change', function(e) {
+      if ($(e.target).val() === 'villa') {
+        console.log("aaaaaaaaaa");
+        this.region = new Marionette.Region({
+          el: '#dynamice-region'
+        });
+        return new AuthoringTool.VillaCtrl({
+          region: this.region
+        });
+      }
     });
   });
 
