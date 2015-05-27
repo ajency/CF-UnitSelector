@@ -13,27 +13,10 @@
     <link href="{{ asset('css/dashboard/builder.css')}}" rel="stylesheet" type="text/css" />
     <style type="text/css">
 
-    .svg-canvas > svg {
-      position: relative;
-      top: 0;
-      z-index: -1;
-      left: 0px;
-      width: 1600;
-      height: 800;
-      z-index: 0;
-    }
 /*    .svg-canvas {
       transform: none !important;
     }*/
-    canvas{
-      z-index: 999;
-      position: relative;
-    }
-    .marked {
-      fill: #FFE533  !important;
-      border: 2px solid #FFE533 ;
-      opacity: 0.5;
-    }
+
 /*    .svg-canvas{
    transform: matrix(1, 0, 0, 1, 0,-127) !important;
 
