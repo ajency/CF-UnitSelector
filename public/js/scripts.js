@@ -1118,7 +1118,7 @@ function saveBreakPoint()
             position: position,
         },
         success: function (response) {
-
+            console.log(response)
         }
     });
 }
