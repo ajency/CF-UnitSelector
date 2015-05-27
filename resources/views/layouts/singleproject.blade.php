@@ -24,6 +24,9 @@
             <li class="{{ $current === 'project_users' ? 'active' : '' }}">
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/user' ) }}" >@if($current === 'project_users')<span class='fa fa-check text-success'></span>@endif Users</a>
             </li>
+            <li class="{{ $current === 'mastersvgtool' ? 'active' : '' }}">
+                <a href="{{ url( 'admin/project/' . $project['id'] . '/master/authoring-tool/') }}">@if($current === 'mastersvgtool')<span class='fa fa-check text-success'></span>@endif SVG Authoring Tool</a>
+            </li>
         </ul> 
         @foreach(project_property_types($project['id']) as $propertyTypeId => $projectPropertyType)
         <?php

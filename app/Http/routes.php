@@ -49,6 +49,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::resource( 'project.plot-unit', 'Admin\ProjectPlotUnitController' );
     Route::resource( 'project.building', 'Admin\ProjectBuildingController' );
     Route::resource( 'project.floor-layout', 'Admin\ProjectFloorLayoutController' );
+    Route::resource( 'project.svg-tool', 'Admin\SvgController' );
     Route::resource( 'phase', 'Admin\PhaseController' );
     Route::resource( 'project.roomtype', 'Admin\ProjectRoomTypeController' );
     Route::resource( 'floor-layout.position', 'Admin\FloorLayoutPositionController' );
@@ -70,8 +71,12 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::post( 'building/{id}/media/updatebreakpoint', 'Admin\BuildingMediaController@updateBreakPoint' );
     Route::post( 'project/{project}/apartment-variant/getpropertytypedata', 'Admin\ProjectApartmentVariantController@getPropertyTypeData' );
     Route::get( 'project/{project}/attributes/addroomtype', 'Admin\ProjectRoomTypeController@addRoomType' );
+    Route::get( 'project/{projectid}/image/{imageid}', 'Admin\SvgController@show' );
+    Route::get( 'project/{id}/master/authoring-tool', 'Admin\ProjectController@loadMasterSvgTool' );
+
     
 });
+
 
 /**
  * REST API routes

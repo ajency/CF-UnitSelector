@@ -1,0 +1,1 @@
+{"version":3,"sources":["authoring-tool/entities/building.entity.coffee"],"names":[],"mappings":"AAAA;AAAA;AAAA","file":"authoring-tool/entities/building.entity.js","sourceRoot":"/source/","sourcesContent":["#View and Controller for a building\r\n#Function to show the details of an building if marked\r\n#event handler functions"]}
