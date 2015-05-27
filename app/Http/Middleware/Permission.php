@@ -22,6 +22,9 @@ class Permission {
                              'admin.project.media.store'=>'configure_project', 
                              'admin.project.media.destroy'=>'configure_project', 
                     
+                             'admin.phase.store'=>'configure_project', 
+                             'admin.phase.destroy'=>'configure_project', 
+                    
                              'admin.project.unittype.destroy'=>'configure_project', 
                     
                              'admin.project.bunglow-variant.index'=>'read_project',
@@ -65,7 +68,7 @@ class Permission {
                              'admin.project.roomtype.update'=>'configure_project',
                              'admin.project.roomtype.destroy'=>'configure_project',   
                              
-                             /*'admin.project.bunglow-unit.index'=>'configure_unit',
+                             'admin.project.bunglow-unit.index'=>'configure_unit',
                              'admin.project.bunglow-unit.create'=>'configure_unit',
                              'admin.project.bunglow-unit.store'=>'configure_unit',
                              'admin.project.bunglow-unit.edit'=>'configure_unit',
@@ -81,7 +84,7 @@ class Permission {
                              'admin.project.plot-unit.create'=>'configure_unit',
                              'admin.project.plot-unit.store'=>'configure_unit',
                              'admin.project.plot-unit.edit'=>'configure_unit',
-                             'admin.project.plot-unit.update'=>'configure_unit',*/
+                             'admin.project.plot-unit.update'=>'configure_unit',
 
                     
                              'admin.role.index'=>'manage_roles',
@@ -101,18 +104,19 @@ class Permission {
                 $uri        =['admin/project/{project}/cost'=>'configure_project',
                               'admin/project/{project}/costupdate'=>'configure_project',
                               'admin/project/{project}/svg'=>'configure_project',
+                              'admin/project/{project}/summary'=>'configure_project',
                               'admin/project/validateprojecttitle'=>'configure_project', 
                               'admin/project/{project}/roomtype/{id}/deleteroomtypeattributes'=>'configure_project',
                               'admin/project/{project}/media/updatebreakpoint'=>'configure_project',
-                               'admin/project/{project}/roomtype/{roomtype}'=>'configure_project',
-                               'admin/project/{project}/roomtype/{id}/getroomtypeattributes'=>'configure_project',
-                               'admin/project/{project}/apartment-variant/getpropertytypedata'=>'configure_project',
+                              'admin/project/{project}/roomtype/{roomtype}'=>'configure_project',
+                              'admin/project/{project}/roomtype/{id}/getroomtypeattributes'=>'configure_project',
+                              'admin/project/{project}/apartment-variant/getpropertytypedata'=>'configure_project',
                               'admin/user/validateuseremail'=>'manage_users', 
                               'admin/user/validateuserpassword'=>'manage_users', 
                 ];
                
                 
-                $resourceName = $request->route()->getName();
+                $resourceName = $request->route()->getName(); 
                 $uriPath =$request->route()->getPath();  //echo $uriPath; exit;
                 
                 if($uriPath != 'admin')

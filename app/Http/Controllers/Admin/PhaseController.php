@@ -36,19 +36,34 @@ class PhaseController extends Controller {
     public function store( Request $request ) {
         $project_id = $request->input( 'project_id' );
         $phase_name = $request->input( 'phase_name' );
+        
+        $phase_id = Phase::where(['phase_name'=>'Default','project_id'=>$project_id])->pluck('id');
+       
+        if($phase_id)
+        {
+            $phase = Phase::find($phase_id);
+            $phase->project_id = $project_id;
+            $phase->phase_name = ucfirst($phase_name);
+            $phase->save();
+            $type = "edit";
+        }
+        else {
+            $phase = new Phase();
+            $phase->project_id = $project_id;
+            $phase->phase_name = ucfirst($phase_name);
+            $phase->save();
 
-        $phase = new Phase();
-        $phase->project_id = $project_id;
-        $phase->phase_name = ucfirst($phase_name);
-        $phase->save();
-
-        $phase_id = $phase->id;
+            $phase_id = $phase->id;
+             $type = "add";
+        }
+        
 
         return response()->json( [
                     'code' => 'phase_created',
                     'message' => 'Phase Successfully Created',
                     'data' => [
-                        'phase_id' => $phase_id
+                        'phase_id' => $phase_id,
+                        'type' => $type
                     ]
             ], 201 );
     }

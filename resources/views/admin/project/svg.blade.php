@@ -16,6 +16,8 @@
 
 
 @include('admin.project.svg.googleearth') 
+@if($project['has_master']=='yes')
 @include('admin.project.svg.projectmaster')
+@endif
 
 @endsection

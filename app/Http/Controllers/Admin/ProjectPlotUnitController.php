@@ -27,7 +27,7 @@ class ProjectPlotUnitController extends Controller {
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if ($propertyTypes['property_type_id'] == '3')
+            if ($propertyTypes['property_type_id'] == PLOTID)
                 $projectPropertytypeId = $propertyTypes['id'];
         }
         $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
@@ -63,7 +63,7 @@ class ProjectPlotUnitController extends Controller {
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if ($propertyTypes['property_type_id'] == '3')
+            if ($propertyTypes['property_type_id'] == PLOTID)
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
@@ -73,11 +73,13 @@ class ProjectPlotUnitController extends Controller {
             $unitTypeIdArr[] = $unitType['id'];
 
         $unitVariantArr = UnitVariant::whereIn('unit_type_id', $unitTypeIdArr)->get()->toArray();
+        $phases = $project->projectPhase()-> where('status','not_live')->get()->toArray(); 
 
         return view('admin.project.unit.plot.add')
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
                         ->with('unit_variant_arr', $unitVariantArr)
+                        ->with('phases', $phases)
                         ->with('current', 'plot-unit');
     }
 
@@ -91,6 +93,7 @@ class ProjectPlotUnitController extends Controller {
         $unit->unit_name = ucfirst($request->input('unit_name'));
         $unit->unit_variant_id = $request->input('unit_variant');
         $unit->availability = $request->input('unit_status');
+        $unit->phase_id = $request->input('phase');
         $unit->save();
         $unitid = $unit->id;
 
@@ -126,7 +129,7 @@ class ProjectPlotUnitController extends Controller {
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if ($propertyTypes['property_type_id'] == '3')
+            if ($propertyTypes['property_type_id'] == PLOTID)
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
@@ -136,12 +139,14 @@ class ProjectPlotUnitController extends Controller {
             $unitTypeIdArr[] = $unitType['id'];
 
         $unitVariantArr = UnitVariant::whereIn('unit_type_id', $unitTypeIdArr)->get()->toArray();
+        $phases = $project->projectPhase()-> where('status','not_live')->get()->toArray(); 
 
         return view('admin.project.unit.plot.edit')
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
                         ->with('unit_variant_arr', $unitVariantArr)
                         ->with('unit', $unit->toArray())
+                        ->with('phases', $phases)
                         ->with('current', 'plot-unit');
     }
 
@@ -156,6 +161,7 @@ class ProjectPlotUnitController extends Controller {
         $unit->unit_name = ucfirst($request->input('unit_name'));
         $unit->unit_variant_id = $request->input('unit_variant');
         $unit->availability = $request->input('unit_status');
+        $unit->phase_id = $request->input('phase');
         $unit->save();
 
         $addanother = $request->input('addanother');

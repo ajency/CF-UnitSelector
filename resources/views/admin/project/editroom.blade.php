@@ -117,10 +117,15 @@
         @endforeach
         ROOMTYPES += "<option value='add_new'>Add New</option>";
          
-       $('select[name="room_type[]"]', window.parent.document).html(ROOMTYPES); 
+       $('select[name="room_type[]"]', window.parent.document).html(ROOMTYPES);
+       
+       @if(!isset($_GET['flag']))
+       updateRoomAttributes();
+       @endif
     
     }
      window.onload = updateRoom;
+    
  </script>
 
 <!-- END PLACE PAGE CONTENT HERE -->

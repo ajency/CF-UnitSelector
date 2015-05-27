@@ -224,11 +224,11 @@
             <div class="modal-body">
                 <iframe level="" id="roomtypeiframe" width="100%" src="/admin/project/{{ $project['id']}}/roomtype/create"></iframe>
             </div>
-            <div class="modal-footer">
+            <!--<div class="modal-footer">
                 <button type="button" onClick="updateRoomAttributes();" class="btn btn-primary updateattribute hidden"><i class="fa fa-check"></i> Update Room Attributes</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
 
-            </div>
+            </div>-->
 
         </div>
     </div>
@@ -248,13 +248,13 @@
     {
     if (id)
     {
-    $("#roomtypeiframe").attr("src", "/admin/project/{{ $project['id']}}/roomtype/" + id + "/edit");
+    $("#roomtypeiframe").attr("src", "/admin/project/{{ $project['id']}}/roomtype/" + id + "/edit?flag=edit");
             $(".updateattribute").removeClass("hidden");
             $('#myModal').modal('show');
     }
     }
 
-    var level = $(obj).closest('.row').find('input[name="levels[]"]').val();
+             var level = $(obj).closest('.row').find('input[name="levels[]"]').val();
             $("#roomtypeiframe").attr("level", level);
             $("#roomtypeiframe").attr("roomid", id);
     }
