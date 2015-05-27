@@ -4,16 +4,29 @@
 
 class AuthoringTool.VillaView extends Marionette.ItemView
 
-	template : '<div class="form-group">
-                     <label for="exampleInputPassword1">Units</label>
-                    <select class="form-control units">
-                       <option value="1">Villa 1</option>
-                       <option value="2">Villa 2</option>
-                       <option value="3">Villa 3</option>
-                       <option value="4">Villa 4</option>
-                       <option value="5">Villa 5</option>
-                     </select>
-                   </div>'
+	template : '<form id="add-form"><div class="form-group">
+					 <label for="exampleInputPassword1">Units</label>
+					<select class="form-control units">
+						<option value="">Select</option>
+					   <option value="1">Villa 1</option>
+					   <option value="2">Villa 2</option>
+					   <option value="3">Villa 3</option>
+					   <option value="4">Villa 4</option>
+					   <option value="5">Villa 5</option>
+					 </select>
+				   </div><form>'
+
+
+	ui :
+		units : '.units'
+
+	events:
+		'change @ui.units':(e)->
+			$('.villa').each (index,value)->
+				if value.id is $(e.target).val()
+					$('.info').text 'Already assigned'
+					$('.alert').removeClass 'hidden'
+					return 
 
 class AuthoringTool.VillaCtrl extends Marionette.RegionController
 

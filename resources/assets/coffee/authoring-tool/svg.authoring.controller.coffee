@@ -115,7 +115,6 @@ jQuery(document).ready ($)->
 
 	window.createSvg(window.svgData.data)
 	window.generatePropTypes()
-	window.createPanel(window.svgData.supported_types)		
 	types = window.getPendingObjects(window.svgData) 
 	window.showPendingObjects(types)
 	s = new XMLSerializer()
@@ -170,6 +169,7 @@ jQuery(document).ready ($)->
 
 	$('.save').on 'dblclick', (e) ->
 		e.preventDefault()
+		console.log f
 		window.canvas_type = "polygon"
 		$('#aj-imp-builder-drag-drop canvas').show()
 		$('#aj-imp-builder-drag-drop .svg-draw-clear').show()
@@ -193,6 +193,10 @@ jQuery(document).ready ($)->
 				$("input[name=svg-element-id]").val(svgDataObject.id)
 	
 	$('.submit').on 'click', (e) ->
+		if  _.isEmpty $('.units').val()
+			$('.info').text 'Unit not assigned'
+			$('.alert').removeClass 'hidden'
+			return false
 		if  _.isEmpty $('.area').val() 
 			$('.info').text 'Coordinates not marked'
 			$('.alert').removeClass 'hidden'
@@ -210,9 +214,7 @@ jQuery(document).ready ($)->
 		childEle['canvas_type'] = window.canvas_type
 
 		window.svgData.data.push childEle
-		$('#aj-imp-builder-drag-drop canvas').hide()
-		$('#aj-imp-builder-drag-drop svg').show()
-		$('.edit-box').addClass 'hidden'
+		
 		window.createSvg(window.svgData.data)
 		types = window.getPendingObjects(window.svgData) 
 		window.showPendingObjects(types)
@@ -221,6 +223,15 @@ jQuery(document).ready ($)->
 		draw.svg str
 		$('.area').val("")
 		window.f = []
+		$("form").trigger("reset")
+		$('#dynamice-region').empty()
+		$(".toggle").trigger 'click'
+		$('#aj-imp-builder-drag-drop canvas').hide()
+		$('#aj-imp-builder-drag-drop svg').show()
+		$('.edit-box').addClass 'hidden'
+		canvas = document.getElementById("c")
+		ctx= canvas.getContext("2d")
+		ctx.clearRect( 0 , 0 , canvas.width, canvas.height )
 		
 		
 
@@ -234,13 +245,7 @@ jQuery(document).ready ($)->
 			new AuthoringTool.PlotCtrl region : @region
 
 
-	$('.units').on 'change', (e) ->
-		console.log "aaaaaaaaaaaa"
-		$('.layer').each (index,value)->
-			if value.id is $(e.target).val()
-				$('.info').text 'Already assigned'
-				$('.alert').removeClass 'hidden'
-				return 
+	
 	
 
 

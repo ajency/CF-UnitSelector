@@ -105,7 +105,6 @@
     };
     window.createSvg(window.svgData.data);
     window.generatePropTypes();
-    window.createPanel(window.svgData.supported_types);
     types = window.getPendingObjects(window.svgData);
     window.showPendingObjects(types);
     s = new XMLSerializer();
@@ -121,6 +120,7 @@
     });
     $('.save').on('dblclick', function(e) {
       e.preventDefault();
+      console.log(f);
       window.canvas_type = "polygon";
       $('#aj-imp-builder-drag-drop canvas').show();
       $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
@@ -149,7 +149,12 @@
       })(this));
     });
     $('.submit').on('click', function(e) {
-      var childEle, details, value;
+      var canvas, childEle, ctx, details, value;
+      if (_.isEmpty($('.units').val())) {
+        $('.info').text('Unit not assigned');
+        $('.alert').removeClass('hidden');
+        return false;
+      }
       if (_.isEmpty($('.area').val())) {
         $('.info').text('Coordinates not marked');
         $('.alert').removeClass('hidden');
@@ -167,9 +172,6 @@
       childEle['details'] = details;
       childEle['canvas_type'] = window.canvas_type;
       window.svgData.data.push(childEle);
-      $('#aj-imp-builder-drag-drop canvas').hide();
-      $('#aj-imp-builder-drag-drop svg').show();
-      $('.edit-box').addClass('hidden');
       window.createSvg(window.svgData.data);
       types = window.getPendingObjects(window.svgData);
       window.showPendingObjects(types);
@@ -177,9 +179,18 @@
       str = s.serializeToString(rawSvg);
       draw.svg(str);
       $('.area').val("");
-      return window.f = [];
+      window.f = [];
+      $("form").trigger("reset");
+      $('#dynamice-region').empty();
+      $(".toggle").trigger('click');
+      $('#aj-imp-builder-drag-drop canvas').hide();
+      $('#aj-imp-builder-drag-drop svg').show();
+      $('.edit-box').addClass('hidden');
+      canvas = document.getElementById("c");
+      ctx = canvas.getContext("2d");
+      return ctx.clearRect(0, 0, canvas.width, canvas.height);
     });
-    $('.property_type').on('change', function(e) {
+    return $('.property_type').on('change', function(e) {
       if ($(e.target).val() === 'villa') {
         this.region = new Marionette.Region({
           el: '#dynamice-region'
@@ -196,15 +207,6 @@
           region: this.region
         });
       }
-    });
-    return $('.units').on('change', function(e) {
-      console.log("aaaaaaaaaaaa");
-      return $('.layer').each(function(index, value) {
-        if (value.id === $(e.target).val()) {
-          $('.info').text('Already assigned');
-          $('.alert').removeClass('hidden');
-        }
-      });
     });
   });
 
