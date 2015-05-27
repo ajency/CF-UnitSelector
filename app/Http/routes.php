@@ -49,6 +49,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource( 'project.plot-unit', 'Admin\ProjectPlotUnitController' );
     Route::resource( 'project.building', 'Admin\ProjectBuildingController' );
     Route::resource( 'project.floor-layout', 'Admin\ProjectFloorLayoutController' );
+    Route::resource( 'project.svg-tool', 'Admin\SvgController' );
     Route::resource( 'phase', 'Admin\PhaseController' );
     Route::resource( 'project.roomtype', 'Admin\ProjectRoomTypeController' );
     Route::resource( 'floor-layout.position', 'Admin\FloorLayoutPositionController' );
