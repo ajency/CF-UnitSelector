@@ -73,7 +73,12 @@ class PlotListView extends Marionette.ItemView
 			unit = unitCollection.findWhere 
 				id :  id 
 		
-			if ! _.isUndefined unit 
+			if ! _.isUndefined unit
+				$('.layer').tooltipster('hide')
+				$('svg').attr('class' ,'zoom')
+				$('#spritespin').addClass 'zoom'
+				$('.us-right-content').addClass 'fadeOut'
+				$('.cf-loader').removeClass 'hidden'
 				setTimeout( (x)->
 					CommonFloor.navigate '/unit-view/'+id , trigger : true
 					# CommonFloor.router.storeRoute()

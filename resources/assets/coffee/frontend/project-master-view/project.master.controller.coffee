@@ -625,9 +625,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						</div>'
 
 			if availability == 'available'
-				html +='<div class="circle">
-							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
-						</div>
+				html +='<a href="#unit-view/'+id+'" class="view-unit">
+							<div class="circle">
+								<span class="arrow-up icon-chevron-right"></span>
+							</div>
+						</a>
 						<div class="details">
 							<div class="text-muted text-default">Click arrow to move forward</div>
 						</div>
@@ -721,9 +723,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						</div>'
 
 			if availability == 'available'
-				html +='<div class="circle">
-							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
-						</div>
+				html +='<a href="#unit-view/'+id+'" class="view-unit">
+							<div class="circle">
+								<span class="arrow-up icon-chevron-right"></span>
+							</div>
+						</a>
 						<div class="details">
 							<div class="text-muted text-default">Click arrow to move forward</div>
 						</div>
@@ -823,9 +827,12 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					
 				html += '<div class=" text-primary">
 								Starting Price <span class="text-primary icon-rupee-icn"></span>'+price+'
-							</div> <div class="circle">
-						<a href="#'+url+'" class="arrow-up icon-chevron-right"></a>
-						</div>
+							</div> 
+						<a href="#'+url+'" class="view-unit">
+							<div class="circle">
+								<span class="arrow-up icon-chevron-right"></span>
+							</div>
+						</a>
 						
 							
 						<div>
@@ -982,8 +989,14 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				interactive : true
 				# animation : 'grow'
 				trigger: 'hover'
-				
-				
+				functionReady:(e)->
+					$('.view-unit').on('click' , (e)->
+						$('.layer').tooltipster('hide')
+						$('svg').attr('class' ,'zoom')
+						$('#spritespin').addClass 'zoom'
+						$('.us-right-content').addClass 'fadeOut'
+						$('.cf-loader').removeClass 'hidden'
+					)
 		)
 
 		

@@ -73,9 +73,12 @@ class ListItemView extends Marionette.ItemView
 				return
 			buildingModel = buildingCollection.findWhere
 							'id' : id
-			$('.spritespin-canvas').addClass 'zoom'
-			$('.us-left-content').addClass 'animated fadeOut'
 			# window.building_id = id
+			$('.layer').tooltipster('hide')
+			$('svg').attr('class' ,'zoom')
+			$('#spritespin').addClass 'zoom'
+			$('.us-right-content').addClass 'fadeOut'
+			$('.cf-loader').removeClass 'hidden'
 			setTimeout( (x)->
 				if Object.keys(buildingModel.get('building_master')).length == 0
 					CommonFloor.navigate '/building/'+id+'/apartments' , true

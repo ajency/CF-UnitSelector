@@ -69,6 +69,11 @@
           id: id
         });
         if (!_.isUndefined(unit)) {
+          $('.layer').tooltipster('hide');
+          $('svg').attr('class', 'zoom');
+          $('#spritespin').addClass('zoom');
+          $('.us-right-content').addClass('fadeOut');
+          $('.cf-loader').removeClass('hidden');
           return setTimeout(function(x) {
             return CommonFloor.navigate('/unit-view/' + id, {
               trigger: true
