@@ -60,10 +60,16 @@ class SvgController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
-	{
-		//
-	}
+	public function show($projectid, $imageid){
+
+		$svgElements = Svg::where( 'image_id', '=', $imageid )->get()->toArray();
+        
+        return response()->json( [
+            'code' => 'svg_elements_for_image',
+            'message' => '',
+            'data' => $svgElements
+        ], 200);		
+	}	
 
 	/**
 	 * Show the form for editing the specified resource.
@@ -121,5 +127,16 @@ class SvgController extends Controller {
 	{
 		//
 	}
+
+	public function getProjectImageSvg($projectid, $imageid){
+
+		$svgElements = Svg::where( 'image_id', '=', $imageid )->get()->toArray();
+        
+        return response()->json( [
+            'code' => 'svg_elements_for_image',
+            'message' => '',
+            'data' => $svgElements
+        ], 200);		
+	}	
 
 }
