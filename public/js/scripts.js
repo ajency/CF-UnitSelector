@@ -1111,6 +1111,7 @@ function saveBreakPoint()
     });
     var objectType = $('div.object-master-images').attr('data-object-type');
     var objectId = $('div.object-master-images').attr('data-object-id');
+    var objectId = $('div.object-master-images').attr('data-object-id');
     $.ajax({
         url: BASEURL + '/admin/' + objectType + '/' + objectId + '/media/updatebreakpoint',
         type: "POST",
@@ -1118,7 +1119,18 @@ function saveBreakPoint()
             position: position,
         },
         success: function (response) {
-            console.log(response)
+            $('input[name="position[]"]').each(function () {
+                
+                pos = $(this).val();
+                className = ".auth-tool-"+pos;
+                if ($(this).prop('checked')){
+                    $(className).removeClass('hidden');
+                }
+                else{
+                    $(className).addClass('hidden');
+                }
+                
+            });
         }
     });
 }
