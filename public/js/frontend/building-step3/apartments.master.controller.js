@@ -240,7 +240,7 @@
       return ApartmentsView.__super__.constructor.apply(this, arguments);
     }
 
-    ApartmentsView.prototype.template = Handlebars.compile('	<div class="row"> <div class="col-sm-4  info"> <b class="bold">{{floor}}</b> - {{unit_name}} </div> <div class="col-sm-3  info"> {{unit_type}} </div> <div class="col-sm-5 text-primary"> <span class="icon-rupee-icn"></span>{{price}} <!--<span class="tick"></span>--> </div> </div>');
+    ApartmentsView.prototype.template = Handlebars.compile('	<div class="row"> <div class="col-xs-4  info"> <b class="bold">{{floor}}</b> - {{unit_name}} </div> <div class="col-xs-3  info"> {{unit_type}} </div> <div class="col-xs-5 text-primary"> <span class="icon-rupee-icn"></span>{{price}} <!--<span class="tick"></span>--> </div> </div>');
 
     ApartmentsView.prototype.initialize = function() {
       return this.$el.prop("id", 'apartment' + this.model.get("id"));
@@ -455,7 +455,7 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + ' </h5> <br> <br> <!--<span class="label label-success"></span--> <br><br> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' ' + project.get('area_unit') + ') </div> <div class="text-primary"> <span class="icon-rupee-icn"></span>' + price + '</div> </div>';
+        html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + ' </h5> <br> <br> <!--<span class="label label-success"></span--> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' ' + project.get('area_unit') + ') </div> <div class="text-primary"> <span class="icon-rupee-icn"></span>' + price + '</div> </div>';
         if (availability === 'available') {
           html += '<a href="#unit-view/' + id + '" class="view-unit"> <div class="circle"> <span class="arrow-up icon-chevron-right"></span> </div> </a> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
         } else {

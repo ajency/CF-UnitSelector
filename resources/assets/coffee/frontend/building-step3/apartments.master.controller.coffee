@@ -213,14 +213,14 @@ class ApartmentsView extends Marionette.ItemView
 
 	template : Handlebars.compile('	<div class="row">
 
-					                      <div class="col-sm-4  info">
+					                      <div class="col-xs-4  info">
 					                        <b class="bold">{{floor}}</b> - {{unit_name}} 
 					                  </div>  
 
-					                      <div class="col-sm-3  info">
+					                      <div class="col-xs-3  info">
 					                        	{{unit_type}}
 					                      </div> 
-					                       <div class="col-sm-5 text-primary">
+					                       <div class="col-xs-5 text-primary">
 					                          <span class="icon-rupee-icn"></span>{{price}} <!--<span class="tick"></span>-->
 					                      </div> 
 					                  </div>')
@@ -550,7 +550,6 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 						<br> <br>
 
 						<!--<span class="label label-success"></span-->
-						<br><br>
 						<div class="details">
 							<div>
 								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('area_unit')+')
