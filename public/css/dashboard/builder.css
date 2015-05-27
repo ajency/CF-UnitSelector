@@ -15,12 +15,12 @@ svg {
   width: 100%;
   height: auto;
   transform: translateZ(0);
-}
-svg polygon {
-  transform: rotateY(-180deg) scale(0);
-  transition: all 0.4s cubic-bezier(0.59, 0.72, 0.375, 1.65);
-  transform-origin: center;
-  -moz-transform-origin: 0 0;
+  /*	polygon {
+	  	transform: rotateY(-180deg) scale(0);
+	  	transition: all 0.4s cubic-bezier(0.59, 0.72, 0.375, 1.65);
+	  	transform-origin: center;
+	  	-moz-transform-origin: 0 0;
+  	}*/
 }
 svg .caption {
   font-size: 14px;
