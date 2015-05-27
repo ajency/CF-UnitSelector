@@ -58,7 +58,12 @@
                         <div class="aj-imp-browser-address-bar clearfix">
                             <h4><span>SVG</span> PROJECT MASTER</h4>
                         </div>
-
+                          <div class="zoom-controls pull-left"> Zoom Level &nbsp;
+                            <button id="in" class="zoom-in btn btn-primary"><i class="fa fa-search-plus"></i></button>
+                            <button id="out" class="zoom-out btn btn-primary"><i class="fa fa-search-minus"></i></button>
+                            
+                            <input type="hidden" name="svg-element-id">
+                        </div>
                         <button class="color-switch btn btn-default">
                             <i class="fa fa-eye"></i>
                             <div><small>PREVIEW</small>
@@ -73,12 +78,7 @@
 
                     <div class="aj-imp-browser-preview">
                         <!-- browser body-->
-                        <div class="zoom-controls">
-                            <button id="in" class="zoom-in">in</button>
-                            <button id="out" class="zoom-out">out</button>
-                            
-                            <input type="hidden" name="svg-element-id">
-                        </div>
+                      
                         <div id="aj-imp-browser-body">
                               <div class="edit-box hidden">
                    <h4>Unit Details</h4>
@@ -106,7 +106,20 @@
                    <button type="button" class="btn btn-primary submit" >Submit</button>
                  </form>
                </div>
-                          <button id="save-svg-elem" class="save">save</button>
+                 <nav role='navigation' class="aj-navbar">
+                  <div class="toggle">
+                    <span class="container">
+                     <i class="fa fa-plus"></i>
+                    </span>
+                  </div>
+                  <div class="menu">
+                    <ul class="menu-block">
+                      <li><a class="save"><i class="fa fa-area-chart"></i> Polygon</a></li>
+                      <li><a><i class="fa fa-map-marker"></i> Marker</a></li>
+                    </ul>
+                  </div>
+                </nav> 
+                         <!--  <button id="save-svg-elem" class="save">save</button> -->
                             <div id="aj-imp-builder-drag-drop" class="svg-canvas">
                                 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm2">Small modal</button> -->
                               <textarea name="coords2" rows=3 class="area hidden" disabled placeholder="Shape Coordinates" data-image-url="{{$svgImage}}"></textarea>
@@ -316,34 +329,47 @@
             </div>
         </div>
 
+
+        <div class="aj-imp-builder container-fluid">
+       <div id="header-region"></div>
+       
+        <div ui-region></div>
+    </div>
+
+        @include('frontend/templates')
         <script src="{{ asset('bower_components/underscore/underscore-min.js' )}}"></script>
         <script src="{{ asset('bower_components/underscore.string/dist/underscore.string.min.js' )}}"></script>
-        <script src="{{ asset('bower_components/backbone/backbone.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery/dist/jquery.min.js' )}}"></script>
+        <script src="{{ asset('bower_components/backbone/backbone.js' )}}"></script>
+        <script src="{{ asset('bower_components/backbone.marionette/lib/backbone.marionette.min.js' )}}"></script>
+        <script src="{{ asset('bower_components/handlebars/handlebars.min.js' )}}"></script>
+        <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js' )}}"></script>
         <script src="{{ asset('bower_components/svg.js/dist/svg.min.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery.panzoom/dist/jquery.panzoom.min.js' )}}"></script>
+        <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('bower_components/interact/interact.min.js')}}" type="text/javascript"></script>
+        <script src="{{ asset('bower_components/marionette.state/dist/marionette.state.js' )}}"></script>
+        
         <script src="{{ asset('js/svg.parser.min.js' )}}"></script>
         <script src="{{ asset('js/svg.import.min.js' )}}"></script>
         <script src="{{ asset('js/svg.draggable.min.js' )}}"></script>
         <script src="{{ asset('js/jquery.canvasAreaDraw.min.js' )}}"></script>
+        <script src="{{ asset('js/frontend/app.js' )}}"></script>
+        
         <!--script src="{{ asset('js/jquery.canvasAreaDraw.js' )}}"></script-->
+        
+        <script type="text/javascript">
+            svgImg = '{{$svgImage}}';
+           
+
+        AuthoringTool = new Marionette.Application 
+        BASEURL = '{{url()}}'
+        </script>
+
         <script src="{{ asset('js/authoring-tool/common.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/polygon.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/svg.authoring.controller.js' )}}"></script>
-        <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}" type="text/javascript"></script>
-        <script src="{{ asset('bower_components/interact/interact.min.js')}}" type="text/javascript"></script>
-        <script type="text/javascript">
-            svgImg = '{{$svgImage}}';
-            panzoom = $('#aj-imp-builder-drag-drop').panzoom({
-                contain: 'invert',
-                minScale: 1,
-                maxScale: 2.4,
-                increment: 0.4,
-                $zoomIn: $('.zoom-in'),
-                $zoomOut: $('.zoom-out')
-
-            })
-        </script>
+        <script src="{{ asset('js/authoring-tool/application.js' )}}"></script>
 </body>
 
 </html>

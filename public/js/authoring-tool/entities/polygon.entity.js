@@ -20,6 +20,7 @@
     };
 
     Polygon.prototype.createPolgyonTag = function(item) {
+      console.log(item.details["class"]);
       this.pointList = [];
       this.createPolgyon();
       this.points(item.points);

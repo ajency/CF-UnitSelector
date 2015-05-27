@@ -94,7 +94,7 @@
 </script>
 
 <script id="main-template" type="text/template">
-
+        <div id="svg-region">
           <div ui-region="top" id="topregion">
             <div class="aj-imp-builder-area">
                 <div class="builder-header">
@@ -169,7 +169,7 @@
                     </div>
                 </div>
           </div>
-
+        </div>
         </script>
 
         

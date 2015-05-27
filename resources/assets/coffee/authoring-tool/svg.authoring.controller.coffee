@@ -8,14 +8,62 @@
 #Function to switch to edit mode
 #Function to show the options depending on whether object is marked or not
 #Function to count the number of pending objects
-
 jQuery(document).ready ($)->
 	$('.area').canvasAreaDraw()
 	window.draw = SVG('aj-imp-builder-drag-drop')
 	
 	window.svgData = {
 					'image':''
-					'data' : []
+					'data' : [
+								{
+									'id' : 1,
+									'type' : 'villa',
+									'name' : 'Villa 1',
+									'canvas_type' : 'polygon',
+									'details' : {'class':'marked'},
+									'points'  : ["359", "332", "418", "365", "345", "359"]
+								},
+								{
+									'id' : 2,
+									'type' : 'villa',
+									'name' : 'Villa 2',
+									'canvas_type' : '',
+									'details' : '',
+									'points'  : []
+								},
+								{
+									'id' : 3,
+									'type' : 'villa',
+									'name' : 'Villa 3',
+									'canvas_type' : 'polygon',
+									'details' : {'class':'marked'},
+									'points'  : ["425", "485", "459", "501", "457", "547", "408", "550"]
+								},
+								{
+									'id' : 4,
+									'type' : 'villa',
+									'name' : 'Villa 4',
+									'canvas_type' : 'polygon',
+									'details' : {'class':'marked'},
+									'points'  : ["629", "490", "667", "476", "704", "474", "709", "499", "706", "536", "635", "539"]
+								},
+								{
+									'id' : 5,
+									'type' : 'villa',
+									'name' : 'Villa 5',
+									'canvas_type' : '',
+									'details' : '',
+									'points'  : []
+								},
+								{
+									'id' :6,
+									'type' : 'building',
+									'name' : 'Building 1',
+									'canvas_type' : '',
+									'details' : '',
+									'points'  : []
+								}
+					]
 					'supported_types' : ['polygon']
 				}
 	#function to create the svg
@@ -75,26 +123,24 @@ jQuery(document).ready ($)->
 		$.each uniqTypes ,(index,value)->
 			items = collection.where
 						'type' : value
-			notMarked = []
+			Marked = []
 			$.each items,(ind,val)->
-				if val.get('canvas_type') == ""
-					notMarked.push val
+				if val.get('canvas_type') != ""
+					Marked.push val
 
 			type.push
 				'name' : value
 				'id'   : value
 				'total' : items.length
-				'unmarked' : notMarked.length
+				'unmarked' : Marked.length
 
 		type
 
 	window.showPendingObjects = (data)->
 		html = ''
 		$.each data ,(index,value)->
-			html += '<input type="checkbox" name="'+value.id+'" id="'+value.id+'" value="">'+value.name+
-					'<strong>Display marked units</strong>'+
-					'<strong class="pull-right" style="line-height:70px;margin-right: 20px;  color: #FF7E00;">'+
-					'Pending: '+value.unmarked+' '+value.name+'(s) | Total : '+value.total+' '+value.name+'(s)</strong>'
+			html += '<strong class="pull-right" style="line-height:70px;margin-right: 20px;  color: #FF7E00;">'+
+					'Marked: '+value.unmarked+' '+value.name+'(s) | Total : '+value.total+' '+value.name+'(s)</strong>'
 		$('.pending').html html
 
 	window.createSvg(window.svgData.data)
@@ -107,20 +153,7 @@ jQuery(document).ready ($)->
 
 	
 
-	$('.marked,.save').on 'dblclick', (e) ->
-		window.canvas_type = "polygon"
-		$('#aj-imp-builder-drag-drop canvas').show()
-		$('#aj-imp-builder-drag-drop .svg-draw-clear').show()
-		$('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
-		$('.edit-box').removeClass 'hidden'
-		currentElem = e.currentTarget
-		svgDataObjects = svgData.data
-		_.each svgDataObjects, (svgDataObject, key) =>
-			elemTypeId = $(currentElem).attr("type-id")
-			if parseInt(elemTypeId) is svgDataObject.id
-				points = svgDataObject.points
-				drawPoly(points)
-				$("input[name=svg-element-id]").val(svgDataObject.id)
+
 
 			
 		
@@ -158,13 +191,17 @@ jQuery(document).ready ($)->
 	# 	$('#aj-imp-builder-drag-drop svg').first().css("position","relative")
 	# 	$("input[name=svg-element-id]").val("")	
 	# 	$(".area").val("")	
-			
+	$(".toggle").click( ()->
+	    $(this).toggleClass("expanded");
+	    $('.menu').toggleClass('open');
+	 
+	)
+	
 	$('.submit').on 'click', (e) ->
-		console.log value =  $('.area').val().split(',')
+		value =  $('.area').val().split(',')
 		
-		details = []
-		details.push
-			class : 'villa'
+		details = {}
+		details['class'] = 'marked'
 		childEle = {}
 		childEle['id'] = $('.Villas').val()
 		childEle['name'] = $(".Villas option:selected").text()
@@ -173,21 +210,35 @@ jQuery(document).ready ($)->
 		childEle['details'] = details
 		childEle['canvas_type'] = window.canvas_type
 
-		console.log childEle
 		window.svgData.data.push childEle
 		$('#aj-imp-builder-drag-drop canvas').hide()
-		# $('#aj-imp-builder-drag-drop .svg-draw-clear').hide()
 		$('#aj-imp-builder-drag-drop svg').show()
 		$('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
-		console.log window.svgData
+		$('.edit-box').addClass 'hidden'
 		window.createSvg(window.svgData.data)
-		window.createPanel(window.svgData.supported_types)		
 		types = window.getPendingObjects(window.svgData.data) 
 		window.showPendingObjects(types)
 		s = new XMLSerializer()
 		str = s.serializeToString(rawSvg)
 		draw.svg str
 
+	$('.marked,.save').on 'dblclick', (e) ->
+			e.preventDefault()
+			window.canvas_type = "polygon"
+			$('#aj-imp-builder-drag-drop canvas').show()
+			$('#aj-imp-builder-drag-drop .svg-draw-clear').show()
+			$('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
+			$('.edit-box').removeClass 'hidden'
+			currentElem = e.currentTarget.id
+			svgDataObjects = svgData.data
+			_.each svgDataObjects, (svgDataObject, key) =>
+				if parseInt(currentElem) is svgDataObject.id
+					points = svgDataObject.points
+					drawPoly(points)
+					$("input[name=svg-element-id]").val(svgDataObject.id)
+
+
+	
 
 			
 
