@@ -275,7 +275,7 @@ function saveRoomypeattribute(project_id, roomtypeId, reffrence_type)
 
 function deleteAttribute(project_id, attributeId, obj)
 {
-    if (confirm('Are you sure you want to delete this room type attribute?') === false) {
+    if (confirm('Are you sure you want to delete this attribute?') === false) {
         return;
     }
     if (attributeId)
