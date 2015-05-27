@@ -9,7 +9,7 @@
       return VillaView.__super__.constructor.apply(this, arguments);
     }
 
-    VillaView.prototype.template = '<div class="form-group"> <label for="exampleInputPassword1">Units</label> <select class="form-control Villas"> <option value="1">Villa 1</option> <option value="2">Villa 2</option> <option value="3">Villa 3</option> <option value="4">Villa 4</option> <option value="5">Villa 5</option> </select> </div>';
+    VillaView.prototype.template = '<div class="form-group"> <label for="exampleInputPassword1">Units</label> <select class="form-control units"> <option value="1">Villa 1</option> <option value="2">Villa 2</option> <option value="3">Villa 3</option> <option value="4">Villa 4</option> <option value="5">Villa 5</option> </select> </div>';
 
     return VillaView;
 

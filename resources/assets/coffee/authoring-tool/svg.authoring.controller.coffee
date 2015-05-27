@@ -14,59 +14,8 @@ jQuery(document).ready ($)->
 	
 	window.svgData = {
 					'image':''
-					'data' : [
-								{
-									'id' : 1,
-									'type' : 'villa',
-									'name' : 'Villa 1',
-									'canvas_type' : 'polygon',
-									'details' : {'class':'marked'},
-									'points'  : ["359", "332", "418", "365", "345", "359"]
-								},
-								{
-									'id' : 2,
-									'type' : 'villa',
-									'name' : 'Villa 2',
-									'canvas_type' : '',
-									'details' : '',
-									'points'  : []
-								},
-								{
-									'id' : 3,
-									'type' : 'villa',
-									'name' : 'Villa 3',
-									'canvas_type' : 'polygon',
-									'details' : {'class':'marked'},
-									'points'  : ["425", "485", "459", "501", "457", "547", "408", "550"]
-								},
-								{
-									'id' : 4,
-									'type' : 'villa',
-									'name' : 'Villa 4',
-									'canvas_type' : 'polygon',
-									'details' : {'class':'marked'},
-									'points'  : ["629", "490", "667", "476", "704", "474", "709", "499", "706", "536", "635", "539"]
-								},
-								{
-									'id' : 5,
-									'type' : 'villa',
-									'name' : 'Villa 5',
-									'canvas_type' : '',
-									'details' : '',
-									'points'  : []
-								},
-								{
-									'id' :6,
-									'type' : 'building',
-									'name' : 'Building 1',
-									'canvas_type' : '',
-									'details' : '',
-									'points'  : []
-								}
-
-
-							]
-					'supported_types' : ['villa','building']
+					'data' : []
+					'supported_types' : ['villa','plot']
 				}
 	#function to create the svg
 	window.createSvg = (svgData)->
@@ -157,6 +106,7 @@ jQuery(document).ready ($)->
 	window.generatePropTypes = ()->
 		types = window.svgData.supported_types
 		select = $('.property_type')
+		$('<option />', {value: "", text: 'Select option'}).appendTo(select)
 		$.each types , (index,value)->
 			$('<option />', {value: value, text: value.toUpperCase()}).appendTo(select)
 
@@ -218,7 +168,16 @@ jQuery(document).ready ($)->
 	 
 	)
 
-	$('.marked,.save').on 'dblclick', (e) ->
+	$('.save').on 'dblclick', (e) ->
+		e.preventDefault()
+		window.canvas_type = "polygon"
+		$('#aj-imp-builder-drag-drop canvas').show()
+		$('#aj-imp-builder-drag-drop .svg-draw-clear').show()
+		$('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
+		$('.edit-box').removeClass 'hidden'
+		
+
+	$('.villa,.plot').on 'dblclick', (e) ->
 		e.preventDefault()
 		window.canvas_type = "polygon"
 		$('#aj-imp-builder-drag-drop canvas').show()
@@ -234,13 +193,17 @@ jQuery(document).ready ($)->
 				$("input[name=svg-element-id]").val(svgDataObject.id)
 	
 	$('.submit').on 'click', (e) ->
+		if  _.isEmpty $('.area').val() 
+			$('.info').text 'Coordinates not marked'
+			$('.alert').removeClass 'hidden'
+			return false
 		value =  $('.area').val().split(',')
 		store.remove()
 		details = {}
-		details['class'] = 'marked'
-		childEle = {}
-		childEle['id'] = $('.Villas').val()
-		childEle['name'] = $(".Villas option:selected").text()
+		details['class'] = 'layer '+$('.property_type').val()
+		childEle = {} 
+		childEle['id'] = $('.units').val()
+		childEle['name'] = $(".units option:selected").text()
 		childEle['type'] = $('.property_type').val()
 		childEle['points'] = value
 		childEle['details'] = details
@@ -256,13 +219,28 @@ jQuery(document).ready ($)->
 		s = new XMLSerializer()
 		str = s.serializeToString(rawSvg)
 		draw.svg str
+		$('.area').val("")
+		window.f = []
+		
+		
 
 	$('.property_type').on 'change', (e) ->
 
 		if $(e.target).val() is 'villa'
-			console.log "aaaaaaaaaa"
 			@region =  new Marionette.Region el : '#dynamice-region'
 			new AuthoringTool.VillaCtrl region : @region
+		if $(e.target).val() is 'plot'
+			@region =  new Marionette.Region el : '#dynamice-region'
+			new AuthoringTool.PlotCtrl region : @region
+
+
+	$('.units').on 'change', (e) ->
+		console.log "aaaaaaaaaaaa"
+		$('.layer').each (index,value)->
+			if value.id is $(e.target).val()
+				$('.info').text 'Already assigned'
+				$('.alert').removeClass 'hidden'
+				return 
 	
 
 
