@@ -658,7 +658,8 @@
             that.iniTooltip();
             CommonFloor.applyAvailabilClasses();
             CommonFloor.randomClass();
-            return CommonFloor.applyFliterClass();
+            CommonFloor.applyFliterClass();
+            return that.loadZoom();
           }).addClass('active').removeClass('inactive');
         }
       });

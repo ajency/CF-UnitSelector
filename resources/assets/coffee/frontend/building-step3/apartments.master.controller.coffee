@@ -30,9 +30,11 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 									           
 						              			<div class="header-info">
 						              				<h2 class="pull-left proj-name">{{project_title}} - {{name}}</h2>
+
 						              				<div class="proj-type-count">
 						              					<h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p>
 						              				</div>
+
 						              				<div class="pull-left filter-result full">
 						              	              	{{#each  filters}}
 						              	              	{{#each this}}
@@ -423,7 +425,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		              						
 		              						<div id="spritespin"></div>
 											<div class="svg-maps">
-												<img class="first_image img-responsive" src="" />
+												<img class="first_image lazy-hidden img-responsive" />
 												<div class="region inactive"></div>
 											</div>
 
@@ -437,7 +439,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 							    		</div>
 
 							    		<div class="mini-map">
-							    			<img class="firstimage img-responsive" src="" />
+							    			<img class="firstimage img-responsive lazy-hidden" />
 							    			<div class="project_master"></div>
 							    		</div>
 							              
@@ -693,7 +695,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$.merge transitionImages ,  project.get('project_master')
 		if project.get('project_master').length != 0
 			$('.project_master').load(first[0],()->
-				$('.firstimage').attr('src',transitionImages[0])
+				$('.firstimage').attr('data-src',transitionImages[0])
 				url = Backbone.history.fragment
 				building_id = url.split('/')[1]
 				$('.villa,.plot').each (ind,item)->

@@ -952,7 +952,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					CommonFloor.applyAvailabilClasses()
 					CommonFloor.randomClass()
 					CommonFloor.applyFliterClass()
-					).addClass('active').removeClass('inactive')
+					that.loadZoom()).addClass('active').removeClass('inactive')
 				
 		)
 

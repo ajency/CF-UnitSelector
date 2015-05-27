@@ -1380,16 +1380,19 @@ svg .layer {
 svg .layer.svg_active {
   -webkit-animation: blink 0.8s ease-in-out infinite alternate;
           animation: blink 0.8s ease-in-out infinite alternate;
+  -moz-animation: blink 0.8s ease-in-out infinite alternate;
 }
 svg .layer.not_in_selection {
   opacity: .5;
   animation: unit_fadein 0.6s;
+  -moz-animation: unit_fadein 0.6s;
   -webkit-animation: unit_fadein 0.6s;
 }
 svg .layer:hover {
   cursor: pointer;
   -webkit-animation: blink 0.8s ease-in-out infinite alternate;
           animation: blink 0.8s ease-in-out infinite alternate;
+  -moz-animation: blink 0.8s ease-in-out infinite alternate;
 }
 svg .villa,
 svg .plot,
@@ -1466,20 +1469,6 @@ svg polygon {
     left: 0;
   }
 }
-@-webkit-keyframes pulse {
-  0% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-  50% {
-    -webkit-transform: scale(1.05);
-            transform: scale(1.05);
-  }
-  100% {
-    -webkit-transform: scale(1);
-            transform: scale(1);
-  }
-}
 @keyframes pulse {
   0% {
     -webkit-transform: scale(1);
@@ -1494,7 +1483,21 @@ svg polygon {
             transform: scale(1);
   }
 }
-@-webkit-keyframes unit_fadein {
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+  50% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+  }
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+@keyframes unit_fadein {
   0% {
     opacity: 0;
     -webkit-transform: translateY(-400px);
@@ -1514,7 +1517,7 @@ svg polygon {
             transform: translateY(0);
   }
 }
-@keyframes unit_fadein {
+@-webkit-keyframes unit_fadein {
   0% {
     opacity: 0;
     -webkit-transform: translateY(-400px);
@@ -1552,13 +1555,13 @@ svg polygon {
     fill-opacity: 0.5;
   }
 }
-@-webkit-keyframes blink {
+@keyframes blink {
   100% {
     fill: #F68121;
     fill-opacity: 0.5;
   }
 }
-@keyframes blink {
+@-webkit-keyframes blink {
   100% {
     fill: #F68121;
     fill-opacity: 0.5;
