@@ -13,27 +13,10 @@
     <link href="{{ asset('css/dashboard/builder.css')}}" rel="stylesheet" type="text/css" />
     <style type="text/css">
 
-    .svg-canvas > svg {
-      position: relative;
-      top: 0;
-      z-index: -1;
-      left: 0px;
-      width: 1600;
-      height: 800;
-      z-index: 0;
-    }
 /*    .svg-canvas {
       transform: none !important;
     }*/
-    canvas{
-      z-index: 999;
-      position: relative;
-    }
-    .marked {
-      fill: #FFE533  !important;
-      border: 2px solid #FFE533 ;
-      opacity: 0.5;
-    }
+
 /*    .svg-canvas{
    transform: matrix(1, 0, 0, 1, 0,-127) !important;
 
@@ -86,10 +69,7 @@
                    <div class="form-group">
                      <label for="exampleInputEmail1">Property Type</label>
                     <select class="form-control property_type">
-                       <option value="Villa">Villa</option>
-                       <option value="Building">Building</option>
-                       <option value="Plot">Plot</option>
-                       <option value="Amenities">Amenities</option>
+                       
                        
                      </select>
                    </div>
@@ -364,6 +344,15 @@
 
         AuthoringTool = new Marionette.Application 
         BASEURL = '{{url()}}'
+        $('#aj-imp-builder-drag-drop').panzoom({
+                contain: 'invert',
+                minScale: 1,
+                maxScale: 2.4,
+                increment: 0.4,
+                $zoomIn: $('.zoom-in'),
+                $zoomOut: $('.zoom-out')
+
+        })
         </script>
 
         <script src="{{ asset('js/authoring-tool/common.js' )}}"></script>
