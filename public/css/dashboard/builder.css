@@ -4979,6 +4979,7 @@ a.red-link.pull-right {
 }
 .svg-canvas > svg {
   position: relative ;
+  height: 800px;
   top: 0;
   z-index: -1;
   left: 0;
