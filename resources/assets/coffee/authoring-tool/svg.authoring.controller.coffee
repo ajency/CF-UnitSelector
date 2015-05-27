@@ -194,12 +194,10 @@ jQuery(document).ready ($)->
 	
 	$('.submit').on 'click', (e) ->
 		if  _.isEmpty $('.units').val()
-			$('.info').text 'Unit not assigned'
-			$('.alert').removeClass 'hidden'
+			$('.alert').text 'Unit not assigned'
 			return false
 		if  _.isEmpty $('.area').val() 
-			$('.info').text 'Coordinates not marked'
-			$('.alert').removeClass 'hidden'
+			$('.alert').text 'Coordinates not marked'
 			return false
 		value =  $('.area').val().split(',')
 		store.remove()
@@ -244,7 +242,12 @@ jQuery(document).ready ($)->
 			@region =  new Marionette.Region el : '#dynamice-region'
 			new AuthoringTool.PlotCtrl region : @region
 
-
+	 $('.alert-box')
+        .delay(3000)
+        .queue( (next)->
+        	$(this).hide('fade') 
+        	next() 
+    )
 	
 	
 

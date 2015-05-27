@@ -24,8 +24,7 @@ class AuthoringTool.PlotView extends Marionette.ItemView
 		'change @ui.units':(e)->
 			$('.plot').each (index,value)->
 				if value.id is $(e.target).val()
-					$('.info').text 'Already assigned'
-					$('.alert').removeClass 'hidden'
+					$('.alert').text 'Already assigned'
 					return 
 
 class AuthoringTool.PlotCtrl extends Marionette.RegionController

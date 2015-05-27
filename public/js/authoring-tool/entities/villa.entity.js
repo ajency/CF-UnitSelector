@@ -19,8 +19,7 @@
       'change @ui.units': function(e) {
         return $('.villa').each(function(index, value) {
           if (value.id === $(e.target).val()) {
-            $('.info').text('Already assigned');
-            $('.alert').removeClass('hidden');
+            $('.alert').text('Already assigned');
           }
         });
       }

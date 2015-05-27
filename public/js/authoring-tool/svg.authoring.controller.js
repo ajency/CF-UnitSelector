@@ -151,13 +151,11 @@
     $('.submit').on('click', function(e) {
       var canvas, childEle, ctx, details, value;
       if (_.isEmpty($('.units').val())) {
-        $('.info').text('Unit not assigned');
-        $('.alert').removeClass('hidden');
+        $('.alert').text('Unit not assigned');
         return false;
       }
       if (_.isEmpty($('.area').val())) {
-        $('.info').text('Coordinates not marked');
-        $('.alert').removeClass('hidden');
+        $('.alert').text('Coordinates not marked');
         return false;
       }
       value = $('.area').val().split(',');
@@ -203,10 +201,14 @@
         this.region = new Marionette.Region({
           el: '#dynamice-region'
         });
-        return new AuthoringTool.PlotCtrl({
+        new AuthoringTool.PlotCtrl({
           region: this.region
         });
       }
+      return $('.alert-box').delay(3000).queue(function(next) {
+        $(this).hide('fade');
+        return next();
+      });
     });
   });
 

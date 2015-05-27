@@ -24,8 +24,7 @@ class AuthoringTool.VillaView extends Marionette.ItemView
 		'change @ui.units':(e)->
 			$('.villa').each (index,value)->
 				if value.id is $(e.target).val()
-					$('.info').text 'Already assigned'
-					$('.alert').removeClass 'hidden'
+					$('.alert').text 'Already assigned'
 					return 
 
 class AuthoringTool.VillaCtrl extends Marionette.RegionController
