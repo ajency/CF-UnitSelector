@@ -431,20 +431,6 @@
       'click #next': function() {
         return this.setDetailIndex(this.currentBreakPoint + 1);
       },
-      'click .list': function(e) {
-        var building_id, url;
-        e.preventDefault();
-        url = Backbone.history.fragment;
-        building_id = parseInt(url.split('/')[1]);
-        return CommonFloor.navigate('/building/' + building_id + '/apartments', true);
-      },
-      'click .map': function(e) {
-        var building_id, url;
-        e.preventDefault();
-        url = Backbone.history.fragment;
-        building_id = parseInt(url.split('/')[1]);
-        return CommonFloor.navigate('/building/' + building_id + '/master-view', true);
-      },
       'mouseover .apartment': function(e) {
         var availability, html, id, price, response, unit, unitMaster;
         id = parseInt(e.target.id);

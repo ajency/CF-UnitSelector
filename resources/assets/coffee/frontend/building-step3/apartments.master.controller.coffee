@@ -494,19 +494,19 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		'click #next':->
 			@setDetailIndex(@currentBreakPoint + 1)
 
-		'click .list':(e)->
-			e.preventDefault()
-			url = Backbone.history.fragment
-			building_id = parseInt url.split('/')[1]
-			CommonFloor.navigate '/building/'+building_id+'/apartments' , true
-			# CommonFloor.router.storeRoute()
+		# 'click .list':(e)->
+		# 	e.preventDefault()
+		# 	url = Backbone.history.fragment
+		# 	building_id = parseInt url.split('/')[1]
+		# 	CommonFloor.navigate '/building/'+building_id+'/apartments' , true
+		# 	# CommonFloor.router.storeRoute()
 
-		'click .map':(e)->
-			e.preventDefault()
-			url = Backbone.history.fragment
-			building_id = parseInt url.split('/')[1]
-			CommonFloor.navigate '/building/'+building_id+'/master-view' , true
-			# CommonFloor.router.storeRoute()
+		# 'click .map':(e)->
+		# 	e.preventDefault()
+		# 	url = Backbone.history.fragment
+		# 	building_id = parseInt url.split('/')[1]
+		# 	CommonFloor.navigate '/building/'+building_id+'/master-view' , true
+		# 	# CommonFloor.router.storeRoute()
 
 		'mouseover .apartment':(e)->
 			id = parseInt e.target.id
