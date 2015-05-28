@@ -625,9 +625,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						</div>'
 
 			if availability == 'available'
-				html +='<div class="circle">
-							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
-						</div>
+				html +='<a href="#unit-view/'+id+'" class="view-unit">
+							<div class="circle">
+								<span class="arrow-up icon-chevron-right"></span>
+							</div>
+						</a>
 						<div class="details">
 							<div class="text-muted text-default">Click arrow to move forward</div>
 						</div>
@@ -721,9 +723,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						</div>'
 
 			if availability == 'available'
-				html +='<div class="circle">
-							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
-						</div>
+				html +='<a href="#unit-view/'+id+'" class="view-unit">
+							<div class="circle">
+								<span class="arrow-up icon-chevron-right"></span>
+							</div>
+						</a>
 						<div class="details">
 							<div class="text-muted text-default">Click arrow to move forward</div>
 						</div>
@@ -823,9 +827,12 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					
 				html += '<div class=" text-primary">
 								Starting Price <span class="text-primary icon-rupee-icn"></span>'+price+'
-							</div> <div class="circle">
-						<a href="#'+url+'" class="arrow-up icon-chevron-right"></a>
-						</div>
+							</div> 
+						<a href="#'+url+'" class="view-unit">
+							<div class="circle">
+								<span class="arrow-up icon-chevron-right"></span>
+							</div>
+						</a>
 						
 							
 						<div>
@@ -852,22 +859,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 	onShow:->
 
-		setHeight = ->
-			windowHeight = $(window).innerHeight() - 56
-			$('.master').css 'height', windowHeight
-			return
+		windowHeight = $(window).innerHeight() - 56
+		$('.master').css 'height', windowHeight
+		$('.master').css 'min-width', windowHeight * 2
 
-		if $(window).width() < 1025
-			setHeight = ->
-				windowHeight = $(window).innerHeight() - 62
-				$('.master').css 'height', windowHeight
-				$('.master').css 'min-width', windowHeight * 2
-				return
-
-		setHeight()
-		$(window).resize ->
-			setHeight()
-			return
+		# if $(window).width() < 1025
+		# 	$('.master').css 'height', windowHeight
+		# 	$('.master').css 'min-width', windowHeight * 2
 
 		
 		# height =  @ui.svgContainer.width() / 2
@@ -954,7 +952,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					CommonFloor.applyAvailabilClasses()
 					CommonFloor.randomClass()
 					CommonFloor.applyFliterClass()
-					).addClass('active').removeClass('inactive')
+					that.loadZoom()).addClass('active').removeClass('inactive')
 				
 		)
 
@@ -974,6 +972,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				that.loadZoom()
 				CommonFloor.randomClass()
 				CommonFloor.applyFliterClass()
+				$('.svg-maps svg').css('height',width / 2);
 
 			).addClass('active').removeClass('inactive')
 
@@ -990,8 +989,14 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				interactive : true
 				# animation : 'grow'
 				trigger: 'hover'
-				
-				
+				functionReady:(e)->
+					$('.view-unit').on('click' , (e)->
+						$('.layer').tooltipster('hide')
+						$('svg').attr('class' ,'zoom')
+						$('#spritespin').addClass 'zoom'
+						$('.us-right-content').addClass 'fadeOut'
+						$('.cf-loader').removeClass 'hidden'
+					)
 		)
 
 		
@@ -999,7 +1004,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 	loadZoom:->
 
-		$panzoom =  $('.master').panzoom
+		$('.master').panzoom
 			contain: 'invert'
 			minScale: 1
 			maxScale: 2.4
@@ -1010,7 +1015,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 		$('.master polygon').on 'mousedown touchstart', (e) ->
 			e.stopImmediatePropagation()
-			return
+
+		# $('.master .region').on 'mousedown touchstart', (e) ->
+		# 	e.stopImmediatePropagation()
 
 		
 	

@@ -76,8 +76,11 @@
         buildingModel = buildingCollection.findWhere({
           'id': id
         });
-        $('.spritespin-canvas').addClass('zoom');
-        $('.us-left-content').addClass('animated fadeOut');
+        $('.layer').tooltipster('hide');
+        $('svg').attr('class', 'zoom');
+        $('#spritespin').addClass('zoom');
+        $('.us-right-content').addClass('fadeOut');
+        $('.cf-loader').removeClass('hidden');
         return setTimeout(function(x) {
           if (Object.keys(buildingModel.get('building_master')).length === 0) {
             return CommonFloor.navigate('/building/' + id + '/apartments', true);

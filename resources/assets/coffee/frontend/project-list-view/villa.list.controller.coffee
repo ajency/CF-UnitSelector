@@ -41,14 +41,17 @@ class VillaView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-12 us-right-content">
 									<div class="list-view-container animated fadeIn">
-										<h2 class="text-center">List of Villas <span class="pull-right top-legend">     <ul>
-				                <li class="available">AVAILABLE</li>
-				                <li class="na">N/AVAILABLE</li>
-				              </ul></span></h2><hr class="margin-none">
+										<span class="pull-left top-legend">     
+											<ul>
+												 <li class="na">N/A</li>
+											</ul>
+										</span>
+										<h2 class="text-center">List of Villas</h2>
+				              			<hr class="margin-none">
 							            <div class="text-center">
 							              <ul class="prop-select">
 							                <li class="prop-type buildings hidden">Buildings</li>
-							                <li class="prop-type Villas active ">Villas/Bungalows</li>
+							                <li class="prop-type Villas active ">Villas</li>
 							                <li class="prop-type Plots hidden">Plots</li>
 							              </ul>
 							            </div>

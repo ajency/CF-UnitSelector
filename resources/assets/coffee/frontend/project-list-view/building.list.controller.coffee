@@ -68,10 +68,13 @@ class BuildingListView extends Marionette.CompositeView
 	            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
 	            </div>
             </div>-->
-            <h2 class="text-center">List of Buildings <span class="pull-right top-legend">     <ul>
-				                <li class="available">AVAILABLE</li>
-				                <li class="na">N/AVAILABLE</li>
-				              </ul></span></h2><hr class="margin-none">	
+            <span class="pull-left top-legend">     
+            	<ul>
+            		 <li class="na">N/A</li>
+            	</ul>
+            </span>
+            <h2 class="text-center">List of Buildings</h2>
+			<hr class="margin-none">	
 			<div class="text-center">
               <ul class="prop-select">
                 <li class="prop-type buildings active">Buildings</li>

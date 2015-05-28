@@ -478,7 +478,7 @@
         html = "";
         html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="villa"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br> <br> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + ') <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div class="text-primary"> <span class="text-primary icon-rupee-icn"></span>' + price + '</div> </div>';
         if (availability === 'available') {
-          html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
+          html += '<a href="#unit-view/' + id + '" class="view-unit"> <div class="circle"> <span class="arrow-up icon-chevron-right"></span> </div> </a> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
         } else {
           html += '</div>';
         }
@@ -513,7 +513,7 @@
         html = "";
         html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="plot"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br> <br> <!--<span class="pull-right icon-cross cross"></span> <span class="label label-success"></span <div class="clearfix"></div>--> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + ') <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div class="text-primary"> <span class="text-primary icon-rupee-icn"></span>' + price + '</div> </div>';
         if (availability === 'available') {
-          html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
+          html += '<a href="#unit-view/' + id + '" class="view-unit"> <div class="circle"> <span class="arrow-up icon-chevron-right"></span> </div> </a> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
         } else {
           html += '</div>';
         }
@@ -565,7 +565,7 @@
           } else {
             url = '/building/' + id + '/master-view';
           }
-          html += '<div class=" text-primary"> Starting Price <span class="text-primary icon-rupee-icn"></span>' + price + '</div> <div class="circle"> <a href="#' + url + '" class="arrow-up icon-chevron-right"></a> </div> <div> <div class="text-muted text-default">Click arrow to move forward</div> </div>';
+          html += '<div class=" text-primary"> Starting Price <span class="text-primary icon-rupee-icn"></span>' + price + '</div> <a href="#' + url + '" class="view-unit"> <div class="circle"> <span class="arrow-up icon-chevron-right"></span> </div> </a> <div> <div class="text-muted text-default">Click arrow to move forward</div> </div>';
         }
         html += '</div></div>';
         $('.layer').tooltipster('content', html);
@@ -581,24 +581,10 @@
     };
 
     CenterMasterView.prototype.onShow = function() {
-      var breakpoints, first, setHeight, svgs, that, transitionImages;
-      setHeight = function() {
-        var windowHeight;
-        windowHeight = $(window).innerHeight() - 56;
-        $('.master').css('height', windowHeight);
-      };
-      if ($(window).width() < 1025) {
-        setHeight = function() {
-          var windowHeight;
-          windowHeight = $(window).innerHeight() - 62;
-          $('.master').css('height', windowHeight);
-          $('.master').css('min-width', windowHeight * 2);
-        };
-      }
-      setHeight();
-      $(window).resize(function() {
-        setHeight();
-      });
+      var breakpoints, first, svgs, that, transitionImages, windowHeight;
+      windowHeight = $(window).innerHeight() - 56;
+      $('.master').css('height', windowHeight);
+      $('.master').css('min-width', windowHeight * 2);
       $('#spritespin').hide();
       that = this;
       transitionImages = [];
@@ -672,7 +658,8 @@
             that.iniTooltip();
             CommonFloor.applyAvailabilClasses();
             CommonFloor.randomClass();
-            return CommonFloor.applyFliterClass();
+            CommonFloor.applyFliterClass();
+            return that.loadZoom();
           }).addClass('active').removeClass('inactive');
         }
       });
@@ -693,7 +680,8 @@
           CommonFloor.applyAvailabilClasses();
           that.loadZoom();
           CommonFloor.randomClass();
-          return CommonFloor.applyFliterClass();
+          CommonFloor.applyFliterClass();
+          return $('.svg-maps svg').css('height', width / 2);
         }).addClass('active').removeClass('inactive');
       });
     };
@@ -707,13 +695,21 @@
         offsetX: 50,
         offsetY: -10,
         interactive: true,
-        trigger: 'hover'
+        trigger: 'hover',
+        functionReady: function(e) {
+          return $('.view-unit').on('click', function(e) {
+            $('.layer').tooltipster('hide');
+            $('svg').attr('class', 'zoom');
+            $('#spritespin').addClass('zoom');
+            $('.us-right-content').addClass('fadeOut');
+            return $('.cf-loader').removeClass('hidden');
+          });
+        }
       });
     };
 
     CenterMasterView.prototype.loadZoom = function() {
-      var $panzoom;
-      $panzoom = $('.master').panzoom({
+      $('.master').panzoom({
         contain: 'invert',
         minScale: 1,
         maxScale: 2.4,
@@ -722,7 +718,7 @@
         $zoomOut: $('.zoom-out')
       });
       return $('.master polygon').on('mousedown touchstart', function(e) {
-        e.stopImmediatePropagation();
+        return e.stopImmediatePropagation();
       });
     };
 

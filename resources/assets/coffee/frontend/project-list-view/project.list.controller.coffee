@@ -169,7 +169,7 @@ class TopListView extends Marionette.ItemView
 		# 	@ui.unitBack.hide()
 		response = CommonFloor.propertyTypes() 
 		if response.length == 0
-			$('.proj-type-count').text 'No results found'
+			$('.proj-type-count').html '<p class="p-l-15">No results found</p>'
 
 
 	removeVillaFilters:->

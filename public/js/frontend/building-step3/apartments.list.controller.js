@@ -46,7 +46,7 @@
       return TopApartmentView.__super__.constructor.apply(this, arguments);
     }
 
-    TopApartmentView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> </a> </div> <div class="header-info"> <h2 class="proj-name pull-left">{{project_title}}</h2> </div> <div class="pull-left filter-result full"> {{#each  filters}} {{#each this}} <div class="filter-pill"  > {{this.name}}{{this.type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div> {{/each}}{{/each }} </div> <div class="proj-type-count"> <p class="pull-right">Apartment(s)/Penthouse(s)</p><h2 class=" pull-right m-t-10">{{results}}</h2> </div> </div> </div> </div>');
+    TopApartmentView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="proj-name pull-left">{{project_title}}</h2> <div class="proj-type-count"> <h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p> </div> <div class="pull-left filter-result full"> {{#each  filters}} {{#each this}} <div class="filter-pill"  > {{this.name}}{{this.type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div> {{/each}}{{/each }} </div> </div> </div> </div> </div>');
 
     TopApartmentView.prototype.ui = {
       unitBack: '.unit_back',

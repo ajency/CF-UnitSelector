@@ -75,7 +75,7 @@ class LeftView extends Marionette.ItemView
 															{{prop_type}} <span class="text-muted">({{unit_types}})</span>
 														</div>
 														{{/propertyTypes}}
-														<div class="text-muted text-default"> To Move Forward Click Arrow</div>
+														<div class="text-muted text-default"> Click arrow to move forward</div>
 													</div>
 													<div class="circle action_button">
 														<span class="arrow-up icon-chevron-right"></span>
@@ -194,22 +194,15 @@ class CenterView extends Marionette.ItemView
 			
 	onShow:->
 
-		setHeight = ->
-			windowHeight = $(window).innerHeight() - 56
-			$('.svg-area').css 'height', windowHeight
-			return
+		windowHeight = $(window).innerHeight() - 56
+		$('.svg-area').css 'height', windowHeight
+		$('.svg-area').css 'min-width', windowHeight * 2
 
-		if $(window).width() < 1025
-			setHeight = ->
-				windowHeight = $(window).innerHeight() - 56
-				$('.svg-area').css 'height', windowHeight
-				$('.svg-area').css 'min-width', windowHeight * 2
-				return
+		# if $(window).width() < 1025
+		# 	windowHeight = $(window).innerHeight() - 56
+		# 	$('.svg-area').css 'height', windowHeight
+		# 	$('.svg-area').css 'min-width', windowHeight * 2
 
-		setHeight()
-		$(window).resize ->
-			setHeight()
-			return
 		
 		$('img').lazyLoadXT()
 		path = @model.get('step_one').svg
@@ -221,7 +214,7 @@ class CenterView extends Marionette.ItemView
 				arrow : false
 				offsetX : 30
 				interactive : true
-				animation : 'grow'
+				animation : 'fade'
 				trigger: 'click'
 				content : $('#proj_info').html()
 				functionReady:(e)->
@@ -236,6 +229,12 @@ class CenterView extends Marionette.ItemView
 					)
 					tooltipHeight = $('.tooltipster-content').height() + 10
 					$('.action-bar').css 'min-height', tooltipHeight
+
+					svgHeight = $(window).innerHeight() - 56
+					svgWidth = svgHeight * 2
+					if $(window).width() < 1025
+						$('svg').css 'min-height', svgHeight
+						$('svg').css 'min-width', svgWidth
 			)
 			$('.marker').tooltipster('show')
 
