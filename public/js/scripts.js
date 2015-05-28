@@ -1359,7 +1359,16 @@ $('input[name="property_types[]"]').change(function (event) {
         }
     }
     else
+    {
         $(this).closest('.row').find('.propertyTypeUnitsAttributes').addClass('hidden');
+        if($(this).closest('.row').find('.attributes_block .defaultAttributes').length)
+        {
+           $(this).closest('.row').find('.attributes_block .defaultAttributes').addClass('hidden');
+           $(this).closest('.row').find('.attributes_block .defaultAttributes').find('input').prop("disabled", true);
+           $(this).closest('.row').find('.attributes_block .defaultAttributes select').prop("disabled", true);
+        }
+        
+    }
 
 });
 
