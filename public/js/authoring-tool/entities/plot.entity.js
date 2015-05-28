@@ -9,10 +9,25 @@
       return PlotView.__super__.constructor.apply(this, arguments);
     }
 
-    PlotView.prototype.template = '<form id="add-form"><div class="form-group"> <label for="exampleInputPassword1">Units</label> <select class="form-control units"> <option value="">Select</option> <option value="1">Plot 1</option> <option value="2">Plot 2</option> <option value="3">Plot 3</option> <option value="4">Plot 4</option> <option value="5">Plot 5</option> </select> </div></form>';
+    PlotView.prototype.template = '<form id="add-form"><div class="form-group"> <label for="exampleInputPassword1">Units</label> <select class="form-control units"> <option value="">Select</option> {{#options}} <option value="{{id}}">{{name}}</option> {{/options}} </select> </div></form>';
 
     PlotView.prototype.ui = {
       units: '.units'
+    };
+
+    PlotView.prototype.serializeData = function() {
+      var data, options, units;
+      data = PlotView.__super__.serializeData.call(this);
+      options = [];
+      units = Marionette.getOption(this, 'units');
+      $.each(units, function(ind, val) {
+        return options.push({
+          'id': val.get('id'),
+          'name': val.get('unit_name')
+        });
+      });
+      data.options = options;
+      return data;
     };
 
     PlotView.prototype.events = {
@@ -38,7 +53,11 @@
     }
 
     PlotCtrl.prototype.initialize = function() {
-      return this.show(new AuthoringTool.PlotView);
+      var units;
+      units = plotVariantCollection.getPlotUnits();
+      return this.show(new AuthoringTool.PlotView({
+        units: units
+      }));
     };
 
     return PlotCtrl;

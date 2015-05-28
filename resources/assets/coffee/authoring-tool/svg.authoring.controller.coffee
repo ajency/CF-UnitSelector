@@ -160,22 +160,23 @@ jQuery(document).ready ($)->
 				window.svgData = {}
 				window.svgData['image'] = svgImg
 				window.svgData['data'] = response.data
+				window.svgData['supported_types'] = JSON.parse supported_types
+				window.createSvg(window.svgData.data)
+				window.generatePropTypes()
+				types = window.getPendingObjects(window.svgData) 
+				window.showPendingObjects(types)
+				s = new XMLSerializer()
+				str = s.serializeToString(rawSvg)
+				window.store = draw.svg(str)
+				window.loadJSONData()
 				
 
 				
 			error :(response)->
-				@region =  new Marionette.Region el : '#noFound-template'
-				new CommonFloor.ProjectCtrl region : @region
+				alert('Some problem occurred')
 		
 
-	window.createSvg(window.svgData.data)
-	window.generatePropTypes()
-	types = window.getPendingObjects(window.svgData) 
-	window.showPendingObjects(types)
-	s = new XMLSerializer()
-	str = s.serializeToString(rawSvg)
-	console.log window.store = draw.svg(str)
-	window.loadJSONData()
+	
 	window.loadOjectData()
 
 	
@@ -255,9 +256,33 @@ jQuery(document).ready ($)->
 					window.loadForm(classElem)
 					window.showDetails(currentElem)
 
+	window.saveUnit = ()->
+		myObject  = {}
+		myObject['image_id'] = IMAGEID
+		myObject['object_id'] = $('.units').val()
+		myObject['object_type'] =  $('.property_type').val()
+		myObject['canvas_type'] =  window.canvas_type
+		myObject['points '] =  $('.area').val().split(',')
+		myObject['_token '] =  token
+		$.ajax
+			type : 'POST',
+			url  : BASEURL+'/admin/project/'+	PROJECTID+'/svg-tool'
+			async : false
+			data : $.param myObject 
+			success :(response)->
+
+				console.log response
+				
+
+				
+			error :(response)->
+				alert('Some problem occurred')
+
 					
 	
 	$('.submit').on 'click', (e) ->
+
+		window.saveUnit()
 		if  _.isEmpty $('.units').val()
 			$('.alert').text 'Unit not assigned'
 			window.hideAlert()
@@ -275,7 +300,7 @@ jQuery(document).ready ($)->
 		childEle['name'] = $(".units option:selected").text()
 		childEle['type'] = $('.property_type').val()
 		childEle['points'] = value
-		childEle['details'] = details
+		childEle['other_details'] = details
 		childEle['canvas_type'] = window.canvas_type
 		
 		console.log window.svgData.data.push childEle

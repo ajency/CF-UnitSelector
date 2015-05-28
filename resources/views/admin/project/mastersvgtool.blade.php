@@ -104,8 +104,6 @@
                   </div>
                 </nav> 
                          <!--  <button id="save-svg-elem" class="save">save</button> -->
-                            <input type="hidden" name="_token" value="{{$token}}"/>
-                            <input type="hidden" name="supported_types" value="{{$supported_types}}"/>
                             <div id="aj-imp-builder-drag-drop" class="svg-canvas">
                                 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm2">Small modal</button> -->
                               <textarea name="coords2" rows=3 class="area hidden" disabled placeholder="Shape Coordinates" data-image-url="{{$svgImage}}"></textarea>
@@ -346,7 +344,9 @@
         
         <script type="text/javascript">
             svgImg = '{{$svgImage}}';
-            
+            types = '{{$supported_types}}';
+            supported_types = $('<div/>').html(types).text()
+            token = '{{$token}}'
 
            
 

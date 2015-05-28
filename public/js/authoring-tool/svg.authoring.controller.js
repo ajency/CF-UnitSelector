@@ -1,6 +1,5 @@
 (function() {
   jQuery(document).ready(function($) {
-    var s, str, types;
     $('.area').canvasAreaDraw();
     window.draw = SVG('aj-imp-builder-drag-drop');
     window.svgData = {
@@ -142,28 +141,25 @@
         url: BASEURL + '/admin/project/' + PROJECTID + '/image/' + IMAGEID,
         async: false,
         success: function(response) {
+          var s, str, types;
           window.svgData = {};
           window.svgData['image'] = svgImg;
-          return window.svgData['data'] = response.data;
+          window.svgData['data'] = response.data;
+          window.svgData['supported_types'] = JSON.parse(supported_types);
+          window.createSvg(window.svgData.data);
+          window.generatePropTypes();
+          types = window.getPendingObjects(window.svgData);
+          window.showPendingObjects(types);
+          s = new XMLSerializer();
+          str = s.serializeToString(rawSvg);
+          window.store = draw.svg(str);
+          return window.loadJSONData();
         },
         error: function(response) {
-          this.region = new Marionette.Region({
-            el: '#noFound-template'
-          });
-          return new CommonFloor.ProjectCtrl({
-            region: this.region
-          });
+          return alert('Some problem occurred');
         }
       });
     };
-    window.createSvg(window.svgData.data);
-    window.generatePropTypes();
-    types = window.getPendingObjects(window.svgData);
-    window.showPendingObjects(types);
-    s = new XMLSerializer();
-    str = s.serializeToString(rawSvg);
-    console.log(window.store = draw.svg(str));
-    window.loadJSONData();
     window.loadOjectData();
     $('#aj-imp-builder-drag-drop canvas').ready(function() {
       $('#aj-imp-builder-drag-drop canvas').hide();
@@ -211,8 +207,31 @@
         })(this));
       });
     };
+    window.saveUnit = function() {
+      var myObject;
+      myObject = {};
+      myObject['image_id'] = IMAGEID;
+      myObject['object_id'] = $('.units').val();
+      myObject['object_type'] = $('.property_type').val();
+      myObject['canvas_type'] = window.canvas_type;
+      myObject['points '] = $('.area').val().split(',');
+      myObject['_token '] = token;
+      return $.ajax({
+        type: 'POST',
+        url: BASEURL + '/admin/project/' + PROJECTID + '/svg-tool',
+        async: false,
+        data: $.param(myObject),
+        success: function(response) {
+          return console.log(response);
+        },
+        error: function(response) {
+          return alert('Some problem occurred');
+        }
+      });
+    };
     $('.submit').on('click', function(e) {
-      var canvas, childEle, ctx, details, value;
+      var canvas, childEle, ctx, details, s, str, types, value;
+      window.saveUnit();
       if (_.isEmpty($('.units').val())) {
         $('.alert').text('Unit not assigned');
         window.hideAlert();
@@ -232,7 +251,7 @@
       childEle['name'] = $(".units option:selected").text();
       childEle['type'] = $('.property_type').val();
       childEle['points'] = value;
-      childEle['details'] = details;
+      childEle['other_details'] = details;
       childEle['canvas_type'] = window.canvas_type;
       console.log(window.svgData.data.push(childEle));
       window.createSvg(window.svgData.data);

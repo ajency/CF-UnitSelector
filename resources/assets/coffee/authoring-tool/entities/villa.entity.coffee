@@ -4,22 +4,33 @@
 
 class AuthoringTool.VillaView extends Marionette.ItemView
 
-	template : '<form id="add-form"><div class="form-group">
+	template :  Handlebars.compile('<form id="add-form"><div class="form-group">
 					 <label for="exampleInputPassword1">Units</label>
 					<select class="form-control units">
 						<option value="">Select</option>
-					   <option value="1">Villa 1</option>
-					   <option value="2">Villa 2</option>
-					   <option value="3">Villa 3</option>
-					   <option value="4">Villa 4</option>
-					   <option value="5">Villa 5</option>
+						{{#options}}
+						 <option value="{{id}}">{{name}}</option>
+						{{/options}}
+					  
 					 </select>
-				   </div><form>'
+				   </div><form>')
 
 
 	ui :
 		units : '.units'
-		
+
+
+	serializeData:->
+		data = super()
+		options = []
+		units = Marionette.getOption(@,'units')
+		$.each units, (ind,val)->
+			options.push 
+				'id' : val.get 'id'
+				'name' : val.get 'unit_name'
+		data.options = options
+		data
+
 
 	events:
 		'change @ui.units':(e)->
@@ -32,4 +43,6 @@ class AuthoringTool.VillaView extends Marionette.ItemView
 class AuthoringTool.VillaCtrl extends Marionette.RegionController
 
 	initialize :->
+		units = bunglowVariantCollection.getBunglowUnits()
 		@show new AuthoringTool.VillaView
+				units : units

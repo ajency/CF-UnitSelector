@@ -9,10 +9,25 @@
       return VillaView.__super__.constructor.apply(this, arguments);
     }
 
-    VillaView.prototype.template = '<form id="add-form"><div class="form-group"> <label for="exampleInputPassword1">Units</label> <select class="form-control units"> <option value="">Select</option> <option value="1">Villa 1</option> <option value="2">Villa 2</option> <option value="3">Villa 3</option> <option value="4">Villa 4</option> <option value="5">Villa 5</option> </select> </div><form>';
+    VillaView.prototype.template = Handlebars.compile('<form id="add-form"><div class="form-group"> <label for="exampleInputPassword1">Units</label> <select class="form-control units"> <option value="">Select</option> {{#options}} <option value="{{id}}">{{name}}</option> {{/options}} </select> </div><form>');
 
     VillaView.prototype.ui = {
       units: '.units'
+    };
+
+    VillaView.prototype.serializeData = function() {
+      var data, options, units;
+      data = VillaView.__super__.serializeData.call(this);
+      options = [];
+      units = Marionette.getOption(this, 'units');
+      $.each(units, function(ind, val) {
+        return options.push({
+          'id': val.get('id'),
+          'name': val.get('unit_name')
+        });
+      });
+      data.options = options;
+      return data;
     };
 
     VillaView.prototype.events = {
@@ -38,7 +53,11 @@
     }
 
     VillaCtrl.prototype.initialize = function() {
-      return this.show(new AuthoringTool.VillaView);
+      var units;
+      units = bunglowVariantCollection.getBunglowUnits();
+      return this.show(new AuthoringTool.VillaView({
+        units: units
+      }));
     };
 
     return VillaCtrl;

@@ -8,17 +8,26 @@ class AuthoringTool.PlotView extends Marionette.ItemView
 					 <label for="exampleInputPassword1">Units</label>
 					<select class="form-control units">
 						<option value="">Select</option>
-					   <option value="1">Plot 1</option>
-					   <option value="2">Plot 2</option>
-					   <option value="3">Plot 3</option>
-					   <option value="4">Plot 4</option>
-					   <option value="5">Plot 5</option>
+					   {{#options}}
+						 <option value="{{id}}">{{name}}</option>
+						{{/options}}
 					 </select>
 				   </div></form>'
 
 
 	ui :
 		units : '.units'
+
+	serializeData:->
+		data = super()
+		options = []
+		units = Marionette.getOption(@,'units')
+		$.each units, (ind,val)->
+			options.push 
+				'id' : val.get 'id'
+				'name' : val.get 'unit_name'
+		data.options = options
+		data
 
 	events:
 		'change @ui.units':(e)->
@@ -31,4 +40,6 @@ class AuthoringTool.PlotView extends Marionette.ItemView
 class AuthoringTool.PlotCtrl extends Marionette.RegionController
 
 	initialize :->
+		units = plotVariantCollection.getPlotUnits()
 		@show new AuthoringTool.PlotView
+				units : units
