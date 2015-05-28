@@ -46,6 +46,7 @@ class ProjectGateway implements ProjectGatewayInterface {
                 'image' => $faker->imageUrl( 1300, 800, 'city' )
             ],
             'address' => $project->project_address,
+            'measurement_units' => $project->measurement_units,
             'project_status' => $project->getCFProjectStatus(),
             'property_types' => $propertyTypes,
             'project_property_types' => $this->propertyTypeUnits($projectId)

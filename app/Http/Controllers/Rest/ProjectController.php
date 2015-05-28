@@ -41,15 +41,17 @@ class ProjectController extends Controller {
                                         ->where('type', 'step_two')->get()->first();
         
         $projectJsonData = $projectJson->project_json;         //UPDATE CURRENT UNIT STATUS TO JSON DATA
-        $unitsData = [];
-        $units = $projectJsonData['units'];
-        foreach ($units as $unit)
+        if(!empty($projectJsonData))
         {
-            $unit['availability']=  \CommonFloor\Unit::find($unit['id'])->availability;
-            $unitData[]=$unit;
+            $unitsData = [];
+            $units = $projectJsonData['units'];
+            foreach ($units as $unit)
+            {
+                $unit['availability']=  \CommonFloor\Unit::find($unit['id'])->availability;
+                $unitData[]=$unit;
+            }
+            $projectJsonData['units']=$unitData;
         }
-        $projectJsonData['units']=$unitData;
-   
         return response()->json( [
                             'data' => $projectJsonData
                         ], 200, [], JSON_NUMERIC_CHECK );
