@@ -1411,3 +1411,31 @@ function getPhaseData(project_id, phaseId)
     });
 }
 
+function getPublishData(project_id)
+{
+ 
+    $.ajax({
+        url: "/admin/project/" + project_id + "/projectpublishdata", 
+        type: "GET",
+        data: {
+ 
+        },
+        success: function (response) {
+            $("#publishData").html(response.data.html);
+            $('#publishModal').modal('show');
+        }
+    });
+}
+
+function updateResponseTable()
+{
+     $.ajax({
+        url: BASEURL + "/api/v1/project/" + PROJECTID + "/update-response-table", 
+        type: "GET",
+        success: function (response) {
+           window.location.reload(); 
+        }
+    });
+
+}
+

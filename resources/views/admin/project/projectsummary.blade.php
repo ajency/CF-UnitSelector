@@ -45,7 +45,7 @@
                         Last Published : {{ date('d/m/Y',strtotime($projectJason['updated_at'])) }}<br>
                     </h5>
                     @endif
-                    <button class="btn btn-info btn-small" data-toggle="modal" data-target=".bs-example-modal-lg">PUBLISH</button>
+                    <button onclick="getPublishData({{ $project['id'] }})" class="btn btn-info btn-small" >PUBLISH</button>
                 </div>
             </div>
         </div>
@@ -247,57 +247,19 @@
 </div>
 
 <!-- Modal2 -->
-<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade bs-example-modal-lg" id="publishModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title text-left" id="myModalLabel">Publish Project</h4>
-            </div>
-            <div class="modal-body">
-                <div class="row m-b-5">
-                    <div class="col-md-12">
-                        <div class="alert">
-                            <strong>NOTE : </strong>Project should have at least one Phase with status as Live to publish the project.
-                        </div>
-                    </div>
-                </div>
-                <h5 class="semi-bold inline">Resolve the errors below to Publish the Project</h5>
-                <div class="row m-b-10">
-                    <div class="col-md-12">
-                        <div class="alert alert-error m-b-20">
-
-                            <ul>
-                                <li>No phase available with status Live.</li>
-                                <li>Google Earth not configured.</li>
-                                <li>Project Master not configured.</li>
-                            </ul>
-
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="modal-footer">
-
-                <button type="button" class="btn btn-primary">Publish</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
-
-            </div>
-        </div>
+      <div id="publishData">
+      </div>  
     </div>
 </div>
 <script>
-            function showUpdateButton(obj)
-            {
-            if (obj.value == 'live')
-                    $(obj).closest('tr').find(".updatelink").removeClass('hidden');
-                    else
-                    $(obj).closest('tr').find(".updatelink").addClass('hidden');
-            }
+function showUpdateButton(obj)
+{
+    if (obj.value == 'live')
+        $(obj).closest('tr').find(".updatelink").removeClass('hidden');
+    else
+        $(obj).closest('tr').find(".updatelink").addClass('hidden');
+}
 </script>    
 @endsection

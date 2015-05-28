@@ -53,6 +53,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::resource( 'project.roomtype', 'Admin\ProjectRoomTypeController' );
     Route::resource( 'floor-layout.position', 'Admin\FloorLayoutPositionController' );
     Route::resource( 'floor-layout.media', 'Admin\FloorLayoutMediaController' );
+    Route::post( 'project/{project}/updateprojectstatus', 'Admin\ProjectController@updateProjectStatus' );
     Route::post( 'project/validateprojecttitle', 'Admin\ProjectController@validateProjectTitle' );
     Route::post( 'user/validateuserpassword', 'Admin\UserController@validateCurrentPassword' );
     Route::post( 'user/validateuseremail', 'Admin\UserController@validateEmail' );
@@ -60,6 +61,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::get( 'project/{project}/svg', 'Admin\ProjectController@svg' );
     Route::get( 'project/{project}/summary', 'Admin\ProjectController@summary' );
     Route::get( 'project/{project}/getphasedata/{phase}', 'Admin\ProjectController@getPhaseData' );
+    Route::get( 'project/{project}/projectpublishdata', 'Admin\ProjectController@projectPublishData' );
     Route::get( 'project/{project}/cost', 'Admin\ProjectController@cost' );
     Route::post( 'project/{project}/costupdate', 'Admin\ProjectController@costUpdate' );
     Route::post( 'project/{project}/bunglow-variant/{id}/roomtypeattributes', 'Admin\ProjectBunglowVariantController@roomtypeAttributes' );
