@@ -68,5 +68,5 @@ class ProjectController extends Controller {
                             'message' => 'Project json updated successfully'
                     ], 203 );
     }
-
+ 
 }

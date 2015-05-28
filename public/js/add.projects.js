@@ -144,6 +144,18 @@
         }
       });
     });
+    $('#publishModal').on('click', '.update-project-status', function() {
+      var projectId, successFn;
+      projectId = $(this).attr('data-project-id');
+      successFn = function(resp, status, xhr) {
+        return updateResponseTable();
+      };
+      return $.ajax({
+        url: '/admin/project/' + projectId + '/updateprojectstatus',
+        type: 'POST',
+        success: successFn
+      });
+    });
     checkUnitTypeRequired = function() {
       return $('.add-unit-types > div').each(function() {
         var activeTypes;

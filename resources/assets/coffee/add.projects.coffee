@@ -151,6 +151,16 @@ jQuery(document).ready ($)->
 			type : 'POST'
 			data : 
 				_method : "PUT"
+
+	$('#publishModal').on 'click', '.update-project-status', ->
+		projectId = $(@).attr 'data-project-id'
+		successFn = (resp, status, xhr)->
+			updateResponseTable()
+			
+		$.ajax 
+			url : '/admin/project/'+projectId+'/updateprojectstatus'
+			type : 'POST'
+			success : successFn				
 			 	
 			
 	checkUnitTypeRequired = ->

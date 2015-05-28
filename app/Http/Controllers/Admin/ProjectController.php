@@ -340,7 +340,7 @@ class ProjectController extends Controller {
     {
         $phase = Phase::find($phaseId);
         $units = $phase->projectUnits()->get()->toArray();
-        $data = [];
+        $data = $errors= [];
         foreach ($units as $unit)
         {
             $variantId = $unit['unit_variant_id'];
@@ -352,49 +352,54 @@ class ProjectController extends Controller {
         }
         
         $svgData = true;
-        $updatePhase=($svgData && count($data))?true:false;
+        if(!$svgData)
+        {
+          $errors['authtool'] = 'Error'; 
+        }
+        if(!count($data))
+        {
+          $errors['phase'] = 'Phase cannot be made live as no units have been added to it.'; 
+        }
+         
  
         $html ='<div class="modal-body">';
-        
-        $html .= '<div class="row m-b-10">
-                <div class="col-md-12">';
-        if(empty($data))
+        $html .= '<div class="row m-b-10"><div class="col-md-12">';
+        if(!empty($errors))
        {
-        $html .= '<div class="alert alert-error m-b-20">
-            <ul  class="list-inline">
-                        <li><i class="fa fa-circle"></i>Phase cannot be made live as no units have been added to it.<li>
-                            
-                    </ul></div>';
-       }
+        $html .= '<div class="alert alert-error m-b-20"> 
+                  <ul  class="list-inline">';
+            foreach ($errors as $errorMsg)
+            {
         $html .= '
-                    </div>
-                    </div>';
+                  <li><i class="fa fa-circle"></i>'.$errorMsg.'<li>';
+            }
+       }
+        $html .= '</ul></div></div></div>';
        if(!empty($data))
        {
         $html .= '<table class="table table-bordered">
-                    <thead>
-                        <tr>
-                           <td width="15%"><span class="semi-bold">Type</span></td> 
-                           <td><span class="semi-bold">Units in '.$phase->phase_name.'</span></td> 
-                        </tr>
-                    </thead>
-                    <tbody>';
+                  <thead>
+                  <tr>
+                  <td width="15%"><span class="semi-bold">Type</span></td> 
+                  <td><span class="semi-bold">Units in '.$phase->phase_name.'</span></td> 
+                  </tr>
+                  </thead>
+                  <tbody>';
         foreach ($data as $key=>$values) 
         {
     
         $html .=' <tr>
-                    <td><span class="semi-bold">' . get_property_type($key) . '</span></td> 
-                    <td>' . implode(", ", $values) . '</td> 
-                 </tr>';
+                  <td><span class="semi-bold">' . get_property_type($key) . '</span></td> 
+                  <td>' . implode(", ", $values) . '</td> 
+                  </tr>';
         }
         $html .='</tbody>
                 </table>';
        }
         $html .= '</div><div class="modal-footer">';
-        $html .= ($updatePhase)? '<button type="button" class="btn btn-primary update-phase-btn" data-phase-id="'.$phase->id.'">Go Live</button>' :'';
+        $html .= (empty($errors))? '<button type="button" class="btn btn-primary update-phase-btn" data-phase-id="'.$phase->id.'">Go Live</button>' :'';
         $html .='<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
-
-              </div>';
+                 </div>';
         
        
  
@@ -406,7 +411,192 @@ class ProjectController extends Controller {
                     ]
             ], 201 );
           
+                $html .= '<table class="table table-bordered">
+                  <thead>
+                  <tr>
+                  <td width="15%"><span class="semi-bold">Type</span></td> 
+                  <td><span class="semi-bold">Units in '.$phase->phase_name.'</span></td> 
+                  </tr>
+                  </thead>
+                  <tbody>';
+        foreach ($data as $key=>$values) 
+        {
+    
+        $html .=' <tr>
+                  <td><span class="semi-bold">' . get_property_type($key) . '</span></td> 
+                  <td>' . implode(", ", $values) . '</td> 
+                  </tr>';
+        }
+        $html .='</tbody>
+                </table>';
+    }
+    
+    public function projectPublishData($projectId,ProjectRepository $projectRepository)
+    {
+        $project = $projectRepository->getProjectById($projectId);
+        $projectMetaCondition = ($project->has_master=='yes')?['master', 'google_earth', 'breakpoints']:[ 'google_earth'];
+        $projectMeta = $project->projectMeta()->whereIn('meta_key', $projectMetaCondition)->get()->toArray();
+        $phases = Phase::where(['project_id'=>$projectId,'status'=>'live'])->get()->toArray();
+        $masterImages = $breakpoints = $googleEarth = $breakpointAuthtool= $googleEarthAuthtool=$data =$phaseData=$errors= []; 
+       
+        if(empty($phases))
+        {
+            $errors['phase'] = "No phase available with status Live.";
+        }
                 
+        foreach ($projectMeta as $metaValues) {
+
+            if ('master' === $metaValues['meta_key']) {
+                $masterImages = unserialize($metaValues['meta_value']);
+                if(empty($masterImages))
+                {
+                    $errors['master_images'] = "Project Master Images Not Found";
+                }
+                 
+            } elseif ('breakpoints' === $metaValues['meta_key']) {
+                $breakpoints =unserialize($metaValues['meta_value']);
+                if(empty($masterImages))
+                {
+                    $errors['breakpoints'] = "Breakpoints Not Set Project Master Images";
+                }
+                 
+            } else {
+                $googleEarth = $metaValues['meta_value'];
+                if(empty($googleEarth))
+                {
+                    $errors['google_earth'] = "Google Earth Image Not Found";
+                } 
+            }
+        }
+        
+        if(!empty($breakpoints))
+        {
+            foreach ($breakpoints as $breakpoint)
+            {
+                $breakpointAuthtool=true;
+                if(!$breakpointAuthtool)
+                {
+                   $errors['breakpointauth'] = "Pending SVG Authoring For Project Master Images"; 
+                }
+            }
+        }
+        
+        $googleEarthAuthtool=true;
+        if(!$googleEarthAuthtool)
+        {
+           $errors['googleearthauthtool'] = "Pending SVG Authoring For Google Earth Image"; 
+        }
+   
+        foreach ($phases as $phase)
+        {
+            $phaseId = $phase['id'];
+            $phase = Phase::find($phaseId);
+            $units = $phase->projectUnits()->get()->toArray();
+            $phaseData[$phaseId] = $phase['phase_name'];
+            
+            foreach ($units as $unit)
+            {
+                $variantId = $unit['unit_variant_id'];
+                $unitType = UnitVariant::find($variantId)->unitType()->first();
+                $unitTypeId = $unitType->id;
+                $unitTypeName = $unitType->unittype_name;
+                $propertType = UnitType::find($unitTypeId)->projectPropertyType()->first(); 
+                $propertTypeId = $propertType->property_type_id;
+                $data[$phaseId][$propertTypeId][] = $unit['unit_name'];       
+                
+            }
+        }
+          
+        $html ='<div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-left" id="myModalLabel">Publish Project</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row m-b-5">
+                    <div class="col-md-12">
+                        <div class="alert">
+                            <strong>NOTE : </strong>Project should have at least one Phase with status as Live to publish the project.
+                        </div>
+                    </div>
+                </div>';
+       if(!empty($errors)) 
+       {
+        $html .='<h5 class="semi-bold inline">Resolve the errors below to Publish the Project</h5>
+                <div class="row m-b-10">
+                    <div class="col-md-12">
+                        <div class="alert alert-error m-b-20">
+
+                            <ul>';
+                    foreach ($errors as $errorMsg)
+                       {
+                   $html .='<li>'.$errorMsg.'</li>';
+                       }
+                   $html .='</ul>
+
+
+                        </div>
+
+                    </div>
+
+                </div>';
+        }
+        else
+        {
+            foreach ($data as $phaseId=>$unitData)
+            {
+                 $html .= '<table class="table table-bordered">
+                  <thead>
+                  <tr>
+                  <td width="15%"><span class="semi-bold">Type</span></td> 
+                  <td><span class="semi-bold">Units in '.$phaseData[$phaseId].'</span></td> 
+                  </tr>
+                  </thead>
+                  <tbody>';
+        foreach ($unitData as $key=>$values) 
+        {
+    
+        $html .=' <tr>
+                  <td><span class="semi-bold">' . get_property_type($key) . '</span></td> 
+                  <td>' . implode(", ", $values) . '</td> 
+                  </tr>';
+        }
+        $html .='</tbody>
+                </table>';
+            }
+        } 
+        $html .='</div>
+
+            <div class="modal-footer">';
+
+        $html .=(empty($errors))?'<button type="button" class="btn btn-primary update-project-status" data-project-id="'.$projectId.'">Publish</button>':'';
+        $html .='<button type="button" class="btn btn-default" data-dismiss="modal" ><i class="fa fa-ban"></i> Cancel</button>
+
+            </div>
+        </div>';
+        
+       
+ 
+        return response()->json( [
+                    'code' => 'publish_data',
+                    'message' => '',
+                    'data' => [
+                        'html' => $html,
+                    ]
+            ], 201 );
+        
+         
+    }
+    
+     public function updateProjectStatus($projectId) {
+         $project =  Project::find($projectId);
+         $project->status = 'published'; 
+         $project->save();
+  
+        return response()->json([
+                    'code' => 'update_project_status',
+                    'message' => 'Project Successfully Published',
+                         ], 201);
     }
 
 }
