@@ -94,8 +94,19 @@ class PhaseController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update( $id ) {
-        //
+    public function update( $phase_id ,Request $request) {
+         $phase = Phase::find($phase_id);
+            $phase->status = 'live';
+            $phase->save();
+            
+            return response()->json( [
+                    'code' => 'phase_created',
+                    'message' => 'Phase Status Successfully Updated',
+                    'data' => [
+                        'phase_id' => $phase_id,
+                    ]
+            ], 201 );
+    
     }
 
     /**

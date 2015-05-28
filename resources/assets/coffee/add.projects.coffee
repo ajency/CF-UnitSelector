@@ -143,6 +143,15 @@ jQuery(document).ready ($)->
 				project_id : PROJECTID
 				phase_name : phaseName
 			success : successFn
+
+	$('#myModal').on 'click', '.update-phase-btn', ->
+		phaseId = $(@).attr 'data-phase-id'
+		$.ajax 
+			url : '/admin/phase/'+phaseId
+			type : 'POST'
+			data : 
+				_method : "PUT"
+			 	
 			
 	checkUnitTypeRequired = ->
 		$('.add-unit-types > div').each ->

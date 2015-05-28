@@ -23,6 +23,7 @@ class Permission {
                              'admin.project.media.destroy'=>'configure_project', 
                     
                              'admin.phase.store'=>'configure_project', 
+                             'admin.phase.update'=>'configure_project', 
                              'admin.phase.destroy'=>'configure_project', 
                     
                              'admin.project.unittype.destroy'=>'configure_project', 
