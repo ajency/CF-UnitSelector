@@ -208,13 +208,16 @@ function addAttributes(keyId, obj)
         alert('Enter Default Values');
         return false;
     }
-
+  
     var str = '<div class="row">';
-    str += '<div class="col-md-3">';
+    str += '<div class="col-md-12">';
+    str += '<div class="add-unit">';
+    str += '<div class="p-t-8 p-t-10">';
+    str += '<div class="col-md-4">';
     str += '<input type="text" name = "attribute_name_' + keyId + '[]" class="form-control" placeholder="Enter Attribute Name">';
     str += '<input type="hidden" name = "attribute_id_' + keyId + '[]" value="">';
     str += '</div>';
-    str += '<div class="col-md-3">';
+    str += '<div class="col-md-4">';
     str += '<select name = "controltype_' + keyId + '[]"  class="select2-container select2 form-control" >';
     str += '<option value="">Select Control Type</option>';
     str += '<option value="textbox" > Text Box</option>';
@@ -223,19 +226,30 @@ function addAttributes(keyId, obj)
     str += '<option value="number"> Number </option>';
     str += '</select>';
     str += '</div>';
-    str += '<div class="col-md-4">';
+    str += '<div class="col-md-4 controlvalue">';
     str += '<input type="text"  name= "controltypevalues_' + keyId + '[]" data-role="tagsinput" class="tags">';
     str += '</div>';
-    str += '<div class="col-md-2">';
-    str += '<a class="btn btn-link" onclick="addAttributes(\'' + keyId + '\',this)"><i class="fa fa-plus"></i> Attribute</a>';
+    str += '</div>';
+    str += '<div class="text-right">';
+    str += '<a class="btn btn-link"  onclick="addAttributes(\'' + keyId + '\',this)">Add Another Attribute</a>';
     str += '</div>';
     str += '</div>';
+    str += '</div>';
+    str += '</div>';
+    
+    var delstr = '<div class="col-md-1 text-center">';
+    delstr += '<a class="text-primary" onclick="deleteAttribute(' + PROJECTID + ',0,this);"><i class="fa fa-close"></i></a>';
+    delstr += '</div>';
 
-
-
+    $(obj).closest('.row').find('.text-right').hide();
+    $(obj).closest('.row').find('.col-md-12').removeClass('col-md-12');
+    $(obj).closest('.row').find('.add-unit').removeClass('add-unit');
+    $(obj).closest('.row').find('.p-t-8').removeClass('p-t-8 p-t-10');
+    $(obj).closest('.row').find('.controlvalue').addClass('col-md-3').removeClass('col-md-4');
+    $(obj).closest('.row').addClass('m-b-10');
+     $(obj).closest('.row').find('.controlvalue').after(delstr);
     $(obj).closest('.row').after(str);
-    $(obj).closest('.row').find('.col-md-2').html('<a class="btn btn-link" onclick="deleteAttribute(' + PROJECTID + ',0,this);"><i class="fa fa-close"></i></a>');
-
+    $(obj).select2('val', '');
     $("select").select2();
     $(".tags").tagsinput("");
 
@@ -261,7 +275,7 @@ function saveRoomypeattribute(project_id, roomtypeId, reffrence_type)
 
 function deleteAttribute(project_id, attributeId, obj)
 {
-    if (confirm('Are you sure you want to delete this room type attribute?') === false) {
+    if (confirm('Are you sure you want to delete this attribute?') === false) {
         return;
     }
     if (attributeId)
@@ -1391,5 +1405,21 @@ function saveVariantConfig()
      if (flag)
         $('form').submit(); 
 
+}
+
+function getPhaseData(project_id, phaseId)
+{
+ 
+    $.ajax({
+        url: "/admin/project/" + project_id + "/getphasedata/" + phaseId, 
+        type: "GET",
+        data: {
+ 
+        },
+        success: function (response) {
+            $("#phaseData").html(response.data.html);
+            $('#myModal').modal('show');
+        }
+    });
 }
 

@@ -50,11 +50,13 @@
                         @else
                         <dd><span class="error"><span for="form3FirstName" class="error">No Property Type selected</span></span></dd>
                         @endif
+                        <dt><h5 class="semi-bold">Status</h5></dt>
+                        <dd>{{ ucfirst($project['status']) }}</dd>
                     </dl>
                 </div>
             </div>
             <h5 class="semi-bold">
-                To check out the frontend of Unit Selector <a hreh="#" class="text-primary">cick here >></a>
+                To check out the frontend of Unit Selector <a target="_blank" href="{{ url( 'project/' . $project['id'].'/') }}" class="text-primary">click here >></a>
             </h5>
         </div>
         <hr/>
@@ -76,13 +78,13 @@
                 <tr>
                     <td>{{ $phase['phase_name'] }}</td>
                     <td>
-                        <select id="phases1" class="select2-container select2 form-control select2-container-active" style="width:50%;">
+                        <select onchange="showUpdateButton(this);" id="phases1" class="select2-container select2 form-control select2-container-active" style="width:50%;">
                             <option value="">Select Status</option>
                             <option value="live" @if($phase['status']=='live'){{'selected'}}@endif>Live</option>
                             <option value="not_live" @if($phase['status']=='not_live'){{'selected'}}@endif>Not Live</option>
                         </select>
                     </td>
-                    <td><a href="#"  data-toggle="modal" data-target="#myModal" class="text-primary">Update</a></td>
+                    <td><a  onclick="getPhaseData({{ $project['id'] }}, {{ $phase['id'] }})"   class="text-primary updatelink hidden">Update</a></td>
                 </tr>
                 @endforeach
                 @else
@@ -177,69 +179,7 @@
         </table>
         @endif
         <hr>
-        <div class="m-l-5 no-border">
-            <h3><i class="fa fa-angle-double-right text-primary"></i> Building<span class="semi-bold"> </span></h3>
-        </div>
-        <table class="table table-bordered m-b-30 no-pointer">
-            <thead>
-                <tr>
-                    <td width="16%"><span class="semi-bold">Phase</span></td>
-                    <td width="16%"><span class="semi-bold">Unit Type</span></td>
-                    <td width="16%"><span class="semi-bold">Available</span></td>
-                    <td width="18%"><span class="semi-bold">Sold</span></td>
-                    <td width="18%"><span class="semi-bold">Blocked</span></td>
-                    <td><span class="semi-bold">Not Released</span></td>
-                    <td><span class="semi-bold">Total</span></td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="active">Phase 1</td>
-                    <td><a href="#">B-1</a></td>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td class="semi-bold text-info text-center">6</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><a href="#">B-2</a></td>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td class="semi-bold text-info text-center">7</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><a href="#">B-3</a></td>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td class="semi-bold text-info text-center">6</td>
-                </tr>
-                <tr>
-                    <td class="active">Phase 2</td>
-                    <td><a href="#">B-1</a></td>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>1</td>
-                    <td class="semi-bold text-info text-center">6</td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td><a href="#">B-2</a></td>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>2</td>
-                    <td>0</td>
-                    <td class="semi-bold text-info text-center">5</td>
-                </tr>
-            </tbody>
-        </table>
+                
         @foreach($projectpropertyTypes as $projectpropertyType)
         <div class="m-l-5 no-border">
             <h3><i class="fa fa-angle-double-right text-primary"></i> {{ get_property_type($projectpropertyType['property_type_id']) }}<span class="semi-bold"> </span></h3>
@@ -281,6 +221,72 @@
 
     </div>
 </div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-left" id="myModalLabel">Update Phase Status</h4>
+      </div>
+        <div id="phaseData">
+        </div>     
+    </div>
+  </div>
+</div>
+
+<!-- Modal2 -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-left" id="myModalLabel">Publish Project</h4>
+      </div>
+      <div class="modal-body">
+                 <div class="row m-b-5">
+            <div class="col-md-12">
+                <div class="alert">
+<strong>NOTE : </strong>Project should have at least one Phase with status as Live to publish the project.
+</div>
+</div>
+</div>
+        <h5 class="semi-bold inline">Resolve the errors below to Publish the Project</h5>
+        <div class="row m-b-10">
+            <div class="col-md-12">
+                <div class="alert alert-error m-b-20">
+
+<ul>
+    <li>No phase available with status Live.</li>
+   <li>Google Earth not configured.</li>
+   <li>Project Master not configured.</li>
+</ul>
 
 
+</div>
+  
+            </div>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        
+        <button type="button" class="btn btn-primary">Publish</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  function showUpdateButton(obj)
+  {
+      if(obj.value=='live')
+          $(obj).closest('tr').find(".updatelink").removeClass('hidden');
+      else 
+          $(obj).closest('tr').find(".updatelink").addClass('hidden');
+          
+  }
+</script>    
 @endsection

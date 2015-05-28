@@ -14,5 +14,13 @@ class Phase extends Model {
     { 
         return $this->belongsTo('CommonFloor\Project');
     }
+    
+    public function projectUnits() {
+        return $this->hasMany( 'CommonFloor\Unit' );
+    }
+    
+    public function projectBuildings() {
+        return $this->hasMany( 'CommonFloor\Building' );
+    }
 
 }

@@ -48,7 +48,7 @@
 
                     </div>
                     <div class="col-md-2 ">
-                        <a class="btn btn-link" onclick="deleteAttribute({{$project['id']}}, 0, this);"><i class="fa fa-close"></i></a>
+                        <a class="text-primary" onclick="deleteAttribute({{$project['id']}}, 0, this);"><i class="fa fa-close"></i></a>
 
                     </div>
                 </div>
@@ -63,33 +63,39 @@
 
                     </div>
                     <div class="col-md-2 ">
-                        <a class="btn btn-link" onclick="deleteAttribute({{$project['id']}}, 0, this);"><i class="fa fa-close"></i></a>
+                        <a class="text-primary" onclick="deleteAttribute({{$project['id']}}, 0, this);"><i class="fa fa-close"></i></a>
                     </div>
                 </div>
-
+ 
                 <div class="row">
-                    <div class="col-md-3">
-                        <input type="text" name="attribute_name_room[]" class="form-control" placeholder="Enter Attribute Name">
+                                <div class="col-md-12">
+                                <div class="add-unit">
+                            <div class="p-t-8 p-t-10">
+                                <div class="col-md-4">
+                                    <input type="text" name="attribute_name_room[]" class="form-control" placeholder="Enter Attribute Name">
+                                    
 
+                                </div>
+                                <div class="col-md-4">
+                                    <select name="controltype_room[]"  class="select2-container select2 form-control" >
+                                        <option value="">Select Control Type</option>
+                                        <option value="textbox" > Text Box</option>
+                                        <option value="select" >Select Box</option>
+                                        <option value="multiple" > Multiple Select Box</option>
+                                        <option value="number"> Number </option>
+                                    </select>
 
-                    </div>
-                    <div class="col-md-3">
-                        <select name="controltype_room[]"  class="select2-container select2 form-control" >
-                            <option value="">Select Control Type</option>
-                            <option value="textbox" > Text Box</option>
-                            <option value="select" >Select Box</option>
-                            <option value="multiple" > Multiple Select Box</option>
-                            <option value="number"> Number </option>
-                        </select>
-
-                    </div>
-                    <div class="col-md-4">
-                        <input type="text" name="controltypevalues_room[]" data-role="tagsinput" class="tags">
-                    </div>
-                    <div class="col-md-2">
-                        <a class="btn btn-link" onclick="addAttributes('room', this)"><i class="fa fa-plus"></i> Attribute</a>
-                    </div>
-                </div>
+                                </div>
+                                <div class="col-md-4 controlvalue">
+                                    <input type="text" name="controltypevalues_room[]" data-role="tagsinput" class="tags">
+                                </div>
+                            </div>
+                                <div class="text-right">
+                                    <a class="btn btn-link" onclick="addAttributes('room', this)">Add Another Attribute</a>
+                                </div>
+                            </div>
+                            </div>
+                             </div>
 
             </div>
             <div class="form-actions">  

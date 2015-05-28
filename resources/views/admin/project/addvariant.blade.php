@@ -176,7 +176,11 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="room_attributes_block">
+
+                                    </div>
                                     <div >
+                                   
                                         <div class="col-md-5  add-unit p-t-10">
                                              <select name="room_type[]" onchange="openRoomTypeModal(this, 0)" class="select2 form-control">
                                                             <option value="">Select Room</option>
@@ -191,9 +195,7 @@
                                                     </div>
                                          </div>
                                     </div>
-                                    <div class="room_attributes_block">
-
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -249,6 +251,9 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="room_attributes_block">
+
+                                        </div>
                                         <div>
                                             <div class="col-md-5 add-unit p-t-10">
                                               <select onchange="openRoomTypeModal(this, 0)" name="room_type[]" class="select2 form-control">
@@ -265,9 +270,7 @@
                                             </div>
                                          </div>
 
-                                        <div class="room_attributes_block">
-
-                                        </div>
+                                        
 
 
                                     </div>
