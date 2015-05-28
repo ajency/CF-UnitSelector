@@ -21,7 +21,7 @@ class Polygon extends Backbone.Model
 		@points(item.points)
 		@attribute('class',item.other_details.class)
 		@attribute('id',item.id)
-		@attribute('type',item.type)
+		@attribute('type',item.object_type)
 		@node
 		
 	

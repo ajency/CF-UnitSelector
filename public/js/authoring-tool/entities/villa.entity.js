@@ -32,9 +32,11 @@
 
     VillaView.prototype.events = {
       'change @ui.units': function(e) {
+        window.coord = 0;
         return $('.villa').each(function(index, value) {
           if (value.id === $(e.target).val()) {
             $('.alert').text('Already assigned');
+            window.coord = 1;
             window.hideAlert();
           }
         });

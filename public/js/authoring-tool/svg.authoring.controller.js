@@ -57,12 +57,13 @@
       type = [];
       collection = new Backbone.Collection(svgData.data);
       supportedTypes = svgData.supported_types;
-      console.log(supportedTypes = _.uniq(supportedTypes));
+      supportedTypes = _.uniq(supportedTypes);
       $.each(supportedTypes, function(index, value) {
-        var items, marked;
+        var items, marked, units;
         items = collection.where({
-          'type': value
+          'object_type': value
         });
+        units = window.actualUnits(value);
         marked = [];
         $.each(items, function(ind, val) {
           if (!_.isEmpty(val.get('canvas_type'))) {
@@ -72,11 +73,19 @@
         return type.push({
           'name': value,
           'id': value,
-          'total': items.length,
+          'total': units.length,
           'marked': marked.length
         });
       });
       return type;
+    };
+    window.actualUnits = function(value) {
+      var units;
+      units = [];
+      if (value === 'villa') {
+        units = bunglowVariantCollection.getBunglowUnits();
+      }
+      return units;
     };
     window.showPendingObjects = function(data) {
       var html, marked, total;
@@ -87,8 +96,6 @@
         total.push(value.total + ' ' + value.name + '(s)');
         return marked.push(value.marked + ' ' + value.name + '(s)');
       });
-      console.log(total);
-      console.log(marked);
       html = '<strong class="pull-right total-count">' + total.join(" | ") + '</strong>' + '<strong class="pull-right title-count"> Total:</strong>' + '<strong class="pull-right total-count">' + marked.join(" | ") + '</strong>' + '<strong class="pull-right title-count"> Marked:</strong>';
       console.log(html);
       return $('.pending').html(html);
@@ -114,6 +121,7 @@
         url: BASERESTURL + '/project/' + PROJECTID + '/step-two',
         async: false,
         success: function(response) {
+          var s, str, types;
           response = response.data;
           bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants);
           settings.setSettingsAttributes(response.settings);
@@ -123,7 +131,14 @@
           floorLayoutCollection.setFloorLayoutAttributes(response.floor_layout);
           window.propertyTypes = response.property_types;
           plotVariantCollection.setPlotVariantAttributes(response.plot_variants);
-          return unitCollection.setUnitAttributes(response.units);
+          unitCollection.setUnitAttributes(response.units);
+          window.createSvg(window.svgData.data);
+          window.generatePropTypes();
+          types = window.getPendingObjects(window.svgData);
+          window.showPendingObjects(types);
+          s = new XMLSerializer();
+          str = s.serializeToString(rawSvg);
+          return window.store = draw.svg(str);
         },
         error: function(response) {
           this.region = new Marionette.Region({
@@ -141,18 +156,10 @@
         url: BASEURL + '/admin/project/' + PROJECTID + '/image/' + IMAGEID,
         async: false,
         success: function(response) {
-          var s, str, types;
           window.svgData = {};
           window.svgData['image'] = svgImg;
           window.svgData['data'] = response.data;
           window.svgData['supported_types'] = JSON.parse(supported_types);
-          window.createSvg(window.svgData.data);
-          window.generatePropTypes();
-          types = window.getPendingObjects(window.svgData);
-          window.showPendingObjects(types);
-          s = new XMLSerializer();
-          str = s.serializeToString(rawSvg);
-          window.store = draw.svg(str);
           return window.loadJSONData();
         },
         error: function(response) {
@@ -169,7 +176,7 @@
       $(this).toggleClass("expanded");
       return $('.menu').toggleClass('open');
     });
-    $('.save').on('dblclick', function(e) {
+    $('.save').on('click', function(e) {
       e.preventDefault();
       window.canvas_type = "polygon";
       $('#aj-imp-builder-drag-drop canvas').show();
@@ -177,52 +184,84 @@
       $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
       return $('.edit-box').removeClass('hidden');
     });
-    window.bindevents = function() {
-      return $('.villa,.plot').on('dblclick', function(e) {
-        var classElem, currentElem, element, svgDataObjects;
-        e.preventDefault();
-        window.canvas_type = "polygon";
-        $('#aj-imp-builder-drag-drop canvas').show();
-        $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
-        $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
-        $('.edit-box').removeClass('hidden');
-        currentElem = e.currentTarget;
-        console.log(element = currentElem.id);
-        console.log(classElem = $(currentElem).attr('type'));
-        svgDataObjects = svgData.data;
-        return _.each(svgDataObjects, (function(_this) {
-          return function(svgDataObject, key) {
-            var collection, points;
-            if (parseInt(element) === parseInt(svgDataObject.id)) {
-              points = svgDataObject.points;
-              $('.area').val(points.join(','));
-              collection = new Backbone.Collection(window.svgData.data);
-              collection.remove(element);
-              window.svgData.data = collection.toArray();
-              drawPoly(points);
-              window.loadForm(classElem);
-              return window.showDetails(currentElem);
-            }
-          };
-        })(this));
-      });
-    };
+    $('svg').on('dblclick', '.villa,.plot', function(e) {
+      var classElem, currentElem, element, svgDataObjects;
+      e.preventDefault();
+      window.canvas_type = "polygon";
+      $('#aj-imp-builder-drag-drop canvas').show();
+      $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
+      $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
+      $('.edit-box').removeClass('hidden');
+      currentElem = e.currentTarget;
+      console.log(element = currentElem.id);
+      console.log(classElem = $(currentElem).attr('type'));
+      svgDataObjects = svgData.data;
+      return _.each(svgDataObjects, (function(_this) {
+        return function(svgDataObject, key) {
+          var collection, points;
+          if (parseInt(element) === parseInt(svgDataObject.id)) {
+            points = svgDataObject.points;
+            $('.area').val(points.join(','));
+            collection = new Backbone.Collection(window.svgData.data);
+            collection.remove(element);
+            window.svgData.data = collection.toArray();
+            drawPoly(points);
+            window.loadForm(classElem);
+            return window.showDetails(currentElem);
+          }
+        };
+      })(this));
+    });
     window.saveUnit = function() {
-      var myObject;
+      var details, myObject;
       myObject = {};
+      details = {};
+      details['class'] = 'layer ' + $('.property_type').val();
       myObject['image_id'] = IMAGEID;
       myObject['object_id'] = $('.units').val();
       myObject['object_type'] = $('.property_type').val();
       myObject['canvas_type'] = window.canvas_type;
-      myObject['points '] = $('.area').val().split(',');
-      myObject['_token '] = token;
+      myObject['points'] = $('.area').val().split(',');
+      myObject['other_details'] = details;
       return $.ajax({
         type: 'POST',
+        headers: {
+          'x-csrf-token': $("meta[name='csrf-token']").attr('content')
+        },
         url: BASEURL + '/admin/project/' + PROJECTID + '/svg-tool',
         async: false,
         data: $.param(myObject),
         success: function(response) {
-          return console.log(response);
+          var canvas, childEle, ctx, s, str, types, value;
+          value = $('.area').val().split(',');
+          window.store.remove();
+          details = {};
+          details['class'] = 'layer ' + $('.property_type').val();
+          childEle = {};
+          childEle['id'] = $('.units').val();
+          childEle['name'] = $(".units option:selected").text();
+          childEle['object_type'] = $('.property_type').val();
+          childEle['points'] = value;
+          childEle['other_details'] = details;
+          childEle['canvas_type'] = window.canvas_type;
+          window.svgData.data.push(childEle);
+          window.createSvg(window.svgData.data);
+          types = window.getPendingObjects(window.svgData);
+          window.showPendingObjects(types);
+          s = new XMLSerializer();
+          str = s.serializeToString(rawSvg);
+          draw.svg(str);
+          $('.area').val("");
+          window.f = [];
+          $("form").trigger("reset");
+          $('#dynamice-region').empty();
+          $(".toggle").trigger('click');
+          $('#aj-imp-builder-drag-drop canvas').hide();
+          $('#aj-imp-builder-drag-drop svg').show();
+          $('.edit-box').addClass('hidden');
+          canvas = document.getElementById("c");
+          ctx = canvas.getContext("2d");
+          return ctx.clearRect(0, 0, canvas.width, canvas.height);
         },
         error: function(response) {
           return alert('Some problem occurred');
@@ -230,48 +269,27 @@
       });
     };
     $('.submit').on('click', function(e) {
-      var canvas, childEle, ctx, details, s, str, types, value;
-      window.saveUnit();
-      if (_.isEmpty($('.units').val())) {
+      if ($('.property_type').val() === "") {
         $('.alert').text('Unit not assigned');
         window.hideAlert();
         return false;
       }
-      if (_.isEmpty($('.area').val())) {
+      if ($('.units').val() === "") {
+        $('.alert').text('Unit not assigned');
+        window.hideAlert();
+        return false;
+      }
+      if ($('.area').val() === "") {
         $('.alert').text('Coordinates not marked');
         window.hideAlert();
         return false;
       }
-      value = $('.area').val().split(',');
-      window.store.remove();
-      details = {};
-      details['class'] = 'layer ' + $('.property_type').val();
-      childEle = {};
-      childEle['id'] = $('.units').val();
-      childEle['name'] = $(".units option:selected").text();
-      childEle['type'] = $('.property_type').val();
-      childEle['points'] = value;
-      childEle['other_details'] = details;
-      childEle['canvas_type'] = window.canvas_type;
-      console.log(window.svgData.data.push(childEle));
-      window.createSvg(window.svgData.data);
-      types = window.getPendingObjects(window.svgData);
-      window.showPendingObjects(types);
-      s = new XMLSerializer();
-      str = s.serializeToString(rawSvg);
-      draw.svg(str);
-      window.bindevents();
-      $('.area').val("");
-      window.f = [];
-      $("form").trigger("reset");
-      $('#dynamice-region').empty();
-      $(".toggle").trigger('click');
-      $('#aj-imp-builder-drag-drop canvas').hide();
-      $('#aj-imp-builder-drag-drop svg').show();
-      $('.edit-box').addClass('hidden');
-      canvas = document.getElementById("c");
-      ctx = canvas.getContext("2d");
-      return ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (window.coord === 1) {
+        $('.alert').text('Already assigned');
+        window.hideAlert();
+        return false;
+      }
+      return window.saveUnit();
     });
     $('.property_type').on('change', function(e) {
       var type;
@@ -298,17 +316,37 @@
     };
     window.showDetails = function(elem) {
       $('.property_type').val($(elem).attr('type'));
-      console.log(elem.id);
-      $('.units').val(elem.id);
-      return $('#' + elem.id + '.layer').attr('id', '');
+      return $('.units').val(elem.id);
     };
-    return window.hideAlert = function() {
+    window.hideAlert = function() {
       $('.alert').show();
       return $('.alert-box').delay(1000).queue(function(next) {
         $(this).hide('fade');
         return next();
       });
     };
+    $('.clear').on('click', function(e) {
+      var canvas, ctx;
+      $('.area').val("");
+      window.f = [];
+      canvas = document.getElementById("c");
+      ctx = canvas.getContext("2d");
+      return ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+    return $('.close').on('click', function(e) {
+      var canvas, ctx;
+      $('.area').val("");
+      window.f = [];
+      canvas = document.getElementById("c");
+      ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      $("form").trigger("reset");
+      $('#dynamice-region').empty();
+      $(".toggle").trigger('click');
+      $('#aj-imp-builder-drag-drop canvas').hide();
+      $('#aj-imp-builder-drag-drop svg').show();
+      return $('.edit-box').addClass('hidden');
+    });
   });
 
 }).call(this);

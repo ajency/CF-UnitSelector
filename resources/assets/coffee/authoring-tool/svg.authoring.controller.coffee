@@ -74,10 +74,11 @@ jQuery(document).ready ($)->
 		# supportedTypes = svgData.supported_types.map (item)->
 		# 	return s.capitalize item
 		supportedTypes = svgData.supported_types
-		console.log supportedTypes = _.uniq supportedTypes
+		supportedTypes = _.uniq supportedTypes
 		$.each supportedTypes ,(index,value)->
 			items = collection.where
-						'type' : value
+						'object_type' : value
+			units = window.actualUnits(value)
 			marked = []
 			$.each items,(ind,val)->
 				if !_.isEmpty val.get('canvas_type')
@@ -86,13 +87,20 @@ jQuery(document).ready ($)->
 			type.push
 				'name' : value
 				'id'   : value
-				'total' : items.length
+				'total' : units.length
 				'marked' : marked.length
 		# $.each type,(index,value)->
 		# 	if value.total is 0
 		# 		type = _.without(type, value)
 
 		type
+
+	window.actualUnits = (value)->
+		units = []
+		if value == 'villa'
+			units = bunglowVariantCollection.getBunglowUnits()
+
+		units
 
 
 	window.showPendingObjects = (data)->
@@ -102,8 +110,6 @@ jQuery(document).ready ($)->
 		$.each data ,(index,value)->
 			total.push value.total+' '+value.name+'(s)'
 			marked.push value.marked+' '+value.name+'(s)'
-		console.log total
-		console.log marked
 		html = '<strong class="pull-right total-count">'+total.join(" | ")+'</strong>'+
 				'<strong class="pull-right title-count"> Total:</strong>'+
 				'<strong class="pull-right total-count">'+marked.join(" | ")+'</strong>'+
@@ -141,6 +147,14 @@ jQuery(document).ready ($)->
 				window.propertyTypes = response.property_types
 				plotVariantCollection.setPlotVariantAttributes(response.plot_variants)
 				unitCollection.setUnitAttributes(response.units)
+				window.createSvg(window.svgData.data)
+				window.generatePropTypes()
+				types = window.getPendingObjects(window.svgData) 
+				window.showPendingObjects(types)
+				s = new XMLSerializer()
+				str = s.serializeToString(rawSvg)
+				window.store = draw.svg(str)
+				
 				
 
 				
@@ -161,13 +175,6 @@ jQuery(document).ready ($)->
 				window.svgData['image'] = svgImg
 				window.svgData['data'] = response.data
 				window.svgData['supported_types'] = JSON.parse supported_types
-				window.createSvg(window.svgData.data)
-				window.generatePropTypes()
-				types = window.getPendingObjects(window.svgData) 
-				window.showPendingObjects(types)
-				s = new XMLSerializer()
-				str = s.serializeToString(rawSvg)
-				window.store = draw.svg(str)
 				window.loadJSONData()
 				
 
@@ -186,11 +193,6 @@ jQuery(document).ready ($)->
 			
 		
 
-		# points1 =  [425, 485, 459, 501, 457, 547, 408, 550]
-		# points2 = [629, 490, 667, 476, 704, 474, 709, 499, 706, 536, 635, 539]
-		# drawPoly(points1)
-		# drawPoly(points2)
-		
 
 
 	$('#aj-imp-builder-drag-drop canvas').ready ->
@@ -225,16 +227,15 @@ jQuery(document).ready ($)->
 	 
 	)
 
-	$('.save').on 'dblclick', (e) ->
+	$('.save').on 'click', (e) ->
 		e.preventDefault()
 		window.canvas_type = "polygon"
 		$('#aj-imp-builder-drag-drop canvas').show()
 		$('#aj-imp-builder-drag-drop .svg-draw-clear').show()
 		$('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
 		$('.edit-box').removeClass 'hidden'
-		
-	window.bindevents = ()->
-		$('.villa,.plot').on 'dblclick', (e) ->
+
+	$('svg').on 'dblclick', '.villa,.plot' , (e) ->
 			e.preventDefault()
 			window.canvas_type = "polygon"
 			$('#aj-imp-builder-drag-drop canvas').show()
@@ -255,23 +256,58 @@ jQuery(document).ready ($)->
 					drawPoly(points)
 					window.loadForm(classElem)
 					window.showDetails(currentElem)
+		
+	
 
 	window.saveUnit = ()->
 		myObject  = {}
+		details = {}
+		details['class'] = 'layer '+$('.property_type').val()
 		myObject['image_id'] = IMAGEID
 		myObject['object_id'] = $('.units').val()
 		myObject['object_type'] =  $('.property_type').val()
 		myObject['canvas_type'] =  window.canvas_type
-		myObject['points '] =  $('.area').val().split(',')
-		myObject['_token '] =  token
+		myObject['points'] =  $('.area').val().split(',')
+		myObject['other_details'] =  details
 		$.ajax
 			type : 'POST',
+			headers: { 'x-csrf-token' : $("meta[name='csrf-token']").attr('content')}
 			url  : BASEURL+'/admin/project/'+	PROJECTID+'/svg-tool'
 			async : false
 			data : $.param myObject 
 			success :(response)->
 
-				console.log response
+				value =  $('.area').val().split(',')
+				window.store.remove()
+				details = {}
+				details['class'] = 'layer '+$('.property_type').val()
+				childEle = {} 
+				childEle['id'] = $('.units').val()
+				childEle['name'] = $(".units option:selected").text()
+				childEle['object_type'] = $('.property_type').val()
+				childEle['points'] = value
+				childEle['other_details'] = details
+				childEle['canvas_type'] = window.canvas_type
+				
+				window.svgData.data.push childEle
+				
+				window.createSvg(window.svgData.data)
+				types = window.getPendingObjects(window.svgData) 
+				window.showPendingObjects(types)
+				s = new XMLSerializer()
+				str = s.serializeToString(rawSvg)
+				draw.svg str
+				$('.area').val("")
+				window.f = []
+				$("form").trigger("reset")
+				$('#dynamice-region').empty()
+				$(".toggle").trigger 'click'
+				$('#aj-imp-builder-drag-drop canvas').hide()
+				$('#aj-imp-builder-drag-drop svg').show()
+				$('.edit-box').addClass 'hidden'
+				canvas = document.getElementById("c")
+				ctx= canvas.getContext("2d")
+				ctx.clearRect( 0 , 0 , canvas.width, canvas.height )
 				
 
 				
@@ -282,47 +318,25 @@ jQuery(document).ready ($)->
 	
 	$('.submit').on 'click', (e) ->
 
-		window.saveUnit()
-		if  _.isEmpty $('.units').val()
+		if $('.property_type').val() == ""
 			$('.alert').text 'Unit not assigned'
 			window.hideAlert()
 			return false
-		if  _.isEmpty $('.area').val() 
+		
+		if  $('.units').val() == ""
+			$('.alert').text 'Unit not assigned'
+			window.hideAlert()
+			return false
+		if  $('.area').val()  == ""
 			$('.alert').text 'Coordinates not marked'
 			window.hideAlert()
 			return false
-		value =  $('.area').val().split(',')
-		window.store.remove()
-		details = {}
-		details['class'] = 'layer '+$('.property_type').val()
-		childEle = {} 
-		childEle['id'] = $('.units').val()
-		childEle['name'] = $(".units option:selected").text()
-		childEle['type'] = $('.property_type').val()
-		childEle['points'] = value
-		childEle['other_details'] = details
-		childEle['canvas_type'] = window.canvas_type
+		if window.coord == 1
+			$('.alert').text 'Already assigned'
+			window.hideAlert()
+			return false
+		window.saveUnit()
 		
-		console.log window.svgData.data.push childEle
-		
-		window.createSvg(window.svgData.data)
-		types = window.getPendingObjects(window.svgData) 
-		window.showPendingObjects(types)
-		s = new XMLSerializer()
-		str = s.serializeToString(rawSvg)
-		draw.svg str
-		window.bindevents()
-		$('.area').val("")
-		window.f = []
-		$("form").trigger("reset")
-		$('#dynamice-region').empty()
-		$(".toggle").trigger 'click'
-		$('#aj-imp-builder-drag-drop canvas').hide()
-		$('#aj-imp-builder-drag-drop svg').show()
-		$('.edit-box').addClass 'hidden'
-		canvas = document.getElementById("c")
-		ctx= canvas.getContext("2d")
-		ctx.clearRect( 0 , 0 , canvas.width, canvas.height )
 		
 		
 
@@ -340,9 +354,8 @@ jQuery(document).ready ($)->
 
 	window.showDetails = (elem)->
 		$('.property_type').val $(elem).attr 'type'
-		console.log elem.id
 		$('.units').val elem.id
-		$('#'+elem.id+'.layer').attr('id' , '')
+		
 
 	window.hideAlert = ()->
 		$('.alert').show()
@@ -350,6 +363,27 @@ jQuery(document).ready ($)->
 				$(this).hide('fade') 
 				next() 
 		)
+
+	$('.clear').on 'click' , (e)->
+		$('.area').val("")
+		window.f = []
+		canvas = document.getElementById("c")
+		ctx= canvas.getContext("2d")
+		ctx.clearRect( 0 , 0 , canvas.width, canvas.height )
+
+	$('.close').on 'click' , (e)->
+		$('.area').val("")
+		window.f = []
+		canvas = document.getElementById("c")
+		ctx= canvas.getContext("2d")
+		ctx.clearRect( 0 , 0 , canvas.width, canvas.height )
+		$("form").trigger("reset")
+		$('#dynamice-region').empty()
+		$(".toggle").trigger 'click'
+		$('#aj-imp-builder-drag-drop canvas').hide()
+		$('#aj-imp-builder-drag-drop svg').show()
+		$('.edit-box').addClass 'hidden'
+
 
 
 	

@@ -31,10 +31,12 @@ class AuthoringTool.PlotView extends Marionette.ItemView
 
 	events:
 		'change @ui.units':(e)->
+			window.coord = 0
 			$('.plot').each (index,value)->
 				if value.id is $(e.target).val()
 					$('.alert').text 'Already assigned'
 					window.hideAlert()
+					window.coord = 1
 					return 
 
 class AuthoringTool.PlotCtrl extends Marionette.RegionController

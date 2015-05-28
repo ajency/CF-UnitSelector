@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta content="" name="description" />
     <meta content="" name="author" />
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('bower_components/fontawesome/css/font-awesome.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/dashboard/builder.css')}}" rel="stylesheet" type="text/css" />
@@ -47,6 +47,7 @@
                             
                             <input type="hidden" name="svg-element-id">
                         </div>
+                        <input type="button" id="clear" name="clear" class="pull-left btn btn-small clear" value="Clear">
                         <button class="color-switch btn btn-default">
                             <i class="fa fa-eye"></i>
                             <div><small>PREVIEW</small>
@@ -88,6 +89,8 @@
                    </div> -->
                    <br/>
                    <button type="button" class="btn btn-primary submit" >Submit</button>
+                   <button type="button" class="btn btn-link close" >Close</button>
+
                  </form>
                </div>
                  <nav role='navigation' class="aj-navbar">
@@ -346,7 +349,7 @@
             svgImg = '{{$svgImage}}';
             types = '{{$supported_types}}';
             supported_types = $('<div/>').html(types).text()
-            token = '{{$token}}'
+           
 
            
 

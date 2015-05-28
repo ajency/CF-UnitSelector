@@ -36,10 +36,10 @@ class SvgController extends Controller {
 	public function store($projectId, Request $request)
 	{
 		$svg = new Svg();
-        $svg->image_id = $request['image_id'];
+		$svg->image_id = $request['image_id'];
         $svg->object_type = $request['object_type'];
         $svg->object_id = $request['object_id'];
-        $svg->points = $request['points'];
+        $svg->points = serialize($request['points']);
         $svg->canvas_type = $request['canvas_type'];
 
         if (isset($request['other_details'])) {
@@ -63,11 +63,16 @@ class SvgController extends Controller {
 	public function show($projectid, $imageid){
 
 		$svgElements = Svg::where( 'image_id', '=', $imageid )->get()->toArray();
-        
+        $temp = [];
+        foreach ($svgElements as $value) {
+        	$val = unserialize($value['points']);
+        	$value['points'] = $val;
+        	$temp[] = $value;
+        }
         return response()->json( [
             'code' => 'svg_elements_for_image',
             'message' => '',
-            'data' => $svgElements
+            'data' => $temp
         ], 200);		
 	}	
 

@@ -34,9 +34,11 @@ class AuthoringTool.VillaView extends Marionette.ItemView
 
 	events:
 		'change @ui.units':(e)->
+			window.coord = 0
 			$('.villa').each (index,value)->
 				if value.id is $(e.target).val()
 					$('.alert').text 'Already assigned'
+					window.coord = 1
 					window.hideAlert()
 					return 
 

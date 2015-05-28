@@ -32,10 +32,12 @@
 
     PlotView.prototype.events = {
       'change @ui.units': function(e) {
+        window.coord = 0;
         return $('.plot').each(function(index, value) {
           if (value.id === $(e.target).val()) {
             $('.alert').text('Already assigned');
             window.hideAlert();
+            window.coord = 1;
           }
         });
       }
