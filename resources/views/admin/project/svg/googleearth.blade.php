@@ -19,7 +19,7 @@
             <div class="grid-body no-border">
                 <div class="alert alert-info">
                 <strong><i class="fa fa-info"></i></strong>  Upload Google Earth image of the project. Image dimensions should be Image size :
-                                            1600*1095. Resolution - 300 DPI.
+                                            1600*1095. Resolution - 100 DPI.
                 </div>
           
                 @if(!empty($svgImages['google_earth']['IMAGE']))
