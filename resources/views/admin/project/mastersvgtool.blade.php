@@ -88,7 +88,9 @@
                      </select>
                    </div> -->
                    <br/>
-                   <button type="button" class="btn btn-primary submit" >Submit</button>
+                   <button type="button" class="btn btn-primary submit" >Save</button>
+                   <button type="button" class="btn btn-primary edit hidden" >Update</button>
+                   <button type="button" class="btn btn-primary delete hidden" >Delete</button>
                    <button type="button" class="btn btn-link close" >Close</button>
 
                  </form>

@@ -118,12 +118,12 @@
     window.resetCollection = function() {
       $('.plot,.villa,.building').each(function(index, value) {
         var unit;
-        unit = unitCollection.findWhere({
+        unit = unitMasterCollection.findWhere({
           'id': parseInt(value.id)
         });
         return unitCollection.remove(unit.get('id'));
       });
-      return unitCollection;
+      return console.log(unitCollection);
     };
     window.loadJSONData = function() {
       return $.ajax({
@@ -179,6 +179,27 @@
       });
     };
     window.loadOjectData();
+    window.renderSVG = function() {
+      var canvas, ctx, s, str, types;
+      window.createSvg(window.svgData.data);
+      types = window.getPendingObjects(window.svgData);
+      window.showPendingObjects(types);
+      s = new XMLSerializer();
+      str = s.serializeToString(rawSvg);
+      draw.svg(str);
+      window.resetCollection();
+      $('.area').val("");
+      window.f = [];
+      $("form").trigger("reset");
+      $('#dynamice-region').empty();
+      $(".toggle").trigger('click');
+      $('#aj-imp-builder-drag-drop canvas').hide();
+      $('#aj-imp-builder-drag-drop svg').show();
+      $('.edit-box').addClass('hidden');
+      canvas = document.getElementById("c");
+      ctx = canvas.getContext("2d");
+      return ctx.clearRect(0, 0, canvas.width, canvas.height);
+    };
     $('#aj-imp-builder-drag-drop canvas').ready(function() {
       $('#aj-imp-builder-drag-drop canvas').hide();
       return $('#aj-imp-builder-drag-drop .svg-draw-clear').hide();
@@ -193,7 +214,11 @@
       $('#aj-imp-builder-drag-drop canvas').show();
       $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
       $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
-      return $('.edit-box').removeClass('hidden');
+      $('.edit-box').removeClass('hidden');
+      $('.edit').addClass('hidden');
+      $('.delete').addClass('hidden');
+      $('.submit').removeClass('hidden');
+      return $('.property_type').attr('disabled', false);
     });
     $('svg').on('dblclick', '.villa,.plot', function(e) {
       var classElem, currentElem, element, svgDataObjects;
@@ -217,6 +242,9 @@
             collection.remove(element);
             window.svgData.data = collection.toArray();
             drawPoly(points);
+            $('.submit').addClass('hidden');
+            $('.edit').removeClass('hidden');
+            $('.delete').removeClass('hidden');
             window.loadForm(classElem);
             return window.showDetails(currentElem);
           }
@@ -243,37 +271,11 @@
         async: false,
         data: $.param(myObject),
         success: function(response) {
-          var canvas, childEle, ctx, s, str, types, value;
+          var value;
           value = $('.area').val().split(',');
           window.store.remove();
-          details = {};
-          details['class'] = 'layer ' + $('.property_type').val();
-          childEle = {};
-          childEle['id'] = $('.units').val();
-          childEle['name'] = $(".units option:selected").text();
-          childEle['object_type'] = $('.property_type').val();
-          childEle['points'] = value;
-          childEle['other_details'] = details;
-          childEle['canvas_type'] = window.canvas_type;
-          window.svgData.data.push(childEle);
-          window.createSvg(window.svgData.data);
-          types = window.getPendingObjects(window.svgData);
-          window.showPendingObjects(types);
-          s = new XMLSerializer();
-          str = s.serializeToString(rawSvg);
-          draw.svg(str);
-          window.resetCollection();
-          $('.area').val("");
-          window.f = [];
-          $("form").trigger("reset");
-          $('#dynamice-region').empty();
-          $(".toggle").trigger('click');
-          $('#aj-imp-builder-drag-drop canvas').hide();
-          $('#aj-imp-builder-drag-drop svg').show();
-          $('.edit-box').addClass('hidden');
-          canvas = document.getElementById("c");
-          ctx = canvas.getContext("2d");
-          return ctx.clearRect(0, 0, canvas.width, canvas.height);
+          window.svgData.data.push(myObject);
+          return window.renderSVG();
         },
         error: function(response) {
           return alert('Some problem occurred');
@@ -303,6 +305,41 @@
       }
       return window.saveUnit();
     });
+    $('.edit').on('click', function(e) {
+      var details, myObject;
+      myObject = {};
+      details = {};
+      details['class'] = 'layer ' + $('.property_type').val();
+      myObject['image_id'] = IMAGEID;
+      myObject['object_id'] = $('.units').val();
+      myObject['object_type'] = $('.property_type').val();
+      myObject['canvas_type'] = window.canvas_type;
+      myObject['points'] = $('.area').val().split(',');
+      myObject['other_details'] = details;
+      return $.ajax({
+        type: 'POST',
+        headers: {
+          'x-csrf-token': $("meta[name='csrf-token']").attr('content')
+        },
+        url: BASEURL + '/admin/project/' + PROJECTID + '/svg-tool/' + myObject['object_id'],
+        async: false,
+        data: $.param(myObject),
+        success: function(response) {
+          var collection, value;
+          value = $('.area').val().split(',');
+          window.store.remove();
+          console.log(myObject);
+          collection = new Backbone.Collection(window.svgData.data);
+          collection.remove(parseInt($('.units').val()));
+          window.svgData.data = collection.toArray();
+          window.svgData.data.push(myObject);
+          return window.renderSVG();
+        },
+        error: function(response) {
+          return alert('Some problem occurred');
+        }
+      });
+    });
     $('.property_type').on('change', function(e) {
       var type;
       type = $(e.target).val();
@@ -327,8 +364,20 @@
       }
     };
     window.showDetails = function(elem) {
+      var select, unit;
+      unit = unitMasterCollection.findWhere({
+        'id': parseInt(elem.id)
+      });
       $('.property_type').val($(elem).attr('type'));
-      return $('.units').val(elem.id);
+      $('.property_type').attr('disabled', true);
+      select = $('.units');
+      $('<option />', {
+        value: elem.id,
+        text: unit.get('unit_name')
+      }).appendTo(select);
+      $('.units').attr('disabled', true);
+      $('.units').val(elem.id);
+      return $('.units').show();
     };
     window.hideAlert = function() {
       $('.alert').show();
@@ -343,9 +392,13 @@
       window.f = [];
       canvas = document.getElementById("c");
       ctx = canvas.getContext("2d");
-      return ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      $("form").trigger("reset");
+      $(".toggle").trigger('click');
+      $('#dynamice-region').empty();
+      return $('.edit-box').addClass('hidden');
     });
-    return $('.close').on('click', function(e) {
+    $('.close').on('click', function(e) {
       var canvas, ctx;
       $('.area').val("");
       window.f = [];
@@ -358,6 +411,23 @@
       $('#aj-imp-builder-drag-drop canvas').hide();
       $('#aj-imp-builder-drag-drop svg').show();
       return $('.edit-box').addClass('hidden');
+    });
+    return $('.delete').on('click', function(e) {
+      var collection, details, myObject;
+      myObject = {};
+      details = {};
+      details['class'] = 'layer ' + $('.property_type').val();
+      myObject['image_id'] = IMAGEID;
+      myObject['object_id'] = $('.units').val();
+      myObject['object_type'] = $('.property_type').val();
+      myObject['canvas_type'] = window.canvas_type;
+      myObject['points'] = $('.area').val().split(',');
+      myObject['other_details'] = details;
+      collection = new Backbone.Collection(window.svgData.data);
+      collection.remove(parseInt($('.units').val()));
+      window.svgData.data = collection.toArray();
+      window.renderSVG();
+      return window.resetCollection();
     });
   });
 

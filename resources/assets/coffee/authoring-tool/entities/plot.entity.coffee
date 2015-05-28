@@ -5,7 +5,8 @@
 class AuthoringTool.PlotView extends Marionette.ItemView
 
 	template : '<form id="add-form"><div class="form-group">
-					 <label for="exampleInputPassword1">Units</label>
+					 <label class="unitName">Unit :</label><span class="unit_name"></span>
+					 <label class="unit-label" for="exampleInputPassword1">Units</label>
 					<select class="form-control units">
 						<option value="">Select</option>
 					   {{#options}}
