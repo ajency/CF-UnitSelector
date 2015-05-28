@@ -223,13 +223,13 @@ class LeftUnitView extends Marionette.ItemView
 		temp = []
 		console.log project.get('measurement_units')
 		$.each similarUnits[0], (index,value)->
-			response = window.unit.getUnitDetails(value.get('id'))
+			res = window.unit.getUnitDetails(value.get('id'))
 			temp.push 
 				'unit_name' : value.get('unit_name')
-				'unit_type' : response[1].get 'name'
-				'price' : window.numDifferentiation(response[3])
-				'area':response[0].get 'super_built_up_area'  
-				'variant':response[0].get 'unit_variant_name'
+				'unit_type' : res[1].get 'name'
+				'price' : window.numDifferentiation(res[3])
+				'area':res[0].get 'super_built_up_area'  
+				'variant':res[0].get 'unit_variant_name'
 				'id' : value.get('id')
 				'type' : similarUnits[2]
 				'units' : project.get('measurement_units')
@@ -324,6 +324,9 @@ class CenterUnitView extends Marionette.ItemView
 											<li class="gallery">
 												<h4 class="title">Gallery</h4>
 											</li>
+											<li class="master">
+												<h4 class="title">Position</h4>
+											</li>
 										</ul>
 									</div>
 									 <!--<div class="external">
@@ -342,6 +345,7 @@ class CenterUnitView extends Marionette.ItemView
 								<div class="liquid-slider slider">
 									<div class="panel-wrapper">
 										<div class="level ">
+											<img class="firstimage img-responsive" src=""/>
 											<div class="images animated fadeIn text-center">
 											</div>
 										</div>
@@ -428,6 +432,14 @@ class CenterUnitView extends Marionette.ItemView
 			$('.twoD').removeClass('current')
 			$('.external').removeClass('current')
 
+		'click .master':(e)->
+			@loadMaster()
+			$('.master').addClass('current')
+			$('.gallery').removeClass('current')
+			$('.threeD').removeClass('current')
+			$('.twoD').removeClass('current')
+			$('.external').removeClass('current')
+
 		'mouseover .next,.prev':(e)->
 			id = parseInt $(e.target).attr('data-id')
 			unitModel = unitCollection.findWhere
@@ -459,7 +471,7 @@ class CenterUnitView extends Marionette.ItemView
 
 	onShow:->
 		@getNextPrevUnit()
-		response = @generateLevels()
+		console.log response = @generateLevels()
 		html = ''
 		$.each response[0],(index,value)->
 			html += '<div class="layouts animated fadeIn">
@@ -485,6 +497,9 @@ class CenterUnitView extends Marionette.ItemView
 		
 		$('.images').html html
 		$('.level').attr 'class' , 'level Level_0 '+ _.last(response[2])
+		
+		if response[4]  is 'apartment'
+			$('.level').attr 'class' , 'level '+_.last(response[2]) + _.last(response[2])
 			
 			
 
@@ -534,6 +549,27 @@ class CenterUnitView extends Marionette.ItemView
 		$(".fancybox").fancybox()
 		$('.img').lazyLoadXT()
 		@iniTooltip()
+		@loadMaster()
+
+	loadMaster:->
+		svgs = []
+		breakpoints = project.get('breakpoints')
+		$.each breakpoints,(index,value)->
+			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/master/master-'+value+'.svg'
+
+		
+		first = _.values svgs
+		transitionImages = []
+		$.merge transitionImages ,  project.get('project_master')
+		if project.get('project_master').length != 0
+			$('.images').load(first[0],()->
+				$('.firstimage').attr('src',transitionImages[0])
+				url = Backbone.history.fragment
+				console.log id = url.split('/')[1]
+				$('.villa,.plot').each (ind,item)->
+					id = parseInt item.id
+					$('#'+id).attr('class', "")
+				$('#'+id).attr('class' ,'layer svg_active'))
 
 	iniTooltip:->
 		$('.next,.prev').tooltipster(
@@ -558,6 +594,8 @@ class CenterUnitView extends Marionette.ItemView
 		level = []
 		floor = response[0].get('floor')
 		i = 0
+		unitD = unitCollection.findWhere
+			id  : unitid
 		$.each floor,(index,value)->
 			if ! _.isUndefined(value.url2dlayout_image) &&  value.url2dlayout_image != ""
 				twoD.push value.url2dlayout_image
@@ -565,9 +603,13 @@ class CenterUnitView extends Marionette.ItemView
 				threeD.push value.url3dlayout_image
 			level_name =  'Level  '+ index  
 			level.push s.replaceAll('Level '+i, " ", "_")
+			if response[2]  is 'apartment'
+				level.push s.replaceAll('Floor '+unitD.get('floor'), " ", "_")
+				
+			
 			
 			i = i + 1	
-		[twoD,threeD,level,response[0]]
+		[twoD,threeD,level,response[0],response[2]]
 
 
 	getNextPrevUnit:->

@@ -152,13 +152,14 @@
       temp = [];
       console.log(project.get('measurement_units'));
       $.each(similarUnits[0], function(index, value) {
-        response = window.unit.getUnitDetails(value.get('id'));
+        var res;
+        res = window.unit.getUnitDetails(value.get('id'));
         return temp.push({
           'unit_name': value.get('unit_name'),
-          'unit_type': response[1].get('name'),
-          'price': window.numDifferentiation(response[3]),
-          'area': response[0].get('super_built_up_area'),
-          'variant': response[0].get('unit_variant_name'),
+          'unit_type': res[1].get('name'),
+          'price': window.numDifferentiation(res[3]),
+          'area': res[0].get('super_built_up_area'),
+          'variant': res[0].get('unit_variant_name'),
           'id': value.get('id'),
           'type': similarUnits[2],
           'units': project.get('measurement_units')
@@ -273,7 +274,7 @@
       return CenterUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 col-sm-12 col-xs-12 us-right-content unit-slides animated fadeIn"> <div class=""> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <div class="images animated fadeIn text-center"> </div> </div> </div> </div> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> </div> </div> </div>');
+    CenterUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 col-sm-12 col-xs-12 us-right-content unit-slides animated fadeIn"> <div class=""> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> <li class="master"> <h4 class="title">Position</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <img class="firstimage img-responsive" src=""/> <div class="images animated fadeIn text-center"> </div> </div> </div> </div> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> </div> </div> </div>');
 
     CenterUnitView.prototype.ui = {
       imagesContainer: '.us-right-content'
@@ -334,6 +335,14 @@
         $('.twoD').removeClass('current');
         return $('.external').removeClass('current');
       },
+      'click .master': function(e) {
+        this.loadMaster();
+        $('.master').addClass('current');
+        $('.gallery').removeClass('current');
+        $('.threeD').removeClass('current');
+        $('.twoD').removeClass('current');
+        return $('.external').removeClass('current');
+      },
       'mouseover .next,.prev': function(e) {
         var html, id, response, unitColl, unitModel;
         id = parseInt($(e.target).attr('data-id'));
@@ -359,7 +368,7 @@
     CenterUnitView.prototype.onShow = function() {
       var height, html, response;
       this.getNextPrevUnit();
-      response = this.generateLevels();
+      console.log(response = this.generateLevels());
       html = '';
       $.each(response[0], function(index, value) {
         return html += '<div class="layouts animated fadeIn"> <a class="fancybox" href="' + value + '"> <img class="img" data-src="' + value + '" /> <div class="img-overlay"></div> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </a> </div>';
@@ -379,6 +388,9 @@
       }
       $('.images').html(html);
       $('.level').attr('class', 'level Level_0 ' + _.last(response[2]));
+      if (response[4] === 'apartment') {
+        $('.level').attr('class', 'level ' + _.last(response[2]) + _.last(response[2]));
+      }
       if (!_.isUndefined(response[3].get('external3durl'))) {
         html = '<img class="img lazy-hidden img-responsive external-img"  data-src="' + response[3].get('external3durl') + '" />';
         $('.images').html(html);
@@ -423,7 +435,33 @@
       }
       $(".fancybox").fancybox();
       $('.img').lazyLoadXT();
-      return this.iniTooltip();
+      this.iniTooltip();
+      return this.loadMaster();
+    };
+
+    CenterUnitView.prototype.loadMaster = function() {
+      var breakpoints, first, svgs, transitionImages;
+      svgs = [];
+      breakpoints = project.get('breakpoints');
+      $.each(breakpoints, function(index, value) {
+        return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/master/master-' + value + '.svg';
+      });
+      first = _.values(svgs);
+      transitionImages = [];
+      $.merge(transitionImages, project.get('project_master'));
+      if (project.get('project_master').length !== 0) {
+        return $('.images').load(first[0], function() {
+          var id, url;
+          $('.firstimage').attr('src', transitionImages[0]);
+          url = Backbone.history.fragment;
+          console.log(id = url.split('/')[1]);
+          $('.villa,.plot').each(function(ind, item) {
+            id = parseInt(item.id);
+            return $('#' + id).attr('class', "");
+          });
+          return $('#' + id).attr('class', 'layer svg_active');
+        });
+      }
     };
 
     CenterUnitView.prototype.iniTooltip = function() {
@@ -440,7 +478,7 @@
     };
 
     CenterUnitView.prototype.generateLevels = function() {
-      var floor, i, level, response, threeD, twoD, unitid, url;
+      var floor, i, level, response, threeD, twoD, unitD, unitid, url;
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
       response = window.unit.getUnitDetails(unitid);
@@ -449,6 +487,9 @@
       level = [];
       floor = response[0].get('floor');
       i = 0;
+      unitD = unitCollection.findWhere({
+        id: unitid
+      });
       $.each(floor, function(index, value) {
         var level_name;
         if (!_.isUndefined(value.url2dlayout_image) && value.url2dlayout_image !== "") {
@@ -459,9 +500,12 @@
         }
         level_name = 'Level  ' + index;
         level.push(s.replaceAll('Level ' + i, " ", "_"));
+        if (response[2] === 'apartment') {
+          level.push(s.replaceAll('Floor ' + unitD.get('floor'), " ", "_"));
+        }
         return i = i + 1;
       });
-      return [twoD, threeD, level, response[0]];
+      return [twoD, threeD, level, response[0], response[2]];
     };
 
     CenterUnitView.prototype.getNextPrevUnit = function() {
