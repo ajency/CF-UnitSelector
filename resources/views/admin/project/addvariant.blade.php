@@ -119,21 +119,27 @@
                 </div>
             </div>
             <hr/>
-            <div id="addFloorlevel"> 
+            <div id="addFloorlevel" class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"> 
                 <?php $i = 1; ?>
                 <div class="row" id="level_0">
                     <div class="m-l-5 no-border">
                         <button type="button" class="btn btn-small btn-default pull-right m-r-25 add_level" ><i class="fa fa-plus"></i> Add New Level</button>
                         <h3><i class="fa fa-angle-double-right text-primary"></i> Room <span class="semi-bold">Details</span></h3>
                     </div>
-                    <div class="grid simple" style="margin-bottom:0;">
+                    <div class="grid simple" style="margin-bottom:10px;">
                         <div class="grid-body no-border" style="padding-bottom:0;">
-                            <div class="grid simple vertical orange">
-                                <div class="grid-title">
-                                    <h4>Level 0</h4>
+                            <div class="panel panel-default vertical orange">
+                                <div class="panel-heading collapsed" role="tab" id="headingOne">
+                                 <h4 class="panel-title">
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">                                    
+                                        Level 0
                                     <input type="hidden" value="0" name="levels[]">
+                                    </a>
+                                </h4>
+                                
                                 </div>
-                                <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4>
+                                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body"><h4> <span class="semi-bold">Layouts</span></h4>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="grid simple">
@@ -195,7 +201,7 @@
                                                     </div>
                                          </div>
                                     </div>
-                                    
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -203,14 +209,19 @@
                 </div>
                 <div class="row" id="level_1">
                     <div class="no-border">
-                        <div class="grid simple" style="margin-bottom:0;">
+                        <div class="grid simple" style="margin-bottom:10px;">
                             <div class="grid-body no-border" style="padding-bottom:0;">
-                                <div class="grid simple vertical orange">
-                                    <div class="grid-title">
-                                        <h4>Level 1</h4>
+                                <div class="panel panel-default vertical orange">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false">
+                                        Level 1
                                         <input type="hidden" value="1" name="levels[]">
+                                        </a>
+                                    </h4>
                                     </div>
-                                    <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4>
+                                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div class="panel-body"><h4> <span class="semi-bold">Layouts</span></h4>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="grid simple">
@@ -267,12 +278,9 @@
                                                         <div class="text-right">
                                                             <button type="button" onclick="getRoomTypeAttributes(this, 1);" class="btn btn-link">Add Another Room</button>
                                                         </div>
+                                                    </div>
                                             </div>
-                                         </div>
-
-                                        
-
-
+                                        </div>
                                     </div>
                                 </div>
                             </div>
