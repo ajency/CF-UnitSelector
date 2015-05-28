@@ -25,7 +25,7 @@
     <h2><span class="semi-bold">Project </span> Summary</h2>
 </div>
 <div class="grid simple">
-    <div class="alert alert-success">
+    <div class="alert alert-success hidden">
         <button class="close" data-dismiss="alert"></button>
         <i class="fa fa-check-circle" style="font-size: 17px;"></i> Phase published successfully.
     </div>
@@ -39,10 +39,12 @@
                     <h4 class="inline semi-bold">Status : </h4>&nbsp;&nbsp;<span class="text-primary">{{ strtoupper($project['status']) }}</span>
                 </div>
                 <div class="col-md-4 text-right">
+                    @if($project['status']=='published')
                     <h5 class="semi-bold">
                         First Published : {{ date('d/m/Y',strtotime($projectJason['created_at'])) }}<br>
                         Last Published : {{ date('d/m/Y',strtotime($projectJason['updated_at'])) }}<br>
                     </h5>
+                    @endif
                     <button class="btn btn-info btn-small" data-toggle="modal" data-target=".bs-example-modal-lg">PUBLISH</button>
                 </div>
             </div>
