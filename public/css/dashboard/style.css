@@ -8199,7 +8199,6 @@ a {
   color: #f34235;
 }
 .orange {
-  background: #F68121;
   border-left: 4px solid #F68121;
 }
 .img-hover {
@@ -8324,7 +8323,7 @@ table tr {
   border-bottom: 1px solid #DDD;
 }
 #accordion .grid-body {
-  border-top: none;
+  /*border-top: none;*/
 }
 .grid-angle-down {
   display: none;
