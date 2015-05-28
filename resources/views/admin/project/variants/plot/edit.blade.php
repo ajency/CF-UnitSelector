@@ -6,7 +6,7 @@
     <li><a href="{{ url( 'admin/') }}">Dashboard</a> </li>
     <li><a href="{{ url( 'admin/project/') }}">Projects</a> </li>
     <li><a href="{{ url( 'admin/project/' . $project['id'].'/edit') }}">{{ $project['project_title'] }}</a> </li>
-    <li><a href="#">Villa Variants</a> </li>
+    <li><a href="#">Plot Variants</a> </li>
     <li><a href="#" class="active">Add Unit Variants</a> </li>
 </ul>
 <!-- END BREADCRUMBS -->
@@ -33,7 +33,6 @@
                             <div class="form-group">
                                 <label class="form-label">Name<span class="text-primary">*</span></label>
                                 <input type="text" class="form-control" name="unit_variant_name" placeholder="Enter Name"  value="{{ $unitVariant['unit_variant_name'] }}" data-parsley-required>
-                                <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -46,7 +45,6 @@
                                         <option @if($unitVariant['unit_type_id']==$unitTypeId){{'selected'}}@endif value="{{$unitTypeId}}">{{ $unitType }}</option>
                                         @endforeach
                                     </select>
-                                <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -54,8 +52,7 @@
                                 <label class="form-label">Size<span class="text-primary">*</span></label>
                                 <small class="text-muted">/ ({{ $project['measurement_units'] }})</small>
                                 <input type="text" class="form-control" name="size" value="{{ $unitVariant['size'] }}" placeholder="Enter Size" data-parsley-required data-parsley-type="number">
-                                <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
-                            </div>
+                           </div>
                         </div>
                     </div>
                     <div class="row">
@@ -63,8 +60,7 @@
                             <div class="form-group">
                                 <label class="form-label">Price<span class="text-primary">*</span></label>
                                 <input type="text" class="form-control" name="per_sq_ft_price" value="{{ $unitVariant['per_sq_ft_price'] }}" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
-                                <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
-                            </div>
+                           </div>
                         </div>
                         @foreach($propertyTypeAttributes as $propertyTypeAttribute)
                         <div class="col-md-4">
@@ -108,7 +104,7 @@
             <hr/>
             <div>
                 <div class="m-l-5 no-border">
-                    <h3><i class="fa fa-angle-double-right text-primary"></i><span class="semi-bold"> Layouts</span></h3>
+                    <h3><i class="fa fa-angle-double-right text-primary"></i><span class="semi-bold"> Views</span></h3>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -124,7 +120,7 @@
                                 <div class="col-md-3" >
                                     <div class="img-hover img-thumbnail">
                                         <a class="btn btn-link btn-danger overlay" onclick="deleteLayout({{ $layouts['external']['3d']['ID'] }}, 'external');"><i class="fa fa-close text-primary"></i></a>
-                                        <img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="{{ $layouts['external']['3d']['IMAGE'] }}"   />
+                                        <img style="width:150px;height:93px;" id="svg1" src="{{ $layouts['external']['3d']['IMAGE'] }}"   />
                                     </div>
                                 </div>
                                 @else
@@ -164,7 +160,7 @@
                                     <div class="col-md-3 gallery"  id="gallery_{{ $gallery['ID'] }}">
                                         <div class="img-hover img-thumbnail">
                                             <a class="btn btn-link btn-danger overlay" onclick="deleteLayout({{ $gallery['ID'] }}, 'gallery');"><i class="fa fa-close text-primary"></i></a>
-                                            <img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="{{ $gallery['IMAGE'] }}"   />
+                                            <img style="width:150px;height:93px;" id="svg1" src="{{ $gallery['IMAGE'] }}"   />
                                         </div>
                                     </div>
                                     @endforeach									

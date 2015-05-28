@@ -28,6 +28,7 @@
                 <table class="table table-bordered" id="example2" >
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Name</th>
                             <th>Status</th>
                             <th>Variant</th>
@@ -38,6 +39,7 @@
                     <tbody> 
                         @foreach ($unit_arr as $unit)
                             <tr class="" onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/bunglow-unit/'.$unit['id'].'/edit') }}'">
+                                <td class="text-center"><i class="fa fa-pencil"></i></td>
                                 <td>{{ $unit['unit_name'] }}</td>
                                 <td>{{ ucfirst($unit->availability) }}</td>
                                 <td>{{ $unit->unitVariant->unit_variant_name}}</td>

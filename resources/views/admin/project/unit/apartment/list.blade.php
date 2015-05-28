@@ -22,13 +22,14 @@
     <div class="col-md-12">
         <div class="grid simple">
             <div class="grid-title">
-                <h4>List of <span class="semi-bold">Apartment UNits</span></h4>
+                <h4>List of <span class="semi-bold">Apartment Units</span></h4>
                 <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/apartment-unit/create') }}" ><i class="fa fa-plus"></i> Add unit</a>
             </div>
             <div class="grid-body">
                 <table class="table table-bordered" id="example2" >
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Name</th>
                             <th>Status</th>
                             <th>Building</th>
@@ -41,6 +42,7 @@
                     <tbody> 
                         @foreach ($units as $unit)
                             <tr class="">
+                                <td class="text-center"><i class="fa fa-pencil"></i></td>
                                 <td>
                                     <a href="{{ url( '/admin/project/' . $project['id'] . '/apartment-unit/'.$unit['id'].'/edit') }}">
                                         {{ $unit['unit_name'] }}

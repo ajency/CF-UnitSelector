@@ -20,11 +20,11 @@
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
 <div class="grid simple">
-    <div class="grid-title">
-        <h3>Apartment <span class="semi-bold">Unit Details</span></h3>
+   
+    <div class="grid-title no-border">
+        <h3> <i class="fa fa-angle-double-right text-primary"></i> Apartment <span class="semi-bold">Details</span></h3>
     </div>
-
-    <div class="grid-body">
+    <div class="grid-body no-border">
         <form action="{{ url('/admin/project/' . $project['id'] .'/apartment-unit') }}" method="POST" data-parsley-validate>
             <div class="row">
                 <div class="col-md-4">
@@ -81,16 +81,17 @@
                     </div> 
 
                 </div>
-            </div>
-            <div class="form-actions">  
-                <div class="pull-right">
+            </div> 
+                    <div class="form-actions">  
+                <div class="text-right">
                     <input type="hidden" id="addanother" name="addanother" value="">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-                    <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
-                    <button type="button" onclick="saveAndAddAnother();" class="btn btn-default btn-cons">Save And Add Another</button>
+                    <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-plus-circle"></i> Create</button>
+                    <button type="button" onclick="saveAndAddAnother();" class="btn btn-default btn-cons">Save And Create Another</button>
                 </div>
             </div>
-        </form>
+       </form>
+
     </div>
 </div>
 

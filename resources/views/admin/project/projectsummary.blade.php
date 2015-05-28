@@ -15,9 +15,9 @@
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
 @if(hasPermission($project['id'],['configure_project']))
 <div class="pull-right">
-    <a href="{{ url( '/admin/project/' . $project['id'] . '/edit') }}">
+   <!--  <a href="{{ url( '/admin/project/' . $project['id'] . '/edit') }}">
         <button class="btn btn-primary btn-medium"><i class="fa fa-pencil"></i> Summary</button>
-    </a>
+    </a> -->
 </div>
 @endif
 <div class="page-title">

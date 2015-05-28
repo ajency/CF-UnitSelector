@@ -15,7 +15,7 @@
 @section('content')
 <!-- BEGIN PAGE TITLE -->
 <div class="page-title">	
-    <h2><span class="semi-bold">Add</span> Unit Variant</h2>
+    <h2><span class="semi-bold">Edit</span> Unit Variant</h2>
 </div>
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
@@ -137,7 +137,7 @@
             <hr/>
             <div>
                 <div class="m-l-5 no-border">
-                    <h3><i class="fa fa-angle-double-right text-primary"></i><span class="semi-bold"> Layouts</span></h3>
+                    <h3><i class="fa fa-angle-double-right text-primary"></i><span class="semi-bold"> Views</span></h3>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
@@ -159,7 +159,7 @@
                                     <div class="col-md-3 gallery"  id="gallery_{{ $gallery['ID'] }}">
                                         <div class="img-hover img-thumbnail">
                                             <a class="btn btn-link btn-danger overlay" onclick="deleteLayout({{ $gallery['ID'] }}, 'gallery');"><i class="fa fa-close text-primary"></i></a>
-                                            <img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="{{ $gallery['IMAGE'] }}"   />
+                                            <img style="width:150px;height:93px;" id="svg1" src="{{ $gallery['IMAGE'] }}"   />
                                         </div>
                                     </div>
                                     @endforeach									

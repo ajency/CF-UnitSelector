@@ -23,7 +23,7 @@
                                                            
                                                                 <div class="img-hover img-thumbnail">
                                                                     <a class="btn btn-link btn-danger overlay" onclick="deleteLayout({{ $layouts[0]['2d']['ID'] }}, '2d');"><i class="fa fa-close text-primary"></i></a>
-                                                                    <img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="{{ $layouts[0]['2d']['IMAGE'] }}"   />
+                                                                    <img style="width:150px;height:93px;" id="svg1" src="{{ $layouts[0]['2d']['IMAGE'] }}"   />
                                                                 </div>
                                                             
                                                             @else
@@ -53,7 +53,7 @@
                                                            
                                                                 <div class="img-hover img-thumbnail">
                                                                     <a class="btn btn-link btn-danger overlay" onclick="deleteLayout({{ $layouts[0]['3d']['ID'] }}, '3d');"><i class="fa fa-close text-primary"></i></a>
-                                                                    <img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="{{ $layouts[0]['3d']['IMAGE'] }}"   />
+                                                                    <img style="width:150px;height:93px;" id="svg1" src="{{ $layouts[0]['3d']['IMAGE'] }}"   />
                                                                 </div>
                                                             
                                                             @else

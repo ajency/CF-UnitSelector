@@ -19,12 +19,12 @@
                                                 <div class="grid-body">
                                                     <div class="inline">2D Layout</div>
                                                     <input type="hidden" name="image_0_2d_id" id="image_0_2d_id" value=""> 
-                                                    <div class="pull-right" id="2d_0_image">
+                                                    <div class="text-center" id="2d_0_image">
                                                        @if(isset($layouts[0]['2d']))
                                                            
                                                                 <div class="img-hover img-thumbnail">
                                                                     <a class="btn btn-link btn-danger overlay" onclick="deleteLayout({{ $layouts[0]['2d']['ID'] }}, '2d');"><i class="fa fa-close text-primary"></i></a>
-                                                                    <img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="{{ $layouts[0]['2d']['IMAGE'] }}"   />
+                                                                    <img style="width:150px;height:93px;" id="svg1" src="{{ $layouts[0]['2d']['IMAGE'] }}"   />
                                                                 </div>
                                                             
                                                             @else
@@ -49,12 +49,12 @@
                                                 <div class="grid-body">
                                                     <div class="inline">3D Layout</div>
                                                     
-                                                    <div class="pull-right" id="3d_0_image">
+                                                    <div class="text-center" id="3d_0_image">
                                                         @if(isset($layouts[0]['3d']))
                                                            
                                                                 <div class="img-hover img-thumbnail">
                                                                     <a class="btn btn-link btn-danger overlay" onclick="deleteLayout({{ $layouts[0]['3d']['ID'] }}, '3d');"><i class="fa fa-close text-primary"></i></a>
-                                                                    <img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="{{ $layouts[0]['3d']['IMAGE'] }}"   />
+                                                                    <img style="width:150px;height:93px;" id="svg1" src="{{ $layouts[0]['3d']['IMAGE'] }}"   />
                                                                 </div>
                                                             
                                                             @else
@@ -178,12 +178,12 @@
                                                     <div class="grid-body">
                                                         <div class="inline">2D Layout</div>
                                                         
-                                                        <div class="pull-right" id="2d_1_image">
+                                                        <div class="text-center" id="2d_1_image">
                                                             @if(isset($layouts[1]['2d']))
                                                             
                                                                 <div class="img-hover img-thumbnail">
                                                                     <a class="btn btn-link btn-danger overlay" onclick="deleteLayout({{ $layouts[1]['2d']['ID'] }}, '2d');"><i class="fa fa-close text-primary"></i></a>
-                                                                    <img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="{{ $layouts[1]['2d']['IMAGE'] }}"   />
+                                                                    <img style="width:150px;height:93px;" id="svg1" src="{{ $layouts[1]['2d']['IMAGE'] }}"   />
                                                                 </div>
                                                             
                                                             @else
@@ -207,12 +207,12 @@
                                                     <div class="grid-body">
                                                         <div class="inline">3D Layout</div>
                                                           
-                                                        <div class="pull-right" id="3d_1_image">
+                                                        <div class="text-center" id="3d_1_image">
                                                             @if(isset($layouts[1]['3d']))
                                                              
                                                                 <div class="img-hover img-thumbnail">
                                                                     <a class="btn btn-link btn-danger overlay" onclick="deleteLayout({{ $layouts[1]['3d']['ID'] }}, '3d');"><i class="fa fa-close text-primary"></i></a>
-                                                                    <img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="{{ $layouts[1]['3d']['IMAGE'] }}"   />
+                                                                    <img style="width:150px;height:93px;" id="svg1" src="{{ $layouts[1]['3d']['IMAGE'] }}"   />
                                                                 </div>
                                                            
                                                             @else
@@ -243,7 +243,7 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label class="form-label"></label>
-                                                            <div class="input-with-icon  right">
+                                                            <div class="right">
                                                                 <i class=""></i>
                                                                 <input type="hidden" name="room_id[1][]" value="{{ $roomType['ROOMTYPEID'] }}">
                                                                 <input type="hidden" name="variantroomid[1][]" value="{{$variantRoomId}}">
@@ -345,12 +345,12 @@
                                                 <div class="grid simple">
                                                     <div class="grid-body">
                                                         <div class="inline">2D Layout</div>
-                                                        <div class="pull-right" id="2d_{{ $level }}_image">
+                                                        <div class="text-center" id="2d_{{ $level }}_image">
                                                             @if(isset($layouts[$level]['2d']))
                                                             
                                                                 <div class="img-hover img-thumbnail">
                                                                     <a class="btn btn-link btn-danger overlay" onclick="deleteLayout({{ $layouts[$level]['2d']['ID'] }}, '2d');"><i class="fa fa-close text-primary"></i></a>
-                                                                    <img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="{{ $layouts[$level]['2d']['IMAGE'] }}"   />
+                                                                    <img style="width:150px;height:93px;" id="svg1" src="{{ $layouts[$level]['2d']['IMAGE'] }}"   />
                                                                 </div>
                                                             
                                                             @else
@@ -375,12 +375,12 @@
                                                     <div class="grid-body">
                                                         <div class="inline">3D Layout</div>
 
-                                                        <div class="pull-right" id="3d_{{ $level }}_image">
+                                                        <div class="text-center" id="3d_{{ $level }}_image">
                                                             @if(isset($layouts[$level]['3d']))
                                                             
                                                                 <div class="img-hover img-thumbnail">
                                                                     <a class="btn btn-link btn-danger overlay" onclick="deleteLayout({{ $layouts[$level]['3d']['ID'] }}, '3d');"><i class="fa fa-close text-primary"></i></a>
-                                                                    <img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="{{ $layouts[$level]['3d']['IMAGE'] }}"   />
+                                                                    <img style="width:150px;height:93px;" id="svg1" src="{{ $layouts[$level]['3d']['IMAGE'] }}"   />
                                                                 </div>
                                                              
                                                             @else
