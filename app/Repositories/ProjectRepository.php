@@ -92,10 +92,10 @@ class ProjectRepository implements ProjectRepositoryInterface {
     public function updateProject($projectId, $projectData) {
 
         $project = Project::find($projectId);
-
+    
         $project_title = ucfirst($projectData['project_title']);
         $project_address = ucfirst($projectData['project_address']);
-        $property_types_arr = (isset($projectData['property_types'])) ? $projectData['property_types'] : [];
+        $property_types_arr = (isset($projectData['property_types'])) ? $projectData['property_types'] : []; 
         $property_measurement_units = $projectData['measurement_units'];
         $property_has_phases = $projectData['has_phases'];
         $property_has_master = $projectData['has_master'];
@@ -154,6 +154,8 @@ class ProjectRepository implements ProjectRepositoryInterface {
 
             $project->projectPropertyTypes()->saveMany($property_types_arr);
         }
+        
+         
 
         //unit type
         $propertyunitArr = (isset($projectData['unittype'])) ? $projectData['unittype'] : []; //dd($propertyunitArr);
@@ -213,9 +215,8 @@ class ProjectRepository implements ProjectRepositoryInterface {
                 $controlValueArr = (isset($projectData['controltypevalues_' . $propertytypeId])) ? $projectData['controltypevalues_' . $propertytypeId] : [];
                 $attributeIdArr = $projectData['attribute_id_' . $propertytypeId];
                 $attributes = [];
-
-
-                if (!empty($attributeNameArr)) {
+                
+                 if (!empty($attributeNameArr)) {
                     foreach ($attributeNameArr as $key => $attributeName) {
                         $attributeName = ucfirst($attributeName);
                         $controlType = $controlTypeArr[$key];

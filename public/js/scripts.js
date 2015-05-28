@@ -1349,7 +1349,15 @@ function createUnitType(obj, propertyTypeId)
 
 $('input[name="property_types[]"]').change(function (event) {
     if ($(this).is(':checked'))
+    {
         $(this).closest('.row').find('.propertyTypeUnitsAttributes').removeClass('hidden');
+        if($(this).closest('.row').find('.attributes_block .defaultAttributes').length)
+        {
+           $(this).closest('.row').find('.attributes_block .defaultAttributes').removeClass('hidden');
+           $(this).closest('.row').find('.attributes_block .defaultAttributes').find('input').prop("disabled", false);
+           $(this).closest('.row').find('.attributes_block .defaultAttributes select').prop("disabled", false);
+        }
+    }
     else
         $(this).closest('.row').find('.propertyTypeUnitsAttributes').addClass('hidden');
 
