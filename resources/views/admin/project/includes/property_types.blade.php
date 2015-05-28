@@ -131,12 +131,12 @@
                             ?>
                             <div class="row m-b-10">
                                 <div class="col-md-4">
-                                    <input type="text" name="attribute_name_{{ $propertyTypeId }}[]" class="form-control" value="{{ $attributeName }}" placeholder="Enter Attribute Name" disabled>
-                                    <input type="hidden" name="attribute_id_{{ $propertyTypeId }}[]" value="" disabled>
+                                    <input type="text" name="attribute_name_{{ $propertyTypeId }}[]" class="form-control" value="{{ $attributeName }}" placeholder="Enter Attribute Name" >
+                                    <input type="hidden" name="attribute_id_{{ $propertyTypeId }}[]" value="" >
 
                                 </div>
                                 <div class="col-md-4">
-                                    <select name="controltype_{{ $propertyTypeId }}[]" class="select2-container select2 form-control" disabled>
+                                    <select name="controltype_{{ $propertyTypeId }}[]" class="select2-container select2 form-control" >
                                         <option value="">Select Control Type</option>
                                         <option value="textbox"  > Text Box</option>
                                         <option value="select" selected>Select Box</option>
@@ -145,7 +145,7 @@
                                     </select>
                                 </div>
                                 <div class="col-md-3">
-                                    <input type="text" name="controltypevalues_{{ $propertyTypeId }}[]" data-role="tagsinput" class="tags" value="{{ $attributeControlValues }}" disabled >
+                                    <input type="text" name="controltypevalues_{{ $propertyTypeId }}[]" data-role="tagsinput" class="tags" value="{{ $attributeControlValues }}"  >
 
                                 </div>
                                 <div class="col-md-1 text-center">
