@@ -85,7 +85,7 @@
                         <div class="col-md-8 attributes_block" style="border-left: 1px solid #ddd;">
                             <h4>Attributes</h4>
                             <div class="row form-group">
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <label class="form-label">Name</label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Attributes Name will be the specification for each room type for example (Area, Length * Width, etc)."></i>
                                 </div>
                                 <div class="col-md-4">
@@ -94,9 +94,7 @@
                                 <div class="col-md-4">
                                     <label class="form-label">Value</label>
                                 </div>
-                                <div class="col-md-1 text-center">
-
-                                </div>
+                                
                             </div>
                             @if(isset($propertytypeAttributes[$propertyTypeId]['ATTRIBUTES']) && !empty($propertytypeAttributes[$propertyTypeId]['ATTRIBUTES']))
                             @foreach($propertytypeAttributes[$propertyTypeId]['ATTRIBUTES'] as $propertytypeAttribute)

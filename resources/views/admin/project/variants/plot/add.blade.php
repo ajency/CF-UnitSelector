@@ -59,6 +59,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Price<span class="text-primary">*</span></label>
+                                <small class="text-muted">/ ({{ $project['measurement_units'] }})</small>
                                 <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
                             </div>
                         </div>
