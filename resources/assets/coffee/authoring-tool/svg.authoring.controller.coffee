@@ -112,6 +112,7 @@ jQuery(document).ready ($)->
 		$('.pending').html html
 
 
+
 	window.generatePropTypes = ()->
 		types = window.svgData.supported_types
 		select = $('.property_type')
@@ -119,8 +120,53 @@ jQuery(document).ready ($)->
 		$.each types , (index,value)->
 			$('<option />', {value: value, text: value.toUpperCase()}).appendTo(select)
 
-		console.log $('.property_type')
+		
+	#api required to load second step
+	window.loadJSONData = ()->
 
+		$.ajax
+			type : 'GET',
+			url  : BASERESTURL+'/project/'+	PROJECTID+'/step-two'
+			async : false
+			success :(response)->
+
+				#parsing the integer fields 
+				response = response.data
+				bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants)
+				settings.setSettingsAttributes(response.settings)
+				unitTypeCollection.setUnitTypeAttributes(response.unit_types)
+				buildingCollection.setBuildingAttributes(response.buildings)
+				apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants)
+				floorLayoutCollection.setFloorLayoutAttributes(response.floor_layout)
+				window.propertyTypes = response.property_types
+				plotVariantCollection.setPlotVariantAttributes(response.plot_variants)
+				unitCollection.setUnitAttributes(response.units)
+				
+
+				
+			error :(response)->
+				@region =  new Marionette.Region el : '#noFound-template'
+				new CommonFloor.ProjectCtrl region : @region
+
+	#api required to load second step
+	window.loadOjectData = ()->
+
+		$.ajax
+			type : 'GET',
+			url  : BASEURL+'/admin/project/'+	PROJECTID+'/image/'+IMAGEID
+			async : false
+			success :(response)->
+
+				window.svgData = {}
+				window.svgData['image'] = svgImg
+				window.svgData['data'] = response.data
+				
+
+				
+			error :(response)->
+				@region =  new Marionette.Region el : '#noFound-template'
+				new CommonFloor.ProjectCtrl region : @region
+		
 
 	window.createSvg(window.svgData.data)
 	window.generatePropTypes()
@@ -128,7 +174,9 @@ jQuery(document).ready ($)->
 	window.showPendingObjects(types)
 	s = new XMLSerializer()
 	str = s.serializeToString(rawSvg)
-	store = draw.svg(str)
+	console.log window.store = draw.svg(str)
+	window.loadJSONData()
+	window.loadOjectData()
 
 	
 
@@ -199,7 +247,11 @@ jQuery(document).ready ($)->
 			_.each svgDataObjects, (svgDataObject, key) =>
 				if parseInt(element) is parseInt svgDataObject.id
 					points = svgDataObject.points
-					m(points)
+					$('.area').val points.join(',')
+					collection = new Backbone.Collection window.svgData.data
+					collection.remove element
+					window.svgData.data =  collection.toArray()
+					drawPoly(points)
 					window.loadForm(classElem)
 					window.showDetails(currentElem)
 
@@ -215,7 +267,7 @@ jQuery(document).ready ($)->
 			window.hideAlert()
 			return false
 		value =  $('.area').val().split(',')
-		store.remove()
+		window.store.remove()
 		details = {}
 		details['class'] = 'layer '+$('.property_type').val()
 		childEle = {} 
@@ -225,8 +277,8 @@ jQuery(document).ready ($)->
 		childEle['points'] = value
 		childEle['details'] = details
 		childEle['canvas_type'] = window.canvas_type
-
-		window.svgData.data.push childEle
+		
+		console.log window.svgData.data.push childEle
 		
 		window.createSvg(window.svgData.data)
 		types = window.getPendingObjects(window.svgData) 
@@ -262,9 +314,10 @@ jQuery(document).ready ($)->
 			new AuthoringTool.PlotCtrl region : @region
 
 	window.showDetails = (elem)->
-		$('#'+elem.id+'.layer').attr('id' , '')
 		$('.property_type').val $(elem).attr 'type'
+		console.log elem.id
 		$('.units').val elem.id
+		$('#'+elem.id+'.layer').attr('id' , '')
 
 	window.hideAlert = ()->
 		$('.alert').show()
@@ -272,8 +325,10 @@ jQuery(document).ready ($)->
 				$(this).hide('fade') 
 				next() 
 		)
+
+
 	
-	
+		
 
 
 			

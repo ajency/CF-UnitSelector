@@ -344,11 +344,17 @@
         
         <script type="text/javascript">
             svgImg = '{{$svgImage}}';
+            
 
            
 
-        AuthoringTool = new Marionette.Application 
+        AuthoringTool = new Marionette.Application
+        CommonFloor = new Marionette.Application 
         BASEURL = '{{url()}}'
+        URL = window.location.href.split('/')
+        PROJECTID = URL[5]
+        IMAGEID = URL[7]
+        BASERESTURL = '{{ get_rest_api_url() }}';
         $('#aj-imp-builder-drag-drop').panzoom({
                 contain: 'invert',
                 minScale: 1,
@@ -361,6 +367,15 @@
         </script>
 
         <script src="{{ asset('js/authoring-tool/common.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/project.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/bunglow.variant.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/settings.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/unit.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/unitType.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/building.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/apartment.variant.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/floor.layout.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/plot.variant.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/polygon.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/villa.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/plot.entity.js' )}}"></script>

@@ -1,6 +1,6 @@
 (function() {
   jQuery(document).ready(function($) {
-    var s, store, str, types;
+    var s, str, types;
     $('.area').canvasAreaDraw();
     window.draw = SVG('aj-imp-builder-drag-drop');
     window.svgData = {
@@ -102,13 +102,59 @@
         value: "",
         text: 'Select option'
       }).appendTo(select);
-      $.each(types, function(index, value) {
+      return $.each(types, function(index, value) {
         return $('<option />', {
           value: value,
           text: value.toUpperCase()
         }).appendTo(select);
       });
-      return console.log($('.property_type'));
+    };
+    window.loadJSONData = function() {
+      return $.ajax({
+        type: 'GET',
+        url: BASERESTURL + '/project/' + PROJECTID + '/step-two',
+        async: false,
+        success: function(response) {
+          response = response.data;
+          bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants);
+          settings.setSettingsAttributes(response.settings);
+          unitTypeCollection.setUnitTypeAttributes(response.unit_types);
+          buildingCollection.setBuildingAttributes(response.buildings);
+          apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants);
+          floorLayoutCollection.setFloorLayoutAttributes(response.floor_layout);
+          window.propertyTypes = response.property_types;
+          plotVariantCollection.setPlotVariantAttributes(response.plot_variants);
+          return unitCollection.setUnitAttributes(response.units);
+        },
+        error: function(response) {
+          this.region = new Marionette.Region({
+            el: '#noFound-template'
+          });
+          return new CommonFloor.ProjectCtrl({
+            region: this.region
+          });
+        }
+      });
+    };
+    window.loadOjectData = function() {
+      return $.ajax({
+        type: 'GET',
+        url: BASEURL + '/admin/project/' + PROJECTID + '/image/' + IMAGEID,
+        async: false,
+        success: function(response) {
+          window.svgData = {};
+          window.svgData['image'] = svgImg;
+          return window.svgData['data'] = response.data;
+        },
+        error: function(response) {
+          this.region = new Marionette.Region({
+            el: '#noFound-template'
+          });
+          return new CommonFloor.ProjectCtrl({
+            region: this.region
+          });
+        }
+      });
     };
     window.createSvg(window.svgData.data);
     window.generatePropTypes();
@@ -116,7 +162,9 @@
     window.showPendingObjects(types);
     s = new XMLSerializer();
     str = s.serializeToString(rawSvg);
-    store = draw.svg(str);
+    console.log(window.store = draw.svg(str));
+    window.loadJSONData();
+    window.loadOjectData();
     $('#aj-imp-builder-drag-drop canvas').ready(function() {
       $('#aj-imp-builder-drag-drop canvas').hide();
       return $('#aj-imp-builder-drag-drop .svg-draw-clear').hide();
@@ -148,10 +196,14 @@
         svgDataObjects = svgData.data;
         return _.each(svgDataObjects, (function(_this) {
           return function(svgDataObject, key) {
-            var points;
+            var collection, points;
             if (parseInt(element) === parseInt(svgDataObject.id)) {
               points = svgDataObject.points;
-              m(points);
+              $('.area').val(points.join(','));
+              collection = new Backbone.Collection(window.svgData.data);
+              collection.remove(element);
+              window.svgData.data = collection.toArray();
+              drawPoly(points);
               window.loadForm(classElem);
               return window.showDetails(currentElem);
             }
@@ -172,7 +224,7 @@
         return false;
       }
       value = $('.area').val().split(',');
-      store.remove();
+      window.store.remove();
       details = {};
       details['class'] = 'layer ' + $('.property_type').val();
       childEle = {};
@@ -182,7 +234,7 @@
       childEle['points'] = value;
       childEle['details'] = details;
       childEle['canvas_type'] = window.canvas_type;
-      window.svgData.data.push(childEle);
+      console.log(window.svgData.data.push(childEle));
       window.createSvg(window.svgData.data);
       types = window.getPendingObjects(window.svgData);
       window.showPendingObjects(types);
@@ -226,9 +278,10 @@
       }
     };
     window.showDetails = function(elem) {
-      $('#' + elem.id + '.layer').attr('id', '');
       $('.property_type').val($(elem).attr('type'));
-      return $('.units').val(elem.id);
+      console.log(elem.id);
+      $('.units').val(elem.id);
+      return $('#' + elem.id + '.layer').attr('id', '');
     };
     return window.hideAlert = function() {
       $('.alert').show();
