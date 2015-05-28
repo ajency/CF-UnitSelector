@@ -76,7 +76,7 @@ body {
 }
 .wrapper {
   min-height: 100%;
-  margin-bottom: -98px;
+  margin-bottom: -49px;
 }
 .component-body {
   background-color: #ffffff;
@@ -245,8 +245,42 @@ body {
 #footer .footer-section1 {
   background-color: #ffffff;
 }
+#footer .footer-section4 {
+  text-align: left;
+}
+#footer .footer-section4 .copyright-text {
+  float: right;
+  padding: 5px;
+  text-align: right;
+}
+#footer .footer-section4 ul {
+  float: left;
+}
+#footer .footer-section4 ul li {
+  display: inline-block;
+}
+#footer .footer-section4 ul li a {
+  padding: 5px 15px;
+}
+#footer .footer-section4 ul li a:hover {
+  background: none;
+  color: #ffffff;
+  text-decoration: underline !important;
+}
+@media (max-width: 767px) {
+  #footer .footer-section4 {
+    text-align: center;
+  }
+  #footer .footer-section4 .copyright-text {
+    float: none;
+  }
+  #footer .footer-section4 ul {
+    float: none;
+    text-align: center;
+  }
+}
 .footer-push {
-  height: 98px;
+  height: 49px;
 }
 /* Step 1*/
 .step1 {
