@@ -33,7 +33,6 @@
                             <div class="form-group">
                                 <label class="form-label">Name<span class="text-primary">*</span></label>
                                 <input type="text" class="form-control" name="unit_variant_name" placeholder="Enter Name"  value="{{ $unitVariant['unit_variant_name'] }}" data-parsley-required>
-                                <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -46,7 +45,6 @@
                                         <option @if($unitVariant['unit_type_id']==$unitTypeId){{'selected'}}@endif value="{{$unitTypeId}}">{{ $unitType }}</option>
                                         @endforeach
                                     </select>
-                                <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                             </div>
                         </div>
                         <div class="col-md-4">
@@ -54,8 +52,7 @@
                                 <label class="form-label">Size<span class="text-primary">*</span></label>
                                 <small class="text-muted">/ ({{ $project['measurement_units'] }})</small>
                                 <input type="text" class="form-control" name="size" value="{{ $unitVariant['size'] }}" placeholder="Enter Size" data-parsley-required data-parsley-type="number">
-                                <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
-                            </div>
+                           </div>
                         </div>
                     </div>
                     <div class="row">
@@ -63,8 +60,7 @@
                             <div class="form-group">
                                 <label class="form-label">Price<span class="text-primary">*</span></label>
                                 <input type="text" class="form-control" name="per_sq_ft_price" value="{{ $unitVariant['per_sq_ft_price'] }}" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
-                                <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
-                            </div>
+                           </div>
                         </div>
                         @foreach($propertyTypeAttributes as $propertyTypeAttribute)
                         <div class="col-md-4">
