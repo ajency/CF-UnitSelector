@@ -25,17 +25,30 @@
     <h2><span class="semi-bold">Project </span> Summary</h2>
 </div>
 <div class="grid simple">
-    <div class="alert alert-error">
+    <div class="alert alert-success hidden">
         <button class="close" data-dismiss="alert"></button>
-        Danger:&nbsp;The daily <a href="#" class="link">cronjob</a> has failed.
+        <i class="fa fa-check-circle" style="font-size: 17px;"></i> Phase published successfully.
     </div>
-    <div class="grid-title no-border">
-        <div class="pull-right">
-            <button class="btn btn-info btn-small" data-toggle="modal" data-target=".bs-example-modal-lg">PUBLISH</button>
-        </div>
-        <h3> <i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Details</span></h3>
-    </div>
+
     <div class="grid-body grid-padding no-border summary">
+        <div class=" m-t-15 m-b-15 no-border">
+            <div class="row">
+                <h3 class="col-md-4"> <i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Details</span></h3>
+
+                <div class="col-md-4 text-center">
+                    <h4 class="inline semi-bold">Status : </h4>&nbsp;&nbsp;<span class="text-primary">{{ strtoupper($project['status']) }}</span>
+                </div>
+                <div class="col-md-4 text-right">
+                    @if($project['status']=='published')
+                    <h5 class="semi-bold">
+                        First Published : {{ date('d/m/Y',strtotime($projectJason['created_at'])) }}<br>
+                        Last Published : {{ date('d/m/Y',strtotime($projectJason['updated_at'])) }}<br>
+                    </h5>
+                    @endif
+                    <button class="btn btn-info btn-small" data-toggle="modal" data-target=".bs-example-modal-lg">PUBLISH</button>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-8">
                 <div class="user-description-box">
@@ -50,8 +63,7 @@
                         @else
                         <dd><span class="error"><span for="form3FirstName" class="error">No Property Type selected</span></span></dd>
                         @endif
-                        <dt><h5 class="semi-bold">Status</h5></dt>
-                        <dd>{{ ucfirst($project['status']) }}</dd>
+                         
                     </dl>
                 </div>
             </div>
@@ -140,7 +152,7 @@
             Project Master Image :
         </h5> <div class="checkbox check-primary checkbox-inline">
             <input id="checkbox7" type="checkbox" value="1" @if($project["has_master"]=="yes"){{"checked"}}@endif disabled>
-            <label for="checkbox7" class="p-l">Available</label>
+                   <label for="checkbox7" class="p-l">Available</label>
         </div><br>
         @if($project["has_master"]=="yes")
         <ul class="list-inline m-b-10 m-l-5">
@@ -179,7 +191,7 @@
         </table>
         @endif
         <hr>
-                
+
         @foreach($projectpropertyTypes as $projectpropertyType)
         <div class="m-l-5 no-border">
             <h3><i class="fa fa-angle-double-right text-primary"></i> {{ get_property_type($projectpropertyType['property_type_id']) }}<span class="semi-bold"> </span></h3>
@@ -222,71 +234,70 @@
     </div>
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title text-left" id="myModalLabel">Update Phase Status</h4>
-      </div>
-        <div id="phaseData">
-        </div>     
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-left" id="myModalLabel">Update Phase Status</h4>
+            </div>
+            <div id="phaseData">
+            </div>     
+        </div>
     </div>
-  </div>
 </div>
 
 <!-- Modal2 -->
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title text-left" id="myModalLabel">Publish Project</h4>
-      </div>
-      <div class="modal-body">
-                 <div class="row m-b-5">
-            <div class="col-md-12">
-                <div class="alert">
-<strong>NOTE : </strong>Project should have at least one Phase with status as Live to publish the project.
-</div>
-</div>
-</div>
-        <h5 class="semi-bold inline">Resolve the errors below to Publish the Project</h5>
-        <div class="row m-b-10">
-            <div class="col-md-12">
-                <div class="alert alert-error m-b-20">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title text-left" id="myModalLabel">Publish Project</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row m-b-5">
+                    <div class="col-md-12">
+                        <div class="alert">
+                            <strong>NOTE : </strong>Project should have at least one Phase with status as Live to publish the project.
+                        </div>
+                    </div>
+                </div>
+                <h5 class="semi-bold inline">Resolve the errors below to Publish the Project</h5>
+                <div class="row m-b-10">
+                    <div class="col-md-12">
+                        <div class="alert alert-error m-b-20">
 
-<ul>
-    <li>No phase available with status Live.</li>
-   <li>Google Earth not configured.</li>
-   <li>Project Master not configured.</li>
-</ul>
+                            <ul>
+                                <li>No phase available with status Live.</li>
+                                <li>Google Earth not configured.</li>
+                                <li>Project Master not configured.</li>
+                            </ul>
 
 
-</div>
-  
+                        </div>
+
+                    </div>
+
+                </div>
+
             </div>
 
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-primary">Publish</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+
+            </div>
         </div>
-
-      </div>
-
-      <div class="modal-footer">
-        
-        <button type="button" class="btn btn-primary">Publish</button>
-        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
-        
-      </div>
     </div>
-  </div>
 </div>
 <script>
-  function showUpdateButton(obj)
-  {
-      if(obj.value=='live')
-          $(obj).closest('tr').find(".updatelink").removeClass('hidden');
-      else 
-          $(obj).closest('tr').find(".updatelink").addClass('hidden');
-          
-  }
+            function showUpdateButton(obj)
+            {
+            if (obj.value == 'live')
+                    $(obj).closest('tr').find(".updatelink").removeClass('hidden');
+                    else
+                    $(obj).closest('tr').find(".updatelink").addClass('hidden');
+            }
 </script>    
 @endsection

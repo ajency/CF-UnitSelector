@@ -276,7 +276,12 @@ class ProjectController extends Controller {
         $phases = $project->projectPhase()->where('phase_name','!=','Default')->get()->toArray(); 
         $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray(); 
         $propertyTypes = $propertyTypeUnitData =$phaseData = $unitTypeData = $count=[];
+        $projectJason = \CommonFloor\ProjectJson::where('project_id', $id)->where('type', 'step_two')->select('created_at','updated_at')->first()->toArray();
         
+        foreach($projectpropertyTypes as $propertyType)
+        {
+            $propertyTypes[$propertyType['property_type_id']]= get_property_type($propertyType['property_type_id']);
+        }
         foreach ($phases as $phase)
         {
             $phaseId = $phase['id'];
@@ -326,6 +331,7 @@ class ProjectController extends Controller {
                         ->with('phaseData', $phaseData)
                         ->with('unitTypeData', $unitTypeData)
                         ->with('propertyTypes', $propertyTypes)
+                        ->with('projectJason', $projectJason)
                          ->with('current', 'summary');
  
     }
@@ -344,7 +350,10 @@ class ProjectController extends Controller {
             $propertTypeId = $propertType->property_type_id;
             $data[$propertTypeId][] = $unit['unit_name'];
         }
-        $flag= false;
+        
+        $svgData = true;
+        $updatePhase=($svgData && count($data))?true:false;
+ 
         $html ='<div class="modal-body">';
         
         $html .= '<div class="row m-b-10">
@@ -372,9 +381,7 @@ class ProjectController extends Controller {
                     <tbody>';
         foreach ($data as $key=>$values) 
         {
-           if(count($values))
-                $flag =true;
-           
+    
         $html .=' <tr>
                     <td><span class="semi-bold">' . get_property_type($key) . '</span></td> 
                     <td>' . implode(", ", $values) . '</td> 
@@ -384,10 +391,12 @@ class ProjectController extends Controller {
                 </table>';
        }
         $html .= '</div><div class="modal-footer">';
-        //$html .= ($flag)? '<button type="button" class="btn btn-primary">Go Live</button>' :'';
+        $html .= ($updatePhase)? '<button type="button" class="btn btn-primary update-phase-btn" data-phase-id="'.$phase->id.'">Go Live</button>' :'';
         $html .='<button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
 
               </div>';
+        
+       
  
         return response()->json( [
                     'code' => 'phase_data',

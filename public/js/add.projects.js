@@ -133,6 +133,17 @@
         success: successFn
       });
     });
+    $('#myModal').on('click', '.update-phase-btn', function() {
+      var phaseId;
+      phaseId = $(this).attr('data-phase-id');
+      return $.ajax({
+        url: '/admin/phase/' + phaseId,
+        type: 'POST',
+        data: {
+          _method: "PUT"
+        }
+      });
+    });
     checkUnitTypeRequired = function() {
       return $('.add-unit-types > div').each(function() {
         var activeTypes;
