@@ -1,5 +1,5 @@
 <input type="hidden" value="{{ csrf_token()}}" name="_token"/> 
-<div class="row">
+<div class="row userauth" date-user-auth="{{(hasPermission($project['id'],['svg_auth_tool']))?1:0 }}">
     <div class="col-md-12">
         <div class="grid simple">
             <div class="grid-title no-border">
@@ -31,10 +31,11 @@
                             <div class="dz-size" data-dz-size="">{{ $svgImages['google_earth']['NAME'] }}</div>
                         </div>
                     </div>
+                    @if(hasPermission($project['id'],['svg_auth_tool']))
                     <div class="col-md-5">
                         <h5 class="semi-bold">To use the Authoring Tool<a href="#" class="text-primary"> click here</a></h5>
                     </div>
-                    
+                    @endif
                     <div class="col-md-4 hidden">
 
                         <div class="user-description-box hidden">

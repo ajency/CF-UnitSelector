@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="grid simple">
             <div class="grid-title no-border"> 
-                <div class="row object-master-images" data-object-id="{{ $project['id'] }}" data-object-type="project">
+                <div class="row object-master-images"  data-object-id="{{ $project['id'] }}" data-object-type="project">
                     <div class="col-md-8 project-master-images">
                         <h3 class="inline"> <i class="fa fa-angle-double-right text-primary"></i> <span class="semi-bold">Project Master</span> Image</h3>&nbsp;&nbsp;    
                         
@@ -62,7 +62,9 @@
                                     </div>
                                 </td>
                                 <td class=" ">
+                                    @if(hasPermission($project['id'],['svg_auth_tool']))
                                     <a class="{{ (isset($svgImages['breakpoints']) && in_array($position,$svgImages['breakpoints'])) ? '' : 'hidden' }}">Authoring Tool</a>
+                                    @endif
                                 </td>
 
                                 <td class="text-right">

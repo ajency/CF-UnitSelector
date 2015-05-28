@@ -28,22 +28,22 @@ class Permission {
                     
                              'admin.project.unittype.destroy'=>'configure_project', 
                     
-                             'admin.project.bunglow-variant.index'=>'read_project',
+                             'admin.project.bunglow-variant.index'=>'configure_project',
                              'admin.project.bunglow-variant.create'=>'configure_project',
                              'admin.project.bunglow-variant.store'=>'configure_project',
-                             'admin.project.bunglow-variant.edit'=>'read_project',
+                             'admin.project.bunglow-variant.edit'=>'configure_project',
                              'admin.project.bunglow-variant.update'=>'configure_project',
                     
-                             'admin.project.apartment-variant.index'=>'read_project',
+                             'admin.project.apartment-variant.index'=>'configure_project',
                              'admin.project.apartment-variant.create'=>'configure_project',
                              'admin.project.apartment-variant.store'=>'configure_project',
-                             'admin.project.apartment-variant.edit'=>'read_project',
+                             'admin.project.apartment-variant.edit'=>'configure_project',
                              'admin.project.apartment-variant.update'=>'configure_project',
                     
-                             'admin.project.plot-variant.index'=>'read_project',
+                             'admin.project.plot-variant.index'=>'configure_project',
                              'admin.project.plot-variant.create'=>'configure_project',
                              'admin.project.plot-variant.store'=>'configure_project',
-                             'admin.project.plot-variant.edit'=>'read_project',
+                             'admin.project.plot-variant.edit'=>'configure_project',
                              'admin.project.plot-variant.update'=>'configure_project',
                     
                              'admin.variant.media.store'=>'configure_project',
@@ -107,7 +107,7 @@ class Permission {
                               'admin/project/{project}/filters'=>'configure_project',
                               'admin/project/{project}/updatefilters'=>'configure_project',
                               'admin/project/{project}/svg'=>'configure_project',
-                              'admin/project/{project}/summary'=>'configure_project',
+                              'admin/project/{project}/summary'=>'read_project',
                               'admin/project/{project}/getphasedata/{phase}'=>'configure_project',
                               'admin/project/{project}/projectpublishdata'=>'publish_project',
                               'admin/project/{project}/updateprojectstatus'=>'publish_project',

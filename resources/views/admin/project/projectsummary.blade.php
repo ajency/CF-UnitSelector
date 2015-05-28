@@ -13,13 +13,7 @@
 
 <!-- END BREADCRUMBS -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
-@if(hasPermission($project['id'],['configure_project']))
-<div class="pull-right">
-   <!--  <a href="{{ url( '/admin/project/' . $project['id'] . '/edit') }}">
-        <button class="btn btn-primary btn-medium"><i class="fa fa-pencil"></i> Summary</button>
-    </a> -->
-</div>
-@endif
+ 
 <div class="page-title">
 
     <h2><span class="semi-bold">Project </span> Summary</h2>
@@ -45,7 +39,9 @@
                         Last Published : {{ date('d/m/Y',strtotime($projectJason['updated_at'])) }}<br>
                     </h5>
                     @endif
+                    @if(hasPermission($project['id'],['publish_project']))
                     <button onclick="getPublishData({{ $project['id'] }})" class="btn btn-info btn-small" >PUBLISH</button>
+                    @endif
                 </div>
             </div>
         </div>
@@ -85,16 +81,20 @@
                 </tr>
             </thead>
             <tbody>
-                @if(!empty($phases))
+                @if(!empty($phases)) 
                 @foreach($phases as $phase)
                 <tr>
                     <td>{{ $phase['phase_name'] }}</td>
                     <td>
+                        @if(hasPermission($project['id'],['configure_project']))
                         <select onchange="showUpdateButton(this);" id="phases1" class="select2-container select2 form-control select2-container-active" style="width:50%;">
                             <option value="">Select Status</option>
                             <option value="live" @if($phase['status']=='live'){{'selected'}}@endif>Live</option>
                             <option value="not_live" @if($phase['status']=='not_live'){{'selected'}}@endif>Not Live</option>
                         </select>
+                        @else
+                            @if($phase['status']=='live'){{'Live'}}@else{{'Not Live'}}@endif
+                        @endif
                     </td>
                     <td><a  onclick="getPhaseData({{ $project['id'] }}, {{ $phase['id'] }})"   class="text-primary updatelink hidden">Update</a></td>
                 </tr>
@@ -113,7 +113,7 @@
                 @endif
             </tbody>
         </table>
-        @if($project['has_phase']=='yes')
+        @if($project['has_phase']=='yes' && hasPermission($project['id'],['configure_project']))
         <div class="row object-phases" data-object-type="project">
             <div class="col-md-12">
                 <div class="row m-b-20">

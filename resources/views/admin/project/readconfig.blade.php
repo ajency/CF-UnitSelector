@@ -135,7 +135,7 @@
                                     @endif
                                      
                                 </div>
-                                
+                                @if(!empty($propertytypeAttributes[$propertyTypeId]['ATTRIBUTES']))
                                 <hr/>
                                 <h4>Attributes Selected :</h4>
                                 <div class="dataTables_wrapper form-inline" role="grid">
@@ -159,6 +159,7 @@
                                         </tbody>
                                     </table>
                                 </div>
+                                 @endif
                                 @endif
                             </div>
                             

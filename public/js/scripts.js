@@ -462,7 +462,8 @@ function setUpProjectMasterUploader() {
 
     var objectType = $('div.object-master-images').attr('data-object-type');
     var objectId = $('div.object-master-images').attr('data-object-id');
-
+    var authtool_permission = $('div.object-master-images').attr('data-object-id');
+    
     var master_uploader = new plupload.Uploader({
         runtimes: 'html5,flash,silverlight,html4',
         browse_button: 'master_pickfiles', // you can pass in id...
@@ -930,6 +931,7 @@ $(document).ready(function () {
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
+                var authtool = $('div.userauth').attr('date-user-auth');
 
                 var str = '<div class="col-md-3">';
                 str += '<div class="img-hover img-thumbnail">';
@@ -939,7 +941,7 @@ $(document).ready(function () {
                 str += '</div>';
                 str += '</div>';
                 str += '<div class="col-md-3">';
-                str += '<h5 class="semi-bold">To use the Authoring Tool<a href="#" class="text-primary"> click here</a></h5>';
+                str += (authtool=='1')?'<h5 class="semi-bold">To use the Authoring Tool<a href="#" class="text-primary"> click here</a></h5>':'';
                 str += '</div>';
 
 
