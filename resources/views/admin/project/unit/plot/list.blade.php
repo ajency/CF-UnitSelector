@@ -26,6 +26,7 @@
                 <table class="table table-bordered" id="example2" >
                     <thead>
                         <tr>
+                            <th></th>
                             <th>Name</th>
                             <th>Status</th>
                             <th>Variant</th>
@@ -36,6 +37,7 @@
                     <tbody> 
                         @foreach ($unit_arr as $unit)
                             <tr class="">
+                                <td class="text-center"><i class="fa fa-pencil"></i></td>
                                 <td><a href="{{ url( '/admin/project/' . $project['id'] . '/plot-unit/'.$unit['id'].'/edit') }}">{{ $unit['unit_name'] }}</a></td>
                                 <td>{{ ucfirst($unit->availability) }}</td>
                                 <td>{{ $unit->unitVariant->unit_variant_name}}</td>
