@@ -14,7 +14,7 @@ class ListItemView extends Marionette.ItemView
 						                          {{name}}<!--: <span>{{units}}</span>-->
 						                        </li>
 						                        {{/types}}
-					                      		<span class="area {{areaname}}">{{area}} {{area_unit}}</span>
+					                      		<span class="area {{areaname}}">{{area}} {{measurement_units}}</span>
 					                      		<div class="text-primary price {{classname}}">Starting price <span class="icon-rupee-icn"></span>{{price}}</div>
 											</ul>
 										 </div>')
@@ -46,7 +46,7 @@ class ListItemView extends Marionette.ItemView
 		data.price = window.numDifferentiation(cost)
 		data.floors = Object.keys(floors).length
 		data.types = types
-		data.area_unit = project.get('area_unit')
+		data.measurement_units = project.get('measurement_units')
 		data
 
 	events:

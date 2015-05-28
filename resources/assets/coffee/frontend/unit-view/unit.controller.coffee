@@ -113,7 +113,7 @@ class LeftUnitView extends Marionette.ItemView
 									<div class="col-sm-6 col-xs-6 text-center">
 										<span class="facts-icon icon-BHK-area-2"></span>
 										<div class="unit-label m-t-10">
-											<h3>{{area}} {{area_unit}}</h3>
+											<h3>{{area}} {{measurement_units}}</h3>
 											<h6 class="text-muted">Area</h6>      
 										</div>
 									</div>
@@ -193,7 +193,7 @@ class LeftUnitView extends Marionette.ItemView
 
 			              	              	<span class="text-muted">Unit Variant: </span>{{variant}}<br>
 			              	             	<span class="text-muted">Unit Type:</span> {{unit_type}}<br>
-			              	             	<span class="text-muted"> Area:</span> {{area}} '+project.get('area_unit')+'    
+			              	             	<span class="text-muted"> Area:</span> {{area}} {{units}}   
 					              	    </div>
 					              	</div>
 
@@ -220,15 +220,18 @@ class LeftUnitView extends Marionette.ItemView
 
 		similarUnits = @getSimilarUnits(unit)
 		temp = []
+		console.log project.get('measurement_units')
 		$.each similarUnits[0], (index,value)->
+			response = window.unit.getUnitDetails(value.get('id'))
 			temp.push 
 				'unit_name' : value.get('unit_name')
 				'unit_type' : response[1].get 'name'
 				'price' : window.numDifferentiation(response[3])
-				'area':response[0].get 'super_built_up_area'
+				'area':response[0].get 'super_built_up_area'  
 				'variant':response[0].get 'unit_variant_name'
 				'id' : value.get('id')
 				'type' : similarUnits[2]
+				'units' : project.get('measurement_units')
 		data.area = response[0].get('super_built_up_area')
 		data.type = response[1].get('name')
 		data.unit_variant = response[0].get('unit_variant_name')
@@ -236,7 +239,7 @@ class LeftUnitView extends Marionette.ItemView
 		data.attributes  = attributes
 		data.similarUnits = temp
 		data.similarUnitsText = similarUnits[1]
-		data.area_unit = project.get('area_unit')
+		data.measurement_units = project.get('measurement_units')
 		data
 
 	getSimilarUnits:(unit)->
@@ -436,7 +439,7 @@ class CenterUnitView extends Marionette.ItemView
 						<div class="details">
 							<span>'+response[1].get('name')+'</span></br>
 							<div class="text-primary"><span class="text-primary facts-icon icon-rupee-icn"></span>'+window.numDifferentiation(response[3])+'</div>
-							<!--<div>Area: <span>'+response[0].get('super_built_up_area')+' '+project.get('area_unit')+'</span></div>	
+							<!--<div>Area: <span>'+response[0].get('super_built_up_area')+' '+project.get('measurement_units')+'</span></div>	
 							<div>Variant: <span>'+response[0].get('unit_variant_name')+'</span></div>-->
 							
 						</div>

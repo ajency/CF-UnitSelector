@@ -5,7 +5,7 @@ class PlotItemView extends Marionette.ItemView
 				<div class="col-sm-2 col-xs-2"> <i class="plot-ico m-t-10 "></i> </div>
 					<div class="col-sm-10 col-xs-10">
                   <div class="pull-left info">
-                    <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}} {{area_unit}})
+                    <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}} {{measurement_units}})
                   </div>
                    <div class="clearfix"></div>
                  <div class="text-primary m-t-5">
@@ -27,7 +27,7 @@ class PlotItemView extends Marionette.ItemView
 		@model.set 'status' , status
 		data.price = window.numDifferentiation(response[3])
 		@model.set 'status' , data.status
-		data.area_unit = project.get('area_unit')
+		data.measurement_units = project.get('measurement_units')
 		data
 
 	events:

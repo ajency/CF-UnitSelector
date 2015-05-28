@@ -31,7 +31,7 @@
                 'Apartment': ['unitTypes', 'unitVariantNames', 'flooring'],
                 'Plot': ['unitTypes', 'unitVariantNames', 'flooring']
               });
-              _this.set('area_unit', 'Sq.ft');
+              _this.set('measurement_units', 'Sq.ft');
               if (response === 0 || jQuery.isEmptyObject(response)) {
                 return _this.clear();
               }

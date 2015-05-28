@@ -144,7 +144,7 @@ class BunglowListView extends Marionette.ItemView
 					
 					<div class="details">
 						<div>
-							'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('area_unit')+')
+							'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('measurement_units')+')
 							<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 						</div>
 						<div class="text-primary">
