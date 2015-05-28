@@ -6,7 +6,7 @@
     <li><a href="{{ url( 'admin/') }}">Dashboard</a> </li>
     <li><a href="{{ url( 'admin/project/') }}">Projects</a> </li>
     <li><a href="{{ url( 'admin/project/' . $project['id'].'/edit') }}">{{ $project['project_title'] }}</a> </li>
-    <li><a href="#">Villa Variants</a> </li>
+    <li><a href="#">Plot Variants</a> </li>
     <li><a href="#" class="active">Add Unit Variants</a> </li>
 </ul>
 <!-- END BREADCRUMBS -->
@@ -120,7 +120,7 @@
                                 <div class="col-md-3" >
                                     <div class="img-hover img-thumbnail">
                                         <a class="btn btn-link btn-danger overlay" onclick="deleteLayout({{ $layouts['external']['3d']['ID'] }}, 'external');"><i class="fa fa-close text-primary"></i></a>
-                                        <img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="{{ $layouts['external']['3d']['IMAGE'] }}"   />
+                                        <img style="width:150px;height:93px;" id="svg1" src="{{ $layouts['external']['3d']['IMAGE'] }}"   />
                                     </div>
                                 </div>
                                 @else
@@ -160,7 +160,7 @@
                                     <div class="col-md-3 gallery"  id="gallery_{{ $gallery['ID'] }}">
                                         <div class="img-hover img-thumbnail">
                                             <a class="btn btn-link btn-danger overlay" onclick="deleteLayout({{ $gallery['ID'] }}, 'gallery');"><i class="fa fa-close text-primary"></i></a>
-                                            <img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="{{ $gallery['IMAGE'] }}"   />
+                                            <img style="width:150px;height:93px;" id="svg1" src="{{ $gallery['IMAGE'] }}"   />
                                         </div>
                                     </div>
                                     @endforeach									
