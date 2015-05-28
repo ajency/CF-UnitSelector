@@ -145,7 +145,7 @@
             @if($project["google_earth"]=="")
             Image Not Uploaded
             @else
-            Pending SVG Authoring
+            Completed
             @endif
         </span><br>
         <h5 class="semi-bold inline m-l-5">
