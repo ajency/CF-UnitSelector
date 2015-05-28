@@ -115,6 +115,16 @@
         }).appendTo(select);
       });
     };
+    window.resetCollection = function() {
+      $('.plot,.villa,.building').each(function(index, value) {
+        var unit;
+        unit = unitCollection.findWhere({
+          'id': parseInt(value.id)
+        });
+        return unitCollection.remove(unit.get('id'));
+      });
+      return unitCollection;
+    };
     window.loadJSONData = function() {
       return $.ajax({
         type: 'GET',
@@ -138,7 +148,8 @@
           window.showPendingObjects(types);
           s = new XMLSerializer();
           str = s.serializeToString(rawSvg);
-          return window.store = draw.svg(str);
+          window.store = draw.svg(str);
+          return window.resetCollection();
         },
         error: function(response) {
           this.region = new Marionette.Region({
@@ -193,8 +204,8 @@
       $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
       $('.edit-box').removeClass('hidden');
       currentElem = e.currentTarget;
-      console.log(element = currentElem.id);
-      console.log(classElem = $(currentElem).attr('type'));
+      element = currentElem.id;
+      classElem = $(currentElem).attr('type');
       svgDataObjects = svgData.data;
       return _.each(svgDataObjects, (function(_this) {
         return function(svgDataObject, key) {
@@ -251,6 +262,7 @@
           s = new XMLSerializer();
           str = s.serializeToString(rawSvg);
           draw.svg(str);
+          window.resetCollection();
           $('.area').val("");
           window.f = [];
           $("form").trigger("reset");

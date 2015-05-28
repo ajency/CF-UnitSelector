@@ -9,10 +9,11 @@
       return VillaView.__super__.constructor.apply(this, arguments);
     }
 
-    VillaView.prototype.template = Handlebars.compile('<form id="add-form"><div class="form-group"> <label for="exampleInputPassword1">Units</label> <select class="form-control units"> <option value="">Select</option> {{#options}} <option value="{{id}}">{{name}}</option> {{/options}} </select> </div><form>');
+    VillaView.prototype.template = Handlebars.compile('<form id="add-form"><div class="form-group"> <label class="unit-label" for="exampleInputPassword1">Units</label> <select class="form-control units"> <option value="">Select</option> {{#options}} <option value="{{id}}">{{name}}</option> {{/options}} </select> </div><form>');
 
     VillaView.prototype.ui = {
-      units: '.units'
+      units: '.units',
+      unitLabel: '.unit-label'
     };
 
     VillaView.prototype.serializeData = function() {
@@ -40,6 +41,17 @@
             window.hideAlert();
           }
         });
+      }
+    };
+
+    VillaView.prototype.onShow = function() {
+      var units;
+      units = bunglowVariantCollection.getBunglowUnits();
+      if (units.length === 0) {
+        this.ui.units.hide();
+        this.ui.unitLabel.hide();
+        $('.alert').text('All units marked');
+        return window.hideAlert();
       }
     };
 

@@ -126,6 +126,14 @@ jQuery(document).ready ($)->
 		$.each types , (index,value)->
 			$('<option />', {value: value, text: value.toUpperCase()}).appendTo(select)
 
+	window.resetCollection = ()->
+		$('.plot,.villa,.building').each (index,value)->
+			unit = unitCollection.findWhere
+					'id' : parseInt value.id
+			unitCollection.remove unit.get 'id'
+
+		unitCollection
+
 		
 	#api required to load second step
 	window.loadJSONData = ()->
@@ -154,6 +162,7 @@ jQuery(document).ready ($)->
 				s = new XMLSerializer()
 				str = s.serializeToString(rawSvg)
 				window.store = draw.svg(str)
+				window.resetCollection()
 				
 				
 
@@ -243,8 +252,8 @@ jQuery(document).ready ($)->
 			$('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
 			$('.edit-box').removeClass 'hidden'
 			currentElem = e.currentTarget
-			console.log element = currentElem.id
-			console.log classElem = $(currentElem).attr('type')
+			element = currentElem.id
+			classElem = $(currentElem).attr('type')
 			svgDataObjects = svgData.data
 			_.each svgDataObjects, (svgDataObject, key) =>
 				if parseInt(element) is parseInt svgDataObject.id
@@ -297,6 +306,7 @@ jQuery(document).ready ($)->
 				s = new XMLSerializer()
 				str = s.serializeToString(rawSvg)
 				draw.svg str
+				window.resetCollection()
 				$('.area').val("")
 				window.f = []
 				$("form").trigger("reset")
@@ -383,6 +393,7 @@ jQuery(document).ready ($)->
 		$('#aj-imp-builder-drag-drop canvas').hide()
 		$('#aj-imp-builder-drag-drop svg').show()
 		$('.edit-box').addClass 'hidden'
+
 
 
 

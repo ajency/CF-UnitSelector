@@ -5,7 +5,7 @@
 class AuthoringTool.VillaView extends Marionette.ItemView
 
 	template :  Handlebars.compile('<form id="add-form"><div class="form-group">
-					 <label for="exampleInputPassword1">Units</label>
+					 <label class="unit-label" for="exampleInputPassword1">Units</label>
 					<select class="form-control units">
 						<option value="">Select</option>
 						{{#options}}
@@ -18,6 +18,7 @@ class AuthoringTool.VillaView extends Marionette.ItemView
 
 	ui :
 		units : '.units'
+		unitLabel : '.unit-label'
 
 
 	serializeData:->
@@ -41,6 +42,14 @@ class AuthoringTool.VillaView extends Marionette.ItemView
 					window.coord = 1
 					window.hideAlert()
 					return 
+
+	onShow:->
+		units = bunglowVariantCollection.getBunglowUnits()
+		if units.length == 0
+			@ui.units.hide()
+			@ui.unitLabel.hide()
+			$('.alert').text 'All units marked'
+			window.hideAlert()
 
 class AuthoringTool.VillaCtrl extends Marionette.RegionController
 
