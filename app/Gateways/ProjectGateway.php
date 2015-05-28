@@ -30,7 +30,8 @@ class ProjectGateway implements ProjectGatewayInterface {
         {
             $propertyTypes[$projectPropertyType['property_type_id']] =get_property_type( $projectPropertyType['property_type_id'] );
         }
-        
+        $filters = $project->projectMeta()->where( 'meta_key', 'filters' )->first()->meta_value;
+         
         $projectData = [
             'cf_project_id' => $project->cf_project_id,
             'id' => $project->id,
@@ -49,7 +50,8 @@ class ProjectGateway implements ProjectGatewayInterface {
             'measurement_units' => $project->measurement_units,
             'project_status' => $project->getCFProjectStatus(),
             'property_types' => $propertyTypes,
-            'project_property_types' => $this->propertyTypeUnits($projectId)
+            'project_property_types' => $this->propertyTypeUnits($projectId),
+            'filters' =>  unserialize($filters)
 
         ];
       

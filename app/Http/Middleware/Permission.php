@@ -104,6 +104,8 @@ class Permission {
                 
                 $uri        =['admin/project/{project}/cost'=>'configure_project',
                               'admin/project/{project}/costupdate'=>'configure_project',
+                              'admin/project/{project}/filters'=>'configure_project',
+                              'admin/project/{project}/updatefilters'=>'configure_project',
                               'admin/project/{project}/svg'=>'configure_project',
                               'admin/project/{project}/summary'=>'configure_project',
                               'admin/project/{project}/getphasedata/{phase}'=>'configure_project',

@@ -21,9 +21,13 @@
             <li class="{{ $current === 'svg' ? 'active' : '' }}">
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/svg' ) }}" >@if($current === 'svg')<span class='fa fa-check text-success'></span>@endif SVGs</a>
             </li>
+            <li class="{{ $current === 'filters' ? 'active' : '' }}">
+                <a href="{{ url( 'admin/project/' . $project['id'] . '/filters') }}">@if($current === 'filters')<span class='fa fa-check text-success'></span>@endif Filters</a>
+            </li>
             <li class="{{ $current === 'project_users' ? 'active' : '' }}">
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/user' ) }}" >@if($current === 'project_users')<span class='fa fa-check text-success'></span>@endif Users</a>
             </li>
+            
         </ul> 
         @foreach(project_property_types($project['id']) as $propertyTypeId => $projectPropertyType)
         <?php

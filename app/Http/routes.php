@@ -64,6 +64,8 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::get( 'project/{project}/projectpublishdata', 'Admin\ProjectController@projectPublishData' );
     Route::get( 'project/{project}/cost', 'Admin\ProjectController@cost' );
     Route::post( 'project/{project}/costupdate', 'Admin\ProjectController@costUpdate' );
+    Route::get( 'project/{project}/filters', 'Admin\ProjectController@filters' );
+    Route::post( 'project/{project}/updatefilters', 'Admin\ProjectController@updateFilters' );
     Route::post( 'project/{project}/bunglow-variant/{id}/roomtypeattributes', 'Admin\ProjectBunglowVariantController@roomtypeAttributes' );
     Route::delete( 'project/{project}/roomtype/{id}/deleteroomtypeattributes', 'Admin\ProjectRoomTypeController@deleteRoomTypeAttribute' );
     Route::post( 'project/{project}/roomtype/{id}/getroomtypeattributes', 'Admin\ProjectRoomTypeController@getRoomTypeAttributes' );
