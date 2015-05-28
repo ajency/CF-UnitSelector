@@ -240,7 +240,7 @@ class ApartmentsView extends Marionette.ItemView
 					                      
 					                    </div>
 					       
-					                    ({{unit_type}} {{super_built_up_area}} {{area_unit}})<br>
+					                    ({{unit_type}} {{super_built_up_area}} {{measurement_units}})<br>
 					                    <div class="text-primary m-t-5"><span class="icon-rupee-icn"></span>{{price}}</div>
 					                    </div>
 					                    <div class="clearfix"></div>
@@ -262,7 +262,7 @@ class ApartmentsView extends Marionette.ItemView
 		property = window.propertyTypes[unitType.get('property_type_id')]
 		data.property = s.capitalize(property)
 		data.floor = @model.get('floor')
-		data.area_unit = project.get('area_unit')
+		data.measurement_units = project.get('measurement_units')
 		data
 
 	events:

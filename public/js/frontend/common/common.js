@@ -530,7 +530,7 @@
       area_max = CommonFloor.defaults['area_max'];
       area.push({
         'name': area_min + '-' + area_max,
-        'type': project.get('area_unit'),
+        'type': project.get('measurement_units'),
         'id': 'area',
         'id_name': 'filter_area',
         'classname': 'area'

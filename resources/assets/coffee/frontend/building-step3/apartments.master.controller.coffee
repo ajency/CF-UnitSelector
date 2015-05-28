@@ -297,7 +297,11 @@ class ApartmentsView extends Marionette.ItemView
 					<div class="action-bar">
 						<div class="apartment"></div>
 					</div>
+<<<<<<< HEAD
+					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' ( Area - '+response[0].get('super_built_up_area')+' '+project.get('measurement_units')+')</h5>
+=======
 					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' </h5>
+>>>>>>> 348b4741d874bd88b41a7146fa8e87737cb27992
 
 					<!--<span class="label label-success"></span-->
 					<br><br>
@@ -546,8 +550,12 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 						<div class="action-bar">
 							<div class="apartment"></div>
 						</div>
+<<<<<<< HEAD
+						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' ( Area - '+response[0].get('super_built_up_area')+' '+project.get('measurement_units')+')</h5>
+=======
 						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' </h5>
 						<br> <br>
+>>>>>>> 348b4741d874bd88b41a7146fa8e87737cb27992
 
 						<!--<span class="label label-success"></span-->
 						<div class="details">

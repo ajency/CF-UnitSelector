@@ -107,7 +107,7 @@ class LeftView extends Marionette.ItemView
 												<!--<h4 class="m-b-5 m-t-0 text-primary">{{prop_type}}</h4>
 												  <span>{{i10n "project_type"}}:</span> {{prop_type}}
 												<p>
-												  <span>{{i10n "starting_area"}}:</span> {{starting_area}}'+project.get('area_unit')+'
+												  <span>{{i10n "starting_area"}}:</span> {{starting_area}}'+project.get('measurement_units')+'
 												</p>-->
 
 												<span class="prop-icon"></span>
