@@ -159,7 +159,7 @@
                                     <div class="col-md-3 gallery"  id="gallery_{{ $gallery['ID'] }}">
                                         <div class="img-hover img-thumbnail">
                                             <a class="btn btn-link btn-danger overlay" onclick="deleteLayout({{ $gallery['ID'] }}, 'gallery');"><i class="fa fa-close text-primary"></i></a>
-                                            <img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="{{ $gallery['IMAGE'] }}"   />
+                                            <img style="width:150px;height:93px;" id="svg1" src="{{ $gallery['IMAGE'] }}"   />
                                         </div>
                                     </div>
                                     @endforeach									
