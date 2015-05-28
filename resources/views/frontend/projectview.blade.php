@@ -57,7 +57,7 @@
         </div>
         <div class="footer-push"></div>
       </div>
-      <footer id="footer" class="footer">
+      <footer id="footer" class="footer d">
         <div class="footer-section1">
           <div class="footer-wrap">
             <div class="container-fluid">
@@ -121,6 +121,7 @@
         <script src="{{ asset('bower_components/jquery.panzoom/dist/jquery.panzoom.min.js' )}}"></script>
         <script src="{{ asset('bower_components/ionrangeslider/js/ion.rangeSlider.min.js' )}}"></script>
         <script src="{{ asset('bower_components/hammer.js/hammer.min.js' )}}"></script>
+        <script src="{{ asset('js/frontend/jquery.fadeloader.js' )}}"></script> 
          <!--<script src="{{ asset('bower_components/jquery-nearest/src/jquery.nearest.js' )}}"></script> -->
         <!-- end plugins -->
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
