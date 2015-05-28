@@ -102,7 +102,7 @@
             <hr/>
             <div>
                 <div class="m-l-5 no-border">
-                    <h3><i class="fa fa-angle-double-right text-primary"></i><span class="semi-bold"> Layouts</span></h3>
+                    <h3><i class="fa fa-angle-double-right text-primary"></i><span class="semi-bold"> Views</span></h3>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
