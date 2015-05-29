@@ -5,7 +5,7 @@
     <li><a href="{{ url( 'admin/') }}">Dashboard</a> </li>
     <li><a href="{{ url( 'admin/project/') }}">Projects</a> </li>
     <li><a href="{{ url( 'admin/project/' . $project['id'].'/edit') }}">{{ $project['project_title'] }}</a> </li>
-    <li><a href="#">Plot Units</a> </li>
+    <li><a href="#">Plot Unit</a> </li>
     <li><a href="#" class="active">View Units</a> </li>
 </ul>
 <!-- END BREADCRUMBS -->

@@ -33,15 +33,16 @@
                     <h4 class="inline semi-bold">Status : </h4>&nbsp;&nbsp;<span class="text-primary">{{ strtoupper($project['status']) }}</span>
                 </div>
                 <div class="col-md-4 text-right">
+                     @if(hasPermission($project['id'],['publish_project']))
+                    <button onclick="getPublishData({{ $project['id'] }})" class="btn btn-info btn-small" >PUBLISH</button>
+                    @endif
                     @if($project['status']=='published')
                     <h5 class="semi-bold">
                         First Published : {{ date('d/m/Y',strtotime($projectJason['created_at'])) }}<br>
                         Last Published : {{ date('d/m/Y',strtotime($projectJason['updated_at'])) }}<br>
                     </h5>
                     @endif
-                    @if(hasPermission($project['id'],['publish_project']))
-                    <button onclick="getPublishData({{ $project['id'] }})" class="btn btn-info btn-small" >PUBLISH</button>
-                    @endif
+                   
                 </div>
             </div>
         </div>
@@ -118,17 +119,12 @@
             <div class="col-md-12">
                 <div class="row m-b-20">
                     <div class="col-md-5">
-                        <div class="add-unit p-t-10 p-r-10 p-l-10 p-b-15 ">
-                            <label class="form-label">Enter New Phase<span class="text-primary">*</span></label>
-                            <div class="row">
-                                <div class="col-md-9">
-                                    <input type="text" class="form-control phase-name">
-                                </div>
-                                <div class="col-md-3">
+                        <div class="add-unit p-t-10 p-r-10 p-l-10">
+                            <input type="text" class="form-control phase-name" placeholder="Enter Phase">
+                            <div class="text-right">
                                     <a  class="btn btn-link add-phase-btn"><i class="fa fa-plus"></i> Add </a>
-                                </div>
                             </div>
-                        </div>
+                         </div>
                     </div>
 
                 </div>
