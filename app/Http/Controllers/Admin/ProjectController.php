@@ -341,6 +341,8 @@ class ProjectController extends Controller {
         $projectData = $project->toArray();
         $projectData['master'] = unserialize($projectData['master']);
         $projectData['breakpoints'] = unserialize($projectData['breakpoints']);
+        
+        $googleearthauthtool =true;
 
 
         return view('admin.project.projectsummary')
@@ -351,6 +353,7 @@ class ProjectController extends Controller {
                         ->with('phaseData', $phaseData)
                         ->with('unitTypeData', $unitTypeData)
                         ->with('propertyTypes', $propertyTypes)
+                        ->with('googleearthauthtool', $googleearthauthtool)
                         ->with('projectJason', $projectJason)
                         ->with('current', 'summary');
     }
