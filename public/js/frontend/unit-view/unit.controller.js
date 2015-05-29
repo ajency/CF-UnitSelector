@@ -389,7 +389,7 @@
       $('.images').html(html);
       $('.level').attr('class', 'level Level_0 ' + _.last(response[2]));
       if (response[4] === 'apartment') {
-        $('.level').attr('class', 'level ' + _.last(response[2]) + _.last(response[2]));
+        $('.level').attr('class', 'level Level_0 apartment_level');
       }
       if (!_.isUndefined(response[3].get('external3durl'))) {
         html = '<img class="img lazy-hidden img-responsive external-img"  data-src="' + response[3].get('external3durl') + '" />';
@@ -440,7 +440,37 @@
     };
 
     CenterUnitView.prototype.loadMaster = function() {
-      var breakpoints, first, svgs, transitionImages;
+      var breakpoints, building, first, id, response, svgs, transitionImages, unit, url;
+      url = Backbone.history.fragment;
+      id = url.split('/')[1];
+      unit = unitCollection.findWhere({
+        'id': parseInt(id)
+      });
+      response = window.unit.getUnitDetails(id);
+      building = buildingCollection.findWhere({
+        'id': parseInt(unit.get('building_id'))
+      });
+      if (response[2] === 'apartment' || response[2] === 'penthouse') {
+        transitionImages = [];
+        svgs = {};
+        breakpoints = building.get('breakpoints');
+        $.each(breakpoints, function(index, value) {
+          return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/buildings/' + unit.get('building_id') + '/master-' + value + '.svg';
+        });
+        $.merge(transitionImages, building.get('building_master'));
+        first = _.values(svgs);
+        if (building.get('building_master').length !== 0) {
+          $('.images').load(first[0], function() {
+            $('.firstimage').attr('src', transitionImages[0]);
+            $('.apartment').each(function(ind, item) {
+              id = parseInt(item.id);
+              return $('#' + id).attr('class', "");
+            });
+            return $('#' + id).attr('class', 'layer svg_active');
+          });
+        }
+        return;
+      }
       svgs = [];
       breakpoints = project.get('breakpoints');
       $.each(breakpoints, function(index, value) {
@@ -451,10 +481,7 @@
       $.merge(transitionImages, project.get('project_master'));
       if (project.get('project_master').length !== 0) {
         return $('.images').load(first[0], function() {
-          var id, url;
           $('.firstimage').attr('src', transitionImages[0]);
-          url = Backbone.history.fragment;
-          console.log(id = url.split('/')[1]);
           $('.villa,.plot').each(function(ind, item) {
             id = parseInt(item.id);
             return $('#' + id).attr('class', "");

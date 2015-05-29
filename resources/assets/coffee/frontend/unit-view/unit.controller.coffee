@@ -499,7 +499,7 @@ class CenterUnitView extends Marionette.ItemView
 		$('.level').attr 'class' , 'level Level_0 '+ _.last(response[2])
 		
 		if response[4]  is 'apartment'
-			$('.level').attr 'class' , 'level '+_.last(response[2]) + _.last(response[2])
+			$('.level').attr 'class' , 'level Level_0 apartment_level'
 			
 			
 
@@ -552,6 +552,31 @@ class CenterUnitView extends Marionette.ItemView
 		@loadMaster()
 
 	loadMaster:->
+		url = Backbone.history.fragment
+		id = url.split('/')[1]
+		unit = unitCollection.findWhere
+				'id' : parseInt id
+		response = window.unit.getUnitDetails(id)
+		building = buildingCollection.findWhere
+					'id' : parseInt unit.get('building_id')
+		if response[2] is 'apartment' || response[2] is 'penthouse'
+			transitionImages = []
+			svgs = {}
+			breakpoints = building.get 'breakpoints'
+			$.each breakpoints,(index,value)->
+				svgs[value] = BASEURL+'/projects/'+PROJECTID+'/buildings/'+unit.get('building_id')+'/master-'+value+'.svg'
+			
+			$.merge transitionImages ,  building.get('building_master')
+			first = _.values svgs
+			if building.get('building_master').length != 0
+				$('.images').load(first[0],()->
+					$('.firstimage').attr('src',transitionImages[0])
+					
+					$('.apartment').each (ind,item)->
+						id = parseInt item.id
+						$('#'+id).attr('class', "")
+					$('#'+id).attr('class' ,'layer svg_active'))
+			return
 		svgs = []
 		breakpoints = project.get('breakpoints')
 		$.each breakpoints,(index,value)->
@@ -564,8 +589,7 @@ class CenterUnitView extends Marionette.ItemView
 		if project.get('project_master').length != 0
 			$('.images').load(first[0],()->
 				$('.firstimage').attr('src',transitionImages[0])
-				url = Backbone.history.fragment
-				console.log id = url.split('/')[1]
+				
 				$('.villa,.plot').each (ind,item)->
 					id = parseInt item.id
 					$('#'+id).attr('class', "")
