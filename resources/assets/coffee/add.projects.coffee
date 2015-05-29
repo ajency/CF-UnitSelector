@@ -214,7 +214,7 @@ jQuery(document).ready ($)->
               <input type="hidden" name="unittypecustome[{{ property_type }}][]" value="">      
                       </div>
                         <div class="col-md-2 text-center">
-                            <a  data-unit-type-id="0" class="btn btn-link remove-unit-type"><i class="fa fa-close"></i> </a>
+                            <a  data-unit-type-id="0" class="text-primary remove-unit-type"><i class="fa fa-close"></i> </a>
                         </div>
                                 </div>'
                                     
