@@ -5,6 +5,7 @@ namespace CommonFloor\Http\Controllers;
 use CommonFloor\Http\Controllers\Controller;
 use CommonFloor\Repositories\ProjectRepository;
 use Illuminate\Support\Facades\Auth;
+use CommonFloor\ProjectJson;
 
 class ProjectController extends Controller {
 
