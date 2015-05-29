@@ -230,7 +230,7 @@
                                                     <div class="grid-body">
                                                         <div class="inline">2D Layout</div>
                                                         <input type="hidden" name="image_1_2d_id" id="image_1_2d_id" value="">   
-                                                        <div class="pull-right" id="2d_1_image">
+                                                        <div class="text-center" id="2d_1_image">
                                                             <div class="img-hover img-thumbnail">
                                                                 <div id="pickfiles_1_2d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;">
                                                                     <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
@@ -249,7 +249,7 @@
                                                     <div class="grid-body">
                                                         <div class="inline">3D Layout</div>
                                                         <input type="hidden" name="image_1_3d_id" id="image_1_3d_id" value="">    
-                                                        <div class="pull-right" id="3d_1_image">
+                                                        <div class="text-center" id="3d_1_image">
                                                             <div class="img-hover img-thumbnail">
                                                                 <div id="pickfiles_1_3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;">
                                                                     <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
