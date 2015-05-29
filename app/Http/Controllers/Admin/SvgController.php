@@ -39,7 +39,7 @@ class SvgController extends Controller {
 		$svg->image_id = $request['image_id'];
         $svg->object_type = $request['object_type'];
         $svg->object_id = $request['object_id'];
-        $svg->points = serialize($request['points']);
+        $svg->points = $request['points'];
         $svg->canvas_type = $request['canvas_type'];
 
         if (isset($request['other_details'])) {
@@ -63,16 +63,16 @@ class SvgController extends Controller {
 	public function show($projectid, $imageid){
 
 		$svgElements = Svg::where( 'image_id', '=', $imageid )->get()->toArray();
-        $temp = [];
-        foreach ($svgElements as $value) {
-        	$val = unserialize($value['points']);
-        	$value['points'] = $val;
-        	$temp[] = $value;
-        }
+        // $temp = [];
+        // foreach ($svgElements as $value) {
+        // 	$val = unserialize($value['points']);
+        // 	$value['points'] = $val;
+        // 	$temp[] = $value;
+        // }
         return response()->json( [
             'code' => 'svg_elements_for_image',
             'message' => '',
-            'data' => $temp
+            'data' => $svgElements
         ], 200);		
 	}	
 
@@ -128,9 +128,15 @@ class SvgController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function destroy($id,$element_id)
 	{
-		//
+		$svg = Svg::find($element_id);
+		$svg->delete();
+
+		return response()->json( [
+			'code' => 'svg_element_deleted',
+			'message' => 'SVG element deleted for image', 
+			], 201 );
 	}
 
 	public function getProjectImageSvg($projectid, $imageid){
