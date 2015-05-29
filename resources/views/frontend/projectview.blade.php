@@ -57,16 +57,14 @@
         </div>
         <div class="footer-push"></div>
       </div>
-      <footer id="footer" class="footer">
-        <div class="footer-section1">
-          <div class="footer-wrap">
+      <footer id="footer" class="footer d">
+
+        <div class="footer-section4"><!--Footer Section 4 starts from here-->
+          <div class="">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-sm-12 col-md-12 col-xm-12">
+                <div class="col-sm-12">
                   <ul class="nav navbar-nav footer-nav">
-                    <li>
-                      <a href="http://www.commonfloor.com/about-us" target="_blank" title="Terms and Conditions">Terms &amp; Conditions</a>
-                    </li>
                     <li>
                       <a href="http://www.commonfloor.com/privacy-policy" target="_blank" title="Privacy Policy">Privacy Policy</a>
                     </li>
@@ -77,17 +75,6 @@
                       <a href="{{url()}}/admin" target="_blank"  title="Authoring Tool">Authoring Tool</a>
                     </li>
                   </ul>
-                </div>              
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="footer-section4"><!--Footer Section 4 starts from here-->
-          <div class="footer-wrap">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-sm-12">
                   <div class="copyright-text">
                     Copyright © 2007-15 CommonFloor.com. All rights reserved.
                   </div>
@@ -121,6 +108,7 @@
         <script src="{{ asset('bower_components/jquery.panzoom/dist/jquery.panzoom.min.js' )}}"></script>
         <script src="{{ asset('bower_components/ionrangeslider/js/ion.rangeSlider.min.js' )}}"></script>
         <script src="{{ asset('bower_components/hammer.js/hammer.min.js' )}}"></script>
+        <script src="{{ asset('js/frontend/jquery.fadeloader.js' )}}"></script> 
          <!--<script src="{{ asset('bower_components/jquery-nearest/src/jquery.nearest.js' )}}"></script> -->
         <!-- end plugins -->
         <script src="{{ asset('js/frontend/app.js' )}}"></script>

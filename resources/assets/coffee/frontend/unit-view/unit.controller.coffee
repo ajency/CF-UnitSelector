@@ -180,25 +180,24 @@ class LeftUnitView extends Marionette.ItemView
 							<div class="similar-section">
 					           <h5 class="bold m-b-15">{{similarUnitsText}}</h5>
 					          
-					              	{{#similarUnits}}
-					              	<div class="m-b-15 clearfix">
-					              	    <div class="sim-icon">
-				              	            <div class="alert ">
-				              	              <i class="{{type}}-ico"></i>
-				              	            </div> 
-					              	    </div>
+				              	{{#similarUnits}}
+				              	<div class="m-b-15 clearfix">
+				              	    <div class="sim-icon">
+			              	            <div class="alert ">
+			              	              <i class="{{type}}-ico"></i>
+			              	            </div> 
+				              	    </div>
 
 
-					              	    <div class="sim-details">
-			              	              	<h5 class="m-b-0"><a href="'+BASEURL+'/project/'+PROJECTID+'/#unit-view/{{id}}">{{unit_name}}</a> </h5>
-			              	             	{{unit_type}} ({{area}} {{units}}
-			              	              	{{variant}}<br>
-			              	              	<span class="text-primary"><span class="icon-rupee-icn"></span>{{price}}</span>
+				              	    <div class="sim-details">
+		              	              	<h5 class="m-b-0"><a href="'+BASEURL+'/project/'+PROJECTID+'/#unit-view/{{id}}">{{unit_name}}</a> </h5>
+		              	             	{{unit_type}} ({{area}} {{units}})<br>
+		              	              	{{variant}}<br>
+		              	              	<span class="text-primary"><span class="icon-rupee-icn"></span>{{price}}</span>
 
-					              	    </div>
-					              	</div>
-
-					                {{/similarUnits}}					            
+				              	    </div>
+				              	</div>
+				                {{/similarUnits}}					            
 				            </div>
 
 						</div>

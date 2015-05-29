@@ -37,7 +37,7 @@ svg {
 		// fill: #5C2424;
 		// opacity: 0.75;
 		// stroke: #f68121;
-	  	stroke-width: 0px;
+	  	stroke-width: 0;
 	  	stroke-dasharray: 20 300;
 	  	stroke-dashoffset: 400;
 	  	// transform: scale(.99, .99);
@@ -45,8 +45,21 @@ svg {
 	  	// transition: .5s ease-in;
 		// transform-origin: 50% 50%;
 	  	&.svg_active{
-	  		animation: blink 0.8s ease-in-out infinite alternate; 
-	  		-moz-animation: blink 0.8s ease-in-out infinite alternate;
+	  		// animation: blink 0.8s ease-in-out infinite alternate;
+	  		fill: #F68121;
+		  	fill-opacity: 0.8;
+	  		animation-name: blink;
+	  		animation-duration: 1s;
+	  		animation-timing-function: linear;
+	  		animation-iteration-count: infinite;
+	  		-moz-animation-name: blink;
+	  		-moz-animation-duration: 1s;
+	  		-moz-animation-timing-function: linear;
+	  		-moz-animation-iteration-count: infinite;
+	  		-webkit-animation-name: blink;
+	  		-webkit-animation-duration: 1s;
+	  		-webkit-animation-timing-function: linear;
+	  		-webkit-animation-iteration-count: infinite;
 	  		transform: scale(1);
 	  		-moz-transform: scale(1);
 		  	// stroke-width: 4px;
@@ -66,8 +79,21 @@ svg {
 		  	// stroke-dasharray: 320 0;
 		  	// stroke-dashoffset: 0;
 		  	// transform: scale(1.06);
+		  	fill: #F68121;
+		  	fill-opacity: 0.8;
 	  		cursor: pointer;
-	  		animation: blink 0.8s ease-in-out infinite alternate;
+	  		animation-name: blink;
+	  		animation-duration: 1s;
+	  		animation-timing-function: linear;
+	  		animation-iteration-count: infinite;
+	  		-moz-animation-name: blink;
+	  		-moz-animation-duration: 1s;
+	  		-moz-animation-timing-function: linear;
+	  		-moz-animation-iteration-count: infinite;
+	  		-webkit-animation-name: blink;
+	  		-webkit-animation-duration: 1s;
+	  		-webkit-animation-timing-function: linear;
+	  		-webkit-animation-iteration-count: infinite;
 	  		-moz-animation: blink 0.8s ease-in-out infinite alternate;
 		}
 	}
@@ -274,35 +300,51 @@ svg {
  	fill-opacity: 0.5;
   }
 }
-@keyframes blink {
-  0% {
-	 
-  }
-  
-  100% {
- 	fill:#F68121;
- 	fill-opacity: 0.5;
-  }
+
+
+@keyframes blink {  
+    0% {	
+    	fill:#F68121 !important; 
+    	opacity: 0.5; 
+   }
+    50% {
+    	fill:#F68121 !important; 
+    	opacity: 0.0;
+     }
+    100% 
+    {	fill:#F68121 !important; 
+    	opacity: 0.5;
+     }
 }
-@-moz-keyframes blink {
-  0% {
-	 
-  }
-  
-  100% {
- 	fill:#F68121;
- 	fill-opacity: 0.5;
-  }
+
+@-moz-keyframes blink {  
+    0% {	
+    	fill:#F68121 !important; 
+    	opacity: 0.5; 
+   }
+    50% {
+    	fill:#F68121 !important; 
+    	opacity: 0.0;
+     }
+    100% 
+    {	fill:#F68121 !important; 
+    	opacity: 0.5;
+     }
 }
-@-webkit-keyframes blink {
-  0% {
-	 
-  }
-  
-  100% {
- 	fill:#F68121;
- 	fill-opacity: 0.5;
-  }
+
+@-webkit-keyframes blink {  
+    0% {	
+    	fill:#F68121 !important; 
+    	opacity: 0.8; 
+   }
+    50% {
+    	fill:#F68121 !important; 
+    	opacity: 0.0;
+     }
+    100% 
+    {	fill:#F68121 !important; 
+    	opacity: 0.8;
+     }
 }
 
 

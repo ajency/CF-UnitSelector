@@ -76,7 +76,7 @@ body {
 }
 .wrapper {
   min-height: 100%;
-  margin-bottom: -98px;
+  margin-bottom: -49px;
 }
 .component-body {
   background-color: #ffffff;
@@ -245,8 +245,42 @@ body {
 #footer .footer-section1 {
   background-color: #ffffff;
 }
+#footer .footer-section4 {
+  text-align: left;
+}
+#footer .footer-section4 .copyright-text {
+  float: right;
+  padding: 5px;
+  text-align: right;
+}
+#footer .footer-section4 ul {
+  float: left;
+}
+#footer .footer-section4 ul li {
+  display: inline-block;
+}
+#footer .footer-section4 ul li a {
+  padding: 5px 15px;
+}
+#footer .footer-section4 ul li a:hover {
+  background: none;
+  color: #ffffff;
+  text-decoration: underline !important;
+}
+@media (max-width: 767px) {
+  #footer .footer-section4 {
+    text-align: center;
+  }
+  #footer .footer-section4 .copyright-text {
+    float: none;
+  }
+  #footer .footer-section4 ul {
+    float: none;
+    text-align: center;
+  }
+}
 .footer-push {
-  height: 98px;
+  height: 49px;
 }
 /* Step 1*/
 .step1 {
@@ -1173,7 +1207,7 @@ hr.embossed {
   background-color: #db6809;
   color: #ffffff;
   font-weight: bold;
-  font-size: 18px;
+  font-size: 17px;
 }
 .breadcrumb-bar a::before {
   content: "\e761";
@@ -1372,14 +1406,29 @@ svg .active_bldg {
   opacity: 0.5;
 }
 svg .layer {
-  stroke-width: 0px;
+  stroke-width: 0;
   stroke-dasharray: 20 300;
   stroke-dashoffset: 400;
 }
 svg .layer.svg_active {
-  -webkit-animation: blink 0.8s ease-in-out infinite alternate;
-          animation: blink 0.8s ease-in-out infinite alternate;
-  -moz-animation: blink 0.8s ease-in-out infinite alternate;
+  fill: #F68121;
+  fill-opacity: 0.8;
+  -webkit-animation-name: blink;
+          animation-name: blink;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -moz-animation-name: blink;
+  -moz-animation-duration: 1s;
+  -moz-animation-timing-function: linear;
+  -moz-animation-iteration-count: infinite;
+  -webkit-animation-name: blink;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
   -webkit-transform: scale(1);
       -ms-transform: scale(1);
           transform: scale(1);
@@ -1392,9 +1441,25 @@ svg .layer.not_in_selection {
   -webkit-animation: unit_fadein 0.6s;
 }
 svg .layer:hover {
+  fill: #F68121;
+  fill-opacity: 0.8;
   cursor: pointer;
-  -webkit-animation: blink 0.8s ease-in-out infinite alternate;
-          animation: blink 0.8s ease-in-out infinite alternate;
+  -webkit-animation-name: blink;
+          animation-name: blink;
+  -webkit-animation-duration: 1s;
+          animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
+          animation-iteration-count: infinite;
+  -moz-animation-name: blink;
+  -moz-animation-duration: 1s;
+  -moz-animation-timing-function: linear;
+  -moz-animation-iteration-count: infinite;
+  -webkit-animation-name: blink;
+  -webkit-animation-duration: 1s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-iteration-count: infinite;
   -moz-animation: blink 0.8s ease-in-out infinite alternate;
 }
 svg .villa,
@@ -1559,15 +1624,31 @@ svg polygon {
   }
 }
 @keyframes blink {
+  0% {
+    fill: #F68121 !important;
+    opacity: 0.5;
+  }
+  50% {
+    fill: #F68121 !important;
+    opacity: 0.0;
+  }
   100% {
-    fill: #F68121;
-    fill-opacity: 0.5;
+    fill: #F68121 !important;
+    opacity: 0.5;
   }
 }
 @-webkit-keyframes blink {
+  0% {
+    fill: #F68121 !important;
+    opacity: 0.8;
+  }
+  50% {
+    fill: #F68121 !important;
+    opacity: 0.0;
+  }
   100% {
-    fill: #F68121;
-    fill-opacity: 0.5;
+    fill: #F68121 !important;
+    opacity: 0.8;
   }
 }
 .list-view-container {
@@ -1888,16 +1969,10 @@ svg polygon {
     margin-right: 0;
   }
   .eight .blocks {
-    width: 24.4%;
+    width: 25%;
   }
-  .eight .blocks:nth-child(2n) {
-    margin-right: 0.8%;
-  }
-  .eight .blocks:nth-child(3n) {
-    margin-right: 0.8%;
-  }
-  .eight .blocks:nth-child(4n) {
-    margin-right: 0;
+  .eight .blocks .icon {
+    display: none;
   }
 }
 @media (max-width: 480px) {
@@ -1908,13 +1983,7 @@ svg polygon {
     margin-right: 0;
   }
   .eight .blocks {
-    width: 32.8%;
-  }
-  .eight .blocks:nth-child(3n) {
-    margin-right: 0;
-  }
-  .eight .blocks:nth-child(4n) {
-    margin-right: 0.8%;
+    width: 33%;
   }
 }
 .units {

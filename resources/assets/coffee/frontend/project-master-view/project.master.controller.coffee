@@ -323,7 +323,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn">
 										
-										<div class="legend clearfix">
+										<div class="legend c clearfix">
 										  <ul>
 											<!--<li class="available">AVAILABLE</li>-->
 											<li class="sold">N/A</li>
@@ -331,13 +331,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 											<li class="na">Available</li>-->
 										  </ul>
 										</div>
-										<div class="zoom-controls">
+										<div class="zoom-controls c">
 											<div class="zoom-in"></div>
 											<div class="zoom-out"></div>
 										</div>
 										<div id="view_toggle" class="toggle-view-button list"></div>
 										<div id="trig" class="toggle-button hidden">List View</div>
-										<div class=" master animated fadeIn">
+										<div class=" master b animated fadeIn">
 											<!--<div class="controls mapView">
 												<div class="toggle">
 													<a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a>
@@ -858,6 +858,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 	onShow:->
+
+		# $('body').fadeloader(
+		# 	preloadImg: '/images/loader.gif'
+		# 	onComplete: ""
+		# )
 
 		windowHeight = $(window).innerHeight() - 56
 		$('.master').css 'height', windowHeight
