@@ -75,6 +75,8 @@ class ProjectRepository implements ProjectRepositoryInterface {
                     ]),
             new ProjectMeta(['meta_key' => 'breakpoints',
                 'meta_value' => serialize([])]),
+            new ProjectMeta(['meta_key' => 'filters',
+                'meta_value' => serialize([])]),
         ];
 
         $project->projectMeta()->saveMany($projectMeta);
