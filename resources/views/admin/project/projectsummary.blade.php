@@ -140,6 +140,8 @@
         </h5><span class="text-warning"> 
             @if($project["google_earth"]=="")
             Image Not Uploaded
+            @elseif(!$googleearthauthtool)
+               Pending SVG Authoring   
             @else
             Completed
             @endif

@@ -323,7 +323,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn">
 										
-										<div class="legend clearfix">
+										<div class="legend c clearfix">
 										  <ul>
 											<!--<li class="available">AVAILABLE</li>-->
 											<li class="sold">N/A</li>
@@ -331,13 +331,13 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 											<li class="na">Available</li>-->
 										  </ul>
 										</div>
-										<div class="zoom-controls">
+										<div class="zoom-controls c">
 											<div class="zoom-in"></div>
 											<div class="zoom-out"></div>
 										</div>
 										<div id="view_toggle" class="toggle-view-button list"></div>
 										<div id="trig" class="toggle-button hidden">List View</div>
-										<div class=" master animated fadeIn">
+										<div class=" master b animated fadeIn">
 											<!--<div class="controls mapView">
 												<div class="toggle">
 													<a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a>
@@ -615,7 +615,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						
 						<div class="details">
 							<div>
-								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('area_unit')+')
+								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('measurement_units')+')
 								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 							</div>
 							<div class="text-primary">
@@ -625,9 +625,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						</div>'
 
 			if availability == 'available'
-				html +='<div class="circle">
-							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
-						</div>
+				html +='<a href="#unit-view/'+id+'" class="view-unit">
+							<div class="circle">
+								<span class="arrow-up icon-chevron-right"></span>
+							</div>
+						</a>
 						<div class="details">
 							<div class="text-muted text-default">Click arrow to move forward</div>
 						</div>
@@ -711,7 +713,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						<div class="clearfix"></div>-->
 						<div class="details">
 							<div>
-								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('area_unit')+')
+								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('measurement_units')+')
 								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 							</div>
 							<div class="text-primary">
@@ -721,9 +723,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						</div>'
 
 			if availability == 'available'
-				html +='<div class="circle">
-							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
-						</div>
+				html +='<a href="#unit-view/'+id+'" class="view-unit">
+							<div class="circle">
+								<span class="arrow-up icon-chevron-right"></span>
+							</div>
+						</a>
 						<div class="details">
 							<div class="text-muted text-default">Click arrow to move forward</div>
 						</div>
@@ -807,10 +811,10 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						<div class="details">
 							
 							
-						</div>'
+						'
 
 			$.each response,(index,value)->
-				html +='<span class="details">
+				html +='<span>
 							' +value.name+' ('+value.units+'),
 						</span>'
 
@@ -821,18 +825,21 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				else
 					url = '/building/'+id+'/master-view' 
 					
-				html += '<div class="details">
+				html += '<div class=" text-primary">
 								Starting Price <span class="text-primary icon-rupee-icn"></span>'+price+'
-							</div> <div class="circle">
-						<a href="#'+url+'" class="arrow-up icon-chevron-right"></a>
-						</div>
+							</div> 
+						<a href="#'+url+'" class="view-unit">
+							<div class="circle">
+								<span class="arrow-up icon-chevron-right"></span>
+							</div>
+						</a>
 						
 							
-						<div class="details">
+						<div>
 							<div class="text-muted text-default">Click arrow to move forward</div>
 						</div>'
 			
-			html += '</div>'
+			html += '</div></div>'
 
 
 			$('.layer').tooltipster('content', html)
@@ -851,8 +858,23 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 	onShow:->
+
+		# $('body').fadeloader(
+		# 	preloadImg: '/images/loader.gif'
+		# 	onComplete: ""
+		# )
+
+		windowHeight = $(window).innerHeight() - 56
+		$('.master').css 'height', windowHeight
+		$('.master').css 'min-width', windowHeight * 2
+
+		# if $(window).width() < 1025
+		# 	$('.master').css 'height', windowHeight
+		# 	$('.master').css 'min-width', windowHeight * 2
+
 		
-		height =  @ui.svgContainer.width() / 2
+		# height =  @ui.svgContainer.width() / 2
+
 		# $('.us-left-content').css('height',height)
 		# if!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
 		# if $(window).width() > 991
@@ -935,7 +957,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					CommonFloor.applyAvailabilClasses()
 					CommonFloor.randomClass()
 					CommonFloor.applyFliterClass()
-					).addClass('active').removeClass('inactive')
+					that.loadZoom()).addClass('active').removeClass('inactive')
 				
 		)
 
@@ -955,6 +977,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				that.loadZoom()
 				CommonFloor.randomClass()
 				CommonFloor.applyFliterClass()
+				$('.svg-maps svg').css('height',width / 2);
 
 			).addClass('active').removeClass('inactive')
 
@@ -971,8 +994,14 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				interactive : true
 				# animation : 'grow'
 				trigger: 'hover'
-				
-				
+				functionReady:(e)->
+					$('.view-unit').on('click' , (e)->
+						$('.layer').tooltipster('hide')
+						$('svg').attr('class' ,'zoom')
+						$('#spritespin').addClass 'zoom'
+						$('.us-right-content').addClass 'fadeOut'
+						$('.cf-loader').removeClass 'hidden'
+					)
 		)
 
 		
@@ -980,7 +1009,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 	loadZoom:->
 
-		$panzoom =  $('.master').panzoom
+		$('.master').panzoom
 			contain: 'invert'
 			minScale: 1
 			maxScale: 2.4
@@ -988,6 +1017,12 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$zoomIn: $('.zoom-in')
 			$zoomOut: $('.zoom-out')
 			# $set: $('.spritespin-canvas')
+
+		$('.master polygon').on 'mousedown touchstart', (e) ->
+			e.stopImmediatePropagation()
+
+		# $('.master .region').on 'mousedown touchstart', (e) ->
+		# 	e.stopImmediatePropagation()
 
 		
 	

@@ -390,7 +390,7 @@
       return CenterMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterMasterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn"> <div class="legend clearfix"> <ul> <!--<li class="available">AVAILABLE</li>--> <li class="sold">N/A</li> <!--<li class="blocked">BLOCKED</li> <li class="na">Available</li>--> </ul> </div> <div class="zoom-controls"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master animated fadeIn"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img src=""  class="first_image img-responsive"> <div class="region inactive"></div> <div class="tooltip-overlay hidden"></div> </div> <div class="cf-loader hidden"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
+    CenterMasterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn"> <div class="legend c clearfix"> <ul> <!--<li class="available">AVAILABLE</li>--> <li class="sold">N/A</li> <!--<li class="blocked">BLOCKED</li> <li class="na">Available</li>--> </ul> </div> <div class="zoom-controls c"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master b animated fadeIn"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img src=""  class="first_image img-responsive"> <div class="region inactive"></div> <div class="tooltip-overlay hidden"></div> </div> <div class="cf-loader hidden"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
 
     CenterMasterView.prototype.ui = {
       svgContainer: '.master',
@@ -476,9 +476,9 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="villa"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br> <br> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' ' + project.get('area_unit') + ') <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div class="text-primary"> <span class="text-primary icon-rupee-icn"></span>' + price + '</div> </div>';
+        html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="villa"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br> <br> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + ') <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div class="text-primary"> <span class="text-primary icon-rupee-icn"></span>' + price + '</div> </div>';
         if (availability === 'available') {
-          html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
+          html += '<a href="#unit-view/' + id + '" class="view-unit"> <div class="circle"> <span class="arrow-up icon-chevron-right"></span> </div> </a> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
         } else {
           html += '</div>';
         }
@@ -511,9 +511,9 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="plot"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br> <br> <!--<span class="pull-right icon-cross cross"></span> <span class="label label-success"></span <div class="clearfix"></div>--> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' ' + project.get('area_unit') + ') <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div class="text-primary"> <span class="text-primary icon-rupee-icn"></span>' + price + '</div> </div>';
+        html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="plot"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br> <br> <!--<span class="pull-right icon-cross cross"></span> <span class="label label-success"></span <div class="clearfix"></div>--> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + ') <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div class="text-primary"> <span class="text-primary icon-rupee-icn"></span>' + price + '</div> </div>';
         if (availability === 'available') {
-          html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
+          html += '<a href="#unit-view/' + id + '" class="view-unit"> <div class="circle"> <span class="arrow-up icon-chevron-right"></span> </div> </a> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
         } else {
           html += '</div>';
         }
@@ -555,9 +555,9 @@
         } else {
           availability = ' sold';
         }
-        html = '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="building"></div> </div> <h5 class="t m-t-0">' + buildingModel.get('building_name') + '	<label class="text-muted">(' + floors + ' floors)</label></h5> <div class="details"> </div>';
+        html = '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="building"></div> </div> <h5 class="t m-t-0">' + buildingModel.get('building_name') + '	<label class="text-muted">(' + floors + ' floors)</label></h5> <div class="details">';
         $.each(response, function(index, value) {
-          return html += '<span class="details">' + value.name + ' (' + value.units + '), </span>';
+          return html += '<span>' + value.name + ' (' + value.units + '), </span>';
         });
         if (unit.length > 0) {
           if (Object.keys(buildingModel.get('building_master')).length === 0) {
@@ -565,9 +565,9 @@
           } else {
             url = '/building/' + id + '/master-view';
           }
-          html += '<div class="details"> Starting Price <span class="text-primary icon-rupee-icn"></span>' + price + '</div> <div class="circle"> <a href="#' + url + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div>';
+          html += '<div class=" text-primary"> Starting Price <span class="text-primary icon-rupee-icn"></span>' + price + '</div> <a href="#' + url + '" class="view-unit"> <div class="circle"> <span class="arrow-up icon-chevron-right"></span> </div> </a> <div> <div class="text-muted text-default">Click arrow to move forward</div> </div>';
         }
-        html += '</div>';
+        html += '</div></div>';
         $('.layer').tooltipster('content', html);
         $('#bldg' + id).attr('class', 'bldg blocks active');
         return $('#' + id).attr('class', 'layer building active_bldg');
@@ -581,8 +581,10 @@
     };
 
     CenterMasterView.prototype.onShow = function() {
-      var breakpoints, first, height, svgs, that, transitionImages;
-      height = this.ui.svgContainer.width() / 2;
+      var breakpoints, first, svgs, that, transitionImages, windowHeight;
+      windowHeight = $(window).innerHeight() - 56;
+      $('.master').css('height', windowHeight);
+      $('.master').css('min-width', windowHeight * 2);
       $('#spritespin').hide();
       that = this;
       transitionImages = [];
@@ -656,7 +658,8 @@
             that.iniTooltip();
             CommonFloor.applyAvailabilClasses();
             CommonFloor.randomClass();
-            return CommonFloor.applyFliterClass();
+            CommonFloor.applyFliterClass();
+            return that.loadZoom();
           }).addClass('active').removeClass('inactive');
         }
       });
@@ -677,7 +680,8 @@
           CommonFloor.applyAvailabilClasses();
           that.loadZoom();
           CommonFloor.randomClass();
-          return CommonFloor.applyFliterClass();
+          CommonFloor.applyFliterClass();
+          return $('.svg-maps svg').css('height', width / 2);
         }).addClass('active').removeClass('inactive');
       });
     };
@@ -691,19 +695,30 @@
         offsetX: 50,
         offsetY: -10,
         interactive: true,
-        trigger: 'hover'
+        trigger: 'hover',
+        functionReady: function(e) {
+          return $('.view-unit').on('click', function(e) {
+            $('.layer').tooltipster('hide');
+            $('svg').attr('class', 'zoom');
+            $('#spritespin').addClass('zoom');
+            $('.us-right-content').addClass('fadeOut');
+            return $('.cf-loader').removeClass('hidden');
+          });
+        }
       });
     };
 
     CenterMasterView.prototype.loadZoom = function() {
-      var $panzoom;
-      return $panzoom = $('.master').panzoom({
+      $('.master').panzoom({
         contain: 'invert',
         minScale: 1,
         maxScale: 2.4,
         increment: 0.4,
         $zoomIn: $('.zoom-in'),
         $zoomOut: $('.zoom-out')
+      });
+      return $('.master polygon').on('mousedown touchstart', function(e) {
+        return e.stopImmediatePropagation();
       });
     };
 
