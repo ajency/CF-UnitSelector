@@ -19,23 +19,27 @@ class ProjectController extends Controller {
         
          if (Auth::check())
         {
-            $project = $projectRepository->getProjectById( $projectId )->toArray();
+            $data = $projectRepository->getProjectById( $projectId );
+
+            if ($data === null) {
+            abort( 404 );
+            }
+
+
            
         }
         else
         {
-            $project = ProjectJson::where('project_id', $projectId)
-                                        ->where('type', 'step_two')->get()->first();
-                                     
+            $data  = ProjectJson::where('project_id', $projectId)
+                                        ->where('type', 'step_one')->get()->first()->project_json;
+                            
+            if (empty($data)) {
+            abort( 404 );
+            }                          
             
         }
-
-        if ($project === null) {
-            abort( 404 );
-        }
-        
-
-        return view( 'frontend.projectview' )->with( 'id' , $project['id'])
-                                            ->with( 'project_title' , $project['project_title']);
+ 
+        return view( 'frontend.projectview' )->with( 'id' , $data['id'])
+                                            ->with( 'project_title' , $data['project_title']);
     }
 }
