@@ -307,17 +307,15 @@ CommonFloor.filter = ()->
 	
 
 CommonFloor.resetProperyType = (param)->
-	param_val_arr = param.split(',')
 	collection = []
-	$.each param_val_arr, (index,value)->
-		if value == 'Villas'
-			$.merge collection , bunglowVariantCollection.getBunglowUnits()
-		if value == 'Apartments/Penthouse'
-			$.merge collection , apartmentVariantCollection.getApartmentUnits()
-		if value == 'Plots'
-			$.merge collection , plotVariantCollection.getPlotUnits()
-	unitCollection.reset collection
-
+	if param == 'villa'
+		$.merge collection , bunglowVariantCollection.getBunglowUnits()
+	if param == 'apartment'
+		$.merge collection , apartmentVariantCollection.getApartmentUnits()
+	if param == 'plot'
+		$.merge collection , plotVariantCollection.getPlotUnits()
+	collection
+	
 
 CommonFloor.applyFliterClass = ()->
 	actualunits = _.pluck unitMasterCollection.toArray() ,'id'
@@ -379,6 +377,7 @@ CommonFloor.resetCollections = ()->
 	unitTypes = []
 	plots = []
 	buildings = []
+	console.log unitCollection
 	unitCollection.each (item)->
 		unitType = unitTypeMasterCollection.findWhere
 							'id' :  item.get('unit_type_id')
@@ -768,5 +767,90 @@ CommonFloor.filterFlooringAttributes= ()->
 			flooring.push item
 
 	unitCollection.reset flooring
+
+#new filter function applied
+CommonFloor.filterNew = ()->
+	collection = []
+	temp = []
+	params = CommonFloor.defaults['type'].split(',')
+	$.each params , (ind,val)->
+		if val is 'villa'
+			console.log temp = CommonFloor.filterVillas()
+		if val is 'apartment'
+			console.log temp = CommonFloor.filterApartments()
+		if val is 'plot'
+			console.log temp = CommonFloor.filterPlots()
+		$.merge collection , temp
+	console.log collection
+	unitCollection.reset collection
+	if CommonFloor.defaults['common']['price_max'] != ""
+		CommonFloor.filterBudget()
+	if CommonFloor.defaults['common']['area_max'] != ""
+		CommonFloor.filterArea()
+	if CommonFloor.defaults['common']['floor_max'] != ""
+		CommonFloor.filterFloor()
+	if CommonFloor.defaults['common']['availability'] != ""
+		paramkey = {}
+		paramkey['availability'] = 'available'
+		temp = unitCollection.where paramkey
+		unitCollection.reset temp
+	CommonFloor.resetCollections()
+	CommonFloor.applyFliterClass()
+
+
+
+
+CommonFloor.filterVillas = ()->
+	collection = []
+	collection = CommonFloor.resetProperyType('villa')
+	temp = []
+	newColl = new Backbone.Collection collection		
+	$.each CommonFloor.defaults['villa'] , (index,value)->
+		if value != ""
+			console.log param_val  = value.split(',')
+			$.each param_val,(key,key_val)->
+				paramkey = {}
+				paramkey[index] = parseInt(key_val)
+				console.log paramkey
+				$.merge temp, unitCollection.where paramkey
+			newColl.reset temp
+	console.log newColl
+	newColl.toArray()		
+	
+
+CommonFloor.filterApartments = ()->
+	collection = []
+	collection = CommonFloor.resetProperyType('apartment')
+	temp = []
+	newColl = new Backbone.Collection collection		
+	$.each CommonFloor.defaults['apartment'] , (index,value)->
+		if value != ""
+			console.log param_val  = value.split(',')
+			$.each param_val,(key,key_val)->
+				paramkey = {}
+				paramkey[index] = parseInt(key_val)
+				console.log paramkey
+				$.merge temp, unitCollection.where paramkey
+			newColl.reset temp
+	console.log newColl
+	newColl.toArray()
+
+CommonFloor.filterPlots = ()->
+	collection = []
+	collection = CommonFloor.resetProperyType('plot')
+	temp = []
+	newColl = new Backbone.Collection collection		
+	$.each CommonFloor.defaults['plot'] , (index,value)->
+		if value != ""
+			console.log param_val  = value.split(',')
+			$.each param_val,(key,key_val)->
+				paramkey = {}
+				paramkey[index] = parseInt(key_val)
+				console.log paramkey
+				$.merge temp, unitCollection.where paramkey
+			newColl.reset temp
+	console.log newColl
+	newColl.toArray()
+	
 
 

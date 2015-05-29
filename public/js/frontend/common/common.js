@@ -319,21 +319,18 @@
   };
 
   CommonFloor.resetProperyType = function(param) {
-    var collection, param_val_arr;
-    param_val_arr = param.split(',');
+    var collection;
     collection = [];
-    $.each(param_val_arr, function(index, value) {
-      if (value === 'Villas') {
-        $.merge(collection, bunglowVariantCollection.getBunglowUnits());
-      }
-      if (value === 'Apartments/Penthouse') {
-        $.merge(collection, apartmentVariantCollection.getApartmentUnits());
-      }
-      if (value === 'Plots') {
-        return $.merge(collection, plotVariantCollection.getPlotUnits());
-      }
-    });
-    return unitCollection.reset(collection);
+    if (param === 'villa') {
+      $.merge(collection, bunglowVariantCollection.getBunglowUnits());
+    }
+    if (param === 'apartment') {
+      $.merge(collection, apartmentVariantCollection.getApartmentUnits());
+    }
+    if (param === 'plot') {
+      $.merge(collection, plotVariantCollection.getPlotUnits());
+    }
+    return collection;
   };
 
   CommonFloor.applyFliterClass = function() {
@@ -406,6 +403,7 @@
     unitTypes = [];
     plots = [];
     buildings = [];
+    console.log(unitCollection);
     unitCollection.each(function(item) {
       var building, property, unitType;
       unitType = unitTypeMasterCollection.findWhere({
@@ -910,6 +908,116 @@
       }
     });
     return unitCollection.reset(flooring);
+  };
+
+  CommonFloor.filterNew = function() {
+    var collection, paramkey, params, temp;
+    collection = [];
+    temp = [];
+    params = CommonFloor.defaults['type'].split(',');
+    $.each(params, function(ind, val) {
+      if (val === 'villa') {
+        console.log(temp = CommonFloor.filterVillas());
+      }
+      if (val === 'apartment') {
+        console.log(temp = CommonFloor.filterApartments());
+      }
+      if (val === 'plot') {
+        console.log(temp = CommonFloor.filterPlots());
+      }
+      return $.merge(collection, temp);
+    });
+    console.log(collection);
+    unitCollection.reset(collection);
+    if (CommonFloor.defaults['common']['price_max'] !== "") {
+      CommonFloor.filterBudget();
+    }
+    if (CommonFloor.defaults['common']['area_max'] !== "") {
+      CommonFloor.filterArea();
+    }
+    if (CommonFloor.defaults['common']['floor_max'] !== "") {
+      CommonFloor.filterFloor();
+    }
+    if (CommonFloor.defaults['common']['availability'] !== "") {
+      paramkey = {};
+      paramkey['availability'] = 'available';
+      temp = unitCollection.where(paramkey);
+      unitCollection.reset(temp);
+    }
+    CommonFloor.resetCollections();
+    return CommonFloor.applyFliterClass();
+  };
+
+  CommonFloor.filterVillas = function() {
+    var collection, newColl, temp;
+    collection = [];
+    collection = CommonFloor.resetProperyType('villa');
+    temp = [];
+    newColl = new Backbone.Collection(collection);
+    $.each(CommonFloor.defaults['villa'], function(index, value) {
+      var param_val;
+      if (value !== "") {
+        console.log(param_val = value.split(','));
+        $.each(param_val, function(key, key_val) {
+          var paramkey;
+          paramkey = {};
+          paramkey[index] = parseInt(key_val);
+          console.log(paramkey);
+          return $.merge(temp, unitCollection.where(paramkey));
+        });
+        return newColl.reset(temp);
+      }
+    });
+    console.log(newColl);
+    return newColl.toArray();
+  };
+
+  CommonFloor.filterApartments = function() {
+    var collection, newColl, temp;
+    collection = [];
+    collection = CommonFloor.resetProperyType('apartment');
+    temp = [];
+    newColl = new Backbone.Collection(collection);
+    $.each(CommonFloor.defaults['apartment'], function(index, value) {
+      var param_val;
+      if (value !== "") {
+        console.log(param_val = value.split(','));
+        $.each(param_val, function(key, key_val) {
+          var paramkey;
+          paramkey = {};
+          paramkey[index] = parseInt(key_val);
+          console.log(paramkey);
+          return $.merge(temp, unitCollection.where(paramkey));
+        });
+        return newColl.reset(temp);
+      }
+    });
+    console.log(newColl);
+    return newColl.toArray();
+  };
+
+  CommonFloor.filterPlots = function() {
+    var collection, newColl, temp;
+    collection = [];
+    collection = CommonFloor.resetProperyType('plot');
+    temp = [];
+    newColl = new Backbone.Collection(collection);
+    $.each(CommonFloor.defaults['plot'], function(index, value) {
+      var param_val;
+      if (value !== "") {
+        console.log(param_val = value.split(','));
+        $.each(param_val, function(key, key_val) {
+          var paramkey;
+          paramkey = {};
+          paramkey[index] = parseInt(key_val);
+          console.log(paramkey);
+          return $.merge(temp, unitCollection.where(paramkey));
+        });
+        return newColl.reset(temp);
+      }
+    });
+    console.log(newColl);
+    return newColl.toArray();
   };
 
 }).call(this);
