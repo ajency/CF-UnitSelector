@@ -46,6 +46,12 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function store(Request $request, ProjectRepository $projectRepository) {
+        $cfProjectId = $request->input('cf_project_id');
+        $validatecfProjectId = Project::where('cf_project_id',$cfProjectId)->get()->toArray();
+        if(!empty($validatecfProjectId))
+        {
+           return redirect("/admin/project/create?error=project_already_taken"); 
+        }
 
         $project = $projectRepository->createProject($request->all());
         if ($project !== null) {
