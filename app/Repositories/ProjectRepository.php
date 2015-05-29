@@ -82,6 +82,11 @@ class ProjectRepository implements ProjectRepositoryInterface {
         //create json record
         $projectJson = new ProjectJson;
         $projectJson->project_json = [];
+        $projectJson->type = 'step_one';
+        $projectJson->project_id = $project->id;
+        $projectJson->save();
+
+        $projectJson->project_json = [];
         $projectJson->type = 'step_two';
         $projectJson->project_id = $project->id;
         $projectJson->save();

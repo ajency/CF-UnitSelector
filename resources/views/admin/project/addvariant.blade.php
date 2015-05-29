@@ -131,14 +131,14 @@
                             <div class="panel panel-default vertical orange">
                                 <div class="panel-heading collapsed" role="tab" id="headingOne">
                                  <h4 class="panel-title">
-                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">                                    
+                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse0">                                    
                                         Level 0
                                     <input type="hidden" value="0" name="levels[]">
                                     </a>
                                 </h4>
                                 
                                 </div>
-                                 <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                 <div id="collapse0" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                 <div class="panel-body"><h4> <span class="semi-bold">Layouts</span></h4>
                                     <div class="row">
                                         <div class="col-md-6">
@@ -214,13 +214,13 @@
                                 <div class="panel panel-default vertical orange">
                                     <div class="panel-heading" role="tab" id="headingOne">
                                     <h4 class="panel-title">
-                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false">
                                         Level 1
                                         <input type="hidden" value="1" name="levels[]">
                                         </a>
                                     </h4>
                                     </div>
-                                    <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                                     <div class="panel-body"><h4> <span class="semi-bold">Layouts</span></h4>
                                         <div class="row">
                                             <div class="col-md-6">

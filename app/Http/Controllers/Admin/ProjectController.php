@@ -207,7 +207,7 @@ class ProjectController extends Controller {
             $propertytypeAttributes[$projectpropertyType['property_type_id']] = ProjectPropertyType::find($projectpropertyType['id'])->attributes->toArray();
             
         }
-        $propertyTypeName = ["1"=>"Villa","2"=>"Plot","3"=>"Apartment","4"=>"Penthouse"];
+        $propertyTypeName = [BUNGLOWID=>"Villa",PLOTID=>"Plot",APARTMENTID=>"Apartment",PENTHOUSEID=>"Penthouse"];
  
         return view('admin.project.filters')
                         ->with('project', $project->toArray())

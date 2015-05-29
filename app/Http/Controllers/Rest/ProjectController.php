@@ -5,6 +5,7 @@ namespace CommonFloor\Http\Controllers\Rest;
 use CommonFloor\Http\Controllers\Controller;
 use CommonFloor\Gateways\ProjectGatewayInterface;
 use CommonFloor\ProjectJson;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller {
 
@@ -24,7 +25,12 @@ class ProjectController extends Controller {
 
         try {
 
-            $data = $this->projectGateway->getProjectStepOneDetails( $projectId );
+            if (Auth::check())
+                $data = $this->projectGateway->getProjectStepOneDetails( $projectId );
+            else
+                $data = ProjectJson::where('project_id', $projectId)
+                                        ->where('type', 'step_one')->get()->first();
+
             return response()->json( [
                                 'data' => $data
                             ], 200, [], JSON_NUMERIC_CHECK );
@@ -39,9 +45,14 @@ class ProjectController extends Controller {
     public function stepTwo( $projectId ) {
         $projectJson = ProjectJson::where('project_id', $projectId)
                                         ->where('type', 'step_two')->get()->first();
+         
+
+        if (Auth::check())
+            $projectJsonData = $this->projectGateway->getProjectStepTwoDetails( $projectId );
+        else
+            $projectJsonData = $projectJson->project_json;    
         
-        $projectJsonData = $projectJson->project_json;         //UPDATE CURRENT UNIT STATUS TO JSON DATA
-        if(!empty($projectJsonData))
+        if(!empty($projectJsonData))                             //UPDATE CURRENT UNIT STATUS TO JSON DATA
         {
             $unitsData = [];
             $units = $projectJsonData['units'];
@@ -58,10 +69,17 @@ class ProjectController extends Controller {
     }
 
     public function updateResponseTable( $projectId ){
-        $data = $this->projectGateway->getProjectStepTwoDetails( $projectId );
+        $stepOneData = $this->projectGateway->getProjectStepOneDetails( $projectId );
+        $stepTwoData = $this->projectGateway->getProjectStepTwoDetails( $projectId );
+
+        $projectJson = ProjectJson::where('project_id', $projectId)
+                                ->where('type', 'step_one')->get()->first();
+        $projectJson->project_json = $stepOneData;
+        $projectJson->save();
+
         $projectJson = ProjectJson::where('project_id', $projectId)
                                 ->where('type', 'step_two')->get()->first();
-        $projectJson->project_json = $data;
+        $projectJson->project_json = $stepTwoData;
         $projectJson->save();
         return response()->json( [
                             'code' => '',
