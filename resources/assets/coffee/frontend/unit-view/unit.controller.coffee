@@ -547,6 +547,11 @@ class CenterUnitView extends Marionette.ItemView
 
 		if response[0].length == 0 &&  response[1].length == 0 && _.isUndefined(response[3].get('external3durl')) && _.isUndefined(response[3].get('galleryurl'))
 			@loadMaster()
+			$('.master').addClass('current')
+			$('.gallery').removeClass('current')
+			$('.threeD').removeClass('current')
+			$('.twoD').removeClass('current')
+			$('.external').removeClass('current')
 		height =  @ui.imagesContainer.height()
 		if $(window).width() > 991
 			$('.search-left-content').css('height',height)
@@ -565,11 +570,12 @@ class CenterUnitView extends Marionette.ItemView
 	loadMaster:->
 		url = Backbone.history.fragment
 		id = url.split('/')[1]
-		unit = unitCollection.findWhere
+		console.log unit = unitCollection.findWhere
 				'id' : parseInt id
 		response = window.unit.getUnitDetails(id)
 		building = buildingCollection.findWhere
 					'id' : parseInt unit.get('building_id')
+		
 		if response[2] is 'apartment' || response[2] is 'penthouse'
 			transitionImages = []
 			svgs = {}
@@ -579,7 +585,7 @@ class CenterUnitView extends Marionette.ItemView
 			
 			$.merge transitionImages ,  building.get('building_master')
 			first = _.values svgs
-			if building.get('building_master').length != 0
+			if building.get('building_master').length != 0  
 				$('.images').load(first[0],()->
 					$('.firstimage').attr('src',transitionImages[0])
 					
@@ -587,6 +593,8 @@ class CenterUnitView extends Marionette.ItemView
 						id = parseInt item.id
 						$('#'+id).attr('class', "")
 					$('#'+id).attr('class' ,'layer svg_active'))
+			if building.get('building_master').length == 0 
+				$('.master').hide()
 			return
 		svgs = []
 		breakpoints = project.get('breakpoints')
@@ -602,9 +610,12 @@ class CenterUnitView extends Marionette.ItemView
 				$('.firstimage').attr('src',transitionImages[0])
 				
 				$('.villa,.plot').each (ind,item)->
-					id = parseInt item.id
-					$('#'+id).attr('class', "")
+					itemid = parseInt item.id
+					$('#'+itemid).attr('class', "")
+				console.log id
 				$('#'+id).attr('class' ,'layer svg_active'))
+		if project.get('project_master').length == 0
+			$('.master').hide()
 
 	iniTooltip:->
 		$('.next,.prev').tooltipster(

@@ -118,13 +118,8 @@
         CommonFloor = new Marionette.Application 
         BASEURL = '{{url()}}'
         //global variable to keep track of the filtr the user has selected
-        // CommonFloor.defaults = {'type' : "" , 'unitVariants': "",'unitTypes':"",'price_min':'','price_max':'','availability':'','area_min' : '','area_max' : '','building':'','floor_min' : '','floor_max' : '','flooring': ''}
-        CommonFloor.defaults = {'type' : 'villa,apartment,plot'
-                            ,'plot' : {'unit_type_id' : '','unit_variant_id':''}
-                            ,'villa' : {'unit_type_id' : '','unit_variant_id':''}
-                            ,'apartment' : {'unit_type_id' : '','unit_variant_id':''}
-                            ,'common' : {'price_min':'','price_max':'','availability':'available','area_min' : '','area_max' : '','building':'','floor_min' : '','floor_max' : ''}}
-
+        CommonFloor.defaults = {'type' : "" , 'unitVariants': "",'unitTypes':"",'price_min':'','price_max':'','availability':'','area_min' : '','area_max' : '','building':'','floor_min' : '','floor_max' : '','flooring': ''}
+        
 
         window.locale = {
 
