@@ -112,7 +112,7 @@
                             <div id="aj-imp-builder-drag-drop" class="svg-canvas">
                                 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm2">Small modal</button> -->
                               <textarea name="coords2" rows=3 class="area hidden" disabled placeholder="Shape Coordinates" data-image-url="{{$svgImage}}"></textarea>
-
+                                
                             </div>
 
                         </div>

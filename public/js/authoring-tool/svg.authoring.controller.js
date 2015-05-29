@@ -61,9 +61,9 @@
       $.each(supportedTypes, function(index, value) {
         var items, marked, units;
         items = collection.where({
-          'object_type': value
+          'object_type': value.toLowerCase()
         });
-        units = window.actualUnits(value);
+        units = window.actualUnits(value.toLowerCase());
         marked = [];
         $.each(items, function(ind, val) {
           if (!_.isEmpty(val.get('canvas_type'))) {
@@ -83,7 +83,7 @@
       var units;
       units = [];
       if (value === 'villa') {
-        units = bunglowVariantCollection.getBunglowUnits();
+        units = bunglowVariantCollection.getBunglowMasterUnits();
       }
       return units;
     };
@@ -110,7 +110,7 @@
       }).appendTo(select);
       return $.each(types, function(index, value) {
         return $('<option />', {
-          value: value,
+          value: value.toLowerCase(),
           text: value.toUpperCase()
         }).appendTo(select);
       });
@@ -118,9 +118,11 @@
     window.resetCollection = function() {
       $('.plot,.villa,.building').each(function(index, value) {
         var unit;
-        unit = unitMasterCollection.findWhere({
+        console.log(value.id);
+        console.log(unitMasterCollection);
+        console.log(unit = unitMasterCollection.findWhere({
           'id': parseInt(value.id)
-        });
+        }));
         return unitCollection.remove(unit.get('id'));
       });
       return console.log(unitCollection);
@@ -262,6 +264,7 @@
       myObject['canvas_type'] = window.canvas_type;
       myObject['points'] = $('.area').val().split(',');
       myObject['other_details'] = details;
+      myObject['id'] = $('.units').val();
       return $.ajax({
         type: 'POST',
         headers: {
@@ -273,7 +276,7 @@
         success: function(response) {
           var value;
           value = $('.area').val().split(',');
-          window.store.remove();
+          $('#Layer_1').remove();
           window.svgData.data.push(myObject);
           return window.renderSVG();
         },
@@ -316,6 +319,8 @@
       myObject['canvas_type'] = window.canvas_type;
       myObject['points'] = $('.area').val().split(',');
       myObject['other_details'] = details;
+      myObject['id'] = $('.units').val();
+      myObject['_method'] = 'PUT';
       return $.ajax({
         type: 'POST',
         headers: {
@@ -325,14 +330,20 @@
         async: false,
         data: $.param(myObject),
         success: function(response) {
-          var collection, value;
+          var objectData, value;
           value = $('.area').val().split(',');
-          window.store.remove();
-          console.log(myObject);
-          collection = new Backbone.Collection(window.svgData.data);
-          collection.remove(parseInt($('.units').val()));
-          window.svgData.data = collection.toArray();
-          window.svgData.data.push(myObject);
+          $('#Layer_1').remove();
+          $.each(window.svgData.data, function(index, value) {
+            console.log(value.object_id);
+            console.log($('.units').val());
+            if (parseInt(value.object_id === parseInt($('.units').val()))) {
+              return delete window.svgData.data[index];
+            }
+          });
+          console.log(window.svgData.data);
+          objectData = new Backbone.Model(myObject);
+          window.svgData.data.push(objectData);
+          console.log(window.svgData.data);
           return window.renderSVG();
         },
         error: function(response) {
@@ -346,7 +357,7 @@
       return window.loadForm(type);
     });
     window.loadForm = function(type) {
-      if (type === 'Villas/Bungalows') {
+      if (type === 'villa') {
         this.region = new Marionette.Region({
           el: '#dynamice-region'
         });
@@ -413,21 +424,35 @@
       return $('.edit-box').addClass('hidden');
     });
     return $('.delete').on('click', function(e) {
-      var collection, details, myObject;
+      var id, myObject;
       myObject = {};
-      details = {};
-      details['class'] = 'layer ' + $('.property_type').val();
-      myObject['image_id'] = IMAGEID;
-      myObject['object_id'] = $('.units').val();
-      myObject['object_type'] = $('.property_type').val();
-      myObject['canvas_type'] = window.canvas_type;
-      myObject['points'] = $('.area').val().split(',');
-      myObject['other_details'] = details;
-      collection = new Backbone.Collection(window.svgData.data);
-      collection.remove(parseInt($('.units').val()));
-      window.svgData.data = collection.toArray();
-      window.renderSVG();
-      return window.resetCollection();
+      myObject['_method'] = 'DELETE';
+      id = $('.units').val();
+      return $.ajax({
+        type: 'POST',
+        headers: {
+          'x-csrf-token': $("meta[name='csrf-token']").attr('content')
+        },
+        url: BASEURL + '/admin/project/' + PROJECTID + '/svg-tool/' + id,
+        async: false,
+        data: $.param(myObject),
+        success: function(response) {
+          var collection, unit, value;
+          value = $('.area').val().split(',');
+          $('#Layer_1').remove();
+          collection = new Backbone.Collection(window.svgData.data);
+          collection.remove(parseInt($('.units').val()));
+          window.svgData.data = collection.toArray();
+          window.renderSVG();
+          unit = unitMasterCollection.findWhere({
+            'id': parseInt(id)
+          });
+          return unitCollection.add(unit);
+        },
+        error: function(response) {
+          return alert('Some problem occurred');
+        }
+      });
     });
   });
 

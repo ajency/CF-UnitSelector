@@ -77,8 +77,8 @@ jQuery(document).ready ($)->
 		supportedTypes = _.uniq supportedTypes
 		$.each supportedTypes ,(index,value)->
 			items = collection.where
-						'object_type' : value
-			units = window.actualUnits(value)
+						'object_type' : value.toLowerCase()
+			units = window.actualUnits(value.toLowerCase())
 			marked = []
 			$.each items,(ind,val)->
 				if !_.isEmpty val.get('canvas_type')
@@ -98,7 +98,7 @@ jQuery(document).ready ($)->
 	window.actualUnits = (value)->
 		units = []
 		if value == 'villa'
-			units = bunglowVariantCollection.getBunglowUnits()
+			units = bunglowVariantCollection.getBunglowMasterUnits()
 
 		units
 
@@ -124,11 +124,13 @@ jQuery(document).ready ($)->
 		select = $('.property_type')
 		$('<option />', {value: "", text: 'Select option'}).appendTo(select)
 		$.each types , (index,value)->
-			$('<option />', {value: value, text: value.toUpperCase()}).appendTo(select)
+			$('<option />', {value: value.toLowerCase(), text: value.toUpperCase()}).appendTo(select)
 
 	window.resetCollection = ()->
 		$('.plot,.villa,.building').each (index,value)->
-			unit = unitMasterCollection.findWhere
+			console.log value.id
+			console.log unitMasterCollection
+			console.log unit = unitMasterCollection.findWhere
 					'id' : parseInt value.id
 			unitCollection.remove unit.get 'id'
 
@@ -310,6 +312,7 @@ jQuery(document).ready ($)->
 		myObject['canvas_type'] =  window.canvas_type
 		myObject['points'] =  $('.area').val().split(',')
 		myObject['other_details'] =  details
+		myObject['id'] =  $('.units').val()
 		$.ajax
 			type : 'POST',
 			headers: { 'x-csrf-token' : $("meta[name='csrf-token']").attr('content')}
@@ -319,7 +322,7 @@ jQuery(document).ready ($)->
 			success :(response)->
 
 				value =  $('.area').val().split(',')
-				window.store.remove()
+				$('#Layer_1').remove()
 				# details = {}
 				# details['class'] = 'layer '+$('.property_type').val()
 				# childEle = {} 
@@ -373,6 +376,8 @@ jQuery(document).ready ($)->
 		myObject['canvas_type'] =  window.canvas_type
 		myObject['points'] =  $('.area').val().split(',')
 		myObject['other_details'] =  details
+		myObject['id'] =  $('.units').val()
+		myObject['_method'] =  'PUT'
 		$.ajax
 			type : 'POST',
 			headers: { 'x-csrf-token' : $("meta[name='csrf-token']").attr('content')}
@@ -382,21 +387,16 @@ jQuery(document).ready ($)->
 			success :(response)->
 
 				value =  $('.area').val().split(',')
-				window.store.remove()
-				console.log myObject
-				# details = {}
-				# details['class'] = 'layer '+$('.property_type').val()
-				# childEle = {} 
-				# childEle['id'] = $('.units').val()
-				# childEle['name'] = $(".units option:selected").text()
-				# childEle['object_type'] = $('.property_type').val()
-				# childEle['points'] = value
-				# childEle['other_details'] = details
-				# childEle['canvas_type'] = window.canvas_type
-				collection = new Backbone.Collection window.svgData.data
-				collection.remove parseInt $('.units').val()
-				window.svgData.data = collection.toArray()
-				window.svgData.data.push myObject
+				$('#Layer_1').remove()
+				$.each window.svgData.data,(index,value)->
+					console.log value.object_id
+					console.log $('.units').val()
+					if parseInt value.object_id is parseInt $('.units').val()
+						delete window.svgData.data[index]
+				console.log window.svgData.data
+				objectData = new Backbone.Model myObject
+				window.svgData.data.push objectData
+				console.log window.svgData.data
 				window.renderSVG()
 				
 				
@@ -411,7 +411,7 @@ jQuery(document).ready ($)->
 		window.loadForm(type)
 
 	window.loadForm = (type)->
-		if type is 'Villas/Bungalows'
+		if type is 'villa'
 			@region =  new Marionette.Region el : '#dynamice-region'
 			new AuthoringTool.VillaCtrl region : @region
 		if type is 'plot'
@@ -464,19 +464,33 @@ jQuery(document).ready ($)->
 
 	$('.delete').on 'click' , (e)->
 		myObject  = {}
-		details = {}
-		details['class'] = 'layer '+$('.property_type').val()
-		myObject['image_id'] = IMAGEID
-		myObject['object_id'] = $('.units').val()
-		myObject['object_type'] =  $('.property_type').val()
-		myObject['canvas_type'] =  window.canvas_type
-		myObject['points'] =  $('.area').val().split(',')
-		myObject['other_details'] =  details
-		collection = new Backbone.Collection window.svgData.data
-		collection.remove parseInt $('.units').val()
-		window.svgData.data = collection.toArray()
-		window.renderSVG()
-		window.resetCollection()
+		myObject['_method'] =  'DELETE'
+		id = $('.units').val()
+		$.ajax
+			type : 'POST',
+			headers: { 'x-csrf-token' : $("meta[name='csrf-token']").attr('content')}
+			url  : BASEURL+'/admin/project/'+	PROJECTID+'/svg-tool/'+id
+			async : false
+			data : $.param myObject 
+			success :(response)->
+
+				value =  $('.area').val().split(',')
+				$('#Layer_1').remove()
+				
+				collection = new Backbone.Collection window.svgData.data
+				collection.remove parseInt $('.units').val()
+				window.svgData.data = collection.toArray()
+				window.renderSVG()
+				unit = unitMasterCollection.findWhere
+						'id' : parseInt id
+				unitCollection.add unit
+				
+				
+
+				
+			error :(response)->
+				alert('Some problem occurred')	
+		
 				
 
 
