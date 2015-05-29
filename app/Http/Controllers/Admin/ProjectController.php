@@ -407,15 +407,18 @@ class ProjectController extends Controller {
         $imageName = Media::find($image_id)->image_name;
         $svgImagePath = url() . "/projects/" . $id . "/master/" . $imageName;
         
+
+        $propertyTypeName = [BUNGLOWID=>"Villa",PLOTID=>"Plot",APARTMENTID=>"Apartment",PENTHOUSEID=>"Penthouse"];
+
         $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray();
         $supported_types = array();
 
         foreach ($projectpropertyTypes as $projectpropertyType) {
-           $supported_types[] = get_property_type( $projectpropertyType['property_type_id'] ) ;
+           $supported_types[] = $propertyTypeName[$projectpropertyType['property_type_id']];
         }
 
         // since project master svg, pass amenities as well
-        $supported_types[] = "amenities";
+        $supported_types[] = "Amenity";
         
         return view('admin.project.mastersvgtool')
                         ->with('project', $project->toArray())
