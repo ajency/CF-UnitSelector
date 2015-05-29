@@ -74,7 +74,7 @@
                     <input type="hidden" value="DETAILS" name="project_update"/>
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                     <button onclick="saveProjectConfig();" type="button" class="btn btn-primary btn-cons"><i class="fa fa-check"></i>  Save</button>
-                    <button type="button" data-p-id="{{ $project['id'] }}" class="btn btn-default update-response-table btn-cons">Update Response Table</button>
+                    
                     <a href="{{ url('/admin/project') }}"><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i>    Cancel</button></a>
                 </div>
             </div>
