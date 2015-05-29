@@ -16,8 +16,8 @@
     <div class="col-md-12">
         <div class="grid simple">
             <div class="grid-title">
-                <h4>List of <span class="semi-bold">Role</span></h4>
-                <a class="btn btn-primary pull-right" href="{{ url('/admin/role/create') }}" ><i class="fa fa-plus"></i> Add User</a>
+                <a class="btn btn-primary pull-right" href="{{ url('/admin/role/create') }}" ><i class="fa fa-plus"></i> Add Role</a>
+                <h4>List of <span class="semi-bold">Roles</span></h4>
             </div>
             <div class="grid-body">
                 <table class="table table-bordered roleList" id="example2" >
