@@ -26,10 +26,16 @@ class ProjectController extends Controller {
         try {
 
             if (Auth::check())
+            {
                 $data = $this->projectGateway->getProjectStepOneDetails( $projectId );
+            }
             else
-                $data = ProjectJson::where('project_id', $projectId)
+            {
+                $projectJson = ProjectJson::where('project_id', $projectId)
                                         ->where('type', 'step_one')->get()->first();
+                $data = $projectJson->project_json;
+                 
+            }
 
             return response()->json( [
                                 'data' => $data
@@ -43,14 +49,18 @@ class ProjectController extends Controller {
     }
 
     public function stepTwo( $projectId ) {
-        $projectJson = ProjectJson::where('project_id', $projectId)
-                                        ->where('type', 'step_two')->get()->first();
-         
+                
 
         if (Auth::check())
+        {
             $projectJsonData = $this->projectGateway->getProjectStepTwoDetails( $projectId );
+        }
         else
+        {
+            $projectJson = ProjectJson::where('project_id', $projectId)
+                                        ->where('type', 'step_two')->get()->first();
             $projectJsonData = $projectJson->project_json;    
+        }
         
         if(!empty($projectJsonData))                             //UPDATE CURRENT UNIT STATUS TO JSON DATA
         {
