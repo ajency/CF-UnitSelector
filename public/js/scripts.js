@@ -1193,11 +1193,11 @@ function getPositions(floor)
     });
 }
 
-function getVariants(obj, floorLayoutId)
+function getVariants(obj)
 {
     var unitTypeId = obj.value;
     $.ajax({
-        url: BASEURL + '/admin/project/' + PROJECTID + '/floor-layout/' + floorLayoutId + '/getunittypevariants',
+        url: BASEURL + '/admin/project/' + PROJECTID + '/apartment-variant/getunittypevariants',
         type: "POST",
         data: {
             unit_type_id: unitTypeId
@@ -1213,7 +1213,7 @@ function getVariants(obj, floorLayoutId)
 }
 
 function getPropertTypeData(obj, flag)
-{
+{  
     $.ajax({
         url: BASEURL + "/admin/project/" + PROJECTID + "/apartment-variant/getpropertytypedata",
         type: "POST",

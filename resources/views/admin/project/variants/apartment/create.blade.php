@@ -137,13 +137,13 @@
                 <?php $i = 1; ?>
                 <div class="row" id="level_0">
                     <div class="m-l-5 no-border">
-                        <button type="button" class="btn btn-small btn-default pull-right m-r-25 add_level {{ (count($projectPropertyTypes) > 1)?"hidden":"" }}" ><i class="fa fa-plus"></i> Add New Level</button>
+                        <button type="button" class="btn btn-small btn-default pull-right m-r-25 add_level {{ (count($projectPropertyTypes) == 1 && $projectPropertyTypes[0]['NAME']=='Apartments' )?"hidden":"" }}" ><i class="fa fa-plus"></i> Add New Level</button>
                         <h3><i class="fa fa-angle-double-right text-primary"></i> Room <span class="semi-bold">Details</span></h3>
                     </div>
                     <div class="grid simple" style="margin-bottom:0;">
                         <div class="grid-body no-border" style="padding-bottom:0;">
                             <div class="grid simple vertical orange">
-                                <div class="grid-title {{ (count($projectPropertyTypes) > 1)?"hidden":"" }}">
+                                <div class="grid-title {{ (count($projectPropertyTypes) == 1 && $projectPropertyTypes[0]['NAME']=='Apartments' )?"hidden":"" }}">
                                     <h4>Level 0</h4>
                                     <input type="hidden" value="0" name="levels[]">
                                 </div>
@@ -213,7 +213,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row {{ (count($projectPropertyTypes) > 1)?"hidden":"" }} " id="level_1">
+                <div class="row {{ (count($projectPropertyTypes) == 1 && $projectPropertyTypes[0]['NAME']=='Apartments' )?"hidden":"" }} " id="level_1">
                     <div class="no-border">
 
                         <div class="grid simple" style="margin-bottom:0;">

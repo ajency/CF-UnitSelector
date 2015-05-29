@@ -394,6 +394,23 @@ class ProjectApartmentVariantController extends Controller {
         //
     }
     
+    public function  getUnitTypeVariants($project_id, Request $request)
+    {
+        $unitTypeId = $request['unit_type_id'];
+        $variants = UnitType::find($unitTypeId)->unitTypeVariant()->get()->toArray();
+        $str ='<option value="">Select Unit Variant</option>';
+        foreach ($variants as $variant)
+        {
+            $str .='<option value="'.$variant['id'].'">'.$variant['unit_variant_name'].'</option>';
+        }
+        
+       return response()->json( [
+            'code' => 'unittype_variants',
+            'message' => '',
+            'data' => $str
+        ], 201 );
+    }
+
     public function getPropertyTypeData($projectId, Request $request)
     {
         $project = Project::find( $projectId );

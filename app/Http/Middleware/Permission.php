@@ -117,6 +117,7 @@ class Permission {
                               'admin/project/{project}/roomtype/{roomtype}'=>'configure_project',
                               'admin/project/{project}/roomtype/{id}/getroomtypeattributes'=>'configure_project',
                               'admin/project/{project}/apartment-variant/getpropertytypedata'=>'configure_project',
+                              'admin/project/{project}/apartment-variant/getunittypevariants'=>'configure_project',
                               'admin/user/validateuseremail'=>'manage_users', 
                               'admin/user/validateuserpassword'=>'manage_users', 
                 ];
