@@ -23,9 +23,6 @@ class ProjectController extends Controller {
      */
     public function index() {
 
-        if (!hasPermission(0, ['read_project', 'configure_project']))
-            abort(403);
-
         $projects = Project::orderBy('project_title')->get()->toArray();
         return view('admin.project.list')
                         ->with('projects', $projects)

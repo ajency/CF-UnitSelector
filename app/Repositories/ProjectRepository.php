@@ -32,7 +32,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
         $project->cf_project_id = $projectData['cf_project_id'];
         $project->city = $projectData['city'];
         $project->project_title = $projectData['project_title'];
-        $project->measurement_units = 'Sq.Ft';
+        $project->measurement_units = 'Sq. Ft.';
         $project->created_by = $project->updated_by = Auth::user()->id;
         $project->save();
 

@@ -13,7 +13,7 @@
 <div class="grid simple">
     <div class="grid-title no-border">
         <div class="pull-right">
-                            <h5 class="semi-bold">Click here to <a href="project-summary.html" class="text-primary">View Project Summary &gt;&gt;</a></h5><h5>
+                            <h5 class="semi-bold">Click here to <a href="{{ url( 'admin/project/' . $project['id'] . '/summary' ) }}" class="text-primary">View Project Summary &gt;&gt;</a></h5><h5>
                         </h5></div>
         <h3 > <i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Details</span></h3>
     </div>
