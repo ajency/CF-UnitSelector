@@ -30,7 +30,7 @@
             <div class="alert alert-success ">
                 <button class="close" data-dismiss="alert"></button>
                 <i class="fa fa-check-circle" style="font-size: 17px;"></i> 
-                    Your project has been created successfully.Go ahead and configure it !
+                    Your project has been created successfully. Click on <strong>Edit</strong> to configure the project.
                 </div>
                 @endif
        
