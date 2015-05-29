@@ -6,8 +6,8 @@
     <li><a href="{{ url( 'admin/') }}">Dashboard</a> </li>
     <li><a href="{{ url( 'admin/project/') }}">Projects</a> </li>
     <li><a href="{{ url( 'admin/project/' . $project['id'].'/edit') }}">{{ $project['project_title'] }}</a> </li>
-    <li><a href="#">Villa Unit</a> </li>
-    <li><a href="#" class="active">View Unit</a> </li>
+    <li><a href="#">Villa Units</a> </li>
+    <li><a href="#" class="active">View Units</a> </li>
 </ul>
 <!-- END BREADCRUMBS -->
 @endsection
@@ -28,7 +28,7 @@
                 <table class="table table-bordered" id="example2" >
                     <thead>
                         <tr>
-                            <th></th>
+                            <th>Edit</th>
                             <th>Name</th>
                             <th>Status</th>
                             <th>Variant</th>

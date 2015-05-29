@@ -133,7 +133,7 @@
                 </div>
             </div>
             <hr/>
-            <div id="addFloorlevel"> 
+            <div id="addFloorlevel" > 
                 <?php $i = 1; ?>
                 <div class="row" id="level_0">
                     <div class="m-l-5 no-border">
@@ -342,7 +342,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title text-left" id="myModalLabel">Room Details</h4>
+                <h4 class="modal-title text-left" id="myModalLabel">Add New Room</h4>
             </div>
             <div class="modal-body">
                 <iframe level="" id="roomtypeiframe" width="100%" src="/admin/project/{{ $project['id']}}/roomtype/create"></iframe>

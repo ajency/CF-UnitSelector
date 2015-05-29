@@ -3,20 +3,20 @@
 <!-- BEGIN BREADCRUMBS -->
 <ul class="breadcrumb">
     <li><a href="{{ url( 'admin/') }}">Dashboard</a> </li>
-    <li><a href="#" class="active">User</a> </li>
+    <li><a href="#" class="active">Users</a> </li>
  </ul>
 <!-- END BREADCRUMBS -->
 @endsection
 @section('content')
 <!-- BEGIN PAGE TITLE -->
 <div class="page-title">	
-    <h2><span class="semi-bold">View</span> User</h2>
+    <h2><span class="semi-bold">View</span> Users</h2>
 </div>
 <div class="row">
     <div class="col-md-12">
         <div class="grid simple">
             <div class="grid-title">
-                <h4>List of <span class="semi-bold">User</span></h4>
+                <h4>List of <span class="semi-bold">Users</span></h4>
                 <a class="btn btn-primary pull-right" href="{{ url('/admin/user/create') }}" ><i class="fa fa-plus"></i> Add User</a>
             </div>
             <div class="grid-body">
