@@ -2343,6 +2343,11 @@ svg polygon {
 .slider .gallery-img:hover .img-overlay {
   opacity: 0;
 }
+.slider svg {
+  position: absolute;
+  top: 10px;
+  left: 0px;
+}
 @media (max-width: 767px) {
   .slider .Level_1 .layouts,
   .slider .Level_3 .layouts,
@@ -2398,8 +2403,8 @@ svg polygon {
 .fliters-container {
   position: fixed;
   z-index: 9999;
-  right: 20px;
-  top: 25px;
+  left: 20px;
+  top: 125px;
   padding: 0;
   overflow: hidden;
   -webkit-transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
@@ -2436,6 +2441,7 @@ svg polygon {
   .fliters-container {
     right: 0;
     top: 0;
+    left: 0;
     width: 100vw;
     height: 100vh;
     background-color: #ffffff;
@@ -2506,6 +2512,18 @@ svg polygon {
   color: #999999;
   cursor: pointer;
 }
+.filter-result .filter-title {
+  display: inline-block;
+  margin: 13px 9px;
+  margin-left: 0;
+  line-height: 12px;
+  padding: 2px 0 2px 8px;
+  font-weight: bold;
+  color: #f68121;
+}
+.filter-result .filter-title span {
+  font-size: 9px;
+}
 @media (max-width: 767px) {
   .filter-result {
     display: none;
@@ -2544,6 +2562,17 @@ svg polygon {
 }
 .filters-wrapper .filter-chkbox-block label {
   margin: 4px 15px 4px 0;
+}
+.filters-wrapper .property_type label {
+  display: block;
+}
+.filters-wrapper .property_type .-lbl {
+  height: 31px;
+  padding: 1px 3px;
+  margin-bottom: 2px;
+}
+.filters-wrapper .property_type .share-btn {
+  background: #DBDBDB;
 }
 .filters-wrapper .mCSB_inside > .mCSB_container {
   margin-right: 15px;
@@ -2652,6 +2681,79 @@ span.glyphicon {
   top: 15px;
   height: 15px;
   width: 15px;
+}
+.arrow-left {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 10px 10px 0;
+  border-color: transparent #dedede transparent transparent;
+  position: absolute;
+}
+.filters-wrapper-hover {
+  left: 360px;
+  top: 125px;
+  width: 0px;
+  visibility: Hidden;
+  opacity: 0;
+  margin-top: 0px;
+  position: fixed;
+  padding: 0px;
+  height: 340px;
+  z-index: 9999;
+  background-color: #dedede;
+  -webkit-transform: translate(0, 0);
+  -ms-transform: translate(0, 0);
+  transform: translate(0, 0);
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.villa-btn,
+.apartment-btn,
+.plot-btn {
+  background-color: #dedede;
+}
+.villa-wrapper .arrow-left {
+  left: -10px;
+  top: 63px;
+}
+.apartment-wrapper .arrow-left {
+  left: -10px;
+  top: 100px;
+}
+.plot-wrapper .arrow-left {
+  left: -10px;
+  top: 135px;
+}
+.filters-wrapper-hover.visible {
+  width: 310px;
+  visibility: visible;
+  opacity: 1;
+  padding: 0px 10px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+.filters-wrapper-hover:hover {
+  width: 310px;
+  opacity: 1;
+  visibility: visible;
+  padding: 0px 10px;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+@media (max-width: 767px) {
+  .filters-wrapper-hover {
+    right: 0;
+    top: 0;
+    left: -30px;
+    width: 0 !important;
+    height: 100vh;
+    opacity: 0;
+  }
+  .filters-wrapper-hover.visible {
+    left: 0px;
+    width: 69vh !important;
+  }
 }
 /* Plugins */
 /* Slider */

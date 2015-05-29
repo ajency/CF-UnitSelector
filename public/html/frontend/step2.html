@@ -12,10 +12,75 @@
     <link type="text/css" rel="stylesheet" href="http://asset1.cfcdn.com/cfassets/css/search.caz.css?ver=1427977000" />
     <!-- <link href="../../css/frontend/filters.css" rel="stylesheet"> -->
     <link href="../../css/frontend/custom.css" rel="stylesheet">
+     <style>
+     #flexiselDemo1,
+#flexiselDemo2,
+#flexiselDemo3 {
+  display: none;
+}
+.nbs-flexisel-container {
+  position: relative;
+  max-width: 100%;
+}
+.nbs-flexisel-ul {
+  position: relative;
+  width: 9999px;
+  margin: 0px;
+  padding: 0px;
+  list-style-type: none;
+  text-align: center;
+}
+.nbs-flexisel-inner {
+  overflow: hidden;
+  float: left;
+  width: 100%;
 
+}
+.nbs-flexisel-item {
+  float: left;
+   width: auto !important;
+  margin: 0px;
+  padding: 0px;
+  cursor: pointer;
+  position: relative;
+  line-height: 0px;
+}
+.nbs-flexisel-item img {
+  width: 100%;
+  cursor: pointer;
+  positon: relative;
+  max-width: 100px;
+  max-height: 45px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+/*** Navigation ***/
+.nbs-flexisel-nav-left,
+.nbs-flexisel-nav-right {
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  cursor: pointer;
+  z-index: 100;
+  opacity: 0.5;
+}
+.nbs-flexisel-nav-left {
+  left: -13px;
+  background: url(../../images/button-previous.png) no-repeat;
+
+}
+.nbs-flexisel-nav-left:hover, .nbs-flexisel-nav-right:hover {
+      opacity:1;
+  }
+.nbs-flexisel-nav-right {
+  right: -15px;
+  background: url(../../images/button-next.png) no-repeat;
+  
+}
+     </style>
   </head>
   <body>
-    <div class="container-fluid component-body">
+    <div class="component-body">
 
       <div class="row inner-pages" id="page-header">
           <header class="cf-hdr-blk">
@@ -61,487 +126,141 @@
           </header>
       </div>
 
-      <div class="inner-container">
-        <div class="row">
-          <div class="col-md-12 col-xs-12 col-sm-12">
-           <div class="row search-header-wrap filter-result">
-              <div class="col-xs-6 col-md-6">
-               <a class="filter-pill" data-cftcat="Filter Pills" data-cftact="Filter Pills removed" data-cftlabl="Filters Removed" data-cftev="click">Villas<span class="icon-cross"></span>
-               </a>
-               <a class="filter-pill" data-cftcat="Filter Pills" data-cftact="Filter Pills removed" data-cftlabl="Filters Removed" data-cftev="click">Buildings<span class="icon-cross"></span>
-               </a>
-               <a class="filter-pill" data-cftcat="Filter Pills" data-cftact="Filter Pills removed" data-cftlabl="Filters Removed" data-cftev="click">1 BHK (V)<span class="icon-cross"></span>
-               </a>
-                <a class="filter-pill" data-cftcat="Filter Pills" data-cftact="Filter Pills removed" data-cftlabl="Filters Removed" data-cftev="click">1 BHK (B)<span class="icon-cross"></span>
-               </a>
-                <div class="clearfix"></div>
-              </div>
-               <div class="col-xs-6 col-md-6">
-               
-                  <div class="filter-button pull-right">Filter </div>
-                  <div class="clearfix"></div>
-              
-              </div>
-            </div>
-         
-            <!-- Filter Start -->
-               <div class="row">
-                    <div class=" col-xs-12 col-sm-12 ">
-                         <div class="filters-wrapper">
-                              <div class="row">
-                                  <div class="col-sm-4 col-md-4 ">
-                                    <h5># PROPERTY TYPE</h5>
-                                      <div class="filter-chkbox-block">
-                                        <input type="checkbox" class="custom-chckbx addCft" id="villa" value="villa"><label for="villa" class="-lbl">Villas (V)</label> 
-                                        <input type="checkbox" class="custom-chckbx addCft" id="building" value="building"> 
-                                        <label for="building" class="-lbl">Buildings (B)</label> 
-                                        <input type="checkbox" class="custom-chckbx addCft" id="Plots" value="Plots"> 
-                                        <label for="Plots" class="-lbl">Plots (P)</label>
-                                        <input type="checkbox" class="custom-chckbx addCft" id="Penthouse" value="Penthouse"> 
-                                        <label for="Penthouse" class="-lbl">Penthouse (PH)</label> 
-                                
-                                    </div>
-  
-                                  </div>
-                                  <div class="col-sm-4 col-md-4 ">
-                                    <h5># UNIT TYPE</h5>
-                                    <div class="filter-chkbox-block">
-                                      <input type="checkbox" class="custom-chckbx addCft" id="1bhk" value="1bhk"> 
-                                      <label for="1bhk" class="-lbl">1BHK</label> 
-                                      <input type="checkbox" class="custom-chckbx addCft" id="2bhk" value="2bhk"> 
-                                      <label for="2bhk" class="-lbl">2BHK</label> 
-                                      <input type="checkbox" class="custom-chckbx addCft" id="3bhk" value="3bhk"> 
-                                      <label for="3bhk" class="-lbl">3BHK</label>
-                                      <input type="checkbox" class="custom-chckbx addCft" id="4bhk" value="2bhk"> 
-                                      <label for="4bhk" class="-lbl">4BHK</label> 
-                                      <input type="checkbox" class="custom-chckbx addCft" id="5bhk" value="3bhk"> 
-                                      <label for="5bhk" class="-lbl">5BHK</label>
-                                    </div>
-                                  </div>
-                                  <div class="col-sm-4 col-md-4 ">
-                                    <h5># VARIANT</h5>
-                                       <div class="filter-chkbox-block">
-                                       <input type="checkbox" class="custom-chckbx addCft" id="Heiwashen" value="Heiwashen"> 
-                                        <label for="Heiwashen" class="-lbl">Heiwa shen</label> 
-                                       <input type="checkbox" class="custom-chckbx addCft" id="Satori" value="Satori"> 
-                                      <label for="Satori" class="-lbl">Satori</label> 
-                                      <input type="checkbox" class="custom-chckbx addCft" id="Seion" value="Seion"> 
-                                      <label for="Seion" class="-lbl">Seion</label> 
-                                      <input type="checkbox" class="custom-chckbx addCft" id="Seion1" value="Seion1"> 
-                                      <label for="Seion1" class="-lbl">Seion 1</label> 
-                                      <input type="checkbox" class="custom-chckbx addCft" id="Heiwashen1" value="Heiwashen1"> 
-                                        <label for="Heiwashen1" class="-lbl">Heiwa shen 1</label> 
-                                         <input type="checkbox" class="custom-chckbx addCft" id="Heiwasatori" value="Heiwasatori"> 
-                                        <label for="Heiwasatori" class="-lbl">Heiwa Satori </label> 
-                                        
-                                    </div>
-                                  </div>
-                              </div>  
-                          </div>
-                      </div>
-                  </div>
-
-                       <div class="row">
-                    <div class=" col-xs-12 col-sm-12 ">
-                         <div class="filters-wrapper">
-                              <div class="row">
-                                  <div class="col-sm-4 col-md-4 ">
-                                    <h5># AREA (Sqft)</h5>
-                                <input type="text" id="example_id" name="example_name" value="" />
-  
-                                  </div>
-                                  <div class="col-sm-4 col-md-4 ">
-                                    <h5># BUDGET </h5>
-                                    <input type="text" id="budget" name="example_name" value="" />
-                                  </div>
-                                  <div class="col-sm-4 col-md-4 ">
-                                  
-                                  </div>
-                              </div>  
-                          </div>
-                      </div>
-                  </div>
-
-
-                       <div class="row">
-                    <div class=" col-xs-12 col-sm-12 ">
-                         <div class="filters-wrapper">
-                              <div class="row">
-                                  <div class="col-sm-4 col-md-4 ">
-                                    <h5># FACING</h5>
-                                      <div class="filter-chkbox-block">
-                                        <input type="checkbox" class="custom-chckbx addCft" id="N" value="N"><label for="N" class="-lbl">N</label> 
-                                        <input type="checkbox" class="custom-chckbx addCft" id="S" value="S"> 
-                                        <label for="S" class="-lbl">S</label> 
-                                        <input type="checkbox" class="custom-chckbx addCft" id="W" value="W"> 
-                                        <label for="W" class="-lbl">W</label>
-                                        <input type="checkbox" class="custom-chckbx addCft" id="E" value="E"> 
-                                        <label for="E" class="-lbl">E</label> 
-                                         <input type="checkbox" class="custom-chckbx addCft" id="NW" value="NW"><label for="NW" class="-lbl">N - W</label> 
-                                        <input type="checkbox" class="custom-chckbx addCft" id="NE" value="NE"> 
-                                        <label for="NE" class="-lbl">N - E</label> 
-                                        <input type="checkbox" class="custom-chckbx addCft" id="S-W" value="S-W"> 
-                                        <label for="S-W" class="-lbl">S - W</label>
-                                        <input type="checkbox" class="custom-chckbx addCft" id="S-E" value="S-E"> 
-                                        <label for="S-E" class="-lbl">S - E</label> 
-                                    </div>
-  
-                                  </div>
-                                  <div class="col-sm-4 col-md-4 ">
-                                    <h5># VIEWS </h5>
-                                    <div class="filter-chkbox-block">
-                                        <div class="desc-wrapper">
-                                          <div class="desc">
-                                      <input type="checkbox" class="custom-chckbx addCft" id="Courtyard" value="Courtyard"> 
-                                      <label for="Courtyard" class="-lbl">Courtyard</label> 
-                                      <input type="checkbox" class="custom-chckbx addCft" id="Playground" value="Playground"> 
-                                      <label for="2bhk" class="-lbl">Playground</label> 
-                                      <input type="checkbox" class="custom-chckbx addCft" id="Central Park" value="Central Park"> 
-                                      <label for="3bhk" class="-lbl">Central Park</label>
-                                      <input type="checkbox" class="custom-chckbx addCft" id="Central Park" value="Central Park"> 
-                                      <label for="Central Park" class="-lbl">Central Park</label> 
-                                      <input type="checkbox" class="custom-chckbx addCft" id="Parking" value="Parking"> 
-                                      <label for="Parking" class="-lbl">Parking</label>
-                                      <input type="checkbox" class="custom-chckbx addCft" id="Courtyard" value="Courtyard"> 
-                                      <label for="Courtyard" class="-lbl">Courtyard</label> 
-                                      <input type="checkbox" class="custom-chckbx addCft" id="Playground" value="Playground"> 
-                                      <label for="2bhk" class="-lbl">Playground</label> 
-                                      <input type="checkbox" class="custom-chckbx addCft" id="Central Park" value="Central Park"> 
-                                      <label for="3bhk" class="-lbl">Central Park</label>
-                                      <input type="checkbox" class="custom-chckbx addCft" id="Central Park" value="Central Park"> 
-                                      <label for="Central Park" class="-lbl">Central Park</label> 
-                                      <input type="checkbox" class="custom-chckbx addCft" id="Parking" value="Parking"> 
-                                      <label for="Parking" class="-lbl">Parking</label>
-                                      <input type="checkbox" class="custom-chckbx addCft" id="Courtyard" value="Courtyard"> 
-                                      <label for="Courtyard" class="-lbl">Courtyard</label> 
-                                      <input type="checkbox" class="custom-chckbx addCft" id="Playground" value="Playground"> 
-                                      <label for="2bhk" class="-lbl">Playground</label> 
-                                      <input type="checkbox" class="custom-chckbx addCft" id="Central Park" value="Central Park"> 
-                                      <label for="3bhk" class="-lbl">Central Park</label>
-                                      <input type="checkbox" class="custom-chckbx addCft" id="Central Park" value="Central Park"> 
-                                      <label for="Central Park" class="-lbl">Central Park</label> 
-                                      <input type="checkbox" class="custom-chckbx addCft" id="Parking" value="Parking"> 
-                                      <label for="Parking" class="-lbl">Parking</label>
-                                    </div>
-                                   </div>
-                                       <button class="more-info  btn-link"><span class="more">+ Show More </span><span class="less">- Show Less  </span></button>
-                                    </div>
-                                  </div>
-                                  <div class="col-sm-4 col-md-4 ">
-                                    <h5># AVAILABILITY</h5>
-                                    <div class="alert ">
-
-                                      <input type="checkbox" class="custom-chckbx addCft" id="Available" value="Available"> 
-                                       <label for="Available" class="-lbl">Show Available Units Only  (What's this?)</label> 
-                                    </div>
-                                  </div>
-                              </div>  
-                          </div>
-                          <hr class="seperator">
-                          <div class="row">
-                              <div class="col-sm-6 col-md-6">
-                                 <a href="#" class="filter-link">   Clear all</a>
-                              </div>
-                              <div class="col-sm-6 col-md-6">
-                            <a href="#" class="filter-link pull-right">  <span class="icon-cross"></span>   Close Filter</a>
-                              </div>
-                          </div>
-                          <hr class="seperator">
-                      </div>
-                  </div>
-            <!-- Filter End -->
-            </div>
-        </div>
-
-        <div class="row">
-          <div class="col-md-3 col-xs-12 col-sm-12 search-left-content">
-            <div class="filters-wrapper">
-              <div class="tab-main-container">
-                <div class="blck-wrap">
-                  <h4><strong>Unit Type</strong></h4>
-                  <div class="filter-chkbox-block">
-                    <input type="checkbox" class="custom-chckbx addCft" id="1bhk" value="1bhk"> 
-                    <label for="1bhk" class="-lbl">1BHK</label> 
-                    <input type="checkbox" class="custom-chckbx addCft" id="2bhk" value="2bhk"> 
-                    <label for="2bhk" class="-lbl">2BHK</label> 
-                    <input type="checkbox" class="custom-chckbx addCft" id="3bhk" value="3bhk"> 
-                    <label for="3bhk" class="-lbl">3BHK</label>
-                  </div>
-                </div>
-                <div class="blck-wrap clearfix ">
-                  <h4><strong>Budget</strong></h4>
-                  <select class="col-md-6 form-control budget-range min-budget addCft" >
-                    <option value="" selected="">Min</option> <option value="500000">5 Lac</option> <option value="1000000">10 Lac</option> <option value="2000000">20 Lac</option> <option value="3000000">30 Lac</option> <option value="4000000">40 Lac</option> <option value="5000000">50 Lac</option> <option value="6000000">60 Lac</option> <option value="7000000">70 Lac</option> <option value="8000000">80 Lac</option> <option value="9000000">90 Lac</option> <option value="10000000">1 Cr</option> <option value="12000000">1.2 Cr</option> <option value="14000000">1.4 Cr</option> <option value="16000000">1.6 Cr</option> <option value="18000000">1.8 Cr</option> <option value="20000000">2 Cr</option> <option value="23000000">2.3 Cr</option> <option value="26000000">2.6 Cr</option> <option value="30000000">3 Cr</option> <option value="35000000">3.5 Cr</option> <option value="40000000">4 Cr</option> <option value="45000000">4.5 Cr</option> <option value="50000000">5 Cr</option>
-                  </select>
-                  <select class="col-md-6 form-control budget-range addCft">
-                    <option value="" selected="">Max</option> <option value="500000">5 Lac</option> <option value="1000000">10 Lac</option> <option value="2000000">20 Lac</option> <option value="3000000">30 Lac</option> <option value="4000000">40 Lac</option> <option value="5000000">50 Lac</option> <option value="6000000">60 Lac</option> <option value="7000000">70 Lac</option> <option value="8000000">80 Lac</option> <option value="9000000">90 Lac</option> <option value="10000000">1 Cr</option> <option value="12000000">1.2 Cr</option> <option value="14000000">1.4 Cr</option> <option value="16000000">1.6 Cr</option> <option value="18000000">1.8 Cr</option> <option value="20000000">2 Cr</option> <option value="23000000">2.3 Cr</option> <option value="26000000">2.6 Cr</option> <option value="30000000">3 Cr</option> <option value="35000000">3.5 Cr</option> <option value="40000000">4 Cr</option> <option value="45000000">4.5 Cr</option> <option value="50000000">5 Cr</option> <option value="999999900">&gt; 5 Cr</option>
-                  </select>
-                    
-                </div>
-                <div class="blck-wrap">
-                  <h4><strong>Area (sqft)</strong></h4>
-                  <ul class="filter-chkbox-block">
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="620sqft" value="620sqft"> 
-                    <label for="620sqft" class="-lbl">620sqft</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="1881sqft" value="1881sqft"> 
-                    <label for="1881sqft" class="-lbl">1881sqft</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="2081sqft" value="2081sqft"> 
-                    <label for="2081sqft" class="-lbl">2081sqft</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="3780sqft" value="3780sqft"> 
-                    <label for="3780sqft" class="-lbl">3780sqft</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="4780sqft" value="4780sqft"> 
-                    <label for="4780sqft" class="-lbl">4780sqft</label></li>
-                  </ul>
-                </div>
-                <div class="blck-wrap">
-                  <h4><strong>Direction</strong></h4>
-                  <ul class="filter-chkbox-block">
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="North" value="North"> 
-                    <label for="North" class="-lbl">North</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="East" value="East"> 
-                    <label for="East" class="-lbl">East</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="South" value="South"> 
-                    <label for="South" class="-lbl">South</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="West" value="West"> 
-                    <label for="West" class="-lbl">West</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="North-East" value="North-East"> 
-                    <label for="North-East" class="-lbl">North-East</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="South-East" value="South-East"> 
-                    <label for="South-East" class="-lbl">South-East</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="South-West" value="South-West"> 
-                    <label for="South-West" class="-lbl">South-West</label></li>
-                    <li><input type="checkbox" class="custom-chckbx addCft" id="North-West" value="North-West"> 
-                    <label for="North-West" class="-lbl">North-West</label></li>
-                  </ul>
-                </div>
-                <div class="blck-wrap">
-                  <h4><strong>Availability</strong></h4>
-                </div>
-                <div class="blck-wrap">
-                  <h4><strong>Facing</strong></h4>
-                </div>
-              </div>
-              <!-- <div class="advncd-filter-wrp unit-list">
-                <div class="blck-wrap title-row">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h5 class="accord-head">Villa No</h5>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h5 class="accord-head">Type</h5>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h5 class="accord-head">Area</h5>                      
-                    </div>
-                  </div>
-                </div>
-                <div class="blck-wrap">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h6 class="sold">V1001</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">3BHK</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">1460sqft</h6>                      
-                    </div>
-                  </div>
-                </div>
-                <div class="blck-wrap">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h6 class="available">V1002</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">3BHK</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">1460sqft</h6>                      
-                    </div>
-                  </div>
-                </div>
-                <div class="blck-wrap">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h6 class="available">V1003</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">3BHK</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">1460sqft</h6>                      
-                    </div>
-                  </div>
-                </div>
-                <div class="blck-wrap">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h6 class="sold">V1004</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">3BHK</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">1460sqft</h6>                      
-                    </div>
-                  </div>
-                </div>
-                <div class="blck-wrap">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h6 class="sold">V1005</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">3BHK</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">1460sqft</h6>                      
-                    </div>
-                  </div>
-                </div>
-                <div class="blck-wrap">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h6 class="sold">V1006</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">3BHK</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">1460sqft</h6>                      
-                    </div>
-                  </div>
-                </div>
-                <div class="blck-wrap">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h6 class="available">V1007</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">3BHK</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">1460sqft</h6>                      
-                    </div>
-                  </div>
-                </div>
-                <div class="blck-wrap">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h6 class="available">V1008</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">3BHK</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">1460sqft</h6>                      
-                    </div>
-                  </div>
-                </div>
-                <div class="blck-wrap">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h6 class="available">V1009</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">3BHK</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">1460sqft</h6>                      
-                    </div>
-                  </div>
-                </div>
-                <div class="blck-wrap">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h6 class="sold">V1010</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">3BHK</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">1460sqft</h6>                      
-                    </div>
-                  </div>
-                </div>
-                <div class="blck-wrap">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h6 class="sold">V1011</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">3BHK</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">1460sqft</h6>                      
-                    </div>
-                  </div>
-                </div>
-                <div class="blck-wrap">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h6 class="available">V1012</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">3BHK</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">1460sqft</h6>                      
-                    </div>
-                  </div>
-                </div>
-                <div class="blck-wrap">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h6 class="available">V1013</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">3BHK</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">1460sqft</h6>                      
-                    </div>
-                  </div>
-                </div>
-                <div class="blck-wrap">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h6 class="available">V1014</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">3BHK</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">1460sqft</h6>                      
-                    </div>
-                  </div>
-                </div>
-                <div class="blck-wrap">
-                  <div class="row">
-                    <div class="col-sm-4">
-                      <h6 class="available">V1015</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">3BHK</h6>                      
-                    </div>
-                    <div class="col-sm-4">
-                      <h6 class="">1460sqft</h6>                      
-                    </div>
-                  </div>
-                </div>
-              </div> -->
-            </div>
-          </div>
-
-          <div class="col-md-9 us-right-content">
-            <div id="trig" class="toggle-button">List View</div>
-            <div class="svg-area">
-              <img src="../../images/map2.png">
-            </div>
-          </div>
-        </div>
+<!-- <ul id="flexiselDemo1"> 
+    <li><img src="images/logo-nyt.png" /></li>
+    <li><img src="images/logo-microsoft.png" /></li>    
+    <li><img src="images/logo-ebay.png" /></li>     
+    <li><img src="images/logo-hp.png" /></li> 
+    <li><img src="images/logo-youtube.png" /></li>                                                          
+</ul> -->
+      <div class="pull-left filter-result full" style="margin-top:25px;">  
+      <ul  id="flexiselDemo1"> 
+          <li>
+              <div class="filter-title"> Villa  <span class="icon-cross types" id="filter_Villas" data-id="Villas"></span> </div>
+         </li>
+       <li>
+                 <div class="filter-pill"> Apartment <span class="icon-cross types" id="filter_Villas" data-id="Villas"></span> </div> 
+         </li>
+         <li>
+                 <div class="filter-pill"> Plot  <span class="icon-cross types" id="filter_Villas" data-id="Villas"></span> </div> 
+         </li>
+         <li>
+                 <div class="filter-pill"> Temprature <span class="icon-cross types" id="filter_Villas" data-id="Villas"></span> </div> 
+         </li>
+             <li>
+                 <div class="filter-pill"> Villas <span class="icon-cross types" id="filter_Villas" data-id="Villas"></span> </div> 
+         </li>
+       <li>
+                 <div class="filter-pill"> Apartment <span class="icon-cross types" id="filter_Villas" data-id="Villas"></span> </div> 
+         </li>
+         <li>
+                 <div class="filter-pill"> Plot  <span class="icon-cross types" id="filter_Villas" data-id="Villas"></span> </div> 
+         </li>
+          <li>
+              <div class="filter-title"> Apartment  <span class="icon-cross types" id="filter_Villas" data-id="Villas"></span> </div>
+         </li>
+         <li>
+                 <div class="filter-pill"> Temprature <span class="icon-cross types" id="filter_Villas" data-id="Villas"></span> </div> 
+         </li>
+           </li>
+             <li>
+                 <div class="filter-pill"> Villas <span class="icon-cross types" id="filter_Villas" data-id="Villas"></span> </div> 
+         </li>
+       <li>
+                 <div class="filter-pill"> Apartment <span class="icon-cross types" id="filter_Villas" data-id="Villas"></span> </div> 
+         </li>
+         <li>
+                 <div class="filter-pill"> Plot  <span class="icon-cross types" id="filter_Villas" data-id="Villas"></span> </div> 
+         </li>
+         <li>
+                 <div class="filter-pill"> Temprature <span class="icon-cross types" id="filter_Villas" data-id="Villas"></span> </div> 
+         </li>
+           <li>
+                 <div class="filter-pill"> Apartment <span class="icon-cross types" id="filter_Villas" data-id="Villas"></span> </div> 
+         </li>
+         <li>
+                 <div class="filter-pill"> Plot  <span class="icon-cross types" id="filter_Villas" data-id="Villas"></span> </div> 
+         </li>
+         <li>
+                 <div class="filter-pill"> Temprature <span class="icon-cross types" id="filter_Villas" data-id="Villas"></span> </div> 
+         </li>
+         </ul>
       </div>
+
+<div ui-region="filter" id="filterregion" class="filters-area">
+   <div>
+      <div class="fliters-container " id="collapsefilters">
+         <a href="javascript:void(0)" class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button" type="button"> <span class="icon-place"></span> </button> 
+         <div class="filters-wrapper">
+            <div class="filters-content mCustomScrollbar _mCS_2">
+               <div id="mCSB_2" class="mCustomScrollBox mCS-cf-scroll mCSB_vertical mCSB_inside" tabindex="0">
+                  <div id="mCSB_2_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
+                     <div class="property_type">
+                        <h6 class="">PROPERTY TYPE</h6>
+                        <div class="filter-chkbox-block">  
+                         <div class="-lbl villa-check">
+                          <input type="checkbox" class="custom-chckbx addCft types " id="Villas" value="Villas" > <label for="Villas" class="-lbl  ">Villas</label>  
+                          </div>
+                           <div class="-lbl apartment-check">
+                          <input type="checkbox" class="custom-chckbx addCft types" id="Apartments" value="Apartments/Penthouse" > <label for="Apartments" class="-lbl">Apartments/Penthouse</label> 
+                            </div>
+                            <div class="-lbl plot-check">
+                           <input type="checkbox" class="custom-chckbx addCft types" id="Plots" value="Plots"> <label for="Plots" class="-lbl">Plots</label>  
+ </div>
+                         </div>
+                     </div>
+     
+           
+               
+                     <div class="">
+                        <h6 class="">AREA (Sq.ft)</h6>
+                        <div class="range-container"> <span class="irs js-irs-0"><span class="irs"><span class="irs-line" tabindex="-1"><span class="irs-line-left"></span><span class="irs-line-mid"></span><span class="irs-line-right"></span></span><span class="irs-min">663</span><span class="irs-max">4 138</span><span class="irs-from">0</span><span class="irs-to">0</span><span class="irs-single">0</span></span><span class="irs-grid"></span><span class="irs-bar"></span><span class="irs-shadow shadow-from"></span><span class="irs-shadow shadow-to"></span><span class="irs-slider from"></span><span class="irs-slider to"></span></span><input type="text" id="area" name="area" value="" class="irs-hidden-input" readonly=""> </div>
+                     </div>
+                     <div class="">
+                        <h6 class="">BUDGET </h6>
+                        <div class="range-container"> <span class="irs js-irs-1"><span class="irs"><span class="irs-line" tabindex="-1"><span class="irs-line-left"></span><span class="irs-line-mid"></span><span class="irs-line-right"></span></span><span class="irs-min">19.23 Lac</span><span class="irs-max">2.22 Cr</span><span class="irs-from">0</span><span class="irs-to">0</span><span class="irs-single">0</span></span><span class="irs-grid"></span><span class="irs-bar"></span><span class="irs-shadow shadow-from"></span><span class="irs-shadow shadow-to"></span><span class="irs-slider from"></span><span class="irs-slider to"></span></span> </div>
+                     </div>
+                     <div class="">
+                        <h6 class="availability">AVAILABILITY</h6>
+                        <div class="filter-chkbox-block"> <input type="checkbox" name="available" class="custom-chckbx addCft status" id="available" value="available"> <label for="available" class="-lbl">Show Available Units Only</label> </div>
+                     </div>
+                  </div>
+                  <div id="mCSB_2_scrollbar_vertical" class="mCSB_scrollTools mCSB_2_scrollbar mCS-cf-scroll mCSB_scrollTools_vertical" style="display: block;">
+                     <div class="mCSB_draggerContainer">
+                        <div id="mCSB_2_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; display: block; height: 62px; max-height: 285px;" oncontextmenu="return false;">
+                           <div class="mCSB_dragger_bar" style="line-height: 30px;"></div>
+                        </div>
+                        <div class="mCSB_draggerRail"></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+
+         <!--<div class="filters-bottom"> <a href="#">+ More Filters</a> </div>--> 
+      </div>
+      <div class="filters-wrapper-hover  filters-wrapper villa-wrapper">
+          <div class="arrow-left"> </div>
+       <div class=""> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block">  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type23" value="unit_type23" data-value="23"> <label for="unit_type23" class="-lbl">3BHK(V)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type24" value="unit_type24" data-value="24"> <label for="unit_type24" class="-lbl">4BHK(V)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type22" value="unit_type22" data-value="22"> <label for="unit_type22" class="-lbl"> 1BHK(A)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type29" value="unit_type29" data-value="29"> <label for="unit_type29" class="-lbl">4BHK(PH)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type25" value="unit_type25" data-value="25"> <label for="unit_type25" class="-lbl">30X40 SQ.FT(P)</label>  </div> </div>
+        <div class=""> <h6 class="unit_type_filter">Varient</h6> <div class="filter-chkbox-block">  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type23" value="unit_type23" data-value="23"> <label for="unit_type23" class="-lbl">3BHK(V)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type24" value="unit_type24" data-value="24"> <label for="unit_type24" class="-lbl">4BHK(V)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type22" value="unit_type22" data-value="22"> <label for="unit_type22" class="-lbl"> 1BHK(A)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type29" value="unit_type29" data-value="29"> <label for="unit_type29" class="-lbl">4BHK(PH)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type25" value="unit_type25" data-value="25"> <label for="unit_type25" class="-lbl">30X40 SQ.FT(P)</label>  </div> </div>
+</div>
+      <div class="filters-wrapper-hover  filters-wrapper apartment-wrapper">
+          <div class="arrow-left" > </div>
+       <div class=""> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block">  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type23" value="unit_type23" data-value="23"> <label for="unit_type23" class="-lbl">3BHK(V)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type24" value="unit_type24" data-value="24"> <label for="unit_type24" class="-lbl">4BHK(V)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type22" value="unit_type22" data-value="22"> <label for="unit_type22" class="-lbl"> 1BHK(A)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type29" value="unit_type29" data-value="29"> <label for="unit_type29" class="-lbl">4BHK(PH)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type25" value="unit_type25" data-value="25"> <label for="unit_type25" class="-lbl">30X40 SQ.FT(P)</label>  </div> </div>
+        <div class=""> <h6 class="unit_type_filter">Varient</h6> <div class="filter-chkbox-block">  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type23" value="unit_type23" data-value="23"> <label for="unit_type23" class="-lbl">3BHK(V)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type24" value="unit_type24" data-value="24"> <label for="unit_type24" class="-lbl">4BHK(V)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type22" value="unit_type22" data-value="22"> <label for="unit_type22" class="-lbl"> 1BHK(A)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type29" value="unit_type29" data-value="29"> <label for="unit_type29" class="-lbl">4BHK(PH)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type25" value="unit_type25" data-value="25"> <label for="unit_type25" class="-lbl">30X40 SQ.FT(P)</label>  </div> </div>
+</div>
+      <div class="filters-wrapper-hover  filters-wrapper plot-wrapper">
+          <div class="arrow-left"> </div>
+       <div class=""> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block">  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type23" value="unit_type23" data-value="23"> <label for="unit_type23" class="-lbl">3BHK(V)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type24" value="unit_type24" data-value="24"> <label for="unit_type24" class="-lbl">4BHK(V)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type22" value="unit_type22" data-value="22"> <label for="unit_type22" class="-lbl"> 1BHK(A)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type29" value="unit_type29" data-value="29"> <label for="unit_type29" class="-lbl">4BHK(PH)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type25" value="unit_type25" data-value="25"> <label for="unit_type25" class="-lbl">30X40 SQ.FT(P)</label>  </div> </div>
+        <div class=""> <h6 class="unit_type_filter">Varient</h6> <div class="filter-chkbox-block">  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type23" value="unit_type23" data-value="23"> <label for="unit_type23" class="-lbl">3BHK(V)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type24" value="unit_type24" data-value="24"> <label for="unit_type24" class="-lbl">4BHK(V)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type22" value="unit_type22" data-value="22"> <label for="unit_type22" class="-lbl"> 1BHK(A)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type29" value="unit_type29" data-value="29"> <label for="unit_type29" class="-lbl">4BHK(PH)</label>  <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type25" value="unit_type25" data-value="25"> <label for="unit_type25" class="-lbl">30X40 SQ.FT(P)</label>  </div> </div>
+</div>
+   </div>
+</div>
+      <div class="svg-maps">  <div class="region active" style="width: 1361px;">
+        <img src="../../images/master-00.jpg" class="img-responsive"/>
+      </div></div>
+
 
       <footer id="footer" class="footer">
         <div class="footer-section1">
@@ -587,7 +306,157 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
  <script src="../../bower_components/ionrangeslider/js/ion.rangeSlider.min.js" type="text/javascript"></script>
+ <script type="text/javascript" src="http://9bitstudios.github.io/flexisel/javascripts/jquery.flexisel.js"></script>
+
     <script type="text/javascript">
+$(window).load(function() {
+
+  $("#flexiselDemo1").flexisel({
+    visibleItems: 11,
+    animationSpeed: 200,
+    autoPlay: false,
+    autoPlaySpeed: 1000,
+    clone:false,
+    enableResponsiveBreakpoints: true,
+    responsiveBreakpoints: {
+      portrait: {
+        changePoint:480,
+        visibleItems: 5
+      }, 
+      landscape: {
+        changePoint:640,
+        visibleItems: 6
+      },
+      tablet: {
+        changePoint:768,
+        visibleItems: 3
+      }
+    }
+  });
+
+//   $(".share-btn").on({
+//     mouseenter: function () {
+//          console.log('in')
+//           setTimeout(function() {
+//       jQuery(".filters-wrapper-hover").addClass("visible")
+//       }, 500);
+//     },
+//     mouseleave: function () {
+//       console.log('out')
+//          setTimeout(function() {
+//      jQuery(".filters-wrapper-hover").removeClass("visible")
+//       }, 500);
+//     }
+// });
+  $('.property_type').on('mouseenter','.villa-btn' , function(e){
+      jQuery(".villa-wrapper").addClass("visible")
+
+    
+  })
+  $('.property_type').on('mouseleave','.villa-btn' , function(e){
+     jQuery(".villa-wrapper").removeClass("visible")
+    
+  })
+  $(".villa-wrapper").hover(function() {
+      $(".villa-wrapper").addClass("visible")
+
+    });
+  $(".villa-wrapper").mouseleave(function() {
+      setTimeout(function() {
+      $(".villa-wrapper").removeClass("visible")
+      }, 500);
+    });
+
+
+    $('.property_type').on('mouseenter','.apartment-btn' , function(e){
+      jQuery(".apartment-wrapper").addClass("visible")
+    
+  })
+  $('.property_type').on('mouseleave','.apartment-btn' , function(e){
+     jQuery(".apartment-wrapper").removeClass("visible")
+    
+  })
+ $(".apartment-wrapper").hover(function() {
+      $(".apartment-wrapper").addClass("visible")
+    });
+$(".apartment-wrapper").mouseleave(function() {
+      setTimeout(function() {
+      $(".apartment-wrapper").removeClass("visible")
+      }, 500);
+    });
+
+
+      $('.property_type').on('mouseenter','.plot-btn' , function(e){
+      jQuery(".plot-wrapper").addClass("visible")
+    
+  })
+  $('.property_type').on('mouseleave','.plot-btn' , function(e){
+     jQuery(".plot-wrapper").removeClass("visible")
+    
+  })
+   $(".plot-wrapper").hover(function() {
+      $(".plot-wrapper").addClass("visible")
+    });
+});
+$(".plot-wrapper").mouseleave(function() {
+      setTimeout(function() {
+      $(".plot-wrapper").removeClass("visible")
+      }, 500);
+    });
+// Villa // 
+$('.villa-check input:checkbox').change(function(){
+
+
+    if($(this).is(":checked")) {
+      jQuery('.villa-check').addClass("villa-btn");
+        $('.villa-wrapper').addClass("visible");
+    
+    } else {
+       jQuery('.villa-check').removeClass("villa-btn");
+       $('.villa-wrapper').removeClass("visible");
+      
+    }
+});
+// Apartment // 
+$('.apartment-check input:checkbox').change(function(){
+
+
+    if($(this).is(":checked")) {
+      jQuery('.apartment-check').addClass("apartment-btn");
+        $('.apartment-wrapper').addClass("visible");
+    
+    } else {
+       jQuery('.apartment-check').removeClass("apartment-btn");
+       $('.apartment-wrapper').removeClass("visible");
+      
+    }
+});
+// Plots // 
+$('.plot-check input:checkbox').change(function(){
+
+
+    if($(this).is(":checked")) {
+      jQuery('.plot-check').addClass("plot-btn");
+        $('.plot-wrapper').addClass("visible");
+    
+    } else {
+       jQuery('.plot-check').removeClass("plot-btn");
+       $('.plot-wrapper').removeClass("visible");
+      
+    }
+});
+
+
+
+
+
+
+  
+
+
+   
+
+
       // $('.us-right-content').imagesLoaded( function() {
       //   var divHeight = $('.us-right-content').height();
       //   $('.unit-list').css('max-height', divHeight+'px');
