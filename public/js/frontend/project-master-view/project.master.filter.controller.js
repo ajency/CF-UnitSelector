@@ -23,7 +23,7 @@
       return FilterMsterView.__super__.constructor.apply(this, arguments);
     }
 
-    FilterMsterView.prototype.template = Handlebars.compile('<div class="fliters-container closed" id="collapsefilters"> <a href="javascript:void(0)"  class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button" type="button"> <span class="icon-place"></span> </button> <div class="filters-wrapper"> <div class="filters-content"> <div class="property_type"> <h6 class="">PROPERTY TYPE</h6> <div class="filter-chkbox-block"> {{#types}} <input type="checkbox" class="custom-chckbx addCft types" id="{{id}}" value="{{type}}"> <label for="{{id}}" class="-lbl">{{type}}{{type_name}}</label> {{/types}} </div> </div> <div class=""> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class=""> <h6 class="variant_filter">VARIANT</h6> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> <div class="flooring_filter"> <h6 class="">Flooring</h6> <div class="filter-chkbox-block"> {{#flooring}} <input type="checkbox" class="custom-chckbx addCft flooring" id="flooring{{id}}" value="flooring{{id}}" value="1" data-value="{{id}}" > <label for="flooring{{id}}" class="-lbl">{{name}}({{type}})</label> {{/flooring}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> <div class=""> <h6 class="">AREA ({{measurement_units}})</h6> <div class="range-container"> <input type="text" id="area" name="area" value="" /> </div> </div> <div class=""> <h6 class="">BUDGET </h6> <div class="range-container"> <input type="text" id="budget" name="budget" value="" /> </div> </div> <div class=""> <h6 class="availability">AVAILABILITY</h6> <div class="filter-chkbox-block"> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="available" class="-lbl">Show Available Units Only</label> </div> </div> </div> </div> <!--<div class="filters-bottom"> <a href="#">+ More Filters</a> </div>--> </div>');
+    FilterMsterView.prototype.template = Handlebars.compile('<div class="fliters-container " id="collapsefilters"> <a href="javascript:void(0)" class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button" type="button"> <span class="icon-place"></span> </button> <div class="filters-wrapper"> <div class="filters-content mCustomScrollbar _mCS_2"> <div id="mCSB_2" class="mCustomScrollBox mCS-cf-scroll mCSB_vertical mCSB_inside" tabindex="0"> <div id="mCSB_2_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr"> <div class="property_type"> <h6 class="">PROPERTY TYPE</h6> <div class="filter-chkbox-block"> {{#types}} <div class="-lbl {{type}}-check"> <input type="checkbox" class="custom-chckbx addCft types " id="{{id}}" value="{{type}}" > <label for="{{id}}" class="-lbl  ">{{type}}</label> </div> {{/types}} </div> </div> <div class=""> <h6 class="">AREA ({{measurement_units}})</h6> <div class="range-container"> <input type="text" id="area" name="area" value="" /> </div>                     </div> <div class=""> <h6 class="">BUDGET </h6> <div class="range-container"> <input type="text" id="budget" name="budget" value="" /> </div>                     </div> <div class=""> <h6 class="availability">AVAILABILITY</h6> <div class="filter-chkbox-block"> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="available" class="-lbl">Show Available Units Only</label> </div>                     </div> </div> <div id="mCSB_2_scrollbar_vertical" class="mCSB_scrollTools mCSB_2_scrollbar mCS-cf-scroll mCSB_scrollTools_vertical" style="display: block;"> <div class="mCSB_draggerContainer"> <div id="mCSB_2_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; display: block; height: 62px; max-height: 285px;" oncontextmenu="return false;"> <div class="mCSB_dragger_bar" style="line-height: 30px;"></div> </div> <div class="mCSB_draggerRail"></div> </div> </div> </div> </div> </div> <!--<div class="filters-bottom"> <a href="#">+ More Filters</a> </div>--> </div> <div class="filters-wrapper-hover  filters-wrapper villa-wrapper"> <div class="arrow-left"> </div> {{#villas}} <div class=""> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}</label> {{/unitTypes}} </div> </div> <div class=""> <h6 class="unit_type_filter">Varient</h6> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} </div> </div>{{/villas}}</div> <div class="filters-wrapper-hover  filters-wrapper apartment-wrapper"> <div class="arrow-left"> </div> {{#apartments}} <div class=""> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}</label> {{/unitTypes}} </div> </div> <div class=""> <h6 class="unit_type_filter">Varient</h6> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} </div> </div>{{/apartments}}</div> <div class="filters-wrapper-hover  filters-wrapper plot-wrapper"> <div class="arrow-left"> </div> {{#plots}} <div class=""> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}</label> {{/unitTypes}} </div> </div></div> <div class=""> <h6 class="unit_type_filter">Varient</h6> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} </div> </div>{{/plots}}</div></div> </div>');
 
     FilterMsterView.prototype.ui = {
       unitTypes: '.unit_types',
@@ -44,25 +44,7 @@
       this.price = '';
       this.area = '';
       unitTypes = [];
-      variantNames = [];
-      if (CommonFloor.defaults['unitTypes'] !== "") {
-        unitTypes = CommonFloor.defaults['unitTypes'].split(',');
-      }
-      if (CommonFloor.defaults['unitVariants'] !== "") {
-        variantNames = CommonFloor.defaults['unitVariants'].split(',');
-      }
-      if (CommonFloor.defaults['type'] !== "") {
-        window.type = CommonFloor.defaults['type'].split(',');
-      }
-      if (CommonFloor.defaults['flooring'] !== "") {
-        window.flooring = CommonFloor.defaults['flooring'].split(',');
-      }
-      window.unitTypes = unitTypes.map(function(item) {
-        return parseInt(item);
-      });
-      return window.variantNames = variantNames.map(function(item) {
-        return parseInt(item);
-      });
+      return variantNames = [];
     };
 
     FilterMsterView.prototype.events = {
@@ -300,10 +282,10 @@
     FilterMsterView.prototype.serializeData = function() {
       var data;
       data = FilterMsterView.__super__.serializeData.call(this);
-      data.unitTypes = Marionette.getOption(this, 'unitTypes');
+      data.villas = Marionette.getOption(this, 'villas');
       data.unitVariants = Marionette.getOption(this, 'unitVariants');
-      data.unitVariantNames = Marionette.getOption(this, 'unitVariantNames');
-      data.flooring = Marionette.getOption(this, 'flooring');
+      data.apartments = Marionette.getOption(this, 'apartments');
+      data.plots = Marionette.getOption(this, 'plots');
       data.types = Marionette.getOption(this, 'types');
       return data;
     };
@@ -527,36 +509,23 @@
     }
 
     FilterMasterCtrl.prototype.initialize = function() {
-      var apartmentFilters, area, budget, flooring, plotFilters, types, unitTypes, unitVariantNames, unitVariants, view, villaFilters;
-      unitTypes = [];
+      var apartmentFilters, budget, plotFilters, types, unitVariants, view, villaFilters;
       unitVariants = [];
-      unitVariantNames = [];
-      area = [];
       budget = [];
-      flooring = [];
       villaFilters = this.getVillaFilters();
       if (villaFilters.length !== 0) {
-        $.merge(unitTypes, villaFilters[0].unitTypes);
         $.merge(unitVariants, villaFilters[0].unitVariants);
-        $.merge(unitVariantNames, villaFilters[0].unitVariantNames);
         $.merge(budget, villaFilters[0].budget);
-        $.merge(flooring, villaFilters[0].flooring);
       }
       apartmentFilters = this.getApartmentFilters();
       if (apartmentFilters.length !== 0) {
-        $.merge(unitTypes, apartmentFilters[0].unitTypes);
         $.merge(unitVariants, apartmentFilters[0].unitVariants);
-        $.merge(unitVariantNames, apartmentFilters[0].unitVariantNames);
         $.merge(budget, apartmentFilters[0].budget);
-        $.merge(flooring, apartmentFilters[0].flooring);
       }
       plotFilters = this.getPlotFilters();
       if (plotFilters.length !== 0) {
-        $.merge(unitTypes, plotFilters[0].unitTypes);
         $.merge(unitVariants, plotFilters[0].unitVariants);
-        $.merge(unitVariantNames, plotFilters[0].unitVariantNames);
         $.merge(budget, plotFilters[0].budget);
-        $.merge(flooring, plotFilters[0].flooring);
       }
       types = CommonFloor.masterPropertyTypes();
       $.each(types, function(index, value) {
@@ -572,12 +541,12 @@
       });
       this.view = view = new CommonFloor.FilterMsterView({
         model: project,
-        'unitTypes': unitTypes,
+        'villas': villaFilters,
         'unitVariants': _.uniq(unitVariants),
-        'unitVariantNames': unitVariantNames,
+        'apartments': apartmentFilters,
         'budget': budget,
         'types': types,
-        'flooring': flooring
+        'plots': plotFilters
       });
       return this.show(this.view);
     };
