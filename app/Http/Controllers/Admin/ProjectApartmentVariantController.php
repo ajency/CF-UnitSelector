@@ -119,7 +119,7 @@ class ProjectApartmentVariantController extends Controller {
         if(!empty($attributedata))
         {
             foreach ($attributedata as $key=>$value)
-               $variantattributedata[$key]= ucfirst($value);    
+               $variantattributedata[$key]= $value;    
         }
         $attributeStr = serialize( $variantattributedata );
         $unitVariant->variant_attributes = $attributeStr;
@@ -342,7 +342,7 @@ class ProjectApartmentVariantController extends Controller {
         if(!empty($attributedata))
         {
             foreach ($attributedata as $key=>$value)
-               $variantattributedata[$key]= ucfirst($value);    
+               $variantattributedata[$key]= $value;    
         }
         $attributeStr = serialize( $variantattributedata );
         $unitVariant->variant_attributes = $attributeStr;

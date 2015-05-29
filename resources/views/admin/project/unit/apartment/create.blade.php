@@ -35,19 +35,6 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Unit Status</label>
-                        <select  class="select2 form-control" required="" name="unit_status">
-                            <option value="available">Available</option>
-                            <option value="sold">Sold</option>
-                            <option value="not_released">Not Released</option>
-                            <option value="blocked">Blocked</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
                         <label class="form-label">Building</label>
                         <select name="building_id" class="select2 form-control apartment-unit-building m-b-5" data-parsley-required>
                             <option value="">Select building</option>
@@ -71,15 +58,32 @@
                         </a>-->
                     </div> 
                 </div>
+                
+            </div>
+            <div class="row">
                 <div class="col-md-4">
-                    <div class="form-group hidden select-position">
-                        <label class="form-label">Position</label>
-                        <select id="flat_position" required="" name="position" class="select2 form-control">
-                            <option value="">Select Position</option>
+                    <div class="form-group">
+                        <label class="form-label">Unit Variant<span class="text-primary">*</span></label>
 
+                        <select name="unit_variant" class="select2 form-control m-b-5" data-parsley-required>
+                            <option value="">Select Unit Variant</option>
+                            @foreach($unit_variant_arr as $unit_variant)
+                            <option value="{{$unit_variant['id']}}">{{$unit_variant['unit_variant_name']}}</option>
+                            @endforeach
                         </select>
-                    </div> 
-
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Unit Status</label>
+                        <select  class="select2 form-control" required="" name="unit_status">
+                            <option value="available">Available</option>
+                            <option value="sold">Sold</option>
+                            <option value="not_released">Not Released</option>
+                            <option value="blocked">Blocked</option>
+                            <option value="archived">Archived</option>
+                        </select>
+                    </div>
                 </div>
             </div> 
                     <div class="form-actions">  
@@ -97,35 +101,4 @@
 
 <!-- END PLACE PAGE CONTENT HERE -->
 @endsection
-
-<!-- Modal -->
-<div class="modal fade bs-example-modal-lg1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title text-left" id="myModalLabel">Add Building</h4>
-            </div>
-            <div class="modal-body">
-                <iframe width="100%"></iframe>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade bs-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title text-left" id="myModalLabel">Add Floor Layout</h4>
-            </div>
-            <div class="modal-body">
-                <iframe width="100%"></iframe>
-            </div>
-
-        </div>
-    </div>
-</div>
+ 

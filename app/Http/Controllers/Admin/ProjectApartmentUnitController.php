@@ -7,8 +7,10 @@ use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use CommonFloor\Project;
 use CommonFloor\Unit;
+use CommonFloor\UnitType;
 use CommonFloor\Building;
 use CommonFloor\FloorLayout;
+use CommonFloor\UnitVariant;
 
 class ProjectApartmentUnitController extends Controller {
 
@@ -39,8 +41,21 @@ class ProjectApartmentUnitController extends Controller {
         $project = Project::find($projectId);
         $phases = $project->projectPhase()->lists('id');
         $buildings = Building::whereIn('phase_id', $phases)->get();
+        $projectPropertytypes = $project->projectPropertyTypes()->whereIn( 'property_type_id', [APARTMENTID,PENTHOUSEID] )->get()->toArray();
+        
+        foreach($projectPropertytypes as $projectPropertytype)
+        {
+             $projectPropertytypeIds[] = $projectPropertytype['id'];
+        }
+
+        $unitTypeArr = UnitType::whereIn( 'project_property_type_id', $projectPropertytypeIds )->get();
+        $unitTypeIdArr = $unitVariantIdArr= [];
+        foreach($unitTypeArr as $unitType)
+            $unitTypeIdArr[] =$unitType['id'];
+        $unitVariantArr = UnitVariant::whereIn('unit_type_id',$unitTypeIdArr)->get()->toArray();
         return view('admin.project.unit.apartment.create')
                         ->with('project', $project->toArray())
+                        ->with('unit_variant_arr', $unitVariantArr)
                         ->with('current', 'apartment-unit')
                         ->with('buildings', $buildings);
     }
@@ -54,10 +69,10 @@ class ProjectApartmentUnitController extends Controller {
 
         $unit = new Unit;
         $unit->unit_name = ucfirst($request->get('unit_name'));
-        $unit->unit_variant_id = 0;
+        $unit->unit_variant_id = $request->get('unit_variant');
         $unit->building_id = $request->get('building_id');
         $unit->floor = $request->get('floor');
-        $unit->position = $request->get('position');
+        $unit->position = '';
         $unit->availability = $request->get('unit_status');
         $unit->save();
 
@@ -96,17 +111,26 @@ class ProjectApartmentUnitController extends Controller {
         $unit = Unit::find($unitId)->toArray();
         $building = Building::find($unit['building_id'])->toArray();
         $floors = $building['no_of_floors'];
-        $floorlayoutIds = $building['floors'];
-        $floorlayoutId = $floorlayoutIds[$unit['floor']];
-        $position = FloorLayout::find($floorlayoutId)->no_of_flats;
 
+        $projectPropertytypes = $project->projectPropertyTypes()->whereIn( 'property_type_id', [APARTMENTID,PENTHOUSEID] )->get()->toArray();
+        
+        foreach($projectPropertytypes as $projectPropertytype)
+        {
+             $projectPropertytypeIds[] = $projectPropertytype['id'];
+        }
+
+        $unitTypeArr = UnitType::whereIn( 'project_property_type_id', $projectPropertytypeIds )->get();
+        $unitTypeIdArr = $unitVariantIdArr= [];
+        foreach($unitTypeArr as $unitType)
+            $unitTypeIdArr[] =$unitType['id'];
+        $unitVariantArr = UnitVariant::whereIn('unit_type_id',$unitTypeIdArr)->get()->toArray();
 
         return view('admin.project.unit.apartment.edit')
                         ->with('project', $project->toArray())
                         ->with('current', 'apartment-unit')
                         ->with('buildings', $buildings)
                         ->with('floors', $floors)
-                        ->with('position', $position)
+                        ->with('unit_variant_arr', $unitVariantArr)
                         ->with('unit', $unit);
     }
 
@@ -120,10 +144,10 @@ class ProjectApartmentUnitController extends Controller {
 
         $unit = Unit::find($id);
         $unit->unit_name = ucfirst($request->get('unit_name'));
-        $unit->unit_variant_id = 0;
+        $unit->unit_variant_id = $request->get('unit_variant');
         $unit->building_id = $request->get('building_id');
         $unit->floor = $request->get('floor');
-        $unit->position = $request->get('position');
+        $unit->position = '';
         $unit->availability = $request->get('unit_status');
         $unit->save();
 
