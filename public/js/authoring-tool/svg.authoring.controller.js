@@ -148,7 +148,7 @@
           window.showPendingObjects(types);
           s = new XMLSerializer();
           str = s.serializeToString(rawSvg);
-          window.store = draw.svg(str);
+          draw.svg(str);
           return window.resetCollection();
         },
         error: function(response) {
@@ -346,7 +346,7 @@
       return window.loadForm(type);
     });
     window.loadForm = function(type) {
-      if (type === 'villa') {
+      if (type === 'Villas/Bungalows') {
         this.region = new Marionette.Region({
           el: '#dynamice-region'
         });

@@ -351,7 +351,9 @@
             svgImg = '{{$svgImage}}';
             types = '{{$supported_types}}';
             supported_types = $('<div/>').html(types).text()
-           
+            
+
+            
 
            
 

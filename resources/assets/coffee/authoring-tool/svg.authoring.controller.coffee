@@ -161,7 +161,8 @@ jQuery(document).ready ($)->
 				window.showPendingObjects(types)
 				s = new XMLSerializer()
 				str = s.serializeToString(rawSvg)
-				window.store = draw.svg(str)
+				draw.svg(str)
+				# window.store = draw.svg(rawSvg)
 				window.resetCollection()
 				
 				
@@ -410,7 +411,7 @@ jQuery(document).ready ($)->
 		window.loadForm(type)
 
 	window.loadForm = (type)->
-		if type is 'villa'
+		if type is 'Villas/Bungalows'
 			@region =  new Marionette.Region el : '#dynamice-region'
 			new AuthoringTool.VillaCtrl region : @region
 		if type is 'plot'
