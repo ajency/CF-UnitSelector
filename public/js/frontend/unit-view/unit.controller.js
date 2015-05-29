@@ -67,9 +67,9 @@
           previousRoute = CommonFloor.router.previous();
           url = Backbone.history.fragment;
           unitid = parseInt(url.split('/')[1]);
-          console.log(unit = unitCollection.findWhere({
+          unit = unitCollection.findWhere({
             id: unitid
-          }));
+          });
           unitType = unitTypeMasterCollection.findWhere({
             'id': unit.get('unit_type_id')
           });
@@ -127,7 +127,7 @@
       return LeftUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content animated fadeIn"> <div class="unit-details"> <div class="row detail-list"> <div class="col-sm-6 col-xs-6 text-center"> <span class="facts-icon icon-total-units"></span> <div class="unit-label m-t-10"> <h3>{{unit_variant}}</h3> <h6 class="text-muted">Unit Variant</h6> </div> </div> <div class="col-sm-6 col-xs-6 text-center"> <span class="facts-icon icon-BHKtype"></span> <div class="unit-label m-t-10"> <h3>{{type}}</h3> <h6 class="text-muted">Unit Type</h6> </div> </div> </div> <div class="row detail-list"> <div class="col-sm-6 col-xs-6 text-center"> <span class="facts-icon icon-BHK-area-2"></span> <div class="unit-label m-t-10"> <h3>{{area}} {{measurement_units}}</h3> <h6 class="text-muted">Area</h6> </div> </div> <div class="col-sm-6 col-xs-6 text-center"> <span class="facts-icon icon-rupee-icn"></span> <div class="unit-label m-t-10"> <h3 class="price">{{price}}</h3> <h6 class="text-muted">Price</h6> </div> </div> </div> <div class="advncd-filter-wrp"> <div class="blck-wrap title-row"> <h5 class="bold property hidden">Property Attributes</h5> </div> {{#attributes}} <div class="row"> <div class="col-sm-12"> <h6><span class="text-muted">{{attribute}}:</span> {{value}}</h6> </div> </div> {{/attributes}} </div> <div class=" title-row"> <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"> {{#levels}} <div class="panel panel-default"> <div class="panel-heading" role="tab" id="headingTwo"> <h4 class="panel-title m-b-15 p-b-10"> <a class="accordion-toggle collapsed text-primary " data-toggle="collapse" data-parent="#accordion" href="#{{id}}" aria-expanded="false" > {{level_name}} </a> </h4> </div> <div id="{{id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo"> <div class="panel-body"> {{#rooms}} <div class="room-attr"> <div class="m-b-15"> <h5 class="m-b-5">{{room_name}}</h5> {{#attributes}} <div class=""><span>{{attribute}}</span>: {{value}}</div> {{/attributes}} </div> </div> {{/rooms}} </div> </div> </div> {{/levels}} </div> </div> </div> <div class="clearfix"></div> <div class="similar-section"> <h5 class="bold m-b-15">{{similarUnitsText}}</h5> {{#similarUnits}} <div class="m-b-15 clearfix"> <div class="sim-icon"> <div class="alert "> <i class="{{type}}-ico"></i> </div> </div> <div class="sim-details"> <h5 class="m-b-0"><a href="' + BASEURL + '/project/' + PROJECTID + '/#unit-view/{{id}}">{{unit_name}}</a> </h5> {{unit_type}} ({{area}} {{units}} {{variant}}<br> <span class="text-primary"><span class="icon-rupee-icn"></span>{{price}}</span> </div> </div> {{/similarUnits}} </div> </div> </div>');
+    LeftUnitView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content animated fadeIn"> <div class="unit-details"> <div class="row detail-list"> <div class="col-sm-6 col-xs-6 text-center"> <span class="facts-icon icon-total-units"></span> <div class="unit-label m-t-10"> <h3>{{unit_variant}}</h3> <h6 class="text-muted">Unit Variant</h6> </div> </div> <div class="col-sm-6 col-xs-6 text-center"> <span class="facts-icon icon-BHKtype"></span> <div class="unit-label m-t-10"> <h3>{{type}}</h3> <h6 class="text-muted">Unit Type</h6> </div> </div> </div> <div class="row detail-list"> <div class="col-sm-6 col-xs-6 text-center"> <span class="facts-icon icon-BHK-area-2"></span> <div class="unit-label m-t-10"> <h3>{{area}} {{measurement_units}}</h3> <h6 class="text-muted">Area</h6> </div> </div> <div class="col-sm-6 col-xs-6 text-center"> <span class="facts-icon icon-rupee-icn"></span> <div class="unit-label m-t-10"> <h3 class="price">{{price}}</h3> <h6 class="text-muted">Price</h6> </div> </div> </div> <div class="advncd-filter-wrp"> <div class="blck-wrap title-row"> <h5 class="bold property {{classname}}">{{property_type}}</h5> </div> {{#attributes}} <div class="row"> <div class="col-sm-12"> <h6><span class="text-muted">{{attribute}}:</span> {{value}}</h6> </div> </div> {{/attributes}} </div> <div class=" title-row"> <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"> {{#levels}} <div class="panel panel-default"> <div class="panel-heading" role="tab" id="headingTwo"> <h4 class="panel-title m-b-15 p-b-10"> <a class="accordion-toggle collapsed text-primary " data-toggle="collapse" data-parent="#accordion" href="#{{id}}" aria-expanded="false" > {{level_name}} </a> </h4> </div> <div id="{{id}}" class="panel-collapse collapse collapseLevel" role="tabpanel" aria-labelledby="headingTwo"> <div class="panel-body"> {{#rooms}} <div class="room-attr"> <div class="m-b-15"> <h5 class="m-b-5">{{room_name}}</h5> {{#attributes}} <div class=""><span>{{attribute}}</span>: {{value}}</div> {{/attributes}} </div> </div> {{/rooms}} </div> </div> </div> {{/levels}} </div> </div> </div> <div class="clearfix"></div> <div class="similar-section"> <h5 class="bold m-b-15">{{similarUnitsText}}</h5> {{#similarUnits}} <div class="m-b-15 clearfix"> <div class="sim-icon"> <div class="alert "> <i class="{{type}}-ico"></i> </div> </div> <div class="sim-details"> <h5 class="m-b-0"><a href="' + BASEURL + '/project/' + PROJECTID + '/#unit-view/{{id}}">{{unit_name}}</a> </h5> {{unit_type}} ({{area}} {{units}} {{variant}}<br> <span class="text-primary"><span class="icon-rupee-icn"></span>{{price}}</span> </div> </div> {{/similarUnits}} </div> </div> </div>');
 
     LeftUnitView.prototype.serializeData = function() {
       var attributes, data, floor, response, similarUnits, temp, unit, unitid, url;
@@ -140,6 +140,12 @@
       });
       floor = response[0].get('floor');
       attributes = [];
+      if (response[2] === 'apartment' || response[2] === 'Penthouse') {
+        attributes.push({
+          'attribute': 'Floor',
+          'value': unit.get('floor')
+        });
+      }
       if (response[4] !== null) {
         $.each(response[4], function(index, value) {
           return attributes.push({
@@ -150,7 +156,6 @@
       }
       similarUnits = this.getSimilarUnits(unit);
       temp = [];
-      console.log(project.get('measurement_units'));
       $.each(similarUnits[0], function(index, value) {
         var res;
         res = window.unit.getUnitDetails(value.get('id'));
@@ -173,6 +178,11 @@
       data.similarUnits = temp;
       data.similarUnitsText = similarUnits[1];
       data.measurement_units = project.get('measurement_units');
+      data.property_type = s.capitalize(response[2] + ' Attribute(s)');
+      data.classname = 'hidden';
+      if (attributes.length !== 0) {
+        data.classname = '';
+      }
       return data;
     };
 
@@ -211,7 +221,7 @@
         rooms = [];
         level_name = 'Level  ' + index;
         if (response[2] === 'apartment') {
-          level_name = 'Floor ' + unit.get('floor');
+          level_name = 'Room details';
         }
         $.each(value.rooms_data, function(ind, val) {
           var attributes;
@@ -243,8 +253,8 @@
       unitid = parseInt(url.split('/')[1]);
       response = window.unit.getUnitDetails(unitid);
       $('.price').text(window.numDifferentiation(response[3]));
-      if (response[4] !== null && response[4].length !== 0) {
-        return $('.property').removeClass('hidden');
+      if (response[2] === 'apartment') {
+        return $('.collapseLevel').collapse('show');
       }
     };
 
@@ -368,7 +378,7 @@
     CenterUnitView.prototype.onShow = function() {
       var height, html, response;
       this.getNextPrevUnit();
-      console.log(response = this.generateLevels());
+      response = this.generateLevels();
       html = '';
       $.each(response[0], function(index, value) {
         return html += '<div class="layouts animated fadeIn"> <a class="fancybox" href="' + value + '"> <img class="img" data-src="' + value + '" /> <div class="img-overlay"></div> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </a> </div>';
@@ -526,9 +536,10 @@
           threeD.push(value.url3dlayout_image);
         }
         level_name = 'Level  ' + index;
-        level.push(s.replaceAll('Level ' + i, " ", "_"));
         if (response[2] === 'apartment') {
-          level.push(s.replaceAll('Floor ' + unitD.get('floor'), " ", "_"));
+          level.push("");
+        } else {
+          level.push(s.replaceAll('Level ' + i, " ", "_"));
         }
         return i = i + 1;
       });

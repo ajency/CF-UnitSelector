@@ -50,7 +50,7 @@ class TopUnitView extends Marionette.ItemView
 			previousRoute = CommonFloor.router.previous()
 			url = Backbone.history.fragment
 			unitid = parseInt url.split('/')[1]
-			console.log unit = unitCollection.findWhere
+			unit = unitCollection.findWhere
 				id  : unitid
 			unitType = unitTypeMasterCollection.findWhere
 							'id' :  unit.get('unit_type_id')
@@ -130,7 +130,7 @@ class LeftUnitView extends Marionette.ItemView
 								<div class="advncd-filter-wrp">
 
 									<div class="blck-wrap title-row">
-										<h5 class="bold property hidden">Property Attributes</h5>
+										<h5 class="bold property {{classname}}">{{property_type}}</h5>
 									</div>
 									{{#attributes}}
 									<div class="row">
@@ -154,7 +154,7 @@ class LeftUnitView extends Marionette.ItemView
 											  	</h4>
 											</div>
 
-											<div id="{{id}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+											<div id="{{id}}" class="panel-collapse collapse collapseLevel" role="tabpanel" aria-labelledby="headingTwo">
 					                           	<div class="panel-body">
 					                           		{{#rooms}}
 					                          		<div class="room-attr"> 
@@ -213,6 +213,10 @@ class LeftUnitView extends Marionette.ItemView
 			id  : unitid
 		floor = response[0].get('floor')
 		attributes = []
+		if response[2] is 'apartment' || response[2] is 'Penthouse'
+			attributes.push
+				'attribute' : 'Floor'
+				'value'		: unit.get 'floor'
 		if response[4] != null
 			$.each response[4] , (index,value)->
 				attributes.push 
@@ -221,7 +225,7 @@ class LeftUnitView extends Marionette.ItemView
 
 		similarUnits = @getSimilarUnits(unit)
 		temp = []
-		console.log project.get('measurement_units')
+		
 		$.each similarUnits[0], (index,value)->
 			res = window.unit.getUnitDetails(value.get('id'))
 			temp.push 
@@ -241,6 +245,10 @@ class LeftUnitView extends Marionette.ItemView
 		data.similarUnits = temp
 		data.similarUnitsText = similarUnits[1]
 		data.measurement_units = project.get('measurement_units')
+		data.property_type = s.capitalize response[2] + ' Attribute(s)'
+		data.classname = 'hidden'
+		if attributes.length != 0
+			data.classname =  ''
 		data
 
 	getSimilarUnits:(unit)->
@@ -271,7 +279,7 @@ class LeftUnitView extends Marionette.ItemView
 			rooms = []
 			level_name =  'Level  '+ index  
 			if response[2]  is 'apartment'
-				level_name = 'Floor ' + unit.get 'floor'
+				level_name = 'Room details'
 			$.each value.rooms_data,(ind,val)->
 				attributes = []
 				$.each val.atributes,(ind_att,val_att)->
@@ -294,8 +302,9 @@ class LeftUnitView extends Marionette.ItemView
 		unitid = parseInt url.split('/')[1]
 		response = window.unit.getUnitDetails(unitid)
 		$('.price').text window.numDifferentiation(response[3])
-		if response[4] != null && response[4].length != 0
-			$('.property').removeClass 'hidden'
+		
+		if response[2] is 'apartment'
+			$('.collapseLevel').collapse('show')
 	
 #Left Controller for unit
 class CommonFloor.LeftUnitCtrl extends Marionette.RegionController
@@ -471,7 +480,8 @@ class CenterUnitView extends Marionette.ItemView
 
 	onShow:->
 		@getNextPrevUnit()
-		console.log response = @generateLevels()
+		response = @generateLevels()
+
 		html = ''
 		$.each response[0],(index,value)->
 			html += '<div class="layouts animated fadeIn">
@@ -500,6 +510,7 @@ class CenterUnitView extends Marionette.ItemView
 		
 		if response[4]  is 'apartment'
 			$('.level').attr 'class' , 'level Level_0 apartment_level'
+
 			
 			
 
@@ -626,9 +637,11 @@ class CenterUnitView extends Marionette.ItemView
 			if ! _.isUndefined(value.url3dlayout_image) &&  value.url3dlayout_image != ""
 				threeD.push value.url3dlayout_image
 			level_name =  'Level  '+ index  
-			level.push s.replaceAll('Level '+i, " ", "_")
+			
 			if response[2]  is 'apartment'
-				level.push s.replaceAll('Floor '+unitD.get('floor'), " ", "_")
+				level.push ""
+			else
+				level.push s.replaceAll('Level '+i, " ", "_")
 				
 			
 			
