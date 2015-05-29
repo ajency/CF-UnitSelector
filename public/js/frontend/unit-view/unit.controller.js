@@ -432,6 +432,9 @@
           });
         }
       }
+      if (response[0].length === 0 && response[1].length === 0 && _.isUndefined(response[3].get('external3durl')) && _.isUndefined(response[3].get('galleryurl'))) {
+        this.loadMaster();
+      }
       height = this.ui.imagesContainer.height();
       if ($(window).width() > 991) {
         $('.search-left-content').css('height', height);
@@ -445,8 +448,7 @@
       }
       $(".fancybox").fancybox();
       $('.img').lazyLoadXT();
-      this.iniTooltip();
-      return this.loadMaster();
+      return this.iniTooltip();
     };
 
     CenterUnitView.prototype.loadMaster = function() {

@@ -546,7 +546,8 @@ class CenterUnitView extends Marionette.ItemView
 				$.each response[3].get('galleryurl'),(index,value)->
 					html += '<div class="animated fadeIn"><img class="img" data-src="'+value+'" /></div>'
 
-
+		if response[0].length == 0 &&  response[1].length == 0 && _.isUndefined(response[3].get('external3durl')) && _.isUndefined(response[3].get('galleryurl'))
+			@loadMaster()
 		height =  @ui.imagesContainer.height()
 		if $(window).width() > 991
 			$('.search-left-content').css('height',height)
@@ -560,7 +561,7 @@ class CenterUnitView extends Marionette.ItemView
 		$(".fancybox").fancybox()
 		$('.img').lazyLoadXT()
 		@iniTooltip()
-		@loadMaster()
+		
 
 	loadMaster:->
 		url = Backbone.history.fragment
