@@ -181,7 +181,7 @@
                   <div class="menu">
                     <ul class="menu-block">
                       <li><a><i class="fa fa-area-chart"></i> Polygon</a></li>
-                      <li><a><i class="fa fa-map-marker"></i> Marker</a></li>
+                      <li><a  title='bottom Popover' rel='popover' data-placement='bottom' ><i class="fa fa-map-marker"></i> Marker</a></li>
                     </ul>
                   </div>
                 </nav>  
@@ -377,5 +377,13 @@ $(".toggle").click(function () {
         next(); 
       });
 // </script>
+<script type="text/javascript">
+$(document).ready(function() {
+$("[rel='popover']").popover({
+html: 'true', 
+content : '<div id="popOverBox"><ul class="list-inline"><li><div class="marker1"></div></li><li><div class="marker2"></div></li><li><div class="marker3"></div></li><li><div class="marker4"></div></li></ul></div>'
+});
+});
+</script>
 	</body>
 </html>
