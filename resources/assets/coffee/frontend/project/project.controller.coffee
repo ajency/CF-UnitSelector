@@ -64,28 +64,27 @@ class LeftView extends Marionette.ItemView
 										<div id="proj_info">
 											<div class="big-tooltip">
 												<div class="svg-info not-available">
-													<div class="action-bar" style="width:140px;height:140px;">
-															<h5>{{i10n "project_by"}}</h5>
-												          	<img src="{{logo}}" class="img-responsive builder-logo">
+													<div class="action-bar">
+														<h5>{{i10n "project_by"}}</h5>
+														<img src="{{logo}}" class="img-responsive builder-logo">
 													</div>	
-													 <h5 class="pull-left m-t-0">{{address}}</h5>
-													 	  <div class="details">
-													       	{{#propertyTypes}}
-												          	<div>{{prop_type}} <span class="text-muted">({{unit_types}})</span></div>
-												        	{{/propertyTypes}}
-
-												         	
-													       <div class="text-muted text-default"> To Move Forward Click Arrow</div>
-													      </div>
-													       <div class="circle">
-													       		 <span class="arrow-up icon-chevron-right master"></span>
-															  </div>  
-														</div>	
-											
+													<h5 class="pull-left m-t-0">{{address}}</h5>
+													<div class="details">
+														{{#propertyTypes}}
+														<div>
+															{{prop_type}} <span class="text-muted">({{unit_types}})</span>
+														</div>
+														{{/propertyTypes}}
+														<div class="text-muted text-default"> Click arrow to move forward</div>
+													</div>
+													<div class="circle action_button">
+														<span class="arrow-up icon-chevron-right"></span>
+													</div>  
+												</div>
 											</div>
 										</div>
 
-										<div class="proj-info">
+										<div class="proj-info" style="width:140px;height:170px;">
 											<div class="proj-logo section">
 										  		<h3 class="m-t-10"><strong>{{i10n "project_by"}}</strong></h3>
 										  		<img src="{{logo}}" class="img-responsive builder-logo">
@@ -108,7 +107,7 @@ class LeftView extends Marionette.ItemView
 												<!--<h4 class="m-b-5 m-t-0 text-primary">{{prop_type}}</h4>
 												  <span>{{i10n "project_type"}}:</span> {{prop_type}}
 												<p>
-												  <span>{{i10n "starting_area"}}:</span> {{starting_area}}'+project.get('area_unit')+'
+												  <span>{{i10n "starting_area"}}:</span> {{starting_area}}'+project.get('measurement_units')+'
 												</p>-->
 
 												<span class="prop-icon"></span>
@@ -188,10 +187,22 @@ class CenterView extends Marionette.ItemView
 
 
 			
-
+	events : 
+		'mouseover .step1-marker':(e)->
+			$('.marker').tooltipster('show')
 		
 			
 	onShow:->
+
+		windowHeight = $(window).innerHeight() - 56
+		$('.svg-area').css 'height', windowHeight
+		$('.svg-area').css 'min-width', windowHeight * 2
+
+		# if $(window).width() < 1025
+		# 	windowHeight = $(window).innerHeight() - 56
+		# 	$('.svg-area').css 'height', windowHeight
+		# 	$('.svg-area').css 'min-width', windowHeight * 2
+
 		
 		$('img').lazyLoadXT()
 		path = @model.get('step_one').svg
@@ -203,19 +214,27 @@ class CenterView extends Marionette.ItemView
 				arrow : false
 				offsetX : 30
 				interactive : true
-				animation : 'grow'
+				animation : 'fade'
 				trigger: 'click'
 				content : $('#proj_info').html()
 				functionReady:(e)->
-					$('.master').on('click' , (e)->
+					$('.action_button').on('click' , (e)->
 						$('.cf-loader').removeClass 'hidden'
 						$('svg').attr('class' ,'zoom') 
 						$('.step1').addClass 'animated fadeOut'
+						$('.marker').tooltipster('hide')
 						setTimeout( (x)->
 							CommonFloor.checkPropertyType()
 						, 100)
 					)
+					tooltipHeight = $('.tooltipster-content').height() + 10
+					$('.action-bar').css 'min-height', tooltipHeight
 
+					svgHeight = $(window).innerHeight() - 56
+					svgWidth = svgHeight * 2
+					if $(window).width() < 1025
+						$('svg').css 'min-height', svgHeight
+						$('svg').css 'min-width', svgWidth
 			)
 			$('.marker').tooltipster('show')
 

@@ -30,10 +30,12 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 									           
 						              			<div class="header-info">
 						              				<h2 class="pull-left proj-name">{{project_title}} - {{name}}</h2>
+
 						              				<div class="proj-type-count">
 						              					<h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p>
 						              				</div>
-						              				<div class="pull-left filter-result">
+
+						              				<div class="pull-left filter-result full">
 						              	              	{{#each  filters}}
 						              	              	{{#each this}}
 						              					<div class="filter-pill"  >
@@ -211,14 +213,14 @@ class ApartmentsView extends Marionette.ItemView
 
 	template : Handlebars.compile('	<div class="row">
 
-					                      <div class="col-sm-4  info">
+					                      <div class="col-xs-4  info">
 					                        <b class="bold">{{floor}}</b> - {{unit_name}} 
 					                  </div>  
 
-					                      <div class="col-sm-3  info">
+					                      <div class="col-xs-3  info">
 					                        	{{unit_type}}
 					                      </div> 
-					                       <div class="col-sm-5 text-primary">
+					                       <div class="col-xs-5 text-primary">
 					                          <span class="icon-rupee-icn"></span>{{price}} <!--<span class="tick"></span>-->
 					                      </div> 
 					                  </div>')
@@ -293,18 +295,23 @@ class ApartmentsView extends Marionette.ItemView
 		html = ""
 		html += '<div class="svg-info '+availability+'">
 					<div class="action-bar">
-								<div class="apartment"></div>
+						<div class="apartment"></div>
 					</div>
-					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' ( Area - '+response[0].get('super_built_up_area')+' '+project.get('area_unit')+')</h5>
+<<<<<<< HEAD
+					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' ( Area - '+response[0].get('super_built_up_area')+' '+project.get('measurement_units')+')</h5>
+=======
+					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' </h5>
+>>>>>>> 348b4741d874bd88b41a7146fa8e87737cb27992
 
 					<!--<span class="label label-success"></span-->
 					<br><br>
 					<div class="details">
-                       
-							<label>Unit Type </label> - '+response[1].get('name')+'<br>
-						
-						
-							<label>Price </label> - <span class="icon-rupee-icn">'+price+'</span><br>
+                       	<div>
+							'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('area_unit')+')
+						</div>
+						<div class="text-primary">
+						<span class="icon-rupee-icn"></span>'+price+'
+						</div>
 						
 					</div>'
 		if availability == 'available'
@@ -401,8 +408,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 										  <ul>
 										    <!--<li class="available">AVAILABLE</li>-->
 										    <li class="sold">N/A</li>
-										    <!--<li class="blocked">BLOCKED</li>-->
-										    <li class="na">Available</li>
+										    <!--<li class="blocked">BLOCKED</li>
+										    <li class="na">Available</li>-->
 										  </ul>
 										</div>
 
@@ -412,9 +419,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 										</div>
 
 										<div id="view_toggle" class="toggle-view-button list"></div>
+										<div id="trig" class="toggle-button hidden">List View</div>
 							              
 							            <div class=" master animated fadeIn">
-
 								            <div class="single-bldg">
 								                <div class="prev"></div>
 								                <div class="next"></div>
@@ -422,20 +429,21 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		              						
 		              						<div id="spritespin"></div>
 											<div class="svg-maps">
-												<img class="first_image img-responsive" src="" />
+												<img class="first_image lazy-hidden img-responsive" />
 												<div class="region inactive"></div>
 											</div>
 
+											<div class="cf-loader hidden"></div>
 								    	</div>
 										
-										<div class="cf-loader hidden"></div>
 							            <div class="rotate rotate-controls hidden">
 									        <div id="prev" class="rotate-left">Left</div>
 									        <span class="rotate-text">Rotate</span>
 									        <div id="next" class="rotate-right">Right</div>
 							    		</div>
+
 							    		<div class="mini-map">
-							    			<img class="firstimage img-responsive" src="" />
+							    			<img class="firstimage img-responsive" src=""/>
 							    			<div class="project_master"></div>
 							    		</div>
 							              
@@ -490,19 +498,19 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		'click #next':->
 			@setDetailIndex(@currentBreakPoint + 1)
 
-		'click .list':(e)->
-			e.preventDefault()
-			url = Backbone.history.fragment
-			building_id = parseInt url.split('/')[1]
-			CommonFloor.navigate '/building/'+building_id+'/apartments' , true
-			# CommonFloor.router.storeRoute()
+		# 'click .list':(e)->
+		# 	e.preventDefault()
+		# 	url = Backbone.history.fragment
+		# 	building_id = parseInt url.split('/')[1]
+		# 	CommonFloor.navigate '/building/'+building_id+'/apartments' , true
+		# 	# CommonFloor.router.storeRoute()
 
-		'click .map':(e)->
-			e.preventDefault()
-			url = Backbone.history.fragment
-			building_id = parseInt url.split('/')[1]
-			CommonFloor.navigate '/building/'+building_id+'/master-view' , true
-			# CommonFloor.router.storeRoute()
+		# 'click .map':(e)->
+		# 	e.preventDefault()
+		# 	url = Backbone.history.fragment
+		# 	building_id = parseInt url.split('/')[1]
+		# 	CommonFloor.navigate '/building/'+building_id+'/master-view' , true
+		# 	# CommonFloor.router.storeRoute()
 
 		'mouseover .apartment':(e)->
 			id = parseInt e.target.id
@@ -540,24 +548,30 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			html = ""
 			html += '<div class="svg-info '+availability+'">
 						<div class="action-bar">
-									<div class="apartment"></div>
+							<div class="apartment"></div>
 						</div>
-						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' ( Area - '+response[0].get('super_built_up_area')+' '+project.get('area_unit')+')</h5>
+<<<<<<< HEAD
+						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' ( Area - '+response[0].get('super_built_up_area')+' '+project.get('measurement_units')+')</h5>
+=======
+						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' </h5>
+						<br> <br>
+>>>>>>> 348b4741d874bd88b41a7146fa8e87737cb27992
 
 						<!--<span class="label label-success"></span-->
-						<br><br>
 						<div class="details">
-	                       <div>
-								<label>Unit Type </label> - '+response[1].get('name')+'
-							</div>
 							<div>
-								<label>Price </label> - <span class="icon-rupee-icn">'+price+'</span>
+								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('area_unit')+')
+							</div>
+							<div class="text-primary">
+								<span class="icon-rupee-icn"></span>'+price+'
 							</div>  
 						</div>'
 			if availability == 'available'
-				html +='<div class="circle">
-							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
-						</div>
+				html +='<a href="#unit-view/'+id+'" class="view-unit">
+							<div class="circle">
+								<span class="arrow-up icon-chevron-right"></span>
+							</div>
+						</a>
 						<div class="details">
 							<div class="text-muted text-default">Click arrow to move forward</div>
 						</div>
@@ -634,6 +648,11 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 
 	onShow:->
+
+		windowHeight = $(window).innerHeight() - 56
+		$('.master').css 'height', windowHeight
+		$('.master').css 'min-width', windowHeight * 2
+
 		@getNextPrev()
 		$('img').lazyLoadXT()
 		height =  @ui.svgContainer.width() / 2
@@ -672,7 +691,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 		if $(window).width() > 991
 			$('.units').mCustomScrollbar
-				theme: 'inset'
+				theme: 'cf-scroll'
 
 	loadProjectMaster:->
 		svgs = []
@@ -686,7 +705,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$.merge transitionImages ,  project.get('project_master')
 		if project.get('project_master').length != 0
 			$('.project_master').load(first[0],()->
-				$('.firstimage').attr('src',transitionImages[0])
+				$('.firstimage').attr('data-src',transitionImages[0])
 				url = Backbone.history.fragment
 				building_id = url.split('/')[1]
 				$('.villa,.plot').each (ind,item)->
@@ -790,11 +809,18 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			offsetY : -40
 			trigger: 'hover'
 			interactive : true
-			multiple: true
+			functionReady:(e)->
+				$('.view-unit').on('click' , (e)->
+					$('.layer').tooltipster('hide')
+					$('svg').attr('class' ,'zoom')
+					$('#spritespin').addClass 'zoom'
+					$('.us-right-content').addClass 'fadeOut'
+					$('.cf-loader').removeClass 'hidden'
+				)
 		)
 
 	loadZoom:->
-		$panzoom =  $('.master').panzoom
+		$('.master').panzoom
 			contain: 'invert'
 			minScale: 1
 			maxScale: 2.4
@@ -802,6 +828,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$zoomIn: $('.zoom-in')
 			$zoomOut: $('.zoom-out')
 			# $set: $('.spritespin-canvas')
+
+		$('.master polygon').on 'mousedown touchstart', (e) ->
+			e.stopImmediatePropagation()
 	
 
 

@@ -37,7 +37,7 @@ svg {
 		// fill: #5C2424;
 		// opacity: 0.75;
 		// stroke: #f68121;
-	  	stroke-width: 0px;
+	  	stroke-width: 0;
 	  	stroke-dasharray: 20 300;
 	  	stroke-dashoffset: 400;
 	  	// transform: scale(.99, .99);
@@ -45,7 +45,23 @@ svg {
 	  	// transition: .5s ease-in;
 		// transform-origin: 50% 50%;
 	  	&.svg_active{
-	  		animation: blink 0.8s ease-in-out infinite alternate; 
+	  		// animation: blink 0.8s ease-in-out infinite alternate;
+	  		fill: #F68121;
+		  	fill-opacity: 0.8;
+	  		animation-name: blink;
+	  		animation-duration: 1s;
+	  		animation-timing-function: linear;
+	  		animation-iteration-count: infinite;
+	  		-moz-animation-name: blink;
+	  		-moz-animation-duration: 1s;
+	  		-moz-animation-timing-function: linear;
+	  		-moz-animation-iteration-count: infinite;
+	  		-webkit-animation-name: blink;
+	  		-webkit-animation-duration: 1s;
+	  		-webkit-animation-timing-function: linear;
+	  		-webkit-animation-iteration-count: infinite;
+	  		transform: scale(1);
+	  		-moz-transform: scale(1);
 		  	// stroke-width: 4px;
 		  	// stroke-dasharray: 320 0;
 		  	// stroke-dashoffset: 0;
@@ -55,6 +71,7 @@ svg {
 	  	&.not_in_selection {
 			opacity: .5;
 			animation: unit_fadein 0.6s;
+			-moz-animation: unit_fadein 0.6s;
 			-webkit-animation: unit_fadein 0.6s;
 		}
 		&:hover{
@@ -62,8 +79,22 @@ svg {
 		  	// stroke-dasharray: 320 0;
 		  	// stroke-dashoffset: 0;
 		  	// transform: scale(1.06);
+		  	fill: #F68121;
+		  	fill-opacity: 0.8;
 	  		cursor: pointer;
-	  		animation: blink 0.8s ease-in-out infinite alternate;
+	  		animation-name: blink;
+	  		animation-duration: 1s;
+	  		animation-timing-function: linear;
+	  		animation-iteration-count: infinite;
+	  		-moz-animation-name: blink;
+	  		-moz-animation-duration: 1s;
+	  		-moz-animation-timing-function: linear;
+	  		-moz-animation-iteration-count: infinite;
+	  		-webkit-animation-name: blink;
+	  		-webkit-animation-duration: 1s;
+	  		-webkit-animation-timing-function: linear;
+	  		-webkit-animation-iteration-count: infinite;
+	  		-moz-animation: blink 0.8s ease-in-out infinite alternate;
 		}
 	}
 
@@ -135,7 +166,7 @@ svg {
 }
 
 .marker{
-	cursor: pointer;
+	// cursor: pointer;
 }
 
 .marker-area{
@@ -143,7 +174,7 @@ svg {
 }
 
 .step1-marker{
-	cursor: pointer;
+	// cursor: pointer;
 	transform-origin: 50% 50%;
 	opacity: 0.3;
 	&:hover{
@@ -177,10 +208,64 @@ svg {
         transform: scale(1); 
     }
 }
+@-moz-keyframes pulse {
+    0% { 
+        transform: scale(1); 
+    }
+    50% { 
+        transform: scale(1.05); 
+    }
+    100% { 
+        transform: scale(1); 
+    }
+}
+@-webkit-keyframes pulse {
+    0% { 
+        transform: scale(1); 
+    }
+    50% { 
+        transform: scale(1.05); 
+    }
+    100% { 
+        transform: scale(1); 
+    }
+}
 
 
 
 @keyframes unit_fadein {
+	0% { 
+        opacity: 0; 
+        transform: translateY(-400px); 
+    } 
+    60% { 
+        opacity: 1; 
+        transform: translateY(30px); 
+    } 
+    80% { 
+        transform: translateY(-10px); 
+    } 
+    100% { 
+        transform: translateY(0); 
+    }
+}
+@-moz-keyframes unit_fadein {
+	0% { 
+        opacity: 0; 
+        transform: translateY(-400px); 
+    } 
+    60% { 
+        opacity: 1; 
+        transform: translateY(30px); 
+    } 
+    80% { 
+        transform: translateY(-10px); 
+    } 
+    100% { 
+        transform: translateY(0); 
+    }
+}
+@-webkit-keyframes unit_fadein {
 	0% { 
         opacity: 0; 
         transform: translateY(-400px); 
@@ -215,15 +300,51 @@ svg {
  	fill-opacity: 0.5;
   }
 }
-@keyframes blink {
-  0% {
-	 
-  }
-  
-  100% {
- 	fill:#F68121;
- 	fill-opacity: 0.5;
-  }
+
+
+@keyframes blink {  
+    0% {	
+    	fill:#F68121 !important; 
+    	opacity: 0.5; 
+   }
+    50% {
+    	fill:#F68121 !important; 
+    	opacity: 0.0;
+     }
+    100% 
+    {	fill:#F68121 !important; 
+    	opacity: 0.5;
+     }
+}
+
+@-moz-keyframes blink {  
+    0% {	
+    	fill:#F68121 !important; 
+    	opacity: 0.5; 
+   }
+    50% {
+    	fill:#F68121 !important; 
+    	opacity: 0.0;
+     }
+    100% 
+    {	fill:#F68121 !important; 
+    	opacity: 0.5;
+     }
+}
+
+@-webkit-keyframes blink {  
+    0% {	
+    	fill:#F68121 !important; 
+    	opacity: 0.8; 
+   }
+    50% {
+    	fill:#F68121 !important; 
+    	opacity: 0.0;
+     }
+    100% 
+    {	fill:#F68121 !important; 
+    	opacity: 0.8;
+     }
 }
 
 

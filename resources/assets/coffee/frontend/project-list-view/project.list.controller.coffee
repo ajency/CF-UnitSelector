@@ -32,7 +32,7 @@ class TopListView extends Marionette.ItemView
 												<h2 class="proj-name pull-left">{{project_title}}</h2>
 															<div class="proj-type-count">
 																{{#types}} 
-																<p class="pull-right">{{type}}</p><h1 class=" pull-right m-t-10">{{count.length}}</h1> 
+																<p class="pull-right">{{type}}</p><h2 class=" pull-right m-t-10">{{count.length}}</h2> 
 																{{/types}}
 															</div>
 															<div class="clearfix"></div>
@@ -169,7 +169,7 @@ class TopListView extends Marionette.ItemView
 		# 	@ui.unitBack.hide()
 		response = CommonFloor.propertyTypes() 
 		if response.length == 0
-			$('.proj-type-count').text 'No results found'
+			$('.proj-type-count').html '<p class="p-l-15">No results found</p>'
 
 
 	removeVillaFilters:->

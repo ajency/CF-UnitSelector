@@ -92,37 +92,37 @@ class LeftUnitView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content animated fadeIn">
 							<div class="unit-details">
 								<div class="row detail-list">
-									<div class="col-sm-6 col-xs-6">
+									<div class="col-sm-6 col-xs-6 text-center">
 										<span class="facts-icon icon-total-units"></span>
-										<div class="unit-label">
+										<div class="unit-label m-t-10">
 											<h3>{{unit_variant}}</h3>
-											<h5 class="text-muted">Unit Variant</h5>      
+											<h6 class="text-muted">Unit Variant</h6>      
 										</div>
 									</div>
 
-									<div class="col-sm-6 col-xs-6">
+									<div class="col-sm-6 col-xs-6 text-center">
 										<span class="facts-icon icon-BHKtype"></span>
-										<div class="unit-label">
+										<div class="unit-label m-t-10">
 											<h3>{{type}}</h3>
-											<h5 class="text-muted">Unit Type</h5>      
+											<h6 class="text-muted">Unit Type</h6>      
 										</div>
 									</div>
 								</div>
 
 								<div class="row detail-list">
-									<div class="col-sm-6 col-xs-6">
+									<div class="col-sm-6 col-xs-6 text-center">
 										<span class="facts-icon icon-BHK-area-2"></span>
-										<div class="unit-label">
-											<h3>{{area}} {{area_unit}}</h3>
-											<h5 class="text-muted">Area</h5>      
+										<div class="unit-label m-t-10">
+											<h3>{{area}} {{measurement_units}}</h3>
+											<h6 class="text-muted">Area</h6>      
 										</div>
 									</div>
 
-									<div class="col-sm-6 col-xs-6">
+									<div class="col-sm-6 col-xs-6 text-center">
 										<span class="facts-icon icon-rupee-icn"></span>
-										<div class="unit-label">
+										<div class="unit-label m-t-10">
 											<h3 class="price">{{price}}</h3>
-											<h5 class="text-muted">Price</h5>      
+											<h6 class="text-muted">Price</h6>      
 										</div>
 									</div>
 								</div>
@@ -180,24 +180,24 @@ class LeftUnitView extends Marionette.ItemView
 							<div class="similar-section">
 					           <h5 class="bold m-b-15">{{similarUnitsText}}</h5>
 					          
-					              	{{#similarUnits}}
-					              	<div class="row m-b-15">
-					              	    <div class="col-sm-4 hidden-xs">
-				              	            <div class="alert ">
-				              	              <i class="{{type}}-ico"></i>
-				              	            </div> 
-					              	    </div>
+				              	{{#similarUnits}}
+				              	<div class="m-b-15 clearfix">
+				              	    <div class="sim-icon">
+			              	            <div class="alert ">
+			              	              <i class="{{type}}-ico"></i>
+			              	            </div> 
+				              	    </div>
 
-					              	    <div class="col-sm-8 col-xs-12">
-			              	              	<h5><a href="'+BASEURL+'/project/'+PROJECTID+'/#unit-view/{{id}}">{{unit_name}}</a> <span class="text-primary pull-right"><span class="icon-rupee-icn"></span>{{price}}</span></h5>
 
-			              	              	<span class="text-muted">Unit Variant: </span>{{variant}}<br>
-			              	             	<span class="text-muted">Unit Type:</span> {{unit_type}}<br>
-			              	             	<span class="text-muted"> Area:</span> {{area}} '+project.get('area_unit')+'    
-					              	    </div>
-					              	</div>
+				              	    <div class="sim-details">
+		              	              	<h5 class="m-b-0"><a href="'+BASEURL+'/project/'+PROJECTID+'/#unit-view/{{id}}">{{unit_name}}</a> </h5>
+		              	             	{{unit_type}} ({{area}} {{units}})<br>
+		              	              	{{variant}}<br>
+		              	              	<span class="text-primary"><span class="icon-rupee-icn"></span>{{price}}</span>
 
-					                {{/similarUnits}}					            
+				              	    </div>
+				              	</div>
+				                {{/similarUnits}}					            
 				            </div>
 
 						</div>
@@ -220,15 +220,18 @@ class LeftUnitView extends Marionette.ItemView
 
 		similarUnits = @getSimilarUnits(unit)
 		temp = []
+		console.log project.get('measurement_units')
 		$.each similarUnits[0], (index,value)->
+			response = window.unit.getUnitDetails(value.get('id'))
 			temp.push 
 				'unit_name' : value.get('unit_name')
 				'unit_type' : response[1].get 'name'
 				'price' : window.numDifferentiation(response[3])
-				'area':response[0].get 'super_built_up_area'
+				'area':response[0].get 'super_built_up_area'  
 				'variant':response[0].get 'unit_variant_name'
 				'id' : value.get('id')
 				'type' : similarUnits[2]
+				'units' : project.get('measurement_units')
 		data.area = response[0].get('super_built_up_area')
 		data.type = response[1].get('name')
 		data.unit_variant = response[0].get('unit_variant_name')
@@ -236,7 +239,7 @@ class LeftUnitView extends Marionette.ItemView
 		data.attributes  = attributes
 		data.similarUnits = temp
 		data.similarUnitsText = similarUnits[1]
-		data.area_unit = project.get('area_unit')
+		data.measurement_units = project.get('measurement_units')
 		data
 
 	getSimilarUnits:(unit)->
@@ -398,7 +401,7 @@ class CenterUnitView extends Marionette.ItemView
 			response = @generateLevels()
 			html = ''
 			html += '<div class="animated fadeIn">
-						<img class="img img-responsive" data-src="'+response[3].get('external3durl')+'" />
+						<img class="img img-responsive external-img" data-src="'+response[3].get('external3durl')+'" />
 					</div>'
 			$('.images').html html
 			$('.img').lazyLoadXT()
@@ -436,7 +439,7 @@ class CenterUnitView extends Marionette.ItemView
 						<div class="details">
 							<span>'+response[1].get('name')+'</span></br>
 							<div class="text-primary"><span class="text-primary facts-icon icon-rupee-icn"></span>'+window.numDifferentiation(response[3])+'</div>
-							<!--<div>Area: <span>'+response[0].get('super_built_up_area')+' '+project.get('area_unit')+'</span></div>	
+							<!--<div>Area: <span>'+response[0].get('super_built_up_area')+' '+project.get('measurement_units')+'</span></div>	
 							<div>Variant: <span>'+response[0].get('unit_variant_name')+'</span></div>-->
 							
 						</div>
@@ -521,7 +524,7 @@ class CenterUnitView extends Marionette.ItemView
 		if $(window).width() > 991
 			$('.search-left-content').css('height',height)
 			$('.search-left-content').mCustomScrollbar
-				theme: 'inset'
+				theme: 'cf-scroll'
 
 
 		$('.images').html html

@@ -75,7 +75,12 @@ class BunglowListView extends Marionette.ItemView
 			unit = unitCollection.findWhere 
 				id :  id 
 		
-			if ! _.isUndefined unit 
+			if ! _.isUndefined unit
+				$('.layer').tooltipster('hide')
+				$('svg').attr('class' ,'zoom')
+				$('#spritespin').addClass 'zoom'
+				$('.us-right-content').addClass 'fadeOut'
+				$('.cf-loader').removeClass 'hidden'
 				setTimeout( (x)->
 					CommonFloor.navigate '/unit-view/'+id , trigger : true
 					# CommonFloor.router.storeRoute()
@@ -144,7 +149,7 @@ class BunglowListView extends Marionette.ItemView
 					
 					<div class="details">
 						<div>
-							'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('area_unit')+')
+							'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('measurement_units')+')
 							<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
 						</div>
 						<div class="text-primary">
@@ -179,7 +184,7 @@ class MasterBunglowListView extends Marionette.CompositeView
 							              <ul class="prop-select">
 
 							                <li class="prop-type buildings hidden">Buildings</li>
-							                <li class="prop-type Villas active ">Villas/Bungalows</li>
+							                <li class="prop-type Villas active ">Villas</li>
 											<li class="prop-type Plots_tab hidden">Plots</li>
 							              </ul>
 							            </div>

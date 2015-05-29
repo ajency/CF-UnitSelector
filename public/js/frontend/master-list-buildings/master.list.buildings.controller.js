@@ -11,7 +11,7 @@
       return ListItemView.__super__.constructor.apply(this, arguments);
     }
 
-    ListItemView.prototype.template = Handlebars.compile('<div class="bldg-img"></div> <div class="info"> <h2 class="m-b-5">{{building_name}}</h2> <div class="floors"><span>{{floors}}</span> floors</div> </div> <div class="clearfix"></div> <div class="unit-type-info"> <ul> {{#types}} <li> {{name}}<!--: <span>{{units}}</span>--> </li> {{/types}} <span class="area {{areaname}}">{{area}} {{area_unit}}</span> <div class="text-primary price {{classname}}">Starting price <span class="icon-rupee-icn"></span>{{price}}</div> </ul> </div>');
+    ListItemView.prototype.template = Handlebars.compile('<div class="bldg-img"></div> <div class="info"> <h2 class="m-b-5">{{building_name}}</h2> <div class="floors"><span>{{floors}}</span> floors</div> </div> <div class="clearfix"></div> <div class="unit-type-info"> <ul> {{#types}} <li> {{name}}<!--: <span>{{units}}</span>--> </li> {{/types}} <span class="area {{areaname}}">{{area}} {{measurement_units}}</span> <div class="text-primary price {{classname}}">Starting price <span class="icon-rupee-icn"></span>{{price}}</div> </ul> </div>');
 
     ListItemView.prototype.tagName = 'li';
 
@@ -39,12 +39,10 @@
       if (cost === 0) {
         data.classname = 'hidden';
       }
-      window.convertRupees(cost);
-      window.numDifferentiation;
       data.price = window.numDifferentiation(cost);
       data.floors = Object.keys(floors).length;
       data.types = types;
-      data.area_unit = project.get('area_unit');
+      data.measurement_units = project.get('measurement_units');
       return data;
     };
 
@@ -78,8 +76,11 @@
         buildingModel = buildingCollection.findWhere({
           'id': id
         });
-        $('.spritespin-canvas').addClass('zoom');
-        $('.us-left-content').addClass('animated fadeOut');
+        $('.layer').tooltipster('hide');
+        $('svg').attr('class', 'zoom');
+        $('#spritespin').addClass('zoom');
+        $('.us-right-content').addClass('fadeOut');
+        $('.cf-loader').removeClass('hidden');
         return setTimeout(function(x) {
           if (Object.keys(buildingModel.get('building_master')).length === 0) {
             return CommonFloor.navigate('/building/' + id + '/apartments', true);
@@ -140,7 +141,7 @@
       return MasterBuildingListView.__super__.constructor.apply(this, arguments);
     }
 
-    MasterBuildingListView.prototype.template = Handlebars.compile('		<div id="trig" class="toggle-button"></div> <div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeIn"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings active">Buildings</li> <li class="prop-type Villas hidden">Villas/Bungalows</li> <li class="prop-type tab hidden">Plots</li> </ul> </div> <div class="bldg-list"> <p class="text-center help-text">Hover on the buildings for more details</p> <ul class="units one"> </ul> <div class="clearfix"></div> </div> </div>');
+    MasterBuildingListView.prototype.template = Handlebars.compile('		<div id="trig" class="toggle-button"></div> <div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeIn"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings active">Buildings</li> <li class="prop-type Villas hidden">Villas</li> <li class="prop-type tab hidden">Plots</li> </ul> </div> <div class="bldg-list"> <p class="text-center help-text">Hover on the buildings for more details</p> <ul class="units one"> </ul> <div class="clearfix"></div> </div> </div>');
 
     MasterBuildingListView.prototype.childView = ListItemView;
 

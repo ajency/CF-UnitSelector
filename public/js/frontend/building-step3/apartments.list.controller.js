@@ -46,7 +46,7 @@
       return TopApartmentView.__super__.constructor.apply(this, arguments);
     }
 
-    TopApartmentView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> </a> </div> <div class="header-info"> <h2 class="proj-name pull-left">{{project_title}}</h2> </div> <div class="pull-left filter-result full"> {{#each  filters}} {{#each this}} <div class="filter-pill"  > {{this.name}}{{this.type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div> {{/each}}{{/each }} </div> <div class="proj-type-count"> <p class="pull-right">Apartment(s)/Penthouse(s)</p><h1 class=" pull-right m-t-10">{{results}}</h1> </div> </div> </div> </div>');
+    TopApartmentView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="proj-name pull-left">{{project_title}}</h2> <div class="proj-type-count"> <h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p> </div> <div class="pull-left filter-result full"> {{#each  filters}} {{#each this}} <div class="filter-pill"  > {{this.name}}{{this.type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div> {{/each}}{{/each }} </div> </div> </div> </div> </div>');
 
     TopApartmentView.prototype.ui = {
       unitBack: '.unit_back',
@@ -97,8 +97,10 @@
         'click @ui.unitBack': function(e) {
           var previousRoute;
           e.preventDefault();
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filter();
           previousRoute = CommonFloor.router.previous();
-          return CommonFloor.navigate('/master-view', true);
+          return CommonFloor.navigate('#/master-view', true);
         },
         'click @ui.unitTypes': function(e) {
           var unitTypes;
@@ -269,29 +271,25 @@
       return ApartmentsView.__super__.constructor.apply(this, arguments);
     }
 
-    ApartmentsView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="bldg-img"></div> <div class="apartment pull-left icon"></div> <div class="pull-left bldg-info"> <div class="info"> <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}} {{area_unit}}) </div> <label>2nd Floor</label><br> <label class="text-primary">Aprox. 35 Lacs</label> </div> <div class="clearfix"></div> </li>');
+    ApartmentsView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="bldg-img"></div> <div class="apartment pull-left icon"></div> <div class="pull-left bldg-info"> <div class="info"> <label>{{unit_name}} (Floor - {{floor}} )</label> </div> ({{unit_type}} {{super_built_up_area}} {{measurement_units}})<br> <div class="text-primary m-t-5"><span class="icon-rupee-icn"></span>{{price}}</div> </div> <div class="clearfix"></div> </li>');
 
     ApartmentsView.prototype.serializeData = function() {
-      var data, property, status, unitType, unitVariant;
+      var availability, data, property, response, unitType;
       data = ApartmentsView.__super__.serializeData.call(this);
-      status = s.decapitalize(this.model.get('availability'));
-      unitVariant = apartmentVariantCollection.findWhere({
-        'id': this.model.get('unit_variant_id')
-      });
-      if (!_.isUndefined(unitVariant)) {
-        unitType = unitTypeCollection.findWhere({
-          'id': unitVariant.get('unit_type_id')
-        });
-        data.unit_type = unitType.get('name');
-        data.super_built_up_area = unitVariant.get('super_built_up_area');
-        data.status = status;
-      }
+      response = window.unit.getUnitDetails(this.model.get('id'));
+      data.unit_type = response[1].get('name');
+      data.super_built_up_area = response[0].get('super_built_up_area');
+      availability = this.model.get('availability');
+      data.status = s.decapitalize(availability);
+      this.model.set('status', status);
+      data.price = window.numDifferentiation(response[3]);
       unitType = unitTypeMasterCollection.findWhere({
         'id': this.model.get('unit_type_id')
       });
       property = window.propertyTypes[unitType.get('property_type_id')];
       data.property = s.capitalize(property);
-      data.area_unit = project.get('area_unit');
+      data.floor = this.model.get('floor');
+      data.measurement_units = project.get('measurement_units');
       return data;
     };
 
