@@ -29,7 +29,7 @@
                 <table class="table table-bordered" id="example2" >
                     <thead>
                         <tr>
-                            <th>Edit</th>
+                            <th style="width:40px;">Edit</th>
                             <th>Name</th>
                             <th>Status</th>
                             <th>Building</th>
