@@ -22,36 +22,35 @@ class CommonFloor.ApartmentsListCtrl extends Marionette.RegionController
 
 class CommonFloor.TopApartmentView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="container-fluid">
+	template : Handlebars.compile('<div class="container-fluid animated fadeIn">
 							          	<div class="row">
-								          	<div class="col-md-12 col-xs-12 col-sm-12 text-center">
+								          	<div class="col-md-12 col-xs-12 col-sm-12">
 
 									            <div class="breadcrumb-bar">
-									                <a class="unit_back" href="#">
-													
-													</a>
+									                <a class="unit_back" href="#"></a>
 									            </div>
+
 									            <div class="header-info">
-								              	<h2 class="proj-name pull-left">{{project_title}}</h2> 
-								              	</div>
-								              	 <div class="pull-left filter-result full">
-					                      	{{#each  filters}}
-					                      	{{#each this}}
-					        				<div class="filter-pill"  >
-					        					{{this.name}}{{this.type}}
-					        					<span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span>
-					                      	</div>	
-					                      	{{/each}}{{/each }}							               
-					                    </div>
-					        			<div class="proj-type-count">
-					        				
-					        				<p class="pull-right">Apartment(s)/Penthouse(s)</p><h1 class=" pull-right m-t-10">{{results}}</h1> 
-					        			
-					        			</div>
-								          	</div>
-							          	</div>
-							        </div>
-							      ')
+								              		<h2 class="proj-name pull-left">{{project_title}}</h2> 
+								              	
+									              	<div class="proj-type-count">
+									              		<h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p>
+									              	</div>
+									              	
+									              	<div class="pull-left filter-result full">
+									              		{{#each  filters}}
+									              		{{#each this}}
+								        				<div class="filter-pill"  >
+								        					{{this.name}}{{this.type}}
+								        					<span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span>
+								                      	</div>	
+						                      			{{/each}}{{/each }}							               
+						                    		</div>
+									          	</div>
+
+									        </div>
+								        </div>
+							        </div>')
 
 	ui  :
 		unitBack : '.unit_back'
@@ -100,8 +99,10 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 			# 	CommonFloor.defaults[index] = ""
 			# unitCollection.reset unitMasterCollection.toArray()
 			# CommonFloor.filter()
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filter()
 			previousRoute = CommonFloor.router.previous()
-			CommonFloor.navigate '/master-view' , true
+			CommonFloor.navigate '#/master-view' , true
 
 		'click @ui.unitTypes':(e)->
 			unitTypes = CommonFloor.defaults['unitTypes'].split(',')
@@ -235,11 +236,12 @@ class ApartmentsView extends Marionette.ItemView
 					                     <div class="apartment pull-left icon"></div>	
 					                   <div class="pull-left bldg-info">
 					                    <div class="info">
-					                      <label>{{unit_name}}</label>
-					                      ({{unit_type}} {{super_built_up_area}} {{area_unit}})
+					                      <label>{{unit_name}} (Floor - {{floor}} )</label>
+					                      
 					                    </div>
-					                    <label>2nd Floor</label><br>
-					                    <label class="text-primary">Aprox. 35 Lacs</label>
+					       
+					                    ({{unit_type}} {{super_built_up_area}} {{measurement_units}})<br>
+					                    <div class="text-primary m-t-5"><span class="icon-rupee-icn"></span>{{price}}</div>
 					                    </div>
 					                    <div class="clearfix"></div>
 					                   
@@ -248,20 +250,19 @@ class ApartmentsView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
-		status = s.decapitalize @model.get 'availability'
-		unitVariant = apartmentVariantCollection.findWhere
-							'id' : @model.get('unit_variant_id')
-		if ! _.isUndefined unitVariant
-			unitType = unitTypeCollection.findWhere
-								'id' : unitVariant.get('unit_type_id')
-			data.unit_type = unitType.get('name')
-			data.super_built_up_area = unitVariant.get('super_built_up_area')
-			data.status = status
+		response = window.unit.getUnitDetails(@model.get('id'))
+		data.unit_type = response[1].get('name')
+		data.super_built_up_area = response[0].get('super_built_up_area')
+		availability = @model.get('availability')
+		data.status = s.decapitalize(availability)
+		@model.set 'status' , status
+		data.price = window.numDifferentiation(response[3])
 		unitType = unitTypeMasterCollection.findWhere
 							'id' :  @model.get('unit_type_id')
 		property = window.propertyTypes[unitType.get('property_type_id')]
 		data.property = s.capitalize(property)
-		data.area_unit = project.get('area_unit')
+		data.floor = @model.get('floor')
+		data.measurement_units = project.get('measurement_units')
 		data
 
 	events:

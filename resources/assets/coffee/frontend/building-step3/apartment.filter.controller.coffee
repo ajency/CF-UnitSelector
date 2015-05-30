@@ -49,7 +49,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 				                                </div>
 
 				                                <div class="">
-				                                    <h6>AREA ({{area_unit}})</h6>
+				                                    <h6>AREA ({{measurement_units}})</h6>
 				                                    <div class="range-container">
 				                                		<input type="text" id="area" name="area" value="" />
 				                                	</div>

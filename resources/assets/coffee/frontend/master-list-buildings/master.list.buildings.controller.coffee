@@ -14,7 +14,7 @@ class ListItemView extends Marionette.ItemView
 						                          {{name}}<!--: <span>{{units}}</span>-->
 						                        </li>
 						                        {{/types}}
-					                      		<span class="area {{areaname}}">{{area}} {{area_unit}}</span>
+					                      		<span class="area {{areaname}}">{{area}} {{measurement_units}}</span>
 					                      		<div class="text-primary price {{classname}}">Starting price <span class="icon-rupee-icn"></span>{{price}}</div>
 											</ul>
 										 </div>')
@@ -43,13 +43,10 @@ class ListItemView extends Marionette.ItemView
 		data.classname = ""
 		if cost == 0
 			data.classname = 'hidden'
-		# data.price = window.numDifferentiation(cost)
-		window.convertRupees(cost)
-		window.numDifferentiation
 		data.price = window.numDifferentiation(cost)
 		data.floors = Object.keys(floors).length
 		data.types = types
-		data.area_unit = project.get('area_unit')
+		data.measurement_units = project.get('measurement_units')
 		data
 
 	events:
@@ -76,9 +73,12 @@ class ListItemView extends Marionette.ItemView
 				return
 			buildingModel = buildingCollection.findWhere
 							'id' : id
-			$('.spritespin-canvas').addClass 'zoom'
-			$('.us-left-content').addClass 'animated fadeOut'
 			# window.building_id = id
+			$('.layer').tooltipster('hide')
+			$('svg').attr('class' ,'zoom')
+			$('#spritespin').addClass 'zoom'
+			$('.us-right-content').addClass 'fadeOut'
+			$('.cf-loader').removeClass 'hidden'
 			setTimeout( (x)->
 				if Object.keys(buildingModel.get('building_master')).length == 0
 					CommonFloor.navigate '/building/'+id+'/apartments' , true

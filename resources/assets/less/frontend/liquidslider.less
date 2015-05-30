@@ -35,7 +35,7 @@
 .liquid-slider{
 	width: 100%;
 	min-height: 450px;
-	background-color: #f7f7f7;
+	background-color: @white;
 	.ls-panel{
 		img{
 			// width: 100%;
@@ -50,4 +50,15 @@
 
 .panel-wrapper{
 	padding: 10px 20px;
+}
+
+@media(max-width:767px){
+	.ls-nav ul{
+		li{
+			max-width: 120px;
+			a, h4{
+				font-size: 14px;
+			}
+		} 
+	} 
 }

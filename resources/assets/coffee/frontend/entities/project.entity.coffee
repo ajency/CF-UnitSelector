@@ -29,7 +29,7 @@ class CommonFloor.Project extends Backbone.Model
 					@set 'filters' , {'Villa' : ['unitTypes' , 'unitVariantNames', 'flooring' ]
 									,'Apartment' : ['unitTypes' , 'unitVariantNames' , 'flooring']
 									,'Plot' : ['unitTypes' , 'unitVariantNames' , 'flooring']}
-					@set 'area_unit' , 'Sq.ft'
+					@set 'measurement_units' , 'Sq.ft'
 					if response == 0 || jQuery.isEmptyObject(response)
 						@clear()
 

@@ -2,30 +2,41 @@
     display: none;
 }
 .big-tooltip{
-    width: 100%;
-    max-width:470px;
-    h5{
-      width:65%;
-    }
-    .b-r{
-      border-left: 1px solid @gray-lighter;
-    }
-    img{
+    .svg-info{
         width: 100%;
-    }
-    .icon-location{
-        float:left;
-        margin-right:10px;
-        font-size:30px;
-        color: @brand-primary;
-    }
-      .icon-cross{
-        position: absolute;
-        right: 8px;
-    }
-    .address{
-        float: left;
-        width: 82%;
+        max-width:470px;
+        .action-bar{
+            width: 35%;
+        }
+        h5{
+          width:64%;
+        }
+        .details{
+            float: left;
+        }
+        .b-r{
+          border-left: 1px solid @gray-lighter;
+        }
+        img{
+            width: 100%;
+        }
+        .icon-location{
+            float:left;
+            margin-right:10px;
+            font-size:30px;
+            color: @brand-primary;
+        }
+          .icon-cross{
+            position: absolute;
+            right: 8px;
+        }
+        .address{
+            float: left;
+            width: 82%;
+        }
+        .circle:hover{
+            color: @white;
+        }
     }
 }
 
@@ -124,19 +135,24 @@
        width: 35px;
         height: 35px;
         border-radius: 100%;
-        background: #ccc;
+        background: #fff;
         position: absolute;
         bottom: -15px;
         text-align: center;
         right: 18px;
         line-height: 35px;
         border: 1px solid #999;
-        color: #5F5858 !important;
+        color: #5F5858;
         font-size: 13px;
+        z-index:999;
+        a{ color: #5F5858 !important;}
         &:hover{
           background: @brand-primary;
           cursor:pointer;
+          
+          a{
           color:@white !important;
+          }
         }
       
     }

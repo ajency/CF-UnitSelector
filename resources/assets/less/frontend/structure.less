@@ -9,6 +9,9 @@ body{
 .margin-none{
  margin: 0px;
 }
+.sm-text{
+    font-size: .6em;
+}
 /* Header */
 .us-header{
     background-color: @brand-primary;
@@ -78,7 +81,7 @@ body{
 
 .wrapper{
     min-height: 100%;
-    margin-bottom: -98px;
+    margin-bottom: -49px;
     // background-color: lighten(@gray-lighter, 15%);
 }
 
@@ -96,12 +99,13 @@ body{
     .ease;
     position: relative;
     margin-top:10px;
+    margin-bottom: 10px;
     padding-right: 15px;
 }
 
 @media(min-width:992px){
     .search-left-content{
-        min-height: 750px;
+        // min-height: 750px;
         padding-right: 0;
     }
 }
@@ -140,6 +144,9 @@ body{
             width: 100%;
         }
     }
+    &.single-unit{
+      padding-right: 15px;
+    }
 }
 
 .col-0 {
@@ -157,29 +164,31 @@ body{
     }
 }
 
+
 .list-container.not-visible{
   position: fixed;
   z-index: 9999;
-  left: 20px;
-  top: 115px;
+  right: 20px;
+  top: 30px;
   padding: 0;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
   background-color: fade(@white, 90%);
   width: 340px;
   height: 450px;
-  border: 1px solid @brand-primary;
-  // box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   border-radius: 3px;
   &.closed{
     width: 0;
     height: 0;
-    padding: 18px 20px;
+    padding: 22px 24px;
+    border-radius: 50%;
     background-color: @white;
     .filters-wrapper{
       opacity: 0
     }
     .toggle-button{
+      left: 0;
       // font-size: 24px;
       &::before{
         content: "\e756";
@@ -187,18 +196,19 @@ body{
       }
       &::after{
         position: relative;
-        right: -50px;
-        top: -1px;
+        right: -70px;
+        top: -3px;
         transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
         content: "List View";
         font-size: 14px;
         opacity: 0;
-          width: 60px;
+          width: 58px;
           display: inline-block;
       }
     }
     &:hover{
-      padding-right: 85px;
+      padding-right: 88px;
+      border-radius: 3px;
       .toggle-button{
         // font-size: 24px;
         &::before{
@@ -214,12 +224,12 @@ body{
   .toggle-button{
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
     color: @brand-primary;
-    padding: 6px 12px; 
+    padding: 8px 14px; 
     cursor: pointer;
     z-index: 999;
-    font-size: 16px;
+    font-size: 20px;
     .ease;
     &::before{
       content: "\e75e";
@@ -238,27 +248,9 @@ body{
   }
 }
 
-@media(max-width:767px){
-  .fliters-container{
-    right: 0;
-    top: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: @white;
-    &.closed{
-      right: 20px;
-      top: 80px;
-    }
-    .filters-wrapper{
-      .filters-content{
-        height: auto;
-      }
-    }    
-  }
-}
-
 .master{
   // height: 95vh;
+  transform: matrix(1, 0, 0, 1, 0, 0);
 }
 
 @media(max-width:991px){
@@ -277,7 +269,7 @@ body{
     .us-right-content{
         overflow: auto;
         .svg-area, .master{
-            min-width: 165vh;
+            // min-width: 165vh;
         }
         &.unit-slides{
             overflow: visible;
@@ -294,7 +286,7 @@ body{
 @media(max-width:767px){
     .us-right-content, .us-left-content{
         &.mobile{
-            margin-top: 44px;
+            // margin-top: 44px;
         }
     }
 }
@@ -306,10 +298,47 @@ body{
     .footer-section1{
         background-color: @white;
     }
+    .footer-section4{
+      text-align: left;
+      .copyright-text{
+        float: right;
+        padding: 5px;
+        text-align: right;
+      }
+      ul{
+        float: left;
+        li{
+          display: inline-block;
+          a{
+            padding: 5px 15px;
+            &:hover{
+              background: none;
+              color: @white;
+              text-decoration: underline !important;
+            }
+          }
+        }
+      }
+    }
+}
+
+@media(max-width:767px){
+  #footer{
+    .footer-section4{
+      text-align: center;
+      .copyright-text{
+        float: none;
+      }
+      ul{
+        float: none;
+        text-align: center;
+      }
+    }
+  }
 }
 
 .footer-push{
-    height: 98px;
+    height: 49px;
 }
 
 
@@ -408,7 +437,7 @@ body{
         } 
     }
   .top-spacing{
-      padding-top: 18px;
+      // padding-top: 18px;
   }
 }
 
@@ -430,14 +459,14 @@ hr.embossed {
 .detail-list{
   margin-bottom: 20px;
         .facts-icon{
-            font-size: 25px;
+            font-size: 30px;
             width: 40px;
-            float: left;
+             /*float: left;*/
             margin-right: 10px;
-            color:#5F5F5F;
+            color:@brand-primary;
         }
         .unit-label{
-             float: left;
+             /*float: left;*/
             h3{
               margin: 0px 0px 6px;
               font-size:15px;

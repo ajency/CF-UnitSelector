@@ -267,16 +267,11 @@
     }
   } 
 }
-@media(max-width:991px){
-  .breadcrumb-bar a{
-    padding: 15px;
-    font-size: 14px;
-  }
-}
+
 @media(max-width:767px){
   .breadcrumb-bar a{
     padding: 10px;
-    background-color: none;
+    background: none;
   }
 }
 /* Toggle Button */
@@ -363,6 +358,12 @@
   .zoom-controls{
     top: 15px;
     bottom: initial;
+    .zoom-in, .zoom-out{
+      &:hover{
+        background-color: @white;
+        color: @brand-primary;
+      }
+    }
   }
 }
 
