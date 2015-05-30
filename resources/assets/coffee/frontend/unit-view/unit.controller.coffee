@@ -575,8 +575,8 @@ class CenterUnitView extends Marionette.ItemView
 		response = window.unit.getUnitDetails(id)
 		building = buildingCollection.findWhere
 					'id' : parseInt unit.get('building_id')
-		
-		if response[2] is 'apartment' || response[2] is 'penthouse'
+		console.log response[2]
+		if response[2] is 'apartment' || response[2] is 'Penthouse'
 			transitionImages = []
 			svgs = {}
 			breakpoints = building.get 'breakpoints'
@@ -590,8 +590,8 @@ class CenterUnitView extends Marionette.ItemView
 					$('.firstimage').attr('src',transitionImages[0])
 					
 					$('.apartment').each (ind,item)->
-						id = parseInt item.id
-						$('#'+id).attr('class', "")
+						itemid = parseInt item.id
+						$('#'+itemid).attr('class', "")
 					$('#'+id).attr('class' ,'layer svg_active'))
 			if building.get('building_master').length == 0 
 				$('.master').hide()

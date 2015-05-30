@@ -467,7 +467,8 @@
       building = buildingCollection.findWhere({
         'id': parseInt(unit.get('building_id'))
       });
-      if (response[2] === 'apartment' || response[2] === 'penthouse') {
+      console.log(response[2]);
+      if (response[2] === 'apartment' || response[2] === 'Penthouse') {
         transitionImages = [];
         svgs = {};
         breakpoints = building.get('breakpoints');
@@ -480,8 +481,9 @@
           $('.images').load(first[0], function() {
             $('.firstimage').attr('src', transitionImages[0]);
             $('.apartment').each(function(ind, item) {
-              id = parseInt(item.id);
-              return $('#' + id).attr('class', "");
+              var itemid;
+              itemid = parseInt(item.id);
+              return $('#' + itemid).attr('class', "");
             });
             return $('#' + id).attr('class', 'layer svg_active');
           });
