@@ -425,11 +425,21 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 								                <div class="next"></div>
 								            </div>
 		              						
-		              						<div id="spritespin"></div>
-											<div class="svg-maps">
-												<img class="first_image lazy-hidden img-responsive" />
-												<div class="region inactive"></div>
-											</div>
+		              						
+		              					
+		              						<div class="outer-wrap" STYLE="height:100%">
+												  <div mag-thumb="outer" class="home-region"> 
+												    <img src="http://andrz.me/magnificent.js/examples/demo/img/rieti/500x334.jpg" />
+												  </div>
+												  <div mag-zoom="outer">
+												  <div id="spritespin"></div>
+												   <div class="svg-maps">
+													<img class="first_image lazy-hidden img-responsive" />
+													<div class="region inactive"></div>
+												</div>
+												  </div>
+												</div>
+											
 
 											<div class="cf-loader hidden"></div>
 								    	</div>
@@ -643,7 +653,12 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 
 	onShow:->
-
+		$host = $('[mag-thumb="outer"]')
+		$host.mag(
+		  mode: 'outer'
+		  position: 'drag'
+		  toggle: false
+		)
 		windowHeight = $(window).innerHeight() - 56
 		$('.master').css 'height', windowHeight
 		$('.master').css 'min-width', windowHeight * 2

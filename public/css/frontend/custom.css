@@ -7,6 +7,8 @@
 @import "../../bower_components/lazyloadxt/dist/jquery.lazyloadxt.spinner.css";
 @import "../../bower_components/ionrangeslider/css/ion.rangeSlider.css";
 @import "../../bower_components/ionrangeslider/css/ion.rangeSlider.skinHTML5.css";
+@import "../../bower_components/jquery-magnificent/src/css/mag.css";
+@import "../../bower_components/jquery-magnificent/src/theme/default.css";
 /* External CSS */
 /* Site Styles */
 html,
@@ -1658,6 +1660,13 @@ svg polygon {
     fill: #F68121 !important;
     opacity: 0.8;
   }
+}
+.home-region {
+  position: absolute;
+  z-index: 99999;
+  width: 400px;
+  height: 400px;
+  top: 0;
 }
 .list-view-container {
   padding: 10px;
