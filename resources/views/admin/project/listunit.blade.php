@@ -32,7 +32,6 @@
                             <th>Name</th>
                             <th>Status</th>
                             <th>Variant</th>
-                            <th>Phase</th>
                             <th>Created On</th>
                             <th>Modified On</th>
                         </tr>
@@ -44,7 +43,6 @@
                                 <td>{{ $unit['unit_name'] }}</td>
                                 <td>{{ ucfirst($unit->availability) }}</td>
                                 <td>{{ $unit->unitVariant->unit_variant_name}}</td>
-                                <td>{{ ($unit->phase->phase_name)?$unit->phase->phase_name:''}}</td>
                                 <td>{{ date('d/m/Y',strtotime($unit['created_at'])) }}</td>
                                 <td>{{  date('d/m/Y',strtotime($unit['updated_at'])) }}</td>
                             </tr>
