@@ -3,7 +3,7 @@
     <div class="col-md-12">
         <div class="grid simple">
             <div class="grid-title no-border">
-                <div class="row" data-object-id="{{ $project['id'] }}" data-object-type="project">
+                <div class="row object-master-images"  data-object-id="{{ $project['id'] }}" data-object-type="project" >
                     <div class="col-md-4">
                         <h3 class="inline"> <i class="fa fa-angle-double-right text-primary"></i> <span class="semi-bold">Google Earth</span> View</h3>
                    </div>
