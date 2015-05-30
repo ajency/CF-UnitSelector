@@ -132,11 +132,12 @@
     };
     window.resetCollection = function() {
       console.log("test");
-      $('.plot,.villa,.building').each(function(index, value) {
+      $('.plot,.villa,.building,.marker-grp').each(function(index, value) {
         var unit;
-        console.log(unit = unitMasterCollection.findWhere({
+        console.log(value.id);
+        unit = unitMasterCollection.findWhere({
           'id': parseInt(value.id)
-        }));
+        });
         return unitCollection.remove(unit.get('id'));
       });
       return console.log(unitCollection);

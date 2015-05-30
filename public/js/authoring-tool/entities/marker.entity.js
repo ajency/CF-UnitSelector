@@ -23,7 +23,8 @@
       switch (markerType) {
         case 'concentric':
           groupMarker.attr({
-            "class": 'marker-grp'
+            "class": 'marker-grp',
+            id: item.object_id
           });
           circle1 = draw.circle(innerRadius);
           circle1.attr({

@@ -153,9 +153,11 @@ jQuery(document).ready ($)->
 
     window.resetCollection = ()->
         console.log "test"
-        $('.plot,.villa,.building').each (index,value)->
-            console.log unit = unitMasterCollection.findWhere
+        $('.plot,.villa,.building,.marker-grp').each (index,value)->
+            console.log value.id
+            unit = unitMasterCollection.findWhere
                     'id' : parseInt value.id
+
             unitCollection.remove unit.get 'id'
 
         console.log unitCollection
