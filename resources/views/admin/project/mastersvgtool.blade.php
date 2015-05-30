@@ -88,7 +88,9 @@
                      </select>
                    </div> -->
                    <br/>
-                   <button type="button" class="btn btn-primary submit" >Submit</button>
+                   <button type="button" class="btn btn-primary submit" >Save</button>
+                   <button type="button" class="btn btn-primary edit hidden" >Update</button>
+                   <button type="button" class="btn btn-primary delete hidden" >Delete</button>
                    <button type="button" class="btn btn-link close" >Close</button>
 
                  </form>
@@ -101,8 +103,8 @@
                   </div>
                   <div class="menu">
                     <ul class="menu-block">
-                      <li><a class="save"><i class="fa fa-area-chart"></i> Polygon</a></li>
-                      <li><a><i class="fa fa-map-marker"></i> Marker</a></li>
+                      <li><a class="select-polygon"><i class="fa fa-area-chart"></i> Polygon</a></li>
+                      <li><a  class="select-marker" title='bottom Popover' rel='popover' data-placement='bottom' ><i class="fa fa-map-marker"></i> Marker</a></li>
                     </ul>
                   </div>
                 </nav> 
@@ -110,7 +112,7 @@
                             <div id="aj-imp-builder-drag-drop" class="svg-canvas">
                                 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm2">Small modal</button> -->
                               <textarea name="coords2" rows=3 class="area hidden" disabled placeholder="Shape Coordinates" data-image-url="{{$svgImage}}"></textarea>
-
+                                
                             </div>
 
                         </div>
@@ -349,7 +351,9 @@
             svgImg = '{{$svgImage}}';
             types = '{{$supported_types}}';
             supported_types = $('<div/>').html(types).text()
-           
+            
+
+            
 
            
 
