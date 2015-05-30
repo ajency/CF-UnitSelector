@@ -7,6 +7,11 @@
       'data': [],
       'supported_types': ['villa', 'plot']
     };
+    window.cx = 630.101;
+    window.cy = 362.245;
+    window.innerRadius = 8.002;
+    window.outerRadius = 15.002;
+    window.markerPoints = [];
     window.createSvg = function(svgData) {
       window.rawSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       rawSvg.setAttribute('id', 'Layer_1');
@@ -202,14 +207,32 @@
       var details, myObject;
       myObject = {};
       details = {};
-      details['class'] = 'layer ' + $('.property_type').val();
+      if (window.canvas_type === "concentricMarker") {
+        myObject['points'] = window.markerPoints;
+        details['cx'] = window.cx;
+        details['cy'] = window.cy;
+        details['innerRadius'] = window.innerRadius;
+        details['outerRadius'] = window.outerRadius;
+        details['marker_type'] = 'concentric';
+        myObject['canvas_type'] = 'marker';
+      } else if (window.canvas_type === "solidMarker") {
+        myObject['points'] = window.markerPoints;
+        details['cx'] = window.cx;
+        details['cy'] = window.cy;
+        details['innerRadius'] = window.innerRadius;
+        details['outerRadius'] = window.outerRadius;
+        details['marker_type'] = 'solid';
+        myObject['canvas_type'] = 'marker';
+      } else {
+        myObject['points'] = $('.area').val().split(',');
+        details['class'] = 'layer ' + $('.property_type').val();
+        myObject['canvas_type'] = window.canvas_type;
+      }
       myObject['image_id'] = IMAGEID;
       myObject['object_id'] = $('.units').val();
       myObject['object_type'] = $('.property_type').val();
-      myObject['canvas_type'] = window.canvas_type;
-      myObject['points'] = $('.area').val().split(',');
       myObject['other_details'] = details;
-      myObject['id'] = $('.units').val();
+      console.log(myObject);
       return $.ajax({
         type: 'POST',
         headers: {
@@ -273,57 +296,81 @@
       });
     };
     window.drawDefaultMarker = function(markerType) {
-      var circle, circle1, circle2, groupMarker, path;
-      alert(markerType);
+      var circle, circle1, circle2, drawMarkerElements, groupMarker, path;
+      drawMarkerElements = [];
+      window.markerPoints = [window.cx, window.cy];
+      groupMarker = draw.group();
       switch (markerType) {
         case 'concentric':
-          circle1 = draw.circle(8.002);
+          window.canvas_type = "concentricMarker";
+          groupMarker.attr({
+            "class": 'concentric-marker-grp'
+          });
+          circle1 = draw.circle(window.innerRadius);
           circle1.attr({
             fill: '#FF8500',
-            cx: "630.101",
-            cy: "362.245"
+            cx: window.cx,
+            cy: window.cy
           });
-          circle2 = draw.circle(15.002);
+          circle2 = draw.circle(window.outerRadius);
           circle2.attr({
             fill: 'none',
-            cx: "630.101",
-            cy: "362.245",
+            cx: window.cx,
+            cy: window.cy,
             stroke: "#FF7900",
             'stroke-width': 4,
             'stroke-miterlimit': 10
           });
-          groupMarker = draw.group();
-          groupMarker.add(circle1);
-          groupMarker.add(circle2);
-          groupMarker.draggable();
+          drawMarkerElements.push(circle1);
+          drawMarkerElements.push(circle2);
           break;
         case 'solid':
-          circle = draw.circle(10);
+          window.canvas_type = "solidMarker";
+          groupMarker.attr({
+            "class": 'solid-marker-grp'
+          });
+          circle = draw.circle(15.002);
           circle.attr({
             fill: '#F7931E',
             cx: "630.101",
             cy: "362.245"
           });
-          groupMarker = draw.group();
-          groupMarker.add(circle);
-          groupMarker.draggable();
+          drawMarkerElements.push(circle);
           break;
         case 'location':
+          groupMarker.attr({
+            "class": 'location-marker-grp'
+          });
           path = draw.path('M1087.492,428.966c0,7.208-13.052,24.276-13.052,24.276s-13.052-17.067-13.052-24.276 c0-7.208,5.844-13.051,13.052-13.051S1087.492,421.758,1087.492,428.966z');
           path.attr({
             fill: '#F7931E'
           });
-          circle = draw.circle(5.5);
+          drawMarkerElements.push(path);
+          circle = draw.circle(15.002);
           circle.attr({
             fill: '#FFFFFF',
             cx: "1074.44",
             cy: "427.187"
           });
-          groupMarker = draw.group();
-          groupMarker.add(path);
-          groupMarker.add(circle);
-          return groupMarker.draggable();
+          drawMarkerElements.push(circle);
       }
+      _.each(drawMarkerElements, (function(_this) {
+        return function(markerElement, key) {
+          return groupMarker.add(markerElement);
+        };
+      })(this));
+      groupMarker.draggable();
+      return groupMarker.dragend = function(delta, event) {
+        var newX, newY, newpoints, oldX, oldY, tx, ty;
+        oldX = window.cx;
+        oldY = window.cy;
+        tx = delta.x;
+        ty = delta.y;
+        newX = oldX + tx;
+        newY = oldY + ty;
+        newpoints = [newX, newY];
+        return window.markerPoints = newpoints;
+      };
     };
     window.loadOjectData();
     $('#aj-imp-builder-drag-drop canvas').ready(function() {
@@ -336,7 +383,7 @@
     });
     $('[rel=\'popover\']').popover({
       html: 'true',
-      content: '<div id="popOverBox"> <ul class="list-inline"> <li><div class="marker-elem marker1 concentric-marker"></div></li> <li><div class="marker-elem marker2 solid-marker"></div></li> <li><div class="marker-elem marker3 location-marker"></div></li> </ul> </div>'
+      content: '<div id="popOverBox"> <ul class="list-inline"> <li><div class="marker-elem marker1 concentric-marker"></div></li> <li><div class="marker-elem marker2 solid-marker"></div></li> <!--li><div class="marker-elem marker3 location-marker"></div></li--> </ul> </div>'
     }).parent().on('click', '#popOverBox .marker-elem', function(evt) {
       var currentElem, markerType;
       currentElem = evt.currentTarget;
@@ -347,9 +394,9 @@
       } else if ($(currentElem).hasClass('location-marker')) {
         markerType = "location";
       }
-      window.canvas_type = "marker";
       $('#aj-imp-builder-drag-drop canvas').hide();
       $('#aj-imp-builder-drag-drop svg').first().css("position", "relative");
+      $('.edit-box').removeClass('hidden');
       return window.drawDefaultMarker(markerType);
     });
     $('.select-polygon').on('click', function(e) {
@@ -403,7 +450,12 @@
         window.hideAlert();
         return false;
       }
-      if ($('.area').val() === "") {
+      if (($('.area').val() === "") && (window.canvas_type === "polygon")) {
+        $('.alert').text('Coordinates not marked');
+        window.hideAlert();
+        return false;
+      }
+      if ((window.markerPoints.length < 1) && (window.canvas_type !== "polygon")) {
         $('.alert').text('Coordinates not marked');
         window.hideAlert();
         return false;
