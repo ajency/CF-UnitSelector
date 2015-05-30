@@ -97,7 +97,6 @@
         return marked.push(value.marked + ' ' + value.name + '(s)');
       });
       html = '<strong class="pull-right total-count">' + total.join(" | ") + '</strong>' + '<strong class="pull-right title-count"> Total:</strong>' + '<strong class="pull-right total-count">' + marked.join(" | ") + '</strong>' + '<strong class="pull-right title-count"> Marked:</strong>';
-      console.log(html);
       return $('.pending').html(html);
     };
     window.generatePropTypes = function() {
@@ -116,10 +115,9 @@
       });
     };
     window.resetCollection = function() {
+      console.log("test");
       $('.plot,.villa,.building').each(function(index, value) {
         var unit;
-        console.log(value.id);
-        console.log(unitMasterCollection);
         console.log(unit = unitMasterCollection.findWhere({
           'id': parseInt(value.id)
         }));
@@ -180,7 +178,6 @@
         }
       });
     };
-    window.loadOjectData();
     window.renderSVG = function() {
       var canvas, ctx, s, str, types;
       window.createSvg(window.svgData.data);
@@ -201,6 +198,81 @@
       ctx = canvas.getContext("2d");
       return ctx.clearRect(0, 0, canvas.width, canvas.height);
     };
+    window.saveUnit = function() {
+      var details, myObject;
+      myObject = {};
+      details = {};
+      details['class'] = 'layer ' + $('.property_type').val();
+      myObject['image_id'] = IMAGEID;
+      myObject['object_id'] = $('.units').val();
+      myObject['object_type'] = $('.property_type').val();
+      myObject['canvas_type'] = window.canvas_type;
+      myObject['points'] = $('.area').val().split(',');
+      myObject['other_details'] = details;
+      myObject['id'] = $('.units').val();
+      return $.ajax({
+        type: 'POST',
+        headers: {
+          'x-csrf-token': $("meta[name='csrf-token']").attr('content')
+        },
+        url: BASEURL + '/admin/project/' + PROJECTID + '/svg-tool',
+        async: false,
+        data: $.param(myObject),
+        success: function(response) {
+          var value;
+          value = $('.area').val().split(',');
+          $('#Layer_1').remove();
+          $(".toggle").trigger('click');
+          window.svgData.data.push(myObject);
+          return window.renderSVG();
+        },
+        error: function(response) {
+          return alert('Some problem occurred');
+        }
+      });
+    };
+    window.loadForm = function(type) {
+      if (type === 'villa') {
+        this.region = new Marionette.Region({
+          el: '#dynamice-region'
+        });
+        new AuthoringTool.VillaCtrl({
+          region: this.region
+        });
+      }
+      if (type === 'plot') {
+        this.region = new Marionette.Region({
+          el: '#dynamice-region'
+        });
+        return new AuthoringTool.PlotCtrl({
+          region: this.region
+        });
+      }
+    };
+    window.showDetails = function(elem) {
+      var select, unit;
+      unit = unitMasterCollection.findWhere({
+        'id': parseInt(elem.id)
+      });
+      $('.property_type').val($(elem).attr('type'));
+      $('.property_type').attr('disabled', true);
+      select = $('.units');
+      $('<option />', {
+        value: elem.id,
+        text: unit.get('unit_name')
+      }).appendTo(select);
+      $('.units').attr('disabled', true);
+      $('.units').val(elem.id);
+      return $('.units').show();
+    };
+    window.hideAlert = function() {
+      $('.alert').show();
+      return $('.alert-box').delay(1000).queue(function(next) {
+        $(this).hide('fade');
+        return next();
+      });
+    };
+    window.loadOjectData();
     $('#aj-imp-builder-drag-drop canvas').ready(function() {
       $('#aj-imp-builder-drag-drop canvas').hide();
       return $('#aj-imp-builder-drag-drop .svg-draw-clear').hide();
@@ -209,7 +281,11 @@
       $(this).toggleClass("expanded");
       return $('.menu').toggleClass('open');
     });
-    $('.save').on('click', function(e) {
+    $('[rel=\'popover\']').popover({
+      html: 'true',
+      content: '<div id="popOverBox"> <ul class="list-inline"> <li><div class="marker1"></div></li> <li><div class="marker2"></div></li> <li><div class="marker3"></div></li> <li><div class="marker4"></div></li> </ul> </div>'
+    });
+    $('.select-polygon').on('click', function(e) {
       e.preventDefault();
       window.canvas_type = "polygon";
       $('#aj-imp-builder-drag-drop canvas').show();
@@ -245,7 +321,13 @@
       groupMarker = draw.group();
       groupMarker.add(circle1);
       groupMarker.add(circle2);
-      return groupMarker.draggable();
+      groupMarker.draggable();
+      groupMarker.dragend = function() {
+        return console.log('drag end');
+      };
+      return groupMarker.dragstart = function() {
+        return console.log('drag start');
+      };
     });
     $('svg').on('dblclick', '.villa,.plot', function(e) {
       var classElem, currentElem, element, svgDataObjects;
@@ -275,39 +357,6 @@
         };
       })(this));
     });
-    window.saveUnit = function() {
-      var details, myObject;
-      myObject = {};
-      details = {};
-      details['class'] = 'layer ' + $('.property_type').val();
-      myObject['image_id'] = IMAGEID;
-      myObject['object_id'] = $('.units').val();
-      myObject['object_type'] = $('.property_type').val();
-      myObject['canvas_type'] = window.canvas_type;
-      myObject['points'] = $('.area').val().split(',');
-      myObject['other_details'] = details;
-      myObject['id'] = $('.units').val();
-      return $.ajax({
-        type: 'POST',
-        headers: {
-          'x-csrf-token': $("meta[name='csrf-token']").attr('content')
-        },
-        url: BASEURL + '/admin/project/' + PROJECTID + '/svg-tool',
-        async: false,
-        data: $.param(myObject),
-        success: function(response) {
-          var value;
-          value = $('.area').val().split(',');
-          $('#Layer_1').remove();
-          $(".toggle").trigger('click');
-          window.svgData.data.push(myObject);
-          return window.renderSVG();
-        },
-        error: function(response) {
-          return alert('Some problem occurred');
-        }
-      });
-    };
     $('.submit').on('click', function(e) {
       if ($('.property_type').val() === "") {
         $('.alert').text('Unit not assigned');
@@ -358,7 +407,6 @@
           $('#Layer_1').remove();
           $.each(window.svgData.data, function(index, value) {
             if (parseInt(value.object_id) === parseInt($('.units').val())) {
-              console.log(index);
               return window.svgData.data.splice(index, 1);
             }
           });
@@ -377,47 +425,6 @@
       type = $(e.target).val();
       return window.loadForm(type);
     });
-    window.loadForm = function(type) {
-      if (type === 'villa') {
-        this.region = new Marionette.Region({
-          el: '#dynamice-region'
-        });
-        new AuthoringTool.VillaCtrl({
-          region: this.region
-        });
-      }
-      if (type === 'plot') {
-        this.region = new Marionette.Region({
-          el: '#dynamice-region'
-        });
-        return new AuthoringTool.PlotCtrl({
-          region: this.region
-        });
-      }
-    };
-    window.showDetails = function(elem) {
-      var select, unit;
-      unit = unitMasterCollection.findWhere({
-        'id': parseInt(elem.id)
-      });
-      $('.property_type').val($(elem).attr('type'));
-      $('.property_type').attr('disabled', true);
-      select = $('.units');
-      $('<option />', {
-        value: elem.id,
-        text: unit.get('unit_name')
-      }).appendTo(select);
-      $('.units').attr('disabled', true);
-      $('.units').val(elem.id);
-      return $('.units').show();
-    };
-    window.hideAlert = function() {
-      $('.alert').show();
-      return $('.alert-box').delay(1000).queue(function(next) {
-        $(this).hide('fade');
-        return next();
-      });
-    };
     $('.clear').on('click', function(e) {
       var canvas, ctx;
       $('.area').val("");

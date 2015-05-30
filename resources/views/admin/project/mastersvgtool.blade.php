@@ -103,8 +103,8 @@
                   </div>
                   <div class="menu">
                     <ul class="menu-block">
-                      <li><a class="save"><i class="fa fa-area-chart"></i> Polygon</a></li>
-                      <li><a class="select-marker"><i class="fa fa-map-marker"></i> Marker</a></li>
+                      <li><a class="select-polygon"><i class="fa fa-area-chart"></i> Polygon</a></li>
+                      <li><a  class="select-marker" title='bottom Popover' rel='popover' data-placement='bottom' ><i class="fa fa-map-marker"></i> Marker</a></li>
                     </ul>
                   </div>
                 </nav> 

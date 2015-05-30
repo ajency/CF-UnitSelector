@@ -10,6 +10,8 @@
 #Function to count the number of pending objects
 jQuery(document).ready ($)->
 	$('.area').canvasAreaDraw()
+
+	########################### GLOBALS BEGIN ###########################
 	window.draw = SVG('aj-imp-builder-drag-drop')
 	
 	window.svgData = {
@@ -17,6 +19,9 @@ jQuery(document).ready ($)->
 					'data' : []
 					'supported_types' : ['villa','plot']
 				}
+	########################### GLOBALS ENDS ###########################
+	
+	########################### FUNCTIONS BEGIN ###########################			
 	#function to create the svg
 	window.createSvg = (svgData)->
 		window.rawSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg")
@@ -114,7 +119,6 @@ jQuery(document).ready ($)->
 				'<strong class="pull-right title-count"> Total:</strong>'+
 				'<strong class="pull-right total-count">'+marked.join(" | ")+'</strong>'+
 				'<strong class="pull-right title-count"> Marked:</strong>'
-		console.log html
 		$('.pending').html html
 
 
@@ -127,9 +131,8 @@ jQuery(document).ready ($)->
 			$('<option />', {value: value.toLowerCase(), text: value.toUpperCase()}).appendTo(select)
 
 	window.resetCollection = ()->
+		console.log "test"
 		$('.plot,.villa,.building').each (index,value)->
-			console.log value.id
-			console.log unitMasterCollection
 			console.log unit = unitMasterCollection.findWhere
 					'id' : parseInt value.id
 			unitCollection.remove unit.get 'id'
@@ -148,22 +151,37 @@ jQuery(document).ready ($)->
 
 				#parsing the integer fields 
 				response = response.data
+
 				bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants)
+
 				settings.setSettingsAttributes(response.settings)
+
 				unitTypeCollection.setUnitTypeAttributes(response.unit_types)
+
 				buildingCollection.setBuildingAttributes(response.buildings)
+
 				apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants)
+
 				floorLayoutCollection.setFloorLayoutAttributes(response.floor_layout)
+
 				window.propertyTypes = response.property_types
+
 				plotVariantCollection.setPlotVariantAttributes(response.plot_variants)
+
 				unitCollection.setUnitAttributes(response.units)
+
 				window.createSvg(window.svgData.data)
+
 				window.generatePropTypes()
-				types = window.getPendingObjects(window.svgData) 
+
+				types = window.getPendingObjects(window.svgData)
+
 				window.showPendingObjects(types)
+
 				s = new XMLSerializer()
 				str = s.serializeToString(rawSvg)
 				draw.svg(str)
+
 				# window.store = draw.svg(rawSvg)
 				window.resetCollection()
 				
@@ -174,7 +192,7 @@ jQuery(document).ready ($)->
 				@region =  new Marionette.Region el : '#noFound-template'
 				new CommonFloor.ProjectCtrl region : @region
 
-	#api required to load second step
+	#api required to load svg data based on image
 	window.loadOjectData = ()->
 
 		$.ajax
@@ -194,10 +212,6 @@ jQuery(document).ready ($)->
 			error :(response)->
 				alert('Some problem occurred')
 		
-
-	
-	window.loadOjectData()
-
 	window.renderSVG = ()->
 		window.createSvg(window.svgData.data)
 		types = window.getPendingObjects(window.svgData) 
@@ -216,127 +230,8 @@ jQuery(document).ready ($)->
 		canvas = document.getElementById("c")
 		ctx= canvas.getContext("2d")
 		ctx.clearRect( 0 , 0 , canvas.width, canvas.height )
-
-
 	
-
-
-
-			
-		
-
-
-
-	$('#aj-imp-builder-drag-drop canvas').ready ->
-		$('#aj-imp-builder-drag-drop canvas').hide()
-		$('#aj-imp-builder-drag-drop .svg-draw-clear').hide()
-
-	# $('#save-svg-elem').on 'click', (e) ->
-	# 	console.log "click save-svg-elem"
-	# 	newCoordinates = $('.area').val()
-	# 	newPoints = newCoordinates.split(',').map((point) ->
-	# 	  parseInt point, 10
-	# 	)
-
-	# 	editedElemTypeId = $("input[name=svg-element-id]").val()
-	# 	newSvgData = svgData
-	# 	_.each svgData.data, (svgDataObject, key) =>
-	# 		if svgDataObject.id is parseInt(editedElemTypeId)
-	# 			# change global svg data with new points
-	# 			newSvgData['data'][key]['points'] = newPoints
-	# 			window.svgData = newSvgData
-
-	# 			# regenerate newly modified svg element
-
-
-	# 	$('#aj-imp-builder-drag-drop canvas').hide()
-	# 	$('#aj-imp-builder-drag-drop svg').first().css("position","relative")
-	# 	$("input[name=svg-element-id]").val("")	
-	# 	$(".area").val("")	
-	$(".toggle").click( ()->
-		$(this).toggleClass("expanded");
-		$('.menu').toggleClass('open');
-	 
-	)
-
-	$('.save').on 'click', (e) ->
-		e.preventDefault()
-		window.canvas_type = "polygon"
-		$('#aj-imp-builder-drag-drop canvas').show()
-		$('#aj-imp-builder-drag-drop .svg-draw-clear').show()
-		$('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
-		$('.edit-box').removeClass 'hidden'
-		$('.edit').addClass 'hidden'
-		$('.delete').addClass 'hidden'
-		$('.submit').removeClass 'hidden'
-		$('.property_type').attr 'disabled' ,  false
-
-
-	$('.select-marker').on 'click', (e) ->
-		e.preventDefault()
-		window.canvas_type = "marker"
-		$('#aj-imp-builder-drag-drop canvas').hide()
-		$('#aj-imp-builder-drag-drop svg').first().css("position","relative")
-		
-		
-		
-		circle1 = draw.circle(8.002)
-		circle1.attr
-		  fill: '#FF8500'
-		  cx: "630.101"
-		  cy: "362.245"
-
-		circle2 = draw.circle(15.002)
-		circle2.attr
-		  fill: 'none'
-		  cx: "630.101"
-		  cy: "362.245"
-		  stroke: "#FF7900"
-		  'stroke-width':4 
-		  'stroke-miterlimit':10
-
-		groupMarker = draw.group()  
-		groupMarker.add(circle1)
-		groupMarker.add(circle2)
-		groupMarker.draggable()
-
-		# $('.edit-box').removeClass 'hidden'
-
-	# groupMarker.dragend = ->
- #  		console.log 'drag end'
-
- #  	groupMarker.dragstart = ->
- #  		console.log 'drag end'
-
-	$('svg').on 'dblclick', '.villa,.plot' , (e) ->
-			e.preventDefault()
-			window.canvas_type = "polygon"
-			$('#aj-imp-builder-drag-drop canvas').show()
-			$('#aj-imp-builder-drag-drop .svg-draw-clear').show()
-			$('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
-			$('.edit-box').removeClass 'hidden'
-			currentElem = e.currentTarget
-			element = currentElem.id
-			classElem = $(currentElem).attr('type')
-			svgDataObjects = svgData.data
-			_.each svgDataObjects, (svgDataObject, key) =>
-				if parseInt(element) is parseInt svgDataObject.object_id
-					points = svgDataObject.points
-					$('.area').val points.join(',')
-					# collection = new Backbone.Collection window.svgData.data
-					# collection.remove element
-					# window.svgData.data =  collection.toArray()
-					drawPoly(points)
-					$('.submit').addClass 'hidden'
-					$('.edit').removeClass 'hidden'
-					$('.delete').removeClass 'hidden'
-					window.loadForm(classElem)
-					window.showDetails(currentElem)
-					
-					
-		
 	
-
 	window.saveUnit = ()->
 		myObject  = {}
 		details = {}
@@ -372,78 +267,9 @@ jQuery(document).ready ($)->
 				window.svgData.data.push myObject
 				window.renderSVG()
 				
-				
-				
-
-				
 			error :(response)->
 				alert('Some problem occurred')
 
-					
-	
-	$('.submit').on 'click', (e) ->
-
-		if $('.property_type').val() == ""
-			$('.alert').text 'Unit not assigned'
-			window.hideAlert()
-			return false
-		
-		if  $('.units').val() == ""
-			$('.alert').text 'Unit not assigned'
-			window.hideAlert()
-			return false
-		if  $('.area').val()  == ""
-			$('.alert').text 'Coordinates not marked'
-			window.hideAlert()
-			return false
-		if window.coord == 1
-			$('.alert').text 'Already assigned'
-			window.hideAlert()
-			return false
-		window.saveUnit()
-		
-	$('.edit').on 'click', (e) ->
-		myObject  = {}
-		details = {}
-		details['class'] = 'layer '+$('.property_type').val()
-		myObject['image_id'] = IMAGEID
-		myObject['object_id'] = $('.units').val()
-		myObject['object_type'] =  $('.property_type').val()
-		myObject['canvas_type'] =  window.canvas_type
-		myObject['points'] =  $('.area').val().split(',')
-		myObject['other_details'] =  details
-		myObject['id'] =  $('.units').val()
-		myObject['_method'] =  'PUT'
-		$.ajax
-			type : 'POST',
-			headers: { 'x-csrf-token' : $("meta[name='csrf-token']").attr('content')}
-			url  : BASEURL+'/admin/project/'+	PROJECTID+'/svg-tool/'+myObject['object_id'] 
-			async : false
-			data : $.param myObject 
-			success :(response)->
-
-				value =  $('.area').val().split(',')
-				$('#Layer_1').remove()
-				$.each window.svgData.data,(index,value)->
-					if parseInt(value.object_id) == parseInt($('.units').val())
-						console.log index
-						window.svgData.data.splice(index,1)
-						# delete window.svgData.data[index]
-				console.log window.svgData.data
-				window.svgData.data.push myObject
-				console.log window.svgData.data
-				window.renderSVG()
-				
-				
-
-				
-			error :(response)->
-				alert('Some problem occurred')	
-		
-
-	$('.property_type').on 'change', (e) ->
-		type = $(e.target).val()
-		window.loadForm(type)
 
 	window.loadForm = (type)->
 		if type is 'villa'
@@ -473,6 +299,179 @@ jQuery(document).ready ($)->
 				next() 
 		)
 
+	########################### FUNCTIONS ENDS ###########################	
+		
+	window.loadOjectData()
+
+	########################### EVENTS BEGIN ###########################
+	# on canvas creation hide canvas and show svg
+	$('#aj-imp-builder-drag-drop canvas').ready ->
+		$('#aj-imp-builder-drag-drop canvas').hide()
+		$('#aj-imp-builder-drag-drop .svg-draw-clear').hide()
+	
+	# toggle toolbox menu
+	$(".toggle").click( ()->
+		$(this).toggleClass("expanded");
+		$('.menu').toggleClass('open');
+	 
+	)
+
+    # show marker options
+	$('[rel=\'popover\']').popover
+		html: 'true'
+		content: '<div id="popOverBox">
+					<ul class="list-inline">
+						<li><div class="marker1"></div></li>
+						<li><div class="marker2"></div></li>
+						<li><div class="marker3"></div></li>
+						<li><div class="marker4"></div></li>
+					</ul>
+				  </div>'
+
+	# on polygon selection
+	$('.select-polygon').on 'click', (e) ->
+		e.preventDefault()
+		window.canvas_type = "polygon"
+		$('#aj-imp-builder-drag-drop canvas').show()
+		$('#aj-imp-builder-drag-drop .svg-draw-clear').show()
+		$('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
+		$('.edit-box').removeClass 'hidden'
+		$('.edit').addClass 'hidden'
+		$('.delete').addClass 'hidden'
+		$('.submit').removeClass 'hidden'
+		$('.property_type').attr 'disabled' ,  false
+
+    # on marker selection
+	$('.select-marker').on 'click', (e) ->
+		e.preventDefault()
+		window.canvas_type = "marker"
+		$('#aj-imp-builder-drag-drop canvas').hide()
+		$('#aj-imp-builder-drag-drop svg').first().css("position","relative")
+		
+		
+		
+		circle1 = draw.circle(8.002)
+		circle1.attr
+		  fill: '#FF8500'
+		  cx: "630.101"
+		  cy: "362.245"
+
+		circle2 = draw.circle(15.002)
+		circle2.attr
+		  fill: 'none'
+		  cx: "630.101"
+		  cy: "362.245"
+		  stroke: "#FF7900"
+		  'stroke-width':4 
+		  'stroke-miterlimit':10
+
+		groupMarker = draw.group()  
+		groupMarker.add(circle1)
+		groupMarker.add(circle2)
+		groupMarker.draggable()
+
+		groupMarker.dragend = ->
+  			console.log 'drag end'
+
+  		groupMarker.dragstart = ->
+  			console.log 'drag start'
+
+		# $('.edit-box').removeClass 'hidden'
+
+
+	# on double click of existing marked polygon(villa or plot) open canvas mode
+	$('svg').on 'dblclick', '.villa,.plot' , (e) ->
+			e.preventDefault()
+			window.canvas_type = "polygon"
+			$('#aj-imp-builder-drag-drop canvas').show()
+			$('#aj-imp-builder-drag-drop .svg-draw-clear').show()
+			$('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
+			$('.edit-box').removeClass 'hidden'
+			currentElem = e.currentTarget
+			element = currentElem.id
+			classElem = $(currentElem).attr('type')
+			svgDataObjects = svgData.data
+			_.each svgDataObjects, (svgDataObject, key) =>
+				if parseInt(element) is parseInt svgDataObject.object_id
+					points = svgDataObject.points
+					$('.area').val points.join(',')
+					# collection = new Backbone.Collection window.svgData.data
+					# collection.remove element
+					# window.svgData.data =  collection.toArray()
+					drawPoly(points)
+					$('.submit').addClass 'hidden'
+					$('.edit').removeClass 'hidden'
+					$('.delete').removeClass 'hidden'
+					window.loadForm(classElem)
+					window.showDetails(currentElem)
+							
+	# save svg eleement with unit data
+	$('.submit').on 'click', (e) ->
+
+		if $('.property_type').val() == ""
+			$('.alert').text 'Unit not assigned'
+			window.hideAlert()
+			return false
+		
+		if  $('.units').val() == ""
+			$('.alert').text 'Unit not assigned'
+			window.hideAlert()
+			return false
+		if  $('.area').val()  == ""
+			$('.alert').text 'Coordinates not marked'
+			window.hideAlert()
+			return false
+		if window.coord == 1
+			$('.alert').text 'Already assigned'
+			window.hideAlert()
+			return false
+		window.saveUnit()
+	
+	# edit svg eleement with unit data	
+	$('.edit').on 'click', (e) ->
+		myObject  = {}
+		details = {}
+		details['class'] = 'layer '+$('.property_type').val()
+		myObject['image_id'] = IMAGEID
+		myObject['object_id'] = $('.units').val()
+		myObject['object_type'] =  $('.property_type').val()
+		myObject['canvas_type'] =  window.canvas_type
+		myObject['points'] =  $('.area').val().split(',')
+		myObject['other_details'] =  details
+		myObject['id'] =  $('.units').val()
+		myObject['_method'] =  'PUT'
+		$.ajax
+			type : 'POST',
+			headers: { 'x-csrf-token' : $("meta[name='csrf-token']").attr('content')}
+			url  : BASEURL+'/admin/project/'+	PROJECTID+'/svg-tool/'+myObject['object_id'] 
+			async : false
+			data : $.param myObject 
+			success :(response)->
+
+				value =  $('.area').val().split(',')
+				$('#Layer_1').remove()
+				$.each window.svgData.data,(index,value)->
+					if parseInt(value.object_id) == parseInt($('.units').val())
+						window.svgData.data.splice(index,1)
+						# delete window.svgData.data[index]
+				console.log window.svgData.data
+				window.svgData.data.push myObject
+				console.log window.svgData.data
+				window.renderSVG()
+				
+				
+
+				
+			error :(response)->
+				alert('Some problem occurred')	
+		
+
+	$('.property_type').on 'change', (e) ->
+		type = $(e.target).val()
+		window.loadForm(type)
+
+
+	# clear canvas button
 	$('.clear').on 'click' , (e)->
 		$('.area').val("")
 		window.f = []
@@ -484,6 +483,7 @@ jQuery(document).ready ($)->
 		$('#dynamice-region').empty()
 		$('.edit-box').addClass 'hidden'
 
+	# on click of close form 
 	$('.close').on 'click' , (e)->
 		$('.area').val("")
 		window.f = []
@@ -497,6 +497,7 @@ jQuery(document).ready ($)->
 		$('#aj-imp-builder-drag-drop svg').show()
 		$('.edit-box').addClass 'hidden'
 
+	# on click of delete svg element
 	$('.delete').on 'click' , (e)->
 		myObject  = {}
 		myObject['_method'] =  'DELETE'
@@ -527,6 +528,30 @@ jQuery(document).ready ($)->
 				
 			error :(response)->
 				alert('Some problem occurred')	
+
+				
+	# $('#save-svg-elem').on 'click', (e) ->
+	# 	console.log "click save-svg-elem"
+	# 	newCoordinates = $('.area').val()
+	# 	newPoints = newCoordinates.split(',').map((point) ->
+	# 	  parseInt point, 10
+	# 	)
+
+	# 	editedElemTypeId = $("input[name=svg-element-id]").val()
+	# 	newSvgData = svgData
+	# 	_.each svgData.data, (svgDataObject, key) =>
+	# 		if svgDataObject.id is parseInt(editedElemTypeId)
+	# 			# change global svg data with new points
+	# 			newSvgData['data'][key]['points'] = newPoints
+	# 			window.svgData = newSvgData
+
+	# 			# regenerate newly modified svg element
+
+
+	# 	$('#aj-imp-builder-drag-drop canvas').hide()
+	# 	$('#aj-imp-builder-drag-drop svg').first().css("position","relative")
+	# 	$("input[name=svg-element-id]").val("")	
+	# 	$(".area").val("")					
 		
 				
 
