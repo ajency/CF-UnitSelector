@@ -269,23 +269,18 @@ $(window).load(function() {
         visibleItems: 3
       }
     }
-  });
+  })
 
-//   $(".share-btn").on({
-//     mouseenter: function () {
-//          console.log('in')
-//           setTimeout(function() {
-//       jQuery(".filters-wrapper-hover").addClass("visible")
-//       }, 500);
-//     },
-//     mouseleave: function () {
-//       console.log('out')
-//          setTimeout(function() {
-//      jQuery(".filters-wrapper-hover").removeClass("visible")
-//       }, 500);
-//     }
-// });
-  $('.property_type').on('mouseenter','.villa-btn' , function(e){
+ });
+
+
+if ($(window).width() < 767) {
+   alert('Less than 960');
+}
+else {
+  $(window).load(function() {
+// Villa on hover//
+   $('.property_type').on('mouseenter','.villa-btn' , function(e){
       jQuery(".villa-wrapper").addClass("visible")
 
     
@@ -303,43 +298,41 @@ $(window).load(function() {
       $(".villa-wrapper").removeClass("visible")
       }, 500);
     });
-
-
-    $('.property_type').on('mouseenter','.apartment-btn' , function(e){
+// Villa on hover//
+// Apartment on hover//
+  $('.property_type').on('mouseenter','.apartment-btn' , function(e){
       jQuery(".apartment-wrapper").addClass("visible")
-    
-  })
+      })
   $('.property_type').on('mouseleave','.apartment-btn' , function(e){
      jQuery(".apartment-wrapper").removeClass("visible")
-    
-  })
- $(".apartment-wrapper").hover(function() {
+      })
+  $(".apartment-wrapper").hover(function() {
       $(".apartment-wrapper").addClass("visible")
-    });
-$(".apartment-wrapper").mouseleave(function() {
+      });
+  $(".apartment-wrapper").mouseleave(function() {
       setTimeout(function() {
       $(".apartment-wrapper").removeClass("visible")
       }, 500);
-    });
-
-
-      $('.property_type').on('mouseenter','.plot-btn' , function(e){
+      });
+// Apartment on hover//
+// Plot on hover//
+  $('.property_type').on('mouseenter','.plot-btn' , function(e){
       jQuery(".plot-wrapper").addClass("visible")
-    
-  })
+    })
   $('.property_type').on('mouseleave','.plot-btn' , function(e){
      jQuery(".plot-wrapper").removeClass("visible")
-    
-  })
-   $(".plot-wrapper").hover(function() {
+    })
+  $(".plot-wrapper").hover(function() {
       $(".plot-wrapper").addClass("visible")
     });
-});
-$(".plot-wrapper").mouseleave(function() {
+  $(".plot-wrapper").mouseleave(function() {
       setTimeout(function() {
       $(".plot-wrapper").removeClass("visible")
       }, 500);
     });
+ // Plot on hover// 
+});
+
 // Villa // 
 $('.villa-check input:checkbox').change(function(){
 
@@ -384,8 +377,7 @@ $('.plot-check input:checkbox').change(function(){
 });
 
 
-
-
+}
 
 
   
