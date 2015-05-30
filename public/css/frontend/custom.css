@@ -94,7 +94,6 @@ body {
 }
 @media (min-width: 992px) {
   .search-left-content {
-    min-height: 750px;
     padding-right: 0;
   }
 }
@@ -2202,8 +2201,12 @@ svg polygon {
   color: #999999;
 }
 .unit-details {
-  padding-right: 15px;
-  margin-top: 25px;
+  padding: 15px;
+  margin-right: 10px;
+  margin-left: 20px;
+  margin-top: 15px;
+  max-height: 700px;
+  box-shadow: 0 1px 6px 0 rgba(0, 0, 0, 0.26);
 }
 .unit-details .accord-head {
   border-top: 1px solid #e6e6e6;
@@ -2222,6 +2225,9 @@ svg polygon {
   color: #db6809;
 }
 @media (max-width: 991px) {
+  .unit-details {
+    margin-left: 0;
+  }
   .unit-details .detail-list {
     text-align: center;
   }
@@ -2358,7 +2364,8 @@ svg polygon {
   }
 }
 .similar-section {
-  margin-top: 20px;
+  margin: 20px 10px;
+  padding: 15px;
 }
 .similar-section .sim-icon {
   width: 20%;
@@ -2399,6 +2406,48 @@ svg polygon {
   .similar-section .sim-details {
     width: 70%;
   }
+}
+@media (max-width: 991px) {
+  .similar-section {
+    display: none;
+  }
+}
+.single-unit .prev,
+.single-unit .next {
+  position: fixed;
+  top: 45%;
+  display: block;
+  width: 30px;
+  height: 75px;
+  padding: 25px 0;
+  cursor: pointer;
+  color: transparent;
+  border: none;
+  outline: none;
+  background-color: rgba(102, 102, 102, 0.5);
+  color: #262626;
+  text-align: center;
+  opacity: 0.5;
+}
+.single-unit .prev:hover,
+.single-unit .next:hover {
+  opacity: 1;
+}
+.single-unit .prev:before,
+.single-unit .next:before {
+  content: "\e762";
+  font-size: 25px;
+  font-family: icomoon;
+  line-height: 1;
+}
+.single-unit .prev {
+  left: 0;
+  -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+.single-unit .next {
+  right: 0;
 }
 .fliters-container {
   position: fixed;
@@ -3022,7 +3071,7 @@ label.third_toggle {
 .liquid-slider {
   width: 100%;
   min-height: 450px;
-  background-color: #f7f7f7;
+  background-color: #ffffff;
 }
 .liquid-slider .ls-panel img {
   margin: 0 auto;
@@ -3031,6 +3080,6 @@ label.third_toggle {
   max-width: 100% !important;
 }
 .panel-wrapper {
-  padding: 10px 20px;
+  padding: 10px 35px;
 }
 /*# sourceMappingURL=custom.css.map */

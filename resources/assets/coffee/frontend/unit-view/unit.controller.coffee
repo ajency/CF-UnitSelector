@@ -359,7 +359,7 @@ class CenterUnitView extends Marionette.ItemView
 										</div>
 									</div>
 								</div>
-								<div class="single-bldg">
+								<div class="single-unit">
 	              	
 					                <div class="prev"></div>
 					                <div class="next"></div>
@@ -549,8 +549,8 @@ class CenterUnitView extends Marionette.ItemView
 			@loadMaster()
 		height =  @ui.imagesContainer.height()
 		if $(window).width() > 991
-			$('.search-left-content').css('height',height)
-			$('.search-left-content').mCustomScrollbar
+			# $('.search-left-content').css('height',height)
+			$('.unit-details').mCustomScrollbar
 				theme: 'cf-scroll'
 
 
@@ -607,17 +607,27 @@ class CenterUnitView extends Marionette.ItemView
 				$('#'+id).attr('class' ,'layer svg_active'))
 
 	iniTooltip:->
-		$('.next,.prev').tooltipster(
+		$('.next').tooltipster(
 				theme: 'tooltipster-shadow circle-tooltip'
 				contentAsHTML: true
 				onlyOne : true
 				arrow : false
-				offsetX : 50
-				offsetY : -10
 				interactive : true
 				# animation : 'grow'
 				trigger: 'hover'
-				
+				position: 'left'
+				delay: 50				
+		)
+		$('.prev').tooltipster(
+				theme: 'tooltipster-shadow circle-tooltip'
+				contentAsHTML: true
+				onlyOne : true
+				arrow : false
+				interactive : true
+				# animation : 'grow'
+				trigger: 'hover'
+				position: 'right'
+				delay: 50				
 		)
 
 	generateLevels:->

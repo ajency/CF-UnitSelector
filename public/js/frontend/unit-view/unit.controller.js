@@ -284,7 +284,7 @@
       return CenterUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 col-sm-12 col-xs-12 us-right-content unit-slides animated fadeIn"> <div class=""> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> <li class="master"> <h4 class="title">Position</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <img class="firstimage img-responsive" src=""/> <div class="images animated fadeIn text-center"> </div> </div> </div> </div> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> </div> </div> </div>');
+    CenterUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 col-sm-12 col-xs-12 us-right-content unit-slides animated fadeIn"> <div class=""> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> <li class="master"> <h4 class="title">Position</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <img class="firstimage img-responsive" src=""/> <div class="images animated fadeIn text-center"> </div> </div> </div> </div> <div class="single-unit"> <div class="prev"></div> <div class="next"></div> </div> </div> </div> </div>');
 
     CenterUnitView.prototype.ui = {
       imagesContainer: '.us-right-content'
@@ -437,8 +437,7 @@
       }
       height = this.ui.imagesContainer.height();
       if ($(window).width() > 991) {
-        $('.search-left-content').css('height', height);
-        $('.search-left-content').mCustomScrollbar({
+        $('.unit-details').mCustomScrollbar({
           theme: 'cf-scroll'
         });
       }
@@ -504,15 +503,25 @@
     };
 
     CenterUnitView.prototype.iniTooltip = function() {
-      return $('.next,.prev').tooltipster({
+      $('.next').tooltipster({
         theme: 'tooltipster-shadow circle-tooltip',
         contentAsHTML: true,
         onlyOne: true,
         arrow: false,
-        offsetX: 50,
-        offsetY: -10,
         interactive: true,
-        trigger: 'hover'
+        trigger: 'hover',
+        position: 'left',
+        delay: 50
+      });
+      return $('.prev').tooltipster({
+        theme: 'tooltipster-shadow circle-tooltip',
+        contentAsHTML: true,
+        onlyOne: true,
+        arrow: false,
+        interactive: true,
+        trigger: 'hover',
+        position: 'right',
+        delay: 50
       });
     };
 
