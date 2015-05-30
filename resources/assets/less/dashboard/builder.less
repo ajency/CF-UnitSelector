@@ -5197,7 +5197,7 @@ nav.aj-navbar .toggle i {
 .menu {
   float: left;
   background-color: #f4f4f4;
-  overflow: hidden;
+ opacity:0;
   position: relative;
   width: 0;
   -moz-transition: width, 0.5s;
@@ -5232,6 +5232,7 @@ nav.aj-navbar .toggle i {
 /*  Open Menu  */
 .open {
   width: 210px;
+   opacity:1;
   -moz-transition: width, 0.5s;
   -o-transition: width, 0.5s;
   -webkit-transition: width, 0.5s;
@@ -5289,4 +5290,42 @@ nav.aj-navbar .toggle i {
   background: rgba(0, 0, 0, 0.6);
   border: 0px;
   color: #FF7E00;
+}
+.popover-title{
+	display:none;
+}
+.marker1{
+	background:url(../../images/icon-marker.png) no-repeat;
+	width: 28px;
+    height: 28px;
+    background-position: -11px;
+}
+.marker2{
+	background:url(../../images/icon-marker.png) no-repeat;
+	width: 28px;
+    height: 28px;
+    background-position: -62px;
+}
+.marker3{
+	background:url(../../images/icon-marker.png) no-repeat;
+	width: 28px;
+    height: 28px;
+    background-position: -110px;
+}
+.marker4{
+	background:url(../../images/icon-marker.png) no-repeat;
+	width: 28px;
+    height: 28px;
+    background-position: -157px;
+}
+#popOverBox ul li:hover{
+	  border: 2px solid #ccc;
+      border-radius: 9px;
+      cursor:pointer;
+}
+#popOverBox ul li{
+	  height: 35px;
+}
+.popover-content{
+	  width: 182px;
 }

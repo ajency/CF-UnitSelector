@@ -61,9 +61,9 @@
       $.each(supportedTypes, function(index, value) {
         var items, marked, units;
         items = collection.where({
-          'object_type': value
+          'object_type': value.toLowerCase()
         });
-        units = window.actualUnits(value);
+        units = window.actualUnits(value.toLowerCase());
         marked = [];
         $.each(items, function(ind, val) {
           if (!_.isEmpty(val.get('canvas_type'))) {
@@ -83,7 +83,7 @@
       var units;
       units = [];
       if (value === 'villa') {
-        units = bunglowVariantCollection.getBunglowUnits();
+        units = bunglowVariantCollection.getBunglowMasterUnits();
       }
       return units;
     };
@@ -110,10 +110,22 @@
       }).appendTo(select);
       return $.each(types, function(index, value) {
         return $('<option />', {
-          value: value,
+          value: value.toLowerCase(),
           text: value.toUpperCase()
         }).appendTo(select);
       });
+    };
+    window.resetCollection = function() {
+      $('.plot,.villa,.building').each(function(index, value) {
+        var unit;
+        console.log(value.id);
+        console.log(unitMasterCollection);
+        console.log(unit = unitMasterCollection.findWhere({
+          'id': parseInt(value.id)
+        }));
+        return unitCollection.remove(unit.get('id'));
+      });
+      return console.log(unitCollection);
     };
     window.loadJSONData = function() {
       return $.ajax({
@@ -138,7 +150,8 @@
           window.showPendingObjects(types);
           s = new XMLSerializer();
           str = s.serializeToString(rawSvg);
-          return window.store = draw.svg(str);
+          draw.svg(str);
+          return window.resetCollection();
         },
         error: function(response) {
           this.region = new Marionette.Region({
@@ -168,6 +181,26 @@
       });
     };
     window.loadOjectData();
+    window.renderSVG = function() {
+      var canvas, ctx, s, str, types;
+      window.createSvg(window.svgData.data);
+      types = window.getPendingObjects(window.svgData);
+      window.showPendingObjects(types);
+      s = new XMLSerializer();
+      str = s.serializeToString(rawSvg);
+      draw.svg(str);
+      window.resetCollection();
+      $('.area').val("");
+      window.f = [];
+      $("form").trigger("reset");
+      $('#dynamice-region').empty();
+      $('#aj-imp-builder-drag-drop canvas').hide();
+      $('#aj-imp-builder-drag-drop svg').show();
+      $('.edit-box').addClass('hidden');
+      canvas = document.getElementById("c");
+      ctx = canvas.getContext("2d");
+      return ctx.clearRect(0, 0, canvas.width, canvas.height);
+    };
     $('#aj-imp-builder-drag-drop canvas').ready(function() {
       $('#aj-imp-builder-drag-drop canvas').hide();
       return $('#aj-imp-builder-drag-drop .svg-draw-clear').hide();
@@ -182,7 +215,11 @@
       $('#aj-imp-builder-drag-drop canvas').show();
       $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
       $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
-      return $('.edit-box').removeClass('hidden');
+      $('.edit-box').removeClass('hidden');
+      $('.edit').addClass('hidden');
+      $('.delete').addClass('hidden');
+      $('.submit').removeClass('hidden');
+      return $('.property_type').attr('disabled', false);
     });
     $('.select-marker').on('click', function(e) {
       var circle1, circle2, groupMarker;
@@ -210,12 +247,6 @@
       groupMarker.add(circle2);
       return groupMarker.draggable();
     });
-    groupMarker.dragend = function() {
-      return console.log('drag end');
-    };
-    groupMarker.dragstart = function() {
-      return console.log('drag end');
-    };
     $('svg').on('dblclick', '.villa,.plot', function(e) {
       var classElem, currentElem, element, svgDataObjects;
       e.preventDefault();
@@ -225,19 +256,19 @@
       $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
       $('.edit-box').removeClass('hidden');
       currentElem = e.currentTarget;
-      console.log(element = currentElem.id);
-      console.log(classElem = $(currentElem).attr('type'));
+      element = currentElem.id;
+      classElem = $(currentElem).attr('type');
       svgDataObjects = svgData.data;
       return _.each(svgDataObjects, (function(_this) {
         return function(svgDataObject, key) {
-          var collection, points;
-          if (parseInt(element) === parseInt(svgDataObject.id)) {
+          var points;
+          if (parseInt(element) === parseInt(svgDataObject.object_id)) {
             points = svgDataObject.points;
             $('.area').val(points.join(','));
-            collection = new Backbone.Collection(window.svgData.data);
-            collection.remove(element);
-            window.svgData.data = collection.toArray();
             drawPoly(points);
+            $('.submit').addClass('hidden');
+            $('.edit').removeClass('hidden');
+            $('.delete').removeClass('hidden');
             window.loadForm(classElem);
             return window.showDetails(currentElem);
           }
@@ -255,6 +286,7 @@
       myObject['canvas_type'] = window.canvas_type;
       myObject['points'] = $('.area').val().split(',');
       myObject['other_details'] = details;
+      myObject['id'] = $('.units').val();
       return $.ajax({
         type: 'POST',
         headers: {
@@ -264,36 +296,12 @@
         async: false,
         data: $.param(myObject),
         success: function(response) {
-          var canvas, childEle, ctx, s, str, types, value;
+          var value;
           value = $('.area').val().split(',');
-          window.store.remove();
-          details = {};
-          details['class'] = 'layer ' + $('.property_type').val();
-          childEle = {};
-          childEle['id'] = $('.units').val();
-          childEle['name'] = $(".units option:selected").text();
-          childEle['object_type'] = $('.property_type').val();
-          childEle['points'] = value;
-          childEle['other_details'] = details;
-          childEle['canvas_type'] = window.canvas_type;
-          window.svgData.data.push(childEle);
-          window.createSvg(window.svgData.data);
-          types = window.getPendingObjects(window.svgData);
-          window.showPendingObjects(types);
-          s = new XMLSerializer();
-          str = s.serializeToString(rawSvg);
-          draw.svg(str);
-          $('.area').val("");
-          window.f = [];
-          $("form").trigger("reset");
-          $('#dynamice-region').empty();
+          $('#Layer_1').remove();
           $(".toggle").trigger('click');
-          $('#aj-imp-builder-drag-drop canvas').hide();
-          $('#aj-imp-builder-drag-drop svg').show();
-          $('.edit-box').addClass('hidden');
-          canvas = document.getElementById("c");
-          ctx = canvas.getContext("2d");
-          return ctx.clearRect(0, 0, canvas.width, canvas.height);
+          window.svgData.data.push(myObject);
+          return window.renderSVG();
         },
         error: function(response) {
           return alert('Some problem occurred');
@@ -323,6 +331,47 @@
       }
       return window.saveUnit();
     });
+    $('.edit').on('click', function(e) {
+      var details, myObject;
+      myObject = {};
+      details = {};
+      details['class'] = 'layer ' + $('.property_type').val();
+      myObject['image_id'] = IMAGEID;
+      myObject['object_id'] = $('.units').val();
+      myObject['object_type'] = $('.property_type').val();
+      myObject['canvas_type'] = window.canvas_type;
+      myObject['points'] = $('.area').val().split(',');
+      myObject['other_details'] = details;
+      myObject['id'] = $('.units').val();
+      myObject['_method'] = 'PUT';
+      return $.ajax({
+        type: 'POST',
+        headers: {
+          'x-csrf-token': $("meta[name='csrf-token']").attr('content')
+        },
+        url: BASEURL + '/admin/project/' + PROJECTID + '/svg-tool/' + myObject['object_id'],
+        async: false,
+        data: $.param(myObject),
+        success: function(response) {
+          var value;
+          value = $('.area').val().split(',');
+          $('#Layer_1').remove();
+          $.each(window.svgData.data, function(index, value) {
+            if (parseInt(value.object_id) === parseInt($('.units').val())) {
+              console.log(index);
+              return window.svgData.data.splice(index, 1);
+            }
+          });
+          console.log(window.svgData.data);
+          window.svgData.data.push(myObject);
+          console.log(window.svgData.data);
+          return window.renderSVG();
+        },
+        error: function(response) {
+          return alert('Some problem occurred');
+        }
+      });
+    });
     $('.property_type').on('change', function(e) {
       var type;
       type = $(e.target).val();
@@ -347,8 +396,20 @@
       }
     };
     window.showDetails = function(elem) {
+      var select, unit;
+      unit = unitMasterCollection.findWhere({
+        'id': parseInt(elem.id)
+      });
       $('.property_type').val($(elem).attr('type'));
-      return $('.units').val(elem.id);
+      $('.property_type').attr('disabled', true);
+      select = $('.units');
+      $('<option />', {
+        value: elem.id,
+        text: unit.get('unit_name')
+      }).appendTo(select);
+      $('.units').attr('disabled', true);
+      $('.units').val(elem.id);
+      return $('.units').show();
     };
     window.hideAlert = function() {
       $('.alert').show();
@@ -363,9 +424,13 @@
       window.f = [];
       canvas = document.getElementById("c");
       ctx = canvas.getContext("2d");
-      return ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      $("form").trigger("reset");
+      $(".toggle").trigger('click');
+      $('#dynamice-region').empty();
+      return $('.edit-box').addClass('hidden');
     });
-    return $('.close').on('click', function(e) {
+    $('.close').on('click', function(e) {
       var canvas, ctx;
       $('.area').val("");
       window.f = [];
@@ -378,6 +443,41 @@
       $('#aj-imp-builder-drag-drop canvas').hide();
       $('#aj-imp-builder-drag-drop svg').show();
       return $('.edit-box').addClass('hidden');
+    });
+    return $('.delete').on('click', function(e) {
+      var id, myObject;
+      myObject = {};
+      myObject['_method'] = 'DELETE';
+      id = $('.units').val();
+      return $.ajax({
+        type: 'POST',
+        headers: {
+          'x-csrf-token': $("meta[name='csrf-token']").attr('content')
+        },
+        url: BASEURL + '/admin/project/' + PROJECTID + '/svg-tool/' + id,
+        async: false,
+        data: $.param(myObject),
+        success: function(response) {
+          var unit, value;
+          value = $('.area').val().split(',');
+          $('#Layer_1').remove();
+          $.each(window.svgData.data, function(index, value) {
+            if (parseInt(value.object_id) === parseInt($('.units').val())) {
+              console.log(index);
+              return window.svgData.data.splice(index, 1);
+            }
+          });
+          console.log(window.svgData.data);
+          window.renderSVG();
+          unit = unitMasterCollection.findWhere({
+            'id': parseInt(id)
+          });
+          return unitCollection.add(unit);
+        },
+        error: function(response) {
+          return alert('Some problem occurred');
+        }
+      });
     });
   });
 

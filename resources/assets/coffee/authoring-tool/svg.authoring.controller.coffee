@@ -77,8 +77,8 @@ jQuery(document).ready ($)->
 		supportedTypes = _.uniq supportedTypes
 		$.each supportedTypes ,(index,value)->
 			items = collection.where
-						'object_type' : value
-			units = window.actualUnits(value)
+						'object_type' : value.toLowerCase()
+			units = window.actualUnits(value.toLowerCase())
 			marked = []
 			$.each items,(ind,val)->
 				if !_.isEmpty val.get('canvas_type')
@@ -98,7 +98,7 @@ jQuery(document).ready ($)->
 	window.actualUnits = (value)->
 		units = []
 		if value == 'villa'
-			units = bunglowVariantCollection.getBunglowUnits()
+			units = bunglowVariantCollection.getBunglowMasterUnits()
 
 		units
 
@@ -124,7 +124,17 @@ jQuery(document).ready ($)->
 		select = $('.property_type')
 		$('<option />', {value: "", text: 'Select option'}).appendTo(select)
 		$.each types , (index,value)->
-			$('<option />', {value: value, text: value.toUpperCase()}).appendTo(select)
+			$('<option />', {value: value.toLowerCase(), text: value.toUpperCase()}).appendTo(select)
+
+	window.resetCollection = ()->
+		$('.plot,.villa,.building').each (index,value)->
+			console.log value.id
+			console.log unitMasterCollection
+			console.log unit = unitMasterCollection.findWhere
+					'id' : parseInt value.id
+			unitCollection.remove unit.get 'id'
+
+		console.log unitCollection
 
 		
 	#api required to load second step
@@ -153,7 +163,9 @@ jQuery(document).ready ($)->
 				window.showPendingObjects(types)
 				s = new XMLSerializer()
 				str = s.serializeToString(rawSvg)
-				window.store = draw.svg(str)
+				draw.svg(str)
+				# window.store = draw.svg(rawSvg)
+				window.resetCollection()
 				
 				
 
@@ -185,6 +197,26 @@ jQuery(document).ready ($)->
 
 	
 	window.loadOjectData()
+
+	window.renderSVG = ()->
+		window.createSvg(window.svgData.data)
+		types = window.getPendingObjects(window.svgData) 
+		window.showPendingObjects(types)
+		s = new XMLSerializer()
+		str = s.serializeToString(rawSvg)
+		draw.svg str
+		window.resetCollection()
+		$('.area').val("")
+		window.f = []
+		$("form").trigger("reset")
+		$('#dynamice-region').empty()
+		$('#aj-imp-builder-drag-drop canvas').hide()
+		$('#aj-imp-builder-drag-drop svg').show()
+		$('.edit-box').addClass 'hidden'
+		canvas = document.getElementById("c")
+		ctx= canvas.getContext("2d")
+		ctx.clearRect( 0 , 0 , canvas.width, canvas.height )
+
 
 	
 
@@ -234,6 +266,11 @@ jQuery(document).ready ($)->
 		$('#aj-imp-builder-drag-drop .svg-draw-clear').show()
 		$('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
 		$('.edit-box').removeClass 'hidden'
+		$('.edit').addClass 'hidden'
+		$('.delete').addClass 'hidden'
+		$('.submit').removeClass 'hidden'
+		$('.property_type').attr 'disabled' ,  false
+
 
 	$('.select-marker').on 'click', (e) ->
 		e.preventDefault()
@@ -265,11 +302,11 @@ jQuery(document).ready ($)->
 
 		# $('.edit-box').removeClass 'hidden'
 
-	groupMarker.dragend = ->
-  		console.log 'drag end'
+	# groupMarker.dragend = ->
+ #  		console.log 'drag end'
 
-  	groupMarker.dragstart = ->
-  		console.log 'drag end'
+ #  	groupMarker.dragstart = ->
+ #  		console.log 'drag end'
 
 	$('svg').on 'dblclick', '.villa,.plot' , (e) ->
 			e.preventDefault()
@@ -279,19 +316,24 @@ jQuery(document).ready ($)->
 			$('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
 			$('.edit-box').removeClass 'hidden'
 			currentElem = e.currentTarget
-			console.log element = currentElem.id
-			console.log classElem = $(currentElem).attr('type')
+			element = currentElem.id
+			classElem = $(currentElem).attr('type')
 			svgDataObjects = svgData.data
 			_.each svgDataObjects, (svgDataObject, key) =>
-				if parseInt(element) is parseInt svgDataObject.id
+				if parseInt(element) is parseInt svgDataObject.object_id
 					points = svgDataObject.points
 					$('.area').val points.join(',')
-					collection = new Backbone.Collection window.svgData.data
-					collection.remove element
-					window.svgData.data =  collection.toArray()
+					# collection = new Backbone.Collection window.svgData.data
+					# collection.remove element
+					# window.svgData.data =  collection.toArray()
 					drawPoly(points)
+					$('.submit').addClass 'hidden'
+					$('.edit').removeClass 'hidden'
+					$('.delete').removeClass 'hidden'
 					window.loadForm(classElem)
 					window.showDetails(currentElem)
+					
+					
 		
 	
 
@@ -305,6 +347,7 @@ jQuery(document).ready ($)->
 		myObject['canvas_type'] =  window.canvas_type
 		myObject['points'] =  $('.area').val().split(',')
 		myObject['other_details'] =  details
+		myObject['id'] =  $('.units').val()
 		$.ajax
 			type : 'POST',
 			headers: { 'x-csrf-token' : $("meta[name='csrf-token']").attr('content')}
@@ -314,36 +357,22 @@ jQuery(document).ready ($)->
 			success :(response)->
 
 				value =  $('.area').val().split(',')
-				window.store.remove()
-				details = {}
-				details['class'] = 'layer '+$('.property_type').val()
-				childEle = {} 
-				childEle['id'] = $('.units').val()
-				childEle['name'] = $(".units option:selected").text()
-				childEle['object_type'] = $('.property_type').val()
-				childEle['points'] = value
-				childEle['other_details'] = details
-				childEle['canvas_type'] = window.canvas_type
-				
-				window.svgData.data.push childEle
-				
-				window.createSvg(window.svgData.data)
-				types = window.getPendingObjects(window.svgData) 
-				window.showPendingObjects(types)
-				s = new XMLSerializer()
-				str = s.serializeToString(rawSvg)
-				draw.svg str
-				$('.area').val("")
-				window.f = []
-				$("form").trigger("reset")
-				$('#dynamice-region').empty()
+				$('#Layer_1').remove()
+				# details = {}
+				# details['class'] = 'layer '+$('.property_type').val()
+				# childEle = {} 
+				# childEle['id'] = $('.units').val()
+				# childEle['name'] = $(".units option:selected").text()
+				# childEle['object_type'] = $('.property_type').val()
+				# childEle['points'] = value
+				# childEle['other_details'] = details
+				# childEle['canvas_type'] = window.canvas_type
 				$(".toggle").trigger 'click'
-				$('#aj-imp-builder-drag-drop canvas').hide()
-				$('#aj-imp-builder-drag-drop svg').show()
-				$('.edit-box').addClass 'hidden'
-				canvas = document.getElementById("c")
-				ctx= canvas.getContext("2d")
-				ctx.clearRect( 0 , 0 , canvas.width, canvas.height )
+		
+				window.svgData.data.push myObject
+				window.renderSVG()
+				
+				
 				
 
 				
@@ -373,7 +402,43 @@ jQuery(document).ready ($)->
 			return false
 		window.saveUnit()
 		
-		
+	$('.edit').on 'click', (e) ->
+		myObject  = {}
+		details = {}
+		details['class'] = 'layer '+$('.property_type').val()
+		myObject['image_id'] = IMAGEID
+		myObject['object_id'] = $('.units').val()
+		myObject['object_type'] =  $('.property_type').val()
+		myObject['canvas_type'] =  window.canvas_type
+		myObject['points'] =  $('.area').val().split(',')
+		myObject['other_details'] =  details
+		myObject['id'] =  $('.units').val()
+		myObject['_method'] =  'PUT'
+		$.ajax
+			type : 'POST',
+			headers: { 'x-csrf-token' : $("meta[name='csrf-token']").attr('content')}
+			url  : BASEURL+'/admin/project/'+	PROJECTID+'/svg-tool/'+myObject['object_id'] 
+			async : false
+			data : $.param myObject 
+			success :(response)->
+
+				value =  $('.area').val().split(',')
+				$('#Layer_1').remove()
+				$.each window.svgData.data,(index,value)->
+					if parseInt(value.object_id) == parseInt($('.units').val())
+						console.log index
+						window.svgData.data.splice(index,1)
+						# delete window.svgData.data[index]
+				console.log window.svgData.data
+				window.svgData.data.push myObject
+				console.log window.svgData.data
+				window.renderSVG()
+				
+				
+
+				
+			error :(response)->
+				alert('Some problem occurred')	
 		
 
 	$('.property_type').on 'change', (e) ->
@@ -389,8 +454,16 @@ jQuery(document).ready ($)->
 			new AuthoringTool.PlotCtrl region : @region
 
 	window.showDetails = (elem)->
+		unit = unitMasterCollection.findWhere
+				'id' : parseInt elem.id
 		$('.property_type').val $(elem).attr 'type'
+		$('.property_type').attr 'disabled' ,  true
+		select = $('.units')
+		$('<option />', {value: elem.id, text: unit.get('unit_name')}).appendTo(select)
+		$('.units').attr 'disabled' ,  true
 		$('.units').val elem.id
+		$('.units').show()
+		
 		
 
 	window.hideAlert = ()->
@@ -406,6 +479,10 @@ jQuery(document).ready ($)->
 		canvas = document.getElementById("c")
 		ctx= canvas.getContext("2d")
 		ctx.clearRect( 0 , 0 , canvas.width, canvas.height )
+		$("form").trigger("reset")
+		$(".toggle").trigger 'click'
+		$('#dynamice-region').empty()
+		$('.edit-box').addClass 'hidden'
 
 	$('.close').on 'click' , (e)->
 		$('.area').val("")
@@ -419,6 +496,41 @@ jQuery(document).ready ($)->
 		$('#aj-imp-builder-drag-drop canvas').hide()
 		$('#aj-imp-builder-drag-drop svg').show()
 		$('.edit-box').addClass 'hidden'
+
+	$('.delete').on 'click' , (e)->
+		myObject  = {}
+		myObject['_method'] =  'DELETE'
+		id = $('.units').val()
+		$.ajax
+			type : 'POST',
+			headers: { 'x-csrf-token' : $("meta[name='csrf-token']").attr('content')}
+			url  : BASEURL+'/admin/project/'+	PROJECTID+'/svg-tool/'+id
+			async : false
+			data : $.param myObject 
+			success :(response)->
+
+				value =  $('.area').val().split(',')
+				$('#Layer_1').remove()
+				$.each window.svgData.data,(index,value)->
+					if parseInt(value.object_id) == parseInt($('.units').val())
+						console.log index
+						window.svgData.data.splice(index,1)
+						# delete window.svgData.data[index]
+				console.log window.svgData.data
+				window.renderSVG()
+				unit = unitMasterCollection.findWhere
+						'id' : parseInt id
+				unitCollection.add unit
+				
+				
+
+				
+			error :(response)->
+				alert('Some problem occurred')	
+		
+				
+
+
 
 
 
