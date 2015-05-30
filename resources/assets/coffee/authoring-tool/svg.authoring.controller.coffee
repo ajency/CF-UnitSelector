@@ -76,10 +76,10 @@ jQuery(document).ready ($)->
         # for each svg data check canvas type and generate elements accordingly
         $.each svgData,(index,value)->
             if value.canvas_type is 'polygon'
-                tag = window.polygon.generatePolygonTag(value)
+                window.polygon.generatePolygonTag(value)
 
-            # if value.canvas_type is 'marker'
-            #     tag = window.marker.generateMarkerTag(value)        
+            if value.canvas_type is 'marker'
+                window.marker.generateMarkerTag(value)        
 
 
     #function to create left side panel

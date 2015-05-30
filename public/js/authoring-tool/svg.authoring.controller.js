@@ -50,9 +50,11 @@
     window.generateSvg = function(svgData) {
       draw.image(svgImg);
       return $.each(svgData, function(index, value) {
-        var tag;
         if (value.canvas_type === 'polygon') {
-          return tag = window.polygon.generatePolygonTag(value);
+          window.polygon.generatePolygonTag(value);
+        }
+        if (value.canvas_type === 'marker') {
+          return window.marker.generateMarkerTag(value);
         }
       });
     };
