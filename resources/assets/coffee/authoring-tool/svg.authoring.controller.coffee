@@ -299,6 +299,68 @@ jQuery(document).ready ($)->
 				next() 
 		)
 
+	window.drawDefaultMarker=(markerType) 	->
+		alert(markerType)
+		# groupMarker.dragend = ->
+  # 			console.log 'drag end'
+
+  # 		groupMarker.dragstart = ->
+  # 			console.log 'drag start'
+
+		switch markerType
+		  when 'concentric'
+		  	circle1 = draw.circle(8.002)
+		  	circle1.attr
+			  	fill: '#FF8500'
+			  	cx: "630.101"
+			  	cy: "362.245"
+
+		  	circle2 = draw.circle(15.002)
+		  	
+		  	circle2.attr
+			  	fill: 'none'
+			  	cx: "630.101"
+			  	cy: "362.245"
+			  	stroke: "#FF7900"
+			  	'stroke-width':4 
+			  	'stroke-miterlimit':10
+
+		  	groupMarker = draw.group()  
+		  	groupMarker.add(circle1)
+		  	groupMarker.add(circle2)
+		  	groupMarker.draggable()
+		  	break
+		  		
+		  when 'solid'
+		  	circle = draw.circle(10)
+		  	circle.attr
+			  	fill: '#F7931E'
+			  	cx: "630.101"
+			  	cy: "362.245"
+		  	groupMarker = draw.group() 
+		  	groupMarker.add(circle)
+		  	groupMarker.draggable()	
+		  	break		  	
+
+		  when 'location'
+		  	path = draw.path('M1087.492,428.966c0,7.208-13.052,24.276-13.052,24.276s-13.052-17.067-13.052-24.276
+			c0-7.208,5.844-13.051,13.052-13.051S1087.492,421.758,1087.492,428.966z')
+
+		  	path.attr
+			  	fill: '#F7931E'		
+			
+		  	circle = draw.circle(5.5)
+		  	circle.attr
+			  	fill: '#FFFFFF'
+			  	cx: "1074.44"
+			  	cy: "427.187"
+
+		  	groupMarker = draw.group() 
+		  	groupMarker.add(path)
+		  	groupMarker.add(circle)
+		  	groupMarker.draggable()
+
+
 	########################### FUNCTIONS ENDS ###########################	
 		
 	window.loadOjectData()
@@ -317,16 +379,32 @@ jQuery(document).ready ($)->
 	)
 
     # show marker options
-	$('[rel=\'popover\']').popover
+	$('[rel=\'popover\']').popover(
 		html: 'true'
 		content: '<div id="popOverBox">
 					<ul class="list-inline">
-						<li><div class="marker1"></div></li>
-						<li><div class="marker2"></div></li>
-						<li><div class="marker3"></div></li>
-						<li><div class="marker4"></div></li>
+						<li><div class="marker-elem marker1 concentric-marker"></div></li>
+						<li><div class="marker-elem marker2 solid-marker"></div></li>
+						<li><div class="marker-elem marker3 location-marker"></div></li>
 					</ul>
-				  </div>'
+				  </div>')
+		.parent().on 'click', '#popOverBox .marker-elem',(evt) ->
+			currentElem = evt.currentTarget
+			if $(currentElem).hasClass('concentric-marker')
+				markerType = "concentric"
+			else if $(currentElem).hasClass('solid-marker')
+				markerType = "solid"
+			else if $(currentElem).hasClass('location-marker')
+				markerType = "location"	
+
+
+			window.canvas_type = "marker"
+			$('#aj-imp-builder-drag-drop canvas').hide()
+			$('#aj-imp-builder-drag-drop svg').first().css("position","relative")
+
+			window.drawDefaultMarker(markerType)			
+			
+
 
 	# on polygon selection
 	$('.select-polygon').on 'click', (e) ->
@@ -342,41 +420,41 @@ jQuery(document).ready ($)->
 		$('.property_type').attr 'disabled' ,  false
 
     # on marker selection
-	$('.select-marker').on 'click', (e) ->
-		e.preventDefault()
-		window.canvas_type = "marker"
-		$('#aj-imp-builder-drag-drop canvas').hide()
-		$('#aj-imp-builder-drag-drop svg').first().css("position","relative")
+	# $('.select-marker').on 'click', (e) ->
+	# 	e.preventDefault()
+		# window.canvas_type = "marker"
+		# $('#aj-imp-builder-drag-drop canvas').hide()
+		# $('#aj-imp-builder-drag-drop svg').first().css("position","relative")
 		
 		
 		
-		circle1 = draw.circle(8.002)
-		circle1.attr
-		  fill: '#FF8500'
-		  cx: "630.101"
-		  cy: "362.245"
+		# circle1 = draw.circle(8.002)
+		# circle1.attr
+		#   fill: '#FF8500'
+		#   cx: "630.101"
+		#   cy: "362.245"
 
-		circle2 = draw.circle(15.002)
-		circle2.attr
-		  fill: 'none'
-		  cx: "630.101"
-		  cy: "362.245"
-		  stroke: "#FF7900"
-		  'stroke-width':4 
-		  'stroke-miterlimit':10
+		# circle2 = draw.circle(15.002)
+		# circle2.attr
+		#   fill: 'none'
+		#   cx: "630.101"
+		#   cy: "362.245"
+		#   stroke: "#FF7900"
+		#   'stroke-width':4 
+		#   'stroke-miterlimit':10
 
-		groupMarker = draw.group()  
-		groupMarker.add(circle1)
-		groupMarker.add(circle2)
-		groupMarker.draggable()
+		# groupMarker = draw.group()  
+		# groupMarker.add(circle1)
+		# groupMarker.add(circle2)
+		# groupMarker.draggable()
 
-		groupMarker.dragend = ->
-  			console.log 'drag end'
+		# groupMarker.dragend = ->
+  # 			console.log 'drag end'
 
-  		groupMarker.dragstart = ->
-  			console.log 'drag start'
+  # 		groupMarker.dragstart = ->
+  # 			console.log 'drag start'
 
-		# $('.edit-box').removeClass 'hidden'
+	# 	# $('.edit-box').removeClass 'hidden'
 
 
 	# on double click of existing marked polygon(villa or plot) open canvas mode
@@ -529,7 +607,7 @@ jQuery(document).ready ($)->
 			error :(response)->
 				alert('Some problem occurred')	
 
-				
+
 	# $('#save-svg-elem').on 'click', (e) ->
 	# 	console.log "click save-svg-elem"
 	# 	newCoordinates = $('.area').val()

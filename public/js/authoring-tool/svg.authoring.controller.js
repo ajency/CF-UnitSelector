@@ -272,6 +272,59 @@
         return next();
       });
     };
+    window.drawDefaultMarker = function(markerType) {
+      var circle, circle1, circle2, groupMarker, path;
+      alert(markerType);
+      switch (markerType) {
+        case 'concentric':
+          circle1 = draw.circle(8.002);
+          circle1.attr({
+            fill: '#FF8500',
+            cx: "630.101",
+            cy: "362.245"
+          });
+          circle2 = draw.circle(15.002);
+          circle2.attr({
+            fill: 'none',
+            cx: "630.101",
+            cy: "362.245",
+            stroke: "#FF7900",
+            'stroke-width': 4,
+            'stroke-miterlimit': 10
+          });
+          groupMarker = draw.group();
+          groupMarker.add(circle1);
+          groupMarker.add(circle2);
+          groupMarker.draggable();
+          break;
+        case 'solid':
+          circle = draw.circle(10);
+          circle.attr({
+            fill: '#F7931E',
+            cx: "630.101",
+            cy: "362.245"
+          });
+          groupMarker = draw.group();
+          groupMarker.add(circle);
+          groupMarker.draggable();
+          break;
+        case 'location':
+          path = draw.path('M1087.492,428.966c0,7.208-13.052,24.276-13.052,24.276s-13.052-17.067-13.052-24.276 c0-7.208,5.844-13.051,13.052-13.051S1087.492,421.758,1087.492,428.966z');
+          path.attr({
+            fill: '#F7931E'
+          });
+          circle = draw.circle(5.5);
+          circle.attr({
+            fill: '#FFFFFF',
+            cx: "1074.44",
+            cy: "427.187"
+          });
+          groupMarker = draw.group();
+          groupMarker.add(path);
+          groupMarker.add(circle);
+          return groupMarker.draggable();
+      }
+    };
     window.loadOjectData();
     $('#aj-imp-builder-drag-drop canvas').ready(function() {
       $('#aj-imp-builder-drag-drop canvas').hide();
@@ -283,7 +336,21 @@
     });
     $('[rel=\'popover\']').popover({
       html: 'true',
-      content: '<div id="popOverBox"> <ul class="list-inline"> <li><div class="marker1"></div></li> <li><div class="marker2"></div></li> <li><div class="marker3"></div></li> <li><div class="marker4"></div></li> </ul> </div>'
+      content: '<div id="popOverBox"> <ul class="list-inline"> <li><div class="marker-elem marker1 concentric-marker"></div></li> <li><div class="marker-elem marker2 solid-marker"></div></li> <li><div class="marker-elem marker3 location-marker"></div></li> </ul> </div>'
+    }).parent().on('click', '#popOverBox .marker-elem', function(evt) {
+      var currentElem, markerType;
+      currentElem = evt.currentTarget;
+      if ($(currentElem).hasClass('concentric-marker')) {
+        markerType = "concentric";
+      } else if ($(currentElem).hasClass('solid-marker')) {
+        markerType = "solid";
+      } else if ($(currentElem).hasClass('location-marker')) {
+        markerType = "location";
+      }
+      window.canvas_type = "marker";
+      $('#aj-imp-builder-drag-drop canvas').hide();
+      $('#aj-imp-builder-drag-drop svg').first().css("position", "relative");
+      return window.drawDefaultMarker(markerType);
     });
     $('.select-polygon').on('click', function(e) {
       e.preventDefault();
@@ -296,38 +363,6 @@
       $('.delete').addClass('hidden');
       $('.submit').removeClass('hidden');
       return $('.property_type').attr('disabled', false);
-    });
-    $('.select-marker').on('click', function(e) {
-      var circle1, circle2, groupMarker;
-      e.preventDefault();
-      window.canvas_type = "marker";
-      $('#aj-imp-builder-drag-drop canvas').hide();
-      $('#aj-imp-builder-drag-drop svg').first().css("position", "relative");
-      circle1 = draw.circle(8.002);
-      circle1.attr({
-        fill: '#FF8500',
-        cx: "630.101",
-        cy: "362.245"
-      });
-      circle2 = draw.circle(15.002);
-      circle2.attr({
-        fill: 'none',
-        cx: "630.101",
-        cy: "362.245",
-        stroke: "#FF7900",
-        'stroke-width': 4,
-        'stroke-miterlimit': 10
-      });
-      groupMarker = draw.group();
-      groupMarker.add(circle1);
-      groupMarker.add(circle2);
-      groupMarker.draggable();
-      groupMarker.dragend = function() {
-        return console.log('drag end');
-      };
-      return groupMarker.dragstart = function() {
-        return console.log('drag start');
-      };
     });
     $('svg').on('dblclick', '.villa,.plot', function(e) {
       var classElem, currentElem, element, svgDataObjects;
