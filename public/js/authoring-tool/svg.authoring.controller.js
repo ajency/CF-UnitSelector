@@ -31,8 +31,8 @@
             rawSvg.appendChild(tag);
           }
         }
-        if (value.type === 'marker') {
-          return window.marker.createMarkerTag(value);
+        if (value.canvas_type === 'marker') {
+          return tag = window.marker.createMarkerTag(value);
         }
       });
     };
@@ -46,6 +46,15 @@
       svgimg.setAttributeNS(null, 'y', '0');
       svgimg.setAttributeNS(null, 'visibility', 'visible');
       return rawSvg.appendChild(svgimg);
+    };
+    window.generateSvg = function(svgData) {
+      draw.image(svgImg);
+      return $.each(svgData, function(index, value) {
+        var tag;
+        if (value.canvas_type === 'polygon') {
+          return tag = window.polygon.generatePolygonTag(value);
+        }
+      });
     };
     window.createPanel = function(data) {
       return $.each(data, function(index, value) {
@@ -136,7 +145,7 @@
         url: BASERESTURL + '/project/' + PROJECTID + '/step-two',
         async: false,
         success: function(response) {
-          var s, str, types;
+          var types;
           response = response.data;
           bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants);
           settings.setSettingsAttributes(response.settings);
@@ -147,13 +156,10 @@
           window.propertyTypes = response.property_types;
           plotVariantCollection.setPlotVariantAttributes(response.plot_variants);
           unitCollection.setUnitAttributes(response.units);
-          window.createSvg(window.svgData.data);
           window.generatePropTypes();
           types = window.getPendingObjects(window.svgData);
           window.showPendingObjects(types);
-          s = new XMLSerializer();
-          str = s.serializeToString(rawSvg);
-          draw.svg(str);
+          window.generateSvg(window.svgData.data);
           return window.resetCollection();
         },
         error: function(response) {

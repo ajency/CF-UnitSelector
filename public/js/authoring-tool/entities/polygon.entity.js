@@ -30,6 +30,37 @@
       return this.node;
     };
 
+    Polygon.prototype.generatePolygonTag = function(item) {
+      var pointList, polygon;
+      pointList = this.getPointList(item.points);
+      pointList = pointList.join(' ');
+      polygon = draw.polygon(pointList);
+      return polygon.attr({
+        'class': item.other_details["class"],
+        'id': item.object_id,
+        'type': item.object_type
+      });
+    };
+
+    Polygon.prototype.getPointList = function(pointsArr) {
+      var formattedPoints, i, k, l, len, pointList;
+      pointList = [];
+      i = 0;
+      l = pointsArr.length;
+      while (i < l) {
+        pointList.push([parseInt(pointsArr[i]), parseInt(pointsArr[i + 1])]);
+        i += 2;
+      }
+      formattedPoints = [];
+      k = 0;
+      len = pointList.length;
+      while (k < len) {
+        formattedPoints.push(pointList[k].join());
+        k++;
+      }
+      return formattedPoints;
+    };
+
     Polygon.prototype.attribute = function(key, val) {
       if (val === void 0) {
         return false;

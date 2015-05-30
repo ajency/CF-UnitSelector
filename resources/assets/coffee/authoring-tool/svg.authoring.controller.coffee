@@ -44,14 +44,14 @@ jQuery(document).ready ($)->
 
         window.createImageTag()
         $.each svgData,(index,value)->
-
-            if value.canvas_type == 'polygon'
+            if value.canvas_type is 'polygon'
                 tag = window.polygon.createPolgyonTag(value)
                 if tag != ""
                     window.makeDraggable()
                     rawSvg.appendChild tag
-            if value.type == 'marker'
-                window.marker.createMarkerTag(value)
+            if value.canvas_type is 'marker'
+                tag = window.marker.createMarkerTag(value)
+
         
         
 
@@ -67,6 +67,20 @@ jQuery(document).ready ($)->
         svgimg.setAttributeNS(null,'y','0')
         svgimg.setAttributeNS(null, 'visibility', 'visible')
         rawSvg.appendChild(svgimg)
+
+    #function to generate svg from svg data
+    window.generateSvg = (svgData)->
+        # create svg background image
+        draw.image(svgImg)
+
+        # for each svg data check canvas type and generate elements accordingly
+        $.each svgData,(index,value)->
+            if value.canvas_type is 'polygon'
+                tag = window.polygon.generatePolygonTag(value)
+
+            # if value.canvas_type is 'marker'
+            #     tag = window.marker.generateMarkerTag(value)        
+
 
     #function to create left side panel
     window.createPanel =(data)->
@@ -177,7 +191,8 @@ jQuery(document).ready ($)->
 
                 unitCollection.setUnitAttributes(response.units)
 
-                window.createSvg(window.svgData.data)
+                # #### CODE TO GENERATE SVG THROUGH RAW SVG STRING COMMENTED #### #
+                # window.createSvg(window.svgData.data)
 
                 window.generatePropTypes()
 
@@ -185,9 +200,14 @@ jQuery(document).ready ($)->
 
                 window.showPendingObjects(types)
 
-                s = new XMLSerializer()
-                str = s.serializeToString(rawSvg)
-                draw.svg(str)
+                # s = new XMLSerializer()
+                # str = s.serializeToString(rawSvg)
+                # draw.svg(str)
+                # #### CODE TO GENERATE SVG THROUGH RAW SVG STRING COMMENTED #### #
+
+                # ### MODIFIED GENERATION OF SVG ### #
+                window.generateSvg(window.svgData.data)
+                # ### MODIFIED GENERATION OF SVG ### #
 
                 # window.store = draw.svg(rawSvg)
                 window.resetCollection()

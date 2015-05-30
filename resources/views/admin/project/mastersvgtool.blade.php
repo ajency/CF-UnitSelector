@@ -386,6 +386,7 @@
         <script src="{{ asset('js/frontend/entities/floor.layout.entity.js' )}}"></script>
         <script src="{{ asset('js/frontend/entities/plot.variant.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/polygon.entity.js' )}}"></script>
+        <script src="{{ asset('js/authoring-tool/entities/marker.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/villa.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/plot.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/svg.authoring.controller.js' )}}"></script>
