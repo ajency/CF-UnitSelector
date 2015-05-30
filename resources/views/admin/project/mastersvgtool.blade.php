@@ -102,7 +102,7 @@
                   <div class="menu">
                     <ul class="menu-block">
                       <li><a class="save"><i class="fa fa-area-chart"></i> Polygon</a></li>
-                      <li><a><i class="fa fa-map-marker"></i> Marker</a></li>
+                      <li><a class="select-marker"><i class="fa fa-map-marker"></i> Marker</a></li>
                     </ul>
                   </div>
                 </nav> 

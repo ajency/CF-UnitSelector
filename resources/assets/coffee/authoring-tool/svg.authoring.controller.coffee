@@ -235,6 +235,42 @@ jQuery(document).ready ($)->
 		$('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
 		$('.edit-box').removeClass 'hidden'
 
+	$('.select-marker').on 'click', (e) ->
+		e.preventDefault()
+		window.canvas_type = "marker"
+		$('#aj-imp-builder-drag-drop canvas').hide()
+		$('#aj-imp-builder-drag-drop svg').first().css("position","relative")
+		
+		
+		
+		circle1 = draw.circle(8.002)
+		circle1.attr
+		  fill: '#FF8500'
+		  cx: "630.101"
+		  cy: "362.245"
+
+		circle2 = draw.circle(15.002)
+		circle2.attr
+		  fill: 'none'
+		  cx: "630.101"
+		  cy: "362.245"
+		  stroke: "#FF7900"
+		  'stroke-width':4 
+		  'stroke-miterlimit':10
+
+		groupMarker = draw.group()  
+		groupMarker.add(circle1)
+		groupMarker.add(circle2)
+		groupMarker.draggable()
+
+		# $('.edit-box').removeClass 'hidden'
+
+	groupMarker.dragend = ->
+  		console.log 'drag end'
+
+  	groupMarker.dragstart = ->
+  		console.log 'drag end'
+
 	$('svg').on 'dblclick', '.villa,.plot' , (e) ->
 			e.preventDefault()
 			window.canvas_type = "polygon"
