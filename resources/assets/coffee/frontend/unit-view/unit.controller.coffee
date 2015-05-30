@@ -314,7 +314,7 @@ class CommonFloor.LeftUnitCtrl extends Marionette.RegionController
 #Center Controller for unit
 class CenterUnitView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="col-md-9 col-sm-12 col-xs-12 us-right-content unit-slides animated fadeIn">
+	template : Handlebars.compile('<div class="col-md-9 col-sm-12 col-xs-12 us-right-content single-unit unit-slides animated fadeIn">
 						<div class="">
 							<div class="liquid-slider slider" id="slider-id">
 								<div class="ls-wrapper ls-responsive">

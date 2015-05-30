@@ -99,6 +99,7 @@ body{
     .ease;
     position: relative;
     margin-top:10px;
+    margin-bottom: 10px;
     padding-right: 15px;
 }
 
@@ -143,6 +144,9 @@ body{
             width: 100%;
         }
     }
+    &.single-unit{
+      padding-right: 15px;
+    }
 }
 
 .col-0 {
@@ -164,26 +168,27 @@ body{
 .list-container.not-visible{
   position: fixed;
   z-index: 9999;
-  left: 20px;
-  top: 115px;
+  right: 20px;
+  top: 30px;
   padding: 0;
   overflow: hidden;
   transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
   background-color: fade(@white, 90%);
   width: 340px;
   height: 450px;
-  border: 1px solid @brand-primary;
   // box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   border-radius: 3px;
   &.closed{
     width: 0;
     height: 0;
-    padding: 18px 20px;
+    padding: 22px 24px;
+    border-radius: 50%;
     background-color: @white;
     .filters-wrapper{
       opacity: 0
     }
     .toggle-button{
+      left: 0;
       // font-size: 24px;
       &::before{
         content: "\e756";
@@ -191,18 +196,19 @@ body{
       }
       &::after{
         position: relative;
-        right: -50px;
-        top: -1px;
+        right: -70px;
+        top: -3px;
         transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
         content: "List View";
         font-size: 14px;
         opacity: 0;
-          width: 60px;
+          width: 58px;
           display: inline-block;
       }
     }
     &:hover{
-      padding-right: 85px;
+      padding-right: 88px;
+      border-radius: 3px;
       .toggle-button{
         // font-size: 24px;
         &::before{
@@ -218,12 +224,12 @@ body{
   .toggle-button{
     position: absolute;
     top: 0;
-    left: 0;
+    right: 0;
     color: @brand-primary;
-    padding: 6px 12px; 
+    padding: 8px 14px; 
     cursor: pointer;
     z-index: 999;
-    font-size: 16px;
+    font-size: 20px;
     .ease;
     &::before{
       content: "\e75e";

@@ -11,11 +11,12 @@
   height: 340px;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   border-radius: 3px;
+  border: 1px solid @brand-primary;
   &.closed{
     width: 0;
     height: 0;
-    padding: 27px;
-    border-radius: 50%;
+    padding: 20px;
+    // border-radius: 50%;
     background-color: @white;
     .filters-wrapper{
       opacity: 0
@@ -24,7 +25,8 @@
       opacity: 0;
     }
     .filter-button{
-      font-size: 28px;
+      font-size: 25px;
+      padding: 2px 6px;
       .icon-place{
         &:after{
           content: "\e789";
@@ -49,7 +51,11 @@
       right: 15px;
       top: 75px;
     }
+    .filter-button{
+      font-size: 20px;
+    }
     .filters-wrapper{
+      margin-top: 40px;
       .filters-content{
         height: 85vh;
       }
