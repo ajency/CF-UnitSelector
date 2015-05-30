@@ -47,12 +47,22 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Phase<span class="text-primary">*</span></label>
+                        @if($project['has_phase']=='yes')
                         <select  class="select2 form-control m-b-5" name="phase">
                             <option value="">Select Phase</option>
                            @foreach($phases as $phase)
                             <option @if($unit['phase_id']==$phase['id']){{'selected'}}@endif value="{{$phase['id']}}">{{$phase['phase_name']}}</option>
                             @endforeach
                         </select>
+                        @else
+                        <select  class="select2 form-control m-b-5" name="phase" disabled>
+                            <option value="">Select Phase</option>
+                           @foreach($phases as $phase)
+                            <option selected value="{{$phase['id']}}">{{$phase['phase_name']}}</option>
+                            @endforeach
+                        </select>
+                        <input type="hidden" name="phase" value="{{$phase['id']}}">
+                        @endif
                         <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                     </div>
                   
