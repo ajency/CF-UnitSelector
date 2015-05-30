@@ -37,22 +37,7 @@
       return NoUnitsView.__super__.constructor.apply(this, arguments);
     }
 
-    NoUnitsView.prototype.template = '<div> <div id="trig" class="toggle-button"></div> <div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeIn"> <div class="text-center" id="searchSorryPageWidget"> <div class="m-t-10 bldg-list"> <span class="icon-wondering"></span> <div class="m-t-10">Sorry! We havent found any properties matching your search.</div> <div>Please retry with different search options.</div> </div> </div> </div> </div>';
-
-    NoUnitsView.prototype.ui = {
-      viewtog: '#view_toggle',
-      trig: '#trig'
-    };
-
-    NoUnitsView.prototype.events = {
-      'click @ui.trig': function(e) {
-        return $('.list-container').toggleClass('closed');
-      },
-      'click @ui.viewtog': function(e) {
-        $('.us-left-content').toggleClass('not-visible visible');
-        return $('.us-right-content').toggleClass('not-visible visible');
-      }
-    };
+    NoUnitsView.prototype.template = '<div> <div class="list-view-container w-map animated fadeIn"> <div class="text-center" id="searchSorryPageWidget"> <div class="m-t-10 bldg-list"> <span class="icon-wondering"></span> <div class="m-t-10">Sorry! We havent found any properties matching your search.</div> <div>Please retry with different search options.</div> </div> </div> </div> </div>';
 
     return NoUnitsView;
 
@@ -530,7 +515,7 @@
       area_max = CommonFloor.defaults['area_max'];
       area.push({
         'name': area_min + '-' + area_max,
-        'type': project.get('measurement_units'),
+        'type': project.get('area_unit'),
         'id': 'area',
         'id_name': 'filter_area',
         'classname': 'area'
