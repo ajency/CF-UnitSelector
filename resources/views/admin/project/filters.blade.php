@@ -5,7 +5,7 @@
     <li><a href="{{ url( 'admin/') }}">Dashboard</a> </li>
     <li><a href="{{ url( 'admin/project/') }}">Projects</a> </li>
     <li><a href="{{ url( 'admin/project/' . $project['id'].'/edit') }}">{{ $project['project_title'] }}</a> </li>
-    <li><a href="#" class="active">Project Cost</a> </li>
+    <li><a href="#" class="active">Project Filters</a> </li>
 </ul>
 <!-- END BREADCRUMBS -->
 @endsection
