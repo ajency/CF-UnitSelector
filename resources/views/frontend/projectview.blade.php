@@ -119,7 +119,8 @@
         BASEURL = '{{url()}}'
         //global variable to keep track of the filtr the user has selected
         CommonFloor.defaults = {'type' : "" , 'unitVariants': "",'unitTypes':"",'price_min':'','price_max':'','availability':'','area_min' : '','area_max' : '','building':'','floor_min' : '','floor_max' : '','flooring': ''}
-  
+        
+
         window.locale = {
 
             "en-US" : <?php echo get_locale_frontend_to_json() ?>

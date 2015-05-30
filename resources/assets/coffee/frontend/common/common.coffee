@@ -12,8 +12,6 @@ class CommonFloor.NothingFoundCtrl extends Marionette.RegionController
 class CommonFloor.NoUnitsView extends Marionette.ItemView
 	
 	template : '<div>
-					<div id="trig" class="toggle-button"></div>
-					<div id="view_toggle" class="toggle-view-button map"></div>
 					<div class="list-view-container w-map animated fadeIn">
 						<div class="text-center" id="searchSorryPageWidget">
 							<div class="m-t-10 bldg-list">
@@ -24,18 +22,6 @@ class CommonFloor.NoUnitsView extends Marionette.ItemView
 						</div>
 					</div>
 				</div>'
-
-	ui :
-		viewtog 	: '#view_toggle'
-		trig 		: '#trig'
-
-	events :
-		'click @ui.trig':(e)->
-			$('.list-container').toggleClass 'closed'
-
-		'click @ui.viewtog':(e)->
-			$('.us-left-content').toggleClass 'not-visible visible'
-			$('.us-right-content').toggleClass 'not-visible visible'
 
 class CommonFloor.NoUnitsCtrl extends Marionette.RegionController
 
@@ -478,7 +464,7 @@ CommonFloor.getFilters = ()->
 		area_max = CommonFloor.defaults['area_max']
 		area.push 
 				'name' : area_min+'-'+area_max
-				'type'  : project.get('measurement_units') 
+				'type'  : project.get('area_unit') 
 				'id' : 'area'
 				'id_name' : 'filter_area'
 				'classname' : 'area'

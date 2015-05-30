@@ -434,6 +434,11 @@
       }
       if (response[0].length === 0 && response[1].length === 0 && _.isUndefined(response[3].get('external3durl')) && _.isUndefined(response[3].get('galleryurl'))) {
         this.loadMaster();
+        $('.master').addClass('current');
+        $('.gallery').removeClass('current');
+        $('.threeD').removeClass('current');
+        $('.twoD').removeClass('current');
+        $('.external').removeClass('current');
       }
       height = this.ui.imagesContainer.height();
       if ($(window).width() > 991) {
@@ -454,14 +459,15 @@
       var breakpoints, building, first, id, response, svgs, transitionImages, unit, url;
       url = Backbone.history.fragment;
       id = url.split('/')[1];
-      unit = unitCollection.findWhere({
+      console.log(unit = unitCollection.findWhere({
         'id': parseInt(id)
-      });
+      }));
       response = window.unit.getUnitDetails(id);
       building = buildingCollection.findWhere({
         'id': parseInt(unit.get('building_id'))
       });
-      if (response[2] === 'apartment' || response[2] === 'penthouse') {
+      console.log(response[2]);
+      if (response[2] === 'apartment' || response[2] === 'Penthouse') {
         transitionImages = [];
         svgs = {};
         breakpoints = building.get('breakpoints');
@@ -474,11 +480,15 @@
           $('.images').load(first[0], function() {
             $('.firstimage').attr('src', transitionImages[0]);
             $('.apartment').each(function(ind, item) {
-              id = parseInt(item.id);
-              return $('#' + id).attr('class', "");
+              var itemid;
+              itemid = parseInt(item.id);
+              return $('#' + itemid).attr('class', "");
             });
             return $('#' + id).attr('class', 'layer svg_active');
           });
+        }
+        if (building.get('building_master').length === 0) {
+          $('.master').hide();
         }
         return;
       }
@@ -491,14 +501,19 @@
       transitionImages = [];
       $.merge(transitionImages, project.get('project_master'));
       if (project.get('project_master').length !== 0) {
-        return $('.images').load(first[0], function() {
+        $('.images').load(first[0], function() {
           $('.firstimage').attr('src', transitionImages[0]);
           $('.villa,.plot').each(function(ind, item) {
-            id = parseInt(item.id);
-            return $('#' + id).attr('class', "");
+            var itemid;
+            itemid = parseInt(item.id);
+            return $('#' + itemid).attr('class', "");
           });
+          console.log(id);
           return $('#' + id).attr('class', 'layer svg_active');
         });
+      }
+      if (project.get('project_master').length === 0) {
+        return $('.master').hide();
       }
     };
 
