@@ -10,15 +10,13 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 	template : Handlebars.compile('<div class="fliters-container " id="collapsefilters">
          <a href="javascript:void(0)" class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button" type="button"> <span class="icon-place"></span> </button> 
          <div class="filters-wrapper">
-            <div class="filters-content mCustomScrollbar _mCS_2">
-               <div id="mCSB_2" class="mCustomScrollBox mCS-cf-scroll mCSB_vertical mCSB_inside" tabindex="0">
-                  <div id="mCSB_2_container" class="mCSB_container" style="position:relative; top:0; left:0;" dir="ltr">
-                     <div class="property_type">
+            <div class="filters-content">
+                                    <div class="property_type">
                         <h6 class="">PROPERTY TYPE</h6>
                         <div class="filter-chkbox-block"> 
                         {{#types}}
-                         <div class="-lbl {{type}}-check">
-                          <input type="checkbox" class="custom-chckbx addCft types " id="{{id}}" value="{{type}}" > <label for="{{id}}" class="-lbl  ">{{type}}</label>  
+                         <div class="-lbl ">
+                          <input type="checkbox" class="custom-chckbx addCft types {{name}}" id="{{id}}" value="{{type}}" data-value="{{name}}"" > <label for="{{id}}" class="-lbl  ">{{type}}</label>  
                           </div>
                        {{/types}} 
                          </div>
@@ -43,16 +41,8 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
                            	<label for="available" class="-lbl">Show Available Units Only</label>
                         </div>                     </div>
                   </div>
-                  <div id="mCSB_2_scrollbar_vertical" class="mCSB_scrollTools mCSB_2_scrollbar mCS-cf-scroll mCSB_scrollTools_vertical" style="display: block;">
-                     <div class="mCSB_draggerContainer">
-                        <div id="mCSB_2_dragger_vertical" class="mCSB_dragger" style="position: absolute; min-height: 30px; display: block; height: 62px; max-height: 285px;" oncontextmenu="return false;">
-                           <div class="mCSB_dragger_bar" style="line-height: 30px;"></div>
-                        </div>
-                        <div class="mCSB_draggerRail"></div>
-                     </div>
-                  </div>
-               </div>
-            </div>
+                 
+              
          </div>
 
 
@@ -63,14 +53,14 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
           	{{#villas}}
        <div class=""> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block">  
        	{{#unitTypes}}
-          <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > 
+          <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} data-type="villa"> 
           <label for="unit_type{{id}}" class="-lbl">{{name}}</label> 
         {{/unitTypes}} 
          </div>
 		  </div>
        	<div class=""> <h6 class="unit_type_filter">Varient</h6> <div class="filter-chkbox-block">  
        		{{#unitVariantNames}}
-           	<input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > 
+           	<input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} data-type="villa" > 
             <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> 
 		   {{/unitVariantNames}}
 		  </div>
@@ -80,14 +70,14 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
           	{{#apartments}}
        <div class=""> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block">  
        	{{#unitTypes}}
-          <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > 
+          <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}}  data-type="apartment"> 
           <label for="unit_type{{id}}" class="-lbl">{{name}}</label> 
         {{/unitTypes}} 
          </div>
 		  </div>
        	<div class=""> <h6 class="unit_type_filter">Varient</h6> <div class="filter-chkbox-block">  
        		{{#unitVariantNames}}
-           	<input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > 
+           	<input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} data-type="apartment"> 
             <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> 
 		   {{/unitVariantNames}}
 		  </div>
@@ -97,14 +87,14 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
           	{{#plots}}
        <div class=""> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block">  
        	{{#unitTypes}}
-          <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > 
+          <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} data-type="plot"> 
           <label for="unit_type{{id}}" class="-lbl">{{name}}</label> 
         {{/unitTypes}} 
          </div>
-		  </div></div>
+		  </div>
        	<div class=""> <h6 class="unit_type_filter">Varient</h6> <div class="filter-chkbox-block">  
        		{{#unitVariantNames}}
-           	<input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > 
+           	<input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} data-type="plot"> 
             <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> 
 		   {{/unitVariantNames}}
 		  </div>
@@ -126,6 +116,15 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		types : '.types'
 		clear : '.clear'
 		flooring : '.flooring'
+		villa : '.villa'
+		apt : '.apartment'
+		plot : '.plot'
+		villaWrapper : '.villa-wrapper'
+		aptWrapper : '.apartment-wrapper'
+		plotWrapper : '.plot-wrapper'
+		villaCheck : '.villa-check'
+		aptCheck : '.apartment-check'
+		plotCheck : '.plot-check'
 
 	initialize:->
 		@price = ''
@@ -154,10 +153,18 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			window.price = ''
 			window.area = ''
 			window.type  = []
-			$.each CommonFloor.defaults,(index,value)->
-				CommonFloor.defaults[index] = ""
+			CommonFloor.defaults['type'] = ""
+			$.each CommonFloor.defaults['villa'],(index,value)->
+				CommonFloor.defaults['villa'][index] = ""
+			$.each CommonFloor.defaults['apartment'],(index,value)->
+				CommonFloor.defaults['apartment'][index] = ""
+			$.each CommonFloor.defaults['plot'],(index,value)->
+				CommonFloor.defaults['plot'][index] = ""
+			$.each CommonFloor.defaults['common'],(index,value)->
+				CommonFloor.defaults['common'][index] = ""
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filter()
+			CommonFloor.resetCollections()
+			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			@loadSelectedFilters()
 			@price = $("#budget").data("ionRangeSlider")
@@ -166,77 +173,171 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			@area.destroy()
 			@loadClearFilter()
 
+		'mouseover @ui.villaCheck,@ui.villaWrapper':(e)->
+			$(".villa-wrapper").addClass("visible")
 
-		'click @ui.types':(e)->
-			window.unitTypes = []
-			window.unitVariants = []
-			window.variantNames = []
-			$.each CommonFloor.defaults,(index,value)->
-				if index != 'type'
-						CommonFloor.defaults[index] = ""
+		'mouseout @ui.villaCheck,@ui.villaWrapper':(e)->
+			$(".villa-wrapper").removeClass("visible")
+
+		'mouseover @ui.aptCheck,@ui.aptWrapper':(e)->
+			$(".apartment-wrapper").addClass("visible")
+
+		'mouseout @ui.aptCheck,@ui.aptWrapper':(e)->
+			$(".apartment-wrapper").removeClass("visible")
+
+		'mouseover @ui.plotCheck,@ui.plotWrapper':(e)->
+			$(".plot-wrapper").addClass("visible")
+
+		'mouseout @ui.plotCheck,@ui.plotWrapper':(e)->
+			$(".plot-wrapper").removeClass("visible")
+
+		# 'click @ui.types':(e)->
+		# 	window.unitTypes = []
+		# 	window.unitVariants = []
+		# 	window.variantNames = []
+		# 	$.each CommonFloor.defaults,(index,value)->
+		# 		if index != 'type'
+		# 				CommonFloor.defaults[index] = ""
+		# 	if $(e.currentTarget).is(':checked')
+		# 		window.type.push $(e.target).val()
+		# 	else
+		# 		window.type = _.without window.type ,$(e.target).val()
+		# 	CommonFloor.defaults['type'] = window.type.join(',')
+		# 	unitCollection.reset unitMasterCollection.toArray()
+		# 	CommonFloor.filter()
+		# 	unitCollection.trigger('available')
+		# 	if e.target.id == 'Villas'
+		# 		@villaFilters() 
+		# 	if e.target.id == 'Apartments'
+		# 		@apartmentFilters()
+		# 	if e.target.id == 'Plots'
+		# 		@plotFilters()
+
+		'click @ui.villa':(e)->
+			types = []
+			if CommonFloor.defaults['type']!= ""
+				types = CommonFloor.defaults['type'].split(',')
 			if $(e.currentTarget).is(':checked')
-				window.type.push $(e.target).val()
+				$(e.currentTarget).parent().addClass 'villa-check'
+				$(e.currentTarget).parent().addClass("villa-btn")
+				$('.villa-wrapper').addClass("visible")
+				types.push $(e.currentTarget).attr('data-value')
 			else
-				window.type = _.without window.type ,$(e.target).val()
-			CommonFloor.defaults['type'] = window.type.join(',')
+				$(e.currentTarget).parent().removeClass 'villa-check'
+				$(e.currentTarget).parent().removeClass 'villa-btn'
+				$('.villa-wrapper').removeClass 'visible'
+				types = _.without types ,$(e.currentTarget).attr('data-value')
+			console.log types =   _.uniq types 
+			CommonFloor.defaults['type'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filter()
+			CommonFloor.resetCollections()
+	
+			CommonFloor.filterNew()
 			unitCollection.trigger('available')
-			if e.target.id == 'Villas'
-				@villaFilters() 
-			if e.target.id == 'Apartments'
-				@apartmentFilters()
-			if e.target.id == 'Plots'
-				@plotFilters()
-			
+
+		'click @ui.apt':(e)->
+			types = []
+			if CommonFloor.defaults['type']!= ""
+				types = CommonFloor.defaults['type'].split(',')
+			if $(e.currentTarget).is(':checked')
+				$(e.currentTarget).parent().addClass 'apartment-check'
+				$(e.currentTarget).parent().addClass("apartment-btn")
+				$('.apartment-wrapper').addClass("visible")
+				types.push  $(e.currentTarget).attr('data-value')
+			else
+				$(e.currentTarget).parent().removeClass 'apartment-check'
+				$(e.currentTarget).parent().removeClass 'apartment-btn'
+				$('.apartment-wrapper').removeClass 'visible'
+				types = _.without types , $(e.currentTarget).attr('data-value')
+			console.log types =   _.uniq types 
+			CommonFloor.defaults['type'] = types.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
+			CommonFloor.filterNew()
+			unitCollection.trigger('available')
+
+		'click @ui.plot':(e)->
+			types = []
+			if CommonFloor.defaults['type']!= ""
+				types = CommonFloor.defaults['type'].split(',')
+			if $(e.currentTarget).is(':checked')
+				$(e.currentTarget).parent().addClass 'plot-check'
+				$(e.currentTarget).parent().addClass("plot-btn")
+				$('.plot-wrapper').addClass("visible")
+				types.push  $(e.currentTarget).attr('data-value')
+			else
+				$(e.currentTarget).parent().removeClass 'plot-check'
+				$(e.currentTarget).parent().removeClass 'plot-btn'
+				$('.plot-wrapper').removeClass 'visible'
+				types = _.without types , $(e.currentTarget).attr('data-value')
+			types =   _.uniq types 
+			CommonFloor.defaults['type'] = types.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
+	
+			CommonFloor.filterNew()
+			unitCollection.trigger('available')
+	
 			
 		'click @ui.unitTypes':(e)->
+			types = []
+			type = $(e.currentTarget).attr('data-type')
+			if CommonFloor.defaults[type]['unit_type_id']!= ""
+				types = CommonFloor.defaults[type]['unit_type_id'].split(',')
+				types = types.map (item)->
+					return parseInt item
 			if $(e.currentTarget).is(':checked')
-				window.unitTypes.push parseInt $(e.currentTarget).attr('data-value')
+				types.push parseInt $(e.currentTarget).attr('data-value')
 			else
-				window.unitTypes = _.without window.unitTypes ,parseInt $(e.currentTarget).attr('data-value')
-			window.unitTypes =   _.uniq window.unitTypes 
-			CommonFloor.defaults['unitTypes'] = window.unitTypes.join(',')
+				types = _.without types ,parseInt $(e.currentTarget).attr('data-value')
+			types =   _.uniq types
+			CommonFloor.defaults[type]['unit_type_id'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filter()
+			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			# @resetFilters()
 			
 		'click @ui.variantNames':(e)->
+			types = []
+			type = $(e.currentTarget).attr('data-type')
+			if CommonFloor.defaults[type]['unit_variant_id']!= ""
+				types = CommonFloor.defaults[type]['unit_variant_id'].split(',')
+				types = types.map (item)->
+					return parseInt item
 			if $(e.currentTarget).is(':checked')
-				window.variantNames.push parseInt $(e.currentTarget).attr('data-value')
+				types.push parseInt $(e.currentTarget).attr('data-value')
 			else
-				window.variantNames = _.without window.variantNames ,parseInt $(e.currentTarget).attr('data-value')
-			window.variantNames =   _.uniq window.variantNames 
-			CommonFloor.defaults['unitVariants'] = window.variantNames.join(',')
+				types = _.without types ,parseInt $(e.currentTarget).attr('data-value')
+			types =   _.uniq types
+			CommonFloor.defaults[type]['unit_variant_id'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filter()	
+			CommonFloor.filterNew()	
 			unitCollection.trigger('available')
 
 		'click @ui.status':(e)->
 			if $(e.currentTarget).is(':checked')
-				CommonFloor.defaults['availability'] = e.currentTarget.id
+				CommonFloor.defaults['common']['availability'] = e.currentTarget.id
 			else
-				CommonFloor.defaults['availability'] = ""
+				CommonFloor.defaults['common']['availability'] = ""
 				
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filter()
+			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			# @resetFilters()
 
 
 		'change @ui.area':(e)->
-			CommonFloor.defaults['area_max'] = parseFloat $(e.target).val().split(';')[1]
-			CommonFloor.defaults['area_min'] = parseFloat $(e.target).val().split(';')[0]
+			CommonFloor.defaults['common']['area_max'] = parseFloat $(e.target).val().split(';')[1]
+			CommonFloor.defaults['common']['area_min'] = parseFloat $(e.target).val().split(';')[0]
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filter()
+			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 
 		'change @ui.budget':(e)->
-			CommonFloor.defaults['price_max'] = parseFloat $(e.target).val().split(';')[1]
-			CommonFloor.defaults['price_min'] = parseFloat $(e.target).val().split(';')[0]
+			CommonFloor.defaults['common']['price_max'] = parseFloat $(e.target).val().split(';')[1]
+			CommonFloor.defaults['common']['price_min'] = parseFloat $(e.target).val().split(';')[0]
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filter()
+			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 
 		'click @ui.flooring':(e)->
@@ -368,6 +469,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		data
 
 	onShow:->
+		
 
 		$('.filters-content').mCustomScrollbar
 			theme: 'cf-scroll'
@@ -438,12 +540,12 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		
 		if types.length == 1
 			$('.property_type').hide()
-		if Marionette.getOption(@,'flooring').length == 0
-			$('.flooring_filter').hide()
-		if Marionette.getOption(@,'unitTypes').length == 0
-			$('.unit_type_filter').hide()
-		if Marionette.getOption(@,'unitVariantNames').length == 0
-			$('.variant_filter').hide()
+		# if Marionette.getOption(@,'flooring').length == 0
+		# 	$('.flooring_filter').hide()
+		# if Marionette.getOption(@,'unitTypes').length == 0
+		# 	$('.unit_type_filter').hide()
+		# if Marionette.getOption(@,'unitVariantNames').length == 0
+		# 	$('.variant_filter').hide()
 		@loadSelectedFilters()
 		
 
@@ -490,11 +592,10 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		if pt_types.length == 1
 			types.push pt_types[0].type
 		unittypesArray = []
-		unitTypes = CommonFloor.defaults['unitTypes'].split(',')
+		unitTypes = CommonFloor.defaults['villa']['unit_type_id'].split(',')
 		unitVariantsArray = []
-		unitVariants = CommonFloor.defaults['unitVariants'].split(',')
+		unitVariants = CommonFloor.defaults['villa']['unit_variant_id'].split(',')
 		typesArray = []
-		
 		
 		id = []
 		unitsArr = []
@@ -524,32 +625,38 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			if $.inArray($(item).attr('data-value'),unitTypes) is -1
 				$('#'+item.id).prop('checked',false)
 				$('#'+item.id).attr('disabled',false)
-			if $.inArray(parseInt($(item).attr('data-value')),unittypesColl) is -1 && CommonFloor.defaults['type'] != ''
-				$('#'+item.id).prop('checked',false)
-				$('#'+item.id).attr('disabled',true)
+			# if $.inArray(parseInt($(item).attr('data-value')),unittypesColl) is -1 && CommonFloor.defaults['type'] != ''
+			# 	$('#'+item.id).prop('checked',false)
+			# 	$('#'+item.id).attr('disabled',true)
 		$(@ui.variantNames).each (ind,item)->
 			$('#'+item.id).attr('checked',true)
 			$('#'+item.id).attr('disabled',false)
 			if $.inArray($(item).attr('data-value'),unitVariants) is -1 
 				$('#'+item.id).prop('checked',false)
 				$('#'+item.id).attr('disabled',false)
-			if $.inArray(parseInt($(item).attr('data-value')),id) is -1 && CommonFloor.defaults['type'] != ''
-				$('#'+item.id).prop('checked',false)
-				$('#'+item.id).attr('disabled',true)
+			# if $.inArray(parseInt($(item).attr('data-value')),id) is -1 && CommonFloor.defaults['type'] != ''
+			# 	$('#'+item.id).prop('checked',false)
+			# 	$('#'+item.id).attr('disabled',true)
 		$(@ui.types).each (ind,item)->
 			$('#'+item.id).attr('checked',true)
 			$('#'+item.id).attr('disabled',false)
-			if $.inArray($('#'+item.id).val(),types) is -1
+			if $.inArray($('#'+item.id).attr('data-value'),types) is -1
 				$('#'+item.id).prop('checked',false)
+			else
+				console.log type = $('#'+item.id).attr('data-value')
+				$('#'+item.id).parent().addClass(type+'-check')
+				$('#'+item.id).parent().addClass (type+'-btn')
+				$("."+$('#'+item.id).attr('data-value')+"-wrapper").addClass("visible")
+			 	# $('.'+$('#'+item.id).attr('data-value')).trigger('click')
 
 
 		
 		
 		@ui.status.prop('checked',false)
-		if CommonFloor.defaults['availability'] != "" 
+		if CommonFloor.defaults['common']['availability'] != "" 
 			 @ui.status.prop('checked',true)
 
-		res = CommonFloor.getFilters()[0]
+		res = CommonFloor.getFilters()
 		if Object.keys(res).length == 0
 			window.flag = 1
 		if window.flag == 0

@@ -109,6 +109,7 @@
         <script src="{{ asset('bower_components/ionrangeslider/js/ion.rangeSlider.min.js' )}}"></script>
         <script src="{{ asset('bower_components/hammer.js/hammer.min.js' )}}"></script>
         <script src="{{ asset('js/frontend/jquery.fadeloader.js' )}}"></script> 
+        <script src="{{ asset('js/jquery.flexisel.js' )}}"></script> 
          <!--<script src="{{ asset('bower_components/jquery-nearest/src/jquery.nearest.js' )}}"></script> -->
         <!-- end plugins -->
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
@@ -119,11 +120,12 @@
         BASEURL = '{{url()}}'
         //global variable to keep track of the filtr the user has selected
         // CommonFloor.defaults = {'type' : "" , 'unitVariants': "",'unitTypes':"",'price_min':'','price_max':'','availability':'','area_min' : '','area_max' : '','building':'','floor_min' : '','floor_max' : '','flooring': ''}
-        CommonFloor.defaults = {'type' : 'villa,apartment,plot'
+        CommonFloor.defaults = {'type' : ""
                             ,'plot' : {'unit_type_id' : '','unit_variant_id':''}
                             ,'villa' : {'unit_type_id' : '','unit_variant_id':''}
                             ,'apartment' : {'unit_type_id' : '','unit_variant_id':''}
-                            ,'common' : {'price_min':'','price_max':'','availability':'available','area_min' : '','area_max' : '','building':'','floor_min' : '','floor_max' : ''}}
+                            ,'common' : {'price_min':'','price_max':'','availability':'','area_min' : '','area_max' : '','building':'','floor_min' : '','floor_max' : ''}
+                            ,'step_three' : {'unit_type_id' : '','unit_variant_id':''}}
 
 
         window.locale = {

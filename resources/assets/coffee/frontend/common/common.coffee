@@ -165,16 +165,19 @@ CommonFloor.masterPropertyTypes = ()->
 			'type'  : s.capitalize 'villas'
 			'count' :bunglowVariantCollection.getBunglowMasterUnits()
 			'type_name' : '(V)'
+			'name' : 'villa'
 	if apartmentVariantCollection.getApartmentMasterUnits().length != 0
 		Router.push 
 			'type'  : s.capitalize 'apartments'
 			'count' :apartmentVariantCollection.getApartmentMasterUnits()
 			'type_name' : '(A)'
+			'name' : 'apartment'
 	if plotVariantCollection.getPlotMasterUnits().length != 0
 		Router.push 
 			'type'  : s.capitalize 'plots'
 			'count' :plotVariantCollection.getPlotMasterUnits()
 			'type_name' : '(P)'
+			'name' : 'plot'
 	controller = _.max Router , (item)->
 		return parseInt item.count.length
 
@@ -311,6 +314,7 @@ CommonFloor.resetProperyType = (param)->
 	if param == 'villa'
 		$.merge collection , bunglowVariantCollection.getBunglowUnits()
 	if param == 'apartment'
+		console.log apartmentVariantCollection
 		$.merge collection , apartmentVariantCollection.getApartmentUnits()
 	if param == 'plot'
 		$.merge collection , plotVariantCollection.getPlotUnits()
@@ -354,9 +358,8 @@ CommonFloor.applyFliterClass = ()->
 
 CommonFloor.applyNonFilterClass = ()->
 	flag = 0
-	$.each CommonFloor.defaults,(index,value)->
-		if CommonFloor.defaults[index]  != ""
-			flag = 1
+	if CommonFloor.defaults['type']  != ""
+				flag = 1
 
 	if flag == 0
 		$('.villa,.plot,.apartment').each (ind,item)->
@@ -407,7 +410,7 @@ CommonFloor.filterBudget = ()->
 	budget = []
 	unitCollection.each (item)->
 		unitPrice = parseFloat window.unit.getFilterUnitDetails(item.get('id'))[3]
-		if unitPrice >= parseFloat(CommonFloor.defaults['price_min']) && unitPrice <= parseFloat(CommonFloor.defaults['price_max'])
+		if unitPrice >= parseFloat(CommonFloor.defaults['common']['price_min']) && unitPrice <= parseFloat(CommonFloor.defaults['common']['price_max'])
 			budget.push item
 
 	unitCollection.reset budget
@@ -417,7 +420,7 @@ CommonFloor.filterFloor = ()->
 	floorArr = []
 	unitCollection.each (item)->
 		floor = item.get 'floor'
-		if floor >= parseInt(CommonFloor.defaults['floor_min']) && floor <= parseInt(CommonFloor.defaults['floor_max'])
+		if floor >= parseInt(CommonFloor.defaults['common']['floor_min']) && floor <= parseInt(CommonFloor.defaults['common']['floor_max'])
 			floorArr.push item
 
 	unitCollection.reset floorArr
@@ -426,8 +429,8 @@ CommonFloor.filterArea = ()->
 	CommonFloor.resetCollections()
 	areaArr = []
 	unitCollection.each (item)->
-		area = item.get('area')
-		if area >= parseFloat(CommonFloor.defaults['area_min']) && area <= parseFloat(CommonFloor.defaults['area_max'])
+		console.log area = item.get('area')
+		if area >= parseFloat(CommonFloor.defaults['common']['area_min']) && area <= parseFloat(CommonFloor.defaults['common']['area_max'])
 			areaArr.push item
 
 	unitCollection.reset areaArr
@@ -437,10 +440,100 @@ CommonFloor.getFilters = ()->
 	unitVariants = []
 	results = []
 	flooring = []
-	# villaFilters = CommonFloor.getVillaFilters()
-	# $.merge unitTypes , villaFilters.unitTypes
-	# $.merge unitVariants , villaFilters.unitVariants
-	# $.merge flooring , villaFilters.flooring
+	type = []
+	filters = []
+	price = []
+	area = []
+	type= []
+	status= []
+	floor = []
+	main = []
+	if CommonFloor.defaults['common']['price_max'] != ""
+		min_price = window.numDifferentiation CommonFloor.defaults['common']['price_min']
+		max_price = window.numDifferentiation CommonFloor.defaults['common']['price_max']
+		price.push 
+				'name' : min_price+'-'+max_price
+				'type'  : '' 
+				'id' : 'budget'
+				'id_name' : 'filter_budget'
+				'classname' : 'budget'
+
+	if CommonFloor.defaults['common']['area_max'] != ""
+		area_min = CommonFloor.defaults['common']['area_min']
+		area_max = CommonFloor.defaults['common']['area_max']
+		area.push 
+				'name' : area_min+'-'+area_max
+				'type'  : project.get('measurement_units') 
+				'id' : 'area'
+				'id_name' : 'filter_area'
+				'classname' : 'area'
+
+	if CommonFloor.defaults['common']['floor_max'] != ""
+		floor_min = CommonFloor.defaults['common']['floor_min']
+		floor_max = CommonFloor.defaults['common']['floor_max']
+		floor.push 
+				'name' : 'Floor ' +floor_min+'-'+floor_max
+				'type'  : '' 
+				'id' : 'floor'
+				'id_name' : 'filter_floor'
+				'classname' : 'floor'
+
+	if CommonFloor.defaults['common']['availability'] != ""
+		status.push 
+			'name' : 'Available'
+			'classname' : 'types'
+			'id'		: 'available'
+			'id_name' : 'filter_available'
+
+	if CommonFloor.defaults['type'] != ""
+		typeArr = CommonFloor.defaults['type'].split(',')
+		$.each typeArr, (index,value)->
+			name = s.capitalize(value) 
+			name = name+'(s)'
+			console.log value
+			if value == 'apartment'
+				name = 'Apartment(s)/Penthouse(s)'
+				filters = CommonFloor.getApartmentFilters()
+			if value == 'villa'
+				filters = CommonFloor.getVillaFilters()
+			if value == 'plot'
+				filters = CommonFloor.getPlotFilters()
+			$.each filters,(index,value)->
+				if value.length == 0 
+					filters = _.omit(filters, index)
+			if Object.keys(filters).length == 0
+				filters = []
+
+			type.push 
+				'name' : name
+				'classname' : 'types'
+				'id'		: value
+				'id_name' : 'filter_'+value
+				'filters' : filters
+				
+
+	main.push 
+		'filters' : type
+		'area' : area
+		'price' : price
+		'floor' : floor
+		'status' : status
+
+
+	$.each main,(index,value)->
+		if value.length == 0
+			main = _.omit(main, index)
+	main
+
+CommonFloor.getFilters111 = ()->
+	unitTypes = []
+	unitVariants = []
+	results = []
+	flooring = []
+	villaFilters = CommonFloor.getVillaFilters()
+	$.merge unitTypes , villaFilters.unitTypes
+	$.merge unitVariants , villaFilters.unitVariants
+	$.merge flooring , villaFilters.flooring
 	# apartmentFilters = CommonFloor.getApartmentFilters()
 	# $.merge unitTypes , apartmentFilters.unitTypes
 	# $.merge unitVariants , apartmentFilters.unitVariants
@@ -449,6 +542,7 @@ CommonFloor.getFilters = ()->
 	# $.merge unitTypes , plotFilters.unitTypes
 	# $.merge unitVariants , plotFilters.unitVariants
 	# $.merge flooring , plotFilters.flooring
+	console.log villaFilters
 	price = []
 	area = []
 	type= []
@@ -492,14 +586,19 @@ CommonFloor.getFilters = ()->
 	# 			'id_name' : 'filter_floor'
 	# 			'classname' : 'floor'
 
-	# if CommonFloor.defaults['type'] != ""
-	# 	typeArr = CommonFloor.defaults['type'].split(',')
-	# 	$.each typeArr, (index,value)->
-	# 		type.push 
-	# 			'name' : value
-	# 			'classname' : 'types'
-	# 			'id'		: value
-	# 			'id_name' : 'filter_'+value
+	if CommonFloor.defaults['type'] != ""
+		typeArr = CommonFloor.defaults['type'].split(',')
+		$.each typeArr, (index,value)->
+			name = s.capitalize(value) 
+			name = name+'(s)'
+			if value == 'apartement'
+				name = 'Apartment(s)/Penthouse(s)'
+			type.push 
+				'name' : name
+				'classname' : 'types'
+				'id'		: value
+				'id_name' : 'filter_'+value
+	console.log type
 	# if CommonFloor.defaults['availability'] != ""
 	# 	status.push 
 	# 		'name' : 'Available'
@@ -536,21 +635,23 @@ CommonFloor.getVillaFilters = ()->
 		if val != "" 
 			param_val_arr = val.split(',')
 			$.each param_val_arr, (index,value)->
-				if value != "" && ind == 'unitVariants'
+				if value != "" && ind == 'unit_variant_id'
 					if ! _.isUndefined bunglowVariantMasterCollection.get(parseInt(value))
 						unit_variant = bunglowVariantMasterCollection.findWhere
 									'id' : parseInt value
 						unitVariants.push 
+									'typename':'villa'
 									'name'	: unit_variant.get 'unit_variant_name'
 									'type'	: '(V)'
 									'classname' : 'variant_names'
 									'id' : unit_variant.get 'id'
 									'id_name' : 'filter_varinat_name'+unit_variant.get 'id'
-				if value != "" && ind == 'unitTypes' && $.inArray(parseInt(value),bunglowVariantMasterCollection.getVillaUnitTypes()) > -1
+				if value != "" && ind == 'unit_type_id' && $.inArray(parseInt(value),bunglowVariantMasterCollection.getVillaUnitTypes()) > -1
 					unit_type = unitTypeMasterCollection.findWhere
 									'id' : parseInt value
 
 					unitTypes.push 
+								'typename':'villa'
 								'name' : unit_type.get 'name'
 								'type'	: '(V)'
 								'classname' : 'unit_types'
@@ -558,6 +659,7 @@ CommonFloor.getVillaFilters = ()->
 								'id_name' : 'filter_unit_type'+unit_type.get 'id'
 				if value != "" && ind == 'flooring' && $.inArray(value,bunglowVariantMasterCollection.getVillaFlooringAttributes()) > -1
 					flooring.push 
+							'typename':'villa'
 							'name' : value
 							'type'	: '(V)'
 							'classname' : 'filter_flooring'
@@ -566,7 +668,7 @@ CommonFloor.getVillaFilters = ()->
 
 	
 	filters = {'unitVariants' : unitVariants,'unitTypes': unitTypes
-			,'count': bunglowVariantMasterCollection.getBunglowUnits().length,'flooring' : flooring}
+			,'flooring' : flooring}
 	
 	
 	filters
@@ -578,11 +680,11 @@ CommonFloor.getApartmentFilters = ()->
 	unit_type = ''
 	status = []
 	flooring = []
-	$.each CommonFloor.defaults['apartments'],(ind,val)->
+	$.each CommonFloor.defaults['apartment'],(ind,val)->
 		if val != "" 
-			param_val_arr = val.split(',')
+			console.log param_val_arr = val.split(',')
 			$.each param_val_arr, (index,value)->
-				if value != "" && ind == 'unitVariants'
+				if value != "" && ind == 'unit_variant_id'
 					if !_.isUndefined apartmentVariantMasterCollection.get(parseInt(value))
 						unit_variant = apartmentVariantMasterCollection.findWhere
 									'id' : parseInt value
@@ -592,18 +694,20 @@ CommonFloor.getApartmentFilters = ()->
 						if window.propertyTypes[unitTypeModel.get('property_type_id')] == 'Penthouse'
 								type = 'PH'
 						unitVariants.push 
+									'typename':'apartment'
 									'name'	: unit_variant.get 'unit_variant_name'
 									'type'	: '('+type+')'
 									'classname' : 'variant_names'
 									'id' : unit_variant.get 'id'
 									'id_name' : 'filter_varinat_name'+unit_variant.get 'id'
-				if value != "" && ind == 'unitTypes' && $.inArray(parseInt(value),apartmentVariantMasterCollection.getApartmentUnitTypes()) > -1
+				if value != "" && ind == 'unit_type_id' && $.inArray(parseInt(value),apartmentVariantMasterCollection.getApartmentUnitTypes()) > -1
 					unit_type = unitTypeMasterCollection.findWhere
 									'id' : parseInt value
 					type = 'A'
 					if window.propertyTypes[unit_type.get('property_type_id')] == 'Penthouse'
 								type = 'PH'
 					unitTypes.push 
+								'typename':'apartment'
 								'name' : unit_type.get 'name'
 								'type'	: '('+type+')'
 								'classname' : 'unit_types'
@@ -614,6 +718,7 @@ CommonFloor.getApartmentFilters = ()->
 					pos = $.inArray(value,attributes[0])
 					types  = attributes[1]
 					flooring.push 
+							'typename':'apartment'
 							'name' : value
 							'type'	: '('+types[pos]+')'
 							'classname' : 'filter_flooring'
@@ -621,7 +726,7 @@ CommonFloor.getApartmentFilters = ()->
 							'id_name' : 'filter_'+value
 		
 	filters = {'unitVariants' : unitVariants,'unitTypes': unitTypes 
-				,'count': apartmentVariantMasterCollection.getApartmentUnits().length,'flooring' :flooring }
+				,'flooring' :flooring}
 	# $.each filters,(index,value)->
 	# 	if value.length == 0
 	# 		filters = _.omit(filters, index) 
@@ -634,25 +739,27 @@ CommonFloor.getPlotFilters = ()->
 	unit_type = ''
 	status = []
 	flooring = []
-	$.each CommonFloor.defaults['plots'],(ind,val)->
+	$.each CommonFloor.defaults['plot'],(ind,val)->
 		if val != "" 
 			param_val_arr = val.split(',')
 			$.each param_val_arr, (index,value)->
-				if value != "" && ind == 'unitVariants'
+				if value != "" && ind == 'unit_variant_id'
 					if !_.isUndefined plotVariantMasterCollection.get(parseInt(value))
 						unit_variant = plotVariantMasterCollection.findWhere
 									'id' : parseInt value
 						unitVariants.push 
+									'typename':'plot'
 									'name'	: unit_variant.get 'unit_variant_name'
 									'type'	: '(P)'
 									'classname' : 'variant_names'
 									'id' : unit_variant.get 'id'
 									'id_name' : 'filter_varinat_name'+unit_variant.get 'id'
-				if value != "" && ind == 'unitTypes' && $.inArray(parseInt(value),plotVariantMasterCollection.getPlotUnitTypes()) > -1
+				if value != "" && ind == 'unit_type_id' && $.inArray(parseInt(value),plotVariantMasterCollection.getPlotUnitTypes()) > -1
 					unit_type = unitTypeMasterCollection.findWhere
 									'id' : parseInt value
 
 					unitTypes.push 
+								'typename':'plot'
 								'name' : unit_type.get 'name'
 								'type'	: '(P)'
 								'classname' : 'unit_types'
@@ -661,6 +768,7 @@ CommonFloor.getPlotFilters = ()->
 
 				if value != "" && ind == 'flooring' && $.inArray(value,plotVariantMasterCollection.getPlotFlooringAttributes()) > -1
 					flooring.push 
+							'typename':'plot'
 							'name' : value
 							'type'	: '(P)'
 							'classname' : 'filter_flooring'
@@ -669,7 +777,7 @@ CommonFloor.getPlotFilters = ()->
 
 		
 	filters = {'unitVariants' : unitVariants,'unitTypes': unitTypes 
-				,'count': plotVariantMasterCollection.getPlotUnits().length,'flooring':flooring}
+				,'flooring':flooring}
 	filters
 
 CommonFloor.getStatus = ()->
@@ -775,13 +883,15 @@ CommonFloor.filterNew = ()->
 	collection = []
 	temp = []
 	params = CommonFloor.defaults['type'].split(',')
+	if CommonFloor.defaults['type'] == ""
+		$.merge collection , unitCollection.toArray()
 	$.each params , (ind,val)->
 		if val is 'villa'
-			console.log temp = CommonFloor.filterVillas()
+			temp = CommonFloor.filterVillas()
 		if val is 'apartment'
-			console.log temp = CommonFloor.filterApartments()
+			temp = CommonFloor.filterApartments()
 		if val is 'plot'
-			console.log temp = CommonFloor.filterPlots()
+			temp = CommonFloor.filterPlots()
 		$.merge collection , temp
 	console.log collection
 	unitCollection.reset collection
@@ -796,7 +906,6 @@ CommonFloor.filterNew = ()->
 		paramkey['availability'] = 'available'
 		temp = unitCollection.where paramkey
 		unitCollection.reset temp
-	CommonFloor.resetCollections()
 	CommonFloor.applyFliterClass()
 
 
@@ -804,19 +913,18 @@ CommonFloor.filterNew = ()->
 
 CommonFloor.filterVillas = ()->
 	collection = []
-	collection = CommonFloor.resetProperyType('villa')
+	console.log collection = CommonFloor.resetProperyType('villa')
 	temp = []
 	newColl = new Backbone.Collection collection		
 	$.each CommonFloor.defaults['villa'] , (index,value)->
 		if value != ""
-			console.log param_val  = value.split(',')
+			param_val  = value.split(',')
 			$.each param_val,(key,key_val)->
 				paramkey = {}
 				paramkey[index] = parseInt(key_val)
 				console.log paramkey
 				$.merge temp, unitCollection.where paramkey
 			newColl.reset temp
-	console.log newColl
 	newColl.toArray()		
 	
 
@@ -827,14 +935,12 @@ CommonFloor.filterApartments = ()->
 	newColl = new Backbone.Collection collection		
 	$.each CommonFloor.defaults['apartment'] , (index,value)->
 		if value != ""
-			console.log param_val  = value.split(',')
+			param_val  = value.split(',')
 			$.each param_val,(key,key_val)->
 				paramkey = {}
 				paramkey[index] = parseInt(key_val)
-				console.log paramkey
 				$.merge temp, unitCollection.where paramkey
 			newColl.reset temp
-	console.log newColl
 	newColl.toArray()
 
 CommonFloor.filterPlots = ()->
@@ -844,15 +950,38 @@ CommonFloor.filterPlots = ()->
 	newColl = new Backbone.Collection collection		
 	$.each CommonFloor.defaults['plot'] , (index,value)->
 		if value != ""
-			console.log param_val  = value.split(',')
+			param_val  = value.split(',')
 			$.each param_val,(key,key_val)->
 				paramkey = {}
 				paramkey[index] = parseInt(key_val)
-				console.log paramkey
 				$.merge temp, unitCollection.where paramkey
 			newColl.reset temp
-	console.log newColl
 	newColl.toArray()
+
+
+CommonFloor.removeStepFilters = ()->
+	arr = CommonFloor.defaults['type'].split(',')
+	index = arr.indexOf 'apartment'
+	arr.splice(index, 1)
+	CommonFloor.defaults['type'] = arr.join(',')
+	$.each CommonFloor.defaults['apartment'] , (index,value)->
+		if value != ""
+			step_types = CommonFloor.defaults['step_three'][index].split(',')
+			types = step_types.map (item)->
+				return parseInt item
+			value_Arr = value.split(',')
+			new_types = value_Arr.map (item)->
+				return parseInt item
+			actualTypes = _.difference new_types , types
+			CommonFloor.defaults['apartment'][index] = actualTypes.join(',')
+			CommonFloor.defaults['step_three'][index] = ""
+
+	$.each CommonFloor.defaults['common'],(index,value)->
+		CommonFloor.defaults['common'][index] = ""
+
+	unitCollection.reset unitMasterCollection.toArray()
+	CommonFloor.resetCollections()
+	CommonFloor.filterNew()
 	
 
 
