@@ -210,7 +210,6 @@ jQuery(document).ready ($)->
 		window.f = []
 		$("form").trigger("reset")
 		$('#dynamice-region').empty()
-		$(".toggle").trigger 'click'
 		$('#aj-imp-builder-drag-drop canvas').hide()
 		$('#aj-imp-builder-drag-drop svg').show()
 		$('.edit-box').addClass 'hidden'
@@ -285,12 +284,12 @@ jQuery(document).ready ($)->
 			classElem = $(currentElem).attr('type')
 			svgDataObjects = svgData.data
 			_.each svgDataObjects, (svgDataObject, key) =>
-				if parseInt(element) is parseInt svgDataObject.id
+				if parseInt(element) is parseInt svgDataObject.object_id
 					points = svgDataObject.points
 					$('.area').val points.join(',')
-					collection = new Backbone.Collection window.svgData.data
-					collection.remove element
-					window.svgData.data =  collection.toArray()
+					# collection = new Backbone.Collection window.svgData.data
+					# collection.remove element
+					# window.svgData.data =  collection.toArray()
 					drawPoly(points)
 					$('.submit').addClass 'hidden'
 					$('.edit').removeClass 'hidden'
@@ -332,7 +331,8 @@ jQuery(document).ready ($)->
 				# childEle['points'] = value
 				# childEle['other_details'] = details
 				# childEle['canvas_type'] = window.canvas_type
-				
+				$(".toggle").trigger 'click'
+		
 				window.svgData.data.push myObject
 				window.renderSVG()
 				
@@ -389,13 +389,12 @@ jQuery(document).ready ($)->
 				value =  $('.area').val().split(',')
 				$('#Layer_1').remove()
 				$.each window.svgData.data,(index,value)->
-					console.log value.object_id
-					console.log $('.units').val()
-					if parseInt value.object_id is parseInt $('.units').val()
-						delete window.svgData.data[index]
+					if parseInt(value.object_id) == parseInt($('.units').val())
+						console.log index
+						window.svgData.data.splice(index,1)
+						# delete window.svgData.data[index]
 				console.log window.svgData.data
-				objectData = new Backbone.Model myObject
-				window.svgData.data.push objectData
+				window.svgData.data.push myObject
 				console.log window.svgData.data
 				window.renderSVG()
 				
@@ -476,10 +475,12 @@ jQuery(document).ready ($)->
 
 				value =  $('.area').val().split(',')
 				$('#Layer_1').remove()
-				
-				collection = new Backbone.Collection window.svgData.data
-				collection.remove parseInt $('.units').val()
-				window.svgData.data = collection.toArray()
+				$.each window.svgData.data,(index,value)->
+					if parseInt(value.object_id) == parseInt($('.units').val())
+						console.log index
+						window.svgData.data.splice(index,1)
+						# delete window.svgData.data[index]
+				console.log window.svgData.data
 				window.renderSVG()
 				unit = unitMasterCollection.findWhere
 						'id' : parseInt id

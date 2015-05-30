@@ -194,7 +194,6 @@
       window.f = [];
       $("form").trigger("reset");
       $('#dynamice-region').empty();
-      $(".toggle").trigger('click');
       $('#aj-imp-builder-drag-drop canvas').hide();
       $('#aj-imp-builder-drag-drop svg').show();
       $('.edit-box').addClass('hidden');
@@ -236,13 +235,10 @@
       svgDataObjects = svgData.data;
       return _.each(svgDataObjects, (function(_this) {
         return function(svgDataObject, key) {
-          var collection, points;
-          if (parseInt(element) === parseInt(svgDataObject.id)) {
+          var points;
+          if (parseInt(element) === parseInt(svgDataObject.object_id)) {
             points = svgDataObject.points;
             $('.area').val(points.join(','));
-            collection = new Backbone.Collection(window.svgData.data);
-            collection.remove(element);
-            window.svgData.data = collection.toArray();
             drawPoly(points);
             $('.submit').addClass('hidden');
             $('.edit').removeClass('hidden');
@@ -277,6 +273,7 @@
           var value;
           value = $('.area').val().split(',');
           $('#Layer_1').remove();
+          $(".toggle").trigger('click');
           window.svgData.data.push(myObject);
           return window.renderSVG();
         },
@@ -330,19 +327,17 @@
         async: false,
         data: $.param(myObject),
         success: function(response) {
-          var objectData, value;
+          var value;
           value = $('.area').val().split(',');
           $('#Layer_1').remove();
           $.each(window.svgData.data, function(index, value) {
-            console.log(value.object_id);
-            console.log($('.units').val());
-            if (parseInt(value.object_id === parseInt($('.units').val()))) {
-              return delete window.svgData.data[index];
+            if (parseInt(value.object_id) === parseInt($('.units').val())) {
+              console.log(index);
+              return window.svgData.data.splice(index, 1);
             }
           });
           console.log(window.svgData.data);
-          objectData = new Backbone.Model(myObject);
-          window.svgData.data.push(objectData);
+          window.svgData.data.push(myObject);
           console.log(window.svgData.data);
           return window.renderSVG();
         },
@@ -437,12 +432,16 @@
         async: false,
         data: $.param(myObject),
         success: function(response) {
-          var collection, unit, value;
+          var unit, value;
           value = $('.area').val().split(',');
           $('#Layer_1').remove();
-          collection = new Backbone.Collection(window.svgData.data);
-          collection.remove(parseInt($('.units').val()));
-          window.svgData.data = collection.toArray();
+          $.each(window.svgData.data, function(index, value) {
+            if (parseInt(value.object_id) === parseInt($('.units').val())) {
+              console.log(index);
+              return window.svgData.data.splice(index, 1);
+            }
+          });
+          console.log(window.svgData.data);
           window.renderSVG();
           unit = unitMasterCollection.findWhere({
             'id': parseInt(id)
