@@ -1458,3 +1458,19 @@ function updateResponseTable()
 
 }
 
+$("input[name=has_phases]:radio").change(function () {
+    var value = $(this).val();
+    $.ajax({
+        url: "/admin/project/" + PROJECTID + "/validateprojectphase", 
+        type: "GET",
+        data: {
+            projectPhase: value,
+        },
+        success: function (response) {
+          if(response.message!='')  
+           alert(response.message);
+        }
+    });
+ 
+});
+

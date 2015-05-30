@@ -109,6 +109,7 @@ class Permission {
                               'admin/project/{project}/svg'=>'configure_project',
                               'admin/project/{project}/summary'=>'read_project',
                               'admin/project/{project}/getphasedata/{phase}'=>'configure_project',
+                              'admin/project/{project}/validateprojectphase'=>'configure_project',
                               'admin/project/{project}/projectpublishdata'=>'publish_project',
                               'admin/project/{project}/updateprojectstatus'=>'publish_project',
                               'admin/project/validateprojecttitle'=>'configure_project', 

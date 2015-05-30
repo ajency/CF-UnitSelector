@@ -118,7 +118,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
         
         if($property_has_phases=='no')
         {
-            $hasphases = Phase::where('status','!=','archive')->where('project_id',$projectId)->get()->toArray();
+            $hasphases = Phase::where('project_id',$projectId)->get()->toArray();
             if(empty($hasphases))
             {
                 $phase = new Phase();

@@ -13,6 +13,7 @@ use CommonFloor\ProjectPropertyType;
 use CommonFloor\Phase;
 use CommonFloor\UnitVariant;
 use CommonFloor\UnitType;
+use \Input;
 
 class ProjectController extends Controller {
 
@@ -594,6 +595,25 @@ class ProjectController extends Controller {
                     'code' => 'update_project_status',
                     'message' => 'Project Successfully Published',
                         ], 201);
+    }
+
+    public function validateProjectPhase($projectId) {
+
+        $project = Project::find($projectId);
+        $projectPhase = Input::get( 'projectPhase' ); 
+        $hasphases = Phase::where('project_id',$projectId)->get()->toArray();
+        $msg ='';
+        if($projectPhase=='no')
+        {
+            if (count($hasphases)>1) {
+                $msg = "There Cannot Be More Then 1 Phase To Make No Phases"  ;          
+            } 
+        }
+        
+        return response()->json([
+                    'code' => 'update_project_status',
+                    'message' => $msg,
+                        ], 200);
     }
 
 }
