@@ -10,6 +10,7 @@ use CommonFloor\Project;
 use CommonFloor\UnitVariant;
 use CommonFloor\Unit;
 use CommonFloor\UnitType;
+use CommonFloor\Defaults;
 
 class ProjectPlotUnitController extends Controller {
 
@@ -57,7 +58,9 @@ class ProjectPlotUnitController extends Controller {
      */
     public function create($id, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($id);
+        $projectAttributes = $project->attributes->toArray();
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
+        $defaultDirection = Defaults::where('type','direction')->get()->toArray();
         $propertyTypeArr = [];
         $projectPropertytypeId = 0;
         foreach ($projectPropertytype as $propertyTypes) {
@@ -77,9 +80,11 @@ class ProjectPlotUnitController extends Controller {
 
         return view('admin.project.unit.plot.add')
                         ->with('project', $project->toArray())
+                        ->with('projectAttributes', $projectAttributes)
                         ->with('project_property_type', $propertyTypeArr)
                         ->with('unit_variant_arr', $unitVariantArr)
                         ->with('phases', $phases)
+                        ->with('defaultDirection', $defaultDirection)
                         ->with('current', 'plot-unit');
     }
 
@@ -94,6 +99,16 @@ class ProjectPlotUnitController extends Controller {
         $unit->unit_variant_id = $request->input('unit_variant');
         $unit->availability = $request->input('unit_status');
         $unit->phase_id = $request->input('phase');
+        $unit->direction = $request->input('direction');
+        $views = $request->input('views');
+        $unitviews=[];
+        if(!empty($views))
+        {
+            foreach ($views as $key=>$view)
+               $unitviews[$key]= ucfirst($view);    
+        }
+        $viewsStr = serialize( $unitviews );
+        $unit->views = $viewsStr;
         $unit->save();
         $unitid = $unit->id;
 
@@ -123,7 +138,9 @@ class ProjectPlotUnitController extends Controller {
     public function edit($project_id, $id, ProjectRepository $projectRepository) {
         $unit = Unit::find($id);
         $project = $projectRepository->getProjectById($project_id);
+        $projectAttributes = $project->attributes->toArray();
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
+        $defaultDirection = Defaults::where('type','direction')->get()->toArray();
         $propertyTypeArr = [];
 
         foreach ($projectPropertytype as $propertyTypes) {
@@ -143,10 +160,12 @@ class ProjectPlotUnitController extends Controller {
 
         return view('admin.project.unit.plot.edit')
                         ->with('project', $project->toArray())
+                        ->with('projectAttributes', $projectAttributes)
                         ->with('project_property_type', $propertyTypeArr)
                         ->with('unit_variant_arr', $unitVariantArr)
                         ->with('unit', $unit->toArray())
                         ->with('phases', $phases)
+                        ->with('defaultDirection', $defaultDirection)
                         ->with('current', 'plot-unit');
     }
 
@@ -162,6 +181,16 @@ class ProjectPlotUnitController extends Controller {
         $unit->unit_variant_id = $request->input('unit_variant');
         $unit->availability = $request->input('unit_status');
         $unit->phase_id = $request->input('phase');
+        $unit->direction = $request->input('direction');
+        $views = $request->input('views');
+        $unitviews=[];
+        if(!empty($views))
+        {
+            foreach ($views as $key=>$view)
+               $unitviews[$key]= ucfirst($view);    
+        }
+        $viewsStr = serialize( $unitviews );
+        $unit->views = $viewsStr;
         $unit->save();
 
         $addanother = $request->input('addanother');

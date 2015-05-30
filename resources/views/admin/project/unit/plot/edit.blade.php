@@ -55,6 +55,21 @@
                         </select>
                         <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                     </div>
+                  
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-md-4">
+                <div class="form-group">
+                        <label class="form-label">Direction<span class="text-primary">*</span></label>
+                        <select  class="select2 form-control m-b-5" name="direction">
+                           <option value="">Select Direction</option>  
+                           @foreach($defaultDirection as $direction)
+                            <option  @if($unit['direction']==$direction['id']){{'selected'}}@endif value="{{$direction['id']}}">{{$direction['label']}}</option>
+                            @endforeach
+                        </select>
+                        <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
+                    </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
@@ -69,6 +84,21 @@
                         <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                     </div>
                 </div>
+                </div>
+                <div class="row">
+                @foreach($projectAttributes as $attribute)
+                        <?php
+                        $value = (isset($unit['views'][property_type_slug($attribute['label'])])) ? $unit['views'][property_type_slug($attribute['label'])] : ''
+                        ?>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <div class="checkbox check-primary pull-left" >    
+                                    <input @if($value== $attribute['label']){{'checked'}}@endif type="checkbox" id="{{$attribute['label']}}" value="{{$attribute['label']}}" name="views[{{property_type_slug($attribute['label'])}}]" aria-label="...">
+                                    <label for="{{$attribute['label']}}">{{$attribute['label']}}</label> 
+                                 </div>
+                            </div>
+                        </div>
+                        @endforeach 
             </div>
 
 

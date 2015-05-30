@@ -65,6 +65,7 @@ class ProjectController extends Controller {
         $projectMeta = $project->projectMeta()->whereNotIn('meta_key', ['master', 'google_earth', 'skyview', 'breakpoints', 'cf'])->get()->toArray();
         $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray();
         $defaultunitTypes = get_all_unit_type();
+        $projectAttributes = $project->attributes->toArray();
         $propertyTypes = $unitTypes = $projectunitTypes = $projectCost = $propertytypeAttributes = [];
 
         foreach ($projectpropertyTypes as $projectpropertyType) {
@@ -116,6 +117,7 @@ class ProjectController extends Controller {
         $propertyTypes = get_all_property_type();
         $defaultunitTypes = get_all_unit_type();
         $unitTypes = $projectunitTypes = $projectCost = $propertytypeAttributes = [];
+        $projectAttributes = $project->attributes->toArray();
 
         foreach ($projectMeta as $meta) {
             $projectCost[$meta['meta_key']] = ['ID' => $meta['id'], 'VALUE' => $meta['meta_value']];
@@ -144,6 +146,7 @@ class ProjectController extends Controller {
                         ->with('defaultunitTypes', $defaultunitTypes)
                         ->with('unitTypes', $projectunitTypes)
                         ->with('propertytypeAttributes', $propertytypeAttributes)
+                        ->with('projectAttributes', $projectAttributes)
                         ->with('current', 'settings');
     }
 

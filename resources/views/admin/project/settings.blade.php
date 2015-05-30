@@ -67,6 +67,37 @@
                 </div>
             </div>
             <hr/>
+            <div class="row">
+                <div class="m-l-5 no-border">
+                    <h3><i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Views</span></h3>
+                </div>
+
+                <div class="col-md-5">
+                @foreach($projectAttributes as $projectAttribute)
+                <div class="row m-b-10 ">
+                        <div class="col-md-10">
+                            <input type="text" name="projectattributes[]" value="{{ $projectAttribute['label'] }}" class="form-control"> 
+                            <input type="hidden" name="projectattributeId[]" value="{{ $projectAttribute['id'] }}" class="form-control">
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <a  data-unit-type-id="{{ $projectAttribute['id'] }}" class="text-primary remove-project-attribute"><i class="fa fa-close"></i> </a>
+                        </div>
+
+                    </div>
+                @endforeach   
+                    <div class="add-unit project_attribute_block">
+                        <div class="row p-t-10 p-r-15 p-l-15">
+                            <div class="col-md-12">
+                            <input type="text" name="projectattributes[]" value="" class="form-control">
+                            <input type="hidden" name="projectattributeId[]" value="" class="form-control">
+                        <div class="text-right">
+                            <a   class="add-project-attributes-btn btn btn-link"><i class="fa fa-"></i> Add Another Attribute</a>
+                        </div> </div>
+                        </div>
+                        </div>
+                    </div>
+            </div>
+            <hr/>
             @include('admin.project.includes.property_types')
             <div class="form-actions">  
                 <div class="pull-right">

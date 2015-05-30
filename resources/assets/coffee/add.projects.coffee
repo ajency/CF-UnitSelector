@@ -398,15 +398,35 @@ jQuery(document).ready ($)->
                         </div>
                     </div>
                 </div>'
+	
 		compile = Handlebars.compile str
 		data = 
 		  level : i
- 
 		$("#addFloorlevel").append compile data
 		$("select").select2()
 		$("#level_"+i).find('select[name="room_type[]"]').val('')
 		$("#counter").val i
 		addFloorLevelUploader(i)
+
+$('.add-project-attributes-btn').click ->
+	attributeName = $(@).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val()
+	str = '<div class="row m-b-10 ">
+                      <div class="col-md-10">
+                          <input type="test" name="projectattributes[]" value="{{ name }}" class="form-control"> 
+                          <input type="hidden" name="projectattributeId[]" value="" class="form-control">	
+                      </div>
+                      <div class="col-md-2 text-center">
+                          <a  data-unit-type-id="0" class="text-primary remove-project-attribute"><i class="fa fa-close"></i> </a>
+                      </div>
+                  </div>'
+	compile = Handlebars.compile str
+	data = 
+	  name : attributeName                
+	$(".project_attribute_block").before compile data
+	$(@).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val('')		
+
+
+ 
 
                  
  

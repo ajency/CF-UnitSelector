@@ -88,6 +88,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
         $projectJson->project_id = $project->id;
         $projectJson->save();
 
+        $projectJson = new ProjectJson;
         $projectJson->project_json = [];
         $projectJson->type = 'step_two';
         $projectJson->project_id = $project->id;
@@ -207,6 +208,25 @@ class ProjectRepository implements ProjectRepositoryInterface {
             }
         }
         //ATTRIBUTES
+        $objecttype = 'Property';
+        $projectAttributes = $projectData['projectattributes'];
+        $projectAttributeIds = $projectData['projectattributeId'];
+        $attributes =[];
+        foreach ($projectAttributes as $key => $attribute) {
+            $projectAttributeId = $projectAttributeIds[$key];
+            if ($projectAttributeId == '') {
+                if ($attribute != '')
+                    $attributes[] = new Attribute(['label' => ucfirst($attribute), 'control_type' => 'checkbox', 'defaults' => '',
+                        'object_type' => $objecttype, 'object_id' => $projectId]);
+            } else {
+                $data = array("label" => ucfirst($attribute));
+                Attribute::where('id', $projectAttributeId)->update($data);
+            }
+            
+        }
+        if (!empty($attributes)) {
+            $project->attributes()->saveMany($attributes);
+        }
         
         $objecttype = 'PropertyType';
         $projectPropertytypes = $project->projectPropertyTypes()->get()->toArray();

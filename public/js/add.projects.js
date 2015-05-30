@@ -204,7 +204,7 @@
       propertyType = $(this).attr('property-type');
       html = '<div class="row m-b-10 unit_type_block"> <div class="col-md-10"> <select onchange="createUnitType(this,{{ property_type }})" name="unittype[{{ property_type }}][]" class="select2-container select2 form-control select2-container-active">';
       html += $(this).closest('.unit_type_block').find('select').html();
-      html += '</select> <input type="hidden" name="unittypekey[{{ property_type }}][]" value=""> <input type="hidden" name="unittypecustome[{{ property_type }}][]" value=""> </div> <div class="col-md-2 text-center"> <a  data-unit-type-id="0" class="btn btn-link remove-unit-type"><i class="fa fa-close"></i> </a> </div> </div>';
+      html += '</select> <input type="hidden" name="unittypekey[{{ property_type }}][]" value=""> <input type="hidden" name="unittypecustome[{{ property_type }}][]" value=""> </div> <div class="col-md-2 text-center"> <a  data-unit-type-id="0" class="text-primary remove-unit-type"><i class="fa fa-close"></i> </a> </div> </div>';
       compile = Handlebars.compile(html);
       data = {
         property_type: propertyType
@@ -327,6 +327,18 @@
       $("#counter").val(i);
       return addFloorLevelUploader(i);
     });
+  });
+
+  $('.add-project-attributes-btn').click(function() {
+    var attributeName, compile, data, str;
+    attributeName = $(this).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val();
+    str = '<div class="row m-b-10 "> <div class="col-md-10"> <input type="test" name="projectattributes[]" value="{{ name }}" class="form-control"> <input type="hidden" name="projectattributeId[]" value="" class="form-control"> </div> <div class="col-md-2 text-center"> <a  data-unit-type-id="0" class="text-primary remove-project-attribute"><i class="fa fa-close"></i> </a> </div> </div>';
+    compile = Handlebars.compile(str);
+    data = {
+      name: attributeName
+    };
+    $(".project_attribute_block").before(compile(data));
+    return $(this).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val('');
   });
 
 }).call(this);
