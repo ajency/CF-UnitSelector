@@ -25,7 +25,7 @@
       this.createPolgyon();
       this.points(item.points);
       this.attribute('class', item.other_details["class"]);
-      this.attribute('id', item.id);
+      this.attribute('id', item.object_id);
       this.attribute('type', item.object_type);
       return this.node;
     };
