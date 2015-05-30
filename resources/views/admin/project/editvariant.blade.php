@@ -118,19 +118,7 @@
                             </div>
                         </div>
                         @endforeach
-                        @foreach($projectAttributes as $attribute)
-                        <?php
-                        $value = (isset($unitVariant['variant_attributes'][property_type_slug($attribute['label'])])) ? $unitVariant['variant_attributes'][property_type_slug($attribute['label'])] : ''
-                        ?>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <div class="checkbox check-primary pull-left" >    
-                                    <input @if($value== $attribute['label']){{'checked'}}@endif type="checkbox" id="{{$attribute['label']}}" value="{{$attribute['label']}}" name="villa_attributes[{{property_type_slug($attribute['label'])}}]" aria-label="...">
-                                    <label for="{{$attribute['label']}}">{{$attribute['label']}}</label> 
-                                 </div>
-                            </div>
-                        </div>
-                        @endforeach
+                         
                     </div>
 
                 </div>
