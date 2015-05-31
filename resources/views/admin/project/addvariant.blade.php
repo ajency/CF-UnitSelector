@@ -198,7 +198,7 @@
 
                                                         </select>
                                                     <div class="text-right">
-                                                        <button type="button" onclick="getRoomTypeAttributes(this, 0);" class="btn btn-link">Add Another Room</button>
+                                                        <button type="button" onclick="getRoomTypeAttributes(this, 0);" class="btn btn-link">Add Room</button>
                                                     </div>
                                          </div>
                                     </div>
@@ -277,7 +277,7 @@
                                                             </select>
                                                        
                                                         <div class="text-right">
-                                                            <button type="button" onclick="getRoomTypeAttributes(this, 1);" class="btn btn-link">Add Another Room</button>
+                                                            <button type="button" onclick="getRoomTypeAttributes(this, 1);" class="btn btn-link">Add Room</button>
                                                         </div>
                                                     </div>
                                             </div>

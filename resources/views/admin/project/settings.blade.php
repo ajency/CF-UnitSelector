@@ -91,7 +91,7 @@
                             <input type="text" name="projectattributes[]" value="" class="form-control">
                             <input type="hidden" name="projectattributeId[]" value="" class="form-control">
                         <div class="text-right">
-                            <a   class="add-project-attributes-btn btn btn-link"><i class="fa fa-"></i> Add Another Attribute</a>
+                            <a   class="add-project-attributes-btn btn btn-link"><i class="fa fa-"></i> Add Attribute</a>
                         </div> </div>
                         </div>
                         </div>

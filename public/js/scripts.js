@@ -213,11 +213,11 @@ function addAttributes(keyId, obj)
     str += '<div class="col-md-12">';
     str += '<div class="add-unit">';
     str += '<div class="p-t-8 p-t-10">';
-    str += '<div class="col-md-4">';
+    str += '<div class="col-xs-4">';
     str += '<input type="text" name = "attribute_name_' + keyId + '[]" class="form-control" placeholder="Enter Attribute Name">';
     str += '<input type="hidden" name = "attribute_id_' + keyId + '[]" value="">';
     str += '</div>';
-    str += '<div class="col-md-4">';
+    str += '<div class="col-xs-4">';
     str += '<select name = "controltype_' + keyId + '[]"  class="select2-container select2 form-control" >';
     str += '<option value="">Select Control Type</option>';
     str += '<option value="textbox" > Text Box</option>';
@@ -226,18 +226,18 @@ function addAttributes(keyId, obj)
     str += '<option value="number"> Number </option>';
     str += '</select>';
     str += '</div>';
-    str += '<div class="col-md-4 controlvalue">';
+    str += '<div class="col-xs-4 controlvalue">';
     str += '<input type="text"  name= "controltypevalues_' + keyId + '[]" data-role="tagsinput" class="tags">';
     str += '</div>';
     str += '</div>';
     str += '<div class="text-right">';
-    str += '<a class="btn btn-link"  onclick="addAttributes(\'' + keyId + '\',this)">Add Another Attribute</a>';
+    str += '<a class="btn btn-link"  onclick="addAttributes(\'' + keyId + '\',this)">Add Attribute</a>';
     str += '</div>';
     str += '</div>';
     str += '</div>';
     str += '</div>';
     
-    var delstr = '<div class="col-md-1 text-center">';
+    var delstr = '<div class="col-xs-1 text-right">';
     delstr += '<a class="text-primary" onclick="deleteAttribute(' + PROJECTID + ',0,this);"><i class="fa fa-close"></i></a>';
     delstr += '</div>';
 
@@ -245,7 +245,7 @@ function addAttributes(keyId, obj)
     $(obj).closest('.row').find('.col-md-12').removeClass('col-md-12');
     $(obj).closest('.row').find('.add-unit').removeClass('add-unit');
     $(obj).closest('.row').find('.p-t-8').removeClass('p-t-8 p-t-10');
-    $(obj).closest('.row').find('.controlvalue').addClass('col-md-3').removeClass('col-md-4');
+    $(obj).closest('.row').find('.controlvalue').addClass('col-xs-3').removeClass('col-xs-4');
     $(obj).closest('.row').addClass('m-b-10');
      $(obj).closest('.row').find('.controlvalue').after(delstr);
     $(obj).closest('.row').after(str);

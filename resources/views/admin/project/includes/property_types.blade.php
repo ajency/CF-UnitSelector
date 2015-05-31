@@ -85,13 +85,13 @@
                         <div class="col-md-8 attributes_block" style="border-left: 1px solid #ddd;">
                             <h4>Attributes</h4>
                             <div class="row form-group">
-                                <div class="col-md-4">
+                                <div class="col-xs-4">
                                     <label class="form-label">Name</label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Attributes Name will be the specification for each room type for example (Area, Length * Width, etc)."></i>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-xs-4">
                                     <label class="form-label">Control Type</label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="The selected control type will be available as input on the Variant page."></i>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-xs-4">
                                     <label class="form-label">Value</label>
                                 </div>
                                 
@@ -100,12 +100,12 @@
                             @foreach($propertytypeAttributes[$propertyTypeId]['ATTRIBUTES'] as $propertytypeAttribute)
 
                             <div class="row m-b-10">
-                                <div class="col-md-4">
+                                <div class="col-xs-4">
                                     <input type="text" name="attribute_name_{{ $propertyTypeId }}[]" class="form-control" value="{{$propertytypeAttribute['label']}}" placeholder="Enter Attribute Name" disabled>
                                     <input type="hidden" name="attribute_id_{{ $propertyTypeId }}[]" value="{{$propertytypeAttribute['id']}}" disabled>
 
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-xs-4">
                                     <select name="controltype_{{ $propertyTypeId }}[]" class="select2-container select2 form-control" disabled>
                                         <option value="">Select Control Type</option>
                                         <option value="textbox" @if($propertytypeAttribute['control_type']=='textbox'){{'selected'}}@endif> Text Box</option>
@@ -114,11 +114,11 @@
                                         <option value="media" @if($propertytypeAttribute['control_type']=='number'){{'selected'}}@endif> Number </option>
                                     </select>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-xs-3">
                                     <input type="text" name="controltypevalues_{{ $propertyTypeId }}[]" data-role="tagsinput" class="tags" value="{{$propertytypeAttribute['defaults']}}" disabled >
 
                                 </div>
-                                <div class="col-md-1 text-center">
+                                <div class="col-xs-1 text-right">
                                     <a class="text-primary" onclick="deleteAttribute({{$project['id']}},{{$propertytypeAttribute['id']}}, this);"><i class="
                                         fa fa-close"></i></a>
                                 </div>
@@ -130,12 +130,12 @@
                             $attributeControlValues  = ($propertyTypeId!=PLOTID)?"Wooden , Vetrified Tiles":"Yes , No";
                             ?>
                             <div class="row m-b-10 hidden defaultAttributes">
-                                <div class="col-md-4">
+                                <div class="col-xs-4">
                                     <input type="text" name="attribute_name_{{ $propertyTypeId }}[]" class="form-control" value="{{ $attributeName }}" placeholder="Enter Attribute Name" disabled >
                                     <input type="hidden" name="attribute_id_{{ $propertyTypeId }}[]" value="" disabled>
 
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-xs-4">
                                     <select name="controltype_{{ $propertyTypeId }}[]" class="select2-container select2 form-control" disabled>
                                         <option value="">Select Control Type</option>
                                         <option value="textbox"  > Text Box</option>
@@ -144,26 +144,25 @@
                                         <option value="media"  > Number </option>
                                     </select>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-xs-3">
                                     <input type="text" name="controltypevalues_{{ $propertyTypeId }}[]" data-role="tagsinput" class="tags" value="{{ $attributeControlValues }}" disabled >
 
                                 </div>
-                                <div class="col-md-1 text-center">
+                                <div class="col-xs-1 text-right">
                                     <a class="text-primary" onclick="deleteAttribute({{$project['id']}},0, this);"><i class="
                                         fa fa-close"></i></a>
                                 </div>
                             </div>
                             @endif
                             <div class="row">
-                                <div class="col-md-12">
                                 <div class="add-unit">
                             <div class="p-t-8 p-t-10">
-                                <div class="col-md-4">
+                                <div class="col-xs-4">
                                     <input type="text" name="attribute_name_{{ $propertyTypeId }}[]" class="form-control" placeholder="Enter Attribute Name">
                                     <input type="hidden" name="attribute_id_{{ $propertyTypeId }}[]" value="">
 
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-xs-4">
                                     <select name="controltype_{{ $propertyTypeId }}[]"  class="select2-container select2 form-control" >
                                         <option value="">Select Control Type</option>
                                         <option value="textbox" > Text Box</option>
@@ -173,14 +172,13 @@
                                     </select>
 
                                 </div>
-                                <div class="col-md-4 controlvalue">
+                                <div class="col-xs-4 controlvalue">
                                     <input type="text" name="controltypevalues_{{ $propertyTypeId }}[]" data-role="tagsinput" class="tags" >
                                 </div>
                             </div>
                                 <div class="text-right">
-                                    <a class="btn btn-link" onclick="addAttributes({{ $propertyTypeId }}, this)">Add Another Attribute</a>
+                                    <a class="btn btn-link" onclick="addAttributes({{ $propertyTypeId }}, this)">Add Attribute</a>
                                 </div>
-                            </div>
                             </div>
                              </div>
                         </div>
