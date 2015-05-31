@@ -107,7 +107,7 @@
         <script src="{{ asset('bower_components/lazyloadxt/dist/jquery.lazyloadxt.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery.panzoom/dist/jquery.panzoom.min.js' )}}"></script>
         <script src="{{ asset('bower_components/ionrangeslider/js/ion.rangeSlider.min.js' )}}"></script>
-        <script src="{{ asset('bower_components/hammer.js/hammer.min.js' )}}"></script>
+        <!--<script src="{{ asset('bower_components/hammer.js/hammer.min.js' )}}"></script>-->
         <script src="{{ asset('js/frontend/jquery.fadeloader.js' )}}"></script> 
         <script src="{{ asset('js/jquery.flexisel.js' )}}"></script> 
          <!--<script src="{{ asset('bower_components/jquery-nearest/src/jquery.nearest.js' )}}"></script> -->
