@@ -126,7 +126,7 @@ function saveProjectConfig()
         // To pass this value to its nearby hidden input
         var propertyTypeId = $(this).val();
         var unitTypecount = $('select[name="unittype[' + propertyTypeId + '][]"]').length;
-        if (unitTypecount == 1 && $('select[name="unittype[' + propertyTypeId + '][]"]').val() == '')
+        if (unitTypecount == 1 && $('select[name="unittype[' + propertyTypeId + '][]"]').val() == ''&& $('input[name="unittype[' + propertyTypeId + '][]"]').val() == '')
         {
             var propertType = $(this).closest('.row').attr('data-type');
             alert('Select Unit type for ' + propertType);

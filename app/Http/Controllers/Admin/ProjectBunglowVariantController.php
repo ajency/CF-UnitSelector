@@ -126,6 +126,25 @@ class ProjectBunglowVariantController extends Controller {
         $tempDir = public_path() . "/projects/" . $project_id . "/variants/temp/";
         File::makeDirectory($targetDir, $mode = 0755, true, true);
         
+        $externalimage = $request->input('image_external_3d_id');
+        if($externalimage!='')
+        {
+            $variantMeta = new VariantMeta();
+            $variantMeta->unit_variant_id = $unitVariantID;
+            $variantMeta->meta_key = 'external-3d';
+            $variantMeta->meta_value = $externalimage;
+            $variantMeta->save();
+            $media = Media::find($externalimage);
+            $media->mediable_id = $unitVariantID;
+            $media->save();
+            
+            $imageName = $media->image_name;
+            if(File::exists($tempDir.$imageName))
+            {
+                copy($tempDir.$imageName, $targetDir.$imageName);
+                unlink($tempDir.$imageName);
+            }
+        } 
         
         $image_gallery = $request->input('image_gallery');
         if(!empty($image_gallery))
@@ -192,25 +211,7 @@ class ProjectBunglowVariantController extends Controller {
                 }
             } 
             
-            $externalimage = $request->input('image_external_3d_id');
-            if($externalimage!='')
-            {
-                $variantMeta = new VariantMeta();
-                $variantMeta->unit_variant_id = $unitVariantID;
-                $variantMeta->meta_key = 'external-3d';
-                $variantMeta->meta_value = $externalimage;
-                $variantMeta->save();
-                $media = Media::find($externalimage);
-                $media->mediable_id = $unitVariantID;
-                $media->save();
-                
-                $imageName = $media->image_name;
-                if(File::exists($tempDir.$imageName))
-                {
-                    copy($tempDir.$imageName, $targetDir.$imageName);
-                    unlink($tempDir.$imageName);
-                }
-            } 
+            
             
             $attributes = $request->input('attributes'); 
             $roomIds = $request->input('room_id');
@@ -291,7 +292,7 @@ class ProjectBunglowVariantController extends Controller {
 
             $roomTypeAttributes[$room['roomtype_id']] = RoomType::find($room['roomtype_id'])->attributes->toArray();
         }
-
+ 
         $variantMeta = $unitVariant->variantMeta()->get()->toArray();
         $layouts = [];
 
@@ -458,6 +459,36 @@ class ProjectBunglowVariantController extends Controller {
      */
     public function destroy($id) {
         //
+    }
+
+    public function deleteLevel($projectId,$variantId, Request $request)
+    {
+        $level = $request->input('level');
+
+        $unitVariant = UnitVariant::find($variantId);
+        $variantMeta = $unitVariant->variantMeta()->whereIn('meta_key',[$level.'-2d',$level.'-3d'])->get()->toArray();       //2d layout and 3d layout
+        
+        foreach ($variantMeta as $key => $value) {
+            $mediaId = $value['meta_value'];
+            $media = Media::find( $mediaId );
+            $targetDir = public_path() . "/projects/" . $projectId . "/variants/" . $variantId . "/".$media->image_name;
+            unlink($targetDir);
+            $media->delete();
+
+            VariantMeta::find($value['id'])->delete();
+        }
+
+        //rooms 
+        $variantRooms = $unitVariant->variantRoomAttributes()->where('floorlevel',$level)->delete();
+
+        return response()->json([
+                    'code' => 'floor_delete',
+                    'message' => ' Variant Level Successfully Updated',
+                    'data' => [
+                        'unitVariantId' => $variantId
+                    ]
+                        ], 204);
+        
     }
 
 }

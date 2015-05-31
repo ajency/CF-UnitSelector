@@ -84,11 +84,11 @@
             <tbody>
                 @if(!empty($phases)) 
                 @foreach($phases as $phase)
-                <tr>
+                <tr id="phase-{{ $phase['id'] }}">
                     <td>{{ $phase['phase_name'] }}</td>
                     <td>
                         @if(hasPermission($project['id'],['configure_project']))
-                        <select onchange="showUpdateButton(this);" id="phases1" class="select2-container select2 form-control select2-container-active" style="width:50%;">
+                        <select onchange="showUpdateButton(this);"  {{($phase['status']=='live')?'disabled':''}} class="select2-container select2 form-control select2-container-active" style="width:50%;">
                             <option value="">Select Status</option>
                             <option value="live" @if($phase['status']=='live'){{'selected'}}@endif>Live</option>
                             <option value="not_live" @if($phase['status']=='not_live'){{'selected'}}@endif>Not Live</option>

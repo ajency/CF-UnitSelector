@@ -1324,7 +1324,7 @@ function createUnitType(obj, propertyTypeId)
             html += '<input type="hidden" name="unittypecustome[' + propertyTypeId + '][]" value="CUSTOME">';
             html += '</div>';
             html += '<div class="col-md-2 text-center">';
-            html += '<a  data-unit-type-id="0" class="btn btn-link remove-unit-type"><i class="fa fa-close"></i> </a>';
+            html += '<a  data-unit-type-id="0" class="text-primary remove-unit-type"><i class="fa fa-close"></i> </a>';
             html += '</div>';
             html += '</div>';
             $(obj).closest('.unit_type_block').before(html);
@@ -1499,3 +1499,35 @@ function openRoomTypeModal(obj, id)
         $("#roomtypeiframe").attr("roomid", id);
 
     }
+
+function deleteLevel(level)
+{ 
+    var variantLevels =$('input[name="levels[]"]').length; 
+    if(variantLevels == 1)
+    {
+        alert("Variant Should Have Alleast 1 Level");
+        return ;
+    }
+
+    if (confirm('Are you sure you want to delete this Level? ') === false) {
+        return;
+    }
+ 
+    if(variantId){
+        $.ajax({
+        url: BASEURL + "/admin/project/" + PROJECTID + "/bunglow-variant/"+variantId+"/deletelevel",
+        type: "DELETE",
+        data: {
+            level: level,
+        },
+        success: function (response) {
+           $("#level_"+level).remove();
+        }
+        });
+    }
+    else{ 
+        $("#level_"+level).remove();
+    }
+
+    
+}

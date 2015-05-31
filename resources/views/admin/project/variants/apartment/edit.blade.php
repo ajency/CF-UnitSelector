@@ -127,7 +127,7 @@
                 </div>
             </div>
             <hr/>
-            <?php $i = 1; ?>
+            <?php $i = 0; ?>
             @if($propertyTypeID == APARTMENTID)
             @include('admin.project.variants.apartment.apartmentroom')
             @else

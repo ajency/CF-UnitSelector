@@ -218,6 +218,7 @@
                                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false">
                                         Level 1
                                         <input type="hidden" value="1" name="levels[]">
+                                        <input style="float:right" type="button" value="Delete Level" class="" onclick="deleteLevel({{ $level }});">
                                         </a>
                                     </h4>
                                     </div>

@@ -77,6 +77,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::post( 'project/{project}/apartment-variant/getpropertytypedata', 'Admin\ProjectApartmentVariantController@getPropertyTypeData' );
     Route::post( 'project/{project}/apartment-variant/getunittypevariants', 'Admin\ProjectApartmentVariantController@getUnitTypeVariants' );
     Route::get( 'project/{project}/attributes/addroomtype', 'Admin\ProjectRoomTypeController@addRoomType' );
+    Route::delete( 'project/{project}/bunglow-variant/{id}/deletelevel', 'Admin\ProjectBunglowVariantController@deleteLevel' );
     
 });
 

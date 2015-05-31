@@ -134,14 +134,20 @@
       });
     });
     $('#myModal').on('click', '.update-phase-btn', function() {
-      var phaseId;
+      var phaseId, successFn;
       phaseId = $(this).attr('data-phase-id');
+      successFn = function(resp, status, xhr) {
+        $('#myModal').modal('toggle');
+        $("#phase-" + phaseId).find('select').attr('disabled', true);
+        return $("#phase-" + phaseId).find('.updatelink').addClass('hidden');
+      };
       return $.ajax({
         url: '/admin/phase/' + phaseId,
         type: 'POST',
         data: {
           _method: "PUT"
-        }
+        },
+        success: successFn
       });
     });
     $('#publishModal').on('click', '.update-project-status', function() {
@@ -168,8 +174,7 @@
       });
     };
     registerRemoveUnitType = function() {
-      $('.remove-unit-type').off('click');
-      return $('.remove-unit-type').on('click', function() {
+      return $('.propertyTypeUnitsAttributes').on('click', '.remove-unit-type', function() {
         var successFn, unitTypeId;
         unitTypeId = $(this).attr('data-unit-type-id');
         if (parseInt(unitTypeId) === 0) {
@@ -314,9 +319,9 @@
       var compile, counter, data, i, str;
       counter = $("#counter").val();
       i = parseInt(counter) + 1;
-      str = '<div class="row" id="level_{{ level }}"> <div class="no-border"> <div class="grid simple" style="margin-bottom:0;"> <div class="grid-body no-border" style="padding-bottom:0;"> <div class="grid simple vertical orange"> <div class="grid-title"> <h4>Level {{ level }}</h4> <input type="hidden" value="{{ level }}" name="levels[]"> </div> <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4> <div class="row"> <div class="col-md-6"> <div class="grid simple"> <div class="grid-body"> <div class="inline">2D Layout</div> <input type="hidden" name="image_{{ level }}_2d_id" id="image_{{ level }}_2d_id" value=""> <div class="pull-right" id="2d_{{ level }}_image"> <div class="img-hover img-thumbnail"> <div id="pickfiles_{{ level }}_2d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;"> <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;"> <i class="fa fa-image" style="font-size:30px;"></i> <p class="">Select File</p> </div> </div> </div> </div> </div> </div> </div> <div class="col-md-6"> <div class="grid simple" > <div class="grid-body"> <div class="inline">3D Layout</div> <input type="hidden" name="image_{{ level }}_3d_id" id="image_{{ level }}_3d_id" value=""> <div class="pull-right" id="3d_{{ level }}_image"> <div class="img-hover img-thumbnail"> <div id="pickfiles_{{ level }}_3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;"> <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;"> <i class="fa fa-image" style="font-size:30px;"></i> <p class="">Select File</p> </div> </div> </div> </div> </div> </div> </div> </div> <div class="room_attributes_block"> </div> <div class="row user-description-box"> <div class="col-md-4"> <div> <label class="form-label">Select Room</label> <div class="row"> <div class="col-md-9"> <select onchange="openRoomTypeModal(this, 0)" name="room_type[]" class="select2 form-control">';
-      str += $(this).closest('.row').find('select[name="room_type[]"]').html();
-      str += '</select> </div> <div class="col-md-3"> <button type="button" onclick="getRoomTypeAttributes(this, {{ level }});" class="btn btn-white"><i class="fa fa-plus inline"></i> Add Room to Level</button> </div> </div> </div> </div> <div class="col-md-8"></div> </div> </div> </div> </div> </div> </div> </div>';
+      str = '<div class="row" id="level_{{ level }}"> <div class="no-border"> <div class="grid simple" style="margin-bottom:0;"> <div class="grid-body no-border" style="padding-bottom:0;"> <div class="grid simple vertical orange"> <div class="grid-title"> <h4>Level {{ level }}</h4> <input type="hidden" value="{{ level }}" name="levels[]"> <input style="float:right" type="button" value="Delete Level" class="" onclick="deleteLevel({{ level }});"> </div> <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4> <div class="row"> <div class="col-md-6"> <div class="grid simple"> <div class="grid-body"> <div class="inline">2D Layout</div> <input type="hidden" name="image_{{ level }}_2d_id" id="image_{{ level }}_2d_id" value=""> <div class="pull-right" id="2d_{{ level }}_image"> <div class="img-hover img-thumbnail"> <div id="pickfiles_{{ level }}_2d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;"> <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;"> <i class="fa fa-image" style="font-size:30px;"></i> <p class="">Select File</p> </div> </div> </div> </div> </div> </div> </div> <div class="col-md-6"> <div class="grid simple" > <div class="grid-body"> <div class="inline">3D Layout</div> <input type="hidden" name="image_{{ level }}_3d_id" id="image_{{ level }}_3d_id" value=""> <div class="pull-right" id="3d_{{ level }}_image"> <div class="img-hover img-thumbnail"> <div id="pickfiles_{{ level }}_3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;"> <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;"> <i class="fa fa-image" style="font-size:30px;"></i> <p class="">Select File</p> </div> </div> </div> </div> </div> </div> </div> </div> <div class="room_attributes_block"> </div> <div> <div class="col-md-5 add-unit p-t-10"> <select onchange="openRoomTypeModal(this, 0)" name="room_type[]" class="select2 form-control">';
+      str += $('#addFloorlevel').find('select[name="room_type[]"]').html();
+      str += '</select> <div class="text-right"> <button type="button" onclick="getRoomTypeAttributes(this, {{ $level }});" class="btn btn-link">Add Room</button> </div> </div> </div> </div> </div> </div> </div> </div>';
       compile = Handlebars.compile(str);
       data = {
         level: i

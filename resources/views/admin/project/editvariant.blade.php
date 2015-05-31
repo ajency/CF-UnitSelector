@@ -124,7 +124,7 @@
                 </div>
             </div>
             <hr/>
-             <?php $i = 1; ?>
+             <?php $i = 0; ?>
             @include('admin.project.variantrooms')
             
             <input type="hidden" id="counter" name="counter" value="{{$i}}">
