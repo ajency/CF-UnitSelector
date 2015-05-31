@@ -728,7 +728,7 @@
           $.each(project.get('filters').Villa, function(index, value) {
             temp = [];
             return $.each(item.get('variant_attributes'), function(ind, val) {
-              if (ind === value && $.inArray(value, flooring) === -1) {
+              if (ind === value && $.inArray(value, flooring) === -1 && val !== "") {
                 flooring.push(value);
                 temp.push({
                   'name': val,
@@ -809,7 +809,7 @@
           return $.each(project.get('filters').Apartment, function(index, value) {
             temp = [];
             return $.each(item.get('variant_attributes'), function(ind, val) {
-              if (ind === value && $.inArray(value, flooring) === -1) {
+              if (ind === value && $.inArray(value, flooring) === -1 && val !== "") {
                 flooring.push(value);
                 temp.push({
                   'name': val,
@@ -886,7 +886,7 @@
           return $.each(project.get('filters').Plot, function(index, value) {
             temp = [];
             return $.each(item.get('variant_attributes'), function(ind, val) {
-              if (ind === value && $.inArray(value, flooring) === -1) {
+              if (ind === value && $.inArray(value, flooring) === -1 && val !== "") {
                 flooring.push(value);
                 temp.push({
                   'name': val,

@@ -995,7 +995,9 @@ CommonFloor.filterVillas = ()->
 	newColl = new Backbone.Collection collection		
 	$.each CommonFloor.defaults['villa'] , (index,value)->
 		if value != "" && index == 'attributes'
-			attributes = CommonFloor.filterVillaAttributes()
+			if temp.length == 0
+				temp = bunglowVariantCollection.getBunglowUnits()
+			attributes = CommonFloor.filterVillaAttributes(temp)
 			$.merge temp, attributes
 		if value != ""
 			param_val  = value.split(',')
@@ -1007,10 +1009,9 @@ CommonFloor.filterVillas = ()->
 	newColl.toArray()	
 
 
-CommonFloor.filterVillaAttributes= ()->
+CommonFloor.filterVillaAttributes = (temp)->
 	flooring = []
-	units = bunglowVariantCollection.getBunglowUnits()
-	$.each units, (item , value)->
+	$.each temp, (item , value)->
 		unitDetails = window.unit.getUnitDetails(value.get('id'))
 		unitVarinat = unitDetails[0]
 		attributes = unitVarinat.get('variant_attributes')
@@ -1029,7 +1030,9 @@ CommonFloor.filterApartments = ()->
 	newColl = new Backbone.Collection collection		
 	$.each CommonFloor.defaults['apartment'] , (index,value)->
 		if value != "" && index == 'attributes'
-			attributes = CommonFloor.filterApartmentAttributes()
+			if temp.length == 0
+				temp = apartmentVariantCollection.getApartmentUnits()
+			attributes = CommonFloor.filterApartmentAttributes(temp)
 			$.merge temp, attributes
 		if value != ""
 			param_val  = value.split(',')
@@ -1041,10 +1044,10 @@ CommonFloor.filterApartments = ()->
 	newColl.toArray()
 
 
-CommonFloor.filterApartmentAttributes= ()->
+CommonFloor.filterApartmentAttributes= (temp)->
 	flooring = []
 	units = apartmentVariantCollection.getApartmentUnits()
-	$.each units, (item , value)->
+	$.each temp, (item , value)->
 		unitDetails = window.unit.getUnitDetails(value.get('id'))
 		unitVarinat = unitDetails[0]
 		attributes = unitVarinat.get('variant_attributes')
@@ -1062,7 +1065,9 @@ CommonFloor.filterPlots = ()->
 	newColl = new Backbone.Collection collection		
 	$.each CommonFloor.defaults['plot'] , (index,value)->
 		if value != "" && index == 'attributes'
-			attributes = CommonFloor.filterPlotAttributes()
+			if temp.length == 0
+				temp = plotVariantCollection.getPlotUnits()
+			attributes = CommonFloor.filterPlotAttributes(temp)
 			$.merge temp, attributes
 		if value != ""
 			param_val  = value.split(',')
@@ -1073,10 +1078,10 @@ CommonFloor.filterPlots = ()->
 			newColl.reset temp
 	newColl.toArray()
 
-CommonFloor.filterPlotAttributes= ()->
+CommonFloor.filterPlotAttributes= (temp)->
 	flooring = []
 	units = plotVariantCollection.getPlotUnits()
-	$.each units, (item , value)->
+	$.each temp, (item , value)->
 		unitDetails = window.unit.getUnitDetails(value.get('id'))
 		unitVarinat = unitDetails[0]
 		attributes = unitVarinat.get('variant_attributes')
@@ -1111,6 +1116,8 @@ CommonFloor.removeStepFilters = ()->
 
 
 $(window).bind('hashchange', ()->
+
+
 	CommonFloor.defaults['type'] = ""
 	$.each CommonFloor.defaults['villa'],(index,value)->
 		CommonFloor.defaults['villa'][index] = ""

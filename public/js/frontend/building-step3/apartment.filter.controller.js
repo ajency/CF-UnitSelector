@@ -462,7 +462,7 @@
             var temp;
             temp = [];
             return $.each(item.get('variant_attributes'), function(ind, val) {
-              if (ind === value && $.inArray(value, flooring) === -1) {
+              if (ind === value && $.inArray(value, flooring) === -1 && val !== "") {
                 flooring.push(value);
                 temp.push({
                   'id': val,

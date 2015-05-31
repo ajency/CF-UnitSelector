@@ -1099,7 +1099,10 @@
     $.each(CommonFloor.defaults['villa'], function(index, value) {
       var attributes, param_val;
       if (value !== "" && index === 'attributes') {
-        attributes = CommonFloor.filterVillaAttributes();
+        if (temp.length === 0) {
+          temp = bunglowVariantCollection.getBunglowUnits();
+        }
+        attributes = CommonFloor.filterVillaAttributes(temp);
         $.merge(temp, attributes);
       }
       if (value !== "") {
@@ -1116,11 +1119,10 @@
     return newColl.toArray();
   };
 
-  CommonFloor.filterVillaAttributes = function() {
-    var flooring, units;
+  CommonFloor.filterVillaAttributes = function(temp) {
+    var flooring;
     flooring = [];
-    units = bunglowVariantCollection.getBunglowUnits();
-    $.each(units, function(item, value) {
+    $.each(temp, function(item, value) {
       var arr, attributes, unitDetails, unitVarinat;
       unitDetails = window.unit.getUnitDetails(value.get('id'));
       unitVarinat = unitDetails[0];
@@ -1144,7 +1146,10 @@
     $.each(CommonFloor.defaults['apartment'], function(index, value) {
       var attributes, param_val;
       if (value !== "" && index === 'attributes') {
-        attributes = CommonFloor.filterApartmentAttributes();
+        if (temp.length === 0) {
+          temp = apartmentVariantCollection.getApartmentUnits();
+        }
+        attributes = CommonFloor.filterApartmentAttributes(temp);
         $.merge(temp, attributes);
       }
       if (value !== "") {
@@ -1161,11 +1166,11 @@
     return newColl.toArray();
   };
 
-  CommonFloor.filterApartmentAttributes = function() {
+  CommonFloor.filterApartmentAttributes = function(temp) {
     var flooring, units;
     flooring = [];
     units = apartmentVariantCollection.getApartmentUnits();
-    $.each(units, function(item, value) {
+    $.each(temp, function(item, value) {
       var arr, attributes, unitDetails, unitVarinat;
       unitDetails = window.unit.getUnitDetails(value.get('id'));
       unitVarinat = unitDetails[0];
@@ -1189,7 +1194,10 @@
     $.each(CommonFloor.defaults['plot'], function(index, value) {
       var attributes, param_val;
       if (value !== "" && index === 'attributes') {
-        attributes = CommonFloor.filterPlotAttributes();
+        if (temp.length === 0) {
+          temp = plotVariantCollection.getPlotUnits();
+        }
+        attributes = CommonFloor.filterPlotAttributes(temp);
         $.merge(temp, attributes);
       }
       if (value !== "") {
@@ -1206,11 +1214,11 @@
     return newColl.toArray();
   };
 
-  CommonFloor.filterPlotAttributes = function() {
+  CommonFloor.filterPlotAttributes = function(temp) {
     var flooring, units;
     flooring = [];
     units = plotVariantCollection.getPlotUnits();
-    $.each(units, function(item, value) {
+    $.each(temp, function(item, value) {
       var arr, attributes, unitDetails, unitVarinat;
       unitDetails = window.unit.getUnitDetails(value.get('id'));
       unitVarinat = unitDetails[0];
