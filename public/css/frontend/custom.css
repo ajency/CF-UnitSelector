@@ -2239,6 +2239,8 @@ svg polygon {
 @media (max-width: 991px) {
   .unit-details {
     margin-left: 0;
+    margin-right: 0;
+    max-height: none;
   }
   .unit-details .detail-list {
     text-align: center;
@@ -3278,11 +3280,11 @@ label.third_toggle {
 }
 @media (max-width: 767px) {
   .ls-nav ul li {
-    max-width: 120px;
+    max-width: 75px;
   }
   .ls-nav ul li a,
   .ls-nav ul li h4 {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 /*# sourceMappingURL=custom.css.map */
