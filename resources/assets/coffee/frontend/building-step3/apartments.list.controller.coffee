@@ -58,7 +58,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 													         {{/budget}}
 													           {{#floor}}
 													         	
-													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross floor" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
 													        
 													         {{/floor}}
 
@@ -199,12 +199,12 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 			@trigger  'render:view'
 
 		'click @ui.filter_flooring':(e)->
-			flooring = CommonFloor.defaults['flooring'].split(',')
+			flooring = CommonFloor.defaultsfilterNew['flooring'].split(',')
 			flooring = _.without flooring , $(e.currentTarget).attr('data-id')
-			CommonFloor.defaults['flooring'] = flooring.join(',')
+			CommonFloor.defaultsfilterNew['flooring'] = flooring.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filterBuilding(@building_id)
-			CommonFloor.filter()
+			# CommonFloor.filterBuilding(@building_id)
+			CommonFloor.filterNew()
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
 

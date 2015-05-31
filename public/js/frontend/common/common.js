@@ -762,7 +762,7 @@
               'id_name': 'filter_unit_type' + unit_type.get('id')
             });
           }
-          if (value !== "" && ind === 'flooring' && $.inArray(value, bunglowVariantMasterCollection.getVillaFlooringAttributes()) > -1) {
+          if (value !== "" && ind === 'attributes' && $.inArray(value, bunglowVariantMasterCollection.getVillaAttributes()) > -1) {
             return flooring.push({
               'typename': 'villa',
               'name': value,
@@ -836,14 +836,14 @@
               'id_name': 'filter_unit_type' + unit_type.get('id')
             });
           }
-          attributes = apartmentVariantMasterCollection.getApartmentFlooringAttributes();
-          if (value !== "" && ind === 'flooring' && $.inArray(value, attributes[0]) > -1) {
+          attributes = apartmentVariantMasterCollection.getApartmentAttributes();
+          if (value !== "" && ind === 'attributes' && $.inArray(value, attributes[0]) > -1) {
             pos = $.inArray(value, attributes[0]);
-            types = attributes[1];
+            types = '';
             return flooring.push({
               'typename': 'apartment',
               'name': value,
-              'type': '(' + types[pos] + ')',
+              'type': '',
               'classname': 'filter_flooring',
               'id': value,
               'id_name': 'filter_' + value
@@ -901,7 +901,7 @@
               'id_name': 'filter_unit_type' + unit_type.get('id')
             });
           }
-          if (value !== "" && ind === 'flooring' && $.inArray(value, plotVariantMasterCollection.getPlotFlooringAttributes()) > -1) {
+          if (value !== "" && ind === 'attributes' && $.inArray(value, plotVariantMasterCollection.getPlotAttributes()) > -1) {
             return flooring.push({
               'typename': 'plot',
               'name': value,
@@ -1093,24 +1093,48 @@
   CommonFloor.filterVillas = function() {
     var collection, newColl, temp;
     collection = [];
-    console.log(collection = CommonFloor.resetProperyType('villa'));
+    collection = CommonFloor.resetProperyType('villa');
     temp = [];
     newColl = new Backbone.Collection(collection);
     $.each(CommonFloor.defaults['villa'], function(index, value) {
-      var param_val;
+      var attributes, param_val;
+      if (value !== "" && index === 'attributes') {
+        if (temp.length === 0) {
+          temp = bunglowVariantCollection.getBunglowUnits();
+        }
+        attributes = CommonFloor.filterVillaAttributes(temp);
+        $.merge(temp, attributes);
+      }
       if (value !== "") {
         param_val = value.split(',');
         $.each(param_val, function(key, key_val) {
           var paramkey;
           paramkey = {};
           paramkey[index] = parseInt(key_val);
-          console.log(paramkey);
           return $.merge(temp, unitCollection.where(paramkey));
         });
         return newColl.reset(temp);
       }
     });
     return newColl.toArray();
+  };
+
+  CommonFloor.filterVillaAttributes = function(temp) {
+    var flooring;
+    flooring = [];
+    $.each(temp, function(item, value) {
+      var arr, attributes, unitDetails, unitVarinat;
+      unitDetails = window.unit.getUnitDetails(value.get('id'));
+      unitVarinat = unitDetails[0];
+      attributes = unitVarinat.get('variant_attributes');
+      arr = CommonFloor.defaults['villa']['attributes'].split(',');
+      return $.each(attributes, function(ind, val) {
+        if ($.inArray(val, arr) > -1) {
+          return flooring.push(value);
+        }
+      });
+    });
+    return flooring;
   };
 
   CommonFloor.filterApartments = function() {
@@ -1120,7 +1144,14 @@
     temp = [];
     newColl = new Backbone.Collection(collection);
     $.each(CommonFloor.defaults['apartment'], function(index, value) {
-      var param_val;
+      var attributes, param_val;
+      if (value !== "" && index === 'attributes') {
+        if (temp.length === 0) {
+          temp = apartmentVariantCollection.getApartmentUnits();
+        }
+        attributes = CommonFloor.filterApartmentAttributes(temp);
+        $.merge(temp, attributes);
+      }
       if (value !== "") {
         param_val = value.split(',');
         $.each(param_val, function(key, key_val) {
@@ -1135,6 +1166,25 @@
     return newColl.toArray();
   };
 
+  CommonFloor.filterApartmentAttributes = function(temp) {
+    var flooring, units;
+    flooring = [];
+    units = apartmentVariantCollection.getApartmentUnits();
+    $.each(temp, function(item, value) {
+      var arr, attributes, unitDetails, unitVarinat;
+      unitDetails = window.unit.getUnitDetails(value.get('id'));
+      unitVarinat = unitDetails[0];
+      attributes = unitVarinat.get('variant_attributes');
+      arr = CommonFloor.defaults['apartment']['attributes'].split(',');
+      return $.each(attributes, function(ind, val) {
+        if ($.inArray(val, arr) > -1) {
+          return flooring.push(value);
+        }
+      });
+    });
+    return flooring;
+  };
+
   CommonFloor.filterPlots = function() {
     var collection, newColl, temp;
     collection = [];
@@ -1142,7 +1192,14 @@
     temp = [];
     newColl = new Backbone.Collection(collection);
     $.each(CommonFloor.defaults['plot'], function(index, value) {
-      var param_val;
+      var attributes, param_val;
+      if (value !== "" && index === 'attributes') {
+        if (temp.length === 0) {
+          temp = plotVariantCollection.getPlotUnits();
+        }
+        attributes = CommonFloor.filterPlotAttributes(temp);
+        $.merge(temp, attributes);
+      }
       if (value !== "") {
         param_val = value.split(',');
         $.each(param_val, function(key, key_val) {
@@ -1155,6 +1212,25 @@
       }
     });
     return newColl.toArray();
+  };
+
+  CommonFloor.filterPlotAttributes = function(temp) {
+    var flooring, units;
+    flooring = [];
+    units = plotVariantCollection.getPlotUnits();
+    $.each(temp, function(item, value) {
+      var arr, attributes, unitDetails, unitVarinat;
+      unitDetails = window.unit.getUnitDetails(value.get('id'));
+      unitVarinat = unitDetails[0];
+      attributes = unitVarinat.get('variant_attributes');
+      arr = CommonFloor.defaults['plot']['attributes'].split(',');
+      return $.each(attributes, function(ind, val) {
+        if ($.inArray(val, arr) > -1) {
+          return flooring.push(value);
+        }
+      });
+    });
+    return flooring;
   };
 
   CommonFloor.removeStepFilters = function() {

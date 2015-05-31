@@ -93,12 +93,12 @@
       return unit_types;
     };
 
-    PlotVariantCollection.prototype.getPlotFlooringAttributes = function() {
+    PlotVariantCollection.prototype.getPlotAttributes = function() {
       var attributes;
       attributes = [];
-      plotVariantMasterCollection.each(function(item) {
-        if ($.inArray(item.get('variant_attributes').flooring, attributes) === -1) {
-          return attributes.push(item.get('variant_attributes').flooring);
+      $.each(item.get('variant_attributes'), function(index, value) {
+        if ($.inArray(value, attributes) === -1) {
+          return attributes.push(value);
         }
       });
       return attributes;

@@ -144,7 +144,8 @@
 
     CenterView.prototype.events = {
       'mouseover .step1-marker': function(e) {
-        return $('.marker').tooltipster('show');
+        $('.marker').tooltipster('show');
+        return $('.tooltipstered').tooltipster('show');
       }
     };
 
@@ -187,7 +188,33 @@
             }
           }
         });
-        return $('.marker').tooltipster('show');
+        $('.marker').tooltipster('show');
+        $('.tooltipstered').tooltipster({
+          theme: 'tooltipster-shadow',
+          contentAsHTML: true,
+          onlyOne: true,
+          arrow: false,
+          offsetX: 30,
+          interactive: true,
+          animation: 'fade',
+          trigger: 'click',
+          content: $('#proj_info').html(),
+          functionReady: function(e) {
+            var tooltipHeight;
+            $('.action_button').on('click', function(e) {
+              $('.cf-loader').removeClass('hidden');
+              $('svg').attr('class', 'zoom');
+              $('.step1').addClass('animated fadeOut');
+              $('.marker').tooltipster('hide');
+              return setTimeout(function(x) {
+                return CommonFloor.checkPropertyType();
+              }, 100);
+            });
+            tooltipHeight = $('.tooltipster-content').height() + 10;
+            return $('.action-bar').css('min-height', tooltipHeight);
+          }
+        });
+        return $('.tooltipstered').tooltipster('show');
       });
     };
 

@@ -57,7 +57,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 
 													     {{#floor}}
 													         	
-													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross floor" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
 													        
 													         {{/floor}}
 
@@ -195,11 +195,11 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			@trigger  'render:view'
 
 		'click @ui.filter_flooring':(e)->
-			flooring = CommonFloor.defaults['flooring'].split(',')
+			flooring = CommonFloor.defaults['apartment']['flooring'].split(',')
 			flooring = _.without flooring , $(e.currentTarget).attr('data-id')
-			CommonFloor.defaults['flooring'] = flooring.join(',')
+			CommonFloor.defaults['apartment']['flooring'] = flooring.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filter()
+			CommonFloor.filterNew()
 			unitCollection.trigger('filter_available')
 			@trigger  'render:view'
 
@@ -700,7 +700,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$.merge transitionImages ,  building.get('building_master')
 		first = _.values svgs
 		$('.region').load(first[0],()->
-				$('.first_image').attr('data-src',transitionImages[0])
+				$('.first_image').attr('data-src',transitionImages[breakpoints[0]])
 				that.iniTooltip()
 				CommonFloor.applyAvailabilClasses()
 				CommonFloor.randomClass()
