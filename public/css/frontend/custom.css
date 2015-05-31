@@ -2811,7 +2811,7 @@ span.glyphicon {
   width: 310px;
   opacity: 1;
   visibility: visible;
-  padding: 0px 10px;
+  padding: 20px 10px;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
