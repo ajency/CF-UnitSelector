@@ -11,7 +11,7 @@
         <div class="grid-body no-border">
 
             <div class="row form-group">
-                <div class="col-md-4">
+                <div class="col-xs-4">
                     <label class="form-label">Room Name</label>
                     <div id="room_name_box">
                     <select name="room_name" onchange="createRoomType(this);"  class="select2-container select2 form-control" data-parsley-required disabled>
@@ -29,13 +29,13 @@
                 </div>
             </div>
             <div class="row form-group">
-                <div class="col-md-3">
+                <div class="col-xs-4">
                     <label class="form-label">Attribute Name</label>
                 </div>
-                <div class="col-md-3">
+                <div class="col-xs-4">
                     <label class="form-label">Control Type</label>
                 </div>
-                <div class="col-md-3">
+                <div class="col-xs-3">
                     <label class="form-label">Default Values</label>
                 </div>
             </div>
@@ -44,12 +44,12 @@
                             @foreach($roomtypeAttributes['ATTRIBUTES'] as $roomtypeAttribute)
 
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-xs-4">
                                     <input type="text" name="attribute_name_room[]" class="form-control" value="{{$roomtypeAttribute['label']}}" placeholder="Enter Attribute Name" disabled>
                                     <input type="hidden" name="attribute_id_room[]" value="{{$roomtypeAttribute['id']}}" disabled>
 
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-xs-4">
                                     <select name="controltype_room[]" class="select2-container select2 form-control" disabled>
                                         <option value="">Select Control Type</option>
                                         <option value="textbox" @if($roomtypeAttribute['control_type']=='textbox'){{'selected'}}@endif> Text Box</option>
@@ -58,11 +58,11 @@
                                         <option value="media" @if($roomtypeAttribute['control_type']=='number'){{'selected'}}@endif> Number </option>
                                     </select>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-xs-3">
                                     <input type="text" name="controltypevalues_room[]" data-role="tagsinput" class="tags" value="{{$roomtypeAttribute['defaults']}}" disabled >
 
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-xs-1 text-right">
                                     <a class="btn btn-link" onclick="deleteAttribute({{$project['id']}},{{$roomtypeAttribute['id']}}, this);"><i class="fa fa-close"></i></a>
                                 </div>
                             </div>
@@ -70,28 +70,32 @@
                             @endif
              
                 <div class="row">
-                    <div class="col-md-3">
-                        <input type="text" name="attribute_name_room[]" class="form-control" placeholder="Enter Attribute Name">
-                 
+                                <div class="add-unit">
+                            <div class="p-t-8 p-t-10">
+                                <div class="col-xs-4">
+                                    <input type="text" name="attribute_name_room[]" class="form-control" placeholder="Enter Attribute Name">
+                                    
 
-                    </div>
-                    <div class="col-md-3">
-                        <select name="controltype_room[]"  class="select2-container select2 form-control" >
-                            <option value="">Select Control Type</option>
-                            <option value="textbox" > Text Box</option>
-                            <option value="select" >Select Box</option>
-                            <option value="multiple" > Multiple Select Box</option>
-                            <option value="number"> Number </option>
-                        </select>
+                                </div>
+                                <div class="col-xs-4">
+                                    <select name="controltype_room[]"  class="select2-container select2 form-control" >
+                                        <option value="">Select Control Type</option>
+                                        <option value="textbox" > Text Box</option>
+                                        <option value="select" >Select Box</option>
+                                        <option value="multiple" > Multiple Select Box</option>
+                                        <option value="number"> Number </option>
+                                    </select>
 
-                    </div>
-                    <div class="col-md-4">
-                        <input type="text" name="controltypevalues_room[]" data-role="tagsinput" class="tags">
-                    </div>
-                    <div class="col-md-2">
-                        <a class="btn btn-link" onclick="addAttributes('room', this)"><i class="fa fa-plus"></i> Attribute</a>
-                    </div>
-                </div>
+                                </div>
+                                <div class="col-xs-4 controlvalue">
+                                    <input type="text" name="controltypevalues_room[]" data-role="tagsinput" class="tags">
+                                </div>
+                            </div>
+                                <div class="text-right">
+                                    <a class="btn btn-link" onclick="addAttributes('room', this)">Add Attribute</a>
+                                </div>
+                            </div>
+                             </div>
 
             </div>
             <div class="form-actions">  
