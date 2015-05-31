@@ -48,7 +48,7 @@
       return TopApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}} - {{name}}</h2> <div class="proj-type-count"> <h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p> </div> <div class="pull-left filter-result full"> {{#each  filters}} {{#each this}} <div class="filter-pill"  > {{this.name}}{{this.type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span> </div> {{/each}}{{/each }} </div> </div> </div> </div> </div>');
+    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}} - {{name}}</h2> <div class="proj-type-count"> <h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p> </div> <div class="pull-left filter-result full"> {{#filters}} {{#each this}} {{#each this}} <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/each}} {{/each}} {{/filters}} {{#area}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/area}} {{#budget}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/budget}} {{#floor}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/floor}} {{#status}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/status}} </div> </div> </div> </div> </div>');
 
     TopApartmentMasterView.prototype.ui = {
       unitBack: '.unit_back',
@@ -73,15 +73,24 @@
     };
 
     TopApartmentMasterView.prototype.serializeData = function() {
-      var building_id, data, model, units, url;
+      var building_id, data, main, mainFilters, model, units, url;
       data = TopApartmentMasterView.__super__.serializeData.call(this);
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
       units = Marionette.getOption(this, 'units');
       data.units = units.length;
       data.project_title = project.get('project_title');
-      data.filters = CommonFloor.getFilters()[0];
-      data.results = CommonFloor.getApartmentFilters().count;
+      main = CommonFloor.getStepFilters();
+      mainFilters = main[0].filters[0];
+      data.filters = [];
+      if (!_.isUndefined(mainFilters)) {
+        data.filters = main[0].filters[0].filters;
+      }
+      data.area = main[0].area;
+      data.budget = main[0].price;
+      data.status = main[0].status;
+      data.floor = main[0].floor;
+      data.results = apartmentVariantCollection.getApartmentUnits().length;
       model = buildingMasterCollection.findWhere({
         'id': building_id
       });
@@ -98,7 +107,7 @@
           arr.splice(index, 1);
           CommonFloor.defaults['type'] = arr.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filter();
+          CommonFloor.filterNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         },
@@ -106,58 +115,58 @@
           var previousRoute;
           e.preventDefault();
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filter();
+          CommonFloor.filterNew();
           previousRoute = CommonFloor.router.previous();
           return CommonFloor.navigate('#/master-view', true);
         },
         'click @ui.unitTypes': function(e) {
           var unitTypes;
-          unitTypes = CommonFloor.defaults['unitTypes'].split(',');
+          unitTypes = CommonFloor.defaults['apartment']['unit_type_id'].split(',');
           unitTypes = _.without(unitTypes, $(e.currentTarget).attr('data-id'));
-          CommonFloor.defaults['unitTypes'] = unitTypes.join(',');
+          CommonFloor.defaults['apartment']['unit_type_id'] = unitTypes.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filter();
+          CommonFloor.filterNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         },
         'click @ui.variantNames': function(e) {
           var variantNames;
-          variantNames = CommonFloor.defaults['unitVariants'].split(',');
+          variantNames = CommonFloor.defaults['apartment']['unit_variant_id'].split(',');
           variantNames = _.without(variantNames, $(e.currentTarget).attr('data-id'));
-          CommonFloor.defaults['unitVariants'] = variantNames.join(',');
+          CommonFloor.defaults['apartment']['unit_variant_id'] = variantNames.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filter();
+          CommonFloor.filterNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         },
         'click @ui.status': function(e) {
-          CommonFloor.defaults['availability'] = "";
+          CommonFloor.defaults['common']['availability'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filter();
+          CommonFloor.filterNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         },
         'click @ui.area': function(e) {
-          CommonFloor.defaults['area_max'] = "";
-          CommonFloor.defaults['area_min'] = "";
+          CommonFloor.defaults['common']['area_max'] = "";
+          CommonFloor.defaults['common']['area_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filter();
+          CommonFloor.filterNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         },
         'click @ui.budget': function(e) {
-          CommonFloor.defaults['price_max'] = "";
-          CommonFloor.defaults['price_min'] = "";
+          CommonFloor.defaults['common']['price_max'] = "";
+          CommonFloor.defaults['common']['price_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filter();
+          CommonFloor.filterNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         },
         'click @ui.floor': function(e) {
-          CommonFloor.defaults['floor_max'] = "";
-          CommonFloor.defaults['floor_min'] = "";
+          CommonFloor.defaults['common']['floor_max'] = "";
+          CommonFloor.defaults['common']['floor_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filter();
+          CommonFloor.filterNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
         },
@@ -176,7 +185,7 @@
 
     TopApartmentMasterView.prototype.onShow = function() {
       var results;
-      results = CommonFloor.getFilters()[1];
+      results = CommonFloor.getFilters();
       if (results.length === 0) {
         return $('.proj-type-count').text('No results found');
       }

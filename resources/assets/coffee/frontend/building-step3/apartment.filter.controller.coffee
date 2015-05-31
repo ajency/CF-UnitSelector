@@ -9,11 +9,9 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="fliters-container closed" id="collapsefilters">
 										<a href="javascript:void(0)"  class="text-primary filters-clear clear">Clear Filters </a>
-
 										<button class="btn btn-primary filter-button" type="button">
 											<span class="icon-place"></span>											
 										</button>
-
 										<div class="filters-wrapper">
 										  	<div class="filters-content">
 											  	
@@ -36,7 +34,6 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 				                                       	<!--<a href="#" class="hide-div">+ Show More</a>-->
 				                                    </div>
 				                                </div>
-
 				                                 <div class="flooring_filter">
 				                                    <h6 class="">Flooring</h6>
 				                                       <div class="filter-chkbox-block">
@@ -47,7 +44,6 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 				                                       	<!--<a href="#" class="hide-div">+ Show More</a>-->
 				                                    </div>
 				                                </div>
-
 				                                <div class="">
 				                                    <h6>AREA ({{measurement_units}})</h6>
 				                                    <div class="range-container">
@@ -104,14 +100,14 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		@building_id = building_id
-		if CommonFloor.defaults['unitTypes']!= ""
-			unitTypes = CommonFloor.defaults['unitTypes'].split(',')
-		if CommonFloor.defaults['unitVariants']!= ""
-			variantNames = CommonFloor.defaults['unitVariants'].split(',')
+		if CommonFloor.defaults['apartment']['unit_type_id']!= ""
+			unitTypes = CommonFloor.defaults['apartment']['unit_type_id'].split(',')
+		if CommonFloor.defaults['apartment']['unit_variant_id']!= ""
+			variantNames = CommonFloor.defaults['apartment']['unit_variant_id'].split(',')
 		if CommonFloor.defaults['type']!= ""
 			window.type  = CommonFloor.defaults['type'].split(',')
-		if CommonFloor.defaults['flooring']!= ""
-			window.flooring  = CommonFloor.defaults['flooring'].split(',')
+		# if CommonFloor.defaults['flooring']!= ""
+		# 	window.flooring  = CommonFloor.defaults['flooring'].split(',')
 		window.unitTypes = unitTypes.map (item)->
 			return parseInt item
 		window.variantNames = variantNames.map (item)->
@@ -125,11 +121,17 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			window.price = ''
 			window.area = ''
 			window.type  = []
-			$.each CommonFloor.defaults,(index,value)->
-				CommonFloor.defaults[index] = ""
+			# arr = CommonFloor.defaults['type'].split(',')
+			# index = arr.indexOf 'apartment'
+			# arr.splice(index, 1)
+			# CommonFloor.defaults['type'] = arr.join(',')
+			$.each CommonFloor.defaults['apartment'],(index,value)->
+				CommonFloor.defaults['apartment'][index] = ""
+			$.each CommonFloor.defaults['common'],(index,value)->
+				CommonFloor.defaults['common'][index] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filterBuilding(@building_id)
-			CommonFloor.filter()
+			CommonFloor.filterNew()
 			unitTempCollection.trigger( "filter_available") 
 			@loadSelectedFilters()
 			@price = $("#budget").data("ionRangeSlider")
@@ -139,15 +141,17 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			@area.destroy()
 			@floor.destroy()
 			@loadClearFilters()
+
 		'click @ui.unitTypes':(e)->
 			if $(e.currentTarget).is(':checked')
 				window.unitTypes.push parseInt $(e.currentTarget).attr('data-value')
 			else
 				window.unitTypes = _.without window.unitTypes ,parseInt $(e.currentTarget).attr('data-value')
-			CommonFloor.defaults['unitTypes'] = window.unitTypes.join(',')
+			CommonFloor.defaults['apartment']['unit_type_id'] = window.unitTypes.join(',')
+			CommonFloor.defaults['step_three']['unit_type_id'] = window.unitTypes.join(',') 
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filterBuilding(@building_id)
-			CommonFloor.filter()
+			CommonFloor.filterNew()
 			unitTempCollection.trigger( "filter_available") 
 			# @resetFilters()
 			
@@ -156,66 +160,67 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 				window.variantNames.push parseInt $(e.currentTarget).attr('data-value')
 			else
 				window.variantNames = _.without window.variantNames ,parseInt $(e.currentTarget).attr('data-value')
-			CommonFloor.defaults['unitVariants'] = window.variantNames.join(',')
+			CommonFloor.defaults['apartment']['unit_variant_id'] = window.variantNames.join(',')
+			CommonFloor.defaults['step_three']['unit_variant_id'] = window.variantNames.join(',') 
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filterBuilding(@building_id)
-			CommonFloor.filter()	
+			CommonFloor.filterNew()	
 			unitTempCollection.trigger( "filter_available") 
 
 		'change @ui.priceMin':(e)->
 			if $(e.currentTarget).val() != ""
-				CommonFloor.defaults['price_min'] = $(e.currentTarget).val()
+				CommonFloor.defaults['common']['price_min'] = $(e.currentTarget).val()
 			else
-				CommonFloor.defaults['price_min'] = 0
+				CommonFloor.defaults['common']['price_min'] = 0
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filterBuilding(@building_id)
-			CommonFloor.filter()
+			CommonFloor.filterNew()
 			unitTempCollection.trigger( "filter_available") 
 			
 
 		'change @ui.priceMax':(e)->
 			if $(e.currentTarget).val() != ""
-				CommonFloor.defaults['price_max'] = $(e.currentTarget).val()
+				CommonFloor.defaults['common']['price_max'] = $(e.currentTarget).val()
 			else
-				CommonFloor.defaults['price_max'] = 999999900
+				CommonFloor.defaults['common']['price_max'] = 999999900
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filterBuilding(@building_id)
-			CommonFloor.filter()
+			CommonFloor.filterNew()
 			unitTempCollection.trigger( "filter_available") 
 			# @resetFilters()
 			
 
 		'click @ui.status':(e)->
-			CommonFloor.defaults['availability'] = e.currentTarget.id
+			CommonFloor.defaults['common']['availability'] = e.currentTarget.id
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filterBuilding(@building_id)
-			CommonFloor.filter()
+			CommonFloor.filterNew()
 			unitTempCollection.trigger( "filter_available") 
 			# @resetFilters()
 
 
 		'change @ui.area':(e)->
-			CommonFloor.defaults['area_max'] = parseFloat $(e.target).val().split(';')[1]
-			CommonFloor.defaults['area_min'] = parseFloat $(e.target).val().split(';')[0]
+			CommonFloor.defaults['common']['area_max'] = parseFloat $(e.target).val().split(';')[1]
+			CommonFloor.defaults['common']['area_min'] = parseFloat $(e.target).val().split(';')[0]
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filterBuilding(@building_id)
-			CommonFloor.filter()
+			CommonFloor.filterNew()
 			unitTempCollection.trigger( "filter_available") 
 
 		'change @ui.budget':(e)->
-			CommonFloor.defaults['price_max'] = parseFloat $(e.target).val().split(';')[1]
-			CommonFloor.defaults['price_min'] = parseFloat $(e.target).val().split(';')[0]
+			CommonFloor.defaults['common']['price_max'] = parseFloat $(e.target).val().split(';')[1]
+			CommonFloor.defaults['common']['price_min'] = parseFloat $(e.target).val().split(';')[0]
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filterBuilding(@building_id)
-			CommonFloor.filter()
+			CommonFloor.filterNew()
 			unitTempCollection.trigger( "filter_available") 
 
 		'change @ui.floor':(e)->
-			CommonFloor.defaults['floor_max'] = parseFloat $(e.target).val().split(';')[1]
-			CommonFloor.defaults['floor_min'] = parseFloat $(e.target).val().split(';')[0]
+			CommonFloor.defaults['common']['floor_max'] = parseFloat $(e.target).val().split(';')[1]
+			CommonFloor.defaults['common']['floor_min'] = parseFloat $(e.target).val().split(';')[0]
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filterBuilding(@building_id)
-			CommonFloor.filter()
+			CommonFloor.filterNew()
 			unitTempCollection.trigger( "filter_available") 
 
 
@@ -228,7 +233,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			CommonFloor.defaults['flooring'] = window.flooring.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filterBuilding(@building_id)
-			CommonFloor.filter()
+			CommonFloor.filterNew()
 			unitTempCollection.trigger( "filter_available") 
 			
 		'click .filter-button':(e)->
@@ -296,6 +301,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		data
 
 	onShow:->
+		# CommonFloor.removeStepFilters
 		@loadSelectedFilters()
 
 		$('.filters-content').mCustomScrollbar
@@ -306,8 +312,10 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		building_id = parseInt url.split('/')[1]
 		floor = buildingMasterCollection.findWhere
 					'id' : building_id
-		$.each unitMasterCollection.toArray(), (index,value)->
-			unitDetails = window.unit.getUnitDetails(value.id)
+		units = unitMasterCollection.where
+					'building_id' : @building_id
+		$.each units, (index,value)->
+			unitDetails = window.unit.getUnitDetails(value.get('id'))
 			budget.push parseFloat unitDetails[3]
 			area.push parseFloat unitDetails[0].get 'super_built_up_area'
 		min = _.min area
@@ -344,8 +352,8 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		    
 
 		)
-		if Marionette.getOption(@,'flooring').length == 0
-			$('.flooring_filter').hide()
+		# if Marionette.getOption(@,'flooring').length == 0
+		# 	$('.flooring_filter').hide()
 		if Marionette.getOption(@,'unitTypes').length == 0
 			$('.unit_type_filter').hide()
 		if Marionette.getOption(@,'unitVariantNames').length == 0
@@ -403,9 +411,9 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 
 	loadSelectedFilters:->
 		unittypesArray = []
-		unitTypes = CommonFloor.defaults['unitTypes'].split(',')
+		unitTypes = CommonFloor.defaults['apartment']['unit_type_id'].split(',')
 		unitVariantsArray = []
-		unitVariants = CommonFloor.defaults['unitVariants'].split(',')
+		unitVariants = CommonFloor.defaults['apartment']['unit_variant_id'].split(',')
 		typesArray = []
 		types = CommonFloor.defaults['type'].split(',')
 		
