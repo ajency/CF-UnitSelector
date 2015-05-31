@@ -71,8 +71,8 @@ jQuery(document).ready ($)->
 
     #function to generate svg from svg data
     window.generateSvg = (svgData)->
-        # create svg background image
-        draw.image(svgImg)
+        # create svg background image, set exclude data attrib to true so it can be excluded while exporting the svg
+        draw.image(svgImg).data('exclude', true)
 
         # for each svg data check canvas type and generate elements accordingly
         $.each svgData,(index,value)->
@@ -714,8 +714,11 @@ jQuery(document).ready ($)->
 
     # on click of publish
     $('.btn-publish-svg').on 'click' , (e)->
-        e.preventDefault() 
-        svgExport = draw.exportSvg()  
+        e.preventDefault()  
+        svgExport = draw.exportSvg(
+          exclude: ->
+            @data 'exclude'
+          whitespace: false)
         console.log svgExport
    
     # $('#save-svg-elem').on 'click', (e) ->

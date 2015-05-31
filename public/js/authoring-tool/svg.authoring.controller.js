@@ -49,7 +49,7 @@
       return rawSvg.appendChild(svgimg);
     };
     window.generateSvg = function(svgData) {
-      draw.image(svgImg);
+      draw.image(svgImg).data('exclude', true);
       return $.each(svgData, function(index, value) {
         if (value.canvas_type === 'polygon') {
           window.polygon.generatePolygonTag(value);
@@ -632,7 +632,12 @@
     return $('.btn-publish-svg').on('click', function(e) {
       var svgExport;
       e.preventDefault();
-      svgExport = draw.exportSvg();
+      svgExport = draw.exportSvg({
+        exclude: function() {
+          return this.data('exclude');
+        },
+        whitespace: false
+      });
       return console.log(svgExport);
     });
   });
