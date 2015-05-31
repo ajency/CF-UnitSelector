@@ -172,12 +172,17 @@
           return this.trigger('render:view');
         },
         'click @ui.filter_flooring': function(e) {
-          var flooring;
-          flooring = CommonFloor.defaults['flooring'].split(',');
-          flooring = _.without(flooring, $(e.currentTarget).attr('data-id'));
-          CommonFloor.defaults['flooring'] = flooring.join(',');
+          var type, types;
+          types = [];
+          type = $(e.currentTarget).attr('data-type');
+          if (CommonFloor.defaults[type]['attributes'] !== "") {
+            types = CommonFloor.defaults[type]['attributes'].split(',');
+          }
+          console.log(types);
+          types = _.without(types, $(e.currentTarget).attr('data-id'));
+          CommonFloor.defaults[type]['attributes'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filter();
+          CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
         }
@@ -635,7 +640,7 @@
       first = _.values(svgs);
       $.merge(transitionImages, project.get('project_master'));
       $('.region').load(first[0], function() {
-        $('.first_image').attr('src', transitionImages[0]);
+        $('.first_image').attr('src', transitionImages[breakpoints[0]]);
         that.iniTooltip();
         CommonFloor.applyAvailabilClasses();
         CommonFloor.randomClass();

@@ -147,6 +147,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 				window.unitTypes.push parseInt $(e.currentTarget).attr('data-value')
 			else
 				window.unitTypes = _.without window.unitTypes ,parseInt $(e.currentTarget).attr('data-value')
+			CommonFloor.defaults['type'] = 'apartment'
 			CommonFloor.defaults['apartment']['unit_type_id'] = window.unitTypes.join(',')
 			CommonFloor.defaults['step_three']['unit_type_id'] = window.unitTypes.join(',') 
 			unitCollection.reset unitMasterCollection.toArray()
@@ -160,6 +161,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 				window.variantNames.push parseInt $(e.currentTarget).attr('data-value')
 			else
 				window.variantNames = _.without window.variantNames ,parseInt $(e.currentTarget).attr('data-value')
+			CommonFloor.defaults['type'] = 'apartment'
 			CommonFloor.defaults['apartment']['unit_variant_id'] = window.variantNames.join(',')
 			CommonFloor.defaults['step_three']['unit_variant_id'] = window.variantNames.join(',') 
 			unitCollection.reset unitMasterCollection.toArray()
@@ -224,13 +226,15 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			unitTempCollection.trigger( "filter_available") 
 
 
+
 		'click @ui.flooring':(e)->
 			if $(e.currentTarget).is(':checked')
 				window.flooring.push $(e.currentTarget).attr('data-value')
 			else
 				window.flooring = _.without window.flooring ,$(e.currentTarget).attr('data-value')
 			window.flooring =   _.uniq window.flooring 
-			CommonFloor.defaults['flooring'] = window.flooring.join(',')
+			CommonFloor.defaults['type'] = 'apartment'
+			CommonFloor.defaults['apartment']['attributes'] = window.flooring.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterNew()
@@ -352,8 +356,8 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		    
 
 		)
-		# if Marionette.getOption(@,'flooring').length == 0
-		# 	$('.flooring_filter').hide()
+		if Marionette.getOption(@,'flooring').length == 0
+			$('.flooring_filter').hide()
 		if Marionette.getOption(@,'unitTypes').length == 0
 			$('.unit_type_filter').hide()
 		if Marionette.getOption(@,'unitVariantNames').length == 0
@@ -487,12 +491,12 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		# 	   from : parseInt CommonFloor.defaults['floor_min']
 		# 	   to  : parseInt CommonFloor.defaults['floor_max']
 		# )
-		res = CommonFloor.getFilters()[0]
-		if Object.keys(res).length == 0
-			window.flag1 = 1
+		# res = CommonFloor.getFilters()[0]
+		# if Object.keys(res).length == 0
+		# 	window.flag1 = 1
 
 		@ui.status.prop('checked',false)
-		if CommonFloor.defaults['availability'] != "" 
+		if CommonFloor.defaults['common']['availability'] != "" 
 			 @ui.status.prop('checked',true)
 
 		if window.flag1 == 0
@@ -545,7 +549,7 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 		unitVariants = []
 		unitVariantNames = []
 		budget = []
-		flooringAttributes = []
+		newtemp = []
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		apartmentVariantMasterCollection.each (item)->
@@ -570,12 +574,20 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 						'name'	: item.get 'unit_variant_name'
 						'type'	: type
 
-				if $.inArray(item.get('variant_attributes').flooring,flooring) == -1 && ! _.isUndefined item.get('variant_attributes').flooring
-					flooring.push item.get('variant_attributes').flooring
-					flooringAttributes.push
-							'id' : item.get('variant_attributes').flooring
-							'name' : item.get('variant_attributes').flooring
-							type: type
+				$.each project.get('filters').Apartment , (index,value)->
+					temp = []
+					$.each item.get('variant_attributes') ,(ind,val)->
+						if ind == value && $.inArray(value,flooring) is -1
+							flooring.push value
+							temp.push
+								'id' : val
+								'name' : val
+								'classname' : 'attributes'
+								'label' : ind
+								type: 'P'
+							newtemp.push 
+								'label' : ind.toUpperCase()
+								'value' : temp
 				
 				
 
@@ -588,7 +600,7 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 			'unitVariants'  : unitVariants
 			'unitVariantNames' : unitVariantNames
 			'budget'			: budget
-			'flooring'		: flooringAttributes
+			'flooring'		: newtemp
 
 		$.each filters[0],(index,value)->
 			if $.inArray(index , project.get('filters').Villa) ==  -1 && index != 'budget' && index != 'unitVariants'
