@@ -48,18 +48,23 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 													         {{/filters}}
 													          {{#area}}
 													         	
-													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
 													         
 													         {{/area}}
 													     {{#budget}}
 													         	
-													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
 													        
 													         {{/budget}}
+													           {{#floor}}
+													         	
+													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													        
+													         {{/floor}}
 
 													      {{#status}}
 													         	
-													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
 													        
 													         {{/status}}						               
 						                    		</div>
@@ -101,6 +106,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 		data.area  = main[0].area
 		data.budget  = main[0].price
 		data.status  = main[0].status
+		data.floor  = main[0].floor
 		data.results  = apartmentVariantCollection.getApartmentUnits().length
 		data
 

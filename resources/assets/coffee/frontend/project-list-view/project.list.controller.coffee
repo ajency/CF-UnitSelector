@@ -62,18 +62,18 @@ class TopListView extends Marionette.ItemView
 													    {{/each}}
 													     {{#area}}
 													         	 <li>
-													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
 													         </li>
 													         {{/area}}
 													     {{#budget}}
 													         	 <li>
-													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
 													         </li>
 													         {{/budget}}
 
 													      {{#status}}
 													         	 <li>
-													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
 													         </li>
 													         {{/status}}
 													    </ul>						               

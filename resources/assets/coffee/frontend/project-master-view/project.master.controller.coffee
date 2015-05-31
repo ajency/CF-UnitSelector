@@ -57,18 +57,18 @@ class TopMasterView extends Marionette.ItemView
 													    {{/each}}
 													     {{#area}}
 													         	 <li>
-													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
 													         </li>
 													         {{/area}}
 													     {{#budget}}
 													         	 <li>
-													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
 													         </li>
 													         {{/budget}}
 
 													      {{#status}}
 													         	 <li>
-													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
 													         </li>
 													         {{/status}}
 													    </ul>
@@ -92,7 +92,6 @@ class TopMasterView extends Marionette.ItemView
 		unitTypes : '.unit_types'
 		priceMin : '.price_min'
 		priceMax : '.price_max'
-		status : '.status'
 		apply : '.apply'
 		variantNames : '.variant_names'
 		area : '#filter_area'
@@ -182,6 +181,7 @@ class TopMasterView extends Marionette.ItemView
 		'click @ui.status':(e)->
 			CommonFloor.defaults['common']['availability'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
+			console.log CommonFloor.defaults
 			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			@trigger  'render:view'
