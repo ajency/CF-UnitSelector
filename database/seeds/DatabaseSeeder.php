@@ -34,6 +34,9 @@ class DatabaseSeeder extends Seeder {
         
         $this->call( 'UnitTypeTableSeeder' );
         $this->command->info( " Unit Type Table Seeded! " );
+
+        $this->call( 'DirectionSeeder' );
+        $this->command->info( " Direction Seeded! " );
  
     }
 
@@ -152,6 +155,22 @@ class RoomTypeTableSeeder extends Seeder {
         Defaults::create( ['type' => 'room_types','label'=>"Toilet",'serialize_data'=>  serialize([])]);  
         Defaults::create( ['type' => 'room_types','label'=>"Utility",'serialize_data'=>  serialize([])]);
 
+    }
+
+}
+
+class DirectionSeeder extends Seeder {
+
+    public function run() {
+        Defaults::create( ['type' => 'direction','label'=>"North",'serialize_data'=>  serialize([])]);
+        Defaults::create( ['type' => 'direction','label'=>"South",'serialize_data'=>  serialize([])]);
+        Defaults::create(['type' => 'direction','label'=>"East",'serialize_data'=> serialize([])]);
+        Defaults::create( ['type' => 'direction','label'=>"West",'serialize_data'=>  serialize([])]);  
+        Defaults::create( ['type' => 'direction','label'=>"Noth-East",'serialize_data'=>  serialize([])]);
+        Defaults::create( ['type' => 'direction','label'=>"North-West",'serialize_data'=>  serialize([])]);
+        Defaults::create(['type' => 'direction','label'=>"Soth-East",'serialize_data'=> serialize([])]);
+        Defaults::create( ['type' => 'direction','label'=>"South-West",'serialize_data'=>  serialize([])]);   
+        
     }
 
 }
