@@ -839,7 +839,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 			'budget'			: budget
 
 		$.each filters[0],(index,value)->
-			if $.inArray(index , project.get('filters').Villa) ==  -1 && index != 'budget' && index != 'unitVariants'
+			if $.inArray(index , project.get('filters').Apartment) ==  -1 && index != 'budget' && index != 'unitVariants'
 				filters[0][index] = []
 		
 		filters
@@ -894,7 +894,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 			'budget'			: budget
 
 		$.each filters[0],(index,value)->
-			if $.inArray(index , project.get('filters').Villa) ==  -1 && index != 'budget' && index != 'unitVariants'
+			if $.inArray(index , project.get('filters').Plot) ==  -1 && index != 'budget' && index != 'unitVariants'
 				filters[0][index] = []
 		
 		filters

@@ -27,7 +27,7 @@
           success: (function(_this) {
             return function(collection, response) {
               _this.set('filters', {
-                'Villa': ['unitTypes', 'flooring'],
+                'Villa': ['unitTypes', 'unitVariantNames', 'flooring'],
                 'Apartment': ['unitTypes', 'unitVariantNames', 'flooring'],
                 'Plot': ['unitTypes', 'unitVariantNames', 'flooring']
               });

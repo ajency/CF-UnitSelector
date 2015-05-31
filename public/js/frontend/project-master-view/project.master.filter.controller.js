@@ -788,7 +788,7 @@
         'budget': budget
       });
       $.each(filters[0], function(index, value) {
-        if ($.inArray(index, project.get('filters').Villa) === -1 && index !== 'budget' && index !== 'unitVariants') {
+        if ($.inArray(index, project.get('filters').Apartment) === -1 && index !== 'budget' && index !== 'unitVariants') {
           return filters[0][index] = [];
         }
       });
@@ -852,7 +852,7 @@
         'budget': budget
       });
       $.each(filters[0], function(index, value) {
-        if ($.inArray(index, project.get('filters').Villa) === -1 && index !== 'budget' && index !== 'unitVariants') {
+        if ($.inArray(index, project.get('filters').Plot) === -1 && index !== 'budget' && index !== 'unitVariants') {
           return filters[0][index] = [];
         }
       });
