@@ -80,7 +80,7 @@
       units = Marionette.getOption(this, 'units');
       data.units = units.length;
       data.project_title = project.get('project_title');
-      main = CommonFloor.getFilters();
+      main = CommonFloor.getStepFilters();
       mainFilters = main[0].filters[0];
       data.filters = [];
       if (!_.isUndefined(mainFilters)) {
@@ -113,7 +113,6 @@
         'click @ui.unitBack': function(e) {
           var previousRoute;
           e.preventDefault();
-          CommonFloor.removeStepFilters();
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filterNew();
           previousRoute = CommonFloor.router.previous();

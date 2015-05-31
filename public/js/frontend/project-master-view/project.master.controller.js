@@ -86,11 +86,8 @@
       return {
         'click @ui.unitBack': function(e) {
           e.preventDefault();
-          $.each(CommonFloor.defaults, function(index, value) {
-            return CommonFloor.defaults[index] = "";
-          });
           unitCollection.reset(unitMasterCollection.toArray());
-          CommonFloor.filter();
+          CommonFloor.filterNew();
           unitCollection.trigger('available');
           return CommonFloor.navigate('/', true);
         },

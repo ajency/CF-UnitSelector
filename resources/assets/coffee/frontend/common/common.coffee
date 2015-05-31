@@ -345,8 +345,10 @@ CommonFloor.applyFliterClass = ()->
 			
 
 	$('.building').each (ind,item)->
+		if CommonFloor.defaults['type']!= ""
+			types = CommonFloor.defaults['type'].split(',')
 		id = parseInt item.id
-		if $.inArray(id , filterbuildings) > -1 && apartmentVariantMasterCollection.length != apartmentVariantCollection.length && apartmentVariantCollection.length !=0
+		if $.inArray(id , filterbuildings) > -1 && $.inArray('apartment',types) > -1
 			setTimeout( ()->
 				$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0; stroke:#F68121; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
 			,Math.random() * 1000)
@@ -524,6 +526,80 @@ CommonFloor.getFilters = ()->
 		if value.length == 0
 			main = _.omit(main, index)
 	main
+
+CommonFloor.getStepFilters = ()->
+	unitTypes = []
+	unitVariants = []
+	results = []
+	flooring = []
+	type = []
+	filters = []
+	price = []
+	area = []
+	type= []
+	status= []
+	floor = []
+	main = []
+	if CommonFloor.defaults['common']['price_max'] != ""
+		min_price = window.numDifferentiation CommonFloor.defaults['common']['price_min']
+		max_price = window.numDifferentiation CommonFloor.defaults['common']['price_max']
+		price.push 
+				'name' : min_price+'-'+max_price
+				'type'  : '' 
+				'id' : 'budget'
+				'id_name' : 'filter_budget'
+				'classname' : 'budget'
+
+	if CommonFloor.defaults['common']['area_max'] != ""
+		area_min = CommonFloor.defaults['common']['area_min']
+		area_max = CommonFloor.defaults['common']['area_max']
+		area.push 
+				'name' : area_min+'-'+area_max
+				'type'  : project.get('measurement_units') 
+				'id' : 'area'
+				'id_name' : 'filter_area'
+				'classname' : 'area'
+
+	if CommonFloor.defaults['common']['floor_max'] != ""
+		floor_min = CommonFloor.defaults['common']['floor_min']
+		floor_max = CommonFloor.defaults['common']['floor_max']
+		floor.push 
+				'name' : 'Floor ' +floor_min+'-'+floor_max
+				'type'  : '' 
+				'id' : 'floor'
+				'id_name' : 'filter_floor'
+				'classname' : 'floor'
+
+	if CommonFloor.defaults['common']['availability'] != ""
+		status.push 
+			'name' : 'Available'
+			'classname' : 'types'
+			'id'		: 'available'
+			'id_name' : 'filter_available'
+
+	filters = CommonFloor.getApartmentFilters()
+			
+	if Object.keys(filters).length == 0
+		filters = []
+
+	type.push 
+		'filters' : filters
+				
+
+	main.push 
+		'filters' : type
+		'area' : area
+		'price' : price
+		'floor' : floor
+		'status' : status
+
+
+	$.each main,(index,value)->
+		if value.length == 0
+			main = _.omit(main, index)
+	main
+
+
 
 CommonFloor.getFilters111 = ()->
 	unitTypes = []
@@ -960,10 +1036,7 @@ CommonFloor.filterPlots = ()->
 
 
 CommonFloor.removeStepFilters = ()->
-	arr = CommonFloor.defaults['type'].split(',')
-	index = arr.indexOf 'apartment'
-	arr.splice(index, 1)
-	CommonFloor.defaults['type'] = arr.join(',')
+	
 	$.each CommonFloor.defaults['apartment'] , (index,value)->
 		if value != ""
 			step_types = CommonFloor.defaults['step_three'][index].split(',')
@@ -982,6 +1055,20 @@ CommonFloor.removeStepFilters = ()->
 	unitCollection.reset unitMasterCollection.toArray()
 	CommonFloor.resetCollections()
 	CommonFloor.filterNew()
-	
 
+
+$(window).bind('hashchange', ()->
+	CommonFloor.defaults['type'] = ""
+	$.each CommonFloor.defaults['villa'],(index,value)->
+		CommonFloor.defaults['villa'][index] = ""
+	$.each CommonFloor.defaults['plot'],(index,value)->
+		CommonFloor.defaults['plot'][index] = ""
+	$.each CommonFloor.defaults['apartment'],(index,value)->
+		CommonFloor.defaults['apartment'][index] = ""
+	$.each CommonFloor.defaults['common'],(index,value)->
+		CommonFloor.defaults['common'][index] = ""
+	unitCollection.reset unitMasterCollection.toArray()
+	CommonFloor.resetCollections()
+	CommonFloor.filterNew()
+)
 

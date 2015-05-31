@@ -94,7 +94,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		units = Marionette.getOption( @, 'units' )
 		data.units = units.length
 		data.project_title = project.get('project_title')
-		main = CommonFloor.getFilters()
+		main = CommonFloor.getStepFilters()
 		mainFilters = main[0].filters[0]
 		data.filters = []
 		if ! _.isUndefined mainFilters
@@ -124,7 +124,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			e.preventDefault()
 			# $.each CommonFloor.defaults,(index,value)->
 			# 	CommonFloor.defaults[index] = ""
-			CommonFloor.removeStepFilters()
+			# CommonFloor.removeStepFilters()
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filterNew()
 			previousRoute = CommonFloor.router.previous()

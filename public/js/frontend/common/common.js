@@ -363,9 +363,12 @@
       }
     });
     return $('.building').each(function(ind, item) {
-      var id;
+      var id, types;
+      if (CommonFloor.defaults['type'] !== "") {
+        types = CommonFloor.defaults['type'].split(',');
+      }
       id = parseInt(item.id);
-      if ($.inArray(id, filterbuildings) > -1 && apartmentVariantMasterCollection.length !== apartmentVariantCollection.length && apartmentVariantCollection.length !== 0) {
+      if ($.inArray(id, filterbuildings) > -1 && $.inArray('apartment', types) > -1) {
         return setTimeout(function() {
           return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0; stroke:#F68121; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
         }, Math.random() * 1000);
@@ -568,6 +571,83 @@
         });
       });
     }
+    main.push({
+      'filters': type,
+      'area': area,
+      'price': price,
+      'floor': floor,
+      'status': status
+    });
+    $.each(main, function(index, value) {
+      if (value.length === 0) {
+        return main = _.omit(main, index);
+      }
+    });
+    return main;
+  };
+
+  CommonFloor.getStepFilters = function() {
+    var area, area_max, area_min, filters, floor, floor_max, floor_min, flooring, main, max_price, min_price, price, results, status, type, unitTypes, unitVariants;
+    unitTypes = [];
+    unitVariants = [];
+    results = [];
+    flooring = [];
+    type = [];
+    filters = [];
+    price = [];
+    area = [];
+    type = [];
+    status = [];
+    floor = [];
+    main = [];
+    if (CommonFloor.defaults['common']['price_max'] !== "") {
+      min_price = window.numDifferentiation(CommonFloor.defaults['common']['price_min']);
+      max_price = window.numDifferentiation(CommonFloor.defaults['common']['price_max']);
+      price.push({
+        'name': min_price + '-' + max_price,
+        'type': '',
+        'id': 'budget',
+        'id_name': 'filter_budget',
+        'classname': 'budget'
+      });
+    }
+    if (CommonFloor.defaults['common']['area_max'] !== "") {
+      area_min = CommonFloor.defaults['common']['area_min'];
+      area_max = CommonFloor.defaults['common']['area_max'];
+      area.push({
+        'name': area_min + '-' + area_max,
+        'type': project.get('measurement_units'),
+        'id': 'area',
+        'id_name': 'filter_area',
+        'classname': 'area'
+      });
+    }
+    if (CommonFloor.defaults['common']['floor_max'] !== "") {
+      floor_min = CommonFloor.defaults['common']['floor_min'];
+      floor_max = CommonFloor.defaults['common']['floor_max'];
+      floor.push({
+        'name': 'Floor ' + floor_min + '-' + floor_max,
+        'type': '',
+        'id': 'floor',
+        'id_name': 'filter_floor',
+        'classname': 'floor'
+      });
+    }
+    if (CommonFloor.defaults['common']['availability'] !== "") {
+      status.push({
+        'name': 'Available',
+        'classname': 'types',
+        'id': 'available',
+        'id_name': 'filter_available'
+      });
+    }
+    filters = CommonFloor.getApartmentFilters();
+    if (Object.keys(filters).length === 0) {
+      filters = [];
+    }
+    type.push({
+      'filters': filters
+    });
     main.push({
       'filters': type,
       'area': area,
@@ -1078,11 +1158,6 @@
   };
 
   CommonFloor.removeStepFilters = function() {
-    var arr, index;
-    arr = CommonFloor.defaults['type'].split(',');
-    index = arr.indexOf('apartment');
-    arr.splice(index, 1);
-    CommonFloor.defaults['type'] = arr.join(',');
     $.each(CommonFloor.defaults['apartment'], function(index, value) {
       var actualTypes, new_types, step_types, types, value_Arr;
       if (value !== "") {
@@ -1106,6 +1181,25 @@
     CommonFloor.resetCollections();
     return CommonFloor.filterNew();
   };
+
+  $(window).bind('hashchange', function() {
+    CommonFloor.defaults['type'] = "";
+    $.each(CommonFloor.defaults['villa'], function(index, value) {
+      return CommonFloor.defaults['villa'][index] = "";
+    });
+    $.each(CommonFloor.defaults['plot'], function(index, value) {
+      return CommonFloor.defaults['plot'][index] = "";
+    });
+    $.each(CommonFloor.defaults['apartment'], function(index, value) {
+      return CommonFloor.defaults['apartment'][index] = "";
+    });
+    $.each(CommonFloor.defaults['common'], function(index, value) {
+      return CommonFloor.defaults['common'][index] = "";
+    });
+    unitCollection.reset(unitMasterCollection.toArray());
+    CommonFloor.resetCollections();
+    return CommonFloor.filterNew();
+  });
 
 }).call(this);
 

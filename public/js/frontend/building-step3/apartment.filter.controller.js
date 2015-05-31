@@ -68,17 +68,12 @@
 
     FilterApartmentView.prototype.events = {
       'click @ui.clear': function(e) {
-        var arr, index;
         window.unitTypes = [];
         window.unitVariants = [];
         window.variantNames = [];
         window.price = '';
         window.area = '';
         window.type = [];
-        arr = CommonFloor.defaults['type'].split(',');
-        index = arr.indexOf('apartment');
-        arr.splice(index, 1);
-        CommonFloor.defaults['type'] = arr.join(',');
         $.each(CommonFloor.defaults['apartment'], function(index, value) {
           return CommonFloor.defaults['apartment'][index] = "";
         });
@@ -104,7 +99,6 @@
         } else {
           window.unitTypes = _.without(window.unitTypes, parseInt($(e.currentTarget).attr('data-value')));
         }
-        CommonFloor.defaults['type'] = 'apartment';
         CommonFloor.defaults['apartment']['unit_type_id'] = window.unitTypes.join(',');
         CommonFloor.defaults['step_three']['unit_type_id'] = window.unitTypes.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
@@ -118,7 +112,6 @@
         } else {
           window.variantNames = _.without(window.variantNames, parseInt($(e.currentTarget).attr('data-value')));
         }
-        CommonFloor.defaults['type'] = 'apartment';
         CommonFloor.defaults['apartment']['unit_variant_id'] = window.variantNames.join(',');
         CommonFloor.defaults['step_three']['unit_variant_id'] = window.variantNames.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
