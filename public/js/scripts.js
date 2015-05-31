@@ -361,7 +361,7 @@ function addFloorLevel(variantId)
 
 function getRoomTypeAttributes(obj, level)
 {
-    var roomId = $(obj).closest('.row').find('select').val(); 
+    var roomId = $(obj).closest('.add-unit').find('select').val();
     var flag =true;
     if(!roomId)
     {
@@ -1480,6 +1480,7 @@ function openRoomTypeModal(obj, id)
         {
             $('#myModal').modal('show');
             $("#roomtypeiframe").attr("src", "/admin/project/" + PROJECTID + "/roomtype/create");
+            $(obj).select2('val', '');
         }
         else
         {
@@ -1494,5 +1495,5 @@ function openRoomTypeModal(obj, id)
         var level = $(obj).closest('.row').find('input[name="levels[]"]').val();
         $("#roomtypeiframe").attr("level", level);
         $("#roomtypeiframe").attr("roomid", id);
-        $(obj).select2('val', '');
+
     }

@@ -143,7 +143,7 @@ class ProjectRoomTypeController extends Controller {
      */
     public function update($projectId, $roomId, Request $request) {
         
-        $roomtype_name = $request['room_name'];
+       /* $roomtype_name = $request['room_name'];
         if(isset($request['roomtypecustome']))
         {
             $default = new Defaults();
@@ -152,12 +152,12 @@ class ProjectRoomTypeController extends Controller {
             $default->serialize_data = serialize([]);
             $default->save();
             $roomtype_name = $default->id;
-        }
+        }*/
         
         $roomType = RoomType::find($roomId);
-        $roomtype_name = $request['room_name'];
+        /*$roomtype_name = $request['room_name'];
         $roomType->name = ucfirst($roomtype_name);
-        $roomType->save();
+        $roomType->save();*/
 
         $objecttype = 'RoomType';
  
