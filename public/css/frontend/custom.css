@@ -2511,6 +2511,7 @@ svg polygon {
   .fliters-container.closed {
     right: 15px;
     top: 75px;
+    left: auto;
   }
   .fliters-container .filter-button {
     font-size: 20px;
@@ -2819,8 +2820,8 @@ span.glyphicon {
     opacity: 0;
   }
   .filters-wrapper-hover.visible {
-    left: 0px;
-    width: 69vh !important;
+    left: 0;
+    width: 100vw !important;
   }
 }
 #flexiselDemo1,
