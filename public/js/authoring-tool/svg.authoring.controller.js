@@ -589,12 +589,11 @@
       $('#aj-imp-builder-drag-drop svg').show();
       $('.edit-box').addClass('hidden');
       return draw.each((function(i, children) {
-        console.log(this);
         this.draggable();
         return this.fixed();
       }), true);
     });
-    return $('.delete').on('click', function(e) {
+    $('.delete').on('click', function(e) {
       var id, myObject;
       myObject = {};
       myObject['_method'] = 'DELETE';
@@ -628,6 +627,12 @@
           return alert('Some problem occurred');
         }
       });
+    });
+    return $('.btn-publish-svg').on('click', function(e) {
+      var svgExport;
+      e.preventDefault();
+      svgExport = draw.exportSvg();
+      return console.log(svgExport);
     });
   });
 

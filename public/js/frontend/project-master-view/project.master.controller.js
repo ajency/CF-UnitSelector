@@ -594,7 +594,7 @@
       first = _.values(svgs);
       $.merge(transitionImages, project.get('project_master'));
       $('.region').load(first[0], function() {
-        $('.first_image').attr('src', transitionImages[0]);
+        $('.first_image').attr('src', transitionImages[breakpoints[0]]);
         that.iniTooltip();
         CommonFloor.applyAvailabilClasses();
         CommonFloor.randomClass();

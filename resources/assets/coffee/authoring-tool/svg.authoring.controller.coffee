@@ -674,7 +674,6 @@ jQuery(document).ready ($)->
 
         # search for all svg elemnts and keep them fixed
         draw.each ((i, children) ->
-            console.log @
             @draggable()
             @fixed()
         ), true         
@@ -712,6 +711,12 @@ jQuery(document).ready ($)->
                 alert('Some problem occurred')  
 
 
+    # on click of publish
+    $('.btn-publish-svg').on 'click' , (e)->
+        e.preventDefault() 
+        svgExport = draw.exportSvg()  
+        console.log svgExport
+   
     # $('#save-svg-elem').on 'click', (e) ->
     #   console.log "click save-svg-elem"
     #   newCoordinates = $('.area').val()

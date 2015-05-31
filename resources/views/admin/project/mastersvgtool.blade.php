@@ -53,6 +53,11 @@
                             <div><small>PREVIEW</small>
 
                         </button>
+                        <button class="color-switch btn btn-default btn-publish-svg">
+                            <i class="fa fa-download"></i>
+                            <div><small>PUBLISH</small>
+
+                        </button>                        
                         <div class='pending'>
 
                         </div>
@@ -341,6 +346,7 @@
         
         <script src="{{ asset('js/svg.parser.min.js' )}}"></script>
         <script src="{{ asset('js/svg.import.min.js' )}}"></script>
+        <script src="{{ asset('js/svg.export.min.js' )}}"></script>
         <script src="{{ asset('js/svg.draggable.min.js' )}}"></script>
         <script src="{{ asset('js/svg.absorb.min.js' )}}"></script>
         <script src="{{ asset('js/jquery.canvasAreaDraw.min.js' )}}"></script>
