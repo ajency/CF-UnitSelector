@@ -13,9 +13,9 @@
     <link href="{{ asset('css/dashboard/builder.css')}}" rel="stylesheet" type="text/css" />
     <style type="text/css">
 
-/*    .svg-canvas {
-      transform: none !important;
-    }*/
+    .svg-canvas {
+      width: 1600px !important;
+    }
 
 /*    .svg-canvas{
    transform: matrix(1, 0, 0, 1, 0,-127) !important;
