@@ -9,7 +9,7 @@
       return AmenityView.__super__.constructor.apply(this, arguments);
     }
 
-    AmenityView.prototype.template = '<form id="add-form"> <div class="form-group"> <label for="markerTitle">Title</label> <input type="text" class="form-control" id="amenity-title"> </div> <div class="form-group"> <label for="Description">Description</label> <textarea class="form-control" rows="3" id="amenity-description"></textarea> </div> <div> <label for="Image">Image</label> <div class="input-group"> <input type="text" class="form-control"> <span class="input-group-btn"> <button class="btn btn-default btn-orange" type="button">Upload</button> </span> </div> </div> </form>';
+    AmenityView.prototype.template = '<form id="add-form"> <div class="form-group"> <label for="markerTitle">Title</label> <input type="text" class="form-control" id="amenity-title"> </div> <div class="form-group"> <label for="Description">Description</label> <textarea class="form-control" rows="3" id="amenity-description"></textarea> </div> </form>';
 
     AmenityView.prototype.ui = {
       units: '.units'

@@ -13,15 +13,6 @@ class AuthoringTool.AmenityView extends Marionette.ItemView
                         <label for="Description">Description</label>
                         <textarea class="form-control" rows="3" id="amenity-description"></textarea>
                     </div>
-                        <div>
-                           <label for="Image">Image</label>
-                          <div class="input-group">
-                              <input type="text" class="form-control">
-                              <span class="input-group-btn">
-                              <button class="btn btn-default btn-orange" type="button">Upload</button>
-                               </span>
-                    		</div>
-                        </div>
                 </form>'
 
 
