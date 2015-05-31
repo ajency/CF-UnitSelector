@@ -719,7 +719,20 @@ jQuery(document).ready ($)->
           exclude: ->
             @data 'exclude'
           whitespace: false)
-        console.log svgExport
+
+        data = {}
+        data['data'] = btoa(svgExport)
+
+        postUrl = "#{BASEURL}/admin/project/#{PROJECTID}/image/#{IMAGEID}/downloadSvg"
+
+        publishSvgOptions = 
+          type: 'POST'
+          url: postUrl
+          headers: { 'x-csrf-token' : $("meta[name='csrf-token']").attr('content')}
+          data : data
+          async: false
+
+        $.ajax(publishSvgOptions)
    
     # $('#save-svg-elem').on 'click', (e) ->
     #   console.log "click save-svg-elem"

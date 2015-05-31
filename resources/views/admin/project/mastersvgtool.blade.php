@@ -48,11 +48,11 @@
                             <input type="hidden" name="svg-element-id">
                         </div>
                         <input type="button" id="clear" name="clear" class="pull-left btn btn-small clear" value="Clear">
-                        <button class="color-switch btn btn-default">
+<!--                         <button class="color-switch btn btn-default">
                             <i class="fa fa-eye"></i>
                             <div><small>PREVIEW</small>
 
-                        </button>
+                        </button> -->
                         <button class="color-switch btn btn-default btn-publish-svg">
                             <i class="fa fa-download"></i>
                             <div><small>PUBLISH</small>

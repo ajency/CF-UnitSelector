@@ -630,7 +630,7 @@
       });
     });
     return $('.btn-publish-svg').on('click', function(e) {
-      var svgExport;
+      var data, postUrl, publishSvgOptions, svgExport;
       e.preventDefault();
       svgExport = draw.exportSvg({
         exclude: function() {
@@ -638,7 +638,19 @@
         },
         whitespace: false
       });
-      return console.log(svgExport);
+      data = {};
+      data['data'] = btoa(svgExport);
+      postUrl = BASEURL + "/admin/project/" + PROJECTID + "/image/" + IMAGEID + "/downloadSvg";
+      publishSvgOptions = {
+        type: 'POST',
+        url: postUrl,
+        headers: {
+          'x-csrf-token': $("meta[name='csrf-token']").attr('content')
+        },
+        data: data,
+        async: false
+      };
+      return $.ajax(publishSvgOptions);
     });
   });
 

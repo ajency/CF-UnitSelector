@@ -139,15 +139,15 @@ class SvgController extends Controller {
 			], 201 );
 	}
 
-	public function getProjectImageSvg($projectid, $imageid){
+	public function downloadSvg($projectid, $imageid){
 
-		$svgElements = Svg::where( 'image_id', '=', $imageid )->get()->toArray();
+		$svgData = $_REQUEST['data'];
+		$data = base64_decode($svgData);
+		$display_document_name = "project_master_svg.txt";
         
-        return response()->json( [
-            'code' => 'svg_elements_for_image',
-            'message' => '',
-            'data' => $svgElements
-        ], 200);		
+		header('Content-Type: text/plain');
+		header("Content-Disposition: attachment; filename=".$display_document_name."");
+		echo $data;
 	}	
 
 }
