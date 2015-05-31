@@ -214,9 +214,21 @@
       return ctx.clearRect(0, 0, canvas.width, canvas.height);
     };
     window.saveUnit = function() {
-      var details, myObject;
+      var details, myObject, objectType;
       myObject = {};
       details = {};
+      objectType = $('.property_type').val();
+      if (objectType === "amenity") {
+        myObject['object_id'] = 0;
+      } else {
+        myObject['object_id'] = $('.units').val();
+      }
+      myObject['image_id'] = IMAGEID;
+      myObject['object_type'] = objectType;
+      if (myObject['object_type'] === "amenity") {
+        details['title'] = $('#amenity-title').val();
+        details['description'] = $('#amenity-description').val();
+      }
       if (window.canvas_type === "concentricMarker") {
         myObject['points'] = window.markerPoints;
         details['cx'] = window.cx;
@@ -238,11 +250,7 @@
         details['class'] = 'layer ' + $('.property_type').val();
         myObject['canvas_type'] = window.canvas_type;
       }
-      myObject['image_id'] = IMAGEID;
-      myObject['object_id'] = $('.units').val();
-      myObject['object_type'] = $('.property_type').val();
       myObject['other_details'] = details;
-      console.log(myObject);
       return $.ajax({
         type: 'POST',
         headers: {

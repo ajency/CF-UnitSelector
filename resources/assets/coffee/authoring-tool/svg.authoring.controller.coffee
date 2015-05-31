@@ -263,6 +263,23 @@ jQuery(document).ready ($)->
         myObject  = {}
         details = {}
 
+        objectType =  $('.property_type').val()
+        
+
+        if objectType is "amenity"
+            myObject['object_id'] = 0
+        else
+            myObject['object_id'] = $('.units').val()
+        
+        
+        myObject['image_id'] = IMAGEID
+        myObject['object_type'] =  objectType
+
+        if myObject['object_type'] is "amenity"
+            details['title'] = $('#amenity-title').val()
+            details['description'] = $('#amenity-description').val()
+        
+
         if window.canvas_type is "concentricMarker" 
             myObject['points'] =  window.markerPoints
             details['cx'] = window.cx
@@ -287,13 +304,9 @@ jQuery(document).ready ($)->
             myObject['canvas_type'] =  window.canvas_type
 
                     
-        myObject['image_id'] = IMAGEID
-        myObject['object_id'] = $('.units').val()
-        myObject['object_type'] =  $('.property_type').val()
-        myObject['other_details'] =  details
-        # myObject['id'] =  $('.units').val()
 
-        console.log myObject
+        myObject['other_details'] =  details        
+
         $.ajax
             type : 'POST',
             headers: { 'x-csrf-token' : $("meta[name='csrf-token']").attr('content')}

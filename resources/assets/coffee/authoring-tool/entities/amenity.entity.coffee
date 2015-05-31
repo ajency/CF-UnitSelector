@@ -7,11 +7,11 @@ class AuthoringTool.AmenityView extends Marionette.ItemView
 	template : '<form id="add-form">
 					<div class="form-group">
                             <label for="markerTitle">Title</label>
-                            <input type="text" class="form-control" id="exampleInputEmail1">
+                            <input type="text" class="form-control" id="amenity-title">
                     </div>
                     <div class="form-group">
                         <label for="Description">Description</label>
-                        <textarea class="form-control" rows="3"></textarea>
+                        <textarea class="form-control" rows="3" id="amenity-description"></textarea>
                     </div>
                         <div>
                            <label for="Image">Image</label>
