@@ -342,6 +342,7 @@
         <script src="{{ asset('js/svg.parser.min.js' )}}"></script>
         <script src="{{ asset('js/svg.import.min.js' )}}"></script>
         <script src="{{ asset('js/svg.draggable.min.js' )}}"></script>
+        <script src="{{ asset('js/svg.absorb.min.js' )}}"></script>
         <script src="{{ asset('js/jquery.canvasAreaDraw.min.js' )}}"></script>
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
         

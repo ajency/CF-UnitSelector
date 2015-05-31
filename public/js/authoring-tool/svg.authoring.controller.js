@@ -448,6 +448,48 @@
         };
       })(this));
     });
+    $('svg').on('dblclick', '.marker-grp', function(e) {
+      var classElem, currentElem, currentSvgElem, cx, cy, draggableChildCircle, draggableElem, elemId;
+      draggableElem = "";
+      elemId = $(e.currentTarget).attr('id');
+      currentSvgElem = $(e.currentTarget);
+      draw.each((function(i, children) {
+        var childId;
+        childId = this.attr('id');
+        if (parseInt(childId) === parseInt(elemId)) {
+          this.draggable();
+          draggableElem = this;
+        }
+      }), true);
+      draggableChildCircle = draggableElem.first();
+      cx = draggableChildCircle.attr('cx');
+      cy = draggableChildCircle.attr('cy');
+      window.markerPoints = [cx, cy];
+      if (draggableElem.hasClass('concentric')) {
+        window.canvas_type = 'concentricMarker';
+      } else if (draggableElem.hasClass('solid')) {
+        window.canvas_type = 'solidMarker';
+      }
+      draggableElem.dragend = function(delta, event) {
+        var newX, newY, newpoints, oldX, oldY, tx, ty;
+        oldX = window.cx;
+        oldY = window.cy;
+        tx = delta.x;
+        ty = delta.y;
+        newX = oldX + tx;
+        newY = oldY + ty;
+        newpoints = [newX, newY];
+        return window.markerPoints = newpoints;
+      };
+      currentElem = e.currentTarget;
+      $('.edit-box').removeClass('hidden');
+      classElem = $(currentElem).attr('type');
+      $('.submit').addClass('hidden');
+      $('.edit').removeClass('hidden');
+      $('.delete').removeClass('hidden');
+      window.loadForm(classElem);
+      return window.showDetails(currentElem);
+    });
     $('.submit').on('click', function(e) {
       if ($('.property_type').val() === "") {
         $('.alert').text('Unit not assigned');
@@ -545,7 +587,12 @@
       $(".toggle").trigger('click');
       $('#aj-imp-builder-drag-drop canvas').hide();
       $('#aj-imp-builder-drag-drop svg').show();
-      return $('.edit-box').addClass('hidden');
+      $('.edit-box').addClass('hidden');
+      return draw.each((function(i, children) {
+        console.log(this);
+        this.draggable();
+        return this.fixed();
+      }), true);
     });
     return $('.delete').on('click', function(e) {
       var id, myObject;

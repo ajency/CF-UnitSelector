@@ -520,6 +520,62 @@ jQuery(document).ready ($)->
                     window.loadForm(classElem)
                     window.showDetails(currentElem)
                             
+    
+    $('svg').on 'dblclick', '.marker-grp' , (e) ->
+        draggableElem = ""
+        elemId =  $(e.currentTarget).attr('id')
+        currentSvgElem = $(e.currentTarget)
+        
+        draw.each ((i, children) ->
+          childId = @attr('id')
+          if parseInt(childId) is parseInt(elemId)
+              @draggable()
+              draggableElem = @
+              return
+          
+        ), true 
+
+        # set new marker points
+        draggableChildCircle = draggableElem.first()
+        cx = draggableChildCircle.attr('cx')
+        cy = draggableChildCircle.attr('cy')
+        window.markerPoints = [cx,cy]
+
+        # set canvas_type
+        if draggableElem.hasClass('concentric')
+            window.canvas_type = 'concentricMarker'
+        else if draggableElem.hasClass('solid')
+            window.canvas_type = 'solidMarker'
+        
+        draggableElem.dragend = (delta, event) ->
+            # cx,cy constants for circles
+            oldX = window.cx
+            oldY =  window.cy
+
+            tx = delta.x
+            ty = delta.y
+
+            newX = oldX + tx
+            newY = oldY + ty
+            newpoints = [newX,newY] 
+            window.markerPoints = newpoints 
+
+
+        currentElem = e.currentTarget
+            
+        # show edit form
+        $('.edit-box').removeClass 'hidden'
+        classElem = $(currentElem).attr('type')
+        $('.submit').addClass 'hidden'
+        $('.edit').removeClass 'hidden'
+        $('.delete').removeClass 'hidden'
+        window.loadForm(classElem)  
+        
+        # populate form
+        window.showDetails(currentElem)         
+        
+
+
     # save svg eleement with unit data
     $('.submit').on 'click', (e) ->
 
@@ -615,6 +671,13 @@ jQuery(document).ready ($)->
         $('#aj-imp-builder-drag-drop canvas').hide()
         $('#aj-imp-builder-drag-drop svg').show()
         $('.edit-box').addClass 'hidden'
+
+        # search for all svg elemnts and keep them fixed
+        draw.each ((i, children) ->
+            console.log @
+            @draggable()
+            @fixed()
+        ), true         
 
     # on click of delete svg element
     $('.delete').on 'click' , (e)->

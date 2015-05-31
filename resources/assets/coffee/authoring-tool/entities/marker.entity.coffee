@@ -19,13 +19,17 @@ class Marker extends Backbone.Model
         drawMarkerElements = []
         
         # draw marker group
-        groupMarker = draw.group() 
+        groupMarker = draw.group()
+        groupMarker.attr
+            class: 'marker-grp'
+            type: item.object_type 
+            id:  item.object_id           
 
         switch markerType
           when 'concentric'
-            groupMarker.attr
-                class: 'marker-grp' 
-                id:  item.object_id         
+            # add class based on marker type 
+            groupMarker.addClass('concentric')
+
             circle1 = draw.circle(innerRadius)
             circle1.attr
                 fill: '#FF8500'
@@ -49,8 +53,10 @@ class Marker extends Backbone.Model
                 
           when 'solid'
             window.canvas_type = "solidMarker"
-            groupMarker.attr
-                class: 'marker-grp'             
+ 
+            # add class based on marker type 
+            groupMarker.addClass('solid')
+
             circle = draw.circle(outerRadius)
             circle.attr
                 fill: '#F7931E'
@@ -64,11 +70,5 @@ class Marker extends Backbone.Model
             groupMarker.add(markerElement)            
 
            
-
-    
-    
-    
-    
-
 
 window.marker = new Marker

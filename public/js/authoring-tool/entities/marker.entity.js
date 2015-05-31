@@ -20,12 +20,14 @@
       points = item.points;
       drawMarkerElements = [];
       groupMarker = draw.group();
+      groupMarker.attr({
+        "class": 'marker-grp',
+        type: item.object_type,
+        id: item.object_id
+      });
       switch (markerType) {
         case 'concentric':
-          groupMarker.attr({
-            "class": 'marker-grp',
-            id: item.object_id
-          });
+          groupMarker.addClass('concentric');
           circle1 = draw.circle(innerRadius);
           circle1.attr({
             fill: '#FF8500',
@@ -46,9 +48,7 @@
           break;
         case 'solid':
           window.canvas_type = "solidMarker";
-          groupMarker.attr({
-            "class": 'marker-grp'
-          });
+          groupMarker.addClass('solid');
           circle = draw.circle(outerRadius);
           circle.attr({
             fill: '#F7931E',
