@@ -61,7 +61,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
        	<div class=""> <h6 class="unit_type_filter">Varient</h6> <div class="filter-chkbox-block">  
        		{{#unitVariantNames}}
            	<input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} data-type="villa" > 
-            <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> 
+            <label for="varinat_name{{id}}" class="-lbl">{{name}}</label> 
 		   {{/unitVariantNames}}
 		  </div>
 		  </div>{{/villas}}</div>
@@ -78,7 +78,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
        	<div class=""> <h6 class="unit_type_filter">Varient</h6> <div class="filter-chkbox-block">  
        		{{#unitVariantNames}}
            	<input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} data-type="apartment"> 
-            <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> 
+            <label for="varinat_name{{id}}" class="-lbl">{{name}}</label> 
 		   {{/unitVariantNames}}
 		  </div>
 		  </div>{{/apartments}}</div>
@@ -95,7 +95,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
        	<div class=""> <h6 class="unit_type_filter">Varient</h6> <div class="filter-chkbox-block">  
        		{{#unitVariantNames}}
            	<input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} data-type="plot"> 
-            <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> 
+            <label for="varinat_name{{id}}" class="-lbl">{{name}}</label> 
 		   {{/unitVariantNames}}
 		  </div>
 		  </div>{{/plots}}</div></div>
