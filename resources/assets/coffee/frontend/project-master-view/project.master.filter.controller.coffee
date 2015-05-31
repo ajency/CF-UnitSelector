@@ -51,14 +51,14 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
       <div class="filters-wrapper-hover  filters-wrapper villa-wrapper">
           <div class="arrow-left"> </div>
           	{{#villas}}
-       <div class=""> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block">  
+       <div class="villa_unitTypes"> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block">  
        	{{#unitTypes}}
           <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} data-type="villa"> 
           <label for="unit_type{{id}}" class="-lbl">{{name}}</label> 
         {{/unitTypes}} 
          </div>
 		  </div>
-       	<div class=""> <h6 class="unit_type_filter">Varient</h6> <div class="filter-chkbox-block">  
+       	<div class="villa_unitVariantNames"> <h6 class="unit_type_filter">UNIT VARIANTS</h6> <div class="filter-chkbox-block">  
        		{{#unitVariantNames}}
            	<input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} data-type="villa" > 
             <label for="varinat_name{{id}}" class="-lbl">{{name}}</label> 
@@ -68,14 +68,14 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 	<div class="filters-wrapper-hover  filters-wrapper apartment-wrapper">
           <div class="arrow-left"> </div>
           	{{#apartments}}
-       <div class=""> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block">  
+       <div class="apartment_unitTypes"> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block">  
        	{{#unitTypes}}
           <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}}  data-type="apartment"> 
           <label for="unit_type{{id}}" class="-lbl">{{name}}</label> 
         {{/unitTypes}} 
          </div>
 		  </div>
-       	<div class=""> <h6 class="unit_type_filter">Varient</h6> <div class="filter-chkbox-block">  
+       	<div class="apartment_unitVariantNames"> <h6 class="unit_type_filter">UNIT VARIANTS</h6> <div class="filter-chkbox-block">  
        		{{#unitVariantNames}}
            	<input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} data-type="apartment"> 
             <label for="varinat_name{{id}}" class="-lbl">{{name}}</label> 
@@ -85,14 +85,14 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 	<div class="filters-wrapper-hover  filters-wrapper plot-wrapper">
           <div class="arrow-left"> </div>
           	{{#plots}}
-       <div class=""> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block">  
+       <div class="plot_unitTypes"> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block">  
        	{{#unitTypes}}
           <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} data-type="plot"> 
           <label for="unit_type{{id}}" class="-lbl">{{name}}</label> 
         {{/unitTypes}} 
          </div>
 		  </div>
-       	<div class=""> <h6 class="unit_type_filter">Varient</h6> <div class="filter-chkbox-block">  
+       	<div class="plot_unitVariantNames"> <h6 class="unit_type_filter">UNIT VARIANTS</h6> <div class="filter-chkbox-block">  
        		{{#unitVariantNames}}
            	<input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} data-type="plot"> 
             <label for="varinat_name{{id}}" class="-lbl">{{name}}</label> 
@@ -470,7 +470,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 	onShow:->
 		
-
+		@hideLabels()
 		$('.filters-content').mCustomScrollbar
 			theme: 'cf-scroll'
 		budget = []
@@ -547,7 +547,21 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		# if Marionette.getOption(@,'unitVariantNames').length == 0
 		# 	$('.variant_filter').hide()
 		@loadSelectedFilters()
-		
+
+	hideLabels:->
+		villas = Marionette.getOption(@,'villas')
+		apartments = Marionette.getOption(@,'apartments')
+		plots = Marionette.getOption(@,'plots')
+		$.each villas[0] , (index,value)->
+			if value.length is 0
+				$('.villa_'+index).hide()
+		$.each apartments[0] , (index,value)->
+			if value.length is 0
+				$('.apartment_'+index).hide()
+		$.each plots[0] , (index,value)->
+			if value.length is 0
+				$('.plot_'+index).hide()
+
 
 	loadClearFilter:->
 		budget = []
