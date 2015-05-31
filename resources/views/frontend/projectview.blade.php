@@ -107,6 +107,7 @@
         <script src="{{ asset('bower_components/lazyloadxt/dist/jquery.lazyloadxt.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery.panzoom/dist/jquery.panzoom.min.js' )}}"></script>
          <script src="{{ asset('http://andrz.me/magnificent.js/bower_components/jquery-bridget/jquery.bridget.js' )}}"></script>
+        <script src="{{ asset('http://andrz.me/magnificent.js/bower_components/jquery-mousewheel/jquery.mousewheel.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery-magnificent/src/js/mag.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery-magnificent/src/js/mag-control.js' )}}"></script>
          <script src="{{ asset('bower_components/jquery-magnificent/src/js/mag-jquery.js' )}}"></script>

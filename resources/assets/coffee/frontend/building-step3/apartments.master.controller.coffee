@@ -411,10 +411,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 										  </ul>
 										</div>
 
-										<div class="zoom-controls">
+										<!--<div class="zoom-controls">
 											<div class="zoom-in"></div>
 											<div class="zoom-out"></div>
-										</div>
+										</div>-->
 
 										<div id="view_toggle" class="toggle-view-button list"></div>
 										<div id="trig" class="toggle-button hidden">List View</div>
@@ -429,7 +429,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		              					
 		              						<div class="outer-wrap" STYLE="height:100%">
 												  <div mag-thumb="outer" class="home-region"> 
-												    <img src="http://andrz.me/magnificent.js/examples/demo/img/rieti/500x334.jpg" />
+												    <img src="http://commonfloor.local/projects/12/buildings/12/master-00.jpg" />
 												  </div>
 												  <div mag-zoom="outer">
 												  <div id="spritespin"></div>
@@ -658,6 +658,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		  mode: 'outer'
 		  position: 'drag'
 		  toggle: false
+		  zoomMax:3
+		  zoomRate: 2
+		  constrainZoomed: true
 		)
 		windowHeight = $(window).innerHeight() - 56
 		$('.master').css 'height', windowHeight
