@@ -1474,3 +1474,25 @@ $("input[name=has_phases]:radio").change(function () {
  
 });
 
+function openRoomTypeModal(obj, id)
+    {
+        if (obj.value == 'add_new')
+        {
+            $('#myModal').modal('show');
+            $("#roomtypeiframe").attr("src", "/admin/project/" + PROJECTID + "/roomtype/create");
+        }
+        else
+        {
+            if (id)
+            {
+                $("#roomtypeiframe").attr("src", "/admin/project/" + PROJECTID + "/roomtype/" + id + "/edit?flag=edit");
+                $(".updateattribute").removeClass("hidden");
+                $('#myModal').modal('show');
+            }
+        }
+
+        var level = $(obj).closest('.row').find('input[name="levels[]"]').val();
+        $("#roomtypeiframe").attr("level", level);
+        $("#roomtypeiframe").attr("roomid", id);
+        $(obj).select2('val', '');
+    }

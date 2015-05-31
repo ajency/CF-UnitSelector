@@ -14,7 +14,7 @@
                 <div class="col-md-4">
                     <label class="form-label">Room Name</label>
                     <div id="room_name_box">
-                    <select name="room_name" onchange="createRoomType(this);"  class="select2-container select2 form-control" >
+                    <select name="room_name" onchange="createRoomType(this);"  class="select2-container select2 form-control" data-parsley-required >
                         <option value="">Select Control Type</option>
                         @foreach($defaultRoomTypes as $defaultRoomType)
                         <option @if($room['name']==$defaultRoomType['id']){{'selected'}}@endif value="{{ $defaultRoomType['id'] }}"> {{ $defaultRoomType['label'] }}</option>

@@ -42,6 +42,10 @@ class ProjectRoomTypeController extends Controller {
     public function store($projectId, Request $request) {
 
         $roomtype_name = $request['room_name'];
+        if($roomtype_name =='')
+        {
+            return redirect("/admin/project/" . $projectId . "/roomtype/create"); 
+        }
         if(isset($request['roomtypecustome']))
         {
             $default = new Defaults();
