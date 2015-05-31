@@ -2,6 +2,7 @@
   jQuery(document).ready(function($) {
     $('.area').canvasAreaDraw();
     window.draw = SVG('aj-imp-builder-drag-drop');
+    draw.viewbox(0, 0, 1600, 800);
     window.svgData = {
       'image': '',
       'data': [],
