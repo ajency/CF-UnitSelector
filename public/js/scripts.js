@@ -1479,6 +1479,7 @@ function openRoomTypeModal(obj, id)
         if (obj.value == 'add_new')
         {
             $('#myModal').modal('show');
+            $('#myModalLabel').text('Add New Room');
             $("#roomtypeiframe").attr("src", "/admin/project/" + PROJECTID + "/roomtype/create");
             $(obj).select2('val', '');
         }
@@ -1486,6 +1487,7 @@ function openRoomTypeModal(obj, id)
         {
             if (id)
             {
+                $('#myModalLabel').text('Edit Room');
                 $("#roomtypeiframe").attr("src", "/admin/project/" + PROJECTID + "/roomtype/" + id + "/edit?flag=edit");
                 $(".updateattribute").removeClass("hidden");
                 $('#myModal').modal('show');
