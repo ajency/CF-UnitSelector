@@ -28,6 +28,7 @@ class AuthoringTool.PlotView extends Marionette.ItemView
 				'id' : val.get 'id'
 				'name' : val.get 'unit_name'
 		data.options = options
+		console.log data
 		data
 
 	events:
@@ -44,5 +45,6 @@ class AuthoringTool.PlotCtrl extends Marionette.RegionController
 
 	initialize :->
 		units = plotVariantCollection.getPlotUnits()
+		console.log units
 		@show new AuthoringTool.PlotView
 				units : units

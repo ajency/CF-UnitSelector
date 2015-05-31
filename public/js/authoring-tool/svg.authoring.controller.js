@@ -277,7 +277,15 @@
         this.region = new Marionette.Region({
           el: '#dynamice-region'
         });
-        return new AuthoringTool.PlotCtrl({
+        new AuthoringTool.PlotCtrl({
+          region: this.region
+        });
+      }
+      if (type === 'amenity') {
+        this.region = new Marionette.Region({
+          el: '#dynamice-region'
+        });
+        return new AuthoringTool.AmenityCtrl({
           region: this.region
         });
       }

@@ -329,6 +329,9 @@ jQuery(document).ready ($)->
         if type is 'plot'
             @region =  new Marionette.Region el : '#dynamice-region'
             new AuthoringTool.PlotCtrl region : @region
+        if type is 'amenity'
+            @region =  new Marionette.Region el : '#dynamice-region'
+            new AuthoringTool.AmenityCtrl region : @region
 
     window.showDetails = (elem)->
         unit = unitMasterCollection.findWhere

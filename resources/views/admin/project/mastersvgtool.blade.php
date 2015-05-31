@@ -72,15 +72,15 @@
                       
                         <div id="aj-imp-browser-body">
                               <div class="edit-box hidden">
-                   <h4>Unit Details</h4>
-                   <form>
-                   <div class="form-group">
-                     <label for="exampleInputEmail1">Property Type</label>
-                    <select class="form-control property_type">
-                       
-                       
-                     </select>
-                   </div>
+                                   <h4>Unit Details</h4>
+                                   <form>
+                                   <div class="form-group">
+                                     <label for="exampleInputEmail1">Property Type</label>
+                                    <select class="form-control property_type">
+                                       
+                                       
+                                     </select>
+                                </div>
                     <div id="dynamice-region"></div>
                    <!-- <div class="form-group">
                      <label for="exampleInputPassword1">Unit Type</label>
@@ -396,6 +396,7 @@
         <script src="{{ asset('js/authoring-tool/entities/marker.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/villa.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/plot.entity.js' )}}"></script>
+        <script src="{{ asset('js/authoring-tool/entities/amenity.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/svg.authoring.controller.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/application.js' )}}"></script>
 </body>

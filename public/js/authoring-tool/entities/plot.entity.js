@@ -27,6 +27,7 @@
         });
       });
       data.options = options;
+      console.log(data);
       return data;
     };
 
@@ -57,6 +58,7 @@
     PlotCtrl.prototype.initialize = function() {
       var units;
       units = plotVariantCollection.getPlotUnits();
+      console.log(units);
       return this.show(new AuthoringTool.PlotView({
         units: units
       }));
