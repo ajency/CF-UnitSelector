@@ -43,7 +43,7 @@
                @if(isset($roomtypeAttributes['ATTRIBUTES']))
                             @foreach($roomtypeAttributes['ATTRIBUTES'] as $roomtypeAttribute)
 
-                            <div class="row">
+                            <div class="row form-group">
                                 <div class="col-xs-4">
                                     <input type="text" name="attribute_name_room[]" class="form-control" value="{{$roomtypeAttribute['label']}}" placeholder="Enter Attribute Name" disabled>
                                     <input type="hidden" name="attribute_id_room[]" value="{{$roomtypeAttribute['id']}}" disabled>
