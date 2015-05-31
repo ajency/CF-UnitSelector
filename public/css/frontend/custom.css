@@ -2772,7 +2772,7 @@ span.glyphicon {
   padding: 0px;
   height: 340px;
   z-index: 9999;
-  background-color: rgba(222, 222, 222, 0.8);
+  background-color: rgba(222, 222, 222, 0.95);
   -webkit-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
   transform: translate(0, 0);
