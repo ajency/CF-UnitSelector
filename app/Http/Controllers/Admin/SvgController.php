@@ -143,9 +143,9 @@ class SvgController extends Controller {
 
 		$svgData = $_REQUEST['data'];
 		$data = base64_decode($svgData);
-		$display_document_name = "project_master_svg.txt";
+		$display_document_name = "project_master_svg.svg";
         
-		header('Content-Type: text/plain');
+		header('Content-type: image/svg+xml');
 		header("Content-Disposition: attachment; filename=".$display_document_name."");
 		echo $data;
 	}	
