@@ -1,9 +1,13 @@
 (function() {
-  var ApartmentsView, api,
+  var ApartmentsView, api, breakPoints, currentBreakPoint,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
   api = "";
+
+  currentBreakPoint = 0;
+
+  breakPoints = [];
 
   CommonFloor.ApartmentsMasterView = (function(superClass) {
     extend(ApartmentsMasterView, superClass);
@@ -300,13 +304,10 @@
         return $('#' + id).tooltipster('hide');
       },
       'click': function(e) {
-        var breakpoint, data, spin;
+        var breakpoint;
         if ($(e.currentTarget).hasClass('onview')) {
           breakpoint = 10;
-          spin = $('#spritespin');
-          data = $("#spritespin").spritespin({}).data("spritespin");
-          data.stopFrame = 10;
-          SpriteSpin.updateFrame(data);
+          currentBreakPoint = _.indexOf(breakPoints, breakpoint);
           return api.playTo(breakpoint, {
             nearest: true
           });
@@ -462,21 +463,17 @@
       viewtog: '#view_toggle'
     };
 
-    CenterApartmentMasterView.prototype.initialize = function() {
-      this.currentBreakPoint = 0;
-      return this.breakPoints = [];
-    };
-
     CenterApartmentMasterView.prototype.events = {
       'click @ui.viewtog': function(e) {
         $('.us-left-content').toggleClass('not-visible visible');
         return $('.us-right-content').toggleClass('not-visible visible');
       },
       'click #prev': function() {
-        return this.setDetailIndex(this.currentBreakPoint - 1);
+        return this.setDetailIndex(currentBreakPoint - 1);
       },
       'click #next': function() {
-        return this.setDetailIndex(this.currentBreakPoint + 1);
+        console.log(currentBreakPoint);
+        return this.setDetailIndex(currentBreakPoint + 1);
       },
       'mouseover .apartment': function(e) {
         var availability, html, id, price, response, unit, unitMaster;
@@ -611,10 +608,10 @@
     };
 
     CenterApartmentMasterView.prototype.loadProjectMaster = function() {
-      var breakpoints, first, svgs, transitionImages;
+      var first, masterbreakpoints, svgs, transitionImages;
       svgs = [];
-      breakpoints = project.get('breakpoints');
-      $.each(breakpoints, function(index, value) {
+      masterbreakpoints = project.get('breakpoints');
+      $.each(masterbreakpoints, function(index, value) {
         return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/master/master-' + value + '.svg';
       });
       first = _.values(svgs);
@@ -623,7 +620,7 @@
       if (project.get('project_master').length !== 0) {
         return $('.project_master').load(first[0], function() {
           var building_id, url;
-          $('.firstimage').attr('src', transitionImages[breakpoints[0]]);
+          $('.firstimage').attr('src', transitionImages[masterbreakpoints[0]]);
           url = Backbone.history.fragment;
           building_id = url.split('/')[1];
           $('.villa,.plot').each(function(ind, item) {
@@ -661,14 +658,14 @@
     CenterApartmentMasterView.prototype.setDetailIndex = function(index) {
       $('.region').empty();
       $('.region').addClass('inactive').removeClass('active');
-      this.currentBreakPoint = index;
-      if (this.currentBreakPoint < 0) {
-        this.currentBreakPoint = this.breakPoints.length - 1;
+      currentBreakPoint = index;
+      if (currentBreakPoint < 0) {
+        currentBreakPoint = breakPoints.length - 1;
       }
-      if (this.currentBreakPoint >= this.breakPoints.length) {
-        this.currentBreakPoint = 0;
+      if (currentBreakPoint >= breakPoints.length) {
+        currentBreakPoint = 0;
       }
-      return api.playTo(this.breakPoints[this.currentBreakPoint], {
+      return api.playTo(breakPoints[currentBreakPoint], {
         nearest: true
       });
     };
@@ -678,8 +675,8 @@
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
       frames = transitionImages;
-      this.breakPoints = building.get('breakpoints');
-      this.currentBreakPoint = 0;
+      breakPoints = building.get('breakpoints');
+      currentBreakPoint = 0;
       width = this.ui.svgContainer.width() + 20;
       $('.svg-maps > div').first().removeClass('inactive').addClass('active').css('width', width);
       spin = $('#spritespin');
