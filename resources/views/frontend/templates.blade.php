@@ -119,9 +119,7 @@
     </div>
     <div class="container-fluid top-spacing">
       <div class="row">
-        <div class="list-container closed us-left-content mobile not-visible c">
-          <div ui-region="left" id="leftregion"></div>
-        </div>
+        <div ui-region="left" id="leftregion"></div>
         <div ui-region="center" id="centerregion"></div>
       </div>
     </div>
