@@ -2891,6 +2891,9 @@ span.glyphicon {
     content: "\e761";
     font: icomoon;
   }
+  .filters-wrapper-hover.visible:hover {
+    opacity: 1;
+  }
 }
 #flexiselDemo1,
 #flexiselDemo2,

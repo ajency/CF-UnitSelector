@@ -8,7 +8,7 @@ window.type  = []
 class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 	template : Handlebars.compile('
-         <a href="javascript:void(0)" class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button" type="button"> <span class="icon"></span> </button> 
+         <a href="javascript:void(0)" class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button filter-toggle" type="button"> <span class="icon"></span> </button> 
          <div class="filters-wrapper">
             <div class="filters-content">
                                     <div class="property_type">
@@ -399,7 +399,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			unitCollection.trigger('available')
 			
 
-		'click .filter-button':(e)->
+		'click .filter-toggle':(e)->
 			$('.fliters-container').toggleClass 'closed'
 			# if $('.fliters-container').hasClass( "closed")
 			# 	window.flag = 1
