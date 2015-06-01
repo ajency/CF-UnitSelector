@@ -10,7 +10,7 @@
       return ApartmentsListView.__super__.constructor.apply(this, arguments);
     }
 
-    ApartmentsListView.prototype.template = '#project-template';
+    ApartmentsListView.prototype.template = '#apartment-list-template';
 
     return ApartmentsListView;
 

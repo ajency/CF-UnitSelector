@@ -1,6 +1,6 @@
 class CommonFloor.ApartmentsListView extends Marionette.LayoutView
 
-	template : '#project-template'
+	template : '#apartment-list-template'
 
 
 

@@ -3,7 +3,7 @@ currentBreakPoint = 0
 breakPoints = []
 class CommonFloor.ApartmentsMasterView extends Marionette.LayoutView
 
-	template : '#project-view-template'
+	template : '#apartment-master-template'
 
 
 
@@ -406,8 +406,9 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 								<li class="na">N/A</li>
 							  </ul>
 							 </div>
-							 <div class="sort-unit"> Sort Units by &nbsp;
-							 <input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="In View" data-off="All Units" data-onstyle="warning" data-offstyle="warning">
+							 <div class="sort-unit"> In View
+							 	<input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="&nbsp;" data-off="&nbsp;" data-onstyle="warning" data-offstyle="warning">
+							 	All Units
 							 </div>
 							
 							<p class="text-center help-text">Hover on the units for more details</p>

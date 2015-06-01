@@ -735,12 +735,16 @@ hr.embossed {
   overflow-x: hidden;
 }
 .sort-unit {
-  border-bottom: 1px solid ccc;
+  border-bottom: 1px solid #ccc;
   padding-bottom: 10px;
+  line-height: 29px;
 }
 .sort-unit .toggle {
-  height: 27px !important;
+  height: 18px !important;
+  min-height: 18px !important;
   line-height: 1em !important;
+  margin: 0px 3px;
+  border-radius: 5px;
 }
 .sort-unit .toggle .toggle-group .btn-default {
   background: #fff !important;

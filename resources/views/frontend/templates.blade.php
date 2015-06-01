@@ -44,9 +44,11 @@
       </div>
 </script>
 
-<script id="project-template" type="text/template">
+<script id="project-listview-template" type="text/template">
         <div ui-region="top" id="topregion" class="us-header"></div>
-        <div ui-region="filter" id="filterregion" class="filters-area"></div>
+        <div class="fliters-container closed" id="collapsefilters">
+          <div ui-region="filter" id="filterregion" class="filters-area"></div>
+        </div>
         <div class="container-fluid top-spacing">
             <div class="row">
                 <div ui-region="left" id="leftregion">

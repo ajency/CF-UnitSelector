@@ -16,7 +16,7 @@
       return ApartmentsMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    ApartmentsMasterView.prototype.template = '#project-view-template';
+    ApartmentsMasterView.prototype.template = '#apartment-master-template';
 
     return ApartmentsMasterView;
 
@@ -366,7 +366,7 @@
       return LeftApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftApartmentMasterView.prototype.template = '<div> <div id="trig" class="toggle-button"></div> <div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeInLeft"> <div class="advncd-filter-wrp  unit-list"> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <div class="sort-unit"> Sort Units by &nbsp; <input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="In View" data-off="All Units" data-onstyle="warning" data-offstyle="warning"> </div> <p class="text-center help-text">Hover on the units for more details</p> <ul class="units one apartments"> </ul> </div> </div> </div>';
+    LeftApartmentMasterView.prototype.template = '<div> <div id="trig" class="toggle-button"></div> <div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeInLeft"> <div class="advncd-filter-wrp  unit-list"> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <div class="sort-unit"> In View <input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="&nbsp;" data-off="&nbsp;" data-onstyle="warning" data-offstyle="warning"> All Units </div> <p class="text-center help-text">Hover on the units for more details</p> <ul class="units one apartments"> </ul> </div> </div> </div>';
 
     LeftApartmentMasterView.prototype.childView = ApartmentsView;
 
