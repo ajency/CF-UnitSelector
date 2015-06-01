@@ -731,7 +731,15 @@ hr.embossed {
   overflow-y: auto;
   overflow-x: hidden;
 }
-.toggle-group .btn-default {
+.sort-list {
+  border-bottom: 1px solid #666666;
+  padding-bottom: 10px;
+}
+.sort-list .toggle {
+  height: 27px !important;
+  line-height: 1em !important;
+}
+.sort-list .toggle .toggle-group .btn-default {
   background: #fff !important;
 }
 /* Buttons */
