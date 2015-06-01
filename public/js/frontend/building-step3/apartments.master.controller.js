@@ -349,7 +349,7 @@
       return LeftApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftApartmentMasterView.prototype.template = '<div> <div id="trig" class="toggle-button"></div> <div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeInLeft"> <div class="advncd-filter-wrp  unit-list"> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <input type="checkbox" name="inview" id="inview" value="" / >In view <input type="checkbox" name="notinview" id="notinview" value="" / >Not In view <p class="text-center help-text">Hover on the units for more details</p> <ul class="units one"> </ul> </div> </div> </div>';
+    LeftApartmentMasterView.prototype.template = '<div> <div id="trig" class="toggle-button"></div> <div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeInLeft"> <div class="advncd-filter-wrp  unit-list"> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <div> Sort Units by &nbsp; <input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="On View" data-off="All Units" data-onstyle="success" data-offstyle="warning"> </div> <p class="text-center help-text">Hover on the units for more details</p> <ul class="units one"> </ul> </div> </div> </div>';
 
     LeftApartmentMasterView.prototype.childView = ApartmentsView;
 
@@ -363,11 +363,13 @@
     };
 
     LeftApartmentMasterView.prototype.events = {
-      'click @ui.notinview': function(e) {
-        return this.showNotInView();
-      },
-      'click @ui.inview': function(e) {
-        return this.showInView();
+      'change @ui.inview': function(e) {
+        if ($(e.currentTarget).is(':checked')) {
+          console.log("aaaaaaaa");
+          return this.showInView();
+        } else {
+          return this.showNotInView();
+        }
       },
       'click @ui.trig': function(e) {
         return $('.list-container').toggleClass('closed');
@@ -384,6 +386,10 @@
 
     LeftApartmentMasterView.prototype.showNotInView = function() {
       return $('.onview').show();
+    };
+
+    LeftApartmentMasterView.prototype.onShow = function() {
+      return this.ui.inview.bootstrapToggle();
     };
 
     return LeftApartmentMasterView;

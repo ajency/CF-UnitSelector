@@ -939,8 +939,10 @@ CommonFloor.applyOnViewClass = ()->
 		id  = parseInt value.id
 		if $.inArray(id, viewUnits) == -1
 			$('#apartment'+id).addClass 'onview'
+			$('#apartment'+id).hide()
 		else
 			$('#apartment'+id).removeClass 'onview'
+			$('#apartment'+id).show()
 
 CommonFloor.filterFlooringAttributes= ()->
 	flooring = []

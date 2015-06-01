@@ -1027,9 +1027,11 @@
       var id;
       id = parseInt(value.id);
       if ($.inArray(id, viewUnits) === -1) {
-        return $('#apartment' + id).addClass('onview');
+        $('#apartment' + id).addClass('onview');
+        return $('#apartment' + id).hide();
       } else {
-        return $('#apartment' + id).removeClass('onview');
+        $('#apartment' + id).removeClass('onview');
+        return $('#apartment' + id).show();
       }
     });
   };

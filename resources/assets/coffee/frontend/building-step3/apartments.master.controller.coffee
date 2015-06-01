@@ -385,8 +385,10 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 							    <li class="na">N/A</li>
 							  </ul>
 							 </div>
-							 <input type="checkbox" name="inview" id="inview" value="" / >In view
-							 <input type="checkbox" name="notinview" id="notinview" value="" / >Not In view
+							 <div> Sort Units by &nbsp;
+					         <input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="On View" data-off="All Units" data-onstyle="success" data-offstyle="warning">
+					         </div>
+							
               				<p class="text-center help-text">Hover on the units for more details</p>
 			               	<ul class="units one">
 		                	</ul>					                			
@@ -405,10 +407,11 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 		inview   	:  '#inview'
 
 	events :
-		'click @ui.notinview':(e)->
-			@showNotInView()
-		'click @ui.inview':(e)->
-			@showInView()
+		'change @ui.inview':(e)->
+			if $(e.currentTarget).is(':checked')
+				@showInView()
+			else
+				@showNotInView()
 		'click @ui.trig':(e)->
 			$('.list-container').toggleClass 'closed'
 
@@ -421,6 +424,9 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 
 	showNotInView:->
 		$('.onview').show()
+
+	onShow:->
+		@ui.inview.bootstrapToggle()
 
 
 
