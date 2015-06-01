@@ -156,7 +156,7 @@
         <ul class="list-inline m-b-10 m-l-5">
 
             <h5 class="semi-bold inline">
-                Images Uploaded : </h5> {{count($project['master'])}} |
+                Images Uploaded : </h5> {{count($project['master']) - count($project['masterdeletedimages'])}} {{(count($project['masterdeletedimages'])) ? '( Image Pending To Be Uploaded At Position '. implode(",",$project['masterdeletedimages']).')':''}}  |
 
 
             <h5 class="semi-bold inline">
@@ -180,9 +180,9 @@
                 @foreach($project['breakpoints'] as $breakpoint)
                 <tr>
                     <td>{{ $breakpoint }}</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td><span class="text-warning">Pending SVG Authoring</span></td>
+                    <td></td>
+                    <td></td>
+                    <td><span class="text-warning"></span></td>
                 </tr>
                 @endforeach
             </tbody>
