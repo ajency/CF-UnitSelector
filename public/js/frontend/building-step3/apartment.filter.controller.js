@@ -366,12 +366,7 @@
       });
       this.ui.status.prop('checked', false);
       if (CommonFloor.defaults['common']['availability'] !== "") {
-        this.ui.status.prop('checked', true);
-      }
-      if (window.flag1 === 0) {
-        return $('.fliters-container').removeClass('closed');
-      } else {
-        return $('.fliters-container').addClass('closed');
+        return this.ui.status.prop('checked', true);
       }
     };
 

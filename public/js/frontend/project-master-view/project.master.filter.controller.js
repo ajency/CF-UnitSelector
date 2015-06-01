@@ -601,15 +601,12 @@
         if ($.inArray($('#' + item.id).attr('data-value'), types) === -1) {
           return $('#' + item.id).prop('checked', false);
         } else {
-          console.log(type = $('#' + item.id).attr('data-value'));
+          type = $('#' + item.id).attr('data-value');
           $('#' + item.id).parent().addClass(type + '-check');
-          $('#' + item.id).parent().addClass(type + '-btn');
-          return $("." + $('#' + item.id).attr('data-value') + "-wrapper").addClass("visible");
+          return $('#' + item.id).parent().addClass(type + '-btn');
         }
       });
-      console.log(attributes);
       $(this.ui.flooring).each(function(ind, item) {
-        console.log(item.id);
         $('#' + item.id).prop('checked', true);
         $('#' + item.id).attr('disabled', false);
         console.log($.inArray($(item).attr('data-value'), attributes));
