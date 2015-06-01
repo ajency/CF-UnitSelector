@@ -13,18 +13,25 @@
     <link href="{{ asset('css/dashboard/builder.css')}}" rel="stylesheet" type="text/css" />
     <style type="text/css">
 
-/*    .svg-canvas{
-   transform: matrix(1, 0, 0, 1, 0,-127) !important;
+/*    .svg-canvas image{
+         width: 100%; !important;
+
+     }
+
+     #aj-imp-browser-body {
+        width:100% !important;
+        border: 0px!important;
+    }
+    .svg-canvas{
+        z-index: 9999;
+        position: absolute;
+        width: 100%;
+        top: 0px;
 
     }
-    .marked {
-  fill: #ff3333 !important;
-  border: 2px solid #ff3333;
-  opacity: 0.5;
-}
-  */ 
+*/
 
-   </style>
+</style>
 </head>
 
 <body>
