@@ -106,12 +106,12 @@
         <script src="{{ asset('bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.js' )}}"></script>
         <script src="{{ asset('bower_components/lazyloadxt/dist/jquery.lazyloadxt.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery.panzoom/dist/jquery.panzoom.min.js' )}}"></script>
-         <script src="{{ asset('http://andrz.me/magnificent.js/bower_components/jquery-bridget/jquery.bridget.js' )}}"></script>
-        <script src="{{ asset('http://andrz.me/magnificent.js/bower_components/jquery-mousewheel/jquery.mousewheel.js' )}}"></script>
+        <script src="{{ asset('js/jquery.bridget.js' )}}"></script>
+        <script src="{{ asset('js/jquery.mousewheel.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery-magnificent/src/js/mag.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery-magnificent/src/js/mag-control.js' )}}"></script>
-         <script src="{{ asset('bower_components/jquery-magnificent/src/js/mag-jquery.js' )}}"></script>
-         <script src="   http://andrz.me/magnificent.js/bower_components/jquery.threedubmedia/event.drag/jquery.event.drag.js"></script>
+        <script src="{{ asset('bower_components/jquery-magnificent/src/js/mag-jquery.js' )}}"></script>
+        <script src="{{ asset('js/jquery.event.drag.js' )}}"></script>
        <script src="{{ asset('bower_components/jquery-magnificent/examples/demo/index.js' )}}"></script>
         <script src="{{ asset('bower_components/ionrangeslider/js/ion.rangeSlider.min.js' )}}"></script>
         <script src="{{ asset('bower_components/hammer.js/hammer.min.js' )}}"></script>
