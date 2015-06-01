@@ -26,7 +26,7 @@ class CommonFloor.Project extends Backbone.Model
 			@fetch(
 				async: false
 				success:(collection, response)=>
-					@set 'filters' , {'Villa' : ['unitTypes' , 'unitVariantNames', 'flooring' ]
+					@set 'filters' , {'Villa' : ['unitTypes' , 'unitVariantNames' , 'flooring','furnishing-status']
 									,'Apartment' : ['unitTypes' , 'unitVariantNames' , 'flooring']
 									,'Plot' : ['unitTypes' , 'unitVariantNames' , 'flooring']}
 					@set 'measurement_units' , 'Sq.ft'

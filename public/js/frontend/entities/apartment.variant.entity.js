@@ -111,25 +111,18 @@
       return unit_types;
     };
 
-    ApartmentVariantCollection.prototype.getApartmentFlooringAttributes = function() {
+    ApartmentVariantCollection.prototype.getApartmentAttributes = function() {
       var attributes, types;
       attributes = [];
       types = [];
       apartmentVariantMasterCollection.each(function(item) {
-        var type, unit_type;
-        unit_type = unitTypeMasterCollection.findWhere({
-          'id': parseInt(item.get('unit_type_id'))
+        return $.each(item.get('variant_attributes'), function(index, value) {
+          if ($.inArray(value, attributes) === -1) {
+            return attributes.push(value);
+          }
         });
-        type = 'A';
-        if (window.propertyTypes[unit_type.get('property_type_id')] === 'Penthouse') {
-          type = 'PH';
-        }
-        if ($.inArray(item.get('variant_attributes').flooring, attributes) === -1) {
-          attributes.push(item.get('variant_attributes').flooring);
-          return types.push(type);
-        }
       });
-      return [attributes, types];
+      return [attributes];
     };
 
     return ApartmentVariantCollection;
