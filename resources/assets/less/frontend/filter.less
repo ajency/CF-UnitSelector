@@ -19,6 +19,7 @@
     padding: 20px;
     // border-radius: 50%;
     background-color: @white;
+    overflow: hidden;
     .filters-wrapper{
       opacity: 0
     }
@@ -28,14 +29,45 @@
     .filter-button{
       font-size: 25px;
       padding: 2px 6px;
-      .icon-place{
-        &:after{
+      left: 0;
+      right: auto;
+      .icon{
+        &:before{
           content: "\e789";
+          font-family: icomoon;
+          color: @brand-primary;
+        }
+        &::after{
+          position: relative;
+          left: 20px;
+          top: -4px;
+          transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+          content: "Filters";
+          font-size: 14px;
+          opacity: 0;
+            width: 40px;
+            display: inline-block;
         }
       }
     }
     .filters-bottom{
       opacity: 0;      
+    }
+    &:hover{
+      padding-right: 70px;
+      border-radius: 3px;
+      .filter-button{
+        // font-size: 24px;
+        .icon{
+          &::before{
+            margin-right: 5px;
+          }
+          &::after{
+            opacity:1;
+            left: 0;
+          }
+        }
+      }
     }
   }
 }
@@ -73,11 +105,11 @@
   color: @gray-light;
   padding: 6px 12px;  
   font-size: 15px;
-  border-radius: 50%;
+  // border-radius: 50%;
   transition: all 0.2s cubic-bezier(0.19, 1, 0.22, 1);
   z-index: 9999;
-  .icon-place{
-    &:after{
+  .icon{
+    &:before{
       content: "\e75e";
       font-family: icomoon;
     }
@@ -156,7 +188,8 @@
     // height: 500px;
     margin-top: 30px;
     border-top: 1px solid @gray-lighter;
-    transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+    opacity: 1;
+    transition: all 0.5s linear;
     div{
       // transition: all 1.5s;
     }
@@ -210,7 +243,7 @@
   top: 8px;
   left: 15px;
   z-index: 9999;
-  transition: all 1s;
+  transition: all 0.5s;
 }
 .filter-link{
   color:darken(@gray, 50%);
@@ -422,7 +455,7 @@ visibility:visible;
         font-size: 15px;
         display: block;
         color: @gray-darker;
-        .icon-place{
+        .icon{
           &:after{
             content: "\e761";
           }

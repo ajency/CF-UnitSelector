@@ -83,7 +83,9 @@
 
 <script id="apartment-view-template" type="text/template">
     <div ui-region="topapt" id="topaptregion" class="us-header"></div>
-    <div ui-region="filterapt" id="filteraptregion" class="filters-area"></div>
+    <div class="fliters-container closed" id="collapsefilters">
+      <div ui-region="filterapt" id="filteraptregion" class="filters-area"></div>
+    </div>
     <div class="container-fluid top-spacing">
       <div class="row">
         <div class="list-container closed us-left-content mobile not-visible">

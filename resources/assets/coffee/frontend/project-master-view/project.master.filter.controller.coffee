@@ -8,7 +8,7 @@ window.type  = []
 class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 	template : Handlebars.compile('
-         <a href="javascript:void(0)" class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button" type="button"> <span class="icon-place"></span> </button> 
+         <a href="javascript:void(0)" class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button" type="button"> <span class="icon"></span> </button> 
          <div class="filters-wrapper">
             <div class="filters-content">
                                     <div class="property_type">
@@ -51,7 +51,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
       <div class="filters-wrapper-hover  filters-wrapper villa-wrapper">
           <div class="arrow-left"> </div>
           	<button class="btn btn-primary filter-button back_btn" type="button"> 
-          		<span class="icon-place"></span> Back
+          		<span class="icon"></span> Back
           	</button>
           	{{#villas}}
        <div class="villa_unitTypes"> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block">  
@@ -81,7 +81,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 	<div class="filters-wrapper-hover  filters-wrapper apartment-wrapper">
           <div class="arrow-left"> </div>
           	<button class="btn btn-primary filter-button back_btn" type="button"> 
-          		<span class="icon-place"></span> Back
+          		<span class="icon"></span> Back
           	</button>
           	{{#apartments}}
        <div class="apartment_unitTypes"> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block">  
@@ -112,7 +112,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 	<div class="filters-wrapper-hover  filters-wrapper plot-wrapper">
           <div class="arrow-left"> </div>
           	<button class="btn btn-primary filter-button back_btn" type="button"> 
-          		<span class="icon-place"></span> Back
+          		<span class="icon"></span> Back
           	</button>
           	{{#plots}}
        <div class="plot_unitTypes"> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block">  
