@@ -385,6 +385,8 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 							    <li class="na">N/A</li>
 							  </ul>
 							 </div>
+							 <input type="checkbox" name="inview" id="inview" value="" / >In view
+							 <input type="checkbox" name="notinview" id="notinview" value="" / >Not In view
               				<p class="text-center help-text">Hover on the units for more details</p>
 			               	<ul class="units one">
 		                	</ul>					                			
@@ -399,8 +401,14 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 	ui :
 		viewtog 	: '#view_toggle'
 		trig 		: '#trig'
+		notinview   :  '#notinview'
+		inview   	:  '#inview'
 
 	events :
+		'click @ui.notinview':(e)->
+			@showNotInView()
+		'click @ui.inview':(e)->
+			@showInView()
 		'click @ui.trig':(e)->
 			$('.list-container').toggleClass 'closed'
 
@@ -408,6 +416,11 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 			$('.us-left-content').toggleClass 'not-visible visible'
 			$('.us-right-content').toggleClass 'not-visible visible'
 
+	showInView:->
+		$('.onview').hide()
+
+	showNotInView:->
+		$('.onview').show()
 
 
 
@@ -733,7 +746,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$.merge transitionImages ,  project.get('project_master')
 		if project.get('project_master').length != 0
 			$('.project_master').load(first[0],()->
-				$('.firstimage').attr('data-src',transitionImages[0])
+				$('.firstimage').attr('src',transitionImages[breakpoints[0]])
 				url = Backbone.history.fragment
 				building_id = url.split('/')[1]
 				$('.villa,.plot').each (ind,item)->

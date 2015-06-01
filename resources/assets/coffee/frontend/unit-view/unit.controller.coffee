@@ -587,7 +587,7 @@ class CenterUnitView extends Marionette.ItemView
 			first = _.values svgs
 			if building.get('building_master').length != 0  
 				$('.images').load(first[0],()->
-					$('.firstimage').attr('src',transitionImages[0])
+					$('.firstimage').attr('src',transitionImages[breakpoints[0]])
 					
 					$('.apartment').each (ind,item)->
 						itemid = parseInt item.id
@@ -607,7 +607,7 @@ class CenterUnitView extends Marionette.ItemView
 		$.merge transitionImages ,  project.get('project_master')
 		if project.get('project_master').length != 0
 			$('.images').load(first[0],()->
-				$('.firstimage').attr('src',transitionImages[0])
+				$('.firstimage').attr('src',transitionImages[breakpoints[0]])
 				
 				$('.villa,.plot').each (ind,item)->
 					itemid = parseInt item.id

@@ -349,7 +349,7 @@
       return LeftApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftApartmentMasterView.prototype.template = '<div> <div id="trig" class="toggle-button"></div> <div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeInLeft"> <div class="advncd-filter-wrp  unit-list"> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <p class="text-center help-text">Hover on the units for more details</p> <ul class="units one"> </ul> </div> </div> </div>';
+    LeftApartmentMasterView.prototype.template = '<div> <div id="trig" class="toggle-button"></div> <div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeInLeft"> <div class="advncd-filter-wrp  unit-list"> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <input type="checkbox" name="inview" id="inview" value="" / >In view <input type="checkbox" name="notinview" id="notinview" value="" / >Not In view <p class="text-center help-text">Hover on the units for more details</p> <ul class="units one"> </ul> </div> </div> </div>';
 
     LeftApartmentMasterView.prototype.childView = ApartmentsView;
 
@@ -357,10 +357,18 @@
 
     LeftApartmentMasterView.prototype.ui = {
       viewtog: '#view_toggle',
-      trig: '#trig'
+      trig: '#trig',
+      notinview: '#notinview',
+      inview: '#inview'
     };
 
     LeftApartmentMasterView.prototype.events = {
+      'click @ui.notinview': function(e) {
+        return this.showNotInView();
+      },
+      'click @ui.inview': function(e) {
+        return this.showInView();
+      },
       'click @ui.trig': function(e) {
         return $('.list-container').toggleClass('closed');
       },
@@ -368,6 +376,14 @@
         $('.us-left-content').toggleClass('not-visible visible');
         return $('.us-right-content').toggleClass('not-visible visible');
       }
+    };
+
+    LeftApartmentMasterView.prototype.showInView = function() {
+      return $('.onview').hide();
+    };
+
+    LeftApartmentMasterView.prototype.showNotInView = function() {
+      return $('.onview').show();
     };
 
     return LeftApartmentMasterView;
@@ -584,7 +600,7 @@
       if (project.get('project_master').length !== 0) {
         return $('.project_master').load(first[0], function() {
           var building_id, url;
-          $('.firstimage').attr('data-src', transitionImages[0]);
+          $('.firstimage').attr('src', transitionImages[breakpoints[0]]);
           url = Backbone.history.fragment;
           building_id = url.split('/')[1];
           $('.villa,.plot').each(function(ind, item) {

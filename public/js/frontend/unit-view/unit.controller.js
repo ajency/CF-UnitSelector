@@ -478,7 +478,7 @@
         first = _.values(svgs);
         if (building.get('building_master').length !== 0) {
           $('.images').load(first[0], function() {
-            $('.firstimage').attr('src', transitionImages[0]);
+            $('.firstimage').attr('src', transitionImages[breakpoints[0]]);
             $('.apartment').each(function(ind, item) {
               var itemid;
               itemid = parseInt(item.id);
@@ -502,7 +502,7 @@
       $.merge(transitionImages, project.get('project_master'));
       if (project.get('project_master').length !== 0) {
         $('.images').load(first[0], function() {
-          $('.firstimage').attr('src', transitionImages[0]);
+          $('.firstimage').attr('src', transitionImages[breakpoints[0]]);
           $('.villa,.plot').each(function(ind, item) {
             var itemid;
             itemid = parseInt(item.id);
