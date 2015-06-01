@@ -60,6 +60,20 @@
         </div>
 </script>
 
+<script id="project-template" type="text/template">
+        <div ui-region="top" id="topregion" class="us-header"></div>
+        
+        <div class="container-fluid top-spacing">
+            <div class="row">
+                <div ui-region="left" id="leftregion">
+                </div>
+               
+                <div ui-region="center" id="centerregion">
+                </div>
+            </div>
+        </div>
+</script>
+
 <script id="noFound-template" type="text/template">
     <div class="no-found-container">
       <div class="text-center animated fadeInDown">
