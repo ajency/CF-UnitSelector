@@ -40,7 +40,8 @@ class ProjectPlotVariantController extends Controller {
         $unitTypeIdArr = [];
         foreach ($unitTypeArr as $unitType) {
             $unitTypeIdArr[] = $unitType['id'];
-            $unitTypes[$unitType['id']] = $unitType['unittype_name'];
+            $unitTypeName = Defaults::find($unitType['unittype_name'])->label;
+            $unitTypes[$unitType['id']] = $unitTypeName;
         }
 
         $unitvariantArr = UnitVariant::whereIn('unit_type_id', $unitTypeIdArr)->orderBy('unit_variant_name')->get()->toArray();
