@@ -365,7 +365,6 @@
     LeftApartmentMasterView.prototype.events = {
       'change @ui.inview': function(e) {
         if ($(e.currentTarget).is(':checked')) {
-          console.log("aaaaaaaa");
           return this.showInView();
         } else {
           return this.showNotInView();
@@ -494,6 +493,9 @@
         }
         $('#' + id).attr('class', 'layer apartment svg_active ' + availability);
         $('#apartment' + id).addClass(' active');
+        $('list-view-container').animate({
+          scrollTop: $('#apartment' + id).offset().top
+        }, 2000);
         return $('.apartment').tooltipster('content', html);
       },
       'mouseout .apartment': function(e) {

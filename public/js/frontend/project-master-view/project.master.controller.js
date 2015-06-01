@@ -528,6 +528,9 @@
         }
         $('#' + id).attr('class', 'layer villa  ' + availability);
         $('#unit' + id).attr('class', 'unit blocks ' + availability + '  active');
+        $('.list-view-container').animate({
+          scrollTop: $('#unit' + id).offset().top
+        }, 2000);
         return $('#' + id).tooltipster('content', html);
       },
       'mouseover .plot': function(e) {
