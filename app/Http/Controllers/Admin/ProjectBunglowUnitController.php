@@ -78,7 +78,7 @@ class ProjectBunglowUnitController extends Controller {
             $unitTypeIdArr[] =$unitType['id'];
        
         $unitVariantArr = UnitVariant::whereIn('unit_type_id',$unitTypeIdArr)->get()->toArray();
-        $phases = $project->projectPhase()->whereIn('status',['not_live','archive'])->get()->toArray();
+        $phases = $project->projectPhase()->where('status','not_live')->get()->toArray();
 
         return view('admin.project.addunit')
                         ->with('project', $project->toArray())
@@ -141,7 +141,7 @@ class ProjectBunglowUnitController extends Controller {
      * @return Response
      */
     public function edit($project_id, $id, ProjectRepository $projectRepository) {
-        $unit = Unit::find($id);
+        $unit = Unit::find($id); 
         $project = $projectRepository->getProjectById($project_id);
         $projectAttributes = $project->attributes->toArray();
         $defaultDirection = Defaults::where('type','direction')->get()->toArray();
@@ -161,8 +161,17 @@ class ProjectBunglowUnitController extends Controller {
             $unitTypeIdArr[] =$unitType['id'];
        
         $unitVariantArr = UnitVariant::whereIn('unit_type_id',$unitTypeIdArr)->get()->toArray();
-        $phases = $project->projectPhase()->whereIn('status',['not_live','archive'])->get()->toArray(); 
- 
+        $phases = $project->projectPhase()->where('status','not_live')->get()->toArray();
+       
+
+        foreach ($phases as $key => $phase) {
+            if($phase['id'] != $unit->phase_id)
+            {   
+               $phases[]= $project->projectPhase()->where('id',$unit->phase_id)->first()->toArray();
+            }
+
+        }
+      
         return view('admin.project.editunit')
                         ->with('project', $project->toArray())
                         ->with('projectAttributes', $projectAttributes)
