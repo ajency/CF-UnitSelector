@@ -260,6 +260,9 @@ class ApartmentsView extends Marionette.ItemView
 
 	initialize:->
 		@$el.prop("id", 'apartment'+@model.get("id"))
+
+	ui :
+		onview : '.onview'
 		
 
 	tagName: 'li'
@@ -300,9 +303,20 @@ class ApartmentsView extends Marionette.ItemView
 			$('#'+id).tooltipster('hide')
 
 		'click':(e)->
-			if @model.get('availability') == 'available'
+			if $(e.currentTarget).hasClass 'onview'
+				breakpoint = 1
+				spin = $('#spritespin')
+				data = $("#spritespin").spritespin({}).data("spritespin")
+				data.stopFrame = 1
+				SpriteSpin.updateFrame(data)
+				api.nextFrame()
+
+			else
+				@model.get('availability') == 'available'
 				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
-				# CommonFloor.router.storeRoute()
+				CommonFloor.router.storeRoute()
+
+	
 
 	getHtml:(id)->
 		html = ""
@@ -448,8 +462,12 @@ class CommonFloor.LeftApartmentMasterCtrl extends Marionette.RegionController
 			new CommonFloor.NoUnitsCtrl region : region
 			return
 		unitsCollection = new Backbone.Collection response
-		@show new CommonFloor.LeftApartmentMasterView
+		@view = new CommonFloor.LeftApartmentMasterView
 				collection : unitsCollection
+
+		@show @view
+
+	
 
 class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
@@ -847,6 +865,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 				
 		)
+
 
 	iniTooltip:->
 		$('.apartment,.next,.prev').tooltipster(

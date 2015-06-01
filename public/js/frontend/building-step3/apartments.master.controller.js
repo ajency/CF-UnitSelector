@@ -255,6 +255,10 @@
       return this.$el.prop("id", 'apartment' + this.model.get("id"));
     };
 
+    ApartmentsView.prototype.ui = {
+      onview: '.onview'
+    };
+
     ApartmentsView.prototype.tagName = 'li';
 
     ApartmentsView.prototype.className = 'unit blocks';
@@ -296,8 +300,18 @@
         return $('#' + id).tooltipster('hide');
       },
       'click': function(e) {
-        if (this.model.get('availability') === 'available') {
-          return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
+        var breakpoint, data, spin;
+        if ($(e.currentTarget).hasClass('onview')) {
+          breakpoint = 1;
+          spin = $('#spritespin');
+          data = $("#spritespin").spritespin({}).data("spritespin");
+          data.stopFrame = 1;
+          SpriteSpin.updateFrame(data);
+          return api.nextFrame();
+        } else {
+          this.model.get('availability') === 'available';
+          CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
+          return CommonFloor.router.storeRoute();
         }
       }
     };
@@ -422,9 +436,10 @@
         return;
       }
       unitsCollection = new Backbone.Collection(response);
-      return this.show(new CommonFloor.LeftApartmentMasterView({
+      this.view = new CommonFloor.LeftApartmentMasterView({
         collection: unitsCollection
-      }));
+      });
+      return this.show(this.view);
     };
 
     return LeftApartmentMasterCtrl;

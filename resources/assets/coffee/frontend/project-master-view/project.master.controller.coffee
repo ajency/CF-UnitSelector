@@ -1061,6 +1061,8 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			).addClass('active').removeClass('inactive')
 
 		)
+
+		
 	#intialize tooltip 
 	iniTooltip:->
 		$('.layer').tooltipster(
