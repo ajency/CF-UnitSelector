@@ -35,11 +35,15 @@
       pointList = this.getPointList(item.points);
       pointList = pointList.join(' ');
       polygon = draw.polygon(pointList);
-      return polygon.attr({
+      polygon.attr({
         'class': item.other_details["class"],
         'id': item.object_id,
         'type': item.object_type
       });
+      if (item.object_type === "amenity") {
+        polygon.data('amenity-title', item.other_details.title);
+        return polygon.data('amenity-desc', item.other_details.description);
+      }
     };
 
     Polygon.prototype.getPointList = function(pointsArr) {

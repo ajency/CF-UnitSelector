@@ -25,6 +25,10 @@
         type: item.object_type,
         id: item.object_id
       });
+      if (item.object_type === "amenity") {
+        groupMarker.data('amenity-title', item.other_details.title);
+        groupMarker.data('amenity-desc', item.other_details.description);
+      }
       switch (markerType) {
         case 'concentric':
           groupMarker.addClass('concentric');

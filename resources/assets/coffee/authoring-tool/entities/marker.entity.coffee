@@ -23,7 +23,13 @@ class Marker extends Backbone.Model
         groupMarker.attr
             class: 'marker-grp'
             type: item.object_type 
-            id:  item.object_id           
+            id:  item.object_id 
+
+        #set data attributes for title and description if object type is amenity
+        if item.object_type is "amenity"
+            groupMarker.data('amenity-title', item.other_details.title)
+            groupMarker.data('amenity-desc', item.other_details.description)
+
 
         switch markerType
           when 'concentric'

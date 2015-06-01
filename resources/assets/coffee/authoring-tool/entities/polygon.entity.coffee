@@ -35,6 +35,11 @@ class Polygon extends Backbone.Model
             'class': item.other_details.class
             'id': item.object_id
             'type': item.object_type
+
+        #set data attributes for title and description if object type is amenity
+        if item.object_type is "amenity"
+            polygon.data('amenity-title', item.other_details.title)
+            polygon.data('amenity-desc', item.other_details.description)            
         
         
 
