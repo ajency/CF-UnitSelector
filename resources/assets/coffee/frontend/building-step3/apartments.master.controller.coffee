@@ -307,9 +307,10 @@ class ApartmentsView extends Marionette.ItemView
 				breakpoint = 1
 				spin = $('#spritespin')
 				data = $("#spritespin").spritespin({}).data("spritespin")
-				data.stopFrame = 1
-				SpriteSpin.updateFrame(data)
-				api.nextFrame()
+				data.stopFrame = breakpoint
+				api.playTo(breakpoint, 
+					nearest: true
+				)
 
 			else
 				@model.get('availability') == 'available'

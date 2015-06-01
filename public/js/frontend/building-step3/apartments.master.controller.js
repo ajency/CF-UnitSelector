@@ -305,9 +305,10 @@
           breakpoint = 1;
           spin = $('#spritespin');
           data = $("#spritespin").spritespin({}).data("spritespin");
-          data.stopFrame = 1;
-          SpriteSpin.updateFrame(data);
-          return api.nextFrame();
+          data.stopFrame = breakpoint;
+          return api.playTo(breakpoint, {
+            nearest: true
+          });
         } else {
           this.model.get('availability') === 'available';
           CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
