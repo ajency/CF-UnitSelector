@@ -7,8 +7,7 @@ window.area = ''
 window.type  = []
 class CommonFloor.FilterApartmentView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="fliters-container closed" id="collapsefilters">
-										<a href="javascript:void(0)"  class="text-primary filters-clear clear">Clear Filters </a>
+	template : Handlebars.compile('<a href="javascript:void(0)"  class="text-primary filters-clear clear">Clear Filters </a>
 										<button class="btn btn-primary filter-button" type="button">
 											<span class="icon-place"></span>											
 										</button>
@@ -70,9 +69,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 				                                    </div>
 				                                </div>
 				                            </div>  
-				                        </div>
-											
-									</div>')
+				                        </div>')
 
 
 	
