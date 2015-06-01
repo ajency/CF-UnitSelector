@@ -719,7 +719,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks '+availability+'  active') 
-			
+			$('.list-view-container').animate({
+		        scrollTop: $('#unit'+id).offset().top
+		    }, 2000)
 			$('#'+id).tooltipster('content', html)
 			
 			# $('#'+id).webuiPopover(
