@@ -349,7 +349,7 @@
       return LeftApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftApartmentMasterView.prototype.template = '<div> <div id="trig" class="toggle-button"></div> <div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeInLeft"> <div class="advncd-filter-wrp  unit-list"> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <div> Sort Units by &nbsp; <input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="On View" data-off="All Units" data-onstyle="success" data-offstyle="warning"> </div> <p class="text-center help-text">Hover on the units for more details</p> <ul class="units one"> </ul> </div> </div> </div>';
+    LeftApartmentMasterView.prototype.template = '<div> <div id="trig" class="toggle-button"></div> <div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeInLeft"> <div class="advncd-filter-wrp  unit-list"> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <div class="sort-unit"> Sort Units by &nbsp; <input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="On View" data-off="All Units" data-onstyle="warning" data-offstyle="warning"> </div> <p class="text-center help-text">Hover on the units for more details</p> <ul class="units one"> </ul> </div> </div> </div>';
 
     LeftApartmentMasterView.prototype.childView = ApartmentsView;
 
@@ -462,7 +462,7 @@
         return this.setDetailIndex(this.currentBreakPoint + 1);
       },
       'mouseover .apartment': function(e) {
-        var availability, html, id, price, response, unit, unitMaster;
+        var availability, container, html, id, price, response, scrollTo, unit, unitMaster;
         id = parseInt(e.target.id);
         unit = unitCollection.findWhere({
           'id': id
@@ -493,9 +493,11 @@
         }
         $('#' + id).attr('class', 'layer apartment svg_active ' + availability);
         $('#apartment' + id).addClass(' active');
-        $('list-view-container').animate({
-          scrollTop: $('#apartment' + id).offset().top
-        }, 2000);
+        container = $('.list-view-container');
+        scrollTo = $('#apartment' + id);
+        container.animate({
+          scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop()
+        });
         return $('.apartment').tooltipster('content', html);
       },
       'mouseout .apartment': function(e) {
