@@ -385,8 +385,8 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 								<li class="na">N/A</li>
 							  </ul>
 							 </div>
-							 <div> Sort Units by &nbsp;
-							 <input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="On View" data-off="All Units" data-onstyle="success" data-offstyle="warning">
+							 <div class="sort-unit"> Sort Units by &nbsp;
+							 <input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="On View" data-off="All Units" data-onstyle="warning" data-offstyle="warning">
 							 </div>
 							
 							<p class="text-center help-text">Hover on the units for more details</p>
