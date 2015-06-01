@@ -300,12 +300,12 @@ class ProjectBunglowVariantController extends Controller {
             $metakey = $meta['meta_key'];
             if($metakey =='gallery')
             {
-                $metaValue = unserialize($meta['meta_value']); 
+                $metaValue = unserialize($meta['meta_value']);
                 if(!empty($metaValue))
                 {
                     foreach ($metaValue as $mediaId)
                     {
-                        if (is_numeric($mediaId)) {
+                        if (is_numeric($mediaId)) { 
                             $imageName = Media::find($mediaId)->image_name;
                             $layouts['gallery'][$mediaId]['ID'] = $mediaId;
                             $layouts['gallery'][$mediaId]['IMAGE'] = url() . "/projects/" . $project_id . "/variants/" . $meta['unit_variant_id'] . "/" . $imageName;
