@@ -127,6 +127,7 @@ class ProjectGateway implements ProjectGatewayInterface {
      $unitData = [];
      foreach ($units as $unit)
      {
+        $unit['direction'] = ($unit['direction'])?Defaults::find($unit['direction'])->label:'';
          unset ($unit['availability']);
          $unitData[]=$unit;
      }
