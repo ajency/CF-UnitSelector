@@ -472,7 +472,6 @@
         return this.setDetailIndex(currentBreakPoint - 1);
       },
       'click #next': function() {
-        console.log(currentBreakPoint);
         return this.setDetailIndex(currentBreakPoint + 1);
       },
       'mouseover .apartment': function(e) {
