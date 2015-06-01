@@ -609,7 +609,6 @@
       $(this.ui.flooring).each(function(ind, item) {
         $('#' + item.id).prop('checked', true);
         $('#' + item.id).attr('disabled', false);
-        console.log($.inArray($(item).attr('data-value'), attributes));
         if ($.inArray($(item).attr('data-value'), attributes) === -1) {
           $('#' + item.id).prop('checked', false);
           return $('#' + item.id).attr('disabled', false);

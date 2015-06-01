@@ -572,7 +572,6 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			@setDetailIndex(currentBreakPoint - 1)
 
 		'click #next':->
-			console.log currentBreakPoint
 			@setDetailIndex(currentBreakPoint + 1)
 
 		# 'click .list':(e)->
