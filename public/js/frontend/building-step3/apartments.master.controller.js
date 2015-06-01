@@ -302,7 +302,7 @@
       'click': function(e) {
         var breakpoint, data, spin;
         if ($(e.currentTarget).hasClass('onview')) {
-          breakpoint = 1;
+          breakpoint = 10;
           spin = $('#spritespin');
           data = $("#spritespin").spritespin({}).data("spritespin");
           data.stopFrame = breakpoint;
