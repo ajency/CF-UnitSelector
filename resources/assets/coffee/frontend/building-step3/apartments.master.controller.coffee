@@ -628,12 +628,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				html += '</div>'
 			$('#'+id).attr('class' ,'layer apartment svg_active '+availability) 
 			$('#apartment'+id).addClass ' active'
-			container = $('.list-view-container')
-			scrollTo = $('#apartment'+id)
-
-			container.animate({
-				scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop()
-			})
+			$('.units').mCustomScrollbar("scrollTo",'#apartment'+id)
 			
 			# $('#apartment'+id).attr('class' ,' unit blocks '+availability+' active') 
 			$('.apartment').tooltipster('content', html)
