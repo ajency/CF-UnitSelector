@@ -21,58 +21,58 @@ class CommonFloor.ApartmentsMasterCtrl extends Marionette.RegionController
 class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="container-fluid animated fadeIn">
-							          	<div class="row">
-								          	<div class="col-md-12 col-xs-12 col-sm-12">
+										<div class="row">
+											<div class="col-md-12 col-xs-12 col-sm-12">
 
-									            <div class="breadcrumb-bar">
-									                <a class="unit_back" href="#"></a>
-									            </div>
-									           
-						              			<div class="header-info">
-						              				<h2 class="pull-left proj-name">{{project_title}} - {{name}}</h2>
+												<div class="breadcrumb-bar">
+													<a class="unit_back" href="#"></a>
+												</div>
+											   
+												<div class="header-info">
+													<h2 class="pull-left proj-name">{{project_title}} - {{name}}</h2>
 
-						              				<div class="proj-type-count">
-						              					<h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p>
-						              				</div>
+													<div class="proj-type-count">
+														<h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p>
+													</div>
 
-						              				<div class="pull-left filter-result full">
-						              					 {{#filters}}
-													         	{{#each this}}
-													         	{{#each this}}
-													        
-													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
-													        {{/each}}
-													         {{/each}}
-													         {{/filters}}
-													          {{#area}}
-													         	
-													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
-													         
-													         {{/area}}
-													     {{#budget}}
-													         	
-													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
-													        
-													         {{/budget}}
+													<div class="pull-left filter-result full">
+														 {{#filters}}
+																{{#each this}}
+																{{#each this}}
+															
+																	<div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+															{{/each}}
+															 {{/each}}
+															 {{/filters}}
+															  {{#area}}
+																
+																	<div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+															 
+															 {{/area}}
+														 {{#budget}}
+																
+																	<div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+															
+															 {{/budget}}
 
-													     {{#floor}}
-													         	
-													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross floor" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
-													        
-													         {{/floor}}
+														 {{#floor}}
+																
+																	<div class="filter-pill"> {{name}} {{type}} <span class="icon-cross floor" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+															
+															 {{/floor}}
 
-													      {{#status}}
-													         	
-													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
-													        
-													         {{/status}}
-						              	              							               
-						              	            </div>
-						              			</div>
+														  {{#status}}
+																
+																	<div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+															
+															 {{/status}}
+																							   
+													</div>
+												</div>
 
-								          	</div>
-							          	</div>
-							        </div>')
+											</div>
+										</div>
+									</div>')
 	
 	ui  :
 		unitBack : '.unit_back'
@@ -246,17 +246,17 @@ class ApartmentsView extends Marionette.ItemView
 
 	template : Handlebars.compile('	<div class="row">
 
-					                      <div class="col-xs-4  info">
-					                        <b class="bold">{{floor}}</b> - {{unit_name}} 
-					                  </div>  
+										  <div class="col-xs-4  info">
+											<b class="bold">{{floor}}</b> - {{unit_name}} 
+									  </div>  
 
-					                      <div class="col-xs-3  info">
-					                        	{{unit_type}}
-					                      </div> 
-					                       <div class="col-xs-5 text-primary">
-					                          <span class="icon-rupee-icn"></span>{{price}} <!--<span class="tick"></span>-->
-					                      </div> 
-					                  </div>')
+										  <div class="col-xs-3  info">
+												{{unit_type}}
+										  </div> 
+										   <div class="col-xs-5 text-primary">
+											  <span class="icon-rupee-icn"></span>{{price}} <!--<span class="tick"></span>-->
+										  </div> 
+									  </div>')
 
 	initialize:->
 		@$el.prop("id", 'apartment'+@model.get("id"))
@@ -312,8 +312,8 @@ class ApartmentsView extends Marionette.ItemView
 		if unit is undefined
 			html = '<div class="svg-info">
 							<div class="action-bar2">
-					        <div class="txt-dft"></div>
-					    </div> 
+							<div class="txt-dft"></div>
+						</div> 
 						<h5 class="pull-left">
 							Apartment details not entered 
 						</div>  
@@ -337,7 +337,7 @@ class ApartmentsView extends Marionette.ItemView
 					<!--<span class="label label-success"></span-->
 					<br><br>
 					<div class="details">
-                       	<div>
+						<div>
 							'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('measurement_units')+')
 						</div>
 						<div class="text-primary">
@@ -379,19 +379,19 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 						<div class="advncd-filter-wrp  unit-list">
 							<div class="legend clearfix">
 							  <ul>
-							    <li class="available">AVAILABLE</li>
-							    <li class="sold">SOLD</li>
-							    <li class="blocked">BLOCKED</li>
-							    <li class="na">N/A</li>
+								<li class="available">AVAILABLE</li>
+								<li class="sold">SOLD</li>
+								<li class="blocked">BLOCKED</li>
+								<li class="na">N/A</li>
 							  </ul>
 							 </div>
 							 <div> Sort Units by &nbsp;
-					         <input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="On View" data-off="All Units" data-onstyle="success" data-offstyle="warning">
-					         </div>
+							 <input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="On View" data-off="All Units" data-onstyle="success" data-offstyle="warning">
+							 </div>
 							
-              				<p class="text-center help-text">Hover on the units for more details</p>
-			               	<ul class="units one">
-		                	</ul>					                			
+							<p class="text-center help-text">Hover on the units for more details</p>
+							<ul class="units one">
+							</ul>					                			
 						</div>
 					</div>
 				</div>'
@@ -456,10 +456,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 										<div class="legend clearfix">
 										  <ul>
-										    <!--<li class="available">AVAILABLE</li>-->
-										    <li class="sold">N/A</li>
-										    <!--<li class="blocked">BLOCKED</li>
-										    <li class="na">Available</li>-->
+											<!--<li class="available">AVAILABLE</li>-->
+											<li class="sold">N/A</li>
+											<!--<li class="blocked">BLOCKED</li>
+											<li class="na">Available</li>-->
 										  </ul>
 										</div>
 
@@ -470,34 +470,34 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 										<div id="view_toggle" class="toggle-view-button list"></div>
 										<div id="trig" class="toggle-button hidden">List View</div>
-							              
-							            <div class=" master animated fadeIn">
-								            <div class="single-bldg">
-								                <div class="prev"></div>
-								                <div class="next"></div>
-								            </div>
-		              						
-		              						<div id="spritespin"></div>
+										  
+										<div class=" master animated fadeIn">
+											<div class="single-bldg">
+												<div class="prev"></div>
+												<div class="next"></div>
+											</div>
+											
+											<div id="spritespin"></div>
 											<div class="svg-maps">
 												<img class="first_image lazy-hidden img-responsive" />
 												<div class="region inactive"></div>
 											</div>
 
 											<div class="cf-loader hidden"></div>
-								    	</div>
+										</div>
 										
-							            <div class="rotate rotate-controls hidden">
-									        <div id="prev" class="rotate-left">Left</div>
-									        <span class="rotate-text">Rotate</span>
-									        <div id="next" class="rotate-right">Right</div>
-							    		</div>
+										<div class="rotate rotate-controls hidden">
+											<div id="prev" class="rotate-left">Left</div>
+											<span class="rotate-text">Rotate</span>
+											<div id="next" class="rotate-right">Right</div>
+										</div>
 
-							    		<div class="mini-map">
-							    			<img class="firstimage img-responsive" src=""/>
-							    			<div class="project_master"></div>
-							    		</div>
-							              
-							        </div>')
+										<div class="mini-map">
+											<img class="firstimage img-responsive" src=""/>
+											<div class="project_master"></div>
+										</div>
+										  
+									</div>')
 
 
 	ui :
@@ -571,8 +571,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			if unit is undefined && unitMaster != undefined
 				html = '<div class="svg-info">
 								<div class="action-bar2">
-						        <div class="txt-dft"></div>
-						    </div> 
+								<div class="txt-dft"></div>
+							</div> 
 							<h5 class="pull-left">
 								Not in selection
 							</div>  
@@ -582,8 +582,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			if unit is undefined
 				html = '<div class="svg-info">
 								<div class="action-bar2">
-						        <div class="txt-dft"></div>
-						    </div> 
+								<div class="txt-dft"></div>
+							</div> 
 							<h5 class="pull-left">
 								Apartment details not entered 
 							</div>  
@@ -628,9 +628,13 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				html += '</div>'
 			$('#'+id).attr('class' ,'layer apartment svg_active '+availability) 
 			$('#apartment'+id).addClass ' active'
-			$('.list-view-container').animate({
-		        scrollTop: $('#apartment'+id).offset().top
-		    }, 2000)
+			container = $('.list-view-container')
+			scrollTo = $('#apartment'+id)
+
+			container.animate({
+				scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop()
+			})
+			
 			# $('#apartment'+id).attr('class' ,' unit blocks '+availability+' active') 
 			$('.apartment').tooltipster('content', html)
 		

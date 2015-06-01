@@ -462,7 +462,7 @@
         return this.setDetailIndex(this.currentBreakPoint + 1);
       },
       'mouseover .apartment': function(e) {
-        var availability, html, id, price, response, unit, unitMaster;
+        var availability, container, html, id, price, response, scrollTo, unit, unitMaster;
         id = parseInt(e.target.id);
         unit = unitCollection.findWhere({
           'id': id
@@ -493,9 +493,11 @@
         }
         $('#' + id).attr('class', 'layer apartment svg_active ' + availability);
         $('#apartment' + id).addClass(' active');
-        $('list-view-container').animate({
-          scrollTop: $('#apartment' + id).offset().top
-        }, 2000);
+        container = $('.list-view-container');
+        scrollTo = $('#apartment' + id);
+        container.animate({
+          scrollTop: scrollTo.offset().top - container.offset().top + container.scrollTop()
+        });
         return $('.apartment').tooltipster('content', html);
       },
       'mouseout .apartment': function(e) {
