@@ -211,7 +211,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 	onShow:->
 		# if CommonFloor.router.history.length == 1
 		# 	@ui.unitBack.hide()
-		results  = CommonFloor.getFilters()[1]
+		results  = CommonFloor.getFilters()
 		if results.length == 0
 			$('.proj-type-count').text 'No results found'
 

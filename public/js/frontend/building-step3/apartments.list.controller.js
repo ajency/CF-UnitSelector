@@ -185,7 +185,7 @@
 
     TopApartmentView.prototype.onShow = function() {
       var results;
-      results = CommonFloor.getFilters()[1];
+      results = CommonFloor.getFilters();
       if (results.length === 0) {
         return $('.proj-type-count').text('No results found');
       }
