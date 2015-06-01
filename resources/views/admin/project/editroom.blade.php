@@ -74,7 +74,7 @@
                             <div class="p-t-8 p-t-10">
                                 <div class="col-xs-4">
                                     <input type="text" name="attribute_name_room[]" class="form-control" placeholder="Enter Attribute Name">
-                                    
+                                    <input type="hidden" name="attribute_id_room[]" value="">
 
                                 </div>
                                 <div class="col-xs-4">

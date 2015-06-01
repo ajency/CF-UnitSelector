@@ -164,7 +164,7 @@ class ProjectRoomTypeController extends Controller {
         $attributeNameArr = $request['attribute_name_room'];
         $controlTypeArr = $request['controltype_room'];
         $controlValueArr = (isset($request['controltypevalues_room'])) ? $request['controltypevalues_room'] : [];
-        $attributeIdArr = $request['attribute_id_room'];
+        $attributeIdArr = $request['attribute_id_room']; 
 
         if (!empty($attributeNameArr)) {
             foreach ($attributeNameArr as $key => $attributeName) {
