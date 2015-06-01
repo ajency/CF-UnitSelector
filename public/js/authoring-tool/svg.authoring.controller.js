@@ -2,7 +2,6 @@
   jQuery(document).ready(function($) {
     $('.area').canvasAreaDraw();
     window.draw = SVG('aj-imp-builder-drag-drop');
-    draw.viewbox(0, 0, 1600, 800);
     window.svgData = {
       'image': '',
       'data': [],
@@ -132,14 +131,16 @@
       });
     };
     window.resetCollection = function() {
-      console.log("test");
       $('.plot,.villa,.building,.marker-grp').each(function(index, value) {
-        var unit;
-        console.log(value.id);
-        unit = unitMasterCollection.findWhere({
-          'id': parseInt(value.id)
-        });
-        return unitCollection.remove(unit.get('id'));
+        var unit, unitID;
+        unitID = parseInt(value.id);
+        console.log(unitID);
+        if (unitID !== 0) {
+          unit = unitMasterCollection.findWhere({
+            'id': parseInt(value.id)
+          });
+          return unitCollection.remove(unit.get('id'));
+        }
       });
       return console.log(unitCollection);
     };
@@ -213,42 +214,59 @@
       ctx = canvas.getContext("2d");
       return ctx.clearRect(0, 0, canvas.width, canvas.height);
     };
+    window.resetTool = function() {
+      var canvas, ctx;
+      window.resetCollection();
+      $(".toggle").trigger('click');
+      $('.area').val("");
+      window.f = [];
+      $("form").trigger("reset");
+      $('#dynamice-region').empty();
+      $('#aj-imp-builder-drag-drop canvas').hide();
+      $('#aj-imp-builder-drag-drop svg').show();
+      $('.edit-box').addClass('hidden');
+      canvas = document.getElementById("c");
+      ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      return $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
+    };
     window.saveUnit = function() {
       var details, myObject, objectType;
       myObject = {};
       details = {};
       objectType = $('.property_type').val();
+      myObject['image_id'] = IMAGEID;
+      myObject['object_type'] = objectType;
+      myObject['canvas_type'] = window.canvas_type;
       if (objectType === "amenity") {
         myObject['object_id'] = 0;
       } else {
         myObject['object_id'] = $('.units').val();
       }
-      myObject['image_id'] = IMAGEID;
-      myObject['object_type'] = objectType;
       if (myObject['object_type'] === "amenity") {
         details['title'] = $('#amenity-title').val();
         details['description'] = $('#amenity-description').val();
+      } else {
+        details['class'] = 'layer ' + $('.property_type').val();
       }
       if (window.canvas_type === "concentricMarker") {
         myObject['points'] = window.markerPoints;
+        myObject['canvas_type'] = 'marker';
         details['cx'] = window.cx;
         details['cy'] = window.cy;
         details['innerRadius'] = window.innerRadius;
         details['outerRadius'] = window.outerRadius;
         details['marker_type'] = 'concentric';
-        myObject['canvas_type'] = 'marker';
       } else if (window.canvas_type === "solidMarker") {
         myObject['points'] = window.markerPoints;
+        myObject['canvas_type'] = 'marker';
         details['cx'] = window.cx;
         details['cy'] = window.cy;
         details['innerRadius'] = window.innerRadius;
         details['outerRadius'] = window.outerRadius;
         details['marker_type'] = 'solid';
-        myObject['canvas_type'] = 'marker';
       } else {
         myObject['points'] = $('.area').val().split(',');
-        details['class'] = 'layer ' + $('.property_type').val();
-        myObject['canvas_type'] = window.canvas_type;
       }
       myObject['other_details'] = details;
       return $.ajax({
@@ -260,12 +278,10 @@
         async: false,
         data: $.param(myObject),
         success: function(response) {
-          var value;
-          value = $('.area').val().split(',');
-          $('#Layer_1').remove();
-          $(".toggle").trigger('click');
           window.svgData.data.push(myObject);
-          return window.renderSVG();
+          window.resetTool();
+          draw.clear();
+          return window.generateSvg(window.svgData.data);
         },
         error: function(response) {
           return alert('Some problem occurred');
@@ -298,7 +314,7 @@
         });
       }
     };
-    window.showDetails = function(elem) {
+    window.showDetails = function(elem, object_type) {
       var select, unit;
       unit = unitMasterCollection.findWhere({
         'id': parseInt(elem.id)
@@ -423,6 +439,7 @@
       $('#aj-imp-builder-drag-drop canvas').hide();
       $('#aj-imp-builder-drag-drop svg').first().css("position", "relative");
       $('.edit-box').removeClass('hidden');
+      $('[rel=\'popover\']').popover('hide');
       return window.drawDefaultMarker(markerType);
     });
     $('.select-polygon').on('click', function(e) {
@@ -460,13 +477,13 @@
             $('.edit').removeClass('hidden');
             $('.delete').removeClass('hidden');
             window.loadForm(classElem);
-            return window.showDetails(currentElem);
+            return window.showDetails(currentElem, classElem);
           }
         };
       })(this));
     });
     $('svg').on('dblclick', '.marker-grp', function(e) {
-      var classElem, currentElem, currentSvgElem, cx, cy, draggableChildCircle, draggableElem, elemId;
+      var currentElem, currentSvgElem, cx, cy, draggableChildCircle, draggableElem, elemId, object_type;
       draggableElem = "";
       elemId = $(e.currentTarget).attr('id');
       currentSvgElem = $(e.currentTarget);
@@ -500,12 +517,12 @@
       };
       currentElem = e.currentTarget;
       $('.edit-box').removeClass('hidden');
-      classElem = $(currentElem).attr('type');
+      object_type = $(currentElem).attr('type');
       $('.submit').addClass('hidden');
       $('.edit').removeClass('hidden');
       $('.delete').removeClass('hidden');
-      window.loadForm(classElem);
-      return window.showDetails(currentElem);
+      window.loadForm(object_type);
+      return window.showDetails(currentElem, object_type);
     });
     $('.submit').on('click', function(e) {
       if ($('.property_type').val() === "") {
@@ -646,8 +663,10 @@
       });
     });
     return $('.btn-publish-svg').on('click', function(e) {
-      var data, postUrl, publishSvgOptions, svgExport;
+      var data, postUrl, publishSvgOptions, svgExport, viewboxDefault;
       e.preventDefault();
+      viewboxDefault = draw.viewbox();
+      draw.viewbox(0, 0, 1600, 800);
       svgExport = draw.exportSvg({
         exclude: function() {
           return this.data('exclude');
@@ -656,6 +675,9 @@
       });
       data = {};
       data['data'] = btoa(svgExport);
+      draw.viewbox(0, 0, viewboxDefault.width, viewboxDefault.height);
+      console.log(viewboxDefault.width);
+      console.log(viewboxDefault.height);
       postUrl = BASEURL + "/admin/project/" + PROJECTID + "/image/" + IMAGEID + "/downloadSvg";
       publishSvgOptions = {
         type: 'POST',

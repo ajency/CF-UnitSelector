@@ -13,7 +13,6 @@ jQuery(document).ready ($)->
 
     ########################### GLOBALS BEGIN ###########################
     window.draw = SVG('aj-imp-builder-drag-drop')
-    draw.viewbox(0, 0, 1600, 800)
     
     window.svgData = {
                     'image':''
@@ -52,10 +51,6 @@ jQuery(document).ready ($)->
                     rawSvg.appendChild tag
             if value.canvas_type is 'marker'
                 tag = window.marker.createMarkerTag(value)
-
-        
-        
-
 
 
     #function to create image tag
@@ -129,7 +124,6 @@ jQuery(document).ready ($)->
 
         units
 
-
     window.showPendingObjects = (data)->
         html = ''
         total = []
@@ -143,8 +137,6 @@ jQuery(document).ready ($)->
                 '<strong class="pull-right title-count"> Marked:</strong>'
         $('.pending').html html
 
-
-
     window.generatePropTypes = ()->
         types = window.svgData.supported_types
         select = $('.property_type')
@@ -153,17 +145,19 @@ jQuery(document).ready ($)->
             $('<option />', {value: value.toLowerCase(), text: value.toUpperCase()}).appendTo(select)
 
     window.resetCollection = ()->
-        console.log "test"
         $('.plot,.villa,.building,.marker-grp').each (index,value)->
-            console.log value.id
-            unit = unitMasterCollection.findWhere
-                    'id' : parseInt value.id
 
-            unitCollection.remove unit.get 'id'
+            unitID = parseInt value.id
+            console.log unitID
+            
+            if unitID isnt 0
+                unit = unitMasterCollection.findWhere
+                        'id' : parseInt value.id
+
+                unitCollection.remove unit.get 'id'
 
         console.log unitCollection
-
-        
+ 
     #api required to load second step
     window.loadJSONData = ()->
 
@@ -196,6 +190,10 @@ jQuery(document).ready ($)->
 
                 # #### CODE TO GENERATE SVG THROUGH RAW SVG STRING COMMENTED #### #
                 # window.createSvg(window.svgData.data)
+                # s = new XMLSerializer()
+                # str = s.serializeToString(rawSvg)
+                # draw.svg(str)
+                # #### CODE TO GENERATE SVG THROUGH RAW SVG STRING COMMENTED #### #
 
                 window.generatePropTypes()
 
@@ -203,16 +201,12 @@ jQuery(document).ready ($)->
 
                 window.showPendingObjects(types)
 
-                # s = new XMLSerializer()
-                # str = s.serializeToString(rawSvg)
-                # draw.svg(str)
-                # #### CODE TO GENERATE SVG THROUGH RAW SVG STRING COMMENTED #### #
-
                 # ### MODIFIED GENERATION OF SVG ### #
                 window.generateSvg(window.svgData.data)
                 # ### MODIFIED GENERATION OF SVG ### #
 
                 # window.store = draw.svg(rawSvg)
+
                 window.resetCollection()
                 
             error :(response)->
@@ -257,7 +251,23 @@ jQuery(document).ready ($)->
         canvas = document.getElementById("c")
         ctx= canvas.getContext("2d")
         ctx.clearRect( 0 , 0 , canvas.width, canvas.height )
-    
+
+    window.resetTool =()->
+        window.resetCollection()
+                
+        $(".toggle").trigger 'click'        
+        
+        $('.area').val("")
+        window.f = []
+        $("form").trigger("reset")
+        $('#dynamice-region').empty()
+        $('#aj-imp-builder-drag-drop canvas').hide()
+        $('#aj-imp-builder-drag-drop svg').show()
+        $('.edit-box').addClass 'hidden'
+        canvas = document.getElementById("c")
+        ctx= canvas.getContext("2d")
+        ctx.clearRect( 0 , 0 , canvas.width, canvas.height ) 
+        $('#aj-imp-builder-drag-drop svg').first().css("position","absolute")      
     
     window.saveUnit = ()->
         myObject  = {}
@@ -265,45 +275,44 @@ jQuery(document).ready ($)->
 
         objectType =  $('.property_type').val()
         
+        myObject['image_id'] = IMAGEID
+        myObject['object_type'] =  objectType
+        myObject['canvas_type'] =  window.canvas_type
 
+        # amenity v/s other unit types
         if objectType is "amenity"
             myObject['object_id'] = 0
         else
             myObject['object_id'] = $('.units').val()
-        
-        
-        myObject['image_id'] = IMAGEID
-        myObject['object_type'] =  objectType
+
 
         if myObject['object_type'] is "amenity"
             details['title'] = $('#amenity-title').val()
             details['description'] = $('#amenity-description').val()
+        else  
+           details['class'] = 'layer '+$('.property_type').val()         
         
-
+        # canvas_type differences i.e markers vs polygons
         if window.canvas_type is "concentricMarker" 
             myObject['points'] =  window.markerPoints
+            myObject['canvas_type'] =  'marker'
             details['cx'] = window.cx
             details['cy'] = window.cy
             details['innerRadius'] = window.innerRadius
             details['outerRadius'] = window.outerRadius
             details['marker_type'] = 'concentric'
-            myObject['canvas_type'] =  'marker'
 
         else if window.canvas_type is "solidMarker" 
             myObject['points'] =  window.markerPoints
+            myObject['canvas_type'] = 'marker'
             details['cx'] = window.cx
             details['cy'] = window.cy
             details['innerRadius'] = window.innerRadius
             details['outerRadius'] = window.outerRadius
             details['marker_type'] = 'solid'
-            myObject['canvas_type'] = 'marker'
 
         else
             myObject['points'] =  $('.area').val().split(',')
-            details['class'] = 'layer '+$('.property_type').val()
-            myObject['canvas_type'] =  window.canvas_type
-
-                    
 
         myObject['other_details'] =  details        
 
@@ -314,26 +323,19 @@ jQuery(document).ready ($)->
             async : false
             data : $.param myObject 
             success :(response)->
-
-                value =  $('.area').val().split(',')
-                $('#Layer_1').remove()
-                # details = {}
-                # details['class'] = 'layer '+$('.property_type').val()
-                # childEle = {} 
-                # childEle['id'] = $('.units').val()
-                # childEle['name'] = $(".units option:selected").text()
-                # childEle['object_type'] = $('.property_type').val()
-                # childEle['points'] = value
-                # childEle['other_details'] = details
-                # childEle['canvas_type'] = window.canvas_type
-                $(".toggle").trigger 'click'
         
                 window.svgData.data.push myObject
-                window.renderSVG()
+
+                window.resetTool()
+
+                # clear svg 
+                draw.clear()
+
+                # re-generate svg with new svg element
+                window.generateSvg(window.svgData.data)
                 
             error :(response)->
                 alert('Some problem occurred')
-
 
     window.loadForm = (type)->
         if type is 'villa'
@@ -346,7 +348,7 @@ jQuery(document).ready ($)->
             @region =  new Marionette.Region el : '#dynamice-region'
             new AuthoringTool.AmenityCtrl region : @region
 
-    window.showDetails = (elem)->
+    window.showDetails = (elem,object_type)->
         unit = unitMasterCollection.findWhere
                 'id' : parseInt elem.id
         $('.property_type').val $(elem).attr 'type'
@@ -357,8 +359,7 @@ jQuery(document).ready ($)->
         $('.units').val elem.id
         $('.units').show()
         
-        
-
+ 
     window.hideAlert = ()->
         $('.alert').show()
         $('.alert-box').delay(1000).queue( (next)->
@@ -493,6 +494,9 @@ jQuery(document).ready ($)->
             $('#aj-imp-builder-drag-drop svg').first().css("position","relative")
             $('.edit-box').removeClass 'hidden'
 
+            # hide marker options
+            $('[rel=\'popover\']').popover('hide')
+
             window.drawDefaultMarker(markerType)            
             
 
@@ -535,7 +539,7 @@ jQuery(document).ready ($)->
                     $('.edit').removeClass 'hidden'
                     $('.delete').removeClass 'hidden'
                     window.loadForm(classElem)
-                    window.showDetails(currentElem)
+                    window.showDetails(currentElem,classElem)
                             
     
     $('svg').on 'dblclick', '.marker-grp' , (e) ->
@@ -582,14 +586,14 @@ jQuery(document).ready ($)->
             
         # show edit form
         $('.edit-box').removeClass 'hidden'
-        classElem = $(currentElem).attr('type')
+        object_type = $(currentElem).attr('type')
         $('.submit').addClass 'hidden'
         $('.edit').removeClass 'hidden'
         $('.delete').removeClass 'hidden'
-        window.loadForm(classElem)  
+        window.loadForm(object_type)  
         
         # populate form
-        window.showDetails(currentElem)         
+        window.showDetails(currentElem,object_type)         
         
 
 
@@ -730,7 +734,14 @@ jQuery(document).ready ($)->
 
     # on click of publish
     $('.btn-publish-svg').on 'click' , (e)->
-        e.preventDefault()  
+        e.preventDefault() 
+
+        # get svg tools viewbox height and width
+        viewboxDefault = draw.viewbox()
+
+        # add viewbox of 1600*800 at the time of publish
+        draw.viewbox(0, 0, 1600, 800) 
+        
         svgExport = draw.exportSvg(
           exclude: ->
             @data 'exclude'
@@ -738,6 +749,11 @@ jQuery(document).ready ($)->
 
         data = {}
         data['data'] = btoa(svgExport)
+
+        # restore original viewbox
+        draw.viewbox(0, 0, viewboxDefault.width, viewboxDefault.height)
+        console.log viewboxDefault.width
+        console.log viewboxDefault.height
 
         postUrl = "#{BASEURL}/admin/project/#{PROJECTID}/image/#{IMAGEID}/downloadSvg"
 
@@ -749,6 +765,12 @@ jQuery(document).ready ($)->
           async: false
 
         $.ajax(publishSvgOptions)
+            # .done (resp, textStatus ,xhr) =>
+            #     console.log "success"
+
+            # .fail (xhr, textStatus, errorThrown) =>
+            #     console.log "fail"
+                         
    
     # $('#save-svg-elem').on 'click', (e) ->
     #   console.log "click save-svg-elem"
