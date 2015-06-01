@@ -302,10 +302,11 @@
       'click': function(e) {
         var breakpoint, data, spin;
         if ($(e.currentTarget).hasClass('onview')) {
-          breakpoint = 10;
+          breakpoint = 1;
           spin = $('#spritespin');
           data = $("#spritespin").spritespin({}).data("spritespin");
-          data.stopFrame = breakpoint;
+          data.stopFrame = 1;
+          SpriteSpin.updateFrame(data);
           return api.playTo(breakpoint, {
             nearest: true
           });

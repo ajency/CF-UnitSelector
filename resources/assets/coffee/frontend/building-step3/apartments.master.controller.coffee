@@ -304,10 +304,11 @@ class ApartmentsView extends Marionette.ItemView
 
 		'click':(e)->
 			if $(e.currentTarget).hasClass 'onview'
-				breakpoint = 10
+				breakpoint = 1
 				spin = $('#spritespin')
 				data = $("#spritespin").spritespin({}).data("spritespin")
-				data.stopFrame = breakpoint
+				data.stopFrame = 1
+				SpriteSpin.updateFrame(data)
 				api.playTo(breakpoint, 
 					nearest: true
 				)
