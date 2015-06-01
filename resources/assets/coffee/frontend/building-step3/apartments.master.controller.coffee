@@ -1,4 +1,6 @@
 api = ""
+currentBreakPoint = 0
+breakPoints = []
 class CommonFloor.ApartmentsMasterView extends Marionette.LayoutView
 
 	template : '#project-view-template'
@@ -305,10 +307,11 @@ class ApartmentsView extends Marionette.ItemView
 		'click':(e)->
 			if $(e.currentTarget).hasClass 'onview'
 				breakpoint = 10
-				spin = $('#spritespin')
-				data = $("#spritespin").spritespin({}).data("spritespin")
-				data.stopFrame = 10
-				SpriteSpin.updateFrame(data)
+				currentBreakPoint =  _.indexOf(breakPoints,breakpoint)
+				# spin = $('#spritespin')
+				# data = $("#spritespin").spritespin({}).data("spritespin")
+				# data.stopFrame = 10
+				# SpriteSpin.updateFrame(data)
 				api.playTo(breakpoint, 
 					nearest: true
 				)
@@ -347,7 +350,7 @@ class ApartmentsView extends Marionette.ItemView
 						<div class="apartment"></div>
 					</div>
 
-					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' ( Area - '+response[0].get('super_built_up_area')+' '+project.get('measurement_units')+')</h5>
+					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
 
 
 					<!--<span class="label label-success"></span-->
@@ -528,9 +531,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		viewtog      : '#view_toggle'
 
 	
-	initialize:->
-		@currentBreakPoint = 0
-		@breakPoints = []
+	# initialize:->
+	# 	currentBreakPoint = 0
+	# 	breakPoints = []
 		
 
 	events:
@@ -565,10 +568,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('.us-right-content').toggleClass 'not-visible visible'
 			
 		'click #prev':->
-			@setDetailIndex(@currentBreakPoint - 1)
+			@setDetailIndex(currentBreakPoint - 1)
 
 		'click #next':->
-			@setDetailIndex(@currentBreakPoint + 1)
+			@setDetailIndex(currentBreakPoint + 1)
 
 		# 'click .list':(e)->
 		# 	e.preventDefault()
@@ -623,9 +626,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 							<div class="apartment"></div>
 						</div>
 
-						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+' ( Area - '+response[0].get('super_built_up_area')+' '+project.get('measurement_units')+')</h5>
+						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
 
-
+						<br><br>
 						<!--<span class="label label-success"></span-->
 						<div class="details">
 							<div>
@@ -764,8 +767,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 	loadProjectMaster:->
 		svgs = []
-		breakpoints = project.get('breakpoints')
-		$.each breakpoints,(index,value)->
+		masterbreakpoints = project.get('breakpoints')
+		$.each masterbreakpoints,(index,value)->
 			svgs[value] = BASEURL+'/projects/'+PROJECTID+'/master/master-'+value+'.svg'
 
 		
@@ -774,7 +777,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$.merge transitionImages ,  project.get('project_master')
 		if project.get('project_master').length != 0
 			$('.project_master').load(first[0],()->
-				$('.firstimage').attr('src',transitionImages[breakpoints[0]])
+				$('.firstimage').attr('src',transitionImages[masterbreakpoints[0]])
 				url = Backbone.history.fragment
 				building_id = url.split('/')[1]
 				$('.villa,.plot').each (ind,item)->
@@ -804,14 +807,14 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 	setDetailIndex:(index)->
 		$('.region').empty()
 		$('.region').addClass('inactive').removeClass('active')
-		@currentBreakPoint = index;
-		if (@currentBreakPoint < 0) 
-			@currentBreakPoint = @breakPoints.length - 1
+		currentBreakPoint = index;
+		if (currentBreakPoint < 0) 
+			currentBreakPoint = breakPoints.length - 1
 		
-		if (@currentBreakPoint >= @breakPoints.length) 
-			@currentBreakPoint = 0
+		if (currentBreakPoint >= breakPoints.length) 
+			currentBreakPoint = 0
 		
-		api.playTo(@breakPoints[@currentBreakPoint], 
+		api.playTo(breakPoints[currentBreakPoint], 
 			nearest: true
 		)
 
@@ -819,8 +822,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		frames = transitionImages
-		@breakPoints = building.get 'breakpoints'
-		@currentBreakPoint = 0
+		breakPoints = building.get 'breakpoints'
+		currentBreakPoint = 0
 		width = @ui.svgContainer.width() + 20
 		$('.svg-maps > div').first().removeClass('inactive').addClass('active').css('width',width);
 		spin = $('#spritespin')

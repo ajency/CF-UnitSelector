@@ -1,9 +1,13 @@
 (function() {
-  var ApartmentsView, api,
+  var ApartmentsView, api, breakPoints, currentBreakPoint,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
   api = "";
+
+  currentBreakPoint = 0;
+
+  breakPoints = [];
 
   CommonFloor.ApartmentsMasterView = (function(superClass) {
     extend(ApartmentsMasterView, superClass);
@@ -300,13 +304,10 @@
         return $('#' + id).tooltipster('hide');
       },
       'click': function(e) {
-        var breakpoint, data, spin;
+        var breakpoint;
         if ($(e.currentTarget).hasClass('onview')) {
           breakpoint = 10;
-          spin = $('#spritespin');
-          data = $("#spritespin").spritespin({}).data("spritespin");
-          data.stopFrame = 10;
-          SpriteSpin.updateFrame(data);
+          currentBreakPoint = _.indexOf(breakPoints, breakpoint);
           return api.playTo(breakpoint, {
             nearest: true
           });
@@ -335,7 +336,7 @@
       availability = unit.get('availability');
       availability = s.decapitalize(availability);
       html = "";
-      html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + ' ( Area - ' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + ')</h5> <!--<span class="label label-success"></span--> <br><br> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + ') </div> <div class="text-primary"> <span class="icon-rupee-icn"></span>' + price + '</div> </div>';
+      html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <!--<span class="label label-success"></span--> <br><br> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + ') </div> <div class="text-primary"> <span class="icon-rupee-icn"></span>' + price + '</div> </div>';
       if (availability === 'available') {
         html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
       } else {
@@ -462,21 +463,16 @@
       viewtog: '#view_toggle'
     };
 
-    CenterApartmentMasterView.prototype.initialize = function() {
-      this.currentBreakPoint = 0;
-      return this.breakPoints = [];
-    };
-
     CenterApartmentMasterView.prototype.events = {
       'click @ui.viewtog': function(e) {
         $('.us-left-content').toggleClass('not-visible visible');
         return $('.us-right-content').toggleClass('not-visible visible');
       },
       'click #prev': function() {
-        return this.setDetailIndex(this.currentBreakPoint - 1);
+        return this.setDetailIndex(currentBreakPoint - 1);
       },
       'click #next': function() {
-        return this.setDetailIndex(this.currentBreakPoint + 1);
+        return this.setDetailIndex(currentBreakPoint + 1);
       },
       'mouseover .apartment': function(e) {
         var availability, html, id, price, response, unit, unitMaster;
@@ -502,7 +498,7 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + ' ( Area - ' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + ')</h5> <!--<span class="label label-success"></span--> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + ') </div> <div class="text-primary"> <span class="icon-rupee-icn"></span>' + price + '</div> </div>';
+        html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br><br> <!--<span class="label label-success"></span--> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + ') </div> <div class="text-primary"> <span class="icon-rupee-icn"></span>' + price + '</div> </div>';
         if (availability === 'available') {
           html += '<a href="#unit-view/' + id + '" class="view-unit"> <div class="circle"> <span class="arrow-up icon-chevron-right"></span> </div> </a> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
         } else {
@@ -611,10 +607,10 @@
     };
 
     CenterApartmentMasterView.prototype.loadProjectMaster = function() {
-      var breakpoints, first, svgs, transitionImages;
+      var first, masterbreakpoints, svgs, transitionImages;
       svgs = [];
-      breakpoints = project.get('breakpoints');
-      $.each(breakpoints, function(index, value) {
+      masterbreakpoints = project.get('breakpoints');
+      $.each(masterbreakpoints, function(index, value) {
         return svgs[value] = BASEURL + '/projects/' + PROJECTID + '/master/master-' + value + '.svg';
       });
       first = _.values(svgs);
@@ -623,7 +619,7 @@
       if (project.get('project_master').length !== 0) {
         return $('.project_master').load(first[0], function() {
           var building_id, url;
-          $('.firstimage').attr('src', transitionImages[breakpoints[0]]);
+          $('.firstimage').attr('src', transitionImages[masterbreakpoints[0]]);
           url = Backbone.history.fragment;
           building_id = url.split('/')[1];
           $('.villa,.plot').each(function(ind, item) {
@@ -661,14 +657,14 @@
     CenterApartmentMasterView.prototype.setDetailIndex = function(index) {
       $('.region').empty();
       $('.region').addClass('inactive').removeClass('active');
-      this.currentBreakPoint = index;
-      if (this.currentBreakPoint < 0) {
-        this.currentBreakPoint = this.breakPoints.length - 1;
+      currentBreakPoint = index;
+      if (currentBreakPoint < 0) {
+        currentBreakPoint = breakPoints.length - 1;
       }
-      if (this.currentBreakPoint >= this.breakPoints.length) {
-        this.currentBreakPoint = 0;
+      if (currentBreakPoint >= breakPoints.length) {
+        currentBreakPoint = 0;
       }
-      return api.playTo(this.breakPoints[this.currentBreakPoint], {
+      return api.playTo(breakPoints[currentBreakPoint], {
         nearest: true
       });
     };
@@ -678,8 +674,8 @@
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
       frames = transitionImages;
-      this.breakPoints = building.get('breakpoints');
-      this.currentBreakPoint = 0;
+      breakPoints = building.get('breakpoints');
+      currentBreakPoint = 0;
       width = this.ui.svgContainer.width() + 20;
       $('.svg-maps > div').first().removeClass('inactive').addClass('active').css('width', width);
       spin = $('#spritespin');
