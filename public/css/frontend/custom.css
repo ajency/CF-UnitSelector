@@ -2872,6 +2872,9 @@ span.glyphicon {
     height: 100vh;
     opacity: 0;
   }
+  .filters-wrapper-hover:hover {
+    opacity: 0;
+  }
   .filters-wrapper-hover.visible {
     left: 0;
     width: 100vw !important;
@@ -2879,12 +2882,14 @@ span.glyphicon {
     background-color: #ebebeb;
   }
   .filters-wrapper-hover.visible .back_btn {
+    left: 0;
     font-size: 15px;
     display: block;
     color: #262626;
   }
-  .filters-wrapper-hover.visible .back_btn .icon:after {
+  .filters-wrapper-hover.visible .back_btn .icon:before {
     content: "\e761";
+    font: icomoon;
   }
 }
 #flexiselDemo1,

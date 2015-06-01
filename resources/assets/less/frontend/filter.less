@@ -444,6 +444,9 @@ visibility:visible;
       width: 0 !important;
       height: 100vh;
       opacity:0;
+      &:hover{
+        opacity: 0;
+      }
 
   }
   .filters-wrapper-hover.visible{
@@ -452,15 +455,17 @@ visibility:visible;
     padding: 30px 15px 15px;
     background-color: rgba(235, 235, 235, 1);
     .back_btn{
-        font-size: 15px;
-        display: block;
-        color: @gray-darker;
-        .icon{
-          &:after{
-            content: "\e761";
-          }
+      left: 0;
+      font-size: 15px;
+      display: block;
+      color: @gray-darker;
+      .icon{
+        &:before{
+          content: "\e761";
+          font: icomoon;
         }
       }
+    }
   }
 
 }

@@ -496,10 +496,10 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		if CommonFloor.defaults['common']['availability'] != "" 
 			 @ui.status.prop('checked',true)
 
-		if window.flag1 == 0
-			$('.fliters-container').removeClass 'closed'
-		else
-			$('.fliters-container').addClass 'closed'
+		# if window.flag1 == 0
+		# 	$('.fliters-container').removeClass 'closed'
+		# else
+		# 	$('.fliters-container').addClass 'closed'
 		
 	
 
