@@ -9,7 +9,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 
 	template : Handlebars.compile('<a href="javascript:void(0)"  class="text-primary filters-clear clear">Clear Filters </a>
 										<button class="btn btn-primary filter-button" type="button">
-											<span class="icon-place"></span>											
+											<span class="icon"></span>											
 										</button>
 										<div class="filters-wrapper">
 										  	<div class="filters-content">
