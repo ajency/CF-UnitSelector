@@ -1,5 +1,8 @@
 <div id="addFloorlevel"> 
-               <button type="button" class="btn btn-small btn-default pull-right m-r-25 add_level" ><i class="fa fa-plus"></i> Add New Level</button>
+     <div class="m-l-5 no-border">
+            <button type="button" class="btn btn-small btn-default pull-right m-r-25 add_level" ><i class="fa fa-plus"></i> Add New Level</button>
+            <h3><i class="fa fa-angle-double-right text-primary"></i> Room <span class="semi-bold">Details</span></h3>
+    </div>
                 
 
                 @foreach($variantRooms as $level=>$roomTypes)
