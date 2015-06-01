@@ -386,6 +386,26 @@
     if (CommonFloor.defaults['type'] !== "") {
       flag = 1;
     }
+    $.each(CommonFloor.defaults['apartment'], function(index, value) {
+      if (value !== "") {
+        return flag = 1;
+      }
+    });
+    $.each(CommonFloor.defaults['plot'], function(index, value) {
+      if (value !== "") {
+        return flag = 1;
+      }
+    });
+    $.each(CommonFloor.defaults['villa'], function(index, value) {
+      if (value !== "") {
+        return flag = 1;
+      }
+    });
+    $.each(CommonFloor.defaults['common'], function(index, value) {
+      if (value !== "") {
+        return flag = 1;
+      }
+    });
     if (flag === 0) {
       $('.villa,.plot,.apartment').each(function(ind, item) {
         var id;
@@ -1099,7 +1119,6 @@
     temp = [];
     temp = CommonFloor.filterApartments();
     $.merge(collection, temp);
-    console.log(collection);
     unitCollection.reset(collection);
     if (CommonFloor.defaults['common']['price_max'] !== "") {
       CommonFloor.filterBudget();

@@ -362,6 +362,18 @@ CommonFloor.applyNonFilterClass = ()->
 	flag = 0
 	if CommonFloor.defaults['type']  != ""
 				flag = 1
+	$.each CommonFloor.defaults['apartment'],(index,value)->
+		if value  != ""
+			flag = 1
+	$.each CommonFloor.defaults['plot'],(index,value)->
+		if value  != ""
+			flag = 1
+	$.each CommonFloor.defaults['villa'],(index,value)->
+		if value  != ""
+			flag = 1
+	$.each CommonFloor.defaults['common'],(index,value)->
+		if value  != ""
+			flag = 1
 
 	if flag == 0
 		$('.villa,.plot,.apartment').each (ind,item)->
@@ -994,7 +1006,6 @@ CommonFloor.filterStepNew = ()->
 	
 	temp = CommonFloor.filterApartments()
 	$.merge collection , temp
-	console.log collection
 	unitCollection.reset collection
 	if CommonFloor.defaults['common']['price_max'] != ""
 		CommonFloor.filterBudget()
