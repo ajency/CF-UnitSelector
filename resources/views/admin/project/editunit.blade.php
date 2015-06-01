@@ -110,7 +110,135 @@
                         </div>
                         @endforeach 
                 </div>
-            
+             <hr>
+           <div class="m-l-5 no-border">
+            <h3><i class="fa fa-angle-double-right text-primary"></i> Project<span class="semi-bold"> Views</span></h3>
+        </div>
+        <div class="row m-b-5">
+        <div class="col-md-3">
+        <div class="checkbox check-primary" >
+                        <input type="checkbox" id="checkbox1" aria-label="...">
+                        <label for="checkbox1">Garden</label>
+        </div>
+        </div>
+        <div class="col-md-3">
+        <div class="checkbox check-primary" >
+                        <input type="checkbox" id="checkbox2" aria-label="...">
+                        <label for="checkbox2">Swimming Pool</label>
+        </div>
+        </div>
+        <div class="col-md-3">
+        <div class="checkbox check-primary" >
+                        <input type="checkbox" id="checkbox3" aria-label="...">
+                        <label for="checkbox3">Play Area</label>
+        </div>
+        </div>
+        <div class="col-md-3">
+        <div class="checkbox check-primary" >
+                        <input type="checkbox" id="checkbox4" aria-label="...">
+                        <label for="checkbox4">Health Facilities</label>
+        </div>
+        </div>
+        </div>
+        <div class="row m-b-5">
+        <div class="col-md-3">
+        <div class="checkbox check-primary" >
+                        <input type="checkbox" id="checkbox5" aria-label="...">
+                        <label for="checkbox5">Recreation Facilities</label>
+        </div>
+        </div>
+        <div class="col-md-3">
+        <div class="checkbox check-primary" >
+                        <input type="checkbox" id="checkbox6" aria-label="...">
+                        <label for="checkbox6">Security</label>
+        </div>
+        </div>
+        <div class="col-md-3">
+        <div class="checkbox check-primary" >
+                        <input type="checkbox" id="checkbox7" aria-label="...">
+                        <label for="checkbox7">Intercom</label>
+        </div>
+        </div>
+        <div class="col-md-3">
+        <div class="checkbox check-primary" >
+                        <input type="checkbox" id="checkbox8" aria-label="...">
+                        <label for="checkbox8">Club House</label>
+        </div>
+        </div>
+        </div>
+        <div class="row m-b-5">
+        <div class="col-md-3">
+        <div class="checkbox check-primary" >
+                        <input type="checkbox" id="checkbox9" aria-label="...">
+                        <label for="checkbox9">Rain Water Harvesting</label>
+        </div>
+        </div>
+        <div class="col-md-3">
+        <div class="checkbox check-primary" >
+                        <input type="checkbox" id="checkbox10" aria-label="...">
+                        <label for="checkbox10">Cafeteria</label>
+        </div>
+        </div>
+        <div class="col-md-3">
+        <div class="checkbox check-primary" >
+                        <input type="checkbox" id="checkbox12" aria-label="...">
+                        <label for="checkbox12">Library</label>
+        </div>
+        </div>
+        <div class="col-md-3">
+        <div class="checkbox check-primary" >
+                        <input type="checkbox" id="checkbox13" aria-label="...">
+                        <label for="checkbox13">Tennis Court</label>
+        </div>
+        </div>
+        </div>
+           <div class="row m-b-5">
+        <div class="col-md-3">
+        <div class="checkbox check-primary" >
+                        <input type="checkbox" id="checkbox14" aria-label="...">
+                        <label for="checkbox14">Badminton Court</label>
+        </div>
+        </div>
+        <div class="col-md-3">
+        <div class="checkbox check-primary" >
+                        <input type="checkbox" id="checkbox15" aria-label="...">
+                        <label for="checkbox15">Gymnasium</label>
+        </div>
+        </div>
+        <div class="col-md-3">
+        <div class="checkbox check-primary" >
+                        <input type="checkbox" id="checkbox16" aria-label="...">
+                        <label for="checkbox16">Bank</label>
+        </div>
+        </div>
+        <div class="col-md-3">
+        <div class="checkbox check-primary" >
+                        <input type="checkbox" id="checkbox17" aria-label="...">
+                        <label for="checkbox17">Atm</label>
+        </div>
+        </div>
+        </div>
+          <div class="row m-b-5">
+        <div class="col-md-3">
+        <div class="checkbox check-primary" >
+                        <input type="checkbox" id="checkbox18" aria-label="...">
+                        <label for="checkbox18">Indoor Games</label>
+        </div>
+        </div>
+        <div class="col-md-3">
+        <div class="checkbox check-primary" >
+                        <input type="checkbox" id="checkbox19" aria-label="...">
+                        <label for="checkbox19">Basket Ball Court</label>
+        </div>
+        </div>
+        <div class="col-md-3">
+        <div class="checkbox check-primary" >
+                        <input type="checkbox" id="checkbox20" aria-label="...">
+                        <label for="checkbox20">Community Hall</label>
+        </div>
+        </div>
+       
+        </div>
 
 
             <div class="form-actions">  
