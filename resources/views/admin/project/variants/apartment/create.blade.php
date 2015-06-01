@@ -222,7 +222,7 @@
                                     <div class="grid-title">
                                         <h4>Level 1</h4>
                                         <input type="hidden" value="1" name="levels[]">
-                                        <input style="float:right" type="button" value="Delete Level" class="" onclick="deleteLevel({{ $level }});">
+                                        <input style="float:right" type="button" value="Delete Level" class="" onclick="deleteLevel(1);">
                                     </div>
                                     <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4>
                                         <div class="row">
