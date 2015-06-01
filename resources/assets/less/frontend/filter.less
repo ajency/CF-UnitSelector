@@ -4,7 +4,7 @@
   left: 20px;
   top: 125px;
   padding: 0;
-  overflow: hidden;
+  // overflow: hidden;
   transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
   background-color: fade(@white, 90%);
   width: 340px;
@@ -49,9 +49,8 @@
     height: 100vh;
     background-color: @white;
     &.closed{
-      right: 15px;
+      left: 15px;
       top: 75px;
-      left: auto;
     }
     .filter-button{
       font-size: 20px;
@@ -333,8 +332,8 @@ span.glyphicon {
     position: absolute;
   }
 .filters-wrapper-hover {
-  left: 360px;
-  top: 125px;
+  left: 338px;
+  top: 0;
   width: 0px;
   visibility:hidden;
   opacity:0;

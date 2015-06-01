@@ -1320,6 +1320,8 @@ hr.embossed {
 @media (max-width: 767px) {
   .zoom-controls {
     top: 15px;
+    right: 15px;
+    left: auto;
     bottom: initial;
   }
   .zoom-controls .zoom-in:hover,
@@ -1981,6 +1983,12 @@ svg polygon {
   display: none;
   font-weight: bold;
 }
+.one.apartments .row .col-xs-4,
+.one.apartments .row .col-xs-3,
+.one.apartments .row .col-xs-5 {
+  padding-left: 8px;
+  padding-right: 8px;
+}
 @media (max-width: 767px) {
   .blocks {
     width: 49.2%;
@@ -2481,7 +2489,6 @@ svg polygon {
   left: 20px;
   top: 125px;
   padding: 0;
-  overflow: hidden;
   -webkit-transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
           transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
   background-color: rgba(255, 255, 255, 0.9);
@@ -2525,9 +2532,8 @@ svg polygon {
     background-color: #ffffff;
   }
   .fliters-container.closed {
-    right: 15px;
+    left: 15px;
     top: 75px;
-    left: auto;
   }
   .fliters-container .filter-button {
     font-size: 20px;
@@ -2776,8 +2782,8 @@ span.glyphicon {
   position: absolute;
 }
 .filters-wrapper-hover {
-  left: 360px;
-  top: 125px;
+  left: 338px;
+  top: 0;
   width: 0px;
   visibility: hidden;
   opacity: 0;

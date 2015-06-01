@@ -68,7 +68,9 @@
 
 <script id="project-view-template" type="text/template">
     <div ui-region="top" id="topregion" class="us-header a"></div>
-    <div ui-region="filter" id="filterregion" class="filters-area c"></div>
+    <div class="fliters-container closed" id="collapsefilters">
+      <div ui-region="filter" id="filterregion" class="filters-area c"></div>
+    </div>
     <div class="container-fluid top-spacing">
       <div class="row">
         <div class="list-container closed us-left-content mobile not-visible c">

@@ -245,18 +245,18 @@ class CommonFloor.TopApartmentMasterCtrl extends Marionette.RegionController
 class ApartmentsView extends Marionette.ItemView
 
 	template : Handlebars.compile('	<div class="row">
+										<div class="col-xs-5  info">
+											<b class="bold">{{floor}}</b>-{{unit_name}} 
+									  	</div>  
 
-										  <div class="col-xs-4  info">
-											<b class="bold">{{floor}}</b> - {{unit_name}} 
-									  </div>  
-
-										  <div class="col-xs-3  info">
-												{{unit_type}}
-										  </div> 
-										   <div class="col-xs-5 text-primary">
-											  <span class="icon-rupee-icn"></span>{{price}} <!--<span class="tick"></span>-->
-										  </div> 
-									  </div>')
+										<div class="col-xs-3  info">
+											{{unit_type}}
+										</div> 
+										
+										<div class="col-xs-4 text-primary">
+											<span class="icon-rupee-icn"></span>{{price}} <!--<span class="tick"></span>-->
+										</div> 
+									</div>')
 
 	initialize:->
 		@$el.prop("id", 'apartment'+@model.get("id"))
@@ -386,11 +386,11 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 							  </ul>
 							 </div>
 							 <div class="sort-unit"> Sort Units by &nbsp;
-							 <input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="On View" data-off="All Units" data-onstyle="warning" data-offstyle="warning">
+							 <input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="In View" data-off="All Units" data-onstyle="warning" data-offstyle="warning">
 							 </div>
 							
 							<p class="text-center help-text">Hover on the units for more details</p>
-							<ul class="units one">
+							<ul class="units one apartments">
 							</ul>					                			
 						</div>
 					</div>

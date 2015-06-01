@@ -309,7 +309,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		@loadSelectedFilters()
 
 		$('.filters-content').mCustomScrollbar
-			theme: 'inset'
+			theme: 'cf-scroll'
 		budget = []
 		area = []
 		url = Backbone.history.fragment

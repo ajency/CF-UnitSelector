@@ -7,7 +7,7 @@ window.area = ''
 window.type  = []
 class CommonFloor.FilterMsterView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="fliters-container " id="collapsefilters">
+	template : Handlebars.compile('
          <a href="javascript:void(0)" class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button" type="button"> <span class="icon-place"></span> </button> 
          <div class="filters-wrapper">
             <div class="filters-content">
@@ -140,8 +140,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		  </div>
 		   {{/flooring}}
 
-		  {{/plots}}</div></div>
-</div>')
+		  {{/plots}}</div></div>')
 
 
 	
@@ -401,10 +400,9 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			
 
 		'click .filter-button':(e)->
-			window.flag = 0
 			$('.fliters-container').toggleClass 'closed'
-			if $('.fliters-container').hasClass( "closed")
-				window.flag = 1
+			# if $('.fliters-container').hasClass( "closed")
+			# 	window.flag = 1
 
 		'click .back_btn': (e)->
 			$('.filters-wrapper-hover').removeClass 'visible'
@@ -589,8 +587,8 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 		types = Marionette.getOption(@,'types')
 		
-		if types.length == 1
-			$('.property_type').hide()
+		# if types.length == 1
+		# 	$('.property_type').hide()
 		# if Marionette.getOption(@,'flooring').length == 0
 		# 	$('.flooring_filter').hide()
 		# if Marionette.getOption(@,'unitTypes').length == 0
@@ -741,13 +739,13 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		if CommonFloor.defaults['common']['availability'] != "" 
 			 @ui.status.prop('checked',true)
 
-		res = CommonFloor.getFilters()
-		if Object.keys(res).length == 0
-			window.flag = 1
-		if window.flag == 0
-			$('.fliters-container').removeClass 'closed'
-		else
-			$('.fliters-container').addClass 'closed'
+		# res = CommonFloor.getFilters()
+		# if Object.keys(res).length == 0
+		# 	window.flag = 1
+		# if window.flag == 0
+		# 	$('.fliters-container').removeClass 'closed'
+		# else
+		# 	$('.fliters-container').addClass 'closed'
 		
 
 

@@ -249,7 +249,7 @@
       return ApartmentsView.__super__.constructor.apply(this, arguments);
     }
 
-    ApartmentsView.prototype.template = Handlebars.compile('	<div class="row"> <div class="col-xs-4  info"> <b class="bold">{{floor}}</b> - {{unit_name}} </div> <div class="col-xs-3  info"> {{unit_type}} </div> <div class="col-xs-5 text-primary"> <span class="icon-rupee-icn"></span>{{price}} <!--<span class="tick"></span>--> </div> </div>');
+    ApartmentsView.prototype.template = Handlebars.compile('	<div class="row"> <div class="col-xs-5  info"> <b class="bold">{{floor}}</b>-{{unit_name}} </div> <div class="col-xs-3  info"> {{unit_type}} </div> <div class="col-xs-4 text-primary"> <span class="icon-rupee-icn"></span>{{price}} <!--<span class="tick"></span>--> </div> </div>');
 
     ApartmentsView.prototype.initialize = function() {
       return this.$el.prop("id", 'apartment' + this.model.get("id"));
@@ -349,7 +349,7 @@
       return LeftApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftApartmentMasterView.prototype.template = '<div> <div id="trig" class="toggle-button"></div> <div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeInLeft"> <div class="advncd-filter-wrp  unit-list"> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <div class="sort-unit"> Sort Units by &nbsp; <input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="On View" data-off="All Units" data-onstyle="warning" data-offstyle="warning"> </div> <p class="text-center help-text">Hover on the units for more details</p> <ul class="units one"> </ul> </div> </div> </div>';
+    LeftApartmentMasterView.prototype.template = '<div> <div id="trig" class="toggle-button"></div> <div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeInLeft"> <div class="advncd-filter-wrp  unit-list"> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <div class="sort-unit"> Sort Units by &nbsp; <input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="In View" data-off="All Units" data-onstyle="warning" data-offstyle="warning"> </div> <p class="text-center help-text">Hover on the units for more details</p> <ul class="units one apartments"> </ul> </div> </div> </div>';
 
     LeftApartmentMasterView.prototype.childView = ApartmentsView;
 

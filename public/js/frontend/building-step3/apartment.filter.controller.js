@@ -211,7 +211,7 @@
       var area, budget, building_id, floor, max, min, priceMax, priceMin, subArea, subBudget, units, url;
       this.loadSelectedFilters();
       $('.filters-content').mCustomScrollbar({
-        theme: 'inset'
+        theme: 'cf-scroll'
       });
       budget = [];
       area = [];
