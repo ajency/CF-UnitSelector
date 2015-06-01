@@ -112,6 +112,9 @@ class SvgController extends Controller {
 		if (isset($request['canvas_type'])) {
 			$svg->canvas_type = $request['canvas_type'];
 		}
+		if (isset($request['other_details'])) {
+			$svg->other_details = $request['other_details'];
+		}
 		$svg->save();
 
 		return response()->json( [

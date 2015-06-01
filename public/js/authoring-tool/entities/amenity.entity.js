@@ -11,39 +11,6 @@
 
     AmenityView.prototype.template = '<form id="add-form"> <div class="form-group"> <label for="markerTitle">Title</label> <input type="text" class="form-control" id="amenity-title"> </div> <div class="form-group"> <label for="Description">Description</label> <textarea class="form-control" rows="3" id="amenity-description"></textarea> </div> </form>';
 
-    AmenityView.prototype.ui = {
-      units: '.units'
-    };
-
-    AmenityView.prototype.serializeData = function() {
-      var data, options, units;
-      data = AmenityView.__super__.serializeData.call(this);
-      options = [];
-      units = Marionette.getOption(this, 'units');
-      $.each(units, function(ind, val) {
-        return options.push({
-          'id': val.get('id'),
-          'name': val.get('unit_name')
-        });
-      });
-      data.options = options;
-      console.log(data);
-      return data;
-    };
-
-    AmenityView.prototype.events = {
-      'change @ui.units': function(e) {
-        window.coord = 0;
-        return $('.plot').each(function(index, value) {
-          if (value.id === $(e.target).val()) {
-            $('.alert').text('Already assigned');
-            window.hideAlert();
-            window.coord = 1;
-          }
-        });
-      }
-    };
-
     return AmenityView;
 
   })(Marionette.ItemView);
@@ -55,12 +22,8 @@
       return AmenityCtrl.__super__.constructor.apply(this, arguments);
     }
 
-    AmenityCtrl.prototype.initialize = function() {
-      var units;
-      units = plotVariantCollection.getPlotUnits();
-      return this.show(new AuthoringTool.AmenityView({
-        units: units
-      }));
+    AmenityCtrl.prototype.initialize = function(opts) {
+      return this.show(new AuthoringTool.AmenityView);
     };
 
     return AmenityCtrl;

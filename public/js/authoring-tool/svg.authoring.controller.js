@@ -310,11 +310,11 @@
           el: '#dynamice-region'
         });
         return new AuthoringTool.AmenityCtrl({
-          region: this.region
+          'region': this.region
         });
       }
     };
-    window.showDetails = function(elem, object_type) {
+    window.showDetails = function(elem) {
       var select, unit;
       unit = unitMasterCollection.findWhere({
         'id': parseInt(elem.id)
@@ -455,16 +455,18 @@
       return $('.property_type').attr('disabled', false);
     });
     $('svg').on('dblclick', '.villa,.plot', function(e) {
-      var classElem, currentElem, element, svgDataObjects;
+      var currentElem, elemId, element, object_type, svgDataObjects;
       e.preventDefault();
       window.canvas_type = "polygon";
+      elemId = $(e.currentTarget).attr('svgid');
+      window.currentSvgId = parseInt(elemId);
       $('#aj-imp-builder-drag-drop canvas').show();
       $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
       $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
       $('.edit-box').removeClass('hidden');
       currentElem = e.currentTarget;
       element = currentElem.id;
-      classElem = $(currentElem).attr('type');
+      object_type = $(currentElem).attr('type');
       svgDataObjects = svgData.data;
       return _.each(svgDataObjects, (function(_this) {
         return function(svgDataObject, key) {
@@ -476,8 +478,13 @@
             $('.submit').addClass('hidden');
             $('.edit').removeClass('hidden');
             $('.delete').removeClass('hidden');
-            window.loadForm(classElem);
-            return window.showDetails(currentElem, classElem);
+            window.loadForm(object_type);
+            if (object_type === "amenity") {
+              $('#amenity-title').val($(currentElem).data("amenity-title"));
+              return $('#amenity-description').val($(currentElem).data("amenity-desc"));
+            } else {
+              return window.showDetails(currentElem);
+            }
           }
         };
       })(this));
@@ -485,11 +492,12 @@
     $('svg').on('dblclick', '.marker-grp', function(e) {
       var currentElem, currentSvgElem, cx, cy, draggableChildCircle, draggableElem, elemId, object_type;
       draggableElem = "";
-      elemId = $(e.currentTarget).attr('id');
+      elemId = $(e.currentTarget).attr('svgid');
+      window.currentSvgId = parseInt(elemId);
       currentSvgElem = $(e.currentTarget);
       draw.each((function(i, children) {
         var childId;
-        childId = this.attr('id');
+        childId = this.attr('svgid');
         if (parseInt(childId) === parseInt(elemId)) {
           this.draggable();
           draggableElem = this;
@@ -522,7 +530,14 @@
       $('.edit').removeClass('hidden');
       $('.delete').removeClass('hidden');
       window.loadForm(object_type);
-      return window.showDetails(currentElem, object_type);
+      if (object_type === "amenity") {
+        $('#amenity-title').val($(currentElem).data("amenity-title"));
+        $('#amenity-description').val($(currentElem).data("amenity-desc"));
+        $('.property_type').val($(currentElem).attr('type'));
+        return $('.property_type').attr('disabled', true);
+      } else {
+        return window.showDetails(currentElem);
+      }
     });
     $('.submit').on('click', function(e) {
       if ($('.property_type').val() === "") {
@@ -553,39 +568,68 @@
       return window.saveUnit();
     });
     $('.edit').on('click', function(e) {
-      var details, myObject;
+      var details, myObject, objectType, svgElemId;
       myObject = {};
       details = {};
-      details['class'] = 'layer ' + $('.property_type').val();
+      objectType = $('.property_type').val();
       myObject['image_id'] = IMAGEID;
-      myObject['object_id'] = $('.units').val();
-      myObject['object_type'] = $('.property_type').val();
+      myObject['object_type'] = objectType;
       myObject['canvas_type'] = window.canvas_type;
-      myObject['points'] = $('.area').val().split(',');
+      if (objectType === "amenity") {
+        myObject['object_id'] = 0;
+      } else {
+        myObject['object_id'] = $('.units').val();
+      }
+      if (myObject['object_type'] === "amenity") {
+        details['title'] = $('#amenity-title').val();
+        details['description'] = $('#amenity-description').val();
+      } else {
+        details['class'] = 'layer ' + $('.property_type').val();
+      }
+      if (window.canvas_type === "concentricMarker") {
+        myObject['points'] = window.markerPoints;
+        myObject['canvas_type'] = 'marker';
+        details['cx'] = window.cx;
+        details['cy'] = window.cy;
+        details['innerRadius'] = window.innerRadius;
+        details['outerRadius'] = window.outerRadius;
+        details['marker_type'] = 'concentric';
+      } else if (window.canvas_type === "solidMarker") {
+        myObject['points'] = window.markerPoints;
+        myObject['canvas_type'] = 'marker';
+        details['cx'] = window.cx;
+        details['cy'] = window.cy;
+        details['innerRadius'] = window.innerRadius;
+        details['outerRadius'] = window.outerRadius;
+        details['marker_type'] = 'solid';
+      } else {
+        myObject['points'] = $('.area').val().split(',');
+      }
       myObject['other_details'] = details;
-      myObject['id'] = $('.units').val();
       myObject['_method'] = 'PUT';
+      svgElemId = window.currentSvgId;
       return $.ajax({
         type: 'POST',
         headers: {
           'x-csrf-token': $("meta[name='csrf-token']").attr('content')
         },
-        url: BASEURL + '/admin/project/' + PROJECTID + '/svg-tool/' + myObject['object_id'],
+        url: BASEURL + "/admin/project/" + PROJECTID + "/svg-tool/" + svgElemId,
         async: false,
         data: $.param(myObject),
         success: function(response) {
-          var value;
-          value = $('.area').val().split(',');
-          $('#Layer_1').remove();
+          var indexToSplice;
+          indexToSplice = -1;
           $.each(window.svgData.data, function(index, value) {
-            if (parseInt(value.object_id) === parseInt($('.units').val())) {
-              return window.svgData.data.splice(index, 1);
+            if (parseInt(value.id) === svgElemId) {
+              return indexToSplice = index;
             }
           });
-          console.log(window.svgData.data);
+          window.svgData.data.splice(indexToSplice, 1);
+          myObject['id'] = svgElemId;
           window.svgData.data.push(myObject);
-          console.log(window.svgData.data);
-          return window.renderSVG();
+          window.resetTool();
+          draw.clear();
+          return window.generateSvg(window.svgData.data);
         },
         error: function(response) {
           return alert('Some problem occurred');

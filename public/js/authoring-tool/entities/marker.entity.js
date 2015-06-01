@@ -23,7 +23,8 @@
       groupMarker.attr({
         "class": 'marker-grp',
         type: item.object_type,
-        id: item.object_id
+        id: item.object_id,
+        svgid: item.id
       });
       if (item.object_type === "amenity") {
         groupMarker.data('amenity-title', item.other_details.title);

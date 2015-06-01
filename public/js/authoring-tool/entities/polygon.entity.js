@@ -38,7 +38,8 @@
       polygon.attr({
         'class': item.other_details["class"],
         'id': item.object_id,
-        'type': item.object_type
+        'type': item.object_type,
+        svgid: item.id
       });
       if (item.object_type === "amenity") {
         polygon.data('amenity-title', item.other_details.title);

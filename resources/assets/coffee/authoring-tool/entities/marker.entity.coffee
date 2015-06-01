@@ -24,6 +24,7 @@ class Marker extends Backbone.Model
             class: 'marker-grp'
             type: item.object_type 
             id:  item.object_id 
+            svgid:  item.id 
 
         #set data attributes for title and description if object type is amenity
         if item.object_type is "amenity"

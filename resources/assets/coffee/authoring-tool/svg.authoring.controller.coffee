@@ -346,9 +346,11 @@ jQuery(document).ready ($)->
             new AuthoringTool.PlotCtrl region : @region
         if type is 'amenity'
             @region =  new Marionette.Region el : '#dynamice-region'
-            new AuthoringTool.AmenityCtrl region : @region
+            
+            new AuthoringTool.AmenityCtrl 
+                'region' : @region
 
-    window.showDetails = (elem,object_type)->
+    window.showDetails = (elem)->
         unit = unitMasterCollection.findWhere
                 'id' : parseInt elem.id
         $('.property_type').val $(elem).attr 'type'
@@ -519,13 +521,15 @@ jQuery(document).ready ($)->
     $('svg').on 'dblclick', '.villa,.plot' , (e) ->
             e.preventDefault()
             window.canvas_type = "polygon"
+            elemId =  $(e.currentTarget).attr('svgid')
+            window.currentSvgId = parseInt elemId            
             $('#aj-imp-builder-drag-drop canvas').show()
             $('#aj-imp-builder-drag-drop .svg-draw-clear').show()
             $('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
             $('.edit-box').removeClass 'hidden'
             currentElem = e.currentTarget
             element = currentElem.id
-            classElem = $(currentElem).attr('type')
+            object_type = $(currentElem).attr('type')
             svgDataObjects = svgData.data
             _.each svgDataObjects, (svgDataObject, key) =>
                 if parseInt(element) is parseInt svgDataObject.object_id
@@ -538,17 +542,24 @@ jQuery(document).ready ($)->
                     $('.submit').addClass 'hidden'
                     $('.edit').removeClass 'hidden'
                     $('.delete').removeClass 'hidden'
-                    window.loadForm(classElem)
-                    window.showDetails(currentElem,classElem)
+                    window.loadForm(object_type)
+
+                    if object_type is "amenity"
+                        $('#amenity-title').val $(currentElem).data("amenity-title")                        
+                        $('#amenity-description').val $(currentElem).data("amenity-desc")                        
+
+                    else
+                        window.showDetails(currentElem)
                             
     
     $('svg').on 'dblclick', '.marker-grp' , (e) ->
         draggableElem = ""
-        elemId =  $(e.currentTarget).attr('id')
+        elemId =  $(e.currentTarget).attr('svgid')
+        window.currentSvgId = parseInt elemId
         currentSvgElem = $(e.currentTarget)
         
         draw.each ((i, children) ->
-          childId = @attr('id')
+          childId = @attr('svgid')
           if parseInt(childId) is parseInt(elemId)
               @draggable()
               draggableElem = @
@@ -593,7 +604,14 @@ jQuery(document).ready ($)->
         window.loadForm(object_type)  
         
         # populate form
-        window.showDetails(currentElem,object_type)         
+        if object_type is "amenity"
+            $('#amenity-title').val $(currentElem).data("amenity-title")                        
+            $('#amenity-description').val $(currentElem).data("amenity-desc")                        
+            $('.property_type').val $(currentElem).attr 'type'
+            $('.property_type').attr 'disabled' ,  true            
+
+        else
+            window.showDetails(currentElem)       
         
 
 
@@ -627,37 +645,78 @@ jQuery(document).ready ($)->
     $('.edit').on 'click', (e) ->
         myObject  = {}
         details = {}
-        details['class'] = 'layer '+$('.property_type').val()
+
+        objectType =  $('.property_type').val()
+        
         myObject['image_id'] = IMAGEID
-        myObject['object_id'] = $('.units').val()
-        myObject['object_type'] =  $('.property_type').val()
+        myObject['object_type'] =  objectType
         myObject['canvas_type'] =  window.canvas_type
-        myObject['points'] =  $('.area').val().split(',')
-        myObject['other_details'] =  details
-        myObject['id'] =  $('.units').val()
+
+        # amenity v/s other unit types
+        if objectType is "amenity"
+            myObject['object_id'] = 0
+        else
+            myObject['object_id'] = $('.units').val()
+
+
+        if myObject['object_type'] is "amenity"
+            details['title'] = $('#amenity-title').val()
+            details['description'] = $('#amenity-description').val()
+        else  
+           details['class'] = 'layer '+$('.property_type').val()         
+        
+        # canvas_type differences i.e markers vs polygons
+        if window.canvas_type is "concentricMarker" 
+            myObject['points'] =  window.markerPoints
+            myObject['canvas_type'] =  'marker'
+            details['cx'] = window.cx
+            details['cy'] = window.cy
+            details['innerRadius'] = window.innerRadius
+            details['outerRadius'] = window.outerRadius
+            details['marker_type'] = 'concentric'
+
+        else if window.canvas_type is "solidMarker" 
+            myObject['points'] =  window.markerPoints
+            myObject['canvas_type'] = 'marker'
+            details['cx'] = window.cx
+            details['cy'] = window.cy
+            details['innerRadius'] = window.innerRadius
+            details['outerRadius'] = window.outerRadius
+            details['marker_type'] = 'solid'
+
+        else
+            myObject['points'] =  $('.area').val().split(',')
+
+
+        myObject['other_details'] =  details    
         myObject['_method'] =  'PUT'
+
+        svgElemId = window.currentSvgId
+        
         $.ajax
             type : 'POST',
             headers: { 'x-csrf-token' : $("meta[name='csrf-token']").attr('content')}
-            url  : BASEURL+'/admin/project/'+   PROJECTID+'/svg-tool/'+myObject['object_id'] 
+            url  : "#{BASEURL}/admin/project/#{PROJECTID}/svg-tool/#{svgElemId}" 
             async : false
             data : $.param myObject 
             success :(response)->
-
-                value =  $('.area').val().split(',')
-                $('#Layer_1').remove()
+                indexToSplice = -1
                 $.each window.svgData.data,(index,value)->
-                    if parseInt(value.object_id) == parseInt($('.units').val())
-                        window.svgData.data.splice(index,1)
-                        # delete window.svgData.data[index]
-                console.log window.svgData.data
+                    if parseInt(value.id) is svgElemId
+                        indexToSplice = index
+                        
+                window.svgData.data.splice(indexToSplice,1)
+                myObject['id'] =  svgElemId
                 window.svgData.data.push myObject
-                console.log window.svgData.data
-                window.renderSVG()
-                
-                
 
-                
+                window.resetTool()
+
+                # clear svg 
+                draw.clear()
+
+                # re-generate svg with new svg element
+                window.generateSvg(window.svgData.data)
+   
             error :(response)->
                 alert('Some problem occurred')  
         
