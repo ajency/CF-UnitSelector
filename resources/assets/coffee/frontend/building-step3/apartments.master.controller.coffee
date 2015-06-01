@@ -629,8 +629,6 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('#'+id).attr('class' ,'layer apartment svg_active '+availability) 
 			$('#apartment'+id).addClass ' active'
 			$('.units').mCustomScrollbar("scrollTo",'#apartment'+id)
-			
-			# $('#apartment'+id).attr('class' ,' unit blocks '+availability+' active') 
 			$('.apartment').tooltipster('content', html)
 		
 		'mouseout .apartment':(e)->

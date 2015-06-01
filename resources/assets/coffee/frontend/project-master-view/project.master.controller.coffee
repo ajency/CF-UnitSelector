@@ -719,9 +719,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			
 			$('#'+id).attr('class' ,'layer villa  '+availability) 
 			$('#unit'+id).attr('class' ,'unit blocks '+availability+'  active') 
-			$('.list-view-container').animate({
-		        scrollTop: $('#unit'+id).offset().top
-		    }, 2000)
+			$('.units').mCustomScrollbar("scrollTo",'#unit'+id)
 			$('#'+id).tooltipster('content', html)
 			
 			# $('#'+id).webuiPopover(
@@ -817,6 +815,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			
 			$('#'+id).attr('class' ,'layer plot '+availability) 
 			$('#unit'+id).attr('class' ,'bldg blocks active') 
+			$('.units').mCustomScrollbar("scrollTo",'#unit'+id)
 			$('#'+id).tooltipster('content', html)
 			
 			# $('#'+id).webuiPopover(
@@ -923,6 +922,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 			$('.layer').tooltipster('content', html)
 			$('#bldg'+id).attr('class' ,'bldg blocks active') 
+			$('.units').mCustomScrollbar("scrollTo",'#bldg'+id)
 			$('#'+id).attr('class' ,'layer building active_bldg')
 
 		'mousedown .layer':(e)->
