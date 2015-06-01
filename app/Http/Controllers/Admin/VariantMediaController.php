@@ -146,7 +146,7 @@ class VariantMediaController extends Controller {
             $metaValue = unserialize($variantMetaData['meta_value']);
             $variantMetaId = $variantMetaData['id'];
             unset($metaValue[$id]);
-            
+           
             $variantMeta = VariantMeta::find($variantMetaId);
             $variantMeta->meta_value = serialize($metaValue);
             $variantMeta->save();

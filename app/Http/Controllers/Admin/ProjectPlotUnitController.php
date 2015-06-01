@@ -157,6 +157,14 @@ class ProjectPlotUnitController extends Controller {
 
         $unitVariantArr = UnitVariant::whereIn('unit_type_id', $unitTypeIdArr)->get()->toArray();
         $phases = $project->projectPhase()-> where('status','not_live')->get()->toArray(); 
+        
+        foreach ($phases as $key => $phase) {
+            if($phase['id'] != $unit->phase_id)
+            {   
+               $phases[]= $project->projectPhase()->where('id',$unit->phase_id)->first()->toArray();
+            }
+
+        }
 
         return view('admin.project.unit.plot.edit')
                         ->with('project', $project->toArray())
