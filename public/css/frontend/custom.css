@@ -2243,6 +2243,8 @@ svg polygon {
 @media (max-width: 991px) {
   .unit-details {
     margin-left: 0;
+    margin-right: 0;
+    max-height: none;
   }
   .unit-details .detail-list {
     text-align: center;
@@ -2480,6 +2482,8 @@ svg polygon {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   border-radius: 3px;
   border: 1px solid #f68121;
+  -webkit-transform: translateZ(0);
+          transform: translateZ(0);
 }
 .fliters-container.closed {
   width: 0;
@@ -2515,6 +2519,7 @@ svg polygon {
   .fliters-container.closed {
     right: 15px;
     top: 75px;
+    left: auto;
   }
   .fliters-container .filter-button {
     font-size: 20px;
@@ -2575,7 +2580,7 @@ svg polygon {
 .filter-result .filter-pill {
   margin: 15px 5px;
   margin-left: 0;
-  padding: 2px 0 2px 8px;
+  padding: 5px 0 5px 8px;
   background-color: #ffffff;
   color: #666666;
   cursor: default;
@@ -2759,21 +2764,21 @@ span.glyphicon {
   height: 0;
   border-style: solid;
   border-width: 10px 10px 10px 0;
-  border-color: transparent #dedede transparent transparent;
+  border-color: transparent #ebebeb transparent transparent;
   position: absolute;
 }
 .filters-wrapper-hover {
   left: 360px;
   top: 125px;
   width: 0px;
-  visibility: Hidden;
+  visibility: hidden;
   opacity: 0;
   margin-top: 0px;
   position: fixed;
   padding: 0px;
   height: 340px;
   z-index: 9999;
-  background-color: #dedede;
+  background-color: rgba(222, 222, 222, 0.95);
   -webkit-transform: translate(0, 0);
   -ms-transform: translate(0, 0);
   transform: translate(0, 0);
@@ -2801,15 +2806,18 @@ span.glyphicon {
   width: 310px;
   visibility: visible;
   opacity: 1;
-  padding: 0px 10px;
+  padding: 20px 10px;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+}
+.filters-wrapper-hover.visible .back_btn {
+  display: none;
 }
 .filters-wrapper-hover:hover {
   width: 310px;
   opacity: 1;
   visibility: visible;
-  padding: 0px 10px;
+  padding: 20px 10px;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
@@ -2823,8 +2831,18 @@ span.glyphicon {
     opacity: 0;
   }
   .filters-wrapper-hover.visible {
-    left: 0px;
-    width: 69vh !important;
+    left: 0;
+    width: 100vw !important;
+    padding: 30px 15px 15px;
+    background-color: #ebebeb;
+  }
+  .filters-wrapper-hover.visible .back_btn {
+    font-size: 15px;
+    display: block;
+    color: #262626;
+  }
+  .filters-wrapper-hover.visible .back_btn .icon-place:after {
+    content: "\e761";
   }
 }
 #flexiselDemo1,
@@ -3266,11 +3284,11 @@ label.third_toggle {
 }
 @media (max-width: 767px) {
   .ls-nav ul li {
-    max-width: 120px;
+    max-width: 75px;
   }
   .ls-nav ul li a,
   .ls-nav ul li h4 {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 /*# sourceMappingURL=custom.css.map */

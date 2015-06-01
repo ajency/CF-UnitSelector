@@ -448,7 +448,7 @@
       }
       $('.images').html(html);
       if (html === "") {
-        $('.images').html('<div>No images found</div>');
+        $('.images').addClass('no-image');
       }
       $(".fancybox").fancybox();
       $('.img').lazyLoadXT();

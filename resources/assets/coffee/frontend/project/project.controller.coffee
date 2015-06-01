@@ -190,6 +190,7 @@ class CenterView extends Marionette.ItemView
 	events : 
 		'mouseover .step1-marker':(e)->
 			$('.marker').tooltipster('show')
+			$('.tooltipstered').tooltipster('show')
 		
 			
 	onShow:->
@@ -237,6 +238,32 @@ class CenterView extends Marionette.ItemView
 						$('svg').css 'min-width', svgWidth
 			)
 			$('.marker').tooltipster('show')
+
+
+			$('.tooltipstered').tooltipster(
+				theme: 'tooltipster-shadow'
+				contentAsHTML: true
+				onlyOne : true
+				arrow : false
+				offsetX : 30
+				interactive : true
+				animation : 'fade'
+				trigger: 'click'
+				content : $('#proj_info').html()
+				functionReady:(e)->
+					$('.action_button').on('click' , (e)->
+						$('.cf-loader').removeClass 'hidden'
+						$('svg').attr('class' ,'zoom') 
+						$('.step1').addClass 'animated fadeOut'
+						$('.marker').tooltipster('hide')
+						setTimeout( (x)->
+							CommonFloor.checkPropertyType()
+						, 100)
+					)
+					tooltipHeight = $('.tooltipster-content').height() + 10
+					$('.action-bar').css 'min-height', tooltipHeight
+			)
+			$('.tooltipstered').tooltipster('show')
 
 		)
 
