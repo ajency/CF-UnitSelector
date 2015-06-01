@@ -82,7 +82,7 @@
         });
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
-        CommonFloor.filterNew();
+        CommonFloor.filterStepNew();
         unitTempCollection.trigger("filter_available");
         this.loadSelectedFilters();
         this.price = $("#budget").data("ionRangeSlider");

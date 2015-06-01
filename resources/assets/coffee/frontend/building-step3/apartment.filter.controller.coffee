@@ -128,7 +128,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 				CommonFloor.defaults['common'][index] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filterBuilding(@building_id)
-			CommonFloor.filterNew()
+			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
 			@loadSelectedFilters()
 			@price = $("#budget").data("ionRangeSlider")
