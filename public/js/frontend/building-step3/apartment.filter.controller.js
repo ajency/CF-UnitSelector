@@ -95,11 +95,12 @@
       },
       'click @ui.unitTypes': function(e) {
         if ($(e.currentTarget).is(':checked')) {
+          CommonFloor.defaults['type'] = 'apartment';
           window.unitTypes.push(parseInt($(e.currentTarget).attr('data-value')));
         } else {
+          CommonFloor.defaults['type'] = '';
           window.unitTypes = _.without(window.unitTypes, parseInt($(e.currentTarget).attr('data-value')));
         }
-        CommonFloor.defaults['type'] = 'apartment';
         CommonFloor.defaults['apartment']['unit_type_id'] = window.unitTypes.join(',');
         CommonFloor.defaults['step_three']['unit_type_id'] = window.unitTypes.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
@@ -109,11 +110,12 @@
       },
       'click @ui.variantNames': function(e) {
         if ($(e.currentTarget).is(':checked')) {
+          CommonFloor.defaults['type'] = 'apartment';
           window.variantNames.push(parseInt($(e.currentTarget).attr('data-value')));
         } else {
+          CommonFloor.defaults['type'] = '';
           window.variantNames = _.without(window.variantNames, parseInt($(e.currentTarget).attr('data-value')));
         }
-        CommonFloor.defaults['type'] = 'apartment';
         CommonFloor.defaults['apartment']['unit_variant_id'] = window.variantNames.join(',');
         CommonFloor.defaults['step_three']['unit_variant_id'] = window.variantNames.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
@@ -176,12 +178,13 @@
       },
       'click @ui.flooring': function(e) {
         if ($(e.currentTarget).is(':checked')) {
+          CommonFloor.defaults['type'] = 'apartment';
           window.flooring.push($(e.currentTarget).attr('data-value'));
         } else {
+          CommonFloor.defaults['type'] = '';
           window.flooring = _.without(window.flooring, $(e.currentTarget).attr('data-value'));
         }
         window.flooring = _.uniq(window.flooring);
-        CommonFloor.defaults['type'] = 'apartment';
         CommonFloor.defaults['apartment']['attributes'] = window.flooring.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
