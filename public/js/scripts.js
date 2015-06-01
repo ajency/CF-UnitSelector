@@ -369,7 +369,7 @@ function getRoomTypeAttributes(obj, level)
         return false;
     }
     
-    $(obj).closest('.grid-body').find('input[name="room_id[]"]').each(function () { 
+    $(obj).closest('.grid-body').find('input[name="room_id['+level+'][]"]').each(function () { 
              if($(this).val()== roomId)
             {
                  alert('Room Type Already Selected');
