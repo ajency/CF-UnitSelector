@@ -48,7 +48,7 @@
                     <div class="form-group">
                         <label class="form-label">Phase<span class="text-primary">*</span></label>
                         @if($project['has_phase']=='yes')
-                        <select  class="select2 form-control m-b-5" name="phase">
+                        <select  class="select2 form-control m-b-5" name="phase" data-parsley-required>
                             <option value="">Select Phase</option>
                            @foreach($phases as $phase)
                             <option @if($unit['phase_id']==$phase['id']){{'selected'}}@endif value="{{$phase['id']}}">{{$phase['phase_name']}}</option>
@@ -63,7 +63,7 @@
                         </select>
                         <input type="hidden" name="phase" value="{{$phase['id']}}">
                         @endif
-                        <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
+                        
                     </div>
                 </div>
 
@@ -72,26 +72,26 @@
                 <div class="col-md-4">
                 <div class="form-group">
                         <label class="form-label">Direction<span class="text-primary">*</span></label>
-                        <select  class="select2 form-control m-b-5" name="direction">
+                        <select  class="select2 form-control m-b-5" name="direction" data-parsley-required>
                            <option value="">Select Direction</option>  
                            @foreach($defaultDirection as $direction)
                             <option  @if($unit['direction']==$direction['id']){{'selected'}}@endif value="{{$direction['id']}}">{{$direction['label']}}</option>
                             @endforeach
                         </select>
-                        <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
+                        
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Status<span class="text-primary">*</span></label>
-                        <select  class="select2 form-control m-b-5" name="unit_status">
+                        <select  class="select2 form-control m-b-5" name="unit_status" data-parsley-required>
                             <option @if($unit['availability']=='available'){{'selected'}}@endif value="available">Available</option>
                             <option @if($unit['availability']=='sold'){{'selected'}}@endif value="sold">Sold</option>
                             <option @if($unit['availability']=='not_released'){{'selected'}}@endif value="not_released">Not Released</option>
                             <option @if($unit['availability']=='blocked'){{'selected'}}@endif value="blocked">Blocked</option>
                             <option @if($unit['availability']=='archived'){{'selected'}}@endif value="archived">Archived</option>
                         </select>
-                        <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
+                        
                     </div>
                 </div>
                 </div>

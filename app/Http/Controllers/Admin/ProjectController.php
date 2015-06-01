@@ -347,6 +347,12 @@ class ProjectController extends Controller {
         ksort($propertyTypes);
         $projectData = $project->toArray();
         $projectData['master'] = unserialize($projectData['master']);
+        $projectData['masterdeletedimages'] = [];
+        foreach ($projectData['master'] as $position => $imageId) {
+            if($imageId=="")
+                $projectData['masterdeletedimages'][] =$position;
+        }
+
         $projectData['breakpoints'] = unserialize($projectData['breakpoints']);
         
         $googleearthauthtool =true;

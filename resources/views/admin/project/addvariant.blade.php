@@ -198,7 +198,7 @@
 
                                                         </select>
                                                     <div class="text-right">
-                                                        <button type="button" onclick="getRoomTypeAttributes(this, 0);" class="btn btn-link">Add Another Room</button>
+                                                        <button type="button" onclick="getRoomTypeAttributes(this, 0);" class="btn btn-link">Add Room</button>
                                                     </div>
                                          </div>
                                     </div>
@@ -218,6 +218,7 @@
                                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false">
                                         Level 1
                                         <input type="hidden" value="1" name="levels[]">
+                                        <input style="float:right" type="button" value="Delete Level" class="" onclick="deleteLevel(1);">
                                         </a>
                                     </h4>
                                     </div>
@@ -277,7 +278,7 @@
                                                             </select>
                                                        
                                                         <div class="text-right">
-                                                            <button type="button" onclick="getRoomTypeAttributes(this, 1);" class="btn btn-link">Add Another Room</button>
+                                                            <button type="button" onclick="getRoomTypeAttributes(this, 1);" class="btn btn-link">Add Room</button>
                                                         </div>
                                                     </div>
                                             </div>
@@ -389,30 +390,6 @@
     var BASEURL = '{{ url() }}';
     var FLOORLEVELS = ['0', '1'];
     var variantId = 0;
-
-    function openRoomTypeModal(obj, id)
-    {
-        if (obj.value == 'add_new')
-        {
-            $('#myModal').modal('show');
-            $("#roomtypeiframe").attr("src", "/admin/project/{{ $project['id']}}/roomtype/create");
-        }
-        else
-        {
-            if (id)
-            {
-                $("#roomtypeiframe").attr("src", "/admin/project/{{ $project['id']}}/roomtype/" + id + "/edit?flag=edit");
-                $(".updateattribute").removeClass("hidden");
-                $('#myModal').modal('show');
-            }
-        }
-
-        var level = $(obj).closest('.row').find('input[name="levels[]"]').val();
-        $("#roomtypeiframe").attr("level", level);
-        $("#roomtypeiframe").attr("roomid", id);
-    }
-
-
 </script>
 
 @endsection

@@ -213,11 +213,11 @@ function addAttributes(keyId, obj)
     str += '<div class="col-md-12">';
     str += '<div class="add-unit">';
     str += '<div class="p-t-8 p-t-10">';
-    str += '<div class="col-md-4">';
+    str += '<div class="col-xs-4">';
     str += '<input type="text" name = "attribute_name_' + keyId + '[]" class="form-control" placeholder="Enter Attribute Name">';
     str += '<input type="hidden" name = "attribute_id_' + keyId + '[]" value="">';
     str += '</div>';
-    str += '<div class="col-md-4">';
+    str += '<div class="col-xs-4">';
     str += '<select name = "controltype_' + keyId + '[]"  class="select2-container select2 form-control" >';
     str += '<option value="">Select Control Type</option>';
     str += '<option value="textbox" > Text Box</option>';
@@ -226,18 +226,18 @@ function addAttributes(keyId, obj)
     str += '<option value="number"> Number </option>';
     str += '</select>';
     str += '</div>';
-    str += '<div class="col-md-4 controlvalue">';
+    str += '<div class="col-xs-4 controlvalue">';
     str += '<input type="text"  name= "controltypevalues_' + keyId + '[]" data-role="tagsinput" class="tags">';
     str += '</div>';
     str += '</div>';
     str += '<div class="text-right">';
-    str += '<a class="btn btn-link"  onclick="addAttributes(\'' + keyId + '\',this)">Add Another Attribute</a>';
+    str += '<a class="btn btn-link"  onclick="addAttributes(\'' + keyId + '\',this)">Add Attribute</a>';
     str += '</div>';
     str += '</div>';
     str += '</div>';
     str += '</div>';
     
-    var delstr = '<div class="col-md-1 text-center">';
+    var delstr = '<div class="col-xs-1 text-right">';
     delstr += '<a class="text-primary" onclick="deleteAttribute(' + PROJECTID + ',0,this);"><i class="fa fa-close"></i></a>';
     delstr += '</div>';
 
@@ -245,7 +245,7 @@ function addAttributes(keyId, obj)
     $(obj).closest('.row').find('.col-md-12').removeClass('col-md-12');
     $(obj).closest('.row').find('.add-unit').removeClass('add-unit');
     $(obj).closest('.row').find('.p-t-8').removeClass('p-t-8 p-t-10');
-    $(obj).closest('.row').find('.controlvalue').addClass('col-md-3').removeClass('col-md-4');
+    $(obj).closest('.row').find('.controlvalue').addClass('col-xs-3').removeClass('col-xs-4');
     $(obj).closest('.row').addClass('m-b-10');
      $(obj).closest('.row').find('.controlvalue').after(delstr);
     $(obj).closest('.row').after(str);
@@ -361,7 +361,7 @@ function addFloorLevel(variantId)
 
 function getRoomTypeAttributes(obj, level)
 {
-    var roomId = $(obj).closest('.row').find('select').val(); 
+    var roomId = $(obj).closest('.add-unit').find('select').val();
     var flag =true;
     if(!roomId)
     {
@@ -1324,7 +1324,7 @@ function createUnitType(obj, propertyTypeId)
             html += '<input type="hidden" name="unittypecustome[' + propertyTypeId + '][]" value="CUSTOME">';
             html += '</div>';
             html += '<div class="col-md-2 text-center">';
-            html += '<a  data-unit-type-id="0" class="btn btn-link remove-unit-type"><i class="fa fa-close"></i> </a>';
+            html += '<a  data-unit-type-id="0" class="text-primary remove-unit-type"><i class="fa fa-close"></i> </a>';
             html += '</div>';
             html += '</div>';
             $(obj).closest('.unit_type_block').before(html);
@@ -1474,3 +1474,60 @@ $("input[name=has_phases]:radio").change(function () {
  
 });
 
+function openRoomTypeModal(obj, id)
+    {
+        if (obj.value == 'add_new')
+        {
+            $('#myModal').modal('show');
+            $('#myModalLabel').text('Add New Room');
+            $("#roomtypeiframe").attr("src", "/admin/project/" + PROJECTID + "/roomtype/create");
+            $(obj).select2('val', '');
+        }
+        else
+        {
+            if (id)
+            {
+                $('#myModalLabel').text('Edit Room');
+                $("#roomtypeiframe").attr("src", "/admin/project/" + PROJECTID + "/roomtype/" + id + "/edit?flag=edit");
+                $(".updateattribute").removeClass("hidden");
+                $('#myModal').modal('show');
+            }
+        }
+
+        var level = $(obj).closest('.row').find('input[name="levels[]"]').val();
+        $("#roomtypeiframe").attr("level", level);
+        $("#roomtypeiframe").attr("roomid", id);
+
+    }
+
+function deleteLevel(level)
+{ 
+    var variantLevels =$('input[name="levels[]"]').length; 
+    if(variantLevels == 1)
+    {
+        alert("Variant Should Have Alleast 1 Level");
+        return ;
+    }
+
+    if (confirm('Are you sure you want to delete this Level? ') === false) {
+        return;
+    }
+ 
+    if(variantId){
+        $.ajax({
+        url: BASEURL + "/admin/project/" + PROJECTID + "/bunglow-variant/"+variantId+"/deletelevel",
+        type: "DELETE",
+        data: {
+            level: level,
+        },
+        success: function (response) {
+           $("#level_"+level).remove();
+        }
+        });
+    }
+    else{ 
+        $("#level_"+level).remove();
+    }
+
+    
+}

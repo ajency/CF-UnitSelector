@@ -42,6 +42,10 @@ class ProjectRoomTypeController extends Controller {
     public function store($projectId, Request $request) {
 
         $roomtype_name = $request['room_name'];
+        if($roomtype_name =='')
+        {
+            return redirect("/admin/project/" . $projectId . "/roomtype/create"); 
+        }
         if(isset($request['roomtypecustome']))
         {
             $default = new Defaults();
@@ -139,7 +143,7 @@ class ProjectRoomTypeController extends Controller {
      */
     public function update($projectId, $roomId, Request $request) {
         
-        $roomtype_name = $request['room_name'];
+       /* $roomtype_name = $request['room_name'];
         if(isset($request['roomtypecustome']))
         {
             $default = new Defaults();
@@ -148,19 +152,19 @@ class ProjectRoomTypeController extends Controller {
             $default->serialize_data = serialize([]);
             $default->save();
             $roomtype_name = $default->id;
-        }
+        }*/
         
         $roomType = RoomType::find($roomId);
-        $roomtype_name = $request['room_name'];
+        /*$roomtype_name = $request['room_name'];
         $roomType->name = ucfirst($roomtype_name);
-        $roomType->save();
+        $roomType->save();*/
 
         $objecttype = 'RoomType';
  
         $attributeNameArr = $request['attribute_name_room'];
         $controlTypeArr = $request['controltype_room'];
         $controlValueArr = (isset($request['controltypevalues_room'])) ? $request['controltypevalues_room'] : [];
-        $attributeIdArr = $request['attribute_id_room'];
+        $attributeIdArr = $request['attribute_id_room']; 
 
         if (!empty($attributeNameArr)) {
             foreach ($attributeNameArr as $key => $attributeName) {

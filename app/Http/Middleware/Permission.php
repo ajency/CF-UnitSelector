@@ -113,6 +113,7 @@ class Permission {
                               'admin/project/{project}/projectpublishdata'=>'publish_project',
                               'admin/project/{project}/updateprojectstatus'=>'publish_project',
                               'admin/project/validateprojecttitle'=>'configure_project', 
+                              'admin/project/{project}/bunglow-variant/{id}/deletelevel'=>'configure_project', 
                               'admin/project/{project}/roomtype/{id}/deleteroomtypeattributes'=>'configure_project',
                               'admin/project/{project}/media/updatebreakpoint'=>'configure_project',
                               'admin/project/{project}/roomtype/{roomtype}'=>'configure_project',
@@ -125,7 +126,7 @@ class Permission {
                
                 
                 $resourceName = $request->route()->getName(); 
-                $uriPath =$request->route()->getPath();  //echo $uriPath; exit;
+                $uriPath =$request->route()->getPath();   //echo $uriPath; exit;
                 
                 if($uriPath != 'admin')
                 {

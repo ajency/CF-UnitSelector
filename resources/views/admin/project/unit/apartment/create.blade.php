@@ -101,7 +101,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Unit Status</label>
-                        <select  class="select2 form-control" required="" name="unit_status">
+                        <select  class="select2 form-control" required="" name="unit_status" data-parsley-required>
                             <option value="available">Available</option>
                             <option value="sold">Sold</option>
                             <option value="not_released">Not Released</option>

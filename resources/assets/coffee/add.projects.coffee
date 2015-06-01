@@ -146,11 +146,16 @@ jQuery(document).ready ($)->
 
 	$('#myModal').on 'click', '.update-phase-btn', ->
 		phaseId = $(@).attr 'data-phase-id'
+		successFn = (resp, status, xhr)->
+			 $('#myModal').modal('toggle')
+			 $("#phase-"+phaseId).find('select').attr('disabled',true)
+			 $("#phase-"+phaseId).find('.updatelink').addClass('hidden')
 		$.ajax 
 			url : '/admin/phase/'+phaseId
 			type : 'POST'
 			data : 
 				_method : "PUT"
+			success : successFn			
 
 	$('#publishModal').on 'click', '.update-project-status', ->
 		projectId = $(@).attr 'data-project-id'
@@ -173,8 +178,7 @@ jQuery(document).ready ($)->
 			
 				
 	registerRemoveUnitType = ->
-		$('.remove-unit-type').off 'click'
-		$('.remove-unit-type').on 'click', ->
+		$('.propertyTypeUnitsAttributes').on 'click', '.remove-unit-type', ->
 			
 			unitTypeId = $(@).attr 'data-unit-type-id'
 			
@@ -324,6 +328,7 @@ jQuery(document).ready ($)->
                                     <div class="grid-title">
                                         <h4>Level {{ level }}</h4>
                                         <input type="hidden" value="{{ level }}" name="levels[]">
+                                        <input style="float:right" type="button" value="Delete Level" class="" onclick="deleteLevel({{ level }});">
                                     </div>
                                     <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4>
                                         <div class="row">
@@ -369,30 +374,18 @@ jQuery(document).ready ($)->
                                         <div class="room_attributes_block">
 
                                         </div>
-                                        <div class="row user-description-box">
-                                            <div class="col-md-4">
-                                                <div>
-                                                    <label class="form-label">Select Room</label>
-                                                    <div class="row">
-                                                        <div class="col-md-9">
-                                                            <select onchange="openRoomTypeModal(this, 0)" name="room_type[]" class="select2 form-control"> 
+                                        <div>
+                                            <div class="col-md-5 add-unit p-t-10">
+                                              <select onchange="openRoomTypeModal(this, 0)" name="room_type[]" class="select2 form-control"> 
          													 '
-		str +=  $(@).closest('.row').find('select[name="room_type[]"]').html()
+		str +=  $('#addFloorlevel').find('select[name="room_type[]"]').html()
 		str +=  '</select>
+                                                       
+                                                        <div class="text-right">
+                                                            <button type="button" onclick="getRoomTypeAttributes(this, {{ $level }});" class="btn btn-link">Add Room</button>
                                                         </div>
-                                                        <div class="col-md-3">
-                                                            <button type="button" onclick="getRoomTypeAttributes(this, {{ level }});" class="btn btn-white"><i class="fa fa-plus inline"></i> Add Room to Level</button>
-                                                        </div>
-                                                    </div>
-                                                </div> 
                                             </div>
-                                            <div class="col-md-8"></div>
-                                        </div>
-
-                                        
-
-
-                                    </div>
+                                         </div>
                                 </div>
                             </div>
                         </div>

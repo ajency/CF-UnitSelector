@@ -159,7 +159,6 @@ class VariantMediaController extends Controller {
         }
  
         $media = Media::find( $id );
-        $folldername = ($variantId)?$variantId:'temp';
         $targetDir = public_path() . "/projects/" . $projectId . "/variants/" . $variantId . "/".$media->image_name;
         unlink($targetDir);
         $media->delete();

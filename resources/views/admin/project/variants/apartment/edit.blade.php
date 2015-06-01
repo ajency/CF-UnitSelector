@@ -127,7 +127,7 @@
                 </div>
             </div>
             <hr/>
-            <?php $i = 1; ?>
+            <?php $i = 0; ?>
             @if($propertyTypeID == APARTMENTID)
             @include('admin.project.variants.apartment.apartmentroom')
             @else
@@ -214,29 +214,6 @@
     var BASEURL = '{{ url() }}';
     var FLOORLEVELS = ['0', '1'];
      var variantId = {{ $unitVariant['id'] }};
-
-    function openRoomTypeModal(obj, id)
-    {
-        if (obj.value == 'add_new')
-        {
-            $('#myModal').modal('show');
-            $("#roomtypeiframe").attr("src", "/admin/project/{{ $project['id']}}/roomtype/create");
-        }
-        else
-        {
-            if (id)
-            {
-                $("#roomtypeiframe").attr("src", "/admin/project/{{ $project['id']}}/roomtype/" + id + "/edit?flag=edit");
-                $(".updateattribute").removeClass("hidden");
-                $('#myModal').modal('show');
-            }
-        }
-
-        var level = $(obj).closest('.row').find('input[name="levels[]"]').val();
-        $("#roomtypeiframe").attr("level", level);
-        $("#roomtypeiframe").attr("roomid", id);
-    }
-
 
 </script>
 

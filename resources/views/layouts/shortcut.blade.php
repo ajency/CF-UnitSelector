@@ -30,7 +30,7 @@
             var variantId = 0;
              var PROJECTID = {{ $project['id'] }};
         </script>
-    <body>
+    <body style="background:#fff;">
  
                 <div class="content">  
  
