@@ -1023,7 +1023,7 @@
     viewUnits = CommonFloor.getApartmentsInView();
     classview = '';
     units = unitCollection.toArray();
-    return $.each(units, function(index, value) {
+    $.each(units, function(index, value) {
       var id;
       id = parseInt(value.id);
       if ($.inArray(id, viewUnits) === -1) {
@@ -1034,6 +1034,7 @@
         return $('#apartment' + id).show();
       }
     });
+    return $('#inview').bootstrapToggle('on');
   };
 
   CommonFloor.filterFlooringAttributes = function() {

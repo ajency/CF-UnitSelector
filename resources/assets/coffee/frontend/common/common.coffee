@@ -943,6 +943,7 @@ CommonFloor.applyOnViewClass = ()->
 		else
 			$('#apartment'+id).removeClass 'onview'
 			$('#apartment'+id).show()
+	$('#inview').bootstrapToggle('on')
 
 CommonFloor.filterFlooringAttributes= ()->
 	flooring = []

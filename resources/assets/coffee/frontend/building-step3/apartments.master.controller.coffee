@@ -366,6 +366,8 @@ class ApartmentsView extends Marionette.ItemView
 		
 		$('#apartment'+id).addClass classname+' '+status
 		CommonFloor.applyOnViewClass()
+		
+		
 		# $('#apartment'+id).attr('class' , classname+' '+status)
 
 
