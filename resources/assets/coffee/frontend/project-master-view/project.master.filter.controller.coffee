@@ -50,6 +50,9 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
       </div>
       <div class="filters-wrapper-hover  filters-wrapper villa-wrapper">
           <div class="arrow-left"> </div>
+          	<button class="btn btn-primary filter-button back_btn" type="button"> 
+          		<span class="icon-place"></span> Back
+          	</button>
           	{{#villas}}
        <div class="villa_unitTypes"> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block">  
        	{{#unitTypes}}
@@ -77,6 +80,9 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		  {{/villas}}</div>
 	<div class="filters-wrapper-hover  filters-wrapper apartment-wrapper">
           <div class="arrow-left"> </div>
+          	<button class="btn btn-primary filter-button back_btn" type="button"> 
+          		<span class="icon-place"></span> Back
+          	</button>
           	{{#apartments}}
        <div class="apartment_unitTypes"> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block">  
        	{{#unitTypes}}
@@ -105,6 +111,9 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		  {{/apartments}}</div>
 	<div class="filters-wrapper-hover  filters-wrapper plot-wrapper">
           <div class="arrow-left"> </div>
+          	<button class="btn btn-primary filter-button back_btn" type="button"> 
+          		<span class="icon-place"></span> Back
+          	</button>
           	{{#plots}}
        <div class="plot_unitTypes"> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block">  
        	{{#unitTypes}}
@@ -158,6 +167,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		villaCheck : '.villa-check'
 		aptCheck : '.apartment-check'
 		plotCheck : '.plot-check'
+		back_btn : '.back_btn'
 
 	initialize:->
 		@price = ''
@@ -395,6 +405,9 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			$('.fliters-container').toggleClass 'closed'
 			if $('.fliters-container').hasClass( "closed")
 				window.flag = 1
+
+		'click .back_btn': (e)->
+			$('.filters-wrapper-hover').removeClass 'visible'
 
 
 
