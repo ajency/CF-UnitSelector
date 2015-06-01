@@ -671,7 +671,7 @@
         exclude: function() {
           return this.data('exclude');
         },
-        whitespace: false
+        whitespace: true
       });
       data = {};
       data['data'] = btoa(svgExport);

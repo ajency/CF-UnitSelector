@@ -143,11 +143,55 @@ class SvgController extends Controller {
 
 		$svgData = $_REQUEST['data'];
 		$data = base64_decode($svgData);
-		$display_document_name = "project_master_svg.svg";
+
+		$path = public_path()."/projects/".$projectid."/svg";
+		$extension = "svg";
+		$name = uniqid("project_svg_");
+
+		$fileData = array(
+						'name' => $name,
+						'extension' => $extension,
+						'path' => $path 
+						);
+
+		$created_file = SvgController::createFile($fileData,$data);
         
-		header('Content-type: image/svg+xml');
-		header("Content-Disposition: attachment; filename=".$display_document_name."");
-		echo $data;
+        // $display_document_name = "project_master_svg.svg";
+		// header('Content-type: image/svg+xml');
+		// header("Content-Disposition: attachment; filename=".$display_document_name."");
+		// echo $data;
+
+		if (!$created_file) {
+			return response()->json( [
+				'code' => 'svg_file_not_created',
+				'message' => 'SVG file created',
+				], 400 );
+		}
+		else{
+			// update svg table with svg file name
+			return response()->json( [
+				'code' => 'svg_file_created',
+				'message' => 'SVG file '.$created_file.' created'
+				], 201);
+		}
 	}	
+
+	public static function createFile($fileData, $content){
+		
+		$targetDir = $fileData['path'];
+
+		if (!file_exists($targetDir)) {
+			@mkdir($targetDir);
+		}
+
+		$filename = $targetDir."/".$fileData['name'].".".$fileData['extension'];
+
+		if(file_put_contents($filename,$content)!=false){
+			return basename($filename);
+		}
+		else{
+			return false;
+		}		
+	}		
 
 }

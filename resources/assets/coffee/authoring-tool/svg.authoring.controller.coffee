@@ -745,7 +745,7 @@ jQuery(document).ready ($)->
         svgExport = draw.exportSvg(
           exclude: ->
             @data 'exclude'
-          whitespace: false)
+          whitespace: true)
 
         data = {}
         data['data'] = btoa(svgExport)
