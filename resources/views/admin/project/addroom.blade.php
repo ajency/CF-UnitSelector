@@ -46,7 +46,7 @@
 
                     </div>
                     <div class="col-xs-3">
-
+                          <input type="hidden" name="controltypevalues_room[]" data-role="tagsinput" class="tags">
                     </div>
                     <div class="col-xs-1 text-right">
                         <a class="text-primary" onclick="deleteAttribute({{$project['id']}}, 0, this);"><i class="fa fa-close"></i></a>
@@ -61,7 +61,7 @@
                         <input type="hidden" name="controltype_room[]" value="textbox">
                     </div>
                     <div class="col-xs-3">
-
+                         <input type="hidden" name="controltypevalues_room[]" data-role="tagsinput" class="tags">
                     </div>
                     <div class="col-xs-1 text-right">
                         <a class="text-primary" onclick="deleteAttribute({{$project['id']}}, 0, this);"><i class="fa fa-close"></i></a>
