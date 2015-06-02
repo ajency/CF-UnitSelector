@@ -3,6 +3,7 @@
 use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
 use CommonFloor\Svg;
+use CommonFloor\SvgElement;
 
 use Illuminate\Http\Request;
 
@@ -35,22 +36,26 @@ class SvgController extends Controller {
 	 */
 	public function store($projectId, Request $request)
 	{
-		$svg = new Svg();
-		$svg->image_id = $request['image_id'];
-        $svg->object_type = $request['object_type'];
-        $svg->object_id = $request['object_id'];
-        $svg->points = $request['points'];
-        $svg->canvas_type = $request['canvas_type'];
+		$svg = Svg::firstOrCreate( array('image_id' => $request['image_id']) );
+		$svg->save();
+
+		$svgElement = new SvgElement();
+		$svgElement->svg_id = $svg->id;
+        $svgElement->object_type = $request['object_type'];
+        $svgElement->object_id = $request['object_id'];
+        $svgElement->points = $request['points'];
+        $svgElement->canvas_type = $request['canvas_type'];
 
         if (isset($request['other_details'])) {
-        	$svg->other_details = $request['other_details'];
+        	$svgElement->other_details = $request['other_details'];
         }
         
-        $svg->save();
+        $svgElement->save();
  
 		return response()->json( [
 			'code' => 'svg_element_added',
 			'message' => 'SVG element '.$request['canvas_type'].' added for image', 
+			'data' => $svgElement
 			], 200 );
 	}
 
@@ -62,13 +67,16 @@ class SvgController extends Controller {
 	 */
 	public function show($projectid, $imageid){
 
-		$svgElements = Svg::where( 'image_id', '=', $imageid )->get()->toArray();
-        // $temp = [];
-        // foreach ($svgElements as $value) {
-        // 	$val = unserialize($value['points']);
-        // 	$value['points'] = $val;
-        // 	$temp[] = $value;
-        // }
+		$svg = Svg::where( 'image_id', '=', $imageid )->first();
+		if (!empty($svg)) {
+			$svg_id = $svg->id;
+			$svgElements = $svg->svgElement()->get()->toArray();
+			// $svgElements = SvgElement::where( 'svg_id', '=', $svg_id )->get()->toArray();
+		}
+		else{
+			$svgElements = array();
+		}
+		
         return response()->json( [
             'code' => 'svg_elements_for_image',
             'message' => '',
@@ -95,31 +103,35 @@ class SvgController extends Controller {
 	 */
 	public function update($project_id, $id, Request $request)
 	{
-		$svg = Svg::find($id);
+		$svgElement = SvgElement::find($id);
 		
-		if (isset($request['image_id'])) {
-			$svg->image_id = $request['image_id'];
-		}
+		// if (isset($request['image_id'])) {
+		// 	$svgElement->image_id = $request['image_id'];
+		// }
 		if (isset($request['object_type'])) {
-			$svg->object_type = $request['object_type'];
+			$svgElement->object_type = $request['object_type'];
 		}
 		if (isset($request['object_id'])) {
-			$svg->object_id = $request['object_id'];
+			$svgElement->object_id = $request['object_id'];
 		}
 		if (isset($request['points'])) {
-			$svg->points = $request['points'];
+			$svgElement->points = $request['points'];
 		}
 		if (isset($request['canvas_type'])) {
-			$svg->canvas_type = $request['canvas_type'];
+			$svgElement->canvas_type = $request['canvas_type'];
 		}
 		if (isset($request['other_details'])) {
-			$svg->other_details = $request['other_details'];
+			$svgElement->other_details = $request['other_details'];
 		}
-		$svg->save();
+		if (isset($request['primary_breakpoint'])) {
+			$svgElement->primary_breakpoint = $request['primary_breakpoint'];
+		}
+		$svgElement->save();
 
 		return response()->json( [
 			'code' => 'svg_element_updated',
-			'message' => 'SVG element '.$svg->canvas_type.' updated for image', 
+			'message' => 'SVG element '.$svgElement->canvas_type.' updated for image',
+			'data' => $svgElement
 			], 201 );
 
 
@@ -133,7 +145,7 @@ class SvgController extends Controller {
 	 */
 	public function destroy($id,$element_id)
 	{
-		$svg = Svg::find($element_id);
+		$svg = SvgElement::find($element_id);
 		$svg->delete();
 
 		return response()->json( [
@@ -147,7 +159,7 @@ class SvgController extends Controller {
 		$svgData = $_REQUEST['data'];
 		$data = base64_decode($svgData);
 
-		$path = public_path()."/projects/".$projectid."/svg";
+		$path = "/projects/".$projectid."/svg";
 		$extension = "svg";
 		$name = uniqid("project_svg_");
 
@@ -181,7 +193,7 @@ class SvgController extends Controller {
 
 	public static function createFile($fileData, $content){
 		
-		$targetDir = $fileData['path'];
+		$targetDir = public_path().$fileData['path'];
 
 		if (!file_exists($targetDir)) {
 			@mkdir($targetDir);
@@ -195,6 +207,6 @@ class SvgController extends Controller {
 		else{
 			return false;
 		}		
-	}		
+	}	
 
 }

@@ -6,22 +6,11 @@ class Svg extends Model {
 
 	protected $table = 'svg';
 	public $timestamps = false;
+	protected $fillable = array('image_id', 'svg_path');
 
-    public function getOtherDetailsAttribute( $value ) {
-        return unserialize( $value );
-    }
-
-    public function setOtherDetailsAttribute( $value ) {
-         $this->attributes['other_details'] = serialize( $value );
-    }
-
-    public function getPointsAttribute( $value ) {
-        return unserialize( $value );
-    }
-
-    public function setPointsAttribute( $value ) {
-         $this->attributes['points'] = serialize( $value );
-    }
-
+    public function svgElement()
+    {
+        return $this->hasMany('CommonFloor\SvgElement');
+    }	
 
 }

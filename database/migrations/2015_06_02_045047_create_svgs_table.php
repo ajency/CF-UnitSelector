@@ -14,13 +14,10 @@ class CreateSvgsTable extends Migration {
 	{
 		Schema::create('svg', function(Blueprint $table)
 		{
+			$table->engine = 'InnoDB';
 			$table->increments('id');
 			$table->integer( 'image_id' )->unsigned();
-			$table->string('object_type');
-			$table->integer('object_id');
-			$table->string('canvas_type');
-			$table->text('points')->nullable();
-			$table->text('other_details')->nullable();
+			$table->string('svg_path');
 		});
 	}
 
