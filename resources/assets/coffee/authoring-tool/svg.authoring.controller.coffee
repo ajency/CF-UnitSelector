@@ -230,6 +230,7 @@ jQuery(document).ready ($)->
                 window.svgData['image'] = svgImg
                 window.svgData['data'] = response.data
                 window.svgData['supported_types'] = JSON.parse supported_types
+                window.svgData['breakpoint_position'] = breakpoint_position
                 window.loadJSONData()
                 
 
@@ -282,6 +283,7 @@ jQuery(document).ready ($)->
         myObject['image_id'] = IMAGEID
         myObject['object_type'] =  objectType
         myObject['canvas_type'] =  window.canvas_type
+        myObject['breakpoint_position'] =  window.breakpoint_position
 
         # amenity v/s other unit types
         if objectType is "amenity"
@@ -319,7 +321,11 @@ jQuery(document).ready ($)->
         else
             myObject['points'] =  $('.area').val().split(',')
 
-        myObject['other_details'] =  details        
+        myObject['other_details'] =  details 
+
+        if $('[name="check_primary"]').is(":checked") is true
+            myObject['primary_breakpoint'] =  window.breakpoint_position
+             
 
         $.ajax
             type : 'POST',
@@ -369,6 +375,7 @@ jQuery(document).ready ($)->
         $('.units').attr 'disabled' ,  true
         $('.units').val elem.id
         $('.units').show()
+
         
  
     window.hideAlert = ()->
@@ -553,6 +560,10 @@ jQuery(document).ready ($)->
                     $('.delete').removeClass 'hidden'
                     window.loadForm(object_type)
 
+                    # show primary breakpoint checked or not
+                    if $(currentElem).data("primary-breakpoint") 
+                        $('[name="check_primary"]').prop('checked', true)                    
+
                     if object_type is "amenity"
                         $('#amenity-title').val $(currentElem).data("amenity-title")                        
                         $('#amenity-description').val $(currentElem).data("amenity-desc")                        
@@ -610,7 +621,12 @@ jQuery(document).ready ($)->
         $('.submit').addClass 'hidden'
         $('.edit').removeClass 'hidden'
         $('.delete').removeClass 'hidden'
+        
         window.loadForm(object_type)  
+
+        # show primary breakpoint checked or not
+        if $(currentElem).data("primary-breakpoint") 
+            $('[name="check_primary"]').prop('checked', true)
         
         # populate form
         if object_type is "amenity"
@@ -660,6 +676,7 @@ jQuery(document).ready ($)->
         myObject['image_id'] = IMAGEID
         myObject['object_type'] =  objectType
         myObject['canvas_type'] =  window.canvas_type
+        myObject['breakpoint_position'] =  window.breakpoint_position
 
         # amenity v/s other unit types
         if objectType is "amenity"
@@ -696,6 +713,10 @@ jQuery(document).ready ($)->
 
         else
             myObject['points'] =  $('.area').val().split(',')
+
+
+        if $('[name="check_primary"]').is(":checked") is true
+            myObject['primary_breakpoint'] =  window.breakpoint_position            
 
 
         myObject['other_details'] =  details    
