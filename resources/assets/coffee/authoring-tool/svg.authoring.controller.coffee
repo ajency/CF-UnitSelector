@@ -527,7 +527,7 @@ jQuery(document).ready ($)->
 
 
     # on double click of existing marked polygon(villa or plot) open canvas mode
-    $('svg').on 'dblclick', '.villa,.plot' , (e) ->
+    $('svg').on 'dblclick', '.villa,.plot,.apartment' , (e) ->
             e.preventDefault()
             window.canvas_type = "polygon"
             elemId =  $(e.currentTarget).attr('svgid')
@@ -749,7 +749,7 @@ jQuery(document).ready ($)->
         $('.edit-box').addClass 'hidden'
 
     # on click of close form 
-    $('.close').on 'click' , (e)->
+    $('.closeform').on 'click' , (e)->
         $('.area').val("")
         window.f = []
         canvas = document.getElementById("c")
