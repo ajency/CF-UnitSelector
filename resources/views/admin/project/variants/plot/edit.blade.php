@@ -67,30 +67,30 @@
                             <div class="form-group">
                                 <label class="form-label">{{$propertyTypeAttribute['label']}}</label> 
                                 <?php
-                                $value = (isset($unitVariant['variant_attributes'][property_type_slug($propertyTypeAttribute['label'])])) ? $unitVariant['variant_attributes'][property_type_slug($propertyTypeAttribute['label'])] : ''
+                                $value = (isset($unitVariant['variant_attributes'][($propertyTypeAttribute['label'])])) ? $unitVariant['variant_attributes'][($propertyTypeAttribute['label'])] : ''
                                 ?>
                                 @if('textbox' === $propertyTypeAttribute['control_type'])
-                                <input type="text" class="form-control" name="attributes[{{property_type_slug($propertyTypeAttribute['label'])}}]" value="{{ $value }}" placeholder="Enter {{$propertyTypeAttribute['label']}}">
+                                <input type="text" class="form-control" name="attributes[{{($propertyTypeAttribute['label'])}}]" value="{{ $value }}" placeholder="Enter {{$propertyTypeAttribute['label']}}">
                                 @elseif('number' === $propertyTypeAttribute['control_type'])
-                                <input type="number" class="form-control" name="attributes[{{property_type_slug($propertyTypeAttribute['label'])}}]" value="{{ $value }}" placeholder="Enter {{$propertyTypeAttribute['label']}}">
+                                <input type="number" class="form-control" name="attributes[{{($propertyTypeAttribute['label'])}}]" value="{{ $value }}" placeholder="Enter {{$propertyTypeAttribute['label']}}">
                                 @elseif('select' === $propertyTypeAttribute['control_type'])
                                 <?php
                                 $options = explode(',', $propertyTypeAttribute['defaults']);
                                 ?>
-                                <select name="attributes[{{property_type_slug($propertyTypeAttribute['label'])}}]" class="select2 form-control">
+                                <select name="attributes[{{($propertyTypeAttribute['label'])}}]" class="select2 form-control">
                                     <option value="">Select {{$propertyTypeAttribute['label']}}</option>   
                                     @foreach($options as $option)
-                                    <option @if($value==property_type_slug($option)){{'selected'}}@endif  value="{{property_type_slug($option)}}">{{$option}}</option>
+                                    <option @if($value==($option)){{'selected'}}@endif  value="{{($option)}}">{{$option}}</option>
                                     @endforeach
                                 </select>
                                 @elseif('multiple' === $propertyTypeAttribute['control_type'])
                                 <?php
                                 $options = explode(',', $propertyTypeAttribute['defaults']);
                                 ?>
-                                <select multiple name="attributes[{{property_type_slug($propertyTypeAttribute['label'])}}][]" class="select2 form-control">
+                                <select multiple name="attributes[{{($propertyTypeAttribute['label'])}}][]" class="select2 form-control">
                                     <option value="">Select {{$propertyTypeAttribute['label']}}</option>   
                                     @foreach($options as $option)
-                                    <option {{ (!empty($value) && in_array(property_type_slug($option),$value)) ? 'selected="selected"' : '' }}  value="{{property_type_slug($option)}}">{{$option}}</option>
+                                    <option {{ (!empty($value) && in_array(($option),$value)) ? 'selected="selected"' : '' }}  value="{{($option)}}">{{$option}}</option>
                                     @endforeach
                                 </select>
                                 @endif
@@ -177,7 +177,7 @@
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                     <input type="hidden" name="_method" value="PUT">
                     <button  type="submit"   class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
-                    <a  href=""><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
+                    <a  href="{{ url('/admin/project/'. $project['id'] .'/plot-variant') }}"><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
                 </div>
             </div>
             <!-- END PLACE PAGE CONTENT HERE -->

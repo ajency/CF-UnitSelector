@@ -428,7 +428,7 @@
       data.villas = Marionette.getOption(this, 'villas');
       data.unitVariants = Marionette.getOption(this, 'unitVariants');
       data.apartments = Marionette.getOption(this, 'apartments');
-      data.plots = Marionette.getOption(this, 'plots');
+      console.log(data.plots = Marionette.getOption(this, 'plots'));
       data.types = Marionette.getOption(this, 'types');
       data.views = Marionette.getOption(this, 'views');
       data.facings = Marionette.getOption(this, 'facings');
@@ -712,7 +712,7 @@
       budget = [];
       views = [];
       facings = [];
-      console.log(villaFilters = this.getVillaFilters());
+      villaFilters = this.getVillaFilters();
       if (villaFilters.length !== 0) {
         $.merge(unitVariants, villaFilters[0].unitVariants);
         $.merge(budget, villaFilters[0].budget);
@@ -963,8 +963,6 @@
             return $.each(project.get('filters').Plot, function(index, value) {
               temp = [];
               return $.each(item.get('variant_attributes'), function(ind, val) {
-                ind = s.capitalize(ind);
-                ind = s.replaceAll(ind, "-", " ");
                 if (ind === value && $.inArray(value, flooring) === -1 && val !== "") {
                   flooring.push(value);
                   temp.push({
@@ -974,8 +972,10 @@
                     'label': ind,
                     type: 'P'
                   });
+                  console.log(temp);
                   return newtemp.push({
                     'label': ind.toUpperCase(),
+                    'index': ind,
                     'value': temp
                   });
                 }
@@ -984,6 +984,7 @@
           }
         }
       });
+      console.log(newtemp);
       unitsArr = plotVariantMasterCollection.getPlotUnits();
       $.each(unitsArr, function(index, value) {
         var unitDetails;
@@ -998,8 +999,20 @@
         'budget': budget
       });
       $.each(filters[0], function(index, value) {
-        if ($.inArray(index, project.get('filters').Plot) === -1 && index !== 'budget' && index !== 'unitVariants') {
-          return filters[0][index] = [];
+        if ($.inArray(index, project.get('filters').Plot) === -1 && index !== 'budget' && index !== 'unitVariants' && index !== 'flooring') {
+          filters[0][index] = [];
+        }
+        if (index === 'flooring') {
+          return $.each(value, function(ind, val) {
+            if ($.inArray(ind, project.get('filters').Plot) === -1) {
+              return filters[0][index] = [];
+            }
+          });
+        }
+      });
+      $.each(filters[0].flooring, function(index, value) {
+        if ($.inArray(index, project.get('filters').Plot) === -1) {
+          return filters[0][flooring][index] = [];
         }
       });
       return filters;

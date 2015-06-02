@@ -86,27 +86,27 @@
 
                                 <div>
                                     @if('textbox' === $attributes['control_type'])
-                                    <input type="text" class="form-control" name="villa_attributes[{{property_type_slug($attributes['label'])}}]"  placeholder="Enter {{$attributes['label']}}">
+                                    <input type="text" class="form-control" name="villa_attributes[{{($attributes['label'])}}]"  placeholder="Enter {{$attributes['label']}}">
                                     @elseif('number' === $attributes['control_type'])
-                                    <input type="number" class="form-control" name="villa_attributes[{{property_type_slug($attributes['label'])}}]" value="" placeholder="Enter {{$attributes['label']}}">
+                                    <input type="number" class="form-control" name="villa_attributes[{{($attributes['label'])}}]" value="" placeholder="Enter {{$attributes['label']}}">
                                     @elseif('select' === $attributes['control_type'])
                                     <?php
                                     $options = explode(',', $attributes['defaults']);
                                     ?>
-                                    <select name="villa_attributes[{{property_type_slug($attributes['label'])}}]" class="select2 form-control select2-offscreen">
+                                    <select name="villa_attributes[{{($attributes['label'])}}]" class="select2 form-control select2-offscreen">
                                         <option value="">Select {{$attributes['label']}}</option>   
                                         @foreach($options as $option)
-                                        <option  value="{{property_type_slug($option)}}">{{$option}}</option>
+                                        <option  value="{{($option)}}">{{$option}}</option>
                                         @endforeach
                                     </select>
                                     @elseif('multiple' === $attributes['control_type'])
                                     <?php
                                     $options = explode(',', $attributes['defaults']);
                                     ?>
-                                    <select multiple name="villa_attributes[{{property_type_slug($attributes['label'])}}][]" class="select2 form-control">
+                                    <select multiple name="villa_attributes[{{($attributes['label'])}}][]" class="select2 form-control">
                                         <option value="">Select {{$attributes['label']}}</option>   
                                         @foreach($options as $option)
-                                        <option value="{{property_type_slug($option)}}">{{$option}}</option>
+                                        <option value="{{($option)}}">{{$option}}</option>
                                         @endforeach
                                     </select>
                                     @endif  
@@ -354,7 +354,7 @@
 
                     <button  type="button" onclick="saveVariantConfig();" class="btn btn-primary btn-cons"><i class="fa fa-plus-circle"></i> Create</button>
 
-                    <a  href=""><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
+                    <a  href="{{ url('/admin/project/'. $project['id'] .'/bunglow-variant') }}"><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
                 </div>
             </div>
             <!-- END PLACE PAGE CONTENT HERE -->

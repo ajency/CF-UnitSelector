@@ -68,27 +68,27 @@
                             <div class="form-group">
                                 <label class="form-label">{{$propertyTypeAttribute['label']}}</label> 
                                 @if('textbox' === $propertyTypeAttribute['control_type'])
-                                <input type="text" class="form-control" name="attributes[{{property_type_slug($propertyTypeAttribute['label'])}}]"  placeholder="Enter {{$propertyTypeAttribute['label']}}">
+                                <input type="text" class="form-control" name="attributes[{{($propertyTypeAttribute['label'])}}]"  placeholder="Enter {{$propertyTypeAttribute['label']}}">
                                 @elseif('number' === $propertyTypeAttribute['control_type'])
-                                <input type="number" class="form-control" name="attributes[{{property_type_slug($propertyTypeAttribute['label'])}}]" value="" placeholder="Enter {{$propertyTypeAttribute['label']}}">
+                                <input type="number" class="form-control" name="attributes[{{($propertyTypeAttribute['label'])}}]" value="" placeholder="Enter {{$propertyTypeAttribute['label']}}">
                                 @elseif('select' === $propertyTypeAttribute['control_type'])
                                 <?php
                                 $options = explode(',', $propertyTypeAttribute['defaults']);
                                 ?>
-                                <select name="attributes[{{property_type_slug($propertyTypeAttribute['label'])}}]" class="select2 form-control">
+                                <select name="attributes[{{($propertyTypeAttribute['label'])}}]" class="select2 form-control">
                                     <option value="">Select {{$propertyTypeAttribute['label']}}</option>   
                                     @foreach($options as $option)
-                                    <option  value="{{property_type_slug($option)}}">{{$option}}</option>
+                                    <option  value="{{($option)}}">{{$option}}</option>
                                     @endforeach
                                 </select>
                                 @elseif('multiple' === $propertyTypeAttribute['control_type'])
                                 <?php
                                 $options = explode(',', $propertyTypeAttribute['defaults']);
                                 ?>
-                                <select multiple name="attributes[{{property_type_slug($propertyTypeAttribute['label'])}}][]" class="select2 form-control">
+                                <select multiple name="attributes[{{($propertyTypeAttribute['label'])}}][]" class="select2 form-control">
                                     <option value="">Select {{$propertyTypeAttribute['label']}}</option>   
                                     @foreach($options as $option)
-                                    <option value="{{property_type_slug($option)}}">{{$option}}</option>
+                                    <option value="{{($option)}}">{{$option}}</option>
                                     @endforeach
                                 </select>
                                 @endif  
@@ -159,7 +159,7 @@
                 <div class="text-right">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                     <button  type="submit"   class="btn btn-primary btn-cons"><i class="fa fa-plus-circle"></i> Create</button>
-                    <a  href=""><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
+                    <a  href="{{ url('/admin/project/'. $project['id'] .'/plot-variant') }}"><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
                 </div>
             </div>
             <!-- END PLACE PAGE CONTENT HERE -->
