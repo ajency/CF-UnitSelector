@@ -293,8 +293,8 @@
     CenterUnitView.prototype.events = {
       'click .threeD': function(e) {
         var html, response;
-        $('.firstimage').remove();
-        $('.firstimage').empty();
+        $('.firstimage').hide();
+        $('.images').empty();
         response = this.generateLevels();
         html = '';
         $.each(response[1], function(index, value) {
@@ -309,8 +309,8 @@
       },
       'click .twoD': function(e) {
         var html, response;
-        $('.firstimage').remove();
-        $('.firstimage').empty();
+        $('.firstimage').hide();
+        $('.images').empty();
         response = this.generateLevels();
         html = '';
         $.each(response[0], function(index, value) {
@@ -326,8 +326,8 @@
       },
       'click .external': function(e) {
         var html, response;
-        $('.firstimage').remove();
-        $('.firstimage').empty();
+        $('.firstimage').hide();
+        $('.images').empty();
         response = this.generateLevels();
         html = '';
         html += '<div class="animated fadeIn"> <img class="img img-responsive external-img" data-src="' + response[3].get('external3durl') + '" /> </div>';
@@ -341,8 +341,8 @@
       },
       'click .gallery': function(e) {
         var html, response;
-        $('.firstimage').remove();
-        $('.firstimage').empty();
+        $('.images').empty();
+        $('.firstimage').hide();
         response = this.generateLevels();
         html = '';
         $.each(response[3].get('galleryurl'), function(index, value) {
@@ -357,6 +357,7 @@
         return $('.master').removeClass('current');
       },
       'click .master': function(e) {
+        $('.firstimage').show();
         this.loadMaster();
         $('.master').addClass('current');
         $('.gallery').removeClass('current');
