@@ -52,7 +52,7 @@
                             //$fileName = $image['NAME'];
                             //$fileData = explode('.', $fileName);
                          
-                            $authoringToolUrl = url() . "/admin/project/" . $project['id'] . "/master/" .  $image['ID'] . "/authoring-tool";
+                            $authoringToolUrl = url() . "/admin/project/" . $project['id'] . "/image/" .  $image['ID'] . "/authoring-tool?&type=master&position=".$position;
                             ?>
                             <tr class="gradeX odd" id="position-{{ $position }}">
                                 <td class="">{{ $image['NAME'] }}</td>

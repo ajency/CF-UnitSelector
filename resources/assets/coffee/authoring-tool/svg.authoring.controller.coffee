@@ -142,6 +142,10 @@ jQuery(document).ready ($)->
         select = $('.property_type')
         $('<option />', {value: "", text: 'Select option'}).appendTo(select)
         $.each types , (index,value)->
+            
+            if value is "Apartment"
+                valueText = "Apartment / Penthouse"
+            
             $('<option />', {value: value.toLowerCase(), text: value.toUpperCase()}).appendTo(select)
 
     window.resetCollection = ()->
@@ -289,6 +293,7 @@ jQuery(document).ready ($)->
         if myObject['object_type'] is "amenity"
             details['title'] = $('#amenity-title').val()
             details['description'] = $('#amenity-description').val()
+            details['class'] = 'layer '+$('.property_type').val()   
         else  
            details['class'] = 'layer '+$('.property_type').val()         
         
@@ -338,17 +343,21 @@ jQuery(document).ready ($)->
                 alert('Some problem occurred')
 
     window.loadForm = (type)->
+        @region =  new Marionette.Region el : '#dynamice-region'        
+        
         if type is 'villa'
-            @region =  new Marionette.Region el : '#dynamice-region'
             new AuthoringTool.VillaCtrl region : @region
+
         if type is 'plot'
-            @region =  new Marionette.Region el : '#dynamice-region'
             new AuthoringTool.PlotCtrl region : @region
+
         if type is 'amenity'
-            @region =  new Marionette.Region el : '#dynamice-region'
-            
-            new AuthoringTool.AmenityCtrl 
-                'region' : @region
+            new AuthoringTool.AmenityCtrl region : @region
+
+        if type is 'apartment'
+            new AuthoringTool.ApartmentCtrl 
+                'region' : @region             
+
 
     window.showDetails = (elem)->
         unit = unitMasterCollection.findWhere
@@ -662,6 +671,7 @@ jQuery(document).ready ($)->
         if myObject['object_type'] is "amenity"
             details['title'] = $('#amenity-title').val()
             details['description'] = $('#amenity-description').val()
+            details['class'] = 'layer '+$('.property_type').val()    
         else  
            details['class'] = 'layer '+$('.property_type').val()         
         

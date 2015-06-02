@@ -124,6 +124,10 @@
         text: 'Select option'
       }).appendTo(select);
       return $.each(types, function(index, value) {
+        var valueText;
+        if (value === "Apartment") {
+          valueText = "Apartment / Penthouse";
+        }
         return $('<option />', {
           value: value.toLowerCase(),
           text: value.toUpperCase()
@@ -246,6 +250,7 @@
       if (myObject['object_type'] === "amenity") {
         details['title'] = $('#amenity-title').val();
         details['description'] = $('#amenity-description').val();
+        details['class'] = 'layer ' + $('.property_type').val();
       } else {
         details['class'] = 'layer ' + $('.property_type').val();
       }
@@ -290,27 +295,26 @@
       });
     };
     window.loadForm = function(type) {
+      this.region = new Marionette.Region({
+        el: '#dynamice-region'
+      });
       if (type === 'villa') {
-        this.region = new Marionette.Region({
-          el: '#dynamice-region'
-        });
         new AuthoringTool.VillaCtrl({
           region: this.region
         });
       }
       if (type === 'plot') {
-        this.region = new Marionette.Region({
-          el: '#dynamice-region'
-        });
         new AuthoringTool.PlotCtrl({
           region: this.region
         });
       }
       if (type === 'amenity') {
-        this.region = new Marionette.Region({
-          el: '#dynamice-region'
+        new AuthoringTool.AmenityCtrl({
+          region: this.region
         });
-        return new AuthoringTool.AmenityCtrl({
+      }
+      if (type === 'apartment') {
+        return new AuthoringTool.ApartmentCtrl({
           'region': this.region
         });
       }
@@ -584,6 +588,7 @@
       if (myObject['object_type'] === "amenity") {
         details['title'] = $('#amenity-title').val();
         details['description'] = $('#amenity-description').val();
+        details['class'] = 'layer ' + $('.property_type').val();
       } else {
         details['class'] = 'layer ' + $('.property_type').val();
       }

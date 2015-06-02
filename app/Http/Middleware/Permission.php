@@ -118,7 +118,7 @@ class Permission {
                               'admin/project/{project}/svg-tool'=>'configure_project',
                               'admin/project/{project}/svg-tool/{svg_tool}'=>'configure_project',
                               'admin/project/{projectid}/image/{imageid}'=>'configure_project',
-                              'admin/project/{id}/master/{imageid}/authoring-tool'=>'configure_project',
+                              'admin/project/{id}/image/{imageid}/authoring-tool'=>'configure_project',
                               'admin/project/{projectid}/image/{imageid}/downloadSvg'=>'configure_project',
                 ];
                

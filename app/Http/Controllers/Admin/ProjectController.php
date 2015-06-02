@@ -13,7 +13,7 @@ use CommonFloor\ProjectPropertyType;
 use CommonFloor\Phase;
 use CommonFloor\UnitVariant;
 use CommonFloor\UnitType;
-
+use \Input;
 class ProjectController extends Controller {
 
     /**
@@ -401,30 +401,62 @@ class ProjectController extends Controller {
     }
 
     //added by Surekha//
-    public function loadMasterSvgTool($id, $image_id, ProjectRepository $projectRepository) {
-        $project = $projectRepository->getProjectById($id);
-
-        $imageName = Media::find($image_id)->image_name;
-        $svgImagePath = url() . "/projects/" . $id . "/master/" . $imageName;
+    public function loadMasterSvgTool($id, $image_id, ProjectRepository $projectRepository,Request $request) {
         
+        $project = $projectRepository->getProjectById($id);
+        $imageName = Media::find($image_id)->image_name;
+
+        $getVar = Input::get();
+
+        $breakpoint = $getVar['position'];
+        $type = $getVar['type'];
 
         $propertyTypeName = [BUNGLOWID=>"Villa",PLOTID=>"Plot",APARTMENTID=>"Apartment",PENTHOUSEID=>"Penthouse"];
 
         $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray();
-        $supported_types = array();
 
-        foreach ($projectpropertyTypes as $projectpropertyType) {
-           $supported_types[] = $propertyTypeName[$projectpropertyType['property_type_id']];
+        $supported_types = array();        
+
+        switch ($type) {
+            case 'master':
+                $svgImagePath = url() . "/projects/" . $id . "/master/" . $imageName;
+
+                // get property types supported by project
+                foreach ($projectpropertyTypes as $projectpropertyType) {
+                   $supported_types[] = $propertyTypeName[$projectpropertyType['property_type_id']];
+                }
+                
+                // since project master svg, pass amenities as well
+                $supported_types[] = "Amenity";   
+                                              
+                break;
+
+            case 'building_master':
+                $buildingId  = $getVar['building'];
+                $svgImagePath = url() . "/projects/" . $id . "/buildings/" . $buildingId."/". $imageName;
+
+                // get property types supported by project
+                foreach ($projectpropertyTypes as $projectpropertyType) {
+                    $propertyname = $propertyTypeName[$projectpropertyType['property_type_id']];
+                    
+                    if (($propertyname == "Apartment")or($propertyname == "Penthouse")) {
+                        $supported_types = array("Apartment");
+                    }
+                }
+                
+                // pass amenities as well
+                $supported_types[] = "Amenity";                   
+                break;
+
         }
 
-        // since project master svg, pass amenities as well
-        $supported_types[] = "Amenity";
-        
-        return view('admin.project.mastersvgtool')
-                        ->with('project', $project->toArray())
-                        ->with('svgImage', $svgImagePath)
-                        ->with('supported_types',json_encode($supported_types))
-                        ->with('current', 'mastersvgtool');
-    }
+
+     return view('admin.project.mastersvgtool')
+     ->with('project', $project->toArray())
+     ->with('svgImage', $svgImagePath)
+     ->with('supported_types',json_encode($supported_types))
+     ->with('breakpoint',$breakpoint)
+     ->with('current', 'mastersvgtool');
+ }
 
 }

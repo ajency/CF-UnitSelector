@@ -400,6 +400,7 @@
         <script src="{{ asset('js/authoring-tool/entities/villa.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/plot.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/amenity.entity.js' )}}"></script>
+        <script src="{{ asset('js/authoring-tool/entities/apartment.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/svg.authoring.controller.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/application.js' )}}"></script>
 </body>
