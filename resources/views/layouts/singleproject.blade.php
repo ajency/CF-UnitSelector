@@ -34,8 +34,8 @@
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/user' ) }}" >@if($current === 'project_users')<span class='fa fa-check text-success'></span>@endif Users</a>
             </li>
             
-        </ul>
-        @if(hasPermission($project['id'],['configure_project','configure_unit']))
+        </ul> 
+ 
         @foreach(project_property_types($project['id']) as $propertyTypeId => $projectPropertyType)
         <?php
            if($projectPropertyType === 'Apartments' ||  $projectPropertyType === 'Penthouse')
@@ -61,7 +61,7 @@
 
         </ul>
         @endforeach
-        @endif
+       
        
         @if(isset($apartmentPenthouse) && hasPermission($project['id'],['configure_project','configure_building','configure_unit']))
         <?php

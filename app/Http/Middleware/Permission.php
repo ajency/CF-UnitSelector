@@ -122,11 +122,18 @@ class Permission {
                               'admin/project/{project}/apartment-variant/getunittypevariants'=>'configure_project',
                               'admin/user/validateuseremail'=>'manage_users', 
                               'admin/user/validateuserpassword'=>'manage_users', 
+                              'admin/project/{id}/master/authoring-tool'=>'configure_project',
+                              'admin/project/{project}/svg-tool'=>'configure_project',
+                              'admin/project/{project}/svg-tool/{svg_tool}'=>'configure_project',
+                              'admin/project/{projectid}/image/{imageid}'=>'configure_project',
+                              'admin/project/{id}/image/{imageid}/authoring-tool'=>'configure_project',
+                              'admin/project/{projectid}/image/{imageid}/downloadSvg'=>'configure_project',
                 ];
                
                 
                 $resourceName = $request->route()->getName(); 
                 $uriPath =$request->route()->getPath();   //echo $uriPath; exit;
+
                 
                 if($uriPath != 'admin')
                 {
