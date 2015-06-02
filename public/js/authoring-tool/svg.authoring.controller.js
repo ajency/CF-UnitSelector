@@ -290,7 +290,7 @@
         success: function(response) {
           myObject['id'] = response.data.id;
           if (response.data.primary_breakpoint !== null) {
-            myObject['primary_breakpoint'] = primary_breakpoint;
+            myObject['primary_breakpoint'] = response.data.primary_breakpoint;
           }
           window.svgData.data.push(myObject);
           window.resetTool();
@@ -676,11 +676,7 @@
       window.f = [];
       canvas = document.getElementById("c");
       ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      $("form").trigger("reset");
-      $(".toggle").trigger('click');
-      $('#dynamice-region').empty();
-      return $('.edit-box').addClass('hidden');
+      return ctx.clearRect(0, 0, canvas.width, canvas.height);
     });
     $('.closeform').on('click', function(e) {
       var canvas, ctx;

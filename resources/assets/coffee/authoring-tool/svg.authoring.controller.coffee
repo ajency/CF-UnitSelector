@@ -337,7 +337,7 @@ jQuery(document).ready ($)->
                 myObject['id'] = response.data.id
 
                 if response.data.primary_breakpoint isnt null
-                    myObject['primary_breakpoint'] = primary_breakpoint
+                    myObject['primary_breakpoint'] = response.data.primary_breakpoint
                 
                 window.svgData.data.push myObject
 
@@ -774,10 +774,10 @@ jQuery(document).ready ($)->
         canvas = document.getElementById("c")
         ctx= canvas.getContext("2d")
         ctx.clearRect( 0 , 0 , canvas.width, canvas.height )
-        $("form").trigger("reset")
-        $(".toggle").trigger 'click'
-        $('#dynamice-region').empty()
-        $('.edit-box').addClass 'hidden'
+        # $("form").trigger("reset")
+        # $(".toggle").trigger 'click'
+        # $('#dynamice-region').empty()
+        # $('.edit-box').addClass 'hidden'
 
     # on click of close form 
     $('.closeform').on 'click' , (e)->

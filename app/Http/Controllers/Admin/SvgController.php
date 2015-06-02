@@ -240,6 +240,7 @@ class SvgController extends Controller {
 		}		
 	}
 
+	// unsets primary breakpoint for a given object id and object type combo
 	public static function unset_primary_breakpoint( $object_id,$object_type,$primary_breakpoint){
 
 		// get all svg elements having object id and object type, only one entry in the table can have primary breakpoint set
@@ -261,10 +262,20 @@ class SvgController extends Controller {
 
 	}
 
-	public static function get_primary_breakpoints($object_id,$object_type){
-    	// check for all svg elements with this object type and object id
 
-		$svgElements = SvgElement::where( 'object_type', '=', $object_type )->where( 'object_id', '=', $object_id )->get()->toArray();    	
+	// get primary breakpoints for a given object id and object type
+	public static function get_primary_breakpoints($object_id = 0,$object_type=""){
+    	
+		if (($object_id!=0) && ($object_type!="")) {
+	    	// check for all svg elements with this object type and object id
+			$svgElements = SvgElement::where( 'object_type', '=', $object_type )->where( 'object_id', '=', $object_id )->get()->toArray(); 
+		}
+
+		else{
+			// get all svg elements
+			$svgElements = SvgElement::all()->toArray(); 			 
+		}
+   	
 
 		$object_breakpoints = array();
 
@@ -280,7 +291,13 @@ class SvgController extends Controller {
 			// find the svg elem that has primary breakpoint set
 			if (!is_null($svgElement['primary_breakpoint'])) {
 
-				$object_breakpoints[] = $svgElement;
+				$object_breakpoints[] = array(
+										'id' => $svgElement['id'], 
+										'svg_id' => $svgElement['svg_id'], 
+										'object_type' => $svgElement['object_type'], 
+										'object_id' => $svgElement['object_id'], 
+										'primary_breakpoint' => $svgElement['primary_breakpoint'], 
+										);
 			}
 		}
     	
@@ -288,6 +305,7 @@ class SvgController extends Controller {
 		return $object_breakpoints;
 	}
 
+	// checks whether object type and object id combo has a primary breakpoint set or not
 	public static function has_primary_breakpoint($object_id,$object_type){
 		$elements_with_breakpoint = SvgController::get_primary_breakpoints($object_id,$object_type);
 
