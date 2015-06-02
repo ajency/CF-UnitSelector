@@ -108,10 +108,22 @@ class VillaView extends Marionette.CompositeView
 			
 
 	onShow:->
-		if apartmentVariantCollection.length != 0
-			$('.buildings').removeClass 'hidden'
-		if plotVariantCollection.length != 0
-			$('.Plots').removeClass 'hidden'
+		if CommonFloor.defaults['type'] != ""
+			type = CommonFloor.defaults['type'].split(',')
+			if $.inArray('apartment' ,type) > -1
+				$('.buildings').removeClass 'hidden'
+			if $.inArray('plot' ,type) > -1
+				$('.Plots').removeClass 'hidden'
+		else
+			arr = _.values(window.propertyTypes)
+			if $.inArray('Apartments' ,arr) > -1 || $.inArray('Penthouse' ,arr) > -1
+				$('.buildings').removeClass 'hidden'
+			if $.inArray('Plot' ,arr) > -1
+				$('.Plots').removeClass 'hidden'
+			if $.inArray('Villas/Bungalows' ,arr) > -1
+				$('.Villas').removeClass 'hidden'
+		
+		
 		
 
 #controller for the listing all the villas

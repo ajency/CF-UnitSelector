@@ -82,7 +82,7 @@
         });
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
-        CommonFloor.filterNew();
+        CommonFloor.filterStepNew();
         unitTempCollection.trigger("filter_available");
         this.loadSelectedFilters();
         this.price = $("#budget").data("ionRangeSlider");
@@ -99,12 +99,11 @@
         } else {
           window.unitTypes = _.without(window.unitTypes, parseInt($(e.currentTarget).attr('data-value')));
         }
-        CommonFloor.defaults['type'] = 'apartment';
         CommonFloor.defaults['apartment']['unit_type_id'] = window.unitTypes.join(',');
         CommonFloor.defaults['step_three']['unit_type_id'] = window.unitTypes.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
-        CommonFloor.filterNew();
+        CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
       },
       'click @ui.variantNames': function(e) {
@@ -113,12 +112,11 @@
         } else {
           window.variantNames = _.without(window.variantNames, parseInt($(e.currentTarget).attr('data-value')));
         }
-        CommonFloor.defaults['type'] = 'apartment';
         CommonFloor.defaults['apartment']['unit_variant_id'] = window.variantNames.join(',');
         CommonFloor.defaults['step_three']['unit_variant_id'] = window.variantNames.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
-        CommonFloor.filterNew();
+        CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
       },
       'change @ui.priceMin': function(e) {
@@ -129,7 +127,7 @@
         }
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
-        CommonFloor.filterNew();
+        CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
       },
       'change @ui.priceMax': function(e) {
@@ -140,14 +138,14 @@
         }
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
-        CommonFloor.filterNew();
+        CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
       },
       'click @ui.status': function(e) {
         CommonFloor.defaults['common']['availability'] = e.currentTarget.id;
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
-        CommonFloor.filterNew();
+        CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
       },
       'change @ui.area': function(e) {
@@ -155,7 +153,7 @@
         CommonFloor.defaults['common']['area_min'] = parseFloat($(e.target).val().split(';')[0]);
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
-        CommonFloor.filterNew();
+        CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
       },
       'change @ui.budget': function(e) {
@@ -163,7 +161,7 @@
         CommonFloor.defaults['common']['price_min'] = parseFloat($(e.target).val().split(';')[0]);
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
-        CommonFloor.filterNew();
+        CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
       },
       'change @ui.floor': function(e) {
@@ -171,7 +169,7 @@
         CommonFloor.defaults['common']['floor_min'] = parseFloat($(e.target).val().split(';')[0]);
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
-        CommonFloor.filterNew();
+        CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
       },
       'click @ui.flooring': function(e) {
@@ -181,11 +179,10 @@
           window.flooring = _.without(window.flooring, $(e.currentTarget).attr('data-value'));
         }
         window.flooring = _.uniq(window.flooring);
-        CommonFloor.defaults['type'] = 'apartment';
         CommonFloor.defaults['apartment']['attributes'] = window.flooring.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
-        CommonFloor.filterNew();
+        CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
       },
       'click .filter-button': function(e) {

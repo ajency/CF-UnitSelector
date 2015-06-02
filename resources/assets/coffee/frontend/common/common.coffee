@@ -362,6 +362,18 @@ CommonFloor.applyNonFilterClass = ()->
 	flag = 0
 	if CommonFloor.defaults['type']  != ""
 				flag = 1
+	$.each CommonFloor.defaults['apartment'],(index,value)->
+		if value  != ""
+			flag = 1
+	$.each CommonFloor.defaults['plot'],(index,value)->
+		if value  != ""
+			flag = 1
+	$.each CommonFloor.defaults['villa'],(index,value)->
+		if value  != ""
+			flag = 1
+	$.each CommonFloor.defaults['common'],(index,value)->
+		if value  != ""
+			flag = 1
 
 	if flag == 0
 		$('.villa,.plot,.apartment').each (ind,item)->
@@ -986,6 +998,28 @@ CommonFloor.filterNew = ()->
 		temp = unitCollection.where paramkey
 		unitCollection.reset temp
 	CommonFloor.applyFliterClass()
+	# CommonFloor.resetCollections()
+
+CommonFloor.filterStepNew = ()->
+	collection = []
+	temp = []
+	
+	temp = CommonFloor.filterApartments()
+	$.merge collection , temp
+	unitCollection.reset collection
+	if CommonFloor.defaults['common']['price_max'] != ""
+		CommonFloor.filterBudget()
+	if CommonFloor.defaults['common']['area_max'] != ""
+		CommonFloor.filterArea()
+	if CommonFloor.defaults['common']['floor_max'] != ""
+		CommonFloor.filterFloor()
+	if CommonFloor.defaults['common']['availability'] != ""
+		paramkey = {}
+		paramkey['availability'] = 'available'
+		temp = unitCollection.where paramkey
+		unitCollection.reset temp
+	CommonFloor.applyFliterClass()
+	# CommonFloor.resetCollections()
 
 
 
