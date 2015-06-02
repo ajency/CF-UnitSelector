@@ -61,7 +61,7 @@
 
                         </button> -->
                         <button class="color-switch btn btn-default btn-publish-svg">
-                            <i class="fa fa-download"></i>
+                            <i class="fa fa-share-square-o"></i>
                             <div><small>PUBLISH</small>
 
                         </button>                        
@@ -365,6 +365,7 @@
             svgImg = '{{$svgImage}}';
             types = '{{$supported_types}}';
             supported_types = $('<div/>').html(types).text()
+            breakpoint_position = '{{$breakpoint_position}}';
             
 
             

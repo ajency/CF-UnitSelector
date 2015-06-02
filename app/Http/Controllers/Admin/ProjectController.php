@@ -408,7 +408,7 @@ class ProjectController extends Controller {
 
         $getVar = Input::get();
 
-        $breakpoint = $getVar['position'];
+        $breakpoint = (int) $getVar['position'];
         $type = $getVar['type'];
 
         $propertyTypeName = [BUNGLOWID=>"Villa",PLOTID=>"Plot",APARTMENTID=>"Apartment",PENTHOUSEID=>"Penthouse"];
@@ -455,7 +455,7 @@ class ProjectController extends Controller {
      ->with('project', $project->toArray())
      ->with('svgImage', $svgImagePath)
      ->with('supported_types',json_encode($supported_types))
-     ->with('breakpoint',$breakpoint)
+     ->with('breakpoint_position',$breakpoint)
      ->with('current', 'mastersvgtool');
  }
 
