@@ -464,7 +464,8 @@
       }
       $(".fancybox").fancybox();
       $('.img').lazyLoadXT({
-        'forceLoad': true
+        forceLoad: true,
+        updateEvent: 'load'
       });
       return this.iniTooltip();
     };
