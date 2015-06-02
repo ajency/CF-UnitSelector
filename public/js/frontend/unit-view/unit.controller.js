@@ -462,7 +462,9 @@
         $('.images').addClass('no-image');
       }
       $(".fancybox").fancybox();
-      $('.img').lazyLoadXT();
+      $('.img').lazyLoadXT({
+        'forceLoad': true
+      });
       return this.iniTooltip();
     };
 

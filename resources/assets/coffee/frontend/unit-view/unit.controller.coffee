@@ -573,7 +573,9 @@ class CenterUnitView extends Marionette.ItemView
 		if html == ""
 			$('.images').addClass 'no-image'
 		$(".fancybox").fancybox()
-		$('.img').lazyLoadXT()
+		$('.img').lazyLoadXT(
+			'forceLoad' : true
+		)
 		@iniTooltip()
 		
 

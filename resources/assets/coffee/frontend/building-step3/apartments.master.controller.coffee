@@ -127,7 +127,12 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		data.floor  = main[0].floor
 		data.views  = main[0].views
 		data.facings  = main[0].facings
-		data.results  = apartmentVariantCollection.getApartmentUnits().length
+		
+		results  = apartmentVariantCollection.getApartmentUnits()
+		temp = new Backbone.Collection results
+		newTemp = temp.where
+				'building_id' : parseInt building_id
+		data.results = newTemp.length
 		model = buildingMasterCollection.findWhere
 						'id' : building_id
 		data.name  = model.get 'building_name'
@@ -778,20 +783,23 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		
 		$.merge transitionImages ,  building.get('building_master')
 		first = _.values svgs
-		$('.region').load(first[0],()->
+		
+		$('.first_image').lazyLoadXT()
+		$('.first_image').load ()->
+			$('.region').load(first[0],()->
 				$('.first_image').attr('data-src',transitionImages[breakpoints[0]])
 				that.iniTooltip()
 				CommonFloor.applyAvailabilClasses()
 				CommonFloor.randomClass()
 				CommonFloor.applyFliterClass()
 				CommonFloor.getApartmentsInView()
-				that.loadZoom()).addClass('active').removeClass('inactive')
-		$('.first_image').lazyLoadXT()
-		$('.first_image').load ()->
-			response = building.checkRotationView(building_id)
-			$('.cf-loader').removeClass 'hidden'
-			if response is 1
+				that.loadZoom()
+				response = building.checkRotationView(building_id)
 				$('.cf-loader').removeClass 'hidden'
+				if response is 1
+					$('.cf-loader').removeClass 'hidden'
+			).addClass('active').removeClass('inactive')
+			
 		
 		@initializeRotate(transitionImages,svgs,building)
 		@loadProjectMaster()

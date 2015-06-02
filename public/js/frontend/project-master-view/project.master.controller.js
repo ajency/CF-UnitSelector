@@ -666,23 +666,23 @@
       });
       first = _.values(svgs);
       $.merge(transitionImages, project.get('project_master'));
-      $('.region').load(first[0], function() {
-        $('.first_image').attr('src', transitionImages[breakpoints[0]]);
-        that.iniTooltip();
-        CommonFloor.applyAvailabilClasses();
-        CommonFloor.randomClass();
-        CommonFloor.applyFliterClass();
-        return that.loadZoom();
-      }).addClass('active').removeClass('inactive');
       $('.first_image').lazyLoadXT();
       $('.first_image').load(function() {
-        var response;
-        $('#trig').removeClass('hidden');
-        response = project.checkRotationView();
-        $('.first_image').first().css('width', that.ui.svgContainer.width());
-        if (response === 1) {
-          return $('.cf-loader').removeClass('hidden');
-        }
+        return $('.region').load(first[0], function() {
+          var response;
+          $('.first_image').attr('src', transitionImages[breakpoints[0]]);
+          that.iniTooltip();
+          CommonFloor.applyAvailabilClasses();
+          CommonFloor.randomClass();
+          CommonFloor.applyFliterClass();
+          that.loadZoom();
+          $('#trig').removeClass('hidden');
+          response = project.checkRotationView();
+          $('.first_image').first().css('width', that.ui.svgContainer.width());
+          if (response === 1) {
+            return $('.cf-loader').removeClass('hidden');
+          }
+        }).addClass('active').removeClass('inactive');
       });
       return this.initializeRotate(transitionImages, svgs);
     };

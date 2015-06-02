@@ -79,7 +79,7 @@
     };
 
     TopApartmentMasterView.prototype.serializeData = function() {
-      var building_id, data, main, mainFilters, model, units, url;
+      var building_id, data, main, mainFilters, model, newTemp, results, temp, units, url;
       data = TopApartmentMasterView.__super__.serializeData.call(this);
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
@@ -98,7 +98,12 @@
       data.floor = main[0].floor;
       data.views = main[0].views;
       data.facings = main[0].facings;
-      data.results = apartmentVariantCollection.getApartmentUnits().length;
+      results = apartmentVariantCollection.getApartmentUnits();
+      temp = new Backbone.Collection(results);
+      newTemp = temp.where({
+        'building_id': parseInt(building_id)
+      });
+      data.results = newTemp.length;
       model = buildingMasterCollection.findWhere({
         'id': building_id
       });
@@ -603,23 +608,23 @@
       });
       $.merge(transitionImages, building.get('building_master'));
       first = _.values(svgs);
-      $('.region').load(first[0], function() {
-        $('.first_image').attr('data-src', transitionImages[breakpoints[0]]);
-        that.iniTooltip();
-        CommonFloor.applyAvailabilClasses();
-        CommonFloor.randomClass();
-        CommonFloor.applyFliterClass();
-        CommonFloor.getApartmentsInView();
-        return that.loadZoom();
-      }).addClass('active').removeClass('inactive');
       $('.first_image').lazyLoadXT();
       $('.first_image').load(function() {
-        var response;
-        response = building.checkRotationView(building_id);
-        $('.cf-loader').removeClass('hidden');
-        if (response === 1) {
-          return $('.cf-loader').removeClass('hidden');
-        }
+        return $('.region').load(first[0], function() {
+          var response;
+          $('.first_image').attr('data-src', transitionImages[breakpoints[0]]);
+          that.iniTooltip();
+          CommonFloor.applyAvailabilClasses();
+          CommonFloor.randomClass();
+          CommonFloor.applyFliterClass();
+          CommonFloor.getApartmentsInView();
+          that.loadZoom();
+          response = building.checkRotationView(building_id);
+          $('.cf-loader').removeClass('hidden');
+          if (response === 1) {
+            return $('.cf-loader').removeClass('hidden');
+          }
+        }).addClass('active').removeClass('inactive');
       });
       this.initializeRotate(transitionImages, svgs, building);
       this.loadProjectMaster();
