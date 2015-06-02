@@ -670,7 +670,7 @@
       $('.first_image').load(function() {
         return $('.region').load(first[0], function() {
           var response;
-          $('.first_image').attr('src', transitionImages[breakpoints[0]]);
+          $('.first_image').attr('data-src', transitionImages[breakpoints[0]]);
           that.iniTooltip();
           CommonFloor.applyAvailabilClasses();
           CommonFloor.randomClass();
