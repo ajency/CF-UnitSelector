@@ -2362,8 +2362,8 @@ svg polygon {
 }
 .slider svg {
   position: absolute;
-  top: 10px;
-  left: 0px;
+  top: 0;
+  left: 0;
 }
 @media (max-width: 767px) {
   .slider .Level_1 .layouts,
@@ -3323,7 +3323,8 @@ label.third_toggle {
   max-width: 100% !important;
 }
 .panel-wrapper {
-  padding: 10px 20px;
+  margin: 10px 20px;
+  padding: 0;
 }
 @media (max-width: 767px) {
   .ls-nav ul li {
