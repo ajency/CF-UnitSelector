@@ -27,9 +27,10 @@
           success: (function(_this) {
             return function(collection, response) {
               _this.set('filters', {
-                'Villa': ['unitTypes', 'unitVariantNames', 'flooring', 'furnishing-status'],
+                'Villa': ['unitTypes', 'unitVariantNames', 'flooring'],
                 'Apartment': ['unitTypes', 'unitVariantNames', 'flooring'],
-                'Plot': ['unitTypes', 'unitVariantNames', 'flooring']
+                'Plot': ['unitTypes', 'unitVariantNames'],
+                'defaults': ['area', 'budget']
               });
               _this.set('measurement_units', 'Sq.ft');
               if (response === 0 || jQuery.isEmptyObject(response)) {

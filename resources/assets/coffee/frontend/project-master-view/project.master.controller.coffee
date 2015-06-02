@@ -66,6 +66,18 @@ class TopMasterView extends Marionette.ItemView
 													         </li>
 													         {{/budget}}
 
+													      {{#views}}
+													         	 <li>
+													                <div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
+													         </li>
+													         {{/views}}
+
+													       {{#facings}}
+													         	 <li>
+													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
+													         </li>
+													         {{/facings}}
+
 													      {{#status}}
 													         	 <li>
 													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
@@ -99,6 +111,8 @@ class TopMasterView extends Marionette.ItemView
 		types : '.types'
 		status : '#filter_available'
 		filter_flooring : '.filter_flooring'
+		views : '.views'
+		facings : '.facings'
 
 	serializeData:->
 		data = super()
@@ -110,6 +124,8 @@ class TopMasterView extends Marionette.ItemView
 		data.area  = main[0].area
 		data.budget  = main[0].price
 		data.status  = main[0].status
+		data.views  = main[0].views
+		data.facings  = main[0].facings
 		# data.results  = CommonFloor.getFilters()[1]
 		response = CommonFloor.propertyTypes() 
 		data.types = response
@@ -215,6 +231,24 @@ class TopMasterView extends Marionette.ItemView
 			CommonFloor.defaults[type]['attributes'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filterNew()
+			unitCollection.trigger('available')
+			@trigger  'render:view'
+
+		'click @ui.facings':(e)->
+			types = CommonFloor.defaults['common']['facings'].split(',')
+			types = _.without types ,$(e.currentTarget).attr('data-id')
+			CommonFloor.defaults['common']['facings'] = types.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterNew()	
+			unitCollection.trigger('available')
+			@trigger  'render:view'
+
+		'click @ui.views':(e)->
+			types = CommonFloor.defaults['common']['views'].split(',')
+			types = _.without types ,$(e.currentTarget).attr('data-id')
+			CommonFloor.defaults['common']['views'] = types.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterNew()	
 			unitCollection.trigger('available')
 			@trigger  'render:view'
 
@@ -969,22 +1003,24 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		
 		first = _.values svgs
 		$.merge transitionImages ,  project.get('project_master')
-		$('.region').load(first[0],()->
+		
+		$('.first_image').lazyLoadXT()
+		$('.first_image').load ()->
+			$('.region').load(first[0],()->
 				$('.first_image').attr('src',transitionImages[breakpoints[0]])
 				that.iniTooltip()
 				CommonFloor.applyAvailabilClasses()
 				CommonFloor.randomClass()
 				CommonFloor.applyFliterClass()
 				that.loadZoom()
-				).addClass('active').removeClass('inactive')
-		$('.first_image').lazyLoadXT()
-		$('.first_image').load ()->
+				$('#trig').removeClass 'hidden'
+				response = project.checkRotationView()
+				$('.first_image').first().css('width',that.ui.svgContainer.width())
+				if response is 1
+					$('.cf-loader').removeClass 'hidden'
+			).addClass('active').removeClass('inactive')
 			
-			$('#trig').removeClass 'hidden'
-			response = project.checkRotationView()
-			$('.first_image').first().css('width',that.ui.svgContainer.width())
-			if response is 1
-				$('.cf-loader').removeClass 'hidden'
+			
 		
 		@initializeRotate(transitionImages,svgs)
 		
@@ -1062,7 +1098,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 		)
 
-		
+
 	#intialize tooltip 
 	iniTooltip:->
 		$('.layer').tooltipster(

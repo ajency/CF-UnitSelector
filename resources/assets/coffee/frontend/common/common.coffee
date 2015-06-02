@@ -462,6 +462,8 @@ CommonFloor.getFilters = ()->
 	status= []
 	floor = []
 	main = []
+	views = []
+	facings = []
 	if CommonFloor.defaults['common']['price_max'] != ""
 		min_price = window.numDifferentiation CommonFloor.defaults['common']['price_min']
 		max_price = window.numDifferentiation CommonFloor.defaults['common']['price_max']
@@ -498,6 +500,24 @@ CommonFloor.getFilters = ()->
 			'classname' : 'types'
 			'id'		: 'available'
 			'id_name' : 'filter_available'
+
+	if CommonFloor.defaults['common']['views'] != ""
+		$.each CommonFloor.defaults['common']['views'].split(',') , (index,value)->
+
+			views.push 
+				'name' : value
+				'classname' : 'views'
+				'id'		: value
+				'id_name' : 'filter_'+value
+
+	if CommonFloor.defaults['common']['facings'] != ""
+		$.each CommonFloor.defaults['common']['facings'].split(',') , (index,value)->
+
+			facings.push 
+				'name' : value
+				'classname' : 'facings'
+				'id'		: value
+				'id_name' : 'filter_'+value
 
 	if CommonFloor.defaults['type'] != ""
 		typeArr = CommonFloor.defaults['type'].split(',')
@@ -532,11 +552,13 @@ CommonFloor.getFilters = ()->
 		'price' : price
 		'floor' : floor
 		'status' : status
+		'views' : views
+		'facings' : facings
 
-
-	$.each main,(index,value)->
-		if value.length == 0
-			main = _.omit(main, index)
+	
+	# $.each main,(index,value)->
+	# 	if value.length == 0
+	# 		main[index] = []
 	main
 
 CommonFloor.getStepFilters = ()->
@@ -552,6 +574,8 @@ CommonFloor.getStepFilters = ()->
 	status= []
 	floor = []
 	main = []
+	views = []
+	facings = []
 	if CommonFloor.defaults['common']['price_max'] != ""
 		min_price = window.numDifferentiation CommonFloor.defaults['common']['price_min']
 		max_price = window.numDifferentiation CommonFloor.defaults['common']['price_max']
@@ -589,6 +613,24 @@ CommonFloor.getStepFilters = ()->
 			'id'		: 'available'
 			'id_name' : 'filter_available'
 
+	if CommonFloor.defaults['common']['views'] != ""
+		$.each CommonFloor.defaults['common']['views'].split(',') , (index,value)->
+
+			views.push 
+				'name' : value
+				'classname' : 'views'
+				'id'		: value
+				'id_name' : 'filter_'+value
+
+	if CommonFloor.defaults['common']['facings'] != ""
+		$.each CommonFloor.defaults['common']['facings'].split(',') , (index,value)->
+
+			facings.push 
+				'name' : value
+				'classname' : 'facings'
+				'id'		: value
+				'id_name' : 'filter_'+value
+
 	filters = CommonFloor.getApartmentFilters()
 			
 	if Object.keys(filters).length == 0
@@ -599,16 +641,19 @@ CommonFloor.getStepFilters = ()->
 				
 
 	main.push 
-		'filters' : type
 		'area' : area
 		'price' : price
 		'floor' : floor
 		'status' : status
+		'views' : views
+		'facings' : facings
+		'filters' : type
+		
 
 
-	$.each main,(index,value)->
-		if value.length == 0
-			main = _.omit(main, index)
+	# $.each main,(index,value)->
+	# 	if value.length == 0
+	# 		main = _.omit(main, index)
 	main
 
 
@@ -992,6 +1037,10 @@ CommonFloor.filterNew = ()->
 		CommonFloor.filterArea()
 	if CommonFloor.defaults['common']['floor_max'] != ""
 		CommonFloor.filterFloor()
+	if CommonFloor.defaults['common']['views'] != ""
+		CommonFloor.filterViews()
+	if CommonFloor.defaults['common']['facings'] != ""
+		CommonFloor.filterFacings()
 	if CommonFloor.defaults['common']['availability'] != ""
 		paramkey = {}
 		paramkey['availability'] = 'available'
@@ -1168,4 +1217,26 @@ $(window).bind('hashchange', ()->
 	CommonFloor.resetCollections()
 	CommonFloor.filterNew()
 )
+
+CommonFloor.filterViews = ()->
+	CommonFloor.resetCollections()
+	temp = []
+	unitCollection.each (item)->
+		console.log views = item.get('views')
+		$.each views , (ind,val)->
+			if $.inArray(val,CommonFloor.defaults['common']['views'].split(',')) > -1
+				temp.push item
+
+	unitCollection.reset temp
+
+
+CommonFloor.filterFacings = ()->
+	CommonFloor.resetCollections()
+	temp = []
+	unitCollection.each (item)->
+		console.log facings = item.get('direction')
+		if $.inArray(facings,CommonFloor.defaults['common']['facings'].split(',')) > -1
+				temp.push item
+
+	unitCollection.reset temp
 

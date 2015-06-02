@@ -293,6 +293,8 @@
     CenterUnitView.prototype.events = {
       'click .threeD': function(e) {
         var html, response;
+        $('.firstimage').hide();
+        $('.images').empty();
         response = this.generateLevels();
         html = '';
         $.each(response[1], function(index, value) {
@@ -307,6 +309,8 @@
       },
       'click .twoD': function(e) {
         var html, response;
+        $('.firstimage').hide();
+        $('.images').empty();
         response = this.generateLevels();
         html = '';
         $.each(response[0], function(index, value) {
@@ -317,10 +321,13 @@
         $('.twoD').addClass('current');
         $('.external').removeClass('current');
         $('.threeD').removeClass('current');
-        return $('.gallery').removeClass('current');
+        $('.gallery').removeClass('current');
+        return $('.master').removeClass('current');
       },
       'click .external': function(e) {
         var html, response;
+        $('.firstimage').hide();
+        $('.images').empty();
         response = this.generateLevels();
         html = '';
         html += '<div class="animated fadeIn"> <img class="img img-responsive external-img" data-src="' + response[3].get('external3durl') + '" /> </div>';
@@ -329,10 +336,13 @@
         $('.external').addClass('current');
         $('.threeD').removeClass('current');
         $('.twoD').removeClass('current');
-        return $('.gallery').removeClass('current');
+        $('.gallery').removeClass('current');
+        return $('.master').removeClass('current');
       },
       'click .gallery': function(e) {
         var html, response;
+        $('.images').empty();
+        $('.firstimage').hide();
         response = this.generateLevels();
         html = '';
         $.each(response[3].get('galleryurl'), function(index, value) {
@@ -343,9 +353,11 @@
         $('.gallery').addClass('current');
         $('.threeD').removeClass('current');
         $('.twoD').removeClass('current');
-        return $('.external').removeClass('current');
+        $('.external').removeClass('current');
+        return $('.master').removeClass('current');
       },
       'click .master': function(e) {
+        $('.firstimage').show();
         this.loadMaster();
         $('.master').addClass('current');
         $('.gallery').removeClass('current');
@@ -451,7 +463,9 @@
         $('.images').addClass('no-image');
       }
       $(".fancybox").fancybox();
-      $('.img').lazyLoadXT();
+      $('.img').lazyLoadXT({
+        'forceLoad': true
+      });
       return this.iniTooltip();
     };
 

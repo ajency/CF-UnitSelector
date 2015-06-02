@@ -52,7 +52,7 @@
       return TopApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}} - {{name}}</h2> <div class="proj-type-count"> <h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p> </div> <div class="pull-left filter-result full"> {{#filters}} {{#each this}} {{#each this}} <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/each}} {{/each}} {{/filters}} {{#area}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/area}} {{#budget}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/budget}} {{#floor}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross floor" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/floor}} {{#status}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/status}} </div> </div> </div> </div> </div>');
+    TopApartmentMasterView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}} - {{name}}</h2> <div class="proj-type-count"> <h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p> </div> <div class="pull-left filter-result full"> {{#filters}} {{#each this}} {{#each this}} <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/each}} {{/each}} {{/filters}} {{#area}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/area}} {{#budget}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/budget}} {{#views}} <li> <div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> </li> {{/views}} {{#facings}} <li> <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> </li> {{/facings}} {{#floor}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross floor" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/floor}} {{#status}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/status}} </div> </div> </div> </div> </div>');
 
     TopApartmentMasterView.prototype.ui = {
       unitBack: '.unit_back',
@@ -66,7 +66,9 @@
       budget: '#filter_budget',
       types: '.types',
       floor: '.floor',
-      filter_flooring: '.filter_flooring'
+      filter_flooring: '.filter_flooring',
+      views: '.views',
+      facings: '.facings'
     };
 
     TopApartmentMasterView.prototype.initialize = function() {
@@ -77,7 +79,7 @@
     };
 
     TopApartmentMasterView.prototype.serializeData = function() {
-      var building_id, data, main, mainFilters, model, units, url;
+      var building_id, data, main, mainFilters, model, newTemp, results, temp, units, url;
       data = TopApartmentMasterView.__super__.serializeData.call(this);
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
@@ -94,7 +96,14 @@
       data.budget = main[0].price;
       data.status = main[0].status;
       data.floor = main[0].floor;
-      data.results = apartmentVariantCollection.getApartmentUnits().length;
+      data.views = main[0].views;
+      data.facings = main[0].facings;
+      results = apartmentVariantCollection.getApartmentUnits();
+      temp = new Backbone.Collection(results);
+      newTemp = temp.where({
+        'building_id': parseInt(building_id)
+      });
+      data.results = newTemp.length;
       model = buildingMasterCollection.findWhere({
         'id': building_id
       });
@@ -169,6 +178,26 @@
         'click @ui.floor': function(e) {
           CommonFloor.defaults['common']['floor_max'] = "";
           CommonFloor.defaults['common']['floor_min'] = "";
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterStepNew();
+          unitTempCollection.trigger("filter_available");
+          return this.trigger('render:view');
+        },
+        'click @ui.facings': function(e) {
+          var types;
+          types = CommonFloor.defaults['common']['facings'].split(',');
+          types = _.without(types, $(e.currentTarget).attr('data-id'));
+          CommonFloor.defaults['common']['facings'] = types.join(',');
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterStepNew();
+          unitTempCollection.trigger("filter_available");
+          return this.trigger('render:view');
+        },
+        'click @ui.views': function(e) {
+          var types;
+          types = CommonFloor.defaults['common']['views'].split(',');
+          types = _.without(types, $(e.currentTarget).attr('data-id'));
+          CommonFloor.defaults['common']['views'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
@@ -579,23 +608,23 @@
       });
       $.merge(transitionImages, building.get('building_master'));
       first = _.values(svgs);
-      $('.region').load(first[0], function() {
-        $('.first_image').attr('data-src', transitionImages[breakpoints[0]]);
-        that.iniTooltip();
-        CommonFloor.applyAvailabilClasses();
-        CommonFloor.randomClass();
-        CommonFloor.applyFliterClass();
-        CommonFloor.getApartmentsInView();
-        return that.loadZoom();
-      }).addClass('active').removeClass('inactive');
       $('.first_image').lazyLoadXT();
       $('.first_image').load(function() {
-        var response;
-        response = building.checkRotationView(building_id);
-        $('.cf-loader').removeClass('hidden');
-        if (response === 1) {
-          return $('.cf-loader').removeClass('hidden');
-        }
+        return $('.region').load(first[0], function() {
+          var response;
+          $('.first_image').attr('data-src', transitionImages[breakpoints[0]]);
+          that.iniTooltip();
+          CommonFloor.applyAvailabilClasses();
+          CommonFloor.randomClass();
+          CommonFloor.applyFliterClass();
+          CommonFloor.getApartmentsInView();
+          that.loadZoom();
+          response = building.checkRotationView(building_id);
+          $('.cf-loader').removeClass('hidden');
+          if (response === 1) {
+            return $('.cf-loader').removeClass('hidden');
+          }
+        }).addClass('active').removeClass('inactive');
       });
       this.initializeRotate(transitionImages, svgs, building);
       this.loadProjectMaster();

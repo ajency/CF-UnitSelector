@@ -57,6 +57,18 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 															
 															 {{/budget}}
 
+															  {{#views}}
+													         	 <li>
+													                <div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
+													         </li>
+													         {{/views}}
+
+													       {{#facings}}
+													         	 <li>
+													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
+													         </li>
+													         {{/facings}}
+
 														 {{#floor}}
 																
 																	<div class="filter-pill"> {{name}} {{type}} <span class="icon-cross floor" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
@@ -89,6 +101,8 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		types : '.types'
 		floor : '.floor'
 		filter_flooring : '.filter_flooring'
+		views : '.views'
+		facings : '.facings'
 
 	initialize:->
 		url = Backbone.history.fragment
@@ -111,7 +125,14 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		data.budget  = main[0].price
 		data.status  = main[0].status
 		data.floor  = main[0].floor
-		data.results  = apartmentVariantCollection.getApartmentUnits().length
+		data.views  = main[0].views
+		data.facings  = main[0].facings
+		
+		results  = apartmentVariantCollection.getApartmentUnits()
+		temp = new Backbone.Collection results
+		newTemp = temp.where
+				'building_id' : parseInt building_id
+		data.results = newTemp.length
 		model = buildingMasterCollection.findWhere
 						'id' : building_id
 		data.name  = model.get 'building_name'
@@ -192,6 +213,24 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			CommonFloor.defaults['common']['floor_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			# CommonFloor.filterBuilding(@building_id)
+			CommonFloor.filterStepNew()
+			unitTempCollection.trigger( "filter_available") 
+			@trigger  'render:view'
+
+		'click @ui.facings':(e)->
+			types = CommonFloor.defaults['common']['facings'].split(',')
+			types = _.without types ,$(e.currentTarget).attr('data-id')
+			CommonFloor.defaults['common']['facings'] = types.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterStepNew()
+			unitTempCollection.trigger( "filter_available") 
+			@trigger  'render:view'
+
+		'click @ui.views':(e)->
+			types = CommonFloor.defaults['common']['views'].split(',')
+			types = _.without types ,$(e.currentTarget).attr('data-id')
+			CommonFloor.defaults['common']['views'] = types.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
@@ -744,20 +783,23 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		
 		$.merge transitionImages ,  building.get('building_master')
 		first = _.values svgs
-		$('.region').load(first[0],()->
+		
+		$('.first_image').lazyLoadXT()
+		$('.first_image').load ()->
+			$('.region').load(first[0],()->
 				$('.first_image').attr('data-src',transitionImages[breakpoints[0]])
 				that.iniTooltip()
 				CommonFloor.applyAvailabilClasses()
 				CommonFloor.randomClass()
 				CommonFloor.applyFliterClass()
 				CommonFloor.getApartmentsInView()
-				that.loadZoom()).addClass('active').removeClass('inactive')
-		$('.first_image').lazyLoadXT()
-		$('.first_image').load ()->
-			response = building.checkRotationView(building_id)
-			$('.cf-loader').removeClass 'hidden'
-			if response is 1
+				that.loadZoom()
+				response = building.checkRotationView(building_id)
 				$('.cf-loader').removeClass 'hidden'
+				if response is 1
+					$('.cf-loader').removeClass 'hidden'
+			).addClass('active').removeClass('inactive')
+			
 		
 		@initializeRotate(transitionImages,svgs,building)
 		@loadProjectMaster()

@@ -503,7 +503,7 @@
   };
 
   CommonFloor.getFilters = function() {
-    var area, area_max, area_min, filters, floor, floor_max, floor_min, flooring, main, max_price, min_price, price, results, status, type, typeArr, unitTypes, unitVariants;
+    var area, area_max, area_min, facings, filters, floor, floor_max, floor_min, flooring, main, max_price, min_price, price, results, status, type, typeArr, unitTypes, unitVariants, views;
     unitTypes = [];
     unitVariants = [];
     results = [];
@@ -516,6 +516,8 @@
     status = [];
     floor = [];
     main = [];
+    views = [];
+    facings = [];
     if (CommonFloor.defaults['common']['price_max'] !== "") {
       min_price = window.numDifferentiation(CommonFloor.defaults['common']['price_min']);
       max_price = window.numDifferentiation(CommonFloor.defaults['common']['price_max']);
@@ -555,6 +557,26 @@
         'classname': 'types',
         'id': 'available',
         'id_name': 'filter_available'
+      });
+    }
+    if (CommonFloor.defaults['common']['views'] !== "") {
+      $.each(CommonFloor.defaults['common']['views'].split(','), function(index, value) {
+        return views.push({
+          'name': value,
+          'classname': 'views',
+          'id': value,
+          'id_name': 'filter_' + value
+        });
+      });
+    }
+    if (CommonFloor.defaults['common']['facings'] !== "") {
+      $.each(CommonFloor.defaults['common']['facings'].split(','), function(index, value) {
+        return facings.push({
+          'name': value,
+          'classname': 'facings',
+          'id': value,
+          'id_name': 'filter_' + value
+        });
       });
     }
     if (CommonFloor.defaults['type'] !== "") {
@@ -596,18 +618,15 @@
       'area': area,
       'price': price,
       'floor': floor,
-      'status': status
-    });
-    $.each(main, function(index, value) {
-      if (value.length === 0) {
-        return main = _.omit(main, index);
-      }
+      'status': status,
+      'views': views,
+      'facings': facings
     });
     return main;
   };
 
   CommonFloor.getStepFilters = function() {
-    var area, area_max, area_min, filters, floor, floor_max, floor_min, flooring, main, max_price, min_price, price, results, status, type, unitTypes, unitVariants;
+    var area, area_max, area_min, facings, filters, floor, floor_max, floor_min, flooring, main, max_price, min_price, price, results, status, type, unitTypes, unitVariants, views;
     unitTypes = [];
     unitVariants = [];
     results = [];
@@ -620,6 +639,8 @@
     status = [];
     floor = [];
     main = [];
+    views = [];
+    facings = [];
     if (CommonFloor.defaults['common']['price_max'] !== "") {
       min_price = window.numDifferentiation(CommonFloor.defaults['common']['price_min']);
       max_price = window.numDifferentiation(CommonFloor.defaults['common']['price_max']);
@@ -661,6 +682,26 @@
         'id_name': 'filter_available'
       });
     }
+    if (CommonFloor.defaults['common']['views'] !== "") {
+      $.each(CommonFloor.defaults['common']['views'].split(','), function(index, value) {
+        return views.push({
+          'name': value,
+          'classname': 'views',
+          'id': value,
+          'id_name': 'filter_' + value
+        });
+      });
+    }
+    if (CommonFloor.defaults['common']['facings'] !== "") {
+      $.each(CommonFloor.defaults['common']['facings'].split(','), function(index, value) {
+        return facings.push({
+          'name': value,
+          'classname': 'facings',
+          'id': value,
+          'id_name': 'filter_' + value
+        });
+      });
+    }
     filters = CommonFloor.getApartmentFilters();
     if (Object.keys(filters).length === 0) {
       filters = [];
@@ -669,16 +710,13 @@
       'filters': filters
     });
     main.push({
-      'filters': type,
       'area': area,
       'price': price,
       'floor': floor,
-      'status': status
-    });
-    $.each(main, function(index, value) {
-      if (value.length === 0) {
-        return main = _.omit(main, index);
-      }
+      'status': status,
+      'views': views,
+      'facings': facings,
+      'filters': type
     });
     return main;
   };
@@ -1104,6 +1142,12 @@
     if (CommonFloor.defaults['common']['floor_max'] !== "") {
       CommonFloor.filterFloor();
     }
+    if (CommonFloor.defaults['common']['views'] !== "") {
+      CommonFloor.filterViews();
+    }
+    if (CommonFloor.defaults['common']['facings'] !== "") {
+      CommonFloor.filterFacings();
+    }
     if (CommonFloor.defaults['common']['availability'] !== "") {
       paramkey = {};
       paramkey['availability'] = 'available';
@@ -1324,6 +1368,36 @@
     CommonFloor.resetCollections();
     return CommonFloor.filterNew();
   });
+
+  CommonFloor.filterViews = function() {
+    var temp;
+    CommonFloor.resetCollections();
+    temp = [];
+    unitCollection.each(function(item) {
+      var views;
+      console.log(views = item.get('views'));
+      return $.each(views, function(ind, val) {
+        if ($.inArray(val, CommonFloor.defaults['common']['views'].split(',')) > -1) {
+          return temp.push(item);
+        }
+      });
+    });
+    return unitCollection.reset(temp);
+  };
+
+  CommonFloor.filterFacings = function() {
+    var temp;
+    CommonFloor.resetCollections();
+    temp = [];
+    unitCollection.each(function(item) {
+      var facings;
+      console.log(facings = item.get('direction'));
+      if ($.inArray(facings, CommonFloor.defaults['common']['facings'].split(',')) > -1) {
+        return temp.push(item);
+      }
+    });
+    return unitCollection.reset(temp);
+  };
 
 }).call(this);
 

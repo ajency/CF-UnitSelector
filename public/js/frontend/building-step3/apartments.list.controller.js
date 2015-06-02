@@ -46,7 +46,7 @@
       return TopApartmentView.__super__.constructor.apply(this, arguments);
     }
 
-    TopApartmentView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="proj-name pull-left">{{project_title}}</h2> <div class="proj-type-count"> <h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p> </div> <div class="pull-left filter-result full"> {{#filters}} {{#each this}} {{#each this}} <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/each}} {{/each}} {{/filters}} {{#area}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/area}} {{#budget}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/budget}} {{#floor}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross floor" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/floor}} {{#status}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/status}} </div> </div> </div> </div> </div>');
+    TopApartmentView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}} - {{name}}</h2> <div class="proj-type-count"> <h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p> </div> <div class="pull-left filter-result full"> {{#filters}} {{#each this}} {{#each this}} <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/each}} {{/each}} {{/filters}} {{#area}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/area}} {{#budget}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/budget}} {{#views}} <li> <div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> </li> {{/views}} {{#facings}} <li> <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> </li> {{/facings}} {{#floor}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross floor" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/floor}} {{#status}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/status}} </div> </div> </div> </div> </div>');
 
     TopApartmentView.prototype.ui = {
       unitBack: '.unit_back',
@@ -60,7 +60,9 @@
       budget: '#filter_budget',
       types: '.types',
       floor: '.floor',
-      filter_flooring: '.filter_flooring'
+      filter_flooring: '.filter_flooring',
+      views: '.views',
+      facings: '.facings'
     };
 
     TopApartmentView.prototype.initialize = function() {
@@ -71,7 +73,7 @@
     };
 
     TopApartmentView.prototype.serializeData = function() {
-      var data, main, mainFilters, units;
+      var data, main, mainFilters, model, newTemp, results, temp, units;
       data = TopApartmentView.__super__.serializeData.call(this);
       units = Marionette.getOption(this, 'units');
       data.units = units.length;
@@ -86,7 +88,18 @@
       data.budget = main[0].price;
       data.status = main[0].status;
       data.floor = main[0].floor;
-      data.results = apartmentVariantCollection.getApartmentUnits().length;
+      data.views = main[0].views;
+      data.facings = main[0].facings;
+      results = apartmentVariantCollection.getApartmentUnits();
+      temp = new Backbone.Collection(results);
+      newTemp = temp.where({
+        'building_id': parseInt(building_id)
+      });
+      data.results = newTemp.length;
+      model = buildingMasterCollection.findWhere({
+        'id': building_id
+      });
+      data.name = model.get('building_name');
       return data;
     };
 
@@ -165,6 +178,26 @@
         'click @ui.floor': function(e) {
           CommonFloor.defaults['common']['floor_max'] = "";
           CommonFloor.defaults['common']['floor_min'] = "";
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterStepNew();
+          unitTempCollection.trigger("filter_available");
+          return this.trigger('render:view');
+        },
+        'click @ui.facings': function(e) {
+          var types;
+          types = CommonFloor.defaults['common']['facings'].split(',');
+          types = _.without(types, $(e.currentTarget).attr('data-id'));
+          CommonFloor.defaults['common']['facings'] = types.join(',');
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterStepNew();
+          unitTempCollection.trigger("filter_available");
+          return this.trigger('render:view');
+        },
+        'click @ui.views': function(e) {
+          var types;
+          types = CommonFloor.defaults['common']['views'].split(',');
+          types = _.without(types, $(e.currentTarget).attr('data-id'));
+          CommonFloor.defaults['common']['views'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
