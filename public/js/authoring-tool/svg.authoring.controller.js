@@ -278,6 +278,7 @@
         async: false,
         data: $.param(myObject),
         success: function(response) {
+          myObject['id'] = response.data.id;
           window.svgData.data.push(myObject);
           window.resetTool();
           draw.clear();

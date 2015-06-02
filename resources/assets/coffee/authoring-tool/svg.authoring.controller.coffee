@@ -323,7 +323,7 @@ jQuery(document).ready ($)->
             async : false
             data : $.param myObject 
             success :(response)->
-        
+                myObject['id'] = response.data.id
                 window.svgData.data.push myObject
 
                 window.resetTool()
