@@ -12,15 +12,35 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
          <div class="filters-wrapper">
             <div class="filters-content">
                                     <div class="property_type">
-                        <h6 class="">PROPERTY TYPE</h6>
-                        <div class="filter-chkbox-block"> 
-                        {{#types}}
-                         <div class="-lbl ">
-                          <input type="checkbox" class="custom-chckbx addCft types {{name}}" id="{{id}}" value="{{type}}" data-value="{{name}}"" > <label for="{{id}}" class="-lbl  ">{{type}}</label>  
-                          </div>
-                       {{/types}} 
-                         </div>
-                     </div>
+				                        <h6 class="">PROPERTY TYPE</h6>
+				                        <div class="filter-chkbox-block"> 
+				                        {{#types}}
+				                         <div class="-lbl ">
+				                          <input type="checkbox" class="custom-chckbx addCft types {{name}}" id="{{id}}" value="{{type}}" data-value="{{name}}"" > <label for="{{id}}" class="-lbl  ">{{type}}</label>  
+				                          </div>
+				                       {{/types}} 
+				                         </div>
+				                     </div>
+				                      <div class="viewLabel">
+				                        <h6 class="">VIEWS</h6>
+				                        <div class="filter-chkbox-block"> 
+				                        {{#views}}
+				                         <div class="-lbl ">
+				                          <input type="checkbox" class="custom-chckbx addCft views " id="{{id}}" value=""  > <label for="{{id}}" class="-lbl  ">{{name}}</label>  
+				                          </div>
+				                       {{/views}} 
+				                         </div>
+				                     </div>
+				                      <div class="facingLabel">
+				                        <h6 class="">FACINGS</h6>
+				                        <div class="filter-chkbox-block"> 
+				                        {{#facings}}
+				                         <div class="-lbl ">
+				                          <input type="checkbox" class="custom-chckbx addCft facings " id="{{id}}" value=""  > <label for="{{id}}" class="-lbl  ">{{name}}</label>  
+				                          </div>
+				                       {{/facings}} 
+				                         </div>
+				                     </div>
      
            
                
@@ -167,6 +187,9 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		aptCheck : '.apartment-check'
 		plotCheck : '.plot-check'
 		back_btn : '.back_btn'
+		back_btn : '.back_btn'
+		facings : '.facings'
+		views : '.views'
 
 	initialize:->
 		@price = ''
@@ -214,6 +237,8 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			@price.destroy()
 			@area.destroy()
 			@loadClearFilter()
+
+
 
 		'mouseover @ui.villaCheck,@ui.villaWrapper':(e)->
 			$(".villa-wrapper").addClass("visible")
@@ -382,6 +407,33 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 
+		'click @ui.views':(e)->
+			types = CommonFloor.defaults['common']['views'].split(',')
+			
+			if $(e.currentTarget).is(':checked')
+				types.push  $(e.currentTarget).val()
+			else
+				types = _.without types ,$(e.currentTarget).val()
+			types =   _.uniq types
+			CommonFloor.defaults['common']['views'] = types.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterNew()	
+			unitCollection.trigger('available')
+
+		'click @ui.facings':(e)->
+			types = CommonFloor.defaults['common']['facings'].split(',')
+			
+			if $(e.currentTarget).is(':checked')
+				types.push  $(e.currentTarget).val()
+			else
+				types = _.without types ,$(e.currentTarget).val()
+			types =   _.uniq types
+			CommonFloor.defaults['common']['facings'] = types.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.filterNew()	
+			unitCollection.trigger('available')
+
+
 		'click @ui.flooring':(e)->
 			types = []
 			type = $(e.currentTarget).attr('data-type')
@@ -515,6 +567,8 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		data.apartments = Marionette.getOption(@,'apartments')
 		data.plots = Marionette.getOption(@,'plots')
 		data.types = Marionette.getOption(@,'types')
+		views = Marionette.getOption(@,'views')
+		facings = Marionette.getOption(@,'facings')
 		data
 
 	onShow:->
@@ -601,6 +655,8 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		villas = Marionette.getOption(@,'villas')
 		apartments = Marionette.getOption(@,'apartments')
 		plots = Marionette.getOption(@,'plots')
+		views = Marionette.getOption(@,'views')
+		facings = Marionette.getOption(@,'facings')
 		$.each villas[0] , (index,value)->
 			if value.length is 0
 				$('.villa_'+index).hide()
@@ -610,6 +666,10 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		$.each plots[0] , (index,value)->
 			if value.length is 0
 				$('.plot_'+index).hide()
+		if views.length is 0
+			$('.viewLabel').hide()
+		if facings.length is 0
+			$('.facingLabel').hide()
 
 
 	loadClearFilter:->
@@ -772,6 +832,9 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 			$.merge unitVariants , plotFilters[0].unitVariants
 			$.merge budget , plotFilters[0].budget
 			
+		viewsFacingsArr = @getViewsFacings() 
+		views = viewsFacingsArr[0]
+		facings = viewsFacingsArr[1]
 		types = CommonFloor.masterPropertyTypes()
 		$.each types,(index,value)->
 			if value.count == 0
@@ -789,6 +852,8 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 				'budget'			: budget
 				'types'			: types
 				'plots'		: plotFilters
+				'views' : views
+				'facings' : facings
 
 		# @listenTo @view,  'render:view' , @renderView()
 
@@ -1015,4 +1080,30 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 				filters[0][index] = []
 		
 		filters
-								
+
+	getViewsFacings:->
+		views = []
+		viewArr = []
+		facingsArr = []
+		_.each unitCollection,(item)->
+			$.merge views , item.get('views')
+
+		$.each views , (ind,val)->
+			viewArr.push
+				'id' : val
+				'name' : val
+
+		facings = ['North' , 'South' ,'East' , 'West' , 'North-east','Norht-west','South-East','South-West']						
+
+		$.each facings , (ind,val)->
+			facingsArr.push
+				'id' : val
+				'name' : val
+
+		if $.inArray('views' , project.get('filters').defaults) ==  -1 
+				viewArr = []
+
+		if $.inArray('facings' , project.get('filters').defaults) ==  -1 
+				facingsArr = []
+
+		[viewArr,facingsArr]

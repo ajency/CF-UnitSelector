@@ -46,7 +46,7 @@
       return TopListView.__super__.constructor.apply(this, arguments);
     }
 
-    TopListView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> </a> </div> <div class="header-info"> <h2 class="proj-name pull-left">{{project_title}}</h2> <div class="proj-type-count"> {{#types}} <p class="pull-right">{{type}}</p><h2 class=" pull-right m-t-10">{{count.length}}</h2> {{/types}} </div> <div class="clearfix"></div> </div> </div> </div> </div> <div class="pull-left filter-result full"> <ul  id="flexiselDemo1"> {{#each  filters}} <li> <div class="filter-title"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"></span> </div> </li> {{#filters}} {{#each this}} {{#each this}} <li> <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> </li>{{/each}} {{/each}} {{/filters}} {{/each}} {{#area}} <li> <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> </li> {{/area}} {{#budget}} <li> <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> </li> {{/budget}} {{#status}} <li> <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> </li> {{/status}} </ul> </div> <div class="clearfix"></div>');
+    TopListView.prototype.template = Handlebars.compile('<div class="container-fluid"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12 text-center"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"> </a> </div> <div class="header-info"> <h2 class="proj-name pull-left">{{project_title}}</h2> <div class="proj-type-count"> {{#types}} <p class="pull-right">{{type}}</p><h2 class=" pull-right m-t-10">{{count.length}}</h2> {{/types}} </div> <div class="clearfix"></div> </div> </div> </div> </div> <div class="pull-left filter-result full"> <ul  id="flexiselDemo1"> {{#each  filters}} <li> <div class="filter-title"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"></span> </div> </li> {{#filters}} {{#each this}} {{#each this}} <li> <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> </li>{{/each}} {{/each}} {{/filters}} {{/each}} {{#area}} <li> <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> </li> {{/area}} {{#budget}} <li> <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> </li> {{/budget}} {{#views}} <li> <div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> </li> {{/views}} {{#facings}} <li> <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> </li> {{/facings}} {{#status}} <li> <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> </li> {{/status}} </ul> </div> <div class="clearfix"></div>');
 
     TopListView.prototype.ui = {
       unitBack: '.unit_back',
@@ -59,7 +59,9 @@
       area: '#filter_area',
       budget: '#filter_budget',
       types: '.types',
-      filter_flooring: '.filter_flooring'
+      filter_flooring: '.filter_flooring',
+      views: '.views',
+      facings: '.facings'
     };
 
     TopListView.prototype.serializeData = function() {
@@ -74,6 +76,8 @@
       data.area = main[0].area;
       data.budget = main[0].price;
       data.status = main[0].status;
+      data.views = main[0].views;
+      data.facings = main[0].facings;
       response = CommonFloor.propertyTypes();
       data.types = response;
       return data;
@@ -178,6 +182,26 @@
           console.log(types);
           types = _.without(types, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults[type]['attributes'] = types.join(',');
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterNew();
+          unitCollection.trigger('available');
+          return this.trigger('render:view');
+        },
+        'click @ui.facings': function(e) {
+          var types;
+          types = CommonFloor.defaults['common']['facings'].split(',');
+          types = _.without(types, $(e.currentTarget).val());
+          CommonFloor.defaults['common']['facings'] = types.join(',');
+          unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.filterNew();
+          unitCollection.trigger('available');
+          return this.trigger('render:view');
+        },
+        'click @ui.views': function(e) {
+          var types;
+          types = CommonFloor.defaults['common']['views'].split(',');
+          types = _.without(types, $(e.currentTarget).val());
+          CommonFloor.defaults['common']['views'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filterNew();
           unitCollection.trigger('available');
