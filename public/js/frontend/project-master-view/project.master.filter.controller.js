@@ -727,10 +727,10 @@
         $.merge(unitVariants, plotFilters[0].unitVariants);
         $.merge(budget, plotFilters[0].budget);
       }
-      if ($.inArray('budget', project.get('filters').defaults) === -1 || !_.isUndefined(project.get('filters').defaults)) {
+      if ($.inArray('budget', project.get('filters').defaults) === -1 && !_.isUndefined(project.get('filters').defaults)) {
         budget = [];
       }
-      if ($.inArray('area', project.get('filters').defaults) === -1 || !_.isUndefined(project.get('filters').defaults)) {
+      if ($.inArray('area', project.get('filters').defaults) === -1 && !_.isUndefined(project.get('filters').defaults)) {
         unitVariants = [];
       }
       viewsFacingsArr = this.getViewsFacings();
@@ -812,7 +812,8 @@
                   });
                   return newtemp.push({
                     'label': ind.toUpperCase(),
-                    'value': temp
+                    'value': temp,
+                    'index': ind
                   });
                 }
               });
@@ -902,7 +903,8 @@
                   });
                   return newtemp.push({
                     'label': ind.toUpperCase(),
-                    'value': temp
+                    'value': temp,
+                    'index': ind
                   });
                 }
               });

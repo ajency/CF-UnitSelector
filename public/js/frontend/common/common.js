@@ -626,7 +626,7 @@
   };
 
   CommonFloor.getStepFilters = function() {
-    var area, area_max, area_min, filters, floor, floor_max, floor_min, flooring, main, max_price, min_price, price, results, status, type, unitTypes, unitVariants;
+    var area, area_max, area_min, facings, filters, floor, floor_max, floor_min, flooring, main, max_price, min_price, price, results, status, type, unitTypes, unitVariants, views;
     unitTypes = [];
     unitVariants = [];
     results = [];
@@ -639,6 +639,8 @@
     status = [];
     floor = [];
     main = [];
+    views = [];
+    facings = [];
     if (CommonFloor.defaults['common']['price_max'] !== "") {
       min_price = window.numDifferentiation(CommonFloor.defaults['common']['price_min']);
       max_price = window.numDifferentiation(CommonFloor.defaults['common']['price_max']);

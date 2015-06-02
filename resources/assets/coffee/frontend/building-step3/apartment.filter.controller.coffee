@@ -418,10 +418,8 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 
 		views = Marionette.getOption(@,'views')
 		facings = Marionette.getOption(@,'facings')
-		console.log budget = Marionette.getOption(@,'budget')
-		console.log unitVariants = Marionette.getOption(@,'unitVariants')
-		$.each villas[0] , (index,value)->
-
+		budget = Marionette.getOption(@,'budget')
+		unitVariants = Marionette.getOption(@,'unitVariants')
 		if views.length is 0
 			$('.viewLabel').hide()
 		if facings.length is 0
@@ -623,6 +621,12 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 		viewsFacingsArr = @getViewsFacings() 
 		views = viewsFacingsArr[0]
 		facings = viewsFacingsArr[1]
+
+		if $.inArray('budget' , project.get('filters').defaults) ==  -1 && ! _.isUndefined project.get('filters').defaults
+				budget = []
+
+		if $.inArray('area' , project.get('filters').defaults) ==  -1 && ! _.isUndefined project.get('filters').defaults
+				unitVariants = []
 
 		@view = view = new CommonFloor.FilterApartmentView
 				model : project

@@ -306,9 +306,8 @@
       }
       views = Marionette.getOption(this, 'views');
       facings = Marionette.getOption(this, 'facings');
-      console.log(budget = Marionette.getOption(this, 'budget'));
-      console.log(unitVariants = Marionette.getOption(this, 'unitVariants'));
-      $.each(villas[0], function(index, value) {});
+      budget = Marionette.getOption(this, 'budget');
+      unitVariants = Marionette.getOption(this, 'unitVariants');
       if (views.length === 0) {
         $('.viewLabel').hide();
       }
@@ -482,6 +481,12 @@
       viewsFacingsArr = this.getViewsFacings();
       views = viewsFacingsArr[0];
       facings = viewsFacingsArr[1];
+      if ($.inArray('budget', project.get('filters').defaults) === -1 && !_.isUndefined(project.get('filters').defaults)) {
+        budget = [];
+      }
+      if ($.inArray('area', project.get('filters').defaults) === -1 && !_.isUndefined(project.get('filters').defaults)) {
+        unitVariants = [];
+      }
       this.view = view = new CommonFloor.FilterApartmentView({
         model: project,
         'unitTypes': unitTypes,

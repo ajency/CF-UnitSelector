@@ -865,10 +865,10 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 			$.merge budget , plotFilters[0].budget
 
 
-		if $.inArray('budget' , project.get('filters').defaults) ==  -1 || ! _.isUndefined project.get('filters').defaults
+		if $.inArray('budget' , project.get('filters').defaults) ==  -1 && ! _.isUndefined project.get('filters').defaults
 				budget = []
 
-		if $.inArray('area' , project.get('filters').defaults) ==  -1 || ! _.isUndefined project.get('filters').defaults
+		if $.inArray('area' , project.get('filters').defaults) ==  -1 && ! _.isUndefined project.get('filters').defaults
 				unitVariants = []
 			
 
@@ -947,6 +947,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 								newtemp.push 
 									'label' : ind.toUpperCase()
 									'value' : temp
+									'index' : ind
 				# if $.inArray(item.get('variant_attributes').flooring,flooring) == -1 && ! _.isUndefined item.get('variant_attributes').flooring
 				# 	flooring.push item.get('variant_attributes').flooring
 				# 	flooringAttributes.push
@@ -1029,6 +1030,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 								newtemp.push 
 									'label' : ind.toUpperCase()
 									'value' : temp
+									'index' : ind
 
 				# if $.inArray(item.get('variant_attributes').flooring,flooring) == -1 && ! _.isUndefined item.get('variant_attributes').flooring
 				# 	flooring.push item.get('variant_attributes').flooring
