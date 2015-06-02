@@ -224,6 +224,10 @@
                 <?php $last = $phaseId; ?>
                 @endforeach
                 @endforeach
+                 @else
+                <tr>
+                    <td colspan="7" class="semi-bold text-info text-center">No units created</td>
+                </tr>
                 @endif 
             </tbody>
         </table>
