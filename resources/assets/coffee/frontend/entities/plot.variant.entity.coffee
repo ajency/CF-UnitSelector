@@ -66,9 +66,10 @@ class PlotVariantCollection extends Backbone.Collection
 
 	getPlotAttributes:->
 		attributes = []
-		$.each item.get('variant_attributes') , (index,value)->
-				if $.inArray(value,attributes) == -1
-					attributes.push value
+		plotVariantMasterCollection.each (item)->
+			$.each item.get('variant_attributes') , (index,value)->
+					if $.inArray(value,attributes) == -1
+						attributes.push value
 				
 						
 

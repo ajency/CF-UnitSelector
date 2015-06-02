@@ -121,7 +121,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		   {{#flooring}}
 		  <div class=""> <h6 class="unit_type_filter">{{label}}</h6> <div class="filter-chkbox-block">  
        		{{#value}}
-           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}"" data-type="villa" > 
+           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}"" data-type="apartment" > 
             <label for="{{id}}" class="-lbl">{{name}}</label> 
 		   {{/value}}
 		  </div>
@@ -153,7 +153,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		   {{#flooring}}
 		  <div class=""> <h6 class="unit_type_filter">{{label}}</h6> <div class="filter-chkbox-block">  
        		{{#value}}
-           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}"" data-type="villa" > 
+           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}"" data-type="plot" > 
             <label for="{{id}}" class="-lbl">{{name}}</label> 
 		   {{/value}}
 		  </div>
@@ -969,6 +969,11 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		$.each filters[0],(index,value)->
 			if $.inArray(index , project.get('filters').Villa) ==  -1 && index != 'budget' && index != 'unitVariants'
 				filters[0][index] = []
+
+			if index == 'flooring'
+				$.each value,(ind,val)->
+					if $.inArray(val.index , project.get('filters').Villa) ==  -1 
+						filters[0][index] = []
 				
 
 		filters
@@ -1047,6 +1052,11 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		$.each filters[0],(index,value)->
 			if $.inArray(index , project.get('filters').Apartment) ==  -1 && index != 'budget' && index != 'unitVariants'
 				filters[0][index] = []
+
+			if index == 'flooring'
+				$.each value,(ind,val)->
+					if $.inArray(val.index , project.get('filters').Apartment) ==  -1 
+						filters[0][index] = []
 		
 		filters
 
@@ -1125,7 +1135,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 
 			if index == 'flooring'
 				$.each value,(ind,val)->
-					if $.inArray(ind , project.get('filters').Plot) ==  -1 
+					if $.inArray(val.index , project.get('filters').Plot) ==  -1 
 						filters[0][index] = []
 
 	

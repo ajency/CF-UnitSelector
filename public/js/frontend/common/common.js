@@ -708,13 +708,13 @@
       'filters': filters
     });
     main.push({
-      'filters': type,
       'area': area,
       'price': price,
       'floor': floor,
       'status': status,
       'views': views,
-      'facings': facings
+      'facings': facings,
+      'filters': type
     });
     return main;
   };

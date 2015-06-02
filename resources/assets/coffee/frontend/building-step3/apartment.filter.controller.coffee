@@ -707,8 +707,13 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 			'flooring'		: newtemp
 
 		$.each filters[0],(index,value)->
-			if $.inArray(index , project.get('filters').Villa) ==  -1 && index != 'budget' && index != 'unitVariants'
+			if $.inArray(index , project.get('filters').Apartment) ==  -1 && index != 'budget' && index != 'unitVariants'
 				filters[0][index] = []
+
+			if index == 'flooring'
+				$.each value,(ind,val)->
+					if $.inArray(val.index , project.get('filters').Apartment) ==  -1 
+						filters[0][index] = []
 		filters
 
 

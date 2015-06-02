@@ -579,8 +579,15 @@
         'flooring': newtemp
       });
       $.each(filters[0], function(index, value) {
-        if ($.inArray(index, project.get('filters').Villa) === -1 && index !== 'budget' && index !== 'unitVariants') {
-          return filters[0][index] = [];
+        if ($.inArray(index, project.get('filters').Apartment) === -1 && index !== 'budget' && index !== 'unitVariants') {
+          filters[0][index] = [];
+        }
+        if (index === 'flooring') {
+          return $.each(value, function(ind, val) {
+            if ($.inArray(val.index, project.get('filters').Apartment) === -1) {
+              return filters[0][index] = [];
+            }
+          });
         }
       });
       return filters;

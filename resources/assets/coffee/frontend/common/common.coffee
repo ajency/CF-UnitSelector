@@ -639,13 +639,14 @@ CommonFloor.getStepFilters = ()->
 				
 
 	main.push 
-		'filters' : type
 		'area' : area
 		'price' : price
 		'floor' : floor
 		'status' : status
 		'views' : views
 		'facings' : facings
+		'filters' : type
+		
 
 
 	# $.each main,(index,value)->
