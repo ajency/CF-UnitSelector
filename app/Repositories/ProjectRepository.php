@@ -33,8 +33,15 @@ class ProjectRepository implements ProjectRepositoryInterface {
         $project->city = $projectData['city'];
         $project->project_title = $projectData['project_title'];
         $project->measurement_units = 'Sq. Ft.';
+        $project->has_phase = 'no';
         $project->created_by = $project->updated_by = Auth::user()->id;
         $project->save();
+
+        //CREATE DFAULT PHASE
+        $phase = new Phase();
+        $phase->project_id = $project->id;
+        $phase->phase_name = 'Default';
+        $phase->save();
 
         $commonFloorData = [
             'project_title' => $projectData['hidden_project_title'],
