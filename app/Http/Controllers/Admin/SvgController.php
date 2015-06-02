@@ -316,4 +316,25 @@ class SvgController extends Controller {
 			return false;
 	}
 
+	// delete svg id and its corresponding child svg elements for a given image id
+	public static function delete_svg($image_id){
+		$svg = Svg::where( 'image_id', '=', $imageid )->first();
+		if (!empty($svg)) {
+			// @todo write code to delete svg file as well
+			$svg->delete();
+			return response()->json( [
+				'code' => 'svg_deleted',
+				'message' => 'SVG deleted for the given image', 
+				], 201 );			
+		}
+		else{
+			return response()->json( [
+				'code' => 'svg_not_deleted',
+				'message' => 'Could not find svg to be deleted for image', 
+				], 400 );			
+		}
+	}	
+
+
+
 }
