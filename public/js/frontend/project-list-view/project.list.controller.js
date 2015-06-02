@@ -10,7 +10,7 @@
       return ProjectListView.__super__.constructor.apply(this, arguments);
     }
 
-    ProjectListView.prototype.template = '#project-template';
+    ProjectListView.prototype.template = '#project-listview-template';
 
     return ProjectListView;
 

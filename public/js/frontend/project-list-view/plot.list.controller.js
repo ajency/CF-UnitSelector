@@ -100,11 +100,26 @@
     };
 
     PlotView.prototype.onShow = function() {
-      if (apartmentVariantCollection.length !== 0) {
-        $('.buildings').removeClass('hidden');
-      }
-      if (bunglowVariantCollection.length !== 0) {
-        return $('.Villas').removeClass('hidden');
+      var arr, type;
+      if (CommonFloor.defaults['type'] !== "") {
+        type = CommonFloor.defaults['type'].split(',');
+        if ($.inArray('apartment', type) > -1) {
+          $('.buildings').removeClass('hidden');
+        }
+        if ($.inArray('villa', type) > -1) {
+          return $('.Villas').removeClass('hidden');
+        }
+      } else {
+        arr = _.values(window.propertyTypes);
+        if ($.inArray('Apartments', arr) > -1 || $.inArray('Penthouse', arr) > -1) {
+          $('.buildings').removeClass('hidden');
+        }
+        if ($.inArray('Plot', arr) > -1) {
+          $('.Plots').removeClass('hidden');
+        }
+        if ($.inArray('Villas/Bungalows', arr) > -1) {
+          return $('.Villas').removeClass('hidden');
+        }
       }
     };
 

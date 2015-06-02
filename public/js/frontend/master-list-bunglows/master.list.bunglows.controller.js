@@ -187,11 +187,26 @@
     };
 
     MasterBunglowListView.prototype.onShow = function() {
-      if (buildingCollection.length !== 0) {
-        $('.buildings').removeClass('hidden');
-      }
-      if (plotVariantCollection.length !== 0) {
-        $('.Plots_tab').removeClass('hidden');
+      var arr, type;
+      if (CommonFloor.defaults['type'] !== "") {
+        type = CommonFloor.defaults['type'].split(',');
+        if ($.inArray('apartment', type) > -1) {
+          $('.buildings').removeClass('hidden');
+        }
+        if ($.inArray('plot', type) > -1) {
+          $('.Plots_tab').removeClass('hidden');
+        }
+      } else {
+        arr = _.values(window.propertyTypes);
+        if ($.inArray('Apartments', arr) > -1 || $.inArray('Penthouse', arr) > -1) {
+          $('.buildings').removeClass('hidden');
+        }
+        if ($.inArray('Plot', arr) > -1) {
+          $('.Plots_tab').removeClass('hidden');
+        }
+        if ($.inArray('Villas/Bungalows', arr) > -1) {
+          $('.Villas').removeClass('hidden');
+        }
       }
       if ($(window).width() > 991) {
         return $('.units').mCustomScrollbar({

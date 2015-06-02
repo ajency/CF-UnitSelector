@@ -157,7 +157,9 @@ class VariantMediaController extends Controller {
             if($variantId)
                  VariantMeta::where('meta_value',$id)->delete();
         }
- 
+        
+        //CALL METHOD TO DELETE SVG (NUTAN)
+
         $media = Media::find( $id );
         $targetDir = public_path() . "/projects/" . $projectId . "/variants/" . $variantId . "/".$media->image_name;
         unlink($targetDir);

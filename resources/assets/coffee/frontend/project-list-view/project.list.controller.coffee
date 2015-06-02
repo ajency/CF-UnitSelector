@@ -1,6 +1,6 @@
 class CommonFloor.ProjectListView extends Marionette.LayoutView
 
-	template : '#project-template'
+	template : '#project-listview-template'
 
 #starting point for Project List view 
 class CommonFloor.ProjectListCtrl extends Marionette.RegionController
