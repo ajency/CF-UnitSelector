@@ -89,6 +89,59 @@
         </div>
         <hr/>
         <div class="row">
+             
+            <div class="m-l-5 no-border">
+                <h3><i class="fa fa-angle-double-right text-primary"></i> Has <span class="semi-bold">Phases</span></h3>
+            </div>
+            <div class="col-md-12">
+                <h5 class="semi-bold inline">  
+                {{ ($project['has_phase'] == 'yes') ?'Yes':'No'}} 
+                </h5> 
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+             
+            <div class="m-l-5 no-border">
+                <h3><i class="fa fa-angle-double-right text-primary"></i> Has <span class="semi-bold">Master Images</span></h3>
+            </div>
+            <div class="col-md-12">
+                <h5 class="semi-bold inline">  
+                {{ ($project['has_master'] == 'yes') ?'Yes':'No'}} 
+                </h5> 
+            </div>
+        </div>
+        <hr/>
+        <div class="row">
+             
+            <div class="m-l-5 no-border">
+                <h3><i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Views</span></h3>
+            </div>
+            <div class="col-md-12">
+            <?php
+            $i=1;
+            ?>
+            @if(isset($projectAttributes))
+            @foreach($projectAttributes as $projectAttribute)
+            <div class="col-md-3">
+                <i class="fa fa-circle"></i> {{ $projectAttribute['label'] }} 
+            </div>
+            @if($i==4)
+        </div>
+        <div class="col-md-12">
+            @endif
+            
+            <?php
+            $i++;
+            ?>
+            @endforeach
+            @endif
+             
+        </div>
+             
+        </div>
+        <hr/>
+        <div class="row">
             <div class="m-l-5 no-border">
                 <h3><i class="fa fa-angle-double-right text-primary"></i> Property <span class="semi-bold">Types</span></h3>
             </div>
