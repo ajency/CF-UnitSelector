@@ -600,7 +600,7 @@ $(document).ready(function () {
             max_file_size: '10mb',
             mime_types: [{
                     title: "Image files",
-                    extensions: "svg"
+                    extensions: "svg,jpg,png,jpeg"
                 }]
         },
         init: {

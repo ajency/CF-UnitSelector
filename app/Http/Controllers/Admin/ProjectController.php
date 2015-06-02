@@ -102,6 +102,7 @@ class ProjectController extends Controller {
                         ->with('defaultunitTypes', $defaultunitTypes)
                         ->with('unitTypes', $projectunitTypes)
                         ->with('propertytypeAttributes', $propertytypeAttributes)
+                        ->with('projectAttributes', $projectAttributes)
                         ->with('current', 'settings');
     }
 
