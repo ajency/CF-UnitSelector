@@ -65,32 +65,32 @@
                         @foreach($propertyTypeAttributes as $propertyTypeAttribute)
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="form-label">{{$propertyTypeAttribute['label']}}</label> 
+                                <label class="form-label">{{ $propertyTypeAttribute['label'] }}</label> 
                                 <?php
-                                $value = (isset($unitVariant['variant_attributes'][($propertyTypeAttribute['label'])])) ? $unitVariant['variant_attributes'][($propertyTypeAttribute['label'])] : ''
+                                $value = (isset($unitVariant['variant_attributes'][ $propertyTypeAttribute['label'] ])) ? $unitVariant['variant_attributes'][ $propertyTypeAttribute['label'] ] : ''
                                 ?>
                                 @if('textbox' === $propertyTypeAttribute['control_type'])
-                                <input type="text" class="form-control" name="attributes[{{($propertyTypeAttribute['label'])}}]" value="{{ $value }}" placeholder="Enter {{$propertyTypeAttribute['label']}}">
+                                <input type="text" class="form-control" name="attributes[{{ $propertyTypeAttribute['label'] }}]" value="{{ $value }}" placeholder="Enter {{ $propertyTypeAttribute['label'] }}">
                                 @elseif('number' === $propertyTypeAttribute['control_type'])
-                                <input type="number" class="form-control" name="attributes[{{($propertyTypeAttribute['label'])}}]" value="{{ $value }}" placeholder="Enter {{$propertyTypeAttribute['label']}}">
+                                <input type="number" class="form-control" name="attributes[{{ $propertyTypeAttribute['label'] }}]" value="{{ $value }}" placeholder="Enter {{ $propertyTypeAttribute['label'] }}">
                                 @elseif('select' === $propertyTypeAttribute['control_type'])
                                 <?php
                                 $options = explode(',', $propertyTypeAttribute['defaults']);
                                 ?>
-                                <select name="attributes[{{($propertyTypeAttribute['label'])}}]" class="select2 form-control">
-                                    <option value="">Select {{$propertyTypeAttribute['label']}}</option>   
+                                <select name="attributes[{{ $propertyTypeAttribute['label'] }}]" class="select2 form-control">
+                                    <option value="">Select {{ $propertyTypeAttribute['label'] }}</option>   
                                     @foreach($options as $option)
-                                    <option @if($value==($option)){{'selected'}}@endif  value="{{($option)}}">{{$option}}</option>
+                                    <option @if($value== $option ){{'selected'}}@endif  value="{{ $option }}">{{ $option }}</option>
                                     @endforeach
                                 </select>
                                 @elseif('multiple' === $propertyTypeAttribute['control_type'])
                                 <?php
                                 $options = explode(',', $propertyTypeAttribute['defaults']);
                                 ?>
-                                <select multiple name="attributes[{{($propertyTypeAttribute['label'])}}][]" class="select2 form-control">
-                                    <option value="">Select {{$propertyTypeAttribute['label']}}</option>   
+                                <select multiple name="attributes[{{ $propertyTypeAttribute['label'] }}][]" class="select2 form-control">
+                                    <option value="">Select {{ $propertyTypeAttribute['label'] }}</option>   
                                     @foreach($options as $option)
-                                    <option {{ (!empty($value) && in_array(($option),$value)) ? 'selected="selected"' : '' }}  value="{{($option)}}">{{$option}}</option>
+                                    <option {{ (!empty($value) && in_array( $option ,$value)) ? 'selected="selected"' : '' }}  value="{{ $option }}">{{ $option }}</option>
                                     @endforeach
                                 </select>
                                 @endif
