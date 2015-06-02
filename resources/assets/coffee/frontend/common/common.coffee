@@ -555,7 +555,7 @@ CommonFloor.getFilters = ()->
 		'views' : views
 		'facings' : facings
 
-	console.log main
+	
 	# $.each main,(index,value)->
 	# 	if value.length == 0
 	# 		main[index] = []
@@ -611,6 +611,24 @@ CommonFloor.getStepFilters = ()->
 			'id'		: 'available'
 			'id_name' : 'filter_available'
 
+	if CommonFloor.defaults['common']['views'] != ""
+		$.each CommonFloor.defaults['common']['views'].split(',') , (index,value)->
+
+			views.push 
+				'name' : value
+				'classname' : 'views'
+				'id'		: value
+				'id_name' : 'filter_'+value
+
+	if CommonFloor.defaults['common']['facings'] != ""
+		$.each CommonFloor.defaults['common']['facings'].split(',') , (index,value)->
+
+			facings.push 
+				'name' : value
+				'classname' : 'facings'
+				'id'		: value
+				'id_name' : 'filter_'+value
+
 	filters = CommonFloor.getApartmentFilters()
 			
 	if Object.keys(filters).length == 0
@@ -626,11 +644,13 @@ CommonFloor.getStepFilters = ()->
 		'price' : price
 		'floor' : floor
 		'status' : status
+		'views' : views
+		'facings' : facings
 
 
-	$.each main,(index,value)->
-		if value.length == 0
-			main = _.omit(main, index)
+	# $.each main,(index,value)->
+	# 	if value.length == 0
+	# 		main = _.omit(main, index)
 	main
 
 
@@ -1211,7 +1231,7 @@ CommonFloor.filterFacings = ()->
 	CommonFloor.resetCollections()
 	temp = []
 	unitCollection.each (item)->
-		console.log facings = item.get('facings')
+		console.log facings = item.get('direction')
 		if $.inArray(facings,CommonFloor.defaults['common']['facings'].split(',')) > -1
 				temp.push item
 

@@ -236,7 +236,7 @@ class TopMasterView extends Marionette.ItemView
 
 		'click @ui.facings':(e)->
 			types = CommonFloor.defaults['common']['facings'].split(',')
-			types = _.without types ,$(e.currentTarget).val()
+			types = _.without types ,$(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['common']['facings'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filterNew()	
@@ -245,7 +245,7 @@ class TopMasterView extends Marionette.ItemView
 
 		'click @ui.views':(e)->
 			types = CommonFloor.defaults['common']['views'].split(',')
-			types = _.without types ,$(e.currentTarget).val()
+			types = _.without types ,$(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['common']['views'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filterNew()	

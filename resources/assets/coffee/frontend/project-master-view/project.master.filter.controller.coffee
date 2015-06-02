@@ -25,9 +25,9 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 				                        <h6 class="">VIEWS</h6>
 				                        <div class="filter-chkbox-block"> 
 				                        {{#views}}
-				                         <div class="-lbl ">
-				                          <input type="checkbox" class="custom-chckbx addCft views " id="{{id}}" value=""  > <label for="{{id}}" class="-lbl  ">{{name}}</label>  
-				                          </div>
+				                        
+				                          <input type="checkbox" class="custom-chckbx addCft views " id="{{id}}" value="{{id}}"  > <label for="{{id}}" class="-lbl  ">{{name}}</label>  
+				                        
 				                       {{/views}} 
 				                         </div>
 				                     </div>
@@ -35,9 +35,9 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 				                        <h6 class="">FACINGS</h6>
 				                        <div class="filter-chkbox-block"> 
 				                        {{#facings}}
-				                         <div class="-lbl ">
-				                          <input type="checkbox" class="custom-chckbx addCft facings " id="{{id}}" value=""  > <label for="{{id}}" class="-lbl  ">{{name}}</label>  
-				                          </div>
+				                         
+				                          <input type="checkbox" class="custom-chckbx addCft facings " id="{{id}}" value="{{id}}"  > <label for="{{id}}" class="-lbl  ">{{name}}</label>  
+				                          
 				                       {{/facings}} 
 				                         </div>
 				                     </div>
@@ -408,7 +408,9 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			unitCollection.trigger('available')
 
 		'click @ui.views':(e)->
-			types = CommonFloor.defaults['common']['views'].split(',')
+			types = []
+			if CommonFloor.defaults['common']['views']!= ""
+				types = CommonFloor.defaults['common']['views'].split(',')
 			
 			if $(e.currentTarget).is(':checked')
 				types.push  $(e.currentTarget).val()
@@ -421,7 +423,10 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			unitCollection.trigger('available')
 
 		'click @ui.facings':(e)->
-			types = CommonFloor.defaults['common']['facings'].split(',')
+			types = []
+			if CommonFloor.defaults['common']['facings']!= ""
+				types = CommonFloor.defaults['common']['facings'].split(',')
+			
 			
 			if $(e.currentTarget).is(':checked')
 				types.push  $(e.currentTarget).val()
@@ -567,8 +572,8 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		data.apartments = Marionette.getOption(@,'apartments')
 		data.plots = Marionette.getOption(@,'plots')
 		data.types = Marionette.getOption(@,'types')
-		views = Marionette.getOption(@,'views')
-		facings = Marionette.getOption(@,'facings')
+		data.views = Marionette.getOption(@,'views')
+		data.facings = Marionette.getOption(@,'facings')
 		data
 
 	onShow:->
@@ -735,6 +740,13 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		$.merge attributes , CommonFloor.defaults['villa']['attributes'].split(',')
 		$.merge attributes , CommonFloor.defaults['apartment']['attributes'].split(',')
 		$.merge attributes , CommonFloor.defaults['plot']['attributes'].split(',')
+
+		views = []
+		$.merge views , CommonFloor.defaults['common']['views'].split(',')
+
+		facings = []
+		$.merge facings , CommonFloor.defaults['common']['facings'].split(',')
+
 		typesArray = []
 		
 		id = []
@@ -795,7 +807,19 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 				$('#'+item.id).prop('checked',false)
 				$('#'+item.id).attr('disabled',false)
 
+		$(@ui.views).each (ind,item)->
+			$('#'+item.id).prop('checked',true)
+			$('#'+item.id).attr('disabled',false)
+			if $.inArray($(item).val(),views) is -1 
+				$('#'+item.id).prop('checked',false)
+				$('#'+item.id).attr('disabled',false)
 
+		$(@ui.facings).each (ind,item)->
+			$('#'+item.id).prop('checked',true)
+			$('#'+item.id).attr('disabled',false)
+			if $.inArray($(item).val(),facings) is -1 
+				$('#'+item.id).prop('checked',false)
+				$('#'+item.id).attr('disabled',false)
 		
 		
 		@ui.status.prop('checked',false)
@@ -1062,6 +1086,8 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 					$.each project.get('filters').Plot , (index,value)->
 						temp = []
 						$.each item.get('variant_attributes') ,(ind,val)->
+							ind = s.capitalize ind
+							ind = s.replaceAll(ind, "-", " ")
 							if ind == value && $.inArray(value,flooring) is -1 && val != ""
 								flooring.push value
 								temp.push
@@ -1106,6 +1132,8 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		_.each unitCollection.toArray(),(item)->
 			$.merge views , item.get('views')
 
+		views = _.uniq views
+
 		$.each views , (ind,val)->
 			viewArr.push
 				'id' : val
@@ -1121,9 +1149,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		if $.inArray('views' , project.get('filters').defaults) ==  -1 
 				viewArr = []
 
-		if $.inArray('facings' , project.get('filters').defaults) ==  -1 
+		if $.inArray('direction' , project.get('filters').defaults) ==  -1 
 				facingsArr = []
 
-		console.log viewArr
-		console.log facingsArr
 		[viewArr,facingsArr]

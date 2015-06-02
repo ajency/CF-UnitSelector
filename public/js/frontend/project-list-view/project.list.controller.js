@@ -190,7 +190,7 @@
         'click @ui.facings': function(e) {
           var types;
           types = CommonFloor.defaults['common']['facings'].split(',');
-          types = _.without(types, $(e.currentTarget).val());
+          types = _.without(types, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['common']['facings'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filterNew();
@@ -200,7 +200,7 @@
         'click @ui.views': function(e) {
           var types;
           types = CommonFloor.defaults['common']['views'].split(',');
-          types = _.without(types, $(e.currentTarget).val());
+          types = _.without(types, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['common']['views'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filterNew();

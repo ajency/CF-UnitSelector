@@ -622,7 +622,6 @@
       'views': views,
       'facings': facings
     });
-    console.log(main);
     return main;
   };
 
@@ -681,6 +680,26 @@
         'id_name': 'filter_available'
       });
     }
+    if (CommonFloor.defaults['common']['views'] !== "") {
+      $.each(CommonFloor.defaults['common']['views'].split(','), function(index, value) {
+        return views.push({
+          'name': value,
+          'classname': 'views',
+          'id': value,
+          'id_name': 'filter_' + value
+        });
+      });
+    }
+    if (CommonFloor.defaults['common']['facings'] !== "") {
+      $.each(CommonFloor.defaults['common']['facings'].split(','), function(index, value) {
+        return facings.push({
+          'name': value,
+          'classname': 'facings',
+          'id': value,
+          'id_name': 'filter_' + value
+        });
+      });
+    }
     filters = CommonFloor.getApartmentFilters();
     if (Object.keys(filters).length === 0) {
       filters = [];
@@ -693,12 +712,9 @@
       'area': area,
       'price': price,
       'floor': floor,
-      'status': status
-    });
-    $.each(main, function(index, value) {
-      if (value.length === 0) {
-        return main = _.omit(main, index);
-      }
+      'status': status,
+      'views': views,
+      'facings': facings
     });
     return main;
   };
@@ -1373,7 +1389,7 @@
     temp = [];
     unitCollection.each(function(item) {
       var facings;
-      console.log(facings = item.get('facings'));
+      console.log(facings = item.get('direction'));
       if ($.inArray(facings, CommonFloor.defaults['common']['facings'].split(',')) > -1) {
         return temp.push(item);
       }
