@@ -1184,6 +1184,15 @@ $("input[name=has_phases]:radio").change(function () {
  
 });
 
+$("input[name=has_master]:radio").change(function () {
+    var value = $(this).val();
+    if(value == 'yes')
+        $(".dataTables_wrapper").removeClass('hidden');
+    else
+      $(".dataTables_wrapper").addClass('hidden');  
+ 
+});
+
 function openRoomTypeModal(obj, id)
     {
         if (obj.value == 'add_new')

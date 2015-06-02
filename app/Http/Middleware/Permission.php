@@ -53,14 +53,12 @@ class Permission {
                              'admin.project.building.create'=>'configure_building',
                              'admin.project.building.store'=>'configure_building',
                              'admin.project.building.edit'=>'configure_building',
-                             'admin.project.building.update'=>'configure_building',  
+                             'admin.project.building.update'=>'configure_building',
+
+                             'admin.building.media.store'=>'configure_building', 
+                             'admin.building.media.destroy'=>'configure_building',   
                     
-                             'admin.project.floor-layout.index'=>'configure_building',
-                             'admin.project.floor-layout.create'=>'configure_building',
-                             'admin.project.floor-layout.store'=>'configure_building',
-                             'admin.project.floor-layout.edit'=>'configure_building',
-                             'admin.project.floor-layout.update'=>'configure_building',
-                    
+                         
                              'admin.project.variant.media.store'=>'configure_project',
                              
                              'admin.project.roomtype.create'=>'configure_project',
@@ -116,6 +114,7 @@ class Permission {
                               'admin/project/{project}/bunglow-variant/{id}/deletelevel'=>'configure_project', 
                               'admin/project/{project}/roomtype/{id}/deleteroomtypeattributes'=>'configure_project',
                               'admin/project/{project}/media/updatebreakpoint'=>'configure_project',
+                              'admin/building/{id}/media/updatebreakpoint'=>'configure_building',
                               'admin/project/{project}/roomtype/{roomtype}'=>'configure_project',
                               'admin/project/{project}/roomtype/{id}/getroomtypeattributes'=>'configure_project',
                               'admin/project/{project}/apartment-variant/getpropertytypedata'=>'configure_project',
@@ -132,7 +131,7 @@ class Permission {
                
                 
                 $resourceName = $request->route()->getName(); 
-                $uriPath =$request->route()->getPath();   //echo $uriPath; exit;
+                $uriPath =$request->route()->getPath();   // echo $uriPath; exit;
 
                 
                 if($uriPath != 'admin')

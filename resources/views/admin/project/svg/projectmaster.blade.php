@@ -49,9 +49,7 @@
 
                             @if(isset($image['IMAGE']))
                             <?php
-                            //$fileName = $image['NAME'];
-                            //$fileData = explode('.', $fileName);
-                         
+                            
                             $authoringToolUrl = url() . "/admin/project/" . $project['id'] . "/image/" .  $image['ID'] . "/authoring-tool?&type=master&position=".$position;
                             ?>
                             <tr class="gradeX odd" id="position-{{ $position }}">
@@ -77,7 +75,7 @@
                                 <td class=""></td>
                                 <td class=" "><span class="muted">{{ $position }}</span></td>
                                 <td class=" ">
-                                  </div>
+                                  
                                 </td>
                                 <td class=" ">
                                    
