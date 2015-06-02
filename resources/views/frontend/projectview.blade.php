@@ -125,7 +125,7 @@
                             ,'plot' : {'unit_type_id' : '','unit_variant_id':'','attributes' : ''}
                             ,'villa' : {'unit_type_id' : '','unit_variant_id':'','attributes' : ''}
                             ,'apartment' : {'unit_type_id' : '','unit_variant_id':'','attributes' : ''}
-                            ,'common' : {'price_min':'','price_max':'','availability':'','area_min' : '','area_max' : '','building':'','floor_min' : '','floor_max' : ''}
+                            ,'common' : {'price_min':'','price_max':'','availability':'','area_min' : '','area_max' : '','building':'','floor_min' : '','floor_max' : '','views':'','facings':''}
                             ,'step_three' : {'unit_type_id' : '','unit_variant_id':''}}
 
 

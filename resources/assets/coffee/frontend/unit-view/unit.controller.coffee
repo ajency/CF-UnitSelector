@@ -374,6 +374,8 @@ class CenterUnitView extends Marionette.ItemView
 
 	events:
 		'click .threeD':(e)->
+			$('.firstimage').remove()
+			$('.firstimage').empty()
 			response = @generateLevels()
 			html = ''
 			$.each response[1],(index,value)->
@@ -392,7 +394,8 @@ class CenterUnitView extends Marionette.ItemView
 			$('.gallery').removeClass('current')
 
 		'click .twoD':(e)->
-
+			$('.firstimage').remove()
+			$('.firstimage').empty()
 			response = @generateLevels()
 			html = ''
 			$.each response[0],(index,value)->
@@ -409,8 +412,11 @@ class CenterUnitView extends Marionette.ItemView
 			$('.external').removeClass('current')
 			$('.threeD').removeClass('current')
 			$('.gallery').removeClass('current')
+			$('.master').removeClass('current')
 
 		'click .external':(e)->
+			$('.firstimage').remove()
+			$('.firstimage').empty()
 			response = @generateLevels()
 			html = ''
 			html += '<div class="animated fadeIn">
@@ -422,8 +428,11 @@ class CenterUnitView extends Marionette.ItemView
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
 			$('.gallery').removeClass('current')
+			$('.master').removeClass('current')
 
 		'click .gallery':(e)->
+			$('.firstimage').remove()
+			$('.firstimage').empty()
 			response = @generateLevels()
 			html = ''
 			$.each response[3].get('galleryurl'),(index,value)->
@@ -439,6 +448,7 @@ class CenterUnitView extends Marionette.ItemView
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
 			$('.external').removeClass('current')
+			$('.master').removeClass('current')
 
 		'click .master':(e)->
 			@loadMaster()
