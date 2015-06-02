@@ -101,26 +101,26 @@
                             <div class="form-group">
                                 <label class="form-label">{{ $attribute['label'] }}</label>
                                 @if('textbox' === $attribute['control_type'])
-                                <input type="text" class="form-control" name="apartment_attributes[{{ ($attribute['label']) }}]"  
+                                <input type="text" class="form-control" name="apartment_attributes[{{ $attribute['label'] }}]"  
                                        placeholder="Enter {{ $attribute['label'] }}">
                                 @elseif('select' === $attribute['control_type'])
                                 <?php
                                 $options = explode(',', $attribute['defaults']);
                                 ?>
-                                <select name="apartment_attributes[{{($attribute['label'])}}]" class="select2 form-control">
-                                    <option value="">Select {{$attribute['label']}}</option>   
+                                <select name="apartment_attributes[{{ $attribute['label'] }}]" class="select2 form-control">
+                                    <option value="">Select {{ $attribute['label'] }}</option>   
                                     @foreach($options as $option)
-                                    <option  value="{{($option)}}">{{$option}}</option>
+                                    <option  value="{{ $option }}">{{ $option }}</option>
                                     @endforeach
                                 </select>
                                 @elseif('multiple' === $attribute['control_type'])
                                 <?php
                                 $options = explode(',', $attribute['defaults']);
                                 ?>
-                                <select multiple name="apartment_attributes[{{($attribute['label'])}}][]" class="select2 form-control">
-                                    <option value="">Select {{$attribute['label']}}</option>   
+                                <select multiple name="apartment_attributes[{{ $attribute['label'] }}][]" class="select2 form-control">
+                                    <option value="">Select {{ $attribute['label'] }}</option>   
                                     @foreach($options as $option)
-                                    <option   value="{{($option)}}">{{$option}}</option>
+                                    <option   value="{{ $option }}">{{ $option }}</option>
                                     @endforeach
                                 </select>
                                 @endif     
