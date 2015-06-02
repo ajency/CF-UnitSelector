@@ -98,7 +98,7 @@
          @if(!empty($projectAttributes))
              <hr>
            <div class="m-l-5 no-border">
-            <h3><i class="fa fa-angle-double-right text-primary"></i> Project<span class="semi-bold"> Views</span></h3>
+            <h3><i class="fa fa-angle-double-right text-primary"></i> <span class="semi-bold"> Views</span></h3>
         </div>
          <div class="row m-b-5">
         <?php $i=0;?>
@@ -129,7 +129,7 @@
                     <input type="hidden" name="_method" value="PUT">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                     <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
-                    <button type="button" onclick="saveAndAddAnother();" class="btn btn-default btn-cons">Save And Add Another</button>
+                    <a  href="{{ url('/admin/project/'. $project['id'] .'/bunglow-unit') }}"><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
                 </div>
             </div>
 

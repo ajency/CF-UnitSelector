@@ -159,7 +159,7 @@
                 <div class="text-right">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
                     <button  type="submit"   class="btn btn-primary btn-cons"><i class="fa fa-plus-circle"></i> Create</button>
-                    <a  href=""><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
+                    <a  href="{{ url('/admin/project/'. $project['id'] .'/plot-variant') }}"><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
                 </div>
             </div>
             <!-- END PLACE PAGE CONTENT HERE -->
