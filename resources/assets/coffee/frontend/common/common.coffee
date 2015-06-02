@@ -555,10 +555,10 @@ CommonFloor.getFilters = ()->
 		'views' : views
 		'facings' : facings
 
-
-	$.each main,(index,value)->
-		if value.length == 0
-			main[index] = []
+	console.log main
+	# $.each main,(index,value)->
+	# 	if value.length == 0
+	# 		main[index] = []
 	main
 
 CommonFloor.getStepFilters = ()->

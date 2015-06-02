@@ -26,12 +26,6 @@
           async: false,
           success: (function(_this) {
             return function(collection, response) {
-              _this.set('filters', {
-                'Villa': ['unitTypes', 'unitVariantNames', 'flooring', 'furnishing-status'],
-                'Apartment': ['unitTypes', 'unitVariantNames', 'flooring'],
-                'Plot': ['unitTypes', 'unitVariantNames', 'flooring']
-              });
-              _this.set('measurement_units', 'Sq.ft');
               if (response === 0 || jQuery.isEmptyObject(response)) {
                 return _this.clear();
               }

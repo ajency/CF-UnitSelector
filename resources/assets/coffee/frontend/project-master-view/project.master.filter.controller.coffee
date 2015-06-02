@@ -44,12 +44,12 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
      
            
                
-                     <div class="">
+                     <div class="areaLabel">
                          <h6 class="">AREA ({{measurement_units}})</h6>
                         	<div class="range-container">
                         		<input type="text" id="area" name="area" value="" />
                         	</div>                     </div>
-                     <div class="">
+                     <div class="budgetLabel">
                         <h6 class="">BUDGET </h6>
                         <div class="range-container">
                         	<input type="text" id="budget" name="budget" value="" />
@@ -657,6 +657,8 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		plots = Marionette.getOption(@,'plots')
 		views = Marionette.getOption(@,'views')
 		facings = Marionette.getOption(@,'facings')
+		console.log budget = Marionette.getOption(@,'budget')
+		console.log unitVariants = Marionette.getOption(@,'unitVariants')
 		$.each villas[0] , (index,value)->
 			if value.length is 0
 				$('.villa_'+index).hide()
@@ -670,6 +672,10 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			$('.viewLabel').hide()
 		if facings.length is 0
 			$('.facingLabel').hide()
+		if budget.length is 0
+			$('.budgetLabel').hide()
+		if unitVariants.length is 0
+			$('.areaLabel').hide()
 
 
 	loadClearFilter:->
@@ -817,7 +823,9 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 	initialize:->
 		unitVariants = []
 		budget = []
-		villaFilters = @getVillaFilters()
+		views = []
+		facings = []
+		console.log villaFilters = @getVillaFilters()
 		if villaFilters.length != 0
 			$.merge unitVariants , villaFilters[0].unitVariants
 			$.merge budget , villaFilters[0].budget
@@ -831,7 +839,15 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		if plotFilters.length != 0
 			$.merge unitVariants , plotFilters[0].unitVariants
 			$.merge budget , plotFilters[0].budget
+
+
+		if $.inArray('budget' , project.get('filters').defaults) ==  -1 || ! _.isUndefined project.get('filters').defaults
+				budget = []
+
+		if $.inArray('area' , project.get('filters').defaults) ==  -1 || ! _.isUndefined project.get('filters').defaults
+				unitVariants = []
 			
+
 		viewsFacingsArr = @getViewsFacings() 
 		views = viewsFacingsArr[0]
 		facings = viewsFacingsArr[1]
@@ -892,21 +908,21 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 						'id' : item.get 'id'
 						'name'	: item.get 'unit_variant_name'
 						'type'	: 'V'
-				
-				$.each project.get('filters').Villa , (index,value)->
-					temp = []
-					$.each item.get('variant_attributes') ,(ind,val)->
-						if ind == value && $.inArray(value,flooring) is -1 && val != ""
-							flooring.push value
-							temp.push
-								'name' : val
-								'id' : s.replaceAll(val, " ", "_")
-								'classname' : 'attributes'
-								'label' : ind
-								type: 'P'
-							newtemp.push 
-								'label' : ind.toUpperCase()
-								'value' : temp
+				if ! _.isUndefined project.get('filters').Villa
+					$.each project.get('filters').Villa , (index,value)->
+						temp = []
+						$.each item.get('variant_attributes') ,(ind,val)->
+							if ind == value && $.inArray(value,flooring) is -1 && val != ""
+								flooring.push value
+								temp.push
+									'name' : val
+									'id' : s.replaceAll(val, " ", "_")
+									'classname' : 'attributes'
+									'label' : ind
+									type: 'P'
+								newtemp.push 
+									'label' : ind.toUpperCase()
+									'value' : temp
 				# if $.inArray(item.get('variant_attributes').flooring,flooring) == -1 && ! _.isUndefined item.get('variant_attributes').flooring
 				# 	flooring.push item.get('variant_attributes').flooring
 				# 	flooringAttributes.push
@@ -969,20 +985,21 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 						'name'	: item.get 'unit_variant_name'
 						'type'	: type
 				
-				$.each project.get('filters').Apartment , (index,value)->
-					temp = []
-					$.each item.get('variant_attributes') ,(ind,val)->
-						if ind == value && $.inArray(value,flooring) is -1 && val != ""
-							flooring.push value
-							temp.push
-								'name' : val
-								'id' : s.replaceAll(val, " ", "_")
-								'classname' : 'attributes'
-								'label' : ind
-								type: 'P'
-							newtemp.push 
-								'label' : ind.toUpperCase()
-								'value' : temp
+				if ! _.isUndefined project.get('filters').Apartment
+					$.each project.get('filters').Apartment , (index,value)->
+						temp = []
+						$.each item.get('variant_attributes') ,(ind,val)->
+							if ind == value && $.inArray(value,flooring) is -1 && val != ""
+								flooring.push value
+								temp.push
+									'name' : val
+									'id' : s.replaceAll(val, " ", "_")
+									'classname' : 'attributes'
+									'label' : ind
+									type: 'P'
+								newtemp.push 
+									'label' : ind.toUpperCase()
+									'value' : temp
 
 				# if $.inArray(item.get('variant_attributes').flooring,flooring) == -1 && ! _.isUndefined item.get('variant_attributes').flooring
 				# 	flooring.push item.get('variant_attributes').flooring
@@ -1041,20 +1058,21 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 						'name'	: item.get 'unit_variant_name'
 						'type'	: 'P'
 
-				$.each project.get('filters').Plot , (index,value)->
-					temp = []
-					$.each item.get('variant_attributes') ,(ind,val)->
-						if ind == value && $.inArray(value,flooring) is -1 && val != ""
-							flooring.push value
-							temp.push
-								'name' : val
-								'id' : s.replaceAll(val, " ", "_")
-								'classname' : 'attributes'
-								'label' : ind
-								type: 'P'
-							newtemp.push 
-								'label' : ind.toUpperCase()
-								'value' : temp
+				if ! _.isUndefined project.get('filters').Plot
+					$.each project.get('filters').Plot , (index,value)->
+						temp = []
+						$.each item.get('variant_attributes') ,(ind,val)->
+							if ind == value && $.inArray(value,flooring) is -1 && val != ""
+								flooring.push value
+								temp.push
+									'name' : val
+									'id' : s.replaceAll(val, " ", "_")
+									'classname' : 'attributes'
+									'label' : ind
+									type: 'P'
+								newtemp.push 
+									'label' : ind.toUpperCase()
+									'value' : temp
 								
 				# if $.inArray(item.get('variant_attributes').flooring,flooring) == -1 && ! _.isUndefined item.get('variant_attributes').flooring
 				# 	flooring.push item.get('variant_attributes').flooring
@@ -1085,7 +1103,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		views = []
 		viewArr = []
 		facingsArr = []
-		_.each unitCollection,(item)->
+		_.each unitCollection.toArray(),(item)->
 			$.merge views , item.get('views')
 
 		$.each views , (ind,val)->
@@ -1106,4 +1124,6 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 		if $.inArray('facings' , project.get('filters').defaults) ==  -1 
 				facingsArr = []
 
+		console.log viewArr
+		console.log facingsArr
 		[viewArr,facingsArr]

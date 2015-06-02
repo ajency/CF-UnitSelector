@@ -622,11 +622,7 @@
       'views': views,
       'facings': facings
     });
-    $.each(main, function(index, value) {
-      if (value.length === 0) {
-        return main[index] = [];
-      }
-    });
+    console.log(main);
     return main;
   };
 
