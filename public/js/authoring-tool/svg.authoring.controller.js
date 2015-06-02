@@ -289,6 +289,9 @@
         data: $.param(myObject),
         success: function(response) {
           myObject['id'] = response.data.id;
+          if (response.data.primary_breakpoint !== null) {
+            myObject['primary_breakpoint'] = primary_breakpoint;
+          }
           window.svgData.data.push(myObject);
           window.resetTool();
           draw.clear();
@@ -319,7 +322,12 @@
         });
       }
       if (type === 'apartment') {
-        return new AuthoringTool.ApartmentCtrl({
+        new AuthoringTool.ApartmentCtrl({
+          'region': this.region
+        });
+      }
+      if (type === 'building') {
+        return new AuthoringTool.BuildingCtrl({
           'region': this.region
         });
       }
@@ -464,7 +472,7 @@
       $('.submit').removeClass('hidden');
       return $('.property_type').attr('disabled', false);
     });
-    $('svg').on('dblclick', '.villa,.plot,.apartment', function(e) {
+    $('svg').on('dblclick', '.polygon-type', function(e) {
       var currentElem, elemId, element, object_type, svgDataObjects;
       e.preventDefault();
       window.canvas_type = "polygon";
@@ -481,7 +489,7 @@
       return _.each(svgDataObjects, (function(_this) {
         return function(svgDataObject, key) {
           var points;
-          if (parseInt(element) === parseInt(svgDataObject.object_id)) {
+          if (parseInt(elemId) === parseInt(svgDataObject.id)) {
             points = svgDataObject.points;
             $('.area').val(points.join(','));
             drawPoly(points);

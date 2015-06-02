@@ -335,6 +335,10 @@ jQuery(document).ready ($)->
             data : $.param myObject 
             success :(response)->
                 myObject['id'] = response.data.id
+
+                if response.data.primary_breakpoint isnt null
+                    myObject['primary_breakpoint'] = primary_breakpoint
+                
                 window.svgData.data.push myObject
 
                 window.resetTool()
@@ -362,6 +366,10 @@ jQuery(document).ready ($)->
 
         if type is 'apartment'
             new AuthoringTool.ApartmentCtrl 
+                'region' : @region
+
+        if type is 'building'
+            new AuthoringTool.BuildingCtrl 
                 'region' : @region             
 
 
@@ -534,11 +542,13 @@ jQuery(document).ready ($)->
 
 
     # on double click of existing marked polygon(villa or plot) open canvas mode
-    $('svg').on 'dblclick', '.villa,.plot,.apartment' , (e) ->
+    $('svg').on 'dblclick', '.polygon-type' , (e) ->
             e.preventDefault()
+            
             window.canvas_type = "polygon"
             elemId =  $(e.currentTarget).attr('svgid')
             window.currentSvgId = parseInt elemId            
+            
             $('#aj-imp-builder-drag-drop canvas').show()
             $('#aj-imp-builder-drag-drop .svg-draw-clear').show()
             $('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
@@ -548,7 +558,7 @@ jQuery(document).ready ($)->
             object_type = $(currentElem).attr('type')
             svgDataObjects = svgData.data
             _.each svgDataObjects, (svgDataObject, key) =>
-                if parseInt(element) is parseInt svgDataObject.object_id
+                if parseInt(elemId) is parseInt svgDataObject.id
                     points = svgDataObject.points
                     $('.area').val points.join(',')
                     # collection = new Backbone.Collection window.svgData.data

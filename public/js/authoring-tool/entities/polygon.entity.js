@@ -41,6 +41,7 @@
         'type': item.object_type,
         svgid: item.id
       });
+      polygon.addClass('polygon-type');
       if (item.primary_breakpoint !== null) {
         polygon.data('primary-breakpoint', item.primary_breakpoint);
       }
