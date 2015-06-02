@@ -173,6 +173,8 @@ body {
   left: 0;
 }
 .list-container.not-visible.closed .toggle-button::before {
+  font-size: 20px;
+  color: #f68121;
   content: "\e756";
   font-family: icomoon;
 }
@@ -203,13 +205,13 @@ body {
   position: absolute;
   top: 0;
   right: 0;
-  color: #f68121;
   padding: 8px 14px;
   cursor: pointer;
   z-index: 999;
-  font-size: 20px;
+  font-size: 15px;
   -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
           transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
+  white-space: nowrap;
 }
 .list-container.not-visible .toggle-button::before {
   content: "\e75e";
@@ -2152,38 +2154,6 @@ svg polygon {
 }
 /*text*/
 /* Single Building SVG Area */
-.single-bldg .prev,
-.single-bldg .next {
-  position: absolute;
-  top: 50%;
-  display: block;
-  width: 40px;
-  height: 40px;
-  padding: 0;
-  cursor: pointer;
-  color: transparent;
-  border: none;
-  outline: none;
-  background: url(../../images/arrow.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-color: rgba(102, 102, 102, 0.5);
-  border-radius: 50%;
-  opacity: 0.5;
-}
-.single-bldg .prev:hover,
-.single-bldg .next:hover {
-  opacity: 1;
-}
-.single-bldg .prev {
-  left: 35px;
-  -webkit-transform: rotate(180deg);
-      -ms-transform: rotate(180deg);
-          transform: rotate(180deg);
-}
-.single-bldg .next {
-  right: 35px;
-}
 /* Pop up Styles s */
 .bldg_info {
   background-color: #ffffff;
@@ -2454,7 +2424,9 @@ svg polygon {
   }
 }
 .single-unit .prev,
-.single-unit .next {
+.single-bldg .prev,
+.single-unit .next,
+.single-bldg .next {
   position: fixed;
   top: 45%;
   display: block;
@@ -2469,25 +2441,32 @@ svg polygon {
   color: #262626;
   text-align: center;
   opacity: 0.5;
+  z-index: 100;
 }
 .single-unit .prev:hover,
-.single-unit .next:hover {
+.single-bldg .prev:hover,
+.single-unit .next:hover,
+.single-bldg .next:hover {
   opacity: 1;
 }
 .single-unit .prev:before,
-.single-unit .next:before {
+.single-bldg .prev:before,
+.single-unit .next:before,
+.single-bldg .next:before {
   content: "\e762";
   font-size: 25px;
   font-family: icomoon;
   line-height: 1;
 }
-.single-unit .prev {
+.single-unit .prev,
+.single-bldg .prev {
   left: 0;
   -webkit-transform: rotate(180deg);
       -ms-transform: rotate(180deg);
           transform: rotate(180deg);
 }
-.single-unit .next {
+.single-unit .next,
+.single-bldg .next {
   right: 0;
 }
 .fliters-container {
