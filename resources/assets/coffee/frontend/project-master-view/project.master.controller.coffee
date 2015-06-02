@@ -1007,7 +1007,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$('.first_image').lazyLoadXT()
 		$('.first_image').load ()->
 			$('.region').load(first[0],()->
-				$('.first_image').attr('src',transitionImages[breakpoints[0]])
+				$('.first_image').attr('data-src',transitionImages[breakpoints[0]])
 				that.iniTooltip()
 				CommonFloor.applyAvailabilClasses()
 				CommonFloor.randomClass()
