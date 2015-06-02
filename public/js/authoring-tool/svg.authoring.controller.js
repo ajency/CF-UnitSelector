@@ -459,7 +459,7 @@
       $('.submit').removeClass('hidden');
       return $('.property_type').attr('disabled', false);
     });
-    $('svg').on('dblclick', '.villa,.plot', function(e) {
+    $('svg').on('dblclick', '.villa,.plot,.apartment', function(e) {
       var currentElem, elemId, element, object_type, svgDataObjects;
       e.preventDefault();
       window.canvas_type = "polygon";
@@ -659,7 +659,7 @@
       $('#dynamice-region').empty();
       return $('.edit-box').addClass('hidden');
     });
-    $('.close').on('click', function(e) {
+    $('.closeform').on('click', function(e) {
       var canvas, ctx;
       $('.area').val("");
       window.f = [];

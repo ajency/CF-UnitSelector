@@ -13,12 +13,16 @@
     <link href="{{ asset('css/dashboard/builder.css')}}" rel="stylesheet" type="text/css" />
     <style type="text/css">
 
-/*    .svg-canvas image{
+    .svg-canvas image{
          width: 100%; !important;
+         height: 100%; !important;
 
      }
-
-     #aj-imp-browser-body {
+     .svg-canvas > svg {
+      position: relative;
+      height: 667px !important;
+    }
+    /* #aj-imp-browser-body {
         width:100% !important;
         border: 0px!important;
     }
@@ -28,8 +32,8 @@
         width: 100%;
         top: 0px;
 
-    }
-*/
+    }*/
+
 
 </style>
 </head>
@@ -47,10 +51,10 @@
                           <div class="zoom-controls pull-left"> Zoom Level &nbsp;
                             <button id="in" class="zoom-in btn btn-primary"><i class="fa fa-search-plus"></i></button>
                             <button id="out" class="zoom-out btn btn-primary"><i class="fa fa-search-minus"></i></button>
-                            
+                            <button id="clear" name="clear" class="zoom-out btn btn-medium btn-danger clear" style=" padding: 2px 12px; ">Clear</button>
                             <input type="hidden" name="svg-element-id">
                         </div>
-                        <input type="button" id="clear" name="clear" class="pull-left btn btn-small clear" value="Clear">
+
 <!--                         <button class="color-switch btn btn-default">
                             <i class="fa fa-eye"></i>
                             <div><small>PREVIEW</small>
@@ -99,7 +103,7 @@
                    <button type="button" class="btn btn-primary submit" >Save</button>
                    <button type="button" class="btn btn-primary edit hidden" >Update</button>
                    <button type="button" class="btn btn-primary delete hidden" >Delete</button>
-                   <button type="button" class="btn btn-link close" >Close</button>
+                   <button type="button" class="btn btn-link closeform" >Close</button>
 
                  </form>
                </div>
