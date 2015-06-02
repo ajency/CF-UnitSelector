@@ -45,6 +45,22 @@
                                 </div></td>
 
                         </tr>
+                        <tr class="gradeX odd">
+                            <td class="">Views</td>
+                            <td class=" "><div class="checkbox check-primary pull-right">
+                                    <input id="views" type="checkbox" name="defaults[]" value="views" {{ (isset($projectFilters['defaults']) && in_array('views',$projectFilters['defaults'])) ? 'checked' : '' }}>
+                                    <label for="views"></label>
+                                </div></td>
+
+                        </tr>
+                        <tr class="gradeX odd">
+                            <td class="">Direction</td>
+                            <td class=" "><div class="checkbox check-primary pull-right">
+                                    <input id="direction" type="checkbox" name="defaults[]" value="direction" {{ (isset($projectFilters['defaults']) && in_array('direction',$projectFilters['defaults'])) ? 'checked' : '' }}>
+                                    <label for="direction"></label>
+                                </div></td>
+
+                        </tr>
                         @if(isset($propertyTypes[APARTMENTID]))
                         <tr class="gradeX odd">
                             <td>Floor</td>
