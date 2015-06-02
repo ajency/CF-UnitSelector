@@ -269,7 +269,7 @@ body {
   display: inline-block;
 }
 #footer .footer-section4 ul li a {
-  padding: 5px 15px;
+  padding: 5px 12px;
 }
 #footer .footer-section4 ul li a:hover {
   background: none;
@@ -285,6 +285,9 @@ body {
   }
   #footer .footer-section4 ul {
     float: none;
+    text-align: center;
+  }
+  #footer .footer-section4 .copyright-text {
     text-align: center;
   }
 }
@@ -732,12 +735,16 @@ hr.embossed {
   overflow-x: hidden;
 }
 .sort-unit {
-  border-bottom: 1px solid ccc;
+  border-bottom: 1px solid #ccc;
   padding-bottom: 10px;
+  line-height: 29px;
 }
 .sort-unit .toggle {
-  height: 27px !important;
+  height: 18px !important;
+  min-height: 18px !important;
   line-height: 1em !important;
+  margin: 0px 3px;
+  border-radius: 5px;
 }
 .sort-unit .toggle .toggle-group .btn-default {
   background: #fff !important;
@@ -2560,8 +2567,9 @@ svg polygon {
     background-color: #ffffff;
   }
   .fliters-container.closed {
-    left: 15px;
+    right: 15px;
     top: 75px;
+    left: auto;
   }
   .fliters-container .filter-button {
     font-size: 20px;

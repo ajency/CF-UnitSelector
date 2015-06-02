@@ -34,7 +34,10 @@
                 </div>
                 <div class="col-md-4 text-right">
                      @if(hasPermission($project['id'],['publish_project']))
-                    <button onclick="getPublishData({{ $project['id'] }})" class="btn btn-info btn-small" >PUBLISH</button>
+                     <?php
+                     $publishButton = ($project['status']=='published')? 'REPUBLISH':'PUBLISH';
+                     ?>
+                    <button onclick="getPublishData({{ $project['id'] }})" class="btn btn-info btn-small" >{{ $publishButton }}</button>
                     @endif
                     @if($project['status']=='published')
                     <h5 class="semi-bold">
@@ -224,6 +227,10 @@
                 <?php $last = $phaseId; ?>
                 @endforeach
                 @endforeach
+                 @else
+                <tr>
+                    <td colspan="7" class="semi-bold text-info text-center">No units created</td>
+                </tr>
                 @endif 
             </tbody>
         </table>

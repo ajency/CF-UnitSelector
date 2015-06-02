@@ -23,7 +23,7 @@
       return FilterApartmentView.__super__.constructor.apply(this, arguments);
     }
 
-    FilterApartmentView.prototype.template = Handlebars.compile('<a href="javascript:void(0)"  class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button" type="button"> <span class="icon-place"></span> </button> <div class="filters-wrapper"> <div class="filters-content"> <div class="unit_type_filter"> <h6>UNIT TYPE</h6> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class="variant_filter"> <h6>VARIANT</h6> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> <div class="flooring_filter"> <h6 class="">Flooring</h6> <div class="filter-chkbox-block"> {{#flooring}} <input type="checkbox" class="custom-chckbx addCft flooring" id="flooring{{id}}" value="flooring{{id}}" value="1" data-value="{{id}}" > <label for="flooring{{id}}" class="-lbl">{{name}}({{type}})</label> {{/flooring}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> <div class=""> <h6>AREA ({{measurement_units}})</h6> <div class="range-container"> <input type="text" id="area" name="area" value="" /> </div> </div> <div class=""> <h6>BUDGET </h6> <div class="range-container"> <input type="text" id="budget" name="budget" value="" /> </div> </div> <div class=""> <h6>FLOOR </h6> <div class="range-container"> <input type="text" id="floor" name="floor" value="" /> </div> </div> <div class=""> <h6 class="availability">AVAILABILITY</h6> <div class="filter-chkbox-block"> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="available" class="-lbl">Show Available Units Only</label> </div> </div> </div> </div>');
+    FilterApartmentView.prototype.template = Handlebars.compile('<a href="javascript:void(0)"  class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button" type="button"> <span class="icon"></span> </button> <div class="filters-wrapper"> <div class="filters-content"> <div class="unit_type_filter"> <h6>UNIT TYPE</h6> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} > <label for="unit_type{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitTypes}} </div> </div> <div class="variant_filter"> <h6>VARIANT</h6> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} > <label for="varinat_name{{id}}" class="-lbl">{{name}}({{type}})</label> {{/unitVariantNames}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> <div class="flooring_filter"> <h6 class="">Flooring</h6> <div class="filter-chkbox-block"> {{#flooring}} <input type="checkbox" class="custom-chckbx addCft flooring" id="flooring{{id}}" value="flooring{{id}}" value="1" data-value="{{id}}" > <label for="flooring{{id}}" class="-lbl">{{name}}({{type}})</label> {{/flooring}} <!--<a href="#" class="hide-div">+ Show More</a>--> </div> </div> <div class=""> <h6>AREA ({{measurement_units}})</h6> <div class="range-container"> <input type="text" id="area" name="area" value="" /> </div> </div> <div class=""> <h6>BUDGET </h6> <div class="range-container"> <input type="text" id="budget" name="budget" value="" /> </div> </div> <div class=""> <h6>FLOOR </h6> <div class="range-container"> <input type="text" id="floor" name="floor" value="" /> </div> </div> <div class=""> <h6 class="availability">AVAILABILITY</h6> <div class="filter-chkbox-block"> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="available" class="-lbl">Show Available Units Only</label> </div> </div> </div> </div>');
 
     FilterApartmentView.prototype.ui = {
       unitTypes: '.unit_types',
@@ -82,7 +82,7 @@
         });
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
-        CommonFloor.filterNew();
+        CommonFloor.filterStepNew();
         unitTempCollection.trigger("filter_available");
         this.loadSelectedFilters();
         this.price = $("#budget").data("ionRangeSlider");
@@ -99,12 +99,11 @@
         } else {
           window.unitTypes = _.without(window.unitTypes, parseInt($(e.currentTarget).attr('data-value')));
         }
-        CommonFloor.defaults['type'] = 'apartment';
         CommonFloor.defaults['apartment']['unit_type_id'] = window.unitTypes.join(',');
         CommonFloor.defaults['step_three']['unit_type_id'] = window.unitTypes.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
-        CommonFloor.filterNew();
+        CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
       },
       'click @ui.variantNames': function(e) {
@@ -113,12 +112,11 @@
         } else {
           window.variantNames = _.without(window.variantNames, parseInt($(e.currentTarget).attr('data-value')));
         }
-        CommonFloor.defaults['type'] = 'apartment';
         CommonFloor.defaults['apartment']['unit_variant_id'] = window.variantNames.join(',');
         CommonFloor.defaults['step_three']['unit_variant_id'] = window.variantNames.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
-        CommonFloor.filterNew();
+        CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
       },
       'change @ui.priceMin': function(e) {
@@ -129,7 +127,7 @@
         }
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
-        CommonFloor.filterNew();
+        CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
       },
       'change @ui.priceMax': function(e) {
@@ -140,14 +138,14 @@
         }
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
-        CommonFloor.filterNew();
+        CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
       },
       'click @ui.status': function(e) {
         CommonFloor.defaults['common']['availability'] = e.currentTarget.id;
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
-        CommonFloor.filterNew();
+        CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
       },
       'change @ui.area': function(e) {
@@ -155,7 +153,7 @@
         CommonFloor.defaults['common']['area_min'] = parseFloat($(e.target).val().split(';')[0]);
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
-        CommonFloor.filterNew();
+        CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
       },
       'change @ui.budget': function(e) {
@@ -163,7 +161,7 @@
         CommonFloor.defaults['common']['price_min'] = parseFloat($(e.target).val().split(';')[0]);
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
-        CommonFloor.filterNew();
+        CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
       },
       'change @ui.floor': function(e) {
@@ -171,7 +169,7 @@
         CommonFloor.defaults['common']['floor_min'] = parseFloat($(e.target).val().split(';')[0]);
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
-        CommonFloor.filterNew();
+        CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
       },
       'click @ui.flooring': function(e) {
@@ -181,11 +179,10 @@
           window.flooring = _.without(window.flooring, $(e.currentTarget).attr('data-value'));
         }
         window.flooring = _.uniq(window.flooring);
-        CommonFloor.defaults['type'] = 'apartment';
         CommonFloor.defaults['apartment']['attributes'] = window.flooring.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
-        CommonFloor.filterNew();
+        CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
       },
       'click .filter-button': function(e) {

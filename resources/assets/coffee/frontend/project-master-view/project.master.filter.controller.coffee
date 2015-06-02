@@ -725,7 +725,6 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		$(@ui.flooring).each (ind,item)->
 			$('#'+item.id).prop('checked',true)
 			$('#'+item.id).attr('disabled',false)
-			console.log $.inArray($(item).attr('data-value'),attributes)
 			if $.inArray($(item).attr('data-value'),attributes) is -1 
 				$('#'+item.id).prop('checked',false)
 				$('#'+item.id).attr('disabled',false)
