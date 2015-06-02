@@ -362,8 +362,8 @@ class CommonFloor.CenterApartmentView extends Marionette.CompositeView
 				              </ul>
 				            </div>
 				            <h2 class="text-center">List of Apartments/Penthouse <span class="pull-right top-legend">     <ul>
-				                <li class="available">AVAILABLE</li>
-				                <li class="na">N/AVAILABLE</li>
+				                <!--<li class="available">AVAILABLE</li>-->
+				                <li class="na">N/A</li>
 				              </ul></span></h2><hr>
 							<div class="villa-list">
 								<ul class="units eight">
