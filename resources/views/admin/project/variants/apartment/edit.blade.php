@@ -93,28 +93,28 @@
                             <div class="form-group">
                                 <label class="form-label">{{$attributes['label']}}</label>
                                 <?php
-                                $value = (isset($unitVariant['variant_attributes'][property_type_slug($attributes['label'])])) ? $unitVariant['variant_attributes'][property_type_slug($attributes['label'])] : ''
+                                $value = (isset($unitVariant['variant_attributes'][($attributes['label'])])) ? $unitVariant['variant_attributes'][($attributes['label'])] : ''
                                 ?>
                                 @if('textbox' === $attributes['control_type'])
-                                <input type="text" class="form-control" name="apartment_attributes[{{property_type_slug($attributes['label'])}}]" value="{{ $value }}" placeholder="Enter {{$attributes['label']}}">
+                                <input type="text" class="form-control" name="apartment_attributes[{{($attributes['label'])}}]" value="{{ $value }}" placeholder="Enter {{$attributes['label']}}">
                                 @elseif('select' === $attributes['control_type'])
                                 <?php
                                 $options = explode(',', $attributes['defaults']);
                                 ?>
-                                <select name="apartment_attributes[{{property_type_slug($attributes['label'])}}]" class="select2 form-control">
+                                <select name="apartment_attributes[{{($attributes['label'])}}]" class="select2 form-control">
                                     <option value="">Select {{$attributes['label']}}</option>   
                                     @foreach($options as $option)
-                                    <option @if($value==property_type_slug($option)){{'selected'}}@endif  value="{{property_type_slug($option)}}">{{$option}}</option>
+                                    <option @if($value==($option)){{'selected'}}@endif  value="{{($option)}}">{{$option}}</option>
                                     @endforeach
                                 </select>
                                 @elseif('multiple' === $attributes['control_type'])
                                 <?php
                                 $options = explode(',', $attributes['defaults']);
                                 ?>
-                                <select multiple name="apartment_attributes[{{property_type_slug($attributes['label'])}}][]" class="select2 form-control">
+                                <select multiple name="apartment_attributes[{{($attributes['label'])}}][]" class="select2 form-control">
                                     <option value="">Select {{$attributes['label']}}</option>   
                                     @foreach($options as $option)
-                                    <option {{ (!empty($value) && in_array(property_type_slug($option),$value)) ? 'selected="selected"' : '' }}  value="{{property_type_slug($option)}}">{{$option}}</option>
+                                    <option {{ (!empty($value) && in_array(($option),$value)) ? 'selected="selected"' : '' }}  value="{{($option)}}">{{$option}}</option>
                                     @endforeach
                                 </select>
                                 @endif        
