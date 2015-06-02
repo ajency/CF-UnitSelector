@@ -12,7 +12,7 @@
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   border-radius: 3px;
   border: 1px solid @brand-primary;
-  transform: translateZ(0);
+  transform: translate3d(0, 0, 0);
   &.closed{
     width: 0;
     height: 0;
@@ -70,13 +70,18 @@
       }
     }
   }
+  &.left-align{
+    left: auto;
+    right: 20px;
+    top: 25px;
+  }
 }
 
 @media(max-width:767px){
   .fliters-container{
     right: 0;
     top: 0;
-    left: 0;
+    left: initial;
     width: 100vw;
     height: 100vh;
     background-color: @white;
@@ -422,9 +427,7 @@ opacity:1;
       -ms-transition: all 0.3s ease-in-out;
        -o-transition: all 0.3s ease-in-out;
           transition: all 0.3s ease-in-out;
-  .back_btn{
-    display: none;
-  }
+  
 }
 .filters-wrapper-hover:hover{
 width:310px;
@@ -437,9 +440,12 @@ visibility:visible;
        -o-transition: all 0.3s ease-in-out;
           transition: all 0.3s ease-in-out;
 }
+.back_btn{
+  display: none;
+}
 @media(max-width:767px){
   .filters-wrapper-hover {
-     right: 0;
+      right: 0;
       top: 0;
       left: -30px;
       width: 0 !important;
@@ -451,6 +457,7 @@ visibility:visible;
   }
   .filters-wrapper-hover.visible{
     left: 0;
+    right: initial;
     width: 100vw !important;
     padding: 30px 15px 15px;
     background-color: rgba(235, 235, 235, 1);
@@ -459,6 +466,7 @@ visibility:visible;
       font-size: 15px;
       display: block;
       color: @gray-darker;
+      display: block;
       .icon{
         &:before{
           content: "\e761";

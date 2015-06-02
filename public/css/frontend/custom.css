@@ -1327,8 +1327,8 @@ hr.embossed {
 @media (max-width: 767px) {
   .zoom-controls {
     top: 15px;
-    right: 15px;
-    left: auto;
+    left: 15px;
+    right: initial;
     bottom: initial;
   }
   .zoom-controls .zoom-in:hover,
@@ -1500,8 +1500,8 @@ svg .penthouse {
 }
 svg .available,
 svg .building {
-  opacity: 0.9;
-  fill-opacity: 0.2;
+  opacity: 1;
+  fill-opacity: 0;
   stroke: #000;
   stroke-width: 1px;
   stroke-opacity: 1;
@@ -1655,7 +1655,7 @@ svg polygon {
 @keyframes blink {
   0% {
     fill: #F68121 !important;
-    opacity: 0.5;
+    opacity: 1;
   }
   50% {
     fill: #F68121 !important;
@@ -1663,13 +1663,13 @@ svg polygon {
   }
   100% {
     fill: #F68121 !important;
-    opacity: 0.5;
+    opacity: 1;
   }
 }
 @-webkit-keyframes blink {
   0% {
     fill: #F68121 !important;
-    opacity: 0.8;
+    opacity: 1;
   }
   50% {
     fill: #F68121 !important;
@@ -1677,7 +1677,7 @@ svg polygon {
   }
   100% {
     fill: #F68121 !important;
-    opacity: 0.8;
+    opacity: 1;
   }
 }
 .list-view-container {
@@ -2504,8 +2504,8 @@ svg polygon {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   border-radius: 3px;
   border: 1px solid #f68121;
-  -webkit-transform: translateZ(0);
-          transform: translateZ(0);
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
 }
 .fliters-container.closed {
   width: 0;
@@ -2557,11 +2557,16 @@ svg polygon {
   opacity: 1;
   left: 0;
 }
+.fliters-container.left-align {
+  left: auto;
+  right: 20px;
+  top: 25px;
+}
 @media (max-width: 767px) {
   .fliters-container {
     right: 0;
     top: 0;
-    left: 0;
+    left: initial;
     width: 100vw;
     height: 100vh;
     background-color: #ffffff;
@@ -2860,9 +2865,6 @@ span.glyphicon {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
-.filters-wrapper-hover.visible .back_btn {
-  display: none;
-}
 .filters-wrapper-hover:hover {
   width: 310px;
   opacity: 1;
@@ -2870,6 +2872,9 @@ span.glyphicon {
   padding: 20px 10px;
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
+}
+.back_btn {
+  display: none;
 }
 @media (max-width: 767px) {
   .filters-wrapper-hover {
@@ -2885,6 +2890,7 @@ span.glyphicon {
   }
   .filters-wrapper-hover.visible {
     left: 0;
+    right: initial;
     width: 100vw !important;
     padding: 30px 15px 15px;
     background-color: #ebebeb;
@@ -2892,8 +2898,8 @@ span.glyphicon {
   .filters-wrapper-hover.visible .back_btn {
     left: 0;
     font-size: 15px;
-    display: block;
     color: #262626;
+    display: block;
   }
   .filters-wrapper-hover.visible .back_btn .icon:before {
     content: "\e761";
