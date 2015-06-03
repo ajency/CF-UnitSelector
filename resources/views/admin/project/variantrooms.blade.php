@@ -1,3 +1,4 @@
+<?php $i = 0; ?>
 <div id="addFloorlevel"> 
      <div class="m-l-5 no-border">
             <button type="button" class="btn btn-small btn-default pull-right m-r-25 add_level" ><i class="fa fa-plus"></i> Add New Level</button>
@@ -170,3 +171,4 @@
                 @endforeach
 				<?php $i=$level ; ?> 
             </div>
+<input type="hidden" id="counter" name="counter" value="{{$i}}">
