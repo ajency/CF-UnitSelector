@@ -18,10 +18,14 @@
          height: 100%; !important;
 
      }
-     .svg-canvas > svg {
-      position: relative;
-      height: 667px !important;
+     
+     .amenity {
+      stroke-width: 1 !important;
+      stroke: #FF7E00;
+      fill: rgba(246, 129, 33, 0.39);
+      stroke-dasharray: 0 !important;
     }
+
     /* #aj-imp-browser-body {
         width:100% !important;
         border: 0px!important;
