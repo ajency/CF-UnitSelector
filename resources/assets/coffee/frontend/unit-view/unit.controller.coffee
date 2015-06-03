@@ -465,6 +465,7 @@ class CenterUnitView extends Marionette.ItemView
 
 		'click .master':(e)->
 			$('.firstimage').show()
+			$('.images').empty()
 			@loadMaster()
 			$('.master').addClass('current')
 			$('.gallery').removeClass('current')

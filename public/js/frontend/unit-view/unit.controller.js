@@ -374,6 +374,7 @@
       },
       'click .master': function(e) {
         $('.firstimage').show();
+        $('.images').empty();
         this.loadMaster();
         $('.master').addClass('current');
         $('.gallery').removeClass('current');
