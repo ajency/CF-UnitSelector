@@ -29,13 +29,13 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Name</label>
+                        <label class="form-label">Name <span class="text-primary">*</span></label>
                         <input type="text" class="form-control" name="unit_name" placeholder="Enter Name" data-parsley-required>
                     </div> 
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Building</label>
+                        <label class="form-label">Building <span class="text-primary">*</span></label>
                         <select name="building_id" class="select2 form-control apartment-unit-building m-b-5" data-parsley-required>
                             <option value="">Select building</option>
                             @foreach($buildings as $building)
@@ -49,18 +49,27 @@
                 </div>
                 <div class="col-md-4">
                     <div class="form-group hidden select-floor" >
-                        <label class="form-label">Floor</label>
-                        <select id="floor" name="floor" onchange="getPositions(this.value);"   class="select2 form-control apartment-unit-floor-no m-b-5">
+                        <label class="form-label">Floor <span class="text-primary">*</span></label>
+                        <select id="floor" name="floor" onchange="getPositions(this);"   class="select2 form-control apartment-unit-floor-no m-b-5" data-parsley-required>
                             <option value="">Select Floor</option>
                         </select>
-                        <!--<a data-toggle="modal" data-target=".bs-example-modal-lg2" href="#">
-                            + Add floor Layout
-                        </a>-->
+         
                     </div> 
                 </div>
                 
+                
             </div>
             <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group hidden select-position">
+                        <label class="form-label">Position <span class="text-primary">*</span></label>
+                        <select id="flat_position" required="" name="position" class="select2 form-control" data-parsley-required>
+                            <option value="">Select Position</option>
+                             
+                        </select>
+                    </div> 
+
+                </div>
             @if(count($projectPropertyTypes) > 1)
                 <div class="col-md-4">
                     <div class="form-group">
@@ -100,7 +109,7 @@
                  
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Unit Status</label>
+                        <label class="form-label">Unit Status <span class="text-primary">*</span></label>
                         <select  class="select2 form-control" required="" name="unit_status" data-parsley-required>
                             <option value="available">Available</option>
                             <option value="sold">Sold</option>
