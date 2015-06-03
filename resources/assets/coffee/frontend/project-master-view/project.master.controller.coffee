@@ -459,14 +459,14 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 											
 											<div id="spritespin"></div>
 											<div class="svg-maps">
-												
+												<div id="svg_loader" class="cf-loader hidden"></div>
 												<img   class="first_image lazy-hidden ">
 												
 												<div class="region inactive"></div>
 												<div class="tooltip-overlay hidden"></div>
 
 											</div>
-											<div class="cf-loader hidden"></div>
+											<div id="rotate_loader" class="cf-loader hidden"></div>
 											
 										</div>
 
@@ -1007,30 +1007,30 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		first = _.values svgs
 		$.merge transitionImages ,  project.get('project_master')
 		
+		$('#svg_loader').removeClass 'hidden'
+		$('.first_image').attr('src',transitionImages[breakpoints[0]])
 		
-		$('.first_image').attr('data-src',transitionImages[breakpoints[0]])
-		
 			
 			
 			
-		$('.first_image').lazyLoadXT(
-			updateEvent: 'load'
-			oncomplete :()->
-				$('.region').load(first[0],()->
-				that.iniTooltip()
-				CommonFloor.applyAvailabilClasses()
-				CommonFloor.randomClass()
-				CommonFloor.applyFliterClass()
-				that.loadZoom()
-				$('#trig').removeClass 'hidden'
-				response = project.checkRotationView()
-				$('.first_image').first().css('width',that.ui.svgContainer.width())
-				if response is 1
-					$('.cf-loader').removeClass 'hidden'
-			).addClass('active').removeClass('inactive')
+		$('.first_image').load ()->
+			$('.region').load(first[0],()->
+					$('#svg_loader').addClass 'hidden'
+					that.iniTooltip()
+					CommonFloor.applyAvailabilClasses()
+					CommonFloor.randomClass()
+					CommonFloor.applyFliterClass()
+					that.loadZoom()
+					$('#trig').removeClass 'hidden'
+					response = project.checkRotationView()
+					$('.first_image').first().css('width',that.ui.svgContainer.width())
+					if response is 1
+						$('#rotate_loader').removeClass 'hidden'
+						that.initializeRotate(transitionImages,svgs)
+				).addClass('active').removeClass('inactive')
 
-		)
-		@initializeRotate(transitionImages,svgs)
+		
+		
 		
 		
 		
@@ -1093,7 +1093,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				$('.first_image').remove()
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
-				$('.cf-loader').addClass 'hidden'
+				$('#rotate_loader').addClass 'hidden'
 			$('.region').load(url,()->
 				that.iniTooltip()
 				CommonFloor.applyAvailabilClasses()
