@@ -460,7 +460,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 											<div id="spritespin"></div>
 											<div class="svg-maps">
 												
-												<img   class="first_image ">
+												<img   class="first_image lazy-hidden ">
 												
 												<div class="region inactive"></div>
 												<div class="tooltip-overlay hidden"></div>
