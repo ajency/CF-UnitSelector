@@ -285,7 +285,10 @@ class SvgController extends Controller {
 	    	// check for all svg elements with this object type and object id
 			$svgElements = SvgElement::where( 'object_type', '=', $object_type )->where( 'object_id', '=', $object_id )->get()->toArray(); 
 		}
-
+		else if(($object_id!=0) && ($object_type=="")){
+	    	// check for all svg elements with this object type and object id
+			$svgElements = SvgElement::where( 'object_type', '!=', 'building' )->where( 'object_id', '=', $object_id )->get()->toArray(); 
+		}
 		else{
 			// get all svg elements
 			$svgElements = SvgElement::all()->toArray(); 			 

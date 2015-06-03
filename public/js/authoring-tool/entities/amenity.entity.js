@@ -9,7 +9,7 @@
       return AmenityView.__super__.constructor.apply(this, arguments);
     }
 
-    AmenityView.prototype.template = '<form id="add-form"> <div class="form-group"> <label for="markerTitle">Title</label> <input type="text" class="form-control" id="amenity-title"> </div> <div class="form-group"> <label for="Description">Description</label> <textarea class="form-control" rows="3" id="amenity-description"></textarea> </div> </form>';
+    AmenityView.prototype.template = Handlebars.compile('<form id="add-form"> <div class="form-group"> <label for="markerTitle">Title</label> <input type="text" class="form-control" id="amenity-title"> </div> <div class="form-group"> <label for="Description">Description</label> <textarea class="form-control" rows="3" id="amenity-description"></textarea> </div> </form>');
 
     return AmenityView;
 

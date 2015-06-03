@@ -127,13 +127,12 @@
                 </div>
             </div>
             <hr/>
-            <?php $i = 0; ?>
             @if($propertyTypeID == APARTMENTID)
             @include('admin.project.variants.apartment.apartmentroom')
             @else
             @include('admin.project.variantrooms')
             @endif
-            <input type="hidden" id="counter" name="counter" value="{{$i}}">
+            
             <hr/>
             <div>
                 <div class="m-l-5 no-border">

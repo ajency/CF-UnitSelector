@@ -26,6 +26,8 @@ jQuery(document).ready ($)->
     window.innerRadius = 8.002
     window.outerRadius = 15.002
     window.markerPoints = []
+
+    window.windowWidth = 0
     ########################### GLOBALS ENDS ###########################
     
     ########################### FUNCTIONS BEGIN ###########################         
@@ -66,6 +68,7 @@ jQuery(document).ready ($)->
 
     #function to generate svg from svg data
     window.generateSvg = (svgData)->
+        # draw.viewbox(0, 0, 1600, 800)
         # create svg background image, set exclude data attrib to true so it can be excluded while exporting the svg
         draw.image(svgImg).data('exclude', true)
 
@@ -492,6 +495,14 @@ jQuery(document).ready ($)->
         $('#aj-imp-builder-drag-drop canvas').hide()
         $('#aj-imp-builder-drag-drop .svg-draw-clear').hide()
 
+        window.windowWidth = $(window).innerWidth()
+
+        $('canvas').css 'width', window.windowWidth
+        $('canvas').css 'height', window.windowWidth / 2
+
+        $('.svg-canvas').css 'width', window.windowWidth
+        $('.svg-canvas').css 'height', window.windowWidth / 2
+
         document.addEventListener 'keydown', keydownFunc, false
 
     keydownFunc = (e) ->
@@ -899,7 +910,7 @@ jQuery(document).ready ($)->
         viewboxDefault = draw.viewbox()
 
         # add viewbox of 1600*800 at the time of publish
-        draw.viewbox(0, 0, 1600, 800) 
+        draw.viewbox(0, 0, viewboxDefault.width, viewboxDefault.height) 
         
         svgExport = draw.exportSvg(
           exclude: ->

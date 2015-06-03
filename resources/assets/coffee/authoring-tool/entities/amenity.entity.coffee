@@ -4,7 +4,7 @@
 
 class AuthoringTool.AmenityView extends Marionette.ItemView
 
-    template : '<form id="add-form">
+    template : Handlebars.compile('<form id="add-form">
                     <div class="form-group">
                             <label for="markerTitle">Title</label>
                             <input type="text" class="form-control" id="amenity-title">
@@ -13,7 +13,7 @@ class AuthoringTool.AmenityView extends Marionette.ItemView
                         <label for="Description">Description</label>
                         <textarea class="form-control" rows="3" id="amenity-description"></textarea>
                     </div>
-                </form>'
+                </form>')
 
 class AuthoringTool.AmenityCtrl extends Marionette.RegionController
 
