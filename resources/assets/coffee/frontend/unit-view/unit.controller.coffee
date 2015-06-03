@@ -387,7 +387,7 @@ class CenterUnitView extends Marionette.ItemView
 			$.each response[1],(index,value)->
 				html += '<div class="layouts animated fadeIn">
 							<a class="fancybox" rel="3d" href="'+value+'" title="'+s.replaceAll(response[2][index], "_", " ")+'">
-								<img class="img" data-src="'+value+'" />
+								<img class="img" src="'+value+'" />
 								<div class="img-overlay"></div>
 								<span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
 							</a>
@@ -409,7 +409,7 @@ class CenterUnitView extends Marionette.ItemView
 			$.each response[0],(index,value)->
 				html += '<div class="layouts animated fadeIn">
 							<a class="fancybox" rel="2d" href="'+value+'" title="'+s.replaceAll(response[2][index], "_", " ")+'">
-								<img class="img" data-src="'+value+'" />
+								<img class="img" src="'+value+'" />
 								<div class="img-overlay"></div>
 								<span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
 							</a>
@@ -430,7 +430,7 @@ class CenterUnitView extends Marionette.ItemView
 			response = @generateLevels()
 			html = ''
 			html += '<div class="animated fadeIn">
-						<img class="img img-responsive external-img" data-src="'+response[3].get('external3durl')+'" />
+						<img class="img img-responsive external-img" src="'+response[3].get('external3durl')+'" />
 					</div>'
 			$('.images').html html
 			$('.img').load ()->
@@ -450,7 +450,7 @@ class CenterUnitView extends Marionette.ItemView
 			$.each response[3].get('galleryurl'),(index,value)->
 				html += '<div class="animated fadeIn gallery-img">
 							<a class="fancybox" rel="gall" href="'+value+'">
-								<img class="img" data-src="'+value+'" />
+								<img class="img" src="'+value+'" />
 							</a>
 						</div>'
 			
