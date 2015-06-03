@@ -57,7 +57,7 @@
                                         <select id="phase" name="no_of_floors" class="select2 form-control m-b-5" data-parsley-required>
                                                 <option value="">Select Floors</option>
                                                 @for($i=1 ;  $i<=100; $i++)
-                                                <option {{ $building->no_of_floors === $i ? 'selected' : '' }}  value="{{ $i }}">{{ $i }}</option>
+                                                <option {{ $building->no_of_floors == $i ? 'selected' : '' }}  value="{{ $i }}">{{ $i }}</option>
                                                 @endfor
                                             </select>
                                              
@@ -72,7 +72,7 @@
                                         <select  name="phase_id" class="select2 form-control m-b-5" data-parsley-required>
                                     <option value="">Select Phase</option>
                                     @foreach( $phases as $phase )
-                                    <option value="{{ $phase['id'] }}" {{ $building->phase_id === $phase['id'] ? 'selected' : '' }}>{{ $phase['phase_name'] }}</option>
+                                    <option value="{{ $phase['id'] }}" {{ $building->phase_id == $phase['id'] ? 'selected' : '' }}>{{ $phase['phase_name'] }}</option>
                                     @endforeach
                                 </select>
                                              
