@@ -153,13 +153,20 @@ jQuery(document).ready ($)->
 
     window.resetCollection = ()->
         $('.polygon-type,.marker-grp').each (index,value)->
-            unitID = parseInt value.id
-            
-            if unitID isnt 0
-                unit = unitMasterCollection.findWhere
-                        'id' : parseInt value.id
+            type =  $(value).attr 'type'
+            if type is 'building'
+                bldgId = parseInt value.id
+                bldg = buildingCollection.findWhere
+                        'id' : bldgId
 
-                unitCollection.remove unit.get 'id'
+                buildingCollection.remove bldg                
+            else 
+                unitID = parseInt value.id
+                if unitID isnt 0
+                    unit = unitMasterCollection.findWhere
+                            'id' : parseInt value.id
+
+                    unitCollection.remove unit.get 'id'
 
     #api required to load second step
     window.loadJSONData = ()->

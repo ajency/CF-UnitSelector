@@ -5,18 +5,21 @@
 class AuthoringTool.BuildingView extends Marionette.ItemView
 
 	template : Handlebars.compile('<form id="add-form"><div class="form-group">
-					 <label for="exampleInputPassword1">Units</label>
+					 <label  class="unit-label" for="exampleInputPassword1">Units</label>
 					<select class="form-control units">
 						<option value="">Select</option>
 					   {{#options}}
 						 <option value="{{id}}">{{name}}</option>
 						{{/options}}
 					 </select>
-				   </div></form>')
+				   </div>
+				   <div class="checkbox"> <label> <input type="checkbox" name="check_primary"> Mark as primary unit </label> </div>
+				   </form>')
 
 
 	ui :
 		units : '.units'
+		unitLabel : '.unit-label'		
 
 	serializeData:->
 		data = super()
@@ -29,15 +32,13 @@ class AuthoringTool.BuildingView extends Marionette.ItemView
 		data.options = options
 		data
 
-	events:
-		'change @ui.units':(e)->
-			window.coord = 0
-			$('.plot').each (index,value)->
-				if value.id is $(e.target).val()
-					$('.alert').text 'Already assigned'
-					window.hideAlert()
-					window.coord = 1
-					return 
+	onShow:->
+		units = buildingCollection
+		if units.length == 0
+			@ui.units.hide()
+			@ui.unitLabel.hide()
+			$('.alert').text 'All buildings marked'
+			window.hideAlert()
 
 class AuthoringTool.BuildingCtrl extends Marionette.RegionController
 

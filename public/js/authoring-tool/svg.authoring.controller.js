@@ -138,13 +138,22 @@
     };
     window.resetCollection = function() {
       return $('.polygon-type,.marker-grp').each(function(index, value) {
-        var unit, unitID;
-        unitID = parseInt(value.id);
-        if (unitID !== 0) {
-          unit = unitMasterCollection.findWhere({
-            'id': parseInt(value.id)
+        var bldg, bldgId, type, unit, unitID;
+        type = $(value).attr('type');
+        if (type === 'building') {
+          bldgId = parseInt(value.id);
+          bldg = buildingCollection.findWhere({
+            'id': bldgId
           });
-          return unitCollection.remove(unit.get('id'));
+          return buildingCollection.remove(bldg);
+        } else {
+          unitID = parseInt(value.id);
+          if (unitID !== 0) {
+            unit = unitMasterCollection.findWhere({
+              'id': parseInt(value.id)
+            });
+            return unitCollection.remove(unit.get('id'));
+          }
         }
       });
     };

@@ -13,7 +13,9 @@ class AuthoringTool.PlotView extends Marionette.ItemView
 						 <option value="{{id}}">{{name}}</option>
 						{{/options}}
 					 </select>
-				   </div></form>')
+				   </div>
+				   <div class="checkbox"> <label> <input type="checkbox" name="check_primary"> Mark as primary unit </label> </div>
+				   </form>')
 
 
 	ui :
