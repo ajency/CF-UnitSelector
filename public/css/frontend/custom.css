@@ -3288,6 +3288,12 @@ label.third_toggle {
   background: rgba(0, 0, 0, 0.9);
   width: 200px;
 }
+.Penthouse {
+  background: url(../../images/penthouse-gray.png) no-repeat;
+  width: 53px;
+  height: 53px;
+  display: block;
+}
 .ls-nav ul {
   width: 100% !important;
   text-align: center;
