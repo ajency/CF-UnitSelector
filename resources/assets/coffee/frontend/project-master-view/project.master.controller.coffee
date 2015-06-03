@@ -1009,23 +1009,23 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		
 		
 		$('.first_image').attr('data-src',transitionImages[breakpoints[0]])
-		$('.first_image').load ()->
-			$('.region').load(first[0],()->
-				that.iniTooltip()
-				CommonFloor.applyAvailabilClasses()
-				CommonFloor.randomClass()
-				CommonFloor.applyFliterClass()
-				that.loadZoom()
-				$('#trig').removeClass 'hidden'
-				response = project.checkRotationView()
-				$('.first_image').first().css('width',that.ui.svgContainer.width())
-				if response is 1
-					$('.cf-loader').removeClass 'hidden'
-			).addClass('active').removeClass('inactive')
+		# $('.first_image').load ()->
+		# 	$('.region').load(first[0],()->
+		# 		that.iniTooltip()
+		# 		CommonFloor.applyAvailabilClasses()
+		# 		CommonFloor.randomClass()
+		# 		CommonFloor.applyFliterClass()
+		# 		that.loadZoom()
+		# 		$('#trig').removeClass 'hidden'
+		# 		response = project.checkRotationView()
+		# 		$('.first_image').first().css('width',that.ui.svgContainer.width())
+		# 		if response is 1
+		# 			$('.cf-loader').removeClass 'hidden'
+		# 	).addClass('active').removeClass('inactive')
 			
 			
 		
-		@initializeRotate(transitionImages,svgs)
+		# @initializeRotate(transitionImages,svgs)
 		$('.first_image').lazyLoadXT(
 			forceLoad : true
 			updateEvent: 'load'

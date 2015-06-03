@@ -672,23 +672,6 @@
       first = _.values(svgs);
       $.merge(transitionImages, project.get('project_master'));
       $('.first_image').attr('data-src', transitionImages[breakpoints[0]]);
-      $('.first_image').load(function() {
-        return $('.region').load(first[0], function() {
-          var response;
-          that.iniTooltip();
-          CommonFloor.applyAvailabilClasses();
-          CommonFloor.randomClass();
-          CommonFloor.applyFliterClass();
-          that.loadZoom();
-          $('#trig').removeClass('hidden');
-          response = project.checkRotationView();
-          $('.first_image').first().css('width', that.ui.svgContainer.width());
-          if (response === 1) {
-            return $('.cf-loader').removeClass('hidden');
-          }
-        }).addClass('active').removeClass('inactive');
-      });
-      this.initializeRotate(transitionImages, svgs);
       return $('.first_image').lazyLoadXT({
         forceLoad: true,
         updateEvent: 'load'
