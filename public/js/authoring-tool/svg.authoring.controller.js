@@ -102,6 +102,15 @@
       if (value === 'villa') {
         units = bunglowVariantCollection.getBunglowMasterUnits();
       }
+      if (value === 'plot') {
+        units = plotVariantCollection.getPlotMasterUnits();
+      }
+      if (value === 'building') {
+        units = buildingMasterCollection.toArray();
+      }
+      if (value === 'apartment') {
+        units = apartmentVariantCollection.getApartmentMasterUnits();
+      }
       return units;
     };
     window.showPendingObjects = function(data) {
@@ -171,12 +180,7 @@
           return window.resetCollection();
         },
         error: function(response) {
-          this.region = new Marionette.Region({
-            el: '#noFound-template'
-          });
-          return new CommonFloor.ProjectCtrl({
-            region: this.region
-          });
+          return alert('Some problem occurred');
         }
       });
     };
@@ -637,6 +641,16 @@
     });
     $('.edit').on('click', function(e) {
       var details, myObject, objectType, svgElemId;
+      if (($('.area').val() === "") && (window.canvas_type === "polygon")) {
+        $('.alert').text('Coordinates not marked');
+        window.hideAlert();
+        return false;
+      }
+      if ((window.markerPoints.length < 1) && (window.canvas_type !== "polygon")) {
+        $('.alert').text('Coordinates not marked');
+        window.hideAlert();
+        return false;
+      }
       myObject = {};
       details = {};
       objectType = $('.property_type').val();
@@ -690,7 +704,7 @@
         async: false,
         data: $.param(myObject),
         success: function(response) {
-          var indexToSplice;
+          var indexToSplice, types;
           indexToSplice = -1;
           $.each(window.svgData.data, function(index, value) {
             if (parseInt(value.id) === svgElemId) {
@@ -701,6 +715,8 @@
           myObject['id'] = svgElemId;
           window.svgData.data.push(myObject);
           draw.clear();
+          types = window.getPendingObjects(window.svgData);
+          window.showPendingObjects(types);
           window.generateSvg(window.svgData.data);
           return window.resetTool();
         },
@@ -763,7 +779,7 @@
               return window.svgData.data.splice(index, 1);
             }
           });
-          console.log(window.svgData.data);
+          window.svgData.data;
           window.renderSVG();
           unit = unitMasterCollection.findWhere({
             'id': parseInt(id)

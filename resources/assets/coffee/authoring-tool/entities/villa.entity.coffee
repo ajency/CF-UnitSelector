@@ -50,7 +50,7 @@ class AuthoringTool.VillaView extends Marionette.ItemView
 		if units.length == 0
 			@ui.units.hide()
 			@ui.unitLabel.hide()
-			$('.alert').text 'All units marked'
+			$('.alert').text 'No units'
 			window.hideAlert()
 
 class AuthoringTool.VillaCtrl extends Marionette.RegionController

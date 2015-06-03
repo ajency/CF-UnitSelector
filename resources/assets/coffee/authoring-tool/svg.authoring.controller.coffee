@@ -121,6 +121,12 @@ jQuery(document).ready ($)->
         units = []
         if value == 'villa'
             units = bunglowVariantCollection.getBunglowMasterUnits()
+        if value == 'plot'
+            units = plotVariantCollection.getPlotMasterUnits()
+        if value == 'building'
+            units = buildingMasterCollection.toArray()
+         if value == 'apartment'
+            units = apartmentVariantCollection.getApartmentMasterUnits()
 
         units
 
@@ -210,8 +216,7 @@ jQuery(document).ready ($)->
                 window.resetCollection()
                 
             error :(response)->
-                @region =  new Marionette.Region el : '#noFound-template'
-                new CommonFloor.ProjectCtrl region : @region
+                alert('Some problem occurred')
 
     #api required to load svg data based on image
     window.loadOjectData = ()->
@@ -256,9 +261,7 @@ jQuery(document).ready ($)->
 
     window.resetTool =()->
         window.resetCollection()
-                
         $(".toggle").trigger 'click'        
-        
         $('.area').val("")
         window.f = []
         $("form").trigger("reset")
@@ -693,8 +696,7 @@ jQuery(document).ready ($)->
         else
             window.showDetails(currentElem)       
         
-
-
+   
     # save svg eleement with unit data
     $('.submit').on 'click', (e) ->
 
@@ -723,6 +725,16 @@ jQuery(document).ready ($)->
     
     # edit svg eleement with unit data  
     $('.edit').on 'click', (e) ->
+
+        if  ($('.area').val()  == "") and (window.canvas_type is "polygon")
+            $('.alert').text 'Coordinates not marked'
+            window.hideAlert()
+            return false
+        if  (window.markerPoints.length<1) and (window.canvas_type isnt "polygon")
+            $('.alert').text 'Coordinates not marked'
+            window.hideAlert()
+            return false    
+
         myObject  = {}
         details = {}
 
@@ -797,7 +809,9 @@ jQuery(document).ready ($)->
 
                 # clear svg 
                 draw.clear()
+                types = window.getPendingObjects(window.svgData)
 
+                window.showPendingObjects(types)
                 # re-generate svg with new svg element
                 window.generateSvg(window.svgData.data)
                 window.resetTool()                
@@ -863,7 +877,7 @@ jQuery(document).ready ($)->
                         console.log index
                         window.svgData.data.splice(index,1)
                         # delete window.svgData.data[index]
-                console.log window.svgData.data
+                window.svgData.data
                 window.renderSVG()
                 unit = unitMasterCollection.findWhere
                         'id' : parseInt id
