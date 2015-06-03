@@ -481,7 +481,7 @@
         return $('#rotate_loader').addClass('hidden');
       });
       if (html === "") {
-        $('.images').addClass('no-image');
+        html = '<img class="img img-responsive external-img"  src="../../images/no-image.jpg" />';
       }
       $(".fancybox").fancybox();
       return this.iniTooltip();

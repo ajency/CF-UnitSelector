@@ -589,7 +589,8 @@ class CenterUnitView extends Marionette.ItemView
 		$('.img').load ()->
 			$('#rotate_loader').addClass 'hidden'
 		if html == ""
-			$('.images').addClass 'no-image'
+			# $('.images').addClass 'no-image'
+			html='<img class="img img-responsive external-img"  src="../../images/no-image.jpg" />'
 		$(".fancybox").fancybox()
 		# $('.img').lazyLoadXT(
 		# 	forceLoad : true
