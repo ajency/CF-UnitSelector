@@ -2469,6 +2469,10 @@ svg polygon {
 .single-bldg .next {
   right: 0;
 }
+.no-image {
+  background: url(../../images/no-image.jpg) no-repeat;
+  background-size: contain;
+}
 .fliters-container {
   position: fixed;
   z-index: 9999;
