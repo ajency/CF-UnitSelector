@@ -194,6 +194,7 @@ class ProjectApartmentUnitController extends Controller {
         $buildingId = $request['buildingId'];
         $floor = $request['floor'];
         $unitPositions = Unit :: where('building_id',$buildingId)->where('floor',$floor)->get()->toArray();
+        $positions =[];
         foreach($unitPositions as $unitPosition)
             $positions[] = $unitPosition['position'];
         

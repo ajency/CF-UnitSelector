@@ -907,7 +907,7 @@ function getPositions(obj)
             var $el = $("#flat_position");
             $el.empty(); // remove old options
             $el.append(response.data);
-            $(".select-position").removeClass('hidden');
+             
 
         }
     });

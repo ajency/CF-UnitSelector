@@ -48,7 +48,7 @@
                     </div> 
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group hidden select-floor" >
+                    <div class="form-group select-floor" >
                         <label class="form-label">Floor <span class="text-primary">*</span></label>
                         <select id="floor" name="floor" onchange="getPositions(this);"   class="select2 form-control apartment-unit-floor-no m-b-5" data-parsley-required>
                             <option value="">Select Floor</option>
@@ -61,7 +61,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4">
-                    <div class="form-group hidden select-position">
+                    <div class="form-group select-position">
                         <label class="form-label">Position <span class="text-primary">*</span></label>
                         <select id="flat_position" required="" name="position" class="select2 form-control" data-parsley-required>
                             <option value="">Select Position</option>
