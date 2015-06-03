@@ -136,7 +136,7 @@
       return CenterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content animated fadeIn"> <div class="img-loader hidden"> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" data-nodebug="" data-alwaysprocess="" data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" class="primage fill-width"> </div> </div>');
+    CenterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content animated fadeIn"> <div class="img-loader hidden"> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <div class="step1-wrapper"> <img src="../../projects/3/google_earth/step1.jpg" class="img-responsive earth-img" /> <div class="svg-area"></div> </div> </div>');
 
     CenterView.prototype.ui = {
       svgContainer: '.us-right-content'
@@ -150,11 +150,13 @@
     };
 
     CenterView.prototype.onShow = function() {
-      var path, windowHeight;
+      var path, windowHeight, windowWidth;
       windowHeight = $(window).innerHeight() - 56;
       $('.svg-area').css('height', windowHeight);
-      $('.svg-area').css('min-width', windowHeight * 2);
-      $('img').lazyLoadXT();
+      $('.step1-wrapper').css('height', windowHeight);
+      $('.step1-wrapper').css('min-width', windowHeight * 2);
+      windowWidth = $(window).innerWidth();
+      $('.earth-img').css('min-width', windowWidth);
       path = this.model.get('step_one').svg;
       return $('.svg-area').load(path, function() {
         $('.marker').tooltipster({
@@ -171,7 +173,7 @@
             var svgHeight, svgWidth, tooltipHeight;
             $('.action_button').on('click', function(e) {
               $('.img-loader').removeClass('hidden');
-              $('svg').attr('class', 'zoom');
+              $('.step1-wrapper').attr('class', 'zoom');
               $('.step1').addClass('animated fadeOut');
               $('.marker').tooltipster('hide');
               return setTimeout(function(x) {
@@ -183,8 +185,9 @@
             svgHeight = $(window).innerHeight() - 56;
             svgWidth = svgHeight * 2;
             if ($(window).width() < 1025) {
-              $('svg').css('min-height', svgHeight);
-              return $('svg').css('min-width', svgWidth);
+              $('.step1-wrapper').css('min-height', svgHeight);
+              $('.step1-wrapper').css('min-width', svgWidth);
+              return $('.svg-area').css('min-width', svgWidth);
             }
           }
         });
@@ -203,7 +206,7 @@
             var tooltipHeight;
             $('.action_button').on('click', function(e) {
               $('.img-loader').removeClass('hidden');
-              $('svg').attr('class', 'zoom');
+              $('.step1-wrapper').attr('class', 'zoom');
               $('.step1').addClass('animated fadeOut');
               $('.marker').tooltipster('hide');
               return setTimeout(function(x) {

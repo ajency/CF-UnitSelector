@@ -185,10 +185,9 @@ class CenterView extends Marionette.ItemView
 										  <div class="square "></div>
 										  <div class="square last"></div>
 										</div>
-										<div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" 
-											data-nodebug="" data-alwaysprocess="" 
-											data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" 
-											class="primage fill-width">
+										<div class="step1-wrapper">
+											<img src="../../projects/3/google_earth/step1.jpg" class="img-responsive earth-img" />
+											<div class="svg-area"></div>
 										</div>
 									</div>')
 
@@ -207,15 +206,14 @@ class CenterView extends Marionette.ItemView
 
 		windowHeight = $(window).innerHeight() - 56
 		$('.svg-area').css 'height', windowHeight
-		$('.svg-area').css 'min-width', windowHeight * 2
+		$('.step1-wrapper').css 'height', windowHeight
+		$('.step1-wrapper').css 'min-width', windowHeight * 2
 
-		# if $(window).width() < 1025
-		# 	windowHeight = $(window).innerHeight() - 56
-		# 	$('.svg-area').css 'height', windowHeight
-		# 	$('.svg-area').css 'min-width', windowHeight * 2
+		windowWidth = $(window).innerWidth()
+		$('.earth-img').css 'min-width', windowWidth
 
 		
-		$('img').lazyLoadXT()
+		# $('img').lazyLoadXT()
 		path = @model.get('step_one').svg
 		$('.svg-area').load(path, ()->
 			$('.marker').tooltipster(
@@ -231,7 +229,7 @@ class CenterView extends Marionette.ItemView
 				functionReady:(e)->
 					$('.action_button').on('click' , (e)->
 						$('.img-loader').removeClass 'hidden'
-						$('svg').attr('class' ,'zoom') 
+						$('.step1-wrapper').attr('class' ,'zoom') 
 						$('.step1').addClass 'animated fadeOut'
 						$('.marker').tooltipster('hide')
 						setTimeout( (x)->
@@ -244,8 +242,9 @@ class CenterView extends Marionette.ItemView
 					svgHeight = $(window).innerHeight() - 56
 					svgWidth = svgHeight * 2
 					if $(window).width() < 1025
-						$('svg').css 'min-height', svgHeight
-						$('svg').css 'min-width', svgWidth
+						$('.step1-wrapper').css 'min-height', svgHeight
+						$('.step1-wrapper').css 'min-width', svgWidth
+						$('.svg-area').css 'min-width', svgWidth
 			)
 			$('.marker').tooltipster('show')
 
@@ -263,7 +262,7 @@ class CenterView extends Marionette.ItemView
 				functionReady:(e)->
 					$('.action_button').on('click' , (e)->
 						$('.img-loader').removeClass 'hidden'
-						$('svg').attr('class' ,'zoom') 
+						$('.step1-wrapper').attr('class' ,'zoom') 
 						$('.step1').addClass 'animated fadeOut'
 						$('.marker').tooltipster('hide')
 						setTimeout( (x)->
