@@ -605,7 +605,7 @@
       facingsArr = [];
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
-      units = unitCollection.findWhere({
+      units = unitCollection.where({
         'building_id': building_id
       });
       _.each(units, function(item) {
