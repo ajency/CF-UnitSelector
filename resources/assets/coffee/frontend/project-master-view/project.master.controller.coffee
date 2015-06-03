@@ -1009,8 +1009,15 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		
 		
 		$('.first_image').attr('data-src',transitionImages[breakpoints[0]])
-		$('.first_image').load ()->
-			$('.region').load(first[0],()->
+		
+			
+			
+			
+		$('.first_image').lazyLoadXT(
+			forceLoad : true
+			updateEvent: 'load'
+			onload :()->
+				$('.region').load(first[0],()->
 				that.iniTooltip()
 				CommonFloor.applyAvailabilClasses()
 				CommonFloor.randomClass()
@@ -1022,13 +1029,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				if response is 1
 					$('.cf-loader').removeClass 'hidden'
 			).addClass('active').removeClass('inactive')
-			
-			
-		$('.first_image').lazyLoadXT(
-			forceLoad : true
-			updateEvent: 'load'
+
 		)
-		@initializeRotate(transitionImages,svgs)
+		# @initializeRotate(transitionImages,svgs)
 		
 		
 		
