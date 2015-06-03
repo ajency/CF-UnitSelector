@@ -64,7 +64,7 @@ class ProjectController extends Controller {
         
         if(!empty($projectJsonData))                             //UPDATE CURRENT UNIT STATUS TO JSON DATA
         {
-            $unitsData = [];
+            $unitData = [];
             $units = $projectJsonData['units'];
             foreach ($units as $unit)
             {
