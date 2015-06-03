@@ -189,6 +189,8 @@ class SvgController extends Controller {
 
 		$svgData = $_REQUEST['data'];
 		$svgType = $_REQUEST['svg_type'];
+		$building = $_REQUEST['building'];
+		$imgID = $_REQUEST['imgID'];
 		$breakpoint_position = $_REQUEST['breakpoint_position'];
 		$data = base64_decode($svgData);
 
@@ -197,8 +199,8 @@ class SvgController extends Controller {
 			$name = "master-".$breakpoint_position;
 		}
 		else if($svgType == "building_master"){
-			$projSubFolder = "building";
-			$name = "building-".$breakpoint_position;
+			$projSubFolder = "buildings/".$building;
+			$name = "master-".$breakpoint_position;
 		}
 		else{
 			$projSubFolder = "svg";
@@ -216,6 +218,11 @@ class SvgController extends Controller {
 						);
 
 		$created_file = SvgController::createFile($fileData,$data);
+		
+		// update in svg table
+		$svg =  Svg::where( 'image_id', '=', $imgID )->first();
+		$svg->svg_path = $path."/".$created_file;
+		$svg->save();
         
         // $display_document_name = "project_master_svg.svg";
 		// header('Content-type: image/svg+xml');

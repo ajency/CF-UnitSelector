@@ -103,6 +103,15 @@
       if (value === 'villa') {
         units = bunglowVariantCollection.getBunglowMasterUnits();
       }
+      if (value === 'plot') {
+        units = plotVariantCollection.getPlotMasterUnits();
+      }
+      if (value === 'building') {
+        units = buildingMasterCollection.toArray();
+      }
+      if (value === 'apartment') {
+        units = apartmentVariantCollection.getApartmentMasterUnits();
+      }
       return units;
     };
     window.showPendingObjects = function(data) {
@@ -138,13 +147,22 @@
     };
     window.resetCollection = function() {
       return $('.polygon-type,.marker-grp').each(function(index, value) {
-        var unit, unitID;
-        unitID = parseInt(value.id);
-        if (unitID !== 0) {
-          unit = unitMasterCollection.findWhere({
-            'id': parseInt(value.id)
+        var bldg, bldgId, type, unit, unitID;
+        type = $(value).attr('type');
+        if (type === 'building') {
+          bldgId = parseInt(value.id);
+          bldg = buildingCollection.findWhere({
+            'id': bldgId
           });
-          return unitCollection.remove(unit.get('id'));
+          return buildingCollection.remove(bldg);
+        } else {
+          unitID = parseInt(value.id);
+          if (unitID !== 0) {
+            unit = unitMasterCollection.findWhere({
+              'id': parseInt(value.id)
+            });
+            return unitCollection.remove(unit.get('id'));
+          }
         }
       });
     };
@@ -172,12 +190,7 @@
           return window.resetCollection();
         },
         error: function(response) {
-          this.region = new Marionette.Region({
-            el: '#noFound-template'
-          });
-          return new CommonFloor.ProjectCtrl({
-            region: this.region
-          });
+          return alert('Some problem occurred');
         }
       });
     };
@@ -193,6 +206,7 @@
           window.svgData['supported_types'] = JSON.parse(supported_types);
           window.svgData['breakpoint_position'] = breakpoint_position;
           window.svgData['svg_type'] = svg_type;
+          window.svgData['building_id'] = building_id;
           return window.loadJSONData();
         },
         error: function(response) {
@@ -289,12 +303,15 @@
         async: false,
         data: $.param(myObject),
         success: function(response) {
+          var types;
           myObject['id'] = response.data.id;
           if (response.data.primary_breakpoint !== null) {
             myObject['primary_breakpoint'] = response.data.primary_breakpoint;
           }
           window.svgData.data.push(myObject);
           draw.clear();
+          types = window.getPendingObjects(window.svgData);
+          window.showPendingObjects(types);
           window.generateSvg(window.svgData.data);
           return window.resetTool();
         },
@@ -643,6 +660,16 @@
     });
     $('.edit').on('click', function(e) {
       var details, myObject, objectType, svgElemId;
+      if (($('.area').val() === "") && (window.canvas_type === "polygon")) {
+        $('.alert').text('Coordinates not marked');
+        window.hideAlert();
+        return false;
+      }
+      if ((window.markerPoints.length < 1) && (window.canvas_type !== "polygon")) {
+        $('.alert').text('Coordinates not marked');
+        window.hideAlert();
+        return false;
+      }
       myObject = {};
       details = {};
       objectType = $('.property_type').val();
@@ -769,7 +796,7 @@
               return window.svgData.data.splice(index, 1);
             }
           });
-          console.log(window.svgData.data);
+          window.svgData.data;
           window.renderSVG();
           unit = unitMasterCollection.findWhere({
             'id': parseInt(id)
@@ -796,6 +823,8 @@
       data['data'] = btoa(svgExport);
       data['svg_type'] = window.svgData.svg_type;
       data['breakpoint_position'] = window.breakpoint_position;
+      data['building'] = building_id;
+      data['imgID'] = IMAGEID;
       draw.viewbox(0, 0, viewboxDefault.width, viewboxDefault.height);
       postUrl = BASEURL + "/admin/project/" + PROJECTID + "/image/" + IMAGEID + "/downloadSvg";
       publishSvgOptions = {

@@ -18,7 +18,10 @@
          height: 100%; !important;
 
      }
-     
+     .svg-canvas > svg {
+      height: 100%; !important;
+
+     }
      .amenity {
       stroke-width: 1 !important;
       stroke: #FF7E00;
@@ -370,6 +373,7 @@
             supported_types = $('<div/>').html(types).text()
             breakpoint_position = '{{$breakpoint_position}}';
             svg_type = '{{$svg_type}}';
+            building_id = '{{$building_id}}';
             
 
             

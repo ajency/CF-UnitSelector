@@ -15,7 +15,9 @@ class AuthoringTool.ApartmentView extends Marionette.ItemView
 						{{/options}}
 					  
 					 </select>
-				   </div><form>')
+				   </div>
+				   <div class="checkbox"> <label> <input type="checkbox" name="check_primary"> Mark as primary unit </label> </div>
+				   <form>')
 
 
 	ui :
