@@ -437,7 +437,7 @@ class CenterUnitView extends Marionette.ItemView
 			response = @generateLevels()
 			html = ''
 			html += '<div class="animated fadeIn">
-						<img class="img img-responsive external-img" data-src="'+response[3].get('external3durl')+'" />
+						<a href=""><img class="img img-responsive external-img" data-src="'+response[3].get('external3durl')+'" /></a>
 					</div>'
 			$('.images').html html
 			$('.img').lazyLoadXT(
@@ -558,7 +558,7 @@ class CenterUnitView extends Marionette.ItemView
 
 				
 		if ! _.isUndefined(response[3].get('external3durl'))
-			html = '<img class="img img-responsive external-img"  data-src="'+response[3].get('external3durl')+'" />'
+			html = '<a href=""><img class="img img-responsive external-img"  data-src="'+response[3].get('external3durl')+'" /></a>'
 			$('.images').html html
 			$('.external').addClass('current')
 			$('.threeD').removeClass('current')
@@ -613,7 +613,7 @@ class CenterUnitView extends Marionette.ItemView
 
 		$(".fancybox").fancybox()
 		$('.img').lazyLoadXT(
-			forceLoad : true
+			# forceLoad : true
 			updateEvent: 'load'
 			oncomplete : ()->
 				$('.img').removeClass "lazy-hidden"

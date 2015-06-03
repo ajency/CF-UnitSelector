@@ -348,7 +348,7 @@
         $('.images').empty();
         response = this.generateLevels();
         html = '';
-        html += '<div class="animated fadeIn"> <img class="img img-responsive external-img" data-src="' + response[3].get('external3durl') + '" /> </div>';
+        html += '<div class="animated fadeIn"> <a href=""><img class="img img-responsive external-img" data-src="' + response[3].get('external3durl') + '" /></a> </div>';
         $('.images').html(html);
         $('.img').lazyLoadXT({
           forceLoad: true,
@@ -447,7 +447,7 @@
         $('.level').attr('class', 'level Level_0 apartment_level');
       }
       if (!_.isUndefined(response[3].get('external3durl'))) {
-        html = '<img class="img img-responsive external-img"  data-src="' + response[3].get('external3durl') + '" />';
+        html = '<a href=""><img class="img img-responsive external-img"  data-src="' + response[3].get('external3durl') + '" /></a>';
         $('.images').html(html);
         $('.external').addClass('current');
         $('.threeD').removeClass('current');
@@ -497,7 +497,6 @@
       }
       $(".fancybox").fancybox();
       $('.img').lazyLoadXT({
-        forceLoad: true,
         updateEvent: 'load',
         oncomplete: function() {
           $('.img').removeClass("lazy-hidden");
