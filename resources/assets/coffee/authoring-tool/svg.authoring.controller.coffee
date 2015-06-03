@@ -619,7 +619,9 @@ jQuery(document).ready ($)->
 
                     if object_type is "amenity"
                         $('#amenity-title').val $(currentElem).data("amenity-title")                        
-                        $('#amenity-description').val $(currentElem).data("amenity-desc")                        
+                        $('#amenity-description').val $(currentElem).data("amenity-desc")
+                        $('.property_type').val $(currentElem).attr 'type'
+                        $('.property_type').attr 'disabled' ,  true                        
 
                     else
                         window.showDetails(currentElem)
@@ -887,9 +889,7 @@ jQuery(document).ready ($)->
         svgExport = draw.exportSvg(
           exclude: ->
             @data 'exclude'
-          whitespace: true)
-
-        console.log svgExport
+          whitespace: false)
 
         data = {}
         data['data'] = btoa(svgExport)

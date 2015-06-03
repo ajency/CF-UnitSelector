@@ -544,7 +544,9 @@
             }
             if (object_type === "amenity") {
               $('#amenity-title').val($(currentElem).data("amenity-title"));
-              return $('#amenity-description').val($(currentElem).data("amenity-desc"));
+              $('#amenity-description').val($(currentElem).data("amenity-desc"));
+              $('.property_type').val($(currentElem).attr('type'));
+              return $('.property_type').attr('disabled', true);
             } else {
               return window.showDetails(currentElem);
             }
@@ -782,9 +784,8 @@
         exclude: function() {
           return this.data('exclude');
         },
-        whitespace: true
+        whitespace: false
       });
-      console.log(svgExport);
       data = {};
       data['data'] = btoa(svgExport);
       data['svg_type'] = window.svgData.svg_type;
