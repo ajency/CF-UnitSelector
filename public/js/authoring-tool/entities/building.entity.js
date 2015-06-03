@@ -9,7 +9,7 @@
       return BuildingView.__super__.constructor.apply(this, arguments);
     }
 
-    BuildingView.prototype.template = Handlebars.compile('<form id="add-form"><div class="form-group"> <label for="exampleInputPassword1">Units</label> <select class="form-control units"> <option value="">Select</option> {{#options}} <option value="{{id}}">{{name}}</option> {{/options}} </select> </div></form>');
+    BuildingView.prototype.template = '<form id="add-form"><div class="form-group"> <label for="exampleInputPassword1">Units</label> <select class="form-control units"> <option value="">Select</option> {{#options}} <option value="{{id}}">{{name}}</option> {{/options}} </select> </div></form>';
 
     BuildingView.prototype.ui = {
       units: '.units'

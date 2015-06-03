@@ -733,22 +733,16 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			unitTypes = window.building.getUnitTypes(id)
 			response = window.building.getUnitTypesCount(id,unitTypes)
 			html = '<div class="svg-info">
-						<h4 class="pull-left">'+buildingModel.get('building_name')+'</h4>
-							<h4 class="pull-left">'+window.building.getMinimumCost(id)+'</h4>
-						<!--<span class="label label-success"></span-->
-						<div class="clearfix"></div>'
-			$.each response,(index,value)->
-				html += '<div class="details">
-							<div>
-								<label>'+value.name+'</label> - '+value.units+'
-							</div>'
+						<i class="apartment-ico"></i>
+						<h5 class=" m-t-0">'+buildingModel.get('building_name')+'</h5>
+						<div class="details">
+							<label>'+floors+' Floors</label></br>
+							<div class="text-primary">
+								<span class="text-primary facts-icon icon-rupee-icn"></span>'+window.building.getMinimumCost(id)+'
+							</div>
+						</div>
+					</div>'
 
-			html += '<div>
-						<label>No. of floors</label> - '+floors+'
-					</div>
-					</div>
-
-					</div>' 
 			$(e.target).tooltipster('content', html)
 
 		'click .next,.prev':(e)->
@@ -933,7 +927,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 
 	iniTooltip:->
-		$('.apartment,.next,.prev').tooltipster(
+		$('.apartment').tooltipster(
 			theme: 'tooltipster-shadow',
 			contentAsHTML: true
 			onlyOne : true
@@ -950,6 +944,29 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					$('.us-right-content').addClass 'fadeOut'
 					$('.cf-loader').removeClass 'hidden'
 				)
+		)
+
+		$('.next').tooltipster(
+				theme: 'tooltipster-shadow circle-tooltip'
+				contentAsHTML: true
+				onlyOne : true
+				arrow : false
+				interactive : true
+				# animation : 'grow'
+				trigger: 'hover'
+				position: 'left'
+				delay: 50				
+		)
+		$('.prev').tooltipster(
+				theme: 'tooltipster-shadow circle-tooltip'
+				contentAsHTML: true
+				onlyOne : true
+				arrow : false
+				interactive : true
+				# animation : 'grow'
+				trigger: 'hover'
+				position: 'right'
+				delay: 50				
 		)
 
 	loadZoom:->

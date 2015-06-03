@@ -25,49 +25,9 @@
       this.createPolgyon();
       this.points(item.points);
       this.attribute('class', item.other_details["class"]);
-      this.attribute('id', item.object_id);
+      this.attribute('id', item.id);
       this.attribute('type', item.object_type);
       return this.node;
-    };
-
-    Polygon.prototype.generatePolygonTag = function(item) {
-      var pointList, polygon;
-      pointList = this.getPointList(item.points);
-      pointList = pointList.join(' ');
-      polygon = draw.polygon(pointList);
-      polygon.attr({
-        'class': item.other_details["class"],
-        'id': item.object_id,
-        'type': item.object_type,
-        svgid: item.id
-      });
-      polygon.addClass('polygon-type');
-      if (item.primary_breakpoint !== null) {
-        polygon.data('primary-breakpoint', item.primary_breakpoint);
-      }
-      if (item.object_type === "amenity") {
-        polygon.data('amenity-title', item.other_details.title);
-        return polygon.data('amenity-desc', item.other_details.description);
-      }
-    };
-
-    Polygon.prototype.getPointList = function(pointsArr) {
-      var formattedPoints, i, k, l, len, pointList;
-      pointList = [];
-      i = 0;
-      l = pointsArr.length;
-      while (i < l) {
-        pointList.push([parseInt(pointsArr[i]), parseInt(pointsArr[i + 1])]);
-        i += 2;
-      }
-      formattedPoints = [];
-      k = 0;
-      len = pointList.length;
-      while (k < len) {
-        formattedPoints.push(pointList[k].join());
-        k++;
-      }
-      return formattedPoints;
     };
 
     Polygon.prototype.attribute = function(key, val) {
