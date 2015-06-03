@@ -1536,6 +1536,12 @@ svg .marker-area:hover rect {
 svg polygon {
   /*.ease;*/
 }
+.amenity {
+  stroke-width: 1 !important;
+  stroke: #FF7E00;
+  fill: rgba(246, 129, 33, 0.39);
+  stroke-dasharray: 0 !important;
+}
 .marker-area {
   cursor: default;
 }
