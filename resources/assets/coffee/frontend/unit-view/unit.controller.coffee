@@ -65,7 +65,10 @@ class TopUnitView extends Marionette.ItemView
 				else
 					CommonFloor.navigate '/building/'+building_id+'/master-view' , true
 			else
-				CommonFloor.navigate '/master-view' , true	
+				if Object.keys(project.get('project_master')).length == 0
+					CommonFloor.navigate '/list-view' , true	
+				else
+					CommonFloor.navigate '/master-view' , true
 
 	# onShow:->
 	# 	# CommonFloor.router.storeRoute()
