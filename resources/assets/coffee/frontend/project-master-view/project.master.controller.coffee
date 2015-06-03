@@ -139,6 +139,7 @@ class TopMasterView extends Marionette.ItemView
 			# $.each CommonFloor.defaults , (index,value)->
 			# 	 CommonFloor.defaults[index] = ""
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()	
 			unitCollection.trigger('available')
 			CommonFloor.navigate '/' , true
@@ -158,6 +159,7 @@ class TopMasterView extends Marionette.ItemView
 			
 			@trigger  'render:view'
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			
@@ -176,6 +178,7 @@ class TopMasterView extends Marionette.ItemView
 			console.log types
 			CommonFloor.defaults[type]['unit_type_id'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			@trigger  'render:view'
@@ -191,6 +194,7 @@ class TopMasterView extends Marionette.ItemView
 			types = _.without types , parseInt $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults[type]['unit_variant_id'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()	
 			unitCollection.trigger('available')
 			@trigger  'render:view'
@@ -209,6 +213,7 @@ class TopMasterView extends Marionette.ItemView
 			CommonFloor.defaults['common']['area_max'] = ""
 			CommonFloor.defaults['common']['area_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			@trigger  'render:view'
@@ -217,6 +222,7 @@ class TopMasterView extends Marionette.ItemView
 			CommonFloor.defaults['common']['price_max'] = ""
 			CommonFloor.defaults['common']['price_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			@trigger  'render:view'
@@ -231,6 +237,7 @@ class TopMasterView extends Marionette.ItemView
 			types = _.without types , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults[type]['attributes'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			@trigger  'render:view'
@@ -240,6 +247,7 @@ class TopMasterView extends Marionette.ItemView
 			types = _.without types ,$(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['common']['facings'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()	
 			unitCollection.trigger('available')
 			@trigger  'render:view'
@@ -249,6 +257,7 @@ class TopMasterView extends Marionette.ItemView
 			types = _.without types ,$(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['common']['views'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()	
 			unitCollection.trigger('available')
 			@trigger  'render:view'
