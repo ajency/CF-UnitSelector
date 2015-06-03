@@ -126,7 +126,7 @@
                             @if(isset($image['IMAGE']))
                             <?php
                             
-                            $authoringToolUrl = url() . "/admin/project/" . $project['id'] . "/image/" .  $image['ID'] . "/authoring-tool?&type=master&position=".$position;
+                            $authoringToolUrl = url() . "/admin/project/" . $project['id'] . "/image/" .  $image['ID'] . "/authoring-tool?&type=building_master&position=".$position."&building=".$building->id;
                             ?>
                             <tr class="gradeX odd" id="position-{{ $position }}">
                                 <td class="">{{ $image['NAME'] }}</td>
