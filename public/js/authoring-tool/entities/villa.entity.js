@@ -50,7 +50,7 @@
       if (units.length === 0) {
         this.ui.units.hide();
         this.ui.unitLabel.hide();
-        $('.alert').text('All units marked');
+        $('.alert').text('No units');
         return window.hideAlert();
       }
     };

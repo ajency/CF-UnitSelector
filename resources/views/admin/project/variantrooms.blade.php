@@ -1,3 +1,4 @@
+<?php $i = 0; ?>
 <div id="addFloorlevel"> 
      <div class="m-l-5 no-border">
             <button type="button" class="btn btn-small btn-default pull-right m-r-25 add_level" ><i class="fa fa-plus"></i> Add New Level</button>
@@ -65,7 +66,7 @@
                                                              
                                                             @else
                                                             <div class="img-hover img-thumbnail">
-                                                                <div id="pickfiles_{{ $level }}_2d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;">
+                                                                <div id="pickfiles_{{ $level }}_3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;">
                                                                     <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
                                                                         <i class="fa fa-image" style="font-size:30px;"></i>
                                                                         <p class="">Select File</p>
@@ -170,3 +171,4 @@
                 @endforeach
 				<?php $i=$level ; ?> 
             </div>
+<input type="hidden" id="counter" name="counter" value="{{$i}}">

@@ -103,6 +103,15 @@
       if (value === 'villa') {
         units = bunglowVariantCollection.getBunglowMasterUnits();
       }
+      if (value === 'plot') {
+        units = plotVariantCollection.getPlotMasterUnits();
+      }
+      if (value === 'building') {
+        units = buildingMasterCollection.toArray();
+      }
+      if (value === 'apartment') {
+        units = apartmentVariantCollection.getApartmentMasterUnits();
+      }
       return units;
     };
     window.showPendingObjects = function(data) {
@@ -181,12 +190,7 @@
           return window.resetCollection();
         },
         error: function(response) {
-          this.region = new Marionette.Region({
-            el: '#noFound-template'
-          });
-          return new CommonFloor.ProjectCtrl({
-            region: this.region
-          });
+          return alert('Some problem occurred');
         }
       });
     };
@@ -299,12 +303,15 @@
         async: false,
         data: $.param(myObject),
         success: function(response) {
+          var types;
           myObject['id'] = response.data.id;
           if (response.data.primary_breakpoint !== null) {
             myObject['primary_breakpoint'] = response.data.primary_breakpoint;
           }
           window.svgData.data.push(myObject);
           draw.clear();
+          types = window.getPendingObjects(window.svgData);
+          window.showPendingObjects(types);
           window.generateSvg(window.svgData.data);
           return window.resetTool();
         },
@@ -653,6 +660,16 @@
     });
     $('.edit').on('click', function(e) {
       var details, myObject, objectType, svgElemId;
+      if (($('.area').val() === "") && (window.canvas_type === "polygon")) {
+        $('.alert').text('Coordinates not marked');
+        window.hideAlert();
+        return false;
+      }
+      if ((window.markerPoints.length < 1) && (window.canvas_type !== "polygon")) {
+        $('.alert').text('Coordinates not marked');
+        window.hideAlert();
+        return false;
+      }
       myObject = {};
       details = {};
       objectType = $('.property_type').val();
@@ -779,7 +796,7 @@
               return window.svgData.data.splice(index, 1);
             }
           });
-          console.log(window.svgData.data);
+          window.svgData.data;
           window.renderSVG();
           unit = unitMasterCollection.findWhere({
             'id': parseInt(id)

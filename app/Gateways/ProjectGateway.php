@@ -6,6 +6,7 @@ use CommonFloor\Repositories\ProjectRepositoryInterface;
 use CommonFloor\ProjectPropertyType;
 use CommonFloor\UnitType;
 use CommonFloor\Defaults;
+use CommonFloor\Http\Controllers\Admin\SvgController;
 
 /**
  * Description of ProjectGateway
@@ -129,11 +130,12 @@ class ProjectGateway implements ProjectGatewayInterface {
      {
         $unit['direction'] = ($unit['direction'])?Defaults::find($unit['direction'])->label:'';
         $unit['views'] = array_values($unit['views']);
-        $unit['breakpoint'] = '';
+		$unitBreakpoint = SvgController :: get_primary_breakpoints($unit['id']);
+        $unit['breakpoint'] = (isset($unitBreakpoint[0]['primary_breakpoint']))?$unitBreakpoint[0]['primary_breakpoint']:'';
         unset ($unit['availability']);
          $unitData[]=$unit;
      }
-
+ 
         $stepTwoData = [
             'buildings' => $buildings->toArray(),
             'bunglow_variants' => $bunglowVariantData,
