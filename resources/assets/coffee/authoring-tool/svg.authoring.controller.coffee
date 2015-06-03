@@ -470,6 +470,24 @@ jQuery(document).ready ($)->
                 cy: "427.187"
 
             drawMarkerElements.push circle
+            break;
+
+          when 'earth-location'
+            groupMarker.attr
+                class: 'earth-location-marker-grp'             
+            
+            ellipse = draw.ellipse(650, 220.27)
+
+            ellipse.attr
+                fill: '#FF6700'
+                stroke: '#F15A24'
+                stroke-width:2
+                fill-opacity:0.5
+                stroke-miterlimit:10
+                cx: "1074.44"
+                cy: "427.187"    
+            
+            drawMarkerElements.push ellipse            
 
     
      
@@ -571,7 +589,7 @@ jQuery(document).ready ($)->
                     <ul class="list-inline">
                         <li><div class="marker-elem marker1 concentric-marker"></div></li>
                         <li><div class="marker-elem marker2 solid-marker"></div></li>
-                        <!--li><div class="marker-elem marker3 location-marker"></div></li-->
+                        <li><div class="marker-elem marker3 earth-location-marker"></div></li>
                     </ul>
                   </div>')
         .parent().on 'click', '#popOverBox .marker-elem',(evt) ->
@@ -580,8 +598,8 @@ jQuery(document).ready ($)->
                 markerType = "concentric"
             else if $(currentElem).hasClass('solid-marker')
                 markerType = "solid"
-            else if $(currentElem).hasClass('location-marker')
-                markerType = "location" 
+            else if $(currentElem).hasClass('earth-location-marker')
+                markerType = "earth-location" 
 
 
             $('#aj-imp-builder-drag-drop canvas').hide()
@@ -678,6 +696,8 @@ jQuery(document).ready ($)->
             window.canvas_type = 'concentricMarker'
         else if draggableElem.hasClass('solid')
             window.canvas_type = 'solidMarker'
+        else if draggableElem.hasClass('earth-location')
+            window.canvas_type = 'earthLocation'
         
         draggableElem.dragend = (delta, event) ->
             # cx,cy constants for circles
@@ -799,6 +819,15 @@ jQuery(document).ready ($)->
             details['innerRadius'] = window.innerRadius
             details['outerRadius'] = window.outerRadius
             details['marker_type'] = 'solid'
+
+        else if window.canvas_type is "solidMarker" 
+            myObject['points'] =  window.markerPoints
+            myObject['canvas_type'] = 'marker'
+            details['cx'] = window.cx
+            details['cy'] = window.cy
+            details['innerRadius'] = window.innerRadius
+            details['outerRadius'] = window.outerRadius
+            details['marker_type'] = 'solid'            
 
         else
             myObject['points'] =  $('.area').val().split(',')
