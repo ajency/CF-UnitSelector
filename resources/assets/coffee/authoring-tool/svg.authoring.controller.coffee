@@ -149,10 +149,8 @@ jQuery(document).ready ($)->
             $('<option />', {value: value.toLowerCase(), text: value.toUpperCase()}).appendTo(select)
 
     window.resetCollection = ()->
-        $('.plot,.villa,.building,.marker-grp').each (index,value)->
-
+        $('.polygon-type,.marker-grp').each (index,value)->
             unitID = parseInt value.id
-            console.log unitID
             
             if unitID isnt 0
                 unit = unitMasterCollection.findWhere
@@ -160,8 +158,6 @@ jQuery(document).ready ($)->
 
                 unitCollection.remove unit.get 'id'
 
-        console.log unitCollection
- 
     #api required to load second step
     window.loadJSONData = ()->
 
@@ -231,6 +227,7 @@ jQuery(document).ready ($)->
                 window.svgData['data'] = response.data
                 window.svgData['supported_types'] = JSON.parse supported_types
                 window.svgData['breakpoint_position'] = breakpoint_position
+                window.svgData['svg_type'] = svg_type
                 window.loadJSONData()
                 
 
@@ -341,13 +338,13 @@ jQuery(document).ready ($)->
                 
                 window.svgData.data.push myObject
 
-                window.resetTool()
-
                 # clear svg 
                 draw.clear()
 
                 # re-generate svg with new svg element
                 window.generateSvg(window.svgData.data)
+
+                window.resetTool()                
                 
             error :(response)->
                 alert('Some problem occurred')
@@ -750,13 +747,12 @@ jQuery(document).ready ($)->
                 myObject['id'] =  svgElemId
                 window.svgData.data.push myObject
 
-                window.resetTool()
-
                 # clear svg 
                 draw.clear()
 
                 # re-generate svg with new svg element
                 window.generateSvg(window.svgData.data)
+                window.resetTool()                
    
             error :(response)->
                 alert('Some problem occurred')  
@@ -847,13 +843,15 @@ jQuery(document).ready ($)->
             @data 'exclude'
           whitespace: true)
 
+        console.log svgExport
+
         data = {}
         data['data'] = btoa(svgExport)
+        data['svg_type'] = window.svgData.svg_type
+        data['breakpoint_position'] = window.breakpoint_position 
 
         # restore original viewbox
         draw.viewbox(0, 0, viewboxDefault.width, viewboxDefault.height)
-        console.log viewboxDefault.width
-        console.log viewboxDefault.height
 
         postUrl = "#{BASEURL}/admin/project/#{PROJECTID}/image/#{IMAGEID}/downloadSvg"
 

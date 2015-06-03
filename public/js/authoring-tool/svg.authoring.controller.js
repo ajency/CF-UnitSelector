@@ -135,10 +135,9 @@
       });
     };
     window.resetCollection = function() {
-      $('.plot,.villa,.building,.marker-grp').each(function(index, value) {
+      return $('.polygon-type,.marker-grp').each(function(index, value) {
         var unit, unitID;
         unitID = parseInt(value.id);
-        console.log(unitID);
         if (unitID !== 0) {
           unit = unitMasterCollection.findWhere({
             'id': parseInt(value.id)
@@ -146,7 +145,6 @@
           return unitCollection.remove(unit.get('id'));
         }
       });
-      return console.log(unitCollection);
     };
     window.loadJSONData = function() {
       return $.ajax({
@@ -192,6 +190,7 @@
           window.svgData['data'] = response.data;
           window.svgData['supported_types'] = JSON.parse(supported_types);
           window.svgData['breakpoint_position'] = breakpoint_position;
+          window.svgData['svg_type'] = svg_type;
           return window.loadJSONData();
         },
         error: function(response) {
@@ -293,9 +292,9 @@
             myObject['primary_breakpoint'] = response.data.primary_breakpoint;
           }
           window.svgData.data.push(myObject);
-          window.resetTool();
           draw.clear();
-          return window.generateSvg(window.svgData.data);
+          window.generateSvg(window.svgData.data);
+          return window.resetTool();
         },
         error: function(response) {
           return alert('Some problem occurred');
@@ -656,9 +655,9 @@
           window.svgData.data.splice(indexToSplice, 1);
           myObject['id'] = svgElemId;
           window.svgData.data.push(myObject);
-          window.resetTool();
           draw.clear();
-          return window.generateSvg(window.svgData.data);
+          window.generateSvg(window.svgData.data);
+          return window.resetTool();
         },
         error: function(response) {
           return alert('Some problem occurred');
@@ -742,11 +741,12 @@
         },
         whitespace: true
       });
+      console.log(svgExport);
       data = {};
       data['data'] = btoa(svgExport);
+      data['svg_type'] = window.svgData.svg_type;
+      data['breakpoint_position'] = window.breakpoint_position;
       draw.viewbox(0, 0, viewboxDefault.width, viewboxDefault.height);
-      console.log(viewboxDefault.width);
-      console.log(viewboxDefault.height);
       postUrl = BASEURL + "/admin/project/" + PROJECTID + "/image/" + IMAGEID + "/downloadSvg";
       publishSvgOptions = {
         type: 'POST',

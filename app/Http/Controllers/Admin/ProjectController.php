@@ -463,7 +463,7 @@ class ProjectController extends Controller {
      ->with('svgImage', $svgImagePath)
      ->with('supported_types',json_encode($supported_types))
      ->with('breakpoint_position',$breakpoint)
-     ->with('current', 'mastersvgtool');
+     ->with('svg_type', $type);
  }
 
 }

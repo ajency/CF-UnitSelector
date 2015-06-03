@@ -188,11 +188,26 @@ class SvgController extends Controller {
 	public function downloadSvg($projectid, $imageid){
 
 		$svgData = $_REQUEST['data'];
+		$svgType = $_REQUEST['svg_type'];
+		$breakpoint_position = $_REQUEST['breakpoint_position'];
 		$data = base64_decode($svgData);
 
-		$path = "/projects/".$projectid."/svg";
+		if ($svgType == "master") {
+			$projSubFolder = "master";
+			$name = "master-".$breakpoint_position;
+		}
+		else if($svgType == "building_master"){
+			$projSubFolder = "building";
+			$name = "building-".$breakpoint_position;
+		}
+		else{
+			$projSubFolder = "svg";
+			$name = uniqid("project_svg_");
+		}
+		 
+		$path = "/projects/".$projectid."/".$projSubFolder;
 		$extension = "svg";
-		$name = uniqid("project_svg_");
+		
 
 		$fileData = array(
 						'name' => $name,
@@ -210,7 +225,7 @@ class SvgController extends Controller {
 		if (!$created_file) {
 			return response()->json( [
 				'code' => 'svg_file_not_created',
-				'message' => 'SVG file created',
+				'message' => 'SVG file failed to create',
 				], 400 );
 		}
 		else{
