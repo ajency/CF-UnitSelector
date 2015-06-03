@@ -37,6 +37,9 @@ class Polygon extends Backbone.Model
             'type': item.object_type
             svgid:  item.id 
 
+        # add additional class to identify shape
+        polygon.addClass('polygon-type')
+
         # set data attrib for primary breakpoint, if set
         if item.primary_breakpoint isnt null
             polygon.data('primary-breakpoint', item.primary_breakpoint)

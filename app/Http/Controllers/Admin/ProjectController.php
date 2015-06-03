@@ -646,7 +646,14 @@ class ProjectController extends Controller {
 
                 // get property types supported by project
                 foreach ($projectpropertyTypes as $projectpropertyType) {
-                   $supported_types[] = $propertyTypeName[$projectpropertyType['property_type_id']];
+                     $propertyname = $propertyTypeName[$projectpropertyType['property_type_id']];
+                    if (($propertyname == "Apartment")or($propertyname == "Penthouse")) {
+                        $supported_types[] = "Building";
+                    }
+                    else{
+                        $supported_types[] = $propertyname;
+                    }
+                   
                 }
                 
                 // since project master svg, pass amenities as well
@@ -679,7 +686,7 @@ class ProjectController extends Controller {
      ->with('svgImage', $svgImagePath)
      ->with('supported_types',json_encode($supported_types))
      ->with('breakpoint_position',$breakpoint)
-     ->with('current', 'mastersvgtool');
+     ->with('svg_type', $type);
  }
 
 }

@@ -348,7 +348,6 @@
         <script src="{{ asset('bower_components/svg.js/dist/svg.min.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery.panzoom/dist/jquery.panzoom.min.js' )}}"></script>
         <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}" type="text/javascript"></script>
-        <script src="{{ asset('bower_components/interact/interact.min.js')}}" type="text/javascript"></script>
         <script src="{{ asset('bower_components/marionette.state/dist/marionette.state.js' )}}"></script>
         
         <script src="{{ asset('js/svg.parser.min.js' )}}"></script>
@@ -366,6 +365,7 @@
             types = '{{$supported_types}}';
             supported_types = $('<div/>').html(types).text()
             breakpoint_position = '{{$breakpoint_position}}';
+            svg_type = '{{$svg_type}}';
             
 
             
@@ -405,7 +405,8 @@
         <script src="{{ asset('js/authoring-tool/entities/villa.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/plot.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/amenity.entity.js' )}}"></script>
-        <script src="{{ asset('js/authoring-tool/entities/apartment.entity.js' )}}"></script>
+        <script src="{{ asset('js/authoring-tool/entities/apartment.entity.js' )}}"></script>        
+        <script src="{{ asset('js/authoring-tool/entities/building.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/svg.authoring.controller.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/application.js' )}}"></script>
 </body>
