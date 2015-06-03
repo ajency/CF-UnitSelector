@@ -598,6 +598,7 @@ class CenterUnitView extends Marionette.ItemView
 		
 
 	loadMaster:->
+		$('#rotate_loader').removeClass 'hidden'
 		url = Backbone.history.fragment
 		id = url.split('/')[1]
 		console.log unit = unitCollection.findWhere
@@ -616,13 +617,14 @@ class CenterUnitView extends Marionette.ItemView
 			$.merge transitionImages ,  building.get('building_master')
 			first = _.values svgs
 			if building.get('building_master').length != 0  
-				$('.images').load(first[0],()->
-					$('.firstimage').attr('src',transitionImages[breakpoints[0]])
-					
-					$('.apartment').each (ind,item)->
-						itemid = parseInt item.id
-						$('#'+itemid).attr('class', "")
-					$('#'+id).attr('class' ,'layer svg_active'))
+				$('.firstimage').attr('src',transitionImages[breakpoints[0]])
+				$('.firstimage').load ()->
+					$('#rotate_loader').addClass 'hidden'
+					$('.images').load(first[0],()->
+						$('.apartment').each (ind,item)->
+							itemid = parseInt item.id
+							$('#'+itemid).attr('class', "")
+						$('#'+id).attr('class' ,'layer svg_active'))
 			if building.get('building_master').length == 0 
 				$('.master').hide()
 			return
@@ -636,14 +638,14 @@ class CenterUnitView extends Marionette.ItemView
 		transitionImages = []
 		$.merge transitionImages ,  project.get('project_master')
 		if project.get('project_master').length != 0
-			$('.images').load(first[0],()->
-				$('.firstimage').attr('src',transitionImages[breakpoints[0]])
-				
-				$('.villa,.plot').each (ind,item)->
-					itemid = parseInt item.id
-					$('#'+itemid).attr('class', "")
-				console.log id
-				$('#'+id).attr('class' ,'layer svg_active'))
+			$('.firstimage').attr('src',transitionImages[breakpoints[0]])
+			$('.firstimage').load ()->
+				$('#rotate_loader').addClass 'hidden'
+				$('.images').load(first[0],()->
+					$('.villa,.plot').each (ind,item)->
+						itemid = parseInt item.id
+						$('#'+itemid).attr('class', "")
+					$('#'+id).attr('class' ,'layer svg_active'))
 		if project.get('project_master').length == 0
 			$('.master').hide()
 
