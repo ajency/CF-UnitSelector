@@ -684,14 +684,20 @@ class ProjectController extends Controller {
                 break;
 
         }
+    
+        $buildingId = 0;
+        if (isset($getVar['building'])) {
+            $buildingId = $getVar['building'];
+        }
 
 
-     return view('admin.project.mastersvgtool')
-     ->with('project', $project->toArray())
-     ->with('svgImage', $svgImagePath)
-     ->with('supported_types',json_encode($supported_types))
-     ->with('breakpoint_position',$breakpoint)
-     ->with('svg_type', $type);
+        return view('admin.project.mastersvgtool')
+        ->with('project', $project->toArray())
+        ->with('svgImage', $svgImagePath)
+        ->with('supported_types',json_encode($supported_types))
+        ->with('breakpoint_position',$breakpoint)
+        ->with('building_id',$buildingId)
+        ->with('svg_type', $type);
  }
 
 }

@@ -238,6 +238,7 @@ jQuery(document).ready ($)->
                 window.svgData['supported_types'] = JSON.parse supported_types
                 window.svgData['breakpoint_position'] = breakpoint_position
                 window.svgData['svg_type'] = svg_type
+                window.svgData['building_id'] = building_id
                 window.loadJSONData()
                 
 
@@ -913,6 +914,8 @@ jQuery(document).ready ($)->
         data['data'] = btoa(svgExport)
         data['svg_type'] = window.svgData.svg_type
         data['breakpoint_position'] = window.breakpoint_position 
+        data['building'] = building_id 
+        data['imgID'] = IMAGEID 
 
         # restore original viewbox
         draw.viewbox(0, 0, viewboxDefault.width, viewboxDefault.height)

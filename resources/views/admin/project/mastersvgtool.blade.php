@@ -373,6 +373,7 @@
             supported_types = $('<div/>').html(types).text()
             breakpoint_position = '{{$breakpoint_position}}';
             svg_type = '{{$svg_type}}';
+            building_id = '{{$building_id}}';
             
 
             
