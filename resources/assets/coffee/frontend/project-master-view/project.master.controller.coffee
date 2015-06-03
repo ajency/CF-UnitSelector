@@ -456,11 +456,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 												</div>
 											</div>-->
 											
-											
+											<div id="svg_loader" class="cf-loader hidden"></div>
 											<div id="spritespin"></div>
 											<div class="svg-maps">
-												<div id="svg_loader" class="cf-loader hidden"></div>
-												<img   class="first_image lazy-hidden ">
+												
+												<img   class="first_image ">
 												
 												<div class="region inactive"></div>
 												<div class="tooltip-overlay hidden"></div>
