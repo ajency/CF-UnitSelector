@@ -41,21 +41,7 @@ class TopMasterView extends Marionette.ItemView
 													</div>
 													<div class="pull-left filter-result full">
 														 <ul  id="flexiselDemo1">
-														 {{#each  filters}} 
-													          <li>
-													              <div class="filter-title"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"></span> </div>
-													         </li>
-													         {{#filters}}
-													         	{{#each this}}
-													         	{{#each this}}
-													          <li>
-													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
-													         </li>{{/each}}
-													         {{/each}}
-													         {{/filters}}
-													        
-													    {{/each}}
-													     {{#area}}
+														 {{#area}}
 													         	 <li>
 													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
 													         </li>
@@ -83,6 +69,21 @@ class TopMasterView extends Marionette.ItemView
 													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
 													         </li>
 													         {{/status}}
+														 {{#each  filters}} 
+													          <li>
+													              <div class="filter-title"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"></span> </div>
+													         </li>
+													         {{#filters}}
+													         	{{#each this}}
+													         	{{#each this}}
+													          <li>
+													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													         </li>{{/each}}
+													         {{/each}}
+													         {{/filters}}
+													        
+													    {{/each}}
+													     
 													    </ul>
 														<!--{{#each  filters}}
 														{{#each this}}
@@ -455,17 +456,17 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 												</div>
 											</div>-->
 											
-											
+											<div id="svg_loader" class="cf-loader hidden"></div>
 											<div id="spritespin"></div>
 											<div class="svg-maps">
 												
-												<img src=""  class="first_image img-responsive">
+												<img   class="first_image ">
 												
 												<div class="region inactive"></div>
 												<div class="tooltip-overlay hidden"></div>
 
 											</div>
-											<div class="cf-loader hidden"></div>
+											<div id="rotate_loader" class="cf-loader hidden"></div>
 											
 										</div>
 
@@ -866,9 +867,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			# 	$('.tooltip-overlay').removeClass 'hidden'
 			# )
 			
-			
+		'mouseover .marker-grp':(e)->
+			html = '<div><label>Title:</label>'+$(e.currentTarget).attr('data-amenity-title')+
+					'<br/><label>Desc:</label>'+$(e.currentTarget).attr('data-amenity-desc')+'</div>'
 
-		
+			$('.layer').tooltipster('content', html)
 
 		'mouseover .building':(e)->
 			id  = parseInt e.target.id
@@ -1004,27 +1007,32 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		first = _.values svgs
 		$.merge transitionImages ,  project.get('project_master')
 		
-		$('.first_image').lazyLoadXT()
+		$('#svg_loader').removeClass 'hidden'
+		$('.first_image').attr('src',transitionImages[breakpoints[0]])
+		
+			
+			
+			
 		$('.first_image').load ()->
 			$('.region').load(first[0],()->
-				$('.first_image').attr('data-src',transitionImages[breakpoints[0]])
-				that.iniTooltip()
-				CommonFloor.applyAvailabilClasses()
-				CommonFloor.randomClass()
-				CommonFloor.applyFliterClass()
-				that.loadZoom()
-				$('#trig').removeClass 'hidden'
-				response = project.checkRotationView()
-				$('.first_image').first().css('width',that.ui.svgContainer.width())
-				if response is 1
-					$('.cf-loader').removeClass 'hidden'
-			).addClass('active').removeClass('inactive')
-			
-			
-		
-		@initializeRotate(transitionImages,svgs)
-		
+					$('#svg_loader').addClass 'hidden'
+					that.iniTooltip()
+					CommonFloor.applyAvailabilClasses()
+					CommonFloor.randomClass()
+					CommonFloor.applyFliterClass()
+					that.loadZoom()
+					$('#trig').removeClass 'hidden'
+					response = project.checkRotationView()
+					$('.first_image').first().css('width',that.ui.svgContainer.width())
+					if response is 1
+						$('#rotate_loader').removeClass 'hidden'
+						that.initializeRotate(transitionImages,svgs)
+				).addClass('active').removeClass('inactive')
 
+		
+		
+		
+		
 		
 	
 
@@ -1085,7 +1093,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				$('.first_image').remove()
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
-				$('.cf-loader').addClass 'hidden'
+				$('#rotate_loader').addClass 'hidden'
 			$('.region').load(url,()->
 				that.iniTooltip()
 				CommonFloor.applyAvailabilClasses()

@@ -265,7 +265,7 @@ class MasterPlotListView extends Marionette.CompositeView
                 $('.Villas').removeClass 'hidden'
         else
             arr = _.values(window.propertyTypes)
-            if $.inArray('Apartments' ,arr) > -1 || $.inArray('Penthouse' ,arr) > -1
+            if $.inArray('Apartments' ,arr) > -1 || $.inArray('Penthouse' ,arr) > -1 
                 $('.buildings').removeClass 'hidden'
             if $.inArray('Plot' ,arr) > -1
                 $('.Plots_tab').removeClass 'hidden'

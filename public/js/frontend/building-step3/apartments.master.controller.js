@@ -485,7 +485,7 @@
       return CenterApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterApartmentMasterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn overflow-h"> <div class="legend clearfix"> <ul> <!--<li class="available">AVAILABLE</li>--> <li class="sold">N/A</li> <!--<li class="blocked">BLOCKED</li> <li class="na">Available</li>--> </ul> </div> <div class="zoom-controls"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master animated fadeIn"> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="spritespin"></div> <div class="svg-maps"> <img class="first_image lazy-hidden img-responsive" /> <div class="region inactive"></div> </div> <div class="cf-loader hidden"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> <div class="mini-map"> <img class="firstimage img-responsive" src=""/> <div class="project_master"></div> </div> </div>');
+    CenterApartmentMasterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn overflow-h"> <div class="legend clearfix"> <ul> <!--<li class="available">AVAILABLE</li>--> <li class="sold">N/A</li> <!--<li class="blocked">BLOCKED</li> <li class="na">Available</li>--> </ul> </div> <div class="zoom-controls"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master animated fadeIn"> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="svg_loader" class="cf-loader hidden"></div> <div id="spritespin"></div> <div class="svg-maps"> <img class="first_image lazy-hidden img-responsive" /> <div class="region inactive"></div> </div> <div id="rotate_loader" class="cf-loader hidden"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> <div class="mini-map"> <img class="firstimage img-responsive" src=""/> <div class="project_master"></div> </div> </div>');
 
     CenterApartmentMasterView.prototype.ui = {
       svgContainer: '.master',
@@ -552,6 +552,11 @@
         $('#' + id).attr('class', 'layer apartment ' + availability);
         return $('#apartment' + id).removeClass(' active');
       },
+      'mouseover .marker-grp': function(e) {
+        var html;
+        html = '<div><label>Title:</label>' + $(e.currentTarget).attr('data-amenity-title') + '<br/><label>Desc:</label>' + $(e.currentTarget).attr('data-amenity-desc') + '</div>';
+        return $('.layer').tooltipster('content', html);
+      },
       'mouseover .next,.prev': function(e) {
         var buildingModel, floors, html, id, images, response, unitTypes;
         id = parseInt($(e.target).attr('data-id'));
@@ -608,11 +613,12 @@
       });
       $.merge(transitionImages, building.get('building_master'));
       first = _.values(svgs);
-      $('.first_image').lazyLoadXT();
+      $('#svg_loader').removeClass('hidden');
+      $('.first_image').attr('src', transitionImages[breakpoints[0]]);
       $('.first_image').load(function() {
         return $('.region').load(first[0], function() {
           var response;
-          $('.first_image').attr('data-src', transitionImages[breakpoints[0]]);
+          $('#svg_loader').addClass('hidden');
           that.iniTooltip();
           CommonFloor.applyAvailabilClasses();
           CommonFloor.randomClass();
@@ -620,13 +626,13 @@
           CommonFloor.getApartmentsInView();
           that.loadZoom();
           response = building.checkRotationView(building_id);
-          $('.cf-loader').removeClass('hidden');
+          $('#rotate_loader').removeClass('hidden');
           if (response === 1) {
-            return $('.cf-loader').removeClass('hidden');
+            $('.cf-loader').removeClass('hidden');
+            return that.initializeRotate(transitionImages, svgs, building);
           }
         }).addClass('active').removeClass('inactive');
       });
-      this.initializeRotate(transitionImages, svgs, building);
       this.loadProjectMaster();
       if ($(window).width() > 991) {
         return $('.units').mCustomScrollbar({
@@ -740,7 +746,7 @@
           $('.first_image').remove();
           $('.rotate').removeClass('hidden');
           $('#spritespin').show();
-          $('.cf-loader').addClass('hidden');
+          $('#rotate_loader').addClass('hidden');
         }
         return $('.region').load(url, function() {
           that.iniTooltip();
