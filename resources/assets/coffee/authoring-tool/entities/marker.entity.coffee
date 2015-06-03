@@ -14,6 +14,11 @@ class Marker extends Backbone.Model
         cy = item.other_details.cy
         innerRadius = item.other_details.innerRadius
         outerRadius = item.other_details.outerRadius
+        ellipseWidth = item.other_details.ellipseWidth
+        ellipseHeight = item.other_details.ellipseHeight
+
+        # additional classes 
+        typeClass = item['other_details']['class'] 
         points = item.points
 
         drawMarkerElements = []
@@ -25,6 +30,8 @@ class Marker extends Backbone.Model
             type: item.object_type 
             id:  item.object_id 
             svgid:  item.id 
+
+        groupMarker.addClass(typeClass)
 
         #set data attributes for title and description if object type is amenity
         if item.object_type is "amenity"
@@ -72,6 +79,26 @@ class Marker extends Backbone.Model
 
             drawMarkerElements.push circle
             break
+
+          when 'earthlocation'
+            window.canvas_type = "earthlocationMarker"
+ 
+            # add class based on marker type 
+            groupMarker.addClass('earthlocation')
+            
+            ellipse = draw.ellipse(window.ellipseWidth, window.ellipseHeight)
+
+            ellipse.attr
+                'fill': '#FF6700'
+                'stroke': '#FF7300'
+                'stroke-width':3
+                'fill-opacity':0.2
+                'stroke-miterlimit':10
+                cx: points[0]
+                cy: points[1]
+
+            drawMarkerElements.push ellipse
+            break            
 
         _.each drawMarkerElements, (markerElement, key) =>
             groupMarker.add(markerElement)            

@@ -12,6 +12,8 @@
     window.cy = 362.245;
     window.innerRadius = 8.002;
     window.outerRadius = 15.002;
+    window.ellipseWidth = 360;
+    window.ellipseHeight = 160;
     window.markerPoints = [];
     window.windowWidth = 0;
     window.createSvg = function(svgData) {
@@ -266,6 +268,8 @@
       myObject['breakpoint_position'] = window.breakpoint_position;
       if (objectType === "amenity") {
         myObject['object_id'] = 0;
+      } else if (objectType === "project") {
+        myObject['object_id'] = project_id;
       } else {
         myObject['object_id'] = $('.units').val();
       }
@@ -294,6 +298,14 @@
         details['innerRadius'] = window.innerRadius;
         details['outerRadius'] = window.outerRadius;
         details['marker_type'] = 'solid';
+      } else if (window.canvas_type === "earthlocationMarker") {
+        myObject['points'] = window.markerPoints;
+        myObject['canvas_type'] = 'marker';
+        details['cx'] = window.cx;
+        details['cy'] = window.cy;
+        details['ellipseWidth'] = window.ellipseWidth;
+        details['ellipseHeight'] = window.ellipseHeight;
+        details['marker_type'] = 'earthlocation';
       } else {
         myObject['points'] = $('.area').val().split(',');
       }
@@ -392,6 +404,64 @@
         return next();
       });
     };
+    window.buildSvgObjectData = function() {
+      var details, myObject, objectType;
+      myObject = {};
+      details = {};
+      objectType = $('.property_type').val();
+      myObject['image_id'] = IMAGEID;
+      myObject['object_type'] = objectType;
+      myObject['canvas_type'] = window.canvas_type;
+      myObject['breakpoint_position'] = window.breakpoint_position;
+      if (objectType === "amenity") {
+        myObject['object_id'] = 0;
+      } else if (objectType === "project") {
+        myObject['object_id'] = project_id;
+      } else {
+        myObject['object_id'] = $('.units').val();
+      }
+      if (myObject['object_type'] === "amenity") {
+        details['title'] = $('#amenity-title').val();
+        details['description'] = $('#amenity-description').val();
+        details['class'] = 'layer ' + $('.property_type').val();
+      } else if (myObject['object_type'] === "project") {
+        details['class'] = 'step1-marker';
+      } else {
+        details['class'] = 'layer ' + $('.property_type').val();
+      }
+      if (window.canvas_type === "concentricMarker") {
+        myObject['points'] = window.markerPoints;
+        myObject['canvas_type'] = 'marker';
+        details['cx'] = window.cx;
+        details['cy'] = window.cy;
+        details['innerRadius'] = window.innerRadius;
+        details['outerRadius'] = window.outerRadius;
+        details['marker_type'] = 'concentric';
+      } else if (window.canvas_type === "solidMarker") {
+        myObject['points'] = window.markerPoints;
+        myObject['canvas_type'] = 'marker';
+        details['cx'] = window.cx;
+        details['cy'] = window.cy;
+        details['innerRadius'] = window.innerRadius;
+        details['outerRadius'] = window.outerRadius;
+        details['marker_type'] = 'solid';
+      } else if (window.canvas_type === "earthlocationMarker") {
+        myObject['points'] = window.markerPoints;
+        myObject['canvas_type'] = 'marker';
+        details['cx'] = window.cx;
+        details['cy'] = window.cy;
+        details['ellipseWidth'] = window.ellipseWidth;
+        details['ellipseHeight'] = window.ellipseHeight;
+        details['marker_type'] = 'earthlocation';
+      } else {
+        myObject['points'] = $('.area').val().split(',');
+      }
+      myObject['other_details'] = details;
+      if ($('[name="check_primary"]').is(":checked") === true) {
+        myObject['primary_breakpoint'] = window.breakpoint_position;
+      }
+      return myObject;
+    };
     window.drawDefaultMarker = function(markerType) {
       var circle, circle1, circle2, drawMarkerElements, ellipse, groupMarker, path;
       drawMarkerElements = [];
@@ -435,6 +505,7 @@
           drawMarkerElements.push(circle);
           break;
         case 'location':
+          window.canvas_type = "locationMarker";
           groupMarker.attr({
             "class": 'location-marker-grp'
           });
@@ -451,12 +522,13 @@
           });
           drawMarkerElements.push(circle);
           break;
-        case 'earth-location':
+        case 'earthlocation':
+          window.canvas_type = "earthlocationMarker";
           groupMarker.attr({
             "class": 'earth-location-marker-grp'
           });
           groupMarker.addClass('step1-marker');
-          ellipse = draw.ellipse(360, 160);
+          ellipse = draw.ellipse(window.ellipseWidth, window.ellipseHeight);
           ellipse.attr({
             'fill': '#FF6700',
             'stroke': '#FF7300',
@@ -554,7 +626,7 @@
       } else if ($(currentElem).hasClass('solid-marker')) {
         markerType = "solid";
       } else if ($(currentElem).hasClass('earth-location-marker')) {
-        markerType = "earth-location";
+        markerType = "earthlocation";
       }
       $('#aj-imp-builder-drag-drop canvas').hide();
       $('#aj-imp-builder-drag-drop svg').first().css("position", "relative");
@@ -598,7 +670,11 @@
             $('.submit').addClass('hidden');
             $('.edit').removeClass('hidden');
             $('.delete').removeClass('hidden');
-            window.loadForm(object_type);
+            if (object_type === "project") {
+              window.loadProjectForm();
+            } else {
+              window.loadForm(object_type);
+            }
             if ($(currentElem).data("primary-breakpoint")) {
               $('[name="check_primary"]').prop('checked', true);
             }
@@ -636,8 +712,8 @@
         window.canvas_type = 'concentricMarker';
       } else if (draggableElem.hasClass('solid')) {
         window.canvas_type = 'solidMarker';
-      } else if (draggableElem.hasClass('earth-location')) {
-        window.canvas_type = 'earthLocation';
+      } else if (draggableElem.hasClass('earthlocation')) {
+        window.canvas_type = 'earthlocationMarker';
       }
       draggableElem.dragend = function(delta, event) {
         var newX, newY, newpoints, oldX, oldY, tx, ty;
@@ -656,7 +732,11 @@
       $('.submit').addClass('hidden');
       $('.edit').removeClass('hidden');
       $('.delete').removeClass('hidden');
-      window.loadForm(object_type);
+      if (object_type === "project") {
+        window.loadProjectForm();
+      } else {
+        window.loadForm(object_type);
+      }
       if ($(currentElem).data("primary-breakpoint")) {
         $('[name="check_primary"]').prop('checked', true);
       }
@@ -698,7 +778,7 @@
       return window.saveUnit();
     });
     $('.edit').on('click', function(e) {
-      var details, myObject, objectType, svgElemId;
+      var myObject, svgElemId;
       if (($('.area').val() === "") && (window.canvas_type === "polygon")) {
         $('.alert').text('Coordinates not marked');
         window.hideAlert();
@@ -709,56 +789,7 @@
         window.hideAlert();
         return false;
       }
-      myObject = {};
-      details = {};
-      objectType = $('.property_type').val();
-      myObject['image_id'] = IMAGEID;
-      myObject['object_type'] = objectType;
-      myObject['canvas_type'] = window.canvas_type;
-      myObject['breakpoint_position'] = window.breakpoint_position;
-      if (objectType === "amenity") {
-        myObject['object_id'] = 0;
-      } else {
-        myObject['object_id'] = $('.units').val();
-      }
-      if (myObject['object_type'] === "amenity") {
-        details['title'] = $('#amenity-title').val();
-        details['description'] = $('#amenity-description').val();
-        details['class'] = 'layer ' + $('.property_type').val();
-      } else {
-        details['class'] = 'layer ' + $('.property_type').val();
-      }
-      if (window.canvas_type === "concentricMarker") {
-        myObject['points'] = window.markerPoints;
-        myObject['canvas_type'] = 'marker';
-        details['cx'] = window.cx;
-        details['cy'] = window.cy;
-        details['innerRadius'] = window.innerRadius;
-        details['outerRadius'] = window.outerRadius;
-        details['marker_type'] = 'concentric';
-      } else if (window.canvas_type === "solidMarker") {
-        myObject['points'] = window.markerPoints;
-        myObject['canvas_type'] = 'marker';
-        details['cx'] = window.cx;
-        details['cy'] = window.cy;
-        details['innerRadius'] = window.innerRadius;
-        details['outerRadius'] = window.outerRadius;
-        details['marker_type'] = 'solid';
-      } else if (window.canvas_type === "solidMarker") {
-        myObject['points'] = window.markerPoints;
-        myObject['canvas_type'] = 'marker';
-        details['cx'] = window.cx;
-        details['cy'] = window.cy;
-        details['innerRadius'] = window.innerRadius;
-        details['outerRadius'] = window.outerRadius;
-        details['marker_type'] = 'solid';
-      } else {
-        myObject['points'] = $('.area').val().split(',');
-      }
-      if ($('[name="check_primary"]').is(":checked") === true) {
-        myObject['primary_breakpoint'] = window.breakpoint_position;
-      }
-      myObject['other_details'] = details;
+      myObject = window.buildSvgObjectData();
       myObject['_method'] = 'PUT';
       svgElemId = window.currentSvgId;
       return $.ajax({
@@ -815,10 +846,11 @@
       $('#aj-imp-builder-drag-drop canvas').hide();
       $('#aj-imp-builder-drag-drop svg').show();
       $('.edit-box').addClass('hidden');
-      return draw.each((function(i, children) {
+      draw.each((function(i, children) {
         this.draggable();
         return this.fixed();
       }), true);
+      return window.generateSvg(window.svgData.data);
     });
     $('.delete').on('click', function(e) {
       var id, myObject;

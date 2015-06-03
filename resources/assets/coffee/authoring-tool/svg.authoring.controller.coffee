@@ -25,6 +25,8 @@ jQuery(document).ready ($)->
     window.cy = 362.245
     window.innerRadius = 8.002
     window.outerRadius = 15.002
+    window.ellipseWidth = 360
+    window.ellipseHeight = 160
     window.markerPoints = []
 
     window.windowWidth = 0
@@ -304,6 +306,8 @@ jQuery(document).ready ($)->
         # amenity v/s other unit types
         if objectType is "amenity"
             myObject['object_id'] = 0
+        else if objectType is "project"
+            myObject['object_id'] = project_id
         else
             myObject['object_id'] = $('.units').val()
 
@@ -335,6 +339,14 @@ jQuery(document).ready ($)->
             details['innerRadius'] = window.innerRadius
             details['outerRadius'] = window.outerRadius
             details['marker_type'] = 'solid'
+        else if window.canvas_type is "earthlocationMarker" 
+            myObject['points'] =  window.markerPoints
+            myObject['canvas_type'] = 'marker'
+            details['cx'] = window.cx
+            details['cy'] = window.cy
+            details['ellipseWidth'] = window.ellipseWidth
+            details['ellipseHeight'] = window.ellipseHeight
+            details['marker_type'] = 'earthlocation'            
 
         else
             myObject['points'] =  $('.area').val().split(',')
@@ -420,6 +432,74 @@ jQuery(document).ready ($)->
                 next() 
         )
 
+    window.buildSvgObjectData =()->
+        myObject  = {}
+        details = {}
+
+        objectType =  $('.property_type').val()
+        
+        myObject['image_id'] = IMAGEID
+        myObject['object_type'] =  objectType
+        myObject['canvas_type'] =  window.canvas_type
+        myObject['breakpoint_position'] =  window.breakpoint_position
+
+        # amenity v/s other unit types
+        if objectType is "amenity"
+            myObject['object_id'] = 0
+        else if objectType is "project"
+            myObject['object_id'] = project_id
+        else
+            myObject['object_id'] = $('.units').val()
+
+
+        if myObject['object_type'] is "amenity"
+            details['title'] = $('#amenity-title').val()
+            details['description'] = $('#amenity-description').val()
+            details['class'] = 'layer '+$('.property_type').val()
+        else if  myObject['object_type'] is "project"
+           details['class'] = 'step1-marker' 
+        else  
+           details['class'] = 'layer '+$('.property_type').val()         
+        
+        # canvas_type differences i.e markers vs polygons
+        if window.canvas_type is "concentricMarker" 
+            myObject['points'] =  window.markerPoints
+            myObject['canvas_type'] =  'marker'
+            details['cx'] = window.cx
+            details['cy'] = window.cy
+            details['innerRadius'] = window.innerRadius
+            details['outerRadius'] = window.outerRadius
+            details['marker_type'] = 'concentric'
+
+        else if window.canvas_type is "solidMarker" 
+            myObject['points'] =  window.markerPoints
+            myObject['canvas_type'] = 'marker'
+            details['cx'] = window.cx
+            details['cy'] = window.cy
+            details['innerRadius'] = window.innerRadius
+            details['outerRadius'] = window.outerRadius
+            details['marker_type'] = 'solid'
+        
+        else if window.canvas_type is "earthlocationMarker" 
+            myObject['points'] =  window.markerPoints
+            myObject['canvas_type'] = 'marker'
+            details['cx'] = window.cx
+            details['cy'] = window.cy
+            details['ellipseWidth'] = window.ellipseWidth
+            details['ellipseHeight'] = window.ellipseHeight
+            details['marker_type'] = 'earthlocation'            
+
+        else
+            myObject['points'] =  $('.area').val().split(',')
+
+        myObject['other_details'] =  details 
+
+        if $('[name="check_primary"]').is(":checked") is true
+            myObject['primary_breakpoint'] =  window.breakpoint_position 
+            
+
+        return myObject 
+
     window.drawDefaultMarker=(markerType)   ->
         drawMarkerElements = []
         window.markerPoints = [window.cx,window.cy]
@@ -467,6 +547,7 @@ jQuery(document).ready ($)->
             break           
 
           when 'location'
+            window.canvas_type = "locationMarker"
             groupMarker.attr
                 class: 'location-marker-grp'             
             path = draw.path('M1087.492,428.966c0,7.208-13.052,24.276-13.052,24.276s-13.052-17.067-13.052-24.276
@@ -485,13 +566,14 @@ jQuery(document).ready ($)->
             drawMarkerElements.push circle
             break;
 
-          when 'earth-location'
+          when 'earthlocation'
+            window.canvas_type = "earthlocationMarker"
             groupMarker.attr
                 class: 'earth-location-marker-grp' 
 
             groupMarker.addClass('step1-marker')
             
-            ellipse = draw.ellipse(360, 160)
+            ellipse = draw.ellipse(window.ellipseWidth, window.ellipseHeight)
 
             ellipse.attr
                 'fill': '#FF6700'
@@ -526,7 +608,6 @@ jQuery(document).ready ($)->
             newY = oldY + ty
             newpoints = [newX,newY] 
             window.markerPoints = newpoints 
-   
 
 
     ########################### FUNCTIONS ENDS ###########################  
@@ -617,7 +698,7 @@ jQuery(document).ready ($)->
             else if $(currentElem).hasClass('solid-marker')
                 markerType = "solid"
             else if $(currentElem).hasClass('earth-location-marker')
-                markerType = "earth-location" 
+                markerType = "earthlocation" 
 
 
             $('#aj-imp-builder-drag-drop canvas').hide()
@@ -672,7 +753,12 @@ jQuery(document).ready ($)->
                     $('.submit').addClass 'hidden'
                     $('.edit').removeClass 'hidden'
                     $('.delete').removeClass 'hidden'
-                    window.loadForm(object_type)
+                    
+                    if object_type is "project"
+                        # load default form
+                        window.loadProjectForm()
+                    else 
+                        window.loadForm(object_type)
 
                     # show primary breakpoint checked or not
                     if $(currentElem).data("primary-breakpoint") 
@@ -714,8 +800,8 @@ jQuery(document).ready ($)->
             window.canvas_type = 'concentricMarker'
         else if draggableElem.hasClass('solid')
             window.canvas_type = 'solidMarker'
-        else if draggableElem.hasClass('earth-location')
-            window.canvas_type = 'earthLocation'
+        else if draggableElem.hasClass('earthlocation')
+            window.canvas_type = 'earthlocationMarker'
         
         draggableElem.dragend = (delta, event) ->
             # cx,cy constants for circles
@@ -740,7 +826,11 @@ jQuery(document).ready ($)->
         $('.edit').removeClass 'hidden'
         $('.delete').removeClass 'hidden'
         
-        window.loadForm(object_type)  
+        if object_type is "project"
+            # load default form
+            window.loadProjectForm()
+        else 
+            window.loadForm(object_type)  
 
         # show primary breakpoint checked or not
         if $(currentElem).data("primary-breakpoint") 
@@ -793,69 +883,70 @@ jQuery(document).ready ($)->
         if  (window.markerPoints.length<1) and (window.canvas_type isnt "polygon")
             $('.alert').text 'Coordinates not marked'
             window.hideAlert()
-            return false    
+            return false 
 
-        myObject  = {}
-        details = {}
+        myObject = window.buildSvgObjectData()
+        # myObject  = {}
+        # details = {}
 
-        objectType =  $('.property_type').val()
+        # objectType =  $('.property_type').val()
         
-        myObject['image_id'] = IMAGEID
-        myObject['object_type'] =  objectType
-        myObject['canvas_type'] =  window.canvas_type
-        myObject['breakpoint_position'] =  window.breakpoint_position
+        # myObject['image_id'] = IMAGEID
+        # myObject['object_type'] =  objectType
+        # myObject['canvas_type'] =  window.canvas_type
+        # myObject['breakpoint_position'] =  window.breakpoint_position
 
-        # amenity v/s other unit types
-        if objectType is "amenity"
-            myObject['object_id'] = 0
-        else
-            myObject['object_id'] = $('.units').val()
+        # # amenity v/s other unit types
+        # if objectType is "amenity"
+        #     myObject['object_id'] = 0
+        # else
+        #     myObject['object_id'] = $('.units').val()
 
 
-        if myObject['object_type'] is "amenity"
-            details['title'] = $('#amenity-title').val()
-            details['description'] = $('#amenity-description').val()
-            details['class'] = 'layer '+$('.property_type').val()    
-        else  
-           details['class'] = 'layer '+$('.property_type').val()         
+        # if myObject['object_type'] is "amenity"
+        #     details['title'] = $('#amenity-title').val()
+        #     details['description'] = $('#amenity-description').val()
+        #     details['class'] = 'layer '+$('.property_type').val()    
+        # else  
+        #    details['class'] = 'layer '+$('.property_type').val()         
         
-        # canvas_type differences i.e markers vs polygons
-        if window.canvas_type is "concentricMarker" 
-            myObject['points'] =  window.markerPoints
-            myObject['canvas_type'] =  'marker'
-            details['cx'] = window.cx
-            details['cy'] = window.cy
-            details['innerRadius'] = window.innerRadius
-            details['outerRadius'] = window.outerRadius
-            details['marker_type'] = 'concentric'
+        # # canvas_type differences i.e markers vs polygons
+        # if window.canvas_type is "concentricMarker" 
+        #     myObject['points'] =  window.markerPoints
+        #     myObject['canvas_type'] =  'marker'
+        #     details['cx'] = window.cx
+        #     details['cy'] = window.cy
+        #     details['innerRadius'] = window.innerRadius
+        #     details['outerRadius'] = window.outerRadius
+        #     details['marker_type'] = 'concentric'
 
-        else if window.canvas_type is "solidMarker" 
-            myObject['points'] =  window.markerPoints
-            myObject['canvas_type'] = 'marker'
-            details['cx'] = window.cx
-            details['cy'] = window.cy
-            details['innerRadius'] = window.innerRadius
-            details['outerRadius'] = window.outerRadius
-            details['marker_type'] = 'solid'
+        # else if window.canvas_type is "solidMarker" 
+        #     myObject['points'] =  window.markerPoints
+        #     myObject['canvas_type'] = 'marker'
+        #     details['cx'] = window.cx
+        #     details['cy'] = window.cy
+        #     details['innerRadius'] = window.innerRadius
+        #     details['outerRadius'] = window.outerRadius
+        #     details['marker_type'] = 'solid'
 
-        else if window.canvas_type is "solidMarker" 
-            myObject['points'] =  window.markerPoints
-            myObject['canvas_type'] = 'marker'
-            details['cx'] = window.cx
-            details['cy'] = window.cy
-            details['innerRadius'] = window.innerRadius
-            details['outerRadius'] = window.outerRadius
-            details['marker_type'] = 'solid'            
+        # else if window.canvas_type is "solidMarker" 
+        #     myObject['points'] =  window.markerPoints
+        #     myObject['canvas_type'] = 'marker'
+        #     details['cx'] = window.cx
+        #     details['cy'] = window.cy
+        #     details['innerRadius'] = window.innerRadius
+        #     details['outerRadius'] = window.outerRadius
+        #     details['marker_type'] = 'solid'            
 
-        else
-            myObject['points'] =  $('.area').val().split(',')
-
-
-        if $('[name="check_primary"]').is(":checked") is true
-            myObject['primary_breakpoint'] =  window.breakpoint_position            
+        # else
+        #     myObject['points'] =  $('.area').val().split(',')
 
 
-        myObject['other_details'] =  details    
+        # if $('[name="check_primary"]').is(":checked") is true
+        #     myObject['primary_breakpoint'] =  window.breakpoint_position            
+
+
+        # myObject['other_details'] =  details    
         myObject['_method'] =  'PUT'
 
         svgElemId = window.currentSvgId
@@ -922,7 +1013,10 @@ jQuery(document).ready ($)->
         draw.each ((i, children) ->
             @draggable()
             @fixed()
-        ), true         
+        ), true 
+
+        # regenerate svg
+        window.generateSvg(window.svgData.data)                    
 
     # on click of delete svg element
     $('.delete').on 'click' , (e)->

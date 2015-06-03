@@ -11,12 +11,15 @@
     }
 
     Marker.prototype.generateMarkerTag = function(item) {
-      var circle, circle1, circle2, cx, cy, drawMarkerElements, groupMarker, innerRadius, markerType, outerRadius, points;
+      var circle, circle1, circle2, cx, cy, drawMarkerElements, ellipse, ellipseHeight, ellipseWidth, groupMarker, innerRadius, markerType, outerRadius, points, typeClass;
       markerType = item.other_details.marker_type;
       cx = item.other_details.cx;
       cy = item.other_details.cy;
       innerRadius = item.other_details.innerRadius;
       outerRadius = item.other_details.outerRadius;
+      ellipseWidth = item.other_details.ellipseWidth;
+      ellipseHeight = item.other_details.ellipseHeight;
+      typeClass = item['other_details']['class'];
       points = item.points;
       drawMarkerElements = [];
       groupMarker = draw.group();
@@ -26,6 +29,7 @@
         id: item.object_id,
         svgid: item.id
       });
+      groupMarker.addClass(typeClass);
       if (item.object_type === "amenity") {
         groupMarker.data('amenity-title', item.other_details.title);
         groupMarker.data('amenity-desc', item.other_details.description);
@@ -61,6 +65,21 @@
             cy: points[1]
           });
           drawMarkerElements.push(circle);
+          break;
+        case 'earthlocation':
+          window.canvas_type = "earthlocationMarker";
+          groupMarker.addClass('earthlocation');
+          ellipse = draw.ellipse(window.ellipseWidth, window.ellipseHeight);
+          ellipse.attr({
+            'fill': '#FF6700',
+            'stroke': '#FF7300',
+            'stroke-width': 3,
+            'fill-opacity': 0.2,
+            'stroke-miterlimit': 10,
+            cx: points[0],
+            cy: points[1]
+          });
+          drawMarkerElements.push(ellipse);
           break;
       }
       return _.each(drawMarkerElements, (function(_this) {
