@@ -569,11 +569,8 @@
         floors = Object.keys(floors).length;
         unitTypes = window.building.getUnitTypes(id);
         response = window.building.getUnitTypesCount(id, unitTypes);
-        html = '<div class="svg-info"> <h4 class="pull-left">' + buildingModel.get('building_name') + '</h4> <h4 class="pull-left">' + window.building.getMinimumCost(id) + '</h4> <!--<span class="label label-success"></span--> <div class="clearfix"></div>';
-        $.each(response, function(index, value) {
-          return html += '<div class="details"> <div> <label>' + value.name + '</label> - ' + value.units + '</div>';
-        });
-        html += '<div> <label>No. of floors</label> - ' + floors + '</div> </div> </div>';
+        html = '<div class="svg-info"> <i class="apartment-ico"></i> <h5 class=" m-t-0">' + buildingModel.get('building_name') + '</h5> <div class="details"> <label>' + floors + ' Floors</label></br> <div class="text-primary"> <span class="text-primary facts-icon icon-rupee-icn"></span>' + window.building.getMinimumCost(id) + '</div> </div> </div>';
+        html += '';
         return $(e.target).tooltipster('content', html);
       },
       'click .next,.prev': function(e) {
@@ -762,7 +759,7 @@
     };
 
     CenterApartmentMasterView.prototype.iniTooltip = function() {
-      return $('.apartment,.next,.prev').tooltipster({
+      $('.apartment').tooltipster({
         theme: 'tooltipster-shadow',
         contentAsHTML: true,
         onlyOne: true,
@@ -780,6 +777,26 @@
             return $('.cf-loader').removeClass('hidden');
           });
         }
+      });
+      $('.next').tooltipster({
+        theme: 'tooltipster-shadow circle-tooltip',
+        contentAsHTML: true,
+        onlyOne: true,
+        arrow: false,
+        interactive: true,
+        trigger: 'hover',
+        position: 'left',
+        delay: 50
+      });
+      return $('.prev').tooltipster({
+        theme: 'tooltipster-shadow circle-tooltip',
+        contentAsHTML: true,
+        onlyOne: true,
+        arrow: false,
+        interactive: true,
+        trigger: 'hover',
+        position: 'right',
+        delay: 50
       });
     };
 
