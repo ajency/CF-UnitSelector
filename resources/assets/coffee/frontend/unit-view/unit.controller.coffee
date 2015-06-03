@@ -392,7 +392,13 @@ class CenterUnitView extends Marionette.ItemView
 							</a>
 						</div>'
 			$('.images').html html
-			
+			$('.img').lazyLoadXT(
+				forceLoad : true
+				updateEvent: 'load'
+				oncomplete : ()->
+					$('.img').removeClass "lazy-hidden"
+					$('.img').addClass "lazy-loaded"
+			)
 			$('.threeD').addClass('current')
 			$('.external').removeClass('current')
 			$('.twoD').removeClass('current')
@@ -412,7 +418,13 @@ class CenterUnitView extends Marionette.ItemView
 							</a>
 						</div>'
 			$('.images').html html
-			
+			$('.img').lazyLoadXT(
+				forceLoad : true
+				updateEvent: 'load'
+				oncomplete : ()->
+					$('.img').removeClass "lazy-hidden"
+					$('.img').addClass "lazy-loaded"
+			)
 			$('.twoD').addClass('current')
 			$('.external').removeClass('current')
 			$('.threeD').removeClass('current')
@@ -428,7 +440,13 @@ class CenterUnitView extends Marionette.ItemView
 						<img class="img img-responsive external-img" data-src="'+response[3].get('external3durl')+'" />
 					</div>'
 			$('.images').html html
-			
+			$('.img').lazyLoadXT(
+				forceLoad : true
+				updateEvent: 'load'
+				oncomplete : ()->
+					$('.img').removeClass "lazy-hidden"
+					$('.img').addClass "lazy-loaded"
+			)
 			$('.external').addClass('current')
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
@@ -449,8 +467,13 @@ class CenterUnitView extends Marionette.ItemView
 						</div>'
 			
 			$('.images').html html
-			# $('.img').load ()->
-			# 	$('#rotate_loader').addClass 'hidden'
+			$('.img').lazyLoadXT(
+				forceLoad : true
+				updateEvent: 'load'
+				oncomplete : ()->
+					$('.img').removeClass "lazy-hidden"
+					$('.img').addClass "lazy-loaded"
+			)
 
 			$('.gallery').addClass('current')
 			$('.threeD').removeClass('current')
