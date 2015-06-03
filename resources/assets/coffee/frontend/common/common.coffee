@@ -314,7 +314,6 @@ CommonFloor.resetProperyType = (param)->
 	if param == 'villa'
 		$.merge collection , bunglowVariantCollection.getBunglowUnits()
 	if param == 'apartment'
-		console.log apartmentVariantCollection
 		$.merge collection , apartmentVariantCollection.getApartmentUnits()
 	if param == 'plot'
 		$.merge collection , plotVariantCollection.getPlotUnits()
@@ -394,7 +393,6 @@ CommonFloor.resetCollections = ()->
 	unitTypes = []
 	plots = []
 	buildings = []
-	console.log unitCollection
 	unitCollection.each (item)->
 		unitType = unitTypeMasterCollection.findWhere
 							'id' :  item.get('unit_type_id')
@@ -443,7 +441,7 @@ CommonFloor.filterArea = ()->
 	CommonFloor.resetCollections()
 	areaArr = []
 	unitCollection.each (item)->
-		console.log area = item.get('area')
+		area = item.get('area')
 		if area >= parseFloat(CommonFloor.defaults['common']['area_min']) && area <= parseFloat(CommonFloor.defaults['common']['area_max'])
 			areaArr.push item
 
@@ -524,7 +522,6 @@ CommonFloor.getFilters = ()->
 		$.each typeArr, (index,value)->
 			name = s.capitalize(value) 
 			name = name+'(s)'
-			console.log value
 			if value == 'apartment'
 				name = 'Apartment(s)/Penthouse(s)'
 				filters = CommonFloor.getApartmentFilters()
@@ -675,7 +672,6 @@ CommonFloor.getFilters111 = ()->
 	# $.merge unitTypes , plotFilters.unitTypes
 	# $.merge unitVariants , plotFilters.unitVariants
 	# $.merge flooring , plotFilters.flooring
-	console.log villaFilters
 	price = []
 	area = []
 	type= []
@@ -731,7 +727,7 @@ CommonFloor.getFilters111 = ()->
 				'classname' : 'types'
 				'id'		: value
 				'id_name' : 'filter_'+value
-	console.log type
+	
 	# if CommonFloor.defaults['availability'] != ""
 	# 	status.push 
 	# 		'name' : 'Available'
@@ -753,7 +749,6 @@ CommonFloor.getFilters111 = ()->
 	$.each results,(index,value)->
 		if value.count == 0
 			results = _.omit(results, index)
-	console.log filters 
 	[filters,results]	
 			
 CommonFloor.getVillaFilters = ()->
@@ -815,7 +810,7 @@ CommonFloor.getApartmentFilters = ()->
 	flooring = []
 	$.each CommonFloor.defaults['apartment'],(ind,val)->
 		if val != "" 
-			console.log param_val_arr = val.split(',')
+			param_val_arr = val.split(',')
 			$.each param_val_arr, (index,value)->
 				if value != "" && ind == 'unit_variant_id'
 					if !_.isUndefined apartmentVariantMasterCollection.get(parseInt(value))
@@ -1029,7 +1024,6 @@ CommonFloor.filterNew = ()->
 		if val is 'plot'
 			temp = CommonFloor.filterPlots()
 		$.merge collection , temp
-	console.log collection
 	unitCollection.reset collection
 	if CommonFloor.defaults['common']['price_max'] != ""
 		CommonFloor.filterBudget()
@@ -1047,7 +1041,7 @@ CommonFloor.filterNew = ()->
 		temp = unitCollection.where paramkey
 		unitCollection.reset temp
 	CommonFloor.applyFliterClass()
-	# CommonFloor.resetCollections()
+	CommonFloor.resetCollections()
 
 CommonFloor.filterStepNew = ()->
 	collection = []
@@ -1222,7 +1216,7 @@ CommonFloor.filterViews = ()->
 	CommonFloor.resetCollections()
 	temp = []
 	unitCollection.each (item)->
-		console.log views = item.get('views')
+		views = item.get('views')
 		$.each views , (ind,val)->
 			if $.inArray(val,CommonFloor.defaults['common']['views'].split(',')) > -1
 				temp.push item
@@ -1234,7 +1228,7 @@ CommonFloor.filterFacings = ()->
 	CommonFloor.resetCollections()
 	temp = []
 	unitCollection.each (item)->
-		console.log facings = item.get('direction')
+		facings = item.get('direction')
 		if $.inArray(facings,CommonFloor.defaults['common']['facings'].split(',')) > -1
 				temp.push item
 

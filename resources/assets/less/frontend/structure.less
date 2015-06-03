@@ -189,8 +189,9 @@ body{
     }
     .toggle-button{
       left: 0;
-      // font-size: 24px;
       &::before{
+        font-size: 20px;
+        color: @brand-primary;
         content: "\e756";
         font-family: icomoon;
       }
@@ -225,12 +226,12 @@ body{
     position: absolute;
     top: 0;
     right: 0;
-    color: @brand-primary;
     padding: 8px 14px; 
     cursor: pointer;
     z-index: 999;
-    font-size: 20px;
+    font-size: 15px;
     .ease;
+    white-space: nowrap;
     &::before{
       content: "\e75e";
       font-family: icomoon;

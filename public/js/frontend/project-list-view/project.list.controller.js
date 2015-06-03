@@ -72,7 +72,7 @@
         data.status = status;
       }
       main = CommonFloor.getFilters();
-      console.log(data.filters = main[0].filters);
+      data.filters = main[0].filters;
       data.area = main[0].area;
       data.budget = main[0].price;
       data.status = main[0].status;
@@ -88,6 +88,7 @@
         'click @ui.unitBack': function(e) {
           e.preventDefault();
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return CommonFloor.navigate('/', true);
@@ -109,6 +110,7 @@
           }
           this.trigger('render:view');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           return unitCollection.trigger('available');
         },
@@ -122,11 +124,10 @@
               return parseInt(item);
             });
           }
-          console.log(types);
           types = _.without(types, parseInt($(e.currentTarget).attr('data-id')));
-          console.log(types);
           CommonFloor.defaults[type]['unit_type_id'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
@@ -141,10 +142,10 @@
               return parseInt(item);
             });
           }
-          console.log(types);
           types = _.without(types, parseInt($(e.currentTarget).attr('data-id')));
           CommonFloor.defaults[type]['unit_variant_id'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
@@ -160,6 +161,7 @@
           CommonFloor.defaults['common']['area_max'] = "";
           CommonFloor.defaults['common']['area_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
@@ -168,6 +170,7 @@
           CommonFloor.defaults['common']['price_max'] = "";
           CommonFloor.defaults['common']['price_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
@@ -179,10 +182,10 @@
           if (CommonFloor.defaults[type]['attributes'] !== "") {
             types = CommonFloor.defaults[type]['attributes'].split(',');
           }
-          console.log(types);
           types = _.without(types, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults[type]['attributes'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
@@ -193,6 +196,7 @@
           types = _.without(types, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['common']['facings'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
@@ -203,6 +207,7 @@
           types = _.without(types, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['common']['views'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');

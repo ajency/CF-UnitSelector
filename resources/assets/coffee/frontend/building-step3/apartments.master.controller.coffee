@@ -127,7 +127,12 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		data.floor  = main[0].floor
 		data.views  = main[0].views
 		data.facings  = main[0].facings
-		data.results  = apartmentVariantCollection.getApartmentUnits().length
+		
+		results  = apartmentVariantCollection.getApartmentUnits()
+		temp = new Backbone.Collection results
+		newTemp = temp.where
+				'building_id' : parseInt building_id
+		data.results = newTemp.length
 		model = buildingMasterCollection.findWhere
 						'id' : building_id
 		data.name  = model.get 'building_name'
@@ -140,6 +145,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			arr.splice(index, 1)
 			CommonFloor.defaults['type'] = arr.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
@@ -536,14 +542,14 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 												<div class="prev"></div>
 												<div class="next"></div>
 											</div>
-											
+											<div id="svg_loader" class="cf-loader hidden"></div>
 											<div id="spritespin"></div>
 											<div class="svg-maps">
 												<img class="first_image lazy-hidden img-responsive" />
 												<div class="region inactive"></div>
 											</div>
 
-											<div class="cf-loader hidden"></div>
+											<div id="rotate_loader" class="cf-loader hidden"></div>
 										</div>
 										
 										<div class="rotate rotate-controls hidden">
@@ -703,6 +709,12 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			# $('#apartment'+id).attr('class' ,'unit blocks '+availability)
 			$('#apartment'+id).removeClass ' active'
 
+		'mouseover .marker-grp':(e)->
+			html = '<div><label>Title:</label>'+$(e.currentTarget).attr('data-amenity-title')+
+					'<br/><label>Desc:</label>'+$(e.currentTarget).attr('data-amenity-desc')+'</div>'
+
+			$('.layer').tooltipster('content', html)
+
 		# 'click .apartment':(e)->
 		# 	id = parseInt e.target.id
 		# 	CommonFloor.navigate '/unit-view/'+id , true
@@ -778,22 +790,34 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		
 		$.merge transitionImages ,  building.get('building_master')
 		first = _.values svgs
-		$('.region').load(first[0],()->
-				$('.first_image').attr('data-src',transitionImages[breakpoints[0]])
-				that.iniTooltip()
-				CommonFloor.applyAvailabilClasses()
-				CommonFloor.randomClass()
-				CommonFloor.applyFliterClass()
-				CommonFloor.getApartmentsInView()
-				that.loadZoom()).addClass('active').removeClass('inactive')
-		$('.first_image').lazyLoadXT()
-		$('.first_image').load ()->
-			response = building.checkRotationView(building_id)
-			$('.cf-loader').removeClass 'hidden'
-			if response is 1
-				$('.cf-loader').removeClass 'hidden'
+
+		$('#svg_loader').removeClass 'hidden'
+		$('.first_image').attr('src',transitionImages[breakpoints[0]])
 		
-		@initializeRotate(transitionImages,svgs,building)
+			
+			
+			
+		$('.first_image').load ()->
+			$('.region').load(first[0],()->
+					$('#svg_loader').addClass 'hidden'
+					that.iniTooltip()
+					CommonFloor.applyAvailabilClasses()
+					CommonFloor.randomClass()
+					CommonFloor.applyFliterClass()
+					CommonFloor.getApartmentsInView()
+					that.loadZoom()
+					response = building.checkRotationView(building_id)
+					$('#rotate_loader').removeClass 'hidden'
+					if response is 1
+						$('.cf-loader').removeClass 'hidden'
+						that.initializeRotate(transitionImages,svgs,building)
+			).addClass('active').removeClass('inactive')
+		
+		
+		
+			
+		
+		
 		@loadProjectMaster()
 
 		if $(window).width() > 991
@@ -892,7 +916,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('.first_image').remove()
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
-				$('.cf-loader').addClass 'hidden'
+				$('#rotate_loader').addClass 'hidden'
 			$('.region').load(url,()->
 				that.iniTooltip()
 				that.loadZoom()

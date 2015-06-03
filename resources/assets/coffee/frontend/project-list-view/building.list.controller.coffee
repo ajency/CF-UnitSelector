@@ -58,6 +58,10 @@ class BuildingItemView extends Marionette.ItemView
 				CommonFloor.navigate '/building/'+id+'/master-view' , true
 				# CommonFloor.router.storeRoute()
 
+class BuildingEmptyView extends Marionette.ItemView
+
+	template : 'No units added'
+
 #view for listing buildings : Collection
 class BuildingListView extends Marionette.CompositeView
 
@@ -94,6 +98,7 @@ class BuildingListView extends Marionette.CompositeView
 
 	childView : BuildingItemView
 
+	
 	childViewContainer : '.units'
 
 	events : 
@@ -127,20 +132,24 @@ class BuildingListView extends Marionette.CompositeView
 			# @trigger "load:units" , data
 
 	onShow:->
-		if CommonFloor.defaults['type'] != ""
-			type = CommonFloor.defaults['type'].split(',')
-			if $.inArray('villa' ,type) > -1
-				$('.Villas').removeClass 'hidden'
-			if $.inArray('plot' ,type) > -1
-				$('.Plots').removeClass 'hidden'
-		else
-			arr = _.values(window.propertyTypes)
-			if $.inArray('Apartments' ,arr) > -1 || $.inArray('Penthouse' ,arr) > -1
-				$('.buildings').removeClass 'hidden'
-			if $.inArray('Plot' ,arr) > -1
-				$('.Plots').removeClass 'hidden'
-			if $.inArray('Villas/Bungalows' ,arr) > -1
-				$('.Villas').removeClass 'hidden'
+		if bunglowVariantCollection.length != 0
+             $('.Villas').removeClass 'hidden'
+        if plotVariantCollection.length != 0
+             $('.Plots').removeClass 'hidden'
+		# if CommonFloor.defaults['type'] != ""
+		# 	type = CommonFloor.defaults['type'].split(',')
+		# 	if $.inArray('villa' ,type) > -1
+		# 		$('.Villas').removeClass 'hidden'
+		# 	if $.inArray('plot' ,type) > -1
+		# 		$('.Plots').removeClass 'hidden'
+		# else
+		# 	arr = _.values(window.propertyTypes)
+		# 	if $.inArray('Apartments' ,arr) > -1 || $.inArray('Penthouse' ,arr) > -1
+		# 		$('.buildings').removeClass 'hidden'
+		# 	if $.inArray('Plot' ,arr) > -1
+		# 		$('.Plots').removeClass 'hidden'
+		# 	if $.inArray('Villas/Bungalows' ,arr) > -1
+		# 		$('.Villas').removeClass 'hidden'
 		
 
 

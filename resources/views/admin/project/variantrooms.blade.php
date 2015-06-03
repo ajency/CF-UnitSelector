@@ -166,7 +166,7 @@
                         </div>
                     </div>
                 </div>
-                <?php $i++; ?>   
+                  
                 @endforeach
-
+				<?php $i=$level ; ?> 
             </div>

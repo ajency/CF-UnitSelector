@@ -2,20 +2,6 @@
   var extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
-  window.unitTypes = [];
-
-  window.unitVariants = [];
-
-  window.variantNames = [];
-
-  window.flooring = [];
-
-  window.price = '';
-
-  window.area = '';
-
-  window.type = [];
-
   CommonFloor.FilterMsterView = (function(superClass) {
     extend(FilterMsterView, superClass);
 
@@ -53,21 +39,12 @@
     };
 
     FilterMsterView.prototype.initialize = function() {
-      var unitTypes, variantNames;
       this.price = '';
-      this.area = '';
-      unitTypes = [];
-      return variantNames = [];
+      return this.area = '';
     };
 
     FilterMsterView.prototype.events = {
       'click @ui.clear': function(e) {
-        window.unitTypes = [];
-        window.unitVariants = [];
-        window.variantNames = [];
-        window.price = '';
-        window.area = '';
-        window.type = [];
         CommonFloor.defaults['type'] = "";
         $.each(CommonFloor.defaults['villa'], function(index, value) {
           return CommonFloor.defaults['villa'][index] = "";
@@ -127,7 +104,7 @@
           $('.villa-wrapper').removeClass('visible');
           types = _.without(types, $(e.currentTarget).attr('data-value'));
         }
-        console.log(types = _.uniq(types));
+        types = _.uniq(types);
         CommonFloor.defaults['type'] = types.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.resetCollections();
@@ -151,7 +128,7 @@
           $('.apartment-wrapper').removeClass('visible');
           types = _.without(types, $(e.currentTarget).attr('data-value'));
         }
-        console.log(types = _.uniq(types));
+        types = _.uniq(types);
         CommonFloor.defaults['type'] = types.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.resetCollections();
@@ -200,6 +177,7 @@
         types = _.uniq(types);
         CommonFloor.defaults[type]['unit_type_id'] = types.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterNew();
         return unitCollection.trigger('available');
       },
@@ -221,6 +199,7 @@
         types = _.uniq(types);
         CommonFloor.defaults[type]['unit_variant_id'] = types.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterNew();
         return unitCollection.trigger('available');
       },
@@ -231,6 +210,7 @@
           CommonFloor.defaults['common']['availability'] = "";
         }
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterNew();
         return unitCollection.trigger('available');
       },
@@ -238,6 +218,7 @@
         CommonFloor.defaults['common']['area_max'] = parseFloat($(e.target).val().split(';')[1]);
         CommonFloor.defaults['common']['area_min'] = parseFloat($(e.target).val().split(';')[0]);
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterNew();
         return unitCollection.trigger('available');
       },
@@ -245,6 +226,7 @@
         CommonFloor.defaults['common']['price_max'] = parseFloat($(e.target).val().split(';')[1]);
         CommonFloor.defaults['common']['price_min'] = parseFloat($(e.target).val().split(';')[0]);
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterNew();
         return unitCollection.trigger('available');
       },
@@ -262,6 +244,7 @@
         types = _.uniq(types);
         CommonFloor.defaults['common']['views'] = types.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterNew();
         return unitCollection.trigger('available');
       },
@@ -279,6 +262,7 @@
         types = _.uniq(types);
         CommonFloor.defaults['common']['facings'] = types.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterNew();
         return unitCollection.trigger('available');
       },
@@ -297,6 +281,7 @@
         types = _.uniq(types);
         CommonFloor.defaults[type]['attributes'] = types.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterNew();
         return unitCollection.trigger('available');
       },
@@ -428,7 +413,7 @@
       data.villas = Marionette.getOption(this, 'villas');
       data.unitVariants = Marionette.getOption(this, 'unitVariants');
       data.apartments = Marionette.getOption(this, 'apartments');
-      console.log(data.plots = Marionette.getOption(this, 'plots'));
+      data.plots = Marionette.getOption(this, 'plots');
       data.types = Marionette.getOption(this, 'types');
       data.views = Marionette.getOption(this, 'views');
       data.facings = Marionette.getOption(this, 'facings');
@@ -754,7 +739,6 @@
           return value['id'] = 'Apartments';
         }
       });
-      console.log(types);
       this.view = view = new CommonFloor.FilterMsterView({
         model: project,
         'villas': villaFilters,
@@ -995,7 +979,6 @@
                     'label': ind,
                     type: 'P'
                   });
-                  console.log(temp);
                   return newtemp.push({
                     'label': ind.toUpperCase(),
                     'index': ind,
@@ -1007,7 +990,6 @@
           }
         }
       });
-      console.log(newtemp);
       unitsArr = plotVariantMasterCollection.getPlotUnits();
       $.each(unitsArr, function(index, value) {
         var unitDetails;
