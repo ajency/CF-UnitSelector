@@ -622,10 +622,10 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 		views = viewsFacingsArr[0]
 		facings = viewsFacingsArr[1]
 
-		if $.inArray('budget' , project.get('filters').defaults) ==  -1 && ! _.isUndefined project.get('filters').defaults
+		if $.inArray('budget' , project.get('filters').defaults) ==  -1 &&  _.isUndefined project.get('filters').defaults
 				budget = []
 
-		if $.inArray('area' , project.get('filters').defaults) ==  -1 && ! _.isUndefined project.get('filters').defaults
+		if $.inArray('area' , project.get('filters').defaults) ==  -1 &&  _.isUndefined project.get('filters').defaults
 				unitVariants = []
 
 		@view = view = new CommonFloor.FilterApartmentView
@@ -746,10 +746,10 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 				'id' : val
 				'name' : val
 
-		if $.inArray('views' , project.get('filters').defaults) ==  -1 
+		if $.inArray('views' , project.get('filters').defaults) ==  -1 &&  _.isUndefined project.get('filters').defaults
 				viewArr = []
 
-		if $.inArray('direction' , project.get('filters').defaults) ==  -1 
+		if $.inArray('direction' , project.get('filters').defaults) ==  -1 &&  _.isUndefined project.get('filters').defaults
 				facingsArr = []
 
 		[viewArr,facingsArr]

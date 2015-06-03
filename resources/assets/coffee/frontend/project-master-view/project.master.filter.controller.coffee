@@ -662,8 +662,9 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		plots = Marionette.getOption(@,'plots')
 		views = Marionette.getOption(@,'views')
 		facings = Marionette.getOption(@,'facings')
-		console.log budget = Marionette.getOption(@,'budget')
-		console.log unitVariants = Marionette.getOption(@,'unitVariants')
+		budget = Marionette.getOption(@,'budget')
+		unitVariants = Marionette.getOption(@,'unitVariants')
+		types = Marionette.getOption(@,'types')
 		$.each villas[0] , (index,value)->
 			if value.length is 0
 				$('.villa_'+index).hide()
@@ -681,6 +682,8 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			$('.budgetLabel').hide()
 		if unitVariants.length is 0
 			$('.areaLabel').hide()
+		if types.length is 0
+			$('.property_type').hide()
 
 
 	loadClearFilter:->
@@ -865,25 +868,30 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 			$.merge budget , plotFilters[0].budget
 
 
-		if $.inArray('budget' , project.get('filters').defaults) ==  -1 && ! _.isUndefined project.get('filters').defaults
+		if $.inArray('budget' , project.get('filters').defaults) ==  -1 &&  _.isUndefined project.get('filters').defaults
 				budget = []
 
-		if $.inArray('area' , project.get('filters').defaults) ==  -1 && ! _.isUndefined project.get('filters').defaults
+		if $.inArray('area' , project.get('filters').defaults) ==  -1 &&  _.isUndefined project.get('filters').defaults
 				unitVariants = []
 			
 
 		viewsFacingsArr = @getViewsFacings() 
 		views = viewsFacingsArr[0]
 		facings = viewsFacingsArr[1]
-		types = CommonFloor.masterPropertyTypes()
+		data = CommonFloor.masterPropertyTypes()
+		types = $.grep(data, (e)->
+			if _.has(project.get('filters'), s.capitalize(e.name)) && e.count.length > 0
+				return e
+		    
+		)
 		$.each types,(index,value)->
-			if value.count == 0
-				types = _.omit(types, index) 
 			value['id'] = value.type
 			if value.type == 'Apartments'
 				value.type = 'Apartments/Penthouse'
 				value.type_name = '(A)/(PH)'
 				value['id'] = 'Apartments'
+
+		console.log types
 		@view = view = new CommonFloor.FilterMsterView
 				model : project
 				'villas' : villaFilters
@@ -1165,10 +1173,10 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 				'id' : val
 				'name' : val
 
-		if $.inArray('views' , project.get('filters').defaults) ==  -1 
+		if $.inArray('views' , project.get('filters').defaults) ==  -1 &&  _.isUndefined project.get('filters').defaults
 				viewArr = []
 
-		if $.inArray('direction' , project.get('filters').defaults) ==  -1 
+		if $.inArray('direction' , project.get('filters').defaults) ==  -1 &&  _.isUndefined project.get('filters').defaults
 				facingsArr = []
 
 		[viewArr,facingsArr]

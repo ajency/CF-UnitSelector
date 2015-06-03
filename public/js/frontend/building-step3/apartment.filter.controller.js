@@ -481,10 +481,10 @@
       viewsFacingsArr = this.getViewsFacings();
       views = viewsFacingsArr[0];
       facings = viewsFacingsArr[1];
-      if ($.inArray('budget', project.get('filters').defaults) === -1 && !_.isUndefined(project.get('filters').defaults)) {
+      if ($.inArray('budget', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
         budget = [];
       }
-      if ($.inArray('area', project.get('filters').defaults) === -1 && !_.isUndefined(project.get('filters').defaults)) {
+      if ($.inArray('area', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
         unitVariants = [];
       }
       this.view = view = new CommonFloor.FilterApartmentView({
@@ -625,10 +625,10 @@
           'name': val
         });
       });
-      if ($.inArray('views', project.get('filters').defaults) === -1) {
+      if ($.inArray('views', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
         viewArr = [];
       }
-      if ($.inArray('direction', project.get('filters').defaults) === -1) {
+      if ($.inArray('direction', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
         facingsArr = [];
       }
       return [viewArr, facingsArr];

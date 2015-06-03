@@ -508,14 +508,15 @@
     };
 
     FilterMsterView.prototype.hideLabels = function() {
-      var apartments, budget, facings, plots, unitVariants, views, villas;
+      var apartments, budget, facings, plots, types, unitVariants, views, villas;
       villas = Marionette.getOption(this, 'villas');
       apartments = Marionette.getOption(this, 'apartments');
       plots = Marionette.getOption(this, 'plots');
       views = Marionette.getOption(this, 'views');
       facings = Marionette.getOption(this, 'facings');
-      console.log(budget = Marionette.getOption(this, 'budget'));
-      console.log(unitVariants = Marionette.getOption(this, 'unitVariants'));
+      budget = Marionette.getOption(this, 'budget');
+      unitVariants = Marionette.getOption(this, 'unitVariants');
+      types = Marionette.getOption(this, 'types');
       $.each(villas[0], function(index, value) {
         if (value.length === 0) {
           return $('.villa_' + index).hide();
@@ -541,7 +542,10 @@
         $('.budgetLabel').hide();
       }
       if (unitVariants.length === 0) {
-        return $('.areaLabel').hide();
+        $('.areaLabel').hide();
+      }
+      if (types.length === 0) {
+        return $('.property_type').hide();
       }
     };
 
@@ -707,7 +711,7 @@
     }
 
     FilterMasterCtrl.prototype.initialize = function() {
-      var apartmentFilters, budget, facings, plotFilters, types, unitVariants, view, views, viewsFacingsArr, villaFilters;
+      var apartmentFilters, budget, data, facings, plotFilters, types, unitVariants, view, views, viewsFacingsArr, villaFilters;
       unitVariants = [];
       budget = [];
       views = [];
@@ -727,20 +731,22 @@
         $.merge(unitVariants, plotFilters[0].unitVariants);
         $.merge(budget, plotFilters[0].budget);
       }
-      if ($.inArray('budget', project.get('filters').defaults) === -1 && !_.isUndefined(project.get('filters').defaults)) {
+      if ($.inArray('budget', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
         budget = [];
       }
-      if ($.inArray('area', project.get('filters').defaults) === -1 && !_.isUndefined(project.get('filters').defaults)) {
+      if ($.inArray('area', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
         unitVariants = [];
       }
       viewsFacingsArr = this.getViewsFacings();
       views = viewsFacingsArr[0];
       facings = viewsFacingsArr[1];
-      types = CommonFloor.masterPropertyTypes();
-      $.each(types, function(index, value) {
-        if (value.count === 0) {
-          types = _.omit(types, index);
+      data = CommonFloor.masterPropertyTypes();
+      types = $.grep(data, function(e) {
+        if (_.has(project.get('filters'), s.capitalize(e.name)) && e.count.length > 0) {
+          return e;
         }
+      });
+      $.each(types, function(index, value) {
         value['id'] = value.type;
         if (value.type === 'Apartments') {
           value.type = 'Apartments/Penthouse';
@@ -748,6 +754,7 @@
           return value['id'] = 'Apartments';
         }
       });
+      console.log(types);
       this.view = view = new CommonFloor.FilterMsterView({
         model: project,
         'villas': villaFilters,
@@ -1051,10 +1058,10 @@
           'name': val
         });
       });
-      if ($.inArray('views', project.get('filters').defaults) === -1) {
+      if ($.inArray('views', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
         viewArr = [];
       }
-      if ($.inArray('direction', project.get('filters').defaults) === -1) {
+      if ($.inArray('direction', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
         facingsArr = [];
       }
       return [viewArr, facingsArr];
