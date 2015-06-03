@@ -465,11 +465,22 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 												</div>
 											</div>-->
 											
-											<div id="svg_loader" class="cf-loader hidden"></div>
+											<div id="svg_loader" class="img-loader">
+											  <div class="square" ></div>
+											  <div class="square"></div>
+											  <div class="square last"></div>
+											  <div class="square clear"></div>
+											  <div class="square"></div>
+											  <div class="square last"></div>
+											  <div class="square clear"></div>
+											  <div class="square "></div>
+											  <div class="square last"></div>
+											</div>
+
 											<div id="spritespin"></div>
-											<div class="svg-maps">
+											<div class="svg-maps animated fadeIn hidden">
 												
-												<img   class="first_image ">
+												<img class="first_image" />
 												
 												<div class="region inactive"></div>
 												<div class="tooltip-overlay hidden"></div>
@@ -1020,7 +1031,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		first = _.values svgs
 		$.merge transitionImages ,  project.get('project_master')
 		
-		$('#svg_loader').removeClass 'hidden'
+		# $('#svg_loader').removeClass 'hidden'
 		$('.first_image').attr('src',transitionImages[breakpoints[0]])
 		
 			
@@ -1035,6 +1046,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					CommonFloor.applyFliterClass()
 					that.loadZoom()
 					$('#trig').removeClass 'hidden'
+					$('.svg-maps').removeClass 'hidden'
 					response = project.checkRotationView()
 					$('.first_image').first().css('width',that.ui.svgContainer.width())
 					if response is 1
