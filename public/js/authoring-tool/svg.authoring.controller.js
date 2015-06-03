@@ -1,5 +1,6 @@
 (function() {
   jQuery(document).ready(function($) {
+    var keydownFunc;
     $('.area').canvasAreaDraw();
     window.draw = SVG('aj-imp-builder-drag-drop');
     window.svgData = {
@@ -135,10 +136,9 @@
       });
     };
     window.resetCollection = function() {
-      $('.plot,.villa,.building,.marker-grp').each(function(index, value) {
+      return $('.polygon-type,.marker-grp').each(function(index, value) {
         var unit, unitID;
         unitID = parseInt(value.id);
-        console.log(unitID);
         if (unitID !== 0) {
           unit = unitMasterCollection.findWhere({
             'id': parseInt(value.id)
@@ -146,7 +146,6 @@
           return unitCollection.remove(unit.get('id'));
         }
       });
-      return console.log(unitCollection);
     };
     window.loadJSONData = function() {
       return $.ajax({
@@ -191,6 +190,8 @@
           window.svgData['image'] = svgImg;
           window.svgData['data'] = response.data;
           window.svgData['supported_types'] = JSON.parse(supported_types);
+          window.svgData['breakpoint_position'] = breakpoint_position;
+          window.svgData['svg_type'] = svg_type;
           return window.loadJSONData();
         },
         error: function(response) {
@@ -242,6 +243,7 @@
       myObject['image_id'] = IMAGEID;
       myObject['object_type'] = objectType;
       myObject['canvas_type'] = window.canvas_type;
+      myObject['breakpoint_position'] = window.breakpoint_position;
       if (objectType === "amenity") {
         myObject['object_id'] = 0;
       } else {
@@ -274,6 +276,9 @@
         myObject['points'] = $('.area').val().split(',');
       }
       myObject['other_details'] = details;
+      if ($('[name="check_primary"]').is(":checked") === true) {
+        myObject['primary_breakpoint'] = window.breakpoint_position;
+      }
       return $.ajax({
         type: 'POST',
         headers: {
@@ -284,10 +289,13 @@
         data: $.param(myObject),
         success: function(response) {
           myObject['id'] = response.data.id;
+          if (response.data.primary_breakpoint !== null) {
+            myObject['primary_breakpoint'] = response.data.primary_breakpoint;
+          }
           window.svgData.data.push(myObject);
-          window.resetTool();
           draw.clear();
-          return window.generateSvg(window.svgData.data);
+          window.generateSvg(window.svgData.data);
+          return window.resetTool();
         },
         error: function(response) {
           return alert('Some problem occurred');
@@ -314,7 +322,12 @@
         });
       }
       if (type === 'apartment') {
-        return new AuthoringTool.ApartmentCtrl({
+        new AuthoringTool.ApartmentCtrl({
+          'region': this.region
+        });
+      }
+      if (type === 'building') {
+        return new AuthoringTool.BuildingCtrl({
           'region': this.region
         });
       }
@@ -422,8 +435,50 @@
     window.loadOjectData();
     $('#aj-imp-builder-drag-drop canvas').ready(function() {
       $('#aj-imp-builder-drag-drop canvas').hide();
-      return $('#aj-imp-builder-drag-drop .svg-draw-clear').hide();
+      $('#aj-imp-builder-drag-drop .svg-draw-clear').hide();
+      return document.addEventListener('keydown', keydownFunc, false);
     });
+    keydownFunc = function(e) {
+      var pointList;
+      if (e.which === 13) {
+        $('#aj-imp-builder-drag-drop canvas').hide();
+        $('#aj-imp-builder-drag-drop svg').show();
+        pointList = window.polygon.getPointList(f);
+        pointList = pointList.join(' ');
+        this.polygon = draw.polygon(pointList);
+        this.polygon.addClass('polygon-temp');
+        this.polygon.data('exclude', true);
+        this.polygon.attr('fill', '#E73935');
+        this.polygon.draggable();
+        return this.polygon.dragend = (function(_this) {
+          return function(delta, event) {
+            var canvas, canvasPointsLength, ctx, i, newPoints, newX, newY, oldPoints, tx, ty;
+            tx = delta.x;
+            ty = delta.y;
+            canvasPointsLength = window.f.length;
+            oldPoints = window.f;
+            newPoints = [];
+            i = 0;
+            while (i < canvasPointsLength) {
+              newX = parseInt(oldPoints[i]) + tx;
+              newY = parseInt(oldPoints[i + 1]) + ty;
+              newPoints.push(newX, newY);
+              i += 2;
+            }
+            window.f = newPoints;
+            canvas = document.getElementById("c");
+            ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            _this.polygon.fixed();
+            _this.polygon.remove();
+            $('#aj-imp-builder-drag-drop canvas').show();
+            $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
+            $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
+            return drawPoly(window.f);
+          };
+        })(this);
+      }
+    };
     $(".toggle").click(function() {
       $(this).toggleClass("expanded");
       return $('.menu').toggleClass('open');
@@ -459,7 +514,7 @@
       $('.submit').removeClass('hidden');
       return $('.property_type').attr('disabled', false);
     });
-    $('svg').on('dblclick', '.villa,.plot,.apartment', function(e) {
+    $('svg').on('dblclick', '.polygon-type', function(e) {
       var currentElem, elemId, element, object_type, svgDataObjects;
       e.preventDefault();
       window.canvas_type = "polygon";
@@ -476,7 +531,7 @@
       return _.each(svgDataObjects, (function(_this) {
         return function(svgDataObject, key) {
           var points;
-          if (parseInt(element) === parseInt(svgDataObject.object_id)) {
+          if (parseInt(elemId) === parseInt(svgDataObject.id)) {
             points = svgDataObject.points;
             $('.area').val(points.join(','));
             drawPoly(points);
@@ -484,9 +539,14 @@
             $('.edit').removeClass('hidden');
             $('.delete').removeClass('hidden');
             window.loadForm(object_type);
+            if ($(currentElem).data("primary-breakpoint")) {
+              $('[name="check_primary"]').prop('checked', true);
+            }
             if (object_type === "amenity") {
               $('#amenity-title').val($(currentElem).data("amenity-title"));
-              return $('#amenity-description').val($(currentElem).data("amenity-desc"));
+              $('#amenity-description').val($(currentElem).data("amenity-desc"));
+              $('.property_type').val($(currentElem).attr('type'));
+              return $('.property_type').attr('disabled', true);
             } else {
               return window.showDetails(currentElem);
             }
@@ -535,6 +595,9 @@
       $('.edit').removeClass('hidden');
       $('.delete').removeClass('hidden');
       window.loadForm(object_type);
+      if ($(currentElem).data("primary-breakpoint")) {
+        $('[name="check_primary"]').prop('checked', true);
+      }
       if (object_type === "amenity") {
         $('#amenity-title').val($(currentElem).data("amenity-title"));
         $('#amenity-description').val($(currentElem).data("amenity-desc"));
@@ -580,6 +643,7 @@
       myObject['image_id'] = IMAGEID;
       myObject['object_type'] = objectType;
       myObject['canvas_type'] = window.canvas_type;
+      myObject['breakpoint_position'] = window.breakpoint_position;
       if (objectType === "amenity") {
         myObject['object_id'] = 0;
       } else {
@@ -611,6 +675,9 @@
       } else {
         myObject['points'] = $('.area').val().split(',');
       }
+      if ($('[name="check_primary"]').is(":checked") === true) {
+        myObject['primary_breakpoint'] = window.breakpoint_position;
+      }
       myObject['other_details'] = details;
       myObject['_method'] = 'PUT';
       svgElemId = window.currentSvgId;
@@ -633,9 +700,9 @@
           window.svgData.data.splice(indexToSplice, 1);
           myObject['id'] = svgElemId;
           window.svgData.data.push(myObject);
-          window.resetTool();
           draw.clear();
-          return window.generateSvg(window.svgData.data);
+          window.generateSvg(window.svgData.data);
+          return window.resetTool();
         },
         error: function(response) {
           return alert('Some problem occurred');
@@ -653,11 +720,7 @@
       window.f = [];
       canvas = document.getElementById("c");
       ctx = canvas.getContext("2d");
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      $("form").trigger("reset");
-      $(".toggle").trigger('click');
-      $('#dynamice-region').empty();
-      return $('.edit-box').addClass('hidden');
+      return ctx.clearRect(0, 0, canvas.width, canvas.height);
     });
     $('.closeform').on('click', function(e) {
       var canvas, ctx;
@@ -721,13 +784,13 @@
         exclude: function() {
           return this.data('exclude');
         },
-        whitespace: true
+        whitespace: false
       });
       data = {};
       data['data'] = btoa(svgExport);
+      data['svg_type'] = window.svgData.svg_type;
+      data['breakpoint_position'] = window.breakpoint_position;
       draw.viewbox(0, 0, viewboxDefault.width, viewboxDefault.height);
-      console.log(viewboxDefault.width);
-      console.log(viewboxDefault.height);
       postUrl = BASEURL + "/admin/project/" + PROJECTID + "/image/" + IMAGEID + "/downloadSvg";
       publishSvgOptions = {
         type: 'POST',

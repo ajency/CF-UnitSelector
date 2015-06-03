@@ -20,7 +20,7 @@ class Unit extends Model {
     
     public function toArray() {
         $data = parent::toArray();
-        $data['views'] = unserialize($data['views']);
+        $data['views'] = (isset($data['views']))? unserialize($data['views']) :[];
 
         $unitId = $data['id'];
         $unitPosition = $this->position;

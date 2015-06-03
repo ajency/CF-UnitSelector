@@ -49,6 +49,23 @@ class SvgController extends Controller {
         if (isset($request['other_details'])) {
         	$svgElement->other_details = $request['other_details'];
         }
+
+        if (isset($request['primary_breakpoint'])) {
+        	$svgbreakpointUpdate = SvgController::unset_primary_breakpoint($request['object_id'],$request['object_type'],$request['primary_breakpoint']);
+
+        	if ($svgbreakpointUpdate) {
+        		$svgElement->primary_breakpoint = $request['primary_breakpoint'];
+        	}
+        	
+        }
+        else{
+
+        	$has_primary = SvgController::has_primary_breakpoint($request['object_id'],$request['object_type']);
+        	
+        	if(!$has_primary){
+        		$svgElement->primary_breakpoint = $request['breakpoint_position'];
+        	}
+        }
         
         $svgElement->save();
  
@@ -123,9 +140,23 @@ class SvgController extends Controller {
 		if (isset($request['other_details'])) {
 			$svgElement->other_details = $request['other_details'];
 		}
-		if (isset($request['primary_breakpoint'])) {
-			$svgElement->primary_breakpoint = $request['primary_breakpoint'];
-		}
+        
+        if (isset($request['primary_breakpoint'])) {
+        	$svgbreakpointUpdate = SvgController::unset_primary_breakpoint($request['object_id'],$request['object_type'],$request['primary_breakpoint']);
+
+        	if ($svgbreakpointUpdate) {
+        		$svgElement->primary_breakpoint = $request['primary_breakpoint'];
+        	}
+        	
+        }
+        else{
+        	$has_primary = SvgController::has_primary_breakpoint($request['object_id'],$request['object_type']);
+        	if(!$has_primary){
+        		$svgElement->primary_breakpoint = $request['breakpoint_position'];
+        	}
+
+        }
+
 		$svgElement->save();
 
 		return response()->json( [
@@ -157,11 +188,26 @@ class SvgController extends Controller {
 	public function downloadSvg($projectid, $imageid){
 
 		$svgData = $_REQUEST['data'];
+		$svgType = $_REQUEST['svg_type'];
+		$breakpoint_position = $_REQUEST['breakpoint_position'];
 		$data = base64_decode($svgData);
 
-		$path = "/projects/".$projectid."/svg";
+		if ($svgType == "master") {
+			$projSubFolder = "master";
+			$name = "master-".$breakpoint_position;
+		}
+		else if($svgType == "building_master"){
+			$projSubFolder = "building";
+			$name = "building-".$breakpoint_position;
+		}
+		else{
+			$projSubFolder = "svg";
+			$name = uniqid("project_svg_");
+		}
+		 
+		$path = "/projects/".$projectid."/".$projSubFolder;
 		$extension = "svg";
-		$name = uniqid("project_svg_");
+		
 
 		$fileData = array(
 						'name' => $name,
@@ -179,7 +225,7 @@ class SvgController extends Controller {
 		if (!$created_file) {
 			return response()->json( [
 				'code' => 'svg_file_not_created',
-				'message' => 'SVG file created',
+				'message' => 'SVG file failed to create',
 				], 400 );
 		}
 		else{
@@ -207,6 +253,103 @@ class SvgController extends Controller {
 		else{
 			return false;
 		}		
+	}
+
+	// unsets primary breakpoint for a given object id and object type combo
+	public static function unset_primary_breakpoint( $object_id,$object_type,$primary_breakpoint){
+
+		// get all svg elements having object id and object type, only one entry in the table can have primary breakpoint set
+
+		$svgElements = SvgElement::where( 'object_type', '=', $object_type )->where( 'object_id', '=', $object_id )->get()->toArray();
+		
+		foreach ($svgElements as $svgElement) {
+			
+			// find the svg elem that has primary breakpoint and set it to null
+			if (!is_null($svgElement['primary_breakpoint'])) {
+
+				$svgElem = SvgElement::find($svgElement['id']);
+				$svgElem->primary_breakpoint = null;
+				$svgElem->save();
+			}
+		}
+
+		return true;
+
+	}
+
+
+	// get primary breakpoints for a given object id and object type
+	public static function get_primary_breakpoints($object_id = 0,$object_type=""){
+    	
+		if (($object_id!=0) && ($object_type!="")) {
+	    	// check for all svg elements with this object type and object id
+			$svgElements = SvgElement::where( 'object_type', '=', $object_type )->where( 'object_id', '=', $object_id )->get()->toArray(); 
+		}
+
+		else{
+			// get all svg elements
+			$svgElements = SvgElement::all()->toArray(); 			 
+		}
+   	
+
+		$object_breakpoints = array();
+
+		// if no such svg element exists  , return empty array
+		if (sizeof($svgElements)<1) {
+			return $object_breakpoints;
+		}
+		
+
+		// if svg element exists, check if svg element has primary breakpoint, if set then append to breakpoint array
+		foreach ($svgElements as $svgElement) {
+			
+			// find the svg elem that has primary breakpoint set
+			if (!is_null($svgElement['primary_breakpoint'])) {
+
+				$object_breakpoints[] = array(
+										'id' => $svgElement['id'], 
+										'svg_id' => $svgElement['svg_id'], 
+										'object_type' => $svgElement['object_type'], 
+										'object_id' => $svgElement['object_id'], 
+										'primary_breakpoint' => $svgElement['primary_breakpoint'], 
+										);
+			}
+		}
+    	
+		// return array of breakpoints for each object type
+		return $object_breakpoints;
+	}
+
+	// checks whether object type and object id combo has a primary breakpoint set or not
+	public static function has_primary_breakpoint($object_id,$object_type){
+		$elements_with_breakpoint = SvgController::get_primary_breakpoints($object_id,$object_type);
+
+		if (sizeof($elements_with_breakpoint) == 1) {
+			return true;
+		}
+		else
+			return false;
+	}
+
+	// delete svg id and its corresponding child svg elements for a given image id
+	public static function delete_svg($image_id){
+		$svg = Svg::where( 'image_id', '=', $imageid )->first();
+		if (!empty($svg)) {
+			// @todo write code to delete svg file as well
+			$svg->delete();
+			return response()->json( [
+				'code' => 'svg_deleted',
+				'message' => 'SVG deleted for the given image', 
+				], 201 );			
+		}
+		else{
+			return response()->json( [
+				'code' => 'svg_not_deleted',
+				'message' => 'Could not find svg to be deleted for image', 
+				], 400 );			
+		}
 	}	
+
+
 
 }

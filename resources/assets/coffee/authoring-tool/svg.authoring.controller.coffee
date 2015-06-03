@@ -149,10 +149,8 @@ jQuery(document).ready ($)->
             $('<option />', {value: value.toLowerCase(), text: value.toUpperCase()}).appendTo(select)
 
     window.resetCollection = ()->
-        $('.plot,.villa,.building,.marker-grp').each (index,value)->
-
+        $('.polygon-type,.marker-grp').each (index,value)->
             unitID = parseInt value.id
-            console.log unitID
             
             if unitID isnt 0
                 unit = unitMasterCollection.findWhere
@@ -160,8 +158,6 @@ jQuery(document).ready ($)->
 
                 unitCollection.remove unit.get 'id'
 
-        console.log unitCollection
- 
     #api required to load second step
     window.loadJSONData = ()->
 
@@ -230,6 +226,8 @@ jQuery(document).ready ($)->
                 window.svgData['image'] = svgImg
                 window.svgData['data'] = response.data
                 window.svgData['supported_types'] = JSON.parse supported_types
+                window.svgData['breakpoint_position'] = breakpoint_position
+                window.svgData['svg_type'] = svg_type
                 window.loadJSONData()
                 
 
@@ -282,6 +280,7 @@ jQuery(document).ready ($)->
         myObject['image_id'] = IMAGEID
         myObject['object_type'] =  objectType
         myObject['canvas_type'] =  window.canvas_type
+        myObject['breakpoint_position'] =  window.breakpoint_position
 
         # amenity v/s other unit types
         if objectType is "amenity"
@@ -319,7 +318,11 @@ jQuery(document).ready ($)->
         else
             myObject['points'] =  $('.area').val().split(',')
 
-        myObject['other_details'] =  details        
+        myObject['other_details'] =  details 
+
+        if $('[name="check_primary"]').is(":checked") is true
+            myObject['primary_breakpoint'] =  window.breakpoint_position
+             
 
         $.ajax
             type : 'POST',
@@ -329,15 +332,19 @@ jQuery(document).ready ($)->
             data : $.param myObject 
             success :(response)->
                 myObject['id'] = response.data.id
-                window.svgData.data.push myObject
 
-                window.resetTool()
+                if response.data.primary_breakpoint isnt null
+                    myObject['primary_breakpoint'] = response.data.primary_breakpoint
+                
+                window.svgData.data.push myObject
 
                 # clear svg 
                 draw.clear()
 
                 # re-generate svg with new svg element
                 window.generateSvg(window.svgData.data)
+
+                window.resetTool()                
                 
             error :(response)->
                 alert('Some problem occurred')
@@ -356,6 +363,10 @@ jQuery(document).ready ($)->
 
         if type is 'apartment'
             new AuthoringTool.ApartmentCtrl 
+                'region' : @region
+
+        if type is 'building'
+            new AuthoringTool.BuildingCtrl 
                 'region' : @region             
 
 
@@ -369,6 +380,7 @@ jQuery(document).ready ($)->
         $('.units').attr 'disabled' ,  true
         $('.units').val elem.id
         $('.units').show()
+
         
  
     window.hideAlert = ()->
@@ -473,6 +485,52 @@ jQuery(document).ready ($)->
     $('#aj-imp-builder-drag-drop canvas').ready ->
         $('#aj-imp-builder-drag-drop canvas').hide()
         $('#aj-imp-builder-drag-drop .svg-draw-clear').hide()
+
+        document.addEventListener 'keydown', keydownFunc, false
+
+    keydownFunc = (e) ->
+      if e.which is 13
+        $('#aj-imp-builder-drag-drop canvas').hide()
+        $('#aj-imp-builder-drag-drop svg').show()
+        
+        pointList = window.polygon.getPointList(f)
+        pointList = pointList.join(' ')
+        @polygon = draw.polygon(pointList)
+        @polygon.addClass('polygon-temp')
+        @polygon.data('exclude', true)
+        @polygon.attr('fill', '#E73935')
+        @polygon.draggable()
+
+        @polygon.dragend = (delta, event) =>
+
+            tx = delta.x
+            ty = delta.y
+
+            canvasPointsLength = window.f.length
+            oldPoints = window.f
+            newPoints = []
+            i=0
+            while i < canvasPointsLength
+                newX = parseInt(oldPoints[i]) + tx
+                newY = parseInt(oldPoints[i+1]) + ty
+                newPoints.push(newX,newY)
+                i+=2
+            
+            window.f = newPoints
+
+            # clear drawing from canvas and redraw
+            canvas = document.getElementById("c")
+            ctx= canvas.getContext("2d")
+            ctx.clearRect( 0 , 0 , canvas.width, canvas.height ) 
+
+            @polygon.fixed()
+            @polygon.remove()
+            
+            $('#aj-imp-builder-drag-drop canvas').show()
+            $('#aj-imp-builder-drag-drop .svg-draw-clear').show()
+            $('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
+            drawPoly(window.f)            
+
     
     # toggle toolbox menu
     $(".toggle").click( ()->
@@ -525,13 +583,15 @@ jQuery(document).ready ($)->
         $('.submit').removeClass 'hidden'
         $('.property_type').attr 'disabled' ,  false
 
-
+            
     # on double click of existing marked polygon(villa or plot) open canvas mode
-    $('svg').on 'dblclick', '.villa,.plot,.apartment' , (e) ->
+    $('svg').on 'dblclick', '.polygon-type' , (e) ->
             e.preventDefault()
+            
             window.canvas_type = "polygon"
             elemId =  $(e.currentTarget).attr('svgid')
             window.currentSvgId = parseInt elemId            
+            
             $('#aj-imp-builder-drag-drop canvas').show()
             $('#aj-imp-builder-drag-drop .svg-draw-clear').show()
             $('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
@@ -541,7 +601,7 @@ jQuery(document).ready ($)->
             object_type = $(currentElem).attr('type')
             svgDataObjects = svgData.data
             _.each svgDataObjects, (svgDataObject, key) =>
-                if parseInt(element) is parseInt svgDataObject.object_id
+                if parseInt(elemId) is parseInt svgDataObject.id
                     points = svgDataObject.points
                     $('.area').val points.join(',')
                     # collection = new Backbone.Collection window.svgData.data
@@ -553,9 +613,15 @@ jQuery(document).ready ($)->
                     $('.delete').removeClass 'hidden'
                     window.loadForm(object_type)
 
+                    # show primary breakpoint checked or not
+                    if $(currentElem).data("primary-breakpoint") 
+                        $('[name="check_primary"]').prop('checked', true)                    
+
                     if object_type is "amenity"
                         $('#amenity-title').val $(currentElem).data("amenity-title")                        
-                        $('#amenity-description').val $(currentElem).data("amenity-desc")                        
+                        $('#amenity-description').val $(currentElem).data("amenity-desc")
+                        $('.property_type').val $(currentElem).attr 'type'
+                        $('.property_type').attr 'disabled' ,  true                        
 
                     else
                         window.showDetails(currentElem)
@@ -610,7 +676,12 @@ jQuery(document).ready ($)->
         $('.submit').addClass 'hidden'
         $('.edit').removeClass 'hidden'
         $('.delete').removeClass 'hidden'
+        
         window.loadForm(object_type)  
+
+        # show primary breakpoint checked or not
+        if $(currentElem).data("primary-breakpoint") 
+            $('[name="check_primary"]').prop('checked', true)
         
         # populate form
         if object_type is "amenity"
@@ -660,6 +731,7 @@ jQuery(document).ready ($)->
         myObject['image_id'] = IMAGEID
         myObject['object_type'] =  objectType
         myObject['canvas_type'] =  window.canvas_type
+        myObject['breakpoint_position'] =  window.breakpoint_position
 
         # amenity v/s other unit types
         if objectType is "amenity"
@@ -698,6 +770,10 @@ jQuery(document).ready ($)->
             myObject['points'] =  $('.area').val().split(',')
 
 
+        if $('[name="check_primary"]').is(":checked") is true
+            myObject['primary_breakpoint'] =  window.breakpoint_position            
+
+
         myObject['other_details'] =  details    
         myObject['_method'] =  'PUT'
 
@@ -719,13 +795,12 @@ jQuery(document).ready ($)->
                 myObject['id'] =  svgElemId
                 window.svgData.data.push myObject
 
-                window.resetTool()
-
                 # clear svg 
                 draw.clear()
 
                 # re-generate svg with new svg element
                 window.generateSvg(window.svgData.data)
+                window.resetTool()                
    
             error :(response)->
                 alert('Some problem occurred')  
@@ -743,10 +818,10 @@ jQuery(document).ready ($)->
         canvas = document.getElementById("c")
         ctx= canvas.getContext("2d")
         ctx.clearRect( 0 , 0 , canvas.width, canvas.height )
-        $("form").trigger("reset")
-        $(".toggle").trigger 'click'
-        $('#dynamice-region').empty()
-        $('.edit-box').addClass 'hidden'
+        # $("form").trigger("reset")
+        # $(".toggle").trigger 'click'
+        # $('#dynamice-region').empty()
+        # $('.edit-box').addClass 'hidden'
 
     # on click of close form 
     $('.closeform').on 'click' , (e)->
@@ -814,15 +889,15 @@ jQuery(document).ready ($)->
         svgExport = draw.exportSvg(
           exclude: ->
             @data 'exclude'
-          whitespace: true)
+          whitespace: false)
 
         data = {}
         data['data'] = btoa(svgExport)
+        data['svg_type'] = window.svgData.svg_type
+        data['breakpoint_position'] = window.breakpoint_position 
 
         # restore original viewbox
         draw.viewbox(0, 0, viewboxDefault.width, viewboxDefault.height)
-        console.log viewboxDefault.width
-        console.log viewboxDefault.height
 
         postUrl = "#{BASEURL}/admin/project/#{PROJECTID}/image/#{IMAGEID}/downloadSvg"
 
@@ -839,8 +914,8 @@ jQuery(document).ready ($)->
 
             # .fail (xhr, textStatus, errorThrown) =>
             #     console.log "fail"
-                         
-   
+
+
     # $('#save-svg-elem').on 'click', (e) ->
     #   console.log "click save-svg-elem"
     #   newCoordinates = $('.area').val()

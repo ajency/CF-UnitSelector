@@ -631,7 +631,7 @@ class ProjectController extends Controller {
 
         $getVar = Input::get();
 
-        $breakpoint = $getVar['position'];
+        $breakpoint = (int) $getVar['position'];
         $type = $getVar['type'];
 
         $propertyTypeName = [BUNGLOWID=>"Villa",PLOTID=>"Plot",APARTMENTID=>"Apartment",PENTHOUSEID=>"Penthouse"];
@@ -646,7 +646,14 @@ class ProjectController extends Controller {
 
                 // get property types supported by project
                 foreach ($projectpropertyTypes as $projectpropertyType) {
-                   $supported_types[] = $propertyTypeName[$projectpropertyType['property_type_id']];
+                     $propertyname = $propertyTypeName[$projectpropertyType['property_type_id']];
+                    if (($propertyname == "Apartment")or($propertyname == "Penthouse")) {
+                        $supported_types[] = "Building";
+                    }
+                    else{
+                        $supported_types[] = $propertyname;
+                    }
+                   
                 }
                 
                 // since project master svg, pass amenities as well
@@ -678,8 +685,8 @@ class ProjectController extends Controller {
      ->with('project', $project->toArray())
      ->with('svgImage', $svgImagePath)
      ->with('supported_types',json_encode($supported_types))
-     ->with('breakpoint',$breakpoint)
-     ->with('current', 'mastersvgtool');
+     ->with('breakpoint_position',$breakpoint)
+     ->with('svg_type', $type);
  }
 
 }

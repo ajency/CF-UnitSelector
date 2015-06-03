@@ -35,7 +35,14 @@ class Polygon extends Backbone.Model
             'class': item.other_details.class
             'id': item.object_id
             'type': item.object_type
-            svgid:  item.id             
+            svgid:  item.id 
+
+        # add additional class to identify shape
+        polygon.addClass('polygon-type')
+
+        # set data attrib for primary breakpoint, if set
+        if item.primary_breakpoint isnt null
+            polygon.data('primary-breakpoint', item.primary_breakpoint)
 
         #set data attributes for title and description if object type is amenity
         if item.object_type is "amenity"
