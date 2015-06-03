@@ -486,7 +486,7 @@
       return CenterApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterApartmentMasterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn overflow-h"> <div class="legend clearfix"> <ul> <!--<li class="available">AVAILABLE</li>--> <li class="sold">N/A</li> <!--<li class="blocked">BLOCKED</li> <li class="na">Available</li>--> </ul> </div> <div class="zoom-controls"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master animated fadeIn"> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="svg_loader" class="cf-loader hidden"></div> <div id="spritespin"></div> <div class="svg-maps"> <img class="first_image lazy-hidden img-responsive" /> <div class="region inactive"></div> </div> <div id="rotate_loader" class="cf-loader hidden"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> <div class="mini-map"> <img class="firstimage img-responsive" src=""/> <div class="project_master"></div> </div> </div>');
+    CenterApartmentMasterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn overflow-h"> <div class="legend clearfix"> <ul> <!--<li class="available">AVAILABLE</li>--> <li class="sold">N/A</li> <!--<li class="blocked">BLOCKED</li> <li class="na">Available</li>--> </ul> </div> <div class="zoom-controls"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master animated fadeIn"> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="svg_loader" class="img-loader"> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <div id="spritespin"></div> <div class="svg-maps animated fadeIn hidden"> <img class="first_image img-responsive" /> <div class="region inactive"></div> </div> <div id="rotate_loader" class="cf-loader hidden"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> <div class="mini-map"> <img class="firstimage img-responsive" src=""/> <div class="project_master"></div> </div> </div>');
 
     CenterApartmentMasterView.prototype.ui = {
       svgContainer: '.master',
@@ -610,7 +610,6 @@
       });
       $.merge(transitionImages, building.get('building_master'));
       first = _.values(svgs);
-      $('#svg_loader').removeClass('hidden');
       $('.first_image').attr('src', transitionImages[breakpoints[0]]);
       $('.first_image').load(function() {
         return $('.region').load(first[0], function() {
@@ -623,6 +622,7 @@
           CommonFloor.getApartmentsInView();
           that.loadZoom();
           response = building.checkRotationView(building_id);
+          $('.svg-maps').removeClass('hidden');
           $('#rotate_loader').removeClass('hidden');
           if (response === 1) {
             $('.cf-loader').removeClass('hidden');

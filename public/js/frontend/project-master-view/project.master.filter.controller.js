@@ -716,10 +716,10 @@
         $.merge(unitVariants, plotFilters[0].unitVariants);
         $.merge(budget, plotFilters[0].budget);
       }
-      if ($.inArray('budget', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
+      if ($.inArray('budget', project.get('filters').defaults) === -1 || _.isUndefined(project.get('filters').defaults)) {
         budget = [];
       }
-      if ($.inArray('area', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
+      if ($.inArray('area', project.get('filters').defaults) === -1 || _.isUndefined(project.get('filters').defaults)) {
         unitVariants = [];
       }
       viewsFacingsArr = this.getViewsFacings();
@@ -1040,10 +1040,10 @@
           'name': val
         });
       });
-      if ($.inArray('views', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
+      if ($.inArray('views', project.get('filters').defaults) === -1 || _.isUndefined(project.get('filters').defaults)) {
         viewArr = [];
       }
-      if ($.inArray('direction', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
+      if ($.inArray('direction', project.get('filters').defaults) === -1 || _.isUndefined(project.get('filters').defaults)) {
         facingsArr = [];
       }
       return [viewArr, facingsArr];

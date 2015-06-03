@@ -174,7 +174,17 @@ class CommonFloor.LeftCtrl extends Marionette.RegionController
 class CenterView extends Marionette.ItemView
 
 	template : Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content animated fadeIn">
-										<div class="cf-loader loader-center hidden"></div>
+										<div class="img-loader hidden">
+										  <div class="square" ></div>
+										  <div class="square"></div>
+										  <div class="square last"></div>
+										  <div class="square clear"></div>
+										  <div class="square"></div>
+										  <div class="square last"></div>
+										  <div class="square clear"></div>
+										  <div class="square "></div>
+										  <div class="square last"></div>
+										</div>
 										<div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" 
 											data-nodebug="" data-alwaysprocess="" 
 											data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" 
@@ -220,7 +230,7 @@ class CenterView extends Marionette.ItemView
 				content : $('#proj_info').html()
 				functionReady:(e)->
 					$('.action_button').on('click' , (e)->
-						$('.cf-loader').removeClass 'hidden'
+						$('.img-loader').removeClass 'hidden'
 						$('svg').attr('class' ,'zoom') 
 						$('.step1').addClass 'animated fadeOut'
 						$('.marker').tooltipster('hide')
@@ -252,7 +262,7 @@ class CenterView extends Marionette.ItemView
 				content : $('#proj_info').html()
 				functionReady:(e)->
 					$('.action_button').on('click' , (e)->
-						$('.cf-loader').removeClass 'hidden'
+						$('.img-loader').removeClass 'hidden'
 						$('svg').attr('class' ,'zoom') 
 						$('.step1').addClass 'animated fadeOut'
 						$('.marker').tooltipster('hide')

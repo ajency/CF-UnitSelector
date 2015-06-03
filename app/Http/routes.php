@@ -75,8 +75,9 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::post( 'project/{project}/floor-layout/{id}/getunittypevariants', 'Admin\ProjectFloorLayoutController@getUnitTypeVariant' );
     Route::post( 'project/{project}/media/updatebreakpoint', 'Admin\ProjectMediaController@updateBreakPoint' );
     Route::post( 'building/{id}/media/updatebreakpoint', 'Admin\BuildingMediaController@updateBreakPoint' );
-    Route::post( 'project/{project}/apartment-variant/getpropertytypedata', 'Admin\ProjectApartmentVariantController@getPropertyTypeData' );
-    Route::post( 'project/{project}/apartment-variant/getunittypevariants', 'Admin\ProjectApartmentVariantController@getUnitTypeVariants' );
+    Route::post( 'project/{project}/apartment-variant/getpropertytypedata','Admin\ProjectApartmentVariantController@getPropertyTypeData' );
+    Route::post( 'project/{project}/apartment-variant/getunittypevariants','Admin\ProjectApartmentVariantController@getUnitTypeVariants' );
+    Route::post( 'project/{project}/apartment-unit/getavailableposition','Admin\ProjectApartmentUnitController@getAvailablePosition' );
     Route::get( 'project/{project}/attributes/addroomtype', 'Admin\ProjectRoomTypeController@addRoomType' );
     Route::delete( 'project/{project}/bunglow-variant/{id}/deletelevel', 'Admin\ProjectBunglowVariantController@deleteLevel' );
     Route::get( 'project/{projectid}/image/{imageid}', 'Admin\SvgController@show' );

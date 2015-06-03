@@ -872,37 +872,6 @@ function deleteSvg(mediaId, type, refference)
     });
 }
 
-function getPositions(floor)
-{
-    var buildingId = $("select[name='building_id']").val();
-    $.ajax({
-        url: BASEURL + '/admin/project/' + PROJECTID + '/building/' + buildingId + '/getpositions',
-        type: "POST",
-        data: {
-            floor: floor
-        },
-        success: function (response) {
-            var position = parseInt(response.data);
-            var newOptions = [];
-            for (var i = 1; i <= position; i++)
-            {
-                newOptions[i] = i;
-            }
-
-            var $el = $("#flat_position");
-            //$el.val('');
-            $el.empty(); // remove old options
-            $el.append($("<option>Select Position</option>")
-                    .attr("value", ''));
-            $.each(newOptions, function (value, key) {
-                $el.append($("<option></option>")
-                        .attr("value", value).text(key));
-            });
-            $(".select-position").removeClass("hidden");
-        }
-    });
-}
-
 function getVariants(obj)
 {
     var unitTypeId = obj.value;
@@ -917,6 +886,30 @@ function getVariants(obj)
             var $el = $(obj).closest('.row').find('select[name="unit_variant_id"]');
             $el.empty(); // remove old options
             $el.append(response.data);
+
+        }
+    });
+}
+
+function getPositions(obj)
+{
+    var buildingId = $('select[name="building_id"]').val();
+    var floor = obj.value;
+    $.ajax({
+        url: BASEURL + '/admin/project/' + PROJECTID + '/apartment-unit/getavailableposition',
+        type: "POST",
+        data: {
+            buildingId: buildingId,
+            floor: floor
+        },
+        success: function (response) {
+            
+            
+            var $el = $("#flat_position");
+            $el.select2('val', '');
+            $el.empty(); // remove old options
+            $el.append(response.data);
+             
 
         }
     });
