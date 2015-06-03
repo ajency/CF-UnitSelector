@@ -1,5 +1,6 @@
 (function() {
   jQuery(document).ready(function($) {
+    var keydownFunc;
     $('.area').canvasAreaDraw();
     window.draw = SVG('aj-imp-builder-drag-drop');
     window.svgData = {
@@ -434,8 +435,50 @@
     window.loadOjectData();
     $('#aj-imp-builder-drag-drop canvas').ready(function() {
       $('#aj-imp-builder-drag-drop canvas').hide();
-      return $('#aj-imp-builder-drag-drop .svg-draw-clear').hide();
+      $('#aj-imp-builder-drag-drop .svg-draw-clear').hide();
+      return document.addEventListener('keydown', keydownFunc, false);
     });
+    keydownFunc = function(e) {
+      var pointList;
+      if (e.which === 13) {
+        $('#aj-imp-builder-drag-drop canvas').hide();
+        $('#aj-imp-builder-drag-drop svg').show();
+        pointList = window.polygon.getPointList(f);
+        pointList = pointList.join(' ');
+        this.polygon = draw.polygon(pointList);
+        this.polygon.addClass('polygon-temp');
+        this.polygon.data('exclude', true);
+        this.polygon.attr('fill', '#E73935');
+        this.polygon.draggable();
+        return this.polygon.dragend = (function(_this) {
+          return function(delta, event) {
+            var canvas, canvasPointsLength, ctx, i, newPoints, newX, newY, oldPoints, tx, ty;
+            tx = delta.x;
+            ty = delta.y;
+            canvasPointsLength = window.f.length;
+            oldPoints = window.f;
+            newPoints = [];
+            i = 0;
+            while (i < canvasPointsLength) {
+              newX = parseInt(oldPoints[i]) + tx;
+              newY = parseInt(oldPoints[i + 1]) + ty;
+              newPoints.push(newX, newY);
+              i += 2;
+            }
+            window.f = newPoints;
+            canvas = document.getElementById("c");
+            ctx = canvas.getContext("2d");
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            _this.polygon.fixed();
+            _this.polygon.remove();
+            $('#aj-imp-builder-drag-drop canvas').show();
+            $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
+            $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
+            return drawPoly(window.f);
+          };
+        })(this);
+      }
+    };
     $(".toggle").click(function() {
       $(this).toggleClass("expanded");
       return $('.menu').toggleClass('open');

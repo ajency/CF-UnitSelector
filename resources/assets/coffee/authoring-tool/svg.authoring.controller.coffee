@@ -485,6 +485,52 @@ jQuery(document).ready ($)->
     $('#aj-imp-builder-drag-drop canvas').ready ->
         $('#aj-imp-builder-drag-drop canvas').hide()
         $('#aj-imp-builder-drag-drop .svg-draw-clear').hide()
+
+        document.addEventListener 'keydown', keydownFunc, false
+
+    keydownFunc = (e) ->
+      if e.which is 13
+        $('#aj-imp-builder-drag-drop canvas').hide()
+        $('#aj-imp-builder-drag-drop svg').show()
+        
+        pointList = window.polygon.getPointList(f)
+        pointList = pointList.join(' ')
+        @polygon = draw.polygon(pointList)
+        @polygon.addClass('polygon-temp')
+        @polygon.data('exclude', true)
+        @polygon.attr('fill', '#E73935')
+        @polygon.draggable()
+
+        @polygon.dragend = (delta, event) =>
+
+            tx = delta.x
+            ty = delta.y
+
+            canvasPointsLength = window.f.length
+            oldPoints = window.f
+            newPoints = []
+            i=0
+            while i < canvasPointsLength
+                newX = parseInt(oldPoints[i]) + tx
+                newY = parseInt(oldPoints[i+1]) + ty
+                newPoints.push(newX,newY)
+                i+=2
+            
+            window.f = newPoints
+
+            # clear drawing from canvas and redraw
+            canvas = document.getElementById("c")
+            ctx= canvas.getContext("2d")
+            ctx.clearRect( 0 , 0 , canvas.width, canvas.height ) 
+
+            @polygon.fixed()
+            @polygon.remove()
+            
+            $('#aj-imp-builder-drag-drop canvas').show()
+            $('#aj-imp-builder-drag-drop .svg-draw-clear').show()
+            $('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
+            drawPoly(window.f)            
+
     
     # toggle toolbox menu
     $(".toggle").click( ()->
@@ -537,7 +583,7 @@ jQuery(document).ready ($)->
         $('.submit').removeClass 'hidden'
         $('.property_type').attr 'disabled' ,  false
 
-
+            
     # on double click of existing marked polygon(villa or plot) open canvas mode
     $('svg').on 'dblclick', '.polygon-type' , (e) ->
             e.preventDefault()
@@ -868,8 +914,8 @@ jQuery(document).ready ($)->
 
             # .fail (xhr, textStatus, errorThrown) =>
             #     console.log "fail"
-                         
-   
+
+
     # $('#save-svg-elem').on 'click', (e) ->
     #   console.log "click save-svg-elem"
     #   newCoordinates = $('.area').val()
