@@ -363,7 +363,7 @@ class CenterUnitView extends Marionette.ItemView
 										</div>
 									</div>
 								</div>
-								<div id="rotate_loader" class="cf-loader hidden"></div>
+								<div id="rotate_loader" class="img-loader"></div>
 								<div class="single-unit">
 	              	
 					                <div class="prev"></div>
@@ -437,16 +437,12 @@ class CenterUnitView extends Marionette.ItemView
 			response = @generateLevels()
 			html = ''
 			html += '<div class="animated fadeIn">
-						<img class="img img-responsive external-img" data-src="'+response[3].get('external3durl')+'" />
+						<a href=""><img class="img img-responsive external-img" data-src="'+response[3].get('external3durl')+'" /></a>
 					</div>'
 			$('.images').html html
-			$('.img').lazyLoadXT(
-				forceLoad : true
-				updateEvent: 'load'
-				oncomplete : ()->
-					$('.img').removeClass "lazy-hidden"
-					$('.img').addClass "lazy-loaded"
-			)
+			$('#rotate_loader').removeClass 'hidden'
+			$('.external-img').load ()->
+				$('#rotate_loader').addClass 'hidden'
 			$('.external').addClass('current')
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
@@ -558,7 +554,7 @@ class CenterUnitView extends Marionette.ItemView
 
 				
 		if ! _.isUndefined(response[3].get('external3durl'))
-			html = '<img class="img img-responsive external-img"  data-src="'+response[3].get('external3durl')+'" />'
+			html = '<img class=" img-responsive external-img"  data-src="'+response[3].get('external3durl')+'" />'
 			$('.images').html html
 			$('.external').addClass('current')
 			$('.threeD').removeClass('current')
@@ -603,17 +599,16 @@ class CenterUnitView extends Marionette.ItemView
 
 
 		$('.images').html html
-		# $('.img').addClass 'animated fadeIn hidden'
-		# $('.img').load ()->
-		# 	$('#rotate_loader').addClass 'hidden'
-		# 	$('.img').removeClass 'hidden'
+		$('.external-img').load ()->
+			$('#rotate_loader').addClass 'hidden'
+			
 		if html == ""
 			# $('.images').addClass 'no-image'
 			html = '<img class="img img-responsive external-img"  src="../../images/no-image.jpg" />'
 
 		$(".fancybox").fancybox()
 		$('.img').lazyLoadXT(
-			forceLoad : true
+			# forceLoad : true
 			updateEvent: 'load'
 			oncomplete : ()->
 				$('.img').removeClass "lazy-hidden"
