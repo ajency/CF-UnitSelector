@@ -625,6 +625,7 @@
           $('.svg-maps').removeClass('hidden');
           $('.mini-map').removeClass('hidden');
           $('#rotate_loader').removeClass('hidden');
+          $('.first_image').first().css('width', that.ui.svgContainer.width());
           if (response === 1) {
             $('.cf-loader').removeClass('hidden');
             return that.initializeRotate(transitionImages, svgs, building);
