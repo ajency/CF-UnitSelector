@@ -27,7 +27,8 @@
                     <div class="col-md-3">
                         <div class="img-hover img-thumbnail">
                             <a class="btn btn-link btn-danger overlay" onclick="deleteSvg({{$svgImages['google_earth']['ID']}}, 'google_earth', '');"><i class="fa fa-close text-primary"></i></a>
-                            <object style="  width: 150px;height: 93px;" id="svg1" data="{{ $svgImages['google_earth']['IMAGE'] }}" type="image/svg+xml"></object>
+                            <img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="{{ $svgImages['google_earth']['IMAGE'] }}"   />
+           
                             <div class="dz-size" data-dz-size="">{{ $svgImages['google_earth']['NAME'] }}</div>
                         </div>
                     </div>

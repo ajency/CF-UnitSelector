@@ -81,7 +81,7 @@ class ProjectApartmentUnitController extends Controller {
         $unit->unit_variant_id = $request->get('unit_variant_id');
         $unit->building_id = $request->get('building_id');
         $unit->floor = $request->get('floor');
-        $unit->position = '';
+        $unit->position = $request->get('position');
         $unit->availability = $request->get('unit_status');
         $unit->save();
 
@@ -110,7 +110,6 @@ class ProjectApartmentUnitController extends Controller {
      */
     public function edit($projectId, $unitId) {
         $project = Project::find($projectId);
-
         $project = Project::find($projectId);
 
         $phases = $project->projectPhase()->lists('id');
@@ -120,6 +119,24 @@ class ProjectApartmentUnitController extends Controller {
         $unit = Unit::find($unitId)->toArray();
         $building = Building::find($unit['building_id'])->toArray();
         $floors = $building['no_of_floors'];
+        
+        $positions =[];
+        $unitPositions = Unit :: where('building_id',$unit['building_id'])->where('floor',$unit['floor'])->where('id','!=',$unit['id'])->get()->toArray();
+        foreach($unitPositions as $unitPosition)
+            $positions[] = $unitPosition['position'];
+        
+ 
+        $availabelpositions = [];
+         for ($i = 1; $i<=40 ; $i++)
+        {
+            if(in_array($i,$positions))
+                continue;
+             
+            $availabelpositions [] =$i;
+            
+        }
+        
+ 
 
         $projectPropertytypes = $project->projectPropertyTypes()->whereIn( 'property_type_id', [APARTMENTID,PENTHOUSEID] )->get()->toArray();
         
@@ -133,6 +150,7 @@ class ProjectApartmentUnitController extends Controller {
                         ->with('current', 'apartment-unit')
                         ->with('buildings', $buildings)
                         ->with('floors', $floors)
+                        ->with('availabelpositions', $availabelpositions)
                         ->with('unit_variant_arr', $unitVariantArr)
                         ->with('unit', $unit);
     }
@@ -144,13 +162,13 @@ class ProjectApartmentUnitController extends Controller {
      * @return Response
      */
     public function update($project_id, $id, Request $request) {
-
+ 
         $unit = Unit::find($id);
         $unit->unit_name = ucfirst($request->get('unit_name'));
         $unit->unit_variant_id = $request->get('unit_variant');
         $unit->building_id = $request->get('building_id');
         $unit->floor = $request->get('floor');
-        $unit->position = '';
+        $unit->position = $request->get('position');
         $unit->availability = $request->get('unit_status');
         $unit->save();
 
@@ -169,6 +187,31 @@ class ProjectApartmentUnitController extends Controller {
      */
     public function destroy($id) {
         //
+    }
+    
+    public function getAvailablePosition($projectId, Request $request)
+    {  
+        $buildingId = $request['buildingId'];
+        $floor = $request['floor'];
+        $unitPositions = Unit :: where('building_id',$buildingId)->where('floor',$floor)->get()->toArray();
+        $positions =[];
+        foreach($unitPositions as $unitPosition)
+            $positions[] = $unitPosition['position'];
+        
+        $str ='<option value="">Select Position</option>';
+        for ($i = 1; $i<=40 ; $i++)
+        {
+            if(in_array($i,$positions))
+                continue;
+            
+            $str .='<option value="'.$i.'">'.$i.'</option>';
+        }
+        
+       return response()->json( [
+            'code' => 'available_poition',
+            'message' => '',
+            'data' => $str
+        ], 201 );
     }
 
 }

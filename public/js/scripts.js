@@ -600,7 +600,7 @@ $(document).ready(function () {
             max_file_size: '10mb',
             mime_types: [{
                     title: "Image files",
-                    extensions: "svg,jpg,png,jpeg"
+                    extensions: "jpg,png,jpeg"
                 }]
         },
         init: {
@@ -634,7 +634,7 @@ $(document).ready(function () {
                 var str = '<div class="col-md-3">';
                 str += '<div class="img-hover img-thumbnail">';
                 str += '<a class="btn btn-link btn-danger overlay" onclick="deleteSvg(' + fileResponse.data.media_id + ',\'google_earth\',\'\');"><i class="fa fa-close text-primary"></i></a>';
-                str += '<object style="width:150px;height:93px;" class="img-thumbnail" id="svg1" data="' + fileResponse.data.image_path + '" type="image/svg+xml" />';
+                str += '<img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="' + fileResponse.data.image_path + '"   />';
                 str += '<div class="dz-size" data-dz-size=""><strong></strong>' + fileResponse.data.filename + '</div>';
                 str += '</div>';
                 str += '</div>';
@@ -872,37 +872,6 @@ function deleteSvg(mediaId, type, refference)
     });
 }
 
-function getPositions(floor)
-{
-    var buildingId = $("select[name='building_id']").val();
-    $.ajax({
-        url: BASEURL + '/admin/project/' + PROJECTID + '/building/' + buildingId + '/getpositions',
-        type: "POST",
-        data: {
-            floor: floor
-        },
-        success: function (response) {
-            var position = parseInt(response.data);
-            var newOptions = [];
-            for (var i = 1; i <= position; i++)
-            {
-                newOptions[i] = i;
-            }
-
-            var $el = $("#flat_position");
-            //$el.val('');
-            $el.empty(); // remove old options
-            $el.append($("<option>Select Position</option>")
-                    .attr("value", ''));
-            $.each(newOptions, function (value, key) {
-                $el.append($("<option></option>")
-                        .attr("value", value).text(key));
-            });
-            $(".select-position").removeClass("hidden");
-        }
-    });
-}
-
 function getVariants(obj)
 {
     var unitTypeId = obj.value;
@@ -917,6 +886,30 @@ function getVariants(obj)
             var $el = $(obj).closest('.row').find('select[name="unit_variant_id"]');
             $el.empty(); // remove old options
             $el.append(response.data);
+
+        }
+    });
+}
+
+function getPositions(obj)
+{
+    var buildingId = $('select[name="building_id"]').val();
+    var floor = obj.value;
+    $.ajax({
+        url: BASEURL + '/admin/project/' + PROJECTID + '/apartment-unit/getavailableposition',
+        type: "POST",
+        data: {
+            buildingId: buildingId,
+            floor: floor
+        },
+        success: function (response) {
+            
+            
+            var $el = $("#flat_position");
+            $el.select2('val', '');
+            $el.empty(); // remove old options
+            $el.append(response.data);
+             
 
         }
     });

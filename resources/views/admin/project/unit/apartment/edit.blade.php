@@ -48,22 +48,32 @@
                     </div> 
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group select-floor" >
+                    <div class="form-group select-floor @if(!$unit['building_id']){{'hidden'}}@endif" >
                         <label class="form-label">Floor</label>
-                        <select id="floor" name="floor" onchange="getPositions(this.value);"   class="select2 form-control apartment-unit-floor-no m-b-5">
+                        <select id="floor" name="floor" onchange="getPositions(this);"   class="select2 form-control apartment-unit-floor-no m-b-5">
                             <<option value="">Select Floor</option>
                             @for($i=1; $i<= $floors ; $i++)
                             <option  @if($unit['floor']==$i){{'selected'}} @endif value="{{ $i }}">{{ $i }}</option>
                             @endfor
                         </select>
-                        <!--<a data-toggle="modal" data-target=".bs-example-modal-lg2" href="#">
-                            + Add floor Layout
-                        </a>-->
-                    </div> 
+                                </div> 
                 </div>
+                 
                 
             </div>
             <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group @if(!$unit['floor']){{'hidden'}}@endif select-position">
+                        <label class="form-label">Position</label>
+                        <select id="flat_position" required="" name="position" class="select2 form-control">
+                            <option value="">Select Position</option>
+                             @foreach($availabelpositions as $availabelposition)
+                            <option  @if($unit['position']==$availabelposition){{'selected'}} @endif value="{{ $availabelposition }}">{{ $availabelposition }}</option>
+                            @endforeach
+                        </select>
+                    </div> 
+
+                </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Unit Variant<span class="text-primary">*</span></label>
