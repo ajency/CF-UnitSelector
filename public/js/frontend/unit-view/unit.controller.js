@@ -297,17 +297,21 @@
     CenterUnitView.prototype.events = {
       'click .threeD': function(e) {
         var html, response;
-        $('#rotate_loader').removeClass('hidden');
         $('.firstimage').hide();
         $('.images').empty();
         response = this.generateLevels();
         html = '';
         $.each(response[1], function(index, value) {
-          return html += '<div class="layouts animated fadeIn"> <a class="fancybox" rel="3d" href="' + value + '" title="' + s.replaceAll(response[2][index], "_", " ") + '"> <img class="img" src="' + value + '" /> <div class="img-overlay"></div> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </a> </div>';
+          return html += '<div class="layouts animated fadeIn"> <a class="fancybox" rel="3d" href="' + value + '" title="' + s.replaceAll(response[2][index], "_", " ") + '"> <img class="img" data-src="' + value + '" /> <div class="img-overlay"></div> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </a> </div>';
         });
         $('.images').html(html);
-        $('.img').load(function() {
-          return $('#rotate_loader').addClass('hidden');
+        $('.img').lazyLoadXT({
+          forceLoad: true,
+          updateEvent: 'load',
+          oncomplete: function() {
+            $('.img').removeClass("lazy-hidden");
+            return $('.img').addClass("lazy-loaded");
+          }
         });
         $('.threeD').addClass('current');
         $('.external').removeClass('current');
@@ -316,17 +320,21 @@
       },
       'click .twoD': function(e) {
         var html, response;
-        $('#rotate_loader').removeClass('hidden');
         $('.firstimage').hide();
         $('.images').empty();
         response = this.generateLevels();
         html = '';
         $.each(response[0], function(index, value) {
-          return html += '<div class="layouts animated fadeIn"> <a class="fancybox" rel="2d" href="' + value + '" title="' + s.replaceAll(response[2][index], "_", " ") + '"> <img class="img" src="' + value + '" /> <div class="img-overlay"></div> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </a> </div>';
+          return html += '<div class="layouts animated fadeIn"> <a class="fancybox" rel="2d" href="' + value + '" title="' + s.replaceAll(response[2][index], "_", " ") + '"> <img class="img" data-src="' + value + '" /> <div class="img-overlay"></div> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </a> </div>';
         });
         $('.images').html(html);
-        $('.img').load(function() {
-          return $('#rotate_loader').addClass('hidden');
+        $('.img').lazyLoadXT({
+          forceLoad: true,
+          updateEvent: 'load',
+          oncomplete: function() {
+            $('.img').removeClass("lazy-hidden");
+            return $('.img').addClass("lazy-loaded");
+          }
         });
         $('.twoD').addClass('current');
         $('.external').removeClass('current');
@@ -336,15 +344,19 @@
       },
       'click .external': function(e) {
         var html, response;
-        $('#rotate_loader').removeClass('hidden');
         $('.firstimage').hide();
         $('.images').empty();
         response = this.generateLevels();
         html = '';
-        html += '<div class="animated fadeIn"> <img class="img img-responsive external-img" src="' + response[3].get('external3durl') + '" /> </div>';
+        html += '<div class="animated fadeIn"> <img class="img img-responsive external-img" data-src="' + response[3].get('external3durl') + '" /> </div>';
         $('.images').html(html);
-        $('.img').load(function() {
-          return $('#rotate_loader').addClass('hidden');
+        $('.img').lazyLoadXT({
+          forceLoad: true,
+          updateEvent: 'load',
+          oncomplete: function() {
+            $('.img').removeClass("lazy-hidden");
+            return $('.img').addClass("lazy-loaded");
+          }
         });
         $('.external').addClass('current');
         $('.threeD').removeClass('current');
@@ -354,17 +366,21 @@
       },
       'click .gallery': function(e) {
         var html, response;
-        $('#rotate_loader').removeClass('hidden');
         $('.images').empty();
         $('.firstimage').hide();
         response = this.generateLevels();
         html = '';
         $.each(response[3].get('galleryurl'), function(index, value) {
-          return html += '<div class="animated fadeIn gallery-img"> <a class="fancybox" rel="gall" href="' + value + '"> <img class="img" src="' + value + '" /> </a> </div>';
+          return html += '<div class="animated fadeIn gallery-img"> <a class="fancybox" rel="gall" href="' + value + '"> <img class="img" data-src="' + value + '" /> </a> </div>';
         });
         $('.images').html(html);
-        $('.img').load(function() {
-          return $('#rotate_loader').addClass('hidden');
+        $('.img').lazyLoadXT({
+          forceLoad: true,
+          updateEvent: 'load',
+          oncomplete: function() {
+            $('.img').removeClass("lazy-hidden");
+            return $('.img').addClass("lazy-loaded");
+          }
         });
         $('.gallery').addClass('current');
         $('.threeD').removeClass('current');
@@ -406,12 +422,11 @@
 
     CenterUnitView.prototype.onShow = function() {
       var height, html, response;
-      $('#rotate_loader').removeClass('hidden');
       this.getNextPrevUnit();
       response = this.generateLevels();
       html = '';
       $.each(response[0], function(index, value) {
-        return html += '<div class="layouts animated fadeIn"> <a class="fancybox" href="' + value + '"> <img class="img" src="' + value + '" /> <div class="img-overlay"></div> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </a> </div>';
+        return html += '<div class="layouts animated fadeIn"> <a class="fancybox" href="' + value + '"> <img class="img" data-src="' + value + '" /> <div class="img-overlay"></div> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </a> </div>';
       });
       $('.twoD').addClass('current');
       $('.threeD').removeClass('current');
@@ -419,7 +434,7 @@
       $('.gallery').removeClass('current');
       if (response[0].length === 0) {
         $.each(response[1], function(index, value) {
-          return html += '<img src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span>';
+          return html += '<img data-src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span>';
         });
         $('.threeD').addClass('current');
         $('.external').removeClass('current');
@@ -432,7 +447,7 @@
         $('.level').attr('class', 'level Level_0 apartment_level');
       }
       if (!_.isUndefined(response[3].get('external3durl'))) {
-        html = '<img class="img img-responsive external-img"  src="' + response[3].get('external3durl') + '" />';
+        html = '<img class="img img-responsive external-img"  data-src="' + response[3].get('external3durl') + '" />';
         $('.images').html(html);
         $('.external').addClass('current');
         $('.threeD').removeClass('current');
@@ -458,7 +473,7 @@
         $('.external').removeClass('current');
         if (!_.isUndefined(response[3].get('galleryurl'))) {
           $.each(response[3].get('galleryurl'), function(index, value) {
-            return html += '<div class="animated fadeIn"><img class="img" src="' + value + '" /></div>';
+            return html += '<div class="animated fadeIn"><img class="img" data-src="' + value + '" /></div>';
           });
         }
       }
@@ -477,22 +492,23 @@
         });
       }
       $('.images').html(html);
-      $('.img').addClass('animated fadeIn hidden');
-      $('.img').load(function() {
-        $('#rotate_loader').addClass('hidden');
-        return $('.img').removeClass('hidden');
-      });
       if (html === "") {
         html = '<img class="img img-responsive external-img"  src="../../images/no-image.jpg" />';
       }
       $(".fancybox").fancybox();
+      $('.img').lazyLoadXT({
+        forceLoad: true,
+        updateEvent: 'load',
+        oncomplete: function() {
+          $('.img').removeClass("lazy-hidden");
+          return $('.img').addClass("lazy-loaded");
+        }
+      });
       return this.iniTooltip();
     };
 
     CenterUnitView.prototype.loadMaster = function() {
       var breakpoints, building, first, id, response, svgs, transitionImages, unit, url;
-      $('.firstimage').addClass('hidden');
-      $('#rotate_loader').removeClass('hidden');
       url = Backbone.history.fragment;
       id = url.split('/')[1];
       console.log(unit = unitCollection.findWhere({
@@ -515,8 +531,6 @@
         if (building.get('building_master').length !== 0) {
           $('.firstimage').attr('src', transitionImages[breakpoints[0]]);
           $('.firstimage').load(function() {
-            $('#rotate_loader').addClass('hidden');
-            $('.firstimage').removeClass('hidden');
             return $('.images').load(first[0], function() {
               $('.apartment').each(function(ind, item) {
                 var itemid;
@@ -543,8 +557,6 @@
       if (project.get('project_master').length !== 0) {
         $('.firstimage').attr('src', transitionImages[breakpoints[0]]);
         $('.firstimage').load(function() {
-          $('#rotate_loader').addClass('hidden');
-          $('.firstimage').removeClass('hidden');
           return $('.images').load(first[0], function() {
             $('.villa,.plot').each(function(ind, item) {
               var itemid;
