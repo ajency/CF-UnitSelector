@@ -384,7 +384,11 @@ jQuery(document).ready ($)->
 
         if type is 'building'
             new AuthoringTool.BuildingCtrl 
-                'region' : @region             
+                'region' : @region 
+
+        if type is 'property'
+            new AuthoringTool.BuildingCtrl 
+                'region' : @region                             
 
 
     window.showDetails = (elem)->
@@ -446,8 +450,8 @@ jQuery(document).ready ($)->
             circle = draw.circle(15.002)
             circle.attr
                 fill: '#F7931E'
-                cx: "630.101"
-                cy: "362.245"
+                cx: window.cx
+                cy: window.cy 
 
             drawMarkerElements.push circle
 
@@ -466,30 +470,31 @@ jQuery(document).ready ($)->
             circle = draw.circle(15.002)
             circle.attr
                 fill: '#FFFFFF'
-                cx: "1074.44"
-                cy: "427.187"
+                cx:  window.cx
+                cy:  window.cy
 
             drawMarkerElements.push circle
             break;
 
           when 'earth-location'
             groupMarker.attr
-                class: 'earth-location-marker-grp'             
+                class: 'earth-location-marker-grp' 
+
+            groupMarker.addClass('step1-marker')
             
-            ellipse = draw.ellipse(650, 220.27)
+            ellipse = draw.ellipse(360, 160)
 
             ellipse.attr
-                fill: '#FF6700'
-                stroke: '#F15A24'
-                stroke-width:2
-                fill-opacity:0.5
-                stroke-miterlimit:10
-                cx: "1074.44"
-                cy: "427.187"    
+                'fill': '#FF6700'
+                'stroke': '#FF7300'
+                'stroke-width':3
+                'fill-opacity':0.2
+                'stroke-miterlimit':10
+                cx: window.cx
+                cy: window.cy
+ 
             
-            drawMarkerElements.push ellipse            
-
-    
+            drawMarkerElements.push ellipse  
      
         _.each drawMarkerElements, (markerElement, key) =>
             groupMarker.add(markerElement)

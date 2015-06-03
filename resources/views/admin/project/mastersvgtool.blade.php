@@ -29,17 +29,10 @@
       stroke-dasharray: 0 !important;
     }
 
-    /* #aj-imp-browser-body {
-        width:100% !important;
-        border: 0px!important;
-    }
     .svg-canvas{
-        z-index: 9999;
-        position: absolute;
-        width: 100%;
-        top: 0px;
+        transform: matrix(1, 0, 0, 1, 0, 0);
 
-    }*/
+    }
 
 
 </style>
@@ -374,6 +367,7 @@
             breakpoint_position = '{{$breakpoint_position}}';
             svg_type = '{{$svg_type}}';
             building_id = '{{$building_id}}';
+            project_id = '{{$project_id}}';
             
 
             

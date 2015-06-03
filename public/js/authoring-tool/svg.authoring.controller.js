@@ -345,6 +345,11 @@
         });
       }
       if (type === 'building') {
+        new AuthoringTool.BuildingCtrl({
+          'region': this.region
+        });
+      }
+      if (type === 'property') {
         return new AuthoringTool.BuildingCtrl({
           'region': this.region
         });
@@ -410,8 +415,8 @@
           circle = draw.circle(15.002);
           circle.attr({
             fill: '#F7931E',
-            cx: "630.101",
-            cy: "362.245"
+            cx: window.cx,
+            cy: window.cy
           });
           drawMarkerElements.push(circle);
           break;
@@ -427,8 +432,8 @@
           circle = draw.circle(15.002);
           circle.attr({
             fill: '#FFFFFF',
-            cx: "1074.44",
-            cy: "427.187"
+            cx: window.cx,
+            cy: window.cy
           });
           drawMarkerElements.push(circle);
           break;
@@ -436,19 +441,16 @@
           groupMarker.attr({
             "class": 'earth-location-marker-grp'
           });
-          ellipse = draw.ellipse(650, 220.27);
+          groupMarker.addClass('step1-marker');
+          ellipse = draw.ellipse(360, 160);
           ellipse.attr({
-            fill: '#FF6700',
-            stroke: '#F15A24'
-          }, stroke - {
-            width: 2
-          }, fill - {
-            opacity: 0.5
-          }, stroke - {
-            miterlimit: 10
-          }, {
-            cx: "1074.44",
-            cy: "427.187"
+            'fill': '#FF6700',
+            'stroke': '#FF7300',
+            'stroke-width': 3,
+            'fill-opacity': 0.2,
+            'stroke-miterlimit': 10,
+            cx: window.cx,
+            cy: window.cy
           });
           drawMarkerElements.push(ellipse);
       }

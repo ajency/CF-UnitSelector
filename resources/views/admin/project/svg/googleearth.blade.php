@@ -24,7 +24,7 @@
           
                 @if(!empty($svgImages['google_earth']['IMAGE']))
                 <?php 
-                $authoringToolUrl = url() . "/admin/project/" . $project['id'] . "/image/" . $svgImages['google_earth']['ID'] . "/authoring-tool?&type=google_master";
+                $authoringToolUrl = url() . "/admin/project/" . $project['id'] . "/image/" . $svgImages['google_earth']['ID'] . "/authoring-tool?&type=google_earth";
                 ?>
                 <div class="row" >
                     <div class="col-md-3">
@@ -37,7 +37,7 @@
                     </div>
                     @if(hasPermission($project['id'],['svg_auth_tool']))
                     <div class="col-md-5">
-                        <h5 class="semi-bold">To use the Authoring Tool<a href="{{$authoringToolUrl}}" class="text-primary"> click here</a></h5>
+                        <h5 class="semi-bold">To use the Authoring Tool<a href="{{$authoringToolUrl}}" target="_blank" class="text-primary"> click here</a></h5>
                     </div>
                     @endif
                     <div class="col-md-4 hidden">
