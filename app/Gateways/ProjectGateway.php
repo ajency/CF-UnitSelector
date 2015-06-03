@@ -131,11 +131,11 @@ class ProjectGateway implements ProjectGatewayInterface {
         $unit['direction'] = ($unit['direction'])?Defaults::find($unit['direction'])->label:'';
         $unit['views'] = array_values($unit['views']);
 		$unitBreakpoint = SvgController :: get_primary_breakpoints($unit['id']);
-        $unit['breakpoint'] = $unitBreakpoint[0]['primary_breakpoint'];
+        $unit['breakpoint'] = (isset($unitBreakpoint[0]['primary_breakpoint']))?$unitBreakpoint[0]['primary_breakpoint']:'';
         unset ($unit['availability']);
          $unitData[]=$unit;
      }
-dd($unitData);
+ 
         $stepTwoData = [
             'buildings' => $buildings->toArray(),
             'bunglow_variants' => $bunglowVariantData,
