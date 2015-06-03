@@ -570,7 +570,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 											<div id="next" class="rotate-right">Right</div>
 										</div>
 
-										<div class="mini-map">
+										<div class="mini-map hidden animated fadeIn">
 											<img class="firstimage img-responsive" src=""/>
 											<div class="project_master"></div>
 										</div>
@@ -815,6 +815,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					that.loadZoom()
 					response = building.checkRotationView(building_id)
 					$('.svg-maps').removeClass 'hidden'
+					$('.mini-map').removeClass 'hidden'
 					$('#rotate_loader').removeClass 'hidden'
 					if response is 1
 						$('.cf-loader').removeClass 'hidden'

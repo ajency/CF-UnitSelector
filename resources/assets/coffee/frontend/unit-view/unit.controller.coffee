@@ -363,18 +363,6 @@ class CenterUnitView extends Marionette.ItemView
 										</div>
 									</div>
 								</div>
-								<div id="rotate_loader" class="img-loader">
-									<div class="square" ></div>
-											  <div class="square"></div>
-											  <div class="square last"></div>
-											  <div class="square clear"></div>
-											  <div class="square"></div>
-											  <div class="square last"></div>
-											  <div class="square clear"></div>
-											  <div class="square "></div>
-											  <div class="square last"></div>
-
-									</div>
 								<div class="single-unit">
 	              	
 					                <div class="prev"></div>
@@ -447,13 +435,27 @@ class CenterUnitView extends Marionette.ItemView
 			$('.images').empty()
 			response = @generateLevels()
 			html = ''
-			html += '<div class="animated fadeIn">
-						<a href=""><img class="img img-responsive external-img" src="'+response[3].get('external3durl')+'" /></a>
+			html += '<div class="external-wrapper">
+						<div id="rotate_loader" class="img-loader">
+							<div class="square" ></div>
+							<div class="square"></div>
+							<div class="square last"></div>
+							<div class="square clear"></div>
+							<div class="square"></div>
+							<div class="square last"></div>
+							<div class="square clear"></div>
+							<div class="square "></div>
+							<div class="square last"></div>
+						</div>
+						<div class="animated fadeIn hidden external-container">
+							<img class="img-responsive external-img" src="'+response[3].get('external3durl')+'" />
+						</div>
 					</div>'
 			$('.images').html html
 			$('#rotate_loader').removeClass 'hidden'
 			$('.external-img').load ()->
 				$('#rotate_loader').addClass 'hidden'
+				$('.external-container').removeClass 'hidden'
 			$('.external').addClass('current')
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
@@ -565,7 +567,22 @@ class CenterUnitView extends Marionette.ItemView
 
 				
 		if ! _.isUndefined(response[3].get('external3durl'))
-			html = '<img class=" img-responsive external-img"  src="'+response[3].get('external3durl')+'" />'
+			html = '<div class="external-wrapper">
+						<div id="rotate_loader" class="img-loader">
+							<div class="square" ></div>
+							<div class="square"></div>
+							<div class="square last"></div>
+							<div class="square clear"></div>
+							<div class="square"></div>
+							<div class="square last"></div>
+							<div class="square clear"></div>
+							<div class="square "></div>
+							<div class="square last"></div>
+						</div>
+						<div class="animated fadeIn hidden external-container">
+							<img class=" img-responsive external-img"  src="'+response[3].get('external3durl')+'" />
+						</div>
+					</div>'
 			$('.images').html html
 			$('.external').addClass('current')
 			$('.threeD').removeClass('current')
@@ -612,6 +629,7 @@ class CenterUnitView extends Marionette.ItemView
 		$('.images').html html
 		$('.external-img').load ()->
 			$('#rotate_loader').addClass 'hidden'
+			$('.external-container').removeClass 'hidden'
 			
 		if html == ""
 			# $('.images').addClass 'no-image'

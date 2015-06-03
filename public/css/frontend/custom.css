@@ -2423,6 +2423,9 @@ svg polygon {
   float: none;
   margin: 0 auto 20px;
 }
+.slider .external-wrapper {
+  min-height: 75vh;
+}
 .slider .external-img {
   width: 100%;
 }
