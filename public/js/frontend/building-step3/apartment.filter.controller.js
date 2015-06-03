@@ -306,8 +306,8 @@
       }
       views = Marionette.getOption(this, 'views');
       facings = Marionette.getOption(this, 'facings');
-      console.log(budget = Marionette.getOption(this, 'budget'));
-      console.log(unitVariants = Marionette.getOption(this, 'unitVariants'));
+      budget = Marionette.getOption(this, 'budget');
+      unitVariants = Marionette.getOption(this, 'unitVariants');
       if (views.length === 0) {
         $('.viewLabel').hide();
       }
@@ -463,15 +463,13 @@
     }
 
     FilterApartmentCtrl.prototype.initialize = function() {
-      var apartmentFilters, area, budget, facings, flooring, unitTypes, unitVariantNames, unitVariants, view, views;
+      var apartmentFilters, area, budget, facings, flooring, unitTypes, unitVariantNames, unitVariants, view, views, viewsFacingsArr;
       unitTypes = [];
       unitVariants = [];
       unitVariantNames = [];
       area = [];
       budget = [];
       flooring = [];
-      views = [];
-      facings = [];
       apartmentFilters = this.getApartmentFilters();
       if (apartmentFilters.length !== 0) {
         $.merge(unitTypes, apartmentFilters[0].unitTypes);
@@ -479,6 +477,15 @@
         $.merge(unitVariantNames, apartmentFilters[0].unitVariantNames);
         $.merge(budget, apartmentFilters[0].budget);
         $.merge(flooring, apartmentFilters[0].flooring);
+      }
+      viewsFacingsArr = this.getViewsFacings();
+      views = viewsFacingsArr[0];
+      facings = viewsFacingsArr[1];
+      if ($.inArray('budget', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
+        budget = [];
+      }
+      if ($.inArray('area', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
+        unitVariants = [];
       }
       this.view = view = new CommonFloor.FilterApartmentView({
         model: project,
@@ -598,7 +605,7 @@
       facingsArr = [];
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
-      units = unitCollection.findWhere({
+      units = unitCollection.where({
         'building_id': building_id
       });
       _.each(units, function(item) {
@@ -618,10 +625,10 @@
           'name': val
         });
       });
-      if ($.inArray('views', project.get('filters').defaults) === -1) {
+      if ($.inArray('views', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
         viewArr = [];
       }
-      if ($.inArray('direction', project.get('filters').defaults) === -1) {
+      if ($.inArray('direction', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
         facingsArr = [];
       }
       return [viewArr, facingsArr];
