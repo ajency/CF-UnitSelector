@@ -288,7 +288,7 @@
       return CenterUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 col-sm-12 col-xs-12 us-right-content single-unit unit-slides animated fadeIn"> <div class=""> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> <li class="master"> <h4 class="title">Position</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <img class="firstimage img-responsive" src=""/> <div class="images animated fadeIn text-center"> </div> </div> </div> </div> <div id="rotate_loader" class="img-loader"></div> <div class="single-unit"> <div class="prev"></div> <div class="next"></div> </div> </div> </div> </div>');
+    CenterUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 col-sm-12 col-xs-12 us-right-content single-unit unit-slides animated fadeIn"> <div class=""> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> <li class="master"> <h4 class="title">Position</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <img class="firstimage img-responsive" src=""/> <div class="images animated fadeIn text-center"> </div> </div> </div> </div> <div id="rotate_loader" class="img-loader"> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <div class="single-unit"> <div class="prev"></div> <div class="next"></div> </div> </div> </div> </div>');
 
     CenterUnitView.prototype.ui = {
       imagesContainer: '.us-right-content'
@@ -348,7 +348,7 @@
         $('.images').empty();
         response = this.generateLevels();
         html = '';
-        html += '<div class="animated fadeIn"> <a href=""><img class="img img-responsive external-img" data-src="' + response[3].get('external3durl') + '" /></a> </div>';
+        html += '<div class="animated fadeIn"> <a href=""><img class="img img-responsive external-img" src="' + response[3].get('external3durl') + '" /></a> </div>';
         $('.images').html(html);
         $('#rotate_loader').removeClass('hidden');
         $('.external-img').load(function() {
@@ -443,7 +443,7 @@
         $('.level').attr('class', 'level Level_0 apartment_level');
       }
       if (!_.isUndefined(response[3].get('external3durl'))) {
-        html = '<img class=" img-responsive external-img"  data-src="' + response[3].get('external3durl') + '" />';
+        html = '<img class=" img-responsive external-img"  src="' + response[3].get('external3durl') + '" />';
         $('.images').html(html);
         $('.external').addClass('current');
         $('.threeD').removeClass('current');
