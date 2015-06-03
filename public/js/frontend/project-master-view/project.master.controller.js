@@ -600,7 +600,7 @@
         $('.units').mCustomScrollbar("scrollTo", '#unit' + id);
         return $('#' + id).tooltipster('content', html);
       },
-      'mouseover .marker-grp': function(e) {
+      'mouseover .amenity': function(e) {
         var html;
         html = '<div><label>Title:</label>' + $(e.currentTarget).attr('data-amenity-title') + '<br/><label>Desc:</label>' + $(e.currentTarget).attr('data-amenity-desc') + '</div>';
         return $('.layer').tooltipster('content', html);

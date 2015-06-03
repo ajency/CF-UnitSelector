@@ -876,7 +876,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			# 	$('.tooltip-overlay').removeClass 'hidden'
 			# )
 			
-		'mouseover .marker-grp':(e)->
+		'mouseover .amenity':(e)->
 			html = '<div><label>Title:</label>'+$(e.currentTarget).attr('data-amenity-title')+
 					'<br/><label>Desc:</label>'+$(e.currentTarget).attr('data-amenity-desc')+'</div>'
 
