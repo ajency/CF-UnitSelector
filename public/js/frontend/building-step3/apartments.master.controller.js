@@ -120,6 +120,7 @@
           arr.splice(index, 1);
           CommonFloor.defaults['type'] = arr.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');

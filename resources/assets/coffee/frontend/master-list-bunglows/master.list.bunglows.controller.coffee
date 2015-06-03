@@ -170,6 +170,9 @@ class BunglowListView extends Marionette.ItemView
 			html += '</div>'
 		html
 
+class VillaEmptyView extends Marionette.ItemView
+
+	template : Handlebars.compile('	No units added')
 
 #view for list of bungalows : Collection
 class MasterBunglowListView extends Marionette.CompositeView
@@ -269,20 +272,24 @@ class MasterBunglowListView extends Marionette.CompositeView
 			
 
 	onShow:->
-		if CommonFloor.defaults['type'] != ""
-			type = CommonFloor.defaults['type'].split(',')
-			if $.inArray('apartment' ,type) > -1
-				$('.buildings').removeClass 'hidden'
-			if $.inArray('plot' ,type) > -1
-				$('.Plots_tab').removeClass 'hidden'
-		else
-			arr = _.values(window.propertyTypes)
-			if $.inArray('Apartments' ,arr) > -1 || $.inArray('Penthouse' ,arr) > -1
-				$('.buildings').removeClass 'hidden'
-			if $.inArray('Plot' ,arr) > -1
-				$('.Plots_tab').removeClass 'hidden'
-			if $.inArray('Villas/Bungalows' ,arr) > -1
-				$('.Villas').removeClass 'hidden'
+		if buildingCollection.length != 0
+             $('.buildings').removeClass 'hidden'
+        if plotVariantCollection.length != 0
+             $('.Plots_tab').removeClass 'hidden'
+		# if CommonFloor.defaults['type'] != ""
+		# 	type = CommonFloor.defaults['type'].split(',')
+		# 	if $.inArray('apartment' ,type) > -1
+		# 		$('.buildings').removeClass 'hidden'
+		# 	if $.inArray('plot' ,type) > -1
+		# 		$('.Plots_tab').removeClass 'hidden'
+		# else
+		# 	arr = _.values(window.propertyTypes)
+		# 	if $.inArray('Apartments' ,arr) > -1 || $.inArray('Penthouse' ,arr) > -1
+		# 		$('.buildings').removeClass 'hidden'
+		# 	if $.inArray('Plot' ,arr) > -1
+		# 		$('.Plots_tab').removeClass 'hidden'
+		# 	if $.inArray('Villas/Bungalows' ,arr) > -1
+		# 		$('.Villas').removeClass 'hidden'
 
 		# if!( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
 		# $(window).resize ->

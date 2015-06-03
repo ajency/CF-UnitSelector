@@ -1,5 +1,5 @@
 (function() {
-  var BunglowListView, MasterBunglowListView,
+  var BunglowListView, MasterBunglowListView, VillaEmptyView,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -119,6 +119,19 @@
 
   })(Marionette.ItemView);
 
+  VillaEmptyView = (function(superClass) {
+    extend(VillaEmptyView, superClass);
+
+    function VillaEmptyView() {
+      return VillaEmptyView.__super__.constructor.apply(this, arguments);
+    }
+
+    VillaEmptyView.prototype.template = Handlebars.compile('	No units added');
+
+    return VillaEmptyView;
+
+  })(Marionette.ItemView);
+
   MasterBunglowListView = (function(superClass) {
     extend(MasterBunglowListView, superClass);
 
@@ -187,26 +200,11 @@
     };
 
     MasterBunglowListView.prototype.onShow = function() {
-      var arr, type;
-      if (CommonFloor.defaults['type'] !== "") {
-        type = CommonFloor.defaults['type'].split(',');
-        if ($.inArray('apartment', type) > -1) {
-          $('.buildings').removeClass('hidden');
-        }
-        if ($.inArray('plot', type) > -1) {
-          $('.Plots_tab').removeClass('hidden');
-        }
-      } else {
-        arr = _.values(window.propertyTypes);
-        if ($.inArray('Apartments', arr) > -1 || $.inArray('Penthouse', arr) > -1) {
-          $('.buildings').removeClass('hidden');
-        }
-        if ($.inArray('Plot', arr) > -1) {
-          $('.Plots_tab').removeClass('hidden');
-        }
-        if ($.inArray('Villas/Bungalows', arr) > -1) {
-          $('.Villas').removeClass('hidden');
-        }
+      if (buildingCollection.length !== 0) {
+        $('.buildings').removeClass('hidden');
+      }
+      if (plotVariantCollection.length !== 0) {
+        $('.Plots_tab').removeClass('hidden');
       }
       if ($(window).width() > 991) {
         return $('.units').mCustomScrollbar({

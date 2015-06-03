@@ -139,6 +139,7 @@ class TopMasterView extends Marionette.ItemView
 			# $.each CommonFloor.defaults , (index,value)->
 			# 	 CommonFloor.defaults[index] = ""
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()	
 			unitCollection.trigger('available')
 			CommonFloor.navigate '/' , true
@@ -158,6 +159,7 @@ class TopMasterView extends Marionette.ItemView
 			
 			@trigger  'render:view'
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			
@@ -176,6 +178,7 @@ class TopMasterView extends Marionette.ItemView
 			console.log types
 			CommonFloor.defaults[type]['unit_type_id'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			@trigger  'render:view'
@@ -191,6 +194,7 @@ class TopMasterView extends Marionette.ItemView
 			types = _.without types , parseInt $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults[type]['unit_variant_id'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()	
 			unitCollection.trigger('available')
 			@trigger  'render:view'
@@ -209,6 +213,7 @@ class TopMasterView extends Marionette.ItemView
 			CommonFloor.defaults['common']['area_max'] = ""
 			CommonFloor.defaults['common']['area_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			@trigger  'render:view'
@@ -217,6 +222,7 @@ class TopMasterView extends Marionette.ItemView
 			CommonFloor.defaults['common']['price_max'] = ""
 			CommonFloor.defaults['common']['price_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			@trigger  'render:view'
@@ -231,6 +237,7 @@ class TopMasterView extends Marionette.ItemView
 			types = _.without types , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults[type]['attributes'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			@trigger  'render:view'
@@ -240,6 +247,7 @@ class TopMasterView extends Marionette.ItemView
 			types = _.without types ,$(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['common']['facings'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()	
 			unitCollection.trigger('available')
 			@trigger  'render:view'
@@ -249,6 +257,7 @@ class TopMasterView extends Marionette.ItemView
 			types = _.without types ,$(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['common']['views'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()	
 			unitCollection.trigger('available')
 			@trigger  'render:view'
@@ -867,7 +876,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			# 	$('.tooltip-overlay').removeClass 'hidden'
 			# )
 			
-		'mouseover .marker-grp':(e)->
+		'mouseover .amenity':(e)->
 			html = '<div class="row">
 						<div class="col-sm-12 b-r">
 							<h4 class="text-warning margin-none">'+$(e.currentTarget).attr('data-amenity-title')+'</h4>
@@ -875,7 +884,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						</div>
 					</div>'
 
-			$('.marker-grp').tooltipster('content', html)
+			$('.amenity').tooltipster('content', html)
 
 		'mouseover .building':(e)->
 			id  = parseInt e.target.id
@@ -1132,7 +1141,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 					$('.cf-loader').removeClass 'hidden'
 				)
 		)
-		$('.marker-grp').tooltipster(
+		$('.amenity').tooltipster(
 			theme: 'tooltipster-shadow marker-tooltip'
 			contentAsHTML: true
 			onlyOne : true

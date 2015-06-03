@@ -90,6 +90,7 @@
         'click @ui.unitBack': function(e) {
           e.preventDefault();
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return CommonFloor.navigate('/', true);
@@ -111,6 +112,7 @@
           }
           this.trigger('render:view');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           return unitCollection.trigger('available');
         },
@@ -129,6 +131,7 @@
           console.log(types);
           CommonFloor.defaults[type]['unit_type_id'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
@@ -147,6 +150,7 @@
           types = _.without(types, parseInt($(e.currentTarget).attr('data-id')));
           CommonFloor.defaults[type]['unit_variant_id'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
@@ -163,6 +167,7 @@
           CommonFloor.defaults['common']['area_max'] = "";
           CommonFloor.defaults['common']['area_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
@@ -171,6 +176,7 @@
           CommonFloor.defaults['common']['price_max'] = "";
           CommonFloor.defaults['common']['price_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
@@ -186,6 +192,7 @@
           types = _.without(types, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults[type]['attributes'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
@@ -196,6 +203,7 @@
           types = _.without(types, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['common']['facings'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
@@ -206,6 +214,7 @@
           types = _.without(types, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['common']['views'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
@@ -591,10 +600,10 @@
         $('.units').mCustomScrollbar("scrollTo", '#unit' + id);
         return $('#' + id).tooltipster('content', html);
       },
-      'mouseover .marker-grp': function(e) {
+      'mouseover .amenity': function(e) {
         var html;
         html = '<div class="row"> <div class="col-sm-12 b-r"> <h4 class="text-warning margin-none">' + $(e.currentTarget).attr('data-amenity-title') + '</h4> <h6 class="text-muted">' + $(e.currentTarget).attr('data-amenity-desc') + '</h6> </div> </div>';
-        return $('.marker-grp').tooltipster('content', html);
+        return $('.amenity').tooltipster('content', html);
       },
       'mouseover .building': function(e) {
         var availability, buildingMaster, buildingModel, floors, html, id, minprice, price, response, unit, unitTypes, url;
@@ -783,7 +792,7 @@
           });
         }
       });
-      return $('.marker-grp').tooltipster({
+      return $('.amenity').tooltipster({
         theme: 'tooltipster-shadow marker-tooltip',
         contentAsHTML: true,
         onlyOne: true,

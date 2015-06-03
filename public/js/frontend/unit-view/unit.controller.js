@@ -477,8 +477,10 @@
         });
       }
       $('.images').html(html);
+      $('.img').addClass('hidden');
       $('.img').load(function() {
-        return $('#rotate_loader').addClass('hidden');
+        $('#rotate_loader').addClass('hidden');
+        return $('.img').removeClass('hidden');
       });
       if (html === "") {
         html = '<img class="img img-responsive external-img"  src="../../images/no-image.jpg" />';
@@ -489,6 +491,7 @@
 
     CenterUnitView.prototype.loadMaster = function() {
       var breakpoints, building, first, id, response, svgs, transitionImages, unit, url;
+      $('.firstimage').addClass('hidden');
       $('#rotate_loader').removeClass('hidden');
       url = Backbone.history.fragment;
       id = url.split('/')[1];
@@ -513,6 +516,7 @@
           $('.firstimage').attr('src', transitionImages[breakpoints[0]]);
           $('.firstimage').load(function() {
             $('#rotate_loader').addClass('hidden');
+            $('.firstimage').removeClass('hidden');
             return $('.images').load(first[0], function() {
               $('.apartment').each(function(ind, item) {
                 var itemid;
@@ -540,6 +544,7 @@
         $('.firstimage').attr('src', transitionImages[breakpoints[0]]);
         $('.firstimage').load(function() {
           $('#rotate_loader').addClass('hidden');
+          $('.firstimage').removeClass('hidden');
           return $('.images').load(first[0], function() {
             $('.villa,.plot').each(function(ind, item) {
               var itemid;

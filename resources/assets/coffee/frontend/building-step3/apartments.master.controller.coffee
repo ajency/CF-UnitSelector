@@ -145,6 +145,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			arr.splice(index, 1)
 			CommonFloor.defaults['type'] = arr.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
