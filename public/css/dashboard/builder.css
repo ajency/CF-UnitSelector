@@ -348,10 +348,10 @@ body.modal-open {
 /* line 94, builder.less */
 .tags .tag-not {
   width: 33px;
-  background: #ffffff;
+  background: rgba(246, 129, 33, 0.27);
   height: 13px;
   display: inline-block;
-  border: 2px solid #ff3333;
+  border: 2px solid #F68121;
 }
 /* line 101, builder.less */
 .tags .tag-marked {
@@ -6405,53 +6405,68 @@ nav.aj-navbar .toggle i {
 .alert-box {
   position: absolute;
   z-index: 999;
-  text-align: center;
-  margin-left: 40%;
+  left: 0%;
+  right: 0%;
   top: 15%;
+  margin: auto;
   background: rgba(0, 0, 0, 0.6);
   border: 0px;
   color: #FF7E00;
+  text-align: center;
+  width: 360px;
 }
-/* line 5294, builder.less */
+/* line 5297, builder.less */
 .popover-title {
   display: none;
 }
-/* line 5297, builder.less */
+/* line 5300, builder.less */
 .marker1 {
   background: url(../../images/icon-marker.png) no-repeat;
   width: 28px;
   height: 28px;
   background-position: -12px;
 }
-/* line 5303, builder.less */
+/* line 5306, builder.less */
 .marker2 {
   background: url(../../images/icon-marker.png) no-repeat;
   width: 28px;
   height: 28px;
   background-position: -58px;
 }
-/* line 5309, builder.less */
+/* line 5312, builder.less */
 .marker3 {
   background: url(../../images/icon-marker.png) no-repeat;
   width: 28px;
   height: 28px;
   background-position: -96px;
 }
-/* line 5315, builder.less */
+/* line 5318, builder.less */
 #popOverBox ul li:hover {
   border: 1px solid #FF7E00;
   background: #FAF3EC;
   cursor: pointer;
 }
-/* line 5320, builder.less */
+/* line 5323, builder.less */
 #popOverBox ul li {
   height: 35px;
   border: 1px solid #ccc;
   border-radius: 4px;
   margin: 2px;
 }
-/* line 5326, builder.less */
+/* line 5329, builder.less */
 .popover-content {
   width: 159px;
+}
+/* line 5332, builder.less */
+.btn-primary.active,
+.btn-primary.focus,
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:hover,
+.open > .dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color: #D86B00;
+  border-color: #FF7E00;
+  outline: none;
 }
 /*# sourceMappingURL=builder.css.map */

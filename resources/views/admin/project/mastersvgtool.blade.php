@@ -133,10 +133,8 @@
                     </div>
                     <div class="aj-imp-browser-footer">
                         <ul class="text-center tags list-inline">
-                            <li><span class="tag-sold"></span>&nbsp;&nbsp;SOLD</li>
-                            <li><span class="tag-available"></span>&nbsp;&nbsp;AVAILABLE</li>
-                            <li><span class="tag-blocked"></span>&nbsp;&nbsp;BLOCKED</li>
-                            <li><span class="tag-not"></span>&nbsp;&nbsp;NOT RELEASED</li>
+                          <!--  <li><span class="tag-blocked"></span>&nbsp;&nbsp;BLOCKED</li>-->
+                            <li><span class="tag-not"></span>&nbsp;&nbsp;AMENITIES</li>
                             <li><span class="tag-marked"></span>&nbsp;&nbsp;MARKED</li>
                         </ul>
                     </div>
