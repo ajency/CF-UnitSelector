@@ -688,6 +688,7 @@
           }
         }).addClass('active').removeClass('inactive');
       });
+      this.initializeRotate(transitionImages, svgs);
       return $('.first_image').lazyLoadXT({
         forceLoad: true,
         updateEvent: 'load'

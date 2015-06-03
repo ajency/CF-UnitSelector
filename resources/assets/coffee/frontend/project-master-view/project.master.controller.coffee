@@ -1025,7 +1025,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			
 			
 		
-		# @initializeRotate(transitionImages,svgs)
+		@initializeRotate(transitionImages,svgs)
 		$('.first_image').lazyLoadXT(
 			forceLoad : true
 			updateEvent: 'load'
