@@ -363,6 +363,7 @@ class CenterUnitView extends Marionette.ItemView
 										</div>
 									</div>
 								</div>
+								<div id="rotate_loader" class="cf-loader hidden"></div>
 								<div class="single-unit">
 	              	
 					                <div class="prev"></div>
@@ -378,6 +379,7 @@ class CenterUnitView extends Marionette.ItemView
 
 	events:
 		'click .threeD':(e)->
+			$('#rotate_loader').removeClass 'hidden'
 			$('.firstimage').hide()
 			$('.images').empty()
 			response = @generateLevels()
@@ -391,13 +393,15 @@ class CenterUnitView extends Marionette.ItemView
 							</a>
 						</div>'
 			$('.images').html html
-			$('.img').lazyLoadXT()
+			$('.img').load ()->
+				$('#rotate_loader').addClass 'hidden'
 			$('.threeD').addClass('current')
 			$('.external').removeClass('current')
 			$('.twoD').removeClass('current')
 			$('.gallery').removeClass('current')
 
 		'click .twoD':(e)->
+			$('#rotate_loader').removeClass 'hidden'
 			$('.firstimage').hide()
 			$('.images').empty()
 			response = @generateLevels()
@@ -411,7 +415,8 @@ class CenterUnitView extends Marionette.ItemView
 							</a>
 						</div>'
 			$('.images').html html
-			$('.img').lazyLoadXT()
+			$('.img').load ()->
+				$('#rotate_loader').addClass 'hidden'
 			$('.twoD').addClass('current')
 			$('.external').removeClass('current')
 			$('.threeD').removeClass('current')
@@ -419,6 +424,7 @@ class CenterUnitView extends Marionette.ItemView
 			$('.master').removeClass('current')
 
 		'click .external':(e)->
+			$('#rotate_loader').removeClass 'hidden'
 			$('.firstimage').hide()
 			$('.images').empty()
 			response = @generateLevels()
@@ -427,7 +433,8 @@ class CenterUnitView extends Marionette.ItemView
 						<img class="img img-responsive external-img" data-src="'+response[3].get('external3durl')+'" />
 					</div>'
 			$('.images').html html
-			$('.img').lazyLoadXT()
+			$('.img').load ()->
+				$('#rotate_loader').addClass 'hidden'
 			$('.external').addClass('current')
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
@@ -435,6 +442,7 @@ class CenterUnitView extends Marionette.ItemView
 			$('.master').removeClass('current')
 
 		'click .gallery':(e)->
+			$('#rotate_loader').removeClass 'hidden'
 			$('.images').empty()
 			$('.firstimage').hide()
 			response = @generateLevels()
@@ -447,7 +455,8 @@ class CenterUnitView extends Marionette.ItemView
 						</div>'
 			
 			$('.images').html html
-			$('.img').lazyLoadXT()
+			$('.img').load ()->
+				$('#rotate_loader').addClass 'hidden'
 			$('.gallery').addClass('current')
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
@@ -493,6 +502,7 @@ class CenterUnitView extends Marionette.ItemView
 		
 
 	onShow:->
+		$('#rotate_loader').removeClass 'hidden'
 		@getNextPrevUnit()
 		response = @generateLevels()
 
@@ -500,7 +510,7 @@ class CenterUnitView extends Marionette.ItemView
 		$.each response[0],(index,value)->
 			html += '<div class="layouts animated fadeIn">
 						<a class="fancybox" href="'+value+'">
-							<img class="img" data-src="'+value+'" />
+							<img class="img" src="'+value+'" />
 							<div class="img-overlay"></div>
 							<span>'+s.replaceAll(response[2][index], "_", " ")+'</span>
 						</a>
@@ -511,7 +521,7 @@ class CenterUnitView extends Marionette.ItemView
 		$('.gallery').removeClass('current')
 		if response[0].length == 0
 			$.each response[1],(index,value)->
-				html += '<img data-src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>'
+				html += '<img src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>'
 			$('.threeD').addClass('current')
 			$('.external').removeClass('current')
 			$('.twoD').removeClass('current')
@@ -530,7 +540,7 @@ class CenterUnitView extends Marionette.ItemView
 
 				
 		if ! _.isUndefined(response[3].get('external3durl'))
-			html = '<img class="img lazy-hidden img-responsive external-img"  data-src="'+response[3].get('external3durl')+'" />'
+			html = '<img class="img img-responsive external-img"  src="'+response[3].get('external3durl')+'" />'
 			$('.images').html html
 			$('.external').addClass('current')
 			$('.threeD').removeClass('current')
@@ -558,7 +568,7 @@ class CenterUnitView extends Marionette.ItemView
 			$('.external').removeClass('current')
 			if ! _.isUndefined(response[3].get('galleryurl'))
 				$.each response[3].get('galleryurl'),(index,value)->
-					html += '<div class="animated fadeIn"><img class="img" data-src="'+value+'" /></div>'
+					html += '<div class="animated fadeIn"><img class="img" src="'+value+'" /></div>'
 
 		if response[0].length == 0 &&  response[1].length == 0 && _.isUndefined(response[3].get('external3durl')) && _.isUndefined(response[3].get('galleryurl'))
 			@loadMaster()
@@ -575,13 +585,15 @@ class CenterUnitView extends Marionette.ItemView
 
 
 		$('.images').html html
+		$('.img').load ()->
+			$('#rotate_loader').addClass 'hidden'
 		if html == ""
 			$('.images').addClass 'no-image'
 		$(".fancybox").fancybox()
-		$('.img').lazyLoadXT(
-			forceLoad : true
-			updateEvent: 'load'
-		)
+		# $('.img').lazyLoadXT(
+		# 	forceLoad : true
+		# 	updateEvent: 'load'
+		# )
 		@iniTooltip()
 		
 
