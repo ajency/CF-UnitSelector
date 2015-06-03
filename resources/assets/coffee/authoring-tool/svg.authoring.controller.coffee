@@ -344,6 +344,9 @@ jQuery(document).ready ($)->
                 # clear svg 
                 draw.clear()
 
+                types = window.getPendingObjects(window.svgData)
+
+                window.showPendingObjects(types)
                 # re-generate svg with new svg element
                 window.generateSvg(window.svgData.data)
 
@@ -696,7 +699,7 @@ jQuery(document).ready ($)->
         else
             window.showDetails(currentElem)       
         
-   
+
     # save svg eleement with unit data
     $('.submit').on 'click', (e) ->
 
@@ -809,9 +812,7 @@ jQuery(document).ready ($)->
 
                 # clear svg 
                 draw.clear()
-                types = window.getPendingObjects(window.svgData)
-
-                window.showPendingObjects(types)
+               
                 # re-generate svg with new svg element
                 window.generateSvg(window.svgData.data)
                 window.resetTool()                

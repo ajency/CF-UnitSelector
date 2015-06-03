@@ -704,7 +704,7 @@
         async: false,
         data: $.param(myObject),
         success: function(response) {
-          var indexToSplice, types;
+          var indexToSplice;
           indexToSplice = -1;
           $.each(window.svgData.data, function(index, value) {
             if (parseInt(value.id) === svgElemId) {
@@ -715,8 +715,6 @@
           myObject['id'] = svgElemId;
           window.svgData.data.push(myObject);
           draw.clear();
-          types = window.getPendingObjects(window.svgData);
-          window.showPendingObjects(types);
           window.generateSvg(window.svgData.data);
           return window.resetTool();
         },
