@@ -7,28 +7,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta content="" name="description" />
     <meta content="" name="author" />
-
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('bower_components/fontawesome/css/font-awesome.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/dashboard/builder.css')}}" rel="stylesheet" type="text/css" />
     <style type="text/css">
 
-/*    .svg-canvas {
-      transform: none !important;
+    .svg-canvas image{
+         width: 100%; !important;
+         height: 100%; !important;
+
+     }
+     .svg-canvas > svg {
+      position: relative;
+      height: 667px !important;
+    }
+    /* #aj-imp-browser-body {
+        width:100% !important;
+        border: 0px!important;
+    }
+    .svg-canvas{
+        z-index: 9999;
+        position: absolute;
+        width: 100%;
+        top: 0px;
+
     }*/
 
-/*    .svg-canvas{
-   transform: matrix(1, 0, 0, 1, 0,-127) !important;
 
-    }
-    .marked {
-  fill: #ff3333 !important;
-  border: 2px solid #ff3333;
-  opacity: 0.5;
-}
-  */ 
-
-   </style>
+</style>
 </head>
 
 <body>
@@ -44,35 +51,43 @@
                           <div class="zoom-controls pull-left"> Zoom Level &nbsp;
                             <button id="in" class="zoom-in btn btn-primary"><i class="fa fa-search-plus"></i></button>
                             <button id="out" class="zoom-out btn btn-primary"><i class="fa fa-search-minus"></i></button>
-                            
+                            <button id="clear" name="clear" class="zoom-out btn btn-medium btn-danger clear" style=" padding: 2px 12px; ">Clear</button>
                             <input type="hidden" name="svg-element-id">
                         </div>
-                        <button class="color-switch btn btn-default">
+
+<!--                         <button class="color-switch btn btn-default">
                             <i class="fa fa-eye"></i>
                             <div><small>PREVIEW</small>
 
-                        </button>
+                        </button> -->
+                        <button class="color-switch btn btn-default btn-publish-svg">
+                            <i class="fa fa-download"></i>
+                            <div><small>PUBLISH</small>
+
+                        </button>                        
                         <div class='pending'>
 
                         </div>
 
                         </div>
                     </div>
-                    <div class="alert alert-info hidden"><span class="info"></span><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+                    <div class="alert alert-info alert-box" style="display:none">
+                     
+                    </div>
                     <div class="aj-imp-browser-preview">
                         <!-- browser body-->
                       
                         <div id="aj-imp-browser-body">
                               <div class="edit-box hidden">
-                   <h4>Unit Details</h4>
-                   <form>
-                   <div class="form-group">
-                     <label for="exampleInputEmail1">Property Type</label>
-                    <select class="form-control property_type">
-                       
-                       
-                     </select>
-                   </div>
+                                   <h4>Unit Details</h4>
+                                   <form>
+                                   <div class="form-group">
+                                     <label for="exampleInputEmail1">Property Type</label>
+                                    <select class="form-control property_type">
+                                       
+                                       
+                                     </select>
+                                </div>
                     <div id="dynamice-region"></div>
                    <!-- <div class="form-group">
                      <label for="exampleInputPassword1">Unit Type</label>
@@ -85,7 +100,11 @@
                      </select>
                    </div> -->
                    <br/>
-                   <button type="button" class="btn btn-primary submit" >Submit</button>
+                   <button type="button" class="btn btn-primary submit" >Save</button>
+                   <button type="button" class="btn btn-primary edit hidden" >Update</button>
+                   <button type="button" class="btn btn-primary delete hidden" >Delete</button>
+                   <button type="button" class="btn btn-link closeform" >Close</button>
+
                  </form>
                </div>
                  <nav role='navigation' class="aj-navbar">
@@ -96,8 +115,8 @@
                   </div>
                   <div class="menu">
                     <ul class="menu-block">
-                      <li><a class="save"><i class="fa fa-area-chart"></i> Polygon</a></li>
-                      <li><a><i class="fa fa-map-marker"></i> Marker</a></li>
+                      <li><a class="select-polygon"><i class="fa fa-area-chart"></i> Polygon</a></li>
+                      <li><a  title='bottom Popover' rel='popover' data-placement='bottom' ><i class="fa fa-map-marker"></i> Marker</a></li>
                     </ul>
                   </div>
                 </nav> 
@@ -105,7 +124,7 @@
                             <div id="aj-imp-builder-drag-drop" class="svg-canvas">
                                 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm2">Small modal</button> -->
                               <textarea name="coords2" rows=3 class="area hidden" disabled placeholder="Shape Coordinates" data-image-url="{{$svgImage}}"></textarea>
-
+                                
                             </div>
 
                         </div>
@@ -334,7 +353,9 @@
         
         <script src="{{ asset('js/svg.parser.min.js' )}}"></script>
         <script src="{{ asset('js/svg.import.min.js' )}}"></script>
+        <script src="{{ asset('js/svg.export.min.js' )}}"></script>
         <script src="{{ asset('js/svg.draggable.min.js' )}}"></script>
+        <script src="{{ asset('js/svg.absorb.min.js' )}}"></script>
         <script src="{{ asset('js/jquery.canvasAreaDraw.min.js' )}}"></script>
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
         
@@ -342,11 +363,21 @@
         
         <script type="text/javascript">
             svgImg = '{{$svgImage}}';
+            types = '{{$supported_types}}';
+            supported_types = $('<div/>').html(types).text()
+            
+
+            
 
            
 
-        AuthoringTool = new Marionette.Application 
+        AuthoringTool = new Marionette.Application
+        CommonFloor = new Marionette.Application 
         BASEURL = '{{url()}}'
+        URL = window.location.href.split('/')
+        PROJECTID = URL[5]
+        IMAGEID = URL[7]
+        BASERESTURL = '{{ get_rest_api_url() }}';
         $('#aj-imp-builder-drag-drop').panzoom({
                 contain: 'invert',
                 minScale: 1,
@@ -359,9 +390,21 @@
         </script>
 
         <script src="{{ asset('js/authoring-tool/common.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/project.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/bunglow.variant.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/settings.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/unit.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/unitType.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/building.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/apartment.variant.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/floor.layout.entity.js' )}}"></script>
+        <script src="{{ asset('js/frontend/entities/plot.variant.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/polygon.entity.js' )}}"></script>
+        <script src="{{ asset('js/authoring-tool/entities/marker.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/villa.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/plot.entity.js' )}}"></script>
+        <script src="{{ asset('js/authoring-tool/entities/amenity.entity.js' )}}"></script>
+        <script src="{{ asset('js/authoring-tool/entities/apartment.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/svg.authoring.controller.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/application.js' )}}"></script>
 </body>

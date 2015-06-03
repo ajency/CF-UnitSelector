@@ -2,7 +2,7 @@
     <div class="col-md-12">
         <div class="grid simple">
             <div class="grid-title no-border"> 
-                <div class="row object-master-images"  data-object-id="{{ $project['id'] }}" data-object-type="project">
+                <div class="row object-master-images" data-object-id="{{ $project['id'] }}" data-object-type="project">
                     <div class="col-md-8 project-master-images">
                         <h3 class="inline"> <i class="fa fa-angle-double-right text-primary"></i> <span class="semi-bold">Project Master</span> Image</h3>&nbsp;&nbsp;    
                         
@@ -25,7 +25,7 @@
                 <div class="alert alert-info">
                 <strong><i class="fa fa-info"></i></strong> Upload 3D view of the project. To enable 360 degree rotation of the project ,
                 upload images in the sequence ( Front -> Right -> Back -> Left). 
-                            Image dimension should be Image size : 1600X800. Resolution - 100 DPI.
+                            Image dimension should be Image size : 1600X800. Resolution - 300 DPI.
                             Naming convention to be followed for the images uploaded -Imagename-00 (E.g Master-00(first image), Master-01 and so on).
                 </div>
                 <div class="dataTables_wrapper form-inline" role="grid">
@@ -49,11 +49,12 @@
 
                             @if(isset($image['IMAGE']))
                             <?php
-                            //$fileName = $image['NAME'];
-                            //$fileData = explode('.', $fileName);
+                            
+                            $authoringToolUrl = url() . "/admin/project/" . $project['id'] . "/image/" .  $image['ID'] . "/authoring-tool?&type=master&position=".$position;
                             ?>
                             <tr class="gradeX odd" id="position-{{ $position }}">
                                 <td class="">{{ $image['NAME'] }}</td>
+                                <input type="hidden" name="image_id" value="{{$image['ID']}}">
                                 <td class=" "><span class="muted">{{ $position }}</span></td>
                                 <td class=" ">
                                     <div class="checkbox check-primary" >
@@ -62,13 +63,11 @@
                                     </div>
                                 </td>
                                 <td class=" ">
-                                    @if(hasPermission($project['id'],['svg_auth_tool']))
-                                    <a class="{{ (isset($svgImages['breakpoints']) && in_array($position,$svgImages['breakpoints'])) ? '' : 'hidden' }}">Authoring Tool</a>
-                                    @endif
+                                    <a target="_blank" href=" {{$authoringToolUrl}} " class=" {{ (isset($svgImages['breakpoints']) && in_array($position,$svgImages['breakpoints'])) ? '' : 'hidden' }} auth-tool-{{ $position }} " >Authoring Tool</a>
                                 </td>
 
                                 <td class="text-right">
-                                    <a class="text-primary" onclick="deleteSvg({{ $image['ID'] }}, 'master','{{ $position }}');"><i class="fa fa-close"></i></a>
+                                    <a href="" class="text-primary" onclick="deleteSvg({{ $image['ID'] }}, 'master','{{ $position }}');"><i class="fa fa-close"></i></a>
                                 </td>
                             </tr>
                                 @else
@@ -76,7 +75,7 @@
                                 <td class=""></td>
                                 <td class=" "><span class="muted">{{ $position }}</span></td>
                                 <td class=" ">
-                                  </div>
+                                  
                                 </td>
                                 <td class=" ">
                                    

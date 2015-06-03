@@ -47,8 +47,7 @@ class ProjectBuildingController extends Controller {
         
         $project = $this->projectRepository->getProjectById( $projectId );
 
-        $phases = Phase::where( 'project_id', $projectId )->get();
-
+        $phases = $project->projectPhase()->where('status','not_live')->get()->toArray(); 
         return view( 'admin.project.building.create' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'building' )
@@ -65,8 +64,10 @@ class ProjectBuildingController extends Controller {
         $formData = $request->all();
         $building = new Building;
         $building->building_name = ucfirst($formData['building_name']);
+        $building->abbrevation = $formData['abbrevation'];
         $building->phase_id = $formData['phase_id'];
         $building->no_of_floors = $formData['no_of_floors'];
+        $building->has_master = 'no';
         $building->floors = [];
         $building->building_master = [];
         $building->breakpoints = [];
@@ -94,7 +95,7 @@ class ProjectBuildingController extends Controller {
   
         $project = Project::find( $projectId );
 
-        $phases = Phase::where( 'project_id', $projectId )->get();
+         $phases = $project->projectPhase()->where('status','not_live')->get()->toArray(); 
 
         $building = Building::find( $buildingId );
         $floorLayouts = $project->floorLayout()->get();
@@ -126,31 +127,18 @@ class ProjectBuildingController extends Controller {
      */
     public function update( $projectId, $buildingId, Request $request ) {
             
-        $updateSection = $request->get( 'update_section' );
-        $building = Building::find( $buildingId );
-
-        switch ($updateSection) {
-            case 'building':
-                $building->building_name = ucfirst($request->get( 'building_name' ));
-                $building->phase_id = $request->get( 'phase_id' );
-                $building->no_of_floors = $request->get( 'no_of_floors' );
-                break;
-            case 'floors':
-                $building->floors = $request->get( 'floors' );
-                break;
-            case 'builing_master':
-                $building->building_master = $request->get( 'building_master' );
-                break;
-            default:
-                break;
-        }
+         
         
+        $formData = $request->all();
+        $building = Building::find( $buildingId );
+        $building->building_name = ucfirst($formData['building_name']);
+        $building->abbrevation = $formData['abbrevation'];
+        $building->phase_id = $formData['phase_id'];
+        $building->no_of_floors = $formData['no_of_floors'];
+        $building->has_master = $formData['has_master'];
         $building->save();
-        return response()->json( [
-                            'code' => 'building_updated',
-                            'message' => 'Builing details updated successfully',
-                            'data' => ''
-                        ], 203 );
+        
+        return redirect( url( 'admin/project/' . $projectId . '/building/' . $building->id . '/edit' ) );
     }
 
     /**

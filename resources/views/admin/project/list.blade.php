@@ -37,7 +37,7 @@
                     </thead>
                     <tbody> 
                         @foreach ($projects as $project)
-                            <tr class="" onclick="location.href='{{ url( '/admin/project/' . $project['id']) }}'">
+                            <tr class="" onclick="location.href='{{ url( '/admin/project/' . $project['id'].'/summary') }}'">
                                 <td>{{ $project['project_title'] }}</td>
                                 <td>{{ $project['city'] }}</td>
                                 <td>{{ ucfirst($project['status']) }}</td>
