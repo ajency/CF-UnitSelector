@@ -351,7 +351,12 @@ class SvgController extends Controller {
 				'message' => 'Could not find svg to be deleted for image', 
 				], 400 );			
 		}
-	}	
+	}
+    
+    public static function getUnitPrimarySvg($unitIds , $mediaIds)
+    {
+        return true;
+    }
 
 
 
