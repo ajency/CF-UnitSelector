@@ -382,7 +382,7 @@ jQuery(document).ready ($)->
 		str +=  '</select>
                                                        
                                                         <div class="text-right">
-                                                            <button type="button" onclick="getRoomTypeAttributes(this, {{ level }});" class="btn btn-link">Add Room</button>
+                                                            <button type="button" onclick="getRoomTypeAttributes(this,{{ level }});" class="btn btn-link">Add Room</button>
                                                         </div>
                                             </div>
                                          </div>
