@@ -4,7 +4,7 @@
 
 class AuthoringTool.PlotView extends Marionette.ItemView
 
-	template : '<form id="add-form"><div class="form-group">
+	template : Handlebars.compile('<form id="add-form"><div class="form-group">
 					 <label class="unitName">Unit :</label><span class="unit_name"></span>
 					 <label class="unit-label" for="exampleInputPassword1">Units</label>
 					<select class="form-control units">
@@ -13,7 +13,7 @@ class AuthoringTool.PlotView extends Marionette.ItemView
 						 <option value="{{id}}">{{name}}</option>
 						{{/options}}
 					 </select>
-				   </div></form>'
+				   </div></form>')
 
 
 	ui :

@@ -13,6 +13,7 @@
     window.innerRadius = 8.002;
     window.outerRadius = 15.002;
     window.markerPoints = [];
+    window.windowWidth = 0;
     window.createSvg = function(svgData) {
       window.rawSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       rawSvg.setAttribute('id', 'Layer_1');
@@ -436,6 +437,11 @@
     $('#aj-imp-builder-drag-drop canvas').ready(function() {
       $('#aj-imp-builder-drag-drop canvas').hide();
       $('#aj-imp-builder-drag-drop .svg-draw-clear').hide();
+      window.windowWidth = $(window).innerWidth();
+      $('canvas').css('width', window.windowWidth);
+      $('canvas').css('height', window.windowWidth / 2);
+      $('.svg-canvas').css('width', window.windowWidth);
+      $('.svg-canvas').css('height', window.windowWidth / 2);
       return document.addEventListener('keydown', keydownFunc, false);
     });
     keydownFunc = function(e) {
@@ -779,7 +785,7 @@
       var data, postUrl, publishSvgOptions, svgExport, viewboxDefault;
       e.preventDefault();
       viewboxDefault = draw.viewbox();
-      draw.viewbox(0, 0, 1600, 800);
+      draw.viewbox(0, 0, viewboxDefault.width, viewboxDefault.height);
       svgExport = draw.exportSvg({
         exclude: function() {
           return this.data('exclude');
