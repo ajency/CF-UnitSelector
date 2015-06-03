@@ -542,10 +542,22 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 												<div class="prev"></div>
 												<div class="next"></div>
 											</div>
-											<div id="svg_loader" class="cf-loader hidden"></div>
+											
+											<div id="svg_loader" class="img-loader">
+											  <div class="square" ></div>
+											  <div class="square"></div>
+											  <div class="square last"></div>
+											  <div class="square clear"></div>
+											  <div class="square"></div>
+											  <div class="square last"></div>
+											  <div class="square clear"></div>
+											  <div class="square "></div>
+											  <div class="square last"></div>
+											</div>
+
 											<div id="spritespin"></div>
-											<div class="svg-maps">
-												<img class="first_image lazy-hidden img-responsive" />
+											<div class="svg-maps animated fadeIn hidden">
+												<img class="first_image img-responsive" />
 												<div class="region inactive"></div>
 											</div>
 
@@ -786,7 +798,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		$.merge transitionImages ,  building.get('building_master')
 		first = _.values svgs
 
-		$('#svg_loader').removeClass 'hidden'
+		# $('#svg_loader').removeClass 'hidden'
 		$('.first_image').attr('src',transitionImages[breakpoints[0]])
 		
 			
@@ -802,6 +814,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					CommonFloor.getApartmentsInView()
 					that.loadZoom()
 					response = building.checkRotationView(building_id)
+					$('.svg-maps').removeClass 'hidden'
 					$('#rotate_loader').removeClass 'hidden'
 					if response is 1
 						$('.cf-loader').removeClass 'hidden'

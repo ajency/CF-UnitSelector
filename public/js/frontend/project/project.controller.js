@@ -136,7 +136,7 @@
       return CenterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content animated fadeIn"> <div class="cf-loader loader-center hidden"></div> <div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" data-nodebug="" data-alwaysprocess="" data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" class="primage fill-width"> </div> </div>');
+    CenterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content animated fadeIn"> <div class="img-loader hidden"> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" data-nodebug="" data-alwaysprocess="" data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" class="primage fill-width"> </div> </div>');
 
     CenterView.prototype.ui = {
       svgContainer: '.us-right-content'
@@ -170,7 +170,7 @@
           functionReady: function(e) {
             var svgHeight, svgWidth, tooltipHeight;
             $('.action_button').on('click', function(e) {
-              $('.cf-loader').removeClass('hidden');
+              $('.img-loader').removeClass('hidden');
               $('svg').attr('class', 'zoom');
               $('.step1').addClass('animated fadeOut');
               $('.marker').tooltipster('hide');
@@ -202,7 +202,7 @@
           functionReady: function(e) {
             var tooltipHeight;
             $('.action_button').on('click', function(e) {
-              $('.cf-loader').removeClass('hidden');
+              $('.img-loader').removeClass('hidden');
               $('svg').attr('class', 'zoom');
               $('.step1').addClass('animated fadeOut');
               $('.marker').tooltipster('hide');
