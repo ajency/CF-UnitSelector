@@ -5,14 +5,17 @@
 class AuthoringTool.PlotView extends Marionette.ItemView
 
 	template : Handlebars.compile('<form id="add-form"><div class="form-group">
-					<label class="unit-label" for="exampleInputPassword1">Units</label>
+					 <label class="unitName">Unit :</label><span class="unit_name"></span>
+					 <label class="unit-label" for="exampleInputPassword1">Units</label>
 					<select class="form-control units">
 						<option value="">Select</option>
 					   {{#options}}
 						 <option value="{{id}}">{{name}}</option>
 						{{/options}}
 					 </select>
-				   </div></form>')
+				   </div>
+				   <div class="checkbox"> <label> <input type="checkbox" name="check_primary"> Mark as primary unit </label> </div>
+				   </form>')
 
 
 	ui :
@@ -27,6 +30,7 @@ class AuthoringTool.PlotView extends Marionette.ItemView
 				'id' : val.get 'id'
 				'name' : val.get 'unit_name'
 		data.options = options
+		console.log data
 		data
 
 	events:

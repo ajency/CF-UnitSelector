@@ -147,13 +147,22 @@
     };
     window.resetCollection = function() {
       return $('.polygon-type,.marker-grp').each(function(index, value) {
-        var unit, unitID;
-        unitID = parseInt(value.id);
-        if (unitID !== 0) {
-          unit = unitMasterCollection.findWhere({
-            'id': parseInt(value.id)
+        var bldg, bldgId, type, unit, unitID;
+        type = $(value).attr('type');
+        if (type === 'building') {
+          bldgId = parseInt(value.id);
+          bldg = buildingCollection.findWhere({
+            'id': bldgId
           });
-          return unitCollection.remove(unit.get('id'));
+          return buildingCollection.remove(bldg);
+        } else {
+          unitID = parseInt(value.id);
+          if (unitID !== 0) {
+            unit = unitMasterCollection.findWhere({
+              'id': parseInt(value.id)
+            });
+            return unitCollection.remove(unit.get('id'));
+          }
         }
       });
     };
@@ -197,6 +206,7 @@
           window.svgData['supported_types'] = JSON.parse(supported_types);
           window.svgData['breakpoint_position'] = breakpoint_position;
           window.svgData['svg_type'] = svg_type;
+          window.svgData['building_id'] = building_id;
           return window.loadJSONData();
         },
         error: function(response) {
@@ -813,6 +823,8 @@
       data['data'] = btoa(svgExport);
       data['svg_type'] = window.svgData.svg_type;
       data['breakpoint_position'] = window.breakpoint_position;
+      data['building'] = building_id;
+      data['imgID'] = IMAGEID;
       draw.viewbox(0, 0, viewboxDefault.width, viewboxDefault.height);
       postUrl = BASEURL + "/admin/project/" + PROJECTID + "/image/" + IMAGEID + "/downloadSvg";
       publishSvgOptions = {

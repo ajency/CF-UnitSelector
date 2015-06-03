@@ -13,7 +13,10 @@ use CommonFloor\ProjectPropertyType;
 use CommonFloor\Phase;
 use CommonFloor\UnitVariant;
 use CommonFloor\UnitType;
+use CommonFloor\Building;
 use \Input;
+use CommonFloor\Http\Controllers\Admin\SvgController;
+
 
 class ProjectController extends Controller {
 
@@ -375,7 +378,8 @@ class ProjectController extends Controller {
     public function getPhaseData($projectId, $phaseId) {
         $phase = Phase::find($phaseId);
         $units = $phase->projectUnits()->get()->toArray();
-        $data = $errors = [];
+		$buildings = $phase->projectBuildings()->get();
+        $data = $unitIds =  $buildingIds =$mediaIds = $errors = [];
         foreach ($units as $unit) {
             $variantId = $unit['unit_variant_id'];
             $unitType = \CommonFloor\UnitVariant::find($variantId)->unitType()->first();
@@ -383,11 +387,29 @@ class ProjectController extends Controller {
             $propertType = \CommonFloor\UnitType::find($unitTypeId)->projectPropertyType()->first();
             $propertTypeId = $propertType->property_type_id;
             $data[$propertTypeId][] = $unit['unit_name'];
+			$unitIds['UNIT'][] = $unit['id'];
         }
-
-        $svgData = true;
-        if (!$svgData) {
-            $errors['authtool'] = 'Error';
+		
+		foreach($buildings as $building)
+		{
+			$data['BUILDING'][] = $building->building_name;
+			$buildingIds[] =  $building->id;
+			$mediaIds ['BUILDING'][]= $building->building_master; 
+			$building = Building :: find($building->id);
+			$buildingUnits = $building->projectUnits()->get()->toArray(); 
+			foreach ($buildingUnits as $buildingUnit) {
+				$unitIds['UNIT'][] = $buildingUnit['id'];
+			}	
+		}
+        
+		$project = Project::find($projectId);
+		$projectMeta = $project->projectMeta()->where('meta_key', 'master')->first()->toArray();
+		$mediaIds ['PROJECT'][]=($projectMeta)?unserialize($projectMeta['meta_value']):''; 
+		 
+		$unitSvgExits = SvgController :: getUnitPrimarySvg($unitIds,$mediaIds);
+ 
+        if (!$unitSvgExits) {
+            $errors['authtool'] = 'Svg Missing';
         }
         if (!count($data)) {
             $errors['phase'] = 'Phase cannot be made live as no units have been added to it.';
@@ -415,6 +437,15 @@ class ProjectController extends Controller {
                   </thead>
                   <tbody>';
             foreach ($data as $key => $values) {
+				
+				if($key=='BUILDING')
+				{
+					$html .=' <tr>
+                  <td><span class="semi-bold">Building</span></td> 
+                  <td>' . implode(", ", $values) . '</td> 
+                  </tr>';
+					continue;
+				}
 
                 $html .=' <tr>
                   <td><span class="semi-bold">' . get_property_type($key) . '</span></td> 
@@ -646,9 +677,14 @@ class ProjectController extends Controller {
 
                 // get property types supported by project
                 foreach ($projectpropertyTypes as $projectpropertyType) {
-                     $propertyname = $propertyTypeName[$projectpropertyType['property_type_id']];
-                    if (($propertyname == "Apartment")or($propertyname == "Penthouse")) {
-                        $supported_types[] = "Building";
+                    $propertyname = $propertyTypeName[$projectpropertyType['property_type_id']];
+                    
+                    if (in_array( $propertyname, array('Apartment','Penthouse'))){
+
+                        if (!in_array( "Building", $supported_types)) {
+                            $supported_types[] = "Building";
+                        }
+
                     }
                     else{
                         $supported_types[] = $propertyname;
@@ -679,14 +715,20 @@ class ProjectController extends Controller {
                 break;
 
         }
+    
+        $buildingId = 0;
+        if (isset($getVar['building'])) {
+            $buildingId = $getVar['building'];
+        }
 
 
-     return view('admin.project.mastersvgtool')
-     ->with('project', $project->toArray())
-     ->with('svgImage', $svgImagePath)
-     ->with('supported_types',json_encode($supported_types))
-     ->with('breakpoint_position',$breakpoint)
-     ->with('svg_type', $type);
+        return view('admin.project.mastersvgtool')
+        ->with('project', $project->toArray())
+        ->with('svgImage', $svgImagePath)
+        ->with('supported_types',json_encode($supported_types))
+        ->with('breakpoint_position',$breakpoint)
+        ->with('building_id',$buildingId)
+        ->with('svg_type', $type);
  }
 
 }
