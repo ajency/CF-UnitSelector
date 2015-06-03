@@ -458,7 +458,7 @@
       return CenterMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterMasterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn"> <div class="legend c clearfix"> <ul> <!--<li class="available">AVAILABLE</li>--> <li class="sold">N/A</li> <!--<li class="blocked">BLOCKED</li> <li class="na">Available</li>--> </ul> </div> <div class="zoom-controls c"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master b animated fadeIn"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img src=""  class="first_image img-responsive"> <div class="region inactive"></div> <div class="tooltip-overlay hidden"></div> </div> <div class="cf-loader hidden"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
+    CenterMasterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn"> <div class="legend c clearfix"> <ul> <!--<li class="available">AVAILABLE</li>--> <li class="sold">N/A</li> <!--<li class="blocked">BLOCKED</li> <li class="na">Available</li>--> </ul> </div> <div class="zoom-controls c"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master b animated fadeIn"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img   class="first_image "> <div class="region inactive"></div> <div class="tooltip-overlay hidden"></div> </div> <div class="cf-loader hidden"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
 
     CenterMasterView.prototype.ui = {
       svgContainer: '.master',
@@ -672,7 +672,23 @@
       first = _.values(svgs);
       $.merge(transitionImages, project.get('project_master'));
       $('.first_image').attr('data-src', transitionImages[breakpoints[0]]);
-      return $$('.first_image').lazyLoadXT({
+      $('.first_image').load(function() {
+        return $('.region').load(first[0], function() {
+          var response;
+          that.iniTooltip();
+          CommonFloor.applyAvailabilClasses();
+          CommonFloor.randomClass();
+          CommonFloor.applyFliterClass();
+          that.loadZoom();
+          $('#trig').removeClass('hidden');
+          response = project.checkRotationView();
+          $('.first_image').first().css('width', that.ui.svgContainer.width());
+          if (response === 1) {
+            return $('.cf-loader').removeClass('hidden');
+          }
+        }).addClass('active').removeClass('inactive');
+      });
+      return $('.first_image').lazyLoadXT({
         forceLoad: true,
         updateEvent: 'load'
       });

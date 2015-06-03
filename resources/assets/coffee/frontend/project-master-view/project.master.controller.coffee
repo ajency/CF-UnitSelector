@@ -460,7 +460,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 											<div id="spritespin"></div>
 											<div class="svg-maps">
 												
-												<img src=""  class="first_image img-responsive">
+												<img   class="first_image ">
 												
 												<div class="region inactive"></div>
 												<div class="tooltip-overlay hidden"></div>
@@ -1009,24 +1009,24 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		
 		
 		$('.first_image').attr('data-src',transitionImages[breakpoints[0]])
-			# $('.region').load(first[0],()->
-			# 	$('.first_image').attr('data-src',transitionImages[breakpoints[0]])
-			# 	that.iniTooltip()
-			# 	CommonFloor.applyAvailabilClasses()
-			# 	CommonFloor.randomClass()
-			# 	CommonFloor.applyFliterClass()
-			# 	that.loadZoom()
-			# 	$('#trig').removeClass 'hidden'
-			# 	response = project.checkRotationView()
-			# 	$('.first_image').first().css('width',that.ui.svgContainer.width())
-			# 	if response is 1
-			# 		$('.cf-loader').removeClass 'hidden'
-			# ).addClass('active').removeClass('inactive')
+		$('.first_image').load ()->
+			$('.region').load(first[0],()->
+				that.iniTooltip()
+				CommonFloor.applyAvailabilClasses()
+				CommonFloor.randomClass()
+				CommonFloor.applyFliterClass()
+				that.loadZoom()
+				$('#trig').removeClass 'hidden'
+				response = project.checkRotationView()
+				$('.first_image').first().css('width',that.ui.svgContainer.width())
+				if response is 1
+					$('.cf-loader').removeClass 'hidden'
+			).addClass('active').removeClass('inactive')
 			
 			
 		
 		# @initializeRotate(transitionImages,svgs)
-		$$('.first_image').lazyLoadXT(
+		$('.first_image').lazyLoadXT(
 			forceLoad : true
 			updateEvent: 'load'
 		)
