@@ -586,11 +586,14 @@ class CenterUnitView extends Marionette.ItemView
 
 
 		$('.images').html html
+		$('.img').addClass 'hidden'
 		$('.img').load ()->
 			$('#rotate_loader').addClass 'hidden'
+			$('.img').removeClass 'hidden'
 		if html == ""
 			# $('.images').addClass 'no-image'
-			html='<img class="img img-responsive external-img"  src="../../images/no-image.jpg" />'
+			html = '<img class="img img-responsive external-img"  src="../../images/no-image.jpg" />'
+
 		$(".fancybox").fancybox()
 		# $('.img').lazyLoadXT(
 		# 	forceLoad : true
@@ -600,6 +603,7 @@ class CenterUnitView extends Marionette.ItemView
 		
 
 	loadMaster:->
+		$('.firstimage').addClass 'hidden'
 		$('#rotate_loader').removeClass 'hidden'
 		url = Backbone.history.fragment
 		id = url.split('/')[1]
@@ -622,6 +626,7 @@ class CenterUnitView extends Marionette.ItemView
 				$('.firstimage').attr('src',transitionImages[breakpoints[0]])
 				$('.firstimage').load ()->
 					$('#rotate_loader').addClass 'hidden'
+					$('.firstimage').removeClass 'hidden'
 					$('.images').load(first[0],()->
 						$('.apartment').each (ind,item)->
 							itemid = parseInt item.id
@@ -643,6 +648,7 @@ class CenterUnitView extends Marionette.ItemView
 			$('.firstimage').attr('src',transitionImages[breakpoints[0]])
 			$('.firstimage').load ()->
 				$('#rotate_loader').addClass 'hidden'
+				$('.firstimage').removeClass 'hidden'
 				$('.images').load(first[0],()->
 					$('.villa,.plot').each (ind,item)->
 						itemid = parseInt item.id
