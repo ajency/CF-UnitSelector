@@ -3284,6 +3284,10 @@ label.third_toggle {
   display: block;
   margin: auto;
 }
+.marker-tooltip {
+  background: rgba(0, 0, 0, 0.9);
+  width: 200px;
+}
 .ls-nav ul {
   width: 100% !important;
   text-align: center;
