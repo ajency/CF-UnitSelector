@@ -541,14 +541,14 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 												<div class="prev"></div>
 												<div class="next"></div>
 											</div>
-											
+											<div id="svg_loader" class="cf-loader hidden"></div>
 											<div id="spritespin"></div>
 											<div class="svg-maps">
 												<img class="first_image lazy-hidden img-responsive" />
 												<div class="region inactive"></div>
 											</div>
 
-											<div class="cf-loader hidden"></div>
+											<div id="rotate_loader" class="cf-loader hidden"></div>
 										</div>
 										
 										<div class="rotate rotate-controls hidden">
@@ -789,25 +789,34 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		
 		$.merge transitionImages ,  building.get('building_master')
 		first = _.values svgs
+
+		$('#svg_loader').removeClass 'hidden'
+		$('.first_image').attr('src',transitionImages[breakpoints[0]])
 		
-		$('.first_image').lazyLoadXT()
+			
+			
+			
 		$('.first_image').load ()->
 			$('.region').load(first[0],()->
-				$('.first_image').attr('data-src',transitionImages[breakpoints[0]])
-				that.iniTooltip()
-				CommonFloor.applyAvailabilClasses()
-				CommonFloor.randomClass()
-				CommonFloor.applyFliterClass()
-				CommonFloor.getApartmentsInView()
-				that.loadZoom()
-				response = building.checkRotationView(building_id)
-				$('.cf-loader').removeClass 'hidden'
-				if response is 1
-					$('.cf-loader').removeClass 'hidden'
+					$('#svg_loader').addClass 'hidden'
+					that.iniTooltip()
+					CommonFloor.applyAvailabilClasses()
+					CommonFloor.randomClass()
+					CommonFloor.applyFliterClass()
+					CommonFloor.getApartmentsInView()
+					that.loadZoom()
+					response = building.checkRotationView(building_id)
+					$('#rotate_loader').removeClass 'hidden'
+					if response is 1
+						$('.cf-loader').removeClass 'hidden'
+						that.initializeRotate(transitionImages,svgs,building)
 			).addClass('active').removeClass('inactive')
+		
+		
+		
 			
 		
-		@initializeRotate(transitionImages,svgs,building)
+		
 		@loadProjectMaster()
 
 		if $(window).width() > 991
@@ -906,7 +915,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('.first_image').remove()
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
-				$('.cf-loader').addClass 'hidden'
+				$('#rotate_loader').addClass 'hidden'
 			$('.region').load(url,()->
 				that.iniTooltip()
 				that.loadZoom()
