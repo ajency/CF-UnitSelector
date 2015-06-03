@@ -646,9 +646,14 @@ class ProjectController extends Controller {
 
                 // get property types supported by project
                 foreach ($projectpropertyTypes as $projectpropertyType) {
-                     $propertyname = $propertyTypeName[$projectpropertyType['property_type_id']];
-                    if (($propertyname == "Apartment")or($propertyname == "Penthouse")) {
-                        $supported_types[] = "Building";
+                    $propertyname = $propertyTypeName[$projectpropertyType['property_type_id']];
+                    
+                    if (in_array( $propertyname, array('Apartment','Penthouse'))){
+
+                        if (!in_array( "Building", $supported_types)) {
+                            $supported_types[] = "Building";
+                        }
+
                     }
                     else{
                         $supported_types[] = $propertyname;

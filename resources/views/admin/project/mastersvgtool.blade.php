@@ -18,7 +18,10 @@
          height: 100%; !important;
 
      }
-     
+     .svg-canvas > svg {
+      height: 100%; !important;
+
+     }
      .amenity {
       stroke-width: 1 !important;
       stroke: #FF7E00;
