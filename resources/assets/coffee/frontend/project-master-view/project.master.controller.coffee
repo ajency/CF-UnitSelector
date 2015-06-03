@@ -1014,7 +1014,6 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			
 			
 		$('.first_image').lazyLoadXT(
-			forceLoad : true
 			updateEvent: 'load'
 			onload :()->
 				$('.region').load(first[0],()->
@@ -1031,7 +1030,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			).addClass('active').removeClass('inactive')
 
 		)
-		# @initializeRotate(transitionImages,svgs)
+		@initializeRotate(transitionImages,svgs)
 		
 		
 		

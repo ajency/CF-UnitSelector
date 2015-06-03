@@ -672,14 +672,14 @@
       first = _.values(svgs);
       $.merge(transitionImages, project.get('project_master'));
       $('.first_image').attr('data-src', transitionImages[breakpoints[0]]);
-      return $('.first_image').lazyLoadXT({
-        forceLoad: true,
+      $('.first_image').lazyLoadXT({
         updateEvent: 'load',
         onload: function() {
           var response;
           return $('.region').load(first[0], function() {}, that.iniTooltip(), CommonFloor.applyAvailabilClasses(), CommonFloor.randomClass(), CommonFloor.applyFliterClass(), that.loadZoom(), $('#trig').removeClass('hidden'), response = project.checkRotationView(), $('.first_image').first().css('width', that.ui.svgContainer.width()), response === 1 ? $('.cf-loader').removeClass('hidden') : void 0).addClass('active').removeClass('inactive');
         }
       });
+      return this.initializeRotate(transitionImages, svgs);
     };
 
     CenterMasterView.prototype.setDetailIndex = function(index) {
