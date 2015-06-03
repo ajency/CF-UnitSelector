@@ -70,7 +70,11 @@ jQuery(document).ready ($)->
     window.generateSvg = (svgData)->
         # draw.viewbox(0, 0, 1600, 800)
         # create svg background image, set exclude data attrib to true so it can be excluded while exporting the svg
-        draw.image(svgImg).data('exclude', true)
+
+        if svg_type isnt "google_earth"
+            draw.image(svgImg).data('exclude', true)
+        else
+            draw.image(svgImg).data('exclude', false)
 
         # for each svg data check canvas type and generate elements accordingly
         $.each svgData,(index,value)->
@@ -244,6 +248,7 @@ jQuery(document).ready ($)->
                 window.svgData['breakpoint_position'] = breakpoint_position
                 window.svgData['svg_type'] = svg_type
                 window.svgData['building_id'] = building_id
+                window.svgData['project_id'] = project_id
                 window.loadJSONData()
                 
 
@@ -306,7 +311,9 @@ jQuery(document).ready ($)->
         if myObject['object_type'] is "amenity"
             details['title'] = $('#amenity-title').val()
             details['description'] = $('#amenity-description').val()
-            details['class'] = 'layer '+$('.property_type').val()   
+            details['class'] = 'layer '+$('.property_type').val()
+        else if  myObject['object_type'] is "project"
+           details['class'] = 'step1-marker' 
         else  
            details['class'] = 'layer '+$('.property_type').val()         
         
@@ -386,10 +393,6 @@ jQuery(document).ready ($)->
             new AuthoringTool.BuildingCtrl 
                 'region' : @region 
 
-        if type is 'property'
-            new AuthoringTool.BuildingCtrl 
-                'region' : @region                             
-
 
     window.showDetails = (elem)->
         unit = unitMasterCollection.findWhere
@@ -402,7 +405,13 @@ jQuery(document).ready ($)->
         $('.units').val elem.id
         $('.units').show()
 
-        
+    window.loadProjectForm =->
+        $('.property_type').val 'project'
+        $('.property_type').attr 'disabled' ,  true 
+        region =  new Marionette.Region el : '#dynamice-region'
+        new AuthoringTool.ProjectCtrl 
+            'region' : region
+            'property' : project_data 
  
     window.hideAlert = ()->
         $('.alert').show()
@@ -494,7 +503,11 @@ jQuery(document).ready ($)->
                 cy: window.cy
  
             
-            drawMarkerElements.push ellipse  
+            drawMarkerElements.push ellipse 
+
+            # load default form
+            window.loadProjectForm() 
+
      
         _.each drawMarkerElements, (markerElement, key) =>
             groupMarker.add(markerElement)
@@ -614,7 +627,7 @@ jQuery(document).ready ($)->
             # hide marker options
             $('[rel=\'popover\']').popover('hide')
 
-            window.drawDefaultMarker(markerType)            
+            window.drawDefaultMarker(markerType) 
             
 
 

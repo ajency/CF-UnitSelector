@@ -50,7 +50,11 @@
       return rawSvg.appendChild(svgimg);
     };
     window.generateSvg = function(svgData) {
-      draw.image(svgImg).data('exclude', true);
+      if (svg_type !== "google_earth") {
+        draw.image(svgImg).data('exclude', true);
+      } else {
+        draw.image(svgImg).data('exclude', false);
+      }
       return $.each(svgData, function(index, value) {
         if (value.canvas_type === 'polygon') {
           window.polygon.generatePolygonTag(value);
@@ -207,6 +211,7 @@
           window.svgData['breakpoint_position'] = breakpoint_position;
           window.svgData['svg_type'] = svg_type;
           window.svgData['building_id'] = building_id;
+          window.svgData['project_id'] = project_id;
           return window.loadJSONData();
         },
         error: function(response) {
@@ -268,6 +273,8 @@
         details['title'] = $('#amenity-title').val();
         details['description'] = $('#amenity-description').val();
         details['class'] = 'layer ' + $('.property_type').val();
+      } else if (myObject['object_type'] === "project") {
+        details['class'] = 'step1-marker';
       } else {
         details['class'] = 'layer ' + $('.property_type').val();
       }
@@ -345,11 +352,6 @@
         });
       }
       if (type === 'building') {
-        new AuthoringTool.BuildingCtrl({
-          'region': this.region
-        });
-      }
-      if (type === 'property') {
         return new AuthoringTool.BuildingCtrl({
           'region': this.region
         });
@@ -370,6 +372,18 @@
       $('.units').attr('disabled', true);
       $('.units').val(elem.id);
       return $('.units').show();
+    };
+    window.loadProjectForm = function() {
+      var region;
+      $('.property_type').val('project');
+      $('.property_type').attr('disabled', true);
+      region = new Marionette.Region({
+        el: '#dynamice-region'
+      });
+      return new AuthoringTool.ProjectCtrl({
+        'region': region,
+        'property': project_data
+      });
     };
     window.hideAlert = function() {
       $('.alert').show();
@@ -453,6 +467,7 @@
             cy: window.cy
           });
           drawMarkerElements.push(ellipse);
+          window.loadProjectForm();
       }
       _.each(drawMarkerElements, (function(_this) {
         return function(markerElement, key) {

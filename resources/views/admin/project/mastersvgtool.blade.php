@@ -368,11 +368,11 @@
             svg_type = '{{$svg_type}}';
             building_id = '{{$building_id}}';
             project_id = '{{$project_id}}';
-            
+            project_data = {};
+            project_data['title'] = '{{$project["project_title"]}}';
+            project_data['city'] = '{{$project["city"]}}';
+            project_data['project_address'] = '{{$project["project_address"]}}';
 
-            
-
-           
 
         AuthoringTool = new Marionette.Application
         CommonFloor = new Marionette.Application 
@@ -409,6 +409,7 @@
         <script src="{{ asset('js/authoring-tool/entities/amenity.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/apartment.entity.js' )}}"></script>        
         <script src="{{ asset('js/authoring-tool/entities/building.entity.js' )}}"></script>
+        <script src="{{ asset('js/authoring-tool/entities/project.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/svg.authoring.controller.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/application.js' )}}"></script>
 </body>
