@@ -93,11 +93,11 @@
       results = apartmentVariantCollection.getApartmentUnits();
       temp = new Backbone.Collection(results);
       newTemp = temp.where({
-        'building_id': parseInt(building_id)
+        'building_id': parseInt(this.building_id)
       });
       data.results = newTemp.length;
       model = buildingMasterCollection.findWhere({
-        'id': building_id
+        'id': this.building_id
       });
       data.name = model.get('building_name');
       return data;
@@ -314,7 +314,7 @@
       return ApartmentsView.__super__.constructor.apply(this, arguments);
     }
 
-    ApartmentsView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="bldg-img"></div> <div class="apartment pull-left icon"></div> <div class="pull-left bldg-info"> <div class="info"> <label>{{unit_name}} (Floor - {{floor}} )</label> </div> ({{unit_type}} {{super_built_up_area}} {{measurement_units}})<br> <div class="text-primary m-t-5"><span class="icon-rupee-icn"></span>{{price}}</div> </div> <div class="clearfix"></div> </li>');
+    ApartmentsView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="bldg-img"></div> <div class="{{type}} pull-left icon"></div> <div class="pull-left bldg-info"> <div class="info"> <label>{{unit_name}} (Floor - {{floor}} )</label> </div> ({{unit_type}} {{super_built_up_area}} {{measurement_units}})<br> <div class="text-primary m-t-5"><span class="icon-rupee-icn"></span>{{price}}</div> </div> <div class="clearfix"></div> </li>');
 
     ApartmentsView.prototype.serializeData = function() {
       var availability, data, property, response, unitType;
@@ -333,6 +333,7 @@
       data.property = s.capitalize(property);
       data.floor = this.model.get('floor');
       data.measurement_units = project.get('measurement_units');
+      data.type = response[2];
       return data;
     };
 

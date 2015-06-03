@@ -5260,6 +5260,7 @@ a.red-link.pull-right {
 .font-picker-container .font-actions {
   margin: 0 -15px;
 }
+<<<<<<< HEAD
 .svg-canvas {
   transform: matrix(1, 0, 0, 1, 0, 0);
   backface-visibility: hidden;
@@ -5443,3 +5444,5 @@ nav.aj-navbar .toggle i {
 .popover-content {
   width: 159px;
 }
+=======
+>>>>>>> phase2

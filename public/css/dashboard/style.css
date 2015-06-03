@@ -8510,6 +8510,7 @@ table tr {
     -o-transform: rotateZ(0deg);
   }
 }
+<<<<<<< HEAD
 .svg-canvas > svg {
   position: absolute;
   width: 100%;
@@ -8517,4 +8518,6 @@ table tr {
   left: 0;
   z-index: -1;
 }
+=======
+>>>>>>> phase2
 /*# sourceMappingURL=style.css.map */
