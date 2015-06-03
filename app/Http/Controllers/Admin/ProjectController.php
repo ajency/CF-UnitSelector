@@ -323,6 +323,7 @@ class ProjectController extends Controller {
             $phase = Phase::find($phaseId);
             $units = $phase->projectUnits()->get()->toArray();
             $buildings = $phase->projectBuildings()->get()->toArray(); 
+            $buildingUnits =[];
             //BUILDING (APARTMENT/PENTHOUSE)
             foreach($buildings as $building)
             {
