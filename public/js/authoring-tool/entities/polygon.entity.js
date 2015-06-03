@@ -41,6 +41,9 @@
         'type': item.object_type,
         svgid: item.id
       });
+      if (item.primary_breakpoint !== null) {
+        polygon.data('primary-breakpoint', item.primary_breakpoint);
+      }
       if (item.object_type === "amenity") {
         polygon.data('amenity-title', item.other_details.title);
         return polygon.data('amenity-desc', item.other_details.description);

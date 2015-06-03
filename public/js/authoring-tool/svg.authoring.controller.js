@@ -191,6 +191,7 @@
           window.svgData['image'] = svgImg;
           window.svgData['data'] = response.data;
           window.svgData['supported_types'] = JSON.parse(supported_types);
+          window.svgData['breakpoint_position'] = breakpoint_position;
           return window.loadJSONData();
         },
         error: function(response) {
@@ -242,6 +243,7 @@
       myObject['image_id'] = IMAGEID;
       myObject['object_type'] = objectType;
       myObject['canvas_type'] = window.canvas_type;
+      myObject['breakpoint_position'] = window.breakpoint_position;
       if (objectType === "amenity") {
         myObject['object_id'] = 0;
       } else {
@@ -274,6 +276,9 @@
         myObject['points'] = $('.area').val().split(',');
       }
       myObject['other_details'] = details;
+      if ($('[name="check_primary"]').is(":checked") === true) {
+        myObject['primary_breakpoint'] = window.breakpoint_position;
+      }
       return $.ajax({
         type: 'POST',
         headers: {
@@ -484,6 +489,9 @@
             $('.edit').removeClass('hidden');
             $('.delete').removeClass('hidden');
             window.loadForm(object_type);
+            if ($(currentElem).data("primary-breakpoint")) {
+              $('[name="check_primary"]').prop('checked', true);
+            }
             if (object_type === "amenity") {
               $('#amenity-title').val($(currentElem).data("amenity-title"));
               return $('#amenity-description').val($(currentElem).data("amenity-desc"));
@@ -535,6 +543,9 @@
       $('.edit').removeClass('hidden');
       $('.delete').removeClass('hidden');
       window.loadForm(object_type);
+      if ($(currentElem).data("primary-breakpoint")) {
+        $('[name="check_primary"]').prop('checked', true);
+      }
       if (object_type === "amenity") {
         $('#amenity-title').val($(currentElem).data("amenity-title"));
         $('#amenity-description').val($(currentElem).data("amenity-desc"));
@@ -580,6 +591,7 @@
       myObject['image_id'] = IMAGEID;
       myObject['object_type'] = objectType;
       myObject['canvas_type'] = window.canvas_type;
+      myObject['breakpoint_position'] = window.breakpoint_position;
       if (objectType === "amenity") {
         myObject['object_id'] = 0;
       } else {
@@ -610,6 +622,9 @@
         details['marker_type'] = 'solid';
       } else {
         myObject['points'] = $('.area').val().split(',');
+      }
+      if ($('[name="check_primary"]').is(":checked") === true) {
+        myObject['primary_breakpoint'] = window.breakpoint_position;
       }
       myObject['other_details'] = details;
       myObject['_method'] = 'PUT';
