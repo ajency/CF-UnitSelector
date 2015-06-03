@@ -708,6 +708,12 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			# $('#apartment'+id).attr('class' ,'unit blocks '+availability)
 			$('#apartment'+id).removeClass ' active'
 
+		'mouseover .marker-grp':(e)->
+			html = '<div><label>Title:</label>'+$(e.currentTarget).attr('data-amenity-title')+
+					'<br/><label>Desc:</label>'+$(e.currentTarget).attr('data-amenity-desc')+'</div>'
+
+			$('.layer').tooltipster('content', html)
+
 		# 'click .apartment':(e)->
 		# 	id = parseInt e.target.id
 		# 	CommonFloor.navigate '/unit-view/'+id , true

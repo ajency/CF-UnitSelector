@@ -41,21 +41,7 @@ class TopMasterView extends Marionette.ItemView
 													</div>
 													<div class="pull-left filter-result full">
 														 <ul  id="flexiselDemo1">
-														 {{#each  filters}} 
-													          <li>
-													              <div class="filter-title"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"></span> </div>
-													         </li>
-													         {{#filters}}
-													         	{{#each this}}
-													         	{{#each this}}
-													          <li>
-													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
-													         </li>{{/each}}
-													         {{/each}}
-													         {{/filters}}
-													        
-													    {{/each}}
-													     {{#area}}
+														 {{#area}}
 													         	 <li>
 													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
 													         </li>
@@ -83,6 +69,21 @@ class TopMasterView extends Marionette.ItemView
 													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
 													         </li>
 													         {{/status}}
+														 {{#each  filters}} 
+													          <li>
+													              <div class="filter-title"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"></span> </div>
+													         </li>
+													         {{#filters}}
+													         	{{#each this}}
+													         	{{#each this}}
+													          <li>
+													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													         </li>{{/each}}
+													         {{/each}}
+													         {{/filters}}
+													        
+													    {{/each}}
+													     
 													    </ul>
 														<!--{{#each  filters}}
 														{{#each this}}
@@ -866,9 +867,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			# 	$('.tooltip-overlay').removeClass 'hidden'
 			# )
 			
-			
+		'mouseover .marker-grp':(e)->
+			html = '<div><label>Title:</label>'+$(e.currentTarget).attr('data-amenity-title')+
+					'<br/><label>Desc:</label>'+$(e.currentTarget).attr('data-amenity-desc')+'</div>'
 
-		
+			$('.layer').tooltipster('content', html)
 
 		'mouseover .building':(e)->
 			id  = parseInt e.target.id

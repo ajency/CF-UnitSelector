@@ -552,6 +552,11 @@
         $('#' + id).attr('class', 'layer apartment ' + availability);
         return $('#apartment' + id).removeClass(' active');
       },
+      'mouseover .marker-grp': function(e) {
+        var html;
+        html = '<div><label>Title:</label>' + $(e.currentTarget).attr('data-amenity-title') + '<br/><label>Desc:</label>' + $(e.currentTarget).attr('data-amenity-desc') + '</div>';
+        return $('.layer').tooltipster('content', html);
+      },
       'mouseover .next,.prev': function(e) {
         var buildingModel, floors, html, id, images, response, unitTypes;
         id = parseInt($(e.target).attr('data-id'));

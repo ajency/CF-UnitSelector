@@ -46,21 +46,7 @@ class TopListView extends Marionette.ItemView
 										
 							            <div class="pull-left filter-result full">
 							              	 <ul  id="flexiselDemo1">
-														 {{#each  filters}} 
-													          <li>
-													              <div class="filter-title"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"></span> </div>
-													         </li>
-													         {{#filters}}
-													         	{{#each this}}
-													         	{{#each this}}
-													          <li>
-													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
-													         </li>{{/each}}
-													         {{/each}}
-													         {{/filters}}
-													        
-													    {{/each}}
-													     {{#area}}
+							              	 {{#area}}
 													         	 <li>
 													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
 													         </li>
@@ -89,6 +75,21 @@ class TopListView extends Marionette.ItemView
 													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
 													         </li>
 													         {{/status}}
+														 {{#each  filters}} 
+													          <li>
+													              <div class="filter-title"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"></span> </div>
+													         </li>
+													         {{#filters}}
+													         	{{#each this}}
+													         	{{#each this}}
+													          <li>
+													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													         </li>{{/each}}
+													         {{/each}}
+													         {{/filters}}
+													        
+													    {{/each}}
+													     
 													    </ul>						               
 							            </div>
 							
