@@ -72,7 +72,7 @@
         data.status = status;
       }
       main = CommonFloor.getFilters();
-      console.log(data.filters = main[0].filters);
+      data.filters = main[0].filters;
       data.area = main[0].area;
       data.budget = main[0].price;
       data.status = main[0].status;
@@ -124,9 +124,7 @@
               return parseInt(item);
             });
           }
-          console.log(types);
           types = _.without(types, parseInt($(e.currentTarget).attr('data-id')));
-          console.log(types);
           CommonFloor.defaults[type]['unit_type_id'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.resetCollections();
@@ -144,7 +142,6 @@
               return parseInt(item);
             });
           }
-          console.log(types);
           types = _.without(types, parseInt($(e.currentTarget).attr('data-id')));
           CommonFloor.defaults[type]['unit_variant_id'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
@@ -156,7 +153,6 @@
         'click @ui.status': function(e) {
           CommonFloor.defaults['common']['availability'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
-          console.log(CommonFloor.defaults);
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
@@ -186,7 +182,6 @@
           if (CommonFloor.defaults[type]['attributes'] !== "") {
             types = CommonFloor.defaults[type]['attributes'].split(',');
           }
-          console.log(types);
           types = _.without(types, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults[type]['attributes'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());

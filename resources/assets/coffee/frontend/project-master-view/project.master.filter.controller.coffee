@@ -1,10 +1,4 @@
-window.unitTypes = []
-window.unitVariants = []
-window.variantNames = []
-window.flooring = []
-window.price = ''
-window.area = ''
-window.type  = []
+
 class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 	template : Handlebars.compile('
@@ -194,30 +188,12 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 	initialize:->
 		@price = ''
 		@area = ''
-		unitTypes = []
-		variantNames = []
-		# if CommonFloor.defaults['unitTypes']!= ""
-		# 	unitTypes = CommonFloor.defaults['unitTypes'].split(',')
-		# if CommonFloor.defaults['unitVariants']!= ""
-		# 	variantNames = CommonFloor.defaults['unitVariants'].split(',')
-		# if CommonFloor.defaults['type']!= ""
-		# 	window.type  = CommonFloor.defaults['type'].split(',')
-		# if CommonFloor.defaults['flooring']!= ""
-		# 	window.flooring  = CommonFloor.defaults['flooring'].split(',')
-		# window.unitTypes = unitTypes.map (item)->
-		# 	return parseInt item
-		# window.variantNames = variantNames.map (item)->
-		# 	return parseInt item
+		
+		
 
 	events:
 
 		'click @ui.clear':(e)->
-			window.unitTypes = []
-			window.unitVariants = []
-			window.variantNames = []
-			window.price = ''
-			window.area = ''
-			window.type  = []
 			CommonFloor.defaults['type'] = ""
 			$.each CommonFloor.defaults['villa'],(index,value)->
 				CommonFloor.defaults['villa'][index] = ""
@@ -258,27 +234,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		'mouseout @ui.plotCheck,@ui.plotWrapper':(e)->
 			$(".plot-wrapper").removeClass("visible")
 
-		# 'click @ui.types':(e)->
-		# 	window.unitTypes = []
-		# 	window.unitVariants = []
-		# 	window.variantNames = []
-		# 	$.each CommonFloor.defaults,(index,value)->
-		# 		if index != 'type'
-		# 				CommonFloor.defaults[index] = ""
-		# 	if $(e.currentTarget).is(':checked')
-		# 		window.type.push $(e.target).val()
-		# 	else
-		# 		window.type = _.without window.type ,$(e.target).val()
-		# 	CommonFloor.defaults['type'] = window.type.join(',')
-		# 	unitCollection.reset unitMasterCollection.toArray()
-		# 	CommonFloor.filter()
-		# 	unitCollection.trigger('available')
-		# 	if e.target.id == 'Villas'
-		# 		@villaFilters() 
-		# 	if e.target.id == 'Apartments'
-		# 		@apartmentFilters()
-		# 	if e.target.id == 'Plots'
-		# 		@plotFilters()
+		
 
 		'click @ui.villa':(e)->
 			types = []
@@ -578,7 +534,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		data.villas = Marionette.getOption(@,'villas')
 		data.unitVariants = Marionette.getOption(@,'unitVariants')
 		data.apartments = Marionette.getOption(@,'apartments')
-		console.log data.plots = Marionette.getOption(@,'plots')
+		data.plots = Marionette.getOption(@,'plots')
 		data.types = Marionette.getOption(@,'types')
 		data.views = Marionette.getOption(@,'views')
 		data.facings = Marionette.getOption(@,'facings')
@@ -654,14 +610,6 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 
 		types = Marionette.getOption(@,'types')
 		
-		# if types.length == 1
-		# 	$('.property_type').hide()
-		# if Marionette.getOption(@,'flooring').length == 0
-		# 	$('.flooring_filter').hide()
-		# if Marionette.getOption(@,'unitTypes').length == 0
-		# 	$('.unit_type_filter').hide()
-		# if Marionette.getOption(@,'unitVariantNames').length == 0
-		# 	$('.variant_filter').hide()
 		@loadSelectedFilters()
 
 	hideLabels:->
@@ -837,13 +785,6 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		if CommonFloor.defaults['common']['availability'] != "" 
 			 @ui.status.prop('checked',true)
 
-		# res = CommonFloor.getFilters()
-		# if Object.keys(res).length == 0
-		# 	window.flag = 1
-		# if window.flag == 0
-		# 	$('.fliters-container').removeClass 'closed'
-		# else
-		# 	$('.fliters-container').addClass 'closed'
 		
 
 
@@ -899,7 +840,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 				value.type_name = '(A)/(PH)'
 				value['id'] = 'Apartments'
 
-		console.log types
+		
 		@view = view = new CommonFloor.FilterMsterView
 				model : project
 				'villas' : villaFilters
@@ -964,12 +905,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 									'label' : ind.toUpperCase()
 									'value' : temp
 									'index' : ind
-				# if $.inArray(item.get('variant_attributes').flooring,flooring) == -1 && ! _.isUndefined item.get('variant_attributes').flooring
-				# 	flooring.push item.get('variant_attributes').flooring
-				# 	flooringAttributes.push
-				# 			'id' : item.get('variant_attributes').flooring
-				# 			'name' : item.get('variant_attributes').flooring
-				# 			type: 'V'
+				
 					
 			unitsArr = bunglowVariantMasterCollection.getBunglowUnits()
 			$.each unitsArr,(index,value)->
@@ -1048,12 +984,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 									'value' : temp
 									'index' : ind
 
-				# if $.inArray(item.get('variant_attributes').flooring,flooring) == -1 && ! _.isUndefined item.get('variant_attributes').flooring
-				# 	flooring.push item.get('variant_attributes').flooring
-				# 	flooringAttributes.push
-				# 			'id' : item.get('variant_attributes').flooring
-				# 			'name' : item.get('variant_attributes').flooring
-				# 			type: type
+			
 				
 
 		unitsArr = apartmentVariantMasterCollection.getApartmentUnits()
@@ -1122,20 +1053,14 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 									'classname' : 'attributes'
 									'label' : ind
 									type: 'P'
-								console.log temp
+								
 								newtemp.push 
 									'label' : ind.toUpperCase()
 									'index' : ind
 									'value' : temp
 						
-				# if $.inArray(item.get('variant_attributes').flooring,flooring) == -1 && ! _.isUndefined item.get('variant_attributes').flooring
-				# 	flooring.push item.get('variant_attributes').flooring
-				# 	flooringAttributes.push
-				# 			'id' : item.get('variant_attributes').flooring
-				# 			'name' : item.get('variant_attributes').flooring
-				# 			type: 'P'
-
-		console.log newtemp		
+			
+			
 		unitsArr = plotVariantMasterCollection.getPlotUnits()
 		$.each unitsArr,(index,value)->
 			unitDetails = window.unit.getUnitDetails(value.id)

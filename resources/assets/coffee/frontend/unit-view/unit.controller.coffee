@@ -608,12 +608,11 @@ class CenterUnitView extends Marionette.ItemView
 		$('#rotate_loader').removeClass 'hidden'
 		url = Backbone.history.fragment
 		id = url.split('/')[1]
-		console.log unit = unitCollection.findWhere
+		unit = unitCollection.findWhere
 				'id' : parseInt id
 		response = window.unit.getUnitDetails(id)
 		building = buildingCollection.findWhere
 					'id' : parseInt unit.get('building_id')
-		console.log response[2]
 		if response[2] is 'apartment' || response[2] is 'Penthouse'
 			transitionImages = []
 			svgs = {}

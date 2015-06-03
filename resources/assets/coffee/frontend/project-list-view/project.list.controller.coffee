@@ -117,7 +117,7 @@ class TopListView extends Marionette.ItemView
 		if status.length != 0
 			data.status = status
 		main = CommonFloor.getFilters()
-		console.log data.filters  = main[0].filters
+		data.filters  = main[0].filters
 		data.area  = main[0].area
 		data.budget  = main[0].price
 		data.status  = main[0].status
@@ -168,9 +168,7 @@ class TopListView extends Marionette.ItemView
 				types = CommonFloor.defaults[type]['unit_type_id'].split(',')
 				types = types.map (item)->
 					return parseInt item
-			console.log types
 			types = _.without types , parseInt $(e.currentTarget).attr('data-id')
-			console.log types
 			CommonFloor.defaults[type]['unit_type_id'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.resetCollections()
@@ -185,7 +183,6 @@ class TopListView extends Marionette.ItemView
 				types = CommonFloor.defaults[type]['unit_variant_id'].split(',')
 				types = types.map (item)->
 					return parseInt item
-			console.log types
 			types = _.without types , parseInt $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults[type]['unit_variant_id'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
@@ -197,7 +194,6 @@ class TopListView extends Marionette.ItemView
 		'click @ui.status':(e)->
 			CommonFloor.defaults['common']['availability'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
-			console.log CommonFloor.defaults
 			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			@trigger  'render:view'
@@ -228,7 +224,6 @@ class TopListView extends Marionette.ItemView
 			if CommonFloor.defaults[type]['attributes']!= ""
 				types = CommonFloor.defaults[type]['attributes'].split(',')
 				
-			console.log types
 			types = _.without types , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults[type]['attributes'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
