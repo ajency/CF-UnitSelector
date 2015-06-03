@@ -602,8 +602,8 @@
       },
       'mouseover .amenity': function(e) {
         var html;
-        html = '<div><label>Title:</label>' + $(e.currentTarget).attr('data-amenity-title') + '<br/><label>Desc:</label>' + $(e.currentTarget).attr('data-amenity-desc') + '</div>';
-        return $('.layer').tooltipster('content', html);
+        html = '<div class="row"> <div class="col-sm-12 b-r"> <h4 class="text-warning margin-none">' + $(e.currentTarget).attr('data-amenity-title') + '</h4> <h6 class="text-muted">' + $(e.currentTarget).attr('data-amenity-desc') + '</h6> </div> </div>';
+        return $('.amenity').tooltipster('content', html);
       },
       'mouseover .building': function(e) {
         var availability, buildingMaster, buildingModel, floors, html, id, minprice, price, response, unit, unitTypes, url;
@@ -773,7 +773,7 @@
     };
 
     CenterMasterView.prototype.iniTooltip = function() {
-      return $('.layer').tooltipster({
+      $('.layer').tooltipster({
         theme: 'tooltipster-shadow',
         contentAsHTML: true,
         onlyOne: true,
@@ -791,6 +791,13 @@
             return $('.cf-loader').removeClass('hidden');
           });
         }
+      });
+      return $('.amenity').tooltipster({
+        theme: 'tooltipster-shadow marker-tooltip',
+        contentAsHTML: true,
+        onlyOne: true,
+        arrow: false,
+        trigger: 'hover'
       });
     };
 

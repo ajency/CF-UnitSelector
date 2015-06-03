@@ -877,10 +877,14 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			# )
 			
 		'mouseover .amenity':(e)->
-			html = '<div><label>Title:</label>'+$(e.currentTarget).attr('data-amenity-title')+
-					'<br/><label>Desc:</label>'+$(e.currentTarget).attr('data-amenity-desc')+'</div>'
+			html = '<div class="row">
+						<div class="col-sm-12 b-r">
+							<h4 class="text-warning margin-none">'+$(e.currentTarget).attr('data-amenity-title')+'</h4>
+							<h6 class="text-muted">'+$(e.currentTarget).attr('data-amenity-desc')+'</h6>
+						</div>
+					</div>'
 
-			$('.layer').tooltipster('content', html)
+			$('.amenity').tooltipster('content', html)
 
 		'mouseover .building':(e)->
 			id  = parseInt e.target.id
@@ -1119,26 +1123,32 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 	#intialize tooltip 
 	iniTooltip:->
 		$('.layer').tooltipster(
-				theme: 'tooltipster-shadow'
-				contentAsHTML: true
-				onlyOne : true
-				arrow : false
-				offsetX : 50
-				offsetY : -10
-				interactive : true
-				# animation : 'grow'
-				trigger: 'hover'
-				functionReady:(e)->
-					$('.view-unit').on('click' , (e)->
-						$('.layer').tooltipster('hide')
-						$('svg').attr('class' ,'zoom')
-						$('#spritespin').addClass 'zoom'
-						$('.us-right-content').addClass 'fadeOut'
-						$('.cf-loader').removeClass 'hidden'
-					)
+			theme: 'tooltipster-shadow'
+			contentAsHTML: true
+			onlyOne : true
+			arrow : false
+			offsetX : 50
+			offsetY : -10
+			interactive : true
+			# animation : 'grow'
+			trigger: 'hover'
+			functionReady:(e)->
+				$('.view-unit').on('click' , (e)->
+					$('.layer').tooltipster('hide')
+					$('svg').attr('class' ,'zoom')
+					$('#spritespin').addClass 'zoom'
+					$('.us-right-content').addClass 'fadeOut'
+					$('.cf-loader').removeClass 'hidden'
+				)
 		)
-
-		
+		$('.amenity').tooltipster(
+			theme: 'tooltipster-shadow marker-tooltip'
+			contentAsHTML: true
+			onlyOne : true
+			arrow : false
+			# animation : 'grow'
+			trigger: 'hover'
+		)
 	
 
 	loadZoom:->
