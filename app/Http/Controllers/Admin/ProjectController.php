@@ -350,14 +350,23 @@ class ProjectController extends Controller {
 
         ksort($propertyTypes);
         $projectData = $project->toArray();
+        $projectData['breakpoints'] = unserialize($projectData['breakpoints']);
         $projectData['master'] = unserialize($projectData['master']);
         $projectData['masterdeletedimages'] = [];
+        $breakPointImageIds =[];
         foreach ($projectData['master'] as $position => $imageId) {
             if($imageId=="")
                 $projectData['masterdeletedimages'][] =$position;
+            else
+            {
+                if(in_array($position,$projectData['breakpoints'] ))
+                {
+                    $breakPointImageIds[$position] =$breakPointImageIds;
+                }
+            }
         }
 
-        $projectData['breakpoints'] = unserialize($projectData['breakpoints']);
+        $breakPointSvgData = SvgController :: getBreakpointUnitData($breakPointImageIds);
         
         $googleearthauthtool =true;
 
