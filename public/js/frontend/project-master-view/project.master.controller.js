@@ -90,6 +90,7 @@
         'click @ui.unitBack': function(e) {
           e.preventDefault();
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return CommonFloor.navigate('/', true);
@@ -111,6 +112,7 @@
           }
           this.trigger('render:view');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           return unitCollection.trigger('available');
         },
@@ -129,6 +131,7 @@
           console.log(types);
           CommonFloor.defaults[type]['unit_type_id'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
@@ -147,6 +150,7 @@
           types = _.without(types, parseInt($(e.currentTarget).attr('data-id')));
           CommonFloor.defaults[type]['unit_variant_id'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
@@ -163,6 +167,7 @@
           CommonFloor.defaults['common']['area_max'] = "";
           CommonFloor.defaults['common']['area_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
@@ -171,6 +176,7 @@
           CommonFloor.defaults['common']['price_max'] = "";
           CommonFloor.defaults['common']['price_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
@@ -186,6 +192,7 @@
           types = _.without(types, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults[type]['attributes'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
@@ -196,6 +203,7 @@
           types = _.without(types, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['common']['facings'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
@@ -206,6 +214,7 @@
           types = _.without(types, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['common']['views'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');
@@ -458,7 +467,7 @@
       return CenterMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterMasterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn"> <div class="legend c clearfix"> <ul> <!--<li class="available">AVAILABLE</li>--> <li class="sold">N/A</li> <!--<li class="blocked">BLOCKED</li> <li class="na">Available</li>--> </ul> </div> <div class="zoom-controls c"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master b animated fadeIn"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="spritespin"></div> <div class="svg-maps"> <img src=""  class="first_image img-responsive"> <div class="region inactive"></div> <div class="tooltip-overlay hidden"></div> </div> <div class="cf-loader hidden"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
+    CenterMasterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn"> <div class="legend c clearfix"> <ul> <!--<li class="available">AVAILABLE</li>--> <li class="sold">N/A</li> <!--<li class="blocked">BLOCKED</li> <li class="na">Available</li>--> </ul> </div> <div class="zoom-controls c"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master b animated fadeIn"> <!--<div class="controls mapView"> <div class="toggle"> <a href="#/master-view" class="map active">Map</a><a href="#/list-view" class="list">List</a> </div> </div>--> <div id="svg_loader" class="cf-loader hidden"></div> <div id="spritespin"></div> <div class="svg-maps"> <img   class="first_image "> <div class="region inactive"></div> <div class="tooltip-overlay hidden"></div> </div> <div id="rotate_loader" class="cf-loader hidden"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> </div>');
 
     CenterMasterView.prototype.ui = {
       svgContainer: '.master',
@@ -591,6 +600,11 @@
         $('.units').mCustomScrollbar("scrollTo", '#unit' + id);
         return $('#' + id).tooltipster('content', html);
       },
+      'mouseover .amenity': function(e) {
+        var html;
+        html = '<div><label>Title:</label>' + $(e.currentTarget).attr('data-amenity-title') + '<br/><label>Desc:</label>' + $(e.currentTarget).attr('data-amenity-desc') + '</div>';
+        return $('.layer').tooltipster('content', html);
+      },
       'mouseover .building': function(e) {
         var availability, buildingMaster, buildingModel, floors, html, id, minprice, price, response, unit, unitTypes, url;
         id = parseInt(e.target.id);
@@ -666,25 +680,26 @@
       });
       first = _.values(svgs);
       $.merge(transitionImages, project.get('project_master'));
-      $('.region').load(first[0], function() {
-        $('.first_image').attr('src', transitionImages[breakpoints[0]]);
-        that.iniTooltip();
-        CommonFloor.applyAvailabilClasses();
-        CommonFloor.randomClass();
-        CommonFloor.applyFliterClass();
-        return that.loadZoom();
-      }).addClass('active').removeClass('inactive');
-      $('.first_image').lazyLoadXT();
-      $('.first_image').load(function() {
-        var response;
-        $('#trig').removeClass('hidden');
-        response = project.checkRotationView();
-        $('.first_image').first().css('width', that.ui.svgContainer.width());
-        if (response === 1) {
-          return $('.cf-loader').removeClass('hidden');
-        }
+      $('#svg_loader').removeClass('hidden');
+      $('.first_image').attr('src', transitionImages[breakpoints[0]]);
+      return $('.first_image').load(function() {
+        return $('.region').load(first[0], function() {
+          var response;
+          $('#svg_loader').addClass('hidden');
+          that.iniTooltip();
+          CommonFloor.applyAvailabilClasses();
+          CommonFloor.randomClass();
+          CommonFloor.applyFliterClass();
+          that.loadZoom();
+          $('#trig').removeClass('hidden');
+          response = project.checkRotationView();
+          $('.first_image').first().css('width', that.ui.svgContainer.width());
+          if (response === 1) {
+            $('#rotate_loader').removeClass('hidden');
+            return that.initializeRotate(transitionImages, svgs);
+          }
+        }).addClass('active').removeClass('inactive');
       });
-      return this.initializeRotate(transitionImages, svgs);
     };
 
     CenterMasterView.prototype.setDetailIndex = function(index) {
@@ -744,7 +759,7 @@
           $('.first_image').remove();
           $('.rotate').removeClass('hidden');
           $('#spritespin').show();
-          $('.cf-loader').addClass('hidden');
+          $('#rotate_loader').addClass('hidden');
         }
         return $('.region').load(url, function() {
           that.iniTooltip();

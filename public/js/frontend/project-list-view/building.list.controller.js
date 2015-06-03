@@ -1,5 +1,5 @@
 (function() {
-  var BuildingItemView, BuildingListView,
+  var BuildingEmptyView, BuildingItemView, BuildingListView,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -54,6 +54,19 @@
     };
 
     return BuildingItemView;
+
+  })(Marionette.ItemView);
+
+  BuildingEmptyView = (function(superClass) {
+    extend(BuildingEmptyView, superClass);
+
+    function BuildingEmptyView() {
+      return BuildingEmptyView.__super__.constructor.apply(this, arguments);
+    }
+
+    BuildingEmptyView.prototype.template = 'No units added';
+
+    return BuildingEmptyView;
 
   })(Marionette.ItemView);
 
@@ -113,26 +126,11 @@
     };
 
     BuildingListView.prototype.onShow = function() {
-      var arr, type;
-      if (CommonFloor.defaults['type'] !== "") {
-        type = CommonFloor.defaults['type'].split(',');
-        if ($.inArray('villa', type) > -1) {
-          $('.Villas').removeClass('hidden');
-        }
-        if ($.inArray('plot', type) > -1) {
-          return $('.Plots').removeClass('hidden');
-        }
-      } else {
-        arr = _.values(window.propertyTypes);
-        if ($.inArray('Apartments', arr) > -1 || $.inArray('Penthouse', arr) > -1) {
-          $('.buildings').removeClass('hidden');
-        }
-        if ($.inArray('Plot', arr) > -1) {
-          $('.Plots').removeClass('hidden');
-        }
-        if ($.inArray('Villas/Bungalows', arr) > -1) {
-          return $('.Villas').removeClass('hidden');
-        }
+      if (bunglowVariantCollection.length !== 0) {
+        $('.Villas').removeClass('hidden');
+      }
+      if (plotVariantCollection.length !== 0) {
+        return $('.Plots').removeClass('hidden');
       }
     };
 

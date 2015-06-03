@@ -41,7 +41,9 @@ class TopMasterView extends Marionette.ItemView
 													</div>
 													<div class="pull-left filter-result full">
 														 <ul  id="flexiselDemo1">
-														  {{#area}}
+
+														 {{#area}}
+
 													         	 <li>
 													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
 													         </li>
@@ -83,7 +85,7 @@ class TopMasterView extends Marionette.ItemView
 													         {{/filters}}
 													        
 													    {{/each}}
-													    
+
 													    </ul>
 														<!--{{#each  filters}}
 														{{#each this}}
@@ -139,6 +141,7 @@ class TopMasterView extends Marionette.ItemView
 			# $.each CommonFloor.defaults , (index,value)->
 			# 	 CommonFloor.defaults[index] = ""
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()	
 			unitCollection.trigger('available')
 			CommonFloor.navigate '/' , true
@@ -158,6 +161,7 @@ class TopMasterView extends Marionette.ItemView
 			
 			@trigger  'render:view'
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			
@@ -176,6 +180,7 @@ class TopMasterView extends Marionette.ItemView
 			console.log types
 			CommonFloor.defaults[type]['unit_type_id'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			@trigger  'render:view'
@@ -191,6 +196,7 @@ class TopMasterView extends Marionette.ItemView
 			types = _.without types , parseInt $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults[type]['unit_variant_id'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()	
 			unitCollection.trigger('available')
 			@trigger  'render:view'
@@ -209,6 +215,7 @@ class TopMasterView extends Marionette.ItemView
 			CommonFloor.defaults['common']['area_max'] = ""
 			CommonFloor.defaults['common']['area_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			@trigger  'render:view'
@@ -217,6 +224,7 @@ class TopMasterView extends Marionette.ItemView
 			CommonFloor.defaults['common']['price_max'] = ""
 			CommonFloor.defaults['common']['price_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			@trigger  'render:view'
@@ -231,6 +239,7 @@ class TopMasterView extends Marionette.ItemView
 			types = _.without types , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults[type]['attributes'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			@trigger  'render:view'
@@ -240,6 +249,7 @@ class TopMasterView extends Marionette.ItemView
 			types = _.without types ,$(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['common']['facings'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()	
 			unitCollection.trigger('available')
 			@trigger  'render:view'
@@ -249,6 +259,7 @@ class TopMasterView extends Marionette.ItemView
 			types = _.without types ,$(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['common']['views'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterNew()	
 			unitCollection.trigger('available')
 			@trigger  'render:view'
@@ -456,17 +467,17 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 												</div>
 											</div>-->
 											
-											
+											<div id="svg_loader" class="cf-loader hidden"></div>
 											<div id="spritespin"></div>
 											<div class="svg-maps">
 												
-												<img src=""  class="first_image img-responsive">
+												<img   class="first_image ">
 												
 												<div class="region inactive"></div>
 												<div class="tooltip-overlay hidden"></div>
 
 											</div>
-											<div class="cf-loader hidden"></div>
+											<div id="rotate_loader" class="cf-loader hidden"></div>
 											
 										</div>
 
@@ -867,9 +878,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			# 	$('.tooltip-overlay').removeClass 'hidden'
 			# )
 			
-			
+		'mouseover .amenity':(e)->
+			html = '<div><label>Title:</label>'+$(e.currentTarget).attr('data-amenity-title')+
+					'<br/><label>Desc:</label>'+$(e.currentTarget).attr('data-amenity-desc')+'</div>'
 
-		
+			$('.layer').tooltipster('content', html)
 
 		'mouseover .building':(e)->
 			id  = parseInt e.target.id
@@ -1004,26 +1017,33 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		
 		first = _.values svgs
 		$.merge transitionImages ,  project.get('project_master')
-		$('.region').load(first[0],()->
-				$('.first_image').attr('src',transitionImages[breakpoints[0]])
-				that.iniTooltip()
-				CommonFloor.applyAvailabilClasses()
-				CommonFloor.randomClass()
-				CommonFloor.applyFliterClass()
-				that.loadZoom()
-				).addClass('active').removeClass('inactive')
-		$('.first_image').lazyLoadXT()
-		$('.first_image').load ()->
+		
+		$('#svg_loader').removeClass 'hidden'
+		$('.first_image').attr('src',transitionImages[breakpoints[0]])
+		
 			
-			$('#trig').removeClass 'hidden'
-			response = project.checkRotationView()
-			$('.first_image').first().css('width',that.ui.svgContainer.width())
-			if response is 1
-				$('.cf-loader').removeClass 'hidden'
-		
-		@initializeRotate(transitionImages,svgs)
-		
+			
+			
+		$('.first_image').load ()->
+			$('.region').load(first[0],()->
+					$('#svg_loader').addClass 'hidden'
+					that.iniTooltip()
+					CommonFloor.applyAvailabilClasses()
+					CommonFloor.randomClass()
+					CommonFloor.applyFliterClass()
+					that.loadZoom()
+					$('#trig').removeClass 'hidden'
+					response = project.checkRotationView()
+					$('.first_image').first().css('width',that.ui.svgContainer.width())
+					if response is 1
+						$('#rotate_loader').removeClass 'hidden'
+						that.initializeRotate(transitionImages,svgs)
+				).addClass('active').removeClass('inactive')
 
+		
+		
+		
+		
 		
 	
 
@@ -1084,7 +1104,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				$('.first_image').remove()
 				$('.rotate').removeClass 'hidden'
 				$('#spritespin').show()
-				$('.cf-loader').addClass 'hidden'
+				$('#rotate_loader').addClass 'hidden'
 			$('.region').load(url,()->
 				that.iniTooltip()
 				CommonFloor.applyAvailabilClasses()

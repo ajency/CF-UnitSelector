@@ -79,7 +79,7 @@
     };
 
     TopApartmentMasterView.prototype.serializeData = function() {
-      var building_id, data, main, mainFilters, model, units, url;
+      var building_id, data, main, mainFilters, model, newTemp, results, temp, units, url;
       data = TopApartmentMasterView.__super__.serializeData.call(this);
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
@@ -98,7 +98,12 @@
       data.floor = main[0].floor;
       data.views = main[0].views;
       data.facings = main[0].facings;
-      data.results = apartmentVariantCollection.getApartmentUnits().length;
+      results = apartmentVariantCollection.getApartmentUnits();
+      temp = new Backbone.Collection(results);
+      newTemp = temp.where({
+        'building_id': parseInt(building_id)
+      });
+      data.results = newTemp.length;
       model = buildingMasterCollection.findWhere({
         'id': building_id
       });
@@ -115,6 +120,7 @@
           arr.splice(index, 1);
           CommonFloor.defaults['type'] = arr.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -480,7 +486,7 @@
       return CenterApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterApartmentMasterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn overflow-h"> <div class="legend clearfix"> <ul> <!--<li class="available">AVAILABLE</li>--> <li class="sold">N/A</li> <!--<li class="blocked">BLOCKED</li> <li class="na">Available</li>--> </ul> </div> <div class="zoom-controls"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master animated fadeIn"> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="spritespin"></div> <div class="svg-maps"> <img class="first_image lazy-hidden img-responsive" /> <div class="region inactive"></div> </div> <div class="cf-loader hidden"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> <div class="mini-map"> <img class="firstimage img-responsive" src=""/> <div class="project_master"></div> </div> </div>');
+    CenterApartmentMasterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn overflow-h"> <div class="legend clearfix"> <ul> <!--<li class="available">AVAILABLE</li>--> <li class="sold">N/A</li> <!--<li class="blocked">BLOCKED</li> <li class="na">Available</li>--> </ul> </div> <div class="zoom-controls"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master animated fadeIn"> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="svg_loader" class="cf-loader hidden"></div> <div id="spritespin"></div> <div class="svg-maps"> <img class="first_image lazy-hidden img-responsive" /> <div class="region inactive"></div> </div> <div id="rotate_loader" class="cf-loader hidden"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> <div class="mini-map"> <img class="firstimage img-responsive" src=""/> <div class="project_master"></div> </div> </div>');
 
     CenterApartmentMasterView.prototype.ui = {
       svgContainer: '.master',
@@ -547,6 +553,11 @@
         $('#' + id).attr('class', 'layer apartment ' + availability);
         return $('#apartment' + id).removeClass(' active');
       },
+      'mouseover .marker-grp': function(e) {
+        var html;
+        html = '<div><label>Title:</label>' + $(e.currentTarget).attr('data-amenity-title') + '<br/><label>Desc:</label>' + $(e.currentTarget).attr('data-amenity-desc') + '</div>';
+        return $('.layer').tooltipster('content', html);
+      },
       'mouseover .next,.prev': function(e) {
         var buildingModel, floors, html, id, images, response, unitTypes;
         id = parseInt($(e.target).attr('data-id'));
@@ -603,25 +614,26 @@
       });
       $.merge(transitionImages, building.get('building_master'));
       first = _.values(svgs);
-      $('.region').load(first[0], function() {
-        $('.first_image').attr('data-src', transitionImages[breakpoints[0]]);
-        that.iniTooltip();
-        CommonFloor.applyAvailabilClasses();
-        CommonFloor.randomClass();
-        CommonFloor.applyFliterClass();
-        CommonFloor.getApartmentsInView();
-        return that.loadZoom();
-      }).addClass('active').removeClass('inactive');
-      $('.first_image').lazyLoadXT();
+      $('#svg_loader').removeClass('hidden');
+      $('.first_image').attr('src', transitionImages[breakpoints[0]]);
       $('.first_image').load(function() {
-        var response;
-        response = building.checkRotationView(building_id);
-        $('.cf-loader').removeClass('hidden');
-        if (response === 1) {
-          return $('.cf-loader').removeClass('hidden');
-        }
+        return $('.region').load(first[0], function() {
+          var response;
+          $('#svg_loader').addClass('hidden');
+          that.iniTooltip();
+          CommonFloor.applyAvailabilClasses();
+          CommonFloor.randomClass();
+          CommonFloor.applyFliterClass();
+          CommonFloor.getApartmentsInView();
+          that.loadZoom();
+          response = building.checkRotationView(building_id);
+          $('#rotate_loader').removeClass('hidden');
+          if (response === 1) {
+            $('.cf-loader').removeClass('hidden');
+            return that.initializeRotate(transitionImages, svgs, building);
+          }
+        }).addClass('active').removeClass('inactive');
       });
-      this.initializeRotate(transitionImages, svgs, building);
       this.loadProjectMaster();
       if ($(window).width() > 991) {
         return $('.units').mCustomScrollbar({
@@ -735,7 +747,7 @@
           $('.first_image').remove();
           $('.rotate').removeClass('hidden');
           $('#spritespin').show();
-          $('.cf-loader').addClass('hidden');
+          $('#rotate_loader').addClass('hidden');
         }
         return $('.region').load(url, function() {
           that.iniTooltip();

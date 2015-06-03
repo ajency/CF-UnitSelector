@@ -127,7 +127,7 @@
           $('.villa-wrapper').removeClass('visible');
           types = _.without(types, $(e.currentTarget).attr('data-value'));
         }
-        console.log(types = _.uniq(types));
+        types = _.uniq(types);
         CommonFloor.defaults['type'] = types.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.resetCollections();
@@ -151,7 +151,7 @@
           $('.apartment-wrapper').removeClass('visible');
           types = _.without(types, $(e.currentTarget).attr('data-value'));
         }
-        console.log(types = _.uniq(types));
+        types = _.uniq(types);
         CommonFloor.defaults['type'] = types.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.resetCollections();
@@ -200,6 +200,7 @@
         types = _.uniq(types);
         CommonFloor.defaults[type]['unit_type_id'] = types.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterNew();
         return unitCollection.trigger('available');
       },
@@ -221,6 +222,7 @@
         types = _.uniq(types);
         CommonFloor.defaults[type]['unit_variant_id'] = types.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterNew();
         return unitCollection.trigger('available');
       },
@@ -231,6 +233,7 @@
           CommonFloor.defaults['common']['availability'] = "";
         }
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterNew();
         return unitCollection.trigger('available');
       },
@@ -238,6 +241,7 @@
         CommonFloor.defaults['common']['area_max'] = parseFloat($(e.target).val().split(';')[1]);
         CommonFloor.defaults['common']['area_min'] = parseFloat($(e.target).val().split(';')[0]);
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterNew();
         return unitCollection.trigger('available');
       },
@@ -245,6 +249,7 @@
         CommonFloor.defaults['common']['price_max'] = parseFloat($(e.target).val().split(';')[1]);
         CommonFloor.defaults['common']['price_min'] = parseFloat($(e.target).val().split(';')[0]);
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterNew();
         return unitCollection.trigger('available');
       },
@@ -262,6 +267,7 @@
         types = _.uniq(types);
         CommonFloor.defaults['common']['views'] = types.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterNew();
         return unitCollection.trigger('available');
       },
@@ -279,6 +285,7 @@
         types = _.uniq(types);
         CommonFloor.defaults['common']['facings'] = types.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterNew();
         return unitCollection.trigger('available');
       },
@@ -297,6 +304,7 @@
         types = _.uniq(types);
         CommonFloor.defaults[type]['attributes'] = types.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterNew();
         return unitCollection.trigger('available');
       },

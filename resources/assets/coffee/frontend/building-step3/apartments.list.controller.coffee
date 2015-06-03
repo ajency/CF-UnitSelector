@@ -31,7 +31,7 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 									            </div>
 
 									            <div class="header-info">
-								              		<h2 class="proj-name pull-left">{{project_title}}</h2> 
+								              		<h2 class="pull-left proj-name">{{project_title}} - {{name}}</h2>
 								              	
 									              	<div class="proj-type-count">
 									              		<h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p>
@@ -123,7 +123,14 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 		data.floor  = main[0].floor
 		data.views  = main[0].views
 		data.facings  = main[0].facings
-		data.results  = apartmentVariantCollection.getApartmentUnits().length
+		results  = apartmentVariantCollection.getApartmentUnits()
+		temp = new Backbone.Collection results
+		newTemp = temp.where
+				'building_id' : parseInt building_id
+		data.results = newTemp.length
+		model = buildingMasterCollection.findWhere
+						'id' : building_id
+		data.name  = model.get 'building_name'
 		data
 
 	events:->
