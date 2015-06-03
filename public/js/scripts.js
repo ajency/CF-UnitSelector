@@ -600,7 +600,7 @@ $(document).ready(function () {
             max_file_size: '10mb',
             mime_types: [{
                     title: "Image files",
-                    extensions: "svg,jpg,png,jpeg"
+                    extensions: "jpg,png,jpeg"
                 }]
         },
         init: {
@@ -634,7 +634,7 @@ $(document).ready(function () {
                 var str = '<div class="col-md-3">';
                 str += '<div class="img-hover img-thumbnail">';
                 str += '<a class="btn btn-link btn-danger overlay" onclick="deleteSvg(' + fileResponse.data.media_id + ',\'google_earth\',\'\');"><i class="fa fa-close text-primary"></i></a>';
-                str += '<object style="width:150px;height:93px;" class="img-thumbnail" id="svg1" data="' + fileResponse.data.image_path + '" type="image/svg+xml" />';
+                str += '<img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="' + fileResponse.data.image_path + '"   />';
                 str += '<div class="dz-size" data-dz-size=""><strong></strong>' + fileResponse.data.filename + '</div>';
                 str += '</div>';
                 str += '</div>';

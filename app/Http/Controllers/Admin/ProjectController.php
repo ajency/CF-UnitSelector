@@ -322,7 +322,17 @@ class ProjectController extends Controller {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
             $units = $phase->projectUnits()->get()->toArray();
-
+            $buildings = $phase->projectBuildings()->get()->toArray(); 
+            $buildingUnits =[];
+            //BUILDING (APARTMENT/PENTHOUSE)
+            foreach($buildings as $building)
+            {
+                $buildingData = Building :: find($building['id']);
+                $buildingUnits = $buildingData->projectUnits()->get()->toArray();   	
+            }
+            $units = array_merge($units,$buildingUnits);
+       
+            //VILLA AND PLOT
             foreach ($units as $unit) {
                 $variantId = $unit['unit_variant_id'];
                 $unitType = UnitVariant::find($variantId)->unitType()->first();
@@ -346,18 +356,31 @@ class ProjectController extends Controller {
                 $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['not_released'] +=($unit['availability'] == 'not_released') ? 1 : 0;
                 $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['blocked'] +=($unit['availability'] == 'blocked') ? 1 : 0;
             }
+            
+            
+            
+            
         }
 
         ksort($propertyTypes);
         $projectData = $project->toArray();
+        $projectData['breakpoints'] = unserialize($projectData['breakpoints']);
         $projectData['master'] = unserialize($projectData['master']);
         $projectData['masterdeletedimages'] = [];
+        $breakPointImageIds =[];
         foreach ($projectData['master'] as $position => $imageId) {
             if($imageId=="")
                 $projectData['masterdeletedimages'][] =$position;
+            else
+            {
+                if(in_array($position,$projectData['breakpoints'] ))
+                {
+                    $breakPointImageIds[$position] =$breakPointImageIds;
+                }
+            }
         }
 
-        $projectData['breakpoints'] = unserialize($projectData['breakpoints']);
+        $breakPointSvgData = SvgController :: getBreakpointUnitData($breakPointImageIds);
         
         $googleearthauthtool =true;
 
@@ -395,8 +418,8 @@ class ProjectController extends Controller {
 			$data['BUILDING'][] = $building->building_name;
 			$buildingIds[] =  $building->id;
 			$mediaIds ['BUILDING'][]= $building->building_master; 
-			$building = Building :: find($building->id);
-			$buildingUnits = $building->projectUnits()->get()->toArray(); 
+			$buildingData = Building :: find($building->id);
+			$buildingUnits = $buildingData->projectUnits()->get()->toArray(); 
 			foreach ($buildingUnits as $buildingUnit) {
 				$unitIds['UNIT'][] = $buildingUnit['id'];
 			}	
