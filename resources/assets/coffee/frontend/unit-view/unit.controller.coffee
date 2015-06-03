@@ -586,7 +586,7 @@ class CenterUnitView extends Marionette.ItemView
 
 
 		$('.images').html html
-		$('.img').addClass 'hidden'
+		$('.img').addClass 'animated fadeIn hidden'
 		$('.img').load ()->
 			$('#rotate_loader').addClass 'hidden'
 			$('.img').removeClass 'hidden'

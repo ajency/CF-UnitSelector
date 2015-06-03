@@ -477,7 +477,7 @@
         });
       }
       $('.images').html(html);
-      $('.img').addClass('hidden');
+      $('.img').addClass('animated fadeIn hidden');
       $('.img').load(function() {
         $('#rotate_loader').addClass('hidden');
         return $('.img').removeClass('hidden');
