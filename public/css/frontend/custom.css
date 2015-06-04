@@ -482,6 +482,7 @@ hr.embossed {
 /*Step 4*/
 ::-webkit-scrollbar {
   width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background-color: #ccc;
@@ -1784,6 +1785,7 @@ svg polygon {
 }
 .list-view-container {
   padding: 10px;
+  padding-top: 25px;
 }
 .list-view-container .controls {
   text-align: center;
@@ -2224,7 +2226,7 @@ svg polygon {
   line-height: 27px;
   position: absolute;
   left: 25px;
-  top: 38px;
+  top: 45px;
 }
 .top-legend li {
   display: inline-block;
