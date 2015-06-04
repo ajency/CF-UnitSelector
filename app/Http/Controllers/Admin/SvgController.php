@@ -400,7 +400,7 @@ class SvgController extends Controller {
 
     				foreach ($unitIds as $unitId) {
     						// @todo exclude object_type 'project'
-    					$svgElements = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '!=', 'building' )->where( 'object_id', '=', $unitId )->get()->toArray();
+    					$svgElements = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '!=', 'building' )->where( 'object_type', '!=', 'project' )->where( 'object_id', '=', $unitId )->get()->toArray();
 
 	 						// if svg element not there then add unitid to $unmarkedUnits
     					if (sizeof($svgElements)<1) {
@@ -425,7 +425,7 @@ class SvgController extends Controller {
 	 *					   )
 	 */
     public static function getUnitSvgCount($imageIds)
-    {
+    { 
         $object_types = array('villa','apartment','plot','building');
 
         $svg_unit_count = array();
@@ -440,7 +440,7 @@ class SvgController extends Controller {
 	    	// get svg elements for each of the object types and svgId
 	    	foreach ($object_types as $object_type) {
 	    		// svg elements having object type and svgId
-	    		$svgElements = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '=', $unitType )->get()->toArray();
+	    		$svgElements = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '=', $object_type )->get()->toArray();
 
 	    		$svgElemCount = sizeof($svgElements);
 
@@ -449,7 +449,7 @@ class SvgController extends Controller {
 
     	}
 
-    	
+    	//dd($svg_unit_count);
         return $svg_unit_count;
     }
 

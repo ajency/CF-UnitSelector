@@ -375,7 +375,7 @@ class ProjectController extends Controller {
             {
                 if(in_array($position,$projectData['breakpoints'] ))
                 {
-                    $breakPointImageIds[$position] =$breakPointImageIds;
+                    $breakPointImageIds[$position] =$imageId;
                 }
             }
         }
