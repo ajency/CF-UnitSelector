@@ -765,6 +765,7 @@
       }
     });
     $('.submit').on('click', function(e) {
+      var propType;
       if ($('.property_type').val() === "") {
         $('.alert').text('Unit not assigned');
         window.hideAlert();
@@ -790,10 +791,16 @@
         window.hideAlert();
         return false;
       }
+      propType = $('.property_type').val();
+      if ((propType === "amenity") && ($('#amenity-title').val() === "")) {
+        $('.alert').text('Amenity title not entered');
+        window.hideAlert();
+        return false;
+      }
       return window.saveUnit();
     });
     $('.edit').on('click', function(e) {
-      var myObject, svgElemId;
+      var myObject, propType, svgElemId;
       if (($('.area').val() === "") && (window.canvas_type === "polygon")) {
         $('.alert').text('Coordinates not marked');
         window.hideAlert();
@@ -801,6 +808,12 @@
       }
       if ((window.markerPoints.length < 1) && (window.canvas_type !== "polygon")) {
         $('.alert').text('Coordinates not marked');
+        window.hideAlert();
+        return false;
+      }
+      propType = $('.property_type').val();
+      if ((propType === "amenity") && ($('#amenity-title').val() === "")) {
+        $('.alert').text('Amenity title not entered');
         window.hideAlert();
         return false;
       }

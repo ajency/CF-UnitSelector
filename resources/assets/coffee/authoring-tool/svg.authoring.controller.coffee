@@ -887,6 +887,13 @@ jQuery(document).ready ($)->
             $('.alert').text 'Already assigned'
             window.hideAlert()
             return false
+
+        propType = $('.property_type').val()
+        if (propType is "amenity") and ($('#amenity-title').val() is "")
+            $('.alert').text 'Amenity title not entered'
+            window.hideAlert()
+            return false
+        
         window.saveUnit()
     
     # edit svg eleement with unit data  
@@ -900,6 +907,12 @@ jQuery(document).ready ($)->
             $('.alert').text 'Coordinates not marked'
             window.hideAlert()
             return false 
+        
+        propType = $('.property_type').val()
+        if (propType is "amenity") and ($('#amenity-title').val() is "")
+            $('.alert').text 'Amenity title not entered'
+            window.hideAlert()
+            return false            
 
         myObject = window.buildSvgObjectData()
           
