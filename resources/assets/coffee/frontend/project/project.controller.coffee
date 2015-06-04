@@ -186,7 +186,7 @@ class CenterView extends Marionette.ItemView
 										  <div class="square last"></div>
 										</div>
 
-										<div class="step1-wrapper animated fadeIn">
+										<div class="step1-wrapper animated fadeIn hidden">
 											<img src="../../projects/3/google_earth/step1.jpg" class="firstimage img-responsive earth-img" />
 											<div class="svg-area"></div>
 										</div>
@@ -220,6 +220,7 @@ class CenterView extends Marionette.ItemView
 		$('.firstimage').load ()->
 			$('.img-loader').addClass 'hidden'
 			$('.svg-area').load(PATH, ()->
+				$('.step1-wrapper').removeClass 'hidden'
 				$('.step1-marker').tooltipster(
 					theme: 'tooltipster-shadow'
 					contentAsHTML: true
