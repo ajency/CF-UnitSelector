@@ -1018,10 +1018,13 @@ CommonFloor.filterNew = ()->
 		$.merge collection , unitCollection.toArray()
 	$.each params , (ind,val)->
 		if val is 'villa'
+			unitCollection.reset unitMasterCollection.toArray()
 			temp = CommonFloor.filterVillas()
 		if val is 'apartment'
+			unitCollection.reset unitMasterCollection.toArray()
 			temp = CommonFloor.filterApartments()
 		if val is 'plot'
+			unitCollection.reset unitMasterCollection.toArray()
 			temp = CommonFloor.filterPlots()
 		$.merge collection , temp
 	unitCollection.reset collection
@@ -1085,6 +1088,7 @@ CommonFloor.filterVillas = ()->
 				paramkey = {}
 				paramkey[index] = parseInt(key_val)
 				$.merge temp, unitCollection.where paramkey
+			unitCollection.reset temp
 			newColl.reset temp
 	newColl.toArray()	
 
@@ -1120,6 +1124,7 @@ CommonFloor.filterApartments = ()->
 				paramkey = {}
 				paramkey[index] = parseInt(key_val)
 				$.merge temp, unitCollection.where paramkey
+			unitCollection.reset temp
 			newColl.reset temp
 	newColl.toArray()
 
@@ -1155,6 +1160,7 @@ CommonFloor.filterPlots = ()->
 				paramkey = {}
 				paramkey[index] = parseInt(key_val)
 				$.merge temp, unitCollection.where paramkey
+			unitCollection.reset temp
 			newColl.reset temp
 	newColl.toArray()
 

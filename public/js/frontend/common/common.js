@@ -1115,12 +1115,15 @@
     }
     $.each(params, function(ind, val) {
       if (val === 'villa') {
+        unitCollection.reset(unitMasterCollection.toArray());
         temp = CommonFloor.filterVillas();
       }
       if (val === 'apartment') {
+        unitCollection.reset(unitMasterCollection.toArray());
         temp = CommonFloor.filterApartments();
       }
       if (val === 'plot') {
+        unitCollection.reset(unitMasterCollection.toArray());
         temp = CommonFloor.filterPlots();
       }
       return $.merge(collection, temp);
@@ -1199,6 +1202,7 @@
           paramkey[index] = parseInt(key_val);
           return $.merge(temp, unitCollection.where(paramkey));
         });
+        unitCollection.reset(temp);
         return newColl.reset(temp);
       }
     });
@@ -1246,6 +1250,7 @@
           paramkey[index] = parseInt(key_val);
           return $.merge(temp, unitCollection.where(paramkey));
         });
+        unitCollection.reset(temp);
         return newColl.reset(temp);
       }
     });
@@ -1294,6 +1299,7 @@
           paramkey[index] = parseInt(key_val);
           return $.merge(temp, unitCollection.where(paramkey));
         });
+        unitCollection.reset(temp);
         return newColl.reset(temp);
       }
     });
