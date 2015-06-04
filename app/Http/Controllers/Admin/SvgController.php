@@ -421,36 +421,44 @@ class SvgController extends Controller {
     /**
      * 
      */
-    public static function getUnitSvgCount($imageIds)
-    {
-        $object_types = array('villa','apartment','plot','building');
+    // public static function getUnitSvgCount($imageIds)
+    // {
+    //     $object_types = array('villa','apartment','plot','building');
     	
-    	foreach ($imageIds as $breakpoint => $imageId) {
+    // 	foreach ($imageIds as $breakpoint => $imageId) {
 	    	
-	    	// get svg for each image
-    		$svg = Svg::where( 'image_id', '=', $mediaId )->first();
+	   //  	// get svg for each image
+    // 		$svg = Svg::where( 'image_id', '=', $imageId )->first();
 
-    		$svgId = $svg->id;
+    // 		$svgId = $svg->id;
 
-	    	// get svg elements for each of the object types and svgId
-	    	foreach ($object_types as $object_type) {
-	    		// svg elements having object type and svgId
-	    		$svgElements = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '=', $unitType )->where( 'object_id', '=', $unitId )->get()->toArray();
+	   //  	// get svg elements for each of the object types and svgId
+	   //  	foreach ($object_types as $object_type) {
+	   //  		// svg elements having object type and svgId
+	   //  		$svgElements = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '=', $unitType )->where( 'object_id', '=', $unitId )->get()->toArray();
 
-	    		// for each svg elem check if primary breakpoint is set
-	    	}
+	   //  		// for each svg elem check if primary breakpoint is set
+	   //  	}
 
-	        	// count = 0
-	    		// for each object type check if primary breakpoint is set
-	        			// if set increment count
+	   //      	// count = 0
+	   //  		// for each object type check if primary breakpoint is set
+	   //      			// if set increment count
 
-	        // return array of object type and count
-    	}
-    	// get svg for given image id
+	   //      // return array of object type and count
+    // 	}
+    // 	// get svg for given image id
     	
 
 
-        return true;
+    //     return true;
+    // }
+
+    public static function  getUnitPrimarySvg($unitIds,$mediaIds){
+    	return true;
+    }
+
+    public static function  getBreakpointUnitData($breakPointImageIds){
+    	return true;
     }
 
 
