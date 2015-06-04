@@ -144,11 +144,7 @@
         return unitTempCollection.trigger("filter_available");
       },
       'click @ui.status': function(e) {
-        if ($(e.currentTarget).is(':checked')) {
-          CommonFloor.defaults['common']['availability'] = e.currentTarget.id;
-        } else {
-          CommonFloor.defaults['common']['availability'] = "";
-        }
+        CommonFloor.defaults['common']['availability'] = e.currentTarget.id;
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
         CommonFloor.filterStepNew();
@@ -310,8 +306,8 @@
       }
       views = Marionette.getOption(this, 'views');
       facings = Marionette.getOption(this, 'facings');
-      budget = Marionette.getOption(this, 'budget');
-      unitVariants = Marionette.getOption(this, 'unitVariants');
+      console.log(budget = Marionette.getOption(this, 'budget'));
+      console.log(unitVariants = Marionette.getOption(this, 'unitVariants'));
       if (views.length === 0) {
         $('.viewLabel').hide();
       }
@@ -467,13 +463,15 @@
     }
 
     FilterApartmentCtrl.prototype.initialize = function() {
-      var apartmentFilters, area, budget, facings, flooring, unitTypes, unitVariantNames, unitVariants, view, views, viewsFacingsArr;
+      var apartmentFilters, area, budget, facings, flooring, unitTypes, unitVariantNames, unitVariants, view, views;
       unitTypes = [];
       unitVariants = [];
       unitVariantNames = [];
       area = [];
       budget = [];
       flooring = [];
+      views = [];
+      facings = [];
       apartmentFilters = this.getApartmentFilters();
       if (apartmentFilters.length !== 0) {
         $.merge(unitTypes, apartmentFilters[0].unitTypes);
@@ -481,15 +479,6 @@
         $.merge(unitVariantNames, apartmentFilters[0].unitVariantNames);
         $.merge(budget, apartmentFilters[0].budget);
         $.merge(flooring, apartmentFilters[0].flooring);
-      }
-      viewsFacingsArr = this.getViewsFacings();
-      views = viewsFacingsArr[0];
-      facings = viewsFacingsArr[1];
-      if ($.inArray('budget', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
-        budget = [];
-      }
-      if ($.inArray('area', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
-        unitVariants = [];
       }
       this.view = view = new CommonFloor.FilterApartmentView({
         model: project,
@@ -609,7 +598,7 @@
       facingsArr = [];
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
-      units = unitCollection.where({
+      units = unitCollection.findWhere({
         'building_id': building_id
       });
       _.each(units, function(item) {
@@ -629,10 +618,10 @@
           'name': val
         });
       });
-      if ($.inArray('views', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
+      if ($.inArray('views', project.get('filters').defaults) === -1) {
         viewArr = [];
       }
-      if ($.inArray('direction', project.get('filters').defaults) === -1 && _.isUndefined(project.get('filters').defaults)) {
+      if ($.inArray('direction', project.get('filters').defaults) === -1) {
         facingsArr = [];
       }
       return [viewArr, facingsArr];
