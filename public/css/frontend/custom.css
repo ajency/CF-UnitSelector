@@ -130,11 +130,11 @@ body {
 .us-right-content.single-unit {
   padding-right: 15px;
 }
-.step1-wrapper {
+.step1-container {
   overflow: auto;
   overflow-y: hidden;
 }
-.step1-wrapper .svg-area {
+.step1-container .svg-area {
   position: absolute;
   top: 0;
 }
@@ -461,12 +461,22 @@ hr.embossed {
   display: block;
   background-position: -8px;
 }
-.apartment-ico {
-  background: url(../../images/sprite-popovergray.png) no-repeat;
-  width: 40px;
-  height: 40px;
+.apartment-ico:before {
+  font-size: 30px;
+  text-align: center;
   display: block;
-  background-position: -68px;
+  line-height: 45px !important;
+  font-family: icomoon;
+  speak: none;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\e616";
+  color: #666666;
 }
 .penthouse-ico {
   background: url(../../images/penthouse-gray.png) no-repeat;
@@ -2972,6 +2982,9 @@ span.glyphicon {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
+.back_btn {
+  display: none;
+}
 @media (max-width: 767px) {
   .filters-wrapper-hover {
     right: 0;
@@ -2986,6 +2999,7 @@ span.glyphicon {
   }
   .filters-wrapper-hover.visible {
     left: 0;
+    right: initial;
     width: 100vw !important;
     padding: 30px 15px 15px;
     background-color: #ebebeb;
@@ -2993,8 +3007,8 @@ span.glyphicon {
   .filters-wrapper-hover.visible .back_btn {
     left: 0;
     font-size: 15px;
-    display: block;
     color: #262626;
+    display: block;
   }
   .filters-wrapper-hover.visible .back_btn .icon:before {
     content: "\e761";

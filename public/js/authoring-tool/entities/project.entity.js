@@ -13,7 +13,8 @@
 
     ProjectView.prototype.ui = {
       units: '.units',
-      unitLabel: '.unit-label'
+      unitLabel: '.unit-label',
+      check_location_marker: '.check_location_marker'
     };
 
     ProjectView.prototype.serializeData = function() {
@@ -24,6 +25,16 @@
       data.address = project_data['project_address'];
       data.city = project_data['city'];
       return data;
+    };
+
+    ProjectView.prototype.events = function() {
+      return {
+        'click @ui.check_location_marker': function(e) {
+          if ($(e.currentTarget).prop('checked', true)) {
+            return window.drawDefaultMarker('location');
+          }
+        }
+      };
     };
 
     return ProjectView;

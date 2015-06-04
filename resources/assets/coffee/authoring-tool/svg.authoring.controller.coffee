@@ -28,6 +28,8 @@ jQuery(document).ready ($)->
     window.ellipseWidth = 360
     window.ellipseHeight = 160
     window.markerPoints = [window.cx,window.cx] #default value
+    window.locationMarkerPoints = [window.cx,window.cx] #default value
+    window.dropLocationMarker = false
 
     window.windowWidth = 0
     window.EDITMODE = false
@@ -307,6 +309,13 @@ jQuery(document).ready ($)->
             myObject['object_id'] = 0
         else if objectType is "project"
             myObject['object_id'] = project_id
+            if window.dropLocationMarker is true
+                locationPoints = window.locationMarkerPoints
+                details['location_marker_x'] = locationPoints[0]
+                details['location_marker_y'] = locationPoints[1]
+                details['location_marker_class'] = 'marker'
+
+            
         else
             myObject['object_id'] = $('.units').val()
 
@@ -314,7 +323,7 @@ jQuery(document).ready ($)->
         if myObject['object_type'] is "amenity"
             details['title'] = $('#amenity-title').val()
             details['description'] = $('#amenity-description').val()
-            details['class'] = 'layer '+$('.property_type').val()
+            details['class'] = $('.property_type').val() #remove layer class for amenity
         else if  myObject['object_type'] is "project"
            details['class'] = 'step1-marker' 
         else  
@@ -452,6 +461,11 @@ jQuery(document).ready ($)->
             myObject['object_id'] = 0
         else if objectType is "project"
             myObject['object_id'] = project_id
+            if window.dropLocationMarker is true
+                locationPoints = window.locationMarkerPoints
+                details['location_marker_x'] = locationPoints[0]
+                details['location_marker_y'] = locationPoints[1]
+                details['location_marker_class'] = 'marker'
         else
             myObject['object_id'] = $('.units').val()
 
@@ -507,6 +521,7 @@ jQuery(document).ready ($)->
     window.drawDefaultMarker=(markerType)   ->
         drawMarkerElements = []
         window.markerPoints = [window.cx,window.cy]
+        groupLocation = ""
         # draw marker group
         groupMarker = draw.group() 
 
@@ -547,26 +562,40 @@ jQuery(document).ready ($)->
 
             drawMarkerElements.push circle
 
-            break           
+            break 
 
           when 'location'
-            window.canvas_type = "locationMarker"
-            groupMarker.attr
-                class: 'location-marker-grp'             
-            path = draw.path('M1087.492,428.966c0,7.208-13.052,24.276-13.052,24.276s-13.052-17.067-13.052-24.276
-            c0-7.208,5.844-13.051,13.052-13.051S1087.492,421.758,1087.492,428.966z')
+            groupLocation = draw.group()
+            groupLocation.attr
+                class: 'location-marker-grp'
 
-            path.attr
+            groupLocation.addClass('marker')
+            polygon = draw.polygon('776.906,408.457 821.094,407 798.01,459.243')
+            polygon.attr
                 fill: '#F7931E'
-            drawMarkerElements.push path     
-            
-            circle = draw.circle(15.002)
-            circle.attr
-                fill: '#FFFFFF'
-                cx:  window.cx
-                cy:  window.cy
 
-            drawMarkerElements.push circle
+            groupLocation.add(polygon) 
+
+            ellipse = draw.ellipse(40,40)
+
+            ellipse.attr
+                'fill': '#FFFFFF'
+                'stroke': '#F7931E'
+                'stroke-width': 6
+                'stroke-miterlimit' : 10
+                cx:798.696
+                cy:401.52
+
+            groupLocation.add(ellipse) 
+            groupLocation.draggable()
+
+            groupLocation.dragend =(delta, event) ->
+                # cx,cy constants for circles
+                newDelta = [delta.x,delta.y] 
+                window.locationMarkerPoints = newDelta
+                 
+            window.dropLocationMarker =  true
+        
             break;
 
           when 'earthlocation'
@@ -592,8 +621,7 @@ jQuery(document).ready ($)->
 
             # load default form
             window.loadProjectForm() 
-
-     
+    
         _.each drawMarkerElements, (markerElement, key) =>
             groupMarker.add(markerElement)
         
@@ -708,6 +736,8 @@ jQuery(document).ready ($)->
                 markerType = "solid"
             else if $(currentElem).hasClass('earth-location-marker')
                 markerType = "earthlocation" 
+            else if $(currentElem).hasClass('location-marker')
+                markerType = "location" 
 
 
             $('#aj-imp-builder-drag-drop canvas').hide()
@@ -739,7 +769,14 @@ jQuery(document).ready ($)->
         $('.submit').removeClass 'hidden'
         $('.property_type').attr 'disabled' ,  false
 
-            
+     
+    # on ellipse selection
+    $('.select-ellipse').on 'click', (e) -> 
+        e.preventDefault()
+        window.EDITMODE = true
+        window.canvas_type = "ellipse" 
+
+
     # on double click of existing marked polygon(villa or plot) open canvas mode
     $('svg').on 'dblclick', '.polygon-type' , (e) ->
             e.preventDefault()
@@ -986,6 +1023,8 @@ jQuery(document).ready ($)->
             @fixed()
         ), true 
 
+        # clear svg
+        draw.clear()
         # regenerate svg
         window.generateSvg(window.svgData.data) 
         window.EDITMODE = false                   
@@ -1048,19 +1087,24 @@ jQuery(document).ready ($)->
         if window.EDITMODE is true
             $('.alert').text 'Please save svg elements before publish'
             window.hideAlert()
-            return
+            return false
 
         # get svg tools viewbox height and width
         viewboxDefault = draw.viewbox()
 
-        # add viewbox of 1600*800 at the time of publish
+        # add viewbox of same width and height at the time of publish
         draw.viewbox(0, 0, viewboxDefault.width, viewboxDefault.height) 
         
+        # temporarily remove absolute position before exporting
+        $('#aj-imp-builder-drag-drop svg').first().css("position","")
         svgExport = draw.exportSvg(
           exclude: ->
             @data 'exclude'
-          whitespace: false)
+          whitespace: true)
 
+        # restore absolute position after export
+        $('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
+        
         data = {}
         data['data'] = btoa(svgExport)
         data['svg_type'] = window.svgData.svg_type
