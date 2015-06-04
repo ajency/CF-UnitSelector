@@ -1180,11 +1180,12 @@
   };
 
   CommonFloor.filterVillas = function() {
-    var collection, newColl, temp;
+    var collection, newColl, temp, tempColl;
     collection = [];
     collection = CommonFloor.resetProperyType('villa');
     temp = [];
     newColl = new Backbone.Collection(collection);
+    tempColl = [];
     $.each(CommonFloor.defaults['villa'], function(index, value) {
       var attributes, param_val;
       if (value !== "" && index === 'attributes') {
@@ -1194,13 +1195,18 @@
         attributes = CommonFloor.filterVillaAttributes(temp);
         $.merge(temp, attributes);
       }
-      if (value !== "") {
+      if (value !== "" && index !== 'attributes') {
         param_val = value.split(',');
         $.each(param_val, function(key, key_val) {
           var paramkey;
           paramkey = {};
           paramkey[index] = parseInt(key_val);
-          return $.merge(temp, unitCollection.where(paramkey));
+          tempColl = unitCollection.where(paramkey);
+          if (tempColl.length === 0) {
+            return temp = [];
+          } else {
+            return $.merge(temp, unitCollection.where(paramkey));
+          }
         });
         unitCollection.reset(temp);
         return newColl.reset(temp);
@@ -1228,11 +1234,12 @@
   };
 
   CommonFloor.filterApartments = function() {
-    var collection, newColl, temp;
+    var collection, newColl, temp, tempColl;
     collection = [];
     collection = CommonFloor.resetProperyType('apartment');
     temp = [];
     newColl = new Backbone.Collection(collection);
+    tempColl = [];
     $.each(CommonFloor.defaults['apartment'], function(index, value) {
       var attributes, param_val;
       if (value !== "" && index === 'attributes') {
@@ -1242,16 +1249,21 @@
         attributes = CommonFloor.filterApartmentAttributes(temp);
         $.merge(temp, attributes);
       }
-      if (value !== "") {
+      if (value !== "" && index !== 'attributes') {
         param_val = value.split(',');
         $.each(param_val, function(key, key_val) {
           var paramkey;
           paramkey = {};
           paramkey[index] = parseInt(key_val);
-          return $.merge(temp, unitCollection.where(paramkey));
+          tempColl = unitCollection.where(paramkey);
+          if (tempColl.length === 0) {
+            return temp = [];
+          } else {
+            return $.merge(temp, unitCollection.where(paramkey));
+          }
         });
-        unitCollection.reset(temp);
-        return newColl.reset(temp);
+        unitCollection.reset(tempColl);
+        return newColl.reset(tempColl);
       }
     });
     return newColl.toArray();
@@ -1277,11 +1289,12 @@
   };
 
   CommonFloor.filterPlots = function() {
-    var collection, newColl, temp;
+    var collection, newColl, temp, tempColl;
     collection = [];
     collection = CommonFloor.resetProperyType('plot');
     temp = [];
     newColl = new Backbone.Collection(collection);
+    tempColl = [];
     $.each(CommonFloor.defaults['plot'], function(index, value) {
       var attributes, param_val;
       if (value !== "" && index === 'attributes') {
@@ -1291,16 +1304,21 @@
         attributes = CommonFloor.filterPlotAttributes(temp);
         $.merge(temp, attributes);
       }
-      if (value !== "") {
+      if (value !== "" && index !== 'attributes') {
         param_val = value.split(',');
         $.each(param_val, function(key, key_val) {
           var paramkey;
           paramkey = {};
           paramkey[index] = parseInt(key_val);
-          return $.merge(temp, unitCollection.where(paramkey));
+          tempColl = unitCollection.where(paramkey);
+          if (tempColl.length === 0) {
+            return temp = [];
+          } else {
+            return $.merge(temp, unitCollection.where(paramkey));
+          }
         });
-        unitCollection.reset(temp);
-        return newColl.reset(temp);
+        unitCollection.reset(tempColl);
+        return newColl.reset(tempColl);
       }
     });
     return newColl.toArray();

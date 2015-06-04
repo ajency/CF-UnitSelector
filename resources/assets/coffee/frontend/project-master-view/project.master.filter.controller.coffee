@@ -892,13 +892,13 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 				if ! _.isUndefined project.get('filters').Villa
 					$.each project.get('filters').Villa , (index,value)->
 						temp = []
-						console.log item.get('variant_attributes')
 						$.each item.get('variant_attributes') ,(ind,val)->
 							if ind == value && $.inArray(value,flooring) is -1 && val != ""
 								flooring.push value
 								temp.push
 									'name' : val
-									'id' : s.replaceAll(val, " ", "_")
+									'id' : 'villa'+s.replaceAll(val, " ", "_")
+									'dataId' : s.replaceAll(val, " ", "_")
 									'classname' : 'attributes'
 									'label' : ind
 									type: 'P'
@@ -926,12 +926,9 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 
 			if index == 'flooring'
 				$.each value,(ind,val)->
-					console.log val.index
-					console.log project.get('filters').Villa
 					if $.inArray(val.index , project.get('filters').Villa) ==  -1 
 						value[ind] = []
 				
-		console.log  filters
 		filters
 
 	#function to generate all the apartment filters
@@ -978,7 +975,8 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 								flooring.push value
 								temp.push
 									'name' : val
-									'id' : s.replaceAll(val, " ", "_")
+									'id' : 'apt'+s.replaceAll(val, " ", "_")
+									'dataId' : s.replaceAll(val, " ", "_")
 									'classname' : 'attributes'
 									'label' : ind
 									type: 'P'
@@ -1052,7 +1050,8 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 								flooring.push value
 								temp.push
 									'name' : val
-									'id' : s.replaceAll(val, " ", "_")
+									'id' : 'plot'+s.replaceAll(val, " ", "_")
+									'dataId' : s.replaceAll(val, " ", "_")
 									'classname' : 'attributes'
 									'label' : ind
 									type: 'P'
