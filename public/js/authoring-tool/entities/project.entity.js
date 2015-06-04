@@ -9,7 +9,7 @@
       return ProjectView.__super__.constructor.apply(this, arguments);
     }
 
-    ProjectView.prototype.template = Handlebars.compile('<form id="add-form"> <div class="form-group"> <label class="unit-label" for="exampleInputPassword1">Name</label> <input type="text" class="form-control" id="" value="{{title}}" disabled> </div> <div class="form-group"> <label for="Address">Address</label> <textarea class="form-control" rows="2" id="" disabled>{{address}}</textarea> </div> <div class="form-group"> <label for="City">City</label> <input type="text" class="form-control" id="" value="{{city}}" disabled> </div> <div class="checkbox check_location_marker"> <label> <input type="checkbox" name="check_location_marker">Use a location Marker </label> </div> <form>');
+    ProjectView.prototype.template = Handlebars.compile('<form id="add-form"> <div class="form-group"> <label class="unit-label" for="exampleInputPassword1">Name</label> <input type="text" class="form-control" id="" value="{{title}}" disabled> </div> <div class="form-group"> <label for="Address">Address</label> <textarea class="form-control" rows="2" id="" disabled>{{address}}</textarea> </div> <div class="form-group"> <label for="City">City</label> <input type="text" class="form-control" id="" value="{{city}}" disabled> </div> <form>');
 
     ProjectView.prototype.ui = {
       units: '.units',

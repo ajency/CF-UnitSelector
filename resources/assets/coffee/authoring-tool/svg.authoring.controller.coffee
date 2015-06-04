@@ -28,6 +28,8 @@ jQuery(document).ready ($)->
     window.ellipseWidth = 360
     window.ellipseHeight = 160
     window.markerPoints = [window.cx,window.cx] #default value
+    window.locationMarkerPoints = [window.cx,window.cx] #default value
+    window.dropLocationMarker = false
 
     window.windowWidth = 0
     window.EDITMODE = false
@@ -307,6 +309,13 @@ jQuery(document).ready ($)->
             myObject['object_id'] = 0
         else if objectType is "project"
             myObject['object_id'] = project_id
+            if window.dropLocationMarker is true
+                locationPoints = window.locationMarkerPoints
+                details['location_marker_x'] = locationPoints[0]
+                details['location_marker_y'] = locationPoints[1]
+                details['location_marker_class'] = 'marker'
+
+            
         else
             myObject['object_id'] = $('.units').val()
 
@@ -314,7 +323,7 @@ jQuery(document).ready ($)->
         if myObject['object_type'] is "amenity"
             details['title'] = $('#amenity-title').val()
             details['description'] = $('#amenity-description').val()
-            details['class'] = 'layer '+$('.property_type').val()
+            details['class'] = $('.property_type').val() #remove layer class for amenity
         else if  myObject['object_type'] is "project"
            details['class'] = 'step1-marker' 
         else  
@@ -452,6 +461,11 @@ jQuery(document).ready ($)->
             myObject['object_id'] = 0
         else if objectType is "project"
             myObject['object_id'] = project_id
+            if window.dropLocationMarker is true
+                locationPoints = window.locationMarkerPoints
+                details['location_marker_x'] = locationPoints[0]
+                details['location_marker_y'] = locationPoints[1]
+                details['location_marker_class'] = 'marker'
         else
             myObject['object_id'] = $('.units').val()
 
@@ -507,6 +521,7 @@ jQuery(document).ready ($)->
     window.drawDefaultMarker=(markerType)   ->
         drawMarkerElements = []
         window.markerPoints = [window.cx,window.cy]
+        groupLocation = ""
         # draw marker group
         groupMarker = draw.group() 
 
@@ -550,16 +565,16 @@ jQuery(document).ready ($)->
             break 
 
           when 'location'
-            window.canvas_type = "locationMarker"
-            groupMarker.attr
+            groupLocation = draw.group()
+            groupLocation.attr
                 class: 'location-marker-grp'
 
-            groupMarker.addClass('marker')
+            groupLocation.addClass('marker')
             polygon = draw.polygon('776.906,408.457 821.094,407 798.01,459.243')
             polygon.attr
                 fill: '#F7931E'
 
-            drawMarkerElements.push polygon
+            groupLocation.add(polygon) 
 
             ellipse = draw.ellipse(40,40)
 
@@ -570,7 +585,16 @@ jQuery(document).ready ($)->
                 'stroke-miterlimit' : 10
                 cx:798.696
                 cy:401.52
-            drawMarkerElements.push ellipse     
+
+            groupLocation.add(ellipse) 
+            groupLocation.draggable()
+
+            groupLocation.dragend =(delta, event) ->
+                # cx,cy constants for circles
+                newDelta = [delta.x,delta.y] 
+                window.locationMarkerPoints = newDelta
+                 
+            window.dropLocationMarker =  true
         
             break;
 

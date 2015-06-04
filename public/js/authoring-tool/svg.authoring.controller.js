@@ -15,6 +15,8 @@
     window.ellipseWidth = 360;
     window.ellipseHeight = 160;
     window.markerPoints = [window.cx, window.cx];
+    window.locationMarkerPoints = [window.cx, window.cx];
+    window.dropLocationMarker = false;
     window.windowWidth = 0;
     window.EDITMODE = false;
     window.createSvg = function(svgData) {
@@ -256,7 +258,7 @@
       return $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
     };
     window.saveUnit = function() {
-      var details, myObject, objectType;
+      var details, locationPoints, myObject, objectType;
       myObject = {};
       details = {};
       objectType = $('.property_type').val();
@@ -268,13 +270,19 @@
         myObject['object_id'] = 0;
       } else if (objectType === "project") {
         myObject['object_id'] = project_id;
+        if (window.dropLocationMarker === true) {
+          locationPoints = window.locationMarkerPoints;
+          details['location_marker_x'] = locationPoints[0];
+          details['location_marker_y'] = locationPoints[1];
+          details['location_marker_class'] = 'marker';
+        }
       } else {
         myObject['object_id'] = $('.units').val();
       }
       if (myObject['object_type'] === "amenity") {
         details['title'] = $('#amenity-title').val();
         details['description'] = $('#amenity-description').val();
-        details['class'] = 'layer ' + $('.property_type').val();
+        details['class'] = $('.property_type').val();
       } else if (myObject['object_type'] === "project") {
         details['class'] = 'step1-marker';
       } else {
@@ -409,7 +417,7 @@
       });
     };
     window.buildSvgObjectData = function() {
-      var details, myObject, objectType;
+      var details, locationPoints, myObject, objectType;
       myObject = {};
       details = {};
       objectType = $('.property_type').val();
@@ -421,6 +429,12 @@
         myObject['object_id'] = 0;
       } else if (objectType === "project") {
         myObject['object_id'] = project_id;
+        if (window.dropLocationMarker === true) {
+          locationPoints = window.locationMarkerPoints;
+          details['location_marker_x'] = locationPoints[0];
+          details['location_marker_y'] = locationPoints[1];
+          details['location_marker_class'] = 'marker';
+        }
       } else {
         myObject['object_id'] = $('.units').val();
       }
@@ -467,9 +481,10 @@
       return myObject;
     };
     window.drawDefaultMarker = function(markerType) {
-      var circle, circle1, circle2, drawMarkerElements, ellipse, groupMarker, polygon;
+      var circle, circle1, circle2, drawMarkerElements, ellipse, groupLocation, groupMarker, polygon;
       drawMarkerElements = [];
       window.markerPoints = [window.cx, window.cy];
+      groupLocation = "";
       groupMarker = draw.group();
       switch (markerType) {
         case 'concentric':
@@ -508,16 +523,16 @@
           drawMarkerElements.push(circle);
           break;
         case 'location':
-          window.canvas_type = "locationMarker";
-          groupMarker.attr({
+          groupLocation = draw.group();
+          groupLocation.attr({
             "class": 'location-marker-grp'
           });
-          groupMarker.addClass('marker');
+          groupLocation.addClass('marker');
           polygon = draw.polygon('776.906,408.457 821.094,407 798.01,459.243');
           polygon.attr({
             fill: '#F7931E'
           });
-          drawMarkerElements.push(polygon);
+          groupLocation.add(polygon);
           ellipse = draw.ellipse(40, 40);
           ellipse.attr({
             'fill': '#FFFFFF',
@@ -527,7 +542,14 @@
             cx: 798.696,
             cy: 401.52
           });
-          drawMarkerElements.push(ellipse);
+          groupLocation.add(ellipse);
+          groupLocation.draggable();
+          groupLocation.dragend = function(delta, event) {
+            var newDelta;
+            newDelta = [delta.x, delta.y];
+            return window.locationMarkerPoints = newDelta;
+          };
+          window.dropLocationMarker = true;
           break;
         case 'earthlocation':
           window.canvas_type = "earthlocationMarker";

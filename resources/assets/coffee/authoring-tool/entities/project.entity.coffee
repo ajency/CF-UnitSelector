@@ -16,8 +16,7 @@ class AuthoringTool.ProjectView extends Marionette.ItemView
                     <div class="form-group">
                         <label for="City">City</label>
                         <input type="text" class="form-control" id="" value="{{city}}" disabled>
-                    </div>  
-                    <div class="checkbox check_location_marker"> <label> <input type="checkbox" name="check_location_marker">Use a location Marker </label> </div>                  
+                    </div>                  
 				   <form>')
 
 
