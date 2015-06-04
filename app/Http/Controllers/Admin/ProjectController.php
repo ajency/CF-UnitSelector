@@ -318,7 +318,7 @@ class ProjectController extends Controller {
         foreach ($projectpropertyTypes as $propertyType) {
             $propertyTypes[$propertyType['property_type_id']] = get_property_type($propertyType['property_type_id']);
         }
-        $totalCount = 0;
+        $totalCount = $totalbuildingUnitCount= 0;
         foreach ($phases as $phase) {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
@@ -340,22 +340,22 @@ class ProjectController extends Controller {
                         $buildingBreakpointId[$building['id']][]=$buildingMediaId;
                     }
                 }
-                
+                $totalbuildingUnitCount = count($buildingUnits);
                 //Building total unit count
                 $buildingunitSvgCount = SvgController :: getUnitSvgCount($buildingBreakpointId);  
                 foreach($buildingunitSvgCount as $position=> $count)
                 {
                     $buildingunitCount =  $count['apartment'] ;
                     $buildingbreakPointSvgData[$building['id']][$position]['MARKED']= $buildingunitCount;
-                    $buildingbreakPointSvgData[$building['id']][$position]['PENDING']= $totalCount - $buildingunitCount;
+                    $buildingbreakPointSvgData[$building['id']][$position]['PENDING']= $totalbuildingUnitCount - $buildingunitCount;
                 }
                 
             }
   
             
             //Project master total unit count
-            $totalCount = count($units) + count($buildings);
-           
+            $totalCount = count($units) + count($buildings);  echo $totalCount;
+           dd($units);
        
             //VILLA AND PLOT
             foreach ($units as $unit) {
