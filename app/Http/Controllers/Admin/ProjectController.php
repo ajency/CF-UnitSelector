@@ -312,7 +312,7 @@ class ProjectController extends Controller {
         $project = $projectRepository->getProjectById($id);
         $phases = $project->projectPhase()->where('phase_name', '!=', 'Default')->get()->toArray();
         $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray();
-        $propertyTypes = $propertyTypeUnitData = $phaseData = $unitTypeData = $count = [];
+        $propertyTypes = $propertyTypeUnitData = $phaseData = $unitTypeData = $count = $breakPointSvgData = $buildingbreakPointSvgData = [];
         $projectJason = \CommonFloor\ProjectJson::where('project_id', $id)->where('type', 'step_two')->select('created_at', 'updated_at')->first()->toArray();
 
         foreach ($projectpropertyTypes as $propertyType) {
@@ -324,15 +324,38 @@ class ProjectController extends Controller {
             $phase = Phase::find($phaseId);
             $units = $phase->projectUnits()->get()->toArray();
             $buildings = $phase->projectBuildings()->get()->toArray(); 
-            $buildingUnits =[];
+            $buildingUnits = $buildingBreakpointId =[];
             //BUILDING (APARTMENT/PENTHOUSE)
             foreach($buildings as $building)
             {
                 $buildingData = Building :: find($building['id']);
-                $buildingUnits = $buildingData->projectUnits()->get()->toArray();   	
+                $buildingUnits = $buildingData->projectUnits()->get()->toArray();
+                $buildingMediaIds= $building['building_master'];
+            
+                $breakpoints = $building['breakpoints']; 
+                foreach($buildingMediaIds as $position => $buildingMediaId)
+                {
+                    if(in_array($position,$breakpoints))
+                    {
+                        $buildingBreakpointId[$building['id']][]=$buildingMediaId;
+                    }
+                }
+                
+                //Building total unit count
+                $buildingunitSvgCount = SvgController :: getUnitSvgCount($buildingBreakpointId);  
+                foreach($buildingunitSvgCount as $position=> $count)
+                {
+                    $buildingunitCount =  $count['apartment'] ;
+                    $buildingbreakPointSvgData[$building['id']][$position]['MARKED']= $buildingunitCount;
+                    $buildingbreakPointSvgData[$building['id']][$position]['PENDING']= $totalCount - $buildingunitCount;
+                }
+                
             }
+  
+            
+            //Project master total unit count
             $totalCount = count($units) + count($buildings);
-            $units = array_merge($units,$buildingUnits);
+           
        
             //VILLA AND PLOT
             foreach ($units as $unit) {
@@ -654,7 +677,7 @@ class ProjectController extends Controller {
         else
         {
             unset($filters['_token']);
-            $filtermsg = 'Filters : ';
+            $filtermsg = 'Filters Applied To : ';
             foreach($filters as $type => $filter)
             {
                $filtermsg .= $type.'( '. count($filter) .' ) ,';
