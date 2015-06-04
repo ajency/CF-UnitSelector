@@ -620,7 +620,6 @@
           return;
         }
         floors = buildingModel.get('no_of_floors');
-        floors = Object.keys(floors).length;
         unitTypes = building.getUnitTypes(id);
         response = building.getUnitTypesCount(id, unitTypes);
         minprice = building.getMinimumCost(id);
