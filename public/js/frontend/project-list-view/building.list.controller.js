@@ -19,7 +19,7 @@
       id = this.model.get('id');
       response = building.getUnitTypes(id);
       types = building.getUnitTypesCount(id, response);
-      floors = this.model.get('floors');
+      floors = this.model.get('no_of_floors');
       cost = building.getMinimumCost(id);
       data.classname = "";
       if (cost === 0) {

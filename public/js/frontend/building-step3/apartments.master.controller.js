@@ -34,7 +34,7 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.loadJSONData();
       }
-      if (apartmentVariantCollection.length === 0) {
+      if (apartmentVariantMasterCollection.length === 0) {
         return this.show(new CommonFloor.NothingFoundView);
       } else {
         return this.show(new CommonFloor.ApartmentsMasterView);
@@ -336,7 +336,7 @@
       'click': function(e) {
         var breakpoint;
         if ($(e.currentTarget).hasClass('onview')) {
-          breakpoint = 10;
+          breakpoint = this.model.get('breakpoint');
           currentBreakPoint = _.indexOf(breakPoints, breakpoint);
           return api.playTo(breakpoint, {
             nearest: true
@@ -559,17 +559,18 @@
         return $('.layer').tooltipster('content', html);
       },
       'mouseover .next,.prev': function(e) {
-        var buildingModel, floors, html, id, images, response, unitTypes;
+        var buildingModel, cost, floors, html, id, images, price, response, unitTypes;
         id = parseInt($(e.target).attr('data-id'));
         buildingModel = buildingMasterCollection.findWhere({
           'id': id
         });
         images = Object.keys(buildingModel.get('building_master')).length;
-        floors = buildingModel.get('floors');
-        floors = Object.keys(floors).length;
+        floors = buildingModel.get('no_of_floors');
         unitTypes = window.building.getUnitTypes(id);
         response = window.building.getUnitTypesCount(id, unitTypes);
-        html = '<div class="svg-info"> <i class="apartment-ico"></i> <h5 class=" m-t-0">' + buildingModel.get('building_name') + '</h5> <div class="details"> <label>' + floors + ' Floors</label></br> <div class="text-primary"> <span class="text-primary facts-icon icon-rupee-icn"></span>' + window.building.getMinimumCost(id) + '</div> </div> </div>';
+        cost = window.building.getMinimumCost(id);
+        price = window.numDifferentiation(cost);
+        html = '<div class="svg-info"> <i class="apartment-ico"></i> <h5 class=" m-t-0">' + buildingModel.get('building_name') + '</h5> <div class="details"> <label>' + floors + ' Floors</label></br> <div class="text-primary"> <span class="text-primary facts-icon icon-rupee-icn"></span>' + price + '</div> </div> </div>';
         return $(e.target).tooltipster('content', html);
       },
       'click .next,.prev': function(e) {

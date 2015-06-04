@@ -30,10 +30,10 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.checkPropertyType();
       }
-      if (Object.keys(project.get('project_master')).length !== 0 && unitCollection.length !== 0) {
-        return this.show(new CommonFloor.ProjectMasterView);
-      } else {
+      if (bunglowVariantMasterCollection.length === 0 && apartmentVariantMasterCollection.length === 0 && plotVariantMasterCollection.length === 0) {
         return this.show(new CommonFloor.NothingFoundView);
+      } else {
+        return this.show(new CommonFloor.ProjectMasterView);
       }
     };
 

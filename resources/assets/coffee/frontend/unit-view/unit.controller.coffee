@@ -11,10 +11,12 @@ class CommonFloor.UnitCtrl extends Marionette.RegionController
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID)
 			CommonFloor.loadJSONData()
-		if jQuery.isEmptyObject(project.toJSON())
+		
+		if bunglowVariantMasterCollection.length == 0 && apartmentVariantMasterCollection.length == 0 && plotVariantMasterCollection.length == 0  
 			@show new CommonFloor.NothingFoundView
+			
 		else
-			@show new CommonFloor.UnitView
+			@show new CommonFloor.ProjectMasterView
 
 #Top View for unit
 class TopUnitView extends Marionette.ItemView

@@ -28,10 +28,10 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.loadJSONData();
       }
-      if (jQuery.isEmptyObject(project.toJSON())) {
+      if (bunglowVariantMasterCollection.length === 0 && apartmentVariantMasterCollection.length === 0 && plotVariantMasterCollection.length === 0) {
         return this.show(new CommonFloor.NothingFoundView);
       } else {
-        return this.show(new CommonFloor.UnitView);
+        return this.show(new CommonFloor.ProjectMasterView);
       }
     };
 

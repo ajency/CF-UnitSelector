@@ -34,8 +34,6 @@ jQuery(document).ready ($)->
 			sections:
 				'top' : 
 					ctrl : 'TopListCtrl'
-				'left' :
-					ctrl : 'LeftListCtrl'
 				'center' :
 					ctrl : 'CenterListCtrl'
 				'filter' :
@@ -45,8 +43,6 @@ jQuery(document).ready ($)->
 			sections:
 				'top' : 
 					ctrl : 'TopApartmentCtrl'
-				'left' :
-					ctrl : 'LeftApartmentCtrl'
 				'center' :
 					ctrl : 'CenterApartmentCtrl'
 				'filter' :
