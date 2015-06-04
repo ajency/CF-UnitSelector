@@ -923,8 +923,10 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 			if $.inArray(index , project.get('filters').Villa) ==  -1 && index != 'budget' && index != 'unitVariants'
 				filters[0][index] = []
 
+			console.log value
 			if index == 'flooring'
 				$.each value,(ind,val)->
+					console.log val.index
 					if $.inArray(val.index , project.get('filters').Villa) ==  -1 
 						filters[0][index] = []
 				

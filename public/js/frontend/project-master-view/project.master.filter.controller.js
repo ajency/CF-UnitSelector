@@ -829,8 +829,10 @@
         if ($.inArray(index, project.get('filters').Villa) === -1 && index !== 'budget' && index !== 'unitVariants') {
           filters[0][index] = [];
         }
+        console.log(value);
         if (index === 'flooring') {
           return $.each(value, function(ind, val) {
+            console.log(val.index);
             if ($.inArray(val.index, project.get('filters').Villa) === -1) {
               return filters[0][index] = [];
             }

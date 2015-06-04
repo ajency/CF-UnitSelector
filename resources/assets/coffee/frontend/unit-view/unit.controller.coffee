@@ -364,7 +364,7 @@ class CenterUnitView extends Marionette.ItemView
 										</div>
 									</div>
 								</div>
-								<div id="rotate_loader" class="img-loader">
+								<div id="rotate_loader" class="img-loader hidden">
 									<div class="square" ></div>
 											  <div class="square"></div>
 											  <div class="square last"></div>
@@ -597,6 +597,7 @@ class CenterUnitView extends Marionette.ItemView
 			$('.twoD').removeClass('current')
 			$('.external').removeClass('current')
 			if ! _.isUndefined(response[3].get('galleryurl'))
+				$('#rotate_loader').removeClass 'hidden'
 				$.each response[3].get('galleryurl'),(index,value)->
 					html += '<div class="animated fadeIn"><img class="img" data-src="'+value+'" /></div>'
 
