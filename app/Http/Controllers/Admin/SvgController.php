@@ -448,6 +448,29 @@ class SvgController extends Controller {
         return $svg_unit_count;
     }
 
+    public static function isGoogleSvgMarked($imageId)
+    {
+    	$svg = Svg::where( 'image_id', '=', $imageId )->first();
+
+    	$svgId = $svg->id;
+
+
+    	if(!is_null($svg)){
+    		$svgId = $svg->id;
+    		$svgElement = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '=', 'project' )->first(); 
+    		
+    		if(!is_null($svgElement)){
+    			return true;
+    		} 
+    		else{
+    			return false;
+    		}  		
+    	}
+    	else{
+    		return false;
+    	}
+    }    
+
 
 
 }
