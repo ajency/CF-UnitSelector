@@ -207,7 +207,8 @@
                     <td width="16%"><span class="semi-bold">Available</span></td>
                     <td width="18%"><span class="semi-bold">Sold</span></td>
                     <td width="18%"><span class="semi-bold">Blocked</span></td>
-                    <td><span class="semi-bold">Not Released</span></td>
+                    <td width="18%"><span class="semi-bold">Not Released</span></td>
+                    <td width="18%"><span class="semi-bold">Archived</span></td>
                     <td><span class="semi-bold">Total</span></td>
                 </tr>
             </thead>
@@ -224,6 +225,7 @@
                     <td>{{$unitType['sold']}}</td>
                     <td>{{$unitType['blocked']}}</td>
                     <td>{{$unitType['not_released']}}</td>
+                    <td>{{$unitType['archived']}}</td>
                     <td class="semi-bold text-info text-center">{{ array_sum ( $unitType ) }}</td>
                 </tr>
                 <?php $last = $phaseId; ?>

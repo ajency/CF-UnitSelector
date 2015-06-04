@@ -127,7 +127,7 @@
                             @else
                             <?php
                             $attributeName = ($propertyTypeId!=PLOTID)?"Flooring":"Has Well";
-                            $attributeControlValues  = ($propertyTypeId!=PLOTID)?"Wooden , Vetrified Tiles":"Yes , No";
+                            $attributeControlValues  = ($propertyTypeId!=PLOTID)?"Wooden , Vitrified Tiles":"Yes , No";
                             ?>
                             <div class="row m-b-10 hidden defaultAttributes">
                                 <div class="col-xs-4">
