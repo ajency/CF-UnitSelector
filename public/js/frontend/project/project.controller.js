@@ -136,7 +136,7 @@
       return CenterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content animated fadeIn"> <div class="img-loader "> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <div class="step1-wrapper"> <img src="../../projects/3/google_earth/step1.jpg" class="firstimage img-responsive earth-img" /> <div class="svg-area"></div> </div> </div>');
+    CenterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content animated fadeIn"> <div class="img-loader "> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <div class="step1-wrapper animated fadeIn hidden"> <img src="../../projects/3/google_earth/step1.jpg" class="firstimage img-responsive earth-img" /> <div class="svg-area"></div> </div> </div>');
 
     CenterView.prototype.ui = {
       svgContainer: '.us-right-content'
@@ -163,6 +163,7 @@
       return $('.firstimage').load(function() {
         $('.img-loader').addClass('hidden');
         return $('.svg-area').load(PATH, function() {
+          $('.step1-wrapper').removeClass('hidden');
           $('.step1-marker').tooltipster({
             theme: 'tooltipster-shadow',
             contentAsHTML: true,

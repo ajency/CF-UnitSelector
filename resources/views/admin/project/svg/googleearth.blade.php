@@ -61,15 +61,9 @@
                             
                         </div>
                     </div>
-                     <div class="col-md-5">
+                     <div class="col-md-9">
                     </div>
-                    <div class="col-md-4">
-                        <div class="user-description-box">
-                            <span class="alert-error"><i class="fa fa-close"></i> No records found</span><br>
-                            <span class="alert-success"><i class="fa fa-check"></i> Project Location marked</span>
-                            <div><a href="#" class="text-primary"> Authoring Tool <i class="fa fa-angle-double-right"></i></a></div>
-                        </div>
-                    </div>
+                   
                 </div>
                 
                 @endif

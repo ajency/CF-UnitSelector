@@ -61,15 +61,15 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 													        
 													         {{/budget}}
 													          {{#views}}
-													         	 <li>
+													         	
 													                <div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
-													         </li>
+													         
 													         {{/views}}
 
 													       {{#facings}}
-													         	 <li>
+													         	
 													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
-													         </li>
+													       
 													         {{/facings}}
 
 													           {{#floor}}
