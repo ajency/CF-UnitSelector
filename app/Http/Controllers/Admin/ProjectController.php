@@ -755,6 +755,20 @@ class ProjectController extends Controller {
             $buildingId = $getVar['building'];
         }
 
+        switch ($type) {
+            case 'master':
+                $svg_type_display = "PROJECT MASTER";
+                break;
+
+            case 'building_master':
+                $svg_type_display = "BUILDING MASTER";
+                break;
+
+            case 'google_earth':
+                $svg_type_display = "GOOGLE EARTH";
+                break;                
+        }
+
 
         return view('admin.project.mastersvgtool')
         ->with('project', $project->toArray())
@@ -763,6 +777,7 @@ class ProjectController extends Controller {
         ->with('breakpoint_position',$breakpoint)
         ->with('building_id',$buildingId)
         ->with('project_id',$id)
+        ->with('svg_type_display',$svg_type_display)
         ->with('svg_type', $type);
  }
 

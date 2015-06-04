@@ -46,7 +46,7 @@
                 <div class="builder-header">
                     <div class="header-sections">
                         <div class="aj-imp-browser-address-bar clearfix">
-                            <h4><span>SVG</span> PROJECT MASTER</h4>
+                            <h4><span>SVG</span> {{$svg_type_display}}</h4>
                         </div>
                           <div class="zoom-controls pull-left"> Zoom Level &nbsp;
                             <button id="in" class="zoom-in btn btn-primary"><i class="fa fa-search-plus"></i></button>
