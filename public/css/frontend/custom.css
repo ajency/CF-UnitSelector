@@ -2972,6 +2972,9 @@ span.glyphicon {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
+.back_btn {
+  display: none;
+}
 @media (max-width: 767px) {
   .filters-wrapper-hover {
     right: 0;
@@ -2986,6 +2989,7 @@ span.glyphicon {
   }
   .filters-wrapper-hover.visible {
     left: 0;
+    right: initial;
     width: 100vw !important;
     padding: 30px 15px 15px;
     background-color: #ebebeb;
@@ -2993,8 +2997,8 @@ span.glyphicon {
   .filters-wrapper-hover.visible .back_btn {
     left: 0;
     font-size: 15px;
-    display: block;
     color: #262626;
+    display: block;
   }
   .filters-wrapper-hover.visible .back_btn .icon:before {
     content: "\e761";
