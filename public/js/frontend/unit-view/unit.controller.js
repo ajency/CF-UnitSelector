@@ -31,7 +31,7 @@
       if (bunglowVariantMasterCollection.length === 0 && apartmentVariantMasterCollection.length === 0 && plotVariantMasterCollection.length === 0) {
         return this.show(new CommonFloor.NothingFoundView);
       } else {
-        return this.show(new CommonFloor.ProjectMasterView);
+        return this.show(new CommonFloor.UnitView);
       }
     };
 

@@ -16,7 +16,7 @@ class CommonFloor.UnitCtrl extends Marionette.RegionController
 			@show new CommonFloor.NothingFoundView
 			
 		else
-			@show new CommonFloor.ProjectMasterView
+			@show new CommonFloor.UnitView
 
 #Top View for unit
 class TopUnitView extends Marionette.ItemView
