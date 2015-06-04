@@ -1059,6 +1059,10 @@ CommonFloor.filterStepNew = ()->
 		CommonFloor.filterArea()
 	if CommonFloor.defaults['common']['floor_max'] != ""
 		CommonFloor.filterFloor()
+	if CommonFloor.defaults['common']['views'] != ""
+		CommonFloor.filterViews()
+	if CommonFloor.defaults['common']['facings'] != ""
+		CommonFloor.filterFacings()
 	if CommonFloor.defaults['common']['availability'] != ""
 		paramkey = {}
 		paramkey['availability'] = 'available'
@@ -1075,19 +1079,24 @@ CommonFloor.filterVillas = ()->
 	collection = []
 	collection = CommonFloor.resetProperyType('villa')
 	temp = []
-	newColl = new Backbone.Collection collection		
+	newColl = new Backbone.Collection collection	
+	tempColl = []	
 	$.each CommonFloor.defaults['villa'] , (index,value)->
 		if value != "" && index == 'attributes'
 			if temp.length == 0
 				temp = bunglowVariantCollection.getBunglowUnits()
 			attributes = CommonFloor.filterVillaAttributes(temp)
 			$.merge temp, attributes
-		if value != ""
+		if value != "" && index != 'attributes'
 			param_val  = value.split(',')
 			$.each param_val,(key,key_val)->
 				paramkey = {}
 				paramkey[index] = parseInt(key_val)
-				$.merge temp, unitCollection.where paramkey
+				tempColl = unitCollection.where paramkey
+				if tempColl.length is 0
+					temp = []
+				else
+					$.merge temp, unitCollection.where paramkey
 			unitCollection.reset temp
 			newColl.reset temp
 	newColl.toArray()	
@@ -1111,21 +1120,27 @@ CommonFloor.filterApartments = ()->
 	collection = []
 	collection = CommonFloor.resetProperyType('apartment')
 	temp = []
-	newColl = new Backbone.Collection collection		
+	newColl = new Backbone.Collection collection	
+	tempColl = []	
 	$.each CommonFloor.defaults['apartment'] , (index,value)->
 		if value != "" && index == 'attributes'
 			if temp.length == 0
 				temp = apartmentVariantCollection.getApartmentUnits()
 			attributes = CommonFloor.filterApartmentAttributes(temp)
 			$.merge temp, attributes
-		if value != ""
+		if value != "" && index != 'attributes'
 			param_val  = value.split(',')
 			$.each param_val,(key,key_val)->
 				paramkey = {}
 				paramkey[index] = parseInt(key_val)
-				$.merge temp, unitCollection.where paramkey
-			unitCollection.reset temp
-			newColl.reset temp
+				tempColl = unitCollection.where paramkey
+				if tempColl.length is 0
+					temp = []
+				else
+					$.merge temp, unitCollection.where paramkey
+				
+			unitCollection.reset tempColl
+			newColl.reset tempColl
 	newColl.toArray()
 
 
@@ -1147,21 +1162,28 @@ CommonFloor.filterPlots = ()->
 	collection = []
 	collection = CommonFloor.resetProperyType('plot')
 	temp = []
-	newColl = new Backbone.Collection collection		
+	newColl = new Backbone.Collection collection	
+	tempColl = []	
 	$.each CommonFloor.defaults['plot'] , (index,value)->
 		if value != "" && index == 'attributes'
 			if temp.length == 0
 				temp = plotVariantCollection.getPlotUnits()
 			attributes = CommonFloor.filterPlotAttributes(temp)
 			$.merge temp, attributes
-		if value != ""
+		if value != "" && index != 'attributes'
 			param_val  = value.split(',')
 			$.each param_val,(key,key_val)->
 				paramkey = {}
 				paramkey[index] = parseInt(key_val)
-				$.merge temp, unitCollection.where paramkey
-			unitCollection.reset temp
-			newColl.reset temp
+				tempColl = unitCollection.where paramkey
+				if tempColl.length is 0
+					temp = []
+				else
+					$.merge temp, unitCollection.where paramkey
+				
+			unitCollection.reset tempColl
+			newColl.reset tempColl
+			
 	newColl.toArray()
 
 CommonFloor.filterPlotAttributes= (temp)->
@@ -1224,7 +1246,7 @@ CommonFloor.filterViews = ()->
 	unitCollection.each (item)->
 		views = item.get('views')
 		$.each views , (ind,val)->
-			if $.inArray(val,CommonFloor.defaults['common']['views'].split(',')) > -1
+			if $.inArray(val,CommonFloor.defaults['common']['views'].split(',')) > -1 && val != ""
 				temp.push item
 
 	unitCollection.reset temp
@@ -1235,7 +1257,7 @@ CommonFloor.filterFacings = ()->
 	temp = []
 	unitCollection.each (item)->
 		facings = item.get('direction')
-		if $.inArray(facings,CommonFloor.defaults['common']['facings'].split(',')) > -1
+		if $.inArray(facings,CommonFloor.defaults['common']['facings'].split(',')) > -1  && facings != ""
 				temp.push item
 
 	unitCollection.reset temp

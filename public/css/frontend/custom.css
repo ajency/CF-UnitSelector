@@ -130,11 +130,11 @@ body {
 .us-right-content.single-unit {
   padding-right: 15px;
 }
-.step1-wrapper {
+.step1-container {
   overflow: auto;
   overflow-y: hidden;
 }
-.step1-wrapper .svg-area {
+.step1-container .svg-area {
   position: absolute;
   top: 0;
 }
@@ -469,11 +469,12 @@ hr.embossed {
   background-position: -68px;
 }
 .penthouse-ico {
-  background: url(../../images/sprite-popovergray.png) no-repeat;
-  width: 40px;
-  height: 40px;
+  background: url(../../images/penthouse-gray.png) no-repeat;
+  width: 45px;
+  height: 45px;
   display: block;
-  background-position: -165px;
+  margin-top: 20px;
+  background-size: contain;
 }
 .plot-ico {
   background: url(../../images/sprite-popovergray.png) no-repeat;
@@ -484,7 +485,6 @@ hr.embossed {
 }
 .bold {
   font-weight: bold;
-  font-family: arial!important;
 }
 /*Step 3 list*/
 /*Step 4*/
@@ -784,16 +784,24 @@ hr.embossed {
   border: 1px solid #f68121;
 }
 .cf-btn-primary {
-  border-radius: 4px;
-  padding: 5px 16px;
+  border-radius: 3px;
   font-size: 14px;
-  border: 1px solid #f68121;
+  border: 1px solid #ffffff;
+  margin: 10px 0 0;
 }
 .cf-btn-primary:hover,
 .cf-btn-primary:active,
 .cf-btn-primary:focus {
   background-color: #db6809;
   border: 1px solid #db6809;
+  outline: 0;
+}
+@media (max-width: 767px) {
+  .cf-btn-primary {
+    font-size: 12px;
+    padding: 5px 8px;
+    margin: 5px 0;
+  }
 }
 /* Alignment Helpers */
 .m-t-0 {
@@ -1613,19 +1621,12 @@ svg .building {
   stroke-width: 1px;
   stroke-opacity: 1;
 }
-svg .blocked {
+svg .blocked,
+svg .sold,
+svg .not_released,
+svg .archived {
   opacity: 0.9;
   fill: #0F1308;
-}
-svg .sold {
-  opacity: 0.9;
-  fill: #0F1308;
-  fill-opacity: 0.7;
-}
-svg .not_released {
-  opacity: 0.9;
-  fill: #0F1308;
-  fill-opacity: 0.7;
 }
 svg .not_in_selection {
   opacity: 0.9;
@@ -1797,6 +1798,7 @@ svg .no-fill {
 }
 .list-view-container {
   padding: 10px;
+  padding-top: 25px;
 }
 .list-view-container .controls {
   text-align: center;
@@ -2237,7 +2239,7 @@ svg .no-fill {
   line-height: 27px;
   position: absolute;
   left: 25px;
-  top: 38px;
+  top: 45px;
 }
 .top-legend li {
   display: inline-block;
@@ -3064,6 +3066,87 @@ span.glyphicon {
   right: -15px;
   background: url(../../images/button-next.png) no-repeat;
 }
+.invoice-items {
+  text-align: left;
+  padding: 15px;
+  background: #fafafa;
+}
+#paymentTable {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  font-weight: 700;
+}
+.msPercent {
+  font-size: 30px;
+  font-weight: 500;
+  margin-top: 0;
+  margin-right: 5px;
+  float: left;
+}
+.milestoneList {
+  margin: 0;
+  position: relative;
+  width: 90%;
+  border: 2px solid #d9d9d9;
+  padding: 10px;
+  margin-bottom: 10px;
+  float: right;
+}
+.milestoneList .msName {
+  z-index: 2;
+  position: relative;
+  width: 48%;
+  display: inline-block;
+  float: left;
+}
+.milestoneList .msName .completionDate {
+  margin: 0;
+  color: #999999;
+}
+.milestoneList .msVal {
+  z-index: 2;
+  position: relative;
+  width: 24%;
+  display: inline-block;
+  text-align: right;
+  float: right;
+}
+.milestoneList .msVal.discCol {
+  display: none;
+}
+.milestoneList .msVal.discCol.showDisc {
+  display: inline-block;
+}
+.milestoneList .msVal .label {
+  color: #666666;
+  padding-right: 0;
+  font-size: 12px;
+}
+.milestoneList .barBg {
+  position: absolute;
+  height: 100%;
+  background-color: #d9d9d9;
+  left: 0;
+  top: 0;
+}
+.milestoneList.milestoneReached {
+  border-color: #fcd4b4;
+}
+.milestoneList.milestoneReached .msName .completionDate {
+  display: none;
+}
+.milestoneList.milestoneReached .barBg {
+  background-color: #fcd4b4;
+}
+.milestoneList:before,
+.milestoneList:after {
+  display: table;
+  content: "";
+}
+.milestoneList:after {
+  clear: both;
+}
 /* Plugins */
 /* Slider */
 .toggle_radio {
@@ -3347,6 +3430,14 @@ label.third_toggle {
 .svg-info .text-default {
   opacity: .7;
 }
+.svg-info .Penthouse {
+  background: url(../../images/penthouse-white.png) no-repeat;
+  width: 42px;
+  height: 42px;
+  display: block;
+  margin-top: 20px;
+  background-size: contain;
+}
 .icon-moon {
   font-family: icomoon;
   speak: none;
@@ -3397,12 +3488,6 @@ label.third_toggle {
 .marker-tooltip {
   background: rgba(0, 0, 0, 0.9);
   width: 200px;
-}
-.Penthouse {
-  background: url(../../images/penthouse-gray.png) no-repeat;
-  width: 53px;
-  height: 53px;
-  display: block;
 }
 .ls-nav ul {
   width: 100% !important;

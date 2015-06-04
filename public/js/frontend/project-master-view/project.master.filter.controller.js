@@ -791,13 +791,13 @@
           if (!_.isUndefined(project.get('filters').Villa)) {
             $.each(project.get('filters').Villa, function(index, value) {
               temp = [];
-              console.log(item.get('variant_attributes'));
               return $.each(item.get('variant_attributes'), function(ind, val) {
                 if (ind === value && $.inArray(value, flooring) === -1 && val !== "") {
                   flooring.push(value);
                   temp.push({
                     'name': val,
-                    'id': s.replaceAll(val, " ", "_"),
+                    'id': 'villa' + s.replaceAll(val, " ", "_"),
+                    'dataId': s.replaceAll(val, " ", "_"),
                     'classname': 'attributes',
                     'label': ind,
                     type: 'P'
@@ -832,15 +832,12 @@
         }
         if (index === 'flooring') {
           return $.each(value, function(ind, val) {
-            console.log(val.index);
-            console.log(project.get('filters').Villa);
             if ($.inArray(val.index, project.get('filters').Villa) === -1) {
               return value[ind] = [];
             }
           });
         }
       });
-      console.log(filters);
       return filters;
     };
 
@@ -891,7 +888,8 @@
                   flooring.push(value);
                   temp.push({
                     'name': val,
-                    'id': s.replaceAll(val, " ", "_"),
+                    'id': 'apt' + s.replaceAll(val, " ", "_"),
+                    'dataId': s.replaceAll(val, " ", "_"),
                     'classname': 'attributes',
                     'label': ind,
                     type: 'P'
@@ -978,7 +976,8 @@
                   flooring.push(value);
                   temp.push({
                     'name': val,
-                    'id': s.replaceAll(val, " ", "_"),
+                    'id': 'plot' + s.replaceAll(val, " ", "_"),
+                    'dataId': s.replaceAll(val, " ", "_"),
                     'classname': 'attributes',
                     'label': ind,
                     type: 'P'

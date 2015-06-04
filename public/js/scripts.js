@@ -874,12 +874,12 @@ function deleteSvg(mediaId, type, refference)
 
 function getVariants(obj)
 {
-    var unitTypeId = obj.value;
+    var projectPropertyTypeId = obj.value;
     $.ajax({
         url: BASEURL + '/admin/project/' + PROJECTID + '/apartment-variant/getunittypevariants',
         type: "POST",
         data: {
-            unit_type_id: unitTypeId
+            projectPropertyTypeId: projectPropertyTypeId
         },
         success: function (response) {
 

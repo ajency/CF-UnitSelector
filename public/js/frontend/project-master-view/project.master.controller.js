@@ -74,7 +74,7 @@
         data.status = status;
       }
       main = CommonFloor.getFilters();
-      console.log(data.filters = main[0].filters);
+      data.filters = main[0].filters;
       data.area = main[0].area;
       data.budget = main[0].price;
       data.status = main[0].status;

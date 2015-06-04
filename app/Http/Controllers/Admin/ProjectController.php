@@ -312,26 +312,50 @@ class ProjectController extends Controller {
         $project = $projectRepository->getProjectById($id);
         $phases = $project->projectPhase()->where('phase_name', '!=', 'Default')->get()->toArray();
         $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray();
-        $propertyTypes = $propertyTypeUnitData = $phaseData = $unitTypeData = $count = [];
+        $propertyTypes = $propertyTypeUnitData = $phaseData = $unitTypeData = $count = $breakPointSvgData = $buildingbreakPointSvgData = [];
         $projectJason = \CommonFloor\ProjectJson::where('project_id', $id)->where('type', 'step_two')->select('created_at', 'updated_at')->first()->toArray();
 
         foreach ($projectpropertyTypes as $propertyType) {
             $propertyTypes[$propertyType['property_type_id']] = get_property_type($propertyType['property_type_id']);
         }
+        $totalCount = 0;
         foreach ($phases as $phase) {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
             $units = $phase->projectUnits()->get()->toArray();
             $buildings = $phase->projectBuildings()->get()->toArray(); 
-            $buildingUnits =[];
+            $buildingUnits = $buildingBreakpointId =[];
             //BUILDING (APARTMENT/PENTHOUSE)
             foreach($buildings as $building)
             {
                 $buildingData = Building :: find($building['id']);
-                $buildingUnits = $buildingData->projectUnits()->get()->toArray();   	
+                $buildingUnits = $buildingData->projectUnits()->get()->toArray();
+                $buildingMediaIds= $building['building_master'];
+            
+                $breakpoints = $building['breakpoints']; 
+                foreach($buildingMediaIds as $position => $buildingMediaId)
+                {
+                    if(in_array($position,$breakpoints))
+                    {
+                        $buildingBreakpointId[$building['id']][]=$buildingMediaId;
+                    }
+                }
+                
+                //Building total unit count
+                $buildingunitSvgCount = SvgController :: getUnitSvgCount($buildingBreakpointId);  
+                foreach($buildingunitSvgCount as $position=> $count)
+                {
+                    $buildingunitCount =  $count['apartment'] ;
+                    $buildingbreakPointSvgData[$building['id']][$position]['MARKED']= $buildingunitCount;
+                    $buildingbreakPointSvgData[$building['id']][$position]['PENDING']= $totalCount - $buildingunitCount;
+                }
+                
             }
+  
+            
+            //Project master total unit count
             $totalCount = count($units) + count($buildings);
-            $units = array_merge($units,$buildingUnits);
+           
        
             //VILLA AND PLOT
             foreach ($units as $unit) {
@@ -437,13 +461,7 @@ class ProjectController extends Controller {
                     $mediaIds[]=$buildingMediaId;
                 }
             }
-                
-			$buildingData = Building :: find($building->id);
-			$buildingUnits = $buildingData->projectUnits()->get()->toArray(); 
-			foreach ($buildingUnits as $buildingUnit) {                          //Apartment/Penthouse Units
-				$unitIds['unit'][] = $buildingUnit['id'];
-                $unitNames['unit'][$buildingUnit['id']]=$buildingUnit['unit_name'];
-			}	
+            
 		}
         
 		$project = Project::find($projectId);
@@ -577,8 +595,15 @@ class ProjectController extends Controller {
         $project = $projectRepository->getProjectById($projectId);
         $projectMetaCondition = ($project->has_master == 'yes') ? ['master', 'google_earth', 'breakpoints'] : [ 'google_earth'];
         $projectMeta = $project->projectMeta()->whereIn('meta_key', $projectMetaCondition)->get()->toArray();
-        $phases = Phase::where(['project_id' => $projectId, 'status' => 'live'])->get()->toArray();
+        if($project->has_phase == 'yes')
+            $phases = Phase::where(['project_id' => $projectId, 'status' => 'live'])->get()->toArray();
+        else
+           $phases = Phase::where(['project_id' => $projectId])->get()->toArray();
+        
         $masterImages = $breakpoints = $googleEarth = $breakpointAuthtool = $googleEarthAuthtool = $data = $phaseData = $errors = [];
+        $filters = $project->projectMeta()->where( 'meta_key', 'filters' )->first()->meta_value;
+        $filters = unserialize($filters);
+         
 
         if (empty($phases)) {
             $errors['phase'] = "No phase available with status Live.";
@@ -646,8 +671,24 @@ class ProjectController extends Controller {
                         <div class="alert">
                             <strong>NOTE : </strong>Project should have at least one Phase with status as Live to publish the project.
                         </div>
-                    </div>
-                </div>';
+                    </div>';
+        if(empty($filters))
+            $filtermsg = 'No Filters Set For Project';
+        else
+        {
+            unset($filters['_token']);
+            $filtermsg = 'Filters Applied To : ';
+            foreach($filters as $type => $filter)
+            {
+               $filtermsg .= $type.'( '. count($filter) .' ) ,';
+            }
+        }
+        $html .=  '<div class="col-md-12">
+                        <div class="alert">
+                            <strong>NOTE : </strong>'.$filtermsg.'
+                        </div>
+                    </div>';
+        $html .= ' </div>';
         if (!empty($errors)) {
             $html .='<h5 class="semi-bold inline">Resolve the errors below to Publish the Project</h5>
                 <div class="row m-b-10">

@@ -58,15 +58,15 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 															 {{/budget}}
 
 															  {{#views}}
-													         	 <li>
+													         	 
 													                <div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
-													         </li>
+													       
 													         {{/views}}
 
 													       {{#facings}}
-													         	 <li>
+													         	 
 													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
-													         </li>
+													        
 													         {{/facings}}
 
 														 {{#floor}}
@@ -446,9 +446,9 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 								<li class="na">N/A</li>
 							  </ul>
 							 </div>
-							 <div class="sort-unit"> In View
+							 <div class="sort-unit"> All Units
 							 	<input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="&nbsp;" data-off="&nbsp;" data-onstyle="warning" data-offstyle="warning">
-							 	All Units
+							 	In View
 							 </div>
 							
 							<p class="text-center help-text">Hover on the units for more details</p>

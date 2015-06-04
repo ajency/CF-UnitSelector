@@ -106,19 +106,12 @@ svg .building {
   stroke-width: 1px;
   stroke-opacity: 1;
 }
-svg .blocked {
+svg .blocked,
+svg .sold,
+svg .not_released,
+svg .archived {
   opacity: 0.9;
   fill: #0F1308;
-}
-svg .sold {
-  opacity: 0.9;
-  fill: #0F1308;
-  fill-opacity: 0.7;
-}
-svg .not_released {
-  opacity: 0.9;
-  fill: #0F1308;
-  fill-opacity: 0.7;
 }
 svg .not_in_selection {
   opacity: 0.9;

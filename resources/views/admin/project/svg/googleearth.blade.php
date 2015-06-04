@@ -18,8 +18,8 @@
             </div>
             <div class="grid-body no-border">
                 <div class="alert alert-info">
-                <strong><i class="fa fa-info"></i></strong>  Upload Google Earth image of the project. Image dimensions should be Image size :
-                                            1600*1095. Resolution - 100 DPI.
+                <strong><i class="fa fa-info"></i></strong>  Upload Google Earth image of the project. Image dimensions should be - 
+                                            1600*1095. Resolution - 100 DPI. Supported file formats jpg, jpeg, png.
                 </div>
           
                 @if(!empty($svgImages['google_earth']['IMAGE']))
@@ -36,17 +36,11 @@
                         </div>
                     </div>
                     @if(hasPermission($project['id'],['svg_auth_tool']))
-                    <div class="col-md-5">
+                    <div class="col-md-9">
                         <h5 class="semi-bold">To use the Authoring Tool<a href="{{$authoringToolUrl}}" target="_blank" class="text-primary"> click here</a></h5>
                     </div>
                     @endif
-                    <div class="col-md-4 hidden">
-
-                        <div class="user-description-box hidden">
-                            To check the preview of the image on the frontend 
-                            <div><a href="#" class="text-primary"> click here <i class="fa fa-angle-double-right"></i></a></div>
-                        </div>
-                    </div>
+                   
                 </div>
                 @else
                 <div class="row" id="google_earth_image">
@@ -61,15 +55,9 @@
                             
                         </div>
                     </div>
-                     <div class="col-md-5">
+                     <div class="col-md-9">
                     </div>
-                    <div class="col-md-4">
-                        <div class="user-description-box">
-                            <span class="alert-error"><i class="fa fa-close"></i> No records found</span><br>
-                            <span class="alert-success"><i class="fa fa-check"></i> Project Location marked</span>
-                            <div><a href="#" class="text-primary"> Authoring Tool <i class="fa fa-angle-double-right"></i></a></div>
-                        </div>
-                    </div>
+                   
                 </div>
                 
                 @endif
