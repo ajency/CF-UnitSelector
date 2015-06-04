@@ -388,7 +388,6 @@ class ProjectController extends Controller {
             $breakPointSvgData[$position]['MARKED']= $unitCount;
             $breakPointSvgData[$position]['PENDING']= $totalCount - $unitCount;
         }
-            
         
         $googleearthauthtool =true;
 

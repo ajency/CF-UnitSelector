@@ -174,6 +174,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
+			
 			# @resetFilters()
 			
 		'click @ui.variantNames':(e)->

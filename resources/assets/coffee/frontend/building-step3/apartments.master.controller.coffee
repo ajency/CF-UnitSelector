@@ -14,7 +14,7 @@ class CommonFloor.ApartmentsMasterCtrl extends Marionette.RegionController
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID);
 			CommonFloor.loadJSONData()
-		if apartmentVariantCollection.length == 0
+		if apartmentVariantMasterCollection.length == 0
 			@show new CommonFloor.NothingFoundView
 		else
 			@show new CommonFloor.ApartmentsMasterView
@@ -141,7 +141,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 	events:->
 		'click @ui.types':(e)->
 			arr = CommonFloor.defaults['type'].split(',')
-			index = arr.indexOf $(e.target).attr('data-id')
+			index = arr.indexOf $(e.currentTarget).attr('data-id')
 			arr.splice(index, 1)
 			CommonFloor.defaults['type'] = arr.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
@@ -346,7 +346,7 @@ class ApartmentsView extends Marionette.ItemView
 
 		'click':(e)->
 			if $(e.currentTarget).hasClass 'onview'
-				breakpoint = 10
+				breakpoint = @model.get 'breakpoint'
 				currentBreakPoint =  _.indexOf(breakPoints,breakpoint)
 				# spin = $('#spritespin')
 				# data = $("#spritespin").spritespin({}).data("spritespin")
@@ -641,7 +641,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		# 	# CommonFloor.router.storeRoute()
 
 		'mouseover .apartment':(e)->
-			id = parseInt e.target.id
+			id = parseInt e.currentTarget.id
 			unit = unitCollection.findWhere
 					'id' : id
 			unitMaster = unitMasterCollection.findWhere 
@@ -711,7 +711,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('.apartment').tooltipster('content', html)
 		
 		'mouseout .apartment':(e)->
-			id = parseInt e.target.id
+			id = parseInt e.currentTarget.id
 			unit = unitCollection.findWhere
 					'id' : id
 			if unit is undefined
@@ -729,36 +729,38 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('.layer').tooltipster('content', html)
 
 		# 'click .apartment':(e)->
-		# 	id = parseInt e.target.id
+		# 	id = parseInt e.currentTarget.id
 		# 	CommonFloor.navigate '/unit-view/'+id , true
 		# 	# CommonFloor.router.storeRoute()
 
 		'mouseover .next,.prev':(e)->
-			id = parseInt $(e.target).attr('data-id')
+			id = parseInt $(e.currentTarget).attr('data-id')
 			buildingModel = buildingMasterCollection.findWhere
 								'id' : id
 			images = Object.keys(buildingModel.get('building_master')).length
 			# if images != 0
 			# 	console.log "show image"
-			floors = buildingModel.get 'floors'
-			floors = Object.keys(floors).length
+			floors = buildingModel.get 'no_of_floors'
+			# floors = Object.keys(floors).length
 			unitTypes = window.building.getUnitTypes(id)
 			response = window.building.getUnitTypesCount(id,unitTypes)
+			cost = window.building.getMinimumCost(id)
+			price = window.numDifferentiation(cost)
 			html = '<div class="svg-info">
 						<i class="apartment-ico"></i>
 						<h5 class=" m-t-0">'+buildingModel.get('building_name')+'</h5>
 						<div class="details">
 							<label>'+floors+' Floors</label></br>
 							<div class="text-primary">
-								<span class="text-primary facts-icon icon-rupee-icn"></span>'+window.building.getMinimumCost(id)+'
+								<span class="text-primary facts-icon icon-rupee-icn"></span>'+price+'
 							</div>
 						</div>
 					</div>'
 
-			$(e.target).tooltipster('content', html)
+			$(e.currentTarget).tooltipster('content', html)
 
 		'click .next,.prev':(e)->
-			id = parseInt $(e.target).attr('data-id')
+			id = parseInt $(e.currentTarget).attr('data-id')
 			buildingModel = buildingMasterCollection.findWhere
 								'id' : id
 			if Object.keys(buildingModel.get('building_master')).length == 0
@@ -849,9 +851,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('.firstimage').attr('src',transitionImages[masterbreakpoints[0]])
 				url = Backbone.history.fragment
 				building_id = url.split('/')[1]
-				$('.villa,.plot').each (ind,item)->
+				$('.villa,.plot,.amenity').each (ind,item)->
 					id = parseInt item.id
-					$('#'+id).attr('class', "")
+					$('#'+id).attr('class', "no-fill")
 				$('#'+building_id+'.building').attr('class' ,'layer building svg_active'))
 		
 

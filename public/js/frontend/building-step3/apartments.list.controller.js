@@ -12,6 +12,10 @@
 
     ApartmentsListView.prototype.template = '#apartment-list-template';
 
+    ApartmentsListView.prototype.onShow = function() {
+      return $('#leftregion').hide();
+    };
+
     return ApartmentsListView;
 
   })(Marionette.LayoutView);
@@ -28,7 +32,7 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.loadJSONData();
       }
-      if (apartmentVariantCollection.length === 0) {
+      if (apartmentVariantMasterCollection.length === 0) {
         return this.show(new CommonFloor.NothingFoundView);
       } else {
         return this.show(new CommonFloor.ApartmentsListView);
@@ -285,7 +289,7 @@
     LeftApartmentView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content leftview"></div>');
 
     LeftApartmentView.prototype.onShow = function() {
-      return $('.leftview').hide();
+      return $('#leftregion').hide();
     };
 
     return LeftApartmentView;
@@ -356,7 +360,7 @@
       return CenterApartmentView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterApartmentView.prototype.template = '<div> <div class="col-md-12 us-right-content"> <div class="list-view-container"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#" class="map ">Map</a><a href="#" class="list active">List</a> </div> </div>--> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <h2 class="text-center">List of Apartments/Penthouse <span class="pull-right top-legend">     <ul> <li class="available">AVAILABLE</li> <li class="na">N/AVAILABLE</li> </ul></span></h2><hr> <div class="villa-list"> <ul class="units eight"> </ul> </div> </div> </div> </div>';
+    CenterApartmentView.prototype.template = '<div> <div class="col-md-12 us-right-content"> <div class="list-view-container"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#" class="map ">Map</a><a href="#" class="list active">List</a> </div> </div>--> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <h2 class="text-center">List of Apartments/Penthouse <span class="pull-right top-legend">     <ul> <li class="na">N/A</li> </ul></span></h2><hr> <div class="villa-list"> <ul class="units eight"> </ul> </div> </div> </div> </div>';
 
     CenterApartmentView.prototype.childView = ApartmentsView;
 
@@ -400,7 +404,7 @@
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
       response = window.building.getBuildingUnits(building_id);
-      if (response.length === 0) {
+      if (response.length === 0 && url.split('/')[2] === 'apartments') {
         region = new Marionette.Region({
           el: '#centerregion'
         });
