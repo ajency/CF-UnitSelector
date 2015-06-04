@@ -1030,6 +1030,12 @@ jQuery(document).ready ($)->
     $('.btn-publish-svg').on 'click' , (e)->
         e.preventDefault() 
 
+        # check edit mode status
+        if window.EDITMODE is true
+            $('.alert').text 'Please save svg elements before publish'
+            window.hideAlert()
+            return
+
         # get svg tools viewbox height and width
         viewboxDefault = draw.viewbox()
 

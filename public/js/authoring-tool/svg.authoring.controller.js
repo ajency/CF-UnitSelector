@@ -921,6 +921,11 @@
     return $('.btn-publish-svg').on('click', function(e) {
       var data, postUrl, publishSvgOptions, svgExport, viewboxDefault;
       e.preventDefault();
+      if (window.EDITMODE === true) {
+        $('.alert').text('Please save svg elements before publish');
+        window.hideAlert();
+        return;
+      }
       viewboxDefault = draw.viewbox();
       draw.viewbox(0, 0, viewboxDefault.width, viewboxDefault.height);
       svgExport = draw.exportSvg({
