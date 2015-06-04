@@ -354,8 +354,8 @@ class ProjectController extends Controller {
   
             
             //Project master total unit count
-            $totalCount = count($units) + count($buildings);  echo $totalCount;
-           dd($units);
+            $totalCount += count($units) + count($buildings); 
+         
        
             //VILLA AND PLOT
             foreach ($units as $unit) {
