@@ -542,7 +542,6 @@ jQuery(document).ready ($)->
                 class: 'solid-marker-grp'             
             circle = draw.circle(15.002)
             circle.attr
-                fill: '#F7931E'
                 cx: window.cx
                 cy: window.cy 
 
