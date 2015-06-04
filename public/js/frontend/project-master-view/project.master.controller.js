@@ -619,7 +619,7 @@
           $('.layer').tooltipster('content', html);
           return;
         }
-        floors = buildingModel.get('floors');
+        floors = buildingModel.get('no_of_floors');
         floors = Object.keys(floors).length;
         unitTypes = building.getUnitTypes(id);
         response = building.getUnitTypesCount(id, unitTypes);

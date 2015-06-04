@@ -752,7 +752,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				return 
 
 
-			floors = buildingModel.get 'floors'
+			floors = buildingModel.get 'no_of_floors'
 			floors = Object.keys(floors).length
 			unitTypes = building.getUnitTypes(id)
 			response = building.getUnitTypesCount(id,unitTypes)
