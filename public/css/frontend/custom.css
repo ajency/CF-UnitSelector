@@ -130,11 +130,11 @@ body {
 .us-right-content.single-unit {
   padding-right: 15px;
 }
-.step1-wrapper {
+.step1-container {
   overflow: auto;
   overflow-y: hidden;
 }
-.step1-wrapper .svg-area {
+.step1-container .svg-area {
   position: absolute;
   top: 0;
 }
