@@ -323,7 +323,7 @@ class ProjectController extends Controller {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
             $units = $phase->projectUnits()->get()->toArray();
-            $buildings = $phase->projectBuildings()->get()->toArray(); 
+            $buildings = $phase->projectBuildings()->get(); 
             $buildingUnits = $buildingBreakpointId =[];
             
             //Project master total unit count Villa + Plot + Building
@@ -336,15 +336,19 @@ class ProjectController extends Controller {
                 $buildingUnits = $buildingData->projectUnits()->get()->toArray();
                 $buildingMediaIds= $building['building_master'];
             
-                $buildingbreakPoint[$building['id']] = $building['breakpoints']; 
-                foreach($buildingMediaIds as $position => $buildingMediaId)
-                {
-                    if(in_array($position,$buildingbreakPoint[$building['id']]))
+                $buildingbreakPoint = unserialize($building['breakpoints']) ; 
+                 foreach($buildingMediaIds as $position => $buildingMediaId) {
+                    if($buildingMediaId!="")
                     {
-                        $buildingBreakpointId[$building['id']][]=$buildingMediaId;
+                        if(in_array($position,$buildingbreakPoint ))
+                        {
+                            $buildingBreakpointId[$position]=$buildingMediaId;
+                        }
                     }
                 }
-                $totalbuildingUnitCount = count($buildingUnits);
+                
+               
+                $totalbuildingUnitCount = count($buildingUnits); 
                 //Building total unit count
                 $buildingunitSvgCount = SvgController :: getUnitSvgCount($buildingBreakpointId);  
                 foreach($buildingunitSvgCount as $position=> $count)
@@ -355,7 +359,7 @@ class ProjectController extends Controller {
                 }
                 
                  $units = array_merge($units,$buildingUnits);  //Merge All Units of project
-                
+               
             }
  
        
@@ -422,7 +426,7 @@ class ProjectController extends Controller {
         
         $googleearthauthtool =true;
  
-
+ 
         return view('admin.project.projectsummary')
                         ->with('project', $projectData)
                         ->with('phases', $phases)
@@ -434,6 +438,8 @@ class ProjectController extends Controller {
                         ->with('googleearthauthtool', $googleearthauthtool)
                         ->with('projectJason', $projectJason)
                         ->with('breakPointSvgData', $breakPointSvgData)
+                        ->with('buildings', $buildings->toArray())    
+                        ->with('buildingbreakPointSvgData', $buildingbreakPointSvgData) 
                         ->with('current', 'summary');
     }
 

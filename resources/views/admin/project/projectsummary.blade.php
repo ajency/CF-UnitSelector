@@ -193,7 +193,63 @@
             </tbody>
         </table>
         @endif
+        
+       <hr/>
+       
+        
+        @if(count($buildings))
+        <div class="m-l-5 no-border">
+            <h3><i class="fa fa-angle-double-right text-primary"></i> Building<span class="semi-bold"> SVGs</span></h3>
+        </div>
+        
+        @foreach($buildings as $building)
+        <h5 class="semi-bold inline m-l-5">
+            Master Image :
+        </h5> <div class="checkbox check-primary checkbox-inline">
+            <input id="checkbox7" type="checkbox" value="1" @if($building["has_master"]=="yes"){{"checked"}}@endif disabled>
+                   <label for="checkbox7" class="p-l">Available</label>
+        </div><br>
+        @if($building["has_master"]=="yes")
+        <ul class="list-inline m-b-10 m-l-5">
+
+            <h5 class="semi-bold inline">
+                Images Uploaded : </h5> {{count($building['building_master'])}}  |
+
+
+            <h5 class="semi-bold inline">
+                Breakpoints : </h5> {{count($building['breakpoints'])}} |
+
+
+            <h5 class="semi-bold inline">
+                Rotation : </h5> @if(count($building['breakpoints'])>1){{"Yes"}}@else{{"No"}}@endif
+
+        </ul>
+        <table class="table table-bordered no-pointer">
+            <thead>
+                <tr>
+                    <td width="16%"><span class="semi-bold">Breakpoint Position</span></td>
+                    <td width="18%"><span class="semi-bold">Units Marked</span></td>
+                    <td width="18%"><span class="semi-bold">Pending</span></td>
+             
+                </tr>
+            </thead>
+            <tbody>
+                
+                @foreach($building['breakpoints'] as $breakpoint)
+                <tr>
+                    <td>{{ $breakpoint }}</td>
+                    <td>{{ $buildingbreakPointSvgData[$building['id']][$breakpoint]['MARKED'] }}</td>
+                    <td>{{ $buildingbreakPointSvgData[$building['id']][$breakpoint]['PENDING'] }}</td>
+             
+                </tr>
+                @endforeach
+            </tbody>
+        </table> 
+        @endif
+        
+        @endforeach
         <hr>
+@endif        
 
         @foreach($projectpropertyTypes as $projectpropertyType)
         <div class="m-l-5 no-border">
