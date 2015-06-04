@@ -16,6 +16,7 @@
     window.ellipseHeight = 160;
     window.markerPoints = [window.cx, window.cx];
     window.windowWidth = 0;
+    window.EDITMODE = false;
     window.createSvg = function(svgData) {
       window.rawSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
       rawSvg.setAttribute('id', 'Layer_1');
@@ -244,6 +245,7 @@
     window.resetTool = function() {
       var canvas, ctx;
       window.resetCollection();
+      window.EDITMODE = false;
       $(".toggle").trigger('click');
       $('.area').val("");
       window.f = [];
@@ -574,6 +576,8 @@
     keydownFunc = function(e) {
       var pointList;
       if (e.which === 13) {
+        $('.alert').text('POLYGON IS NOW DRAGGABLE');
+        window.hideAlert();
         $('#aj-imp-builder-drag-drop canvas').hide();
         $('#aj-imp-builder-drag-drop svg').show();
         pointList = window.polygon.getPointList(f);
@@ -581,7 +585,7 @@
         this.polygon = draw.polygon(pointList);
         this.polygon.addClass('polygon-temp');
         this.polygon.data('exclude', true);
-        this.polygon.attr('fill', '#E73935');
+        this.polygon.attr('fill', '#CC0000');
         this.polygon.draggable();
         return this.polygon.dragend = (function(_this) {
           return function(delta, event) {
@@ -599,6 +603,7 @@
               i += 2;
             }
             window.f = newPoints;
+            $('.area').val(newPoints.join(','));
             canvas = document.getElementById("c");
             ctx = canvas.getContext("2d");
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -621,6 +626,7 @@
       content: '<div id="popOverBox"> <ul class="list-inline"> <li><div class="marker-elem marker1 concentric-marker"></div></li> <li><div class="marker-elem marker2 solid-marker"></div></li> <li><div class="marker-elem marker3 earth-location-marker"></div></li> </ul> </div>'
     }).parent().on('click', '#popOverBox .marker-elem', function(evt) {
       var currentElem, markerType;
+      window.EDITMODE = true;
       currentElem = evt.currentTarget;
       if ($(currentElem).hasClass('concentric-marker')) {
         markerType = "concentric";
@@ -641,6 +647,7 @@
     });
     $('.select-polygon').on('click', function(e) {
       e.preventDefault();
+      window.EDITMODE = true;
       window.canvas_type = "polygon";
       $('#aj-imp-builder-drag-drop canvas').show();
       $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
@@ -655,6 +662,7 @@
       var currentElem, elemId, element, object_type, svgDataObjects;
       e.preventDefault();
       window.canvas_type = "polygon";
+      window.EDITMODE = true;
       elemId = $(e.currentTarget).attr('svgid');
       window.currentSvgId = parseInt(elemId);
       $('#aj-imp-builder-drag-drop canvas').show();
@@ -697,6 +705,7 @@
     });
     $('svg').on('dblclick', '.marker-grp', function(e) {
       var currentElem, currentSvgElem, cx, cy, draggableChildCircle, draggableElem, elemId, object_type;
+      window.EDITMODE = true;
       draggableElem = "";
       elemId = $(e.currentTarget).attr('svgid');
       window.currentSvgId = parseInt(elemId);
@@ -856,37 +865,53 @@
         this.draggable();
         return this.fixed();
       }), true);
-      return window.generateSvg(window.svgData.data);
+      window.generateSvg(window.svgData.data);
+      return window.EDITMODE = false;
     });
     $('.delete').on('click', function(e) {
-      var id, myObject;
+      var id, myObject, svgElemId;
       myObject = {};
       myObject['_method'] = 'DELETE';
       id = $('.units').val();
+      svgElemId = window.currentSvgId;
       return $.ajax({
         type: 'POST',
         headers: {
           'x-csrf-token': $("meta[name='csrf-token']").attr('content')
         },
-        url: BASEURL + '/admin/project/' + PROJECTID + '/svg-tool/' + id,
+        url: BASEURL + "/admin/project/" + PROJECTID + "/svg-tool/" + svgElemId,
         async: false,
         data: $.param(myObject),
         success: function(response) {
-          var unit, value;
-          value = $('.area').val().split(',');
-          $('#Layer_1').remove();
+          var bldg, indexToSplice, obj_id_deleted, obj_type, unit;
+          indexToSplice = -1;
+          obj_id_deleted = 0;
+          obj_type = "";
           $.each(window.svgData.data, function(index, value) {
-            if (parseInt(value.object_id) === parseInt($('.units').val())) {
-              console.log(index);
-              return window.svgData.data.splice(index, 1);
+            if (parseInt(value.id) === svgElemId) {
+              indexToSplice = index;
+              obj_id_deleted = parseInt(value.object_id);
+              return obj_type = value.object_type;
             }
           });
-          window.svgData.data;
-          window.renderSVG();
-          unit = unitMasterCollection.findWhere({
-            'id': parseInt(id)
-          });
-          return unitCollection.add(unit);
+          window.svgData.data.splice(indexToSplice, 1);
+          myObject['id'] = svgElemId;
+          if (obj_id_deleted > 0) {
+            if (obj_type === "building") {
+              bldg = buildingCollection.findWhere({
+                'id': obj_id_deleted
+              });
+              buildingCollection.bldg;
+            } else {
+              unit = unitMasterCollection.findWhere({
+                'id': obj_id_deleted
+              });
+              unitCollection.add(unit);
+            }
+          }
+          draw.clear();
+          window.generateSvg(window.svgData.data);
+          return window.resetTool();
         },
         error: function(response) {
           return alert('Some problem occurred');
@@ -921,7 +946,17 @@
         data: data,
         async: false
       };
-      return $.ajax(publishSvgOptions);
+      return $.ajax(publishSvgOptions).done((function(_this) {
+        return function(resp, textStatus, xhr) {
+          $('.alert').text('SVG Published');
+          return window.hideAlert();
+        };
+      })(this)).fail((function(_this) {
+        return function(xhr, textStatus, errorThrown) {
+          $('.alert').text('Failed to publish SVG');
+          return window.hideAlert();
+        };
+      })(this));
     });
   });
 
