@@ -1395,7 +1395,7 @@
       var views;
       views = item.get('views');
       return $.each(views, function(ind, val) {
-        if ($.inArray(val, CommonFloor.defaults['common']['views'].split(',')) > -1) {
+        if ($.inArray(val, CommonFloor.defaults['common']['views'].split(',')) > -1 && views !== "") {
           return temp.push(item);
         }
       });
@@ -1410,7 +1410,7 @@
     unitCollection.each(function(item) {
       var facings;
       facings = item.get('direction');
-      if ($.inArray(facings, CommonFloor.defaults['common']['facings'].split(',')) > -1) {
+      if ($.inArray(facings, CommonFloor.defaults['common']['facings'].split(',')) > -1 && facings !== "") {
         return temp.push(item);
       }
     });
