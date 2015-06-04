@@ -579,6 +579,9 @@ class ProjectController extends Controller {
         $projectMeta = $project->projectMeta()->whereIn('meta_key', $projectMetaCondition)->get()->toArray();
         $phases = Phase::where(['project_id' => $projectId, 'status' => 'live'])->get()->toArray();
         $masterImages = $breakpoints = $googleEarth = $breakpointAuthtool = $googleEarthAuthtool = $data = $phaseData = $errors = [];
+        $filters = $project->projectMeta()->where( 'meta_key', 'filters' )->first()->meta_value;
+        $filters = unserialize($filters);
+         
 
         if (empty($phases)) {
             $errors['phase'] = "No phase available with status Live.";
@@ -646,8 +649,24 @@ class ProjectController extends Controller {
                         <div class="alert">
                             <strong>NOTE : </strong>Project should have at least one Phase with status as Live to publish the project.
                         </div>
-                    </div>
-                </div>';
+                    </div>';
+        if(empty($filters))
+            $filtermsg = 'No Filters Set For Project';
+        else
+        {
+            unset($filters['_token']);
+            $filtermsg = 'Filters : ';
+            foreach($filters as $type => $filter)
+            {
+               $filtermsg .= $type.'( '. count($filter) .' ) ,';
+            }
+        }
+        $html .=  '<div class="col-md-12">
+                        <div class="alert">
+                            <strong>NOTE : </strong>'.$filtermsg.'
+                        </div>
+                    </div>';
+        $html .= ' </div>';
         if (!empty($errors)) {
             $html .='<h5 class="semi-bold inline">Resolve the errors below to Publish the Project</h5>
                 <div class="row m-b-10">
