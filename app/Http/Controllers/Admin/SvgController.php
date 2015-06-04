@@ -362,17 +362,96 @@ class SvgController extends Controller {
 				], 400 );			
 		}
 	}
-    
-    public static function getUnitPrimarySvg($unitIds , $mediaIds)
-    {
-        return true;
-    }
-    
-     public static function getBreakpointUnitData($imageId)
-    {
-        return true;
-    }
 
+	/**
+	 * input => $mediaIds = array(1,2,3,4)
+	 *  	 => $units = array(
+	 *						 array('building' => array(23,45,34) ),
+	 *						 array('unit' => array(5,4,67) )
+	 *					   )
+	 */
+    
+    public static function getUnmarkedSvgUnits($units , $mediaIds)
+    {
+    	$unmarkedUnits = array();
+
+    	// for each media id get svg
+    	foreach ($mediaIds as $mediaId) {
+    		$svg = Svg::where( 'image_id', '=', $mediaId )->first();
+
+    		$svgId = $svg->id;
+
+			// for each unitId and the svgId
+    		foreach ($units as $unitType => $units) {
+				// get svg element having given $unitType and unitId and svgId
+    			if ($unitType=="building") {
+
+    				foreach ($units as $unitId) {
+    					$svgElements = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '=', $unitType )->where( 'object_id', '=', $unitId )->get()->toArray();
+
+ 						// if svg element not there then add unitid to $unmarkedUnits
+    					if (sizeof($svgElements)<1) {
+    						$unmarkedUnits[] = array('object_type' => $unitType , 'object_id' => $unitId );
+    					}
+    				}
+
+    			}
+    			else if ($unitType=="unit") {
+
+    				foreach ($units as $unitId) {
+    						// @todo exclude object_type 'project'
+    					$svgElements = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '!=', 'building' )->where( 'object_id', '=', $unitId )->get()->toArray();
+
+	 						// if svg element not there then add unitid to $unmarkedUnits
+    					if (sizeof($svgElements)<1) {
+    						$unmarkedUnits[] = array('object_type' => $unitType , 'object_id' => $unitId );
+    					}
+    				}    					
+
+    			}
+
+    		}
+
+    	}
+
+
+        return $unmarkedUnits;
+    }
+    
+    /**
+     * 
+     */
+    public static function getUnitSvgCount($imageIds)
+    {
+        $object_types = array('villa','apartment','plot','building');
+    	
+    	foreach ($imageIds as $breakpoint => $imageId) {
+	    	
+	    	// get svg for each image
+    		$svg = Svg::where( 'image_id', '=', $mediaId )->first();
+
+    		$svgId = $svg->id;
+
+	    	// get svg elements for each of the object types and svgId
+	    	foreach ($object_types as $object_type) {
+	    		// svg elements having object type and svgId
+	    		$svgElements = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '=', $unitType )->where( 'object_id', '=', $unitId )->get()->toArray();
+
+	    		// for each svg elem check if primary breakpoint is set
+	    	}
+
+	        	// count = 0
+	    		// for each object type check if primary breakpoint is set
+	        			// if set increment count
+
+	        // return array of object type and count
+    	}
+    	// get svg for given image id
+    	
+
+
+        return true;
+    }
 
 
 

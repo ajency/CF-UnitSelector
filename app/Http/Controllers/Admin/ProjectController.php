@@ -380,7 +380,7 @@ class ProjectController extends Controller {
             }
         }
 
-        $breakPointSvgData = SvgController :: getBreakpointUnitData($breakPointImageIds);
+        $breakPointSvgData = SvgController :: getUnitSvgCount($breakPointImageIds);
         
         $googleearthauthtool =true;
 
@@ -429,7 +429,7 @@ class ProjectController extends Controller {
 		$projectMeta = $project->projectMeta()->where('meta_key', 'master')->first()->toArray();
 		$mediaIds ['PROJECT'][]=($projectMeta)?unserialize($projectMeta['meta_value']):''; 
 		 
-		$unitSvgExits = SvgController :: getUnitPrimarySvg($unitIds,$mediaIds);
+		$unitSvgExits = SvgController :: getUnmarkedSvgUnits($unitIds,$mediaIds);
  
         if (!$unitSvgExits) {
             $errors['authtool'] = 'Svg Missing';
