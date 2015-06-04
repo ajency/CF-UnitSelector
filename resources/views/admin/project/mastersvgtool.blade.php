@@ -34,6 +34,11 @@
 
     }
 
+    .layer{
+        fill-opacity: 0.6 !important;
+        
+    }
+
 
 </style>
 </head>

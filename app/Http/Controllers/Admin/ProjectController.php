@@ -746,6 +746,7 @@ class ProjectController extends Controller {
                 
                 // pass Project
                 $supported_types[] = "Project";                 
+                $supported_types[] = "Amenity";                 
                 break;                 
 
         }
