@@ -73,7 +73,6 @@ class Marker extends Backbone.Model
 
             circle = draw.circle(outerRadius)
             circle.attr
-                fill: '#F7931E'
                 cx: points[0]
                 cy: points[1]
 

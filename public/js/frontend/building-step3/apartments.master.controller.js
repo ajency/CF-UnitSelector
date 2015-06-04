@@ -657,10 +657,10 @@
           $('.firstimage').attr('src', transitionImages[masterbreakpoints[0]]);
           url = Backbone.history.fragment;
           building_id = url.split('/')[1];
-          $('.villa,.plot').each(function(ind, item) {
+          $('.villa,.plot,.amenity').each(function(ind, item) {
             var id;
             id = parseInt(item.id);
-            return $('#' + id).attr('class', "");
+            return $('#' + id).attr('class', "no-fill");
           });
           return $('#' + building_id + '.building').attr('class', 'layer building svg_active');
         });

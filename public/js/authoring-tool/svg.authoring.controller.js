@@ -53,11 +53,7 @@
       return rawSvg.appendChild(svgimg);
     };
     window.generateSvg = function(svgData) {
-      if (svg_type !== "google_earth") {
-        draw.image(svgImg).data('exclude', true);
-      } else {
-        draw.image(svgImg).data('exclude', false);
-      }
+      draw.image(svgImg).data('exclude', true);
       return $.each(svgData, function(index, value) {
         if (value.canvas_type === 'polygon') {
           window.polygon.generatePolygonTag(value);
@@ -366,8 +362,14 @@
         });
       }
       if (type === 'building') {
-        return new AuthoringTool.BuildingCtrl({
+        new AuthoringTool.BuildingCtrl({
           'region': this.region
+        });
+      }
+      if (type === 'project') {
+        return new AuthoringTool.ProjectCtrl({
+          'region': this.region,
+          'property': project_data
         });
       }
     };
@@ -500,7 +502,6 @@
           });
           circle = draw.circle(15.002);
           circle.attr({
-            fill: '#F7931E',
             cx: window.cx,
             cy: window.cy
           });

@@ -1645,6 +1645,9 @@ svg .marker-area:hover rect {
 svg polygon {
   /*.ease;*/
 }
+svg .no-fill {
+  opacity: 0;
+}
 .amenity {
   stroke-width: 1 !important;
   stroke: #FF7E00;

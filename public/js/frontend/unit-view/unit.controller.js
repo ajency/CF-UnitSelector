@@ -531,10 +531,10 @@
           $('.firstimage').attr('src', transitionImages[breakpoints[0]]);
           $('.firstimage').load(function() {
             return $('.images').load(first[0], function() {
-              $('.apartment').each(function(ind, item) {
+              $('.apartment,.amenity').each(function(ind, item) {
                 var itemid;
                 itemid = parseInt(item.id);
-                return $('#' + itemid).attr('class', "");
+                return $('#' + itemid).attr('class', "no-fill");
               });
               return $('#' + id).attr('class', 'layer svg_active');
             });
@@ -557,10 +557,10 @@
         $('.firstimage').attr('src', transitionImages[breakpoints[0]]);
         $('.firstimage').load(function() {
           return $('.images').load(first[0], function() {
-            $('.villa,.plot').each(function(ind, item) {
+            $('.villa,.plot,.building,.amenity').each(function(ind, item) {
               var itemid;
               itemid = parseInt(item.id);
-              return $('#' + itemid).attr('class', "");
+              return $('#' + itemid).attr('class', "no-fill");
             });
             return $('#' + id).attr('class', 'layer svg_active');
           });

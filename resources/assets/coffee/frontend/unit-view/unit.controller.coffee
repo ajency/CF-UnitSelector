@@ -675,9 +675,9 @@ class CenterUnitView extends Marionette.ItemView
 				$('.firstimage').attr('src',transitionImages[breakpoints[0]])
 				$('.firstimage').load ()->
 					$('.images').load(first[0],()->
-						$('.apartment').each (ind,item)->
+						$('.apartment,.amenity').each (ind,item)->
 							itemid = parseInt item.id
-							$('#'+itemid).attr('class', "")
+							$('#'+itemid).attr('class', "no-fill")
 						$('#'+id).attr('class' ,'layer svg_active'))
 			if building.get('building_master').length == 0 
 				$('.master').hide()
@@ -695,9 +695,9 @@ class CenterUnitView extends Marionette.ItemView
 			$('.firstimage').attr('src',transitionImages[breakpoints[0]])
 			$('.firstimage').load ()->
 				$('.images').load(first[0],()->
-					$('.villa,.plot').each (ind,item)->
+					$('.villa,.plot,.building,.amenity').each (ind,item)->
 						itemid = parseInt item.id
-						$('#'+itemid).attr('class', "")
+						$('#'+itemid).attr('class', "no-fill")
 					$('#'+id).attr('class' ,'layer svg_active'))
 		if project.get('project_master').length == 0
 			$('.master').hide()

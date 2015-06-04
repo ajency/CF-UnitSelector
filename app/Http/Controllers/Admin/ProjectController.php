@@ -380,7 +380,7 @@ class ProjectController extends Controller {
             }
         }
 
-        $breakPointSvgData = SvgController :: getBreakpointUnitData($breakPointImageIds);
+        $breakPointSvgData = SvgController :: getUnitSvgCount($breakPointImageIds);
         
         $googleearthauthtool =true;
 
@@ -402,7 +402,7 @@ class ProjectController extends Controller {
         $phase = Phase::find($phaseId);
         $units = $phase->projectUnits()->get()->toArray();
 		$buildings = $phase->projectBuildings()->get();
-        $data = $unitIds =  $buildingIds =$mediaIds = $errors = [];
+        $data = $unitIds =  $buildingIds = $mediaIds = $errors = $unitNames =  [];
         foreach ($units as $unit) {
             $variantId = $unit['unit_variant_id'];
             $unitType = \CommonFloor\UnitVariant::find($variantId)->unitType()->first();
@@ -410,30 +410,83 @@ class ProjectController extends Controller {
             $propertType = \CommonFloor\UnitType::find($unitTypeId)->projectPropertyType()->first();
             $propertTypeId = $propertType->property_type_id;
             $data[$propertTypeId][] = $unit['unit_name'];
-			$unitIds['UNIT'][] = $unit['id'];
+			$unitIds['unit'][] = $unit['id'];
+            $unitNames['unit'][$unit['id']]=$unit['unit_name'];
         }
 		
 		foreach($buildings as $building)
 		{
 			$data['BUILDING'][] = $building->building_name;
+            $unitNames['building'][$building->id]=$building->building_name;
 			$buildingIds[] =  $building->id;
-			$mediaIds ['BUILDING'][]= $building->building_master; 
+			$buildingMediaIds= $building->building_master;
+            
+            $breakpoints = $building->breakpoints;
+            foreach($buildingMediaIds as $position=> $buildingMediaId)
+            {
+                if(in_array($position,$breakpoints))
+                {
+                    $mediaIds[]=$buildingMediaId;
+                }
+            }
+                
 			$buildingData = Building :: find($building->id);
 			$buildingUnits = $buildingData->projectUnits()->get()->toArray(); 
-			foreach ($buildingUnits as $buildingUnit) {
-				$unitIds['UNIT'][] = $buildingUnit['id'];
+			foreach ($buildingUnits as $buildingUnit) {                          //Apartment/Penthouse Units
+				$unitIds['unit'][] = $buildingUnit['id'];
+                $unitNames['unit'][$buildingUnit['id']]=$buildingUnit['unit_name'];
 			}	
 		}
         
 		$project = Project::find($projectId);
-		$projectMeta = $project->projectMeta()->where('meta_key', 'master')->first()->toArray();
-		$mediaIds ['PROJECT'][]=($projectMeta)?unserialize($projectMeta['meta_value']):''; 
-		 
-		$unitSvgExits = SvgController :: getUnmarkedSvgUnits($unitIds,$mediaIds);
+        $projectmediaIds = $breakpoints = [];
+        
+		$projectMeta = $project->projectMeta()->whereIn('meta_key', ['breakpoints','master'])->get()->toArray();
+        foreach ($projectMeta as $metaValues) {
+
+            if ('master' == $metaValues['meta_key']) {
+                $projectmediaIds = unserialize($metaValues['meta_value']);
+
+            } elseif ('breakpoints' == $metaValues['meta_key']) {
+                $breakpoints = unserialize($metaValues['meta_value']);
  
-        if (!$unitSvgExits) {
-            $errors['authtool'] = 'Svg Missing';
+            } 
         }
+ 
+        foreach($projectmediaIds as $position=> $projectmediaId)
+        {
+            if(in_array($position,$breakpoints))
+            {
+                $mediaIds[]=$projectmediaId;
+            }
+        }
+       
+		$unitSvgExits = SvgController :: getUnmarkedSvgUnits($unitIds,$mediaIds);
+    
+        if (!empty($unitSvgExits)) {
+            $errors['authtool'] = 'Svg Unmarked for ';
+            if(isset($unitSvgExits['unit']))
+            {
+                $errors['authtool'] .= ' Units : ';
+                foreach($unitSvgExits['unit'] as $unitId)
+                {
+                    $errors['authtool'] .=$unitNames['unit'][$unitId].' ,';
+                }
+                
+            }
+
+            if(isset($unitSvgExits['building']))
+            { 
+                $errors['authtool'] .= ' Buildings : ';
+                foreach($unitSvgExits['building'] as $unitId)
+                {
+                    $errors['authtool'] .= $unitNames['building'][$unitId].' ,';
+                }
+                
+            }
+             
+        }
+        
         if (!count($data)) {
             $errors['phase'] = 'Phase cannot be made live as no units have been added to it.';
         }
@@ -746,6 +799,7 @@ class ProjectController extends Controller {
                 
                 // pass Project
                 $supported_types[] = "Project";                 
+                $supported_types[] = "Amenity";                 
                 break;                 
 
         }
