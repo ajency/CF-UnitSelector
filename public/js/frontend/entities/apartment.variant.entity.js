@@ -22,7 +22,7 @@
       if (!_.isUndefined(unitVarinatModel)) {
         floorRiseArray = settings.generateFloorRise(unitModel.get('building_id'));
         floorRise = floorRiseArray[unitModel.get('floor')];
-        basic_cost = (parseFloat(unitVarinatModel.get('per_sq_ft_price'))) * parseFloat(unitVarinatModel.get('super_built_up_area'));
+        basic_cost = (parseFloat(unitVarinatModel.get('per_sq_ft_price')) + parseFloat(floorRise)) * parseFloat(unitVarinatModel.get('super_built_up_area'));
         basicCost = basic_cost.toFixed(2);
       }
       return basicCost;

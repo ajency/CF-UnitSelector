@@ -136,7 +136,7 @@
       return CenterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content animated fadeIn"> <div class="img-loader hidden"> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <img class="firstimage img-responsive" src=""/> <div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" data-nodebug="" data-alwaysprocess="" data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" class="primage fill-width" style="  height: 100%; min-width: 526px; position: absolute; top: 0;"> </div> </div>');
+    CenterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content animated fadeIn"> <div class="img-loader hidden"> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" data-nodebug="" data-alwaysprocess="" data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" class="primage fill-width"> </div> </div>');
 
     CenterView.prototype.ui = {
       svgContainer: '.us-right-content'
@@ -150,75 +150,71 @@
     };
 
     CenterView.prototype.onShow = function() {
-      var PATH, img, windowHeight;
-      PATH = BASEURL + '/projects/' + PROJECTID + '/google_earth/map.svg';
+      var path, windowHeight;
       windowHeight = $(window).innerHeight() - 56;
       $('.svg-area').css('height', windowHeight);
       $('.svg-area').css('min-width', windowHeight * 2);
       $('img').lazyLoadXT();
-      img = this.model.get('step_one').svg;
-      $('.firstimage').attr('src', img);
-      return $('.firstimage').load(function() {
-        return $('.svg-area').load(PATH, function() {
-          $('.marker').tooltipster({
-            theme: 'tooltipster-shadow',
-            contentAsHTML: true,
-            onlyOne: true,
-            arrow: false,
-            offsetX: 30,
-            interactive: true,
-            animation: 'fade',
-            trigger: 'click',
-            content: $('#proj_info').html(),
-            functionReady: function(e) {
-              var svgHeight, svgWidth, tooltipHeight;
-              $('.action_button').on('click', function(e) {
-                $('.img-loader').removeClass('hidden');
-                $('svg').attr('class', 'zoom');
-                $('.step1').addClass('animated fadeOut');
-                $('.marker').tooltipster('hide');
-                return setTimeout(function(x) {
-                  return CommonFloor.checkPropertyType();
-                }, 100);
-              });
-              tooltipHeight = $('.tooltipster-content').height() + 10;
-              $('.action-bar').css('min-height', tooltipHeight);
-              svgHeight = $(window).innerHeight() - 56;
-              svgWidth = svgHeight * 2;
-              if ($(window).width() < 1025) {
-                $('svg').css('min-height', svgHeight);
-                return $('svg').css('min-width', svgWidth);
-              }
+      path = this.model.get('step_one').svg;
+      return $('.svg-area').load(path, function() {
+        $('.marker').tooltipster({
+          theme: 'tooltipster-shadow',
+          contentAsHTML: true,
+          onlyOne: true,
+          arrow: false,
+          offsetX: 30,
+          interactive: true,
+          animation: 'fade',
+          trigger: 'click',
+          content: $('#proj_info').html(),
+          functionReady: function(e) {
+            var svgHeight, svgWidth, tooltipHeight;
+            $('.action_button').on('click', function(e) {
+              $('.img-loader').removeClass('hidden');
+              $('svg').attr('class', 'zoom');
+              $('.step1').addClass('animated fadeOut');
+              $('.marker').tooltipster('hide');
+              return setTimeout(function(x) {
+                return CommonFloor.checkPropertyType();
+              }, 100);
+            });
+            tooltipHeight = $('.tooltipster-content').height() + 10;
+            $('.action-bar').css('min-height', tooltipHeight);
+            svgHeight = $(window).innerHeight() - 56;
+            svgWidth = svgHeight * 2;
+            if ($(window).width() < 1025) {
+              $('svg').css('min-height', svgHeight);
+              return $('svg').css('min-width', svgWidth);
             }
-          });
-          $('.marker').tooltipster('show');
-          $('.tooltipstered').tooltipster({
-            theme: 'tooltipster-shadow',
-            contentAsHTML: true,
-            onlyOne: true,
-            arrow: false,
-            offsetX: 30,
-            interactive: true,
-            animation: 'fade',
-            trigger: 'click',
-            content: $('#proj_info').html(),
-            functionReady: function(e) {
-              var tooltipHeight;
-              $('.action_button').on('click', function(e) {
-                $('.img-loader').removeClass('hidden');
-                $('svg').attr('class', 'zoom');
-                $('.step1').addClass('animated fadeOut');
-                $('.marker').tooltipster('hide');
-                return setTimeout(function(x) {
-                  return CommonFloor.checkPropertyType();
-                }, 100);
-              });
-              tooltipHeight = $('.tooltipster-content').height() + 10;
-              return $('.action-bar').css('min-height', tooltipHeight);
-            }
-          });
-          return $('.tooltipstered').tooltipster('show');
+          }
         });
+        $('.marker').tooltipster('show');
+        $('.tooltipstered').tooltipster({
+          theme: 'tooltipster-shadow',
+          contentAsHTML: true,
+          onlyOne: true,
+          arrow: false,
+          offsetX: 30,
+          interactive: true,
+          animation: 'fade',
+          trigger: 'click',
+          content: $('#proj_info').html(),
+          functionReady: function(e) {
+            var tooltipHeight;
+            $('.action_button').on('click', function(e) {
+              $('.img-loader').removeClass('hidden');
+              $('svg').attr('class', 'zoom');
+              $('.step1').addClass('animated fadeOut');
+              $('.marker').tooltipster('hide');
+              return setTimeout(function(x) {
+                return CommonFloor.checkPropertyType();
+              }, 100);
+            });
+            tooltipHeight = $('.tooltipster-content').height() + 10;
+            return $('.action-bar').css('min-height', tooltipHeight);
+          }
+        });
+        return $('.tooltipstered').tooltipster('show');
       });
     };
 

@@ -328,6 +328,7 @@
       $.merge(collection, bunglowVariantCollection.getBunglowUnits());
     }
     if (param === 'apartment') {
+      console.log(apartmentVariantCollection);
       $.merge(collection, apartmentVariantCollection.getApartmentUnits());
     }
     if (param === 'plot') {
@@ -427,6 +428,7 @@
     unitTypes = [];
     plots = [];
     buildings = [];
+    console.log(unitCollection);
     unitCollection.each(function(item) {
       var building, property, unitType;
       unitType = unitTypeMasterCollection.findWhere({
@@ -492,7 +494,7 @@
     areaArr = [];
     unitCollection.each(function(item) {
       var area;
-      area = item.get('area');
+      console.log(area = item.get('area'));
       if (area >= parseFloat(CommonFloor.defaults['common']['area_min']) && area <= parseFloat(CommonFloor.defaults['common']['area_max'])) {
         return areaArr.push(item);
       }
@@ -583,6 +585,7 @@
         var name;
         name = s.capitalize(value);
         name = name + '(s)';
+        console.log(value);
         if (value === 'apartment') {
           name = 'Apartment(s)/Penthouse(s)';
           filters = CommonFloor.getApartmentFilters();
@@ -728,6 +731,7 @@
     $.merge(unitTypes, villaFilters.unitTypes);
     $.merge(unitVariants, villaFilters.unitVariants);
     $.merge(flooring, villaFilters.flooring);
+    console.log(villaFilters);
     price = [];
     area = [];
     type = [];
@@ -750,6 +754,7 @@
         });
       });
     }
+    console.log(type);
     filters = {
       'type': type,
       'unitTypes': unitTypes,
@@ -770,6 +775,7 @@
         return results = _.omit(results, index);
       }
     });
+    console.log(filters);
     return [filters, results];
   };
 
@@ -846,7 +852,7 @@
     $.each(CommonFloor.defaults['apartment'], function(ind, val) {
       var param_val_arr;
       if (val !== "") {
-        param_val_arr = val.split(',');
+        console.log(param_val_arr = val.split(','));
         return $.each(param_val_arr, function(index, value) {
           var attributes, pos, type, types, unitTypeModel;
           if (value !== "" && ind === 'unit_variant_id') {
@@ -1125,6 +1131,7 @@
       }
       return $.merge(collection, temp);
     });
+    console.log(collection);
     unitCollection.reset(collection);
     if (CommonFloor.defaults['common']['price_max'] !== "") {
       CommonFloor.filterBudget();
@@ -1369,7 +1376,7 @@
     temp = [];
     unitCollection.each(function(item) {
       var views;
-      views = item.get('views');
+      console.log(views = item.get('views'));
       return $.each(views, function(ind, val) {
         if ($.inArray(val, CommonFloor.defaults['common']['views'].split(',')) > -1) {
           return temp.push(item);
@@ -1385,7 +1392,7 @@
     temp = [];
     unitCollection.each(function(item) {
       var facings;
-      facings = item.get('direction');
+      console.log(facings = item.get('direction'));
       if ($.inArray(facings, CommonFloor.defaults['common']['facings'].split(',')) > -1) {
         return temp.push(item);
       }

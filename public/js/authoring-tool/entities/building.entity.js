@@ -9,11 +9,10 @@
       return BuildingView.__super__.constructor.apply(this, arguments);
     }
 
-    BuildingView.prototype.template = Handlebars.compile('<form id="add-form"><div class="form-group"> <label  class="unit-label" for="exampleInputPassword1">Units</label> <select class="form-control units"> <option value="">Select</option> {{#options}} <option value="{{id}}">{{name}}</option> {{/options}} </select> </div> <div class="checkbox"> <label> <input type="checkbox" name="check_primary"> Mark as primary unit </label> </div> </form>');
+    BuildingView.prototype.template = '<form id="add-form"><div class="form-group"> <label for="exampleInputPassword1">Units</label> <select class="form-control units"> <option value="">Select</option> {{#options}} <option value="{{id}}">{{name}}</option> {{/options}} </select> </div></form>';
 
     BuildingView.prototype.ui = {
-      units: '.units',
-      unitLabel: '.unit-label'
+      units: '.units'
     };
 
     BuildingView.prototype.serializeData = function() {
@@ -31,14 +30,16 @@
       return data;
     };
 
-    BuildingView.prototype.onShow = function() {
-      var units;
-      units = buildingCollection;
-      if (units.length === 0) {
-        this.ui.units.hide();
-        this.ui.unitLabel.hide();
-        $('.alert').text('All buildings marked');
-        return window.hideAlert();
+    BuildingView.prototype.events = {
+      'change @ui.units': function(e) {
+        window.coord = 0;
+        return $('.plot').each(function(index, value) {
+          if (value.id === $(e.target).val()) {
+            $('.alert').text('Already assigned');
+            window.hideAlert();
+            window.coord = 1;
+          }
+        });
       }
     };
 
