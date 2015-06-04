@@ -330,6 +330,7 @@ class ProjectController extends Controller {
                 $buildingData = Building :: find($building['id']);
                 $buildingUnits = $buildingData->projectUnits()->get()->toArray();   	
             }
+            $totalCount = count($units) + count($buildings);
             $units = array_merge($units,$buildingUnits);
        
             //VILLA AND PLOT
@@ -380,7 +381,13 @@ class ProjectController extends Controller {
             }
         }
 
-        // $breakPointSvgData = SvgController :: getUnitSvgCount($breakPointImageIds);
+        $unitSvgCount = SvgController :: getUnitSvgCount($breakPointImageIds);
+        foreach($unitSvgCount as $position=> $count)
+        {
+            $unitCount =  $count['villa'] +$count['plot']+$count['building'];
+            $breakPointSvgData[$position]['MARKED']= $unitCount;
+            $breakPointSvgData[$position]['PENDING']= $totalCount - $unitCount;
+        }
         
         $googleearthauthtool =true;
 
@@ -395,6 +402,7 @@ class ProjectController extends Controller {
                         ->with('propertyTypes', $propertyTypes)
                         ->with('googleearthauthtool', $googleearthauthtool)
                         ->with('projectJason', $projectJason)
+                        ->with('breakPointSvgData', $breakPointSvgData)
                         ->with('current', 'summary');
     }
 
@@ -418,11 +426,11 @@ class ProjectController extends Controller {
 		{
 			$data['BUILDING'][] = $building->building_name;
             $unitNames['building'][$building->id]=$building->building_name;
-			$buildingIds[] =  $building->id;
+			$unitIds['building'][] =  $building->id;
 			$buildingMediaIds= $building->building_master;
             
-            $breakpoints = $building->breakpoints;
-            foreach($buildingMediaIds as $position=> $buildingMediaId)
+            $breakpoints = unserialize($building->breakpoints); 
+            foreach($buildingMediaIds as $position => $buildingMediaId)
             {
                 if(in_array($position,$breakpoints))
                 {
@@ -461,26 +469,26 @@ class ProjectController extends Controller {
             }
         }
        
-		$unitSvgExits = SvgController :: getUnmarkedSvgUnits($unitIds,$mediaIds);
+		$unitSvgExits = SvgController :: getUnmarkedSvgUnits($unitIds,$mediaIds); 
     
         if (!empty($unitSvgExits)) {
-            $errors['authtool'] = 'Svg Unmarked for ';
+           
             if(isset($unitSvgExits['unit']))
             {
-                $errors['authtool'] .= ' Units : ';
+                $errors['unitauthtool'] = ' Svg Unmarked for Units : ';
                 foreach($unitSvgExits['unit'] as $unitId)
                 {
-                    $errors['authtool'] .=$unitNames['unit'][$unitId].' ,';
+                    $errors['unitauthtool'] .=$unitNames['unit'][$unitId].' ,';
                 }
                 
             }
 
             if(isset($unitSvgExits['building']))
             { 
-                $errors['authtool'] .= ' Buildings : ';
+                $errors['buildingauthtool'] = ' Svg Unmarked for Buildings : ';
                 foreach($unitSvgExits['building'] as $unitId)
                 {
-                    $errors['authtool'] .= $unitNames['building'][$unitId].' ,';
+                    $errors['buildingauthtool'] .= $unitNames['building'][$unitId].' ,';
                 }
                 
             }

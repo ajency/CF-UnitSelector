@@ -14,12 +14,10 @@
                     <h2>Project<span class="semi-bold"> Costs</span></h2>
                     </div>
 <div class="grid simple">
-<div class="grid-body">
-    <div class="alert alert-success ">
-                <button class="close" data-dismiss="alert"></button>
-                <i class="fa fa-check-circle" style="font-size: 17px;"></i> 
-                    Project costs have been set successfully.
-                </div>
+    <div class="grid-title no-border">
+        <h3 > <i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Costs</span></h3>
+    </div>
+<div class="grid-body no-border">
         <form action="{{ url('admin/project/' . $project['id'].'/costupdate') }}" method="POST" data-parsley-validate>
                 <div class="row">
                     <div class="col-md-4">

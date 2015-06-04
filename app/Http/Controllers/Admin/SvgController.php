@@ -439,12 +439,12 @@ class SvgController extends Controller {
 
 	    		$svgElemCount = count($svgElements);
 
-	    		$svg_unit_count[$breakpoint][] = array('object_type'=>$object_type,'object_count'=>$svgElemCount);
+	    		$svg_unit_count[$breakpoint][$object_type] =$svgElemCount;
 	    	}
 
     	}
 
-    	//dd($svg_unit_count);
+    	 
         return $svg_unit_count;
     }
 

@@ -619,8 +619,7 @@
           $('.layer').tooltipster('content', html);
           return;
         }
-        floors = buildingModel.get('floors');
-        floors = Object.keys(floors).length;
+        floors = buildingModel.get('no_of_floors');
         unitTypes = building.getUnitTypes(id);
         response = building.getUnitTypesCount(id, unitTypes);
         minprice = building.getMinimumCost(id);

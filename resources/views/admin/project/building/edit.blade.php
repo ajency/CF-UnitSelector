@@ -78,6 +78,17 @@
                                              
                                         </div>
                                     </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                                        <label class="form-label">Has Master<span class="text-primary">*</span></label>
+                        <div class="radio radio-primary">        
+                        <input id="master_yes" type="radio" name="has_master" value="yes" checked>
+                        <label for="master_yes" class="form-label">Yes</label>
+                        <input id="master_no" type="radio" name="has_master" value="no" {{ ($building->has_master == 'no') ? 'checked' : '' }}>
+                        <label for="master_no" class="form-label">No</label>
+                         </div>                    
+                                        </div>
+                                    </div>
                                 </div>
                     <hr>
                     <div class="row object-master-images" data-object-id="{{ $building->id }}" data-object-type="building">
@@ -94,17 +105,7 @@
                             Naming convention to be followed for the images uploaded -Imagename-00 (E.g Master-00(first image), Master-01 and so on).
                             For large buildings, the images should be in the ratio of 4:2.
                 </div>
-                                 <div class="radio radio-primary">
-                                    <h4 class="inline">Does this Building have
-                                        a <span class="semi-bold">Master Image?<span></span></span></h4>
-                                        <span class="semi-bold">&nbsp;&nbsp; 
-                                        <input id="master_yes" type="radio" name="has_master" value="yes" checked>
-                        <label for="master_yes" class="form-label">Yes</label>
-                        <input id="master_no" type="radio" name="has_master" value="no" {{ ($building->has_master == 'no') ? 'checked' : '' }}>
-                        <label for="master_no" class="form-label">No</label>
-
-                                </div>
-                                                   
+                                                                                    
         
                   <div class="dataTables_wrapper form-inline {{ ($building->has_master == 'no')?'hidden':'' }}" role="grid">
                   <div class="pull-right">
