@@ -379,7 +379,7 @@ class SvgController extends Controller {
     	foreach ($mediaIds as $mediaId) {
     		$svg = Svg::where( 'image_id', '=', $mediaId )->first();
 
-    		$svgId = $svg->id;
+    		$svgId = (is_null($svg)) ? 0 : $svg->id ; 
 
 			// for each unitId and the svgId
     		foreach ($units as $unitType => $units) {
