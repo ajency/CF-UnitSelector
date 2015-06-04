@@ -377,7 +377,7 @@
 
     ApartmentsView.prototype.onShow = function() {
       var availability, classname, id, status;
-      id = this.model.get('id');
+      console.log(id = this.model.get('id'));
       availability = this.model.get('availability');
       status = s.decapitalize(availability);
       classname = $('#apartment' + id).attr('class');

@@ -418,7 +418,7 @@ class ApartmentsView extends Marionette.ItemView
 		html
 
 	onShow:->
-		id = @model.get 'id'
+		console.log id = @model.get 'id'
 		availability = @model.get('availability')
 		status = s.decapitalize(availability)
 		classname =  $('#apartment'+id).attr('class')
