@@ -330,6 +330,7 @@ class ProjectController extends Controller {
                 $buildingData = Building :: find($building['id']);
                 $buildingUnits = $buildingData->projectUnits()->get()->toArray();   	
             }
+            $totalCount = count($units) + count($buildings);
             $units = array_merge($units,$buildingUnits);
        
             //VILLA AND PLOT
@@ -380,7 +381,14 @@ class ProjectController extends Controller {
             }
         }
 
-        $breakPointSvgData = SvgController :: getUnitSvgCount($breakPointImageIds);
+        $unitSvgCount = SvgController :: getUnitSvgCount($breakPointImageIds);
+        foreach($unitSvgCount as $position=> $count)
+        {
+            $unitCount =  $count['villa'] +$count['plot']+$count['building'];
+            $breakPointSvgData[$position]['MARKED']= $unitCount;
+            $breakPointSvgData[$position]['PENDING']= $totalCount - $unitCount;
+        }
+            
         
         $googleearthauthtool =true;
 
@@ -395,6 +403,7 @@ class ProjectController extends Controller {
                         ->with('propertyTypes', $propertyTypes)
                         ->with('googleearthauthtool', $googleearthauthtool)
                         ->with('projectJason', $projectJason)
+                        ->with('breakPointSvgData', $breakPointSvgData)
                         ->with('current', 'summary');
     }
 

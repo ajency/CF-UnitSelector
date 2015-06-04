@@ -77,6 +77,17 @@
                                              
                                         </div>
                                     </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                        <label class="form-label">Has Master<span class="text-primary">*</span></label>
+                        <div class="radio radio-primary">        
+                                        <input id="master_yes" type="radio" name="has_master" value="yes" checked>
+                        <label for="master_yes" class="form-label">Yes</label>
+                        <input id="master_no" type="radio" name="has_master" value="no" >
+                        <label for="master_no" class="form-label">No</label>
+                         </div>                    
+                                        </div>
+                                    </div>
                                 </div>
                      
                     <div class="row">

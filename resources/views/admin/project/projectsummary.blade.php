@@ -178,16 +178,16 @@
                     <td width="16%"><span class="semi-bold">Breakpoint Position</span></td>
                     <td width="18%"><span class="semi-bold">Units Marked</span></td>
                     <td width="18%"><span class="semi-bold">Pending</span></td>
-                    <td><span class="semi-bold">Status</span></td>
+             
                 </tr>
             </thead>
             <tbody>
                 @foreach($project['breakpoints'] as $breakpoint)
                 <tr>
                     <td>{{ $breakpoint }}</td>
-                    <td></td>
-                    <td></td>
-                    <td><span class="text-warning"></span></td>
+                    <td>{{ $breakPointSvgData[$breakpoint]['MARKED'] }}</td>
+                    <td>{{ $breakPointSvgData[$breakpoint]['PENDING'] }}</td>
+             
                 </tr>
                 @endforeach
             </tbody>
