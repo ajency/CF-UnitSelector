@@ -812,7 +812,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					CommonFloor.applyAvailabilClasses()
 					CommonFloor.randomClass()
 					CommonFloor.applyFliterClass()
-					CommonFloor.getApartmentsInView()
+					# CommonFloor.getApartmentsInView()
+					CommonFloor.applyOnViewClass()
 					that.loadZoom()
 					response = building.checkRotationView(building_id)
 					$('.svg-maps').removeClass 'hidden'
@@ -914,8 +915,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					CommonFloor.applyAvailabilClasses()
 					CommonFloor.randomClass()
 					CommonFloor.applyFliterClass()
-					CommonFloor.getApartmentsInView()
+					# CommonFloor.getApartmentsInView()
 					CommonFloor.applyOnViewClass()
+
 					that.loadZoom()).addClass('active').removeClass('inactive')
 				
 				
@@ -933,7 +935,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				CommonFloor.applyAvailabilClasses()
 				CommonFloor.randomClass()
 				CommonFloor.applyFliterClass()
-				CommonFloor.getApartmentsInView()
+				# CommonFloor.getApartmentsInView()
+				CommonFloor.applyOnViewClass()()
 				that.loadZoom()).addClass('active').removeClass('inactive')
 
 

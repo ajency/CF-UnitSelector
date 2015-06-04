@@ -620,7 +620,7 @@
           CommonFloor.applyAvailabilClasses();
           CommonFloor.randomClass();
           CommonFloor.applyFliterClass();
-          CommonFloor.getApartmentsInView();
+          CommonFloor.applyOnViewClass();
           that.loadZoom();
           response = building.checkRotationView(building_id);
           $('.svg-maps').removeClass('hidden');
@@ -732,7 +732,6 @@
             CommonFloor.applyAvailabilClasses();
             CommonFloor.randomClass();
             CommonFloor.applyFliterClass();
-            CommonFloor.getApartmentsInView();
             CommonFloor.applyOnViewClass();
             return that.loadZoom();
           }).addClass('active').removeClass('inactive');
@@ -753,7 +752,7 @@
           CommonFloor.applyAvailabilClasses();
           CommonFloor.randomClass();
           CommonFloor.applyFliterClass();
-          CommonFloor.getApartmentsInView();
+          CommonFloor.applyOnViewClass()();
           return that.loadZoom();
         }).addClass('active').removeClass('inactive');
       });
