@@ -310,7 +310,7 @@ class ProjectController extends Controller {
     public function summary($id, ProjectRepository $projectRepository) {
 
         $project = $projectRepository->getProjectById($id);
-        $phases = $project->projectPhase()->where('phase_name', '!=', 'Default')->get()->toArray();
+        $phases = $project->projectPhase()->get()->toArray();
         $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray();
         $propertyTypes = $propertyTypeUnitData = $phaseData = $unitTypeData = $count = $breakPointSvgData = $buildingbreakPointSvgData = [];
         $projectJason = \CommonFloor\ProjectJson::where('project_id', $id)->where('type', 'step_two')->select('created_at', 'updated_at')->first()->toArray();
@@ -319,7 +319,7 @@ class ProjectController extends Controller {
             $propertyTypes[$propertyType['property_type_id']] = get_property_type($propertyType['property_type_id']);
         }
         $totalCount = $totalbuildingUnitCount= 0;
-        foreach ($phases as $phase) {
+        foreach ($phases as $key=> $phase) {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
             $units = $phase->projectUnits()->get()->toArray();
@@ -386,8 +386,11 @@ class ProjectController extends Controller {
                 $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['blocked'] +=($unit['availability'] == 'blocked') ? 1 : 0;
             }
             
-            
-            
+           
+           if( $phase['phase_name'] == 'Default')
+           {
+                unset($phase[$key]);
+           }
             
         }
 
