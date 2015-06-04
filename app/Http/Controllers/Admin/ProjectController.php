@@ -389,7 +389,7 @@ class ProjectController extends Controller {
            
            if( $phase['phase_name'] == 'Default')
            {
-                unset($phase[$key]);
+                unset($phases[$key]);
            }
             
         }
