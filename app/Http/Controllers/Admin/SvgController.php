@@ -382,29 +382,29 @@ class SvgController extends Controller {
     		$svgId = (is_null($svg)) ? 0 : $svg->id ; 
 
 			// for each unitId and the svgId
-    		foreach ($units as $unitType => $units) {
+    		foreach ($units as $unitType => $unitIds) {
 				// get svg element having given $unitType and unitId and svgId
     			if ($unitType=="building") {
 
-    				foreach ($units as $unitId) {
+    				foreach ($unitIds as $unitId) {
     					$svgElements = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '=', $unitType )->where( 'object_id', '=', $unitId )->get()->toArray();
 
  						// if svg element not there then add unitid to $unmarkedUnits
     					if (sizeof($svgElements)<1) {
-    						$unmarkedUnits[] = array('object_type' => $unitType , 'object_id' => $unitId );
+    						$unmarkedUnits[$unitType][$unitId] = $unitId;
     					}
     				}
 
     			}
     			else if ($unitType=="unit") {
 
-    				foreach ($units as $unitId) {
+    				foreach ($unitIds as $unitId) {
     						// @todo exclude object_type 'project'
     					$svgElements = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '!=', 'building' )->where( 'object_id', '=', $unitId )->get()->toArray();
 
 	 						// if svg element not there then add unitid to $unmarkedUnits
     					if (sizeof($svgElements)<1) {
-    						$unmarkedUnits[] = array('object_type' => $unitType , 'object_id' => $unitId );
+    						$unmarkedUnits[$unitType][$unitId] = $unitId;
     					}
     				}    					
 
