@@ -461,12 +461,22 @@ hr.embossed {
   display: block;
   background-position: -8px;
 }
-.apartment-ico {
-  background: url(../../images/sprite-popovergray.png) no-repeat;
-  width: 40px;
-  height: 40px;
+.apartment-ico:before {
+  font-size: 30px;
+  text-align: center;
   display: block;
-  background-position: -68px;
+  line-height: 45px !important;
+  font-family: icomoon;
+  speak: none;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\e616";
+  color: #666666;
 }
 .penthouse-ico {
   background: url(../../images/penthouse-gray.png) no-repeat;
