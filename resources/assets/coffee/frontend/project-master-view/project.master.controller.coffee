@@ -148,15 +148,15 @@ class TopMasterView extends Marionette.ItemView
 
 		'click @ui.types':(e)->
 			arr = CommonFloor.defaults['type'].split(',')
-			index = arr.indexOf $(e.target).attr('data-id')
+			index = arr.indexOf $(e.currentTarget).attr('data-id')
 			arr.splice(index, 1)
 			CommonFloor.defaults['type'] = arr.join(',')
 			
-			if $(e.target).attr('data-id') == 'villa'
+			if $(e.currentTarget).attr('data-id') == 'villa'
 				@removeVillaFilters()
-			if $(e.target).attr('data-id') == 'apartment'
+			if $(e.currentTarget).attr('data-id') == 'apartment'
 				@removeAptFilters()
-			if $(e.target).attr('data-id') == 'plot'
+			if $(e.currentTarget).attr('data-id') == 'plot'
 				@removePlotFilters()
 			
 			@trigger  'render:view'
@@ -527,7 +527,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 
 		'mouseout .villa':(e)->
-			id = parseInt e.target.id
+			id = parseInt e.currentTarget.id
 			unit = unitCollection.findWhere 
 				id :  id 
 			if unit != undefined
@@ -536,7 +536,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				$('#unit'+id).attr('class' ,'unit blocks '+availability) 
 
 		'mouseout .plot':(e)->
-			id = parseInt e.target.id
+			id = parseInt e.currentTarget.id
 			unit = unitCollection.findWhere 
 				id :  id 
 			if unit != undefined
@@ -546,7 +546,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				$('#unit'+id).attr('class' ,'bldg blocks '+availability)  
 
 		'mouseout .building':(e)->
-			id = parseInt e.target.id
+			id = parseInt e.currentTarget.id
 			building = buildingCollection.findWhere 
 				id :  id 
 			if building != undefined
@@ -556,7 +556,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 
 		'mouseover .villa':(e)->
 			# $('.villa').attr('class' ,'layer villa') 
-			id  = parseInt e.target.id
+			id  = parseInt e.currentTarget.id
 			html = ""
 			unit = unitCollection.findWhere 
 				id :  id 
@@ -636,7 +636,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		
 		'mouseover .plot':(e)->
 			# $('.plot').attr('class' ,'layer plot') 
-			id  = parseInt e.target.id
+			id  = parseInt e.currentTarget.id
 			html = ""
 			unit = unitCollection.findWhere 
 				id :  id 
@@ -723,7 +723,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			$('.amenity').tooltipster('content', html)
 
 		'mouseover .building':(e)->
-			id  = parseInt e.target.id
+			id  = parseInt e.currentTarget.id
 			buildingModel = buildingCollection.findWhere
 							'id' : id
 			buildingMaster = buildingMasterCollection.findWhere 

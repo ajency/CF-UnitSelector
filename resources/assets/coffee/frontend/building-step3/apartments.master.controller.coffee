@@ -141,7 +141,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 	events:->
 		'click @ui.types':(e)->
 			arr = CommonFloor.defaults['type'].split(',')
-			index = arr.indexOf $(e.target).attr('data-id')
+			index = arr.indexOf $(e.currentTarget).attr('data-id')
 			arr.splice(index, 1)
 			CommonFloor.defaults['type'] = arr.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
@@ -641,7 +641,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		# 	# CommonFloor.router.storeRoute()
 
 		'mouseover .apartment':(e)->
-			id = parseInt e.target.id
+			id = parseInt e.currentTarget.id
 			unit = unitCollection.findWhere
 					'id' : id
 			unitMaster = unitMasterCollection.findWhere 
@@ -711,7 +711,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('.apartment').tooltipster('content', html)
 		
 		'mouseout .apartment':(e)->
-			id = parseInt e.target.id
+			id = parseInt e.currentTarget.id
 			unit = unitCollection.findWhere
 					'id' : id
 			if unit is undefined
@@ -729,12 +729,12 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('.layer').tooltipster('content', html)
 
 		# 'click .apartment':(e)->
-		# 	id = parseInt e.target.id
+		# 	id = parseInt e.currentTarget.id
 		# 	CommonFloor.navigate '/unit-view/'+id , true
 		# 	# CommonFloor.router.storeRoute()
 
 		'mouseover .next,.prev':(e)->
-			id = parseInt $(e.target).attr('data-id')
+			id = parseInt $(e.currentTarget).attr('data-id')
 			buildingModel = buildingMasterCollection.findWhere
 								'id' : id
 			images = Object.keys(buildingModel.get('building_master')).length
@@ -757,10 +757,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 						</div>
 					</div>'
 
-			$(e.target).tooltipster('content', html)
+			$(e.currentTarget).tooltipster('content', html)
 
 		'click .next,.prev':(e)->
-			id = parseInt $(e.target).attr('data-id')
+			id = parseInt $(e.currentTarget).attr('data-id')
 			buildingModel = buildingMasterCollection.findWhere
 								'id' : id
 			if Object.keys(buildingModel.get('building_master')).length == 0

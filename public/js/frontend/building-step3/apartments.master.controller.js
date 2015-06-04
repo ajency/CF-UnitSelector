@@ -116,7 +116,7 @@
         'click @ui.types': function(e) {
           var arr, index;
           arr = CommonFloor.defaults['type'].split(',');
-          index = arr.indexOf($(e.target).attr('data-id'));
+          index = arr.indexOf($(e.currentTarget).attr('data-id'));
           arr.splice(index, 1);
           CommonFloor.defaults['type'] = arr.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
@@ -506,7 +506,7 @@
       },
       'mouseover .apartment': function(e) {
         var availability, html, id, price, response, unit, unitMaster;
-        id = parseInt(e.target.id);
+        id = parseInt(e.currentTarget.id);
         unit = unitCollection.findWhere({
           'id': id
         });
@@ -541,7 +541,7 @@
       },
       'mouseout .apartment': function(e) {
         var availability, id, unit;
-        id = parseInt(e.target.id);
+        id = parseInt(e.currentTarget.id);
         unit = unitCollection.findWhere({
           'id': id
         });
@@ -560,7 +560,7 @@
       },
       'mouseover .next,.prev': function(e) {
         var buildingModel, cost, floors, html, id, images, price, response, unitTypes;
-        id = parseInt($(e.target).attr('data-id'));
+        id = parseInt($(e.currentTarget).attr('data-id'));
         buildingModel = buildingMasterCollection.findWhere({
           'id': id
         });
@@ -571,11 +571,11 @@
         cost = window.building.getMinimumCost(id);
         price = window.numDifferentiation(cost);
         html = '<div class="svg-info"> <i class="apartment-ico"></i> <h5 class=" m-t-0">' + buildingModel.get('building_name') + '</h5> <div class="details"> <label>' + floors + ' Floors</label></br> <div class="text-primary"> <span class="text-primary facts-icon icon-rupee-icn"></span>' + price + '</div> </div> </div>';
-        return $(e.target).tooltipster('content', html);
+        return $(e.currentTarget).tooltipster('content', html);
       },
       'click .next,.prev': function(e) {
         var buildingModel, id;
-        id = parseInt($(e.target).attr('data-id'));
+        id = parseInt($(e.currentTarget).attr('data-id'));
         buildingModel = buildingMasterCollection.findWhere({
           'id': id
         });
