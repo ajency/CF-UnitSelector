@@ -3241,9 +3241,11 @@ label.third_toggle {
 }
 .big-tooltip .svg-info .action-bar {
   width: 35%;
+  height: 0;
 }
 .big-tooltip .svg-info h5 {
   width: 64%;
+  margin-top: 0;
 }
 .big-tooltip .svg-info .details {
   float: left;

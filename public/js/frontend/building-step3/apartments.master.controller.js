@@ -766,7 +766,7 @@
         onlyOne: true,
         arrow: false,
         offsetX: 50,
-        offsetY: -40,
+        offsetY: -10,
         trigger: 'hover',
         interactive: true,
         functionReady: function(e) {
