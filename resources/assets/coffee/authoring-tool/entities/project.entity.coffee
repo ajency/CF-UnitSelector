@@ -16,13 +16,15 @@ class AuthoringTool.ProjectView extends Marionette.ItemView
                     <div class="form-group">
                         <label for="City">City</label>
                         <input type="text" class="form-control" id="" value="{{city}}" disabled>
-                    </div>                    
+                    </div>  
+                    <div class="checkbox check_location_marker"> <label> <input type="checkbox" name="check_location_marker">Use a location Marker </label> </div>                  
 				   <form>')
 
 
 	ui :
 		units : '.units'
 		unitLabel : '.unit-label'
+		check_location_marker : '.check_location_marker'		
 
 
 	serializeData:->
@@ -32,6 +34,11 @@ class AuthoringTool.ProjectView extends Marionette.ItemView
 		data.address = project_data['project_address']
 		data.city = project_data['city']
 		data
+
+	events:->
+		'click @ui.check_location_marker':(e)->
+        	if $(e.currentTarget).prop('checked', true)
+            	window.drawDefaultMarker('location') 		
 
 class AuthoringTool.ProjectCtrl extends Marionette.RegionController
 

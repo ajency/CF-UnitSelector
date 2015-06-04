@@ -11,7 +11,7 @@
     }
 
     Marker.prototype.generateMarkerTag = function(item) {
-      var circle, circle1, circle2, cx, cy, drawMarkerElements, ellipse, ellipseHeight, ellipseWidth, groupMarker, innerRadius, markerType, outerRadius, points, typeClass;
+      var circle, circle1, circle2, cx, cy, drawMarkerElements, ellipse, ellipseHeight, ellipseWidth, groupMarker, innerRadius, markerType, outerRadius, points, polygon, typeClass;
       markerType = item.other_details.marker_type;
       cx = item.other_details.cx;
       cy = item.other_details.cy;
@@ -65,6 +65,26 @@
             cy: points[1]
           });
           drawMarkerElements.push(circle);
+          break;
+        case 'location':
+          window.canvas_type = "locationMarker";
+          groupMarker.addClass('location');
+          groupMarker.addClass(typeClass);
+          polygon = draw.polygon('776.906,408.457 821.094,407 798.01,459.243');
+          polygon.attr({
+            fill: '#F7931E'
+          });
+          drawMarkerElements.push(polygon);
+          ellipse = draw.ellipse(40, 40);
+          ellipse.attr({
+            'fill': '#FFFFFF',
+            'stroke': '#F7931E',
+            'stroke-width': 6,
+            'stroke-miterlimit': 10,
+            cx: points[0],
+            cy: points[1]
+          });
+          drawMarkerElements.push(ellipse);
           break;
         case 'earthlocation':
           window.canvas_type = "earthlocationMarker";

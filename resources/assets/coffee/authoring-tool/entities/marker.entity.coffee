@@ -80,6 +80,32 @@ class Marker extends Backbone.Model
             drawMarkerElements.push circle
             break
 
+          when 'location'
+            window.canvas_type = "locationMarker"
+ 
+            # add class based on marker type 
+            groupMarker.addClass('location')
+            groupMarker.addClass(typeClass)    #typeclass = marker        
+
+            polygon = draw.polygon('776.906,408.457 821.094,407 798.01,459.243')
+            polygon.attr
+                fill: '#F7931E'
+
+            drawMarkerElements.push polygon
+
+            ellipse = draw.ellipse(40,40)
+
+            ellipse.attr
+                'fill': '#FFFFFF'
+                'stroke': '#F7931E'
+                'stroke-width': 6
+                'stroke-miterlimit' : 10
+                cx:points[0]
+                cy:points[1]
+
+            drawMarkerElements.push ellipse
+            break            
+
           when 'earthlocation'
             window.canvas_type = "earthlocationMarker"
  

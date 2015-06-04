@@ -467,7 +467,7 @@
       return myObject;
     };
     window.drawDefaultMarker = function(markerType) {
-      var circle, circle1, circle2, drawMarkerElements, ellipse, groupMarker, path;
+      var circle, circle1, circle2, drawMarkerElements, ellipse, groupMarker, polygon;
       drawMarkerElements = [];
       window.markerPoints = [window.cx, window.cy];
       groupMarker = draw.group();
@@ -512,18 +512,22 @@
           groupMarker.attr({
             "class": 'location-marker-grp'
           });
-          path = draw.path('M1087.492,428.966c0,7.208-13.052,24.276-13.052,24.276s-13.052-17.067-13.052-24.276 c0-7.208,5.844-13.051,13.052-13.051S1087.492,421.758,1087.492,428.966z');
-          path.attr({
+          groupMarker.addClass('marker');
+          polygon = draw.polygon('776.906,408.457 821.094,407 798.01,459.243');
+          polygon.attr({
             fill: '#F7931E'
           });
-          drawMarkerElements.push(path);
-          circle = draw.circle(15.002);
-          circle.attr({
-            fill: '#FFFFFF',
-            cx: window.cx,
-            cy: window.cy
+          drawMarkerElements.push(polygon);
+          ellipse = draw.ellipse(40, 40);
+          ellipse.attr({
+            'fill': '#FFFFFF',
+            'stroke': '#F7931E',
+            'stroke-width': 6,
+            'stroke-miterlimit': 10,
+            cx: 798.696,
+            cy: 401.52
           });
-          drawMarkerElements.push(circle);
+          drawMarkerElements.push(ellipse);
           break;
         case 'earthlocation':
           window.canvas_type = "earthlocationMarker";
@@ -635,6 +639,8 @@
         markerType = "solid";
       } else if ($(currentElem).hasClass('earth-location-marker')) {
         markerType = "earthlocation";
+      } else if ($(currentElem).hasClass('location-marker')) {
+        markerType = "location";
       }
       $('#aj-imp-builder-drag-drop canvas').hide();
       $('#aj-imp-builder-drag-drop svg').first().css("position", "relative");
@@ -658,6 +664,11 @@
       $('.delete').addClass('hidden');
       $('.submit').removeClass('hidden');
       return $('.property_type').attr('disabled', false);
+    });
+    $('.select-ellipse').on('click', function(e) {
+      e.preventDefault();
+      window.EDITMODE = true;
+      return window.canvas_type = "ellipse";
     });
     $('svg').on('dblclick', '.polygon-type', function(e) {
       var currentElem, elemId, element, object_type, svgDataObjects;
@@ -951,7 +962,6 @@
         whitespace: true
       });
       $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
-      console.log(svgExport);
       data = {};
       data['data'] = btoa(svgExport);
       data['svg_type'] = window.svgData.svg_type;

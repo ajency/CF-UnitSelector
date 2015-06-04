@@ -547,26 +547,31 @@ jQuery(document).ready ($)->
 
             drawMarkerElements.push circle
 
-            break           
+            break 
 
           when 'location'
             window.canvas_type = "locationMarker"
             groupMarker.attr
-                class: 'location-marker-grp'             
-            path = draw.path('M1087.492,428.966c0,7.208-13.052,24.276-13.052,24.276s-13.052-17.067-13.052-24.276
-            c0-7.208,5.844-13.051,13.052-13.051S1087.492,421.758,1087.492,428.966z')
+                class: 'location-marker-grp'
 
-            path.attr
+            groupMarker.addClass('marker')
+            polygon = draw.polygon('776.906,408.457 821.094,407 798.01,459.243')
+            polygon.attr
                 fill: '#F7931E'
-            drawMarkerElements.push path     
-            
-            circle = draw.circle(15.002)
-            circle.attr
-                fill: '#FFFFFF'
-                cx:  window.cx
-                cy:  window.cy
 
-            drawMarkerElements.push circle
+            drawMarkerElements.push polygon
+
+            ellipse = draw.ellipse(40,40)
+
+            ellipse.attr
+                'fill': '#FFFFFF'
+                'stroke': '#F7931E'
+                'stroke-width': 6
+                'stroke-miterlimit' : 10
+                cx:798.696
+                cy:401.52
+            drawMarkerElements.push ellipse     
+        
             break;
 
           when 'earthlocation'
@@ -592,8 +597,7 @@ jQuery(document).ready ($)->
 
             # load default form
             window.loadProjectForm() 
-
-     
+    
         _.each drawMarkerElements, (markerElement, key) =>
             groupMarker.add(markerElement)
         
@@ -708,6 +712,8 @@ jQuery(document).ready ($)->
                 markerType = "solid"
             else if $(currentElem).hasClass('earth-location-marker')
                 markerType = "earthlocation" 
+            else if $(currentElem).hasClass('location-marker')
+                markerType = "location" 
 
 
             $('#aj-imp-builder-drag-drop canvas').hide()
@@ -739,7 +745,14 @@ jQuery(document).ready ($)->
         $('.submit').removeClass 'hidden'
         $('.property_type').attr 'disabled' ,  false
 
-            
+     
+    # on ellipse selection
+    $('.select-ellipse').on 'click', (e) -> 
+        e.preventDefault()
+        window.EDITMODE = true
+        window.canvas_type = "ellipse" 
+
+
     # on double click of existing marked polygon(villa or plot) open canvas mode
     $('svg').on 'dblclick', '.polygon-type' , (e) ->
             e.preventDefault()
@@ -1068,7 +1081,6 @@ jQuery(document).ready ($)->
         # restore absolute position after export
         $('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
         
-        console.log svgExport
         data = {}
         data['data'] = btoa(svgExport)
         data['svg_type'] = window.svgData.svg_type
