@@ -34,7 +34,7 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.loadJSONData();
       }
-      if (apartmentVariantCollection.length === 0) {
+      if (apartmentVariantMasterCollection.length === 0) {
         return this.show(new CommonFloor.NothingFoundView);
       } else {
         return this.show(new CommonFloor.ApartmentsMasterView);
@@ -116,7 +116,7 @@
         'click @ui.types': function(e) {
           var arr, index;
           arr = CommonFloor.defaults['type'].split(',');
-          index = arr.indexOf($(e.target).attr('data-id'));
+          index = arr.indexOf($(e.currentTarget).attr('data-id'));
           arr.splice(index, 1);
           CommonFloor.defaults['type'] = arr.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
@@ -336,7 +336,7 @@
       'click': function(e) {
         var breakpoint;
         if ($(e.currentTarget).hasClass('onview')) {
-          breakpoint = 10;
+          breakpoint = this.model.get('breakpoint');
           currentBreakPoint = _.indexOf(breakPoints, breakpoint);
           return api.playTo(breakpoint, {
             nearest: true
@@ -506,7 +506,7 @@
       },
       'mouseover .apartment': function(e) {
         var availability, html, id, price, response, unit, unitMaster;
-        id = parseInt(e.target.id);
+        id = parseInt(e.currentTarget.id);
         unit = unitCollection.findWhere({
           'id': id
         });
@@ -541,7 +541,7 @@
       },
       'mouseout .apartment': function(e) {
         var availability, id, unit;
-        id = parseInt(e.target.id);
+        id = parseInt(e.currentTarget.id);
         unit = unitCollection.findWhere({
           'id': id
         });
@@ -559,22 +559,23 @@
         return $('.layer').tooltipster('content', html);
       },
       'mouseover .next,.prev': function(e) {
-        var buildingModel, floors, html, id, images, response, unitTypes;
-        id = parseInt($(e.target).attr('data-id'));
+        var buildingModel, cost, floors, html, id, images, price, response, unitTypes;
+        id = parseInt($(e.currentTarget).attr('data-id'));
         buildingModel = buildingMasterCollection.findWhere({
           'id': id
         });
         images = Object.keys(buildingModel.get('building_master')).length;
-        floors = buildingModel.get('floors');
-        floors = Object.keys(floors).length;
+        floors = buildingModel.get('no_of_floors');
         unitTypes = window.building.getUnitTypes(id);
         response = window.building.getUnitTypesCount(id, unitTypes);
-        html = '<div class="svg-info"> <i class="apartment-ico"></i> <h5 class=" m-t-0">' + buildingModel.get('building_name') + '</h5> <div class="details"> <label>' + floors + ' Floors</label></br> <div class="text-primary"> <span class="text-primary facts-icon icon-rupee-icn"></span>' + window.building.getMinimumCost(id) + '</div> </div> </div>';
-        return $(e.target).tooltipster('content', html);
+        cost = window.building.getMinimumCost(id);
+        price = window.numDifferentiation(cost);
+        html = '<div class="svg-info"> <i class="apartment-ico"></i> <h5 class=" m-t-0">' + buildingModel.get('building_name') + '</h5> <div class="details"> <label>' + floors + ' Floors</label></br> <div class="text-primary"> <span class="text-primary facts-icon icon-rupee-icn"></span>' + price + '</div> </div> </div>';
+        return $(e.currentTarget).tooltipster('content', html);
       },
       'click .next,.prev': function(e) {
         var buildingModel, id;
-        id = parseInt($(e.target).attr('data-id'));
+        id = parseInt($(e.currentTarget).attr('data-id'));
         buildingModel = buildingMasterCollection.findWhere({
           'id': id
         });
@@ -656,10 +657,10 @@
           $('.firstimage').attr('src', transitionImages[masterbreakpoints[0]]);
           url = Backbone.history.fragment;
           building_id = url.split('/')[1];
-          $('.villa,.plot').each(function(ind, item) {
+          $('.villa,.plot,.amenity').each(function(ind, item) {
             var id;
             id = parseInt(item.id);
-            return $('#' + id).attr('class', "");
+            return $('#' + id).attr('class', "no-fill");
           });
           return $('#' + building_id + '.building').attr('class', 'layer building svg_active');
         });

@@ -40,7 +40,7 @@
         data.classname = 'hidden';
       }
       data.price = window.numDifferentiation(cost);
-      data.floors = Object.keys(floors).length;
+      data.floors = this.model.get('no_of_floors');
       data.types = types;
       data.measurement_units = project.get('measurement_units');
       return data;

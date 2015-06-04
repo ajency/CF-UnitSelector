@@ -30,10 +30,10 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.checkPropertyType();
       }
-      if (Object.keys(project.get('project_master')).length !== 0 && unitCollection.length !== 0) {
-        return this.show(new CommonFloor.ProjectMasterView);
-      } else {
+      if (bunglowVariantMasterCollection.length === 0 && apartmentVariantMasterCollection.length === 0 && plotVariantMasterCollection.length === 0) {
         return this.show(new CommonFloor.NothingFoundView);
+      } else {
+        return this.show(new CommonFloor.ProjectMasterView);
       }
     };
 
@@ -98,16 +98,16 @@
         'click @ui.types': function(e) {
           var arr, index;
           arr = CommonFloor.defaults['type'].split(',');
-          index = arr.indexOf($(e.target).attr('data-id'));
+          index = arr.indexOf($(e.currentTarget).attr('data-id'));
           arr.splice(index, 1);
           CommonFloor.defaults['type'] = arr.join(',');
-          if ($(e.target).attr('data-id') === 'villa') {
+          if ($(e.currentTarget).attr('data-id') === 'villa') {
             this.removeVillaFilters();
           }
-          if ($(e.target).attr('data-id') === 'apartment') {
+          if ($(e.currentTarget).attr('data-id') === 'apartment') {
             this.removeAptFilters();
           }
-          if ($(e.target).attr('data-id') === 'plot') {
+          if ($(e.currentTarget).attr('data-id') === 'plot') {
             this.removePlotFilters();
           }
           this.trigger('render:view');
@@ -490,7 +490,7 @@
       },
       'mouseout .villa': function(e) {
         var availability, id, unit;
-        id = parseInt(e.target.id);
+        id = parseInt(e.currentTarget.id);
         unit = unitCollection.findWhere({
           id: id
         });
@@ -502,7 +502,7 @@
       },
       'mouseout .plot': function(e) {
         var availability, id, unit;
-        id = parseInt(e.target.id);
+        id = parseInt(e.currentTarget.id);
         unit = unitCollection.findWhere({
           id: id
         });
@@ -514,7 +514,7 @@
       },
       'mouseout .building': function(e) {
         var building, id;
-        id = parseInt(e.target.id);
+        id = parseInt(e.currentTarget.id);
         building = buildingCollection.findWhere({
           id: id
         });
@@ -525,7 +525,7 @@
       },
       'mouseover .villa': function(e) {
         var availability, html, id, price, response, unit, unitMaster;
-        id = parseInt(e.target.id);
+        id = parseInt(e.currentTarget.id);
         html = "";
         unit = unitCollection.findWhere({
           id: id
@@ -561,7 +561,7 @@
       },
       'mouseover .plot': function(e) {
         var availability, html, id, price, response, unit, unitMaster;
-        id = parseInt(e.target.id);
+        id = parseInt(e.currentTarget.id);
         html = "";
         unit = unitCollection.findWhere({
           id: id
@@ -602,7 +602,7 @@
       },
       'mouseover .building': function(e) {
         var availability, buildingMaster, buildingModel, floors, html, id, minprice, price, response, unit, unitTypes, url;
-        id = parseInt(e.target.id);
+        id = parseInt(e.currentTarget.id);
         buildingModel = buildingCollection.findWhere({
           'id': id
         });

@@ -28,7 +28,7 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.loadJSONData();
       }
-      if (bunglowVariantCollection.length === 0 && apartmentVariantCollection.length === 0 && plotVariantCollection.length === 0) {
+      if (bunglowVariantMasterCollection.length === 0 && apartmentVariantMasterCollection.length === 0 && plotVariantMasterCollection.length === 0) {
         return this.show(new CommonFloor.NothingFoundView);
       } else {
         return this.show(new CommonFloor.ProjectListView);

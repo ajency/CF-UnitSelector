@@ -149,6 +149,15 @@ body{
     }
 }
 
+.step1-wrapper{
+  overflow: auto;
+  overflow-y: hidden;
+  .svg-area{
+    position: absolute;
+    top: 0;
+  }
+}
+
 .col-0 {
     width: 0;
     padding: 0;
@@ -534,6 +543,7 @@ hr.embossed {
 /*Step 4*/
 ::-webkit-scrollbar {
     width: 5px;
+    height: 5px;
 }
 ::-webkit-scrollbar-track {
     background-color: #ccc;

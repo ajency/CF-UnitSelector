@@ -28,7 +28,7 @@ class BuildingItemView extends Marionette.ItemView
 		id = @model.get 'id'
 		response = building.getUnitTypes(id)
 		types = building.getUnitTypesCount(id,response)
-		floors = @model.get 'floors'
+		floors = @model.get 'no_of_floors'
 		cost = building.getMinimumCost(id)
 		data.classname = ""
 		if cost == 0
