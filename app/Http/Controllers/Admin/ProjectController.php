@@ -318,6 +318,7 @@ class ProjectController extends Controller {
         foreach ($projectpropertyTypes as $propertyType) {
             $propertyTypes[$propertyType['property_type_id']] = get_property_type($propertyType['property_type_id']);
         }
+        $totalCount = 0;
         foreach ($phases as $phase) {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
@@ -330,6 +331,7 @@ class ProjectController extends Controller {
                 $buildingData = Building :: find($building['id']);
                 $buildingUnits = $buildingData->projectUnits()->get()->toArray();   	
             }
+            $totalCount = count($units) + count($buildings);
             $units = array_merge($units,$buildingUnits);
        
             //VILLA AND PLOT
@@ -375,12 +377,18 @@ class ProjectController extends Controller {
             {
                 if(in_array($position,$projectData['breakpoints'] ))
                 {
-                    $breakPointImageIds[$position] =$breakPointImageIds;
+                    $breakPointImageIds[$position] =$imageId;
                 }
             }
         }
 
-        $breakPointSvgData = SvgController :: getUnitSvgCount($breakPointImageIds);
+        $unitSvgCount = SvgController :: getUnitSvgCount($breakPointImageIds);
+        foreach($unitSvgCount as $position=> $count)
+        {
+            $unitCount =  $count['villa'] +$count['plot']+$count['building'];
+            $breakPointSvgData[$position]['MARKED']= $unitCount;
+            $breakPointSvgData[$position]['PENDING']= $totalCount - $unitCount;
+        }
         
         $googleearthauthtool =true;
 
@@ -395,6 +403,7 @@ class ProjectController extends Controller {
                         ->with('propertyTypes', $propertyTypes)
                         ->with('googleearthauthtool', $googleearthauthtool)
                         ->with('projectJason', $projectJason)
+                        ->with('breakPointSvgData', $breakPointSvgData)
                         ->with('current', 'summary');
     }
 
@@ -418,24 +427,18 @@ class ProjectController extends Controller {
 		{
 			$data['BUILDING'][] = $building->building_name;
             $unitNames['building'][$building->id]=$building->building_name;
-			$buildingIds[] =  $building->id;
+			$unitIds['building'][] =  $building->id;
 			$buildingMediaIds= $building->building_master;
             
-            $breakpoints = $building->breakpoints;
-            foreach($buildingMediaIds as $position=> $buildingMediaId)
+            $breakpoints = unserialize($building->breakpoints); 
+            foreach($buildingMediaIds as $position => $buildingMediaId)
             {
                 if(in_array($position,$breakpoints))
                 {
                     $mediaIds[]=$buildingMediaId;
                 }
             }
-                
-			$buildingData = Building :: find($building->id);
-			$buildingUnits = $buildingData->projectUnits()->get()->toArray(); 
-			foreach ($buildingUnits as $buildingUnit) {                          //Apartment/Penthouse Units
-				$unitIds['unit'][] = $buildingUnit['id'];
-                $unitNames['unit'][$buildingUnit['id']]=$buildingUnit['unit_name'];
-			}	
+            
 		}
         
 		$project = Project::find($projectId);
@@ -461,26 +464,26 @@ class ProjectController extends Controller {
             }
         }
        
-		$unitSvgExits = SvgController :: getUnmarkedSvgUnits($unitIds,$mediaIds);
+		$unitSvgExits = SvgController :: getUnmarkedSvgUnits($unitIds,$mediaIds); 
     
         if (!empty($unitSvgExits)) {
-            $errors['authtool'] = 'Svg Unmarked for ';
+           
             if(isset($unitSvgExits['unit']))
             {
-                $errors['authtool'] .= ' Units : ';
+                $errors['unitauthtool'] = ' Svg Unmarked for Units : ';
                 foreach($unitSvgExits['unit'] as $unitId)
                 {
-                    $errors['authtool'] .=$unitNames['unit'][$unitId].' ,';
+                    $errors['unitauthtool'] .=$unitNames['unit'][$unitId].' ,';
                 }
                 
             }
 
             if(isset($unitSvgExits['building']))
             { 
-                $errors['authtool'] .= ' Buildings : ';
+                $errors['buildingauthtool'] = ' Svg Unmarked for Buildings : ';
                 foreach($unitSvgExits['building'] as $unitId)
                 {
-                    $errors['authtool'] .= $unitNames['building'][$unitId].' ,';
+                    $errors['buildingauthtool'] .= $unitNames['building'][$unitId].' ,';
                 }
                 
             }
@@ -569,8 +572,15 @@ class ProjectController extends Controller {
         $project = $projectRepository->getProjectById($projectId);
         $projectMetaCondition = ($project->has_master == 'yes') ? ['master', 'google_earth', 'breakpoints'] : [ 'google_earth'];
         $projectMeta = $project->projectMeta()->whereIn('meta_key', $projectMetaCondition)->get()->toArray();
-        $phases = Phase::where(['project_id' => $projectId, 'status' => 'live'])->get()->toArray();
+        if($project->has_phase == 'yes')
+            $phases = Phase::where(['project_id' => $projectId, 'status' => 'live'])->get()->toArray();
+        else
+           $phases = Phase::where(['project_id' => $projectId])->get()->toArray();
+        
         $masterImages = $breakpoints = $googleEarth = $breakpointAuthtool = $googleEarthAuthtool = $data = $phaseData = $errors = [];
+        $filters = $project->projectMeta()->where( 'meta_key', 'filters' )->first()->meta_value;
+        $filters = unserialize($filters);
+         
 
         if (empty($phases)) {
             $errors['phase'] = "No phase available with status Live.";
@@ -638,8 +648,24 @@ class ProjectController extends Controller {
                         <div class="alert">
                             <strong>NOTE : </strong>Project should have at least one Phase with status as Live to publish the project.
                         </div>
-                    </div>
-                </div>';
+                    </div>';
+        if(empty($filters))
+            $filtermsg = 'No Filters Set For Project';
+        else
+        {
+            unset($filters['_token']);
+            $filtermsg = 'Filters : ';
+            foreach($filters as $type => $filter)
+            {
+               $filtermsg .= $type.'( '. count($filter) .' ) ,';
+            }
+        }
+        $html .=  '<div class="col-md-12">
+                        <div class="alert">
+                            <strong>NOTE : </strong>'.$filtermsg.'
+                        </div>
+                    </div>';
+        $html .= ' </div>';
         if (!empty($errors)) {
             $html .='<h5 class="semi-bold inline">Resolve the errors below to Publish the Project</h5>
                 <div class="row m-b-10">

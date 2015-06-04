@@ -144,7 +144,11 @@
         return unitTempCollection.trigger("filter_available");
       },
       'click @ui.status': function(e) {
-        CommonFloor.defaults['common']['availability'] = e.currentTarget.id;
+        if ($(e.currentTarget).is(':checked')) {
+          CommonFloor.defaults['common']['availability'] = e.currentTarget.id;
+        } else {
+          CommonFloor.defaults['common']['availability'] = "";
+        }
         unitCollection.reset(unitMasterCollection.toArray());
         CommonFloor.filterBuilding(this.building_id);
         CommonFloor.filterStepNew();

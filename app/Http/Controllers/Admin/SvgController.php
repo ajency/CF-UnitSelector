@@ -345,21 +345,16 @@ class SvgController extends Controller {
 	}
 
 	// delete svg id and its corresponding child svg elements for a given image id
+	
 	public static function delete_svg($image_id){
-		$svg = Svg::where( 'image_id', '=', $imageid )->first();
+		$svg = Svg::where( 'image_id', '=', $image_id )->first();
 		if (!empty($svg)) {
 			// @todo write code to delete svg file as well
 			$svg->delete();
-			return response()->json( [
-				'code' => 'svg_deleted',
-				'message' => 'SVG deleted for the given image', 
-				], 201 );			
+			return true;			
 		}
 		else{
-			return response()->json( [
-				'code' => 'svg_not_deleted',
-				'message' => 'Could not find svg to be deleted for image', 
-				], 400 );			
+			return false;			
 		}
 	}
 
@@ -400,7 +395,7 @@ class SvgController extends Controller {
 
     				foreach ($unitIds as $unitId) {
     						// @todo exclude object_type 'project'
-    					$svgElements = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '!=', 'building' )->where( 'object_id', '=', $unitId )->get()->toArray();
+    					$svgElements = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '!=', 'building' )->where( 'object_type', '!=', 'project' )->where( 'object_id', '=', $unitId )->get()->toArray();
 
 	 						// if svg element not there then add unitid to $unmarkedUnits
     					if (sizeof($svgElements)<1) {
@@ -425,31 +420,31 @@ class SvgController extends Controller {
 	 *					   )
 	 */
     public static function getUnitSvgCount($imageIds)
-    {
+    { 
         $object_types = array('villa','apartment','plot','building');
 
         $svg_unit_count = array();
     	
-    	foreach ($imageIds as $breakpoint => $imageId) {
+    	foreach ($imageIds as $breakpoint => $image_id) {
 	    	
 	    	// get svg for each image
-    		$svg = Svg::where( 'image_id', '=', $imageId )->first();
+    		$svg = Svg::where( 'image_id', '=', $image_id )->first();
 
     		$svgId = (is_null($svg)) ? 0 : $svg->id ; 
 
 	    	// get svg elements for each of the object types and svgId
 	    	foreach ($object_types as $object_type) {
 	    		// svg elements having object type and svgId
-	    		$svgElements = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '=', $unitType )->get()->toArray();
+	    		$svgElements = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '=', $object_type )->get()->toArray();
 
-	    		$svgElemCount = sizeof($svgElements);
+	    		$svgElemCount = count($svgElements);
 
-	    		$svg_unit_count[$breakpoint][] = array('object_type'=>$object_type,'object_count'=>$svgElemCount);
+	    		$svg_unit_count[$breakpoint][$object_type] =$svgElemCount;
 	    	}
 
     	}
 
-    	
+    	 
         return $svg_unit_count;
     }
 

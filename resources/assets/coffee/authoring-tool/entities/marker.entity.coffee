@@ -31,8 +31,7 @@ class Marker extends Backbone.Model
             id:  item.object_id 
             svgid:  item.id 
 
-        groupMarker.addClass(typeClass)
-
+    
         #set data attributes for title and description if object type is amenity
         if item.object_type is "amenity"
             groupMarker.data('amenity-title', item.other_details.title)
@@ -43,6 +42,7 @@ class Marker extends Backbone.Model
           when 'concentric'
             # add class based on marker type 
             groupMarker.addClass('concentric')
+            groupMarker.addClass(typeClass)
 
             circle1 = draw.circle(innerRadius)
             circle1.attr
@@ -70,6 +70,7 @@ class Marker extends Backbone.Model
  
             # add class based on marker type 
             groupMarker.addClass('solid')
+            groupMarker.addClass(typeClass)            
 
             circle = draw.circle(outerRadius)
             circle.attr
@@ -86,6 +87,7 @@ class Marker extends Backbone.Model
             groupMarker.addClass('earthlocation')
             
             ellipse = draw.ellipse(window.ellipseWidth, window.ellipseHeight)
+            ellipse.addClass(typeClass)
 
             ellipse.attr
                 'fill': '#FF6700'

@@ -136,7 +136,7 @@
       return CenterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content animated fadeIn"> <div class="img-loader hidden"> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <img class="firstimage img-responsive" src=""/> <div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" data-nodebug="" data-alwaysprocess="" data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" class="primage fill-width" style="  height: 100%; min-width: 526px; position: absolute; top: 0;"> </div> </div>');
+    CenterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content animated fadeIn"> <div class="img-loader "> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <div class="step1-wrapper animated fadeIn hidden"> <img src="../../projects/3/google_earth/step1.jpg" class="firstimage img-responsive earth-img" /> <div class="svg-area"></div> </div> </div>');
 
     CenterView.prototype.ui = {
       svgContainer: '.us-right-content'
@@ -144,23 +144,27 @@
 
     CenterView.prototype.events = {
       'mouseover .step1-marker': function(e) {
-        $('.marker').tooltipster('show');
+        $('.step1-marker').tooltipster('show');
         return $('.tooltipstered').tooltipster('show');
       }
     };
 
     CenterView.prototype.onShow = function() {
-      var PATH, img, windowHeight;
+      var PATH, img, windowHeight, windowWidth;
       PATH = BASEURL + '/projects/' + PROJECTID + '/google_earth/map.svg';
       windowHeight = $(window).innerHeight() - 56;
       $('.svg-area').css('height', windowHeight);
-      $('.svg-area').css('min-width', windowHeight * 2);
-      $('img').lazyLoadXT();
+      $('.step1-wrapper').css('height', windowHeight);
+      $('.step1-wrapper').css('min-width', windowHeight * 2);
+      windowWidth = $(window).innerWidth();
+      $('.earth-img').css('min-width', windowWidth);
       img = this.model.get('step_one').svg;
       $('.firstimage').attr('src', img);
       return $('.firstimage').load(function() {
+        $('.img-loader').addClass('hidden');
         return $('.svg-area').load(PATH, function() {
-          $('.marker').tooltipster({
+          $('.step1-wrapper').removeClass('hidden');
+          $('.step1-marker').tooltipster({
             theme: 'tooltipster-shadow',
             contentAsHTML: true,
             onlyOne: true,
@@ -174,9 +178,9 @@
               var svgHeight, svgWidth, tooltipHeight;
               $('.action_button').on('click', function(e) {
                 $('.img-loader').removeClass('hidden');
-                $('svg').attr('class', 'zoom');
+                $('.step1-wrapper').attr('class', 'zoom');
                 $('.step1').addClass('animated fadeOut');
-                $('.marker').tooltipster('hide');
+                $('.step1-marker').tooltipster('hide');
                 return setTimeout(function(x) {
                   return CommonFloor.checkPropertyType();
                 }, 100);
@@ -186,12 +190,13 @@
               svgHeight = $(window).innerHeight() - 56;
               svgWidth = svgHeight * 2;
               if ($(window).width() < 1025) {
-                $('svg').css('min-height', svgHeight);
-                return $('svg').css('min-width', svgWidth);
+                $('.step1-wrapper').css('min-height', svgHeight);
+                $('.step1-wrapper').css('min-width', svgWidth);
+                return $('.svg-area').css('min-width', svgWidth);
               }
             }
           });
-          $('.marker').tooltipster('show');
+          $('.step1-marker').tooltipster('show');
           $('.tooltipstered').tooltipster({
             theme: 'tooltipster-shadow',
             contentAsHTML: true,
@@ -206,9 +211,9 @@
               var tooltipHeight;
               $('.action_button').on('click', function(e) {
                 $('.img-loader').removeClass('hidden');
-                $('svg').attr('class', 'zoom');
+                $('.step1-wrapper').attr('class', 'zoom');
                 $('.step1').addClass('animated fadeOut');
-                $('.marker').tooltipster('hide');
+                $('.step1-marker').tooltipster('hide');
                 return setTimeout(function(x) {
                   return CommonFloor.checkPropertyType();
                 }, 100);

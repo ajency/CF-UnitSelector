@@ -69,13 +69,34 @@
                                    <div class="col-md-4">
                             <div class="form-group">
                                         <label class="form-label">Phase<span class="text-primary">*</span></label>
-                                        <select  name="phase_id" class="select2 form-control m-b-5" data-parsley-required>
-                                    <option value="">Select Phase</option>
-                                    @foreach( $phases as $phase )
-                                    <option value="{{ $phase['id'] }}" {{ $building->phase_id == $phase['id'] ? 'selected' : '' }}>{{ $phase['phase_name'] }}</option>
-                                    @endforeach
-                                </select>
-                                             
+                                         
+                                    @if($project['has_phase']=='yes')
+                        <select  class="select2 form-control m-b-5" name="phase_id" data-parsley-required>
+                            <option value="">Select Phase</option>
+                           @foreach($phases as $phase)
+                            <option {{ $building->phase_id == $phase['id'] ? 'selected' : '' }} value="{{$phase['id']}}">{{$phase['phase_name']}}</option>
+                            @endforeach
+                        </select>
+                        @else
+                        <select  class="select2 form-control m-b-5" name="phase_id" disabled>
+                            <option value="">Select Phase</option>
+                           @foreach($phases as $phase)
+                            <option selected value="{{$phase['id']}}">{{$phase['phase_name']}}</option>
+                            @endforeach
+                        </select>
+                        <input type="hidden" name="phase_id" value="{{$phase['id']}}">
+                        @endif         
+                                        </div>
+                                    </div>
+                          <div class="col-md-4">
+                            <div class="form-group">
+                                        <label class="form-label">Has Master<span class="text-primary">*</span></label>
+                        <div class="radio radio-primary">        
+                        <input id="master_yes" type="radio" name="has_master" value="yes" checked>
+                        <label for="master_yes" class="form-label">Yes</label>
+                        <input id="master_no" type="radio" name="has_master" value="no" {{ ($building->has_master == 'no') ? 'checked' : '' }}>
+                        <label for="master_no" class="form-label">No</label>
+                         </div>                    
                                         </div>
                                     </div>
                                 </div>
@@ -90,21 +111,12 @@
                                                    <div class="alert alert-info">
                 <strong><i class="fa fa-info"></i></strong> Upload 3D view of the project. To enable 360 degree rotation of the project ,
                 upload images in the sequence ( Front -> Right -> Back -> Left). 
-                            Image dimension should be Image size : 1600X800. Resolution - 100 DPI.
+                             Image dimensions should be - 
+                                            1600*1095. Resolution - 100 DPI. Supported file formats jpg, jpeg, png.
                             Naming convention to be followed for the images uploaded -Imagename-00 (E.g Master-00(first image), Master-01 and so on).
-                            For large buildings, the images should be in the ratio of 4:2.
+                            For large buildings, the image dimensions should be 4000*2000.
                 </div>
-                                 <div class="radio radio-primary">
-                                    <h4 class="inline">Does this Building have
-                                        a <span class="semi-bold">Master Image?<span></span></span></h4>
-                                        <span class="semi-bold">&nbsp;&nbsp; 
-                                        <input id="master_yes" type="radio" name="has_master" value="yes" checked>
-                        <label for="master_yes" class="form-label">Yes</label>
-                        <input id="master_no" type="radio" name="has_master" value="no" {{ ($building->has_master == 'no') ? 'checked' : '' }}>
-                        <label for="master_no" class="form-label">No</label>
-
-                                </div>
-                                                   
+                                                                                    
         
                   <div class="dataTables_wrapper form-inline {{ ($building->has_master == 'no')?'hidden':'' }}" role="grid">
                   <div class="pull-right">

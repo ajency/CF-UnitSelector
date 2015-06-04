@@ -174,6 +174,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
+			
 			# @resetFilters()
 			
 		'click @ui.variantNames':(e)->
@@ -213,7 +214,10 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			
 
 		'click @ui.status':(e)->
-			CommonFloor.defaults['common']['availability'] = e.currentTarget.id
+			if $(e.currentTarget).is(':checked')
+				CommonFloor.defaults['common']['availability'] = e.currentTarget.id
+			else
+				CommonFloor.defaults['common']['availability'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()

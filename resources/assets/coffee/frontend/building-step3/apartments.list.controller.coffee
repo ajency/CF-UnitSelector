@@ -3,6 +3,10 @@ class CommonFloor.ApartmentsListView extends Marionette.LayoutView
 	template : '#apartment-list-template'
 
 
+	onShow:->
+		$('#leftregion').hide()
+
+
 
 class CommonFloor.ApartmentsListCtrl extends Marionette.RegionController
 
@@ -11,7 +15,7 @@ class CommonFloor.ApartmentsListCtrl extends Marionette.RegionController
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID);
 			CommonFloor.loadJSONData()
-		if apartmentVariantCollection.length == 0
+		if apartmentVariantMasterCollection.length == 0
 			@show new CommonFloor.NothingFoundView
 		else
 			# url = Backbone.history.fragment
@@ -57,15 +61,15 @@ class CommonFloor.TopApartmentView extends Marionette.ItemView
 													        
 													         {{/budget}}
 													          {{#views}}
-													         	 <li>
+													         	
 													                <div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
-													         </li>
+													         
 													         {{/views}}
 
 													       {{#facings}}
-													         	 <li>
+													         	
 													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
-													         </li>
+													       
 													         {{/facings}}
 
 													           {{#floor}}
@@ -297,7 +301,7 @@ class CommonFloor.LeftApartmentView extends Marionette.ItemView
 				leftview"></div>')
 
 	onShow:->
-		$('.leftview').hide()
+		$('#leftregion').hide()
 
 	
 
@@ -370,8 +374,7 @@ class CommonFloor.CenterApartmentView extends Marionette.CompositeView
 				              </ul>
 				            </div>
 				            <h2 class="text-center">List of Apartments/Penthouse <span class="pull-right top-legend">     <ul>
-				                <li class="available">AVAILABLE</li>
-				                <li class="na">N/AVAILABLE</li>
+				                <li class="na">N/A</li>
 				              </ul></span></h2><hr>
 							<div class="villa-list">
 								<ul class="units eight">
@@ -416,7 +419,7 @@ class CommonFloor.CenterApartmentCtrl extends Marionette.RegionController
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
 		response = window.building.getBuildingUnits(building_id)
-		if response.length == 0
+		if response.length == 0 && url.split('/')[2] == 'apartments'
 			region =  new Marionette.Region el : '#centerregion'
 			new CommonFloor.NoUnitsCtrl region : region
 			return
