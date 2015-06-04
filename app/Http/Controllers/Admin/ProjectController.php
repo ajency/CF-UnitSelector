@@ -648,7 +648,15 @@ class ProjectController extends Controller {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
             $units = $phase->projectUnits()->get()->toArray();
+            $buildings = $phase->projectBuildings()->get()->toArray(); 
             $phaseData[$phaseId] = $phase['phase_name'];
+            foreach($buildings as $building)
+            {
+                $buildingData = Building :: find($building['id']);
+                $buildingUnits = $buildingData->projectUnits()->get()->toArray();
+            }
+            
+            $units = array_merge($units,$buildingUnits);
 
             foreach ($units as $unit) {
                 $variantId = $unit['unit_variant_id'];
