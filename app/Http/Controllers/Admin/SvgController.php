@@ -452,8 +452,6 @@ class SvgController extends Controller {
     {
     	$svg = Svg::where( 'image_id', '=', $imageId )->first();
 
-    	$svgId = $svg->id;
-
 
     	if(!is_null($svg)){
     		$svgId = $svg->id;
