@@ -791,6 +791,7 @@
           if (!_.isUndefined(project.get('filters').Villa)) {
             $.each(project.get('filters').Villa, function(index, value) {
               temp = [];
+              console.log(item.get('variant_attributes'));
               return $.each(item.get('variant_attributes'), function(ind, val) {
                 if (ind === value && $.inArray(value, flooring) === -1 && val !== "") {
                   flooring.push(value);
@@ -829,8 +830,9 @@
         if ($.inArray(index, project.get('filters').Villa) === -1 && index !== 'budget' && index !== 'unitVariants') {
           filters[0][index] = [];
         }
-        console.log(value);
+        console.log(index);
         if (index === 'flooring') {
+          console.log(value);
           return $.each(value, function(ind, val) {
             console.log(val.index);
             if ($.inArray(val.index, project.get('filters').Villa) === -1) {

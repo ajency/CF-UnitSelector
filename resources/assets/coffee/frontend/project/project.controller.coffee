@@ -190,7 +190,7 @@ class CenterView extends Marionette.ItemView
 										<div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" 
 											data-nodebug="" data-alwaysprocess="" 
 											data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" 
-											class="primage fill-width">
+											class="primage fill-width" style="  height: 100%; min-width: 526px; position: absolute; top: 0;">
 										</div>
 									</div>')
 
@@ -206,7 +206,7 @@ class CenterView extends Marionette.ItemView
 		
 			
 	onShow:->
-		PATH = BASEURL+'/projects/'+PROJECTID+'/google-earth/map.svg'
+		PATH = BASEURL+'/projects/'+PROJECTID+'/google_earth/map.svg'
 		windowHeight = $(window).innerHeight() - 56
 		$('.svg-area').css 'height', windowHeight
 		$('.svg-area').css 'min-width', windowHeight * 2
@@ -219,6 +219,7 @@ class CenterView extends Marionette.ItemView
 		
 		$('img').lazyLoadXT()
 		img = @model.get('step_one').svg
+		$('.firstimage').attr 'src' , img
 		$('.firstimage').load ()->
 			$('.svg-area').load(PATH, ()->
 				$('.marker').tooltipster(
@@ -250,7 +251,7 @@ class CenterView extends Marionette.ItemView
 							$('svg').css 'min-height', svgHeight
 							$('svg').css 'min-width', svgWidth
 				)
-			
+
 				$('.marker').tooltipster('show')
 
 

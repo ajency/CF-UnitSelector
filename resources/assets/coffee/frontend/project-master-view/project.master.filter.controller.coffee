@@ -892,6 +892,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 				if ! _.isUndefined project.get('filters').Villa
 					$.each project.get('filters').Villa , (index,value)->
 						temp = []
+						console.log item.get('variant_attributes')
 						$.each item.get('variant_attributes') ,(ind,val)->
 							if ind == value && $.inArray(value,flooring) is -1 && val != ""
 								flooring.push value
@@ -923,8 +924,9 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 			if $.inArray(index , project.get('filters').Villa) ==  -1 && index != 'budget' && index != 'unitVariants'
 				filters[0][index] = []
 
-			console.log value
+			console.log index
 			if index == 'flooring'
+				console.log value
 				$.each value,(ind,val)->
 					console.log val.index
 					if $.inArray(val.index , project.get('filters').Villa) ==  -1 

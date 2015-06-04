@@ -136,7 +136,7 @@
       return CenterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content animated fadeIn"> <div class="img-loader hidden"> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <img class="firstimage img-responsive" src=""/> <div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" data-nodebug="" data-alwaysprocess="" data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" class="primage fill-width"> </div> </div>');
+    CenterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content animated fadeIn"> <div class="img-loader hidden"> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <img class="firstimage img-responsive" src=""/> <div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" data-nodebug="" data-alwaysprocess="" data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" class="primage fill-width" style="  height: 100%; min-width: 526px; position: absolute; top: 0;"> </div> </div>');
 
     CenterView.prototype.ui = {
       svgContainer: '.us-right-content'
@@ -151,12 +151,13 @@
 
     CenterView.prototype.onShow = function() {
       var PATH, img, windowHeight;
-      PATH = BASEURL + '/projects/' + PROJECTID + '/google-earth/map.svg';
+      PATH = BASEURL + '/projects/' + PROJECTID + '/google_earth/map.svg';
       windowHeight = $(window).innerHeight() - 56;
       $('.svg-area').css('height', windowHeight);
       $('.svg-area').css('min-width', windowHeight * 2);
       $('img').lazyLoadXT();
       img = this.model.get('step_one').svg;
+      $('.firstimage').attr('src', img);
       return $('.firstimage').load(function() {
         return $('.svg-area').load(PATH, function() {
           $('.marker').tooltipster({
