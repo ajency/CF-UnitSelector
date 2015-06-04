@@ -33,6 +33,10 @@ class TopUnitView extends Marionette.ItemView
 													<h2 class="pull-left proj-name">{{project_title}} - {{unit_name}}</h2>
 												</div>
 
+												<div class="pull-right">
+													<button class="btn btn-primary cf-btn-primary">Book Now</button>
+												</div>
+
 											  	<div class="clearfix"></div>
 											</div>
 										</div>
@@ -342,6 +346,9 @@ class CenterUnitView extends Marionette.ItemView
 											<li class="master">
 												<h4 class="title">Position</h4>
 											</li>
+											<li class="booking">
+												<h4 class="title">Payment Plan</h4>
+											</li>
 										</ul>
 									</div>
 									 <!--<div class="external">
@@ -407,6 +414,8 @@ class CenterUnitView extends Marionette.ItemView
 			$('.external').removeClass('current')
 			$('.twoD').removeClass('current')
 			$('.gallery').removeClass('current')
+			$('.master').removeClass('current')
+			$('.booking').removeClass('current')
 
 		'click .twoD':(e)->
 			$('.firstimage').hide()
@@ -435,6 +444,7 @@ class CenterUnitView extends Marionette.ItemView
 			$('.threeD').removeClass('current')
 			$('.gallery').removeClass('current')
 			$('.master').removeClass('current')
+			$('.booking').removeClass('current')
 
 		'click .external':(e)->
 			$('.firstimage').hide()
@@ -468,6 +478,7 @@ class CenterUnitView extends Marionette.ItemView
 			$('.twoD').removeClass('current')
 			$('.gallery').removeClass('current')
 			$('.master').removeClass('current')
+			$('.booking').removeClass('current')
 
 		'click .gallery':(e)->
 			# $('#rotate_loader').removeClass 'hidden'
@@ -497,12 +508,533 @@ class CenterUnitView extends Marionette.ItemView
 			$('.twoD').removeClass('current')
 			$('.external').removeClass('current')
 			$('.master').removeClass('current')
+			$('.booking').removeClass('current')
 
 		'click .master':(e)->
 			$('.firstimage').show()
 			$('.images').empty()
 			@loadMaster()
 			$('.master').addClass('current')
+			$('.gallery').removeClass('current')
+			$('.threeD').removeClass('current')
+			$('.twoD').removeClass('current')
+			$('.external').removeClass('current')
+			$('.booking').removeClass('current')
+
+		'click .booking':(e)->
+			$('.images').empty()
+			$('.firstimage').hide()
+			html = ''
+			html += '<div class="invoice-items animated fadeIn">
+						<div class="row">
+							<div class="col-sm-5 form-inline m-b-20">
+								<h5 class="inline-block">Payment Plan: </h5><select class="form-control"
+								id="paymentplans">
+									<option value="3363">
+										Low up-front payment scheme
+									</option>
+
+									<option value="3364">
+										High up-front payment scheme
+									</option>
+								</select>
+							</div>
+
+							<div class="col-sm-7 text-right">
+								<h5 class="inline-block">Amount Receivable as on Date: </h5>
+
+								<h4 class="inline-block bold text-primary"><span class="rec" 
+								data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,53,952</span></h4>
+							</div>
+						</div>
+
+						<ul id="paymentTable">
+							<li style="list-style: none"><span class="msPercent">4.5%</span></li>
+
+							<li class="milestoneList milestoneReached">
+								<div class="msName">
+									Application
+								</div>
+
+								<div class="msVal discCol">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue0 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 3,43,343</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service0 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 10,609</span>
+									</div>
+
+									<div>
+										Total: <span class="total0"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,53,952</span>
+									</div>
+								</div>
+
+								<div class="msVal">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue10 label"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,43,343</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service10 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 10,609</span>
+									</div>
+
+									<div>
+										Total: <span class="total10" 
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,53,952</span>
+									</div>
+								</div><span class="barBg" style="width:4.5%"></span>
+							</li>
+
+							<li style="list-style: none; display: inline">
+								<div class="clearfix"></div><span class="msPercent">26%</span>
+							</li>
+
+							<li class="milestoneList">
+								<div class="msName">
+									Plinth
+								</div>
+
+								<div class="msVal discCol">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue1 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 19,83,761</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service1 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 61,298</span>
+									</div>
+
+									<div>
+										Total: <span class="total1"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 20,45,059</span>
+									</div>
+								</div>
+
+								<div class="msVal">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue11 label"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 19,83,761</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service11 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 61,298</span>
+									</div>
+
+									<div>
+										Total: <span class="total11" 
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 20,45,059</span>
+									</div>
+								</div><span class="barBg" style="width:26%"></span>
+							</li>
+
+							<li style="list-style: none; display: inline">
+								<div class="clearfix"></div><span class="msPercent">11%</span>
+							</li>
+
+							<li class="milestoneList">
+								<div class="msName">
+									1st Slab
+								</div>
+
+								<div class="msVal discCol">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue2 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service2 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span>
+									</div>
+
+									<div>
+										Total: <span class="total2"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span>
+									</div>
+								</div>
+
+								<div class="msVal">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue12 label"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service12 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span>
+									</div>
+
+									<div>
+										Total: <span class="total12" 
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span>
+									</div>
+								</div><span class="barBg" style="width:11%"></span>
+							</li>
+
+							<li style="list-style: none; display: inline">
+								<div class="clearfix"></div><span class="msPercent">11%</span>
+							</li>
+
+							<li class="milestoneList">
+								<div class="msName">
+									3rd Slab
+								</div>
+
+								<div class="msVal discCol">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue3 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service3 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span>
+									</div>
+
+									<div>
+										Total: <span class="total3"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span>
+									</div>
+								</div>
+
+								<div class="msVal">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue13 label"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service13 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span>
+									</div>
+
+									<div>
+										Total: <span class="total13" 
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span>
+									</div>
+								</div><span class="barBg" style="width:11%"></span>
+							</li>
+
+							<li style="list-style: none; display: inline">
+								<div class="clearfix"></div><span class="msPercent">11%</span>
+							</li>
+
+							<li class="milestoneList">
+								<div class="msName">
+									5th Slab
+								</div>
+
+								<div class="msVal discCol">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue4 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service4 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span>
+									</div>
+
+									<div>
+										Total: <span class="total4"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span>
+									</div>
+								</div>
+
+								<div class="msVal">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue14 label"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service14 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span>
+									</div>
+
+									<div>
+										Total: <span class="total14" 
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span>
+									</div>
+								</div><span class="barBg" style="width:11%"></span>
+							</li>
+
+							<li style="list-style: none; display: inline">
+								<div class="clearfix"></div><span class="msPercent">11%</span>
+							</li>
+
+							<li class="milestoneList">
+								<div class="msName">
+									7th Slab
+								</div>
+
+								<div class="msVal discCol">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue5 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service5 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span>
+									</div>
+
+									<div>
+										Total: <span class="total5"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span>
+									</div>
+								</div>
+
+								<div class="msVal">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue15 label"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service15 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span>
+									</div>
+
+									<div>
+										Total: <span class="total15" 
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span>
+									</div>
+								</div><span class="barBg" style="width:11%"></span>
+							</li>
+
+							<li style="list-style: none; display: inline">
+								<div class="clearfix"></div><span class="msPercent">10.5%</span>
+							</li>
+
+							<li class="milestoneList">
+								<div class="msName">
+									9th Slab
+								</div>
+
+								<div class="msVal discCol">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue6 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 8,01,134</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service6 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 24,755</span>
+									</div>
+
+									<div>
+										Total: <span class="total6"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,25,889</span>
+									</div>
+								</div>
+
+								<div class="msVal">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue16 label"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,01,134</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service16 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 24,755</span>
+									</div>
+
+									<div>
+										Total: <span class="total16" 
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,25,889</span>
+									</div>
+								</div><span class="barBg" style="width:10.5%"></span>
+							</li>
+
+							<li style="list-style: none; display: inline">
+								<div class="clearfix"></div><span class="msPercent">5%</span>
+							</li>
+
+							<li class="milestoneList">
+								<div class="msName">
+									Brick Work
+								</div>
+
+								<div class="msVal discCol">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue7 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service7 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span>
+									</div>
+
+									<div>
+										Total: <span class="total7"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span>
+									</div>
+								</div>
+
+								<div class="msVal">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue17 label"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service17 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span>
+									</div>
+
+									<div>
+										Total: <span class="total17" 
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span>
+									</div>
+								</div><span class="barBg" style="width:5%"></span>
+							</li>
+
+							<li style="list-style: none; display: inline">
+								<div class="clearfix"></div><span class="msPercent">5%</span>
+							</li>
+
+							<li class="milestoneList">
+								<div class="msName">
+									Flooring
+								</div>
+
+								<div class="msVal discCol">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue8 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service8 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span>
+									</div>
+
+									<div>
+										Total: <span class="total8"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span>
+									</div>
+								</div>
+
+								<div class="msVal">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue18 label"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service18 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span>
+									</div>
+
+									<div>
+										Total: <span class="total18" 
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span>
+									</div>
+								</div><span class="barBg" style="width:5%"></span>
+							</li>
+
+							<li style="list-style: none; display: inline">
+								<div class="clearfix"></div><span class="msPercent">5%</span>
+							</li>
+
+							<li class="milestoneList">
+								<div class="msName">
+									Possession
+								</div>
+
+								<div class="msVal discCol">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue9 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service9 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span>
+									</div>
+
+									<div>
+										Total: <span class="total9"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span>
+									</div>
+								</div>
+
+								<div class="msVal">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue19 label"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service19 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span>
+									</div>
+
+									<div>
+										Total: <span class="total19" 
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span>
+									</div>
+								</div><span class="barBg" style="width:5%"></span>
+							</li>
+
+							<li style="list-style: none; display: inline">
+								<div class="clearfix"></div>
+							</li>
+						</ul>
+					</div>'
+			$('.images').html html
+			$('.booking').addClass('current')
+			$('.master').removeClass('current')
 			$('.gallery').removeClass('current')
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
@@ -538,11 +1070,13 @@ class CenterUnitView extends Marionette.ItemView
 		
 
 	onShow:->
+		flag = 0
 		@getNextPrevUnit()
 		response = @generateLevels()
 
 		html = ''
 		$.each response[0],(index,value)->
+			flag = 1
 			html += '<div class="layouts animated fadeIn">
 						<a class="fancybox" href="'+value+'">
 							<img class="img" data-src="'+value+'" />
@@ -555,6 +1089,7 @@ class CenterUnitView extends Marionette.ItemView
 		$('.external').removeClass('current')
 		$('.gallery').removeClass('current')
 		if response[0].length == 0
+			flag = 1
 			$.each response[1],(index,value)->
 				html += '<img data-src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>'
 			$('.threeD').addClass('current')
@@ -575,6 +1110,7 @@ class CenterUnitView extends Marionette.ItemView
 
 				
 		if ! _.isUndefined(response[3].get('external3durl'))
+			flag = 1
 			html = '<div class="external-wrapper">
 						<div id="rotate_loader" class="img-loader">
 							<div class="square" ></div>
@@ -616,12 +1152,14 @@ class CenterUnitView extends Marionette.ItemView
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
 			$('.external').removeClass('current')
+			flag = 1
 			if ! _.isUndefined(response[3].get('galleryurl'))
 				$.each response[3].get('galleryurl'),(index,value)->
 					html += '<div class="animated fadeIn"><img class="img" data-src="'+value+'" /></div>'
 
 		if response[0].length == 0 &&  response[1].length == 0 && _.isUndefined(response[3].get('external3durl')) && _.isUndefined(response[3].get('galleryurl'))
 			@loadMaster()
+			flag = 1
 			$('.master').addClass('current')
 			$('.gallery').removeClass('current')
 			$('.threeD').removeClass('current')
@@ -639,9 +1177,516 @@ class CenterUnitView extends Marionette.ItemView
 			$('#rotate_loader').addClass 'hidden'
 			$('.external-container').removeClass 'hidden'
 			
-		if html == ""
+		if flag == 0
+			console.log "add Booking markup"
 			# $('.images').addClass 'no-image'
-			html = '<img class="img img-responsive external-img"  src="../../images/no-image.jpg" />'
+			html = '<div class="invoice-items animated fadeIn">
+						<div class="row">
+							<div class="col-sm-5 form-inline m-b-20">
+								<h5 class="inline-block">Payment Plan: </h5><select class="form-control"
+								id="paymentplans">
+									<option value="3363">
+										Low up-front payment scheme
+									</option>
+
+									<option value="3364">
+										High up-front payment scheme
+									</option>
+								</select>
+							</div>
+
+							<div class="col-sm-7 text-right">
+								<h5 class="inline-block">Amount Receivable as on Date: </h5>
+
+								<h4 class="inline-block bold text-primary"><span class="rec" 
+								data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,53,952</span></h4>
+							</div>
+						</div>
+
+						<ul id="paymentTable">
+							<li style="list-style: none"><span class="msPercent">4.5%</span></li>
+
+							<li class="milestoneList milestoneReached">
+								<div class="msName">
+									Application
+								</div>
+
+								<div class="msVal discCol">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue0 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 3,43,343</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service0 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 10,609</span>
+									</div>
+
+									<div>
+										Total: <span class="total0"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,53,952</span>
+									</div>
+								</div>
+
+								<div class="msVal">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue10 label"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,43,343</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service10 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 10,609</span>
+									</div>
+
+									<div>
+										Total: <span class="total10" 
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,53,952</span>
+									</div>
+								</div><span class="barBg" style="width:4.5%"></span>
+							</li>
+
+							<li style="list-style: none; display: inline">
+								<div class="clearfix"></div><span class="msPercent">26%</span>
+							</li>
+
+							<li class="milestoneList">
+								<div class="msName">
+									Plinth
+								</div>
+
+								<div class="msVal discCol">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue1 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 19,83,761</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service1 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 61,298</span>
+									</div>
+
+									<div>
+										Total: <span class="total1"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 20,45,059</span>
+									</div>
+								</div>
+
+								<div class="msVal">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue11 label"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 19,83,761</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service11 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 61,298</span>
+									</div>
+
+									<div>
+										Total: <span class="total11" 
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 20,45,059</span>
+									</div>
+								</div><span class="barBg" style="width:26%"></span>
+							</li>
+
+							<li style="list-style: none; display: inline">
+								<div class="clearfix"></div><span class="msPercent">11%</span>
+							</li>
+
+							<li class="milestoneList">
+								<div class="msName">
+									1st Slab
+								</div>
+
+								<div class="msVal discCol">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue2 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service2 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span>
+									</div>
+
+									<div>
+										Total: <span class="total2"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span>
+									</div>
+								</div>
+
+								<div class="msVal">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue12 label"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service12 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span>
+									</div>
+
+									<div>
+										Total: <span class="total12" 
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span>
+									</div>
+								</div><span class="barBg" style="width:11%"></span>
+							</li>
+
+							<li style="list-style: none; display: inline">
+								<div class="clearfix"></div><span class="msPercent">11%</span>
+							</li>
+
+							<li class="milestoneList">
+								<div class="msName">
+									3rd Slab
+								</div>
+
+								<div class="msVal discCol">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue3 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service3 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span>
+									</div>
+
+									<div>
+										Total: <span class="total3"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span>
+									</div>
+								</div>
+
+								<div class="msVal">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue13 label"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service13 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span>
+									</div>
+
+									<div>
+										Total: <span class="total13" 
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span>
+									</div>
+								</div><span class="barBg" style="width:11%"></span>
+							</li>
+
+							<li style="list-style: none; display: inline">
+								<div class="clearfix"></div><span class="msPercent">11%</span>
+							</li>
+
+							<li class="milestoneList">
+								<div class="msName">
+									5th Slab
+								</div>
+
+								<div class="msVal discCol">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue4 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service4 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span>
+									</div>
+
+									<div>
+										Total: <span class="total4"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span>
+									</div>
+								</div>
+
+								<div class="msVal">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue14 label"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service14 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span>
+									</div>
+
+									<div>
+										Total: <span class="total14" 
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span>
+									</div>
+								</div><span class="barBg" style="width:11%"></span>
+							</li>
+
+							<li style="list-style: none; display: inline">
+								<div class="clearfix"></div><span class="msPercent">11%</span>
+							</li>
+
+							<li class="milestoneList">
+								<div class="msName">
+									7th Slab
+								</div>
+
+								<div class="msVal discCol">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue5 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service5 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span>
+									</div>
+
+									<div>
+										Total: <span class="total5"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span>
+									</div>
+								</div>
+
+								<div class="msVal">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue15 label"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,39,284</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service15 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 25,934</span>
+									</div>
+
+									<div>
+										Total: <span class="total15" 
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,65,218</span>
+									</div>
+								</div><span class="barBg" style="width:11%"></span>
+							</li>
+
+							<li style="list-style: none; display: inline">
+								<div class="clearfix"></div><span class="msPercent">10.5%</span>
+							</li>
+
+							<li class="milestoneList">
+								<div class="msName">
+									9th Slab
+								</div>
+
+								<div class="msVal discCol">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue6 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 8,01,134</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service6 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 24,755</span>
+									</div>
+
+									<div>
+										Total: <span class="total6"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,25,889</span>
+									</div>
+								</div>
+
+								<div class="msVal">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue16 label"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,01,134</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service16 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 24,755</span>
+									</div>
+
+									<div>
+										Total: <span class="total16" 
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 8,25,889</span>
+									</div>
+								</div><span class="barBg" style="width:10.5%"></span>
+							</li>
+
+							<li style="list-style: none; display: inline">
+								<div class="clearfix"></div><span class="msPercent">5%</span>
+							</li>
+
+							<li class="milestoneList">
+								<div class="msName">
+									Brick Work
+								</div>
+
+								<div class="msVal discCol">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue7 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service7 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span>
+									</div>
+
+									<div>
+										Total: <span class="total7"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span>
+									</div>
+								</div>
+
+								<div class="msVal">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue17 label"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service17 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span>
+									</div>
+
+									<div>
+										Total: <span class="total17" 
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span>
+									</div>
+								</div><span class="barBg" style="width:5%"></span>
+							</li>
+
+							<li style="list-style: none; display: inline">
+								<div class="clearfix"></div><span class="msPercent">5%</span>
+							</li>
+
+							<li class="milestoneList">
+								<div class="msName">
+									Flooring
+								</div>
+
+								<div class="msVal discCol">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue8 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service8 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span>
+									</div>
+
+									<div>
+										Total: <span class="total8"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span>
+									</div>
+								</div>
+
+								<div class="msVal">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue18 label"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service18 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span>
+									</div>
+
+									<div>
+										Total: <span class="total18" 
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span>
+									</div>
+								</div><span class="barBg" style="width:5%"></span>
+							</li>
+
+							<li style="list-style: none; display: inline">
+								<div class="clearfix"></div><span class="msPercent">5%</span>
+							</li>
+
+							<li class="milestoneList">
+								<div class="msName">
+									Possession
+								</div>
+
+								<div class="msVal discCol">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue9 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service9 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span>
+									</div>
+
+									<div>
+										Total: <span class="total9"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span>
+									</div>
+								</div>
+
+								<div class="msVal">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue19 label"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,81,493</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service19 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 11,788</span>
+									</div>
+
+									<div>
+										Total: <span class="total19" 
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,93,281</span>
+									</div>
+								</div><span class="barBg" style="width:5%"></span>
+							</li>
+
+							<li style="list-style: none; display: inline">
+								<div class="clearfix"></div>
+							</li>
+						</ul>
+					</div>'
 
 		$(".fancybox").fancybox()
 		$('.img').lazyLoadXT(

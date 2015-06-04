@@ -19,14 +19,24 @@
     }
 }
 .cf-btn-primary{
-    border-radius: 4px;
-    padding: 5px 16px;
+    border-radius: 3px;
+    // padding: 5px 16px;
     font-size: 14px;
-    border: 1px solid @brand-primary;
+    border: 1px solid @white;
+    margin: 10px 0 0;
     &:hover, &:active, &:focus{
         background-color: @brand-primary-darker;
         border: 1px solid @brand-primary-darker;
+        outline: 0;
     }
+}
+
+@media(max-width:767px){
+  .cf-btn-primary{
+    font-size: 12px;
+    padding: 5px 8px;
+    margin: 5px 0;
+  }
 }
 
 /* Alignment Helpers */
