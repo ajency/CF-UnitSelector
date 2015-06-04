@@ -1256,10 +1256,9 @@ CommonFloor.filterFacings = ()->
 	CommonFloor.resetCollections()
 	temp = []
 	unitCollection.each (item)->
-		console.log facings = item.get('direction')
+		facings = item.get('direction')
 		if $.inArray(facings,CommonFloor.defaults['common']['facings'].split(',')) > -1  && facings != ""
 				temp.push item
 
-	console.log temp
 	unitCollection.reset temp
 

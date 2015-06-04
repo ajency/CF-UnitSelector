@@ -1415,12 +1415,11 @@
     temp = [];
     unitCollection.each(function(item) {
       var facings;
-      console.log(facings = item.get('direction'));
+      facings = item.get('direction');
       if ($.inArray(facings, CommonFloor.defaults['common']['facings'].split(',')) > -1 && facings !== "") {
         return temp.push(item);
       }
     });
-    console.log(temp);
     return unitCollection.reset(temp);
   };
 
