@@ -424,7 +424,8 @@ class ProjectController extends Controller {
             $breakPointSvgData[$position]['PENDING']= $totalCount - $unitCount;
         }
         
-        $googleearthauthtool =true;
+        $googleImageID = $project->projectMeta()->where('meta_key','google_earth')->first()->meta_value;  
+        $googleearthauthtool =SvgController :: isGoogleSvgMarked($googleImageID);  
  
  
         return view('admin.project.projectsummary')
@@ -610,7 +611,7 @@ class ProjectController extends Controller {
     public function projectPublishData($projectId, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($projectId);
         $projectMetaCondition = ($project->has_master == 'yes') ? ['master', 'google_earth', 'breakpoints'] : [ 'google_earth'];
-        $projectMeta = $project->projectMeta()->whereIn('meta_key', $projectMetaCondition)->get()->toArray();
+        $projectMeta = $project->projectMeta()->whereIn('meta_key', $projectMetaCondition)->get()->toArray(); 
         if($project->has_phase == 'yes')
             $phases = Phase::where(['project_id' => $projectId, 'status' => 'live'])->get()->toArray();
         else
@@ -653,8 +654,9 @@ class ProjectController extends Controller {
                 }
             }
         }
-
-        $googleEarthAuthtool = true;
+        
+ 
+        $googleEarthAuthtool = SvgController :: isGoogleSvgMarked($projectMeta); 
         if (!$googleEarthAuthtool) {
             $errors['googleearthauthtool'] = "Pending SVG Authoring For Google Earth Image";
         }
