@@ -325,6 +325,10 @@ class ProjectController extends Controller {
             $units = $phase->projectUnits()->get()->toArray();
             $buildings = $phase->projectBuildings()->get()->toArray(); 
             $buildingUnits = $buildingBreakpointId =[];
+            
+            //Project master total unit count
+            $totalCount += count($units) + count($buildings); 
+            
             //BUILDING (APARTMENT/PENTHOUSE)
             foreach($buildings as $building)
             {
@@ -350,13 +354,12 @@ class ProjectController extends Controller {
                     $buildingbreakPointSvgData[$building['id']][$position]['PENDING']= $totalbuildingUnitCount - $buildingunitCount;
                 }
                 
+                 $units = array_merge($units,$buildingUnits);
+                
             }
-  
+ 
             
-            //Project master total unit count
-            $totalCount += count($units) + count($buildings); 
-            
-            $units = array_merge($units,$buildingUnits);
+           
        
             //VILLA AND PLOT
             foreach ($units as $unit) {
@@ -654,9 +657,10 @@ class ProjectController extends Controller {
             {
                 $buildingData = Building :: find($building['id']);
                 $buildingUnits = $buildingData->projectUnits()->get()->toArray();
+                $units = array_merge($units,$buildingUnits);
             }
             
-            $units = array_merge($units,$buildingUnits);
+           
 
             foreach ($units as $unit) {
                 $variantId = $unit['unit_variant_id'];
