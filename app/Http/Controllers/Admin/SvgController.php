@@ -191,14 +191,20 @@ class SvgController extends Controller {
 		$svgType = $_REQUEST['svg_type'];
 		$breakpoint_position = $_REQUEST['breakpoint_position'];
 		$data = base64_decode($svgData);
+		$imgID = $_REQUEST['imgID'];
 
 		if ($svgType == "master") {
 			$projSubFolder = "master";
 			$name = "master-".$breakpoint_position;
 		}
 		else if($svgType == "building_master"){
-			$projSubFolder = "building";
-			$name = "building-".$breakpoint_position;
+			$buildingId = $_REQUEST['building'];
+			$projSubFolder = "buildings/".$buildingId;
+			$name = "master-".$breakpoint_position;
+		}
+		else if($svgType == "google_earth"){
+			$projSubFolder = "google_earth";
+			$name = "map";
 		}
 		else{
 			$projSubFolder = "svg";
@@ -230,6 +236,10 @@ class SvgController extends Controller {
 		}
 		else{
 			// update svg table with svg file name
+			$svg = Svg::where( 'image_id', '=', $imgID )->first();
+			$svg->svg_path = $path."/".$created_file;
+			$svg->save();
+
 			return response()->json( [
 				'code' => 'svg_file_created',
 				'message' => 'SVG file '.$created_file.' created'

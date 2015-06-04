@@ -29,17 +29,10 @@
       stroke-dasharray: 0 !important;
     }
 
-    /* #aj-imp-browser-body {
-        width:100% !important;
-        border: 0px!important;
-    }
     .svg-canvas{
-        z-index: 9999;
-        position: absolute;
-        width: 100%;
-        top: 0px;
+        transform: matrix(1, 0, 0, 1, 0, 0);
 
-    }*/
+    }
 
 
 </style>
@@ -53,7 +46,7 @@
                 <div class="builder-header">
                     <div class="header-sections">
                         <div class="aj-imp-browser-address-bar clearfix">
-                            <h4><span>SVG</span> PROJECT MASTER</h4>
+                            <h4><span>SVG</span> {{$svg_type_display}}</h4>
                         </div>
                           <div class="zoom-controls pull-left"> Zoom Level &nbsp;
                             <button id="in" class="zoom-in btn btn-primary"><i class="fa fa-search-plus"></i></button>
@@ -374,11 +367,12 @@
             breakpoint_position = '{{$breakpoint_position}}';
             svg_type = '{{$svg_type}}';
             building_id = '{{$building_id}}';
-            
+            project_id = '{{$project_id}}';
+            project_data = {};
+            project_data['title'] = '{{$project["project_title"]}}';
+            project_data['city'] = '{{$project["city"]}}';
+            project_data['project_address'] = '{{$project["project_address"]}}';
 
-            
-
-           
 
         AuthoringTool = new Marionette.Application
         CommonFloor = new Marionette.Application 
@@ -415,6 +409,7 @@
         <script src="{{ asset('js/authoring-tool/entities/amenity.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/entities/apartment.entity.js' )}}"></script>        
         <script src="{{ asset('js/authoring-tool/entities/building.entity.js' )}}"></script>
+        <script src="{{ asset('js/authoring-tool/entities/project.entity.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/svg.authoring.controller.js' )}}"></script>
         <script src="{{ asset('js/authoring-tool/application.js' )}}"></script>
 </body>

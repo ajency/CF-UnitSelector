@@ -685,7 +685,11 @@ class ProjectController extends Controller {
 
         $getVar = Input::get();
 
-        $breakpoint = (int) $getVar['position'];
+        $breakpoint = -1;
+        if (isset($getVar['position'])) {
+           $breakpoint = (int) $getVar['position'];
+        }        
+
         $type = $getVar['type'];
 
         $propertyTypeName = [BUNGLOWID=>"Villa",PLOTID=>"Plot",APARTMENTID=>"Apartment",PENTHOUSEID=>"Penthouse"];
@@ -737,11 +741,32 @@ class ProjectController extends Controller {
                 $supported_types[] = "Amenity";                   
                 break;
 
+             case 'google_earth':
+                $svgImagePath = url() . "/projects/" . $id . "/google_earth/". $imageName;
+                
+                // pass Project
+                $supported_types[] = "Project";                 
+                break;                 
+
         }
     
         $buildingId = 0;
         if (isset($getVar['building'])) {
             $buildingId = $getVar['building'];
+        }
+
+        switch ($type) {
+            case 'master':
+                $svg_type_display = "PROJECT MASTER";
+                break;
+
+            case 'building_master':
+                $svg_type_display = "BUILDING MASTER";
+                break;
+
+            case 'google_earth':
+                $svg_type_display = "GOOGLE EARTH";
+                break;                
         }
 
 
@@ -751,6 +776,8 @@ class ProjectController extends Controller {
         ->with('supported_types',json_encode($supported_types))
         ->with('breakpoint_position',$breakpoint)
         ->with('building_id',$buildingId)
+        ->with('project_id',$id)
+        ->with('svg_type_display',$svg_type_display)
         ->with('svg_type', $type);
  }
 

@@ -25,9 +25,12 @@ jQuery(document).ready ($)->
     window.cy = 362.245
     window.innerRadius = 8.002
     window.outerRadius = 15.002
-    window.markerPoints = []
+    window.ellipseWidth = 360
+    window.ellipseHeight = 160
+    window.markerPoints = [window.cx,window.cx] #default value
 
     window.windowWidth = 0
+    window.EDITMODE = false
     ########################### GLOBALS ENDS ###########################
     
     ########################### FUNCTIONS BEGIN ###########################         
@@ -70,7 +73,11 @@ jQuery(document).ready ($)->
     window.generateSvg = (svgData)->
         # draw.viewbox(0, 0, 1600, 800)
         # create svg background image, set exclude data attrib to true so it can be excluded while exporting the svg
-        draw.image(svgImg).data('exclude', true)
+
+        if svg_type isnt "google_earth"
+            draw.image(svgImg).data('exclude', true)
+        else
+            draw.image(svgImg).data('exclude', false)
 
         # for each svg data check canvas type and generate elements accordingly
         $.each svgData,(index,value)->
@@ -244,6 +251,7 @@ jQuery(document).ready ($)->
                 window.svgData['breakpoint_position'] = breakpoint_position
                 window.svgData['svg_type'] = svg_type
                 window.svgData['building_id'] = building_id
+                window.svgData['project_id'] = project_id
                 window.loadJSONData()
                 
 
@@ -272,6 +280,7 @@ jQuery(document).ready ($)->
 
     window.resetTool =()->
         window.resetCollection()
+        window.EDITMODE = false
         $(".toggle").trigger 'click'        
         $('.area').val("")
         window.f = []
@@ -299,6 +308,8 @@ jQuery(document).ready ($)->
         # amenity v/s other unit types
         if objectType is "amenity"
             myObject['object_id'] = 0
+        else if objectType is "project"
+            myObject['object_id'] = project_id
         else
             myObject['object_id'] = $('.units').val()
 
@@ -306,7 +317,9 @@ jQuery(document).ready ($)->
         if myObject['object_type'] is "amenity"
             details['title'] = $('#amenity-title').val()
             details['description'] = $('#amenity-description').val()
-            details['class'] = 'layer '+$('.property_type').val()   
+            details['class'] = 'layer '+$('.property_type').val()
+        else if  myObject['object_type'] is "project"
+           details['class'] = 'step1-marker' 
         else  
            details['class'] = 'layer '+$('.property_type').val()         
         
@@ -328,6 +341,14 @@ jQuery(document).ready ($)->
             details['innerRadius'] = window.innerRadius
             details['outerRadius'] = window.outerRadius
             details['marker_type'] = 'solid'
+        else if window.canvas_type is "earthlocationMarker" 
+            myObject['points'] =  window.markerPoints
+            myObject['canvas_type'] = 'marker'
+            details['cx'] = window.cx
+            details['cy'] = window.cy
+            details['ellipseWidth'] = window.ellipseWidth
+            details['ellipseHeight'] = window.ellipseHeight
+            details['marker_type'] = 'earthlocation'            
 
         else
             myObject['points'] =  $('.area').val().split(',')
@@ -384,7 +405,7 @@ jQuery(document).ready ($)->
 
         if type is 'building'
             new AuthoringTool.BuildingCtrl 
-                'region' : @region             
+                'region' : @region 
 
 
     window.showDetails = (elem)->
@@ -398,7 +419,13 @@ jQuery(document).ready ($)->
         $('.units').val elem.id
         $('.units').show()
 
-        
+    window.loadProjectForm =->
+        $('.property_type').val 'project'
+        $('.property_type').attr 'disabled' ,  true 
+        region =  new Marionette.Region el : '#dynamice-region'
+        new AuthoringTool.ProjectCtrl 
+            'region' : region
+            'property' : project_data 
  
     window.hideAlert = ()->
         $('.alert').show()
@@ -406,6 +433,74 @@ jQuery(document).ready ($)->
                 $(this).hide('fade') 
                 next() 
         )
+
+    window.buildSvgObjectData =()->
+        myObject  = {}
+        details = {}
+
+        objectType =  $('.property_type').val()
+        
+        myObject['image_id'] = IMAGEID
+        myObject['object_type'] =  objectType
+        myObject['canvas_type'] =  window.canvas_type
+        myObject['breakpoint_position'] =  window.breakpoint_position
+
+        # amenity v/s other unit types
+        if objectType is "amenity"
+            myObject['object_id'] = 0
+        else if objectType is "project"
+            myObject['object_id'] = project_id
+        else
+            myObject['object_id'] = $('.units').val()
+
+
+        if myObject['object_type'] is "amenity"
+            details['title'] = $('#amenity-title').val()
+            details['description'] = $('#amenity-description').val()
+            details['class'] = 'layer '+$('.property_type').val()
+        else if  myObject['object_type'] is "project"
+           details['class'] = 'step1-marker' 
+        else  
+           details['class'] = 'layer '+$('.property_type').val()         
+        
+        # canvas_type differences i.e markers vs polygons
+        if window.canvas_type is "concentricMarker" 
+            myObject['points'] =  window.markerPoints
+            myObject['canvas_type'] =  'marker'
+            details['cx'] = window.cx
+            details['cy'] = window.cy
+            details['innerRadius'] = window.innerRadius
+            details['outerRadius'] = window.outerRadius
+            details['marker_type'] = 'concentric'
+
+        else if window.canvas_type is "solidMarker" 
+            myObject['points'] =  window.markerPoints
+            myObject['canvas_type'] = 'marker'
+            details['cx'] = window.cx
+            details['cy'] = window.cy
+            details['innerRadius'] = window.innerRadius
+            details['outerRadius'] = window.outerRadius
+            details['marker_type'] = 'solid'
+        
+        else if window.canvas_type is "earthlocationMarker" 
+            myObject['points'] =  window.markerPoints
+            myObject['canvas_type'] = 'marker'
+            details['cx'] = window.cx
+            details['cy'] = window.cy
+            details['ellipseWidth'] = window.ellipseWidth
+            details['ellipseHeight'] = window.ellipseHeight
+            details['marker_type'] = 'earthlocation'            
+
+        else
+            myObject['points'] =  $('.area').val().split(',')
+
+        myObject['other_details'] =  details 
+
+        if $('[name="check_primary"]').is(":checked") is true
+            myObject['primary_breakpoint'] =  window.breakpoint_position 
+            
+
+        return myObject 
 
     window.drawDefaultMarker=(markerType)   ->
         drawMarkerElements = []
@@ -446,14 +541,15 @@ jQuery(document).ready ($)->
             circle = draw.circle(15.002)
             circle.attr
                 fill: '#F7931E'
-                cx: "630.101"
-                cy: "362.245"
+                cx: window.cx
+                cy: window.cy 
 
             drawMarkerElements.push circle
 
             break           
 
           when 'location'
+            window.canvas_type = "locationMarker"
             groupMarker.attr
                 class: 'location-marker-grp'             
             path = draw.path('M1087.492,428.966c0,7.208-13.052,24.276-13.052,24.276s-13.052-17.067-13.052-24.276
@@ -466,12 +562,36 @@ jQuery(document).ready ($)->
             circle = draw.circle(15.002)
             circle.attr
                 fill: '#FFFFFF'
-                cx: "1074.44"
-                cy: "427.187"
+                cx:  window.cx
+                cy:  window.cy
 
             drawMarkerElements.push circle
+            break;
 
-    
+          when 'earthlocation'
+            window.canvas_type = "earthlocationMarker"
+            groupMarker.attr
+                class: 'earth-location-marker-grp' 
+
+            groupMarker.addClass('step1-marker')
+            
+            ellipse = draw.ellipse(window.ellipseWidth, window.ellipseHeight)
+
+            ellipse.attr
+                'fill': '#FF6700'
+                'stroke': '#FF7300'
+                'stroke-width':3
+                'fill-opacity':0.2
+                'stroke-miterlimit':10
+                cx: window.cx
+                cy: window.cy
+ 
+            
+            drawMarkerElements.push ellipse 
+
+            # load default form
+            window.loadProjectForm() 
+
      
         _.each drawMarkerElements, (markerElement, key) =>
             groupMarker.add(markerElement)
@@ -480,8 +600,9 @@ jQuery(document).ready ($)->
 
         groupMarker.dragend =(delta, event) ->
             # cx,cy constants for circles
-            oldX = window.cx
-            oldY =  window.cy
+            markerPts = window.markerPoints
+            oldX = markerPts[0]
+            oldY =  markerPts[1]
 
             tx = delta.x
             ty = delta.y
@@ -490,7 +611,6 @@ jQuery(document).ready ($)->
             newY = oldY + ty
             newpoints = [newX,newY] 
             window.markerPoints = newpoints 
-   
 
 
     ########################### FUNCTIONS ENDS ###########################  
@@ -515,6 +635,8 @@ jQuery(document).ready ($)->
 
     keydownFunc = (e) ->
       if e.which is 13
+        $('.alert').text 'POLYGON IS NOW DRAGGABLE'
+        window.hideAlert()
         $('#aj-imp-builder-drag-drop canvas').hide()
         $('#aj-imp-builder-drag-drop svg').show()
         
@@ -523,7 +645,8 @@ jQuery(document).ready ($)->
         @polygon = draw.polygon(pointList)
         @polygon.addClass('polygon-temp')
         @polygon.data('exclude', true)
-        @polygon.attr('fill', '#E73935')
+        @polygon.attr('fill', '#CC0000')
+        # @polygon.attr('fill-opacity', 0.1)
         @polygon.draggable()
 
         @polygon.dragend = (delta, event) =>
@@ -542,6 +665,7 @@ jQuery(document).ready ($)->
                 i+=2
             
             window.f = newPoints
+            $('.area').val newPoints.join(',')
 
             # clear drawing from canvas and redraw
             canvas = document.getElementById("c")
@@ -571,33 +695,39 @@ jQuery(document).ready ($)->
                     <ul class="list-inline">
                         <li><div class="marker-elem marker1 concentric-marker"></div></li>
                         <li><div class="marker-elem marker2 solid-marker"></div></li>
-                        <!--li><div class="marker-elem marker3 location-marker"></div></li-->
+                        <li><div class="marker-elem marker3 earth-location-marker"></div></li>
                     </ul>
                   </div>')
         .parent().on 'click', '#popOverBox .marker-elem',(evt) ->
+            window.EDITMODE = true
             currentElem = evt.currentTarget
             if $(currentElem).hasClass('concentric-marker')
                 markerType = "concentric"
             else if $(currentElem).hasClass('solid-marker')
                 markerType = "solid"
-            else if $(currentElem).hasClass('location-marker')
-                markerType = "location" 
+            else if $(currentElem).hasClass('earth-location-marker')
+                markerType = "earthlocation" 
 
 
             $('#aj-imp-builder-drag-drop canvas').hide()
             $('#aj-imp-builder-drag-drop svg').first().css("position","relative")
             $('.edit-box').removeClass 'hidden'
+            $('.edit').addClass 'hidden'
+            $('.delete').addClass 'hidden'
+            $('.submit').removeClass 'hidden'  
+            $('.property_type').attr 'disabled' ,  false          
 
             # hide marker options
             $('[rel=\'popover\']').popover('hide')
 
-            window.drawDefaultMarker(markerType)            
+            window.drawDefaultMarker(markerType) 
             
 
 
     # on polygon selection
     $('.select-polygon').on 'click', (e) ->
         e.preventDefault()
+        window.EDITMODE = true
         window.canvas_type = "polygon"
         $('#aj-imp-builder-drag-drop canvas').show()
         $('#aj-imp-builder-drag-drop .svg-draw-clear').show()
@@ -614,6 +744,7 @@ jQuery(document).ready ($)->
             e.preventDefault()
             
             window.canvas_type = "polygon"
+            window.EDITMODE = true
             elemId =  $(e.currentTarget).attr('svgid')
             window.currentSvgId = parseInt elemId            
             
@@ -636,7 +767,12 @@ jQuery(document).ready ($)->
                     $('.submit').addClass 'hidden'
                     $('.edit').removeClass 'hidden'
                     $('.delete').removeClass 'hidden'
-                    window.loadForm(object_type)
+                    
+                    if object_type is "project"
+                        # load default form
+                        window.loadProjectForm()
+                    else 
+                        window.loadForm(object_type)
 
                     # show primary breakpoint checked or not
                     if $(currentElem).data("primary-breakpoint") 
@@ -653,6 +789,7 @@ jQuery(document).ready ($)->
                             
     
     $('svg').on 'dblclick', '.marker-grp' , (e) ->
+        window.EDITMODE = true
         draggableElem = ""
         elemId =  $(e.currentTarget).attr('svgid')
         window.currentSvgId = parseInt elemId
@@ -678,11 +815,14 @@ jQuery(document).ready ($)->
             window.canvas_type = 'concentricMarker'
         else if draggableElem.hasClass('solid')
             window.canvas_type = 'solidMarker'
+        else if draggableElem.hasClass('earthlocation')
+            window.canvas_type = 'earthlocationMarker'
         
         draggableElem.dragend = (delta, event) ->
             # cx,cy constants for circles
-            oldX = window.cx
-            oldY =  window.cy
+            markerPts = window.markerPoints
+            oldX = markerPts[0]
+            oldY =  markerPts[1]
 
             tx = delta.x
             ty = delta.y
@@ -702,7 +842,11 @@ jQuery(document).ready ($)->
         $('.edit').removeClass 'hidden'
         $('.delete').removeClass 'hidden'
         
-        window.loadForm(object_type)  
+        if object_type is "project"
+            # load default form
+            window.loadProjectForm()
+        else 
+            window.loadForm(object_type)  
 
         # show primary breakpoint checked or not
         if $(currentElem).data("primary-breakpoint") 
@@ -743,6 +887,13 @@ jQuery(document).ready ($)->
             $('.alert').text 'Already assigned'
             window.hideAlert()
             return false
+
+        propType = $('.property_type').val()
+        if (propType is "amenity") and ($('#amenity-title').val() is "")
+            $('.alert').text 'Amenity title not entered'
+            window.hideAlert()
+            return false
+        
         window.saveUnit()
     
     # edit svg eleement with unit data  
@@ -755,60 +906,17 @@ jQuery(document).ready ($)->
         if  (window.markerPoints.length<1) and (window.canvas_type isnt "polygon")
             $('.alert').text 'Coordinates not marked'
             window.hideAlert()
-            return false    
-
-        myObject  = {}
-        details = {}
-
-        objectType =  $('.property_type').val()
+            return false 
         
-        myObject['image_id'] = IMAGEID
-        myObject['object_type'] =  objectType
-        myObject['canvas_type'] =  window.canvas_type
-        myObject['breakpoint_position'] =  window.breakpoint_position
+        propType = $('.property_type').val()
+        if (propType is "amenity") and ($('#amenity-title').val() is "")
+            $('.alert').text 'Amenity title not entered'
+            window.hideAlert()
+            return false            
 
-        # amenity v/s other unit types
-        if objectType is "amenity"
-            myObject['object_id'] = 0
-        else
-            myObject['object_id'] = $('.units').val()
-
-
-        if myObject['object_type'] is "amenity"
-            details['title'] = $('#amenity-title').val()
-            details['description'] = $('#amenity-description').val()
-            details['class'] = 'layer '+$('.property_type').val()    
-        else  
-           details['class'] = 'layer '+$('.property_type').val()         
-        
-        # canvas_type differences i.e markers vs polygons
-        if window.canvas_type is "concentricMarker" 
-            myObject['points'] =  window.markerPoints
-            myObject['canvas_type'] =  'marker'
-            details['cx'] = window.cx
-            details['cy'] = window.cy
-            details['innerRadius'] = window.innerRadius
-            details['outerRadius'] = window.outerRadius
-            details['marker_type'] = 'concentric'
-
-        else if window.canvas_type is "solidMarker" 
-            myObject['points'] =  window.markerPoints
-            myObject['canvas_type'] = 'marker'
-            details['cx'] = window.cx
-            details['cy'] = window.cy
-            details['innerRadius'] = window.innerRadius
-            details['outerRadius'] = window.outerRadius
-            details['marker_type'] = 'solid'
-
-        else
-            myObject['points'] =  $('.area').val().split(',')
-
-
-        if $('[name="check_primary"]').is(":checked") is true
-            myObject['primary_breakpoint'] =  window.breakpoint_position            
-
-
-        myObject['other_details'] =  details    
+        myObject = window.buildSvgObjectData()
+          
+        # myObject['other_details'] =  details    
         myObject['_method'] =  'PUT'
 
         svgElemId = window.currentSvgId
@@ -875,33 +983,54 @@ jQuery(document).ready ($)->
         draw.each ((i, children) ->
             @draggable()
             @fixed()
-        ), true         
+        ), true 
+
+        # regenerate svg
+        window.generateSvg(window.svgData.data) 
+        window.EDITMODE = false                   
 
     # on click of delete svg element
     $('.delete').on 'click' , (e)->
         myObject  = {}
         myObject['_method'] =  'DELETE'
         id = $('.units').val()
+        svgElemId = window.currentSvgId
         $.ajax
             type : 'POST',
             headers: { 'x-csrf-token' : $("meta[name='csrf-token']").attr('content')}
-            url  : BASEURL+'/admin/project/'+   PROJECTID+'/svg-tool/'+id
+            url  : "#{BASEURL}/admin/project/#{PROJECTID}/svg-tool/#{svgElemId}"
             async : false
             data : $.param myObject 
             success :(response)->
-
-                value =  $('.area').val().split(',')
-                $('#Layer_1').remove()
+                indexToSplice = -1
+                obj_id_deleted = 0
+                obj_type =""
                 $.each window.svgData.data,(index,value)->
-                    if parseInt(value.object_id) == parseInt($('.units').val())
-                        console.log index
-                        window.svgData.data.splice(index,1)
-                        # delete window.svgData.data[index]
-                window.svgData.data
-                window.renderSVG()
-                unit = unitMasterCollection.findWhere
-                        'id' : parseInt id
-                unitCollection.add unit
+                    if parseInt(value.id) is svgElemId
+                        indexToSplice = index
+                        obj_id_deleted = parseInt value.object_id
+                        obj_type = value.object_type
+                        
+                window.svgData.data.splice(indexToSplice,1)
+                myObject['id'] =  svgElemId
+
+                if obj_id_deleted>0
+                    if obj_type is "building"
+                        bldg =   buildingCollection.findWhere
+                                    'id' : obj_id_deleted
+                        buildingCollection.bldg
+                    else
+                        unit = unitMasterCollection.findWhere
+                                'id' : obj_id_deleted
+                        unitCollection.add unit
+
+                # clear svg 
+                draw.clear()
+               
+                # re-generate svg with new svg element
+                window.generateSvg(window.svgData.data)
+                window.resetTool()
+
                 
                 
 
@@ -913,6 +1042,12 @@ jQuery(document).ready ($)->
     # on click of publish
     $('.btn-publish-svg').on 'click' , (e)->
         e.preventDefault() 
+
+        # check edit mode status
+        if window.EDITMODE is true
+            $('.alert').text 'Please save svg elements before publish'
+            window.hideAlert()
+            return
 
         # get svg tools viewbox height and width
         viewboxDefault = draw.viewbox()
@@ -945,11 +1080,13 @@ jQuery(document).ready ($)->
           async: false
 
         $.ajax(publishSvgOptions)
-            # .done (resp, textStatus ,xhr) =>
-            #     console.log "success"
+            .done (resp, textStatus ,xhr) =>
+                $('.alert').text 'SVG Published'
+                window.hideAlert()
 
-            # .fail (xhr, textStatus, errorThrown) =>
-            #     console.log "fail"
+            .fail (xhr, textStatus, errorThrown) =>
+                $('.alert').text 'Failed to publish SVG'
+                window.hideAlert()
 
 
     # $('#save-svg-elem').on 'click', (e) ->
