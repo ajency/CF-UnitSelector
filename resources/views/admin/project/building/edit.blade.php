@@ -87,6 +87,13 @@
                                        "fa fa-angle-double-right text-primary"></i>
                                     Building <span class=
                                                    "semi-bold">Master</span></h3>
+                                                   <div class="alert alert-info">
+                <strong><i class="fa fa-info"></i></strong> Upload 3D view of the project. To enable 360 degree rotation of the project ,
+                upload images in the sequence ( Front -> Right -> Back -> Left). 
+                            Image dimension should be Image size : 1600X800. Resolution - 100 DPI.
+                            Naming convention to be followed for the images uploaded -Imagename-00 (E.g Master-00(first image), Master-01 and so on).
+                            For large buildings, the images should be in the ratio of 4:2.
+                </div>
                                  <div class="radio radio-primary">
                                     <h4 class="inline">Does this Building have
                                         a <span class="semi-bold">Master Image?<span></span></span></h4>

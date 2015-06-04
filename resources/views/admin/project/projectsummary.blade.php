@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <div class="user-description-box">
                     <dl class="dl-horizontal">
                         <dt><h5 class="semi-bold">Name</h5></dt>
@@ -67,9 +67,11 @@
                     </dl>
                 </div>
             </div>
+            <div class="col-md-5">
             <h5 class="semi-bold">
-                To check out the frontend of Unit Selector <a target="_blank" href="{{ url( 'project/' . $project['id'].'/') }}" class="text-primary">click here >></a>
+                To check out the frontend of Unit Selector <br><a target="_blank" href="{{ url( 'project/' . $project['id'].'/') }}" class="text-primary">click here >></a>
             </h5>
+        </div>
         </div>
         <hr/>
         <div class="m-l-5 no-border">
@@ -229,7 +231,7 @@
                 @endforeach
                  @else
                 <tr>
-                    <td colspan="7" class="semi-bold text-info text-center">No units created</td>
+                    <td colspan="7" ><h5 class="text-info text-center">No units created</h5></td>
                 </tr>
                 @endif 
             </tbody>
