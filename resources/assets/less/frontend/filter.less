@@ -437,9 +437,13 @@ visibility:visible;
        -o-transition: all 0.3s ease-in-out;
           transition: all 0.3s ease-in-out;
 }
+.back_btn{
+  display: none;
+}
+
 @media(max-width:767px){
   .filters-wrapper-hover {
-     right: 0;
+      right: 0;
       top: 0;
       left: -30px;
       width: 0 !important;
@@ -451,6 +455,7 @@ visibility:visible;
   }
   .filters-wrapper-hover.visible{
     left: 0;
+    right: initial;
     width: 100vw !important;
     padding: 30px 15px 15px;
     background-color: rgba(235, 235, 235, 1);
@@ -459,6 +464,7 @@ visibility:visible;
       font-size: 15px;
       display: block;
       color: @gray-darker;
+      display: block;
       .icon{
         &:before{
           content: "\e761";

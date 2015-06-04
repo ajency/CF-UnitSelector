@@ -310,21 +310,25 @@ class ProjectController extends Controller {
     public function summary($id, ProjectRepository $projectRepository) {
 
         $project = $projectRepository->getProjectById($id);
-        $phases = $project->projectPhase()->where('phase_name', '!=', 'Default')->get()->toArray();
+        $phases = $project->projectPhase()->get()->toArray();
         $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray();
-        $propertyTypes = $propertyTypeUnitData = $phaseData = $unitTypeData = $count = $breakPointSvgData = $buildingbreakPointSvgData = [];
+        $propertyTypes = $propertyTypeUnitData = $phaseData = $unitTypeData = $count = $breakPointSvgData = $buildingbreakPointSvgData =         $buildingbreakPoint = [];
         $projectJason = \CommonFloor\ProjectJson::where('project_id', $id)->where('type', 'step_two')->select('created_at', 'updated_at')->first()->toArray();
 
         foreach ($projectpropertyTypes as $propertyType) {
             $propertyTypes[$propertyType['property_type_id']] = get_property_type($propertyType['property_type_id']);
         }
-        $totalCount = 0;
-        foreach ($phases as $phase) {
+        $totalCount = $totalbuildingUnitCount= 0;
+        foreach ($phases as $key=> $phase) {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
             $units = $phase->projectUnits()->get()->toArray();
-            $buildings = $phase->projectBuildings()->get()->toArray(); 
+            $buildings = $phase->projectBuildings()->get(); 
             $buildingUnits = $buildingBreakpointId =[];
+            
+            //Project master total unit count Villa + Plot + Building
+            $totalCount += count($units) + count($buildings); 
+            
             //BUILDING (APARTMENT/PENTHOUSE)
             foreach($buildings as $building)
             {
@@ -332,32 +336,34 @@ class ProjectController extends Controller {
                 $buildingUnits = $buildingData->projectUnits()->get()->toArray();
                 $buildingMediaIds= $building['building_master'];
             
-                $breakpoints = $building['breakpoints']; 
-                foreach($buildingMediaIds as $position => $buildingMediaId)
-                {
-                    if(in_array($position,$breakpoints))
+                $buildingbreakPoint = unserialize($building['breakpoints']) ; 
+                 foreach($buildingMediaIds as $position => $buildingMediaId) {
+                    if($buildingMediaId!="")
                     {
-                        $buildingBreakpointId[$building['id']][]=$buildingMediaId;
+                        if(in_array($position,$buildingbreakPoint ))
+                        {
+                            $buildingBreakpointId[$position]=$buildingMediaId;
+                        }
                     }
                 }
                 
+               
+                $totalbuildingUnitCount = count($buildingUnits); 
                 //Building total unit count
                 $buildingunitSvgCount = SvgController :: getUnitSvgCount($buildingBreakpointId);  
                 foreach($buildingunitSvgCount as $position=> $count)
                 {
                     $buildingunitCount =  $count['apartment'] ;
                     $buildingbreakPointSvgData[$building['id']][$position]['MARKED']= $buildingunitCount;
-                    $buildingbreakPointSvgData[$building['id']][$position]['PENDING']= $totalCount - $buildingunitCount;
+                    $buildingbreakPointSvgData[$building['id']][$position]['PENDING']= $totalbuildingUnitCount - $buildingunitCount;
                 }
                 
+                 $units = array_merge($units,$buildingUnits);  //Merge All Units of project
+               
             }
-  
-            
-            //Project master total unit count
-            $totalCount = count($units) + count($buildings);
-           
+ 
        
-            //VILLA AND PLOT
+            //VILLA + PLOT +Penthouse + APARTMENT
             foreach ($units as $unit) {
                 $variantId = $unit['unit_variant_id'];
                 $unitType = UnitVariant::find($variantId)->unitType()->first();
@@ -374,16 +380,21 @@ class ProjectController extends Controller {
                     $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['sold'] = 0;
                     $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['not_released'] = 0;
                     $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['blocked'] = 0;
+                    $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['archived'] = 0;
                 }
 
                 $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['available'] +=($unit['availability'] == 'available') ? 1 : 0;
                 $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['sold'] +=($unit['availability'] == 'sold') ? 1 : 0;
                 $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['not_released'] +=($unit['availability'] == 'not_released') ? 1 : 0;
                 $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['blocked'] +=($unit['availability'] == 'blocked') ? 1 : 0;
+                $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['archived'] +=($unit['availability'] == 'archived') ? 1 : 0;
             }
             
-            
-            
+           
+           if( $phase['phase_name'] == 'Default')
+           {
+                unset($phases[$key]); //Unset default phase
+           }
             
         }
 
@@ -414,8 +425,8 @@ class ProjectController extends Controller {
         }
         
         $googleearthauthtool =true;
-
-
+ 
+ 
         return view('admin.project.projectsummary')
                         ->with('project', $projectData)
                         ->with('phases', $phases)
@@ -427,6 +438,8 @@ class ProjectController extends Controller {
                         ->with('googleearthauthtool', $googleearthauthtool)
                         ->with('projectJason', $projectJason)
                         ->with('breakPointSvgData', $breakPointSvgData)
+                        ->with('buildings', $buildings->toArray())    
+                        ->with('buildingbreakPointSvgData', $buildingbreakPointSvgData) 
                         ->with('current', 'summary');
     }
 
@@ -647,7 +660,16 @@ class ProjectController extends Controller {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
             $units = $phase->projectUnits()->get()->toArray();
+            $buildings = $phase->projectBuildings()->get()->toArray(); 
             $phaseData[$phaseId] = $phase['phase_name'];
+            foreach($buildings as $building)
+            {
+                $buildingData = Building :: find($building['id']);
+                $buildingUnits = $buildingData->projectUnits()->get()->toArray();
+                $units = array_merge($units,$buildingUnits);
+            }
+            
+           
 
             foreach ($units as $unit) {
                 $variantId = $unit['unit_variant_id'];
