@@ -3342,6 +3342,14 @@ label.third_toggle {
 .svg-info .text-default {
   opacity: .7;
 }
+.svg-info .Penthouse {
+  background: url(../../images/penthouse-white.png) no-repeat;
+  width: 42px;
+  height: 42px;
+  display: block;
+  margin-top: 20px;
+  background-size: contain;
+}
 .icon-moon {
   font-family: icomoon;
   speak: none;
@@ -3392,12 +3400,6 @@ label.third_toggle {
 .marker-tooltip {
   background: rgba(0, 0, 0, 0.9);
   width: 200px;
-}
-.Penthouse {
-  background: url(../../images/penthouse-gray.png) no-repeat;
-  width: 53px;
-  height: 53px;
-  display: block;
 }
 .ls-nav ul {
   width: 100% !important;
