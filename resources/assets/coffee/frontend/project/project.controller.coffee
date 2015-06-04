@@ -186,7 +186,7 @@ class CenterView extends Marionette.ItemView
 										  <div class="square last"></div>
 										</div>
 
-										<div class="step1-wrapper">
+										<div class="step1-wrapper animated fadeIn">
 											<img src="../../projects/3/google_earth/step1.jpg" class="firstimage img-responsive earth-img" />
 											<div class="svg-area"></div>
 										</div>
