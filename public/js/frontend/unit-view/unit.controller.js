@@ -28,7 +28,7 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.loadJSONData();
       }
-      if (jQuery.isEmptyObject(project.toJSON())) {
+      if (bunglowVariantMasterCollection.length === 0 && apartmentVariantMasterCollection.length === 0 && plotVariantMasterCollection.length === 0) {
         return this.show(new CommonFloor.NothingFoundView);
       } else {
         return this.show(new CommonFloor.UnitView);
@@ -288,7 +288,7 @@
       return CenterUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 col-sm-12 col-xs-12 us-right-content single-unit unit-slides animated fadeIn"> <div class=""> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> <li class="master"> <h4 class="title">Position</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <img class="firstimage img-responsive" src=""/> <div class="images animated fadeIn text-center"> </div> </div> </div> </div> <div id="rotate_loader" class="img-loader hidden"> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <div class="single-unit"> <div class="prev"></div> <div class="next"></div> </div> </div> </div> </div>');
+    CenterUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 col-sm-12 col-xs-12 us-right-content single-unit unit-slides animated fadeIn"> <div class=""> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> <li class="master"> <h4 class="title">Position</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <img class="firstimage img-responsive" src=""/> <div class="images animated fadeIn text-center"> </div> </div> </div> </div> <div class="single-unit"> <div class="prev"></div> <div class="next"></div> </div> </div> </div> </div>');
 
     CenterUnitView.prototype.ui = {
       imagesContainer: '.us-right-content'
@@ -348,11 +348,12 @@
         $('.images').empty();
         response = this.generateLevels();
         html = '';
-        html += '<div class="animated fadeIn"> <a href=""><img class="img img-responsive external-img" src="' + response[3].get('external3durl') + '" /></a> </div>';
+        html += '<div class="external-wrapper"> <div id="rotate_loader" class="img-loader"> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <div class="animated fadeIn hidden external-container"> <img class="img-responsive external-img" src="' + response[3].get('external3durl') + '" /> </div> </div>';
         $('.images').html(html);
         $('#rotate_loader').removeClass('hidden');
         $('.external-img').load(function() {
-          return $('#rotate_loader').addClass('hidden');
+          $('#rotate_loader').addClass('hidden');
+          return $('.external-container').removeClass('hidden');
         });
         $('.external').addClass('current');
         $('.threeD').removeClass('current');
@@ -443,7 +444,7 @@
         $('.level').attr('class', 'level Level_0 apartment_level');
       }
       if (!_.isUndefined(response[3].get('external3durl'))) {
-        html = '<img class=" img-responsive external-img"  src="' + response[3].get('external3durl') + '" />';
+        html = '<div class="external-wrapper"> <div id="rotate_loader" class="img-loader"> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <div class="animated fadeIn hidden external-container"> <img class=" img-responsive external-img"  src="' + response[3].get('external3durl') + '" /> </div> </div>';
         $('.images').html(html);
         $('.external').addClass('current');
         $('.threeD').removeClass('current');
@@ -468,7 +469,6 @@
         $('.twoD').removeClass('current');
         $('.external').removeClass('current');
         if (!_.isUndefined(response[3].get('galleryurl'))) {
-          $('#rotate_loader').removeClass('hidden');
           $.each(response[3].get('galleryurl'), function(index, value) {
             return html += '<div class="animated fadeIn"><img class="img" data-src="' + value + '" /></div>';
           });
@@ -490,7 +490,8 @@
       }
       $('.images').html(html);
       $('.external-img').load(function() {
-        return $('#rotate_loader').addClass('hidden');
+        $('#rotate_loader').addClass('hidden');
+        return $('.external-container').removeClass('hidden');
       });
       if (html === "") {
         html = '<img class="img img-responsive external-img"  src="../../images/no-image.jpg" />';
@@ -530,10 +531,10 @@
           $('.firstimage').attr('src', transitionImages[breakpoints[0]]);
           $('.firstimage').load(function() {
             return $('.images').load(first[0], function() {
-              $('.apartment').each(function(ind, item) {
+              $('.apartment,.amenity').each(function(ind, item) {
                 var itemid;
                 itemid = parseInt(item.id);
-                return $('#' + itemid).attr('class', "");
+                return $('#' + itemid).attr('class', "no-fill");
               });
               return $('#' + id).attr('class', 'layer svg_active');
             });
@@ -556,10 +557,10 @@
         $('.firstimage').attr('src', transitionImages[breakpoints[0]]);
         $('.firstimage').load(function() {
           return $('.images').load(first[0], function() {
-            $('.villa,.plot').each(function(ind, item) {
+            $('.villa,.plot,.building,.amenity').each(function(ind, item) {
               var itemid;
               itemid = parseInt(item.id);
-              return $('#' + itemid).attr('class', "");
+              return $('#' + itemid).attr('class', "no-fill");
             });
             return $('#' + id).attr('class', 'layer svg_active');
           });

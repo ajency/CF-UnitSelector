@@ -74,10 +74,7 @@ jQuery(document).ready ($)->
         # draw.viewbox(0, 0, 1600, 800)
         # create svg background image, set exclude data attrib to true so it can be excluded while exporting the svg
 
-        if svg_type isnt "google_earth"
-            draw.image(svgImg).data('exclude', true)
-        else
-            draw.image(svgImg).data('exclude', false)
+        draw.image(svgImg).data('exclude', true)
 
         # for each svg data check canvas type and generate elements accordingly
         $.each svgData,(index,value)->
@@ -405,7 +402,12 @@ jQuery(document).ready ($)->
 
         if type is 'building'
             new AuthoringTool.BuildingCtrl 
-                'region' : @region 
+                'region' : @region
+
+        if type is 'project'
+            new AuthoringTool.ProjectCtrl 
+                'region' : @region
+                'property' : project_data 
 
 
     window.showDetails = (elem)->
@@ -540,7 +542,6 @@ jQuery(document).ready ($)->
                 class: 'solid-marker-grp'             
             circle = draw.circle(15.002)
             circle.attr
-                fill: '#F7931E'
                 cx: window.cx
                 cy: window.cy 
 

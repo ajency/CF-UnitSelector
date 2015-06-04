@@ -67,7 +67,7 @@ class ProjectBuildingController extends Controller {
         $building->abbrevation = $formData['abbrevation'];
         $building->phase_id = $formData['phase_id'];
         $building->no_of_floors = $formData['no_of_floors'];
-        $building->has_master = 'no';
+        $building->has_master = $formData['has_master'];
         $building->floors = [];
         $building->building_master = [];
         $building->breakpoints = [];
@@ -94,9 +94,6 @@ class ProjectBuildingController extends Controller {
     public function edit( $projectId, $buildingId ) {
   
         $project = Project::find( $projectId );
-
-         $phases = $project->projectPhase()->where('status','not_live')->get()->toArray(); 
-
         $building = Building::find( $buildingId );
         $floorLayouts = $project->floorLayout()->get();
         $svgImages = [];
@@ -108,6 +105,15 @@ class ProjectBuildingController extends Controller {
                 }
                 else
                     $svgImages[$key]['ID'] = $images;
+        }
+        
+        $phases = $project->projectPhase()->where('status','not_live')->get()->toArray();
+        foreach ($phases as $key => $phase) {
+            if($phase['id'] != $building->phase_id)
+            {   
+               $phases[]= $project->projectPhase()->where('id',$building->phase_id)->first()->toArray();
+            }
+
         }
             
         return view( 'admin.project.building.edit' )

@@ -1018,10 +1018,13 @@ CommonFloor.filterNew = ()->
 		$.merge collection , unitCollection.toArray()
 	$.each params , (ind,val)->
 		if val is 'villa'
+			unitCollection.reset unitMasterCollection.toArray()
 			temp = CommonFloor.filterVillas()
 		if val is 'apartment'
+			unitCollection.reset unitMasterCollection.toArray()
 			temp = CommonFloor.filterApartments()
 		if val is 'plot'
+			unitCollection.reset unitMasterCollection.toArray()
 			temp = CommonFloor.filterPlots()
 		$.merge collection , temp
 	unitCollection.reset collection
@@ -1072,19 +1075,25 @@ CommonFloor.filterVillas = ()->
 	collection = []
 	collection = CommonFloor.resetProperyType('villa')
 	temp = []
-	newColl = new Backbone.Collection collection		
+	newColl = new Backbone.Collection collection	
+	tempColl = []	
 	$.each CommonFloor.defaults['villa'] , (index,value)->
 		if value != "" && index == 'attributes'
 			if temp.length == 0
 				temp = bunglowVariantCollection.getBunglowUnits()
 			attributes = CommonFloor.filterVillaAttributes(temp)
 			$.merge temp, attributes
-		if value != ""
+		if value != "" && index != 'attributes'
 			param_val  = value.split(',')
 			$.each param_val,(key,key_val)->
 				paramkey = {}
 				paramkey[index] = parseInt(key_val)
-				$.merge temp, unitCollection.where paramkey
+				tempColl = unitCollection.where paramkey
+				if tempColl.length is 0
+					temp = []
+				else
+					$.merge temp, unitCollection.where paramkey
+			unitCollection.reset temp
 			newColl.reset temp
 	newColl.toArray()	
 
@@ -1107,20 +1116,27 @@ CommonFloor.filterApartments = ()->
 	collection = []
 	collection = CommonFloor.resetProperyType('apartment')
 	temp = []
-	newColl = new Backbone.Collection collection		
+	newColl = new Backbone.Collection collection	
+	tempColl = []	
 	$.each CommonFloor.defaults['apartment'] , (index,value)->
 		if value != "" && index == 'attributes'
 			if temp.length == 0
 				temp = apartmentVariantCollection.getApartmentUnits()
 			attributes = CommonFloor.filterApartmentAttributes(temp)
 			$.merge temp, attributes
-		if value != ""
+		if value != "" && index != 'attributes'
 			param_val  = value.split(',')
 			$.each param_val,(key,key_val)->
 				paramkey = {}
 				paramkey[index] = parseInt(key_val)
-				$.merge temp, unitCollection.where paramkey
-			newColl.reset temp
+				tempColl = unitCollection.where paramkey
+				if tempColl.length is 0
+					temp = []
+				else
+					$.merge temp, unitCollection.where paramkey
+				
+			unitCollection.reset tempColl
+			newColl.reset tempColl
 	newColl.toArray()
 
 
@@ -1142,20 +1158,28 @@ CommonFloor.filterPlots = ()->
 	collection = []
 	collection = CommonFloor.resetProperyType('plot')
 	temp = []
-	newColl = new Backbone.Collection collection		
+	newColl = new Backbone.Collection collection	
+	tempColl = []	
 	$.each CommonFloor.defaults['plot'] , (index,value)->
 		if value != "" && index == 'attributes'
 			if temp.length == 0
 				temp = plotVariantCollection.getPlotUnits()
 			attributes = CommonFloor.filterPlotAttributes(temp)
 			$.merge temp, attributes
-		if value != ""
+		if value != "" && index != 'attributes'
 			param_val  = value.split(',')
 			$.each param_val,(key,key_val)->
 				paramkey = {}
 				paramkey[index] = parseInt(key_val)
-				$.merge temp, unitCollection.where paramkey
-			newColl.reset temp
+				tempColl = unitCollection.where paramkey
+				if tempColl.length is 0
+					temp = []
+				else
+					$.merge temp, unitCollection.where paramkey
+				
+			unitCollection.reset tempColl
+			newColl.reset tempColl
+			
 	newColl.toArray()
 
 CommonFloor.filterPlotAttributes= (temp)->

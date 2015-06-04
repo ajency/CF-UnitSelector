@@ -11,8 +11,10 @@ class CommonFloor.UnitCtrl extends Marionette.RegionController
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID)
 			CommonFloor.loadJSONData()
-		if jQuery.isEmptyObject(project.toJSON())
+		
+		if bunglowVariantMasterCollection.length == 0 && apartmentVariantMasterCollection.length == 0 && plotVariantMasterCollection.length == 0  
 			@show new CommonFloor.NothingFoundView
+			
 		else
 			@show new CommonFloor.UnitView
 
@@ -364,18 +366,7 @@ class CenterUnitView extends Marionette.ItemView
 										</div>
 									</div>
 								</div>
-								<div id="rotate_loader" class="img-loader hidden">
-									<div class="square" ></div>
-											  <div class="square"></div>
-											  <div class="square last"></div>
-											  <div class="square clear"></div>
-											  <div class="square"></div>
-											  <div class="square last"></div>
-											  <div class="square clear"></div>
-											  <div class="square "></div>
-											  <div class="square last"></div>
 
-									</div>
 								<div class="single-unit">
 	              	
 					                <div class="prev"></div>
@@ -451,13 +442,27 @@ class CenterUnitView extends Marionette.ItemView
 	
 			response = @generateLevels()
 			html = ''
-			html += '<div class="animated fadeIn">
-						<a href=""><img class="img img-responsive external-img" src="'+response[3].get('external3durl')+'" /></a>
+			html += '<div class="external-wrapper">
+						<div id="rotate_loader" class="img-loader">
+							<div class="square" ></div>
+							<div class="square"></div>
+							<div class="square last"></div>
+							<div class="square clear"></div>
+							<div class="square"></div>
+							<div class="square last"></div>
+							<div class="square clear"></div>
+							<div class="square "></div>
+							<div class="square last"></div>
+						</div>
+						<div class="animated fadeIn hidden external-container">
+							<img class="img-responsive external-img" src="'+response[3].get('external3durl')+'" />
+						</div>
 					</div>'
 			$('.images').html html
 			$('#rotate_loader').removeClass 'hidden'
 			$('.external-img').load ()->
 				$('#rotate_loader').addClass 'hidden'
+				$('.external-container').removeClass 'hidden'
 			$('.external').addClass('current')
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
@@ -570,7 +575,22 @@ class CenterUnitView extends Marionette.ItemView
 
 				
 		if ! _.isUndefined(response[3].get('external3durl'))
-			html = '<img class=" img-responsive external-img"  src="'+response[3].get('external3durl')+'" />'
+			html = '<div class="external-wrapper">
+						<div id="rotate_loader" class="img-loader">
+							<div class="square" ></div>
+							<div class="square"></div>
+							<div class="square last"></div>
+							<div class="square clear"></div>
+							<div class="square"></div>
+							<div class="square last"></div>
+							<div class="square clear"></div>
+							<div class="square "></div>
+							<div class="square last"></div>
+						</div>
+						<div class="animated fadeIn hidden external-container">
+							<img class=" img-responsive external-img"  src="'+response[3].get('external3durl')+'" />
+						</div>
+					</div>'
 			$('.images').html html
 			$('.external').addClass('current')
 			$('.threeD').removeClass('current')
@@ -597,7 +617,6 @@ class CenterUnitView extends Marionette.ItemView
 			$('.twoD').removeClass('current')
 			$('.external').removeClass('current')
 			if ! _.isUndefined(response[3].get('galleryurl'))
-				$('#rotate_loader').removeClass 'hidden'
 				$.each response[3].get('galleryurl'),(index,value)->
 					html += '<div class="animated fadeIn"><img class="img" data-src="'+value+'" /></div>'
 
@@ -618,6 +637,7 @@ class CenterUnitView extends Marionette.ItemView
 		$('.images').html html
 		$('.external-img').load ()->
 			$('#rotate_loader').addClass 'hidden'
+			$('.external-container').removeClass 'hidden'
 			
 		if html == ""
 			# $('.images').addClass 'no-image'
@@ -655,9 +675,9 @@ class CenterUnitView extends Marionette.ItemView
 				$('.firstimage').attr('src',transitionImages[breakpoints[0]])
 				$('.firstimage').load ()->
 					$('.images').load(first[0],()->
-						$('.apartment').each (ind,item)->
+						$('.apartment,.amenity').each (ind,item)->
 							itemid = parseInt item.id
-							$('#'+itemid).attr('class', "")
+							$('#'+itemid).attr('class', "no-fill")
 						$('#'+id).attr('class' ,'layer svg_active'))
 			if building.get('building_master').length == 0 
 				$('.master').hide()
@@ -675,9 +695,9 @@ class CenterUnitView extends Marionette.ItemView
 			$('.firstimage').attr('src',transitionImages[breakpoints[0]])
 			$('.firstimage').load ()->
 				$('.images').load(first[0],()->
-					$('.villa,.plot').each (ind,item)->
+					$('.villa,.plot,.building,.amenity').each (ind,item)->
 						itemid = parseInt item.id
-						$('#'+itemid).attr('class', "")
+						$('#'+itemid).attr('class', "no-fill")
 					$('#'+id).attr('class' ,'layer svg_active'))
 		if project.get('project_master').length == 0
 			$('.master').hide()

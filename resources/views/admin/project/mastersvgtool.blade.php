@@ -34,6 +34,18 @@
 
     }
 
+    .layer{
+        fill-opacity: 0.6 !important;
+        
+    }
+
+    .solid,.solid-marker-grp {
+        fill: #f7931e !important;
+        
+    }
+    .popover-content {
+      width: 163px;
+    }
 
 </style>
 </head>

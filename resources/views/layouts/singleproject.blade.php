@@ -72,9 +72,6 @@
         </div>
         <ul class="big-items">
             @if(hasPermission($project['id'],['configure_building']))
-            <li class="{{ $current === 'floor-layout' ? 'active' : '' }}">
-                <a href="{{ url('/admin/project/' . $project['id'] . '/floor-layout') }}">@if($current === 'floor-layout')<span class='fa fa-check text-success'></span>@endif Floor Layouts</a>
-            </li>
             <li class="{{ $current === 'building' ? 'active' : '' }}">
                 <a href="{{ url('/admin/project/' . $project['id'] . '/building') }}">@if($current === 'building')<span class='fa fa-check text-success'></span>@endif Buildings</a>
             </li>

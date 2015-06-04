@@ -68,13 +68,34 @@
                                    <div class="col-md-4">
                             <div class="form-group">
                                         <label class="form-label">Phase<span class="text-primary">*</span></label>
-                                        <select  name="phase_id" class="select2 form-control m-b-5" data-parsley-required>
-                                    <option value="">Select Phase</option>
-                                    @foreach( $phases as $phase )
-                                    <option value="{{ $phase['id'] }}">{{ $phase['phase_name'] }}</option>
+                                @if($project['has_phase']=='yes')
+                                <select  class="select2 form-control m-b-5" name="phase_id" data-parsley-required>
+                                   <option value="">Select Phase</option>  
+                                   @foreach($phases as $phase)
+                                    <option value="{{$phase['id']}}">{{$phase['phase_name']}}</option>
                                     @endforeach
                                 </select>
+                                @else
+                                <select  class="select2 form-control m-b-5" name="phase_id" disabled>
+                                    <option value="">Select Phase</option>
+                                   @foreach($phases as $phase)
+                                    <option selected value="{{$phase['id']}}">{{$phase['phase_name']}}</option>
+                                    @endforeach
+                                </select>
+                                <input type="hidden" name="phase_id" value="{{$phase['id']}}">
+                                @endif
                                              
+                                        </div>
+                                    </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                        <label class="form-label">Has Master<span class="text-primary">*</span></label>
+                        <div class="radio radio-primary">        
+                                        <input id="master_yes" type="radio" name="has_master" value="yes" checked>
+                        <label for="master_yes" class="form-label">Yes</label>
+                        <input id="master_no" type="radio" name="has_master" value="no" >
+                        <label for="master_no" class="form-label">No</label>
+                         </div>                    
                                         </div>
                                     </div>
                                 </div>
