@@ -577,7 +577,11 @@ class ProjectController extends Controller {
         $project = $projectRepository->getProjectById($projectId);
         $projectMetaCondition = ($project->has_master == 'yes') ? ['master', 'google_earth', 'breakpoints'] : [ 'google_earth'];
         $projectMeta = $project->projectMeta()->whereIn('meta_key', $projectMetaCondition)->get()->toArray();
-        $phases = Phase::where(['project_id' => $projectId, 'status' => 'live'])->get()->toArray();
+        if($project->has_phase == 'yes')
+            $phases = Phase::where(['project_id' => $projectId, 'status' => 'live'])->get()->toArray();
+        else
+           $phases = Phase::where(['project_id' => $projectId])->get()->toArray();
+        
         $masterImages = $breakpoints = $googleEarth = $breakpointAuthtool = $googleEarthAuthtool = $data = $phaseData = $errors = [];
         $filters = $project->projectMeta()->where( 'meta_key', 'filters' )->first()->meta_value;
         $filters = unserialize($filters);
