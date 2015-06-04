@@ -345,21 +345,16 @@ class SvgController extends Controller {
 	}
 
 	// delete svg id and its corresponding child svg elements for a given image id
+	
 	public static function delete_svg($image_id){
-		$svg = Svg::where( 'image_id', '=', $imageid )->first();
+		$svg = Svg::where( 'image_id', '=', $image_id )->first();
 		if (!empty($svg)) {
 			// @todo write code to delete svg file as well
 			$svg->delete();
-			return response()->json( [
-				'code' => 'svg_deleted',
-				'message' => 'SVG deleted for the given image', 
-				], 201 );			
+			return true;			
 		}
 		else{
-			return response()->json( [
-				'code' => 'svg_not_deleted',
-				'message' => 'Could not find svg to be deleted for image', 
-				], 400 );			
+			return false;			
 		}
 	}
 
@@ -430,10 +425,10 @@ class SvgController extends Controller {
 
         $svg_unit_count = array();
     	
-    	foreach ($imageIds as $breakpoint => $imageId) {
+    	foreach ($imageIds as $breakpoint => $image_id) {
 	    	
 	    	// get svg for each image
-    		$svg = Svg::where( 'image_id', '=', $imageId )->first();
+    		$svg = Svg::where( 'image_id', '=', $image_id )->first();
 
     		$svgId = (is_null($svg)) ? 0 : $svg->id ; 
 
@@ -442,7 +437,7 @@ class SvgController extends Controller {
 	    		// svg elements having object type and svgId
 	    		$svgElements = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '=', $object_type )->get()->toArray();
 
-	    		$svgElemCount = sizeof($svgElements);
+	    		$svgElemCount = count($svgElements);
 
 	    		$svg_unit_count[$breakpoint][] = array('object_type'=>$object_type,'object_count'=>$svgElemCount);
 	    	}
