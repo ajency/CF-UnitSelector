@@ -27,7 +27,7 @@ jQuery(document).ready ($)->
     window.outerRadius = 15.002
     window.ellipseWidth = 360
     window.ellipseHeight = 160
-    window.markerPoints = []
+    window.markerPoints = [window.cx,window.cx] #default value
 
     window.windowWidth = 0
     ########################### GLOBALS ENDS ###########################
@@ -598,8 +598,9 @@ jQuery(document).ready ($)->
 
         groupMarker.dragend =(delta, event) ->
             # cx,cy constants for circles
-            oldX = window.cx
-            oldY =  window.cy
+            markerPts = window.markerPoints
+            oldX = markerPts[0]
+            oldY =  markerPts[1]
 
             tx = delta.x
             ty = delta.y
@@ -704,6 +705,10 @@ jQuery(document).ready ($)->
             $('#aj-imp-builder-drag-drop canvas').hide()
             $('#aj-imp-builder-drag-drop svg').first().css("position","relative")
             $('.edit-box').removeClass 'hidden'
+            $('.edit').addClass 'hidden'
+            $('.delete').addClass 'hidden'
+            $('.submit').removeClass 'hidden'  
+            $('.property_type').attr 'disabled' ,  false          
 
             # hide marker options
             $('[rel=\'popover\']').popover('hide')
@@ -805,8 +810,9 @@ jQuery(document).ready ($)->
         
         draggableElem.dragend = (delta, event) ->
             # cx,cy constants for circles
-            oldX = window.cx
-            oldY =  window.cy
+            markerPts = window.markerPoints
+            oldX = markerPts[0]
+            oldY =  markerPts[1]
 
             tx = delta.x
             ty = delta.y

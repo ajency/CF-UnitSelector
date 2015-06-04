@@ -14,7 +14,7 @@
     window.outerRadius = 15.002;
     window.ellipseWidth = 360;
     window.ellipseHeight = 160;
-    window.markerPoints = [];
+    window.markerPoints = [window.cx, window.cx];
     window.windowWidth = 0;
     window.createSvg = function(svgData) {
       window.rawSvg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
@@ -548,9 +548,10 @@
       })(this));
       groupMarker.draggable();
       return groupMarker.dragend = function(delta, event) {
-        var newX, newY, newpoints, oldX, oldY, tx, ty;
-        oldX = window.cx;
-        oldY = window.cy;
+        var markerPts, newX, newY, newpoints, oldX, oldY, tx, ty;
+        markerPts = window.markerPoints;
+        oldX = markerPts[0];
+        oldY = markerPts[1];
         tx = delta.x;
         ty = delta.y;
         newX = oldX + tx;
@@ -631,6 +632,10 @@
       $('#aj-imp-builder-drag-drop canvas').hide();
       $('#aj-imp-builder-drag-drop svg').first().css("position", "relative");
       $('.edit-box').removeClass('hidden');
+      $('.edit').addClass('hidden');
+      $('.delete').addClass('hidden');
+      $('.submit').removeClass('hidden');
+      $('.property_type').attr('disabled', false);
       $('[rel=\'popover\']').popover('hide');
       return window.drawDefaultMarker(markerType);
     });
@@ -716,9 +721,10 @@
         window.canvas_type = 'earthlocationMarker';
       }
       draggableElem.dragend = function(delta, event) {
-        var newX, newY, newpoints, oldX, oldY, tx, ty;
-        oldX = window.cx;
-        oldY = window.cy;
+        var markerPts, newX, newY, newpoints, oldX, oldY, tx, ty;
+        markerPts = window.markerPoints;
+        oldX = markerPts[0];
+        oldY = markerPts[1];
         tx = delta.x;
         ty = delta.y;
         newX = oldX + tx;
