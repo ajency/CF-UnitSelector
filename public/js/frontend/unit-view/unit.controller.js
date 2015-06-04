@@ -288,7 +288,7 @@
       return CenterUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 col-sm-12 col-xs-12 us-right-content single-unit unit-slides animated fadeIn"> <div class=""> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> <li class="master"> <h4 class="title">Position</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <img class="firstimage img-responsive" src=""/> <div class="images animated fadeIn text-center"> </div> </div> </div> </div> <div class="single-unit"> <div class="prev"></div> <div class="next"></div> </div> </div> </div> </div>');
+    CenterUnitView.prototype.template = Handlebars.compile('<div class="col-md-9 col-sm-12 col-xs-12 us-right-content single-unit unit-slides animated fadeIn"> <div class=""> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> <li class="master"> <h4 class="title">Position</h4> </li> <li class="booking"> <h4 class="title">Booking</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <img class="firstimage img-responsive" src=""/> <div class="images animated fadeIn text-center"> </div> </div> </div> </div> <div class="single-unit"> <div class="prev"></div> <div class="next"></div> </div> </div> </div> </div>');
 
     CenterUnitView.prototype.ui = {
       imagesContainer: '.us-right-content'
@@ -316,7 +316,8 @@
         $('.threeD').addClass('current');
         $('.external').removeClass('current');
         $('.twoD').removeClass('current');
-        return $('.gallery').removeClass('current');
+        $('.gallery').removeClass('current');
+        return $('.booking').removeClass('current');
       },
       'click .twoD': function(e) {
         var html, response;
@@ -340,7 +341,8 @@
         $('.external').removeClass('current');
         $('.threeD').removeClass('current');
         $('.gallery').removeClass('current');
-        return $('.master').removeClass('current');
+        $('.master').removeClass('current');
+        return $('.booking').removeClass('current');
       },
       'click .external': function(e) {
         var html, response;
@@ -359,7 +361,8 @@
         $('.threeD').removeClass('current');
         $('.twoD').removeClass('current');
         $('.gallery').removeClass('current');
-        return $('.master').removeClass('current');
+        $('.master').removeClass('current');
+        return $('.booking').removeClass('current');
       },
       'click .gallery': function(e) {
         var html, response;
@@ -383,13 +386,25 @@
         $('.threeD').removeClass('current');
         $('.twoD').removeClass('current');
         $('.external').removeClass('current');
-        return $('.master').removeClass('current');
+        $('.master').removeClass('current');
+        return $('.booking').removeClass('current');
       },
       'click .master': function(e) {
         $('.firstimage').show();
         $('.images').empty();
         this.loadMaster();
         $('.master').addClass('current');
+        $('.gallery').removeClass('current');
+        $('.threeD').removeClass('current');
+        $('.twoD').removeClass('current');
+        $('.external').removeClass('current');
+        return $('.booking').removeClass('current');
+      },
+      'click .booking': function(e) {
+        $('.images').empty();
+        $('.firstimage').hide();
+        $('.booking').addClass('current');
+        $('.master').removeClass('current');
         $('.gallery').removeClass('current');
         $('.threeD').removeClass('current');
         $('.twoD').removeClass('current');
@@ -418,11 +433,13 @@
     };
 
     CenterUnitView.prototype.onShow = function() {
-      var height, html, response;
+      var flag, height, html, response;
+      flag = 0;
       this.getNextPrevUnit();
       response = this.generateLevels();
       html = '';
       $.each(response[0], function(index, value) {
+        flag = 1;
         return html += '<div class="layouts animated fadeIn"> <a class="fancybox" href="' + value + '"> <img class="img" data-src="' + value + '" /> <div class="img-overlay"></div> <span>' + s.replaceAll(response[2][index], "_", " ") + '</span> </a> </div>';
       });
       $('.twoD').addClass('current');
@@ -430,6 +447,7 @@
       $('.external').removeClass('current');
       $('.gallery').removeClass('current');
       if (response[0].length === 0) {
+        flag = 1;
         $.each(response[1], function(index, value) {
           return html += '<img data-src="' + value + '" /><span>' + s.replaceAll(response[2][index], "_", " ") + '</span>';
         });
@@ -444,6 +462,7 @@
         $('.level').attr('class', 'level Level_0 apartment_level');
       }
       if (!_.isUndefined(response[3].get('external3durl'))) {
+        flag = 1;
         html = '<div class="external-wrapper"> <div id="rotate_loader" class="img-loader"> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <div class="animated fadeIn hidden external-container"> <img class=" img-responsive external-img"  src="' + response[3].get('external3durl') + '" /> </div> </div>';
         $('.images').html(html);
         $('.external').addClass('current');
@@ -468,6 +487,7 @@
         $('.threeD').removeClass('current');
         $('.twoD').removeClass('current');
         $('.external').removeClass('current');
+        flag = 1;
         if (!_.isUndefined(response[3].get('galleryurl'))) {
           $.each(response[3].get('galleryurl'), function(index, value) {
             return html += '<div class="animated fadeIn"><img class="img" data-src="' + value + '" /></div>';
@@ -476,6 +496,7 @@
       }
       if (response[0].length === 0 && response[1].length === 0 && _.isUndefined(response[3].get('external3durl')) && _.isUndefined(response[3].get('galleryurl'))) {
         this.loadMaster();
+        flag = 1;
         $('.master').addClass('current');
         $('.gallery').removeClass('current');
         $('.threeD').removeClass('current');
@@ -493,8 +514,8 @@
         $('#rotate_loader').addClass('hidden');
         return $('.external-container').removeClass('hidden');
       });
-      if (html === "") {
-        html = '<img class="img img-responsive external-img"  src="../../images/no-image.jpg" />';
+      if (flag === 0) {
+        console.log("add Booking markup");
       }
       $(".fancybox").fancybox();
       $('.img').lazyLoadXT({

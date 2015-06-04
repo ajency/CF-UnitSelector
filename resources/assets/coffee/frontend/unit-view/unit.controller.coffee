@@ -339,6 +339,9 @@ class CenterUnitView extends Marionette.ItemView
 											<li class="master">
 												<h4 class="title">Position</h4>
 											</li>
+											<li class="booking">
+												<h4 class="title">Booking</h4>
+											</li>
 										</ul>
 									</div>
 									 <!--<div class="external">
@@ -402,6 +405,7 @@ class CenterUnitView extends Marionette.ItemView
 			$('.external').removeClass('current')
 			$('.twoD').removeClass('current')
 			$('.gallery').removeClass('current')
+			$('.booking').removeClass('current')
 
 		'click .twoD':(e)->
 			$('.firstimage').hide()
@@ -429,6 +433,7 @@ class CenterUnitView extends Marionette.ItemView
 			$('.threeD').removeClass('current')
 			$('.gallery').removeClass('current')
 			$('.master').removeClass('current')
+			$('.booking').removeClass('current')
 
 		'click .external':(e)->
 			$('.firstimage').hide()
@@ -461,6 +466,7 @@ class CenterUnitView extends Marionette.ItemView
 			$('.twoD').removeClass('current')
 			$('.gallery').removeClass('current')
 			$('.master').removeClass('current')
+			$('.booking').removeClass('current')
 
 		'click .gallery':(e)->
 			# $('#rotate_loader').removeClass 'hidden'
@@ -489,12 +495,24 @@ class CenterUnitView extends Marionette.ItemView
 			$('.twoD').removeClass('current')
 			$('.external').removeClass('current')
 			$('.master').removeClass('current')
+			$('.booking').removeClass('current')
 
 		'click .master':(e)->
 			$('.firstimage').show()
 			$('.images').empty()
 			@loadMaster()
 			$('.master').addClass('current')
+			$('.gallery').removeClass('current')
+			$('.threeD').removeClass('current')
+			$('.twoD').removeClass('current')
+			$('.external').removeClass('current')
+			$('.booking').removeClass('current')
+
+		'click .booking':(e)->
+			$('.images').empty()
+			$('.firstimage').hide()
+			$('.booking').addClass('current')
+			$('.master').removeClass('current')
 			$('.gallery').removeClass('current')
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
@@ -530,11 +548,13 @@ class CenterUnitView extends Marionette.ItemView
 		
 
 	onShow:->
+		flag = 0
 		@getNextPrevUnit()
 		response = @generateLevels()
 
 		html = ''
 		$.each response[0],(index,value)->
+			flag = 1
 			html += '<div class="layouts animated fadeIn">
 						<a class="fancybox" href="'+value+'">
 							<img class="img" data-src="'+value+'" />
@@ -547,6 +567,7 @@ class CenterUnitView extends Marionette.ItemView
 		$('.external').removeClass('current')
 		$('.gallery').removeClass('current')
 		if response[0].length == 0
+			flag = 1
 			$.each response[1],(index,value)->
 				html += '<img data-src="'+value+'" /><span>'+s.replaceAll(response[2][index], "_", " ")+'</span>'
 			$('.threeD').addClass('current')
@@ -567,6 +588,7 @@ class CenterUnitView extends Marionette.ItemView
 
 				
 		if ! _.isUndefined(response[3].get('external3durl'))
+			flag = 1
 			html = '<div class="external-wrapper">
 						<div id="rotate_loader" class="img-loader">
 							<div class="square" ></div>
@@ -608,12 +630,14 @@ class CenterUnitView extends Marionette.ItemView
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
 			$('.external').removeClass('current')
+			flag = 1
 			if ! _.isUndefined(response[3].get('galleryurl'))
 				$.each response[3].get('galleryurl'),(index,value)->
 					html += '<div class="animated fadeIn"><img class="img" data-src="'+value+'" /></div>'
 
 		if response[0].length == 0 &&  response[1].length == 0 && _.isUndefined(response[3].get('external3durl')) && _.isUndefined(response[3].get('galleryurl'))
 			@loadMaster()
+			flag = 1
 			$('.master').addClass('current')
 			$('.gallery').removeClass('current')
 			$('.threeD').removeClass('current')
@@ -631,9 +655,10 @@ class CenterUnitView extends Marionette.ItemView
 			$('#rotate_loader').addClass 'hidden'
 			$('.external-container').removeClass 'hidden'
 			
-		if html == ""
+		if flag == 0
+			console.log "add Booking markup"
 			# $('.images').addClass 'no-image'
-			html = '<img class="img img-responsive external-img"  src="../../images/no-image.jpg" />'
+			# html = '<img class="img img-responsive external-img"  src="../../images/no-image.jpg" />'
 
 		$(".fancybox").fancybox()
 		$('.img').lazyLoadXT(
