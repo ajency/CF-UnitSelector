@@ -482,6 +482,7 @@ hr.embossed {
 /*Step 4*/
 ::-webkit-scrollbar {
   width: 5px;
+  height: 5px;
 }
 ::-webkit-scrollbar-track {
   background-color: #ccc;
@@ -775,16 +776,24 @@ hr.embossed {
   border: 1px solid #f68121;
 }
 .cf-btn-primary {
-  border-radius: 4px;
-  padding: 5px 16px;
+  border-radius: 3px;
   font-size: 14px;
-  border: 1px solid #f68121;
+  border: 1px solid #ffffff;
+  margin: 10px 0 0;
 }
 .cf-btn-primary:hover,
 .cf-btn-primary:active,
 .cf-btn-primary:focus {
   background-color: #db6809;
   border: 1px solid #db6809;
+  outline: 0;
+}
+@media (max-width: 767px) {
+  .cf-btn-primary {
+    font-size: 12px;
+    padding: 5px 8px;
+    margin: 5px 0;
+  }
 }
 /* Alignment Helpers */
 .m-t-0 {
@@ -1784,6 +1793,7 @@ svg polygon {
 }
 .list-view-container {
   padding: 10px;
+  padding-top: 25px;
 }
 .list-view-container .controls {
   text-align: center;
@@ -2224,7 +2234,7 @@ svg polygon {
   line-height: 27px;
   position: absolute;
   left: 25px;
-  top: 38px;
+  top: 45px;
 }
 .top-legend li {
   display: inline-block;
@@ -3340,6 +3350,14 @@ label.third_toggle {
 .svg-info .text-default {
   opacity: .7;
 }
+.svg-info .Penthouse {
+  background: url(../../images/penthouse-white.png) no-repeat;
+  width: 42px;
+  height: 42px;
+  display: block;
+  margin-top: 20px;
+  background-size: contain;
+}
 .icon-moon {
   font-family: icomoon;
   speak: none;
@@ -3390,12 +3408,6 @@ label.third_toggle {
 .marker-tooltip {
   background: rgba(0, 0, 0, 0.9);
   width: 200px;
-}
-.Penthouse {
-  background: url(../../images/penthouse-gray.png) no-repeat;
-  width: 53px;
-  height: 53px;
-  display: block;
 }
 .ls-nav ul {
   width: 100% !important;

@@ -31,6 +31,10 @@ class TopUnitView extends Marionette.ItemView
 													<h2 class="pull-left proj-name">{{project_title}} - {{unit_name}}</h2>
 												</div>
 
+												<div class="pull-right">
+													<button class="btn btn-primary cf-btn-primary">Book Now</button>
+												</div>
+
 											  	<div class="clearfix"></div>
 											</div>
 										</div>
