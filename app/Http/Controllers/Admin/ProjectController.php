@@ -426,11 +426,11 @@ class ProjectController extends Controller {
 		{
 			$data['BUILDING'][] = $building->building_name;
             $unitNames['building'][$building->id]=$building->building_name;
-			$buildingIds[] =  $building->id;
+			$unitIds['building'][] =  $building->id;
 			$buildingMediaIds= $building->building_master;
             
-            $breakpoints = $building->breakpoints;
-            foreach($buildingMediaIds as $position=> $buildingMediaId)
+            $breakpoints = unserialize($building->breakpoints); 
+            foreach($buildingMediaIds as $position => $buildingMediaId)
             {
                 if(in_array($position,$breakpoints))
                 {
@@ -469,26 +469,26 @@ class ProjectController extends Controller {
             }
         }
        
-		$unitSvgExits = SvgController :: getUnmarkedSvgUnits($unitIds,$mediaIds);
+		$unitSvgExits = SvgController :: getUnmarkedSvgUnits($unitIds,$mediaIds); 
     
         if (!empty($unitSvgExits)) {
-            $errors['authtool'] = 'Svg Unmarked for ';
+           
             if(isset($unitSvgExits['unit']))
             {
-                $errors['authtool'] .= ' Units : ';
+                $errors['unitauthtool'] = ' Svg Unmarked for Units : ';
                 foreach($unitSvgExits['unit'] as $unitId)
                 {
-                    $errors['authtool'] .=$unitNames['unit'][$unitId].' ,';
+                    $errors['unitauthtool'] .=$unitNames['unit'][$unitId].' ,';
                 }
                 
             }
 
             if(isset($unitSvgExits['building']))
             { 
-                $errors['authtool'] .= ' Buildings : ';
+                $errors['buildingauthtool'] = ' Svg Unmarked for Buildings : ';
                 foreach($unitSvgExits['building'] as $unitId)
                 {
-                    $errors['authtool'] .= $unitNames['building'][$unitId].' ,';
+                    $errors['buildingauthtool'] .= $unitNames['building'][$unitId].' ,';
                 }
                 
             }
