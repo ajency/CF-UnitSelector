@@ -185,6 +185,8 @@ class CenterView extends Marionette.ItemView
 										  <div class="square "></div>
 										  <div class="square last"></div>
 										</div>
+										<img class="firstimage img-responsive" src=""/>
+											
 										<div class="svg-area" width="350" height="525" id="prImage-2" title="" alt="" 
 											data-nodebug="" data-alwaysprocess="" 
 											data-ratio="1.5" data-srcwidth="1920" data-crop="1" data-filters="usm" 
@@ -204,7 +206,7 @@ class CenterView extends Marionette.ItemView
 		
 			
 	onShow:->
-
+		PATH = BASEURL+'/projects/'+PROJECTID+'/google-earth/map.svg'
 		windowHeight = $(window).innerHeight() - 56
 		$('.svg-area').css 'height', windowHeight
 		$('.svg-area').css 'min-width', windowHeight * 2
@@ -216,64 +218,66 @@ class CenterView extends Marionette.ItemView
 
 		
 		$('img').lazyLoadXT()
-		path = @model.get('step_one').svg
-		$('.svg-area').load(path, ()->
-			$('.marker').tooltipster(
-				theme: 'tooltipster-shadow'
-				contentAsHTML: true
-				onlyOne : true
-				arrow : false
-				offsetX : 30
-				interactive : true
-				animation : 'fade'
-				trigger: 'click'
-				content : $('#proj_info').html()
-				functionReady:(e)->
-					$('.action_button').on('click' , (e)->
-						$('.img-loader').removeClass 'hidden'
-						$('svg').attr('class' ,'zoom') 
-						$('.step1').addClass 'animated fadeOut'
-						$('.marker').tooltipster('hide')
-						setTimeout( (x)->
-							CommonFloor.checkPropertyType()
-						, 100)
-					)
-					tooltipHeight = $('.tooltipster-content').height() + 10
-					$('.action-bar').css 'min-height', tooltipHeight
+		img = @model.get('step_one').svg
+		$('.firstimage').load ()->
+			$('.svg-area').load(PATH, ()->
+				$('.marker').tooltipster(
+					theme: 'tooltipster-shadow'
+					contentAsHTML: true
+					onlyOne : true
+					arrow : false
+					offsetX : 30
+					interactive : true
+					animation : 'fade'
+					trigger: 'click'
+					content : $('#proj_info').html()
+					functionReady:(e)->
+						$('.action_button').on('click' , (e)->
+							$('.img-loader').removeClass 'hidden'
+							$('svg').attr('class' ,'zoom') 
+							$('.step1').addClass 'animated fadeOut'
+							$('.marker').tooltipster('hide')
+							setTimeout( (x)->
+								CommonFloor.checkPropertyType()
+							, 100)
+						)
+						tooltipHeight = $('.tooltipster-content').height() + 10
+						$('.action-bar').css 'min-height', tooltipHeight
 
-					svgHeight = $(window).innerHeight() - 56
-					svgWidth = svgHeight * 2
-					if $(window).width() < 1025
-						$('svg').css 'min-height', svgHeight
-						$('svg').css 'min-width', svgWidth
-			)
-			$('.marker').tooltipster('show')
+						svgHeight = $(window).innerHeight() - 56
+						svgWidth = svgHeight * 2
+						if $(window).width() < 1025
+							$('svg').css 'min-height', svgHeight
+							$('svg').css 'min-width', svgWidth
+				)
+			
+				$('.marker').tooltipster('show')
 
 
-			$('.tooltipstered').tooltipster(
-				theme: 'tooltipster-shadow'
-				contentAsHTML: true
-				onlyOne : true
-				arrow : false
-				offsetX : 30
-				interactive : true
-				animation : 'fade'
-				trigger: 'click'
-				content : $('#proj_info').html()
-				functionReady:(e)->
-					$('.action_button').on('click' , (e)->
-						$('.img-loader').removeClass 'hidden'
-						$('svg').attr('class' ,'zoom') 
-						$('.step1').addClass 'animated fadeOut'
-						$('.marker').tooltipster('hide')
-						setTimeout( (x)->
-							CommonFloor.checkPropertyType()
-						, 100)
-					)
-					tooltipHeight = $('.tooltipster-content').height() + 10
-					$('.action-bar').css 'min-height', tooltipHeight
-			)
-			$('.tooltipstered').tooltipster('show')
+				$('.tooltipstered').tooltipster(
+					theme: 'tooltipster-shadow'
+					contentAsHTML: true
+					onlyOne : true
+					arrow : false
+					offsetX : 30
+					interactive : true
+					animation : 'fade'
+					trigger: 'click'
+					content : $('#proj_info').html()
+					functionReady:(e)->
+						$('.action_button').on('click' , (e)->
+							$('.img-loader').removeClass 'hidden'
+							$('svg').attr('class' ,'zoom') 
+							$('.step1').addClass 'animated fadeOut'
+							$('.marker').tooltipster('hide')
+							setTimeout( (x)->
+								CommonFloor.checkPropertyType()
+							, 100)
+						)
+						tooltipHeight = $('.tooltipster-content').height() + 10
+						$('.action-bar').css 'min-height', tooltipHeight
+				)
+				$('.tooltipstered').tooltipster('show')
 
 		)
 
