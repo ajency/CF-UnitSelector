@@ -75,7 +75,7 @@
                     <div class="form-group">
                         <label class="form-label">Property Type<span class="text-primary">*</span></label>
 
-                        <select onchange="getPropertTypeData(this, 0);" name="property_type" class="select2 form-control m-b-5" data-parsley-required>
+                        <select onchange="getVariants(this);" name="property_type" class="select2 form-control m-b-5" data-parsley-required>
                             <option value="">Select Property Variant</option>
                             @foreach($projectPropertyTypes as $projectPropertyType)
                             <option value="{{ $projectPropertyType['ID'] }}">{{ $projectPropertyType['NAME'] }}</option>
@@ -83,16 +83,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Unit Type<span class="text-primary">*</span></label>
-
-                        <select onchange="getVariants(this);" name="unit_type" class="select2 form-control m-b-5" data-parsley-required>
-                            <option value="">Select Unit Type</option>
-                            
-                        </select>
-                    </div>
-                </div>
+                
                 @endif
                 <div class="col-md-4">
                     <div class="form-group">
