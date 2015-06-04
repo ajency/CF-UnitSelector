@@ -422,7 +422,6 @@ class ApartmentsView extends Marionette.ItemView
 		availability = @model.get('availability')
 		status = s.decapitalize(availability)
 		classname =  $('#apartment'+id).attr('class')
-		
 		$('#apartment'+id).addClass classname+' '+status
 		CommonFloor.applyOnViewClass()
 		
@@ -818,7 +817,6 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					response = building.checkRotationView(building_id)
 					$('.svg-maps').removeClass 'hidden'
 					$('.mini-map').removeClass 'hidden'
-					$('#rotate_loader').removeClass 'hidden'
 					$('.first_image').first().css('width',that.ui.svgContainer.width())
 					if response is 1
 						$('.cf-loader').removeClass 'hidden'
