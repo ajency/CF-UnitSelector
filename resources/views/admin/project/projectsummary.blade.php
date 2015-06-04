@@ -159,7 +159,7 @@
         </div><br>
         @if($project["has_master"]=="yes")
         <ul class="list-inline m-b-10 m-l-5">
-
+            
             <h5 class="semi-bold inline">
                 Images Uploaded : </h5> {{count($project['master']) - count($project['masterdeletedimages'])}} {{(count($project['masterdeletedimages'])) ? '( Image Pending To Be Uploaded At Position '. implode(",",$project['masterdeletedimages']).')':''}}  |
 
@@ -204,6 +204,11 @@
         
         @foreach($buildings as $building)
         <h5 class="semi-bold inline m-l-5">
+            Building :
+        </h5><span class="text-warning"> 
+            {{ $building['building_name'] }} 
+        </span><br>
+        <h5 class="semi-bold inline m-l-5">
             Master Image :
         </h5> <div class="checkbox check-primary checkbox-inline">
             <input id="checkbox7" type="checkbox" value="1" @if($building["has_master"]=="yes"){{"checked"}}@endif disabled>
@@ -211,7 +216,7 @@
         </div><br>
         @if($building["has_master"]=="yes")
         <ul class="list-inline m-b-10 m-l-5">
-
+            
             <h5 class="semi-bold inline">
                 Images Uploaded : </h5> {{count($building['building_master'])}}  |
 
