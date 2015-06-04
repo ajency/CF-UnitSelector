@@ -879,6 +879,7 @@
         this.draggable();
         return this.fixed();
       }), true);
+      draw.clear();
       window.generateSvg(window.svgData.data);
       return window.EDITMODE = false;
     });
@@ -938,16 +939,19 @@
       if (window.EDITMODE === true) {
         $('.alert').text('Please save svg elements before publish');
         window.hideAlert();
-        return;
+        return false;
       }
       viewboxDefault = draw.viewbox();
       draw.viewbox(0, 0, viewboxDefault.width, viewboxDefault.height);
+      $('#aj-imp-builder-drag-drop svg').first().css("position", "");
       svgExport = draw.exportSvg({
         exclude: function() {
           return this.data('exclude');
         },
-        whitespace: false
+        whitespace: true
       });
+      $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
+      console.log(svgExport);
       data = {};
       data['data'] = btoa(svgExport);
       data['svg_type'] = window.svgData.svg_type;

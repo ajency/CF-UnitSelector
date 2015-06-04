@@ -986,6 +986,8 @@ jQuery(document).ready ($)->
             @fixed()
         ), true 
 
+        # clear svg
+        draw.clear()
         # regenerate svg
         window.generateSvg(window.svgData.data) 
         window.EDITMODE = false                   
@@ -1048,19 +1050,25 @@ jQuery(document).ready ($)->
         if window.EDITMODE is true
             $('.alert').text 'Please save svg elements before publish'
             window.hideAlert()
-            return
+            return false
 
         # get svg tools viewbox height and width
         viewboxDefault = draw.viewbox()
 
-        # add viewbox of 1600*800 at the time of publish
+        # add viewbox of same width and height at the time of publish
         draw.viewbox(0, 0, viewboxDefault.width, viewboxDefault.height) 
         
+        # temporarily remove absolute position before exporting
+        $('#aj-imp-builder-drag-drop svg').first().css("position","")
         svgExport = draw.exportSvg(
           exclude: ->
             @data 'exclude'
-          whitespace: false)
+          whitespace: true)
 
+        # restore absolute position after export
+        $('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
+        
+        console.log svgExport
         data = {}
         data['data'] = btoa(svgExport)
         data['svg_type'] = window.svgData.svg_type
