@@ -29,7 +29,6 @@
         id: item.object_id,
         svgid: item.id
       });
-      groupMarker.addClass(typeClass);
       if (item.object_type === "amenity") {
         groupMarker.data('amenity-title', item.other_details.title);
         groupMarker.data('amenity-desc', item.other_details.description);
@@ -37,6 +36,7 @@
       switch (markerType) {
         case 'concentric':
           groupMarker.addClass('concentric');
+          groupMarker.addClass(typeClass);
           circle1 = draw.circle(innerRadius);
           circle1.attr({
             fill: '#FF8500',
@@ -58,6 +58,7 @@
         case 'solid':
           window.canvas_type = "solidMarker";
           groupMarker.addClass('solid');
+          groupMarker.addClass(typeClass);
           circle = draw.circle(outerRadius);
           circle.attr({
             cx: points[0],
@@ -69,6 +70,7 @@
           window.canvas_type = "earthlocationMarker";
           groupMarker.addClass('earthlocation');
           ellipse = draw.ellipse(window.ellipseWidth, window.ellipseHeight);
+          ellipse.addClass(typeClass);
           ellipse.attr({
             'fill': '#FF6700',
             'stroke': '#FF7300',
