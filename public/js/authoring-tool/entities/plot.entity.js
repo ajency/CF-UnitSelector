@@ -9,7 +9,7 @@
       return PlotView.__super__.constructor.apply(this, arguments);
     }
 
-    PlotView.prototype.template = Handlebars.compile('<form id="add-form"><div class="form-group"> <label class="unitName">Unit :</label><span class="unit_name"></span> <label class="unit-label" for="exampleInputPassword1">Units</label> <select class="form-control units"> <option value="">Select</option> {{#options}} <option value="{{id}}">{{name}}</option> {{/options}} </select> </div> <div class="checkbox"> <label> <input type="checkbox" name="check_primary"> Mark as primary unit </label> </div> </form>');
+    PlotView.prototype.template = '<form id="add-form"><div class="form-group"> <label class="unitName">Unit :</label><span class="unit_name"></span> <label class="unit-label" for="exampleInputPassword1">Units</label> <select class="form-control units"> <option value="">Select</option> {{#options}} <option value="{{id}}">{{name}}</option> {{/options}} </select> </div></form>';
 
     PlotView.prototype.ui = {
       units: '.units'
@@ -27,7 +27,6 @@
         });
       });
       data.options = options;
-      console.log(data);
       return data;
     };
 
@@ -58,7 +57,6 @@
     PlotCtrl.prototype.initialize = function() {
       var units;
       units = plotVariantCollection.getPlotUnits();
-      console.log(units);
       return this.show(new AuthoringTool.PlotView({
         units: units
       }));

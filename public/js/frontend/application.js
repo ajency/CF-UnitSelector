@@ -51,6 +51,9 @@
         'top': {
           ctrl: 'TopListCtrl'
         },
+        'left': {
+          ctrl: 'LeftListCtrl'
+        },
         'center': {
           ctrl: 'CenterListCtrl'
         },
@@ -64,6 +67,9 @@
       sections: {
         'top': {
           ctrl: 'TopApartmentCtrl'
+        },
+        'left': {
+          ctrl: 'LeftApartmentCtrl'
         },
         'center': {
           ctrl: 'CenterApartmentCtrl'
