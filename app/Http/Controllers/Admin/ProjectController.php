@@ -355,7 +355,8 @@ class ProjectController extends Controller {
             
             //Project master total unit count
             $totalCount += count($units) + count($buildings); 
-         
+            
+            $units = array_merge($units,$buildingUnits);
        
             //VILLA AND PLOT
             foreach ($units as $unit) {
