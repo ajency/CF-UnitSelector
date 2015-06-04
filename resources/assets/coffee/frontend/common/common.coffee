@@ -1075,7 +1075,8 @@ CommonFloor.filterVillas = ()->
 	collection = []
 	collection = CommonFloor.resetProperyType('villa')
 	temp = []
-	newColl = new Backbone.Collection collection		
+	newColl = new Backbone.Collection collection	
+	tempColl = []	
 	$.each CommonFloor.defaults['villa'] , (index,value)->
 		if value != "" && index == 'attributes'
 			if temp.length == 0
@@ -1087,7 +1088,12 @@ CommonFloor.filterVillas = ()->
 			$.each param_val,(key,key_val)->
 				paramkey = {}
 				paramkey[index] = parseInt(key_val)
-				$.merge temp, unitCollection.where paramkey
+				tempColl = unitCollection.where paramkey
+				if tempColl.length is 0
+					temp = []
+				else
+					$.merge temp, unitCollection.where paramkey
+				
 			unitCollection.reset temp
 			newColl.reset temp
 	newColl.toArray()	
@@ -1111,7 +1117,8 @@ CommonFloor.filterApartments = ()->
 	collection = []
 	collection = CommonFloor.resetProperyType('apartment')
 	temp = []
-	newColl = new Backbone.Collection collection		
+	newColl = new Backbone.Collection collection	
+	tempColl = []	
 	$.each CommonFloor.defaults['apartment'] , (index,value)->
 		if value != "" && index == 'attributes'
 			if temp.length == 0
@@ -1123,9 +1130,11 @@ CommonFloor.filterApartments = ()->
 			$.each param_val,(key,key_val)->
 				paramkey = {}
 				paramkey[index] = parseInt(key_val)
-				$.merge temp, unitCollection.where paramkey
-			unitCollection.reset temp
-			newColl.reset temp
+				tempColl = unitCollection.where paramkey
+				# $.merge temp, unitCollection.where paramkey
+				
+			unitCollection.reset tempColl
+			newColl.reset tempColl
 	newColl.toArray()
 
 
@@ -1147,7 +1156,8 @@ CommonFloor.filterPlots = ()->
 	collection = []
 	collection = CommonFloor.resetProperyType('plot')
 	temp = []
-	newColl = new Backbone.Collection collection		
+	newColl = new Backbone.Collection collection	
+	tempColl = []	
 	$.each CommonFloor.defaults['plot'] , (index,value)->
 		if value != "" && index == 'attributes'
 			if temp.length == 0
@@ -1159,9 +1169,12 @@ CommonFloor.filterPlots = ()->
 			$.each param_val,(key,key_val)->
 				paramkey = {}
 				paramkey[index] = parseInt(key_val)
-				$.merge temp, unitCollection.where paramkey
-			unitCollection.reset temp
-			newColl.reset temp
+				tempColl = unitCollection.where paramkey
+				# $.merge temp, unitCollection.where paramkey
+				
+			unitCollection.reset tempColl
+			newColl.reset tempColl
+			
 	newColl.toArray()
 
 CommonFloor.filterPlotAttributes= (temp)->
