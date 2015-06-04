@@ -1170,6 +1170,12 @@
     if (CommonFloor.defaults['common']['floor_max'] !== "") {
       CommonFloor.filterFloor();
     }
+    if (CommonFloor.defaults['common']['views'] !== "") {
+      CommonFloor.filterViews();
+    }
+    if (CommonFloor.defaults['common']['facings'] !== "") {
+      CommonFloor.filterFacings();
+    }
     if (CommonFloor.defaults['common']['availability'] !== "") {
       paramkey = {};
       paramkey['availability'] = 'available';
@@ -1395,7 +1401,7 @@
       var views;
       views = item.get('views');
       return $.each(views, function(ind, val) {
-        if ($.inArray(val, CommonFloor.defaults['common']['views'].split(',')) > -1) {
+        if ($.inArray(val, CommonFloor.defaults['common']['views'].split(',')) > -1 && val !== "") {
           return temp.push(item);
         }
       });
@@ -1410,7 +1416,7 @@
     unitCollection.each(function(item) {
       var facings;
       facings = item.get('direction');
-      if ($.inArray(facings, CommonFloor.defaults['common']['facings'].split(',')) > -1) {
+      if ($.inArray(facings, CommonFloor.defaults['common']['facings'].split(',')) > -1 && facings !== "") {
         return temp.push(item);
       }
     });

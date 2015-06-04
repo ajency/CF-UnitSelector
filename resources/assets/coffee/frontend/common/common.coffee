@@ -1059,6 +1059,10 @@ CommonFloor.filterStepNew = ()->
 		CommonFloor.filterArea()
 	if CommonFloor.defaults['common']['floor_max'] != ""
 		CommonFloor.filterFloor()
+	if CommonFloor.defaults['common']['views'] != ""
+		CommonFloor.filterViews()
+	if CommonFloor.defaults['common']['facings'] != ""
+		CommonFloor.filterFacings()
 	if CommonFloor.defaults['common']['availability'] != ""
 		paramkey = {}
 		paramkey['availability'] = 'available'
@@ -1242,7 +1246,7 @@ CommonFloor.filterViews = ()->
 	unitCollection.each (item)->
 		views = item.get('views')
 		$.each views , (ind,val)->
-			if $.inArray(val,CommonFloor.defaults['common']['views'].split(',')) > -1
+			if $.inArray(val,CommonFloor.defaults['common']['views'].split(',')) > -1 && val != ""
 				temp.push item
 
 	unitCollection.reset temp
@@ -1253,7 +1257,7 @@ CommonFloor.filterFacings = ()->
 	temp = []
 	unitCollection.each (item)->
 		facings = item.get('direction')
-		if $.inArray(facings,CommonFloor.defaults['common']['facings'].split(',')) > -1
+		if $.inArray(facings,CommonFloor.defaults['common']['facings'].split(',')) > -1  && facings != ""
 				temp.push item
 
 	unitCollection.reset temp
