@@ -12,6 +12,10 @@
 
     ApartmentsListView.prototype.template = '#apartment-list-template';
 
+    ApartmentsListView.prototype.onShow = function() {
+      return $('#leftregion').hide();
+    };
+
     return ApartmentsListView;
 
   })(Marionette.LayoutView);
@@ -28,7 +32,7 @@
         project.setProjectAttributes(PROJECTID);
         CommonFloor.loadJSONData();
       }
-      if (apartmentVariantCollection.length === 0) {
+      if (apartmentVariantMasterCollection.length === 0) {
         return this.show(new CommonFloor.NothingFoundView);
       } else {
         return this.show(new CommonFloor.ApartmentsListView);
@@ -46,7 +50,7 @@
       return TopApartmentView.__super__.constructor.apply(this, arguments);
     }
 
-    TopApartmentView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}} - {{name}}</h2> <div class="proj-type-count"> <h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p> </div> <div class="pull-left filter-result full"> {{#filters}} {{#each this}} {{#each this}} <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/each}} {{/each}} {{/filters}} {{#area}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/area}} {{#budget}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/budget}} {{#views}} <li> <div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> </li> {{/views}} {{#facings}} <li> <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> </li> {{/facings}} {{#floor}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross floor" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/floor}} {{#status}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/status}} </div> </div> </div> </div> </div>');
+    TopApartmentView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}} - {{name}}</h2> <div class="proj-type-count"> <h2 class="pull-left">{{results}}</h2><p class="pull-left">Apartment(s)/Penthouse(s)</p> </div> <div class="pull-left filter-result full"> {{#filters}} {{#each this}} {{#each this}} <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/each}} {{/each}} {{/filters}} {{#area}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/area}} {{#budget}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/budget}} {{#views}} <div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> {{/views}} {{#facings}} <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> {{/facings}} {{#floor}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross floor" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/floor}} {{#status}} <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> {{/status}} </div> </div> </div> </div> </div>');
 
     TopApartmentView.prototype.ui = {
       unitBack: '.unit_back',
@@ -285,7 +289,7 @@
     LeftApartmentView.prototype.template = Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content leftview"></div>');
 
     LeftApartmentView.prototype.onShow = function() {
-      return $('.leftview').hide();
+      return $('#leftregion').hide();
     };
 
     return LeftApartmentView;
@@ -356,7 +360,7 @@
       return CenterApartmentView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterApartmentView.prototype.template = '<div> <div class="col-md-12 us-right-content"> <div class="list-view-container"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#" class="map ">Map</a><a href="#" class="list active">List</a> </div> </div>--> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <h2 class="text-center">List of Apartments/Penthouse <span class="pull-right top-legend">     <ul> <!--<li class="available">AVAILABLE</li>--> <li class="na">N/A</li> </ul></span></h2><hr> <div class="villa-list"> <ul class="units eight"> </ul> </div> </div> </div> </div>';
+    CenterApartmentView.prototype.template = '<div> <div class="col-md-12 us-right-content"> <div class="list-view-container"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#" class="map ">Map</a><a href="#" class="list active">List</a> </div> </div>--> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <h2 class="text-center">List of Apartments/Penthouse <span class="pull-right top-legend">     <ul> <li class="na">N/A</li> </ul></span></h2><hr> <div class="villa-list"> <ul class="units eight"> </ul> </div> </div> </div> </div>';
 
     CenterApartmentView.prototype.childView = ApartmentsView;
 
@@ -400,7 +404,7 @@
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
       response = window.building.getBuildingUnits(building_id);
-      if (response.length === 0) {
+      if (response.length === 0 && url.split('/')[2] === 'apartments') {
         region = new Marionette.Region({
           el: '#centerregion'
         });
