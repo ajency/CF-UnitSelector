@@ -318,6 +318,7 @@ class ProjectController extends Controller {
         foreach ($projectpropertyTypes as $propertyType) {
             $propertyTypes[$propertyType['property_type_id']] = get_property_type($propertyType['property_type_id']);
         }
+        $totalCount = 0;
         foreach ($phases as $phase) {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
@@ -437,13 +438,7 @@ class ProjectController extends Controller {
                     $mediaIds[]=$buildingMediaId;
                 }
             }
-                
-			$buildingData = Building :: find($building->id);
-			$buildingUnits = $buildingData->projectUnits()->get()->toArray(); 
-			foreach ($buildingUnits as $buildingUnit) {                          //Apartment/Penthouse Units
-				$unitIds['unit'][] = $buildingUnit['id'];
-                $unitNames['unit'][$buildingUnit['id']]=$buildingUnit['unit_name'];
-			}	
+            
 		}
         
 		$project = Project::find($projectId);
