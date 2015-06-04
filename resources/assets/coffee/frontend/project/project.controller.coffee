@@ -226,7 +226,8 @@ class CenterView extends Marionette.ItemView
 					contentAsHTML: true
 					onlyOne : true
 					arrow : false
-					offsetX : 30
+					offsetX : 150
+					offsetY : 60
 					interactive : true
 					animation : 'fade'
 					trigger: 'click'
@@ -259,7 +260,8 @@ class CenterView extends Marionette.ItemView
 					contentAsHTML: true
 					onlyOne : true
 					arrow : false
-					offsetX : 30
+					offsetX : 150
+					offsetY : 60
 					interactive : true
 					animation : 'fade'
 					trigger: 'click'
