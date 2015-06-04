@@ -380,7 +380,7 @@ class ProjectController extends Controller {
             }
         }
 
-        $breakPointSvgData = SvgController :: getUnitSvgCount($breakPointImageIds);
+        // $breakPointSvgData = SvgController :: getUnitSvgCount($breakPointImageIds);
         
         $googleearthauthtool =true;
 
