@@ -820,6 +820,7 @@ class ProjectController extends Controller {
         }        
 
         $type = $getVar['type'];
+        $is_project_marked = false;
 
         $propertyTypeName = [BUNGLOWID=>"Villa",PLOTID=>"Plot",APARTMENTID=>"Apartment",PENTHOUSEID=>"Penthouse"];
 
@@ -871,6 +872,7 @@ class ProjectController extends Controller {
                 break;
 
              case 'google_earth':
+                $is_project_marked = SvgController::isGoogleSvgMarked($image_id);
                 $svgImagePath = url() . "/projects/" . $id . "/google_earth/". $imageName;
                 
                 // pass Project
@@ -908,6 +910,7 @@ class ProjectController extends Controller {
         ->with('building_id',$buildingId)
         ->with('project_id',$id)
         ->with('svg_type_display',$svg_type_display)
+        ->with('is_project_marked',$is_project_marked)
         ->with('svg_type', $type);
  }
 
