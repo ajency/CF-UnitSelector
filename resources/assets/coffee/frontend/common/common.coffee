@@ -1142,8 +1142,8 @@ CommonFloor.filterApartments = ()->
 				else
 					$.merge temp, unitCollection.where paramkey
 				
-			unitCollection.reset tempColl
-			newColl.reset tempColl
+			unitCollection.reset temp
+			newColl.reset temptemp
 	newColl.toArray()
 
 
@@ -1186,8 +1186,8 @@ CommonFloor.filterPlots = ()->
 				else
 					$.merge temp, unitCollection.where paramkey
 				
-			unitCollection.reset tempColl
-			newColl.reset tempColl
+			unitCollection.reset temp
+			newColl.reset temp
 			
 	newColl.toArray()
 
