@@ -344,6 +344,7 @@ CommonFloor.applyFliterClass = ()->
 			
 
 	$('.building').each (ind,item)->
+		types = []
 		if CommonFloor.defaults['type']!= ""
 			types = CommonFloor.defaults['type'].split(',')
 		id = parseInt item.id

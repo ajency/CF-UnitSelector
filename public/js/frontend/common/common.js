@@ -363,6 +363,7 @@
     });
     return $('.building').each(function(ind, item) {
       var id, types;
+      types = [];
       if (CommonFloor.defaults['type'] !== "") {
         types = CommonFloor.defaults['type'].split(',');
       }
