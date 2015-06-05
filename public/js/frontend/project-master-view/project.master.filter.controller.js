@@ -791,24 +791,26 @@
           if (!_.isUndefined(project.get('filters').Villa)) {
             $.each(project.get('filters').Villa, function(index, value) {
               temp = [];
-              $.each(item.get('variant_attributes'), function(ind, val) {
-                if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
-                  flooring.push(val);
-                  return temp.push({
-                    'name': val,
-                    'id': 'villa' + s.replaceAll(val, " ", "_"),
-                    'dataId': s.replaceAll(val, " ", "_"),
-                    'classname': 'attributes',
-                    'label': ind,
-                    type: 'P'
-                  });
-                }
-              });
-              return newtemp.push({
-                'label': value.toUpperCase(),
-                'value': temp,
-                'index': value
-              });
+              if (value !== 'unitTypes' && value !== 'unitVariantNames') {
+                $.each(item.get('variant_attributes'), function(ind, val) {
+                  if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
+                    flooring.push(val);
+                    return temp.push({
+                      'name': val,
+                      'id': 'villa' + s.replaceAll(val, " ", "_"),
+                      'dataId': s.replaceAll(val, " ", "_"),
+                      'classname': 'attributes',
+                      'label': ind,
+                      type: 'P'
+                    });
+                  }
+                });
+                return newtemp.push({
+                  'label': value.toUpperCase(),
+                  'value': temp,
+                  'index': value
+                });
+              }
             });
           }
         }

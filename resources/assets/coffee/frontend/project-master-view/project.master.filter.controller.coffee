@@ -892,20 +892,21 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 				if ! _.isUndefined project.get('filters').Villa
 					$.each project.get('filters').Villa , (index,value)->
 						temp = []
-						$.each item.get('variant_attributes') ,(ind,val)->
-							if ind == value && $.inArray(val,flooring) is -1 && val != ""
-								flooring.push val
-								temp.push
-									'name' : val
-									'id' : 'villa'+s.replaceAll(val, " ", "_")
-									'dataId' : s.replaceAll(val, " ", "_")
-									'classname' : 'attributes'
-									'label' : ind
-									type: 'P'
-						newtemp.push 
-							'label' : value.toUpperCase()
-							'value' : temp
-							'index' : value
+						if value != 'unitTypes' && value!= 'unitVariantNames'
+							$.each item.get('variant_attributes') ,(ind,val)->
+								if ind == value && $.inArray(val,flooring) is -1 && val != ""
+									flooring.push val
+									temp.push
+										'name' : val
+										'id' : 'villa'+s.replaceAll(val, " ", "_")
+										'dataId' : s.replaceAll(val, " ", "_")
+										'classname' : 'attributes'
+										'label' : ind
+										type: 'P'
+							newtemp.push 
+								'label' : value.toUpperCase()
+								'value' : temp
+								'index' : value
 				
 					
 			unitsArr = bunglowVariantMasterCollection.getBunglowUnits()
