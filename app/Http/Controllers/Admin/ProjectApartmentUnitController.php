@@ -198,6 +198,7 @@ class ProjectApartmentUnitController extends Controller {
                $unitviews[$key]= ucfirst($view);    
         }
         $viewsStr = serialize( $unitviews );
+        $unit->views = $viewsStr;
         $unit->save();
 
         $addanother = $request->input('addanother');

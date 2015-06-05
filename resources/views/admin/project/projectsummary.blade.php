@@ -243,8 +243,8 @@
                 @foreach($building['breakpoints'] as $breakpoint)
                 <tr>
                     <td>{{ $breakpoint }}</td>
-                    <td>{{ $buildingbreakPointSvgData[$building['id']][$breakpoint]['MARKED'] }}</td>
-                    <td>{{ $buildingbreakPointSvgData[$building['id']][$breakpoint]['PENDING'] }}</td>
+                    <td>{{ (isset($buildingbreakPointSvgData[$building['id']][$breakpoint]['MARKED'])) ? $buildingbreakPointSvgData[$building['id']][$breakpoint]['MARKED']:'' }}</td>
+                    <td>{{ (isset($buildingbreakPointSvgData[$building['id']][$breakpoint]['PENDING']))?$buildingbreakPointSvgData[$building['id']][$breakpoint]['PENDING']:'' }}</td>
              
                 </tr>
                 @endforeach
