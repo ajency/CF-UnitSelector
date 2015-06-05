@@ -97,7 +97,18 @@
                         </select>
                     </div>
                 </div>
-                 
+                 <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Direction<span class="text-primary">*</span></label>
+                        <select  class="select2 form-control m-b-5" name="direction" data-parsley-required>
+                           <option value="">Select Direction</option>  
+                           @foreach($defaultDirection as $direction)
+                            <option value="{{$direction['id']}}">{{$direction['label']}}</option>
+                            @endforeach
+                        </select>
+                        
+                    </div>
+                </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Unit Status <span class="text-primary">*</span></label>
@@ -110,7 +121,32 @@
                         </select>
                     </div>
                 </div>
-            </div> 
+            </div>
+               @if(!empty($projectAttributes))
+             <hr>
+           <div class="m-l-5 no-border">
+            <h3><i class="fa fa-angle-double-right text-primary"></i> <span class="semi-bold"> Views</span></h3>
+        </div>
+        <div class="row m-b-5">
+        <?php $i=0;?>
+        @foreach($projectAttributes as $attribute)
+            <div class="col-md-3">
+        <div class="checkbox check-primary" >
+            <input type="checkbox" id="{{$attribute['label']}}" value="{{$attribute['label']}}" name="views[{{property_type_slug($attribute['label'])}}]" aria-label="...">
+             <label for="{{$attribute['label']}}">{{$attribute['label']}}</label> 
+        </div>
+        </div>
+
+        <?php $i++;?>
+        @if($i==4)
+        </div>
+        <div class="row m-b-5">
+        <?php $i=0;?>
+        @endif 
+        @endforeach
+ 
+        </div>
+        @endif
                     <div class="form-actions">  
                 <div class="text-right">
                     <input type="hidden" id="addanother" name="addanother" value="">
