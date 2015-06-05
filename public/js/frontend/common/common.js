@@ -1271,8 +1271,8 @@
             return $.merge(temp, unitCollection.where(paramkey));
           }
         });
-        unitCollection.reset(tempColl);
-        return newColl.reset(tempColl);
+        unitCollection.reset(temp);
+        return newColl.reset(temp);
       }
     });
     return newColl.toArray();
@@ -1327,8 +1327,8 @@
             return $.merge(temp, unitCollection.where(paramkey));
           }
         });
-        unitCollection.reset(tempColl);
-        return newColl.reset(tempColl);
+        unitCollection.reset(temp);
+        return newColl.reset(temp);
       }
     });
     return newColl.toArray();
