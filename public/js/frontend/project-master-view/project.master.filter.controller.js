@@ -792,14 +792,14 @@
       });
       if (!_.isUndefined(project.get('filters').Villa)) {
         $.each(project.get('filters').Villa, function(index, value) {
-          temp = [];
-          bunglowVariantMasterCollection.each(function(item) {
-            var units;
-            units = unitMasterCollection.where({
-              'unit_variant_id': item.get('id')
-            });
-            if (units.length !== 0) {
-              if (value !== 'unitTypes' && value !== 'unitVariantNames') {
+          if (value !== 'unitTypes' && value !== 'unitVariantNames') {
+            temp = [];
+            bunglowVariantMasterCollection.each(function(item) {
+              var units;
+              units = unitMasterCollection.where({
+                'unit_variant_id': item.get('id')
+              });
+              if (units.length !== 0) {
                 return $.each(item.get('variant_attributes'), function(ind, val) {
                   if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
                     flooring.push(val);
@@ -814,13 +814,13 @@
                   }
                 });
               }
-            }
-          });
-          return newtemp.push({
-            'label': value.toUpperCase(),
-            'value': temp,
-            'index': value
-          });
+            });
+            return newtemp.push({
+              'label': value.toUpperCase(),
+              'value': temp,
+              'index': value
+            });
+          }
         });
         unitsArr = bunglowVariantMasterCollection.getBunglowUnits();
         $.each(unitsArr, function(index, value) {
