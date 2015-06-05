@@ -754,7 +754,7 @@
     };
 
     FilterMasterCtrl.prototype.getVillaFilters = function() {
-      var budget, filters, flooring, flooringAttributes, newtemp, temp, unitTypes, unitVariantNames, unitVariants, unit_types;
+      var budget, filters, flooring, flooringAttributes, newtemp, temp, unitTypes, unitVariantNames, unitVariants, unit_types, unitsArr;
       filters = [];
       unitTypes = [];
       unit_types = [];
@@ -766,7 +766,7 @@
       temp = [];
       newtemp = [];
       bunglowVariantMasterCollection.each(function(item) {
-        var unitTypeModel, units, unitsArr;
+        var unitTypeModel, units;
         units = unitMasterCollection.where({
           'unit_variant_id': item.get('id')
         });
@@ -783,14 +783,22 @@
             });
           }
           unitVariants.push(item.get('super_built_up_area'));
-          unitVariantNames.push({
+          return unitVariantNames.push({
             'id': item.get('id'),
             'name': item.get('unit_variant_name'),
             'type': 'V'
           });
-          if (!_.isUndefined(project.get('filters').Villa)) {
-            $.each(project.get('filters').Villa, function(index, value) {
-              temp = [];
+        }
+      });
+      if (!_.isUndefined(project.get('filters').Villa)) {
+        $.each(project.get('filters').Villa, function(index, value) {
+          temp = [];
+          return bunglowVariantMasterCollection.each(function(item) {
+            var units;
+            units = unitMasterCollection.where({
+              'unit_variant_id': item.get('id')
+            });
+            if (units.length !== 0) {
               if (value !== 'unitTypes' && value !== 'unitVariantNames') {
                 $.each(item.get('variant_attributes'), function(ind, val) {
                   if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
@@ -811,16 +819,16 @@
                   'index': value
                 });
               }
-            });
-          }
-        }
+            }
+          });
+        });
         unitsArr = bunglowVariantMasterCollection.getBunglowUnits();
-        return $.each(unitsArr, function(index, value) {
+        $.each(unitsArr, function(index, value) {
           var unitDetails;
           unitDetails = window.unit.getUnitDetails(value.id);
           return budget.push(parseFloat(unitDetails[3]));
         });
-      });
+      }
       filters.push({
         'unitTypes': unitTypes,
         'unitVariants': unitVariants,
