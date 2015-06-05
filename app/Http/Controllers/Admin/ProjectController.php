@@ -467,7 +467,7 @@ class ProjectController extends Controller {
 			$unitIds['building'][] =  $building->id;
 			$buildingMediaIds= $building->building_master;
             
-            $breakpoints = unserialize($building->breakpoints); 
+            $breakpoints =  (!empty($building['breakpoints']))?unserialize($building['breakpoints']):[];
             foreach($buildingMediaIds as $position => $buildingMediaId)
             {
                 if(in_array($position,$breakpoints))
