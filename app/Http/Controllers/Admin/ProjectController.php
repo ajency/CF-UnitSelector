@@ -336,7 +336,7 @@ class ProjectController extends Controller {
                 $buildingUnits = $buildingData->projectUnits()->get()->toArray();
                 $buildingMediaIds= $building['building_master'];
             
-                $buildingbreakPoint = (!empty($data['breakpoints']))?unserialize($data['breakpoints']):[];
+                $buildingbreakPoint = (!empty($building['breakpoints']))?unserialize($building['breakpoints']):[];
                  foreach($buildingMediaIds as $position => $buildingMediaId) {
                     if($buildingMediaId!="")
                     {
@@ -642,13 +642,15 @@ class ProjectController extends Controller {
                 $googleEarth = $metaValues['meta_value'];
                 if (empty($googleEarth)) {
                     $errors['google_earth'] = "Google Earth Image Not Found";
-                    
+                
+                }
+                else{
                     $googleEarthAuthtool = SvgController :: isGoogleSvgMarked($googleEarth); 
                     if (!$googleEarthAuthtool) {
                         $errors['googleearthauthtool'] = "Pending SVG Authoring For Google Earth Image";
                     }
-
                 }
+
             }
         }
 
