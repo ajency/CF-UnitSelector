@@ -367,7 +367,7 @@
         types = CommonFloor.defaults['type'].split(',');
       }
       id = parseInt(item.id);
-      if ($.inArray(id, filterbuildings) > -1 && notSelectebuildings.length !== actualbuildings.length) {
+      if ($.inArray(id, filterbuildings) > -1 && filterbuildings.length !== actualbuildings.length) {
         return setTimeout(function() {
           return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0; stroke:#F68121; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
         }, Math.random() * 1000);
