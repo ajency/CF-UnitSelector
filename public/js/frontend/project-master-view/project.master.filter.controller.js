@@ -805,9 +805,9 @@
                 }
               });
               return newtemp.push({
-                'label': ind.toUpperCase(),
+                'label': value.toUpperCase(),
                 'value': temp,
-                'index': ind
+                'index': value
               });
             });
           }
