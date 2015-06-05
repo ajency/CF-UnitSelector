@@ -503,7 +503,7 @@ class ProjectController extends Controller {
        
         if(!empty($mediaIds))
 		  $unitSvgExits = SvgController :: getUnmarkedSvgUnits($unitIds,$mediaIds); 
-        else
+        elseif($project->has_master == 'yes')
             $errors['unitauthtool'] = 'Units Not Marked On Authoring Tool';
     
         if (!empty($unitSvgExits)) {
