@@ -347,7 +347,7 @@ CommonFloor.applyFliterClass = ()->
 		if CommonFloor.defaults['type']!= ""
 			types = CommonFloor.defaults['type'].split(',')
 		id = parseInt item.id
-		if $.inArray(id , filterbuildings) > -1 && $.inArray('apartment',types) > -1
+		if $.inArray(id , filterbuildings) > -1 && notSelectebuildings.length != actualbuildings.length
 			setTimeout( ()->
 				$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0; stroke:#F68121; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
 			,Math.random() * 1000)
