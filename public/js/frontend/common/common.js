@@ -1272,7 +1272,7 @@
           }
         });
         unitCollection.reset(temp);
-        return newColl.reset(temptemp);
+        return newColl.reset(temp);
       }
     });
     return newColl.toArray();

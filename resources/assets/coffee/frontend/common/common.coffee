@@ -1143,7 +1143,7 @@ CommonFloor.filterApartments = ()->
 					$.merge temp, unitCollection.where paramkey
 				
 			unitCollection.reset temp
-			newColl.reset temptemp
+			newColl.reset temp
 	newColl.toArray()
 
 
