@@ -116,6 +116,7 @@
           arr.splice(index, 1);
           CommonFloor.defaults['type'] = arr.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -124,6 +125,7 @@
           var previousRoute;
           e.preventDefault();
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           previousRoute = CommonFloor.router.previous();
           return CommonFloor.navigate('#/master-view', true);
@@ -134,6 +136,7 @@
           unitTypes = _.without(unitTypes, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['apartment']['unit_type_id'] = unitTypes.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -144,6 +147,7 @@
           variantNames = _.without(variantNames, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['apartment']['unit_variant_id'] = variantNames.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -151,6 +155,7 @@
         'click @ui.status': function(e) {
           CommonFloor.defaults['common']['availability'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -159,6 +164,7 @@
           CommonFloor.defaults['common']['area_max'] = "";
           CommonFloor.defaults['common']['area_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -167,6 +173,7 @@
           CommonFloor.defaults['common']['price_max'] = "";
           CommonFloor.defaults['common']['price_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -175,6 +182,7 @@
           CommonFloor.defaults['common']['floor_max'] = "";
           CommonFloor.defaults['common']['floor_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -183,6 +191,7 @@
           CommonFloor.defaults['common']['floor_max'] = "";
           CommonFloor.defaults['common']['floor_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -193,6 +202,7 @@
           types = _.without(types, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['common']['facings'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -203,6 +213,7 @@
           types = _.without(types, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['common']['views'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -213,6 +224,7 @@
           flooring = _.without(flooring, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaultsfilterNew['flooring'] = flooring.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');

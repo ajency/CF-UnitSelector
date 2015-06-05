@@ -1182,7 +1182,8 @@
       temp = unitCollection.where(paramkey);
       unitCollection.reset(temp);
     }
-    return CommonFloor.applyFliterClass();
+    CommonFloor.applyFliterClass();
+    return CommonFloor.resetCollections();
   };
 
   CommonFloor.filterVillas = function() {
