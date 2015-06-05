@@ -348,15 +348,16 @@ CommonFloor.applyFliterClass = ()->
 		if CommonFloor.defaults['type']!= ""
 			types = CommonFloor.defaults['type'].split(',')
 		id = parseInt item.id
-		if $.inArray(id , filterbuildings) > -1 && ( ($.inArray('apartment',types) > -1) || apartmentVariantCollection.length != apartmentVariantMasterCollection.length )
-			setTimeout( ()->
-				$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0; stroke:#F68121; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
-			,Math.random() * 1000)
-			
-		else
-			setTimeout( ()->
-				$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
-			,Math.random() * 1000)
+		if $.inArray('villa',types) ==  -1 && $.inArray('plot',types) ==  -1
+			if $.inArray(id , filterbuildings) > -1 
+				setTimeout( ()->
+					$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0; stroke:#F68121; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
+				,Math.random() * 1000)
+				
+			else
+				setTimeout( ()->
+					$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
+				,Math.random() * 1000)
 
 CommonFloor.applyNonFilterClass = ()->
 	flag = 0
