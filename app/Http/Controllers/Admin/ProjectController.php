@@ -635,7 +635,7 @@ class ProjectController extends Controller {
                 }
             } elseif ('breakpoints' === $metaValues['meta_key']) {
                 $breakpoints = unserialize($metaValues['meta_value']);
-                if (empty($masterImages)) {
+                if (empty($breakpoints)) {
                     $errors['breakpoints'] = "Breakpoints Not Set Project Master Images";
                 }
             } else {
