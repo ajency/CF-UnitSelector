@@ -155,6 +155,7 @@
         'click @ui.status': function(e) {
           CommonFloor.defaults['common']['availability'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterNew();
           unitCollection.trigger('available');
           return this.trigger('render:view');

@@ -150,6 +150,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			$.each CommonFloor.defaults['common'],(index,value)->
 				CommonFloor.defaults['common'][index] = ""
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
@@ -171,6 +172,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			CommonFloor.defaults['apartment']['unit_type_id'] = window.unitTypes.join(',')
 			CommonFloor.defaults['step_three']['unit_type_id'] = window.unitTypes.join(',') 
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
@@ -186,6 +188,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			CommonFloor.defaults['apartment']['unit_variant_id'] = window.variantNames.join(',')
 			CommonFloor.defaults['step_three']['unit_variant_id'] = window.variantNames.join(',') 
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()	
 			unitTempCollection.trigger( "filter_available") 
@@ -196,6 +199,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			else
 				CommonFloor.defaults['common']['price_min'] = 0
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
@@ -207,6 +211,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			else
 				CommonFloor.defaults['common']['price_max'] = 999999900
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
@@ -219,6 +224,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			else
 				CommonFloor.defaults['common']['availability'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
@@ -229,6 +235,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			CommonFloor.defaults['common']['area_max'] = parseFloat $(e.target).val().split(';')[1]
 			CommonFloor.defaults['common']['area_min'] = parseFloat $(e.target).val().split(';')[0]
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
@@ -237,6 +244,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			CommonFloor.defaults['common']['price_max'] = parseFloat $(e.target).val().split(';')[1]
 			CommonFloor.defaults['common']['price_min'] = parseFloat $(e.target).val().split(';')[0]
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
@@ -245,6 +253,8 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			CommonFloor.defaults['common']['floor_max'] = parseFloat $(e.target).val().split(';')[1]
 			CommonFloor.defaults['common']['floor_min'] = parseFloat $(e.target).val().split(';')[0]
 			unitCollection.reset unitMasterCollection.toArray()
+
+			CommonFloor.resetCollections()
 			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
@@ -260,6 +270,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			# CommonFloor.defaults['type'] = 'apartment'
 			CommonFloor.defaults['apartment']['attributes'] = window.flooring.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
@@ -275,6 +286,8 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 				types = _.without types ,$(e.currentTarget).val()
 			types =   _.uniq types
 			CommonFloor.defaults['common']['views'] = types.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
@@ -291,6 +304,8 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 				types = _.without types ,$(e.currentTarget).val()
 			types =   _.uniq types
 			CommonFloor.defaults['common']['facings'] = types.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 

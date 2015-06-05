@@ -1069,7 +1069,7 @@ CommonFloor.filterStepNew = ()->
 		temp = unitCollection.where paramkey
 		unitCollection.reset temp
 	CommonFloor.applyFliterClass()
-	# CommonFloor.resetCollections()
+	CommonFloor.resetCollections()
 
 
 
