@@ -1199,9 +1199,8 @@
           temp = bunglowVariantCollection.getBunglowUnits();
         }
         attributes = CommonFloor.filterVillaAttributes(temp);
-        $.merge(temp, attributes);
-        unitCollection.reset(temp);
-        newColl.reset(temp);
+        unitCollection.reset(attributes);
+        newColl.reset(attributes);
       }
       if (value !== "" && index !== 'attributes') {
         param_val = value.split(',');
@@ -1220,7 +1219,6 @@
         return newColl.reset(temp);
       }
     });
-    console.log(newColl);
     return newColl.toArray();
   };
 
@@ -1239,7 +1237,6 @@
         }
       });
     });
-    console.log(flooring);
     return flooring;
   };
 
@@ -1257,9 +1254,8 @@
           temp = apartmentVariantCollection.getApartmentUnits();
         }
         attributes = CommonFloor.filterApartmentAttributes(temp);
-        $.merge(temp, attributes);
-        unitCollection.reset(temp);
-        newColl.reset(temp);
+        unitCollection.reset(attributes);
+        newColl.reset(attributes);
       }
       if (value !== "" && index !== 'attributes') {
         param_val = value.split(',');
@@ -1314,9 +1310,8 @@
           temp = plotVariantCollection.getPlotUnits();
         }
         attributes = CommonFloor.filterPlotAttributes(temp);
-        $.merge(temp, attributes);
-        unitCollection.reset(temp);
-        newColl.reset(temp);
+        unitCollection.reset(attributes);
+        newColl.reset(attributes);
       }
       if (value !== "" && index !== 'attributes') {
         param_val = value.split(',');
