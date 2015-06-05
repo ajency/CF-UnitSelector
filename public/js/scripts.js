@@ -639,7 +639,7 @@ $(document).ready(function () {
                 str += '</div>';
                 str += '</div>';
                 str += '<div class="col-md-3">';
-                str += (authtool=='1')?'<h5 class="semi-bold">To use the Authoring Tool<a href="#" class="text-primary"> click here</a></h5>':'';
+                str += (authtool=='1')?'<h5 class="semi-bold">To use the Authoring Tool<a href="image/'+fileResponse.data.media_id+'/authoring-tool?&type=google_earth" target="_blank" class="text-primary"> click here</a></h5>':'';
                 str += '</div>';
 
 
