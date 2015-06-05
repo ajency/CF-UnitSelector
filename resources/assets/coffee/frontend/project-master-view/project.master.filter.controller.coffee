@@ -85,7 +85,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		  {{#flooring}}
 		  <div class=""> <h6 class="unit_type_filter">{{label}}</h6> <div class="filter-chkbox-block">  
        		{{#value}}
-           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}"" data-type="villa" > 
+           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}" data-type="villa" > 
             <label for="{{id}}" class="-lbl">{{name}}</label> 
 		   {{/value}}
 		  </div>
@@ -115,7 +115,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		   {{#flooring}}
 		  <div class=""> <h6 class="unit_type_filter">{{label}}</h6> <div class="filter-chkbox-block">  
        		{{#value}}
-           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}"" data-type="apartment" > 
+           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}" data-type="apartment" > 
             <label for="{{id}}" class="-lbl">{{name}}</label> 
 		   {{/value}}
 		  </div>
@@ -147,7 +147,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		   {{#flooring}}
 		  <div class=""> <h6 class="unit_type_filter">{{label}}</h6> <div class="filter-chkbox-block">  
        		{{#value}}
-           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}"" data-type="plot" > 
+           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}" data-type="plot" > 
             <label for="{{id}}" class="-lbl">{{name}}</label> 
 		   {{/value}}
 		  </div>
@@ -891,13 +891,14 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 						'type'	: 'V'
 		if ! _.isUndefined project.get('filters').Villa
 			$.each project.get('filters').Villa , (index,value)->
-				temp = []
-				bunglowVariantMasterCollection.each (item)->
-					units = unitMasterCollection.where 
-								'unit_variant_id' : item.get('id')
-			
-					if units.length != 0
-						if value != 'unitTypes' && value!= 'unitVariantNames'
+				if value != 'unitTypes' && value!= 'unitVariantNames'
+					temp = []
+					bunglowVariantMasterCollection.each (item)->
+						units = unitMasterCollection.where 
+									'unit_variant_id' : item.get('id')
+				
+						if units.length != 0
+							
 							$.each item.get('variant_attributes') ,(ind,val)->
 								if ind == value && $.inArray(val,flooring) is -1 && val != ""
 									flooring.push val
@@ -907,11 +908,11 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 										'dataId' : s.replaceAll(val, " ", "_")
 										'classname' : 'attributes'
 										'label' : ind
-										type: 'P'
-				newtemp.push 
-					'label' : value.toUpperCase()
-					'value' : temp
-					'index' : value
+										type: 'V'
+					newtemp.push 
+						'label' : value.toUpperCase()
+						'value' : temp
+						'index' : value
 				
 					
 			unitsArr = bunglowVariantMasterCollection.getBunglowUnits()
@@ -973,23 +974,30 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 						'name'	: item.get 'unit_variant_name'
 						'type'	: type
 				
-				if ! _.isUndefined project.get('filters').Apartment
-					$.each project.get('filters').Apartment , (index,value)->
-						temp = []
-						$.each item.get('variant_attributes') ,(ind,val)->
-							if ind == value && $.inArray(val,flooring) is -1 && val != ""
-								flooring.push val
-								temp.push
-									'name' : val
-									'id' : 'apt'+s.replaceAll(val, " ", "_")
-									'dataId' : s.replaceAll(val, " ", "_")
-									'classname' : 'attributes'
-									'label' : ind
-									type: 'P'
-								newtemp.push 
-									'label' : ind.toUpperCase()
-									'value' : temp
-									'index' : ind
+		if ! _.isUndefined project.get('filters').Apartment
+			$.each project.get('filters').Apartment , (index,value)->
+				if value != 'unitTypes' && value!= 'unitVariantNames'
+					temp = []
+					apartmentVariantMasterCollection.each (item)->
+						units = unitMasterCollection.where 
+									'unit_variant_id' : item.get('id')
+				
+						if units.length != 0
+							
+							$.each item.get('variant_attributes') ,(ind,val)->
+								if ind == value && $.inArray(val,flooring) is -1 && val != ""
+									flooring.push val
+									temp.push
+										'name' : val
+										'id' : 'villa'+s.replaceAll(val, " ", "_")
+										'dataId' : s.replaceAll(val, " ", "_")
+										'classname' : 'attributes'
+										'label' : ind
+										type: 'A'
+					newtemp.push 
+						'label' : value.toUpperCase()
+						'value' : temp
+						'index' : value
 
 			
 				
@@ -1048,25 +1056,30 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 						'name'	: item.get 'unit_variant_name'
 						'type'	: 'P'
 
-				if ! _.isUndefined project.get('filters').Plot
-					$.each project.get('filters').Plot , (index,value)->
-						temp = []
-						$.each item.get('variant_attributes') ,(ind,val)->
-							if ind == value && $.inArray(val,flooring) is -1 && val != ""
-								flooring.push val
-								temp.push
-									'name' : val
-									'id' : 'plot'+s.replaceAll(val, " ", "_")
-									'dataId' : s.replaceAll(val, " ", "_")
-									'classname' : 'attributes'
-									'label' : ind
-									type: 'P'
-								
-								newtemp.push 
-									'label' : ind.toUpperCase()
-									'index' : ind
-									'value' : temp
-						
+		if ! _.isUndefined project.get('filters').Plot
+			$.each project.get('filters').Plot , (index,value)->
+				if value != 'unitTypes' && value!= 'unitVariantNames'
+					temp = []
+					plotVariantMasterCollection.each (item)->
+						units = unitMasterCollection.where 
+									'unit_variant_id' : item.get('id')
+				
+						if units.length != 0
+							
+							$.each item.get('variant_attributes') ,(ind,val)->
+								if ind == value && $.inArray(val,flooring) is -1 && val != ""
+									flooring.push val
+									temp.push
+										'name' : val
+										'id' : 'villa'+s.replaceAll(val, " ", "_")
+										'dataId' : s.replaceAll(val, " ", "_")
+										'classname' : 'attributes'
+										'label' : ind
+										type: 'A'
+					newtemp.push 
+						'label' : value.toUpperCase()
+						'value' : temp
+						'index' : value
 			
 			
 		unitsArr = plotVariantMasterCollection.getPlotUnits()
