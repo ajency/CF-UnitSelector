@@ -378,6 +378,7 @@
         <script type="text/javascript">
             svgImg = '{{$svgImage}}';
             types = '{{$supported_types}}';
+            is_project_marked = '{{$is_project_marked}}';
             supported_types = $('<div/>').html(types).text()
             breakpoint_position = '{{$breakpoint_position}}';
             svg_type = '{{$svg_type}}';

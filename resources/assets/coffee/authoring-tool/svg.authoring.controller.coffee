@@ -376,6 +376,10 @@ jQuery(document).ready ($)->
 
                 if response.data.primary_breakpoint isnt null
                     myObject['primary_breakpoint'] = response.data.primary_breakpoint
+
+                if svg_type is "google_earth"
+                    window.is_project_marked = true
+                
                 
                 window.svgData.data.push myObject
 
@@ -394,6 +398,12 @@ jQuery(document).ready ($)->
                 alert('Some problem occurred')
 
     window.loadForm = (type)->
+        propType = $('.property_type').val()
+        if (propType is 'project') and (window.is_project_marked)
+            $('.submit').attr 'disabled' ,  true
+        else 
+            $('.submit').attr 'disabled' ,  false
+
         @region =  new Marionette.Region el : '#dynamice-region'        
         
         if type is 'villa'
@@ -433,6 +443,14 @@ jQuery(document).ready ($)->
     window.loadProjectForm =->
         $('.property_type').val 'project'
         $('.property_type').attr 'disabled' ,  true 
+
+        propType = $('.property_type').val()
+
+        if (propType is 'project') and (window.is_project_marked)
+            $('.submit').attr 'disabled' ,  true
+        else 
+            $('.submit').attr 'disabled' ,  false
+
         region =  new Marionette.Region el : '#dynamice-region'
         new AuthoringTool.ProjectCtrl 
             'region' : region

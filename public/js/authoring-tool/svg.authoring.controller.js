@@ -333,6 +333,9 @@
           if (response.data.primary_breakpoint !== null) {
             myObject['primary_breakpoint'] = response.data.primary_breakpoint;
           }
+          if (svg_type === "google_earth") {
+            window.is_project_marked = true;
+          }
           window.svgData.data.push(myObject);
           draw.clear();
           types = window.getPendingObjects(window.svgData);
@@ -346,6 +349,13 @@
       });
     };
     window.loadForm = function(type) {
+      var propType;
+      propType = $('.property_type').val();
+      if ((propType === 'project') && window.is_project_marked) {
+        $('.submit').attr('disabled', true);
+      } else {
+        $('.submit').attr('disabled', false);
+      }
       this.region = new Marionette.Region({
         el: '#dynamice-region'
       });
@@ -398,9 +408,15 @@
       return $('.units').show();
     };
     window.loadProjectForm = function() {
-      var region;
+      var propType, region;
       $('.property_type').val('project');
       $('.property_type').attr('disabled', true);
+      propType = $('.property_type').val();
+      if ((propType === 'project') && window.is_project_marked) {
+        $('.submit').attr('disabled', true);
+      } else {
+        $('.submit').attr('disabled', false);
+      }
       region = new Marionette.Region({
         el: '#dynamice-region'
       });
