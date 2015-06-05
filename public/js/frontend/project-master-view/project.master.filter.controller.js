@@ -791,10 +791,10 @@
           if (!_.isUndefined(project.get('filters').Villa)) {
             $.each(project.get('filters').Villa, function(index, value) {
               temp = [];
-              return $.each(item.get('variant_attributes'), function(ind, val) {
+              $.each(item.get('variant_attributes'), function(ind, val) {
                 if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
                   flooring.push(val);
-                  temp.push({
+                  return temp.push({
                     'name': val,
                     'id': 'villa' + s.replaceAll(val, " ", "_"),
                     'dataId': s.replaceAll(val, " ", "_"),
@@ -802,12 +802,12 @@
                     'label': ind,
                     type: 'P'
                   });
-                  return newtemp.push({
-                    'label': ind.toUpperCase(),
-                    'value': temp,
-                    'index': ind
-                  });
                 }
+              });
+              return newtemp.push({
+                'label': ind.toUpperCase(),
+                'value': temp,
+                'index': ind
               });
             });
           }

@@ -902,10 +902,10 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 									'classname' : 'attributes'
 									'label' : ind
 									type: 'P'
-								newtemp.push 
-									'label' : ind.toUpperCase()
-									'value' : temp
-									'index' : ind
+						newtemp.push 
+							'label' : ind.toUpperCase()
+							'value' : temp
+							'index' : ind
 				
 					
 			unitsArr = bunglowVariantMasterCollection.getBunglowUnits()
