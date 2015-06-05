@@ -1087,6 +1087,8 @@ CommonFloor.filterVillas = ()->
 				temp = bunglowVariantCollection.getBunglowUnits()
 			attributes = CommonFloor.filterVillaAttributes(temp)
 			$.merge temp, attributes
+			unitCollection.reset temp
+			newColl.reset temp
 		if value != "" && index != 'attributes'
 			param_val  = value.split(',')
 			$.each param_val,(key,key_val)->
@@ -1099,6 +1101,7 @@ CommonFloor.filterVillas = ()->
 					$.merge temp, unitCollection.where paramkey
 			unitCollection.reset temp
 			newColl.reset temp
+	console.log newColl
 	newColl.toArray()	
 
 
@@ -1112,7 +1115,7 @@ CommonFloor.filterVillaAttributes = (temp)->
 		$.each attributes,(ind,val)->
 			if $.inArray(val, arr ) > -1
 				flooring.push value
-
+	console.log flooring
 	flooring	
 	
 
@@ -1128,6 +1131,8 @@ CommonFloor.filterApartments = ()->
 				temp = apartmentVariantCollection.getApartmentUnits()
 			attributes = CommonFloor.filterApartmentAttributes(temp)
 			$.merge temp, attributes
+			unitCollection.reset temp
+			newColl.reset temp
 		if value != "" && index != 'attributes'
 			param_val  = value.split(',')
 			$.each param_val,(key,key_val)->
@@ -1170,6 +1175,8 @@ CommonFloor.filterPlots = ()->
 				temp = plotVariantCollection.getPlotUnits()
 			attributes = CommonFloor.filterPlotAttributes(temp)
 			$.merge temp, attributes
+			unitCollection.reset temp
+			newColl.reset temp
 		if value != "" && index != 'attributes'
 			param_val  = value.split(',')
 			$.each param_val,(key,key_val)->

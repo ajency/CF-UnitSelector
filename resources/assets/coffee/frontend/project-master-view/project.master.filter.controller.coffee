@@ -909,10 +909,11 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 										'classname' : 'attributes'
 										'label' : ind
 										type: 'V'
-					newtemp.push 
-						'label' : value.toUpperCase()
-						'value' : temp
-						'index' : value
+					if temp.length != 0 
+						newtemp.push 
+							'label' : value.toUpperCase()
+							'value' : temp
+							'index' : value
 				
 					
 			unitsArr = bunglowVariantMasterCollection.getBunglowUnits()
@@ -994,10 +995,11 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 										'classname' : 'attributes'
 										'label' : ind
 										type: 'A'
-					newtemp.push 
-						'label' : value.toUpperCase()
-						'value' : temp
-						'index' : value
+					if temp.length != 0 
+						newtemp.push 
+							'label' : value.toUpperCase()
+							'value' : temp
+							'index' : value
 
 			
 				
@@ -1021,6 +1023,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 				$.each value,(ind,val)->
 					if $.inArray(val.index , project.get('filters').Apartment) ==  -1 
 						value[ind] = []
+
 		
 		filters
 
@@ -1076,10 +1079,11 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 										'classname' : 'attributes'
 										'label' : ind
 										type: 'A'
-					newtemp.push 
-						'label' : value.toUpperCase()
-						'value' : temp
-						'index' : value
+					if temp.length != 0 
+						newtemp.push 
+							'label' : value.toUpperCase()
+							'value' : temp
+							'index' : value
 			
 			
 		unitsArr = plotVariantMasterCollection.getPlotUnits()
