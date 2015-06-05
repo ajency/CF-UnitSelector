@@ -792,8 +792,8 @@
             $.each(project.get('filters').Villa, function(index, value) {
               temp = [];
               return $.each(item.get('variant_attributes'), function(ind, val) {
-                if (ind === value && $.inArray(value, flooring) === -1 && val !== "") {
-                  flooring.push(value);
+                if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
+                  flooring.push(val);
                   temp.push({
                     'name': val,
                     'id': 'villa' + s.replaceAll(val, " ", "_"),
@@ -884,8 +884,8 @@
             return $.each(project.get('filters').Apartment, function(index, value) {
               temp = [];
               return $.each(item.get('variant_attributes'), function(ind, val) {
-                if (ind === value && $.inArray(value, flooring) === -1 && val !== "") {
-                  flooring.push(value);
+                if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
+                  flooring.push(val);
                   temp.push({
                     'name': val,
                     'id': 'apt' + s.replaceAll(val, " ", "_"),
@@ -972,8 +972,8 @@
             return $.each(project.get('filters').Plot, function(index, value) {
               temp = [];
               return $.each(item.get('variant_attributes'), function(ind, val) {
-                if (ind === value && $.inArray(value, flooring) === -1 && val !== "") {
-                  flooring.push(value);
+                if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
+                  flooring.push(val);
                   temp.push({
                     'name': val,
                     'id': 'plot' + s.replaceAll(val, " ", "_"),

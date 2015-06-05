@@ -893,8 +893,8 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 					$.each project.get('filters').Villa , (index,value)->
 						temp = []
 						$.each item.get('variant_attributes') ,(ind,val)->
-							if ind == value && $.inArray(value,flooring) is -1 && val != ""
-								flooring.push value
+							if ind == value && $.inArray(val,flooring) is -1 && val != ""
+								flooring.push val
 								temp.push
 									'name' : val
 									'id' : 'villa'+s.replaceAll(val, " ", "_")
@@ -971,8 +971,8 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 					$.each project.get('filters').Apartment , (index,value)->
 						temp = []
 						$.each item.get('variant_attributes') ,(ind,val)->
-							if ind == value && $.inArray(value,flooring) is -1 && val != ""
-								flooring.push value
+							if ind == value && $.inArray(val,flooring) is -1 && val != ""
+								flooring.push val
 								temp.push
 									'name' : val
 									'id' : 'apt'+s.replaceAll(val, " ", "_")
@@ -1046,8 +1046,8 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 					$.each project.get('filters').Plot , (index,value)->
 						temp = []
 						$.each item.get('variant_attributes') ,(ind,val)->
-							if ind == value && $.inArray(value,flooring) is -1 && val != ""
-								flooring.push value
+							if ind == value && $.inArray(val,flooring) is -1 && val != ""
+								flooring.push val
 								temp.push
 									'name' : val
 									'id' : 'plot'+s.replaceAll(val, " ", "_")
