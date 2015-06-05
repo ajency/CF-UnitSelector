@@ -49,6 +49,10 @@
       width: 115px;
     }
 
+    .total-count {
+      font-size: 12px;
+    }    
+
 </style>
 </head>
 

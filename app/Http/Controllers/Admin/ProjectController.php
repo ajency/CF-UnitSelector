@@ -678,7 +678,9 @@ class ProjectController extends Controller {
                 $units = array_merge($units,$buildingUnits);
             }
             
-           
+           if (empty($units)) {
+            $errors['units'] = "No Units Created";
+            }
 
             foreach ($units as $unit) {
                 $variantId = $unit['unit_variant_id'];
