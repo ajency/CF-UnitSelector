@@ -239,8 +239,10 @@
                 </tr>
             </thead>
             <tbody>
-                
-                @foreach($building['breakpoints'] as $breakpoint)
+                <?php
+                $breakpoints = (!empty($building['breakpoints']))?unserialize($building['breakpoints']):[];
+                ?>
+                @foreach($breakpoints as $breakpoint)
                 <tr>
                     <td>{{ $breakpoint }}</td>
                     <td>{{ $buildingbreakPointSvgData[$building['id']][$breakpoint]['MARKED'] }}</td>
