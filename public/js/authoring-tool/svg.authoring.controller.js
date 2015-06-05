@@ -650,7 +650,7 @@
     });
     $('[rel=\'popover\']').popover({
       html: 'true',
-      content: '<div id="popOverBox"> <ul class="list-inline"> <li><div class="marker-elem marker1 concentric-marker"></div></li> <li><div class="marker-elem marker2 solid-marker"></div></li> <li><div class="marker-elem marker3 earth-location-marker"></div></li> </ul> </div>'
+      content: '<div id="popOverBox"> <ul class="list-inline"> <li><div class="marker-elem marker1 concentric-marker"></div></li> <li><div class="marker-elem marker2 solid-marker"></div></li> <li class="google-earth-li hidden"><div class="marker-elem marker3 earth-location-marker"></div></li> </ul> </div>'
     }).parent().on('click', '#popOverBox .marker-elem', function(evt) {
       var currentElem, markerType;
       window.EDITMODE = true;
@@ -673,6 +673,13 @@
       $('.property_type').attr('disabled', false);
       $('[rel=\'popover\']').popover('hide');
       return window.drawDefaultMarker(markerType);
+    });
+    $('[rel=\'popover\']').on('click', function(e) {
+      var google_earth_li;
+      if (svg_type === "google_earth") {
+        google_earth_li = $('.google-earth-li').removeClass('hidden');
+        return $('.popover-content').css("width", "163px");
+      }
     });
     $('.select-polygon').on('click', function(e) {
       e.preventDefault();

@@ -46,7 +46,7 @@
         
     }
     .popover-content {
-      width: 163px;
+      width: 115px;
     }
 
 </style>
