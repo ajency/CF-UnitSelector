@@ -642,6 +642,12 @@ class ProjectController extends Controller {
                 $googleEarth = $metaValues['meta_value'];
                 if (empty($googleEarth)) {
                     $errors['google_earth'] = "Google Earth Image Not Found";
+                    
+                    $googleEarthAuthtool = SvgController :: isGoogleSvgMarked($googleEarth); 
+                    if (!$googleEarthAuthtool) {
+                        $errors['googleearthauthtool'] = "Pending SVG Authoring For Google Earth Image";
+                    }
+
                 }
             }
         }
@@ -656,11 +662,7 @@ class ProjectController extends Controller {
         }
         
  
-        $googleEarthAuthtool = SvgController :: isGoogleSvgMarked($projectMeta); 
-        if (!$googleEarthAuthtool) {
-            $errors['googleearthauthtool'] = "Pending SVG Authoring For Google Earth Image";
-        }
-
+        
         foreach ($phases as $phase) {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
