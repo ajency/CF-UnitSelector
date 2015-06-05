@@ -758,7 +758,7 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 				'id' : val
 				'name' : val
 
-		facings = ['North' , 'South' ,'East' , 'West' , 'North-east','Norht-west','South-East','South-West']						
+		facings = ['North' , 'South' ,'East' , 'West' , 'North-East','Norht-West','South-East','South-West']						
 
 		$.each facings , (ind,val)->
 			facingsArr.push

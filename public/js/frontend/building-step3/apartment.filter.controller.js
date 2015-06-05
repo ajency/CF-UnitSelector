@@ -636,7 +636,7 @@
           'name': val
         });
       });
-      facings = ['North', 'South', 'East', 'West', 'North-east', 'Norht-west', 'South-East', 'South-West'];
+      facings = ['North', 'South', 'East', 'West', 'North-East', 'Norht-West', 'South-East', 'South-West'];
       $.each(facings, function(ind, val) {
         return facingsArr.push({
           'id': val,
