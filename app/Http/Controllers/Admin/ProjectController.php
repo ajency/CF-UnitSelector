@@ -336,7 +336,7 @@ class ProjectController extends Controller {
                 $buildingUnits = $buildingData->projectUnits()->get()->toArray();
                 $buildingMediaIds= $building['building_master'];
             
-                $buildingbreakPoint = unserialize($building['breakpoints']) ; 
+                $buildingbreakPoint = (!empty($data['breakpoints']))?unserialize($data['breakpoints']):[];
                  foreach($buildingMediaIds as $position => $buildingMediaId) {
                     if($buildingMediaId!="")
                     {
