@@ -114,8 +114,12 @@
       units = unitCollection.where({
         'building_id': building_id
       });
-      unitsFloor = _.sortBy(units, 'floor');
-      unitsPosition = _.sortBy(unitsFloor, 'position');
+      unitsFloor = _.sortBy(units, function(num) {
+        return num.get('floor');
+      });
+      unitsPosition = _.sortBy(unitsFloor, function(num) {
+        return num.get('position');
+      });
       return units;
     };
 
