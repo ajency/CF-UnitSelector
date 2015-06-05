@@ -642,13 +642,15 @@ class ProjectController extends Controller {
                 $googleEarth = $metaValues['meta_value'];
                 if (empty($googleEarth)) {
                     $errors['google_earth'] = "Google Earth Image Not Found";
-                    
+                
+                }
+                else{
                     $googleEarthAuthtool = SvgController :: isGoogleSvgMarked($googleEarth); 
                     if (!$googleEarthAuthtool) {
                         $errors['googleearthauthtool'] = "Pending SVG Authoring For Google Earth Image";
                     }
-
                 }
+
             }
         }
 
