@@ -128,7 +128,11 @@
           CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           previousRoute = CommonFloor.router.previous();
-          return CommonFloor.navigate('#/master-view', true);
+          if (Object.keys(project.get('project_master')).length === 0) {
+            return CommonFloor.navigate('/list-view', true);
+          } else {
+            return CommonFloor.navigate('/master-view', true);
+          }
         },
         'click @ui.unitTypes': function(e) {
           var unitTypes;

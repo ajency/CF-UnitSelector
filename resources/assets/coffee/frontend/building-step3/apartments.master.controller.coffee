@@ -160,7 +160,10 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			CommonFloor.resetCollections()
 			CommonFloor.filterStepNew()
 			previousRoute = CommonFloor.router.previous()
-			CommonFloor.navigate '#/master-view' , true
+			if Object.keys(project.get('project_master')).length == 0
+				CommonFloor.navigate '/list-view' , true	
+			else
+				CommonFloor.navigate '/master-view' , true	
 
 		'click @ui.unitTypes':(e)->
 			unitTypes = CommonFloor.defaults['apartment']['unit_type_id'].split(',')
