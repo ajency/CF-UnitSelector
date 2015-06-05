@@ -343,7 +343,7 @@ class CenterUnitView extends Marionette.ItemView
 											<li class="gallery">
 												<h4 class="title">Gallery</h4>
 											</li>
-											<li class="master">
+											<li class="master hidden">
 												<h4 class="title">Position</h4>
 											</li>
 											<li class="booking">
@@ -1700,6 +1700,7 @@ class CenterUnitView extends Marionette.ItemView
 		
 
 	loadMaster:->
+		$('.master').removeClass 'hidden'
 		url = Backbone.history.fragment
 		id = url.split('/')[1]
 		unit = unitCollection.findWhere
