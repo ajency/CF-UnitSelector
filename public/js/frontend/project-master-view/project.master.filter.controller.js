@@ -809,7 +809,7 @@
                       'dataId': s.replaceAll(val, " ", "_"),
                       'classname': 'attributes',
                       'label': ind,
-                      type: 'P'
+                      type: 'V'
                     });
                   }
                 });
@@ -885,36 +885,46 @@
             });
           }
           unitVariants.push(item.get('super_built_up_area'));
-          unitVariantNames.push({
+          return unitVariantNames.push({
             'id': item.get('id'),
             'name': item.get('unit_variant_name'),
             'type': type
           });
-          if (!_.isUndefined(project.get('filters').Apartment)) {
-            return $.each(project.get('filters').Apartment, function(index, value) {
-              temp = [];
-              return $.each(item.get('variant_attributes'), function(ind, val) {
-                if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
-                  flooring.push(val);
-                  temp.push({
-                    'name': val,
-                    'id': 'apt' + s.replaceAll(val, " ", "_"),
-                    'dataId': s.replaceAll(val, " ", "_"),
-                    'classname': 'attributes',
-                    'label': ind,
-                    type: 'P'
-                  });
-                  return newtemp.push({
-                    'label': ind.toUpperCase(),
-                    'value': temp,
-                    'index': ind
-                  });
-                }
-              });
-            });
-          }
         }
       });
+      if (!_.isUndefined(project.get('filters').Apartment)) {
+        $.each(project.get('filters').Apartment, function(index, value) {
+          if (value !== 'unitTypes' && value !== 'unitVariantNames') {
+            temp = [];
+            apartmentVariantMasterCollection.each(function(item) {
+              var units;
+              units = unitMasterCollection.where({
+                'unit_variant_id': item.get('id')
+              });
+              if (units.length !== 0) {
+                return $.each(item.get('variant_attributes'), function(ind, val) {
+                  if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
+                    flooring.push(val);
+                    return temp.push({
+                      'name': val,
+                      'id': 'villa' + s.replaceAll(val, " ", "_"),
+                      'dataId': s.replaceAll(val, " ", "_"),
+                      'classname': 'attributes',
+                      'label': ind,
+                      type: 'A'
+                    });
+                  }
+                });
+              }
+            });
+            return newtemp.push({
+              'label': value.toUpperCase(),
+              'value': temp,
+              'index': value
+            });
+          }
+        });
+      }
       unitsArr = apartmentVariantMasterCollection.getApartmentUnits();
       $.each(unitsArr, function(index, value) {
         var unitDetails;
@@ -973,36 +983,46 @@
             });
           }
           unitVariants.push(item.get('size'));
-          unitVariantNames.push({
+          return unitVariantNames.push({
             'id': item.get('id'),
             'name': item.get('unit_variant_name'),
             'type': 'P'
           });
-          if (!_.isUndefined(project.get('filters').Plot)) {
-            return $.each(project.get('filters').Plot, function(index, value) {
-              temp = [];
-              return $.each(item.get('variant_attributes'), function(ind, val) {
-                if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
-                  flooring.push(val);
-                  temp.push({
-                    'name': val,
-                    'id': 'plot' + s.replaceAll(val, " ", "_"),
-                    'dataId': s.replaceAll(val, " ", "_"),
-                    'classname': 'attributes',
-                    'label': ind,
-                    type: 'P'
-                  });
-                  return newtemp.push({
-                    'label': ind.toUpperCase(),
-                    'index': ind,
-                    'value': temp
-                  });
-                }
-              });
-            });
-          }
         }
       });
+      if (!_.isUndefined(project.get('filters').Plot)) {
+        $.each(project.get('filters').Plot, function(index, value) {
+          if (value !== 'unitTypes' && value !== 'unitVariantNames') {
+            temp = [];
+            plotVariantMasterCollection.each(function(item) {
+              var units;
+              units = unitMasterCollection.where({
+                'unit_variant_id': item.get('id')
+              });
+              if (units.length !== 0) {
+                return $.each(item.get('variant_attributes'), function(ind, val) {
+                  if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
+                    flooring.push(val);
+                    return temp.push({
+                      'name': val,
+                      'id': 'villa' + s.replaceAll(val, " ", "_"),
+                      'dataId': s.replaceAll(val, " ", "_"),
+                      'classname': 'attributes',
+                      'label': ind,
+                      type: 'A'
+                    });
+                  }
+                });
+              }
+            });
+            return newtemp.push({
+              'label': value.toUpperCase(),
+              'value': temp,
+              'index': value
+            });
+          }
+        });
+      }
       unitsArr = plotVariantMasterCollection.getPlotUnits();
       $.each(unitsArr, function(index, value) {
         var unitDetails;
