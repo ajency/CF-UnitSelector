@@ -329,7 +329,7 @@ class ApartmentsView extends Marionette.ItemView
 
 	template : Handlebars.compile('<li class="unit blocks {{status}}">
 					                    <div class="bldg-img"></div>
-					                     <div class="{{type}} pull-left icon"></div>	
+					                     <div class="{{type}}-ico pull-left icon"></div>	
 					                   <div class="pull-left bldg-info">
 					                    <div class="info">
 					                      <label>{{unit_name}} (Floor - {{floor}} )</label>
