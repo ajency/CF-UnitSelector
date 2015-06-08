@@ -77,10 +77,15 @@ class UserController extends Controller {
         
         $data = $this->emailTemplate($name,$email,$password); 
         
-        $headers = 'From: CommonFloor Unit Selector noreply@commonfloor.com' . "\r\n" .
-            'Reply-To: noreply@commonfloor.com' . "\r\n" .
-            'X-Mailer: PHP/' . phpversion();
+ 
+        // To send HTML mail, the Content-type header must be set
+        $headers  = 'MIME-Version: 1.0' . "\r\n";
+        $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
+        // Additional headers
+        $headers .= 'From: CommonFloor Unit Selector <noreply@commonfloor.com>' . "\r\n";
+        $headers .= 'Reply-To: noreply@commonfloor.com' . "\r\n";
+ 
 
          mail($email,"Welcome to CommonFloor Unit Selector!",$data, $headers);
          
