@@ -7,6 +7,9 @@ use CommonFloor\Gateways\ProjectGatewayInterface;
 use CommonFloor\ProjectJson;
 use CommonFloor\Unit;
 use CommonFloor\Project;
+use CommonFloor\UnitVariant;
+use CommonFloor\UnitType;
+use CommonFloor\Building;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use \Input;
@@ -237,6 +240,100 @@ class ProjectController extends Controller {
         return response()->json( $json_resp, $status_code);
     }  
 
-    public function   
+    public function getUnit($projectId, $unitId, Request $request) {
+
+        $response_data = array();
+
+        // default response and code
+        $json_resp = array(
+            'code' => 'unit_summary_not_fetched' , 
+            'message' => 'Unit summary not fetched',
+            'data' => $response_data
+            );
+        $status_code = 400;
+
+        $getVar = Input::get();  
+
+        // UNIT DATA
+        $unit = Unit::find($unitId);
+        
+
+        // if unit not found
+        if (is_null($unit)) {
+            $json_resp = array(
+                'code' => 'unit_not_found' , 
+                'message' => 'Unit not found',
+                'data' => $response_data
+                );
+            $status_code = 404;
+        }
+        else{
+            // get unit summary
+            $response_data['unit'] = array(
+                                        'id'=>$unit->id,
+                                        'name'=>$unit->unit_name,
+                                        'position'=>$unit->position,
+                                        'floor_number'=>$unit->floor,
+                                        'status'=>$unit->availability,
+                                     );
+            // project id, project name, building id, building name, floor number, unit name, super built, built up, carpet, price per sq ft.
+
+            // get building data if set
+            $building_id = $unit->building_id;
+
+            if ($building_id!= 0) {
+                // BUILDING DATA
+                $building = Building::find($building_id);
+                $response_data['building'] =  array(
+                                                'id' => $building->id,
+                                                'name' => $building->building_name,  
+                                                'no_of_floors' => $building->no_of_floors, 
+                                              );
+                
+            }else{
+                $response_data['building'] = array();
+            }
+
+            // get units variant data
+            $unit_variant_id = $unit->unit_variant_id;
+            
+            // UNIT VARIANT DATA
+            $unit_variant = UnitVariant::find($unit_variant_id);
+            $response_data['unit']['carpet_area'] = $unit_variant->carpet_area;
+            $response_data['unit']['built_up_area'] = $unit_variant->built_up_area;
+            $response_data['unit']['super_built_up_area'] = $unit_variant->super_built_up_area;
+            $response_data['unit']['per_sq_ft_price'] = $unit_variant->per_sq_ft_price;
+            $response_data['unit']['size'] = $unit_variant->size;
+
+            // get unit type data associated to the unit, query unitType table having id = unit_type_id of the above unit_variant
+
+            $unitType = $unit_variant->unitType()->first();
+            $unitTypeId = $unitType->id;
+
+
+            // get the corresponding property type data associated to the unittypeId
+            $unitType = UnitType::find($unitTypeId);
+            $project_property_type = $unitType->projectPropertyType()->first();
+            $project_id = $project_property_type->project_id;
+            
+            // PROJECT DATA
+            $project = Project::find($project_id);
+            $response_data['project_id'] = $project->id;
+            $response_data['cf_project_id'] = $project->cf_project_id;
+            $response_data['project_title'] = $project->project_title;
+            $response_data['measurement_units'] = $project->measurement_units;
+
+            $json_resp = array(
+                'code' => 'unit_summary' , 
+                'message' => 'Unit Summary',
+                'data' => $response_data
+                );
+            $status_code = 200;            
+
+        }
+
+        return response()->json( $json_resp, $status_code);
+
+    }
 
 }
