@@ -15,7 +15,7 @@ svg {
   width: 100%;
   height: auto;
   transform: translateZ(0);
-  /*	polygon {
+  /*polygon {
 	  	transform: rotateY(-180deg) scale(0);
 	  	transition: all 0.4s cubic-bezier(0.59, 0.72, 0.375, 1.65);
 	  	transform-origin: center;
@@ -139,6 +139,7 @@ svg .no-fill {
   stroke: #FF7E00;
   fill: rgba(246, 129, 33, 0.39);
   stroke-dasharray: 0 !important;
+  cursor: pointer;
 }
 .marker-area {
   cursor: default;
@@ -257,7 +258,7 @@ svg .no-fill {
 @keyframes blink {
   0% {
     fill: #F68121 !important;
-    opacity: 0.5;
+    opacity: 0.8;
   }
   50% {
     fill: #F68121 !important;
@@ -265,13 +266,13 @@ svg .no-fill {
   }
   100% {
     fill: #F68121 !important;
-    opacity: 0.5;
+    opacity: 0.8;
   }
 }
 @-moz-keyframes blink {
   0% {
     fill: #F68121 !important;
-    opacity: 0.5;
+    opacity: 0.8;
   }
   50% {
     fill: #F68121 !important;
@@ -279,7 +280,7 @@ svg .no-fill {
   }
   100% {
     fill: #F68121 !important;
-    opacity: 0.5;
+    opacity: 0.8;
   }
 }
 @-webkit-keyframes blink {

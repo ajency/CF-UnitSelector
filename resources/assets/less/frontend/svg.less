@@ -3,12 +3,12 @@ svg {
 	height: auto;
 	transform: translateZ(0);
 
-  	polygon {
+  	/*polygon {
 	  	transform: rotateY(-180deg) scale(0);
 	  	transition: all 0.4s cubic-bezier(0.59, 0.72, 0.375, 1.65);
 	  	transform-origin: center;
 	  	-moz-transform-origin: 0 0;
-  	}
+  	}*/
 
 	.caption{
 		font-size: 14px;
@@ -115,8 +115,8 @@ svg {
 	}
 	.available, .building {
 	  	// fill: rgba(204, 204, 204, 0);
-	  	opacity: 1;
-	  	fill-opacity: 0;
+	  	opacity: 0.9;
+	  	fill-opacity: 0.2;
 	  	// fill: @white;
 	  	stroke: #000;
 	  	stroke-width: 1px;
@@ -160,11 +160,21 @@ svg {
 		opacity:0.6;
 	}
 	polygon{
-		.ease;
-	}	 
+		/*.ease;*/
+	}
+	.no-fill{
+		opacity: 0;
+	}
 	
 }
 
+.amenity {
+	 stroke-width: 1 !important;
+	 stroke: #FF7E00;
+	 fill: rgba(246, 129, 33, 0.39);
+	 stroke-dasharray: 0 !important;
+	 cursor: pointer;
+}
 
 .marker{
 	// cursor: pointer;
@@ -306,7 +316,7 @@ svg {
 @keyframes blink {  
     0% {	
     	fill:#F68121 !important; 
-    	opacity: 1; 
+    	opacity: 0.8; 
    }
     50% {
     	fill:#F68121 !important; 
@@ -314,14 +324,14 @@ svg {
      }
     100% 
     {	fill:#F68121 !important; 
-    	opacity: 1;
+    	opacity: 0.8;
      }
 }
 
 @-moz-keyframes blink {  
     0% {	
     	fill:#F68121 !important; 
-    	opacity: 1; 
+    	opacity: 0.8; 
    }
     50% {
     	fill:#F68121 !important; 
@@ -329,14 +339,14 @@ svg {
      }
     100% 
     {	fill:#F68121 !important; 
-    	opacity: 1;
+    	opacity: 0.8;
      }
 }
 
 @-webkit-keyframes blink {  
     0% {	
     	fill:#F68121 !important; 
-    	opacity: 1; 
+    	opacity: 0.8; 
    }
     50% {
     	fill:#F68121 !important; 
@@ -344,7 +354,7 @@ svg {
      }
     100% 
     {	fill:#F68121 !important; 
-    	opacity: 1;
+    	opacity: 0.8;
      }
 }
 
