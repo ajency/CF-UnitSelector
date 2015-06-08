@@ -99,6 +99,15 @@ Route::group( ['prefix' => 'api/v1'], function() {
 } );
 
 /**
+ * REST API routes
+ */
+Route::group( ['prefix' => 'api/v2'], function() {
+    Route::post( 'project/{id}/unit/{unit_id}', 'Rest\ProjectController@updateUnit' );
+    Route::get( 'project/{id}/unit/{unit_id}', 'Rest\ProjectController@getUnit' );
+    Route::get( 'get-project-url', 'Rest\ProjectController@getCfProjectUrl' );
+} );
+
+/**
  * Service bindings
  */
 App::bind( 'CommonFloor\Gateways\ProjectGatewayInterface', 'CommonFloor\Gateways\ProjectGateway' );

@@ -5,7 +5,10 @@ namespace CommonFloor\Http\Controllers\Rest;
 use CommonFloor\Http\Controllers\Controller;
 use CommonFloor\Gateways\ProjectGatewayInterface;
 use CommonFloor\ProjectJson;
+use CommonFloor\Unit;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use \Input;
 
 class ProjectController extends Controller {
 
@@ -95,6 +98,77 @@ class ProjectController extends Controller {
                             'code' => '',
                             'message' => 'Project json updated successfully'
                     ], 203 );
+    }
+
+    public function updateUnit($projectId, $unitId,Request $request){
+
+        // possible unit status
+        $possible_status = array('available','sold','not_released','blocked','archived');
+        
+        // if status data passed then update
+        if (isset($request['status'])) {
+
+            // if wrong status string is passed
+            if (!in_array($request['status'], $possible_status)) {
+                $json_resp = array(
+                                'code' => 'incorrect_status_type' , 
+                                'message' => 'New status is incorrect'
+                                );
+                $status_code = 400;                
+
+            }
+            else{
+                $unit = Unit::find($unitId);
+
+                // if unit is not present
+                if (is_null($unit)) {
+                    $json_resp = array(
+                        'code' => 'unit_not_found' , 
+                        'message' => 'Unit not found',
+                        'data' => array()
+                        );
+                    $status_code = 404;
+                }
+                else{
+                    // if unit is present
+                    $unit->availability = $request['status'];
+                    $updateUnit = $unit->save();
+
+                    if ($updateUnit) {
+                        $json_resp = array(
+                            'code' => 'status_updated' , 
+                            'message' => 'Unit status updated',
+                            'data' => array('unit_id' => $unit->id  )
+                            );
+                        $status_code = 201; 
+                    }else{
+                        $json_resp = array(
+                            'code' => 'status_not_updated' , 
+                            'message' => 'Unit status not updated',
+                            'data' => array('unit_id' => $unit->id  )
+                            );
+                        $status_code = 500; 
+                    }
+
+                }
+               
+            }
+
+        }
+        else{
+            // if status not passed
+            $json_resp = array(
+                'code' => 'status_not_passed' , 
+                'message' => 'New Unit status not passed',
+                'data' => array()
+                );
+            $status_code = 400;
+        }
+
+
+        return response()->json( $json_resp, $status_code);        
+
+
     }
  
 }
