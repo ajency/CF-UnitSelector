@@ -196,8 +196,7 @@ class UserController extends Controller {
             $msg = 'User Email Already Taken';
             $flag =false;
         }
-        
-         
+                
         return response()->json([
                     'code' => 'user_email_validation',
                     'message' => $msg,
