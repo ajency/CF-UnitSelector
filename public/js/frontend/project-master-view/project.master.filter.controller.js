@@ -836,7 +836,7 @@
             }
           }
         });
-        unitsArr = bunglowVariantMasterCollection.getBunglowUnits();
+        unitsArr = bunglowVariantMasterCollection.getBunglowMasterUnits();
         $.each(unitsArr, function(index, value) {
           var unitDetails;
           unitDetails = window.unit.getUnitDetails(value.id);
@@ -941,7 +941,7 @@
           }
         });
       }
-      unitsArr = apartmentVariantMasterCollection.getApartmentUnits();
+      unitsArr = apartmentVariantMasterCollection.getApartmentMasterUnits();
       $.each(unitsArr, function(index, value) {
         var unitDetails;
         unitDetails = window.unit.getUnitDetails(value.id);
@@ -1041,7 +1041,7 @@
           }
         });
       }
-      unitsArr = plotVariantMasterCollection.getPlotUnits();
+      unitsArr = plotVariantMasterCollection.getPlotMasterUnits();
       $.each(unitsArr, function(index, value) {
         var unitDetails;
         unitDetails = window.unit.getUnitDetails(value.id);

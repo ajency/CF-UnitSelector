@@ -261,7 +261,7 @@
     };
 
     FilterApartmentView.prototype.onShow = function() {
-      var area, budget, building_id, facings, floor, max, min, priceMax, priceMin, subArea, subBudget, unitVariants, units, url, views;
+      var area, budget, building_id, floor, max, min, priceMax, priceMin, sub, subArea, subBudget, submax, submin, units, url;
       this.loadSelectedFilters();
       $('.filters-content').mCustomScrollbar({
         theme: 'cf-scroll'
@@ -283,36 +283,93 @@
         return area.push(parseFloat(unitDetails[0].get('super_built_up_area')));
       });
       min = _.min(area);
+      submin = min % 5;
+      min = min - submin;
       max = _.max(area);
+      submax = max % 5;
+      max = max - submax;
       subArea = (max - min) / 20;
       subArea = subArea.toFixed(0);
+      sub = subArea % 5;
+      subArea = subArea - sub;
       priceMin = _.min(budget);
       priceMax = _.max(budget);
       subBudget = (priceMax - priceMin) / 20;
       subBudget = subBudget.toFixed(0);
-      $("#area").ionRangeSlider({
-        type: "double",
-        min: min,
-        max: max,
-        step: subArea,
-        grid: false
-      });
-      $("#budget").ionRangeSlider({
-        type: "double",
-        min: priceMin,
-        max: priceMax,
-        grid: false,
-        step: subBudget,
-        prettify: function(num) {
-          return window.numDifferentiation(num);
-        }
-      });
+      if (CommonFloor.defaults['common']['area_min'] !== "") {
+        $("#area").ionRangeSlider({
+          type: "double",
+          min: min,
+          max: max,
+          from: CommonFloor.defaults['common']['area_min']
+        }, {
+          to: CommonFloor.defaults['common']['area_max']
+        }, {
+          step: subArea,
+          grid: false
+        });
+      } else {
+        $("#area").ionRangeSlider({
+          type: "double",
+          min: min,
+          max: max,
+          step: subArea,
+          grid: false
+        });
+      }
+      if (CommonFloor.defaults['common']['price_min'] !== "") {
+        $("#budget").ionRangeSlider({
+          type: "double",
+          min: priceMin,
+          max: priceMax,
+          from: CommonFloor.defaults['common']['price_min'],
+          to: CommonFloor.defaults['common']['price_max'],
+          grid: false,
+          step: subBudget,
+          prettify: function(num) {
+            return window.numDifferentiation(num);
+          }
+        });
+      } else {
+        $("#budget").ionRangeSlider({
+          type: "double",
+          min: priceMin,
+          max: priceMax,
+          grid: false,
+          step: subBudget,
+          prettify: function(num) {
+            return window.numDifferentiation(num);
+          }
+        });
+      }
       $("#floor").ionRangeSlider({
         type: "double",
         min: 1,
         max: floor.get('no_of_floors'),
         grid: false
       });
+      if (CommonFloor.defaults['common']['floor_min'] !== "") {
+        $("#budget").ionRangeSlider({
+          type: "double",
+          min: 1,
+          max: floor.get('no_of_floors'),
+          from: CommonFloor.defaults['common']['floor_min'],
+          to: CommonFloor.defaults['common']['floor_max'],
+          grid: false
+        });
+      } else {
+        $("#budget").ionRangeSlider({
+          type: "double",
+          min: 1,
+          max: floor.get('no_of_floors'),
+          grid: false
+        });
+      }
+      return this.hideLabels();
+    };
+
+    FilterApartmentView.prototype.hideLabels = function() {
+      var budget, facings, unitVariants, views;
       if (Marionette.getOption(this, 'flooring').length === 0) {
         $('.flooring_filter').hide();
       }
@@ -341,7 +398,7 @@
     };
 
     FilterApartmentView.prototype.loadClearFilters = function() {
-      var area, budget, building_id, floor, max, min, priceMax, priceMin, subArea, subBudget, url;
+      var area, budget, building_id, floor, max, min, priceMax, priceMin, sub, subArea, subBudget, submax, submin, url;
       budget = [];
       area = [];
       url = Backbone.history.fragment;
@@ -356,9 +413,15 @@
         return area.push(parseFloat(unitDetails[0].get('super_built_up_area')));
       });
       min = _.min(area);
+      submin = min % 5;
+      min = min - submin;
       max = _.max(area);
+      submax = max % 5;
+      max = max - submax;
       subArea = (max - min) / 20;
       subArea = subArea.toFixed(0);
+      sub = subArea % 5;
+      subArea = subArea - sub;
       priceMin = _.min(budget);
       priceMax = _.max(budget);
       subBudget = (priceMax - priceMin) / 20;
@@ -588,7 +651,7 @@
           }
         }
       });
-      unitsArr = apartmentVariantMasterCollection.getApartmentUnits();
+      unitsArr = apartmentVariantMasterCollection.getApartmentMasterUnits();
       $.each(unitsArr, function(index, value) {
         var unitDetails;
         unitDetails = window.unit.getUnitDetails(value.id);
