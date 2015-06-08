@@ -634,7 +634,7 @@ class ProjectController extends Controller {
                 if(empty($unitVariants))
                 { 
                     $unitTypeName = Defaults::find($unitType['unittype_name'])->label;
-                    $warnings['variants'] = 'No Variants Created For Unit Type :'.$unitTypeName .' ('.get_property_type($projectPropertyType['property_type_id']).')';  
+                    $warnings[] = 'No Variants Created For Unit Type :'.$unitTypeName .' ('.get_property_type($projectPropertyType['property_type_id']).')';  
                 }
                 
                 foreach($unitVariants as $unitVariant)
@@ -642,7 +642,7 @@ class ProjectController extends Controller {
                     $variant = UnitVariant::find($unitVariant['id']);
                     $units = $variant->units()->get()->toArray();
                     if(empty($units))
-                        $warnings['units'] = 'No Units Created For Variant :'.$variant['unit_variant_name'];   
+                        $warnings[] = 'No Units Created For Variant :'.$variant['unit_variant_name'];   
                      
                 }
             }
@@ -703,7 +703,7 @@ class ProjectController extends Controller {
                 $buildingData = Building :: find($building['id']);
                 $buildingUnits = $buildingData->projectUnits()->get()->toArray();
                 if(empty($buildingUnits))
-                        $warnings['buildings'] = 'No Units Created For Building :'.$buildingData->building_name;   
+                        $warnings[] = 'No Units Created For Building :'.$buildingData->building_name;   
                 
                 $units = array_merge($units,$buildingUnits);
             }
