@@ -6,6 +6,7 @@ use CommonFloor\Http\Controllers\Controller;
 use CommonFloor\Gateways\ProjectGatewayInterface;
 use CommonFloor\ProjectJson;
 use CommonFloor\Unit;
+use CommonFloor\Project;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use \Input;
@@ -102,6 +103,14 @@ class ProjectController extends Controller {
 
     public function updateUnit($projectId, $unitId,Request $request){
 
+        // default response and code
+        $json_resp = array(
+            'code' => 'unit_status_not_updated' , 
+            'message' => 'Unit status not updated',
+            'data' =>array()
+            );
+        $status_code = 400;
+
         // possible unit status
         $possible_status = array('available','sold','not_released','blocked','archived');
         
@@ -170,5 +179,64 @@ class ProjectController extends Controller {
 
 
     }
- 
+
+    public function getCfProjectUrl(Request $request){
+        // default response and code
+        $json_resp = array(
+            'code' => 'project_url_not_fetched' , 
+            'message' => 'Project url not fetched',
+            'data' =>array()
+            );
+        $status_code = 400;
+
+        $getVar = Input::get();
+        
+        // get parameter set
+        if (isset($getVar['cf_id'])) {
+            $cf_project_id = $getVar['cf_id'];
+
+            // get project by cf_project id
+            $project = Project::where( 'cf_project_id', '=', $cf_project_id )->first();
+
+            // if project not found
+            if (is_null($project)) {
+                $json_resp = array(
+                    'code' => 'project_not_found' , 
+                    'message' => 'Project not found',
+                    'data' =>array()
+                    );
+                $status_code = 404;                
+            }
+            else{
+                // else if project found then return url
+                $project_id = $project->id;
+
+                $unit_selector_url = url()."/project/".$project_id;
+
+                $json_resp = array(
+                    'code' => 'project_url_fetched' , 
+                    'message' => 'Project url fetched',
+                    'data' =>array('unit_selector_url' => $unit_selector_url)
+                    );
+                $status_code = 200;                
+
+
+            }
+
+        }
+        else{
+            // get parameter not set
+            $json_resp = array(
+                'code' => 'missing_project_id' , 
+                'message' => 'Project id missing',
+                'data' => array()
+                );
+            $status_code = 400;
+        }
+
+        return response()->json( $json_resp, $status_code);
+    }  
+
+    public function   
+
 }
