@@ -150,12 +150,31 @@
   };
 
   window.numDifferentiation = function(val) {
+    var decimal, valBudget;
     if (val >= 10000000) {
-      val = (val / 10000000).toFixed(2) + ' Cr';
+      val = (val / 10000000).toFixed(2);
+      decimal = val.split('.')[1];
+      valBudget = decimal % 5;
+      valBudget = valBudget / 100;
+      val = val - valBudget;
+      val = val.toFixed(2);
+      val = val + ' Cr';
     } else if (val >= 100000) {
-      val = (val / 100000).toFixed(2) + ' Lac';
+      val = (val / 100000).toFixed(2);
+      decimal = val.split('.')[1];
+      valBudget = decimal % 5;
+      valBudget = valBudget / 100;
+      val = val - valBudget;
+      val = val.toFixed(2);
+      val = val + ' Lac';
     } else if (val >= 1000) {
-      val = (val / 1000).toFixed(2) + ' K';
+      val = (val / 1000).toFixed(2);
+      decimal = val.split('.')[1];
+      valBudget = decimal % 5;
+      valBudget = valBudget / 100;
+      val = val - valBudget;
+      val = val.toFixed(2);
+      val = val + ' K';
     }
     return val;
   };

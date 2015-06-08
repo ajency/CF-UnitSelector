@@ -552,18 +552,23 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			budget.push parseFloat unitDetails[3]
 			area.push parseFloat unitDetails[0].get 'super_built_up_area'
 		min = _.min area
+		submin = min % 5
+		min = min - submin
 		max = _.max area
+		submax = max % 5
+		max = max - submax
 		subArea = (max - min)/ 20 
 		subArea = subArea.toFixed(0)
-
+		sub  = subArea % 5
+		subArea = subArea - sub
 		
-		if CommonFloor.defaults['area_min'] != ""
+		if CommonFloor.defaults['common']['area_min'] != ""
 			$("#area").ionRangeSlider(
 			    type: "double",
 			    min: min,
 			    max:  max,
-			    from : CommonFloor.defaults['area_min'],
-				to : CommonFloor.defaults['area_max'],
+			    from : CommonFloor.defaults['common']['area_min'],
+				to : CommonFloor.defaults['common']['area_max'],
 			    step : subArea,
 			    grid: false
 			)
@@ -577,18 +582,18 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		)
 		
 		priceMin = _.min budget
-		priceMax = _.max budget	
+		priceMax = _.max budget
 		subBudget = (priceMax - priceMin)/ 20
 		subBudget = subBudget.toFixed(0)
 		
 
-		if CommonFloor.defaults['price_min'] != ""
+		if CommonFloor.defaults['common']['price_min'] != ""
 			$("#budget").ionRangeSlider(
 			    type: "double",
 			    min: priceMin,
 			    max: priceMax,
-			    from : CommonFloor.defaults['price_min'],
-			    to : CommonFloor.defaults['price_max'],
+			    from : CommonFloor.defaults['common']['price_min'],
+			    to : CommonFloor.defaults['common']['price_max'],
 			    grid: false,
 			    step : subBudget,
 			    prettify :(num)->
@@ -604,6 +609,7 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		    step : subBudget,
 		    prettify :(num)->
 		    	return window.numDifferentiation(num)
+
 
 		)
 
@@ -650,9 +656,15 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			budget.push parseFloat unitDetails[3]
 			area.push parseFloat unitDetails[0].get 'super_built_up_area'
 		min = _.min area
+		submin = min % 5
+		min = min - submin
 		max = _.max area
+		submax = max % 5
+		max = max - submax
 		subArea = (max - min)/ 20 
 		subArea = subArea.toFixed(0)
+		sub  = subArea % 5
+		subArea = subArea - sub
 		priceMin = _.min budget
 		priceMax = _.max budget		
 		subBudget = (priceMax - priceMin)/ 20
