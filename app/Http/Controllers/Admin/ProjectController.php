@@ -617,10 +617,37 @@ class ProjectController extends Controller {
         else
            $phases = Phase::where(['project_id' => $projectId])->get()->toArray();
         
-        $masterImages = $breakpoints = $googleEarth = $breakpointAuthtool = $googleEarthAuthtool = $data = $phaseData = $errors = [];
+        $masterImages = $breakpoints = $googleEarth = $breakpointAuthtool = $googleEarthAuthtool = $data = $phaseData = $errors = $warnings = [];
         $filters = $project->projectMeta()->where( 'meta_key', 'filters' )->first()->meta_value;
         $filters = unserialize($filters);
          
+        //WARNINGS
+        $projectPropertyTypes = $project->projectPropertyTypes()->get()->toArray();          
+        foreach($projectPropertyTypes as $projectPropertyType)
+        {
+            $propertyType = ProjectPropertyType :: find($projectPropertyType['id']);
+            $projectUnitTypes = $propertyType->projectUnitType()->get()->toArray();
+            foreach($projectUnitTypes as $projectUnitType)
+            {
+                $unitType = UnitType::find($projectUnitType['id']);
+                $unitVariants = $unitType->unitTypeVariant()->get()->toArray();
+                if(empty($unitVariants))
+                { 
+                    $unitTypeName = Defaults::find($unitType['unittype_name'])->label;
+                    $warnings[] = 'No Variants Created For Unit Type :'.$unitTypeName .' ('.get_property_type($projectPropertyType['property_type_id']).')';  
+                }
+                
+                foreach($unitVariants as $unitVariant)
+                {
+                    $variant = UnitVariant::find($unitVariant['id']);
+                    $units = $variant->units()->get()->toArray();
+                    if(empty($units))
+                        $warnings[] = 'No Units Created For Variant :'.$variant['unit_variant_name'];   
+                     
+                }
+            }
+            
+        }
 
         if (empty($phases)) {
             $errors['phase'] = "No phase available with status Live.";
@@ -675,6 +702,9 @@ class ProjectController extends Controller {
             {
                 $buildingData = Building :: find($building['id']);
                 $buildingUnits = $buildingData->projectUnits()->get()->toArray();
+                if(empty($buildingUnits))
+                        $warnings[] = 'No Units Created For Building :'.$buildingData->building_name;   
+                
                 $units = array_merge($units,$buildingUnits);
             }
             
@@ -721,7 +751,23 @@ class ProjectController extends Controller {
                             <strong>NOTE : </strong>'.$filtermsg.'
                         </div>
                     </div>';
+        
         $html .= ' </div>';
+        if(!empty($warnings))
+        {
+        $html .=  '<div class="row m-b-10"><div class="col-md-12">
+                        <div class="alert m-b-20">
+                        <h5 class="semi-bold inline">Warning Messages
+                                ('.count($warnings).')</h5>
+                        <ul>';                                
+        foreach($warnings as $warning)
+        {
+            $html .=  '<li>'.$warning.'</li>';
+        }
+         $html .= ' </ul></div>
+                         </div></div>';
+        
+        }
         if (!empty($errors)) {
             $html .='<h5 class="semi-bold inline">Resolve the errors below to Publish the Project</h5>
                 <div class="row m-b-10">
