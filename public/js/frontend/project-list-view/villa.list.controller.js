@@ -1,5 +1,5 @@
 (function() {
-  var VillaItemView, VillaView,
+  var VillaEmptyView, VillaItemView, VillaView,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -11,39 +11,49 @@
       return VillaItemView.__super__.constructor.apply(this, arguments);
     }
 
-    VillaItemView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="pull-left info"> <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}}sqft) </div> <!--<div class="pull-right cost"> 50 lakhs </div>--> </li>');
+    VillaItemView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="villa-ico pull-left icon m-t-10"></div> <div class="pull-left bldg-info"> <div class="info"> <label>{{unit_name}}</label> </div> {{unit_type}} ({{super_built_up_area}}{{measurement_units}}) <br> <div class="text-primary m-t-5 "> <span class="icon-rupee-icn"></span>{{price}} </div> </div> <div class="clearfix"></div> </li>');
 
     VillaItemView.prototype.initialize = function() {
       return this.$el.prop("id", 'unit' + this.model.get("id"));
     };
 
     VillaItemView.prototype.serializeData = function() {
-      var availability, data, unitType, unitVariant;
+      var availability, data, response;
       data = VillaItemView.__super__.serializeData.call(this);
-      unitVariant = bunglowVariantCollection.findWhere({
-        'id': this.model.get('unit_variant_id')
-      });
-      unitType = unitTypeCollection.findWhere({
-        'id': unitVariant.get('unit_type_id')
-      });
-      data.unit_type = unitType.get('name');
-      data.super_built_up_area = unitVariant.get('super_built_up_area');
+      response = window.unit.getUnitDetails(this.model.get('id'));
+      data.unit_type = response[1].get('name');
+      data.super_built_up_area = response[0].get('super_built_up_area');
       availability = this.model.get('availability');
       data.status = s.decapitalize(availability);
+      this.model.set('status', status);
+      data.price = window.numDifferentiation(response[3]);
       this.model.set('status', data.status);
+      data.measurement_units = project.get('measurement_units');
       return data;
     };
 
     VillaItemView.prototype.events = {
       'click .unit': function(e) {
         if (this.model.get('status') === 'available') {
-          CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
-          return CommonFloor.router.storeRoute();
+          return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
         }
       }
     };
 
     return VillaItemView;
+
+  })(Marionette.ItemView);
+
+  VillaEmptyView = (function(superClass) {
+    extend(VillaEmptyView, superClass);
+
+    function VillaEmptyView() {
+      return VillaEmptyView.__super__.constructor.apply(this, arguments);
+    }
+
+    VillaEmptyView.prototype.template = 'No units added';
+
+    return VillaEmptyView;
 
   })(Marionette.ItemView);
 
@@ -54,7 +64,7 @@
       return VillaView.__super__.constructor.apply(this, arguments);
     }
 
-    VillaView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <div class="list-view-container animated fadeIn"> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings hidden">Buildings</li> <li class="prop-type Villas active ">Villas/Bungalows</li> <li class="prop-type Plots hidden">Plots</li> </ul> </div> <div class="legend"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <div class="clearfix"></div> <div class="villa-list"> <ul class="units eight"> </ul> </div> </div> </div>');
+    VillaView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <div class="list-view-container animated fadeIn"> <span class="pull-left top-legend"> <ul> <li class="na">N/A</li> </ul> </span> <h2 class="text-center">List of Villas</h2> <hr class="margin-none"> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings hidden">Buildings</li> <li class="prop-type Villas active ">Villas</li> <li class="prop-type Plots hidden">Plots</li> </ul> </div> <div class="legend"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <div class="clearfix"></div> <div class="villa-list"> <ul class="units eight"> </ul> </div> </div> </div>');
 
     VillaView.prototype.childView = VillaItemView;
 
@@ -103,7 +113,7 @@
     };
 
     VillaView.prototype.onShow = function() {
-      if (apartmentVariantCollection.length !== 0) {
+      if (buildingCollection.length !== 0) {
         $('.buildings').removeClass('hidden');
       }
       if (plotVariantCollection.length !== 0) {

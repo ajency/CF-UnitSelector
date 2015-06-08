@@ -1,182 +1,804 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Edit User - CommonFloor</title>
-		<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-		<meta content="" name="description" />
-		<meta content="" name="author" />
-	    
-		<link href="../../bower_components/pace/themes/orange/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
-		<link href="../../bower_components/jquery.scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css"/>
-		<link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-		<!-- <link href="assets/plugins/boostrapv3/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/> -->
-		<link href="../../bower_components/fontawesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+    <head>
+        <title>Project Name - CommonFloor</title>
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="" name="description" />
+        <meta content="" name="author" />
 
-		<!-- Datatables Styles -->
-		<link href="../../bower_components/DataTables/media/css/jquery.dataTables.css" rel="stylesheet" type="text/css">
-		<link href="../../bower_components/datatables-responsive-gh/files/1.10/css/datatables.responsive.css" rel="stylesheet" type="text/css" media="screen">
+        <link href="../../bower_components/pace/themes/orange/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
+        <link href="../../bower_components/jquery.scrollbar/jquery.scrollbar.css" rel="stylesheet" type="text/css"/>
+        <link href="../../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+         <link href="../../bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.css" rel="stylesheet" type="text/css"/>
+        <!-- <link href="assets/plugins/boostrapv3/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/> -->
+        <link href="../../bower_components/fontawesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
 
-		<!-- Select2 Styles -->
-		<link href="../../bower_components/select2/select2.css" rel="stylesheet" type="text/css" media="screen">
+        <!-- Datatables Styles -->
+        <link href="../../bower_components/DataTables/media/css/jquery.dataTables.css" rel="stylesheet" type="text/css">
+        <link href="../../bower_components/datatables-responsive-gh/files/1.10/css/datatables.responsive.css" rel="stylesheet" type="text/css" media="screen">
 
-		<link href="../../bower_components/animate.css/animate.min.css" rel="stylesheet" type="text/css"/>
-		<link href="../../css/dashboard/style.css" rel="stylesheet" type="text/css"/>
-		<link href="../../css/dashboard/responsive.css" rel="stylesheet" type="text/css"/>
-		<link href="../../css/dashboard/custom-icon-set.css" rel="stylesheet" type="text/css"/>
-	</head>
-	<body class="">
-		<!-- BEGIN HEADER -->
-		<div class="header navbar navbar-inverse"> 
-			<!-- BEGIN TOP NAVIGATION BAR -->
-			<div class="navbar-inner">
-				<!-- BEGIN NAVIGATION HEADER -->
-				<div class="header-seperation"> 
-					<!-- BEGIN MOBILE HEADER -->
-					<ul class="nav pull-left notifcation-center" id="main-menu-toggle-wrapper" style="display:none">	
-						<li class="dropdown">
-							<a id="main-menu-toggle" href="#main-menu" class="">
-								<div class="iconset top-menu-toggle-white"></div>
-							</a>
-						</li>		 
-					</ul>
-					<!-- END MOBILE HEADER -->
-					<!-- BEGIN LOGO -->	
-					<a href="#">
-						<img src="../../images/inner-header-logo.png" class="logo" alt="" data-src="../../images/inner-header-logo.png" data-src-retina="../../images/logo2x.png"/>
-					</a>
-					<!-- END LOGO -->
-				</div>
-				<!-- END NAVIGATION HEADER -->
-				<!-- BEGIN CONTENT HEADER -->
-				<div class="header-quick-nav"> 
-					<!-- BEGIN HEADER LEFT SIDE SECTION -->
-					<div class="pull-left"> 
-						<!-- BEGIN SLIM NAVIGATION TOGGLE -->
-						<ul class="nav quick-section">
-							<li class="quicklinks">
-								<a href="#" class="" id="layout-condensed-toggle">
-									<div class="iconset top-menu-toggle-dark"></div>
-								</a>
-							</li>
-						</ul>
-						<!-- END SLIM NAVIGATION TOGGLE -->			
-					</div>
-					<!-- END HEADER LEFT SIDE SECTION -->
-					<!-- BEGIN HEADER RIGHT SIDE SECTION -->
-					<div class="pull-right"> 
-						<div class="chat-toggler">	
-							<!-- BEGIN NOTIFICATION CENTER -->
-							<a href="#" data-toggle="dropdown" class="dropdown-toggle" id="user-options">
-								<div class="user-details"> 
-									<div class="username">
-										John<span class="bold">&nbsp;Smith</span>
-										<div class="iconset top-down-arrow"></div>								
-									</div>						
-								</div> 
-							</a>
+        <!-- Select2 Styles -->
+        <link href="../../bower_components/select2/select2.css" rel="stylesheet" type="text/css" media="screen">
 
-							<ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
-								<!-- <li><a href="#">My Account</a></li>
-								<li><a href="#">My Projects</a></li>
-								<li class="divider"></li> -->                
-								<li><a href="#"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
-							</ul>
+        <link href="../../bower_components/animate.css/animate.min.css" rel="stylesheet" type="text/css"/>
+        <link href="../../css/dashboard/style.css" rel="stylesheet" type="text/css"/>
+        <link href="../../css/dashboard/responsive.css" rel="stylesheet" type="text/css"/>
+        <link href="../../css/dashboard/custom-icon-set.css" rel="stylesheet" type="text/css"/>
+         <link href="path/to/multiselect.css" media="screen" rel="stylesheet" type="text/css">
+    </head>
+    
+    <body class="">
+        <!-- BEGIN HEADER -->
+        <div class="header navbar navbar-inverse"> 
+            <!-- BEGIN TOP NAVIGATION BAR -->
+            <div class="navbar-inner">
+                <!-- BEGIN NAVIGATION HEADER -->
+                <div class="header-seperation"> 
+                    <!-- BEGIN MOBILE HEADER -->
+                    <ul class="nav pull-left notifcation-center" id="main-menu-toggle-wrapper" style="display:none">	
+                        <li class="dropdown">
+                            <a id="main-menu-toggle" href="#main-menu" class="">
+                                <div class="iconset top-menu-toggle-white"></div>
+                            </a>
+                        </li>		 
+                    </ul>
+                    <!-- END MOBILE HEADER -->
+                    <!-- BEGIN LOGO -->	
+                    <a href="#">
+                        <img src="../../images/inner-header-logo.png" class="logo" alt="" data-src="../../images/inner-header-logo.png" data-src-retina="../../images/logo2x.png"/>
+                    </a>
+                    <!-- END LOGO -->
+                </div>
+                <!-- END NAVIGATION HEADER -->
+                <!-- BEGIN CONTENT HEADER -->
+                <div class="header-quick-nav"> 
+                    <!-- BEGIN HEADER LEFT SIDE SECTION -->
+                    <div class="pull-left"> 
+                        <!-- BEGIN SLIM NAVIGATION TOGGLE -->
+                        <ul class="nav quick-section">
+                            <li class="quicklinks">
+                                <a href="#" class="" id="layout-condensed-toggle">
+                                    <div class="iconset top-menu-toggle-dark"></div>
+                                </a>
+                            </li>
+                        </ul>
+                        <!-- END SLIM NAVIGATION TOGGLE -->				
+                    </div>
+                    <!-- END HEADER LEFT SIDE SECTION -->
+                    <!-- BEGIN HEADER RIGHT SIDE SECTION -->
+                    <div class="pull-right"> 
+                        <div class="chat-toggler">	
+                            <!-- BEGIN NOTIFICATION CENTER -->
+                            <a href="#" data-toggle="dropdown" class="dropdown-toggle" id="user-options">
+                                <div class="user-details"> 
+                                    <div class="username">
+                                        John<span class="bold">&nbsp;Smith</span>
+                                        <div class="iconset top-down-arrow"></div>								
+                                    </div>						
+                                </div> 
+                            </a>
 
-							<!-- END NOTIFICATION CENTER -->    			
-						</div>
-					</div>
-					<!-- END HEADER RIGHT SIDE SECTION -->
-				</div> 
-				<!-- END CONTENT HEADER --> 
-			</div>
-			<!-- END TOP NAVIGATION BAR --> 
-		</div>
-		<!-- END HEADER -->
-			
-		<!-- BEGIN CONTENT -->
-		<div class="page-container row-fluid">
-			<!-- BEGIN SIDEBAR -->
-			<!-- BEGIN MENU -->
-			<div class="page-sidebar" id="main-menu"> 
-				<div class="page-sidebar-wrapper scrollbar-dynamic" id="main-menu-wrapper">
-					<p class="menu-title"></p>
-					<!-- BEGIN SIDEBAR MENU -->	
-					<ul>	
-						<!-- BEGIN SELECTED LINK -->
-						<!-- <li class="start active">
-							<a href="#">
-								<i class="icon-custom-home"></i>
-								<span class="title">Dashboard</span>
-								<span class="selected"></span>
-							</a>
-						</li> -->
-						<!-- END SELECTED LINK -->    
-						<!-- BEGIN ONE LEVEL MENU -->
-						
-						<!-- END SINGLE LINK -->    
-					</ul>
-					<!-- END SIDEBAR MENU -->
-				</div>
-			</div>
-			<!-- BEGIN SCROLL UP HOVER -->
-			<a href="#" class="scrollup">Scroll</a>
-			<!-- END SCROLL UP HOVER -->
-			<!-- END MENU -->
-			<!-- BEGIN SIDEBAR FOOTER WIDGET -->
-			<div class="footer-widget">		
-				<div class="pull-right">
-					<!-- <a href="#"><i class="fa fa-power-off"></i></a> -->
-				</div>
-			</div>
-			<!-- END SIDEBAR FOOTER WIDGET -->
-			<!-- END SIDEBAR --> 
-			<!-- BEGIN PAGE CONTAINER-->
-			<div class="page-content"> 
-				<div class="content">
-					<h3>Project summary</h3>
-				</div>
-			</div>
-			<!-- END PAGE CONTAINER -->
-		</div>
-		<!-- END CONTENT --> 
-		<!-- BEGIN CORE JS FRAMEWORK--> 
-		<script src="../../bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script> 
-		<script src="../../bower_components/jquery-ui/jquery-ui.min.js" type="text/javascript"></script> 
-		<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script> 
-		<script src="../../bower_components/jquery.breakpoints/breakpoints.js" type="text/javascript"></script> 
-		<script src="../../bower_components/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script> 
-		<!-- <script src="assets/plugins/jquery-block-ui/jqueryblockui.js" type="text/javascript"></script>  -->
-		<!-- END CORE JS FRAMEWORK --> 
-		<!-- BEGIN PAGE LEVEL JS --> 	
-		<script src="../../bower_components/jquery.scrollbar/jquery.scrollbar.min.js" type="text/javascript"></script>
-		<script src="../../bower_components/pace/pace.min.js" type="text/javascript"></script>  
-		<!-- <script src="assets/plugins/jquery-numberAnimate/jquery.animateNumbers.js" type="text/javascript"></script> -->
+                            <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
+                                <!-- <li><a href="#">My Account</a></li>
+                                <li><a href="#">My Projects</a></li>
+                                <li class="divider"></li> -->  
+                                <li><a href="user-edit.html"><i class="fa fa-user"></i>&nbsp;&nbsp;Profile</a></li> 
+                                <li class="divider"></li>    
+                                <li><a href="#"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
+                            </ul>
 
-		<script src="../../bower_components/DataTables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
-		<script src="../../bower_components/datatables-tabletools/js/dataTables.tableTools.js" type="text/javascript"></script>
-		<script src="../../bower_components/datatables-responsive-gh/files/1.10/js/datatables.responsive.js" type="text/javascript"></script>
-		<!--<script src="../../bower_components/datatables-responsive-gh/files/1.10/js/lodash.min.js" type="text/javascript"></script>-->
+                            <!-- END NOTIFICATION CENTER -->  			
+                        </div>
+                    </div>
+                    <!-- END HEADER RIGHT SIDE SECTION -->
+                </div> 
+                <!-- END CONTENT HEADER --> 
+            </div>
+            <!-- END TOP NAVIGATION BAR --> 
+        </div>
+        <!-- END HEADER -->
 
-		<script src="../../bower_components/select2/select2.min.js" type="text/javascript"></script>
+        <!-- BEGIN CONTENT -->
+        <div class="page-container row-fluid">
+            <!-- BEGIN SIDEBAR -->
+            <!-- BEGIN MENU -->
+            <div class="page-sidebar mini mini-mobile" id="main-menu" data-inner-menu="1"> 
+                <div class="page-sidebar-wrapper scrollbar-dynamic" id="main-menu-wrapper">
+                    <p class="menu-title"></p>
+                    <!-- BEGIN SIDEBAR MENU -->	
+                    <ul>	
+                        <!-- BEGIN SELECTED LINK -->
+                        <!-- <li class="start active">
+                                <a href="#">
+                                        <i class="icon-custom-home"></i>
+                                        <span class="title">Dashboard</span>
+                                        <span class="selected"></span>
+                                </a>
+                        </li> -->
+                        <!-- END SELECTED LINK -->    
+                        <!-- BEGIN ONE LEVEL MENU -->
+                        <li class="">
+                            <a href="javascript:;">
+                                <i class="fa fa-building-o"></i>
+                                <span class="title">Projects</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="project-view.html">All Projects</a></li>
+                                <li><a href="project-add.html">Add Project</a></li>
+                            </ul>
+                        </li>
+                        <!-- END ONE LEVEL MENU -->	
+                        <!-- BEGIN SINGLE LINK -->
+                        <!-- <li class="">
+                                <a href="#">
+                                        <i class="fa fa-user"></i>
+                                        <span class="title">Users</span>
+                                </a>
+                        </li> -->
+                        <!-- END SINGLE LINK -->    
+                    </ul>
+                    <!-- END SIDEBAR MENU -->
+                </div>
 
-		<script src="../../bower_components/bootstrap-file-input/bootstrap.file-input.js" type="text/javascript"></script>
+                <!-- BEGIN INNER MENU -->
+                <div class="inner-menu nav-collapse">   
+                    <div id="inner-menu">
+                        <div class="inner-wrapper" >    
+                            <h2 class="text-white b-g b-b p-b-20">Goyal Footprints</h2>
+                        </div>
+                        <div class="inner-menu-content">
+                            <p class="menu-title" onclick="location.href='project-summary.html'"><i class="fa fa-check text-success"></i> Project <span class="pull-right"><i class="icon-refresh"></i></span></p>
+                        </div>
+                        <ul class="big-items">
+                            <!-- <li>
+                                    <span class="fa fa-check text-success"></span><a href="project-svg.html" > SVGs</a>
+                            </li> -->
+                            <li class="active">
+                                <a href="project-config.html">Configuration</a>
+                            </li>
+                              <li >
+                                <a href="project-cost.html">Costs</a>
+                            </li>
+                             <li >
+                                <a href="project-svg.html">SVGs</a>
+                            </li>
+                            <li >
+                                <a href="user-list-view.html">Users</a>
+                            </li>
+                        </ul>
 
-		<!-- END PAGE LEVEL PLUGINS -->  	
+                        <div class="inner-menu-content" >            
+                            <p class="menu-title">Villas/Bungalows</p>    
+                        </div>
+                        <ul class="big-items">
+                            <li>
+                                <a href="villa-variant-list.html">Configuration</a>
+                            </li>
+                            <li>
+                                <a href="villa-unit-list.html">Units</a>
+                            </li>
+                         </ul>
 
-		<!-- BEGIN CORE TEMPLATE JS --> 
-		<script src="../../plugins/dashboard-theme-core/core.js" type="text/javascript"></script> 
-		<!-- <script src="assets/js/chat.js" type="text/javascript"></script>  -->
-		<!-- <script src="assets/js/demo.js" type="text/javascript"></script>  -->
-		<!-- END CORE TEMPLATE JS --> 
+                        <div class="inner-menu-content" >            
+                            <p class="menu-title">Plots</p>    
+                        </div>
+                        <ul class="big-items">
+                            <li>
+                                <a href="plot-variant-list.html">Configuration</a>
+                            </li>
+                            <li>
+                                <a href="plot-unit-list.html">Units</a>
+                            </li>
+                        </ul>
 
-		<!-- END NEED TO WORK ON -->
+                        <div class="inner-menu-content" >            
+                            <p class="menu-title">Apartments/Penthouses</p>    
+                        </div>
+                        <ul class="big-items">
+                            <li>
+                                <a href="apartment-variant-list.html">Configuration</a>
+                            </li>
+                            <li>
+                                <a href="floor-layout.html">Floor Layouts</a>
+                            </li>
+                            <li>
+                                <a href="building-list-view.html">Buildings</a>
+                            </li>
+                            <li>
+                                <a href="apartment-unit-list.html">Units</a>
+                            </li>
+                        </ul>
+                    </div> 
+                </div>
+                <!-- END INNER MENU -->
 
-		<script type="text/javascript">
-			$("#status").select2();
-			$("#unit_types").select2();
-		</script>
+            </div>
+            <!-- BEGIN SCROLL UP HOVER -->
+            <a href="#" class="scrollup">Scroll</a>
+            <!-- END SCROLL UP HOVER -->
+            <!-- END MENU -->
+            <!-- BEGIN SIDEBAR FOOTER WIDGET -->
+            <div class="footer-widget">		
+                <div class="pull-right">
+                    <!-- <a href="#"><i class="fa fa-power-off"></i></a> -->
+                </div>
+            </div>
+            <!-- END SIDEBAR FOOTER WIDGET -->
+            <!-- END SIDEBAR --> 
+            <!-- BEGIN PAGE CONTAINER-->
+            <div class="page-content"> 
+                <div class="content">
 
-	</body>
+                    <!-- BEGIN BREADCRUMBS -->
+                    <ul class="breadcrumb">
+                        <li><a href="#">Projects</a> </li>
+                        <li><a href="#">Artha Zen</a> </li>
+                        <li><a href="#" class="active">Configuration</a> </li>
+                    </ul>
+                    <!-- END BREADCRUMBS -->
+                    <!-- BEGIN PlACE PAGE CONTENT HERE -->
+                     
+                     <div class="page-title">
+
+                    <h2><span class="semi-bold">Project </span> Summary</h2>
+                    </div>
+                        
+                        <div class="grid simple">
+                            <div class="alert alert-success">
+                            <button class="close" data-dismiss="alert"></button>
+                           <i class="fa fa-check-circle" style="font-size: 17px;"></i> Phase published successfully.
+                            </div>
+
+                        <div class="grid-body grid-padding no-border summary">
+                             <div class=" m-t-15 m-b-15 no-border">
+                            <div class="row">
+                        <h3 class="col-md-4"> <i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Details</span></h3>
+
+                        <div class="col-md-4 text-center">
+                                    <h4 class="inline semi-bold">Status : </h4>&nbsp;&nbsp;<span class="text-primary">DRAFT</span>
+                                    </div>
+                        <div class="col-md-4 text-right">
+                                <button class="btn btn-info btn-small" data-toggle="modal" data-target=".bs-example-modal-lg">PUBLISH</button>
+                            </div>
+                        </div>
+                        </div>
+                       <div class="row">
+                                    <div class="col-md-8">
+                                        <div class="user-description-box">
+                                        <dl class="dl-horizontal">
+                                          <dt><h5 class="semi-bold">Name</h5></dt>
+                                          <dd>Artha Zen</dd>
+                                          <dt><h5 class="semi-bold">Address</h5></dt>
+                                          <dd>Near provident Harmony Apartments Thanisandra Main Road</dd>
+                                          <dt><h5 class="semi-bold">Property Types</h5></dt>
+                                          <dd>Villa, Plot, Apartments, Penthouse</dd>
+                                          <dt><h5 class="semi-bold">Property Types</h5></dt>
+                                          <dd><span class="error"><span for="form3FirstName" class="error">No Property Type selected</span></span></dd>
+                                         </dl>
+                                    </div>
+                                        </div>
+                                    <h5 class="semi-bold">
+                                        To view the project on Unit selector <a hreh="#" class="text-primary">click here >></a>
+                                    </h5>
+                                </div>
+                               <hr/>
+                               
+                                
+                               <div class="m-l-5 no-border">
+                                           <h3><i class="fa fa-angle-double-right text-primary"></i> Project<span class="semi-bold"> Phases</span></h3>
+                                </div>
+                            
+                            
+                           
+                                <table class="table table-bordered no-pointer">
+                                                    <thead>
+                                                        <tr>
+                                                            <td><span class="semi-bold">Phase </span></td>
+                                                            <td><span class="semi-bold">Status</span></td>
+                                                            <td><span class="semi-bold">Action</span></td>
+                                                            
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                         <tr>
+                                                            <td>Phase 1</td>
+                                                            <td>
+                                                            <select id="phases1" class="select2-container select2 form-control select2-container-active" style="width:50%;">
+                                                                <option value="">Select Status</option>
+                                                                <option selected>Live</option>
+                                                                <option>Not Live</option>
+                                                            </select>
+                                                            </td>
+                                                            <td><a href="#"  data-toggle="modal" data-target="#myModal" class="text-primary">Update</a></td>
+                                                        </tr>
+                                                         <tr>
+                                                            <td>Phase 2</td>
+                                                            <td>
+                                                            <select id="phases2" class="select2-container select2 form-control select2-container-active" style="width:50%;">
+                                                                <option value="">Select Status</option>
+                                                                <option>Live</option>
+                                                                <option selected>Not Live</option>
+                                                            </select>
+                                                            </td>
+                                                            <td></td>
+                                                        </tr>
+                                                         <tr>
+                                                            <td>Phase 3</td>
+                                                            <td>
+                                                            <select id="phases3" class="select2-container select2 form-control select2-container-active" style="width:50%;">
+                                                                <option value="">Select Status</option>
+                                                                <option selected>Live</option>
+                                                                <option>Not Live</option>
+                                                            </select>
+                                                            </td>
+                                                            <td><a href="#"  data-toggle="modal" data-target="#myModal" class="text-primary">Update</a></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Phase 4</td>
+                                                            <td>
+                                                            <select id="phases4" class="select2-container select2 form-control select2-container-active" style="width:50%;">
+                                                                <option value="">Select Status</option>
+                                                                <option selected>Live</option>
+                                                                <option>Not Live</option>
+                                                            </select>
+                                                            </td>
+                                                            <td><a href="#"  data-toggle="modal" data-target="#myModal" class="text-primary">Update</a></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                               
+                                        <div class="row">
+                                            <div class="col-md-5">
+                                        <div class="add-unit p-t-10 p-r-10 p-l-10">
+                                        
+                                        
+                                        
+                                        <input type="text" name="form1Name" id="form1Name" class="form-control" placeholder="Enter Phase">
+                                        
+                                        <div class="text-right">
+                                                   <a href="#" class="btn btn-link">Add Another Phase</a>
+                                               </div>
+                                       
+                                        </div>
+                                    </div>
+                                   
+                                  
+                                    </div>           
+                                <hr/>
+                               <div class="m-l-5 no-border">
+                                           <h3><i class="fa fa-angle-double-right text-primary"></i> Project<span class="semi-bold"> SVGs</span></h3>
+                                </div>
+                                <h5 class="semi-bold inline m-l-5">
+                                        Google Earth Image :
+                                    </h5><span class="text-warning"> Pending SVG Authoring</span><br>
+                                    <h5 class="semi-bold inline m-l-5">
+                                        Project Master Image :
+                                    </h5> <div class="checkbox check-primary checkbox-inline">
+                                               <input id="checkbox7" type="checkbox" value="1" checked="checked" disabled>
+                                                <label for="checkbox7">Available</label>
+                                                </div><br>
+                                                <ul class="list-inline m-b-10 m-l-5">
+                                                   
+                                                        <h5 class="semi-bold inline">
+                                                            Images Uploaded : </h5> 3 |
+                                                   
+                                                    
+                                                        <h5 class="semi-bold inline">
+                                                            Breakpoints : </h5> 2 |
+                                                   
+                                                   
+                                                        <h5 class="semi-bold inline">
+                                                            Rotation : </h5> Yes
+                                                   
+                                                </ul>
+                              <table class="table table-bordered no-pointer">
+                                                    <thead>
+                                                        <tr>
+                                                            <td width="16%"><span class="semi-bold">Breakpoint Position</span></td>
+                                                            <td width="18%"><span class="semi-bold">Units Marked</span></td>
+                                                            <td width="18%"><span class="semi-bold">Pending</span></td>
+                                                            <td><span class="semi-bold">Status</span></td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                         <tr>
+                                                            <td>00</td>
+                                                            <td>2</td>
+                                                            <td>3</td>
+                                                            <td><span class="text-warning">Pending SVG Authoring</span></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>02</td>
+                                                            <td>1</td>
+                                                            <td>5</td>
+                                                            <td><span class="text-warning">Pending SVG Authoring</span></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                <hr>
+                                <div class="m-l-5 no-border">
+                                           <h3><i class="fa fa-angle-double-right text-primary"></i> Building<span class="semi-bold"> </span></h3>
+                                        </div>
+                                        <table class="table table-bordered m-b-30 no-pointer">
+                                                    <thead>
+                                                        <tr>
+                                                            <td width="16%"><span class="semi-bold">Phase</span></td>
+                                                            <td width="16%"><span class="semi-bold">Building Name</span></td>
+                                                            <td width="16%"><span class="semi-bold">Available</span></td>
+                                                            <td width="18%"><span class="semi-bold">Sold</span></td>
+                                                            <td width="18%"><span class="semi-bold">Blocked</span></td>
+                                                            <td><span class="semi-bold">Not Released</span></td>
+                                                             <td><span class="semi-bold">Total</span></td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                         <tr>
+                                                            <td class="active">Phase 1</td>
+                                                            <td><a href="#">B-1</a></td>
+                                                            <td>1</td>
+                                                            <td>2</td>
+                                                            <td>2</td>
+                                                            <td>1</td>
+                                                            <td class="semi-bold text-info text-center">6</td>
+                                                        </tr>
+                                                           <tr>
+                                                            <td></td>
+                                                            <td><a href="#">B-2</a></td>
+                                                            <td>1</td>
+                                                            <td>2</td>
+                                                            <td>2</td>
+                                                            <td>2</td>
+                                                            <td class="semi-bold text-info text-center">7</td>
+                                                        </tr>
+                                                         <tr>
+                                                            <td></td>
+                                                            <td><a href="#">B-3</a></td>
+                                                            <td>1</td>
+                                                            <td>2</td>
+                                                            <td>2</td>
+                                                            <td>1</td>
+                                                            <td class="semi-bold text-info text-center">6</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="active">Phase 2</td>
+                                                            <td><a href="#">B-1</a></td>
+                                                            <td>1</td>
+                                                            <td>2</td>
+                                                            <td>2</td>
+                                                            <td>1</td>
+                                                            <td class="semi-bold text-info text-center">6</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td><a href="#">B-2</a></td>
+                                                            <td>1</td>
+                                                            <td>2</td>
+                                                            <td>2</td>
+                                                            <td>0</td>
+                                                            <td class="semi-bold text-info text-center">5</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                 <div class="m-l-5 no-border">
+                                           <h3><i class="fa fa-angle-double-right text-primary"></i> Villa<span class="semi-bold"> </span></h3>
+                                        </div>
+                                        <table class="table table-bordered m-b-30 no-pointer">
+                                                    <thead>
+                                                        <tr>
+                                                            <td width="16%"><span class="semi-bold">Phase</span></td>
+                                                            <td width="16%"><span class="semi-bold">Unit Type</span></td>
+                                                            <td width="16%"><span class="semi-bold">Available</span></td>
+                                                            <td width="18%"><span class="semi-bold">Sold</span></td>
+                                                            <td width="18%"><span class="semi-bold">Blocked</span></td>
+                                                            <td><span class="semi-bold">Not Released</span></td>
+                                                             <td><span class="semi-bold">Total</span></td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                         <tr>
+                                                            <td class="active">Phase 1</td>
+                                                            <td>1 BHK</td>
+                                                            <td>1</td>
+                                                            <td>2</td>
+                                                            <td>2</td>
+                                                            <td>1</td>
+                                                            <td class="semi-bold text-info text-center">6</td>
+                                                        </tr>
+                                                           <tr>
+                                                            <td></td>
+                                                            <td>2 BHK</td>
+                                                            <td>1</td>
+                                                            <td>2</td>
+                                                            <td>2</td>
+                                                            <td>2</td>
+                                                            <td class="semi-bold text-info text-center">7</td>
+                                                        </tr>
+                                                         <tr>
+                                                            <td></td>
+                                                            <td>3 BHK</td>
+                                                            <td>1</td>
+                                                            <td>2</td>
+                                                            <td>2</td>
+                                                            <td>1</td>
+                                                            <td class="semi-bold text-info text-center">6</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="active">Phase 2</td>
+                                                            <td>1 BHK</td>
+                                                            <td>1</td>
+                                                            <td>2</td>
+                                                            <td>2</td>
+                                                            <td>1</td>
+                                                            <td class="semi-bold text-info text-center">6</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>2 BHK</td>
+                                                            <td>1</td>
+                                                            <td>2</td>
+                                                            <td>2</td>
+                                                            <td>0</td>
+                                                            <td class="semi-bold text-info text-center">5</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            <div class="m-l-5 no-border">
+                                           <h3><i class="fa fa-angle-double-right text-primary"></i> Plot<span class="semi-bold"> </span></h3>
+                                        </div>
+                                         <table class="table table-bordered m-b-30 no-pointer">
+                                                    <thead>
+                                                        <tr>
+                                                            <td width="16%"><span class="semi-bold">Phase</span></td>
+                                                            <td width="16%"><span class="semi-bold">Unit Type</span></td>
+                                                            <td width="16%"><span class="semi-bold">Available</span></td>
+                                                            <td width="18%"><span class="semi-bold">Sold</span></td>
+                                                            <td width="18%"><span class="semi-bold">Blocked</span></td>
+                                                            <td><span class="semi-bold">Not Released</span></td>
+                                                             <td><span class="semi-bold">Total</span></td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                         <tr>
+                                                            <td class="active">Phase 1</td>
+                                                            <td>30X40 Sq. Ft.</td>
+                                                            <td>2</td>
+                                                            <td>3</td>
+                                                            <td>0</td>
+                                                            <td>3</td>
+                                                            <td class="semi-bold text-info text-center">8</td>
+                                                        </tr>
+                                                           <tr>
+                                                            <td></td>
+                                                            <td>30X50 Sq. Ft.</td>
+                                                            <td>1</td>
+                                                            <td>3</td>
+                                                            <td>0</td>
+                                                            <td>3</td>
+                                                            <td class="semi-bold text-info text-center">7</td>
+                                                        </tr>
+                                                       <tr>
+                                                            <td></td>
+                                                            <td>40X60 Sq. Ft.</td>
+                                                            <td>1</td>
+                                                            <td>3</td>
+                                                            <td>0</td>
+                                                            <td>3</td>
+                                                            <td class="semi-bold text-info text-center">7</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="active">Phase 2</td>
+                                                            <td>40X70 Sq. Ft.</td>
+                                                            <td>1</td>
+                                                            <td>2</td>
+                                                            <td>2</td>
+                                                            <td>1</td>
+                                                            <td class="semi-bold text-info text-center">6</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>60X40 Sq. Ft.</td>
+                                                            <td>1</td>
+                                                            <td>2</td>
+                                                            <td>2</td>
+                                                            <td>0</td>
+                                                            <td class="semi-bold text-info text-center">5</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                
+                                    
+                                        </div>
+                                    </div>
+                        
+                    <!-- END PLACE PAGE CONTENT HERE -->
+                    <!-- Modal1 -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-left" id="myModalLabel">Update Phase Status</h4>
+      </div>
+      <div class="modal-body">
+          <div class="row m-b-5">
+            <div class="col-md-12">
+                <div class="alert">
+<strong>NOTE : </strong>To go live, all the units in this phase should have authoring done.
+</div>
+</div>
+</div>
+        <div class="row m-b-10">
+            <div class="col-md-12">
+                <div class="alert alert-error m-b-20">
+                    <ul  class="list-inline">
+                        <li><i class="fa fa-circle"></i> No Units available in this phase.<li>
+                            
+                    </ul>
+<h5><span class="semi-bold">3 Buildings</span> have no authoring done.</h5>
+<ul class="list-inline">
+    <li><i class="fa fa-circle"></i> Artha Zen</li>
+     <li><i class="fa fa-circle"></i> Mrs. Nakia Cummings</li>
+      <li><i class="fa fa-circle"></i> Helga Schultz</li>
+</ul>
+<h5><span class="semi-bold">2 Villas</span> have no authoring done.</h5>
+<ul class="list-inline">
+    <li><i class="fa fa-circle"></i> Artha Zen</li>
+     <li><i class="fa fa-circle"></i> Mrs. Nakia Cummings</li>
+     
+</ul>
+<h5><span class="semi-bold">3 Plots</span> have no authoring done.</h5>
+<ul class="list-inline">
+    <li><i class="fa fa-circle"></i> Artha Zen</li>
+     <li><i class="fa fa-circle"></i> Mrs. Nakia Cummings</li>
+      <li><i class="fa fa-circle"></i> Helga Schultz</li>
+</ul>
+
+</div>
+</div>
+</div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                   <td width="15%"><span class="semi-bold">Type</span></td> 
+                   <td><span class="semi-bold">Units in Phase-1</span></td> 
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                   <td><span class="semi-bold">Building</span></td> 
+                   <td>Artha Zen, Mrs. Nakia Cummings, Helga Schultz, Estefania Johnston DVM, Alessandra Lesch, Makenzie Hickle, Savannah Lesch, Scottie Fisher</td> 
+                </tr>
+                <tr>
+                   <td><span class="semi-bold">Villa</span></td> 
+                   <td>Artha Zen, Mrs. Nakia Cummings, Helga Schultz, Estefania Johnston DVM, Alessandra Lesch, Makenzie Hickle, Savannah Lesch, Scottie Fisher</td> 
+                </tr>
+                <tr>
+                   <td><span class="semi-bold">Plot</span></td> 
+                   <td>Artha Zen, Mrs. Nakia Cummings, Helga Schultz, Estefania Johnston DVM, Alessandra Lesch, Makenzie Hickle, Savannah Lesch, Scottie Fisher</td> 
+                </tr>
+            </tbody>
+        </table>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Go Live</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal2 -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title text-left" id="myModalLabel">Publish Project</h4>
+      </div>
+      <div class="modal-body">
+                 <div class="row m-b-5">
+            <div class="col-md-12">
+                <div class="alert">
+<strong>NOTE : </strong>Project should have at least one Phase with status as Live to publish the project.
+</div>
+</div>
+</div>
+        <h5 class="semi-bold inline">Resolve the errors below to Publish the Project</h5>
+        <div class="row m-b-10">
+            <div class="col-md-12">
+                <div class="alert alert-error m-b-20">
+
+<ul>
+    <li>No phase available with status Live.</li>
+   <li>Google Earth not configured.</li>
+   <li>Project Master not configured.</li>
+</ul>
+
+
+</div>
+  
+            </div>
+
+        </div>
+
+      </div>
+
+      <div class="modal-footer">
+        
+        <button type="button" class="btn btn-primary">Publish</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
+                </div> 
+            </div>
+            <!-- END PAGE CONTAINER -->
+        </div>
+        <!-- END CONTENT --> 
+        <!-- BEGIN CORE JS FRAMEWORK--> 
+        <script src="../../bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script> 
+        <script src="../../bower_components/jquery-ui/jquery-ui.min.js" type="text/javascript"></script> 
+        <script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script> 
+        <script src="../../bower_components/jquery.breakpoints/breakpoints.js" type="text/javascript"></script> 
+        <script src="../../bower_components/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script> 
+        <!-- <script src="assets/plugins/jquery-block-ui/jqueryblockui.js" type="text/javascript"></script>  -->
+        <!-- END CORE JS FRAMEWORK --> 
+        <!-- BEGIN PAGE LEVEL JS --> 	
+        <script src="../../bower_components/jquery.scrollbar/jquery.scrollbar.min.js" type="text/javascript"></script>
+        <script src="../../bower_components/pace/pace.min.js" type="text/javascript"></script>  
+        <!-- <script src="assets/plugins/jquery-numberAnimate/jquery.animateNumbers.js" type="text/javascript"></script> -->
+
+        <script src="../../bower_components/DataTables/media/js/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="../../bower_components/datatables-tabletools/js/dataTables.tableTools.js" type="text/javascript"></script>
+        <script src="../../bower_components/datatables-responsive-gh/files/1.10/js/datatables.responsive.js" type="text/javascript"></script>
+        <!--<script src="../../bower_components/datatables-responsive-gh/files/1.10/js/lodash.min.js" type="text/javascript"></script>-->
+
+        <script src="../../bower_components/select2/select2.min.js" type="text/javascript"></script>
+         <script src="path/to/jquery.multi-select.js" type="text/javascript"></script>
+
+        <script src="../../bower_components/bootstrap-file-input/bootstrap.file-input.js" type="text/javascript"></script>
+        <script src="../../bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js" type="text/javascript"></script>
+
+        <!-- END PAGE LEVEL PLUGINS --> 	
+
+        <!-- BEGIN CORE TEMPLATE JS --> 
+        <script src="../../plugins/dashboard-theme-core/core.js" type="text/javascript"></script> 
+        <!-- <script src="assets/js/chat.js" type="text/javascript"></script>  -->
+        <!-- <script src="assets/js/demo.js" type="text/javascript"></script>  -->
+        <!-- END CORE TEMPLATE JS -->
+
+        <!-- END NEED TO WORK ON -->
+
+        <script type="text/javascript">
+            $("#unit_types").val(["Apartments"]).select2();
+            $("#direction1").select2();
+            $("#direction2").select2();
+            $("#direction3").select2();
+            $("#direction4").select2();
+            $("#phases1").select2();
+            $("#phases2").select2();
+            $("#phases3").select2();
+            $("#phases4").select2();
+             $(".tags").tagsinput("");
+             
+
+$(function () {
+   $(document).tooltip({
+       track: true,
+       items: "[data-original-title]",
+       content: function () {
+           return $(this).data('original-title').replace('|', '<br />');
+       }
+   });
+});
+        </script>	
+
+    </body>
 </html>

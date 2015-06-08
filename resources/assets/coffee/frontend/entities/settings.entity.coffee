@@ -8,8 +8,8 @@ class Settings extends Backbone.Model
 		buildingModel = buildingMasterCollection.findWhere
 							'id' : building
 		i = 0 
-		floors = buildingModel.get 'floors'
-		floors = Object.keys(floors).length
+		floors = buildingModel.get 'no_of_floors'
+		# floors = Object.keys(floors).length
 		floorrise = []
 		cost = settings.get 'floor_rise'
 		sum = 0 + cost

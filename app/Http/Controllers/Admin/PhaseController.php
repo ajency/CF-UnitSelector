@@ -36,21 +36,48 @@ class PhaseController extends Controller {
     public function store( Request $request ) {
         $project_id = $request->input( 'project_id' );
         $phase_name = $request->input( 'phase_name' );
+        $authphase = Phase::where(['phase_name'=>$phase_name,'project_id'=>$project_id])->get()->toArray();
+        $phase_id =0;
+        $type ='';   
+        if(empty($authphase))
+        {
+            $phase_id = Phase::where(['phase_name'=>'Default','project_id'=>$project_id])->pluck('id');
+           
+            if($phase_id)
+            {
+                $phase = Phase::find($phase_id);
+                $phase->project_id = $project_id;
+                $phase->phase_name = ucfirst($phase_name);
+                $phase->save();
+                $type = "edit";
+            }
+            else {
+                $phase = new Phase();
+                $phase->project_id = $project_id;
+                $phase->phase_name = ucfirst($phase_name);
+                $phase->save();
 
-        $phase = new Phase();
-        $phase->project_id = $project_id;
-        $phase->phase_name = ucfirst($phase_name);
-        $phase->save();
-
-        $phase_id = $phase->id;
+                $phase_id = $phase->id;
+                 $type = "add";
+            }
+            $msg = 'Phase Successfully Created';
+            $responseCode = 201;
+        }
+        else
+        {
+           $msg = 'Phase Name Already Exist In Project';
+           $responseCode = 200; 
+        }
+        
 
         return response()->json( [
                     'code' => 'phase_created',
-                    'message' => 'Phase Successfully Created',
+                    'message' => $msg,
                     'data' => [
-                        'phase_id' => $phase_id
+                        'phase_id' => $phase_id,
+                        'type' => $type
                     ]
-            ], 201 );
+            ], $responseCode );
     }
 
     /**
@@ -79,8 +106,19 @@ class PhaseController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update( $id ) {
-        //
+    public function update( $phase_id ,Request $request) {
+         $phase = Phase::find($phase_id);
+            $phase->status = 'live';
+            $phase->save();
+            
+            return response()->json( [
+                    'code' => 'phase_created',
+                    'message' => 'Phase Status Successfully Updated',
+                    'data' => [
+                        'phase_id' => $phase_id,
+                    ]
+            ], 201 );
+    
     }
 
     /**

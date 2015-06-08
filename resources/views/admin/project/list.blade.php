@@ -17,10 +17,13 @@
         <div class="grid simple">
             <div class="grid-title">
                 <h4>List of <span class="semi-bold">Projects</span></h4>
+                
+                @if(hasPermission(0,['add_project']))
                 <a class="btn btn-primary pull-right" href="{{ url('/admin/project/create') }}" ><i class="fa fa-plus"></i> Add Project</a>
+                @endif
             </div>
             <div class="grid-body">
-                <table class="table table-striped projectList" id="example2" >
+                <table class="table table-bordered projectList" id="example2" >
                     <thead>
                         <tr>
                             <th>Project Name</th>
@@ -34,8 +37,8 @@
                     </thead>
                     <tbody> 
                         @foreach ($projects as $project)
-                            <tr class="">
-                                <td><a href="{{ url( '/admin/project/' . $project['id'] . '/edit') }}">{{ $project['project_title'] }}</a></td>
+                            <tr class="" onclick="location.href='{{ url( '/admin/project/' . $project['id'].'/summary') }}'">
+                                <td>{{ $project['project_title'] }}</td>
                                 <td>{{ $project['city'] }}</td>
                                 <td>{{ ucfirst($project['status']) }}</td>
                                 <td>{{ date('d/m/Y',strtotime($project['created_at'])) }}</td>

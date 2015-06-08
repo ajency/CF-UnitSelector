@@ -20,35 +20,22 @@
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
 <div class="grid simple">
-    <div class="grid-title">
-        <h3>Apartment <span class="semi-bold">Unit Details</span></h3>
+   
+    <div class="grid-title no-border">
+        <h3> <i class="fa fa-angle-double-right text-primary"></i> Apartment <span class="semi-bold">Details</span></h3>
     </div>
-
-    <div class="grid-body">
+    <div class="grid-body no-border">
         <form action="{{ url('/admin/project/' . $project['id'] .'/apartment-unit') }}" method="POST" data-parsley-validate>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Name</label>
+                        <label class="form-label">Name <span class="text-primary">*</span></label>
                         <input type="text" class="form-control" name="unit_name" placeholder="Enter Name" data-parsley-required>
                     </div> 
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label class="form-label">Unit Status</label>
-                        <select  class="select2 form-control" required="" name="unit_status">
-                            <option value="available">Available</option>
-                            <option value="sold">Sold</option>
-                            <option value="not_released">Not Released</option>
-                            <option value="blocked">Blocked</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="form-group">
-                        <label class="form-label">Building</label>
+                        <label class="form-label">Building <span class="text-primary">*</span></label>
                         <select name="building_id" class="select2 form-control apartment-unit-building m-b-5" data-parsley-required>
                             <option value="">Select building</option>
                             @foreach($buildings as $building)
@@ -61,70 +48,119 @@
                     </div> 
                 </div>
                 <div class="col-md-4">
-                    <div class="form-group hidden select-floor" >
-                        <label class="form-label">Floor</label>
-                        <select id="floor" name="floor" onchange="getPositions(this.value);"   class="select2 form-control apartment-unit-floor-no m-b-5">
+                    <div class="form-group select-floor" >
+                        <label class="form-label">Floor <span class="text-primary">*</span></label>
+                        <select id="floor" name="floor" onchange="getPositions(this);"   class="select2 form-control apartment-unit-floor-no m-b-5" data-parsley-required>
                             <option value="">Select Floor</option>
                         </select>
-                        <!--<a data-toggle="modal" data-target=".bs-example-modal-lg2" href="#">
-                            + Add floor Layout
-                        </a>-->
+         
                     </div> 
                 </div>
+                
+                
+            </div>
+            <div class="row">
                 <div class="col-md-4">
-                    <div class="form-group hidden select-position">
-                        <label class="form-label">Position</label>
-                        <select id="flat_position" required="" name="position" class="select2 form-control">
+                    <div class="form-group select-position">
+                        <label class="form-label">Position <span class="text-primary">*</span></label>
+                        <select id="flat_position" required="" name="position" class="select2 form-control" data-parsley-required>
                             <option value="">Select Position</option>
-
+                             
                         </select>
                     </div> 
 
                 </div>
-            </div>
-            <div class="form-actions">  
-                <div class="pull-right">
-                    <input type="hidden" id="addanother" name="addanother" value="">
-                    <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-                    <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
-                    <button type="button" onclick="saveAndAddAnother();" class="btn btn-default btn-cons">Save And Add Another</button>
+            @if(count($projectPropertyTypes) > 1)
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Property Type<span class="text-primary">*</span></label>
+
+                        <select onchange="getVariants(this);" name="property_type" class="select2 form-control m-b-5" data-parsley-required>
+                            <option value="">Select Property Variant</option>
+                            @foreach($projectPropertyTypes as $projectPropertyType)
+                            <option value="{{ $projectPropertyType['ID'] }}">{{ $projectPropertyType['NAME'] }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                
+                @endif
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Unit Variant<span class="text-primary">*</span></label>
+
+                        <select name="unit_variant_id" class="select2 form-control m-b-5" data-parsley-required>
+                            <option value="">Select Unit Variant</option>
+                            @foreach($unit_variant_arr as $unit_variant)
+                            <option value="{{$unit_variant['id']}}">{{$unit_variant['unit_variant_name']}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                 <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Direction<span class="text-primary">*</span></label>
+                        <select  class="select2 form-control m-b-5" name="direction" data-parsley-required>
+                           <option value="">Select Direction</option>  
+                           @foreach($defaultDirection as $direction)
+                            <option value="{{$direction['id']}}">{{$direction['label']}}</option>
+                            @endforeach
+                        </select>
+                        
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label class="form-label">Unit Status <span class="text-primary">*</span></label>
+                        <select  class="select2 form-control" required="" name="unit_status" data-parsley-required>
+                            <option value="available">Available</option>
+                            <option value="sold">Sold</option>
+                            <option value="not_released">Not Released</option>
+                            <option value="blocked">Blocked</option>
+                            <option value="archived">Archived</option>
+                        </select>
+                    </div>
                 </div>
             </div>
-        </form>
+               @if(!empty($projectAttributes))
+             <hr>
+           <div class="m-l-5 no-border">
+            <h3><i class="fa fa-angle-double-right text-primary"></i> <span class="semi-bold"> Views</span></h3>
+        </div>
+        <div class="row m-b-5">
+        <?php $i=0;?>
+        @foreach($projectAttributes as $attribute)
+            <div class="col-md-3">
+        <div class="checkbox check-primary" >
+            <input type="checkbox" id="{{$attribute['label']}}" value="{{$attribute['label']}}" name="views[{{property_type_slug($attribute['label'])}}]" aria-label="...">
+             <label for="{{$attribute['label']}}">{{$attribute['label']}}</label> 
+        </div>
+        </div>
+
+        <?php $i++;?>
+        @if($i==4)
+        </div>
+        <div class="row m-b-5">
+        <?php $i=0;?>
+        @endif 
+        @endforeach
+ 
+        </div>
+        @endif
+                    <div class="form-actions">  
+                <div class="text-right">
+                    <input type="hidden" id="addanother" name="addanother" value="">
+                    <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
+                    <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-plus-circle"></i> Create</button>
+                    <button type="button" onclick="saveAndAddAnother();" class="btn btn-default btn-cons">Save And Create Another</button>
+                    <a  href="{{ url('/admin/project/'. $project['id'] .'/apartment-unit') }}"><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
+                </div>
+            </div>
+       </form>
+
     </div>
 </div>
 
 <!-- END PLACE PAGE CONTENT HERE -->
 @endsection
-
-<!-- Modal -->
-<div class="modal fade bs-example-modal-lg1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title text-left" id="myModalLabel">Add Building</h4>
-            </div>
-            <div class="modal-body">
-                <iframe width="100%"></iframe>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<!-- Modal -->
-<div class="modal fade bs-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title text-left" id="myModalLabel">Add Floor Layout</h4>
-            </div>
-            <div class="modal-body">
-                <iframe width="100%"></iframe>
-            </div>
-
-        </div>
-    </div>
-</div>
+ 

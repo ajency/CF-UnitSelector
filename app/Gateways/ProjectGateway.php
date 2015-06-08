@@ -5,6 +5,8 @@ namespace CommonFloor\Gateways;
 use CommonFloor\Repositories\ProjectRepositoryInterface;
 use CommonFloor\ProjectPropertyType;
 use CommonFloor\UnitType;
+use CommonFloor\Defaults;
+use CommonFloor\Http\Controllers\Admin\SvgController;
 
 /**
  * Description of ProjectGateway
@@ -29,7 +31,8 @@ class ProjectGateway implements ProjectGatewayInterface {
         {
             $propertyTypes[$projectPropertyType['property_type_id']] =get_property_type( $projectPropertyType['property_type_id'] );
         }
-        
+        $filters = $project->projectMeta()->where( 'meta_key', 'filters' )->first()->meta_value;
+         
         $projectData = [
             'cf_project_id' => $project->cf_project_id,
             'id' => $project->id,
@@ -45,12 +48,14 @@ class ProjectGateway implements ProjectGatewayInterface {
                 'image' => $faker->imageUrl( 1300, 800, 'city' )
             ],
             'address' => $project->project_address,
+            'measurement_units' => $project->measurement_units,
             'project_status' => $project->getCFProjectStatus(),
             'property_types' => $propertyTypes,
-            'project_property_types' => $this->propertyTypeUnits($projectId)
+            'project_property_types' => $this->propertyTypeUnits($projectId),
+            'filters' =>  unserialize($filters)
 
         ];
-       
+      
         return $projectData;
     }
 
@@ -74,7 +79,8 @@ class ProjectGateway implements ProjectGatewayInterface {
         foreach ($unitTypes as $unitType) {
             $projectPropertyTypekey = array_search( $unitType->project_property_type_id , $projectPropertyTypeIds);
             $unitTypeIds[$projectPropertyTypekey][] = $unitType->id;
-            $unitTypeArr[] = array('id' => $unitType->id ,'name'=> $unitType->unittype_name ,'property_type_id'=> $unitType->project_property_type_id);   
+            $unitTypeName = Defaults::find($unitType->unittype_name)->label;
+            $unitTypeArr[] = array('id' => $unitType->id ,'name'=> $unitTypeName ,'property_type_id'=> $unitType->project_property_type_id);   
         }
        
        $project = $this->projectRepository->getProjectById( $projectId );
@@ -86,7 +92,7 @@ class ProjectGateway implements ProjectGatewayInterface {
          $buildingIds[] =$building->id;  
        }  
       $apartmentunits = \CommonFloor\Unit::whereIn('building_id', $buildingIds)->get()->toArray(); 
-       $variantIds = $bunglowVariantData = $appartmentVariantData =$plotVariantData= $penthouseVariantData =[];
+      $variantIds = $bunglowVariantData = $appartmentVariantData =$plotVariantData= $penthouseVariantData =[];
 
         foreach ($unitTypeIds as $key => $unitTypeId)
         {
@@ -118,9 +124,18 @@ class ProjectGateway implements ProjectGatewayInterface {
         }
      $appartmentVariantData = array_merge($appartmentVariantData,$penthouseVariantData);   
      $units = \CommonFloor\Unit::whereIn('unit_variant_id', $variantIds)->get()->toArray();
-        $units = array_merge($units,$apartmentunits);
+     $units = array_merge($units,$apartmentunits);
+     $unitData = [];
+     foreach ($units as $unit)
+     {
+        $unit['direction'] = ($unit['direction'])?Defaults::find($unit['direction'])->label:'';
+        $unit['views'] = array_values($unit['views']);
+		$unitBreakpoint = SvgController :: get_primary_breakpoints($unit['id']);
+        $unit['breakpoint'] = (isset($unitBreakpoint[0]['primary_breakpoint']))?$unitBreakpoint[0]['primary_breakpoint']:'';
+        unset ($unit['availability']);
+         $unitData[]=$unit;
+     }
  
-
         $stepTwoData = [
             'buildings' => $buildings->toArray(),
             'bunglow_variants' => $bunglowVariantData,
@@ -128,7 +143,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             'plot_variants' => $plotVariantData,
             'property_types' => $propertyTypes,
             'settings' => $this->projectSettings($projectId),
-            'units' =>$units,
+            'units' =>$unitData,
             'unit_types' => $unitTypeArr,
             'floor_layout' => \CommonFloor\FloorLayout::all()->toArray() 
         ];
@@ -149,7 +164,8 @@ class ProjectGateway implements ProjectGatewayInterface {
             $unitTypes = ProjectPropertyType::find( $projectpropertyTypeId )->projectUnitType()->get()->toArray();
             $data[$propertyTypeId]['unit_types'] = [];
             foreach ($unitTypes as $unitType) {
-                $data[$propertyTypeId]['unit_types'][] = $unitType['unittype_name'];
+                $unitTypeName = Defaults::find($unitType['unittype_name'])->label;
+                $data[$propertyTypeId]['unit_types'][] = $unitTypeName;
             }
             $data[$propertyTypeId]['starting_area'] = $faker->randomNumber();
             $data[$propertyTypeId]['availability'] = [
@@ -158,8 +174,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             ];
             $data[$propertyTypeId]['starting_price'] = $faker->randomNumber();
         }
-
-
+ 
         return $data;
     }
 

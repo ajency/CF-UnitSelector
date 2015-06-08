@@ -18,6 +18,7 @@
 
     <div class="grid-body">
     <div class="row">
+        
             <div class="col-md-4">
                 <div class="form-inline">
                     <div class="form-group object-phases" data-object-type="project">
@@ -27,14 +28,17 @@
                 </div>
 
             </div>
-
+        
             <div class="col-md-8">
                 <div class="p-t-5 phases">
                     @foreach($project['project_phase'] as $phase)
                     <div class="pull-left m-r-15">
                         <strong>{{ $phase['phase_name'] }}</strong>
+                        
+                        
                         <button type="button" data-phase-id="{{ $phase['id'] }}" class="btn btn-mini btn-link remove-phase">
                             <span class="fa fa-times text-danger"></span></button>
+                        
                     </div>
                     @endforeach
                  </div>

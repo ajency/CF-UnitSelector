@@ -12,7 +12,7 @@
     <link type="text/css" rel="stylesheet" href="http://asset1.cfcdn.com/cfassets/css/search.caz.css?ver=1427977000" />
     <!-- <link href="../../css/frontend/filters.css" rel="stylesheet"> -->
     <link href="../../css/frontend/custom.css" rel="stylesheet">
-
+<style type="text/css"> body{ background: #000;}</style>
   </head>
   <body>
     <div class="container-fluid component-body">
@@ -68,7 +68,7 @@
 
 
             <div class="col-md-12 us-right-content">
-<div class="big-tooltip tooltipster-base tooltipster-shadow tooltipster-fade tooltipster-fade-show" style="pointer-events: auto; -webkit-animation-duration: 350ms; transition: 350ms; -webkit-transition: 350ms; top: 392px; left: 1191px;">
+<div class="big-tooltip tooltipster-base tooltipster-shadow tooltipster-fade tooltipster-fade-show" style="pointer-events: auto; -webkit-animation-duration: 350ms; transition: 350ms; -webkit-transition: 350ms; top: 392px; left: 691px;">
 <div class="tooltipster-content">
  <!--    <div class="svg-info available">
       <h5 class="pull-left m-t-0">Unit 1</h5><span class=
@@ -117,9 +117,9 @@
   </div>
 </div>
 
-<div class=" tooltipster-base tooltipster-shadow tooltipster-fade tooltipster-fade-show" style="pointer-events: auto; -webkit-animation-duration: 350ms; transition: 350ms;  width: 290px; -webkit-transition: 350ms; top: 392px; left: 31px;">
+<div class=" tooltipster-base tooltipster-shadow  tooltipster-fade tooltipster-fade-show" style="pointer-events: auto; -webkit-animation-duration: 350ms; transition: 350ms;  width: 290px; -webkit-transition: 350ms; top: 392px; left: 31px;">
 <div class="tooltipster-content">
-   <div class="svg-info available">
+<!--    <div class="svg-info available">
     <div class="action-bar">
         <div class="villa"></div>
     </div>  
@@ -137,16 +137,36 @@
           Starting Price <span class="text-primary">Rs.
           20,00,000</span>
         </div>
+       <div class="text-muted text-default"> To Move Forward Click Arrow</div>
       </div>
   <div class="circle">
     <span class="arrow-up icon-chevron-right"></span>
   </div>  
-    </div> 
+    </div>  -->
+    <div class="svg-info available">
+  <div class="action-bar">
+                  <div class="apartment"></div>
+            </div>
+            <h5 class="pull-left ">'+unit.get('unit_name')+'<label>Area</label> - '+response[0].get('super_built_up_area')+' Sq.ft</span></h5>
+            <!--<span class="label label-success"></span-->
+            <br><br>
+            <div class="details">
+             
+                <label>Area</label> sds Sq.ft
+             
+              <div>
+                <label>Unit Type </label> - '+response[1].get('name')+'
+              </div>
+              <div>
+                <label>Price </label> - '+$('#price').val()+'
+              </div>
 
+                 </div>    
+            </div>  
   </div>
 </div>
               
-              <div class="svg-area">
+              <div class="">
                 <object type="image/svg+xml" data="../../images/step1.svg"></object>
                 <!-- <img src=""> -->
               </div>

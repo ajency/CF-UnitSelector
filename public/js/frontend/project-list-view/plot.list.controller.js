@@ -1,5 +1,5 @@
 (function() {
-  var PlotItemView, PlotView,
+  var PlotEmptyView, PlotItemView, PlotView,
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty,
     bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
@@ -11,39 +11,49 @@
       return PlotItemView.__super__.constructor.apply(this, arguments);
     }
 
-    PlotItemView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="pull-left info"> <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}}sqft) </div> <!--<div class="pull-right cost"> 50 lakhs </div>--> </li>');
+    PlotItemView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="col-sm-2 col-xs-2"> <i class="plot-ico m-t-10 "></i> </div> <div class="col-sm-10 col-xs-10"> <div class="pull-left info"> <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}} {{measurement_units}}) </div> <div class="clearfix"></div> <div class="text-primary m-t-5"> <span class="icon-rupee-icn"></span>{{price}} </div> </div> </li>');
 
     PlotItemView.prototype.initialize = function() {
       return this.$el.prop("id", 'unit' + this.model.get("id"));
     };
 
     PlotItemView.prototype.serializeData = function() {
-      var availability, data, unitType, unitVariant;
+      var availability, data, response;
       data = PlotItemView.__super__.serializeData.call(this);
-      unitVariant = plotVariantCollection.findWhere({
-        'id': this.model.get('unit_variant_id')
-      });
-      unitType = unitTypeCollection.findWhere({
-        'id': unitVariant.get('unit_type_id')
-      });
-      data.unit_type = unitType.get('name');
-      data.super_built_up_area = unitVariant.get('super_built_up_area');
+      response = window.unit.getUnitDetails(this.model.get('id'));
+      data.unit_type = response[1].get('name');
+      data.super_built_up_area = response[0].get('super_built_up_area');
       availability = this.model.get('availability');
       data.status = s.decapitalize(availability);
+      this.model.set('status', status);
+      data.price = window.numDifferentiation(response[3]);
       this.model.set('status', data.status);
+      data.measurement_units = project.get('measurement_units');
       return data;
     };
 
     PlotItemView.prototype.events = {
       'click .unit': function(e) {
         if (this.model.get('status') === 'available') {
-          CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
-          return CommonFloor.router.storeRoute();
+          return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
         }
       }
     };
 
     return PlotItemView;
+
+  })(Marionette.ItemView);
+
+  PlotEmptyView = (function(superClass) {
+    extend(PlotEmptyView, superClass);
+
+    function PlotEmptyView() {
+      return PlotEmptyView.__super__.constructor.apply(this, arguments);
+    }
+
+    PlotEmptyView.prototype.template = 'No units added';
+
+    return PlotEmptyView;
 
   })(Marionette.ItemView);
 
@@ -54,7 +64,7 @@
       return PlotView.__super__.constructor.apply(this, arguments);
     }
 
-    PlotView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <div class="list-view-container animated fadeInUp"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings hidden">Buildings</li> <li class="prop-type Villas hidden ">Villas/Bungalows</li> <li class="prop-type Plots active">Plots</li> </ul> </div> <div class="legend"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <div class="clearfix"></div> <div class="villa-list"> <ul class="units"> </ul> </div> </div> </div>');
+    PlotView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <div class="list-view-container animated fadeInUp"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <span class="pull-left top-legend"> <ul> <li class="na">N/A</li> </ul> </span> <h2 class="text-center">List of Plots</h2> <hr class="margin-none"> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings hidden">Buildings</li> <li class="prop-type Villas hidden ">Villas/Bungalows</li> <li class="prop-type Plots active">Plots</li> </ul> </div> <div class="legend"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <div class="clearfix"></div> <div class="villa-list"> <ul class="units"> </ul> </div> </div> </div>');
 
     PlotView.prototype.childView = PlotItemView;
 
@@ -103,7 +113,7 @@
     };
 
     PlotView.prototype.onShow = function() {
-      if (apartmentVariantCollection.length !== 0) {
+      if (buildingCollection.length !== 0) {
         $('.buildings').removeClass('hidden');
       }
       if (bunglowVariantCollection.length !== 0) {

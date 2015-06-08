@@ -11,7 +11,9 @@ class ApartmentVariant extends Backbone.Model
 		if ! _.isUndefined unitVarinatModel 
 			floorRiseArray = settings.generateFloorRise(unitModel.get('building_id'))
 			floorRise = floorRiseArray[unitModel.get('floor')]
-			basic_cost = ( parseFloat(unitVarinatModel.get('per_sq_ft_price')) + parseFloat(floorRise )) *
+			# basic_cost = ( parseFloat(unitVarinatModel.get('per_sq_ft_price')) + parseFloat(floorRise )) *
+			# 				parseFloat(unitVarinatModel.get('super_built_up_area'))
+			basic_cost = ( parseFloat(unitVarinatModel.get('per_sq_ft_price'))) *
 							parseFloat(unitVarinatModel.get('super_built_up_area'))
 			basicCost = basic_cost.toFixed(2)
 		basicCost
@@ -42,7 +44,19 @@ class ApartmentVariantCollection extends Backbone.Collection
 
 		newUnits
 
-	#set apartment units
+
+	#set penthouse units
+	getPenthouseUnits:->
+		units = []
+		unitCollection.each (model)->
+			unitType = unitTypeMasterCollection.findWhere
+							'id' :  model.get('unit_type_id')
+			property = window.propertyTypes[unitType.get('property_type_id')]
+			if s.decapitalize(property) == 'penthouse'
+				units.push model
+		units
+
+	#get apartment units
 	getApartmentMasterUnits:->
 		units = []
 		newUnits = []
@@ -66,6 +80,17 @@ class ApartmentVariantCollection extends Backbone.Collection
 						
 
 		unit_types
+
+	getApartmentAttributes:->
+		attributes = []
+		types = []
+		apartmentVariantMasterCollection.each (item)->
+			$.each item.get('variant_attributes') , (index,value)->
+				if $.inArray(value,attributes) == -1
+					attributes.push value
+				
+						
+		[attributes]
 
 	
 

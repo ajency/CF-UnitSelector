@@ -107,12 +107,18 @@
     };
 
     Building.prototype.getBuildingUnits = function(building_id) {
-      var units;
+      var units, unitsFloor, unitsPosition;
       if (building_id === "") {
         return;
       }
       units = unitCollection.where({
         'building_id': building_id
+      });
+      unitsFloor = _.sortBy(units, function(num) {
+        return num.get('floor');
+      });
+      unitsPosition = _.sortBy(unitsFloor, function(num) {
+        return num.get('position');
       });
       return units;
     };

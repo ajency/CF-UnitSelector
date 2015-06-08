@@ -7,7 +7,7 @@
     <li><a href="{{ url( 'admin/project/') }}">Projects</a> </li>
     <li><a href="{{ url( 'admin/project/' . $project['id'].'/edit') }}">{{ $project['project_title'] }}</a> </li>
     <li><a href="#">Villa Unit</a> </li>
-    <li><a href="#" class="active">View Unit</a> </li>
+    <li><a href="#" class="active">View Units</a> </li>
 </ul>
 <!-- END BREADCRUMBS -->
 @endsection
@@ -25,25 +25,28 @@
                 <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/bunglow-unit/create') }}" ><i class="fa fa-plus"></i> Add Unit</a>
             </div>
             <div class="grid-body">
-                <table class="table table-striped" id="example2" >
+                <table class="table table-bordered" id="example2" >
                     <thead>
                         <tr>
+                            <th style="width:40px;">Edit</th>
                             <th>Name</th>
                             <th>Status</th>
                             <th>Variant</th>
+                            <th>Phase</th>
                             <th>Created On</th>
                             <th>Modified On</th>
                         </tr>
                     </thead>
                     <tbody> 
                         @foreach ($unit_arr as $unit)
-                            <tr class="">
-                                <td><a href="{{ url( '/admin/project/' . $project['id'] . '/bunglow-unit/'.$unit['id'].'/edit') }}">{{ $unit['unit_name'] }}</a></td>
+                            <tr class="" onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/bunglow-unit/'.$unit['id'].'/edit') }}'">
+                                <td class="text-center"><i class="fa fa-pencil"></i></td>
+                                <td>{{ $unit['unit_name'] }}</td>
                                 <td>{{ ucfirst($unit->availability) }}</td>
                                 <td>{{ $unit->unitVariant->unit_variant_name}}</td>
+                                <td>{{ $unit->phase->phase_name }}</td>
                                 <td>{{ date('d/m/Y',strtotime($unit['created_at'])) }}</td>
                                 <td>{{  date('d/m/Y',strtotime($unit['updated_at'])) }}</td>
-
                             </tr>
                         @endforeach
                     </tbody>

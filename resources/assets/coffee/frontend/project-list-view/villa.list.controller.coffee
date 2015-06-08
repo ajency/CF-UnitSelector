@@ -2,12 +2,16 @@
 class VillaItemView extends Marionette.ItemView
 
 	template : Handlebars.compile('<li class="unit blocks {{status}}">
-                  <div class="pull-left info">
-                    <label>{{unit_name}}</label> ({{unit_type}} {{super_built_up_area}}sqft)
+					<div class="villa-ico pull-left icon m-t-10"></div>
+                  <div class="pull-left bldg-info">
+                   <div class="info"> <label>{{unit_name}}</label> </div> 
+					{{unit_type}} ({{super_built_up_area}}{{measurement_units}})
+     				<br>
+                <div class="text-primary m-t-5 ">
+                    <span class="icon-rupee-icn"></span>{{price}}
                   </div>
-                  <!--<div class="pull-right cost">
-                    50 lakhs
-                  </div>-->
+                  </div>
+                  <div class="clearfix"></div>
                 </li>')
 
 	initialize:->
@@ -15,32 +19,43 @@ class VillaItemView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
-		unitVariant = bunglowVariantCollection.findWhere
-							'id' : @model.get('unit_variant_id')
-		unitType = unitTypeCollection.findWhere
-							'id' : unitVariant.get('unit_type_id')
-		data.unit_type = unitType.get('name')
-		data.super_built_up_area = unitVariant.get('super_built_up_area')
+		response = window.unit.getUnitDetails(@model.get('id'))
+		data.unit_type = response[1].get('name')
+		data.super_built_up_area = response[0].get('super_built_up_area')
 		availability = @model.get('availability')
 		data.status = s.decapitalize(availability)
+		@model.set 'status' , status
+		data.price = window.numDifferentiation(response[3])
 		@model.set 'status' , data.status
+		data.measurement_units = project.get('measurement_units')
 		data
 
 	events:
 		'click .unit' :(e)->
 				if @model.get('status') == 'available'
 					CommonFloor.navigate '/unit-view/'+@model.get('id') , true
-					CommonFloor.router.storeRoute()
+					# CommonFloor.router.storeRoute()
+
+class VillaEmptyView extends Marionette.ItemView
+
+	template : 'No units added'
 
 #Composite view for villas
 class VillaView extends Marionette.CompositeView
 
 	template : Handlebars.compile('<div class="col-md-12 us-right-content">
 									<div class="list-view-container animated fadeIn">
+										<span class="pull-left top-legend">     
+											<ul>
+												 <li class="na">N/A</li>
+											</ul>
+										</span>
+										<h2 class="text-center">List of Villas</h2>
+				              			<hr class="margin-none">
 							            <div class="text-center">
 							              <ul class="prop-select">
 							                <li class="prop-type buildings hidden">Buildings</li>
-							                <li class="prop-type Villas active ">Villas/Bungalows</li>
+							                <li class="prop-type Villas active ">Villas</li>
 							                <li class="prop-type Plots hidden">Plots</li>
 							              </ul>
 							            </div>
@@ -97,10 +112,26 @@ class VillaView extends Marionette.CompositeView
 			
 
 	onShow:->
-		if apartmentVariantCollection.length != 0
-			$('.buildings').removeClass 'hidden'
-		if plotVariantCollection.length != 0
-			$('.Plots').removeClass 'hidden'
+		if buildingCollection.length != 0
+             $('.buildings').removeClass 'hidden'
+        if plotVariantCollection.length != 0
+             $('.Plots').removeClass 'hidden'
+		# if CommonFloor.defaults['type'] != ""
+		# 	type = CommonFloor.defaults['type'].split(',')
+		# 	if $.inArray('apartment' ,type) > -1
+		# 		$('.buildings').removeClass 'hidden'
+		# 	if $.inArray('plot' ,type) > -1
+		# 		$('.Plots').removeClass 'hidden'
+		# else
+		# 	arr = _.values(window.propertyTypes)
+		# 	if $.inArray('Apartments' ,arr) > -1 || $.inArray('Penthouse' ,arr) > -1
+		# 		$('.buildings').removeClass 'hidden'
+		# 	if $.inArray('Plot' ,arr) > -1
+		# 		$('.Plots').removeClass 'hidden'
+		# 	if $.inArray('Villas/Bungalows' ,arr) > -1
+		# 		$('.Villas').removeClass 'hidden'
+		
+		
 		
 
 #controller for the listing all the villas

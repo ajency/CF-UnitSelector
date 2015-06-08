@@ -3,9 +3,13 @@
 use Illuminate\Database\Eloquent\Model;
 
 class UserProject extends Model {
-     public function userRole()
+    
+    protected $table = 'user_project';
+    public $timestamps = false;
+     
+    public function roleUser()
     { 
-        return $this->belongsTo('CommonFloor\Project');
+        return $this->belongsTo('CommonFloor\UserRole');
     }
 
 }

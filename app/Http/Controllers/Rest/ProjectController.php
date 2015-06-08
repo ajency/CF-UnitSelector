@@ -5,6 +5,7 @@ namespace CommonFloor\Http\Controllers\Rest;
 use CommonFloor\Http\Controllers\Controller;
 use CommonFloor\Gateways\ProjectGatewayInterface;
 use CommonFloor\ProjectJson;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller {
 
@@ -24,7 +25,18 @@ class ProjectController extends Controller {
 
         try {
 
-            $data = $this->projectGateway->getProjectStepOneDetails( $projectId );
+            if (Auth::check())
+            {
+                $data = $this->projectGateway->getProjectStepOneDetails( $projectId );
+            }
+            else
+            {
+                $projectJson = ProjectJson::where('project_id', $projectId)
+                                        ->where('type', 'step_one')->get()->first();
+                $data = $projectJson->project_json;
+                 
+            }
+
             return response()->json( [
                                 'data' => $data
                             ], 200, [], JSON_NUMERIC_CHECK );
@@ -37,24 +49,52 @@ class ProjectController extends Controller {
     }
 
     public function stepTwo( $projectId ) {
-        $projectJson = ProjectJson::where('project_id', $projectId)
-                                        ->where('type', 'step_two')->get()->first();
+                
 
+        if (Auth::check())
+        {
+            $projectJsonData = $this->projectGateway->getProjectStepTwoDetails( $projectId );
+        }
+        else
+        {
+            $projectJson = ProjectJson::where('project_id', $projectId)
+                                        ->where('type', 'step_two')->get()->first();
+            $projectJsonData = $projectJson->project_json;    
+        }
+        
+        if(!empty($projectJsonData))                             //UPDATE CURRENT UNIT STATUS TO JSON DATA
+        {
+            $unitData = [];
+            $units = $projectJsonData['units'];
+            foreach ($units as $unit)
+            {
+                $unit['availability']=  \CommonFloor\Unit::find($unit['id'])->availability;
+                $unitData[]=$unit;
+            }
+            $projectJsonData['units']=$unitData;
+        }
         return response()->json( [
-                            'data' => $projectJson->project_json
+                            'data' => $projectJsonData
                         ], 200, [], JSON_NUMERIC_CHECK );
     }
 
     public function updateResponseTable( $projectId ){
-        $data = $this->projectGateway->getProjectStepTwoDetails( $projectId );
+        $stepOneData = $this->projectGateway->getProjectStepOneDetails( $projectId );
+        $stepTwoData = $this->projectGateway->getProjectStepTwoDetails( $projectId );
+
+        $projectJson = ProjectJson::where('project_id', $projectId)
+                                ->where('type', 'step_one')->get()->first();
+        $projectJson->project_json = $stepOneData;
+        $projectJson->save();
+
         $projectJson = ProjectJson::where('project_id', $projectId)
                                 ->where('type', 'step_two')->get()->first();
-        $projectJson->project_json = $data;
+        $projectJson->project_json = $stepTwoData;
         $projectJson->save();
         return response()->json( [
                             'code' => '',
                             'message' => 'Project json updated successfully'
                     ], 203 );
     }
-
+ 
 }

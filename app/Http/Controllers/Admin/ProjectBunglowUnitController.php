@@ -10,6 +10,8 @@ use CommonFloor\Project;
 use CommonFloor\UnitVariant;
 use CommonFloor\Unit;
 use CommonFloor\UnitType;
+use CommonFloor\Phase;
+use CommonFloor\Defaults;
 
 class ProjectBunglowUnitController extends Controller {
 
@@ -18,6 +20,9 @@ class ProjectBunglowUnitController extends Controller {
      *
      * @return Response
      */
+    
+ 
+    
     public function index($id, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($id);
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
@@ -26,7 +31,7 @@ class ProjectBunglowUnitController extends Controller {
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if ($propertyTypes['property_type_id']=='2')
+            if ($propertyTypes['property_type_id']==BUNGLOWID)
                 $projectPropertytypeId = $propertyTypes['id'];
         }
         $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
@@ -53,14 +58,17 @@ class ProjectBunglowUnitController extends Controller {
      * @return Response
      */
     public function create($id, ProjectRepository $projectRepository) {
+
         $project = $projectRepository->getProjectById($id);
+        $projectAttributes = $project->attributes->toArray();
+        $defaultDirection = Defaults::where('type','direction')->get()->toArray();
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
         $propertyTypeArr = [];
         $projectPropertytypeId = 0;
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if ($propertyTypes['property_type_id']=='2')
+            if ($propertyTypes['property_type_id']==BUNGLOWID)
                 $projectPropertytypeId = $propertyTypes['id'];
         }
         
@@ -70,11 +78,15 @@ class ProjectBunglowUnitController extends Controller {
             $unitTypeIdArr[] =$unitType['id'];
        
         $unitVariantArr = UnitVariant::whereIn('unit_type_id',$unitTypeIdArr)->get()->toArray();
+        $phases = $project->projectPhase()->where('status','not_live')->get()->toArray();
 
         return view('admin.project.addunit')
                         ->with('project', $project->toArray())
+                        ->with('projectAttributes', $projectAttributes)
                         ->with('project_property_type', $propertyTypeArr)
                         ->with('unit_variant_arr', $unitVariantArr)
+                        ->with('phases', $phases)
+                        ->with('defaultDirection', $defaultDirection)
                         ->with('current', 'bunglow-unit');
     }
 
@@ -83,11 +95,23 @@ class ProjectBunglowUnitController extends Controller {
      *
      * @return Response
      */
-    public function store($project_id, Request $request) {
+    public function store($project_id, Request $request) { 
         $unit = new Unit();
         $unit->unit_name = ucfirst($request->input('unit_name'));
         $unit->unit_variant_id = $request->input('unit_variant');
         $unit->availability = $request->input('unit_status');
+        $unit->phase_id = $request->input('phase');
+        $unit->direction = $request->input('direction');
+        $views = $request->input('views');
+        $unitviews=[];
+        if(!empty($views))
+        {
+            foreach ($views as $key=>$view)
+               $unitviews[$key]= ucfirst($view);    
+        }
+        $viewsStr = serialize( $unitviews );
+        $unit->views = $viewsStr;
+
         $unit->save();
         $unitid = $unit->id;
         
@@ -117,15 +141,17 @@ class ProjectBunglowUnitController extends Controller {
      * @return Response
      */
     public function edit($project_id, $id, ProjectRepository $projectRepository) {
-        $unit = Unit::find($id);
+        $unit = Unit::find($id); 
         $project = $projectRepository->getProjectById($project_id);
+        $projectAttributes = $project->attributes->toArray();
+        $defaultDirection = Defaults::where('type','direction')->get()->toArray();
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
         $propertyTypeArr = [];
 
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if ($propertyTypes['property_type_id']=='2')
+            if ($propertyTypes['property_type_id']==BUNGLOWID)
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
@@ -135,12 +161,25 @@ class ProjectBunglowUnitController extends Controller {
             $unitTypeIdArr[] =$unitType['id'];
        
         $unitVariantArr = UnitVariant::whereIn('unit_type_id',$unitTypeIdArr)->get()->toArray();
+        $phases = $project->projectPhase()->where('status','not_live')->get()->toArray();
+       
 
+        foreach ($phases as $key => $phase) {
+            if($phase['id'] != $unit->phase_id)
+            {   
+               $phases[]= $project->projectPhase()->where('id',$unit->phase_id)->first()->toArray();
+            }
+
+        }
+      
         return view('admin.project.editunit')
                         ->with('project', $project->toArray())
+                        ->with('projectAttributes', $projectAttributes)
                         ->with('project_property_type', $propertyTypeArr)
                         ->with('unit_variant_arr', $unitVariantArr)
                         ->with('unit', $unit->toArray())
+                        ->with('phases', $phases)
+                        ->with('defaultDirection', $defaultDirection)
                         ->with('current', 'bunglow-unit');
     }
 
@@ -155,6 +194,17 @@ class ProjectBunglowUnitController extends Controller {
         $unit->unit_name = ucfirst($request->input('unit_name'));
         $unit->unit_variant_id = $request->input('unit_variant');
         $unit->availability = $request->input('unit_status');
+        $unit->phase_id = $request->input('phase');
+        $unit->direction = $request->input('direction');
+        $views = $request->input('views');
+        $unitviews=[];
+        if(!empty($views))
+        {
+            foreach ($views as $key=>$view)
+               $unitviews[$key]= ucfirst($view);    
+        }
+        $viewsStr = serialize( $unitviews );
+        $unit->views = $viewsStr;
         $unit->save();
         $addanother = $request->input('addanother');
         

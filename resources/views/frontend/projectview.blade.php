@@ -1,11 +1,16 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
     <head>
         <title>CommonFloor - {{ $project_title }}</title>
         <link type="text/css" rel="stylesheet" href="http://asset1.cfcdn.com/cfassets/css/search.caz.css?ver=1427977000" />
         <link href="{{ asset('css/frontend/custom.css')}}" rel="stylesheet">
         <link rel="icon" type="image/png" href="{{ asset('images/others/favicon.ico')}}">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <!-- BEGIN TRACKJS <script type="text/javascript">window._trackJs = { token: 'b47abea606fa443aa8a488c4eaeaaa75' };</script> <script type="text/javascript" src="//d2zah9y47r7bi2.cloudfront.net/releases/current/tracker.js" crossorigin="anonymous"></script> END TRACKJS -->
+        <!--[if IE]>
+            <link href="{{ asset('css/frontend/ie.css')}}" rel="stylesheet" type="text/css" />
+        <![endif]-->
     </head>
     <body>
                   
@@ -52,16 +57,14 @@
         </div>
         <div class="footer-push"></div>
       </div>
-      <footer id="footer" class="footer">
-        <div class="footer-section1">
-          <div class="footer-wrap">
+      <footer id="footer" class="footer d">
+
+        <div class="footer-section4"><!--Footer Section 4 starts from here-->
+          <div class="">
             <div class="container-fluid">
               <div class="row">
-                <div class="col-sm-12 col-md-12 col-xm-12">
+                <div class="col-sm-12">
                   <ul class="nav navbar-nav footer-nav">
-                    <li>
-                      <a href="http://www.commonfloor.com/about-us" target="_blank" title="Terms and Conditions">Terms &amp; Conditions</a>
-                    </li>
                     <li>
                       <a href="http://www.commonfloor.com/privacy-policy" target="_blank" title="Privacy Policy">Privacy Policy</a>
                     </li>
@@ -72,17 +75,6 @@
                       <a href="{{url()}}/admin" target="_blank"  title="Authoring Tool">Authoring Tool</a>
                     </li>
                   </ul>
-                </div>              
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="footer-section4"><!--Footer Section 4 starts from here-->
-          <div class="footer-wrap">
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-sm-12">
                   <div class="copyright-text">
                     Copyright © 2007-15 CommonFloor.com. All rights reserved.
                   </div>
@@ -114,7 +106,12 @@
         <script src="{{ asset('bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.js' )}}"></script>
         <script src="{{ asset('bower_components/lazyloadxt/dist/jquery.lazyloadxt.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery.panzoom/dist/jquery.panzoom.min.js' )}}"></script>
-         <script src="{{ asset('bower_components/ionrangeslider/js/ion.rangeSlider.min.js' )}}"></script>
+        <script src="{{ asset('bower_components/ionrangeslider/js/ion.rangeSlider.min.js' )}}"></script>
+        <script src="{{ asset('bower_components/bootstrap-toggle/js/bootstrap-toggle.min.js' )}}"></script>
+        <!--<script src="{{ asset('bower_components/svg-pan-zoom/dist/svg-pan-zoom.min.js' )}}"></script>-->
+        <script src="{{ asset('js/frontend/jquery.fadeloader.js' )}}"></script> 
+        <script src="{{ asset('js/jquery.flexisel.js' )}}"></script> 
+         <!--<script src="{{ asset('bower_components/jquery-nearest/src/jquery.nearest.js' )}}"></script> -->
         <!-- end plugins -->
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
         <script>
@@ -123,8 +120,15 @@
         CommonFloor = new Marionette.Application 
         BASEURL = '{{url()}}'
         //global variable to keep track of the filtr the user has selected
-        CommonFloor.defaults = {'type' : "" , 'unitVariants': "",'unitTypes':"",'price_min':'','price_max':'','availability':'','area_min' : '','area_max' : '','building':'','floor_min' : '','floor_max' : ''}
-  
+        // CommonFloor.defaults = {'type' : "" , 'unitVariants': "",'unitTypes':"",'price_min':'','price_max':'','availability':'','area_min' : '','area_max' : '','building':'','floor_min' : '','floor_max' : '','flooring': ''}
+        CommonFloor.defaults = {'type' : ""
+                            ,'plot' : {'unit_type_id' : '','unit_variant_id':'','attributes' : ''}
+                            ,'villa' : {'unit_type_id' : '','unit_variant_id':'','attributes' : ''}
+                            ,'apartment' : {'unit_type_id' : '','unit_variant_id':'','attributes' : ''}
+                            ,'common' : {'price_min':'','price_max':'','availability':'','area_min' : '','area_max' : '','building':'','floor_min' : '','floor_max' : '','facings':'','views':''}
+                            ,'step_three' : {'unit_type_id' : '','unit_variant_id':''}}
+
+
         window.locale = {
 
             "en-US" : <?php echo get_locale_frontend_to_json() ?>
@@ -162,6 +166,10 @@
         <script src="{{ asset('js/frontend/application.js' )}}"></script>
         
         <input type="hidden" id="price" data-m-dec="" data-a-sign="Rs. " data-d-group="2" value="" />
+      <script type="text/javascript">
       
+       
+
+      </script>
     </body>
 </html>

@@ -7,8 +7,11 @@ use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use CommonFloor\Project;
 use CommonFloor\Unit;
+use CommonFloor\UnitType;
 use CommonFloor\Building;
 use CommonFloor\FloorLayout;
+use CommonFloor\UnitVariant;
+use CommonFloor\Defaults;
 
 class ProjectApartmentUnitController extends Controller {
 
@@ -17,15 +20,16 @@ class ProjectApartmentUnitController extends Controller {
      *
      * @return Response
      */
-    public function index( $projectId ) {
-        $project = Project::find( $projectId );
-        $phases = $project->projectPhase()->lists( 'id' );
-        $buildings = Building::whereIn( 'phase_id', $phases )->lists('id');
+   
+    public function index($projectId) {
+        $project = Project::find($projectId);
+        $phases = $project->projectPhase()->lists('id');
+        $buildings = Building::whereIn('phase_id', $phases)->lists('id');
         $units = Unit::whereIn('building_id', $buildings)->get();
-        return view( 'admin.project.unit.apartment.list' )
-                        ->with( 'project', $project->toArray() )
-                        ->with( 'current', 'apartment-unit' )
-                        ->with( 'units', $units );
+        return view('admin.project.unit.apartment.list')
+                        ->with('project', $project->toArray())
+                        ->with('current', 'apartment-unit')
+                        ->with('units', $units);
     }
 
     /**
@@ -33,14 +37,41 @@ class ProjectApartmentUnitController extends Controller {
      *
      * @return Response
      */
-    public function create( $projectId ) {
-        $project = Project::find( $projectId );
-        $phases = $project->projectPhase()->lists( 'id' );
-        $buildings = Building::whereIn( 'phase_id', $phases )->get();
-        return view( 'admin.project.unit.apartment.create' )
-                        ->with( 'project', $project->toArray() )
-                        ->with( 'current', 'apartment-unit' )
-                        ->with( 'buildings', $buildings );
+    public function create($projectId) {
+
+        $project = Project::find($projectId);
+        $phases = $project->projectPhase()->lists('id');
+        $projectAttributes = $project->attributes->toArray();
+        $defaultDirection = Defaults::where('type','direction')->get()->toArray();
+        $buildings = Building::whereIn('phase_id', $phases)->get();
+        $propertyTypes = $project->projectPropertyTypes()->whereIn( 'property_type_id', [APARTMENTID,PENTHOUSEID] )->get()->toArray();
+        $unitVariantArr = $projectPropertyTypes = $unitTypeIdArr= [];
+        
+        foreach($propertyTypes as $propertyType)
+        {
+            $projectPropertyTypes[]  = ['NAME'=>get_property_type($propertyType['property_type_id']),'ID'=>$propertyType['id']];
+ 
+        } 
+ 
+        if(count($projectPropertyTypes)==1)
+        {
+           $unitTypeArr = UnitType::where( 'project_property_type_id', $projectPropertyTypes[0]['ID'] )->get();
+         
+            foreach($unitTypeArr as $unitType)
+                $unitTypeIdArr[] =$unitType['id'];
+           
+            $unitVariantArr = UnitVariant::whereIn('unit_type_id',$unitTypeIdArr)->get()->toArray(); 
+        }
+
+        
+        return view('admin.project.unit.apartment.create')
+                        ->with('project', $project->toArray())
+                        ->with('projectPropertyTypes', $projectPropertyTypes)
+                        ->with('unit_variant_arr', $unitVariantArr)
+                        ->with('projectAttributes', $projectAttributes)
+                        ->with('defaultDirection', $defaultDirection)
+                        ->with('current', 'apartment-unit')
+                        ->with('buildings', $buildings);
     }
 
     /**
@@ -48,22 +79,33 @@ class ProjectApartmentUnitController extends Controller {
      *
      * @return Response
      */
-    public function store( $projectId, Request $request ) {
+    public function store($projectId, Request $request) {
 
         $unit = new Unit;
-        $unit->unit_name = ucfirst($request->get( 'unit_name' ));
-        $unit->unit_variant_id = 0;
-        $unit->building_id = $request->get( 'building_id' );
-        $unit->floor = $request->get( 'floor' );
-        $unit->position = $request->get( 'position' );
-        $unit->availability = $request->get( 'unit_status' );
-        $unit->save();
+        $unit->unit_name = ucfirst($request->get('unit_name'));
+        $unit->unit_variant_id = $request->get('unit_variant_id');
+        $unit->building_id = $request->get('building_id');
+        $unit->floor = $request->get('floor');
+        $unit->position = $request->get('position');
+        $unit->availability = $request->get('unit_status');
+        $unit->direction = $request->input('direction');
+        $views = $request->input('views');
+        $unitviews=[];
+        if(!empty($views))
+        {
+            foreach ($views as $key=>$view)
+               $unitviews[$key]= ucfirst($view);    
+        }
+        $viewsStr = serialize( $unitviews );
+        $unit->views = $viewsStr;
         
+        $unit->save();
+
         $addanother = $request->input('addanother');
-        if($addanother==1)
-            return redirect( url( '/admin/project/' . $projectId . '/apartment-unit/create' ) );
+        if ($addanother == 1)
+            return redirect(url('/admin/project/' . $projectId . '/apartment-unit/create'));
         else
-            return redirect( url( '/admin/project/' . $projectId . '/apartment-unit/' . $unit->id . '/edit' ) );
+            return redirect(url('/admin/project/' . $projectId . '/apartment-unit/' . $unit->id . '/edit'));
     }
 
     /**
@@ -72,7 +114,7 @@ class ProjectApartmentUnitController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function show( $id ) {
+    public function show($id) {
         //
     }
 
@@ -82,30 +124,54 @@ class ProjectApartmentUnitController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function edit( $projectId, $unitId ) {
-        $project = Project::find( $projectId );
+    public function edit($projectId, $unitId) {
+        $project = Project::find($projectId);
+        $project = Project::find($projectId);
+        $projectAttributes = $project->attributes->toArray();
+        $defaultDirection = Defaults::where('type','direction')->get()->toArray();
+        $phases = $project->projectPhase()->lists('id');
 
-        $project = Project::find( $projectId );
+        $buildings = Building::whereIn('phase_id', $phases)->get()->toArray();
 
-        $phases = $project->projectPhase()->lists( 'id' );
-
-        $buildings = Building::whereIn( 'phase_id', $phases )->get()->toArray(); 
-       
-        $unit = Unit::find( $unitId )->toArray(); 
-        $building = Building::find($unit['building_id'])->toArray();  
+        $unit = Unit::find($unitId)->toArray();
+        $building = Building::find($unit['building_id'])->toArray();
         $floors = $building['no_of_floors'];
-        $floorlayoutIds = $building['floors']; 
-        $floorlayoutId = $floorlayoutIds[$unit['floor']];
-        $position = FloorLayout::find($floorlayoutId)->no_of_flats; 
-  
         
-        return view( 'admin.project.unit.apartment.edit' )
-                        ->with( 'project', $project->toArray() )
-                        ->with( 'current', 'apartment-unit' )
-                        ->with( 'buildings', $buildings )
-                        ->with( 'floors', $floors )
-                        ->with( 'position',$position )
-                        ->with( 'unit', $unit );
+        $positions =[];
+        $unitPositions = Unit :: where('building_id',$unit['building_id'])->where('floor',$unit['floor'])->where('id','!=',$unit['id'])->get()->toArray();
+        foreach($unitPositions as $unitPosition)
+            $positions[] = $unitPosition['position'];
+        
+ 
+        $availabelpositions = [];
+         for ($i = 1; $i<=40 ; $i++)
+        {
+            if(in_array($i,$positions))
+                continue;
+             
+            $availabelpositions [] =$i;
+            
+        }
+        
+ 
+
+        $projectPropertytypes = $project->projectPropertyTypes()->whereIn( 'property_type_id', [APARTMENTID,PENTHOUSEID] )->get()->toArray();
+        
+        $variantId = $unit['unit_variant_id'];
+        $unitType = UnitVariant::find($variantId)->unitType()->first();
+        $unitTypeId = $unitType->id;
+        $unitVariantArr = UnitVariant::where('unit_type_id',$unitTypeId)->get()->toArray();
+
+        return view('admin.project.unit.apartment.edit')
+                        ->with('project', $project->toArray())
+                        ->with('projectAttributes', $projectAttributes)
+                        ->with('current', 'apartment-unit')
+                        ->with('buildings', $buildings)
+                        ->with('floors', $floors)
+                        ->with('availabelpositions', $availabelpositions)
+                        ->with('unit_variant_arr', $unitVariantArr)
+                        ->with('defaultDirection', $defaultDirection)
+                        ->with('unit', $unit);
     }
 
     /**
@@ -115,19 +181,29 @@ class ProjectApartmentUnitController extends Controller {
      * @return Response
      */
     public function update($project_id, $id, Request $request) {
-        
+ 
         $unit = Unit::find($id);
-        $unit->unit_name = ucfirst($request->get( 'unit_name' ));
-        $unit->unit_variant_id = 0;
-        $unit->building_id = $request->get( 'building_id' );
-        $unit->floor = $request->get( 'floor' );
-        $unit->position = $request->get( 'position' );
-        $unit->availability = $request->get( 'unit_status' );
+        $unit->unit_name = ucfirst($request->get('unit_name'));
+        $unit->unit_variant_id = $request->get('unit_variant');
+        $unit->building_id = $request->get('building_id');
+        $unit->floor = $request->get('floor');
+        $unit->position = $request->get('position');
+        $unit->availability = $request->get('unit_status');
+        $unit->direction = $request->input('direction');
+        $views = $request->input('views');
+        $unitviews=[];
+        if(!empty($views))
+        {
+            foreach ($views as $key=>$view)
+               $unitviews[$key]= ucfirst($view);    
+        }
+        $viewsStr = serialize( $unitviews );
+        $unit->views = $viewsStr;
         $unit->save();
-        
+
         $addanother = $request->input('addanother');
-       if($addanother==1)
-            return redirect( url( '/admin/project/' . $project_id . '/apartment-unit/create' ) );
+        if ($addanother == 1)
+            return redirect(url('/admin/project/' . $project_id . '/apartment-unit/create'));
         else
             return redirect("/admin/project/" . $project_id . "/apartment-unit/" . $id . '/edit');
     }
@@ -138,8 +214,33 @@ class ProjectApartmentUnitController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy( $id ) {
+    public function destroy($id) {
         //
+    }
+    
+    public function getAvailablePosition($projectId, Request $request)
+    {  
+        $buildingId = $request['buildingId'];
+        $floor = $request['floor'];
+        $unitPositions = Unit :: where('building_id',$buildingId)->where('floor',$floor)->get()->toArray();
+        $positions =[];
+        foreach($unitPositions as $unitPosition)
+            $positions[] = $unitPosition['position'];
+        
+        $str ='<option value="">Select Position</option>';
+        for ($i = 1; $i<=40 ; $i++)
+        {
+            if(in_array($i,$positions))
+                continue;
+            
+            $str .='<option value="'.$i.'">'.$i.'</option>';
+        }
+        
+       return response()->json( [
+            'code' => 'available_poition',
+            'message' => '',
+            'data' => $str
+        ], 201 );
     }
 
 }

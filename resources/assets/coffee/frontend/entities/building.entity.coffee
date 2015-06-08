@@ -86,6 +86,12 @@ class Building extends Backbone.Model
 		units = unitCollection.where
 					'building_id' : building_id
 
+		unitsFloor = _.sortBy(units, (num)->
+				return num.get('floor')
+			);
+		unitsPosition = _.sortBy(unitsFloor, (num)->
+				return num.get('position')
+			);
 		units 
 
 	#Rotation view for a building

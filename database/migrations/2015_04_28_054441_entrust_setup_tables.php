@@ -22,13 +22,12 @@ class EntrustSetupTables extends Migration
 
         // Create table for associating roles to users (Many-to-Many)
         Schema::create('role_user', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('role_id')->unsigned();
  
             $table->foreign('role_id')->references('id')->on('roles')
                 ->onUpdate('cascade')->onDelete('cascade');
-
-            $table->primary(['user_id', 'role_id']);
         });
 
         // Create table for storing permissions

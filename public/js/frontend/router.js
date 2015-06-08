@@ -9,8 +9,6 @@
       }
     },
     previous: function() {
-      this.history = _.without(this.history, Backbone.history.fragment);
-      console.log(this.history);
       if (this.history.length > 1) {
         return this.history[this.history.length - 1];
       }

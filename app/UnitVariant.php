@@ -19,7 +19,11 @@ class UnitVariant extends Model {
     public function variantMeta() {
         return $this->hasMany('CommonFloor\VariantMeta');
     }
-
+    
+     public function unitType() {
+        return $this->belongsTo( 'CommonFloor\UnitType');
+    }
+    
     public function toArray() {
         $data = parent::toArray();
         $data['variant_attributes'] = unserialize($data['variant_attributes']);
@@ -31,14 +35,13 @@ class UnitVariant extends Model {
         $projectId = 0;
         foreach ($variantRooms as $rooms) {
             $roomType = RoomType::find($rooms['roomtype_id']);
-            $roomTypename = $roomType->name;
+            $roomTypename = Defaults::find($roomType->name)->label;
             $projectId = $roomType->project_id;
             $atributes = unserialize($rooms['variant_room_attributes']);
             $atributeData = [];
             foreach ($atributes as $key => $attribute) {
-                $atributeData[] = array('attribute_key' => $key, 'attribute_value' => $attribute);
-            }
-
+                $atributeData[] = array('attribute_key' => $key, 'attribute_value' => ucfirst($attribute));
+            } 
             $floor[$rooms['floorlevel']]['rooms_data'][] = array('room_id' => $rooms['roomtype_id'], 'room_name' => $roomTypename, 'atributes' => $atributeData);
         }
 

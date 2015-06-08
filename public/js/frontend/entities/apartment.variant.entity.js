@@ -22,7 +22,7 @@
       if (!_.isUndefined(unitVarinatModel)) {
         floorRiseArray = settings.generateFloorRise(unitModel.get('building_id'));
         floorRise = floorRiseArray[unitModel.get('floor')];
-        basic_cost = (parseFloat(unitVarinatModel.get('per_sq_ft_price')) + parseFloat(floorRise)) * parseFloat(unitVarinatModel.get('super_built_up_area'));
+        basic_cost = (parseFloat(unitVarinatModel.get('per_sq_ft_price'))) * parseFloat(unitVarinatModel.get('super_built_up_area'));
         basicCost = basic_cost.toFixed(2);
       }
       return basicCost;
@@ -63,6 +63,22 @@
       return newUnits;
     };
 
+    ApartmentVariantCollection.prototype.getPenthouseUnits = function() {
+      var units;
+      units = [];
+      unitCollection.each(function(model) {
+        var property, unitType;
+        unitType = unitTypeMasterCollection.findWhere({
+          'id': model.get('unit_type_id')
+        });
+        property = window.propertyTypes[unitType.get('property_type_id')];
+        if (s.decapitalize(property) === 'penthouse') {
+          return units.push(model);
+        }
+      });
+      return units;
+    };
+
     ApartmentVariantCollection.prototype.getApartmentMasterUnits = function() {
       var newUnits, units;
       units = [];
@@ -93,6 +109,20 @@
         }
       });
       return unit_types;
+    };
+
+    ApartmentVariantCollection.prototype.getApartmentAttributes = function() {
+      var attributes, types;
+      attributes = [];
+      types = [];
+      apartmentVariantMasterCollection.each(function(item) {
+        return $.each(item.get('variant_attributes'), function(index, value) {
+          if ($.inArray(value, attributes) === -1) {
+            return attributes.push(value);
+          }
+        });
+      });
+      return [attributes];
     };
 
     return ApartmentVariantCollection;

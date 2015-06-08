@@ -14,6 +14,8 @@ use CommonFloor\ProjectPropertyType;
 use CommonFloor\RoomType;
 use CommonFloor\Media;
 use CommonFloor\VariantMeta;
+use CommonFloor\Defaults;
+use \File;
 
 class ProjectPlotVariantController extends Controller {
 
@@ -22,13 +24,15 @@ class ProjectPlotVariantController extends Controller {
      *
      * @return Response
      */
+    
     public function index($id, ProjectRepository $projectRepository) {
+ 
         $project = $projectRepository->getProjectById($id);
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
         $unitTypes = [];
         $projectPropertytypeId = 0;
         foreach ($projectPropertytype as $propertyTypes) {
-            if ($propertyTypes['property_type_id'] == '3')
+            if ($propertyTypes['property_type_id'] == PLOTID)
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
@@ -36,7 +40,8 @@ class ProjectPlotVariantController extends Controller {
         $unitTypeIdArr = [];
         foreach ($unitTypeArr as $unitType) {
             $unitTypeIdArr[] = $unitType['id'];
-            $unitTypes[$unitType['id']] = $unitType['unittype_name'];
+            $unitTypeName = Defaults::find($unitType['unittype_name'])->label;
+            $unitTypes[$unitType['id']] = $unitTypeName;
         }
 
         $unitvariantArr = UnitVariant::whereIn('unit_type_id', $unitTypeIdArr)->orderBy('unit_variant_name')->get()->toArray();
@@ -54,6 +59,7 @@ class ProjectPlotVariantController extends Controller {
      * @return Response
      */
     public function create($id, ProjectRepository $projectRepository) {
+ 
         $project = $projectRepository->getProjectById($id);
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
         $propertyTypeArr = [];
@@ -61,20 +67,26 @@ class ProjectPlotVariantController extends Controller {
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if ($propertyTypes['property_type_id'] == '3')
+            if ($propertyTypes['property_type_id'] == PLOTID)
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
-        $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
+       $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
+        $unitTypeIdArr = [];
+        foreach ($unitTypeArr as $unitType) {
+            $unitTypeIdArr[] = $unitType['id'];
+            $unitTypeName = Defaults::find($unitType['unittype_name'])->label;
+            $unitTypes[$unitType['id']] = $unitTypeName;
+        }
+ 
         $propertyTypeAttributes = ProjectPropertyType::find($projectPropertytypeId)->attributes->toArray();
 
 
         return view('admin.project.variants.plot.add')
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
-                        ->with( 'projectPropertyTypeID', $projectPropertytypeId )
-                        ->with('unit_type_arr', $unitTypeArr)
-                        ->with('project_property_type_attributes', $propertyTypeAttributes)
+                        ->with('unitTypes', $unitTypes)
+                        ->with('propertyTypeAttributes', $propertyTypeAttributes)
                         ->with('current', '');
     }
 
@@ -84,6 +96,7 @@ class ProjectPlotVariantController extends Controller {
      * @return Response
      */
     public function store($project_id, Request $request) {
+ 
         $unitVariant = new UnitVariant();
         $unitVariant->unit_variant_name = ucfirst($request->input('unit_variant_name'));
         $unitVariant->unit_type_id = $request->input('unit_type');
@@ -94,7 +107,7 @@ class ProjectPlotVariantController extends Controller {
         if(!empty($attributedata))
         {
             foreach ($attributedata as $key=>$value)
-               $variantattributedata[$key]= ucfirst($value);    
+               $variantattributedata[$key]= $value;    
         }
         $attributeStr = serialize( $variantattributedata );
         $unitVariant->variant_attributes = $attributeStr;
@@ -102,13 +115,54 @@ class ProjectPlotVariantController extends Controller {
         $unitVariant->save();
         $unitVariantID = $unitVariant->id;
 
+        $targetDir = public_path() . "/projects/" . $project_id . "/variants/" . $unitVariantID . "/";
+        $tempDir = public_path() . "/projects/" . $project_id . "/variants/temp/";
+        File::makeDirectory($targetDir, $mode = 0755, true, true);
+        
+        $image_gallery = $request->input('image_gallery');
+        if(!empty($image_gallery))
+        {
+            foreach ($image_gallery as $mediaId)
+            {
+                $media = Media::find($mediaId);
+                $media->mediable_id = $unitVariantID;
+                $media->save();
 
+                $imageName = $media->image_name;
+                if(File::exists($tempDir.$imageName))
+                {
+                    copy($tempDir.$imageName, $targetDir.$imageName);
+                    unlink($tempDir.$imageName);
+                }
+            }
+        }
+        
         $variantMeta = new VariantMeta();
         $variantMeta->unit_variant_id = $unitVariantID;
         $variantMeta->meta_key = 'gallery';
-        $variantMeta->meta_value = serialize('');
+        $variantMeta->meta_value = serialize($image_gallery);
         $variantMeta->save();
+        
+        $externalimage = $request->input('image_external_3d_id');
+        if($externalimage!='')
+        {
+            $variantMeta = new VariantMeta();
+            $variantMeta->unit_variant_id = $unitVariantID;
+            $variantMeta->meta_key = 'external-3d';
+            $variantMeta->meta_value = $externalimage;
+            $variantMeta->save();
+            $media = Media::find($externalimage);
+            $media->mediable_id = $unitVariantID;
+            $media->save();
 
+            $imageName = $media->image_name;
+            if(File::exists($tempDir.$imageName))
+            {
+                copy($tempDir.$imageName, $targetDir.$imageName);
+                unlink($tempDir.$imageName);
+            }
+        } 
+        
         return redirect("/admin/project/" . $project_id . "/plot-variant/" . $unitVariantID . '/edit');
     }
 
@@ -129,6 +183,7 @@ class ProjectPlotVariantController extends Controller {
      * @return Response
      */
     public function edit($project_id, $id, ProjectRepository $projectRepository) {
+  
         $unitVariant = UnitVariant::find($id);
         $project = $projectRepository->getProjectById($project_id);
         $projectPropertytype = $project->projectPropertyTypes()->get()->toArray();
@@ -137,11 +192,17 @@ class ProjectPlotVariantController extends Controller {
         foreach ($projectPropertytype as $propertyTypes) {
             $propertyTypeArr [] = $propertyTypes['property_type_id'];
 
-            if ($propertyTypes['property_type_id'] == '3')
+            if ($propertyTypes['property_type_id'] == PLOTID)
                 $projectPropertytypeId = $propertyTypes['id'];
         }
 
         $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
+        $unitTypeIdArr = [];
+        foreach ($unitTypeArr as $unitType) {
+            $unitTypeIdArr[] = $unitType['id'];
+            $unitTypeName = Defaults::find($unitType['unittype_name'])->label;
+            $unitTypes[$unitType['id']] = $unitTypeName;
+        }
 
         $propertyTypeAttributes = ProjectPropertyType::find($projectPropertytypeId)->attributes->toArray();
 
@@ -181,8 +242,8 @@ class ProjectPlotVariantController extends Controller {
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
                         ->with( 'projectPropertyTypeID', $projectPropertytypeId )
-                        ->with('project_property_type_attributes', $propertyTypeAttributes)
-                        ->with('unit_type_arr', $unitTypeArr)
+                        ->with('propertyTypeAttributes', $propertyTypeAttributes)
+                        ->with('unitTypes', $unitTypes)
                         ->with('unitVariant', $unitVariant->toArray())
                         ->with('layouts', $layouts)
                         ->with('current', '');
@@ -196,6 +257,7 @@ class ProjectPlotVariantController extends Controller {
      * @return Response
      */
     public function update($project_id, $id, Request $request) {
+ 
         $unitVariant = UnitVariant::find($id);
         $unitVariant->unit_variant_name = ucfirst($request->input('unit_variant_name'));
         $unitVariant->unit_type_id = $request->input('unit_type');
@@ -206,7 +268,7 @@ class ProjectPlotVariantController extends Controller {
         if(!empty($attributedata))
         {
             foreach ($attributedata as $key=>$value)
-               $variantattributedata[$key]= ucfirst($value);    
+               $variantattributedata[$key]= $value;    
         }
         $attributeStr = serialize( $variantattributedata );
         $unitVariant->variant_attributes = $attributeStr;

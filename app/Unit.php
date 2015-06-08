@@ -13,9 +13,15 @@ class Unit extends Model {
     public function unitVariant() { 
         return $this->belongsTo( 'CommonFloor\UnitVariant' );
     }
+
+    public function phase() {
+        return $this->belongsTo( 'CommonFloor\Phase' );
+    }
     
     public function toArray() {
         $data = parent::toArray();
+        $data['views'] = (isset($data['views']))? unserialize($data['views']) :[];
+
         $unitId = $data['id'];
         $unitPosition = $this->position;
         $floor = $this->floor;

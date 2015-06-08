@@ -72,9 +72,12 @@ class Project extends Model {
         $Images =[];
         if(!empty($masterImages))
         {
+            ksort($masterImages);
             foreach ($masterImages as $key => $images) {
+                if($images!=''){
                 $imageName = Media::find($images)->image_name;
                 $Images[] = url() . "/projects/" .  $this->id . "/master/" . $imageName;
+                }
             }
         }
         return $Images;

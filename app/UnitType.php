@@ -19,5 +19,9 @@ class UnitType extends Model {
      public function propertyType() {
         return $this->belongsTo( 'CommonFloor\PropertyType' );
     }
+    
+    public function projectPropertyType() {
+        return $this->belongsTo( 'CommonFloor\ProjectPropertyType' );
+    }
 
 }

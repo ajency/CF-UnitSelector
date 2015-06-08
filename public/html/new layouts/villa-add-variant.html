@@ -254,19 +254,14 @@
                                         <div class="col-md-4">
                                             <div class="form-group">
                                             <label class="form-label">Name<span class="text-primary">*</span></label>
-                                            <div class="input-with-icon  right error-control">
-                                            <i class="fa fa-exclamation"></i>
-                                            <input type="text" name="form1Name" id="form1Name" class="form-control">
-                                            </div>
+                                            <input type="text" name="form1Name" id="form1Name" class="form-control m-b-5">
+                                            <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                                             </div>
                                         </div>
                                         <div class="col-md-4">
                                           <div class="form-group">
                                         <label class="form-label">Unit Type<span class="text-primary">*</span></label>
-                                        <div class="input-with-icon  right error-control">
-                                        <i class="fa fa-exclamation"></i>
-                                        <div class="select2-container select2 form-control select2-container-active" id="s2id_gendericonic"><a href="javascript:void(0)"                                         onclick="return false;" class="select2-choice" tabindex="-1">   <span class="select2-chosen">Select Unit Type</span><abbr class                                        ="select2-search-choice-close"></abbr>   <span class="select2-arrow"><b></b></span></a>
-                                            <!-- <input class="select2-focusser select2-offscreen" type="text" id="s2id_autogen2"> --></div><select name="gendericonic" id="gendericonic" class="select2 form-control                                       select2-offscreen" tabindex="-1">
+                                        <select name="gendericonic" id="unit_type" class="select2 form-control m-b-5" tabindex="-1">
                                                 <option value="">Select Unit Type</option>
                                                 <option>2 Bhk</option>
                                                 <option>3 Bhk</option>
@@ -274,17 +269,15 @@
                                                 <option>5 Bhk</option>
                                                 <option>Add New Room</option>
                                         </select>
-                                        </div>
+                                        <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                                         </div>
                                         </div>
                                         <div class="col-md-4">
                                             <div class="form-group">
                                             <label class="form-label">Carpet Area<span class="text-primary">*</span></label>
                                             <small class="text-muted">/ (Sq. Ft.)</small>
-                                            <div class="input-with-icon  right error-control">
-                                            <i class="fa fa-exclamation"></i>
-                                            <input type="text" name="form1Name" id="form1Name" class="form-control">
-                                            </div>
+                                            <input type="text" name="form1Name" id="form1Name" class="form-control m-b-5">
+                                            <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                                             </div>
                                         </div>
                                         </div>
@@ -293,30 +286,24 @@
                                             <div class="form-group">
                                             <label class="form-label">Built Up Area<span class="text-primary">*</span></label>
                                             <small class="text-muted">/ (Sq. Ft.)</small>
-                                            <div class="input-with-icon  right error-control">
-                                            <i class="fa fa-exclamation"></i>
-                                            <input type="text" name="form1Name" id="form1Name" class="form-control">
-                                            </div>
+                                            <input type="text" name="form1Name" id="form1Name" class="form-control m-b-5">
+                                            <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                                             </div>
                                         </div>
                                           <div class="col-md-4">
                                             <div class="form-group">
                                             <label class="form-label">Super Built Up Area<span class="text-primary">*</span></label>
                                             <small class="text-muted">/ (Sq. Ft.)</small>
-                                            <div class="input-with-icon  right error-control">
-                                            <i class="fa fa-exclamation"></i>
-                                            <input type="text" name="form1Name" id="form1Name" class="form-control">
-                                            </div>
+                                            <input type="text" name="form1Name" id="form1Name" class="form-control m-b-5">
+                                            <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                                             </div>
                                         </div>
                                           <div class="col-md-4">
                                             <div class="form-group">
                                             <label class="form-label">Price<span class="text-primary">*</span></label>
                                             <small class="text-muted">/ (Sq. Ft.)</small>
-                                            <div class="input-with-icon  right error-control">
-                                            <i class="fa fa-exclamation"></i>
-                                            <input type="text" name="form1Name" id="form1Name" class="form-control">
-                                            </div>
+                                            <input type="text" name="form1Name" id="form1Name" class="form-control m-b-5">
+                                            <span class="error"><span for="form3LastName" class="error">This field is required.</span></span>
                                             </div>
                                         </div>
                                         </div>
@@ -324,6 +311,7 @@
                                 </div>
                             </div>
                             <hr/>
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                             <div class="row">
                                 <div class="m-l-5 no-border">
                                      <button class="btn btn-small btn-default pull-right m-r-25"><i class="fa fa-plus"></i> Add New Level</button>
@@ -331,11 +319,16 @@
                                             </div>
                                             <div class="grid simple" style="margin-bottom:0;">
                                             <div class="grid-body no-border" style="padding-bottom:0;">
-                                            <div class="grid simple vertical orange">
-                                            <div class="grid-title">
-                                                    <h4>Level 0</h4>
+                                            <div class="panel panel-default vertical orange">
+                                            <div class="panel-heading collapsed" role="tab" id="headingOne">
+                                                <h4 class="panel-title">
+                                                   <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                                    Level 0
+                                                    </a>
+                                                </h4>
                                             </div>
-                                        <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4>
+                                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="panel-body"><h4> <span class="semi-bold">Layouts</span></h4>
                                         <div class="row">
                                         <div class="col-md-6">
                                         <div class="grid simple">
@@ -364,7 +357,7 @@
                                                     <label class="form-label">Select Room</label>
                                                     <div class="row">
                                                     <div class="col-md-9">
-                                                    <select id="room_type" class="select2 form-control">
+                                                    <select id="room_type1" class="select2 form-control">
                                                         <option value="">Select Room</option>
                                                         <option selected>Kitchen</option>
                                                         <option>Balcony</option>
@@ -474,6 +467,7 @@
                                  </div>
                                  </div>
                                 </div>
+                            </div>
                                 </div>
                                 </div>
                             </div>
@@ -629,7 +623,7 @@
                                 </div>
                             </div>
                             </div>
-                        
+                        </div>
                         <hr/>
                         <div class="row">
                             <div class="m-l-5 no-border">
@@ -730,7 +724,57 @@
                             </div>
                              </div>
                             </div>
-      
+      <div class="col-md-6">
+<div class="panel-group" id="accordion" data-toggle="collapse">
+<div class="panel panel-default">
+<div class="panel-heading collapsed">
+<h4 class="panel-title">
+<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+Collapsible Group Item
+</a>
+</h4>
+</div>
+<div id="collapseOne" class="panel-collapse collapse" style="height: 0px;">
+<div class="panel-body">
+Click headers to expand/collapse content that is broken into logical sections, much like tabs. Optionally, toggle sections open/closed on mouseover.
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading collapsed">
+<h4 class="panel-title">
+<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+Typography Variables
+</a>
+</h4>
+</div>
+<div id="collapseTwo" class="panel-collapse collapse" style="height: 0px;">
+<div class="panel-body">
+<h1 class="light">go explore the <span class="semi-bold">world</span></h1>
+<h4>small things in life matters the most</h4>
+<h2>Big Heading <span class="semi-bold">Body</span>, <i>Variations</i> </h2>
+<h4><span class="semi-bold">Open Me</span>, Light , <span class="semi-bold">Bold</span> , <i>Everything</i></h4>
+<p> is the art and technique of arranging type in order to make language visible. The arrangement of type involves the selection of typefaces, point size, line length, leading (line spacing), adjusting the spaces between groups of letters (tracking) </p>
+<p>and adjusting the Case space between pairs of letters (kerning). Type design is a closely related craft, which some consider distinct and others a part of typography</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading collapsed">
+<h4 class="panel-title">
+<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+Easy Edit
+</a>
+</h4>
+</div>
+<div id="collapseThree" class="panel-collapse collapse" style="height: 0px;">
+<div class="panel-body">
+Click headers to expand/collapse content that is broken into logical sections, much like tabs. Optionally, toggle sections open/closed on mouseover.
+</div>
+</div>
+</div>
+</div>
+</div>
                                                                          
                     </div>   <div class="form-actions">  
                         <div class="text-right">
