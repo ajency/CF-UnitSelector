@@ -489,6 +489,38 @@
       'click #next': function() {
         return this.setDetailIndex(this.currentBreakPoint + 1);
       },
+      'click .villa,.plot': function(e) {
+        var id, unit;
+        e.preventDefault();
+        id = parseInt(e.currentTarget.id);
+        unit = unitCollection.findWhere({
+          id: id
+        });
+        if (!_.isUndefined(unit && unit.get('availability') === 'available')) {
+          return CommonFloor.navigate('/unit-view/' + id, true);
+        }
+      },
+      'click .building': function(e) {
+        var building, id, units;
+        e.preventDefault();
+        id = parseInt(e.currentTarget.id);
+        building = buildingCollection.findWhere({
+          id: id
+        });
+        units = unitCollection.where({
+          'building_id': id
+        });
+        if (units.length === 0) {
+          return;
+        }
+        if (building !== void 0) {
+          if (Object.keys(building.get('building_master')).length === 0) {
+            return CommonFloor.navigate('/building/' + id + '/apartments', true);
+          } else {
+            return CommonFloor.navigate('/building/' + id + '/master-view', true);
+          }
+        }
+      },
       'mouseout .villa': function(e) {
         var availability, id, unit;
         id = parseInt(e.currentTarget.id);

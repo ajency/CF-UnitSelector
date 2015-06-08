@@ -572,6 +572,16 @@
         html = '<div><label>Title:</label>' + $(e.currentTarget).attr('data-amenity-title') + '<br/><label>Desc:</label>' + $(e.currentTarget).attr('data-amenity-desc') + '</div>';
         return $('.layer').tooltipster('content', html);
       },
+      'click .apartment': function(e) {
+        var id, unit;
+        id = parseInt(e.currentTarget.id);
+        unit = unitCollection.findWhere({
+          id: id
+        });
+        if (!_.isUndefined(unit && unit.get('availability') === 'available')) {
+          return CommonFloor.navigate('/unit-view/' + id, true);
+        }
+      },
       'mouseover .next,.prev': function(e) {
         var buildingModel, cost, floors, html, id, images, price, response, unitTypes;
         id = parseInt($(e.currentTarget).attr('data-id'));

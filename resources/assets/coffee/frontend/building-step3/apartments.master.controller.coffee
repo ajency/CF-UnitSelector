@@ -740,10 +740,13 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 			$('.layer').tooltipster('content', html)
 
-		# 'click .apartment':(e)->
-		# 	id = parseInt e.currentTarget.id
-		# 	CommonFloor.navigate '/unit-view/'+id , true
-		# 	# CommonFloor.router.storeRoute()
+		'click .apartment':(e)->
+			id = parseInt e.currentTarget.id
+			unit = unitCollection.findWhere 
+				id :  id
+			if ! _.isUndefined unit && unit.get('availability') is 'available'
+				CommonFloor.navigate '/unit-view/'+id , true
+			# CommonFloor.router.storeRoute()
 
 		'mouseover .next,.prev':(e)->
 			id = parseInt $(e.currentTarget).attr('data-id')
