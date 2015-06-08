@@ -334,7 +334,7 @@
       return ApartmentsView.__super__.constructor.apply(this, arguments);
     }
 
-    ApartmentsView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="bldg-img"></div> <div class="{{type}} pull-left icon"></div> <div class="pull-left bldg-info"> <div class="info"> <label>{{unit_name}} (Floor - {{floor}} )</label> </div> ({{unit_type}} {{super_built_up_area}} {{measurement_units}})<br> <div class="text-primary m-t-5"><span class="icon-rupee-icn"></span>{{price}}</div> </div> <div class="clearfix"></div> </li>');
+    ApartmentsView.prototype.template = Handlebars.compile('<li class="unit blocks {{status}}"> <div class="bldg-img"></div> <div class="{{type}}-ico pull-left icon"></div> <div class="pull-left bldg-info"> <div class="info"> <label>{{unit_name}} (Floor - {{floor}} )</label> </div> ({{unit_type}} {{super_built_up_area}} {{measurement_units}})<br> <div class="text-primary m-t-5"><span class="icon-rupee-icn"></span>{{price}}</div> </div> <div class="clearfix"></div> </li>');
 
     ApartmentsView.prototype.serializeData = function() {
       var availability, data, property, response, unitType;
