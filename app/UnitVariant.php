@@ -24,6 +24,10 @@ class UnitVariant extends Model {
         return $this->belongsTo( 'CommonFloor\UnitType');
     }
     
+     public function units() {
+        return $this->hasMany( 'CommonFloor\Unit' );
+    }
+    
     public function toArray() {
         $data = parent::toArray();
         $data['variant_attributes'] = unserialize($data['variant_attributes']);
