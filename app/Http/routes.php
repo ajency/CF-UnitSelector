@@ -105,6 +105,7 @@ Route::group( ['prefix' => 'api/v2'], function() {
     Route::post( 'project/{id}/unit/{unit_id}', 'Rest\ProjectController@updateUnit' );
     Route::get( 'project/{id}/unit/{unit_id}', 'Rest\ProjectController@getUnit' );
     Route::get( 'get-project-url', 'Rest\ProjectController@getCfProjectUrl' );
+    Route::get( 'get-unit-status', 'Rest\ProjectController@getUnitStatus' );
 } );
 
 /**

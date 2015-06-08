@@ -336,4 +336,63 @@ class ProjectController extends Controller {
 
     }
 
+    public function getUnitStatus(Request $request){
+        // default response and code
+        $json_resp = array(
+            'code' => 'unit_status_not_fetched' , 
+            'message' => 'Unit Status not fetched',
+            'data' =>array()
+            );
+        $status_code = 400;
+
+        $getVar = Input::get();
+        
+        // get parameter set
+        if (isset($getVar['unit_id'])) {
+            $unitId = $getVar['unit_id'];
+
+            // get unit
+            $unit = Unit::find($unitId);
+
+            // if project not found
+            if (is_null($unit)) {
+                $json_resp = array(
+                    'code' => 'unit_not_found' , 
+                    'message' => 'Unit not found',
+                    'data' =>array()
+                    );
+                $status_code = 404;                
+            }
+            else{
+                // else if project found then return url
+                $unit_id = $unit->id;
+
+                $json_resp = array(
+                    'code' => 'project_url_fetched' , 
+                    'message' => 'Project url fetched',
+                    'data' =>array(
+                            'id' => $unit->id,
+                            'unit_name' => $unit->unit_name,
+                            'status' => $unit->availability
+                            )
+                    );
+                $status_code = 200;                
+
+
+            }
+
+        }
+        else{
+            // get parameter not set
+            $json_resp = array(
+                'code' => 'missing_unit_id' , 
+                'message' => 'Unit id missing',
+                'data' => array()
+                );
+            $status_code = 400;
+        }
+
+        return response()->json( $json_resp, $status_code);
+    }
+
 }
