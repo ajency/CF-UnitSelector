@@ -753,10 +753,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			buildingModel = buildingMasterCollection.findWhere
 								'id' : id
 			images = Object.keys(buildingModel.get('building_master')).length
-			# if images != 0
-			# 	console.log "show image"
 			floors = buildingModel.get 'no_of_floors'
-			# floors = Object.keys(floors).length
 			unitTypes = window.building.getUnitTypes(id)
 			response = window.building.getUnitTypesCount(id,unitTypes)
 			cost = window.building.getMinimumCost(id)
