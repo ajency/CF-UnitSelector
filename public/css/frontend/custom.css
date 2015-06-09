@@ -3307,16 +3307,13 @@ label.third_toggle {
 .svg-info {
   font-family: OpenSans, Arial, sans-serif;
   padding: 0;
-  min-width: 290px;
+  padding-right: 20px;
 }
-.svg-info.available,
-.svg-info.sold,
-.svg-info.blocked,
-.svg-info.not_released {
-  min-width: 290px;
-}
-.svg-info h5 {
+.svg-info h4 {
   font-weight: bold;
+}
+.svg-info h4 label {
+  font-size: 14px;
 }
 .svg-info .label {
   margin: 10px 0 0 5px;
@@ -3341,6 +3338,36 @@ label.third_toggle {
 .svg-info .details.empty {
   text-align: center;
   padding-bottom: 5px;
+}
+.svg-info .details ul {
+  list-style-type: none;
+  text-align: left;
+  margin-bottom: 10px;
+}
+.svg-info .details ul li {
+  display: inline-block;
+  border-right: 1px solid #e6e6e6;
+  padding: 0;
+}
+.svg-info .details ul li:last-child {
+  border-right: none;
+}
+.svg-info .details ul li h5 {
+  font-weight: bold;
+  color: #666666;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.svg-info .details ul.bldg {
+  margin-bottom: 0;
+  text-align: center;
+}
+.svg-info .details ul.bldg li {
+  padding: 0 5px;
+}
+.svg-info .details .price {
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 .svg-info .action-bar2 {
   width: 60px;
@@ -3393,9 +3420,9 @@ label.third_toggle {
   border-radius: 100%;
   background: #fff;
   position: absolute;
-  bottom: -15px;
+  right: -15px;
   text-align: center;
-  right: 18px;
+  bottom: 35%;
   line-height: 35px;
   border: 1px solid #999;
   color: #5F5858;
@@ -3409,7 +3436,7 @@ label.third_toggle {
   background: #f68121;
   cursor: pointer;
 }
-.svg-info .circle:hover a {
+.svg-info .circle:hover span {
   color: #ffffff !important;
 }
 .svg-info .step2-sprite {

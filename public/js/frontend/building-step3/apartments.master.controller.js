@@ -380,9 +380,9 @@
       availability = unit.get('availability');
       availability = s.decapitalize(availability);
       html = "";
-      html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <!--<span class="label label-success"></span--> <br><br> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + ') </div> <div class="text-primary"> <span class="icon-rupee-icn"></span>' + price + '</div> </div>';
+      html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="apartment"></div> </div> <div class="pull-left"> <h4 class="m-t-0">' + unit.get('unit_name') + '</h4> <div class="details"> <ul> <li> <h5 class="inline-block">' + response[1].get('name') + '</h5> <span> - ' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + '</span> <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </li> </ul> <div class="price text-primary"> <span class="text-primary icon-rupee-icn"></span>' + price + '</div> </div> </div>';
       if (availability === 'available') {
-        html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
+        html += '<div class="circle"> <a href="#unit-view/' + id + '" class="arrow-up icon-chevron-right"></a> </div> </div>';
       } else {
         html += '</div>';
       }
@@ -542,9 +542,9 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="' + response[2] + '"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br><br> <!--<span class="label label-success"></span--> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + ') </div> <div class="text-primary"> <span class="icon-rupee-icn"></span>' + price + '</div> </div>';
+        html += '<div class="svg-info ' + availability + '"> <div class="action-bar"> <div class="' + response[2] + '"></div> </div> <div class="pull-left"> <h4 class="m-t-0">' + unit.get('unit_name') + '</h4> <div class="details"> <ul> <li> <h5 class="inline-block">' + response[1].get('name') + '</h5> <span> - ' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + '</span> <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </li> </ul> <div class="price text-primary"> <span class="text-primary icon-rupee-icn"></span>' + price + '</div> </div> </div>';
         if (availability === 'available') {
-          html += '<a href="#unit-view/' + id + '" class="view-unit"> <div class="circle"> <span class="arrow-up icon-chevron-right"></span> </div> </a> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
+          html += '<a href="#unit-view/' + id + '" class="view-unit"> <div class="circle"> <span class="arrow-up icon-chevron-right"></span> </div> </a> </div>';
         } else {
           html += '</div>';
         }
