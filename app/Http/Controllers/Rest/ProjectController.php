@@ -104,6 +104,9 @@ class ProjectController extends Controller {
                     ], 203 );
     }
 
+    /**
+     * Update unit status
+     */
     public function updateUnit($projectId, $unitId,Request $request){
 
         // default response and code
@@ -150,7 +153,10 @@ class ProjectController extends Controller {
                         $json_resp = array(
                             'code' => 'status_updated' , 
                             'message' => 'Unit status updated',
-                            'data' => array('unit_id' => $unit->id  )
+                            'data' => array('unit_id' => $unit->id,
+                                            'name'=>$unit->unit_name,
+                                            'status'=>$unit->availability
+                                      )
                             );
                         $status_code = 201; 
                     }else{
@@ -183,6 +189,9 @@ class ProjectController extends Controller {
 
     }
 
+    /**
+     * Project Unit Selector Url
+     */
     public function getCfProjectUrl(Request $request){
         // default response and code
         $json_resp = array(
@@ -240,6 +249,9 @@ class ProjectController extends Controller {
         return response()->json( $json_resp, $status_code);
     }  
 
+    /**
+     * Unit summary
+     */
     public function getUnit($projectId, $unitId, Request $request) {
 
         $response_data = array();
@@ -336,6 +348,9 @@ class ProjectController extends Controller {
 
     }
 
+    /**
+     * Get unit status
+     */
     public function getUnitStatus(Request $request){
         // default response and code
         $json_resp = array(
