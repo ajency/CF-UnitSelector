@@ -116,6 +116,7 @@ class Permission {
                               'admin/project/{project}/roomtype/{id}/deletevariantrroom'=>'configure_project',
                               'admin/project/{project}/media/updatebreakpoint'=>'configure_project',
                               'admin/building/{id}/media/updatebreakpoint'=>'configure_building',
+                              'admin/building/validatebuildingname'=>'configure_building',
                               'admin/project/{project}/roomtype/{roomtype}'=>'configure_project',
                               'admin/project/{project}/roomtype/{id}/getroomtypeattributes'=>'configure_project',
                               'admin/project/{project}/apartment-variant/getpropertytypedata'=>'configure_project',

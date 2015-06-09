@@ -38,7 +38,7 @@
                             <div class="col-md-4">
                             <div class="form-group">
                                         <label class="form-label">Building Name<span class="text-primary">*</span></label>
-                                       <input required="" type="text" class="form-control" name="building_name" placeholder="Enter Building Name" data-parsley-required>
+                                       <input required="" type="text" class="form-control" name="building_name" placeholder="Enter Building Name" data-parsley-required onchange="validateBuildingName(this,0);" ><div class="cf-loader hidden"></div>
                                         </div>
 
                                     </div>

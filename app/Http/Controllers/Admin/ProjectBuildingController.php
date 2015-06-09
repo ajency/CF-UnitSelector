@@ -161,6 +161,40 @@ class ProjectBuildingController extends Controller {
         //
     }
     
+    public function validateBuildingName(Request $request) {
+        $name = $request->input('name');
+        $projectId = $request->input('project_id');
+        $building_id = $request->input('building_id');
+        $project = Project::find( $projectId );
+        $phases =  $project->projectPhase()->get()->toArray();
+        $phaseIds =[];
+        foreach($phases as $phase)
+        {
+            $phaseIds[]=$phase['id'];
+        }
+        
+        $msg = '';
+        $flag = true;
+
+        if ($building_id)
+            $buildingData = Building::whereIn('phase_id',$phaseIds)->where('building_name', $name)->where('id', '!=', $building_id)->get()->toArray();
+        else
+            $buildingData = Building::whereIn('phase_id',$phaseIds)->where('building_name', $name)->get()->toArray();
+
+
+        if (!empty($buildingData)) {
+            $msg = 'Building Name Already Taken';
+            $flag = false;
+        }
+
+
+        return response()->json([
+                    'code' => 'building_name_validation',
+                    'message' => $msg,
+                    'data' => $flag,
+                        ], 200);
+    }
+    
     public function getPositions($project_id, $buildingId, Request $request)
     {  
         $floor = $request['floor']; 
