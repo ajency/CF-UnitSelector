@@ -10,9 +10,11 @@ use CommonFloor\UnitType;
 use CommonFloor\Building;
 use \Input;
 
-use Illuminate\Http\Request;
 
-class UnitController extends Controller {
+use Illuminate\Http\Request;
+use Chrisbjr\ApiGuard\Http\Controllers\ApiGuardController;
+
+class UnitController extends ApiGuardController {
 
 	/**
 	 * Display a listing of the resource.
@@ -337,6 +339,16 @@ class UnitController extends Controller {
      * Get unit status
      */
     public function getUnitStatus(Request $request){
+
+    	// $response = array(
+    	// 			'status' => 0,
+    	// 			'error' => array(
+    	// 						'code' => , 
+    	// 						'message' => , 
+    	// 						'http_code' => , 
+    	// 						),
+    	// 			'data' => array(),
+    	// 			 );
         // default response and code
         $json_resp = array(
             'code' => 'unit_status_not_fetched' , 
