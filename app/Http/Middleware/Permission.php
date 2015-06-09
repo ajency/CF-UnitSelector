@@ -123,6 +123,7 @@ class Permission {
                               'admin/project/{project}/apartment-variant/getunittypevariants'=>'configure_unit',
                               'admin/project/{project}/apartment-unit/getavailableposition'=>'configure_unit',
                               'admin/user/validateuseremail'=>'manage_users', 
+                              'admin/user/{id}/profile'=>'read_project', 
                               'admin/user/validateuserpassword'=>'manage_users', 
                               'admin/project/{id}/master/authoring-tool'=>'configure_project',
                               'admin/project/{project}/svg-tool'=>'configure_project',
