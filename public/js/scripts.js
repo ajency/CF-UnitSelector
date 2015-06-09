@@ -24,6 +24,27 @@ function validateTitle(obj)
     });
 }
 
+function validateUnitName(obj,projectPropertytypeId,unitId)
+{
+    $(".cf-loader").removeClass('hidden');
+    $.ajax({
+        url: "/admin/project/" + PROJECTID + "/bunglow-unit/validateunitname",
+        type: "POST",
+        data: {
+            name: obj.value,
+            unitId: unitId,
+            projectPropertytypeId: projectPropertytypeId
+        },
+        dataType: "JSON",
+        success: function (response) {
+            if (!response.data)
+                $(obj).val('');
+
+            $(".cf-loader").addClass('hidden');
+        }
+    });
+}
+
 function validateBuildingName(obj,buildingId)
 {
     $(".cf-loader").removeClass('hidden');

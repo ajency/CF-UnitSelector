@@ -88,6 +88,7 @@ class ProjectBunglowUnitController extends Controller {
                         ->with('unit_variant_arr', $unitVariantArr)
                         ->with('phases', $phases)
                         ->with('defaultDirection', $defaultDirection)
+                        ->with('projectPropertytypeId', $projectPropertytypeId)
                         ->with('current', 'bunglow-unit');
     }
 
@@ -182,6 +183,7 @@ class ProjectBunglowUnitController extends Controller {
                         ->with('unit', $unit->toArray())
                         ->with('phases', $phases)
                         ->with('defaultDirection', $defaultDirection)
+                        ->with('projectPropertytypeId', $projectPropertytypeId)
                         ->with('current', 'bunglow-unit');
     }
 
@@ -226,5 +228,43 @@ class ProjectBunglowUnitController extends Controller {
     public function destroy($id) {
         //
     }
+    
+ 
+    public function validateUnitName($projectId,Request $request) {
+        $name = $request->input('name');
+ 
+        $projectPropertytypeId = $request->input('projectPropertytypeId');
+        $unitId = $request->input('unitId');
+        
+        $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
+        $unitTypeIdArr = $unitVariantIdArr= [];
+        foreach($unitTypeArr as $unitType)
+            $unitTypeIdArr[] =$unitType['id'];
+       
+        $unitvariantArr = UnitVariant::whereIn('unit_type_id',$unitTypeIdArr)->get()->toArray();
+        foreach($unitvariantArr as $unitvariant)
+            $unitVariantIdArr[] =$unitvariant['id'];
+        
+        $msg = '';
+        $flag = true;
+
+        if ($unitId)
+            $unitData = Unit::whereIn('unit_variant_id',$unitVariantIdArr)->where('unit_name', $name)->where('id', '!=', $unitId)->get()->toArray();
+        else
+            $unitData = Unit::whereIn('unit_variant_id',$unitVariantIdArr)->where('unit_name', $name)->get()->toArray();
+
+
+        if (!empty($unitData)) {
+            $msg = 'Unit Name Already Taken';
+            $flag = false;
+        }
+
+
+        return response()->json([
+                    'code' => 'unit_name_validation',
+                    'message' => $msg,
+                    'data' => $flag,
+                        ], 200);
+    }    
 
 }

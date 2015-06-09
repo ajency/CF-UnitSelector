@@ -114,7 +114,7 @@
             <?php
             $i=1;
             ?>
-            @if(isset($projectAttributes))
+            @if(!empty($projectAttributes))
             @foreach($projectAttributes as $projectAttribute)
             <div class="col-md-3">
                 <i class="fa fa-circle"></i> {{ $projectAttribute['label'] }} 
@@ -128,6 +128,8 @@
             $i++;
             ?>
             @endforeach
+            @else
+              <h5 class="semi-bold">No Views Created</h5>
             @endif
              
         </div>

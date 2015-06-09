@@ -86,6 +86,7 @@ class ProjectPlotUnitController extends Controller {
                         ->with('unit_variant_arr', $unitVariantArr)
                         ->with('phases', $phases)
                         ->with('defaultDirection', $defaultDirection)
+                        ->with('projectPropertytypeId', $projectPropertytypeId)
                         ->with('current', 'plot-unit');
     }
 
@@ -176,6 +177,7 @@ class ProjectPlotUnitController extends Controller {
                         ->with('unit', $unit->toArray())
                         ->with('phases', $phases)
                         ->with('defaultDirection', $defaultDirection)
+                        ->with('projectPropertytypeId', $projectPropertytypeId)
                         ->with('current', 'plot-unit');
     }
 
