@@ -391,10 +391,13 @@
         });
       }
       if (type === 'project') {
-        return new AuthoringTool.ProjectCtrl({
+        new AuthoringTool.ProjectCtrl({
           'region': this.region,
           'property': project_data
         });
+      }
+      if (type === 'unassign') {
+        return $('#dynamice-region').empty();
       }
     };
     window.showDetails = function(elem) {
@@ -414,6 +417,13 @@
         $('.units').attr('disabled', true);
         $('.units').val(elem.id);
         return $('.units').show();
+      } else {
+        $("form").trigger("reset");
+        $('.edit').removeClass('hidden');
+        $('.delete').removeClass('hidden');
+        $('.submit').addClass('hidden');
+        $('.property_type').attr('disabled', false);
+        return $('.property_type').val('unassign');
       }
     };
     window.loadProjectForm = function() {
@@ -626,12 +636,15 @@
       return document.addEventListener('keydown', keydownFunc, false);
     });
     keydownFunc = function(e) {
-      var pointList;
+      var id, object, pointList;
       if (e.which === 13) {
         $('.alert').text('POLYGON IS NOW DRAGGABLE');
         window.hideAlert();
         $('#aj-imp-builder-drag-drop canvas').hide();
         $('#aj-imp-builder-drag-drop svg').show();
+        object = window.EDITOBJECT;
+        console.log(id = object.id);
+        $('#' + id).hide();
         pointList = window.polygon.getPointList(f);
         pointList = pointList.join(' ');
         this.polygon = draw.polygon(pointList);
@@ -727,6 +740,7 @@
     $('svg').on('dblclick', '.polygon-type', function(e) {
       var currentElem, elemId, element, object_type, svgDataObjects;
       e.preventDefault();
+      window.EDITOBJECT = e.target;
       window.canvas_type = "polygon";
       window.EDITMODE = true;
       elemId = $(e.currentTarget).attr('svgid');
@@ -867,6 +881,16 @@
     });
     $('.edit').on('click', function(e) {
       var myObject, propType, svgElemId;
+      if ($('.property_type').val() === "") {
+        $('.alert').text('Unit not assigned');
+        window.hideAlert();
+        return false;
+      }
+      if ($('.units').val() === "") {
+        $('.alert').text('Unit not assigned');
+        window.hideAlert();
+        return false;
+      }
       if (($('.area').val() === "") && (window.canvas_type === "polygon")) {
         $('.alert').text('Coordinates not marked');
         window.hideAlert();
@@ -905,6 +929,7 @@
           window.svgData.data.splice(indexToSplice, 1);
           myObject['id'] = svgElemId;
           window.svgData.data.push(myObject);
+          console.log(window.svgData.data);
           draw.clear();
           window.generateSvg(window.svgData.data);
           return window.resetTool();
@@ -1046,7 +1071,7 @@
       })(this));
     });
     $('svg').on('contextmenu', '.layer', function(e) {
-      var currentElem, newPoints;
+      var currentElem, newPoints, pointList;
       e.preventDefault();
       currentElem = e.currentTarget;
       if (/(^|\s)marker-grp(\s|$)/.test($(currentElem).attr("class"))) {
@@ -1054,12 +1079,47 @@
       }
       newPoints = window.addPoints($(e.target).attr('points'));
       window.canvas_type = "polygon";
-      window.EDITMODE = true;
-      $('#aj-imp-builder-drag-drop canvas').show();
-      $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
-      $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
-      $('.edit-box').removeClass('hidden');
-      return drawPoly(newPoints);
+      pointList = window.polygon.getPointList(f);
+      pointList = pointList.join(' ');
+      this.polygon = draw.polygon(pointList);
+      this.polygon.addClass('polygon-temp');
+      this.polygon.data('exclude', true);
+      this.polygon.attr('fill', '#CC0000');
+      this.polygon.draggable();
+      return this.polygon.dragend = (function(_this) {
+        return function(delta, event) {
+          var canvas, canvasPointsLength, ctx, i, newX, newY, oldPoints, tx, ty;
+          tx = delta.x;
+          ty = delta.y;
+          canvasPointsLength = window.f.length;
+          oldPoints = window.f;
+          newPoints = [];
+          i = 0;
+          while (i < canvasPointsLength) {
+            newX = parseInt(oldPoints[i]) + tx;
+            newY = parseInt(oldPoints[i + 1]) + ty;
+            newPoints.push(newX, newY);
+            i += 2;
+          }
+          window.f = newPoints;
+          $('.area').val(newPoints.join(','));
+          canvas = document.getElementById("c");
+          ctx = canvas.getContext("2d");
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          _this.polygon.fixed();
+          _this.polygon.remove();
+          $('#aj-imp-builder-drag-drop canvas').show();
+          $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
+          $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
+          $('.edit-box').removeClass('hidden');
+          $("form").trigger("reset");
+          $('.edit').addClass('hidden');
+          $('.delete').addClass('hidden');
+          $('.submit').removeClass('hidden');
+          $('.property_type').attr('disabled', false);
+          return drawPoly(window.f);
+        };
+      })(this);
     });
     window.addPoints = function(points) {
       var newPoints;
