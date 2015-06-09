@@ -432,6 +432,9 @@ jQuery(document).ready ($)->
                 'region' : @region
                 'property' : project_data 
 
+         if type is 'unassign'
+           $('#dynamice-region').empty()
+
 
 
     window.showDetails = (elem)->
@@ -446,6 +449,14 @@ jQuery(document).ready ($)->
             $('.units').attr 'disabled' ,  true
             $('.units').val elem.id
             $('.units').show()
+
+        else
+            $("form").trigger("reset")
+            $('.edit').removeClass 'hidden'
+            $('.delete').removeClass 'hidden'
+            $('.submit').addClass 'hidden'  
+            $('.property_type').attr 'disabled' ,  false 
+            $('.property_type').val('unassign') 
 
     window.loadProjectForm =->
         $('.property_type').val 'project'
@@ -693,7 +704,9 @@ jQuery(document).ready ($)->
         window.hideAlert()
         $('#aj-imp-builder-drag-drop canvas').hide()
         $('#aj-imp-builder-drag-drop svg').show()
-        
+        object  = window.EDITOBJECT
+        console.log id = object.id
+        $('#'+id).hide()
         pointList = window.polygon.getPointList(f)
         pointList = pointList.join(' ')
         @polygon = draw.polygon(pointList)
@@ -808,7 +821,7 @@ jQuery(document).ready ($)->
     # on double click of existing marked polygon(villa or plot) open canvas mode
     $('svg').on 'dblclick', '.polygon-type' , (e) ->
             e.preventDefault()
-            
+            window.EDITOBJECT = e.target
             window.canvas_type = "polygon"
             window.EDITMODE = true
             elemId =  $(e.currentTarget).attr('svgid')
@@ -965,6 +978,16 @@ jQuery(document).ready ($)->
     # edit svg eleement with unit data  
     $('.edit').on 'click', (e) ->
 
+        if $('.property_type').val() == ""
+            $('.alert').text 'Unit not assigned'
+            window.hideAlert()
+            return false
+        
+        if  $('.units').val() == ""
+            $('.alert').text 'Unit not assigned'
+            window.hideAlert()
+            return false
+
         if  ($('.area').val()  == "") and (window.canvas_type is "polygon")
             $('.alert').text 'Coordinates not marked'
             window.hideAlert()
@@ -1002,7 +1025,7 @@ jQuery(document).ready ($)->
                 window.svgData.data.splice(indexToSplice,1)
                 myObject['id'] =  svgElemId
                 window.svgData.data.push myObject
-
+                console.log window.svgData.data
                 # clear svg 
                 draw.clear()
                
@@ -1172,12 +1195,56 @@ jQuery(document).ready ($)->
         
 
         window.canvas_type = "polygon"
-        window.EDITMODE = true
-        $('#aj-imp-builder-drag-drop canvas').show()
-        $('#aj-imp-builder-drag-drop .svg-draw-clear').show()
-        $('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
-        $('.edit-box').removeClass 'hidden'
-        drawPoly(newPoints)
+        # window.EDITMODE = true
+        # $('#aj-imp-builder-drag-drop canvas').show()
+        # $('#aj-imp-builder-drag-drop .svg-draw-clear').show()
+        # $('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
+        # $('.edit-box').removeClass 'hidden'
+        pointList = window.polygon.getPointList(f)
+        pointList = pointList.join(' ')
+        @polygon = draw.polygon(pointList)
+        @polygon.addClass('polygon-temp')
+        @polygon.data('exclude', true)
+        @polygon.attr('fill', '#CC0000')
+        # @polygon.attr('fill-opacity', 0.1)
+        @polygon.draggable()
+        @polygon.dragend = (delta, event) =>
+
+            tx = delta.x
+            ty = delta.y
+
+            canvasPointsLength = window.f.length
+            oldPoints = window.f
+            newPoints = []
+            i=0
+            while i < canvasPointsLength
+                newX = parseInt(oldPoints[i]) + tx
+                newY = parseInt(oldPoints[i+1]) + ty
+                newPoints.push(newX,newY)
+                i+=2
+            
+            window.f = newPoints
+            $('.area').val newPoints.join(',')
+
+            # clear drawing from canvas and redraw
+            canvas = document.getElementById("c")
+            ctx= canvas.getContext("2d")
+            ctx.clearRect( 0 , 0 , canvas.width, canvas.height ) 
+
+            @polygon.fixed()
+            @polygon.remove()
+            
+            $('#aj-imp-builder-drag-drop canvas').show()
+            $('#aj-imp-builder-drag-drop .svg-draw-clear').show()
+            $('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
+            $('.edit-box').removeClass 'hidden'
+            $("form").trigger("reset")
+            $('.edit').addClass 'hidden'
+            $('.delete').addClass 'hidden'
+            $('.submit').removeClass 'hidden'  
+            $('.property_type').attr 'disabled' ,  false  
+            drawPoly(window.f)
+        # drawPoly(newPoints)
 
      window.addPoints = (points)->
         points = points.replace(/\s/g, ',')
