@@ -8,6 +8,8 @@
 @import "../../bower_components/ionrangeslider/css/ion.rangeSlider.css";
 @import "../../bower_components/ionrangeslider/css/ion.rangeSlider.skinHTML5.css";
 @import "../../bower_components/bootstrap-toggle/css/bootstrap-toggle.min.css";
+@import "../../bower_components/jquery-magnificent/src/css/mag.css";
+@import "../../bower_components/jquery-magnificent/src/theme/default.css";
 /* External CSS */
 /* Site Styles */
 html,
@@ -520,6 +522,20 @@ hr.embossed {
 }
 ::-webkit-scrollbar-thumb:hover {
   background-color: #f68121;
+}
+.mag-host {
+  width: 400px;
+  height: 200px;
+  position: absolute;
+  z-index: 999;
+  bottom: 0;
+}
+.mag-lens {
+  position: absolute;
+  z-index: 2;
+}
+[mag-thumb] img {
+  width: auto !important;
 }
 /* Bootstrap responsive utilities */
 @-ms-viewport {

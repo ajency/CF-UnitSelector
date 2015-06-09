@@ -500,7 +500,7 @@
       return CenterApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterApartmentMasterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn overflow-h"> <div class="legend clearfix"> <ul> <!--<li class="available">AVAILABLE</li>--> <li class="sold">N/A</li> <!--<li class="blocked">BLOCKED</li> <li class="na">Available</li>--> </ul> </div> <div class="zoom-controls"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master animated fadeIn"> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="svg_loader" class="img-loader"> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <div id="spritespin"></div> <div class="svg-maps animated fadeIn hidden"> <img class="first_image img-responsive" /> <div class="region inactive"></div> </div> <div id="rotate_loader" class="cf-loader hidden"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> <div class="mini-map hidden animated fadeIn"> <img class="firstimage img-responsive" src=""/> <div class="project_master"></div> </div> </div>');
+    CenterApartmentMasterView.prototype.template = Handlebars.compile('<div class="col-md-12 col-sm-12 col-xs-12 us-right-content mobile visible animated fadeIn overflow-h"> <div class="legend clearfix"> <ul> <!--<li class="available">AVAILABLE</li>--> <li class="sold">N/A</li> <!--<li class="blocked">BLOCKED</li> <li class="na">Available</li>--> </ul> </div> <div class="zoom-controls"> <div class="zoom-in"></div> <div class="zoom-out"></div> </div> <div id="view_toggle" class="toggle-view-button list"></div> <div id="trig" class="toggle-button hidden">List View</div> <div class=" master animated fadeIn"> <div class="single-bldg"> <div class="prev"></div> <div class="next"></div> </div> <div id="svg_loader" class="img-loader"> <div class="square" ></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square"></div> <div class="square last"></div> <div class="square clear"></div> <div class="square "></div> <div class="square last"></div> </div> <div class="outer-wrap" STYLE="height:100%"> <div mag-thumb="outer" class="home-region"> <img class="first_image" /> </div> <div mag-zoom="outer"> <div id="spritespin"></div> <div class="svg-maps animated fadeIn hidden"> <img class="first_image img-responsive" /> <div class="region inactive"></div> </div> </div> </div> <div id="rotate_loader" class="cf-loader hidden"></div> </div> <div class="rotate rotate-controls hidden"> <div id="prev" class="rotate-left">Left</div> <span class="rotate-text">Rotate</span> <div id="next" class="rotate-right">Right</div> </div> <div class="mini-map hidden animated fadeIn"> <img class="firstimage img-responsive" src=""/> <div class="project_master"></div> </div> </div>');
 
     CenterApartmentMasterView.prototype.ui = {
       svgContainer: '.master',
@@ -612,12 +612,20 @@
     };
 
     CenterApartmentMasterView.prototype.onShow = function() {
-      var breakpoints, building, building_id, first, height, svgs, that, transitionImages, url, windowHeight;
+      var $host, breakpoints, building, building_id, first, height, svgs, that, transitionImages, url, windowHeight;
+      $host = $('[mag-thumb="outer"]');
+      $host.mag({
+        mode: 'outer',
+        position: 'drag',
+        toggle: false,
+        zoomMax: 3,
+        zoomRate: 2,
+        constrainZoomed: true
+      });
       windowHeight = $(window).innerHeight() - 56;
       $('.master').css('height', windowHeight);
       $('.master').css('min-width', windowHeight * 2);
       this.getNextPrev();
-      $('img').lazyLoadXT();
       height = this.ui.svgContainer.width() / 2;
       $('.search-left-content').css('height', height);
       $('#spritespin').hide();
@@ -824,19 +832,7 @@
       });
     };
 
-    CenterApartmentMasterView.prototype.loadZoom = function() {
-      $('.master').panzoom({
-        contain: 'invert',
-        minScale: 1,
-        maxScale: 2.4,
-        increment: 0.4,
-        $zoomIn: $('.zoom-in'),
-        $zoomOut: $('.zoom-out')
-      });
-      return $('.master polygon').on('mousedown touchstart', function(e) {
-        return e.stopImmediatePropagation();
-      });
-    };
+    CenterApartmentMasterView.prototype.loadZoom = function() {};
 
     return CenterApartmentMasterView;
 

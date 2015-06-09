@@ -567,10 +567,17 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 											  <div class="square last"></div>
 											</div>
 
-											<div id="spritespin"></div>
-											<div class="svg-maps animated fadeIn hidden">
-												<img class="first_image img-responsive" />
-												<div class="region inactive"></div>
+											<div class="outer-wrap" STYLE="height:100%">
+												<div mag-thumb="outer" class="home-region"> 
+													<img class="first_image" />
+												</div>
+												<div mag-zoom="outer">
+													<div id="spritespin"></div>
+													<div class="svg-maps animated fadeIn hidden">
+														<img class="first_image img-responsive" />
+														<div class="region inactive"></div>
+													</div>
+												</div>
 											</div>
 
 											<div id="rotate_loader" class="cf-loader hidden"></div>
@@ -791,12 +798,22 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 	onShow:->
 
+		$host = $('[mag-thumb="outer"]')
+		$host.mag(
+		  mode: 'outer'
+		  position: 'drag'
+		  toggle: false
+		  zoomMax:3
+		  zoomRate: 2
+		  constrainZoomed: true
+		)
+
 		windowHeight = $(window).innerHeight() - 56
 		$('.master').css 'height', windowHeight
 		$('.master').css 'min-width', windowHeight * 2
 
 		@getNextPrev()
-		$('img').lazyLoadXT()
+		# $('img').lazyLoadXT()
 		height =  @ui.svgContainer.width() / 2
 		$('.search-left-content').css('height',height)
 		$('#spritespin').hide()
@@ -1003,17 +1020,17 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		)
 
 	loadZoom:->
-		$('.master').panzoom
-			contain: 'invert'
-			minScale: 1
-			maxScale: 2.4
-			increment: 0.4
-			$zoomIn: $('.zoom-in')
-			$zoomOut: $('.zoom-out')
-			# $set: $('.spritespin-canvas')
+		# $('.master').panzoom
+		# 	contain: 'invert'
+		# 	minScale: 1
+		# 	maxScale: 2.4
+		# 	increment: 0.4
+		# 	$zoomIn: $('.zoom-in')
+		# 	$zoomOut: $('.zoom-out')
+		# 	# $set: $('.spritespin-canvas')
 
-		$('.master polygon').on 'mousedown touchstart', (e) ->
-			e.stopImmediatePropagation()
+		# $('.master polygon').on 'mousedown touchstart', (e) ->
+		# 	e.stopImmediatePropagation()
 	
 
 
