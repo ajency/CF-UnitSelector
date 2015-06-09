@@ -525,6 +525,29 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		'click #next':->
 			@setDetailIndex(@currentBreakPoint + 1)
 
+		'click .villa,.plot' :(e)->
+			e.preventDefault()
+			id = parseInt e.currentTarget.id
+			unit = unitCollection.findWhere 
+				id :  id
+			if ! _.isUndefined unit && unit.get('availability') is 'available'
+				CommonFloor.navigate '/unit-view/'+id , true
+
+		'click .building' :(e)->
+			e.preventDefault()
+			id = parseInt e.currentTarget.id
+			building = buildingCollection.findWhere 
+				id :  id 
+			units = unitCollection.where 
+						'building_id' : id
+			if units.length == 0
+				return
+			if building != undefined
+				if Object.keys(building.get('building_master')).length == 0
+					CommonFloor.navigate '/building/'+id+'/apartments' , true
+					
+				else
+					CommonFloor.navigate '/building/'+id+'/master-view' , true
 
 		'mouseout .villa':(e)->
 			id = parseInt e.currentTarget.id

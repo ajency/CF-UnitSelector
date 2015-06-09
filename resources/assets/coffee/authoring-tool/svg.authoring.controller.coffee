@@ -162,6 +162,7 @@ jQuery(document).ready ($)->
                 valueText = "Apartment / Penthouse"
             
             $('<option />', {value: value.toLowerCase(), text: value.toUpperCase()}).appendTo(select)
+        $('<option />', {value: 'unassign', text: ('Unassign').toUpperCase()}).appendTo(select)
 
     window.resetCollection = ()->
         $('.polygon-type,.marker-grp').each (index,value)->
@@ -171,7 +172,10 @@ jQuery(document).ready ($)->
                 bldg = buildingCollection.findWhere
                         'id' : bldgId
 
-                buildingCollection.remove bldg                
+                buildingCollection.remove bldg   
+
+            else if type is 'unassign'       
+                return      
             else 
                 unitID = parseInt value.id
                 if unitID isnt 0
@@ -180,7 +184,7 @@ jQuery(document).ready ($)->
 
                     unitCollection.remove unit.get 'id'
 
-    #api required to load second step
+    #api required to load data
     window.loadJSONData = ()->
 
         $.ajax
@@ -429,16 +433,19 @@ jQuery(document).ready ($)->
                 'property' : project_data 
 
 
+
     window.showDetails = (elem)->
-        unit = unitMasterCollection.findWhere
-                'id' : parseInt elem.id
-        $('.property_type').val $(elem).attr 'type'
-        $('.property_type').attr 'disabled' ,  true
-        select = $('.units')
-        $('<option />', {value: elem.id, text: unit.get('unit_name')}).appendTo(select)
-        $('.units').attr 'disabled' ,  true
-        $('.units').val elem.id
-        $('.units').show()
+        type = $(elem).attr 'type'
+        if type != 'unassign'
+            unit = unitMasterCollection.findWhere
+                    'id' : parseInt elem.id
+            $('.property_type').val $(elem).attr 'type'
+            $('.property_type').attr 'disabled' ,  true
+            select = $('.units')
+            $('<option />', {value: elem.id, text: unit.get('unit_name')}).appendTo(select)
+            $('.units').attr 'disabled' ,  true
+            $('.units').val elem.id
+            $('.units').show()
 
     window.loadProjectForm =->
         $('.property_type').val 'project'
@@ -604,7 +611,7 @@ jQuery(document).ready ($)->
                 cx:798.696
                 cy:401.52
 
-            groupLocation.add(ellipse) 
+            drawDefaultMarker.add(ellipse) 
             groupLocation.draggable()
 
             groupLocation.dragend =(delta, event) ->
@@ -1065,7 +1072,7 @@ jQuery(document).ready ($)->
             success :(response)->
                 indexToSplice = -1
                 obj_id_deleted = 0
-                obj_type =""
+                obj_type = ""
                 $.each window.svgData.data,(index,value)->
                     if parseInt(value.id) is svgElemId
                         indexToSplice = index
@@ -1153,6 +1160,73 @@ jQuery(document).ready ($)->
             .fail (xhr, textStatus, errorThrown) =>
                 $('.alert').text 'Failed to publish SVG'
                 window.hideAlert()
+
+
+    $('svg').on 'contextmenu', '.layer' , (e) ->
+        e.preventDefault()
+        currentElem = e.currentTarget
+        if /(^|\s)marker-grp(\s|$)/.test($(currentElem).attr("class"))
+            return false
+        newPoints = window.addPoints($(e.target).attr('points'))
+        
+        
+
+        window.canvas_type = "polygon"
+        window.EDITMODE = true
+        $('#aj-imp-builder-drag-drop canvas').show()
+        $('#aj-imp-builder-drag-drop .svg-draw-clear').show()
+        $('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
+        $('.edit-box').removeClass 'hidden'
+        drawPoly(newPoints)
+
+     window.addPoints = (points)->
+        points = points.replace(/\s/g, ',')
+        window.f = points.split(',')
+        newPoints = []
+        $.each window.f , (index,value)->
+            newPoints.push parseInt(value) + 5
+
+        newPoints
+
+    $('svg').on 'contextmenu', '.marker-grp' , (evt) ->
+        evt.preventDefault()
+        markerType = ''
+        currentElem = evt.currentTarget
+        if /(^|\s)concentric(\s|$)/.test($(currentElem).attr("class"))
+            markerType = "concentric"
+            window.canvas_type = markerType+'Marker'
+        else if /(^|\s)solid(\s|$)/.test($(currentElem).attr("class"))
+            markerType = "solid"
+            window.canvas_type = markerType+'Marker'
+        else if $(currentElem).hasClass('earth-location-marker')
+            markerType = "earthlocation" 
+            window.canvas_type = markerType+'Marker'
+        else if $(currentElem).hasClass('location-marker')
+            markerType = "location" 
+            window.canvas_type = markerType+'Marker'
+
+        window.drawDefaultMarker(markerType) 
+        window.EDITMODE = true
+        $('.edit-box').removeClass 'hidden'
+
+
+    $('.duplicate').on 'click' , (evt) ->
+        svgExport = draw.exportSvg(
+          exclude: ->
+            @data 'exclude'
+          whitespace: true)
+
+        $('.duplicateSVG').html svgExport
+        $('.duplicateSVG .layer').each (index,value)->
+            $('#'+value.id).attr('class' ,'layer unassign')
+            $('#'+value.id).removeAttr('data-primary-breakpoint')
+            $('#'+value.id).attr('type' ,'')
+            $('#'+value.id).attr('svgid' ,0)
+           
+        $('.duplicateSVG .layer').each (index,value)->
+            value.id = 0
+
+        content = $('.duplicateSVG').html()
 
 
     # $('#save-svg-elem').on 'click', (e) ->
