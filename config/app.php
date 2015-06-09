@@ -129,7 +129,8 @@ return [
         'CommonFloor\Providers\EventServiceProvider',
         'CommonFloor\Providers\RouteServiceProvider',
         'Illuminate\Html\HtmlServiceProvider',
-        'Zizaco\Entrust\EntrustServiceProvider'
+        'Zizaco\Entrust\EntrustServiceProvider',
+        'Chrisbjr\ApiGuard\Providers\ApiGuardServiceProvider',
     ],
     /*
       |--------------------------------------------------------------------------

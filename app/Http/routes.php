@@ -103,6 +103,16 @@ Route::group( ['prefix' => 'api/v1'], function() {
 } );
 
 /**
+ * REST API routes
+ */
+Route::group( ['prefix' => 'api/v2', 'middleware' => ['whitelistip']], function() {
+    Route::post( 'unit/{unit_id}', 'Rest\UnitController@updateUnit' );
+    Route::get( 'unit/{unit_id}', 'Rest\UnitController@getUnit' );
+    Route::get( 'get-project-url', 'Rest\UnitController@getCfProjectUrl' );
+    Route::get( 'get-unit-status', 'Rest\UnitController@getUnitStatus' );
+} );
+
+/**
  * Service bindings
  */
 App::bind( 'CommonFloor\Gateways\ProjectGatewayInterface', 'CommonFloor\Gateways\ProjectGateway' );
