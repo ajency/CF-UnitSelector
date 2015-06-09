@@ -129,9 +129,14 @@
           var previousRoute;
           e.preventDefault();
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           previousRoute = CommonFloor.router.previous();
-          return CommonFloor.navigate('#/master-view', true);
+          if (Object.keys(project.get('project_master')).length === 0) {
+            return CommonFloor.navigate('/list-view', true);
+          } else {
+            return CommonFloor.navigate('/master-view', true);
+          }
         },
         'click @ui.unitTypes': function(e) {
           var unitTypes;
@@ -139,6 +144,7 @@
           unitTypes = _.without(unitTypes, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['apartment']['unit_type_id'] = unitTypes.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -149,6 +155,7 @@
           variantNames = _.without(variantNames, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['apartment']['unit_variant_id'] = variantNames.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -156,6 +163,7 @@
         'click @ui.status': function(e) {
           CommonFloor.defaults['common']['availability'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -164,6 +172,7 @@
           CommonFloor.defaults['common']['area_max'] = "";
           CommonFloor.defaults['common']['area_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -172,6 +181,7 @@
           CommonFloor.defaults['common']['price_max'] = "";
           CommonFloor.defaults['common']['price_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -180,6 +190,7 @@
           CommonFloor.defaults['common']['floor_max'] = "";
           CommonFloor.defaults['common']['floor_min'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -190,6 +201,7 @@
           types = _.without(types, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['common']['facings'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -200,6 +212,7 @@
           types = _.without(types, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['common']['views'] = types.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitTempCollection.trigger("filter_available");
           return this.trigger('render:view');
@@ -210,6 +223,7 @@
           flooring = _.without(flooring, $(e.currentTarget).attr('data-id'));
           CommonFloor.defaults['apartment']['flooring'] = flooring.join(',');
           unitCollection.reset(unitMasterCollection.toArray());
+          CommonFloor.resetCollections();
           CommonFloor.filterStepNew();
           unitCollection.trigger('filter_available');
           return this.trigger('render:view');
@@ -377,7 +391,7 @@
 
     ApartmentsView.prototype.onShow = function() {
       var availability, classname, id, status;
-      id = this.model.get('id');
+      console.log(id = this.model.get('id'));
       availability = this.model.get('availability');
       status = s.decapitalize(availability);
       classname = $('#apartment' + id).attr('class');
@@ -396,7 +410,7 @@
       return LeftApartmentMasterView.__super__.constructor.apply(this, arguments);
     }
 
-    LeftApartmentMasterView.prototype.template = '<div> <div id="trig" class="toggle-button"></div> <div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeInLeft"> <div class="advncd-filter-wrp  unit-list"> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <div class="sort-unit"> In View <input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="&nbsp;" data-off="&nbsp;" data-onstyle="warning" data-offstyle="warning"> All Units </div> <p class="text-center help-text">Hover on the units for more details</p> <ul class="units one apartments"> </ul> </div> </div> </div>';
+    LeftApartmentMasterView.prototype.template = '<div> <div id="trig" class="toggle-button"></div> <div id="view_toggle" class="toggle-view-button map"></div> <div class="list-view-container w-map animated fadeInLeft"> <div class="advncd-filter-wrp  unit-list"> <div class="legend clearfix"> <ul> <li class="available">AVAILABLE</li> <li class="sold">SOLD</li> <li class="blocked">BLOCKED</li> <li class="na">N/A</li> </ul> </div> <div class="sort-unit"> All Units <input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="&nbsp;" data-off="&nbsp;" data-onstyle="warning" data-offstyle="warning"> In View </div> <p class="text-center help-text">Hover on the units for more details</p> <ul class="units one apartments"> </ul> </div> </div> </div>';
 
     LeftApartmentMasterView.prototype.childView = ApartmentsView;
 
@@ -620,12 +634,11 @@
           CommonFloor.applyAvailabilClasses();
           CommonFloor.randomClass();
           CommonFloor.applyFliterClass();
-          CommonFloor.getApartmentsInView();
+          CommonFloor.applyOnViewClass();
           that.loadZoom();
           response = building.checkRotationView(building_id);
           $('.svg-maps').removeClass('hidden');
           $('.mini-map').removeClass('hidden');
-          $('#rotate_loader').removeClass('hidden');
           $('.first_image').first().css('width', that.ui.svgContainer.width());
           if (response === 1) {
             $('.cf-loader').removeClass('hidden');
@@ -733,7 +746,6 @@
             CommonFloor.applyAvailabilClasses();
             CommonFloor.randomClass();
             CommonFloor.applyFliterClass();
-            CommonFloor.getApartmentsInView();
             CommonFloor.applyOnViewClass();
             return that.loadZoom();
           }).addClass('active').removeClass('inactive');
@@ -754,7 +766,7 @@
           CommonFloor.applyAvailabilClasses();
           CommonFloor.randomClass();
           CommonFloor.applyFliterClass();
-          CommonFloor.getApartmentsInView();
+          CommonFloor.applyOnViewClass()();
           return that.loadZoom();
         }).addClass('active').removeClass('inactive');
       });
@@ -767,7 +779,7 @@
         onlyOne: true,
         arrow: false,
         offsetX: 50,
-        offsetY: -40,
+        offsetY: -10,
         trigger: 'hover',
         interactive: true,
         functionReady: function(e) {

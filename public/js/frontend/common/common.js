@@ -150,12 +150,31 @@
   };
 
   window.numDifferentiation = function(val) {
+    var decimal, valBudget;
     if (val >= 10000000) {
-      val = (val / 10000000).toFixed(2) + ' Cr';
+      val = (val / 10000000).toFixed(2);
+      decimal = val.split('.')[1];
+      valBudget = decimal % 5;
+      valBudget = valBudget / 100;
+      val = val - valBudget;
+      val = val.toFixed(2);
+      val = val + ' Cr';
     } else if (val >= 100000) {
-      val = (val / 100000).toFixed(2) + ' Lac';
+      val = (val / 100000).toFixed(2);
+      decimal = val.split('.')[1];
+      valBudget = decimal % 5;
+      valBudget = valBudget / 100;
+      val = val - valBudget;
+      val = val.toFixed(2);
+      val = val + ' Lac';
     } else if (val >= 1000) {
-      val = (val / 1000).toFixed(2) + ' K';
+      val = (val / 1000).toFixed(2);
+      decimal = val.split('.')[1];
+      valBudget = decimal % 5;
+      valBudget = valBudget / 100;
+      val = val - valBudget;
+      val = val.toFixed(2);
+      val = val + ' K';
     }
     return val;
   };
@@ -363,18 +382,21 @@
     });
     return $('.building').each(function(ind, item) {
       var id, types;
+      types = [];
       if (CommonFloor.defaults['type'] !== "") {
         types = CommonFloor.defaults['type'].split(',');
       }
       id = parseInt(item.id);
-      if ($.inArray(id, filterbuildings) > -1 && $.inArray('apartment', types) > -1) {
-        return setTimeout(function() {
-          return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0; stroke:#F68121; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
-        }, Math.random() * 1000);
-      } else {
-        return setTimeout(function() {
-          return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
-        }, Math.random() * 1000);
+      if ($.inArray('villa', types) === -1 && $.inArray('plot', types) === -1) {
+        if ($.inArray(id, filterbuildings) > -1 && filterbuildings.length !== 0) {
+          return setTimeout(function() {
+            return $('#' + id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0; stroke:#F68121; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
+          }, Math.random() * 1000);
+        } else {
+          return setTimeout(function() {
+            return $('#' + id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
+          }, Math.random() * 1000);
+        }
       }
     });
   };
@@ -1170,13 +1192,20 @@
     if (CommonFloor.defaults['common']['floor_max'] !== "") {
       CommonFloor.filterFloor();
     }
+    if (CommonFloor.defaults['common']['views'] !== "") {
+      CommonFloor.filterViews();
+    }
+    if (CommonFloor.defaults['common']['facings'] !== "") {
+      CommonFloor.filterFacings();
+    }
     if (CommonFloor.defaults['common']['availability'] !== "") {
       paramkey = {};
       paramkey['availability'] = 'available';
       temp = unitCollection.where(paramkey);
       unitCollection.reset(temp);
     }
-    return CommonFloor.applyFliterClass();
+    CommonFloor.applyFliterClass();
+    return CommonFloor.resetCollections();
   };
 
   CommonFloor.filterVillas = function() {
@@ -1193,7 +1222,8 @@
           temp = bunglowVariantCollection.getBunglowUnits();
         }
         attributes = CommonFloor.filterVillaAttributes(temp);
-        $.merge(temp, attributes);
+        unitCollection.reset(attributes);
+        newColl.reset(attributes);
       }
       if (value !== "" && index !== 'attributes') {
         param_val = value.split(',');
@@ -1247,7 +1277,8 @@
           temp = apartmentVariantCollection.getApartmentUnits();
         }
         attributes = CommonFloor.filterApartmentAttributes(temp);
-        $.merge(temp, attributes);
+        unitCollection.reset(attributes);
+        newColl.reset(attributes);
       }
       if (value !== "" && index !== 'attributes') {
         param_val = value.split(',');
@@ -1262,8 +1293,8 @@
             return $.merge(temp, unitCollection.where(paramkey));
           }
         });
-        unitCollection.reset(tempColl);
-        return newColl.reset(tempColl);
+        unitCollection.reset(temp);
+        return newColl.reset(temp);
       }
     });
     return newColl.toArray();
@@ -1302,7 +1333,8 @@
           temp = plotVariantCollection.getPlotUnits();
         }
         attributes = CommonFloor.filterPlotAttributes(temp);
-        $.merge(temp, attributes);
+        unitCollection.reset(attributes);
+        newColl.reset(attributes);
       }
       if (value !== "" && index !== 'attributes') {
         param_val = value.split(',');
@@ -1317,8 +1349,8 @@
             return $.merge(temp, unitCollection.where(paramkey));
           }
         });
-        unitCollection.reset(tempColl);
-        return newColl.reset(tempColl);
+        unitCollection.reset(temp);
+        return newColl.reset(temp);
       }
     });
     return newColl.toArray();
@@ -1410,7 +1442,7 @@
     unitCollection.each(function(item) {
       var facings;
       facings = item.get('direction');
-      if ($.inArray(facings, CommonFloor.defaults['common']['facings'].split(',')) > -1 && val !== "") {
+      if ($.inArray(facings, CommonFloor.defaults['common']['facings'].split(',')) > -1 && facings !== "") {
         return temp.push(item);
       }
     });

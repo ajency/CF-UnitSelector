@@ -154,6 +154,7 @@
           CommonFloor.defaults['common']['availability'] = "";
           unitCollection.reset(unitMasterCollection.toArray());
           CommonFloor.filterNew();
+          CommonFloor.resetCollections();
           unitCollection.trigger('available');
           return this.trigger('render:view');
         },

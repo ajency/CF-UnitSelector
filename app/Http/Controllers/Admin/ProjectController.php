@@ -310,31 +310,60 @@ class ProjectController extends Controller {
     public function summary($id, ProjectRepository $projectRepository) {
 
         $project = $projectRepository->getProjectById($id);
-        $phases = $project->projectPhase()->where('phase_name', '!=', 'Default')->get()->toArray();
+        $phases = $project->projectPhase()->get()->toArray();
         $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray();
-        $propertyTypes = $propertyTypeUnitData = $phaseData = $unitTypeData = $count = [];
+        $propertyTypes = $propertyTypeUnitData = $phaseData = $unitTypeData = $count = $breakPointSvgData = $buildingbreakPointSvgData =         $buildingbreakPoint = [];
         $projectJason = \CommonFloor\ProjectJson::where('project_id', $id)->where('type', 'step_two')->select('created_at', 'updated_at')->first()->toArray();
 
         foreach ($projectpropertyTypes as $propertyType) {
             $propertyTypes[$propertyType['property_type_id']] = get_property_type($propertyType['property_type_id']);
         }
-        $totalCount = 0;
-        foreach ($phases as $phase) {
+        $totalCount = $totalbuildingUnitCount= 0;
+        foreach ($phases as $key=> $phase) {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
             $units = $phase->projectUnits()->get()->toArray();
-            $buildings = $phase->projectBuildings()->get()->toArray(); 
-            $buildingUnits =[];
+            $buildings = $phase->projectBuildings()->get(); 
+            $buildingUnits = $buildingBreakpointId =[];
+            
+            //Project master total unit count Villa + Plot + Building
+            $totalCount += count($units) + count($buildings); 
+            
             //BUILDING (APARTMENT/PENTHOUSE)
             foreach($buildings as $building)
             {
                 $buildingData = Building :: find($building['id']);
-                $buildingUnits = $buildingData->projectUnits()->get()->toArray();   	
+                $buildingUnits = $buildingData->projectUnits()->get()->toArray();
+                $buildingMediaIds= $building['building_master'];
+            
+                $buildingbreakPoint = (!empty($building['breakpoints']))?unserialize($building['breakpoints']):[];
+                 foreach($buildingMediaIds as $position => $buildingMediaId) {
+                    if($buildingMediaId!="")
+                    {
+                        if(in_array($position,$buildingbreakPoint ))
+                        {
+                            $buildingBreakpointId[$position]=$buildingMediaId;
+                        }
+                    }
+                }
+                
+               
+                $totalbuildingUnitCount = count($buildingUnits); 
+                //Building total unit count
+                $buildingunitSvgCount = SvgController :: getUnitSvgCount($buildingBreakpointId);  
+                foreach($buildingunitSvgCount as $position=> $count)
+                {
+                    $buildingunitCount =  $count['apartment'] ;
+                    $buildingbreakPointSvgData[$building['id']][$position]['MARKED']= $buildingunitCount;
+                    $buildingbreakPointSvgData[$building['id']][$position]['PENDING']= $totalbuildingUnitCount - $buildingunitCount;
+                }
+                
+                 $units = array_merge($units,$buildingUnits);  //Merge All Units of project
+               
             }
-            $totalCount = count($units) + count($buildings);
-            $units = array_merge($units,$buildingUnits);
+ 
        
-            //VILLA AND PLOT
+            //VILLA + PLOT +Penthouse + APARTMENT
             foreach ($units as $unit) {
                 $variantId = $unit['unit_variant_id'];
                 $unitType = UnitVariant::find($variantId)->unitType()->first();
@@ -351,16 +380,21 @@ class ProjectController extends Controller {
                     $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['sold'] = 0;
                     $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['not_released'] = 0;
                     $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['blocked'] = 0;
+                    $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['archived'] = 0;
                 }
 
                 $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['available'] +=($unit['availability'] == 'available') ? 1 : 0;
                 $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['sold'] +=($unit['availability'] == 'sold') ? 1 : 0;
                 $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['not_released'] +=($unit['availability'] == 'not_released') ? 1 : 0;
                 $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['blocked'] +=($unit['availability'] == 'blocked') ? 1 : 0;
+                $propertyTypeUnitData[$propertTypeId][$phaseId][$unitTypeName]['archived'] +=($unit['availability'] == 'archived') ? 1 : 0;
             }
             
-            
-            
+           
+           if( $phase['phase_name'] == 'Default')
+           {
+                unset($phases[$key]); //Unset default phase
+           }
             
         }
 
@@ -390,9 +424,10 @@ class ProjectController extends Controller {
             $breakPointSvgData[$position]['PENDING']= $totalCount - $unitCount;
         }
         
-        $googleearthauthtool =true;
-
-
+        $googleImageID = $project->projectMeta()->where('meta_key','google_earth')->first()->meta_value;  
+        $googleearthauthtool =SvgController :: isGoogleSvgMarked($googleImageID);  
+ 
+ 
         return view('admin.project.projectsummary')
                         ->with('project', $projectData)
                         ->with('phases', $phases)
@@ -404,6 +439,8 @@ class ProjectController extends Controller {
                         ->with('googleearthauthtool', $googleearthauthtool)
                         ->with('projectJason', $projectJason)
                         ->with('breakPointSvgData', $breakPointSvgData)
+                        ->with('buildings', $buildings->toArray())    
+                        ->with('buildingbreakPointSvgData', $buildingbreakPointSvgData) 
                         ->with('current', 'summary');
     }
 
@@ -430,7 +467,7 @@ class ProjectController extends Controller {
 			$unitIds['building'][] =  $building->id;
 			$buildingMediaIds= $building->building_master;
             
-            $breakpoints = unserialize($building->breakpoints); 
+            $breakpoints =  (!empty($building['breakpoints']))?unserialize($building['breakpoints']):[];
             foreach($buildingMediaIds as $position => $buildingMediaId)
             {
                 if(in_array($position,$breakpoints))
@@ -464,7 +501,10 @@ class ProjectController extends Controller {
             }
         }
        
-		$unitSvgExits = SvgController :: getUnmarkedSvgUnits($unitIds,$mediaIds); 
+        if(!empty($mediaIds))
+		  $unitSvgExits = SvgController :: getUnmarkedSvgUnits($unitIds,$mediaIds); 
+        elseif($project->has_master == 'yes')
+            $errors['unitauthtool'] = 'Units Not Marked On Authoring Tool';
     
         if (!empty($unitSvgExits)) {
            
@@ -571,7 +611,7 @@ class ProjectController extends Controller {
     public function projectPublishData($projectId, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($projectId);
         $projectMetaCondition = ($project->has_master == 'yes') ? ['master', 'google_earth', 'breakpoints'] : [ 'google_earth'];
-        $projectMeta = $project->projectMeta()->whereIn('meta_key', $projectMetaCondition)->get()->toArray();
+        $projectMeta = $project->projectMeta()->whereIn('meta_key', $projectMetaCondition)->get()->toArray(); 
         if($project->has_phase == 'yes')
             $phases = Phase::where(['project_id' => $projectId, 'status' => 'live'])->get()->toArray();
         else
@@ -595,14 +635,22 @@ class ProjectController extends Controller {
                 }
             } elseif ('breakpoints' === $metaValues['meta_key']) {
                 $breakpoints = unserialize($metaValues['meta_value']);
-                if (empty($masterImages)) {
+                if (empty($breakpoints)) {
                     $errors['breakpoints'] = "Breakpoints Not Set Project Master Images";
                 }
             } else {
                 $googleEarth = $metaValues['meta_value'];
                 if (empty($googleEarth)) {
                     $errors['google_earth'] = "Google Earth Image Not Found";
+                
                 }
+                else{
+                    $googleEarthAuthtool = SvgController :: isGoogleSvgMarked($googleEarth); 
+                    if (!$googleEarthAuthtool) {
+                        $errors['googleearthauthtool'] = "Pending SVG Authoring For Google Earth Image";
+                    }
+                }
+
             }
         }
 
@@ -614,17 +662,25 @@ class ProjectController extends Controller {
                 }
             }
         }
-
-        $googleEarthAuthtool = true;
-        if (!$googleEarthAuthtool) {
-            $errors['googleearthauthtool'] = "Pending SVG Authoring For Google Earth Image";
-        }
-
+        
+ 
+        
         foreach ($phases as $phase) {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
             $units = $phase->projectUnits()->get()->toArray();
+            $buildings = $phase->projectBuildings()->get()->toArray(); 
             $phaseData[$phaseId] = $phase['phase_name'];
+            foreach($buildings as $building)
+            {
+                $buildingData = Building :: find($building['id']);
+                $buildingUnits = $buildingData->projectUnits()->get()->toArray();
+                $units = array_merge($units,$buildingUnits);
+            }
+            
+           if (empty($units)) {
+            $errors['units'] = "No Units Created";
+            }
 
             foreach ($units as $unit) {
                 $variantId = $unit['unit_variant_id'];
@@ -654,7 +710,7 @@ class ProjectController extends Controller {
         else
         {
             unset($filters['_token']);
-            $filtermsg = 'Filters : ';
+            $filtermsg = 'Filters Applied To : ';
             foreach($filters as $type => $filter)
             {
                $filtermsg .= $type.'( '. count($filter) .' ) ,';
@@ -770,6 +826,7 @@ class ProjectController extends Controller {
         }        
 
         $type = $getVar['type'];
+        $is_project_marked = false;
 
         $propertyTypeName = [BUNGLOWID=>"Villa",PLOTID=>"Plot",APARTMENTID=>"Apartment",PENTHOUSEID=>"Penthouse"];
 
@@ -821,6 +878,7 @@ class ProjectController extends Controller {
                 break;
 
              case 'google_earth':
+                $is_project_marked = SvgController::isGoogleSvgMarked($image_id);
                 $svgImagePath = url() . "/projects/" . $id . "/google_earth/". $imageName;
                 
                 // pass Project
@@ -858,6 +916,7 @@ class ProjectController extends Controller {
         ->with('building_id',$buildingId)
         ->with('project_id',$id)
         ->with('svg_type_display',$svg_type_display)
+        ->with('is_project_marked',$is_project_marked)
         ->with('svg_type', $type);
  }
 

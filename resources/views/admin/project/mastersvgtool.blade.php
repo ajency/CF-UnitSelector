@@ -12,7 +12,9 @@
     <link href="{{ asset('bower_components/fontawesome/css/font-awesome.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/dashboard/builder.css')}}" rel="stylesheet" type="text/css" />
     <style type="text/css">
-
+/*.open {
+  width: 302px;
+}*/
     .svg-canvas image{
          width: 100%; !important;
          height: 100%; !important;
@@ -44,8 +46,12 @@
         
     }
     .popover-content {
-      width: 163px;
+      width: 115px;
     }
+
+    .total-count {
+      font-size: 12px;
+    }    
 
 </style>
 </head>
@@ -128,6 +134,7 @@
                   <div class="menu">
                     <ul class="menu-block">
                       <li><a class="select-polygon"><i class="fa fa-area-chart"></i> Polygon</a></li>
+                      <!--  <li><a class="select-ellipse"><i class="fa fa-circle-o"></i> Ellipse</a></li> -->
                       <li><a  title='bottom Popover' rel='popover' data-placement='bottom' ><i class="fa fa-map-marker"></i> Marker</a></li>
                     </ul>
                   </div>
@@ -375,6 +382,7 @@
         <script type="text/javascript">
             svgImg = '{{$svgImage}}';
             types = '{{$supported_types}}';
+            is_project_marked = '{{$is_project_marked}}';
             supported_types = $('<div/>').html(types).text()
             breakpoint_position = '{{$breakpoint_position}}';
             svg_type = '{{$svg_type}}';

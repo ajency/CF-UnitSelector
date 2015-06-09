@@ -9,7 +9,7 @@
       return FilterMsterView.__super__.constructor.apply(this, arguments);
     }
 
-    FilterMsterView.prototype.template = Handlebars.compile('<a href="javascript:void(0)" class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button filter-toggle" type="button"> <span class="icon"></span> </button> <div class="filters-wrapper"> <div class="filters-content"> <div class="property_type"> <h6 class="">PROPERTY TYPE</h6> <div class="filter-chkbox-block"> {{#types}} <div class="-lbl "> <input type="checkbox" class="custom-chckbx addCft types {{name}}" id="{{id}}" value="{{type}}" data-value="{{name}}"" > <label for="{{id}}" class="-lbl  ">{{type}}</label> </div> {{/types}} </div> </div> <div class="viewLabel"> <h6 class="">VIEWS</h6> <div class="filter-chkbox-block"> {{#views}} <input type="checkbox" class="custom-chckbx addCft views " id="{{id}}" value="{{id}}"  > <label for="{{id}}" class="-lbl  ">{{name}}</label> {{/views}} </div> </div> <div class="facingLabel"> <h6 class="">FACINGS</h6> <div class="filter-chkbox-block"> {{#facings}} <input type="checkbox" class="custom-chckbx addCft facings " id="{{id}}" value="{{id}}"  > <label for="{{id}}" class="-lbl  ">{{name}}</label> {{/facings}} </div> </div> <div class="areaLabel"> <h6 class="">AREA ({{measurement_units}})</h6> <div class="range-container"> <input type="text" id="area" name="area" value="" /> </div>                     </div> <div class="budgetLabel"> <h6 class="">BUDGET </h6> <div class="range-container"> <input type="text" id="budget" name="budget" value="" /> </div>                     </div> <div class=""> <h6 class="availability">AVAILABILITY</h6> <div class="filter-chkbox-block"> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="available" class="-lbl">Show Available Units Only</label> </div>                     </div> </div> </div> <!--<div class="filters-bottom"> <a href="#">+ More Filters</a> </div>--> </div> <div class="filters-wrapper-hover  filters-wrapper villa-wrapper"> <div class="arrow-left"> </div> <button class="btn btn-primary filter-button back_btn" type="button"> <span class="icon"></span> Back </button> {{#villas}} <div class="villa_unitTypes"> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} data-type="villa"> <label for="unit_type{{id}}" class="-lbl">{{name}}</label> {{/unitTypes}} </div> </div> <div class="villa_unitVariantNames"> <h6 class="unit_type_filter">UNIT VARIANTS</h6> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} data-type="villa" > <label for="varinat_name{{id}}" class="-lbl">{{name}}</label> {{/unitVariantNames}} </div> </div> {{#flooring}} <div class=""> <h6 class="unit_type_filter">{{label}}</h6> <div class="filter-chkbox-block"> {{#value}} <input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}"" data-type="villa" > <label for="{{id}}" class="-lbl">{{name}}</label> {{/value}} </div> </div> {{/flooring}} {{/villas}}</div> <div class="filters-wrapper-hover  filters-wrapper apartment-wrapper"> <div class="arrow-left"> </div> <button class="btn btn-primary filter-button back_btn" type="button"> <span class="icon"></span> Back </button> {{#apartments}} <div class="apartment_unitTypes"> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}}  data-type="apartment"> <label for="unit_type{{id}}" class="-lbl">{{name}}</label> {{/unitTypes}} </div> </div> <div class="apartment_unitVariantNames"> <h6 class="unit_type_filter">UNIT VARIANTS</h6> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} data-type="apartment"> <label for="varinat_name{{id}}" class="-lbl">{{name}}</label> {{/unitVariantNames}} </div> </div> {{#flooring}} <div class=""> <h6 class="unit_type_filter">{{label}}</h6> <div class="filter-chkbox-block"> {{#value}} <input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}"" data-type="apartment" > <label for="{{id}}" class="-lbl">{{name}}</label> {{/value}} </div> </div> {{/flooring}} {{/apartments}}</div> <div class="filters-wrapper-hover  filters-wrapper plot-wrapper"> <div class="arrow-left"> </div> <button class="btn btn-primary filter-button back_btn" type="button"> <span class="icon"></span> Back </button> {{#plots}} <div class="plot_unitTypes"> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} data-type="plot"> <label for="unit_type{{id}}" class="-lbl">{{name}}</label> {{/unitTypes}} </div> </div> <div class="plot_unitVariantNames"> <h6 class="unit_type_filter">UNIT VARIANTS</h6> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} data-type="plot"> <label for="varinat_name{{id}}" class="-lbl">{{name}}</label> {{/unitVariantNames}} </div> </div> {{#flooring}} <div class=""> <h6 class="unit_type_filter">{{label}}</h6> <div class="filter-chkbox-block"> {{#value}} <input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}"" data-type="plot" > <label for="{{id}}" class="-lbl">{{name}}</label> {{/value}} </div> </div> {{/flooring}} {{/plots}}</div></div>');
+    FilterMsterView.prototype.template = Handlebars.compile('<a href="javascript:void(0)" class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button filter-toggle" type="button"> <span class="icon"></span> </button> <div class="filters-wrapper"> <div class="filters-content"> <div class="property_type"> <h6 class="">PROPERTY TYPE</h6> <div class="filter-chkbox-block"> {{#types}} <div class="-lbl "> <input type="checkbox" class="custom-chckbx addCft types {{name}}" id="{{id}}" value="{{type}}" data-value="{{name}}"" > <label for="{{id}}" class="-lbl  ">{{type}}</label> </div> {{/types}} </div> </div> <div class="viewLabel"> <h6 class="">VIEWS</h6> <div class="filter-chkbox-block"> {{#views}} <input type="checkbox" class="custom-chckbx addCft views " id="{{id}}" value="{{id}}"  > <label for="{{id}}" class="-lbl  ">{{name}}</label> {{/views}} </div> </div> <div class="facingLabel"> <h6 class="">FACINGS</h6> <div class="filter-chkbox-block"> {{#facings}} <input type="checkbox" class="custom-chckbx addCft facings " id="{{id}}" value="{{id}}"  > <label for="{{id}}" class="-lbl  ">{{name}}</label> {{/facings}} </div> </div> <div class="areaLabel"> <h6 class="">AREA ({{measurement_units}})</h6> <div class="range-container"> <input type="text" id="area" name="area" value="" /> </div>                     </div> <div class="budgetLabel"> <h6 class="">BUDGET </h6> <div class="range-container"> <input type="text" id="budget" name="budget" value="" /> </div>                     </div> <div class=""> <h6 class="availability">AVAILABILITY</h6> <div class="filter-chkbox-block"> <input type="checkbox" name="available"  class="custom-chckbx addCft status" id="available" value="available"> <label for="available" class="-lbl">Show Available Units Only</label> </div>                     </div> </div> </div> <!--<div class="filters-bottom"> <a href="#">+ More Filters</a> </div>--> </div> <div class="filters-wrapper-hover  filters-wrapper villa-wrapper"> <div class="arrow-left"> </div> <button class="btn btn-primary filter-button back_btn" type="button"> <span class="icon"></span> Back </button> {{#villas}} <div class="villa_unitTypes"> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} data-type="villa"> <label for="unit_type{{id}}" class="-lbl">{{name}}</label> {{/unitTypes}} </div> </div> <div class="villa_unitVariantNames"> <h6 class="unit_type_filter">UNIT VARIANTS</h6> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} data-type="villa" > <label for="varinat_name{{id}}" class="-lbl">{{name}}</label> {{/unitVariantNames}} </div> </div> {{#flooring}} <div class=""> <h6 class="unit_type_filter">{{label}}</h6> <div class="filter-chkbox-block"> {{#value}} <input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}" data-type="villa" > <label for="{{id}}" class="-lbl">{{name}}</label> {{/value}} </div> </div> {{/flooring}} {{/villas}}</div> <div class="filters-wrapper-hover  filters-wrapper apartment-wrapper"> <div class="arrow-left"> </div> <button class="btn btn-primary filter-button back_btn" type="button"> <span class="icon"></span> Back </button> {{#apartments}} <div class="apartment_unitTypes"> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}}  data-type="apartment"> <label for="unit_type{{id}}" class="-lbl">{{name}}</label> {{/unitTypes}} </div> </div> <div class="apartment_unitVariantNames"> <h6 class="unit_type_filter">UNIT VARIANTS</h6> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} data-type="apartment"> <label for="varinat_name{{id}}" class="-lbl">{{name}}</label> {{/unitVariantNames}} </div> </div> {{#flooring}} <div class=""> <h6 class="unit_type_filter">{{label}}</h6> <div class="filter-chkbox-block"> {{#value}} <input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}" data-type="apartment" > <label for="{{id}}" class="-lbl">{{name}}</label> {{/value}} </div> </div> {{/flooring}} {{/apartments}}</div> <div class="filters-wrapper-hover  filters-wrapper plot-wrapper"> <div class="arrow-left"> </div> <button class="btn btn-primary filter-button back_btn" type="button"> <span class="icon"></span> Back </button> {{#plots}} <div class="plot_unitTypes"> <h6 class="unit_type_filter">UNIT TYPE</h6> <div class="filter-chkbox-block"> {{#unitTypes}} <input type="checkbox" class="custom-chckbx addCft unit_types" id="unit_type{{id}}" value="unit_type{{id}}" value="1" data-value={{id}} data-type="plot"> <label for="unit_type{{id}}" class="-lbl">{{name}}</label> {{/unitTypes}} </div> </div> <div class="plot_unitVariantNames"> <h6 class="unit_type_filter">UNIT VARIANTS</h6> <div class="filter-chkbox-block"> {{#unitVariantNames}} <input type="checkbox" class="custom-chckbx addCft variant_names" id="varinat_name{{id}}" value="varinat_name{{id}}" value="1" data-value={{id}} data-type="plot"> <label for="varinat_name{{id}}" class="-lbl">{{name}}</label> {{/unitVariantNames}} </div> </div> {{#flooring}} <div class=""> <h6 class="unit_type_filter">{{label}}</h6> <div class="filter-chkbox-block"> {{#value}} <input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}" data-type="plot" > <label for="{{id}}" class="-lbl">{{name}}</label> {{/value}} </div> </div> {{/flooring}} {{/plots}}</div></div>');
 
     FilterMsterView.prototype.ui = {
       unitTypes: '.unit_types',
@@ -421,7 +421,7 @@
     };
 
     FilterMsterView.prototype.onShow = function() {
-      var area, budget, max, min, priceMax, priceMin, subArea, subBudget, types;
+      var area, budget, max, min, priceMax, priceMin, sub, subArea, subBudget, submax, submin, types;
       this.hideLabels();
       $('.filters-content').mCustomScrollbar({
         theme: 'cf-scroll'
@@ -435,17 +435,23 @@
         return area.push(parseFloat(unitDetails[0].get('super_built_up_area')));
       });
       min = _.min(area);
+      submin = min % 5;
+      min = min - submin;
       max = _.max(area);
+      submax = max % 5;
+      max = max - submax;
       subArea = (max - min) / 20;
       subArea = subArea.toFixed(0);
-      if (CommonFloor.defaults['area_min'] !== "") {
+      sub = subArea % 5;
+      subArea = subArea - sub;
+      if (CommonFloor.defaults['common']['area_min'] !== "") {
         $("#area").ionRangeSlider({
           type: "double",
           min: min,
           max: max,
-          from: CommonFloor.defaults['area_min']
+          from: CommonFloor.defaults['common']['area_min']
         }, {
-          to: CommonFloor.defaults['area_max']
+          to: CommonFloor.defaults['common']['area_max']
         }, {
           step: subArea,
           grid: false
@@ -463,13 +469,13 @@
       priceMax = _.max(budget);
       subBudget = (priceMax - priceMin) / 20;
       subBudget = subBudget.toFixed(0);
-      if (CommonFloor.defaults['price_min'] !== "") {
+      if (CommonFloor.defaults['common']['price_min'] !== "") {
         $("#budget").ionRangeSlider({
           type: "double",
           min: priceMin,
           max: priceMax,
-          from: CommonFloor.defaults['price_min'],
-          to: CommonFloor.defaults['price_max'],
+          from: CommonFloor.defaults['common']['price_min'],
+          to: CommonFloor.defaults['common']['price_max'],
           grid: false,
           step: subBudget,
           prettify: function(num) {
@@ -535,7 +541,7 @@
     };
 
     FilterMsterView.prototype.loadClearFilter = function() {
-      var area, budget, max, min, priceMax, priceMin, subArea, subBudget;
+      var area, budget, max, min, priceMax, priceMin, sub, subArea, subBudget, submax, submin;
       budget = [];
       area = [];
       $.each(unitMasterCollection.toArray(), function(index, value) {
@@ -545,9 +551,15 @@
         return area.push(parseFloat(unitDetails[0].get('super_built_up_area')));
       });
       min = _.min(area);
+      submin = min % 5;
+      min = min - submin;
       max = _.max(area);
+      submax = max % 5;
+      max = max - submax;
       subArea = (max - min) / 20;
       subArea = subArea.toFixed(0);
+      sub = subArea % 5;
+      subArea = subArea - sub;
       priceMin = _.min(budget);
       priceMax = _.max(budget);
       subBudget = (priceMax - priceMin) / 20;
@@ -754,7 +766,7 @@
     };
 
     FilterMasterCtrl.prototype.getVillaFilters = function() {
-      var budget, filters, flooring, flooringAttributes, newtemp, temp, unitTypes, unitVariantNames, unitVariants, unit_types;
+      var budget, filters, flooring, flooringAttributes, newtemp, temp, unitTypes, unitVariantNames, unitVariants, unit_types, unitsArr;
       filters = [];
       unitTypes = [];
       unit_types = [];
@@ -766,7 +778,7 @@
       temp = [];
       newtemp = [];
       bunglowVariantMasterCollection.each(function(item) {
-        var unitTypeModel, units, unitsArr;
+        var unitTypeModel, units;
         units = unitMasterCollection.where({
           'unit_variant_id': item.get('id')
         });
@@ -783,42 +795,54 @@
             });
           }
           unitVariants.push(item.get('super_built_up_area'));
-          unitVariantNames.push({
+          return unitVariantNames.push({
             'id': item.get('id'),
             'name': item.get('unit_variant_name'),
             'type': 'V'
           });
-          if (!_.isUndefined(project.get('filters').Villa)) {
-            $.each(project.get('filters').Villa, function(index, value) {
-              temp = [];
-              return $.each(item.get('variant_attributes'), function(ind, val) {
-                if (ind === value && $.inArray(value, flooring) === -1 && val !== "") {
-                  flooring.push(value);
-                  temp.push({
-                    'name': val,
-                    'id': 'villa' + s.replaceAll(val, " ", "_"),
-                    'dataId': s.replaceAll(val, " ", "_"),
-                    'classname': 'attributes',
-                    'label': ind,
-                    type: 'P'
-                  });
-                  return newtemp.push({
-                    'label': ind.toUpperCase(),
-                    'value': temp,
-                    'index': ind
-                  });
-                }
-              });
-            });
-          }
         }
+      });
+      if (!_.isUndefined(project.get('filters').Villa)) {
+        $.each(project.get('filters').Villa, function(index, value) {
+          if (value !== 'unitTypes' && value !== 'unitVariantNames') {
+            temp = [];
+            bunglowVariantMasterCollection.each(function(item) {
+              var units;
+              units = unitMasterCollection.where({
+                'unit_variant_id': item.get('id')
+              });
+              if (units.length !== 0) {
+                return $.each(item.get('variant_attributes'), function(ind, val) {
+                  if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
+                    flooring.push(val);
+                    return temp.push({
+                      'name': val,
+                      'id': 'villa' + s.replaceAll(val, " ", "_"),
+                      'dataId': s.replaceAll(val, " ", "_"),
+                      'classname': 'attributes',
+                      'label': ind,
+                      type: 'V'
+                    });
+                  }
+                });
+              }
+            });
+            if (temp.length !== 0) {
+              return newtemp.push({
+                'label': value.toUpperCase(),
+                'value': temp,
+                'index': value
+              });
+            }
+          }
+        });
         unitsArr = bunglowVariantMasterCollection.getBunglowUnits();
-        return $.each(unitsArr, function(index, value) {
+        $.each(unitsArr, function(index, value) {
           var unitDetails;
           unitDetails = window.unit.getUnitDetails(value.id);
           return budget.push(parseFloat(unitDetails[3]));
         });
-      });
+      }
       filters.push({
         'unitTypes': unitTypes,
         'unitVariants': unitVariants,
@@ -875,36 +899,48 @@
             });
           }
           unitVariants.push(item.get('super_built_up_area'));
-          unitVariantNames.push({
+          return unitVariantNames.push({
             'id': item.get('id'),
             'name': item.get('unit_variant_name'),
             'type': type
           });
-          if (!_.isUndefined(project.get('filters').Apartment)) {
-            return $.each(project.get('filters').Apartment, function(index, value) {
-              temp = [];
-              return $.each(item.get('variant_attributes'), function(ind, val) {
-                if (ind === value && $.inArray(value, flooring) === -1 && val !== "") {
-                  flooring.push(value);
-                  temp.push({
-                    'name': val,
-                    'id': 'apt' + s.replaceAll(val, " ", "_"),
-                    'dataId': s.replaceAll(val, " ", "_"),
-                    'classname': 'attributes',
-                    'label': ind,
-                    type: 'P'
-                  });
-                  return newtemp.push({
-                    'label': ind.toUpperCase(),
-                    'value': temp,
-                    'index': ind
-                  });
-                }
-              });
-            });
-          }
         }
       });
+      if (!_.isUndefined(project.get('filters').Apartment)) {
+        $.each(project.get('filters').Apartment, function(index, value) {
+          if (value !== 'unitTypes' && value !== 'unitVariantNames') {
+            temp = [];
+            apartmentVariantMasterCollection.each(function(item) {
+              var units;
+              units = unitMasterCollection.where({
+                'unit_variant_id': item.get('id')
+              });
+              if (units.length !== 0) {
+                return $.each(item.get('variant_attributes'), function(ind, val) {
+                  if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
+                    flooring.push(val);
+                    return temp.push({
+                      'name': val,
+                      'id': 'villa' + s.replaceAll(val, " ", "_"),
+                      'dataId': s.replaceAll(val, " ", "_"),
+                      'classname': 'attributes',
+                      'label': ind,
+                      type: 'A'
+                    });
+                  }
+                });
+              }
+            });
+            if (temp.length !== 0) {
+              return newtemp.push({
+                'label': value.toUpperCase(),
+                'value': temp,
+                'index': value
+              });
+            }
+          }
+        });
+      }
       unitsArr = apartmentVariantMasterCollection.getApartmentUnits();
       $.each(unitsArr, function(index, value) {
         var unitDetails;
@@ -963,36 +999,48 @@
             });
           }
           unitVariants.push(item.get('size'));
-          unitVariantNames.push({
+          return unitVariantNames.push({
             'id': item.get('id'),
             'name': item.get('unit_variant_name'),
             'type': 'P'
           });
-          if (!_.isUndefined(project.get('filters').Plot)) {
-            return $.each(project.get('filters').Plot, function(index, value) {
-              temp = [];
-              return $.each(item.get('variant_attributes'), function(ind, val) {
-                if (ind === value && $.inArray(value, flooring) === -1 && val !== "") {
-                  flooring.push(value);
-                  temp.push({
-                    'name': val,
-                    'id': 'plot' + s.replaceAll(val, " ", "_"),
-                    'dataId': s.replaceAll(val, " ", "_"),
-                    'classname': 'attributes',
-                    'label': ind,
-                    type: 'P'
-                  });
-                  return newtemp.push({
-                    'label': ind.toUpperCase(),
-                    'index': ind,
-                    'value': temp
-                  });
-                }
-              });
-            });
-          }
         }
       });
+      if (!_.isUndefined(project.get('filters').Plot)) {
+        $.each(project.get('filters').Plot, function(index, value) {
+          if (value !== 'unitTypes' && value !== 'unitVariantNames') {
+            temp = [];
+            plotVariantMasterCollection.each(function(item) {
+              var units;
+              units = unitMasterCollection.where({
+                'unit_variant_id': item.get('id')
+              });
+              if (units.length !== 0) {
+                return $.each(item.get('variant_attributes'), function(ind, val) {
+                  if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
+                    flooring.push(val);
+                    return temp.push({
+                      'name': val,
+                      'id': 'villa' + s.replaceAll(val, " ", "_"),
+                      'dataId': s.replaceAll(val, " ", "_"),
+                      'classname': 'attributes',
+                      'label': ind,
+                      type: 'A'
+                    });
+                  }
+                });
+              }
+            });
+            if (temp.length !== 0) {
+              return newtemp.push({
+                'label': value.toUpperCase(),
+                'value': temp,
+                'index': value
+              });
+            }
+          }
+        });
+      }
       unitsArr = plotVariantMasterCollection.getPlotUnits();
       $.each(unitsArr, function(index, value) {
         var unitDetails;
@@ -1036,7 +1084,7 @@
           'name': val
         });
       });
-      facings = ['North', 'South', 'East', 'West', 'North-east', 'Norht-west', 'South-East', 'South-West'];
+      facings = ['North', 'South', 'East', 'West', 'North-East', 'Norht-West', 'South-East', 'South-West'];
       $.each(facings, function(ind, val) {
         return facingsArr.push({
           'id': val,

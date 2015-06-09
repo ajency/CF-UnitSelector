@@ -195,6 +195,7 @@ class TopListView extends Marionette.ItemView
 			CommonFloor.defaults['common']['availability'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
 			CommonFloor.filterNew()
+			CommonFloor.resetCollections()
 			unitCollection.trigger('available')
 			@trigger  'render:view'
 

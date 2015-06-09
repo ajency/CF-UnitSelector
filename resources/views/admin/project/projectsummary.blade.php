@@ -159,7 +159,7 @@
         </div><br>
         @if($project["has_master"]=="yes")
         <ul class="list-inline m-b-10 m-l-5">
-
+            
             <h5 class="semi-bold inline">
                 Images Uploaded : </h5> {{count($project['master']) - count($project['masterdeletedimages'])}} {{(count($project['masterdeletedimages'])) ? '( Image Pending To Be Uploaded At Position '. implode(",",$project['masterdeletedimages']).')':''}}  |
 
@@ -193,7 +193,68 @@
             </tbody>
         </table>
         @endif
+        
+       <hr/>
+       
+        
+        @if(count($buildings))
+        <div class="m-l-5 no-border">
+            <h3><i class="fa fa-angle-double-right text-primary"></i> Building<span class="semi-bold"> SVGs</span></h3>
+        </div>
+        
+        @foreach($buildings as $building)
+        <h5 class="semi-bold inline m-l-5">
+            Building :
+        </h5><span class="text-warning"> 
+            {{ $building['building_name'] }} 
+        </span><br>
+        <h5 class="semi-bold inline m-l-5">
+            Master Image :
+        </h5> <div class="checkbox check-primary checkbox-inline">
+            <input id="checkbox7" type="checkbox" value="1" @if($building["has_master"]=="yes"){{"checked"}}@endif disabled>
+                   <label for="checkbox7" class="p-l">Available</label>
+        </div><br>
+        @if($building["has_master"]=="yes")
+        <ul class="list-inline m-b-10 m-l-5">
+            
+            <h5 class="semi-bold inline">
+                Images Uploaded : </h5> {{count($building['building_master'])}}  |
+
+
+            <h5 class="semi-bold inline">
+                Breakpoints : </h5> {{count($building['breakpoints'])}} |
+
+
+            <h5 class="semi-bold inline">
+                Rotation : </h5> @if(count($building['breakpoints'])>1){{"Yes"}}@else{{"No"}}@endif
+
+        </ul>
+        <table class="table table-bordered no-pointer">
+            <thead>
+                <tr>
+                    <td width="16%"><span class="semi-bold">Breakpoint Position</span></td>
+                    <td width="18%"><span class="semi-bold">Units Marked</span></td>
+                    <td width="18%"><span class="semi-bold">Pending</span></td>
+             
+                </tr>
+            </thead>
+            <tbody>
+                
+                @foreach($building['breakpoints'] as $breakpoint)
+                <tr>
+                    <td>{{ $breakpoint }}</td>
+                    <td>{{ (isset($buildingbreakPointSvgData[$building['id']][$breakpoint]['MARKED'])) ? $buildingbreakPointSvgData[$building['id']][$breakpoint]['MARKED']:'' }}</td>
+                    <td>{{ (isset($buildingbreakPointSvgData[$building['id']][$breakpoint]['PENDING']))?$buildingbreakPointSvgData[$building['id']][$breakpoint]['PENDING']:'' }}</td>
+             
+                </tr>
+                @endforeach
+            </tbody>
+        </table> 
+        @endif
+        
+        @endforeach
         <hr>
+@endif        
 
         @foreach($projectpropertyTypes as $projectpropertyType)
         <div class="m-l-5 no-border">
@@ -207,7 +268,8 @@
                     <td width="16%"><span class="semi-bold">Available</span></td>
                     <td width="18%"><span class="semi-bold">Sold</span></td>
                     <td width="18%"><span class="semi-bold">Blocked</span></td>
-                    <td><span class="semi-bold">Not Released</span></td>
+                    <td width="18%"><span class="semi-bold">Not Released</span></td>
+                    <td width="18%"><span class="semi-bold">Archived</span></td>
                     <td><span class="semi-bold">Total</span></td>
                 </tr>
             </thead>
@@ -224,6 +286,7 @@
                     <td>{{$unitType['sold']}}</td>
                     <td>{{$unitType['blocked']}}</td>
                     <td>{{$unitType['not_released']}}</td>
+                    <td>{{$unitType['archived']}}</td>
                     <td class="semi-bold text-info text-center">{{ array_sum ( $unitType ) }}</td>
                 </tr>
                 <?php $last = $phaseId; ?>

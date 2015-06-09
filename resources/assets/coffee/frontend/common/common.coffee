@@ -118,11 +118,30 @@ window.convertToInt = (response)->
 #function to convert value into price format
 window.numDifferentiation = (val)->
 	if (val >= 10000000) 
-		val = (val/10000000).toFixed(2) + ' Cr'
+		val = (val/10000000).toFixed(2) 
+		decimal  = val.split('.')[1]
+		valBudget = decimal % 5
+		valBudget = valBudget / 100 
+		val = val - valBudget
+		val = val.toFixed(2) 
+		val = val + ' Cr'
 	else if (val >= 100000) 
-		val = (val/100000).toFixed(2) + ' Lac'
+		val = (val/100000).toFixed(2) 
+		decimal  = val.split('.')[1]
+		valBudget = decimal % 5
+		valBudget = valBudget / 100 
+		val = val - valBudget
+		val = val.toFixed(2) 
+		val = val + ' Lac'
 	else if(val >= 1000) 
-		val = (val/1000).toFixed(2) + ' K'
+		val = (val/1000).toFixed(2) 
+		decimal  = val.split('.')[1]
+		valBudget = decimal % 5
+		valBudget = valBudget / 100 
+		val = val - valBudget
+		val = val.toFixed(2) 
+		val = val + ' K'
+
 	val
 	   
 
@@ -344,18 +363,20 @@ CommonFloor.applyFliterClass = ()->
 			
 
 	$('.building').each (ind,item)->
+		types = []
 		if CommonFloor.defaults['type']!= ""
 			types = CommonFloor.defaults['type'].split(',')
 		id = parseInt item.id
-		if $.inArray(id , filterbuildings) > -1 && $.inArray('apartment',types) > -1
-			setTimeout( ()->
-				$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0; stroke:#F68121; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
-			,Math.random() * 1000)
-			
-		else
-			setTimeout( ()->
-				$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
-			,Math.random() * 1000)
+		if $.inArray('villa',types) ==  -1 && $.inArray('plot',types) ==  -1
+			if $.inArray(id , filterbuildings) > -1 && filterbuildings.length != 0
+				setTimeout( ()->
+					$('#'+id).attr('style', ' stroke-width: 3px; stroke-dasharray: 320 0;stroke-dashoffset: 0; stroke:#F68121; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
+				,Math.random() * 1000)
+				
+			else
+				setTimeout( ()->
+					$('#'+id).attr('style', ' stroke-width: 0px; stroke-dasharray: 320 0;stroke-dashoffset: 0; transform: rotateY(0deg) scale(1);-webkit-transform: rotateY(0deg) scale(1);');
+				,Math.random() * 1000)
 
 CommonFloor.applyNonFilterClass = ()->
 	flag = 0
@@ -1059,13 +1080,17 @@ CommonFloor.filterStepNew = ()->
 		CommonFloor.filterArea()
 	if CommonFloor.defaults['common']['floor_max'] != ""
 		CommonFloor.filterFloor()
+	if CommonFloor.defaults['common']['views'] != ""
+		CommonFloor.filterViews()
+	if CommonFloor.defaults['common']['facings'] != ""
+		CommonFloor.filterFacings()
 	if CommonFloor.defaults['common']['availability'] != ""
 		paramkey = {}
 		paramkey['availability'] = 'available'
 		temp = unitCollection.where paramkey
 		unitCollection.reset temp
 	CommonFloor.applyFliterClass()
-	# CommonFloor.resetCollections()
+	CommonFloor.resetCollections()
 
 
 
@@ -1082,7 +1107,9 @@ CommonFloor.filterVillas = ()->
 			if temp.length == 0
 				temp = bunglowVariantCollection.getBunglowUnits()
 			attributes = CommonFloor.filterVillaAttributes(temp)
-			$.merge temp, attributes
+			# $.merge temp, attributes
+			unitCollection.reset attributes
+			newColl.reset attributes
 		if value != "" && index != 'attributes'
 			param_val  = value.split(',')
 			$.each param_val,(key,key_val)->
@@ -1108,7 +1135,6 @@ CommonFloor.filterVillaAttributes = (temp)->
 		$.each attributes,(ind,val)->
 			if $.inArray(val, arr ) > -1
 				flooring.push value
-
 	flooring	
 	
 
@@ -1123,7 +1149,9 @@ CommonFloor.filterApartments = ()->
 			if temp.length == 0
 				temp = apartmentVariantCollection.getApartmentUnits()
 			attributes = CommonFloor.filterApartmentAttributes(temp)
-			$.merge temp, attributes
+			# $.merge temp, attributes
+			unitCollection.reset attributes
+			newColl.reset attributes
 		if value != "" && index != 'attributes'
 			param_val  = value.split(',')
 			$.each param_val,(key,key_val)->
@@ -1135,8 +1163,8 @@ CommonFloor.filterApartments = ()->
 				else
 					$.merge temp, unitCollection.where paramkey
 				
-			unitCollection.reset tempColl
-			newColl.reset tempColl
+			unitCollection.reset temp
+			newColl.reset temp
 	newColl.toArray()
 
 
@@ -1165,7 +1193,9 @@ CommonFloor.filterPlots = ()->
 			if temp.length == 0
 				temp = plotVariantCollection.getPlotUnits()
 			attributes = CommonFloor.filterPlotAttributes(temp)
-			$.merge temp, attributes
+			# $.merge temp, attributes
+			unitCollection.reset attributes
+			newColl.reset attributes
 		if value != "" && index != 'attributes'
 			param_val  = value.split(',')
 			$.each param_val,(key,key_val)->
@@ -1177,8 +1207,8 @@ CommonFloor.filterPlots = ()->
 				else
 					$.merge temp, unitCollection.where paramkey
 				
-			unitCollection.reset tempColl
-			newColl.reset tempColl
+			unitCollection.reset temp
+			newColl.reset temp
 			
 	newColl.toArray()
 
@@ -1253,7 +1283,7 @@ CommonFloor.filterFacings = ()->
 	temp = []
 	unitCollection.each (item)->
 		facings = item.get('direction')
-		if $.inArray(facings,CommonFloor.defaults['common']['facings'].split(',')) > -1  && val != ""
+		if $.inArray(facings,CommonFloor.defaults['common']['facings'].split(',')) > -1  && facings != ""
 				temp.push item
 
 	unitCollection.reset temp

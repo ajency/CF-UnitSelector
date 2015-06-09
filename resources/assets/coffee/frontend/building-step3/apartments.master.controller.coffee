@@ -157,15 +157,20 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			# 	CommonFloor.defaults[index] = ""
 			# CommonFloor.removeStepFilters()
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterStepNew()
 			previousRoute = CommonFloor.router.previous()
-			CommonFloor.navigate '#/master-view' , true
+			if Object.keys(project.get('project_master')).length == 0
+				CommonFloor.navigate '/list-view' , true	
+			else
+				CommonFloor.navigate '/master-view' , true	
 
 		'click @ui.unitTypes':(e)->
 			unitTypes = CommonFloor.defaults['apartment']['unit_type_id'].split(',')
 			unitTypes = _.without unitTypes , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['apartment']['unit_type_id'] = unitTypes.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
@@ -176,6 +181,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			variantNames = _.without variantNames , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['apartment']['unit_variant_id'] = variantNames.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 	
@@ -184,6 +190,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 		'click @ui.status':(e)->
 			CommonFloor.defaults['common']['availability'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
@@ -195,6 +202,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			CommonFloor.defaults['common']['area_max'] = ""
 			CommonFloor.defaults['common']['area_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
@@ -204,6 +212,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			CommonFloor.defaults['common']['price_max'] = ""
 			CommonFloor.defaults['common']['price_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
@@ -213,6 +222,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			CommonFloor.defaults['common']['floor_max'] = ""
 			CommonFloor.defaults['common']['floor_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			# CommonFloor.filterBuilding(@building_id)
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
@@ -223,6 +233,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			types = _.without types ,$(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['common']['facings'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
@@ -232,6 +243,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			types = _.without types ,$(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['common']['views'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterStepNew()
 			unitTempCollection.trigger( "filter_available") 
 			@trigger  'render:view'
@@ -241,6 +253,7 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 			flooring = _.without flooring , $(e.currentTarget).attr('data-id')
 			CommonFloor.defaults['apartment']['flooring'] = flooring.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
 			CommonFloor.filterStepNew()
 			unitCollection.trigger('filter_available')
 			@trigger  'render:view'
@@ -418,11 +431,10 @@ class ApartmentsView extends Marionette.ItemView
 		html
 
 	onShow:->
-		id = @model.get 'id'
+		console.log id = @model.get 'id'
 		availability = @model.get('availability')
 		status = s.decapitalize(availability)
 		classname =  $('#apartment'+id).attr('class')
-		
 		$('#apartment'+id).addClass classname+' '+status
 		CommonFloor.applyOnViewClass()
 		
@@ -446,9 +458,9 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 								<li class="na">N/A</li>
 							  </ul>
 							 </div>
-							 <div class="sort-unit"> In View
+							 <div class="sort-unit"> All Units
 							 	<input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="&nbsp;" data-off="&nbsp;" data-onstyle="warning" data-offstyle="warning">
-							 	All Units
+							 	In View
 							 </div>
 							
 							<p class="text-center help-text">Hover on the units for more details</p>
@@ -813,12 +825,12 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					CommonFloor.applyAvailabilClasses()
 					CommonFloor.randomClass()
 					CommonFloor.applyFliterClass()
-					CommonFloor.getApartmentsInView()
+					# CommonFloor.getApartmentsInView()
+					CommonFloor.applyOnViewClass()
 					that.loadZoom()
 					response = building.checkRotationView(building_id)
 					$('.svg-maps').removeClass 'hidden'
 					$('.mini-map').removeClass 'hidden'
-					$('#rotate_loader').removeClass 'hidden'
 					$('.first_image').first().css('width',that.ui.svgContainer.width())
 					if response is 1
 						$('.cf-loader').removeClass 'hidden'
@@ -916,8 +928,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					CommonFloor.applyAvailabilClasses()
 					CommonFloor.randomClass()
 					CommonFloor.applyFliterClass()
-					CommonFloor.getApartmentsInView()
+					# CommonFloor.getApartmentsInView()
 					CommonFloor.applyOnViewClass()
+
 					that.loadZoom()).addClass('active').removeClass('inactive')
 				
 				
@@ -935,7 +948,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				CommonFloor.applyAvailabilClasses()
 				CommonFloor.randomClass()
 				CommonFloor.applyFliterClass()
-				CommonFloor.getApartmentsInView()
+				# CommonFloor.getApartmentsInView()
+				CommonFloor.applyOnViewClass()()
 				that.loadZoom()).addClass('active').removeClass('inactive')
 
 
@@ -950,7 +964,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			onlyOne : true
 			arrow : false
 			offsetX : 50
-			offsetY : -40
+			offsetY : -10
 			trigger: 'hover'
 			interactive : true
 			functionReady:(e)->

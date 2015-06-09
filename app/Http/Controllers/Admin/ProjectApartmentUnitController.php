@@ -11,6 +11,7 @@ use CommonFloor\UnitType;
 use CommonFloor\Building;
 use CommonFloor\FloorLayout;
 use CommonFloor\UnitVariant;
+use CommonFloor\Defaults;
 
 class ProjectApartmentUnitController extends Controller {
 
@@ -40,6 +41,8 @@ class ProjectApartmentUnitController extends Controller {
 
         $project = Project::find($projectId);
         $phases = $project->projectPhase()->lists('id');
+        $projectAttributes = $project->attributes->toArray();
+        $defaultDirection = Defaults::where('type','direction')->get()->toArray();
         $buildings = Building::whereIn('phase_id', $phases)->get();
         $propertyTypes = $project->projectPropertyTypes()->whereIn( 'property_type_id', [APARTMENTID,PENTHOUSEID] )->get()->toArray();
         $unitVariantArr = $projectPropertyTypes = $unitTypeIdArr= [];
@@ -65,6 +68,8 @@ class ProjectApartmentUnitController extends Controller {
                         ->with('project', $project->toArray())
                         ->with('projectPropertyTypes', $projectPropertyTypes)
                         ->with('unit_variant_arr', $unitVariantArr)
+                        ->with('projectAttributes', $projectAttributes)
+                        ->with('defaultDirection', $defaultDirection)
                         ->with('current', 'apartment-unit')
                         ->with('buildings', $buildings);
     }
@@ -83,6 +88,17 @@ class ProjectApartmentUnitController extends Controller {
         $unit->floor = $request->get('floor');
         $unit->position = $request->get('position');
         $unit->availability = $request->get('unit_status');
+        $unit->direction = $request->input('direction');
+        $views = $request->input('views');
+        $unitviews=[];
+        if(!empty($views))
+        {
+            foreach ($views as $key=>$view)
+               $unitviews[$key]= ucfirst($view);    
+        }
+        $viewsStr = serialize( $unitviews );
+        $unit->views = $viewsStr;
+        
         $unit->save();
 
         $addanother = $request->input('addanother');
@@ -111,7 +127,8 @@ class ProjectApartmentUnitController extends Controller {
     public function edit($projectId, $unitId) {
         $project = Project::find($projectId);
         $project = Project::find($projectId);
-
+        $projectAttributes = $project->attributes->toArray();
+        $defaultDirection = Defaults::where('type','direction')->get()->toArray();
         $phases = $project->projectPhase()->lists('id');
 
         $buildings = Building::whereIn('phase_id', $phases)->get()->toArray();
@@ -147,11 +164,13 @@ class ProjectApartmentUnitController extends Controller {
 
         return view('admin.project.unit.apartment.edit')
                         ->with('project', $project->toArray())
+                        ->with('projectAttributes', $projectAttributes)
                         ->with('current', 'apartment-unit')
                         ->with('buildings', $buildings)
                         ->with('floors', $floors)
                         ->with('availabelpositions', $availabelpositions)
                         ->with('unit_variant_arr', $unitVariantArr)
+                        ->with('defaultDirection', $defaultDirection)
                         ->with('unit', $unit);
     }
 
@@ -170,6 +189,16 @@ class ProjectApartmentUnitController extends Controller {
         $unit->floor = $request->get('floor');
         $unit->position = $request->get('position');
         $unit->availability = $request->get('unit_status');
+        $unit->direction = $request->input('direction');
+        $views = $request->input('views');
+        $unitviews=[];
+        if(!empty($views))
+        {
+            foreach ($views as $key=>$view)
+               $unitviews[$key]= ucfirst($view);    
+        }
+        $viewsStr = serialize( $unitviews );
+        $unit->views = $viewsStr;
         $unit->save();
 
         $addanother = $request->input('addanother');

@@ -83,6 +83,7 @@
           return CommonFloor.defaults['common'][index] = "";
         });
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterBuilding(this.building_id);
         CommonFloor.filterStepNew();
         unitTempCollection.trigger("filter_available");
@@ -104,6 +105,7 @@
         CommonFloor.defaults['apartment']['unit_type_id'] = window.unitTypes.join(',');
         CommonFloor.defaults['step_three']['unit_type_id'] = window.unitTypes.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterBuilding(this.building_id);
         CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
@@ -117,6 +119,7 @@
         CommonFloor.defaults['apartment']['unit_variant_id'] = window.variantNames.join(',');
         CommonFloor.defaults['step_three']['unit_variant_id'] = window.variantNames.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterBuilding(this.building_id);
         CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
@@ -128,6 +131,7 @@
           CommonFloor.defaults['common']['price_min'] = 0;
         }
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterBuilding(this.building_id);
         CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
@@ -139,6 +143,7 @@
           CommonFloor.defaults['common']['price_max'] = 999999900;
         }
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterBuilding(this.building_id);
         CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
@@ -150,6 +155,7 @@
           CommonFloor.defaults['common']['availability'] = "";
         }
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterBuilding(this.building_id);
         CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
@@ -158,6 +164,7 @@
         CommonFloor.defaults['common']['area_max'] = parseFloat($(e.target).val().split(';')[1]);
         CommonFloor.defaults['common']['area_min'] = parseFloat($(e.target).val().split(';')[0]);
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterBuilding(this.building_id);
         CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
@@ -166,6 +173,7 @@
         CommonFloor.defaults['common']['price_max'] = parseFloat($(e.target).val().split(';')[1]);
         CommonFloor.defaults['common']['price_min'] = parseFloat($(e.target).val().split(';')[0]);
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterBuilding(this.building_id);
         CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
@@ -174,6 +182,7 @@
         CommonFloor.defaults['common']['floor_max'] = parseFloat($(e.target).val().split(';')[1]);
         CommonFloor.defaults['common']['floor_min'] = parseFloat($(e.target).val().split(';')[0]);
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterBuilding(this.building_id);
         CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
@@ -187,6 +196,7 @@
         window.flooring = _.uniq(window.flooring);
         CommonFloor.defaults['apartment']['attributes'] = window.flooring.join(',');
         unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterBuilding(this.building_id);
         CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
@@ -204,6 +214,8 @@
         }
         types = _.uniq(types);
         CommonFloor.defaults['common']['views'] = types.join(',');
+        unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterBuilding(this.building_id);
         CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
@@ -221,6 +233,8 @@
         }
         types = _.uniq(types);
         CommonFloor.defaults['common']['facings'] = types.join(',');
+        unitCollection.reset(unitMasterCollection.toArray());
+        CommonFloor.resetCollections();
         CommonFloor.filterBuilding(this.building_id);
         CommonFloor.filterStepNew();
         return unitTempCollection.trigger("filter_available");
@@ -622,7 +636,7 @@
           'name': val
         });
       });
-      facings = ['North', 'South', 'East', 'West', 'North-east', 'Norht-west', 'South-East', 'South-West'];
+      facings = ['North', 'South', 'East', 'West', 'North-East', 'Norht-West', 'South-East', 'South-West'];
       $.each(facings, function(ind, val) {
         return facingsArr.push({
           'id': val,
