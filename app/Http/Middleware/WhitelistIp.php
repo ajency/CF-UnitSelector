@@ -13,12 +13,15 @@ class WhitelistIp {
 	 */
 	public function handle($request, Closure $next)
 	{	
-		$whitelistIp =['127.0.0.1'];
+		$whitelistIp =[];
 
 		$clientIpAddress = $request->getClientIp();
 
 		if (!in_array($clientIpAddress, $whitelistIp)) {
-			abort(403); 
+			return response()->json( [
+				'code' => 'forbidden_access',
+				'message' => 'This IP has no access to the api'
+				], 403 );
 		}
 
 		return $next($request);
