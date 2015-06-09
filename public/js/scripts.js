@@ -175,7 +175,7 @@ function deleteAttribute(project_id, attributeId, obj)
     if (attributeId)
     {
         $.ajax({
-            url: "/admin/project/" + project_id + "/roomtype/" + attributeId + "/deleteroomtypeattributes",
+            url: "/admin/project/" + project_id + "/roomtype/" + attributeId + "/deleteattribute",
             type: "DELETE",
             success: function (response) {
                 $(obj).closest('.row').remove();

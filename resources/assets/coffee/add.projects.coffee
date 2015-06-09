@@ -86,9 +86,12 @@ jQuery(document).ready ($)->
 
 			phaseId = $(@).attr 'data-phase-id'
 
-			successFn = (resp, status, xhr)=>
-				if xhr.status is 204
-					$(@).closest('.pull-left').remove()
+			successFn = (resp, status, xhr)->
+				if xhr.status is 201  
+                  $('#phase-'+phaseId).after('<td colspan="3"><span class="error"><span for="form3FirstName" class="error">Project Has No Phases</span></span></td>')
+                  $('#phase-'+phaseId).remove()    
+                else if xhr.status is 204 
+                    $('#phase-'+phaseId).remove()    
 
 			$.ajax 
 				url : "/admin/phase/#{phaseId}"
@@ -416,7 +419,33 @@ $('.add-project-attributes-btn').click ->
 	data = 
 	  name : attributeName                
 	$(".project_attribute_block").before compile data
-	$(@).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val('')		
+	$(@).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val('')	
+    
+    
+$('.room_attributes_block').on 'click', '.remove-room-attribute', ->
+    level = $(@).closest('.row').find('input[name="levels[]"]').val()
+    variantRoomId = $(@).closest('.variant_rooms').find('input[name="variantroomid['+level+'][]"]').val()
+    variantRooms = $(@).closest('.room_attributes_block').find('input[name="variantroomid['+level+'][]"]').length
+ 
+    if parseInt(variantRooms) <= 1
+        alert('There Should Be Atleast 1 Room For Level')
+        return
+    
+    if variantRoomId is ''
+        $(@).closest('.variant_rooms').remove()
+        return
+
+    if confirm('Are you sure you want to delete this Room?') is false
+        return
+
+    successFn = (resp, status, xhr)=>
+        if xhr.status is 204
+            $(@).closest('.variant_rooms').remove()
+
+    $.ajax 
+        url : "/admin/project/#{PROJECTID}/roomtype/#{variantRoomId}/deletevariantrroom" 
+        type : 'DELETE'
+        success : successFn    
 
 
  

@@ -90,11 +90,22 @@ class ProjectUnitTypeController extends Controller {
      */
     public function destroy($projectId, $unitTypeId) {
         $unitType = UnitType::find($unitTypeId);
-        $unitType->delete();
+        $variants = $unitType->unitTypeVariant()->get()->toArray();
+       
+        if(empty($variants))
+        {
+            $unitType->delete();
+            $msg ='Unit type deleted successfully';
+            $code = '204';
+        }
+        else{
+            $msg ='Unit Type Cannot Be Deleted As It Belongs To Variants';
+            $code = '200';
+        }
         return response()->json([
                     'code' => 'unittype_deleted',
-                    'message' => 'Unit type deleted successfully'
-                        ], 204);
+                    'message' => $msg
+                        ], $code);
     }
 
 }

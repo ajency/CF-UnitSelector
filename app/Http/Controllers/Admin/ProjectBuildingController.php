@@ -11,6 +11,7 @@ use CommonFloor\Phase;
 use CommonFloor\FloorLayout;
 use CommonFloor\Project;
 use CommonFloor\Media;
+use \Session;
 
 class ProjectBuildingController extends Controller {
 
@@ -72,6 +73,8 @@ class ProjectBuildingController extends Controller {
         $building->building_master = [];
         $building->breakpoints = [];
         $building->save();
+        
+        Session::flash('success_message','Building Successfully Created');
         return redirect( url( 'admin/project/' . $projectId . '/building/' . $building->id . '/edit' ) );
     }
 
@@ -143,6 +146,7 @@ class ProjectBuildingController extends Controller {
         $building->no_of_floors = $formData['no_of_floors'];
         $building->has_master = $formData['has_master'];
         $building->save();
+        Session::flash('success_message','Building Successfully Updated');
         
         return redirect( url( 'admin/project/' . $projectId . '/building/' . $building->id . '/edit' ) );
     }

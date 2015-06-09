@@ -19,10 +19,7 @@
     <h2><span class="semi-bold">Project </span> Summary</h2>
 </div>
 <div class="grid simple">
-    <div class="alert alert-success hidden">
-        <button class="close" data-dismiss="alert"></button>
-        <i class="fa fa-check-circle" style="font-size: 17px;"></i> Phase published successfully.
-    </div>
+    @include('admin.project.flashmessage')
 
     <div class="grid-body grid-padding no-border summary">
         <div class=" m-t-15 m-b-15 no-border">
@@ -102,7 +99,10 @@
                             @if($phase['status']=='live'){{'Live'}}@else{{'Not Live'}}@endif
                         @endif
                     </td>
-                    <td><a  onclick="getPhaseData({{ $project['id'] }}, {{ $phase['id'] }})"   class="text-primary updatelink hidden">Update</a></td>
+                    <td>
+                    <a  onclick="getPhaseData({{ $project['id'] }}, {{ $phase['id'] }})" class="text-primary updatelink hidden">Update</a>
+                    <a data-phase-id="{{ $phase['id'] }}" class="text-primary remove-phase @if($phase['status']=='live'){{'hidden'}}@endif ">Delete</a>
+                    </td>
                 </tr>
                 @endforeach
                 @else

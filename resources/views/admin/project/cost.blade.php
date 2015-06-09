@@ -14,9 +14,11 @@
                     <h2>Project<span class="semi-bold"> Costs</span></h2>
                     </div>
 <div class="grid simple">
+  @include('admin.project.flashmessage')
     <div class="grid-title no-border">
         <h3 > <i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Costs</span></h3>
     </div>
+  
 <div class="grid-body no-border">
         <form action="{{ url('admin/project/' . $project['id'].'/costupdate') }}" method="POST" data-parsley-validate>
                 <div class="row">

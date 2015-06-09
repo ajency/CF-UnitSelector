@@ -15,6 +15,7 @@ use CommonFloor\Media;
 use CommonFloor\VariantMeta;
 use CommonFloor\Defaults;
 use \File;
+use \Session;
 
 class ProjectApartmentVariantController extends Controller {
 
@@ -220,6 +221,7 @@ class ProjectApartmentVariantController extends Controller {
             }
             }
         }
+        Session::flash('success_message','Variant Successfully Created');
         return redirect( "/admin/project/" . $projectId . "/apartment-variant/" . $unitVariantID . '/edit' );
     }
 
@@ -380,7 +382,7 @@ class ProjectApartmentVariantController extends Controller {
             }
             }
         }
-
+         Session::flash('success_message','Variant Successfully Updated');
         return redirect("/admin/project/" . $project_id . "/apartment-variant/" . $id . '/edit');
     }
      

@@ -82,10 +82,10 @@
                                         </div>
                                         <div class="room_attributes_block">
                                             @foreach($variantRooms[$level] as $variantRoomId=> $roomType) 
-                                            <div class="p-r-15 p-l-15 roomattribute_{{$level}}_{{$roomType['ROOMTYPEID']}}">
+                                            <div class="p-r-15 p-l-15 variant_rooms roomattribute_{{$level}}_{{$roomType['ROOMTYPEID']}}">
                                                 <div class="text-right">
                                                     <button type="button" class ="btn btn-white btn-small"   onClick="openRoomTypeModal(this,{{ $roomType['ROOMTYPEID'] }});"><i class="fa fa-pencil"></i></button>
-                                                    <button class="btn btn-white btn-small"><i class="fa fa-trash"></i></button>
+                                                    <button type="button" class="btn btn-white btn-small remove-room-attribute"><i class="fa fa-trash"></i></button>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-4">
@@ -169,6 +169,6 @@
                 </div>
                   
                 @endforeach
-				<?php $i=$level ; ?> 
+				<?php //$i=$level ; ?> 
             </div>
 <input type="hidden" id="counter" name="counter" value="{{$i}}">

@@ -69,7 +69,8 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::get( 'project/{project}/filters', 'Admin\ProjectController@filters' );
     Route::post( 'project/{project}/updatefilters', 'Admin\ProjectController@updateFilters' );
     Route::post( 'project/{project}/bunglow-variant/{id}/roomtypeattributes', 'Admin\ProjectBunglowVariantController@roomtypeAttributes' );
-    Route::delete( 'project/{project}/roomtype/{id}/deleteroomtypeattributes', 'Admin\ProjectRoomTypeController@deleteRoomTypeAttribute' );
+    Route::delete( 'project/{project}/roomtype/{id}/deleteattribute', 'Admin\ProjectRoomTypeController@deleteAttribute' );
+    Route::delete( 'project/{project}/roomtype/{id}/deletevariantrroom', 'Admin\ProjectRoomTypeController@deleteVariantRoom' );
     Route::post( 'project/{project}/roomtype/{id}/getroomtypeattributes', 'Admin\ProjectRoomTypeController@getRoomTypeAttributes' );
     Route::post( 'project/{project}/building/{id}/getpositions', 'Admin\ProjectBuildingController@getPositions' );
     Route::post( 'project/{project}/floor-layout/{id}/getunittypevariants', 'Admin\ProjectFloorLayoutController@getUnitTypeVariant' );

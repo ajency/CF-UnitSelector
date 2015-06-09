@@ -21,6 +21,7 @@
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
  <div class="grid simple">
+     @include('admin.project.flashmessage')
 <form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/building/'.$building->id) }}">    
                 <div class="grid-body grid-padding no-border">
                     <div class=" m-t-15 m-b-15 no-border">

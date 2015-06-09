@@ -20,6 +20,7 @@
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
 <div class="grid simple">
+    @include('admin.project.flashmessage')
     <div class="grid-title no-border">
         <h3 > <i class="fa fa-angle-double-right text-primary"></i>{{ get_property_type($propertyTypeID) }} Variant <span class="semi-bold">Details</span></h3>
     </div>

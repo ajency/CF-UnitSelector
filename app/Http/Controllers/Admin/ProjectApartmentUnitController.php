@@ -12,6 +12,7 @@ use CommonFloor\Building;
 use CommonFloor\FloorLayout;
 use CommonFloor\UnitVariant;
 use CommonFloor\Defaults;
+use \Session;
 
 class ProjectApartmentUnitController extends Controller {
 
@@ -100,6 +101,7 @@ class ProjectApartmentUnitController extends Controller {
         $unit->views = $viewsStr;
         
         $unit->save();
+        Session::flash('success_message','Unit Successfully Created');
 
         $addanother = $request->input('addanother');
         if ($addanother == 1)
@@ -200,6 +202,7 @@ class ProjectApartmentUnitController extends Controller {
         $viewsStr = serialize( $unitviews );
         $unit->views = $viewsStr;
         $unit->save();
+        Session::flash('success_message','Unit Successfully Updated');
 
         $addanother = $request->input('addanother');
         if ($addanother == 1)

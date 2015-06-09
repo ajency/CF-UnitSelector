@@ -11,6 +11,7 @@ use CommonFloor\UnitVariant;
 use CommonFloor\Unit;
 use CommonFloor\UnitType;
 use CommonFloor\Defaults;
+use \Session;
 
 class ProjectPlotUnitController extends Controller {
 
@@ -111,6 +112,7 @@ class ProjectPlotUnitController extends Controller {
         $unit->views = $viewsStr;
         $unit->save();
         $unitid = $unit->id;
+        Session::flash('success_message','Unit Successfully Created');
 
         $addanother = $request->input('addanother');
         if ($addanother == 1)
@@ -200,6 +202,7 @@ class ProjectPlotUnitController extends Controller {
         $viewsStr = serialize( $unitviews );
         $unit->views = $viewsStr;
         $unit->save();
+        Session::flash('success_message','Unit Successfully Updated');
 
         $addanother = $request->input('addanother');
         if ($addanother == 1)
