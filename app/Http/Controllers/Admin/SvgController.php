@@ -367,7 +367,8 @@ class SvgController extends Controller {
 	 */
     
     public static function getUnmarkedSvgUnits($units , $mediaIds)
-    {
+    {	
+    	//@todo return unmarked unit only if it is not marked in atleast one of the image ids passed
     	$unmarkedUnits = array();
 
     	// for each media id get svg
