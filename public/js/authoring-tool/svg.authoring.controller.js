@@ -139,7 +139,7 @@
         value: "",
         text: 'Select option'
       }).appendTo(select);
-      return $.each(types, function(index, value) {
+      $.each(types, function(index, value) {
         var valueText;
         if (value === "Apartment") {
           valueText = "Apartment / Penthouse";
@@ -149,6 +149,10 @@
           text: value.toUpperCase()
         }).appendTo(select);
       });
+      return $('<option />', {
+        value: 'unassign',
+        text: 'Unassign'.toUpperCase()
+      }).appendTo(select);
     };
     window.resetCollection = function() {
       return $('.polygon-type,.marker-grp').each(function(index, value) {
@@ -160,6 +164,8 @@
             'id': bldgId
           });
           return buildingCollection.remove(bldg);
+        } else if (type === 'unassign') {
+
         } else {
           unitID = parseInt(value.id);
           if (unitID !== 0) {
@@ -385,27 +391,40 @@
         });
       }
       if (type === 'project') {
-        return new AuthoringTool.ProjectCtrl({
+        new AuthoringTool.ProjectCtrl({
           'region': this.region,
           'property': project_data
         });
       }
+      if (type === 'unassign') {
+        return $('#dynamice-region').empty();
+      }
     };
     window.showDetails = function(elem) {
-      var select, unit;
-      unit = unitMasterCollection.findWhere({
-        'id': parseInt(elem.id)
-      });
-      $('.property_type').val($(elem).attr('type'));
-      $('.property_type').attr('disabled', true);
-      select = $('.units');
-      $('<option />', {
-        value: elem.id,
-        text: unit.get('unit_name')
-      }).appendTo(select);
-      $('.units').attr('disabled', true);
-      $('.units').val(elem.id);
-      return $('.units').show();
+      var select, type, unit;
+      type = $(elem).attr('type');
+      if (type !== 'unassign') {
+        unit = unitMasterCollection.findWhere({
+          'id': parseInt(elem.id)
+        });
+        $('.property_type').val($(elem).attr('type'));
+        $('.property_type').attr('disabled', true);
+        select = $('.units');
+        $('<option />', {
+          value: elem.id,
+          text: unit.get('unit_name')
+        }).appendTo(select);
+        $('.units').attr('disabled', true);
+        $('.units').val(elem.id);
+        return $('.units').show();
+      } else {
+        $("form").trigger("reset");
+        $('.edit').removeClass('hidden');
+        $('.delete').removeClass('hidden');
+        $('.submit').addClass('hidden');
+        $('.property_type').attr('disabled', false);
+        return $('.property_type').val('unassign');
+      }
     };
     window.loadProjectForm = function() {
       var propType, region;
@@ -558,7 +577,7 @@
             cx: 798.696,
             cy: 401.52
           });
-          groupLocation.add(ellipse);
+          drawDefaultMarker.add(ellipse);
           groupLocation.draggable();
           groupLocation.dragend = function(delta, event) {
             var newDelta;
@@ -617,12 +636,15 @@
       return document.addEventListener('keydown', keydownFunc, false);
     });
     keydownFunc = function(e) {
-      var pointList;
+      var id, object, pointList;
       if (e.which === 13) {
         $('.alert').text('POLYGON IS NOW DRAGGABLE');
         window.hideAlert();
         $('#aj-imp-builder-drag-drop canvas').hide();
         $('#aj-imp-builder-drag-drop svg').show();
+        object = window.EDITOBJECT;
+        console.log(id = object.id);
+        $('#' + id).hide();
         pointList = window.polygon.getPointList(f);
         pointList = pointList.join(' ');
         this.polygon = draw.polygon(pointList);
@@ -718,6 +740,7 @@
     $('svg').on('dblclick', '.polygon-type', function(e) {
       var currentElem, elemId, element, object_type, svgDataObjects;
       e.preventDefault();
+      window.EDITOBJECT = e.target;
       window.canvas_type = "polygon";
       window.EDITMODE = true;
       elemId = $(e.currentTarget).attr('svgid');
@@ -858,6 +881,16 @@
     });
     $('.edit').on('click', function(e) {
       var myObject, propType, svgElemId;
+      if ($('.property_type').val() === "") {
+        $('.alert').text('Unit not assigned');
+        window.hideAlert();
+        return false;
+      }
+      if ($('.units').val() === "") {
+        $('.alert').text('Unit not assigned');
+        window.hideAlert();
+        return false;
+      }
       if (($('.area').val() === "") && (window.canvas_type === "polygon")) {
         $('.alert').text('Coordinates not marked');
         window.hideAlert();
@@ -896,6 +929,7 @@
           window.svgData.data.splice(indexToSplice, 1);
           myObject['id'] = svgElemId;
           window.svgData.data.push(myObject);
+          console.log(window.svgData.data);
           draw.clear();
           window.generateSvg(window.svgData.data);
           return window.resetTool();
@@ -989,7 +1023,7 @@
         }
       });
     });
-    return $('.btn-publish-svg').on('click', function(e) {
+    $('.btn-publish-svg').on('click', function(e) {
       var data, postUrl, publishSvgOptions, svgExport, viewboxDefault;
       e.preventDefault();
       if (window.EDITMODE === true) {
@@ -1035,6 +1069,109 @@
           return window.hideAlert();
         };
       })(this));
+    });
+    $('svg').on('contextmenu', '.layer', function(e) {
+      var currentElem, newPoints, pointList;
+      e.preventDefault();
+      currentElem = e.currentTarget;
+      if (/(^|\s)marker-grp(\s|$)/.test($(currentElem).attr("class"))) {
+        return false;
+      }
+      newPoints = window.addPoints($(e.target).attr('points'));
+      window.canvas_type = "polygon";
+      pointList = window.polygon.getPointList(f);
+      pointList = pointList.join(' ');
+      this.polygon = draw.polygon(pointList);
+      this.polygon.addClass('polygon-temp');
+      this.polygon.data('exclude', true);
+      this.polygon.attr('fill', '#CC0000');
+      this.polygon.draggable();
+      return this.polygon.dragend = (function(_this) {
+        return function(delta, event) {
+          var canvas, canvasPointsLength, ctx, i, newX, newY, oldPoints, tx, ty;
+          tx = delta.x;
+          ty = delta.y;
+          canvasPointsLength = window.f.length;
+          oldPoints = window.f;
+          newPoints = [];
+          i = 0;
+          while (i < canvasPointsLength) {
+            newX = parseInt(oldPoints[i]) + tx;
+            newY = parseInt(oldPoints[i + 1]) + ty;
+            newPoints.push(newX, newY);
+            i += 2;
+          }
+          window.f = newPoints;
+          $('.area').val(newPoints.join(','));
+          canvas = document.getElementById("c");
+          ctx = canvas.getContext("2d");
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          _this.polygon.fixed();
+          _this.polygon.remove();
+          $('#aj-imp-builder-drag-drop canvas').show();
+          $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
+          $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
+          $('.edit-box').removeClass('hidden');
+          $("form").trigger("reset");
+          $('.edit').addClass('hidden');
+          $('.delete').addClass('hidden');
+          $('.submit').removeClass('hidden');
+          $('.property_type').attr('disabled', false);
+          return drawPoly(window.f);
+        };
+      })(this);
+    });
+    window.addPoints = function(points) {
+      var newPoints;
+      points = points.replace(/\s/g, ',');
+      window.f = points.split(',');
+      newPoints = [];
+      $.each(window.f, function(index, value) {
+        return newPoints.push(parseInt(value) + 5);
+      });
+      return newPoints;
+    };
+    $('svg').on('contextmenu', '.marker-grp', function(evt) {
+      var currentElem, markerType;
+      evt.preventDefault();
+      markerType = '';
+      currentElem = evt.currentTarget;
+      if (/(^|\s)concentric(\s|$)/.test($(currentElem).attr("class"))) {
+        markerType = "concentric";
+        window.canvas_type = markerType + 'Marker';
+      } else if (/(^|\s)solid(\s|$)/.test($(currentElem).attr("class"))) {
+        markerType = "solid";
+        window.canvas_type = markerType + 'Marker';
+      } else if ($(currentElem).hasClass('earth-location-marker')) {
+        markerType = "earthlocation";
+        window.canvas_type = markerType + 'Marker';
+      } else if ($(currentElem).hasClass('location-marker')) {
+        markerType = "location";
+        window.canvas_type = markerType + 'Marker';
+      }
+      window.drawDefaultMarker(markerType);
+      window.EDITMODE = true;
+      return $('.edit-box').removeClass('hidden');
+    });
+    return $('.duplicate').on('click', function(evt) {
+      var content, svgExport;
+      svgExport = draw.exportSvg({
+        exclude: function() {
+          return this.data('exclude');
+        },
+        whitespace: true
+      });
+      $('.duplicateSVG').html(svgExport);
+      $('.duplicateSVG .layer').each(function(index, value) {
+        $('#' + value.id).attr('class', 'layer unassign');
+        $('#' + value.id).removeAttr('data-primary-breakpoint');
+        $('#' + value.id).attr('type', '');
+        return $('#' + value.id).attr('svgid', 0);
+      });
+      $('.duplicateSVG .layer').each(function(index, value) {
+        return value.id = 0;
+      });
+      return content = $('.duplicateSVG').html();
     });
   });
 

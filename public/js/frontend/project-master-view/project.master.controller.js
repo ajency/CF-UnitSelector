@@ -489,6 +489,38 @@
       'click #next': function() {
         return this.setDetailIndex(this.currentBreakPoint + 1);
       },
+      'click .villa,.plot': function(e) {
+        var id, unit;
+        e.preventDefault();
+        id = parseInt(e.currentTarget.id);
+        unit = unitCollection.findWhere({
+          id: id
+        });
+        if (!_.isUndefined(unit && unit.get('availability') === 'available')) {
+          return CommonFloor.navigate('/unit-view/' + id, true);
+        }
+      },
+      'click .building': function(e) {
+        var building, id, units;
+        e.preventDefault();
+        id = parseInt(e.currentTarget.id);
+        building = buildingCollection.findWhere({
+          id: id
+        });
+        units = unitCollection.where({
+          'building_id': id
+        });
+        if (units.length === 0) {
+          return;
+        }
+        if (building !== void 0) {
+          if (Object.keys(building.get('building_master')).length === 0) {
+            return CommonFloor.navigate('/building/' + id + '/apartments', true);
+          } else {
+            return CommonFloor.navigate('/building/' + id + '/master-view', true);
+          }
+        }
+      },
       'mouseout .villa': function(e) {
         var availability, id, unit;
         id = parseInt(e.currentTarget.id);
@@ -549,9 +581,9 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="villa"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br> <br> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + ') <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div class="text-primary"> <span class="text-primary icon-rupee-icn"></span>' + price + '</div> </div>';
+        html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="villa"></div> </div> <div class="pull-left"> <h4 class="m-t-0">' + unit.get('unit_name') + '</h4> <div class="details"> <ul> <li> <h5 class="inline-block">' + response[1].get('name') + '</h5> <span> - ' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + '</span> <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </li> </ul> <div class="price text-primary"> <span class="text-primary icon-rupee-icn"></span>' + price + '</div> </div> </div>';
         if (availability === 'available') {
-          html += '<a href="#unit-view/' + id + '" class="view-unit"> <div class="circle"> <span class="arrow-up icon-chevron-right"></span> </div> </a> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
+          html += '<a href="#unit-view/' + id + '" class="view-unit"> <div class="circle"> <span class="arrow-up icon-chevron-right"></span> </div> </a> </div>';
         } else {
           html += '</div>';
         }
@@ -585,9 +617,9 @@
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
         html = "";
-        html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="plot"></div> </div> <h5 class="pull-left m-t-0">' + unit.get('unit_name') + '</h5> <br> <br> <!--<span class="pull-right icon-cross cross"></span> <span class="label label-success"></span <div class="clearfix"></div>--> <div class="details"> <div>' + response[1].get('name') + ' (' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + ') <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </div> <div class="text-primary"> <span class="text-primary icon-rupee-icn"></span>' + price + '</div> </div>';
+        html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="plot"></div> </div> <div class="pull-left"> <h4 class="m-t-0">' + unit.get('unit_name') + '</h4> <div class="details"> <ul> <li> <h5 class="inline-block">' + response[1].get('name') + '</h5> <span> - ' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + '</span> <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </li> </ul> <div class="price text-primary"> <span class="text-primary icon-rupee-icn"></span>' + price + '</div> </div> </div>';
         if (availability === 'available') {
-          html += '<a href="#unit-view/' + id + '" class="view-unit"> <div class="circle"> <span class="arrow-up icon-chevron-right"></span> </div> </a> <div class="details"> <div class="text-muted text-default">Click arrow to move forward</div> </div> </div>';
+          html += '<a href="#unit-view/' + id + '" class="view-unit"> <div class="circle"> <span class="arrow-up icon-chevron-right"></span> </div> </a> </div>';
         } else {
           html += '</div>';
         }
@@ -634,9 +666,9 @@
         } else {
           availability = ' sold';
         }
-        html = '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="building"></div> </div> <h5 class="t m-t-0">' + buildingModel.get('building_name') + '	<label class="text-muted">(' + floors + ' floors)</label></h5> <div class="details">';
+        html = '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="building"></div> </div> <div class="pull-left"> <h4 class="m-t-0 m-b-5">' + buildingModel.get('building_name') + '	<label class="text-muted">(' + floors + ' floors)</label></h4> <div class="details"> <div class="price"> Starting from <span class="text-primary"><span class="icon-rupee-icn"></span> ' + price + '</span> </div> <ul class="bldg">';
         $.each(response, function(index, value) {
-          return html += '<span>' + value.name + ' (' + value.units + '), </span>';
+          return html += '<li> <h5 class="m-t-0 m-b-0">' + value.name + '</h5> <span>' + value.units + ' Available</span> </li>';
         });
         if (unit.length > 0) {
           if (Object.keys(buildingModel.get('building_master')).length === 0) {
@@ -644,7 +676,7 @@
           } else {
             url = '/building/' + id + '/master-view';
           }
-          html += '<div class=" text-primary"> Starting Price <span class="text-primary icon-rupee-icn"></span>' + price + '</div> <a href="#' + url + '" class="view-unit"> <div class="circle"> <span class="arrow-up icon-chevron-right"></span> </div> </a> <div> <div class="text-muted text-default">Click arrow to move forward</div> </div>';
+          html += '</ul> </div> <a href="#' + url + '" class="view-unit"> <div class="circle"> <span class="arrow-up icon-chevron-right"></span> </div> </a>';
         }
         html += '</div></div>';
         $('.layer').tooltipster('content', html);

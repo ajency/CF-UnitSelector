@@ -525,6 +525,29 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		'click #next':->
 			@setDetailIndex(@currentBreakPoint + 1)
 
+		'click .villa,.plot' :(e)->
+			e.preventDefault()
+			id = parseInt e.currentTarget.id
+			unit = unitCollection.findWhere 
+				id :  id
+			if ! _.isUndefined unit && unit.get('availability') is 'available'
+				CommonFloor.navigate '/unit-view/'+id , true
+
+		'click .building' :(e)->
+			e.preventDefault()
+			id = parseInt e.currentTarget.id
+			building = buildingCollection.findWhere 
+				id :  id 
+			units = unitCollection.where 
+						'building_id' : id
+			if units.length == 0
+				return
+			if building != undefined
+				if Object.keys(building.get('building_master')).length == 0
+					CommonFloor.navigate '/building/'+id+'/apartments' , true
+					
+				else
+					CommonFloor.navigate '/building/'+id+'/master-view' , true
 
 		'mouseout .villa':(e)->
 			id = parseInt e.currentTarget.id
@@ -594,18 +617,21 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						<div class="action-bar">
 							<div class="villa"></div>
 						</div>
-
-						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
-						<br> <br>
+						<div class="pull-left">
+							<h4 class="m-t-0">'+unit.get('unit_name')+'</h4>
 						
-						<div class="details">
-							<div>
-								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('measurement_units')+')
-								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
+							<div class="details">
+								<ul>
+									<li>
+										<h5 class="inline-block">'+response[1].get('name')+'</h5> 
+										<span> - '+response[0].get('super_built_up_area')+' '+project.get('measurement_units')+'</span>
+										<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
+									</li>
+								</ul>
+								<div class="price text-primary">
+									<span class="text-primary icon-rupee-icn"></span>'+price+'
+								</div>
 							</div>
-							<div class="text-primary">
-							 <span class="text-primary icon-rupee-icn"></span>'+price+'
-						</div> 
 							 
 						</div>'
 
@@ -615,9 +641,6 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 								<span class="arrow-up icon-chevron-right"></span>
 							</div>
 						</a>
-						<div class="details">
-							<div class="text-muted text-default">Click arrow to move forward</div>
-						</div>
 
 					</div>'
 			else
@@ -676,19 +699,21 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 							<div class="plot"></div>
 						</div>
 
-						<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
-						<br> <br>
-						<!--<span class="pull-right icon-cross cross"></span>
-						<span class="label label-success"></span
-						<div class="clearfix"></div>-->
-						<div class="details">
-							<div>
-								'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('measurement_units')+')
-								<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
+						<div class="pull-left">
+							<h4 class="m-t-0">'+unit.get('unit_name')+'</h4>
+						
+							<div class="details">
+								<ul>
+									<li>
+										<h5 class="inline-block">'+response[1].get('name')+'</h5> 
+										<span> - '+response[0].get('super_built_up_area')+' '+project.get('measurement_units')+'</span>
+										<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
+									</li>
+								</ul>
+								<div class="price text-primary">
+									<span class="text-primary icon-rupee-icn"></span>'+price+'
+								</div>
 							</div>
-							<div class="text-primary">
-							 <span class="text-primary icon-rupee-icn"></span>'+price+'
-						</div>
 							 
 						</div>'
 
@@ -698,9 +723,6 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 								<span class="arrow-up icon-chevron-right"></span>
 							</div>
 						</a>
-						<div class="details">
-							<div class="text-muted text-default">Click arrow to move forward</div>
-						</div>
 
 					</div>'
 			else
@@ -770,17 +792,20 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 							<div class="building"></div>
 						</div>
 
-						<h5 class="t m-t-0">'+buildingModel.get('building_name')+'	<label class="text-muted">('+floors+' floors)</label></h5>
+						<div class="pull-left">
+							<h4 class="m-t-0 m-b-5">'+buildingModel.get('building_name')+'	<label class="text-muted">('+floors+' floors)</label></h4>
 						
-						<div class="details">
-							
-							
-						'
+							<div class="details">
+								<div class="price">
+									Starting from <span class="text-primary"><span class="icon-rupee-icn"></span> '+price+'</span>
+								</div>
+								<ul class="bldg">'
 
 			$.each response,(index,value)->
-				html +='<span>
-							' +value.name+' ('+value.units+'),
-						</span>'
+				html +='<li>
+							<h5 class="m-t-0 m-b-0">' +value.name+'</h5>
+							<span>'+value.units+' Available</span>
+						</li>'
 
 			if unit.length > 0 
 				if Object.keys(buildingModel.get('building_master')).length == 0
@@ -789,19 +814,14 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				else
 					url = '/building/'+id+'/master-view' 
 					
-				html += '<div class=" text-primary">
-								Starting Price <span class="text-primary icon-rupee-icn"></span>'+price+'
-							</div> 
+				html += '</ul>
+						
+						</div>
 						<a href="#'+url+'" class="view-unit">
 							<div class="circle">
 								<span class="arrow-up icon-chevron-right"></span>
 							</div>
-						</a>
-						
-							
-						<div>
-							<div class="text-muted text-default">Click arrow to move forward</div>
-						</div>'
+						</a>'
 			
 			html += '</div></div>'
 

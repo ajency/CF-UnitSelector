@@ -130,24 +130,31 @@ class ListItemView extends Marionette.ItemView
 						<div class="building"></div>
 					</div>
 
-					<h5 class="t m-t-0">'+buildingModel.get('building_name')+'	<label class="text-muted">('+floors+' floors)</label></h5>
+					<div class="pull-left">
+						<h4 class="m-t-0 m-b-5">'+buildingModel.get('building_name')+'	<label class="text-muted">('+floors+' floors)</label></h4>
 					
-					<div class="details">
-						
-					
-							<div class="circle">
-							<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
-						</div>
-					</div>
-					<div class="details">'
+						<div class="details">
+							<div class="price">
+								Starting from <span class="text-primary"><span class="icon-rupee-icn"></span> '+price+'</span>
+							</div>
+							<ul class="bldg">'
 
 		$.each response,(index,value)->
-			html +=''+value.name+' ('+value.units+'),'
+			html +='<li>
+						<h5 class="m-t-0 m-b-0">' +value.name+'</h5>
+						<span>'+value.units+' Available</span>
+					</li>'
 
-		html += '	<div>
-							Starting Price <span class="text-primary icon-rupee-icn"></span>'+price+'
-						</div> <div class="text-muted text-default">Click arrow to move forward</div>
-				</div></div>'
+		html += '</ul>
+						
+					</div>
+					<a href="#'+url+'" class="view-unit">
+						<div class="circle">
+							<span class="arrow-up icon-chevron-right"></span>
+						</div>
+					</a>
+				</div>
+				</div>'
 		html
 
 class BuildingEmptyView extends Marionette.ItemView

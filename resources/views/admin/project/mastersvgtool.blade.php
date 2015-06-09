@@ -70,8 +70,10 @@
                             <button id="in" class="zoom-in btn btn-primary"><i class="fa fa-search-plus"></i></button>
                             <button id="out" class="zoom-out btn btn-primary"><i class="fa fa-search-minus"></i></button>
                             <button id="clear" name="clear" class="zoom-out btn btn-medium btn-danger clear" style=" padding: 2px 12px; ">Clear</button>
+                            <button id="duplicate" name="duplicate" class="btn btn-medium btn-danger duplicate" style=" padding: 2px 12px; ">Duplicate</button>
                             <input type="hidden" name="svg-element-id">
                         </div>
+                        <div class="duplicateSVG" hidden></div>
 
 <!--                         <button class="color-switch btn btn-default">
                             <i class="fa fa-eye"></i>
