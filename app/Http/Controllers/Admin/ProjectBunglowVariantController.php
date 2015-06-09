@@ -16,6 +16,7 @@ use CommonFloor\Media;
 use CommonFloor\VariantMeta;
 use CommonFloor\Defaults;
 use \File;
+use \Session;
 
 class ProjectBunglowVariantController extends Controller {
 
@@ -233,7 +234,7 @@ class ProjectBunglowVariantController extends Controller {
             }
         }
         
-        
+        Session::flash('success_message','Variant Successfully Created');
  
         return redirect("/admin/project/" . $project_id . "/bunglow-variant/" . $unitVariantID . '/edit');
     }
@@ -292,7 +293,7 @@ class ProjectBunglowVariantController extends Controller {
 
             $roomTypeAttributes[$room['roomtype_id']] = RoomType::find($room['roomtype_id'])->attributes->toArray();
         }
- 
+    
         $variantMeta = $unitVariant->variantMeta()->get()->toArray();
         $layouts = [];
 
@@ -402,7 +403,7 @@ class ProjectBunglowVariantController extends Controller {
             }
             }
         }
-
+        Session::flash('success_message','Variant Successfully Updated');
         return redirect("/admin/project/" . $project_id . "/bunglow-variant/" . $id . '/edit');
     }
 

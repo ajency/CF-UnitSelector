@@ -11,6 +11,8 @@ use CommonFloor\Attribute;
 use CommonFloor\ProjectPropertyType;
 use \Input;
 use CommonFloor\Defaults;
+use CommonFloor\VariantRoom;
+use \Session;
 
 class ProjectRoomTypeController extends Controller {
     /**
@@ -89,6 +91,7 @@ class ProjectRoomTypeController extends Controller {
                 }
             }
         }
+        Session::flash('success_message','Room Successfully Created');
         return redirect("/admin/project/" . $projectId . "/roomtype/" . $roomtypeId . "/edit");
     }
 
@@ -186,7 +189,7 @@ class ProjectRoomTypeController extends Controller {
                 }
             }
         }
-
+        Session::flash('success_message','Room Successfully Updated');
         return redirect("/admin/project/" . $projectId . "/roomtype/" . $roomId . "/edit");
         //
     }
@@ -201,10 +204,10 @@ class ProjectRoomTypeController extends Controller {
             $attributes = $roomType->attributes->toArray();
             $roomTypeName = Defaults::find($roomType->name)->label;
             
-            $str .= ($type=="add")?'<div class="p-r-15 p-l-15 roomattribute_'.$level.'_'.$roomTypeId.'">':'';
+            $str .= ($type=="add")?'<div class="p-r-15 p-l-15 variant_rooms roomattribute_'.$level.'_'.$roomTypeId.'">':'';
             $str .= '<div class="text-right">';
             $str .= '<button type="button" class ="btn btn-white btn-small"   onClick="openRoomTypeModal(this,'.$roomTypeId.');"><i class = "fa fa-pencil"></i></button> ';
-            $str .= '<button type="button" class="btn btn-white btn-small"><i class="fa fa-trash"></i></button>';
+            $str .= '<button type="button" class="btn btn-white btn-small remove-room-attribute"><i class="fa fa-trash"></i></button>';
             $str .= '</div>';
             $str .= ' <div class="row">';
             $str .= '<div class = "col-md-4">';
@@ -291,12 +294,22 @@ class ProjectRoomTypeController extends Controller {
                         ], 204);
     }
 
-    public function deleteRoomTypeAttribute($project_id, $id) {
-        Attribute::find($id)->delete();
+    public function deleteAttribute($project_id, $attribute_id) {
+        Attribute::find($attribute_id)->delete();
 
         return response()->json([
-                    'code' => 'roomtypeattribute_deleted',
-                    'message' => 'Room Type Attribute Successfully Deleted'
+                    'code' => 'attribute_deleted',
+                    'message' => 'Attribute Successfully Deleted'
+                        ], 204);
+    }
+    
+    public function deleteVariantRoom($projectId, $variantRoomId) {
+       
+        VariantRoom::find($variantRoomId)->delete();
+
+        return response()->json([
+                    'code' => 'variantroom_deleted',
+                    'message' => 'Variant Room Successfully Deleted'
                         ], 204);
     }
 

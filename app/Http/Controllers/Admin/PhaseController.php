@@ -7,6 +7,7 @@ use CommonFloor\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use CommonFloor\Phase;
+use CommonFloor\Project;
 
 class PhaseController extends Controller {
 
@@ -127,13 +128,45 @@ class PhaseController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy( $id ) {
-        Phase::find( $id )->delete();
+    public function destroy( $id ) { 
+        $phase = Phase::find( $id ); 
+        $projectId = $phase->project_id;
+        $project = Project ::find($projectId);
+        $projectPhases = $project->projectPhase()->get()->toArray();
+        $units = $phase->projectUnits()->get()->toArray();
+        $units = $phase->projectUnits()->get()->toArray();
+        $buildings = $phase->projectBuildings()->get()->toArray();
+       
+        if(count($units)+count($buildings))
+        {
+            $msg ='Phase Cannot Be Deleted As It Belongs To Units Or Buildings';
+            $code = '200';
+        }
+        else{
+            
+            $phase->delete();
+            $code = '204';
+            if(count($projectPhases)==1)
+            {
+                $project->has_phase ='no';
+                $project->save();
 
+                $phase = new Phase();
+                $phase->project_id = $project->id;
+                $phase->phase_name = 'Default';
+                $phase->save();
+                $code = '201';
+            }
+            
+            $msg ='Phase deleted successfully';
+            
+        }
+        
         return response()->json( [
                     'code' => 'phase_deleted',
-                    'message' => 'Phase Successfully Deleted'
-                        ], 204 );
+                    'message' => $msg,
+         
+                        ], $code );
     }
 
 }

@@ -3,6 +3,7 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
+
 function validateTitle(obj)
 {
     $(".cf-loader").removeClass('hidden');
@@ -12,6 +13,27 @@ function validateTitle(obj)
         data: {
             title: obj.value,
             project_id: PROJECTID
+        },
+        dataType: "JSON",
+        success: function (response) {
+            if (!response.data)
+                $(obj).val('');
+
+            $(".cf-loader").addClass('hidden');
+        }
+    });
+}
+
+function validateBuildingName(obj,buildingId)
+{
+    $(".cf-loader").removeClass('hidden');
+    $.ajax({
+        url: "/admin/building/validatebuildingname",
+        type: "POST",
+        data: {
+            name: obj.value,
+            project_id: PROJECTID,
+            building_id: buildingId
         },
         dataType: "JSON",
         success: function (response) {
@@ -175,7 +197,7 @@ function deleteAttribute(project_id, attributeId, obj)
     if (attributeId)
     {
         $.ajax({
-            url: "/admin/project/" + project_id + "/roomtype/" + attributeId + "/deleteroomtypeattributes",
+            url: "/admin/project/" + project_id + "/roomtype/" + attributeId + "/deleteattribute",
             type: "DELETE",
             success: function (response) {
                 $(obj).closest('.row').remove();
@@ -202,9 +224,7 @@ function getRoomTypeAttributes(obj, level)
              if($(this).val()== roomId)
             {
                  alert('Room Type Already Selected');
- 
-                 $(obj).select2('val', '');
- 
+                 $(obj).closest('.add-unit').find('select').select2('val', '');
                  flag= false;
                  
             }
@@ -221,6 +241,7 @@ function getRoomTypeAttributes(obj, level)
         success: function (response) {
             var attribute_str = response.data.attributes; 
             $(obj).closest('.grid-body').find('.room_attributes_block').append(attribute_str);
+            $(obj).closest('.add-unit').find('select').select2('val', '');
             $("select").select2();
         }
     });
@@ -1187,30 +1208,30 @@ $("input[name=has_master]:radio").change(function () {
 });
 
 function openRoomTypeModal(obj, id)
+{
+    if (obj.value == 'add_new')
     {
-        if (obj.value == 'add_new')
-        {
-            $('#myModal').modal('show');
-            $('#myModalLabel').text('Add New Room');
-            $("#roomtypeiframe").attr("src", "/admin/project/" + PROJECTID + "/roomtype/create");
-            $(obj).select2('val', '');
-        }
-        else
-        {
-            if (id)
-            {
-                $('#myModalLabel').text('Edit Room');
-                $("#roomtypeiframe").attr("src", "/admin/project/" + PROJECTID + "/roomtype/" + id + "/edit?flag=edit");
-                $(".updateattribute").removeClass("hidden");
-                $('#myModal').modal('show');
-            }
-        }
-
-        var level = $(obj).closest('.row').find('input[name="levels[]"]').val();
-        $("#roomtypeiframe").attr("level", level);
-        $("#roomtypeiframe").attr("roomid", id);
-
+        $('#myModal').modal('show');
+        $('#myModalLabel').text('Add New Room');
+        $("#roomtypeiframe").attr("src", "/admin/project/" + PROJECTID + "/roomtype/create");
+        $(obj).select2('val', '');
     }
+    else
+    {
+        if (id)
+        {
+            $('#myModalLabel').text('Edit Room');
+            $("#roomtypeiframe").attr("src", "/admin/project/" + PROJECTID + "/roomtype/" + id + "/edit?flag=edit");
+            $(".updateattribute").removeClass("hidden");
+            $('#myModal').modal('show');
+        }
+    }
+
+    var level = $(obj).closest('.row').find('input[name="levels[]"]').val();
+    $("#roomtypeiframe").attr("level", level);
+    $("#roomtypeiframe").attr("roomid", id);
+
+}
 
 function deleteLevel(level)
 { 

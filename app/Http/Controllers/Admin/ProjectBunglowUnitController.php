@@ -12,6 +12,7 @@ use CommonFloor\Unit;
 use CommonFloor\UnitType;
 use CommonFloor\Phase;
 use CommonFloor\Defaults;
+use \Session;
 
 class ProjectBunglowUnitController extends Controller {
 
@@ -114,6 +115,7 @@ class ProjectBunglowUnitController extends Controller {
 
         $unit->save();
         $unitid = $unit->id;
+        Session::flash('success_message','Unit Successfully Created');
         
         $addanother = $request->input('addanother');
         
@@ -206,6 +208,7 @@ class ProjectBunglowUnitController extends Controller {
         $viewsStr = serialize( $unitviews );
         $unit->views = $viewsStr;
         $unit->save();
+        Session::flash('success_message','Unit Successfully Updated');
         $addanother = $request->input('addanother');
         
         if($addanother==1)

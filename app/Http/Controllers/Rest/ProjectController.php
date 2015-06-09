@@ -98,6 +98,7 @@ class ProjectController extends Controller {
                                 ->where('type', 'step_two')->get()->first();
         $projectJson->project_json = $stepTwoData;
         $projectJson->save();
+        \Session::flash('success_message','Project Successfully Published');
         return response()->json( [
                             'code' => '',
                             'message' => 'Project json updated successfully'

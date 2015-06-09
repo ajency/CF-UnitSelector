@@ -144,16 +144,20 @@ class BunglowListView extends Marionette.ItemView
 						<div class="villa"></div>
 					</div>
 
-					<h5 class="pull-left m-t-0">'+unit.get('unit_name')+'</h5>
-					<br> <br>
+					<div class="pull-left">
+						<h4 class="m-t-0">'+unit.get('unit_name')+'</h4>
 					
-					<div class="details">
-						<div>
-							'+response[1].get('name')+' ('+response[0].get('super_built_up_area')+' '+project.get('measurement_units')+')
-							<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
-						</div>
-						<div class="text-primary">
-							 <span class="text-primary icon-rupee-icn"></span>'+price+'
+						<div class="details">
+							<ul>
+								<li>
+									<h5 class="inline-block">'+response[1].get('name')+'</h5> 
+									<span> - '+response[0].get('super_built_up_area')+' '+project.get('measurement_units')+'</span>
+									<!--<label>Variant</label> - '+response[0].get('unit_variant_name')+'-->
+								</li>
+							</ul>
+							<div class="price text-primary">
+								<span class="text-primary icon-rupee-icn"></span>'+price+'
+							</div>
 						</div>
 						 
 					</div>'
@@ -161,9 +165,6 @@ class BunglowListView extends Marionette.ItemView
 		if availability == 'available'
 			html +='<div class="circle">
 						<a href="#unit-view/'+id+'" class="arrow-up icon-chevron-right"></a>
-					</div>
-					<div class="details">
-						<div class="text-muted text-default">Click arrow to move forward</div>
 					</div>
 				</div>'
 		else

@@ -59,6 +59,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::post( 'user/validateuserpassword', 'Admin\UserController@validateCurrentPassword' );
     Route::post( 'user/validateuseremail', 'Admin\UserController@validateEmail' );
     Route::get( 'user/{id}/changepassword', 'Admin\UserController@changePassword' );
+    Route::get( 'user/{id}/profile', 'Admin\UserController@profile' );
     Route::get( 'project/{project}/svg', 'Admin\ProjectController@svg' );
     Route::get( 'project/{project}/summary', 'Admin\ProjectController@summary' );
     Route::get( 'project/{project}/getphasedata/{phase}', 'Admin\ProjectController@getPhaseData' );
@@ -69,9 +70,11 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::get( 'project/{project}/filters', 'Admin\ProjectController@filters' );
     Route::post( 'project/{project}/updatefilters', 'Admin\ProjectController@updateFilters' );
     Route::post( 'project/{project}/bunglow-variant/{id}/roomtypeattributes', 'Admin\ProjectBunglowVariantController@roomtypeAttributes' );
-    Route::delete( 'project/{project}/roomtype/{id}/deleteroomtypeattributes', 'Admin\ProjectRoomTypeController@deleteRoomTypeAttribute' );
+    Route::delete( 'project/{project}/roomtype/{id}/deleteattribute', 'Admin\ProjectRoomTypeController@deleteAttribute' );
+    Route::delete( 'project/{project}/roomtype/{id}/deletevariantrroom', 'Admin\ProjectRoomTypeController@deleteVariantRoom' );
     Route::post( 'project/{project}/roomtype/{id}/getroomtypeattributes', 'Admin\ProjectRoomTypeController@getRoomTypeAttributes' );
     Route::post( 'project/{project}/building/{id}/getpositions', 'Admin\ProjectBuildingController@getPositions' );
+    Route::post( 'building/validatebuildingname', 'Admin\ProjectBuildingController@validateBuildingName' );
     Route::post( 'project/{project}/floor-layout/{id}/getunittypevariants', 'Admin\ProjectFloorLayoutController@getUnitTypeVariant' );
     Route::post( 'project/{project}/media/updatebreakpoint', 'Admin\ProjectMediaController@updateBreakPoint' );
     Route::post( 'building/{id}/media/updatebreakpoint', 'Admin\BuildingMediaController@updateBreakPoint' );

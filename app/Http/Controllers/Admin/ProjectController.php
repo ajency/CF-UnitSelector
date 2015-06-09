@@ -16,6 +16,7 @@ use CommonFloor\UnitType;
 use CommonFloor\Building;
 use \Input;
 use CommonFloor\Http\Controllers\Admin\SvgController;
+use \Session;
 
 
 class ProjectController extends Controller {
@@ -54,11 +55,13 @@ class ProjectController extends Controller {
         $validatecfProjectId = Project::where('cf_project_id',$cfProjectId)->get()->toArray();
         if(!empty($validatecfProjectId))
         {
-           return redirect("/admin/project/create?error=project_already_taken"); 
+           Session::flash('error_message','Error !!! Project Already Exist ');    
+           return redirect("/admin/project/create"); 
         }
 
         $project = $projectRepository->createProject($request->all());
         if ($project !== null) {
+            Session::flash('success_message','Your project has been created successfully');
             return redirect("/admin/project/" . $project->id);
         }
     }
@@ -164,7 +167,9 @@ class ProjectController extends Controller {
     public function update($id, Request $request, ProjectRepository $projectRepository) {
 
         $project = $projectRepository->updateProject($id, $request->all());
-
+        
+        Session::flash('success_message','Project Configuration Successfully Updated');
+        
         return redirect("/admin/project/" . $id . "/edit");
     }
 
@@ -203,6 +208,8 @@ class ProjectController extends Controller {
             $data = array("meta_value" => $meta_value);
             ProjectMeta::where('id', $projectmetaId)->update($data);
         }
+        
+        Session::flash('success_message','Project Cost Successfully Updated');
 
         return redirect("/admin/project/" . $id . "/cost");
     }
@@ -219,7 +226,9 @@ class ProjectController extends Controller {
             
         }
         $propertyTypeName = [BUNGLOWID=>"Villa",PLOTID=>"Plot",APARTMENTID=>"Apartment",PENTHOUSEID=>"Penthouse"];
- 
+        
+         
+         
         return view('admin.project.filters')
                         ->with('project', $project->toArray())
                         ->with('propertyTypes', $propertyTypes)
@@ -235,7 +244,9 @@ class ProjectController extends Controller {
 
         $data = array("meta_value" => $projectFilters);
         ProjectMeta:: where(['meta_key'=> 'filters','project_id'=> $id])->update($data);
-
+        
+        Session::flash('success_message','Project Filters Successfully Updated');
+        
         return redirect("/admin/project/" . $id . "/filters");
     }
 
@@ -832,6 +843,8 @@ class ProjectController extends Controller {
         $project = Project::find($projectId);
         $project->status = 'published';
         $project->save();
+        
+        Session::flash('success_message','Project Successfully Published');
 
         return response()->json([
                     'code' => 'update_project_status',

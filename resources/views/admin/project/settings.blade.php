@@ -10,7 +10,11 @@
 <!-- END BREADCRUMBS -->
 @endsection
 @section('content')
+<div class="page-title">
+    <h2>Project<span class="semi-bold"> Configuration</span></h2>
+</div>
 <div class="grid simple">
+@include('admin.project.flashmessage')
     <div class="grid-title no-border">
         <div class="pull-right">
                             <h5 class="semi-bold">Click here to <a href="{{ url( 'admin/project/' . $project['id'] . '/summary' ) }}" class="text-primary">View Project Summary &gt;&gt;</a></h5><h5>
@@ -80,7 +84,8 @@
                             <input type="hidden" name="projectattributeId[]" value="{{ $projectAttribute['id'] }}" class="form-control">
                         </div>
                         <div class="col-md-2 text-center">
-                            <a  data-unit-type-id="{{ $projectAttribute['id'] }}" class="text-primary remove-project-attribute"><i class="fa fa-close"></i> </a>
+                            <a class="text-primary" onclick="deleteAttribute({{$project['id']}},{{$projectAttribute['id']}}, this);"><i class="
+                                        fa fa-close"></i></a>
                         </div>
 
                     </div>

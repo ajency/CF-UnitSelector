@@ -21,6 +21,7 @@
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
  <div class="grid simple">
+     @include('admin.project.flashmessage')
 <form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/building/'.$building->id) }}">    
                 <div class="grid-body grid-padding no-border">
                     <div class=" m-t-15 m-b-15 no-border">
@@ -39,7 +40,7 @@
                             <div class="col-md-4">
                             <div class="form-group">
                                         <label class="form-label">Building Name<span class="text-primary">*</span></label>
-                                       <input required="" type="text" class="form-control" name="building_name"  value="{{ $building->building_name }}"  placeholder="Enter Building Name" data-parsley-required>
+                                       <input required="" type="text" class="form-control" name="building_name"  value="{{ $building->building_name }}"  placeholder="Enter Building Name" data-parsley-required onchange="validateBuildingName(this,{{ $building->id }});" ><div class="cf-loader hidden"></div>
                                         </div>
 
                                     </div>

@@ -25,11 +25,7 @@
             <strong><i class="fa fa-info"></i></strong> The project enters the draft mode on save and will only be available on unit selector when 
                                        the project status is changed to Published.
         </div>
-        @if(isset($_GET['error']) && $_GET['error']=='project_already_taken')
-        <div class="alert alert-error">
-            <strong><i class="fa fa-error"></i></strong> Error !!! Project Already Exist 
-        </div>
-        @endif
+ 
         <!-- END PAGE TITLE -->
         <!-- BEGIN PlACE PAGE CONTENT HERE -->
         <form id="add_project" method="POST" action="{{ url('admin/project') }}" data-parsley-validate>

@@ -83,6 +83,7 @@
                                 </div> 
                             </a>
                             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
+                                <li><a href="{{ url( '/admin/user/' . Auth::user()->id . '/profile') }}"><i class="fa fa-profile"></i>&nbsp;&nbsp;Profile</a></li>
                                 <li><a href="{{ url('auth/logout' ) }}"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
                             </ul>  			
                         </div>
