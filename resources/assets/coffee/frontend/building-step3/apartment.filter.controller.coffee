@@ -395,29 +395,62 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			budget.push parseFloat unitDetails[3]
 			area.push parseFloat unitDetails[0].get 'super_built_up_area'
 		min = _.min area
+		submin = min % 5
+		min = min - submin
 		max = _.max area
+		submax = max % 5
+		max = max - submax
 		subArea = (max - min)/ 20 
 		subArea = subArea.toFixed(0)
+		sub  = subArea % 5
+		subArea = subArea - sub
 		priceMin = _.min budget
 		priceMax = _.max budget		
 		subBudget = (priceMax - priceMin)/ 20
 		subBudget = subBudget.toFixed(0)
 
-		$("#area").ionRangeSlider(
-		    type: "double",
-		    min: min,
-		    max:  max,
-		    step : subArea,
-		    grid: false
+		if CommonFloor.defaults['common']['area_min'] != ""
+			$("#area").ionRangeSlider(
+			    type: "double",
+			    min: min,
+			    max:  max,
+			    from : CommonFloor.defaults['common']['area_min'],
+				to : CommonFloor.defaults['common']['area_max'],
+			    step : subArea,
+			    grid: false
+			)
+		else
+			$("#area").ionRangeSlider(
+			    type: "double",
+			    min: min,
+			    max:  max,
+			    step : subArea,
+			    grid: false
 		)
-		$("#budget").ionRangeSlider(
-		    type: "double",
-		    min: priceMin,
-		    max: priceMax,
-		    grid: false,
-		    step : subBudget,
-		    prettify :(num)->
-		    	return window.numDifferentiation(num)
+		
+		if CommonFloor.defaults['common']['price_min'] != ""
+			$("#budget").ionRangeSlider(
+			    type: "double",
+			    min: priceMin,
+			    max: priceMax,
+			    from : CommonFloor.defaults['common']['price_min'],
+			    to : CommonFloor.defaults['common']['price_max'],
+			    grid: false,
+			    step : subBudget,
+			    prettify :(num)->
+			    	return window.numDifferentiation(num)
+
+			)
+		else
+			$("#budget").ionRangeSlider(
+			    type: "double",
+			    min: priceMin,
+			    max: priceMax,
+			    grid: false,
+			    step : subBudget,
+			    prettify :(num)->
+			    	return window.numDifferentiation(num)
+
 
 		)
 		$("#floor").ionRangeSlider(
@@ -428,6 +461,30 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		    
 
 		)
+		if CommonFloor.defaults['common']['floor_min'] != ""
+			$("#budget").ionRangeSlider(
+			    type: "double",
+			    min: 1,
+			    max: floor.get('no_of_floors'),
+			    from : CommonFloor.defaults['common']['floor_min'],
+			    to : CommonFloor.defaults['common']['floor_max'],
+			    grid: false
+			    
+
+			)
+		else
+			$("#budget").ionRangeSlider(
+			    type: "double",
+			    min: 1,
+			    max: floor.get('no_of_floors'),
+			    grid: false
+
+
+		)
+
+		@hideLabels()
+
+	hideLabels:->
 		if Marionette.getOption(@,'flooring').length == 0
 			$('.flooring_filter').hide()
 		if Marionette.getOption(@,'unitTypes').length == 0
@@ -460,9 +517,15 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 			budget.push parseFloat unitDetails[3]
 			area.push parseFloat unitDetails[0].get 'super_built_up_area'
 		min = _.min area
+		submin = min % 5
+		min = min - submin
 		max = _.max area
+		submax = max % 5
+		max = max - submax
 		subArea = (max - min)/ 20 
 		subArea = subArea.toFixed(0)
+		sub  = subArea % 5
+		subArea = subArea - sub
 		priceMin = _.min budget
 		priceMax = _.max budget		
 		subBudget = (priceMax - priceMin)/ 20
@@ -718,7 +781,7 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 				
 				
 
-		unitsArr = apartmentVariantMasterCollection.getApartmentUnits()
+		unitsArr = apartmentVariantMasterCollection.getApartmentMasterUnits()
 		$.each unitsArr,(index,value)->
 			unitDetails = window.unit.getUnitDetails(value.id)
 			budget.push parseFloat unitDetails[3]

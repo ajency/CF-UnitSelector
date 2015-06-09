@@ -486,6 +486,14 @@ hr.embossed {
   margin-top: 20px;
   background-size: contain;
 }
+.Penthouse-ico {
+  background: url(../../images/penthouse-gray.png) no-repeat;
+  width: 40px;
+  height: 40px;
+  display: block;
+  margin-top: 2px;
+  background-size: contain;
+}
 .plot-ico {
   background: url(../../images/sprite-popovergray.png) no-repeat;
   width: 40px;
@@ -1530,7 +1538,7 @@ svg {
   height: auto;
   -webkit-transform: translateZ(0);
           transform: translateZ(0)
-  /*	polygon {
+  /*polygon {
 	  	transform: rotateY(-180deg) scale(0);
 	  	transition: all 0.4s cubic-bezier(0.59, 0.72, 0.375, 1.65);
 	  	transform-origin: center;
@@ -1664,6 +1672,7 @@ svg .no-fill {
   stroke: #FF7E00;
   fill: rgba(246, 129, 33, 0.39);
   stroke-dasharray: 0 !important;
+  cursor: pointer;
 }
 .marker-area {
   cursor: default;
@@ -1781,7 +1790,7 @@ svg .no-fill {
 @keyframes blink {
   0% {
     fill: #F68121 !important;
-    opacity: 0.5;
+    opacity: 0.8;
   }
   50% {
     fill: #F68121 !important;
@@ -1789,7 +1798,7 @@ svg .no-fill {
   }
   100% {
     fill: #F68121 !important;
-    opacity: 0.5;
+    opacity: 0.8;
   }
 }
 @-webkit-keyframes blink {
@@ -2615,8 +2624,8 @@ svg .no-fill {
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
   border-radius: 3px;
   border: 1px solid #f68121;
-  -webkit-transform: translateZ(0);
-          transform: translateZ(0);
+  -webkit-transform: translate3d(0, 0, 0);
+          transform: translate3d(0, 0, 0);
 }
 .fliters-container.closed {
   width: 0;
@@ -2668,11 +2677,16 @@ svg .no-fill {
   opacity: 1;
   left: 0;
 }
+.fliters-container.left-align {
+  left: auto;
+  right: 20px;
+  top: 25px;
+}
 @media (max-width: 767px) {
   .fliters-container {
     right: 0;
     top: 0;
-    left: 0;
+    left: initial;
     width: 100vw;
     height: 100vh;
     background-color: #ffffff;
@@ -2971,9 +2985,6 @@ span.glyphicon {
   -webkit-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
-.filters-wrapper-hover.visible .back_btn {
-  display: none;
-}
 .filters-wrapper-hover:hover {
   width: 310px;
   opacity: 1;
@@ -3261,7 +3272,7 @@ label.third_toggle {
 }
 .big-tooltip .svg-info .action-bar {
   width: 35%;
-  height: 0;
+  height: auto;
 }
 .big-tooltip .svg-info h5 {
   width: 64%;

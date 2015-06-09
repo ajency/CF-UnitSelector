@@ -928,7 +928,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 							'index' : value
 				
 					
-			unitsArr = bunglowVariantMasterCollection.getBunglowUnits()
+			unitsArr = bunglowVariantMasterCollection.getBunglowMasterUnits()
 			$.each unitsArr,(index,value)->
 				unitDetails = window.unit.getUnitDetails(value.id)
 				budget.push parseFloat unitDetails[3]
@@ -1016,7 +1016,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 			
 				
 
-		unitsArr = apartmentVariantMasterCollection.getApartmentUnits()
+		unitsArr = apartmentVariantMasterCollection.getApartmentMasterUnits()
 		$.each unitsArr,(index,value)->
 			unitDetails = window.unit.getUnitDetails(value.id)
 			budget.push parseFloat unitDetails[3]
@@ -1098,7 +1098,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 							'index' : value
 			
 			
-		unitsArr = plotVariantMasterCollection.getPlotUnits()
+		unitsArr = plotVariantMasterCollection.getPlotMasterUnits()
 		$.each unitsArr,(index,value)->
 			unitDetails = window.unit.getUnitDetails(value.id)
 			budget.push parseFloat unitDetails[3]	

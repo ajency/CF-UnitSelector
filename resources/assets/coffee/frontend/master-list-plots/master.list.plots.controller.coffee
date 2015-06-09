@@ -73,7 +73,7 @@ class PlotListView extends Marionette.ItemView
             unit = unitCollection.findWhere 
                 id :  id 
         
-            if ! _.isUndefined unit
+            if ! _.isUndefined unit && unit.get('availability') is 'available'
                 $('.layer').tooltipster('hide')
                 $('svg').attr('class' ,'zoom')
                 $('#spritespin').addClass 'zoom'
