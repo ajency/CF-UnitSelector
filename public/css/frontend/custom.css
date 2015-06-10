@@ -1464,8 +1464,8 @@ hr.embossed {
 @media (max-width: 767px) {
   .zoom-controls {
     top: 15px;
-    right: 15px;
-    left: auto;
+    left: 15px;
+    right: initial;
     bottom: initial;
   }
   .zoom-controls .zoom-in:hover,
@@ -2826,8 +2826,39 @@ svg .no-fill {
 .filters-wrapper .property_type .share-btn {
   background: #DBDBDB;
 }
+.filters-wrapper .arrow-right {
+  float: right;
+}
+.filters-wrapper .arrow-right:after {
+  content: "\e762";
+  font-family: icomoon;
+}
+.filters-wrapper .arrow-right.mobile {
+  display: none;
+}
 .filters-wrapper .mCSB_inside > .mCSB_container {
   margin-right: 15px;
+}
+@media (max-width: 767px) {
+  .filters-wrapper label.-lbl {
+    float: left;
+  }
+  .filters-wrapper div.-lbl.villa-check .arrow-right,
+  .filters-wrapper div.-lbl.apartment-check .arrow-right,
+  .filters-wrapper div.-lbl.plot-check .arrow-right {
+    padding-top: 5px;
+  }
+  .filters-wrapper div.-lbl.villa-check .arrow-right.mobile,
+  .filters-wrapper div.-lbl.apartment-check .arrow-right.mobile,
+  .filters-wrapper div.-lbl.plot-check .arrow-right.mobile {
+    display: block;
+  }
+  .filters-wrapper .arrow-right.desktop {
+    display: none;
+  }
+  .filters-wrapper .mCSB_inside > .mCSB_container {
+    margin-right: 0;
+  }
 }
 .filters-clear {
   font-size: 12px;
