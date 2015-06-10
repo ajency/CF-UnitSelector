@@ -37,13 +37,13 @@ use AuthenticatesAndRegistersUsers;
         $this->middleware( 'guest', ['except' => 'getLogout'] );
     }
     
-    //CUSTOMIZED LOGIN METHOD
+    //CUSTOMIZED LOGIN METHOD[OVERIDE]
     /*
     *****Things added to file ***
     postLogin
     Illuminate\Http\Request
     Auth
-
+     
     */
     public function postLogin(Request $request)
     {
