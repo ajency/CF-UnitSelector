@@ -68,7 +68,7 @@
                                 </td>
 
                                 <td class="text-right">
-                                    <a href="" class="text-primary" onclick="deleteSvg({{ $image['ID'] }}, 'master','{{ $position }}');"><i class="fa fa-close"></i></a>
+                                    <a class="text-primary" onclick="deleteSvg({{ $image['ID'] }}, 'master','{{ $position }}');"><i class="fa fa-close"></i></a>
                                 </td>
                             </tr>
                                 @else

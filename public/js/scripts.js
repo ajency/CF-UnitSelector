@@ -946,8 +946,8 @@ function saveBreakPoint()
 
 function deleteSvg(mediaId, type, refference)
 {
-    var objectType = $('div.object-master-images').attr('data-object-type');
-    var objectId = $('div.object-master-images').attr('data-object-id');
+    var objectType = $('div.object-master-images').attr('data-object-type'); 
+    var objectId = $('div.object-master-images').attr('data-object-id'); 
 
     if (confirm('Are you sure you want to delete this media file? ') === false) {
         return;

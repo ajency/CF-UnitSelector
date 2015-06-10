@@ -122,7 +122,7 @@ class BuildingMediaController extends Controller {
         $breakpoints = $building->breakpoints; 
         $data = [];
         
-        $breakpoints = unserialize($breakpoints);
+        $breakpoints = (!empty($breakpoints))?unserialize($breakpoints):[];
         $breakpointKey = array_search ($refference, $breakpoints);
         unset($breakpoints[$breakpointKey]);
         $breakpoints = serialize($breakpoints);
