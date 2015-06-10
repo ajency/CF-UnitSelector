@@ -96,7 +96,7 @@
     };
 
     ListItemView.prototype.getHtml = function(id) {
-      var availability, buildingModel, floors, html, minprice, price, response, unit, unitTypes;
+      var availability, buildingModel, floors, html, minprice, price, response, unit, unitTypes, url;
       html = "";
       id = parseInt(id);
       buildingModel = buildingCollection.findWhere({
@@ -126,7 +126,14 @@
       $.each(response, function(index, value) {
         return html += '<li> <h5 class="m-t-0 m-b-0">' + value.name + '</h5> <span>' + value.units + ' Available</span> </li>';
       });
-      html += '</ul> </div> <a href="#' + url + '" class="view-unit"> <div class="circle"> <span class="arrow-up icon-chevron-right"></span> </div> </a> </div> </div>';
+      if (unit.length > 0) {
+        if (Object.keys(buildingModel.get('building_master')).length === 0) {
+          url = '/building/' + id + '/apartments';
+        } else {
+          url = '/building/' + id + '/master-view';
+        }
+        html += '</ul> </div> <a href="#' + url + '" class="view-unit"> <div class="circle"> <span class="arrow-up icon-chevron-right"></span> </div> </a> </div> </div>';
+      }
       return html;
     };
 

@@ -3,7 +3,7 @@ class BuildingItemView extends Marionette.ItemView
 
 	template :  Handlebars.compile('<li class="bldg blocks {{status}} ">
 										<div class="col-sm-2 col-xs-2">
-					                    <i class="apartment-ico m-t-15 "></i>
+					                    <i class="building-ico m-t-15 "></i>
 					                    </div>
 					                    <div class="col-sm-10 col-xs-10">
 					                    <div class="info">

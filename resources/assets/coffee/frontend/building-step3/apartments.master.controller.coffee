@@ -541,10 +541,14 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 										  </ul>
 										</div>
 
-										<div class="zoom-controls">
+										<div mag-ctrl="controls">
+											<button mag-ctrl-zoom-by="-0.5" class="Zoomin">-</button>
+											<button mag-ctrl-zoom-by="0.5">+</button>
+										</div>
+										<!--<div class="zoom-controls">
 											<div class="zoom-in"></div>
 											<div class="zoom-out"></div>
-										</div>
+										</div>-->
 
 										<div id="view_toggle" class="toggle-view-button list"></div>
 										<div id="trig" class="toggle-button hidden">List View</div>
@@ -601,6 +605,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		svgContainer : '.master'
 		# trig         : '#trig'
 		viewtog      : '#view_toggle'
+		zoomIn       : '.Zoomin'
 
 	
 	# initialize:->
@@ -609,6 +614,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		
 
 	events:
+		'click @ui.zoomIn':(e)->
+			console.log "aaaaaaaaaaaa"
+			$('.apartment').bind('mouseenter')
+			$('.apartment').on('click')
 		# 'click @ui.trig':(e)->
 		# 	$('.us-left-content').toggleClass 'col-0 col-md-3'
 		# 	$('.us-right-content').toggleClass 'col-md-12 col-md-9'
@@ -768,7 +777,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			cost = window.building.getMinimumCost(id)
 			price = window.numDifferentiation(cost)
 			html = '<div class="svg-info">
-						<i class="apartment-ico"></i>
+						<i class="building"></i>
 						<h5 class=" m-t-0">'+buildingModel.get('building_name')+'</h5>
 						<div class="details">
 							<label>'+floors+' Floors</label></br>
@@ -798,8 +807,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 	onShow:->
 
-		$host = $('[mag-thumb="outer"]')
-		$host.mag(
+		@$host = $('[mag-thumb="outer"]')
+		console.log m = @$host.mag(
 		  mode: 'outer'
 		  position: 'drag'
 		  toggle: false
@@ -808,6 +817,11 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		  constrainZoomed: true
 		)
 
+
+		$controls = $('[mag-ctrl="controls"]');
+		$controls.magCtrl({
+		  mag: @$host
+		});
 		windowHeight = $(window).innerHeight() - 56
 		$('.master').css 'height', windowHeight
 		$('.master').css 'min-width', windowHeight * 2
@@ -846,7 +860,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					CommonFloor.applyFliterClass()
 					# CommonFloor.getApartmentsInView()
 					CommonFloor.applyOnViewClass()
-					that.loadZoom()
+					# that.loadZoom()
+					that.undelegateEvents()
 					response = building.checkRotationView(building_id)
 					$('.svg-maps').removeClass 'hidden'
 					$('.mini-map').removeClass 'hidden'
@@ -860,13 +875,26 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		
 			
 		
-		
+		@zoomBuilding()
 		@loadProjectMaster()
 
 		if $(window).width() > 991
 			$('.units').mCustomScrollbar
 				theme: 'cf-scroll'
 
+	zoomBuilding:->
+		that  = @
+		$(document).on 'click' , '.apartment' , (e)->
+			that.$host.mag = new Mag()
+			that.$host.mag.model.focus = {x: 1.485, y: 1.05}
+			that.$host.mag.compute()
+			temp = new Magnificent
+			temp.model.focus = {x: 0.485, y: 1.05}
+			temp.model.lens = {x: 0.485, y: 1.05}
+			console.log temp.model
+			temp.compute()
+			temp.reinit()
+			# that.$host.mag.reinit(that.$host.mag.model)
 	loadProjectMaster:->
 		svgs = []
 		masterbreakpoints = project.get('breakpoints')
