@@ -45,6 +45,36 @@ function validateUnitName(obj,projectPropertytypeId,unitId)
     });
 }
 
+function validateBuildingUnitName(unitId)
+{
+
+    var name= $("input[name='unit_name']").val(); 
+    var buildingId= $("select[name='building_id']").val(); 
+    
+    if((name!='') && (buildingId !=''))
+    {
+        $(".cf-loader").removeClass('hidden');
+        $.ajax({
+            url: "/admin/project/" + PROJECTID + "/apartment-unit/validatebuildingunitname",
+            type: "POST",
+            data: {
+                name: name,
+                unitId: unitId,
+                buildingId: buildingId
+            },
+            dataType: "JSON",
+            success: function (response) {
+                if (!response.data)
+                    $("input[name='unit_name']").val(''); 
+
+                $(".cf-loader").addClass('hidden');
+            }
+        });
+    }
+    
+    
+}
+
 function validateBuildingName(obj,buildingId)
 {
     $(".cf-loader").removeClass('hidden');
