@@ -600,7 +600,7 @@
         response = window.building.getUnitTypesCount(id, unitTypes);
         cost = window.building.getMinimumCost(id);
         price = window.numDifferentiation(cost);
-        html = '<div class="svg-info"> <i class="building"></i> <h5 class=" m-t-0">' + buildingModel.get('building_name') + '</h5> <div class="details"> <label>' + floors + ' Floors</label></br> <div class="text-primary"> <span class="text-primary facts-icon icon-rupee-icn"></span>' + price + '</div> </div> </div>';
+        html = '<div class="svg-info"> <i class="building-ico"></i> <h5 class=" m-t-0">' + buildingModel.get('building_name') + '</h5> <div class="details"> <label>' + floors + ' Floors</label></br> <div class="text-primary"> <span class="text-primary facts-icon icon-rupee-icn"></span>' + price + '</div> </div> </div>';
         return $(e.currentTarget).tooltipster('content', html);
       },
       'click .next,.prev': function(e) {
