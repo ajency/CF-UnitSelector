@@ -165,15 +165,18 @@ class ProjectBunglowUnitController extends Controller {
        
         $unitVariantArr = UnitVariant::whereIn('unit_type_id',$unitTypeIdArr)->get()->toArray();
         $phases = $project->projectPhase()->where('status','not_live')->get()->toArray();
-       
-
+        
+        $isUnitPhaseInPhases =[];
         foreach ($phases as $key => $phase) {
-            if($phase['id'] != $unit->phase_id)
-            {   
-               $phases[]= $project->projectPhase()->where('id',$unit->phase_id)->first()->toArray();
+            if($phase['id'] == $unit->phase_id)
+            {    
+                $isUnitPhaseInPhases[] =$unit->phase_id;
             }
 
         }
+        
+        if(empty($isUnitPhaseInPhases))
+            $phases[]= $project->projectPhase()->where('id',$unit->phase_id)->first()->toArray();
       
         return view('admin.project.editunit')
                         ->with('project', $project->toArray())
