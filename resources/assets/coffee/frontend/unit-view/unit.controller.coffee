@@ -100,7 +100,7 @@ class CommonFloor.TopUnitCtrl extends Marionette.RegionController
 #Left View for unit
 class LeftUnitView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="col-md-3 col-xs-12 col-sm-12 search-left-content animated fadeIn">
+	template : Handlebars.compile('<div class="col-md-4 col-lg-3 col-xs-12 col-sm-12 search-left-content animated fadeIn">
 							<div class="unit-details">
 								<div class="row detail-list">
 									<div class="col-sm-6 col-xs-6 text-center">
@@ -158,11 +158,11 @@ class LeftUnitView extends Marionette.ItemView
 										<div class="panel panel-default">
 
 											<div class="panel-heading" role="tab" id="headingTwo">
-											  	<h4 class="panel-title m-b-15 p-b-10">
-											   		<a class="accordion-toggle collapsed text-primary " data-toggle="collapse" data-parent="#accordion" href="#{{id}}" aria-expanded="false" >
+											   	<a class="accordion-toggle collapsed text-primary panel-title m-b-5 block" data-toggle="collapse" data-parent="#accordion" href="#{{id}}" aria-expanded="false" >
+											  		<h4 class="inline-block">
 												    	{{level_name}}
-													</a>
-											  	</h4>
+											  		</h4>
+												</a>
 											</div>
 
 											<div id="{{id}}" class="panel-collapse collapse collapseLevel" role="tabpanel" aria-labelledby="headingTwo">
@@ -201,7 +201,7 @@ class LeftUnitView extends Marionette.ItemView
 
 
 				              	    <div class="sim-details">
-		              	              	<h5 class="m-b-0"><a href="'+BASEURL+'/project/'+PROJECTID+'/#unit-view/{{id}}">{{unit_name}}</a> </h5>
+		              	              	<h5><a href="'+BASEURL+'/project/'+PROJECTID+'/#unit-view/{{id}}">{{unit_name}}</a> </h5>
 		              	             	{{unit_type}} ({{area}} {{units}})<br>
 		              	              	{{variant}}<br>
 		              	              	<span class="text-primary"><span class="icon-rupee-icn"></span>{{price}}</span>
@@ -325,7 +325,7 @@ class CommonFloor.LeftUnitCtrl extends Marionette.RegionController
 #Center Controller for unit
 class CenterUnitView extends Marionette.ItemView
 
-	template : Handlebars.compile('<div class="col-md-9 col-sm-12 col-xs-12 us-right-content single-unit unit-slides animated fadeIn">
+	template : Handlebars.compile('<div class="col-md-8 col-lg-9 col-sm-12 col-xs-12 us-right-content single-unit unit-slides animated fadeIn">
 						<div class="">
 							<div class="liquid-slider slider" id="slider-id">
 								<div class="ls-wrapper ls-responsive">
@@ -367,7 +367,7 @@ class CenterUnitView extends Marionette.ItemView
 								<div class="liquid-slider slider">
 									<div class="panel-wrapper">
 										<div class="level ">
-											<img class="firstimage img-responsive" src=""/>
+											<img class="firstimage animated fadeIn img-responsive" src=""/>
 											<div class="images animated fadeIn text-center">
 											</div>
 										</div>
