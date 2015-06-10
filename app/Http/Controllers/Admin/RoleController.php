@@ -15,6 +15,7 @@ class RoleController extends Controller {
      *
      * @return Response
      */
+
     public function index() {
         $roles = Role::orderBy('name')->get()->toArray();
         return view('admin.role.list')
@@ -28,9 +29,19 @@ class RoleController extends Controller {
      * @return Response
      */
     public function create() {
-        $permissions = Permission::all()->toArray();
+        $allpermissions = Permission::all()->toArray();
+        $projectPermissions =$permissions =[];
+        foreach($allpermissions as $permission)
+        {
+            if($permission['name']=='add_project'||$permission['name']=='manage_users'||$permission['name']=='manage_roles')
+                $permissions[] = $permission;
+            else
+               $projectPermissions[] = $permission; 
+        }
+        
         return view('admin.role.add')->with('permissions', $permissions)
-                        ->with('menuFlag', FALSE);
+                                     ->with('projectPermissions', $projectPermissions)
+                                     ->with('menuFlag', FALSE);
     }
 
     /**
@@ -38,12 +49,21 @@ class RoleController extends Controller {
      *
      * @return Response
      */
-    public function store(Request $request) {
+    public function store(Request $request) { 
         $name = $request->input('name');
+        $project_access = $request->input('project_access');
+        $is_agent = $request->input('is_agent');
+        if($is_agent=='')
+            $is_agent='no';
 
         $role = new Role();
         $role->name = property_type_slug($name);
         $role->display_name = $name;
+        $role->project_access = $project_access;
+        $role->is_agent = $is_agent;
+        if($is_agent=='')
+           $is_agent='no';
+        
         $role->save();
         $roleId = $role->id;
 
@@ -79,8 +99,20 @@ class RoleController extends Controller {
      * @return Response
      */
     public function edit($id) {
+        
+                
         $role = Role::find($id);
-        $permissions = Permission::all()->toArray();
+        $allpermissions = Permission::all()->toArray();
+        $projectPermissions =$permissions =[];
+        foreach($allpermissions as $permission)
+        {
+            if($permission['name']=='add_project'||$permission['name']=='manage_users'||$permission['name']=='manage_roles')
+                $permissions[] = $permission;
+            else
+               $projectPermissions[] = $permission; 
+        }
+        
+        
         $permissionroleData = $role->perms()->get()->toArray();
         $permissionrole = [];
         foreach ($permissionroleData as $permission) {
@@ -88,9 +120,10 @@ class RoleController extends Controller {
         }
 
         return view('admin.role.edit')->with('role', $role->toArray())
-                        ->with('permissions', $permissions)
-                        ->with('permissionrole', $permissionrole)
-                        ->with('menuFlag', FALSE);
+                                       ->with('permissions', $permissions)
+                                       ->with('projectPermissions', $projectPermissions)
+                                       ->with('permissionrole', $permissionrole)
+                                       ->with('menuFlag', FALSE);
     }
 
     /**
@@ -99,22 +132,28 @@ class RoleController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function update($id, Request $request) {
+    public function update($id, Request $request) {  
 
         $name = $request->input('name');
+        $project_access = $request->input('project_access');
+        $is_agent = $request->input('is_agent');
+        if($is_agent=='')
+            $is_agent='no';
 
         $role = Role::find($id);
         $role->name = property_type_slug($name);
         $role->display_name = $name;
+        $role->project_access = $project_access;
+        $role->is_agent = $is_agent;
         $role->save();
 
 
         $permissions = $request->input('permissions');
-
+             
         if (!empty($permissions)) {
            $role->perms()->sync([]); 
-           $role->attachPermissions($permissions);
-        
+           $role->perms()->sync($permissions); 
+ 
         }
         
 

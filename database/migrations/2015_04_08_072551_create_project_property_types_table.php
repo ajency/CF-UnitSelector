@@ -21,10 +21,6 @@ class CreateProjectPropertyTypesTable extends Migration {
                     ->on('projects')
                     ->onDelete('cascade');
 
-            $table->foreign('property_type_id')
-                    ->references('id')
-                    ->on('property_types')
-                    ->onDelete('cascade');
         });
     }
 

@@ -39,9 +39,10 @@ class VariantMediaController extends Controller {
         $level = Input::get('level');
         $layout = Input::get('layout');
         $projectId = Input::get('projectId');
+        $foldername = ($id)?$id:'temp';
 
-        $targetDir = public_path() . "/projects/" . $projectId . "/variants/" . $id . "/";
-        $imageUrl = url() . "/projects/" . $projectId . "/variants/" . $id . "/";
+        $targetDir = public_path() . "/projects/" . $projectId . "/variants/" . $foldername . "/";
+        $imageUrl = url() . "/projects/" . $projectId . "/variants/" . $foldername . "/";
 
         File::makeDirectory($targetDir, $mode = 0755, true, true);
 
@@ -54,7 +55,8 @@ class VariantMediaController extends Controller {
 
             $request->file('file')->move($targetDir, $newFilename);
         }
-
+        
+        
         $media = new Media();
         $media->image_name = $newFilename;
         $media->mediable_id = $id;
@@ -62,36 +64,37 @@ class VariantMediaController extends Controller {
         $media->save();
 
         $mediaId = $media->id;
-        
-        if($level=='gallery')
+        if($id)
         {
-            $variantMetaData = VariantMeta::where(['unit_variant_id'=>$id ,'meta_key'=>'gallery'])->first()->toArray(); 
-            $metaValue = unserialize($variantMetaData['meta_value']);
-            $variantMetaId = $variantMetaData['id'];
-            $metaValue[$mediaId]  = $mediaId;
-            
-            $variantMeta = VariantMeta::find($variantMetaId);
-            $variantMeta->meta_value = serialize($metaValue);
-            $variantMeta->save();
-            
+            if($level=='gallery')
+            {
+                $variantMetaData = VariantMeta::where(['unit_variant_id'=>$id ,'meta_key'=>'gallery'])->first()->toArray(); 
+                $metaValue = unserialize($variantMetaData['meta_value']);
+                $variantMetaId = $variantMetaData['id'];
+                $metaValue[$mediaId]  = $mediaId;
+
+                $variantMeta = VariantMeta::find($variantMetaId);
+                $variantMeta->meta_value = serialize($metaValue);
+                $variantMeta->save();
+
+            }
+            else {
+
+                $variantMeta = new VariantMeta();
+                $variantMeta->unit_variant_id = $id;
+                $variantMeta->meta_key = $level.'-'.$layout;
+                $variantMeta->meta_value = $mediaId;
+                $variantMeta->save();
+
+            }
         }
-        else {
-           
-            $variantMeta = new VariantMeta();
-            $variantMeta->unit_variant_id = $id;
-            $variantMeta->meta_key = $level.'-'.$layout;
-            $variantMeta->meta_value = $mediaId;
-            $variantMeta->save();
-            
-        }
-        
 
         return response()->json([
                     'code' => 'image_uploaded',
                     'message' => 'Floor ' . $level . ' Image Successfully Uploaded',
                     'data' => [
                         'image_path' => $imageUrl . $newFilename,
-                        'media_id' => $mediaId
+                        'media_id' => $mediaId,
                     ]
                         ], 201);
     }
@@ -143,7 +146,7 @@ class VariantMediaController extends Controller {
             $metaValue = unserialize($variantMetaData['meta_value']);
             $variantMetaId = $variantMetaData['id'];
             unset($metaValue[$id]);
-            
+           
             $variantMeta = VariantMeta::find($variantMetaId);
             $variantMeta->meta_value = serialize($metaValue);
             $variantMeta->save();
@@ -151,9 +154,12 @@ class VariantMediaController extends Controller {
         }
         else
         {
-            VariantMeta::where('meta_value',$id)->delete();
+            if($variantId)
+                 VariantMeta::where('meta_value',$id)->delete();
         }
- 
+        
+        //CALL METHOD TO DELETE SVG (NUTAN)
+
         $media = Media::find( $id );
         $targetDir = public_path() . "/projects/" . $projectId . "/variants/" . $variantId . "/".$media->image_name;
         unlink($targetDir);

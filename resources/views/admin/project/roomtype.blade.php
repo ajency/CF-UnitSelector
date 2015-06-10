@@ -25,16 +25,16 @@
 
     @foreach($projectpropertytypeAttribute as $propertytypeId=>$propertytypeAttribute)
     <div class="grid simple">
-                <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" aria-expanded="false" aria-controls="collapse{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
+        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" aria-expanded="false" aria-controls="collapse{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
 
-        <div class="grid-title" role="tab" id="headingTwo">
+            <div class="grid-title" role="tab" id="headingTwo">
                 <div class="pull-right"><i class="fa fa-angle-down grid-angle-down"></i>
                     <i class="fa fa-angle-up "></i>
                 </div>
                 <h3><span class="semi-bold">{{ get_property_type($propertytypeId) }}</span> Attributes</h3>
-                </div>
-            </a>
-                <div id="collapse{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+            </div>
+        </a>
+        <div id="collapse{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
             <div class="grid-body">
                 <form name="frmroomtype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" id="frmroomtype_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
                     <div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 m-b-10 text-grey">
@@ -81,6 +81,7 @@
                                     </div>
                                 </div>
                             </div>
+                           
                             <div class="col-md-5" id="controltype_values_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
 
                                 <div class="form-group">
@@ -88,14 +89,18 @@
                                     <div class="col-lg-8 col-md-7">
                                         <input type="text" name="controltypevalues_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" data-role="tagsinput" class="tags" value="{{$attributes['defaults']}}" size="16" >
                                     </div>
+                                     
                                     <div class="col-lg-4 col-md-5">
                                         <button type="button" class="btn btn-small btn-default m-t-5" onclick="deleteRoomTypeAttribute({{$project['id']}},{{$attributes['id']}});"><i class="fa fa-trash"></i> Delete</button>
                                     </div>
+                                     
 
                                 </div>
                             </div>
+                            
                         </div>
                         @endforeach
+                        
                         <div class="row m-t-10 m-b-10">
                             <div class="col-md-3">
                                 <div class="form-group">
@@ -136,12 +141,13 @@
                             </div>
                         </div>
                         <div id="addroomtypeattributeblock_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}">
-                           <div class="text-right"> 
-                                    <button type="button" class="btn btn-small btn-primary" onclick="saveRoomypeattribute({{$project['id']}}, 'proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}', 'property_type');"><i class="fa fa-save"></i> Save</button>
-                                    <!--<button type="button" class="btn btn-small btn-default"><i class="fa fa-trash"></i> Delete</button>-->
-                                    <div class="cf-loader" id="loader_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" style="display:none" ></div>
-                                </div>
+                            <div class="text-right"> 
+                                <button type="button" class="btn btn-small btn-primary" onclick="saveRoomypeattribute({{$project['id']}}, 'proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}', 'property_type');"><i class="fa fa-save"></i> Save</button>
+                                <!--<button type="button" class="btn btn-small btn-default"><i class="fa fa-trash"></i> Delete</button>-->
+                                <div class="cf-loader" id="loader_proptype_{{ $propertytypeAttribute['PROJECTPROPERTYTYPEID'] }}" style="display:none" ></div>
                             </div>
+                        </div>
+                        
                     </div>  
                 </form>  
             </div>

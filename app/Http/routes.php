@@ -32,7 +32,7 @@ Route::get( 'project/{id}', 'ProjectController@show' )->where( 'id', '[0-9]+' );
 /**
  * Backend Admin routes
  */
-Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
+Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], function() {
     Route::get( '/', 'Admin\AdminController@index' );
     Route::resource( 'project', 'Admin\ProjectController' );
     Route::resource( 'user', 'Admin\UserController' );
@@ -49,26 +49,49 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth']], function() {
     Route::resource( 'project.plot-unit', 'Admin\ProjectPlotUnitController' );
     Route::resource( 'project.building', 'Admin\ProjectBuildingController' );
     Route::resource( 'project.floor-layout', 'Admin\ProjectFloorLayoutController' );
+    Route::resource( 'project.svg-tool', 'Admin\SvgController' );
     Route::resource( 'phase', 'Admin\PhaseController' );
     Route::resource( 'project.roomtype', 'Admin\ProjectRoomTypeController' );
     Route::resource( 'floor-layout.position', 'Admin\FloorLayoutPositionController' );
     Route::resource( 'floor-layout.media', 'Admin\FloorLayoutMediaController' );
+    Route::post( 'project/{project}/updateprojectstatus', 'Admin\ProjectController@updateProjectStatus' );
     Route::post( 'project/validateprojecttitle', 'Admin\ProjectController@validateProjectTitle' );
     Route::post( 'user/validateuserpassword', 'Admin\UserController@validateCurrentPassword' );
     Route::post( 'user/validateuseremail', 'Admin\UserController@validateEmail' );
     Route::get( 'user/{id}/changepassword', 'Admin\UserController@changePassword' );
-    Route::get( 'project/{id}/svg', 'Admin\ProjectController@svg' );
-    Route::post( 'project/{projectid}/bunglow-variant/{id}/roomtypeattributes', 'Admin\ProjectBunglowVariantController@roomtypeAttributes' );
-    Route::delete( 'project/{projectid}/roomtype/{id}/deleteroomtypeattributes', 'Admin\ProjectRoomTypeController@deleteRoomTypeAttribute' );
-    Route::post( 'project/{projectid}/bunglow-variant/{id}/getroomtypeattributes', 'Admin\ProjectBunglowVariantController@getRoomTypeAttributes' );
-    Route::post( 'project/{projectid}/building/{id}/getpositions', 'Admin\ProjectBuildingController@getPositions' );
-    Route::post( 'project/{projectid}/floor-layout/{id}/getunittypevariants', 'Admin\ProjectFloorLayoutController@getUnitTypeVariant' );
-    Route::post( 'project/{id}/media/updatebreakpoint', 'Admin\ProjectMediaController@updateBreakPoint' );
+    Route::get( 'user/{id}/profile', 'Admin\UserController@profile' );
+    Route::get( 'project/{project}/svg', 'Admin\ProjectController@svg' );
+    Route::get( 'project/{project}/summary', 'Admin\ProjectController@summary' );
+    Route::get( 'project/{project}/getphasedata/{phase}', 'Admin\ProjectController@getPhaseData' );
+    Route::get( 'project/{project}/validateprojectphase', 'Admin\ProjectController@validateProjectPhase' );
+    Route::get( 'project/{project}/projectpublishdata', 'Admin\ProjectController@projectPublishData' );
+    Route::get( 'project/{project}/cost', 'Admin\ProjectController@cost' );
+    Route::post( 'project/{project}/costupdate', 'Admin\ProjectController@costUpdate' );
+    Route::get( 'project/{project}/filters', 'Admin\ProjectController@filters' );
+    Route::post( 'project/{project}/updatefilters', 'Admin\ProjectController@updateFilters' );
+    Route::post( 'project/{project}/bunglow-variant/{id}/roomtypeattributes', 'Admin\ProjectBunglowVariantController@roomtypeAttributes' );
+    Route::delete( 'project/{project}/roomtype/{id}/deleteattribute', 'Admin\ProjectRoomTypeController@deleteAttribute' );
+    Route::delete( 'project/{project}/roomtype/{id}/deletevariantrroom', 'Admin\ProjectRoomTypeController@deleteVariantRoom' );
+    Route::post( 'project/{project}/roomtype/{id}/getroomtypeattributes', 'Admin\ProjectRoomTypeController@getRoomTypeAttributes' );
+    Route::post( 'project/{project}/building/{id}/getpositions', 'Admin\ProjectBuildingController@getPositions' );
+    Route::post( 'building/validatebuildingname', 'Admin\ProjectBuildingController@validateBuildingName' );
+    Route::post( 'project/{project}/floor-layout/{id}/getunittypevariants', 'Admin\ProjectFloorLayoutController@getUnitTypeVariant' );
+    Route::post( 'project/{project}/media/updatebreakpoint', 'Admin\ProjectMediaController@updateBreakPoint' );
     Route::post( 'building/{id}/media/updatebreakpoint', 'Admin\BuildingMediaController@updateBreakPoint' );
-    Route::post( 'project/{projectid}/apartment-variant/getpropertytypedata', 'Admin\ProjectApartmentVariantController@getPropertyTypeData' );
-    Route::get( 'project/{projectid}/attributes/addroomtype', 'Admin\ProjectRoomTypeController@addRoomType' );
+    Route::post( 'project/{project}/apartment-variant/getpropertytypedata','Admin\ProjectApartmentVariantController@getPropertyTypeData' );
+    Route::post( 'project/{project}/apartment-variant/getunittypevariants','Admin\ProjectApartmentVariantController@getUnitTypeVariants' );
+    Route::post( 'project/{project}/apartment-unit/getavailableposition','Admin\ProjectApartmentUnitController@getAvailablePosition' );
+    Route::post( 'project/{project}/apartment-unit/validatebuildingunitname','Admin\ProjectApartmentUnitController@validateBuildingUnitName' );
+    Route::post( 'project/{project}/bunglow-unit/validateunitname','Admin\ProjectBunglowUnitController@validateUnitName' );
+    Route::get( 'project/{project}/attributes/addroomtype', 'Admin\ProjectRoomTypeController@addRoomType' );
+    Route::delete( 'project/{project}/bunglow-variant/{id}/deletelevel', 'Admin\ProjectBunglowVariantController@deleteLevel' );
+    Route::get( 'project/{projectid}/image/{imageid}', 'Admin\SvgController@show' );
+    Route::post( 'project/{projectid}/image/{imageid}/downloadSvg', 'Admin\SvgController@downloadSvg' );
+    Route::get( 'project/{id}/image/{imageid}/authoring-tool', 'Admin\ProjectController@loadMasterSvgTool' );
+
     
 });
+
 
 /**
  * REST API routes
@@ -78,6 +101,16 @@ Route::group( ['prefix' => 'api/v1'], function() {
     Route::get( 'project/{id}/step-two', 'Rest\ProjectController@stepTwo' );
     Route::get('buildings/{$id}/floor-layout', 'Rest\BuildingFloorLayoutController@getFloorLayoutForFloor');
     Route::get('project/{id}/update-response-table', 'Rest\ProjectController@updateResponseTable');
+} );
+
+/**
+ * REST API routes
+ */
+Route::group( ['prefix' => 'api/v2', 'middleware' => ['whitelistip']], function() {
+    Route::post( 'unit/{unit_id}', 'Rest\UnitController@updateUnit' );
+    Route::get( 'unit/{unit_id}', 'Rest\UnitController@getUnit' );
+    Route::get( 'get-project-url', 'Rest\UnitController@getCfProjectUrl' );
+    Route::get( 'get-unit-status', 'Rest\UnitController@getUnitStatus' );
 } );
 
 /**

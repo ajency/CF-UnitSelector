@@ -3,24 +3,24 @@
 <!-- BEGIN BREADCRUMBS -->
 <ul class="breadcrumb">
     <li><a href="{{ url( 'admin/') }}">Dashboard</a> </li>
-    <li><a href="#" class="active">Role</a> </li>
+    <li><a href="#" class="active">Roles</a> </li>
  </ul>
 <!-- END BREADCRUMBS -->
 @endsection
 @section('content')
 <!-- BEGIN PAGE TITLE -->
 <div class="page-title">	
-    <h2><span class="semi-bold">View</span> Role</h2>
+    <h2><span class="semi-bold">View</span> Roles</h2>
 </div>
 <div class="row">
     <div class="col-md-12">
         <div class="grid simple">
             <div class="grid-title">
-                <h4>List of <span class="semi-bold">Role</span></h4>
-                <a class="btn btn-primary pull-right" href="{{ url('/admin/role/create') }}" ><i class="fa fa-plus"></i> Add User</a>
+                <a class="btn btn-primary pull-right" href="{{ url('/admin/role/create') }}" ><i class="fa fa-plus"></i> Add Role</a>
+                <h4>List of <span class="semi-bold">Roles</span></h4>
             </div>
             <div class="grid-body">
-                <table class="table table-striped roleList" id="example2" >
+                <table class="table table-bordered roleList" id="example2" >
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -30,8 +30,8 @@
                     </thead>
                     <tbody> 
                         @foreach ($roles as $role)
-                            <tr class="">
-                                <td><a href="{{ url( '/admin/role/' . $role['id'] . '/edit') }}">{{ $role['name'] }}</a></td>
+                            <tr class="" onclick="location.href='{{ url( '/admin/role/' . $role['id'] . '/edit') }}'">
+                                <td>{{ $role['name'] }}</td>
                                 <td>{{ date('d/m/Y',strtotime($role['created_at'])) }}</td>
                                 <td>{{  date('d/m/Y',strtotime($role['updated_at'])) }}</td>
                             </tr>

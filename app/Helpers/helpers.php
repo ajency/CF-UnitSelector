@@ -5,21 +5,53 @@
  * @param type $type_id
  * @return string
  */
+define('BUNGLOWID',  '1');
+define('PLOTID',  '2');
+define('APARTMENTID',  '3');
+define('PENTHOUSEID',  '4');
+ 
+
 function get_property_type( $type_id ) {
     $types = [];
-    $propertyTypes = \CommonFloor\PropertyType::all()->toArray();
+    $propertyTypes = CommonFloor\Defaults::where('type','property_types')->get()->toArray();
     foreach ($propertyTypes as $type) {
-        $types[$type['id']] = $type['name'];
+        $types[$type['id']] = $type['label'];
     }
-
+    
     return $types[$type_id];
 }    
+
+function get_all_property_type() {
+    $types = [];
+    $propertyTypes = CommonFloor\Defaults::where('type','property_types')->get()->toArray(); 
+    foreach ($propertyTypes as $type) {
+        $types[$type['id']] = $type['label'];
+    }
+
+    return $types;
+}
+
+function get_all_unit_type() {
+    $types = [];
+    $propertyTypeIds = ["villa_unit_types"=>"1","plot_unit_types"=>"2","appartment_unit_types"=>"3","penthouse_unit_types"=>"4"];
+    
+    foreach ($propertyTypeIds as $key=>$value)
+    {
+        $unitTypes = CommonFloor\Defaults::where('type',$key)->get()->toArray();
+        foreach ($unitTypes as $type) {
+            $types[$value][$type['id']] = $type['label'];
+        } 
+    }
+
+    return $types;
+}
 
 function project_property_types( $projectId ) {
     $propertyTypes = [];
     foreach (\CommonFloor\Project::find( $projectId )->projectPropertyTypes as $projectPropertyType) {
-        $propertyTypes[$projectPropertyType->property_type_id] = \CommonFloor\PropertyType::find( $projectPropertyType->property_type_id );
+        $propertyTypes[$projectPropertyType->property_type_id] = get_property_type( $projectPropertyType->property_type_id );
     }
+   
     return $propertyTypes;
 }
 
@@ -56,4 +88,89 @@ function get_locale_frontend_to_json( $lang = "en-US" ) {
 
     ];
     return json_encode( $messages[$lang] );
+}
+
+function getUserAssignedProject()
+{
+    $userId =  Auth::user()->id;
+    $userRoles = \CommonFloor\User::find($userId)->userRole()->get(); 
+    $project =[];
+    
+    foreach ($userRoles as $userRole)
+    {
+      $project[] = CommonFloor\UserRole::find($userRole['id'])->userProject()->where('project_id',$projectId)->get()->toArray();
+    }
+    return $project;
+}
+
+function getDefaultRole($userId)
+{
+   $userRoles = \CommonFloor\User::find($userId)->userRole()->get();
+   $defaultRoleId = [];
+   foreach ($userRoles as $userRole)
+   {
+        $project = CommonFloor\UserRole::find($userRole['id'])->userProject()->first()->toArray();
+         
+        if(!$project['project_id'])
+        {  
+           $defaultRoleId = $userRole; 
+           $defaultRoleId['PROJECT_ACCESS'] = \CommonFloor\Role::find($userRole['role_id'])->project_access; 
+           break;
+        }
+    }
+    return $defaultRoleId;
+}
+ 
+
+
+function hasPermission($projectId, $userPermission)
+{  
+    $userId =  Auth::user()->id;
+    $defaultRole = getDefaultRole($userId); 
+ 
+    $flag = false;
+    
+    if($defaultRole['PROJECT_ACCESS']=='all')
+    {
+       $userRoles = \CommonFloor\User::find($userId)->userRole()->get()->toArray();       //GET ALL USER ROLES  
+       $projectId=0;
+    }
+    else
+    {
+       $defaultRoleID = getDefaultRole($userId);
+       $userRoles = \CommonFloor\User::find($userId)->userRole()->where('id','!=',$defaultRole['id'])->get()->toArray();       //GET ALL USER ROLES EXCEPT DEFAULT  
+    }   
+    
+    $permissions =[];
+  
+    foreach ($userRoles as $userRole)
+    {
+        if($projectId)      //GET ROLES ONLY FOR THE PROJECT
+        {
+            $project = CommonFloor\UserRole::find($userRole['id'])->userProject()->where('project_id',$projectId)->get()->toArray();
+            if(!empty($project))
+            {
+                if(in_array('read_project', $userPermission))
+                   $permissions[$userRole['role_id']]=['read_project'] ;
+                else   
+                    $permissions[$userRole['role_id']] = \CommonFloor\Role::find($userRole['role_id'])->perms()->whereIn('name', $userPermission)->get()->toArray();//pass permission
+            }
+        }
+        else
+        {
+            if(in_array('read_project', $userPermission))
+               $permissions[$userRole['role_id']]=['read_project'] ;
+            else 
+               $permissions[$userRole['role_id']] = \CommonFloor\Role::find($userRole['role_id'])->perms()->whereIn('name', $userPermission)->get()->toArray();//pass permission
+        }
+        
+        if(!empty($permissions[$userRole['role_id']]))
+        {
+            $flag = true;
+            break;
+        }
+    }
+     
+    return $flag;
+ 
 }

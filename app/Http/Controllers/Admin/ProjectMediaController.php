@@ -96,7 +96,7 @@ class ProjectMediaController extends Controller {
                         'image_path' => $imageUrl . $newFilename,
                         'media_id' => $mediaId,
                         'position' => $position,
-                        'filename' => $file
+                        'filename' => $newFilename
                     ]
             ], 201 );
     }
@@ -148,8 +148,12 @@ class ProjectMediaController extends Controller {
         {
             $breakpoints = ProjectMeta::where(['meta_key'=>'breakpoints','project_id'=>$project_id])->pluck('meta_value');
             $breakpoints = unserialize($breakpoints);
-            $breakpointKey = array_search ($refference, $breakpoints);
-            unset($breakpoints[$breakpointKey]);
+            
+            if(!empty($breakpoints) && in_array($refference, $breakpoints))
+            {
+                $breakpointKey = array_search ($refference, $breakpoints);
+                unset($breakpoints[$breakpointKey]);
+            }
             $breakpointData =  ['meta_value'=>serialize($breakpoints)]; 
             ProjectMeta::where(['meta_key'=>'breakpoints','project_id'=>$project_id])->update( $breakpointData ); 
             

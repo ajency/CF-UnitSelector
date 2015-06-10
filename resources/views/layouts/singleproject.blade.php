@@ -6,45 +6,64 @@
 <div class="inner-menu nav-collapse">   
     <div id="inner-menu">
         <div class="inner-wrapper" >    
-            <h2 class="text-white b-g b-b p-b-20">{{ $project['project_title'] }}</h2>
+            <h2 class="text-white b-g b-b p-b-10">{{ $project['project_title'] }}</h2>
         </div>
         <div class="inner-menu-content">
-            <p class="menu-title">Project <span class="pull-right"><i class="icon-refresh"></i></span></p>
+         <a href="{{ url( 'admin/project/' . $project['id'] . '/summary' ) }}" >   <p class="menu-title">Project <span class="pull-right"><i class="icon-refresh"></i></span></p></a>
         </div>
         <ul class="big-items">
+            <li class="{{ $current === 'settings' ? 'active' : '' }}">
+                <a href="{{ url( 'admin/project/' . $project['id']) }}">@if($current === 'settings')<span class='fa fa-check text-success'></span>@endif Configuration</a>
+            </li>
+            @if(hasPermission($project['id'],['configure_project']))
+            <li class="{{ $current === 'cost' ? 'active' : '' }}">
+                <a href="{{ url( 'admin/project/' . $project['id'] . '/cost') }}">@if($current === 'cost')<span class='fa fa-check text-success'></span>@endif Cost</a>
+            </li>
+            @endif
+            @if(hasPermission($project['id'],['configure_project','svg_auth_tool']))
             <li class="{{ $current === 'svg' ? 'active' : '' }}">
                 <a href="{{ url( 'admin/project/' . $project['id'] . '/svg' ) }}" >@if($current === 'svg')<span class='fa fa-check text-success'></span>@endif SVGs</a>
             </li>
-            <li class="{{ $current === 'settings' ? 'active' : '' }}">
-                <a href="{{ url( 'admin/project/' . $project['id'] . '/edit') }}">@if($current === 'settings')<span class='fa fa-check text-success'></span>@endif Settings</a>
+            @endif
+            @if(hasPermission($project['id'],['configure_project']))
+            <li class="{{ $current === 'filters' ? 'active' : '' }}">
+                <a href="{{ url( 'admin/project/' . $project['id'] . '/filters') }}">@if($current === 'filters')<span class='fa fa-check text-success'></span>@endif Filters</a>
             </li>
-            <li class="{{ $current === 'room_type' ? 'active' : '' }}">
-                <a href="{{ url( 'admin/project/' . $project['id'] . '/roomtype/create/') }}">@if($current === 'room_type')<span class='fa fa-check text-success'></span>@endif Attributes</a>
+            @endif
+            <li class="{{ $current === 'project_users' ? 'active' : '' }}">
+                <a href="{{ url( 'admin/project/' . $project['id'] . '/user' ) }}" >@if($current === 'project_users')<span class='fa fa-check text-success'></span>@endif Users</a>
             </li>
+            
         </ul> 
+ 
         @foreach(project_property_types($project['id']) as $propertyTypeId => $projectPropertyType)
         <?php
-           if($projectPropertyType->name === 'Apartments' ||  $projectPropertyType->name === 'Penthouse')
+           if($projectPropertyType === 'Apartments' ||  $projectPropertyType === 'Penthouse')
            {
-               $apartmentPenthouse[] =  $projectPropertyType->name;
+               $apartmentPenthouse[] =  $projectPropertyType;
                continue;
            } 
         ?>
         <div class="inner-menu-content" >            
-            <p class="menu-title">{{ $projectPropertyType->name }}</p>    
+            <p class="menu-title">{{ $projectPropertyType }}</p>    
         </div>
         <ul class="big-items">
-            <li class="{{ $current === property_type_slug($projectPropertyType->name) . '-variant' ? 'active' : '' }}">
-                <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType->name) . '-variant/') }}">@if($current === property_type_slug($projectPropertyType->name) . '-variant')<span class='fa fa-check text-success'></span>@endif Variants</a>
+            @if(hasPermission($project['id'],['configure_project']))
+            <li class="{{ $current === property_type_slug($projectPropertyType) . '-variant' ? 'active' : '' }}">
+                <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType) . '-variant/') }}">@if($current === property_type_slug($projectPropertyType) . '-variant')<span class='fa fa-check text-success'></span>@endif Configuration</a>
             </li>
-            <li class="{{ $current === property_type_slug($projectPropertyType->name) . '-unit' ? 'active' : '' }}">
-                <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType->name) . '-unit/') }}">@if($current === property_type_slug($projectPropertyType->name) . '-unit')<span class='fa fa-check text-success'></span>@endif Units</a>
+            @endif
+            @if(hasPermission($project['id'],['configure_unit']))
+            <li class="{{ $current === property_type_slug($projectPropertyType) . '-unit' ? 'active' : '' }}">
+                <a href="{{ url('/admin/project/' . $project['id'] . '/' . property_type_slug($projectPropertyType) . '-unit/') }}">@if($current === property_type_slug($projectPropertyType) . '-unit')<span class='fa fa-check text-success'></span>@endif Units</a>
             </li>
+            @endif
 
         </ul>
         @endforeach
        
-        @if(isset($apartmentPenthouse))
+       
+        @if(isset($apartmentPenthouse) && hasPermission($project['id'],['configure_project','configure_building','configure_unit']))
         <?php
         $apartmentpenthouse= implode("/",$apartmentPenthouse);
         ?>
@@ -52,18 +71,21 @@
             <p class="menu-title">{{ $apartmentpenthouse }}</p>    
         </div>
         <ul class="big-items">
-            <li class="{{ $current === 'floor-layout' ? 'active' : '' }}">
-                <a href="{{ url('/admin/project/' . $project['id'] . '/floor-layout') }}">@if($current === 'floor-layout')<span class='fa fa-check text-success'></span>@endif Floor Layouts</a>
-            </li>
+            @if(hasPermission($project['id'],['configure_building']))
             <li class="{{ $current === 'building' ? 'active' : '' }}">
                 <a href="{{ url('/admin/project/' . $project['id'] . '/building') }}">@if($current === 'building')<span class='fa fa-check text-success'></span>@endif Buildings</a>
             </li>
+            @endif
+            @if(hasPermission($project['id'],['configure_project']))
             <li class="{{ $current === 'apartment-variant' ? 'active' : '' }}">
-                <a href="{{ url('/admin/project/' . $project['id'] . '/apartment-variant/') }}">@if($current === 'apartment-variant')<span class='fa fa-check text-success'></span>@endif Variants</a>
+                <a href="{{ url('/admin/project/' . $project['id'] . '/apartment-variant/') }}">@if($current === 'apartment-variant')<span class='fa fa-check text-success'></span>@endif Configuration</a>
             </li>
+            @endif
+             @if(hasPermission($project['id'],['configure_unit']))
             <li class="{{ $current === 'apartment-unit' ? 'active' : '' }}">
                 <a href="{{ url('/admin/project/' . $project['id'] . '/apartment-unit/') }}">@if($current === 'apartment-unit')<span class='fa fa-check text-success'></span>@endif Units</a>
             </li>
+             @endif
 
         </ul>
         @endif

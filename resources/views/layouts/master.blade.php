@@ -83,6 +83,7 @@
                                 </div> 
                             </a>
                             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
+                                <li><a href="{{ url( '/admin/user/' . Auth::user()->id . '/profile') }}"><i class="fa fa-profile"></i>&nbsp;&nbsp;Profile</a></li>
                                 <li><a href="{{ url('auth/logout' ) }}"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
                             </ul>  			
                         </div>
@@ -114,10 +115,13 @@
                                 <span class="arrow"></span>
                             </a>
                             <ul class="sub-menu">
-                                <li><a href="{{ url( 'admin/project/create' ) }}">Add</a></li>
-                                <li><a href="{{ url( 'admin/project' ) }}">View</a></li>
+                                <li><a href="{{ url( 'admin/project' ) }}">All Projects</a></li>
+                                @if(hasPermission(0,['add_project']))
+                                <li><a href="{{ url( 'admin/project/create' ) }}">Add Project</a></li>
+                                @endif
                             </ul>
                         </li>
+                        @if(hasPermission(0,['manage_users']))
                         <li class="">
                             <a href="javascript:;">
                                 <i class="fa fa-user"></i>
@@ -130,6 +134,8 @@
 
                             </ul>
                         </li>
+                        @endif
+                        @if(hasPermission(0,['manage_roles']))
                         <li class="">
                             <a href="javascript:;">
                                 <i class="fa fa-user-secret"></i>
@@ -142,6 +148,7 @@
 
                             </ul>
                         </li>
+                        @endif
                     </ul>
                     <!-- END SIDEBAR MENU -->
 

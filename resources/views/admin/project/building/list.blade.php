@@ -25,7 +25,7 @@
                 <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/building/create') }}" ><i class="fa fa-plus"></i> Add Building</a>
             </div>
             <div class="grid-body">
-                <table class="table table-striped" id="example2" >
+                <table class="table table-bordered" id="example2" >
                     <thead>
                         <tr>
                             <th>Name</th>

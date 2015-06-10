@@ -1,15 +1,16 @@
 #view for each building
 class BuildingItemView extends Marionette.ItemView
 
-	template :  Handlebars.compile('<li class="bldg blocks {{status}}">
-					                    <div class="bldg-img"></div>
+	template :  Handlebars.compile('<li class="bldg blocks {{status}} ">
+										<div class="col-sm-2 col-xs-2">
+					                    <i class="apartment-ico m-t-15 "></i>
+					                    </div>
+					                    <div class="col-sm-10 col-xs-10">
 					                    <div class="info">
-					                      <h2 class="m-b-5">{{building_name}}</h2>
-					                      <!--<div>Starting from Rs.<span>50 lakhs</span></div>-->
-					                      <div>No. of Floors: <span>{{floors}}</span></div>
+					                      <h2 class="margin-none">{{building_name}} <label class="text-muted sm-text">({{floors}} Floors)</label></h2>
 					                    </div>
 					                    <div class="clearfix"></div>
-					                    <div class="unit-type-info">
+					                    <div class="unit-type-info m-t-5">
 					                      <ul>
 					                     	{{#types}}
 					                        <li>
@@ -18,6 +19,8 @@ class BuildingItemView extends Marionette.ItemView
 					                        {{/types}}
 					                       
 					                      </ul>
+					                    </div> <div class="clearfix"></div>
+					                    <div class="m-t-5 text-primary {{classname}}">Starting from <span class="icon-rupee-icn"></span>{{price}}</div>
 					                    </div>
 					                  </li>')
 	serializeData:->
@@ -25,8 +28,13 @@ class BuildingItemView extends Marionette.ItemView
 		id = @model.get 'id'
 		response = building.getUnitTypes(id)
 		types = building.getUnitTypesCount(id,response)
-		floors = @model.get 'floors'
-		data.floors = Object.keys(floors).length
+		floors = @model.get 'no_of_floors'
+		cost = building.getMinimumCost(id)
+		data.classname = ""
+		if cost == 0
+			data.classname = 'hidden'
+		data.price = window.numDifferentiation(cost)
+		data.floors = @model.get 'no_of_floors'
 		data.types = types
 		data
 
@@ -45,10 +53,14 @@ class BuildingItemView extends Marionette.ItemView
 			CommonFloor.filterBuilding(id)
 			if Object.keys(buildingModel.get('building_master')).length == 0
 				CommonFloor.navigate '/building/'+id+'/apartments' , true
-				CommonFloor.router.storeRoute()
+				# CommonFloor.router.storeRoute()
 			else
 				CommonFloor.navigate '/building/'+id+'/master-view' , true
-				CommonFloor.router.storeRoute()
+				# CommonFloor.router.storeRoute()
+
+class BuildingEmptyView extends Marionette.ItemView
+
+	template : 'No units added'
 
 #view for listing buildings : Collection
 class BuildingListView extends Marionette.CompositeView
@@ -60,6 +72,13 @@ class BuildingListView extends Marionette.CompositeView
 	            	<a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a>
 	            </div>
             </div>-->
+            <span class="pull-left top-legend">     
+            	<ul>
+            		 <li class="na">N/A</li>
+            	</ul>
+            </span>
+            <h2 class="text-center">List of Buildings</h2>
+			<hr class="margin-none">	
 			<div class="text-center">
               <ul class="prop-select">
                 <li class="prop-type buildings active">Buildings</li>
@@ -79,11 +98,12 @@ class BuildingListView extends Marionette.CompositeView
 
 	childView : BuildingItemView
 
+	
 	childViewContainer : '.units'
 
 	events : 
 		'click .buildings':(e)->
-			console.log units = buildingCollection
+			units = buildingCollection
 			data = {}
 			data.units = units
 			data.type = 'building'
@@ -94,7 +114,7 @@ class BuildingListView extends Marionette.CompositeView
 			
 
 		'click .Villas':(e)->
-			console.log units = bunglowVariantCollection.getBunglowUnits()
+			units = bunglowVariantCollection.getBunglowUnits()
 			data = {}
 			data.units = units
 			data.type = 'villa'
@@ -113,10 +133,24 @@ class BuildingListView extends Marionette.CompositeView
 
 	onShow:->
 		if bunglowVariantCollection.length != 0
-			$('.Villas').removeClass 'hidden'
-
-		if plotVariantCollection.length != 0
-			$('.Plots').removeClass 'hidden'
+             $('.Villas').removeClass 'hidden'
+        if plotVariantCollection.length != 0
+             $('.Plots').removeClass 'hidden'
+		# if CommonFloor.defaults['type'] != ""
+		# 	type = CommonFloor.defaults['type'].split(',')
+		# 	if $.inArray('villa' ,type) > -1
+		# 		$('.Villas').removeClass 'hidden'
+		# 	if $.inArray('plot' ,type) > -1
+		# 		$('.Plots').removeClass 'hidden'
+		# else
+		# 	arr = _.values(window.propertyTypes)
+		# 	if $.inArray('Apartments' ,arr) > -1 || $.inArray('Penthouse' ,arr) > -1
+		# 		$('.buildings').removeClass 'hidden'
+		# 	if $.inArray('Plot' ,arr) > -1
+		# 		$('.Plots').removeClass 'hidden'
+		# 	if $.inArray('Villas/Bungalows' ,arr) > -1
+		# 		$('.Villas').removeClass 'hidden'
+		
 
 
 

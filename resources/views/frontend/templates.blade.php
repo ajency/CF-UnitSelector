@@ -44,9 +44,25 @@
       </div>
 </script>
 
+<script id="project-listview-template" type="text/template">
+        <div ui-region="top" id="topregion" class="us-header"></div>
+        <div class="fliters-container closed" id="collapsefilters">
+          <div ui-region="filter" id="filterregion" class="filters-area"></div>
+        </div>
+        <div class="container-fluid top-spacing">
+            <div class="row">
+                <div ui-region="left" id="leftregion">
+                </div>
+               
+                <div ui-region="center" id="centerregion">
+                </div>
+            </div>
+        </div>
+</script>
+
 <script id="project-template" type="text/template">
         <div ui-region="top" id="topregion" class="us-header"></div>
-        <div ui-region="filter" id="filterregion" class="filters-area"></div>
+        
         <div class="container-fluid top-spacing">
             <div class="row">
                 <div ui-region="left" id="leftregion">
@@ -67,11 +83,13 @@
   </script>
 
 <script id="project-view-template" type="text/template">
-    <div ui-region="top" id="topregion" class="us-header"></div>
-    <div ui-region="filter" id="filterregion" class="filters-area"></div>
+    <div ui-region="top" id="topregion" class="us-header a"></div>
+    <div class="fliters-container closed" id="collapsefilters">
+      <div ui-region="filter" id="filterregion" class="filters-area c"></div>
+    </div>
     <div class="container-fluid top-spacing">
       <div class="row">
-        <div class="col-xs-12 col-sm-12 col-0 us-left-content mobile not-visible">
+        <div class="list-container closed us-left-content mobile not-visible c">
           <div ui-region="left" id="leftregion"></div>
         </div>
         <div ui-region="center" id="centerregion"></div>
@@ -79,15 +97,30 @@
     </div>
 </script>
 
-<script id="apartment-view-template" type="text/template">
-    <div ui-region="topapt" id="topaptregion" class="us-header"></div>
-    <div ui-region="filterapt" id="filteraptregion" class="filters-area"></div>
+<script id="apartment-master-template" type="text/template">
+     <div ui-region="top" id="topregion" class="us-header a"></div>
+    <div class="fliters-container closed" id="collapsefilters">
+      <div ui-region="filter" id="filterregion" class="filters-area c"></div>
+    </div>
     <div class="container-fluid top-spacing">
       <div class="row">
-        <div class="col-xs-12 col-sm-12 col-0 us-left-content mobile not-visible">
-          <div ui-region="leftapt" id="leftaptregion"></div>
+        <div class="list-container closed us-left-content mobile not-visible c">
+          <div ui-region="left" id="leftregion"></div>
         </div>
-        <div ui-region="centerapt" id="centeraptregion"></div>
+        <div ui-region="center" id="centerregion"></div>
+      </div>
+    </div>
+</script>
+
+<script id="apartment-list-template" type="text/template">
+     <div ui-region="top" id="topregion" class="us-header a"></div>
+    <div class="fliters-container closed" id="collapsefilters">
+      <div ui-region="filter" id="filterregion" class="filters-area c"></div>
+    </div>
+    <div class="container-fluid top-spacing">
+      <div class="row">
+        <div ui-region="left" id="leftregion"></div>
+        <div ui-region="center" id="centerregion"></div>
       </div>
     </div>
 </script>
@@ -105,5 +138,6 @@
 
     </div>
 </script>
+
 
         

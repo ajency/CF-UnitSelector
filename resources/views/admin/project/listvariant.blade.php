@@ -20,10 +20,12 @@
         <div class="grid simple">
             <div class="grid-title">
                 <h4>List of <span class="semi-bold">Unit Variants</span></h4>
+                 @if(hasPermission($project['id'],['configure_project']))
                 <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/bunglow-variant/create') }}" ><i class="fa fa-plus"></i> Add Variant</a>
+                @endif
             </div>
             <div class="grid-body">
-                <table class="table table-striped" id="example2" >
+                <table class="table table-bordered" id="example2" >
                     <thead>
                         <tr>
                             <th>Name</th>
@@ -37,8 +39,8 @@
                     </thead>
                     <tbody> 
                         @foreach ($unit_variant_arr as $unit_variant)
-                            <tr class="">
-                                <td><a href="{{ url( '/admin/project/' . $project['id'] . '/bunglow-variant/'.$unit_variant['id'].'/edit') }}">{{ $unit_variant['unit_variant_name'] }}</a></td>
+                            <tr class="" onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/bunglow-variant/'.$unit_variant['id'].'/edit') }}'">
+                                <td>{{ $unit_variant['unit_variant_name'] }}</td>
                                 <td>{{ $unitTypes[$unit_variant['unit_type_id']] }}</td>
                                 <td>{{ $unit_variant['carpet_area'] }}</td>
                                 <td>{{ $unit_variant['super_built_up_area'] }}</td>

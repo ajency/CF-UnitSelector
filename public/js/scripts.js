@@ -3,6 +3,7 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
+
 function validateTitle(obj)
 {
     $(".cf-loader").removeClass('hidden');
@@ -23,7 +24,79 @@ function validateTitle(obj)
     });
 }
 
-function validateEmail(obj,userId)
+function validateUnitName(obj,projectPropertytypeId,unitId)
+{
+    $(".cf-loader").removeClass('hidden');
+    $.ajax({
+        url: "/admin/project/" + PROJECTID + "/bunglow-unit/validateunitname",
+        type: "POST",
+        data: {
+            name: obj.value,
+            unitId: unitId,
+            projectPropertytypeId: projectPropertytypeId
+        },
+        dataType: "JSON",
+        success: function (response) {
+            if (!response.data)
+                $(obj).val('');
+
+            $(".cf-loader").addClass('hidden');
+        }
+    });
+}
+
+function validateBuildingUnitName(unitId)
+{
+
+    var name= $("input[name='unit_name']").val(); 
+    var buildingId= $("select[name='building_id']").val(); 
+    
+    if((name!='') && (buildingId !=''))
+    {
+        $(".cf-loader").removeClass('hidden');
+        $.ajax({
+            url: "/admin/project/" + PROJECTID + "/apartment-unit/validatebuildingunitname",
+            type: "POST",
+            data: {
+                name: name,
+                unitId: unitId,
+                buildingId: buildingId
+            },
+            dataType: "JSON",
+            success: function (response) {
+                if (!response.data)
+                    $("input[name='unit_name']").val(''); 
+
+                $(".cf-loader").addClass('hidden');
+            }
+        });
+    }
+    
+    
+}
+
+function validateBuildingName(obj,buildingId)
+{
+    $(".cf-loader").removeClass('hidden');
+    $.ajax({
+        url: "/admin/building/validatebuildingname",
+        type: "POST",
+        data: {
+            name: obj.value,
+            project_id: PROJECTID,
+            building_id: buildingId
+        },
+        dataType: "JSON",
+        success: function (response) {
+            if (!response.data)
+                $(obj).val('');
+
+            $(".cf-loader").addClass('hidden');
+        }
+    });
+}
+
+function validateEmail(obj, userId)
 {
     $(obj).closest(".form-group").find(".cf-loader").removeClass('hidden');
     $.ajax({
@@ -43,7 +116,7 @@ function validateEmail(obj,userId)
     });
 }
 
-function validateUserPassword(obj,userId)
+function validateUserPassword(obj, userId)
 {
     $(obj).closest(".form-group").find(".cf-loader").removeClass('hidden');
     $.ajax({
@@ -63,112 +136,6 @@ function validateUserPassword(obj,userId)
     });
 }
 
-function addRoomtype(project_id)
-{
-    var roomtypename = $("#roomtype").val();
-    if (roomtypename.trim() == '')
-    {
-        alert('Enter Room Type Name');
-        return false;
-    }
-
-    $("#loader").show();
-    $.ajax({
-        url: "/admin/project/" + project_id + "/roomtype",
-        type: "POST",
-        data: {
-            project_id: project_id,
-            roomtypename: roomtypename
-        },
-        dataType: "JSON",
-        success: function (response) {
-            var roomtypeId = response.data.roomtype_id;
-
-            var str = '<form name="frmroomtype_' + roomtypeId + '" id="frmroomtype_' + roomtypeId + '">';
-            str += '<div class="b-grey b-t b-b b-l b-r p-t-10 p-r-15 p-l-15 p-b-15 m-b-10 text-grey">';
-            str += '<div class = "form-inline m-b-10 m-t-10" >';
-            str += '<div class = "form-group" ><label>Room Name</label>';
-            str += '<input type = "text" name = "room_typename_' + roomtypeId + '" class = "form-control" value = "' + roomtypename + '" >';
-            str += '</div>';
-            str += '</div>';
-            str += '<div class="row">';
-            str += '<div class="col-md-3">';
-            str += '<div class="form-group">';
-            str += '<label class="form-label">Attribute Name</label>';
-            str += '<i class="fa fa-question-circle " data-toggle="tooltip" data-placement="right" title="Attributes Name will be the specification for each room type for example (Area, Length * Width, etc)."></i>';
-            str += '</div>';
-            str += '</div>';
-            str += '<div class="col-md-4">';
-            str += '<div class="form-inline">';
-            str += '<div class="form-group full-width">';
-            str += '<label class="form-label">Control Type</label>';
-            str += '<i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="The selected control type will be available as input on the Variant page."></i>';
-            str += '</div>';
-            str += '</div>';
-            str += '</div>';
-            str += '<div class="col-md-5" id="controltype_values_{{$roomtypeId}}">';
-            str += '<div class="form-inline">';
-            str += '<div class="form-group">';
-            str += '<label class="form-label">Default Values</label></div>';
-            str += '</div>';
-            str += '</div>';
-            str += '</div>';
-
-            str += '<div class = "row" >';
-            str += '<div class = "col-md-3" >';
-            str += '<div class = "form-group" >';
-            str += '<div class = "" >';
-            str += '<input type = "text" name = "attribute_name_' + roomtypeId + '" class = "form-control" placeholder ="Enter Attribute Name">';
-            str += '<input type = "hidden" name = "attribute_id_' + roomtypeId + '" value = "" >';
-            str += ' </div>';
-            str += '</div>';
-            str += '</div>';
-            str += '<div class = "col-md-4" >';
-            str += '<div class = "form-inline" >';
-            str += '<div class = "form-group full-width" >';
-            str += '<select name = "controltype_' + roomtypeId + '" onchange="defaultBlock(this.value,\'' + roomtypeId + '\')" class="full-width">';
-            str += '<option value = "" >Select Controls Type</option>';
-            str += '<option value = "textbox" > Text Box </option>';
-            str += '<option value = "textarea" > Textarea </option>';
-            str += '<option value = "select" > Select Box </option>';
-            str += '<option value = "multiple" > Multiple Select Box </option>';
-            str += '<option value = "number" > Number </option>';
-            str += '</select>';
-
-            str += '</div>';
-            str += '</div>';
-            str += '</div>';
-            str += '<div class = "col-md-5" id = "controltype_values_' + roomtypeId + '">';
-            str += '<div class = "form-group" >';
-            str += '<div class="col-lg-8 col-md-7">';
-            str += '<input type="text" name= "controltypevalues_' + roomtypeId + '" data-role="tagsinput" class="tags" >';
-            str += '</div>';
-            str += '<div class="col-lg-4 col-md-5">';
-            str += ' <button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes(\'' + roomtypeId + '\',this)"> <i class="fa fa-plus"></i> Add New</button>';
-            str += '</div>';
-            str += '</div>';
-            str += '</div>';
-            str += '</div>';
-            str += '<div class = "row" id="addroomtypeattributeblock_' + roomtypeId + '">';
-            str += '<div class = "col-md-12" >';
-            str += '<div class = "text-right" >';
-            str += ' <button type="button" class = "btn btn-small btn-primary" onclick="saveRoomypeattribute(' + project_id + ',' + roomtypeId + ',\'room_type\');" > <i class = "fa fa-save" > </i> Save</button>';
-            str += ' <button type="button" class = "btn btn-small btn-default" onclick="deleteRoomType(' + project_id + ',' + roomtypeId + ');" > <i class = "fa fa-trash" > </i> Delete</button >';
-            str += '<div class="cf-loader" id="loader_' + roomtypeId + '" style="display:none" ></div>';
-            str += '</div>';
-            str += '</div>';
-            str += '</div>';
-            str += '</div> ';
-            str += '</form> ';
-
-            $("#addroomtypeblock").before(str);
-            $("#roomtype").val('');
-            $("select").select2();
-            $(".tags").tagsinput("");
-            $("#loader").hide();
-        }
-    });
-}
 
 function deleteRoomType(project_id, roomtypeId)
 {
@@ -185,9 +152,9 @@ function deleteRoomType(project_id, roomtypeId)
     });
 }
 
-function addRoomtypeAttributes(roomtypeId, obj)
+function addAttributes(keyId, obj)
 {
-    var attributename = $(obj).closest('.row').find('input[name="attribute_name_' + roomtypeId + '"]').val();
+    var attributename = $(obj).closest('.row').find('input[name="attribute_name_' + keyId + '[]"]').val();
 
     if (attributename.trim() == '')
     {
@@ -195,60 +162,61 @@ function addRoomtypeAttributes(roomtypeId, obj)
         return false;
     }
 
-    var control_type = $(obj).closest('.row').find('select[name="controltype_' + roomtypeId + '"]').val();
+    var control_type = $(obj).closest('.row').find('select[name="controltype_' + keyId + '[]"]').val();
     if (control_type.trim() == '')
     {
         alert('Select Control Type');
         return false;
     }
 
-    var defaultval = $(obj).closest('.row').find('input[name="controltypevalues_' + roomtypeId + '"]').val();
+    var defaultval = $(obj).closest('.row').find('input[name="controltypevalues_' + keyId + '[]"]').val();
     if ((control_type.trim() == 'select' || control_type.trim() == 'multiple') && (defaultval.trim() == ''))
     {
         alert('Enter Default Values');
         return false;
     }
-
-    var str = '<div class = "row" >';
-    str += '<div class = "col-md-3" >';
-    str += '<div class = "form-group" >';
-    str += '<div class = "" >';
-    str += '<input type = "text" name = "attribute_name_' + roomtypeId + '" class = "form-control" placeholder ="Enter Attribute Name">';
-    str += '<input type = "hidden" name = "attribute_id_' + roomtypeId + '" value = "" >';
-    str += ' </div>';
+  
+    var str = '<div class="row">';
+    str += '<div class="col-md-12">';
+    str += '<div class="add-unit">';
+    str += '<div class="p-t-8 p-t-10">';
+    str += '<div class="col-xs-4">';
+    str += '<input type="text" name = "attribute_name_' + keyId + '[]" class="form-control" placeholder="Enter Attribute Name">';
+    str += '<input type="hidden" name = "attribute_id_' + keyId + '[]" value="">';
     str += '</div>';
-    str += '</div>';
-    str += '<div class = "col-md-4" >';
-    str += '<div class = "form-inline" >';
-    str += '<div class = "form-group full-width" >';
-    str += '<select name = "controltype_' + roomtypeId + '" onchange="defaultBlock(this.value,\'' + roomtypeId + '\')" class="full-width" >';
-    str += '<option value = "" >Select Controls  Type</option>';
-    str += '<option value = "textbox" > Text Box </option>';
-    str += '<option value = "textarea" > Textarea </option>';
-    str += '<option value = "select" > Select Box </option>';
-    str += '<option value = "multiple" > Multiple Select Box </option>';
-    str += '<option value = "number" > Number </option>';
+    str += '<div class="col-xs-4">';
+    str += '<select name = "controltype_' + keyId + '[]"  class="select2-container select2 form-control" >';
+    str += '<option value="">Select Control Type</option>';
+    str += '<option value="textbox" > Text Box</option>';
+    str += '<option value="select" >Select Box</option>';
+    str += '<option value="multiple" > Multiple Select Box</option>';
+    str += '<option value="number"> Number </option>';
     str += '</select>';
+    str += '</div>';
+    str += '<div class="col-xs-4 controlvalue">';
+    str += '<input type="text"  name= "controltypevalues_' + keyId + '[]" data-role="tagsinput" class="tags">';
+    str += '</div>';
+    str += '</div>';
+    str += '<div class="text-right">';
+    str += '<a class="btn btn-link"  onclick="addAttributes(\'' + keyId + '\',this)">Add Attribute</a>';
+    str += '</div>';
+    str += '</div>';
+    str += '</div>';
+    str += '</div>';
+    
+    var delstr = '<div class="col-xs-1 text-right">';
+    delstr += '<a class="text-primary" onclick="deleteAttribute(' + PROJECTID + ',0,this);"><i class="fa fa-close"></i></a>';
+    delstr += '</div>';
 
-    str += '</div>';
-    str += '</div>';
-    str += '</div>';
-    str += '<div class = "col-md-5" id = "controltype_values_' + roomtypeId + '" >';
-
-    str += '<div class = "form-group" >';
-    str += '<div class="col-lg-8 col-md-7">';
-    str += '<input type="text" name= "controltypevalues_' + roomtypeId + '" data-role="tagsinput" class="tags" >';
-    str += '</div>';
-    str += '<div class="col-lg-4 col-md-5">';
-    str += ' <button type="button" class = "btn btn-white" onclick="addRoomtypeAttributes(\'' + roomtypeId + '\',this)"> <i class="fa fa-plus"></i> Add New</button>';
-    str += '</div>';
-    str += '</div>';
-    str += '</div>';
-    str += '</div>';
-
-
-    $("#addroomtypeattributeblock_" + roomtypeId).before(str);
-    $(obj).hide();
+    $(obj).closest('.row').find('.text-right').hide();
+    $(obj).closest('.row').find('.col-md-12').removeClass('col-md-12');
+    $(obj).closest('.row').find('.add-unit').removeClass('add-unit');
+    $(obj).closest('.row').find('.p-t-8').removeClass('p-t-8 p-t-10');
+    $(obj).closest('.row').find('.controlvalue').addClass('col-xs-3').removeClass('col-xs-4');
+    $(obj).closest('.row').addClass('m-b-10');
+     $(obj).closest('.row').find('.controlvalue').after(delstr);
+    $(obj).closest('.row').after(str);
+    $(obj).select2('val', '');
     $("select").select2();
     $(".tags").tagsinput("");
 
@@ -272,145 +240,96 @@ function saveRoomypeattribute(project_id, roomtypeId, reffrence_type)
 }
 
 
-function deleteRoomTypeAttribute(project_id, attributeId)
+function deleteAttribute(project_id, attributeId, obj)
 {
-    if (confirm('Are you sure you want to delete this room type attribute?') === false) {
+    if (confirm('Are you sure you want to delete this attribute?') === false) {
         return;
     }
-
-    $.ajax({
-        url: "/admin/project/" + project_id + "/roomtype/" + attributeId + "/deleteroomtypeattributes",
-        type: "DELETE",
-        success: function (response) {
-            $("#roomtypeattribute_" + attributeId).remove();
-        }
-    });
+    if (attributeId)
+    {
+        $.ajax({
+            url: "/admin/project/" + project_id + "/roomtype/" + attributeId + "/deleteattribute",
+            type: "DELETE",
+            success: function (response) {
+                $(obj).closest('.row').remove();
+            }
+        });
+    }
+    else
+    {
+        $(obj).closest('.row').remove();
+    }
 }
-
-
-
-function defaultBlock(value, refId)
+ 
+function getRoomTypeAttributes(obj, level)
 {
-    /* if(value=='select'|| value=='multiple')
-     $("#controltype_values_"+refId).show();
-     else
-     $("#controltype_values_"+refId).hide(); */
-}
-
-function saveRoomdetails(project_id, variantId)
-{
-    $.ajax({
-        url: BASEURL + "/admin/project/" + project_id + "/bunglow-variant/" + variantId + "/roomtypeattributes",
-        type: "POST",
-        data: $("#formroomdetails").serializeArray(),
-        success: function (response) {
-            window.location.reload();
-        }
-    });
-}
-
-function addFloorLevel(variantId)
-{
-    var counter = $("#counter").val();
-    var i = parseInt(counter) + 1;
-    var str = '';
-
-    str += '';
-    str += '<div class="col-sm-12" id="levelblock_' + i + '"> ';
-    str += '<div class="row">';
-    str += '<div class="col-sm-12">';
-    str += '<div class="form-group">';
-    str += '<h3>Level ' + i + '</h3>';
-    str += '<input type="hidden" name="floorlevel[]" value="' + i + '">';
-    str += '</div> ';
-    str += '</div> ';
-    str += '</div>';
+    var roomId = $(obj).closest('.add-unit').find('select').val();
+    var flag =true;
+    if(!roomId)
+    {
+        alert("Select Room Type");
+        return false;
+    }
     
-    str += '<div class="room-block">';
-    str += '<div class="form-group">';
-    str += '<div class="row">';
-    str += '<div class="col-md-4">';
-    str += ' <input type="hidden" name="variantroomid_' + i + '[]" value="">';
-    str += '<select name="room_name_' + i + '[]" class="select2 form-control" onchange="getRoomTypeAttributes(this,' + variantId + ',' + i + ');">';
-    str += '<option value="">Select Room</option>';
-    str += ROOMTYPES;
-    str += '</select>';
-    str += '</div>';
-    str += '<div class="col-md-8">';                        
-    str += ' <button type="button" onclick="addRoomAttributes(' + i + ',this,' + variantId + ')" class="btn btn-white"><i class="fa fa-plus"></i></button>';
-    str += '</div> ';
-    str += '</div> ';
-    str += '</div> ';
-    str += '</div> ';
-    str += '<div>';
-    
-    str += '<div></div><hr/>';
-    str += '</div> ';
-
-    $("#addFloorlevel").before(str);
-    $("select").select2();
-    $("#counter").val(i);
-}
-
-function getRoomTypeAttributes(obj, variantId, level)
-{
+    $(obj).closest('.grid-body').find('input[name="room_id['+level+'][]"]').each(function () { 
+             if($(this).val()== roomId)
+            {
+                 alert('Room Type Already Selected');
+                 $(obj).closest('.add-unit').find('select').select2('val', '');
+                 flag= false;
+                 
+            }
+        });
+   if(flag)
+   {
     $.ajax({
-        url: BASEURL + "/admin/project/" + PROJECTID + "/bunglow-variant/" + variantId + "/getroomtypeattributes",
+        url: BASEURL + "/admin/project/" + PROJECTID + "/roomtype/" + roomId + "/getroomtypeattributes",
         type: "POST",
         data: {
-            roomtype_id: obj.value,
             level: level,
+            type :"add",
         },
         success: function (response) {
-            var attribute_str = response.data.attributes;
-            $(obj).closest('.room-block').next('div').html(attribute_str);
+            var attribute_str = response.data.attributes; 
+            $(obj).closest('.grid-body').find('.room_attributes_block').append(attribute_str);
+            $(obj).closest('.add-unit').find('select').select2('val', '');
             $("select").select2();
         }
     });
-
+    }
 
 }
 
-function addRoomAttributes(level, obj, variantId)
+function updateRoomAttributes()
 {
-    var room_type = $(obj).closest('.room-block').find('select[name="room_name_' + level + '[]"]').val();
-    if (room_type.trim() == '')
-    {
-        alert('Select Room Type');
-        return false;
-    }
-    var str = '';
-
-    str += '<div class="room-block">';
-    str += '<div class="form-group"><label class="form-label">Room Name</label>';
-    str += '<div class="row  m-b-5">';
-    str += '<div class="col-md-4">';
-    str += ' <input type="hidden" name="variantroomid_' + level + '[]" value="">';
-    str += '<select name="room_name_' + level + '[]" class="select2 form-control" onchange="getRoomTypeAttributes(this,' + variantId + ',' + level + ');">';
-    str += '<option value="">Select Room</option>';
-    str += ROOMTYPES;
-    str += '</select>';
-    str += '</div>';
-    str += '<div class="col-md-8">';                        
-    str += ' <button type="button" onclick="addRoomAttributes(' + level + ',this,' + variantId + ')" class="btn btn-white"><i class="fa fa-plus"></i></button>';
-    str += '</div> ';
-    str += '</div> ';
-    str += '</div> ';
-    str += '</div> ';
-    str += '<div>';
-    str += '</div><hr/>';
-    str += '<div>';
-
-    $(obj).hide();
-    $("#levelblock_" + level).append(str);
-    $("select").select2();
+   var level =window.parent.$("#roomtypeiframe").attr("level");  
+   var roomid = window.parent.$("#roomtypeiframe").attr("roomid");
+ 
+   $("#level_"+level).find('select[name="room_type[]"]').val(roomid);
+   
+   $.ajax({
+        url: BASEURL + "/admin/project/" + PROJECTID + "/roomtype/" + roomid + "/getroomtypeattributes",
+        type: "POST",
+        data: {
+            level: level,
+            type :"edit",
+        },
+        success: function (response) {
+            var attribute_str = response.data.attributes; 
+            var variantRoomId = $('.roomattribute_'+level+'_'+roomid).find('input[name="variantroomid[]"]').val();
+            window.parent.$('.roomattribute_'+level+'_'+roomid).html(attribute_str);
+            window.parent.$('.roomattribute_'+level+'_'+roomid).find('input[name="variantroomid[]"]').val(variantRoomId);
+            $("select").select2();
+        }
+    });
 }
 
 function setUpProjectMasterUploader() {
 
     var objectType = $('div.object-master-images').attr('data-object-type');
     var objectId = $('div.object-master-images').attr('data-object-id');
-
+    var authtool_permission = $('div.object-master-images').attr('data-object-id');
+    
     var master_uploader = new plupload.Uploader({
         runtimes: 'html5,flash,silverlight,html4',
         browse_button: 'master_pickfiles', // you can pass in id...
@@ -431,55 +350,69 @@ function setUpProjectMasterUploader() {
                     extensions: "jpg,png,jpeg"
                 }]
         },
-        FilesAdded: function (up, files) {
-            alert(files.length)
-        },
         init: {
             PostInit: function () {
-                document.getElementById('master_uploadfiles').onclick = function () {
-                    master_uploader.start();
-                    return false;
-                };
+                /* document.getElementById('master_uploadfiles').onclick = function () {
+                 master_uploader.start();
+                 return false;
+                 };*/
             },
             FilesAdded: function (up, files) {
+                up.start();
 
-                $("#master_uploadfiles").next("div.selectedImages").html('<strong class="col-md-12">' + files.length + ' image selected. Click on upload button to start upload.<div class="cf-loader"></div></strong>');
-                $("#master_uploadfiles").removeClass('hidden');
+                for (var i = 0; i < files.length; i++)
+                {
+                    var fileName = files[i].name;
+                    var fileData = fileName.split('.');
+                    var fileData_1 = fileData[0].split('-');
+                    var position = fileData_1[1];
+
+                    var load_newstr = '';
+                    var load_str = '<td>';
+                    load_str += '<div class="progress progress-small " style="margin:0;">';
+                    load_str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="20%" style="width: 20%;margin:0;"></div>';
+                    load_str += '</div>';
+                    load_str += '</td>';
+                    load_str += '<td class=" "><span class="muted"></span></td>';
+                    load_str += '<td class=" ">';
+                    load_str += '</td>';
+                    load_str += '<td class=" ">';
+                    load_str += '</td>';
+                    load_str += '<td class="text-right">';
+                    load_str += '<a class="text-primary" href="#"><i class="fa fa-close"></i></a>';
+                    load_str += '</td>';
+
+                    if ($('#position-' + position).length != 0) {
+                        $('#position-' + position).html(load_str);
+                    }
+                    else
+                    {
+                        load_newstr += '<tr class="" id="position-' + position + '">';
+                        load_newstr += load_str;
+                        load_newstr += '</tr>';
+                        $("#master-img").append(load_newstr);
+                    }
+                    $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="50%" style="width: 50%;margin:0;"></div>');
+                    $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="70%" style="width: 70%;margin:0;"></div>');
+
+                }
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
                 var str = newstr = '';
+                $('#position-' + fileResponse.data.position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="90%" style="width: 90%;margin:0;"></div>');
 
-                str += '<div class="col-md-4">';
-                str += '<img src="' + fileResponse.data.image_path + '" style="width:150px;height:90px;" class="img-thumbnail">';
+                str += '<td>' + fileResponse.data.filename + '</td>';
+                str += '<td class=""><span class="muted">' + fileResponse.data.position + '</span></td>';
+                str += '<td class=""><div class="checkbox check-primary" ><input id="checkbox' + fileResponse.data.position + '" name="position[]" type="checkbox" value="' + fileResponse.data.position + '"><label for="checkbox' + fileResponse.data.position + '"></label></td>';
+                str += '<td><a class="hidden">Authoring Tool</a></td>';
+                str += '<td class="text-right">';
+                str += '<a class="text-primary" onclick="deleteSvg(' + fileResponse.data.media_id + ',\'master\',\'' + fileResponse.data.position + '\');" ><i class="fa fa-close"></i></a>';
+                str += '</td>';
 
-                str += '<h4><small class="m-l-30">' + fileResponse.data.filename + '</small></h4>';
-                str += '</div>';
-                str += '<div class="col-md-4">';
-                str += '<h4>' + fileResponse.data.position + '</h4>';
-                str += '</div>';
-                str += '<div class="col-md-4">';
-                str += '<input  name="position[]" type="checkbox" value="' + fileResponse.data.position + '" data-toggle="toggle">';
-                str += '<button onclick="deleteSvg(' + fileResponse.data.media_id + ',\'master\',\'' + fileResponse.data.position + '\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>';
-                str += '</div>';
+                $('#position-' + fileResponse.data.position).html(str);
 
 
-                if ($('#position-' + fileResponse.data.position).length != 0) {
-
-                    $('#position-' + fileResponse.data.position).html(str);
-                }
-                else
-                {
-                    newstr += '<div class="row" id="position-' + fileResponse.data.position + '">';
-                    newstr += str;
-                    newstr += '</div>';
-                    newstr += '<hr/>';
-                    $("#master-img").append(newstr);
-                }
-
-                $("#master_uploadfiles").next("div.selectedImages").html('');
-                $("#master_uploadfiles").addClass('hidden');
-                $('input[name="position[]"]').bootstrapToggle();
             }
         }
     });
@@ -488,105 +421,156 @@ function setUpProjectMasterUploader() {
 
 }
 
-function setUpFloorLevelUploader() {
+function addFloorLevelUploader(level) { 
 
-    if (FLOORLEVELS.length === 0)
-        return false;
-
-    $.each(FLOORLEVELS, function (index, value) {
-
-        var uploader2d = new plupload.Uploader({
-            runtimes: 'html5,flash,silverlight,html4',
-            browse_button: 'pickfiles_2d_' + value, // you can pass in id...
-            url: '/admin/variant/' + variantId + '/media',
-            flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
-            silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
-            headers: {
-                "x-csrf-token": $("[name=_token]").val()
+    var selectBtnId_2d = 'pickfiles_' + level + '_2d';
+    var selectBtnId_3d = 'pickfiles_' + level + '_3d'; 
+    
+    var uploader_2d = new plupload.Uploader({
+        runtimes: 'html5,flash,silverlight,html4',
+        browse_button: selectBtnId_2d, // you can pass in id...
+        url: '/admin/variant/' + variantId + '/media',
+        flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+        silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+        headers: {
+            "x-csrf-token": $("[name=_token]").val()
+        },
+        multipart_params: {
+            "level": level,
+            "layout": "2d",
+            "projectId": PROJECTID
+        },
+        filters: {
+            max_file_size: '10mb',
+            mime_types: [{
+                    title: "Image files",
+                    extensions: "svg,jpg,png,jpeg"
+                }]
+        },
+        init: {
+            PostInit: function () {
+                /* document.getElementById('uploadfiles').onclick = function () {
+                 uploader.start();
+                 return false;
+                 };*/
             },
-            multipart_params: {
-                "level": value,
-                "layout": "2d",
-                "projectId": PROJECTID
-            },
-            filters: {
-                max_file_size: '10mb',
-                mime_types: [{
-                        title: "Image files",
-                        extensions: "svg,jpg,png,jpeg"
-                    }]
-            },
-            init: {
-                PostInit: function () {
-                    document.getElementById('uploadfiles_2d_' + value).onclick = function () {
-                        uploader2d.start();
-                        return false;
-                    };
-                },
-                FilesAdded: function (up, files) {
+            FilesAdded: function (up, files) {
+                var str = ' ';
+                str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
+                str += '<div style="  width: 150px;height: 93px;"></div>';
+                str += '<div class="progress progress-small " style="margin:0;">';
+                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
+                str += '</div>';
+                str += '</div>';
+                str += ' ';
+                $("#2d_" + level + "_image").html(str);
+                up.start();
 
-                    $('#uploadfiles_2d_' + value).next("div.selectedImages").html('<strong class="col-md-12">' + files.length + ' image selected. Click on upload button to start upload.<div class="cf-loader"></div></strong>');
-                    $('#uploadfiles_2d_' + value).removeClass('hidden');
-                },
-                FileUploaded: function (up, file, xhr) {
-                    fileResponse = JSON.parse(xhr.response);
-                    $("#2dlayout_" + value).html('<img src="' + fileResponse.data.image_path + '" class="img-responsive img-thumbnail"> <button onclick="deleteLayout(' + fileResponse.data.media_id + '\'2d\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
-                    $('#uploadfiles_2d_' + value).next("div.selectedImages").html('');
-                    $('#uploadfiles_2d_' + value).addClass('hidden');
-                }
+
+
+            },
+            FileUploaded: function (up, file, xhr) {
+                fileResponse = JSON.parse(xhr.response);
+
+                var str = ' ';
+                str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay" onclick="deleteLayout(' + fileResponse.data.media_id + ',\'2d\');"><i class="fa fa-close text-primary"></i></a>';
+                str += '<img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="' + fileResponse.data.image_path + '" />';
+                str += '</div>';
+                str += '</div>';
+            
+
+                $("#2d_" + level + "_image").html(str);
+                if(!variantId)
+                    $("#image_" + level + "_2d_id").val(fileResponse.data.media_id);
+
             }
-        });
-        uploader2d.init();
-
-        var uploader3d = new plupload.Uploader({
-            runtimes: 'html5,flash,silverlight,html4',
-            browse_button: 'pickfiles_3d_' + value, // you can pass in id...
-            url: '/admin/variant/' + variantId + '/media',
-            flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
-            silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
-            headers: {
-                "x-csrf-token": $("[name=_token]").val()
-            },
-            multipart_params: {
-                "level": value,
-                "layout": "3d",
-                "projectId": PROJECTID
-            },
-            filters: {
-                max_file_size: '10mb',
-                mime_types: [{
-                        title: "Image files",
-                        extensions: "svg,jpg,png,jpeg"
-                    }]
-            },
-            init: {
-                PostInit: function () {
-                    document.getElementById('uploadfiles_3d_' + value).onclick = function () {
-                        uploader3d.start();
-                        return false;
-                    };
-                },
-                FilesAdded: function (up, files) {
-
-                    $('#uploadfiles_3d_' + value).next("div.selectedImages").html('<strong class="col-md-12">' + files.length + ' image selected. Click on upload button to start upload.<div class="cf-loader"></div></strong>');
-                    $('#uploadfiles_3d_' + value).removeClass('hidden');
-                },
-                FileUploaded: function (up, file, xhr) {
-                    fileResponse = JSON.parse(xhr.response);
-                    $("#3dlayout_" + value).html('<img src="' + fileResponse.data.image_path + '" class="img-responsive img-thumbnail">  <button onclick="deleteLayout(' + fileResponse.data.media_id + '\'3d\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
-                    $('#uploadfiles_3d_' + value).next("div.selectedImages").html('');
-                    $('#uploadfiles_3d_' + value).addClass('hidden');
-                }
-            }
-        });
-        uploader3d.init();
-
+        }
     });
+    uploader_2d.init();
+    
+    
+    var uploader_3d = new plupload.Uploader({
+        runtimes: 'html5,flash,silverlight,html4',
+        browse_button: selectBtnId_3d, // you can pass in id...
+        url: '/admin/variant/' + variantId + '/media',
+        flash_swf_url: '/bower_components/plupload/js/Moxie.swf',
+        silverlight_xap_url: '/bower_components/plupload/js/Moxie.xap',
+        headers: {
+            "x-csrf-token": $("[name=_token]").val()
+        },
+        multipart_params: {
+            "level": level,
+            "layout": "3d",
+            "projectId": PROJECTID
+        },
+        filters: {
+            max_file_size: '10mb',
+            mime_types: [{
+                    title: "Image files",
+                    extensions: "svg,jpg,png,jpeg"
+                }]
+        },
+        init: {
+            PostInit: function () {
+                /* document.getElementById('uploadfiles').onclick = function () {
+                 uploader.start();
+                 return false;
+                 };*/
+            },
+            FilesAdded: function (up, files) {
+                var str = ' ';
+                str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
+                str += '<div style="  width: 150px;height: 93px;"></div>';
+                str += '<div class="progress progress-small " style="margin:0;">';
+                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
+                str += '</div>';
+                str += '</div>';
+                str += ' ';
+                $("#3d_" + level + "_image").html(str);
+                up.start();
+
+
+
+            },
+            FileUploaded: function (up, file, xhr) {
+                fileResponse = JSON.parse(xhr.response);
+
+                var str = ' ';
+                str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay" onclick="deleteLayout(' + fileResponse.data.media_id + ',\'3d\');"><i class="fa fa-close text-primary"></i></a>';
+                str += '<img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="' + fileResponse.data.image_path + '"   />';
+                str += '</div>';
+                str += '</div>';
+             
+
+                $("#3d_" + level + "_image").html(str);
+                if(!variantId)
+                    $("#image_" + level + "_3d_id").val(fileResponse.data.media_id)
+            }
+        }
+    });
+    uploader_3d.init();
+
 
 }
+function setUpFloorLevelUploader()
+{  
+     if (FLOORLEVELS.length === 0)
+        return false;
+
+    $.each(FLOORLEVELS, function (index, value) { 
+        addFloorLevelUploader(value);
+    });
+        
+}
+
 
 function deleteLayout(mediaId, type)
 {
+
     if (confirm('Are you sure you want to delete this media file? ') === false) {
         return;
     }
@@ -666,10 +650,11 @@ function setUpFloorLayoutUploader() {
 }
 
 $(document).ready(function () {
-
+ 
     setUpProjectMasterUploader()
     setUpFloorLevelUploader()
     setUpFloorLayoutUploader()
+
 
     var uploader = new plupload.Uploader({
         runtimes: 'html5,flash,silverlight,html4',
@@ -687,26 +672,51 @@ $(document).ready(function () {
             max_file_size: '10mb',
             mime_types: [{
                     title: "Image files",
-                    extensions: "svg"
+                    extensions: "jpg,png,jpeg"
                 }]
         },
         init: {
             PostInit: function () {
-                document.getElementById('uploadfiles').onclick = function () {
-                    uploader.start();
-                    return false;
-                };
+                /* document.getElementById('uploadfiles').onclick = function () {
+                 uploader.start();
+                 return false;
+                 };*/
             },
             FilesAdded: function (up, files) {
+                var str = '<div class="col-md-3">';
+                str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
+                str += '<div style="  width: 150px;height: 93px;"></div>';
+                str += '<div class="progress progress-small " style="margin:0;">';
+                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
+                str += '</div>';
+                str += '<div class="dz-size" data-dz-size="">' + files[0].name + '</div>';
+                str += '</div>';
+                str += '</div>';
+                $("#google_earth_image").html(str);
+                up.start();
 
-                $("#uploadfiles").next("div.selectedImages").html('<strong class="col-md-12">' + files.length + ' svg selected. Click on upload button to start upload.<div class="cf-loader"></div></strong>');
-                $("#uploadfiles").removeClass('hidden');
+
+
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
-                $("#project_googleearth_image").html('<object width="150" id="svg1" data="' + fileResponse.data.image_path + '" type="image/svg+xml" /> <button onclick="deleteSvg(' + fileResponse.data.media_id + ',\'google_earth\',\'\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
-                $("#uploadfiles").next("div.selectedImages").html('');
-                $("#uploadfiles").addClass('hidden');
+                var authtool = $('div.userauth').attr('date-user-auth');
+
+                var str = '<div class="col-md-3">';
+                str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay" onclick="deleteSvg(' + fileResponse.data.media_id + ',\'google_earth\',\'\');"><i class="fa fa-close text-primary"></i></a>';
+                str += '<img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="' + fileResponse.data.image_path + '"   />';
+                str += '<div class="dz-size" data-dz-size=""><strong></strong>' + fileResponse.data.filename + '</div>';
+                str += '</div>';
+                str += '</div>';
+                str += '<div class="col-md-3">';
+                str += (authtool=='1')?'<h5 class="semi-bold">To use the Authoring Tool<a href="image/'+fileResponse.data.media_id+'/authoring-tool?&type=google_earth" target="_blank" class="text-primary"> click here</a></h5>':'';
+                str += '</div>';
+
+
+                $("#google_earth_image").html(str);
+
             }
         }
     });
@@ -778,21 +788,37 @@ $(document).ready(function () {
         },
         init: {
             PostInit: function () {
-                document.getElementById('uploadfiles_ext3d').onclick = function () {
-                    uploader_ext3d.start();
-                    return false;
-                };
+                
             },
             FilesAdded: function (up, files) {
-
-                $('#uploadfiles_ext3d').next("div.selectedImages").html('<strong class="col-md-12">' + files.length + ' image selected. Click on upload button to start upload.<div class="cf-loader"></div></strong>');
-                $('#uploadfiles_ext3d').removeClass('hidden');
+                var str = '<div class="col-md-3">';
+                str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
+                str += '<div style="  width: 150px;height: 93px;"></div>';
+                str += '<div class="progress progress-small " style="margin:0;">';
+                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
+                str += '</div>';
+                  str += '</div>';
+                str += '</div>';
+                $("#google_earth_image").html(str);
+                up.start();
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
-                $("#ext3dlayout").html('<img src="' + fileResponse.data.image_path + '" class="img-responsive img-thumbnail">  <button onclick="deleteLayout(' + fileResponse.data.media_id + '\'external\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>');
-                $('#uploadfiles_ext3d').next("div.selectedImages").html('');
-                $('#uploadfiles_ext3d').addClass('hidden');
+
+                var str = '<div class="col-md-3">';
+                str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay" onclick="deleteLayout(' + fileResponse.data.media_id + ',\'external\');"><i class="fa fa-close text-primary"></i></a>';
+                str += '<img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="' + fileResponse.data.image_path + '"   />';
+                str += '</div>';
+                str += '</div>';
+                str += '<div class="col-md-3">'; 
+                str += '</div>';
+
+
+                $("#3d_external_img").html(str);
+                if(!variantId)
+                    $("#image_external_3d_id").val(fileResponse.data.media_id)
             }
         }
     });
@@ -816,28 +842,41 @@ $(document).ready(function () {
             max_file_size: '10mb',
             mime_types: [{
                     title: "Image files",
-                    extensions: "svg,jpg,png,jpeg"
+                    extensions: "jpg,png,jpeg"
                 }]
         },
         init: {
             PostInit: function () {
-                document.getElementById('uploadfiles_gallery').onclick = function () {
-                    uploader_gallery.start();
-                    return false;
-                };
+                 
             },
             FilesAdded: function (up, files) {
-
-                $('#uploadfiles_gallery').next("div.selectedImages").html('<strong class="col-md-12">' + files.length + ' image selected. Click on upload button to start upload.<div class="cf-loader"></div></strong>');
-                $('#uploadfiles_gallery').removeClass('hidden');
+                var str = '<div class="col-md-3 variant-gallery-image">';
+                str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
+                str += '<div style="  width: 150px;height: 93px;"></div>';
+                str += '<div class="progress progress-small " style="margin:0;">';
+                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
+                str += '</div>';
+                  str += '</div>';
+                str += '</div>';
+                $("#variant_gallery").append(str);
+                 up.start();
+             
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
-                $("#galleryimages").append('<div class="col-sm-3">\n\
-                            <img width="150" height="150" src="' + fileResponse.data.image_path + '" class="img-responsive" ><button onclick="deleteLayout(' + fileResponse.data.media_id + ',\'gallery\');" type="button" class="btn btn-small btn-default m-t-5 pull-right"><i class="fa fa-trash"></i> Delete</button>\n\
-                            </div>');
-                $('#uploadfiles_gallery').next("div.selectedImages").html('');
-                $('#uploadfiles_gallery').addClass('hidden');
+                var str = '<div class="col-md-3">';
+                str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay" onclick="deleteLayout(' + fileResponse.data.media_id + ',\'gallery\');"><i class="fa fa-close text-primary"></i></a>';
+                str += '<img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="' + fileResponse.data.image_path + '"   />';
+                str += '<input type="hidden" name="image_gallery[' + fileResponse.data.media_id + ']" id="image_external_3d_id" value="' + fileResponse.data.media_id + '"> ';
+                str += '</div>';
+                str += '</div>';
+ 
+                $(".variant-gallery-image").remove();
+                $("#variant_gallery").append(str);
+                
+               
 
             }
         }
@@ -858,6 +897,7 @@ function saveBreakPoint()
     });
     var objectType = $('div.object-master-images').attr('data-object-type');
     var objectId = $('div.object-master-images').attr('data-object-id');
+    var objectId = $('div.object-master-images').attr('data-object-id');
     $.ajax({
         url: BASEURL + '/admin/' + objectType + '/' + objectId + '/media/updatebreakpoint',
         type: "POST",
@@ -865,7 +905,18 @@ function saveBreakPoint()
             position: position,
         },
         success: function (response) {
-
+            $('input[name="position[]"]').each(function () {
+                
+                pos = $(this).val();
+                className = ".auth-tool-"+pos;
+                if ($(this).prop('checked')){
+                    $(className).removeClass('hidden');
+                }
+                else{
+                    $(className).addClass('hidden');
+                }
+                
+            });
         }
     });
 }
@@ -893,45 +944,14 @@ function deleteSvg(mediaId, type, refference)
     });
 }
 
-function getPositions(floor)
+function getVariants(obj)
 {
-    var buildingId = $("select[name='building_id']").val();
+    var projectPropertyTypeId = obj.value;
     $.ajax({
-        url: BASEURL + '/admin/project/' + PROJECTID + '/building/' + buildingId + '/getpositions',
+        url: BASEURL + '/admin/project/' + PROJECTID + '/apartment-variant/getunittypevariants',
         type: "POST",
         data: {
-            floor: floor
-        },
-        success: function (response) {
-            var position = parseInt(response.data);
-            var newOptions = [];
-            for (var i = 1; i <= position; i++)
-            {
-                newOptions[i] = i;
-            }
-
-            var $el = $("#flat_position");
-            //$el.val('');
-            $el.empty(); // remove old options
-            $el.append($("<option>Select Position</option>")
-                    .attr("value", ''));
-            $.each(newOptions, function (value, key) {
-                $el.append($("<option></option>")
-                        .attr("value", value).text(key));
-            });
-            $(".select-position").removeClass("hidden");
-        }
-    });
-}
-
-function getVariants(obj, floorLayoutId)
-{
-    var unitTypeId = obj.value;
-    $.ajax({
-        url: BASEURL + '/admin/project/' + PROJECTID + '/floor-layout/' + floorLayoutId + '/getunittypevariants',
-        type: "POST",
-        data: {
-            unit_type_id: unitTypeId
+            projectPropertyTypeId: projectPropertyTypeId
         },
         success: function (response) {
 
@@ -943,8 +963,32 @@ function getVariants(obj, floorLayoutId)
     });
 }
 
-function getPropertTypeData(obj, flag)
+function getPositions(obj)
 {
+    var buildingId = $('select[name="building_id"]').val();
+    var floor = obj.value;
+    $.ajax({
+        url: BASEURL + '/admin/project/' + PROJECTID + '/apartment-unit/getavailableposition',
+        type: "POST",
+        data: {
+            buildingId: buildingId,
+            floor: floor
+        },
+        success: function (response) {
+            
+            
+            var $el = $("#flat_position");
+            $el.select2('val', '');
+            $el.empty(); // remove old options
+            $el.append(response.data);
+             
+
+        }
+    });
+}
+
+function getPropertTypeData(obj, flag)
+{  
     $.ajax({
         url: BASEURL + "/admin/project/" + PROJECTID + "/apartment-variant/getpropertytypedata",
         type: "POST",
@@ -957,9 +1001,39 @@ function getPropertTypeData(obj, flag)
             {
                 //VARIANT CODE
                 $('#property_type_attributes').html(response.data.attributes);
+                
+                $('select[name="unit_type"]').empty();
+                $('select[name="unit_type"]').append('<option value=""> Select Unit Type</option>')
 
                 if (unitTypes.trim() != '')
                     $('select[name="unit_type"]').append(unitTypes);
+                 
+                if($(obj).find(":selected").text()=='Apartments')                        //APARTMENT
+                {
+                   $(".add_level").addClass('hidden');
+                   $("#level_0").find('.grid-title').addClass('hidden');
+                    $('input[name="levels[]"]').each(function () { 
+ 
+                        if($(this).val()!=0)
+                        {
+                            $("#level_"+$(this).val()).addClass('hidden'); 
+                        }
+                    });
+                     
+                }
+                else if($(obj).find(":selected").text()=='Penthouse')                        //PENTHOUSE
+                { 
+                   $(".add_level").removeClass('hidden');
+                    $("#level_0").find('.grid-title').removeClass('hidden');
+                    $('input[name="levels[]"]').each(function () { 
+ 
+                        if($(this).val()!=0)
+                        {
+                            $("#level_"+$(this).val()).removeClass('hidden'); 
+                        }
+                    });
+                    
+                }
             }
             else
             {
@@ -995,8 +1069,249 @@ function addUnitType()
         },
         success: function (response) {
             var unitTypeId = response.data.unitTypeId;
-            $('select[name="unit_type"]').append('<option value="'+unitTypeId+'">'+unitTypeName+'</option>');
+            $('select[name="unit_type"]').append('<option value="' + unitTypeId + '">' + unitTypeName + '</option>');
         }
     });
+
+}
+
+function createUnitType(obj, propertyTypeId)
+{ 
+    var val =$(obj).val();
+    if ( val== 'add_new')
+    {
+
+        if (!$(obj).closest('.unit_type_block').find('input[name="add_new_unit_type"]').length)
+        {
+            var unitTypeId = $(obj).closest('.unit_type_block').find('input[type="hidden"]').val();
+            var html = '<input type="text" name="unittype[' + propertyTypeId + '][]" value="">';
+            html += '<input type="hidden" name="unittypekey[' + propertyTypeId + '][]" value="' + unitTypeId + '">';
+            html += '<input type="hidden" name="unittypecustome[' + propertyTypeId + '][]" value="CUSTOME">';
+            $(obj).closest('.unit_type_block').find('.col-md-10').html(html);
+
+        }
+        else
+        {
+            var html = '<div class="row m-b-10 unit_type_block">';
+            html += '<div class="col-md-10">';
+            html += '<input type="text" name="unittype[' + propertyTypeId + '][]" >';
+            html += '<input type="hidden" name="unittypekey[' + propertyTypeId + '][]" value="">';
+            html += '<input type="hidden" name="unittypecustome[' + propertyTypeId + '][]" value="CUSTOME">';
+            html += '</div>';
+            html += '<div class="col-md-2 text-center">';
+            html += '<a  data-unit-type-id="0" class="text-primary remove-unit-type"><i class="fa fa-close"></i> </a>';
+            html += '</div>';
+            html += '</div>';
+            $(obj).closest('.unit_type_block').before(html);
+            $(obj).val('');
+        }
+
+
+    }
+    else{
+        $(obj).closest('.propertyTypeUnitsAttributes').find('select').each(function () { 
+         
+            if($(obj).get(0)!=$(this).get(0) && $(this).val()==val)
+            {
+                 alert('Unit Type Already Selected');
+ 
+                 $(obj).select2('val', '');
+ 
+                 return false;
+                 
+            }
+        });
+    }
+}
+
+$('input[name="property_types[]"]').change(function (event) {
+    if ($(this).is(':checked'))
+    {
+        $(this).closest('.row').find('.propertyTypeUnitsAttributes').removeClass('hidden');
+        if($(this).closest('.row').find('.attributes_block .defaultAttributes').length)
+        {
+           $(this).closest('.row').find('.attributes_block .defaultAttributes').removeClass('hidden');
+           $(this).closest('.row').find('.attributes_block .defaultAttributes').find('input').prop("disabled", false);
+           $(this).closest('.row').find('.attributes_block .defaultAttributes select').prop("disabled", false);
+        }
+    }
+    else
+    {
+        $(this).closest('.row').find('.propertyTypeUnitsAttributes').addClass('hidden');
+        if($(this).closest('.row').find('.attributes_block .defaultAttributes').length)
+        {
+           $(this).closest('.row').find('.attributes_block .defaultAttributes').addClass('hidden');
+           $(this).closest('.row').find('.attributes_block .defaultAttributes').find('input').prop("disabled", true);
+           $(this).closest('.row').find('.attributes_block .defaultAttributes select').prop("disabled", true);
+        }
+        
+    }
+
+});
+
+function saveVariantConfig()
+{
+    var flag = true;
+    var isApartment=false; 
+     
+    if($('input[name="property_type"]').length || $('select[name="property_type"]').length)
+    {  
+        if($('input[name="property_type"]').attr('data-value')==='Apartments')
+          isApartment=true;
+        else if($('select[name="property_type"]').find(":selected").text()==='Apartments')
+          isApartment=true;
+    }
+    
+    
+
+    $('input[name="levels[]"]').each(function () { 
+         
+        var level = $(this).val(); 
+        if(isApartment && level!=0)
+        {  
+          return false;
+        }
+        
+         var roomId = $(this).closest('.row').find('input[name="room_id['+level+'][]"]').length; 
+        if(roomId==0)
+        {
+ 
+            alert('Select Room Type For Level ' +  level);
+            flag = false;
+        }
+        
+        
+
+    });
+
+     if (flag)
+        $('form').submit(); 
+
+}
+
+function getPhaseData(project_id, phaseId)
+{
+ 
+    $.ajax({
+        url: "/admin/project/" + project_id + "/getphasedata/" + phaseId, 
+        type: "GET",
+        data: {
+ 
+        },
+        success: function (response) {
+            $("#phaseData").html(response.data.html);
+            $('#myModal').modal('show');
+        }
+    });
+}
+
+function getPublishData(project_id)
+{
+ 
+    $.ajax({
+        url: "/admin/project/" + project_id + "/projectpublishdata", 
+        type: "GET",
+        data: {
+ 
+        },
+        success: function (response) {
+            $("#publishData").html(response.data.html);
+            $('#publishModal').modal('show');
+        }
+    });
+}
+
+function updateResponseTable()
+{
+     $.ajax({
+        url: BASEURL + "/api/v1/project/" + PROJECTID + "/update-response-table", 
+        type: "GET",
+        success: function (response) {
+           window.location.reload(); 
+        }
+    });
+
+}
+
+$("input[name=has_phases]:radio").change(function () {
+    var value = $(this).val();
+    $.ajax({
+        url: "/admin/project/" + PROJECTID + "/validateprojectphase", 
+        type: "GET",
+        data: {
+            projectPhase: value,
+        },
+        success: function (response) {
+          if(response.message!='')  
+           alert(response.message);
+        }
+    });
+ 
+});
+
+$("input[name=has_master]:radio").change(function () {
+    var value = $(this).val();
+    if(value == 'yes')
+        $(".dataTables_wrapper").removeClass('hidden');
+    else
+      $(".dataTables_wrapper").addClass('hidden');  
+ 
+});
+
+function openRoomTypeModal(obj, id)
+{
+    if (obj.value == 'add_new')
+    {
+        $('#myModal').modal('show');
+        $('#myModalLabel').text('Add New Room');
+        $("#roomtypeiframe").attr("src", "/admin/project/" + PROJECTID + "/roomtype/create");
+        $(obj).select2('val', '');
+    }
+    else
+    {
+        if (id)
+        {
+            $('#myModalLabel').text('Edit Room');
+            $("#roomtypeiframe").attr("src", "/admin/project/" + PROJECTID + "/roomtype/" + id + "/edit?flag=edit");
+            $(".updateattribute").removeClass("hidden");
+            $('#myModal').modal('show');
+        }
+    }
+
+    var level = $(obj).closest('.row').find('input[name="levels[]"]').val();
+    $("#roomtypeiframe").attr("level", level);
+    $("#roomtypeiframe").attr("roomid", id);
+
+}
+
+function deleteLevel(level)
+{ 
+    var variantLevels =$('input[name="levels[]"]').length; 
+    if(variantLevels == 1)
+    {
+        alert("Variant Should Have Alleast 1 Level");
+        return ;
+    }
+
+    if (confirm('Are you sure you want to delete this Level? ') === false) {
+        return;
+    }
+ 
+    if(variantId){
+        $.ajax({
+        url: BASEURL + "/admin/project/" + PROJECTID + "/bunglow-variant/"+variantId+"/deletelevel",
+        type: "DELETE",
+        data: {
+            level: level,
+        },
+        success: function (response) {
+           $("#level_"+level).remove();
+        }
+        });
+    }
+    else{ 
+        $("#level_"+level).remove();
+    }
+
     
 }

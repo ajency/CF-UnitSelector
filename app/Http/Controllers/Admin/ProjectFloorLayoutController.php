@@ -19,6 +19,7 @@ class ProjectFloorLayoutController extends Controller {
 
     public function __construct( ProjectRepository $projectRepository ) {
         $this->projectRepository = $projectRepository;
+ 
     }
 
     /**
@@ -42,6 +43,7 @@ class ProjectFloorLayoutController extends Controller {
      * @return Response
      */
     public function create( $projectId ) {
+
         $project = $this->projectRepository->getProjectById( $projectId );
         $propertyTypes = $project->projectPropertyTypes()->whereIn( 'property_type_id', [1,4] )->get()->toArray();
         $projectPropertyTypes = [];
@@ -89,6 +91,7 @@ class ProjectFloorLayoutController extends Controller {
      * @return Response
      */
     public function edit( $projectId, $floorLayoutId ) {
+
         $project = $this->projectRepository->getProjectById( $projectId );
         $propertyTypes = $project->projectPropertyTypes()->whereIn( 'property_type_id', [1,4] )->get()->toArray();
         $projectPropertyTypes = [];

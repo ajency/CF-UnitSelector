@@ -7,8 +7,8 @@
     <li><a href="{{ url( 'admin/') }}">Dashboard</a> </li>
     <li><a href="{{ url( 'admin/project/') }}">Projects</a> </li>
     <li><a href="{{ url( 'admin/project/' . $project['id'].'/edit') }}">{{ $project['project_title'] }}</a> </li>
-    <li><a href="#"> Unit</a> </li>
-    <li><a href="#" class="active">View Unit</a> </li>
+    <li><a href="#"> Apartment Unit</a> </li>
+    <li><a href="#" class="active">View Units</a> </li>
 </ul>
 <!-- END BREADCRUMBS -->
 @endsection
@@ -16,19 +16,20 @@
 @section('content')
 <!-- BEGIN PAGE TITLE -->
 <div class="page-title">	
-    <h2><span class="semi-bold">View</span> units</h2>
+    <h2><span class="semi-bold">View</span> Units</h2>
 </div>
 <div class="row">
     <div class="col-md-12">
         <div class="grid simple">
             <div class="grid-title">
-                <h4>List of <span class="semi-bold">Apartment UNits</span></h4>
+                <h4>List of <span class="semi-bold">Units</span></h4>
                 <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/apartment-unit/create') }}" ><i class="fa fa-plus"></i> Add unit</a>
             </div>
             <div class="grid-body">
-                <table class="table table-striped" id="example2" >
+                <table class="table table-bordered" id="example2" >
                     <thead>
                         <tr>
+                            <th style="width:40px;">Edit</th>
                             <th>Name</th>
                             <th>Status</th>
                             <th>Building</th>
@@ -40,11 +41,10 @@
                     </thead>
                     <tbody> 
                         @foreach ($units as $unit)
-                            <tr class="">
+                            <tr class="" onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/apartment-unit/'.$unit['id'].'/edit') }}'">
+                                <td class="text-center"><i class="fa fa-pencil"></i></td>
                                 <td>
-                                    <a href="{{ url( '/admin/project/' . $project['id'] . '/apartment-unit/'.$unit['id'].'/edit') }}">
-                                        {{ $unit['unit_name'] }}
-                                    </a>
+                                   {{ $unit['unit_name'] }}
                                 </td>
                                 <td>{{ ucfirst($unit->availability) }}</td>
                                 <td>{{ $unit->building->building_name }}</td>

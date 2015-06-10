@@ -33,6 +33,10 @@ class Building extends Model {
     public function phase() {
         return $this->belongsTo( 'CommonFloor\Phase' );
     }
+	
+	 public function projectUnits() {
+        return $this->hasMany( 'CommonFloor\Unit' );
+    }
 
     public function toArray() {
         $data = parent::toArray();

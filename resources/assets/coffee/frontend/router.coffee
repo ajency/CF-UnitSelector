@@ -9,8 +9,6 @@ _.extend Marionette.AppStates::,
 
 	previous:->
 		# window.history.back()
-		@history = _.without @history ,Backbone.history.fragment
-		console.log @history
 		if @history.length > 1
 			return @history[@history.length - 1]
 		if @history.length == 1

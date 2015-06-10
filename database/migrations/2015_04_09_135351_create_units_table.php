@@ -18,7 +18,7 @@ class CreateUnitsTable extends Migration {
             $table->integer( 'position' )->unsigned()->nullable()->default( 0 );
             $table->integer( 'floor' )->unsigned()->nullable()->default( 0 );
             $table->integer( 'building_id' )->unsigned()->nullable()->default( 0 );
-            $table->enum( 'availability', ['available', 'sold', 'not_released', 'blocked'] )->default( 'available' );
+            $table->enum( 'availability', ['available', 'sold', 'not_released', 'blocked', 'archived'] )->default( 'available' );
             $table->timestamps();
         } );
     }

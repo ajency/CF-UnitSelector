@@ -4,6 +4,8 @@
   left: 0;
   right: 0;
   text-align: center;
+  width: 140px;
+  margin: auto;
 }
 .rotate-controls .rotate-left,
 .rotate-controls .rotate-right {

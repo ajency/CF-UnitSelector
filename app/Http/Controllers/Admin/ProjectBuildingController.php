@@ -11,6 +11,7 @@ use CommonFloor\Phase;
 use CommonFloor\FloorLayout;
 use CommonFloor\Project;
 use CommonFloor\Media;
+use \Session;
 
 class ProjectBuildingController extends Controller {
 
@@ -18,6 +19,7 @@ class ProjectBuildingController extends Controller {
 
     public function __construct( ProjectRepository $projectRepository ) {
         $this->projectRepository = $projectRepository;
+            
     }
 
     /**
@@ -43,10 +45,10 @@ class ProjectBuildingController extends Controller {
      * @return Response
      */
     public function create( $projectId ) {
+        
         $project = $this->projectRepository->getProjectById( $projectId );
 
-        $phases = Phase::where( 'project_id', $projectId )->get();
-
+        $phases = $project->projectPhase()->where('status','not_live')->get()->toArray(); 
         return view( 'admin.project.building.create' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'building' )
@@ -59,15 +61,20 @@ class ProjectBuildingController extends Controller {
      * @return Response
      */
     public function store( $projectId, Request $request ) {
+            
         $formData = $request->all();
         $building = new Building;
         $building->building_name = ucfirst($formData['building_name']);
+        $building->abbrevation = $formData['abbrevation'];
         $building->phase_id = $formData['phase_id'];
         $building->no_of_floors = $formData['no_of_floors'];
+        $building->has_master = $formData['has_master'];
         $building->floors = [];
         $building->building_master = [];
         $building->breakpoints = [];
         $building->save();
+        
+        Session::flash('success_message','Building Successfully Created');
         return redirect( url( 'admin/project/' . $projectId . '/building/' . $building->id . '/edit' ) );
     }
 
@@ -88,10 +95,8 @@ class ProjectBuildingController extends Controller {
      * @return Response
      */
     public function edit( $projectId, $buildingId ) {
+  
         $project = Project::find( $projectId );
-
-        $phases = Phase::where( 'project_id', $projectId )->get();
-
         $building = Building::find( $buildingId );
         $floorLayouts = $project->floorLayout()->get();
         $svgImages = [];
@@ -103,6 +108,15 @@ class ProjectBuildingController extends Controller {
                 }
                 else
                     $svgImages[$key]['ID'] = $images;
+        }
+        
+        $phases = $project->projectPhase()->where('status','not_live')->get()->toArray();
+        foreach ($phases as $key => $phase) {
+            if($phase['id'] != $building->phase_id)
+            {   
+               $phases[]= $project->projectPhase()->where('id',$building->phase_id)->first()->toArray();
+            }
+
         }
             
         return view( 'admin.project.building.edit' )
@@ -121,32 +135,20 @@ class ProjectBuildingController extends Controller {
      * @return Response
      */
     public function update( $projectId, $buildingId, Request $request ) {
-
-        $updateSection = $request->get( 'update_section' );
-        $building = Building::find( $buildingId );
-
-        switch ($updateSection) {
-            case 'building':
-                $building->building_name = ucfirst($request->get( 'building_name' ));
-                $building->phase_id = $request->get( 'phase_id' );
-                $building->no_of_floors = $request->get( 'no_of_floors' );
-                break;
-            case 'floors':
-                $building->floors = $request->get( 'floors' );
-                break;
-            case 'builing_master':
-                $building->building_master = $request->get( 'building_master' );
-                break;
-            default:
-                break;
-        }
+            
+         
         
+        $formData = $request->all();
+        $building = Building::find( $buildingId );
+        $building->building_name = ucfirst($formData['building_name']);
+        $building->abbrevation = $formData['abbrevation'];
+        $building->phase_id = $formData['phase_id'];
+        $building->no_of_floors = $formData['no_of_floors'];
+        $building->has_master = $formData['has_master'];
         $building->save();
-        return response()->json( [
-                            'code' => 'building_updated',
-                            'message' => 'Builing details updated successfully',
-                            'data' => ''
-                        ], 203 );
+        Session::flash('success_message','Building Successfully Updated');
+        
+        return redirect( url( 'admin/project/' . $projectId . '/building/' . $building->id . '/edit' ) );
     }
 
     /**
@@ -157,6 +159,40 @@ class ProjectBuildingController extends Controller {
      */
     public function destroy( $id ) {
         //
+    }
+    
+    public function validateBuildingName(Request $request) {
+        $name = $request->input('name');
+        $projectId = $request->input('project_id');
+        $building_id = $request->input('building_id');
+        $project = Project::find( $projectId );
+        $phases =  $project->projectPhase()->get()->toArray();
+        $phaseIds =[];
+        foreach($phases as $phase)
+        {
+            $phaseIds[]=$phase['id'];
+        }
+        
+        $msg = '';
+        $flag = true;
+
+        if ($building_id)
+            $buildingData = Building::whereIn('phase_id',$phaseIds)->where('building_name', $name)->where('id', '!=', $building_id)->get()->toArray();
+        else
+            $buildingData = Building::whereIn('phase_id',$phaseIds)->where('building_name', $name)->get()->toArray();
+
+
+        if (!empty($buildingData)) {
+            $msg = 'Building Name Already Taken';
+            $flag = false;
+        }
+
+
+        return response()->json([
+                    'code' => 'building_name_validation',
+                    'message' => $msg,
+                    'data' => $flag,
+                        ], 200);
     }
     
     public function getPositions($project_id, $buildingId, Request $request)

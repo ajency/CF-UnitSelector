@@ -14,8 +14,8 @@ class ListItemView extends Marionette.ItemView
 						                          {{name}}<!--: <span>{{units}}</span>-->
 						                        </li>
 						                        {{/types}}
-					                      		<span class="area {{areaname}}">{{area}} Sq.Ft</span>
-					                      		<div class="price {{classname}}">From <span>{{price}}</span></div>
+					                      		<span class="area {{areaname}}">{{area}} {{measurement_units}}</span>
+					                      		<div class="text-primary price {{classname}}">Starting price <span class="icon-rupee-icn"></span>{{price}}</div>
 											</ul>
 										 </div>')
 
@@ -43,12 +43,10 @@ class ListItemView extends Marionette.ItemView
 		data.classname = ""
 		if cost == 0
 			data.classname = 'hidden'
-		console.log data.classname
-		# data.price = window.numDifferentiation(cost)
-		window.convertRupees(cost)
-		data.price = $('#price').val()
-		data.floors = Object.keys(floors).length
+		data.price = window.numDifferentiation(cost)
+		data.floors =  @model.get 'no_of_floors'
 		data.types = types
+		data.measurement_units = project.get('measurement_units')
 		data
 
 	events:
@@ -59,6 +57,7 @@ class ListItemView extends Marionette.ItemView
 			$('#'+id+'.building').attr('class' ,'layer building svg_active')
 			$('#bldg'+id).attr('class' ,'bldg blocks active')
 			$('#'+id).tooltipster('content', html)
+			$('#'+id).tooltipster('show')
 
 		'mouseout' :(e)->
 			id = @model.get 'id'
@@ -66,7 +65,6 @@ class ListItemView extends Marionette.ItemView
 			$('#bldg'+id).attr('class' ,'bldg blocks')
 			$('#'+id).tooltipster('hide')
 			
-				
 		'click ':(e)->
 			id = @model.get 'id'
 			units = unitCollection.where 
@@ -75,15 +73,21 @@ class ListItemView extends Marionette.ItemView
 				return
 			buildingModel = buildingCollection.findWhere
 							'id' : id
-			# CommonFloor.defaults['building'] = jQuery.makeArray(id).join(',')
-			# CommonFloor.filter()
-			CommonFloor.filterBuilding(id)
-			if Object.keys(buildingModel.get('building_master')).length == 0
-				CommonFloor.navigate '/building/'+id+'/apartments' , true
-				CommonFloor.router.storeRoute()
-			else
-				CommonFloor.navigate '/building/'+id+'/master-view' , true
-				CommonFloor.router.storeRoute()
+			# window.building_id = id
+			$('.layer').tooltipster('hide')
+			$('svg').attr('class' ,'zoom')
+			$('#spritespin').addClass 'zoom'
+			$('.us-right-content').addClass 'fadeOut'
+			$('.cf-loader').removeClass 'hidden'
+			setTimeout( (x)->
+				if Object.keys(buildingModel.get('building_master')).length == 0
+					CommonFloor.navigate '/building/'+id+'/apartments' , true
+					# CommonFloor.router.storeRoute()
+				else
+					CommonFloor.navigate '/building/'+id+'/master-view' , true
+					# CommonFloor.router.storeRoute()
+
+			, 500)
 
 	iniTooltip:(id)->
 		$('#'+id).trigger('mouseover')
@@ -93,13 +97,16 @@ class ListItemView extends Marionette.ItemView
 		html = ""
 		id  = parseInt id
 		buildingModel = buildingCollection.findWhere
-						'id' : id
+							'id' : id
 
 		if buildingModel == undefined
 			html = '<div class="svg-info">
-						<div class="details">
+						<div class="action-bar2">
+					        <div class="txt-dft"></div>
+					    </div> 
+						<h5 class="pull-left">
 							Building details not entered 
-						</div>  
+						</h5>  
 					</div>'
 			$('.layer').tooltipster('content', html)
 			return 
@@ -109,30 +116,55 @@ class ListItemView extends Marionette.ItemView
 		floors = Object.keys(floors).length
 		unitTypes = building.getUnitTypes(id)
 		response = building.getUnitTypesCount(id,unitTypes)
-		html = '<div class="svg-info">
-					<h4 class="pull-left">'+buildingModel.get('building_name')+'</h4>
-					<!--<span class="label label-success"></span-->
-					<div class="clearfix"></div>'
+		minprice = building.getMinimumCost(id)
+		price = window.numDifferentiation(minprice)
+		unit = unitCollection.where 
+			'building_id' :  id 
+			'availability' : 'available'
+		if unit.length > 0 
+			availability = ' available'
+		else
+			availability = ' sold'
+		html = '<div class="svg-info '+availability+' ">
+					<div class="action-bar">
+						<div class="building"></div>
+					</div>
+
+					<div class="pull-left">
+						<h4 class="m-t-0 m-b-5">'+buildingModel.get('building_name')+'	<label class="text-muted">('+floors+' floors)</label></h4>
+					
+						<div class="details">
+							<div class="price">
+								Starting from <span class="text-primary"><span class="icon-rupee-icn"></span> '+price+'</span>
+							</div>
+							<ul class="bldg">'
+
 		$.each response,(index,value)->
-			html += '<div class="details">
-						<div>
-							<label>'+value.name+'</label> - '+value.units+'
-						</div>'
+			html +='<li>
+						<h5 class="m-t-0 m-b-0">' +value.name+'</h5>
+						<span>'+value.units+' Available</span>
+					</li>'
 
-		html += '<div>
-					<label>No. of floors</label> - '+floors+'
+		html += '</ul>
+						
+					</div>
+					<a href="#'+url+'" class="view-unit">
+						<div class="circle">
+							<span class="arrow-up icon-chevron-right"></span>
+						</div>
+					</a>
 				</div>
-				</div>
-
 				</div>'
-		$('.layer').tooltipster('content', html)
-		$('#bldg'+id).attr('class' ,'bldg blocks active') 
-		$('#'+id).attr('class' ,'layer building active_bldg')
+		html
+
+class BuildingEmptyView extends Marionette.ItemView
+
+	template : 'No units added'
 
 #view for list of buildings : Collection
 class MasterBuildingListView extends Marionette.CompositeView
 
-	template : Handlebars.compile('
+	template : Handlebars.compile('		<div id="trig" class="toggle-button"></div>
 										<div id="view_toggle" class="toggle-view-button map"></div>
 										<div class="list-view-container w-map animated fadeIn">
 										<!--<div class="controls map-View">
@@ -144,9 +176,9 @@ class MasterBuildingListView extends Marionette.CompositeView
 							              <ul class="prop-select">
 
 							                <li class="prop-type buildings active">Buildings</li>
-							                <li class="prop-type Villas hidden">Villas/Bungalows</li>
+							                <li class="prop-type Villas hidden">Villas</li>
 
-							                <li class="prop-type Plots hidden">Plots</li>
+							                <li class="prop-type tab hidden">Plots</li>
 							              </ul>
 							            </div>
 										<div class="bldg-list">
@@ -165,15 +197,18 @@ class MasterBuildingListView extends Marionette.CompositeView
 
 	ui :
 		viewtog      : '#view_toggle'
+		trig 		: '#trig'
 
+	events :
+		'click @ui.trig':(e)->
+			$('.list-container').toggleClass 'closed'
 
-	events : 
 		'click @ui.viewtog':(e)->
 			$('.us-left-content').toggleClass 'not-visible visible'
 			$('.us-right-content').toggleClass 'not-visible visible'
 			
 		'click .buildings':(e)->
-			console.log units = buildingCollection
+			units = buildingCollection
 			data = {}
 			data.units = units
 			data.type = 'building'
@@ -184,7 +219,7 @@ class MasterBuildingListView extends Marionette.CompositeView
 			
 
 		'click .Villas':(e)->
-			console.log units = bunglowVariantCollection.getBunglowUnits()
+			units = bunglowVariantCollection.getBunglowUnits()
 			data = {}
 			data.units = units
 			data.type = 'villa'
@@ -192,25 +227,39 @@ class MasterBuildingListView extends Marionette.CompositeView
 			new CommonFloor.MasterBunglowListCtrl region : @region
 			# MasterBuildingListCtrl@trigger "load:units" , data
 
-		'click .Plots':(e)->
+		'click .tab':(e)->
 			units = plotVariantCollection.getPlotUnits()
 			data = {}
 			data.units = units
 			data.type = 'plot'
 			@region =  new Marionette.Region el : '#leftregion'
 			new CommonFloor.MasterPlotListCtrl region : @region
-			# @trigger "load:units" , data
+			
 
 
 	onShow:->
 		if bunglowVariantCollection.length != 0
-			$('.Villas').removeClass 'hidden'
-
-		if plotVariantCollection.length != 0
-			$('.Plots').removeClass 'hidden'
+             $('.Villas').removeClass 'hidden'
+        if plotVariantCollection.length != 0
+             $('.tab').removeClass 'hidden'
+		# if CommonFloor.defaults['type'] != ""
+		# 	type = CommonFloor.defaults['type'].split(',')
+		# 	if $.inArray('villa' ,type) > -1
+		# 		$('.Villas').removeClass 'hidden'
+		# 	if $.inArray('plot' ,type) > -1
+		# 		$('.tab').removeClass 'hidden'
+		# else
+		# 	arr = _.values(window.propertyTypes)
+		# 	if $.inArray('Apartments' ,arr) > -1 || $.inArray('Penthouse' ,arr) > -1
+		# 		$('.buildings').removeClass 'hidden'
+		# 	if $.inArray('Plot' ,arr) > -1
+		# 		$('.tab').removeClass 'hidden'
+		# 	if $.inArray('Villas/Bungalows' ,arr) > -1
+		# 		$('.Villas').removeClass 'hidden'
 			
-		$('.units').mCustomScrollbar
-			theme: 'inset'
+		if $(window).width() > 991
+			$('.units').mCustomScrollbar
+				theme: 'cf-scroll'
 
 
 

@@ -69,13 +69,14 @@
           return;
         }
         phaseId = $(this).attr('data-phase-id');
-        successFn = (function(_this) {
-          return function(resp, status, xhr) {
-            if (xhr.status === 204) {
-              return $(_this).closest('.pull-left').remove();
-            }
-          };
-        })(this);
+        successFn = function(resp, status, xhr) {
+          if (xhr.status === 201) {
+            $('#phase-' + phaseId).after('<td colspan="3"><span class="error"><span for="form3FirstName" class="error">Project Has No Phases</span></span></td>');
+            return $('#phase-' + phaseId).remove();
+          } else if (xhr.status === 204) {
+            return $('#phase-' + phaseId).remove();
+          }
+        };
         return $.ajax({
           url: "/admin/phase/" + phaseId,
           type: 'DELETE',
@@ -96,22 +97,30 @@
         return;
       }
       successFn = function(resp, status, xhr) {
-        var compile, html, phaseId, phasesContainer;
+        var compile, html, phaseId, phasesContainer, type;
         if (xhr.status === 201) {
           $('.phase-name').val('');
           phaseId = resp.data.phase_id;
+          type = resp.data.type;
           if (objectType === 'building') {
             phasesContainer = $('select[name="phase_id"]');
             html = '<option value="{{ phase_id }}">{{ phase_name }}</option>';
           } else {
-            phasesContainer = $('.phases');
-            html = '<div class="pull-left m-r-10"> <strong>{{ phase_name }}</strong> <button type="button" data-phase-id="{{ phase_id }}" class="btn btn-small btn-link remove-phase"> <span class="fa fa-times text-danger"></span></button> </div>';
+            phasesContainer = $('.phase-table tbody');
+            html = '<tr> <td>{{ phase_name }}</td> <td> <select id="phases1" class="select2-container select2 form-control select2-container-active" style="width:50%;"> <option value="">Select Status</option> <option >Live</option> <option selected>Not Live</option> </select> </td> <td><a href="#"  data-toggle="modal" data-target="#myModal" class="text-primary hidden">Update</a></td> </tr>';
           }
           compile = Handlebars.compile(html);
-          phasesContainer.append(compile({
-            phase_name: phaseName,
-            phase_id: phaseId
-          }));
+          if (type === 'add') {
+            phasesContainer.append(compile({
+              phase_name: phaseName,
+              phase_id: phaseId
+            }));
+          } else {
+            phasesContainer.html(compile({
+              phase_name: phaseName,
+              phase_id: phaseId
+            }));
+          }
           return registerRemovePhaseListener();
         }
       };
@@ -122,6 +131,35 @@
           project_id: PROJECTID,
           phase_name: phaseName
         },
+        success: successFn
+      });
+    });
+    $('#myModal').on('click', '.update-phase-btn', function() {
+      var phaseId, successFn;
+      phaseId = $(this).attr('data-phase-id');
+      successFn = function(resp, status, xhr) {
+        $('#myModal').modal('toggle');
+        $("#phase-" + phaseId).find('select').attr('disabled', true);
+        return $("#phase-" + phaseId).find('.updatelink').addClass('hidden');
+      };
+      return $.ajax({
+        url: '/admin/phase/' + phaseId,
+        type: 'POST',
+        data: {
+          _method: "PUT"
+        },
+        success: successFn
+      });
+    });
+    $('#publishModal').on('click', '.update-project-status', function() {
+      var projectId, successFn;
+      projectId = $(this).attr('data-project-id');
+      successFn = function(resp, status, xhr) {
+        return updateResponseTable();
+      };
+      return $.ajax({
+        url: '/admin/project/' + projectId + '/updateprojectstatus',
+        type: 'POST',
         success: successFn
       });
     });
@@ -136,23 +174,12 @@
         }
       });
     };
-    checkUnitTypeRequired();
-    $('[name="property_types[]"]').change(function(evt) {
-      var propertyTypes;
-      $('.add-unit-types > div').addClass('hidden');
-      propertyTypes = $(this).val();
-      _.each(propertyTypes, function(propertyType) {
-        return $('.add-unit-types').find(".property-type-" + propertyType).removeClass('hidden');
-      });
-      return checkUnitTypeRequired();
-    });
     registerRemoveUnitType = function() {
-      $('.remove-unit-type').off('click');
-      return $('.remove-unit-type').on('click', function() {
+      return $('.propertyTypeUnitsAttributes').on('click', '.remove-unit-type', function() {
         var successFn, unitTypeId;
         unitTypeId = $(this).attr('data-unit-type-id');
         if (parseInt(unitTypeId) === 0) {
-          $(this).closest('.form-inline').remove();
+          $(this).closest('.unit_type_block').remove();
           return;
         }
         if (confirm('Are you sure you want to delete this unit type? All properties will be affected by this action. Continue?') === false) {
@@ -161,7 +188,7 @@
         successFn = (function(_this) {
           return function(resp, status, xhr) {
             if (xhr.status === 204) {
-              return $(_this).closest('.form-inline').remove();
+              return $(_this).closest('.unit_type_block').remove();
             }
           };
         })(this);
@@ -173,24 +200,36 @@
       });
     };
     registerRemoveUnitType();
-    $('.add-unit-type-btn').click(function() {
+    $('.add-unit-types').on('click', '.add-unit-type-btn', function() {
       var compile, data, html, propertyType, unitType;
-      unitType = $(this).parent().find('input').val();
+      unitType = $(this).closest('.unit_type_block').find('select').val();
       if (unitType === '') {
+        alert('please select unit type');
+        return;
+      }
+      propertyType = $(this).attr('property-type');
+      html = '<div class="row m-b-10 unit_type_block"> <div class="col-md-10"> <select onchange="createUnitType(this,{{ property_type }})" name="unittype[{{ property_type }}][]" class="select2-container select2 form-control select2-container-active">';
+      html += $(this).closest('.unit_type_block').find('select').html();
+      html += '</select> <input type="hidden" name="unittypekey[{{ property_type }}][]" value=""> <input type="hidden" name="unittypecustome[{{ property_type }}][]" value=""> </div> <div class="col-md-2 text-center"> <a  data-unit-type-id="0" class="text-primary remove-unit-type"><i class="fa fa-close"></i> </a> </div> </div>';
+      compile = Handlebars.compile(html);
+      data = {
+        property_type: propertyType
+      };
+      $(this).closest('.unit_type_block').before(compile(data));
+      $(this).closest('.unit_type_block').find('select').val('');
+      $(this).closest('.unit_type_block').prev('.unit_type_block').find('select').val(unitType);
+      $('select').select2();
+      return registerRemoveUnitType();
+    });
+    $('.add_new_unit_type').click(function() {
+      var newUnitType, selectoption;
+      newUnitType = $(this).closest('.form-group').find('input').val();
+      if (newUnitType === '') {
         alert('please enter unit type');
         return;
       }
-      $(this).parent().find('input').removeAttr('data-parsley-required');
-      html = '<div class="form-inline m-b-10"> <div class="form-group"> <input type="text" name="unittype[{{ property_type }}][]" class="form-control" value="{{  unittype_name }}"> <input type="hidden" name="unittypekey[]" value=""> <button type="button" data-unit-type-id="0" class="btn btn-small btn-default m-t-5 remove-unit-type"> <i class="fa fa-trash"></i> Delete </button> </div> </div>';
-      compile = Handlebars.compile(html);
-      propertyType = $(this).attr('property-type');
-      data = {
-        property_type: propertyType,
-        unittype_name: unitType
-      };
-      $('.add-unit-types').find(".property-type-" + propertyType).children('.form-inline').last().before(compile(data));
-      $(this).parent().find('input').val('');
-      return registerRemoveUnitType();
+      selectoption = "<option value='" + newUnitType + "'>" + newUnitType + "</option>";
+      return $(this).prev('.form-group').find('select').remove();
     });
     $('.floor-position button.save-position').click(function() {
       var floorLayoutId, form, formData;
@@ -276,7 +315,66 @@
     $('[data-toggle="tooltip"]').tooltip({
       animation: false
     });
-    return $('[data-toggle="popover"]').popover();
+    $('[data-toggle="popover"]').popover();
+    return $('.add_level').click(function() {
+      var compile, counter, data, i, str;
+      counter = $("#counter").val();
+      i = parseInt(counter) + 1;
+      str = '<div class="row" id="level_{{ level }}"> <div class="no-border"> <div class="grid simple" style="margin-bottom:0;"> <div class="grid-body no-border" style="padding-bottom:0;"> <div class="grid simple vertical orange"> <div class="grid-title"> <h4>Level {{ level }}</h4> <input type="hidden" value="{{ level }}" name="levels[]"> <input style="float:right" type="button" value="Delete Level" class="" onclick="deleteLevel({{ level }});"> </div> <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4> <div class="row"> <div class="col-md-6"> <div class="grid simple"> <div class="grid-body"> <div class="inline">2D Layout</div> <input type="hidden" name="image_{{ level }}_2d_id" id="image_{{ level }}_2d_id" value=""> <div class="pull-right" id="2d_{{ level }}_image"> <div class="img-hover img-thumbnail"> <div id="pickfiles_{{ level }}_2d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;"> <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;"> <i class="fa fa-image" style="font-size:30px;"></i> <p class="">Select File</p> </div> </div> </div> </div> </div> </div> </div> <div class="col-md-6"> <div class="grid simple" > <div class="grid-body"> <div class="inline">3D Layout</div> <input type="hidden" name="image_{{ level }}_3d_id" id="image_{{ level }}_3d_id" value=""> <div class="pull-right" id="3d_{{ level }}_image"> <div class="img-hover img-thumbnail"> <div id="pickfiles_{{ level }}_3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;"> <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;"> <i class="fa fa-image" style="font-size:30px;"></i> <p class="">Select File</p> </div> </div> </div> </div> </div> </div> </div> </div> <div class="room_attributes_block"> </div> <div> <div class="col-md-5 add-unit p-t-10"> <select onchange="openRoomTypeModal(this, 0)" name="room_type[]" class="select2 form-control">';
+      str += $('#addFloorlevel').find('select[name="room_type[]"]').html();
+      str += '</select> <div class="text-right"> <button type="button" onclick="getRoomTypeAttributes(this,{{ level }});" class="btn btn-link">Add Room</button> </div> </div> </div> </div> </div> </div> </div> </div>';
+      compile = Handlebars.compile(str);
+      data = {
+        level: i
+      };
+      $("#addFloorlevel").append(compile(data));
+      $("select").select2();
+      $("#level_" + i).find('select[name="room_type[]"]').val('');
+      $("#counter").val(i);
+      return addFloorLevelUploader(i);
+    });
+  });
+
+  $('.add-project-attributes-btn').click(function() {
+    var attributeName, compile, data, str;
+    attributeName = $(this).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val();
+    str = '<div class="row m-b-10 "> <div class="col-md-10"> <input type="test" name="projectattributes[]" value="{{ name }}" class="form-control"> <input type="hidden" name="projectattributeId[]" value="" class="form-control"> </div> <div class="col-md-2 text-center"> <a  data-unit-type-id="0" class="text-primary remove-project-attribute"><i class="fa fa-close"></i> </a> </div> </div>';
+    compile = Handlebars.compile(str);
+    data = {
+      name: attributeName
+    };
+    $(".project_attribute_block").before(compile(data));
+    return $(this).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val('');
+  });
+
+  $('.room_attributes_block').on('click', '.remove-room-attribute', function() {
+    var level, successFn, variantRoomId, variantRooms;
+    level = $(this).closest('.row').find('input[name="levels[]"]').val();
+    variantRoomId = $(this).closest('.variant_rooms').find('input[name="variantroomid[' + level + '][]"]').val();
+    variantRooms = $(this).closest('.room_attributes_block').find('input[name="variantroomid[' + level + '][]"]').length;
+    if (parseInt(variantRooms) <= 1) {
+      alert('There Should Be Atleast 1 Room For Level');
+      return;
+    }
+    if (variantRoomId === '') {
+      $(this).closest('.variant_rooms').remove();
+      return;
+    }
+    if (confirm('Are you sure you want to delete this Room?') === false) {
+      return;
+    }
+    successFn = (function(_this) {
+      return function(resp, status, xhr) {
+        if (xhr.status === 204) {
+          return $(_this).closest('.variant_rooms').remove();
+        }
+      };
+    })(this);
+    return $.ajax({
+      url: "/admin/project/" + PROJECTID + "/roomtype/" + variantRoomId + "/deletevariantrroom",
+      type: 'DELETE',
+      success: successFn
+    });
   });
 
 }).call(this);

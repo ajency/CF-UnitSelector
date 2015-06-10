@@ -1,6 +1,6 @@
 class CommonFloor.ProjectListView extends Marionette.LayoutView
 
-	template : '#project-template'
+	template : '#project-listview-template'
 
 #starting point for Project List view 
 class CommonFloor.ProjectListCtrl extends Marionette.RegionController
@@ -9,7 +9,7 @@ class CommonFloor.ProjectListCtrl extends Marionette.RegionController
 		if jQuery.isEmptyObject(project.toJSON())
 			project.setProjectAttributes(PROJECTID);
 			CommonFloor.loadJSONData()
-		if bunglowVariantCollection.length == 0 && apartmentVariantCollection.length == 0 && plotVariantCollection.length == 0  
+		if bunglowVariantMasterCollection.length == 0 && apartmentVariantMasterCollection.length == 0 && plotVariantMasterCollection.length == 0  
 			@show new CommonFloor.NothingFoundView
 		else
 			@show new CommonFloor.ProjectListView
@@ -25,38 +25,76 @@ class TopListView extends Marionette.ItemView
 
 												<div class="breadcrumb-bar">
 													<a class="unit_back" href="#">
-														Back to Project Overview
+														
 													</a>
 												</div>
-
-												<h2 class="proj-name">{{project_title}}</h2>
-
+												<div class="header-info">
+												<h2 class="proj-name pull-left">{{project_title}}</h2>
+															<div class="proj-type-count">
+																{{#types}} 
+																<p class="pull-right">{{type}}</p><h2 class=" pull-right m-t-10">{{count.length}}</h2> 
+																{{/types}}
+															</div>
+															<div class="clearfix"></div>
+													</div>			
 											</div>
 										</div>
 									</div>
 
-									<div class="filter-summary-area">
+									
 
-										<button class="btn btn-primary cf-btn-white pull-right m-t-15" type="button" data-toggle="collapse" data-target="#collapsefilters">
-											Filters <span class="icon-funnel"></span>
-										</button>
-							            <div class="pull-left filter-result">
-							              	{{#each  filters}}
-							              	{{#each this}}
-											<div class="filter-pill"  >
-												{{this.name}}{{this.type}}
-												<span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"  ></span>
-							              	</div>	
-							              	{{/each}}{{/each }}							               
+										
+							            <div class="pull-left filter-result full">
+							              	 <ul  id="flexiselDemo1">
+							              	 {{#area}}
+													         	 <li>
+													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													         </li>
+													         {{/area}}
+													     {{#budget}}
+													         	 <li>
+													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													         </li>
+													         {{/budget}}
+
+													         
+													      {{#views}}
+													         	 <li>
+													                <div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
+													         </li>
+													         {{/views}}
+
+													       {{#facings}}
+													         	 <li>
+													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
+													         </li>
+													         {{/facings}}
+
+													      {{#status}}
+													         	 <li>
+													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													         </li>
+													         {{/status}}
+														 {{#each  filters}} 
+													          <li>
+													              <div class="filter-title"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}"></span> </div>
+													         </li>
+													         {{#filters}}
+													         	{{#each this}}
+													         	{{#each this}}
+													          <li>
+													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													         </li>{{/each}}
+													         {{/each}}
+													         {{/filters}}
+													        
+													    {{/each}}
+													     
+													    </ul>						               
 							            </div>
-										<div class="proj-type-count">
-											{{#types}} 
-											<p class="pull-right">{{type}}</p><h1 class="text-primary pull-right m-t-10">{{count.length}}</h1> 
-											{{/types}}
-										</div>
-
+							
 										<div class="clearfix"></div>
-									</div>')
+								')
 
 	ui  :
 		unitBack : '.unit_back'
@@ -69,14 +107,22 @@ class TopListView extends Marionette.ItemView
 		area : '#filter_area'
 		budget : '#filter_budget'
 		types : '.types'
+		filter_flooring : '.filter_flooring'
+		views : '.views'
+		facings : '.facings'
 
 	serializeData:->
 		data = super()
 		status = CommonFloor.getStatusFilters()
 		if status.length != 0
 			data.status = status
-		data.filters  = CommonFloor.getFilters()[0]
-		data.results  = CommonFloor.getFilters()[1]
+		main = CommonFloor.getFilters()
+		data.filters  = main[0].filters
+		data.area  = main[0].area
+		data.budget  = main[0].price
+		data.status  = main[0].status
+		data.views  = main[0].views
+		data.facings  = main[0].facings
 		response = CommonFloor.propertyTypes() 
 		data.types = response
 		data
@@ -85,8 +131,13 @@ class TopListView extends Marionette.ItemView
 	events:->
 		'click @ui.unitBack':(e)->
 			e.preventDefault()
-			previousRoute = CommonFloor.router.previous()
-			CommonFloor.navigate '/'+previousRoute , true
+			# $.each CommonFloor.defaults , (index,value)->
+			# 	 CommonFloor.defaults[index] = ""
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
+			CommonFloor.filterNew()	
+			unitCollection.trigger('available')
+			CommonFloor.navigate '/' , true
 
 		'click @ui.types':(e)->
 			arr = CommonFloor.defaults['type'].split(',')
@@ -94,69 +145,140 @@ class TopListView extends Marionette.ItemView
 			arr.splice(index, 1)
 			CommonFloor.defaults['type'] = arr.join(',')
 			
-			
-			if $(e.target).attr('data-id') == 'Villas'
+			if $(e.target).attr('data-id') == 'villa'
 				@removeVillaFilters()
-			if $(e.target).attr('data-id') == 'Apartments/Penthouse'
+			if $(e.target).attr('data-id') == 'apartment'
 				@removeAptFilters()
-			if $(e.target).attr('data-id') == 'Plots'
+			if $(e.target).attr('data-id') == 'plot'
 				@removePlotFilters()
+			
 			@trigger  'render:view'
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filter()
+			CommonFloor.resetCollections()
+			CommonFloor.filterNew()
 			unitCollection.trigger('available')
+			
 			
 
 			
 		'click @ui.unitTypes':(e)->
-			unitTypes = CommonFloor.defaults['unitTypes'].split(',')
-			unitTypes = _.without unitTypes , $(e.currentTarget).attr('data-id')
-			CommonFloor.defaults['unitTypes'] = unitTypes.join(',')
+			types = []
+			type = $(e.currentTarget).attr('data-type')
+			if CommonFloor.defaults[type]['unit_type_id']!= ""
+				types = CommonFloor.defaults[type]['unit_type_id'].split(',')
+				types = types.map (item)->
+					return parseInt item
+			types = _.without types , parseInt $(e.currentTarget).attr('data-id')
+			CommonFloor.defaults[type]['unit_type_id'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filter()
+			CommonFloor.resetCollections()
+			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			@trigger  'render:view'
 			
 		'click @ui.variantNames':(e)->
-			variantNames = CommonFloor.defaults['unitVariants'].split(',')
-			variantNames = _.without variantNames , $(e.currentTarget).attr('data-id')
-			CommonFloor.defaults['unitVariants'] = variantNames.join(',')
+			types = []
+			type = $(e.currentTarget).attr('data-type')
+			if CommonFloor.defaults[type]['unit_variant_id']!= ""
+				types = CommonFloor.defaults[type]['unit_variant_id'].split(',')
+				types = types.map (item)->
+					return parseInt item
+			types = _.without types , parseInt $(e.currentTarget).attr('data-id')
+			CommonFloor.defaults[type]['unit_variant_id'] = types.join(',')
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filter()
-			unitCollection.trigger('available')	
+			CommonFloor.resetCollections()
+			CommonFloor.filterNew()	
+			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 		'click @ui.status':(e)->
-			CommonFloor.defaults['availability'] = ""
+			CommonFloor.defaults['common']['availability'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filter()
+			CommonFloor.filterNew()
+			CommonFloor.resetCollections()
 			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 			
 
 		'click @ui.area':(e)->
-			CommonFloor.defaults['area_max'] = ""
-			CommonFloor.defaults['area_min'] = ""
+			CommonFloor.defaults['common']['area_max'] = ""
+			CommonFloor.defaults['common']['area_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filter()
+			CommonFloor.resetCollections()
+			CommonFloor.filterNew()
 			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 		'click @ui.budget':(e)->
-			CommonFloor.defaults['price_max'] = ""
-			CommonFloor.defaults['price_min'] = ""
+			CommonFloor.defaults['common']['price_max'] = ""
+			CommonFloor.defaults['common']['price_min'] = ""
 			unitCollection.reset unitMasterCollection.toArray()
-			CommonFloor.filter()
+			CommonFloor.resetCollections()
+			CommonFloor.filterNew()
+			unitCollection.trigger('available')
+			@trigger  'render:view'
+
+		'click @ui.filter_flooring':(e)->
+			types = []
+			type = $(e.currentTarget).attr('data-type')
+			if CommonFloor.defaults[type]['attributes']!= ""
+				types = CommonFloor.defaults[type]['attributes'].split(',')
+				
+			types = _.without types , $(e.currentTarget).attr('data-id')
+			CommonFloor.defaults[type]['attributes'] = types.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
+			CommonFloor.filterNew()
+			unitCollection.trigger('available')
+			@trigger  'render:view'
+
+		'click @ui.facings':(e)->
+			types = CommonFloor.defaults['common']['facings'].split(',')
+			types = _.without types ,$(e.currentTarget).attr('data-id')
+			CommonFloor.defaults['common']['facings'] = types.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
+			CommonFloor.filterNew()	
+			unitCollection.trigger('available')
+			@trigger  'render:view'
+
+		'click @ui.views':(e)->
+			types = CommonFloor.defaults['common']['views'].split(',')
+			types = _.without types ,$(e.currentTarget).attr('data-id')
+			CommonFloor.defaults['common']['views'] = types.join(',')
+			unitCollection.reset unitMasterCollection.toArray()
+			CommonFloor.resetCollections()
+			CommonFloor.filterNew()	
 			unitCollection.trigger('available')
 			@trigger  'render:view'
 
 	onShow:->
-		if CommonFloor.router.history.length == 1
-			@ui.unitBack.hide()
+		$("#flexiselDemo1").flexisel(
+		    visibleItems: 11,
+		    animationSpeed: 200,
+		    autoPlay: false,
+		    autoPlaySpeed: 1000,
+		    clone:false,
+		    enableResponsiveBreakpoints: true,
+		    responsiveBreakpoints: {
+		      portrait: {
+		        changePoint:480,
+		        visibleItems: 5
+		      }, 
+		      landscape: {
+		        changePoint:640,
+		        visibleItems: 6
+		      },
+		      tablet: {
+		        changePoint:768,
+		        visibleItems: 3
+		      }
+		    }
+		)
 		response = CommonFloor.propertyTypes() 
 		if response.length == 0
-			$('.proj-type-count').text 'No results found'
+			$('.proj-type-count').html '<p class="p-l-15">No results found</p>'
 
 
 	removeVillaFilters:->
@@ -167,7 +289,7 @@ class TopListView extends Marionette.ItemView
 			unitDetails = window.unit.getUnitDetails(value.id)
 			variants.push  parseInt unitDetails[0].get 'id'
 			unittypes.push parseInt unitDetails[1].get 'id'
-		unitTypes = CommonFloor.defaults['unitTypes'].split(',')
+		unitTypes = CommonFloor.defaults['villa']['unit_type_id'].split(',')
 		unitTypesArr = unitTypes.map (item)->
 				return parseInt item
 		
@@ -175,14 +297,14 @@ class TopListView extends Marionette.ItemView
 			if $.inArray(parseInt(value), unitTypesArr) > -1
 				unitTypes = _.without unitTypesArr , parseInt(value)
 		
-		CommonFloor.defaults['unitTypes'] = unitTypes.join(',')
-		unitVariants = CommonFloor.defaults['unitVariants'].split(',')
+		CommonFloor.defaults['villa']['unit_type_id'] = unitTypes.join(',')
+		unitVariants = CommonFloor.defaults['villa']['unit_variant_id'].split(',')
 		unitVariantsArr = unitVariants.map (item)->
 				return parseInt item
 		$.each variants,(index,value)->
 			if $.inArray(parseInt(value), unitVariantsArr) > -1
 				unitVariants = _.without unitVariantsArr , parseInt(value)
-		CommonFloor.defaults['unitVariants'] = unitVariants.join(',')
+		CommonFloor.defaults['villa']['unit_variant_id'] = unitVariants.join(',')
 
 	removeAptFilters:->
 		variants = []
@@ -192,7 +314,7 @@ class TopListView extends Marionette.ItemView
 			unitDetails = window.unit.getUnitDetails(value.id)
 			variants.push  parseInt unitDetails[0].get 'id'
 			unittypes.push parseInt unitDetails[1].get 'id'
-		unitTypes = CommonFloor.defaults['unitTypes'].split(',')
+		unitTypes = CommonFloor.defaults['villa']['unit_type_id'].split(',')
 		unitTypesArr = unitTypes.map (item)->
 				return parseInt item
 		
@@ -200,14 +322,14 @@ class TopListView extends Marionette.ItemView
 			if $.inArray(parseInt(value), unitTypesArr) > -1
 				unitTypes = _.without unitTypesArr , parseInt(value)
 		
-		CommonFloor.defaults['unitTypes'] = unitTypes.join(',')
-		unitVariants = CommonFloor.defaults['unitVariants'].split(',')
+		CommonFloor.defaults['villa']['unit_type_id'] = unitTypes.join(',')
+		unitVariants = CommonFloor.defaults['villa']['unit_variant_id'].split(',')
 		unitVariantsArr = unitVariants.map (item)->
 				return parseInt item
 		$.each variants,(index,value)->
 			if $.inArray(parseInt(value), unitVariantsArr) > -1
 				unitVariants = _.without unitVariantsArr , parseInt(value)
-		CommonFloor.defaults['unitVariants'] = unitVariants.join(',')
+		CommonFloor.defaults['villa']['unit_variant_id'] = unitVariants.join(',')
 
 	removePlotFilters:->
 		variants = []
@@ -217,7 +339,7 @@ class TopListView extends Marionette.ItemView
 			unitDetails = window.unit.getUnitDetails(value.id)
 			variants.push  parseInt unitDetails[0].get 'id'
 			unittypes.push parseInt unitDetails[1].get 'id'
-		unitTypes = CommonFloor.defaults['unitTypes'].split(',')
+		unitTypes = CommonFloor.defaults['villa']['unit_type_id'].split(',')
 		unitTypesArr = unitTypes.map (item)->
 				return parseInt item
 		
@@ -225,14 +347,14 @@ class TopListView extends Marionette.ItemView
 			if $.inArray(parseInt(value), unitTypesArr) > -1
 				unitTypes = _.without unitTypesArr , parseInt(value)
 		
-		CommonFloor.defaults['unitTypes'] = unitTypes.join(',')
-		unitVariants = CommonFloor.defaults['unitVariants'].split(',')
+		CommonFloor.defaults['villa']['unit_type_id'] = unitTypes.join(',')
+		unitVariants = CommonFloor.defaults['villa']['unit_variant_id'].split(',')
 		unitVariantsArr = unitVariants.map (item)->
 				return parseInt item
 		$.each variants,(index,value)->
 			if $.inArray(parseInt(value), unitVariantsArr) > -1
 				unitVariants = _.without unitVariantsArr , parseInt(value)
-		CommonFloor.defaults['unitVariants'] = unitVariants.join(',')
+		CommonFloor.defaults['villa']['unit_variant_id'] = unitVariants.join(',')
 
 #controller for the top region
 class CommonFloor.TopListCtrl extends Marionette.RegionController

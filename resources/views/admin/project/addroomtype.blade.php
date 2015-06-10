@@ -70,21 +70,25 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="col-md-5" id="controltype_values_{{$roomtypeId}}">
                             <div class="form-group">
 
                                 <div class="col-lg-8 col-md-7">
                                     <input type="text" name="controltypevalues_{{$roomtypeId}}" data-role="tagsinput" class="tags" value="{{$attributes['defaults']}}">
                                 </div>
+                                
                                 <div class="col-lg-4 col-md-5">
                                     <button type="button" class="btn btn-small btn-default m-t-5" onclick="deleteRoomTypeAttribute({{$project['id']}},{{$attributes['id']}});"><i class="fa fa-trash"></i> Delete</button>
                                 </div>
-
+                                  
                             </div>
 
                         </div>
+
                     </div>
                     @endforeach
+                     
                     <div class="row">
                         <div class="col-md-3">
                             <div class="form-group">
@@ -120,6 +124,7 @@
 
                         </div>
                     </div>
+
                     <div id="addroomtypeattributeblock_{{$roomtypeId}}">
                         <div class="text-right"> 
                             <button type="button" class="btn btn-small btn-primary" onclick="saveRoomypeattribute({{$project['id']}},{{$roomtypeId}}, 'room_type');"><i class="fa fa-save"></i> Save</button>
@@ -127,10 +132,12 @@
                             <div class="cf-loader" id="loader_{{$roomtypeId}}" style="display:none" ></div>
                         </div>
                     </div>
+                     
                 </div>  
             </form>    
             @endforeach 
 
+             
             <div class="row" id="addroomtypeblock">
                 <div class="col-md-6">
                     <div class="form-inline">
@@ -143,6 +150,7 @@
                     </div>
                 </div>
             </div>
+             
         </div>
     </div>
 </div>

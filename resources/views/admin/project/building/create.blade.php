@@ -14,61 +14,107 @@
 
 @section('content')
 <!-- BEGIN PAGE TITLE -->
-<div class="page-title">	
-    <h2><span class="semi-bold">Add</span> Building</h2>
-</div>
+  <div class="page-title">
+                        
+                    <h2><span class="semi-bold">Building </span> Add</h2>
+                    </div>
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
-<div class="row">
-    <div class="col-md-12">
-        <div class="grid simple">
-            <div class="grid-title">
-                <h3 class="inline"><span class="semi-bold">Building</span> Details</h3> 
-                <div class="clearfix"></div>
-            </div>
-            <div class="grid-body">
-                <form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/building') }}">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-label">Name</label>
-                                <input required="" type="text" class="form-control" name="building_name" placeholder="Enter Building Name">
+<div class="grid simple">
+<form data-parsley-validate method="POST" action="{{ url('admin/project/'. $project['id'] .'/building') }}">    
+                <div class="grid-body grid-padding no-border">
+                    <div class=" m-t-15 m-b-15 no-border">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h3><i class=
+                                       "fa fa-angle-double-right text-primary"></i>
+                                    <span class="semi-bold">Building</span>
+                                    Details</h3>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group object-phases" data-object-type="building">
-                                <label class="form-label">Phase</label>
-                                <select  name="phase_id" class="select2 form-control m-b-5">
-                                    <option value="">Select Phase</option>
-                                    @foreach( $phases as $phase )
-                                    <option value="{{ $phase->id }}">{{ $phase->phase_name }}</option>
+                    </div>
+
+                    <div class="row">
+                            <div class="col-md-4">
+                            <div class="form-group">
+                                        <label class="form-label">Building Name<span class="text-primary">*</span></label>
+                                       <input required="" type="text" class="form-control" name="building_name" placeholder="Enter Building Name" data-parsley-required onchange="validateBuildingName(this,0);" ><div class="cf-loader hidden"></div>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-md-4">
+                            <div class="form-group">
+                                        <label class="form-label">Building Abbrevation<span class="text-primary">*</span></label>
+                                        
+                                        <input type="text" name="abbrevation" id="abbrevation" placeholder="Enter Building Abbrevation" class="form-control" data-parsley-required>
+ 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                            <div class="form-group">
+                                        <label class="form-label">Number of Floors<span class="text-primary">*</span></label>
+                                        <select id="phase" name="no_of_floors" class="select2 form-control m-b-5" data-parsley-required>
+                                                <option value="">Select Floors</option>
+                                                @for($i=1 ;  $i<=100; $i++)
+                                                <option value="{{ $i }}">{{ $i }}</option>
+                                                @endfor
+                                            </select>
+                                             
+                                        </div>
+                                    </div>
+                                    </div>
+
+                    <div class="row">
+                                   <div class="col-md-4">
+                            <div class="form-group">
+                                        <label class="form-label">Phase<span class="text-primary">*</span></label>
+                                @if($project['has_phase']=='yes')
+                                <select  class="select2 form-control m-b-5" name="phase_id" data-parsley-required>
+                                   <option value="">Select Phase</option>  
+                                   @foreach($phases as $phase)
+                                    <option value="{{$phase['id']}}">{{$phase['phase_name']}}</option>
                                     @endforeach
                                 </select>
-                             
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapsephase" aria-expanded="true" aria-controls="collapseOne">+ Add Phase</a>
-                                <div id="collapsephase" class="panel-collapse collapse p-t-10" role="tabpanel" aria-labelledby="headingOne">
-                                    <input type="text" class="form-control phase-name m-b-10" placeholder="Add Phase">
-                                    <button type="button" class="btn btn-small btn-primary add-phase-btn"><i class="fa fa-save"></i> Save</button>
-                                </div>
-                            </div> 
-                        </div>
+                                @else
+                                <select  class="select2 form-control m-b-5" name="phase_id" disabled>
+                                    <option value="">Select Phase</option>
+                                   @foreach($phases as $phase)
+                                    <option selected value="{{$phase['id']}}">{{$phase['phase_name']}}</option>
+                                    @endforeach
+                                </select>
+                                <input type="hidden" name="phase_id" value="{{$phase['id']}}">
+                                @endif
+                                             
+                                        </div>
+                                    </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="form-label">Number of Floors</label>
-                                <input type="number" data-parsley-min="1" required="" class="form-control" name="no_of_floors" placeholder="Enter Number of Floors">
+                                        <label class="form-label">Has Master<span class="text-primary">*</span></label>
+                        <div class="radio radio-primary">        
+                                        <input id="master_yes" type="radio" name="has_master" value="yes" checked>
+                        <label for="master_yes" class="form-label">Yes</label>
+                        <input id="master_no" type="radio" name="has_master" value="no" >
+                        <label for="master_no" class="form-label">No</label>
+                         </div>                    
+                                        </div>
+                                    </div>
+                                </div>
+                     
+                    <div class="row">
+                        <div class="col-md-12">
+                             <div class="form-actions">
+                                    <div class="text-right">
+                                       <input type="hidden" value="{{ csrf_token()}}" name="_token"/>    
+                            <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-plus-circle"></i> Create</button>
+                             <button class="btn btn-default btn-cons" type="submit"><i class="fa fa-ban"></i>
+                                            Cancel</button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
                     </div>
-                    <div class="form-actions">  
-                        <div class="pull-right">
-                            <input type="hidden" value="{{ csrf_token()}}" name="_token"/>    
-                            <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
-                            <button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button>
-                        </div>
-                    </div>
+                </div>
                 </form>
+
             </div>
-        </div>
-    </div>
-</div>
+ 
 @endsection
