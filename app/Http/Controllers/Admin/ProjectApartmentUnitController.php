@@ -245,5 +245,37 @@ class ProjectApartmentUnitController extends Controller {
             'data' => $str
         ], 201 );
     }
+    
+     
+    public function validateBuildingUnitName($projectId,Request $request) {
+       
+        $name = $request->input('name');
+        $buildingId = $request->input('buildingId');
+        $unitId = $request->input('unitId');
+        
+        $msg = '';
+        $flag = true;
+
+        if ($unitId)
+        {
+            $unitData = Unit::where('building_id',$buildingId)->where('unit_name', $name)->where('id', '!=', $unitId)->get()->toArray();
+        }
+        else
+        {
+            $unitData = Unit::where('building_id',$buildingId)->where('unit_name', $name)->get()->toArray();
+        }
+
+        if (!empty($unitData)) {
+            $msg = 'Unit Name Already Taken';
+            $flag = false;
+        }
+
+
+        return response()->json([
+                    'code' => 'unit_name_validation',
+                    'message' => $msg,
+                    'data' => $flag,
+                        ], 200);
+    } 
 
 }

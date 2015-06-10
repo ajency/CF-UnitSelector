@@ -122,6 +122,7 @@ class Permission {
                               'admin/project/{project}/apartment-variant/getpropertytypedata'=>'configure_project',
                               'admin/project/{project}/apartment-variant/getunittypevariants'=>'configure_unit',
                               'admin/project/{project}/apartment-unit/getavailableposition'=>'configure_unit',
+                              'admin/project/{project}/apartment-unit/validatebuildingunitname'=>'configure_unit',
                               'admin/project/{project}/bunglow-unit/validateunitname'=>'configure_unit',
                               'admin/user/validateuseremail'=>'manage_users', 
                               'admin/user/{id}/profile'=>'read_project', 
