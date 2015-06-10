@@ -5,12 +5,17 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
          <a href="javascript:void(0)" class="text-primary filters-clear clear">Clear Filters </a> <button class="btn btn-primary filter-button filter-toggle" type="button"> <span class="icon"></span> </button> 
          <div class="filters-wrapper">
             <div class="filters-content">
-                                    <div class="property_type">
+                                    <div class="property_type clearfix">
 				                        <h6 class="">PROPERTY TYPE</h6>
 				                        <div class="filter-chkbox-block"> 
 				                        {{#types}}
 				                         <div class="-lbl ">
-				                          <input type="checkbox" class="custom-chckbx addCft types {{name}}" id="{{id}}" value="{{type}}" data-value="{{name}}"" > <label for="{{id}}" class="-lbl  ">{{type}}</label>  
+				                          <input type="checkbox" class="custom-chckbx addCft types {{name}}" id="{{id}}" value="{{type}}" data-value="{{name}}"" >
+				                          	<label for="{{id}}" class="-lbl  ">
+				                          		{{type}}
+				                          		<span class="arrow-right desktop"></span>
+				                          	</label>
+				                          	<span class="arrow-right mobile"></span>
 				                          </div>
 				                       {{/types}} 
 				                         </div>
