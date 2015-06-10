@@ -34,28 +34,7 @@
                                     <div class="form-group">
                                         <label class="form-label">City<span class="text-primary">*</span></label><!-- //TODO fix the required validation  -->
                                         <select name="city" class="select2 form-control ff" data-parsley-required>
-                                            <option value="">Choose City</option>
-                                            <option value="Mumbai">Mumbai</option>
-                                            <option value="Pune">Pune</option>
-                                            <option value="Delhi">Delhi</option>
-                                            <option value="Bangalore">Bangalore</option>
-                                            <option value="DelhiNCR">DelhiNCR</option>
-                                            <option value="Gurgaon">Gurgaon</option>
-                                            <option value="GreaterNoida">GreaterNoida</option>
-                                            <option value="Ghaziabad">Ghaziabad</option>
-                                            <option value="Faridabad">Faridabad</option>
-                                            <option value="Bhiwadi">Bhiwadi</option>
-                                            <option value="Dharuhera">Dharuhera</option>
-                                            <option value="Hyderabad">Hyderabad</option>
-                                            <option value="Chennai">Chennai</option>
-                                            <option value="NaviMumbai">NaviMumbai</option>
-                                            <option value="Kolkata">Kolkata</option>
-                                            <option value="Jaipur">Jaipur</option>
-                                            <option value="Thane">Thane</option>
-                                            <option value="Ahmedabad">Ahmedabad</option>
-                                            <option value="Mysore">Mysore</option>
-                                            <option value="Lucknow">Lucknow</option>
-                                            <option value="Kochi">Kochi</option>
+
                                         </select>
                                     </div>
                                     <div class="form-group">

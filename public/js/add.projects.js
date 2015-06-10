@@ -2,7 +2,7 @@
   var slice = [].slice;
 
   jQuery(document).ready(function($) {
-    var checkUnitTypeRequired, registerRemovePhaseListener, registerRemoveUnitType;
+    var cfCityFetchOptions, checkUnitTypeRequired, registerRemovePhaseListener, registerRemoveUnitType;
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -11,6 +11,28 @@
     $.notify.defaults({
       globalPosition: 'bottom right'
     });
+    cfCityFetchOptions = {
+      method: "GET",
+      url: "https://stage.commonfloor.com/api/geo-local-v2/get-cities",
+      async: false
+    };
+    console.log(cfCityFetchOptions);
+    $.ajax(cfCityFetchOptions).done((function(_this) {
+      return function(resp, textStatus, xhr) {
+        var cities, response;
+        response = $.parseJSON(resp);
+        cities = response.results;
+        $('#add_project select[name="city"]').empty();
+        $('#add_project select[name="city"]').append($('<option value="">Choose City</option>'));
+        return _.each(cities, function(value, key) {
+          console.log(value);
+          return $('#add_project select[name="city"]').append($('<option/>', {
+            value: value.city_name,
+            text: value.city_name
+          }));
+        });
+      };
+    })(this));
     $(document).ajaxComplete(function() {
       var args, ref, ref1, xhr;
       args = 1 <= arguments.length ? slice.call(arguments, 0) : [];
