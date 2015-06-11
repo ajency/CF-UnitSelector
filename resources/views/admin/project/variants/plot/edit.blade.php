@@ -71,14 +71,14 @@
                                 $value = (isset($unitVariant['variant_attributes'][ $propertyTypeAttribute['label'] ])) ? $unitVariant['variant_attributes'][ $propertyTypeAttribute['label'] ] : ''
                                 ?>
                                 @if('textbox' === $propertyTypeAttribute['control_type'])
-                                <input type="text" class="form-control" name="attributes[{{ $propertyTypeAttribute['label'] }}]" value="{{ $value }}" placeholder="Enter {{ $propertyTypeAttribute['label'] }}">
+                                <input type="text" class="form-control" name="attributes[{{ $propertyTypeAttribute['label'] }}]" value="{{ $value }}" placeholder="Enter {{ $propertyTypeAttribute['label'] }}" data-parsley-required>
                                 @elseif('number' === $propertyTypeAttribute['control_type'])
-                                <input type="number" class="form-control" name="attributes[{{ $propertyTypeAttribute['label'] }}]" value="{{ $value }}" placeholder="Enter {{ $propertyTypeAttribute['label'] }}">
+                                <input type="number" class="form-control" name="attributes[{{ $propertyTypeAttribute['label'] }}]" value="{{ $value }}" placeholder="Enter {{ $propertyTypeAttribute['label'] }}" data-parsley-required data-parsley-type="number">
                                 @elseif('select' === $propertyTypeAttribute['control_type'])
                                 <?php
                                 $options = explode(',', $propertyTypeAttribute['defaults']);
                                 ?>
-                                <select name="attributes[{{ $propertyTypeAttribute['label'] }}]" class="select2 form-control">
+                                <select name="attributes[{{ $propertyTypeAttribute['label'] }}]" class="select2 form-control" data-parsley-required>
                                     <option value="">Select {{ $propertyTypeAttribute['label'] }}</option>   
                                     @foreach($options as $option)
                                     <option @if($value== $option ){{'selected'}}@endif  value="{{ $option }}">{{ $option }}</option>
@@ -88,7 +88,7 @@
                                 <?php
                                 $options = explode(',', $propertyTypeAttribute['defaults']);
                                 ?>
-                                <select multiple name="attributes[{{ $propertyTypeAttribute['label'] }}][]" class="select2 form-control">
+                                <select multiple name="attributes[{{ $propertyTypeAttribute['label'] }}][]" class="select2 form-control" data-parsley-required>
                                     <option value="">Select {{ $propertyTypeAttribute['label'] }}</option>   
                                     @foreach($options as $option)
                                     <option {{ (!empty($value) && in_array( $option ,$value)) ? 'selected="selected"' : '' }}  value="{{ $option }}">{{ $option }}</option>

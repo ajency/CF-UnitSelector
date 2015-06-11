@@ -11,7 +11,7 @@ use CommonFloor\Role;
 use Illuminate\Support\Facades\Mail;
 use CommonFloor\UserRole;
 use CommonFloor\UserProject;
-
+use \Session;
 
 class UserController extends Controller {
 
@@ -89,7 +89,7 @@ class UserController extends Controller {
 
          mail($email,"Welcome to CommonFloor Unit Selector!",$data, $headers);
          
-
+        Session::flash('success_message','User has been created successfully');
         $addanother = $request->input('addanother');
 
         if ($addanother == 1)
@@ -175,6 +175,7 @@ class UserController extends Controller {
             $userRole->update(); 
         }
   
+        Session::flash('success_message','User Successfully Updated');    
         $addanother = $request->input('addanother');
 
         if ($addanother == 1)
@@ -194,12 +195,18 @@ class UserController extends Controller {
 
     public function changePassword($userId, Request $request) {
         $newpassword = $request->input('newpassword');
+        $is_profile = $request->input('is_profile');
 
         $user = User::find($userId);
         $user->password = Hash::make($newpassword);
         $user->save();
-
-        return redirect("/admin/user/" . $userId . "/edit");
+        
+         Session::flash('success_message','Password Successfully Updated');
+        
+        if ($is_profile == 1)
+            return redirect("/admin/user/" . $userId . "/profile");
+        else
+             return redirect("/admin/user/" . $userId . "/edit");
     }
 
     /**
