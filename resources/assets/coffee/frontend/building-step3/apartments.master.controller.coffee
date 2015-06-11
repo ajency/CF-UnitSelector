@@ -58,16 +58,16 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 															 {{/budget}}
 
 															  {{#views}}
-													         	 
-													                <div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
-													       
-													         {{/views}}
+																 
+																	<div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
+														   
+															 {{/views}}
 
-													       {{#facings}}
-													         	 
-													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
-													        
-													         {{/facings}}
+														   {{#facings}}
+																 
+																	<div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
+															
+															 {{/facings}}
 
 														 {{#floor}}
 																
@@ -302,7 +302,7 @@ class ApartmentsView extends Marionette.ItemView
 	template : Handlebars.compile('	<div class="row">
 										<div class="col-xs-5  info">
 											<b class="bold">{{floor}}</b>-{{unit_name}} 
-									  	</div>  
+										</div>  
 
 										<div class="col-xs-3  info">
 											{{unit_type}}
@@ -459,8 +459,8 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 							  </ul>
 							 </div>
 							 <div class="sort-unit"> All Units
-							 	<input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="&nbsp;" data-off="&nbsp;" data-onstyle="warning" data-offstyle="warning">
-							 	In View
+								<input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="&nbsp;" data-off="&nbsp;" data-onstyle="warning" data-offstyle="warning">
+								In View
 							 </div>
 							
 							<p class="text-center help-text">Hover on the units for more details</p>
@@ -541,10 +541,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 										  </ul>
 										</div>
 
-										<div mag-ctrl="controls">
-											<button mag-ctrl-zoom-by="-0.5" class="Zoomin">-</button>
-											<button mag-ctrl-zoom-by="0.5">+</button>
-										</div>
+										
 										<!--<div class="zoom-controls">
 											<div class="zoom-in"></div>
 											<div class="zoom-out"></div>
@@ -573,7 +570,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 											<div class="outer-wrap" STYLE="height:100%">
 												<div mag-thumb="outer" class="home-region"> 
-													<img class="first_image" />
+													<img class="zoomimage" />
 												</div>
 												<div mag-zoom="outer">
 													<div id="spritespin"></div>
@@ -669,7 +666,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		# 	# CommonFloor.router.storeRoute()
 
 		'mouseover .apartment':(e)->
-			id = parseInt e.currentTarget.id
+			console.log id = parseInt e.currentTarget.id
 			unit = unitCollection.findWhere
 					'id' : id
 			unitMaster = unitMasterCollection.findWhere 
@@ -807,21 +804,22 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 	onShow:->
 
-		@$host = $('[mag-thumb="outer"]')
-		console.log m = @$host.mag(
-		  mode: 'outer'
-		  position: 'drag'
-		  toggle: false
-		  zoomMax:3
-		  zoomRate: 2
-		  constrainZoomed: true
+		window.magne = new Magnificent(
+				'[mag-thumb="outer"]',
+				{
+					mode: 'outer'
+					position: 'drag'
+					toggle: false
+					zoomMax:3
+					zoomRate: 2
+					constrainZoomed: true
+				}
 		)
-
-
-		$controls = $('[mag-ctrl="controls"]');
-		$controls.magCtrl({
-		  mag: @$host
-		});
+		console.log window.magne.zoomBy(-1)
+		# $controls = $('[mag-ctrl="controls"]');
+		# $controls.magCtrl({
+		#   mag: @$host
+		# });
 		windowHeight = $(window).innerHeight() - 56
 		$('.master').css 'height', windowHeight
 		$('.master').css 'min-width', windowHeight * 2
@@ -862,10 +860,12 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					CommonFloor.applyOnViewClass()
 					# that.loadZoom()
 					that.undelegateEvents()
+					that.zoomBuilding()
 					response = building.checkRotationView(building_id)
 					$('.svg-maps').removeClass 'hidden'
 					$('.mini-map').removeClass 'hidden'
 					$('.first_image').first().css('width',that.ui.svgContainer.width())
+					$('.zoomimage').attr('src',transitionImages[breakpoints[0]])
 					if response is 1
 						$('.cf-loader').removeClass 'hidden'
 						that.initializeRotate(transitionImages,svgs,building)
@@ -875,25 +875,61 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		
 			
 		
-		@zoomBuilding()
+		
 		@loadProjectMaster()
 
 		if $(window).width() > 991
 			$('.units').mCustomScrollbar
 				theme: 'cf-scroll'
 
+	ratioOffsetsFor:($target, x, y) ->
+		return {
+		  x: x / $target.width(),
+		  y: y / $target.height()
+		}
+  
+
 	zoomBuilding:->
 		that  = @
+		$(".mag-lens").resize (e)->
+			temp = $(e.target).width()
+			if temp == 398
+				that.undelegateEvents()
+				$('.apartment').tooltipster('disable')
+			else 
+				that.delegateEvents()
+				that.iniTooltip()
+				$('.apartment').tooltipster('enable')
+				
 		$(document).on 'click' , '.apartment' , (e)->
-			that.$host.mag = new Mag()
-			that.$host.mag.model.focus = {x: 1.485, y: 1.05}
-			that.$host.mag.compute()
-			temp = new Magnificent
-			temp.model.focus = {x: 0.485, y: 1.05}
-			temp.model.lens = {x: 0.485, y: 1.05}
-			console.log temp.model
-			temp.compute()
+			clearTimeout(window.renderLoopInterval)
+			xpoint = e.clientX
+			ypoint = e.clientY
+
+			xpoint = xpoint/$(window).width()
+			ypoint = ypoint/$(window).height()
+			xpoint = xpoint.toFixed(1)
+			ypoint = ypoint.toFixed(1)
+
+			xapoint = xpoint /10
+			yapoint = ypoint /10
+			
+			temp = window.magne
+			temp.model.focus = {x: xpoint, y: ypoint}
+			# temp.model.lens = {x: xpoint, y: ypoint}
+
+			# temp.modelLazy.focus = {x: xpoint, y: ypoint}
+			# console.log temp.modelLazy.focus
+			# temp.modelLazy.lens = {x: xpoint, y: ypoint , h :0.5 , w: 0.5}
+			# temp.options.position = 'drag'
+			# temp.modelLazy.zoomed = {x: temp1, y:temp2 , h :1.5 , w: 1.5}
+			# temp.compute()
+			temp.zoomBy(1)
 			temp.reinit()
+			# that.delegateEvents()
+			# temp.renderNew(temp)
+			# window.renderLoopInterval()
+			
 			# that.$host.mag.reinit(that.$host.mag.model)
 	loadProjectMaster:->
 		svgs = []
