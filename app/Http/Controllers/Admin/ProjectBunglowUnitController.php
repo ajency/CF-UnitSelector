@@ -12,6 +12,7 @@ use CommonFloor\Unit;
 use CommonFloor\UnitType;
 use CommonFloor\Phase;
 use CommonFloor\Defaults;
+use \Session;
 
 class ProjectBunglowUnitController extends Controller {
 
@@ -87,6 +88,7 @@ class ProjectBunglowUnitController extends Controller {
                         ->with('unit_variant_arr', $unitVariantArr)
                         ->with('phases', $phases)
                         ->with('defaultDirection', $defaultDirection)
+                        ->with('projectPropertytypeId', $projectPropertytypeId)
                         ->with('current', 'bunglow-unit');
     }
 
@@ -114,6 +116,7 @@ class ProjectBunglowUnitController extends Controller {
 
         $unit->save();
         $unitid = $unit->id;
+        Session::flash('success_message','Unit Successfully Created');
         
         $addanother = $request->input('addanother');
         
@@ -162,15 +165,18 @@ class ProjectBunglowUnitController extends Controller {
        
         $unitVariantArr = UnitVariant::whereIn('unit_type_id',$unitTypeIdArr)->get()->toArray();
         $phases = $project->projectPhase()->where('status','not_live')->get()->toArray();
-       
-
+        
+        $isUnitPhaseInPhases =[];
         foreach ($phases as $key => $phase) {
-            if($phase['id'] != $unit->phase_id)
-            {   
-               $phases[]= $project->projectPhase()->where('id',$unit->phase_id)->first()->toArray();
+            if($phase['id'] == $unit->phase_id)
+            {    
+                $isUnitPhaseInPhases[] =$unit->phase_id;
             }
 
         }
+        
+        if(empty($isUnitPhaseInPhases))
+            $phases[]= $project->projectPhase()->where('id',$unit->phase_id)->first()->toArray();
       
         return view('admin.project.editunit')
                         ->with('project', $project->toArray())
@@ -180,6 +186,7 @@ class ProjectBunglowUnitController extends Controller {
                         ->with('unit', $unit->toArray())
                         ->with('phases', $phases)
                         ->with('defaultDirection', $defaultDirection)
+                        ->with('projectPropertytypeId', $projectPropertytypeId)
                         ->with('current', 'bunglow-unit');
     }
 
@@ -206,6 +213,7 @@ class ProjectBunglowUnitController extends Controller {
         $viewsStr = serialize( $unitviews );
         $unit->views = $viewsStr;
         $unit->save();
+        Session::flash('success_message','Unit Successfully Updated');
         $addanother = $request->input('addanother');
         
         if($addanother==1)
@@ -223,5 +231,43 @@ class ProjectBunglowUnitController extends Controller {
     public function destroy($id) {
         //
     }
+    
+ 
+    public function validateUnitName($projectId,Request $request) {
+        $name = $request->input('name');
+ 
+        $projectPropertytypeId = $request->input('projectPropertytypeId');
+        $unitId = $request->input('unitId');
+        
+        $unitTypeArr = UnitType::where('project_property_type_id', $projectPropertytypeId)->get()->toArray();
+        $unitTypeIdArr = $unitVariantIdArr= [];
+        foreach($unitTypeArr as $unitType)
+            $unitTypeIdArr[] =$unitType['id'];
+       
+        $unitvariantArr = UnitVariant::whereIn('unit_type_id',$unitTypeIdArr)->get()->toArray();
+        foreach($unitvariantArr as $unitvariant)
+            $unitVariantIdArr[] =$unitvariant['id'];
+        
+        $msg = '';
+        $flag = true;
+
+        if ($unitId)
+            $unitData = Unit::whereIn('unit_variant_id',$unitVariantIdArr)->where('unit_name', $name)->where('id', '!=', $unitId)->get()->toArray();
+        else
+            $unitData = Unit::whereIn('unit_variant_id',$unitVariantIdArr)->where('unit_name', $name)->get()->toArray();
+
+
+        if (!empty($unitData)) {
+            $msg = 'Unit Name Already Taken';
+            $flag = false;
+        }
+
+
+        return response()->json([
+                    'code' => 'unit_name_validation',
+                    'message' => $msg,
+                    'data' => $flag,
+                        ], 200);
+    }    
 
 }

@@ -16,6 +16,7 @@ use CommonFloor\Media;
 use CommonFloor\VariantMeta;
 use CommonFloor\Defaults;
 use \File;
+use \Session;
 
 class ProjectPlotVariantController extends Controller {
 
@@ -80,7 +81,7 @@ class ProjectPlotVariantController extends Controller {
         }
  
         $propertyTypeAttributes = ProjectPropertyType::find($projectPropertytypeId)->attributes->toArray();
-
+        
 
         return view('admin.project.variants.plot.add')
                         ->with('project', $project->toArray())
@@ -163,6 +164,7 @@ class ProjectPlotVariantController extends Controller {
             }
         } 
         
+        Session::flash('success_message','Variant Successfully Created');
         return redirect("/admin/project/" . $project_id . "/plot-variant/" . $unitVariantID . '/edit');
     }
 
@@ -273,7 +275,8 @@ class ProjectPlotVariantController extends Controller {
         $attributeStr = serialize( $variantattributedata );
         $unitVariant->variant_attributes = $attributeStr;
         $unitVariant->save();
-
+        
+        Session::flash('success_message','Variant Successfully Updated');
         return redirect("/admin/project/" . $project_id . "/plot-variant/" . $id . '/edit');
     }
 

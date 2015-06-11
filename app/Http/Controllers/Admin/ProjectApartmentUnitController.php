@@ -12,6 +12,7 @@ use CommonFloor\Building;
 use CommonFloor\FloorLayout;
 use CommonFloor\UnitVariant;
 use CommonFloor\Defaults;
+use \Session;
 
 class ProjectApartmentUnitController extends Controller {
 
@@ -100,6 +101,7 @@ class ProjectApartmentUnitController extends Controller {
         $unit->views = $viewsStr;
         
         $unit->save();
+        Session::flash('success_message','Unit Successfully Created');
 
         $addanother = $request->input('addanother');
         if ($addanother == 1)
@@ -200,6 +202,7 @@ class ProjectApartmentUnitController extends Controller {
         $viewsStr = serialize( $unitviews );
         $unit->views = $viewsStr;
         $unit->save();
+        Session::flash('success_message','Unit Successfully Updated');
 
         $addanother = $request->input('addanother');
         if ($addanother == 1)
@@ -242,5 +245,37 @@ class ProjectApartmentUnitController extends Controller {
             'data' => $str
         ], 201 );
     }
+    
+     
+    public function validateBuildingUnitName($projectId,Request $request) {
+       
+        $name = $request->input('name');
+        $buildingId = $request->input('buildingId');
+        $unitId = $request->input('unitId');
+        
+        $msg = '';
+        $flag = true;
+
+        if ($unitId)
+        {
+            $unitData = Unit::where('building_id',$buildingId)->where('unit_name', $name)->where('id', '!=', $unitId)->get()->toArray();
+        }
+        else
+        {
+            $unitData = Unit::where('building_id',$buildingId)->where('unit_name', $name)->get()->toArray();
+        }
+
+        if (!empty($unitData)) {
+            $msg = 'Unit Name Already Taken';
+            $flag = false;
+        }
+
+
+        return response()->json([
+                    'code' => 'unit_name_validation',
+                    'message' => $msg,
+                    'data' => $flag,
+                        ], 200);
+    } 
 
 }

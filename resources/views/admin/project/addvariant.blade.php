@@ -86,14 +86,14 @@
 
                                 <div>
                                     @if('textbox' === $attributes['control_type'])
-                                    <input type="text" class="form-control" name="villa_attributes[{{ $attributes['label'] }}]"  placeholder="Enter {{ $attributes['label'] }}">
+                                    <input type="text" class="form-control" name="villa_attributes[{{ $attributes['label'] }}]"  placeholder="Enter {{ $attributes['label'] }}" data-parsley-required value="">
                                     @elseif('number' === $attributes['control_type'])
-                                    <input type="number" class="form-control" name="villa_attributes[{{ $attributes['label'] }}]" value="" placeholder="Enter {{ $attributes['label'] }}">
+                                    <input type="number" class="form-control" name="villa_attributes[{{ $attributes['label'] }}]" value="" placeholder="Enter {{ $attributes['label'] }}" data-parsley-required data-parsley-type="number" value="">
                                     @elseif('select' === $attributes['control_type'])
                                     <?php
                                     $options = explode(',', $attributes['defaults']);
                                     ?>
-                                    <select name="villa_attributes[{{ $attributes['label'] }}]" class="select2 form-control select2-offscreen">
+                                    <select name="villa_attributes[{{ $attributes['label'] }}]" class="select2 form-control select2-offscreen" data-parsley-required>
                                         <option value="">Select {{$attributes['label']}}</option>   
                                         @foreach($options as $option)
                                         <option  value="{{ $option }}">{{ $option }}</option>
@@ -103,7 +103,7 @@
                                     <?php
                                     $options = explode(',', $attributes['defaults']);
                                     ?>
-                                    <select multiple name="villa_attributes[{{ $attributes['label'] }}][]" class="select2 form-control">
+                                    <select multiple name="villa_attributes[{{ $attributes['label'] }}][]" class="select2 form-control" data-parsley-required>
                                         <option value="">Select {{$attributes['label']}}</option>   
                                         @foreach($options as $option)
                                         <option value="{{ $option }}">{{ $option }}</option>

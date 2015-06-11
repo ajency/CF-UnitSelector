@@ -38,15 +38,15 @@
                             <div class="col-md-4">
                             <div class="form-group">
                                         <label class="form-label">Building Name<span class="text-primary">*</span></label>
-                                       <input required="" type="text" class="form-control" name="building_name" placeholder="Enter Building Name" data-parsley-required>
+                                       <input required="" type="text" class="form-control" name="building_name" placeholder="Enter Building Name" data-parsley-required onchange="validateBuildingName(this,0);" ><div class="cf-loader hidden"></div>
                                         </div>
 
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 hidden">
                             <div class="form-group">
                                         <label class="form-label">Building Abbrevation<span class="text-primary">*</span></label>
                                         
-                                        <input type="text" name="abbrevation" id="abbrevation" placeholder="Enter Building Abbrevation" class="form-control" data-parsley-required>
+                                        <input type="text" name="abbrevation" id="abbrevation" placeholder="Enter Building Abbrevation" class="form-control" >
  
                                         </div>
                                     </div>

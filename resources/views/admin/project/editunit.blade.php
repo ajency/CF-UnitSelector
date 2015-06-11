@@ -19,6 +19,7 @@
 </div>
 
 <div class="grid simple">
+    @include('admin.project.flashmessage')
     <div class="grid-title no-border">
         <h3 > <i class="fa fa-angle-double-right text-primary"></i> Villa <span class="semi-bold">Details</span></h3>
     </div>
@@ -29,7 +30,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Name<span class="text-primary">*</span></label>
-                        <input type="text" class="form-control" name="unit_name" value="{{$unit['unit_name']}}"  placeholder="Enter Name" data-parsley-required>
+                        <input type="text" class="form-control" name="unit_name" value="{{$unit['unit_name']}}"  placeholder="Enter Name" data-parsley-required onchange="validateUnitName(this,{{ $projectPropertytypeId }},{{ $unit['id'] }});" ><div class="cf-loader hidden"></div>
                     </div>
                 </div>
                 <div class="col-md-4">

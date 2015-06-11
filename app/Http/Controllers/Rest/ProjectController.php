@@ -5,7 +5,14 @@ namespace CommonFloor\Http\Controllers\Rest;
 use CommonFloor\Http\Controllers\Controller;
 use CommonFloor\Gateways\ProjectGatewayInterface;
 use CommonFloor\ProjectJson;
+use CommonFloor\Unit;
+use CommonFloor\Project;
+use CommonFloor\UnitVariant;
+use CommonFloor\UnitType;
+use CommonFloor\Building;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
+use \Input;
 
 class ProjectController extends Controller {
 
@@ -91,10 +98,11 @@ class ProjectController extends Controller {
                                 ->where('type', 'step_two')->get()->first();
         $projectJson->project_json = $stepTwoData;
         $projectJson->save();
+        \Session::flash('success_message','Project Successfully Published');
         return response()->json( [
                             'code' => '',
                             'message' => 'Project json updated successfully'
                     ], 203 );
     }
- 
+
 }

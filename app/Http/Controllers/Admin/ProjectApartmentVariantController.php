@@ -15,6 +15,7 @@ use CommonFloor\Media;
 use CommonFloor\VariantMeta;
 use CommonFloor\Defaults;
 use \File;
+use \Session;
 
 class ProjectApartmentVariantController extends Controller {
 
@@ -220,6 +221,7 @@ class ProjectApartmentVariantController extends Controller {
             }
             }
         }
+        Session::flash('success_message','Variant Successfully Created');
         return redirect( "/admin/project/" . $projectId . "/apartment-variant/" . $unitVariantID . '/edit' );
     }
 
@@ -380,7 +382,7 @@ class ProjectApartmentVariantController extends Controller {
             }
             }
         }
-
+         Session::flash('success_message','Variant Successfully Updated');
         return redirect("/admin/project/" . $project_id . "/apartment-variant/" . $id . '/edit');
     }
      
@@ -457,11 +459,13 @@ class ProjectApartmentVariantController extends Controller {
             $attributes.='<label class="form-label">'.$attribute['label'].'</label>';
             
             if('textbox' === $attribute['control_type'])
-                $attributes.='<input type="text" class="form-control" name="attributes['.property_type_slug($attribute['label']).']"  placeholder="Enter '.$attribute['label'].'">';
+                $attributes.='<input type="text" class="form-control" name="attributes['.property_type_slug($attribute['label']).']"  placeholder="Enter '.$attribute['label'].'" data-parsley-required>';
+            elseif('number' === $attribute['control_type'])
+                $attributes.='<input type="number" class="form-control" name="attributes['.property_type_slug($attribute['label']).']"  placeholder="Enter '.$attribute['label'].'" data-parsley-required data-parsley-type="number">'; 
             elseif('select' === $attribute['control_type'])
             {
                $options = explode(',', $attribute['defaults']);
-               $attributes.='<select name="attributes['.property_type_slug($attribute['label']).']" class="select2 form-control">';
+               $attributes.='<select name="attributes['.property_type_slug($attribute['label']).']" class="select2 form-control" data-parsley-required>';
                $attributes.='<option value="">Select '.$attribute['label'].'</option>';   
               foreach($options as $option)
               {
@@ -473,7 +477,7 @@ class ProjectApartmentVariantController extends Controller {
              {
                  $options = explode(',', $attribute['defaults']);
                      
-                $attributes.='<select multiple name="attributes['.property_type_slug($attribute['label']).'][]" class="select2 form-control">';
+                $attributes.='<select multiple name="attributes['.property_type_slug($attribute['label']).'][]" class="select2 form-control" data-parsley-required>';
                 $attributes.='<option value="">Select '.$attribute['label'].'</option>';   
                 foreach($options as $option)
                 {

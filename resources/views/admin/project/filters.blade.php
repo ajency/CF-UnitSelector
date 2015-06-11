@@ -14,6 +14,7 @@
     <h2>Project<span class="semi-bold"> Filters</span></h2>
 </div>
 <div class="grid simple">
+@include('admin.project.flashmessage')
     <div class="grid-body no-border">
         <form action="{{ url('admin/project/' . $project['id'].'/updatefilters') }}" method="POST" data-parsley-validate>            
             <div class="alert alert-info m-t-20">

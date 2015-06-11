@@ -30,13 +30,13 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Name <span class="text-primary">*</span></label>
-                        <input type="text" class="form-control" name="unit_name" placeholder="Enter Name" data-parsley-required>
+                        <input type="text" class="form-control" name="unit_name" placeholder="Enter Name" data-parsley-required onchange="validateBuildingUnitName(0);" ><div class="cf-loader hidden"></div>
                     </div> 
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Building <span class="text-primary">*</span></label>
-                        <select name="building_id" class="select2 form-control apartment-unit-building m-b-5" data-parsley-required>
+                        <select name="building_id" class="select2 form-control apartment-unit-building m-b-5" data-parsley-required onchange="validateBuildingUnitName(0);">
                             <option value="">Select building</option>
                             @foreach($buildings as $building)
                             <option data-no-of-floors="{{ $building->no_of_floors }}" value="{{ $building->id }}">{{ $building->building_name }}</option>

@@ -10,7 +10,8 @@
         "illuminate/html": "5.0.*@dev",
         "jildertmiedema/laravel-plupload": "dev-master",
         "masterexploder/phpthumb" : "*",
-        "zizaco/entrust": "dev-laravel-5"
+        "zizaco/entrust": "dev-laravel-5",
+        "chrisbjr/api-guard": "~2.0"
 
     },
     "require-dev": {

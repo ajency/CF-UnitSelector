@@ -25,15 +25,8 @@
     <h2><span class="semi-bold">Project </span> Configuration</h2>
 </div>
 <div class="grid simple">
+    @include('admin.project.flashmessage')
     <div class="grid-title no-border">
-        @if($project['created_at']===$project['updated_at'])
-            <div class="alert alert-success ">
-                <button class="close" data-dismiss="alert"></button>
-                <i class="fa fa-check-circle" style="font-size: 17px;"></i> 
-                    Your project has been created successfully. Click on <strong>Edit</strong> to configure the project.
-                </div>
-                @endif
-       
         <h3> <i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Details</span></h3>
     </div>
     <div class="grid-body no-border">
@@ -121,7 +114,7 @@
             <?php
             $i=1;
             ?>
-            @if(isset($projectAttributes))
+            @if(!empty($projectAttributes))
             @foreach($projectAttributes as $projectAttribute)
             <div class="col-md-3">
                 <i class="fa fa-circle"></i> {{ $projectAttribute['label'] }} 
@@ -135,6 +128,8 @@
             $i++;
             ?>
             @endforeach
+            @else
+              <h5 class="semi-bold">No Views Created</h5>
             @endif
              
         </div>

@@ -42,10 +42,14 @@
                         <input type="hidden" name="attribute_id_room[]" value="" disabled>
                     </div>
                     <div class="col-xs-4">
+                        <select disabled class="select2-container select2 form-control" >
+                            <option>Textbox</option>
+                        </select>
                          <input type="hidden" name="controltype_room[]" value="textbox">
 
                     </div>
                     <div class="col-xs-3">
+                        
                           <input type="hidden" name="controltypevalues_room[]" data-role="tagsinput" class="tags">
                     </div>
                     <div class="col-xs-1 text-right">
@@ -58,6 +62,9 @@
                         <input  name="attribute_name_room[]" type="text" class="form-control"  value="Dimension">
                     </div>
                     <div class="col-xs-4">
+                        <select disabled class="select2-container select2 form-control" >
+                            <option>Textbox</option>
+                        </select>
                         <input type="hidden" name="controltype_room[]" value="textbox">
                     </div>
                     <div class="col-xs-3">

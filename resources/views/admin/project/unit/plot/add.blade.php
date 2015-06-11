@@ -29,7 +29,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label class="form-label">Name<span class="text-primary">*</span></label>
-                        <input type="text" class="form-control" name="unit_name" placeholder="Enter Name" data-parsley-required>
+                        <input type="text" class="form-control" name="unit_name" placeholder="Enter Name" data-parsley-required onchange="validateUnitName(this,{{ $projectPropertytypeId }},0);" ><div class="cf-loader hidden"></div>
                     </div>
                 </div>
                 <div class="col-md-4">

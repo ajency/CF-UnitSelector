@@ -11,7 +11,7 @@ use CommonFloor\Role;
 use Illuminate\Support\Facades\Mail;
 use CommonFloor\UserRole;
 use CommonFloor\UserProject;
-
+use \Session;
 
 class UserController extends Controller {
 
@@ -89,7 +89,7 @@ class UserController extends Controller {
 
          mail($email,"Welcome to CommonFloor Unit Selector!",$data, $headers);
          
-
+        Session::flash('success_message','User has been created successfully');
         $addanother = $request->input('addanother');
 
         if ($addanother == 1)
@@ -124,7 +124,21 @@ class UserController extends Controller {
         return view('admin.user.edit')
                         ->with('roles', $roles)
                         ->with('user', $user)
+                        ->with('flag', FALSE)
                         ->with('menuFlag', FALSE);
+    }
+    
+    public function profile($id) { 
+        
+        $user = User::find($id)->toArray();
+        $roles = Role::all()->toArray(); 
+        $defaultRole = getDefaultRole($id);
+        $user['default_role_id'] = $defaultRole['role_id'];
+        
+        return view('admin.user.edit')
+                        ->with('roles', $roles)
+                        ->with('user', $user)
+                        ->with('flag', TRUE);
     }
 
     /**
@@ -139,26 +153,35 @@ class UserController extends Controller {
         $email = $request->input('email');
         $phone_number = $request->input('phone_number');
         $user_status = $request->input('user_status');
-        
         $user_role = $request->input('user_role');
+        $is_profile = $request->input('is_profile');
 
         $user = User::find($id);
         $user->name = ucfirst($name);
-        $user->email = $email;
         $user->phone = $phone_number;
-        $user->status = $user_status;
         
+        if(!$is_profile)
+        {
+            $user->email = $email;
+            $user->status = $user_status;
+        }
         $user->save();
         
-        $defaultRoleId = getDefaultRole($id);  
-        $userRole = UserRole::find($defaultRoleId['id']);
-        $userRole->role_id = $user_role;
-        $userRole->update(); 
+        if(!$is_profile)
+        {
+            $defaultRoleId = getDefaultRole($id);  
+            $userRole = UserRole::find($defaultRoleId['id']);
+            $userRole->role_id = $user_role;
+            $userRole->update(); 
+        }
   
+        Session::flash('success_message','User Successfully Updated');    
         $addanother = $request->input('addanother');
 
         if ($addanother == 1)
             return redirect("/admin/user/create");
+        elseif ($is_profile == 1)
+            return redirect("/admin/user/" . $id . "/profile");
         else
             return redirect("/admin/user/" . $id . "/edit");
         //
@@ -172,12 +195,18 @@ class UserController extends Controller {
 
     public function changePassword($userId, Request $request) {
         $newpassword = $request->input('newpassword');
+        $is_profile = $request->input('is_profile');
 
         $user = User::find($userId);
         $user->password = Hash::make($newpassword);
         $user->save();
-
-        return redirect("/admin/user/" . $userId . "/edit");
+        
+         Session::flash('success_message','Password Successfully Updated');
+        
+        if ($is_profile == 1)
+            return redirect("/admin/user/" . $userId . "/profile");
+        else
+             return redirect("/admin/user/" . $userId . "/edit");
     }
 
     /**

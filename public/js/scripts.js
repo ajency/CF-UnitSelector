@@ -3,6 +3,7 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
+
 function validateTitle(obj)
 {
     $(".cf-loader").removeClass('hidden');
@@ -12,6 +13,78 @@ function validateTitle(obj)
         data: {
             title: obj.value,
             project_id: PROJECTID
+        },
+        dataType: "JSON",
+        success: function (response) {
+            if (!response.data)
+                $(obj).val('');
+
+            $(".cf-loader").addClass('hidden');
+        }
+    });
+}
+
+function validateUnitName(obj,projectPropertytypeId,unitId)
+{
+    $(".cf-loader").removeClass('hidden');
+    $.ajax({
+        url: "/admin/project/" + PROJECTID + "/bunglow-unit/validateunitname",
+        type: "POST",
+        data: {
+            name: obj.value,
+            unitId: unitId,
+            projectPropertytypeId: projectPropertytypeId
+        },
+        dataType: "JSON",
+        success: function (response) {
+            if (!response.data)
+                $(obj).val('');
+
+            $(".cf-loader").addClass('hidden');
+        }
+    });
+}
+
+function validateBuildingUnitName(unitId)
+{
+
+    var name= $("input[name='unit_name']").val(); 
+    var buildingId= $("select[name='building_id']").val(); 
+    
+    if((name!='') && (buildingId !=''))
+    {
+        $(".cf-loader").removeClass('hidden');
+        $.ajax({
+            url: "/admin/project/" + PROJECTID + "/apartment-unit/validatebuildingunitname",
+            type: "POST",
+            data: {
+                name: name,
+                unitId: unitId,
+                buildingId: buildingId
+            },
+            dataType: "JSON",
+            success: function (response) {
+                if (!response.data)
+                    $("input[name='unit_name']").val(''); 
+
+                $(".cf-loader").addClass('hidden');
+            }
+        });
+    }
+    
+    
+}
+
+function validateBuildingName(obj,buildingId)
+{
+    $(".cf-loader").removeClass('hidden');
+    $.ajax({
+        url: "/admin/building/validatebuildingname",
+        type: "POST",
+        data: {
+            name: obj.value,
+            project_id: PROJECTID,
+            building_id: buildingId
         },
         dataType: "JSON",
         success: function (response) {
@@ -175,7 +248,7 @@ function deleteAttribute(project_id, attributeId, obj)
     if (attributeId)
     {
         $.ajax({
-            url: "/admin/project/" + project_id + "/roomtype/" + attributeId + "/deleteroomtypeattributes",
+            url: "/admin/project/" + project_id + "/roomtype/" + attributeId + "/deleteattribute",
             type: "DELETE",
             success: function (response) {
                 $(obj).closest('.row').remove();
@@ -202,9 +275,7 @@ function getRoomTypeAttributes(obj, level)
              if($(this).val()== roomId)
             {
                  alert('Room Type Already Selected');
- 
-                 $(obj).select2('val', '');
- 
+                 $(obj).closest('.add-unit').find('select').select2('val', '');
                  flag= false;
                  
             }
@@ -221,6 +292,7 @@ function getRoomTypeAttributes(obj, level)
         success: function (response) {
             var attribute_str = response.data.attributes; 
             $(obj).closest('.grid-body').find('.room_attributes_block').append(attribute_str);
+            $(obj).closest('.add-unit').find('select').select2('val', '');
             $("select").select2();
         }
     });
@@ -286,44 +358,61 @@ function setUpProjectMasterUploader() {
                  };*/
             },
             FilesAdded: function (up, files) {
-                up.start();
-
+                var failcount =0;
                 for (var i = 0; i < files.length; i++)
                 {
                     var fileName = files[i].name;
                     var fileData = fileName.split('.');
                     var fileData_1 = fileData[0].split('-');
+                    var mastername = fileData_1[0];
                     var position = fileData_1[1];
+                    
+                   if((fileData_1.length == 2) && (mastername =='master' && !isNaN(position)))
+                   { 
+                        var load_newstr = '';
+                        var load_str = '<td>';
+                        load_str += '<div class="progress progress-small " style="margin:0;">';
+                        load_str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="20%" style="width: 20%;margin:0;"></div>';
+                        load_str += '</div>';
+                        load_str += '</td>';
+                        load_str += '<td class=" "><span class="muted"></span></td>';
+                        load_str += '<td class=" ">';
+                        load_str += '</td>';
+                        load_str += '<td class=" ">';
+                        load_str += '</td>';
+                        load_str += '<td class="text-right">';
+                        load_str += '<a class="text-primary" href="#"><i class="fa fa-close"></i></a>';
+                        load_str += '</td>';
 
-                    var load_newstr = '';
-                    var load_str = '<td>';
-                    load_str += '<div class="progress progress-small " style="margin:0;">';
-                    load_str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="20%" style="width: 20%;margin:0;"></div>';
-                    load_str += '</div>';
-                    load_str += '</td>';
-                    load_str += '<td class=" "><span class="muted"></span></td>';
-                    load_str += '<td class=" ">';
-                    load_str += '</td>';
-                    load_str += '<td class=" ">';
-                    load_str += '</td>';
-                    load_str += '<td class="text-right">';
-                    load_str += '<a class="text-primary" href="#"><i class="fa fa-close"></i></a>';
-                    load_str += '</td>';
-
-                    if ($('#position-' + position).length != 0) {
-                        $('#position-' + position).html(load_str);
+                        if ($('#position-' + position).length != 0) {
+                            $('#position-' + position).html(load_str);
+                        }
+                        else
+                        {
+                            load_newstr += '<tr class="" id="position-' + position + '">';
+                            load_newstr += load_str;
+                            load_newstr += '</tr>';
+                            $("#master-img").append(load_newstr);
+                        }
+                        $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="50%" style="width: 50%;margin:0;"></div>');
+                        $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="70%" style="width: 70%;margin:0;"></div>');
+                   }
+                    else{
+ 
+                        master_uploader.removeFile(files[i]);
+                        failcount ++;
                     }
-                    else
-                    {
-                        load_newstr += '<tr class="" id="position-' + position + '">';
-                        load_newstr += load_str;
-                        load_newstr += '</tr>';
-                        $("#master-img").append(load_newstr);
-                    }
-                    $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="50%" style="width: 50%;margin:0;"></div>');
-                    $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="70%" style="width: 70%;margin:0;"></div>');
 
                 }
+            
+            if(failcount)
+            {
+                $('.project-master-images').find(".errormsg").html(failcount+' images failed to upload. Invalid File Name.');
+                $('.project-master-images').find(".alert-error").removeClass('hidden');
+            }
+        
+             if(files.length)   
+                 up.start();
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
@@ -611,6 +700,8 @@ $(document).ready(function () {
                  };*/
             },
             FilesAdded: function (up, files) {
+            if(files[0].name =='map.jpg' || files[0].name =='map.png' || files[0].name =='map.jepg')
+            {
                 var str = '<div class="col-md-3">';
                 str += '<div class="img-hover img-thumbnail">';
                 str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
@@ -623,7 +714,11 @@ $(document).ready(function () {
                 str += '</div>';
                 $("#google_earth_image").html(str);
                 up.start();
-
+            }
+            else{
+                $('.google-earth-images').find(".alert-error").removeClass('hidden');
+                 
+            }    
 
 
             },
@@ -851,8 +946,8 @@ function saveBreakPoint()
 
 function deleteSvg(mediaId, type, refference)
 {
-    var objectType = $('div.object-master-images').attr('data-object-type');
-    var objectId = $('div.object-master-images').attr('data-object-id');
+    var objectType = $('div.object-master-images').attr('data-object-type'); 
+    var objectId = $('div.object-master-images').attr('data-object-id'); 
 
     if (confirm('Are you sure you want to delete this media file? ') === false) {
         return;
@@ -1187,30 +1282,30 @@ $("input[name=has_master]:radio").change(function () {
 });
 
 function openRoomTypeModal(obj, id)
+{
+    if (obj.value == 'add_new')
     {
-        if (obj.value == 'add_new')
-        {
-            $('#myModal').modal('show');
-            $('#myModalLabel').text('Add New Room');
-            $("#roomtypeiframe").attr("src", "/admin/project/" + PROJECTID + "/roomtype/create");
-            $(obj).select2('val', '');
-        }
-        else
-        {
-            if (id)
-            {
-                $('#myModalLabel').text('Edit Room');
-                $("#roomtypeiframe").attr("src", "/admin/project/" + PROJECTID + "/roomtype/" + id + "/edit?flag=edit");
-                $(".updateattribute").removeClass("hidden");
-                $('#myModal').modal('show');
-            }
-        }
-
-        var level = $(obj).closest('.row').find('input[name="levels[]"]').val();
-        $("#roomtypeiframe").attr("level", level);
-        $("#roomtypeiframe").attr("roomid", id);
-
+        $('#myModal').modal('show');
+        $('#myModalLabel').text('Add New Room');
+        $("#roomtypeiframe").attr("src", "/admin/project/" + PROJECTID + "/roomtype/create");
+        $(obj).select2('val', '');
     }
+    else
+    {
+        if (id)
+        {
+            $('#myModalLabel').text('Edit Room');
+            $("#roomtypeiframe").attr("src", "/admin/project/" + PROJECTID + "/roomtype/" + id + "/edit?flag=edit");
+            $(".updateattribute").removeClass("hidden");
+            $('#myModal').modal('show');
+        }
+    }
+
+    var level = $(obj).closest('.row').find('input[name="levels[]"]').val();
+    $("#roomtypeiframe").attr("level", level);
+    $("#roomtypeiframe").attr("roomid", id);
+
+}
 
 function deleteLevel(level)
 { 

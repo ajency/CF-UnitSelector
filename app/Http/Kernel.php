@@ -28,6 +28,7 @@ class Kernel extends HttpKernel {
     protected $routeMiddleware = [
         'auth' => 'CommonFloor\Http\Middleware\Authenticate',
         'permission' => 'CommonFloor\Http\Middleware\Permission',
+        'whitelistip' => 'CommonFloor\Http\Middleware\WhitelistIp',
         'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
         'guest' => 'CommonFloor\Http\Middleware\RedirectIfAuthenticated',
     ];

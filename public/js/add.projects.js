@@ -69,13 +69,14 @@
           return;
         }
         phaseId = $(this).attr('data-phase-id');
-        successFn = (function(_this) {
-          return function(resp, status, xhr) {
-            if (xhr.status === 204) {
-              return $(_this).closest('.pull-left').remove();
-            }
-          };
-        })(this);
+        successFn = function(resp, status, xhr) {
+          if (xhr.status === 201) {
+            $('#phase-' + phaseId).after('<td colspan="3"><span class="error"><span for="form3FirstName" class="error">Project Has No Phases</span></span></td>');
+            return $('#phase-' + phaseId).remove();
+          } else if (xhr.status === 204) {
+            return $('#phase-' + phaseId).remove();
+          }
+        };
         return $.ajax({
           url: "/admin/phase/" + phaseId,
           type: 'DELETE',
@@ -344,6 +345,36 @@
     };
     $(".project_attribute_block").before(compile(data));
     return $(this).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val('');
+  });
+
+  $('.room_attributes_block').on('click', '.remove-room-attribute', function() {
+    var level, successFn, variantRoomId, variantRooms;
+    level = $(this).closest('.row').find('input[name="levels[]"]').val();
+    variantRoomId = $(this).closest('.variant_rooms').find('input[name="variantroomid[' + level + '][]"]').val();
+    variantRooms = $(this).closest('.room_attributes_block').find('input[name="variantroomid[' + level + '][]"]').length;
+    if (parseInt(variantRooms) <= 1) {
+      alert('There Should Be Atleast 1 Room For Level');
+      return;
+    }
+    if (variantRoomId === '') {
+      $(this).closest('.variant_rooms').remove();
+      return;
+    }
+    if (confirm('Are you sure you want to delete this Room?') === false) {
+      return;
+    }
+    successFn = (function(_this) {
+      return function(resp, status, xhr) {
+        if (xhr.status === 204) {
+          return $(_this).closest('.variant_rooms').remove();
+        }
+      };
+    })(this);
+    return $.ajax({
+      url: "/admin/project/" + PROJECTID + "/roomtype/" + variantRoomId + "/deletevariantrroom",
+      type: 'DELETE',
+      success: successFn
+    });
   });
 
 }).call(this);

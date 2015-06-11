@@ -9,7 +9,7 @@
                         <a id="master_pickfiles"  class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image"></i> Select file (s)</a>
                         <div class="alert alert-error hidden">
                             <button class="close" data-dismiss="alert"></button>
-                            3 images failed to upload.
+                            <span class="errormsg"></span>
                         </div>
                     </div>
                     <div class="col-md-4 hidden">
@@ -68,7 +68,7 @@
                                 </td>
 
                                 <td class="text-right">
-                                    <a href="" class="text-primary" onclick="deleteSvg({{ $image['ID'] }}, 'master','{{ $position }}');"><i class="fa fa-close"></i></a>
+                                    <a class="text-primary" onclick="deleteSvg({{ $image['ID'] }}, 'master','{{ $position }}');"><i class="fa fa-close"></i></a>
                                 </td>
                             </tr>
                                 @else

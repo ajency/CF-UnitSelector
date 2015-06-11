@@ -102,12 +102,15 @@
                                 <label class="form-label">{{ $attribute['label'] }}</label>
                                 @if('textbox' === $attribute['control_type'])
                                 <input type="text" class="form-control" name="apartment_attributes[{{ $attribute['label'] }}]"  
-                                       placeholder="Enter {{ $attribute['label'] }}">
+                                       placeholder="Enter {{ $attribute['label'] }}" data-parsley-required>
+                                @elseif('number' === $attribute['control_type'])
+                                <input type="number" class="form-control" name="apartment_attributes[{{ $attribute['label'] }}]"  
+                                       placeholder="Enter {{ $attribute['label'] }}" data-parsley-required data-parsley-type="number">
                                 @elseif('select' === $attribute['control_type'])
                                 <?php
                                 $options = explode(',', $attribute['defaults']);
                                 ?>
-                                <select name="apartment_attributes[{{ $attribute['label'] }}]" class="select2 form-control">
+                                <select name="apartment_attributes[{{ $attribute['label'] }}]" class="select2 form-control" data-parsley-required>
                                     <option value="">Select {{ $attribute['label'] }}</option>   
                                     @foreach($options as $option)
                                     <option  value="{{ $option }}">{{ $option }}</option>
@@ -117,7 +120,7 @@
                                 <?php
                                 $options = explode(',', $attribute['defaults']);
                                 ?>
-                                <select multiple name="apartment_attributes[{{ $attribute['label'] }}][]" class="select2 form-control">
+                                <select multiple name="apartment_attributes[{{ $attribute['label'] }}][]" class="select2 form-control" data-parsley-required>
                                     <option value="">Select {{ $attribute['label'] }}</option>   
                                     @foreach($options as $option)
                                     <option   value="{{ $option }}">{{ $option }}</option>

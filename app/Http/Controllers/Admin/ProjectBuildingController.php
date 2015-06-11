@@ -11,6 +11,7 @@ use CommonFloor\Phase;
 use CommonFloor\FloorLayout;
 use CommonFloor\Project;
 use CommonFloor\Media;
+use \Session;
 
 class ProjectBuildingController extends Controller {
 
@@ -72,6 +73,8 @@ class ProjectBuildingController extends Controller {
         $building->building_master = [];
         $building->breakpoints = [];
         $building->save();
+        
+        Session::flash('success_message','Building Successfully Created');
         return redirect( url( 'admin/project/' . $projectId . '/building/' . $building->id . '/edit' ) );
     }
 
@@ -107,15 +110,19 @@ class ProjectBuildingController extends Controller {
                     $svgImages[$key]['ID'] = $images;
         }
         
-        $phases = $project->projectPhase()->where('status','not_live')->get()->toArray();
+        $phases = $project->projectPhase()->where('status','not_live')->get()->toArray(); 
+        $isBuildingPhaseInPhases =[];
         foreach ($phases as $key => $phase) {
-            if($phase['id'] != $building->phase_id)
-            {   
-               $phases[]= $project->projectPhase()->where('id',$building->phase_id)->first()->toArray();
+            if($phase['id'] == $building->phase_id)
+            {    
+                $isBuildingPhaseInPhases[] =$building->phase_id;
             }
 
         }
-            
+        
+        if(empty($isBuildingPhaseInPhases))
+            $phases[]= $project->projectPhase()->where('id',$building->phase_id)->first()->toArray();
+         
         return view( 'admin.project.building.edit' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'building' )
@@ -143,6 +150,7 @@ class ProjectBuildingController extends Controller {
         $building->no_of_floors = $formData['no_of_floors'];
         $building->has_master = $formData['has_master'];
         $building->save();
+        Session::flash('success_message','Building Successfully Updated');
         
         return redirect( url( 'admin/project/' . $projectId . '/building/' . $building->id . '/edit' ) );
     }
@@ -155,6 +163,40 @@ class ProjectBuildingController extends Controller {
      */
     public function destroy( $id ) {
         //
+    }
+    
+    public function validateBuildingName(Request $request) {
+        $name = $request->input('name');
+        $projectId = $request->input('project_id');
+        $building_id = $request->input('building_id');
+        $project = Project::find( $projectId );
+        $phases =  $project->projectPhase()->get()->toArray();
+        $phaseIds =[];
+        foreach($phases as $phase)
+        {
+            $phaseIds[]=$phase['id'];
+        }
+        
+        $msg = '';
+        $flag = true;
+
+        if ($building_id)
+            $buildingData = Building::whereIn('phase_id',$phaseIds)->where('building_name', $name)->where('id', '!=', $building_id)->get()->toArray();
+        else
+            $buildingData = Building::whereIn('phase_id',$phaseIds)->where('building_name', $name)->get()->toArray();
+
+
+        if (!empty($buildingData)) {
+            $msg = 'Building Name Already Taken';
+            $flag = false;
+        }
+
+
+        return response()->json([
+                    'code' => 'building_name_validation',
+                    'message' => $msg,
+                    'data' => $flag,
+                        ], 200);
     }
     
     public function getPositions($project_id, $buildingId, Request $request)
