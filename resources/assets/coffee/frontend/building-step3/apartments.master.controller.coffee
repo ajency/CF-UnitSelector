@@ -774,7 +774,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			cost = window.building.getMinimumCost(id)
 			price = window.numDifferentiation(cost)
 			html = '<div class="svg-info">
-						<i class="building"></i>
+						<i class="building-ico"></i>
 						<h5 class=" m-t-0">'+buildingModel.get('building_name')+'</h5>
 						<div class="details">
 							<label>'+floors+' Floors</label></br>
