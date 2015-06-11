@@ -35,6 +35,7 @@
                     <hr/>
                     <div class="m-l-5 no-border">
                 <h3><i class="fa fa-angle-double-right text-primary"></i> Permissions</h3>
+                <input data-parsley-required data-parsley-required-message = "Need To Select Atleast 1 Permission" type="checkbox" id="permissions" name="permissions[]" class="text-success hidden" aria-label="..." >       
             </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -43,7 +44,7 @@
                                 <div class="row">
                                     <div class="col-md-6">{{ $permission['display_name'] }}</div>
                                     <div class="col-md-6 text-right">
-                                        <input required type="checkbox" id="permissions" name="permissions[]" class="text-success" value="{{ $permission['id'] }}" aria-label="..." >
+                                        <input type="checkbox" id="permissions" name="permissions[]" class="text-success" value="{{ $permission['id'] }}" aria-label="..." >
                                     </div>
                                 </div>
                             </a>
@@ -72,7 +73,7 @@
                                 <div class="row">
                                     <div class="col-md-6">{{ $projectPermission['display_name'] }}</div>
                                     <div class="col-md-6 text-right">
-                                        <input required type="checkbox" id="permissions" name="permissions[]" class="text-success" value="{{ $projectPermission['id'] }}" aria-label="..." >
+                                        <input type="checkbox" id="permissions" name="permissions[]" class="text-success" value="{{ $projectPermission['id'] }}" aria-label="..." >
                                     </div>
                                 </div>
                             </a>

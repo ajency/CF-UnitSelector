@@ -37,12 +37,8 @@
                     </thead>
                     <tbody> 
                         @foreach ($buildings as $building)
-                            <tr class="">
-                                <td>
-                                    <a href="{{ url( '/admin/project/' . $project['id'] . '/building/'. $building->id . '/edit') }}">
-                                        {{ $building->building_name }}
-                                    </a>
-                                </td>
+                            <tr class="" onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/building/'. $building->id . '/edit') }}'">
+                                <td>{{ $building->building_name }}</td>
                                 <td>{{ $building->phase->phase_name }}</td>
                                 <td>{{ $building->no_of_floors }}</td>
                                 <td>{{ date('d/m/Y', strtotime($building->created_at)) }}</td>

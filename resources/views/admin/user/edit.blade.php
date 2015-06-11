@@ -27,7 +27,7 @@
                         </div>
             <div class="grid-body no-border"> 
                
-                <form id="add_project" method="POST" action="/admin/user/{{ $user['id'] }}" data-parsley-validate>
+                <form id="add_project" method="POST" action="{{ ($flag)?'/admin/user/'.$user['id'].'/profileupdate':'/admin/user/'.$user['id'] }}" data-parsley-validate>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -44,7 +44,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Phone Number<span class="text-primary">*</span></label>
-                                <input type="text" name="phone_number" class="form-control m-b-5" placeholder="Enter Phone Number" value="{{ $user['phone'] }}" data-parsley-required>
+                                <input type="text" name="phone_number" class="form-control m-b-5" placeholder="Enter Phone Number" value="{{ $user['phone'] }}" data-parsley-required onchange="validatePhone(this,{{ $user['id'] }})"><span class="cf-loader hidden"></span>
                                          </div>
                         </div>
                         <div class="col-md-4">
@@ -74,7 +74,6 @@
                     </div>      
                     <div class="form-actions "> 
                         <div class="pull-right">
-                            <input type="hidden" id="is_profile" name="is_profile" value="{{ ($flag)?'1':'0' }}">
                             <input type="hidden" id="addanother" name="addanother" value="">
                             <input type="hidden" name="_method" value="PUT">
                             <input type="hidden" value="{{ csrf_token()}}" name="_token"/>

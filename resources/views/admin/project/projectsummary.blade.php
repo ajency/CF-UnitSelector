@@ -155,7 +155,7 @@
             Project Master Image :
         </h5> <div class="checkbox check-primary checkbox-inline">
             <input id="checkbox7" type="checkbox" value="1" @if($project["has_master"]=="yes"){{"checked"}}@endif disabled>
-                   <label for="checkbox7" class="p-l">Available</label>
+                   <label for="checkbox7" class="p-l">@if($project["has_master"]=="yes"){{"Available"}}@else{{"Not Available"}}@endif</label>
         </div><br>
         @if($project["has_master"]=="yes")
         <ul class="list-inline m-b-10 m-l-5">
