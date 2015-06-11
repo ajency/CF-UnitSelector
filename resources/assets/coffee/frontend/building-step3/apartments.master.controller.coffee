@@ -815,7 +815,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					constrainZoomed: true
 				}
 		)
-		console.log window.magne.zoomBy(-1)
+		window.magne.zoomBy(-1)
 		# $controls = $('[mag-ctrl="controls"]');
 		# $controls.magCtrl({
 		#   mag: @$host
@@ -1027,7 +1027,6 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('#rotate_loader').addClass 'hidden'
 			$('.region').load(url,()->
 				that.iniTooltip()
-				that.loadZoom()
 				CommonFloor.applyAvailabilClasses()
 				CommonFloor.randomClass()
 				CommonFloor.applyFliterClass()

@@ -627,7 +627,7 @@
         zoomRate: 2,
         constrainZoomed: true
       });
-      console.log(window.magne.zoomBy(-1));
+      window.magne.zoomBy(-1);
       windowHeight = $(window).innerHeight() - 56;
       $('.master').css('height', windowHeight);
       $('.master').css('min-width', windowHeight * 2);
@@ -830,7 +830,6 @@
         }
         return $('.region').load(url, function() {
           that.iniTooltip();
-          that.loadZoom();
           CommonFloor.applyAvailabilClasses();
           CommonFloor.randomClass();
           CommonFloor.applyFliterClass();
