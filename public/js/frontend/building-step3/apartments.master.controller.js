@@ -664,7 +664,6 @@
           response = building.checkRotationView(building_id);
           $('.svg-maps').removeClass('hidden');
           $('.mini-map').removeClass('hidden');
-          $('.first_image').first().css('width', that.ui.svgContainer.width());
           $('.zoomimage').attr('src', transitionImages[breakpoints[0]]);
           if (response === 1) {
             $('.cf-loader').removeClass('hidden');
