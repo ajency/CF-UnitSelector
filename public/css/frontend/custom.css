@@ -461,6 +461,13 @@ hr.embossed {
   display: block;
   background-position: -8px;
 }
+.building-ico {
+  background: url(../../images/sprite-popovergray.png) no-repeat;
+  width: 40px;
+  height: 40px;
+  display: block;
+  background-position: -65px;
+}
 .apartment-ico:before {
   font-size: 30px;
   text-align: center;
