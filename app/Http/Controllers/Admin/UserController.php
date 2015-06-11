@@ -159,20 +159,16 @@ class UserController extends Controller {
         $user->name = ucfirst($name);
         $user->phone = $phone_number;
         
-        if(!$is_profile)
-        {
-            $user->email = $email;
-            $user->status = $user_status;
-        }
+        $user->email = $email;
+        $user->status = $user_status;
+        
         $user->save();
         
-        if(!$is_profile)
-        {
-            $defaultRoleId = getDefaultRole($id);  
-            $userRole = UserRole::find($defaultRoleId['id']);
-            $userRole->role_id = $user_role;
-            $userRole->update(); 
-        }
+        $defaultRoleId = getDefaultRole($id);  
+        $userRole = UserRole::find($defaultRoleId['id']);
+        $userRole->role_id = $user_role;
+        $userRole->update(); 
+        
   
         Session::flash('success_message','User Successfully Updated');    
         $addanother = $request->input('addanother');
