@@ -177,6 +177,18 @@
         }
       });
     };
+    window.iniTooltip = function() {
+      return $('.amenity').tooltipster({
+        theme: 'tooltipster-shadow',
+        contentAsHTML: true,
+        onlyOne: true,
+        arrow: false,
+        offsetX: 50,
+        offsetY: -10,
+        interactive: true,
+        trigger: 'hover'
+      });
+    };
     window.loadJSONData = function() {
       return $.ajax({
         type: 'GET',
@@ -197,6 +209,7 @@
           window.generatePropTypes();
           types = window.getPendingObjects(window.svgData);
           window.showPendingObjects(types);
+          window.iniTooltip();
           window.generateSvg(window.svgData.data);
           return window.resetCollection();
         },
@@ -446,7 +459,7 @@
     };
     window.hideAlert = function() {
       $('.alert').show();
-      return $('.alert-box').delay(1000).queue(function(next) {
+      return $('.alert-box').delay(3000).queue(function(next) {
         $(this).hide('fade');
         return next();
       });
@@ -1131,29 +1144,7 @@
       });
       return newPoints;
     };
-    $('svg').on('contextmenu', '.marker-grp', function(evt) {
-      var currentElem, markerType;
-      evt.preventDefault();
-      markerType = '';
-      currentElem = evt.currentTarget;
-      if (/(^|\s)concentric(\s|$)/.test($(currentElem).attr("class"))) {
-        markerType = "concentric";
-        window.canvas_type = markerType + 'Marker';
-      } else if (/(^|\s)solid(\s|$)/.test($(currentElem).attr("class"))) {
-        markerType = "solid";
-        window.canvas_type = markerType + 'Marker';
-      } else if ($(currentElem).hasClass('earth-location-marker')) {
-        markerType = "earthlocation";
-        window.canvas_type = markerType + 'Marker';
-      } else if ($(currentElem).hasClass('location-marker')) {
-        markerType = "location";
-        window.canvas_type = markerType + 'Marker';
-      }
-      window.drawDefaultMarker(markerType);
-      window.EDITMODE = true;
-      return $('.edit-box').removeClass('hidden');
-    });
-    return $('.duplicate').on('click', function(evt) {
+    $('.duplicate').on('click', function(evt) {
       var content, svgExport;
       svgExport = draw.exportSvg({
         exclude: function() {
@@ -1172,6 +1163,12 @@
         return value.id = 0;
       });
       return content = $('.duplicateSVG').html();
+    });
+    return $('.amenity').on('mouseover', function(e) {
+      var html;
+      window.iniTooltip();
+      html = '<div class="row"> <div class="col-sm-12 b-r"> <h4 class="text-warning margin-none">' + $(e.currentTarget).attr('data-amenity-title') + '</h4> <h6 class="text-muted">' + $(e.currentTarget).attr('data-amenity-desc') + '</h6> </div> </div>';
+      return $('.amenity').tooltipster('content', html);
     });
   });
 

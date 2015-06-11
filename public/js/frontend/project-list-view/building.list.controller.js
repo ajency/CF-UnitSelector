@@ -11,7 +11,7 @@
       return BuildingItemView.__super__.constructor.apply(this, arguments);
     }
 
-    BuildingItemView.prototype.template = Handlebars.compile('<li class="bldg blocks {{status}} "> <div class="col-sm-2 col-xs-2"> <i class="apartment-ico m-t-15 "></i> </div> <div class="col-sm-10 col-xs-10"> <div class="info"> <h2 class="margin-none">{{building_name}} <label class="text-muted sm-text">({{floors}} Floors)</label></h2> </div> <div class="clearfix"></div> <div class="unit-type-info m-t-5"> <ul> {{#types}} <li> {{name}}: <span>{{units}}</span> </li> {{/types}} </ul> </div> <div class="clearfix"></div> <div class="m-t-5 text-primary {{classname}}">Starting from <span class="icon-rupee-icn"></span>{{price}}</div> </div> </li>');
+    BuildingItemView.prototype.template = Handlebars.compile('<li class="bldg blocks {{status}} "> <div class="col-sm-2 col-xs-2"> <i class="building-ico m-t-15 "></i> </div> <div class="col-sm-10 col-xs-10"> <div class="info"> <h2 class="margin-none">{{building_name}} <label class="text-muted sm-text">({{floors}} Floors)</label></h2> </div> <div class="clearfix"></div> <div class="unit-type-info m-t-5"> <ul> {{#types}} <li> {{name}}: <span>{{units}}</span> </li> {{/types}} </ul> </div> <div class="clearfix"></div> <div class="m-t-5 text-primary {{classname}}">Starting from <span class="icon-rupee-icn"></span>{{price}}</div> </div> </li>');
 
     BuildingItemView.prototype.serializeData = function() {
       var cost, data, floors, id, response, types;
@@ -77,7 +77,7 @@
       return BuildingListView.__super__.constructor.apply(this, arguments);
     }
 
-    BuildingListView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <div class="list-view-container animated fadeInDown"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <span class="pull-left top-legend"> <ul> <li class="na">N/A</li> </ul> </span> <h2 class="text-center">List of Buildings</h2> <hr class="margin-none"> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings active">Buildings</li> <li class="prop-type Villas hidden">Villas/Bungalows</li> <li class="prop-type Plots hidden">Plots</li> </ul> </div> <div class="bldg-list"> <ul class="units"> </ul> <div class="clearfix"></div> </div> </div> </div>');
+    BuildingListView.prototype.template = Handlebars.compile('<div class="col-md-12 us-right-content"> <div class="list-view-container animated fadeInDown"> <!--<div class="controls map-View"> <div class="toggle"> <a href="#/master-view" class="map">Map</a><a href="#/list-view" class="list active">List</a> </div> </div>--> <span class="pull-left top-legend"> <ul> <li class="na">N/A</li> </ul> </span> <h2 class="text-center">List of Buildings</h2> <hr class="margin-none"> <div class="text-center"> <ul class="prop-select"> <li class="prop-type buildings active">Buildings</li> <li class="prop-type Villas hidden">Villas</li> <li class="prop-type Plots hidden">Plots</li> </ul> </div> <div class="bldg-list"> <ul class="units"> </ul> <div class="clearfix"></div> </div> </div> </div>');
 
     BuildingListView.prototype.childView = BuildingItemView;
 

@@ -519,6 +519,10 @@ hr.embossed {
     .property-sprite;
     background-position: -8px;
 }
+.building-ico{
+    .property-sprite;
+    background-position: -65px;
+}
 .apartment-ico:before{
     font-size: 30px;
     text-align: center;
@@ -582,6 +586,25 @@ hr.embossed {
 ::-webkit-scrollbar-thumb:hover {
     background-color: @brand-primary;
 }
+
+.mag-host{
+  width: 400px;
+  height: 200px;
+  position: absolute;
+  z-index: 999;
+  bottom: 0;
+}
+
+.mag-lens {
+   position: absolute;
+   z-index: 2;
+}
+
+[mag-thumb] img{
+  width: auto !important;
+}
+
+
 /* Bootstrap responsive utilities */
 @-ms-viewport {
   width: device-width;

@@ -145,7 +145,14 @@ class ListItemView extends Marionette.ItemView
 						<span>'+value.units+' Available</span>
 					</li>'
 
-		html += '</ul>
+		if unit.length > 0 
+				if Object.keys(buildingModel.get('building_master')).length == 0
+					url =  '/building/'+id+'/apartments'
+					
+				else
+					url = '/building/'+id+'/master-view' 
+					
+				html += '</ul>
 						
 					</div>
 					<a href="#'+url+'" class="view-unit">

@@ -44,11 +44,11 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 hidden">
                             <div class="form-group">
                                         <label class="form-label">Building Abbrevation<span class="text-primary">*</span></label>
                                         
-                                        <input type="text" name="abbrevation" id="abbrevation" placeholder="Enter Building Abbrevation" value="{{ $building->abbrevation }}" class="form-control" data-parsley-required>
+                                        <input type="text" name="abbrevation" id="abbrevation" placeholder="Enter Building Abbrevation" value="{{ $building->abbrevation }}" class="form-control" >
  
                                         </div>
                                     </div>
@@ -120,6 +120,12 @@
                                                                                     
         
                   <div class="dataTables_wrapper form-inline {{ ($building->has_master == 'no')?'hidden':'' }}" role="grid">
+                    <div class="project-master-images">  
+                      <div class="alert alert-error hidden ">
+                            <button class="close" data-dismiss="alert"></button>
+                            <span class="errormsg"></span>
+                        </div>
+                      </div>    
                   <div class="pull-right">
                                     <a id="master_pickfiles"  class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image"></i> Select file (s)</a>
                                 </div>
@@ -163,7 +169,8 @@
                                 </td>
 
                                 <td class="text-right">
-                                    <a href="" class="text-primary" onclick="deleteSvg({{ $image['ID'] }}, 'master','{{ $position }}');"><i class="fa fa-close"></i></a>
+                                    <a  class="text-primary" onclick="deleteSvg({{ $image['ID'] }}, 'master','{{ $position }}');"><i class="fa fa-close"></i></a>
+                                
                                 </td>
                             </tr>
                                 @else

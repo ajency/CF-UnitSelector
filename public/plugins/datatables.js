@@ -234,6 +234,14 @@ $(document).ready(function () {
     $('#example2.projectList tbody tr').each(function () {
         this.insertBefore(nCloneTd.cloneNode(true), this.childNodes[0]);
     });
+    
+    $('#example2.unitList thead tr').each(function () {
+        this.insertBefore(nCloneTh, this.childNodes[0]);
+    });
+
+    $('#example2.unitList tbody tr').each(function () {
+        this.insertBefore(nCloneTd.cloneNode(true), this.childNodes[0]);
+    });
 
     /*
      * Initialse DataTables, with no sorting on the 'details' column

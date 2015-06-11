@@ -11,7 +11,7 @@ use CommonFloor\Role;
 use Illuminate\Support\Facades\Mail;
 use CommonFloor\UserRole;
 use CommonFloor\UserProject;
-
+use \Session;
 
 class UserController extends Controller {
 
@@ -89,7 +89,7 @@ class UserController extends Controller {
 
          mail($email,"Welcome to CommonFloor Unit Selector!",$data, $headers);
          
-
+        Session::flash('success_message','User has been created successfully');
         $addanother = $request->input('addanother');
 
         if ($addanother == 1)
@@ -138,7 +138,8 @@ class UserController extends Controller {
         return view('admin.user.edit')
                         ->with('roles', $roles)
                         ->with('user', $user)
-                        ->with('flag', TRUE);
+                        ->with('flag', TRUE)
+                        ->with('menuFlag', FALSE);
     }
 
     /**
@@ -154,35 +155,50 @@ class UserController extends Controller {
         $phone_number = $request->input('phone_number');
         $user_status = $request->input('user_status');
         $user_role = $request->input('user_role');
-        $is_profile = $request->input('is_profile');
 
         $user = User::find($id);
         $user->name = ucfirst($name);
         $user->phone = $phone_number;
         
-        if(!$is_profile)
-        {
-            $user->email = $email;
-            $user->status = $user_status;
-        }
+        $user->email = $email;
+        $user->status = $user_status;
+        
         $user->save();
         
-        if(!$is_profile)
-        {
-            $defaultRoleId = getDefaultRole($id);  
-            $userRole = UserRole::find($defaultRoleId['id']);
-            $userRole->role_id = $user_role;
-            $userRole->update(); 
-        }
+        $defaultRoleId = getDefaultRole($id);  
+        $userRole = UserRole::find($defaultRoleId['id']);
+        $userRole->role_id = $user_role;
+        $userRole->update(); 
+        
   
+        Session::flash('success_message','User Successfully Updated');    
         $addanother = $request->input('addanother');
 
         if ($addanother == 1)
             return redirect("/admin/user/create");
-        elseif ($is_profile == 1)
-            return redirect("/admin/user/" . $id . "/profile");
         else
             return redirect("/admin/user/" . $id . "/edit");
+        //
+    }
+    
+    public function profileUpdate($id, Request $request) {
+
+        $name = $request->input('name');
+        $phone_number = $request->input('phone_number');
+ 
+  
+        $user = User::find($id);
+        $user->name = ucfirst($name);
+        $user->phone = $phone_number;
+ 
+        $user->save();
+         
+        Session::flash('success_message','User Successfully Updated');    
+        $addanother = $request->input('addanother');
+
+         
+       return redirect("/admin/user/" . $id . "/profile");
+ 
         //
     }
     
@@ -194,12 +210,18 @@ class UserController extends Controller {
 
     public function changePassword($userId, Request $request) {
         $newpassword = $request->input('newpassword');
+        $is_profile = $request->input('is_profile');
 
         $user = User::find($userId);
         $user->password = Hash::make($newpassword);
         $user->save();
-
-        return redirect("/admin/user/" . $userId . "/edit");
+        
+         Session::flash('success_message','Password Successfully Updated');
+        
+        if ($is_profile == 1)
+            return redirect("/admin/user/" . $userId . "/profile");
+        else
+             return redirect("/admin/user/" . $userId . "/edit");
     }
 
     /**
@@ -255,6 +277,32 @@ class UserController extends Controller {
          
         return response()->json([
                     'code' => 'user_email_validation',
+                    'message' => $msg,
+                    'data' =>  $flag,
+                        ], 200);
+    }
+    
+    public function validatePhone(Request $request) {
+        $phone = $request->input('phone');
+        $userId = $request->input('user_id');
+        $msg ='';
+        $flag =true;
+ 
+        if($userId)
+           $userData = User::where('phone',$phone)->where('id', '!=', $userId)->get()->toArray(); 
+        else
+            $userData = User::where('phone',$phone)->get()->toArray();
+
+ 
+        if(!empty($userData))
+        {
+            $msg = 'User Phone Already Taken';
+            $flag =false;
+        }
+        
+         
+        return response()->json([
+                    'code' => 'user_phone_validation',
                     'message' => $msg,
                     'data' =>  $flag,
                         ], 200);

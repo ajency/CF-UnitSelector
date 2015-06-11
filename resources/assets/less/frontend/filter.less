@@ -237,8 +237,43 @@
       background: #DBDBDB;
     }
   }
+  .arrow-right{
+    float: right;
+    &:after{
+      content: "\e762";
+      font-family: icomoon;
+    }
+    &.mobile{
+      display: none;
+    }
+  }
+
   .mCSB_inside>.mCSB_container {
     margin-right: 15px;
+  }
+
+  @media(max-width:767px){
+    label.-lbl{
+      float: left;
+    }
+    div.-lbl{
+      &.villa-check, &.apartment-check, &.plot-check{
+        .arrow-right{
+          padding-top: 5px;
+          &.mobile{
+            display: block;
+          }
+        }
+      }
+    }
+    .arrow-right{
+      &.desktop{
+        display: none;
+      }
+    }
+    .mCSB_inside>.mCSB_container {
+      margin-right: 0;
+    }
   }
 
 } 

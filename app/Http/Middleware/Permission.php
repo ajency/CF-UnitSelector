@@ -125,7 +125,10 @@ class Permission {
                               'admin/project/{project}/apartment-unit/validatebuildingunitname'=>'configure_unit',
                               'admin/project/{project}/bunglow-unit/validateunitname'=>'configure_unit',
                               'admin/user/validateuseremail'=>'manage_users', 
-                              'admin/user/{id}/profile'=>'read_project', 
+                              'admin/user/validateuserphone'=>'read_project', 
+                              'admin/user/{id}/profile'=>'user_profile', 
+                              'admin/user/{id}/profileupdate'=>'user_profile',
+                              'admin/user/{id}/changepassword'=>'read_project',
                               'admin/user/validateuserpassword'=>'manage_users', 
                               'admin/project/{id}/master/authoring-tool'=>'configure_project',
                               'admin/project/{project}/svg-tool'=>'configure_project',
@@ -151,9 +154,12 @@ class Permission {
 
                     $projectId = \Illuminate\Support\Facades\Route::input('project');  
                  
-                    //CK FOR USER ACCESS AND PERMISSION 
-                    if(!hasPermission($projectId, [$permission]))
-                         abort(403);
+                    if($permission!='user_profile')                     
+                    {
+                        //CK FOR USER ACCESS AND PERMISSION 
+                        if(!hasPermission($projectId, [$permission]))
+                             abort(403);
+                    }
                 }
 		return $next($request);
 	}

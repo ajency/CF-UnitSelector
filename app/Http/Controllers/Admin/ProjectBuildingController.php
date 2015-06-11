@@ -110,15 +110,19 @@ class ProjectBuildingController extends Controller {
                     $svgImages[$key]['ID'] = $images;
         }
         
-        $phases = $project->projectPhase()->where('status','not_live')->get()->toArray();
+        $phases = $project->projectPhase()->where('status','not_live')->get()->toArray(); 
+        $isBuildingPhaseInPhases =[];
         foreach ($phases as $key => $phase) {
-            if($phase['id'] != $building->phase_id)
-            {   
-               $phases[]= $project->projectPhase()->where('id',$building->phase_id)->first()->toArray();
+            if($phase['id'] == $building->phase_id)
+            {    
+                $isBuildingPhaseInPhases[] =$building->phase_id;
             }
 
         }
-            
+        
+        if(empty($isBuildingPhaseInPhases))
+            $phases[]= $project->projectPhase()->where('id',$building->phase_id)->first()->toArray();
+         
         return view( 'admin.project.building.edit' )
                         ->with( 'project', $project->toArray() )
                         ->with( 'current', 'building' )

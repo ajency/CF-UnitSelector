@@ -184,6 +184,21 @@ jQuery(document).ready ($)->
 
                     unitCollection.remove unit.get 'id'
 
+    window.iniTooltip = ()->
+        $('.amenity').tooltipster(
+            theme: 'tooltipster-shadow'
+            contentAsHTML: true
+            onlyOne : true
+            arrow : false
+            offsetX : 50
+            offsetY : -10
+            interactive : true
+            # animation : 'grow'
+            trigger: 'hover'
+
+        )
+
+
     #api required to load data
     window.loadJSONData = ()->
 
@@ -226,7 +241,7 @@ jQuery(document).ready ($)->
                 types = window.getPendingObjects(window.svgData)
 
                 window.showPendingObjects(types)
-
+                window.iniTooltip()
                 # ### MODIFIED GENERATION OF SVG ### #
                 window.generateSvg(window.svgData.data)
                 # ### MODIFIED GENERATION OF SVG ### #
@@ -476,7 +491,7 @@ jQuery(document).ready ($)->
  
     window.hideAlert = ()->
         $('.alert').show()
-        $('.alert-box').delay(1000).queue( (next)->
+        $('.alert-box').delay(3000).queue( (next)->
                 $(this).hide('fade') 
                 next() 
         )
@@ -1255,26 +1270,26 @@ jQuery(document).ready ($)->
 
         newPoints
 
-    $('svg').on 'contextmenu', '.marker-grp' , (evt) ->
-        evt.preventDefault()
-        markerType = ''
-        currentElem = evt.currentTarget
-        if /(^|\s)concentric(\s|$)/.test($(currentElem).attr("class"))
-            markerType = "concentric"
-            window.canvas_type = markerType+'Marker'
-        else if /(^|\s)solid(\s|$)/.test($(currentElem).attr("class"))
-            markerType = "solid"
-            window.canvas_type = markerType+'Marker'
-        else if $(currentElem).hasClass('earth-location-marker')
-            markerType = "earthlocation" 
-            window.canvas_type = markerType+'Marker'
-        else if $(currentElem).hasClass('location-marker')
-            markerType = "location" 
-            window.canvas_type = markerType+'Marker'
+    # $('svg').on 'contextmenu', '.marker-grp' , (evt) ->
+    #     evt.preventDefault()
+    #     markerType = ''
+    #     currentElem = evt.currentTarget
+    #     if /(^|\s)concentric(\s|$)/.test($(currentElem).attr("class"))
+    #         markerType = "concentric"
+    #         window.canvas_type = markerType+'Marker'
+    #     else if /(^|\s)solid(\s|$)/.test($(currentElem).attr("class"))
+    #         markerType = "solid"
+    #         window.canvas_type = markerType+'Marker'
+    #     else if $(currentElem).hasClass('earth-location-marker')
+    #         markerType = "earthlocation" 
+    #         window.canvas_type = markerType+'Marker'
+    #     else if $(currentElem).hasClass('location-marker')
+    #         markerType = "location" 
+    #         window.canvas_type = markerType+'Marker'
 
-        window.drawDefaultMarker(markerType) 
-        window.EDITMODE = true
-        $('.edit-box').removeClass 'hidden'
+    #     window.drawDefaultMarker(markerType) 
+    #     window.EDITMODE = true
+    #     $('.edit-box').removeClass 'hidden'
 
 
     $('.duplicate').on 'click' , (evt) ->
@@ -1295,6 +1310,17 @@ jQuery(document).ready ($)->
 
         content = $('.duplicateSVG').html()
 
+    $('.amenity').on 'mouseover' , (e) ->
+        window.iniTooltip()
+        html = '<div class="row">
+                    <div class="col-sm-12 b-r">
+                        <h4 class="text-warning margin-none">'+$(e.currentTarget).attr('data-amenity-title')+'</h4>
+                        <h6 class="text-muted">'+$(e.currentTarget).attr('data-amenity-desc')+'</h6>
+                    </div>
+                </div>'
+        $('.amenity').tooltipster('content', html)
+
+   
 
     # $('#save-svg-elem').on 'click', (e) ->
     #   console.log "click save-svg-elem"
