@@ -126,7 +126,7 @@ class Permission {
                               'admin/project/{project}/bunglow-unit/validateunitname'=>'configure_unit',
                               'admin/user/validateuseremail'=>'manage_users', 
                               'admin/user/{id}/profile'=>'read_project', 
-                              'user/{id}/changepassword'=>'read_project',
+                              'admin/user/{id}/changepassword'=>'read_project',
                               'admin/user/validateuserpassword'=>'manage_users', 
                               'admin/project/{id}/master/authoring-tool'=>'configure_project',
                               'admin/project/{project}/svg-tool'=>'configure_project',
