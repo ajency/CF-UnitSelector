@@ -154,7 +154,6 @@ class UserController extends Controller {
         $phone_number = $request->input('phone_number');
         $user_status = $request->input('user_status');
         $user_role = $request->input('user_role');
-        $is_profile = $request->input('is_profile');
 
         $user = User::find($id);
         $user->name = ucfirst($name);
@@ -180,10 +179,29 @@ class UserController extends Controller {
 
         if ($addanother == 1)
             return redirect("/admin/user/create");
-        elseif ($is_profile == 1)
-            return redirect("/admin/user/" . $id . "/profile");
         else
             return redirect("/admin/user/" . $id . "/edit");
+        //
+    }
+    
+    public function profileUpdate($id, Request $request) {
+
+        $name = $request->input('name');
+        $phone_number = $request->input('phone_number');
+ 
+  
+        $user = User::find($id);
+        $user->name = ucfirst($name);
+        $user->phone = $phone_number;
+ 
+        $user->save();
+         
+        Session::flash('success_message','User Successfully Updated');    
+        $addanother = $request->input('addanother');
+
+         
+       return redirect("/admin/user/" . $id . "/profile");
+ 
         //
     }
     
@@ -262,6 +280,32 @@ class UserController extends Controller {
          
         return response()->json([
                     'code' => 'user_email_validation',
+                    'message' => $msg,
+                    'data' =>  $flag,
+                        ], 200);
+    }
+    
+    public function validatePhone(Request $request) {
+        $phone = $request->input('phone');
+        $userId = $request->input('user_id');
+        $msg ='';
+        $flag =true;
+ 
+        if($userId)
+           $userData = User::where('phone',$phone)->where('id', '!=', $userId)->get()->toArray(); 
+        else
+            $userData = User::where('phone',$phone)->get()->toArray();
+
+ 
+        if(!empty($userData))
+        {
+            $msg = 'User Phone Already Taken';
+            $flag =false;
+        }
+        
+         
+        return response()->json([
+                    'code' => 'user_phone_validation',
                     'message' => $msg,
                     'data' =>  $flag,
                         ], 200);
