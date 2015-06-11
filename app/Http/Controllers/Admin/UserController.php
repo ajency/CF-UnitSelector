@@ -138,7 +138,8 @@ class UserController extends Controller {
         return view('admin.user.edit')
                         ->with('roles', $roles)
                         ->with('user', $user)
-                        ->with('flag', TRUE);
+                        ->with('flag', TRUE)
+                        ->with('menuFlag', FALSE);
     }
 
     /**
