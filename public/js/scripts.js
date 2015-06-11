@@ -116,6 +116,27 @@ function validateEmail(obj, userId)
     });
 }
 
+function validatePhone(obj, userId)
+{
+    $(obj).closest(".form-group").find(".cf-loader").removeClass('hidden');
+    $.ajax({
+        url: "/admin/user/validateuserphone",
+        type: "POST",
+        data: {
+            phone: obj.value,
+            user_id: userId
+        },
+        dataType: "JSON",
+        success: function (response) {
+            if (!response.data)
+                $(obj).val('');
+
+            $(obj).closest(".form-group").find(".cf-loader").addClass('hidden');
+        }
+    });
+}
+
+
 function validateUserPassword(obj, userId)
 {
     $(obj).closest(".form-group").find(".cf-loader").removeClass('hidden');
