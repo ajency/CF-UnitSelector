@@ -1827,7 +1827,7 @@ svg .no-fill {
 }
 .list-view-container {
   padding: 10px;
-  padding-top: 25px;
+  padding-top: 35px;
 }
 .list-view-container .controls {
   text-align: center;
@@ -2090,6 +2090,7 @@ svg .no-fill {
   margin-right: 0;
   border-right: none;
   position: relative;
+  border-bottom: 1px solid #e6e6e6;
 }
 .one .blocks.bldg .bldg-img {
   display: none;
