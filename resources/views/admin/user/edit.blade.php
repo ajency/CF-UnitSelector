@@ -97,7 +97,7 @@
                         <h3> <i class="fa fa-angle-double-right text-primary"></i> Change <span class="semi-bold">Password</span></h3>
                         </div>
     <div class="grid-body no-border">
-        <form id="change_password" action="/admin/user/{{ $user['id'] }}/changepassword" novalidate="novalidate" data-parsley-validate>
+        <form method="POST" id="change_password" action="/admin/user/{{ $user['id'] }}/changepassword" novalidate="novalidate" data-parsley-validate>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">

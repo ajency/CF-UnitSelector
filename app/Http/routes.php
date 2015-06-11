@@ -58,7 +58,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::post( 'project/validateprojecttitle', 'Admin\ProjectController@validateProjectTitle' );
     Route::post( 'user/validateuserpassword', 'Admin\UserController@validateCurrentPassword' );
     Route::post( 'user/validateuseremail', 'Admin\UserController@validateEmail' );
-    Route::get( 'user/{id}/changepassword', 'Admin\UserController@changePassword' );
+    Route::post( 'user/{id}/changepassword', 'Admin\UserController@changePassword' );
     Route::get( 'user/{id}/profile', 'Admin\UserController@profile' );
     Route::get( 'project/{project}/svg', 'Admin\ProjectController@svg' );
     Route::get( 'project/{project}/summary', 'Admin\ProjectController@summary' );
