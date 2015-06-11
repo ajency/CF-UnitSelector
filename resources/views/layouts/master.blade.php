@@ -83,7 +83,7 @@
                                 </div> 
                             </a>
                             <ul class="dropdown-menu pull-right" role="menu" aria-labelledby="user-options">
-                                <li><a href="{{ url( '/admin/user/' . Auth::user()->id . '/profile') }}"><i class="fa fa-profile"></i>&nbsp;&nbsp;Profile</a></li>
+                                <li><a href="{{ url( '/admin/user/' . Auth::user()->id . '/profile') }}"><i class="fa fa-user"></i>&nbsp;&nbsp;Profile</a></li>
                                 <li><a href="{{ url('auth/logout' ) }}"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Logout</a></li>
                             </ul>  			
                         </div>
@@ -124,7 +124,7 @@
                         @if(hasPermission(0,['manage_users']))
                         <li class="">
                             <a href="javascript:;">
-                                <i class="fa fa-user"></i>
+                                <i class="fa fa-users"></i>
                                 <span class="title">Users</span>
                                 <span class="arrow"></span>
                             </a>
