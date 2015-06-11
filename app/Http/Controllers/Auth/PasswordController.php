@@ -564,29 +564,20 @@ class PasswordController extends Controller {
                                                     <td valign="top" class="bodyContent" mc:edit="body_content" style="color: #505050;font-family: Arial;font-size: 14px;line-height: 150%;padding-top: 20px;padding-right: 20px;padding-bottom: 20px;padding-left: 20px;text-align: left;">
 
 
-                                                       Dear ' . $name. ',
+                                                       Hi ' . $name. ',
                                                         <br/>
                                                         <h3>Forgot Password!</h3>
 
-                                                            Your Account on CommonFloor Unit Selector has been created with the following credentials -
-                                                         <br>
+                                                            You had placed a request that you forgot your password.
+                                                           <br>
                                                             <br>
-                                                            <span>Email:</span> ' . $email. '<br>
-                                                            <span>Your account has been set with a randomly generated password :</span> <span class="bold">' . $password. '</h6></span>
+                                                            We have generated a new password for you . Please use this password to login to your account.
+                                                             <br>
+                                                            <span>New password  :</span> <span class="bold">' . $password. '</h6></span>
                                                             <br>
-                                                            <br>
-
-                                                            To go back to the Login page, <a href="' . url() . '">click here</a>
-
-                                                             or copy paste the link below in your browser to login to your account:<br>
-                                                            <a href="' . url() . '"> ' . url() . '</a>
-
                                                             <br/>
 
-                                                            You can update the password to the one of your choice from the profile page.
-                                                            <br/>
-                                                            <br/>
-                                                            If you need any further assitance, feel free to reach us at 1800 180 180 180 or email us at <a href="#">support@commonfloor.com</a> 
+                                                            You can update the password to the one of your choice by updating on the profile page. 
                                                         <br/>
                                                 <br/>
                                                             Thanks,
@@ -611,7 +602,15 @@ class PasswordController extends Controller {
         return $html;
         
     }
+Hi Prajay Verenkar, 
 
+
+
+
+
+New password : <Password>
+
+You can update the password to the one of your choice by updating on the profile page. 
     
 
 }
