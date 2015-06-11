@@ -602,15 +602,6 @@ class PasswordController extends Controller {
         return $html;
         
     }
-Hi Prajay Verenkar, 
-
-
-
-
-
-New password : <Password>
-
-You can update the password to the one of your choice by updating on the profile page. 
     
 
 }
