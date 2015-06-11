@@ -46,7 +46,7 @@
 
     ApartmentView.prototype.onShow = function() {
       var units;
-      units = apartmentVariantCollection.getApartmentUnits();
+      units = Marionette.getOption(this, 'units');
       if (units.length === 0) {
         this.ui.units.hide();
         this.ui.unitLabel.hide();
@@ -67,10 +67,14 @@
     }
 
     ApartmentCtrl.prototype.initialize = function() {
-      var units;
+      var newUnits, temp, units;
       units = apartmentVariantCollection.getApartmentUnits();
+      temp = new Backbone.Collection(units);
+      newUnits = temp.where({
+        'building_id': parseInt(building_id)
+      });
       return this.show(new AuthoringTool.ApartmentView({
-        units: units
+        units: newUnits
       }));
     };
 
