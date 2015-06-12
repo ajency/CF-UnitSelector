@@ -3,6 +3,7 @@
 use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
 
+use CommonFloor\Defaults;
 use CommonFloor\Unit;
 use CommonFloor\Project;
 use CommonFloor\UnitVariant;
@@ -308,6 +309,18 @@ class UnitController extends ApiGuardController {
 
             $unitType = $unit_variant->unitType()->first();
             $unitTypeId = $unitType->id;
+            
+            $propertyTypeId = $unitType->project_property_type_id;
+            $unitTypeName = $unitType->unittype_name;
+            
+            $default = Defaults::find($propertyTypeId);
+            $projectTypeName = $default->label;
+            
+            $default = Defaults::find($unitTypeName);
+            $unitTypeLabel = $default->label;
+
+            $response_data['project_type'] = $projectTypeName;
+            $response_data['unit']['unit_type'] = $unitTypeLabel;
 
 
             // get the corresponding property type data associated to the unittypeId
@@ -318,6 +331,7 @@ class UnitController extends ApiGuardController {
             // PROJECT DATA
             $project = Project::find($project_id);
             $response_data['project_id'] = $project->id;
+            $response_data['project_address'] = $project->project_address;
             $response_data['cf_project_id'] = $project->cf_project_id;
             $response_data['project_title'] = $project->project_title;
             $response_data['measurement_units'] = $project->measurement_units;
