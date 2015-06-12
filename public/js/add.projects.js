@@ -13,11 +13,8 @@
     });
     cfCityFetchOptions = {
       method: "GET",
-      url: "/api/v2/get-cities",
-      async: false,
-      headers: {
-        'X-Authorization': '87cdb105eceea2db65ed3b4e4c18a6485e84ae'
-      }
+      url: "/api/v1/get-cities",
+      async: false
     };
     $.ajax(cfCityFetchOptions).done((function(_this) {
       return function(resp, textStatus, xhr) {

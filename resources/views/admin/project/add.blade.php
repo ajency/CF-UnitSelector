@@ -37,6 +37,11 @@
 
                                         </select>
                                     </div>
+                                
+<!--                                     <div class="form-group">
+                                        <input type="text" name="select_area_list" id="autocompleteArea" placeholder="Locality Name" class="form-control input-md" />  
+                                        <div id="overlayImg"></div>
+                                    </div>  -->                                   
                                     <div class="form-group">
                                         <label class="form-label">CF Project Name<span class="text-primary">*</span></label>
                                         <span class="help">From CommonFloor database</span>

@@ -105,4 +105,182 @@ class ProjectController extends Controller {
                     ], 203 );
     }
 
+    public static function getSecureHash($url, $post_params, $api_key, $ts){
+        
+        if($post_params){
+            $url = $url."&".$post_params;
+        }
+
+        $split_url = explode('?', $url);
+        $base_url = $split_url[0];
+
+        $params=array();
+
+        if (count($split_url) > 1){
+            $params= explode("&", $split_url[1]);
+        }
+        #print 'params',params
+        $query_map=array();
+
+        if(count($params) > 0){
+            foreach ($params as $param) {
+                $param_split= explode('=', $param);
+            }
+
+            $query_map[$param_split[0]] = $param_split[1];
+        }
+
+        # add time stamp if any param exists
+        $query_map['timestamp'] = $ts;
+        
+        $keys = array_keys($query_map);  
+
+        sort( $keys );
+        $new_url = '?' ;
+
+        if (in_array('api_key', $keys)) {
+            foreach (array_keys($keys, 'api_key') as $index) {
+                unset($keys[$index]);
+            }
+        }
+
+        foreach ($keys as $key) {
+            $new_url .= urlencode($key) . '=' . urlencode($query_map[$key]) . '&';
+        }
+
+        // echo 'new_url'.$new_url;
+
+        $new_url_with_key = $new_url . 'api_key='.$api_key;
+        $md5_seed_url= $base_url .''. $new_url_with_key;
+        $md5_hash = md5($md5_seed_url);
+        // echo 'md5_seed_url'.$md5_seed_url;
+
+
+        return $md5_hash;        
+    }
+
+    // @todo remove authorization check
+    public function getAPICities(){
+        
+        $api_key = CF_API_KEY;
+        $base_url = GET_CITIES_API_URL;
+        $url = $base_url . '?api_key=' .$api_key;
+        $post_params = NULL;
+        $ts = time();
+        $secure_hash = ProjectController::getSecureHash($url, $post_params, $api_key, $ts);
+        $sender_url = $base_url . '?sign=' . (string)$secure_hash . '&timestamp=' . $ts; 
+
+        $c = curl_init();
+        curl_setopt($c, CURLOPT_URL, $sender_url);
+
+        curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
+        $o = curl_exec($c); 
+        if (curl_errno($c)) {
+          $sad = curl_error($c);
+ 
+          // get parameter not set
+          $json_resp = array(
+            'code' => 'incorrect_api_request' , 
+            'message' => 'Incorrect API request',
+            'data' => array()
+            );
+          $status_code = $sad;
+
+
+          return response()->json( $json_resp, $status_code);
+        }
+        curl_close($c); 
+
+
+        $json_resp = array(
+            'code' => 'cities_returned' , 
+            'message' => 'Cities',
+            'data' => $o
+            );
+        $status_code = 200 ;
+
+
+        return response()->json( $json_resp, $status_code);
+    }
+
+    public function getAPIAreaByCity(){
+        $getVar = Input::get();
+        $city = $getVar['city'];
+        $area_str = $getVar['area_str'];
+        $result_name = array();
+        $api_key = CF_API_KEY;
+        $base_url = GET_AREA_BY_CITY_API_URL.''.$city.'&str='.$area_str;
+        $url = $base_url . '?api_key=' .$api_key;
+        $post_params = NULL;
+        $ts = time();
+        $secure_hash = ProjectController::getSecureHash($url, $post_params, $api_key, $ts);
+        $sender_url = $base_url . '&sign=' . (string)$secure_hash . '&timestamp=' . $ts; 
+
+        $c = curl_init();
+        curl_setopt($c, CURLOPT_URL, $sender_url);
+
+        curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
+        $o = curl_exec($c); 
+        if (curl_errno($c)) {
+          $sad = curl_error($c);
+ 
+          // get parameter not set
+          $json_resp = array(
+            'code' => 'incorrect_api_request' , 
+            'message' => 'Incorrect API request',
+            'data' => array()
+            );
+          $status_code = $sad;
+
+
+          return response()->json( $json_resp, $status_code);
+        }
+        else{
+            $area_array = json_decode($o);
+            
+            // dd($area_array);
+            foreach ($area_array as $area_entry) {
+                $tildeCheck = strpos($area_entry, '~');
+                if ($tildeCheck!==false) {
+                    $area_name_arr = explode('~', $area_entry);
+                    $area_name = $area_name_arr[0];
+
+                    $zone_name_arr = explode('|', $area_entry);
+                    $zone_name = end($zone_name_arr);
+
+                    $areaSearchCheck = strpos(strtolower($area_name), strtolower($area_str));
+
+                    if ( $areaSearchCheck !==false) {
+                        $result_name[$zone_name] = $area_name;
+                    }
+                }
+            }
+
+        }
+        curl_close($c); 
+     
+
+
+        $json_resp = array(
+            'code' => 'areas_returned' , 
+            'message' => 'Areas',
+            'data' => $result_name
+            );
+        $status_code = 200 ;
+
+        return response()->json( $json_resp, $status_code);
+        
+    }
+
+    public function getProjectsByArea(){
+        return true;
+    }
+   
+
 }

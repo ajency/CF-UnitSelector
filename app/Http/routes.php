@@ -103,6 +103,9 @@ Route::group( ['prefix' => 'api/v1'], function() {
     Route::get( 'project/{id}/step-two', 'Rest\ProjectController@stepTwo' );
     Route::get('buildings/{$id}/floor-layout', 'Rest\BuildingFloorLayoutController@getFloorLayoutForFloor');
     Route::get('project/{id}/update-response-table', 'Rest\ProjectController@updateResponseTable');
+    Route::get( 'get-cities', 'Rest\ProjectController@getAPICities' );
+    Route::get( 'get-areas-by-city', 'Rest\ProjectController@getAPIAreaByCity' );
+    Route::get( 'get-projects-by-area', 'Rest\ProjectController@getProjectsByArea' );
 } );
 
 /**
@@ -113,7 +116,6 @@ Route::group( ['prefix' => 'api/v2', 'middleware' => ['whitelistip']], function(
     Route::get( 'unit/{unit_id}', 'Rest\UnitController@getUnit' );
     Route::get( 'get-project-url', 'Rest\UnitController@getCfProjectUrl' );
     Route::get( 'get-unit-status', 'Rest\UnitController@getUnitStatus' );
-    Route::get( 'get-cities', 'Rest\UnitController@getAPICities' );
 } );
 
 /**
