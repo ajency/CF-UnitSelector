@@ -13,7 +13,7 @@ class WhitelistIp {
 	 */
 	public function handle($request, Closure $next)
 	{	
-		$whitelistIp =[];
+		$whitelistIp =['127.0.0.1','172.20.14.251'];
 
 		$clientIpAddress = $request->getClientIp();
 
