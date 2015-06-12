@@ -113,6 +113,7 @@ Route::group( ['prefix' => 'api/v2', 'middleware' => ['whitelistip']], function(
     Route::get( 'unit/{unit_id}', 'Rest\UnitController@getUnit' );
     Route::get( 'get-project-url', 'Rest\UnitController@getCfProjectUrl' );
     Route::get( 'get-unit-status', 'Rest\UnitController@getUnitStatus' );
+    Route::get( 'get-cities', 'Rest\UnitController@getAPICities' );
 } );
 
 /**

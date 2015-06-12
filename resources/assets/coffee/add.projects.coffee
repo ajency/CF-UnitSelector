@@ -10,18 +10,18 @@ jQuery(document).ready ($)->
 
     cfCityFetchOptions =
         method:"GET"
-        url: "http://stage.commonfloor.com/api/geo-local-v2/get-cities"
+        url: "/api/v2/get-cities"
         async: false
-
-    console.log cfCityFetchOptions
+        headers:
+            'X-Authorization': 'f5137f5368cca5faba28bf02dc3f3bfd7b026e62'
 
     $.ajax(cfCityFetchOptions).done (resp, textStatus ,xhr)=>
-        response =  $.parseJSON resp
+        apiResp = resp.data
+        response =  $.parseJSON apiResp
         cities = response.results
         $('#add_project select[name="city"]').empty()
         $('#add_project select[name="city"]') .append $('<option value="">Choose City</option>')  
         _.each cities, (value, key) ->
-            console.log value
             $('#add_project select[name="city"]').append $('<option/>',
               value: value.city_name
               text: value.city_name)

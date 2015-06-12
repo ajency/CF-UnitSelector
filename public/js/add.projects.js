@@ -13,14 +13,18 @@
     });
     cfCityFetchOptions = {
       method: "GET",
-      url: "http://stage.commonfloor.com/api/geo-local-v2/get-cities",
-      async: false
+      url: "/api/v2/get-cities",
+      async: false,
+      headers: {
+        'X-Authorization': 'f5137f5368cca5faba28bf02dc3f3bfd7b026e62'
+      }
     };
     console.log(cfCityFetchOptions);
     $.ajax(cfCityFetchOptions).done((function(_this) {
       return function(resp, textStatus, xhr) {
-        var cities, response;
-        response = $.parseJSON(resp);
+        var apiResp, cities, response;
+        apiResp = resp.data;
+        response = $.parseJSON(apiResp);
         cities = response.results;
         $('#add_project select[name="city"]').empty();
         $('#add_project select[name="city"]').append($('<option value="">Choose City</option>'));
