@@ -1,4 +1,6 @@
-<?php namespace CommonFloor\Http\Controllers\Rest;
+<?php 
+header('Access-Control-Allow-Origin: *');
+namespace CommonFloor\Http\Controllers\Rest;
 
 use CommonFloor\Http\Requests;
 use CommonFloor\Http\Controllers\Controller;
