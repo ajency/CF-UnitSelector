@@ -42,10 +42,17 @@ class AuthoringTool.PlotView extends Marionette.ItemView
 					window.coord = 1
 					return 
 
+	onShow:->
+		units = Marionette.getOption(@,'units')
+		if units.length == 0
+			@ui.units.hide()
+			@ui.unitLabel.hide()
+			$('.alert').text 'All plots marked'
+			window.hideAlert()
+
 class AuthoringTool.PlotCtrl extends Marionette.RegionController
 
 	initialize :->
 		units = plotVariantCollection.getPlotUnits()
-		console.log units
 		@show new AuthoringTool.PlotView
 				units : units

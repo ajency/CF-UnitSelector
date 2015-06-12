@@ -110,7 +110,14 @@
         <script src="{{ asset('bower_components/bootstrap-toggle/js/bootstrap-toggle.min.js' )}}"></script>
         <!--<script src="{{ asset('bower_components/svg-pan-zoom/dist/svg-pan-zoom.min.js' )}}"></script>-->
         <script src="{{ asset('js/frontend/jquery.fadeloader.js' )}}"></script> 
-        <script src="{{ asset('js/jquery.flexisel.js' )}}"></script> 
+        <script src="{{ asset('js/jquery.flexisel.js' )}}"></script>
+        <script src="{{ asset('js/jquery.resize.js' )}}"></script>
+        <script src="{{ asset('bower_components/jquery-bridget/jquery.bridget.js' )}}"></script>
+        <script src="{{ asset('bower_components/jquery-mousewheel/jquery.mousewheel.js' )}}"></script>
+        <script src="{{ asset('bower_components/jquery-magnificent/src/js/mag.js' )}}"></script>
+        <script src="{{ asset('bower_components/jquery-magnificent/src/js/mag-control.js' )}}"></script>
+        <script src="{{ asset('bower_components/jquery-magnificent/src/js/mag-jquery.js' )}}"></script>
+        <script src="{{ asset('bower_components/jquery.event.drag-new/event.drag/jquery.event.drag.js' )}}"></script>
          <!--<script src="{{ asset('bower_components/jquery-nearest/src/jquery.nearest.js' )}}"></script> -->
         <!-- end plugins -->
         <script src="{{ asset('js/frontend/app.js' )}}"></script>

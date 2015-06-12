@@ -116,6 +116,27 @@ function validateEmail(obj, userId)
     });
 }
 
+function validatePhone(obj, userId)
+{
+    $(obj).closest(".form-group").find(".cf-loader").removeClass('hidden');
+    $.ajax({
+        url: "/admin/user/validateuserphone",
+        type: "POST",
+        data: {
+            phone: obj.value,
+            user_id: userId
+        },
+        dataType: "JSON",
+        success: function (response) {
+            if (!response.data)
+                $(obj).val('');
+
+            $(obj).closest(".form-group").find(".cf-loader").addClass('hidden');
+        }
+    });
+}
+
+
 function validateUserPassword(obj, userId)
 {
     $(obj).closest(".form-group").find(".cf-loader").removeClass('hidden');
@@ -358,44 +379,61 @@ function setUpProjectMasterUploader() {
                  };*/
             },
             FilesAdded: function (up, files) {
-                up.start();
-
+                var failcount =0;
                 for (var i = 0; i < files.length; i++)
                 {
                     var fileName = files[i].name;
                     var fileData = fileName.split('.');
                     var fileData_1 = fileData[0].split('-');
+                    var mastername = fileData_1[0];
                     var position = fileData_1[1];
+                    
+                   if((fileData_1.length == 2) && (mastername =='master' && !isNaN(position)))
+                   { 
+                        var load_newstr = '';
+                        var load_str = '<td>';
+                        load_str += '<div class="progress progress-small " style="margin:0;">';
+                        load_str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="20%" style="width: 20%;margin:0;"></div>';
+                        load_str += '</div>';
+                        load_str += '</td>';
+                        load_str += '<td class=" "><span class="muted"></span></td>';
+                        load_str += '<td class=" ">';
+                        load_str += '</td>';
+                        load_str += '<td class=" ">';
+                        load_str += '</td>';
+                        load_str += '<td class="text-right">';
+                        load_str += '<a class="text-primary" href="#"><i class="fa fa-close"></i></a>';
+                        load_str += '</td>';
 
-                    var load_newstr = '';
-                    var load_str = '<td>';
-                    load_str += '<div class="progress progress-small " style="margin:0;">';
-                    load_str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="20%" style="width: 20%;margin:0;"></div>';
-                    load_str += '</div>';
-                    load_str += '</td>';
-                    load_str += '<td class=" "><span class="muted"></span></td>';
-                    load_str += '<td class=" ">';
-                    load_str += '</td>';
-                    load_str += '<td class=" ">';
-                    load_str += '</td>';
-                    load_str += '<td class="text-right">';
-                    load_str += '<a class="text-primary" href="#"><i class="fa fa-close"></i></a>';
-                    load_str += '</td>';
-
-                    if ($('#position-' + position).length != 0) {
-                        $('#position-' + position).html(load_str);
+                        if ($('#position-' + position).length != 0) {
+                            $('#position-' + position).html(load_str);
+                        }
+                        else
+                        {
+                            load_newstr += '<tr class="" id="position-' + position + '">';
+                            load_newstr += load_str;
+                            load_newstr += '</tr>';
+                            $("#master-img").append(load_newstr);
+                        }
+                        $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="50%" style="width: 50%;margin:0;"></div>');
+                        $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="70%" style="width: 70%;margin:0;"></div>');
+                   }
+                    else{
+ 
+                        master_uploader.removeFile(files[i]);
+                        failcount ++;
                     }
-                    else
-                    {
-                        load_newstr += '<tr class="" id="position-' + position + '">';
-                        load_newstr += load_str;
-                        load_newstr += '</tr>';
-                        $("#master-img").append(load_newstr);
-                    }
-                    $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="50%" style="width: 50%;margin:0;"></div>');
-                    $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="70%" style="width: 70%;margin:0;"></div>');
 
                 }
+            
+            if(failcount)
+            {
+                $('.project-master-images').find(".errormsg").html(failcount+' images failed to upload. Invalid File Name.');
+                $('.project-master-images').find(".alert-error").removeClass('hidden');
+            }
+        
+             if(files.length)   
+                 up.start();
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
@@ -683,6 +721,8 @@ $(document).ready(function () {
                  };*/
             },
             FilesAdded: function (up, files) {
+            if(files[0].name =='map.jpg' || files[0].name =='map.png' || files[0].name =='map.jepg')
+            {
                 var str = '<div class="col-md-3">';
                 str += '<div class="img-hover img-thumbnail">';
                 str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
@@ -695,7 +735,11 @@ $(document).ready(function () {
                 str += '</div>';
                 $("#google_earth_image").html(str);
                 up.start();
-
+            }
+            else{
+                $('.google-earth-images').find(".alert-error").removeClass('hidden');
+                 
+            }    
 
 
             },
@@ -923,8 +967,8 @@ function saveBreakPoint()
 
 function deleteSvg(mediaId, type, refference)
 {
-    var objectType = $('div.object-master-images').attr('data-object-type');
-    var objectId = $('div.object-master-images').attr('data-object-id');
+    var objectType = $('div.object-master-images').attr('data-object-type'); 
+    var objectId = $('div.object-master-images').attr('data-object-id'); 
 
     if (confirm('Are you sure you want to delete this media file? ') === false) {
         return;

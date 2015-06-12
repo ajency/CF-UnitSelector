@@ -5,7 +5,7 @@
   </div>  
     @endif
    @if(Session::has('error_message'))
-    <div class="alert alert-error">
+    <div class="alert alert-danger">
     <button class="close" data-dismiss="alert"></button>
     <i class="fa fa-error" style="font-size: 17px;"></i> {{ Session::get('error_message')}}
   </div>  

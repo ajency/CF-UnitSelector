@@ -370,6 +370,7 @@
         <script src="{{ asset('bower_components/jquery.panzoom/dist/jquery.panzoom.min.js' )}}"></script>
         <script src="{{ asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}" type="text/javascript"></script>
         <script src="{{ asset('bower_components/marionette.state/dist/marionette.state.js' )}}"></script>
+        <script src="{{ asset('bower_components/tooltipster/js/jquery.tooltipster.min.js' )}}"></script>
         
         <script src="{{ asset('js/svg.parser.min.js' )}}"></script>
         <script src="{{ asset('js/svg.import.min.js' )}}"></script>

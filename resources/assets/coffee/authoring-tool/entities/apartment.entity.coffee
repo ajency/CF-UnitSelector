@@ -48,7 +48,7 @@ class AuthoringTool.ApartmentView extends Marionette.ItemView
 					return 
 
 	onShow:->
-		units = apartmentVariantCollection.getApartmentUnits()
+		units = Marionette.getOption(@,'units')
 		if units.length == 0
 			@ui.units.hide()
 			@ui.unitLabel.hide()
@@ -59,5 +59,8 @@ class AuthoringTool.ApartmentCtrl extends Marionette.RegionController
 
 	initialize :->
 		units = apartmentVariantCollection.getApartmentUnits()
+		temp = new Backbone.Collection units
+		newUnits = temp.where
+				'building_id' : parseInt building_id
 		@show new AuthoringTool.ApartmentView
-				units : units
+				units : newUnits

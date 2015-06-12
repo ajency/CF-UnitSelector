@@ -58,16 +58,16 @@ class CommonFloor.TopApartmentMasterView extends Marionette.ItemView
 															 {{/budget}}
 
 															  {{#views}}
-													         	 
-													                <div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
-													       
-													         {{/views}}
+																 
+																	<div class="filter-pill"> {{name}}  <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
+														   
+															 {{/views}}
 
-													       {{#facings}}
-													         	 
-													                <div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
-													        
-													         {{/facings}}
+														   {{#facings}}
+																 
+																	<div class="filter-pill"> {{name}} <span class="icon-cross {{classname}}" id="{{id_name}}" data-id="{{id}}" ></span> </div> 
+															
+															 {{/facings}}
 
 														 {{#floor}}
 																
@@ -302,7 +302,7 @@ class ApartmentsView extends Marionette.ItemView
 	template : Handlebars.compile('	<div class="row">
 										<div class="col-xs-5  info">
 											<b class="bold">{{floor}}</b>-{{unit_name}} 
-									  	</div>  
+										</div>  
 
 										<div class="col-xs-3  info">
 											{{unit_type}}
@@ -459,8 +459,8 @@ class CommonFloor.LeftApartmentMasterView extends Marionette.CompositeView
 							  </ul>
 							 </div>
 							 <div class="sort-unit"> All Units
-							 	<input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="&nbsp;" data-off="&nbsp;" data-onstyle="warning" data-offstyle="warning">
-							 	In View
+								<input type="checkbox" name="inview" id="inview" checked data-toggle="toggle" data-on="&nbsp;" data-off="&nbsp;" data-onstyle="warning" data-offstyle="warning">
+								In View
 							 </div>
 							
 							<p class="text-center help-text">Hover on the units for more details</p>
@@ -541,10 +541,11 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 										  </ul>
 										</div>
 
-										<div class="zoom-controls">
+										
+										<!--<div class="zoom-controls">
 											<div class="zoom-in"></div>
 											<div class="zoom-out"></div>
-										</div>
+										</div>-->
 
 										<div id="view_toggle" class="toggle-view-button list"></div>
 										<div id="trig" class="toggle-button hidden">List View</div>
@@ -567,10 +568,17 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 											  <div class="square last"></div>
 											</div>
 
-											<div id="spritespin"></div>
-											<div class="svg-maps animated fadeIn hidden">
-												<img class="first_image img-responsive" />
-												<div class="region inactive"></div>
+											<div class="outer-wrap" STYLE="height:100%">
+												<div mag-thumb="outer" class="home-region"> 
+													<img class="zoomimage" />
+												</div>
+												<div mag-zoom="outer">
+													<div id="spritespin"></div>
+													<div class="svg-maps animated fadeIn hidden">
+														<img class="first_image img-responsive" />
+														<div class="region inactive"></div>
+													</div>
+												</div>
 											</div>
 
 											<div id="rotate_loader" class="cf-loader hidden"></div>
@@ -594,6 +602,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		svgContainer : '.master'
 		# trig         : '#trig'
 		viewtog      : '#view_toggle'
+		zoomIn       : '.Zoomin'
 
 	
 	# initialize:->
@@ -602,6 +611,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		
 
 	events:
+		'click @ui.zoomIn':(e)->
+			console.log "aaaaaaaaaaaa"
+			$('.apartment').bind('mouseenter')
+			$('.apartment').on('click')
 		# 'click @ui.trig':(e)->
 		# 	$('.us-left-content').toggleClass 'col-0 col-md-3'
 		# 	$('.us-right-content').toggleClass 'col-md-12 col-md-9'
@@ -653,7 +666,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		# 	# CommonFloor.router.storeRoute()
 
 		'mouseover .apartment':(e)->
-			id = parseInt e.currentTarget.id
+			console.log id = parseInt e.currentTarget.id
 			unit = unitCollection.findWhere
 					'id' : id
 			unitMaster = unitMasterCollection.findWhere 
@@ -761,7 +774,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			cost = window.building.getMinimumCost(id)
 			price = window.numDifferentiation(cost)
 			html = '<div class="svg-info">
-						<i class="apartment-ico"></i>
+						<i class="building-ico"></i>
 						<h5 class=" m-t-0">'+buildingModel.get('building_name')+'</h5>
 						<div class="details">
 							<label>'+floors+' Floors</label></br>
@@ -791,12 +804,28 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 	onShow:->
 
+		window.magne = new Magnificent(
+				'[mag-thumb="outer"]',
+				{
+					mode: 'outer'
+					position: 'drag'
+					toggle: false
+					zoomMax:3
+					zoomRate: 2
+					constrainZoomed: true
+				}
+		)
+		window.magne.zoomBy(-1)
+		# $controls = $('[mag-ctrl="controls"]');
+		# $controls.magCtrl({
+		#   mag: @$host
+		# });
 		windowHeight = $(window).innerHeight() - 56
 		$('.master').css 'height', windowHeight
 		$('.master').css 'min-width', windowHeight * 2
 
 		@getNextPrev()
-		$('img').lazyLoadXT()
+		# $('img').lazyLoadXT()
 		height =  @ui.svgContainer.width() / 2
 		$('.search-left-content').css('height',height)
 		$('#spritespin').hide()
@@ -829,11 +858,14 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					CommonFloor.applyFliterClass()
 					# CommonFloor.getApartmentsInView()
 					CommonFloor.applyOnViewClass()
-					that.loadZoom()
+					# that.loadZoom()
+					that.undelegateEvents()
+					that.zoomBuilding()
 					response = building.checkRotationView(building_id)
 					$('.svg-maps').removeClass 'hidden'
 					$('.mini-map').removeClass 'hidden'
-					$('.first_image').first().css('width',that.ui.svgContainer.width())
+					# $('.first_image').first().css('width',that.ui.svgContainer.width())
+					$('.zoomimage').attr('src',transitionImages[breakpoints[0]])
 					if response is 1
 						$('.cf-loader').removeClass 'hidden'
 						that.initializeRotate(transitionImages,svgs,building)
@@ -850,6 +882,55 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			$('.units').mCustomScrollbar
 				theme: 'cf-scroll'
 
+	ratioOffsetsFor:($target, x, y) ->
+		return {
+		  x: x / $target.width(),
+		  y: y / $target.height()
+		}
+  
+
+	zoomBuilding:->
+		that  = @
+		$(".mag-lens").resize (e)->
+			temp = $(e.target).width()
+			if temp == 398
+				that.undelegateEvents()
+				$('.apartment').tooltipster('disable')
+			else 
+				that.delegateEvents()
+				that.iniTooltip()
+				$('.apartment').tooltipster('enable')
+				
+		$(document).on 'click' , '.apartment' , (e)->
+			clearTimeout(window.renderLoopInterval)
+			xpoint = e.clientX
+			ypoint = e.clientY
+
+			xpoint = xpoint/$(window).width()
+			ypoint = ypoint/$(window).height()
+			xpoint = xpoint.toFixed(1)
+			ypoint = ypoint.toFixed(1)
+
+			xapoint = xpoint /10
+			yapoint = ypoint /10
+			
+			temp = window.magne
+			temp.model.focus = {x: xpoint, y: ypoint}
+			# temp.model.lens = {x: xpoint, y: ypoint}
+
+			# temp.modelLazy.focus = {x: xpoint, y: ypoint}
+			# console.log temp.modelLazy.focus
+			# temp.modelLazy.lens = {x: xpoint, y: ypoint , h :0.5 , w: 0.5}
+			# temp.options.position = 'drag'
+			# temp.modelLazy.zoomed = {x: temp1, y:temp2 , h :1.5 , w: 1.5}
+			# temp.compute()
+			temp.zoomBy(1)
+			temp.reinit()
+			# that.delegateEvents()
+			# temp.renderNew(temp)
+			# window.renderLoopInterval()
+			
+			# that.$host.mag.reinit(that.$host.mag.model)
 	loadProjectMaster:->
 		svgs = []
 		masterbreakpoints = project.get('breakpoints')
@@ -946,7 +1027,6 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('#rotate_loader').addClass 'hidden'
 			$('.region').load(url,()->
 				that.iniTooltip()
-				that.loadZoom()
 				CommonFloor.applyAvailabilClasses()
 				CommonFloor.randomClass()
 				CommonFloor.applyFliterClass()
@@ -1003,17 +1083,17 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		)
 
 	loadZoom:->
-		$('.master').panzoom
-			contain: 'invert'
-			minScale: 1
-			maxScale: 2.4
-			increment: 0.4
-			$zoomIn: $('.zoom-in')
-			$zoomOut: $('.zoom-out')
-			# $set: $('.spritespin-canvas')
+		# $('.master').panzoom
+		# 	contain: 'invert'
+		# 	minScale: 1
+		# 	maxScale: 2.4
+		# 	increment: 0.4
+		# 	$zoomIn: $('.zoom-in')
+		# 	$zoomOut: $('.zoom-out')
+		# 	# $set: $('.spritespin-canvas')
 
-		$('.master polygon').on 'mousedown touchstart', (e) ->
-			e.stopImmediatePropagation()
+		# $('.master polygon').on 'mousedown touchstart', (e) ->
+		# 	e.stopImmediatePropagation()
 	
 
 

@@ -35,6 +35,7 @@
                     <hr/>
                   <div class="m-l-5 no-border">
                 <h3><i class="fa fa-angle-double-right text-primary"></i> Permissions</h3>
+                      <input data-parsley-required data-parsley-required-message = "Need To Select Atleast 1 Permission" type="checkbox" id="permissions" name="permissions[]" class="text-success hidden" aria-label="..." >  
             </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -43,7 +44,7 @@
                                 <div class="row">
                                     <div class="col-md-6">{{ $permission['display_name'] }}</div>
                                     <div class="col-md-6 text-right">
-                                        <input required {{ (in_array($permission['id'],$permissionrole)) ? 'checked' : '' }} type="checkbox" id="permissions" name="permissions[]" class="text-success" value="{{ $permission['id'] }}" aria-label="..." >
+                                        <input {{ (in_array($permission['id'],$permissionrole)) ? 'checked' : '' }} type="checkbox" id="permissions" name="permissions[]" class="text-success" value="{{ $permission['id'] }}" aria-label="..." >
                                     </div>
                                 </div>
                             </a>
@@ -72,7 +73,7 @@
                                 <div class="row">
                                     <div class="col-md-6">{{ $projectPermission['display_name'] }}</div>
                                     <div class="col-md-6 text-right">
-                                        <input required {{ (in_array($projectPermission['id'],$permissionrole)) ? 'checked' : '' }} type="checkbox" id="permissions" name="permissions[]" class="text-success" value="{{ $projectPermission['id'] }}" aria-label="..." >
+                                        <input {{ (in_array($projectPermission['id'],$permissionrole)) ? 'checked' : '' }} type="checkbox" id="permissions" name="permissions[]" class="text-success" value="{{ $projectPermission['id'] }}" aria-label="..." >
                                     </div>
                                 </div>
                             </a>
@@ -105,7 +106,7 @@
                             <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
                             <button type="button" onclick="saveAndAddAnother();" class="btn btn-default btn-cons">Save And Add Another</button>
                             <button type="reset" class="hidden" />
-                            <a href="{{ url('admin/user') }}"><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
+                            <a href="{{ url('admin/role') }}"><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
 
                         </div>
 
