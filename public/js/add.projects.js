@@ -47,7 +47,7 @@
     window.projectsCollection = [];
     $('#add_project select[name="city"]').change(function() {
       return $.ajax({
-        url: '/some-commonfloor-url',
+        url: '/api/v1/get-projects-by-area',
         type: 'jsonp',
         success: function(resp) {},
         error: function(resp) {

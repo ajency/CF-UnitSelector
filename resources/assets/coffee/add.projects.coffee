@@ -42,7 +42,7 @@ jQuery(document).ready ($)->
     
     $('#add_project select[name="city"]').change ->
         $.ajax
-            url : '/some-commonfloor-url'
+            url : '/api/v1/get-projects-by-area'
             type : 'jsonp'
             success : (resp)->
             error : (resp)->

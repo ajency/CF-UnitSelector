@@ -285,7 +285,7 @@ class ProjectController extends Controller {
         $city = $getVar['city'];
         $area_zone = $getVar['area_zone'];
 
-        $result_name = array();
+        $result = array();
         $api_key = CF_API_KEY;
         $base_url = GET_PROPERTIES_BY_AREA_API_URL.$area_zone.'&city='.$city;
         $url = $base_url.'&api_key='.$api_key;
@@ -320,13 +320,46 @@ class ProjectController extends Controller {
           return response()->json( $json_resp, $status_code);
         }
         else{
-            //$result_json  = json_decode($o);
-            dd($o);
-            $result = [];
+            $result_json  = json_decode($o);
             
-            if($result_json && !is_null($result_json['status']) && $result_json['status'] != '0'){
-                $total_page = int($result_json['results']['total_page']);
-                dd($result_json);
+            if($result_json && !is_null($result_json->status) && $result_json->status != '0'){
+                $total_page = (int)$result_json->results->total_page;
+                
+                $projects = $result_json->results->projects;
+                foreach ($projects as $project) {
+                    $project_info = array();
+                    $project_info['property_id'] = $project->property_id;
+                    $project_info['name'] = $project->name;
+                    $project_info['address'] = $project->address;
+                    $project_info['builder_name'] = $project->builder_name;
+                    $project_info['builder_image_url'] = ProjectController::builderImageUrl($project->builder_name);
+                    $result[] =$project_info;
+                }
+
+                if($total_page > 1){
+                    $index = 2;
+                    while ($index<=$total_page) {
+                        // make curl request again
+                        $result_json = ProjectController::get_property_by_area_curl($city,$area_zone,$index);
+                        if (!is_null($result_json)) {
+                            $projects = $result_json->results->projects;
+
+                            foreach ($projects as $project) {
+                                $project_info = array();
+                                $project_info['property_id'] = $project->property_id;
+                                $project_info['name'] = $project->name;
+                                $project_info['address'] = $project->address;
+                                $project_info['builder_name'] = $project->builder_name;
+                                $project_info['builder_image_url'] = ProjectController::builderImageUrl($project->builder_name);
+                                $result[] =$project_info;
+                            }
+                        }
+
+
+                        $index++;
+                    }
+                }
+
 
             }
 
@@ -336,12 +369,66 @@ class ProjectController extends Controller {
         $json_resp = array(
             'code' => 'projects_returned' , 
             'message' => 'Projects',
-            'data' => $result_name
+            'data' => $result
             );
         $status_code = 200 ;
 
         return response()->json( $json_resp, $status_code);
     }
-   
+
+
+public static function builderImageUrl($builder_name){
+    $builder_name = strtolower($builder_name);
+    $builder_name = str_replace( array(".","'",",","-","(",")"),
+                        array("","","",""," "," "), 
+                        $builder_name);
+    $builder_name = str_replace("  "," ",$builder_name);
+    $builder_name = str_replace(" ", "-", trim($builder_name)); 
+
+    $builder_img_src = "http://www.commonfloor.com/public/images/builder/" . $builder_name ."-logo.gif";
+
+    return $builder_img_src; 
+}
+
+public static function get_property_by_area_curl($city,$area_zone,$page){
+        $api_key = CF_API_KEY;
+        $base_url = GET_PROPERTIES_BY_AREA_API_URL.$area_zone.'&page=' . $page.'&city='.$city;
+        $url = $base_url.'&api_key='.$api_key;
+        $post_params = NULL;
+
+        $ts = time();
+        $secure_hash = ProjectController::getSecureHash($url, $post_params, $api_key, $ts);
+        $sender_url = $base_url.'&sign='.(string)$secure_hash.'&timestamp='.$ts;
+
+
+
+        $c = curl_init();
+        curl_setopt($c, CURLOPT_URL, $sender_url);
+
+        curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
+        $o = curl_exec($c); 
+
+        if (curl_errno($c)) {
+          
+          $result_json  = NULL;
+
+      }
+      else{
+
+        $result_json  = json_decode($o);
+
+    }
+
+    curl_close($c); 
+    return $result_json;  
 
 }
+
+
+
+}
+
+
