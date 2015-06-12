@@ -407,6 +407,108 @@ class UnitController extends ApiGuardController {
         }
 
         return response()->json( $json_resp, $status_code);
-    }	
+    }
+
+    public static function getSecureHash($url, $post_params, $api_key, $ts){
+        
+        if($post_params){
+            $url = $url."&".$post_params;
+        }
+
+        $split_url = explode('?', $url);
+        $base_url = $split_url[0];
+
+        $params=array();
+
+        if (strlen($split_url) > 1){
+            $params= explode("&", $split_url[1]);
+        }
+        #print 'params',params
+        $query_map=array();
+
+        if(count($params) > 0){
+            foreach ($params as $param) {
+                $param_split= explode('=', $param);
+            }
+
+            $query_map[$param_split[0]] = $param_split[1];
+        }
+
+        # add time stamp if any param exists
+        $query_map['timestamp'] = $ts;
+        
+        $keys = array_keys($query_map);  
+
+        sort( $keys );
+        $new_url = '?' ;
+
+        if (in_array('api_key', $keys)) {
+            foreach (array_keys($index, 'api_key') as $index) {
+                unset($keys[$index]);
+            }
+        }
+
+        foreach ($keys as $key) {
+            $new_url .= urlencode($key) . '=' . urlencode($query_map[$key]) . '&';
+        }
+
+        echo 'new_url'.$new_url;
+
+        $new_url_with_key = $new_url . 'api_key='.$api_key;
+        $md5_seed_url= $base_url .''. $new_url_with_key;
+        $md5_hash = md5($md5_seed_url);
+        echo 'md5_seed_url'.$md5_seed_url;
+
+
+        return $md5_hash;        
+    }
+
+    public static function getAPICities(){
+        $api_key = 'nk8qh4vtri7l3hwotbsdtv2zl3p5u168';
+        $base_url = 'http://www.commonfloor.com/api/geo-local-v2/get-cities';
+        $url = $base_url . '?api_key=' .$api_key;
+        $post_params = NULL;
+        $ts = time();
+        $secure_hash = UnitController::getSecureHash($url, $post_params, $api_key, $ts);
+        $sender_url = $base_url . '?sign=' . str($secure_hash) . '&timestamp=' . $ts;    
+            
+            
+
+            
+            #print 'secure_url --------> ',sender_url
+            #response_api_val = urllib2.urlopen(sender_url).read()
+
+
+            request = urllib2.Request(sender_url)
+            request.add_header('Accept-encoding', 'gzip')
+            response = urllib2.urlopen(request)
+            if response.info().get('Content-Encoding') == 'gzip':
+                buf = StringIO(response.read())
+                f = gzip.GzipFile(fileobj=buf)
+                response_api_val = f.read()
+
+
+
+            # zipinmemory = cStringIO.StringIO(remotezip.read())
+         #    zip = zipfile.ZipFile(zipinmemory)
+         #    for fn in zip.namelist():
+         #        if fn.endswith(".ranks"):
+         #            ranks_data = zip.read(fn)
+         #            for line in ranks_data.split("\n"):
+
+            #response_api_val = urllib2.urlopen(constants.GET_CITIES_API_URL).read()
+            result_json = json.loads(response_api_val)
+            if(result_json and result_json['status'] != 'null' and result_json['status'] != '0'):
+                cache.set_result('cities', result_json)
+            else:
+                result_json = {'status':0}
+        else:
+            print "in cache"
+
+        return result_json        
+    }
+
+
+
 
 }
