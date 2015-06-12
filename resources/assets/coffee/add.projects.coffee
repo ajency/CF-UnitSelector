@@ -13,7 +13,7 @@ jQuery(document).ready ($)->
         url: "/api/v2/get-cities"
         async: false
         headers:
-            'X-Authorization': 'f5137f5368cca5faba28bf02dc3f3bfd7b026e62'
+            'X-Authorization': '87cdb105eceea2db65ed3b4e4c18a6485e84ae'
 
     $.ajax(cfCityFetchOptions).done (resp, textStatus ,xhr)=>
         apiResp = resp.data

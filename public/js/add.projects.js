@@ -16,10 +16,9 @@
       url: "/api/v2/get-cities",
       async: false,
       headers: {
-        'X-Authorization': 'f5137f5368cca5faba28bf02dc3f3bfd7b026e62'
+        'X-Authorization': '87cdb105eceea2db65ed3b4e4c18a6485e84ae'
       }
     };
-    console.log(cfCityFetchOptions);
     $.ajax(cfCityFetchOptions).done((function(_this) {
       return function(resp, textStatus, xhr) {
         var apiResp, cities, response;
@@ -29,7 +28,6 @@
         $('#add_project select[name="city"]').empty();
         $('#add_project select[name="city"]').append($('<option value="">Choose City</option>'));
         return _.each(cities, function(value, key) {
-          console.log(value);
           return $('#add_project select[name="city"]').append($('<option/>', {
             value: value.city_name,
             text: value.city_name
