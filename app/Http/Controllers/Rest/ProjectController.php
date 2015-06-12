@@ -107,7 +107,7 @@ class ProjectController extends Controller {
 
     public static function getSecureHash($url, $post_params, $api_key, $ts){
         
-        if($post_params){
+        if(!is_null($post_params)){
             $url = $url."&".$post_params;
         }
 
@@ -119,17 +119,19 @@ class ProjectController extends Controller {
         if (count($split_url) > 1){
             $params= explode("&", $split_url[1]);
         }
+
         #print 'params',params
         $query_map=array();
 
         if(count($params) > 0){
             foreach ($params as $param) {
                 $param_split= explode('=', $param);
+                $query_map[$param_split[0]] = $param_split[1];
             }
 
-            $query_map[$param_split[0]] = $param_split[1];
+            
         }
-
+        
         # add time stamp if any param exists
         $query_map['timestamp'] = $ts;
         
@@ -213,7 +215,7 @@ class ProjectController extends Controller {
         $result_name = array();
         $api_key = CF_API_KEY;
         $base_url = GET_AREA_BY_CITY_API_URL.''.$city.'&str='.$area_str;
-        $url = $base_url . '?api_key=' .$api_key;
+        $url = $base_url . '&api_key=' .$api_key;
         $post_params = NULL;
         $ts = time();
         $secure_hash = ProjectController::getSecureHash($url, $post_params, $api_key, $ts);
@@ -279,7 +281,66 @@ class ProjectController extends Controller {
     }
 
     public function getProjectsByArea(){
-        return true;
+        $getVar = Input::get();
+        $city = $getVar['city'];
+        $area_zone = $getVar['area_zone'];
+
+        $result_name = array();
+        $api_key = CF_API_KEY;
+        $base_url = GET_PROPERTIES_BY_AREA_API_URL.$area_zone.'&city='.$city;
+        $url = $base_url.'&api_key='.$api_key;
+        $post_params = NULL;
+
+        $ts = time();
+        $secure_hash = ProjectController::getSecureHash($url, $post_params, $api_key, $ts);
+        $sender_url = $base_url.'&sign='.(string)$secure_hash.'&timestamp='.$ts; 
+
+        //dd($sender_url);
+        
+        $c = curl_init();
+        curl_setopt($c, CURLOPT_URL, $sender_url);
+
+        curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
+        $o = curl_exec($c); 
+        if (curl_errno($c)) {
+          $sad = curl_error($c);
+ 
+          // get parameter not set
+          $json_resp = array(
+            'code' => 'incorrect_api_request' , 
+            'message' => 'Incorrect API request',
+            'data' => array()
+            );
+          $status_code = $sad;
+
+
+          return response()->json( $json_resp, $status_code);
+        }
+        else{
+            //$result_json  = json_decode($o);
+            dd($o);
+            $result = [];
+            
+            if($result_json && !is_null($result_json['status']) && $result_json['status'] != '0'){
+                $total_page = int($result_json['results']['total_page']);
+                dd($result_json);
+
+            }
+
+        }
+        curl_close($c); 
+
+        $json_resp = array(
+            'code' => 'projects_returned' , 
+            'message' => 'Projects',
+            'data' => $result_name
+            );
+        $status_code = 200 ;
+
+        return response()->json( $json_resp, $status_code);
     }
    
 
