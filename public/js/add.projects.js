@@ -13,7 +13,7 @@
     });
     cfCityFetchOptions = {
       method: "GET",
-      url: "https://stage.commonfloor.com/api/geo-local-v2/get-cities",
+      url: "http://stage.commonfloor.com/api/geo-local-v2/get-cities",
       async: false
     };
     console.log(cfCityFetchOptions);
