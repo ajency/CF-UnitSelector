@@ -143,6 +143,17 @@ window.numDifferentiation = (val)->
 		val = val + ' K'
 
 	val
+
+
+# function to calclate percentage
+window.calculatePerc = (value,total)->
+	value = parseInt value
+	total = parseInt total
+
+	perc = value/total
+	perc = perc * 100
+	perc = perc.toFixed(2)
+	perc
 	   
 
 #function to convert value into price format		

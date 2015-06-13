@@ -179,6 +179,16 @@
     return val;
   };
 
+  window.calculatePerc = function(value, total) {
+    var perc;
+    value = parseInt(value);
+    total = parseInt(total);
+    perc = value / total;
+    perc = perc * 100;
+    perc = perc.toFixed(2);
+    return perc;
+  };
+
   window.convertRupees = function(val) {
     $('#price').autoNumeric('init');
     return $('#price').autoNumeric('set', val);

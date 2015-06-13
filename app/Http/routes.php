@@ -109,6 +109,7 @@ Route::group( ['prefix' => 'api/v1'], function() {
     Route::get( 'get-builder-image-url', 'Rest\ProjectController@builderImageUrl' );
     Route::get( 'get-booking-amount', 'Rest\ProjectController@getBookingAmount' );
     Route::get( 'get-selling-amount', 'Rest\ProjectController@getSellingAmount' );
+    Route::get( 'get-unit-payment-plan', 'Rest\ProjectController@getUnitPaymentPlan' );
 } );
 
 /**

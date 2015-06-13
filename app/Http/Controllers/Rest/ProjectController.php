@@ -533,6 +533,59 @@ public function getSellingAmount(){
 
 }
 
+public function getUnitPaymentPlan(){
+    $getVar = Input::get();
+    $unitId = $getVar['unit_id'];
+    $sender_url = BOOKING_SERVER_URL;
+    $sender_url .= GET_UNIT_PAYMENT_PLAN;
+
+    /* $_GET Parameters to Send */
+    $params = array('unit_id' => $unitId);
+
+    /* Update URL to container Query String of Paramaters */
+    $sender_url .= '?' . http_build_query($params);
+
+    $c = curl_init();
+    curl_setopt($c, CURLOPT_URL, $sender_url);
+
+    curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
+    curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+    curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
+    curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
+    $o = curl_exec($c); 
+    
+    if (curl_errno($c)) {
+      $result_json  = NULL;
+      $json_resp = array(
+        'code' => 'error_in_fetching_amount' , 
+        'message' => curl_error($c) ,
+        'data' => $result_json
+        );
+      $status_code = 400 ;
+    }
+    else{
+
+        $result_json  = json_decode($o);
+
+    }
+    /* Check HTTP Code */
+    $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
+
+    // dd($status);
+
+    curl_close($c); 
+ 
+    $json_resp = array(
+        'code' => 'total_selling_amount_returned' , 
+        'message' => 'Selling Amount',
+        'data' => $result_json
+        );
+    $status_code = 200 ;
+
+    return response()->json( $json_resp, $status_code);
+
+}
+
 
 
 }
