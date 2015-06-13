@@ -19,7 +19,9 @@ define('GET_PROPERTIES_BY_AREA_API_URL', 'http://www.commonfloor.com/api/project
 define('BOOKING_SERVER_URL', 'http://stage.booking.commonfloor.com/');
 define('GET_BOOKING_AMOUNT', 'get_booking_amount/');
 define('GET_SELLING_AMOUNT', 'get_total_sale_value/');
-define('GET_UNIT_PAYMENT_PLAN', 'unit_payment_plan//');
+define('GET_UNIT_PAYMENT_PLAN', 'unit_payment_plan/');
+define('GET_UNIT_PRICE_SHEET', 'unit_price_sheet/');
+define('BOOKING_PORTAL_URL', 'http://dev.commonfloor.com/book-your-property');
 define('CF_API_KEY', 'nk8qh4vtri7l3hwotbsdtv2zl3p5u168');
  
 

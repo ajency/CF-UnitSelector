@@ -34,7 +34,10 @@ class TopUnitView extends Marionette.ItemView
 												</div>
 
 												<div class="pull-right">
-													<button class="btn btn-primary cf-btn-primary">Book Now - &#8377; {{unitBookingAmount}}</button>
+													<form action="{{bookingPortalUrl}}" method="POST">
+														<input type="hidden" value = "{{id}}">
+														<button type="submit" class="btn btn-primary cf-btn-primary">Book Now - &#8377; {{unitBookingAmount}}</button>
+													</form>
 												</div>
 
 											  	<div class="clearfix"></div>
@@ -49,6 +52,7 @@ class TopUnitView extends Marionette.ItemView
 		data = super()
 		data.project_title = project.get 'project_title'
 		data.unitBookingAmount = Marionette.getOption(@,'unitBookingAmount')
+		data.bookingPortalUrl = window.bookingPortalUrl
 		data
 
 	events:->

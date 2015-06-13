@@ -377,30 +377,67 @@ class ProjectController extends Controller {
     }
 
 
-public static function builderImageUrl($builder_name){
-    $builder_name = strtolower($builder_name);
-    $builder_name = str_replace( array(".","'",",","-","(",")"),
-                        array("","","",""," "," "), 
-                        $builder_name);
-    $builder_name = str_replace("  "," ",$builder_name);
-    $builder_name = str_replace(" ", "-", trim($builder_name)); 
+    public static function builderImageUrl($builder_name){
+        $builder_name = strtolower($builder_name);
+        $builder_name = str_replace( array(".","'",",","-","(",")"),
+                            array("","","",""," "," "), 
+                            $builder_name);
+        $builder_name = str_replace("  "," ",$builder_name);
+        $builder_name = str_replace(" ", "-", trim($builder_name)); 
 
-    $builder_img_src = "http://www.commonfloor.com/public/images/builder/" . $builder_name ."-logo.gif";
+        $builder_img_src = "http://www.commonfloor.com/public/images/builder/" . $builder_name ."-logo.gif";
 
-    return $builder_img_src; 
-}
+        return $builder_img_src; 
+    }
 
-public static function get_property_by_area_curl($city,$area_zone,$page){
-        $api_key = CF_API_KEY;
-        $base_url = GET_PROPERTIES_BY_AREA_API_URL.$area_zone.'&page=' . $page.'&city='.$city;
-        $url = $base_url.'&api_key='.$api_key;
-        $post_params = NULL;
+    public static function get_property_by_area_curl($city,$area_zone,$page){
+            $api_key = CF_API_KEY;
+            $base_url = GET_PROPERTIES_BY_AREA_API_URL.$area_zone.'&page=' . $page.'&city='.$city;
+            $url = $base_url.'&api_key='.$api_key;
+            $post_params = NULL;
 
-        $ts = time();
-        $secure_hash = ProjectController::getSecureHash($url, $post_params, $api_key, $ts);
-        $sender_url = $base_url.'&sign='.(string)$secure_hash.'&timestamp='.$ts;
+            $ts = time();
+            $secure_hash = ProjectController::getSecureHash($url, $post_params, $api_key, $ts);
+            $sender_url = $base_url.'&sign='.(string)$secure_hash.'&timestamp='.$ts;
 
 
+
+            $c = curl_init();
+            curl_setopt($c, CURLOPT_URL, $sender_url);
+
+            curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
+            curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+            curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
+            $o = curl_exec($c); 
+
+            if (curl_errno($c)) {
+              
+              $result_json  = NULL;
+
+          }
+          else{
+
+            $result_json  = json_decode($o);
+
+        }
+
+        curl_close($c); 
+        return $result_json;  
+
+    }
+
+    public function getBookingAmount(){
+        $getVar = Input::get();
+        $unitId = $getVar['unit_id'];
+        $sender_url = BOOKING_SERVER_URL;
+        $sender_url .= GET_BOOKING_AMOUNT;
+
+        /* $_GET Parameters to Send */
+        $params = array('unit_id' => $unitId);
+
+        /* Update URL to container Query String of Paramaters */
+        $sender_url .= '?' . http_build_query($params);
 
         $c = curl_init();
         curl_setopt($c, CURLOPT_URL, $sender_url);
@@ -410,181 +447,197 @@ public static function get_property_by_area_curl($city,$area_zone,$page){
         curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
         curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
         $o = curl_exec($c); 
-
+        
         if (curl_errno($c)) {
-          
           $result_json  = NULL;
+          $json_resp = array(
+            'code' => 'error_in_fetching_amount' , 
+            'message' => curl_error($c) ,
+            'data' => $result_json
+            );
+          $status_code = 400 ;
+        }
+        else{
 
-      }
-      else{
+            $result_json  = json_decode($o);
 
-        $result_json  = json_decode($o);
+        }
+        /* Check HTTP Code */
+        $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
+
+        // dd($status);
+
+        curl_close($c); 
+     
+        $json_resp = array(
+            'code' => 'success_booking_amount_returned' , 
+            'message' => 'Booking Amount',
+            'data' => $result_json
+            );
+        $status_code = 200 ;
+
+        return response()->json( $json_resp, $status_code);
+
+    }
+
+    public function getSellingAmount(){
+        $getVar = Input::get();
+        $unitId = $getVar['unit_id'];
+        $sender_url = BOOKING_SERVER_URL;
+        $sender_url .= GET_SELLING_AMOUNT;
+
+        /* $_GET Parameters to Send */
+        $params = array('unit_id' => $unitId);
+
+        /* Update URL to container Query String of Paramaters */
+        $sender_url .= '?' . http_build_query($params);
+
+        $c = curl_init();
+        curl_setopt($c, CURLOPT_URL, $sender_url);
+
+        curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
+        $o = curl_exec($c); 
+        
+        if (curl_errno($c)) {
+          $result_json  = NULL;
+          $json_resp = array(
+            'code' => 'error_in_fetching_amount' , 
+            'message' => curl_error($c) ,
+            'data' => $result_json
+            );
+          $status_code = 400 ;
+        }
+        else{
+
+            $result_json  = json_decode($o);
+
+        }
+        /* Check HTTP Code */
+        $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
+
+        // dd($status);
+
+        curl_close($c); 
+     
+        $json_resp = array(
+            'code' => 'total_selling_amount_returned' , 
+            'message' => 'Selling Amount',
+            'data' => $result_json
+            );
+        $status_code = 200 ;
+
+        return response()->json( $json_resp, $status_code);
 
     }
 
-    curl_close($c); 
-    return $result_json;  
+    public function getUnitPaymentPlan(){
+        $getVar = Input::get();
+        $unitId = $getVar['unit_id'];
+        $sender_url = BOOKING_SERVER_URL;
+        $sender_url .= GET_UNIT_PAYMENT_PLAN;
 
-}
+        /* $_GET Parameters to Send */
+        $params = array('unit_id' => $unitId);
 
-public function getBookingAmount(){
-    $getVar = Input::get();
-    $unitId = $getVar['unit_id'];
-    $sender_url = BOOKING_SERVER_URL;
-    $sender_url .= GET_BOOKING_AMOUNT;
+        /* Update URL to container Query String of Paramaters */
+        $sender_url .= '?' . http_build_query($params);
 
-    /* $_GET Parameters to Send */
-    $params = array('unit_id' => $unitId);
+        $c = curl_init();
+        curl_setopt($c, CURLOPT_URL, $sender_url);
 
-    /* Update URL to container Query String of Paramaters */
-    $sender_url .= '?' . http_build_query($params);
+        curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
+        $o = curl_exec($c); 
+        
+        if (curl_errno($c)) {
+          $result_json  = NULL;
+          $json_resp = array(
+            'code' => 'error_in_fetching_amount' , 
+            'message' => curl_error($c) ,
+            'data' => $result_json
+            );
+          $status_code = 400 ;
+        }
+        else{
 
-    $c = curl_init();
-    curl_setopt($c, CURLOPT_URL, $sender_url);
+            $result_json  = json_decode($o);
 
-    curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
-    curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
-    curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
-    $o = curl_exec($c); 
-    
-    if (curl_errno($c)) {
-      $result_json  = NULL;
-      $json_resp = array(
-        'code' => 'error_in_fetching_amount' , 
-        'message' => curl_error($c) ,
-        'data' => $result_json
-        );
-      $status_code = 400 ;
-    }
-    else{
+        }
+        /* Check HTTP Code */
+        $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
 
-        $result_json  = json_decode($o);
+        // dd($status);
 
-    }
-    /* Check HTTP Code */
-    $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
+        curl_close($c); 
+     
+        $json_resp = array(
+            'code' => 'total_selling_amount_returned' , 
+            'message' => 'Selling Amount',
+            'data' => $result_json
+            );
+        $status_code = 200 ;
 
-    // dd($status);
-
-    curl_close($c); 
- 
-    $json_resp = array(
-        'code' => 'success_booking_amount_returned' , 
-        'message' => 'Booking Amount',
-        'data' => $result_json
-        );
-    $status_code = 200 ;
-
-    return response()->json( $json_resp, $status_code);
-
-}
-
-public function getSellingAmount(){
-    $getVar = Input::get();
-    $unitId = $getVar['unit_id'];
-    $sender_url = BOOKING_SERVER_URL;
-    $sender_url .= GET_SELLING_AMOUNT;
-
-    /* $_GET Parameters to Send */
-    $params = array('unit_id' => $unitId);
-
-    /* Update URL to container Query String of Paramaters */
-    $sender_url .= '?' . http_build_query($params);
-
-    $c = curl_init();
-    curl_setopt($c, CURLOPT_URL, $sender_url);
-
-    curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
-    curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
-    curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
-    $o = curl_exec($c); 
-    
-    if (curl_errno($c)) {
-      $result_json  = NULL;
-      $json_resp = array(
-        'code' => 'error_in_fetching_amount' , 
-        'message' => curl_error($c) ,
-        'data' => $result_json
-        );
-      $status_code = 400 ;
-    }
-    else{
-
-        $result_json  = json_decode($o);
+        return response()->json( $json_resp, $status_code);
 
     }
-    /* Check HTTP Code */
-    $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
 
-    // dd($status);
+    public function getUnitPriceSheet(){
+        $getVar = Input::get();
+        $unitId = $getVar['unit_id'];
+        $sender_url = BOOKING_SERVER_URL;
+        $sender_url .= GET_UNIT_PRICE_SHEET;
 
-    curl_close($c); 
- 
-    $json_resp = array(
-        'code' => 'total_selling_amount_returned' , 
-        'message' => 'Selling Amount',
-        'data' => $result_json
-        );
-    $status_code = 200 ;
+        /* $_GET Parameters to Send */
+        $params = array('unit_id' => $unitId);
 
-    return response()->json( $json_resp, $status_code);
+        /* Update URL to container Query String of Paramaters */
+        $sender_url .= '?' . http_build_query($params);
 
-}
+        $c = curl_init();
+        curl_setopt($c, CURLOPT_URL, $sender_url);
 
-public function getUnitPaymentPlan(){
-    $getVar = Input::get();
-    $unitId = $getVar['unit_id'];
-    $sender_url = BOOKING_SERVER_URL;
-    $sender_url .= GET_UNIT_PAYMENT_PLAN;
+        curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
+        $o = curl_exec($c); 
+        
+        if (curl_errno($c)) {
+          $result_json  = NULL;
+          $json_resp = array(
+            'code' => 'error_in_fetching_amount' , 
+            'message' => curl_error($c) ,
+            'data' => $result_json
+            );
+          $status_code = 400 ;
+        }
+        else{
 
-    /* $_GET Parameters to Send */
-    $params = array('unit_id' => $unitId);
+            $result_json  = json_decode($o);
 
-    /* Update URL to container Query String of Paramaters */
-    $sender_url .= '?' . http_build_query($params);
+        }
+        /* Check HTTP Code */
+        $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
 
-    $c = curl_init();
-    curl_setopt($c, CURLOPT_URL, $sender_url);
+        // dd($status);
 
-    curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
-    curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
-    curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
-    curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
-    $o = curl_exec($c); 
-    
-    if (curl_errno($c)) {
-      $result_json  = NULL;
-      $json_resp = array(
-        'code' => 'error_in_fetching_amount' , 
-        'message' => curl_error($c) ,
-        'data' => $result_json
-        );
-      $status_code = 400 ;
+        curl_close($c); 
+     
+        $json_resp = array(
+            'code' => 'total_selling_amount_returned' , 
+            'message' => 'Selling Amount',
+            'data' => $result_json
+            );
+        $status_code = 200 ;
+
+        return response()->json( $json_resp, $status_code);        
+
     }
-    else{
-
-        $result_json  = json_decode($o);
-
-    }
-    /* Check HTTP Code */
-    $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
-
-    // dd($status);
-
-    curl_close($c); 
- 
-    $json_resp = array(
-        'code' => 'total_selling_amount_returned' , 
-        'message' => 'Selling Amount',
-        'data' => $result_json
-        );
-    $status_code = 200 ;
-
-    return response()->json( $json_resp, $status_code);
-
-}
 
 
 
