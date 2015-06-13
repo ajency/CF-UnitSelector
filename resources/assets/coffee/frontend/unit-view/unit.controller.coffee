@@ -35,7 +35,7 @@ class TopUnitView extends Marionette.ItemView
 
 												<div class="pull-right">
 													<form action="{{bookingPortalUrl}}" method="POST">
-														<input type="hidden" value = "{{id}}">
+														<input type="hidden" value = "{{id}}" name="unit_id">
 														<button type="submit" class="btn btn-primary cf-btn-primary">Book Now - &#8377; {{unitBookingAmount}}</button>
 													</form>
 												</div>
@@ -565,6 +565,12 @@ class CenterUnitView extends Marionette.ItemView
 			unitPaymentPlan  = Marionette.getOption(@,'unitPaymentPlan')
 			unitPlanMilestones  = unitPaymentPlan.milestones
 			unitTotalSaleValue  = unitPaymentPlan.total_sale_value
+
+			unitPriceSheet  = Marionette.getOption(@,'unitPriceSheet')			
+			unitPriceSheetComponents  = unitPriceSheet.components
+
+			console.log unitPriceSheetComponents
+
 			$('.images').empty()
 			$('.firstimage').hide()
 			html = ''
@@ -642,7 +648,62 @@ class CenterUnitView extends Marionette.ItemView
 							</li>'	
 
 			html += '</ul>
-					</div>'
+					</div>
+					<br/>'
+
+			# uniteprice sheet @todo move it to separate view and change on dropdown
+			_.each unitPriceSheetComponents, (component, key) ->
+				perc = window.calculatePerc(component.amount,unitTotalSaleValue )
+				html += '<li style="list-style: none; display: inline">
+				<div class="clearfix"></div><span class="msPercent" style="  font-size: 25px;">'+perc+'%</span></li>
+						<li class="milestoneList">
+								<div class="msName">
+									'+component.component_price_type+'
+								</div>
+
+								<!--div class="msVal discCol">
+									<div>
+										<span class="label">Amount:</span> <span class=
+										"percentageValue0 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 3,43,343</span>
+									</div>
+
+									<div>
+										<span class="label">Service Tax:</span> <span class=
+										"service0 label"  data-d-group="2"
+										data-m-dec=""><span class="icon-rupee-icn"></span> 10,609</span>
+									</div>
+
+									<div>
+										Total: <span class="total0"  data-d-group=
+										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3</span>
+									</div>
+								</div-->
+
+								<div class="msVal">
+									<div>
+										<span class="label">Cost Type:</span> <span class=
+										"percentageValue10 label"  data-d-group=
+										"2" data-m-dec=""> '+component.cost_type+'</span>
+									</div>
+
+									<div>
+										<span class="label">Sub Type:</span> <span class=
+										"service10 label"  data-d-group="2"
+										data-m-dec=""> '+component.component_price_sub_type+'</span>
+									</div>
+
+									<div>
+										Total Amount: <span class="total10" 
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> '+component.amount+'</span>
+									</div>
+								</div><span class="barBg" style="width:'+perc+'%"></span>
+							</li>'	
+
+			html += '</ul>
+					</div>
+					<hr/>'
+
 							
 			$('.images').html html
 			$('.booking').addClass('current')
@@ -1444,9 +1505,26 @@ class CommonFloor.CenterUnitCtrl extends Marionette.RegionController
 			url: "#{BASERESTURL}/get-unit-payment-plan" 
 			data:
 				unit_id : unitid	
+
+		
+
+				# get selling value of a unit
+		unitPriceSheet =
+			method:"GET"
+			url: "#{BASERESTURL}/get-unit-price-sheet" 
+			data:
+				unit_id : unitid
+
+		
 					
-		$.ajax(unitPaymentPlan).done (resp, textStatus ,xhr)=>
-			unitPaymentPlan = resp.data		
+		unitPriceSheetAjx = $.ajax(unitPriceSheet)
+
+		unitPaymentPlan =  $.ajax(unitPaymentPlan)
+
+		$.when(unitPaymentPlan,unitPriceSheetAjx).done (paymentPlanResp,priceSheetResp)=>
+			unitPaymentPlan = paymentPlanResp[0]['data']	
+			unitPriceSheet =priceSheetResp[0]['data']
 
 			@show new CenterUnitView
-						unitPaymentPlan : unitPaymentPlan
+				unitPaymentPlan : unitPaymentPlan
+				unitPriceSheet : unitPriceSheet	
