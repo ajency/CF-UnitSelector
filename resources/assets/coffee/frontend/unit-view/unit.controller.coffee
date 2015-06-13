@@ -147,7 +147,7 @@ class LeftUnitView extends Marionette.ItemView
 										<span class="facts-icon icon-rupee-icn"></span>
 										<div class="unit-label m-t-10">
 											<h3 class="price">{{price}}</h3>
-											<h6 class="text-muted">Price</h6>      
+											<h6 class="text-muted">Price</h6> 
 										</div>
 									</div>
 								</div>
@@ -271,6 +271,9 @@ class LeftUnitView extends Marionette.ItemView
 		data.measurement_units = project.get('measurement_units')
 		data.property_type = s.capitalize response[2] + ' Attribute(s)'
 		data.classname = 'hidden'
+
+
+		data.unitSellingAmount  = Marionette.getOption(@,'unitSellingAmount')
 		if attributes.length != 0
 			data.classname =  ''
 		data
@@ -325,7 +328,11 @@ class LeftUnitView extends Marionette.ItemView
 		url = Backbone.history.fragment
 		unitid = parseInt url.split('/')[1]
 		response = window.unit.getUnitDetails(unitid)
-		$('.price').text window.numDifferentiation(response[3])
+
+		unitSellingAmount  = Marionette.getOption(@,'unitSellingAmount')
+		unitSellingAmount = parseInt unitSellingAmount
+		# $('.price').text window.numDifferentiation(response[3])
+		$('.price').text window.numDifferentiation(unitSellingAmount)
 		
 		if response[2] is 'apartment'
 			$('.collapseLevel').collapse('show')
@@ -334,7 +341,22 @@ class LeftUnitView extends Marionette.ItemView
 class CommonFloor.LeftUnitCtrl extends Marionette.RegionController
 
 	initialize:->
-		@show new LeftUnitView
+		url = Backbone.history.fragment
+		unitid = parseInt url.split('/')[1]
+		
+		# get selling value of a unit
+		sellingAmtOptions =
+			method:"GET"
+			url: "#{BASERESTURL}/get-selling-amount" 
+			data:
+				unit_id : unitid
+
+		$.ajax(sellingAmtOptions).done (resp, textStatus ,xhr)=>
+			unitSellingAmount = resp.data		
+
+			@show new LeftUnitView
+						unitSellingAmount : unitSellingAmount
+
 			
 #Center Controller for unit
 class CenterUnitView extends Marionette.ItemView

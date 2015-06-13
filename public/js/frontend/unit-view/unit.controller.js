@@ -199,6 +199,7 @@
       data.measurement_units = project.get('measurement_units');
       data.property_type = s.capitalize(response[2] + ' Attribute(s)');
       data.classname = 'hidden';
+      data.unitSellingAmount = Marionette.getOption(this, 'unitSellingAmount');
       if (attributes.length !== 0) {
         data.classname = '';
       }
@@ -267,11 +268,13 @@
     };
 
     LeftUnitView.prototype.onShow = function() {
-      var response, unitid, url;
+      var response, unitSellingAmount, unitid, url;
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
       response = window.unit.getUnitDetails(unitid);
-      $('.price').text(window.numDifferentiation(response[3]));
+      unitSellingAmount = Marionette.getOption(this, 'unitSellingAmount');
+      unitSellingAmount = parseInt(unitSellingAmount);
+      $('.price').text(window.numDifferentiation(unitSellingAmount));
       if (response[2] === 'apartment') {
         return $('.collapseLevel').collapse('show');
       }
@@ -289,7 +292,25 @@
     }
 
     LeftUnitCtrl.prototype.initialize = function() {
-      return this.show(new LeftUnitView);
+      var sellingAmtOptions, unitid, url;
+      url = Backbone.history.fragment;
+      unitid = parseInt(url.split('/')[1]);
+      sellingAmtOptions = {
+        method: "GET",
+        url: BASERESTURL + "/get-selling-amount",
+        data: {
+          unit_id: unitid
+        }
+      };
+      return $.ajax(sellingAmtOptions).done((function(_this) {
+        return function(resp, textStatus, xhr) {
+          var unitSellingAmount;
+          unitSellingAmount = resp.data;
+          return _this.show(new LeftUnitView({
+            unitSellingAmount: unitSellingAmount
+          }));
+        };
+      })(this));
     };
 
     return LeftUnitCtrl;
