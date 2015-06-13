@@ -34,7 +34,7 @@ class TopUnitView extends Marionette.ItemView
 												</div>
 
 												<div class="pull-right">
-													<button class="btn btn-primary cf-btn-primary">Book Now</button>
+													<button class="btn btn-primary cf-btn-primary">Book Now - &#8377; {{unitBookingAmount}}</button>
 												</div>
 
 											  	<div class="clearfix"></div>
@@ -48,6 +48,7 @@ class TopUnitView extends Marionette.ItemView
 	serializeData:->
 		data = super()
 		data.project_title = project.get 'project_title'
+		data.unitBookingAmount = Marionette.getOption(@,'unitBookingAmount')
 		data
 
 	events:->
@@ -93,8 +94,21 @@ class CommonFloor.TopUnitCtrl extends Marionette.RegionController
 			id  : unitid
 		response = window.unit.getUnitDetails(unitid)
 		unit.set 'type' , s.capitalize response[2]
-		@show new TopUnitView
-				model : unit
+		
+		# get booking amount from cd api
+		bookingAmtOptions =
+			method:"GET"
+			url: "#{BASERESTURL}/get-booking-amount" 
+			data:
+				unit_id : unitid
+
+		$.ajax(bookingAmtOptions).done (resp, textStatus ,xhr)=>
+			unitBookingAmount = resp.data
+
+
+			@show new TopUnitView
+					model : unit
+					unitBookingAmount : unitBookingAmount
 
 			
 #Left View for unit

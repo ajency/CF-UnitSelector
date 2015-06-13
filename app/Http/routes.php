@@ -107,6 +107,7 @@ Route::group( ['prefix' => 'api/v1'], function() {
     Route::get( 'get-areas-by-city', 'Rest\ProjectController@getAPIAreaByCity' );
     Route::get( 'get-projects-by-area', 'Rest\ProjectController@getProjectsByArea' );
     Route::get( 'get-builder-image-url', 'Rest\ProjectController@builderImageUrl' );
+    Route::get( 'get-booking-amount', 'Rest\ProjectController@getBookingAmount' );
 } );
 
 /**

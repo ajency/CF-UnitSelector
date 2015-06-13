@@ -46,7 +46,7 @@
       return TopUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    TopUnitView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}} - {{unit_name}}</h2> </div> <div class="pull-right"> <button class="btn btn-primary cf-btn-primary">Book Now</button> </div> <div class="clearfix"></div> </div> </div> </div>');
+    TopUnitView.prototype.template = Handlebars.compile('<div class="container-fluid animated fadeIn"> <div class="row"> <div class="col-md-12 col-xs-12 col-sm-12"> <div class="breadcrumb-bar"> <a class="unit_back" href="#"></a> </div> <div class="header-info"> <h2 class="pull-left proj-name">{{project_title}} - {{unit_name}}</h2> </div> <div class="pull-right"> <button class="btn btn-primary cf-btn-primary">Book Now - &#8377; {{unitBookingAmount}}</button> </div> <div class="clearfix"></div> </div> </div> </div>');
 
     TopUnitView.prototype.ui = {
       unitBack: '.unit_back'
@@ -56,6 +56,7 @@
       var data;
       data = TopUnitView.__super__.serializeData.call(this);
       data.project_title = project.get('project_title');
+      data.unitBookingAmount = Marionette.getOption(this, 'unitBookingAmount');
       return data;
     };
 
@@ -107,7 +108,7 @@
     }
 
     TopUnitCtrl.prototype.initialize = function() {
-      var response, unit, unitid, url;
+      var bookingAmtOptions, response, unit, unitid, url;
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
       unit = unitCollection.findWhere({
@@ -115,9 +116,23 @@
       });
       response = window.unit.getUnitDetails(unitid);
       unit.set('type', s.capitalize(response[2]));
-      return this.show(new TopUnitView({
-        model: unit
-      }));
+      bookingAmtOptions = {
+        method: "GET",
+        url: BASERESTURL + "/get-booking-amount",
+        data: {
+          unit_id: unitid
+        }
+      };
+      return $.ajax(bookingAmtOptions).done((function(_this) {
+        return function(resp, textStatus, xhr) {
+          var unitBookingAmount;
+          unitBookingAmount = resp.data;
+          return _this.show(new TopUnitView({
+            model: unit,
+            unitBookingAmount: unitBookingAmount
+          }));
+        };
+      })(this));
     };
 
     return TopUnitCtrl;

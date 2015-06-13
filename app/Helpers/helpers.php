@@ -16,6 +16,8 @@ define('GET_CITIES_API_URL', 'http://www.commonfloor.com/api/geo-local-v2/get-ci
 define('GET_PROPERTIES_BY_CITY_API_URL', 'http://www.commonfloor.com/api/project-v2/get-projects?city=');
 define('GET_AREA_BY_CITY_API_URL', 'http://www.commonfloor.com/autosuggest.php?item=area&c=');
 define('GET_PROPERTIES_BY_AREA_API_URL', 'http://www.commonfloor.com/api/project-v2/get-projects?page_size=200&project_location_filter[]=null_area_');
+define('BOOKING_SERVER_URL', 'http://stage.booking.commonfloor.com/');
+define('GET_BOOKING_AMOUNT', 'get_booking_amount/');
 define('CF_API_KEY', 'nk8qh4vtri7l3hwotbsdtv2zl3p5u168');
  
 
