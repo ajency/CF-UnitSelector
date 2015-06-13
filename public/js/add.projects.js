@@ -48,8 +48,13 @@
     $('#add_project select[name="city"]').change(function() {
       return $.ajax({
         url: '/api/v1/get-projects-by-area',
-        type: 'jsonp',
-        success: function(resp) {},
+        data: {
+          'city': $('#add_project select[name="city"]').val(),
+          'area_zone': $('#autocompleteArea').val()
+        },
+        success: function(resp) {
+          return console.log(resp);
+        },
         error: function(resp) {
           var i, j, options, project;
           options = '';

@@ -43,8 +43,11 @@ jQuery(document).ready ($)->
     $('#add_project select[name="city"]').change ->
         $.ajax
             url : '/api/v1/get-projects-by-area'
-            type : 'jsonp'
+            data:
+                'city': $('#add_project select[name="city"]').val()
+                'area_zone': $('#autocompleteArea').val()
             success : (resp)->
+                console.log resp
             error : (resp)->
                 options = ''
                 for i in [0...10]

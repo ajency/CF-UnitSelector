@@ -37,6 +37,11 @@
 
                                         </select>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="form-label">City<span class="text-primary">*</span></label><!-- //TODO fix the required validation  -->
+                                        <input type="text" name="select_area_list" id="autocompleteArea" placeholder="Locality Name" />
+                                    </div>
+
                                 
 <!--                                     <div class="form-group">
                                         <input type="text" name="select_area_list" id="autocompleteArea" placeholder="Locality Name" class="form-control input-md" />  
