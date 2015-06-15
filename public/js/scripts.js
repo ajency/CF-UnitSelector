@@ -428,8 +428,9 @@ function setUpProjectMasterUploader() {
             
             if(failcount)
             {
-                $('.project-master-images').find(".errormsg").html(failcount+' images failed to upload. Invalid File Name.');
-                $('.project-master-images').find(".alert-error").removeClass('hidden');
+ 
+                $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> '+failcount+ ' images failed to upload. Invalid File Name.</div>');
+                $('.project-master-images').find(".alert-error").removeClass('hidden');  
             }
         
              if(files.length)   
@@ -451,7 +452,12 @@ function setUpProjectMasterUploader() {
                 $('#position-' + fileResponse.data.position).html(str);
 
 
-            }
+            },
+            Error: function(up, err) {
+            $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> '+err.message+ '</div>');
+            $('.project-master-images').find(".alert-error").removeClass('hidden');    
+             
+        }
         }
     });
     master_uploader.init();
@@ -714,13 +720,15 @@ $(document).ready(function () {
                 }]
         },
         init: {
-            PostInit: function () {
+            PostInit: function () { 
                 /* document.getElementById('uploadfiles').onclick = function () {
                  uploader.start();
                  return false;
                  };*/
             },
+            
             FilesAdded: function (up, files) {
+ 
             if(files[0].name =='map.jpg' || files[0].name =='map.png' || files[0].name =='map.jepg')
             {
                 var str = '<div class="col-md-3">';
@@ -737,6 +745,7 @@ $(document).ready(function () {
                 up.start();
             }
             else{
+                $('.google-earth-images').html(' <div class="alert alert-error"><button class="close" data-dismiss="alert"></button>The image failed to upload.Please try using another image.</div>');
                 $('.google-earth-images').find(".alert-error").removeClass('hidden');
                  
             }    
@@ -761,7 +770,13 @@ $(document).ready(function () {
 
                 $("#google_earth_image").html(str);
 
-            }
+            },
+            Error: function(up, err) {
+            $('.google-earth-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> '+err.message+ '</div>');
+            $('.google-earth-images').find(".alert-error").removeClass('hidden');    
+             
+        }
+            
         }
     });
     uploader.init();
