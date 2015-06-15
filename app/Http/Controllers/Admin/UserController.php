@@ -89,7 +89,7 @@ class UserController extends Controller {
 
          mail($email,"Welcome to CommonFloor Unit Selector!",$data, $headers);
          
-        Session::flash('success_message','User has been created successfully');
+        Session::flash('success_message','User created successfully. An email has been sent to the user email address with the login instruction');
         $addanother = $request->input('addanother');
 
         if ($addanother == 1)

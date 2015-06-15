@@ -91,8 +91,6 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::post( 'project/{projectid}/image/{imageid}/downloadSvg', 'Admin\SvgController@downloadSvg' );
     Route::get( 'project/{id}/image/{imageid}/authoring-tool', 'Admin\ProjectController@loadMasterSvgTool' );
     Route::post( 'project/{project}/apartment-unit/unitimport', 'Admin\ProjectApartmentUnitController@unitImport' );
-    Route::get( 'project/{project}/unitimport', 'Admin\ProjectController@unitImport' );
-
     
 });
 
