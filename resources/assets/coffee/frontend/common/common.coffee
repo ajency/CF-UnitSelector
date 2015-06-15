@@ -143,8 +143,21 @@ window.numDifferentiation = (val)->
 		val = val + ' K'
 
 	val
-	   
 
+
+# function to calclate percentage
+window.calculatePerc = (value,total)->
+	value = parseInt value
+	total = parseInt total
+
+	perc = value/total
+	perc = perc * 100
+	perc = perc.toFixed(2)
+	perc
+
+# @todo get from php constant
+window.bookingPortalUrl = 'http://dev.commonfloor.com/book-your-property'
+	   
 #function to convert value into price format		
 window.convertRupees = (val)->
 

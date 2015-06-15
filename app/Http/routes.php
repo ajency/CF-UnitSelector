@@ -105,6 +105,14 @@ Route::group( ['prefix' => 'api/v1'], function() {
     Route::get( 'project/{id}/step-two', 'Rest\ProjectController@stepTwo' );
     Route::get('buildings/{$id}/floor-layout', 'Rest\BuildingFloorLayoutController@getFloorLayoutForFloor');
     Route::get('project/{id}/update-response-table', 'Rest\ProjectController@updateResponseTable');
+    Route::get( 'get-cities', 'Rest\ProjectController@getAPICities' );
+    Route::get( 'get-areas-by-city', 'Rest\ProjectController@getAPIAreaByCity' );
+    Route::get( 'get-projects-by-area', 'Rest\ProjectController@getProjectsByArea' );
+    Route::get( 'get-builder-image-url', 'Rest\ProjectController@builderImageUrl' );
+    Route::get( 'get-booking-amount', 'Rest\ProjectController@getBookingAmount' );
+    Route::get( 'get-selling-amount', 'Rest\ProjectController@getSellingAmount' );
+    Route::get( 'get-unit-payment-plan', 'Rest\ProjectController@getUnitPaymentPlan' );
+    Route::get( 'get-unit-price-sheet', 'Rest\ProjectController@getUnitPriceSheet' );
 } );
 
 /**
