@@ -49,9 +49,19 @@ use AuthenticatesAndRegistersUsers;
     {
         $email = $request->input('email');
         $password = $request->input('password');
-        if (Auth::attempt(['email' => $email, 'password' => $password, 'status' => 'active']))
-        {
-            return redirect()->intended('admin/project');
+        if (Auth::attempt(['email' => $email, 'password' => $password]))
+        {  
+            if(Auth::user()->status=='active')
+            {
+                return redirect()->intended('admin/project');
+            }
+            else
+            {
+                Auth::logout();
+                return redirect('/auth/login')->withErrors([
+                    'email' => 'Account inactive, contact administrator',
+                ]);
+            }
         }
         
         return redirect('/auth/login')->withErrors([
