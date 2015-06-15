@@ -40,7 +40,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Phone Number<span class="text-primary">*</span></label>
-                                <input type="text" name="phone_number" class="form-control m-b-5" placeholder="Enter Phone Number" data-parsley-required onchange="validatePhone(this, 0)"><span class="cf-loader hidden"></span>
+                                <input type="text" name="phone_number" class="form-control m-b-5" placeholder="Enter Phone Number" data-parsley-required onchange="validatePhone(this, 0)" data-parsley-type="number"><span class="cf-loader hidden"></span>
                                 
                             </div>
                         </div>
