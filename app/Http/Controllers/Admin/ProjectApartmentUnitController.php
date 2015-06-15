@@ -280,24 +280,87 @@ class ProjectApartmentUnitController extends Controller {
     } 
     
     
-   /*public function unitImport($projectId, Request $request) 
+   public function unitImport($projectId, Request $request) 
    {
+        $unitType = $request->input('unit-type');
+        $unit_file = $request->file('unit_file')->getRealPath();
+         
        
-        $file = $request->file('file');
-        $units = array();
-        $handle = fopen($file, "r");
-        if( $handle ) {
-        $i=0;    
-        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-            if($i==0)
-                continue;
+        if ($request->hasFile('unit_file'))
+        {
+               Excel::load($unit_file, function($reader) {
             
-             $units[] = $data;
-             $i++;
+               $results = $reader->toArray();//dd($results);
+
+               foreach($results as $result)
+               {
+                   $unitId = intval($result['id']); 
+                   $name = $result['name']; 
+                   $variantId = intval($result['variant_id']);
+                   $position = (isset($result['position']))? intval($result['position']) :0; 
+                   $floor = (isset($result['floor']))? intval($result['floor']) :0;  
+                   $buildingId = (isset($result['building_id']))? intval($result['building_id']) :0; 
+                   $availability = $result['availability']; 
+                   $views = $result['views']; 
+                   $direction = intval($result['direction']); 
+                   $phaseId = (isset($result['phase_id']))? intval($result['phase_id']) :0; 
+                   if($unitId!='')
+                   {
+                        $unit = Unit::find($unitId);
+                        $unit->unit_name = ucfirst($name);
+                        $unit->unit_variant_id = $variantId;
+                        $unit->building_id = $buildingId;
+                        $unit->floor =$floor;
+                        $unit->position = $position;
+                        $unit->availability = $availability;
+                        $unit->direction = $direction;
+                        $views = $views;
+                        $unitviews=[];
+                        if($views!='')
+                        {
+                            $views = explode(',',$views);  // dd($views); 
+                            foreach ($views as $view)
+                               $unitviews[property_type_slug($view)]= ucfirst($view);   
+                        }
+                        $viewsStr = serialize( $unitviews );
+                        $unit->views = $viewsStr;
+                        $unit->save();       
+                   }
+                   else{
+
+                        $unit =new Unit();
+                        $unit->unit_name = ucfirst($name);
+                        $unit->unit_variant_id = $variantId;
+                        $unit->building_id = $buildingId;
+                        $unit->floor =$floor;
+                        $unit->position = $position;
+                        $unit->availability = $availability;
+                        $unit->direction = $direction;
+                        $views = $views;
+                        $unitviews=[];
+                        if($views!='')
+                        {
+                            $views = explode(',',$views); 
+                            foreach ($views as $view)
+                               $unitviews[property_type_slug($view)]= ucfirst($view);    
+                        }
+                        $viewsStr = serialize( $unitviews );
+                        $unit->views = $viewsStr;
+                        $unit->save();
+
+                   }
+               }
+
+
+            });
+            
+            Session::flash('success_message','Unit Successfully Imported');
         }
-        fclose($handle);
-        }
-        
-   }*/
+       
+       
+       return redirect("/admin/project/" . $projectId . "/".$unitType."/");
+ 
+       
+   }
 
 }
