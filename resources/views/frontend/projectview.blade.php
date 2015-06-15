@@ -117,8 +117,16 @@
         <script src="{{ asset('bower_components/jquery-magnificent/src/js/mag.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery-magnificent/src/js/mag-control.js' )}}"></script>
         <script src="{{ asset('bower_components/jquery-magnificent/src/js/mag-jquery.js' )}}"></script>
-        <script src="{{ asset('bower_components/jquery.event.drag-new/event.drag/jquery.event.drag.js' )}}"></script>
-         <!--<script src="{{ asset('bower_components/jquery-nearest/src/jquery.nearest.js' )}}"></script> -->
+        <script type="text/javascript">
+            var head = document.getElementsByTagName('head')[0];
+            var script = document.createElement('script');
+            if ( $(window).width() > 991) {
+                script.src = "{{ asset('bower_components/jquery.event.drag-new/event.drag/jquery.event.drag.js' )}}" ;
+                head.appendChild(script);
+            }
+        </script>
+        <!--
+         <script src="{{ asset('bower_components/jquery-nearest/src/jquery.nearest.js' )}}"></script> -->
         <!-- end plugins -->
         <script src="{{ asset('js/frontend/app.js' )}}"></script>
         <script>

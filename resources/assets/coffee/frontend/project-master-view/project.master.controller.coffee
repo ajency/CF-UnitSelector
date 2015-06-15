@@ -974,7 +974,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			# animation : 'grow'
 			trigger: 'hover'
 			functionReady:(e)->
-				$('.view-unit').on('click' , (e)->
+				$('.view-unit, .building').on('click' , (e)->
 					$('.layer').tooltipster('hide')
 					$('svg').attr('class' ,'zoom')
 					$('#spritespin').addClass 'zoom'
