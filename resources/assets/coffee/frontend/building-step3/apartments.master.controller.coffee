@@ -542,10 +542,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 										</div>
 
 										
-										<!--<div class="zoom-controls">
+										<div class="zoom-controls">
 											<div class="zoom-in"></div>
 											<div class="zoom-out"></div>
-										</div>-->
+										</div>
 
 										<div id="view_toggle" class="toggle-view-button list"></div>
 										<div id="trig" class="toggle-button hidden">List View</div>
@@ -804,7 +804,8 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 
 	onShow:->
 
-		window.magne = new Magnificent(
+		if $(window).width() > 991
+			window.magne = new Magnificent(
 				'[mag-thumb="outer"]',
 				{
 					mode: 'outer'
@@ -858,14 +859,16 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					CommonFloor.applyFliterClass()
 					# CommonFloor.getApartmentsInView()
 					CommonFloor.applyOnViewClass()
-					# that.loadZoom()
-					that.undelegateEvents()
-					that.zoomBuilding()
+					if $(window).width() > 991
+						that.undelegateEvents()
+						that.zoomBuilding()
+						$('.zoomimage').attr('src',transitionImages[breakpoints[0]])
+					else
+						that.loadZoom()
+						$('.first_image').first().css('width',that.ui.svgContainer.width())
 					response = building.checkRotationView(building_id)
 					$('.svg-maps').removeClass 'hidden'
 					$('.mini-map').removeClass 'hidden'
-					# $('.first_image').first().css('width',that.ui.svgContainer.width())
-					$('.zoomimage').attr('src',transitionImages[breakpoints[0]])
 					if response is 1
 						$('.cf-loader').removeClass 'hidden'
 						that.initializeRotate(transitionImages,svgs,building)
@@ -1012,9 +1015,9 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					CommonFloor.randomClass()
 					CommonFloor.applyFliterClass()
 					# CommonFloor.getApartmentsInView()
-					CommonFloor.applyOnViewClass()
-
-					that.loadZoom()).addClass('active').removeClass('inactive')
+					if $(window).width() < 992
+						that.loadZoom()
+					CommonFloor.applyOnViewClass()).addClass('active').removeClass('inactive')
 				
 				
 		)
@@ -1027,12 +1030,13 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				$('#rotate_loader').addClass 'hidden'
 			$('.region').load(url,()->
 				that.iniTooltip()
+				if $(window).width() < 992
+					that.loadZoom()
 				CommonFloor.applyAvailabilClasses()
 				CommonFloor.randomClass()
 				CommonFloor.applyFliterClass()
 				# CommonFloor.getApartmentsInView()
-				CommonFloor.applyOnViewClass()()
-				that.loadZoom()).addClass('active').removeClass('inactive')
+				CommonFloor.applyOnViewClass()()).addClass('active').removeClass('inactive')
 
 
 				
@@ -1083,17 +1087,17 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		)
 
 	loadZoom:->
-		# $('.master').panzoom
-		# 	contain: 'invert'
-		# 	minScale: 1
-		# 	maxScale: 2.4
-		# 	increment: 0.4
-		# 	$zoomIn: $('.zoom-in')
-		# 	$zoomOut: $('.zoom-out')
-		# 	# $set: $('.spritespin-canvas')
+		$('.master').panzoom
+			contain: 'invert'
+			minScale: 1
+			maxScale: 2.4
+			increment: 0.4
+			$zoomIn: $('.zoom-in')
+			$zoomOut: $('.zoom-out')
+			# $set: $('.spritespin-canvas')
 
-		# $('.master polygon').on 'mousedown touchstart', (e) ->
-		# 	e.stopImmediatePropagation()
+		$('.master polygon').on 'mousedown touchstart', (e) ->
+			e.stopImmediatePropagation()
 	
 
 

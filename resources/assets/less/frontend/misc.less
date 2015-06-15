@@ -481,7 +481,7 @@
   position: absolute;
   bottom: 85px;
   left: 15px;
-  display: block;
+  display: none;
   z-index: 999;
   .zoom-in, .zoom-out{
     border: 1px solid @brand-primary;
@@ -515,6 +515,7 @@
     left: 15px;
     right: initial;
     bottom: initial;
+    display: block;
     .zoom-in, .zoom-out{
       &:hover{
         background-color: @white;
@@ -544,5 +545,12 @@
   }
   .mCSB_scrollTools .mCSB_draggerRail{
     background-color: fade(@gray-lighter, 50%);
+  }
+}
+
+/* Building Zoom */
+@media(max-width:991px){
+  [mag-zoom]{
+    display: block;
   }
 }
