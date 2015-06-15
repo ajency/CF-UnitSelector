@@ -456,6 +456,7 @@ class ProjectController extends Controller {
             'data' => $result_json
             );
           $status_code = 400 ;
+          return response()->json( $json_resp, $status_code);
         }
         else{
 
@@ -509,6 +510,7 @@ class ProjectController extends Controller {
             'data' => $result_json
             );
           $status_code = 400 ;
+          return response()->json( $json_resp, $status_code);
         }
         else{
 
@@ -562,6 +564,7 @@ class ProjectController extends Controller {
             'data' => $result_json
             );
           $status_code = 400 ;
+          return response()->json( $json_resp, $status_code);
         }
         else{
 
@@ -615,9 +618,9 @@ class ProjectController extends Controller {
             'data' => $result_json
             );
           $status_code = 400 ;
+          return response()->json( $json_resp, $status_code);   
         }
         else{
-
             $result_json  = json_decode($o);
 
         }

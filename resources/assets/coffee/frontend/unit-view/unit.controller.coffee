@@ -402,6 +402,27 @@ class CenterUnitView extends Marionette.ItemView
 									 <div class="threeD">
 										<h2 class="title">3D Layout</h2>
 									 </div>-->
+									<div class="row price-mode-dropdown hidden">
+										<div class="col-sm-5 form-inline m-b-20">
+											<!--h5 class="inline-block">Payment Plan: </h5-->
+											<select class="form-control" id="paymentplan">
+												<option value="payment_plan_breakdown">
+													Payment Plan Breakdown
+												</option>
+
+												<option value="price_breakup">
+													Price Breakup
+												</option>
+											</select>
+										</div>
+
+										<div class="col-sm-7 text-right">
+											<h5 class="inline-block">Total Sale Value: </h5>
+
+											<h4 class="inline-block bold text-primary"><span class="rec" 
+											data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> {{totalSaleValue}}</span></h4>
+										</div>
+									</div>									 	
 								</div>
 
 								<div class="liquid-slider slider">
@@ -425,6 +446,12 @@ class CenterUnitView extends Marionette.ItemView
 
 	ui :
 		imagesContainer : '.us-right-content'
+
+	serializeData:->
+		data = super()
+		unitPaymentPlan  = Marionette.getOption(@,'unitPaymentPlan')
+		data.totalSaleValue = unitPaymentPlan.total_sale_value	
+		data		
 
 
 	events:
@@ -551,6 +578,8 @@ class CenterUnitView extends Marionette.ItemView
 			$('.booking').removeClass('current')
 
 		'click .master':(e)->
+			# hide price mode dropdown
+			$('.price-mode-dropdown').addClass('hidden')			
 			$('.firstimage').show()
 			$('.images').empty()
 			@loadMaster()
@@ -561,7 +590,12 @@ class CenterUnitView extends Marionette.ItemView
 			$('.external').removeClass('current')
 			$('.booking').removeClass('current')
 
-		'click .booking':(e)->
+		'change #paymentplan' :(e)->
+			unitPaymentPlan  = Marionette.getOption(@,'unitPaymentPlan')
+			unitTotalSaleValue  = unitPaymentPlan.total_sale_value
+			selectedMode = $('#paymentplan').val()
+
+			$('.price-mode-dropdown').removeClass('hidden')
 			unitPaymentPlan  = Marionette.getOption(@,'unitPaymentPlan')
 			unitPlanMilestones  = unitPaymentPlan.milestones
 			unitTotalSaleValue  = unitPaymentPlan.total_sale_value
@@ -569,34 +603,141 @@ class CenterUnitView extends Marionette.ItemView
 			unitPriceSheet  = Marionette.getOption(@,'unitPriceSheet')			
 			unitPriceSheetComponents  = unitPriceSheet.components
 
-			console.log unitPriceSheetComponents
+			$('.images').empty()
+			$('.firstimage').hide()
+			html = ''
+
+			html += '<div class="invoice-items animated fadeIn">
+						<ul id="paymentTable">'						
+			
+			if selectedMode is "payment_plan_breakdown"
+				# display html1
+				# show price mode dropdown
+
+
+				_.each unitPlanMilestones, (milestone, key) ->
+					perc = window.calculatePerc(milestone.amount,unitTotalSaleValue )
+					html += '<li style="list-style: none; display: inline">
+					<div class="clearfix"></div><span class="msPercent" style="  font-size: 25px;">'+perc+'%</span></li>
+							<li class="milestoneList">
+									<div class="msName">
+										'+milestone.milestone+'
+									</div>
+
+									<!--div class="msVal discCol">
+										<div>
+											<span class="label">Amount:</span> <span class=
+											"percentageValue0 label"  data-d-group="2"
+											data-m-dec=""><span class="icon-rupee-icn"></span> 3,43,343</span>
+										</div>
+
+										<div>
+											<span class="label">Service Tax:</span> <span class=
+											"service0 label"  data-d-group="2"
+											data-m-dec=""><span class="icon-rupee-icn"></span> 10,609</span>
+										</div>
+
+										<div>
+											Total: <span class="total0"  data-d-group=
+											"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3</span>
+										</div>
+									</div-->
+
+									<div class="msVal">
+										<div>
+											<span class="label">Cost Type:</span> <span class=
+											"percentageValue10 label"  data-d-group=
+											"2" data-m-dec=""> '+milestone.cost_type+'</span>
+										</div>
+
+										<div>
+											<span class="label">Due Date:</span> <span class=
+											"service10 label"  data-d-group="2"
+											data-m-dec=""> '+milestone.milestone_date+'</span>
+										</div>
+
+										<div>
+											Total Amount: <span class="total10" 
+											data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> '+milestone.amount+'</span>
+										</div>
+									</div><span class="barBg" style="width:'+perc+'%"></span>
+								</li>'	
+
+			else if selectedMode is "price_breakup"
+				# display html2
+				# uniteprice sheet @todo move it to separate view and change on dropdown
+				_.each unitPriceSheetComponents, (component, key) ->
+					perc = window.calculatePerc(component.amount,unitTotalSaleValue )
+					html += '<li style="list-style: none; display: inline">
+					<div class="clearfix"></div><span class="msPercent" style="  font-size: 25px;">'+perc+'%</span></li>
+							<li class="milestoneList">
+									<div class="msName">
+										'+component.component_price_type+'
+									</div>
+
+									<!--div class="msVal discCol">
+										<div>
+											<span class="label">Amount:</span> <span class=
+											"percentageValue0 label"  data-d-group="2"
+											data-m-dec=""><span class="icon-rupee-icn"></span> 3,43,343</span>
+										</div>
+
+										<div>
+											<span class="label">Service Tax:</span> <span class=
+											"service0 label"  data-d-group="2"
+											data-m-dec=""><span class="icon-rupee-icn"></span> 10,609</span>
+										</div>
+
+										<div>
+											Total: <span class="total0"  data-d-group=
+											"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3</span>
+										</div>
+									</div-->
+
+									<div class="msVal">
+										<div>
+											<span class="label">Cost Type:</span> <span class=
+											"percentageValue10 label"  data-d-group=
+											"2" data-m-dec=""> '+component.cost_type+'</span>
+										</div>
+
+										<div>
+											<span class="label">Sub Type:</span> <span class=
+											"service10 label"  data-d-group="2"
+											data-m-dec=""> '+component.component_price_sub_type+'</span>
+										</div>
+
+										<div>
+											Total Amount: <span class="total10" 
+											data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> '+component.amount+'</span>
+										</div>
+									</div><span class="barBg" style="width:'+perc+'%"></span>
+								</li>'	
+
+
+			html += '</ul>
+					</div>'
+
+			$('.images').html html	
+
+
+		'click .booking':(e)->
+			# set default select dropdown 
+			$('#paymentplan option[value="payment_plan_breakdown"]').attr 'selected', 'selected'
+
+			# show price mode dropdown
+			$('.price-mode-dropdown').removeClass('hidden')
+			unitPaymentPlan  = Marionette.getOption(@,'unitPaymentPlan')
+			unitPlanMilestones  = unitPaymentPlan.milestones
+			unitTotalSaleValue  = unitPaymentPlan.total_sale_value
+
+			unitPriceSheet  = Marionette.getOption(@,'unitPriceSheet')			
+			unitPriceSheetComponents  = unitPriceSheet.components
 
 			$('.images').empty()
 			$('.firstimage').hide()
 			html = ''
 			html += '<div class="invoice-items animated fadeIn">
-						<div class="row">
-							<div class="col-sm-5 form-inline m-b-20">
-								<!--h5 class="inline-block">Payment Plan: </h5-->
-								<select class="form-control" id="paymentplans">
-									<option value="3363">
-										Payment Plan Breakdown
-									</option>
-
-									<option value="3364">
-										Price Breakup
-									</option>
-								</select>
-							</div>
-
-							<div class="col-sm-7 text-right">
-								<h5 class="inline-block">Total Sale Value: </h5>
-
-								<h4 class="inline-block bold text-primary"><span class="rec" 
-								data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> '+unitTotalSaleValue+'</span></h4>
-							</div>
-						</div>
-
 						<ul id="paymentTable">'
 
 			_.each unitPlanMilestones, (milestone, key) ->
@@ -648,61 +789,7 @@ class CenterUnitView extends Marionette.ItemView
 							</li>'	
 
 			html += '</ul>
-					</div>
-					<br/>'
-
-			# uniteprice sheet @todo move it to separate view and change on dropdown
-			_.each unitPriceSheetComponents, (component, key) ->
-				perc = window.calculatePerc(component.amount,unitTotalSaleValue )
-				html += '<li style="list-style: none; display: inline">
-				<div class="clearfix"></div><span class="msPercent" style="  font-size: 25px;">'+perc+'%</span></li>
-						<li class="milestoneList">
-								<div class="msName">
-									'+component.component_price_type+'
-								</div>
-
-								<!--div class="msVal discCol">
-									<div>
-										<span class="label">Amount:</span> <span class=
-										"percentageValue0 label"  data-d-group="2"
-										data-m-dec=""><span class="icon-rupee-icn"></span> 3,43,343</span>
-									</div>
-
-									<div>
-										<span class="label">Service Tax:</span> <span class=
-										"service0 label"  data-d-group="2"
-										data-m-dec=""><span class="icon-rupee-icn"></span> 10,609</span>
-									</div>
-
-									<div>
-										Total: <span class="total0"  data-d-group=
-										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3</span>
-									</div>
-								</div-->
-
-								<div class="msVal">
-									<div>
-										<span class="label">Cost Type:</span> <span class=
-										"percentageValue10 label"  data-d-group=
-										"2" data-m-dec=""> '+component.cost_type+'</span>
-									</div>
-
-									<div>
-										<span class="label">Sub Type:</span> <span class=
-										"service10 label"  data-d-group="2"
-										data-m-dec=""> '+component.component_price_sub_type+'</span>
-									</div>
-
-									<div>
-										Total Amount: <span class="total10" 
-										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> '+component.amount+'</span>
-									</div>
-								</div><span class="barBg" style="width:'+perc+'%"></span>
-							</li>'	
-
-			html += '</ul>
-					</div>
-					<hr/>'
+					</div>'
 
 							
 			$('.images').html html
@@ -1508,7 +1595,7 @@ class CommonFloor.CenterUnitCtrl extends Marionette.RegionController
 
 		
 
-				# get selling value of a unit
+		# get selling value of a unit
 		unitPriceSheet =
 			method:"GET"
 			url: "#{BASERESTURL}/get-unit-price-sheet" 
@@ -1522,8 +1609,61 @@ class CommonFloor.CenterUnitCtrl extends Marionette.RegionController
 		unitPaymentPlan =  $.ajax(unitPaymentPlan)
 
 		$.when(unitPaymentPlan,unitPriceSheetAjx).done (paymentPlanResp,priceSheetResp)=>
-			unitPaymentPlan = paymentPlanResp[0]['data']	
-			unitPriceSheet =priceSheetResp[0]['data']
+			
+			if !paymentPlanResp
+					unitPaymentPlan = paymentPlanResp[0]['data']
+			else 
+				# fake data from server 
+				unitPaymentPlan = 
+				  'total_sale_value': 2444444
+				  'milestones':
+				    '1':
+				      'amount': '2200000'
+				      'milestone_date': '2015-05-31'
+				      'cost_type': 'Lumpsump'
+				      'entered_value': '2200000'
+				      'milestone': 'updated booking -1 '
+				    '2':
+				      'amount': 244444
+				      'milestone_date': '2015-07-31'
+				      'cost_type': 'Basic Percentage'
+				      'entered_value': '10'
+				      'milestone': '1st Installment'
+					
+			
+
+			if !priceSheetResp
+				unitPriceSheet =priceSheetResp[0]['data']
+
+			else
+				unitPriceSheet =
+				  'total_sale_value': 3437500
+				  'components':
+				    '1':
+				      'amount': '2250000'
+				      'component_price_sub_type': 'SBA'
+				      'cost_type': 'Per sqft'
+				      'entered_value': '2500'
+				      'component_price_type': 'Basic'
+				    'u4h852':
+				      'amount': '250000'
+				      'component_price_sub_type': ''
+				      'cost_type': 'Lumpsump'
+				      'entered_value': '250000'
+				      'component_price_type': 'Car Parking'
+				    'fcmdbj':
+				      'amount': '250000'
+				      'component_price_sub_type': ''
+				      'cost_type': 'Lumpsump'
+				      'entered_value': '250000'
+				      'component_price_type': 'Car Parking 2'
+				    'ug9r8r':
+				      'amount': '687500'
+				      'component_price_sub_type': ''
+				      'cost_type': 'Basic Percentage'
+				      'entered_value': '20'
+				      'component_price_type': 'Booking Amount'				
+			
 
 			@show new CenterUnitView
 				unitPaymentPlan : unitPaymentPlan
