@@ -811,14 +811,14 @@
                   'milestone_date': '2015-05-31',
                   'cost_type': 'Lumpsump',
                   'entered_value': '2200000',
-                  'milestone': 'updated booking -1 '
+                  'milestone': 'test -1 '
                 },
                 '2': {
                   'amount': 244444,
                   'milestone_date': '2015-07-31',
                   'cost_type': 'Basic Percentage',
                   'entered_value': '10',
-                  'milestone': '1st Installment'
+                  'milestone': 'test 2'
                 }
               }
             };
@@ -834,28 +834,28 @@
                   'component_price_sub_type': 'SBA',
                   'cost_type': 'Per sqft',
                   'entered_value': '2500',
-                  'component_price_type': 'Basic'
+                  'component_price_type': 'test 1'
                 },
                 'u4h852': {
                   'amount': '250000',
                   'component_price_sub_type': '',
                   'cost_type': 'Lumpsump',
                   'entered_value': '250000',
-                  'component_price_type': 'Car Parking'
+                  'component_price_type': 'test 2'
                 },
                 'fcmdbj': {
                   'amount': '250000',
                   'component_price_sub_type': '',
                   'cost_type': 'Lumpsump',
                   'entered_value': '250000',
-                  'component_price_type': 'Car Parking 2'
+                  'component_price_type': 'test 3'
                 },
                 'ug9r8r': {
                   'amount': '687500',
                   'component_price_sub_type': '',
                   'cost_type': 'Basic Percentage',
                   'entered_value': '20',
-                  'component_price_type': 'Booking Amount'
+                  'component_price_type': 'test 4'
                 }
               }
             };

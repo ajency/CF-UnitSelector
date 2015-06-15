@@ -810,7 +810,7 @@
         interactive: true,
         trigger: 'hover',
         functionReady: function(e) {
-          return $('.view-unit').on('click', function(e) {
+          return $('.view-unit, .building').on('click', function(e) {
             $('.layer').tooltipster('hide');
             $('svg').attr('class', 'zoom');
             $('#spritespin').addClass('zoom');
