@@ -454,8 +454,8 @@ function setUpProjectMasterUploader() {
 
             },
             Error: function(up, err) {
-            $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> '+err.message+ '</div>');
-            $('.project-master-images').find(".alert-error").removeClass('hidden');    
+                $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> '+err.message+ '</div>');
+                $('.project-master-images').find(".alert-error").removeClass('hidden');    
              
         }
         }

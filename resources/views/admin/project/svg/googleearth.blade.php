@@ -8,7 +8,6 @@
                         <h3 class="inline"> <i class="fa fa-angle-double-right text-primary"></i> <span class="semi-bold">Google Earth</span> View</h3>
                    </div>
                     <div class="col-md-8 google-earth-images">
-                   
                     </div>
 
                 </div>
