@@ -325,10 +325,18 @@
       return CenterUnitView.__super__.constructor.apply(this, arguments);
     }
 
-    CenterUnitView.prototype.template = Handlebars.compile('<div class="col-md-8 col-lg-9 col-sm-12 col-xs-12 us-right-content single-unit unit-slides animated fadeIn"> <div class=""> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> <li class="master hidden"> <h4 class="title">Position</h4> </li> <li class="booking"> <h4 class="title">Payment Plan</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <img class="firstimage animated fadeIn img-responsive" src=""/> <div class="images animated fadeIn text-center"> </div> </div> </div> </div> <div class="single-unit"> <div class="prev"></div> <div class="next"></div> </div> </div> </div> </div>');
+    CenterUnitView.prototype.template = Handlebars.compile('<div class="col-md-8 col-lg-9 col-sm-12 col-xs-12 us-right-content single-unit unit-slides animated fadeIn"> <div class=""> <div class="liquid-slider slider" id="slider-id"> <div class="ls-wrapper ls-responsive"> <div class="ls-nav"> <ul> <li class="external "> <h4 class="title">External 3D</h4> </li> <li class="twoD"> <h4 class="title">2D Layout</h4> </li> <li class="threeD"> <h4 class="title">3D Layout</h4> </li> <li class="gallery"> <h4 class="title">Gallery</h4> </li> <li class="master hidden"> <h4 class="title">Position</h4> </li> <li class="booking"> <h4 class="title">Payment Plan</h4> </li> </ul> </div> <!--<div class="external"> <h2 class="title">External 3D</h2> </div> <div class="twoD"> <h2 class="title">2D Layout</h2> </div> <div class="threeD"> <h2 class="title">3D Layout</h2> </div>--> <div class="row price-mode-dropdown hidden"> <div class="col-sm-5 form-inline m-b-20"> <!--h5 class="inline-block">Payment Plan: </h5--> <select class="form-control" id="paymentplan"> <option value="payment_plan_breakdown"> Payment Plan Breakdown </option> <option value="price_breakup"> Price Breakup </option> </select> </div> <div class="col-sm-7 text-right"> <h5 class="inline-block">Total Sale Value: </h5> <h4 class="inline-block bold text-primary"><span class="rec" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> {{totalSaleValue}}</span></h4> </div> </div> </div> <div class="liquid-slider slider"> <div class="panel-wrapper"> <div class="level "> <img class="firstimage animated fadeIn img-responsive" src=""/> <div class="images animated fadeIn text-center"> </div> </div> </div> </div> <div class="single-unit"> <div class="prev"></div> <div class="next"></div> </div> </div> </div> </div>');
 
     CenterUnitView.prototype.ui = {
       imagesContainer: '.us-right-content'
+    };
+
+    CenterUnitView.prototype.serializeData = function() {
+      var data, unitPaymentPlan;
+      data = CenterUnitView.__super__.serializeData.call(this);
+      unitPaymentPlan = Marionette.getOption(this, 'unitPaymentPlan');
+      data.totalSaleValue = unitPaymentPlan.total_sale_value;
+      return data;
     };
 
     CenterUnitView.prototype.events = {
@@ -428,6 +436,7 @@
         return $('.booking').removeClass('current');
       },
       'click .master': function(e) {
+        $('.price-mode-dropdown').addClass('hidden');
         $('.firstimage').show();
         $('.images').empty();
         this.loadMaster();
@@ -438,30 +447,56 @@
         $('.external').removeClass('current');
         return $('.booking').removeClass('current');
       },
-      'click .booking': function(e) {
-        var html, unitPaymentPlan, unitPlanMilestones, unitPriceSheet, unitPriceSheetComponents, unitTotalSaleValue;
+      'change #paymentplan': function(e) {
+        var html, selectedMode, unitPaymentPlan, unitPlanMilestones, unitPriceSheet, unitPriceSheetComponents, unitTotalSaleValue;
+        unitPaymentPlan = Marionette.getOption(this, 'unitPaymentPlan');
+        unitTotalSaleValue = unitPaymentPlan.total_sale_value;
+        selectedMode = $('#paymentplan').val();
+        $('.price-mode-dropdown').removeClass('hidden');
         unitPaymentPlan = Marionette.getOption(this, 'unitPaymentPlan');
         unitPlanMilestones = unitPaymentPlan.milestones;
         unitTotalSaleValue = unitPaymentPlan.total_sale_value;
         unitPriceSheet = Marionette.getOption(this, 'unitPriceSheet');
         unitPriceSheetComponents = unitPriceSheet.components;
-        console.log(unitPriceSheetComponents);
         $('.images').empty();
         $('.firstimage').hide();
         html = '';
-        html += '<div class="invoice-items animated fadeIn"> <div class="row"> <div class="col-sm-5 form-inline m-b-20"> <!--h5 class="inline-block">Payment Plan: </h5--> <select class="form-control" id="paymentplans"> <option value="3363"> Payment Plan Breakdown </option> <option value="3364"> Price Breakup </option> </select> </div> <div class="col-sm-7 text-right"> <h5 class="inline-block">Total Sale Value: </h5> <h4 class="inline-block bold text-primary"><span class="rec" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + unitTotalSaleValue + '</span></h4> </div> </div> <ul id="paymentTable">';
+        html += '<div class="invoice-items animated fadeIn"> <ul id="paymentTable">';
+        if (selectedMode === "payment_plan_breakdown") {
+          _.each(unitPlanMilestones, function(milestone, key) {
+            var perc;
+            perc = window.calculatePerc(milestone.amount, unitTotalSaleValue);
+            return html += '<li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent" style="  font-size: 25px;">' + perc + '%</span></li> <li class="milestoneList"> <div class="msName">' + milestone.milestone + '</div> <!--div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue0 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,43,343</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service0 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 10,609</span> </div> <div> Total: <span class="total0"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 3</span> </div> </div--> <div class="msVal"> <div> <span class="label">Cost Type:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""> ' + milestone.cost_type + '</span> </div> <div> <span class="label">Due Date:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""> ' + milestone.milestone_date + '</span> </div> <div> Total Amount: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + milestone.amount + '</span> </div> </div><span class="barBg" style="width:' + perc + '%"></span> </li>';
+          });
+        } else if (selectedMode === "price_breakup") {
+          _.each(unitPriceSheetComponents, function(component, key) {
+            var perc;
+            perc = window.calculatePerc(component.amount, unitTotalSaleValue);
+            return html += '<li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent" style="  font-size: 25px;">' + perc + '%</span></li> <li class="milestoneList"> <div class="msName">' + component.component_price_type + '</div> <!--div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue0 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,43,343</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service0 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 10,609</span> </div> <div> Total: <span class="total0"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 3</span> </div> </div--> <div class="msVal"> <div> <span class="label">Cost Type:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""> ' + component.cost_type + '</span> </div> <div> <span class="label">Sub Type:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""> ' + component.component_price_sub_type + '</span> </div> <div> Total Amount: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + component.amount + '</span> </div> </div><span class="barBg" style="width:' + perc + '%"></span> </li>';
+          });
+        }
+        html += '</ul> </div>';
+        return $('.images').html(html);
+      },
+      'click .booking': function(e) {
+        var html, unitPaymentPlan, unitPlanMilestones, unitPriceSheet, unitPriceSheetComponents, unitTotalSaleValue;
+        $('#paymentplan option[value="payment_plan_breakdown"]').attr('selected', 'selected');
+        $('.price-mode-dropdown').removeClass('hidden');
+        unitPaymentPlan = Marionette.getOption(this, 'unitPaymentPlan');
+        unitPlanMilestones = unitPaymentPlan.milestones;
+        unitTotalSaleValue = unitPaymentPlan.total_sale_value;
+        unitPriceSheet = Marionette.getOption(this, 'unitPriceSheet');
+        unitPriceSheetComponents = unitPriceSheet.components;
+        $('.images').empty();
+        $('.firstimage').hide();
+        html = '';
+        html += '<div class="invoice-items animated fadeIn"> <ul id="paymentTable">';
         _.each(unitPlanMilestones, function(milestone, key) {
           var perc;
           perc = window.calculatePerc(milestone.amount, unitTotalSaleValue);
           return html += '<li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent" style="  font-size: 25px;">' + perc + '%</span></li> <li class="milestoneList"> <div class="msName">' + milestone.milestone + '</div> <!--div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue0 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,43,343</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service0 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 10,609</span> </div> <div> Total: <span class="total0"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 3</span> </div> </div--> <div class="msVal"> <div> <span class="label">Cost Type:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""> ' + milestone.cost_type + '</span> </div> <div> <span class="label">Due Date:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""> ' + milestone.milestone_date + '</span> </div> <div> Total Amount: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + milestone.amount + '</span> </div> </div><span class="barBg" style="width:' + perc + '%"></span> </li>';
         });
-        html += '</ul> </div> <br/>';
-        _.each(unitPriceSheetComponents, function(component, key) {
-          var perc;
-          perc = window.calculatePerc(component.amount, unitTotalSaleValue);
-          return html += '<li style="list-style: none; display: inline"> <div class="clearfix"></div><span class="msPercent" style="  font-size: 25px;">' + perc + '%</span></li> <li class="milestoneList"> <div class="msName">' + component.component_price_type + '</div> <!--div class="msVal discCol"> <div> <span class="label">Amount:</span> <span class= "percentageValue0 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 3,43,343</span> </div> <div> <span class="label">Service Tax:</span> <span class= "service0 label"  data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> 10,609</span> </div> <div> Total: <span class="total0"  data-d-group= "2" data-m-dec=""><span class="icon-rupee-icn"></span> 3</span> </div> </div--> <div class="msVal"> <div> <span class="label">Cost Type:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""> ' + component.cost_type + '</span> </div> <div> <span class="label">Sub Type:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""> ' + component.component_price_sub_type + '</span> </div> <div> Total Amount: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + component.amount + '</span> </div> </div><span class="barBg" style="width:' + perc + '%"></span> </li>';
-        });
-        html += '</ul> </div> <hr/>';
+        html += '</ul> </div>';
         $('.images').html(html);
         $('.booking').addClass('current');
         $('.master').removeClass('current');
@@ -765,8 +800,66 @@
       unitPaymentPlan = $.ajax(unitPaymentPlan);
       return $.when(unitPaymentPlan, unitPriceSheetAjx).done((function(_this) {
         return function(paymentPlanResp, priceSheetResp) {
-          unitPaymentPlan = paymentPlanResp[0]['data'];
-          unitPriceSheet = priceSheetResp[0]['data'];
+          if (!paymentPlanResp) {
+            unitPaymentPlan = paymentPlanResp[0]['data'];
+          } else {
+            unitPaymentPlan = {
+              'total_sale_value': 2444444,
+              'milestones': {
+                '1': {
+                  'amount': '2200000',
+                  'milestone_date': '2015-05-31',
+                  'cost_type': 'Lumpsump',
+                  'entered_value': '2200000',
+                  'milestone': 'updated booking -1 '
+                },
+                '2': {
+                  'amount': 244444,
+                  'milestone_date': '2015-07-31',
+                  'cost_type': 'Basic Percentage',
+                  'entered_value': '10',
+                  'milestone': '1st Installment'
+                }
+              }
+            };
+          }
+          if (!priceSheetResp) {
+            unitPriceSheet = priceSheetResp[0]['data'];
+          } else {
+            unitPriceSheet = {
+              'total_sale_value': 3437500,
+              'components': {
+                '1': {
+                  'amount': '2250000',
+                  'component_price_sub_type': 'SBA',
+                  'cost_type': 'Per sqft',
+                  'entered_value': '2500',
+                  'component_price_type': 'Basic'
+                },
+                'u4h852': {
+                  'amount': '250000',
+                  'component_price_sub_type': '',
+                  'cost_type': 'Lumpsump',
+                  'entered_value': '250000',
+                  'component_price_type': 'Car Parking'
+                },
+                'fcmdbj': {
+                  'amount': '250000',
+                  'component_price_sub_type': '',
+                  'cost_type': 'Lumpsump',
+                  'entered_value': '250000',
+                  'component_price_type': 'Car Parking 2'
+                },
+                'ug9r8r': {
+                  'amount': '687500',
+                  'component_price_sub_type': '',
+                  'cost_type': 'Basic Percentage',
+                  'entered_value': '20',
+                  'component_price_type': 'Booking Amount'
+                }
+              }
+            };
+          }
           return _this.show(new CenterUnitView({
             unitPaymentPlan: unitPaymentPlan,
             unitPriceSheet: unitPriceSheet
