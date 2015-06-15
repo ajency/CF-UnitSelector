@@ -13,8 +13,6 @@ class WhitelistIp {
 	 */
 	public function handle($request, Closure $next)
 	{	
-// 		$whitelistIp =['127.0.0.1','172.20.14.251','172.16.121.73','172.16.121.203','172.16.120.81',
-// '172.16.120.71','172.16.122.112'];
 
 		$whitelistIpRanges = array(
 								array('106.51.254.250','106.51.254.282'),
@@ -41,16 +39,6 @@ class WhitelistIp {
 				'code' => 'forbidden_access',
 				'message' => 'This IP has no access to the api'
 				], 403 );
-		
-
-		// if (!in_array($clientIpAddress, $whitelistIp)) {
-		// 	return response()->json( [
-		// 		'code' => 'forbidden_access',
-		// 		'message' => 'This IP has no access to the api'
-		// 		], 403 );
-		// }
-
-		return $next($request);
 	}
 
 	public static function ip_exists_in_range($range, $ip) 
