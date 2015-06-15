@@ -628,8 +628,8 @@
           zoomRate: 2,
           constrainZoomed: true
         });
-        console.log(window.magne.zoomBy(-1));
       }
+      window.magne.zoomBy(-1);
       windowHeight = $(window).innerHeight() - 56;
       $('.master').css('height', windowHeight);
       $('.master').css('min-width', windowHeight * 2);

@@ -257,7 +257,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
                         $attributeId = $attributeIdArr[$key];
 
                         if ($attributeId == '') {
-                            if ($attributeName != '')
+                            if ($attributeName != '' && $controlType!='')
                                 $attributes[] = new Attribute(['label' => $attributeName, 'control_type' => $controlType, 'defaults' => $controlValues,
                                     'object_type' => $objecttype, 'object_id' => $projectPropertyTypeId]);
                         } else {

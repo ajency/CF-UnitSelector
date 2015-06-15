@@ -44,6 +44,17 @@
       }
     };
 
+    PlotView.prototype.onShow = function() {
+      var units;
+      units = Marionette.getOption(this, 'units');
+      if (units.length === 0) {
+        this.ui.units.hide();
+        this.ui.unitLabel.hide();
+        $('.alert').text('All plots marked');
+        return window.hideAlert();
+      }
+    };
+
     return PlotView;
 
   })(Marionette.ItemView);
@@ -58,7 +69,6 @@
     PlotCtrl.prototype.initialize = function() {
       var units;
       units = plotVariantCollection.getPlotUnits();
-      console.log(units);
       return this.show(new AuthoringTool.PlotView({
         units: units
       }));
