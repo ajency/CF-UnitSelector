@@ -3,14 +3,16 @@
         <div class="grid simple">
             <div class="grid-title no-border"> 
                 <div class="row object-master-images" data-object-id="{{ $project['id'] }}" data-object-type="project">
-                    <div class="col-md-8 project-master-images">
+                    <div class="col-md-8 ">
                         <h3 class="inline"> <i class="fa fa-angle-double-right text-primary"></i> <span class="semi-bold">Project Master</span> Image</h3>&nbsp;&nbsp;    
                         
                         <a id="master_pickfiles"  class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image"></i> Select file (s)</a>
+                    <div class="project-master-images">    
                         <div class="alert alert-error hidden">
                             <button class="close" data-dismiss="alert"></button>
                             <span class="errormsg"></span>
                         </div>
+                     </div>    
                     </div>
                     <div class="col-md-4 hidden">
                         <div class="user-description-box" style="color: #6f7b8a;">
