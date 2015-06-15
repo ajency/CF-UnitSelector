@@ -847,6 +847,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$('.master').css 'height', windowHeight
 		$('.master').css 'min-width', windowHeight * 2
 
+		# if ($.browser.msie && $.browser.version == 10)
+		# 	$('svg').css 'height', windowHeight
+
 		
 		$('#spritespin').hide()
 		that = @
