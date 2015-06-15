@@ -13,6 +13,7 @@
         "zizaco/entrust": "dev-laravel-5",
         "chrisbjr/api-guard": "~2.0",
         "maatwebsite/excel": "~2.0.0"
+        
 
     },
     "require-dev": {
