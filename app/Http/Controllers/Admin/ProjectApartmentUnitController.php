@@ -13,6 +13,7 @@ use CommonFloor\FloorLayout;
 use CommonFloor\UnitVariant;
 use CommonFloor\Defaults;
 use \Session;
+use \Excel;
 
 class ProjectApartmentUnitController extends Controller {
 
@@ -277,5 +278,26 @@ class ProjectApartmentUnitController extends Controller {
                     'data' => $flag,
                         ], 200);
     } 
+    
+    
+   /*public function unitImport($projectId, Request $request) 
+   {
+       
+        $file = $request->file('file');
+        $units = array();
+        $handle = fopen($file, "r");
+        if( $handle ) {
+        $i=0;    
+        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+            if($i==0)
+                continue;
+            
+             $units[] = $data;
+             $i++;
+        }
+        fclose($handle);
+        }
+        
+   }*/
 
 }
