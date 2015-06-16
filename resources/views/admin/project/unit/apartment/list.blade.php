@@ -24,7 +24,7 @@
              @include('admin.project.flashmessage')
             <div class="grid-title">
                 <h4>List of <span class="semi-bold">Units</span></h4>
-                <a class="btn btn-primary pull-right"  data-toggle="modal" data-target="#myModal"><i class="fa "></i> Bulk  import</a>&nbsp;&nbsp; 
+                <a class="btn btn-primary pull-right m-l-5"  data-toggle="modal" data-target="#myModal"><i class="fa fa-upload"></i> Bulk Import</a>&nbsp;&nbsp; 
                 <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/apartment-unit/create') }}" ><i class="fa fa-plus"></i> Add unit</a> ;
                 
             </div>

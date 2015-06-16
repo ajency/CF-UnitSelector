@@ -40,8 +40,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Area<span class="text-primary">*</span></label><!-- //TODO fix the required validation  -->
-                                        <input type="text" name="select_area_list" id="autocompleteArea" placeholder="Locality Name" disabled/>
-                                        <input type="hidden" name="area_code" id="area_code"/>
+                                        <input type="text" name="select_area_list" id="autocompleteArea" placeholder="Locality Name" class="form-control" disabled/>
+                                        <input type="hidden" name="area_code" id="area_code" class="form-control"/>
                                     </div>
 
                                 
