@@ -58,4 +58,31 @@ class Building extends Model {
         return $data;
     }
 
+    public function getBuildingSVGs($buildingId) {
+        $building = Building::find($buildingId);
+        $projectmediaIds = $breakpoints = $mediaIds = [];
+       
+        $metaValue = $building->building_master;
+        $breakpoints = $building->breakpoints; 
+        $breakpoints = (!empty($breakpoints))?unserialize($breakpoints):[];
+        foreach($metaValue as $position=> $projectmediaId)
+        {
+           if(in_array($position,$breakpoints))
+           {
+               $mediaIds[]=$projectmediaId;
+           }
+        }
+       
+        $path = [];
+        foreach ($mediaIds as $key => $value) {
+            $temp =  Svg::where( 'image_id', '=', $value )->first();
+            
+            if($temp != "")
+                $path[$value] = $temp->svg_path;
+            
+        }
+        return $path;
+                
+    }
+
 }

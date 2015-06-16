@@ -27,6 +27,7 @@
       rawSvg.setAttribute('height', '100%');
       rawSvg.setAttributeNS(null, 'x', '0');
       rawSvg.setAttributeNS(null, 'y', '0');
+      rawSvg.setAttribute('preserveAspectRatio', '"xMinYMin slice"');
       rawSvg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink");
       window.createImageTag();
       return $.each(svgData, function(index, value) {
@@ -103,7 +104,7 @@
       return type;
     };
     window.actualUnits = function(value) {
-      var units;
+      var newUnits, temp, units;
       units = [];
       if (value === 'villa') {
         units = bunglowVariantCollection.getBunglowMasterUnits();
@@ -116,6 +117,11 @@
       }
       if (value === 'apartment') {
         units = apartmentVariantCollection.getApartmentMasterUnits();
+        temp = new Backbone.Collection(units);
+        newUnits = temp.where({
+          'building_id': parseInt(building_id)
+        });
+        units = newUnits;
       }
       return units;
     };
@@ -218,6 +224,28 @@
         }
       });
     };
+    window.loadSvgPaths = function() {
+      var select, svgCount, svgs;
+      select = $('.svgPaths');
+      $('<option />', {
+        value: "",
+        text: "Select Option"
+      }).appendTo(select);
+      svgs = jQuery.parseJSON(svg_paths);
+      svgs = _.omit(svgs, image_id);
+      svgCount = Object.keys(svgs).length;
+      if (svgCount === 0) {
+        select.hide();
+        $('.duplicate').hide();
+        return;
+      }
+      return $.each(svgs, function(index, value) {
+        return $('<option />', {
+          value: index,
+          text: value
+        }).appendTo(select);
+      });
+    };
     window.loadOjectData = function() {
       return $.ajax({
         type: 'GET',
@@ -232,7 +260,12 @@
           window.svgData['svg_type'] = svg_type;
           window.svgData['building_id'] = building_id;
           window.svgData['project_id'] = project_id;
-          return window.loadJSONData();
+          window.loadJSONData();
+          $('.duplicate').hide();
+          if (response.data.length === 0) {
+            $('.duplicate').show();
+            return window.loadSvgPaths();
+          }
         },
         error: function(response) {
           return alert('Some problem occurred');
@@ -416,7 +449,7 @@
     window.showDetails = function(elem) {
       var select, type, unit;
       type = $(elem).attr('type');
-      if (type !== 'unassign') {
+      if (type !== 'unassign' && type !== 'undetect') {
         unit = unitMasterCollection.findWhere({
           'id': parseInt(elem.id)
         });
@@ -1145,24 +1178,29 @@
       return newPoints;
     };
     $('.duplicate').on('click', function(evt) {
-      var content, svgExport;
-      svgExport = draw.exportSvg({
-        exclude: function() {
-          return this.data('exclude');
+      $('.svgPaths').removeClass('hidden');
+      return $('.process').removeClass('hidden');
+    });
+    $('.process').on('click', function(evt) {
+      var imageid;
+      $('.svg-canvas').hide();
+      $('#rotate_loader').removeClass('hidden');
+      imageid = $('.svgPaths').val();
+      return $.ajax({
+        type: 'GET',
+        url: BASEURL + '/admin/project/' + PROJECTID + '/image/' + image_id + '/duplicate_image_id/' + imageid,
+        async: false,
+        success: function(response) {
+          window.svgData['data'] = response.data;
+          draw.clear();
+          window.generateSvg(window.svgData.data);
+          $('#rotate_loader').addClass('hidden');
+          return $('.svg-canvas').show();
         },
-        whitespace: true
+        error: function(response) {
+          return alert('Some problem occurred');
+        }
       });
-      $('.duplicateSVG').html(svgExport);
-      $('.duplicateSVG .layer').each(function(index, value) {
-        $('#' + value.id).attr('class', 'layer unassign');
-        $('#' + value.id).removeAttr('data-primary-breakpoint');
-        $('#' + value.id).attr('type', '');
-        return $('#' + value.id).attr('svgid', 0);
-      });
-      $('.duplicateSVG .layer').each(function(index, value) {
-        return value.id = 0;
-      });
-      return content = $('.duplicateSVG').html();
     });
     return $('.amenity').on('mouseover', function(e) {
       var html;

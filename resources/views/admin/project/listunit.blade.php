@@ -58,7 +58,7 @@
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
-  <form action="{{ url( 'admin/project/' . $project['id'].'/apartment-unit/unitimport') }}"  method="POST" enctype="multipart/form-data" data-parsley-validate>          
+  <form action="{{ url( 'admin/project/' . $project['id'].'/bunglow-unit/unitimport') }}"  method="POST" enctype="multipart/form-data" data-parsley-validate>          
 
     <div class="modal-content">
       <div class="modal-header">
@@ -82,7 +82,6 @@
       </div>
 
       <div class="modal-footer">
-        <input type="hidden" id="unit-type" name="unit-type" value="bunglow-unit">
         <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
         <button type="submit" class="btn btn-primary"><i class="fa fa-upload"></i> Import</button>
         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>

@@ -45,6 +45,8 @@ jQuery(document).ready ($)->
         rawSvg.setAttribute('height', '100%')
         rawSvg.setAttributeNS(null,'x','0')
         rawSvg.setAttributeNS(null,'y','0')
+        rawSvg.setAttribute('preserveAspectRatio','"xMinYMin slice"')
+        
         # rawSvg.setAttributeNS(null,'viewBox','0 0 1600 1095')
         # rawSvg.setAttributeNS(null,'enable-background','new 0 0 1600 1095')
         rawSvg.setAttributeNS("http://www.w3.org/2000/xmlns/", "xmlns:xlink", "http://www.w3.org/1999/xlink")
@@ -136,6 +138,10 @@ jQuery(document).ready ($)->
             units = buildingMasterCollection.toArray()
          if value == 'apartment'
             units = apartmentVariantCollection.getApartmentMasterUnits()
+            temp = new Backbone.Collection units
+            newUnits = temp.where
+                    'building_id' : parseInt building_id
+            units = newUnits
 
         units
 
@@ -253,6 +259,22 @@ jQuery(document).ready ($)->
             error :(response)->
                 alert('Some problem occurred')
 
+    window.loadSvgPaths = ()->
+        select = $('.svgPaths')
+        $('<option />', {value: "", text: "Select Option"}).appendTo(select)
+        svgs = jQuery.parseJSON(svg_paths)
+        svgs = _.omit(svgs, image_id);
+        svgCount = Object.keys(svgs).length
+        if svgCount is 0 
+            select.hide()
+            $('.duplicate').hide()
+            return 
+        $.each svgs , (index,value)->
+            $('<option />', {value: index, text: value}).appendTo(select)
+
+       
+
+
     #api required to load svg data based on image
     window.loadOjectData = ()->
 
@@ -271,6 +293,11 @@ jQuery(document).ready ($)->
                 window.svgData['building_id'] = building_id
                 window.svgData['project_id'] = project_id
                 window.loadJSONData()
+                $('.duplicate').hide()
+               
+                if response.data.length is 0
+                    $('.duplicate').show()
+                    window.loadSvgPaths()
                 
 
                 
@@ -454,7 +481,7 @@ jQuery(document).ready ($)->
 
     window.showDetails = (elem)->
         type = $(elem).attr 'type'
-        if type != 'unassign'
+        if type != 'unassign' && type != 'undetect'
             unit = unitMasterCollection.findWhere
                     'id' : parseInt elem.id
             $('.property_type').val $(elem).attr 'type'
@@ -851,7 +878,7 @@ jQuery(document).ready ($)->
             object_type = $(currentElem).attr('type')
             svgDataObjects = svgData.data
             _.each svgDataObjects, (svgDataObject, key) =>
-                if parseInt(elemId) is parseInt svgDataObject.id
+                if parseInt(elemId) is parseInt svgDataObject.id 
                     points = svgDataObject.points
                     $('.area').val points.join(',')
                     # collection = new Backbone.Collection window.svgData.data
@@ -1293,22 +1320,65 @@ jQuery(document).ready ($)->
 
 
     $('.duplicate').on 'click' , (evt) ->
-        svgExport = draw.exportSvg(
-          exclude: ->
-            @data 'exclude'
-          whitespace: true)
+        $('.svgPaths').removeClass 'hidden'
+        $('.process').removeClass 'hidden'
+       
+    # window.removeAttr = (data)-> 
+    #     $.each data , (index,value)->
+    #             console.log value['other_details']
+    #             value['other_details']['class'] = 'layer unassign'
+    #             value['object_type'] = "undetect"
+    #             value['object_id'] = 0
+    #             value['svgid'] = 0
+    #             value['svg_id'] = 0
+    #             console.log value['other_details']
+    #             delete value['primary_breakpoint']
+    #             data[index] = value
+    #      $.each data , (index,value)->
+    #             value['id'] = 0
+    #             data[index] = value
+                
+    #     data           
 
-        $('.duplicateSVG').html svgExport
-        $('.duplicateSVG .layer').each (index,value)->
-            $('#'+value.id).attr('class' ,'layer unassign')
-            $('#'+value.id).removeAttr('data-primary-breakpoint')
-            $('#'+value.id).attr('type' ,'')
-            $('#'+value.id).attr('svgid' ,0)
+    $('.process').on 'click' , (evt) ->
+        $('.svg-canvas').hide()
+        $('#rotate_loader').removeClass 'hidden'
+        imageid = $('.svgPaths').val()
+        $.ajax
+            type : 'GET',
+            url  : BASEURL+'/admin/project/'+   PROJECTID+'/image/'+image_id+'/duplicate_image_id/'+imageid
+            async : false
+            success :(response)->
+               # response = jQuery.parseJSON response.data
+                window.svgData['data'] = response.data
+                draw.clear()
+                window.generateSvg(window.svgData.data)
+                $('#rotate_loader').addClass 'hidden'
+                $('.svg-canvas').show()
+
+                
+                
+
+                
+            error :(response)->
+                alert('Some problem occurred') 
+
+    #     svgExport = draw.exportSvg(
+    #       exclude: ->
+    #         @data 'exclude'
+    #       whitespace: true)
+
+    #     $('.duplicateSVG').html svgExport
+    #     $('.duplicateSVG .layer').each (index,value)->
+    #         $('#'+value.id).attr('class' ,'layer unassign')
+    #         $('#'+value.id).removeAttr('data-primary-breakpoint')
+    #         $('#'+value.id).attr('type' ,'')
+    #         $('#'+value.id).attr('svgid' ,0)
            
-        $('.duplicateSVG .layer').each (index,value)->
-            value.id = 0
+    #     $('.duplicateSVG .layer').each (index,value)->
+    #         value.id = 0
 
-        content = $('.duplicateSVG').html()
+    #     content = $('.duplicateSVG').html()
 
     $('.amenity').on 'mouseover' , (e) ->
         window.iniTooltip()

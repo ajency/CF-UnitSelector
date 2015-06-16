@@ -70,9 +70,32 @@
                             <button id="in" class="zoom-in btn btn-primary"><i class="fa fa-search-plus"></i></button>
                             <button id="out" class="zoom-out btn btn-primary"><i class="fa fa-search-minus"></i></button>
                             <button id="clear" name="clear" class="zoom-out btn btn-medium btn-danger clear" style=" padding: 2px 12px; ">Clear</button>
-                            <button id="duplicate" name="duplicate" class="btn btn-medium btn-danger duplicate" style=" padding: 2px 12px; ">Duplicate</button>
+                            <button  id="duplicate" data-toggle="modal" data-target="#myModal" name="duplicate" class="btn btn-medium btn-danger duplicate" style=" padding: 2px 12px; ">Duplicate</button>
+                             <select class="svgPaths hidden " id="svgPaths"></select>
+                            <button id="process" name="process" class="btn btn-medium btn-danger process hidden" style=" padding: 2px 12px; ">Process</button>
+   
+               
+
                             <input type="hidden" name="svg-element-id">
                         </div>
+                        <!--  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-lg">
+                       
+                      <div class="modal-content">
+                        
+                        <div class="modal-body">
+                           
+                           <select class="svgPaths " id="svgPaths"></select>
+                        <button id="process" name="process" class="btn btn-medium btn-danger process " style=" padding: 2px 12px; ">Process</button>
+
+                                  
+                        </div>
+
+                      </div>
+                     
+                                                                            
+                                </div>
+                              </div -->
                         <div class="duplicateSVG" hidden></div>
 
 <!--                         <button class="color-switch btn btn-default">
@@ -140,7 +163,17 @@
                       <li><a  title='bottom Popover' rel='popover' data-placement='bottom' ><i class="fa fa-map-marker"></i> Marker</a></li>
                     </ul>
                   </div>
-                </nav> 
+                </nav> <div id="rotate_loader" class="img-loader hidden">
+              <div class="square" ></div>
+              <div class="square"></div>
+              <div class="square last"></div>
+              <div class="square clear"></div>
+              <div class="square"></div>
+              <div class="square last"></div>
+              <div class="square clear"></div>
+              <div class="square "></div>
+              <div class="square last"></div>
+            </div>
                          <!--  <button id="save-svg-elem" class="save">save</button> -->
                             <div id="aj-imp-builder-drag-drop" class="svg-canvas">
                                 <!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm2">Small modal</button> -->
@@ -390,11 +423,14 @@
             breakpoint_position = '{{$breakpoint_position}}';
             svg_type = '{{$svg_type}}';
             building_id = '{{$building_id}}';
+            image_id = '{{$image_id}}';
             project_id = '{{$project_id}}';
             project_data = {};
             project_data['title'] = '{{$project["project_title"]}}';
             project_data['city'] = '{{$project["city"]}}';
             project_data['project_address'] = '{{$project["project_address"]}}';
+            svgpaths = '{{$svgs}}';
+            svg_paths = $('<div/>').html(svgpaths).text();
 
 
         AuthoringTool = new Marionette.Application
