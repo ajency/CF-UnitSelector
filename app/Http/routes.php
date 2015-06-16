@@ -88,6 +88,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::get( 'project/{project}/attributes/addroomtype', 'Admin\ProjectRoomTypeController@addRoomType' );
     Route::delete( 'project/{project}/bunglow-variant/{id}/deletelevel', 'Admin\ProjectBunglowVariantController@deleteLevel' );
     Route::get( 'project/{projectid}/image/{imageid}', 'Admin\SvgController@show' );
+    Route::get( 'project/{projectid}/image/{imageid}/duplicate_image_id/{image_id}', 'Admin\SvgController@getDuplicateData' );
     Route::post( 'project/{projectid}/image/{imageid}/downloadSvg', 'Admin\SvgController@downloadSvg' );
     Route::get( 'project/{id}/image/{imageid}/authoring-tool', 'Admin\ProjectController@loadMasterSvgTool' );
     Route::post( 'project/{project}/apartment-unit/unitimport', 'Admin\ProjectApartmentUnitController@unitImport' );

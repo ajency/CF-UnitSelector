@@ -13,4 +13,10 @@ class Svg extends Model {
         return $this->hasMany('CommonFloor\SvgElement');
     }	
 
+    public function getSVGPath($image_id)
+    {
+        $path = Svg::where('image_id' , $image_id);
+        return $path;
+    }
+
 }
