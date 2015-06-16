@@ -27,7 +27,7 @@ class WhitelistIp {
 								);
 
 		$clientIpAddress = $request->getClientIp();
-
+		
 		foreach ($whitelistIpRanges as $whitelistIpRange) {
 
 			$checkIpAddr = WhitelistIp::ip_exists_in_range($whitelistIpRange, $clientIpAddress);
@@ -38,7 +38,7 @@ class WhitelistIp {
 
 		return response()->json( [
 				'code' => 'forbidden_access',
-				'message' => 'This IP has no access to the api'
+				'message' => 'This IP ('.$clientIpAddress.') has no access to the api'
 				], 403 );
 	}
 
