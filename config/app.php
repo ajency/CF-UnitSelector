@@ -131,6 +131,7 @@ return [
         'Illuminate\Html\HtmlServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
         'Chrisbjr\ApiGuard\Providers\ApiGuardServiceProvider',
+        'Maatwebsite\Excel\ExcelServiceProvider',
     ],
     /*
       |--------------------------------------------------------------------------
@@ -177,6 +178,7 @@ return [
         'Validator' => 'Illuminate\Support\Facades\Validator',
         'View' => 'Illuminate\Support\Facades\View',
         'Form' => 'Illuminate\Html\FormFacade',
-        'Entrust' => 'Zizaco\Entrust\EntrustFacade'
+        'Entrust' => 'Zizaco\Entrust\EntrustFacade',
+        'Excel' => 'Maatwebsite\Excel\Facades\Excel'
     ],
 ];

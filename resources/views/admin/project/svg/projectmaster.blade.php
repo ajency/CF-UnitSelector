@@ -3,14 +3,16 @@
         <div class="grid simple">
             <div class="grid-title no-border"> 
                 <div class="row object-master-images" data-object-id="{{ $project['id'] }}" data-object-type="project">
-                    <div class="col-md-8 project-master-images">
+                    <div class="col-md-8 ">
                         <h3 class="inline"> <i class="fa fa-angle-double-right text-primary"></i> <span class="semi-bold">Project Master</span> Image</h3>&nbsp;&nbsp;    
                         
                         <a id="master_pickfiles"  class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image"></i> Select file (s)</a>
+                    <div class="project-master-images">    
                         <div class="alert alert-error hidden">
                             <button class="close" data-dismiss="alert"></button>
                             <span class="errormsg"></span>
                         </div>
+                     </div>    
                     </div>
                     <div class="col-md-4 hidden">
                         <div class="user-description-box" style="color: #6f7b8a;">
@@ -23,8 +25,7 @@
             </div>
             <div class="grid-body no-border">
                 <div class="alert alert-info">
-                <strong><i class="fa fa-info"></i></strong> Upload 3D view of the project. To enable 360 degree rotation of the project ,
-                upload images in the sequence ( Front -> Right -> Back -> Left). 
+                <strong><i class="fa fa-info"></i></strong> Upload 3D view of the project. To enable 360 degree rotation of the project ,                upload images in the sequence ( Front -> Right -> Back -> Left). 
                              Image dimensions should be - 
                                             1600*1095. Resolution - 100 DPI. Supported file formats jpg, jpeg, png.
                             Naming convention to be followed for the images uploaded -Imagename-00 (E.g Master-00(first image), Master-01 and so on).

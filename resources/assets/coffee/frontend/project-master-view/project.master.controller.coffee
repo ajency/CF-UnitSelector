@@ -847,6 +847,9 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 		$('.master').css 'height', windowHeight
 		$('.master').css 'min-width', windowHeight * 2
 
+		# if ($.browser.msie && $.browser.version == 10)
+		# 	$('svg').css 'height', windowHeight
+
 		
 		$('#spritespin').hide()
 		that = @
@@ -974,7 +977,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			# animation : 'grow'
 			trigger: 'hover'
 			functionReady:(e)->
-				$('.view-unit').on('click' , (e)->
+				$('.view-unit, .building').on('click' , (e)->
 					$('.layer').tooltipster('hide')
 					$('svg').attr('class' ,'zoom')
 					$('#spritespin').addClass 'zoom'

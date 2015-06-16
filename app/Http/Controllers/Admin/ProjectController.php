@@ -17,6 +17,7 @@ use CommonFloor\Building;
 use \Input;
 use CommonFloor\Http\Controllers\Admin\SvgController;
 use \Session;
+use \Excel;
 
 
 class ProjectController extends Controller {
@@ -372,7 +373,7 @@ class ProjectController extends Controller {
                  $units = array_merge($units,$buildingUnits);  //Merge All Units of project
                
             }
- 
+            
        
             //VILLA + PLOT +Penthouse + APARTMENT
             foreach ($units as $unit) {
@@ -628,7 +629,7 @@ class ProjectController extends Controller {
         else
            $phases = Phase::where(['project_id' => $projectId])->get()->toArray();
         
-        $masterImages = $breakpoints = $googleEarth = $breakpointAuthtool = $googleEarthAuthtool = $data = $phaseData = $errors = $warnings = [];
+        $masterImages = $breakpoints = $googleEarth = $breakpointAuthtool = $googleEarthAuthtool = $data = $phaseData = $errors = $warnings = $buildingPhaseIds = [];
         $filters = $project->projectMeta()->where( 'meta_key', 'filters' )->first()->meta_value;
         $filters = unserialize($filters);
          
@@ -716,24 +717,34 @@ class ProjectController extends Controller {
                 if(empty($buildingUnits))
                         $warnings[] = 'No Units Created For Building :'.$buildingData->building_name;   
                 
+                $buildingPhaseIds[$building['id']] = $phaseId;
                 $units = array_merge($units,$buildingUnits);
             }
             
            if (empty($units)) {
-            $errors['units'] = "No Units Created";
+               $errors['units'] = "No Units Created";
             }
 
-            foreach ($units as $unit) {
+            
+        }
+ 
+        foreach ($units as $unit) {
                 $variantId = $unit['unit_variant_id'];
                 $unitType = UnitVariant::find($variantId)->unitType()->first();
                 $unitTypeId = $unitType->id;
+                $phaseId = $unit['phase_id']; 
+            
+                $buildingId = $unit['building_id'];  
+                
+                if(isset($buildingPhaseIds[$buildingId]))
+                   $phaseId = $buildingPhaseIds[$buildingId];
+ 
                 $unitTypeName = $unitType->unittype_name;
                 $propertType = UnitType::find($unitTypeId)->projectPropertyType()->first();
                 $propertTypeId = $propertType->property_type_id;
-                $data[$phaseId][$propertTypeId][] = $unit['unit_name'];
+                $data[$phaseId][$propertTypeId][] = $unit['unit_name'];  
             }
-        }
-
+ 
         $html = '<div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -978,5 +989,7 @@ class ProjectController extends Controller {
         ->with('is_project_marked',$is_project_marked)
         ->with('svg_type', $type);
  }
+    
 
+ 
 }

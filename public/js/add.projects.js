@@ -2,7 +2,7 @@
   var slice = [].slice;
 
   jQuery(document).ready(function($) {
-    var checkUnitTypeRequired, registerRemovePhaseListener, registerRemoveUnitType;
+    var cfCityFetchOptions, checkUnitTypeRequired, registerRemovePhaseListener, registerRemoveUnitType;
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -11,6 +11,27 @@
     $.notify.defaults({
       globalPosition: 'bottom right'
     });
+    cfCityFetchOptions = {
+      method: "GET",
+      url: "/api/v1/get-cities",
+      async: false
+    };
+    $.ajax(cfCityFetchOptions).done((function(_this) {
+      return function(resp, textStatus, xhr) {
+        var apiResp, cities, response;
+        apiResp = resp.data;
+        response = $.parseJSON(apiResp);
+        cities = response.results;
+        $('#add_project select[name="city"]').empty();
+        $('#add_project select[name="city"]').append($('<option value="">Choose City</option>'));
+        return _.each(cities, function(value, key) {
+          return $('#add_project select[name="city"]').append($('<option/>', {
+            value: value.city_name,
+            text: value.city_name
+          }));
+        });
+      };
+    })(this));
     $(document).ajaxComplete(function() {
       var args, ref, ref1, xhr;
       args = 1 <= arguments.length ? slice.call(arguments, 0) : [];
@@ -26,9 +47,14 @@
     window.projectsCollection = [];
     $('#add_project select[name="city"]').change(function() {
       return $.ajax({
-        url: '/some-commonfloor-url',
-        type: 'jsonp',
-        success: function(resp) {},
+        url: '/api/v1/get-projects-by-area',
+        data: {
+          'city': $('#add_project select[name="city"]').val(),
+          'area_zone': $('#autocompleteArea').val()
+        },
+        success: function(resp) {
+          return console.log(resp);
+        },
         error: function(resp) {
           var i, j, options, project;
           options = '';

@@ -44,7 +44,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Phone Number<span class="text-primary">*</span></label>
-                                <input type="text" name="phone_number" class="form-control m-b-5" placeholder="Enter Phone Number" value="{{ $user['phone'] }}" data-parsley-required onchange="validatePhone(this,{{ $user['id'] }})"><span class="cf-loader hidden"></span>
+                                <input type="text" name="phone_number" class="form-control m-b-5" placeholder="Enter Phone Number" value="{{ $user['phone'] }}" data-parsley-required data-parsley-type="number" onchange="validatePhone(this,{{ $user['id'] }})"><span class="cf-loader hidden"></span>
                                          </div>
                         </div>
                         <div class="col-md-4">

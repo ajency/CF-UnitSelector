@@ -428,8 +428,9 @@ function setUpProjectMasterUploader() {
             
             if(failcount)
             {
-                $('.project-master-images').find(".errormsg").html(failcount+' images failed to upload. Invalid File Name.');
-                $('.project-master-images').find(".alert-error").removeClass('hidden');
+ 
+                $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> '+failcount+ ' images failed to upload. Invalid File Name.</div>');
+                $('.project-master-images').find(".alert-error").removeClass('hidden');  
             }
         
              if(files.length)   
@@ -451,7 +452,12 @@ function setUpProjectMasterUploader() {
                 $('#position-' + fileResponse.data.position).html(str);
 
 
-            }
+            },
+            Error: function(up, err) {
+                $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> '+err.message+ '</div>');
+                $('.project-master-images').find(".alert-error").removeClass('hidden');    
+             
+        }
         }
     });
     master_uploader.init();
@@ -714,13 +720,15 @@ $(document).ready(function () {
                 }]
         },
         init: {
-            PostInit: function () {
+            PostInit: function () { 
                 /* document.getElementById('uploadfiles').onclick = function () {
                  uploader.start();
                  return false;
                  };*/
             },
+            
             FilesAdded: function (up, files) {
+ 
             if(files[0].name =='map.jpg' || files[0].name =='map.png' || files[0].name =='map.jepg')
             {
                 var str = '<div class="col-md-3">';
@@ -737,6 +745,7 @@ $(document).ready(function () {
                 up.start();
             }
             else{
+                $('.google-earth-images').html(' <div class="alert alert-error"><button class="close" data-dismiss="alert"></button>The image failed to upload.Please try using another image.</div>');
                 $('.google-earth-images').find(".alert-error").removeClass('hidden');
                  
             }    
@@ -761,7 +770,13 @@ $(document).ready(function () {
 
                 $("#google_earth_image").html(str);
 
-            }
+            },
+            Error: function(up, err) {
+            $('.google-earth-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> '+err.message+ '</div>');
+            $('.google-earth-images').find(".alert-error").removeClass('hidden');    
+             
+        }
+            
         }
     });
     uploader.init();
@@ -1128,7 +1143,7 @@ function createUnitType(obj, propertyTypeId)
         if (!$(obj).closest('.unit_type_block').find('input[name="add_new_unit_type"]').length)
         {
             var unitTypeId = $(obj).closest('.unit_type_block').find('input[type="hidden"]').val();
-            var html = '<input type="text" name="unittype[' + propertyTypeId + '][]" value="">';
+            var html = '<input type="text" name="unittype[' + propertyTypeId + '][]" value="" onchange="vaildateUnitType(this,' + propertyTypeId + ')">';
             html += '<input type="hidden" name="unittypekey[' + propertyTypeId + '][]" value="' + unitTypeId + '">';
             html += '<input type="hidden" name="unittypecustome[' + propertyTypeId + '][]" value="CUSTOME">';
             $(obj).closest('.unit_type_block').find('.col-md-10').html(html);
@@ -1138,7 +1153,7 @@ function createUnitType(obj, propertyTypeId)
         {
             var html = '<div class="row m-b-10 unit_type_block">';
             html += '<div class="col-md-10">';
-            html += '<input type="text" name="unittype[' + propertyTypeId + '][]" >';
+            html += '<input type="text" name="unittype[' + propertyTypeId + '][]" onchange="vaildateUnitType(this,' + propertyTypeId + ')">';
             html += '<input type="hidden" name="unittypekey[' + propertyTypeId + '][]" value="">';
             html += '<input type="hidden" name="unittypecustome[' + propertyTypeId + '][]" value="CUSTOME">';
             html += '</div>';
@@ -1147,9 +1162,9 @@ function createUnitType(obj, propertyTypeId)
             html += '</div>';
             html += '</div>';
             $(obj).closest('.unit_type_block').before(html);
-            $(obj).val('');
+             
         }
-
+         $(obj).select2('val', '');
 
     }
     else{
@@ -1166,6 +1181,33 @@ function createUnitType(obj, propertyTypeId)
             }
         });
     }
+}
+
+function vaildateUnitType(obj, propertyTypeId)
+{
+    var value= $(obj).val();
+    $(obj).closest('.propertyTypeUnitsAttributes').find('select').each(function () { 
+        if($(obj).get(0)!=$(this).get(0) && $(this).children(':selected').text()==value)
+        {
+             alert('Unit Type Already Selected');
+
+             $(obj).val('');
+
+             return false;
+
+        }
+        });
+   $(obj).closest('.propertyTypeUnitsAttributes').find('input[type="text"]').each(function () { 
+        if($(obj).get(0)!=$(this).get(0) && $(this).val()==value)
+        {
+             alert('Unit Type Already Selected');
+
+             $(obj).val('');
+
+             return false;
+
+        }
+        });    
 }
 
 $('input[name="property_types[]"]').change(function (event) {

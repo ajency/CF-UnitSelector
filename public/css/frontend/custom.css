@@ -1175,6 +1175,13 @@ hr.embossed {
   -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
           transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
+#spritespin {
+  width: 100% !important;
+  height: 100% !important;
+}
+.spritespin-canvas {
+  height: auto;
+}
 .zoom {
   -webkit-animation: project-zoom 1s linear forwards;
           animation: project-zoom 1s linear forwards;
@@ -1456,7 +1463,7 @@ hr.embossed {
   position: absolute;
   bottom: 85px;
   left: 15px;
-  display: block;
+  display: none;
   z-index: 999;
 }
 .zoom-controls .zoom-in,
@@ -1493,6 +1500,7 @@ hr.embossed {
     left: 15px;
     right: initial;
     bottom: initial;
+    display: block;
   }
   .zoom-controls .zoom-in:hover,
   .zoom-controls .zoom-out:hover {
@@ -1516,6 +1524,12 @@ hr.embossed {
 }
 .mCS-cf-scroll .mCSB_scrollTools .mCSB_draggerRail {
   background-color: rgba(204, 204, 204, 0.5);
+}
+/* Building Zoom */
+@media (max-width: 991px) {
+  [mag-zoom] {
+    display: block;
+  }
 }
 .rotate-controls {
   position: absolute;
