@@ -292,13 +292,13 @@ class ProjectApartmentUnitController extends Controller {
         {
             Excel::load($unit_file, function($reader)use($project) {
             
-            $results = $reader->toArray();//dd($results);
+            $results = $reader->toArray(); //dd($results);
             if(count($results[0])==12)
              {       
                foreach($results as $result)
                {
                    $name = $result['name']; 
-                   $variantId = intval($result['variant_id']);
+                   $variantId = intval($result['variant_id']); 
                    $position =  intval($result['position']) ; 
                    $floor = intval($result['floor']) ;  
                    $buildingId =  intval($result['building_id']) ; 
@@ -308,10 +308,11 @@ class ProjectApartmentUnitController extends Controller {
                    
                    if($name =='')
                         continue;
-                   
+ 
                    if($variantId =='')
                         continue;
                    
+ 
                    if($availability =='')
                         continue;
                    
@@ -327,7 +328,7 @@ class ProjectApartmentUnitController extends Controller {
                    if($position =='')
                         continue;
                    
-                   
+                 
                    //UNIT NAME VALIDATION
                     $unitData = Unit::where('building_id',$buildingId)->where('unit_name', $name)->get()->toArray();
 

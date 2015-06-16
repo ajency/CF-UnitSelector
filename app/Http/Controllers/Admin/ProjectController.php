@@ -1020,8 +1020,10 @@ class ProjectController extends Controller {
             $buildings = Building::whereIn('phase_id', $phases)->get()->toArray();
             $count =(count($buildings)>$count)?count($buildings) : $count;
 
-            $unitVariants = $this->getVariants($project, $propertyTypeId); 
-            $count =(count($unitVariants)>$count)?count($unitVariants) : $count;
+            $apartmentunitVariants = $this->getVariants($project, APARTMENTID); 
+            $count =(count($apartmentunitVariants)>$count)?count($apartmentunitVariants) : $count;
+            $penthouseunitVariants = $this->getVariants($project, PENTHOUSEID); 
+            $count =(count($penthouseunitVariants)>$count)?count($penthouseunitVariants) : $count;
             $flag =true;
 
         }
@@ -1037,14 +1039,21 @@ class ProjectController extends Controller {
         
         for($i=0 ; $i<$count ;$i++)
         {
-           if(!empty($unitVariants))
-           {
-               $data[$i]['Variant'] = (isset($unitVariants[$i])) ? $unitVariants[$i]['unit_variant_name']:''; 
-               $data[$i]['Variant Id'] = (isset($unitVariants[$i])) ? $unitVariants[$i]['id']:'';    
-           }
+           
             
            if($flag)
            {
+               if(!empty($apartmentunitVariants))
+               {
+                   $data[$i]['Apartment Variant'] = (isset($apartmentunitVariants[$i])) ? $apartmentunitVariants[$i]['unit_variant_name']:''; 
+                   $data[$i]['Apartment Variant Id'] = (isset($apartmentunitVariants[$i])) ? $apartmentunitVariants[$i]['id']:'';    
+               }
+                
+               if(!empty($penthouseunitVariants))
+               {
+                   $data[$i]['Penthouse Variant'] = (isset($penthouseunitVariants[$i])) ? $penthouseunitVariants[$i]['unit_variant_name']:''; 
+                   $data[$i]['Penthouse Variant Id'] = (isset($penthouseunitVariants[$i])) ? $penthouseunitVariants[$i]['id']:'';    
+               }
                      
               if(!empty($buildings))
               {
@@ -1055,6 +1064,11 @@ class ProjectController extends Controller {
                
            }
            else{
+               if(!empty($unitVariants))
+               {
+                   $data[$i]['Variant'] = (isset($unitVariants[$i])) ? $unitVariants[$i]['unit_variant_name']:''; 
+                   $data[$i]['Variant Id'] = (isset($unitVariants[$i])) ? $unitVariants[$i]['id']:'';    
+               }
               
                if(!empty($phases))
               {
