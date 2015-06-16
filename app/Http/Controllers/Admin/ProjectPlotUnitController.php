@@ -12,6 +12,7 @@ use CommonFloor\Unit;
 use CommonFloor\UnitType;
 use CommonFloor\Defaults;
 use \Session;
+use \Excel;
 
 class ProjectPlotUnitController extends Controller {
 
@@ -226,5 +227,91 @@ class ProjectPlotUnitController extends Controller {
     public function destroy($id) {
         //
     }
+    
+   public function unitImport($projectId, Request $request) 
+   {
+        $project = Project::find($projectId); 
+        $unit_file = $request->file('unit_file')->getRealPath();
+         
+       
+        if ($request->hasFile('unit_file'))
+        {
+               Excel::load($unit_file, function($reader)use($project) {
+            
+               $results = $reader->toArray();//dd($results);
+                
+             if(count($results[0])==10)
+             {
+               foreach($results as $result)
+               {
+                   $name = $result['name']; 
+                   $variantId = intval($result['variant_id']);
+                   $availability = $result['status_id']; 
+                   $views = $result['views']; 
+                   $direction = intval($result['direction_id']); 
+                   $phaseId =  intval($result['phase_id']); 
+                   
+                   if($name =='')
+                        continue;
+                   
+                   if($variantId =='')
+                        continue;
+                   
+                   if($availability =='')
+                        continue;
+                   
+                   if($direction =='')
+                        continue;
+                   
+                   if($phaseId =='')
+                        continue;
+ 
+                   //UNIT NAME VALIDATION
+ 
+                   $projectPropertyTypeId = $project->projectPropertyTypes()->where( 'property_type_id', PLOTID )->first()->id;
+                   $unitTypeIds = UnitType::where( 'project_property_type_id', $projectPropertyTypeId )->get()->lists('id');
+                   $unitVariantIds = UnitVariant::whereIn('unit_type_id',$unitTypeIds)->get()->lists('id');
+                   $unitData = Unit::whereIn('unit_variant_id',$unitVariantIds)->where('unit_name', $name)->get()->toArray();
+ 
+                   if (!empty($unitData)) {
+                           continue;
+                       }
+
+                    $unit =new Unit();
+                    $unit->unit_name = ucfirst($name);
+                    $unit->unit_variant_id = $variantId;
+                    $unit->availability = $availability;
+                    $unit->direction = $direction;
+                    $unit->phase_id = $phaseId;
+                    $views = $views;
+                    $unitviews=[];
+                    if($views!='')
+                    {
+                        $views = explode(',',$views); 
+                        foreach ($views as $view)
+                           $unitviews[property_type_slug($view)]= ucfirst($view);    
+                    }
+                    $viewsStr = serialize( $unitviews );
+                    $unit->views = $viewsStr;
+                    $unit->save();
+
+                  
+               }
+                   Session::flash('success_message','Unit Successfully Imported');
+             }
+             else
+                  Session::flash('error_message','Column Count does not match');
+
+
+            });
+            
+          
+        }
+       
+       
+       return redirect("/admin/project/" . $projectId . "/plot-unit/");
+ 
+       
+   }
 
 }

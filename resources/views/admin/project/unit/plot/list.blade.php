@@ -57,7 +57,7 @@
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
-  <form action="{{ url( 'admin/project/' . $project['id'].'/apartment-unit/unitimport') }}"  method="POST" enctype="multipart/form-data" data-parsley-validate>          
+  <form action="{{ url( 'admin/project/' . $project['id'].'/plot-unit/unitimport') }}"  method="POST" enctype="multipart/form-data" data-parsley-validate>          
 
     <div class="modal-content">
       <div class="modal-header">

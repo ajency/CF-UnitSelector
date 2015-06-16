@@ -137,6 +137,8 @@ class Permission {
                               'admin/project/{id}/image/{imageid}/authoring-tool'=>'configure_project',
                               'admin/project/{projectid}/image/{imageid}/downloadSvg'=>'configure_project',
                               'admin/project/{project}/apartment-unit/unitimport'=>'configure_unit',
+                              'admin/project/{project}/bunglow-unit/unitimport'=>'configure_unit',
+                              'admin/project/{project}/plot-unit/unitimport'=>'configure_unit',
                               'admin/project/{project}/unitexport/{id}'=>'configure_unit',
                 ];
                
