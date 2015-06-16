@@ -833,7 +833,7 @@
           CommonFloor.applyAvailabilClasses();
           CommonFloor.randomClass();
           CommonFloor.applyFliterClass();
-          CommonFloor.applyOnViewClass()();
+          CommonFloor.applyOnViewClass();
           return that.loadZoom();
         }).addClass('active').removeClass('inactive');
       });

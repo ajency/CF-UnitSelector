@@ -1031,7 +1031,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 				CommonFloor.randomClass()
 				CommonFloor.applyFliterClass()
 				# CommonFloor.getApartmentsInView()
-				CommonFloor.applyOnViewClass()()
+				CommonFloor.applyOnViewClass()
 				that.loadZoom()).addClass('active').removeClass('inactive')
 
 
