@@ -23,7 +23,7 @@
             @include('admin.project.flashmessage')
             <div class="grid-title">
                 <h4>List of <span class="semi-bold">Units</span></h4>
-                <a class="btn btn-primary pull-right"  data-toggle="modal" data-target="#myModal"><i class="fa "></i> Bulk  import</a>&nbsp;&nbsp; 
+                <a class="btn btn-primary pull-right m-l-5"  data-toggle="modal" data-target="#myModal"><i class="fa fa-upload"></i> Bulk Import</a>&nbsp;&nbsp; 
                 <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/bunglow-unit/create') }}" ><i class="fa fa-plus"></i> Add Unit</a>
             </div>
             <div class="grid-body">
@@ -58,12 +58,13 @@
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
-  <form action="{{ url( 'admin/project/' . $project['id'].'/apartment-unit/unitimport') }}"  method="POST" enctype="multipart/form-data" data-parsley-validate>          
+  <form action="{{ url( 'admin/project/' . $project['id'].'/bunglow-unit/unitimport') }}"  method="POST" enctype="multipart/form-data" data-parsley-validate>          
 
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title text-left" id="myModalLabel">Bulk Import</h4>
+          <a href="{{ url( 'admin/project/' . $project['id'].'/unitexport/'.BUNGLOWID ) }}" target="_blank" style="float:right">Download config</a>
       </div>
       <div class="modal-body">
          
@@ -81,9 +82,8 @@
       </div>
 
       <div class="modal-footer">
-        <input type="hidden" id="unit-type" name="unit-type" value="bunglow-unit">
         <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-        <button type="submit" class="btn btn-primary">Import</button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-upload"></i> Import</button>
         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
         
       </div>

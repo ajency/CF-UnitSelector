@@ -40,7 +40,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="form-label">Area<span class="text-primary">*</span></label><!-- //TODO fix the required validation  -->
-                                        <input type="text" name="select_area_list" id="autocompleteArea" placeholder="Locality Name" />
+                                        <input type="text" name="select_area_list" id="autocompleteArea" placeholder="Locality Name" class="form-control" disabled/>
+                                        <input type="hidden" name="area_code" id="area_code" class="form-control"/>
                                     </div>
 
                                 
@@ -51,7 +52,7 @@
                                     <div class="form-group">
                                         <label class="form-label">CF Project Name<span class="text-primary">*</span></label>
                                         <span class="help">From CommonFloor database</span>
-                                        <select data-parsley-required name="cf_project_id" class="select2 form-control">
+                                        <select data-parsley-required name="cf_project_id" class="select2 form-control" disabled>
                                             <option value="">Choose Commonfloor Project</option>
                                         </select>
                                     </div>

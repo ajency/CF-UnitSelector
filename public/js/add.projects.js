@@ -1,6 +1,4 @@
 (function() {
-  var slice = [].slice;
-
   jQuery(document).ready(function($) {
     var cfCityFetchOptions, checkUnitTypeRequired, registerRemovePhaseListener, registerRemoveUnitType;
     $.ajaxSetup({
@@ -32,48 +30,11 @@
         });
       };
     })(this));
-    $(document).ajaxComplete(function() {
-      var args, ref, ref1, xhr;
-      args = 1 <= arguments.length ? slice.call(arguments, 0) : [];
-      xhr = args[1];
-      if ((ref = xhr.status) === 201 || ref === 202 || ref === 203) {
-        return $.notify(xhr.responseJSON.message, 'success');
-      } else if ((ref1 = xhr.status) === 200) {
-        return $.notify(xhr.responseJSON.message, 'error');
-      }
-    });
     $('form button[type="reset"]').click();
     $("select").select2();
     window.projectsCollection = [];
     $('#add_project select[name="city"]').change(function() {
-      return $.ajax({
-        url: '/api/v1/get-projects-by-area',
-        data: {
-          'city': $('#add_project select[name="city"]').val(),
-          'area_zone': $('#autocompleteArea').val()
-        },
-        success: function(resp) {
-          return console.log(resp);
-        },
-        error: function(resp) {
-          var i, j, options, project;
-          options = '';
-          for (i = j = 0; j < 10; i = ++j) {
-            project = {
-              project_title: faker.name.findName(),
-              cf_project_id: faker.internet.userName(),
-              project_image: 'http://cfunitselectortest.com/images/artha.gif',
-              project_address: (faker.address.streetAddress()) + " " + (faker.address.city()) + ", " + (faker.address.zipCode()),
-              project_status: 'Under Construction',
-              builder_name: faker.name.findName(),
-              builder_link: faker.internet.domainName()
-            };
-            projectsCollection.push(project);
-            options += "<option value='" + project.cf_project_id + "'>" + project.project_title + "</option>";
-          }
-          return $('#add_project select[name="cf_project_id"]').append(options);
-        }
-      });
+      return $("#autocompleteArea").prop('disabled', false);
     });
     $('#autocompleteArea').autocomplete({
       source: function(request, response) {
@@ -96,7 +57,7 @@
               response($.map(result, function(item, index) {
                 return {
                   label: item,
-                  value: item,
+                  value: index,
                   text: item
                 };
               }));
@@ -113,6 +74,41 @@
         event.preventDefault();
         if (ui.item.label !== 'No Data Found') {
           $('#autocompleteArea').val(ui.item.label);
+          $('#area_code').val(ui.item.value);
+          $.ajax({
+            url: '/api/v1/get-projects-by-area',
+            data: {
+              'city': $('#add_project select[name="city"]').val(),
+              'area_zone': $('#area_code').val()
+            },
+            success: function(resp) {
+              var options, projects;
+              projects = resp.data;
+              options = "";
+              _.each(projects, (function(_this) {
+                return function(proj, key) {
+                  var project;
+                  project = {
+                    project_title: proj.name,
+                    cf_project_id: proj.property_id,
+                    project_image: proj.builder_image_url,
+                    project_address: proj.address,
+                    project_status: "",
+                    builder_name: proj.builder_name,
+                    builder_link: ""
+                  };
+                  projectsCollection.push(project);
+                  return options += "<option value='" + project.cf_project_id + "'>" + project.project_title + "</option>";
+                };
+              })(this));
+              $('#add_project select[name="cf_project_id"]').append(options);
+              return $('#add_project select[name="cf_project_id"]').prop('disabled', false);
+            },
+            error: function(resp) {
+              $.notify('Error in fetching project data', 'error');
+              return $('#add_project select[name="cf_project_id"]').prop('disabled', true);
+            }
+          });
         }
       }
     });

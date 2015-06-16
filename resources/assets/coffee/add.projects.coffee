@@ -24,12 +24,12 @@ jQuery(document).ready ($)->
               value: value.city_name
               text: value.city_name)
 
-    $( document ).ajaxComplete (args...)->
-        xhr = args[1]
-        if xhr.status in [201,202,203]
-            $.notify xhr.responseJSON.message, 'success'
-        else if xhr.status in [200]
-            $.notify xhr.responseJSON.message, 'error'
+    # $( document ).ajaxComplete (args...)->
+    #     xhr = args[1]
+    #     if xhr.status in [201,202,203]
+    #         $.notify xhr.responseJSON.message, 'success'
+    #     else if xhr.status in [200]
+    #         $.notify xhr.responseJSON.message, 'error'
 
                                 
                                 
@@ -40,30 +40,34 @@ jQuery(document).ready ($)->
     
     window.projectsCollection = []
     
-    $('#add_project select[name="city"]').change ->
-        $.ajax
-            url : '/api/v1/get-projects-by-area'
-            data:
-                'city': $('#add_project select[name="city"]').val()
-                'area_zone': $('#autocompleteArea').val()
-            success : (resp)->
-                console.log resp
-            error : (resp)->
-                options = ''
-                for i in [0...10]
-                    project = 
-                        project_title : faker.name.findName()
-                        cf_project_id : faker.internet.userName()
-                        project_image: 'http://cfunitselectortest.com/images/artha.gif'
-                        project_address : "#{faker.address.streetAddress()} #{faker.address.city()}, #{faker.address.zipCode()}"
-                        project_status : 'Under Construction'
-                        builder_name : faker.name.findName()
-                        builder_link : faker.internet.domainName()
+    # $('#add_project select[name="city"]').change ->
+    #     $.ajax
+    #         url : '/api/v1/get-projects-by-area'
+    #         data:
+    #             'city': $('#add_project select[name="city"]').val()
+    #             'area_zone': $('#autocompleteArea').val()
+    #         success : (resp)->
+    #             console.log resp
+    #         error : (resp)->
+    #             options = ''
+    #             for i in [0...10]
+    #                 project = 
+    #                     project_title : faker.name.findName()
+    #                     cf_project_id : faker.internet.userName()
+    #                     project_image: 'http://cfunitselectortest.com/images/artha.gif'
+    #                     project_address : "#{faker.address.streetAddress()} #{faker.address.city()}, #{faker.address.zipCode()}"
+    #                     project_status : 'Under Construction'
+    #                     builder_name : faker.name.findName()
+    #                     builder_link : faker.internet.domainName()
                         
-                    projectsCollection.push project
-                    options += "<option value='#{project.cf_project_id}'>#{project.project_title}</option>"
+    #                 projectsCollection.push project
+    #                 options += "<option value='#{project.cf_project_id}'>#{project.project_title}</option>"
                     
-                $('#add_project select[name="cf_project_id"]').append options
+    #             $('#add_project select[name="cf_project_id"]').append options
+
+    $('#add_project select[name="city"]').change ->
+        # enable locality
+        $("#autocompleteArea").prop('disabled', false)
 
     
       
@@ -93,7 +97,7 @@ jQuery(document).ready ($)->
               response $.map(result, (item, index) ->
                 {
                   label: item
-                  value: item
+                  value: index
                   text: item
                 }
               )
@@ -109,12 +113,41 @@ jQuery(document).ready ($)->
       select: (event, ui) ->
         # prevent autocomplete from updating the textbox
         event.preventDefault()
+        
         if ui.item.label != 'No Data Found'
-          $('#autocompleteArea').val ui.item.label
-          # if ui.item.text != null and ui.item.text != undefined and ui.item.text != ''
-          #   getProperties ui.item.text
-        # navigate to the selected item's url
-        #window.open(ui.item.url);
+            $('#autocompleteArea').val ui.item.label
+            $('#area_code').val ui.item.value
+
+            # populate project dropdown
+            $.ajax
+                url : '/api/v1/get-projects-by-area'
+                data:
+                    'city': $('#add_project select[name="city"]').val()
+                    'area_zone': $('#area_code').val()
+                success : (resp)->
+                    # populate dropdown with response 
+                    projects = resp.data
+                    options =""
+                    _.each projects, (proj, key) =>
+                        project = 
+                            project_title : proj.name
+                            cf_project_id : proj.property_id
+                            project_image: proj.builder_image_url
+                            project_address : proj.address
+                            project_status : ""
+                            builder_name : proj.builder_name
+                            builder_link : ""
+                            
+                        projectsCollection.push project
+                        options += "<option value='#{project.cf_project_id}'>#{project.project_title}</option>"
+                        
+                    $('#add_project select[name="cf_project_id"]').append options                          
+                    # enable project 
+                    $('#add_project select[name="cf_project_id"]').prop('disabled', false)
+                error : (resp)->
+                    $.notify 'Error in fetching project data', 'error'
+                    $('#add_project select[name="cf_project_id"]').prop('disabled', true)
+                      
         return
 
         
