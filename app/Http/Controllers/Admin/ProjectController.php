@@ -924,7 +924,9 @@ class ProjectController extends Controller {
                     }
                    
                 }
-                
+                //Duplicate svgs
+                $breakpoints = $project->getProjectSVGs($id);
+             
                 // since project master svg, pass amenities as well
                 $supported_types[] = "Amenity";   
                                               
@@ -942,6 +944,9 @@ class ProjectController extends Controller {
                         $supported_types = array("Apartment");
                     }
                 }
+                //Duplicate svgs
+                $building = Building::find($buildingId);
+                $breakpoints = $building->getBuildingSVGs($buildingId);
                 
                 // pass amenities as well
                 $supported_types[] = "Amenity";                   
@@ -977,7 +982,7 @@ class ProjectController extends Controller {
                 break;                
         }
 
-
+       
         return view('admin.project.mastersvgtool')
         ->with('project', $project->toArray())
         ->with('svgImage', $svgImagePath)
@@ -987,7 +992,9 @@ class ProjectController extends Controller {
         ->with('project_id',$id)
         ->with('svg_type_display',$svg_type_display)
         ->with('is_project_marked',$is_project_marked)
-        ->with('svg_type', $type);
+        ->with('svg_type', $type)
+        ->with('svgs',json_encode($breakpoints))
+        ->with('image_id',$image_id);
  }
     
 

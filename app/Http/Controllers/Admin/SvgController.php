@@ -99,6 +99,51 @@ class SvgController extends Controller {
             'message' => '',
             'data' => $svgElements
         ], 200);		
+	}
+
+	public function getDuplicateData($projectid, $imageid,$image_id){
+
+		$svg = Svg::where( 'image_id', '=', $image_id )->first();
+		if (!empty($svg)) {
+			$svg_id = $svg->id;
+			$svgElements = $svg->svgElement()->get()->toArray();
+			// $svgElements = SvgElement::where( 'svg_id', '=', $svg_id )->get()->toArray();
+		}	
+		foreach ($svgElements as $key => $value) {
+				$value['svg_id'] = 0;
+				$value['object_type'] = 'unassign';
+				$value['object_id'] = 0;
+				$value['other_details']['class'] = 'layer unassign';
+				unset($value['primary_breakpoint']);
+				$svgElements[$key] = $value;
+
+			}
+		foreach ($svgElements as $key => $value) {
+				$value['id'] = 0;
+				$svgElements[$key] = $value;
+
+			}
+
+			foreach ($svgElements as $key => $value) {
+				$value['image_id'] = $imageid ;
+				$req = new Request($value);
+				self::store($imageid,$req);
+
+			}
+
+			$svg = Svg::where( 'image_id', '=', $imageid )->first();
+			if (!empty($svg)) {
+				$svg_id = $svg->id;
+				$svg_Elements = $svg->svgElement()->get()->toArray();
+				// $svgElements = SvgElement::where( 'svg_id', '=', $svg_id )->get()->toArray();
+			}
+	
+
+		return response()->json( [
+			'code' => 'svg_element_duplicated',
+			'data' => $svg_Elements,
+			'message' => 'SVG elements duplicated for image',
+			], 201 );
 	}	
 
 	/**
@@ -120,6 +165,7 @@ class SvgController extends Controller {
 	 */
 	public function update($project_id, $id, Request $request)
 	{
+
 		$svgElement = SvgElement::find($id);
 		
 		// if (isset($request['image_id'])) {

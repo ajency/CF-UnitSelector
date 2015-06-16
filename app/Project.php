@@ -112,4 +112,42 @@ class Project extends Model {
         return $data;
     }
 
+    public function getProjectSVGs($projectId) {
+        $project = Project::find($projectId);
+        $projectmediaIds = $breakpoints = $mediaIds = [];
+       
+        $projectMeta = $project->projectMeta()->whereIn('meta_key', ['breakpoints','master'])->get()->toArray();
+       foreach ($projectMeta as $metaValues) {
+
+           if ('master' == $metaValues['meta_key']) {
+               $projectmediaIds = unserialize($metaValues['meta_value']);
+
+           } elseif ('breakpoints' == $metaValues['meta_key']) {
+               $breakpoints = unserialize($metaValues['meta_value']);
+
+           } 
+       }
+
+       foreach($projectmediaIds as $position=> $projectmediaId)
+       {
+           if(in_array($position,$breakpoints))
+           {
+               $mediaIds[]=$projectmediaId;
+           }
+       }
+       
+        $path = [];
+        foreach ($mediaIds as $key => $value) {
+            $temp =  Svg::where( 'image_id', '=', $value )->first();
+            
+            if($temp != "")
+                $path[$value] = $temp->svg_path;
+            
+        }
+        return $path;
+
+        
+                
+    }
+
 }
