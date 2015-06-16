@@ -71,8 +71,9 @@ jQuery(document).ready ($)->
       source: (request, response) ->
         # overlaydiv = document.getElementById('overlayImg')
         # overlaydiv.style.display = 'block'
-        # # overlaydiv.style.top = "31.5%";
-        # # overlaydiv.style.left = "88%";
+		# overlaydiv.style.top = "31.5%";
+        # overlaydiv.style.left = "88%";
+
 
         
         cityName = $('select[name="city"]').val()
