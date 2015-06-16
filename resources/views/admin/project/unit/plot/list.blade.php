@@ -21,7 +21,7 @@
              @include('admin.project.flashmessage')
             <div class="grid-title">
                 <h4>List of <span class="semi-bold">Units</span></h4>
-                <a class="btn btn-primary pull-right m-l-5"  data-toggle="modal" data-target="#myModal"><i class="fa "></i><i class="fa fa-upload"></i> Bulk Import</a>&nbsp;&nbsp; 
+                <a class="btn btn-primary pull-right m-l-5"  data-toggle="modal" data-target="#myModal"><i class="fa fa-upload"></i> Bulk Import</a>&nbsp;&nbsp; 
                 <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/plot-unit/create') }}" ><i class="fa fa-plus"></i> Add Unit</a>
             </div>
             <div class="grid-body">
@@ -83,7 +83,7 @@
       <div class="modal-footer">
         <input type="hidden" id="unit-type" name="unit-type" value="bunglow-unit">
         <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-        <button type="submit" class="btn btn-primary">Import</button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-upload"></i> Import</button>
         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
         
       </div>

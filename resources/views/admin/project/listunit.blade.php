@@ -84,7 +84,7 @@
       <div class="modal-footer">
         <input type="hidden" id="unit-type" name="unit-type" value="bunglow-unit">
         <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
-        <button type="submit" class="btn btn-primary">Import</button>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-upload"></i> Import</button>
         <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Cancel</button>
         
       </div>
