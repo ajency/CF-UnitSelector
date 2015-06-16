@@ -277,7 +277,9 @@ class ProjectApartmentUnitController extends Controller {
                     'message' => $msg,
                     'data' => $flag,
                         ], 200);
-    } 
+    }
+    
+  
     
     
    public function unitImport($projectId, Request $request) 

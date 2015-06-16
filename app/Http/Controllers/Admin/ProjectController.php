@@ -990,6 +990,117 @@ class ProjectController extends Controller {
         ->with('svg_type', $type);
  }
     
+  public function unitExport($projectId,$propertyTypeId)
+  {
+        $data = [];
+        $flag =false;
+        $count =0;                                  //GET HEIGHTEST COUNT 
+        $project = Project::find($projectId);
+        $defaultDirection = Defaults::where('type','direction')->get()->toArray();
+        $count =(count($defaultDirection)>$count)?count($defaultDirection) : $count;
+        $projectAttributes = $project->attributes->toArray();
+        $count =(count($projectAttributes)>$count)?count($projectAttributes) : $count;
+
+        $status[] =['id'=>'available','name'=>'Available'] ;
+        $status[] =['id'=>'sold','name'=>'Sold'] ;
+        $status[] =['id'=>'not_released','name'=>'Not Released'] ;
+        $status[] =['id'=>'blocked','name'=>'Blocked'] ;
+        $status[] =['id'=>'archived','name'=>'Archived'] ;
+
+        if($propertyTypeId==APARTMENTID || $propertyTypeId==PENTHOUSEID)
+        {
+            $phases = $project->projectPhase()->lists('id');
+            $buildings = Building::whereIn('phase_id', $phases)->get()->toArray();
+            $count =(count($buildings)>$count)?count($buildings) : $count;
+
+            $apartmentVariants = $this->getVariants($project, APARTMENTID);
+            $count =(count($apartmentVariants)>$count)?count($apartmentVariants) : $count;
+            $penthouseVariants = $this->getVariants($project, PENTHOUSEID);
+            $count =(count($penthouseVariants)>$count)?count($penthouseVariants) : $count;
+            $flag =true;
+
+        }
+        else
+        {
+
+            $phases = $project->projectPhase()->where('status','not_live')->get()->toArray();
+            $count =(count($phases)>$count)?count($phases) : $count;
+            $unitVariants = $this->getVariants($project, $propertyTypeId); 
+            $count =(count($unitVariants)>$count)?count($unitVariants) : $count;
+
+        }
+        
+        for($i=0 ; $i<$count ;$i++)
+        {
+           if($flag)
+           {
+              if(!empty($apartmentVariants))
+              {
+                $data[$i]['APARTMENT VARIANT'] = (isset($apartmentVariants[$i])) ? $apartmentVariants[$i]['unit_variant_name']:''; 
+                $data[$i]['APARTMENT VARIANT ID'] = (isset($apartmentVariants[$i])) ? $apartmentVariants[$i]['id']:'';    
+              }
+              
+              if(!empty($penthouseVariants))
+              {
+                $data[$i]['PENTHOUSE VARIANT'] = (isset($penthouseVariants[$i])) ? $penthouseVariants[$i]['unit_variant_name']:''; 
+                $data[$i]['PENTHOUSE VARIANT ID'] = (isset($penthouseVariants[$i])) ? $penthouseVariants[$i]['id']:'';    
+              }
+               
+              if(!empty($buildings))
+              {
+                $data[$i]['BUILDING'] = (isset($buildings[$i])) ? $buildings[$i]['building_name']:''; 
+                $data[$i]['BUILDING ID'] = (isset($buildings[$i])) ? $buildings[$i]['id']:'';    
+                $data[$i]['BUILDING FLOORS'] = (isset($buildings[$i])) ? $buildings[$i]['no_of_floors']:'';      
+              }
+               
+           }
+           else{
+              if(!empty($unitVariants))
+              {
+                $data[$i]['VARIANT'] = (isset($unitVariants[$i])) ? $unitVariants[$i]['unit_variant_name']:''; 
+                $data[$i]['VARIANT ID'] = (isset($unitVariants[$i])) ? $unitVariants[$i]['id']:'';    
+              }
+               
+               if(!empty($phases))
+              {
+                $data[$i]['PHASE'] = (isset($phases[$i])) ? $phases[$i]['phase_name']:''; 
+                $data[$i]['PHASE ID'] = (isset($phases[$i])) ? $phases[$i]['id']:'';    
+              }
+            
+            }
+           $data[$i]['DIRECTION'] = (isset($defaultDirection[$i])) ? $defaultDirection[$i]['label']:''; 
+           $data[$i]['DIRECTION ID'] = (isset($defaultDirection[$i])) ? $defaultDirection[$i]['id']:'';    
+            
+           $data[$i]['AVAILABILITY'] = (isset($status[$i])) ? $status[$i]['name']:''; 
+           $data[$i]['AVAILABILITY ID'] = (isset($status[$i])) ? $status[$i]['id']:''; 
+            
+           $data[$i]['VIEWS'] = (isset($projectAttributes[$i])) ? $projectAttributes[$i]['label']:''; 
+   
+        }
+
+        Excel::create('units', function($excel)use($data) {
+
+        $excel->sheet('config', function($sheet)use($data) {
+             $sheet->fromArray($data);
+        });
+
+        })->export('csv');
+      
+  }
+    
+  public function getVariants($project ,$propertyTypeId)
+  { 
+      $unitVariants =[];
+      $projectPropertyType = $project->projectPropertyTypes()->where( 'property_type_id', $propertyTypeId )->first(); 
+      if(!empty($projectPropertyType))
+      {
+           $projectPropertyTypeId= $projectPropertyType->id;
+           $unitTypeIds = UnitType::where( 'project_property_type_id', $projectPropertyTypeId )->get()->lists('id');
+           $unitVariants = UnitVariant::whereIn('unit_type_id',$unitTypeIds)->get()->toArray();
+      }
+      
+      return $unitVariants;
+  }
 
  
 }

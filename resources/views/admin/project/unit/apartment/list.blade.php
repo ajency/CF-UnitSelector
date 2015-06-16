@@ -71,6 +71,7 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title text-left" id="myModalLabel">Bulk Import</h4>
+          <a href="{{ url( 'admin/project/' . $project['id'].'/unitexport/'.APARTMENTID ) }}" target="_blank" style="float:right">Download config</a>
       </div>
       <div class="modal-body">
          
