@@ -75,6 +75,47 @@
         }
       });
     });
+    $('#autocompleteArea').autocomplete({
+      source: function(request, response) {
+        var cityName;
+        cityName = $('select[name="city"]').val();
+        $.ajax({
+          url: '/api/v1/get-areas-by-city',
+          type: 'GET',
+          data: {
+            'city': cityName,
+            'area_str': $('#autocompleteArea').val()
+          },
+          success: function(resp) {
+            var result;
+            result = resp.data;
+            if (typeof result === 'string') {
+              result = JSON.parse(result);
+            }
+            if (result !== null && result !== '' && !$.isEmptyObject(result)) {
+              response($.map(result, function(item, index) {
+                return {
+                  label: item,
+                  value: item,
+                  text: item
+                };
+              }));
+            } else {
+              response(['No Data Found']);
+            }
+          },
+          error: function(result) {
+            response(['No Data Found']);
+          }
+        });
+      },
+      select: function(event, ui) {
+        event.preventDefault();
+        if (ui.item.label !== 'No Data Found') {
+          $('#autocompleteArea').val(ui.item.label);
+        }
+      }
+    });
     $('#add_project select[name="cf_project_id"]').change(function() {
       var project, projectId, tempalteFn, template;
       projectId = $(this).val();

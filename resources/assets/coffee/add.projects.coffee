@@ -65,54 +65,54 @@ jQuery(document).ready ($)->
                     
                 $('#add_project select[name="cf_project_id"]').append options
       
-    # $('#autocompleteArea').autocomplete
-    #   source: (request, response) ->
-    #     overlaydiv = document.getElementById('overlayImg')
-    #     overlaydiv.style.display = 'block'
-    #     # overlaydiv.style.top = "31.5%";
-    #     # overlaydiv.style.left = "88%";
+    $('#autocompleteArea').autocomplete
+      source: (request, response) ->
+        # overlaydiv = document.getElementById('overlayImg')
+        # overlaydiv.style.display = 'block'
+        # overlaydiv.style.top = "31.5%";
+        # overlaydiv.style.left = "88%";
 
         
-    #     cityName = $('select[name="city"]').val()
+        cityName = $('select[name="city"]').val()
         
-    #     $.ajax
-    #       url: '/api/v1/get-areas-by-city'
-    #       type: 'GET'
-    #       data:
-    #         'city': cityName
-    #         'area_str': $('#autocompleteArea').val()
+        $.ajax
+          url: '/api/v1/get-areas-by-city'
+          type: 'GET'
+          data:
+            'city': cityName
+            'area_str': $('#autocompleteArea').val()
           
-    #       success: (resp) ->
-    #         result = resp.data
-    #         if typeof result == 'string'
-    #           result = JSON.parse(result)
-    #         if result != null and result != '' and !$.isEmptyObject(result)
-    #           response $.map(result, (item, index) ->
-    #             {
-    #               label: item
-    #               value: item
-    #               text: item
-    #             }
-    #           )
-    #         else
-    #           response [ 'No Data Found' ]
-    #         overlaydiv.style.display = 'none'
-    #         return
-    #       error: (result) ->
-    #         response [ 'No Data Found' ]
-    #         return
-    #     return
+          success: (resp) ->
+            result = resp.data
+            if typeof result == 'string'
+              result = JSON.parse(result)
+            if result != null and result != '' and !$.isEmptyObject(result)
+              response $.map(result, (item, index) ->
+                {
+                  label: item
+                  value: item
+                  text: item
+                }
+              )
+            else
+              response [ 'No Data Found' ]
+            # overlaydiv.style.display = 'none'
+            return
+          error: (result) ->
+            response [ 'No Data Found' ]
+            return
+        return
       
-    #   select: (event, ui) ->
-    #     # prevent autocomplete from updating the textbox
-    #     event.preventDefault()
-    #     if ui.item.label != 'No Data Found'
-    #       $('#autocompleteArea').val ui.item.label
-    #       if ui.item.text != null and ui.item.text != undefined and ui.item.text != ''
-    #         getProperties ui.item.text
-    #     # navigate to the selected item's url
-    #     #window.open(ui.item.url);
-    #     return
+      select: (event, ui) ->
+        # prevent autocomplete from updating the textbox
+        event.preventDefault()
+        if ui.item.label != 'No Data Found'
+          $('#autocompleteArea').val ui.item.label
+          # if ui.item.text != null and ui.item.text != undefined and ui.item.text != ''
+          #   getProperties ui.item.text
+        # navigate to the selected item's url
+        #window.open(ui.item.url);
+        return
 
         
     $('#add_project select[name="cf_project_id"]').change ->
