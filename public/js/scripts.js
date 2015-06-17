@@ -365,7 +365,7 @@ function setUpProjectMasterUploader() {
             "projectId": PROJECTID
         },
         filters: {
-            max_file_size: '10mb',
+            max_file_size: '1mb',
             mime_types: [{
                     title: "Image files",
                     extensions: "jpg,png,jpeg"
@@ -723,7 +723,7 @@ $(document).ready(function () {
             "type": "google_earth"
         },
         filters: {
-            max_file_size: '10mb',
+            max_file_size: '1mb',
             mime_types: [{
                     title: "Image files",
                     extensions: "jpg,png,jpeg"
@@ -803,6 +803,7 @@ $(document).ready(function () {
             
         }
     });
+    
     uploader.init();
 
     var skyview_uploader = new plupload.Uploader({

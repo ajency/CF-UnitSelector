@@ -31,6 +31,7 @@ class ProjectRepository implements ProjectRepositoryInterface {
         $project->project_address = ucfirst($projectData['project_address']);
         $project->cf_project_id = $projectData['cf_project_id'];
         $project->city = $projectData['city'];
+        $project->area_name = $projectData['area_name'];
         $project->area_code = $projectData['area_code'];
         $project->measurement_units = 'Sq. Ft.';
         $project->has_phase = 'no';
