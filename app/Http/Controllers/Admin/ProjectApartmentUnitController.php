@@ -328,21 +328,36 @@ class ProjectApartmentUnitController extends Controller {
                    if($position =='')
                         continue;
                    
+                   $defaultDirections = Defaults::where('type','direction')->get()->lists('id');
+                   if(!in_array($direction,$defaultDirections))
+                        continue;
+                   
+                   $phases = $project->projectPhase()->lists('id');
+                   $buildings = Building::whereIn('phase_id', $phases)->lists('id');
+                   if(!in_array($buildingId,$buildings))
+                        continue;
                  
                    //UNIT NAME VALIDATION
                     $unitData = Unit::where('building_id',$buildingId)->where('unit_name', $name)->get()->toArray();
+                    if (!empty($unitData))  
+                       continue;
 
                     //Unit exist at that position
                     $unitposition = Unit::where('building_id',$buildingId)->where('floor', $floor)->where('position', $position)->get()->toArray(); 
-                    if (!empty($unitposition)) {
+                   if (!empty($unitposition)) 
                        continue;
-                    }
+ 
+                   $projectPropertyTypeIds = $project->projectPropertyTypes()->whereIn( 'property_type_id', [APARTMENTID,PENTHOUSEID] )->get()->lists('id');
+                   $unitTypeIds = UnitType::whereIn( 'project_property_type_id', $projectPropertyTypeIds )->get()->lists('id');
+                   $unitVariantIds = UnitVariant::whereIn('unit_type_id',$unitTypeIds)->get()->lists('id');
+                                     
+                   if(!in_array($variantId,$unitVariantIds))
+                        continue;
                    
                    
-                   if (!empty($unitData)) {
-                           continue;
-                       }
-
+                   
+                   
+                     
                     $unit =new Unit();
                     $unit->unit_name = ucfirst($name);
                     $unit->unit_variant_id = $variantId;

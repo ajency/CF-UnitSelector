@@ -265,18 +265,28 @@ class ProjectPlotUnitController extends Controller {
                    
                    if($phaseId =='')
                         continue;
+                   
+                   $phases = $project->projectPhase()->where('status','not_live')->get()->lists('id');   
+                   if(!in_array($phaseId,$phases))
+                        continue;
+                   
+                   $defaultDirections = Defaults::where('type','direction')->get()->lists('id');
+                   if(!in_array($direction,$defaultDirections))
+                        continue;
  
                    //UNIT NAME VALIDATION
- 
                    $projectPropertyTypeId = $project->projectPropertyTypes()->where( 'property_type_id', PLOTID )->first()->id;
                    $unitTypeIds = UnitType::where( 'project_property_type_id', $projectPropertyTypeId )->get()->lists('id');
                    $unitVariantIds = UnitVariant::whereIn('unit_type_id',$unitTypeIds)->get()->lists('id');
+                   
+                   if(!in_array($variantId,$unitVariantIds))
+                        continue;
+                   
                    $unitData = Unit::whereIn('unit_variant_id',$unitVariantIds)->where('unit_name', $name)->get()->toArray();
  
-                   if (!empty($unitData)) {
-                           continue;
-                       }
-
+                   if(!empty($unitData)) 
+                       continue;
+ 
                     $unit =new Unit();
                     $unit->unit_name = ucfirst($name);
                     $unit->unit_variant_id = $variantId;
