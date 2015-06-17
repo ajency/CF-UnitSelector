@@ -1,3 +1,4 @@
+@import "../../bower_components/tooltipster/css/tooltipster.css";
 @import url(builder-icon-fonts.css);
 @import url(http://fonts.googleapis.com/css?family=Lato:100,400,700);
 /*
@@ -296,6 +297,286 @@ svg .no-fill {
     fill: #F68121 !important;
     opacity: 0.8;
   }
+}
+.svg-tooltip {
+  display: none;
+}
+.big-tooltip .svg-info {
+  width: 100%;
+  max-width: 470px;
+}
+.big-tooltip .svg-info .action-bar {
+  width: 35%;
+  height: auto;
+}
+.big-tooltip .svg-info h5 {
+  width: 64%;
+  margin-top: 0;
+}
+.big-tooltip .svg-info .details {
+  float: left;
+}
+.big-tooltip .svg-info .b-r {
+  border-left: 1px solid #cccccc;
+}
+.big-tooltip .svg-info img {
+  width: 100%;
+}
+.big-tooltip .svg-info .icon-location {
+  float: left;
+  margin-right: 10px;
+  font-size: 30px;
+  color: #f68121;
+}
+.big-tooltip .svg-info .icon-cross {
+  position: absolute;
+  right: 8px;
+}
+.big-tooltip .svg-info .address {
+  float: left;
+  width: 82%;
+}
+.big-tooltip .svg-info .circle:hover {
+  color: #ffffff;
+}
+.svg-info {
+  font-family: OpenSans, Arial, sans-serif;
+  padding: 0;
+  padding-right: 20px;
+}
+.svg-info h4 {
+  font-weight: bold;
+}
+.svg-info h4 label {
+  font-size: 14px;
+}
+.svg-info .label {
+  margin: 10px 0 0 5px;
+  display: inline-block;
+}
+.svg-info .icon-cross {
+  font-size: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  position: absolute;
+  right: 8px;
+}
+.svg-info .details {
+  font-size: 12px;
+}
+.svg-info .details label {
+  color: #999999;
+}
+.svg-info .details div {
+  padding-bottom: 5px;
+}
+.svg-info .details.empty {
+  text-align: center;
+  padding-bottom: 5px;
+}
+.svg-info .details ul {
+  list-style-type: none;
+  text-align: left;
+  margin-bottom: 10px;
+}
+.svg-info .details ul li {
+  display: inline-block;
+  border-right: 1px solid #e6e6e6;
+  padding: 0;
+}
+.svg-info .details ul li:last-child {
+  border-right: none;
+}
+.svg-info .details ul li h5 {
+  font-weight: bold;
+  color: #666666;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.svg-info .details ul.bldg {
+  margin-bottom: 0;
+  text-align: center;
+}
+.svg-info .details ul.bldg li {
+  padding: 0 5px;
+}
+.svg-info .details .price {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.svg-info .action-bar2 {
+  width: 60px;
+  height: 60px;
+  float: left;
+  padding: 10px;
+  margin-left: -10px;
+  margin-top: -10px;
+  margin-right: 11px;
+  color: #ffffff;
+  font-size: 14px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  cursor: pointer;
+  display: block;
+  background: #666666;
+}
+.svg-info .action-bar {
+  width: 60px;
+  height: 105px;
+  float: left;
+  padding: 10px;
+  margin-left: -10px;
+  margin-top: -10px;
+  margin-right: 11px;
+  color: #ffffff;
+  font-size: 12px;
+  border-bottom-left-radius: 5px;
+  border-top-left-radius: 5px;
+  cursor: pointer;
+  display: block;
+  background: #666666;
+}
+.svg-info.available .action-bar {
+  background-color: #5ab319;
+}
+.svg-info.sold .action-bar {
+  background-color: #d06d72;
+}
+.svg-info.not_released .action-bar {
+  background-color: #666666;
+}
+.svg-info.blocked .action-bar {
+  background-color: #f4ed5a;
+  color: #666666;
+}
+.svg-info .circle {
+  width: 35px;
+  height: 35px;
+  border-radius: 100%;
+  background: #fff;
+  position: absolute;
+  right: -15px;
+  text-align: center;
+  bottom: 35%;
+  line-height: 35px;
+  border: 1px solid #999;
+  color: #5F5858;
+  font-size: 13px;
+  z-index: 999;
+}
+.svg-info .circle a {
+  color: #5F5858 !important;
+}
+.svg-info .circle:hover {
+  background: #f68121;
+  cursor: pointer;
+}
+.svg-info .circle:hover span {
+  color: #ffffff !important;
+}
+.svg-info .step2-sprite {
+  background: url(../../images/sprite-popover.png) no-repeat;
+  width: 50px;
+  height: 50px;
+  display: block;
+  margin-top: 40%;
+}
+.svg-info .villa {
+  background: url(../../images/sprite-popover.png) no-repeat;
+  width: 50px;
+  height: 50px;
+  display: block;
+  margin-top: 40%;
+  background-position: -10px;
+}
+.svg-info .building {
+  background: url(../../images/sprite-popover.png) no-repeat;
+  width: 50px;
+  height: 50px;
+  display: block;
+  margin-top: 40%;
+  background-position: -64px;
+}
+.svg-info .plot {
+  background: url(../../images/sprite-popover.png) no-repeat;
+  width: 50px;
+  height: 50px;
+  display: block;
+  margin-top: 40%;
+  background-position: -115px;
+}
+.svg-info .txt-dft {
+  margin-top: -2% !important;
+  width: 37px !important;
+  height: 37px!important;
+  background: url(../../images/sprite-popover.png) no-repeat;
+  width: 50px;
+  height: 50px;
+  display: block;
+  margin-top: 40%;
+  background-position: -177px;
+}
+.svg-info .text-default {
+  opacity: .7;
+}
+.svg-info .Penthouse {
+  background: url(../../images/penthouse-white.png) no-repeat;
+  width: 42px;
+  height: 42px;
+  display: block;
+  margin-top: 20px;
+  background-size: contain;
+}
+.icon-moon {
+  font-family: icomoon;
+  speak: none;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.apartment:before {
+  font-size: 30px;
+  text-align: center;
+  display: block;
+  line-height: 80px !important;
+  font-family: icomoon;
+  speak: none;
+  font-style: normal;
+  font-weight: 400;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\e616";
+}
+.tooltipster-shadow .tooltipster-content {
+  padding-bottom: 0;
+}
+.circle-tooltip {
+  border-radius: 100%;
+  width: 150px;
+  height: 150px;
+  text-align: center;
+}
+.circle-tooltip .svg-info {
+  width: 100% !important;
+  min-width: 100% !important;
+}
+.circle-tooltip .svg-info h5 {
+  margin: 5px 0px 4px;
+}
+.circle-tooltip .svg-info i {
+  display: block;
+  margin: auto;
+}
+.marker-tooltip {
+  background: rgba(0, 0, 0, 0.9);
+  width: 200px;
 }
 /****Google Fonts****/
 /****Colors****/

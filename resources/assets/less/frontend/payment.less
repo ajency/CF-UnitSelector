@@ -1,7 +1,7 @@
 .invoice-items{
 	text-align: left;
-	padding: 15px;
-	background: lighten(@gray-lighter, 18%);
+	padding: 15px 0;
+	// background: lighten(@gray-lighter, 18%);
 }
 
 #paymentTable{
@@ -10,12 +10,16 @@
 	padding: 0;
 	font-weight: 700;
 }
-.msPercent{
-	font-size: 30px;
-	font-weight: 500;
-	margin-top: 0;
-	margin-right: 5px;
+.milestonePercent{
+	list-style-type: none;
+	width: 10%;
 	float: left;
+	.msPercent{
+		font-size: 25px;
+		font-weight: 500;
+		margin-top: 0;
+		margin-right: 5px;
+	}
 }
 .milestoneList{
 	margin: 0;
@@ -40,7 +44,7 @@
 	.msVal{
 		z-index: 2;
 		position: relative;
-		width: 24%;
+		// width: 24%;
 		display: inline-block;
 		text-align: right;
 		float: right;
@@ -81,5 +85,32 @@
 	}
 	&:after{
 		clear: both;
+	}
+}
+
+.price-mode-dropdown{
+	padding: 15px 15px 0;
+	.plan-select{
+		width: 40%;
+		float: left;
+	}
+	.plan-amount{
+		width: 60%;
+		float: left;
+	}
+}
+
+@media(min-width: 992px) and (max-width:1200px){
+	.milestonePercent{
+		width: 15%;
+	}
+	.milestoneList{
+		width: 85%;
+	}
+}
+
+@media(max-width:991px){
+	.milestoneList{
+		width: 100%;
 	}
 }
