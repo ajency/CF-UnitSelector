@@ -97,8 +97,9 @@ jQuery(document).ready ($)->
               response $.map(result, (item, index) ->
                 {
                   label: item
-                  value: index
+                  value: item
                   text: item
+                  code: index
                 }
               )
             else
@@ -115,8 +116,8 @@ jQuery(document).ready ($)->
         event.preventDefault()
         
         if ui.item.label != 'No Data Found'
-            $('#autocompleteArea').val ui.item.label
-            $('#area_code').val ui.item.value
+            $('#autocompleteArea').val ui.item.value
+            $('#area_code').val ui.item.code
 
             # populate project dropdown
             $.ajax
