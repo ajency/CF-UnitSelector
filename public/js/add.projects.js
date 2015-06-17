@@ -57,8 +57,9 @@
               response($.map(result, function(item, index) {
                 return {
                   label: item,
-                  value: index,
-                  text: item
+                  value: item,
+                  text: item,
+                  code: index
                 };
               }));
             } else {
@@ -73,8 +74,8 @@
       select: function(event, ui) {
         event.preventDefault();
         if (ui.item.label !== 'No Data Found') {
-          $('#autocompleteArea').val(ui.item.label);
-          $('#area_code').val(ui.item.value);
+          $('#autocompleteArea').val(ui.item.value);
+          $('#area_code').val(ui.item.code);
           $.ajax({
             url: '/api/v1/get-projects-by-area',
             data: {
