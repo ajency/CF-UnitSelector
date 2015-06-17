@@ -393,7 +393,7 @@ function setUpProjectMasterUploader() {
                         var load_newstr = '';
                         var load_str = '<td>';
                         load_str += '<div class="progress progress-small " style="margin:0;">';
-                        load_str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="20%" style="width: 20%;margin:0;"></div>';
+                        load_str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="0%" style="width: 0%;margin:0;"></div>';
                         load_str += '</div>';
                         load_str += '</td>';
                         load_str += '<td class=" "><span class="muted"></span></td>';
@@ -415,8 +415,8 @@ function setUpProjectMasterUploader() {
                             load_newstr += '</tr>';
                             $("#master-img").append(load_newstr);
                         }
-                        $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="50%" style="width: 50%;margin:0;"></div>');
-                        $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="70%" style="width: 70%;margin:0;"></div>');
+                        //$('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="50%" style="width: 50%;margin:0;"></div>');
+                       // $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="70%" style="width: 70%;margin:0;"></div>');
                    }
                     else{
  
@@ -435,6 +435,16 @@ function setUpProjectMasterUploader() {
         
              if(files.length)   
                  up.start();
+            },
+             UploadProgress: function(up, file) {
+                var fileName = file.name;
+                var fileData = fileName.split('.');
+                var fileData_1 = fileData[0].split('-');
+                var mastername = fileData_1[0];
+                var position = fileData_1[1];
+                 
+                 $('#position-' + position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="'+file.percent+'%" style="width: '+file.percent+'%;margin:0;"></div>');
+    
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
@@ -727,7 +737,7 @@ $(document).ready(function () {
                  };*/
             },
             
-            FilesAdded: function (up, files) {
+            FilesAdded: function (up, files) {  
  
             if(files[0].name =='map.jpg' || files[0].name =='map.png' || files[0].name =='map.jepg')
             {
@@ -736,12 +746,12 @@ $(document).ready(function () {
                 str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
                 str += '<div style="  width: 150px;height: 93px;"></div>';
                 str += '<div class="progress progress-small " style="margin:0;">';
-                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="89%" style="width: 89%;margin:0;"></div>';
+                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="0%" style="width: 0%;margin:0;"></div>';
                 str += '</div>';
                 str += '<div class="dz-size" data-dz-size="">' + files[0].name + '</div>';
                 str += '</div>';
                 str += '</div>';
-                $("#google_earth_image").html(str);
+                $("#google_earth_image").html(str); 
                 up.start();
             }
             else{
@@ -751,6 +761,20 @@ $(document).ready(function () {
             }    
 
 
+            },
+             UploadProgress: function(up, file) {
+                var str = '<div class="col-md-3">';
+                str += '<div class="img-hover img-thumbnail">';
+                str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
+                str += '<div style="  width: 150px;height: 93px;"></div>';
+                str += '<div class="progress progress-small " style="margin:0;">';
+                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="'+file.percent+'%" style="width: '+file.percent+'%;margin:0;"></div>';
+                str += '</div>';
+                str += '<div class="dz-size" data-dz-size="">' + file.name + '</div>';
+                str += '</div>';
+                str += '</div>';
+                $("#google_earth_image").html(str);
+              
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
@@ -1137,6 +1161,7 @@ function addUnitType()
 function createUnitType(obj, propertyTypeId)
 { 
     var val =$(obj).val();
+    var selectext = $(obj).children(':selected').text().trim();
     if ( val== 'add_new')
     {
 
@@ -1168,7 +1193,7 @@ function createUnitType(obj, propertyTypeId)
 
     }
     else{
-        $(obj).closest('.propertyTypeUnitsAttributes').find('select').each(function () { 
+        $(obj).closest('.propertytype-unit-types').find('select[name="unittype[' + propertyTypeId + '][]"]').each(function () { 
          
             if($(obj).get(0)!=$(this).get(0) && $(this).val()==val)
             {
@@ -1180,14 +1205,28 @@ function createUnitType(obj, propertyTypeId)
                  
             }
         });
+        
+        $(obj).closest('.propertytype-unit-types').find('input[name="unittype[' + propertyTypeId + '][]"]').each(function () { 
+           
+            if($(this).val().trim()==selectext)
+            {
+                 alert('Unit Type Already Selected');
+ 
+                 $(obj).select2('val', '');
+ 
+                 return false;
+                 
+            }
+        });
+ 
     }
 }
 
 function vaildateUnitType(obj, propertyTypeId)
 {
-    var value= $(obj).val();
-    $(obj).closest('.propertyTypeUnitsAttributes').find('select').each(function () { 
-        if($(obj).get(0)!=$(this).get(0) && $(this).children(':selected').text()==value)
+    var value= $(obj).val().trim();
+    $(obj).closest('.propertytype-unit-types').find('select').each(function () { 
+        if($(this).children(':selected').text().trim()==value)
         {
              alert('Unit Type Already Selected');
 
@@ -1197,8 +1236,8 @@ function vaildateUnitType(obj, propertyTypeId)
 
         }
         });
-   $(obj).closest('.propertyTypeUnitsAttributes').find('input[type="text"]').each(function () { 
-        if($(obj).get(0)!=$(this).get(0) && $(this).val()==value)
+   $(obj).closest('.propertytype-unit-types').find('input[type="text"]').each(function () { 
+        if($(obj).get(0)!=$(this).get(0) && $(this).val().trim()==value)
         {
              alert('Unit Type Already Selected');
 
