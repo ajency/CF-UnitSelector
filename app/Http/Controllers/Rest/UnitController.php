@@ -335,6 +335,7 @@ class UnitController extends ApiGuardController {
             $response_data['project_address'] = $project->project_address;
             $response_data['city'] = $project->city;
             $response_data['area_code'] = $project->area_code;
+            $response_data['area_name'] = $project->area_name;
             $response_data['cf_project_id'] = $project->cf_project_id;
             $response_data['project_title'] = $project->project_title;
             $response_data['measurement_units'] = $project->measurement_units;
