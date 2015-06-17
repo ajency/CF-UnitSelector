@@ -63,10 +63,9 @@
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title text-left" id="myModalLabel">Bulk Import</h4>
-        <a href="{{ url( 'admin/project/' . $project['id'].'/unitexport/'.PLOTID ) }}" target="_blank" style="float:right">Download config</a>  
       </div>
       <div class="modal-body">
-         
+        <a href="{{ url( 'admin/project/' . $project['id'].'/unitexport/'.PLOTID ) }}" target="_blank" class="pull-right btn btn-default btn-small"><i class="fa fa-download"></i> Download config</a>  
         <div class="row m-b-10">
             <div class="col-md-12">
              <div class="form-group">
