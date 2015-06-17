@@ -1181,11 +1181,13 @@
     };
     $('.duplicate').on('click', function(evt) {
       $('.svgPaths').removeClass('hidden');
-      return $('.process').removeClass('hidden');
+      $('.process').removeClass('hidden');
+      return $('#myModal').modal();
     });
     $('.process').on('click', function(evt) {
       var imageid;
       $('.svg-canvas').hide();
+      $('#myModal').modal('hide');
       $('#rotate_loader').removeClass('hidden');
       imageid = $('.svgPaths').val();
       return $.ajax({

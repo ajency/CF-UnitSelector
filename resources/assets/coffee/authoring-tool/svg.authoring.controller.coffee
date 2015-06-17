@@ -1325,6 +1325,7 @@ jQuery(document).ready ($)->
     $('.duplicate').on 'click' , (evt) ->
         $('.svgPaths').removeClass 'hidden'
         $('.process').removeClass 'hidden'
+        $('#myModal').modal()
        
     # window.removeAttr = (data)-> 
     #     $.each data , (index,value)->
@@ -1345,6 +1346,7 @@ jQuery(document).ready ($)->
 
     $('.process').on 'click' , (evt) ->
         $('.svg-canvas').hide()
+        $('#myModal').modal('hide')
         $('#rotate_loader').removeClass 'hidden'
         imageid = $('.svgPaths').val()
         $.ajax
