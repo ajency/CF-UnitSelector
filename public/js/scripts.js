@@ -365,7 +365,7 @@ function setUpProjectMasterUploader() {
             "projectId": PROJECTID
         },
         filters: {
-            max_file_size: '1mb',
+            max_file_size: '5mb',
             mime_types: [{
                     title: "Image files",
                     extensions: "jpg,png,jpeg"
@@ -723,7 +723,7 @@ $(document).ready(function () {
             "type": "google_earth"
         },
         filters: {
-            max_file_size: '1mb',
+            max_file_size: '5mb',
             mime_types: [{
                     title: "Image files",
                     extensions: "jpg,png,jpeg"
