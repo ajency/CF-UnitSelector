@@ -1161,6 +1161,7 @@ function addUnitType()
 function createUnitType(obj, propertyTypeId)
 { 
     var val =$(obj).val();
+    var selectext = $(obj).children(':selected').text().trim();
     if ( val== 'add_new')
     {
 
@@ -1192,7 +1193,7 @@ function createUnitType(obj, propertyTypeId)
 
     }
     else{
-        $(obj).closest('.propertyTypeUnitsAttributes').find('select').each(function () { 
+        $(obj).closest('.propertytype-unit-types').find('select[name="unittype[' + propertyTypeId + '][]"]').each(function () { 
          
             if($(obj).get(0)!=$(this).get(0) && $(this).val()==val)
             {
@@ -1204,14 +1205,28 @@ function createUnitType(obj, propertyTypeId)
                  
             }
         });
+        
+        $(obj).closest('.propertytype-unit-types').find('input[name="unittype[' + propertyTypeId + '][]"]').each(function () { 
+           
+            if($(this).val().trim()==selectext)
+            {
+                 alert('Unit Type Already Selected');
+ 
+                 $(obj).select2('val', '');
+ 
+                 return false;
+                 
+            }
+        });
+ 
     }
 }
 
 function vaildateUnitType(obj, propertyTypeId)
 {
-    var value= $(obj).val();
-    $(obj).closest('.propertyTypeUnitsAttributes').find('select').each(function () { 
-        if($(obj).get(0)!=$(this).get(0) && $(this).children(':selected').text()==value)
+    var value= $(obj).val().trim();
+    $(obj).closest('.propertytype-unit-types').find('select').each(function () { 
+        if($(this).children(':selected').text().trim()==value)
         {
              alert('Unit Type Already Selected');
 
@@ -1221,8 +1236,8 @@ function vaildateUnitType(obj, propertyTypeId)
 
         }
         });
-   $(obj).closest('.propertyTypeUnitsAttributes').find('input[type="text"]').each(function () { 
-        if($(obj).get(0)!=$(this).get(0) && $(this).val()==value)
+   $(obj).closest('.propertytype-unit-types').find('input[type="text"]').each(function () { 
+        if($(obj).get(0)!=$(this).get(0) && $(this).val().trim()==value)
         {
              alert('Unit Type Already Selected');
 
