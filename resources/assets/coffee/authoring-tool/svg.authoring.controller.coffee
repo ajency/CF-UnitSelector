@@ -1152,10 +1152,13 @@ jQuery(document).ready ($)->
                         bldg =   buildingCollection.findWhere
                                     'id' : obj_id_deleted
                         buildingCollection.bldg
-                    else
+
+                    else if obj_type is "project"
+                        window.is_project_marked = false 
+                    else 
                         unit = unitMasterCollection.findWhere
                                 'id' : obj_id_deleted
-                        unitCollection.add unit
+                        unitCollection.add unit                        
 
                 # clear svg 
                 draw.clear()

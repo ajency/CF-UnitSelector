@@ -1053,6 +1053,8 @@
                 'id': obj_id_deleted
               });
               buildingCollection.bldg;
+            } else if (obj_type === "project") {
+              window.is_project_marked = false;
             } else {
               unit = unitMasterCollection.findWhere({
                 'id': obj_id_deleted
