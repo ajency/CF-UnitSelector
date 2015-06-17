@@ -393,7 +393,7 @@ function setUpProjectMasterUploader() {
                         var load_newstr = '';
                         var load_str = '<td>';
                         load_str += '<div class="progress progress-small " style="margin:0;">';
-                        load_str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="5%" style="width: 5%;margin:0;"></div>';
+                        load_str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="0%" style="width: 0%;margin:0;"></div>';
                         load_str += '</div>';
                         load_str += '</td>';
                         load_str += '<td class=" "><span class="muted"></span></td>';
@@ -746,7 +746,7 @@ $(document).ready(function () {
                 str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
                 str += '<div style="  width: 150px;height: 93px;"></div>';
                 str += '<div class="progress progress-small " style="margin:0;">';
-                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="10%" style="width: 10%;margin:0;"></div>';
+                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="0%" style="width: 0%;margin:0;"></div>';
                 str += '</div>';
                 str += '<div class="dz-size" data-dz-size="">' + files[0].name + '</div>';
                 str += '</div>';
