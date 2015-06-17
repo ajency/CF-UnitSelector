@@ -70,32 +70,32 @@
                             <button id="in" class="zoom-in btn btn-primary"><i class="fa fa-search-plus"></i></button>
                             <button id="out" class="zoom-out btn btn-primary"><i class="fa fa-search-minus"></i></button>
                             <button id="clear" name="clear" class="zoom-out btn btn-medium btn-danger clear" style=" padding: 2px 12px; ">Clear</button>
-                            <button  id="duplicate" data-toggle="modal" data-target="#myModal" name="duplicate" class="btn btn-medium btn-danger duplicate" style=" padding: 2px 12px; ">Duplicate</button>
-                             <select class="svgPaths hidden " id="svgPaths"></select>
-                            <button id="process" name="process" class="btn btn-medium btn-danger process hidden" style=" padding: 2px 12px; ">Process</button>
-   
-               
-
+                            <button type="button" class="btn btn-medium btn-danger duplicate" style=" padding: 2px 12px; ">Duplicate</button>
+                            <!-- <select class="svgPaths hidden " id="svgPaths"></select>
+                            <button id="process" name="process" class="btn btn-medium btn-danger process hidden" style=" padding: 2px 12px; ">Process</button> -->
                             <input type="hidden" name="svg-element-id">
                         </div>
-                        <!--  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                      <div class="modal-dialog modal-lg">
-                       
-                      <div class="modal-content">
-                        
-                        <div class="modal-body">
-                           
-                           <select class="svgPaths " id="svgPaths"></select>
-                        <button id="process" name="process" class="btn btn-medium btn-danger process " style=" padding: 2px 12px; ">Process</button>
 
-                                  
+                        <div class="modal fade" id="myModal" role="dialog">
+                          <div class="modal-dialog" role="document">
+                       
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h4>Duplicate SVG</h4>
+                              </div>
+                              <div class="modal-body">
+                                <p>Select SVG to duplicate:</p>
+                                <select class="svgPaths form-control" id="svgPaths"></select>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button id="process" name="process" class="btn btn-medium btn-danger process">Process</button>
+                              </div>
+                            </div>
+
+                          </div>
                         </div>
 
-                      </div>
-                     
-                                                                            
-                                </div>
-                              </div -->
                         <div class="duplicateSVG" hidden></div>
 
 <!--                         <button class="color-switch btn btn-default">
