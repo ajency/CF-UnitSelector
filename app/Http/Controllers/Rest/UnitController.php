@@ -5,6 +5,7 @@ use CommonFloor\Http\Controllers\Controller;
 use CommonFloor\Defaults;
 use CommonFloor\Unit;
 use CommonFloor\Project;
+use CommonFloor\ProjectMeta;
 use CommonFloor\UnitVariant;
 use CommonFloor\UnitType;
 use CommonFloor\Building;
@@ -338,6 +339,10 @@ class UnitController extends ApiGuardController {
             $response_data['project_title'] = $project->project_title;
             $response_data['measurement_units'] = $project->measurement_units;
             $response_data['has_phase'] = $project->has_phase;
+
+            // PROJECT META DATA - builder name
+            $projectBuilderName = ProjectMeta::where( 'project_id', '=', $project_id )->where( 'meta_key', '=', 'builder_name' )->first();
+            $response_data['builder_name'] = $projectBuilderName->meta_value;
 
             // append phase data to unit if it has phase
             if ($response_data['has_phase'] === 'yes') {
