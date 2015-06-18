@@ -44,7 +44,8 @@ class UnitVariant extends Model {
             $atributes = unserialize($rooms['variant_room_attributes']);
             $atributeData = [];
             foreach ($atributes as $key => $attribute) {
-                $atributeData[] = array('attribute_key' => $key, 'attribute_value' => ucfirst($attribute));
+                $attribute =($attribute!='')? ucfirst($attribute) :'';
+                $atributeData[] = array('attribute_key' => $key, 'attribute_value' => $attribute);
             } 
             $floor[$rooms['floorlevel']]['rooms_data'][] = array('room_id' => $rooms['roomtype_id'], 'room_name' => $roomTypename, 'atributes' => $atributeData);
         }
