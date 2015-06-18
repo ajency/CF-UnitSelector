@@ -1000,6 +1000,7 @@ class ProjectController extends Controller {
     
   public function unitExport($projectId,$propertyTypeId)
   {
+        $filename = 
         $data = [];
         $flag =false;
         $count =0;                                  //GET HEIGHTEST COUNT 
@@ -1090,8 +1091,9 @@ class ProjectController extends Controller {
            $data[$i]['Views'] = (isset($projectAttributes[$i])) ? $projectAttributes[$i]['label']:''; 
    
         }
-
-        Excel::create('units', function($excel)use($data) {
+        
+        $filename = property_type_slug($project->project_title.'-'.get_property_type( $propertyTypeId ).'-config'); 
+        Excel::create($filename, function($excel)use($data) {
 
         $excel->sheet('config', function($sheet)use($data) {
              $sheet->fromArray($data);
