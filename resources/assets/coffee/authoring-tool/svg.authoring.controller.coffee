@@ -752,7 +752,7 @@ jQuery(document).ready ($)->
     keydownFunc = (e) ->
       if e.which is 13
         # $('.alert').text 'POLYGON IS NOW DRAGGABLE'
-        window.hideAlert()
+        # window.hideAlert()
         $('#aj-imp-builder-drag-drop canvas').hide()
         $('#aj-imp-builder-drag-drop svg').show()
         object  = window.EDITOBJECT
@@ -1335,9 +1335,7 @@ jQuery(document).ready ($)->
 
 
     $('.duplicate').on 'click' , (evt) ->
-        $('.svgPaths').removeClass 'hidden'
-        $('.process').removeClass 'hidden'
-        $('#myModal').modal()
+       $('#myModal').modal()
        
     # window.removeAttr = (data)-> 
     #     $.each data , (index,value)->

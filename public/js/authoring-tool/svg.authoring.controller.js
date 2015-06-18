@@ -699,7 +699,6 @@
     keydownFunc = function(e) {
       var id, object, pointList;
       if (e.which === 13) {
-        window.hideAlert();
         $('#aj-imp-builder-drag-drop canvas').hide();
         $('#aj-imp-builder-drag-drop svg').show();
         object = window.EDITOBJECT;
@@ -1067,6 +1066,8 @@
                 'id': obj_id_deleted
               });
               buildingCollection.bldg;
+            } else if (obj_type === "project") {
+              window.is_project_marked = false;
             } else {
               unit = unitMasterCollection.findWhere({
                 'id': obj_id_deleted
@@ -1194,12 +1195,12 @@
       return newPoints;
     };
     $('.duplicate').on('click', function(evt) {
-      $('.svgPaths').removeClass('hidden');
-      return $('.process').removeClass('hidden');
+      return $('#myModal').modal();
     });
     $('.process').on('click', function(evt) {
       var imageid;
       $('.svg-canvas').hide();
+      $('#myModal').modal('hide');
       $('#rotate_loader').removeClass('hidden');
       imageid = $('.svgPaths').val();
       return $.ajax({
