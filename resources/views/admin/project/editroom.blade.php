@@ -4,6 +4,7 @@
 <!-- BEGIN PAGE TITLE -->
 
 <div class="grid simple">
+    @include('admin.project.flashmessage')
     <div class="grid-title no-border">
         <h3 > <i class="fa fa-angle-double-right text-primary"></i> Room <span class="semi-bold">Details</span></h3>
     </div>
