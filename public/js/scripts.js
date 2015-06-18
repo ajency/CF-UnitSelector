@@ -1412,7 +1412,8 @@ function deleteLevel(level)
     if (confirm('Are you sure you want to delete this Level? ') === false) {
         return;
     }
- 
+    var counter = $("#counter").val();
+    var i = parseInt(counter)-1;
     if(variantId){
         $.ajax({
         url: BASEURL + "/admin/project/" + PROJECTID + "/bunglow-variant/"+variantId+"/deletelevel",
@@ -1421,8 +1422,7 @@ function deleteLevel(level)
             level: level,
         },
         success: function (response) {
-           var counter = $("#counter").val();
-           var i = parseInt(counter)-1;
+           
            $("#counter").val(i);
            $("#deletelevel_"+i).removeClass('hidden'); 
            $("#level_"+level).remove();
@@ -1430,6 +1430,8 @@ function deleteLevel(level)
         });
     }
     else{ 
+
+        $("#counter").val(i);
         $("#level_"+level).remove();
         $("#deletelevel_"+i).removeClass('hidden');
     }
