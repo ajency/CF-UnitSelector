@@ -47,7 +47,7 @@ class AuthoringTool.PlotView extends Marionette.ItemView
 		if units.length == 0
 			@ui.units.hide()
 			@ui.unitLabel.hide()
-			$('.alert').text 'All plots marked'
+			$('.alert').text 'No plots'
 			window.hideAlert()
 
 class AuthoringTool.PlotCtrl extends Marionette.RegionController

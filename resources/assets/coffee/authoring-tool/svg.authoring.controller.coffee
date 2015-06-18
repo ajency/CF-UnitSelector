@@ -269,6 +269,15 @@ jQuery(document).ready ($)->
             select.hide()
             $('.duplicate').hide()
             return 
+        
+        building_name = buildingMasterCollection.findWhere
+                        'id' : parseInt building_id
+        if building_id isnt 0 
+            $.each svgs , (index,value)->
+                svg_name_arr = value.split('/')
+                svg_name = svg_name_arr[parseInt(svg_name_arr.length) - 1]
+                $('<option />', {value: index, text: building_name.get('building_name')+'-'+svg_name}).appendTo(select)  
+            return
         $.each svgs , (index,value)->
             $('<option />', {value: index, text: value}).appendTo(select)
 
@@ -742,13 +751,13 @@ jQuery(document).ready ($)->
 
     keydownFunc = (e) ->
       if e.which is 13
-        $('.alert').text 'POLYGON IS NOW DRAGGABLE'
+        # $('.alert').text 'POLYGON IS NOW DRAGGABLE'
         window.hideAlert()
         $('#aj-imp-builder-drag-drop canvas').hide()
         $('#aj-imp-builder-drag-drop svg').show()
         object  = window.EDITOBJECT
-        console.log id = object.id
-        $('#'+id).hide()
+        id = $(object).attr('svgid')
+        $('.layer[svgid="'+id+'"]').hide()
         pointList = window.polygon.getPointList(f)
         pointList = pointList.join(' ')
         @polygon = draw.polygon(pointList)
@@ -1159,9 +1168,12 @@ jQuery(document).ready ($)->
 
                 # clear svg 
                 draw.clear()
-               
+                
                 # re-generate svg with new svg element
                 window.generateSvg(window.svgData.data)
+                types = window.getPendingObjects(window.svgData)
+
+                window.showPendingObjects(types)
                 window.resetTool()
 
                 

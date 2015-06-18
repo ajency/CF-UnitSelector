@@ -52,7 +52,7 @@ class AuthoringTool.ApartmentView extends Marionette.ItemView
 		if units.length == 0
 			@ui.units.hide()
 			@ui.unitLabel.hide()
-			$('.alert').text 'All apartments marked'
+			$('.alert').text 'No apartments'
 			window.hideAlert()
 
 class AuthoringTool.ApartmentCtrl extends Marionette.RegionController

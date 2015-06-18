@@ -225,7 +225,7 @@
       });
     };
     window.loadSvgPaths = function() {
-      var select, svgCount, svgs;
+      var building_name, select, svgCount, svgs;
       select = $('.svgPaths');
       $('<option />', {
         value: "",
@@ -237,6 +237,21 @@
       if (svgCount === 0) {
         select.hide();
         $('.duplicate').hide();
+        return;
+      }
+      building_name = buildingMasterCollection.findWhere({
+        'id': parseInt(building_id)
+      });
+      if (building_id !== 0) {
+        $.each(svgs, function(index, value) {
+          var svg_name, svg_name_arr;
+          svg_name_arr = value.split('/');
+          svg_name = svg_name_arr[parseInt(svg_name_arr.length) - 1];
+          return $('<option />', {
+            value: index,
+            text: building_name.get('building_name') + '-' + svg_name
+          }).appendTo(select);
+        });
         return;
       }
       return $.each(svgs, function(index, value) {
@@ -684,13 +699,12 @@
     keydownFunc = function(e) {
       var id, object, pointList;
       if (e.which === 13) {
-        $('.alert').text('POLYGON IS NOW DRAGGABLE');
         window.hideAlert();
         $('#aj-imp-builder-drag-drop canvas').hide();
         $('#aj-imp-builder-drag-drop svg').show();
         object = window.EDITOBJECT;
-        console.log(id = object.id);
-        $('#' + id).hide();
+        id = $(object).attr('svgid');
+        $('.layer[svgid="' + id + '"]').hide();
         pointList = window.polygon.getPointList(f);
         pointList = pointList.join(' ');
         this.polygon = draw.polygon(pointList);
@@ -1034,7 +1048,7 @@
         async: false,
         data: $.param(myObject),
         success: function(response) {
-          var bldg, indexToSplice, obj_id_deleted, obj_type, unit;
+          var bldg, indexToSplice, obj_id_deleted, obj_type, types, unit;
           indexToSplice = -1;
           obj_id_deleted = 0;
           obj_type = "";
@@ -1062,6 +1076,8 @@
           }
           draw.clear();
           window.generateSvg(window.svgData.data);
+          types = window.getPendingObjects(window.svgData);
+          window.showPendingObjects(types);
           return window.resetTool();
         },
         error: function(response) {

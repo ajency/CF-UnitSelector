@@ -50,7 +50,7 @@
       if (units.length === 0) {
         this.ui.units.hide();
         this.ui.unitLabel.hide();
-        $('.alert').text('All apartments marked');
+        $('.alert').text('No apartments');
         return window.hideAlert();
       }
     };

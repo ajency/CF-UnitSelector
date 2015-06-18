@@ -50,7 +50,7 @@
       if (units.length === 0) {
         this.ui.units.hide();
         this.ui.unitLabel.hide();
-        $('.alert').text('No units');
+        $('.alert').text('No villas');
         return window.hideAlert();
       }
     };
