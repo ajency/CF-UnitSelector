@@ -391,19 +391,8 @@ class CenterUnitView extends Marionette.ItemView
 											</li>
 										</ul>
 									</div>
-									 <!--<div class="external">
-											<h2 class="title">External 3D</h2>
-											
-									 </div>
-									 <div class="twoD">
-										<h2 class="title">2D Layout</h2>
-										
-									 </div>
-									 <div class="threeD">
-										<h2 class="title">3D Layout</h2>
-									 </div>-->
-									<div class="row price-mode-dropdown hidden">
-										<div class="col-sm-5 form-inline m-b-20">
+									<div class="price-mode-dropdown hidden">
+										<div class="plan-select form-inline">
 											<!--h5 class="inline-block">Payment Plan: </h5-->
 											<select class="form-control" id="paymentplan">
 												<option value="payment_plan_breakdown">
@@ -416,12 +405,13 @@ class CenterUnitView extends Marionette.ItemView
 											</select>
 										</div>
 
-										<div class="col-sm-7 text-right">
+										<div class="plan-amount text-right">
 											<h5 class="inline-block">Total Sale Value: </h5>
 
 											<h4 class="inline-block bold text-primary"><span class="rec" 
 											data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> {{totalSaleValue}}</span></h4>
 										</div>
+										<div class="clearfix"></div>
 									</div>									 	
 								</div>
 
@@ -617,31 +607,13 @@ class CenterUnitView extends Marionette.ItemView
 
 				_.each unitPlanMilestones, (milestone, key) ->
 					perc = window.calculatePerc(milestone.amount,unitTotalSaleValue )
-					html += '<li style="list-style: none; display: inline">
-					<div class="clearfix"></div><span class="msPercent" style="  font-size: 25px;">'+perc+'%</span></li>
+					html += '<li class="milestonePercent">
+								<span class="msPercent">'+perc+'%</span>
+							</li>
 							<li class="milestoneList">
 									<div class="msName">
 										'+milestone.milestone+'
 									</div>
-
-									<!--div class="msVal discCol">
-										<div>
-											<span class="label">Amount:</span> <span class=
-											"percentageValue0 label"  data-d-group="2"
-											data-m-dec=""><span class="icon-rupee-icn"></span> 3,43,343</span>
-										</div>
-
-										<div>
-											<span class="label">Service Tax:</span> <span class=
-											"service0 label"  data-d-group="2"
-											data-m-dec=""><span class="icon-rupee-icn"></span> 10,609</span>
-										</div>
-
-										<div>
-											Total: <span class="total0"  data-d-group=
-											"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3</span>
-										</div>
-									</div-->
 
 									<div class="msVal">
 										<div>
@@ -661,38 +633,21 @@ class CenterUnitView extends Marionette.ItemView
 											data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> '+milestone.amount+'</span>
 										</div>
 									</div><span class="barBg" style="width:'+perc+'%"></span>
-								</li>'	
+								</li>
+								<div class="clearfix"></div>'	
 
 			else if selectedMode is "price_breakup"
 				# display html2
 				# uniteprice sheet @todo move it to separate view and change on dropdown
 				_.each unitPriceSheetComponents, (component, key) ->
 					perc = window.calculatePerc(component.amount,unitTotalSaleValue )
-					html += '<li style="list-style: none; display: inline">
-					<div class="clearfix"></div><span class="msPercent" style="  font-size: 25px;">'+perc+'%</span></li>
+					html += '<li class="milestonePercent">
+								<span class="msPercent">'+perc+'%</span>
+							</li>
 							<li class="milestoneList">
 									<div class="msName">
 										'+component.component_price_type+'
 									</div>
-
-									<!--div class="msVal discCol">
-										<div>
-											<span class="label">Amount:</span> <span class=
-											"percentageValue0 label"  data-d-group="2"
-											data-m-dec=""><span class="icon-rupee-icn"></span> 3,43,343</span>
-										</div>
-
-										<div>
-											<span class="label">Service Tax:</span> <span class=
-											"service0 label"  data-d-group="2"
-											data-m-dec=""><span class="icon-rupee-icn"></span> 10,609</span>
-										</div>
-
-										<div>
-											Total: <span class="total0"  data-d-group=
-											"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3</span>
-										</div>
-									</div-->
 
 									<div class="msVal">
 										<div>
@@ -712,7 +667,8 @@ class CenterUnitView extends Marionette.ItemView
 											data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> '+component.amount+'</span>
 										</div>
 									</div><span class="barBg" style="width:'+perc+'%"></span>
-								</li>'	
+								</li>
+								<div class="clearfix"></div>'	
 
 
 			html += '</ul>
@@ -742,31 +698,13 @@ class CenterUnitView extends Marionette.ItemView
 
 			_.each unitPlanMilestones, (milestone, key) ->
 				perc = window.calculatePerc(milestone.amount,unitTotalSaleValue )
-				html += '<li style="list-style: none; display: inline">
-				<div class="clearfix"></div><span class="msPercent" style="  font-size: 25px;">'+perc+'%</span></li>
+				html += '<li class="milestonePercent">
+							<span class="msPercent">'+perc+'%</span>
+						</li>
 						<li class="milestoneList">
 								<div class="msName">
 									'+milestone.milestone+'
 								</div>
-
-								<!--div class="msVal discCol">
-									<div>
-										<span class="label">Amount:</span> <span class=
-										"percentageValue0 label"  data-d-group="2"
-										data-m-dec=""><span class="icon-rupee-icn"></span> 3,43,343</span>
-									</div>
-
-									<div>
-										<span class="label">Service Tax:</span> <span class=
-										"service0 label"  data-d-group="2"
-										data-m-dec=""><span class="icon-rupee-icn"></span> 10,609</span>
-									</div>
-
-									<div>
-										Total: <span class="total0"  data-d-group=
-										"2" data-m-dec=""><span class="icon-rupee-icn"></span> 3</span>
-									</div>
-								</div-->
 
 								<div class="msVal">
 									<div>
@@ -786,7 +724,8 @@ class CenterUnitView extends Marionette.ItemView
 										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> '+milestone.amount+'</span>
 									</div>
 								</div><span class="barBg" style="width:'+perc+'%"></span>
-							</li>'	
+							</li>
+							<div class="clearfix"></div>'	
 
 			html += '</ul>
 					</div>'

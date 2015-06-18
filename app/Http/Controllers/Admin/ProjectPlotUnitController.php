@@ -232,7 +232,7 @@ class ProjectPlotUnitController extends Controller {
    {
         $project = Project::find($projectId); 
         $unit_file = $request->file('unit_file')->getRealPath();
-         
+        $errorMsg = []; 
        
         if ($request->hasFile('unit_file'))
         {
@@ -242,8 +242,10 @@ class ProjectPlotUnitController extends Controller {
                 
              if(count($results[0])==10)
              {
+                 $i=0;
                foreach($results as $result)
                {
+                   $i++;
                    $name = $result['name']; 
                    $variantId = intval($result['variant_id']);
                    $availability = $result['status_id']; 
@@ -252,31 +254,69 @@ class ProjectPlotUnitController extends Controller {
                    $phaseId =  intval($result['phase_id']); 
                    
                    if($name =='')
-                        continue;
+                   {
+                       $errorMsg[] ='Unit Name Is Empty On Row No '.$i;
+                       continue;
+                   }
+                        
                    
                    if($variantId =='')
+                   {
+                        $errorMsg[] ='Variant Id Is Empty On Row No '.$i.'<br>';
                         continue;
+                   }
                    
                    if($availability =='')
+                   {
+                       $errorMsg[] ='Status Id Is Empty On Row No '.$i;
                         continue;
+                   }
                    
                    if($direction =='')
+                   {
+                        $errorMsg[] ='Direction Id Is Empty On Row No '.$i;
                         continue;
+                   }
                    
                    if($phaseId =='')
+                   {
+                       $errorMsg[] ='Phase Id Is Empty On Row No '.$i;
                         continue;
+                   }
+                   
+                   $phases = $project->projectPhase()->where('status','not_live')->get()->lists('id');
+                   if(!in_array($phaseId,$phases))
+                   {
+                        $errorMsg[] ='Invalid Phase Id  On Row No '.$i;
+                        continue;
+                   }
+                   
+                   $defaultDirections = Defaults::where('type','direction')->get()->lists('id');
+                   if(!in_array($direction,$defaultDirections))
+                   {
+                       $errorMsg[] ='Invalid Direction Id  On Row No '.$i;
+                        continue;
+                   }
  
                    //UNIT NAME VALIDATION
  
                    $projectPropertyTypeId = $project->projectPropertyTypes()->where( 'property_type_id', PLOTID )->first()->id;
                    $unitTypeIds = UnitType::where( 'project_property_type_id', $projectPropertyTypeId )->get()->lists('id');
                    $unitVariantIds = UnitVariant::whereIn('unit_type_id',$unitTypeIds)->get()->lists('id');
+                   if(!in_array($variantId,$unitVariantIds))
+                   {
+                       $errorMsg[] ='Invalid Variant Id  On Row No '.$i ;
+                        continue;
+                   }
+                   
                    $unitData = Unit::whereIn('unit_variant_id',$unitVariantIds)->where('unit_name', $name)->get()->toArray();
  
-                   if (!empty($unitData)) {
-                           continue;
-                       }
-
+                   if (!empty($unitData)) 
+                   {
+                       $errorMsg[] ='Unit Name Already Exist On Row No '.$i ;
+                       continue;
+                   }
+ 
                     $unit =new Unit();
                     $unit->unit_name = ucfirst($name);
                     $unit->unit_variant_id = $variantId;
@@ -294,13 +334,16 @@ class ProjectPlotUnitController extends Controller {
                     $viewsStr = serialize( $unitviews );
                     $unit->views = $viewsStr;
                     $unit->save();
-
-                  
+                    Session::flash('success_message','Unit Successfully Imported');
+                 
                }
-                   Session::flash('success_message','Unit Successfully Imported');
+                   
              }
              else
-                  Session::flash('error_message','Column Count does not match');
+                 $errorMsg[] ='Column Count does not match';
+     
+
+                Session::flash('error_message',implode(" " ,$errorMsg));  
 
 
             });

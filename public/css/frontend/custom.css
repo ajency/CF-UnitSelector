@@ -257,6 +257,7 @@ body {
   }
   .us-right-content.unit-slides {
     overflow: visible;
+    padding-right: 0;
   }
   .us-right-content.unit-slides .svg-area {
     min-width: 0;
@@ -3167,8 +3168,7 @@ span.glyphicon {
 }
 .invoice-items {
   text-align: left;
-  padding: 15px;
-  background: #fafafa;
+  padding: 15px 0;
 }
 #paymentTable {
   list-style-type: none;
@@ -3176,12 +3176,16 @@ span.glyphicon {
   padding: 0;
   font-weight: 700;
 }
-.msPercent {
-  font-size: 30px;
+.milestonePercent {
+  list-style-type: none;
+  width: 10%;
+  float: left;
+}
+.milestonePercent .msPercent {
+  font-size: 25px;
   font-weight: 500;
   margin-top: 0;
   margin-right: 5px;
-  float: left;
 }
 .milestoneList {
   margin: 0;
@@ -3206,7 +3210,6 @@ span.glyphicon {
 .milestoneList .msVal {
   z-index: 2;
   position: relative;
-  width: 24%;
   display: inline-block;
   text-align: right;
   float: right;
@@ -3245,6 +3248,30 @@ span.glyphicon {
 }
 .milestoneList:after {
   clear: both;
+}
+.price-mode-dropdown {
+  padding: 15px 15px 0;
+}
+.price-mode-dropdown .plan-select {
+  width: 40%;
+  float: left;
+}
+.price-mode-dropdown .plan-amount {
+  width: 60%;
+  float: left;
+}
+@media (min-width: 992px) and (max-width: 1200px) {
+  .milestonePercent {
+    width: 15%;
+  }
+  .milestoneList {
+    width: 85%;
+  }
+}
+@media (max-width: 991px) {
+  .milestoneList {
+    width: 100%;
+  }
 }
 /* Plugins */
 /* Slider */
@@ -3648,7 +3675,6 @@ label.third_toggle {
 }
 .liquid-slider {
   width: 100%;
-  min-height: 450px;
   background-color: #ffffff;
 }
 .liquid-slider .ls-panel img {
@@ -3662,9 +3688,6 @@ label.third_toggle {
   padding: 0;
 }
 @media (max-width: 767px) {
-  .ls-nav ul li {
-    max-width: 75px;
-  }
   .ls-nav ul li a,
   .ls-nav ul li h4 {
     font-size: 13px;

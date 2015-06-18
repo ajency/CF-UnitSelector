@@ -5,9 +5,11 @@ use CommonFloor\Http\Controllers\Controller;
 use CommonFloor\Defaults;
 use CommonFloor\Unit;
 use CommonFloor\Project;
+use CommonFloor\ProjectMeta;
 use CommonFloor\UnitVariant;
 use CommonFloor\UnitType;
 use CommonFloor\Building;
+use CommonFloor\Phase;
 use \Input;
 
 
@@ -331,9 +333,36 @@ class UnitController extends ApiGuardController {
             $project = Project::find($project_id);
             $response_data['project_id'] = $project->id;
             $response_data['project_address'] = $project->project_address;
+            $response_data['city'] = $project->city;
+            $response_data['area_code'] = $project->area_code;
+            $response_data['area_name'] = $project->area_name;
             $response_data['cf_project_id'] = $project->cf_project_id;
             $response_data['project_title'] = $project->project_title;
             $response_data['measurement_units'] = $project->measurement_units;
+            $response_data['has_phase'] = $project->has_phase;
+
+            // PROJECT META DATA - builder name
+            $projectBuilderName = ProjectMeta::where( 'project_id', '=', $project_id )->where( 'meta_key', '=', 'builder_name' )->first();
+            $response_data['builder_name'] = $projectBuilderName->meta_value;
+
+            // append phase data to unit if it has phase
+            if ($response_data['has_phase'] === 'yes') {
+
+                if ($unit->phase_id == 0) {
+                    $units_building_id = $unit->building_id;
+                    $units_building = Building::find($units_building_id);
+                    $unit_phase_id = $units_building->phase_id;
+                }
+                else{
+                    $unit_phase_id = $unit->phase_id;
+                }
+
+                $phase = Phase::find($unit_phase_id);
+                $unit_phase_name = $phase->phase_name;
+                $unit_phase_status = $phase->status;
+                $response_data['unit']['phase_name'] = $unit_phase_name;
+                $response_data['unit']['phase_status'] = $unit_phase_status;
+            }
 
             $json_resp = array(
                 'code' => 'unit_summary' , 

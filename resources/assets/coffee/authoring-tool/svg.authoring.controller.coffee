@@ -1161,10 +1161,13 @@ jQuery(document).ready ($)->
                         bldg =   buildingCollection.findWhere
                                     'id' : obj_id_deleted
                         buildingCollection.bldg
-                    else
+
+                    else if obj_type is "project"
+                        window.is_project_marked = false 
+                    else 
                         unit = unitMasterCollection.findWhere
                                 'id' : obj_id_deleted
-                        unitCollection.add unit
+                        unitCollection.add unit                        
 
                 # clear svg 
                 draw.clear()
@@ -1334,6 +1337,7 @@ jQuery(document).ready ($)->
     $('.duplicate').on 'click' , (evt) ->
         $('.svgPaths').removeClass 'hidden'
         $('.process').removeClass 'hidden'
+        $('#myModal').modal()
        
     # window.removeAttr = (data)-> 
     #     $.each data , (index,value)->
@@ -1354,6 +1358,7 @@ jQuery(document).ready ($)->
 
     $('.process').on 'click' , (evt) ->
         $('.svg-canvas').hide()
+        $('#myModal').modal('hide')
         $('#rotate_loader').removeClass 'hidden'
         imageid = $('.svgPaths').val()
         $.ajax

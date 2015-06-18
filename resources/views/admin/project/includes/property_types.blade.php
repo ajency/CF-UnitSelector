@@ -21,7 +21,7 @@
                 <div class="grid-body no-border propertyTypeUnitsAttributes  {{ (isset($unitTypes[$propertyTypeId])) ? '' : 'hidden' }}">
 
                     <div class="row column-seperation">
-                        <div class="col-md-4" style="border-right: none">
+                        <div class="col-md-4 propertytype-unit-types" style="border-right: none">
                             <h4>Unit Types</h4>
                             @if(isset($unitTypes[$propertyTypeId]))
                             @foreach($unitTypes[$propertyTypeId] as $unitType)
