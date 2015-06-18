@@ -1136,6 +1136,8 @@
     $('svg').on('contextmenu', '.layer', function(e) {
       var currentElem, newPoints, pointList;
       e.preventDefault();
+      $('.alert').text('Polygon duplicated, drag to position');
+      window.hideAlert();
       currentElem = e.currentTarget;
       if (/(^|\s)marker-grp(\s|$)/.test($(currentElem).attr("class"))) {
         return false;

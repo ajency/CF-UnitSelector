@@ -1244,6 +1244,8 @@ jQuery(document).ready ($)->
 
     $('svg').on 'contextmenu', '.layer' , (e) ->
         e.preventDefault()
+        $('.alert').text 'Polygon duplicated, drag to position'
+        window.hideAlert()
         currentElem = e.currentTarget
         if /(^|\s)marker-grp(\s|$)/.test($(currentElem).attr("class"))
             return false
@@ -1358,6 +1360,7 @@ jQuery(document).ready ($)->
         $('.svg-canvas').hide()
         $('#myModal').modal('hide')
         $('#rotate_loader').removeClass 'hidden'
+
         imageid = $('.svgPaths').val()
         $.ajax
             type : 'GET',
@@ -1370,6 +1373,7 @@ jQuery(document).ready ($)->
                 window.generateSvg(window.svgData.data)
                 $('#rotate_loader').addClass 'hidden'
                 $('.svg-canvas').show()
+                $('.duplicate').hide()
 
                 
                 
