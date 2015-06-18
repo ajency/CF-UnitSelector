@@ -325,7 +325,7 @@
 </div>
 <script>
 function showUpdateButton(obj)
-{ alert(obj.value);
+{
     if (obj.value == 'live')
         $(obj).closest('tr').find(".updatelink").removeClass('hidden');
     else
