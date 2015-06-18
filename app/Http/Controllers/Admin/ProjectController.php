@@ -1045,43 +1045,34 @@ class ProjectController extends Controller {
             
            if($flag)
            {
-               if(!empty($apartmentunitVariants))
-               {
-                   $data[$i]['Apartment Variant'] = (isset($apartmentunitVariants[$i])) ? $apartmentunitVariants[$i]['unit_variant_name']:''; 
-                   $data[$i]['Apartment Variant Id'] = (isset($apartmentunitVariants[$i])) ? $apartmentunitVariants[$i]['id']:'';    
-               }
-                
-               if(!empty($penthouseunitVariants))
-               {
-                   $data[$i]['Penthouse Variant'] = (isset($penthouseunitVariants[$i])) ? $penthouseunitVariants[$i]['unit_variant_name']:''; 
-                   $data[$i]['Penthouse Variant Id'] = (isset($penthouseunitVariants[$i])) ? $penthouseunitVariants[$i]['id']:'';    
-               }
-                     
-              if(!empty($buildings))
-              {
+              
+               $data[$i]['Apartment Variant'] = (isset($apartmentunitVariants[$i])) ? $apartmentunitVariants[$i]['unit_variant_name']:''; 
+               $data[$i]['Apartment Variant Id'] = (isset($apartmentunitVariants[$i])) ? $apartmentunitVariants[$i]['id']:'';    
+
+
+
+               $data[$i]['Penthouse Variant'] = (isset($penthouseunitVariants[$i])) ? $penthouseunitVariants[$i]['unit_variant_name']:''; 
+               $data[$i]['Penthouse Variant Id'] = (isset($penthouseunitVariants[$i])) ? $penthouseunitVariants[$i]['id']:'';    
+               
+          
                 $data[$i]['Building'] = (isset($buildings[$i])) ? $buildings[$i]['building_name']:''; 
                 $data[$i]['Building Id'] = (isset($buildings[$i])) ? $buildings[$i]['id']:'';    
                 $data[$i]['Building FLOORS'] = (isset($buildings[$i])) ? $buildings[$i]['no_of_floors']:'';      
-              }
+              
                
            }
            else{
-               if(!empty($unitVariants))
-               {
-                   $data[$i]['Variant'] = (isset($unitVariants[$i])) ? $unitVariants[$i]['unit_variant_name']:''; 
-                   $data[$i]['Variant Id'] = (isset($unitVariants[$i])) ? $unitVariants[$i]['id']:'';    
-               }
+                
+               $data[$i]['Variant'] = (isset($unitVariants[$i])) ? $unitVariants[$i]['unit_variant_name']:''; 
+               $data[$i]['Variant Id'] = (isset($unitVariants[$i])) ? $unitVariants[$i]['id']:'';    
+               
               
-               if(!empty($phases))
-              {
                 $data[$i]['Phase'] = (isset($phases[$i])) ? $phases[$i]['phase_name']:''; 
                 $data[$i]['Phase Id'] = (isset($phases[$i])) ? $phases[$i]['id']:'';    
-              }
+               
             
             }
-           
-          
-  
+ 
            $data[$i]['Direction'] = (isset($defaultDirection[$i])) ? $defaultDirection[$i]['label']:''; 
            $data[$i]['Direction Id'] = (isset($defaultDirection[$i])) ? $defaultDirection[$i]['id']:'';    
             

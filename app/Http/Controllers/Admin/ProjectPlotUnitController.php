@@ -343,7 +343,7 @@ class ProjectPlotUnitController extends Controller {
                  $errorMsg[] ='Column Count does not match';
      
 
-                Session::flash('error_message',implode(" " ,$errorMsg));  
+                Session::flash('error_message',$errorMsg);  
 
 
             });
