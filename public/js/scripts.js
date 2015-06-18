@@ -1431,3 +1431,23 @@ function deleteLevel(level)
 
     
 }
+
+function saveRoom()
+{
+    var flag = true;
+        
+    $('.attributes_block select').each(function () {  
+        var controlVal = $(this).closest('.row').find('.tags').val();
+        if(($(this).val()=='select' ||  $(this).val()=='multiple') && controlVal=='') 
+        {
+            var attributename = $(this).closest('.row').find('input').val();
+            alert('Please Enter Default Values For Attribute '+attributename);
+            flag = false;
+        }
+        
+     });    
+
+    if (flag)
+        $('form').submit();
+
+}
