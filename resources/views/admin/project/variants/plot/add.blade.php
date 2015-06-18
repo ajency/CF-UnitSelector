@@ -66,7 +66,7 @@
                         @foreach($propertyTypeAttributes as $propertyTypeAttribute)
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="form-label">{{ $propertyTypeAttribute['label'] }}</label> 
+                                <label class="form-label">{{ $propertyTypeAttribute['label'] }}<span class="text-primary">*</span></label> 
                                 @if('textbox' === $propertyTypeAttribute['control_type'])
                                 <input type="text" class="form-control" name="attributes[{{ $propertyTypeAttribute['label'] }}]"  placeholder="Enter {{ $propertyTypeAttribute['label'] }}" data-parsley-required>
                                 @elseif('number' === $propertyTypeAttribute['control_type'])

@@ -99,7 +99,7 @@
                         @foreach($projectPropertyTypeAttributes as $attribute)
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="form-label">{{ $attribute['label'] }}</label>
+                                <label class="form-label">{{ $attribute['label'] }} <span class="text-primary">*</span></label>
                                 @if('textbox' === $attribute['control_type'])
                                 <input type="text" class="form-control" name="apartment_attributes[{{ $attribute['label'] }}]"  
                                        placeholder="Enter {{ $attribute['label'] }}" data-parsley-required>

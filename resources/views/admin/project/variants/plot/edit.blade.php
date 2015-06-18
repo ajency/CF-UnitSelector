@@ -66,7 +66,7 @@
                         @foreach($propertyTypeAttributes as $propertyTypeAttribute)
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="form-label">{{ $propertyTypeAttribute['label'] }}</label> 
+                                <label class="form-label">{{ $propertyTypeAttribute['label'] }}<span class="text-primary">*</span></label> 
                                 <?php
                                 $value = (isset($unitVariant['variant_attributes'][ $propertyTypeAttribute['label'] ])) ? $unitVariant['variant_attributes'][ $propertyTypeAttribute['label'] ] : ''
                                 ?>
