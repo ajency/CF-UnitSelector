@@ -1214,7 +1214,8 @@
           draw.clear();
           window.generateSvg(window.svgData.data);
           $('#rotate_loader').addClass('hidden');
-          return $('.svg-canvas').show();
+          $('.svg-canvas').show();
+          return $('.duplicate').hide();
         },
         error: function(response) {
           return alert('Some problem occurred');

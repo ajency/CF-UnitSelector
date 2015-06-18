@@ -81,7 +81,7 @@ class ProjectRoomTypeController extends Controller {
                 $controlType = $controlTypeArr[$key];
                 $controlValues = (isset($controlValueArr[$key])) ? $controlValueArr[$key] : '';
 
-                if ($attributeName != '')
+               if ($attributeName != '' && $controlType!='')
                     $attributes[] = new Attribute(['label' => $attributeName, 'control_type' => $controlType, 'defaults' => $controlValues,
                         'object_type' => $objecttype, 'object_id' => $roomtypeId]);
 
@@ -177,7 +177,7 @@ class ProjectRoomTypeController extends Controller {
                 $attributeId = $attributeIdArr[$key];
 
                 if ($attributeId == '') {
-                    if ($attributeName != '')
+                    if ($attributeName != '' && $controlType!='')
                         $attributes[] = new Attribute(['label' => $attributeName, 'control_type' => $controlType, 'defaults' => $controlValues,
                             'object_type' => $objecttype, 'object_id' => $roomId]);
                 } else {
