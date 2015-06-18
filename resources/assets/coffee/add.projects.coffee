@@ -425,7 +425,7 @@ jQuery(document).ready ($)->
     $('[data-toggle="popover"]').popover()
 
     $('.add_level').click ->
-        counter = $("#counter").val()
+        counter = $("#counter").val() 
         i = parseInt(counter)+1
         
         str = '<div class="row" id="level_{{ level }}">
@@ -437,7 +437,7 @@ jQuery(document).ready ($)->
                                     <div class="grid-title">
                                         <h4>Level {{ level }}</h4>
                                         <input type="hidden" value="{{ level }}" name="levels[]">
-                                        <input style="float:right" type="button" value="Delete Level" class="" onclick="deleteLevel({{ level }});">
+                                        <input style="float:right" type="button" value="Delete Level" class="" onclick="deleteLevel({{ level }});" id="deletelevel_{{ level }}">
                                     </div>
                                     <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4>
                                         <div class="row">
@@ -505,6 +505,7 @@ jQuery(document).ready ($)->
         data = 
           level : i
         $("#addFloorlevel").append compile data
+        $("#deletelevel_"+counter).addClass('hidden'); 
         $("select").select2()
         $("#level_"+i).find('select[name="room_type[]"]').val('')
         $("#counter").val i

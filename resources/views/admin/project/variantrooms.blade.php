@@ -17,7 +17,7 @@
                                         <h4>Level {{ $level }}</h4>
                                         <input type="hidden" value="{{ $level }}" name="levels[]">
                                         @if($level!=0)
-                                        <input style="float:right" type="button" value="Delete Level" class="" onclick="deleteLevel({{ $level }});">
+                                        <input style="float:right" type="button" value="Delete Level" class="{{ (count($variantRooms)==($level+1))? '':'hidden' }}" onclick="deleteLevel({{ $level }});" id="deletelevel_{{ $level }}">
                                         @endif
                                     </div>
                                     <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4>
@@ -171,4 +171,5 @@
                 @endforeach
 				<?php //$i=$level ; ?> 
             </div>
-<input type="hidden" id="counter" name="counter" value="{{$i}}">
+
+<input type="hidden" id="counter" name="counter" value="{{ $level }}">

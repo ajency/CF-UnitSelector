@@ -1421,12 +1421,17 @@ function deleteLevel(level)
             level: level,
         },
         success: function (response) {
+           var counter = $("#counter").val();
+           var i = parseInt(counter)-1;
+           $("#counter").val(i);
+           $("#deletelevel_"+i).removeClass('hidden'); 
            $("#level_"+level).remove();
         }
         });
     }
     else{ 
         $("#level_"+level).remove();
+        $("#deletelevel_"+i).removeClass('hidden');
     }
 
     
