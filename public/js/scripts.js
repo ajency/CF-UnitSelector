@@ -1458,3 +1458,15 @@ function saveRoom()
         $('form').submit();
 
 }
+
+/*$(".attributes_block select").change(function () {
+    
+    if(($(this).val()=='select' ||  $(this).val()=='multiple')) 
+    { 
+        $(this).closest('.row').find('.controlvalue').removeClass('hidden');
+    }
+    else{ 
+       $(this).closest('.row').find('.controlvalue').addClass('hidden');
+    }
+ 
+});*/

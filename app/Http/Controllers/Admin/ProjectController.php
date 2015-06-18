@@ -334,7 +334,7 @@ class ProjectController extends Controller {
         foreach ($phases as $key=> $phase) {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
-            $units = $phase->projectUnits()->get()->toArray();
+            $units = $phase->projectUnits()->where('availability','!=','archived')->get()->toArray();
             $buildings = $phase->projectBuildings()->get(); 
             $buildingUnits = $buildingBreakpointId =[];
             
@@ -345,7 +345,7 @@ class ProjectController extends Controller {
             foreach($buildings as $building)
             {
                 $buildingData = Building :: find($building['id']);
-                $buildingUnits = $buildingData->projectUnits()->get()->toArray();
+                $buildingUnits = $buildingData->projectUnits()->where('availability','!=','archived')->get()->toArray();
                 $buildingMediaIds= $building['building_master'];
             
                 $buildingbreakPoint = (!empty($building['breakpoints']))?unserialize($building['breakpoints']):[];
@@ -458,7 +458,7 @@ class ProjectController extends Controller {
 
     public function getPhaseData($projectId, $phaseId) {
         $phase = Phase::find($phaseId);
-        $units = $phase->projectUnits()->get()->toArray();
+        $units = $phase->projectUnits()->where('availability','!=','archived')->get()->toArray();
 		$buildings = $phase->projectBuildings()->get();
         $data = $unitIds =  $buildingIds = $mediaIds = $errors = $unitNames =  [];
         foreach ($units as $unit) {
@@ -652,7 +652,7 @@ class ProjectController extends Controller {
                 foreach($unitVariants as $unitVariant)
                 {
                     $variant = UnitVariant::find($unitVariant['id']);
-                    $units = $variant->units()->get()->toArray();
+                    $units = $variant->units()->where('availability','!=','archived')->get()->toArray();
                     if(empty($units))
                         $warnings[] = 'No Units Created For Variant :'.$variant['unit_variant_name'];   
                      
@@ -707,13 +707,13 @@ class ProjectController extends Controller {
         foreach ($phases as $phase) {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
-            $units = $phase->projectUnits()->get()->toArray();
+            $units = $phase->projectUnits()->where('availability','!=','archived')->get()->toArray();
             $buildings = $phase->projectBuildings()->get()->toArray(); 
             $phaseData[$phaseId] = $phase['phase_name'];
             foreach($buildings as $building)
             {
                 $buildingData = Building :: find($building['id']);
-                $buildingUnits = $buildingData->projectUnits()->get()->toArray();
+                $buildingUnits = $buildingData->projectUnits()->where('availability','!=','archived')->get()->toArray();
                 if(empty($buildingUnits))
                         $warnings[] = 'No Units Created For Building :'.$buildingData->building_name;   
                 

@@ -91,7 +91,7 @@ class ProjectGateway implements ProjectGatewayInterface {
        {
          $buildingIds[] =$building->id;  
        }  
-      $apartmentunits = \CommonFloor\Unit::whereIn('building_id', $buildingIds)->get()->toArray(); 
+      $apartmentunits = \CommonFloor\Unit::whereIn('building_id', $buildingIds)->where('availability','!=','archived')->get()->toArray(); 
       $variantIds = $bunglowVariantData = $appartmentVariantData =$plotVariantData= $penthouseVariantData =[];
 
         foreach ($unitTypeIds as $key => $unitTypeId)
@@ -123,7 +123,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             }
         }
      $appartmentVariantData = array_merge($appartmentVariantData,$penthouseVariantData);   
-     $units = \CommonFloor\Unit::whereIn('unit_variant_id', $variantIds)->get()->toArray();
+     $units = \CommonFloor\Unit::whereIn('unit_variant_id', $variantIds)->where('availability','!=','archived')->get()->toArray();
      $units = array_merge($units,$apartmentunits);
      $unitData = [];
      foreach ($units as $unit)
