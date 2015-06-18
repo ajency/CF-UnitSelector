@@ -129,7 +129,7 @@
       $('.remove-phase').off('click');
       return $('.remove-phase').on('click', function() {
         var phaseId, successFn;
-        if (confirm('Are you sure you want to delete this phase? All building will be affected by this action. Continue?') === false) {
+        if (confirm('Are you sure you want to delete this phase?') === false) {
           return;
         }
         phaseId = $(this).attr('data-phase-id');
@@ -171,18 +171,20 @@
             html = '<option value="{{ phase_id }}">{{ phase_name }}</option>';
           } else {
             phasesContainer = $('.phase-table tbody');
-            html = '<tr> <td>{{ phase_name }}</td> <td> <select id="phases1" class="select2-container select2 form-control select2-container-active" style="width:50%;"> <option value="">Select Status</option> <option >Live</option> <option selected>Not Live</option> </select> </td> <td><a href="#"  data-toggle="modal" data-target="#myModal" class="text-primary hidden">Update</a></td> </tr>';
+            html = '<tr id="phase-{{ phase_id }}"> <td>{{ phase_name }}</td> <td> <select onchange="showUpdateButton(this);"  class="select2-container select2 form-control select2-container-active" style="width:50%;"> <option value="">Select Status</option> <option value="live">Live</option> <option value="not_live" selected>Not Live</option> </select> </td> <td><a onclick="getPhaseData({{ project_id }}, {{ phase_id }})"  data-toggle="modal" data-target="#myModal" class="text-primary updatelink hidden">Update</a> <a data-phase-id="{{ phase_id }}" class="text-primary remove-phase">Delete</a></td> </tr>';
           }
           compile = Handlebars.compile(html);
           if (type === 'add') {
             phasesContainer.append(compile({
               phase_name: phaseName,
-              phase_id: phaseId
+              phase_id: phaseId,
+              project_id: PROJECTID
             }));
           } else {
             phasesContainer.html(compile({
               phase_name: phaseName,
-              phase_id: phaseId
+              phase_id: phaseId,
+              project_id: PROJECTID
             }));
           }
           return registerRemovePhaseListener();

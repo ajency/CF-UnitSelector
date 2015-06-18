@@ -136,16 +136,17 @@ class PhaseController extends Controller {
         $units = $phase->projectUnits()->get()->toArray();
         $units = $phase->projectUnits()->get()->toArray();
         $buildings = $phase->projectBuildings()->get()->toArray();
-       
+        $msg ='';
         if(count($units)+count($buildings))
         {
-            $msg ='Phase Cannot Be Deleted As It Belongs To Units Or Buildings';
+            $msg ='Cannot delete phase because there are units associated to it';
             $code = '200';
         }
         else{
             
             $phase->delete();
             $code = '204';
+            
             if(count($projectPhases)==1)
             {
                 $project->has_phase ='no';
