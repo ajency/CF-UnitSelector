@@ -157,6 +157,7 @@ jQuery(document).ready ($)->
         project = _.findWhere window.projectsCollection, 'cf_project_id' : projectId
         $('[name="project_title"],[name="hidden_project_title"]').val project.project_title
         $('[name="project_address"],[name="hidden_project_address"]').val project.project_address
+        $("#add_project").parsley().reset();
         template = '<div class="user-description-box">
                         <div class="row">
                             <div class="col-sm-8">
