@@ -14,6 +14,7 @@ use CommonFloor\Phase;
 use CommonFloor\UnitVariant;
 use CommonFloor\UnitType;
 use CommonFloor\Building;
+use CommonFloor\ProjectJson;
 use \Input;
 use CommonFloor\Http\Controllers\Admin\SvgController;
 use \Session;
@@ -180,9 +181,59 @@ class ProjectController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
-        //
+    public function destroy($projectId) {
+       $project = Project::find($projectId);
+       $projectJason = $project->projectJson()->delete();
+       $projectMeta = $project->projectMeta()->delete();
+       $projectattributes = $project->attributes()->delete();   
+       $projectmedia = $project->media()->delete();   
+       $projectRooms = $project->roomTypes()->delete();         
+        
+        $phases = $project->projectPhase()->get()->toArray();
+        $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray();
+        //delete phase -> buildings -> units
+        foreach ($phases as $key=> $phase) {
+            $phaseId = $phase['id'];
+            $phase = Phase::find($phaseId);
+            $units = $phase->projectUnits()->delete(); 
+            $buildings = $phase->projectBuildings()->get(); 
+
+            foreach($buildings as $building)
+            {
+                $buildingData = Building :: find($building['id']);
+                $buildingUnits = $buildingData->projectUnits()->delete(); 
+                $buildingmedia = $project->media()->delete();   
+                $buildingData->delete(); 
+            }
+ 
+            $phase->delete(); 
+        }
+        
+        //delete property type -> unittype -> variants
+        foreach($projectpropertyTypes as $projectPropertyType)
+        {
+            $propertyType = ProjectPropertyType :: find($projectPropertyType['id']);
+            $propertyTypeattributes = $propertyType->attributes()->delete();
+            $projectUnitTypes = $propertyType->projectUnitType()->get()->toArray();
+            foreach($projectUnitTypes as $projectUnitType)
+            {
+                $unitType = UnitType::find($projectUnitType['id']);
+                $unitVariants = $unitType->unitTypeVariant()->delete();
+                $unitType->delete();
+            }
+            $propertyType->delete();
+        }
+        $project->delete();
+        
+        Session::flash('success_message','Project Successfully Deleted');
+        
+        return response()->json( [
+                    'code' => 'project_deleted',
+                    'message' => 'Project Successfully Deleted',
+         
+                        ], 204 );
     }
+    
 
     public function cost($id, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($id);
@@ -240,9 +291,9 @@ class ProjectController extends Controller {
     }
 
     public function updateFilters($id, Request $request, ProjectRepository $projectRepository) {
-        
-        $projectFilters = serialize($request->all());
-
+        $projectFilters =$request->all();
+        unset($projectFilters['_token']);
+        $projectFilters = serialize($projectFilters);
         $data = array("meta_value" => $projectFilters);
         ProjectMeta:: where(['meta_key'=> 'filters','project_id'=> $id])->update($data);
         
@@ -751,17 +802,19 @@ class ProjectController extends Controller {
                 <h4 class="modal-title text-left" id="myModalLabel">Publish Project</h4>
             </div>
             <div class="modal-body">
-                <div class="row m-b-5">
-                    <div class="col-md-12">
+                <div class="row m-b-5">';
+        if($project->has_phase == 'yes')
+        {
+            $html .=  '<div class="col-md-12">
                         <div class="alert">
                             <strong>NOTE : </strong>Project should have at least one Phase with status as Live to publish the project.
                         </div>
                     </div>';
+        }
         if(empty($filters))
             $filtermsg = 'No Filters Set For Project';
         else
         {
-            unset($filters['_token']);
             $filtermsg = 'Filters Applied To : ';
             foreach($filters as $type => $filter)
             {
@@ -1106,6 +1159,27 @@ class ProjectController extends Controller {
       }
       
       return $unitVariants;
+  }
+    
+  public function unPublishProject($projectId)
+  {
+        $project = Project::find($projectId);
+        $project->status = 'unpublished';
+        $project->save();
+        
+        Session::flash('success_message','Project Unpublished');
+
+        $projectJson = ProjectJson::where('project_id', $projectId)
+                                ->where('type', 'step_one')->get()->first();
+        $projectJson->project_json = [];
+        $projectJson->save();
+
+        $projectJson = ProjectJson::where('project_id', $projectId)
+                                ->where('type', 'step_two')->get()->first();
+        $projectJson->project_json = [];
+        $projectJson->save(); 
+      
+       return redirect("/admin/project/" . $projectId . "/summary");
   }
 
  

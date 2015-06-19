@@ -157,6 +157,21 @@ function validateUserPassword(obj, userId)
     });
 }
 
+function deleteProject(project_id)
+{
+    if (confirm('Are you sure you want to delete this project?') === false) {
+        return;
+    }
+
+    $.ajax({
+        url: "/admin/project/" + project_id,
+        type: "DELETE",
+        success: function (response) {
+            window.location = "/admin/project/"; 
+        }
+    });
+}
+
 
 function deleteRoomType(project_id, roomtypeId)
 {
