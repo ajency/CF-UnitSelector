@@ -139,7 +139,7 @@
                                 </h4>
                                 
                                 </div>
-                                 <div id="collapse0" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                 <div id="collapse0" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne" aria-expanded="true">
                                 <div class="panel-body"><h4> <span class="semi-bold">Layouts</span></h4>
                                     <div class="row">
                                         <div class="col-md-6">

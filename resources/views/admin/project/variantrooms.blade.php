@@ -1,5 +1,5 @@
 <?php $i = 0; ?>
-<div id="addFloorlevel"> 
+<div id="addFloorlevel"  class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"> 
      <div class="m-l-5 no-border">
             <button type="button" class="btn btn-small btn-default pull-right m-r-25 add_level" ><i class="fa fa-plus"></i> Add New Level</button>
             <h3><i class="fa fa-angle-double-right text-primary"></i> Room <span class="semi-bold">Details</span></h3>
@@ -9,23 +9,28 @@
                 @foreach($variantRooms as $level=>$roomTypes)
                  <div class="row" id="level_{{ $level }}">
                     <div class="no-border">
-
-                        <div class="grid simple" style="margin-bottom:0;">
+                        <div class="grid simple" style="margin-bottom:10px;">
                             <div class="grid-body no-border" style="padding-bottom:0;">
-                                <div class="grid simple vertical orange">
-                                    <div class="grid-title">
-                                        <h4>Level {{ $level }}</h4>
+                                <div class="panel panel-default vertical orange">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $level }}" aria-expanded="false">                       
+                                        Level {{ $level }}
                                         <input type="hidden" value="{{ $level }}" name="levels[]">
                                         @if($level!=0)
                                         <button title="Delete Level" style="float:right"  type="button" class="btn btn-white btn-small {{ (count($variantRooms)==($level+1))? '':'hidden' }}" onclick="deleteLevel({{ $level }});" id="deletelevel_{{ $level }}"><i class="fa fa-trash"></i></button>
                                         @endif
+                                        </a>
+                                    </h4>
                                     </div>
-                                    <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4>
+                                    
+                                    <div id="collapse{{ $level }}" class="panel-collapse  {{ (($level==0))? 'in':'collapse' }}" role="tabpanel" aria-labelledby="headingTwo" >
+                                    <div class="panel-body"><h4> <span class="semi-bold">Layouts</span></h4>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="grid simple">
                                                     <div class="grid-body">
-                                                        <div class="inline">2D Layout</div>
+                                                        <div class="inline">2D Layout</div>    
                                                         <div class="text-center" id="2d_{{ $level }}_image">
                                                             @if(isset($layouts[$level]['2d']))
                                                             
@@ -55,7 +60,6 @@
                                                 <div class="grid simple" >
                                                     <div class="grid-body">
                                                         <div class="inline">3D Layout</div>
-
                                                         <div class="text-center" id="3d_{{ $level }}_image">
                                                             @if(isset($layouts[$level]['3d']))
                                                             
@@ -159,16 +163,16 @@
                                                             <button type="button" onclick="getRoomTypeAttributes(this, {{ $level }});" class="btn btn-link">Add Room</button>
                                                         </div>
                                             </div>
-                                         </div>
- 
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                  
+                </div> 
                 @endforeach
+    
 				<?php //$i=$level ; ?> 
             </div>
 
