@@ -91,9 +91,9 @@ class PropertyTypeTableSeeder extends Seeder {
 
     public function run() {
         Defaults::create( ['type' => 'property_types','label'=>"Villas/Bungalows",'serialize_data'=>  serialize([])]);
-        Defaults::create( ['type' => 'property_types','label'=>"Plot",'serialize_data'=>  serialize([])]);
+        Defaults::create( ['type' => 'property_types','label'=>"Plots",'serialize_data'=>  serialize([])]);
         Defaults::create(['type' => 'property_types','label'=>"Apartments",'serialize_data'=> serialize([])]);
-        Defaults::create( ['type' => 'property_types','label'=>"Penthouse",'serialize_data'=>  serialize([])]);   
+        Defaults::create( ['type' => 'property_types','label'=>"Penthouses",'serialize_data'=>  serialize([])]);   
     }
 
 }

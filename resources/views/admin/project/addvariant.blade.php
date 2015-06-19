@@ -32,14 +32,14 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Name<span class="text-primary">*</span></label>
-                                    <input type="text" class="form-control" name="unit_variant_name" placeholder="Enter Name" data-parsley-required>
+                                    <input type="text" class="form-control m-b-5" name="unit_variant_name" placeholder="Enter Name" data-parsley-required>
                                
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Unit Type<span class="text-primary">*</span></label>
-                               <select name="unit_type" class="select2 form-control select2-offscreen" data-parsley-required>
+                               <select name="unit_type" class="select2 form-control select2-offscreen m-b-5" data-parsley-required>
                                         <option value="">Select Unit Type</option>
                                         @foreach($unitTypes as $unitTypeId=> $unitType)
                                         <option value="{{$unitTypeId}}">{{$unitType}}</option>
@@ -51,7 +51,7 @@
                             <div class="form-group">
                                 <label class="form-label">Carpet Area<span class="text-primary">*</span></label>
                                 <small class="text-muted">/ ({{ $project['measurement_units'] }})</small>
-                               <input type="text" class="form-control" name="carpet_area" value="" placeholder="Enter Carpet Area" data-parsley-required data-parsley-type="number">
+                               <input type="text" class="form-control m-b-5" name="carpet_area" value="" placeholder="Enter Carpet Area" data-parsley-required data-parsley-type="number">
                             </div>
                         </div>
                     </div>
@@ -60,21 +60,21 @@
                             <div class="form-group">
                                 <label class="form-label">Built Up Area<span class="text-primary">*</span></label>
                                 <small class="text-muted">/ ({{ $project['measurement_units'] }})</small>
-                               <input type="text" class="form-control" name="builtup_area" value="" placeholder="Enter Built Up Area" data-parsley-required data-parsley-type="number">
+                               <input type="text" class="form-control m-b-5" name="builtup_area" value="" placeholder="Enter Built Up Area" data-parsley-required data-parsley-type="number">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Super Built Up Area<span class="text-primary">*</span></label>
                                 <small class="text-muted">/ ({{ $project['measurement_units'] }})</small>
-                                <input type="text" class="form-control" name="superbuiltup_area" value="" placeholder="Enter Super Built Up Area" data-parsley-required data-parsley-type="number">
+                                <input type="text" class="form-control m-b-5" name="superbuiltup_area" value="" placeholder="Enter Super Built Up Area" data-parsley-required data-parsley-type="number">
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Price<span class="text-primary">*</span></label>
                                 <small class="text-muted">/ ({{ $project['measurement_units'] }})</small>
-                               <input type="text" class="form-control" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
+                               <input type="text" class="form-control m-b-5" name="per_sq_ft_price" value="" placeholder="Enter Per sq ft Price" data-parsley-required data-parsley-type="number">
                             </div>
                         </div>
                     </div>
@@ -86,14 +86,14 @@
 
                                 <div>
                                     @if('textbox' === $attributes['control_type'])
-                                    <input type="text" class="form-control" name="villa_attributes[{{ $attributes['label'] }}]"  placeholder="Enter {{ $attributes['label'] }}" data-parsley-required value="">
+                                    <input type="text" class="form-control m-b-5" name="villa_attributes[{{ $attributes['label'] }}]"  placeholder="Enter {{ $attributes['label'] }}" data-parsley-required value="">
                                     @elseif('number' === $attributes['control_type'])
-                                    <input type="number" class="form-control" name="villa_attributes[{{ $attributes['label'] }}]" value="" placeholder="Enter {{ $attributes['label'] }}" data-parsley-required data-parsley-type="number" value="">
+                                    <input type="number" class="form-control m-b-5" name="villa_attributes[{{ $attributes['label'] }}]" value="" placeholder="Enter {{ $attributes['label'] }}" data-parsley-required data-parsley-type="number" value="">
                                     @elseif('select' === $attributes['control_type'])
                                     <?php
                                     $options = explode(',', $attributes['defaults']);
                                     ?>
-                                    <select name="villa_attributes[{{ $attributes['label'] }}]" class="select2 form-control select2-offscreen" data-parsley-required>
+                                    <select name="villa_attributes[{{ $attributes['label'] }}]" class="select2 form-control select2-offscreen m-b-5" data-parsley-required>
                                         <option value="">Select {{$attributes['label']}}</option>   
                                         @foreach($options as $option)
                                         <option  value="{{ $option }}">{{ $option }}</option>
@@ -103,7 +103,7 @@
                                     <?php
                                     $options = explode(',', $attributes['defaults']);
                                     ?>
-                                    <select multiple name="villa_attributes[{{ $attributes['label'] }}][]" class="select2 form-control" data-parsley-required>
+                                    <select multiple name="villa_attributes[{{ $attributes['label'] }}][]" class="m-b-5 select2 form-control" data-parsley-required>
                                         <option value="">Select {{$attributes['label']}}</option>   
                                         @foreach($options as $option)
                                         <option value="{{ $option }}">{{ $option }}</option>
