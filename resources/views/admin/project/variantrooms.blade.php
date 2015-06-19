@@ -14,7 +14,7 @@
                                 <div class="panel panel-default vertical orange">
                                     <div class="panel-heading" role="tab" id="headingOne">
                                     <h4 class="panel-title">
-                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $level }}" aria-expanded="false">                       
+                                        <a class="{{ (($level==0))? '':'collapsed' }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $level }}" aria-expanded="false">                       
                                         Level {{ $level }}
                                         <input type="hidden" value="{{ $level }}" name="levels[]">
                                         @if($level!=0)

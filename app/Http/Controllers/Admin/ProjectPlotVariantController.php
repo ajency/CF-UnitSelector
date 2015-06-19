@@ -51,7 +51,7 @@ class ProjectPlotVariantController extends Controller {
                         ->with('project', $project->toArray())
                         ->with('unitTypes', $unitTypes)
                         ->with('unit_variant_arr', $unitvariantArr)
-                        ->with('current', 'plot-variant');
+                        ->with('current', 'plots-variant');
     }
 
     /**
@@ -165,7 +165,7 @@ class ProjectPlotVariantController extends Controller {
         } 
         
         Session::flash('success_message','Variant Successfully Created');
-        return redirect("/admin/project/" . $project_id . "/plot-variant/" . $unitVariantID . '/edit');
+        return redirect("/admin/project/" . $project_id . "/plots-variant/" . $unitVariantID . '/edit');
     }
 
     /**
@@ -277,7 +277,7 @@ class ProjectPlotVariantController extends Controller {
         $unitVariant->save();
         
         Session::flash('success_message','Variant Successfully Updated');
-        return redirect("/admin/project/" . $project_id . "/plot-variant/" . $id . '/edit');
+        return redirect("/admin/project/" . $project_id . "/plots-variant/" . $id . '/edit');
     }
 
     /**

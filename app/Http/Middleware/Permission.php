@@ -41,11 +41,11 @@ class Permission {
                              'admin.project.apartment-variant.edit'=>'configure_project',
                              'admin.project.apartment-variant.update'=>'configure_project',
                     
-                             'admin.project.plot-variant.index'=>'configure_project',
-                             'admin.project.plot-variant.create'=>'configure_project',
-                             'admin.project.plot-variant.store'=>'configure_project',
-                             'admin.project.plot-variant.edit'=>'configure_project',
-                             'admin.project.plot-variant.update'=>'configure_project',
+                             'admin.project.plots-variant.index'=>'configure_project',
+                             'admin.project.plots-variant.create'=>'configure_project',
+                             'admin.project.plots-variant.store'=>'configure_project',
+                             'admin.project.plots-variant.edit'=>'configure_project',
+                             'admin.project.plots-variant.update'=>'configure_project',
                     
                              'admin.variant.media.store'=>'configure_project',
                              'admin.variant.media.destroy'=>'configure_project',
@@ -80,11 +80,11 @@ class Permission {
                              'admin.project.apartment-unit.edit'=>'configure_unit',
                              'admin.project.apartment-unit.update'=>'configure_unit',
                     
-                             'admin.project.plot-unit.index'=>'configure_unit',
-                             'admin.project.plot-unit.create'=>'configure_unit',
-                             'admin.project.plot-unit.store'=>'configure_unit',
-                             'admin.project.plot-unit.edit'=>'configure_unit',
-                             'admin.project.plot-unit.update'=>'configure_unit',
+                             'admin.project.plots-unit.index'=>'configure_unit',
+                             'admin.project.plots-unit.create'=>'configure_unit',
+                             'admin.project.plots-unit.store'=>'configure_unit',
+                             'admin.project.plots-unit.edit'=>'configure_unit',
+                             'admin.project.plots-unit.update'=>'configure_unit',
 
                     
                              'admin.role.index'=>'manage_roles',
@@ -141,7 +141,7 @@ class Permission {
                               'admin/project/{projectid}/image/{imageid}/downloadSvg'=>'configure_project',
                               'admin/project/{project}/apartment-unit/unitimport'=>'configure_unit',
                               'admin/project/{project}/bunglow-unit/unitimport'=>'configure_unit',
-                              'admin/project/{project}/plot-unit/unitimport'=>'configure_unit',
+                              'admin/project/{project}/plots-unit/unitimport'=>'configure_unit',
                               'admin/project/{project}/unitexport/{id}'=>'configure_unit',
                               
                 ];

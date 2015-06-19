@@ -22,7 +22,7 @@
             <div class="grid-title">
                 <h4>List of <span class="semi-bold">Units</span></h4>
                 <a class="btn btn-primary pull-right m-l-5"  data-toggle="modal" data-target="#myModal"><i class="fa fa-upload"></i> Bulk Import</a>&nbsp;&nbsp; 
-                <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/plot-unit/create') }}" ><i class="fa fa-plus"></i> Add Unit</a>
+                <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/plots-unit/create') }}" ><i class="fa fa-plus"></i> Add Unit</a>
             </div>
             <div class="grid-body">
                 <table class="table table-bordered" id="example2" >
@@ -39,7 +39,7 @@
                     </thead>
                     <tbody> 
                         @foreach ($unit_arr as $unit)
-                            <tr class="" onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/plot-unit/'.$unit['id'].'/edit') }}'">
+                            <tr class="" onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/plots-unit/'.$unit['id'].'/edit') }}'">
                                 <td class="text-center"><i class="fa fa-pencil"></i></td>
                                 <td>{{ $unit['unit_name'] }}</td>
                                 <td>{{ ucfirst($unit->availability) }}</td>
@@ -57,7 +57,7 @@
 </div>
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
-  <form action="{{ url( 'admin/project/' . $project['id'].'/plot-unit/unitimport') }}"  method="POST" enctype="multipart/form-data" data-parsley-validate>          
+  <form action="{{ url( 'admin/project/' . $project['id'].'/plots-unit/unitimport') }}"  method="POST" enctype="multipart/form-data" data-parsley-validate>          
 
     <div class="modal-content">
       <div class="modal-header">
