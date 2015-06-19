@@ -68,6 +68,15 @@ jQuery(document).ready ($)->
     $('#add_project select[name="city"]').change ->
         # enable locality
         $("#autocompleteArea").prop('disabled', false)
+        $("#autocompleteArea").prop('disabled', false)
+
+        # reset other fields
+        $('#autocompleteArea').val("")
+        $('#add_project input[name="project_title"]').val("")
+        $('#add_project textarea[name="project_address"]').val("")
+        $('#add_project select[name="cf_project_id"]').select2('val', '')
+
+        $('#add_project select[name="cf_project_id"]').empty() 
 
     
       
@@ -141,13 +150,25 @@ jQuery(document).ready ($)->
                             
                         projectsCollection.push project
                         options += "<option value='#{project.cf_project_id}'>#{project.project_title}</option>"
-                        
+                    
+                    # reset other fields
+                    $('#add_project input[name="project_title"]').val("")
+                    $('#add_project textarea[name="project_address"]').val("")
+                    $('#add_project select[name="cf_project_id"]').select2('val', '')
+
+                    $('#add_project select[name="cf_project_id"]').empty()    
                     $('#add_project select[name="cf_project_id"]').append options                          
                     # enable project 
                     $('#add_project select[name="cf_project_id"]').prop('disabled', false)
                 error : (resp)->
-                    $.notify 'Error in fetching project data', 'error'
+                    $.notify 'Error in fetching project data.Please try again', 'error'
                     $('#add_project select[name="cf_project_id"]').prop('disabled', true)
+                    $('#autocompleteArea').val("")
+                    $('#add_project input[name="project_title"]').val("")
+                    $('#add_project textarea[name="project_address"]').val("")
+                    $('#add_project select[name="cf_project_id"]').select2('val', '')
+
+                    $('#add_project select[name="cf_project_id"]').empty() 
                       
         return
 
