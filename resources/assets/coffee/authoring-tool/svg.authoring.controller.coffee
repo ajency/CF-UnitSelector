@@ -9,6 +9,9 @@
 #Function to show the options depending on whether object is marked or not
 #Function to count the number of pending objects
 jQuery(document).ready ($)->
+
+    # add svg-off class to disable keep image fixed in the div else it moves
+    $('.svg-canvas').addClass('svg-off')
     $('.area').canvasAreaDraw()
 
     ########################### GLOBALS BEGIN ###########################
@@ -916,7 +919,11 @@ jQuery(document).ready ($)->
 
                     else
                         window.showDetails(currentElem)
-                            
+    
+
+    $('.zoom-in').on 'click' ,(e) ->
+         $('.svg-canvas').removeClass('svg-off')
+
     
     $('svg').on 'dblclick', '.marker-grp' , (e) ->
         window.EDITMODE = true
