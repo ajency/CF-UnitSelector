@@ -1110,7 +1110,7 @@ function getPropertTypeData(obj, flag)
                     });
                      
                 }
-                else if($(obj).find(":selected").text()=='Penthouse')                        //PENTHOUSE
+                else if($(obj).find(":selected").text()=='Penthouses')                        //PENTHOUSE
                 { 
                    $(".add_level").removeClass('hidden');
                     $("#level_0").find('.grid-title').removeClass('hidden');
