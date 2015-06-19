@@ -223,6 +223,8 @@ class ProjectController extends Controller {
             }
             $propertyType->delete();
         }
+        $targetDir = public_path() . "/projects/" . $projectId;
+        unlink($targetDir);
         $project->delete();
         
         Session::flash('success_message','Project Successfully Deleted');
