@@ -8329,8 +8329,13 @@ table tr {
 #accordion .grid-title {
   border-bottom: 1px solid #DDD;
 }
-#accordion .grid-body {
-  /*border-top: none;*/
+#accordion a {
+  position: relative;
+}
+#accordion a .dellevel {
+  position: absolute;
+  right: 22px;
+  top: -4px;
 }
 .grid-angle-down {
   display: none;
@@ -8517,4 +8522,3 @@ table tr {
   left: 0;
   z-index: -1;
 }
-/*# sourceMappingURL=style.css.map */

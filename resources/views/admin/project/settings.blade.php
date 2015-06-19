@@ -43,7 +43,8 @@
             <hr/>
             <div class="row">
                 <div class="m-l-5 no-border">
-                    <h3><i class="fa fa-angle-double-right text-primary"></i> Has <span class="semi-bold">Phases</span></h3>
+                    <h3 class="inline"><i class="fa fa-angle-double-right text-primary"></i> Has <span class="semi-bold">Phases</span></h3>
+                    <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="" data-original-title="Create phases for your project on project summary page"></i>
                 </div>
                 <div class="col-md-12">
                     <div class="radio radio-primary">
@@ -58,7 +59,9 @@
             <hr/>
             <div class="row">
                 <div class="m-l-5 no-border">
-                    <h3><i class="fa fa-angle-double-right text-primary"></i> Has <span class="semi-bold">Master Images</span></h3>
+                    <h3 class="inline"><i class="fa fa-angle-double-right text-primary"></i> Has <span class="semi-bold">Project Master Images</span></h3>
+                     <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="" data-original-title="These are 3D images of the project which will be viewed on unit selector page"></i>
+
                 </div>
                 <div class="col-md-12">
                     <div class="radio radio-primary">
@@ -73,8 +76,9 @@
             <hr/>
             <div class="row">
                 <div class="m-l-5 no-border">
-                    <h3><i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Views</span></h3>
-                </div>
+                    <h3 class="inline"><i class="fa fa-angle-double-right text-primary"></i> Project <span class="semi-bold">Views</span></h3>
+                    <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="" data-original-title="Create views for the project e.g. Clubhouse,park etc. These view will be associated to units."></i>
+            </div>
 
                 <div class="col-md-5">
                 @foreach($projectAttributes as $projectAttribute)
