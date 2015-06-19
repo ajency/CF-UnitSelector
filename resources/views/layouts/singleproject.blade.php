@@ -38,7 +38,7 @@
  
         @foreach(project_property_types($project['id']) as $propertyTypeId => $projectPropertyType)
         <?php
-           if($projectPropertyType === 'Apartments' ||  $projectPropertyType === 'Penthouse')
+           if($projectPropertyType === 'Apartments' ||  $projectPropertyType === 'Penthouses')
            {
                $apartmentPenthouse[] =  $projectPropertyType;
                continue;

@@ -380,7 +380,7 @@ function setUpProjectMasterUploader() {
             "projectId": PROJECTID
         },
         filters: {
-            max_file_size: '1mb',
+            max_file_size: '3mb',
             mime_types: [{
                     title: "Image files",
                     extensions: "jpg,png,jpeg"
@@ -738,7 +738,7 @@ $(document).ready(function () {
             "type": "google_earth"
         },
         filters: {
-            max_file_size: '1mb',
+            max_file_size: '3mb',
             mime_types: [{
                     title: "Image files",
                     extensions: "jpg,png,jpeg"
@@ -1100,7 +1100,7 @@ function getPropertTypeData(obj, flag)
                 if($(obj).find(":selected").text()=='Apartments')                        //APARTMENT
                 {
                    $(".add_level").addClass('hidden');
-                   $("#level_0").find('.grid-title').addClass('hidden');
+                   $("#level_0").find('.level-title').addClass('hidden');
                     $('input[name="levels[]"]').each(function () { 
  
                         if($(this).val()!=0)
@@ -1113,7 +1113,7 @@ function getPropertTypeData(obj, flag)
                 else if($(obj).find(":selected").text()=='Penthouses')                        //PENTHOUSE
                 { 
                    $(".add_level").removeClass('hidden');
-                    $("#level_0").find('.grid-title').removeClass('hidden');
+                    $("#level_0").find('.level-title').removeClass('hidden');
                     $('input[name="levels[]"]').each(function () { 
  
                         if($(this).val()!=0)
