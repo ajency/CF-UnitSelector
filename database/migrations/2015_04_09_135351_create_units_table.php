@@ -20,6 +20,12 @@ class CreateUnitsTable extends Migration {
             $table->integer( 'building_id' )->unsigned()->nullable()->default( 0 );
             $table->enum( 'availability', ['available', 'sold', 'not_released', 'blocked', 'archived'] )->default( 'available' );
             $table->timestamps();
+            
+            //reference  a foreign key
+            $table->foreign( 'unit_variant_id' )
+                    ->references( 'id' )
+                    ->on( 'unit_variants' )
+                    ->onDelete( 'cascade' );
         } );
     }
 
