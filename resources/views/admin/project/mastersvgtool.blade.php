@@ -35,7 +35,10 @@
         transform: matrix(1, 0, 0, 1, 0, 0);
 
     }
+    .svg-off{
+        transform: matrix(1, 0, 0, 1, 0, 0) !important;
 
+    }
     .layer{
         fill-opacity: 0.6 !important;
         
