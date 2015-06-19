@@ -1,6 +1,7 @@
 (function() {
   jQuery(document).ready(function($) {
     var keydownFunc;
+    $('.svg-canvas').addClass('svg-off');
     $('.area').canvasAreaDraw();
     window.draw = SVG('aj-imp-builder-drag-drop');
     window.svgData = {
@@ -841,6 +842,9 @@
           }
         };
       })(this));
+    });
+    $('.zoom-in').on('click', function(e) {
+      return $('.svg-canvas').removeClass('svg-off');
     });
     $('svg').on('dblclick', '.marker-grp', function(e) {
       var currentElem, currentSvgElem, cx, cy, draggableChildCircle, draggableElem, elemId, object_type;
