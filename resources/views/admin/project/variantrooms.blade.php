@@ -17,7 +17,7 @@
                                         <h4>Level {{ $level }}</h4>
                                         <input type="hidden" value="{{ $level }}" name="levels[]">
                                         @if($level!=0)
-                                        <input style="float:right" type="button" value="Delete Level" class="" onclick="deleteLevel({{ $level }});">
+                                        <button title="Delete Level" style="float:right"  type="button" class="btn btn-white btn-small {{ (count($variantRooms)==($level+1))? '':'hidden' }}" onclick="deleteLevel({{ $level }});" id="deletelevel_{{ $level }}"><i class="fa fa-trash"></i></button>
                                         @endif
                                     </div>
                                     <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4>
@@ -111,7 +111,7 @@
                                                                 @if('textbox' === $attributes['control_type'])
                                                                 <input type="text" class="form-control" name="attributes[{{ $level }}][{{ $roomType['ROOMTYPEID'] }}][{{property_type_slug($attributes['label'])}}]" value="{{ $value }}"  placeholder="Enter {{$attributes['label']}}">
                                                                 @elseif('number' === $attributes['control_type'])
-                                                                <input type="number" class="form-control" name="attributes[{{ $level }}][{{ $roomType['ROOMTYPEID'] }}][{{property_type_slug($attributes['label'])}}]" value="{{ $value }}"  placeholder="Enter {{$attributes['label']}}">
+                                                                <input type="number" class="form-control" name="attributes[{{ $level }}][{{ $roomType['ROOMTYPEID'] }}][{{property_type_slug($attributes['label'])}}]" value="{{ $value }}"  placeholder="Enter {{$attributes['label']}}" data-parsley-type="number">
                                                                 @elseif('select' === $attributes['control_type'])
                                                                 <?php
                                                                 $options = explode(',', $attributes['defaults']);
@@ -171,4 +171,5 @@
                 @endforeach
 				<?php //$i=$level ; ?> 
             </div>
-<input type="hidden" id="counter" name="counter" value="{{$i}}">
+
+<input type="hidden" id="counter" name="counter" value="{{ $level }}">

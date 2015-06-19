@@ -121,6 +121,7 @@
       });
       $('[name="project_title"],[name="hidden_project_title"]').val(project.project_title);
       $('[name="project_address"],[name="hidden_project_address"]').val(project.project_address);
+      $("#add_project").parsley().reset();
       template = '<div class="user-description-box"> <div class="row"> <div class="col-sm-8"> <h4 class="semi-bold">{{ project_title }} - <span class="bold text-primary">{{ cf_project_id }}</span></h4> <i class="fa fa-map-marker"></i> <b>Address:</b> <p>{{ project_address }}</p> <p>Builder Name: <label><b>{{ builder_name }}</b></label></p> <p>Website Link: <label><a href="http://{{ builder_link }}"><b>http://{{ builder_link }}</b></a></label></p> </div> <div class="col-sm-4"> {{#if project_image }} <img src="{{ project_image }}" class="img-responsive"> {{/if}} </div> </div> <div class="alert alert-warning m-t-20"> <input type="hidden" name="builder_name" value="{{ builder_name }}" /> <input type="hidden" name="builder_link" value="{{ builder_link }}" /> <input type="hidden" name="project_image" value="{{ project_image }}" /> <strong>Note: </strong> The above information is as entered in CommonFloor database. </div> </div>';
       tempalteFn = Handlebars.compile(template);
       return $('#commonfloor-project-details').removeClass('hidden').html(tempalteFn(project));
@@ -129,7 +130,7 @@
       $('.remove-phase').off('click');
       return $('.remove-phase').on('click', function() {
         var phaseId, successFn;
-        if (confirm('Are you sure you want to delete this phase? All building will be affected by this action. Continue?') === false) {
+        if (confirm('Are you sure you want to delete this phase?') === false) {
           return;
         }
         phaseId = $(this).attr('data-phase-id');
@@ -171,18 +172,20 @@
             html = '<option value="{{ phase_id }}">{{ phase_name }}</option>';
           } else {
             phasesContainer = $('.phase-table tbody');
-            html = '<tr> <td>{{ phase_name }}</td> <td> <select id="phases1" class="select2-container select2 form-control select2-container-active" style="width:50%;"> <option value="">Select Status</option> <option >Live</option> <option selected>Not Live</option> </select> </td> <td><a href="#"  data-toggle="modal" data-target="#myModal" class="text-primary hidden">Update</a></td> </tr>';
+            html = '<tr id="phase-{{ phase_id }}"> <td>{{ phase_name }}</td> <td> <select onchange="showUpdateButton(this);"  class="select2-container select2 form-control select2-container-active" style="width:50%;"> <option value="">Select Status</option> <option value="live">Live</option> <option value="not_live" selected>Not Live</option> </select> </td> <td><a onclick="getPhaseData({{ project_id }}, {{ phase_id }})"  data-toggle="modal" data-target="#myModal" class="text-primary updatelink hidden">Update</a> <a data-phase-id="{{ phase_id }}" class="text-primary remove-phase">Delete</a></td> </tr>';
           }
           compile = Handlebars.compile(html);
           if (type === 'add') {
             phasesContainer.append(compile({
               phase_name: phaseName,
-              phase_id: phaseId
+              phase_id: phaseId,
+              project_id: PROJECTID
             }));
           } else {
             phasesContainer.html(compile({
               phase_name: phaseName,
-              phase_id: phaseId
+              phase_id: phaseId,
+              project_id: PROJECTID
             }));
           }
           return registerRemovePhaseListener();
@@ -384,7 +387,7 @@
       var compile, counter, data, i, str;
       counter = $("#counter").val();
       i = parseInt(counter) + 1;
-      str = '<div class="row" id="level_{{ level }}"> <div class="no-border"> <div class="grid simple" style="margin-bottom:0;"> <div class="grid-body no-border" style="padding-bottom:0;"> <div class="grid simple vertical orange"> <div class="grid-title"> <h4>Level {{ level }}</h4> <input type="hidden" value="{{ level }}" name="levels[]"> <input style="float:right" type="button" value="Delete Level" class="" onclick="deleteLevel({{ level }});"> </div> <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4> <div class="row"> <div class="col-md-6"> <div class="grid simple"> <div class="grid-body"> <div class="inline">2D Layout</div> <input type="hidden" name="image_{{ level }}_2d_id" id="image_{{ level }}_2d_id" value=""> <div class="pull-right" id="2d_{{ level }}_image"> <div class="img-hover img-thumbnail"> <div id="pickfiles_{{ level }}_2d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;"> <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;"> <i class="fa fa-image" style="font-size:30px;"></i> <p class="">Select File</p> </div> </div> </div> </div> </div> </div> </div> <div class="col-md-6"> <div class="grid simple" > <div class="grid-body"> <div class="inline">3D Layout</div> <input type="hidden" name="image_{{ level }}_3d_id" id="image_{{ level }}_3d_id" value=""> <div class="pull-right" id="3d_{{ level }}_image"> <div class="img-hover img-thumbnail"> <div id="pickfiles_{{ level }}_3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;"> <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;"> <i class="fa fa-image" style="font-size:30px;"></i> <p class="">Select File</p> </div> </div> </div> </div> </div> </div> </div> </div> <div class="room_attributes_block"> </div> <div> <div class="col-md-5 add-unit p-t-10"> <select onchange="openRoomTypeModal(this, 0)" name="room_type[]" class="select2 form-control">';
+      str = '<div class="row" id="level_{{ level }}"> <div class="no-border"> <div class="grid simple" style="margin-bottom:0;"> <div class="grid-body no-border" style="padding-bottom:0;"> <div class="grid simple vertical orange"> <div class="grid-title"> <h4>Level {{ level }}</h4> <input type="hidden" value="{{ level }}" name="levels[]"> <button title="Delete Level" style="float:right"  type="button" class="btn btn-white btn-small" onclick="deleteLevel({{ level }});" id="deletelevel_{{ level }}"><i class="fa fa-trash"></i></button> </div> <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4> <div class="row"> <div class="col-md-6"> <div class="grid simple"> <div class="grid-body"> <div class="inline">2D Layout</div> <input type="hidden" name="image_{{ level }}_2d_id" id="image_{{ level }}_2d_id" value=""> <div class="pull-right" id="2d_{{ level }}_image"> <div class="img-hover img-thumbnail"> <div id="pickfiles_{{ level }}_2d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;"> <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;"> <i class="fa fa-image" style="font-size:30px;"></i> <p class="">Select File</p> </div> </div> </div> </div> </div> </div> </div> <div class="col-md-6"> <div class="grid simple" > <div class="grid-body"> <div class="inline">3D Layout</div> <input type="hidden" name="image_{{ level }}_3d_id" id="image_{{ level }}_3d_id" value=""> <div class="pull-right" id="3d_{{ level }}_image"> <div class="img-hover img-thumbnail"> <div id="pickfiles_{{ level }}_3d"  style="width: 150px;height:109px;background:#BEBEBE;display: table;"> <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;"> <i class="fa fa-image" style="font-size:30px;"></i> <p class="">Select File</p> </div> </div> </div> </div> </div> </div> </div> </div> <div class="room_attributes_block"> </div> <div> <div class="col-md-5 add-unit p-t-10"> <select onchange="openRoomTypeModal(this, 0)" name="room_type[]" class="select2 form-control">';
       str += $('#addFloorlevel').find('select[name="room_type[]"]').html();
       str += '</select> <div class="text-right"> <button type="button" onclick="getRoomTypeAttributes(this,{{ level }});" class="btn btn-link">Add Room</button> </div> </div> </div> </div> </div> </div> </div> </div>';
       compile = Handlebars.compile(str);
@@ -392,6 +395,7 @@
         level: i
       };
       $("#addFloorlevel").append(compile(data));
+      $("#deletelevel_" + counter).addClass('hidden');
       $("select").select2();
       $("#level_" + i).find('select[name="room_type[]"]').val('');
       $("#counter").val(i);

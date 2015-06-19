@@ -157,6 +157,7 @@ jQuery(document).ready ($)->
         project = _.findWhere window.projectsCollection, 'cf_project_id' : projectId
         $('[name="project_title"],[name="hidden_project_title"]').val project.project_title
         $('[name="project_address"],[name="hidden_project_address"]').val project.project_address
+        $("#add_project").parsley().reset();
         template = '<div class="user-description-box">
                         <div class="row">
                             <div class="col-sm-8">
@@ -187,8 +188,7 @@ jQuery(document).ready ($)->
         $('.remove-phase').off 'click'
         $('.remove-phase').on 'click', ->
 
-            if confirm('Are you sure you want to delete this phase? 
-                        All building will be affected by this action. Continue?') is false
+            if confirm('Are you sure you want to delete this phase?') is false
                 return
 
             phaseId = $(@).attr 'data-phase-id'
@@ -227,23 +227,23 @@ jQuery(document).ready ($)->
                     html = '<option value="{{ phase_id }}">{{ phase_name }}</option>'
                 else
                     phasesContainer = $('.phase-table tbody')
-                    html = '<tr>
+                    html = '<tr id="phase-{{ phase_id }}">
                             <td>{{ phase_name }}</td>
                             <td>
-                             <select id="phases1" class="select2-container select2 form-control select2-container-active" style="width:50%;">
+                             <select onchange="showUpdateButton(this);"  class="select2-container select2 form-control select2-container-active" style="width:50%;">
                             <option value="">Select Status</option>
-                            <option >Live</option>
-                            <option selected>Not Live</option>
+                            <option value="live">Live</option>
+                            <option value="not_live" selected>Not Live</option>
                             </select>
                             </td>
-                            <td><a href="#"  data-toggle="modal" data-target="#myModal" class="text-primary hidden">Update</a></td>
+                            <td><a onclick="getPhaseData({{ project_id }}, {{ phase_id }})"  data-toggle="modal" data-target="#myModal" class="text-primary updatelink hidden">Update</a> <a data-phase-id="{{ phase_id }}" class="text-primary remove-phase">Delete</a></td>
                             </tr>'
 
                 compile = Handlebars.compile html
                 if type is 'add'
-                    phasesContainer.append compile( { phase_name : phaseName, phase_id : phaseId } )
+                    phasesContainer.append compile( { phase_name : phaseName, phase_id : phaseId, project_id : PROJECTID } )
                 else
-                    phasesContainer.html compile( { phase_name : phaseName, phase_id : phaseId } )  
+                    phasesContainer.html compile( { phase_name : phaseName, phase_id : phaseId, project_id : PROJECTID } )  
                 registerRemovePhaseListener()
             
         $.ajax 
@@ -426,7 +426,7 @@ jQuery(document).ready ($)->
     $('[data-toggle="popover"]').popover()
 
     $('.add_level').click ->
-        counter = $("#counter").val()
+        counter = $("#counter").val() 
         i = parseInt(counter)+1
         
         str = '<div class="row" id="level_{{ level }}">
@@ -438,7 +438,7 @@ jQuery(document).ready ($)->
                                     <div class="grid-title">
                                         <h4>Level {{ level }}</h4>
                                         <input type="hidden" value="{{ level }}" name="levels[]">
-                                        <input style="float:right" type="button" value="Delete Level" class="" onclick="deleteLevel({{ level }});">
+                                         <button title="Delete Level" style="float:right"  type="button" class="btn btn-white btn-small" onclick="deleteLevel({{ level }});" id="deletelevel_{{ level }}"><i class="fa fa-trash"></i></button>
                                     </div>
                                     <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4>
                                         <div class="row">
@@ -506,6 +506,7 @@ jQuery(document).ready ($)->
         data = 
           level : i
         $("#addFloorlevel").append compile data
+        $("#deletelevel_"+counter).addClass('hidden'); 
         $("select").select2()
         $("#level_"+i).find('select[name="room_type[]"]').val('')
         $("#counter").val i

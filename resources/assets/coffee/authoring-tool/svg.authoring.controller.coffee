@@ -9,6 +9,9 @@
 #Function to show the options depending on whether object is marked or not
 #Function to count the number of pending objects
 jQuery(document).ready ($)->
+
+    # add svg-off class to disable keep image fixed in the div else it moves
+    $('.svg-canvas').addClass('svg-off')
     $('.area').canvasAreaDraw()
 
     ########################### GLOBALS BEGIN ###########################
@@ -269,6 +272,15 @@ jQuery(document).ready ($)->
             select.hide()
             $('.duplicate').hide()
             return 
+        
+        building_name = buildingMasterCollection.findWhere
+                        'id' : parseInt building_id
+        if building_id isnt 0 
+            $.each svgs , (index,value)->
+                svg_name_arr = value.split('/')
+                svg_name = svg_name_arr[parseInt(svg_name_arr.length) - 1]
+                $('<option />', {value: index, text: building_name.get('building_name')+'-'+svg_name}).appendTo(select)  
+            return
         $.each svgs , (index,value)->
             $('<option />', {value: index, text: value}).appendTo(select)
 
@@ -742,13 +754,13 @@ jQuery(document).ready ($)->
 
     keydownFunc = (e) ->
       if e.which is 13
-        $('.alert').text 'POLYGON IS NOW DRAGGABLE'
-        window.hideAlert()
+        # $('.alert').text 'POLYGON IS NOW DRAGGABLE'
+        # window.hideAlert()
         $('#aj-imp-builder-drag-drop canvas').hide()
         $('#aj-imp-builder-drag-drop svg').show()
         object  = window.EDITOBJECT
-        console.log id = object.id
-        $('#'+id).hide()
+        id = $(object).attr('svgid')
+        $('.layer[svgid="'+id+'"]').hide()
         pointList = window.polygon.getPointList(f)
         pointList = pointList.join(' ')
         @polygon = draw.polygon(pointList)
@@ -802,9 +814,9 @@ jQuery(document).ready ($)->
         html: 'true'
         content: '<div id="popOverBox">
                     <ul class="list-inline">
-                        <li><div class="marker-elem marker1 concentric-marker"></div></li>
-                        <li><div class="marker-elem marker2 solid-marker"></div></li>
-                        <li class="google-earth-li hidden"><div class="marker-elem marker3 earth-location-marker"></div></li>
+                        <li title="Amenities"><div class="marker-elem marker1 concentric-marker"></div></li>
+                        <li title="Units"><div class="marker-elem marker2 solid-marker"></div></li>
+                        <li class="google-earth-li hidden" title="Project Location"><div class="marker-elem marker3 earth-location-marker"></div></li>
                     </ul>
                   </div>')
         .parent().on 'click', '#popOverBox .marker-elem',(evt) ->
@@ -907,7 +919,11 @@ jQuery(document).ready ($)->
 
                     else
                         window.showDetails(currentElem)
-                            
+    
+
+    $('.zoom-in').on 'click' ,(e) ->
+         $('.svg-canvas').removeClass('svg-off')
+
     
     $('svg').on 'dblclick', '.marker-grp' , (e) ->
         window.EDITMODE = true
@@ -1162,9 +1178,12 @@ jQuery(document).ready ($)->
 
                 # clear svg 
                 draw.clear()
-               
+                
                 # re-generate svg with new svg element
                 window.generateSvg(window.svgData.data)
+                types = window.getPendingObjects(window.svgData)
+
+                window.showPendingObjects(types)
                 window.resetTool()
 
                 
@@ -1232,6 +1251,8 @@ jQuery(document).ready ($)->
 
     $('svg').on 'contextmenu', '.layer' , (e) ->
         e.preventDefault()
+        $('.alert').text 'Polygon duplicated, drag to position'
+        window.hideAlert()
         currentElem = e.currentTarget
         if /(^|\s)marker-grp(\s|$)/.test($(currentElem).attr("class"))
             return false
@@ -1323,8 +1344,7 @@ jQuery(document).ready ($)->
 
 
     $('.duplicate').on 'click' , (evt) ->
-        $('.svgPaths').removeClass 'hidden'
-        $('.process').removeClass 'hidden'
+       $('#myModal').modal()
        
     # window.removeAttr = (data)-> 
     #     $.each data , (index,value)->
@@ -1345,7 +1365,9 @@ jQuery(document).ready ($)->
 
     $('.process').on 'click' , (evt) ->
         $('.svg-canvas').hide()
+        $('#myModal').modal('hide')
         $('#rotate_loader').removeClass 'hidden'
+
         imageid = $('.svgPaths').val()
         $.ajax
             type : 'GET',
@@ -1358,6 +1380,7 @@ jQuery(document).ready ($)->
                 window.generateSvg(window.svgData.data)
                 $('#rotate_loader').addClass 'hidden'
                 $('.svg-canvas').show()
+                $('.duplicate').hide()
 
                 
                 

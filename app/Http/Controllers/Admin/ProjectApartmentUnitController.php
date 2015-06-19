@@ -294,11 +294,25 @@ class ProjectApartmentUnitController extends Controller {
             
             $results = $reader->toArray(); //dd($results);
             if(count($results[0])==12)
-             {       
+             {   
+                $i=0;
                foreach($results as $result)
                {
-                   $name = $result['name']; 
-                   $variantId = intval($result['variant_id']); 
+                    $i++;
+                   $name = $result['name'];
+                   if(isset($result['apartment_variant_id']))
+                   {
+                        $propertyTypeId = APARTMENTID;
+                        $variantId = intval($result['apartment_variant_id']);
+                   }
+                   elseif(isset($result['penthouse_variant_id']))
+                   {
+                       $propertyTypeId = PENTHOUSEID;
+                       $variantId = intval($result['penthouse_variant_id']);
+                   }
+                   else
+                      $variantId = ''; 
+                   
                    $position =  intval($result['position']) ; 
                    $floor = intval($result['floor']) ;  
                    $buildingId =  intval($result['building_id']) ; 
@@ -307,42 +321,90 @@ class ProjectApartmentUnitController extends Controller {
                    $direction = intval($result['direction_id']);
                    
                    if($name =='')
-                        continue;
- 
-                   if($variantId =='')
-                        continue;
+                   {
+                       $errorMsg[] ='Unit Name Is Empty On Row No '.$i;
+                       continue;
+                   }
+                        
                    
- 
-                   if($availability =='')
+                   if($variantId =='')
+                   {
+                        $errorMsg[] ='Variant Id Is Empty On Row No '.$i.'<br>';
                         continue;
+                   }
+                   
+                   if($availability =='')
+                   {
+                       $errorMsg[] ='Status Id Is Empty On Row No '.$i;
+                        continue;
+                   }
                    
                    if($direction =='')
+                   {
+                        $errorMsg[] ='Direction Id Is Empty On Row No '.$i;
                         continue;
+                   }
                    
                    if($buildingId =='')
+                   {
+                       $errorMsg[] ='Building Id Is Empty On Row No '.$i;
                         continue;
+                   }
                    
                    if($floor =='')
+                   {
+                       $errorMsg[] ='Floor Is Empty On Row No '.$i;
                         continue;
+                   }
                    
                    if($position =='')
+                   {
+                       $errorMsg[] ='Position Is Empty On Row No '.$i;
                         continue;
+                   }
                    
+                   $defaultDirections = Defaults::where('type','direction')->get()->lists('id');
+                   if(!in_array($direction,$defaultDirections))
+                   {
+                       $errorMsg[] ='Invalid Direction Id  On Row No '.$i;
+                        continue;
+                   }
+                   
+                   $phases = $project->projectPhase()->lists('id');
+                   $buildings = Building::whereIn('phase_id', $phases)->lists('id');
+                   if(!in_array($buildingId,$buildings))
+                   {
+                       $errorMsg[] ='Invalid Building Id  On Row No '.$i;
+                        continue;
+                   }
                  
                    //UNIT NAME VALIDATION
                     $unitData = Unit::where('building_id',$buildingId)->where('unit_name', $name)->get()->toArray();
+                    if (!empty($unitData)) 
+                    {
+                        $errorMsg[] ='Unit Name Already Exist On Row No '.$i ;    
+                       continue;
+                    }
 
                     //Unit exist at that position
                     $unitposition = Unit::where('building_id',$buildingId)->where('floor', $floor)->where('position', $position)->get()->toArray(); 
-                    if (!empty($unitposition)) {
+                   if (!empty($unitposition))
+                   {
+                       $errorMsg[] ='Invalid Position  On Row No '.$i;
                        continue;
-                    }
+                   }
+ 
+                   $projectPropertyTypeId = $project->projectPropertyTypes()->where( 'property_type_id', $propertyTypeId )->first()->id;
+                   $unitTypeIds = UnitType::where( 'project_property_type_id', $projectPropertyTypeId )->get()->lists('id');
+                   $unitVariantIds = UnitVariant::whereIn('unit_type_id',$unitTypeIds)->get()->lists('id');
+                                     
+                   if(!in_array($variantId,$unitVariantIds))
+                   {
+                       $errorMsg[] ='Invalid Variant Id  On Row No '.$i ;
+                        continue;
+                   }
                    
-                   
-                   if (!empty($unitData)) {
-                           continue;
-                       }
-
+                     
                     $unit =new Unit();
                     $unit->unit_name = ucfirst($name);
                     $unit->unit_variant_id = $variantId;
@@ -368,9 +430,11 @@ class ProjectApartmentUnitController extends Controller {
                 Session::flash('success_message','Unit Successfully Imported');
             }
              else
-              Session::flash('error_message','Column Count does not match');
+                 $errorMsg[] ='Column Count does not match';
+     
 
-
+                Session::flash('error_message',$errorMsg);
+ 
             });
             
             

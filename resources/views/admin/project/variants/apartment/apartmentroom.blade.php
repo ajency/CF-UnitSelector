@@ -75,6 +75,7 @@
                                         </div>
                                     </div>
                                     <div class="room_attributes_block">
+                                    @if(isset($variantRooms[0]))
                                         @foreach($variantRooms[0] as $variantRoomId=> $roomType) 
                                         <div class="p-r-15 p-l-15 variant_rooms roomattribute_0_{{$roomType['ROOMTYPEID']}}">
                                             <div class="text-right">
@@ -105,7 +106,7 @@
                                                             @if('textbox' === $attributes['control_type'])
                                                             <input type="text" class="form-control" name="attributes[0][{{ $roomType['ROOMTYPEID'] }}][{{property_type_slug($attributes['label'])}}]" value="{{ $value }}"  placeholder="Enter {{$attributes['label']}}">
                                                             @elseif('number' === $attributes['control_type'])
-                                                            <input type="number" class="form-control" name="attributes[0][{{ $roomType['ROOMTYPEID'] }}][{{property_type_slug($attributes['label'])}}]" value="{{ $value }}"  placeholder="Enter {{$attributes['label']}}">
+                                                            <input type="number" class="form-control" name="attributes[0][{{ $roomType['ROOMTYPEID'] }}][{{property_type_slug($attributes['label'])}}]" value="{{ $value }}"  placeholder="Enter {{$attributes['label']}}" data-parsley-type="number">
                                                             @elseif('select' === $attributes['control_type'])
                                                             <?php
                                                             $options = explode(',', $attributes['defaults']);
@@ -138,6 +139,7 @@
                                         </div>
 
                                         @endforeach
+                                    @endif    
                                     </div>
                                     <div>
                                             <div class="col-md-5 add-unit p-t-10">

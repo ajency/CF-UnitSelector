@@ -37,7 +37,7 @@
       if (units.length === 0) {
         this.ui.units.hide();
         this.ui.unitLabel.hide();
-        $('.alert').text('All buildings marked');
+        $('.alert').text('No buildings');
         return window.hideAlert();
       }
     };

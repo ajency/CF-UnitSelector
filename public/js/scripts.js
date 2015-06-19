@@ -157,6 +157,21 @@ function validateUserPassword(obj, userId)
     });
 }
 
+function deleteProject(project_id)
+{
+    if (confirm('Are you sure you want to delete this project?') === false) {
+        return;
+    }
+
+    $.ajax({
+        url: "/admin/project/" + project_id,
+        type: "DELETE",
+        success: function (response) {
+            window.location = "/admin/project/"; 
+        }
+    });
+}
+
 
 function deleteRoomType(project_id, roomtypeId)
 {
@@ -741,20 +756,10 @@ $(document).ready(function () {
  
             if(files[0].name =='map.jpg' || files[0].name =='map.png' || files[0].name =='map.jepg')
             {
-                var str = '<div class="col-md-3">';
-                str += '<div class="img-hover img-thumbnail">';
-                str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
-                str += '<div style="  width: 150px;height: 93px;"></div>';
-                str += '<div class="progress progress-small " style="margin:0;">';
-                str += '<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="0%" style="width: 0%;margin:0;"></div>';
-                str += '</div>';
-                str += '<div class="dz-size" data-dz-size="">' + files[0].name + '</div>';
-                str += '</div>';
-                str += '</div>';
-                $("#google_earth_image").html(str); 
-                up.start();
+                 up.start();
             }
             else{
+                uploader.removeFile(files[0]);
                 $('.google-earth-images').html(' <div class="alert alert-error"><button class="close" data-dismiss="alert"></button>The image failed to upload.Please try using another image.</div>');
                 $('.google-earth-images').find(".alert-error").removeClass('hidden');
                  
@@ -773,7 +778,7 @@ $(document).ready(function () {
                 str += '<div class="dz-size" data-dz-size="">' + file.name + '</div>';
                 str += '</div>';
                 str += '</div>';
-                $("#google_earth_image").html(str);
+                $("#google_earth_image").html(str); 
               
             },
             FileUploaded: function (up, file, xhr) {
@@ -1422,7 +1427,8 @@ function deleteLevel(level)
     if (confirm('Are you sure you want to delete this Level? ') === false) {
         return;
     }
- 
+    var counter = $("#counter").val();
+    var i = parseInt(counter)-1;
     if(variantId){
         $.ajax({
         url: BASEURL + "/admin/project/" + PROJECTID + "/bunglow-variant/"+variantId+"/deletelevel",
@@ -1431,13 +1437,51 @@ function deleteLevel(level)
             level: level,
         },
         success: function (response) {
+           
+           $("#counter").val(i);
+           $("#deletelevel_"+i).removeClass('hidden'); 
            $("#level_"+level).remove();
         }
         });
     }
     else{ 
+
+        $("#counter").val(i);
         $("#level_"+level).remove();
+        $("#deletelevel_"+i).removeClass('hidden');
     }
 
     
 }
+
+function saveRoom()
+{
+    var flag = true;
+        
+    $('.attributes_block select').each(function () {  
+        var controlVal = $(this).closest('.row').find('.tags').val();
+        if(($(this).val()=='select' ||  $(this).val()=='multiple') && controlVal=='') 
+        {
+            var attributename = $(this).closest('.row').find('input').val();
+            alert('Please Enter Default Values For Attribute '+attributename);
+            flag = false;
+        }
+        
+     });    
+
+    if (flag)
+        $('form').submit();
+
+}
+
+/*$(".attributes_block select").change(function () {
+    
+    if(($(this).val()=='select' ||  $(this).val()=='multiple')) 
+    { 
+        $(this).closest('.row').find('.controlvalue').removeClass('hidden');
+    }
+    else{ 
+       $(this).closest('.row').find('.controlvalue').addClass('hidden');
+    }
+ 
+});*/

@@ -81,7 +81,7 @@ class ProjectRoomTypeController extends Controller {
                 $controlType = $controlTypeArr[$key];
                 $controlValues = (isset($controlValueArr[$key])) ? $controlValueArr[$key] : '';
 
-                if ($attributeName != '')
+               if ($attributeName != '' && $controlType!='')
                     $attributes[] = new Attribute(['label' => $attributeName, 'control_type' => $controlType, 'defaults' => $controlValues,
                         'object_type' => $objecttype, 'object_id' => $roomtypeId]);
 
@@ -177,7 +177,7 @@ class ProjectRoomTypeController extends Controller {
                 $attributeId = $attributeIdArr[$key];
 
                 if ($attributeId == '') {
-                    if ($attributeName != '')
+                    if ($attributeName != '' && $controlType!='')
                         $attributes[] = new Attribute(['label' => $attributeName, 'control_type' => $controlType, 'defaults' => $controlValues,
                             'object_type' => $objecttype, 'object_id' => $roomId]);
                 } else {
@@ -230,7 +230,7 @@ class ProjectRoomTypeController extends Controller {
             if ('textbox' === $attribute['control_type']) {
                         $str.='<input type="text" class="form-control" name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . ']" placeholder="Enter ' . $attribute['label'] . '">';
                     } elseif ('number' === $attribute['control_type']) {
-                        $str.='<input type="number" class="form-control" name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . ']" placeholder="Enter ' . $attribute['label'] . '">';
+                        $str.='<input type="number" class="form-control" name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . ']" placeholder="Enter ' . $attribute['label'] . '" data-parsley-type="number">';
                     } elseif ('select' === $attribute['control_type']) {
                         $options = explode(',', $attribute['defaults']);
 

@@ -37,7 +37,7 @@ class AuthoringTool.BuildingView extends Marionette.ItemView
 		if units.length == 0
 			@ui.units.hide()
 			@ui.unitLabel.hide()
-			$('.alert').text 'All buildings marked'
+			$('.alert').text 'No buildings'
 			window.hideAlert()
 
 class AuthoringTool.BuildingCtrl extends Marionette.RegionController

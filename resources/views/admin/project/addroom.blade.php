@@ -107,7 +107,7 @@
                 <div class="text-right">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
 
-                    <button type="submit" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
+                    <button onclick="saveRoom();" type="button" class="btn btn-primary btn-cons"><i class="fa fa-check"></i> Save</button>
  
                 </div>
             </div>
@@ -132,5 +132,6 @@ function createRoomType(obj)
     }
    
 }
-</script>
+ 
+    </script>
 @endsection

@@ -1,6 +1,7 @@
 (function() {
   jQuery(document).ready(function($) {
     var keydownFunc;
+    $('.svg-canvas').addClass('svg-off');
     $('.area').canvasAreaDraw();
     window.draw = SVG('aj-imp-builder-drag-drop');
     window.svgData = {
@@ -225,7 +226,7 @@
       });
     };
     window.loadSvgPaths = function() {
-      var select, svgCount, svgs;
+      var building_name, select, svgCount, svgs;
       select = $('.svgPaths');
       $('<option />', {
         value: "",
@@ -237,6 +238,21 @@
       if (svgCount === 0) {
         select.hide();
         $('.duplicate').hide();
+        return;
+      }
+      building_name = buildingMasterCollection.findWhere({
+        'id': parseInt(building_id)
+      });
+      if (building_id !== 0) {
+        $.each(svgs, function(index, value) {
+          var svg_name, svg_name_arr;
+          svg_name_arr = value.split('/');
+          svg_name = svg_name_arr[parseInt(svg_name_arr.length) - 1];
+          return $('<option />', {
+            value: index,
+            text: building_name.get('building_name') + '-' + svg_name
+          }).appendTo(select);
+        });
         return;
       }
       return $.each(svgs, function(index, value) {
@@ -684,13 +700,11 @@
     keydownFunc = function(e) {
       var id, object, pointList;
       if (e.which === 13) {
-        $('.alert').text('POLYGON IS NOW DRAGGABLE');
-        window.hideAlert();
         $('#aj-imp-builder-drag-drop canvas').hide();
         $('#aj-imp-builder-drag-drop svg').show();
         object = window.EDITOBJECT;
-        console.log(id = object.id);
-        $('#' + id).hide();
+        id = $(object).attr('svgid');
+        $('.layer[svgid="' + id + '"]').hide();
         pointList = window.polygon.getPointList(f);
         pointList = pointList.join(' ');
         this.polygon = draw.polygon(pointList);
@@ -734,7 +748,7 @@
     });
     $('[rel=\'popover\']').popover({
       html: 'true',
-      content: '<div id="popOverBox"> <ul class="list-inline"> <li><div class="marker-elem marker1 concentric-marker"></div></li> <li><div class="marker-elem marker2 solid-marker"></div></li> <li class="google-earth-li hidden"><div class="marker-elem marker3 earth-location-marker"></div></li> </ul> </div>'
+      content: '<div id="popOverBox"> <ul class="list-inline"> <li title="Amenities"><div class="marker-elem marker1 concentric-marker"></div></li> <li title="Units"><div class="marker-elem marker2 solid-marker"></div></li> <li class="google-earth-li hidden" title="Project Location"><div class="marker-elem marker3 earth-location-marker"></div></li> </ul> </div>'
     }).parent().on('click', '#popOverBox .marker-elem', function(evt) {
       var currentElem, markerType;
       window.EDITMODE = true;
@@ -828,6 +842,9 @@
           }
         };
       })(this));
+    });
+    $('.zoom-in').on('click', function(e) {
+      return $('.svg-canvas').removeClass('svg-off');
     });
     $('svg').on('dblclick', '.marker-grp', function(e) {
       var currentElem, currentSvgElem, cx, cy, draggableChildCircle, draggableElem, elemId, object_type;
@@ -1034,7 +1051,7 @@
         async: false,
         data: $.param(myObject),
         success: function(response) {
-          var bldg, indexToSplice, obj_id_deleted, obj_type, unit;
+          var bldg, indexToSplice, obj_id_deleted, obj_type, types, unit;
           indexToSplice = -1;
           obj_id_deleted = 0;
           obj_type = "";
@@ -1064,6 +1081,8 @@
           }
           draw.clear();
           window.generateSvg(window.svgData.data);
+          types = window.getPendingObjects(window.svgData);
+          window.showPendingObjects(types);
           return window.resetTool();
         },
         error: function(response) {
@@ -1121,6 +1140,8 @@
     $('svg').on('contextmenu', '.layer', function(e) {
       var currentElem, newPoints, pointList;
       e.preventDefault();
+      $('.alert').text('Polygon duplicated, drag to position');
+      window.hideAlert();
       currentElem = e.currentTarget;
       if (/(^|\s)marker-grp(\s|$)/.test($(currentElem).attr("class"))) {
         return false;
@@ -1180,12 +1201,12 @@
       return newPoints;
     };
     $('.duplicate').on('click', function(evt) {
-      $('.svgPaths').removeClass('hidden');
-      return $('.process').removeClass('hidden');
+      return $('#myModal').modal();
     });
     $('.process').on('click', function(evt) {
       var imageid;
       $('.svg-canvas').hide();
+      $('#myModal').modal('hide');
       $('#rotate_loader').removeClass('hidden');
       imageid = $('.svgPaths').val();
       return $.ajax({
@@ -1197,7 +1218,8 @@
           draw.clear();
           window.generateSvg(window.svgData.data);
           $('#rotate_loader').addClass('hidden');
-          return $('.svg-canvas').show();
+          $('.svg-canvas').show();
+          return $('.duplicate').hide();
         },
         error: function(response) {
           return alert('Some problem occurred');

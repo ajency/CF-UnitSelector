@@ -50,7 +50,7 @@
       if (units.length === 0) {
         this.ui.units.hide();
         this.ui.unitLabel.hide();
-        $('.alert').text('All plots marked');
+        $('.alert').text('No plots');
         return window.hideAlert();
       }
     };

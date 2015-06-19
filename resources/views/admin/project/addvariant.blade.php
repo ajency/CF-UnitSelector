@@ -82,7 +82,7 @@
                         @foreach($project_property_type_attributes as $attributes)
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label class="form-label">{{ $attributes['label'] }}</label>
+                                <label class="form-label">{{ $attributes['label'] }}<span class="text-primary">*</span></label>
 
                                 <div>
                                     @if('textbox' === $attributes['control_type'])
@@ -218,7 +218,8 @@
                                         <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false">
                                         Level 1
                                         <input type="hidden" value="1" name="levels[]">
-                                        <input style="float:right" type="button" value="Delete Level" class="" onclick="deleteLevel(1);">
+                                            
+                                            <button title="Delete Level" style="float:right"  type="button" class="btn btn-white btn-small" onclick="deleteLevel(1);" id="deletelevel_1"><i class="fa fa-trash"></i></button>
                                         </a>
                                     </h4>
                                     </div>
