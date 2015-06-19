@@ -63,7 +63,7 @@ class ProjectController extends Controller {
 
         $project = $projectRepository->createProject($request->all());
         if ($project !== null) {
-            Session::flash('success_message','Your project has been created successfully');
+            Session::flash('success_message','Your project has been created successfully. Please configure the project by clicking on Edit button');
             return redirect("/admin/project/" . $project->id);
         }
     }
