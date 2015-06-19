@@ -438,7 +438,7 @@ jQuery(document).ready ($)->
                                     <div class="grid-title">
                                         <h4>Level {{ level }}</h4>
                                         <input type="hidden" value="{{ level }}" name="levels[]">
-                                        <input style="float:right" type="button" value="Delete Level" class="" onclick="deleteLevel({{ level }});" id="deletelevel_{{ level }}">
+                                         <button title="Delete Level" style="float:right"  type="button" class="btn btn-white btn-small" onclick="deleteLevel({{ level }});" id="deletelevel_{{ level }}"><i class="fa fa-trash"></i></button>
                                     </div>
                                     <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4>
                                         <div class="row">
