@@ -157,6 +157,7 @@ jQuery(document).ready ($)->
         project = _.findWhere window.projectsCollection, 'cf_project_id' : projectId
         $('[name="project_title"],[name="hidden_project_title"]').val project.project_title
         $('[name="project_address"],[name="hidden_project_address"]').val project.project_address
+        $("#add_project").parsley().reset();
         template = '<div class="user-description-box">
                         <div class="row">
                             <div class="col-sm-8">
@@ -425,21 +426,25 @@ jQuery(document).ready ($)->
     $('[data-toggle="popover"]').popover()
 
     $('.add_level').click ->
-        counter = $("#counter").val()
+        counter = $("#counter").val() 
         i = parseInt(counter)+1
         
         str = '<div class="row" id="level_{{ level }}">
                     <div class="no-border">
-
-                        <div class="grid simple" style="margin-bottom:0;">
+                        <div class="grid simple" style="margin-bottom:10px;">
                             <div class="grid-body no-border" style="padding-bottom:0;">
-                                <div class="grid simple vertical orange">
-                                    <div class="grid-title">
-                                        <h4>Level {{ level }}</h4>
+                                <div class="panel panel-default vertical orange">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ level }}" aria-expanded="false">
+                                        Level{{ level }} 
                                         <input type="hidden" value="{{ level }}" name="levels[]">
-                                        <input style="float:right" type="button" value="Delete Level" class="" onclick="deleteLevel({{ level }});">
+                                         <button title="Delete Level" style="float:right"  type="button" class="btn btn-white btn-small" onclick="deleteLevel({{ level }});" id="deletelevel_{{ level }}"><i class="fa fa-trash"></i></button>
+                                        </a>
+                                    </h4>
                                     </div>
-                                    <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4>
+                                    <div id="collapse{{ level }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div class="panel-body"><h4> <span class="semi-bold">Layouts</span></h4>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="grid simple">
@@ -495,16 +500,21 @@ jQuery(document).ready ($)->
                                                         </div>
                                             </div>
                                          </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>'
+        
+        
     
         compile = Handlebars.compile str
         data = 
           level : i
         $("#addFloorlevel").append compile data
+        $("#deletelevel_"+counter).addClass('hidden'); 
         $("select").select2()
         $("#level_"+i).find('select[name="room_type[]"]').val('')
         $("#counter").val i

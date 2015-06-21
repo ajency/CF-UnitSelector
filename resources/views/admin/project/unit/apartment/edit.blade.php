@@ -106,6 +106,7 @@
                             <option @if($unit['availability']=='sold'){{'selected'}}@endif value="sold">Sold</option>
                             <option @if($unit['availability']=='not_released'){{'selected'}}@endif value="not_released">Not Released</option>
                             <option @if($unit['availability']=='blocked'){{'selected'}}@endif value="blocked">Blocked</option>
+                            <option @if($unit['availability']=='archived'){{'selected'}}@endif value="archived">Archived</option>
                         </select>
                     </div>
                 </div>

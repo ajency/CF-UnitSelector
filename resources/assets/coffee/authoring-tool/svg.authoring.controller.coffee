@@ -9,6 +9,9 @@
 #Function to show the options depending on whether object is marked or not
 #Function to count the number of pending objects
 jQuery(document).ready ($)->
+
+    # add svg-off class to disable keep image fixed in the div else it moves
+    $('.svg-canvas').addClass('svg-off')
     $('.area').canvasAreaDraw()
 
     ########################### GLOBALS BEGIN ###########################
@@ -811,9 +814,9 @@ jQuery(document).ready ($)->
         html: 'true'
         content: '<div id="popOverBox">
                     <ul class="list-inline">
-                        <li><div class="marker-elem marker1 concentric-marker"></div></li>
-                        <li><div class="marker-elem marker2 solid-marker"></div></li>
-                        <li class="google-earth-li hidden"><div class="marker-elem marker3 earth-location-marker"></div></li>
+                        <li title="Amenities"><div class="marker-elem marker1 concentric-marker"></div></li>
+                        <li title="Units"><div class="marker-elem marker2 solid-marker"></div></li>
+                        <li class="google-earth-li hidden" title="Project Location"><div class="marker-elem marker3 earth-location-marker"></div></li>
                     </ul>
                   </div>')
         .parent().on 'click', '#popOverBox .marker-elem',(evt) ->
@@ -916,7 +919,11 @@ jQuery(document).ready ($)->
 
                     else
                         window.showDetails(currentElem)
-                            
+    
+
+    $('.zoom-in').on 'click' ,(e) ->
+         $('.svg-canvas').removeClass('svg-off')
+
     
     $('svg').on 'dblclick', '.marker-grp' , (e) ->
         window.EDITMODE = true

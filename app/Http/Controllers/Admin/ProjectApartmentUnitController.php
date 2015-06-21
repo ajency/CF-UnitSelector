@@ -299,8 +299,20 @@ class ProjectApartmentUnitController extends Controller {
                foreach($results as $result)
                {
                     $i++;
-                   $name = $result['name']; 
-                   $variantId = intval($result['variant_id']); 
+                   $name = $result['name'];
+                   if(isset($result['apartment_variant_id']))
+                   {
+                        $propertyTypeId = APARTMENTID;
+                        $variantId = intval($result['apartment_variant_id']);
+                   }
+                   elseif(isset($result['penthouse_variant_id']))
+                   {
+                       $propertyTypeId = PENTHOUSEID;
+                       $variantId = intval($result['penthouse_variant_id']);
+                   }
+                   else
+                      $variantId = ''; 
+                   
                    $position =  intval($result['position']) ; 
                    $floor = intval($result['floor']) ;  
                    $buildingId =  intval($result['building_id']) ; 
@@ -382,8 +394,8 @@ class ProjectApartmentUnitController extends Controller {
                        continue;
                    }
  
-                   $projectPropertyTypeIds = $project->projectPropertyTypes()->whereIn( 'property_type_id', [APARTMENTID,PENTHOUSEID] )->get()->lists('id');
-                   $unitTypeIds = UnitType::whereIn( 'project_property_type_id', $projectPropertyTypeIds )->get()->lists('id');
+                   $projectPropertyTypeId = $project->projectPropertyTypes()->where( 'property_type_id', $propertyTypeId )->first()->id;
+                   $unitTypeIds = UnitType::where( 'project_property_type_id', $projectPropertyTypeId )->get()->lists('id');
                    $unitVariantIds = UnitVariant::whereIn('unit_type_id',$unitTypeIds)->get()->lists('id');
                                      
                    if(!in_array($variantId,$unitVariantIds))
@@ -418,9 +430,11 @@ class ProjectApartmentUnitController extends Controller {
                 Session::flash('success_message','Unit Successfully Imported');
             }
              else
-              Session::flash('error_message','Column Count does not match');
+                 $errorMsg[] ='Column Count does not match';
+     
 
-
+                Session::flash('error_message',$errorMsg);
+ 
             });
             
             

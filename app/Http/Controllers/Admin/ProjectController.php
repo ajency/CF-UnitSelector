@@ -14,6 +14,7 @@ use CommonFloor\Phase;
 use CommonFloor\UnitVariant;
 use CommonFloor\UnitType;
 use CommonFloor\Building;
+use CommonFloor\ProjectJson;
 use \Input;
 use CommonFloor\Http\Controllers\Admin\SvgController;
 use \Session;
@@ -62,7 +63,7 @@ class ProjectController extends Controller {
 
         $project = $projectRepository->createProject($request->all());
         if ($project !== null) {
-            Session::flash('success_message','Your project has been created successfully');
+            Session::flash('success_message','Your project has been created successfully. Please configure the project by clicking on Edit button');
             return redirect("/admin/project/" . $project->id);
         }
     }
@@ -180,9 +181,61 @@ class ProjectController extends Controller {
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id) {
-        //
+    public function destroy($projectId) {
+       $project = Project::find($projectId);
+       $projectJason = $project->projectJson()->delete();
+       $projectMeta = $project->projectMeta()->delete();
+       $projectattributes = $project->attributes()->delete();   
+       $projectmedia = $project->media()->delete();   
+       $projectRooms = $project->roomTypes()->delete();         
+        
+        $phases = $project->projectPhase()->get()->toArray();
+        $projectpropertyTypes = $project->projectPropertyTypes()->get()->toArray();
+        //delete phase -> buildings -> units
+        foreach ($phases as $key=> $phase) {
+            $phaseId = $phase['id'];
+            $phase = Phase::find($phaseId);
+            $units = $phase->projectUnits()->delete(); 
+            $buildings = $phase->projectBuildings()->get(); 
+
+            foreach($buildings as $building)
+            {
+                $buildingData = Building :: find($building['id']);
+                $buildingUnits = $buildingData->projectUnits()->delete(); 
+                $buildingmedia = $project->media()->delete();   
+                $buildingData->delete(); 
+            }
+ 
+            $phase->delete(); 
+        }
+        
+        //delete property type -> unittype -> variants
+        foreach($projectpropertyTypes as $projectPropertyType)
+        {
+            $propertyType = ProjectPropertyType :: find($projectPropertyType['id']);
+            $propertyTypeattributes = $propertyType->attributes()->delete();
+            $projectUnitTypes = $propertyType->projectUnitType()->get()->toArray();
+            foreach($projectUnitTypes as $projectUnitType)
+            {
+                $unitType = UnitType::find($projectUnitType['id']);
+                $unitVariants = $unitType->unitTypeVariant()->delete();
+                $unitType->delete();
+            }
+            $propertyType->delete();
+        }
+        $targetDir = public_path() . "/projects/" . $projectId;
+        unlink($targetDir);
+        $project->delete();
+        
+        Session::flash('success_message','Project Successfully Deleted');
+        
+        return response()->json( [
+                    'code' => 'project_deleted',
+                    'message' => 'Project Successfully Deleted',
+         
+                        ], 204 );
     }
+    
 
     public function cost($id, ProjectRepository $projectRepository) {
         $project = $projectRepository->getProjectById($id);
@@ -240,9 +293,9 @@ class ProjectController extends Controller {
     }
 
     public function updateFilters($id, Request $request, ProjectRepository $projectRepository) {
-        
-        $projectFilters = serialize($request->all());
-
+        $projectFilters =$request->all();
+        unset($projectFilters['_token']);
+        $projectFilters = serialize($projectFilters);
         $data = array("meta_value" => $projectFilters);
         ProjectMeta:: where(['meta_key'=> 'filters','project_id'=> $id])->update($data);
         
@@ -334,7 +387,7 @@ class ProjectController extends Controller {
         foreach ($phases as $key=> $phase) {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
-            $units = $phase->projectUnits()->get()->toArray();
+            $units = $phase->projectUnits()->where('availability','!=','archived')->get()->toArray();
             $buildings = $phase->projectBuildings()->get(); 
             $buildingUnits = $buildingBreakpointId =[];
             
@@ -345,7 +398,7 @@ class ProjectController extends Controller {
             foreach($buildings as $building)
             {
                 $buildingData = Building :: find($building['id']);
-                $buildingUnits = $buildingData->projectUnits()->get()->toArray();
+                $buildingUnits = $buildingData->projectUnits()->where('availability','!=','archived')->get()->toArray();
                 $buildingMediaIds= $building['building_master'];
             
                 $buildingbreakPoint = (!empty($building['breakpoints']))?unserialize($building['breakpoints']):[];
@@ -458,7 +511,7 @@ class ProjectController extends Controller {
 
     public function getPhaseData($projectId, $phaseId) {
         $phase = Phase::find($phaseId);
-        $units = $phase->projectUnits()->get()->toArray();
+        $units = $phase->projectUnits()->where('availability','!=','archived')->get()->toArray();
 		$buildings = $phase->projectBuildings()->get();
         $data = $unitIds =  $buildingIds = $mediaIds = $errors = $unitNames =  [];
         foreach ($units as $unit) {
@@ -652,7 +705,7 @@ class ProjectController extends Controller {
                 foreach($unitVariants as $unitVariant)
                 {
                     $variant = UnitVariant::find($unitVariant['id']);
-                    $units = $variant->units()->get()->toArray();
+                    $units = $variant->units()->where('availability','!=','archived')->get()->toArray();
                     if(empty($units))
                         $warnings[] = 'No Units Created For Variant :'.$variant['unit_variant_name'];   
                      
@@ -707,13 +760,13 @@ class ProjectController extends Controller {
         foreach ($phases as $phase) {
             $phaseId = $phase['id'];
             $phase = Phase::find($phaseId);
-            $units = $phase->projectUnits()->get()->toArray();
+            $units = $phase->projectUnits()->where('availability','!=','archived')->get()->toArray();
             $buildings = $phase->projectBuildings()->get()->toArray(); 
             $phaseData[$phaseId] = $phase['phase_name'];
             foreach($buildings as $building)
             {
                 $buildingData = Building :: find($building['id']);
-                $buildingUnits = $buildingData->projectUnits()->get()->toArray();
+                $buildingUnits = $buildingData->projectUnits()->where('availability','!=','archived')->get()->toArray();
                 if(empty($buildingUnits))
                         $warnings[] = 'No Units Created For Building :'.$buildingData->building_name;   
                 
@@ -751,17 +804,19 @@ class ProjectController extends Controller {
                 <h4 class="modal-title text-left" id="myModalLabel">Publish Project</h4>
             </div>
             <div class="modal-body">
-                <div class="row m-b-5">
-                    <div class="col-md-12">
+                <div class="row m-b-5">';
+        if($project->has_phase == 'yes')
+        {
+            $html .=  '<div class="col-md-12">
                         <div class="alert">
                             <strong>NOTE : </strong>Project should have at least one Phase with status as Live to publish the project.
                         </div>
                     </div>';
+        }
         if(empty($filters))
             $filtermsg = 'No Filters Set For Project';
         else
         {
-            unset($filters['_token']);
             $filtermsg = 'Filters Applied To : ';
             foreach($filters as $type => $filter)
             {
@@ -1045,43 +1100,34 @@ class ProjectController extends Controller {
             
            if($flag)
            {
-               if(!empty($apartmentunitVariants))
-               {
-                   $data[$i]['Apartment Variant'] = (isset($apartmentunitVariants[$i])) ? $apartmentunitVariants[$i]['unit_variant_name']:''; 
-                   $data[$i]['Apartment Variant Id'] = (isset($apartmentunitVariants[$i])) ? $apartmentunitVariants[$i]['id']:'';    
-               }
-                
-               if(!empty($penthouseunitVariants))
-               {
-                   $data[$i]['Penthouse Variant'] = (isset($penthouseunitVariants[$i])) ? $penthouseunitVariants[$i]['unit_variant_name']:''; 
-                   $data[$i]['Penthouse Variant Id'] = (isset($penthouseunitVariants[$i])) ? $penthouseunitVariants[$i]['id']:'';    
-               }
-                     
-              if(!empty($buildings))
-              {
+              
+               $data[$i]['Apartment Variant'] = (isset($apartmentunitVariants[$i])) ? $apartmentunitVariants[$i]['unit_variant_name']:''; 
+               $data[$i]['Apartment Variant Id'] = (isset($apartmentunitVariants[$i])) ? $apartmentunitVariants[$i]['id']:'';    
+
+
+
+               $data[$i]['Penthouse Variant'] = (isset($penthouseunitVariants[$i])) ? $penthouseunitVariants[$i]['unit_variant_name']:''; 
+               $data[$i]['Penthouse Variant Id'] = (isset($penthouseunitVariants[$i])) ? $penthouseunitVariants[$i]['id']:'';    
+               
+          
                 $data[$i]['Building'] = (isset($buildings[$i])) ? $buildings[$i]['building_name']:''; 
                 $data[$i]['Building Id'] = (isset($buildings[$i])) ? $buildings[$i]['id']:'';    
                 $data[$i]['Building FLOORS'] = (isset($buildings[$i])) ? $buildings[$i]['no_of_floors']:'';      
-              }
+              
                
            }
            else{
-               if(!empty($unitVariants))
-               {
-                   $data[$i]['Variant'] = (isset($unitVariants[$i])) ? $unitVariants[$i]['unit_variant_name']:''; 
-                   $data[$i]['Variant Id'] = (isset($unitVariants[$i])) ? $unitVariants[$i]['id']:'';    
-               }
+                
+               $data[$i]['Variant'] = (isset($unitVariants[$i])) ? $unitVariants[$i]['unit_variant_name']:''; 
+               $data[$i]['Variant Id'] = (isset($unitVariants[$i])) ? $unitVariants[$i]['id']:'';    
+               
               
-               if(!empty($phases))
-              {
                 $data[$i]['Phase'] = (isset($phases[$i])) ? $phases[$i]['phase_name']:''; 
                 $data[$i]['Phase Id'] = (isset($phases[$i])) ? $phases[$i]['id']:'';    
-              }
+               
             
             }
-           
-          
-  
+ 
            $data[$i]['Direction'] = (isset($defaultDirection[$i])) ? $defaultDirection[$i]['label']:''; 
            $data[$i]['Direction Id'] = (isset($defaultDirection[$i])) ? $defaultDirection[$i]['id']:'';    
             
@@ -1115,6 +1161,27 @@ class ProjectController extends Controller {
       }
       
       return $unitVariants;
+  }
+    
+  public function unPublishProject($projectId)
+  {
+        $project = Project::find($projectId);
+        $project->status = 'unpublished';
+        $project->save();
+        
+        Session::flash('success_message','Project Unpublished');
+
+        $projectJson = ProjectJson::where('project_id', $projectId)
+                                ->where('type', 'step_one')->get()->first();
+        $projectJson->project_json = [];
+        $projectJson->save();
+
+        $projectJson = ProjectJson::where('project_id', $projectId)
+                                ->where('type', 'step_two')->get()->first();
+        $projectJson->project_json = [];
+        $projectJson->save(); 
+      
+       return redirect("/admin/project/" . $projectId . "/summary");
   }
 
  

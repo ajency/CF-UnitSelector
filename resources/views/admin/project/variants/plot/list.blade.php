@@ -20,7 +20,7 @@
         <div class="grid simple">
             <div class="grid-title">
                 <h4>List of <span class="semi-bold">Unit Variants</span></h4>
-                <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/plot-variant/create') }}" ><i class="fa fa-plus"></i> Add Variant</a>
+                <a class="btn btn-primary pull-right" href="{{ url('/admin/project/'. $project['id'] .'/plots-variant/create') }}" ><i class="fa fa-plus"></i> Add Variant</a>
             </div>
             <div class="grid-body">
                 <table class="table table-bordered" id="example2" >
@@ -36,7 +36,7 @@
                     </thead>
                     <tbody> 
                         @foreach ($unit_variant_arr as $unit_variant)
-                            <tr class="" onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/plot-variant/'.$unit_variant['id'].'/edit') }}'">
+                            <tr class="" onclick="location.href='{{ url( '/admin/project/' . $project['id'] . '/plots-variant/'.$unit_variant['id'].'/edit') }}'">
                                 <td>{{ $unit_variant['unit_variant_name'] }}</td>
                                 <td>{{ $unitTypes[$unit_variant['unit_type_id']] }}</td>
                                 <td>{{ $unit_variant['size'] }}</td>

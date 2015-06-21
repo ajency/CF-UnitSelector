@@ -1,6 +1,7 @@
 (function() {
   jQuery(document).ready(function($) {
     var keydownFunc;
+    $('.svg-canvas').addClass('svg-off');
     $('.area').canvasAreaDraw();
     window.draw = SVG('aj-imp-builder-drag-drop');
     window.svgData = {
@@ -747,7 +748,7 @@
     });
     $('[rel=\'popover\']').popover({
       html: 'true',
-      content: '<div id="popOverBox"> <ul class="list-inline"> <li><div class="marker-elem marker1 concentric-marker"></div></li> <li><div class="marker-elem marker2 solid-marker"></div></li> <li class="google-earth-li hidden"><div class="marker-elem marker3 earth-location-marker"></div></li> </ul> </div>'
+      content: '<div id="popOverBox"> <ul class="list-inline"> <li title="Amenities"><div class="marker-elem marker1 concentric-marker"></div></li> <li title="Units"><div class="marker-elem marker2 solid-marker"></div></li> <li class="google-earth-li hidden" title="Project Location"><div class="marker-elem marker3 earth-location-marker"></div></li> </ul> </div>'
     }).parent().on('click', '#popOverBox .marker-elem', function(evt) {
       var currentElem, markerType;
       window.EDITMODE = true;
@@ -841,6 +842,9 @@
           }
         };
       })(this));
+    });
+    $('.zoom-in').on('click', function(e) {
+      return $('.svg-canvas').removeClass('svg-off');
     });
     $('svg').on('dblclick', '.marker-grp', function(e) {
       var currentElem, currentSvgElem, cx, cy, draggableChildCircle, draggableElem, elemId, object_type;

@@ -42,14 +42,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-md-4 hidden">
-                            <div class="form-group">
-                                        <label class="form-label">Building Abbrevation<span class="text-primary">*</span></label>
-                                        
-                                        <input type="text" name="abbrevation" id="abbrevation" placeholder="Enter Building Abbrevation" class="form-control" >
- 
-                                        </div>
-                                    </div>
+                        
                                     <div class="col-md-4">
                             <div class="form-group">
                                         <label class="form-label">Number of Floors<span class="text-primary">*</span></label>
@@ -62,10 +55,7 @@
                                              
                                         </div>
                                     </div>
-                                    </div>
-
-                    <div class="row">
-                                   <div class="col-md-4">
+                                     <div class="col-md-4">
                             <div class="form-group">
                                         <label class="form-label">Phase<span class="text-primary">*</span></label>
                                 @if($project['has_phase']=='yes')
@@ -87,6 +77,9 @@
                                              
                                         </div>
                                     </div>
+                                    </div>
+
+                    <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
                                         <label class="form-label">Has Master<span class="text-primary">*</span></label>

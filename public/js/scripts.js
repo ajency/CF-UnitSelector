@@ -157,6 +157,21 @@ function validateUserPassword(obj, userId)
     });
 }
 
+function deleteProject(project_id)
+{
+    if (confirm('Are you sure you want to delete this project?') === false) {
+        return;
+    }
+
+    $.ajax({
+        url: "/admin/project/" + project_id,
+        type: "DELETE",
+        success: function (response) {
+            window.location = "/admin/project/"; 
+        }
+    });
+}
+
 
 function deleteRoomType(project_id, roomtypeId)
 {
@@ -365,7 +380,7 @@ function setUpProjectMasterUploader() {
             "projectId": PROJECTID
         },
         filters: {
-            max_file_size: '1mb',
+            max_file_size: '3mb',
             mime_types: [{
                     title: "Image files",
                     extensions: "jpg,png,jpeg"
@@ -723,7 +738,7 @@ $(document).ready(function () {
             "type": "google_earth"
         },
         filters: {
-            max_file_size: '1mb',
+            max_file_size: '3mb',
             mime_types: [{
                     title: "Image files",
                     extensions: "jpg,png,jpeg"
@@ -1085,7 +1100,7 @@ function getPropertTypeData(obj, flag)
                 if($(obj).find(":selected").text()=='Apartments')                        //APARTMENT
                 {
                    $(".add_level").addClass('hidden');
-                   $("#level_0").find('.grid-title').addClass('hidden');
+                   $("#level_0").find('.level-title').addClass('hidden');
                     $('input[name="levels[]"]').each(function () { 
  
                         if($(this).val()!=0)
@@ -1095,10 +1110,10 @@ function getPropertTypeData(obj, flag)
                     });
                      
                 }
-                else if($(obj).find(":selected").text()=='Penthouse')                        //PENTHOUSE
+                else if($(obj).find(":selected").text()=='Penthouses')                        //PENTHOUSE
                 { 
                    $(".add_level").removeClass('hidden');
-                    $("#level_0").find('.grid-title').removeClass('hidden');
+                    $("#level_0").find('.level-title').removeClass('hidden');
                     $('input[name="levels[]"]').each(function () { 
  
                         if($(this).val()!=0)
@@ -1412,7 +1427,8 @@ function deleteLevel(level)
     if (confirm('Are you sure you want to delete this Level? ') === false) {
         return;
     }
- 
+    var counter = $("#counter").val();
+    var i = parseInt(counter)-1;
     if(variantId){
         $.ajax({
         url: BASEURL + "/admin/project/" + PROJECTID + "/bunglow-variant/"+variantId+"/deletelevel",
@@ -1421,13 +1437,51 @@ function deleteLevel(level)
             level: level,
         },
         success: function (response) {
+           
+           $("#counter").val(i);
+           $("#deletelevel_"+i).removeClass('hidden'); 
            $("#level_"+level).remove();
         }
         });
     }
     else{ 
+
+        $("#counter").val(i);
         $("#level_"+level).remove();
+        $("#deletelevel_"+i).removeClass('hidden');
     }
 
     
 }
+
+function saveRoom()
+{
+    var flag = true;
+        
+    $('.attributes_block select').each(function () {  
+        var controlVal = $(this).closest('.row').find('.tags').val();
+        if(($(this).val()=='select' ||  $(this).val()=='multiple') && controlVal=='') 
+        {
+            var attributename = $(this).closest('.row').find('input').val();
+            alert('Please Enter Default Values For Attribute '+attributename);
+            flag = false;
+        }
+        
+     });    
+
+    if (flag)
+        $('form').submit();
+
+}
+
+/*$(".attributes_block select").change(function () {
+    
+    if(($(this).val()=='select' ||  $(this).val()=='multiple')) 
+    { 
+        $(this).closest('.row').find('.controlvalue').removeClass('hidden');
+    }
+    else{ 
+       $(this).closest('.row').find('.controlvalue').addClass('hidden');
+    }
+ 
+});*/

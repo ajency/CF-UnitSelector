@@ -48,7 +48,7 @@ class ProjectPlotUnitController extends Controller {
                         ->with('project', $project->toArray())
                         ->with('project_property_type', $propertyTypeArr)
                         ->with('unit_arr', $unitArr)
-                        ->with('current', 'plot-unit');
+                        ->with('current', 'plots-unit');
 
         //
     }
@@ -88,7 +88,7 @@ class ProjectPlotUnitController extends Controller {
                         ->with('phases', $phases)
                         ->with('defaultDirection', $defaultDirection)
                         ->with('projectPropertytypeId', $projectPropertytypeId)
-                        ->with('current', 'plot-unit');
+                        ->with('current', 'plots-unit');
     }
 
     /**
@@ -118,9 +118,9 @@ class ProjectPlotUnitController extends Controller {
 
         $addanother = $request->input('addanother');
         if ($addanother == 1)
-            return redirect(url("/admin/project/" . $project_id . "/plot-unit/create"));
+            return redirect(url("/admin/project/" . $project_id . "/plots-unit/create"));
         else
-            return redirect("/admin/project/" . $project_id . "/plot-unit/" . $unitid . '/edit');
+            return redirect("/admin/project/" . $project_id . "/plots-unit/" . $unitid . '/edit');
     }
 
     /**
@@ -183,7 +183,7 @@ class ProjectPlotUnitController extends Controller {
                         ->with('phases', $phases)
                         ->with('defaultDirection', $defaultDirection)
                         ->with('projectPropertytypeId', $projectPropertytypeId)
-                        ->with('current', 'plot-unit');
+                        ->with('current', 'plots-unit');
     }
 
     /**
@@ -213,9 +213,9 @@ class ProjectPlotUnitController extends Controller {
 
         $addanother = $request->input('addanother');
         if ($addanother == 1)
-            return redirect("/admin/project/" . $project_id . "/plot-unit/create");
+            return redirect("/admin/project/" . $project_id . "/plots-unit/create");
         else
-            return redirect("/admin/project/" . $project_id . "/plot-unit/" . $id . '/edit');
+            return redirect("/admin/project/" . $project_id . "/plots-unit/" . $id . '/edit');
     }
 
     /**
@@ -343,7 +343,7 @@ class ProjectPlotUnitController extends Controller {
                  $errorMsg[] ='Column Count does not match';
      
 
-                Session::flash('error_message',implode(" " ,$errorMsg));  
+                Session::flash('error_message',$errorMsg);  
 
 
             });
@@ -352,7 +352,7 @@ class ProjectPlotUnitController extends Controller {
         }
        
        
-       return redirect("/admin/project/" . $projectId . "/plot-unit/");
+       return redirect("/admin/project/" . $projectId . "/plots-unit/");
  
        
    }

@@ -86,13 +86,13 @@
                             <h4>Attributes</h4>
                             <div class="row form-group">
                                 <div class="col-xs-4">
-                                    <label class="form-label">Name</label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Attributes Name will be the specification for each room type for example (Area, Length * Width, etc)."></i>
+                                    <label class="form-label">Name</label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Attributes Name will be the specification for each property type. For example (Furnished,Flooring ,Parking etc)."></i>
                                 </div>
                                 <div class="col-xs-4">
                                     <label class="form-label">Control Type</label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="The selected control type will be available as input on the Variant page."></i>
                                 </div>
                                 <div class="col-xs-4">
-                                    <label class="form-label">Value</label>
+                                    <label class="form-label">Value</label><i class="fa fa-question-circle" data-toggle="tooltip" data-placement="right" title="Enter the option which are available for the user for selection if control type selected is selectbox or multiselect box"></i>
                                 </div>
                                 
                             </div>

@@ -14,8 +14,8 @@
             </div>
             <div class="grid-body no-border">
                 <div class="alert alert-info">
-                <strong><i class="fa fa-info"></i></strong>  Upload Google Earth image of the project. Image dimensions should be - 
-                                            1600*1095. Resolution - 100 DPI. Supported file formats jpg, jpeg, png.
+                <strong><i class="fa fa-info"></i></strong>  Upload Google Earth image of the project with filename 'map'. 
+                Image dimensions should not be less than - 1600*1095. Resolution - 100 DPI. Supported file formats jpg, jpeg, png.
                 </div>
           
                 @if(!empty($svgImages['google_earth']['IMAGE']))

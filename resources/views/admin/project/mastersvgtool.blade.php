@@ -35,7 +35,10 @@
         transform: matrix(1, 0, 0, 1, 0, 0);
 
     }
+    .svg-off{
+        transform: matrix(1, 0, 0, 1, 0, 0) !important;
 
+    }
     .layer{
         fill-opacity: 0.6 !important;
         
@@ -440,7 +443,7 @@
         PROJECTID = URL[5]
         IMAGEID = URL[7]
         BASERESTURL = '{{ get_rest_api_url() }}';
-        $('#aj-imp-builder-drag-drop').panzoom({
+        $panzoomedelem = $('#aj-imp-builder-drag-drop').panzoom({
                 contain: 'invert',
                 minScale: 1,
                 maxScale: 2.4,
@@ -449,6 +452,12 @@
                 $zoomOut: $('.zoom-out')
 
         })
+
+        $panzoomedelem.on('panzoomzoom', function(e,panzoom,scale,opts) {
+            if(scale === 1){
+              $('.svg-canvas').addClass('svg-off');
+            }
+        });
         </script>
 
         <script src="{{ asset('js/authoring-tool/common.js' )}}"></script>
