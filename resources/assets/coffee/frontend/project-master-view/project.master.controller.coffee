@@ -50,7 +50,7 @@ class TopMasterView extends Marionette.ItemView
 													         {{/area}}
 													     {{#budget}}
 													         	 <li>
-													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													                <div class="filter-pill"> <span class="icon-rupee-icn"></span>{{name}} {{type}}</span> <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
 													         </li>
 													         {{/budget}}
 

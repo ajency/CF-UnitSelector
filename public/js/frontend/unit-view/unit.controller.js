@@ -247,15 +247,17 @@
         $.each(value.rooms_data, function(ind, val) {
           var attributes;
           attributes = [];
-          $.each(val.atributes, function(ind_att, val_att) {
-            return attributes.push({
-              'attribute': s.capitalize(val_att.attribute_key),
-              'value': val_att.attribute_value
+          return $.each(val.atributes, function(ind_att, val_att) {
+            if (val_att.attribute_value !== "") {
+              attributes.push({
+                'attribute': s.capitalize(val_att.attribute_key),
+                'value': val_att.attribute_value
+              });
+            }
+            return rooms.push({
+              'room_name': val.room_name,
+              'attributes': attributes
             });
-          });
-          return rooms.push({
-            'room_name': val.room_name,
-            'attributes': attributes
           });
         });
         level_id = s.replaceAll(level_name, " ", "_");
