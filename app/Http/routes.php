@@ -43,10 +43,10 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::resource( 'project.unittype', 'Admin\ProjectUnitTypeController' );
     Route::resource( 'project.bunglow-variant', 'Admin\ProjectBunglowVariantController' );
     Route::resource( 'project.apartment-variant', 'Admin\ProjectApartmentVariantController' );
-    Route::resource( 'project.plot-variant', 'Admin\ProjectPlotVariantController' );
+    Route::resource( 'project.plots-variant', 'Admin\ProjectPlotVariantController' );
     Route::resource( 'project.apartment-unit', 'Admin\ProjectApartmentUnitController' );
     Route::resource( 'project.bunglow-unit', 'Admin\ProjectBunglowUnitController' );
-    Route::resource( 'project.plot-unit', 'Admin\ProjectPlotUnitController' );
+    Route::resource( 'project.plots-unit', 'Admin\ProjectPlotUnitController' );
     Route::resource( 'project.building', 'Admin\ProjectBuildingController' );
     Route::resource( 'project.floor-layout', 'Admin\ProjectFloorLayoutController' );
     Route::resource( 'project.svg-tool', 'Admin\SvgController' );
@@ -67,6 +67,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::get( 'project/{project}/getphasedata/{phase}', 'Admin\ProjectController@getPhaseData' );
     Route::get( 'project/{project}/validateprojectphase', 'Admin\ProjectController@validateProjectPhase' );
     Route::get( 'project/{project}/projectpublishdata', 'Admin\ProjectController@projectPublishData' );
+    Route::get( 'project/{project}/unpublishproject', 'Admin\ProjectController@unPublishProject' );
     Route::get( 'project/{project}/cost', 'Admin\ProjectController@cost' );
     Route::post( 'project/{project}/costupdate', 'Admin\ProjectController@costUpdate' );
     Route::get( 'project/{project}/filters', 'Admin\ProjectController@filters' );
@@ -93,7 +94,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::get( 'project/{id}/image/{imageid}/authoring-tool', 'Admin\ProjectController@loadMasterSvgTool' );
     Route::post( 'project/{project}/apartment-unit/unitimport', 'Admin\ProjectApartmentUnitController@unitImport' );
     Route::post( 'project/{project}/bunglow-unit/unitimport', 'Admin\ProjectBunglowUnitController@unitImport' );
-    Route::post( 'project/{project}/plot-unit/unitimport', 'Admin\ProjectPlotUnitController@unitImport' );
+    Route::post( 'project/{project}/plots-unit/unitimport', 'Admin\ProjectPlotUnitController@unitImport' );
     
     Route::get( 'project/{project}/unitexport/{id}', 'Admin\ProjectController@unitExport' );
     

@@ -28365,35 +28365,6 @@ h5 {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* ------ general
 -----------------------------------------------*/
 .craft-map-container {
@@ -29032,6 +29003,35 @@ body.rtl .footer-widget {
   animation: pace-spinner 400ms linear infinite;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .iconset {
   opacity: 0.25;
   -webkit-transition: all 0.1s ease-in-out;
@@ -29045,6 +29045,10 @@ body.rtl .footer-widget {
 }
 
 
+
+
+
+
 .iconset {
   opacity: 0.25;
   -webkit-transition: all 0.1s ease-in-out;
@@ -29056,10 +29060,6 @@ body.rtl .footer-widget {
 .iconset:hover {
   opacity: 0.40;
 }
-
-
-
-
 
 
 /*# sourceMappingURL=all.css.map */

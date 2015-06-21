@@ -96,7 +96,7 @@
         <div class="row">
              
             <div class="m-l-5 no-border">
-                <h3><i class="fa fa-angle-double-right text-primary"></i> Has <span class="semi-bold">Master Images</span></h3>
+                <h3><i class="fa fa-angle-double-right text-primary"></i> Has <span class="semi-bold">Project Master Images</span></h3>
             </div>
             <div class="col-md-12">
                 <h5 class="semi-bold inline">  

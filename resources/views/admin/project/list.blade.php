@@ -15,6 +15,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="grid simple">
+            @include('admin.project.flashmessage')
             <div class="grid-title">
                 <h4>List of <span class="semi-bold">Projects</span></h4>
                 

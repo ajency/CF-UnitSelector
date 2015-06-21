@@ -230,7 +230,7 @@ class ProjectRoomTypeController extends Controller {
             if ('textbox' === $attribute['control_type']) {
                         $str.='<input type="text" class="form-control" name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . ']" placeholder="Enter ' . $attribute['label'] . '">';
                     } elseif ('number' === $attribute['control_type']) {
-                        $str.='<input type="number" class="form-control" name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . ']" placeholder="Enter ' . $attribute['label'] . '">';
+                        $str.='<input type="number" class="form-control" name="attributes[' . $level . '][' . $roomTypeId . '][' . property_type_slug($attribute['label']) . ']" placeholder="Enter ' . $attribute['label'] . '" data-parsley-type="number">';
                     } elseif ('select' === $attribute['control_type']) {
                         $options = explode(',', $attribute['defaults']);
 

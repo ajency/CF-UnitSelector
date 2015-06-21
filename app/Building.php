@@ -5,6 +5,10 @@ namespace CommonFloor;
 use Illuminate\Database\Eloquent\Model;
 
 class Building extends Model {
+    
+    public function media() {
+        return $this->morphMany( 'CommonFloor\Media', 'mediable' );
+    }    
 
     public function setFloorsAttribute( $value ) {
         $this->attributes['floors'] = serialize( $value );

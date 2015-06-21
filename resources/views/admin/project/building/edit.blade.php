@@ -16,7 +16,7 @@
 <!-- BEGIN PAGE TITLE -->
   <div class="page-title">
                         
-                    <h2><span class="semi-bold">Building </span> Add</h2>
+                    <h2><span class="semi-bold">Building </span> Edit</h2>
                     </div>
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
@@ -44,14 +44,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="col-md-4 hidden">
-                            <div class="form-group">
-                                        <label class="form-label">Building Abbrevation<span class="text-primary">*</span></label>
                                         
-                                        <input type="text" name="abbrevation" id="abbrevation" placeholder="Enter Building Abbrevation" value="{{ $building->abbrevation }}" class="form-control" >
- 
-                                        </div>
-                                    </div>
                                     <div class="col-md-4">
                             <div class="form-group">
                                         <label class="form-label">Number of Floors<span class="text-primary">*</span></label>
@@ -64,10 +57,7 @@
                                              
                                         </div>
                                     </div>
-                                    </div>
-
-                    <div class="row">
-                                   <div class="col-md-4">
+                                     <div class="col-md-4">
                             <div class="form-group">
                                         <label class="form-label">Phase<span class="text-primary">*</span></label>
                                          
@@ -89,7 +79,10 @@
                         @endif         
                                         </div>
                                     </div>
-                          <div class="col-md-4">
+                                    </div>
+
+                    <div class="row">
+                         <div class="col-md-4">
                             <div class="form-group">
                                         <label class="form-label">Has Master<span class="text-primary">*</span></label>
                         <div class="radio radio-primary">        

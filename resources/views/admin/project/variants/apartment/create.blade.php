@@ -136,21 +136,27 @@
                 </div>
             </div>
             <hr/>
-            <div id="addFloorlevel" > 
+            <div id="addFloorlevel" class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"> 
                 <?php $i = 1; ?>
                 <div class="row" id="level_0">
                     <div class="m-l-5 no-border">
                         <button type="button" class="btn btn-small btn-default pull-right m-r-25 add_level {{ (count($projectPropertyTypes) == 1 && $projectPropertyTypes[0]['NAME']=='Apartments' )?"hidden":"" }}" ><i class="fa fa-plus"></i> Add New Level</button>
                         <h3><i class="fa fa-angle-double-right text-primary"></i> Room <span class="semi-bold">Details</span></h3>
                     </div>
-                    <div class="grid simple" style="margin-bottom:0;">
+                    <div class="grid simple" style="margin-bottom:10px;">
                         <div class="grid-body no-border" style="padding-bottom:0;">
-                            <div class="grid simple vertical orange">
-                                <div class="grid-title {{ (count($projectPropertyTypes) == 1 && $projectPropertyTypes[0]['NAME']=='Apartments' )?"hidden":"" }}">
-                                    <h4>Level 0</h4>
+                            <div class="panel panel-default vertical orange">
+                                <div class="level-title panel-heading collapsed {{ (count($projectPropertyTypes) == 1 && $projectPropertyTypes[0]['NAME']=='Apartments' )?"hidden":"" }}" role="tab" id="headingOne">
+                                 <h4 class="panel-title">
+                                    <a class="" data-toggle="collapse" data-parent="#accordion" href="#collapse0">                                    
+                                        Level 0
                                     <input type="hidden" value="0" name="levels[]">
+                                    </a>
+                                </h4>
+                                
                                 </div>
-                                <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4>
+                                 <div id="collapse0" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body"><h4> <span class="semi-bold">Layouts</span></h4>
                                     <div class="row">
                                         <div class="col-md-6">
                                             <div class="grid simple">
@@ -197,37 +203,44 @@
 
                                     </div>
                                     <div >
-                                        <div class="col-md-5 add-unit p-t-10">
-                                        <select name="room_type[]" onchange="openRoomTypeModal(this, 0)" class="select2 form-control">
+                                   
+                                        <div class="col-md-5  add-unit p-t-10">
+                                             <select name="room_type[]" onchange="openRoomTypeModal(this, 0)" class="select2 form-control">
                                                             <option value="">Select Room</option>
-                                                            @foreach($availableRoomTypes as $roomTypeId=> $room_type)
+                                                                @foreach($availableRoomTypes as $roomTypeId=> $room_type)
                                                                 <option  value="{{$roomTypeId}}">{{$room_type}}</option>
                                                                 @endforeach
                                                             <option value="add_new">Add New Room</option>
+
                                                         </select>
                                                     <div class="text-right">
                                                         <button type="button" onclick="getRoomTypeAttributes(this, 0);" class="btn btn-link">Add Room</button>
-                                        </div>
-                                        </div>
-                                     </div>
-                                    
+                                                    </div>
+                                         </div>
+                                    </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row {{ (count($projectPropertyTypes) == 1 && $projectPropertyTypes[0]['NAME']=='Apartments' )?"hidden":"" }} " id="level_1">
+                <div class="row {{ (count($projectPropertyTypes) == 1 && $projectPropertyTypes[0]['NAME']=='Apartments' )?"hidden":"" }}" id="level_1">
                     <div class="no-border">
-
-                        <div class="grid simple" style="margin-bottom:0;">
+                        <div class="grid simple" style="margin-bottom:10px;">
                             <div class="grid-body no-border" style="padding-bottom:0;">
-                                <div class="grid simple vertical orange">
-                                    <div class="grid-title">
-                                        <h4>Level 1</h4>
+                                <div class="panel panel-default vertical orange">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false">
+                                        Level 1
                                         <input type="hidden" value="1" name="levels[]">
-                                        <input style="float:right" type="button" value="Delete Level" class="" onclick="deleteLevel(1);" id="deletelevel_1">
+                                            
+                                            <button title="Delete Level" style="float:right"  type="button" class="btn btn-white btn-small" onclick="deleteLevel(1);" id="deletelevel_1"><i class="fa fa-trash"></i></button>
+                                        </a>
+                                    </h4>
                                     </div>
-                                    <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4>
+                                    <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div class="panel-body"><h4> <span class="semi-bold">Layouts</span></h4>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="grid simple">
@@ -284,12 +297,9 @@
                                                         <div class="text-right">
                                                             <button type="button" onclick="getRoomTypeAttributes(this, 1);" class="btn btn-link">Add Room</button>
                                                         </div>
+                                                    </div>
                                             </div>
-                                         </div>
-
-                                        
-
-
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -298,6 +308,7 @@
                 </div>
 
             </div>
+            
             <input type="hidden" id="counter" name="counter" value="{{$i}}">
             <hr/>
             <div>
