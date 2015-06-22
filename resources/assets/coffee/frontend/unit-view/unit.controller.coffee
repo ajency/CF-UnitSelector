@@ -322,15 +322,13 @@ class LeftUnitView extends Marionette.ItemView
 						rooms.push 
 							'room_name' : val.room_name
 							'attributes' : attributes
-					if rooms.length is 0
-						rooms.push 
-							'room_name' : 'No rooms added'
-							'attributes' : 'no_rooms'
-			level_id = s.replaceAll(level_name, " ", "_")
-			levels.push 
-				'level_name' : level_name
-				'rooms'			 : rooms
-				'id'    : level_id
+					
+			if rooms.length > 0
+				level_id = s.replaceAll(level_name, " ", "_")
+				levels.push 
+					'level_name' : level_name
+					'rooms'			 : rooms
+					'id'    : level_id
 
 		levels
 
