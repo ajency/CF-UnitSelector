@@ -100,7 +100,7 @@ class ProjectMediaController extends Controller {
             else
             {
                 $code ='200';
-                $message ='Image dimensions should not be less than - 1600*800';
+                $message ='Invalid Image dimensions';
                 $newFilename ='';
                 $mediaId ='';
                 $position ='';
