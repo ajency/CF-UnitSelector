@@ -753,7 +753,7 @@ $(document).ready(function () {
             },
             
             FilesAdded: function (up, files) {  
- 
+              
             if(files[0].name =='map.jpg' || files[0].name =='map.png' || files[0].name =='map.jepg')
             {
                  up.start();
@@ -768,7 +768,7 @@ $(document).ready(function () {
 
             },
              UploadProgress: function(up, file) {
-                var str = '<div class="col-md-3">';
+                var str = '<div class="col-md-3 progressdiv">';
                 str += '<div class="img-hover img-thumbnail">';
                 str += '<a class="btn btn-link btn-danger overlay"><i class="fa fa-close text-primary"></i></a>';
                 str += '<div style="  width: 150px;height: 93px;"></div>';
@@ -778,31 +778,47 @@ $(document).ready(function () {
                 str += '<div class="dz-size" data-dz-size="">' + file.name + '</div>';
                 str += '</div>';
                 str += '</div>';
-                $("#google_earth_image").html(str); 
+                
+                $(".uploadImage").addClass('hidden'); 
+                $("#google_earth_image").append(str); 
               
             },
-            FileUploaded: function (up, file, xhr) {
+            FileUploaded: function (up, file, xhr) { 
                 fileResponse = JSON.parse(xhr.response);
-                var authtool = $('div.userauth').attr('date-user-auth');
+                fileStatus =  JSON.parse(xhr.status);
+                if(fileStatus == 201)
+                {
+                    var authtool = $('div.userauth').attr('date-user-auth');
 
-                var str = '<div class="col-md-3">';
-                str += '<div class="img-hover img-thumbnail">';
-                str += '<a class="btn btn-link btn-danger overlay" onclick="deleteSvg(' + fileResponse.data.media_id + ',\'google_earth\',\'\');"><i class="fa fa-close text-primary"></i></a>';
-                str += '<img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="' + fileResponse.data.image_path + '"   />';
-                str += '<div class="dz-size" data-dz-size=""><strong></strong>' + fileResponse.data.filename + '</div>';
-                str += '</div>';
-                str += '</div>';
-                str += '<div class="col-md-3">';
-                str += (authtool=='1')?'<h5 class="semi-bold">To use the Authoring Tool<a href="image/'+fileResponse.data.media_id+'/authoring-tool?&type=google_earth" target="_blank" class="text-primary"> click here</a></h5>':'';
-                str += '</div>';
+                    var str = '<div class="col-md-3">';
+                    str += '<div class="img-hover img-thumbnail">';
+                    str += '<a class="btn btn-link btn-danger overlay" onclick="deleteSvg(' + fileResponse.data.media_id + ',\'google_earth\',\'\');"><i class="fa fa-close text-primary"></i></a>';
+                    str += '<img style="width:150px;height:93px;" class="img-thumbnail" id="svg1" src="' + fileResponse.data.image_path + '"   />';
+                    str += '<div class="dz-size" data-dz-size=""><strong></strong>' + fileResponse.data.filename + '</div>';
+                    str += '</div>';
+                    str += '</div>';
+                    str += '<div class="col-md-3">';
+                    str += (authtool=='1')?'<h5 class="semi-bold">To use the Authoring Tool<a href="image/'+fileResponse.data.media_id+'/authoring-tool?&type=google_earth" target="_blank" class="text-primary"> click here</a></h5>':'';
+                    str += '</div>';
+                    $("#google_earth_image").html(str);
+                }
+                else{
+                    $(".uploadImage").removeClass('hidden');
+                    $('.progressdiv').remove();
+                    
+                    $('.google-earth-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert">  </button> '+JSON.parse(xhr.response).message+ '</div>');
+                $('.google-earth-images').find(".alert-error").removeClass('hidden');
+                
+                }
 
-
-                $("#google_earth_image").html(str);
+                
 
             },
-            Error: function(up, err) {
+            Error: function(up, err) { 
             $('.google-earth-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> '+err.message+ '</div>');
-            $('.google-earth-images').find(".alert-error").removeClass('hidden');    
+            $('.google-earth-images').find(".alert-error").removeClass('hidden');
+ 
+ 
              
         }
             
@@ -1478,10 +1494,11 @@ function saveRoom()
     
     if(($(this).val()=='select' ||  $(this).val()=='multiple')) 
     { 
-        $(this).closest('.row').find('.controlvalue').removeClass('hidden');
+        $(this).closest('.row').find('.controlvalue input').removeClass('hidden');
     }
     else{ 
-       $(this).closest('.row').find('.controlvalue').addClass('hidden');
+       $(this).closest('.row').find('.controlvalue input').addClass('hidden');
     }
  
 });*/
+ 

@@ -385,6 +385,13 @@ class ProjectApartmentUnitController extends Controller {
                         $errorMsg[] ='Unit Name Already Exist On Row No '.$i ;    
                        continue;
                     }
+                   
+                   $buildingData = Building::where('building_id',$buildingId)->where('floor','<=', $floor)->get()->toArray();
+                    if (empty($unitData)) 
+                    {
+                        $errorMsg[] ='Invalid Floor No On Row No'.$i ;    
+                       continue;
+                    }
 
                     //Unit exist at that position
                     $unitposition = Unit::where('building_id',$buildingId)->where('floor', $floor)->where('position', $position)->get()->toArray(); 
