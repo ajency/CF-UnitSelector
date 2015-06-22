@@ -526,6 +526,7 @@ class ProjectController extends Controller {
             $unitNames['unit'][$unit['id']]=$unit['unit_name'];
         }
 		
+        
 		foreach($buildings as $building)
 		{
 			$data['BUILDING'][] = $building->building_name;
@@ -534,67 +535,109 @@ class ProjectController extends Controller {
 			$buildingMediaIds= $building->building_master;
             
             $breakpoints =  (!empty($building['breakpoints']))?unserialize($building['breakpoints']):[];
+            $buildingMediaIdArr =[];
             foreach($buildingMediaIds as $position => $buildingMediaId)
             {
                 if(in_array($position,$breakpoints))
                 {
-                    $mediaIds[]=$buildingMediaId;
+                    $buildingMediaIdArr[]=$buildingMediaId;
                 }
             }
+            /* BUILDING UNIT SVG MARKED CHECK*/
+            $buildingData = Building :: find($building->id);
+            $buildingUnits = $buildingData->projectUnits()->where('availability','!=','archived')->get()->toArray();
+            $buildingunitIds = $buildingunitNames =[];
+            foreach ($buildingUnits as $buildingUnit) {
+                $buildingunitIds['unit'][] = $buildingUnit['id'];
+                $buildingunitNames['unit'][$buildingUnit['id']]=$buildingUnit['unit_name'];
+            }
+            
+            $unitSvgExits =[];
+            if($building->has_master == 'yes')
+            { 
+                if(!empty($buildingMediaIdArr))
+		           $unitSvgExits = SvgController :: getUnmarkedSvgUnits($buildingunitIds,$buildingMediaIdArr);
+                else
+                  $errors['buildingunitauthtool-'. $building->id] = 'No Authoring Done For Building ('. $building->building_name.')';
+                
+              if (!empty($unitSvgExits)) {
+                    
+                    if(isset($unitSvgExits['unit']))
+                    {
+                        $errors['buildingunitauthtool-'. $building->id] = ' Building ('. $building->building_name.') Svg Unmarked for Units : ';
+                        foreach($unitSvgExits['unit'] as $unitId)
+                        {
+                            $errors['buildingunitauthtool-'. $building->id] .= $buildingunitNames['unit'][$unitId].' ,';
+                        }
+
+                    }
+ 
+             
+                }
+            }
+            /* */
             
 		}
-        
+       
+   
 		$project = Project::find($projectId);
         $projectmediaIds = $breakpoints = [];
         
-		$projectMeta = $project->projectMeta()->whereIn('meta_key', ['breakpoints','master'])->get()->toArray();
-        foreach ($projectMeta as $metaValues) {
-
-            if ('master' == $metaValues['meta_key']) {
-                $projectmediaIds = unserialize($metaValues['meta_value']);
-
-            } elseif ('breakpoints' == $metaValues['meta_key']) {
-                $breakpoints = unserialize($metaValues['meta_value']);
- 
-            } 
-        }
- 
-        foreach($projectmediaIds as $position=> $projectmediaId)
+        if($project->has_master == 'yes')
         {
-            if(in_array($position,$breakpoints))
-            {
-                $mediaIds[]=$projectmediaId;
-            }
-        }
-       
-        if(!empty($mediaIds))
-		  $unitSvgExits = SvgController :: getUnmarkedSvgUnits($unitIds,$mediaIds); 
-        elseif($project->has_master == 'yes')
-            $errors['unitauthtool'] = 'Units Not Marked On Authoring Tool';
-    
-        if (!empty($unitSvgExits)) {
-           
-            if(isset($unitSvgExits['unit']))
-            {
-                $errors['unitauthtool'] = ' Svg Unmarked for Units : ';
-                foreach($unitSvgExits['unit'] as $unitId)
-                {
-                    $errors['unitauthtool'] .=$unitNames['unit'][$unitId].' ,';
-                }
-                
+            $projectMeta = $project->projectMeta()->whereIn('meta_key', ['breakpoints','master'])->get()->toArray();
+            foreach ($projectMeta as $metaValues) {
+
+                if ('master' == $metaValues['meta_key']) {
+                    $projectmediaIds = unserialize($metaValues['meta_value']);
+
+                } elseif ('breakpoints' == $metaValues['meta_key']) {
+                    $breakpoints = unserialize($metaValues['meta_value']);
+
+                } 
             }
 
-            if(isset($unitSvgExits['building']))
-            { 
-                $errors['buildingauthtool'] = ' Svg Unmarked for Buildings : ';
-                foreach($unitSvgExits['building'] as $unitId)
+            foreach($projectmediaIds as $position=> $projectmediaId)
+            {
+                if(in_array($position,$breakpoints))
                 {
-                    $errors['buildingauthtool'] .= $unitNames['building'][$unitId].' ,';
+                    $mediaIds[]=$projectmediaId;
                 }
-                
             }
+            $unitSvgExits =[];
+            
+             if(!empty($mediaIds))
+		          $unitSvgExits = SvgController :: getUnmarkedSvgUnits($unitIds,$mediaIds);
+            else
+                 $errors['unitauthtool'] = 'No Authoring Done For Units';
+    
+            
+             if (!empty($unitSvgExits)) {
+                    
+                    if(isset($unitSvgExits['unit']))
+                    {
+                        $errors['unitauthtool'] = 'Project Svg Unmarked for Units : ';
+                        foreach($unitSvgExits['unit'] as $unitId)
+                        {
+                            $errors['unitauthtool'] .=$unitNames['unit'][$unitId].' ,';
+                        }
+
+                    }
+
+                    if(isset($unitSvgExits['building']))
+                    { 
+                        $errors['buildingauthtool'] = 'Project Svg Unmarked for Buildings : ';
+                        foreach($unitSvgExits['building'] as $unitId)
+                        {
+                            $errors['buildingauthtool'] .= $unitNames['building'][$unitId].' ,';
+                        }
+
+                    }
              
+                }
         }
+    
+       
         
         if (!count($data)) {
             $errors['phase'] = 'Phase cannot be made live as no units have been added to it.';
