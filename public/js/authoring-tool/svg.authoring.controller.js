@@ -677,6 +677,10 @@
           drawMarkerElements.push(ellipse);
           window.loadProjectForm();
       }
+      if (window.canvas_type !== 'earthlocationMarker' && svg_type === 'google_earth') {
+        $(".property_type").find("option[value='project']").remove();
+        $('#dynamice-region').empty();
+      }
       _.each(drawMarkerElements, (function(_this) {
         return function(markerElement, key) {
           return groupMarker.add(markerElement);
@@ -771,9 +775,6 @@
         markerType = "earthlocation";
       } else if ($(currentElem).hasClass('location-marker')) {
         markerType = "location";
-      }
-      if (window.canvas_type !== 'earthlocationMarker' && svg_type === 'google_earth') {
-        $(".property_type").find("option[value='project']").remove();
       }
       $('#aj-imp-builder-drag-drop canvas').hide();
       $('#aj-imp-builder-drag-drop svg').first().css("position", "relative");
