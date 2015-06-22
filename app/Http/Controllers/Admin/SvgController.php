@@ -412,12 +412,12 @@ class SvgController extends Controller {
 	 *					   )
 	 */
 
-	// return only those units which are not marked in any of the svgs
+	// return only those units which are not marked in any of the svgs ie return unmarked unit only if it is not marked in atleast one of the image ids passed
     
     public static function getUnmarkedSvgUnits($units , $mediaIds)
     {	
     	// dd($units);
-    	//@todo return unmarked unit only if it is not marked in atleast one of the image ids passed
+    	
     	$unmarkedUnits = array();
 
     	// these arrays contain the possible unit ids that need to be marked in an svg
@@ -451,10 +451,10 @@ class SvgController extends Controller {
     			}
     			else if ($unitType=="unit") {
     				foreach ($unitIds as $unitId) {
-    						// @todo exclude object_type 'project'
+    					
     					$svgElement = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '!=', 'building' )->where( 'object_type', '!=', 'project' )->where( 'object_id', '=', $unitId )->first();
 
-	 						// if svg element not there then add unitid to $unmarkedUnits
+	 					// if svg element not there then add unitid to $unmarkedUnits
     					if (!is_null($svgElement)) {
     						// $unmarkedUnits[$unitType][$unitId] = $unitId;
     						$unmarkedunitArray[$unitType][$unitId] = $svgElement->id;
