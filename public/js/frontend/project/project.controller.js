@@ -151,9 +151,6 @@
         var html;
         html = '<div class="row"> <div class="col-sm-12 b-r"> <h4 class="text-warning margin-none">' + $(e.currentTarget).attr('data-amenity-title') + '</h4> <h6 class="text-muted">' + $(e.currentTarget).attr('data-amenity-desc') + '</h6> </div> </div>';
         return $('.step1-marker').tooltipster('content', html);
-      },
-      'mouseout .amenity': function(e) {
-        return $('.step1-marker').tooltipster('hide');
       }
     };
 

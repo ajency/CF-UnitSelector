@@ -216,8 +216,7 @@ class CenterView extends Marionette.ItemView
 
 			$('.step1-marker').tooltipster('content', html)
 
-		'mouseout .amenity':(e)->
-			$('.step1-marker').tooltipster('hide')
+		
 
 		
 			
