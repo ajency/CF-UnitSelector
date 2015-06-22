@@ -201,9 +201,8 @@ class CenterView extends Marionette.ItemView
 			
 	events : 
 		'mouseover .step1-marker':(e)->
-			$('.step1-marker').tooltipster('content', $('#proj_info').html())
-			$('.tooltipstered').tooltipster('content', $('#proj_info').html())
-			
+			$('.step1-marker').tooltipster('show')
+			$('.tooltipstered').tooltipster('show')
 
 
 		'mouseover .amenity':(e)->
@@ -214,9 +213,10 @@ class CenterView extends Marionette.ItemView
 						</div>
 					</div>'
 
-			$('.step1-marker').tooltipster('content', html)
+			$('.amenity').tooltipster('content', html)
 
-		
+		'mouseout .amenity':(e)->
+			$('.amenity').tooltipster('hide')
 
 		
 			
@@ -297,6 +297,19 @@ class CenterView extends Marionette.ItemView
 						$('.action-bar').css 'min-height', tooltipHeight
 				)
 				$('.tooltipstered').tooltipster('show')
+
+				$('.amenity').tooltipster(
+					theme: 'tooltipster-shadow'
+					contentAsHTML: true
+					onlyOne : true
+					arrow : false
+					offsetX : 150
+					offsetY : 60
+					interactive : true
+					animation : 'fade'
+					trigger: 'hover'
+
+				)
 
 		)
 
