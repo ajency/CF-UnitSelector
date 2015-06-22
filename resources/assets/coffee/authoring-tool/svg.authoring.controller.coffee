@@ -165,8 +165,11 @@ jQuery(document).ready ($)->
         types = window.svgData.supported_types
         select = $('.property_type')
         $('<option />', {value: "", text: 'Select option'}).appendTo(select)
+
+        
         $.each types , (index,value)->
-            
+            if svg_type is 'google_earth' && value is 'Project' 
+                return
             if value is "Apartment"
                 valueText = "Apartment / Penthouse"
             
@@ -513,6 +516,9 @@ jQuery(document).ready ($)->
             $('.property_type').val('unassign') 
 
     window.loadProjectForm =->
+        if window.canvas_type is "earthlocationMarker"
+            select = $('.property_type')
+            $('<option />', {value: 'project', text: s.capitalize('project')}).appendTo(select)
         $('.property_type').val 'project'
         $('.property_type').attr 'disabled' ,  true 
 
@@ -711,7 +717,9 @@ jQuery(document).ready ($)->
 
             # load default form
             window.loadProjectForm() 
-    
+        if window.canvas_type isnt 'earthlocationMarker' && svg_type is 'google_earth'
+            $(".property_type").find("option[value='project']").remove()
+            $('#dynamice-region').empty() 
         _.each drawMarkerElements, (markerElement, key) =>
             groupMarker.add(markerElement)
         
@@ -831,7 +839,7 @@ jQuery(document).ready ($)->
             else if $(currentElem).hasClass('location-marker')
                 markerType = "location" 
 
-
+            
             $('#aj-imp-builder-drag-drop canvas').hide()
             $('#aj-imp-builder-drag-drop svg').first().css("position","relative")
             $('.edit-box').removeClass 'hidden'
@@ -853,8 +861,12 @@ jQuery(document).ready ($)->
     # on polygon selection
     $('.select-polygon').on 'click', (e) ->
         e.preventDefault()
+
         window.EDITMODE = true
         window.canvas_type = "polygon"
+        if window.canvas_type isnt 'earthlocationMarker' && svg_type is 'google_earth'
+            $(".property_type").find("option[value='project']").remove()
+            $('#dynamice-region').empty()
         $('#aj-imp-builder-drag-drop canvas').show()
         $('#aj-imp-builder-drag-drop .svg-draw-clear').show()
         $('#aj-imp-builder-drag-drop svg').first().css("position","absolute")
@@ -1369,6 +1381,10 @@ jQuery(document).ready ($)->
         $('#rotate_loader').removeClass 'hidden'
 
         imageid = $('.svgPaths').val()
+        if imageid is ""
+            $('.alert').text 'Select svg'
+            window.hideAlert()
+            return
         $.ajax
             type : 'GET',
             url  : BASEURL+'/admin/project/'+   PROJECTID+'/image/'+image_id+'/duplicate_image_id/'+imageid

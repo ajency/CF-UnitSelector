@@ -910,10 +910,12 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 			$.each project.get('filters').Villa , (index,value)->
 				if value != 'unitTypes' && value!= 'unitVariantNames'
 					temp = []
+					flooring = []
 					bunglowVariantMasterCollection.each (item)->
 						units = unitMasterCollection.where 
 									'unit_variant_id' : item.get('id')
 				
+
 						if units.length != 0
 							
 							$.each item.get('variant_attributes') ,(ind,val)->
@@ -953,7 +955,8 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 				$.each value,(ind,val)->
 					if $.inArray(val.index , project.get('filters').Villa) ==  -1 
 						value[ind] = []
-				
+			
+		console.log filters	
 		filters
 
 	#function to generate all the apartment filters
@@ -996,6 +999,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 			$.each project.get('filters').Apartment , (index,value)->
 				if value != 'unitTypes' && value!= 'unitVariantNames'
 					temp = []
+					flooring = []
 					apartmentVariantMasterCollection.each (item)->
 						units = unitMasterCollection.where 
 									'unit_variant_id' : item.get('id')
@@ -1039,8 +1043,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 			if index == 'flooring'
 				$.each value,(ind,val)->
 					if $.inArray(val.index , project.get('filters').Apartment) ==  -1 
-						value[ind] = []
-
+						filters[0][index] = []
 		
 		filters
 
@@ -1080,6 +1083,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 			$.each project.get('filters').Plot , (index,value)->
 				if value != 'unitTypes' && value!= 'unitVariantNames'
 					temp = []
+					flooring = []
 					plotVariantMasterCollection.each (item)->
 						units = unitMasterCollection.where 
 									'unit_variant_id' : item.get('id')

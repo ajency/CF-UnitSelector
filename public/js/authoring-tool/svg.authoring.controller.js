@@ -148,6 +148,9 @@
       }).appendTo(select);
       $.each(types, function(index, value) {
         var valueText;
+        if (svg_type === 'google_earth' && value === 'Project') {
+          return;
+        }
         if (value === "Apartment") {
           valueText = "Apartment / Penthouse";
         }
@@ -489,7 +492,14 @@
       }
     };
     window.loadProjectForm = function() {
-      var propType, region;
+      var propType, region, select;
+      if (window.canvas_type === "earthlocationMarker") {
+        select = $('.property_type');
+        $('<option />', {
+          value: 'project',
+          text: s.capitalize('project')
+        }).appendTo(select);
+      }
       $('.property_type').val('project');
       $('.property_type').attr('disabled', true);
       propType = $('.property_type').val();
@@ -667,6 +677,10 @@
           drawMarkerElements.push(ellipse);
           window.loadProjectForm();
       }
+      if (window.canvas_type !== 'earthlocationMarker' && svg_type === 'google_earth') {
+        $(".property_type").find("option[value='project']").remove();
+        $('#dynamice-region').empty();
+      }
       _.each(drawMarkerElements, (function(_this) {
         return function(markerElement, key) {
           return groupMarker.add(markerElement);
@@ -783,6 +797,10 @@
       e.preventDefault();
       window.EDITMODE = true;
       window.canvas_type = "polygon";
+      if (window.canvas_type !== 'earthlocationMarker' && svg_type === 'google_earth') {
+        $(".property_type").find("option[value='project']").remove();
+        $('#dynamice-region').empty();
+      }
       $('#aj-imp-builder-drag-drop canvas').show();
       $('#aj-imp-builder-drag-drop .svg-draw-clear').show();
       $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
@@ -1209,6 +1227,11 @@
       $('#myModal').modal('hide');
       $('#rotate_loader').removeClass('hidden');
       imageid = $('.svgPaths').val();
+      if (imageid === "") {
+        $('.alert').text('Select svg');
+        window.hideAlert();
+        return;
+      }
       return $.ajax({
         type: 'GET',
         url: BASEURL + '/admin/project/' + PROJECTID + '/image/' + image_id + '/duplicate_image_id/' + imageid,

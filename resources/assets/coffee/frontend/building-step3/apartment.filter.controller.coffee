@@ -738,6 +738,7 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 		unitVariants = []
 		unitVariantNames = []
 		budget = []
+		temp = []
 		newtemp = []
 		url = Backbone.history.fragment
 		building_id = parseInt url.split('/')[1]
@@ -763,22 +764,32 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 						'id' : item.get 'id'
 						'name'	: item.get 'unit_variant_name'
 						'type'	: type
-				if ! _.isUndefined project.get('filters').Apartment
-					$.each project.get('filters').Apartment , (index,value)->
-						temp = []
-						$.each item.get('variant_attributes') ,(ind,val)->
-							if ind == value && $.inArray(value,flooring) is -1 && val != ""
-								flooring.push value
-								temp.push
-									'id' : val
-									'name' : val
-									'classname' : 'attributes'
-									'label' : ind
-									type: 'P'
-								newtemp.push 
-									'label' : ind.toUpperCase()
-									'value' : temp
+		if ! _.isUndefined project.get('filters').Apartment
+			$.each project.get('filters').Apartment , (index,value)->
+				if value != 'unitTypes' && value!= 'unitVariantNames'
+					temp = []
+					flooring = []
+					apartmentVariantMasterCollection.each (item)->
+						units = unitMasterCollection.where 
+									'unit_variant_id' : item.get('id')
 				
+						if units.length != 0
+							
+							$.each item.get('variant_attributes') ,(ind,val)->
+								if ind == value && $.inArray(val,flooring) is -1 && val != ""
+									flooring.push val
+									temp.push
+										'name' : val
+										'id' : 'villa'+s.replaceAll(val, " ", "_")
+										'dataId' : s.replaceAll(val, " ", "_")
+										'classname' : 'attributes'
+										'label' : ind
+										type: 'A'
+					if temp.length != 0 
+						newtemp.push 
+							'label' : value.toUpperCase()
+							'value' : temp
+							'index' : value
 				
 
 		unitsArr = apartmentVariantMasterCollection.getApartmentMasterUnits()
@@ -793,7 +804,7 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 			'flooring'		: newtemp
 
 		$.each filters[0],(index,value)->
-			if $.inArray(index , project.get('filters').Apartment) ==  -1 && index != 'budget' && index != 'unitVariants'
+			if $.inArray(index , project.get('filters').Apartment) ==  -1 && index != 'budget' && index != 'unitVariants' && index != 'flooring'
 				filters[0][index] = []
 
 			if index == 'flooring'

@@ -589,13 +589,14 @@
     };
 
     FilterApartmentCtrl.prototype.getApartmentFilters = function() {
-      var budget, building_id, filters, newtemp, unitTypes, unitVariantNames, unitVariants, unit_types, unitsArr, url;
+      var budget, building_id, filters, newtemp, temp, unitTypes, unitVariantNames, unitVariants, unit_types, unitsArr, url;
       filters = [];
       unitTypes = [];
       unit_types = [];
       unitVariants = [];
       unitVariantNames = [];
       budget = [];
+      temp = [];
       newtemp = [];
       url = Backbone.history.fragment;
       building_id = parseInt(url.split('/')[1]);
@@ -622,35 +623,50 @@
             });
           }
           unitVariants.push(item.get('super_built_up_area'));
-          unitVariantNames.push({
+          return unitVariantNames.push({
             'id': item.get('id'),
             'name': item.get('unit_variant_name'),
             'type': type
           });
-          if (!_.isUndefined(project.get('filters').Apartment)) {
-            return $.each(project.get('filters').Apartment, function(index, value) {
-              var temp;
-              temp = [];
-              return $.each(item.get('variant_attributes'), function(ind, val) {
-                if (ind === value && $.inArray(value, flooring) === -1 && val !== "") {
-                  flooring.push(value);
-                  temp.push({
-                    'id': val,
-                    'name': val,
-                    'classname': 'attributes',
-                    'label': ind,
-                    type: 'P'
-                  });
-                  return newtemp.push({
-                    'label': ind.toUpperCase(),
-                    'value': temp
-                  });
-                }
-              });
-            });
-          }
         }
       });
+      if (!_.isUndefined(project.get('filters').Apartment)) {
+        $.each(project.get('filters').Apartment, function(index, value) {
+          var flooring;
+          if (value !== 'unitTypes' && value !== 'unitVariantNames') {
+            temp = [];
+            flooring = [];
+            apartmentVariantMasterCollection.each(function(item) {
+              var units;
+              units = unitMasterCollection.where({
+                'unit_variant_id': item.get('id')
+              });
+              if (units.length !== 0) {
+                return $.each(item.get('variant_attributes'), function(ind, val) {
+                  if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
+                    flooring.push(val);
+                    return temp.push({
+                      'name': val,
+                      'id': 'villa' + s.replaceAll(val, " ", "_"),
+                      'dataId': s.replaceAll(val, " ", "_"),
+                      'classname': 'attributes',
+                      'label': ind,
+                      type: 'A'
+                    });
+                  }
+                });
+              }
+            });
+            if (temp.length !== 0) {
+              return newtemp.push({
+                'label': value.toUpperCase(),
+                'value': temp,
+                'index': value
+              });
+            }
+          }
+        });
+      }
       unitsArr = apartmentVariantMasterCollection.getApartmentMasterUnits();
       $.each(unitsArr, function(index, value) {
         var unitDetails;
@@ -665,7 +681,7 @@
         'flooring': newtemp
       });
       $.each(filters[0], function(index, value) {
-        if ($.inArray(index, project.get('filters').Apartment) === -1 && index !== 'budget' && index !== 'unitVariants') {
+        if ($.inArray(index, project.get('filters').Apartment) === -1 && index !== 'budget' && index !== 'unitVariants' && index !== 'flooring') {
           filters[0][index] = [];
         }
         if (index === 'flooring') {
