@@ -270,6 +270,9 @@ jQuery(document).ready ($)->
         $('<option />', {value: "", text: "Select Option"}).appendTo(select)
         svgs = jQuery.parseJSON(svg_paths)
         svgs = _.omit(svgs, image_id);
+        $.each svgs,(index,value) ->
+            if value == ""
+                svgs = _.omit(svgs, index);
         svgCount = Object.keys(svgs).length
         if svgCount is 0 
             select.hide()
@@ -278,12 +281,13 @@ jQuery(document).ready ($)->
         
         building_name = buildingMasterCollection.findWhere
                         'id' : parseInt building_id
-        if building_id isnt 0 
+        if parseInt(building_id) isnt 0 
             $.each svgs , (index,value)->
                 svg_name_arr = value.split('/')
                 svg_name = svg_name_arr[parseInt(svg_name_arr.length) - 1]
                 $('<option />', {value: index, text: building_name.get('building_name')+'-'+svg_name}).appendTo(select)  
             return
+        console.log svgs
         $.each svgs , (index,value)->
             $('<option />', {value: index, text: value}).appendTo(select)
 
@@ -341,7 +345,7 @@ jQuery(document).ready ($)->
     window.resetTool =()->
         window.resetCollection()
         window.EDITMODE = false
-        $(".toggle").trigger 'click'        
+        # $(".toggle").trigger 'click'        
         $('.area').val("")
         window.f = []
         $("form").trigger("reset")
@@ -1376,15 +1380,17 @@ jQuery(document).ready ($)->
     #     data           
 
     $('.process').on 'click' , (evt) ->
-        $('.svg-canvas').hide()
-        $('#myModal').modal('hide')
-        $('#rotate_loader').removeClass 'hidden'
-
         imageid = $('.svgPaths').val()
         if imageid is ""
             $('.alert').text 'Select svg'
             window.hideAlert()
             return
+        $('.svg-canvas').hide()
+        $('#myModal').modal('hide')
+        $('#rotate_loader').removeClass 'hidden'
+
+       
+       
         $.ajax
             type : 'GET',
             url  : BASEURL+'/admin/project/'+   PROJECTID+'/image/'+image_id+'/duplicate_image_id/'+imageid

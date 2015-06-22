@@ -356,9 +356,9 @@
             nearest: true
           });
         } else {
-          this.model.get('availability') === 'available';
-          CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
-          return CommonFloor.router.storeRoute();
+          if (this.model.get('availability') === 'available') {
+            return CommonFloor.navigate('/unit-view/' + this.model.get('id'), true);
+          }
         }
       }
     };
@@ -584,7 +584,7 @@
         unit = unitCollection.findWhere({
           id: id
         });
-        if (!_.isUndefined(unit && unit.get('availability') === 'available')) {
+        if (!(_.isUndefined(unit)) && unit.get('availability') === 'available') {
           return CommonFloor.navigate('/unit-view/' + id, true);
         }
       },

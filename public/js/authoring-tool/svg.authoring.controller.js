@@ -237,6 +237,11 @@
       }).appendTo(select);
       svgs = jQuery.parseJSON(svg_paths);
       svgs = _.omit(svgs, image_id);
+      $.each(svgs, function(index, value) {
+        if (value === "") {
+          return svgs = _.omit(svgs, index);
+        }
+      });
       svgCount = Object.keys(svgs).length;
       if (svgCount === 0) {
         select.hide();
@@ -246,7 +251,7 @@
       building_name = buildingMasterCollection.findWhere({
         'id': parseInt(building_id)
       });
-      if (building_id !== 0) {
+      if (parseInt(building_id) !== 0) {
         $.each(svgs, function(index, value) {
           var svg_name, svg_name_arr;
           svg_name_arr = value.split('/');
@@ -258,6 +263,7 @@
         });
         return;
       }
+      console.log(svgs);
       return $.each(svgs, function(index, value) {
         return $('<option />', {
           value: index,
@@ -315,7 +321,6 @@
       var canvas, ctx;
       window.resetCollection();
       window.EDITMODE = false;
-      $(".toggle").trigger('click');
       $('.area').val("");
       window.f = [];
       $("form").trigger("reset");
@@ -1223,15 +1228,15 @@
     });
     $('.process').on('click', function(evt) {
       var imageid;
-      $('.svg-canvas').hide();
-      $('#myModal').modal('hide');
-      $('#rotate_loader').removeClass('hidden');
       imageid = $('.svgPaths').val();
       if (imageid === "") {
         $('.alert').text('Select svg');
         window.hideAlert();
         return;
       }
+      $('.svg-canvas').hide();
+      $('#myModal').modal('hide');
+      $('#rotate_loader').removeClass('hidden');
       return $.ajax({
         type: 'GET',
         url: BASEURL + '/admin/project/' + PROJECTID + '/image/' + image_id + '/duplicate_image_id/' + imageid,

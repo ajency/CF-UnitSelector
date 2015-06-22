@@ -69,7 +69,7 @@
         unit = unitCollection.findWhere({
           id: id
         });
-        if (!_.isUndefined(unit && unit.get('availability') === 'available')) {
+        if (!(_.isUndefined(unit)) && unit.get('availability') === 'available') {
           $('.layer').tooltipster('hide');
           $('svg').attr('class', 'zoom');
           $('#spritespin').addClass('zoom');

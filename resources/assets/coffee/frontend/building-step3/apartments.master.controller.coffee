@@ -370,9 +370,9 @@ class ApartmentsView extends Marionette.ItemView
 				)
 
 			else
-				@model.get('availability') == 'available'
-				CommonFloor.navigate '/unit-view/'+@model.get('id') , true
-				CommonFloor.router.storeRoute()
+				if @model.get('availability') == 'available'
+					CommonFloor.navigate '/unit-view/'+@model.get('id') , true
+					
 
 	
 
@@ -761,7 +761,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 			id = parseInt e.currentTarget.id
 			unit = unitCollection.findWhere 
 				id :  id
-			if ! _.isUndefined unit && unit.get('availability') is 'available'
+			if !(_.isUndefined unit) && unit.get('availability') is 'available'
 				CommonFloor.navigate '/unit-view/'+id , true
 			# CommonFloor.router.storeRoute()
 

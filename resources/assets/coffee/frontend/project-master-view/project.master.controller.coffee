@@ -530,7 +530,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			id = parseInt e.currentTarget.id
 			unit = unitCollection.findWhere 
 				id :  id
-			if ! _.isUndefined unit && unit.get('availability') is 'available'
+			if !(_.isUndefined unit) && unit.get('availability') is 'available'
 				CommonFloor.navigate '/unit-view/'+id , true
 
 		'click .building' :(e)->
@@ -600,7 +600,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 			price = window.numDifferentiation(response[3])
 			availability = unit.get('availability')
 			availability = s.decapitalize(availability)
-			
+
 			if unit is undefined || availability is 'archive'
 				html += '<div class="svg-info">
 							<div class="action-bar2">
