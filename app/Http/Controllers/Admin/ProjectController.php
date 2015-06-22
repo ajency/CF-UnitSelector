@@ -1220,6 +1220,7 @@ class ProjectController extends Controller {
 
       return $result_json;      
     }  
+    
   public static function get_unit_booking_amount($unitId){
      $sender_url = BOOKING_SERVER_URL;
      $sender_url .= GET_BOOKING_AMOUNT;
