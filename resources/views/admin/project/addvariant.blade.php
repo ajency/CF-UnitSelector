@@ -219,7 +219,7 @@
                                         Level 1
                                         <input type="hidden" value="1" name="levels[]">
                                             
-                                            <button title="Delete Level"  type="button" class="btn btn-white btn-small dellevel" onclick="deleteLevel(1);" id="deletelevel_1"><i class="fa fa-trash"></i></button>
+                                            <button title="Delete Level"  type="button" class="btn btn-white btn-small dellevel pull-right" onclick="deleteLevel(1);" id="deletelevel_1"><i class="fa fa-trash"></i></button>
                                         </a>
                                     </h4>
                                     </div>
