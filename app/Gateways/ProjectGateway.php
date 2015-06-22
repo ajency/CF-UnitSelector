@@ -108,13 +108,13 @@ class ProjectGateway implements ProjectGatewayInterface {
             {
                 $appartmentVariantData =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['apartment'] )->get()->toArray();   
             }
-            elseif($key=='penthouse')
+            elseif($key=='penthouses')
             {
-                $penthouseVariantData =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['penthouse'] )->get()->toArray();   
+                $penthouseVariantData =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['penthouses'] )->get()->toArray();   
             }
-            elseif($key=='plot')
+            elseif($key=='plots')
             {
-                $plotVariants =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['plot'] )->get();
+                $plotVariants =\CommonFloor\UnitVariant::whereIn( 'unit_type_id', $unitTypeIds['plots'] )->get();
                 foreach ($plotVariants as $plotVariant) {
                         $variantIds[] += $plotVariant->id;
                     }
