@@ -351,7 +351,7 @@ class ProjectApartmentUnitController extends Controller {
                         continue;
                    }
                    
-                   if($floor =='')
+                   if($floor =='' && $floor==0)
                    {
                        $errorMsg[] ='Floor Is Empty On Row No '.$i;
                         continue;
@@ -384,6 +384,13 @@ class ProjectApartmentUnitController extends Controller {
                     {
                         $errorMsg[] ='Unit Name Already Exist On Row No '.$i ;    
                        continue;
+                    }
+                   
+                    $num_of_floors = Building::find($buildingId)->no_of_floors;
+                    if ($num_of_floors >= $floor) 
+                    {
+                        $errorMsg[] ='Invalid Floor No On Row No'.$i ;    
+                        continue;
                     }
 
                     //Unit exist at that position

@@ -44,61 +44,79 @@ class ProjectMediaController extends Controller {
         File::makeDirectory( $targetDir, $mode = 0755, true, true );
 
         if ($request->hasFile( 'file' )) {
-
-            $file = $request->file( 'file' );
-            $fileName = $file->getClientOriginalName();
-            $fileData = explode('.', $fileName);
-   
-            //$newFilename = rand() . '_' . $projectId . '.' . $fileExt;
-            $newFilename = $fileName;
-
-            $request->file( 'file' )->move( $targetDir, $newFilename );
-        }
-
-        $media = new Media();
-        $media->image_name = $newFilename;
-        $media->mediable_id = $projectId;
-        $media->mediable_type = 'CommonFloor\Project';
-        $media->save();
-
-        $mediaId = $media->id;
-        $position = 0;
-        if ('master' !== $type) {
-            $projectMeta = ProjectMeta::where( ['meta_key' => $type, 'project_id' => $projectId] )->first();
-            $projectMeta->project_id = $projectId;
-            $projectMeta->meta_key = $type;
-            $projectMeta->meta_value = $mediaId;
-            $projectMeta->save();
-        } else {
             
-            $file =  $fileData[0];
-            $fileArr = explode('-', $file);
-            $position = $fileArr[1];
-            $projectMeta = ProjectMeta::where( ['meta_key' => 'master', 'project_id' => $projectId] )->first();
-            $unSerializedValue = unserialize( $projectMeta->meta_value );
-            $unSerializedValue[$position] = $mediaId;
-            $projectMeta->meta_value = serialize( $unSerializedValue );
-            $projectMeta->save();
-        }
+            $file = $request->file( 'file' );
+            list($width, $height) = getimagesize($file);
+    
+            if(($width >=1600 && $height >=800) && ($height==($width/2)))
+            {
+                $fileName = $file->getClientOriginalName();
+                $fileData = explode('.', $fileName);
 
-        if ('google_earth' === $type) {
-            $message = 'Google Earth';
-        } elseif ('master' === $type) {
-            $message = 'Project Master';
-        } elseif ('skyview' === $type) {
-            $message = 'Sky view';
-        }
+                //$newFilename = rand() . '_' . $projectId . '.' . $fileExt;
+                $newFilename = $fileName;
+
+                $request->file( 'file' )->move( $targetDir, $newFilename );
+            
+       
+
+                $media = new Media();
+                $media->image_name = $newFilename;
+                $media->mediable_id = $projectId;
+                $media->mediable_type = 'CommonFloor\Project';
+                $media->save();
+
+                $mediaId = $media->id;
+                $position = 0;
+                if ('master' !== $type) {
+                    $projectMeta = ProjectMeta::where( ['meta_key' => $type, 'project_id' => $projectId] )->first();
+                    $projectMeta->project_id = $projectId;
+                    $projectMeta->meta_key = $type;
+                    $projectMeta->meta_value = $mediaId;
+                    $projectMeta->save();
+                } else {
+
+                    $file =  $fileData[0];
+                    $fileArr = explode('-', $file);
+                    $position = $fileArr[1];
+                    $projectMeta = ProjectMeta::where( ['meta_key' => 'master', 'project_id' => $projectId] )->first();
+                    $unSerializedValue = unserialize( $projectMeta->meta_value );
+                    $unSerializedValue[$position] = $mediaId;
+                    $projectMeta->meta_value = serialize( $unSerializedValue );
+                    $projectMeta->save();
+                }
+
+                if ('google_earth' === $type) {
+                    $message = 'Google Earth Image Successfully Uploaded';
+                } elseif ('master' === $type) {
+                    $message = 'Project Master Image Successfully Uploaded';
+                } elseif ('skyview' === $type) {
+                    $message = 'Sky view Image Successfully Uploaded';
+                }
+                
+                $code ='201';
+                
+            }
+            else
+            {
+                $code ='200';
+                $message ='Invalid Image dimensions';
+                $newFilename ='';
+                $mediaId ='';
+                $position ='';
+            }
+         }    
 
         return response()->json( [
                     'code' => $type . 'image_uploaded',
-                    'message' => $message . ' Image Successfully Uploaded',
+                    'message' => $message ,
                     'data' => [
                         'image_path' => $imageUrl . $newFilename,
                         'media_id' => $mediaId,
                         'position' => $position,
                         'filename' => $newFilename
                     ]
-            ], 201 );
+            ], $code );
     }
 
     /**
