@@ -351,7 +351,7 @@ class ProjectApartmentUnitController extends Controller {
                         continue;
                    }
                    
-                   if($floor =='')
+                   if($floor =='' && $floor==0)
                    {
                        $errorMsg[] ='Floor Is Empty On Row No '.$i;
                         continue;
@@ -386,7 +386,7 @@ class ProjectApartmentUnitController extends Controller {
                        continue;
                     }
                    
-                   $buildingData = Building::where('id',$buildingId)->where('floor','<=', $floor)->get()->toArray();
+                   $buildingData = Building::where('id',$buildingId)->where('no_of_floors','<=', $floor)->get()->toArray();
                     if (empty($unitData)) 
                     {
                         $errorMsg[] ='Invalid Floor No On Row No'.$i ;    
