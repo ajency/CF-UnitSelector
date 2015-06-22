@@ -64,6 +64,7 @@ class ProjectController extends Controller {
         $project = $projectRepository->createProject($request->all());
         if ($project !== null) {
             Session::flash('success_message','Your project has been created successfully. Please configure the project by clicking on Edit button');
+            Session::flash('success_message','Your project has been created successfully. Please configure the project by clicking on Edit button');
             return redirect("/admin/project/" . $project->id);
         }
     }
@@ -223,9 +224,9 @@ class ProjectController extends Controller {
             }
             $propertyType->delete();
         }
-        $targetDir = public_path() . "/projects/" . $projectId;
-        unlink($targetDir);
         $project->delete();
+        $targetDir = public_path() . "/projects/" . $projectId;
+        \File::deleteDirectory($targetDir);
         
         Session::flash('success_message','Project Successfully Deleted');
         
