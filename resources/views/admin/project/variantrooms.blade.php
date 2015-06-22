@@ -18,15 +18,15 @@
                                         Level {{ $level }}
                                         <input type="hidden" value="{{ $level }}" name="levels[]">
                                         @if($level!=0)
-                                        <button title="Delete Level" style="float:right"  type="button" class="btn btn-white btn-small {{ (count($variantRooms)==($level+1))? '':'hidden' }}" onclick="deleteLevel({{ $level }});" id="deletelevel_{{ $level }}"><i class="fa fa-trash"></i></button>
+                                        <button type="button" class="btn btn-white btn-small dellevel pull-right" onclick="deleteLevel({{ $level }});"><i class="fa fa-trash"></i></button>
                                         @endif
                                         </a>
                                     </h4>
                                     </div>
-                                    
-                                    <div id="collapse{{ $level }}" class="panel-collapse  {{ (($level==0))? 'in':'collapse' }}" role="tabpanel" aria-labelledby="headingTwo" >
+                                     <div id="collapse{{ $level }}" class="panel-collapse  {{ (($level==0))? 'in':'collapse' }}" role="tabpanel" aria-labelledby="headingTwo" >
                                     <div class="panel-body"><h4> <span class="semi-bold">Layouts</span></h4>
                                         <div class="row">
+
                                             <div class="col-md-6">
                                                 <div class="grid simple">
                                                     <div class="grid-body">
@@ -115,7 +115,7 @@
                                                                 @if('textbox' === $attributes['control_type'])
                                                                 <input type="text" class="form-control" name="attributes[{{ $level }}][{{ $roomType['ROOMTYPEID'] }}][{{property_type_slug($attributes['label'])}}]" value="{{ $value }}"  placeholder="Enter {{$attributes['label']}}">
                                                                 @elseif('number' === $attributes['control_type'])
-                                                                <input type="number" class="form-control" name="attributes[{{ $level }}][{{ $roomType['ROOMTYPEID'] }}][{{property_type_slug($attributes['label'])}}]" value="{{ $value }}"  placeholder="Enter {{$attributes['label']}}" data-parsley-type="number">
+                                                                <input type="number" class="form-control" name="attributes[{{ $level }}][{{ $roomType['ROOMTYPEID'] }}][{{property_type_slug($attributes['label'])}}]" value="{{ $value }}"  placeholder="Enter {{$attributes['label']}}">
                                                                 @elseif('select' === $attributes['control_type'])
                                                                 <?php
                                                                 $options = explode(',', $attributes['defaults']);
@@ -175,5 +175,4 @@
     
 				<?php //$i=$level ; ?> 
             </div>
-
-<input type="hidden" id="counter" name="counter" value="{{ $level }}">
+<input type="hidden" id="counter" name="counter" value="{{$i}}">
