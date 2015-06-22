@@ -6,16 +6,17 @@ class ApartmentVariant extends Backbone.Model
 		basicCost = 0.00
 		if unitModel not instanceof Backbone.Model || unitModel == ""
 			return 
-		unitVarinatModel = apartmentVariantMasterCollection.findWhere({
-			'id':parseInt(unitModel.get('unit_variant_id'))})
-		if ! _.isUndefined unitVarinatModel 
-			floorRiseArray = settings.generateFloorRise(unitModel.get('building_id'))
-			floorRise = floorRiseArray[unitModel.get('floor')]
-			# basic_cost = ( parseFloat(unitVarinatModel.get('per_sq_ft_price')) + parseFloat(floorRise )) *
-			# 				parseFloat(unitVarinatModel.get('super_built_up_area'))
-			basic_cost = ( parseFloat(unitVarinatModel.get('per_sq_ft_price'))) *
-							parseFloat(unitVarinatModel.get('super_built_up_area'))
-			basicCost = basic_cost.toFixed(2)
+		# unitVarinatModel = apartmentVariantMasterCollection.findWhere({
+		# 	'id':parseInt(unitModel.get('unit_variant_id'))})
+		# if ! _.isUndefined unitVarinatModel 
+		# 	floorRiseArray = settings.generateFloorRise(unitModel.get('building_id'))
+		# 	floorRise = floorRiseArray[unitModel.get('floor')]
+		# 	# basic_cost = ( parseFloat(unitVarinatModel.get('per_sq_ft_price')) + parseFloat(floorRise )) *
+		# 	# 				parseFloat(unitVarinatModel.get('super_built_up_area'))
+		# 	basic_cost = ( parseFloat(unitVarinatModel.get('per_sq_ft_price'))) *
+		# 					parseFloat(unitVarinatModel.get('super_built_up_area'))
+		# 	basicCost = basic_cost.toFixed(2)
+		basicCost = unitModel.get 'selling_amount'
 		basicCost
 
 	
