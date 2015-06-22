@@ -255,9 +255,15 @@
               });
             }
             if (attributes.length > 0) {
-              return rooms.push({
+              rooms.push({
                 'room_name': val.room_name,
                 'attributes': attributes
+              });
+            }
+            if (rooms.length === 0) {
+              return rooms.push({
+                'room_name': 'No rooms added',
+                'attributes': 'no_rooms'
               });
             }
           });
