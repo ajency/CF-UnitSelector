@@ -148,7 +148,7 @@
                             <div class="panel panel-default vertical orange">
                                 <div class="level-title panel-heading collapsed {{ (count($projectPropertyTypes) == 1 && $projectPropertyTypes[0]['NAME']=='Apartments' )?"hidden":"" }}" role="tab" id="headingOne">
                                  <h4 class="panel-title">
-                                    <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse0">                                    
+                                    <a class="" data-toggle="collapse" data-parent="#accordion" href="#collapse0">                                    
                                         Level 0
                                     <input type="hidden" value="0" name="levels[]">
                                     </a>

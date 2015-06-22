@@ -68,6 +68,15 @@ jQuery(document).ready ($)->
     $('#add_project select[name="city"]').change ->
         # enable locality
         $("#autocompleteArea").prop('disabled', false)
+        $("#autocompleteArea").prop('disabled', false)
+
+        # reset other fields
+        $('#autocompleteArea').val("")
+        $('#add_project input[name="project_title"]').val("")
+        $('#add_project textarea[name="project_address"]').val("")
+        $('#add_project select[name="cf_project_id"]').select2('val', '')
+
+        $('#add_project select[name="cf_project_id"]').empty() 
 
     
       
@@ -141,13 +150,25 @@ jQuery(document).ready ($)->
                             
                         projectsCollection.push project
                         options += "<option value='#{project.cf_project_id}'>#{project.project_title}</option>"
-                        
+                    
+                    # reset other fields
+                    $('#add_project input[name="project_title"]').val("")
+                    $('#add_project textarea[name="project_address"]').val("")
+                    $('#add_project select[name="cf_project_id"]').select2('val', '')
+
+                    $('#add_project select[name="cf_project_id"]').empty()    
                     $('#add_project select[name="cf_project_id"]').append options                          
                     # enable project 
                     $('#add_project select[name="cf_project_id"]').prop('disabled', false)
                 error : (resp)->
-                    $.notify 'Error in fetching project data', 'error'
+                    $.notify 'Error in fetching project data.Please try again', 'error'
                     $('#add_project select[name="cf_project_id"]').prop('disabled', true)
+                    $('#autocompleteArea').val("")
+                    $('#add_project input[name="project_title"]').val("")
+                    $('#add_project textarea[name="project_address"]').val("")
+                    $('#add_project select[name="cf_project_id"]').select2('val', '')
+
+                    $('#add_project select[name="cf_project_id"]').empty() 
                       
         return
 
@@ -431,16 +452,20 @@ jQuery(document).ready ($)->
         
         str = '<div class="row" id="level_{{ level }}">
                     <div class="no-border">
-
-                        <div class="grid simple" style="margin-bottom:0;">
+                        <div class="grid simple" style="margin-bottom:10px;">
                             <div class="grid-body no-border" style="padding-bottom:0;">
-                                <div class="grid simple vertical orange">
-                                    <div class="grid-title">
-                                        <h4>Level {{ level }}</h4>
+                                <div class="panel panel-default vertical orange">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ level }}" aria-expanded="false">
+                                        Level{{ level }} 
                                         <input type="hidden" value="{{ level }}" name="levels[]">
                                          <button title="Delete Level" style="float:right"  type="button" class="btn btn-white btn-small" onclick="deleteLevel({{ level }});" id="deletelevel_{{ level }}"><i class="fa fa-trash"></i></button>
+                                        </a>
+                                    </h4>
                                     </div>
-                                    <div class="grid-body"><h4> <span class="semi-bold">Layouts</span></h4>
+                                    <div id="collapse{{ level }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div class="panel-body"><h4> <span class="semi-bold">Layouts</span></h4>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="grid simple">
@@ -496,11 +521,15 @@ jQuery(document).ready ($)->
                                                         </div>
                                             </div>
                                          </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>'
+        
+        
     
         compile = Handlebars.compile str
         data = 

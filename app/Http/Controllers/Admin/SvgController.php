@@ -411,52 +411,81 @@ class SvgController extends Controller {
 	 *						 array('unit' => array(5,4,67) )
 	 *					   )
 	 */
+
+	// return only those units which are not marked in any of the svgs ie return unmarked unit only if it is not marked in atleast one of the image ids passed
     
     public static function getUnmarkedSvgUnits($units , $mediaIds)
     {	
-    	//@todo return unmarked unit only if it is not marked in atleast one of the image ids passed
+    	// dd($units);
+    	
     	$unmarkedUnits = array();
 
+    	// these arrays contain the possible unit ids that need to be marked in an svg
+    	$buildingArr =(isset($units['building'])) ? $units['building'] : array() ;
+    	$unitArr = (isset($units['unit'])) ? $units['unit'] : array() ;
+    	
     	// for each media id get svg
+    	$unmarkedunitArray = array();
     	foreach ($mediaIds as $mediaId) {
     		$svg = Svg::where( 'image_id', '=', $mediaId )->first();
 
-    		$svgId = (is_null($svg)) ? 0 : $svg->id ; 
+    		$svgId = (is_null($svg)) ? 0 : $svg->id ;
 
 			// for each unitId and the svgId
     		foreach ($units as $unitType => $unitIds) {
+    			 
 				// get svg element having given $unitType and unitId and svgId
     			if ($unitType=="building") {
 
     				foreach ($unitIds as $unitId) {
-    					$svgElements = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '=', $unitType )->where( 'object_id', '=', $unitId )->get()->toArray();
-
+    					$svgElement = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '=', $unitType )->where( 'object_id', '=', $unitId )->first();
  						// if svg element not there then add unitid to $unmarkedUnits
-    					if (sizeof($svgElements)<1) {
-    						$unmarkedUnits[$unitType][$unitId] = $unitId;
+    					if (!is_null($svgElement)) {
+    						// $unmarkedUnits[$unitType][$unitId] = $unitId;
+    						$unmarkedunitArray[$unitType][$unitId] = $svgElement->id;
     					}
     				}
 
+    				
+
     			}
     			else if ($unitType=="unit") {
-
     				foreach ($unitIds as $unitId) {
-    						// @todo exclude object_type 'project'
-    					$svgElements = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '!=', 'building' )->where( 'object_type', '!=', 'project' )->where( 'object_id', '=', $unitId )->get()->toArray();
+    					
+    					$svgElement = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '!=', 'building' )->where( 'object_type', '!=', 'project' )->where( 'object_id', '=', $unitId )->first();
 
-	 						// if svg element not there then add unitid to $unmarkedUnits
-    					if (sizeof($svgElements)<1) {
-    						$unmarkedUnits[$unitType][$unitId] = $unitId;
+	 					// if svg element not there then add unitid to $unmarkedUnits
+    					if (!is_null($svgElement)) {
+    						// $unmarkedUnits[$unitType][$unitId] = $unitId;
+    						$unmarkedunitArray[$unitType][$unitId] = $svgElement->id;
     					}
     				}    					
 
     			}
 
     		}
+    		
 
     	}
 
+    	$building_units_marked = (isset($unmarkedunitArray['building'])) ? array_keys($unmarkedunitArray['building']) : array() ; 
+    	$other_units_marked =(isset($unmarkedunitArray['unit'])) ? array_keys($unmarkedunitArray['unit']) : array() ; 
 
+    	// var_dump($buildingArr);
+    	// var_dump($building_units_marked);
+    	$buildings_unmarked = array_diff($buildingArr,$building_units_marked);
+
+    	foreach ($buildings_unmarked as $building_unmarked) {
+    		$unmarkedUnits['building'][] = $building_unmarked;
+    	}
+    	
+    	// var_dump($unitArr);
+    	// var_dump($other_units_marked);
+    	$units_unmarked = array_diff($unitArr,$other_units_marked);
+    	foreach ($units_unmarked as $uni_unmarked) {
+    		$unmarkedUnits['unit'][] = $uni_unmarked;
+    	}
+    	// dd($unmarkedUnits);
         return $unmarkedUnits;
     }
     

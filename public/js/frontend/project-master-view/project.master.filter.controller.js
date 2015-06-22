@@ -806,6 +806,7 @@
         $.each(project.get('filters').Villa, function(index, value) {
           if (value !== 'unitTypes' && value !== 'unitVariantNames') {
             temp = [];
+            flooring = [];
             bunglowVariantMasterCollection.each(function(item) {
               var units;
               units = unitMasterCollection.where({
@@ -862,6 +863,7 @@
           });
         }
       });
+      console.log(filters);
       return filters;
     };
 
@@ -910,6 +912,7 @@
         $.each(project.get('filters').Apartment, function(index, value) {
           if (value !== 'unitTypes' && value !== 'unitVariantNames') {
             temp = [];
+            flooring = [];
             apartmentVariantMasterCollection.each(function(item) {
               var units;
               units = unitMasterCollection.where({
@@ -961,7 +964,7 @@
         if (index === 'flooring') {
           return $.each(value, function(ind, val) {
             if ($.inArray(val.index, project.get('filters').Apartment) === -1) {
-              return value[ind] = [];
+              return filters[0][index] = [];
             }
           });
         }
@@ -1010,6 +1013,7 @@
         $.each(project.get('filters').Plot, function(index, value) {
           if (value !== 'unitTypes' && value !== 'unitVariantNames') {
             temp = [];
+            flooring = [];
             plotVariantMasterCollection.each(function(item) {
               var units;
               units = unitMasterCollection.where({

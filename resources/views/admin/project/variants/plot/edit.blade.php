@@ -24,7 +24,7 @@
     <div class="grid-title no-border">
         <h3 > <i class="fa fa-angle-double-right text-primary"></i> Plot <span class="semi-bold">Details</span></h3>
     </div>
-    <form action="/admin/project/{{ $project['id'] }}/plot-variant/{{ $unitVariant['id'] }}" method="POST" data-parsley-validate>
+    <form action="/admin/project/{{ $project['id'] }}/plots-variant/{{ $unitVariant['id'] }}" method="POST" data-parsley-validate>
         <div class="grid-body no-border">
             <div class="row">
                 <div class="col-md-12">
