@@ -463,18 +463,33 @@ function setUpProjectMasterUploader() {
             },
             FileUploaded: function (up, file, xhr) {
                 fileResponse = JSON.parse(xhr.response);
-                var str = newstr = '';
-                $('#position-' + fileResponse.data.position).find('.progress').html('<div class="progress-bar progress-bar-success animate-progress-bar" data-percentage="90%" style="width: 90%;margin:0;"></div>');
+                fileStatus =  JSON.parse(xhr.status);
+                if(fileStatus == 201)
+                {
+                    var str = newstr = '';
+                    str += '<td>' + fileResponse.data.filename + '</td>';
+                    str += '<td class=""><span class="muted">' + fileResponse.data.position + '</span></td>';
+                    str += '<td class=""><div class="checkbox check-primary" ><input id="checkbox' + fileResponse.data.position + '" name="position[]" type="checkbox" value="' + fileResponse.data.position + '"><label for="checkbox' + fileResponse.data.position + '"></label></td>';
+                    str += '<td><a class="hidden">Authoring Tool</a></td>';
+                    str += '<td class="text-right">';
+                    str += '<a class="text-primary" onclick="deleteSvg(' + fileResponse.data.media_id + ',\'master\',\'' + fileResponse.data.position + '\');" ><i class="fa fa-close"></i></a>';
+                    str += '</td>';
 
-                str += '<td>' + fileResponse.data.filename + '</td>';
-                str += '<td class=""><span class="muted">' + fileResponse.data.position + '</span></td>';
-                str += '<td class=""><div class="checkbox check-primary" ><input id="checkbox' + fileResponse.data.position + '" name="position[]" type="checkbox" value="' + fileResponse.data.position + '"><label for="checkbox' + fileResponse.data.position + '"></label></td>';
-                str += '<td><a class="hidden">Authoring Tool</a></td>';
-                str += '<td class="text-right">';
-                str += '<a class="text-primary" onclick="deleteSvg(' + fileResponse.data.media_id + ',\'master\',\'' + fileResponse.data.position + '\');" ><i class="fa fa-close"></i></a>';
-                str += '</td>';
+                    $('#position-' + fileResponse.data.position).html(str);
+                }
+                else{
+                    
+                    var fileName = file.name;
+                    var fileData = fileName.split('.');
+                    var fileData_1 = fileData[0].split('-');
+                    var mastername = fileData_1[0];
+                    var position = fileData_1[1];
 
-                $('#position-' + fileResponse.data.position).html(str);
+                    $('#position-' + position).html('');
+                    $('.project-master-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert">  </button> '+JSON.parse(xhr.response).message+ '</div>');
+                    $('.project-master-images').find(".alert-error").removeClass('hidden');
+                
+                }
 
 
             },
@@ -801,13 +816,14 @@ $(document).ready(function () {
                     str += (authtool=='1')?'<h5 class="semi-bold">To use the Authoring Tool<a href="image/'+fileResponse.data.media_id+'/authoring-tool?&type=google_earth" target="_blank" class="text-primary"> click here</a></h5>':'';
                     str += '</div>';
                     $("#google_earth_image").html(str);
+                    $('.google-earth-images').find(".alert-error").addClass('hidden');
                 }
                 else{
                     $(".uploadImage").removeClass('hidden');
                     $('.progressdiv').remove();
                     
                     $('.google-earth-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert">  </button> '+JSON.parse(xhr.response).message+ '</div>');
-                $('.google-earth-images').find(".alert-error").removeClass('hidden');
+                    $('.google-earth-images').find(".alert-error").removeClass('hidden');
                 
                 }
 
@@ -815,11 +831,11 @@ $(document).ready(function () {
 
             },
             Error: function(up, err) { 
-            $('.google-earth-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> '+err.message+ '</div>');
-            $('.google-earth-images').find(".alert-error").removeClass('hidden');
+                $('.google-earth-images').html('<div class="alert alert-error"><button class="close" data-dismiss="alert"></button> '+err.message+ '</div>');
+                $('.google-earth-images').find(".alert-error").removeClass('hidden');
+                $(".uploadImage").removeClass('hidden');
+                $('.progressdiv').remove();
  
- 
-             
         }
             
         }

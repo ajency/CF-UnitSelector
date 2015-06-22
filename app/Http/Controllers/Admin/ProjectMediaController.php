@@ -104,7 +104,6 @@ class ProjectMediaController extends Controller {
                 $newFilename ='';
                 $mediaId ='';
                 $position ='';
-                $newFilename ='';
             }
          }    
 
