@@ -386,8 +386,8 @@ class ProjectApartmentUnitController extends Controller {
                        continue;
                     }
                    
-                   $buildingData = Building::where('id',$buildingId)->where('no_of_floors','>=', $floor)->get()->toArray();
-                    if (empty($unitData)) 
+                    $num_of_floors = Building::find($buildingId)->no_of_floors;
+                    if ($num_of_floors >=$floor) 
                     {
                         $errorMsg[] ='Invalid Floor No On Row No'.$i ;    
                        continue;
