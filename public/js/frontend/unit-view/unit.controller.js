@@ -254,10 +254,12 @@
                 'value': val_att.attribute_value
               });
             }
-            return rooms.push({
-              'room_name': val.room_name,
-              'attributes': attributes
-            });
+            if (attributes.length > 0) {
+              return rooms.push({
+                'room_name': val.room_name,
+                'attributes': attributes
+              });
+            }
           });
         });
         level_id = s.replaceAll(level_name, " ", "_");
