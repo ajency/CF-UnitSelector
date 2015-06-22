@@ -50,7 +50,7 @@ class TopMasterView extends Marionette.ItemView
 													         {{/area}}
 													     {{#budget}}
 													         	 <li>
-													                <div class="filter-pill"> {{name}} {{type}} <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
+													                <div class="filter-pill"> <span class="icon-rupee-icn"></span>{{name}} {{type}}</span> <span class="icon-cross " id="{{id_name}}" data-id="{{id}}" data-type="{{typename}}"></span> </div> 
 													         </li>
 													         {{/budget}}
 
@@ -596,7 +596,12 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return 
-			if unit is undefined
+			response = window.unit.getUnitDetails(id)
+			price = window.numDifferentiation(response[3])
+			availability = unit.get('availability')
+			availability = s.decapitalize(availability)
+			
+			if unit is undefined || availability is 'archive'
 				html += '<div class="svg-info">
 							<div class="action-bar2">
 						        <div class="txt-dft"></div>
@@ -608,10 +613,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				return 
 
 
-			response = window.unit.getUnitDetails(id)
-			price = window.numDifferentiation(response[3])
-			availability = unit.get('availability')
-			availability = s.decapitalize(availability)
+			
 			html = ""
 			html += '<div class="svg-info '+availability+' ">
 						<div class="action-bar">
@@ -676,7 +678,11 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return 
-			if unit is undefined
+			response = window.unit.getUnitDetails(id)
+			price = window.numDifferentiation(response[3])
+			availability = unit.get('availability')
+			availability = s.decapitalize(availability)
+			if unit is undefined || availability is 'archive'
 				html += '<div class="svg-info">
 							<div class="action-bar2">
 						        <div class="txt-dft"></div>
@@ -689,10 +695,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 				return 
 			
 
-			response = window.unit.getUnitDetails(id)
-			price = window.numDifferentiation(response[3])
-			availability = unit.get('availability')
-			availability = s.decapitalize(availability)
+			
 			html = ""
 			html += '<div class="svg-info '+availability+' ">
 						<div class="action-bar">
@@ -761,7 +764,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 						</div>'
 				$('.layer').tooltipster('content', html)
 				return 
-			if buildingModel == undefined
+			if buildingModel == undefined 
 				html = '<div class="svg-info">
 							<div class="action-bar2">
 						        <div class="txt-dft"></div>
