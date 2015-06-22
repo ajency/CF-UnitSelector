@@ -571,15 +571,15 @@
           $('.layer').tooltipster('content', html);
           return;
         }
-        if (unit === void 0) {
-          html += '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left">Villa details not entered </h5> </div>';
-          $('.layer').tooltipster('content', html);
-          return;
-        }
         response = window.unit.getUnitDetails(id);
         price = window.numDifferentiation(response[3]);
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
+        if (unit === void 0 || availability === 'archive') {
+          html += '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left">Villa details not entered </h5> </div>';
+          $('.layer').tooltipster('content', html);
+          return;
+        }
         html = "";
         html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="villa"></div> </div> <div class="pull-left"> <h4 class="m-t-0">' + unit.get('unit_name') + '</h4> <div class="details"> <ul> <li> <h5 class="inline-block">' + response[1].get('name') + '</h5> <span> - ' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + '</span> <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </li> </ul> <div class="price text-primary"> <span class="text-primary icon-rupee-icn"></span>' + price + '</div> </div> </div>';
         if (availability === 'available') {
@@ -607,15 +607,15 @@
           $('.layer').tooltipster('content', html);
           return;
         }
-        if (unit === void 0) {
-          html += '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Plot details not entered </h5> </div>';
-          $('.layer').tooltipster('content', html);
-          return;
-        }
         response = window.unit.getUnitDetails(id);
         price = window.numDifferentiation(response[3]);
         availability = unit.get('availability');
         availability = s.decapitalize(availability);
+        if (unit === void 0 || availability === 'archive') {
+          html += '<div class="svg-info"> <div class="action-bar2"> <div class="txt-dft"></div> </div> <h5 class="pull-left"> Plot details not entered </h5> </div>';
+          $('.layer').tooltipster('content', html);
+          return;
+        }
         html = "";
         html += '<div class="svg-info ' + availability + ' "> <div class="action-bar"> <div class="plot"></div> </div> <div class="pull-left"> <h4 class="m-t-0">' + unit.get('unit_name') + '</h4> <div class="details"> <ul> <li> <h5 class="inline-block">' + response[1].get('name') + '</h5> <span> - ' + response[0].get('super_built_up_area') + ' ' + project.get('measurement_units') + '</span> <!--<label>Variant</label> - ' + response[0].get('unit_variant_name') + '--> </li> </ul> <div class="price text-primary"> <span class="text-primary icon-rupee-icn"></span>' + price + '</div> </div> </div>';
         if (availability === 'available') {
