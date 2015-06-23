@@ -663,7 +663,7 @@ class ProjectController extends Controller {
             $json_resp = array(
                 'code' => 'unit_added' , 
                 'message' => 'Unit Added',
-                'data' => json_decode($result)
+                'data' => $result
                 );
             $status_code = 200 ;
         }
