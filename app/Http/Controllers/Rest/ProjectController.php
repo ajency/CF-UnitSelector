@@ -559,7 +559,7 @@ class ProjectController extends Controller {
         if (curl_errno($c)) {
           $result_json  = NULL;
           $json_resp = array(
-            'code' => 'error_in_fetching_amount' , 
+            'code' => 'error_in_fetching_plan' , 
             'message' => curl_error($c) ,
             'data' => $result_json
             );
@@ -579,8 +579,8 @@ class ProjectController extends Controller {
         curl_close($c); 
      
         $json_resp = array(
-            'code' => 'total_selling_amount_returned' , 
-            'message' => 'Selling Amount',
+            'code' => 'unit_payment_plan_returned' , 
+            'message' => 'Unit Payment Plan',
             'data' => $result_json
             );
         $status_code = 200 ;
@@ -592,10 +592,12 @@ class ProjectController extends Controller {
     public function getUnitPriceSheet(){
         $getVar = Input::get();
         $unitId = $getVar['unit_id'];
+        // $project_id = $getVar['project_id'];
         $sender_url = BOOKING_SERVER_URL;
         $sender_url .= GET_UNIT_PRICE_SHEET;
 
         /* $_GET Parameters to Send */
+        // $params = array('unit_id' => $unitId, 'project_id'=> $project_id);
         $params = array('unit_id' => $unitId);
 
         /* Update URL to container Query String of Paramaters */
@@ -613,7 +615,7 @@ class ProjectController extends Controller {
         if (curl_errno($c)) {
           $result_json  = NULL;
           $json_resp = array(
-            'code' => 'error_in_fetching_amount' , 
+            'code' => 'error_in_fetching_price_sheet' , 
             'message' => curl_error($c) ,
             'data' => $result_json
             );
@@ -632,8 +634,8 @@ class ProjectController extends Controller {
         curl_close($c); 
      
         $json_resp = array(
-            'code' => 'total_selling_amount_returned' , 
-            'message' => 'Selling Amount',
+            'code' => 'price_sheet_returned' , 
+            'message' => 'Price Sheet',
             'data' => $result_json
             );
         $status_code = 200 ;
