@@ -124,7 +124,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             }
         }
      $appartmentVariantData = array_merge($appartmentVariantData,$penthouseVariantData);   
-     $units = \CommonFloor\Unit::whereIn('phase_id', $phases)->where('availability','!=','archived')->get()->toArray();
+     $units = \CommonFloor\Unit::whereIn( 'phase_id', $phases )->where('availability','!=','archived')->get()->toArray();
      $units = array_merge($units,$apartmentunits);
      $unitData = [];
      foreach ($units as $unit)
