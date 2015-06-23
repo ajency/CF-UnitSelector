@@ -143,21 +143,18 @@
     };
 
     CenterView.prototype.events = {
-      'mouseover .step1-marker': function(e) {
-        $('.step1-marker').tooltipster('show');
-        return $('.tooltipstered').tooltipster('show');
-      },
-      'mouseout .step1-marker': function(e) {
+      'click .step1-marker': function(e) {
+        $('.step1-wrapper').attr('class', 'zoom');
+        $('.step1').addClass('animated fadeOut');
         $('.step1-marker').tooltipster('hide');
-        return $('.tooltipstered').tooltipster('hide');
+        return setTimeout(function(x) {
+          return CommonFloor.checkPropertyType();
+        }, 100);
       },
       'mouseover .amenity': function(e) {
         var html;
         html = '<div class="row"> <div class="col-sm-12 b-r"> <h4 class="text-warning margin-none">' + $(e.currentTarget).attr('data-amenity-title') + '</h4> <h6 class="text-muted">' + $(e.currentTarget).attr('data-amenity-desc') + '</h6> </div> </div>';
         return $('.amenity').tooltipster('content', html);
-      },
-      'mouseout .amenity': function(e) {
-        return $('.amenity').tooltipster('hide');
       }
     };
 
@@ -181,11 +178,9 @@
             contentAsHTML: true,
             onlyOne: true,
             arrow: false,
-            offsetX: 150,
-            offsetY: 60,
+            offsetX: 180,
             interactive: true,
             animation: 'fade',
-            trigger: 'click',
             content: $('#proj_info').html(),
             functionReady: function(e) {
               var svgHeight, svgWidth, tooltipHeight;
@@ -210,42 +205,11 @@
             }
           });
           $('.step1-marker').tooltipster('show');
-          $('.tooltipstered').tooltipster({
-            theme: 'tooltipster-shadow',
-            contentAsHTML: true,
-            onlyOne: true,
-            arrow: false,
-            offsetX: 150,
-            offsetY: 60,
-            interactive: true,
-            animation: 'fade',
-            trigger: 'click',
-            content: $('#proj_info').html(),
-            functionReady: function(e) {
-              var tooltipHeight;
-              $('.action_button').on('click', function(e) {
-                $('.img-loader').removeClass('hidden');
-                $('.step1-wrapper').attr('class', 'zoom');
-                $('.step1').addClass('animated fadeOut');
-                $('.step1-marker').tooltipster('hide');
-                return setTimeout(function(x) {
-                  return CommonFloor.checkPropertyType();
-                }, 100);
-              });
-              tooltipHeight = $('.tooltipster-content').height() + 10;
-              return $('.action-bar').css('min-height', tooltipHeight);
-            }
-          });
-          $('.tooltipstered').tooltipster('show');
           return $('.amenity').tooltipster({
-            theme: 'tooltipster-shadow',
+            theme: 'tooltipster-shadow marker-tooltip',
             contentAsHTML: true,
             onlyOne: true,
             arrow: false,
-            offsetX: 150,
-            offsetY: 60,
-            interactive: true,
-            animation: 'fade',
             trigger: 'hover'
           });
         });

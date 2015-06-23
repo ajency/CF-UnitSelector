@@ -200,13 +200,21 @@ class CenterView extends Marionette.ItemView
 
 			
 	events : 
-		'mouseover .step1-marker':(e)->
-			$('.step1-marker').tooltipster('show')
-			$('.tooltipstered').tooltipster('show')
-
-		'mouseout .step1-marker':(e)->
+		'click .step1-marker':(e)->
+			$('.step1-wrapper').attr('class' ,'zoom') 
+			$('.step1').addClass 'animated fadeOut'
 			$('.step1-marker').tooltipster('hide')
-			$('.tooltipstered').tooltipster('hide')
+			setTimeout( (x)->
+				CommonFloor.checkPropertyType()
+			, 100)
+
+		# 'mouseover .step1-marker':(e)->
+		# 	$('.step1-marker').tooltipster('show')
+			
+
+		# 'mouseout .step1-marker':(e)->
+		# 	$('.step1-marker').tooltipster('hide')
+			
 
 
 		'mouseover .amenity':(e)->
@@ -219,8 +227,8 @@ class CenterView extends Marionette.ItemView
 
 			$('.amenity').tooltipster('content', html)
 
-		'mouseout .amenity':(e)->
-			$('.amenity').tooltipster('hide')
+		# 'mouseout .amenity':(e)->
+		# 	$('.amenity').tooltipster('hide')
 
 		
 			
@@ -247,11 +255,11 @@ class CenterView extends Marionette.ItemView
 					contentAsHTML: true
 					onlyOne : true
 					arrow : false
-					offsetX : 150
-					offsetY : 60
+					offsetX : 180
+					# offsetY : 60
 					interactive : true
 					animation : 'fade'
-					trigger: 'click'
+					# trigger: 'click'
 					content : $('#proj_info').html()
 					functionReady:(e)->
 						$('.action_button').on('click' , (e)->
@@ -276,41 +284,14 @@ class CenterView extends Marionette.ItemView
 				$('.step1-marker').tooltipster('show')
 
 
-				$('.tooltipstered').tooltipster(
-					theme: 'tooltipster-shadow'
-					contentAsHTML: true
-					onlyOne : true
-					arrow : false
-					offsetX : 150
-					offsetY : 60
-					interactive : true
-					animation : 'fade'
-					trigger: 'click'
-					content : $('#proj_info').html()
-					functionReady:(e)->
-						$('.action_button').on('click' , (e)->
-							$('.img-loader').removeClass 'hidden'
-							$('.step1-wrapper').attr('class' ,'zoom') 
-							$('.step1').addClass 'animated fadeOut'
-							$('.step1-marker').tooltipster('hide')
-							setTimeout( (x)->
-								CommonFloor.checkPropertyType()
-							, 100)
-						)
-						tooltipHeight = $('.tooltipster-content').height() + 10
-						$('.action-bar').css 'min-height', tooltipHeight
-				)
-				$('.tooltipstered').tooltipster('show')
+
 
 				$('.amenity').tooltipster(
-					theme: 'tooltipster-shadow'
+					theme: 'tooltipster-shadow marker-tooltip'
 					contentAsHTML: true
 					onlyOne : true
 					arrow : false
-					offsetX : 150
-					offsetY : 60
-					interactive : true
-					animation : 'fade'
+					# animation : 'grow'
 					trigger: 'hover'
 
 				)
