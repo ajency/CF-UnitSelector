@@ -76,6 +76,7 @@ class ProjectGateway implements ProjectGatewayInterface {
         $unitTypeArr = [];
         $unitTypeIds = [];
         $units = [];
+        $projectbuildings = [];
        
         foreach ($unitTypes as $unitType) {
             $projectPropertyTypekey = array_search( $unitType->project_property_type_id , $projectPropertyTypeIds);
@@ -85,14 +86,24 @@ class ProjectGateway implements ProjectGatewayInterface {
         }
        
        $project = $this->projectRepository->getProjectById( $projectId );
-       $phases = $project->projectPhase()->where('status' , 'live')->lists( 'id' );
-       $buildings = \CommonFloor\Building::whereIn( 'phase_id', $phases )->get();
-       $buildingIds = [];
-       foreach($buildings as $building)
-       {
-         $buildingIds[] =$building->id;  
-       }  
-      $apartmentunits = \CommonFloor\Unit::whereIn('building_id', $buildingIds)->where('availability','!=','archived')->get()->toArray(); 
+
+       $phases = \CommonFloor\Phase::where(['project_id' => $projectId, 'status' => 'live'])->get()->toArray();
+       foreach ($phases as $phase) {
+            $phaseId = $phase['id'];
+            $phase = \CommonFloor\Phase::find($phaseId);
+            $units = $phase->projectUnits()->where('availability','!=','archived')->get()->toArray();
+            $buildings = $phase->projectBuildings()->get()->toArray();  
+            $projectbuildings = array_merge($buildings,$projectbuildings);
+            foreach($buildings as $building)
+            {
+                $buildingData = \CommonFloor\Building :: find($building['id']);
+                $buildingUnits = $buildingData->projectUnits()->where('availability','!=','archived')->get()->toArray();
+                $units = array_merge($units,$buildingUnits);
+            }
+
+            
+        }    
+ 
       $variantIds = $bunglowVariantData = $appartmentVariantData =$plotVariantData= $penthouseVariantData =[];
 
         foreach ($unitTypeIds as $key => $unitTypeId)
@@ -124,8 +135,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             }
         }
      $appartmentVariantData = array_merge($appartmentVariantData,$penthouseVariantData);   
-     $units = \CommonFloor\Unit::whereIn( 'phase_id', $phases )->where('availability','!=','archived')->get()->toArray();
-     $units = array_merge($units,$apartmentunits);
+ 
      $unitData = [];
      foreach ($units as $unit)
      {
@@ -138,9 +148,9 @@ class ProjectGateway implements ProjectGatewayInterface {
         $unit['selling_amount'] = ProjectController :: get_unit_selling_amount($unit['id']); 
         $unitData[]=$unit;
      }
- 
+
         $stepTwoData = [
-            'buildings' => $buildings->toArray(),
+            'buildings' => $projectbuildings,
             'bunglow_variants' => $bunglowVariantData,
             'apartment_variants' => $appartmentVariantData,
             'plot_variants' => $plotVariantData,
