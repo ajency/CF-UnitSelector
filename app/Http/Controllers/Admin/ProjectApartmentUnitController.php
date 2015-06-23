@@ -433,9 +433,9 @@ class ProjectApartmentUnitController extends Controller {
                     $unit->views = $viewsStr;
                     $unit->save();
 
-                  
+                Session::flash('success_message','Unit Successfully Imported');  
                }
-                Session::flash('success_message','Unit Successfully Imported');
+                
             }
              else
                  $errorMsg[] ='Column Count does not match';
