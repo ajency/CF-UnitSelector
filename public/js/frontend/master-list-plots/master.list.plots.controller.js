@@ -30,7 +30,6 @@
       availability = this.model.get('availability');
       status = s.decapitalize(availability);
       this.model.set('status', status);
-      window.convertRupees(response[3]);
       data.price = window.numDifferentiation(response[3]);
       return data;
     };

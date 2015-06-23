@@ -29,7 +29,6 @@ class BunglowListView extends Marionette.ItemView
 		availability = @model.get('availability')
 		status = s.decapitalize(availability)
 		@model.set 'status' , status
-		window.convertRupees(response[3])
 		data.price = window.numDifferentiation(response[3])
 		data
 
