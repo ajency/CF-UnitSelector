@@ -50,8 +50,13 @@ class TopUnitView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
+		url = Backbone.history.fragment
+		unitid = parseInt url.split('/')[1]
+		response = window.unit.getUnitDetails(unitid)
+		unit = unitCollection.findWhere
+			id  : unitid
 		data.project_title = project.get 'project_title'
-		data.unitBookingAmount = Marionette.getOption(@,'unitBookingAmount')
+		data.unitBookingAmount = window.numDifferentiation(unit.get('booking_amount'))
 		data.bookingPortalUrl = window.bookingPortalUrl
 		data
 
@@ -99,20 +104,20 @@ class CommonFloor.TopUnitCtrl extends Marionette.RegionController
 		response = window.unit.getUnitDetails(unitid)
 		unit.set 'type' , s.capitalize response[2]
 		
-		# get booking amount from cd api
-		bookingAmtOptions =
-			method:"GET"
-			url: "#{BASERESTURL}/get-booking-amount" 
-			data:
-				unit_id : unitid
+		# # get booking amount from cd api
+		# bookingAmtOptions =
+		# 	method:"GET"
+		# 	url: "#{BASERESTURL}/get-booking-amount" 
+		# 	data:
+		# 		unit_id : unitid
 
-		$.ajax(bookingAmtOptions).done (resp, textStatus ,xhr)=>
-			unitBookingAmount = resp.data
+		# $.ajax(bookingAmtOptions).done (resp, textStatus ,xhr)=>
+		# 	unitBookingAmount = resp.data
 
 
-			@show new TopUnitView
-					model : unit
-					unitBookingAmount : unitBookingAmount
+		@show new TopUnitView
+				model : unit
+				
 
 			
 #Left View for unit
@@ -337,10 +342,10 @@ class LeftUnitView extends Marionette.ItemView
 		unitid = parseInt url.split('/')[1]
 		response = window.unit.getUnitDetails(unitid)
 
-		unitSellingAmount  = Marionette.getOption(@,'unitSellingAmount')
-		unitSellingAmount = parseInt unitSellingAmount
-		# $('.price').text window.numDifferentiation(response[3])
-		$('.price').text window.numDifferentiation(unitSellingAmount)
+		# unitSellingAmount  = Marionette.getOption(@,'unitSellingAmount')
+		# unitSellingAmount = parseInt unitSellingAmount
+		$('.price').text window.numDifferentiation(response[3])
+		# $('.price').text window.numDifferentiation(unitSellingAmount)
 		
 		if response[2] is 'apartment'
 			$('.collapseLevel').collapse('show')
@@ -352,18 +357,18 @@ class CommonFloor.LeftUnitCtrl extends Marionette.RegionController
 		url = Backbone.history.fragment
 		unitid = parseInt url.split('/')[1]
 		
-		# get selling value of a unit
-		sellingAmtOptions =
-			method:"GET"
-			url: "#{BASERESTURL}/get-selling-amount" 
-			data:
-				unit_id : unitid
+		# # get selling value of a unit
+		# sellingAmtOptions =
+		# 	method:"GET"
+		# 	url: "#{BASERESTURL}/get-selling-amount" 
+		# 	data:
+		# 		unit_id : unitid
 
-		$.ajax(sellingAmtOptions).done (resp, textStatus ,xhr)=>
-			unitSellingAmount = resp.data		
+		# $.ajax(sellingAmtOptions).done (resp, textStatus ,xhr)=>
+		# 	unitSellingAmount = resp.data		
 
-			@show new LeftUnitView
-						unitSellingAmount : unitSellingAmount
+		@show new LeftUnitView
+					
 
 			
 #Center Controller for unit
@@ -443,8 +448,12 @@ class CenterUnitView extends Marionette.ItemView
 
 	serializeData:->
 		data = super()
+		url = Backbone.history.fragment
+		id = url.split('/')[1]
+		unit = unitCollection.findWhere
+				'id' : parseInt id
 		unitPaymentPlan  = Marionette.getOption(@,'unitPaymentPlan')
-		data.totalSaleValue = unitPaymentPlan.total_sale_value	
+		data.totalSaleValue = window.numDifferentiation(unit.get('selling_amount'))
 		data		
 
 
@@ -471,6 +480,7 @@ class CenterUnitView extends Marionette.ItemView
 					$('.img').removeClass "lazy-hidden"
 					$('.img').addClass "lazy-loaded"
 			)
+			$('.price-mode-dropdown').addClass('hidden')	
 			$('.threeD').addClass('current')
 			$('.external').removeClass('current')
 			$('.twoD').removeClass('current')
@@ -500,6 +510,7 @@ class CenterUnitView extends Marionette.ItemView
 					$('.img').removeClass "lazy-hidden"
 					$('.img').addClass "lazy-loaded"
 			)
+			$('.price-mode-dropdown').addClass('hidden')	
 			$('.twoD').addClass('current')
 			$('.external').removeClass('current')
 			$('.threeD').removeClass('current')
@@ -534,6 +545,7 @@ class CenterUnitView extends Marionette.ItemView
 			$('.external-img').load ()->
 				$('#rotate_loader').addClass 'hidden'
 				$('.external-container').removeClass 'hidden'
+			$('.price-mode-dropdown').addClass('hidden')	
 			$('.external').addClass('current')
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
@@ -563,7 +575,7 @@ class CenterUnitView extends Marionette.ItemView
 					$('.img').removeClass "lazy-hidden"
 					$('.img').addClass "lazy-loaded"
 			)
-
+			$('.price-mode-dropdown').addClass('hidden')	
 			$('.gallery').addClass('current')
 			$('.threeD').removeClass('current')
 			$('.twoD').removeClass('current')
@@ -611,6 +623,7 @@ class CenterUnitView extends Marionette.ItemView
 
 				_.each unitPlanMilestones, (milestone, key) ->
 					perc = window.calculatePerc(milestone.amount,unitTotalSaleValue )
+					amount  = window.numDifferentiation(milestone.amount)
 					html += '<li class="milestonePercent">
 								<span class="msPercent">'+perc+'%</span>
 							</li>
@@ -634,7 +647,7 @@ class CenterUnitView extends Marionette.ItemView
 
 										<div>
 											Total Amount: <span class="total10" 
-											data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> '+milestone.amount+'</span>
+											data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> '+amount+'</span>
 										</div>
 									</div><span class="barBg" style="width:'+perc+'%"></span>
 								</li>
@@ -645,6 +658,7 @@ class CenterUnitView extends Marionette.ItemView
 				# uniteprice sheet @todo move it to separate view and change on dropdown
 				_.each unitPriceSheetComponents, (component, key) ->
 					perc = window.calculatePerc(component.amount,unitTotalSaleValue )
+					component_amt = window.numDifferentiation(component.amount)
 					html += '<li class="milestonePercent">
 								<span class="msPercent">'+perc+'%</span>
 							</li>
@@ -668,7 +682,7 @@ class CenterUnitView extends Marionette.ItemView
 
 										<div>
 											Total Amount: <span class="total10" 
-											data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> '+component.amount+'</span>
+											data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> '+component_amt+'</span>
 										</div>
 									</div><span class="barBg" style="width:'+perc+'%"></span>
 								</li>
@@ -702,6 +716,7 @@ class CenterUnitView extends Marionette.ItemView
 
 			_.each unitPlanMilestones, (milestone, key) ->
 				perc = window.calculatePerc(milestone.amount,unitTotalSaleValue )
+				amount = window.numDifferentiation(milestone.amount)
 				html += '<li class="milestonePercent">
 							<span class="msPercent">'+perc+'%</span>
 						</li>
@@ -725,7 +740,7 @@ class CenterUnitView extends Marionette.ItemView
 
 									<div>
 										Total Amount: <span class="total10" 
-										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> '+milestone.amount+'</span>
+										data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> '+amount+'</span>
 									</div>
 								</div><span class="barBg" style="width:'+perc+'%"></span>
 							</li>
