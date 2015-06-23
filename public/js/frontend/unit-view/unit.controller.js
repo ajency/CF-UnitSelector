@@ -53,10 +53,16 @@
     };
 
     TopUnitView.prototype.serializeData = function() {
-      var data;
+      var data, response, unit, unitid, url;
       data = TopUnitView.__super__.serializeData.call(this);
+      url = Backbone.history.fragment;
+      unitid = parseInt(url.split('/')[1]);
+      response = window.unit.getUnitDetails(unitid);
+      unit = unitCollection.findWhere({
+        id: unitid
+      });
       data.project_title = project.get('project_title');
-      data.unitBookingAmount = Marionette.getOption(this, 'unitBookingAmount');
+      data.unitBookingAmount = window.numDifferentiation(unit.get('booking_amount'));
       data.bookingPortalUrl = window.bookingPortalUrl;
       return data;
     };
@@ -109,7 +115,7 @@
     }
 
     TopUnitCtrl.prototype.initialize = function() {
-      var bookingAmtOptions, response, unit, unitid, url;
+      var response, unit, unitid, url;
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
       unit = unitCollection.findWhere({
@@ -117,23 +123,9 @@
       });
       response = window.unit.getUnitDetails(unitid);
       unit.set('type', s.capitalize(response[2]));
-      bookingAmtOptions = {
-        method: "GET",
-        url: BASERESTURL + "/get-booking-amount",
-        data: {
-          unit_id: unitid
-        }
-      };
-      return $.ajax(bookingAmtOptions).done((function(_this) {
-        return function(resp, textStatus, xhr) {
-          var unitBookingAmount;
-          unitBookingAmount = resp.data;
-          return _this.show(new TopUnitView({
-            model: unit,
-            unitBookingAmount: unitBookingAmount
-          }));
-        };
-      })(this));
+      return this.show(new TopUnitView({
+        model: unit
+      }));
     };
 
     return TopUnitCtrl;
@@ -275,13 +267,11 @@
     };
 
     LeftUnitView.prototype.onShow = function() {
-      var response, unitSellingAmount, unitid, url;
+      var response, unitid, url;
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
       response = window.unit.getUnitDetails(unitid);
-      unitSellingAmount = Marionette.getOption(this, 'unitSellingAmount');
-      unitSellingAmount = parseInt(unitSellingAmount);
-      $('.price').text(window.numDifferentiation(unitSellingAmount));
+      $('.price').text(window.numDifferentiation(response[3]));
       if (response[2] === 'apartment') {
         return $('.collapseLevel').collapse('show');
       }
@@ -299,25 +289,10 @@
     }
 
     LeftUnitCtrl.prototype.initialize = function() {
-      var sellingAmtOptions, unitid, url;
+      var unitid, url;
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
-      sellingAmtOptions = {
-        method: "GET",
-        url: BASERESTURL + "/get-selling-amount",
-        data: {
-          unit_id: unitid
-        }
-      };
-      return $.ajax(sellingAmtOptions).done((function(_this) {
-        return function(resp, textStatus, xhr) {
-          var unitSellingAmount;
-          unitSellingAmount = resp.data;
-          return _this.show(new LeftUnitView({
-            unitSellingAmount: unitSellingAmount
-          }));
-        };
-      })(this));
+      return this.show(new LeftUnitView);
     };
 
     return LeftUnitCtrl;
@@ -338,10 +313,15 @@
     };
 
     CenterUnitView.prototype.serializeData = function() {
-      var data, unitPaymentPlan;
+      var data, id, unit, unitPaymentPlan, url;
       data = CenterUnitView.__super__.serializeData.call(this);
+      url = Backbone.history.fragment;
+      id = url.split('/')[1];
+      unit = unitCollection.findWhere({
+        'id': parseInt(id)
+      });
       unitPaymentPlan = Marionette.getOption(this, 'unitPaymentPlan');
-      data.totalSaleValue = unitPaymentPlan.total_sale_value;
+      data.totalSaleValue = window.numDifferentiation(unit.get('selling_amount'));
       return data;
     };
 
@@ -364,6 +344,7 @@
             return $('.img').addClass("lazy-loaded");
           }
         });
+        $('.price-mode-dropdown').addClass('hidden');
         $('.threeD').addClass('current');
         $('.external').removeClass('current');
         $('.twoD').removeClass('current');
@@ -389,6 +370,7 @@
             return $('.img').addClass("lazy-loaded");
           }
         });
+        $('.price-mode-dropdown').addClass('hidden');
         $('.twoD').addClass('current');
         $('.external').removeClass('current');
         $('.threeD').removeClass('current');
@@ -409,6 +391,7 @@
           $('#rotate_loader').addClass('hidden');
           return $('.external-container').removeClass('hidden');
         });
+        $('.price-mode-dropdown').addClass('hidden');
         $('.external').addClass('current');
         $('.threeD').removeClass('current');
         $('.twoD').removeClass('current');
@@ -434,6 +417,7 @@
             return $('.img').addClass("lazy-loaded");
           }
         });
+        $('.price-mode-dropdown').addClass('hidden');
         $('.gallery').addClass('current');
         $('.threeD').removeClass('current');
         $('.twoD').removeClass('current');
@@ -470,15 +454,17 @@
         html += '<div class="invoice-items animated fadeIn"> <ul id="paymentTable">';
         if (selectedMode === "payment_plan_breakdown") {
           _.each(unitPlanMilestones, function(milestone, key) {
-            var perc;
+            var amount, perc;
             perc = window.calculatePerc(milestone.amount, unitTotalSaleValue);
-            return html += '<li class="milestonePercent"> <span class="msPercent">' + perc + '%</span> </li> <li class="milestoneList"> <div class="msName">' + milestone.milestone + '</div> <div class="msVal"> <div> <span class="label">Cost Type:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""> ' + milestone.cost_type + '</span> </div> <div> <span class="label">Due Date:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""> ' + milestone.milestone_date + '</span> </div> <div> Total Amount: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + milestone.amount + '</span> </div> </div><span class="barBg" style="width:' + perc + '%"></span> </li> <div class="clearfix"></div>';
+            amount = window.numDifferentiation(milestone.amount);
+            return html += '<li class="milestonePercent"> <span class="msPercent">' + perc + '%</span> </li> <li class="milestoneList"> <div class="msName">' + milestone.milestone + '</div> <div class="msVal"> <div> <span class="label">Cost Type:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""> ' + milestone.cost_type + '</span> </div> <div> <span class="label">Due Date:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""> ' + milestone.milestone_date + '</span> </div> <div> Total Amount: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + amount + '</span> </div> </div><span class="barBg" style="width:' + perc + '%"></span> </li> <div class="clearfix"></div>';
           });
         } else if (selectedMode === "price_breakup") {
           _.each(unitPriceSheetComponents, function(component, key) {
-            var perc;
+            var component_amt, perc;
             perc = window.calculatePerc(component.amount, unitTotalSaleValue);
-            return html += '<li class="milestonePercent"> <span class="msPercent">' + perc + '%</span> </li> <li class="milestoneList"> <div class="msName">' + component.component_price_type + '</div> <div class="msVal"> <div> <span class="label">Cost Type:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""> ' + component.cost_type + '</span> </div> <div> <span class="label">Sub Type:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""> ' + component.component_price_sub_type + '</span> </div> <div> Total Amount: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + component.amount + '</span> </div> </div><span class="barBg" style="width:' + perc + '%"></span> </li> <div class="clearfix"></div>';
+            component_amt = window.numDifferentiation(component.amount);
+            return html += '<li class="milestonePercent"> <span class="msPercent">' + perc + '%</span> </li> <li class="milestoneList"> <div class="msName">' + component.component_price_type + '</div> <div class="msVal"> <div> <span class="label">Cost Type:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""> ' + component.cost_type + '</span> </div> <div> <span class="label">Sub Type:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""> ' + component.component_price_sub_type + '</span> </div> <div> Total Amount: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + component_amt + '</span> </div> </div><span class="barBg" style="width:' + perc + '%"></span> </li> <div class="clearfix"></div>';
           });
         }
         html += '</ul> </div>';
@@ -498,9 +484,10 @@
         html = '';
         html += '<div class="invoice-items animated fadeIn"> <ul id="paymentTable">';
         _.each(unitPlanMilestones, function(milestone, key) {
-          var perc;
+          var amount, perc;
           perc = window.calculatePerc(milestone.amount, unitTotalSaleValue);
-          return html += '<li class="milestonePercent"> <span class="msPercent">' + perc + '%</span> </li> <li class="milestoneList"> <div class="msName">' + milestone.milestone + '</div> <div class="msVal"> <div> <span class="label">Cost Type:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""> ' + milestone.cost_type + '</span> </div> <div> <span class="label">Due Date:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""> ' + milestone.milestone_date + '</span> </div> <div> Total Amount: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + milestone.amount + '</span> </div> </div><span class="barBg" style="width:' + perc + '%"></span> </li> <div class="clearfix"></div>';
+          amount = window.numDifferentiation(milestone.amount);
+          return html += '<li class="milestonePercent"> <span class="msPercent">' + perc + '%</span> </li> <li class="milestoneList"> <div class="msName">' + milestone.milestone + '</div> <div class="msVal"> <div> <span class="label">Cost Type:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""> ' + milestone.cost_type + '</span> </div> <div> <span class="label">Due Date:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""> ' + milestone.milestone_date + '</span> </div> <div> Total Amount: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + amount + '</span> </div> </div><span class="barBg" style="width:' + perc + '%"></span> </li> <div class="clearfix"></div>';
         });
         html += '</ul> </div>';
         $('.images').html(html);

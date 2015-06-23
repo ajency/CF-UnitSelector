@@ -30,7 +30,6 @@ class PlotListView extends Marionette.ItemView
         availability = @model.get('availability')
         status = s.decapitalize(availability)
         @model.set 'status' , status
-        window.convertRupees(response[3])
         data.price = window.numDifferentiation(response[3])
         data
 
@@ -73,7 +72,7 @@ class PlotListView extends Marionette.ItemView
             unit = unitCollection.findWhere 
                 id :  id 
         
-            if ! _.isUndefined unit && unit.get('availability') is 'available'
+            if !(_.isUndefined unit) && unit.get('availability') is 'available'
                 $('.layer').tooltipster('hide')
                 $('svg').attr('class' ,'zoom')
                 $('#spritespin').addClass 'zoom'

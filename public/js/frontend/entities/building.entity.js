@@ -24,7 +24,7 @@
       $.each(variants, function(index, value) {
         var varinatModel;
         varinatModel = apartmentVariantCollection.findWhere({
-          'id': value
+          'id': value.get('unit_variant_id')
         });
         return unitTypes.push(varinatModel.get('unit_type_id'));
       });

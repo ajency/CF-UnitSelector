@@ -1527,6 +1527,9 @@ hr.embossed {
   background-color: rgba(204, 204, 204, 0.5);
 }
 /* Building Zoom */
+[mag-theme="default"].mag-zoomed-bg {
+  background: transparent;
+}
 @media (max-width: 991px) {
   [mag-zoom] {
     display: block;
@@ -2811,7 +2814,7 @@ svg .no-fill {
   display: inline-block;
   margin: 13px 9px;
   margin-left: 0;
-  line-height: 12px;
+  line-height: 18px;
   padding: 2px 0 2px 8px;
   font-weight: bold;
   color: #f68121;
@@ -2884,20 +2887,23 @@ svg .no-fill {
   margin-right: 15px;
 }
 @media (max-width: 767px) {
-  .filters-wrapper label.-lbl {
+  .filters-wrapper .property_type label.-lbl {
     float: left;
   }
-  .filters-wrapper div.-lbl.villa-check .arrow-right,
-  .filters-wrapper div.-lbl.apartment-check .arrow-right,
-  .filters-wrapper div.-lbl.plot-check .arrow-right {
+  .filters-wrapper .property_type div.-lbl {
+    clear: both;
+  }
+  .filters-wrapper .property_type div.-lbl.villa-check .arrow-right,
+  .filters-wrapper .property_type div.-lbl.apartment-check .arrow-right,
+  .filters-wrapper .property_type div.-lbl.plot-check .arrow-right {
     padding-top: 5px;
   }
-  .filters-wrapper div.-lbl.villa-check .arrow-right.mobile,
-  .filters-wrapper div.-lbl.apartment-check .arrow-right.mobile,
-  .filters-wrapper div.-lbl.plot-check .arrow-right.mobile {
+  .filters-wrapper .property_type div.-lbl.villa-check .arrow-right.mobile,
+  .filters-wrapper .property_type div.-lbl.apartment-check .arrow-right.mobile,
+  .filters-wrapper .property_type div.-lbl.plot-check .arrow-right.mobile {
     display: block;
   }
-  .filters-wrapper .arrow-right.desktop {
+  .filters-wrapper .property_type .arrow-right.desktop {
     display: none;
   }
   .filters-wrapper .mCSB_inside > .mCSB_container {
@@ -3026,7 +3032,7 @@ span.glyphicon {
   margin-top: 0px;
   position: fixed;
   padding: 0px;
-  height: 340px;
+  height: 338px;
   z-index: 9999;
   background-color: rgba(222, 222, 222, 0.95);
   -webkit-transform: translate(0, 0);
@@ -3087,7 +3093,7 @@ span.glyphicon {
     left: 0;
     right: initial;
     width: 100vw !important;
-    padding: 30px 15px 15px;
+    padding: 5px 15px 15px;
     background-color: #ebebeb;
   }
   .filters-wrapper-hover.visible .back_btn {
@@ -3095,6 +3101,8 @@ span.glyphicon {
     font-size: 15px;
     color: #262626;
     display: block;
+    position: static;
+    padding-left: 0;
   }
   .filters-wrapper-hover.visible .back_btn .icon:before {
     content: "\e761";

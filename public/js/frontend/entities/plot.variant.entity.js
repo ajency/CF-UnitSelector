@@ -11,18 +11,12 @@
     }
 
     PlotVariant.prototype.findUnitPrice = function(unit_model) {
-      var basicCost, basic_cost, unitVarinatModel;
+      var basicCost;
       basicCost = "";
       if (!(unit_model instanceof Backbone.Model) || unit_model === "") {
         return;
       }
-      unitVarinatModel = plotVariantMasterCollection.findWhere({
-        'id': parseInt(unit_model.get('unit_variant_id'))
-      });
-      if (unitVarinatModel !== void 0) {
-        basic_cost = (parseFloat(unitVarinatModel.get('per_sq_ft_price'))) * parseFloat(unitVarinatModel.get('size'));
-        basicCost = basic_cost.toFixed(2);
-      }
+      basicCost = unit_model.get('selling_amount');
       return basicCost;
     };
 

@@ -15,7 +15,7 @@
             <div class="grid-body no-border">
                 <div class="alert alert-info">
                 <strong><i class="fa fa-info"></i></strong>  Upload Google Earth image of the project with filename 'map'. 
-                Image dimensions should not be less than - 1600*1095. Resolution - 100 DPI. Supported file formats jpg, jpeg, png.
+                Image dimensions should not be less than - 1600*800. Resolution - 100 DPI. Supported file formats jpg, jpeg, png.
                 </div>
           
                 @if(!empty($svgImages['google_earth']['IMAGE']))
@@ -40,7 +40,7 @@
                 </div>
                 @else
                 <div class="row" id="google_earth_image">
-                    <div class="col-md-3">
+                    <div class="col-md-3 uploadImage">
                         <div class="img-hover img-thumbnail">
                             <div id="pickfiles" style="width: 150px;height:109px;background:#BEBEBE;display: table;">
                                 <div style="color:#FFFFFF;display: table-cell;vertical-align: middle;text-align: center;">
@@ -51,9 +51,7 @@
                             
                         </div>
                     </div>
-                     <div class="col-md-9">
-                    </div>
-                   
+ 
                 </div>
                 
                 @endif

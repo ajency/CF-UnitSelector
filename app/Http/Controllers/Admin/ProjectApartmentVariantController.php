@@ -459,17 +459,17 @@ class ProjectApartmentVariantController extends Controller {
             $attributes.='<label class="form-label">'.$attribute['label'].'</label>';
             
             if('textbox' === $attribute['control_type'])
-                $attributes.='<input type="text" class="form-control" name="attributes['.property_type_slug($attribute['label']).']"  placeholder="Enter '.$attribute['label'].'" data-parsley-required>';
+                $attributes.='<input type="text" class="form-control" name="apartment_attributes['.$attribute['label'].']"  placeholder="Enter '.$attribute['label'].'" data-parsley-required>';
             elseif('number' === $attribute['control_type'])
-                $attributes.='<input type="number" class="form-control" name="attributes['.property_type_slug($attribute['label']).']"  placeholder="Enter '.$attribute['label'].'" data-parsley-required data-parsley-type="number">'; 
+                $attributes.='<input type="number" class="form-control" name="apartment_attributes['.$attribute['label'].']"  placeholder="Enter '.$attribute['label'].'" data-parsley-required data-parsley-type="number">'; 
             elseif('select' === $attribute['control_type'])
             {
                $options = explode(',', $attribute['defaults']);
-               $attributes.='<select name="attributes['.property_type_slug($attribute['label']).']" class="select2 form-control" data-parsley-required>';
+               $attributes.='<select name="apartment_attributes['.$attribute['label'].']" class="select2 form-control" data-parsley-required>';
                $attributes.='<option value="">Select '.$attribute['label'].'</option>';   
               foreach($options as $option)
               {
-                 $attributes.='<option  value="'.property_type_slug($option).'">'.$option.'</option>';
+                 $attributes.='<option  value="'.$option.'">'.$option.'</option>';
               }
             $attributes.='</select>';
             }
@@ -477,11 +477,11 @@ class ProjectApartmentVariantController extends Controller {
              {
                  $options = explode(',', $attribute['defaults']);
                      
-                $attributes.='<select multiple name="attributes['.property_type_slug($attribute['label']).'][]" class="select2 form-control" data-parsley-required>';
+                $attributes.='<select multiple name="apartment_attributes['.$attribute['label'].'][]" class="select2 form-control" data-parsley-required>';
                 $attributes.='<option value="">Select '.$attribute['label'].'</option>';   
                 foreach($options as $option)
                 {
-                 $attributes.='<option   value="'. property_type_slug($option).'">'.$option.'</option>';
+                 $attributes.='<option   value="'. $option.'">'.$option.'</option>';
                 }
                 $attributes.='</select>';
              }     

@@ -65,7 +65,7 @@ class ProjectBuildingController extends Controller {
         $formData = $request->all();
         $building = new Building;
         $building->building_name = ucfirst($formData['building_name']);
-        $building->abbrevation = $formData['abbrevation'];
+        //$building->abbrevation = $formData['abbrevation'];
         $building->phase_id = $formData['phase_id'];
         $building->no_of_floors = $formData['no_of_floors'];
         $building->has_master = $formData['has_master'];
@@ -145,7 +145,7 @@ class ProjectBuildingController extends Controller {
         $formData = $request->all();
         $building = Building::find( $buildingId );
         $building->building_name = ucfirst($formData['building_name']);
-        $building->abbrevation = $formData['abbrevation'];
+        //$building->abbrevation = $formData['abbrevation'];
         $building->phase_id = $formData['phase_id'];
         $building->no_of_floors = $formData['no_of_floors'];
         $building->has_master = $formData['has_master'];

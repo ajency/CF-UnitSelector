@@ -7,6 +7,7 @@ use CommonFloor\ProjectPropertyType;
 use CommonFloor\UnitType;
 use CommonFloor\Defaults;
 use CommonFloor\Http\Controllers\Admin\SvgController;
+use CommonFloor\Http\Controllers\Admin\ProjectController;
 
 /**
  * Description of ProjectGateway
@@ -133,7 +134,9 @@ class ProjectGateway implements ProjectGatewayInterface {
 		$unitBreakpoint = SvgController :: get_primary_breakpoints($unit['id']);
         $unit['breakpoint'] = (isset($unitBreakpoint[0]['primary_breakpoint']))?$unitBreakpoint[0]['primary_breakpoint']:'';
         unset ($unit['availability']);
-         $unitData[]=$unit;
+        $unit['booking_amount'] = ProjectController :: get_unit_booking_amount($unit['id']);
+        $unit['selling_amount'] = ProjectController :: get_unit_selling_amount($unit['id']); 
+        $unitData[]=$unit;
      }
  
         $stepTwoData = [

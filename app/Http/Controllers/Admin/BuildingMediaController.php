@@ -43,36 +43,53 @@ class BuildingMediaController extends Controller {
         $newFilename = '';
         if ($request->hasFile('file')) {
             $file = $request->file('file');
-            $fileName = $file->getClientOriginalName();
-            $fileData = explode('.', $fileName);
-            $newFilename = $fileName;
-            $request->file('file')->move($targetDir, $newFilename);
+            list($width, $height) = getimagesize($file);
+    
+            if(($width >=1600 && $height >=800) && ($height==($width/2)))
+            {
+                $fileName = $file->getClientOriginalName();
+                $fileData = explode('.', $fileName);
+                $newFilename = $fileName;
+                $request->file('file')->move($targetDir, $newFilename);
+
+
+                $media = new Media();
+                $media->image_name = $newFilename;
+                $media->mediable_id = $buildingId;
+                $media->mediable_type = 'CommonFloor\Building';
+                $media->save();
+                $mediaId = $media->id;
+                $buildingMaster = $building->building_master;
+                $file =  $fileData[0];
+                $fileArr = explode('-', $file);
+                $position = $fileArr[1];
+
+                $buildingMaster[$position] = $media->id;
+                $building->building_master = $buildingMaster;
+                $building->save();
+                $code ='201';
+                $message ='Building Master Image Added';
+                
+            }
+            else
+            {
+                $code ='200';
+                $message ='Invalid Image dimensions';
+                $newFilename ='';
+                $mediaId ='';
+                $position ='';
+            }
         }
-
-        $media = new Media();
-        $media->image_name = $newFilename;
-        $media->mediable_id = $buildingId;
-        $media->mediable_type = 'CommonFloor\Building';
-        $media->save();
-        $buildingMaster = $building->building_master;
-        $file =  $fileData[0];
-        $fileArr = explode('-', $file);
-        $position = $fileArr[1];
-        
-        $buildingMaster[$position] = $media->id;
-        $building->building_master = $buildingMaster;
-        $building->save();
-
         return response()->json([
                     'code' => 'building_media_added',
-                    'message' => 'building added',
+                    'message' => $message,
                     'data' => [
-                        'media_id' => $media->id,
+                        'media_id' => $mediaId,
                         'position' => $position,
                         'filename' => $file,
                         'image_path' => url() . '/projects/' . $projectId . '/buildings/' . $buildingId . '/' . $newFilename
                     ]
-                        ], 201);
+                        ], $code);
     }
 
     /**

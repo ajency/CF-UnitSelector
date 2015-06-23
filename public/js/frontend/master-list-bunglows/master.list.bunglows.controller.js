@@ -31,7 +31,6 @@
       availability = this.model.get('availability');
       status = s.decapitalize(availability);
       this.model.set('status', status);
-      window.convertRupees(response[3]);
       data.price = window.numDifferentiation(response[3]);
       return data;
     };
@@ -68,7 +67,7 @@
         unit = unitCollection.findWhere({
           id: id
         });
-        if (!_.isUndefined(unit && unit.get('availability') === 'available')) {
+        if (!(_.isUndefined(unit)) && unit.get('availability') === 'available') {
           $('.layer').tooltipster('hide');
           $('svg').attr('class', 'zoom');
           $('#spritespin').addClass('zoom');
