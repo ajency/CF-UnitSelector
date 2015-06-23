@@ -151,9 +151,6 @@
           return CommonFloor.checkPropertyType();
         }, 100);
       },
-      'mouseover .step1-marker': function(e) {
-        return $('.step1-marker').tooltipster('show');
-      },
       'mouseover .amenity': function(e) {
         var html;
         html = '<div class="row"> <div class="col-sm-12 b-r"> <h4 class="text-warning margin-none">' + $(e.currentTarget).attr('data-amenity-title') + '</h4> <h6 class="text-muted">' + $(e.currentTarget).attr('data-amenity-desc') + '</h6> </div> </div>';
@@ -181,11 +178,9 @@
             contentAsHTML: true,
             onlyOne: true,
             arrow: false,
-            offsetX: 150,
-            offsetY: 60,
+            offsetX: 180,
             interactive: true,
             animation: 'fade',
-            trigger: 'click',
             content: $('#proj_info').html(),
             functionReady: function(e) {
               var svgHeight, svgWidth, tooltipHeight;

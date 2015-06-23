@@ -208,8 +208,8 @@ class CenterView extends Marionette.ItemView
 				CommonFloor.checkPropertyType()
 			, 100)
 
-		'mouseover .step1-marker':(e)->
-			$('.step1-marker').tooltipster('show')
+		# 'mouseover .step1-marker':(e)->
+		# 	$('.step1-marker').tooltipster('show')
 			
 
 		# 'mouseout .step1-marker':(e)->
@@ -255,11 +255,11 @@ class CenterView extends Marionette.ItemView
 					contentAsHTML: true
 					onlyOne : true
 					arrow : false
-					offsetX : 150
-					offsetY : 60
+					offsetX : 180
+					# offsetY : 60
 					interactive : true
 					animation : 'fade'
-					trigger: 'click'
+					# trigger: 'click'
 					content : $('#proj_info').html()
 					functionReady:(e)->
 						$('.action_button').on('click' , (e)->
