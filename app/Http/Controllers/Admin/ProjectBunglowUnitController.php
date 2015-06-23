@@ -304,25 +304,25 @@ class ProjectBunglowUnitController extends Controller {
                    }
                         
                    
-                   if($variantId =='')
+                   if($variantId =='' || $variantId =='#N/A')
                    {
                         $errorMsg[] ='Variant Id Is Empty On Row No '.$i.'<br>';
                         continue;
                    }
                    
-                   if($availability =='')
+                   if($availability =='' || $availability =='#N/A')
                    {
                        $errorMsg[] ='Status Id Is Empty On Row No '.$i;
                         continue;
                    }
                    
-                   if($direction =='')
+                   if($direction =='' || $direction =='#N/A')
                    {
                         $errorMsg[] ='Direction Id Is Empty On Row No '.$i;
                         continue;
                    }
                    
-                   if($phaseId =='')
+                   if($phaseId =='' || $phaseId =='#N/A')
                    {
                        $errorMsg[] ='Phase Id Is Empty On Row No '.$i;
                         continue;
