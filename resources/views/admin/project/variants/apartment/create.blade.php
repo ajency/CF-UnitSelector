@@ -231,11 +231,11 @@
                                 <div class="panel panel-default vertical orange">
                                     <div class="panel-heading" role="tab" id="headingOne">
                                     <h4 class="panel-title">
-                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="false" style="position: relative;">
                                         Level 1
                                         <input type="hidden" value="1" name="levels[]">
                                             
-                                            <button title="Delete Level" style="float:right"  type="button" class="btn btn-white btn-small" onclick="deleteLevel(1);" id="deletelevel_1"><i class="fa fa-trash"></i></button>
+                                            <button title="Delete Level" style="float:right"  type="button" class="btn btn-white btn-small" onclick="deleteLevel(1);" id="deletelevel_1" style="position: absolute;right: 22px;top: -4px;"><i class="fa fa-trash"></i></button>
                                         </a>
                                     </h4>
                                     </div>
