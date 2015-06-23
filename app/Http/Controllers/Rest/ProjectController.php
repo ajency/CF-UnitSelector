@@ -200,7 +200,7 @@ class ProjectController extends Controller {
 
         $json_resp = array(
             'code' => 'cities_returned' , 
-            'message' => 'Cities',
+            'message' => '',
             'data' => $o
             );
         $status_code = 200 ;
@@ -272,7 +272,7 @@ class ProjectController extends Controller {
 
         $json_resp = array(
             'code' => 'areas_returned' , 
-            'message' => 'Areas',
+            'message' => '',
             'data' => $result_name
             );
         $status_code = 200 ;
@@ -369,7 +369,7 @@ class ProjectController extends Controller {
 
         $json_resp = array(
             'code' => 'projects_returned' , 
-            'message' => 'Projects',
+            'message' => '',
             'data' => $result
             );
         $status_code = 200 ;
