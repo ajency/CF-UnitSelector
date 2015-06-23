@@ -14,11 +14,11 @@
                                 <div class="panel panel-default vertical orange">
                                     <div class="panel-heading" role="tab" id="headingOne">
                                     <h4 class="panel-title">
-                                        <a class="{{ (($level==0))? '':'collapsed' }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $level }}" aria-expanded="false">                       
+                                        <a class="{{ (($level==0))? '':'collapsed' }}" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $level }}" aria-expanded="false" style="position: relative;">                       
                                         Level {{ $level }}
                                         <input type="hidden" value="{{ $level }}" name="levels[]">
                                         @if($level!=0)
-                                        <button type="button" class="btn btn-white btn-small dellevel pull-right" onclick="deleteLevel({{ $level }});"><i class="fa fa-trash"></i></button>
+                                        <button type="button" class="btn btn-white btn-small dellevel pull-right" onclick="deleteLevel({{ $level }});" style="position: absolute;right: 22px;top: -4px;"><i class="fa fa-trash"></i></button>
                                         @endif
                                         </a>
                                     </h4>

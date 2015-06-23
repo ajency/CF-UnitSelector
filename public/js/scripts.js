@@ -795,6 +795,7 @@ $(document).ready(function () {
                 str += '</div>';
                 
                 $(".uploadImage").addClass('hidden'); 
+                $('.progressdiv').remove(); 
                 $("#google_earth_image").append(str); 
               
             },
