@@ -189,7 +189,8 @@ class ProjectMediaController extends Controller {
        
         $media = Media::find( $id );
         $targetDir = public_path() . "/projects/" . $project_id . "/" . $type . "/".$media->image_name;
-        unlink($targetDir);
+        //unlink($targetDir);
+        \File::delete($targetDir);
         $media->delete();
         
         return response()->json( [

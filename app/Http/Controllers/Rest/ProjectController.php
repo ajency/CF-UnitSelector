@@ -3,6 +3,7 @@
 namespace CommonFloor\Http\Controllers\Rest;
 
 use CommonFloor\Http\Controllers\Controller;
+use CommonFloor\Http\Controllers\Admin\ProjectBunglowUnitController;
 use CommonFloor\Gateways\ProjectGatewayInterface;
 use CommonFloor\ProjectJson;
 use CommonFloor\Unit;
@@ -559,7 +560,7 @@ class ProjectController extends Controller {
         if (curl_errno($c)) {
           $result_json  = NULL;
           $json_resp = array(
-            'code' => 'error_in_fetching_amount' , 
+            'code' => 'error_in_fetching_plan' , 
             'message' => curl_error($c) ,
             'data' => $result_json
             );
@@ -579,8 +580,8 @@ class ProjectController extends Controller {
         curl_close($c); 
      
         $json_resp = array(
-            'code' => 'total_selling_amount_returned' , 
-            'message' => 'Selling Amount',
+            'code' => 'unit_payment_plan_returned' , 
+            'message' => 'Unit Payment Plan',
             'data' => $result_json
             );
         $status_code = 200 ;
@@ -592,10 +593,12 @@ class ProjectController extends Controller {
     public function getUnitPriceSheet(){
         $getVar = Input::get();
         $unitId = $getVar['unit_id'];
+        // $project_id = $getVar['project_id'];
         $sender_url = BOOKING_SERVER_URL;
         $sender_url .= GET_UNIT_PRICE_SHEET;
 
         /* $_GET Parameters to Send */
+        // $params = array('unit_id' => $unitId, 'project_id'=> $project_id);
         $params = array('unit_id' => $unitId);
 
         /* Update URL to container Query String of Paramaters */
@@ -613,7 +616,7 @@ class ProjectController extends Controller {
         if (curl_errno($c)) {
           $result_json  = NULL;
           $json_resp = array(
-            'code' => 'error_in_fetching_amount' , 
+            'code' => 'error_in_fetching_price_sheet' , 
             'message' => curl_error($c) ,
             'data' => $result_json
             );
@@ -632,14 +635,40 @@ class ProjectController extends Controller {
         curl_close($c); 
      
         $json_resp = array(
-            'code' => 'total_selling_amount_returned' , 
-            'message' => 'Selling Amount',
+            'code' => 'price_sheet_returned' , 
+            'message' => 'Price Sheet',
             'data' => $result_json
             );
         $status_code = 200 ;
 
         return response()->json( $json_resp, $status_code);        
 
+    }
+
+    public function addUnitToBookingCrm(){
+        $getVar = Input::get();
+        $unitId = $getVar['unit_id'];
+        $unitName = $getVar['unit_name'];
+        $projectId = $getVar['project_id'];        
+        $result = ProjectBunglowUnitController::add_unit_to_booking_crm($unitId,$unitName,$projectId);
+
+        if(is_null($result)){
+          $json_resp = array(
+            'code' => 'error_in_adding_unit' , 
+            'message' => curl_error($result) 
+            );
+          $status_code = 400 ;
+        }
+        else{
+            $json_resp = array(
+                'code' => 'unit_added' , 
+                'message' => 'Unit Added',
+                'data' => json_decode($result)
+                );
+            $status_code = 200 ;
+        }
+
+        return response()->json( $json_resp, $status_code);          
     }
 
 

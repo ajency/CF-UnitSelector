@@ -328,6 +328,7 @@
     CenterUnitView.prototype.events = {
       'click .threeD': function(e) {
         var html, response;
+        $('.price-mode-dropdown').addClass('hidden');
         $('.firstimage').hide();
         $('.images').empty();
         response = this.generateLevels();
@@ -354,6 +355,7 @@
       },
       'click .twoD': function(e) {
         var html, response;
+        $('.price-mode-dropdown').addClass('hidden');
         $('.firstimage').hide();
         $('.images').empty();
         response = this.generateLevels();
@@ -380,6 +382,7 @@
       },
       'click .external': function(e) {
         var html, response;
+        $('.price-mode-dropdown').addClass('hidden');
         $('.firstimage').hide();
         $('.images').empty();
         response = this.generateLevels();
@@ -401,6 +404,7 @@
       },
       'click .gallery': function(e) {
         var html, response;
+        $('.price-mode-dropdown').addClass('hidden');
         $('.images').empty();
         $('.firstimage').hide();
         response = this.generateLevels();
@@ -439,33 +443,40 @@
       },
       'change #paymentplan': function(e) {
         var html, selectedMode, unitPaymentPlan, unitPlanMilestones, unitPriceSheet, unitPriceSheetComponents, unitTotalSaleValue;
-        unitPaymentPlan = Marionette.getOption(this, 'unitPaymentPlan');
-        unitTotalSaleValue = unitPaymentPlan.total_sale_value;
         selectedMode = $('#paymentplan').val();
         $('.price-mode-dropdown').removeClass('hidden');
         unitPaymentPlan = Marionette.getOption(this, 'unitPaymentPlan');
-        unitPlanMilestones = unitPaymentPlan.milestones;
-        unitTotalSaleValue = unitPaymentPlan.total_sale_value;
         unitPriceSheet = Marionette.getOption(this, 'unitPriceSheet');
-        unitPriceSheetComponents = unitPriceSheet.components;
         $('.images').empty();
         $('.firstimage').hide();
         html = '';
         html += '<div class="invoice-items animated fadeIn"> <ul id="paymentTable">';
         if (selectedMode === "payment_plan_breakdown") {
-          _.each(unitPlanMilestones, function(milestone, key) {
-            var amount, perc;
-            perc = window.calculatePerc(milestone.amount, unitTotalSaleValue);
-            amount = window.numDifferentiation(milestone.amount);
-            return html += '<li class="milestonePercent"> <span class="msPercent">' + perc + '%</span> </li> <li class="milestoneList"> <div class="msName">' + milestone.milestone + '</div> <div class="msVal"> <div> <span class="label">Cost Type:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""> ' + milestone.cost_type + '</span> </div> <div> <span class="label">Due Date:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""> ' + milestone.milestone_date + '</span> </div> <div> Total Amount: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + amount + '</span> </div> </div><span class="barBg" style="width:' + perc + '%"></span> </li> <div class="clearfix"></div>';
-          });
+          if (!unitPaymentPlan) {
+            html += "No Data Found";
+          } else {
+            unitPlanMilestones = unitPaymentPlan.milestones;
+            unitTotalSaleValue = unitPaymentPlan.total_sale_value;
+            _.each(unitPlanMilestones, function(milestone, key) {
+              var amount, perc;
+              perc = window.calculatePerc(milestone.amount, unitTotalSaleValue);
+              amount = window.numDifferentiation(milestone.amount);
+              return html += '<li class="milestonePercent"> <span class="msPercent">' + perc + '%</span> </li> <li class="milestoneList"> <div class="msName">' + milestone.milestone + '</div> <div class="msVal"> <div> <span class="label">Cost Type:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""> ' + milestone.cost_type + '</span> </div> <div> <span class="label">Due Date:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""> ' + milestone.milestone_date + '</span> </div> <div> Total Amount: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + amount + '</span> </div> </div><span class="barBg" style="width:' + perc + '%"></span> </li> <div class="clearfix"></div>';
+            });
+          }
         } else if (selectedMode === "price_breakup") {
-          _.each(unitPriceSheetComponents, function(component, key) {
-            var component_amt, perc;
-            perc = window.calculatePerc(component.amount, unitTotalSaleValue);
-            component_amt = window.numDifferentiation(component.amount);
-            return html += '<li class="milestonePercent"> <span class="msPercent">' + perc + '%</span> </li> <li class="milestoneList"> <div class="msName">' + component.component_price_type + '</div> <div class="msVal"> <div> <span class="label">Cost Type:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""> ' + component.cost_type + '</span> </div> <div> <span class="label">Sub Type:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""> ' + component.component_price_sub_type + '</span> </div> <div> Total Amount: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + component_amt + '</span> </div> </div><span class="barBg" style="width:' + perc + '%"></span> </li> <div class="clearfix"></div>';
-          });
+          if (!unitPriceSheet) {
+            html += "No Data Found";
+          } else {
+            unitPriceSheetComponents = unitPriceSheet.components;
+            unitTotalSaleValue = unitPriceSheet.total_sale_value;
+            _.each(unitPriceSheetComponents, function(component, key) {
+              var component_amt, perc;
+              perc = window.calculatePerc(component.amount, unitTotalSaleValue);
+              component_amt = window.numDifferentiation(component.amount);
+              return html += '<li class="milestonePercent"> <span class="msPercent">' + perc + '%</span> </li> <li class="milestoneList"> <div class="msName">' + component.component_price_type + '</div> <div class="msVal"> <div> <span class="label">Cost Type:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""> ' + component.cost_type + '</span> </div> <div> <span class="label">Sub Type:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""> ' + component.component_price_sub_type + '</span> </div> <div> Total Amount: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + component_amt + '</span> </div> </div><span class="barBg" style="width:' + perc + '%"></span> </li> <div class="clearfix"></div>';
+            });
+          }
         }
         html += '</ul> </div>';
         return $('.images').html(html);
@@ -475,20 +486,24 @@
         $('#paymentplan option[value="payment_plan_breakdown"]').attr('selected', 'selected');
         $('.price-mode-dropdown').removeClass('hidden');
         unitPaymentPlan = Marionette.getOption(this, 'unitPaymentPlan');
-        unitPlanMilestones = unitPaymentPlan.milestones;
-        unitTotalSaleValue = unitPaymentPlan.total_sale_value;
         unitPriceSheet = Marionette.getOption(this, 'unitPriceSheet');
-        unitPriceSheetComponents = unitPriceSheet.components;
         $('.images').empty();
         $('.firstimage').hide();
         html = '';
         html += '<div class="invoice-items animated fadeIn"> <ul id="paymentTable">';
-        _.each(unitPlanMilestones, function(milestone, key) {
-          var amount, perc;
-          perc = window.calculatePerc(milestone.amount, unitTotalSaleValue);
-          amount = window.numDifferentiation(milestone.amount);
-          return html += '<li class="milestonePercent"> <span class="msPercent">' + perc + '%</span> </li> <li class="milestoneList"> <div class="msName">' + milestone.milestone + '</div> <div class="msVal"> <div> <span class="label">Cost Type:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""> ' + milestone.cost_type + '</span> </div> <div> <span class="label">Due Date:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""> ' + milestone.milestone_date + '</span> </div> <div> Total Amount: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + amount + '</span> </div> </div><span class="barBg" style="width:' + perc + '%"></span> </li> <div class="clearfix"></div>';
-        });
+        if (!unitPaymentPlan) {
+          html += "No Data Found";
+        } else {
+          unitPlanMilestones = unitPaymentPlan.milestones;
+          unitTotalSaleValue = unitPaymentPlan.total_sale_value;
+          unitPriceSheetComponents = unitPriceSheet.components;
+          _.each(unitPlanMilestones, function(milestone, key) {
+            var amount, perc;
+            perc = window.calculatePerc(milestone.amount, unitTotalSaleValue);
+            amount = window.numDifferentiation(milestone.amount);
+            return html += '<li class="milestonePercent"> <span class="msPercent">' + perc + '%</span> </li> <li class="milestoneList"> <div class="msName">' + milestone.milestone + '</div> <div class="msVal"> <div> <span class="label">Cost Type:</span> <span class= "percentageValue10 label"  data-d-group= "2" data-m-dec=""> ' + milestone.cost_type + '</span> </div> <div> <span class="label">Due Date:</span> <span class= "service10 label"  data-d-group="2" data-m-dec=""> ' + milestone.milestone_date + '</span> </div> <div> Total Amount: <span class="total10" data-d-group="2" data-m-dec=""><span class="icon-rupee-icn"></span> ' + amount + '</span> </div> </div><span class="barBg" style="width:' + perc + '%"></span> </li> <div class="clearfix"></div>';
+          });
+        }
         html += '</ul> </div>';
         $('.images').html(html);
         $('.booking').addClass('current');
@@ -772,7 +787,7 @@
     }
 
     CenterUnitCtrl.prototype.initialize = function() {
-      var unitPaymentPlan, unitPriceSheet, unitPriceSheetAjx, unitid, url;
+      var unitPaymentPlan, unitPaymentPlanAjx, unitPriceSheet, unitPriceSheetAjx, unitid, url;
       url = Backbone.history.fragment;
       unitid = parseInt(url.split('/')[1]);
       unitPaymentPlan = {
@@ -790,68 +805,21 @@
         }
       };
       unitPriceSheetAjx = $.ajax(unitPriceSheet);
-      unitPaymentPlan = $.ajax(unitPaymentPlan);
-      return $.when(unitPaymentPlan, unitPriceSheetAjx).done((function(_this) {
+      unitPaymentPlanAjx = $.ajax(unitPaymentPlan);
+      return $.when(unitPaymentPlanAjx, unitPriceSheetAjx).done((function(_this) {
         return function(paymentPlanResp, priceSheetResp) {
-          if (!paymentPlanResp) {
+          var paymentPlan, priceSheet;
+          paymentPlan = paymentPlanResp[0]['data'];
+          priceSheet = priceSheetResp[0]['data'];
+          if (!paymentPlan) {
             unitPaymentPlan = paymentPlanResp[0]['data'];
           } else {
-            unitPaymentPlan = {
-              'total_sale_value': 2444444,
-              'milestones': {
-                '1': {
-                  'amount': '2200000',
-                  'milestone_date': '2015-05-31',
-                  'cost_type': 'Lumpsump',
-                  'entered_value': '2200000',
-                  'milestone': 'test -1 '
-                },
-                '2': {
-                  'amount': 244444,
-                  'milestone_date': '2015-07-31',
-                  'cost_type': 'Basic Percentage',
-                  'entered_value': '10',
-                  'milestone': 'test 2'
-                }
-              }
-            };
+            unitPaymentPlan = paymentPlanResp[0]['data'];
           }
-          if (!priceSheetResp) {
+          if (!priceSheet) {
             unitPriceSheet = priceSheetResp[0]['data'];
           } else {
-            unitPriceSheet = {
-              'total_sale_value': 3437500,
-              'components': {
-                '1': {
-                  'amount': '2250000',
-                  'component_price_sub_type': 'SBA',
-                  'cost_type': 'Per sqft',
-                  'entered_value': '2500',
-                  'component_price_type': 'test 1'
-                },
-                'u4h852': {
-                  'amount': '250000',
-                  'component_price_sub_type': '',
-                  'cost_type': 'Lumpsump',
-                  'entered_value': '250000',
-                  'component_price_type': 'test 2'
-                },
-                'fcmdbj': {
-                  'amount': '250000',
-                  'component_price_sub_type': '',
-                  'cost_type': 'Lumpsump',
-                  'entered_value': '250000',
-                  'component_price_type': 'test 3'
-                },
-                'ug9r8r': {
-                  'amount': '687500',
-                  'component_price_sub_type': '',
-                  'cost_type': 'Basic Percentage',
-                  'entered_value': '20',
-                  'component_price_type': 'test 4'
-                }
-              }
-            };
+            unitPriceSheet = priceSheetResp[0]['data'];
           }
           return _this.show(new CenterUnitView({
             unitPaymentPlan: unitPaymentPlan,

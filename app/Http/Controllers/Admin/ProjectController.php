@@ -726,7 +726,7 @@ class ProjectController extends Controller {
         else
            $phases = Phase::where(['project_id' => $projectId])->get()->toArray();
         
-        $masterImages = $breakpoints = $googleEarth = $breakpointAuthtool = $googleEarthAuthtool = $data = $phaseData = $errors = $warnings = $buildingPhaseIds = [];
+        $masterImages = $breakpoints = $googleEarth = $breakpointAuthtool = $googleEarthAuthtool = $data = $phaseData = $errors = $warnings = $buildingPhaseIds = $units = [];
         $filters = $project->projectMeta()->where( 'meta_key', 'filters' )->first()->meta_value;
         $filters = unserialize($filters);
          

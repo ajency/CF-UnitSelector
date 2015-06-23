@@ -98,10 +98,12 @@
                     <div class="row object-master-images" data-object-id="{{ $building->id }}" data-object-type="building">
                         <div class="col-md-12">
                             <div class="m-l-5 no-border">
-                                <h3><i class=
+                                <h3 class="inline"><i class=
                                        "fa fa-angle-double-right text-primary"></i>
                                     Building <span class=
-                                                   "semi-bold">Master</span></h3>
+                                                   "semi-bold">Master</span></h3>&nbsp;&nbsp;
+                                    <a id="master_pickfiles"  class="file-input-wrapper btn btn-default btn btn-small"><i class="fa fa-image"></i> Select file (s)</a>
+                                
                                                    <div class="alert alert-info">
                 <strong><i class="fa fa-info"></i></strong> Upload 3D view of the project. To enable 360 degree rotation of the project ,
                 upload images in the sequence ( Front -> Right -> Back -> Left). 
@@ -119,9 +121,7 @@
                             <span class="errormsg"></span>
                         </div>
                       </div>    
-                  <div class="pull-right">
-                                    <a id="master_pickfiles"  class="file-input-wrapper btn btn-default  btn btn-small"><i class="fa fa-image"></i> Select file (s)</a>
-                                </div>
+                  
                     <table class="table table-striped dataTable">
                         <thead>
                         <th style="width: 16%;" data-hide="phone,tablet" class="" role="columnheader" tabindex="0" aria-controls="example" rowspan="1" colspan="1" aria-label="Description: activate to sort column ascending">Image</th>
