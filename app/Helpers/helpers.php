@@ -104,20 +104,15 @@ function get_locale_frontend_to_json( $lang = "en-US" ) {
     return json_encode( $messages[$lang] );
 }
 
-function getUserAssignedProject()
+function getUserAssignedProject($userId)
 {
-    $userId =  Auth::user()->id;
-    $userRoles = \CommonFloor\User::find($userId)->userRole()->get(); 
-    $project =[];
-    
-    foreach ($userRoles as $userRole)
-    {
-      $project[] = CommonFloor\UserRole::find($userRole['id'])->userProject()->where('project_id',$projectId)->get()->toArray();
-    }
+    $userRoleId = \CommonFloor\User::find($userId)->userRole()->first()->id; 
+    $project= CommonFloor\UserRole::find($userRoleId)->userProject()->where('project_id','!=','0')->get()->toArray();
+ 
     return $project;
 }
 
-function getDefaultRole($userId)
+/*function getDefaultRole($userId)
 {
    $userRoles = \CommonFloor\User::find($userId)->userRole()->get();
    $defaultRoleId = [];
@@ -132,6 +127,17 @@ function getDefaultRole($userId)
            break;
         }
     }
+    return $defaultRoleId;
+}*/
+
+function getDefaultRole($userId)
+{
+   $userRole = \CommonFloor\User::find($userId)->userRole()->first(); 
+   $roleId =  $userRole->role_id;    
+   $defaultRoleId = $userRole; 
+   $defaultRoleId['PROJECT_ACCESS'] = \CommonFloor\Role::find($roleId)->project_access;
+   
+   
     return $defaultRoleId;
 }
  

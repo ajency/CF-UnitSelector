@@ -1299,5 +1299,27 @@ class ProjectController extends Controller {
 
       return $result_json;      
     }
+    
+    function getProjectName(Request $request)
+    {
+        $search = $request->input('project_name');
+        $userId = $request->input('userId');
+        
+        $userProjects = getUserAssignedProject($userId);
+        $projectIds =[]; 
+        foreach($userProjects as $userProject)
+        {
+            $projectIds[] =$userProject['project_id'];
+        }
+        $projects = Project :: where('project_title','like',$search.'%')->whereNotIn('id',$projectIds)->get()->lists('project_title','id');
+        return response()->json([
+                    'code' => 'project_autocomplete',
+                    'message' => '',
+                    'data' => [
+                        'projects' => $projects,
+ 
+                    ]
+                        ], 201);
+    }
  
 }

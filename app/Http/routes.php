@@ -62,6 +62,8 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::post( 'user/{id}/changepassword', 'Admin\UserController@changePassword' );
     Route::get( 'user/{id}/profile', 'Admin\UserController@profile' );
     Route::put( 'user/{id}/profileupdate', 'Admin\UserController@profileUpdate' );
+    Route::post( 'user/{id}/userprojects', 'Admin\UserController@userProjects' );
+    Route::post( 'user/{id}/deleteuserproject', 'Admin\UserController@deleteUserproject' );
     Route::get( 'project/{project}/svg', 'Admin\ProjectController@svg' );
     Route::get( 'project/{project}/summary', 'Admin\ProjectController@summary' );
     Route::get( 'project/{project}/getphasedata/{phase}', 'Admin\ProjectController@getPhaseData' );
@@ -95,6 +97,7 @@ Route::group( ['prefix' => 'admin', 'middleware' => ['auth','permission']], func
     Route::post( 'project/{project}/apartment-unit/unitimport', 'Admin\ProjectApartmentUnitController@unitImport' );
     Route::post( 'project/{project}/bunglow-unit/unitimport', 'Admin\ProjectBunglowUnitController@unitImport' );
     Route::post( 'project/{project}/plots-unit/unitimport', 'Admin\ProjectPlotUnitController@unitImport' );
+    Route::post( 'project/getprojectname', 'Admin\ProjectController@getProjectName' );
     
     Route::get( 'project/{project}/unitexport/{id}', 'Admin\ProjectController@unitExport' );
     

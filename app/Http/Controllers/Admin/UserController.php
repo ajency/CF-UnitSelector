@@ -11,6 +11,7 @@ use CommonFloor\Role;
 use Illuminate\Support\Facades\Mail;
 use CommonFloor\UserRole;
 use CommonFloor\UserProject;
+use CommonFloor\Project;
 use \Session;
 
 class UserController extends Controller {
@@ -119,11 +120,21 @@ class UserController extends Controller {
         $user = User::find($id)->toArray();
         $roles = Role::all()->toArray(); 
         $defaultRole = getDefaultRole($id);
+        $userProjects = getUserAssignedProject($id);
+        $userProjectData =[];
+        foreach($userProjects as $key=> $userProject)
+        { 
+            $userProjects[$key]['project_name']= Project :: find($userProject['project_id'])->project_title;
+          
+        }
+         
+    
         $user['default_role_id'] = $defaultRole['role_id'];
         
         return view('admin.user.edit')
                         ->with('roles', $roles)
                         ->with('user', $user)
+                        ->with('userProjects', $userProjects)
                         ->with('flag', FALSE)
                         ->with('menuFlag', FALSE);
     }
@@ -306,6 +317,37 @@ class UserController extends Controller {
                     'message' => $msg,
                     'data' =>  $flag,
                         ], 200);
+    }
+    
+    public function userprojects($id,Request $request) {
+        $projectid = $request->input('project_id');
+        $userRoleId = User::find($id)->userRole()->first()->id; 
+        
+        $userProject = new UserProject();
+        $userProject->role_user_id = $userRoleId;
+        $userProject->project_id = $projectid;
+        $userProject->save();
+         
+        return response()->json([
+                    'code' => 'user_project',
+                    'message' => 'Project Successfully Assigned',
+                    'data' => $userRoleId
+                        ], 201);
+    }
+    
+    public function deleteUserproject($id,Request $request) {
+        $projectid = $request->input('project_id');
+        $userRoleId = User::find($id)->userRole()->first()->id; 
+        
+        $userProject = new UserProject();
+        $userProject->role_user_id = $userRoleId;
+        $userProject->project_id = $projectid;
+        $userProject->delete();
+         
+        return response()->json([
+                    'code' => 'user_project',
+                    'message' => 'User Project Successfully Deleted'
+                        ], 204);
     }
     
     public function emailTemplate($name,$email,$password)

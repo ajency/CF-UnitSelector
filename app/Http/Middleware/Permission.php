@@ -131,6 +131,8 @@ class Permission {
                               'admin/user/{id}/profile'=>'user_profile', 
                               'admin/user/{id}/profileupdate'=>'user_profile',
                               'admin/user/{id}/changepassword'=>'read_project',
+                              'admin/user/{id}/userprojects'=>'manage_users', 
+                              'admin/user/{id}/deleteuserproject'=>'manage_users', 
                               'admin/user/validateuserpassword'=>'manage_users', 
                               'admin/project/{id}/master/authoring-tool'=>'configure_project',
                               'admin/project/{project}/svg-tool'=>'configure_project',
@@ -143,6 +145,7 @@ class Permission {
                               'admin/project/{project}/bunglow-unit/unitimport'=>'configure_unit',
                               'admin/project/{project}/plots-unit/unitimport'=>'configure_unit',
                               'admin/project/{project}/unitexport/{id}'=>'configure_unit',
+                              'admin/project/getprojectname'=>'manage_users',
                               
                 ];
                
