@@ -85,7 +85,7 @@ class ProjectGateway implements ProjectGatewayInterface {
         }
        
        $project = $this->projectRepository->getProjectById( $projectId );
-       $phases = $project->projectPhase()->lists( 'id' );
+       $phases = $project->projectPhase()->where('status' , 'live')->lists( 'id' );
        $buildings = \CommonFloor\Building::whereIn( 'phase_id', $phases )->get();
        $buildingIds = [];
        foreach($buildings as $building)
