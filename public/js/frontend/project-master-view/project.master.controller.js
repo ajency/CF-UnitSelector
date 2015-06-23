@@ -496,7 +496,7 @@
         unit = unitCollection.findWhere({
           id: id
         });
-        if (!_.isUndefined(unit && unit.get('availability') === 'available')) {
+        if (!(_.isUndefined(unit)) && unit.get('availability') === 'available') {
           return CommonFloor.navigate('/unit-view/' + id, true);
         }
       },

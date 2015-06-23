@@ -327,25 +327,25 @@ class ProjectApartmentUnitController extends Controller {
                    }
                         
                    
-                   if($variantId =='')
+                   if($variantId =='' || $variantId =='#N/A')
                    {
                         $errorMsg[] ='Variant Id Is Empty On Row No '.$i.'<br>';
                         continue;
                    }
                    
-                   if($availability =='')
+                   if($availability =='' || $availability =='#N/A')
                    {
                        $errorMsg[] ='Status Id Is Empty On Row No '.$i;
                         continue;
                    }
                    
-                   if($direction =='')
+                   if($direction =='' || $direction =='#N/A')
                    {
                         $errorMsg[] ='Direction Id Is Empty On Row No '.$i;
                         continue;
                    }
                    
-                   if($buildingId =='')
+                   if($buildingId =='' || $buildingId =='#N/A')
                    {
                        $errorMsg[] ='Building Id Is Empty On Row No '.$i;
                         continue;
@@ -386,13 +386,14 @@ class ProjectApartmentUnitController extends Controller {
                        continue;
                     }
                    
-                   $buildingData = Building::where('id',$buildingId)->where('no_of_floors','>=', $floor)->get()->toArray();
-                    if (empty($unitData)) 
-                    {
+                    $num_of_floors = Building::find($buildingId)->no_of_floors;
+           
+                    if ($num_of_floors <= $floor) 
+                    {   
                         $errorMsg[] ='Invalid Floor No On Row No'.$i ;    
-                       continue;
+                        continue;
                     }
-
+                     ;
                     //Unit exist at that position
                     $unitposition = Unit::where('building_id',$buildingId)->where('floor', $floor)->where('position', $position)->get()->toArray(); 
                    if (!empty($unitposition))
@@ -432,9 +433,9 @@ class ProjectApartmentUnitController extends Controller {
                     $unit->views = $viewsStr;
                     $unit->save();
 
-                  
+                Session::flash('success_message','Unit Successfully Imported');  
                }
-                Session::flash('success_message','Unit Successfully Imported');
+                
             }
              else
                  $errorMsg[] ='Column Count does not match';
