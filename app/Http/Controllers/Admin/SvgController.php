@@ -530,15 +530,25 @@ class SvgController extends Controller {
 
 
     	if(!is_null($svg)){
-    		$svgId = $svg->id;
-    		$svgElement = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '=', 'project' )->first(); 
+
+    		// check if svg file for google earth is generated
+    		$svgPath = $svg->svg_path;
     		
-    		if(!is_null($svgElement)){
-    			return true;
-    		} 
+    		if($svgPath!==""){
+    			$svgId = $svg->id;
+    			$svgElement = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '=', 'project' )->first(); 
+
+    			if(!is_null($svgElement)){
+    				return true;
+    			} 
+    			else{
+    				return false;
+    			}
+    		}
     		else{
     			return false;
-    		}  		
+    		}
+  		
     	}
     	else{
     		return false;
