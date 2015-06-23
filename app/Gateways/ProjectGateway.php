@@ -86,8 +86,12 @@ class ProjectGateway implements ProjectGatewayInterface {
         }
        
        $project = $this->projectRepository->getProjectById( $projectId );
-
-       $phases = \CommonFloor\Phase::where(['project_id' => $projectId, 'status' => 'live'])->get()->toArray();
+       
+        if($project->has_phase == 'yes')
+            $phases = \CommonFloor\Phase::where(['project_id' => $projectId, 'status' => 'live'])->get()->toArray();
+        else
+           $phases = \CommonFloor\Phase::where(['project_id' => $projectId])->get()->toArray();
+ 
        foreach ($phases as $phase) {
             $phaseId = $phase['id'];
             $phase = \CommonFloor\Phase::find($phaseId);
