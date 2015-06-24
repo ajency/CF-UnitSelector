@@ -1153,7 +1153,6 @@ jQuery(document).ready ($)->
         $('#aj-imp-builder-drag-drop canvas').hide()
         $('#aj-imp-builder-drag-drop svg').show()
         $('.edit-box').addClass 'hidden'
-        $('.toggle').on('click',window.setToggle())  
         # search for all svg elemnts and keep them fixed
         draw.each ((i, children) ->
             @draggable()
