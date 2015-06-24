@@ -5,9 +5,9 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <ul class="breadcrumb">
     <li><a href="/admin">Dashboard</a> </li>
-    <li><a href="/admin/user">User</a> </li>
-    <li><a href="{{ url( 'admin/user/' . $user['id'].'/edit') }}">{{ $user['name'] }}</a> </li>
-    <li><a href="#" class="active">Edit User</a> </li>
+    <li><a href="/admin/user">Agent</a> </li>
+    <li><a href="{{ url( 'admin/agent/' . $user['id'].'/edit') }}">{{ $user['name'] }}</a> </li>
+    <li><a href="#" class="active">Edit Agent</a> </li>
 </ul>
 <!-- END BREADCRUMBS -->
 @endsection
@@ -15,7 +15,7 @@
 @section('content')
 <!-- BEGIN PAGE TITLE -->
 <div class="page-title">	
-    <h2><span class="semi-bold">Edit</span> User</h2>
+    <h2><span class="semi-bold">Edit</span> Agent</h2>
 </div>
 <!-- END PAGE TITLE -->
 <!-- BEGIN PlACE PAGE CONTENT HERE -->
@@ -28,7 +28,7 @@
                         </div>
             <div class="grid-body no-border"> 
                
-                <form id="add_project" method="POST" action="{{ '/admin/user/'.$user['id'] }}" data-parsley-validate>
+                <form id="add_project" method="POST" action="{{ '/admin/agent/'.$user['id'] }}" data-parsley-validate>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-group">
@@ -48,18 +48,7 @@
                                 <input type="text" name="phone_number" class="form-control m-b-5" placeholder="Enter Phone Number" value="{{ $user['phone'] }}" data-parsley-required data-parsley-type="number" onchange="validatePhone(this,{{ $user['id'] }})"><span class="cf-loader hidden"></span>
                                          </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="form-group">
-                                <label class="form-label">Role<span class="text-primary">*</span></label>
-                                <select name="user_role" class="select2 form-control m-b-5" data-parsley-required {{ ($flag)?'disabled':'' }}>
-                                    <option value="">Select Role</option>
-                                    @foreach($roles as $role)
-                                    <option @if($user['default_role_id']==$role['id']){{'selected'}}@endif value="{{$role['id']}}">{{$role['display_name']}}</option>
-                                    @endforeach
-                                </select>
-                                               </div>
-                        </div>
- 
+                         
                          
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -83,7 +72,7 @@
                             <button type="button" onclick="saveAndAddAnother();" class="btn btn-default btn-cons">Save And Add Another</button>
                            
                             <button type="reset" class="hidden" />
-                            <a href="{{ url('admin/user') }}"><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
+                            <a href="{{ url('admin/agent') }}"><button type="button" class="btn btn-default btn-cons"><i class="fa fa-ban"></i> Cancel</button></a>
                              @endif
                         </div>
 
@@ -143,7 +132,7 @@
                         <h3> <i class="fa fa-angle-double-right text-primary"></i> Change <span class="semi-bold">Password</span></h3>
                         </div>
     <div class="grid-body no-border">
-        <form method="POST" id="change_password" action="/admin/user/{{ $user['id'] }}/changepassword" novalidate="novalidate" data-parsley-validate>
+        <form method="POST" id="change_password" action="/admin/agent/{{ $user['id'] }}/changepassword" novalidate="novalidate" data-parsley-validate>
             <div class="row">
                 <div class="col-md-4">
                     <div class="form-group">

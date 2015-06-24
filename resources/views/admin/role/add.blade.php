@@ -81,23 +81,7 @@
                         </div>
 
                     </div>
-                    <br>
-                    <div class="row">
-                        <div class="col-md-12">
 
-                            <a class="list-group-item">
-                                <div class="row">
-                                    <div class="col-md-6">Is Agent</div>
-                                    <div class="col-md-6 text-right">
-
-                                        <input type="checkbox" id="is_agent" name="is_agent" class="text-success" value="yes" aria-label="..." >
-                                    </div>
-                                </div>
-                            </a>
-
-                        </div>
-
-                    </div>
 
 
                     <div class="form-actions "> 

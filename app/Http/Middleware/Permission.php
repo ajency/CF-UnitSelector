@@ -98,6 +98,12 @@ class Permission {
                              'admin.user.store'=>'manage_users',
                              'admin.user.edit'=>'manage_users',
                              'admin.user.update'=>'manage_users',
+                             
+                             'admin.agent.index'=>'manage_users',
+                             'admin.agent.create'=>'manage_users',
+                             'admin.agent.store'=>'manage_users',
+                             'admin.agent.edit'=>'manage_users',
+                             'admin.agent.update'=>'manage_users',
 
                             ];
                 
@@ -131,6 +137,7 @@ class Permission {
                               'admin/user/{id}/profile'=>'user_profile', 
                               'admin/user/{id}/profileupdate'=>'user_profile',
                               'admin/user/{id}/changepassword'=>'read_project',
+                              'admin/agent/{id}/changepassword'=>'manage_users',
                               'admin/user/{id}/userprojects'=>'manage_users', 
                               'admin/user/{id}/deleteuserproject'=>'manage_users', 
                               'admin/user/validateuserpassword'=>'manage_users', 

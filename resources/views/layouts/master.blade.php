@@ -134,6 +134,18 @@
 
                             </ul>
                         </li>
+                        <li class="">
+                            <a href="javascript:;">
+                                <i class="fa fa-users"></i>
+                                <span class="title">Agents</span>
+                                <span class="arrow"></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li><a href="{{ url( 'admin/agent/' ) }}">All Agents</a></li>
+                                <li ><a href="{{ url( 'admin/agent/create' ) }}">Add Agent</a></li>
+
+                            </ul>
+                        </li>
                         @endif
                         @if(hasPermission(0,['manage_roles']))
                         <li class="">

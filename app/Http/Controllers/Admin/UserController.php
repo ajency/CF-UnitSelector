@@ -23,7 +23,7 @@ class UserController extends Controller {
      */
 
     public function index() {
-        $users = User::orderBy('name')->get()->toArray();
+        $users = User::where('is_agent','no')->orderBy('name')->get()->toArray();
         return view('admin.user.list')
                         ->with('users', $users)
                         ->with('menuFlag', FALSE);
@@ -54,7 +54,7 @@ class UserController extends Controller {
         $user_status = $request->input('user_status');
         $user_role = $request->input('user_role');
         
-        $password = $this->random_password();
+        $password = self::random_password();
 
         $user = new User();
         $user->name = ucfirst($name);
@@ -76,7 +76,7 @@ class UserController extends Controller {
         $userProject->project_id = 0;
         $userProject->save();*/
         
-        $data = $this->emailTemplate($name,$email,$password); 
+        $data = self::emailTemplate($name,$email,$password); 
         
  
         // To send HTML mail, the Content-type header must be set
@@ -218,7 +218,7 @@ class UserController extends Controller {
         //
     }
     
-    public function random_password() {
+    public static function random_password() {
     $chars = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
     $password = substr( str_shuffle( $chars ), 0, 6 );
     return $password;
@@ -352,7 +352,7 @@ class UserController extends Controller {
                         ], 204);
     }
     
-    public function emailTemplate($name,$email,$password)
+    public static function emailTemplate($name,$email,$password)
     {
         $html = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
         <html xmlns="http://www.w3.org/1999/xhtml">

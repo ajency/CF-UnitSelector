@@ -12,7 +12,16 @@ class AddIsAgentInUsers extends Migration {
 	 */
 	public function up()
 	{
-		//
+        Schema::table('users', function(Blueprint $table) {
+                $table->enum('is_agent', ['yes', 'no'])->default('no');
+        });
+        
+        Schema::table('units', function(Blueprint $table) {
+            $table->integer('agent_id')->unsigned()->nullable()->default( 0 );
+            $table->dateTime('booked_at');
+        });
+
+
 	}
 
 	/**
