@@ -110,7 +110,7 @@ class ProjectGateway implements ProjectGatewayInterface {
         } 
       $projectUnits = array_merge($buildingUnitdata,$projectUnits);      
  
-      $variantIds = $bunglowVariantData = $appartmentVariantData =$plotVariantData= $penthouseVariantData =[];
+      $variantIds = $bunglowVariants = $appartmentVariantData =$plotVariants= $penthouseVariantData =[];
 
         foreach ($unitTypeIds as $key => $unitTypeId)
         {
@@ -136,7 +136,7 @@ class ProjectGateway implements ProjectGatewayInterface {
      $appartmentVariants = array_merge($appartmentVariantData,$penthouseVariantData);   
  
      $unitData = [];
-     foreach ($units as $unit)
+     foreach ($projectUnits as $unit)
      {
         $unit['direction'] = ($unit['direction'])?Defaults::find($unit['direction'])->label:'';
         $unit['views'] = array_values($unit['views']);
@@ -155,7 +155,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             'plot_variants' => $plotVariants,
             'property_types' => $propertyTypes,
             'settings' => $this->projectSettings($projectId),
-            'units' =>$projectUnits,
+            'units' =>$unitData,
             'unit_types' => $unitTypeArr,
             'floor_layout' => \CommonFloor\FloorLayout::all()->toArray() 
         ];
@@ -209,7 +209,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             $projectUnits = array_merge($units,$projectUnits); 
         }    
       $projectUnits = array_merge($buildingUnitdata,$projectUnits);  
-      $variantIds = $bunglowVariantData = $appartmentVariantData =$plotVariantData= $penthouseVariantData =[];
+      $variantIds = $bunglowVariants = $appartmentVariantData =$plotVariants= $penthouseVariantData =[];
 
         foreach ($unitTypeIds as $key => $unitTypeId)
         {
