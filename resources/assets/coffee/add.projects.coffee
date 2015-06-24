@@ -24,12 +24,12 @@ jQuery(document).ready ($)->
               value: value.city_name
               text: value.city_name)
 
-    # $( document ).ajaxComplete (args...)->
-    #     xhr = args[1]
-    #     if xhr.status in [201,202,203]
-    #         $.notify xhr.responseJSON.message, 'success'
-    #     else if xhr.status in [200]
-    #         $.notify xhr.responseJSON.message, 'error'
+     $( document ).ajaxComplete (args...)->
+         xhr = args[1]
+         if xhr.status in [201,202,203]
+             $.notify xhr.responseJSON.message, 'success'
+         else if xhr.status in [200]
+             $.notify xhr.responseJSON.message, 'error'
 
                                 
                                 
@@ -582,7 +582,107 @@ $('.room_attributes_block').on 'click', '.remove-room-attribute', ->
     $.ajax 
         url : "/admin/project/#{PROJECTID}/roomtype/#{variantRoomId}/deletevariantrroom" 
         type : 'DELETE'
-        success : successFn    
+        success : successFn 
+        
+        
+$('#project_name').autocomplete
+      source: (request, response) ->
+
+        $.ajax
+          url: '/admin/project/getprojectname'
+          type: 'POST'
+          data:
+            'project_name': $("#project_name").val()
+            'userId'      : $('#user_id').val()
+          
+          success: (resp) ->
+            result = resp.data.projects
+            if result != null and result != '' and !$.isEmptyObject(result)
+              response $.map(result, (item, index) ->
+                {
+                  label: item
+                  value: item
+                  text: item
+                  project_id: index
+                }
+              )
+            else
+              response [ 'No Data Found' ]
+            # overlaydiv.style.display = 'none'
+            return
+          error: (result) ->
+            response [ 'No Data Found' ]
+            return
+        return
+      
+      select: (event, ui) ->
+        # prevent autocomplete from updating the textbox
+        event.preventDefault()
+        
+        if ui.item.label != 'No Data Found'
+            $('#project_name').val ui.item.value
+            $('#project_id').val ui.item.project_id
+ 
+                      
+    $('.add-project-user-btn').click ->
+        projectName = $('#project_name').val()
+        projectId = $('#project_id').val()
+        userId = $('#user_id').val()
+        
+        if projectId is ''
+            alert('Please Enter Valid Project')
+            $('#project_name').val ''
+            return
+
+        successFn = (resp, status, xhr)->
+            if xhr.status is 201
+                if $('.project_block').length is 0
+                    $('.no-projects').addClass 'hidden'
+                    
+                html = '<div class="row m-b-10  project-{{ project_id }}">
+                        <div class="col-md-10">
+                            <input type="text" name="user_project" value="{{ project_name }}" class="form-control">
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <a class="text-primary delete-user-project" data-project-id="{{ project_id }}"><i class="fa fa-close"></i></a>
+                        </div>
+
+                    </div>'
+                $('#project_name').val ''
+                $('#project_id').val ''
+
+                compile = Handlebars.compile html
+                $('.add_user_project_block').before compile( { project_name : projectName, project_id : projectId } )
+            
+        $.ajax 
+            url : '/admin/user/'+userId+'/userprojects'
+            type : 'POST'
+            data : 
+                project_id : projectId
+            success : successFn   
+            
+            
+    $('.user-project').on 'click', '.delete-user-project', ->
+        if confirm('Are you sure you want to delete this project?') is false
+            return
+            
+        projectName = $('#project_name').val()
+        projectId = $(@).attr 'data-project-id'
+        userId = $('#user_id').val()
+
+        successFn = (resp, status, xhr)->
+            if xhr.status is 204
+                $('.project-'+projectId).remove()
+                
+                if $('.project_block').length is 0
+                    $('.no-projects').removeClass 'hidden'
+            
+        $.ajax 
+            url : '/admin/user/'+userId+'/deleteuserproject'
+            type : 'POST'
+            data : 
+                project_id : projectId
+            success : successFn         
 
 
  

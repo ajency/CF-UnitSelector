@@ -29,8 +29,25 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function index() {
+        
+        $userId =  \Auth::user()->id;
+        $defaultRole = getDefaultRole($userId);
+        
+        if($defaultRole['PROJECT_ACCESS']=='all')
+            $projects = Project::orderBy('project_title')->get()->toArray();
+        else
+        {
+            $userProjects = getUserAssignedProject($userId);
+            $projectIds =[];
+            foreach($userProjects as $key=> $userProject)
+            { 
+                $projectIds []= $userProject['project_id'];
 
-        $projects = Project::orderBy('project_title')->get()->toArray();
+            }
+            $projects = Project::whereIn('id',$projectIds)->orderBy('project_title')->get()->toArray();
+        }
+        
+        
         return view('admin.project.list')
                         ->with('projects', $projects)
                         ->with('menuFlag', FALSE);
@@ -1040,7 +1057,7 @@ class ProjectController extends Controller {
                     $propertyname = $propertyTypeName[$projectpropertyType['property_type_id']];
                     
                     if (($propertyname == "Apartment")or($propertyname == "Penthouse")) {
-                        $supported_types = array("Apartment");
+                        $supported_types = array("Apartment/Penthouse");
                     }
                 }
                 //Duplicate svgs
@@ -1248,11 +1265,12 @@ class ProjectController extends Controller {
      $o = curl_exec($c); 
 
      if (curl_errno($c)) {
-        $result_json  = NULL;
+        //$result_json  = NULL;
+         $result_json  = 0;
      }
      else{
 
-         $result_json  = json_decode($o);
+         $result_json  = (json_decode($o)!='')?json_decode($o):0;
 
       }
 
@@ -1284,11 +1302,12 @@ class ProjectController extends Controller {
      $o = curl_exec($c); 
 
      if (curl_errno($c)) {
-        $result_json  = NULL;
+        //$result_json  = NULL;
+         $result_json  = 0;
      }
      else{
 
-         $result_json  = json_decode($o);
+         $result_json  = (json_decode($o)!='')?json_decode($o):0;
 
       }
 
@@ -1298,6 +1317,28 @@ class ProjectController extends Controller {
       curl_close($c); 
 
       return $result_json;      
+    }
+    
+    function getProjectName(Request $request)
+    {
+        $search = $request->input('project_name');
+        $userId = $request->input('userId');
+        
+        $userProjects = getUserAssignedProject($userId);
+        $projectIds =[]; 
+        foreach($userProjects as $userProject)
+        {
+            $projectIds[] =$userProject['project_id'];
+        }
+        $projects = Project :: where('project_title','like',$search.'%')->whereNotIn('id',$projectIds)->get()->lists('project_title','id');
+        return response()->json([
+                    'code' => 'project_autocomplete',
+                    'message' => '',
+                    'data' => [
+                        'projects' => $projects,
+ 
+                    ]
+                        ], 201);
     }
  
 }

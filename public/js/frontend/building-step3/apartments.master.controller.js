@@ -821,10 +821,10 @@
             CommonFloor.applyAvailabilClasses();
             CommonFloor.randomClass();
             CommonFloor.applyFliterClass();
+            CommonFloor.applyOnViewClass();
             if ($(window).width() < 992) {
-              that.loadZoom();
+              return that.loadZoom();
             }
-            return CommonFloor.applyOnViewClass();
           }).addClass('active').removeClass('inactive');
         }
       });

@@ -28,7 +28,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="form-label">Role Name<span class="text-primary">*</span></label>
-                                <input type="text" name="name" class="form-control m-b-5" placeholder="Enter Role Name" value="{{ $role['name'] }}" data-parsley-required>
+                                <input type="text" name="name" class="form-control m-b-5" placeholder="Enter Role Name" value="{{ $role['display_name'] }}" data-parsley-required>
                             </div>
                         </div>
                     </div>

@@ -239,20 +239,20 @@
         $.each(value.rooms_data, function(ind, val) {
           var attributes;
           attributes = [];
-          return $.each(val.atributes, function(ind_att, val_att) {
+          $.each(val.atributes, function(ind_att, val_att) {
             if (val_att.attribute_value !== "") {
-              attributes.push({
+              return attributes.push({
                 'attribute': s.capitalize(val_att.attribute_key),
                 'value': val_att.attribute_value
               });
             }
-            if (attributes.length > 0) {
-              return rooms.push({
-                'room_name': val.room_name,
-                'attributes': attributes
-              });
-            }
           });
+          if (attributes.length > 0) {
+            return rooms.push({
+              'room_name': val.room_name,
+              'attributes': attributes
+            });
+          }
         });
         if (rooms.length > 0) {
           level_id = s.replaceAll(level_name, " ", "_");

@@ -139,7 +139,7 @@ jQuery(document).ready ($)->
             units = plotVariantCollection.getPlotMasterUnits()
         if value == 'building'
             units = buildingMasterCollection.toArray()
-         if value == 'apartment'
+         if value == 'apartment/penthouse'
             units = apartmentVariantCollection.getApartmentMasterUnits()
             temp = new Backbone.Collection units
             newUnits = temp.where
@@ -189,9 +189,9 @@ jQuery(document).ready ($)->
             else if type is 'unassign'       
                 return      
             else 
-                unitID = parseInt value.id
+                console.log unitID = parseInt value.id
                 if unitID isnt 0
-                    unit = unitMasterCollection.findWhere
+                    console.log unit = unitMasterCollection.findWhere
                             'id' : parseInt value.id
 
                     unitCollection.remove unit.get 'id'
@@ -216,7 +216,7 @@ jQuery(document).ready ($)->
 
         $.ajax
             type : 'GET',
-            url  : BASERESTURL+'/project/'+ PROJECTID+'/step-two'
+            url  : BASERESTURL+'/project/'+ PROJECTID+'/project-details'
             async : false
             success :(response)->
 
@@ -225,15 +225,11 @@ jQuery(document).ready ($)->
 
                 bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants)
 
-                settings.setSettingsAttributes(response.settings)
-
                 unitTypeCollection.setUnitTypeAttributes(response.unit_types)
 
                 buildingCollection.setBuildingAttributes(response.buildings)
 
                 apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants)
-
-                floorLayoutCollection.setFloorLayoutAttributes(response.floor_layout)
 
                 window.propertyTypes = response.property_types
 
@@ -391,8 +387,11 @@ jQuery(document).ready ($)->
             details['class'] = $('.property_type').val() #remove layer class for amenity
         else if  myObject['object_type'] is "project"
            details['class'] = 'step1-marker' 
-        else  
-           details['class'] = 'layer '+$('.property_type').val()         
+        else 
+            type = $('.property_type').val()  
+            if  $('.property_type').val() is 'apartment/penthouse'
+                type = 'apartment'
+            details['class'] = 'layer '+type        
         
         # canvas_type differences i.e markers vs polygons
         if window.canvas_type is "concentricMarker" 
@@ -457,7 +456,8 @@ jQuery(document).ready ($)->
                 # re-generate svg with new svg element
                 window.generateSvg(window.svgData.data)
 
-                window.resetTool()                
+                window.resetTool()   
+                $('.toggle').bind('click')       
                 
             error :(response)->
                 alert('Some problem occurred')
@@ -480,7 +480,7 @@ jQuery(document).ready ($)->
         if type is 'amenity'
             new AuthoringTool.AmenityCtrl region : @region
 
-        if type is 'apartment'
+        if type is 'apartment/penthouse'
             new AuthoringTool.ApartmentCtrl 
                 'region' : @region
 
@@ -636,6 +636,7 @@ jQuery(document).ready ($)->
                 cx: window.cx
                 cy: window.cy
 
+
             circle2 = draw.circle(window.outerRadius)
             
             circle2.attr
@@ -766,8 +767,11 @@ jQuery(document).ready ($)->
 
     keydownFunc = (e) ->
       if e.which is 13
-        # $('.alert').text 'POLYGON IS NOW DRAGGABLE'
-        # window.hideAlert()
+        if f.length > 0 
+            $('.alert').text 'POLYGON IS NOW DRAGGABLE'
+            window.hideAlert()
+        else
+            return
         $('#aj-imp-builder-drag-drop canvas').hide()
         $('#aj-imp-builder-drag-drop svg').show()
         object  = window.EDITOBJECT
@@ -834,6 +838,7 @@ jQuery(document).ready ($)->
         .parent().on 'click', '#popOverBox .marker-elem',(evt) ->
             window.EDITMODE = true
             currentElem = evt.currentTarget
+            
             if $(currentElem).hasClass('concentric-marker')
                 markerType = "concentric"
             else if $(currentElem).hasClass('solid-marker')
@@ -865,7 +870,6 @@ jQuery(document).ready ($)->
     # on polygon selection
     $('.select-polygon').on 'click', (e) ->
         e.preventDefault()
-
         window.EDITMODE = true
         window.canvas_type = "polygon"
         if window.canvas_type isnt 'earthlocationMarker' && svg_type is 'google_earth'
@@ -909,10 +913,7 @@ jQuery(document).ready ($)->
                 if parseInt(elemId) is parseInt svgDataObject.id 
                     points = svgDataObject.points
                     $('.area').val points.join(',')
-                    # collection = new Backbone.Collection window.svgData.data
-                    # collection.remove element
-                    # window.svgData.data =  collection.toArray()
-                    drawPoly(points)
+                    drawPoly(svgDataObject.points)
                     $('.submit').addClass 'hidden'
                     $('.edit').removeClass 'hidden'
                     $('.delete').removeClass 'hidden'
@@ -1099,13 +1100,15 @@ jQuery(document).ready ($)->
                 window.svgData.data.splice(indexToSplice,1)
                 myObject['id'] =  svgElemId
                 window.svgData.data.push myObject
-                console.log window.svgData.data
                 # clear svg 
                 draw.clear()
-               
+                types = window.getPendingObjects(window.svgData)
+
+                window.showPendingObjects(types)
                 # re-generate svg with new svg element
                 window.generateSvg(window.svgData.data)
-                window.resetTool()                
+                window.resetTool()  
+                              
    
             error :(response)->
                 alert('Some problem occurred')  
@@ -1128,6 +1131,15 @@ jQuery(document).ready ($)->
         # $('#dynamice-region').empty()
         # $('.edit-box').addClass 'hidden'
 
+    window.setToggle = ()->
+        $(".toggle").click( ()->
+            $(".toggle").toggleClass("expanded");
+            $('.menu').toggleClass('open');
+         
+        )
+
+
+
     # on click of close form 
     $('.closeform').on 'click' , (e)->
         $('.area').val("")
@@ -1141,7 +1153,6 @@ jQuery(document).ready ($)->
         $('#aj-imp-builder-drag-drop canvas').hide()
         $('#aj-imp-builder-drag-drop svg').show()
         $('.edit-box').addClass 'hidden'
-
         # search for all svg elemnts and keep them fixed
         draw.each ((i, children) ->
             @draggable()
@@ -1201,6 +1212,7 @@ jQuery(document).ready ($)->
 
                 window.showPendingObjects(types)
                 window.resetTool()
+                $(".toggle").bind('click')
 
                 
                 
@@ -1265,7 +1277,7 @@ jQuery(document).ready ($)->
                 window.hideAlert()
 
 
-    $('svg').on 'contextmenu', '.layer' , (e) ->
+    $('svg').on 'contextmenu', '.polygon-type' , (e) ->
         e.preventDefault()
         $('.alert').text 'Polygon duplicated, drag to position'
         window.hideAlert()
@@ -1328,7 +1340,7 @@ jQuery(document).ready ($)->
             drawPoly(window.f)
         # drawPoly(newPoints)
 
-     window.addPoints = (points)->
+    window.addPoints = (points)->
         points = points.replace(/\s/g, ',')
         window.f = points.split(',')
         newPoints = []

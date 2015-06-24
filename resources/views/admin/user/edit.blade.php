@@ -2,6 +2,7 @@
 
 @section('breadcrumb')
 <!-- BEGIN BREADCRUMBS -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <ul class="breadcrumb">
     <li><a href="/admin">Dashboard</a> </li>
     <li><a href="/admin/user">User</a> </li>
@@ -92,6 +93,51 @@
         </div>
     </div>
 </div>
+@if($user['project_access']=='specific')
+<div class="grid simple">
+     <div class="grid-title no-border">
+                        <h3> <i class="fa fa-angle-double-right text-primary"></i> User <span class="semi-bold">Projects</span></h3>
+                        </div>
+    <div class="grid-body no-border user-project">
+         
+            <div class="row">
+                <div class="col-md-5">
+              @if(!empty($userProjects))        
+                @foreach($userProjects as $userProject)
+                <div class="row m-b-10 project_block project-{{ $userProject['project_id'] }}">
+                        <div class="col-md-10 ">
+                            <input type="text" name="user_project" value="{{ $userProject['project_name'] }}" class="form-control">
+                        </div>
+                        <div class="col-md-2 text-center">
+                            <a class="text-primary delete-user-project" data-project-id="{{ $userProject['project_id'] }}"><i class="fa fa-close"></i></a>
+                        </div>
+
+                    </div>
+                @endforeach
+              @endif
+                <div class="row m-b-10 no-projects {{ (!empty($userProjects))?'hidden':'' }}">
+                    <div class="col-md-12 ">
+                    No Project Assigned To User
+                    </div>
+                </div>    
+                      
+                    <div class="add-unit add_user_project_block">
+                        <div class="row p-t-10 p-r-15 p-l-15">
+                            <div class="col-md-12">
+                            <input type="text" name="project_name" id="project_name" value="" class="form-control">
+                            <input type="hidden" name="project_id" id="project_id" value="" class="form-control">
+                        <div class="text-right">
+                            <a   class="add-project-user-btn btn btn-link"><i class="fa fa-"></i> Add Project</a>
+                        </div> </div>
+                        </div>
+                        </div>
+                    </div>
+            </div>
+            
+        
+    </div>
+</div>
+@endif
 <div class="grid simple">
      <div class="grid-title no-border">
                         <h3> <i class="fa fa-angle-double-right text-primary"></i> Change <span class="semi-bold">Password</span></h3>
@@ -122,6 +168,7 @@
                 <div class="pull-right">
                     <input type="hidden" id="is_profile" name="is_profile" value="{{ ($flag)?'1':'0' }}">
                     <input type="hidden" value="{{ csrf_token()}}" name="_token"/>
+                    <input type="hidden" value="{{ $user['id'] }}" name="user_id" id="user_id"/>
                     <button type="submit" class="btn btn-primary btn-cons">Confirm Password</button>
  
                 </div>

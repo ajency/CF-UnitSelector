@@ -85,6 +85,15 @@ class ProjectController extends Controller {
                             'data' => $projectJsonData
                         ], 200, [], JSON_NUMERIC_CHECK );
     }
+    
+    public function projectDetails( $projectId ) {
+ 
+        $projectData = $this->projectGateway->getProjectDetails( $projectId );
+ 
+        return response()->json( [
+                            'data' => $projectData
+                        ], 200, [], JSON_NUMERIC_CHECK );
+    }
 
     public function updateResponseTable( $projectId ){
         $stepOneData = $this->projectGateway->getProjectStepOneDetails( $projectId );
@@ -200,7 +209,7 @@ class ProjectController extends Controller {
 
         $json_resp = array(
             'code' => 'cities_returned' , 
-            'message' => 'Cities',
+            'message' => '',
             'data' => $o
             );
         $status_code = 200 ;
@@ -272,7 +281,7 @@ class ProjectController extends Controller {
 
         $json_resp = array(
             'code' => 'areas_returned' , 
-            'message' => 'Areas',
+            'message' => '',
             'data' => $result_name
             );
         $status_code = 200 ;
@@ -369,7 +378,7 @@ class ProjectController extends Controller {
 
         $json_resp = array(
             'code' => 'projects_returned' , 
-            'message' => 'Projects',
+            'message' => '',
             'data' => $result
             );
         $status_code = 200 ;
@@ -663,7 +672,7 @@ class ProjectController extends Controller {
             $json_resp = array(
                 'code' => 'unit_added' , 
                 'message' => 'Unit Added',
-                'data' => json_decode($result)
+                'data' => $result
                 );
             $status_code = 200 ;
         }
