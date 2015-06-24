@@ -93,22 +93,23 @@
         </div>
     </div>
 </div>
+@if($user['project_access']=='specific')
 <div class="grid simple">
      <div class="grid-title no-border">
                         <h3> <i class="fa fa-angle-double-right text-primary"></i> User <span class="semi-bold">Projects</span></h3>
                         </div>
-    <div class="grid-body no-border">
+    <div class="grid-body no-border user-project">
          
             <div class="row">
                 <div class="col-md-5">
               @if(!empty($userProjects))        
                 @foreach($userProjects as $userProject)
-                <div class="row m-b-10 ">
-                        <div class="col-md-10">
+                <div class="row m-b-10 project-{{ $userProject['project_id'] }}">
+                        <div class="col-md-10 ">
                             <input type="text" name="user_project" value="{{ $userProject['project_name'] }}" class="form-control">
                         </div>
                         <div class="col-md-2 text-center">
-                            <a class="text-primary delete-user-project"><i class="fa fa-close"></i></a>
+                            <a class="text-primary delete-user-project" data-project-id="{{ $userProject['project_id'] }}"><i class="fa fa-close"></i></a>
                         </div>
 
                     </div>
@@ -132,6 +133,7 @@
         
     </div>
 </div>
+@endif
 <div class="grid simple">
      <div class="grid-title no-border">
                         <h3> <i class="fa fa-angle-double-right text-primary"></i> Change <span class="semi-bold">Password</span></h3>

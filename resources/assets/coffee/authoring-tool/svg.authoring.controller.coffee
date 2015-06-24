@@ -189,9 +189,9 @@ jQuery(document).ready ($)->
             else if type is 'unassign'       
                 return      
             else 
-                unitID = parseInt value.id
+                console.log unitID = parseInt value.id
                 if unitID isnt 0
-                    unit = unitMasterCollection.findWhere
+                    console.log unit = unitMasterCollection.findWhere
                             'id' : parseInt value.id
 
                     unitCollection.remove unit.get 'id'
@@ -216,7 +216,7 @@ jQuery(document).ready ($)->
 
         $.ajax
             type : 'GET',
-            url  : BASERESTURL+'/project/'+ PROJECTID+'/step-two'
+            url  : BASERESTURL+'/project/'+ PROJECTID+'/project-details'
             async : false
             success :(response)->
 
@@ -225,15 +225,11 @@ jQuery(document).ready ($)->
 
                 bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants)
 
-                settings.setSettingsAttributes(response.settings)
-
                 unitTypeCollection.setUnitTypeAttributes(response.unit_types)
 
                 buildingCollection.setBuildingAttributes(response.buildings)
 
                 apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants)
-
-                floorLayoutCollection.setFloorLayoutAttributes(response.floor_layout)
 
                 window.propertyTypes = response.property_types
 
@@ -768,8 +764,11 @@ jQuery(document).ready ($)->
 
     keydownFunc = (e) ->
       if e.which is 13
-        # $('.alert').text 'POLYGON IS NOW DRAGGABLE'
-        # window.hideAlert()
+        if f.length > 0 
+            $('.alert').text 'POLYGON IS NOW DRAGGABLE'
+            window.hideAlert()
+        else
+            return
         $('#aj-imp-builder-drag-drop canvas').hide()
         $('#aj-imp-builder-drag-drop svg').show()
         object  = window.EDITOBJECT

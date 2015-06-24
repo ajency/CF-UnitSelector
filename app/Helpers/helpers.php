@@ -147,50 +147,42 @@ function getDefaultRole($userId)
 function hasPermission($projectId, $userPermission)
 {  
     $userId =  Auth::user()->id;
-    $defaultRole = getDefaultRole($userId); 
+    $defaultRole = getDefaultRole($userId);  
+    $userRoleId = $defaultRole->id;
+    $roleId = $defaultRole->role_id;
  
     $flag = false;
     
     if($defaultRole['PROJECT_ACCESS']=='all')
-    {
-       $userRoles = \CommonFloor\User::find($userId)->userRole()->get()->toArray();       //GET ALL USER ROLES  
        $projectId=0;
-    }
-    else
-    {
-       $defaultRoleID = getDefaultRole($userId);
-       $userRoles = \CommonFloor\User::find($userId)->userRole()->where('id','!=',$defaultRole['id'])->get()->toArray();       //GET ALL USER ROLES EXCEPT DEFAULT  
-    }   
-    
+
+ 
     $permissions =[];
-  
-    foreach ($userRoles as $userRole)
+ 
+    if($projectId)      //GET ROLES ONLY FOR THE PROJECT
     {
-        if($projectId)      //GET ROLES ONLY FOR THE PROJECT
-        {
-            $project = CommonFloor\UserRole::find($userRole['id'])->userProject()->where('project_id',$projectId)->get()->toArray();
-            if(!empty($project))
-            {
-                if(in_array('read_project', $userPermission))
-                   $permissions[$userRole['role_id']]=['read_project'] ;
-                else   
-                    $permissions[$userRole['role_id']] = \CommonFloor\Role::find($userRole['role_id'])->perms()->whereIn('name', $userPermission)->get()->toArray();//pass permission
-            }
-        }
-        else
+        $project = CommonFloor\UserRole::find($userRoleId)->userProject()->where('project_id',$projectId)->get()->toArray();
+        if(!empty($project))
         {
             if(in_array('read_project', $userPermission))
-               $permissions[$userRole['role_id']]=['read_project'] ;
-            else 
-               $permissions[$userRole['role_id']] = \CommonFloor\Role::find($userRole['role_id'])->perms()->whereIn('name', $userPermission)->get()->toArray();//pass permission
-        }
-        
-        if(!empty($permissions[$userRole['role_id']]))
-        {
-            $flag = true;
-            break;
+               $permissions[$userRoleId]=['read_project'] ;
+            else   
+                $permissions[$userRoleId] = \CommonFloor\Role::find($userRoleId)->perms()->whereIn('name', $userPermission)->get()->toArray();//pass permission
         }
     }
+    else
+    {  
+        if(in_array('read_project', $userPermission))
+           $permissions[$userRoleId]=['read_project'] ;
+        else 
+           $permissions[$userRoleId] = \CommonFloor\Role::find($userRoleId)->perms()->whereIn('name', $userPermission)->get()->toArray();//pass permission
+    }
+
+    if(!empty($permissions[$userRoleId]))
+    {
+        $flag = true;
+    }
+    
      
     return $flag;
  

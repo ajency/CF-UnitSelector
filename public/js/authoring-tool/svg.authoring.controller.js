@@ -177,11 +177,11 @@
         } else if (type === 'unassign') {
 
         } else {
-          unitID = parseInt(value.id);
+          console.log(unitID = parseInt(value.id));
           if (unitID !== 0) {
-            unit = unitMasterCollection.findWhere({
+            console.log(unit = unitMasterCollection.findWhere({
               'id': parseInt(value.id)
-            });
+            }));
             return unitCollection.remove(unit.get('id'));
           }
         }
@@ -202,17 +202,15 @@
     window.loadJSONData = function() {
       return $.ajax({
         type: 'GET',
-        url: BASERESTURL + '/project/' + PROJECTID + '/step-two',
+        url: BASERESTURL + '/project/' + PROJECTID + '/project-details',
         async: false,
         success: function(response) {
           var types;
           response = response.data;
           bunglowVariantCollection.setBunglowVariantAttributes(response.bunglow_variants);
-          settings.setSettingsAttributes(response.settings);
           unitTypeCollection.setUnitTypeAttributes(response.unit_types);
           buildingCollection.setBuildingAttributes(response.buildings);
           apartmentVariantCollection.setApartmentVariantAttributes(response.apartment_variants);
-          floorLayoutCollection.setFloorLayoutAttributes(response.floor_layout);
           window.propertyTypes = response.property_types;
           plotVariantCollection.setPlotVariantAttributes(response.plot_variants);
           unitCollection.setUnitAttributes(response.units);
@@ -720,6 +718,12 @@
     keydownFunc = function(e) {
       var id, object, pointList;
       if (e.which === 13) {
+        if (f.length > 0) {
+          $('.alert').text('POLYGON IS NOW DRAGGABLE');
+          window.hideAlert();
+        } else {
+          return;
+        }
         $('#aj-imp-builder-drag-drop canvas').hide();
         $('#aj-imp-builder-drag-drop svg').show();
         object = window.EDITOBJECT;

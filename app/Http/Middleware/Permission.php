@@ -150,8 +150,8 @@ class Permission {
                 ];
                
                 
-                $resourceName = $request->route()->getName(); 
-                $uriPath =$request->route()->getPath();   // echo $uriPath; exit;
+                $resourceName = $request->route()->getName();  
+                $uriPath =$request->route()->getPath();    
 
                 
                 if($uriPath != 'admin')

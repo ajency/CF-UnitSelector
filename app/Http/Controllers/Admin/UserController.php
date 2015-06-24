@@ -71,10 +71,10 @@ class UserController extends Controller {
         $userRole->save();
         $userRoleId = $userRole->id;
         
-        $userProject = new UserProject();
+        /*$userProject = new UserProject();                 // DEFAULT ROLE 
         $userProject->role_user_id = $userRoleId;
         $userProject->project_id = 0;
-        $userProject->save();
+        $userProject->save();*/
         
         $data = $this->emailTemplate($name,$email,$password); 
         
@@ -122,14 +122,19 @@ class UserController extends Controller {
         $defaultRole = getDefaultRole($id);
         $userProjects = getUserAssignedProject($id);
         $userProjectData =[];
-        foreach($userProjects as $key=> $userProject)
-        { 
-            $userProjects[$key]['project_name']= Project :: find($userProject['project_id'])->project_title;
-          
+       
+        if($defaultRole['PROJECT_ACCESS']=='specific')
+        {
+            foreach($userProjects as $key=> $userProject)
+            { 
+                $userProjects[$key]['project_name']= Project :: find($userProject['project_id'])->project_title;
+
+            }
         }
          
     
         $user['default_role_id'] = $defaultRole['role_id'];
+        $user['project_access'] = $defaultRole['PROJECT_ACCESS'];
         
         return view('admin.user.edit')
                         ->with('roles', $roles)
@@ -339,11 +344,8 @@ class UserController extends Controller {
         $projectid = $request->input('project_id');
         $userRoleId = User::find($id)->userRole()->first()->id; 
         
-        $userProject = new UserProject();
-        $userProject->role_user_id = $userRoleId;
-        $userProject->project_id = $projectid;
-        $userProject->delete();
-         
+        $userProject = UserProject:: where('role_user_id',$userRoleId)->where('project_id',$projectid)->delete(); 
+  
         return response()->json([
                     'code' => 'user_project',
                     'message' => 'User Project Successfully Deleted'

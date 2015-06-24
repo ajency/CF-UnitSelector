@@ -85,6 +85,15 @@ class ProjectController extends Controller {
                             'data' => $projectJsonData
                         ], 200, [], JSON_NUMERIC_CHECK );
     }
+    
+    public function projectDetails( $projectId ) {
+ 
+        $projectData = $this->projectGateway->getProjectDetails( $projectId );
+ 
+        return response()->json( [
+                            'data' => $projectData
+                        ], 200, [], JSON_NUMERIC_CHECK );
+    }
 
     public function updateResponseTable( $projectId ){
         $stepOneData = $this->projectGateway->getProjectStepOneDetails( $projectId );
