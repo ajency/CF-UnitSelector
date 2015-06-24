@@ -11,6 +11,7 @@ use CommonFloor\ProjectJson;
 use CommonFloor\Defaults;
 use CommonFloor\Attribute;
 use CommonFloor\Phase;
+use CommonFloor\UserProject;
 
 /**
  * Description of ProjectRepository
@@ -101,6 +102,19 @@ class ProjectRepository implements ProjectRepositoryInterface {
         $projectJson->type = 'step_two';
         $projectJson->project_id = $project->id;
         $projectJson->save();
+        
+        $userId = Auth::user()->id;
+        $defaultRole = getDefaultRole($userId);
+        $userRoleId  = $defaultRole['id'];
+        if($defaultRole['PROJECT_ACCESS']=='specific')          //User with specific access assign project
+        {
+            $userProject = new UserProject();
+            $userProject->role_user_id = $userRoleId;
+            $userProject->project_id = $project->id;
+            $userProject->save();
+        
+        }
+             
             
         return $project;
     }

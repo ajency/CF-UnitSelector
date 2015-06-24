@@ -104,7 +104,7 @@
                 <div class="col-md-5">
               @if(!empty($userProjects))        
                 @foreach($userProjects as $userProject)
-                <div class="row m-b-10 project-{{ $userProject['project_id'] }}">
+                <div class="row m-b-10 project_block project-{{ $userProject['project_id'] }}">
                         <div class="col-md-10 ">
                             <input type="text" name="user_project" value="{{ $userProject['project_name'] }}" class="form-control">
                         </div>
@@ -114,9 +114,13 @@
 
                     </div>
                 @endforeach
-              @else
+              @endif
+                <div class="row m-b-10 no-projects {{ (!empty($userProjects))?'hidden':'' }}">
+                    <div class="col-md-12 ">
                     No Project Assigned To User
-              @endif        
+                    </div>
+                </div>    
+                      
                     <div class="add-unit add_user_project_block">
                         <div class="row p-t-10 p-r-15 p-l-15">
                             <div class="col-md-12">
