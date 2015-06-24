@@ -1265,11 +1265,12 @@ class ProjectController extends Controller {
      $o = curl_exec($c); 
 
      if (curl_errno($c)) {
-        $result_json  = NULL;
+        //$result_json  = NULL;
+         $result_json  = 0;
      }
      else{
 
-         $result_json  = json_decode($o);
+         $result_json  = (json_decode($o)!='')?json_decode($o):0;
 
       }
 
@@ -1301,11 +1302,12 @@ class ProjectController extends Controller {
      $o = curl_exec($c); 
 
      if (curl_errno($c)) {
-        $result_json  = NULL;
+        //$result_json  = NULL;
+         $result_json  = 0;
      }
      else{
 
-         $result_json  = json_decode($o);
+         $result_json  = (json_decode($o)!='')?json_decode($o):0;
 
       }
 
