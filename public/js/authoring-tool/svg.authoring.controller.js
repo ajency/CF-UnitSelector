@@ -332,7 +332,7 @@
       return $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
     };
     window.saveUnit = function() {
-      var details, locationPoints, myObject, objectType;
+      var details, locationPoints, myObject, objectType, type;
       myObject = {};
       details = {};
       objectType = $('.property_type').val();
@@ -360,7 +360,11 @@
       } else if (myObject['object_type'] === "project") {
         details['class'] = 'step1-marker';
       } else {
-        details['class'] = 'layer ' + $('.property_type').val();
+        type = $('.property_type').val();
+        if ($('.property_type').val() === 'apartment/penthouse') {
+          type = 'apartment';
+        }
+        details['class'] = 'layer ' + type;
       }
       if (window.canvas_type === "concentricMarker") {
         myObject['points'] = window.markerPoints;

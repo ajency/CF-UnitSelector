@@ -387,8 +387,11 @@ jQuery(document).ready ($)->
             details['class'] = $('.property_type').val() #remove layer class for amenity
         else if  myObject['object_type'] is "project"
            details['class'] = 'step1-marker' 
-        else  
-           details['class'] = 'layer '+$('.property_type').val()         
+        else 
+            type = $('.property_type').val()  
+            if  $('.property_type').val() is 'apartment/penthouse'
+                type = 'apartment'
+            details['class'] = 'layer '+type        
         
         # canvas_type differences i.e markers vs polygons
         if window.canvas_type is "concentricMarker" 
