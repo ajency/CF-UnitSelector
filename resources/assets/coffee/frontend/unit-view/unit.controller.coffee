@@ -318,17 +318,15 @@ class LeftUnitView extends Marionette.ItemView
 				level_name = 'Room details'
 			$.each value.rooms_data,(ind,val)->
 				attributes = []
-				rooms = []
 				$.each val.atributes,(ind_att,val_att)->
 					if val_att.attribute_value != ""
 						attributes.push
 							'attribute' : s.capitalize val_att.attribute_key
 							'value' : val_att.attribute_value
-					if attributes.length > 0
-						rooms.push 
-							'room_name' : val.room_name
-							'attributes' : attributes
-					
+				if attributes.length > 0
+					rooms.push 
+						'room_name' : val.room_name
+						'attributes' : attributes
 			if rooms.length > 0
 				level_id = s.replaceAll(level_name, " ", "_")
 				levels.push 
