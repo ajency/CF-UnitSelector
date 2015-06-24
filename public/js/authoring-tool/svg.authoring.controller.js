@@ -116,7 +116,7 @@
       if (value === 'building') {
         units = buildingMasterCollection.toArray();
       }
-      if (value === 'apartment') {
+      if (value === 'apartment/penthouse') {
         units = apartmentVariantCollection.getApartmentMasterUnits();
         temp = new Backbone.Collection(units);
         newUnits = temp.where({
@@ -417,7 +417,8 @@
           types = window.getPendingObjects(window.svgData);
           window.showPendingObjects(types);
           window.generateSvg(window.svgData.data);
-          return window.resetTool();
+          window.resetTool();
+          return $('.toggle').bind('click');
         },
         error: function(response) {
           return alert('Some problem occurred');
@@ -450,7 +451,7 @@
           region: this.region
         });
       }
-      if (type === 'apartment') {
+      if (type === 'apartment/penthouse') {
         new AuthoringTool.ApartmentCtrl({
           'region': this.region
         });
@@ -1005,7 +1006,7 @@
         async: false,
         data: $.param(myObject),
         success: function(response) {
-          var indexToSplice;
+          var indexToSplice, types;
           indexToSplice = -1;
           $.each(window.svgData.data, function(index, value) {
             if (parseInt(value.id) === svgElemId) {
@@ -1015,8 +1016,9 @@
           window.svgData.data.splice(indexToSplice, 1);
           myObject['id'] = svgElemId;
           window.svgData.data.push(myObject);
-          console.log(window.svgData.data);
           draw.clear();
+          types = window.getPendingObjects(window.svgData);
+          window.showPendingObjects(types);
           window.generateSvg(window.svgData.data);
           return window.resetTool();
         },
@@ -1038,6 +1040,12 @@
       ctx = canvas.getContext("2d");
       return ctx.clearRect(0, 0, canvas.width, canvas.height);
     });
+    window.setToggle = function() {
+      return $(".toggle").click(function() {
+        $(".toggle").toggleClass("expanded");
+        return $('.menu').toggleClass('open');
+      });
+    };
     $('.closeform').on('click', function(e) {
       var canvas, ctx;
       $('.area').val("");
@@ -1051,6 +1059,7 @@
       $('#aj-imp-builder-drag-drop canvas').hide();
       $('#aj-imp-builder-drag-drop svg').show();
       $('.edit-box').addClass('hidden');
+      $('.toggle').on('click', window.setToggle());
       draw.each((function(i, children) {
         this.draggable();
         return this.fixed();
@@ -1106,7 +1115,8 @@
           window.generateSvg(window.svgData.data);
           types = window.getPendingObjects(window.svgData);
           window.showPendingObjects(types);
-          return window.resetTool();
+          window.resetTool();
+          return $(".toggle").bind('click');
         },
         error: function(response) {
           return alert('Some problem occurred');
@@ -1160,7 +1170,7 @@
         };
       })(this));
     });
-    $('svg').on('contextmenu', '.layer', function(e) {
+    $('svg').on('contextmenu', '.polygon-type', function(e) {
       var currentElem, newPoints, pointList;
       e.preventDefault();
       $('.alert').text('Polygon duplicated, drag to position');

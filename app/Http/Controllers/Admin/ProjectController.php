@@ -1040,7 +1040,7 @@ class ProjectController extends Controller {
                     $propertyname = $propertyTypeName[$projectpropertyType['property_type_id']];
                     
                     if (($propertyname == "Apartment")or($propertyname == "Penthouse")) {
-                        $supported_types = array("Apartment");
+                        $supported_types = array("Apartment/Penthouse");
                     }
                 }
                 //Duplicate svgs

@@ -139,7 +139,7 @@ jQuery(document).ready ($)->
             units = plotVariantCollection.getPlotMasterUnits()
         if value == 'building'
             units = buildingMasterCollection.toArray()
-         if value == 'apartment'
+         if value == 'apartment/penthouse'
             units = apartmentVariantCollection.getApartmentMasterUnits()
             temp = new Backbone.Collection units
             newUnits = temp.where
@@ -457,7 +457,8 @@ jQuery(document).ready ($)->
                 # re-generate svg with new svg element
                 window.generateSvg(window.svgData.data)
 
-                window.resetTool()                
+                window.resetTool()   
+                $('.toggle').bind('click')       
                 
             error :(response)->
                 alert('Some problem occurred')
@@ -480,7 +481,7 @@ jQuery(document).ready ($)->
         if type is 'amenity'
             new AuthoringTool.AmenityCtrl region : @region
 
-        if type is 'apartment'
+        if type is 'apartment/penthouse'
             new AuthoringTool.ApartmentCtrl 
                 'region' : @region
 
@@ -635,6 +636,7 @@ jQuery(document).ready ($)->
                 fill: '#FF8500'
                 cx: window.cx
                 cy: window.cy
+
 
             circle2 = draw.circle(window.outerRadius)
             
@@ -834,6 +836,7 @@ jQuery(document).ready ($)->
         .parent().on 'click', '#popOverBox .marker-elem',(evt) ->
             window.EDITMODE = true
             currentElem = evt.currentTarget
+            
             if $(currentElem).hasClass('concentric-marker')
                 markerType = "concentric"
             else if $(currentElem).hasClass('solid-marker')
@@ -865,7 +868,6 @@ jQuery(document).ready ($)->
     # on polygon selection
     $('.select-polygon').on 'click', (e) ->
         e.preventDefault()
-
         window.EDITMODE = true
         window.canvas_type = "polygon"
         if window.canvas_type isnt 'earthlocationMarker' && svg_type is 'google_earth'
@@ -1099,13 +1101,15 @@ jQuery(document).ready ($)->
                 window.svgData.data.splice(indexToSplice,1)
                 myObject['id'] =  svgElemId
                 window.svgData.data.push myObject
-                console.log window.svgData.data
                 # clear svg 
                 draw.clear()
-               
+                types = window.getPendingObjects(window.svgData)
+
+                window.showPendingObjects(types)
                 # re-generate svg with new svg element
                 window.generateSvg(window.svgData.data)
-                window.resetTool()                
+                window.resetTool()  
+                              
    
             error :(response)->
                 alert('Some problem occurred')  
@@ -1128,6 +1132,15 @@ jQuery(document).ready ($)->
         # $('#dynamice-region').empty()
         # $('.edit-box').addClass 'hidden'
 
+    window.setToggle = ()->
+        $(".toggle").click( ()->
+            $(".toggle").toggleClass("expanded");
+            $('.menu').toggleClass('open');
+         
+        )
+
+
+
     # on click of close form 
     $('.closeform').on 'click' , (e)->
         $('.area').val("")
@@ -1141,7 +1154,7 @@ jQuery(document).ready ($)->
         $('#aj-imp-builder-drag-drop canvas').hide()
         $('#aj-imp-builder-drag-drop svg').show()
         $('.edit-box').addClass 'hidden'
-
+        $('.toggle').on('click',window.setToggle())  
         # search for all svg elemnts and keep them fixed
         draw.each ((i, children) ->
             @draggable()
@@ -1201,6 +1214,7 @@ jQuery(document).ready ($)->
 
                 window.showPendingObjects(types)
                 window.resetTool()
+                $(".toggle").bind('click')
 
                 
                 
@@ -1265,7 +1279,7 @@ jQuery(document).ready ($)->
                 window.hideAlert()
 
 
-    $('svg').on 'contextmenu', '.layer' , (e) ->
+    $('svg').on 'contextmenu', '.polygon-type' , (e) ->
         e.preventDefault()
         $('.alert').text 'Polygon duplicated, drag to position'
         window.hideAlert()
