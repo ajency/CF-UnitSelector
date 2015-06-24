@@ -1495,6 +1495,9 @@ hr.embossed {
 .zoom-controls .zoom-out::before {
   content: "-";
 }
+.zoom-controls.master-zoom {
+  display: block;
+}
 @media (max-width: 767px) {
   .zoom-controls {
     top: 15px;

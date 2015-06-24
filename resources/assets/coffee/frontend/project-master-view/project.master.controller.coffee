@@ -454,7 +454,7 @@ class CommonFloor.CenterMasterView extends Marionette.ItemView
 											<li class="na">Available</li>-->
 										  </ul>
 										</div>
-										<div class="zoom-controls c">
+										<div class="zoom-controls master-zoom">
 											<div class="zoom-in"></div>
 											<div class="zoom-out"></div>
 										</div>
