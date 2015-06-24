@@ -94,7 +94,7 @@
                             <div class="form-group">
                                 <label class="form-label">{{$attributes['label']}} <span class="text-primary">*</span></label>
                                 <?php
-                                $value = (isset($unitVariant['variant_attributes'][ $attributes['label'] ])) ? $unitVariant['variant_attributes'][ $attributes['label'] ] : ''
+                                $value = (isset($unitVariant['variant_attributes'][ $attributes['label'] ])) ? $unitVariant['variant_attributes'][ $attributes['label'] ] : '';
                                 ?>
                                 @if('textbox' === $attributes['control_type'])
                                 <input type="text" class="form-control m-b-5" name="apartment_attributes[{{ $attributes['label'] }}]" value="{{ $value }}" placeholder="Enter {{$attributes['label']}}" data-parsley-required>
@@ -112,12 +112,12 @@
                                 </select>
                                 @elseif('multiple' == $attributes['control_type'])
                                 <?php
-                                $options = explode(',', $attributes['defaults']);
+                                $options = explode(',', $attributes['defaults']);   
                                 ?>
                                 <select multiple name="apartment_attributes[{{ $attributes['label'] }}][]" class="select2 form-control m-b-5" data-parsley-required>
                                     <option value="">Select {{ $attributes['label'] }}</option>   
                                     @foreach($options as $option)
-                                    <option {{ (!empty($value) && in_array($value,$option)) ? 'selected="selected"' : '' }}  value="{{ $option }}">{{ $option }}</option>
+                                    <option {{ (!empty($value) && in_array( $option ,$value)) ? 'selected="selected"' : '' }}  value="{{ $option }}">{{ $option }}</option>
                                     @endforeach
                                 </select>
                                 @endif        
