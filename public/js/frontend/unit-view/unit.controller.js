@@ -239,6 +239,7 @@
         $.each(value.rooms_data, function(ind, val) {
           var attributes;
           attributes = [];
+          rooms = [];
           return $.each(val.atributes, function(ind_att, val_att) {
             if (val_att.attribute_value !== "") {
               attributes.push({

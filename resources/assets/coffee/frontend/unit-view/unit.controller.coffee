@@ -318,6 +318,7 @@ class LeftUnitView extends Marionette.ItemView
 				level_name = 'Room details'
 			$.each value.rooms_data,(ind,val)->
 				attributes = []
+				rooms = []
 				$.each val.atributes,(ind_att,val_att)->
 					if val_att.attribute_value != ""
 						attributes.push

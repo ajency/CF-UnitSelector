@@ -847,7 +847,7 @@
           if (parseInt(elemId) === parseInt(svgDataObject.id)) {
             points = svgDataObject.points;
             $('.area').val(points.join(','));
-            drawPoly(points);
+            drawPoly(svgDataObject.points);
             $('.submit').addClass('hidden');
             $('.edit').removeClass('hidden');
             $('.delete').removeClass('hidden');

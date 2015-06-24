@@ -910,10 +910,7 @@ jQuery(document).ready ($)->
                 if parseInt(elemId) is parseInt svgDataObject.id 
                     points = svgDataObject.points
                     $('.area').val points.join(',')
-                    # collection = new Backbone.Collection window.svgData.data
-                    # collection.remove element
-                    # window.svgData.data =  collection.toArray()
-                    drawPoly(points)
+                    drawPoly(svgDataObject.points)
                     $('.submit').addClass 'hidden'
                     $('.edit').removeClass 'hidden'
                     $('.delete').removeClass 'hidden'
@@ -1340,7 +1337,7 @@ jQuery(document).ready ($)->
             drawPoly(window.f)
         # drawPoly(newPoints)
 
-     window.addPoints = (points)->
+    window.addPoints = (points)->
         points = points.replace(/\s/g, ',')
         window.f = points.split(',')
         newPoints = []
