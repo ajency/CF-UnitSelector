@@ -636,6 +636,9 @@ $('#project_name').autocomplete
 
         successFn = (resp, status, xhr)->
             if xhr.status is 201
+                if $('.project_block').length is 0
+                    $('.no-projects').addClass 'hidden'
+                    
                 html = '<div class="row m-b-10  project-{{ project_id }}">
                         <div class="col-md-10">
                             <input type="text" name="user_project" value="{{ project_name }}" class="form-control">
@@ -670,6 +673,9 @@ $('#project_name').autocomplete
         successFn = (resp, status, xhr)->
             if xhr.status is 204
                 $('.project-'+projectId).remove()
+                
+                if $('.project_block').length is 0
+                    $('.no-projects').removeClass 'hidden'
             
         $.ajax 
             url : '/admin/user/'+userId+'/deleteuserproject'
