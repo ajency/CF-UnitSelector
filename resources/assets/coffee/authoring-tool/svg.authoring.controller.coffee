@@ -574,7 +574,7 @@ jQuery(document).ready ($)->
         if myObject['object_type'] is "amenity"
             details['title'] = $('#amenity-title').val()
             details['description'] = $('#amenity-description').val()
-            details['class'] = 'layer '+$('.property_type').val()
+            details['class'] = $('.property_type').val()
         else if  myObject['object_type'] is "project"
            details['class'] = 'step1-marker' 
         else  

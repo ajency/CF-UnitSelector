@@ -554,7 +554,7 @@
       if (myObject['object_type'] === "amenity") {
         details['title'] = $('#amenity-title').val();
         details['description'] = $('#amenity-description').val();
-        details['class'] = 'layer ' + $('.property_type').val();
+        details['class'] = $('.property_type').val();
       } else if (myObject['object_type'] === "project") {
         details['class'] = 'step1-marker';
       } else {

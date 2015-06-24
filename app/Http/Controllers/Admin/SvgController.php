@@ -530,20 +530,60 @@ class SvgController extends Controller {
 
 
     	if(!is_null($svg)){
-    		$svgId = $svg->id;
-    		$svgElement = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '=', 'project' )->first(); 
-    		
-    		if(!is_null($svgElement)){
-    			return true;
-    		} 
+
+    		// check if svg file for google earth is generated
+    		$svgPath = $svg->svg_path;
+
+    		if($svgPath!==""){
+    			$svgId = $svg->id;
+    			$svgElement = SvgElement::where( 'svg_id', '=', $svgId )->where( 'object_type', '=', 'project' )->first(); 
+
+    			if(!is_null($svgElement)){
+    				return true;
+    			} 
+    			else{
+    				return false;
+    			}
+    		}
     		else{
     			return false;
-    		}  		
+    		}
+  		
     	}
     	else{
     		return false;
     	}
-    }    
+    }  
+
+    public static function getSvgPublishStatus($mediaIds)
+    {	
+    	$svgImagePublished = array();
+    	
+    	foreach ($mediaIds as $mediaId) {
+    		$svg = Svg::where( 'image_id', '=', $mediaId )->first();
+
+    		if(!is_null($svg)){
+
+    			// check if svg file for google earth is generated
+    			$svgPath = $svg->svg_path;
+
+    			if($svgPath!==""){
+ 
+    				$svgImagePublished[] = array('image_id'=>$mediaId, 'is_published'=>true);
+
+    			}
+    			else{
+    				$svgImagePublished[] = array('image_id'=>$mediaId, 'is_published'=>false);
+    			}
+
+    		}
+    		else{
+    			$svgImagePublished[] = array('image_id'=>$mediaId, 'is_published'=>false);
+    		}    		
+    	}
+
+    	return $svgImagePublished;
+    }  
 
 
 

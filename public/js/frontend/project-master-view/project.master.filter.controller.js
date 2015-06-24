@@ -426,6 +426,9 @@
       $('.filters-content').mCustomScrollbar({
         theme: 'cf-scroll'
       });
+      $('.filters-wrapper-hover').mCustomScrollbar({
+        theme: 'cf-scroll'
+      });
       budget = [];
       area = [];
       $.each(unitMasterCollection.toArray(), function(index, value) {

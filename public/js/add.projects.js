@@ -1,4 +1,6 @@
 (function() {
+  var slice = [].slice;
+
   jQuery(document).ready(function($) {
     var cfCityFetchOptions, checkUnitTypeRequired, registerRemovePhaseListener, registerRemoveUnitType;
     $.ajaxSetup({
@@ -30,6 +32,16 @@
         });
       };
     })(this));
+    $(document).ajaxComplete(function() {
+      var args, ref, ref1, xhr;
+      args = 1 <= arguments.length ? slice.call(arguments, 0) : [];
+      xhr = args[1];
+      if ((ref = xhr.status) === 201 || ref === 202 || ref === 203) {
+        return $.notify(xhr.responseJSON.message, 'success');
+      } else if ((ref1 = xhr.status) === 200) {
+        return $.notify(xhr.responseJSON.message, 'error');
+      }
+    });
     $('form button[type="reset"]').click();
     $("select").select2();
     window.projectsCollection = [];
@@ -456,6 +468,71 @@
     return $.ajax({
       url: "/admin/project/" + PROJECTID + "/roomtype/" + variantRoomId + "/deletevariantrroom",
       type: 'DELETE',
+      success: successFn
+    });
+  });
+
+  $('#project_name').autocomplete({
+    source: function(request, response) {
+      $.ajax({
+        url: '/admin/project/getprojectname',
+        type: 'POST',
+        data: {
+          'project_name': $("#project_name").val(),
+          'userId': $('#user_id').val()
+        },
+        success: function(resp) {
+          var result;
+          result = resp.data.projects;
+          if (result !== null && result !== '' && !$.isEmptyObject(result)) {
+            response($.map(result, function(item, index) {
+              return {
+                label: item,
+                value: item,
+                text: item,
+                project_id: index
+              };
+            }));
+          } else {
+            response(['No Data Found']);
+          }
+        },
+        error: function(result) {
+          response(['No Data Found']);
+        }
+      });
+    },
+    select: function(event, ui) {
+      event.preventDefault();
+      if (ui.item.label !== 'No Data Found') {
+        $('#project_name').val(ui.item.value);
+        return $('#project_id').val(ui.item.project_id);
+      }
+    }
+  });
+
+  $('.add-project-user-btn').click(function() {
+    var projectId, projectName, successFn, userId;
+    projectName = $('#project_name').val();
+    projectId = $('#project_id').val();
+    userId = $('#user_id').val();
+    successFn = function(resp, status, xhr) {
+      var compile, html;
+      if (xhr.status === 201) {
+        html = '<div class="row m-b-10 "> <div class="col-md-10"> <input type="text" name="user_project" value="{{ project_name }}" class="form-control"> </div> <div class="col-md-2 text-center"> <a class="text-primary" onclick="deleteUserProject(this);"><i class="fa fa-close"></i></a> </div> </div>';
+        compile = Handlebars.compile(html);
+        return $('.add_user_project_block').before(compile({
+          project_name: projectName,
+          project_id: projectId
+        }));
+      }
+    };
+    return $.ajax({
+      url: '/admin/user/' + userId + '/userprojects',
+      type: 'POST',
+      data: {
+        project_id: projectId
+      },
       success: successFn
     });
   });

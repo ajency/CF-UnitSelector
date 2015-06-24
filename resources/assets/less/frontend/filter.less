@@ -253,22 +253,25 @@
   }
 
   @media(max-width:767px){
-    label.-lbl{
-      float: left;
-    }
-    div.-lbl{
-      &.villa-check, &.apartment-check, &.plot-check{
-        .arrow-right{
-          padding-top: 5px;
-          &.mobile{
-            display: block;
+    .property_type{
+      label.-lbl{
+        float: left;
+      }
+      div.-lbl{
+        clear: both;
+        &.villa-check, &.apartment-check, &.plot-check{
+          .arrow-right{
+            padding-top: 5px;
+            &.mobile{
+              display: block;
+            }
           }
         }
       }
-    }
-    .arrow-right{
-      &.desktop{
-        display: none;
+      .arrow-right{
+        &.desktop{
+          display: none;
+        }
       }
     }
     .mCSB_inside>.mCSB_container {
@@ -414,7 +417,7 @@ span.glyphicon {
   margin-top:0px;
   position:fixed;
   padding:0px;
-  height: 340px;
+  height: 338px;
   z-index:9999;
   background-color: rgba(222, 222, 222, 0.95);
   -webkit-transform: translate(0,0);
@@ -495,7 +498,7 @@ visibility:visible;
     left: 0;
     right: initial;
     width: 100vw !important;
-    padding: 30px 15px 15px;
+    padding: 5px 15px 15px;
     background-color: rgba(235, 235, 235, 1);
     .back_btn{
       left: 0;
@@ -503,6 +506,8 @@ visibility:visible;
       display: block;
       color: @gray-darker;
       display: block;
+      position: static;
+      padding-left: 0;
       .icon{
         &:before{
           content: "\e761";

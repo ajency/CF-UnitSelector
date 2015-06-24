@@ -21,6 +21,7 @@ define('GET_BOOKING_AMOUNT', 'get_booking_amount/');
 define('GET_SELLING_AMOUNT', 'get_total_sale_value/');
 define('GET_UNIT_PAYMENT_PLAN', 'unit_payment_plan/');
 define('GET_UNIT_PRICE_SHEET', 'unit_price_sheet/');
+define('ADD_BOOKING_UNIT', 'addUnit/');
 define('BOOKING_PORTAL_URL', 'http://dev.commonfloor.com/book-your-property');
 define('CF_API_KEY', 'nk8qh4vtri7l3hwotbsdtv2zl3p5u168');
  
@@ -104,20 +105,15 @@ function get_locale_frontend_to_json( $lang = "en-US" ) {
     return json_encode( $messages[$lang] );
 }
 
-function getUserAssignedProject()
+function getUserAssignedProject($userId)
 {
-    $userId =  Auth::user()->id;
-    $userRoles = \CommonFloor\User::find($userId)->userRole()->get(); 
-    $project =[];
-    
-    foreach ($userRoles as $userRole)
-    {
-      $project[] = CommonFloor\UserRole::find($userRole['id'])->userProject()->where('project_id',$projectId)->get()->toArray();
-    }
+    $userRoleId = \CommonFloor\User::find($userId)->userRole()->first()->id; 
+    $project= CommonFloor\UserRole::find($userRoleId)->userProject()->where('project_id','!=','0')->get()->toArray();
+ 
     return $project;
 }
 
-function getDefaultRole($userId)
+/*function getDefaultRole($userId)
 {
    $userRoles = \CommonFloor\User::find($userId)->userRole()->get();
    $defaultRoleId = [];
@@ -132,6 +128,17 @@ function getDefaultRole($userId)
            break;
         }
     }
+    return $defaultRoleId;
+}*/
+
+function getDefaultRole($userId)
+{
+   $userRole = \CommonFloor\User::find($userId)->userRole()->first(); 
+   $roleId =  $userRole->role_id;    
+   $defaultRoleId = $userRole; 
+   $defaultRoleId['PROJECT_ACCESS'] = \CommonFloor\Role::find($roleId)->project_access;
+   
+   
     return $defaultRoleId;
 }
  

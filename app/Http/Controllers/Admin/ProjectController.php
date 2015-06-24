@@ -726,7 +726,7 @@ class ProjectController extends Controller {
         else
            $phases = Phase::where(['project_id' => $projectId])->get()->toArray();
         
-        $masterImages = $breakpoints = $googleEarth = $breakpointAuthtool = $googleEarthAuthtool = $data = $phaseData = $errors = $warnings = $buildingPhaseIds = [];
+        $masterImages = $breakpoints = $googleEarth = $breakpointAuthtool = $googleEarthAuthtool = $data = $phaseData = $errors = $warnings = $buildingPhaseIds = $units = [];
         $filters = $project->projectMeta()->where( 'meta_key', 'filters' )->first()->meta_value;
         $filters = unserialize($filters);
          
@@ -1298,6 +1298,28 @@ class ProjectController extends Controller {
       curl_close($c); 
 
       return $result_json;      
+    }
+    
+    function getProjectName(Request $request)
+    {
+        $search = $request->input('project_name');
+        $userId = $request->input('userId');
+        
+        $userProjects = getUserAssignedProject($userId);
+        $projectIds =[]; 
+        foreach($userProjects as $userProject)
+        {
+            $projectIds[] =$userProject['project_id'];
+        }
+        $projects = Project :: where('project_title','like',$search.'%')->whereNotIn('id',$projectIds)->get()->lists('project_title','id');
+        return response()->json([
+                    'code' => 'project_autocomplete',
+                    'message' => '',
+                    'data' => [
+                        'projects' => $projects,
+ 
+                    ]
+                        ], 201);
     }
  
 }

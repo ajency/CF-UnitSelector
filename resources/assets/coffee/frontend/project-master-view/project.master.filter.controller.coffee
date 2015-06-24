@@ -550,6 +550,8 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 		@hideLabels()
 		$('.filters-content').mCustomScrollbar
 			theme: 'cf-scroll'
+		$('.filters-wrapper-hover').mCustomScrollbar
+			theme: 'cf-scroll'
 		budget = []
 		area = []
 		$.each unitMasterCollection.toArray(), (index,value)->

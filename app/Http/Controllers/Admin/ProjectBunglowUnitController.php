@@ -400,4 +400,40 @@ class ProjectBunglowUnitController extends Controller {
        
    }
 
+  public static function add_unit_to_booking_crm($unitId,$unitName,$projectId){
+        $sender_url = BOOKING_SERVER_URL;
+        $sender_url .= ADD_BOOKING_UNIT;
+
+        /* $_GET Parameters to Send */
+        $params = array('unit_id' => $unitId,'unit_name' => $unitName,'project_id' => $projectId );
+
+        /* Update URL to container Query String of Paramaters */
+        $sender_url .= '?' . http_build_query($params);
+
+        $c = curl_init();
+        curl_setopt($c, CURLOPT_URL, $sender_url);
+
+        curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 30);
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($c, CURLOPT_SSL_VERIFYHOST, 0);
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, 0);
+        $o = curl_exec($c); 
+
+        if (curl_errno($c)) {
+            $result= $c;
+        }
+        else{
+
+            $result = $o;
+
+           }
+
+       /* Check HTTP Code */
+       $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
+
+       curl_close($c); 
+
+       return $result;      
+    }   
+
 }
