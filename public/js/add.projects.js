@@ -524,6 +524,9 @@
     successFn = function(resp, status, xhr) {
       var compile, html;
       if (xhr.status === 201) {
+        if ($('.project_block').length === 0) {
+          $('.no-projects').addClass('hidden');
+        }
         html = '<div class="row m-b-10  project-{{ project_id }}"> <div class="col-md-10"> <input type="text" name="user_project" value="{{ project_name }}" class="form-control"> </div> <div class="col-md-2 text-center"> <a class="text-primary delete-user-project" data-project-id="{{ project_id }}"><i class="fa fa-close"></i></a> </div> </div>';
         $('#project_name').val('');
         $('#project_id').val('');
@@ -554,7 +557,10 @@
     userId = $('#user_id').val();
     successFn = function(resp, status, xhr) {
       if (xhr.status === 204) {
-        return $('.project-' + projectId).remove();
+        $('.project-' + projectId).remove();
+        if ($('.project_block').length === 0) {
+          return $('.no-projects').removeClass('hidden');
+        }
       }
     };
     return $.ajax({

@@ -138,7 +138,6 @@ function getDefaultRole($userId)
    $defaultRoleId = $userRole; 
    $defaultRoleId['PROJECT_ACCESS'] = \CommonFloor\Role::find($roleId)->project_access;
    
-   
     return $defaultRoleId;
 }
  
