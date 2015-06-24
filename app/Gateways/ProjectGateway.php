@@ -110,7 +110,7 @@ class ProjectGateway implements ProjectGatewayInterface {
         } 
       $projectUnits = array_merge($buildingUnitdata,$projectUnits);      
  
-      $variantIds = $bunglowVariantData = $appartmentVariantData =$plotVariantData= $penthouseVariantData =[];
+      $variantIds = $bunglowVariants = $appartmentVariantData =$plotVariants= $penthouseVariantData =[];
 
         foreach ($unitTypeIds as $key => $unitTypeId)
         {
@@ -209,7 +209,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             $projectUnits = array_merge($units,$projectUnits); 
         }    
       $projectUnits = array_merge($buildingUnitdata,$projectUnits);  
-      $variantIds = $bunglowVariantData = $appartmentVariantData =$plotVariantData= $penthouseVariantData =[];
+      $variantIds = $bunglowVariants = $appartmentVariantData =$plotVariants= $penthouseVariantData =[];
 
         foreach ($unitTypeIds as $key => $unitTypeId)
         {
