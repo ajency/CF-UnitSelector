@@ -75,8 +75,9 @@ class ProjectGateway implements ProjectGatewayInterface {
         $unitTypes = \CommonFloor\UnitType::whereIn( 'project_property_type_id', $projectPropertyTypeIds )->get();
         $unitTypeArr = [];
         $unitTypeIds = [];
-        $units = [];
+        $projectUnits = [];
         $projectbuildings = [];
+        $buildingUnitdata = [];
        
         foreach ($unitTypes as $unitType) {
             $projectPropertyTypekey = array_search( $unitType->project_property_type_id , $projectPropertyTypeIds);
@@ -102,11 +103,12 @@ class ProjectGateway implements ProjectGatewayInterface {
             {
                 $buildingData = \CommonFloor\Building :: find($building['id']);
                 $buildingUnits = $buildingData->projectUnits()->where('availability','!=','archived')->get()->toArray();
-                $units = array_merge($units,$buildingUnits);
+                $buildingUnitdata = array_merge($buildingUnits,$buildingUnitdata);
             }
-
+           $projectUnits = array_merge($units,$projectUnits); 
             
-        }    
+        } 
+      $projectUnits = array_merge($buildingUnitdata,$projectUnits);      
  
       $variantIds = $bunglowVariantData = $appartmentVariantData =$plotVariantData= $penthouseVariantData =[];
 
@@ -153,7 +155,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             'plot_variants' => $plotVariants,
             'property_types' => $propertyTypes,
             'settings' => $this->projectSettings($projectId),
-            'units' =>$unitData,
+            'units' =>$projectUnits,
             'unit_types' => $unitTypeArr,
             'floor_layout' => \CommonFloor\FloorLayout::all()->toArray() 
         ];
@@ -177,8 +179,9 @@ class ProjectGateway implements ProjectGatewayInterface {
         $unitTypes = \CommonFloor\UnitType::whereIn( 'project_property_type_id', $projectPropertyTypeIds )->get();
         $unitTypeArr = [];
         $unitTypeIds = [];
-        $units = [];
+        $projectUnits = [];
         $projectbuildings = [];
+        $buildingUnitdata = [];
        
         foreach ($unitTypes as $unitType) {
             $projectPropertyTypekey = array_search( $unitType->project_property_type_id , $projectPropertyTypeIds);
@@ -189,7 +192,7 @@ class ProjectGateway implements ProjectGatewayInterface {
        
        $project = $this->projectRepository->getProjectById( $projectId );
        $phases = \CommonFloor\Phase::where(['project_id' => $projectId])->get()->toArray();
- 
+        
        foreach ($phases as $phase) {
             $phaseId = $phase['id'];
             $phase = \CommonFloor\Phase::find($phaseId);
@@ -200,12 +203,12 @@ class ProjectGateway implements ProjectGatewayInterface {
             {
                 $buildingData = \CommonFloor\Building :: find($building['id']);
                 $buildingUnits = $buildingData->projectUnits()->get()->toArray();
-                $units = array_merge($units,$buildingUnits);
+                $buildingUnitdata = array_merge($buildingUnits,$buildingUnitdata);
             }
 
-            
+            $projectUnits = array_merge($units,$projectUnits); 
         }    
- 
+      $projectUnits = array_merge($buildingUnitdata,$projectUnits);  
       $variantIds = $bunglowVariantData = $appartmentVariantData =$plotVariantData= $penthouseVariantData =[];
 
         foreach ($unitTypeIds as $key => $unitTypeId)
@@ -237,7 +240,7 @@ class ProjectGateway implements ProjectGatewayInterface {
             'apartment_variants' => $appartmentVariants,
             'plot_variants' => $plotVariants,
             'property_types' => $propertyTypes,
-            'units' =>$units,
+            'units' =>$projectUnits,
             'unit_types' => $unitTypeArr,
         ];
         
