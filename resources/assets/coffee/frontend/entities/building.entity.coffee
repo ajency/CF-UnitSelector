@@ -15,7 +15,7 @@ class Building extends Backbone.Model
 		variants = units.pluck("unit_variant_id") 
 		$.each variants,(index,value)->
 			varinatModel = apartmentVariantCollection.findWhere
-									'id' : value.get 'unit_variant_id'
+									'id' : parseInt value
 			unitTypes.push varinatModel.get 'unit_type_id'
 
 		unitTypes = _.uniq unitTypes
