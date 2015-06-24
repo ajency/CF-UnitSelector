@@ -516,10 +516,17 @@
     projectName = $('#project_name').val();
     projectId = $('#project_id').val();
     userId = $('#user_id').val();
+    if (projectId === '') {
+      alert('Please Enter Valid Project');
+      $('#project_name').val('');
+      return;
+    }
     successFn = function(resp, status, xhr) {
       var compile, html;
       if (xhr.status === 201) {
-        html = '<div class="row m-b-10 "> <div class="col-md-10"> <input type="text" name="user_project" value="{{ project_name }}" class="form-control"> </div> <div class="col-md-2 text-center"> <a class="text-primary" onclick="deleteUserProject(this);"><i class="fa fa-close"></i></a> </div> </div>';
+        html = '<div class="row m-b-10  project-{{ project_id }}"> <div class="col-md-10"> <input type="text" name="user_project" value="{{ project_name }}" class="form-control"> </div> <div class="col-md-2 text-center"> <a class="text-primary delete-user-project" data-project-id="{{ project_id }}"><i class="fa fa-close"></i></a> </div> </div>';
+        $('#project_name').val('');
+        $('#project_id').val('');
         compile = Handlebars.compile(html);
         return $('.add_user_project_block').before(compile({
           project_name: projectName,
@@ -529,6 +536,29 @@
     };
     return $.ajax({
       url: '/admin/user/' + userId + '/userprojects',
+      type: 'POST',
+      data: {
+        project_id: projectId
+      },
+      success: successFn
+    });
+  });
+
+  $('.user-project').on('click', '.delete-user-project', function() {
+    var projectId, projectName, successFn, userId;
+    if (confirm('Are you sure you want to delete this project?') === false) {
+      return;
+    }
+    projectName = $('#project_name').val();
+    projectId = $(this).attr('data-project-id');
+    userId = $('#user_id').val();
+    successFn = function(resp, status, xhr) {
+      if (xhr.status === 204) {
+        return $('.project-' + projectId).remove();
+      }
+    };
+    return $.ajax({
+      url: '/admin/user/' + userId + '/deleteuserproject',
       type: 'POST',
       data: {
         project_id: projectId

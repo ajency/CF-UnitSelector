@@ -628,18 +628,25 @@ $('#project_name').autocomplete
         projectName = $('#project_name').val()
         projectId = $('#project_id').val()
         userId = $('#user_id').val()
+        
+        if projectId is ''
+            alert('Please Enter Valid Project')
+            $('#project_name').val ''
+            return
 
         successFn = (resp, status, xhr)->
             if xhr.status is 201
-                html = '<div class="row m-b-10 ">
+                html = '<div class="row m-b-10  project-{{ project_id }}">
                         <div class="col-md-10">
                             <input type="text" name="user_project" value="{{ project_name }}" class="form-control">
                         </div>
                         <div class="col-md-2 text-center">
-                            <a class="text-primary" onclick="deleteUserProject(this);"><i class="fa fa-close"></i></a>
+                            <a class="text-primary delete-user-project" data-project-id="{{ project_id }}"><i class="fa fa-close"></i></a>
                         </div>
 
                     </div>'
+                $('#project_name').val ''
+                $('#project_id').val ''
 
                 compile = Handlebars.compile html
                 $('.add_user_project_block').before compile( { project_name : projectName, project_id : projectId } )
@@ -650,7 +657,26 @@ $('#project_name').autocomplete
             data : 
                 project_id : projectId
             success : successFn   
-                   
+            
+            
+    $('.user-project').on 'click', '.delete-user-project', ->
+        if confirm('Are you sure you want to delete this project?') is false
+            return
+            
+        projectName = $('#project_name').val()
+        projectId = $(@).attr 'data-project-id'
+        userId = $('#user_id').val()
+
+        successFn = (resp, status, xhr)->
+            if xhr.status is 204
+                $('.project-'+projectId).remove()
+            
+        $.ajax 
+            url : '/admin/user/'+userId+'/deleteuserproject'
+            type : 'POST'
+            data : 
+                project_id : projectId
+            success : successFn         
 
 
  

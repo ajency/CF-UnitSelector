@@ -29,8 +29,25 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function index() {
+        
+        $userId =  \Auth::user()->id;
+        $defaultRole = getDefaultRole($userId);
+        
+        if($defaultRole['PROJECT_ACCESS']=='all')
+            $projects = Project::orderBy('project_title')->get()->toArray();
+        else
+        {
+            $userProjects = getUserAssignedProject($userId);
+            $projectIds =[];
+            foreach($userProjects as $key=> $userProject)
+            { 
+                $projectIds []= $userProject['project_id'];
 
-        $projects = Project::orderBy('project_title')->get()->toArray();
+            }
+            $projects = Project::whereIn('id',$projectIds)->orderBy('project_title')->get()->toArray();
+        }
+        
+        
         return view('admin.project.list')
                         ->with('projects', $projects)
                         ->with('menuFlag', FALSE);
