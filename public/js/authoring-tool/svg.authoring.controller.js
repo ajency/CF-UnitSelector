@@ -1063,7 +1063,6 @@
       $('#aj-imp-builder-drag-drop canvas').hide();
       $('#aj-imp-builder-drag-drop svg').show();
       $('.edit-box').addClass('hidden');
-      $('.toggle').on('click', window.setToggle());
       draw.each((function(i, children) {
         this.draggable();
         return this.fixed();
