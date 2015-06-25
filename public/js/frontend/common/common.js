@@ -1315,7 +1315,7 @@
     var flooring, newtempColl, tempColl;
     flooring = [];
     tempColl = bunglowVariantCollection.getBunglowUnits();
-    newtempColl = _.intersection(tempColl, unitCollection.toArray());
+    console.log(newtempColl = _.intersection(tempColl, unitCollection.toArray()));
     $.each(newtempColl, function(item, value) {
       var arr, temp, unitDetails, unitVarinat, val, valkey;
       unitDetails = window.unit.getUnitDetails(value.get('id'));
@@ -1348,6 +1348,7 @@
           flooring.push(value);
         }
       }
+      console.log(flooring);
       return unitCollection.reset(flooring);
     });
     return flooring;

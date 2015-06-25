@@ -1188,7 +1188,7 @@ CommonFloor.filterVillaAttributes = (ind1,val1)->
 	flooring = []
 	
 	tempColl = bunglowVariantCollection.getBunglowUnits()
-	newtempColl = _.intersection(tempColl,unitCollection.toArray())
+	console.log newtempColl = _.intersection(tempColl,unitCollection.toArray())
 	$.each newtempColl, (item , value)->
 		unitDetails = window.unit.getUnitDetails(value.get('id'))
 		unitVarinat = unitDetails[0]
@@ -1212,6 +1212,7 @@ CommonFloor.filterVillaAttributes = (ind1,val1)->
 				temp =  val.toString()
 			if $.inArray(temp, arr ) > -1
 				flooring.push value
+		console.log flooring
 		unitCollection.reset flooring
 	
 				
