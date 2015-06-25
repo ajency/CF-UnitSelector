@@ -5719,3 +5719,12 @@ nav.aj-navbar .toggle i {
   border-radius: 4px;
   margin: 2px;
 }
+.alert2 {
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+}

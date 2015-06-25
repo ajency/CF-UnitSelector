@@ -101,6 +101,7 @@
                               <div class="modal-body">
                                 <p>Select SVG to duplicate:</p>
                                 <select class="svgPaths form-control" id="svgPaths"></select>
+                                <div class="alert2" style="display:none;"></div>
                               </div>
                               <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
