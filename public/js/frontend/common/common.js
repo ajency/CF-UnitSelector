@@ -1312,11 +1312,11 @@
   };
 
   CommonFloor.filterVillaAttributes = function(ind1, val1) {
-    var flooring, tempColl;
-    flooring = [];
+    var tempColl;
     tempColl = bunglowVariantCollection.getBunglowUnits();
     $.each(tempColl, function(item, value) {
-      var arr, temp, unitDetails, unitVarinat, val, valkey;
+      var arr, flooring, temp, unitDetails, unitVarinat, val, valkey;
+      flooring = [];
       unitDetails = window.unit.getUnitDetails(value.get('id'));
       unitVarinat = unitDetails[0];
       valkey = unitVarinat.get('variant_attributes');
@@ -1326,7 +1326,7 @@
         return;
       }
       if (_.isArray(val)) {
-        return $.each(val, function(ind1, val1) {
+        $.each(val, function(ind1, val1) {
           var temp;
           if (_.isString(val1)) {
             temp = val1;
@@ -1344,11 +1344,11 @@
           temp = val.toString();
         }
         if ($.inArray(temp, arr) > -1) {
-          return flooring.push(value);
+          flooring.push(value);
         }
       }
+      return unitCollection.reset(flooring);
     });
-    unitCollection.reset(flooring);
     return flooring;
   };
 
