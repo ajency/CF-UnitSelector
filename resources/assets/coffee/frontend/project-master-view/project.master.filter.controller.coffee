@@ -559,11 +559,11 @@ class CommonFloor.FilterMsterView extends Marionette.ItemView
 			budget.push parseFloat unitDetails[3]
 			area.push parseFloat unitDetails[0].get 'super_built_up_area'
 		min = _.min area
-		submin = min % 5
-		min = min - submin
+		# submin = min % 5
+		# min = min - submin
 		max = _.max area
-		submax = max % 5
-		max = max - submax
+		# submax = max % 5
+		# max = max - submax
 		subArea = (max - min)/ 20 
 		subArea = subArea.toFixed(0)
 		sub  = subArea % 5

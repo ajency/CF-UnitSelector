@@ -549,12 +549,14 @@ $('.add-project-attributes-btn').click ->
                           <input type="hidden" name="projectattributeId[]" value="" class="form-control">   
                       </div>
                       <div class="col-md-2 text-center">
-                          <a  data-unit-type-id="0" class="text-primary remove-project-attribute"><i class="fa fa-close"></i> </a>
+                          <a class="text-primary" onclick="deleteAttribute({{ project_id }},0, this);"><i class="
+                                        fa fa-close"></i></a>
                       </div>
                   </div>'
     compile = Handlebars.compile str
     data = 
-      name : attributeName                
+      name : attributeName
+      project_id : PROJECTID  
     $(".project_attribute_block").before compile data
     $(@).closest('.project_attribute_block').find('input[name="projectattributes[]"]').val('')  
     
