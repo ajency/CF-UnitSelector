@@ -802,7 +802,7 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 			'unitVariantNames' : unitVariantNames
 			'budget'			: budget
 			'flooring'		: newtemp
-		console.log newtemp
+
 		$.each filters[0],(index,value)->
 			if $.inArray(index , project.get('filters').Apartment) ==  -1 && index != 'budget' && index != 'unitVariants' && index != 'flooring'
 				filters[0][index] = []
@@ -811,6 +811,7 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 				$.each value,(ind,val)->
 					if $.inArray(val.index , project.get('filters').Apartment) ==  -1 
 						filters[0][index] = []
+		console.log filters
 		filters
 
 
