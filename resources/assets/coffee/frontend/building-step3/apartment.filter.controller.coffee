@@ -37,9 +37,14 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 				                                    <h6 class="">Flooring</h6>
 				                                       <div class="filter-chkbox-block">
 					                                       	{{#flooring}}
-					                                       	<input type="checkbox" class="custom-chckbx addCft flooring" id="flooring{{id}}" value="flooring{{id}}" value="1" data-value="{{id}}" > 
-					                                        <label for="flooring{{id}}" class="-lbl">{{name}}({{type}})</label> 
-					                                       	{{/flooring}}
+															  <div class=""> <h6 class="unit_type_filter">{{label}}</h6> <div class="filter-chkbox-block">  
+													       		{{#value}}
+													           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}" data-type="plot" > 
+													            <label for="{{id}}" class="-lbl">{{name}}</label> 
+															   {{/value}}
+															  </div>
+															  </div>
+															   {{/flooring}}
 				                                       	<!--<a href="#" class="hide-div">+ Show More</a>-->
 				                                    </div>
 				                                </div>
@@ -811,7 +816,6 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 				$.each value,(ind,val)->
 					if $.inArray(val.index , project.get('filters').Apartment) ==  -1 
 						filters[0][index] = []
-		console.log filters
 		filters
 
 
