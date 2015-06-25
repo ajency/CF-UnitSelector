@@ -1277,7 +1277,7 @@
       var attributes, param_val, temp;
       temp = [];
       if (value !== "" && index === 'attributes') {
-        attributes = [];
+        attributes = unitCollection.toArray();
         unitCollection.reset(unitMasterCollection.toArray());
         if (temp.length === 0) {
           temp = bunglowVariantCollection.getBunglowUnits();
