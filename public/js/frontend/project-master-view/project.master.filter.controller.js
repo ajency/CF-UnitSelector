@@ -927,7 +927,7 @@
                     flooring.push(val);
                     return temp.push({
                       'name': val,
-                      'id': 'villa' + s.replaceAll(val, " ", "_"),
+                      'id': 'apt' + s.replaceAll(val, " ", "_"),
                       'dataId': s.replaceAll(val, " ", "_"),
                       'classname': 'attributes',
                       'label': ind,
@@ -1028,7 +1028,7 @@
                     flooring.push(val);
                     return temp.push({
                       'name': val,
-                      'id': 'villa' + s.replaceAll(val, " ", "_"),
+                      'id': 'plot' + s.replaceAll(val, " ", "_"),
                       'dataId': s.replaceAll(val, " ", "_"),
                       'classname': 'attributes',
                       'label': ind,

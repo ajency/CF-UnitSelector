@@ -1013,7 +1013,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 									flooring.push val
 									temp.push
 										'name' : val
-										'id' : 'villa'+s.replaceAll(val, " ", "_")
+										'id' : 'apt'+s.replaceAll(val, " ", "_")
 										'dataId' : s.replaceAll(val, " ", "_")
 										'classname' : 'attributes'
 										'label' : ind
@@ -1097,7 +1097,7 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 									flooring.push val
 									temp.push
 										'name' : val
-										'id' : 'villa'+s.replaceAll(val, " ", "_")
+										'id' : 'plot'+s.replaceAll(val, " ", "_")
 										'dataId' : s.replaceAll(val, " ", "_")
 										'classname' : 'attributes'
 										'label' : ind

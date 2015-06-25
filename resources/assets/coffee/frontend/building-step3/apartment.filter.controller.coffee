@@ -34,12 +34,11 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 				                                    </div>
 				                                </div>
 				                                 <div class="flooring_filter">
-				                                    <h6 class="">Flooring</h6>
-				                                       <div class="filter-chkbox-block">
+				                                   <div class="filter-chkbox-block">
 					                                       	{{#flooring}}
 															  <div class=""> <h6 class="unit_type_filter">{{label}}</h6> <div class="filter-chkbox-block">  
 													       		{{#value}}
-													           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}" data-type="plot" > 
+													           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}" data-type="apartment" > 
 													            <label for="{{id}}" class="-lbl">{{name}}</label> 
 															   {{/value}}
 															  </div>
@@ -112,7 +111,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		budget : '#budget'
 		clear : '.clear'
 		floor : '#floor'
-		flooring : '.flooring'
+		flooring : '.attributes'
 		facings : '.facings'
 		views : '.views'
 
@@ -785,7 +784,7 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 									flooring.push val
 									temp.push
 										'name' : val
-										'id' : 'villa'+s.replaceAll(val, " ", "_")
+										'id' : 'apt'+s.replaceAll(val, " ", "_")
 										'dataId' : s.replaceAll(val, " ", "_")
 										'classname' : 'attributes'
 										'label' : ind
