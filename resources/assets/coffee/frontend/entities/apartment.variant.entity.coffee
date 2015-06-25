@@ -90,7 +90,7 @@ class ApartmentVariantCollection extends Backbone.Collection
 				if _.isArray(value)
 					$.each value , (ind,val)->
 						if $.inArray(val,attributes) == -1
-							attributes.push value
+							attributes.push val
 				else
 					if $.inArray(value,attributes) == -1
 						attributes.push value

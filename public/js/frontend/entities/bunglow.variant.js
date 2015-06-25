@@ -95,7 +95,7 @@
           if (_.isArray(value)) {
             return $.each(value, function(ind, val) {
               if ($.inArray(val, attributes) === -1) {
-                return attributes.push(value);
+                return attributes.push(val);
               }
             });
           } else {

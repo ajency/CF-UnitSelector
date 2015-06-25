@@ -921,10 +921,21 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 						if units.length != 0
 							
 							$.each item.get('variant_attributes') ,(ind,val)->
-								if ind == value && $.inArray(val,flooring) is -1 && val != ""
+								if ind == value && val != ""
 									if _.isArray(val)
 										$.each val, (ind1,val1)->
-											flooring.push val1
+											if $.inArray(val1,flooring) is -1
+												flooring.push val1
+												temp.push
+													'name' : val1
+													'id' : 'villa'+s.replaceAll(val1, " ", "_")
+													'dataId' : s.replaceAll(val1, " ", "_")
+													'classname' : 'attributes'
+													'label' : ind
+													type: 'V'
+									else
+										if $.inArray(val,flooring) is -1
+											flooring.push val
 											temp.push
 												'name' : val
 												'id' : 'villa'+s.replaceAll(val, " ", "_")
@@ -932,15 +943,6 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 												'classname' : 'attributes'
 												'label' : ind
 												type: 'V'
-									else
-										flooring.push val
-										temp.push
-											'name' : val
-											'id' : 'villa'+s.replaceAll(val, " ", "_")
-											'dataId' : s.replaceAll(val, " ", "_")
-											'classname' : 'attributes'
-											'label' : ind
-											type: 'V'
 					if temp.length != 0 
 						newtemp.push 
 							'label' : value.toUpperCase()
@@ -1020,10 +1022,21 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 						if units.length != 0
 							
 							$.each item.get('variant_attributes') ,(ind,val)->
-								if ind == value && $.inArray(val,flooring) is -1 && val != ""
+								if ind == value  && val != ""
 									if _.isArray(val)
 										$.each val, (ind1,val1)->
-											flooring.push val1
+											if $.inArray(val1,flooring) is -1
+												flooring.push val1
+												temp.push
+													'name' : val1
+													'id' : 'apt'+s.replaceAll(val1, " ", "_")
+													'dataId' : s.replaceAll(val1, " ", "_")
+													'classname' : 'attributes'
+													'label' : ind
+													type: 'A'
+									else
+										if $.inArray(val,flooring) is -1
+											flooring.push val
 											temp.push
 												'name' : val
 												'id' : 'apt'+s.replaceAll(val, " ", "_")
@@ -1031,15 +1044,6 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 												'classname' : 'attributes'
 												'label' : ind
 												type: 'A'
-									else
-										flooring.push val
-										temp.push
-											'name' : val
-											'id' : 'apt'+s.replaceAll(val, " ", "_")
-											'dataId' : s.replaceAll(val, " ", "_")
-											'classname' : 'attributes'
-											'label' : ind
-											type: 'A'
 					if temp.length != 0 
 						newtemp.push 
 							'label' : value.toUpperCase()
@@ -1115,27 +1119,28 @@ class CommonFloor.FilterMasterCtrl extends Marionette.RegionController
 						if units.length != 0
 							
 							$.each item.get('variant_attributes') ,(ind,val)->
-								if ind == value && $.inArray(val,flooring) is -1 && val != ""
+								if ind == value  && val != ""
 									if _.isArray(val)
 										$.each val, (ind1,val1)->
-											flooring.push val1
+											if $.inArray(val1,flooring) is -1
+												flooring.push val1
+												temp.push
+													'name' : val1
+													'id' : 'plot'+s.replaceAll(val1, " ", "_")
+													'dataId' : s.replaceAll(val1, " ", "_")
+													'classname' : 'attributes'
+													'label' : ind
+													type: 'P'
+									else
+										if $.inArray(val,flooring) is -1
+											flooring.push val
 											temp.push
 												'name' : val
 												'id' : 'plot'+s.replaceAll(val, " ", "_")
 												'dataId' : s.replaceAll(val, " ", "_")
 												'classname' : 'attributes'
 												'label' : ind
-												type: 'A'
-									else
-
-										flooring.push val
-										temp.push
-											'name' : val
-											'id' : 'plot'+s.replaceAll(val, " ", "_")
-											'dataId' : s.replaceAll(val, " ", "_")
-											'classname' : 'attributes'
-											'label' : ind
-											type: 'A'
+												type: 'P'
 					if temp.length != 0 
 						newtemp.push 
 							'label' : value.toUpperCase()

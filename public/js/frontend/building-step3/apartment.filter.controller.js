@@ -643,16 +643,34 @@
               });
               if (units.length !== 0) {
                 return $.each(item.get('variant_attributes'), function(ind, val) {
-                  if (ind === value && $.inArray(val, flooring) === -1 && val !== "") {
-                    flooring.push(val);
-                    return temp.push({
-                      'name': val,
-                      'id': 'apt' + s.replaceAll(val, " ", "_"),
-                      'dataId': s.replaceAll(val, " ", "_"),
-                      'classname': 'attributes',
-                      'label': ind,
-                      type: 'A'
-                    });
+                  if (ind === value && val !== "") {
+                    if (_.isArray(val)) {
+                      return $.each(val, function(ind1, val1) {
+                        if ($.inArray(val, flooring) === -1) {
+                          flooring.push(val1);
+                          return temp.push({
+                            'name': val1,
+                            'id': 'apt' + s.replaceAll(val1, " ", "_"),
+                            'dataId': s.replaceAll(val1, " ", "_"),
+                            'classname': 'attributes',
+                            'label': ind,
+                            type: 'A'
+                          });
+                        }
+                      });
+                    } else {
+                      if ($.inArray(val, flooring) === -1) {
+                        flooring.push(val);
+                        return temp.push({
+                          'name': val,
+                          'id': 'apt' + s.replaceAll(val, " ", "_"),
+                          'dataId': s.replaceAll(val, " ", "_"),
+                          'classname': 'attributes',
+                          'label': ind,
+                          type: 'A'
+                        });
+                      }
+                    }
                   }
                 });
               }
