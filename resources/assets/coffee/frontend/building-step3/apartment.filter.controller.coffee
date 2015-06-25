@@ -34,12 +34,16 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 				                                    </div>
 				                                </div>
 				                                 <div class="flooring_filter">
-				                                    <h6 class="">Flooring</h6>
-				                                       <div class="filter-chkbox-block">
+				                                   <div class="filter-chkbox-block">
 					                                       	{{#flooring}}
-					                                       	<input type="checkbox" class="custom-chckbx addCft flooring" id="flooring{{id}}" value="flooring{{id}}" value="1" data-value="{{id}}" > 
-					                                        <label for="flooring{{id}}" class="-lbl">{{name}}({{type}})</label> 
-					                                       	{{/flooring}}
+															  <div class=""> <h6 class="unit_type_filter">{{label}}</h6> <div class="filter-chkbox-block">  
+													       		{{#value}}
+													           	<input type="checkbox" class="custom-chckbx addCft {{classname}}" id="{{id}}" value="{{id}}" value="1" data-value="{{name}}" data-type="apartment" > 
+													            <label for="{{id}}" class="-lbl">{{name}}</label> 
+															   {{/value}}
+															  </div>
+															  </div>
+															   {{/flooring}}
 				                                       	<!--<a href="#" class="hide-div">+ Show More</a>-->
 				                                    </div>
 				                                </div>
@@ -107,7 +111,7 @@ class CommonFloor.FilterApartmentView extends Marionette.ItemView
 		budget : '#budget'
 		clear : '.clear'
 		floor : '#floor'
-		flooring : '.flooring'
+		flooring : '.attributes'
 		facings : '.facings'
 		views : '.views'
 
@@ -776,15 +780,28 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 						if units.length != 0
 							
 							$.each item.get('variant_attributes') ,(ind,val)->
-								if ind == value && $.inArray(val,flooring) is -1 && val != ""
-									flooring.push val
-									temp.push
-										'name' : val
-										'id' : 'villa'+s.replaceAll(val, " ", "_")
-										'dataId' : s.replaceAll(val, " ", "_")
-										'classname' : 'attributes'
-										'label' : ind
-										type: 'A'
+								if ind == value  && val != ""
+									if _.isArray(val)
+										$.each val, (ind1,val1)->
+											if $.inArray(val,flooring) is -1
+												flooring.push val1
+												temp.push
+													'name' : val1
+													'id' : 'apt'+s.replaceAll(val1, " ", "_")
+													'dataId' : s.replaceAll(val1, " ", "_")
+													'classname' : 'attributes'
+													'label' : ind
+													type: 'A'
+									else
+										if $.inArray(val,flooring) is -1
+											flooring.push val
+											temp.push
+												'name' : val
+												'id' : 'apt'+s.replaceAll(val, " ", "_")
+												'dataId' : s.replaceAll(val, " ", "_")
+												'classname' : 'attributes'
+												'label' : ind
+												type: 'A'
 					if temp.length != 0 
 						newtemp.push 
 							'label' : value.toUpperCase()
@@ -832,7 +849,7 @@ class CommonFloor.FilterApartmentCtrl extends Marionette.RegionController
 				'id' : val
 				'name' : val
 
-		facings = ['North' , 'South' ,'East' , 'West' , 'North-East','Norht-West','South-East','South-West']						
+		facings = ['North' , 'South' ,'East' , 'West' , 'North-East','North-West','South-East','South-West']						
 
 		$.each facings , (ind,val)->
 			facingsArr.push

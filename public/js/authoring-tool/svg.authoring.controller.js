@@ -276,6 +276,7 @@
         async: false,
         success: function(response) {
           window.svgData = {};
+          window.svgDataClone = {};
           window.svgData['image'] = svgImg;
           window.svgData['data'] = response.data;
           window.svgData['supported_types'] = JSON.parse(supported_types);
@@ -283,6 +284,7 @@
           window.svgData['svg_type'] = svg_type;
           window.svgData['building_id'] = building_id;
           window.svgData['project_id'] = project_id;
+          window.svgDataClone['data'] = response.data;
           window.loadJSONData();
           $('.duplicate').hide();
           if (response.data.length === 0) {
@@ -332,7 +334,7 @@
       return $('#aj-imp-builder-drag-drop svg').first().css("position", "absolute");
     };
     window.saveUnit = function() {
-      var details, locationPoints, myObject, objectType;
+      var details, locationPoints, myObject, objectType, type;
       myObject = {};
       details = {};
       objectType = $('.property_type').val();
@@ -360,7 +362,11 @@
       } else if (myObject['object_type'] === "project") {
         details['class'] = 'step1-marker';
       } else {
-        details['class'] = 'layer ' + $('.property_type').val();
+        type = $('.property_type').val();
+        if ($('.property_type').val() === 'apartment/penthouse') {
+          type = 'apartment';
+        }
+        details['class'] = 'layer ' + type;
       }
       if (window.canvas_type === "concentricMarker") {
         myObject['points'] = window.markerPoints;
@@ -411,6 +417,7 @@
             window.is_project_marked = true;
           }
           window.svgData.data.push(myObject);
+          window.svgDataClone.data.push(myObject);
           draw.clear();
           types = window.getPendingObjects(window.svgData);
           window.showPendingObjects(types);
@@ -847,7 +854,7 @@
           if (parseInt(elemId) === parseInt(svgDataObject.id)) {
             points = svgDataObject.points;
             $('.area').val(points.join(','));
-            drawPoly(points);
+            drawPoly(svgDataObject.points);
             $('.submit').addClass('hidden');
             $('.edit').removeClass('hidden');
             $('.delete').removeClass('hidden');
@@ -1020,6 +1027,7 @@
           window.svgData.data.splice(indexToSplice, 1);
           myObject['id'] = svgElemId;
           window.svgData.data.push(myObject);
+          window.svgDataClone.data.push(myObject);
           draw.clear();
           types = window.getPendingObjects(window.svgData);
           window.showPendingObjects(types);
@@ -1068,7 +1076,7 @@
         return this.fixed();
       }), true);
       draw.clear();
-      window.generateSvg(window.svgData.data);
+      window.generateSvg(window.svgDataClone.data);
       return window.EDITMODE = false;
     });
     $('.delete').on('click', function(e) {
@@ -1098,6 +1106,7 @@
             }
           });
           window.svgData.data.splice(indexToSplice, 1);
+          window.svgDataClone.data.splice(indexToSplice, 1);
           myObject['id'] = svgElemId;
           if (obj_id_deleted > 0) {
             if (obj_type === "building") {

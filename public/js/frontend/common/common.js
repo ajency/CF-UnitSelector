@@ -1267,8 +1267,26 @@
       attributes = unitVarinat.get('variant_attributes');
       arr = CommonFloor.defaults['villa']['attributes'].split(',');
       return $.each(attributes, function(ind, val) {
-        if ($.inArray(val, arr) > -1) {
-          return flooring.push(value);
+        if (_.isArray(val)) {
+          return $.each(val, function(ind1, val1) {
+            if (_.isString(val1)) {
+              temp = val1;
+            } else {
+              temp = val1.toString();
+            }
+            if ($.inArray(temp, arr) > -1) {
+              return flooring.push(value);
+            }
+          });
+        } else {
+          if (_.isString(val)) {
+            temp = val;
+          } else {
+            temp = val.toString();
+          }
+          if ($.inArray(temp, arr) > -1) {
+            return flooring.push(value);
+          }
         }
       });
     });
@@ -1323,8 +1341,26 @@
       attributes = unitVarinat.get('variant_attributes');
       arr = CommonFloor.defaults['apartment']['attributes'].split(',');
       return $.each(attributes, function(ind, val) {
-        if ($.inArray(val, arr) > -1) {
-          return flooring.push(value);
+        if (_.isArray(val)) {
+          return $.each(val, function(ind1, val1) {
+            if (_.isString(val1)) {
+              temp = val1;
+            } else {
+              temp = val1.toString();
+            }
+            if ($.inArray(temp, arr) > -1) {
+              return flooring.push(value);
+            }
+          });
+        } else {
+          if (_.isString(val)) {
+            temp = val;
+          } else {
+            temp = val.toString();
+          }
+          if ($.inArray(temp, arr) > -1) {
+            return flooring.push(value);
+          }
         }
       });
     });
@@ -1379,8 +1415,26 @@
       attributes = unitVarinat.get('variant_attributes');
       arr = CommonFloor.defaults['plot']['attributes'].split(',');
       return $.each(attributes, function(ind, val) {
-        if ($.inArray(val, arr) > -1) {
-          return flooring.push(value);
+        if (_.isArray(val)) {
+          return $.each(val, function(ind1, val1) {
+            if (_.isString(val1)) {
+              temp = val1;
+            } else {
+              temp = val1.toString();
+            }
+            if ($.inArray(temp, arr) > -1) {
+              return flooring.push(value);
+            }
+          });
+        } else {
+          if (_.isString(val)) {
+            temp = val;
+          } else {
+            temp = val.toString();
+          }
+          if ($.inArray(temp, arr) > -1) {
+            return flooring.push(value);
+          }
         }
       });
     });

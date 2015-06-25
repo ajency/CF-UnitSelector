@@ -1176,7 +1176,7 @@ hr.embossed {
   -webkit-transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
           transition: 0.3s all cubic-bezier(0.4, 0, 0.2, 1);
 }
-#spritespin {
+#spritespin.building-master {
   width: 100% !important;
   height: 100% !important;
 }
@@ -1494,6 +1494,9 @@ hr.embossed {
 }
 .zoom-controls .zoom-out::before {
   content: "-";
+}
+.zoom-controls.master-zoom {
+  display: block;
 }
 @media (max-width: 767px) {
   .zoom-controls {
@@ -2374,7 +2377,7 @@ svg .no-fill {
 }
 .mini-map .project_master {
   position: absolute;
-  bottom: 0;
+  top: 0;
   right: 0;
 }
 @media (max-width: 991px) {

@@ -24,7 +24,8 @@ class WhitelistIp {
 								array('10.0.0.0', '10.255.255.255' ),
 								array('172.16.0.0', '172.16.255.255' ),
 								array('172.20.0.0', '172.20.255.255' ),
-								array('127.0.0.1', '127.0.0.1' )
+								array('127.0.0.1', '127.0.0.1' ),
+								array('0.0.0.0', '255.255.255.255' ), //whitelist all
 								);
 
 		$clientIpAddress = $request->getClientIp();

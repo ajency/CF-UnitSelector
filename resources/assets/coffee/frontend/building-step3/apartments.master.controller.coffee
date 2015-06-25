@@ -573,7 +573,7 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 													<img class="zoomimage" />
 												</div>
 												<div mag-zoom="outer">
-													<div id="spritespin"></div>
+													<div id="spritespin" class="building-master"></div>
 													<div class="svg-maps animated fadeIn hidden">
 														<img class="first_image img-responsive" />
 														<div class="region inactive"></div>
@@ -862,7 +862,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					# CommonFloor.getApartmentsInView()
 					CommonFloor.applyOnViewClass()
 					if $(window).width() > 991
-						that.undelegateEvents()
+						# that.undelegateEvents()
+						$(that.el).undelegate('.apartment', 'click');
+						$(that.el).undelegate('.apartment', 'mouseover');
+						that.bindFunctions()
 						that.zoomBuilding()
 						$('.zoomimage').attr('src',transitionImages[breakpoints[0]])
 					else
@@ -893,13 +896,18 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 		  y: y / $target.height()
 		}
   
+	bindFunctions:->
+		$('#next').bind('click')
+		$('#prev').bind('click')
 
 	zoomBuilding:->
 		that  = @
 		$(".mag-lens").resize (e)->
 			temp = $(e.target).width()
 			if temp == 398
-				that.undelegateEvents()
+				# that.undelegateEvents()
+				$(that.el).undelegate('.apartment', 'click');
+				$(that.el).undelegate('.apartment', 'mouseover');
 				$('.apartment').tooltipster('disable')
 			else 
 				that.delegateEvents()
@@ -1017,9 +1025,10 @@ class CommonFloor.CenterApartmentMasterView extends Marionette.ItemView
 					CommonFloor.randomClass()
 					CommonFloor.applyFliterClass()
 					# CommonFloor.getApartmentsInView()
+					CommonFloor.applyOnViewClass()
 					if $(window).width() < 992
 						that.loadZoom()
-					CommonFloor.applyOnViewClass()).addClass('active').removeClass('inactive')
+					).addClass('active').removeClass('inactive')
 				
 				
 		)

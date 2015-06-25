@@ -109,8 +109,16 @@
       types = [];
       apartmentVariantMasterCollection.each(function(item) {
         return $.each(item.get('variant_attributes'), function(index, value) {
-          if ($.inArray(value, attributes) === -1) {
-            return attributes.push(value);
+          if (_.isArray(value)) {
+            return $.each(value, function(ind, val) {
+              if ($.inArray(val, attributes) === -1) {
+                return attributes.push(val);
+              }
+            });
+          } else {
+            if ($.inArray(value, attributes) === -1) {
+              return attributes.push(value);
+            }
           }
         });
       });
