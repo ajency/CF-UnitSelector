@@ -101,11 +101,11 @@
     <div class="grid-body no-border user-project">
          
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-md-8">
               @if(!empty($userProjects))        
                 @foreach($userProjects as $userProject)
                 <div class="row m-b-10 project_block project-{{ $userProject['project_id'] }}">
-                        <div class="col-md-10 ">
+                        <div class="col-md-8 ">
                             <input type="text" name="user_project" value="{{ $userProject['project_name'] }}" class="form-control">
                         </div>
                         <div class="col-md-2 text-center">
@@ -127,7 +127,7 @@
                             <input type="text" name="project_name" id="project_name" value="" class="form-control">
                             <input type="hidden" name="project_id" id="project_id" value="" class="form-control">
                         <div class="text-right">
-                            <a   class="add-project-user-btn btn btn-link"><i class="fa fa-"></i> Add Project</a>
+                            <a   class="add-project-user-btn btn btn-link" data-user-type="user"><i class="fa fa-"></i> Add Project</a>
                         </div> </div>
                         </div>
                         </div>

@@ -120,7 +120,7 @@
                             <input type="text" name="project_name" id="project_name" value="" class="form-control">
                             <input type="hidden" name="project_id" id="project_id" value="" class="form-control">
                         <div class="text-right">
-                            <a   class="add-project-user-btn btn btn-link"><i class="fa fa-"></i> Add Project</a>
+                            <a  class="add-project-user-btn btn btn-link" data-user-type="agent"><i class="fa fa-"></i> Add Project</a>
                         </div> </div>
                         </div>
                         </div>

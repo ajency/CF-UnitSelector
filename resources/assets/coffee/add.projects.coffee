@@ -628,6 +628,7 @@ $('#project_name').autocomplete
         projectName = $('#project_name').val()
         projectId = $('#project_id').val()
         userId = $('#user_id').val()
+        userType = $(@).attr 'data-user-type'
         
         if projectId is ''
             alert('Please Enter Valid Project')
@@ -640,10 +641,15 @@ $('#project_name').autocomplete
                     $('.no-projects').addClass 'hidden'
                     
                 html = '<div class="row m-b-10  project-{{ project_id }}">
-                        <div class="col-md-10">
+                        <div class="col-md-8">
                             <input type="text" name="user_project" value="{{ project_name }}" class="form-control">
-                        </div>
-                        <div class="col-md-2 text-center">
+                        </div>';
+                if userType is 'agent'
+                    html += '<div class="col-md-2 text-center">
+                            <a class="btn btn-primary pull-right m-l-5" onclick="openModal(this,"{{ project_id }}");"><i class="fa fa-upload"></i> Bulk Import</a>
+              
+                        </div>';
+                html += '<div class="col-md-2 text-center">
                             <a class="text-primary delete-user-project" data-project-id="{{ project_id }}"><i class="fa fa-close"></i></a>
                         </div>
 
